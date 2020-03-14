@@ -28,8 +28,8 @@ namespace ARKBreedingStats
             if (creatureCollection.modIDs?.Count > 0)
             {
                 // if old collection had additionalValues, load the original ones to reset all modded values
-                var statsLoaded = LoadStatAndKibbleValues(applySettings: false);
-                if (!statsLoaded.statValuesLoaded)
+                var (statValuesLoaded, _) = LoadStatAndKibbleValues(applySettings: false);
+                if (!statValuesLoaded)
                 {
                     MessageBox.Show("Couldn't load stat values. Please redownload the application.", "Error while loading the stat-values", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -42,7 +42,8 @@ namespace ARKBreedingStats
 
             creatureCollection = new CreatureCollection
             {
-                serverMultipliers = oldMultipliers
+                serverMultipliers = oldMultipliers,
+                ModList = new List<Mod>()
             };
             creatureCollection.FormatVersion = CreatureCollection.CURRENT_FORMAT_VERSION;
             pedigree1.Clear();
@@ -248,6 +249,7 @@ namespace ARKBreedingStats
                 {
                     if (Path.GetExtension(filePath).ToLower() == ".xml")
                     {
+                        // old format for backwards compatibility
                         using (fileStream = File.OpenRead(filePath))
                         {
                             // use xml-serializer for old library-format
@@ -310,6 +312,7 @@ namespace ARKBreedingStats
                     }
                     else
                     {
+                        // new json-format
                         CreatureCollection tmpCC;
                         using (StreamReader file = File.OpenText(filePath))
                         {

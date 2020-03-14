@@ -1,3 +1,4 @@
 [submodule "ArkSavegameToolkit"]
 	path = ArkSavegameToolkit
 	url = https://github.com/Flachdachs/ArkSavegameToolkit.git
+	branch = master

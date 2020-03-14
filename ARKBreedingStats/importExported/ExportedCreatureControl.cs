@@ -38,12 +38,12 @@ namespace ARKBreedingStats.importExported
             // check if the values are valid, i.e. if the read file was a creature-file at all.
             if (creatureValues?.Species == null)
             {
-                speciesBlueprintPath = creatureValues.speciesBlueprint;
+                speciesBlueprintPath = creatureValues?.speciesBlueprint;
                 validValues = false;
                 return;
             }
 
-            groupBox1.Text = $"{creatureValues.name} ({(creatureValues.Species?.name ?? "unknown species")}, Lv {creatureValues.level}), " +
+            groupBox1.Text = $"{creatureValues.name} ({(creatureValues.Species?.name ?? "unknown species")}, Lvl {creatureValues.level}), " +
                     $"exported at {Utils.shortTimeDate(creatureValues.domesticatedAt)}. " +
                     $"Filename: {Path.GetFileName(filePath)}";
             Disposed += ExportedCreatureControl_Disposed;

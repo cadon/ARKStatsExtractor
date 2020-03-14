@@ -212,7 +212,7 @@
     <Setting Name="DeleteExpiredTimersOnSaving" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="DisplayUntameableSpecies" Type="System.Boolean" Scope="User">
+    <Setting Name="DisplayNonDomesticableSpecies" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="DefaultFontName" Type="System.String" Scope="User">
@@ -223,6 +223,36 @@
     </Setting>
     <Setting Name="SpeciesSelectorVerticalSplitterDistance" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">500</Value>
+    </Setting>
+    <Setting Name="IgnoreUnknownBlueprintsOnSaveImport" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="libraryColumnDisplayIndices" Type="System.Int32[]" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CustomStatOverrideLocation" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">0, 0</Value>
+    </Setting>
+    <Setting Name="CustomStatOverrideSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">0, 0</Value>
+    </Setting>
+    <Setting Name="OverlayTimerPosition" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">30, 30</Value>
+    </Setting>
+    <Setting Name="OverlayInfoPosition" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">30, 30</Value>
+    </Setting>
+    <Setting Name="TCLVColumnDisplayIndices" Type="System.Int32[]" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="TCLVColumnWidths" Type="System.Int32[]" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="TCLVSortCol" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="TCLVSortAsc" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

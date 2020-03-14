@@ -178,7 +178,7 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="lbMax.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1111,7 +1111,7 @@
     <value>1</value>
   </data>
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="gpTorporTime" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="gbKOInfo" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="groupBox3" Row="1" RowSpan="2" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="gbWeaponDamage" Row="0" RowSpan="2" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="gpStarvingTime" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Absolute,175,Absolute,225,AutoSize,0" /&gt;&lt;Rows Styles="Absolute,200,Absolute,150,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="gpTorporTime" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="gbKOInfo" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="groupBox3" Row="1" RowSpan="2" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="gbWeaponDamage" Row="0" RowSpan="2" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="gpStarvingTime" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Absolute,175,Absolute,225,AutoSize,0" /&gt;&lt;Rows Styles="Absolute,200,Absolute,150,AutoSize,0,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="gbWeaponDamage.Size" type="System.Drawing.Size, System.Drawing">
     <value>289, 344</value>
@@ -1141,10 +1141,10 @@
     <value>Fill</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 38</value>
+    <value>3, 54</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>338, 27</value>
+    <value>338, 23</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -1174,10 +1174,10 @@
     <value>Fill</value>
   </data>
   <data name="flpTamingFood.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 71</value>
+    <value>3, 83</value>
   </data>
   <data name="flpTamingFood.Size" type="System.Drawing.Size, System.Drawing">
-    <value>338, 652</value>
+    <value>338, 656</value>
   </data>
   <data name="flpTamingFood.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -1194,23 +1194,50 @@
   <data name="&gt;&gt;flpTamingFood.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="checkBoxAugmented.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxAugmented.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxAugmented.Location" type="System.Drawing.Point, System.Drawing">
+    <value>107, 4</value>
+  </data>
+  <data name="checkBoxAugmented.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 17</value>
+  </data>
+  <data name="checkBoxAugmented.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="checkBoxAugmented.Text" xml:space="preserve">
+    <value>Augmented</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAugmented.Name" xml:space="preserve">
+    <value>checkBoxAugmented</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAugmented.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAugmented.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAugmented.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="linkLabelWikiPage.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="linkLabelWikiPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>124, 5</value>
+    <value>6, 25</value>
   </data>
   <data name="linkLabelWikiPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>211, 18</value>
+    <value>326, 18</value>
   </data>
   <data name="linkLabelWikiPage.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
   <data name="linkLabelWikiPage.Text" xml:space="preserve">
     <value>Wiki-Page</value>
-  </data>
-  <data name="linkLabelWikiPage.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopRight</value>
   </data>
   <data name="&gt;&gt;linkLabelWikiPage.Name" xml:space="preserve">
     <value>linkLabelWikiPage</value>
@@ -1222,7 +1249,7 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;linkLabelWikiPage.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="nudLevel.Location" type="System.Drawing.Point, System.Drawing">
     <value>45, 3</value>
@@ -1243,7 +1270,7 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;nudLevel.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="panel2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -1252,7 +1279,7 @@
     <value>3, 3</value>
   </data>
   <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>338, 29</value>
+    <value>338, 45</value>
   </data>
   <data name="panel2.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>

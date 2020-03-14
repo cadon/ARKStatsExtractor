@@ -20,14 +20,14 @@ namespace ARKBreedingStats
                 if (MessageBox.Show("There is no valid folder set in the settings.\n\nOpen the settings-page?",
                         "No valid export-folder set", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
-                    OpenSettingsDialog(3);
+                    OpenSettingsDialog(Settings.SettingsTabPages.ExportedImport);
                 }
             }
             else
             {
                 ShowExportedCreatureListControl();
                 exportedCreatureList.ownerSuffix = loc.OwnerSuffix;
-                exportedCreatureList.loadFilesInFolder(loc.FolderPath);
+                exportedCreatureList.LoadFilesInFolder(loc.FolderPath);
             }
         }
 
@@ -40,13 +40,13 @@ namespace ARKBreedingStats
             if (Utils.GetFirstImportExportFolder(out string folder))
             {
                 ShowExportedCreatureListControl();
-                exportedCreatureList.loadFilesInFolder(folder);
+                exportedCreatureList.LoadFilesInFolder(folder);
             }
             else if (
                 MessageBox.Show("There is no valid folder set where the exported creatures are located. Set this folder in the settings.\n\nOpen the settings-page?",
                         "No default export-folder set", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
-                OpenSettingsDialog(3);
+                OpenSettingsDialog(Settings.SettingsTabPages.ExportedImport);
             }
         }
 
@@ -86,7 +86,7 @@ namespace ARKBreedingStats
                                 "Usually the folder is\n" + @"…\Steam\steamapps\common\ARK\ShooterGame\Saved\DinoExports\<ID>" + "\n\nOpen the settings-page?",
                                 "No default export-folder set", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
-                OpenSettingsDialog(3);
+                OpenSettingsDialog(Settings.SettingsTabPages.ExportedImport);
             }
         }
 
@@ -239,7 +239,7 @@ namespace ARKBreedingStats
             // if mods were added, try to import the creature values again
             if (creatureCollection.ModValueReloadNeeded
                 && LoadModValuesOfCollection(creatureCollection, true, true))
-                exportedCreatureList.loadFilesInFolder();
+                exportedCreatureList.LoadFilesInFolder();
         }
     }
 }

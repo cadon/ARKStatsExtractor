@@ -85,7 +85,7 @@ namespace ARKBreedingStats
                     displayName = s.name,
                     searchName = s.name,
                     modName = s.Mod?.title ?? string.Empty,
-                    tameable = s.taming.nonViolent || s.taming.violent,
+                    domesticable = s.taming.nonViolent || s.taming.violent || s.breeding != null,
                     species = s
                 });
             }
@@ -100,7 +100,7 @@ namespace ARKBreedingStats
                         searchName = a.Key,
                         species = speciesNameToSpecies[a.Value],
                         modName = speciesNameToSpecies[a.Value].Mod?.title ?? string.Empty,
-                        tameable = speciesNameToSpecies[a.Value].taming.nonViolent || speciesNameToSpecies[a.Value].taming.violent,
+                        domesticable = speciesNameToSpecies[a.Value].taming.nonViolent || speciesNameToSpecies[a.Value].taming.violent || speciesNameToSpecies[a.Value].breeding != null,
                     });
                 }
             }
@@ -112,7 +112,7 @@ namespace ARKBreedingStats
             al.AddRange(entryList.Select(e => e.searchName).ToArray());
             textbox.AutoCompleteCustomSource = al;
 
-            cbDisplayUntameable.Checked = Properties.Settings.Default.DisplayUntameableSpecies;
+            cbDisplayUntameable.Checked = Properties.Settings.Default.DisplayNonDomesticableSpecies;
             FilterList();
         }
 
@@ -164,16 +164,16 @@ namespace ARKBreedingStats
             bool inputIsEmpty = string.IsNullOrWhiteSpace(part);
             foreach (var s in entryList)
             {
-                if ((Properties.Settings.Default.DisplayUntameableSpecies || s.tameable)
+                if ((Properties.Settings.Default.DisplayNonDomesticableSpecies || s.domesticable)
                     && (inputIsEmpty
                        || s.searchName.ToLower().Contains(part.ToLower())
                        )
                    )
                 {
-                    lvSpeciesList.Items.Add(new ListViewItem(new[] { s.displayName, s.species.VariantInfo, s.tameable ? "✓" : string.Empty, s.modName })
+                    lvSpeciesList.Items.Add(new ListViewItem(new[] { s.displayName, s.species.VariantInfo, s.domesticable ? "✓" : string.Empty, s.modName })
                     {
                         Tag = s.species,
-                        BackColor = !s.tameable ? Color.FromArgb(255, 245, 230)
+                        BackColor = !s.domesticable ? Color.FromArgb(255, 245, 230)
                         : !string.IsNullOrEmpty(s.modName) ? Color.FromArgb(230, 245, 255)
                         : SystemColors.Window,
                         ToolTipText = s.species.blueprintPath,
@@ -291,7 +291,7 @@ namespace ARKBreedingStats
 
         private void cbDisplayUntameable_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.DisplayUntameableSpecies = ((CheckBox)sender).Checked;
+            Properties.Settings.Default.DisplayNonDomesticableSpecies = ((CheckBox)sender).Checked;
             Textbox_TextChanged(null, null);
         }
 
@@ -307,7 +307,7 @@ namespace ARKBreedingStats
         internal string searchName;
         internal string displayName;
         internal string modName;
-        internal bool tameable;
+        internal bool domesticable;
         internal Species species;
         public override string ToString()
         {

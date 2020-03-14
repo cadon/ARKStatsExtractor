@@ -80,30 +80,30 @@ namespace ARKBreedingStats.multiplierTesting
 
             // ValueWild
             double Vw = (double)nudB.Value * (1 + (double)nudLw.Value * (double)nudIw.Value * spIw * (double)nudIwM.Value);
-            string VwDisplay = Math.Round(Vw * (_percent ? 100 : 1), 3).ToString() + (_percent ? "%" : "");
-            tbVw.Text = nudB.Value.ToString() + " * ( 1 + " + nudLw.Value.ToString() + " * " + nudIw.Value.ToString() + (spIw != 1 ? " * " + spIw : "") + " * " + nudIwM.Value.ToString()
+            string VwDisplay = Math.Round(Vw * (_percent ? 100 : 1), 4).ToString() + (_percent ? "%" : string.Empty);
+            tbVw.Text = nudB.Value.ToString() + " * ( 1 + " + nudLw.Value.ToString() + " * " + nudIw.Value.ToString() + (spIw != 1 ? " * " + spIw : string.Empty) + " * " + nudIwM.Value.ToString()
                     + " ) = " + VwDisplay;
             if (_tamed || _bred)
             {
                 // ValueDom
                 Vd = (Vw * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * _sIBM : 1) + (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * spTa : 1))
                         * (1 + (nudTm.Value > 0 ? (_bred ? 1 : _TE) * (double)nudTm.Value * (double)nudTmM.Value * spTm : (double)nudTm.Value));
-                string VdDisplay = Math.Round(Vd * (_percent ? 100 : 1), 3).ToString() + (_percent ? "%" : "");
-                tbVd.Text = "( " + VwDisplay + (nudTBHM.Value != 1 ? " * " + nudTBHM.Value.ToString() : "") + (!_NoIB && _bred ? " * ( 1 + " + _IB + " * " + _IBM + $" * {_sIBM} )" : "")
-                        + " + " + nudTa.Value.ToString() + (nudTa.Value > 0 ? " * " + nudTaM.Value.ToString() + (spTa != 1 ? " * " + spTa : "") : "") + " ) "
-                        + " * ( 1 + " + (nudTm.Value > 0 ? (_bred ? 1 : _TE) + " * " + nudTm.Value.ToString() + " * " + nudTmM.Value.ToString() + (spTm != 1 ? " * " + spTm : "") : nudTm.Value.ToString()) + " )"
+                string VdDisplay = Math.Round(Vd * (_percent ? 100 : 1), 4).ToString() + (_percent ? "%" : string.Empty);
+                tbVd.Text = "( " + VwDisplay + (nudTBHM.Value != 1 ? " * " + nudTBHM.Value.ToString() : string.Empty) + (!_NoIB && _bred ? " * ( 1 + " + _IB + " * " + _IBM + $" * {_sIBM} )" : string.Empty)
+                        + " + " + nudTa.Value.ToString() + (nudTa.Value > 0 ? " * " + nudTaM.Value.ToString() + (spTa != 1 ? " * " + spTa : string.Empty) : string.Empty) + " ) "
+                        + " * ( 1 + " + (nudTm.Value > 0 ? (_bred ? 1 : _TE) + " * " + nudTm.Value.ToString() + " * " + nudTmM.Value.ToString() + (spTm != 1 ? " * " + spTm : string.Empty) : nudTm.Value.ToString()) + " )"
                         + " = " + VdDisplay;
                 // Value
                 V = Vd * (1 + (double)nudLd.Value * (double)nudId.Value * spId * (double)nudIdM.Value);
-                string VDisplay = Math.Round(V * (_percent ? 100 : 1), 3).ToString() + (_percent ? "%" : "");
-                tbV.Text = VdDisplay + " * ( 1 + " + nudLd.Value + " * " + nudId.Value + (spId != 1 ? " * " + spId : "") + " * " + nudIdM.Value + " )"
+                string VDisplay = Math.Round(V * (_percent ? 100 : 1), 4).ToString() + (_percent ? "%" : string.Empty);
+                tbV.Text = VdDisplay + " * ( 1 + " + nudLd.Value + " * " + nudId.Value + (spId != 1 ? " * " + spId : string.Empty) + " * " + nudIdM.Value + " )"
                         + " = " + VDisplay;
             }
             else
             {
                 Vd = Vw;
                 V = Vw;
-                tbVd.Text = "";
+                tbVd.Clear();
                 tbV.Text = VwDisplay;
             }
 
@@ -244,7 +244,7 @@ namespace ARKBreedingStats.multiplierTesting
             set
             {
                 _percent = value;
-                lPercent.Text = _percent ? "%" : "";
+                lPercent.Text = _percent ? "%" : string.Empty;
             }
         }
 
@@ -499,21 +499,6 @@ namespace ARKBreedingStats.multiplierTesting
 
         private void SetControlsInUse(ControlsInUse preset)
         {
-            /*
-            nudB.BackColor = SystemColors.Window;
-            nudLw.BackColor = SystemColors.Window;
-            nudIw.BackColor = SystemColors.Window;
-            nudIwM.BackColor = SystemColors.Window;
-            nudTBHM.BackColor = SystemColors.Window;
-            nudTa.BackColor = SystemColors.Window;
-            nudTaM.BackColor = SystemColors.Window;
-            nudTm.BackColor = SystemColors.Window;
-            nudTmM.BackColor = SystemColors.Window;
-            nudLd.BackColor = SystemColors.Window;
-            nudId.BackColor = SystemColors.Window;
-            nudIdM.BackColor = SystemColors.Window;
-            nudStatValue.BackColor = SystemColors.Window;
-            */
             switch (preset)
             {
                 case ControlsInUse.wild:
@@ -649,6 +634,71 @@ namespace ARKBreedingStats.multiplierTesting
             wild,
             tamed,
             bred
+        }
+
+        private void btCalculateWildLevel_Click(object sender, EventArgs e)
+        {
+            SetClosestWildLevel();
+        }
+
+        private void btCalculateIwM_Click(object sender, EventArgs e)
+        {
+            CalculateIwM(false);
+        }
+
+        private void btResetIwM_Click(object sender, EventArgs e)
+        {
+            nudIwM.Value = (decimal)multipliersOfSettings[3];
+        }
+
+        private void btCalculateTaM_Click(object sender, EventArgs e)
+        {
+            CalculateTaM(false);
+        }
+
+        private void btResetTaM_Click(object sender, EventArgs e)
+        {
+            nudTaM.Value = (decimal)multipliersOfSettings[0];
+        }
+
+        private void btCalculateTmM_Click(object sender, EventArgs e)
+        {
+            CalculateTmM(false);
+        }
+
+        private void btResetTmM_Click(object sender, EventArgs e)
+        {
+            nudTmM.Value = (decimal)multipliersOfSettings[1];
+        }
+
+        private void btCalculateDomLevel_Click(object sender, EventArgs e)
+        {
+            SetClosestDomLevel();
+        }
+
+        private void btCalculateIdM_Click(object sender, EventArgs e)
+        {
+            CalculateIdM(false);
+        }
+
+        private void btResetIdM_Click(object sender, EventArgs e)
+        {
+            nudIdM.Value = (decimal)multipliersOfSettings[2];
+        }
+
+        private void btCalculateTE_Click(object sender, EventArgs e)
+        {
+            CalculateTE();
+        }
+
+        private void btCalculateIB_Click(object sender, EventArgs e)
+        {
+            CalculateIB();
+        }
+
+        private void btCalculateIBM_Click(object sender, EventArgs e)
+        {
+            CalculateIBM();
         }
     }
 }

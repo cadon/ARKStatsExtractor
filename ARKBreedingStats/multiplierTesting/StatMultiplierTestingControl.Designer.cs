@@ -55,6 +55,16 @@
             this.resetTmMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetIdMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetAllMultiplierOfThisStatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btCalculateWildLevel = new System.Windows.Forms.Button();
+            this.btCalculateIwM = new System.Windows.Forms.Button();
+            this.btResetIwM = new System.Windows.Forms.Button();
+            this.btResetTaM = new System.Windows.Forms.Button();
+            this.btCalculateTaM = new System.Windows.Forms.Button();
+            this.btResetTmM = new System.Windows.Forms.Button();
+            this.btCalculateTmM = new System.Windows.Forms.Button();
+            this.btCalculateDomLevel = new System.Windows.Forms.Button();
+            this.btResetIdM = new System.Windows.Forms.Button();
+            this.btCalculateIdM = new System.Windows.Forms.Button();
             this.nudIdM = new ARKBreedingStats.uiControls.Nud();
             this.nudId = new ARKBreedingStats.uiControls.Nud();
             this.nudTmM = new ARKBreedingStats.uiControls.Nud();
@@ -68,6 +78,10 @@
             this.nudStatValue = new ARKBreedingStats.uiControls.Nud();
             this.nudLd = new ARKBreedingStats.uiControls.Nud();
             this.nudLw = new ARKBreedingStats.uiControls.Nud();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btCalculateTE = new System.Windows.Forms.Button();
+            this.btCalculateIB = new System.Windows.Forms.Button();
+            this.btCalculateIBM = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudIdM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudId)).BeginInit();
@@ -87,7 +101,7 @@
             // tbVw
             // 
             this.tbVw.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbVw.Location = new System.Drawing.Point(127, 29);
+            this.tbVw.Location = new System.Drawing.Point(127, 49);
             this.tbVw.Name = "tbVw";
             this.tbVw.ReadOnly = true;
             this.tbVw.Size = new System.Drawing.Size(207, 20);
@@ -97,7 +111,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(80, 31);
+            this.label1.Location = new System.Drawing.Point(80, 51);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 13);
             this.label1.TabIndex = 15;
@@ -106,7 +120,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(340, 31);
+            this.label2.Location = new System.Drawing.Point(340, 51);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 13);
             this.label2.TabIndex = 17;
@@ -115,7 +129,7 @@
             // tbVd
             // 
             this.tbVd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbVd.Location = new System.Drawing.Point(394, 29);
+            this.tbVd.Location = new System.Drawing.Point(394, 49);
             this.tbVd.Name = "tbVd";
             this.tbVd.ReadOnly = true;
             this.tbVd.Size = new System.Drawing.Size(359, 20);
@@ -125,7 +139,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(759, 31);
+            this.label3.Location = new System.Drawing.Point(759, 51);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(23, 13);
             this.label3.TabIndex = 19;
@@ -134,7 +148,7 @@
             // tbV
             // 
             this.tbV.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbV.Location = new System.Drawing.Point(788, 29);
+            this.tbV.Location = new System.Drawing.Point(788, 49);
             this.tbV.Name = "tbV";
             this.tbV.ReadOnly = true;
             this.tbV.Size = new System.Drawing.Size(259, 20);
@@ -296,6 +310,126 @@
             this.resetAllMultiplierOfThisStatToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.resetAllMultiplierOfThisStatToolStripMenuItem.Text = "Reset all Multiplier of this stat";
             this.resetAllMultiplierOfThisStatToolStripMenuItem.Click += new System.EventHandler(this.resetAllMultiplierOfThisStatToolStripMenuItem_Click);
+            // 
+            // btCalculateWildLevel
+            // 
+            this.btCalculateWildLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btCalculateWildLevel.Location = new System.Drawing.Point(185, 26);
+            this.btCalculateWildLevel.Margin = new System.Windows.Forms.Padding(0);
+            this.btCalculateWildLevel.Name = "btCalculateWildLevel";
+            this.btCalculateWildLevel.Size = new System.Drawing.Size(52, 20);
+            this.btCalculateWildLevel.TabIndex = 22;
+            this.btCalculateWildLevel.Text = "C";
+            this.btCalculateWildLevel.UseVisualStyleBackColor = true;
+            this.btCalculateWildLevel.Click += new System.EventHandler(this.btCalculateWildLevel_Click);
+            // 
+            // btCalculateIwM
+            // 
+            this.btCalculateIwM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btCalculateIwM.Location = new System.Drawing.Point(307, 26);
+            this.btCalculateIwM.Margin = new System.Windows.Forms.Padding(0);
+            this.btCalculateIwM.Name = "btCalculateIwM";
+            this.btCalculateIwM.Size = new System.Drawing.Size(28, 20);
+            this.btCalculateIwM.TabIndex = 23;
+            this.btCalculateIwM.Text = "C";
+            this.btCalculateIwM.UseVisualStyleBackColor = true;
+            this.btCalculateIwM.Click += new System.EventHandler(this.btCalculateIwM_Click);
+            // 
+            // btResetIwM
+            // 
+            this.btResetIwM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btResetIwM.Location = new System.Drawing.Point(337, 26);
+            this.btResetIwM.Margin = new System.Windows.Forms.Padding(0);
+            this.btResetIwM.Name = "btResetIwM";
+            this.btResetIwM.Size = new System.Drawing.Size(28, 20);
+            this.btResetIwM.TabIndex = 24;
+            this.btResetIwM.Text = "R";
+            this.btResetIwM.UseVisualStyleBackColor = true;
+            this.btResetIwM.Click += new System.EventHandler(this.btResetIwM_Click);
+            // 
+            // btResetTaM
+            // 
+            this.btResetTaM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btResetTaM.Location = new System.Drawing.Point(529, 26);
+            this.btResetTaM.Margin = new System.Windows.Forms.Padding(0);
+            this.btResetTaM.Name = "btResetTaM";
+            this.btResetTaM.Size = new System.Drawing.Size(28, 20);
+            this.btResetTaM.TabIndex = 26;
+            this.btResetTaM.Text = "R";
+            this.btResetTaM.UseVisualStyleBackColor = true;
+            this.btResetTaM.Click += new System.EventHandler(this.btResetTaM_Click);
+            // 
+            // btCalculateTaM
+            // 
+            this.btCalculateTaM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btCalculateTaM.Location = new System.Drawing.Point(499, 26);
+            this.btCalculateTaM.Margin = new System.Windows.Forms.Padding(0);
+            this.btCalculateTaM.Name = "btCalculateTaM";
+            this.btCalculateTaM.Size = new System.Drawing.Size(28, 20);
+            this.btCalculateTaM.TabIndex = 25;
+            this.btCalculateTaM.Text = "C";
+            this.btCalculateTaM.UseVisualStyleBackColor = true;
+            this.btCalculateTaM.Click += new System.EventHandler(this.btCalculateTaM_Click);
+            // 
+            // btResetTmM
+            // 
+            this.btResetTmM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btResetTmM.Location = new System.Drawing.Point(657, 26);
+            this.btResetTmM.Margin = new System.Windows.Forms.Padding(0);
+            this.btResetTmM.Name = "btResetTmM";
+            this.btResetTmM.Size = new System.Drawing.Size(28, 20);
+            this.btResetTmM.TabIndex = 28;
+            this.btResetTmM.Text = "R";
+            this.btResetTmM.UseVisualStyleBackColor = true;
+            this.btResetTmM.Click += new System.EventHandler(this.btResetTmM_Click);
+            // 
+            // btCalculateTmM
+            // 
+            this.btCalculateTmM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btCalculateTmM.Location = new System.Drawing.Point(627, 26);
+            this.btCalculateTmM.Margin = new System.Windows.Forms.Padding(0);
+            this.btCalculateTmM.Name = "btCalculateTmM";
+            this.btCalculateTmM.Size = new System.Drawing.Size(28, 20);
+            this.btCalculateTmM.TabIndex = 27;
+            this.btCalculateTmM.Text = "C";
+            this.btCalculateTmM.UseVisualStyleBackColor = true;
+            this.btCalculateTmM.Click += new System.EventHandler(this.btCalculateTmM_Click);
+            // 
+            // btCalculateDomLevel
+            // 
+            this.btCalculateDomLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btCalculateDomLevel.Location = new System.Drawing.Point(691, 26);
+            this.btCalculateDomLevel.Margin = new System.Windows.Forms.Padding(0);
+            this.btCalculateDomLevel.Name = "btCalculateDomLevel";
+            this.btCalculateDomLevel.Size = new System.Drawing.Size(52, 20);
+            this.btCalculateDomLevel.TabIndex = 29;
+            this.btCalculateDomLevel.Text = "C";
+            this.btCalculateDomLevel.UseVisualStyleBackColor = true;
+            this.btCalculateDomLevel.Click += new System.EventHandler(this.btCalculateDomLevel_Click);
+            // 
+            // btResetIdM
+            // 
+            this.btResetIdM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btResetIdM.Location = new System.Drawing.Point(843, 26);
+            this.btResetIdM.Margin = new System.Windows.Forms.Padding(0);
+            this.btResetIdM.Name = "btResetIdM";
+            this.btResetIdM.Size = new System.Drawing.Size(28, 20);
+            this.btResetIdM.TabIndex = 31;
+            this.btResetIdM.Text = "R";
+            this.btResetIdM.UseVisualStyleBackColor = true;
+            this.btResetIdM.Click += new System.EventHandler(this.btResetIdM_Click);
+            // 
+            // btCalculateIdM
+            // 
+            this.btCalculateIdM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btCalculateIdM.Location = new System.Drawing.Point(813, 26);
+            this.btCalculateIdM.Margin = new System.Windows.Forms.Padding(0);
+            this.btCalculateIdM.Name = "btCalculateIdM";
+            this.btCalculateIdM.Size = new System.Drawing.Size(28, 20);
+            this.btCalculateIdM.TabIndex = 30;
+            this.btCalculateIdM.Text = "C";
+            this.btCalculateIdM.UseVisualStyleBackColor = true;
+            this.btCalculateIdM.Click += new System.EventHandler(this.btCalculateIdM_Click);
             // 
             // nudIdM
             // 
@@ -617,11 +751,69 @@
             this.nudLw.TabIndex = 1;
             this.nudLw.ValueChanged += new System.EventHandler(this.nudLw_ValueChanged);
             // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Location = new System.Drawing.Point(0, 73);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1053, 2);
+            this.panel1.TabIndex = 32;
+            // 
+            // btCalculateTE
+            // 
+            this.btCalculateTE.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btCalculateTE.Location = new System.Drawing.Point(897, 26);
+            this.btCalculateTE.Margin = new System.Windows.Forms.Padding(0);
+            this.btCalculateTE.Name = "btCalculateTE";
+            this.btCalculateTE.Size = new System.Drawing.Size(41, 20);
+            this.btCalculateTE.TabIndex = 33;
+            this.btCalculateTE.Text = "TE";
+            this.btCalculateTE.UseVisualStyleBackColor = true;
+            this.btCalculateTE.Click += new System.EventHandler(this.btCalculateTE_Click);
+            // 
+            // btCalculateIB
+            // 
+            this.btCalculateIB.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btCalculateIB.Location = new System.Drawing.Point(938, 26);
+            this.btCalculateIB.Margin = new System.Windows.Forms.Padding(0);
+            this.btCalculateIB.Name = "btCalculateIB";
+            this.btCalculateIB.Size = new System.Drawing.Size(41, 20);
+            this.btCalculateIB.TabIndex = 34;
+            this.btCalculateIB.Text = "IB";
+            this.btCalculateIB.UseVisualStyleBackColor = true;
+            this.btCalculateIB.Click += new System.EventHandler(this.btCalculateIB_Click);
+            // 
+            // btCalculateIBM
+            // 
+            this.btCalculateIBM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btCalculateIBM.Location = new System.Drawing.Point(979, 26);
+            this.btCalculateIBM.Margin = new System.Windows.Forms.Padding(0);
+            this.btCalculateIBM.Name = "btCalculateIBM";
+            this.btCalculateIBM.Size = new System.Drawing.Size(41, 20);
+            this.btCalculateIBM.TabIndex = 35;
+            this.btCalculateIBM.Text = "IBM";
+            this.btCalculateIBM.UseVisualStyleBackColor = true;
+            this.btCalculateIBM.Click += new System.EventHandler(this.btCalculateIBM_Click);
+            // 
             // StatMultiplierTestingControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ContextMenuStrip = this.contextMenuStrip1;
+            this.Controls.Add(this.btCalculateIBM);
+            this.Controls.Add(this.btCalculateIB);
+            this.Controls.Add(this.btCalculateTE);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.btResetIdM);
+            this.Controls.Add(this.btCalculateIdM);
+            this.Controls.Add(this.btCalculateDomLevel);
+            this.Controls.Add(this.btResetTmM);
+            this.Controls.Add(this.btCalculateTmM);
+            this.Controls.Add(this.btResetTaM);
+            this.Controls.Add(this.btCalculateTaM);
+            this.Controls.Add(this.btResetIwM);
+            this.Controls.Add(this.btCalculateIwM);
+            this.Controls.Add(this.btCalculateWildLevel);
             this.Controls.Add(this.lPercent);
             this.Controls.Add(this.lStatName);
             this.Controls.Add(this.label3);
@@ -644,7 +836,7 @@
             this.Controls.Add(this.nudLd);
             this.Controls.Add(this.nudLw);
             this.Name = "StatMultiplierTestingControl";
-            this.Size = new System.Drawing.Size(1053, 53);
+            this.Size = new System.Drawing.Size(1053, 75);
             this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudIdM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudId)).EndInit();
@@ -705,5 +897,19 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem setWildLevelToClosestValueToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setDomLevelToClosestValueToolStripMenuItem;
+        private System.Windows.Forms.Button btCalculateWildLevel;
+        private System.Windows.Forms.Button btCalculateIwM;
+        private System.Windows.Forms.Button btResetIwM;
+        private System.Windows.Forms.Button btResetTaM;
+        private System.Windows.Forms.Button btCalculateTaM;
+        private System.Windows.Forms.Button btResetTmM;
+        private System.Windows.Forms.Button btCalculateTmM;
+        private System.Windows.Forms.Button btCalculateDomLevel;
+        private System.Windows.Forms.Button btResetIdM;
+        private System.Windows.Forms.Button btCalculateIdM;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btCalculateTE;
+        private System.Windows.Forms.Button btCalculateIB;
+        private System.Windows.Forms.Button btCalculateIBM;
     }
 }

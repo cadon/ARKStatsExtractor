@@ -17,6 +17,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using static ARKBreedingStats.settings.Settings;
 
 namespace ARKBreedingStats
 {
@@ -69,7 +70,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// The last tab-page opened in the settings.
         /// </summary>
-        private int settingsLastTabPageIndex;
+        private SettingsTabPages settingsLastTabPage;
         /// <summary>
         /// Custom replacings for species names used in naming patterns.
         /// </summary>
@@ -197,33 +198,12 @@ namespace ARKBreedingStats
             if (!isOnScreen)
                 Location = new Point(50, 50);
 
-            // load column-widths
-            int[] cw = Properties.Settings.Default.columnWidths;
-            if (cw != null)
-            {
-                for (int c = 0; c < cw.Length && c < listViewLibrary.Columns.Count; c++)
-                    listViewLibrary.Columns[c].Width = cw[c];
+            // Load column-widths, display-indices and sort-order of the TimerControlListView
+            ListView lv = (ListView)timerList1.Controls["tableLayoutPanel1"].Controls["listViewTimer"];
+            LoadListViewSettings(lv, "TCLVColumnWidths", "TCLVColumnDisplayIndices", "TCLVSortCol", "TCLVSortAsc");
 
-                // if columns of new and not used stats is opened the first time, set their width to 0
-                if (cw.Length + 4 == listViewLibrary.Columns.Count)
-                {
-                    for (int c = 12; c < cw.Length && c < listViewLibrary.Columns.Count; c++)
-                    {
-                        if (c == 17 || c == 18 || c == 22)
-                            listViewLibrary.Columns[c].Width = 0;
-                        else
-                            listViewLibrary.Columns[c].Width = 30;
-                    }
-                }
-            }
-
-            // load listviewLibSorting
-            ListViewColumnSorter lwvs = (ListViewColumnSorter)listViewLibrary.ListViewItemSorter;
-            if (lwvs != null)
-            {
-                lwvs.SortColumn = Properties.Settings.Default.listViewSortCol;
-                lwvs.Order = Properties.Settings.Default.listViewSortAsc ? SortOrder.Ascending : SortOrder.Descending;
-            }
+            // Load column-widths, display-indices and sort-order  of the listViewLibrary
+            LoadListViewSettings(listViewLibrary, "columnWidths", "libraryColumnDisplayIndices", "listViewSortCol", "listViewSortAsc");
 
             // load statweights
             double[][] custWd = Properties.Settings.Default.customStatWeights;
@@ -799,7 +779,7 @@ namespace ARKBreedingStats
 
         private void importingFromSavegameEmptyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenSettingsDialog(2);
+            OpenSettingsDialog(SettingsTabPages.SaveImport);
         }
 
         /// <summary>
@@ -1126,6 +1106,65 @@ namespace ARKBreedingStats
                 e.Cancel = true;
         }
 
+
+        private void saveListViewSettings(ListView lv, string widthName, string indicesName, string sortColName, string sortAscName)
+        {
+            int[] cw = new int[lv.Columns.Count];
+            int[] colIndices = new int[lv.Columns.Count];
+            for (int c = 0; c < lv.Columns.Count; c++)
+            {
+                cw[c] = lv.Columns[c].Width;
+                colIndices[c] = lv.Columns[c].DisplayIndex;
+            }
+
+            Properties.Settings.Default[widthName] = cw;
+            Properties.Settings.Default[indicesName] = colIndices;
+
+            // save listViewSorting of the listViewLibrary
+            ListViewColumnSorter lvcs = (ListViewColumnSorter)lv.ListViewItemSorter;
+            if (lvcs != null)
+            {
+                Properties.Settings.Default[sortColName] = lvcs.SortColumn;
+                Properties.Settings.Default[sortAscName] = lvcs.Order == SortOrder.Ascending;
+            }
+
+        }
+
+        /// <summary>
+        /// Loads settings for a listview like column widths, column indices and sorting.
+        /// </summary>
+        /// <param name="lv"></param>
+        /// <param name="widthName"></param>
+        /// <param name="indicesName"></param>
+        /// <param name="sortColName"></param>
+        /// <param name="sortAscName"></param>
+        private void LoadListViewSettings(ListView lv, string widthName, string indicesName, string sortColName, string sortAscName)
+        {
+            if (lv == null) return;
+
+            // load column-widths
+            if (Properties.Settings.Default[widthName] is int[] cw)
+            {
+                for (int c = 0; c < cw.Length && c < lv.Columns.Count; c++)
+                    lv.Columns[c].Width = cw[c];
+            }
+
+            // load column display indices
+            if (Properties.Settings.Default[indicesName] is int[] colIndices)
+            {
+                for (int c = 0; c < colIndices.Length && c < lv.Columns.Count; c++)
+                    lv.Columns[c].DisplayIndex = colIndices[c];
+            }
+
+            // load listviewLibSorting
+            if (lv.ListViewItemSorter is ListViewColumnSorter lvcs)
+            {
+                lvcs.SortColumn = (int)Properties.Settings.Default[sortColName];
+                lvcs.Order = (bool)Properties.Settings.Default[sortAscName] ? SortOrder.Ascending : SortOrder.Descending;
+            }
+
+        }
+
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             // savesettings save settings
@@ -1145,19 +1184,12 @@ namespace ARKBreedingStats
                 Properties.Settings.Default.formLocation = Location;
             }
 
-            // save column-widths
-            int[] cw = new int[listViewLibrary.Columns.Count];
-            for (int c = 0; c < listViewLibrary.Columns.Count; c++)
-                cw[c] = listViewLibrary.Columns[c].Width;
-            Properties.Settings.Default.columnWidths = cw;
+            // Save column-widths, display-indices and sort-order of the TimerControlListView
+            ListView lv = (ListView)timerList1.Controls["tableLayoutPanel1"].Controls["listViewTimer"];
+            saveListViewSettings(lv, "TCLVColumnWidths", "TCLVColumnDisplayIndices", "TCLVSortCol", "TCLVSortAsc");
 
-            // save listViewSorting
-            ListViewColumnSorter lwvs = (ListViewColumnSorter)listViewLibrary.ListViewItemSorter;
-            if (lwvs != null)
-            {
-                Properties.Settings.Default.listViewSortCol = lwvs.SortColumn;
-                Properties.Settings.Default.listViewSortAsc = lwvs.Order == SortOrder.Ascending;
-            }
+            // Save column-widths, display-indices and sort-order of the listViewLibrary
+            saveListViewSettings(listViewLibrary, "columnWidths", "libraryColumnDisplayIndices", "listViewSortCol", "listViewSortAsc");
 
             // save custom statweights
             List<string> custWs = new List<string>();
@@ -1874,7 +1906,7 @@ namespace ARKBreedingStats
                     c.growingUntil = null;
 
                 i.SubItems[11].Text = "-"; // LVI index
-                // color for cooldown
+                                           // color for cooldown
                 CooldownColors(c, out Color forecolor, out Color backcolor);
                 i.SubItems[11].ForeColor = forecolor;
                 i.SubItems[11].BackColor = backcolor;
@@ -1993,10 +2025,10 @@ namespace ARKBreedingStats
         /// Displays the settings window.
         /// </summary>
         /// <param name="page">The tab-page displayed first</param>
-        private void OpenSettingsDialog(int page = -1)
+        private void OpenSettingsDialog(SettingsTabPages page = SettingsTabPages.Unknown)
         {
-            if (page == -1)
-                page = settingsLastTabPageIndex;
+            if (page == SettingsTabPages.Unknown)
+                page = settingsLastTabPage;
             using (Settings settingsfrm = new Settings(creatureCollection, page))
             {
                 if (settingsfrm.ShowDialog() == DialogResult.OK)
@@ -2013,10 +2045,11 @@ namespace ARKBreedingStats
                     filewatcherExports.SetWatchFolder(exportFolderDefault, enableExportWatcher);
 
                     InitializeSpeechRecognition();
+                    overlay?.SetInfoPositions();
 
                     SetCollectionChanged(true);
                 }
-                settingsLastTabPageIndex = settingsfrm.LastTabPageIndex;
+                settingsLastTabPage = settingsfrm.LastTabPageIndex;
             }
         }
 
@@ -2609,7 +2642,6 @@ namespace ARKBreedingStats
                                 "Unknown mod IDs", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             bool result = LoadModValueFiles(filePaths, showResult, applySettings, out List<Mod> mods);
-            cc.ModList = mods;
             return result;
         }
 
@@ -2643,7 +2675,7 @@ namespace ARKBreedingStats
             int obelisk = creatureCount.Count(c => c.status == CreatureStatus.Obelisk);
             int cryopod = creatureCount.Count(c => c.status == CreatureStatus.Cryopod);
 
-            int modValueCount = creatureCollection.ModList?.Count ?? 0;
+            bool modsLoaded = creatureCollection.ModList?.Any() ?? false;
 
             toolStripStatusLabel.Text = total + " creatures in Library"
                 + (total > 0 ? " ("
@@ -2654,7 +2686,7 @@ namespace ARKBreedingStats
                 + (cryopod > 0 ? ", cryopod: " + cryopod : "")
                             : "")
                     + ". v" + Application.ProductVersion /*+ "-BETA"*/ + " / values: " + Values.V.Version +
-                    (modValueCount > 0 ? ", additional values from " + modValueCount.ToString() + " mods (" + string.Join(", ", creatureCollection.ModList.Select(m => m.title).ToArray()) + ")" : "");
+                    (modsLoaded ? ", additional values from " + creatureCollection.ModList.Count.ToString() + " mods (" + string.Join(", ", creatureCollection.ModList.Select(m => m.title).ToArray()) + ")" : "");
         }
 
         private void toolStripButtonAddNote_Click(object sender, EventArgs e)
@@ -3043,8 +3075,18 @@ namespace ARKBreedingStats
         {
             using (var frm = new mods.CustomStatOverridesEditor(Values.V.species, creatureCollection))
             {
+                frm.Location = Properties.Settings.Default.CustomStatOverrideLocation;
+                if (Properties.Settings.Default.CustomStatOverrideSize.Width > 40
+                    && Properties.Settings.Default.CustomStatOverrideSize.Height > 40)
+                    frm.Size = Properties.Settings.Default.CustomStatOverrideSize;
                 frm.ShowDialog();
-                SetCollectionChanged(true);
+                if (frm.StatOverridesChanged)
+                {
+                    Values.V.ApplyMultipliers(creatureCollection, eventMultipliers: cbEventMultipliers.Checked, applyStatMultipliers: true);
+                    SetCollectionChanged(true);
+                }
+                Properties.Settings.Default.CustomStatOverrideLocation = frm.Location;
+                Properties.Settings.Default.CustomStatOverrideSize = frm.Size;
             }
         }
 
@@ -3095,7 +3137,7 @@ namespace ARKBreedingStats
             if (File.GetAttributes(filePath).HasFlag(FileAttributes.Directory))
             {
                 ShowExportedCreatureListControl();
-                exportedCreatureList.loadFilesInFolder(filePath);
+                exportedCreatureList.LoadFilesInFolder(filePath);
             }
             else if (ext == ".ini")
             {
@@ -3202,6 +3244,18 @@ namespace ARKBreedingStats
                     MessageBox.Show(error, "ASB Custom replacings file loading error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (pe != null) pe.SetCustomReplacings(customReplacingsNamingPattern);
+        }
+
+        private void speciesGroupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            checkBoxSpeciesGroups.Checked = speciesGroupToolStripMenuItem.Checked;
+            FilterLib();
+        }
+
+        private void checkBoxSpeciesGroups_CheckedChanged(object sender, EventArgs e)
+        {
+            speciesGroupToolStripMenuItem.Checked = checkBoxSpeciesGroups.Checked;
+            FilterLib();
         }
 
         private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)

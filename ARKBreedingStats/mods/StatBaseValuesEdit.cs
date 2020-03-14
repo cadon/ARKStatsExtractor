@@ -37,22 +37,28 @@ namespace ARKBreedingStats.mods
             set => cbOverride.Text = "Override " + value;
         }
 
+        internal void SetOverrides(double[] statOverrides, bool isOverridden = true)
+        {
+            if (statOverrides == null || statOverrides.Length < 5)
+            {
+                cbOverride.Checked = false;
+                nudBase.ValueSave = 0;
+                nudIw.ValueSave = 0;
+                nudId.ValueSave = 0;
+                nudTa.ValueSave = 0;
+                nudTm.ValueSave = 0;
+                return;
+            }
+            cbOverride.Checked = isOverridden;
+            nudBase.ValueSave = (decimal)statOverrides[0];
+            nudIw.ValueSave = (decimal)statOverrides[1];
+            nudId.ValueSave = (decimal)statOverrides[2];
+            nudTa.ValueSave = (decimal)statOverrides[3];
+            nudTm.ValueSave = (decimal)statOverrides[4];
+        }
+
         internal double[] Overrides
         {
-            set
-            {
-                if (value == null || value.Length < 5)
-                {
-                    cbOverride.Checked = false;
-                    return;
-                }
-                cbOverride.Checked = true;
-                nudBase.ValueSave = (decimal)value[0];
-                nudIw.ValueSave = (decimal)value[1];
-                nudId.ValueSave = (decimal)value[2];
-                nudTa.ValueSave = (decimal)value[3];
-                nudTm.ValueSave = (decimal)value[4];
-            }
             get
             {
                 if (!cbOverride.Checked) return null;

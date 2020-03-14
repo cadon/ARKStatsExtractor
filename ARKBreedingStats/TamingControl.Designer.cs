@@ -34,24 +34,35 @@
             this.lbMax = new System.Windows.Forms.Label();
             this.lbUsed = new System.Windows.Forms.Label();
             this.gpTorporTime = new System.Windows.Forms.GroupBox();
+            this.numericUpDownCurrentTorpor = new ARKBreedingStats.uiControls.Nud();
             this.btAddWakeUpTimer = new System.Windows.Forms.Button();
             this.lbTimeUntilWakingUp = new System.Windows.Forms.Label();
             this.lbCurrentTorpor = new System.Windows.Forms.Label();
             this.lbTamingTime = new System.Windows.Forms.Label();
             this.gbWeaponDamage = new System.Windows.Forms.GroupBox();
-            this.chkbDmHarpoon = new System.Windows.Forms.CheckBox();
+            this.flcBodyDamageMultipliers = new System.Windows.Forms.FlowLayoutPanel();
             this.rbBoneDamageDefault = new System.Windows.Forms.RadioButton();
+            this.nudWDmHarpoon = new ARKBreedingStats.uiControls.Nud();
+            this.chkbDmHarpoon = new System.Windows.Forms.CheckBox();
+            this.nudWDmProd = new ARKBreedingStats.uiControls.Nud();
             this.chkbDmCrossbow = new System.Windows.Forms.CheckBox();
             this.chkbDmBow = new System.Windows.Forms.CheckBox();
             this.chkbDmSlingshot = new System.Windows.Forms.CheckBox();
             this.chkbDmClub = new System.Windows.Forms.CheckBox();
             this.chkbDmLongneck = new System.Windows.Forms.CheckBox();
+            this.nudWDmSlingshot = new ARKBreedingStats.uiControls.Nud();
             this.chkbDmProd = new System.Windows.Forms.CheckBox();
+            this.nudWDmClub = new ARKBreedingStats.uiControls.Nud();
+            this.nudWDmBow = new ARKBreedingStats.uiControls.Nud();
+            this.nudWDmCrossbow = new ARKBreedingStats.uiControls.Nud();
+            this.nudWDmLongneck = new ARKBreedingStats.uiControls.Nud();
             this.gbKOInfo = new System.Windows.Forms.GroupBox();
             this.lbKOInfo = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.gpStarvingTime = new System.Windows.Forms.GroupBox();
+            this.nudTotalFood = new ARKBreedingStats.uiControls.Nud();
             this.label3 = new System.Windows.Forms.Label();
+            this.nudCurrentFood = new ARKBreedingStats.uiControls.Nud();
             this.btnAddStarvingTimer = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.lbTimeUntilStarving = new System.Windows.Forms.Label();
@@ -61,31 +72,13 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.flpTamingFood = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.checkBoxAugmented = new System.Windows.Forms.CheckBox();
             this.linkLabelWikiPage = new System.Windows.Forms.LinkLabel();
-            this.flcBodyDamageMultipliers = new System.Windows.Forms.FlowLayoutPanel();
             this.nudLevel = new ARKBreedingStats.uiControls.Nud();
-            this.nudWDmHarpoon = new ARKBreedingStats.uiControls.Nud();
-            this.nudWDmProd = new ARKBreedingStats.uiControls.Nud();
-            this.nudWDmSlingshot = new ARKBreedingStats.uiControls.Nud();
-            this.nudWDmClub = new ARKBreedingStats.uiControls.Nud();
-            this.nudWDmBow = new ARKBreedingStats.uiControls.Nud();
-            this.nudWDmCrossbow = new ARKBreedingStats.uiControls.Nud();
-            this.nudWDmLongneck = new ARKBreedingStats.uiControls.Nud();
-            this.numericUpDownCurrentTorpor = new ARKBreedingStats.uiControls.Nud();
-            this.nudTotalFood = new ARKBreedingStats.uiControls.Nud();
-            this.nudCurrentFood = new ARKBreedingStats.uiControls.Nud();
             this.gpTorporTime.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCurrentTorpor)).BeginInit();
             this.gbWeaponDamage.SuspendLayout();
-            this.gbKOInfo.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.gpStarvingTime.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.flcBodyDamageMultipliers.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmHarpoon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmProd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmSlingshot)).BeginInit();
@@ -93,9 +86,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmBow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmCrossbow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmLongneck)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCurrentTorpor)).BeginInit();
+            this.gbKOInfo.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.gpStarvingTime.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTotalFood)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCurrentFood)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudLevel)).BeginInit();
             this.SuspendLayout();
             // 
             // labelResult
@@ -127,6 +128,29 @@
             resources.ApplyResources(this.gpTorporTime, "gpTorporTime");
             this.gpTorporTime.Name = "gpTorporTime";
             this.gpTorporTime.TabStop = false;
+            // 
+            // numericUpDownCurrentTorpor
+            // 
+            this.numericUpDownCurrentTorpor.DecimalPlaces = 1;
+            this.numericUpDownCurrentTorpor.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.numericUpDownCurrentTorpor.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            resources.ApplyResources(this.numericUpDownCurrentTorpor, "numericUpDownCurrentTorpor");
+            this.numericUpDownCurrentTorpor.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.numericUpDownCurrentTorpor.Name = "numericUpDownCurrentTorpor";
+            this.numericUpDownCurrentTorpor.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.numericUpDownCurrentTorpor.ValueChanged += new System.EventHandler(this.numericUpDownCurrentTorpor_ValueChanged);
             // 
             // btAddWakeUpTimer
             // 
@@ -172,12 +196,11 @@
             this.tableLayoutPanel1.SetRowSpan(this.gbWeaponDamage, 2);
             this.gbWeaponDamage.TabStop = false;
             // 
-            // chkbDmHarpoon
+            // flcBodyDamageMultipliers
             // 
-            resources.ApplyResources(this.chkbDmHarpoon, "chkbDmHarpoon");
-            this.chkbDmHarpoon.Name = "chkbDmHarpoon";
-            this.chkbDmHarpoon.UseVisualStyleBackColor = true;
-            this.chkbDmHarpoon.CheckedChanged += new System.EventHandler(this.chkbDm_CheckedChanged);
+            this.flcBodyDamageMultipliers.Controls.Add(this.rbBoneDamageDefault);
+            resources.ApplyResources(this.flcBodyDamageMultipliers, "flcBodyDamageMultipliers");
+            this.flcBodyDamageMultipliers.Name = "flcBodyDamageMultipliers";
             // 
             // rbBoneDamageDefault
             // 
@@ -186,6 +209,69 @@
             this.rbBoneDamageDefault.TabStop = true;
             this.rbBoneDamageDefault.UseVisualStyleBackColor = true;
             this.rbBoneDamageDefault.CheckedChanged += new System.EventHandler(this.rbBoneDamage_CheckedChanged);
+            // 
+            // nudWDmHarpoon
+            // 
+            this.nudWDmHarpoon.DecimalPlaces = 1;
+            this.nudWDmHarpoon.ForeColor = System.Drawing.SystemColors.WindowText;
+            resources.ApplyResources(this.nudWDmHarpoon, "nudWDmHarpoon");
+            this.nudWDmHarpoon.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudWDmHarpoon.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.nudWDmHarpoon.Name = "nudWDmHarpoon";
+            this.nudWDmHarpoon.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudWDmHarpoon.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.nudWDmHarpoon.ValueChanged += new System.EventHandler(this.nudWDm_ValueChanged);
+            // 
+            // chkbDmHarpoon
+            // 
+            resources.ApplyResources(this.chkbDmHarpoon, "chkbDmHarpoon");
+            this.chkbDmHarpoon.Name = "chkbDmHarpoon";
+            this.chkbDmHarpoon.UseVisualStyleBackColor = true;
+            this.chkbDmHarpoon.CheckedChanged += new System.EventHandler(this.chkbDm_CheckedChanged);
+            // 
+            // nudWDmProd
+            // 
+            this.nudWDmProd.DecimalPlaces = 1;
+            this.nudWDmProd.ForeColor = System.Drawing.SystemColors.WindowText;
+            resources.ApplyResources(this.nudWDmProd, "nudWDmProd");
+            this.nudWDmProd.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudWDmProd.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.nudWDmProd.Name = "nudWDmProd";
+            this.nudWDmProd.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudWDmProd.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.nudWDmProd.ValueChanged += new System.EventHandler(this.nudWDm_ValueChanged);
             // 
             // chkbDmCrossbow
             // 
@@ -226,210 +312,6 @@
             this.chkbDmLongneck.UseVisualStyleBackColor = true;
             this.chkbDmLongneck.CheckedChanged += new System.EventHandler(this.chkbDm_CheckedChanged);
             // 
-            // chkbDmProd
-            // 
-            resources.ApplyResources(this.chkbDmProd, "chkbDmProd");
-            this.chkbDmProd.Name = "chkbDmProd";
-            this.chkbDmProd.UseVisualStyleBackColor = true;
-            this.chkbDmProd.CheckedChanged += new System.EventHandler(this.chkbDm_CheckedChanged);
-            // 
-            // gbKOInfo
-            // 
-            this.gbKOInfo.Controls.Add(this.lbKOInfo);
-            resources.ApplyResources(this.gbKOInfo, "gbKOInfo");
-            this.gbKOInfo.Name = "gbKOInfo";
-            this.gbKOInfo.TabStop = false;
-            // 
-            // lbKOInfo
-            // 
-            resources.ApplyResources(this.lbKOInfo, "lbKOInfo");
-            this.lbKOInfo.Name = "lbKOInfo";
-            // 
-            // groupBox3
-            // 
-            this.tableLayoutPanel1.SetColumnSpan(this.groupBox3, 2);
-            this.groupBox3.Controls.Add(this.labelResult);
-            resources.ApplyResources(this.groupBox3, "groupBox3");
-            this.groupBox3.Name = "groupBox3";
-            this.tableLayoutPanel1.SetRowSpan(this.groupBox3, 2);
-            this.groupBox3.TabStop = false;
-            // 
-            // gpStarvingTime
-            // 
-            this.gpStarvingTime.Controls.Add(this.nudTotalFood);
-            this.gpStarvingTime.Controls.Add(this.label3);
-            this.gpStarvingTime.Controls.Add(this.nudCurrentFood);
-            this.gpStarvingTime.Controls.Add(this.btnAddStarvingTimer);
-            this.gpStarvingTime.Controls.Add(this.label2);
-            this.gpStarvingTime.Controls.Add(this.lbTimeUntilStarving);
-            resources.ApplyResources(this.gpStarvingTime, "gpStarvingTime");
-            this.gpStarvingTime.Name = "gpStarvingTime";
-            this.gpStarvingTime.TabStop = false;
-            // 
-            // label3
-            // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
-            // 
-            // btnAddStarvingTimer
-            // 
-            resources.ApplyResources(this.btnAddStarvingTimer, "btnAddStarvingTimer");
-            this.btnAddStarvingTimer.Name = "btnAddStarvingTimer";
-            this.btnAddStarvingTimer.UseVisualStyleBackColor = true;
-            this.btnAddStarvingTimer.Click += new System.EventHandler(this.btnAddStarvingTimer_Click);
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
-            // 
-            // lbTimeUntilStarving
-            // 
-            resources.ApplyResources(this.lbTimeUntilStarving, "lbTimeUntilStarving");
-            this.lbTimeUntilStarving.Name = "lbTimeUntilStarving";
-            // 
-            // tableLayoutPanel1
-            // 
-            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.gpTorporTime, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.gbKOInfo, 2, 2);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox3, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.gbWeaponDamage, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.gpStarvingTime, 1, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            // 
-            // panel1
-            // 
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.Controls.Add(this.lbMax);
-            this.panel1.Controls.Add(this.lbUsed);
-            this.panel1.Controls.Add(this.lbTamingTime);
-            this.panel1.Name = "panel1";
-            // 
-            // tableLayoutPanel2
-            // 
-            resources.ApplyResources(this.tableLayoutPanel2, "tableLayoutPanel2");
-            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel1, 1, 0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            // 
-            // tableLayoutPanel3
-            // 
-            resources.ApplyResources(this.tableLayoutPanel3, "tableLayoutPanel3");
-            this.tableLayoutPanel3.Controls.Add(this.panel1, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.flpTamingFood, 0, 2);
-            this.tableLayoutPanel3.Controls.Add(this.panel2, 0, 0);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            // 
-            // flpTamingFood
-            // 
-            resources.ApplyResources(this.flpTamingFood, "flpTamingFood");
-            this.flpTamingFood.Name = "flpTamingFood";
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.linkLabelWikiPage);
-            this.panel2.Controls.Add(this.nudLevel);
-            this.panel2.Controls.Add(this.label1);
-            resources.ApplyResources(this.panel2, "panel2");
-            this.panel2.Name = "panel2";
-            // 
-            // linkLabelWikiPage
-            // 
-            resources.ApplyResources(this.linkLabelWikiPage, "linkLabelWikiPage");
-            this.linkLabelWikiPage.Name = "linkLabelWikiPage";
-            this.linkLabelWikiPage.TabStop = true;
-            this.linkLabelWikiPage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelWikiPage_LinkClicked);
-            // 
-            // flcBodyDamageMultipliers
-            // 
-            this.flcBodyDamageMultipliers.Controls.Add(this.rbBoneDamageDefault);
-            resources.ApplyResources(this.flcBodyDamageMultipliers, "flcBodyDamageMultipliers");
-            this.flcBodyDamageMultipliers.Name = "flcBodyDamageMultipliers";
-            // 
-            // nudLevel
-            // 
-            this.nudLevel.ForeColor = System.Drawing.SystemColors.WindowText;
-            resources.ApplyResources(this.nudLevel, "nudLevel");
-            this.nudLevel.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nudLevel.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudLevel.Name = "nudLevel";
-            this.nudLevel.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudLevel.Value = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
-            this.nudLevel.ValueChanged += new System.EventHandler(this.nudLevel_ValueChanged);
-            // 
-            // nudWDmHarpoon
-            // 
-            this.nudWDmHarpoon.DecimalPlaces = 1;
-            this.nudWDmHarpoon.ForeColor = System.Drawing.SystemColors.WindowText;
-            resources.ApplyResources(this.nudWDmHarpoon, "nudWDmHarpoon");
-            this.nudWDmHarpoon.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.nudWDmHarpoon.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.nudWDmHarpoon.Name = "nudWDmHarpoon";
-            this.nudWDmHarpoon.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudWDmHarpoon.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.nudWDmHarpoon.ValueChanged += new System.EventHandler(this.nudWDm_ValueChanged);
-            // 
-            // nudWDmProd
-            // 
-            this.nudWDmProd.DecimalPlaces = 1;
-            this.nudWDmProd.ForeColor = System.Drawing.SystemColors.WindowText;
-            resources.ApplyResources(this.nudWDmProd, "nudWDmProd");
-            this.nudWDmProd.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.nudWDmProd.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.nudWDmProd.Name = "nudWDmProd";
-            this.nudWDmProd.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudWDmProd.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.nudWDmProd.ValueChanged += new System.EventHandler(this.nudWDm_ValueChanged);
-            // 
             // nudWDmSlingshot
             // 
             this.nudWDmSlingshot.DecimalPlaces = 1;
@@ -457,6 +339,13 @@
             0,
             0});
             this.nudWDmSlingshot.ValueChanged += new System.EventHandler(this.nudWDm_ValueChanged);
+            // 
+            // chkbDmProd
+            // 
+            resources.ApplyResources(this.chkbDmProd, "chkbDmProd");
+            this.chkbDmProd.Name = "chkbDmProd";
+            this.chkbDmProd.UseVisualStyleBackColor = true;
+            this.chkbDmProd.CheckedChanged += new System.EventHandler(this.chkbDm_CheckedChanged);
             // 
             // nudWDmClub
             // 
@@ -570,28 +459,38 @@
             0});
             this.nudWDmLongneck.ValueChanged += new System.EventHandler(this.nudWDm_ValueChanged);
             // 
-            // numericUpDownCurrentTorpor
+            // gbKOInfo
             // 
-            this.numericUpDownCurrentTorpor.DecimalPlaces = 1;
-            this.numericUpDownCurrentTorpor.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.numericUpDownCurrentTorpor.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            resources.ApplyResources(this.numericUpDownCurrentTorpor, "numericUpDownCurrentTorpor");
-            this.numericUpDownCurrentTorpor.Maximum = new decimal(new int[] {
-            100000000,
-            0,
-            0,
-            0});
-            this.numericUpDownCurrentTorpor.Name = "numericUpDownCurrentTorpor";
-            this.numericUpDownCurrentTorpor.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.numericUpDownCurrentTorpor.ValueChanged += new System.EventHandler(this.numericUpDownCurrentTorpor_ValueChanged);
+            this.gbKOInfo.Controls.Add(this.lbKOInfo);
+            resources.ApplyResources(this.gbKOInfo, "gbKOInfo");
+            this.gbKOInfo.Name = "gbKOInfo";
+            this.gbKOInfo.TabStop = false;
+            // 
+            // lbKOInfo
+            // 
+            resources.ApplyResources(this.lbKOInfo, "lbKOInfo");
+            this.lbKOInfo.Name = "lbKOInfo";
+            // 
+            // groupBox3
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.groupBox3, 2);
+            this.groupBox3.Controls.Add(this.labelResult);
+            resources.ApplyResources(this.groupBox3, "groupBox3");
+            this.groupBox3.Name = "groupBox3";
+            this.tableLayoutPanel1.SetRowSpan(this.groupBox3, 2);
+            this.groupBox3.TabStop = false;
+            // 
+            // gpStarvingTime
+            // 
+            this.gpStarvingTime.Controls.Add(this.nudTotalFood);
+            this.gpStarvingTime.Controls.Add(this.label3);
+            this.gpStarvingTime.Controls.Add(this.nudCurrentFood);
+            this.gpStarvingTime.Controls.Add(this.btnAddStarvingTimer);
+            this.gpStarvingTime.Controls.Add(this.label2);
+            this.gpStarvingTime.Controls.Add(this.lbTimeUntilStarving);
+            resources.ApplyResources(this.gpStarvingTime, "gpStarvingTime");
+            this.gpStarvingTime.Name = "gpStarvingTime";
+            this.gpStarvingTime.TabStop = false;
             // 
             // nudTotalFood
             // 
@@ -614,6 +513,11 @@
             0,
             0,
             0});
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
             // 
             // nudCurrentFood
             // 
@@ -638,6 +542,111 @@
             0});
             this.nudCurrentFood.ValueChanged += new System.EventHandler(this.nudCurrentFood_ValueChanged);
             // 
+            // btnAddStarvingTimer
+            // 
+            resources.ApplyResources(this.btnAddStarvingTimer, "btnAddStarvingTimer");
+            this.btnAddStarvingTimer.Name = "btnAddStarvingTimer";
+            this.btnAddStarvingTimer.UseVisualStyleBackColor = true;
+            this.btnAddStarvingTimer.Click += new System.EventHandler(this.btnAddStarvingTimer_Click);
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
+            // 
+            // lbTimeUntilStarving
+            // 
+            resources.ApplyResources(this.lbTimeUntilStarving, "lbTimeUntilStarving");
+            this.lbTimeUntilStarving.Name = "lbTimeUntilStarving";
+            // 
+            // tableLayoutPanel1
+            // 
+            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
+            this.tableLayoutPanel1.Controls.Add(this.gpTorporTime, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.gbKOInfo, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox3, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.gbWeaponDamage, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.gpStarvingTime, 1, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            // 
+            // panel1
+            // 
+            resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.Controls.Add(this.lbMax);
+            this.panel1.Controls.Add(this.lbUsed);
+            this.panel1.Controls.Add(this.lbTamingTime);
+            this.panel1.Name = "panel1";
+            // 
+            // tableLayoutPanel2
+            // 
+            resources.ApplyResources(this.tableLayoutPanel2, "tableLayoutPanel2");
+            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel1, 1, 0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            // 
+            // tableLayoutPanel3
+            // 
+            resources.ApplyResources(this.tableLayoutPanel3, "tableLayoutPanel3");
+            this.tableLayoutPanel3.Controls.Add(this.panel1, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.flpTamingFood, 0, 2);
+            this.tableLayoutPanel3.Controls.Add(this.panel2, 0, 0);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            // 
+            // flpTamingFood
+            // 
+            resources.ApplyResources(this.flpTamingFood, "flpTamingFood");
+            this.flpTamingFood.Name = "flpTamingFood";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.checkBoxAugmented);
+            this.panel2.Controls.Add(this.linkLabelWikiPage);
+            this.panel2.Controls.Add(this.nudLevel);
+            this.panel2.Controls.Add(this.label1);
+            resources.ApplyResources(this.panel2, "panel2");
+            this.panel2.Name = "panel2";
+            // 
+            // checkBoxAugmented
+            // 
+            resources.ApplyResources(this.checkBoxAugmented, "checkBoxAugmented");
+            this.checkBoxAugmented.Name = "checkBoxAugmented";
+            this.checkBoxAugmented.UseVisualStyleBackColor = true;
+            this.checkBoxAugmented.CheckedChanged += new System.EventHandler(this.checkBoxAugmented_CheckedChanged);
+            // 
+            // linkLabelWikiPage
+            // 
+            resources.ApplyResources(this.linkLabelWikiPage, "linkLabelWikiPage");
+            this.linkLabelWikiPage.Name = "linkLabelWikiPage";
+            this.linkLabelWikiPage.TabStop = true;
+            this.linkLabelWikiPage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelWikiPage_LinkClicked);
+            // 
+            // nudLevel
+            // 
+            this.nudLevel.ForeColor = System.Drawing.SystemColors.WindowText;
+            resources.ApplyResources(this.nudLevel, "nudLevel");
+            this.nudLevel.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudLevel.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudLevel.Name = "nudLevel";
+            this.nudLevel.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudLevel.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.nudLevel.ValueChanged += new System.EventHandler(this.nudLevel_ValueChanged);
+            // 
             // TamingControl
             // 
             resources.ApplyResources(this, "$this");
@@ -646,22 +655,11 @@
             this.Name = "TamingControl";
             this.gpTorporTime.ResumeLayout(false);
             this.gpTorporTime.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCurrentTorpor)).EndInit();
             this.gbWeaponDamage.ResumeLayout(false);
             this.gbWeaponDamage.PerformLayout();
-            this.gbKOInfo.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.gpStarvingTime.ResumeLayout(false);
-            this.gpStarvingTime.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.flcBodyDamageMultipliers.ResumeLayout(false);
             this.flcBodyDamageMultipliers.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudLevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmHarpoon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmProd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmSlingshot)).EndInit();
@@ -669,9 +667,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmBow)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmCrossbow)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmLongneck)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCurrentTorpor)).EndInit();
+            this.gbKOInfo.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.gpStarvingTime.ResumeLayout(false);
+            this.gpStarvingTime.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTotalFood)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCurrentFood)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudLevel)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -722,5 +731,6 @@
         private uiControls.Nud nudTotalFood;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.FlowLayoutPanel flcBodyDamageMultipliers;
+        private System.Windows.Forms.CheckBox checkBoxAugmented;
     }
 }

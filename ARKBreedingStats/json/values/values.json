@@ -1,44 +1,11 @@
 {
-	"version": "306.67.4726266",
+	"version": "306.83.4740398",
 	"format": "1.12",
 	"species": [
 		{
 			"name": "Rockwell",
-			"blueprintPath": "/Game/Aberration/Boss/Rockwell/Rockwell_Character_BP.Rockwell_Character_BP",
-			"variants": [ "Boss" ],
-			"fullStatsRaw": [
-				[ 42000, 0.2, 0.2, 0.3, 0 ],
-				[ 400, 0.1, 0.1, 0, 0 ],
-				[ 350, 0.06, 0, 0.5, 0 ],
-				[ 2000, 0.1, 0.1, 0, 0 ],
-				[ 2600, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 3000, 0.02, 0.02, 0, 0 ],
-				[ 1, 0.05, 0.04, 0.3, 0.3 ],
-				[ 1, 0, 0, 0, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 1.5,
-				"affinityNeeded0": 8500,
-				"affinityIncreasePL": 150,
-				"foodConsumptionBase": 0.002066,
-				"foodConsumptionMult": 150
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
-			"displayedStats": 927
-		},
-		{
-			"name": "Rockwell (Gamma)",
 			"blueprintPath": "/Game/Aberration/Boss/Rockwell/Rockwell_Character_BP_Easy.Rockwell_Character_BP_Easy",
-			"variants": [ "Boss", "Easy" ],
+			"variants": [ "Boss", "Gamma" ],
 			"fullStatsRaw": [
 				[ 42000, 0.2, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -69,9 +36,9 @@
 			"displayedStats": 927
 		},
 		{
-			"name": "Rockwell (Alpha)",
+			"name": "Rockwell",
 			"blueprintPath": "/Game/Aberration/Boss/Rockwell/Rockwell_Character_BP_Hard.Rockwell_Character_BP_Hard",
-			"variants": [ "Boss", "Hard" ],
+			"variants": [ "Alpha", "Boss" ],
 			"fullStatsRaw": [
 				[ 115000, 0.2, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -102,9 +69,9 @@
 			"displayedStats": 927
 		},
 		{
-			"name": "Rockwell (Beta)",
+			"name": "Rockwell",
 			"blueprintPath": "/Game/Aberration/Boss/Rockwell/Rockwell_Character_BP_Medium.Rockwell_Character_BP_Medium",
-			"variants": [ "Boss", "Medium" ],
+			"variants": [ "Beta", "Boss" ],
 			"fullStatsRaw": [
 				[ 68500, 0.2, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -136,41 +103,8 @@
 		},
 		{
 			"name": "RockwellTentacle",
-			"blueprintPath": "/Game/Aberration/Boss/RockwellTentacle/RockwellTentacle_Character_BP.RockwellTentacle_Character_BP",
-			"variants": [ "Boss" ],
-			"fullStatsRaw": [
-				[ 3800, 0, 0.27, 0.5, 0 ],
-				[ 250, 0.1, 0.1, 0, 0 ],
-				[ 1000, 0.06, 0, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 3000, 0.1, 0.1, 0, 0.15 ],
-				null,
-				null,
-				[ 380, 0.02, 0.04, 0, 0 ],
-				[ 1, 0, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0.01, -0.1, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 2000,
-				"affinityNeeded0": 10000,
-				"affinityIncreasePL": 5,
-				"foodConsumptionBase": 0.001852,
-				"foodConsumptionMult": 180.0634
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
-			"displayedStats": 919
-		},
-		{
-			"name": "RockwellTentacle (Alpha)",
 			"blueprintPath": "/Game/Aberration/Boss/RockwellTentacle/RockwellTentacle_Character_BP_Alpha.RockwellTentacle_Character_BP_Alpha",
-			"variants": [ "Boss" ],
+			"variants": [ "Alpha", "Boss" ],
 			"fullStatsRaw": [
 				[ 15250, 0, 0.27, 0.5, 0 ],
 				[ 250, 0.1, 0.1, 0, 0 ],
@@ -201,9 +135,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "RockwellTentacle (Beta)",
+			"name": "RockwellTentacle",
 			"blueprintPath": "/Game/Aberration/Boss/RockwellTentacle/RockwellTentacle_Character_BP_Beta.RockwellTentacle_Character_BP_Beta",
-			"variants": [ "Boss" ],
+			"variants": [ "Beta", "Boss" ],
 			"fullStatsRaw": [
 				[ 8500, 0, 0.27, 0.5, 0 ],
 				[ 250, 0.1, 0.1, 0, 0 ],
@@ -234,9 +168,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "RockwellTentacle (Gamma)",
+			"name": "RockwellTentacle",
 			"blueprintPath": "/Game/Aberration/Boss/RockwellTentacle/RockwellTentacle_Character_BP_Gamma.RockwellTentacle_Character_BP_Gamma",
-			"variants": [ "Boss" ],
+			"variants": [ "Boss", "Gamma" ],
 			"fullStatsRaw": [
 				[ 3800, 0, 0.27, 0.5, 0 ],
 				[ 250, 0.1, 0.1, 0, 0 ],
@@ -478,9 +412,9 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Underbelly",
 					"colors": [
@@ -613,6 +547,7 @@
 		{
 			"name": "Nameless",
 			"blueprintPath": "/Game/Aberration/Dinos/ChupaCabra/ChupaCabra_Character_BP_Minion.ChupaCabra_Character_BP_Minion",
+			"variants": [ "Minion" ],
 			"fullStatsRaw": [
 				[ 220, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -697,6 +632,7 @@
 		{
 			"name": "Nameless",
 			"blueprintPath": "/Game/Aberration/Dinos/ChupaCabra/ChupaCabra_Character_BP_Surface.ChupaCabra_Character_BP_Surface",
+			"variants": [ "Surface" ],
 			"fullStatsRaw": [
 				[ 220, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -1140,7 +1076,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Stripes",
 					"colors": [
@@ -1440,7 +1376,7 @@
 						"WyvernBlue1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Spots",
 					"colors": [
@@ -1566,7 +1502,7 @@
 						"WyvernBlue1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Wings",
 					"colors": [
@@ -1667,8 +1603,8 @@
 					]
 				},
 				null,
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Scales",
 					"colors": [
@@ -1722,6 +1658,7 @@
 		{
 			"name": "Alpha Surface Reaper King",
 			"blueprintPath": "/Game/Aberration/Dinos/Nameless/MegaXenomorph_Character_BP_Male_Surface.MegaXenomorph_Character_BP_Male_Surface",
+			"variants": [ "Male", "Surface" ],
 			"fullStatsRaw": [
 				[ 42500, 0.2, 0.27, 0.5, 0 ],
 				[ 480, 0.1, 0.1, 0, 0 ],
@@ -1766,6 +1703,7 @@
 		{
 			"name": "Reaper Queen",
 			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Xenomorph_Character_BP_Female.Xenomorph_Character_BP_Female",
+			"variants": [ "Female" ],
 			"fullStatsRaw": [
 				[ 45000, 0.0052, 0.135, -38500, 0 ],
 				[ 480, 0.1, 0.1, 0, 0 ],
@@ -1801,9 +1739,9 @@
 						"WyvernBlue1"
 					]
 				},
-				{ "name": null },
 				null,
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Underbelly",
 					"colors": [
@@ -1842,6 +1780,7 @@
 		{
 			"name": "Subterranean Reaper King",
 			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Xenomorph_Character_BP_Male_Chupa.Xenomorph_Character_BP_Male_Chupa",
+			"variants": [ "Male" ],
 			"fullStatsRaw": [
 				[ 2000, 0.2, 0.27, 0.5, 0 ],
 				[ 480, 0.1, 0.1, 0, 0 ],
@@ -1877,9 +1816,9 @@
 						"WyvernBlue1"
 					]
 				},
-				{ "name": null },
 				null,
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Underbelly",
 					"colors": [
@@ -1918,7 +1857,7 @@
 		{
 			"name": "Surface Reaper King",
 			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Xenomorph_Character_BP_Male_Lunar.Xenomorph_Character_BP_Male_Lunar",
-			"variants": [ "Lunar" ],
+			"variants": [ "Lunar", "Male" ],
 			"fullStatsRaw": [
 				[ 2500, 0.2, 0.27, 0.5, 0 ],
 				[ 480, 0.1, 0.1, 0, 0 ],
@@ -1954,9 +1893,9 @@
 						"WyvernBlue1"
 					]
 				},
-				{ "name": null },
 				null,
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Underbelly",
 					"colors": [
@@ -1995,6 +1934,7 @@
 		{
 			"name": "Elemental Reaper King",
 			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Xenomorph_Character_BP_Male_Minion.Xenomorph_Character_BP_Male_Minion",
+			"variants": [ "Male", "Minion" ],
 			"fullStatsRaw": [
 				[ 1250, 0.2, 0.27, 0.5, 0 ],
 				[ 480, 0.1, 0.1, 0, 0 ],
@@ -2030,9 +1970,9 @@
 						"WyvernBlue1"
 					]
 				},
-				{ "name": null },
 				null,
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Underbelly",
 					"colors": [
@@ -2073,6 +2013,7 @@
 		{
 			"name": "Surface Reaper King",
 			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Xenomorph_Character_BP_Male_Surface.Xenomorph_Character_BP_Male_Surface",
+			"variants": [ "Male", "Surface" ],
 			"fullStatsRaw": [
 				[ 2500, 0.2, 0.27, 0.5, 0 ],
 				[ 480, 0.1, 0.1, 0, 0 ],
@@ -2108,9 +2049,9 @@
 						"WyvernBlue1"
 					]
 				},
-				{ "name": null },
 				null,
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Underbelly",
 					"colors": [
@@ -2149,6 +2090,7 @@
 		{
 			"name": "Reaper King",
 			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Xenomorph_Character_BP_Male_Tamed.Xenomorph_Character_BP_Male_Tamed",
+			"variants": [ "Male", "Tamed" ],
 			"fullStatsRaw": [
 				[ 45000, 0.0052, 0.135, -38500, 0 ],
 				[ 480, 0.1, 0.1, 0, 0 ],
@@ -2196,9 +2138,9 @@
 						"Yellow"
 					]
 				},
-				{ "name": null },
 				null,
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Underbelly",
 					"colors": [
@@ -2345,6 +2287,7 @@
 		{
 			"name": "Seeker",
 			"blueprintPath": "/Game/Aberration/Dinos/Pteroteuthis/Pteroteuthis_Char_BP_Surface.Pteroteuthis_Char_BP_Surface",
+			"variants": [ "Surface" ],
 			"fullStatsRaw": [
 				[ 250, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -2593,7 +2536,7 @@
 		{
 			"name": "Attack Drone",
 			"blueprintPath": "/Game/EndGame/Dinos/Drone/EndDrone_Character_BP.EndDrone_Character_BP",
-			"variants": [ "Boss" ],
+			"variants": [ "Boss", "Gamma" ],
 			"fullStatsRaw": [
 				[ 145.800003, 0.2, 0.27, 0.5, 0 ],
 				[ 250, 0.05, 0.06, 0, 0 ],
@@ -2638,7 +2581,7 @@
 		{
 			"name": "Attack Drone",
 			"blueprintPath": "/Game/EndGame/Dinos/Drone/EndDrone_Character_BP_Hard.EndDrone_Character_BP_Hard",
-			"variants": [ "Boss", "Hard" ],
+			"variants": [ "Alpha", "Boss" ],
 			"fullStatsRaw": [
 				[ 877.500061, 0.2, 0.27, 0.5, 0 ],
 				[ 250, 0.05, 0.06, 0, 0 ],
@@ -2683,7 +2626,7 @@
 		{
 			"name": "Attack Drone",
 			"blueprintPath": "/Game/EndGame/Dinos/Drone/EndDrone_Character_BP_Med.EndDrone_Character_BP_Med",
-			"variants": [ "Boss", "Medium" ],
+			"variants": [ "Beta", "Boss" ],
 			"fullStatsRaw": [
 				[ 585, 0.2, 0.27, 0.5, 0 ],
 				[ 250, 0.05, 0.06, 0, 0 ],
@@ -2728,7 +2671,7 @@
 		{
 			"name": "Attack Drone",
 			"blueprintPath": "/Game/EndGame/Dinos/Drone/EndDrone_Lunar_Character_BP.EndDrone_Lunar_Character_BP",
-			"variants": [ "Boss" ],
+			"variants": [ "Boss", "Lunar" ],
 			"fullStatsRaw": [
 				[ 145.800003, 0.2, 0.27, 0.5, 0 ],
 				[ 250, 0.05, 0.06, 0, 0 ],
@@ -2772,48 +2715,8 @@
 		},
 		{
 			"name": "Overseer",
-			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndBoss_Character.EndBoss_Character",
-			"variants": [ "Boss" ],
-			"fullStatsRaw": [
-				[ 24000, 0.2, 0.2, 0.3, 0 ],
-				[ 10000, 0.1, 0.1, 0, 0 ],
-				[ 350, 0.06, 0, 0.5, 0 ],
-				[ 2000, 0.1, 0.1, 0, 0 ],
-				[ 2600, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 4000, 0.02, 0.02, 0, 0 ],
-				[ 1, 0.05, 0.04, 0.3, 0.3 ],
-				[ 1, 0, 0, 0, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [],
-			"breeding": {
-				"gestationTime": 0,
-				"incubationTime": 0,
-				"maturationTime": 333333.333,
-				"matingCooldownMin": 64800,
-				"matingCooldownMax": 172800
-			},
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 1.5,
-				"affinityNeeded0": 8500,
-				"affinityIncreasePL": 150,
-				"foodConsumptionBase": 0.002066,
-				"foodConsumptionMult": 150
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
-			"displayedStats": 919
-		},
-		{
-			"name": "Overseer",
 			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndBoss_Character_Easy.EndBoss_Character_Easy",
-			"variants": [ "Boss", "Easy" ],
+			"variants": [ "Boss", "Gamma" ],
 			"fullStatsRaw": [
 				[ 63360, 0.2, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -2853,7 +2756,7 @@
 		{
 			"name": "Overseer",
 			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndBoss_Character_Hard.EndBoss_Character_Hard",
-			"variants": [ "Boss", "Hard" ],
+			"variants": [ "Alpha", "Boss" ],
 			"fullStatsRaw": [
 				[ 207360.016, 0.2, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -2893,7 +2796,7 @@
 		{
 			"name": "Overseer",
 			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndBoss_Character_Medium.EndBoss_Character_Medium",
-			"variants": [ "Boss", "Medium" ],
+			"variants": [ "Beta", "Boss" ],
 			"fullStatsRaw": [
 				[ 132480, 0.2, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -2931,42 +2834,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Dragon Guardian",
-			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndbossDragon/EndBossDragon_Character_BP.EndBossDragon_Character_BP",
-			"variants": [ "Boss" ],
-			"fullStatsRaw": [
-				[ 240000, 0.2, 0.2, 0.3, 0 ],
-				[ 10000, 0.1, 0.1, 0, 0 ],
-				[ 350, 0.06, 0, 0.5, 0 ],
-				[ 2000, 0.1, 0.1, 0, 0 ],
-				[ 2600, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 4000, 0.02, 0.02, 0, 0 ],
-				[ 1, 0.05, 0.04, 0.3, 0.3 ],
-				[ 1, 0, 0, 0, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 1.5,
-				"affinityNeeded0": 8500,
-				"affinityIncreasePL": 150,
-				"foodConsumptionBase": 0.002066,
-				"foodConsumptionMult": 150
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
-			"displayedStats": 919
-		},
-		{
-			"name": "Dragon (Gamma)",
+			"name": "Dragon",
 			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndbossDragon/EndBossDragon_Character_BP_Easy.EndBossDragon_Character_BP_Easy",
-			"variants": [ "Boss", "Easy" ],
+			"variants": [ "Boss", "Gamma" ],
 			"fullStatsRaw": [
 				[ 161280, 0.2, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -2997,9 +2867,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Dragon (Alpha)",
+			"name": "Dragon",
 			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndbossDragon/EndBossDragon_Character_BP_Hard.EndBossDragon_Character_BP_Hard",
-			"variants": [ "Boss", "Hard" ],
+			"variants": [ "Alpha", "Boss" ],
 			"fullStatsRaw": [
 				[ 241920, 0.2, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -3030,9 +2900,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Dragon (Beta)",
+			"name": "Dragon",
 			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndbossDragon/EndBossDragon_Character_BP_Medium.EndBossDragon_Character_BP_Medium",
-			"variants": [ "Boss", "Medium" ],
+			"variants": [ "Beta", "Boss" ],
 			"fullStatsRaw": [
 				[ 186480, 0.2, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -3063,42 +2933,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Megapithecus Guardian",
-			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndbossGorilla/EndBossGorilla_Character_BP.EndBossGorilla_Character_BP",
-			"variants": [ "Boss" ],
-			"fullStatsRaw": [
-				[ 200000, 0, 0, 0.3, 0 ],
-				[ 650, 0, 0, 0, 0 ],
-				[ 350, 0.06, 0, 0.5, 0 ],
-				[ 2000, 0, 0, 0, 0 ],
-				[ 2600, 0, 0, 0, 0 ],
-				null,
-				null,
-				[ 4000, 0.02, 0.02, 0, 0 ],
-				[ 1, 0, 0, 0.3, 0.3 ],
-				[ 1, 0, 0, 0, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 1.5,
-				"affinityNeeded0": 8500,
-				"affinityIncreasePL": 150,
-				"foodConsumptionBase": 0.002066,
-				"foodConsumptionMult": 150
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
-			"displayedStats": 919
-		},
-		{
-			"name": "Megapithecus (Gamma)",
+			"name": "Megapithecus",
 			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndbossGorilla/EndBossGorilla_Character_BP_Easy.EndBossGorilla_Character_BP_Easy",
-			"variants": [ "Boss", "Easy" ],
+			"variants": [ "Boss", "Gamma" ],
 			"fullStatsRaw": [
 				[ 92400, 0, 0, 0.3, 0 ],
 				[ 650, 0, 0, 0, 0 ],
@@ -3129,9 +2966,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Megapithecus (Alpha)",
+			"name": "Megapithecus",
 			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndbossGorilla/EndBossGorilla_Character_BP_Hard.EndBossGorilla_Character_BP_Hard",
-			"variants": [ "Boss", "Hard" ],
+			"variants": [ "Alpha", "Boss" ],
 			"fullStatsRaw": [
 				[ 128800, 0, 0, 0.3, 0 ],
 				[ 650, 0, 0, 0, 0 ],
@@ -3162,9 +2999,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Megapithecus (Beta)",
+			"name": "Megapithecus",
 			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndbossGorilla/EndBossGorilla_Character_BP_Medium.EndBossGorilla_Character_BP_Medium",
-			"variants": [ "Boss", "Medium" ],
+			"variants": [ "Beta", "Boss" ],
 			"fullStatsRaw": [
 				[ 112000, 0, 0, 0.3, 0 ],
 				[ 650, 0, 0, 0, 0 ],
@@ -3195,42 +3032,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Broodmother Guardian",
-			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndbossSpider/EndBossSpiderL_Character_BP.EndBossSpiderL_Character_BP",
-			"variants": [ "Boss" ],
-			"fullStatsRaw": [
-				[ 324000, 0.2, 0.27, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 100000, 0.06, 0, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 1500, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 4000, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0.01, 0.151, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 2.5,
-				"affinityNeeded0": 1500,
-				"affinityIncreasePL": 75,
-				"foodConsumptionBase": 0.001929,
-				"foodConsumptionMult": 432.0028
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
-			"displayedStats": 919
-		},
-		{
-			"name": "Broodmother Lysrix (Gamma)",
+			"name": "Broodmother Lysrix",
 			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndbossSpider/EndBossSpiderL_Character_BP_Easy.EndBossSpiderL_Character_BP_Easy",
-			"variants": [ "Boss", "Easy" ],
+			"variants": [ "Boss", "Gamma" ],
 			"fullStatsRaw": [
 				[ 136080, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -3261,9 +3065,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Broodmother Lysrix (Alpha)",
+			"name": "Broodmother Lysrix",
 			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndbossSpider/EndBossSpiderL_Character_BP_Hard.EndBossSpiderL_Character_BP_Hard",
-			"variants": [ "Boss", "Hard" ],
+			"variants": [ "Alpha", "Boss" ],
 			"fullStatsRaw": [
 				[ 186480, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -3294,9 +3098,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Broodmother Lysrix (Beta)",
+			"name": "Broodmother Lysrix",
 			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndbossSpider/EndBossSpiderL_Character_BP_Medium.EndBossSpiderL_Character_BP_Medium",
-			"variants": [ "Boss", "Medium" ],
+			"variants": [ "Beta", "Boss" ],
 			"fullStatsRaw": [
 				[ 151200, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -3329,7 +3133,7 @@
 		{
 			"name": "Defense Unit",
 			"blueprintPath": "/Game/EndGame/Dinos/Tank/EndTank_Character_BP.EndTank_Character_BP",
-			"variants": [ "Boss" ],
+			"variants": [ "Boss", "Gamma" ],
 			"fullStatsRaw": [
 				[ 924.000061, 0.2, 0.27, 0.5, 0 ],
 				[ 2000, 0.1, 0.1, 0, 0 ],
@@ -3362,7 +3166,7 @@
 		{
 			"name": "Defense Unit",
 			"blueprintPath": "/Game/EndGame/Dinos/Tank/EndTank_Character_BP_Hard.EndTank_Character_BP_Hard",
-			"variants": [ "Boss", "Hard" ],
+			"variants": [ "Alpha", "Boss" ],
 			"fullStatsRaw": [
 				[ 2772, 0.2, 0.27, 0.5, 0 ],
 				[ 2000, 0.1, 0.1, 0, 0 ],
@@ -3395,7 +3199,7 @@
 		{
 			"name": "Defense Unit",
 			"blueprintPath": "/Game/EndGame/Dinos/Tank/EndTank_Character_BP_Med.EndTank_Character_BP_Med",
-			"variants": [ "Boss", "Medium" ],
+			"variants": [ "Beta", "Boss" ],
 			"fullStatsRaw": [
 				[ 1848.00012, 0.2, 0.27, 0.5, 0 ],
 				[ 2000, 0.1, 0.1, 0, 0 ],
@@ -3428,7 +3232,7 @@
 		{
 			"name": "Defense Unit",
 			"blueprintPath": "/Game/EndGame/Dinos/Tank/EndTank_Lunar_Character_BP.EndTank_Lunar_Character_BP",
-			"variants": [ "Boss" ],
+			"variants": [ "Boss", "Lunar" ],
 			"fullStatsRaw": [
 				[ 924.000061, 0.2, 0.27, 0.5, 0 ],
 				[ 2000, 0.1, 0.1, 0, 0 ],
@@ -3716,7 +3520,7 @@
 		{
 			"name": "Corrupted Reaper King",
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Nameless/Xenomorph_Character_BP_Male_Tamed_Corrupt.Xenomorph_Character_BP_Male_Tamed_Corrupt",
-			"variants": [ "Corrupted" ],
+			"variants": [ "Corrupted", "Male", "Tamed" ],
 			"fullStatsRaw": [
 				[ 18500, 0.001, 0.135, 0, 0 ],
 				[ 480, 0.1, 0.1, 0, 0 ],
@@ -3825,53 +3629,6 @@
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 0.9,
 			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
-			"displayedStats": 927
-		},
-		{
-			"name": "Corrupted Raptor",
-			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Raptor/BabyRaptor_Character_BP_Corrupt.BabyRaptor_Character_BP_Corrupt",
-			"variants": [ "Corrupted" ],
-			"fullStatsRaw": [
-				[ 200, 0.2, 0.27, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 180, 0.06, 0, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 1200, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 140, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0.015, 0.2, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [ "Bola", "Bear Trap", "Large Bear Trap", "Plant Species Y" ],
-			"breeding": {
-				"gestationTime": 0,
-				"incubationTime": 0,
-				"maturationTime": 10000000000,
-				"matingCooldownMin": 64800,
-				"matingCooldownMax": 172800
-			},
-			"colors": [],
-			"taming": {
-				"nonViolent": false,
-				"violent": true,
-				"tamingIneffectiveness": 3.125,
-				"affinityNeeded0": 1200,
-				"affinityIncreasePL": 60,
-				"torporDepletionPS0": 0.3,
-				"foodConsumptionBase": 0.001543,
-				"foodConsumptionMult": 648.0881
-			},
-			"boneDamageAdjusters": {
-				"Cnt_Head_JNT_SKL": 3,
-				"Cnt_Neck_002_JNT_SKL": 3,
-				"Cnt_Neck_000_JNT_SKL": 3
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
@@ -4279,9 +4036,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -4384,9 +4141,9 @@
 						"WyvernBlue0"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Algae",
 					"colors": [
@@ -4466,6 +4223,7 @@
 		{
 			"name": "Forest Wyvern",
 			"blueprintPath": "/Game/Extinction/Dinos/ForestKaiju/Minion/Wyvern_Character_BP_Fire_Minion.Wyvern_Character_BP_Fire_Minion",
+			"variants": [ "Minion" ],
 			"fullStatsRaw": [
 				[ 1725, 0.15, 0.2025, -1050, 0 ],
 				[ 275, 0.05, 0.05, 0, 0 ],
@@ -5030,7 +4788,7 @@
 		{
 			"name": "Gamma King Titan",
 			"blueprintPath": "/Game/Extinction/Dinos/KingKaiju/KingKaiju_Character_BP.KingKaiju_Character_BP",
-			"variants": [ "Boss" ],
+			"variants": [ "Boss", "Gamma" ],
 			"fullStatsRaw": [
 				[ 1500000, 0, 0, 0, 0 ],
 				[ 1000000, 0.1, 0.1, 0, 0 ],
@@ -5063,7 +4821,7 @@
 		{
 			"name": "Alpha King Titan",
 			"blueprintPath": "/Game/Extinction/Dinos/KingKaiju/KingKaiju_Character_BP_Alpha.KingKaiju_Character_BP_Alpha",
-			"variants": [ "Boss" ],
+			"variants": [ "Alpha", "Boss" ],
 			"fullStatsRaw": [
 				[ 1500000, 0, 0, 0, 0 ],
 				[ 1000000, 0.1, 0.1, 0, 0 ],
@@ -5096,7 +4854,7 @@
 		{
 			"name": "Beta King Titan",
 			"blueprintPath": "/Game/Extinction/Dinos/KingKaiju/KingKaiju_Character_BP_Beta.KingKaiju_Character_BP_Beta",
-			"variants": [ "Boss" ],
+			"variants": [ "Beta", "Boss" ],
 			"fullStatsRaw": [
 				[ 1500000, 0, 0, 0, 0 ],
 				[ 1000000, 0.1, 0.1, 0, 0 ],
@@ -5129,6 +4887,7 @@
 		{
 			"name": "Corruptling",
 			"blueprintPath": "/Game/Extinction/Dinos/KingKaiju/Minions/Corrupt_Arthro_Character_BP.Corrupt_Arthro_Character_BP",
+			"variants": [ "Corrupted" ],
 			"fullStatsRaw": [
 				[ 7000, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -5187,7 +4946,7 @@
 						"Dark Red"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -5272,7 +5031,7 @@
 						"Dark Red"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -5775,7 +5534,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Spots",
 					"colors": [
@@ -5947,7 +5706,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Feet",
 					"colors": [
@@ -5972,7 +5731,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Spots",
 					"colors": [
@@ -6282,7 +6041,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Spots",
 					"colors": [
@@ -6882,7 +6641,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Back stars",
 					"colors": [
@@ -6972,7 +6731,7 @@
 		{
 			"name": "X-Sabertooth Salmon",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Lunar_Salmon/Rare_Lunar_Salmon_Character_BP.Rare_Lunar_Salmon_Character_BP",
-			"variants": [ "Lunar" ],
+			"variants": [ "Lunar", "Rare" ],
 			"fullStatsRaw": [
 				[ 65, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -7038,7 +6797,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Back stars",
 					"colors": [
@@ -7196,8 +6955,8 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Glowing stripes",
 					"colors": [
@@ -7982,7 +7741,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Back",
 					"colors": [
@@ -8108,7 +7867,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Dark accents",
 					"colors": [
@@ -8253,7 +8012,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Spots",
 					"colors": [
@@ -8294,7 +8053,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Main body",
 					"colors": [
@@ -8702,7 +8461,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Top Highlights",
 					"colors": [
@@ -8718,8 +8477,8 @@
 						"NearBlack"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Body Main",
 					"colors": [
@@ -8761,7 +8520,7 @@
 		{
 			"name": "Attack Drone",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VREndDrone_Character_BP.VREndDrone_Character_BP",
-			"variants": [ "VR", "Boss" ],
+			"variants": [ "Boss", "VR" ],
 			"fullStatsRaw": [
 				[ 145.800003, 0.05, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -8986,7 +8745,7 @@
 		{
 			"name": "Corrupted Dinotar",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VRXenomorph_Character_BP_Male_Minion.VRXenomorph_Character_BP_Male_Minion",
-			"variants": [ "VR" ],
+			"variants": [ "Male", "Minion", "VR" ],
 			"fullStatsRaw": [
 				[ 1800, 0.04, 0.27, 0.5, 0 ],
 				[ 420, 0.1, 0.1, 0, 0 ],
@@ -9090,8 +8849,8 @@
 						"DragonBase0"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Facial Highlights and Stripes",
 					"colors": [
@@ -9243,7 +9002,7 @@
 						"WyvernPurple0"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -9533,7 +9292,7 @@
 		{
 			"name": "X-Dragon",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Volcano_Dragon/Volcanic_Dragon_Character_BP.Volcanic_Dragon_Character_BP",
-			"variants": [ "Volcano", "Boss" ],
+			"variants": [ "Boss", "Volcano" ],
 			"fullStatsRaw": [
 				[ 240000, 0.2, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -9667,7 +9426,7 @@
 						"WyvernPurple0"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -9956,6 +9715,7 @@
 		{
 			"name": "Bloodstalker",
 			"blueprintPath": "/Game/Genesis/Dinos/BogSpider/BogSpider_Character_BP.BogSpider_Character_BP",
+			"variants": [ "Bog" ],
 			"fullStatsRaw": [
 				[ 450, 0.2, 0.27, 0.5, 0 ],
 				[ 600, 0.1, 0.1, 0, 0 ],
@@ -10025,7 +9785,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Arms",
 					"colors": [
@@ -10076,7 +9836,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null }
+				null
 			],
 			"taming": {
 				"nonViolent": true,
@@ -10145,7 +9905,7 @@
 						"WyvernBlue1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Gradient",
 					"colors": [
@@ -10175,8 +9935,8 @@
 						"WyvernPurple0"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Tips",
 					"colors": [
@@ -10223,41 +9983,8 @@
 		},
 		{
 			"name": "Moeder, Master of the Ocean",
-			"blueprintPath": "/Game/Genesis/Dinos/EelBoss/EelBoss_Character_BP.EelBoss_Character_BP",
-			"variants": [ "Boss" ],
-			"fullStatsRaw": [
-				[ 60000, 0.2, 0.27, 0.5, 0 ],
-				[ 600, 0.1, 0.1, 0, 0 ],
-				[ 5000, 0.06, 0, 0.5, 0 ],
-				[ 250, 0.1, 0.1, 0, 0 ],
-				[ 12000, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 2000, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0.01, 0, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 2000,
-				"affinityNeeded0": 10000,
-				"affinityIncreasePL": 5,
-				"foodConsumptionBase": 0.001929,
-				"foodConsumptionMult": 432.0028
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
-			"displayedStats": 919
-		},
-		{
-			"name": "Moeder, Master of the Ocean",
 			"blueprintPath": "/Game/Genesis/Dinos/EelBoss/EelBoss_Character_BP_Easy.EelBoss_Character_BP_Easy",
-			"variants": [ "Boss", "Easy" ],
+			"variants": [ "Boss", "Gamma" ],
 			"fullStatsRaw": [
 				[ 490000, 0.2, 0.27, 0.5, 0 ],
 				[ 600, 0.1, 0.1, 0, 0 ],
@@ -10290,7 +10017,7 @@
 		{
 			"name": "Moeder, Master of the Ocean",
 			"blueprintPath": "/Game/Genesis/Dinos/EelBoss/EelBoss_Character_BP_Hard.EelBoss_Character_BP_Hard",
-			"variants": [ "Boss", "Hard" ],
+			"variants": [ "Alpha", "Boss" ],
 			"fullStatsRaw": [
 				[ 960400, 0.2, 0.27, 0.5, 0 ],
 				[ 600, 0.1, 0.1, 0, 0 ],
@@ -10323,7 +10050,7 @@
 		{
 			"name": "Moeder, Master of the Ocean",
 			"blueprintPath": "/Game/Genesis/Dinos/EelBoss/EelBoss_Character_BP_Medium.EelBoss_Character_BP_Medium",
-			"variants": [ "Boss", "Medium" ],
+			"variants": [ "Beta", "Boss" ],
 			"fullStatsRaw": [
 				[ 686000, 0.2, 0.27, 0.5, 0 ],
 				[ 600, 0.1, 0.1, 0, 0 ],
@@ -10355,102 +10082,8 @@
 		},
 		{
 			"name": "Eel Minion",
-			"blueprintPath": "/Game/Genesis/Dinos/EelBoss/EelMinion_Character_BP.EelMinion_Character_BP",
-			"variants": [ "Boss Minion" ],
-			"fullStatsRaw": [
-				[ 3000, 0.2, 0.27, 0.5, 0 ],
-				[ 300, 0.1, 0.1, 0, 0 ],
-				[ 1500, 0.06, 0, 0.5, 0 ],
-				[ 200, 0.1, 0.1, 0, 0 ],
-				[ 100, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 850, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0.01, 0, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [],
-			"colors": [
-				{
-					"name": "Base Skin",
-					"colors": [
-						"DarkWolfFur",
-						"Dino Albino",
-						"Dino Light Blue",
-						"Dino Light Purple",
-						"Dino Light Red",
-						"Dino Light Yellow",
-						"DragonBase0",
-						"DragonGreen0",
-						"Light Green"
-					]
-				},
-				{
-					"name": "Belly 1",
-					"colors": [
-						"BigFoot4",
-						"Dino Albino",
-						"Dino Light Blue",
-						"Dino Light Brown",
-						"Dino Light Green",
-						"Dino Light Red",
-						"Dino Light Yellow"
-					]
-				},
-				{ "name": null },
-				{
-					"name": "Tail",
-					"colors": [
-						"Black",
-						"Blue",
-						"Cyan",
-						"Green",
-						"Magenta",
-						"Red"
-					]
-				},
-				{
-					"name": "Belly 2",
-					"colors": [
-						"Dino Albino",
-						"Dino Light Blue",
-						"Dino Light Green",
-						"Dino Light Purple",
-						"NearWhite",
-						"White"
-					]
-				},
-				{
-					"name": "Spots",
-					"colors": [
-						"Black",
-						"Dino Dark Blue",
-						"Dino Dark Purple",
-						"Dino Dark Red",
-						"WyvernBlue1"
-					]
-				}
-			],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 2000,
-				"affinityNeeded0": 10000,
-				"affinityIncreasePL": 5,
-				"foodConsumptionBase": 0.001929,
-				"foodConsumptionMult": 432.0028
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
-			"displayedStats": 919
-		},
-		{
-			"name": "Eel Minion",
 			"blueprintPath": "/Game/Genesis/Dinos/EelBoss/EelMinion_Character_BP_Easy.EelMinion_Character_BP_Easy",
-			"variants": [ "Boss Minion", "Easy" ],
+			"variants": [ "Boss", "Gamma", "Minion" ],
 			"fullStatsRaw": [
 				[ 3200, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -10483,7 +10116,7 @@
 		{
 			"name": "Eel Minion",
 			"blueprintPath": "/Game/Genesis/Dinos/EelBoss/EelMinion_Character_BP_Hard.EelMinion_Character_BP_Hard",
-			"variants": [ "Boss Minion", "Hard" ],
+			"variants": [ "Alpha", "Boss", "Minion" ],
 			"fullStatsRaw": [
 				[ 9600, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -10516,7 +10149,7 @@
 		{
 			"name": "Eel Minion",
 			"blueprintPath": "/Game/Genesis/Dinos/EelBoss/EelMinion_Character_BP_Medium.EelMinion_Character_BP_Medium",
-			"variants": [ "Boss Minion", "Medium" ],
+			"variants": [ "Beta", "Boss", "Minion" ],
 			"fullStatsRaw": [
 				[ 6400, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -10615,8 +10248,8 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Light Belly",
 					"colors": [
@@ -10633,7 +10266,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null }
+				null
 			],
 			"taming": {
 				"nonViolent": true,
@@ -10691,7 +10324,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Top Highlights",
 					"colors": [
@@ -10707,8 +10340,8 @@
 						"NearBlack"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Body Main",
 					"colors": [
@@ -10781,7 +10414,7 @@
 					"name": "Unknown",
 					"colors": [ "White" ]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [ "White" ]
@@ -10852,9 +10485,9 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -11097,7 +10730,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Spots",
 					"colors": [
@@ -11138,7 +10771,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Main body",
 					"colors": [
@@ -11181,7 +10814,7 @@
 		{
 			"name": "Baryonyx",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Bog/Baryonyx_Character_BP_Escort.Baryonyx_Character_BP_Escort",
-			"variants": [ "Escort", "Bog" ],
+			"variants": [ "Bog", "Escort" ],
 			"fullStatsRaw": [
 				[ 440, 0.2, 0.27, 0.5, 0 ],
 				[ 325, 0.1, 0.1, 0, 0 ],
@@ -11281,7 +10914,7 @@
 		{
 			"name": "Titanoboa",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Bog/BoaFrill_Character_BP_Escort.BoaFrill_Character_BP_Escort",
-			"variants": [ "Escort", "Bog" ],
+			"variants": [ "Bog", "Escort" ],
 			"fullStatsRaw": [
 				[ 170, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -11425,7 +11058,7 @@
 		{
 			"name": "X-Raptor",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Bog/Bog_Raptor_Character_BP_Escort.Bog_Raptor_Character_BP_Escort",
-			"variants": [ "Escort", "Bog" ],
+			"variants": [ "Bog", "Escort" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -11618,7 +11251,7 @@
 		{
 			"name": "Terror Bird",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Bog/TerrorBird_Character_BP_Escort.TerrorBird_Character_BP_Escort",
-			"variants": [ "Escort", "Bog" ],
+			"variants": [ "Bog", "Escort" ],
 			"fullStatsRaw": [
 				[ 270, 0.2, 0.27, 0.5, 0 ],
 				[ 160, 0.1, 0.1, 0, 0 ],
@@ -11769,7 +11402,7 @@
 		{
 			"name": "Beelzebufo",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Bog/Toad_Character_BP_Escort.Toad_Character_BP_Escort",
-			"variants": [ "Escort", "Bog" ],
+			"variants": [ "Bog", "Escort" ],
 			"fullStatsRaw": [
 				[ 2000, 0.005, 0, -495, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -11847,8 +11480,8 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -11952,7 +11585,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Stripes",
 					"colors": [
@@ -12107,7 +11740,7 @@
 						"WyvernBlue1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Spots",
 					"colors": [
@@ -12349,9 +11982,9 @@
 						"Yellow"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -12593,8 +12226,8 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Light Belly",
 					"colors": [
@@ -12611,7 +12244,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null }
+				null
 			],
 			"taming": {
 				"nonViolent": true,
@@ -12664,9 +12297,9 @@
 						"WyvernPurple0"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Body Spots",
 					"colors": [
@@ -12877,9 +12510,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -13523,7 +13156,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -13758,9 +13391,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -13868,8 +13501,8 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -13984,8 +13617,8 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -14240,7 +13873,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -14573,7 +14206,7 @@
 						"WyvernPurple0"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -14744,7 +14377,7 @@
 						"WyvernPurple0"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -14981,9 +14614,9 @@
 					"name": "Unknown",
 					"colors": [ "White" ]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [ "White" ]
@@ -15134,7 +14767,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Top Highlights",
 					"colors": [
@@ -15150,8 +14783,8 @@
 						"NearBlack"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Body Main",
 					"colors": [
@@ -15224,7 +14857,7 @@
 					"name": "Unknown",
 					"colors": [ "White" ]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [ "White" ]
@@ -15301,9 +14934,9 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -15374,7 +15007,7 @@
 		{
 			"name": "Megapithecus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Arctic/Gorilla_Character_BP_Gauntlet.Gorilla_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Snow", "Boss" ],
+			"variants": [ "Boss", "Gauntlet", "Snow" ],
 			"fullStatsRaw": [
 				[ 125000, 0.01, 0.2, 0.3, 0 ],
 				[ 650, 0, 0, 0, 0 ],
@@ -15437,8 +15070,8 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -15721,7 +15354,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -15733,7 +15366,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -15838,10 +15471,10 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -15981,7 +15614,7 @@
 		{
 			"name": "Ferox",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Arctic/Shapeshifter_Large_Character_BP_Gauntlet.Shapeshifter_Large_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Snow" ],
+			"variants": [ "Gauntlet", "Large", "Snow" ],
 			"fullStatsRaw": [
 				[ 1100, 0.2, 0.27, 0.5, 0 ],
 				[ 1000, 0.1, 0.1, 0, 0 ],
@@ -16151,7 +15784,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Back",
 					"colors": [
@@ -16438,7 +16071,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Spots",
 					"colors": [
@@ -16479,7 +16112,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Main body",
 					"colors": [
@@ -16728,7 +16361,7 @@
 						"WyvernBlue1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Body Highlights",
 					"colors": [
@@ -16742,7 +16375,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Feather Highlights",
 					"colors": [
@@ -16795,7 +16428,7 @@
 		{
 			"name": "Baryonyx",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Baryonyx_Character_BP_Gauntlet.Baryonyx_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Bog" ],
+			"variants": [ "Bog", "Gauntlet" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -16895,7 +16528,7 @@
 		{
 			"name": "Giant Queen Bee",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Bee_Queen_Character_BP_Gauntlet.Bee_Queen_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Bog" ],
+			"variants": [ "Bog", "Gauntlet" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -16924,7 +16557,7 @@
 						"DragonBase1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -16991,7 +16624,7 @@
 		{
 			"name": "Titanoboa",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/BoaFrill_Character_BP_Gauntlet.BoaFrill_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Bog" ],
+			"variants": [ "Bog", "Gauntlet" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -17135,7 +16768,7 @@
 		{
 			"name": "Bloodstalker",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/BogSpider_Character_BP_Gauntlet.BogSpider_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Bog" ],
+			"variants": [ "Bog", "Gauntlet" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -17205,7 +16838,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Arms",
 					"colors": [
@@ -17256,7 +16889,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null }
+				null
 			],
 			"taming": {
 				"nonViolent": false,
@@ -17279,7 +16912,7 @@
 		{
 			"name": "X-Paraceratherium",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Bog_Paracer_Character_BP_Gauntlet.Bog_Paracer_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Bog" ],
+			"variants": [ "Bog", "Gauntlet" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -17327,7 +16960,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Feet",
 					"colors": [
@@ -17352,7 +16985,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Spots",
 					"colors": [
@@ -17419,7 +17052,7 @@
 		{
 			"name": "X-Raptor",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Bog_Raptor_Character_BP_Gauntlet.Bog_Raptor_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Bog" ],
+			"variants": [ "Bog", "Gauntlet" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -17612,7 +17245,7 @@
 		{
 			"name": "X-Spino",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Bog_Spino_Character_BP_Gauntlet.Bog_Spino_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Bog" ],
+			"variants": [ "Bog", "Gauntlet" ],
 			"fullStatsRaw": [
 				[ 500, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -17660,7 +17293,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Spots",
 					"colors": [
@@ -17779,7 +17412,7 @@
 		{
 			"name": "X-Tapejara",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Bog_Tapejara_Character_BP_Gauntlet.Bog_Tapejara_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Bog" ],
+			"variants": [ "Bog", "Gauntlet" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -17982,7 +17615,7 @@
 		{
 			"name": "Dilophosaur",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Dilo_Character_BP_Gauntlet.Dilo_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Bog" ],
+			"variants": [ "Bog", "Gauntlet" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -18123,7 +17756,7 @@
 		{
 			"name": "Dodo",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Dodo_Character_BP_Aggressive.Dodo_Character_BP_Aggressive",
-			"variants": [ "Gauntlet", "Bog" ],
+			"variants": [ "Bog", "Gauntlet" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -18414,7 +18047,7 @@
 		{
 			"name": "Dodo",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Dodo_Character_BP_Aggressive_Large.Dodo_Character_BP_Aggressive_Large",
-			"variants": [ "Gauntlet", "Bog" ],
+			"variants": [ "Bog", "Gauntlet" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -18705,7 +18338,7 @@
 		{
 			"name": "Iguanodon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Iguanodon_Character_BP_Gauntlet.Iguanodon_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Bog" ],
+			"variants": [ "Bog", "Gauntlet" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -18806,7 +18439,7 @@
 		{
 			"name": "Kaprosuchus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Kaprosuchus_Character_BP_Gauntlet.Kaprosuchus_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Bog" ],
+			"variants": [ "Bog", "Gauntlet" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -18908,7 +18541,7 @@
 		{
 			"name": "Mantis",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Mantis_Character_BP_Gauntlet.Mantis_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Bog" ],
+			"variants": [ "Bog", "Gauntlet" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -18965,9 +18598,9 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Secondary color",
 					"colors": [
@@ -19066,7 +18699,7 @@
 		{
 			"name": "Lymantria",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Moth_Character_BP_Gauntlet.Moth_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Bog" ],
+			"variants": [ "Bog", "Gauntlet" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -19180,7 +18813,7 @@
 		{
 			"name": "Pachyrhinosaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Pachyrhino_Character_BP_Gauntlet.Pachyrhino_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Bog" ],
+			"variants": [ "Bog", "Gauntlet" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -19221,7 +18854,7 @@
 						"DragonGreen1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -19237,7 +18870,7 @@
 						"DragonGreen1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -19290,7 +18923,7 @@
 		{
 			"name": "Sarco",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Sarco_Character_BP_Gauntlet.Sarco_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Bog" ],
+			"variants": [ "Bog", "Gauntlet" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -19330,7 +18963,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -19405,7 +19038,7 @@
 		{
 			"name": "Broodmother Lysrix",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/SpiderL_Character_BP_Gauntlet.SpiderL_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Bog", "Boss" ],
+			"variants": [ "Bog", "Boss", "Gauntlet" ],
 			"fullStatsRaw": [
 				[ 300000, 0.01, 0.27, 0.5, 0 ],
 				[ 150, 0, 0, 0, 0 ],
@@ -19438,7 +19071,7 @@
 		{
 			"name": "Araneo",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/SpiderS_Character_BP_Gauntlet.SpiderS_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Bog" ],
+			"variants": [ "Bog", "Gauntlet" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -19495,7 +19128,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Accent color",
 					"colors": [
@@ -19676,7 +19309,7 @@
 		{
 			"name": "Terror Bird",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/TerrorBird_Character_BP_Gauntlet.TerrorBird_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Bog" ],
+			"variants": [ "Bog", "Gauntlet" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -19968,7 +19601,7 @@
 		{
 			"name": "Beelzebufo",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Toad_Character_BP_Gauntlet.Toad_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Bog" ],
+			"variants": [ "Bog", "Gauntlet" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -20046,8 +19679,8 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -20109,7 +19742,7 @@
 		{
 			"name": "Poison Wyvern",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Wyvern_Character_BP_Poison_Gauntlet.Wyvern_Character_BP_Poison_Gauntlet",
-			"variants": [ "Gauntlet", "Bog" ],
+			"variants": [ "Bog", "Gauntlet" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -20939,7 +20572,7 @@
 		{
 			"name": "Attack Drone",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Lunar/EndDrone_Character_BP_Gauntlet.EndDrone_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Lunar", "Boss" ],
+			"variants": [ "Boss", "Gauntlet", "Lunar" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -20983,7 +20616,7 @@
 		{
 			"name": "Defense Unit",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Lunar/EndTank_Character_BP_Gauntlet.EndTank_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Lunar", "Boss" ],
+			"variants": [ "Boss", "Gauntlet", "Lunar" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -21064,7 +20697,7 @@
 						"WyvernBlue1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Spots",
 					"colors": [
@@ -21860,7 +21493,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -21964,8 +21597,8 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -22059,9 +21692,9 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Underbelly",
 					"colors": [
@@ -22154,7 +21787,7 @@
 						"WyvernBlue1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Gradient",
 					"colors": [
@@ -22184,8 +21817,8 @@
 						"WyvernPurple0"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Tips",
 					"colors": [
@@ -22412,9 +22045,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Stripes",
 					"colors": [
@@ -22525,9 +22158,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -23105,7 +22738,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -23263,7 +22896,7 @@
 						"WyvernPurple0"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -23861,7 +23494,7 @@
 						"WyvernPurple0"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -24397,8 +24030,8 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -24497,9 +24130,9 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -24617,7 +24250,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -24642,7 +24275,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -24755,7 +24388,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -24780,7 +24413,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -24847,7 +24480,7 @@
 		{
 			"name": "Brute Ferox",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Arctic/Shapeshifter_Large_Character_BP_Hunt.Shapeshifter_Large_Character_BP_Hunt",
-			"variants": [ "Hunt", "Snow" ],
+			"variants": [ "Hunt", "Large", "Snow" ],
 			"fullStatsRaw": [
 				[ 3900, 0.3, 0.27, 0.5, 0 ],
 				[ 900, 0.1, 0.1, 0, 0 ],
@@ -25014,7 +24647,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Spots",
 					"colors": [
@@ -25055,7 +24688,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Main body",
 					"colors": [
@@ -25473,7 +25106,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -25498,7 +25131,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -25523,7 +25156,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null }
+				null
 			],
 			"taming": {
 				"nonViolent": false,
@@ -25593,7 +25226,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -25618,7 +25251,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -25643,7 +25276,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null }
+				null
 			],
 			"taming": {
 				"nonViolent": false,
@@ -25667,7 +25300,7 @@
 		{
 			"name": "Baryonyx",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Bog/Baryonyx_Character_BP_Hunt.Baryonyx_Character_BP_Hunt",
-			"variants": [ "Hunt", "Bog" ],
+			"variants": [ "Bog", "Hunt" ],
 			"fullStatsRaw": [
 				[ 440, 0.2, 0.27, 0.5, 0 ],
 				[ 325, 0.1, 0.1, 0, 0 ],
@@ -25767,7 +25400,7 @@
 		{
 			"name": "Brute Bloodstalker",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Bog/BogSpider_Character_BP_Hunt.BogSpider_Character_BP_Hunt",
-			"variants": [ "Hunt", "Bog" ],
+			"variants": [ "Bog", "Hunt" ],
 			"fullStatsRaw": [
 				[ 2600, 0.3, 0.27, 0.5, 0 ],
 				[ 550, 0.1, 0.1, 0, 0 ],
@@ -25837,7 +25470,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Arms",
 					"colors": [
@@ -25888,7 +25521,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null }
+				null
 			],
 			"taming": {
 				"nonViolent": false,
@@ -25911,7 +25544,7 @@
 		{
 			"name": "Brute X-Raptor",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Bog/Bog_Raptor_Character_BP_Hunt.Bog_Raptor_Character_BP_Hunt",
-			"variants": [ "Hunt", "Bog" ],
+			"variants": [ "Bog", "Hunt" ],
 			"fullStatsRaw": [
 				[ 820, 0.3, 0.27, 0.5, 0 ],
 				[ 250, 0.1, 0.1, 0, 0 ],
@@ -26104,7 +25737,7 @@
 		{
 			"name": "X-Raptor",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Bog/Bog_Raptor_Character_BP_Hunt_Secondary.Bog_Raptor_Character_BP_Hunt_Secondary",
-			"variants": [ "Hunt", "Bog" ],
+			"variants": [ "Bog", "Hunt" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -26297,7 +25930,7 @@
 		{
 			"name": "Brute X-Spino",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Bog/Bog_Spino_Character_BP_Hunt.Bog_Spino_Character_BP_Hunt",
-			"variants": [ "Hunt", "Bog" ],
+			"variants": [ "Bog", "Hunt" ],
 			"fullStatsRaw": [
 				[ 3200, 0.3, 0.27, 0.5, 0 ],
 				[ 700, 0.1, 0.1, 0, 0 ],
@@ -26345,7 +25978,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Spots",
 					"colors": [
@@ -26464,7 +26097,7 @@
 		{
 			"name": "Dimetrodon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Bog/Dimetro_Character_BP_Hunt.Dimetro_Character_BP_Hunt",
-			"variants": [ "Hunt", "Bog" ],
+			"variants": [ "Bog", "Hunt" ],
 			"fullStatsRaw": [
 				[ 350, 0.2, 0.27, 0.65, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -26598,7 +26231,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null }
+				null
 			],
 			"taming": {
 				"nonViolent": false,
@@ -26617,7 +26250,7 @@
 		{
 			"name": "Brute Sarco",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Bog/Sarco_Character_BP_Hunt.Sarco_Character_BP_Hunt",
-			"variants": [ "Hunt", "Bog" ],
+			"variants": [ "Bog", "Hunt" ],
 			"fullStatsRaw": [
 				[ 2700, 0.3, 0.27, 0.65, 0 ],
 				[ 450, 0.1, 0.1, 0, 0 ],
@@ -26683,7 +26316,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Accent color",
 					"colors": [
@@ -26864,7 +26497,7 @@
 		{
 			"name": "Sarco",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Bog/Sarco_Character_BP_Hunt_Secondary.Sarco_Character_BP_Hunt_Secondary",
-			"variants": [ "Hunt", "Bog" ],
+			"variants": [ "Bog", "Hunt" ],
 			"fullStatsRaw": [
 				[ 400, 0.2, 0.27, 0.65, 0 ],
 				[ 450, 0.1, 0.1, 0, 0 ],
@@ -26930,7 +26563,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Accent color",
 					"colors": [
@@ -27111,7 +26744,7 @@
 		{
 			"name": "Brute Araneo",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Bog/SpiderS_Character_BP_Hunt.SpiderS_Character_BP_Hunt",
-			"variants": [ "Hunt", "Bog" ],
+			"variants": [ "Bog", "Hunt" ],
 			"fullStatsRaw": [
 				[ 1850, 0.2, 0.405, 0.5, 0 ],
 				[ 250, 0.1, 0.1, 0, 0 ],
@@ -27145,7 +26778,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -27792,9 +27425,9 @@
 					"name": "Unknown",
 					"colors": [ "White" ]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [ "White" ]
@@ -27852,9 +27485,9 @@
 						"WyvernPurple0"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Body Spots",
 					"colors": [
@@ -28356,7 +27989,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Secondary color",
 					"colors": [
@@ -28521,8 +28154,8 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Secondary color",
 					"colors": [
@@ -28789,8 +28422,8 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -28888,7 +28521,7 @@
 						"WyvernBlue1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Gradient",
 					"colors": [
@@ -28918,8 +28551,8 @@
 						"WyvernPurple0"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Tips",
 					"colors": [
@@ -29020,7 +28653,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -29353,7 +28986,7 @@
 						"WyvernPurple0"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -29733,7 +29366,7 @@
 						"WyvernPurple0"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -29798,7 +29431,7 @@
 		{
 			"name": "Bloodstalker",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Race/BogSpider_Character_BP_Race.BogSpider_Character_BP_Race",
-			"variants": [ "Race" ],
+			"variants": [ "Bog", "Race" ],
 			"fullStatsRaw": [
 				[ 450, 0.2, 0.27, 0.5, 0 ],
 				[ 600, 0.1, 0.1, 0, 0 ],
@@ -29868,7 +29501,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Arms",
 					"colors": [
@@ -29919,7 +29552,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null }
+				null
 			],
 			"taming": {
 				"nonViolent": true,
@@ -29997,8 +29630,8 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -30108,7 +29741,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -30438,9 +30071,9 @@
 						"Dino Light Yellow"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -30489,7 +30122,7 @@
 		{
 			"name": "X-Sabertooth",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Race/RaceSnow_Saber_Character_BP.RaceSnow_Saber_Character_BP",
-			"variants": [ "Race" ],
+			"variants": [ "Race", "Snow" ],
 			"fullStatsRaw": [
 				[ 1000, 0.2, 0.27, 0.5, 0 ],
 				[ 1000, 0.1, 0.1, 0, 0 ],
@@ -30526,7 +30159,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Spots",
 					"colors": [
@@ -30567,7 +30200,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Main body",
 					"colors": [
@@ -30611,7 +30244,7 @@
 		{
 			"name": "X-Woolly Rhino",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Race/Snow_Rhino_Character_BP_Race.Snow_Rhino_Character_BP_Race",
-			"variants": [ "Race" ],
+			"variants": [ "Race", "Snow" ],
 			"fullStatsRaw": [
 				[ 500, 0.2, 0.27, 0.5, 0 ],
 				[ 120, 0.1, 0.1, 0, 0 ],
@@ -30772,39 +30405,6 @@
 			"displayedStats": 927
 		},
 		{
-			"name": "Hover Skiff",
-			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Race/TekHoverSkiff_Character_BP_Race.TekHoverSkiff_Character_BP_Race",
-			"variants": [ "Race" ],
-			"fullStatsRaw": [
-				[ 10000, 0, 0, 0.5, 0 ],
-				null,
-				[ 100, 0.06, 0, 0.5, 0 ],
-				null,
-				null,
-				null,
-				null,
-				[ 16000, 0, 0, 0, 0 ],
-				null,
-				null,
-				null,
-				null
-			],
-			"immobilizedBy": [ "Large Bear Trap" ],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 2000,
-				"affinityNeeded0": 10000,
-				"affinityIncreasePL": 5,
-				"foodConsumptionBase": 0.01,
-				"foodConsumptionMult": 0.05
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
-			"displayedStats": 129
-		},
-		{
 			"name": "Carnotaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Arctic/Carno_Character_BP_Retrieve.Carno_Character_BP_Retrieve",
 			"variants": [ "Retrieve", "Snow" ],
@@ -30868,8 +30468,8 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -30958,7 +30558,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Top Highlights",
 					"colors": [
@@ -30974,8 +30574,8 @@
 						"NearBlack"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Body Main",
 					"colors": [
@@ -31048,7 +30648,7 @@
 					"name": "Unknown",
 					"colors": [ "White" ]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [ "White" ]
@@ -31119,9 +30719,9 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -31388,7 +30988,7 @@
 					"name": "Unknown",
 					"colors": [ "White" ]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [ "White" ]
@@ -31470,7 +31070,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Back",
 					"colors": [
@@ -31595,7 +31195,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Spots",
 					"colors": [
@@ -31636,7 +31236,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Main body",
 					"colors": [
@@ -31843,7 +31443,7 @@
 		{
 			"name": "Titanoboa",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Bog/BoaFrill_Character_BP_Retrieve.BoaFrill_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Bog" ],
+			"variants": [ "Bog", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 170, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -31987,7 +31587,7 @@
 		{
 			"name": "X-Raptor",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Bog/Bog_Raptor_Character_BP_Retrieve.Bog_Raptor_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Bog" ],
+			"variants": [ "Bog", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -32180,7 +31780,7 @@
 		{
 			"name": "X-Spino",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Bog/Bog_Spino_Character_BP_Retrieve.Bog_Spino_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Bog" ],
+			"variants": [ "Bog", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 700, 0.2, 0.27, 0.5, 0 ],
 				[ 350, 0.1, 0.1, 0, 0 ],
@@ -32228,7 +31828,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Spots",
 					"colors": [
@@ -32347,7 +31947,7 @@
 		{
 			"name": "Dilophosaur",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Bog/Dilo_Character_BP_Retrieve.Dilo_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Bog" ],
+			"variants": [ "Bog", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 130, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -32488,7 +32088,7 @@
 		{
 			"name": "Kaprosuchus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Bog/Kaprosuchus_Character_BP_Retrieve.Kaprosuchus_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Bog" ],
+			"variants": [ "Bog", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.5, 0 ],
 				[ 350, 0.1, 0.1, 0, 0 ],
@@ -32590,7 +32190,7 @@
 		{
 			"name": "Sarco",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Bog/Sarco_Character_BP_Retrieve.Sarco_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Bog" ],
+			"variants": [ "Bog", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 400, 0.2, 0.27, 0.65, 0 ],
 				[ 450, 0.1, 0.1, 0, 0 ],
@@ -32630,7 +32230,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -32705,7 +32305,7 @@
 		{
 			"name": "Araneo",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Bog/SpiderS_Character_BP_Retrieve.SpiderS_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Bog" ],
+			"variants": [ "Bog", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 150, 0.2, 0.135, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -32739,7 +32339,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -32825,7 +32425,7 @@
 		{
 			"name": "Malfunctioned Tek Parasaur",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Lunar/BionicPara_Character_BP_Malfunctioned_Retrieve.BionicPara_Character_BP_Malfunctioned_Retrieve",
-			"variants": [ "Retrieve", "Lunar" ],
+			"variants": [ "Lunar", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.5, 0 ],
 				[ 450, 0.1, 0.1, 0, 0 ],
@@ -32897,7 +32497,7 @@
 		{
 			"name": "Malfunctioned Tek Quetzal",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Lunar/BionicQuetz_Character_BP_Malfunctioned_Retrieve.BionicQuetz_Character_BP_Malfunctioned_Retrieve",
-			"variants": [ "Retrieve", "Lunar" ],
+			"variants": [ "Lunar", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -32967,7 +32567,7 @@
 		{
 			"name": "Malfunctioned Tek Raptor",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Lunar/BionicRaptor_Character_BP_Malfunctioned_Retrieve.BionicRaptor_Character_BP_Malfunctioned_Retrieve",
-			"variants": [ "Retrieve", "Lunar" ],
+			"variants": [ "Lunar", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -33040,7 +32640,7 @@
 		{
 			"name": "Malfunctioned Tek Rex",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Lunar/BionicRex_Character_BP_Malfunctioned_Retrieve.BionicRex_Character_BP_Malfunctioned_Retrieve",
-			"variants": [ "Retrieve", "Lunar" ],
+			"variants": [ "Lunar", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 1100, 0.2, 0.27, 0.5, 0 ],
 				[ 420, 0.1, 0.1, 0, 0 ],
@@ -33108,7 +32708,7 @@
 		{
 			"name": "Malfunctioned Tek Stegosaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Lunar/BionicStego_Character_BP_Malfunctioned_Retrieve.BionicStego_Character_BP_Malfunctioned_Retrieve",
-			"variants": [ "Retrieve", "Lunar" ],
+			"variants": [ "Lunar", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 650, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -33186,7 +32786,7 @@
 		{
 			"name": "Malfunctioned Tek Triceratops",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Lunar/BionicTrike_Character_BP_Malfunctioned_Retrieve.BionicTrike_Character_BP_Malfunctioned_Retrieve",
-			"variants": [ "Retrieve", "Lunar" ],
+			"variants": [ "Lunar", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 375, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -33258,7 +32858,7 @@
 		{
 			"name": "Seeker",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Lunar/Pteroteuthis_Char_BP_Retrieve.Pteroteuthis_Char_BP_Retrieve",
-			"variants": [ "Retrieve", "Lunar" ],
+			"variants": [ "Lunar", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 250, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -33352,7 +32952,7 @@
 		{
 			"name": "Cnidaria",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Ocean/Cnidaria_Character_BP_Retrieve.Cnidaria_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Ocean" ],
+			"variants": [ "Ocean", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 180, 0.2, 0.27, 0.5, 0 ],
 				[ 120, 0.1, 0.1, 0, 0 ],
@@ -33385,7 +32985,7 @@
 		{
 			"name": "Electrophorus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Ocean/Eel_Character_BP_Retrieve.Eel_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Ocean" ],
+			"variants": [ "Ocean", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 180, 0.2, 0.27, -0.2, 0 ],
 				[ 165, 0.1, 0.1, 0, 0 ],
@@ -33501,7 +33101,7 @@
 		{
 			"name": "Leedsichthys",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Ocean/Leedsichthys_Character_BP_Retrieve.Leedsichthys_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Ocean" ],
+			"variants": [ "Ocean", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 4400, 0.12, 0.243, 0.3, 0 ],
 				[ 500, 0.1, 0.1, 0, 0 ],
@@ -33533,9 +33133,9 @@
 						"WyvernBlue1"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Body Highlights",
 					"colors": [
@@ -33581,7 +33181,7 @@
 		{
 			"name": "Liopleurodon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Ocean/Liopleurodon_Character_BP_Retrieve.Liopleurodon_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Ocean" ],
+			"variants": [ "Ocean", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 1800, 0.2, 0.27, 0.3, 0 ],
 				[ 800, 0.1, 0.1, 0, 0 ],
@@ -33612,9 +33212,9 @@
 						"WyvernPurple0"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Body Spots",
 					"colors": [
@@ -33661,7 +33261,7 @@
 		{
 			"name": "Manta",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Ocean/Manta_Character_BP_Retrieve.Manta_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Ocean" ],
+			"variants": [ "Ocean", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 320, 0.05, 0.0675, 0.5, 0 ],
 				[ 270, 0.2, 0.2, 0, 0 ],
@@ -33790,7 +33390,7 @@
 		{
 			"name": "Golden Striped Megalodon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Ocean/Ocean_Megalodon_Character_BP_Retrieve.Ocean_Megalodon_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Ocean" ],
+			"variants": [ "Ocean", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 600, 0.2, 0.27, 0.3, 0 ],
 				[ 320, 0.1, 0.1, 0, 0 ],
@@ -33856,7 +33456,7 @@
 		{
 			"name": "X-Megalodon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Ocean/Ocean_Megalodon_Character_BP_RetrieveNonTarget.Ocean_Megalodon_Character_BP_RetrieveNonTarget",
-			"variants": [ "Retrieve", "Ocean" ],
+			"variants": [ "Ocean", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 600, 0.2, 0.27, 0.3, 0 ],
 				[ 320, 0.1, 0.1, 0, 0 ],
@@ -34020,7 +33620,7 @@
 		{
 			"name": "Golden Striped Brute Megalodon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Ocean/Ocean_Megalodon_Character_BP_Retrieve_Brute.Ocean_Megalodon_Character_BP_Retrieve_Brute",
-			"variants": [ "Retrieve", "Ocean" ],
+			"variants": [ "Ocean", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 2600, 0.3, 0.27, 0.3, 0 ],
 				[ 640, 0.1, 0.1, 0, 0 ],
@@ -34086,7 +33686,7 @@
 		{
 			"name": "X-Mosasaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Ocean/Ocean_Mosa_Character_BP_Retrieve.Ocean_Mosa_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Ocean" ],
+			"variants": [ "Ocean", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 3600, 0.12, 0.21, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -34252,7 +33852,7 @@
 		{
 			"name": "Plesiosaur",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Ocean/Plesiosaur_Character_BP_Retrieve.Plesiosaur_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Ocean" ],
+			"variants": [ "Ocean", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 2400, 0.12, 0.162, 0.16, 0 ],
 				[ 800, 0.1, 0.1, 0, 0 ],
@@ -34320,7 +33920,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -34367,7 +33967,7 @@
 		{
 			"name": "Tusoteuthis",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Ocean/Tusoteuthis_Character_BP_Retrieve.Tusoteuthis_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Ocean" ],
+			"variants": [ "Ocean", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 2700, 0.2, 0.2025, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -34422,8 +34022,8 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Tentacle Main",
 					"colors": [
@@ -34515,7 +34115,7 @@
 						"White"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -34912,7 +34512,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -35000,7 +34600,7 @@
 						"WyvernBlue1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Gradient",
 					"colors": [
@@ -35030,8 +34630,8 @@
 						"WyvernPurple0"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Tips",
 					"colors": [
@@ -35123,9 +34723,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -35468,7 +35068,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -35777,7 +35377,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -35935,7 +35535,7 @@
 						"WyvernPurple0"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -36106,7 +35706,7 @@
 						"WyvernPurple0"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -36643,7 +36243,7 @@
 						"WyvernBlue1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Spots",
 					"colors": [
@@ -36739,6 +36339,7 @@
 		{
 			"name": "Ferox",
 			"blueprintPath": "/Game/Genesis/Dinos/Shapeshifter/Shapeshifter_Large/Shapeshifter_Large_Character_BP.Shapeshifter_Large_Character_BP",
+			"variants": [ "Large" ],
 			"fullStatsRaw": [
 				[ 1100, 0.2, 0.27, 0.5, 0 ],
 				[ 1000, 0.1, 0.1, 0, 0 ],
@@ -36861,6 +36462,7 @@
 		{
 			"name": "Ferox",
 			"blueprintPath": "/Game/Genesis/Dinos/Shapeshifter/Shapeshifter_Small/Shapeshifter_Small_Character_BP.Shapeshifter_Small_Character_BP",
+			"variants": [ "Small" ],
 			"fullStatsRaw": [
 				[ 55, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -37171,9 +36773,9 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Highlights",
 					"colors": [
@@ -37273,9 +36875,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -37345,75 +36947,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Hover Skiff",
-			"blueprintPath": "/Game/Genesis/Dinos/TEKHoverSkiff/TekHoverSkiff_Character_BP.TekHoverSkiff_Character_BP",
-			"fullStatsRaw": [
-				[ 10000, 0, 0, 0.5, 0 ],
-				null,
-				[ 100, 0.06, 0, 0.5, 0 ],
-				null,
-				null,
-				null,
-				null,
-				[ 16000, 0, 0, 0, 0 ],
-				null,
-				null,
-				null,
-				null
-			],
-			"immobilizedBy": [ "Large Bear Trap" ],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 2000,
-				"affinityNeeded0": 10000,
-				"affinityIncreasePL": 5,
-				"foodConsumptionBase": 0.01,
-				"foodConsumptionMult": 0.05
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
-			"displayedStats": 129
-		},
-		{
-			"name": "Cruise Missile",
-			"blueprintPath": "/Game/Genesis/Weapons/CruiseMissile/TekCruiseMissile_Character_BP.TekCruiseMissile_Character_BP",
-			"fullStatsRaw": [
-				[ 0.0001, 0.075, 0, 0.5, 0 ],
-				[ 90, 2, 0, 0, 0 ],
-				[ 0, 0.06, 0, 0.5, 0 ],
-				[ 0, 0, 0, 0, 0 ],
-				[ 7, 0.5, 0, 0, 0.15 ],
-				null,
-				null,
-				[ 0, 0, 0, 0, 0 ],
-				[ 1, 0, 0, 0.5, 0.4 ],
-				[ 1.5, 0.008, 0, 0.365, 0 ],
-				null,
-				[ 25001, 300, 0, 0, 0 ]
-			],
-			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
-			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 3.125,
-				"affinityNeeded0": 2200,
-				"affinityIncreasePL": 100,
-				"foodConsumptionBase": 0.001543,
-				"foodConsumptionMult": 216.0294
-			},
-			"boneDamageAdjusters": { "c_head": 3 },
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
-			"displayedStats": 927
-		},
-		{
-			"name": "Dragon (Gamma)",
+			"name": "Dragon",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Bosses/Dragon_Character_BP_Boss_Easy_Ragnarok.Dragon_Character_BP_Boss_Easy_Ragnarok",
-			"variants": [ "Boss", "Easy" ],
+			"variants": [ "Boss", "Gamma", "Ragnarok" ],
 			"fullStatsRaw": [
 				[ 432000, 0.2, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -37444,9 +36980,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Dragon (Alpha)",
+			"name": "Dragon",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Bosses/Dragon_Character_BP_Boss_Hard_Ragnarok.Dragon_Character_BP_Boss_Hard_Ragnarok",
-			"variants": [ "Boss", "Hard" ],
+			"variants": [ "Alpha", "Boss", "Ragnarok" ],
 			"fullStatsRaw": [
 				[ 972000, 0.25, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -37477,9 +37013,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Dragon (Beta)",
+			"name": "Dragon",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Bosses/Dragon_Character_BP_Boss_Medium_Ragnarok.Dragon_Character_BP_Boss_Medium_Ragnarok",
-			"variants": [ "Boss", "Medium" ],
+			"variants": [ "Beta", "Boss", "Ragnarok" ],
 			"fullStatsRaw": [
 				[ 864000.062, 0.2, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -37512,6 +37048,7 @@
 		{
 			"name": "Griffin",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Bosses/Griffin_Character_Minion_BP.Griffin_Character_Minion_BP",
+			"variants": [ "Minion", "Ragnarok" ],
 			"fullStatsRaw": [
 				[ 950, 0.15, 0.216, -900, 0 ],
 				[ 225, 0.05, 0.06, 0, 0 ],
@@ -37605,6 +37142,7 @@
 		{
 			"name": "Dire Bear",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Bosses/LifeLabyrinth/Bear/Direbear_LL_Character_BP.Direbear_LL_Character_BP",
+			"variants": [ "LifeLabyrinth", "Ragnarok" ],
 			"fullStatsRaw": [
 				[ 400, 0.2, 0.27, 0.5, 0 ],
 				[ 500, 0.1, 0.1, 0, 0 ],
@@ -37662,7 +37200,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -37733,6 +37271,7 @@
 		{
 			"name": "Megaloceros",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Bosses/LifeLabyrinth/Elk/Stag_LL_Character_BP.Stag_LL_Character_BP",
+			"variants": [ "LifeLabyrinth", "Ragnarok" ],
 			"fullStatsRaw": [
 				[ 300, 0.2, 0.27, 0.5, 0 ],
 				[ 280, 0.1, 0.1, 0, 0 ],
@@ -37773,7 +37312,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -37791,7 +37330,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -37809,7 +37348,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null }
+				null
 			],
 			"taming": {
 				"nonViolent": false,
@@ -37834,6 +37373,7 @@
 		{
 			"name": "Direwolf",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Bosses/LifeLabyrinth/Wolf/Direwolf_LL_Character_BP.Direwolf_LL_Character_BP",
+			"variants": [ "LifeLabyrinth", "Ragnarok" ],
 			"fullStatsRaw": [
 				[ 330, 0.2, 0.27, 0.66, 0 ],
 				[ 260, 0.1, 0.1, 0, 0 ],
@@ -37873,9 +37413,9 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -37929,9 +37469,9 @@
 			"displayedStats": 927
 		},
 		{
-			"name": "Manticore (Gamma)",
+			"name": "Manticore",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Bosses/Manticore_Character_BP_Easy_Ragnarok.Manticore_Character_BP_Easy_Ragnarok",
-			"variants": [ "Boss", "Easy" ],
+			"variants": [ "Boss", "Gamma", "Ragnarok" ],
 			"fullStatsRaw": [
 				[ 100000, 0.2, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -37962,9 +37502,9 @@
 			"displayedStats": 927
 		},
 		{
-			"name": "Manticore (Alpha)",
+			"name": "Manticore",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Bosses/Manticore_Character_BP_Hard_Ragnarok.Manticore_Character_BP_Hard_Ragnarok",
-			"variants": [ "Boss", "Hard" ],
+			"variants": [ "Alpha", "Boss", "Ragnarok" ],
 			"fullStatsRaw": [
 				[ 160000, 0.3, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -37995,9 +37535,9 @@
 			"displayedStats": 927
 		},
 		{
-			"name": "Manticore (Beta)",
+			"name": "Manticore",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Bosses/Manticore_Character_BP_Medium_Ragnarok.Manticore_Character_BP_Medium_Ragnarok",
-			"variants": [ "Boss", "Medium" ],
+			"variants": [ "Beta", "Boss", "Ragnarok" ],
 			"fullStatsRaw": [
 				[ 130000, 0.25, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -38030,6 +37570,7 @@
 		{
 			"name": "Dire Polar Bear",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Dinos/Polar_Bear/Polar_Bear.Polar_Bear",
+			"variants": [ "Ragnarok" ],
 			"fullStatsRaw": [
 				[ 400, 0.2, 0.27, 0.5, 0 ],
 				[ 500, 0.1, 0.1, 0, 0 ],
@@ -38070,6 +37611,7 @@
 		{
 			"name": "Ice Wyvern",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Dinos/Wyvern/Ice_Wyvern/Ragnarok_Wyvern_Override_Ice.Ragnarok_Wyvern_Override_Ice",
+			"variants": [ "Ragnarok" ],
 			"fullStatsRaw": [
 				[ 1725, 0.15, 0.2025, -1050, 0 ],
 				[ 275, 0.05, 0.05, 0, 0 ],
@@ -38190,6 +37732,7 @@
 		{
 			"name": "Fire Wyvern",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Dinos/Wyvern/Ragnarok_Wyvern_Override.Ragnarok_Wyvern_Override",
+			"variants": [ "Ragnarok" ],
 			"fullStatsRaw": [
 				[ 1725, 0.15, 0.2025, -1050, 0 ],
 				[ 275, 0.05, 0.05, 0, 0 ],
@@ -38232,6 +37775,7 @@
 		{
 			"name": "Iceworm Male",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/JacksonL/Iceworm/Iceworm_Character_Minion_BP_smaller.Iceworm_Character_Minion_BP_smaller",
+			"variants": [ "Minion", "Ragnarok" ],
 			"fullStatsRaw": [
 				[ 1700, 0.002, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -38264,6 +37808,7 @@
 		{
 			"name": "Iceworm Queen",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/JacksonL/Iceworm/Iceworm_Queen_Character_BP.Iceworm_Queen_Character_BP",
+			"variants": [ "Ragnarok" ],
 			"fullStatsRaw": [
 				[ 27000, 0.002, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -38296,6 +37841,7 @@
 		{
 			"name": "Lava Elemental",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/JacksonL/LavaGolem/LavaGolem_Character_BP.LavaGolem_Character_BP",
+			"variants": [ "Ragnarok" ],
 			"fullStatsRaw": [
 				[ 60000, 0.0125, 0.135, -22000, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -38346,9 +37892,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Dragon (Gamma)",
+			"name": "Dragon",
 			"blueprintPath": "/Game/Mods/Valguero/Assets/CoreBlueprints/Boss/Dragon_Character_BP_Boss_Easy.Dragon_Character_BP_Boss_Easy",
-			"variants": [ "Boss", "Easy" ],
+			"variants": [ "Boss", "Gamma", "Valguero" ],
 			"fullStatsRaw": [
 				[ 432000, 0.2, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -38379,9 +37925,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Dragon (Alpha)",
+			"name": "Dragon",
 			"blueprintPath": "/Game/Mods/Valguero/Assets/CoreBlueprints/Boss/Dragon_Character_BP_Boss_Hard.Dragon_Character_BP_Boss_Hard",
-			"variants": [ "Boss", "Hard" ],
+			"variants": [ "Alpha", "Boss", "Valguero" ],
 			"fullStatsRaw": [
 				[ 972000, 0.25, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -38412,9 +37958,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Dragon (Beta)",
+			"name": "Dragon",
 			"blueprintPath": "/Game/Mods/Valguero/Assets/CoreBlueprints/Boss/Dragon_Character_BP_Boss_Medium.Dragon_Character_BP_Boss_Medium",
-			"variants": [ "Boss", "Medium" ],
+			"variants": [ "Beta", "Boss", "Valguero" ],
 			"fullStatsRaw": [
 				[ 864000.062, 0.2, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -38445,9 +37991,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Megapithecus (Gamma)",
+			"name": "Megapithecus",
 			"blueprintPath": "/Game/Mods/Valguero/Assets/CoreBlueprints/Boss/Gorilla_Character_BP_Easy.Gorilla_Character_BP_Easy",
-			"variants": [ "Boss", "Easy" ],
+			"variants": [ "Boss", "Gamma", "Valguero" ],
 			"fullStatsRaw": [
 				[ 180000, 0, 0, 0.3, 0 ],
 				[ 650, 0, 0, 0, 0 ],
@@ -38478,9 +38024,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Megapithecus (Alpha)",
+			"name": "Megapithecus",
 			"blueprintPath": "/Game/Mods/Valguero/Assets/CoreBlueprints/Boss/Gorilla_Character_BP_Hard.Gorilla_Character_BP_Hard",
-			"variants": [ "Boss", "Hard" ],
+			"variants": [ "Alpha", "Boss", "Valguero" ],
 			"fullStatsRaw": [
 				[ 540000, 0, 0, 0.3, 0 ],
 				[ 650, 0, 0, 0, 0 ],
@@ -38511,9 +38057,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Megapithecus (Beta)",
+			"name": "Megapithecus",
 			"blueprintPath": "/Game/Mods/Valguero/Assets/CoreBlueprints/Boss/Gorilla_Character_BP_Medium.Gorilla_Character_BP_Medium",
-			"variants": [ "Boss", "Medium" ],
+			"variants": [ "Beta", "Boss", "Valguero" ],
 			"fullStatsRaw": [
 				[ 396000, 0, 0, 0.3, 0 ],
 				[ 650, 0, 0, 0, 0 ],
@@ -38544,9 +38090,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Manticore (Gamma)",
+			"name": "Manticore",
 			"blueprintPath": "/Game/Mods/Valguero/Assets/CoreBlueprints/Boss/Manticore_Character_BP_Easy.Manticore_Character_BP_Easy",
-			"variants": [ "Boss", "Easy" ],
+			"variants": [ "Boss", "Gamma", "Valguero" ],
 			"fullStatsRaw": [
 				[ 100000, 0.2, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -38577,9 +38123,9 @@
 			"displayedStats": 927
 		},
 		{
-			"name": "Manticore (Alpha)",
+			"name": "Manticore",
 			"blueprintPath": "/Game/Mods/Valguero/Assets/CoreBlueprints/Boss/Manticore_Character_BP_Hard.Manticore_Character_BP_Hard",
-			"variants": [ "Boss", "Hard" ],
+			"variants": [ "Alpha", "Boss", "Valguero" ],
 			"fullStatsRaw": [
 				[ 160000, 0.3, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -38610,9 +38156,9 @@
 			"displayedStats": 927
 		},
 		{
-			"name": "Manticore (Beta)",
+			"name": "Manticore",
 			"blueprintPath": "/Game/Mods/Valguero/Assets/CoreBlueprints/Boss/Manticore_Character_BP_Medium.Manticore_Character_BP_Medium",
-			"variants": [ "Boss", "Medium" ],
+			"variants": [ "Beta", "Boss", "Valguero" ],
 			"fullStatsRaw": [
 				[ 130000, 0.25, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -38645,6 +38191,7 @@
 		{
 			"name": "Iceworm Male",
 			"blueprintPath": "/Game/Mods/Valguero/Assets/Dinos/IceWorm/Iceworm_Character_Minion_BP_smaller.Iceworm_Character_Minion_BP_smaller",
+			"variants": [ "Minion", "Valguero" ],
 			"fullStatsRaw": [
 				[ 1700, 0.002, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -38677,6 +38224,7 @@
 		{
 			"name": "Ice Wyvern",
 			"blueprintPath": "/Game/Mods/Valguero/Assets/Dinos/IceWyvern/Ragnarok_Wyvern_Override_Ice.Ragnarok_Wyvern_Override_Ice",
+			"variants": [ "Valguero" ],
 			"fullStatsRaw": [
 				[ 1725, 0.15, 0.2025, -1050, 0 ],
 				[ 275, 0.05, 0.05, 0, 0 ],
@@ -38797,6 +38345,7 @@
 		{
 			"name": "Dire Polar Bear",
 			"blueprintPath": "/Game/Mods/Valguero/Assets/Dinos/PolarBear/Polar_Bear.Polar_Bear",
+			"variants": [ "Valguero" ],
 			"fullStatsRaw": [
 				[ 400, 0.2, 0.27, 0.5, 0 ],
 				[ 500, 0.1, 0.1, 0, 0 ],
@@ -38837,6 +38386,7 @@
 		{
 			"name": "Chalk Golem",
 			"blueprintPath": "/Game/Mods/Valguero/Assets/Dinos/RockGolem/ChalkGolem/ChalkGolem_Character_BP.ChalkGolem_Character_BP",
+			"variants": [ "Valguero" ],
 			"fullStatsRaw": [
 				[ 25000, 0.0125, 0.135, -22000, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -38890,6 +38440,7 @@
 		{
 			"name": "Ice Golem",
 			"blueprintPath": "/Game/Mods/Valguero/Assets/Dinos/RockGolem/IceGolem/IceGolem_Character_BP.IceGolem_Character_BP",
+			"variants": [ "Valguero" ],
 			"fullStatsRaw": [
 				[ 25000, 0.0125, 0.135, -22000, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -38923,6 +38474,7 @@
 		{
 			"name": "Broodmother Lysrix",
 			"blueprintPath": "/Game/Mods/Valguero/Assets/Dinos/SpiderL/SpiderL_VAL_Character_BP.SpiderL_VAL_Character_BP",
+			"variants": [ "Valguero" ],
 			"fullStatsRaw": [
 				[ 324000, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -39002,7 +38554,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Shell Highlights",
 					"colors": [
@@ -39066,6 +38618,7 @@
 		{
 			"name": "Aberrant Achatina",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Achatina/Achatina_Character_BP_Aberrant.Achatina_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 75, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -39113,7 +38666,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -39529,9 +39082,9 @@
 						"Yellow"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -39591,6 +39144,7 @@
 		{
 			"name": "Aberrant Anglerfish",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Anglerfish/Angler_Character_BP_Aberrant.Angler_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 450, 0.2, 0.27, 0.3, 0 ],
 				[ 240, 0.1, 0.1, 0, 0 ],
@@ -39642,9 +39196,9 @@
 						"Yellow"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -39810,6 +39364,7 @@
 		{
 			"name": "Aberrant Ankylosaurus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Ankylo/Ankylo_Character_BP_Aberrant.Ankylo_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 700, 0.2, 0.27, 0.5, 0 ],
 				[ 175, 0.1, 0.1, 0, 0 ],
@@ -39944,7 +39499,7 @@
 						"DragonBase1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -40039,7 +39594,7 @@
 						"DragonBase1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -40302,7 +39857,7 @@
 						"White"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Wing Tips",
 					"colors": [
@@ -40516,6 +40071,7 @@
 		{
 			"name": "Aberrant Arthropluera",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Arthropluera/Arthro_Character_BP_Aberrant.Arthro_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 500, 0.2, 0.27, 0.5, 0 ],
 				[ 200, 0.1, 0.1, 0, 0 ],
@@ -40755,6 +40311,7 @@
 		{
 			"name": "Aberrant Baryonyx",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Baryonyx/Baryonyx_Character_BP_Aberrant.Baryonyx_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 440, 0.2, 0.27, 0.5, 0 ],
 				[ 325, 0.1, 0.1, 0, 0 ],
@@ -40983,7 +40540,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Abdomen and Legs",
 					"colors": [
@@ -41203,7 +40760,7 @@
 						"DragonFire"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Legs Highlight",
 					"colors": [
@@ -41222,8 +40779,8 @@
 						"DragonFire"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "BodyDark",
 					"colors": [
@@ -41283,7 +40840,7 @@
 						"DragonBase1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -41392,9 +40949,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Fur Accent",
 					"colors": [
@@ -41453,6 +41010,7 @@
 		{
 			"name": "Aberrant Gigantopithecus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Bigfoot/Bigfoot_Character_BP_Aberrant.Bigfoot_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 640, 0.1, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -41493,9 +41051,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -41554,7 +41112,7 @@
 		{
 			"name": "Gigantopithecus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Bigfoot/Bigfoot_Character_BP_Aggressive.Bigfoot_Character_BP_Aggressive",
-			"variants": [ "Boss" ],
+			"variants": [ "Boss", "Gamma" ],
 			"fullStatsRaw": [
 				[ 640, 0.1, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -41595,9 +41153,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -41656,7 +41214,7 @@
 		{
 			"name": "Gigantopithecus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Bigfoot/Bigfoot_Character_BP_Aggressive_Hard.Bigfoot_Character_BP_Aggressive_Hard",
-			"variants": [ "Boss", "Hard" ],
+			"variants": [ "Alpha", "Boss" ],
 			"fullStatsRaw": [
 				[ 1920, 0.1, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -41697,9 +41255,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -41758,7 +41316,7 @@
 		{
 			"name": "Gigantopithecus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Bigfoot/Bigfoot_Character_BP_Aggressive_Med.Bigfoot_Character_BP_Aggressive_Med",
-			"variants": [ "Boss", "Medium" ],
+			"variants": [ "Beta", "Boss" ],
 			"fullStatsRaw": [
 				[ 1280, 0.1, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -41799,9 +41357,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -41887,9 +41445,9 @@
 					"name": "Unknown",
 					"colors": [ "White" ]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [ "White" ]
@@ -42065,6 +41623,7 @@
 		{
 			"name": "Aberrant Titanoboa",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/BoaFrill/BoaFrill_Character_BP_Aberrant.BoaFrill_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 170, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -42270,8 +41829,8 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Patterning",
 					"colors": [
@@ -42325,6 +41884,7 @@
 		{
 			"name": "Aberrant Carnotaurus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Carno/Carno_Character_BP_Aberrant.Carno_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 420, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -42385,8 +41945,8 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -42471,9 +42031,9 @@
 					"name": "Unknown",
 					"colors": [ "Black", "Dark Red", "Dino Albino", "Red" ]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [ "Black", "Dark Red", "Dino Albino", "Red" ]
@@ -42618,6 +42178,7 @@
 		{
 			"name": "Aberrant Cnidaria",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Cnidaria/Cnidaria_Character_BP_Aberrant.Cnidaria_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 180, 0.2, 0.27, 0.5, 0 ],
 				[ 120, 0.1, 0.1, 0, 0 ],
@@ -42692,9 +42253,9 @@
 						"Yellow"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -42753,6 +42314,7 @@
 		{
 			"name": "Abberant Coelacanth",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP_Aberrant.Coel_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 30, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -42795,9 +42357,9 @@
 						"Yellow"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -42856,6 +42418,7 @@
 		{
 			"name": "Coelacanth",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP_IceFishMission.Coel_Character_BP_IceFishMission",
+			"variants": [ "IceFishing" ],
 			"fullStatsRaw": [
 				[ 30, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -42898,9 +42461,9 @@
 						"Yellow"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -43002,9 +42565,9 @@
 						"Yellow"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -43102,8 +42665,8 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Feathers",
 					"colors": [
@@ -43225,7 +42788,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Top Highlights",
 					"colors": [
@@ -43241,8 +42804,8 @@
 						"NearBlack"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Body Main",
 					"colors": [
@@ -43558,7 +43121,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null }
+				null
 			],
 			"taming": {
 				"nonViolent": false,
@@ -43578,6 +43141,7 @@
 		{
 			"name": "Aberrant Dimetrodon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimetrodon/Dimetro_Character_BP_Aberrant.Dimetro_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 350, 0.2, 0.27, 0.65, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -43711,7 +43275,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null }
+				null
 			],
 			"taming": {
 				"nonViolent": false,
@@ -43774,9 +43338,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Face and Wing Membrane",
 					"colors": [
@@ -43849,6 +43413,7 @@
 		{
 			"name": "Aberrant Dimorphodon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP_Aberrant.Dimorph_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 125, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -43892,9 +43457,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -44010,9 +43575,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -44085,7 +43650,7 @@
 		{
 			"name": "Dimorphodon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP_Aggressive_DragonBoss.Dimorph_Character_BP_Aggressive_DragonBoss",
-			"variants": [ "Boss" ],
+			"variants": [ "Boss", "Gamma" ],
 			"fullStatsRaw": [
 				[ 264, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -44129,9 +43694,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -44204,7 +43769,7 @@
 		{
 			"name": "Dimorphodon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP_Aggressive_DragonBoss_Hard.Dimorph_Character_BP_Aggressive_DragonBoss_Hard",
-			"variants": [ "Boss", "Hard" ],
+			"variants": [ "Alpha", "Boss" ],
 			"fullStatsRaw": [
 				[ 792, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -44248,9 +43813,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -44323,7 +43888,7 @@
 		{
 			"name": "Dimorphodon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP_Aggressive_DragonBoss_Med.Dimorph_Character_BP_Aggressive_DragonBoss_Med",
-			"variants": [ "Boss", "Medium" ],
+			"variants": [ "Beta", "Boss" ],
 			"fullStatsRaw": [
 				[ 528, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -44367,9 +43932,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -44555,6 +44120,7 @@
 		{
 			"name": "Aberrant Diplocaulus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Diplocaulus/Diplocaulus_Character_BP_Aberrant.Diplocaulus_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 190, 0.2, 0.27, 0.5, 0 ],
 				[ 165, 0.1, 0.1, 0, 0 ],
@@ -44802,6 +44368,7 @@
 		{
 			"name": "Aberrant Diplodocus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Diplodocus/Diplodocus_Character_BP_Aberrant.Diplodocus_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 1700, 0.2, 0.27, 0.5, 0 ],
 				[ 550, 0.1, 0.1, 0, 0 ],
@@ -44993,7 +44560,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -45064,6 +44631,7 @@
 		{
 			"name": "Aberrant Dire Bear",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Direbear/Direbear_Character_BP_Aberrant.Direbear_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 400, 0.2, 0.27, 0.5, 0 ],
 				[ 500, 0.1, 0.1, 0, 0 ],
@@ -45121,7 +44689,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -45223,7 +44791,7 @@
 					"name": "Unknown",
 					"colors": [ "White" ]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [ "White" ]
@@ -45293,9 +44861,9 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Tail, Back, and Face",
 					"colors": [
@@ -45507,6 +45075,7 @@
 		{
 			"name": "Aberrant Dodo",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dodo/Dodo_Character_BP_Aberrant.Dodo_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 40, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -45722,8 +45291,8 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Shell Patterning",
 					"colors": [
@@ -45779,6 +45348,7 @@
 		{
 			"name": "Aberrant Doedicurus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Doedicurus/Doed_Character_BP_Aberrant.Doed_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 850, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -45838,8 +45408,8 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -45932,9 +45502,9 @@
 						"Dino Light Yellow"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Back and Fins",
 					"colors": [
@@ -45982,74 +45552,8 @@
 		},
 		{
 			"name": "Dragon",
-			"blueprintPath": "/Game/PrimalEarth/Dinos/Dragon/Dragon_Character_BP.Dragon_Character_BP",
-			"variants": [ "Boss" ],
-			"fullStatsRaw": [
-				[ 20000, 0.2, 0.2, 0.3, 0 ],
-				[ 400, 0.1, 0.1, 0, 0 ],
-				[ 350, 0.06, 0, 0.5, 0 ],
-				[ 2000, 0.1, 0.1, 0, 0 ],
-				[ 2600, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 3000, 0.02, 0.02, 0, 0 ],
-				[ 1, 0.05, 0.04, 0.3, 0.3 ],
-				[ 1, 0, 0, 0, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 1.5,
-				"affinityNeeded0": 8500,
-				"affinityIncreasePL": 150,
-				"foodConsumptionBase": 0.002066,
-				"foodConsumptionMult": 150
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
-			"displayedStats": 927
-		},
-		{
-			"name": "Dragon",
-			"blueprintPath": "/Game/PrimalEarth/Dinos/Dragon/Dragon_Character_BP_Boss.Dragon_Character_BP_Boss",
-			"variants": [ "Boss" ],
-			"fullStatsRaw": [
-				[ 240000, 0.2, 0.2, 0.3, 0 ],
-				[ 10000, 0.1, 0.1, 0, 0 ],
-				[ 350, 0.06, 0, 0.5, 0 ],
-				[ 2000, 0.1, 0.1, 0, 0 ],
-				[ 2600, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 4000, 0.02, 0.02, 0, 0 ],
-				[ 1, 0.05, 0.04, 0.3, 0.3 ],
-				[ 1, 0, 0, 0, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 1.5,
-				"affinityNeeded0": 8500,
-				"affinityIncreasePL": 150,
-				"foodConsumptionBase": 0.002066,
-				"foodConsumptionMult": 150
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
-			"displayedStats": 919
-		},
-		{
-			"name": "Dragon (Gamma)",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dragon/Dragon_Character_BP_Boss_Easy.Dragon_Character_BP_Boss_Easy",
-			"variants": [ "Boss", "Easy" ],
+			"variants": [ "Boss", "Gamma" ],
 			"fullStatsRaw": [
 				[ 432000, 0.2, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -46080,9 +45584,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Dragon (Alpha)",
+			"name": "Dragon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dragon/Dragon_Character_BP_Boss_Hard.Dragon_Character_BP_Boss_Hard",
-			"variants": [ "Boss", "Hard" ],
+			"variants": [ "Alpha", "Boss" ],
 			"fullStatsRaw": [
 				[ 972000, 0.25, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -46113,9 +45617,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Dragon (Beta)",
+			"name": "Dragon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dragon/Dragon_Character_BP_Boss_Medium.Dragon_Character_BP_Boss_Medium",
-			"variants": [ "Boss", "Medium" ],
+			"variants": [ "Beta", "Boss" ],
 			"fullStatsRaw": [
 				[ 864000.062, 0.2, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -46182,7 +45686,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -46261,6 +45765,7 @@
 		{
 			"name": "Aberrant Meganeura",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dragonfly/Dragonfly_Character_BP_Aberrant.Dragonfly_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 45, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -46295,7 +45800,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -46420,7 +45925,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Palps and Leg Patterning",
 					"colors": [
@@ -46487,6 +45992,7 @@
 		{
 			"name": "Aberrant Dung Beetle",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/DungBeetle/DungBeetle_Character_BP_Aberrant.DungBeetle_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.135, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -46533,7 +46039,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -46637,9 +46143,9 @@
 						"Dino Light Yellow"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Spots",
 					"colors": [
@@ -46804,6 +46310,7 @@
 		{
 			"name": "Aberrant Electrophorus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Eel/Eel_Character_BP_Aberrant.Eel_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 180, 0.2, 0.27, -0.2, 0 ],
 				[ 165, 0.1, 0.1, 0, 0 ],
@@ -46961,9 +46468,9 @@
 						"NearWhite"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Stripes",
 					"colors": [
@@ -47024,6 +46531,7 @@
 		{
 			"name": "Aberrant Equus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Equus/Equus_Character_BP_Aberrant.Equus_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 240, 0.2, 0.27, 0.5, 0 ],
 				[ 560, 0.1, 0.1, 0, 0 ],
@@ -47064,9 +46572,9 @@
 						"NearWhite"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Stripes",
 					"colors": [
@@ -47353,7 +46861,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -47698,9 +47206,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Back, Hands, and Feet",
 					"colors": [
@@ -47745,98 +47253,8 @@
 		},
 		{
 			"name": "Giganotosaurus",
-			"blueprintPath": "/Game/PrimalEarth/Dinos/Giganotosaurus/Gigant_Character_BP_Base.Gigant_Character_BP_Base",
-			"fullStatsRaw": [
-				[ 80000, 0.0005, 0.002, -63000, 0 ],
-				[ 400, 0.0005, 0.01, 0, 0 ],
-				[ 10000, 0.06, 0, 0, 0 ],
-				[ 150, 0.0025, 0.025, 0, 0 ],
-				[ 4000, 0.0025, 0.025, 0, 0 ],
-				null,
-				null,
-				[ 700, 0.01, 0.01, 0, 0 ],
-				[ 1, 0.05, 0.05, -0.8, 0 ],
-				[ 1, 0, 0.0031, 0, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [ "Large Bear Trap" ],
-			"breeding": {
-				"gestationTime": 0,
-				"incubationTime": 179985.601,
-				"eggTempMin": 43,
-				"eggTempMax": 44,
-				"maturationTime": 1010101.01,
-				"matingCooldownMin": 64800,
-				"matingCooldownMax": 172800
-			},
-			"colors": [
-				{
-					"name": "Unknown",
-					"colors": [
-						"Black",
-						"Dark Grey",
-						"Dino Dark Brown",
-						"Dino Dark Green",
-						"Dino Dark Red",
-						"Dino Dark Yellow",
-						"Dino Darker Grey",
-						"Dino Light Brown",
-						"Dino Light Green",
-						"Dino Light Yellow",
-						"Dino Medium Brown",
-						"Dino Medium Green",
-						"Light Grey"
-					]
-				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
-				{
-					"name": "Unknown",
-					"colors": [
-						"Black",
-						"Dino Dark Red",
-						"Dino Light Brown",
-						"Dino Light Green",
-						"Dino Light Yellow",
-						"Dino Medium Brown",
-						"Dino Medium Green",
-						"Light Grey"
-					]
-				},
-				{
-					"name": "Unknown",
-					"colors": [
-						"Black",
-						"Dark Grey",
-						"Dino Dark Brown",
-						"Dino Dark Green",
-						"Dino Dark Red",
-						"Dino Darker Grey",
-						"Dino Medium Brown",
-						"Dino Medium Green"
-					]
-				}
-			],
-			"taming": {
-				"nonViolent": false,
-				"violent": true,
-				"tamingIneffectiveness": 1.25,
-				"affinityNeeded0": 5000,
-				"affinityIncreasePL": 160,
-				"torporDepletionPS0": 120,
-				"foodConsumptionBase": 0.002314,
-				"foodConsumptionMult": 160.0563
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
-			"displayedStats": 927
-		},
-		{
-			"name": "Giganotosaurus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Giganotosaurus/Gigant_Character_BP_TekCave.Gigant_Character_BP_TekCave",
+			"variants": [ "TekCave" ],
 			"fullStatsRaw": [
 				[ 80000, 0.0005, 0.002, -63000, 0 ],
 				[ 400, 0.0005, 0.01, 0, 0 ],
@@ -47880,9 +47298,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -47926,41 +47344,8 @@
 		},
 		{
 			"name": "Megapithecus",
-			"blueprintPath": "/Game/PrimalEarth/Dinos/Gorilla/Gorilla_Character_BP.Gorilla_Character_BP",
-			"variants": [ "Boss" ],
-			"fullStatsRaw": [
-				[ 200000, 0, 0, 0.3, 0 ],
-				[ 650, 0, 0, 0, 0 ],
-				[ 350, 0.06, 0, 0.5, 0 ],
-				[ 2000, 0, 0, 0, 0 ],
-				[ 2600, 0, 0, 0, 0 ],
-				null,
-				null,
-				[ 4000, 0.02, 0.02, 0, 0 ],
-				[ 1, 0, 0, 0.3, 0.3 ],
-				[ 1, 0, 0, 0, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 1.5,
-				"affinityNeeded0": 8500,
-				"affinityIncreasePL": 150,
-				"foodConsumptionBase": 0.002066,
-				"foodConsumptionMult": 150
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
-			"displayedStats": 919
-		},
-		{
-			"name": "Megapithecus (Gamma)",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Gorilla/Gorilla_Character_BP_Easy.Gorilla_Character_BP_Easy",
-			"variants": [ "Boss", "Easy" ],
+			"variants": [ "Boss", "Gamma" ],
 			"fullStatsRaw": [
 				[ 180000, 0, 0, 0.3, 0 ],
 				[ 650, 0, 0, 0, 0 ],
@@ -47991,9 +47376,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Megapithecus (Alpha)",
+			"name": "Megapithecus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Gorilla/Gorilla_Character_BP_Hard.Gorilla_Character_BP_Hard",
-			"variants": [ "Boss", "Hard" ],
+			"variants": [ "Alpha", "Boss" ],
 			"fullStatsRaw": [
 				[ 540000, 0, 0, 0.3, 0 ],
 				[ 650, 0, 0, 0, 0 ],
@@ -48024,9 +47409,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Megapithecus (Beta)",
+			"name": "Megapithecus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Gorilla/Gorilla_Character_BP_Medium.Gorilla_Character_BP_Medium",
-			"variants": [ "Boss", "Medium" ],
+			"variants": [ "Beta", "Boss" ],
 			"fullStatsRaw": [
 				[ 396000, 0, 0, 0.3, 0 ],
 				[ 650, 0, 0, 0, 0 ],
@@ -48057,9 +47442,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Megapithecus (Gamma)",
+			"name": "Megapithecus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Gorilla/Gorilla_Character_BP_TheCenter.Gorilla_Character_BP_TheCenter",
-			"variants": [ "Boss" ],
+			"variants": [ "Boss", "Gamma", "TheCenter" ],
 			"fullStatsRaw": [
 				[ 144000, 0, 0, 0.3, 0 ],
 				[ 650, 0, 0, 0, 0 ],
@@ -48090,9 +47475,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Megapithecus (Alpha)",
+			"name": "Megapithecus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Gorilla/Gorilla_Character_BP_TheCenter_Hard.Gorilla_Character_BP_TheCenter_Hard",
-			"variants": [ "Boss", "Hard" ],
+			"variants": [ "Alpha", "Boss", "TheCenter" ],
 			"fullStatsRaw": [
 				[ 224000, 0, 0, 0.3, 0 ],
 				[ 650, 0, 0, 0, 0 ],
@@ -48123,9 +47508,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Megapithecus (Beta)",
+			"name": "Megapithecus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Gorilla/Gorilla_Character_BP_TheCenter_Medium.Gorilla_Character_BP_TheCenter_Medium",
-			"variants": [ "Boss", "Medium" ],
+			"variants": [ "Beta", "Boss", "TheCenter" ],
 			"fullStatsRaw": [
 				[ 160000, 0, 0, 0.3, 0 ],
 				[ 650, 0, 0, 0, 0 ],
@@ -48293,7 +47678,7 @@
 						"WyvernBlue1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Feet",
 					"colors": [
@@ -48312,7 +47697,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Back Highlights",
 					"colors": [
@@ -48404,9 +47789,9 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Body Highlights and spots",
 					"colors": [
@@ -48463,7 +47848,7 @@
 			"displayedStats": 927
 		},
 		{
-			"name": "Rock Elemental",
+			"name": "Ice Golem",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/IceGolem/IceGolem_Character_BP.IceGolem_Character_BP",
 			"fullStatsRaw": [
 				[ 25000, 0.0125, 0.135, -22000, 0 ],
@@ -48554,9 +47939,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
 				null,
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Facial Highlights",
 					"colors": [
@@ -48693,6 +48078,7 @@
 		{
 			"name": "Aberrant Iguanodon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Iguanodon/Iguanodon_Character_BP_Aberrant.Iguanodon_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 250, 0.2, 0.27, 0.5, 0 ],
 				[ 200, 0.1, 0.1, 0, 0 ],
@@ -48863,7 +48249,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Osteoderms",
 					"colors": [
@@ -48877,7 +48263,7 @@
 						"Dino Dark Yellow"
 					]
 				},
-				{ "name": null }
+				null
 			],
 			"taming": {
 				"nonViolent": false,
@@ -49221,9 +48607,9 @@
 					"name": "Main Body",
 					"colors": [ "Dino Albino" ]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Body Highlights",
 					"colors": [ "Dino Albino" ]
@@ -49281,9 +48667,9 @@
 						"WyvernBlue1"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Body Highlights",
 					"colors": [
@@ -49359,9 +48745,9 @@
 						"WyvernPurple0"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Body Spots",
 					"colors": [
@@ -49507,6 +48893,7 @@
 		{
 			"name": "Aberrant Lystrosaurus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Lystrosaurus/Lystro_Character_BP_Aberrant.Lystro_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 90, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -49691,7 +49078,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Tusks and Toes",
 					"colors": [
@@ -49703,7 +49090,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Fur Accent",
 					"colors": [
@@ -49853,6 +49240,7 @@
 		{
 			"name": "Aberrant Manta",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Manta/Manta_Character_BP_Aberrant.Manta_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 320, 0.05, 0.0675, 0.5, 0 ],
 				[ 270, 0.2, 0.2, 0, 0 ],
@@ -50027,9 +49415,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Stripes",
 					"colors": [
@@ -50095,6 +49483,7 @@
 		{
 			"name": "Aberrant Megalania",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Megalania/Megalania_Character_BP_Aberrant.Megalania_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 480, 0.2, 0.27, 0.5, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -50139,9 +49528,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Stripes",
 					"colors": [
@@ -50234,9 +49623,9 @@
 					"name": "Unknown",
 					"colors": [ "Black", "Dino Albino" ]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [ "Black", "Dark Red", "Dino Albino", "Red" ]
@@ -50300,9 +49689,9 @@
 						"Dino Light Yellow"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Stripes",
 					"colors": [
@@ -50395,9 +49784,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -50450,6 +49839,7 @@
 		{
 			"name": "Aberrant Megalosaurus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Megalosaurus/Megalosaurus_Character_BP_Aberrant.Megalosaurus_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 1025, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -50495,9 +49885,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -50550,6 +49940,7 @@
 		{
 			"name": "Megalosaurus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Megalosaurus/Megalosaurus_Character_BP_TekCave.Megalosaurus_Character_BP_TekCave",
+			"variants": [ "TekCave" ],
 			"fullStatsRaw": [
 				[ 1025, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -50595,9 +49986,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Feathers, Osteoderms, Patterning",
 					"colors": [
@@ -50690,10 +50081,10 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
+				null,
 				{
 					"name": "Feet and Hands",
 					"colors": [
@@ -50920,7 +50311,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Eye Markings",
 					"colors": [
@@ -50940,7 +50331,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Back, Lower Limbs, and Tail Tip",
 					"colors": [
@@ -50999,7 +50390,7 @@
 		{
 			"name": "Mesopithecus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Monkey/Monkey_Character_BP_Aggressive.Monkey_Character_BP_Aggressive",
-			"variants": [ "Boss" ],
+			"variants": [ "Boss", "Gamma" ],
 			"fullStatsRaw": [
 				[ 115, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -51040,7 +50431,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -51060,7 +50451,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -51119,7 +50510,7 @@
 		{
 			"name": "Mesopithecus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Monkey/Monkey_Character_BP_Aggressive_Hard.Monkey_Character_BP_Aggressive_Hard",
-			"variants": [ "Boss", "Hard" ],
+			"variants": [ "Alpha", "Boss" ],
 			"fullStatsRaw": [
 				[ 345, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -51160,7 +50551,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -51180,7 +50571,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -51239,7 +50630,7 @@
 		{
 			"name": "Mesopithecus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Monkey/Monkey_Character_BP_Aggressive_Med.Monkey_Character_BP_Aggressive_Med",
-			"variants": [ "Boss", "Medium" ],
+			"variants": [ "Beta", "Boss" ],
 			"fullStatsRaw": [
 				[ 230, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -51280,7 +50671,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -51300,7 +50691,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -51488,6 +50879,7 @@
 		{
 			"name": "Mosasaur",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Mosasaurus/Mosa_Character_BP_Cave.Mosa_Character_BP_Cave",
+			"variants": [ "Cave" ],
 			"fullStatsRaw": [
 				[ 3600, 0.12, 0.21, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -51675,6 +51067,7 @@
 		{
 			"name": "Alpha Mosasaur",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Mosasaurus/Mosa_Character_BP_Mega_Cave.Mosa_Character_BP_Mega_Cave",
+			"variants": [ "Cave" ],
 			"fullStatsRaw": [
 				[ 54000, 0.12, 0.21, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -51857,6 +51250,7 @@
 		{
 			"name": "Aberrant Moschops",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Moschops/Moschops_Character_BP_Aberrant.Moschops_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 375, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -52064,6 +51458,7 @@
 		{
 			"name": "Aberrant Otter",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Otter/Otter_Character_BP_Aberrant.Otter_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 40, 0.2, 0.27, 0.5, 0 ],
 				[ 180, 0.1, 0.1, 0, 0 ],
@@ -52250,7 +51645,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Patterning",
 					"colors": [
@@ -52344,8 +51739,8 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Spikes and Claws",
 					"colors": [
@@ -52456,7 +51851,7 @@
 						"DragonGreen1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -52472,7 +51867,7 @@
 						"DragonGreen1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -52921,6 +52316,7 @@
 		{
 			"name": "Aberrant Parasaur",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Para/Para_Character_BP_Aberrant.Para_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.5, 0 ],
 				[ 450, 0.1, 0.1, 0, 0 ],
@@ -53110,9 +52506,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Back",
 					"colors": [
@@ -53166,6 +52562,7 @@
 		{
 			"name": "Aberrant Paraceratherium",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Paraceratherium/Paracer_Character_BP_Aberrant.Paracer_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 1026, 0.2, 0.2025, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -53206,9 +52603,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -53329,7 +52726,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Back Fur",
 					"colors": [
@@ -53430,9 +52827,9 @@
 					]
 				},
 				null,
-				{ "name": null },
 				null,
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Skin and Wind/Tail Tips",
 					"colors": [
@@ -53508,9 +52905,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Spots 1",
 					"colors": [
@@ -53641,7 +53038,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -53699,6 +53096,7 @@
 		{
 			"name": "Aberrant Piranha",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Piranha/Piranha_Character_BP_Aberrant.Piranha_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 150, 0.2, 0.27, 0.5, 0 ],
 				[ 120, 0.1, 0.1, 0, 0 ],
@@ -53754,7 +53152,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -53812,6 +53210,7 @@
 		{
 			"name": "Piranha",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Piranha/Piranha_Character_BP_BreakNet.Piranha_Character_BP_BreakNet",
+			"variants": [ "BreakNet" ],
 			"fullStatsRaw": [
 				[ 150, 0.2, 0.27, 0.5, 0 ],
 				[ 120, 0.1, 0.1, 0, 0 ],
@@ -53867,7 +53266,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -53925,6 +53324,7 @@
 		{
 			"name": "Piranha",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Piranha/Piranha_Character_BP_IceFishMission.Piranha_Character_BP_IceFishMission",
+			"variants": [ "IceFishing" ],
 			"fullStatsRaw": [
 				[ 150, 0.2, 0.27, 0.5, 0 ],
 				[ 120, 0.1, 0.1, 0, 0 ],
@@ -53980,7 +53380,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -54105,7 +53505,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Back",
 					"colors": [
@@ -54451,7 +53851,7 @@
 		{
 			"name": "Pteranodon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Ptero/Ptero_Minion_Character_BP.Ptero_Minion_Character_BP",
-			"variants": [ "Boss Minion" ],
+			"variants": [ "Boss", "Gamma", "Minion" ],
 			"fullStatsRaw": [
 				[ 520, 0.2, 0.15, 0.5, 0 ],
 				[ 150, 0.05, 0.04, 0, 0 ],
@@ -54600,7 +54000,7 @@
 		{
 			"name": "Pteranodon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Ptero/Ptero_Minion_Character_Hard.Ptero_Minion_Character_Hard",
-			"variants": [ "Boss Minion", "Hard" ],
+			"variants": [ "Alpha", "Boss", "Minion" ],
 			"fullStatsRaw": [
 				[ 1560, 0.2, 0.15, 0.5, 0 ],
 				[ 150, 0.05, 0.04, 0, 0 ],
@@ -54749,7 +54149,7 @@
 		{
 			"name": "Pteranodon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Ptero/Ptero_Minion_Character_Med.Ptero_Minion_Character_Med",
-			"variants": [ "Boss Minion", "Medium" ],
+			"variants": [ "Beta", "Boss", "Minion" ],
 			"fullStatsRaw": [
 				[ 1040, 0.2, 0.15, 0.5, 0 ],
 				[ 150, 0.05, 0.04, 0, 0 ],
@@ -54982,6 +54382,7 @@
 		{
 			"name": "Aberrant Purlovia",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Purlovia/Purlovia_Character_BP_Aberrant.Purlovia_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 275, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -55093,7 +54494,7 @@
 					"name": "Unknown",
 					"colors": [ "White" ]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [ "White" ]
@@ -55775,12 +55176,12 @@
 					"name": "Unknown",
 					"colors": [ "Black", "Dark Red", "Dino Albino", "Dino Dark Orange" ]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [ "Black", "Dark Red", "Dino Albino", "Dino Dark Orange" ]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [ "Black", "Dark Red", "Dino Albino", "Dino Dark Orange" ]
@@ -55860,7 +55261,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Body",
 					"colors": [
@@ -55931,6 +55332,7 @@
 		{
 			"name": "Aberrant Raptor",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Raptor/Raptor_Character_BP_Aberrant.Raptor_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -55983,7 +55385,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -56120,18 +55522,7 @@
 						"NearBlack"
 					]
 				},
-				{
-					"name": "Body Limbs",
-					"colors": [
-						"Dino Light Blue",
-						"Dino Light Orange",
-						"Dino Light Purple",
-						"Dino Light Red",
-						"Dino Light Yellow",
-						"DragonBase0",
-						"None"
-					]
-				},
+				null,
 				{
 					"name": "Feathers main",
 					"colors": [
@@ -56609,22 +56000,8 @@
 						"Dino Medium Brown"
 					]
 				},
-				{ "name": null },
-				{
-					"name": "Ignore",
-					"colors": [
-						"Black",
-						"Dark Grey",
-						"Dino Albino",
-						"Dino Dark Brown",
-						"Dino Dark Green",
-						"Dino Dark Orange",
-						"Dino Dark Red",
-						"Dino Dark Yellow",
-						"Dino Darker Grey",
-						"Dino Medium Brown"
-					]
-				},
+				null,
+				null,
 				{
 					"name": "Back",
 					"colors": [
@@ -56709,9 +56086,9 @@
 						"Dino Medium Brown"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Mane and Face",
 					"colors": [
@@ -56772,6 +56149,7 @@
 		{
 			"name": "Aberrant Salmon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Salmon/Salmon_Character_Aberrant.Salmon_Character_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 65, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -56805,9 +56183,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -56893,9 +56271,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -56948,6 +56326,7 @@
 		{
 			"name": "Sabertooth Salmon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Salmon/Salmon_Character_BP_IceFishMission.Salmon_Character_BP_IceFishMission",
+			"variants": [ "IceFishing" ],
 			"fullStatsRaw": [
 				[ 65, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -56981,9 +56360,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -57036,6 +56415,7 @@
 		{
 			"name": "Sabertooth Salmon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Salmon/Salmon_Character_Rare_BP.Salmon_Character_Rare_BP",
+			"variants": [ "Rare" ],
 			"fullStatsRaw": [
 				[ 65, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -57069,9 +56449,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -57163,7 +56543,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Stripe, Face, and Tail",
 					"colors": [
@@ -57239,6 +56619,7 @@
 		{
 			"name": "Aberrant Sarco",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Sarco/Sarco_Character_BP_Aberrant.Sarco_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 400, 0.2, 0.27, 0.65, 0 ],
 				[ 450, 0.1, 0.1, 0, 0 ],
@@ -57278,7 +56659,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -57409,8 +56790,8 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Back",
 					"colors": [
@@ -57620,6 +57001,7 @@
 		{
 			"name": "Aberrant Pulmonoscorpius",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Scorpion/Scorpion_Character_BP_Aberrant.Scorpion_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 280, 0.2, 0.27, 0.5, 0 ],
 				[ 200, 0.1, 0.1, 0, 0 ],
@@ -57927,6 +57309,7 @@
 		{
 			"name": "Aberrant Ovis",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Sheep/Sheep_Character_BP_Aberrant.Sheep_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 100, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -58071,41 +57454,8 @@
 		},
 		{
 			"name": "Broodmother Lysrix",
-			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Large/SpiderL_Character_BP.SpiderL_Character_BP",
-			"variants": [ "Boss" ],
-			"fullStatsRaw": [
-				[ 324000, 0.2, 0.27, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 100000, 0.06, 0, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 1500, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 4000, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0.01, 0.151, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 2.5,
-				"affinityNeeded0": 1500,
-				"affinityIncreasePL": 75,
-				"foodConsumptionBase": 0.001929,
-				"foodConsumptionMult": 432.0028
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
-			"displayedStats": 919
-		},
-		{
-			"name": "Broodmother Lysrix (Gamma)",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Large/SpiderL_Character_BP_Easy.SpiderL_Character_BP_Easy",
-			"variants": [ "Boss", "Easy" ],
+			"variants": [ "Boss", "Gamma" ],
 			"fullStatsRaw": [
 				[ 324000, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -58136,9 +57486,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Broodmother Lysrix (Alpha)",
+			"name": "Broodmother Lysrix",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Large/SpiderL_Character_BP_Hard.SpiderL_Character_BP_Hard",
-			"variants": [ "Boss", "Hard" ],
+			"variants": [ "Alpha", "Boss" ],
 			"fullStatsRaw": [
 				[ 972000.062, 0.25, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -58169,9 +57519,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Broodmother Lysrix (Beta)",
+			"name": "Broodmother Lysrix",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Large/SpiderL_Character_BP_Medium.SpiderL_Character_BP_Medium",
-			"variants": [ "Boss", "Medium" ],
+			"variants": [ "Beta", "Boss" ],
 			"fullStatsRaw": [
 				[ 648000, 0.15, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -58202,9 +57552,9 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Broodmother Lysrix (Gamma)",
+			"name": "Broodmother Lysrix",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Large/SpiderL_Character_BP_TheCenter.SpiderL_Character_BP_TheCenter",
-			"variants": [ "Boss" ],
+			"variants": [ "Boss", "Gamma", "TheCenter" ],
 			"fullStatsRaw": [
 				[ 356400, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -58237,7 +57587,7 @@
 		{
 			"name": "Broodmother Lysrix",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Large/SpiderL_Character_BP_TheCenterHard.SpiderL_Character_BP_TheCenterHard",
-			"variants": [ "Boss", "Hard" ],
+			"variants": [ "Alpha", "Boss", "TheCenter" ],
 			"fullStatsRaw": [
 				[ 486000, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -58270,7 +57620,7 @@
 		{
 			"name": "Broodmother Lysrix",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Large/SpiderL_Character_BP_TheCenterMedium.SpiderL_Character_BP_TheCenterMedium",
-			"variants": [ "Boss", "Medium" ],
+			"variants": [ "Beta", "Boss", "TheCenter" ],
 			"fullStatsRaw": [
 				[ 421200, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -58336,7 +57686,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Lower Abdomen",
 					"colors": [
@@ -58424,6 +57774,7 @@
 		{
 			"name": "Aberrant Araneo",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Small/SpiderS_Character_BP_Aberrant.SpiderS_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 150, 0.2, 0.135, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -58457,7 +57808,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -58545,7 +57896,7 @@
 		{
 			"name": "Araneo",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Small/SpiderS_Character_BP_Aggressive.SpiderS_Character_BP_Aggressive",
-			"variants": [ "Boss" ],
+			"variants": [ "Boss", "Gamma" ],
 			"fullStatsRaw": [
 				[ 150, 0.2, 0.135, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -58579,7 +57930,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -58667,7 +58018,7 @@
 		{
 			"name": "Araneo",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Small/SpiderS_Character_BP_Aggressive_Hard.SpiderS_Character_BP_Aggressive_Hard",
-			"variants": [ "Boss", "Hard" ],
+			"variants": [ "Alpha", "Boss" ],
 			"fullStatsRaw": [
 				[ 450, 0.2, 0.135, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -58701,7 +58052,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -58789,7 +58140,7 @@
 		{
 			"name": "Araneo",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Small/SpiderS_Character_BP_Aggressive_Med.SpiderS_Character_BP_Aggressive_Med",
-			"variants": [ "Boss", "Medium" ],
+			"variants": [ "Beta", "Boss" ],
 			"fullStatsRaw": [
 				[ 300, 0.2, 0.135, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -58823,7 +58174,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -58997,7 +58348,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Face, Tail, Inner Sail, and Frill",
 					"colors": [
@@ -59051,6 +58402,7 @@
 		{
 			"name": "Aberrant Spino",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Spino/Spino_Character_BP_Aberrant.Spino_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 700, 0.2, 0.27, 0.5, 0 ],
 				[ 350, 0.1, 0.1, 0, 0 ],
@@ -59137,7 +58489,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -59231,7 +58583,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Antlers",
 					"colors": [
@@ -59249,7 +58601,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Patterning",
 					"colors": [
@@ -59267,7 +58619,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null }
+				null
 			],
 			"taming": {
 				"nonViolent": false,
@@ -59697,6 +59049,7 @@
 		{
 			"name": "Aberrant Stegosaurus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Stego/Stego_Character_BP_Aberrant.Stego_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 650, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -60174,7 +59527,7 @@
 						"WyvernBlue1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Body Highlights",
 					"colors": [
@@ -60188,7 +59541,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Feather Highlights",
 					"colors": [
@@ -60282,9 +59635,9 @@
 						"Light Orange"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Fur Highlights",
 					"colors": [
@@ -60493,8 +59846,8 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Stripes",
 					"colors": [
@@ -60557,6 +59910,7 @@
 		{
 			"name": "Aberrant Beelzebufo",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Toad/Toad_Character_BP_Aberrant.Toad_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 220, 0.2, 0.27, 0.5, 0 ],
 				[ 190, 0.1, 0.1, 0, 0 ],
@@ -60634,8 +59988,8 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -60996,7 +60350,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Patterning",
 					"colors": [
@@ -61065,6 +60419,7 @@
 		{
 			"name": "Aberrant Triceratops",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Trike/Trike_Character_BP_Aberrant.Trike_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 375, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -61122,7 +60477,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -61223,6 +60578,7 @@
 		{
 			"name": "Aberrant Trilobite",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Trilobite/Trilobite_Character_Aberrant.Trilobite_Character_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 160, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -61405,8 +60761,8 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Shell, Plates, and Claws",
 					"colors": [
@@ -61461,6 +60817,7 @@
 		{
 			"name": "Aberrant Carbonemys",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Turtle/Turtle_Character_BP_Aberrant.Turtle_Character_BP_Aberrant",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 700, 0.2, 0.27, 0.5, 0 ],
 				[ 200, 0.1, 0.1, 0, 0 ],
@@ -61515,8 +60872,8 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -61625,8 +60982,8 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Tentacle Main",
 					"colors": [
@@ -61731,8 +61088,8 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Tentacle Main",
 					"colors": [
@@ -61784,106 +61141,8 @@
 		},
 		{
 			"name": "Tusoteuthis",
-			"blueprintPath": "/Game/PrimalEarth/Dinos/Tusoteuthis/Tusoteuthis_Character_BP_CaveBase.Tusoteuthis_Character_BP_CaveBase",
-			"fullStatsRaw": [
-				[ 2700, 0.2, 0.2025, 0.5, 0 ],
-				[ 300, 0.1, 0.1, 0, 0 ],
-				[ 1800, 0.06, 0, 0.5, 0 ],
-				[ 215, 0.1, 0.1, 0, 0 ],
-				[ 3200, 0.1, 0.1, 0, 0.15 ],
-				null,
-				null,
-				[ 800, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0.01, 1, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [],
-			"colors": [
-				{
-					"name": "Body Highlights",
-					"colors": [
-						"Black",
-						"Dino Dark Blue",
-						"Dino Dark Orange",
-						"Dino Dark Red",
-						"Dino Dark Yellow",
-						"Dino Light Blue",
-						"Dino Light Orange",
-						"Dino Light Red",
-						"Dino Light Yellow"
-					]
-				},
-				{
-					"name": "Tentacle Highlights",
-					"colors": [
-						"Black",
-						"Dark Grey",
-						"Dino Dark Brown",
-						"Dino Dark Green",
-						"Dino Dark Orange",
-						"Dino Dark Red",
-						"Dino Dark Yellow",
-						"Dino Darker Grey",
-						"Dino Medium Brown",
-						"Dino Medium Green"
-					]
-				},
-				{ "name": null },
-				{ "name": null },
-				{
-					"name": "Tentacle Main",
-					"colors": [
-						"Black",
-						"Dark Grey",
-						"Dino Dark Brown",
-						"Dino Dark Green",
-						"Dino Dark Orange",
-						"Dino Dark Red",
-						"Dino Dark Yellow",
-						"Dino Darker Grey",
-						"Dino Medium Brown",
-						"Dino Medium Green"
-					]
-				},
-				{
-					"name": "Body Main",
-					"colors": [
-						"Black",
-						"Dino Albino",
-						"Dino Light Blue",
-						"Dino Light Brown",
-						"Dino Light Orange",
-						"Dino Light Yellow",
-						"Dino Medium Brown",
-						"Light Grey"
-					]
-				}
-			],
-			"taming": {
-				"nonViolent": true,
-				"violent": false,
-				"tamingIneffectiveness": 0.75,
-				"affinityNeeded0": 12000,
-				"affinityIncreasePL": 150,
-				"wakeAffinityMult": 1,
-				"wakeFoodDeplMult": 2,
-				"foodConsumptionBase": 0.005,
-				"foodConsumptionMult": 180.0011
-			},
-			"boneDamageAdjusters": {
-				"upper_beak": 3,
-				"lower_beak": 3
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
-			"displayedStats": 919
-		},
-		{
-			"name": "Tusoteuthis",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Tusoteuthis/Tusoteuthis_Character_BP_Caves.Tusoteuthis_Character_BP_Caves",
+			"variants": [ "Cave" ],
 			"fullStatsRaw": [
 				[ 2700, 0.2, 0.2025, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -61929,8 +61188,8 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Tentacle Main",
 					"colors": [
@@ -62038,7 +61297,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -62165,8 +61424,8 @@
 						"DragonBase0"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Facial Highlights and Stripes",
 					"colors": [
@@ -62667,119 +61926,6 @@
 			"displayedStats": 927
 		},
 		{
-			"name": "Jug Bug",
-			"blueprintPath": "/Game/ScorchedEarth/Dinos/JugBug/Jugbug_Character_BaseBP.Jugbug_Character_BaseBP",
-			"fullStatsRaw": [
-				[ 75, 0.2, 0.27, 0.5, 0 ],
-				[ 100, 0.1, 0.1, 0, 0 ],
-				[ 100, 0.06, 0, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 450, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 50, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 3, 0, 0.01, 0, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
-			"colors": [
-				{
-					"name": "Unknown",
-					"colors": [
-						"Dino Dark Blue",
-						"Dino Dark Green",
-						"Dino Dark Orange",
-						"Dino Dark Purple",
-						"Dino Dark Red",
-						"Dino Dark Yellow",
-						"Dino Light Blue",
-						"Dino Light Green",
-						"Dino Light Orange",
-						"Dino Light Purple",
-						"Dino Light Red",
-						"Dino Light Yellow",
-						"Dino Medium Green"
-					]
-				},
-				{ "name": null },
-				{
-					"name": "Unknown",
-					"colors": [
-						"Black",
-						"Dino Albino",
-						"Dino Dark Blue",
-						"Dino Dark Green",
-						"Dino Dark Orange",
-						"Dino Dark Purple",
-						"Dino Dark Red",
-						"Dino Dark Yellow",
-						"Dino Darker Grey",
-						"Dino Light Blue",
-						"Dino Light Green",
-						"Dino Light Orange",
-						"Dino Light Purple",
-						"Dino Light Red",
-						"Dino Light Yellow",
-						"Dino Medium Green"
-					]
-				},
-				{
-					"name": "Unknown",
-					"colors": [
-						"Black",
-						"Dino Dark Blue",
-						"Dino Dark Green",
-						"Dino Dark Orange",
-						"Dino Dark Purple",
-						"Dino Dark Red",
-						"Dino Dark Yellow",
-						"Dino Medium Green"
-					]
-				},
-				{
-					"name": "Unknown",
-					"colors": [
-						"Black",
-						"Dino Light Blue",
-						"Dino Light Green",
-						"Dino Light Orange",
-						"Dino Light Purple",
-						"Dino Light Red",
-						"Dino Light Yellow",
-						"Dino Medium Green"
-					]
-				},
-				{
-					"name": "Unknown",
-					"colors": [
-						"Black",
-						"Dino Dark Blue",
-						"Dino Dark Green",
-						"Dino Dark Orange",
-						"Dino Dark Purple",
-						"Dino Dark Red",
-						"Dino Dark Yellow",
-						"Dino Medium Green"
-					]
-				}
-			],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 8.333333,
-				"affinityNeeded0": 450,
-				"affinityIncreasePL": 22.5,
-				"foodConsumptionBase": 0.001736,
-				"foodConsumptionMult": 864.0553
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
-			"displayedStats": 927
-		},
-		{
 			"name": "Oil Jug Bug",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/JugBug/Jugbug_Oil_Character_BP.Jugbug_Oil_Character_BP",
 			"fullStatsRaw": [
@@ -62845,41 +61991,8 @@
 		},
 		{
 			"name": "Manticore",
-			"blueprintPath": "/Game/ScorchedEarth/Dinos/Manticore/Manticore_Character_BP.Manticore_Character_BP",
-			"variants": [ "Boss" ],
-			"fullStatsRaw": [
-				[ 100000, 0.2, 0.2, 0.3, 0 ],
-				[ 400, 0.1, 0.1, 0, 0 ],
-				[ 350, 0.06, 0, 0.5, 0 ],
-				[ 2000, 0.1, 0.1, 0, 0 ],
-				[ 2600, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 3000, 0.02, 0.02, 0, 0 ],
-				[ 1, 0.05, 0.04, 0.3, 0.3 ],
-				[ 1, 0, 0, 0, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 1.5,
-				"affinityNeeded0": 8500,
-				"affinityIncreasePL": 150,
-				"foodConsumptionBase": 0.002066,
-				"foodConsumptionMult": 150
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
-			"displayedStats": 927
-		},
-		{
-			"name": "Manticore (Gamma)",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Manticore/Manticore_Character_BP_Easy.Manticore_Character_BP_Easy",
-			"variants": [ "Boss", "Easy" ],
+			"variants": [ "Boss", "Gamma" ],
 			"fullStatsRaw": [
 				[ 100000, 0.2, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -62910,9 +62023,9 @@
 			"displayedStats": 927
 		},
 		{
-			"name": "Manticore (Alpha)",
+			"name": "Manticore",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Manticore/Manticore_Character_BP_Hard.Manticore_Character_BP_Hard",
-			"variants": [ "Boss", "Hard" ],
+			"variants": [ "Alpha", "Boss" ],
 			"fullStatsRaw": [
 				[ 160000, 0.3, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -62943,9 +62056,9 @@
 			"displayedStats": 927
 		},
 		{
-			"name": "Manticore (Beta)",
+			"name": "Manticore",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Manticore/Manticore_Character_BP_Medium.Manticore_Character_BP_Medium",
-			"variants": [ "Boss", "Medium" ],
+			"variants": [ "Beta", "Boss" ],
 			"fullStatsRaw": [
 				[ 130000, 0.25, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -62978,6 +62091,7 @@
 		{
 			"name": "Deathworm",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Manticore/Minions/Deathworm_Character_Minion_BP.Deathworm_Character_Minion_BP",
+			"variants": [ "Minion" ],
 			"fullStatsRaw": [
 				[ 8000, 0.002, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -63078,6 +62192,7 @@
 		{
 			"name": "Rock Elemental",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Manticore/RockGolem_Character_Minion_BP.RockGolem_Character_Minion_BP",
+			"variants": [ "Minion" ],
 			"fullStatsRaw": [
 				[ 50000, 0.0125, 0.135, -22000, 0 ],
 				[ 1000, 0.1, 0.1, 0, 0 ],
@@ -63160,9 +62275,9 @@
 						"Light Yellow"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Back",
 					"colors": [
@@ -63594,7 +62709,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Top",
 					"colors": [
@@ -63704,8 +62819,8 @@
 						"Dino Light Red"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Head Main",
 					"colors": [
@@ -63817,48 +62932,6 @@
 					]
 				}
 			],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 1.5,
-				"affinityNeeded0": 8500,
-				"affinityIncreasePL": 150,
-				"foodConsumptionBase": 0.000185,
-				"foodConsumptionMult": 199.984
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
-			"displayedStats": 927
-		},
-		{
-			"name": "Wyvern",
-			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_Base.Wyvern_Character_BP_Base",
-			"fullStatsRaw": [
-				[ 1725, 0.15, 0.2025, -1050, 0 ],
-				[ 275, 0.05, 0.05, 0, 0 ],
-				[ 725, 0.06, 0, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 2000, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 400, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, -0.25, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
-				null,
-				null
-			],
-			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
-			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
-			"breeding": {
-				"gestationTime": 0,
-				"incubationTime": 17998.5601,
-				"eggTempMin": 80,
-				"eggTempMax": 90,
-				"maturationTime": 333333.333,
-				"matingCooldownMin": 64800,
-				"matingCooldownMax": 172800
-			},
 			"taming": {
 				"nonViolent": false,
 				"violent": false,

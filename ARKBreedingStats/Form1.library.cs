@@ -711,8 +711,19 @@ namespace ARKBreedingStats
 
             if (Properties.Settings.Default.showColorsInLibrary)
                 subItems = subItems.Concat(cr.colors.Select(cl => cl.ToString()).ToArray()).ToArray();
+            else
+                subItems = subItems.Concat(new string[6]).ToArray();
 
-            ListViewItem lvi = new ListViewItem(subItems, g);
+            // Add the species value.
+            subItems = subItems.Concat(new[] { cr.Species.DescriptiveNameAndMod }).ToArray();
+
+            // check if we display group for species or not.
+            ListViewItem lvi;
+            if (checkBoxSpeciesGroups.Checked)
+                lvi = new ListViewItem(subItems, g);
+            else
+                lvi = new ListViewItem(subItems);
+
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (cr.valuesDom[s] == 0)
@@ -993,12 +1004,12 @@ namespace ARKBreedingStats
                         mutatedCreaturesToolStripMenuItem.Checked = show;
                         break;
                     case "Females":
-                        checkBoxShowMutatedCreatures.Checked = show;
-                        mutatedCreaturesToolStripMenuItem.Checked = show;
+                        cbLibraryShowFemales.Checked = show;
+                        femalesToolStripMenuItem.Checked = show;
                         break;
                     case "Males":
-                        checkBoxShowMutatedCreatures.Checked = show;
-                        mutatedCreaturesToolStripMenuItem.Checked = show;
+                        cbLibraryShowMales.Checked = show;
+                        malesToolStripMenuItem.Checked = show;
                         break;
                 }
 

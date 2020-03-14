@@ -77,27 +77,41 @@ namespace ARKBreedingStats.raising
                         listViewRaisingTimes.Items.Add(new ListViewItem(times));
 
                         // food amount needed
-                        string foodamount = "";
-                        if (selectedSpecies.taming.eats != null &&
-                            uiControls.Trough.foodAmount(selectedSpecies, Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier, out double babyfood, out double totalfood))
+                        string foodamount = null;
+                        if (selectedSpecies.taming.eats != null
+                            && selectedSpecies.taming.eats.Any()
+                            && uiControls.Trough.foodAmount(selectedSpecies, Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier, out double babyfood, out double totalfood))
                         {
-                            if (selectedSpecies.taming.eats.IndexOf("Raw Meat") >= 0)
+                            foodamount = FoodAmountString("Raw Meat");
+                            if (string.IsNullOrEmpty(foodamount))
+                                foodamount = FoodAmountString("Mejoberries");
+                            if (string.IsNullOrEmpty(foodamount))
+                                foodamount = FoodAmountString("Raw Prime Meat");
+                            if (string.IsNullOrEmpty(foodamount))
+                                foodamount = FoodAmountString("Raw Mutton");
+                            if (string.IsNullOrEmpty(foodamount))
+                                foodamount = FoodAmountString(selectedSpecies.taming.eats[0]);
+
+                            string FoodAmountString(string _foodName)
                             {
-                                foodamount = "\n\nFood for Baby-Phase: ~" + Math.Ceiling(babyfood / 50) + " Raw Meat"
-                                    + "\nTotal Food for maturation: ~" + Math.Ceiling(totalfood / 50) + " Raw Meat";
+                                if (selectedSpecies.taming.eats.IndexOf(_foodName) == -1) return null;
+                                double foodValue;
+                                if (selectedSpecies.taming.specialFoodValues.TryGetValue(_foodName, out TamingFood tf))
+                                    foodValue = tf.foodValue;
+                                else if (Values.V.defaultFoodData.TryGetValue(_foodName, out tf))
+                                    foodValue = tf.foodValue;
+                                else return null;
+                                if (foodValue == 0) return null;
+                                return $"\n\nFood for Baby-Phase: ~{Math.Ceiling(babyfood / foodValue)} {_foodName}"
+                                    + $"\nTotal Food for maturation: ~{Math.Ceiling(totalfood / foodValue)} {_foodName}";
                             }
-                            else if (selectedSpecies.taming.eats.IndexOf("Mejoberry") >= 0)
-                            {
-                                foodamount = "\n\nFood for Baby-Phase: ~" + Math.Ceiling(babyfood / 30) + " Mejoberries"
-                                    + "\nTotal Food for maturation: ~" + Math.Ceiling(totalfood / 30) + " Mejoberries";
-                            }
+
                             foodamount += "\n - Loss by spoiling is only a rough estimate and may vary.";
                         }
 
-
                         labelRaisingInfos.Text = "Time between mating: " + nextMatingMin.ToString("d':'hh':'mm':'ss") + " to " + nextMatingMax.ToString("d':'hh':'mm':'ss")
                             + eggInfo
-                            + foodamount;
+                            + (foodamount ?? string.Empty);
 
                         tabPageMaturationProgress.Enabled = true;
                     }

@@ -64,7 +64,7 @@ namespace ARKBreedingStats.species
         [JsonProperty]
         public double[] statImprintMult;
         [JsonProperty]
-        public List<ColorRegion> colors; // each creature has up to 6 colorregions
+        public List<ColorRegion> colors; // every species has up to 6 colorregions
         [JsonProperty]
         public TamingData taming;
         [JsonProperty]
@@ -92,12 +92,10 @@ namespace ARKBreedingStats.species
         {
             // TODO: Base species are maybe not used ingame and may only lead to confusion (e.g. Giganotosaurus).
 
+            // ignore variants that already appear in the species name, e.g. Corrupted
             if (variants != null && variants.Any())
             {
-                const string CORRUPTED = "Corrupted";
-                if (variants.Contains(CORRUPTED) && name.Contains(CORRUPTED))
-                    variants = variants.Where(n => n != CORRUPTED).ToArray();
-                VariantInfo = string.Join(", ", variants);
+                VariantInfo = string.Join(", ", variants.Where(v => !name.Contains(v)));
             }
 
             DescriptiveName = name + (string.IsNullOrEmpty(VariantInfo) ? string.Empty : " (" + VariantInfo + ")");
@@ -131,14 +129,9 @@ namespace ARKBreedingStats.species
                 TamedBaseHealthMultiplier = 1;
 
             if (colors == null)
-                colors = new List<ColorRegion>();
-            for (int c = 0; c < COLOR_REGION_COUNT; c++)
-            {
-                if (colors.Count <= c)
-                {
-                    colors.Add(null);
-                }
-            }
+                colors = new List<ColorRegion>(COLOR_REGION_COUNT);
+            for (int ci = colors.Count; ci < COLOR_REGION_COUNT; ci++)
+                colors.Add(null);
             if (string.IsNullOrEmpty(blueprintPath))
                 blueprintPath = string.Empty;
 

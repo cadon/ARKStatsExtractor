@@ -26,17 +26,20 @@ namespace ARKBreedingStats
             // first ensure that all mod-files are available
             CheckAvailabilityAndUpdateModFiles(modValueFileNames, Values.V);
 
-            if (Values.V.LoadModValues(modValueFileNames, throwExceptionOnFail: true, out mods, out string resultsMessage))
+            bool modFilesLoaded = Values.V.LoadModValues(modValueFileNames, throwExceptionOnFail: true, out mods, out string resultsMessage);
+
+            if (modFilesLoaded)
             {
                 if (showResult && !string.IsNullOrEmpty(resultsMessage))
                     MessageBox.Show(resultsMessage, "Mod Values loaded", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (applySettings)
                     ApplySettingsToValues();
                 speciesSelector1.SetSpeciesLists(Values.V.species, Values.V.aliases);
-                UpdateStatusBar();
-                return true;
             }
-            return false;
+
+            creatureCollection.ModList = mods;
+            UpdateStatusBar();
+            return modFilesLoaded;
         }
 
         /// <summary>
@@ -54,23 +57,23 @@ namespace ARKBreedingStats
             MessageBox.Show("Some of the creatures to be imported have an unknown species, most likely because a mod is used.\n"
                 + "To import these creatures, this application needs additional informations about these mods."
                 + (locallyAvailableModsExist ?
-                    "\n\nThe value files for the following mods are already locally available and just need to be added to the library:\n"
-                    + string.Join("\n", locallyAvailableModFiles)
+                    "\n\nThe value files for the following mods are already locally available and just need to be added to the library:\n\n- "
+                    + string.Join("\n- ", locallyAvailableModFiles)
                     : "")
                 + (onlineAvailableModsExist ?
-                    "\n\nThe value files for the following mods can be downloaded automatically if you want:\n"
-                    + string.Join("\n", onlineAvailableModFiles)
+                    "\n\nThe value files for the following mods can be downloaded automatically if you want:\n\n- "
+                    + string.Join("\n- ", onlineAvailableModFiles)
                     : "")
                 + (unavailableModsExist ?
-                    "\n\nThe value files for the following mods are unknown. You probably manually need to create a mod-file to import the creatures depending on it.\n"
-                    + string.Join("\n", unavailableModFiles)
+                    "\n\nThe value files for the following mods are unknown. You probably manually need to create a mod-file to import the creatures depending on it.\n\n- "
+                    + string.Join("\n- ", unavailableModFiles)
                     : ""),
                 "Unknown species", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             if ((locallyAvailableModsExist || onlineAvailableModsExist)
-                && MessageBox.Show("Do you want to " + (onlineAvailableModsExist ? "download and " : "") + "add the values-files for the following mods to the library?\n\n"
-                                   + string.Join("\n", onlineAvailableModFiles) + "\n"
-                                   + string.Join("\n", locallyAvailableModFiles),
+                && MessageBox.Show("Do you want to " + (onlineAvailableModsExist ? "download and " : "") + "add the values-files for the following mods to the library?\n\n- "
+                                   + string.Join("\n- ", onlineAvailableModFiles) + (locallyAvailableModsExist && onlineAvailableModsExist ? "\n\n- " : string.Empty)
+                                   + string.Join("\n- ", locallyAvailableModFiles),
                                    "Add value-files?", MessageBoxButtons.YesNo, MessageBoxIcon.Question
                     ) == DialogResult.Yes)
             {
@@ -94,9 +97,9 @@ namespace ARKBreedingStats
 
             if (modValueFilesWithAvailableUpdate.Count > 0
                 && MessageBox.Show("For " + modValueFilesWithAvailableUpdate.Count.ToString() + " value files there is an update available. It is strongly recommended to use the updated versions.\n"
-                + "The updated files can be downloaded automatically if you want.\n\n"
-                + "The following files can be downloaded\n"
-                + string.Join(", ", modValueFilesWithAvailableUpdate)
+                + "The updated files can be downloaded automatically if you want.\n"
+                + "The following files can be downloaded\n\n- "
+                + string.Join("\n- ", modValueFilesWithAvailableUpdate)
                 + "\n\nDo you want to download these files?",
                 "Updates for value files available", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
                 == DialogResult.Yes)
@@ -106,9 +109,9 @@ namespace ARKBreedingStats
 
             if (missingModValueFilesOnlineAvailable.Count > 0
                 && MessageBox.Show(missingModValueFilesOnlineAvailable.Count.ToString() + " mod-value files are not available locally. Without these files the library will not display all creatures.\n"
-                + "The missing files can be downloaded automatically if you want.\n\n"
-                + "The following files can be downloaded\n"
-                + string.Join(", ", missingModValueFilesOnlineAvailable)
+                + "The missing files can be downloaded automatically if you want.\n"
+                + "The following files can be downloaded\n\n- "
+                + string.Join("\n- ", missingModValueFilesOnlineAvailable)
                 + "\n\nDo you want to download these files?",
                 "Missing value files", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
                 == DialogResult.Yes)
@@ -119,8 +122,8 @@ namespace ARKBreedingStats
             if (missingModValueFilesOnlineNotAvailable.Count > 0)
             {
                 MessageBox.Show(missingModValueFilesOnlineNotAvailable.Count.ToString() + " mod-value files are neither available locally nor online. The creatures of the missing mod will not be displayed.\n"
-                + "The following files are missing\n"
-                + string.Join(", ", missingModValueFilesOnlineNotAvailable),
+                + "The following files are missing\n\n- "
+                + string.Join("\n- ", missingModValueFilesOnlineNotAvailable),
                 "Missing value files", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 

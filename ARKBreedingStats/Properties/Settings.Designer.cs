@@ -859,12 +859,12 @@ namespace ARKBreedingStats.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool DisplayUntameableSpecies {
+        public bool DisplayNonDomesticableSpecies {
             get {
-                return ((bool)(this["DisplayUntameableSpecies"]));
+                return ((bool)(this["DisplayNonDomesticableSpecies"]));
             }
             set {
-                this["DisplayUntameableSpecies"] = value;
+                this["DisplayNonDomesticableSpecies"] = value;
             }
         }
         
@@ -901,6 +901,123 @@ namespace ARKBreedingStats.Properties {
             }
             set {
                 this["SpeciesSelectorVerticalSplitterDistance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IgnoreUnknownBlueprintsOnSaveImport {
+            get {
+                return ((bool)(this["IgnoreUnknownBlueprintsOnSaveImport"]));
+            }
+            set {
+                this["IgnoreUnknownBlueprintsOnSaveImport"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public int[] libraryColumnDisplayIndices {
+            get {
+                return ((int[])(this["libraryColumnDisplayIndices"]));
+            }
+            set {
+                this["libraryColumnDisplayIndices"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point CustomStatOverrideLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["CustomStatOverrideLocation"]));
+            }
+            set {
+                this["CustomStatOverrideLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size CustomStatOverrideSize {
+            get {
+                return ((global::System.Drawing.Size)(this["CustomStatOverrideSize"]));
+            }
+            set {
+                this["CustomStatOverrideSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30, 30")]
+        public global::System.Drawing.Point OverlayTimerPosition {
+            get {
+                return ((global::System.Drawing.Point)(this["OverlayTimerPosition"]));
+            }
+            set {
+                this["OverlayTimerPosition"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30, 30")]
+        public global::System.Drawing.Point OverlayInfoPosition {
+            get {
+                return ((global::System.Drawing.Point)(this["OverlayInfoPosition"]));
+            }
+            set {
+                this["OverlayInfoPosition"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public int[] TCLVColumnDisplayIndices {
+            get {
+                return ((int[])(this["TCLVColumnDisplayIndices"]));
+            }
+            set {
+                this["TCLVColumnDisplayIndices"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public int[] TCLVColumnWidths {
+            get {
+                return ((int[])(this["TCLVColumnWidths"]));
+            }
+            set {
+                this["TCLVColumnWidths"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int TCLVSortCol {
+            get {
+                return ((int)(this["TCLVSortCol"]));
+            }
+            set {
+                this["TCLVSortCol"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool TCLVSortAsc {
+            get {
+                return ((bool)(this["TCLVSortAsc"]));
+            }
+            set {
+                this["TCLVSortAsc"] = value;
             }
         }
     }

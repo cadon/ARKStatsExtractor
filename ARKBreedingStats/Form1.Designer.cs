@@ -114,6 +114,7 @@ namespace ARKBreedingStats
             this.cryopodCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.femalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.malesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.speciesGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
@@ -195,6 +196,7 @@ namespace ARKBreedingStats
             this.buttonRecalculateTops = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.checkBoxSpeciesGroups = new System.Windows.Forms.CheckBox();
             this.checkBoxShowCryopodCreatures = new System.Windows.Forms.CheckBox();
             this.cbLibraryShowMales = new System.Windows.Forms.CheckBox();
             this.cbLibraryShowFemales = new System.Windows.Forms.CheckBox();
@@ -237,6 +239,7 @@ namespace ARKBreedingStats
             this.columnHeaderColor3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderColor4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderColor5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderSpecies = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripLibrary = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.editAllSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1070,7 +1073,8 @@ namespace ARKBreedingStats
             this.mutatedCreaturesToolStripMenuItem,
             this.cryopodCreaturesToolStripMenuItem,
             this.femalesToolStripMenuItem,
-            this.malesToolStripMenuItem});
+            this.malesToolStripMenuItem,
+            this.speciesGroupToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "View";
@@ -1154,6 +1158,16 @@ namespace ARKBreedingStats
             this.malesToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.malesToolStripMenuItem.Text = "Males";
             this.malesToolStripMenuItem.Click += new System.EventHandler(this.malesToolStripMenuItem_Click);
+            // 
+            // speciesGroupToolStripMenuItem
+            // 
+            this.speciesGroupToolStripMenuItem.Checked = true;
+            this.speciesGroupToolStripMenuItem.CheckOnClick = true;
+            this.speciesGroupToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.speciesGroupToolStripMenuItem.Name = "speciesGroupToolStripMenuItem";
+            this.speciesGroupToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.speciesGroupToolStripMenuItem.Text = "Species Group";
+            this.speciesGroupToolStripMenuItem.Click += new System.EventHandler(this.speciesGroupToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -2068,6 +2082,7 @@ namespace ARKBreedingStats
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.checkBoxSpeciesGroups);
             this.tabPage4.Controls.Add(this.checkBoxShowCryopodCreatures);
             this.tabPage4.Controls.Add(this.cbLibraryShowMales);
             this.tabPage4.Controls.Add(this.cbLibraryShowFemales);
@@ -2084,6 +2099,19 @@ namespace ARKBreedingStats
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "View";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxSpeciesGroups
+            // 
+            this.checkBoxSpeciesGroups.AutoSize = true;
+            this.checkBoxSpeciesGroups.Checked = true;
+            this.checkBoxSpeciesGroups.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxSpeciesGroups.Location = new System.Drawing.Point(6, 213);
+            this.checkBoxSpeciesGroups.Name = "checkBoxSpeciesGroups";
+            this.checkBoxSpeciesGroups.Size = new System.Drawing.Size(131, 17);
+            this.checkBoxSpeciesGroups.TabIndex = 9;
+            this.checkBoxSpeciesGroups.Text = "Show Species Groups";
+            this.checkBoxSpeciesGroups.UseVisualStyleBackColor = true;
+            this.checkBoxSpeciesGroups.CheckedChanged += new System.EventHandler(this.checkBoxSpeciesGroups_CheckedChanged);
             // 
             // checkBoxShowCryopodCreatures
             // 
@@ -2224,6 +2252,7 @@ namespace ARKBreedingStats
             // 
             // listViewLibrary
             // 
+            this.listViewLibrary.AllowColumnReorder = true;
             this.listViewLibrary.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderName,
             this.columnHeaderOwner,
@@ -2254,7 +2283,8 @@ namespace ARKBreedingStats
             this.columnHeaderColor2,
             this.columnHeaderColor3,
             this.columnHeaderColor4,
-            this.columnHeaderColor5});
+            this.columnHeaderColor5,
+            this.columnHeaderSpecies});
             this.listViewLibrary.ContextMenuStrip = this.contextMenuStripLibrary;
             this.listViewLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewLibrary.FullRowSelect = true;
@@ -2262,7 +2292,7 @@ namespace ARKBreedingStats
             this.listViewLibrary.Location = new System.Drawing.Point(204, 3);
             this.listViewLibrary.Name = "listViewLibrary";
             this.tableLayoutPanelLibrary.SetRowSpan(this.listViewLibrary, 2);
-            this.listViewLibrary.Size = new System.Drawing.Size(994, 691);
+            this.listViewLibrary.Size = new System.Drawing.Size(994, 688);
             this.listViewLibrary.TabIndex = 2;
             this.listViewLibrary.UseCompatibleStateImageBehavior = false;
             this.listViewLibrary.View = System.Windows.Forms.View.Details;
@@ -2451,6 +2481,10 @@ namespace ARKBreedingStats
             // 
             this.columnHeaderColor5.Text = "C5";
             this.columnHeaderColor5.Width = 25;
+            // 
+            // columnHeaderSpecies
+            // 
+            this.columnHeaderSpecies.Text = "Species";
             // 
             // contextMenuStripLibrary
             // 
@@ -3271,6 +3305,7 @@ namespace ARKBreedingStats
             this.speciesSelector1.Location = new System.Drawing.Point(0, 103);
             this.speciesSelector1.Name = "speciesSelector1";
             this.speciesSelector1.Size = new System.Drawing.Size(1232, 716);
+            this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
             // Form1
@@ -3666,5 +3701,8 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem customStatOverridesToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem openJsonDataFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem speciesGroupToolStripMenuItem;
+        private System.Windows.Forms.CheckBox checkBoxSpeciesGroups;
+        private System.Windows.Forms.ColumnHeader columnHeaderSpecies;
     }
 }
