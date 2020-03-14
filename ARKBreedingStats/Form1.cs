@@ -17,6 +17,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using static ARKBreedingStats.settings.Settings;
 
 namespace ARKBreedingStats
 {
@@ -69,7 +70,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// The last tab-page opened in the settings.
         /// </summary>
-        private int settingsLastTabPageIndex;
+        private SettingsTabPages settingsLastTabPage;
         /// <summary>
         /// Custom replacings for species names used in naming patterns.
         /// </summary>
@@ -778,7 +779,7 @@ namespace ARKBreedingStats
 
         private void importingFromSavegameEmptyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenSettingsDialog(2);
+            OpenSettingsDialog(SettingsTabPages.SaveImport);
         }
 
         /// <summary>
@@ -2024,10 +2025,10 @@ namespace ARKBreedingStats
         /// Displays the settings window.
         /// </summary>
         /// <param name="page">The tab-page displayed first</param>
-        private void OpenSettingsDialog(int page = -1)
+        private void OpenSettingsDialog(SettingsTabPages page = SettingsTabPages.Unknown)
         {
-            if (page == -1)
-                page = settingsLastTabPageIndex;
+            if (page == SettingsTabPages.Unknown)
+                page = settingsLastTabPage;
             using (Settings settingsfrm = new Settings(creatureCollection, page))
             {
                 if (settingsfrm.ShowDialog() == DialogResult.OK)
@@ -2044,10 +2045,11 @@ namespace ARKBreedingStats
                     filewatcherExports.SetWatchFolder(exportFolderDefault, enableExportWatcher);
 
                     InitializeSpeechRecognition();
+                    overlay?.SetInfoPositions();
 
                     SetCollectionChanged(true);
                 }
-                settingsLastTabPageIndex = settingsfrm.LastTabPageIndex;
+                settingsLastTabPage = settingsfrm.LastTabPageIndex;
             }
         }
 

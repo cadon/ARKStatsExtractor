@@ -20,7 +20,7 @@ namespace ARKBreedingStats
                 if (MessageBox.Show("There is no valid folder set in the settings.\n\nOpen the settings-page?",
                         "No valid export-folder set", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
-                    OpenSettingsDialog(3);
+                    OpenSettingsDialog(Settings.SettingsTabPages.ExportedImport);
                 }
             }
             else
@@ -46,7 +46,7 @@ namespace ARKBreedingStats
                 MessageBox.Show("There is no valid folder set where the exported creatures are located. Set this folder in the settings.\n\nOpen the settings-page?",
                         "No default export-folder set", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
-                OpenSettingsDialog(3);
+                OpenSettingsDialog(Settings.SettingsTabPages.ExportedImport);
             }
         }
 
@@ -86,7 +86,7 @@ namespace ARKBreedingStats
                                 "Usually the folder is\n" + @"…\Steam\steamapps\common\ARK\ShooterGame\Saved\DinoExports\<ID>" + "\n\nOpen the settings-page?",
                                 "No default export-folder set", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
-                OpenSettingsDialog(3);
+                OpenSettingsDialog(Settings.SettingsTabPages.ExportedImport);
             }
         }
 

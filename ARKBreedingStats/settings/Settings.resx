@@ -117,11 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Enables a OCR-feature, that tries to read the values from the screen by creating a screenshot and extracting the numbers from that (i.e. does not trigger BattlEye).
-It does only work with the resolutions 1920×1080 and 1680×1050, and sometimes does make mistakes.
-It works with the window-mode "Fullscreen-Windowed" and sometimes does not work when multiple screens are used.</value>
-  </data>
   <metadata name="dgvFileLocation_Change.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -151,5 +146,10 @@ The exported creatures are saved as a file. Select the folder to import these fi
 ...\Steam\steamapps\common\ARK\ShooterGame\Saved\DinoExports\&lt;ID&gt;
 
 The first entry is the default export folder and is used for 'Import last exported' and the Auto Import.</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Enables a OCR-feature, that tries to read the values from the screen by creating a screenshot and extracting the numbers from that (i.e. does not trigger BattlEye).
+To work, it needs a config file for the used resolution and UI-scaling. It works not 100 % reliable and a resolution of at least 1680×1050 is recommended. Usually using the import features is more comfortable.
+The window-mode "Fullscreen-Windowed" should be set ingame.</value>
   </data>
 </root>

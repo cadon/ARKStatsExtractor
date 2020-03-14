@@ -15,15 +15,15 @@ namespace ARKBreedingStats.settings
         private readonly CreatureCollection cc;
         private ToolTip tt;
         private Dictionary<string, string> languages;
-        public int LastTabPageIndex;
+        public SettingsTabPages LastTabPageIndex;
         public bool LanguageChanged;
 
-        public Settings(CreatureCollection cc, int page = 0)
+        public Settings(CreatureCollection cc, SettingsTabPages page)
         {
             InitializeData();
             this.cc = cc;
             LoadSettings(cc);
-            tabControlSettings.SelectTab(page);
+            tabControlSettings.SelectTab((int)page);
         }
 
         private void InitializeData()
@@ -158,9 +158,7 @@ namespace ARKBreedingStats.settings
 
             checkBoxAutoSave.Checked = Properties.Settings.Default.autosave;
             numericUpDownAutosaveMinutes.ValueSave = Properties.Settings.Default.autosaveMinutes;
-            nudWhiteThreshold.ValueSave = Properties.Settings.Default.OCRWhiteThreshold;
             chkbSpeechRecognition.Checked = Properties.Settings.Default.SpeechRecognition;
-            nudOverlayInfoDuration.ValueSave = Properties.Settings.Default.OverlayInfoDuration;
             chkCollectionSync.Checked = Properties.Settings.Default.syncCollection;
             if (Properties.Settings.Default.celsius) radioButtonCelsius.Checked = true;
             else radioButtonFahrenheit.Checked = true;
@@ -168,6 +166,14 @@ namespace ARKBreedingStats.settings
             checkBoxDisplayHiddenStats.Checked = Properties.Settings.Default.oxygenForAll;
             tbDefaultFontName.Text = Properties.Settings.Default.DefaultFontName;
             nudDefaultFontSize.Value = (decimal)Properties.Settings.Default.DefaultFontSize;
+
+            #region overlay
+            nudOverlayInfoDuration.ValueSave = Properties.Settings.Default.OverlayInfoDuration;
+            nudOverlayTimerPosX.ValueSave = Properties.Settings.Default.OverlayTimerPosition.X;
+            nudOverlayTimerPosY.ValueSave = Properties.Settings.Default.OverlayTimerPosition.Y;
+            nudOverlayInfoPosDFR.ValueSave = Properties.Settings.Default.OverlayInfoPosition.X;
+            nudOverlayInfoPosY.ValueSave = Properties.Settings.Default.OverlayInfoPosition.Y;
+            #endregion
 
             #region Timers
             cbTimersInOverlayAutomatically.Checked = Properties.Settings.Default.DisplayTimersInOverlayAutomatically;
@@ -177,6 +183,7 @@ namespace ARKBreedingStats.settings
             #region OCR
             cbShowOCRButton.Checked = Properties.Settings.Default.showOCRButton;
             nudWaitBeforeScreenCapture.ValueSave = Properties.Settings.Default.waitBeforeScreenCapture;
+            nudWhiteThreshold.ValueSave = Properties.Settings.Default.OCRWhiteThreshold;
             string ocrApp = Properties.Settings.Default.OCRApp;
             int ocrI = cbOCRApp.Items.IndexOf(ocrApp);
             if (ocrI == -1)
@@ -304,14 +311,18 @@ namespace ARKBreedingStats.settings
 
             Properties.Settings.Default.autosave = checkBoxAutoSave.Checked;
             Properties.Settings.Default.autosaveMinutes = (int)numericUpDownAutosaveMinutes.Value;
-            Properties.Settings.Default.OCRWhiteThreshold = (int)nudWhiteThreshold.Value;
             Properties.Settings.Default.SpeechRecognition = chkbSpeechRecognition.Checked;
-            Properties.Settings.Default.OverlayInfoDuration = (int)nudOverlayInfoDuration.Value;
             Properties.Settings.Default.syncCollection = chkCollectionSync.Checked;
             Properties.Settings.Default.celsius = radioButtonCelsius.Checked;
             Properties.Settings.Default.oxygenForAll = checkBoxDisplayHiddenStats.Checked;
             Properties.Settings.Default.DefaultFontName = tbDefaultFontName.Text;
             Properties.Settings.Default.DefaultFontSize = (float)nudDefaultFontSize.Value;
+
+            #region overlay
+            Properties.Settings.Default.OverlayInfoDuration = (int)nudOverlayInfoDuration.Value;
+            Properties.Settings.Default.OverlayTimerPosition = new System.Drawing.Point((int)nudOverlayTimerPosX.Value, (int)nudOverlayTimerPosY.Value);
+            Properties.Settings.Default.OverlayInfoPosition = new System.Drawing.Point((int)nudOverlayInfoPosDFR.Value, (int)nudOverlayInfoPosY.Value);
+            #endregion
 
             #region Timers
             Properties.Settings.Default.DisplayTimersInOverlayAutomatically = cbTimersInOverlayAutomatically.Checked;
@@ -321,6 +332,7 @@ namespace ARKBreedingStats.settings
             #region OCR
             Properties.Settings.Default.showOCRButton = cbShowOCRButton.Checked;
             Properties.Settings.Default.waitBeforeScreenCapture = (int)nudWaitBeforeScreenCapture.Value;
+            Properties.Settings.Default.OCRWhiteThreshold = (int)nudWhiteThreshold.Value;
             string ocrApp = cbOCRApp.SelectedItem.ToString();
             if (ocrApp == "Custom")
                 ocrApp = textBoxOCRCustom.Text;
@@ -673,7 +685,7 @@ namespace ARKBreedingStats.settings
 
         private void Settings_FormClosing(object sender, FormClosingEventArgs e)
         {
-            LastTabPageIndex = tabControlSettings.SelectedIndex;
+            LastTabPageIndex = (SettingsTabPages)tabControlSettings.SelectedIndex;
         }
 
         private void cbMoveImportedFileToSubFolder_CheckedChanged(object sender, EventArgs e)
@@ -764,6 +776,16 @@ namespace ARKBreedingStats.settings
             {
                 MessageBox.Show("Error while writing settings file:\n\n" + ex.Message, "ASB File error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        public enum SettingsTabPages
+        {
+            Unknown = -1,
+            Multipliers = 0,
+            General = 1,
+            SaveImport = 2,
+            ExportedImport = 3,
+            OCR = 4,
         }
     }
 }

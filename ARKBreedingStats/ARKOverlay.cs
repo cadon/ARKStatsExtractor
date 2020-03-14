@@ -10,7 +10,7 @@ namespace ARKBreedingStats
 {
     public partial class ARKOverlay : Form
     {
-        private static int LABEL_COUNT = 8;
+        private const int LABEL_COUNT = 8;
         private readonly Control[] labels = new Control[LABEL_COUNT];
         private readonly Timer timerUpdateTimer;
         public Form1 ExtractorForm;
@@ -50,6 +50,8 @@ namespace ARKBreedingStats
             labelInfo.Text = string.Empty;
 
             Size = ArkOCR.OCR.GetScreenshotOfProcess()?.Size ?? default;
+            if (Size == default)
+                Size = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
 
             timerUpdateTimer = new Timer { Interval = 1000 };
             timerUpdateTimer.Tick += TimerUpdateTimer_Tick;
@@ -57,14 +59,17 @@ namespace ARKBreedingStats
             currentlyInInventory = false;
 
             ocrPossible = ArkOCR.OCR.setResolution();
-            //if (!ocrPossible)
-            //    MessageBox.Show("No calibration-info for this resolution found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            labelInfo.Location = new Point((Size.Width == 0 ? 800 : Size.Width) - (labelInfo.Width + 30), 40);
-
+            SetInfoPositions();
             notes = string.Empty;
 
             InfoDuration = 10;
+        }
+
+        public void SetInfoPositions()
+        {
+            labelTimer.Location = Properties.Settings.Default.OverlayTimerPosition;
+            labelInfo.Location = new Point(Size.Width - labelInfo.Width - Properties.Settings.Default.OverlayInfoPosition.X, Properties.Settings.Default.OverlayInfoPosition.Y);
         }
 
         public void InitLabelPositions()

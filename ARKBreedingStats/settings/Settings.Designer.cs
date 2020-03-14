@@ -40,15 +40,6 @@
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.checkBoxAutoSave = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cbOCRIgnoreImprintValue = new System.Windows.Forms.CheckBox();
-            this.cbShowOCRButton = new System.Windows.Forms.CheckBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.textBoxOCRCustom = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cbOCRApp = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.chkCollectionSync = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -80,6 +71,8 @@
             this.checkBoxDisplayHiddenStats = new System.Windows.Forms.CheckBox();
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label34 = new System.Windows.Forms.Label();
+            this.btExportMultipliers = new System.Windows.Forms.Button();
             this.groupBox18 = new System.Windows.Forms.GroupBox();
             this.btApplyPreset = new System.Windows.Forms.Button();
             this.cbbStatMultiplierPresets = new System.Windows.Forms.ComboBox();
@@ -152,7 +145,22 @@
             this.dgvExportFolderDelete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btAddExportFolder = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
-            this.btExportMultipliers = new System.Windows.Forms.Button();
+            this.tabPageOCR = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbOCRIgnoreImprintValue = new System.Windows.Forms.CheckBox();
+            this.cbShowOCRButton = new System.Windows.Forms.CheckBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.textBoxOCRCustom = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cbOCRApp = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label38 = new System.Windows.Forms.Label();
+            this.label39 = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
             this.nudWildLevelStep = new ARKBreedingStats.uiControls.Nud();
             this.nudBabyFoodConsumptionSpeedEvent = new ARKBreedingStats.uiControls.Nud();
             this.nudMatingIntervalEvent = new ARKBreedingStats.uiControls.Nud();
@@ -174,13 +182,15 @@
             this.nudDinoCharacterFoodDrain = new ARKBreedingStats.uiControls.Nud();
             this.nudTamingSpeed = new ARKBreedingStats.uiControls.Nud();
             this.nudDefaultFontSize = new ARKBreedingStats.uiControls.Nud();
+            this.nudOverlayInfoPosY = new ARKBreedingStats.uiControls.Nud();
+            this.nudOverlayInfoPosDFR = new ARKBreedingStats.uiControls.Nud();
+            this.nudOverlayTimerPosY = new ARKBreedingStats.uiControls.Nud();
+            this.nudOverlayTimerPosX = new ARKBreedingStats.uiControls.Nud();
             this.nudOverlayInfoDuration = new ARKBreedingStats.uiControls.Nud();
             this.customSCCustom = new ARKBreedingStats.settings.customSoundChooser();
             this.customSCWakeup = new ARKBreedingStats.settings.customSoundChooser();
             this.customSCBirth = new ARKBreedingStats.settings.customSoundChooser();
             this.customSCStarving = new ARKBreedingStats.settings.customSoundChooser();
-            this.nudWaitBeforeScreenCapture = new ARKBreedingStats.uiControls.Nud();
-            this.nudWhiteThreshold = new ARKBreedingStats.uiControls.Nud();
             this.numericUpDownMaxBreedingSug = new ARKBreedingStats.uiControls.Nud();
             this.numericUpDownAutosaveMinutes = new ARKBreedingStats.uiControls.Nud();
             this.convenientNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -193,9 +203,9 @@
             this.ownerSuffixDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.folderPathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.aTExportFolderLocationsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.label34 = new System.Windows.Forms.Label();
+            this.nudWaitBeforeScreenCapture = new ARKBreedingStats.uiControls.Nud();
+            this.nudWhiteThreshold = new ARKBreedingStats.uiControls.Nud();
             this.groupBoxMultiplier.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -228,6 +238,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWarnImportMoreThan)).BeginInit();
             this.groupBox13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExportFolders)).BeginInit();
+            this.tabPageOCR.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyFoodConsumptionSpeedEvent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMatingIntervalEvent)).BeginInit();
@@ -249,14 +261,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudDinoCharacterFoodDrain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamingSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDefaultFontSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoPosY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoPosDFR)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudOverlayTimerPosY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudOverlayTimerPosX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoDuration)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxBreedingSug)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutosaveMinutes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.aTImportFileLocationBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudImportLowerBoundTE)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.aTExportFolderLocationsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -359,101 +375,6 @@
             this.checkBoxAutoSave.Text = "Autosave";
             this.checkBoxAutoSave.UseVisualStyleBackColor = true;
             this.checkBoxAutoSave.CheckedChanged += new System.EventHandler(this.checkBoxAutoSave_CheckedChanged);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.cbOCRIgnoreImprintValue);
-            this.groupBox1.Controls.Add(this.cbShowOCRButton);
-            this.groupBox1.Controls.Add(this.label23);
-            this.groupBox1.Controls.Add(this.nudWaitBeforeScreenCapture);
-            this.groupBox1.Controls.Add(this.label19);
-            this.groupBox1.Controls.Add(this.nudWhiteThreshold);
-            this.groupBox1.Controls.Add(this.textBoxOCRCustom);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.cbOCRApp);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(329, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(413, 321);
-            this.groupBox1.TabIndex = 4;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "OCR";
-            // 
-            // cbOCRIgnoreImprintValue
-            // 
-            this.cbOCRIgnoreImprintValue.AutoSize = true;
-            this.cbOCRIgnoreImprintValue.Location = new System.Drawing.Point(6, 292);
-            this.cbOCRIgnoreImprintValue.Name = "cbOCRIgnoreImprintValue";
-            this.cbOCRIgnoreImprintValue.Size = new System.Drawing.Size(287, 17);
-            this.cbOCRIgnoreImprintValue.TabIndex = 17;
-            this.cbOCRIgnoreImprintValue.Text = "Don\'t read imprinting value (can be overlapped by chat)";
-            this.cbOCRIgnoreImprintValue.UseVisualStyleBackColor = true;
-            // 
-            // cbShowOCRButton
-            // 
-            this.cbShowOCRButton.AutoSize = true;
-            this.cbShowOCRButton.Location = new System.Drawing.Point(9, 19);
-            this.cbShowOCRButton.Name = "cbShowOCRButton";
-            this.cbShowOCRButton.Size = new System.Drawing.Size(228, 17);
-            this.cbShowOCRButton.TabIndex = 16;
-            this.cbShowOCRButton.Text = "Show OCR-Button instead of Import-Button";
-            this.cbShowOCRButton.UseVisualStyleBackColor = true;
-            // 
-            // label23
-            // 
-            this.label23.Location = new System.Drawing.Point(6, 188);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(296, 20);
-            this.label23.TabIndex = 15;
-            this.label23.Text = "Wait before screencapture (time to tab into game) in ms";
-            // 
-            // label19
-            // 
-            this.label19.Location = new System.Drawing.Point(6, 162);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(296, 20);
-            this.label19.TabIndex = 13;
-            this.label19.Text = "White Threshold (increase if you increased gamma ingame)";
-            // 
-            // textBoxOCRCustom
-            // 
-            this.textBoxOCRCustom.Location = new System.Drawing.Point(133, 250);
-            this.textBoxOCRCustom.Name = "textBoxOCRCustom";
-            this.textBoxOCRCustom.Size = new System.Drawing.Size(274, 20);
-            this.textBoxOCRCustom.TabIndex = 11;
-            this.textBoxOCRCustom.Visible = false;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 234);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(289, 13);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Capture from (ShooterGame is default for the Steam-version)";
-            // 
-            // cbOCRApp
-            // 
-            this.cbOCRApp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbOCRApp.FormattingEnabled = true;
-            this.cbOCRApp.Items.AddRange(new object[] {
-            "ShooterGame",
-            "XboxApp",
-            "VLC",
-            "Custom"});
-            this.cbOCRApp.Location = new System.Drawing.Point(6, 250);
-            this.cbOCRApp.Name = "cbOCRApp";
-            this.cbOCRApp.Size = new System.Drawing.Size(121, 21);
-            this.cbOCRApp.TabIndex = 9;
-            this.cbOCRApp.SelectedIndexChanged += new System.EventHandler(this.cbOCRApp_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(6, 53);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(401, 97);
-            this.label1.TabIndex = 5;
-            this.label1.Text = resources.GetString("label1.Text");
             // 
             // chkCollectionSync
             // 
@@ -773,6 +694,7 @@
             this.tabControlSettings.Controls.Add(this.tabPage1);
             this.tabControlSettings.Controls.Add(this.tabPageImportSavegame);
             this.tabControlSettings.Controls.Add(this.tabPageImportExported);
+            this.tabControlSettings.Controls.Add(this.tabPageOCR);
             this.tabControlSettings.Location = new System.Drawing.Point(3, 3);
             this.tabControlSettings.Name = "tabControlSettings";
             this.tabControlSettings.SelectedIndex = 0;
@@ -804,6 +726,25 @@
             this.tabPage2.UseVisualStyleBackColor = true;
             this.tabPage2.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragDrop);
             this.tabPage2.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragEnter);
+            // 
+            // label34
+            // 
+            this.label34.Location = new System.Drawing.Point(419, 601);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(320, 38);
+            this.label34.TabIndex = 18;
+            this.label34.Text = "You can export the settings on this page to a file, e.g. to share it with tribe m" +
+    "embers or for bug reports.";
+            // 
+            // btExportMultipliers
+            // 
+            this.btExportMultipliers.Location = new System.Drawing.Point(422, 642);
+            this.btExportMultipliers.Name = "btExportMultipliers";
+            this.btExportMultipliers.Size = new System.Drawing.Size(317, 23);
+            this.btExportMultipliers.TabIndex = 17;
+            this.btExportMultipliers.Text = "Export multiplier settings to file…";
+            this.btExportMultipliers.UseVisualStyleBackColor = true;
+            this.btExportMultipliers.Click += new System.EventHandler(this.btExportMultipliers_Click);
             // 
             // groupBox18
             // 
@@ -916,7 +857,6 @@
             this.tabPage1.Controls.Add(this.groupBox9);
             this.tabPage1.Controls.Add(this.groupBox10);
             this.tabPage1.Controls.Add(this.groupBox8);
-            this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.groupBox7);
             this.tabPage1.Controls.Add(this.groupBox4);
             this.tabPage1.Controls.Add(this.groupBox6);
@@ -934,7 +874,7 @@
             this.groupBox25.Controls.Add(this.label33);
             this.groupBox25.Controls.Add(this.label32);
             this.groupBox25.Controls.Add(this.tbDefaultFontName);
-            this.groupBox25.Location = new System.Drawing.Point(329, 636);
+            this.groupBox25.Location = new System.Drawing.Point(329, 309);
             this.groupBox25.Name = "groupBox25";
             this.groupBox25.Size = new System.Drawing.Size(413, 53);
             this.groupBox25.TabIndex = 12;
@@ -970,7 +910,7 @@
             // 
             this.groupBox24.Controls.Add(this.cbDeleteExpiredTimersOnSaving);
             this.groupBox24.Controls.Add(this.cbTimersInOverlayAutomatically);
-            this.groupBox24.Location = new System.Drawing.Point(6, 502);
+            this.groupBox24.Location = new System.Drawing.Point(6, 393);
             this.groupBox24.Name = "groupBox24";
             this.groupBox24.Size = new System.Drawing.Size(317, 71);
             this.groupBox24.TabIndex = 11;
@@ -1000,7 +940,7 @@
             // groupBox20
             // 
             this.groupBox20.Controls.Add(this.cbPrettifyJSON);
-            this.groupBox20.Location = new System.Drawing.Point(329, 579);
+            this.groupBox20.Location = new System.Drawing.Point(329, 252);
             this.groupBox20.Name = "groupBox20";
             this.groupBox20.Size = new System.Drawing.Size(413, 51);
             this.groupBox20.TabIndex = 10;
@@ -1020,7 +960,7 @@
             // groupBox17
             // 
             this.groupBox17.Controls.Add(this.cbbLanguage);
-            this.groupBox17.Location = new System.Drawing.Point(6, 638);
+            this.groupBox17.Location = new System.Drawing.Point(6, 529);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(317, 51);
             this.groupBox17.TabIndex = 9;
@@ -1033,13 +973,13 @@
             this.cbbLanguage.FormattingEnabled = true;
             this.cbbLanguage.Location = new System.Drawing.Point(6, 19);
             this.cbbLanguage.Name = "cbbLanguage";
-            this.cbbLanguage.Size = new System.Drawing.Size(194, 21);
+            this.cbbLanguage.Size = new System.Drawing.Size(305, 21);
             this.cbbLanguage.TabIndex = 0;
             // 
             // groupBox16
             // 
             this.groupBox16.Controls.Add(this.cbDevTools);
-            this.groupBox16.Location = new System.Drawing.Point(5, 579);
+            this.groupBox16.Location = new System.Drawing.Point(6, 470);
             this.groupBox16.Name = "groupBox16";
             this.groupBox16.Size = new System.Drawing.Size(317, 53);
             this.groupBox16.TabIndex = 8;
@@ -1060,7 +1000,7 @@
             // 
             this.groupBox9.Controls.Add(this.cbApplyGlobalSpeciesToLibrary);
             this.groupBox9.Controls.Add(this.cbCreatureColorsLibrary);
-            this.groupBox9.Location = new System.Drawing.Point(6, 430);
+            this.groupBox9.Location = new System.Drawing.Point(6, 321);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(317, 66);
             this.groupBox9.TabIndex = 7;
@@ -1089,13 +1029,23 @@
             // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.label38);
+            this.groupBox10.Controls.Add(this.nudOverlayInfoPosY);
+            this.groupBox10.Controls.Add(this.label39);
+            this.groupBox10.Controls.Add(this.nudOverlayInfoPosDFR);
+            this.groupBox10.Controls.Add(this.label40);
+            this.groupBox10.Controls.Add(this.label37);
+            this.groupBox10.Controls.Add(this.nudOverlayTimerPosY);
+            this.groupBox10.Controls.Add(this.label36);
+            this.groupBox10.Controls.Add(this.nudOverlayTimerPosX);
+            this.groupBox10.Controls.Add(this.label35);
             this.groupBox10.Controls.Add(this.cbInventoryCheck);
             this.groupBox10.Controls.Add(this.label21);
             this.groupBox10.Controls.Add(this.nudOverlayInfoDuration);
             this.groupBox10.Controls.Add(this.chkbSpeechRecognition);
-            this.groupBox10.Location = new System.Drawing.Point(6, 321);
+            this.groupBox10.Location = new System.Drawing.Point(329, 368);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(317, 103);
+            this.groupBox10.Size = new System.Drawing.Size(413, 212);
             this.groupBox10.TabIndex = 6;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Overlay";
@@ -1137,7 +1087,7 @@
             this.groupBox8.Controls.Add(this.customSCBirth);
             this.groupBox8.Controls.Add(this.customSCStarving);
             this.groupBox8.Controls.Add(this.label20);
-            this.groupBox8.Location = new System.Drawing.Point(329, 333);
+            this.groupBox8.Location = new System.Drawing.Point(329, 6);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(413, 240);
             this.groupBox8.TabIndex = 5;
@@ -1582,15 +1532,164 @@
             this.label25.TabIndex = 0;
             this.label25.Text = resources.GetString("label25.Text");
             // 
-            // btExportMultipliers
+            // tabPageOCR
             // 
-            this.btExportMultipliers.Location = new System.Drawing.Point(422, 642);
-            this.btExportMultipliers.Name = "btExportMultipliers";
-            this.btExportMultipliers.Size = new System.Drawing.Size(317, 23);
-            this.btExportMultipliers.TabIndex = 17;
-            this.btExportMultipliers.Text = "Export multiplier settings to file…";
-            this.btExportMultipliers.UseVisualStyleBackColor = true;
-            this.btExportMultipliers.Click += new System.EventHandler(this.btExportMultipliers_Click);
+            this.tabPageOCR.Controls.Add(this.groupBox1);
+            this.tabPageOCR.Location = new System.Drawing.Point(4, 22);
+            this.tabPageOCR.Name = "tabPageOCR";
+            this.tabPageOCR.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageOCR.Size = new System.Drawing.Size(748, 695);
+            this.tabPageOCR.TabIndex = 4;
+            this.tabPageOCR.Text = "OCR";
+            this.tabPageOCR.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.cbOCRIgnoreImprintValue);
+            this.groupBox1.Controls.Add(this.cbShowOCRButton);
+            this.groupBox1.Controls.Add(this.label23);
+            this.groupBox1.Controls.Add(this.nudWaitBeforeScreenCapture);
+            this.groupBox1.Controls.Add(this.label19);
+            this.groupBox1.Controls.Add(this.nudWhiteThreshold);
+            this.groupBox1.Controls.Add(this.textBoxOCRCustom);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.cbOCRApp);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Location = new System.Drawing.Point(6, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(734, 321);
+            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "OCR";
+            // 
+            // cbOCRIgnoreImprintValue
+            // 
+            this.cbOCRIgnoreImprintValue.AutoSize = true;
+            this.cbOCRIgnoreImprintValue.Location = new System.Drawing.Point(6, 292);
+            this.cbOCRIgnoreImprintValue.Name = "cbOCRIgnoreImprintValue";
+            this.cbOCRIgnoreImprintValue.Size = new System.Drawing.Size(287, 17);
+            this.cbOCRIgnoreImprintValue.TabIndex = 17;
+            this.cbOCRIgnoreImprintValue.Text = "Don\'t read imprinting value (can be overlapped by chat)";
+            this.cbOCRIgnoreImprintValue.UseVisualStyleBackColor = true;
+            // 
+            // cbShowOCRButton
+            // 
+            this.cbShowOCRButton.AutoSize = true;
+            this.cbShowOCRButton.Location = new System.Drawing.Point(9, 19);
+            this.cbShowOCRButton.Name = "cbShowOCRButton";
+            this.cbShowOCRButton.Size = new System.Drawing.Size(228, 17);
+            this.cbShowOCRButton.TabIndex = 16;
+            this.cbShowOCRButton.Text = "Show OCR-Button instead of Import-Button";
+            this.cbShowOCRButton.UseVisualStyleBackColor = true;
+            // 
+            // label23
+            // 
+            this.label23.Location = new System.Drawing.Point(6, 188);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(296, 20);
+            this.label23.TabIndex = 15;
+            this.label23.Text = "Wait before screencapture (time to tab into game) in ms";
+            // 
+            // label19
+            // 
+            this.label19.Location = new System.Drawing.Point(6, 162);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(296, 20);
+            this.label19.TabIndex = 13;
+            this.label19.Text = "White Threshold (increase if you increased gamma ingame)";
+            // 
+            // textBoxOCRCustom
+            // 
+            this.textBoxOCRCustom.Location = new System.Drawing.Point(133, 250);
+            this.textBoxOCRCustom.Name = "textBoxOCRCustom";
+            this.textBoxOCRCustom.Size = new System.Drawing.Size(274, 20);
+            this.textBoxOCRCustom.TabIndex = 11;
+            this.textBoxOCRCustom.Visible = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 234);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(289, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Capture from (ShooterGame is default for the Steam-version)";
+            // 
+            // cbOCRApp
+            // 
+            this.cbOCRApp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbOCRApp.FormattingEnabled = true;
+            this.cbOCRApp.Items.AddRange(new object[] {
+            "ShooterGame",
+            "XboxApp",
+            "VLC",
+            "Custom"});
+            this.cbOCRApp.Location = new System.Drawing.Point(6, 250);
+            this.cbOCRApp.Name = "cbOCRApp";
+            this.cbOCRApp.Size = new System.Drawing.Size(121, 21);
+            this.cbOCRApp.TabIndex = 9;
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(6, 53);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(722, 97);
+            this.label1.TabIndex = 5;
+            this.label1.Text = resources.GetString("label1.Text");
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(6, 106);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(104, 13);
+            this.label35.TabIndex = 8;
+            this.label35.Text = "Position of the timers";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(199, 106);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(14, 13);
+            this.label36.TabIndex = 10;
+            this.label36.Text = "X";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(300, 106);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(14, 13);
+            this.label37.TabIndex = 12;
+            this.label37.Text = "Y";
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(120, 132);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(93, 13);
+            this.label38.TabIndex = 17;
+            this.label38.Text = "distance from right";
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(300, 132);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(14, 13);
+            this.label39.TabIndex = 15;
+            this.label39.Text = "Y";
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(6, 132);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(94, 13);
+            this.label40.TabIndex = 13;
+            this.label40.Text = "Position of the info";
             // 
             // nudWildLevelStep
             // 
@@ -2066,6 +2165,78 @@
             this.nudDefaultFontSize.Size = new System.Drawing.Size(72, 20);
             this.nudDefaultFontSize.TabIndex = 3;
             // 
+            // nudOverlayInfoPosY
+            // 
+            this.nudOverlayInfoPosY.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudOverlayInfoPosY.Location = new System.Drawing.Point(320, 130);
+            this.nudOverlayInfoPosY.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudOverlayInfoPosY.Name = "nudOverlayInfoPosY";
+            this.nudOverlayInfoPosY.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudOverlayInfoPosY.Size = new System.Drawing.Size(57, 20);
+            this.nudOverlayInfoPosY.TabIndex = 16;
+            // 
+            // nudOverlayInfoPosDFR
+            // 
+            this.nudOverlayInfoPosDFR.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudOverlayInfoPosDFR.Location = new System.Drawing.Point(219, 130);
+            this.nudOverlayInfoPosDFR.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudOverlayInfoPosDFR.Name = "nudOverlayInfoPosDFR";
+            this.nudOverlayInfoPosDFR.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudOverlayInfoPosDFR.Size = new System.Drawing.Size(57, 20);
+            this.nudOverlayInfoPosDFR.TabIndex = 14;
+            // 
+            // nudOverlayTimerPosY
+            // 
+            this.nudOverlayTimerPosY.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudOverlayTimerPosY.Location = new System.Drawing.Point(320, 104);
+            this.nudOverlayTimerPosY.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudOverlayTimerPosY.Name = "nudOverlayTimerPosY";
+            this.nudOverlayTimerPosY.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudOverlayTimerPosY.Size = new System.Drawing.Size(57, 20);
+            this.nudOverlayTimerPosY.TabIndex = 11;
+            // 
+            // nudOverlayTimerPosX
+            // 
+            this.nudOverlayTimerPosX.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudOverlayTimerPosX.Location = new System.Drawing.Point(219, 104);
+            this.nudOverlayTimerPosX.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudOverlayTimerPosX.Name = "nudOverlayTimerPosX";
+            this.nudOverlayTimerPosX.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudOverlayTimerPosX.Size = new System.Drawing.Size(57, 20);
+            this.nudOverlayTimerPosX.TabIndex = 9;
+            // 
             // nudOverlayInfoDuration
             // 
             this.nudOverlayInfoDuration.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -2094,7 +2265,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -2102,7 +2273,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -2110,7 +2281,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -2118,44 +2289,8 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 4;
-            // 
-            // nudWaitBeforeScreenCapture
-            // 
-            this.nudWaitBeforeScreenCapture.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudWaitBeforeScreenCapture.Location = new System.Drawing.Point(335, 186);
-            this.nudWaitBeforeScreenCapture.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
-            this.nudWaitBeforeScreenCapture.Name = "nudWaitBeforeScreenCapture";
-            this.nudWaitBeforeScreenCapture.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudWaitBeforeScreenCapture.Size = new System.Drawing.Size(72, 20);
-            this.nudWaitBeforeScreenCapture.TabIndex = 14;
-            // 
-            // nudWhiteThreshold
-            // 
-            this.nudWhiteThreshold.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudWhiteThreshold.Location = new System.Drawing.Point(335, 160);
-            this.nudWhiteThreshold.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.nudWhiteThreshold.Name = "nudWhiteThreshold";
-            this.nudWhiteThreshold.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudWhiteThreshold.Size = new System.Drawing.Size(72, 20);
-            this.nudWhiteThreshold.TabIndex = 12;
             // 
             // numericUpDownMaxBreedingSug
             // 
@@ -2264,14 +2399,41 @@
             this.aTExportFolderLocationsBindingSource.AllowNew = false;
             this.aTExportFolderLocationsBindingSource.DataSource = typeof(ARKBreedingStats.settings.ATImportExportedFolderLocation);
             // 
-            // label34
+            // nudWaitBeforeScreenCapture
             // 
-            this.label34.Location = new System.Drawing.Point(419, 601);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(320, 38);
-            this.label34.TabIndex = 18;
-            this.label34.Text = "You can export the settings on this page to a file, e.g. to share it with tribe m" +
-    "embers or for bug reports.";
+            this.nudWaitBeforeScreenCapture.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudWaitBeforeScreenCapture.Location = new System.Drawing.Point(335, 186);
+            this.nudWaitBeforeScreenCapture.Maximum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this.nudWaitBeforeScreenCapture.Name = "nudWaitBeforeScreenCapture";
+            this.nudWaitBeforeScreenCapture.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudWaitBeforeScreenCapture.Size = new System.Drawing.Size(72, 20);
+            this.nudWaitBeforeScreenCapture.TabIndex = 14;
+            // 
+            // nudWhiteThreshold
+            // 
+            this.nudWhiteThreshold.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudWhiteThreshold.Location = new System.Drawing.Point(335, 160);
+            this.nudWhiteThreshold.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nudWhiteThreshold.Name = "nudWhiteThreshold";
+            this.nudWhiteThreshold.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudWhiteThreshold.Size = new System.Drawing.Size(72, 20);
+            this.nudWhiteThreshold.TabIndex = 12;
             // 
             // Settings
             // 
@@ -2292,8 +2454,6 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Settings_FormClosing);
             this.groupBoxMultiplier.ResumeLayout(false);
             this.groupBoxMultiplier.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -2347,6 +2507,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWarnImportMoreThan)).EndInit();
             this.groupBox13.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExportFolders)).EndInit();
+            this.tabPageOCR.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyFoodConsumptionSpeedEvent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMatingIntervalEvent)).EndInit();
@@ -2368,14 +2531,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudDinoCharacterFoodDrain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamingSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDefaultFontSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoPosY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoPosDFR)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudOverlayTimerPosY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudOverlayTimerPosX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoDuration)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxBreedingSug)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutosaveMinutes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.aTImportFileLocationBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudImportLowerBoundTE)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.aTExportFolderLocationsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2391,7 +2558,6 @@
         private System.Windows.Forms.Label labelTameAdd;
         private System.Windows.Forms.Label labelInfo;
         private System.Windows.Forms.CheckBox checkBoxAutoSave;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label5;
         private ARKBreedingStats.uiControls.Nud numericUpDownAutosaveMinutes;
         private System.Windows.Forms.Label label6;
@@ -2425,7 +2591,6 @@
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.CheckBox checkBoxDisplayHiddenStats;
-        private System.Windows.Forms.Label label1;
         private ARKBreedingStats.uiControls.Nud nudMaxGraphLevel;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label2;
@@ -2433,9 +2598,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.TextBox textBoxOCRCustom;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox cbOCRApp;
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.CheckBox chkbSpeechRecognition;
         private System.Windows.Forms.Label label3;
@@ -2457,10 +2619,6 @@
         private ARKBreedingStats.uiControls.Nud nudTamingSpeedEvent;
         private System.Windows.Forms.Button buttonEventToDefault;
         private System.Windows.Forms.Label labelEvent;
-        private uiControls.Nud nudWhiteThreshold;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label23;
-        private uiControls.Nud nudWaitBeforeScreenCapture;
         private System.Windows.Forms.GroupBox groupBox11;
         private uiControls.Nud nudWildLevelStep;
         private System.Windows.Forms.CheckBox cbConsiderWildLevelSteps;
@@ -2489,7 +2647,6 @@
         private System.Windows.Forms.CheckBox cbIgnoreSexInBreedingPlan;
         private uiControls.Nud nudMaxServerLevel;
         private System.Windows.Forms.Label lbMaxTotalLevel;
-        private System.Windows.Forms.CheckBox cbShowOCRButton;
         private System.Windows.Forms.GroupBox groupBox17;
         private System.Windows.Forms.ComboBox cbbLanguage;
         private System.Windows.Forms.Label label27;
@@ -2512,7 +2669,6 @@
         private System.Windows.Forms.DataGridViewButtonColumn dgvFileLocation_Delete;
         private System.Windows.Forms.CheckBox cbApplyGlobalSpeciesToLibrary;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelStatMultipliers;
-        private System.Windows.Forms.CheckBox cbOCRIgnoreImprintValue;
         private System.Windows.Forms.ComboBox cbbStatMultiplierPresets;
         private System.Windows.Forms.GroupBox groupBox18;
         private System.Windows.Forms.Button btApplyPreset;
@@ -2546,5 +2702,27 @@
         private System.Windows.Forms.CheckBox cbIgnoreUnknownBPOnSaveImport;
         private System.Windows.Forms.Button btExportMultipliers;
         private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.TabPage tabPageOCR;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox cbOCRIgnoreImprintValue;
+        private System.Windows.Forms.CheckBox cbShowOCRButton;
+        private System.Windows.Forms.Label label23;
+        private uiControls.Nud nudWaitBeforeScreenCapture;
+        private System.Windows.Forms.Label label19;
+        private uiControls.Nud nudWhiteThreshold;
+        private System.Windows.Forms.TextBox textBoxOCRCustom;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cbOCRApp;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label38;
+        private uiControls.Nud nudOverlayInfoPosY;
+        private System.Windows.Forms.Label label39;
+        private uiControls.Nud nudOverlayInfoPosDFR;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.Label label37;
+        private uiControls.Nud nudOverlayTimerPosY;
+        private System.Windows.Forms.Label label36;
+        private uiControls.Nud nudOverlayTimerPosX;
+        private System.Windows.Forms.Label label35;
     }
 }
