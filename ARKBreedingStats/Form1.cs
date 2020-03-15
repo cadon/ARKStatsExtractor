@@ -106,6 +106,14 @@ namespace ARKBreedingStats
                 Properties.Settings.Default.Save();
             }
 
+            // convert setting of single namingPattern to array.
+            // Remove this backward-compatibility conversion and the setting `sequentialUniqueNamePattern` in 2 months (~2020-05)
+            if (Properties.Settings.Default.NamingPatterns == null)
+            {
+                Properties.Settings.Default.NamingPatterns = new string[6];
+                Properties.Settings.Default.NamingPatterns[0] = Properties.Settings.Default.sequentialUniqueNamePattern;
+            }
+
             initLocalization();
             InitializeComponent();
 
@@ -2867,7 +2875,7 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="input"></param>
         /// <param name="openPatternEditor"></param>
-        private void CreatureInfoInput_CreatureDataRequested(CreatureInfoInput input, bool openPatternEditor, bool showDuplicateNameWarning)
+        private void CreatureInfoInput_CreatureDataRequested(CreatureInfoInput input, bool openPatternEditor, bool showDuplicateNameWarning, int namingPatternIndex)
         {
             Creature cr = new Creature
             {
@@ -2909,9 +2917,9 @@ namespace ARKBreedingStats
             }
 
             if (openPatternEditor)
-                input.OpenNamePatternEditor(cr, customReplacingsNamingPattern, ReloadNamePatternCustomReplacings);
+                input.OpenNamePatternEditor(cr, customReplacingsNamingPattern, namingPatternIndex, ReloadNamePatternCustomReplacings);
             else
-                input.GenerateCreatureName(cr, customReplacingsNamingPattern, showDuplicateNameWarning);
+                input.GenerateCreatureName(cr, customReplacingsNamingPattern, showDuplicateNameWarning, namingPatternIndex);
         }
 
         private void ExtractionTestControl1_CopyToTester(string speciesBP, int[] wildLevels, int[] domLevels, bool postTamed, bool bred, double te, double imprintingBonus, bool gotoTester, testCases.TestCaseControl tcc)
@@ -3198,7 +3206,7 @@ namespace ARKBreedingStats
                     sameSpecies = creatureCollection.creatures.Where(c => c.Species == cr.Species).ToList();
 
                 // set new name
-                cr.name = NamePatterns.GenerateCreatureName(cr, sameSpecies, customReplacingsNamingPattern, false);
+                cr.name = NamePatterns.GenerateCreatureName(cr, sameSpecies, customReplacingsNamingPattern, false, 0);
 
                 UpdateDisplayedCreatureValues(cr, false);
             }

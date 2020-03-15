@@ -1020,5 +1020,16 @@ namespace ARKBreedingStats.Properties {
                 this["TCLVSortAsc"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public string[] NamingPatterns {
+            get {
+                return ((string[])(this["NamingPatterns"]));
+            }
+            set {
+                this["NamingPatterns"] = value;
+            }
+        }
     }
 }

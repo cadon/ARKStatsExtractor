@@ -31,6 +31,7 @@ namespace ARKBreedingStats
         private void InitializeComponent()
         {
             this.gbCreatureInfo = new System.Windows.Forms.GroupBox();
+            this.btNamingPatternEditor = new System.Windows.Forms.Button();
             this.btnGenerateUniqueName = new System.Windows.Forms.Button();
             this.tbArkIdIngame = new System.Windows.Forms.TextBox();
             this.tbARKID = new System.Windows.Forms.TextBox();
@@ -73,7 +74,11 @@ namespace ARKBreedingStats
             this.lbOwner = new System.Windows.Forms.Label();
             this.lbName = new System.Windows.Forms.Label();
             this.btAdd2Library = new System.Windows.Forms.Button();
-            this.btNamingPatternEditor = new System.Windows.Forms.Button();
+            this.btNamingPattern2 = new System.Windows.Forms.Button();
+            this.btNamingPattern3 = new System.Windows.Forms.Button();
+            this.btNamingPattern4 = new System.Windows.Forms.Button();
+            this.btNamingPattern5 = new System.Windows.Forms.Button();
+            this.btNamingPattern6 = new System.Windows.Forms.Button();
             this.gbCreatureInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsFather)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsMother)).BeginInit();
@@ -82,6 +87,11 @@ namespace ARKBreedingStats
             // 
             // gbCreatureInfo
             // 
+            this.gbCreatureInfo.Controls.Add(this.btNamingPattern6);
+            this.gbCreatureInfo.Controls.Add(this.btNamingPattern5);
+            this.gbCreatureInfo.Controls.Add(this.btNamingPattern4);
+            this.gbCreatureInfo.Controls.Add(this.btNamingPattern3);
+            this.gbCreatureInfo.Controls.Add(this.btNamingPattern2);
             this.gbCreatureInfo.Controls.Add(this.btNamingPatternEditor);
             this.gbCreatureInfo.Controls.Add(this.btnGenerateUniqueName);
             this.gbCreatureInfo.Controls.Add(this.tbArkIdIngame);
@@ -128,27 +138,35 @@ namespace ARKBreedingStats
             this.gbCreatureInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbCreatureInfo.Location = new System.Drawing.Point(0, 0);
             this.gbCreatureInfo.Name = "gbCreatureInfo";
-            this.gbCreatureInfo.Size = new System.Drawing.Size(229, 492);
+            this.gbCreatureInfo.Size = new System.Drawing.Size(229, 518);
             this.gbCreatureInfo.TabIndex = 0;
             this.gbCreatureInfo.TabStop = false;
             this.gbCreatureInfo.Text = "Creature-info";
             this.gbCreatureInfo.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
+            // btNamingPatternEditor
+            // 
+            this.btNamingPatternEditor.Location = new System.Drawing.Point(201, 19);
+            this.btNamingPatternEditor.Name = "btNamingPatternEditor";
+            this.btNamingPatternEditor.Size = new System.Drawing.Size(22, 20);
+            this.btNamingPatternEditor.TabIndex = 43;
+            this.btNamingPatternEditor.Text = "⚙";
+            this.btNamingPatternEditor.UseVisualStyleBackColor = true;
+            this.btNamingPatternEditor.Click += new System.EventHandler(this.btNamingPatternEditor_Click);
+            // 
             // btnGenerateUniqueName
             // 
-            this.btnGenerateUniqueName.Location = new System.Drawing.Point(178, 19);
+            this.btnGenerateUniqueName.Location = new System.Drawing.Point(177, 19);
             this.btnGenerateUniqueName.Name = "btnGenerateUniqueName";
             this.btnGenerateUniqueName.Size = new System.Drawing.Size(22, 20);
             this.btnGenerateUniqueName.TabIndex = 1;
             this.btnGenerateUniqueName.TabStop = false;
             this.btnGenerateUniqueName.Text = "Generate";
             this.btnGenerateUniqueName.UseVisualStyleBackColor = true;
-            this.btnGenerateUniqueName.Click += new System.EventHandler(this.btnGenerateUniqueName_Click);
-            this.btnGenerateUniqueName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnGenerateUniqueName_MouseDown);
             // 
             // tbArkIdIngame
             // 
-            this.tbArkIdIngame.Location = new System.Drawing.Point(83, 230);
+            this.tbArkIdIngame.Location = new System.Drawing.Point(83, 255);
             this.tbArkIdIngame.Name = "tbArkIdIngame";
             this.tbArkIdIngame.ReadOnly = true;
             this.tbArkIdIngame.Size = new System.Drawing.Size(138, 20);
@@ -156,7 +174,7 @@ namespace ARKBreedingStats
             // 
             // tbARKID
             // 
-            this.tbARKID.Location = new System.Drawing.Point(50, 204);
+            this.tbARKID.Location = new System.Drawing.Point(50, 229);
             this.tbARKID.Name = "tbARKID";
             this.tbARKID.Size = new System.Drawing.Size(172, 20);
             this.tbARKID.TabIndex = 8;
@@ -166,7 +184,7 @@ namespace ARKBreedingStats
             this.cbServer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cbServer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.cbServer.FormattingEnabled = true;
-            this.cbServer.Location = new System.Drawing.Point(50, 97);
+            this.cbServer.Location = new System.Drawing.Point(50, 122);
             this.cbServer.Name = "cbServer";
             this.cbServer.Size = new System.Drawing.Size(172, 21);
             this.cbServer.TabIndex = 4;
@@ -175,14 +193,14 @@ namespace ARKBreedingStats
             // 
             this.textBoxTribe.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.textBoxTribe.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxTribe.Location = new System.Drawing.Point(50, 71);
+            this.textBoxTribe.Location = new System.Drawing.Point(50, 96);
             this.textBoxTribe.Name = "textBoxTribe";
             this.textBoxTribe.Size = new System.Drawing.Size(172, 20);
             this.textBoxTribe.TabIndex = 3;
             // 
             // textBoxNote
             // 
-            this.textBoxNote.Location = new System.Drawing.Point(50, 178);
+            this.textBoxNote.Location = new System.Drawing.Point(50, 203);
             this.textBoxNote.Name = "textBoxNote";
             this.textBoxNote.Size = new System.Drawing.Size(172, 20);
             this.textBoxNote.TabIndex = 7;
@@ -192,7 +210,7 @@ namespace ARKBreedingStats
             this.parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.parentComboBoxFather.FormattingEnabled = true;
-            this.parentComboBoxFather.Location = new System.Drawing.Point(50, 151);
+            this.parentComboBoxFather.Location = new System.Drawing.Point(50, 176);
             this.parentComboBoxFather.Name = "parentComboBoxFather";
             this.parentComboBoxFather.PreselectedCreatureGuid = new System.Guid("00000000-0000-0000-0000-000000000000");
             this.parentComboBoxFather.Size = new System.Drawing.Size(172, 21);
@@ -204,7 +222,7 @@ namespace ARKBreedingStats
             this.parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.parentComboBoxMother.FormattingEnabled = true;
-            this.parentComboBoxMother.Location = new System.Drawing.Point(50, 124);
+            this.parentComboBoxMother.Location = new System.Drawing.Point(50, 149);
             this.parentComboBoxMother.Name = "parentComboBoxMother";
             this.parentComboBoxMother.PreselectedCreatureGuid = new System.Guid("00000000-0000-0000-0000-000000000000");
             this.parentComboBoxMother.Size = new System.Drawing.Size(172, 21);
@@ -215,7 +233,7 @@ namespace ARKBreedingStats
             // 
             this.textBoxOwner.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.textBoxOwner.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxOwner.Location = new System.Drawing.Point(50, 45);
+            this.textBoxOwner.Location = new System.Drawing.Point(50, 70);
             this.textBoxOwner.Name = "textBoxOwner";
             this.textBoxOwner.Size = new System.Drawing.Size(172, 20);
             this.textBoxOwner.TabIndex = 2;
@@ -232,7 +250,7 @@ namespace ARKBreedingStats
             // nudMutationsFather
             // 
             this.nudMutationsFather.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudMutationsFather.Location = new System.Drawing.Point(162, 335);
+            this.nudMutationsFather.Location = new System.Drawing.Point(162, 360);
             this.nudMutationsFather.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -256,7 +274,7 @@ namespace ARKBreedingStats
             // nudMutationsMother
             // 
             this.nudMutationsMother.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudMutationsMother.Location = new System.Drawing.Point(80, 335);
+            this.nudMutationsMother.Location = new System.Drawing.Point(80, 360);
             this.nudMutationsMother.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -280,7 +298,7 @@ namespace ARKBreedingStats
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(147, 337);
+            this.label12.Location = new System.Drawing.Point(147, 362);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(17, 13);
             this.label12.TabIndex = 34;
@@ -289,7 +307,7 @@ namespace ARKBreedingStats
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(65, 337);
+            this.label11.Location = new System.Drawing.Point(65, 362);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(16, 13);
             this.label11.TabIndex = 33;
@@ -297,7 +315,7 @@ namespace ARKBreedingStats
             // 
             // dhmsInputGrown
             // 
-            this.dhmsInputGrown.Location = new System.Drawing.Point(86, 280);
+            this.dhmsInputGrown.Location = new System.Drawing.Point(86, 305);
             this.dhmsInputGrown.Name = "dhmsInputGrown";
             this.dhmsInputGrown.Size = new System.Drawing.Size(136, 26);
             this.dhmsInputGrown.TabIndex = 10;
@@ -306,7 +324,7 @@ namespace ARKBreedingStats
             // 
             // dhmsInputCooldown
             // 
-            this.dhmsInputCooldown.Location = new System.Drawing.Point(86, 253);
+            this.dhmsInputCooldown.Location = new System.Drawing.Point(86, 278);
             this.dhmsInputCooldown.Name = "dhmsInputCooldown";
             this.dhmsInputCooldown.Size = new System.Drawing.Size(136, 26);
             this.dhmsInputCooldown.TabIndex = 9;
@@ -316,7 +334,7 @@ namespace ARKBreedingStats
             // 
             this.nudMaturation.DecimalPlaces = 2;
             this.nudMaturation.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.nudMaturation.Location = new System.Drawing.Point(89, 309);
+            this.nudMaturation.Location = new System.Drawing.Point(89, 334);
             this.nudMaturation.Name = "nudMaturation";
             this.nudMaturation.NeutralNumber = new decimal(new int[] {
             0,
@@ -336,7 +354,7 @@ namespace ARKBreedingStats
             // 
             this.cbNeutered.Appearance = System.Windows.Forms.Appearance.Button;
             this.cbNeutered.AutoSize = true;
-            this.cbNeutered.Location = new System.Drawing.Point(91, 361);
+            this.cbNeutered.Location = new System.Drawing.Point(91, 386);
             this.cbNeutered.Name = "cbNeutered";
             this.cbNeutered.Size = new System.Drawing.Size(61, 23);
             this.cbNeutered.TabIndex = 15;
@@ -347,7 +365,7 @@ namespace ARKBreedingStats
             // 
             this.dateTimePickerAdded.Checked = false;
             this.dateTimePickerAdded.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePickerAdded.Location = new System.Drawing.Point(146, 389);
+            this.dateTimePickerAdded.Location = new System.Drawing.Point(146, 414);
             this.dateTimePickerAdded.MinDate = new System.DateTime(2014, 12, 31, 0, 0, 0, 0);
             this.dateTimePickerAdded.Name = "dateTimePickerAdded";
             this.dateTimePickerAdded.Size = new System.Drawing.Size(76, 20);
@@ -355,7 +373,7 @@ namespace ARKBreedingStats
             // 
             // buttonStatus
             // 
-            this.buttonStatus.Location = new System.Drawing.Point(49, 390);
+            this.buttonStatus.Location = new System.Drawing.Point(49, 415);
             this.buttonStatus.Name = "buttonStatus";
             this.buttonStatus.Size = new System.Drawing.Size(35, 23);
             this.buttonStatus.TabIndex = 16;
@@ -364,7 +382,7 @@ namespace ARKBreedingStats
             // 
             // buttonSex
             // 
-            this.buttonSex.Location = new System.Drawing.Point(50, 361);
+            this.buttonSex.Location = new System.Drawing.Point(50, 386);
             this.buttonSex.Name = "buttonSex";
             this.buttonSex.Size = new System.Drawing.Size(35, 23);
             this.buttonSex.TabIndex = 14;
@@ -375,7 +393,7 @@ namespace ARKBreedingStats
             // lbNewMutations
             // 
             this.lbNewMutations.AutoSize = true;
-            this.lbNewMutations.Location = new System.Drawing.Point(186, 366);
+            this.lbNewMutations.Location = new System.Drawing.Point(186, 391);
             this.lbNewMutations.Name = "lbNewMutations";
             this.lbNewMutations.Size = new System.Drawing.Size(30, 13);
             this.lbNewMutations.TabIndex = 42;
@@ -385,7 +403,7 @@ namespace ARKBreedingStats
             // lbArkIdIngame
             // 
             this.lbArkIdIngame.AutoSize = true;
-            this.lbArkIdIngame.Location = new System.Drawing.Point(5, 233);
+            this.lbArkIdIngame.Location = new System.Drawing.Point(5, 258);
             this.lbArkIdIngame.Name = "lbArkIdIngame";
             this.lbArkIdIngame.Size = new System.Drawing.Size(72, 13);
             this.lbArkIdIngame.TabIndex = 41;
@@ -394,7 +412,7 @@ namespace ARKBreedingStats
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 207);
+            this.label1.Location = new System.Drawing.Point(6, 232);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 39;
@@ -402,7 +420,7 @@ namespace ARKBreedingStats
             // 
             // btClearColors
             // 
-            this.btClearColors.Location = new System.Drawing.Point(2, 419);
+            this.btClearColors.Location = new System.Drawing.Point(2, 444);
             this.btClearColors.Name = "btClearColors";
             this.btClearColors.Size = new System.Drawing.Size(45, 23);
             this.btClearColors.TabIndex = 37;
@@ -412,7 +430,7 @@ namespace ARKBreedingStats
             // 
             // regionColorChooser1
             // 
-            this.regionColorChooser1.Location = new System.Drawing.Point(48, 416);
+            this.regionColorChooser1.Location = new System.Drawing.Point(48, 441);
             this.regionColorChooser1.Margin = new System.Windows.Forms.Padding(0);
             this.regionColorChooser1.Name = "regionColorChooser1";
             this.regionColorChooser1.Size = new System.Drawing.Size(174, 29);
@@ -421,7 +439,7 @@ namespace ARKBreedingStats
             // lbServer
             // 
             this.lbServer.AutoSize = true;
-            this.lbServer.Location = new System.Drawing.Point(6, 100);
+            this.lbServer.Location = new System.Drawing.Point(6, 125);
             this.lbServer.Name = "lbServer";
             this.lbServer.Size = new System.Drawing.Size(38, 13);
             this.lbServer.TabIndex = 30;
@@ -431,7 +449,7 @@ namespace ARKBreedingStats
             // 
             this.lbTribe.AutoSize = true;
             this.lbTribe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTribe.Location = new System.Drawing.Point(6, 74);
+            this.lbTribe.Location = new System.Drawing.Point(6, 99);
             this.lbTribe.Name = "lbTribe";
             this.lbTribe.Size = new System.Drawing.Size(31, 13);
             this.lbTribe.TabIndex = 29;
@@ -441,7 +459,7 @@ namespace ARKBreedingStats
             // lbStatus
             // 
             this.lbStatus.AutoSize = true;
-            this.lbStatus.Location = new System.Drawing.Point(6, 395);
+            this.lbStatus.Location = new System.Drawing.Point(6, 420);
             this.lbStatus.Name = "lbStatus";
             this.lbStatus.Size = new System.Drawing.Size(37, 13);
             this.lbStatus.TabIndex = 27;
@@ -450,7 +468,7 @@ namespace ARKBreedingStats
             // lbSex
             // 
             this.lbSex.AutoSize = true;
-            this.lbSex.Location = new System.Drawing.Point(6, 366);
+            this.lbSex.Location = new System.Drawing.Point(6, 391);
             this.lbSex.Name = "lbSex";
             this.lbSex.Size = new System.Drawing.Size(25, 13);
             this.lbSex.TabIndex = 26;
@@ -459,7 +477,7 @@ namespace ARKBreedingStats
             // lbMutations
             // 
             this.lbMutations.AutoSize = true;
-            this.lbMutations.Location = new System.Drawing.Point(6, 337);
+            this.lbMutations.Location = new System.Drawing.Point(6, 362);
             this.lbMutations.Name = "lbMutations";
             this.lbMutations.Size = new System.Drawing.Size(53, 13);
             this.lbMutations.TabIndex = 25;
@@ -468,7 +486,7 @@ namespace ARKBreedingStats
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(105, 395);
+            this.label7.Location = new System.Drawing.Point(105, 420);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(38, 13);
             this.label7.TabIndex = 17;
@@ -477,7 +495,7 @@ namespace ARKBreedingStats
             // lbMaturationPerc
             // 
             this.lbMaturationPerc.AutoSize = true;
-            this.lbMaturationPerc.Location = new System.Drawing.Point(6, 311);
+            this.lbMaturationPerc.Location = new System.Drawing.Point(6, 336);
             this.lbMaturationPerc.Name = "lbMaturationPerc";
             this.lbMaturationPerc.Size = new System.Drawing.Size(74, 13);
             this.lbMaturationPerc.TabIndex = 22;
@@ -486,7 +504,7 @@ namespace ARKBreedingStats
             // lbCooldown
             // 
             this.lbCooldown.AutoSize = true;
-            this.lbCooldown.Location = new System.Drawing.Point(6, 260);
+            this.lbCooldown.Location = new System.Drawing.Point(6, 285);
             this.lbCooldown.Name = "lbCooldown";
             this.lbCooldown.Size = new System.Drawing.Size(54, 13);
             this.lbCooldown.TabIndex = 20;
@@ -495,7 +513,7 @@ namespace ARKBreedingStats
             // lbGrownIn
             // 
             this.lbGrownIn.AutoSize = true;
-            this.lbGrownIn.Location = new System.Drawing.Point(6, 286);
+            this.lbGrownIn.Location = new System.Drawing.Point(6, 311);
             this.lbGrownIn.Name = "lbGrownIn";
             this.lbGrownIn.Size = new System.Drawing.Size(49, 13);
             this.lbGrownIn.TabIndex = 21;
@@ -503,7 +521,7 @@ namespace ARKBreedingStats
             // 
             // btSaveChanges
             // 
-            this.btSaveChanges.Location = new System.Drawing.Point(89, 448);
+            this.btSaveChanges.Location = new System.Drawing.Point(89, 473);
             this.btSaveChanges.Name = "btSaveChanges";
             this.btSaveChanges.Size = new System.Drawing.Size(60, 37);
             this.btSaveChanges.TabIndex = 20;
@@ -515,7 +533,7 @@ namespace ARKBreedingStats
             // lbNote
             // 
             this.lbNote.AutoSize = true;
-            this.lbNote.Location = new System.Drawing.Point(6, 181);
+            this.lbNote.Location = new System.Drawing.Point(6, 206);
             this.lbNote.Name = "lbNote";
             this.lbNote.Size = new System.Drawing.Size(30, 13);
             this.lbNote.TabIndex = 19;
@@ -524,7 +542,7 @@ namespace ARKBreedingStats
             // lbFather
             // 
             this.lbFather.AutoSize = true;
-            this.lbFather.Location = new System.Drawing.Point(6, 154);
+            this.lbFather.Location = new System.Drawing.Point(6, 179);
             this.lbFather.Name = "lbFather";
             this.lbFather.Size = new System.Drawing.Size(37, 13);
             this.lbFather.TabIndex = 18;
@@ -533,7 +551,7 @@ namespace ARKBreedingStats
             // lbMother
             // 
             this.lbMother.AutoSize = true;
-            this.lbMother.Location = new System.Drawing.Point(6, 127);
+            this.lbMother.Location = new System.Drawing.Point(6, 152);
             this.lbMother.Name = "lbMother";
             this.lbMother.Size = new System.Drawing.Size(40, 13);
             this.lbMother.TabIndex = 17;
@@ -543,7 +561,7 @@ namespace ARKBreedingStats
             // 
             this.lbOwner.AutoSize = true;
             this.lbOwner.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbOwner.Location = new System.Drawing.Point(6, 48);
+            this.lbOwner.Location = new System.Drawing.Point(6, 73);
             this.lbOwner.Name = "lbOwner";
             this.lbOwner.Size = new System.Drawing.Size(38, 13);
             this.lbOwner.TabIndex = 16;
@@ -563,7 +581,7 @@ namespace ARKBreedingStats
             // 
             // btAdd2Library
             // 
-            this.btAdd2Library.Location = new System.Drawing.Point(89, 448);
+            this.btAdd2Library.Location = new System.Drawing.Point(89, 473);
             this.btAdd2Library.Name = "btAdd2Library";
             this.btAdd2Library.Size = new System.Drawing.Size(134, 37);
             this.btAdd2Library.TabIndex = 21;
@@ -571,15 +589,55 @@ namespace ARKBreedingStats
             this.btAdd2Library.UseVisualStyleBackColor = true;
             this.btAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
             // 
-            // btNamingPatternEditor
+            // btNamingPattern2
             // 
-            this.btNamingPatternEditor.Location = new System.Drawing.Point(201, 19);
-            this.btNamingPatternEditor.Name = "btNamingPatternEditor";
-            this.btNamingPatternEditor.Size = new System.Drawing.Size(22, 20);
-            this.btNamingPatternEditor.TabIndex = 43;
-            this.btNamingPatternEditor.Text = "⚙";
-            this.btNamingPatternEditor.UseVisualStyleBackColor = true;
-            this.btNamingPatternEditor.Click += new System.EventHandler(this.btNamingPatternEditor_Click);
+            this.btNamingPattern2.Location = new System.Drawing.Point(50, 44);
+            this.btNamingPattern2.Name = "btNamingPattern2";
+            this.btNamingPattern2.Size = new System.Drawing.Size(30, 20);
+            this.btNamingPattern2.TabIndex = 44;
+            this.btNamingPattern2.TabStop = false;
+            this.btNamingPattern2.Text = "G2";
+            this.btNamingPattern2.UseVisualStyleBackColor = true;
+            // 
+            // btNamingPattern3
+            // 
+            this.btNamingPattern3.Location = new System.Drawing.Point(85, 44);
+            this.btNamingPattern3.Name = "btNamingPattern3";
+            this.btNamingPattern3.Size = new System.Drawing.Size(30, 20);
+            this.btNamingPattern3.TabIndex = 45;
+            this.btNamingPattern3.TabStop = false;
+            this.btNamingPattern3.Text = "G3";
+            this.btNamingPattern3.UseVisualStyleBackColor = true;
+            // 
+            // btNamingPattern4
+            // 
+            this.btNamingPattern4.Location = new System.Drawing.Point(120, 44);
+            this.btNamingPattern4.Name = "btNamingPattern4";
+            this.btNamingPattern4.Size = new System.Drawing.Size(30, 20);
+            this.btNamingPattern4.TabIndex = 46;
+            this.btNamingPattern4.TabStop = false;
+            this.btNamingPattern4.Text = "G4";
+            this.btNamingPattern4.UseVisualStyleBackColor = true;
+            // 
+            // btNamingPattern5
+            // 
+            this.btNamingPattern5.Location = new System.Drawing.Point(155, 44);
+            this.btNamingPattern5.Name = "btNamingPattern5";
+            this.btNamingPattern5.Size = new System.Drawing.Size(30, 20);
+            this.btNamingPattern5.TabIndex = 47;
+            this.btNamingPattern5.TabStop = false;
+            this.btNamingPattern5.Text = "G5";
+            this.btNamingPattern5.UseVisualStyleBackColor = true;
+            // 
+            // btNamingPattern6
+            // 
+            this.btNamingPattern6.Location = new System.Drawing.Point(190, 44);
+            this.btNamingPattern6.Name = "btNamingPattern6";
+            this.btNamingPattern6.Size = new System.Drawing.Size(33, 20);
+            this.btNamingPattern6.TabIndex = 48;
+            this.btNamingPattern6.TabStop = false;
+            this.btNamingPattern6.Text = "G6";
+            this.btNamingPattern6.UseVisualStyleBackColor = true;
             // 
             // CreatureInfoInput
             // 
@@ -587,7 +645,7 @@ namespace ARKBreedingStats
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.gbCreatureInfo);
             this.Name = "CreatureInfoInput";
-            this.Size = new System.Drawing.Size(229, 492);
+            this.Size = new System.Drawing.Size(229, 518);
             this.gbCreatureInfo.ResumeLayout(false);
             this.gbCreatureInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsFather)).EndInit();
@@ -643,5 +701,10 @@ namespace ARKBreedingStats
         private System.Windows.Forms.TextBox tbArkIdIngame;
         private System.Windows.Forms.Label lbNewMutations;
         private System.Windows.Forms.Button btNamingPatternEditor;
+        private System.Windows.Forms.Button btNamingPattern6;
+        private System.Windows.Forms.Button btNamingPattern5;
+        private System.Windows.Forms.Button btNamingPattern4;
+        private System.Windows.Forms.Button btNamingPattern3;
+        private System.Windows.Forms.Button btNamingPattern2;
     }
 }

@@ -26,16 +26,17 @@ namespace ARKBreedingStats.uiControls
             InitializeComponent();
         }
 
-        public PatternEditor(Creature creature, List<Creature> females, List<Creature> males, Dictionary<string, string> customReplacings, Action<PatternEditor> reloadCallback) : this()
+        public PatternEditor(Creature creature, List<Creature> females, List<Creature> males, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback) : this()
         {
             OnReloadCustomReplacings = reloadCallback;
             _creature = creature;
             _females = females;
             _males = males;
             _customReplacings = customReplacings;
-            txtboxPattern.Text = Properties.Settings.Default.sequentialUniqueNamePattern;
+            txtboxPattern.Text = Properties.Settings.Default.NamingPatterns?[namingPatternIndex] ?? string.Empty;
             txtboxPattern.SelectionStart = txtboxPattern.Text.Length;
 
+            Text = $"Naming Pattern Editor: pattern {(namingPatternIndex + 1).ToString()}";
 
             // collect creatures of the same species
             var sameSpecies = (females ?? new List<Creature> { }).Concat((males ?? new List<Creature> { })).ToList();
@@ -289,7 +290,7 @@ namespace ARKBreedingStats.uiControls
 
         private void DisplayPreview()
         {
-            cbPreview.Text = NamePatterns.GenerateCreatureName(_creature, _females, _males, _customReplacings, false, false, txtboxPattern.Text, false);
+            cbPreview.Text = NamePatterns.GenerateCreatureName(_creature, _females, _males, _customReplacings, false, -1, false, txtboxPattern.Text, false);
         }
     }
 }
