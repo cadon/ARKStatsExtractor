@@ -2130,7 +2130,7 @@ namespace ARKBreedingStats
         /// Performs an optical character recognition on either the specified image or a screenshot of the game and extracts the stat-values.
         /// </summary>
         /// <param name="imageFilePath">If specified, this image is taken instead of a screenshot.</param>
-        /// <param name="manuallyTriggered"></param>
+        /// <param name="manuallyTriggered">If false, the method is called by a timer based event when the user looks at a creature-inventory.</param>
         public void DoOCR(string imageFilePath = "", bool manuallyTriggered = true)
         {
             cbQuickWildCheck.Checked = false;
@@ -2185,9 +2185,12 @@ namespace ARKBreedingStats
                 rbTamedExtractor.Checked = true;
             }
 
+            // adjust the selected species if the ocr is triggered automatically or if the species cannot be determined by name
+            Species speciesByName = null;
             if (!manuallyTriggered
-                || cbGuessSpecies.Checked
-                || !Values.V.TryGetSpeciesByName(speciesName, out Species speciesByName))
+                || (cbGuessSpecies.Checked
+                    && !Values.V.TryGetSpeciesByName(speciesName, out speciesByName))
+                )
             {
                 double[] statValues = new double[Values.STATS_COUNT];
                 for (int s = 0; s < displayedStatIndices.Length; s++)
@@ -2226,7 +2229,8 @@ namespace ARKBreedingStats
                         ExtractLevels(true);
                     }
                     else
-                    { // automated, or first manual attempt at new values
+                    {
+                        // automated, or first manual attempt at new values
                         bool foundPossiblyGood = false;
                         for (int dinooption = 0; dinooption < possibleSpecies.Count() && foundPossiblyGood == false; dinooption++)
                         {
@@ -2254,13 +2258,6 @@ namespace ARKBreedingStats
             lastOCRValues = OCRvalues;
             if (tabControlMain.SelectedTab != TabPageOCR)
                 tabControlMain.SelectedTab = tabPageExtractor;
-
-            // in the new ui the current weight is not shown anymore
-            //// current weight for babies (has to be after the correct species is set in the combobox)
-            //if (OCRvalues.Length > 10 && OCRvalues[10] > 0)
-            //{
-            //    creatureInfoInputExtractor.babyWeight = OCRvalues[10];
-            //}
         }
 
         /// <summary>
@@ -2282,10 +2279,13 @@ namespace ARKBreedingStats
             }
 
             // if dice-coefficient is promising, just take that
-            var scores = Values.V.species.Select(sp => new { Score = DiceCoefficient.diceCoefficient(sp.name.Replace(" ", ""), speciesName.Replace(" ", "")), Species = sp }).OrderByDescending(o => o.Score);
-            if (scores.First().Score > 0.4)
+            var scores = Values.V.species.Where(sp => sp.IsDomesticable).Select(sp => new { Score = DiceCoefficient.diceCoefficient(sp.name.Replace(" ", ""), speciesName.Replace(" ", "")), Species = sp }).OrderByDescending(o => o.Score);
+            const double MINIMUM_SCORE = 0.5;
+            if (scores.First().Score > MINIMUM_SCORE)
             {
-                possibleSpecies.Add(scores.First().Species);
+                possibleSpecies.AddRange(scores.Where(s => s.Score > MINIMUM_SCORE).Select(s => s.Species)
+                    .Where(sp => !(stats[(int)StatNames.Oxygen] != 0 ^ sp.DisplaysStat((int)StatNames.Oxygen)))
+                    );
                 return possibleSpecies;
             }
 
@@ -2296,9 +2296,13 @@ namespace ARKBreedingStats
                 return possibleSpecies;
             }
 
-            foreach (var species in Values.V.species)
+            foreach (var species in Values.V.species.Where(sp => sp.IsDomesticable))
             {
                 if (species == speciesSelector1.SelectedSpecies) continue; // the currently selected species is ignored here and set as top priority at the end
+
+                // if value for oxygen is given but current species doesn't display it, skip
+                if (stats[(int)StatNames.Oxygen] != 0 ^ species.DisplaysStat((int)StatNames.Oxygen))
+                    continue;
 
                 bool possible = true;
                 // check that all stats are possible (no negative levels)

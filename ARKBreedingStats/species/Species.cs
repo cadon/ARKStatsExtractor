@@ -81,6 +81,10 @@ namespace ARKBreedingStats.species
         /// Determines if species has different stat-names.
         /// </summary>
         public bool IsGlowSpecies;
+        /// <summary>
+        /// True if the species is tameable or domesticable in other ways (e.g. raising from collected eggs).
+        /// </summary>
+        public bool IsDomesticable;
 
         private const int COLOR_REGION_COUNT = 6;
 
@@ -152,6 +156,7 @@ namespace ARKBreedingStats.species
             }
 
             IsGlowSpecies = new List<string> { "Bulbdog", "Featherlight", "Glowbug", "Glowtail", "Shinehorn" }.Contains(name);
+            IsDomesticable = (taming != null && (taming.nonViolent || taming.violent)) || breeding != null;
 
             if (statImprintMult == null) statImprintMult = new double[] { 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 }; // default values for the stat imprint multipliers
         }
