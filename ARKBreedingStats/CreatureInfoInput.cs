@@ -16,7 +16,7 @@ namespace ARKBreedingStats
         public event Save2LibraryClickedEventHandler Save2Library_Clicked;
         public delegate void RequestParentListEventHandler(CreatureInfoInput sender);
         public event RequestParentListEventHandler ParentListRequested;
-        public delegate void RequestCreatureDataEventHandler(CreatureInfoInput sender, bool openPatternEditor, bool showDuplicateNameWarning);
+        public delegate void RequestCreatureDataEventHandler(CreatureInfoInput sender, bool openPatternEditor, bool showDuplicateNameWarning, int namingPatternIndex);
         public event RequestCreatureDataEventHandler CreatureDataRequested;
         public bool extractor;
         private Sex sex;
@@ -56,6 +56,28 @@ namespace ARKBreedingStats
             Cooldown = new DateTime(2000, 1, 1);
             Grown = new DateTime(2000, 1, 1);
             NamesOfAllCreatures = new List<string>();
+
+            var namingPatternButtons = new List<Button> { btnGenerateUniqueName, btNamingPattern2, btNamingPattern3, btNamingPattern4, btNamingPattern5, btNamingPattern6 };
+            for (int bi = 0; bi < namingPatternButtons.Count; bi++)
+            {
+                int localIndex = bi;
+                // apply naming pattern
+                namingPatternButtons[bi].Click += (s, e) =>
+                {
+                    if (selectedSpecies != null)
+                    {
+                        CreatureDataRequested?.Invoke(this, false, true, localIndex);
+                    }
+                };
+                // open naming pattern editor
+                namingPatternButtons[bi].MouseDown += (s, e) =>
+                {
+                    if (e.Button == MouseButtons.Right)
+                    {
+                        CreatureDataRequested?.Invoke(this, true, false, localIndex);
+                    }
+                };
+            }
         }
 
         private void buttonAdd2Library_Click(object sender, EventArgs e)
@@ -426,40 +448,24 @@ namespace ARKBreedingStats
             }
         }
 
-        private void btnGenerateUniqueName_Click(object sender, EventArgs e)
-        {
-            if (selectedSpecies != null)
-            {
-                CreatureDataRequested?.Invoke(this, false, true);
-            }
-        }
-
-        private void btnGenerateUniqueName_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                CreatureDataRequested?.Invoke(this, true, false);
-            }
-        }
-
         private void btNamingPatternEditor_Click(object sender, EventArgs e)
         {
-            CreatureDataRequested?.Invoke(this, true, false);
+            CreatureDataRequested?.Invoke(this, true, false, 0);
         }
 
         /// <summary>
         /// Generates a creature name with a given pattern
         /// </summary>
-        public void GenerateCreatureName(Creature creature, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning)
+        public void GenerateCreatureName(Creature creature, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, int namingPatternIndex)
         {
             SetCreatureData(creature);
-            CreatureName = uiControls.NamePatterns.GenerateCreatureName(creature, _females, _males, customReplacings, showDuplicateNameWarning);
+            CreatureName = uiControls.NamePatterns.GenerateCreatureName(creature, _females, _males, customReplacings, showDuplicateNameWarning, namingPatternIndex);
         }
 
-        public void OpenNamePatternEditor(Creature creature, Dictionary<string, string> customReplacings, Action<uiControls.PatternEditor> reloadCallback)
+        public void OpenNamePatternEditor(Creature creature, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<uiControls.PatternEditor> reloadCallback)
         {
             SetCreatureData(creature);
-            using (var pe = new uiControls.PatternEditor(creature, _females, _males, customReplacings, reloadCallback))
+            using (var pe = new uiControls.PatternEditor(creature, _females, _males, customReplacings, namingPatternIndex, reloadCallback))
             {
                 if (Properties.Settings.Default.PatternEditorLocation.X > -100000)
                     pe.Location = Properties.Settings.Default.PatternEditorLocation;
@@ -469,7 +475,9 @@ namespace ARKBreedingStats
                     pe.SplitterDistance = Properties.Settings.Default.PatternEditorSplitterDistance;
                 if (pe.ShowDialog() == DialogResult.OK)
                 {
-                    Properties.Settings.Default.sequentialUniqueNamePattern = pe.NamePattern;
+                    var namingPatterns = Properties.Settings.Default.NamingPatterns ?? new string[6];
+                    namingPatterns[namingPatternIndex] = pe.NamePattern;
+                    Properties.Settings.Default.NamingPatterns = namingPatterns;
                 }
                 Properties.Settings.Default.PatternEditorLocation = pe.Location;
                 Properties.Settings.Default.PatternEditorSize = pe.Size;
@@ -652,7 +660,10 @@ namespace ARKBreedingStats
             Loc.setToolTip(dateTimePickerAdded, "domesticatedAt", tt);
             Loc.setToolTip(nudMutationsMother, "mutationCounter", tt);
             Loc.setToolTip(nudMutationsFather, "mutationCounter", tt);
-            Loc.setToolTip(btnGenerateUniqueName, tt);
+
+            var namingPatternButtons = new List<Button> { btnGenerateUniqueName, btNamingPattern2, btNamingPattern3, btNamingPattern4, btNamingPattern5, btNamingPattern6 };
+            for (int bi = 0; bi < namingPatternButtons.Count; bi++)
+                tt.SetToolTip(namingPatternButtons[bi], Loc.s("btnGenerateUniqueNameTT", false));
         }
     }
 }

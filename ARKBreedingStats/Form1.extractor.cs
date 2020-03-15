@@ -772,7 +772,7 @@ namespace ARKBreedingStats
             if (Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
                 && string.IsNullOrEmpty(creatureInfoInputExtractor.CreatureName))
             {
-                CreatureInfoInput_CreatureDataRequested(creatureInfoInputExtractor, false, false);
+                CreatureInfoInput_CreatureDataRequested(creatureInfoInputExtractor, false, false, 0);
                 if (Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied)
                     Clipboard.SetText(creatureInfoInputExtractor.CreatureName);
             }

@@ -14,22 +14,27 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// Generate a creature name with the naming pattern.
         /// </summary>
-        public static string GenerateCreatureName(Creature creature, List<Creature> females, List<Creature> males, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, bool showTooLongWarning = true, string pattern = null, bool displayError = true)
+        public static string GenerateCreatureName(Creature creature, List<Creature> females, List<Creature> males, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, int namingPatternIndex, bool showTooLongWarning = true, string pattern = null, bool displayError = true)
         {
             // collect creatures of the same species
             List<Creature> sameSpecies = (females ?? new List<Creature>()).Concat(males ?? new List<Creature>()).ToList();
 
-            return GenerateCreatureName(creature, sameSpecies, customReplacings, showDuplicateNameWarning, showTooLongWarning, pattern, displayError);
+            return GenerateCreatureName(creature, sameSpecies, customReplacings, showDuplicateNameWarning, namingPatternIndex, showTooLongWarning, pattern, displayError);
         }
 
         /// <summary>
         /// Generate a creature name with the naming pattern.
         /// </summary>
-        public static string GenerateCreatureName(Creature creature, List<Creature> sameSpecies, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, bool showTooLongWarning = true, string pattern = null, bool displayError = true)
+        public static string GenerateCreatureName(Creature creature, List<Creature> sameSpecies, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, int namingPatternIndex, bool showTooLongWarning = true, string pattern = null, bool displayError = true)
         {
             List<string> creatureNames = sameSpecies.Select(x => x.name).ToList();
             if (pattern == null)
-                pattern = Properties.Settings.Default.sequentialUniqueNamePattern;
+            {
+                if (namingPatternIndex == -1)
+                    pattern = string.Empty;
+                else
+                    pattern = Properties.Settings.Default.NamingPatterns?[namingPatternIndex] ?? string.Empty;
+            }
 
             Dictionary<string, string> tokenDictionary = CreateTokenDictionary(creature, sameSpecies);
             // first resolve keys, then functions

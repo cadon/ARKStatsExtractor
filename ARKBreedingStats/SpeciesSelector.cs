@@ -85,7 +85,6 @@ namespace ARKBreedingStats
                     displayName = s.name,
                     searchName = s.name,
                     modName = s.Mod?.title ?? string.Empty,
-                    domesticable = s.taming.nonViolent || s.taming.violent || s.breeding != null,
                     species = s
                 });
             }
@@ -100,7 +99,6 @@ namespace ARKBreedingStats
                         searchName = a.Key,
                         species = speciesNameToSpecies[a.Value],
                         modName = speciesNameToSpecies[a.Value].Mod?.title ?? string.Empty,
-                        domesticable = speciesNameToSpecies[a.Value].taming.nonViolent || speciesNameToSpecies[a.Value].taming.violent || speciesNameToSpecies[a.Value].breeding != null,
                     });
                 }
             }
@@ -164,16 +162,16 @@ namespace ARKBreedingStats
             bool inputIsEmpty = string.IsNullOrWhiteSpace(part);
             foreach (var s in entryList)
             {
-                if ((Properties.Settings.Default.DisplayNonDomesticableSpecies || s.domesticable)
+                if ((Properties.Settings.Default.DisplayNonDomesticableSpecies || s.species.IsDomesticable)
                     && (inputIsEmpty
                        || s.searchName.ToLower().Contains(part.ToLower())
                        )
                    )
                 {
-                    lvSpeciesList.Items.Add(new ListViewItem(new[] { s.displayName, s.species.VariantInfo, s.domesticable ? "✓" : string.Empty, s.modName })
+                    lvSpeciesList.Items.Add(new ListViewItem(new[] { s.displayName, s.species.VariantInfo, s.species.IsDomesticable ? "✓" : string.Empty, s.modName })
                     {
                         Tag = s.species,
-                        BackColor = !s.domesticable ? Color.FromArgb(255, 245, 230)
+                        BackColor = !s.species.IsDomesticable ? Color.FromArgb(255, 245, 230)
                         : !string.IsNullOrEmpty(s.modName) ? Color.FromArgb(230, 245, 255)
                         : SystemColors.Window,
                         ToolTipText = s.species.blueprintPath,
@@ -307,7 +305,6 @@ namespace ARKBreedingStats
         internal string searchName;
         internal string displayName;
         internal string modName;
-        internal bool domesticable;
         internal Species species;
         public override string ToString()
         {

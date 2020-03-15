@@ -148,8 +148,8 @@ The exported creatures are saved as a file. Select the folder to import these fi
 The first entry is the default export folder and is used for 'Import last exported' and the Auto Import.</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>Enables a OCR-feature, that tries to read the values from the screen by creating a screenshot and extracting the numbers from that (i.e. does not trigger BattlEye).
-To work, it needs a config file for the used resolution and UI-scaling. It works not 100 % reliable and a resolution of at least 1680×1050 is recommended. Usually using the import features is more comfortable.
+    <value>OCR is a feature that tries to read the values from the screen by creating a screenshot and extracting the numbers from that (i.e. it does not trigger BattlEye).
+To work propertly, it needs a config file for the used resolution and UI-scaling. It works not perfectly reliable and a resolution of at least 1680×1050 is recommended. Usually using the import features is more comfortable.
 The window-mode "Fullscreen-Windowed" should be set ingame.</value>
   </data>
 </root>
