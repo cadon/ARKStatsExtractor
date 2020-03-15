@@ -488,7 +488,10 @@ namespace ARKBreedingStats.ocr
 
             if (!setResolution(screenshotbmp))
             {
-                OCRText = "Error while calibrating: probably game-resolution is not supported by this OCR-configuration.\nThe tested image has a resolution of " + screenshotbmp.Width.ToString() + "×" + screenshotbmp.Height.ToString() + " px.";
+                OCRText = "Error while calibrating: The game-resolution is not supported by the currently loaded OCR-configuration.\n"
+                    + $"The tested image has a resolution of {screenshotbmp.Width.ToString()} × {screenshotbmp.Height.ToString()} px,\n"
+                    + $"the resolution of the loaded ocr-config is {ocrConfig.resolutionWidth} × {ocrConfig.resolutionHeight} px.\n\n"
+                    + "Load a ocr-config file with the resolution of the game to make it work.";
                 return finalValues;
             }
 
