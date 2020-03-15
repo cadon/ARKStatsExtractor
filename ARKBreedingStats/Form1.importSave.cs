@@ -85,7 +85,13 @@ namespace ARKBreedingStats
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occured while importing. Message: \n\n{ex.Message}",
+                string message = ex.Message
+                       + "\n\nException in " + ex.Source
+                       + "\n\nMethod throwing the error: " + ex.TargetSite.DeclaringType.FullName + "." + ex.TargetSite.Name
+                       + "\n\nStackTrace:\n" + ex.StackTrace
+                       + (ex.InnerException != null ? "\n\nInner Exception:\n" + ex.InnerException.Message : string.Empty)
+                       ;
+                MessageBox.Show($"An error occured while importing. Message: \n\n{message}",
                         "Import Error", MessageBoxButtons.OK);
             }
         }
