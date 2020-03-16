@@ -49,7 +49,7 @@ namespace ARKBreedingStats
 
             ImportSavegame importSavegame = new ImportSavegame(gameTime);
             int? wildLevelStep = creatureCollection.getWildLevelStep();
-            List<Creature> creatures = tamedCreatureObjects.Select(o => importSavegame.ConvertGameObject(o, wildLevelStep)).ToList();
+            List<Creature> creatures = tamedCreatureObjects.Select(o => importSavegame.ConvertGameObject(o, wildLevelStep)).Where(c => c != null).ToList();
 
             // if there are creatures with unknown species, check if the according mod-file is available
             var unknownSpeciesCreatures = creatures.Where(c => c.Species == null).ToList();
@@ -57,8 +57,8 @@ namespace ARKBreedingStats
             if (!unknownSpeciesCreatures.Any()
                 || Properties.Settings.Default.IgnoreUnknownBlueprintsOnSaveImport
                 || MessageBox.Show("The species of " + unknownSpeciesCreatures.Count.ToString() + " creature" + (unknownSpeciesCreatures.Count != 1 ? "s" : "") + " is not recognized, probably because they are from a mod that is not loaded.\n"
-                                  + "The unrecognized species-classes are as follows, all the according creatures cannot be imported: " + string.Join(", ", unknownSpeciesCreatures.Select(c => c.name).Distinct().ToArray())
-                                  + "\n(To import the unrecognized creatures, you first need additional values-files.)\n\n"
+                                  + "The unrecognized species-classes are as follows, all the according creatures cannot be imported:\n\n" + string.Join("\n", unknownSpeciesCreatures.Select(c => c.name).Distinct().ToArray())
+                                  + "\n\nTo import the unrecognized creatures, you first need mod values-files, see Settings - Mod value manager… if the mod value is available\n\n"
                                   + "Do you want to import the recognized creatures? If you click no, nothing is imported.",
                                   "Unrecognized species while importing savegame", MessageBoxButtons.YesNo, MessageBoxIcon.Question
                                  ) == DialogResult.Yes
@@ -141,6 +141,10 @@ namespace ARKBreedingStats
             }
 
             GameObject statusObject = creatureObject.CharacterStatusComponent();
+
+            // error while deserializing that creature
+            if (statusObject == null)
+                return null;
 
             string imprinterName = creatureObject.GetPropertyValue<string>("ImprinterName");
             string owner = string.IsNullOrWhiteSpace(imprinterName) ? creatureObject.GetPropertyValue<string>("TamerString") : imprinterName;
