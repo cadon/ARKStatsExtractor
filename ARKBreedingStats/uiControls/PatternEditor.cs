@@ -148,6 +148,27 @@ namespace ARKBreedingStats.uiControls
             {
                 MessageBox.Show($"File not found\n{filePath}\n\nException: {ex.Message}", "ASB - File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            catch (System.ComponentModel.Win32Exception)
+            {
+                // No application is associated with the specified file for this operation
+                try
+                {
+                    // open file with notepad
+                    Process.Start("notepad.exe", filePath);
+                }
+                catch
+                {
+                    try
+                    {
+                        // open explorer and display file
+                        Process.Start("explorer.exe", @"/select,""" + filePath + "\"");
+                    }
+                    catch
+                    {
+                        MessageBox.Show("The file couldn't be opened\n" + filePath, "ASB error while opening file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
 
         private void Btn_Click(object sender, EventArgs e)

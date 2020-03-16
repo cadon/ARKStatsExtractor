@@ -178,6 +178,7 @@
             this.label28 = new System.Windows.Forms.Label();
             this.cbAutoImportExported = new System.Windows.Forms.CheckBox();
             this.groupBox21 = new System.Windows.Forms.GroupBox();
+            this.label41 = new System.Windows.Forms.Label();
             this.cbCopyPatternNameToClipboard = new System.Windows.Forms.CheckBox();
             this.cbApplyNamePatternOnImport = new System.Windows.Forms.CheckBox();
             this.groupBox19 = new System.Windows.Forms.GroupBox();
@@ -205,7 +206,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.cbOCRApp = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label41 = new System.Windows.Forms.Label();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyFoodConsumptionSpeedEvent)).BeginInit();
@@ -1771,7 +1771,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1779,7 +1779,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1787,7 +1787,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1795,7 +1795,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -2147,6 +2147,15 @@
             this.groupBox21.TabStop = false;
             this.groupBox21.Text = "Auto naming on import";
             // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(23, 39);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(157, 13);
+            this.label41.TabIndex = 11;
+            this.label41.Text = "The first naming pattern is used.";
+            // 
             // cbCopyPatternNameToClipboard
             // 
             this.cbCopyPatternNameToClipboard.AutoSize = true;
@@ -2428,6 +2437,7 @@
             this.cbOCRApp.Name = "cbOCRApp";
             this.cbOCRApp.Size = new System.Drawing.Size(121, 21);
             this.cbOCRApp.TabIndex = 9;
+            this.cbOCRApp.SelectedIndexChanged += new System.EventHandler(this.cbOCRApp_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -2436,15 +2446,6 @@
             this.label1.Size = new System.Drawing.Size(722, 77);
             this.label1.TabIndex = 5;
             this.label1.Text = resources.GetString("label1.Text");
-            // 
-            // label41
-            // 
-            this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(23, 39);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(157, 13);
-            this.label41.TabIndex = 11;
-            this.label41.Text = "The first naming pattern is used.";
             // 
             // Settings
             // 

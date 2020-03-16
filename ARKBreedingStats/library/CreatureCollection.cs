@@ -281,6 +281,7 @@ namespace ARKBreedingStats.Library
                             old.fatherName = creature.fatherName;
                         }
                         old.colors = creature.colors;
+                        old.status = creature.status;
                     }
 
                     if (recalculate)
