@@ -135,34 +135,6 @@ namespace ARKBreedingStats
                     rbBredTester.Checked ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0);
         }
 
-        /// <summary>
-        /// import XML-data with all creature data
-        /// </summary>
-        private void pasteCreatureFromClipboardToTester()
-        {
-            string clpb = Clipboard.GetText();
-            if (clpb.Length > 0)
-            {
-                Creature c;
-                var serializer = new XmlSerializer(typeof(Creature));
-                using (var reader = new StringReader(clpb))
-                {
-                    try
-                    {
-                        c = (Creature)serializer.Deserialize(reader);
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show($"Invalid Data in clipboard. Couldn\'t paste creature-data\nErrormessage:\n\n{e.Message}", "Error",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                }
-                UpdateParents(new List<Creature> { c });
-                editCreatureInTester(c, true);
-            }
-        }
-
         private void creatureInfoInputTester_Save2Library_Clicked(CreatureInfoInput sender)
         {
             if (creatureTesterEdit == null)

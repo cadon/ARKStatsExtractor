@@ -1816,31 +1816,44 @@ namespace ARKBreedingStats
 
         private void pasteCreatureToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            pasteCreatureFromClipboardToTester();
+            PasteCreatureFromClipboardToTester();
         }
 
+        /// <summary>
+        /// Export creature data to clipboard serialized in json-format.
+        /// </summary>
+        /// <param name="c"></param>
         private void CopyCreatureToClipboard(Creature c)
         {
             if (c != null)
             {
-                var serializer = new XmlSerializer(typeof(Creature));
-                var sb = new StringBuilder();
-                using (var writer = new StringWriter(sb))
-                {
-                    try
-                    {
-                        serializer.Serialize(writer, c);
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show($"Couldn\'t serialize creature-object.\nErrormessage:\n\n{e.Message}", "Error",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                }
-                string clpb = sb.ToString();
+                string clpb = Newtonsoft.Json.JsonConvert.SerializeObject(c);
                 if (clpb.Length > 0)
                     Clipboard.SetText(clpb);
+            }
+        }
+
+        /// <summary>
+        /// Import creature-data from the clipboard.
+        /// </summary>
+        private void PasteCreatureFromClipboardToTester()
+        {
+            string clpb = Clipboard.GetText();
+            if (!string.IsNullOrEmpty(clpb))
+            {
+                Creature c;
+                try
+                {
+                    c = Newtonsoft.Json.JsonConvert.DeserializeObject<Creature>(clpb);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show($"Invalid Data in clipboard. Couldn\'t paste creature-data\nErrormessage:\n\n{e.Message}", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                UpdateParents(new List<Creature> { c });
+                editCreatureInTester(c, true);
             }
         }
 
