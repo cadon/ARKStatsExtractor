@@ -25,9 +25,11 @@ namespace ARKBreedingStats
         private int _maxLevel;
         private int _levelStep;
         private int _aliasesCount;
+        public bool Initialized { get; set; }
 
         public SpeechRecognition(int maxLevel, int levelStep, List<string> aliases, Label indicator)
         {
+            Initialized = false;
             if (aliases.Any())
             {
                 this.indicator = indicator;
@@ -37,6 +39,7 @@ namespace ARKBreedingStats
                 try
                 {
                     recognizer.SetInputToDefaultAudioDevice();
+                    Initialized = true;
                 }
                 catch
                 {

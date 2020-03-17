@@ -433,16 +433,25 @@ namespace ARKBreedingStats
         /// </summary>
         private void InitializeSpeechRecognition()
         {
+            bool speechRecognitionInitialized = false;
             if (Properties.Settings.Default.SpeechRecognition)
             {
                 // var speechRecognitionAvailable = (AppDomain.CurrentDomain.GetAssemblies().Any(a => a.FullName.Substring(0, 13) == "System.Speech")); // TODO doens't work as intended. Should only require System.Speech if available to allow running it on MONO
 
                 speechRecognition = new SpeechRecognition(creatureCollection.maxWildLevel, creatureCollection.considerWildLevelSteps ? creatureCollection.wildLevelStep : 1, Values.V.speciesWithAliasesList, lbListening);
-                speechRecognition.speechRecognized += TellTamingData;
-                speechRecognition.speechCommandRecognized += SpeechCommand;
-                lbListening.Visible = true;
+                if (speechRecognition.Initialized)
+                {
+                    speechRecognitionInitialized = true;
+                    speechRecognition.speechRecognized += TellTamingData;
+                    speechRecognition.speechCommandRecognized += SpeechCommand;
+                    lbListening.Visible = true;
+                }
+                else
+                {
+                    Properties.Settings.Default.SpeechRecognition = false;
+                }
             }
-            else
+            if (!speechRecognitionInitialized)
             {
                 speechRecognition?.Dispose();
                 speechRecognition = null;
