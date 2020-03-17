@@ -334,9 +334,9 @@ namespace ARKBreedingStats.uiControls
             string old_name = creature.name;
 
             string firstWordOfOldest = "";
-            if (speciesCreatures.Count > 0)
+            if (speciesCreatures.Any())
             {
-                firstWordOfOldest = speciesCreatures.OrderBy(s => s.addedToLibrary).First().name;
+                firstWordOfOldest = speciesCreatures.Where(c => c.addedToLibrary != null && !c.flags.HasFlag(CreatureFlags.Placeholder)).OrderBy(c => c.addedToLibrary).First().name;
                 if (!string.IsNullOrEmpty(firstWordOfOldest) && firstWordOfOldest.Contains(" "))
                 {
                     firstWordOfOldest = firstWordOfOldest.Substring(0, firstWordOfOldest.IndexOf(" "));
