@@ -78,6 +78,7 @@ namespace ARKBreedingStats
             cbServerFilterLibrary.Checked = Properties.Settings.Default.UseServerFilterForBreedingPlan;
             cbOwnerFilterLibrary.Checked = Properties.Settings.Default.UseOwnerFilterForBreedingPlan;
             cbBPIncludeCooldowneds.Checked = Properties.Settings.Default.IncludeCooldownsInBreedingPlan;
+            cbBPIncludeCryoCreatures.Checked = Properties.Settings.Default.IncludeCryoedInBreedingPlan;
 
             tagSelectorList1.OnTagChanged += TagSelectorList1_OnTagChanged;
             updateBreedingPlanAllowed = true;
@@ -143,7 +144,8 @@ namespace ARKBreedingStats
             if (forceUpdate || breedingPlanNeedsUpdate)
                 Creatures = creatureCollection.creatures
                         .Where(c => c.speciesBlueprint == currentSpecies.blueprintPath
-                                && c.status == CreatureStatus.Available
+                                && (c.status == CreatureStatus.Available
+                                    || (c.status == CreatureStatus.Cryopod && cbBPIncludeCryoCreatures.Checked))
                                 && !c.flags.HasFlag(CreatureFlags.Neutered)
                                 && (cbBPIncludeCooldowneds.Checked
                                     || !(c.cooldownUntil > DateTime.Now
@@ -903,6 +905,12 @@ namespace ARKBreedingStats
         private void checkBoxIncludeCooldowneds_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.IncludeCooldownsInBreedingPlan = cbBPIncludeCooldowneds.Checked;
+            DetermineBestBreeding(chosenCreature, true);
+        }
+
+        private void cbBPIncludeCryoCreatures_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.IncludeCryoedInBreedingPlan = cbBPIncludeCryoCreatures.Checked;
             DetermineBestBreeding(chosenCreature, true);
         }
 
