@@ -2,6 +2,7 @@
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ARKBreedingStats
 {
@@ -325,7 +326,7 @@ namespace ARKBreedingStats
                         text += (text.Length > 0 ? "\n" : string.Empty) + bd.Key + ": × " + bd.Value.ToString();
                     }
                 }
-                if (species.immobilizedBy != null && species.immobilizedBy.Count > 0)
+                if (species.immobilizedBy != null && species.immobilizedBy.Any())
                     text += $"{(text.Length > 0 ? "\n" : string.Empty)}{Loc.s("ImmobilizedBy")}: " +
                             $"{string.Join(", ", species.immobilizedBy)}";
             }

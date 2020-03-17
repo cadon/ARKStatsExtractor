@@ -382,7 +382,7 @@ namespace ARKBreedingStats
             {
                 speciesSelector1.SetSpecies(Values.V.SpeciesByBlueprint(Properties.Settings.Default.lastSpecies[0]));
             }
-            if (speciesSelector1.SelectedSpecies == null && Values.V.species.Count > 0)
+            if (speciesSelector1.SelectedSpecies == null && Values.V.species.Any())
                 speciesSelector1.SetSpecies(Values.V.species[0]);
             tamingControl1.SetSpecies(speciesSelector1.SelectedSpecies);
 
@@ -469,7 +469,7 @@ namespace ARKBreedingStats
             speciesSelector1.SetSpeciesByName(speciesName);
             if (speciesSelector1.SelectedSpecies != null && speciesSelector1.SelectedSpecies.taming != null &&
                     speciesSelector1.SelectedSpecies.taming.eats != null &&
-                    speciesSelector1.SelectedSpecies.taming.eats.Count > 0)
+                    speciesSelector1.SelectedSpecies.taming.eats.Any())
             {
                 tamingControl1.SetLevel(level, false);
                 tamingControl1.SetSpecies(speciesSelector1.SelectedSpecies);
@@ -964,7 +964,7 @@ namespace ARKBreedingStats
             {
                 if (c.tags.Count == 0)
                     removeWOTag = false;
-                else if (c.tags.Count > 0)
+                else if (c.tags.Any())
                 {
                     for (int t = 0; t < c.tags.Count; t++)
                     {
@@ -1970,7 +1970,7 @@ namespace ARKBreedingStats
             List<Creature> cs = new List<Creature>();
             foreach (ListViewItem i in listViewLibrary.SelectedItems)
                 cs.Add((Creature)i.Tag);
-            if (cs.Count > 0)
+            if (cs.Any())
                 SetStatus(cs, s);
         }
 
@@ -3034,7 +3034,7 @@ namespace ARKBreedingStats
             if (Values.V.loadedModsHash == 0 || Values.V.loadedModsHash != etc.modListHash)
                 LoadStatAndKibbleValues(false); // load original multipliers if they were changed
 
-            if (etc.ModIDs.Count > 0)
+            if (etc.ModIDs.Any())
                 LoadModValueFiles(Values.V.modsManifest.modsByFiles.Where(mi => etc.ModIDs.Contains(mi.Value.mod.id)).Select(mi => mi.Value.mod.FileName).ToList(),
                     false, false, out _);
 

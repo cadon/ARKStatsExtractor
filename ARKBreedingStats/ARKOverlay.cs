@@ -91,7 +91,7 @@ namespace ARKBreedingStats
 
         private void TimerUpdateTimer_Tick(object sender, EventArgs e)
         {
-            if (timers.Count > 0)
+            if (timers.Any())
                 SetTimerText();
 
             // info

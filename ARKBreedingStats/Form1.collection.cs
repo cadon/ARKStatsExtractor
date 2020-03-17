@@ -25,7 +25,7 @@ namespace ARKBreedingStats
                         "Discard Changes?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
                 return;
 
-            if (creatureCollection.modIDs?.Count > 0)
+            if (creatureCollection.modIDs?.Any() ?? false)
             {
                 // if old collection had additionalValues, load the original ones to reset all modded values
                 var (statValuesLoaded, _) = LoadStatAndKibbleValues(applySettings: false);
@@ -416,7 +416,7 @@ namespace ARKBreedingStats
             // calculate creature values
             RecalculateAllCreaturesValues();
 
-            if (!keepCurrentSelections && creatureCollection.creatures.Count > 0)
+            if (!keepCurrentSelections && creatureCollection.creatures.Any())
                 tabControlMain.SelectedTab = tabPageLibrary;
 
             creatureBoxListView.maxDomLevel = creatureCollection.maxDomLevel;

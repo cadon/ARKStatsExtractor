@@ -70,7 +70,7 @@ namespace ARKBreedingStats
                 SetCollectionChanged(true);
                 UpdateCreatureListings();
 
-                if (creatureCollection.creatures.Count > 0)
+                if (creatureCollection.creatures.Any())
                     tabControlMain.SelectedTab = tabPageLibrary;
 
                 // reapply last sorting

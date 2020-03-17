@@ -95,7 +95,7 @@ namespace ARKBreedingStats
 
             bool filesDownloaded = false;
 
-            if (modValueFilesWithAvailableUpdate.Count > 0
+            if (modValueFilesWithAvailableUpdate.Any()
                 && MessageBox.Show("For " + modValueFilesWithAvailableUpdate.Count.ToString() + " value files there is an update available. It is strongly recommended to use the updated versions.\n"
                 + "The updated files can be downloaded automatically if you want.\n"
                 + "The following files can be downloaded\n\n- "
@@ -107,7 +107,7 @@ namespace ARKBreedingStats
                 filesDownloaded |= values.modsManifest.DownloadModFiles(modValueFilesWithAvailableUpdate);
             }
 
-            if (missingModValueFilesOnlineAvailable.Count > 0
+            if (missingModValueFilesOnlineAvailable.Any()
                 && MessageBox.Show(missingModValueFilesOnlineAvailable.Count.ToString() + " mod-value files are not available locally. Without these files the library will not display all creatures.\n"
                 + "The missing files can be downloaded automatically if you want.\n"
                 + "The following files can be downloaded\n\n- "
@@ -119,7 +119,7 @@ namespace ARKBreedingStats
                 filesDownloaded |= values.modsManifest.DownloadModFiles(missingModValueFilesOnlineAvailable);
             }
 
-            if (missingModValueFilesOnlineNotAvailable.Count > 0)
+            if (missingModValueFilesOnlineNotAvailable.Any())
             {
                 MessageBox.Show(missingModValueFilesOnlineNotAvailable.Count.ToString() + " mod-value files are neither available locally nor online. The creatures of the missing mod will not be displayed.\n"
                 + "The following files are missing\n\n- "

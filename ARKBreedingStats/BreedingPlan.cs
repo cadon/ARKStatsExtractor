@@ -167,12 +167,12 @@ namespace ARKBreedingStats
 
             List<Creature> filteredList = new List<Creature>();
 
-            if (excludingTagList.Count > 0 || cbBPTagExcludeDefault.Checked)
+            if (excludingTagList.Any() || cbBPTagExcludeDefault.Checked)
             {
                 foreach (Creature c in cl)
                 {
                     bool exclude = cbBPTagExcludeDefault.Checked;
-                    if (!exclude && excludingTagList.Count > 0)
+                    if (!exclude && excludingTagList.Any())
                     {
                         foreach (string t in c.tags)
                         {
@@ -183,7 +183,7 @@ namespace ARKBreedingStats
                             }
                         }
                     }
-                    if (exclude && includingTagList.Count > 0)
+                    if (exclude && includingTagList.Any())
                     {
                         foreach (string t in c.tags)
                         {
@@ -314,7 +314,7 @@ namespace ARKBreedingStats
                 chosenM = new List<Creature>(combinedCreatures);
             }
 
-            if (chosenF.Count > 0 && chosenM.Count > 0)
+            if (chosenF.Any() && chosenM.Any())
             {
                 pedigreeCreature1.Show();
                 pedigreeCreature2.Show();
@@ -433,7 +433,7 @@ namespace ARKBreedingStats
                 }
 
                 breedingPairs = breedingPairs.OrderByDescending(p => p.BreedingScore).ToList();
-                double minScore = (breedingPairs.Count > 0 ? breedingPairs[breedingPairs.Count - 1].BreedingScore : 0);
+                double minScore = (breedingPairs.Any() ? breedingPairs[breedingPairs.Count - 1].BreedingScore : 0);
                 if (minScore < 0)
                 {
                     foreach (BreedingPair bp in breedingPairs)
@@ -535,7 +535,7 @@ namespace ARKBreedingStats
 
                 if (updateBreedingData)
                     SetBreedingData(currentSpecies);
-                if (breedingPairs.Count > 0)
+                if (breedingPairs.Any())
                 {
                     SetParents(0);
 

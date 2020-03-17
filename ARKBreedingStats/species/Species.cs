@@ -139,7 +139,7 @@ namespace ARKBreedingStats.species
             if (string.IsNullOrEmpty(blueprintPath))
                 blueprintPath = string.Empty;
 
-            if (boneDamageAdjusters != null && boneDamageAdjusters.Count > 0)
+            if (boneDamageAdjusters != null && boneDamageAdjusters.Any())
             {
                 // cleanup boneDamageMultipliers. Remove duplicates. Improve names.
                 var boneDamageAdjustersCleanedUp = new Dictionary<string, double>();

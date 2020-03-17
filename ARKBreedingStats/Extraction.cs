@@ -775,7 +775,7 @@ namespace ARKBreedingStats
         public double UniqueTE()
         {
             double eff = -2;
-            if (statsWithTE.Count > 0 && results[statsWithTE[0]].Count > chosenResults[statsWithTE[0]])
+            if (statsWithTE.Any() && results[statsWithTE[0]].Count > chosenResults[statsWithTE[0]])
             {
                 for (int s = 0; s < statsWithTE.Count; s++)
                 {

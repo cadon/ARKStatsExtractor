@@ -244,7 +244,7 @@ namespace ARKBreedingStats
                 {
                     statIOs[s].Status = StatIOStatus.Neutral;
                 }
-                else if (extractor.results[s].Count > 0)
+                else if (extractor.results[s].Any())
                 {
                     if (existingCreature != null)
                     {

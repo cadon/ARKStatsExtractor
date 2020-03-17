@@ -133,7 +133,7 @@ namespace ARKBreedingStats
 
         public void Tick()
         {
-            if (timerListEntries != null && timerListEntries.Count > 0)
+            if (timerListEntries != null && timerListEntries.Any())
             {
                 listViewTimer.BeginUpdate();
                 DateTime now = DateTime.Now;
@@ -239,7 +239,7 @@ namespace ARKBreedingStats
                         if (int.TryParse(c.Trim(), out int o))
                             list.Add(o);
                     }
-                    if (list.Count > 0)
+                    if (list.Any())
                         TimerAlerts = list;
                 }
             }
@@ -276,7 +276,7 @@ namespace ARKBreedingStats
                         }
                     }
                 }
-                // timer.Enabled = (timerListEntries.Count > 0); invoke event to check if there are any timers and if not disable ticking? todo
+                // timer.Enabled = (timerListEntries.Any()); invoke event to check if there are any timers and if not disable ticking? todo
             }
         }
 

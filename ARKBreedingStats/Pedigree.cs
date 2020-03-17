@@ -81,7 +81,7 @@ namespace ARKBreedingStats
                 {
                     g.DrawLine(myPen, line[0], line[1], line[2], line[3]);
                 }
-                if (children.Count > 0)
+                if (children.Any())
                     g.DrawString("Descendants", new Font("Arial", 14), new SolidBrush(Color.Black), 210, 170);
             }
         }
