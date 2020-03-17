@@ -714,8 +714,8 @@ namespace ARKBreedingStats
             else
                 subItems = subItems.Concat(new string[6]).ToArray();
 
-            // Add the species value.
-            subItems = subItems.Concat(new[] { cr.Species.DescriptiveNameAndMod }).ToArray();
+            // add the species and status
+            subItems = subItems.Concat(new[] { cr.Species.DescriptiveNameAndMod, cr.status.ToString() }).ToArray();
 
             // check if we display group for species or not.
             ListViewItem lvi;
