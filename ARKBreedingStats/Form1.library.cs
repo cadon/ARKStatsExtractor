@@ -1138,7 +1138,7 @@ namespace ARKBreedingStats
             else if (e.KeyCode == Keys.F2)
             {
                 if (listViewLibrary.SelectedIndices.Count > 0)
-                    editCreatureInTester((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
+                    EditCreatureInTester((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
             }
             else if (e.KeyCode == Keys.F3)
             {

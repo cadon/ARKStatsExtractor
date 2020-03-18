@@ -14,7 +14,10 @@ namespace ARKBreedingStats
 {
     public partial class Form1
     {
-        private void updateTesterDetails()
+        /// <summary>
+        /// Updates the labels for the creature stats outside of levels and info in the creatureInfoInput, i.e. wild/tame/bred, TE, Imprinting.
+        /// </summary>
+        private void UpdateTesterDetails()
         {
             setTesterInputsTamed(!rbWildTester.Checked);
             NumericUpDownTestingTE.Enabled = rbTamedTester.Checked;
@@ -23,7 +26,7 @@ namespace ARKBreedingStats
             labelImprintingTester.Enabled = rbBredTester.Checked;
             lbImprintedCount.Enabled = rbBredTester.Checked;
 
-            updateAllTesterValues();
+            UpdateAllTesterValues();
         }
 
         /// <summary>
@@ -31,7 +34,7 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="c">the creature to test</param>
         /// <param name="virtualCreature">set to true if the creature is not in the library</param>
-        private void editCreatureInTester(Creature c, bool virtualCreature = false)
+        private void EditCreatureInTester(Creature c, bool virtualCreature = false)
         {
             if (c != null)
             {
@@ -60,11 +63,11 @@ namespace ARKBreedingStats
                     testingIOs[s].LevelDom = c.levelsDom[s];
                 }
                 tabControlMain.SelectedTab = tabPageStatTesting;
-                setTesterInfoInputCreature(c, virtualCreature);
+                SetTesterInfoInputCreature(c, virtualCreature);
             }
         }
 
-        private void updateAllTesterValues()
+        private void UpdateAllTesterValues()
         {
             updateTorporInTester = false;
             for (int s = 0; s < Values.STATS_COUNT; s++)
@@ -209,11 +212,16 @@ namespace ARKBreedingStats
                 creatureTesterEdit.StartStopMatureTimer(true);
             }
 
-            setTesterInfoInputCreature();
+            SetTesterInfoInputCreature();
             tabControlMain.SelectedTab = tabPageLibrary;
         }
 
-        private void setTesterInfoInputCreature(Creature c = null, bool virtualCreature = false)
+        /// <summary>
+        /// Set the values in the creatureInfoInput control to the values of the creature.
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="virtualCreature"></param>
+        private void SetTesterInfoInputCreature(Creature c = null, bool virtualCreature = false)
         {
             bool enable = c != null; // set to a creature, or clear
             creatureInfoInputTester.ShowSaveButton = enable && !virtualCreature;
@@ -234,8 +242,10 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.Cooldown = c.cooldownUntil;
                 creatureInfoInputTester.Grown = c.growingUntil;
                 creatureInfoInputTester.domesticatedAt = c.domesticatedAt;
+                creatureInfoInputTester.AddedToLibraryAt = c.addedToLibrary;
                 creatureInfoInputTester.creatureFlags = c.flags;
                 creatureInfoInputTester.RegionColors = c.colors;
+                creatureInfoInputTester.CreatureGuid = c.guid;
                 creatureInfoInputTester.SetArkId(c.ArkId, c.ArkIdImported);
                 UpdateParentListInput(creatureInfoInputTester);
                 creatureInfoInputTester.MutationCounterMother = c.mutationsMaternal;
@@ -255,8 +265,10 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.Cooldown = DateTime.Now.AddHours(-1);
                 creatureInfoInputTester.Grown = DateTime.Now.AddHours(-1);
                 creatureInfoInputTester.domesticatedAt = null;
+                creatureInfoInputTester.AddedToLibraryAt = null;
                 creatureInfoInputTester.creatureFlags = CreatureFlags.None;
                 creatureInfoInputTester.RegionColors = new int[6];
+                creatureInfoInputTester.CreatureGuid = Guid.Empty;
                 creatureInfoInputTester.SetArkId(0, false);
                 creatureInfoInputTester.MutationCounterMother = 0;
                 creatureInfoInputTester.parentListValid = false;
@@ -264,7 +276,7 @@ namespace ARKBreedingStats
             creatureTesterEdit = c;
         }
 
-        private void setCreatureValuesToExtractor(Creature c, bool onlyWild = false)
+        private void SetCreatureValuesToExtractor(Creature c, bool onlyWild = false)
         {
             if (c != null)
             {

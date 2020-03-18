@@ -544,6 +544,11 @@ namespace ARKBreedingStats
             }
         }
 
+        /// <summary>
+        /// Timestamp when the creature was added to the library. Only relevant when creatures are already have been added and are edited.
+        /// </summary>
+        public DateTime? AddedToLibraryAt { get; internal set; }
+
         private void SetAdd2LibColor(bool buttonEnabled)
         {
             btAdd2Library.BackColor = !buttonEnabled

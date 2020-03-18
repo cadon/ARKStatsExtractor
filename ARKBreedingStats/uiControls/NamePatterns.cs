@@ -323,10 +323,15 @@ namespace ARKBreedingStats.uiControls
             effImp_short = effImp;
             effImp = prefix + effImp;
 
-            int generation = 0;
-            if (creature.Mother != null) generation = creature.Mother.generation + 1;
-            if (creature.Father != null && creature.Father.generation + 1 > generation)
-                generation = creature.Father.generation + 1;
+            int generation = creature.generation;
+            if (generation <= 0)
+                generation = Math.Max(
+                    creature.Mother?.generation + 1 ?? 0,
+                    creature.Father?.generation + 1 ?? 0
+                );
+
+            // the index of the creature in its generation, ordered by addedToLibrary
+            int nrInGeneration = speciesCreatures.Count(c => c.guid != creature.guid && c.addedToLibrary != null && c.generation == generation && (creature.addedToLibrary == null || c.addedToLibrary < creature.addedToLibrary)) + 1;
 
             int mutasn = creature.Mutations;
             string mutas = mutasn > 99 ? "99" : mutasn.ToString().PadLeft(2, '0');
@@ -447,6 +452,7 @@ namespace ARKBreedingStats.uiControls
                 { "muta", mutas},
                 { "gen", generation.ToString()},
                 { "gena", Dec2hexvig(generation)},
+                { "nr_in_gen", nrInGeneration.ToString()},
                 { "rnd", randStr },
                 { "tn", (speciesCount < 10 ? "0" : "") + speciesCount},
                 { "sn", (speciesSexCount < 10 ? "0" : "") + speciesSexCount},

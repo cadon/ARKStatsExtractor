@@ -142,10 +142,10 @@ namespace ARKBreedingStats
             toolStripStatusLabel.Text = Application.ProductVersion;
 
             // delegates
-            pedigree1.EditCreature += editCreatureInTester;
+            pedigree1.EditCreature += EditCreatureInTester;
             pedigree1.BestBreedingPartners += ShowBestBreedingPartner;
             pedigree1.exportToClipboard += ExportAsTextToClipboard;
-            breedingPlan1.EditCreature += editCreatureInTester;
+            breedingPlan1.EditCreature += EditCreatureInTester;
             breedingPlan1.CreateIncubationTimer += CreateIncubationTimer;
             breedingPlan1.BestBreedingPartners += ShowBestBreedingPartner;
             breedingPlan1.ExportToClipboard += ExportAsTextToClipboard;
@@ -505,20 +505,20 @@ namespace ARKBreedingStats
         private void radioButtonTesterWild_CheckedChanged(object sender, EventArgs e)
         {
             if (rbWildTester.Checked)
-                updateTesterDetails();
+                UpdateTesterDetails();
         }
 
         private void radioButtonTesterTamed_CheckedChanged(object sender, EventArgs e)
         {
             if (rbTamedTester.Checked)
-                updateTesterDetails();
+                UpdateTesterDetails();
             lbWildLevelTester.Visible = rbTamedTester.Checked;
         }
 
         private void radioButtonTesterBred_CheckedChanged(object sender, EventArgs e)
         {
             if (rbBredTester.Checked)
-                updateTesterDetails();
+                UpdateTesterDetails();
         }
 
         private void StatIO_Click(object sender, EventArgs e)
@@ -614,10 +614,10 @@ namespace ARKBreedingStats
             }
             else if (tabControlMain.SelectedTab == tabPageStatTesting)
             {
-                updateAllTesterValues();
+                UpdateAllTesterValues();
                 statPotentials1.Species = species;
                 statPotentials1.SetLevels(testingIOs.Select(s => s.LevelWild).ToArray(), true);
-                setTesterInfoInputCreature();
+                SetTesterInfoInputCreature();
             }
             else if (tabControlMain.SelectedTab == tabPageLibrary)
             {
@@ -747,7 +747,7 @@ namespace ARKBreedingStats
             }
             if (tabControlMain.SelectedTab == tabPageStatTesting)
             {
-                updateAllTesterValues();
+                UpdateAllTesterValues();
             }
 
             // import exported menu
@@ -1620,7 +1620,7 @@ namespace ARKBreedingStats
 
             if (tabControlMain.SelectedTab == tabPageStatTesting)
             {
-                updateAllTesterValues();
+                UpdateAllTesterValues();
                 statPotentials1.Species = speciesSelector1.SelectedSpecies;
                 statPotentials1.SetLevels(testingIOs.Select(s => s.LevelWild).ToArray(), true);
             }
@@ -1686,13 +1686,13 @@ namespace ARKBreedingStats
 
         private void NumericUpDownTestingTE_ValueChanged(object sender, EventArgs e)
         {
-            updateAllTesterValues();
+            UpdateAllTesterValues();
             lbWildLevelTester.Text = "PreTame Level: " + Math.Ceiling(Math.Round((testingIOs[(int)StatNames.Torpidity].LevelWild + 1) / (1 + NumericUpDownTestingTE.Value / 200), 6));
         }
 
         private void numericUpDownImprintingBonusTester_ValueChanged(object sender, EventArgs e)
         {
-            updateAllTesterValues();
+            UpdateAllTesterValues();
             // calculate number of imprintings
             if (speciesSelector1.SelectedSpecies.breeding != null && speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted > 0)
                 lbImprintedCount.Text = "(" + Math.Round((double)numericUpDownImprintingBonusTester.Value / (100 * Utils.imprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier)), 2) + "×)";
@@ -1853,7 +1853,7 @@ namespace ARKBreedingStats
                     return;
                 }
                 UpdateParents(new List<Creature> { c });
-                editCreatureInTester(c, true);
+                EditCreatureInTester(c, true);
             }
         }
 
@@ -2106,7 +2106,7 @@ namespace ARKBreedingStats
         private void toolStripMenuItemEdit_Click(object sender, EventArgs e)
         {
             if (listViewLibrary.SelectedIndices.Count > 0)
-                editCreatureInTester((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
+                EditCreatureInTester((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
         }
 
         private void toolStripMenuItemRemove_Click(object sender, EventArgs e)
@@ -2142,13 +2142,13 @@ namespace ARKBreedingStats
         private void currentValuesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (listViewLibrary.SelectedIndices.Count > 0)
-                setCreatureValuesToExtractor((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
+                SetCreatureValuesToExtractor((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
         }
 
         private void wildValuesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (listViewLibrary.SelectedIndices.Count > 0)
-                setCreatureValuesToExtractor((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag, true);
+                SetCreatureValuesToExtractor((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag, true);
         }
 
         private void CreateTimer(string name, DateTime time, Creature c, string group)
@@ -2463,7 +2463,7 @@ namespace ARKBreedingStats
                 testingIOs[s].LevelDom = statIOs[s].LevelDom;
                 testingStatIOValueUpdate(testingIOs[s]);
             }
-            setTesterInfoInputCreature();
+            SetTesterInfoInputCreature();
             creatureInfoInputTester.CreatureSex = creatureInfoInputExtractor.CreatureSex;
             creatureInfoInputTester.RegionColors = creatureInfoInputExtractor.RegionColors;
             tabControlMain.SelectedTab = tabPageStatTesting;
@@ -2951,7 +2951,7 @@ namespace ARKBreedingStats
             Species species = Values.V.SpeciesByBlueprint(speciesBP);
             if (species != null)
             {
-                editCreatureInTester(new Creature(species, "", "", "", Sex.Unknown, wildLevels, domLevels, te, bred, imprintingBonus), true);
+                EditCreatureInTester(new Creature(species, "", "", "", Sex.Unknown, wildLevels, domLevels, te, bred, imprintingBonus), true);
                 if (gotoTester) tabControlMain.SelectedTab = tabPageStatTesting;
             }
         }
