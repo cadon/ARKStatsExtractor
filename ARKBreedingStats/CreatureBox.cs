@@ -9,17 +9,13 @@ namespace ARKBreedingStats
     public partial class CreatureBox : UserControl
     {
         private Creature creature;
-        public delegate void ChangedEventHandler(Creature creature, bool creatureStatusChanged);
-        public event ChangedEventHandler Changed;
-        public delegate void EventHandler(object sender, Creature creature);
-        public event EventHandler GiveParents;
+        public event Action<Creature, bool, bool> Changed;
+        public event Action<Creature> GiveParents;
         private Sex sex;
         private CreatureStatus creatureStatus;
         public List<Creature>[] parentList; // all creatures that could be parents (i.e. same species, separated by sex)
         public List<int>[] parentListSimilarity; // for all possible parents the number of equal stats (to find the parents easier)
         private bool[] colorRegionUseds;
-        private Image largeImage;
-        private bool renewLargeImage;
         public int maxDomLevel = 0;
         ToolTip tt = new ToolTip();
 
@@ -60,7 +56,6 @@ namespace ARKBreedingStats
             colorRegionUseds = regionColorChooser1.ColorRegionsUseds;
 
             UpdateLabel();
-            renewLargeImage = true;
         }
 
         public int BarMaxLevel
@@ -102,7 +97,7 @@ namespace ARKBreedingStats
         {
             if (parentList[0] == null || parentList[1] == null)
             {
-                GiveParents(this, creature);
+                GiveParents(creature);
 
                 parentComboBoxMother.parentsSimilarity = parentListSimilarity[0];
                 parentComboBoxMother.ParentList = parentList[0];
@@ -182,7 +177,7 @@ namespace ARKBreedingStats
                 bool creatureStatusChanged = (creature.status != creatureStatus);
                 creature.status = creatureStatus;
 
-                Changed(creature, creatureStatusChanged);
+                Changed(creature, creatureStatusChanged, true);
                 UpdateLabel();
                 ResumeLayout();
             }
@@ -236,17 +231,7 @@ namespace ARKBreedingStats
         {
             creature.colors = regionColorChooser1.colorIDs;
             pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.Species, colorRegionUseds);
-            renewLargeImage = true;
-            Changed(creature, false);
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            if (renewLargeImage)
-            {
-                largeImage = CreatureColored.getColoredCreature(creature.colors, creature.Species, colorRegionUseds, 256);
-                renewLargeImage = false;
-            }
+            Changed(creature, false, false);
         }
     }
 }

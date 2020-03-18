@@ -2725,8 +2725,8 @@ namespace ARKBreedingStats
             this.creatureBoxListView.Name = "creatureBoxListView";
             this.creatureBoxListView.Size = new System.Drawing.Size(195, 390);
             this.creatureBoxListView.TabIndex = 0;
-            this.creatureBoxListView.Changed += new ARKBreedingStats.CreatureBox.ChangedEventHandler(this.UpdateDisplayedCreatureValues);
-            this.creatureBoxListView.GiveParents += new ARKBreedingStats.CreatureBox.EventHandler(this.CreatureBoxListView_FindParents);
+            this.creatureBoxListView.Changed += new System.Action<ARKBreedingStats.Library.Creature, bool, bool>(this.UpdateDisplayedCreatureValues);
+            this.creatureBoxListView.GiveParents += new System.Action<ARKBreedingStats.Library.Creature>(this.CreatureBoxListView_FindParents);
             // 
             // tabPagePedigree
             // 
@@ -3696,7 +3696,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.Label lbCurrentCreature;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCopyCreatureName;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemGenerateCreatureName;   
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemGenerateCreatureName;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
         private System.Windows.Forms.ToolStripMenuItem adminCommandToSetColorsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fixColorsToolStripMenuItem;

@@ -628,7 +628,7 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="cr">Creature that was changed</param>
         /// <param name="creatureStatusChanged"></param>
-        private void UpdateDisplayedCreatureValues(Creature cr, bool creatureStatusChanged)
+        private void UpdateDisplayedCreatureValues(Creature cr, bool creatureStatusChanged, bool ownerServerChanged)
         {
             // if row is selected, save and reselect later
             List<Creature> selectedCreatures = new List<Creature>();
@@ -659,8 +659,10 @@ namespace ARKBreedingStats
                 if (ci >= 0)
                     listViewLibrary.Items[ci] = CreateCreatureLVItem(cr, listViewLibrary.Items[ci].Group);
             }
+
             // recreate ownerlist
-            CreateOwnerList();
+            if (ownerServerChanged)
+                UpdateOwnerServerTagLists();
             SetCollectionChanged(true, cr.Species);
 
             // select previous selecteded again
@@ -1309,7 +1311,7 @@ namespace ARKBreedingStats
                         CreateCreatureTagList();
                     if (ms.SpeciesChanged)
                         UpdateSpeciesLists(creatureCollection.creatures);
-                    CreateOwnerList();
+                    UpdateOwnerServerTagLists();
                     SetCollectionChanged(true, !multipleSpecies ? sp : null);
                     RecalculateTopStatsIfNeeded();
                     FilterLib();

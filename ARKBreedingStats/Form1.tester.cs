@@ -200,7 +200,7 @@ namespace ARKBreedingStats
 
             if (wildChanged)
                 CalculateTopStats(creatureCollection.creatures.Where(c => c.Species == creatureTesterEdit.Species).ToList());
-            UpdateDisplayedCreatureValues(creatureTesterEdit, statusChanged);
+            UpdateDisplayedCreatureValues(creatureTesterEdit, statusChanged, true);
 
             if (parentsChanged)
                 creatureTesterEdit.RecalculateAncestorGenerations();

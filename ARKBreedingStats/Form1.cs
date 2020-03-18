@@ -859,7 +859,7 @@ namespace ARKBreedingStats
             {
                 creatures = creatures.Where(c => c.Species == species).ToList();
             }
-            CreateOwnerList();
+            UpdateOwnerServerTagLists();
             CalculateTopStats(creatures);
             UpdateSpeciesLists(creatureCollection.creatures);
             FilterLib();
@@ -909,7 +909,10 @@ namespace ARKBreedingStats
             speciesSelector1.SetLibrarySpecies(availableSpecies);
         }
 
-        private void CreateOwnerList()
+        /// <summary>
+        /// Updates the list of set owners, servers, tribes and tags of all creatures.
+        /// </summary>
+        private void UpdateOwnerServerTagLists()
         {
             filterListAllowed = false;
 
@@ -1517,9 +1520,8 @@ namespace ARKBreedingStats
         /// <summary>
         /// this function is called if the user enters the settings of a creature. Finds the possible parents and saves them in the creatureBox
         /// </summary>
-        /// <param name="sender"></param>
         /// <param name="creature"></param>
-        private void CreatureBoxListView_FindParents(object sender, Creature creature)
+        private void CreatureBoxListView_FindParents(Creature creature)
         {
             List<Creature>[] parents = FindPossibleParents(creature);
             creatureBoxListView.parentListSimilarity = FindParentSimilarities(parents, creature);
@@ -3230,7 +3232,7 @@ namespace ARKBreedingStats
                 // set new name
                 cr.name = NamePatterns.GenerateCreatureName(cr, sameSpecies, customReplacingsNamingPattern, false, 0);
 
-                UpdateDisplayedCreatureValues(cr, false);
+                UpdateDisplayedCreatureValues(cr, false, false);
             }
             listViewLibrary.EndUpdate();
         }
@@ -3249,7 +3251,7 @@ namespace ARKBreedingStats
                 for (int c = 0; c < 6; c++)
                     if (cr.colors[c] < 201)
                         cr.colors[c] = (cr.colors[c] - 1) % 56 + 1;
-                UpdateDisplayedCreatureValues(cr, false);
+                UpdateDisplayedCreatureValues(cr, false, false);
             }
             listViewLibrary.EndUpdate();
         }
