@@ -35,6 +35,8 @@
             this.columnHeaderTimeLeft = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToOverlayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addAllTimersToOverlayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hideAllTimersFromOverlayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeAllExpiredTimersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,8 +55,7 @@
             this.dateTimePickerTimerFinish = new System.Windows.Forms.DateTimePicker();
             this.textBoxTimerName = new System.Windows.Forms.TextBox();
             this.buttonAddTimer = new System.Windows.Forms.Button();
-            this.addAllTimersToOverlayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hideAllTimersFromOverlayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label4 = new System.Windows.Forms.Label();
             this.contextMenuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBoxAddTimer.SuspendLayout();
@@ -64,6 +65,7 @@
             // listViewTimer
             // 
             this.listViewTimer.AllowColumnReorder = true;
+            this.listViewTimer.CheckBoxes = true;
             this.listViewTimer.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderName,
             this.columnHeaderFinishedAt,
@@ -79,6 +81,7 @@
             this.listViewTimer.UseCompatibleStateImageBehavior = false;
             this.listViewTimer.View = System.Windows.Forms.View.Details;
             this.listViewTimer.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewTimer_ColumnClick);
+            this.listViewTimer.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listViewTimer_ItemChecked);
             this.listViewTimer.KeyUp += new System.Windows.Forms.KeyEventHandler(this.listViewTimer_KeyUp);
             // 
             // columnHeaderName
@@ -106,7 +109,7 @@
             this.removeToolStripMenuItem,
             this.removeAllExpiredTimersToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(222, 142);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(222, 120);
             // 
             // addToOverlayToolStripMenuItem
             // 
@@ -114,6 +117,20 @@
             this.addToOverlayToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
             this.addToOverlayToolStripMenuItem.Text = "Add to overlay";
             this.addToOverlayToolStripMenuItem.Click += new System.EventHandler(this.addToOverlayToolStripMenuItem_Click);
+            // 
+            // addAllTimersToOverlayToolStripMenuItem
+            // 
+            this.addAllTimersToOverlayToolStripMenuItem.Name = "addAllTimersToOverlayToolStripMenuItem";
+            this.addAllTimersToOverlayToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.addAllTimersToOverlayToolStripMenuItem.Text = "Add all timers to overlay";
+            this.addAllTimersToOverlayToolStripMenuItem.Click += new System.EventHandler(this.addAllTimersToOverlayToolStripMenuItem_Click);
+            // 
+            // hideAllTimersFromOverlayToolStripMenuItem
+            // 
+            this.hideAllTimersFromOverlayToolStripMenuItem.Name = "hideAllTimersFromOverlayToolStripMenuItem";
+            this.hideAllTimersFromOverlayToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.hideAllTimersFromOverlayToolStripMenuItem.Text = "Hide all timers from overlay";
+            this.hideAllTimersFromOverlayToolStripMenuItem.Click += new System.EventHandler(this.hideAllTimersFromOverlayToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -152,6 +169,7 @@
             // 
             // groupBoxAddTimer
             // 
+            this.groupBoxAddTimer.Controls.Add(this.label4);
             this.groupBoxAddTimer.Controls.Add(this.btPlaySelectedSound);
             this.groupBoxAddTimer.Controls.Add(this.btOpenSoundFolder);
             this.groupBoxAddTimer.Controls.Add(this.SoundListBox);
@@ -164,7 +182,7 @@
             this.groupBoxAddTimer.Controls.Add(this.buttonAddTimer);
             this.groupBoxAddTimer.Location = new System.Drawing.Point(3, 3);
             this.groupBoxAddTimer.Name = "groupBoxAddTimer";
-            this.groupBoxAddTimer.Size = new System.Drawing.Size(234, 346);
+            this.groupBoxAddTimer.Size = new System.Drawing.Size(234, 374);
             this.groupBoxAddTimer.TabIndex = 1;
             this.groupBoxAddTimer.TabStop = false;
             this.groupBoxAddTimer.Text = "Add Manual Timer";
@@ -290,19 +308,13 @@
             this.buttonAddTimer.UseVisualStyleBackColor = true;
             this.buttonAddTimer.Click += new System.EventHandler(this.buttonAddTimer_Click);
             // 
-            // addAllTimersToOverlayToolStripMenuItem
+            // label4
             // 
-            this.addAllTimersToOverlayToolStripMenuItem.Name = "addAllTimersToOverlayToolStripMenuItem";
-            this.addAllTimersToOverlayToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
-            this.addAllTimersToOverlayToolStripMenuItem.Text = "Add all timers to overlay";
-            this.addAllTimersToOverlayToolStripMenuItem.Click += new System.EventHandler(this.addAllTimersToOverlayToolStripMenuItem_Click);
-            // 
-            // hideAllTimersFromOverlayToolStripMenuItem
-            // 
-            this.hideAllTimersFromOverlayToolStripMenuItem.Name = "hideAllTimersFromOverlayToolStripMenuItem";
-            this.hideAllTimersFromOverlayToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
-            this.hideAllTimersFromOverlayToolStripMenuItem.Text = "Hide all timers from overlay";
-            this.hideAllTimersFromOverlayToolStripMenuItem.Click += new System.EventHandler(this.hideAllTimersFromOverlayToolStripMenuItem_Click);
+            this.label4.Location = new System.Drawing.Point(6, 335);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(222, 36);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "The checkboxes can be used to display timers in the overlay.";
             // 
             // TimerControl
             // 
@@ -349,5 +361,6 @@
         private System.Windows.Forms.Button btPlaySelectedSound;
         private System.Windows.Forms.ToolStripMenuItem addAllTimersToOverlayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hideAllTimersFromOverlayToolStripMenuItem;
+        private System.Windows.Forms.Label label4;
     }
 }

@@ -22,6 +22,7 @@ namespace ARKBreedingStats
         private List<Creature> creatures;
         public SoundPlayer[] sounds;
         private List<int> timerAlerts;
+        private bool noOverlayUpdate;
 
         public TimerControl()
         {
@@ -97,6 +98,7 @@ namespace ARKBreedingStats
             listViewTimer.Items.Insert(i, tle.lvi);
             timerListEntries.Add(tle);
             OnTimerChange?.Invoke();
+            RefreshOverlayTimers();
         }
 
         private void RemoveTimer(TimerListEntry timerEntry, bool invokeChange = true)
@@ -126,7 +128,8 @@ namespace ARKBreedingStats
             }
             ListViewItem lvi = new ListViewItem(new[] { name, finishTime.ToString(), "" }, g)
             {
-                Tag = tle
+                Tag = tle,
+                Checked = Properties.Settings.Default.DisplayTimersInOverlayAutomatically
             };
             return lvi;
         }
@@ -331,9 +334,11 @@ namespace ARKBreedingStats
         {
             if (listViewTimer.SelectedIndices.Count > 0)
             {
-                bool show = !((TimerListEntry)listViewTimer.SelectedItems[0].Tag).showInOverlay;
+                noOverlayUpdate = true;
+                bool show = !listViewTimer.SelectedItems[0].Checked;
                 for (int i = 0; i < listViewTimer.SelectedIndices.Count; i++)
-                    ((TimerListEntry)listViewTimer.SelectedItems[i].Tag).showInOverlay = show;
+                    listViewTimer.SelectedItems[i].Checked = show;
+                noOverlayUpdate = false;
                 RefreshOverlayTimers();
             }
         }
@@ -354,25 +359,19 @@ namespace ARKBreedingStats
         /// <param name="show"></param>
         private void AllTimersToOverlay(bool show)
         {
+            noOverlayUpdate = true;
             for (int i = 0; i < listViewTimer.Items.Count; i++)
-                ((TimerListEntry)listViewTimer.Items[i].Tag).showInOverlay = show;
+                listViewTimer.Items[i].Checked = show;
+            noOverlayUpdate = false;
             RefreshOverlayTimers();
         }
 
         private void RefreshOverlayTimers()
         {
-            if (ARKOverlay.theOverlay == null)
+            if (noOverlayUpdate || ARKOverlay.theOverlay == null)
                 return;
 
-            ARKOverlay.theOverlay.timers.Clear();
-            foreach (TimerListEntry tle in timerListEntries)
-            {
-                if (tle.showInOverlay)
-                {
-                    ARKOverlay.theOverlay.timers.Add(tle);
-                }
-            }
-            ARKOverlay.theOverlay.timers.Sort((t1, t2) => t1.time.CompareTo(t2.time)); // sort timers according to time
+            ARKOverlay.theOverlay.timers = timerListEntries.Where(t => t.showInOverlay).OrderBy(t => t.time).ToList();
         }
 
         public ListViewColumnSorter ColumnSorter
@@ -477,6 +476,12 @@ namespace ARKBreedingStats
         public void AdjustAllTimersByOffset(TimeSpan offset)
         {
             foreach (var t in timerListEntries) t.time += offset;
+        }
+
+        private void listViewTimer_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            ((TimerListEntry)e.Item.Tag).showInOverlay = e.Item.Checked;
+            RefreshOverlayTimers();
         }
     }
 }

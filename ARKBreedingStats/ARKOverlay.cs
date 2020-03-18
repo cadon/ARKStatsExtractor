@@ -17,7 +17,7 @@ namespace ARKBreedingStats
         public Form1 ExtractorForm;
         private bool ocrPossible;
         public bool OCRing;
-        public readonly List<TimerListEntry> timers = new List<TimerListEntry>();
+        public List<TimerListEntry> timers;
         private string notes;
         public static ARKOverlay theOverlay;
         private DateTime infoShownAt;
@@ -92,8 +92,7 @@ namespace ARKBreedingStats
 
         private void TimerUpdateTimer_Tick(object sender, EventArgs e)
         {
-            if (timers.Any())
-                SetTimerText();
+            SetTimerAndNotesText();
 
             // info
             if (labelInfo.Text != "" && infoShownAt.AddSeconds(InfoDuration) < DateTime.Now)
@@ -172,31 +171,42 @@ namespace ARKBreedingStats
 
         internal void SetInfoText(string infoText) => SetInfoText(infoText, Color.White);
 
-        private void SetTimerText()
+        /// <summary>
+        /// Update the text for the timers and notes.
+        /// </summary>
+        private void SetTimerAndNotesText()
         {
-            var sb = new StringBuilder();
-            foreach (TimerListEntry tle in timers.ToList()) // .ToList() is used to make a copy, to be able to remove expired elements in the loop
+            StringBuilder sb = new StringBuilder();
+
+            if (timers?.Any() ?? false)
             {
-                int secLeft = (int)tle.time.Subtract(DateTime.Now).TotalSeconds + 1;
-                if (secLeft < 10)
+                bool timerListChanged = false;
+                foreach (TimerListEntry tle in timers)
                 {
-                    if (!Properties.Settings.Default.KeepExpiredTimersInOverlay && secLeft < -20)
+                    int secLeft = (int)tle.time.Subtract(DateTime.Now).TotalSeconds + 1;
+                    if (secLeft < 10)
                     {
-                        timers.Remove(tle);
-                        tle.showInOverlay = false;
-                        continue;
+                        if (!Properties.Settings.Default.KeepExpiredTimersInOverlay && secLeft < -20)
+                        {
+                            tle.showInOverlay = false;
+                            timerListChanged = true;
+                            continue;
+                        }
+                        sb.Append("expired ");
                     }
-                    sb.Append("!!! ");
+                    sb.AppendLine($"{Utils.timeLeft(tle.time)} : {tle.name}");
                 }
-                sb.AppendLine($"{Utils.timeLeft(tle.time)} : {tle.name}");
+                if (timerListChanged)
+                    timers = timers.Where(t => t.showInOverlay).ToList();
             }
-            labelTimer.Text = sb.ToString() + notes;
+            sb.Append(notes);
+            labelTimer.Text = sb.ToString();
         }
 
         internal void SetNotes(string notes)
         {
             this.notes = notes;
-            SetTimerText();
+            SetTimerAndNotesText();
         }
     }
 }
