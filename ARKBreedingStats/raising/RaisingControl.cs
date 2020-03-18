@@ -42,7 +42,7 @@ namespace ARKBreedingStats.raising
         /// <summary>
         /// Updates the general raising data for the given species
         /// </summary>
-        /// <param name="speciesIndex"></param>
+        /// <param name="species"></param>
         /// <param name="forceUpdate"></param>
         public void UpdateRaisingData(Species species, bool forceUpdate = false)
         {
@@ -174,7 +174,8 @@ namespace ARKBreedingStats.raising
                 labelTimeLeftGrowing.ForeColor = SystemColors.GrayText;
             }
 
-            string foodAmountBabyString = "", foodAmountAdultString = "";
+            string foodAmountBabyString = null;
+            string foodAmountAdultString = null;
             if (selectedSpecies.taming.eats != null)
             {
                 double foodAmount;
@@ -234,10 +235,10 @@ namespace ARKBreedingStats.raising
                     t.kind = species.breeding.gestationTimeAdjusted > 0 ? "Gestation" : "Egg";
                     string[] cols = { t.kind,
                                 species.name,
-                                "",
-                                "",
-                                "",
-                                "" };
+                                string.Empty,
+                                string.Empty,
+                                string.Empty,
+                                string.Empty };
                     ListViewItem lvi = new ListViewItem(cols, g);
                     t.expired = (t.incubationEnd.Subtract(DateTime.Now).TotalSeconds < 0);
                     lvi.Tag = t;
@@ -265,9 +266,9 @@ namespace ARKBreedingStats.raising
                             cols = new[] { c.name,
                                         c.Species.name,
                                         "-",
-                                        "",
-                                        "",
-                                        "" };
+                                        string.Empty,
+                                        string.Empty,
+                                        string.Empty };
                         }
                         else
                         {
@@ -276,8 +277,8 @@ namespace ARKBreedingStats.raising
                                         c.Species.name,
                                         "-",
                                         "-",
-                                        "",
-                                        "" };
+                                        string.Empty,
+                                        string.Empty };
                         }
                         ListViewItem lvi = new ListViewItem(cols, g)
                         {
@@ -324,7 +325,7 @@ namespace ARKBreedingStats.raising
                         else
                         {
                             lvi.SubItems[2].Text = Utils.timeLeft(t.incubationEnd);
-                            lvi.SubItems[5].Text = "";
+                            lvi.SubItems[5].Text = string.Empty;
                             double diff = t.incubationEnd.Subtract(alertTime).TotalSeconds;
                             if (diff >= 0 && diff < 1)
                             {
@@ -354,7 +355,7 @@ namespace ARKBreedingStats.raising
                                 DateTime babyUntil = c.growingUntil.Value.AddSeconds(-0.9 * species.breeding.maturationTimeAdjusted);
                                 lvi.SubItems[3].Text = Utils.timeLeft(babyUntil);
                                 lvi.SubItems[4].Text = Utils.timeLeft(c.growingUntil.Value);
-                                lvi.SubItems[5].Text = "";
+                                lvi.SubItems[5].Text = string.Empty;
                             }
                         }
                     }
@@ -393,7 +394,7 @@ namespace ARKBreedingStats.raising
                 {
                     IncubationTimerEntry ite = (IncubationTimerEntry)listViewBabies.SelectedItems[0].Tag;
                     if (MessageBox.Show("Delete this timer?\n" + (ite.mother?.Species?.name ?? "unknown") + ", ending in " + Utils.timeLeft(ite.incubationEnd)
-                        + (listViewBabies.SelectedIndices.Count > 1 ? "\n\nand " + (listViewBabies.SelectedIndices.Count - 1).ToString() + " more selected timers" : "") + "?"
+                        + (listViewBabies.SelectedIndices.Count > 1 ? "\n\nand " + (listViewBabies.SelectedIndices.Count - 1).ToString() + " more selected timers" : string.Empty) + "?"
                         , "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         for (int t = listViewBabies.SelectedIndices.Count - 1; t >= 0; t--)
@@ -490,7 +491,7 @@ namespace ARKBreedingStats.raising
         {
             if (iteEdit != null)
             {
-                lEditTimerName.Text = "Incubation" + (iteEdit.mother != null ? " (" + (iteEdit.mother.Species?.name ?? "unknown") + ")" : "");
+                lEditTimerName.Text = "Incubation" + (iteEdit.mother != null ? " (" + (iteEdit.mother.Species?.name ?? "unknown") + ")" : string.Empty);
                 dateTimePickerEditTimerFinish.Value = iteEdit.incubationEnd;
                 TimeSpan ts = iteEdit.incubationEnd.Subtract(DateTime.Now);
                 dhmsInputTimerEditTimer.Timespan = (ts.TotalSeconds > 0 ? ts : TimeSpan.Zero);
