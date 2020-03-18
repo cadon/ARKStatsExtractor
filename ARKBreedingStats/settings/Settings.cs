@@ -177,6 +177,7 @@ namespace ARKBreedingStats.settings
 
             #region Timers
             cbTimersInOverlayAutomatically.Checked = Properties.Settings.Default.DisplayTimersInOverlayAutomatically;
+            cbKeepExpiredTimersInOverlay.Checked = Properties.Settings.Default.KeepExpiredTimersInOverlay;
             cbDeleteExpiredTimersOnSaving.Checked = Properties.Settings.Default.DeleteExpiredTimersOnSaving;
             #endregion
 
@@ -326,6 +327,7 @@ namespace ARKBreedingStats.settings
 
             #region Timers
             Properties.Settings.Default.DisplayTimersInOverlayAutomatically = cbTimersInOverlayAutomatically.Checked;
+            Properties.Settings.Default.KeepExpiredTimersInOverlay = cbKeepExpiredTimersInOverlay.Checked;
             Properties.Settings.Default.DeleteExpiredTimersOnSaving = cbDeleteExpiredTimersOnSaving.Checked;
             #endregion
 

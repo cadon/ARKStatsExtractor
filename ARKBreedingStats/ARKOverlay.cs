@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats
@@ -173,23 +174,23 @@ namespace ARKBreedingStats
 
         private void SetTimerText()
         {
-            string timerText = string.Empty;
+            var sb = new StringBuilder();
             foreach (TimerListEntry tle in timers.ToList()) // .ToList() is used to make a copy, to be able to remove expired elements in the loop
             {
                 int secLeft = (int)tle.time.Subtract(DateTime.Now).TotalSeconds + 1;
                 if (secLeft < 10)
                 {
-                    if (secLeft < -20)
+                    if (!Properties.Settings.Default.KeepExpiredTimersInOverlay && secLeft < -20)
                     {
                         timers.Remove(tle);
                         tle.showInOverlay = false;
                         continue;
                     }
-                    timerText += "!!! ";
+                    sb.Append("!!! ");
                 }
-                timerText += Utils.timeLeft(tle.time) + ": " + tle.name + "\n";
+                sb.AppendLine($"{Utils.timeLeft(tle.time)} : {tle.name}");
             }
-            labelTimer.Text = timerText + notes;
+            labelTimer.Text = sb.ToString() + notes;
         }
 
         internal void SetNotes(string notes)

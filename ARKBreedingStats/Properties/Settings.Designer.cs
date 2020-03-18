@@ -1043,5 +1043,17 @@ namespace ARKBreedingStats.Properties {
                 this["NamingPatterns"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool KeepExpiredTimersInOverlay {
+            get {
+                return ((bool)(this["KeepExpiredTimersInOverlay"]));
+            }
+            set {
+                this["KeepExpiredTimersInOverlay"] = value;
+            }
+        }
     }
 }

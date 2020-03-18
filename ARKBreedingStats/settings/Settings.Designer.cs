@@ -206,6 +206,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.cbOCRApp = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.cbKeepExpiredTimersInOverlay = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyFoodConsumptionSpeedEvent)).BeginInit();
@@ -1415,11 +1416,12 @@
             // 
             // groupBox24
             // 
+            this.groupBox24.Controls.Add(this.cbKeepExpiredTimersInOverlay);
             this.groupBox24.Controls.Add(this.cbDeleteExpiredTimersOnSaving);
             this.groupBox24.Controls.Add(this.cbTimersInOverlayAutomatically);
             this.groupBox24.Location = new System.Drawing.Point(6, 393);
             this.groupBox24.Name = "groupBox24";
-            this.groupBox24.Size = new System.Drawing.Size(317, 71);
+            this.groupBox24.Size = new System.Drawing.Size(317, 94);
             this.groupBox24.TabIndex = 11;
             this.groupBox24.TabStop = false;
             this.groupBox24.Text = "Timers";
@@ -1427,7 +1429,7 @@
             // cbDeleteExpiredTimersOnSaving
             // 
             this.cbDeleteExpiredTimersOnSaving.AutoSize = true;
-            this.cbDeleteExpiredTimersOnSaving.Location = new System.Drawing.Point(6, 42);
+            this.cbDeleteExpiredTimersOnSaving.Location = new System.Drawing.Point(6, 65);
             this.cbDeleteExpiredTimersOnSaving.Name = "cbDeleteExpiredTimersOnSaving";
             this.cbDeleteExpiredTimersOnSaving.Size = new System.Drawing.Size(217, 17);
             this.cbDeleteExpiredTimersOnSaving.TabIndex = 9;
@@ -1467,7 +1469,7 @@
             // groupBox17
             // 
             this.groupBox17.Controls.Add(this.cbbLanguage);
-            this.groupBox17.Location = new System.Drawing.Point(6, 529);
+            this.groupBox17.Location = new System.Drawing.Point(6, 493);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(317, 51);
             this.groupBox17.TabIndex = 9;
@@ -1486,9 +1488,9 @@
             // groupBox16
             // 
             this.groupBox16.Controls.Add(this.cbDevTools);
-            this.groupBox16.Location = new System.Drawing.Point(6, 470);
+            this.groupBox16.Location = new System.Drawing.Point(329, 586);
             this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(317, 53);
+            this.groupBox16.Size = new System.Drawing.Size(413, 53);
             this.groupBox16.TabIndex = 8;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Dev-Tools";
@@ -1498,7 +1500,7 @@
             this.cbDevTools.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cbDevTools.Location = new System.Drawing.Point(3, 16);
             this.cbDevTools.Name = "cbDevTools";
-            this.cbDevTools.Size = new System.Drawing.Size(311, 34);
+            this.cbDevTools.Size = new System.Drawing.Size(407, 34);
             this.cbDevTools.TabIndex = 0;
             this.cbDevTools.Text = "Show Dev Tools (needs restart). Adds a statmultiplier-tester and extractor tests";
             this.cbDevTools.UseVisualStyleBackColor = true;
@@ -1771,7 +1773,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1779,7 +1781,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1787,7 +1789,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1795,7 +1797,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -2447,6 +2449,16 @@
             this.label1.TabIndex = 5;
             this.label1.Text = resources.GetString("label1.Text");
             // 
+            // cbKeepExpiredTimersInOverlay
+            // 
+            this.cbKeepExpiredTimersInOverlay.AutoSize = true;
+            this.cbKeepExpiredTimersInOverlay.Location = new System.Drawing.Point(6, 42);
+            this.cbKeepExpiredTimersInOverlay.Name = "cbKeepExpiredTimersInOverlay";
+            this.cbKeepExpiredTimersInOverlay.Size = new System.Drawing.Size(166, 17);
+            this.cbKeepExpiredTimersInOverlay.TabIndex = 10;
+            this.cbKeepExpiredTimersInOverlay.Text = "Keep expired timers in overlay";
+            this.cbKeepExpiredTimersInOverlay.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -2737,5 +2749,6 @@
         private uiControls.Nud nudOverlayTimerPosX;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.CheckBox cbKeepExpiredTimersInOverlay;
     }
 }
