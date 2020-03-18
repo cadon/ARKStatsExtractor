@@ -39,7 +39,7 @@ namespace ARKBreedingStats.uiControls
             Dictionary<string, string> tokenDictionary = CreateTokenDictionary(creature, sameSpecies);
             // first resolve keys, then functions
             string name = ResolveFunctions(
-                ResolveKeysToValues(tokenDictionary, pattern.Replace("\r\n", ""), 0),
+                ResolveKeysToValues(tokenDictionary, pattern.Replace("\r\n", string.Empty), 0),
                 creature, customReplacings, displayError, false);
 
             if (name.Contains("{n}"))
@@ -251,7 +251,7 @@ namespace ARKBreedingStats.uiControls
             {
                 if (displayError)
                     MessageBox.Show($"The syntax of the following pattern function\n{m.Groups[0].Value}\ncannot be processed and will be ignored."
-                        + (string.IsNullOrEmpty(specificError) ? "" : $"\n\nSpecific error:\n{specificError}"),
+                        + (string.IsNullOrEmpty(specificError) ? string.Empty : $"\n\nSpecific error:\n{specificError}"),
                         "Naming pattern function error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return displayError ? m.Groups[2].Value : specificError;
             }
@@ -285,14 +285,14 @@ namespace ARKBreedingStats.uiControls
         /// <returns>A dictionary containing all tokens and their replacements</returns>
         public static Dictionary<string, string> CreateTokenDictionary(Creature creature, List<Creature> speciesCreatures)
         {
-            string[] wildLevels = creature.levelsWild.Select(l => l.ToString().PadLeft(2, '0')).ToArray();
+            string[] wildLevels = creature.levelsWild.Select(l => l.ToString()).ToArray();
             string[] breedingValues = new string[Values.STATS_COUNT];
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 breedingValues[s] = (creature.valuesBreeding[s] * (Utils.precision(s) == 3 ? 100 : 1)).ToString();
             }
 
-            string baselvl = creature.LevelHatched.ToString().PadLeft(2, '0');
+            string baselvl = creature.LevelHatched.ToString();
             string dom = creature.isBred ? "B" : "T";
 
             double imp = creature.imprintingBonus * 100;
@@ -303,7 +303,7 @@ namespace ARKBreedingStats.uiControls
 
             string effImp = "Z";
             string effImp_short = effImp;
-            string prefix = "";
+            string prefix = string.Empty;
             if (imp > 0)
             {
                 prefix = "I";
@@ -334,11 +334,11 @@ namespace ARKBreedingStats.uiControls
             int nrInGeneration = speciesCreatures.Count(c => c.guid != creature.guid && c.addedToLibrary != null && c.generation == generation && (creature.addedToLibrary == null || c.addedToLibrary < creature.addedToLibrary)) + 1;
 
             int mutasn = creature.Mutations;
-            string mutas = mutasn > 99 ? "99" : mutasn.ToString().PadLeft(2, '0');
+            string mutas = mutasn > 99 ? "99" : mutasn.ToString();
 
             string old_name = creature.name;
 
-            string firstWordOfOldest = "";
+            string firstWordOfOldest = string.Empty;
             if (speciesCreatures.Any())
             {
                 firstWordOfOldest = speciesCreatures.Where(c => c.addedToLibrary != null && !c.flags.HasFlag(CreatureFlags.Placeholder)).OrderBy(c => c.addedToLibrary).FirstOrDefault()?.name;
@@ -364,7 +364,7 @@ namespace ARKBreedingStats.uiControls
 
             int speciesCount = speciesCreatures.Count + 1;
             int speciesSexCount = speciesCreatures.Count(c => c.sex == creature.sex) + 1;
-            string arkid = "";
+            string arkid = string.Empty;
             if (creature.ArkId != 0)
             {
                 if (creature.ArkIdImported)
@@ -377,7 +377,7 @@ namespace ARKBreedingStats.uiControls
                 }
             }
 
-            string index_str = "";
+            string index_str = string.Empty;
             if (creature.guid != Guid.Empty)
             {
                 for (int i = 0; i < speciesCreatures.Count; i++)
@@ -454,8 +454,8 @@ namespace ARKBreedingStats.uiControls
                 { "gena", Dec2hexvig(generation)},
                 { "nr_in_gen", nrInGeneration.ToString()},
                 { "rnd", randStr },
-                { "tn", (speciesCount < 10 ? "0" : "") + speciesCount},
-                { "sn", (speciesSexCount < 10 ? "0" : "") + speciesSexCount},
+                { "tn", speciesCount.ToString()},
+                { "sn", speciesSexCount.ToString()},
                 { "dom", dom},
                 { "arkid", arkid },
                 { "highest1l", levelOrder[0].Item2.ToString() },
@@ -476,7 +476,7 @@ namespace ARKBreedingStats.uiControls
         /// <returns></returns>
         private static string Dec2hexvig(int number)
         {
-            string r = "";
+            string r = string.Empty;
             number++;
             while (number > 0)
             {
