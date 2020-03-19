@@ -10,6 +10,8 @@
 
         bool Parse();
 
+        bool Check(string exectuablePath);
+
         bool Download();
 
         bool Extract(string workingDirectory);

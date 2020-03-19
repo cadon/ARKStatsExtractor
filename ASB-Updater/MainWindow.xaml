@@ -27,7 +27,7 @@
             HorizontalContentAlignment="Center"
             Width="250"
             Height="27"
-            Content="Checking for updates..." />
+            Content="Checking for updates…" />
 
     </Grid>
     

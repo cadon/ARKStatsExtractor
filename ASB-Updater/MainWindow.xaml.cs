@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,8 +18,21 @@ namespace ASB_Updater
         // Launch delay so users can see final output
         private readonly int launchDelay = 2000;
 
-        private string executablePath = "";
-        private string workingDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
+        /// <summary>
+        /// Path where the application should be installed.
+        /// </summary>
+        private readonly string applicationPath;
+        /// <summary>
+        /// If the updater is launched from the main application (ARK Smart Breeding.exe),
+        /// the update check was already done and a new version is assumed to be available.
+        /// </summary>
+        private readonly bool AssumeUpdateAvailable;
+
+        /// <summary>
+        /// Name of the application to be updated
+        /// </summary>
+        private const string APPLICATION_NAME = "ARK Smart Breeding";
+        private const string APPLICATIONEXE_NAME = APPLICATION_NAME + ".exe";
 
         /// <summary>
         /// Initializes the updater window. duh.
@@ -28,8 +42,40 @@ namespace ASB_Updater
             // Should contain the caller's filename
             var e = System.Environment.GetCommandLineArgs();
 
-            if (e.Length == 2 && Path.GetFileName(e[1]) == "ARK Smart Breeding.exe")
-                executablePath = e[1];
+            // if the updater was started directly, copy it first to the temp directory and start it from there
+            // so it's able to update itself.
+            if (e.Length == 1)
+            {
+                if (AppDomain.CurrentDomain.BaseDirectory == Path.GetTempPath())
+                {
+                    // this application should not be called from the temp directory without arguments
+                    Exit();
+                    return;
+                }
+
+                string oldLocation = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, AppDomain.CurrentDomain.FriendlyName);
+                string newLocation = Path.Combine(Path.GetTempPath(), AppDomain.CurrentDomain.FriendlyName);
+                File.Copy(oldLocation, newLocation, true);
+
+                // backslashes and quotes in command line arguments are strange. https://stackoverflow.com/questions/9287812/backslash-and-quote-in-command-line-arguments
+                string args = "\"" + AppDomain.CurrentDomain.BaseDirectory.Trim(new char[] { '\\' }) + "\"";
+                Process.Start(newLocation, args);
+
+                Exit();
+                return;
+            }
+
+            // the first argument is the path to where the update should be copied
+            if (e.Length > 1 && (Directory.Exists(e[1]) || File.Exists(e[1])))
+            {
+                applicationPath = Directory.Exists(e[1]) ? e[1] : Path.GetDirectoryName(e[1]);
+                AssumeUpdateAvailable = e.Length > 2 && e[2] == "doupdate";
+            }
+            else
+            {
+                Exit();
+                return;
+            }
 
             InitializeComponent();
             Init();
@@ -51,7 +97,11 @@ namespace ASB_Updater
         private void Run()
         {
             bool result = true;
-            if (CheckForUpdates())
+            if (!string.IsNullOrEmpty(applicationPath)
+                && Directory.Exists(applicationPath)
+                && (AssumeUpdateAvailable
+                    || CheckForUpdates())
+                )
             {
                 result = DoUpdate();
             }
@@ -68,19 +118,19 @@ namespace ASB_Updater
         {
             if (!updater.Fetch())
             {
-                UpdateProgressBar("Fetch failed, retrying...");
+                UpdateProgressBar("Fetch failed, retrying…");
                 if (!updater.Fetch())
                 {
-                    return updater.Cleanup();
+                    return false;
                 }
             }
-            else if (!updater.Parse())
+            if (!updater.Parse())
             {
                 UpdateProgressBar(updater.LastError());
-                return updater.Cleanup();
+                return false;
             }
 
-            return true;
+            return updater.Check(applicationPath);
         }
 
         /// <summary>
@@ -93,43 +143,28 @@ namespace ASB_Updater
                 if (!updater.Fetch() || !updater.Parse())
                 {
                     UpdateProgressBar(updater.LastError());
-                    return updater.Cleanup();
+                    return false;
                 }
 
-                UpdateProgressBar("Download of update failed, retrying...");
+                UpdateProgressBar("Download of update failed, retrying…");
                 if (!updater.Download())
                 {
-                    return updater.Cleanup();
+                    return false;
                 }
             }
 
-            if (executablePath != "")
-            {
-                workingDirectory = Path.GetDirectoryName(executablePath);
-                CloseASB();
-            }
+            CloseASB();
 
-            // Test directory
-            else
+            if (!updater.Extract(applicationPath))
             {
-                workingDirectory = Path.Combine(workingDirectory, "test");
-                executablePath = Path.Combine(workingDirectory, "ARK Smart Breeding.exe");
-                if (!Directory.Exists(workingDirectory))
+                UpdateProgressBar("Extracting update files failed, retrying…");
+                if (!updater.Extract(applicationPath))
                 {
-                    Directory.CreateDirectory(workingDirectory);
+                    return false;
                 }
             }
 
-            if (!updater.Extract(workingDirectory))
-            {
-                UpdateProgressBar("Extracting update files failed, retrying...");
-                if (!updater.Extract(workingDirectory))
-                {
-                    return updater.Cleanup();
-                }
-            }
-
-            return updater.Cleanup();
+            return true;
         }
 
         /// <summary>
@@ -137,21 +172,18 @@ namespace ASB_Updater
         /// </summary>
         private void CloseASB()
         {
-            try
-            {
-                Process[] processes = Process.GetProcessesByName("ARK Smart Breeding");
+            Process[] processes = Process.GetProcessesByName(APPLICATION_NAME);
 
-                foreach (Process proc in processes)
+            if (processes == null) return;
+
+            foreach (Process proc in processes)
+            {
+                if (proc.MainModule.FileName.Equals(APPLICATIONEXE_NAME))
                 {
-                    if (proc.MainModule.FileName.Equals(executablePath))
-                    {
-                        proc.CloseMainWindow();
-                        proc.WaitForExit();
-                    }
+                    proc.CloseMainWindow();
+                    proc.WaitForExit();
                 }
             }
-            // No instances were found
-            catch (System.NullReferenceException) { }
         }
 
         /// <summary>
@@ -170,7 +202,7 @@ namespace ASB_Updater
 
             Task.Delay(launchDelay).ContinueWith(_ =>
             {
-                Process.Start(executablePath);
+                Process.Start(Path.Combine(applicationPath, APPLICATIONEXE_NAME));
 
                 updater.Cleanup();
                 Exit();
@@ -182,7 +214,7 @@ namespace ASB_Updater
         /// </summary>
         private void UpdateProgressBar(string message)
         {
-            int progress = updater.GetProgress();
+            //int progress = updater.GetProgress();
 
             updateStatus.Content = message;
         }

@@ -36,13 +36,13 @@ namespace ARKBreedingStats
             {
                 if (isProgramInstalled == null)
                 {
-                    isProgramInstalled = isInstalled();
+                    isProgramInstalled = IsInstalled();
                 }
                 return isProgramInstalled.Value;
             }
         }
 
-        private static bool isInstalled()
+        private static bool IsInstalled()
         {
             string assemblyLocation = Assembly.GetExecutingAssembly().Location;
 
@@ -74,7 +74,7 @@ namespace ARKBreedingStats
         {
             try
             {
-                (bool? wantsProgramUpdate, IList<string> urls) = await checkAndAskForUpdate(collectionDirty);
+                (bool? wantsProgramUpdate, IList<string> urls) = await CheckAndAskForUpdate(collectionDirty);
                 if (wantsProgramUpdate == null) return null;
                 if (!wantsProgramUpdate.Value) return false;
 
@@ -111,7 +111,7 @@ namespace ARKBreedingStats
         {
             try
             {
-                (bool? wantsProgramUpdate, IList<string> urls) = await checkAndAskForUpdate(collectionDirty);
+                (bool? wantsProgramUpdate, IList<string> urls) = await CheckAndAskForUpdate(collectionDirty);
                 if (wantsProgramUpdate == null) return null;
                 if (!wantsProgramUpdate.Value) return false;
 
@@ -150,8 +150,8 @@ namespace ARKBreedingStats
             {
                 await src.CopyToAsync(dst);
             }
-            string filePath = "\"" + Process.GetCurrentProcess().MainModule.FileName + "\"";
-            Process.Start(newLocation, filePath);
+            string args = "\"" + AppDomain.CurrentDomain.BaseDirectory + "\" doupdate";
+            Process.Start(newLocation, args);
         }
 
         /// <summary>
@@ -159,10 +159,10 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="collectionDirty"></param>
         /// <returns>true if new release should be installed, null if it was canceled; download urls or null</returns>
-        private static async Task<(bool?, IList<string> urls)> checkAndAskForUpdate(bool collectionDirty)
+        private static async Task<(bool?, IList<string> urls)> CheckAndAskForUpdate(bool collectionDirty)
         {
             (string releaseTag, IList<string> urls) = await FetchReleaseFeed();
-            (bool? updateAvailable, string localVersion, string remoteVersion) = Updater.updateAvailable(releaseTag);
+            (bool? updateAvailable, string localVersion, string remoteVersion) = Updater.UpdateAvailable(releaseTag);
 
             if (updateAvailable == null)
             {
@@ -200,7 +200,7 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="releaseTag"></param>
         /// <returns>comparison result and parsed release version, or in case of an error: null and unreadable version numbers</returns>
-        private static (bool? updateAvailable, string localVersion, string remoteVersion) updateAvailable(string releaseTag)
+        private static (bool? updateAvailable, string localVersion, string remoteVersion) UpdateAvailable(string releaseTag)
         {
             string releaseVersion = releaseTag.ToLowerInvariant().Trim().Trim('v', '.');
 
@@ -228,7 +228,7 @@ namespace ARKBreedingStats
 
             try
             {
-                return parseReleaseInfo(releaseFeed);
+                return ParseReleaseInfo(releaseFeed);
             }
             catch (Exception e)
             {
@@ -242,7 +242,7 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="releaseFeed"></param>
         /// <returns>Tuple containing tag of the release version and list of urls</returns>
-        private static (string tag, IList<string> urls) parseReleaseInfo(string releaseFeed)
+        private static (string tag, IList<string> urls) ParseReleaseInfo(string releaseFeed)
         {
             JArray releaseInfoNode = JArray.Parse(releaseFeed);
             JObject latest = (JObject)releaseInfoNode[0];
