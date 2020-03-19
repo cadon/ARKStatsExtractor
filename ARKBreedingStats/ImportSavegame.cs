@@ -40,11 +40,14 @@ namespace ARKBreedingStats
                         .Where(s => !string.IsNullOrEmpty(s))
                         .ToArray();
 
-                tamedCreatureObjects = tamedCreatureObjects.Where(o =>
+                if (filters.Any())
                 {
-                    string tribeName = o.GetPropertyValue<string>("TribeName", defaultValue: string.Empty);
-                    return filters.Any(filter => tribeName.Contains(filter));
-                });
+                    tamedCreatureObjects = tamedCreatureObjects.Where(o =>
+                    {
+                        string tribeName = o.GetPropertyValue<string>("TribeName", defaultValue: string.Empty);
+                        return filters.Any(filter => tribeName.Contains(filter));
+                    });
+                }
             }
 
             ImportSavegame importSavegame = new ImportSavegame(gameTime);
