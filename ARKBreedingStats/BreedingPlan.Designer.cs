@@ -72,6 +72,7 @@ namespace ARKBreedingStats
             this.lbBreedingPlanInfo = new System.Windows.Forms.Label();
             this.flowLayoutPanelPairs = new System.Windows.Forms.FlowLayoutPanel();
             this.gbBPBreedingMode = new System.Windows.Forms.GroupBox();
+            this.cbBPIncludeCryoCreatures = new System.Windows.Forms.CheckBox();
             this.nudBPMutationLimit = new ARKBreedingStats.uiControls.Nud();
             this.label2 = new System.Windows.Forms.Label();
             this.cbBPIncludeCooldowneds = new System.Windows.Forms.CheckBox();
@@ -79,7 +80,7 @@ namespace ARKBreedingStats
             this.rbBPHighStats = new System.Windows.Forms.RadioButton();
             this.rbBPTopStats = new System.Windows.Forms.RadioButton();
             this.statWeighting1 = new ARKBreedingStats.uiControls.StatWeighting();
-            this.cbBPIncludeCryoCreatures = new System.Windows.Forms.CheckBox();
+            this.cbOnlyOneSuggestionForFemales = new System.Windows.Forms.CheckBox();
             this.tableLayoutMain.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageBreedableSpecies.SuspendLayout();
@@ -109,7 +110,7 @@ namespace ARKBreedingStats
             this.tableLayoutMain.Name = "tableLayoutMain";
             this.tableLayoutMain.RowCount = 3;
             this.tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 175F));
+            this.tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 190F));
             this.tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 260F));
             this.tableLayoutMain.Size = new System.Drawing.Size(1732, 1023);
             this.tableLayoutMain.TabIndex = 5;
@@ -122,7 +123,7 @@ namespace ARKBreedingStats
             this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(244, 582);
+            this.tabControl1.Size = new System.Drawing.Size(244, 567);
             this.tabControl1.TabIndex = 8;
             // 
             // tabPageBreedableSpecies
@@ -131,7 +132,7 @@ namespace ARKBreedingStats
             this.tabPageBreedableSpecies.Location = new System.Drawing.Point(4, 22);
             this.tabPageBreedableSpecies.Name = "tabPageBreedableSpecies";
             this.tabPageBreedableSpecies.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBreedableSpecies.Size = new System.Drawing.Size(236, 556);
+            this.tabPageBreedableSpecies.Size = new System.Drawing.Size(236, 541);
             this.tabPageBreedableSpecies.TabIndex = 0;
             this.tabPageBreedableSpecies.Text = "Breedable Species";
             this.tabPageBreedableSpecies.UseVisualStyleBackColor = true;
@@ -147,7 +148,7 @@ namespace ARKBreedingStats
             this.listViewSpeciesBP.Location = new System.Drawing.Point(3, 3);
             this.listViewSpeciesBP.MultiSelect = false;
             this.listViewSpeciesBP.Name = "listViewSpeciesBP";
-            this.listViewSpeciesBP.Size = new System.Drawing.Size(230, 550);
+            this.listViewSpeciesBP.Size = new System.Drawing.Size(230, 535);
             this.listViewSpeciesBP.TabIndex = 3;
             this.listViewSpeciesBP.UseCompatibleStateImageBehavior = false;
             this.listViewSpeciesBP.View = System.Windows.Forms.View.Details;
@@ -168,7 +169,7 @@ namespace ARKBreedingStats
             this.tabPageTags.Location = new System.Drawing.Point(4, 22);
             this.tabPageTags.Name = "tabPageTags";
             this.tabPageTags.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTags.Size = new System.Drawing.Size(236, 581);
+            this.tabPageTags.Size = new System.Drawing.Size(236, 556);
             this.tabPageTags.TabIndex = 1;
             this.tabPageTags.Text = "Tags";
             this.tabPageTags.UseVisualStyleBackColor = true;
@@ -517,6 +518,7 @@ namespace ARKBreedingStats
             // 
             // gbBPBreedingMode
             // 
+            this.gbBPBreedingMode.Controls.Add(this.cbOnlyOneSuggestionForFemales);
             this.gbBPBreedingMode.Controls.Add(this.cbBPIncludeCryoCreatures);
             this.gbBPBreedingMode.Controls.Add(this.nudBPMutationLimit);
             this.gbBPBreedingMode.Controls.Add(this.label2);
@@ -525,12 +527,23 @@ namespace ARKBreedingStats
             this.gbBPBreedingMode.Controls.Add(this.rbBPHighStats);
             this.gbBPBreedingMode.Controls.Add(this.rbBPTopStats);
             this.gbBPBreedingMode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbBPBreedingMode.Location = new System.Drawing.Point(3, 591);
+            this.gbBPBreedingMode.Location = new System.Drawing.Point(3, 576);
             this.gbBPBreedingMode.Name = "gbBPBreedingMode";
-            this.gbBPBreedingMode.Size = new System.Drawing.Size(244, 169);
+            this.gbBPBreedingMode.Size = new System.Drawing.Size(244, 184);
             this.gbBPBreedingMode.TabIndex = 6;
             this.gbBPBreedingMode.TabStop = false;
             this.gbBPBreedingMode.Text = "Breeding-Mode";
+            // 
+            // cbBPIncludeCryoCreatures
+            // 
+            this.cbBPIncludeCryoCreatures.AutoSize = true;
+            this.cbBPIncludeCryoCreatures.Location = new System.Drawing.Point(6, 111);
+            this.cbBPIncludeCryoCreatures.Name = "cbBPIncludeCryoCreatures";
+            this.cbBPIncludeCryoCreatures.Size = new System.Drawing.Size(167, 17);
+            this.cbBPIncludeCryoCreatures.TabIndex = 6;
+            this.cbBPIncludeCryoCreatures.Text = "Include Creatures in Cryopods";
+            this.cbBPIncludeCryoCreatures.UseVisualStyleBackColor = true;
+            this.cbBPIncludeCryoCreatures.CheckedChanged += new System.EventHandler(this.cbBPIncludeCryoCreatures_CheckedChanged);
             // 
             // nudBPMutationLimit
             // 
@@ -633,16 +646,16 @@ namespace ARKBreedingStats
         1D,
         1D};
             // 
-            // cbBPIncludeCryoCreatures
+            // cbOnlyOneSuggestionForFemales
             // 
-            this.cbBPIncludeCryoCreatures.AutoSize = true;
-            this.cbBPIncludeCryoCreatures.Location = new System.Drawing.Point(6, 111);
-            this.cbBPIncludeCryoCreatures.Name = "cbBPIncludeCryoCreatures";
-            this.cbBPIncludeCryoCreatures.Size = new System.Drawing.Size(167, 17);
-            this.cbBPIncludeCryoCreatures.TabIndex = 6;
-            this.cbBPIncludeCryoCreatures.Text = "Include Creatures in Cryopods";
-            this.cbBPIncludeCryoCreatures.UseVisualStyleBackColor = true;
-            this.cbBPIncludeCryoCreatures.CheckedChanged += new System.EventHandler(this.cbBPIncludeCryoCreatures_CheckedChanged);
+            this.cbOnlyOneSuggestionForFemales.AutoSize = true;
+            this.cbOnlyOneSuggestionForFemales.Location = new System.Drawing.Point(6, 160);
+            this.cbOnlyOneSuggestionForFemales.Name = "cbOnlyOneSuggestionForFemales";
+            this.cbOnlyOneSuggestionForFemales.Size = new System.Drawing.Size(178, 17);
+            this.cbOnlyOneSuggestionForFemales.TabIndex = 7;
+            this.cbOnlyOneSuggestionForFemales.Text = "Only best suggestion for females";
+            this.cbOnlyOneSuggestionForFemales.UseVisualStyleBackColor = true;
+            this.cbOnlyOneSuggestionForFemales.CheckedChanged += new System.EventHandler(this.cbOnlyOneSuggestionForFemales_CheckedChanged);
             // 
             // BreedingPlan
             // 
@@ -722,5 +735,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.Label lbBreedingPlanInfo;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelPairs;
         private System.Windows.Forms.CheckBox cbBPIncludeCryoCreatures;
+        private System.Windows.Forms.CheckBox cbOnlyOneSuggestionForFemales;
     }
 }

@@ -41,7 +41,7 @@ namespace ARKBreedingStats
         public delegate void InputValueChangedEventHandler(StatIO s);
         public delegate void collectionChangedEventHandler(bool changed = true, Species species = null); // if null is passed for species, breeding-related controls are not updated
         public delegate void SetSpeciesEventHandler(Species species);
-        public delegate void SetMessageLabelTextEventHandler(string text, MessageBoxIcon icon);
+        public delegate void SetMessageLabelTextEventHandler(string text = null, MessageBoxIcon icon = MessageBoxIcon.None);
 
         private bool updateTorporInTester, filterListAllowed;
         private readonly bool[] considerStatHighlight = new bool[Values.STATS_COUNT]; // consider this stat for color-highlighting, topness etc
@@ -1273,7 +1273,7 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="text"></param>
         /// <param name="icon"></param>
-        private void SetMessageLabelText(string text = "", MessageBoxIcon icon = MessageBoxIcon.None)
+        private void SetMessageLabelText(string text = null, MessageBoxIcon icon = MessageBoxIcon.None)
         {
             lbLibrarySelectionInfo.Text = text;
             switch (icon)

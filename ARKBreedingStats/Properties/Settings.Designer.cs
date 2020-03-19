@@ -1055,5 +1055,17 @@ namespace ARKBreedingStats.Properties {
                 this["KeepExpiredTimersInOverlay"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BreedingPlanOnlyBestSuggestionForEachFemale {
+            get {
+                return ((bool)(this["BreedingPlanOnlyBestSuggestionForEachFemale"]));
+            }
+            set {
+                this["BreedingPlanOnlyBestSuggestionForEachFemale"] = value;
+            }
+        }
     }
 }
