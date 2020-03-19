@@ -686,10 +686,10 @@ Habilítelo si el OCR no reconoce el nombre de la tribu correctamente y desea ag
   <data name="TamingEffectiveness_Abb" xml:space="preserve">
     <value>TE</value>
   </data>
-  <data name="timerStarvingOf" xml:space="preserve">
-    <value>Hambriento de</value>
+  <data name="timerFeedAll" xml:space="preserve">
+    <value>Alimentar todo desde</value>
   </data>
-  <data name="timerWakeUpOf" xml:space="preserve">
+  <data name="timerWakeupOf" xml:space="preserve">
     <value>Despertar de</value>
   </data>
   <data name="TimeUntilFeedingAllFood" xml:space="preserve">

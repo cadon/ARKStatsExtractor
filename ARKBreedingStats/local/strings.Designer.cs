@@ -2250,20 +2250,20 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Starving of.
+        ///   Looks up a localized string similar to Tame-feeding all for.
         /// </summary>
-        internal static string timerStarvingOf {
+        internal static string timerFeedAll {
             get {
-                return ResourceManager.GetString("timerStarvingOf", resourceCulture);
+                return ResourceManager.GetString("timerFeedAll", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Wakeup of.
         /// </summary>
-        internal static string timerWakeUpOf {
+        internal static string timerWakeupOf {
             get {
-                return ResourceManager.GetString("timerWakeUpOf", resourceCulture);
+                return ResourceManager.GetString("timerWakeupOf", resourceCulture);
             }
         }
         

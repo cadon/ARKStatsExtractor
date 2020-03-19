@@ -684,10 +684,10 @@ Wenn eine Nummer mit Plus-Zeichen angezeigt wird, ist die Summe zu hoch, und ein
   <data name="TamingEffectiveness_Abb" xml:space="preserve">
     <value>TE</value>
   </data>
-  <data name="timerStarvingOf" xml:space="preserve">
-    <value>Hungern von</value>
+  <data name="timerFeedAll" xml:space="preserve">
+    <value>Alles füttern von</value>
   </data>
-  <data name="timerWakeUpOf" xml:space="preserve">
+  <data name="timerWakeupOf" xml:space="preserve">
     <value>Erwachen von</value>
   </data>
   <data name="TimeUntilFeedingAllFood" xml:space="preserve">

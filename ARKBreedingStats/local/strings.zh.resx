@@ -818,10 +818,10 @@ If a number with a plus sign is shown, the sum is too high and you need to choos
   <data name="TimeBetweenMating" xml:space="preserve">
     <value>交配间隔时间</value>
   </data>
-  <data name="timerStarvingOf" xml:space="preserve">
-    <value>饥饿时间</value>
+  <data name="timerFeedAll" xml:space="preserve">
+    <value>提供一切</value>
   </data>
-  <data name="timerWakeUpOf" xml:space="preserve">
+  <data name="timerWakeupOf" xml:space="preserve">
     <value>唤醒时间</value>
   </data>
   <data name="TimeUntilFeedingAllFood" xml:space="preserve">

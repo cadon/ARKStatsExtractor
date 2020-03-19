@@ -799,10 +799,10 @@ Questa modalità arriverà alla miglior prole possibile, ferma e sicura.Alcune p
   <data name="TimeBetweenMating" xml:space="preserve">
     <value>Tempo tra l'accoppiamento</value>
   </data>
-  <data name="timerStarvingOf" xml:space="preserve">
-    <value>Affamato di</value>
+  <data name="timerFeedAll" xml:space="preserve">
+    <value>nutrire tutto da</value>
   </data>
-  <data name="timerWakeUpOf" xml:space="preserve">
+  <data name="timerWakeupOf" xml:space="preserve">
     <value>Risveglio di</value>
   </data>
   <data name="TimeUntilFeedingAllFood" xml:space="preserve">

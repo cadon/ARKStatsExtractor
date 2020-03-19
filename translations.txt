@@ -266,8 +266,8 @@ Temperature Temperature
 Temperature_Abb Te
 Time	Time	
 TimeBetweenMating	Time between mating	
-timerStarvingOf	Starving of	
-timerWakeUpOf	Wakeup of	
+timerFeedAll	Feed all for	
+timerWakeupOf	Wakeup of	
 TimeUntilFeedingAllFood	Time until you can feed all needed food in one go	
 timeUntilStarving	Time until starving:	
 TimeUntilTorporDepleted	Time until max torpor is depleted	

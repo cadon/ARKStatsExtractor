@@ -813,10 +813,10 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
   <data name="TimeBetweenMating" xml:space="preserve">
     <value>Temps entre les accouplements</value>
   </data>
-  <data name="timerStarvingOf" xml:space="preserve">
-    <value>Affamé</value>
+  <data name="timerFeedAll" xml:space="preserve">
+    <value>tout nourrir de</value>
   </data>
-  <data name="timerWakeUpOf" xml:space="preserve">
+  <data name="timerWakeupOf" xml:space="preserve">
     <value>Réveil</value>
   </data>
   <data name="TimeUntilFeedingAllFood" xml:space="preserve">
@@ -993,7 +993,7 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
   <data name="settingsToolStripMenuItem" xml:space="preserve">
     <value>Paramè&amp;tres</value>
   </data>
-    <data name="OrOneAscerbicMushroom" xml:space="preserve">
+  <data name="OrOneAscerbicMushroom" xml:space="preserve">
     <value>ou un champignon ascorbique tous les</value>
   </data>
   <data name="speciesNotTameable" xml:space="preserve">
