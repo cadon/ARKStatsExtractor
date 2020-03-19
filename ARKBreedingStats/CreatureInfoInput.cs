@@ -387,7 +387,7 @@ namespace ARKBreedingStats
 
         public int[] RegionColors
         {
-            get => regionColorChooser1.colorIDs;
+            get => regionColorChooser1.ColorIDs;
             set
             {
                 if (selectedSpecies != null)

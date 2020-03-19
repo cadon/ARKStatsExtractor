@@ -12,7 +12,7 @@ namespace ARKBreedingStats.species
         /// List of natural occuring color names.
         /// </summary>
         [JsonProperty]
-        public List<string> colors = new List<string>();
+        public List<string> colors;
         /// <summary>
         /// List of natural occuring ARKColors.
         /// </summary>
@@ -28,8 +28,8 @@ namespace ARKBreedingStats.species
         /// </summary>
         internal void Initialize(ARKColors arkColors)
         {
-            naturalColors = new List<ARKColor>();
             if (colors == null) return;
+            naturalColors = new List<ARKColor>();
             foreach (var c in colors)
             {
                 ARKColor cl = arkColors.ByName(c);

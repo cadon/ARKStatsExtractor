@@ -229,7 +229,7 @@ namespace ARKBreedingStats
 
         private void RegionColorChooser1_RegionColorChosen()
         {
-            creature.colors = regionColorChooser1.colorIDs;
+            creature.colors = regionColorChooser1.ColorIDs;
             pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.Species, colorRegionUseds);
             Changed(creature, false, false);
         }

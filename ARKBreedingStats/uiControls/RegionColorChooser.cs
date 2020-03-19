@@ -52,67 +52,67 @@ namespace ARKBreedingStats.uiControls
 
                 if (ColorRegionsUseds[r])
                 {
-                    setColorButton(buttonColors[r], r);
+                    SetColorButton(buttonColors[r], r);
                 }
             }
         }
 
-        public int[] colorIDs => _colorIDs.ToArray();
+        public int[] ColorIDs => _colorIDs.ToArray();
 
         public void Clear()
         {
             for (int r = 0; r < buttonColors.Length; r++)
             {
                 _colorIDs[r] = 0;
-                setColorButton(buttonColors[r], r);
+                SetColorButton(buttonColors[r], r);
             }
         }
 
         private void buttonColor0_Click(object sender, EventArgs e)
         {
-            chooseColor(0, buttonColor0);
+            ChooseColor(0, buttonColor0);
         }
 
         private void buttonColor1_Click(object sender, EventArgs e)
         {
-            chooseColor(1, buttonColor1);
+            ChooseColor(1, buttonColor1);
         }
 
         private void buttonColor2_Click(object sender, EventArgs e)
         {
-            chooseColor(2, buttonColor2);
+            ChooseColor(2, buttonColor2);
         }
 
         private void buttonColor3_Click(object sender, EventArgs e)
         {
-            chooseColor(3, buttonColor3);
+            ChooseColor(3, buttonColor3);
         }
 
         private void buttonColor4_Click(object sender, EventArgs e)
         {
-            chooseColor(4, buttonColor4);
+            ChooseColor(4, buttonColor4);
         }
 
         private void buttonColor5_Click(object sender, EventArgs e)
         {
-            chooseColor(5, buttonColor5);
+            ChooseColor(5, buttonColor5);
         }
 
-        private void chooseColor(int region, Button sender)
+        private void ChooseColor(int region, Button sender)
         {
-            if (!colorPicker.isShown && colorRegions != null)
+            if (!colorPicker.isShown && colorRegions != null && region < colorRegions.Count)
             {
-                colorPicker.SetColors(_colorIDs, region, colorRegions[region].name, colorRegions[region].naturalColors);
+                colorPicker.SetColors(_colorIDs, region, colorRegions[region].name, colorRegions[region]?.naturalColors);
                 if (colorPicker.ShowDialog() == DialogResult.OK)
                 {
                     // color was chosen
-                    setColorButton(sender, region);
+                    SetColorButton(sender, region);
                     RegionColorChosen?.Invoke();
                 }
             }
         }
 
-        private void setColorButton(Button bt, int region)
+        private void SetColorButton(Button bt, int region)
         {
             int colorId = _colorIDs[region];
             Color cl = CreatureColors.creatureColor(colorId);
