@@ -309,7 +309,7 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// List of owners and tribes.
+        /// List of tribes of owners.
         /// </summary>
         public string[] OwnersTribes
         {

@@ -34,31 +34,45 @@ namespace ARKBreedingStats
             set
             {
                 players = value;
-                updatePlayerList();
+                UpdatePlayerList();
             }
         }
-
-        public bool playerExists(string name)
-        {
-            return players.Count(p => p.PlayerName == name) > 0;
-        }
-
-        public string[] playerNames => players.Select(p => p.PlayerName).ToArray();
-
-        public string[] ownersTribes => players.Select(p => p.Tribe).ToArray();
-
-        public string[] tribeNames => tribes.Select(t => t.TribeName).ToArray();
 
         public List<Tribe> Tribes
         {
             set
             {
                 tribes = value;
-                updateTribeList();
+                UpdateTribeList();
             }
         }
 
-        private void updatePlayerList()
+        /// <summary>
+        /// Checks if a player with the given name exists.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public bool PlayerExists(string name) =>
+            !string.IsNullOrEmpty(name) && players.Any(p => p.PlayerName == name);
+
+        /// <summary>
+        /// Checks if a tribe with the given name exists.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public bool TribeExists(string name) =>
+            !string.IsNullOrEmpty(name) && tribes.Any(t => t.TribeName == name);
+
+        public string[] PlayerNames => players.Select(p => p.PlayerName).ToArray();
+
+        public string[] OwnersTribes => players.Select(p => p.Tribe).ToArray();
+
+        public string[] TribeNames => tribes.Select(t => t.TribeName).ToArray();
+
+        /// <summary>
+        /// Updates the displayed list of players from the internal list.
+        /// </summary>
+        private void UpdatePlayerList()
         {
             listViewPlayer.Items.Clear();
             Dictionary<string, Color> tribeRelColors = new Dictionary<string, Color>();
@@ -86,7 +100,7 @@ namespace ARKBreedingStats
                     {
                         if (t.TribeName == p.Tribe)
                         {
-                            c = relationColor(t.TribeRelation);
+                            c = RelationColor(t.TribeRelation);
                             break;
                         }
                     }
@@ -113,18 +127,23 @@ namespace ARKBreedingStats
             }
         }
 
-        private void updateTribeList()
+        /// <summary>
+        /// Updates the displayed list of tribes from the internal list.
+        /// </summary>
+        private void UpdateTribeList()
         {
             listViewTribes.Items.Clear();
             foreach (Tribe t in tribes)
             {
-                ListViewItem lvi = new ListViewItem(new[] { t.TribeName, t.TribeRelation.ToString() });
-                lvi.UseItemStyleForSubItems = false;
-                lvi.Tag = t;
-                lvi.SubItems[1].BackColor = relationColor(t.TribeRelation);
+                ListViewItem lvi = new ListViewItem(new[] { t.TribeName, t.TribeRelation.ToString() })
+                {
+                    UseItemStyleForSubItems = false,
+                    Tag = t
+                };
+                lvi.SubItems[1].BackColor = RelationColor(t.TribeRelation);
                 listViewTribes.Items.Add(lvi);
             }
-            updateTribeSuggestions();
+            UpdateTribeSuggestions();
         }
 
         private void listViewPlayer_SelectedIndexChanged(object sender, EventArgs e)
@@ -174,7 +193,7 @@ namespace ARKBreedingStats
             panelTribeSettings.Enabled = tribeSelected;
         }
 
-        private void updateTribeSuggestions()
+        private void UpdateTribeSuggestions()
         {
             var l = new AutoCompleteStringCollection();
             l.AddRange(tribes.Select(t => t.TribeName).ToArray());
@@ -217,14 +236,18 @@ namespace ARKBreedingStats
             }
         }
 
-        public void addPlayer(string name = "")
+        /// <summary>
+        /// Adds player.
+        /// </summary>
+        /// <param name="name"></param>
+        public void AddPlayer(string name = null)
         {
             Player p = new Player
             {
-                PlayerName = name.Length > 0 ? name : "<new Player>"
+                PlayerName = string.IsNullOrEmpty(name) ? "<new Player>" : name
             };
             players.Add(p);
-            updatePlayerList();
+            UpdatePlayerList();
             int i = listViewPlayer.Items.Count - 1;
             listViewPlayer.Items[i].Selected = true;
             listViewPlayer.Items[i].Focused = true;
@@ -232,14 +255,18 @@ namespace ARKBreedingStats
             textBoxPlayerName.Focus();
         }
 
-        public void addTribe(string name = "")
+        /// <summary>
+        /// Add tribe to tribe list.
+        /// </summary>
+        /// <param name="name"></param>
+        public void AddTribe(string name = null)
         {
             Tribe t = new Tribe
             {
-                TribeName = name.Length > 0 ? name : "<new Tribe>"
+                TribeName = string.IsNullOrEmpty(name) ? "<new Tribe>" : name
             };
             tribes.Add(t);
-            updateTribeList();
+            UpdateTribeList();
             int i = listViewTribes.Items.Count - 1;
             listViewTribes.Items[i].Selected = true;
             listViewTribes.Items[i].Focused = true;
@@ -247,7 +274,7 @@ namespace ARKBreedingStats
             textBoxTribeName.Focus();
         }
 
-        private void deleteSelectedPlayer()
+        private void DeleteSelectedPlayer()
         {
             if (listViewPlayer.SelectedIndices.Count > 0 && (MessageBox.Show("Delete selected Players?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
             {
@@ -255,11 +282,11 @@ namespace ARKBreedingStats
                 {
                     players.Remove((Player)lvi.Tag);
                 }
-                updatePlayerList();
+                UpdatePlayerList();
             }
         }
 
-        private void deleteSelectedTribes()
+        private void DeleteSelectedTribes()
         {
             if (listViewTribes.SelectedIndices.Count > 0 && (MessageBox.Show("Delete selected Tribes?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
             {
@@ -267,7 +294,7 @@ namespace ARKBreedingStats
                 {
                     tribes.Remove((Tribe)lvi.Tag);
                 }
-                updateTribeList();
+                UpdateTribeList();
             }
         }
 
@@ -285,7 +312,7 @@ namespace ARKBreedingStats
             if (selectedTribe != null)
             {
                 selectedTribe.TribeRelation = Tribe.Relation.Allied;
-                updateTribeRowRelation(selectedTribeRow, Tribe.Relation.Allied);
+                UpdateTribeRowRelation(selectedTribeRow, Tribe.Relation.Allied);
             }
         }
 
@@ -294,7 +321,7 @@ namespace ARKBreedingStats
             if (selectedTribe != null)
             {
                 selectedTribe.TribeRelation = Tribe.Relation.Neutral;
-                updateTribeRowRelation(selectedTribeRow, Tribe.Relation.Neutral);
+                UpdateTribeRowRelation(selectedTribeRow, Tribe.Relation.Neutral);
             }
         }
 
@@ -303,7 +330,7 @@ namespace ARKBreedingStats
             if (selectedTribe != null)
             {
                 selectedTribe.TribeRelation = Tribe.Relation.Friendly;
-                updateTribeRowRelation(selectedTribeRow, Tribe.Relation.Friendly);
+                UpdateTribeRowRelation(selectedTribeRow, Tribe.Relation.Friendly);
             }
         }
 
@@ -312,7 +339,7 @@ namespace ARKBreedingStats
             if (selectedTribe != null)
             {
                 selectedTribe.TribeRelation = Tribe.Relation.Hostile;
-                updateTribeRowRelation(selectedTribeRow, Tribe.Relation.Hostile);
+                UpdateTribeRowRelation(selectedTribeRow, Tribe.Relation.Hostile);
             }
         }
 
@@ -322,15 +349,14 @@ namespace ARKBreedingStats
                 selectedTribe.Note = textBoxTribeNotes.Text;
         }
 
-        private void updateTribeRowRelation(ListViewItem tribeRow, Tribe.Relation rel)
+        private void UpdateTribeRowRelation(ListViewItem tribeRow, Tribe.Relation rel)
         {
             tribeRow.SubItems[1].Text = rel.ToString();
-            Color c = relationColor(rel);
-            tribeRow.SubItems[1].BackColor = c;
-            updatePlayerList();
+            tribeRow.SubItems[1].BackColor = RelationColor(rel);
+            UpdatePlayerList();
         }
 
-        private Color relationColor(Tribe.Relation r)
+        private static Color RelationColor(Tribe.Relation r)
         {
             switch (r)
             {
@@ -345,21 +371,24 @@ namespace ARKBreedingStats
         private void listViewPlayer_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
-                deleteSelectedPlayer();
+                DeleteSelectedPlayer();
         }
 
         private void listViewTribes_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
-                deleteSelectedTribes();
+                DeleteSelectedTribes();
         }
 
-        public void removeSelected()
+        /// <summary>
+        /// Removes selected entry, either player or tribe.
+        /// </summary>
+        public void RemoveSelected()
         {
             if (listViewPlayer.Focused)
-                deleteSelectedPlayer();
+                DeleteSelectedPlayer();
             else if (listViewTribes.Focused)
-                deleteSelectedTribes();
+                DeleteSelectedTribes();
         }
 
         private void listViewTribes_Enter(object sender, EventArgs e)

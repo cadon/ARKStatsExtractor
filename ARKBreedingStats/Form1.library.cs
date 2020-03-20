@@ -180,7 +180,7 @@ namespace ARKBreedingStats
             }
             else if (tabControlMain.SelectedTab == tabPagePlayerTribes)
             {
-                tribesControl1.removeSelected();
+                tribesControl1.RemoveSelected();
             }
         }
 

@@ -914,83 +914,116 @@ namespace ARKBreedingStats
         /// </summary>
         private void UpdateOwnerServerTagLists()
         {
+            const string NOTAVAILABLE = "n/a";
             filterListAllowed = false;
 
-            // owner checkboxes
+            //// clear lists
+            // owner
             checkedListBoxOwner.Items.Clear();
-            bool removeWOOwner = true;
-            checkedListBoxOwner.Items.Add("n/a", !creatureCollection.hiddenOwners.Contains("n/a"));
-            foreach (Creature c in creatureCollection.creatures)
-            {
-                if (string.IsNullOrEmpty(c.owner))
-                    removeWOOwner = false;
-                else if (!checkedListBoxOwner.Items.Contains(c.owner))
-                {
-                    checkedListBoxOwner.Items.Add(c.owner, !creatureCollection.hiddenOwners.Contains(c.owner));
-                    if (!tribesControl1.playerExists(c.owner))
-                        tribesControl1.addPlayer(c.owner);
-                }
-            }
-            if (removeWOOwner)
-                checkedListBoxOwner.Items.RemoveAt(0);
+            var ownerList = new Dictionary<string, int>();
+
+            var tribesList = new Dictionary<string, int>();
 
             // server checkboxes
-            var serverList = new Dictionary<string, int>();
-            bool removeWOServer = true;
-            foreach (Creature c in creatureCollection.creatures)
-            {
-                if (string.IsNullOrEmpty(c.server))
-                    removeWOServer = false;
-                else if (!serverList.ContainsKey(c.server))
-                {
-                    serverList.Add(c.server, 1);
-                }
-                else
-                {
-                    serverList[c.server]++;
-                }
-            }
-
             checkedListBoxFilterServers.Items.Clear();
-            if (!removeWOServer)
-                checkedListBoxFilterServers.Items.Add("n/a", !creatureCollection.hiddenServers.Contains("n/a"));
-            foreach (KeyValuePair<string, int> s in serverList)
-            {
-                checkedListBoxFilterServers.Items.Add(s.Key + " (" + s.Value + ")", !creatureCollection.hiddenServers.Contains(s.Key));
-            }
+            var serverList = new Dictionary<string, int>();
 
             // tag checkboxes
             checkedListBoxFilterTags.Items.Clear();
-            bool removeWOTag = true;
-            checkedListBoxFilterTags.Items.Add("n/a", !creatureCollection.dontShowTags.Contains("n/a"));
+            var tagList = new Dictionary<string, int>();
+
+
+            //// check all creature for info
             foreach (Creature c in creatureCollection.creatures)
             {
-                if (c.tags.Count == 0)
-                    removeWOTag = false;
-                else if (c.tags.Any())
+                SetListValue(c.owner, ownerList);
+                SetListValue(c.tribe, tribesList);
+                SetListValue(c.server, serverList);
+
+                void SetListValue(string _value, Dictionary<string, int> _list)
+                {
+                    if (string.IsNullOrEmpty(_value))
+                    {
+                        if (!_list.ContainsKey(NOTAVAILABLE))
+                            _list.Add(NOTAVAILABLE, 1);
+                        else
+                            _list[NOTAVAILABLE]++;
+                    }
+                    else if (!_list.ContainsKey(_value))
+                    {
+                        _list.Add(_value, 1);
+                    }
+                    else
+                    {
+                        _list[_value]++;
+                    }
+                }
+
+                // tags
+                if (c.tags?.Any() ?? false)
+                {
+                    if (!tagList.ContainsKey(NOTAVAILABLE))
+                        tagList.Add(NOTAVAILABLE, 1);
+                    else
+                        tagList[NOTAVAILABLE]++;
+                }
+                else
                 {
                     for (int t = 0; t < c.tags.Count; t++)
                     {
-                        if (!checkedListBoxFilterTags.Items.Contains(c.tags[t]))
-                            checkedListBoxFilterTags.Items.Add(c.tags[t], !creatureCollection.dontShowTags.Contains(c.tags[t]));
+                        if (!tagList.ContainsKey(c.tags[t]))
+                        {
+                            tagList.Add(c.tags[t], 1);
+                        }
+                        else
+                        {
+                            tagList[c.tags[t]]++;
+                        }
                     }
                 }
             }
-            if (removeWOTag)
-                checkedListBoxFilterTags.Items.RemoveAt(0);
 
+            //// create checkbox controls
             // owners
-            string[] owners = tribesControl1.playerNames;
+            foreach (var owner in ownerList.OrderBy(o => o.Key != NOTAVAILABLE).ThenBy(o => o.Key))
+            {
+                checkedListBoxOwner.Items.Add($"{owner.Key} ({owner.Value})", !creatureCollection.hiddenOwners.Contains(owner.Key));
+                if (owner.Key != NOTAVAILABLE && !tribesControl1.PlayerExists(owner.Key))
+                    tribesControl1.AddPlayer(owner.Key);
+            }
+
+            // tribes
+            foreach (var tribe in tribesList.OrderBy(o => o.Key != NOTAVAILABLE).ThenBy(o => o.Key))
+            {
+                if (tribe.Key != NOTAVAILABLE && !tribesControl1.TribeExists(tribe.Key))
+                    tribesControl1.AddTribe(tribe.Key);
+            }
+
+            // servers
+            foreach (var server in serverList.OrderBy(o => o.Key != NOTAVAILABLE).ThenBy(o => o.Key))
+            {
+                checkedListBoxOwner.Items.Add($"{server.Key} ({server.Value})", !creatureCollection.hiddenServers.Contains(server.Key));
+            }
+
+            // tags
+            foreach (var tag in tagList.OrderBy(o => o.Key != NOTAVAILABLE).ThenBy(o => o.Key))
+            {
+                checkedListBoxFilterTags.Items.Add($"{tag.Key} ({tag.Value})", !creatureCollection.dontShowTags.Contains(tag.Key));
+            }
+
+            ///// Apply autocomplete lists
+            // owners
+            string[] owners = tribesControl1.PlayerNames;
             creatureInfoInputExtractor.AutocompleteOwnerList = owners;
             creatureInfoInputTester.AutocompleteOwnerList = owners;
 
             // tribes
-            string[] tribes = tribesControl1.tribeNames;
+            string[] tribes = tribesControl1.TribeNames;
             creatureInfoInputExtractor.AutocompleteTribeList = tribes;
             creatureInfoInputTester.AutocompleteTribeList = tribes;
 
             // tribes of the owners (same index as owners)
-            string[] ownersTribes = tribesControl1.ownersTribes;
+            string[] ownersTribes = tribesControl1.OwnersTribes;
             creatureInfoInputExtractor.OwnersTribes = ownersTribes;
             creatureInfoInputTester.OwnersTribes = ownersTribes;
 
@@ -2596,7 +2629,7 @@ namespace ARKBreedingStats
 
         private void toolStripButtonAddTribe_Click(object sender, EventArgs e)
         {
-            tribesControl1.addTribe();
+            tribesControl1.AddTribe();
         }
 
         private void button2TamingCalc_Click(object sender, EventArgs e)
@@ -2701,7 +2734,7 @@ namespace ARKBreedingStats
 
         private void toolStripButtonAddPlayer_Click(object sender, EventArgs e)
         {
-            tribesControl1.addPlayer();
+            tribesControl1.AddPlayer();
         }
 
         private void UpdateStatusBar()
