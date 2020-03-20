@@ -960,7 +960,7 @@ namespace ARKBreedingStats
                 }
 
                 // tags
-                if (c.tags?.Any() ?? false)
+                if (!(c.tags?.Any() ?? false))
                 {
                     if (!tagList.ContainsKey(NOTAVAILABLE))
                         tagList.Add(NOTAVAILABLE, 1);
@@ -1002,7 +1002,7 @@ namespace ARKBreedingStats
             // servers
             foreach (var server in serverList.OrderBy(o => o.Key != NOTAVAILABLE).ThenBy(o => o.Key))
             {
-                checkedListBoxOwner.Items.Add($"{server.Key} ({server.Value})", !creatureCollection.hiddenServers.Contains(server.Key));
+                checkedListBoxFilterServers.Items.Add($"{server.Key} ({server.Value})", !creatureCollection.hiddenServers.Contains(server.Key));
             }
 
             // tags
@@ -1038,12 +1038,12 @@ namespace ARKBreedingStats
             filterListAllowed = true;
         }
 
+        #region check for update
+
         private void checkForUpdatedStatsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CheckForUpdates();
         }
-
-        #region check for update
 
         private async void CheckForUpdates(bool silentCheck = false)
         {
@@ -1159,9 +1159,13 @@ namespace ARKBreedingStats
                 e.Cancel = true;
         }
 
-
-        private void saveListViewSettings(ListView lv, string widthName, string indicesName, string sortColName, string sortAscName)
+        /// <summary>
+        /// Save the properties of a listview: column width, column order and sorting.
+        /// </summary>
+        private void SaveListViewSettings(ListView lv, string widthName, string indicesName, string sortColName, string sortAscName)
         {
+            if (lv == null) return;
+
             int[] cw = new int[lv.Columns.Count];
             int[] colIndices = new int[lv.Columns.Count];
             for (int c = 0; c < lv.Columns.Count; c++)
@@ -1184,7 +1188,7 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Loads settings for a listview like column widths, column indices and sorting.
+        /// Loads settings for a listview: column widths, column order and sorting.
         /// </summary>
         /// <param name="lv"></param>
         /// <param name="widthName"></param>
@@ -1239,10 +1243,10 @@ namespace ARKBreedingStats
 
             // Save column-widths, display-indices and sort-order of the TimerControlListView
             ListView lv = (ListView)timerList1.Controls["tableLayoutPanel1"].Controls["listViewTimer"];
-            saveListViewSettings(lv, "TCLVColumnWidths", "TCLVColumnDisplayIndices", "TCLVSortCol", "TCLVSortAsc");
+            SaveListViewSettings(lv, "TCLVColumnWidths", "TCLVColumnDisplayIndices", "TCLVSortCol", "TCLVSortAsc");
 
             // Save column-widths, display-indices and sort-order of the listViewLibrary
-            saveListViewSettings(listViewLibrary, "columnWidths", "libraryColumnDisplayIndices", "listViewSortCol", "listViewSortAsc");
+            SaveListViewSettings(listViewLibrary, "columnWidths", "libraryColumnDisplayIndices", "listViewSortCol", "listViewSortAsc");
 
             // save custom statweights
             List<string> custWs = new List<string>();
@@ -1421,7 +1425,11 @@ namespace ARKBreedingStats
             for (int i = 0; i < checkedListBoxOwner.Items.Count; i++)
             {
                 checkedListBoxOwner.SetItemChecked(i, chck);
-                if (!chck) creatureCollection.hiddenOwners.Add(checkedListBoxOwner.Items[i].ToString());
+                if (!chck)
+                {
+                    string owner = Regex.Match(checkedListBoxOwner.Items[i].ToString(), @"^(.+?)(?: \(\d+\))?$").Groups[1].Value;
+                    creatureCollection.hiddenOwners.Add(owner);
+                }
             }
 
             filterListAllowed = true;
@@ -1455,7 +1463,7 @@ namespace ARKBreedingStats
             if (filterListAllowed)
             {
                 // update shownOwners
-                string owner = checkedListBoxOwner.Items[e.Index].ToString();
+                string owner = Regex.Match(checkedListBoxOwner.Items[e.Index].ToString(), @"^(.+?)(?: \(\d+\))?$").Groups[1].Value;
                 if (e.NewValue == CheckState.Unchecked)
                 {
                     creatureCollection.hiddenOwners.Add(owner);
@@ -1504,7 +1512,11 @@ namespace ARKBreedingStats
             for (int i = 0; i < checkedListBoxFilterTags.Items.Count; i++)
             {
                 checkedListBoxFilterTags.SetItemChecked(i, chck);
-                if (!chck) creatureCollection.dontShowTags.Add(checkedListBoxFilterTags.Items[i].ToString());
+                if (!chck)
+                {
+                    string tagName = Regex.Match(checkedListBoxFilterTags.Items[i].ToString(), @"^(.+?)(?: \(\d+\))?$").Groups[1].Value;
+                    creatureCollection.dontShowTags.Add(tagName);
+                }
             }
 
             filterListAllowed = true;
@@ -1516,7 +1528,7 @@ namespace ARKBreedingStats
             if (filterListAllowed)
             {
                 // update shownTags
-                string tag = checkedListBoxFilterTags.Items[e.Index].ToString();
+                string tag = Regex.Match(checkedListBoxFilterTags.Items[e.Index].ToString(), @"^(.+?)(?: \(\d+\))?$").Groups[1].Value;
                 if (e.NewValue == CheckState.Unchecked)
                 {
                     creatureCollection.dontShowTags.Add(tag);
