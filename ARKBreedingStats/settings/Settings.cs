@@ -417,13 +417,22 @@ namespace ARKBreedingStats.settings
 
         private void tabPage2_DragEnter(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)
+                || e.Data.GetDataPresent(DataFormats.Text))
+                e.Effect = DragDropEffects.Copy;
         }
 
         private void tabPage2_DragDrop(object sender, DragEventArgs e)
         {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            foreach (string file in files) ExtractSettingsFromFile(file);
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                foreach (string file in files) ExtractSettingsFromFile(file);
+            }
+            else if (e.Data.GetDataPresent(DataFormats.Text))
+            {
+                ExtractSettingsFromText(e.Data.GetData(DataFormats.Text) as string);
+            }
         }
 
         private void ExtractSettingsFromFile(string file)
@@ -431,14 +440,20 @@ namespace ARKBreedingStats.settings
             if (!File.Exists(file))
                 return;
 
-            string text = File.ReadAllText(file);
+            ExtractSettingsFromText(File.ReadAllText(file));
+        }
+
+        private void ExtractSettingsFromText(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text)) return;
+
             double d;
             Match m;
             var cultureForStrings = System.Globalization.CultureInfo.GetCultureInfo("en-US");
 
             // get stat-multipliers
             // if there are stat-multipliers, set all to the official-values first
-            if (text.IndexOf("PerLevelStatsMultiplier_Dino") != -1)
+            if (text.Contains("PerLevelStatsMultiplier_Dino"))
                 ApplyMultiplierPreset(Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.OFFICIAL), onlyStatMultipliers: true);
 
             for (int s = 0; s < Values.STATS_COUNT; s++)
