@@ -327,6 +327,7 @@ namespace ARKBreedingStats
             this.lbSpecies = new System.Windows.Forms.Label();
             this.lbLibrarySelectionInfo = new System.Windows.Forms.Label();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
+            this.columnHeaderTribe = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -2286,7 +2287,8 @@ namespace ARKBreedingStats
             this.columnHeaderColor4,
             this.columnHeaderColor5,
             this.columnHeaderSpecies,
-            this.columnHeaderStatus});
+            this.columnHeaderStatus,
+            this.columnHeaderTribe});
             this.listViewLibrary.ContextMenuStrip = this.contextMenuStripLibrary;
             this.listViewLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewLibrary.FullRowSelect = true;
@@ -3314,6 +3316,10 @@ namespace ARKBreedingStats
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
+            // columnHeaderTribe
+            // 
+            this.columnHeaderTribe.Text = "Tribe";
+            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -3711,5 +3717,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.CheckBox checkBoxSpeciesGroups;
         private System.Windows.Forms.ColumnHeader columnHeaderSpecies;
         private System.Windows.Forms.ColumnHeader columnHeaderStatus;
+        private System.Windows.Forms.ColumnHeader columnHeaderTribe;
     }
 }
