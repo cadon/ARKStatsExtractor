@@ -162,20 +162,20 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Some creatures are filtered out due to their mutations.
-        /// </summary>
-        internal static string BPsomeCreaturesAreFilteredOutMutations {
-            get {
-                return ResourceManager.GetString("BPsomeCreaturesAreFilteredOutMutations", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Some creatures are filtered out due to their tags.
+        ///   Looks up a localized string similar to Some creatures are filtered out due to their tags..
         /// </summary>
         internal static string BPsomeCreaturesAreFilteredOutTags {
             get {
                 return ResourceManager.GetString("BPsomeCreaturesAreFilteredOutTags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Some pairs could be filtered out due to their mutations..
+        /// </summary>
+        internal static string BPsomePairingsAreFilteredOutMutations {
+            get {
+                return ResourceManager.GetString("BPsomePairingsAreFilteredOutMutations", resourceCulture);
             }
         }
         

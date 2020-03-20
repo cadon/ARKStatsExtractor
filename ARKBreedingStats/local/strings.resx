@@ -814,11 +814,11 @@ Change the breeding-mode to "High Stats" for better suggestions.</value>
   <data name="BPorMutations" xml:space="preserve">
     <value>or mutations</value>
   </data>
-  <data name="BPsomeCreaturesAreFilteredOutMutations" xml:space="preserve">
-    <value>Some creatures are filtered out due to their mutations</value>
+  <data name="BPsomePairingsAreFilteredOutMutations" xml:space="preserve">
+    <value>Some pairs could be filtered out due to their mutations.</value>
   </data>
   <data name="BPsomeCreaturesAreFilteredOutTags" xml:space="preserve">
-    <value>Some creatures are filtered out due to their tags</value>
+    <value>Some creatures are filtered out due to their tags.</value>
   </data>
   <data name="BPTopStatsShownMightNotTotalTopStats" xml:space="preserve">
     <value>The top-stats shown here might not be the top-stats of your entire library.</value>

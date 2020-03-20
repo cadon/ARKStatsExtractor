@@ -153,11 +153,11 @@
   <data name="BPorMutations" xml:space="preserve">
     <value>或者突变</value>
   </data>
-  <data name="BPsomeCreaturesAreFilteredOutMutations" xml:space="preserve">
-    <value>一些生物已被排除因为突变</value>
-  </data>
   <data name="BPsomeCreaturesAreFilteredOutTags" xml:space="preserve">
-    <value>一些生物已被排除因为标签</value>
+    <value>一些生物已被排除因为标签.</value>
+  </data>
+  <data name="BPsomePairingsAreFilteredOutMutations" xml:space="preserve">
+    <value>一些对可能因其突变而被滤除.</value>
   </data>
   <data name="BPTopStatsShownMightNotTotalTopStats" xml:space="preserve">
     <value>这里显示的最好属性可能不代表是库中最好属性.</value>

@@ -11,8 +11,8 @@ Body	Body
 BonusLevel	Bonus-Level	
 Bow	Bow	
 BPorMutations	or mutations	
-BPsomeCreaturesAreFilteredOutMutations	Some creatures are filtered out due to their mutations	
-BPsomeCreaturesAreFilteredOutTags	Some creatures are filtered out due to their tags	
+BPsomeCreaturesAreFilteredOutTags	Some creatures are filtered out due to their tags.	
+BPsomePairingsAreFilteredOutMutations	Some pairs could be filtered out due to their mutations.	
 BPTopStatsShownMightNotTotalTopStats	The top-stats shown here might not be the top-stats of your entire library.	
 bred	Bred	
 BreedingNotPossible	Breeding not possible	

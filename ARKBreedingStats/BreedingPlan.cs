@@ -275,26 +275,14 @@ namespace ARKBreedingStats
             }
 
             bool creaturesTagFilteredOut = (crCountF != chosenF.Count)
-                                        || (crCountM != chosenM.Count);
-
-            crCountF = chosenF.Count;
-            crCountM = chosenM.Count;
-            if (nudBPMutationLimit.Value >= 0)
-            {
-                chosenF = chosenF.Where(c => c.Mutations <= nudBPMutationLimit.Value).ToList();
-                chosenM = chosenM.Where(c => c.Mutations <= nudBPMutationLimit.Value).ToList();
-            }
-            bool creaturesMutationsFilteredOut = (crCountF != chosenF.Count)
                                               || (crCountM != chosenM.Count);
+
+            bool creaturesMutationsFilteredOut = false;
+            bool displayFilterWarning = true;
 
             lbBreedingPlanHeader.Text = currentSpecies.DescriptiveNameAndMod + (considerChosenCreature ? " (" + string.Format(Loc.s("onlyPairingsWith"), chosenCreature.name) + ")" : string.Empty);
             if (considerChosenCreature && (chosenCreature.flags.HasFlag(CreatureFlags.Neutered) || chosenCreature.status != CreatureStatus.Available))
                 lbBreedingPlanHeader.Text += $"{Loc.s("BreedingNotPossible")} ! ({(chosenCreature.flags.HasFlag(CreatureFlags.Neutered) ? Loc.s("Neutered") : Loc.s("notAvailable"))})";
-
-            string warningText = null;
-            if (creaturesTagFilteredOut) warningText = Loc.s("BPsomeCreaturesAreFilteredOutTags");
-            if (creaturesMutationsFilteredOut) warningText += (!string.IsNullOrEmpty(warningText) ? " " + Loc.s("BPorMutations") : Loc.s("BPsomeCreaturesAreFilteredOutMutations"));
-            if (!string.IsNullOrEmpty(warningText)) SetMessageLabelText(warningText + ".\n" + Loc.s("BPTopStatsShownMightNotTotalTopStats"), MessageBoxIcon.Warning);
 
             var combinedCreatures = new List<Creature>(chosenF);
             combinedCreatures.AddRange(chosenM);
@@ -332,6 +320,7 @@ namespace ARKBreedingStats
 
                 breedingPairs.Clear();
                 short[] bestPossLevels = new short[Values.STATS_COUNT]; // best possible levels
+                bool considerMutationLimit = nudBPMutationLimit.Value >= 0;
 
                 for (int fi = 0; fi < chosenF.Count; fi++)
                 {
@@ -350,6 +339,12 @@ namespace ARKBreedingStats
                             }
                             else if (fi == mi)
                                 break;
+                        }
+                        // if mutation limit is set, only skip pairs where both parents exceed that limit. One parent is enough to trigger a mutation.
+                        if (considerMutationLimit && female.Mutations > nudBPMutationLimit.Value && male.Mutations > nudBPMutationLimit.Value)
+                        {
+                            creaturesMutationsFilteredOut = true;
+                            continue;
                         }
 
                         double t = 0;
@@ -599,7 +594,10 @@ namespace ARKBreedingStats
                         }
 
                         if (bestCreatureAlreadyAvailable)
+                        {
+                            displayFilterWarning = false;
                             SetMessageLabelText(string.Format(Loc.s("AlreadyCreatureWithTopStats"), bestCreature.name, Utils.sexSymbol(bestCreature.sex)), MessageBoxIcon.Warning);
+                        }
                     }
                 }
                 else
@@ -622,6 +620,16 @@ namespace ARKBreedingStats
                 if (updateBreedingData)
                     SetBreedingData(currentSpecies);
             }
+
+            if (displayFilterWarning)
+            {
+                // display warning if breeding pairs are filtered out
+                string warningText = null;
+                if (creaturesTagFilteredOut) warningText = Loc.s("BPsomeCreaturesAreFilteredOutTags") + ".\n" + Loc.s("BPTopStatsShownMightNotTotalTopStats");
+                if (creaturesMutationsFilteredOut) warningText = (!string.IsNullOrEmpty(warningText) ? warningText + "\n" : string.Empty) + Loc.s("BPsomePairingsAreFilteredOutMutations");
+                if (!string.IsNullOrEmpty(warningText)) SetMessageLabelText(warningText, MessageBoxIcon.Warning);
+            }
+
             this.ResumeDrawing();
 
             if (considerChosenCreature) btShowAllCreatures.Text = "Unset Restriction to " + chosenCreature.name;

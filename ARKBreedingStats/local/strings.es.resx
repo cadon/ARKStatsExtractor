@@ -814,11 +814,11 @@ Cambia el modo de reproducción a "Estadísticas altas" para obtener mejores sug
   <data name="BPorMutations" xml:space="preserve">
     <value>o mutaciones</value>
   </data>
-  <data name="BPsomeCreaturesAreFilteredOutMutations" xml:space="preserve">
-    <value>Algunas criaturas se filtran debido a sus mutaciones.</value>
+  <data name="BPsomePairingsAreFilteredOutMutations" xml:space="preserve">
+    <value>Algunos pares podrían filtrarse debido a sus mutaciones.</value>
   </data>
   <data name="BPsomeCreaturesAreFilteredOutTags" xml:space="preserve">
-    <value>Algunas criaturas se filtran debido a sus etiquetas</value>
+    <value>Algunas criaturas se filtran debido a sus etiquetas.</value>
   </data>
   <data name="BPTopStatsShownMightNotTotalTopStats" xml:space="preserve">
     <value>Es posible que las estadísticas principales que se muestran aquí no sean las estadísticas principales de toda su biblioteca.</value>

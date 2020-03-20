@@ -812,11 +812,11 @@ Wähle den "Hohe-Stats"-Modus aus, um bessere Vorschläge zu erhalten.</value>
   <data name="BPorMutations" xml:space="preserve">
     <value>oder Mutationen</value>
   </data>
-  <data name="BPsomeCreaturesAreFilteredOutMutations" xml:space="preserve">
-    <value>Einige Kreaturen könnten ausgefiltert sein wegen Mutationen</value>
+  <data name="BPsomePairingsAreFilteredOutMutations" xml:space="preserve">
+    <value>Einige Paare könnten wegen ihrer Mutationen ausgefiltert sein.</value>
   </data>
   <data name="BPsomeCreaturesAreFilteredOutTags" xml:space="preserve">
-    <value>Einige Kreaturen könnten ausgefiltert sein wegen Tags</value>
+    <value>Einige Kreaturen könnten ausgefiltert sein wegen Tags.</value>
   </data>
   <data name="BPTopStatsShownMightNotTotalTopStats" xml:space="preserve">
     <value>Die hier gezeigten Top-Stats könnten nicht die Top-Stats der ganzen Bibliothek sein.</value>

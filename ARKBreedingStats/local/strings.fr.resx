@@ -152,11 +152,11 @@ Changez le mode de reproduction en "Statistiques élevées" pour de meilleures s
   <data name="BPorMutations" xml:space="preserve">
     <value>ou des mutations</value>
   </data>
-  <data name="BPsomeCreaturesAreFilteredOutMutations" xml:space="preserve">
-    <value>Certaines créatures sont filtrées en raison de leurs mutations</value>
+  <data name="BPsomePairingsAreFilteredOutMutations" xml:space="preserve">
+    <value>Certaines paires pourraient être filtrées en raison de leurs mutations.</value>
   </data>
   <data name="BPsomeCreaturesAreFilteredOutTags" xml:space="preserve">
-    <value>Certaines créatures sont filtrées en raison de leurs balises</value>
+    <value>Certaines créatures sont filtrées en raison de leurs balises.</value>
   </data>
   <data name="BPTopStatsShownMightNotTotalTopStats" xml:space="preserve">
     <value>Les meilleures statistiques présentées ici ne sont peut être pas les meilleures de toute votre bibliothèque.</value>

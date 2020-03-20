@@ -151,11 +151,11 @@ La modalità di allevamento conservativo attualmente selezionata potrebbe mostra
   <data name="BPorMutations" xml:space="preserve">
     <value>o mutazioni</value>
   </data>
-  <data name="BPsomeCreaturesAreFilteredOutMutations" xml:space="preserve">
-    <value>Alcune creature vengono filtrate a causa delle loro mutazioni</value>
+  <data name="BPsomePairingsAreFilteredOutMutations" xml:space="preserve">
+    <value>Alcune coppie potrebbero essere filtrate a causa delle loro mutazioni.</value>
   </data>
   <data name="BPsomeCreaturesAreFilteredOutTags" xml:space="preserve">
-    <value>Alcune creature vengono filtrate a causa dei loro tag</value>
+    <value>Alcune creature vengono filtrate a causa dei loro tag.</value>
   </data>
   <data name="BPTopStatsShownMightNotTotalTopStats" xml:space="preserve">
     <value>Le statistiche migliori mostrate qui potrebbero non essere le migliori statistiche dell'intera libreria.</value>
