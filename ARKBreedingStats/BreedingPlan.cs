@@ -287,14 +287,6 @@ namespace ARKBreedingStats
             bool creaturesMutationsFilteredOut = (crCountF != chosenF.Count)
                                               || (crCountM != chosenM.Count);
 
-            if (considerChosenCreature)
-            {
-                if (chosenCreature.sex == Sex.Female)
-                    chosenF.Add(chosenCreature);
-                if (chosenCreature.sex == Sex.Male)
-                    chosenM.Add(chosenCreature);
-            }
-
             lbBreedingPlanHeader.Text = currentSpecies.DescriptiveNameAndMod + (considerChosenCreature ? " (" + string.Format(Loc.s("onlyPairingsWith"), chosenCreature.name) + ")" : string.Empty);
             if (considerChosenCreature && (chosenCreature.flags.HasFlag(CreatureFlags.Neutered) || chosenCreature.status != CreatureStatus.Available))
                 lbBreedingPlanHeader.Text += $"{Loc.s("BreedingNotPossible")} ! ({(chosenCreature.flags.HasFlag(CreatureFlags.Neutered) ? Loc.s("Neutered") : Loc.s("notAvailable"))})";
@@ -323,6 +315,15 @@ namespace ARKBreedingStats
                 chosenM = new List<Creature>(combinedCreatures);
             }
 
+            // if only pairings for one specific creatures are shown, add the creature after the filtering
+            if (considerChosenCreature)
+            {
+                if (chosenCreature.sex == Sex.Female)
+                    chosenF = new List<Creature> { chosenCreature };
+                if (chosenCreature.sex == Sex.Male)
+                    chosenM = new List<Creature> { chosenCreature };
+            }
+
             if (chosenF.Any() && chosenM.Any())
             {
                 pedigreeCreature1.Show();
@@ -332,13 +333,25 @@ namespace ARKBreedingStats
                 breedingPairs.Clear();
                 short[] bestPossLevels = new short[Values.STATS_COUNT]; // best possible levels
 
-                foreach (Creature female in chosenF)
+                for (int fi = 0; fi < chosenF.Count; fi++)
                 {
-                    foreach (Creature male in chosenM)
+                    var female = chosenF[fi];
+                    for (int mi = 0; mi < chosenM.Count; mi++)
                     {
-                        if (male == female // happens if Properties.Settings.Default.IgnoreSexInBreedingPlan (when using S+ mutator)
-                            || (nudBPMutationLimit.Value >= 0 && female.Mutations > nudBPMutationLimit.Value && male.Mutations > nudBPMutationLimit.Value) // if one pair is below the limit, show this pair
-                            ) continue;
+                        var male = chosenM[mi];
+                        // if Properties.Settings.Default.IgnoreSexInBreedingPlan (useful when using S+ mutator), skip pair if
+                        // creatures are the same, or pair has already been added
+                        if (Properties.Settings.Default.IgnoreSexInBreedingPlan)
+                        {
+                            if (considerChosenCreature)
+                            {
+                                if (male == female)
+                                    continue;
+                            }
+                            else if (fi == mi)
+                                break;
+                        }
+
                         double t = 0;
                         int nrTS = 0;
                         double eTS = 0;
@@ -454,7 +467,7 @@ namespace ARKBreedingStats
                     breedingPairs = onlyOneSuggestionPerFemale;
                 }
 
-                double minScore = (breedingPairs.Any() ? breedingPairs[breedingPairs.Count - 1].BreedingScore : 0);
+                double minScore = breedingPairs.LastOrDefault()?.BreedingScore ?? 0;
                 if (minScore < 0)
                 {
                     foreach (BreedingPair bp in breedingPairs)
