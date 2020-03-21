@@ -191,6 +191,9 @@ namespace ARKBreedingStats.multiplierTesting
             }
         }
 
+        /// <summary>
+        /// Set the used multipliers in the multiplier to the ones of the creature collection setting.
+        /// </summary>
         private void SetStatMultipliersFromCC()
         {
             if (cc?.serverMultipliers?.statMultipliers == null) return;
@@ -205,6 +208,8 @@ namespace ARKBreedingStats.multiplierTesting
             SetIBM(cc.serverMultipliers.BabyImprintingStatScaleMultiplier);
 
             cbSingleplayerSettings.Checked = cc.singlePlayerSettings;
+
+            btUseMultipliersFromSettings.Visible = false;
         }
 
         public void SetSpecies(Species species, bool forceUpdate = false)
@@ -227,6 +232,17 @@ namespace ARKBreedingStats.multiplierTesting
             SetSpecies(selectedSpecies, true);
         }
 
+        /// <summary>
+        /// Set the stats of a creature to the inputs.
+        /// </summary>
+        /// <param name="statValues"></param>
+        /// <param name="levelsWild"></param>
+        /// <param name="levelsDom"></param>
+        /// <param name="totalLevel"></param>
+        /// <param name="TE">Taming Effectiveness</param>
+        /// <param name="IB">Imprinting Bonus of the creature</param>
+        /// <param name="tamed"></param>
+        /// <param name="bred"></param>
         public void SetCreatureValues(double[] statValues, int[] levelsWild, int[] levelsDom, int totalLevel, double TE, double IB, bool tamed, bool bred)
         {
             int level = 1;
@@ -258,6 +274,27 @@ namespace ARKBreedingStats.multiplierTesting
             else rbWild.Checked = true;
 
             nudCreatureLevel.Value = level > totalLevel ? level : totalLevel;
+
+            // check if the currently set multipliers are the ones of the cc-settings, if not, display a warning button
+            bool showWarning = false;
+            if (cc?.serverMultipliers?.statMultipliers != null)
+            {
+                showWarning = cc.serverMultipliers.BabyImprintingStatScaleMultiplier != (double)nudIBM.Value
+                                || cc.singlePlayerSettings != cbSingleplayerSettings.Checked;
+                if (!showWarning)
+                {
+                    for (int s = 0; s < Values.STATS_COUNT; s++)
+                    {
+                        for (int si = 0; si < 4; si++)
+                        {
+                            showWarning = cc.serverMultipliers.statMultipliers[s][si] != statControls[s].StatMultipliers[si];
+                            if (showWarning) break;
+                        }
+                        if (showWarning) break;
+                    }
+                }
+            }
+            btUseMultipliersFromSettings.Visible = showWarning;
         }
 
         private void llStatCalculation_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -340,6 +377,7 @@ namespace ARKBreedingStats.multiplierTesting
             cc.serverMultipliers.BabyImprintingStatScaleMultiplier = (double)nudIBM.Value;
             cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
             OnApplyMultipliers?.Invoke();
+            btUseMultipliersFromSettings.Visible = false;
         }
 
         private void tbFineAdjustments_Scroll(object sender, EventArgs e)
@@ -407,6 +445,11 @@ namespace ARKBreedingStats.multiplierTesting
         {
             for (int s = 0; s < Values.STATS_COUNT; s++)
                 if (selectedSpecies.UsesStat(s)) statControls[s].SetClosestDomLevel();
+        }
+
+        private void btUseMultipliersFromSettings_Click(object sender, EventArgs e)
+        {
+            SetStatMultipliersFromCC();
         }
     }
 }
