@@ -3339,6 +3339,12 @@ namespace ARKBreedingStats
             FilterLib();
         }
 
+        private void toolStripMenuItemResetLibraryColumnWidths_Click(object sender, EventArgs e)
+        {
+            for (int ci = 0; ci < listViewLibrary.Columns.Count; ci++)
+                listViewLibrary.Columns[ci].Width = (ci > 11 && ci < 30) ? 30 : 60;
+        }
+
         private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)
         {
             if (listViewLibrary.SelectedItems.Count > 0)
