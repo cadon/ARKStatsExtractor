@@ -330,6 +330,7 @@ namespace ARKBreedingStats
             this.lbSpecies = new System.Windows.Forms.Label();
             this.lbLibrarySelectionInfo = new System.Windows.Forms.Label();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
+            this.copyInfographicToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -2525,6 +2526,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator9,
             this.copyValuesToExtractorToolStripMenuItem,
             this.exportToClipboardToolStripMenuItem1,
+            this.copyInfographicToClipboardToolStripMenuItem,
             this.removeCooldownGrowingToolStripMenuItem,
             this.bestBreedingPartnersToolStripMenuItem,
             this.toolStripMenuItemStatus,
@@ -2536,7 +2538,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator14,
             this.toolStripMenuItemRemove});
             this.contextMenuStripLibrary.Name = "contextMenuStripLibrary";
-            this.contextMenuStripLibrary.Size = new System.Drawing.Size(259, 320);
+            this.contextMenuStripLibrary.Size = new System.Drawing.Size(259, 364);
             // 
             // toolStripMenuItemEdit
             // 
@@ -3336,6 +3338,13 @@ namespace ARKBreedingStats
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
+            // copyInfographicToClipboardToolStripMenuItem
+            // 
+            this.copyInfographicToClipboardToolStripMenuItem.Name = "copyInfographicToClipboardToolStripMenuItem";
+            this.copyInfographicToClipboardToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
+            this.copyInfographicToClipboardToolStripMenuItem.Text = "Copy Infographic to Clipboard";
+            this.copyInfographicToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyInfographicToClipboardToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -3736,5 +3745,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ColumnHeader columnHeaderTribe;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator19;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem copyInfographicToClipboardToolStripMenuItem;
     }
 }

@@ -88,6 +88,7 @@
       <DependentUpon>MergingDuplicatesWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="importExported\FileWatcherExports.cs" />
+    <Compile Include="library\CreatureExtensions.cs" />
     <Compile Include="local\strings.es.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

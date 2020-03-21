@@ -15,7 +15,7 @@ namespace ARKBreedingStats.Library
         public string speciesBlueprint;
         private Species _species;
         [JsonProperty]
-        public string name = string.Empty;
+        public string name;
         [JsonProperty]
         public Sex sex;
         [JsonProperty]
@@ -55,13 +55,13 @@ namespace ARKBreedingStats.Library
         /// </summary>
         public short topness;
         [JsonProperty]
-        public string owner = "";
+        public string owner;
         [JsonProperty]
-        public string imprinterName = ""; // todo implement in creatureInfoInbox
+        public string imprinterName; // todo implement in creatureInfoInbox
         [JsonProperty]
-        public string tribe = "";
+        public string tribe;
         [JsonProperty]
-        public string server = "";
+        public string server;
         /// <summary>
         /// User defined note about that creature.
         /// </summary>
@@ -122,7 +122,7 @@ namespace ARKBreedingStats.Library
         /// Color ids.
         /// </summary>
         [JsonProperty]
-        public int[] colors = new int[6];
+        public int[] colors;
         [JsonProperty]
         public DateTime? growingUntil;
         public TimeSpan growingLeft;
@@ -228,10 +228,19 @@ namespace ARKBreedingStats.Library
             }
         }
 
+        /// <summary>
+        /// The total level without domesticate levels.
+        /// </summary>
         public int LevelHatched => levelsWild[(int)StatNames.Torpidity] + 1;
 
+        /// <summary>
+        /// The total current level inclusive domesticate levels.
+        /// </summary>
         public int Level => LevelHatched + levelsDom.Sum();
 
+        /// <summary>
+        /// Force ancestor recalculation.
+        /// </summary>
         public void RecalculateAncestorGenerations()
         {
             generation = -1;
@@ -364,6 +373,9 @@ namespace ARKBreedingStats.Library
             return name + " (" + _species.name + ")";
         }
 
+        /// <summary>
+        /// Starts the timer for maturation.
+        /// </summary>
         private void StartTimer()
         {
             if (growingPaused)
@@ -373,6 +385,9 @@ namespace ARKBreedingStats.Library
             }
         }
 
+        /// <summary>
+        /// Pauses the timer for maturation.
+        /// </summary>
         private void PauseTimer()
         {
             if (!growingPaused)
@@ -383,6 +398,9 @@ namespace ARKBreedingStats.Library
             }
         }
 
+        /// <summary>
+        /// Starts or stops the timer for maturation.
+        /// </summary>
         public void StartStopMatureTimer(bool start)
         {
             if (start)

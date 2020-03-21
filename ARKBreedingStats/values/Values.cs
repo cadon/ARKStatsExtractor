@@ -88,6 +88,9 @@ namespace ARKBreedingStats.values
         /// </summary>
         public int loadedModsHash;
 
+        /// <summary>
+        /// Returns the stat-index for the given order index (like it is ordered ingame).
+        /// </summary>
         public static int[] statsDisplayOrder = new int[] {
             (int)StatNames.Health,
             (int)StatNames.Stamina,

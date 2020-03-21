@@ -1,5 +1,6 @@
 ﻿using ARKBreedingStats.duplicates;
 using ARKBreedingStats.importExported;
+using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.ocr;
 using ARKBreedingStats.settings;
@@ -3343,6 +3344,14 @@ namespace ARKBreedingStats
         {
             for (int ci = 0; ci < listViewLibrary.Columns.Count; ci++)
                 listViewLibrary.Columns[ci].Width = (ci > 11 && ci < 30) ? 30 : 60;
+        }
+
+        private void copyInfographicToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listViewLibrary.SelectedItems.Count == 0) return;
+            var bmp = (listViewLibrary.SelectedItems[0].Tag as Creature).InfoGraphic();
+            if (bmp != null)
+                Clipboard.SetImage(bmp);
         }
 
         private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)
