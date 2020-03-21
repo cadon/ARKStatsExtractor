@@ -12,8 +12,7 @@ namespace ARKBreedingStats.multiplierTesting
 {
     public partial class StatsMultiplierTesting : UserControl
     {
-        public delegate void ApplyMultipliersEventHandler();
-        public event ApplyMultipliersEventHandler OnApplyMultipliers;
+        public event Action OnApplyMultipliers;
 
         private readonly List<StatMultiplierTestingControl> statControls;
         private CreatureCollection cc;
@@ -36,9 +35,9 @@ namespace ARKBreedingStats.multiplierTesting
                 if (Utils.precision(s) == 3)
                     sc.Percent = true;
                 sc.OnLevelChanged += Sc_OnLevelChanged;
-                sc.OnValueChangedTE += SetTE;
-                sc.OnValueChangedIB += SetIB;
-                sc.OnValueChangedIBM += SetIBM;
+                sc.OnTECalculated += SetTE;
+                sc.OnIBCalculated += SetIB;
+                sc.OnIBMCalculated += SetIBM;
                 statControls.Add(sc);
             }
             // add controls in order like ingame

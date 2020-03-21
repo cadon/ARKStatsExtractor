@@ -179,22 +179,7 @@ namespace ARKBreedingStats
                     statIOs[s].postTame = postTamed;
 
                     // determine the precision of the input value
-                    // ARK displays one decimal digit, so the minimal error of a given number is assumed to be 0.06.
-                    // the theoretical value of a maximal error of 0.05 is too low.
-                    const float ARKDISPLAYVALUEERROR = 0.06f;
-                    // If an export file is used, the full float precision of the stat value is given, the precision is calculated then.
-                    // For values > 1e6 the float precision error is larger than 0.06
-
-                    // always consider at least an error of. When using only the float-precision often the stat-calculations increase the resulting error to be much larger.
-                    const float MINVALUEERROR = 0.001f;
-
-                    // the error can increase due to the stat-calculation. Assume a factor of 10 for now, values lower than 6 were too low.
-                    const float CALCULATIONERRORFACTOR = 10f;
-
-                    float toleranceForThisStat = highPrecisionInputs || statIOs[s].Input * (Utils.precision(s) == 3 ? 100 : 1) > 1e6
-                            ? Math.Max(MINVALUEERROR, ((float)statIOs[s].Input).FloatPrecision() * CALCULATIONERRORFACTOR)
-                            : ARKDISPLAYVALUEERROR * (Utils.precision(s) == 3 ? .01f : 1)
-                        ;
+                    float toleranceForThisStat = StatValueCalculation.DisplayedAberration(statIOs[s].Input, Utils.precision(s), highPrecisionInputs);
                     //Console.WriteLine($"Precision stat {s}: {toleranceForThisStat}");
 
                     MinMaxDouble inputValue = new MinMaxDouble(statIOs[s].Input - toleranceForThisStat, statIOs[s].Input + toleranceForThisStat);

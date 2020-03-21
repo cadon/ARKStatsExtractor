@@ -1,4 +1,5 @@
 ﻿using ARKBreedingStats.species;
+using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
 using System;
 
@@ -50,6 +51,32 @@ namespace ARKBreedingStats
                 return Math.Round(result, Utils.precision(stat), MidpointRounding.AwayFromZero);
 
             return result;
+        }
+
+
+        /// <summary>
+        /// ARK uses float-types for the stats which have precision errors. This method returns the possible aberration of that value.
+        /// </summary>
+        /// <param name="displayedStatValue">Stat value</param>
+        /// <param name="displayedDecimals">Percentage values have a higher precision, they display 3 decimal digits</param>
+        /// <param name="highPrecisionInput">When obtained from an export file, stat values are given with more decimal digits.</param>
+        public static float DisplayedAberration(double displayedStatValue, int displayedDecimals = 1, bool highPrecisionInput = false)
+        {
+            // ARK displays one decimal digit, so the minimal error of a given number is assumed to be 0.06.
+            // the theoretical value of a maximal error of 0.05 is too low.
+            const float ARKDISPLAYVALUEERROR = 0.06f;
+            // If an export file is used, the full float precision of the stat value is given, the precision is calculated then.
+            // For values > 1e6 the float precision error is larger than 0.06
+
+            // always consider at least an error of. When using only the float-precision often the stat-calculations increase the resulting error to be much larger.
+            const float MINVALUEERROR = 0.001f;
+
+            // the error can increase due to the stat-calculation. Assume a factor of 10 for now, values lower than 6 were too low.
+            const float CALCULATIONERRORFACTOR = 10f;
+
+            return highPrecisionInput || displayedStatValue * (displayedDecimals == 3 ? 100 : 1) > 1e6
+                    ? Math.Max(MINVALUEERROR, ((float)displayedStatValue).FloatPrecision() * CALCULATIONERRORFACTOR)
+                    : ARKDISPLAYVALUEERROR * (displayedDecimals == 3 ? .01f : 1);
         }
     }
 }

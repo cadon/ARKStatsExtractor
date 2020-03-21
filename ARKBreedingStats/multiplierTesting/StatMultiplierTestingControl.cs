@@ -8,15 +8,22 @@ namespace ARKBreedingStats.multiplierTesting
 {
     public partial class StatMultiplierTestingControl : UserControl
     {
-        public delegate void LevelChangedEventHandler();
-
-        public event LevelChangedEventHandler OnLevelChanged;
-
-        public delegate void SetValueEventHandler(MinMaxDouble value);
-
-        public event SetValueEventHandler OnValueChangedTE;
-        public event SetValueEventHandler OnValueChangedIB;
-        public event SetValueEventHandler OnValueChangedIBM;
+        /// <summary>
+        /// Level of the stat changed.
+        /// </summary>
+        public event Action OnLevelChanged;
+        /// <summary>
+        /// Value of taming effectiveness was calculated.
+        /// </summary>
+        public event Action<MinMaxDouble> OnTECalculated;
+        /// <summary>
+        /// Value of imprinting bonus was calculated.
+        /// </summary>
+        public event Action<MinMaxDouble> OnIBCalculated;
+        /// <summary>
+        /// Value of imprinting bonus multiplier was calculated.
+        /// </summary>
+        public event Action<MinMaxDouble> OnIBMCalculated;
 
         public bool updateValues;
         private bool _tamed;
@@ -285,16 +292,18 @@ namespace ARKBreedingStats.multiplierTesting
         private void UpdateMatchingColor()
         {
             // if matching, color green
-            double statValue = (double)Math.Round(nudStatValue.Value, 1);
-            double VP = Math.Round(V * (_percent ? 100 : 1), 1, MidpointRounding.AwayFromZero);
-            if (VP == statValue)
+            // consider float precision precision and precision loss by calculation
+            double inputValue = (double)nudStatValue.Value * (_percent ? .01 : 1);
+            float toleranceForThisStat = StatValueCalculation.DisplayedAberration(inputValue, _percent ? 3 : 1);
+            MinMaxDouble statValue = new MinMaxDouble(inputValue - toleranceForThisStat, inputValue + toleranceForThisStat);
+            if (statValue.Includes(V))
                 nudStatValue.BackColor = Color.LightGreen;
             else
             {
                 // if not, color red if the value is too low, and blue, if the value is too big
-                int proximity = (int)Math.Abs(VP - statValue) / 2;
+                int proximity = (int)Math.Abs(V - statValue.Mean) / 2;
                 if (proximity > 50) proximity = 50;
-                nudStatValue.BackColor = Utils.getColorFromPercent(50 - proximity, 0.6, VP - statValue < 0);
+                nudStatValue.BackColor = Utils.getColorFromPercent(50 - proximity, 0.6, V < statValue.Mean);
             }
         }
 
@@ -362,7 +371,7 @@ namespace ARKBreedingStats.multiplierTesting
                 MinMaxDouble statValue = new MinMaxDouble((double)nudStatValue.Value - 0.05, (double)nudStatValue.Value + 0.05);
                 statValue.Min *= _percent ? 0.01 : 1;
                 statValue.Max *= _percent ? 0.01 : 1;
-                OnValueChangedTE?.Invoke(new MinMaxDouble(
+                OnTECalculated?.Invoke(new MinMaxDouble(
                         (statValue.Min * Vd / (V * ((double)nudB.Value * (1 + (double)nudLw.Value * (double)nudIw.Value * spIw * (double)nudIwM.Value) * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * _sIBM : 1) + (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * spTa : 1))) - 1) / ((double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * spTm : 1)),
                         (statValue.Max * Vd / (V * ((double)nudB.Value * (1 + (double)nudLw.Value * (double)nudIw.Value * spIw * (double)nudIwM.Value) * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * _sIBM : 1) + (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * spTa : 1))) - 1) / ((double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * spTm : 1))
                 ));
@@ -378,7 +387,7 @@ namespace ARKBreedingStats.multiplierTesting
                 MinMaxDouble statValue = new MinMaxDouble((double)nudStatValue.Value - 0.05, (double)nudStatValue.Value + 0.05);
                 statValue.Min *= _percent ? 0.01 : 1;
                 statValue.Max *= _percent ? 0.01 : 1;
-                OnValueChangedIB?.Invoke(new MinMaxDouble(
+                OnIBCalculated?.Invoke(new MinMaxDouble(
                         ((statValue.Min * Vd / (V * (1 + (_bred ? 1 : _TE) * (double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * spTm : 1))) - (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * spTa : 1)) / ((double)nudB.Value * (1 + (double)nudLw.Value * (double)nudIw.Value * spIw * (double)nudIwM.Value) * (double)nudTBHM.Value) - 1) * 5 / _IBM,
                         ((statValue.Max * Vd / (V * (1 + (_bred ? 1 : _TE) * (double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * spTm : 1))) - (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * spTa : 1)) / ((double)nudB.Value * (1 + (double)nudLw.Value * (double)nudIw.Value * spIw * (double)nudIwM.Value) * (double)nudTBHM.Value) - 1) * 5 / _IBM
                 ));
@@ -394,7 +403,7 @@ namespace ARKBreedingStats.multiplierTesting
                 MinMaxDouble statValue = new MinMaxDouble((double)nudStatValue.Value - 0.05, (double)nudStatValue.Value + 0.05);
                 statValue.Min *= _percent ? 0.01 : 1;
                 statValue.Max *= _percent ? 0.01 : 1;
-                OnValueChangedIBM?.Invoke(new MinMaxDouble(
+                OnIBMCalculated?.Invoke(new MinMaxDouble(
                         ((statValue.Min * Vd / (V * (1 + (_bred ? 1 : _TE) * (double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * spTm : 1))) - (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * spTa : 1)) / ((double)nudB.Value * (1 + (double)nudLw.Value * (double)nudIw.Value * spIw * (double)nudIwM.Value) * (double)nudTBHM.Value) - 1) * 5 / _IB,
                         ((statValue.Max * Vd / (V * (1 + (_bred ? 1 : _TE) * (double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * spTm : 1))) - (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * spTa : 1)) / ((double)nudB.Value * (1 + (double)nudLw.Value * (double)nudIw.Value * spIw * (double)nudIwM.Value) * (double)nudTBHM.Value) - 1) * 5 / _IB
                 ));
