@@ -704,7 +704,7 @@ namespace ARKBreedingStats
                 bool isGlowSpecies = species.IsGlowSpecies;
                 pedigreeCreature1.IsGlowSpecies = isGlowSpecies;
                 pedigreeCreature2.IsGlowSpecies = isGlowSpecies;
-                if (Raising.getRaisingTimes(species, out string incubationMode, out incubationTime, out TimeSpan babyTime, out TimeSpan maturationTime, out TimeSpan nextMatingMin, out TimeSpan nextMatingMax))
+                if (Raising.GetRaisingTimes(species, out string incubationMode, out incubationTime, out TimeSpan babyTime, out TimeSpan maturationTime, out TimeSpan nextMatingMin, out TimeSpan nextMatingMax))
                 {
                     TimeSpan totalTime = incubationTime;
                     DateTime until = DateTime.Now.Add(totalTime);
@@ -721,11 +721,9 @@ namespace ARKBreedingStats
                     times = new[] { Loc.s("Maturation"), maturationTime.ToString("d':'hh':'mm':'ss"), totalTime.ToString("d':'hh':'mm':'ss"), Utils.shortTimeDate(until) };
                     listViewRaisingTimes.Items.Add(new ListViewItem(times));
 
-                    string eggInfo = Raising.eggTemperature(species);
-                    if (eggInfo.Length > 0)
-                        eggInfo = "\n\n" + eggInfo;
+                    string eggInfo = Raising.EggTemperature(species);
 
-                    labelBreedingInfos.Text = $"{Loc.s("TimeBetweenMating")}: {nextMatingMin:d':'hh':'mm':'ss} to {nextMatingMax:d':'hh':'mm':'ss}{eggInfo}";
+                    labelBreedingInfos.Text = $"{Loc.s("TimeBetweenMating")}: {nextMatingMin:d':'hh':'mm':'ss} to {nextMatingMax:d':'hh':'mm':'ss}{(!string.IsNullOrEmpty(eggInfo) ? "\n\n" + eggInfo : string.Empty)}";
                 }
             }
         }

@@ -49,18 +49,14 @@ namespace ARKBreedingStats.raising
             if (forceUpdate || this.selectedSpecies != species)
             {
                 selectedSpecies = species;
-                if (selectedSpecies != null && selectedSpecies.taming != null && selectedSpecies.breeding != null)
+                if (selectedSpecies?.taming != null && selectedSpecies.breeding != null)
                 {
                     this.SuspendLayout();
 
                     listViewRaisingTimes.Items.Clear();
 
-                    if (Raising.getRaisingTimes(selectedSpecies, out string incubationMode, out TimeSpan incubationTime, out babyTime, out maturationTime, out TimeSpan nextMatingMin, out TimeSpan nextMatingMax))
+                    if (Raising.GetRaisingTimes(selectedSpecies, out string incubationMode, out TimeSpan incubationTime, out babyTime, out maturationTime, out TimeSpan nextMatingMin, out TimeSpan nextMatingMax))
                     {
-                        string eggInfo = Raising.eggTemperature(selectedSpecies);
-                        if (eggInfo.Length > 0)
-                            eggInfo = "\n\n" + eggInfo;
-
                         TimeSpan totalTime = incubationTime;
                         DateTime until = DateTime.Now.Add(totalTime);
                         string[] times = { incubationMode, incubationTime.ToString("d':'hh':'mm':'ss"), totalTime.ToString("d':'hh':'mm':'ss"), Utils.shortTimeDate(until) };
@@ -109,8 +105,10 @@ namespace ARKBreedingStats.raising
                             foodamount += "\n - Loss by spoiling is only a rough estimate and may vary.";
                         }
 
+                        string eggInfo = Raising.EggTemperature(selectedSpecies);
+
                         labelRaisingInfos.Text = "Time between mating: " + nextMatingMin.ToString("d':'hh':'mm':'ss") + " to " + nextMatingMax.ToString("d':'hh':'mm':'ss")
-                            + eggInfo
+                            + (!string.IsNullOrEmpty(eggInfo) ? "\n\n" + eggInfo : string.Empty)
                             + (foodamount ?? string.Empty);
 
                         tabPageMaturationProgress.Enabled = true;

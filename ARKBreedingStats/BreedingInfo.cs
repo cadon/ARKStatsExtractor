@@ -1,5 +1,6 @@
 ﻿using ARKBreedingStats.species;
 using System;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats
@@ -11,10 +12,14 @@ namespace ARKBreedingStats
             InitializeComponent();
         }
 
-        public void displayData(Species species)
+        /// <summary>
+        /// Display breeding info for the species.
+        /// </summary>
+        /// <param name="species"></param>
+        public void DisplayData(Species species)
         {
             if (species?.breeding == null) return;
-            string breedingInfo = "";
+            var breedingInfo = new StringBuilder();
 
             string firstTime = "Gestation";
             if (species.breeding.gestationTimeAdjusted <= 0)
@@ -23,7 +28,8 @@ namespace ARKBreedingStats
             string[] rowNames = { firstTime, "Baby", "Maturation" };
             for (int k = 0; k < 3; k++)
             {
-                int t1, totalTime = 0;
+                int t1;
+                int totalTime;
                 switch (k)
                 {
                     default:
@@ -48,24 +54,23 @@ namespace ARKBreedingStats
                             DateTime.Now.AddSeconds(totalTime).ToShortTimeString() + ", " + DateTime.Now.AddSeconds(totalTime).ToShortDateString()
                     };
                 //listView1.Items.Add(new ListViewItem(subitems));
-                breedingInfo += string.Join(", ", subitems) + "\n";
+                breedingInfo.AppendLine(string.Join(", ", subitems));
             }
 
-            breedingInfo += "\n";
+            breedingInfo.AppendLine();
 
             buttonHatching.Text = firstTime;
 
             // further info
-            if (species.breeding.eggTempMin > 0)
-            {
-                breedingInfo += raising.Raising.eggTemperature(species);
-            }
-            if (species.breeding.eggTempMin > 0 && species.breeding.matingCooldownMinAdjusted > 0)
-                breedingInfo += "\n\n";
+            var eggTemp = raising.Raising.EggTemperature(species);
+            if (!string.IsNullOrEmpty(eggTemp))
+                breedingInfo.AppendLine(eggTemp);
+            if (!string.IsNullOrEmpty(eggTemp) && species.breeding.matingCooldownMinAdjusted > 0)
+                breedingInfo.AppendLine();
             if (species.breeding.matingCooldownMinAdjusted > 0)
-                breedingInfo += "Time until next mating is possible:\n" + new TimeSpan(0, 0, (int)species.breeding.matingCooldownMinAdjusted).ToString("d':'hh':'mm")
-                              + " - " + new TimeSpan(0, 0, (int)species.breeding.matingCooldownMaxAdjusted).ToString("d':'hh':'mm");
-            labelBreedingInfos.Text = breedingInfo;
+                breedingInfo.Append("Time until next mating is possible:\n" + new TimeSpan(0, 0, (int)species.breeding.matingCooldownMinAdjusted).ToString("d':'hh':'mm")
+                              + " – " + new TimeSpan(0, 0, (int)species.breeding.matingCooldownMaxAdjusted).ToString("d':'hh':'mm"));
+            labelBreedingInfos.Text = breedingInfo.ToString();
         }
     }
 }
