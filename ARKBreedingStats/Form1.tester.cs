@@ -173,7 +173,7 @@ namespace ARKBreedingStats
                     || creatureTesterEdit.owner != creatureInfoInputTester.CreatureOwner
                     || creatureTesterEdit.mutationsMaternal != creatureInfoInputTester.MutationCounterMother
                     || creatureTesterEdit.mutationsPaternal != creatureInfoInputTester.MutationCounterFather;
-            bool parentsChanged = creatureTesterEdit.Mother != creatureInfoInputTester.mother || creatureTesterEdit.Father != creatureInfoInputTester.father;
+            bool parentsChanged = creatureTesterEdit.Mother != creatureInfoInputTester.Mother || creatureTesterEdit.Father != creatureInfoInputTester.Father;
             creatureTesterEdit.levelsWild = GetCurrentWildLevels(false);
             creatureTesterEdit.levelsDom = GetCurrentDomLevels(false);
             creatureTesterEdit.tamingEff = (double)NumericUpDownTestingTE.Value / 100;
@@ -185,14 +185,14 @@ namespace ARKBreedingStats
             creatureTesterEdit.owner = creatureInfoInputTester.CreatureOwner;
             creatureTesterEdit.tribe = creatureInfoInputTester.CreatureTribe;
             creatureTesterEdit.server = creatureInfoInputTester.CreatureServer;
-            creatureTesterEdit.Mother = creatureInfoInputTester.mother;
-            creatureTesterEdit.Father = creatureInfoInputTester.father;
+            creatureTesterEdit.Mother = creatureInfoInputTester.Mother;
+            creatureTesterEdit.Father = creatureInfoInputTester.Father;
             creatureTesterEdit.note = creatureInfoInputTester.CreatureNote;
             creatureTesterEdit.status = creatureInfoInputTester.CreatureStatus;
-            creatureTesterEdit.cooldownUntil = creatureInfoInputTester.Cooldown;
-            creatureTesterEdit.growingUntil = creatureInfoInputTester.Grown;
-            creatureTesterEdit.domesticatedAt = creatureInfoInputTester.domesticatedAt;
-            creatureTesterEdit.flags = creatureInfoInputTester.creatureFlags;
+            creatureTesterEdit.cooldownUntil = creatureInfoInputTester.CooldownUntil;
+            creatureTesterEdit.growingUntil = creatureInfoInputTester.GrowingUntil;
+            creatureTesterEdit.domesticatedAt = creatureInfoInputTester.DomesticatedAt;
+            creatureTesterEdit.flags = creatureInfoInputTester.CreatureFlags;
             creatureTesterEdit.mutationsMaternal = creatureInfoInputTester.MutationCounterMother;
             creatureTesterEdit.mutationsPaternal = creatureInfoInputTester.MutationCounterFather;
             creatureTesterEdit.colors = creatureInfoInputTester.RegionColors;
@@ -206,7 +206,7 @@ namespace ARKBreedingStats
                 creatureTesterEdit.RecalculateAncestorGenerations();
 
             // if maturation was changed, update raising-timers
-            if (creatureTesterEdit.growingUntil != creatureInfoInputTester.Grown)
+            if (creatureTesterEdit.growingUntil != creatureInfoInputTester.GrowingUntil)
             {
                 raisingControl1.RecreateList();
                 creatureTesterEdit.StartStopMatureTimer(true);
@@ -230,8 +230,8 @@ namespace ARKBreedingStats
             if (enable)
             {
                 labelCurrentTesterCreature.Text = c.name;
-                creatureInfoInputTester.mother = c.Mother;
-                creatureInfoInputTester.father = c.Father;
+                creatureInfoInputTester.Mother = c.Mother;
+                creatureInfoInputTester.Father = c.Father;
                 creatureInfoInputTester.CreatureName = c.name;
                 creatureInfoInputTester.CreatureSex = c.sex;
                 creatureInfoInputTester.CreatureOwner = c.owner;
@@ -239,11 +239,11 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.CreatureServer = c.server;
                 creatureInfoInputTester.CreatureStatus = c.status;
                 creatureInfoInputTester.CreatureNote = c.note;
-                creatureInfoInputTester.Cooldown = c.cooldownUntil;
-                creatureInfoInputTester.Grown = c.growingUntil;
-                creatureInfoInputTester.domesticatedAt = c.domesticatedAt;
+                creatureInfoInputTester.CooldownUntil = c.cooldownUntil;
+                creatureInfoInputTester.GrowingUntil = c.growingUntil;
+                creatureInfoInputTester.DomesticatedAt = c.domesticatedAt;
                 creatureInfoInputTester.AddedToLibraryAt = c.addedToLibrary;
-                creatureInfoInputTester.creatureFlags = c.flags;
+                creatureInfoInputTester.CreatureFlags = c.flags;
                 creatureInfoInputTester.RegionColors = c.colors;
                 creatureInfoInputTester.CreatureGuid = c.guid;
                 creatureInfoInputTester.SetArkId(c.ArkId, c.ArkIdImported);
@@ -253,8 +253,8 @@ namespace ARKBreedingStats
             }
             else
             {
-                creatureInfoInputTester.mother = null;
-                creatureInfoInputTester.father = null;
+                creatureInfoInputTester.Mother = null;
+                creatureInfoInputTester.Father = null;
                 creatureInfoInputTester.CreatureName = "";
                 creatureInfoInputTester.CreatureSex = Sex.Unknown;
                 creatureInfoInputTester.CreatureOwner = "";
@@ -262,11 +262,11 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.CreatureServer = "";
                 creatureInfoInputTester.CreatureStatus = CreatureStatus.Available;
                 creatureInfoInputTester.CreatureNote = "";
-                creatureInfoInputTester.Cooldown = DateTime.Now.AddHours(-1);
-                creatureInfoInputTester.Grown = DateTime.Now.AddHours(-1);
-                creatureInfoInputTester.domesticatedAt = null;
+                creatureInfoInputTester.CooldownUntil = DateTime.Now.AddHours(-1);
+                creatureInfoInputTester.GrowingUntil = DateTime.Now.AddHours(-1);
+                creatureInfoInputTester.DomesticatedAt = null;
                 creatureInfoInputTester.AddedToLibraryAt = null;
-                creatureInfoInputTester.creatureFlags = CreatureFlags.None;
+                creatureInfoInputTester.CreatureFlags = CreatureFlags.None;
                 creatureInfoInputTester.RegionColors = new int[6];
                 creatureInfoInputTester.CreatureGuid = Guid.Empty;
                 creatureInfoInputTester.SetArkId(0, false);

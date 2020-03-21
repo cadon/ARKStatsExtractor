@@ -161,7 +161,7 @@ namespace ARKBreedingStats
             {
                 creatureInfoInputExtractor.MutationCounterMother = 0;
                 creatureInfoInputExtractor.MutationCounterFather = 0;
-                creatureInfoInputExtractor.domesticatedAt = DateTime.Now;
+                creatureInfoInputExtractor.DomesticatedAt = DateTime.Now;
                 creatureInfoInputExtractor.parentListValid = false;
                 creatureInfoInputExtractor.CreatureGuid = Guid.Empty;
                 exportedCreatureControl = null;

@@ -258,6 +258,7 @@ namespace ARKBreedingStats
             this.plainTextcurrentValuesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.plainTextbreedingValuesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.forSpreadsheetToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyInfographicToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeCooldownGrowingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bestBreedingPartnersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemStatus = new System.Windows.Forms.ToolStripMenuItem();
@@ -330,7 +331,6 @@ namespace ARKBreedingStats
             this.lbSpecies = new System.Windows.Forms.Label();
             this.lbLibrarySelectionInfo = new System.Windows.Forms.Label();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
-            this.copyInfographicToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -1610,8 +1610,8 @@ namespace ARKBreedingStats
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = null;
-            this.creatureInfoInputTester.creatureFlags = ARKBreedingStats.Library.CreatureFlags.None;
+            this.creatureInfoInputTester.CooldownUntil = null;
+            this.creatureInfoInputTester.CreatureFlags = ARKBreedingStats.Library.CreatureFlags.None;
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1619,11 +1619,11 @@ namespace ARKBreedingStats
             this.creatureInfoInputTester.CreatureSex = ARKBreedingStats.Library.Sex.Unknown;
             this.creatureInfoInputTester.CreatureStatus = ARKBreedingStats.Library.CreatureStatus.Available;
             this.creatureInfoInputTester.CreatureTribe = "";
-            this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2014, 12, 31, 0, 0, 0, 0);
-            this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = null;
+            this.creatureInfoInputTester.DomesticatedAt = new System.DateTime(2014, 12, 31, 0, 0, 0, 0);
+            this.creatureInfoInputTester.Father = null;
+            this.creatureInfoInputTester.GrowingUntil = null;
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
-            this.creatureInfoInputTester.mother = null;
+            this.creatureInfoInputTester.Mother = null;
             this.creatureInfoInputTester.MutationCounterFather = 0;
             this.creatureInfoInputTester.MutationCounterMother = 0;
             this.creatureInfoInputTester.Name = "creatureInfoInputTester";
@@ -1841,8 +1841,8 @@ namespace ARKBreedingStats
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = null;
-            this.creatureInfoInputExtractor.creatureFlags = ARKBreedingStats.Library.CreatureFlags.None;
+            this.creatureInfoInputExtractor.CooldownUntil = null;
+            this.creatureInfoInputExtractor.CreatureFlags = ARKBreedingStats.Library.CreatureFlags.None;
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1850,11 +1850,11 @@ namespace ARKBreedingStats
             this.creatureInfoInputExtractor.CreatureSex = ARKBreedingStats.Library.Sex.Unknown;
             this.creatureInfoInputExtractor.CreatureStatus = ARKBreedingStats.Library.CreatureStatus.Available;
             this.creatureInfoInputExtractor.CreatureTribe = "";
-            this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2014, 12, 31, 0, 0, 0, 0);
-            this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = null;
+            this.creatureInfoInputExtractor.DomesticatedAt = new System.DateTime(2014, 12, 31, 0, 0, 0, 0);
+            this.creatureInfoInputExtractor.Father = null;
+            this.creatureInfoInputExtractor.GrowingUntil = null;
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
-            this.creatureInfoInputExtractor.mother = null;
+            this.creatureInfoInputExtractor.Mother = null;
             this.creatureInfoInputExtractor.MutationCounterFather = 0;
             this.creatureInfoInputExtractor.MutationCounterMother = 0;
             this.creatureInfoInputExtractor.Name = "creatureInfoInputExtractor";
@@ -2538,7 +2538,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator14,
             this.toolStripMenuItemRemove});
             this.contextMenuStripLibrary.Name = "contextMenuStripLibrary";
-            this.contextMenuStripLibrary.Size = new System.Drawing.Size(259, 364);
+            this.contextMenuStripLibrary.Size = new System.Drawing.Size(259, 342);
             // 
             // toolStripMenuItemEdit
             // 
@@ -2636,6 +2636,13 @@ namespace ARKBreedingStats
             this.forSpreadsheetToolStripMenuItem1.Size = new System.Drawing.Size(218, 22);
             this.forSpreadsheetToolStripMenuItem1.Text = "for Spreadsheet";
             this.forSpreadsheetToolStripMenuItem1.Click += new System.EventHandler(this.forSpreadsheetToolStripMenuItem_Click);
+            // 
+            // copyInfographicToClipboardToolStripMenuItem
+            // 
+            this.copyInfographicToClipboardToolStripMenuItem.Name = "copyInfographicToClipboardToolStripMenuItem";
+            this.copyInfographicToClipboardToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
+            this.copyInfographicToClipboardToolStripMenuItem.Text = "Copy Infographic to Clipboard";
+            this.copyInfographicToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyInfographicToClipboardToolStripMenuItem_Click);
             // 
             // removeCooldownGrowingToolStripMenuItem
             // 
@@ -3337,13 +3344,6 @@ namespace ARKBreedingStats
             this.speciesSelector1.Size = new System.Drawing.Size(1232, 716);
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
-            // 
-            // copyInfographicToClipboardToolStripMenuItem
-            // 
-            this.copyInfographicToClipboardToolStripMenuItem.Name = "copyInfographicToClipboardToolStripMenuItem";
-            this.copyInfographicToClipboardToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
-            this.copyInfographicToClipboardToolStripMenuItem.Text = "Copy Infographic to Clipboard";
-            this.copyInfographicToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyInfographicToClipboardToolStripMenuItem_Click);
             // 
             // Form1
             // 

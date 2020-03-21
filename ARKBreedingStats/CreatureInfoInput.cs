@@ -53,8 +53,8 @@ namespace ARKBreedingStats
             parentComboBoxFather.SelectedIndex = 0;
             updateMaturation = true;
             regionColorIDs = new int[6];
-            Cooldown = new DateTime(2000, 1, 1);
-            Grown = new DateTime(2000, 1, 1);
+            CooldownUntil = new DateTime(2000, 1, 1);
+            GrowingUntil = new DateTime(2000, 1, 1);
             NamesOfAllCreatures = new List<string>();
 
             var namingPatternButtons = new List<Button> { btnGenerateUniqueName, btNamingPattern2, btNamingPattern3, btNamingPattern4, btNamingPattern5, btNamingPattern6 };
@@ -142,7 +142,7 @@ namespace ARKBreedingStats
             set => cbServer.Text = value;
         }
 
-        public Creature mother
+        public Creature Mother
         {
             get => parentComboBoxMother.SelectedParent;
             set
@@ -152,7 +152,7 @@ namespace ARKBreedingStats
             }
         }
 
-        public Creature father
+        public Creature Father
         {
             get => parentComboBoxFather.SelectedParent;
             set
@@ -259,7 +259,10 @@ namespace ARKBreedingStats
             }
         }
 
-        public DateTime? Cooldown
+        /// <summary>
+        /// DateTime when the cooldown of the creature is finished.
+        /// </summary>
+        public DateTime? CooldownUntil
         {
             get => dhmsInputCooldown.changed ? DateTime.Now.Add(dhmsInputCooldown.Timespan) : default(DateTime?);
             set
@@ -272,7 +275,10 @@ namespace ARKBreedingStats
             }
         }
 
-        public DateTime? Grown
+        /// <summary>
+        /// DateTime when the creature is mature.
+        /// </summary>
+        public DateTime? GrowingUntil
         {
             get => dhmsInputGrown.changed ? DateTime.Now.Add(dhmsInputGrown.Timespan) : default(DateTime?);
             set
@@ -329,13 +335,19 @@ namespace ARKBreedingStats
             }
         }
 
-        public DateTime? domesticatedAt
+        /// <summary>
+        /// DateTime when the creature was domesticated.
+        /// </summary>
+        public DateTime? DomesticatedAt
         {
             get => dateTimePickerAdded.Value;
             set => dateTimePickerAdded.Value = value ?? dateTimePickerAdded.MinDate;
         }
 
-        public CreatureFlags creatureFlags
+        /// <summary>
+        /// Flags of the creature, e.g. if the creature is neutered.
+        /// </summary>
+        public CreatureFlags CreatureFlags
         {
             get
             {
@@ -432,9 +444,11 @@ namespace ARKBreedingStats
             CalculateNewMutations();
         }
 
+        /// <summary>
+        /// It's assumed that if a parent has a higher mutation-count than the current set one, the set one is not valid and will be updated.
+        /// </summary>
         private void UpdateMutations()
         {
-            // it's assumed that if a parent has a higher mutation-count than the current set one, the set one is not valid and will be updated
             int? mutationsMo = parentComboBoxMother.SelectedParent?.Mutations;
             int? mutationsFa = parentComboBoxFather.SelectedParent?.Mutations;
 
@@ -485,16 +499,21 @@ namespace ARKBreedingStats
             }
         }
 
+        /// <summary>
+        /// Sets the data of the given creature to the values of the controls.
+        /// </summary>
+        /// <param name="cr"></param>
         private void SetCreatureData(Creature cr)
         {
-            cr.Mother = mother;
-            cr.Father = father;
+            cr.Mother = Mother;
+            cr.Father = Father;
             cr.sex = sex;
             cr.mutationsMaternal = MutationCounterMother;
             cr.mutationsPaternal = MutationCounterFather;
             cr.owner = CreatureOwner;
             cr.tribe = CreatureTribe;
             cr.server = CreatureServer;
+            cr.flags = CreatureFlags;
         }
 
         private void textBoxOwner_Leave(object sender, EventArgs e)
@@ -510,7 +529,9 @@ namespace ARKBreedingStats
             }
         }
 
-        // if true the OCR will not change these fields
+        /// <summary>
+        /// If true the OCR and import exported methods will not change the owner field.
+        /// </summary>
         public bool OwnerLock
         {
             get => _ownerLock;
@@ -520,7 +541,10 @@ namespace ARKBreedingStats
                 textBoxOwner.BackColor = value ? Color.LightGray : SystemColors.Window;
             }
         }
-        // if true the OCR will not change these fields
+
+        /// <summary>
+        /// If true the OCR and import exported methods will not change the tribe field.
+        /// </summary>
         public bool TribeLock
         {
             get => _tribeLock;
@@ -531,6 +555,9 @@ namespace ARKBreedingStats
             }
         }
 
+        /// <summary>
+        /// If set to true, it's assumed the creature is already existing.
+        /// </summary>
         public bool UpdateExistingCreature
         {
             set
@@ -623,19 +650,19 @@ namespace ARKBreedingStats
         {
             textBoxName.Clear();
             textBoxOwner.Clear();
-            mother = null;
-            father = null;
+            Mother = null;
+            Father = null;
             MotherArkId = 0;
             FatherArkId = 0;
             parentComboBoxMother.Clear();
             parentComboBoxFather.Clear();
             textBoxNote.Clear();
-            Cooldown = DateTime.Now;
-            Grown = DateTime.Now;
+            CooldownUntil = DateTime.Now;
+            GrowingUntil = DateTime.Now;
             MutationCounterMother = 0;
             MutationCounterFather = 0;
             CreatureSex = Sex.Unknown;
-            creatureFlags = CreatureFlags.None;
+            CreatureFlags = CreatureFlags.None;
             clearColors();
             CreatureStatus = CreatureStatus.Available;
         }

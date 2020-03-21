@@ -1723,8 +1723,8 @@ namespace ARKBreedingStats
             rbBredExtractor.Checked = true;
             numericUpDownImprintingBonusTester.Value = 0;
 
-            creatureInfoInputExtractor.mother = mother;
-            creatureInfoInputExtractor.father = father;
+            creatureInfoInputExtractor.Mother = mother;
+            creatureInfoInputExtractor.Father = father;
             creatureInfoInputExtractor.CreatureOwner = mother.owner;
             creatureInfoInputExtractor.CreatureTribe = mother.tribe;
             creatureInfoInputExtractor.CreatureServer = mother.server;
@@ -2511,9 +2511,24 @@ namespace ARKBreedingStats
                 testingIOs[s].LevelDom = statIOs[s].LevelDom;
                 testingStatIOValueUpdate(testingIOs[s]);
             }
+            // set the data in the creatureInfoInput
             SetTesterInfoInputCreature();
+            creatureInfoInputTester.CreatureName = creatureInfoInputExtractor.CreatureName;
+            creatureInfoInputTester.CreatureOwner = creatureInfoInputExtractor.CreatureOwner;
+            creatureInfoInputTester.CreatureTribe = creatureInfoInputExtractor.CreatureTribe;
+            creatureInfoInputTester.CreatureServer = creatureInfoInputExtractor.CreatureServer;
+            creatureInfoInputTester.Mother = creatureInfoInputExtractor.Mother;
+            creatureInfoInputTester.Father = creatureInfoInputExtractor.Father;
+            creatureInfoInputTester.CreatureNote = creatureInfoInputExtractor.CreatureNote;
+            creatureInfoInputTester.CooldownUntil = creatureInfoInputExtractor.CooldownUntil;
+            creatureInfoInputTester.GrowingUntil = creatureInfoInputExtractor.GrowingUntil;
+            creatureInfoInputTester.MutationCounterMother = creatureInfoInputExtractor.MutationCounterMother;
+            creatureInfoInputTester.MutationCounterFather = creatureInfoInputExtractor.MutationCounterFather;
             creatureInfoInputTester.CreatureSex = creatureInfoInputExtractor.CreatureSex;
+            creatureInfoInputTester.CreatureFlags = creatureInfoInputExtractor.CreatureFlags;
+            creatureInfoInputTester.CreatureStatus = creatureInfoInputExtractor.CreatureStatus;
             creatureInfoInputTester.RegionColors = creatureInfoInputExtractor.RegionColors;
+
             tabControlMain.SelectedTab = tabPageStatTesting;
         }
 
@@ -2870,15 +2885,15 @@ namespace ARKBreedingStats
             input.CreatureServer = cv.server;
             input.CreatureSex = cv.sex;
             input.CreatureGuid = cv.guid;
-            input.creatureFlags = cv.flags;
-            input.mother = cv.Mother;
-            input.father = cv.Father;
+            input.CreatureFlags = cv.flags;
+            input.Mother = cv.Mother;
+            input.Father = cv.Father;
             input.RegionColors = cv.colorIDs;
             input.SetArkId(cv.ARKID, cv.guid == Utils.ConvertArkIdToGuid(cv.ARKID));
             input.MutationCounterMother = cv.mutationCounterMother;
             input.MutationCounterFather = cv.mutationCounterFather;
-            input.Grown = cv.growingUntil;
-            input.Cooldown = cv.cooldownUntil;
+            input.GrowingUntil = cv.growingUntil;
+            input.CooldownUntil = cv.cooldownUntil;
             input.MotherArkId = cv.motherArkId;
             input.FatherArkId = cv.fatherArkId;
             input.CreatureNote = string.Empty;
@@ -2898,9 +2913,9 @@ namespace ARKBreedingStats
             cv.tribe = creatureInfoInputExtractor.CreatureTribe;
             cv.server = creatureInfoInputExtractor.CreatureServer;
             cv.sex = creatureInfoInputExtractor.CreatureSex;
-            cv.flags = creatureInfoInputExtractor.creatureFlags;
-            cv.Mother = creatureInfoInputExtractor.mother;
-            cv.Father = creatureInfoInputExtractor.father;
+            cv.flags = creatureInfoInputExtractor.CreatureFlags;
+            cv.Mother = creatureInfoInputExtractor.Mother;
+            cv.Father = creatureInfoInputExtractor.Father;
             cv.colorIDs = creatureInfoInputExtractor.RegionColors;
 
             cv.level = (int)numericUpDownLevel.Value;

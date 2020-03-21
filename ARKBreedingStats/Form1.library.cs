@@ -48,18 +48,18 @@ namespace ARKBreedingStats
             Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex, GetCurrentWildLevels(fromExtractor), GetCurrentDomLevels(fromExtractor), te, bred, imprinting, levelStep: levelStep)
             {
                 // set parents
-                Mother = input.mother,
-                Father = input.father,
+                Mother = input.Mother,
+                Father = input.Father,
 
                 // cooldown-, growing-time
-                cooldownUntil = input.Cooldown,
-                growingUntil = input.Grown,
+                cooldownUntil = input.CooldownUntil,
+                growingUntil = input.GrowingUntil,
 
-                flags = input.creatureFlags,
+                flags = input.CreatureFlags,
                 note = input.CreatureNote,
                 server = input.CreatureServer,
 
-                domesticatedAt = input.domesticatedAt,
+                domesticatedAt = input.DomesticatedAt,
                 addedToLibrary = DateTime.Now,
                 mutationsMaternal = input.MutationCounterMother,
                 mutationsPaternal = input.MutationCounterFather,
