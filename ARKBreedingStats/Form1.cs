@@ -2863,8 +2863,10 @@ namespace ARKBreedingStats
         private void SetCreatureValuesToInfoInput(CreatureValues cv, CreatureInfoInput input)
         {
             input.CreatureName = cv.name;
-            input.CreatureOwner = cv.owner;
-            input.CreatureTribe = cv.tribe;
+            if (!creatureInfoInputExtractor.OwnerLock)
+                input.CreatureOwner = cv.owner;
+            if (!creatureInfoInputExtractor.TribeLock)
+                input.CreatureTribe = cv.tribe;
             input.CreatureServer = cv.server;
             input.CreatureSex = cv.sex;
             input.CreatureGuid = cv.guid;
@@ -2879,7 +2881,7 @@ namespace ARKBreedingStats
             input.Cooldown = cv.cooldownUntil;
             input.MotherArkId = cv.motherArkId;
             input.FatherArkId = cv.fatherArkId;
-            input.CreatureNote = "";
+            input.CreatureNote = string.Empty;
             input.CreatureStatus = CreatureStatus.Available;
             input.SetTimersToChanged();
         }
