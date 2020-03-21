@@ -3130,8 +3130,13 @@ namespace ARKBreedingStats
 
             bool fromExtractor = tabControlMain.SelectedTab == tabPageExtractor;
 
+            var wildLevels = GetCurrentWildLevels(false);
+            // the torpor level of the tester is only the sum of the recognized stats. Use the level of the extractor, if that value was recognized.
+            if (statIOs[(int)StatNames.Torpidity].LevelWild > 0)
+                wildLevels[(int)StatNames.Torpidity] = statIOs[(int)StatNames.Torpidity].LevelWild;
+
             statsMultiplierTesting1.SetCreatureValues(statValues,
-                GetCurrentWildLevels(false),
+               wildLevels,
                 GetCurrentDomLevels(false),
                 (int)numericUpDownLevel.Value,
                 (double)NumericUpDownTestingTE.Value / 100,
