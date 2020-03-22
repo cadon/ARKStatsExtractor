@@ -138,6 +138,11 @@ namespace ARKBreedingStats
                     rbBredTester.Checked ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0);
         }
 
+        private void creatureInfoInputTester_Add2Library_Clicked(CreatureInfoInput sender)
+        {
+            AddCreatureToCollection(false);
+        }
+
         private void creatureInfoInputTester_Save2Library_Clicked(CreatureInfoInput sender)
         {
             if (creatureTesterEdit == null)

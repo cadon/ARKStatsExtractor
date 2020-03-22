@@ -10,12 +10,9 @@ namespace ARKBreedingStats
 {
     public partial class CreatureInfoInput : UserControl
     {
-        public delegate void Add2LibraryClickedEventHandler(CreatureInfoInput sender);
-        public event Add2LibraryClickedEventHandler Add2Library_Clicked;
-        public delegate void Save2LibraryClickedEventHandler(CreatureInfoInput sender);
-        public event Save2LibraryClickedEventHandler Save2Library_Clicked;
-        public delegate void RequestParentListEventHandler(CreatureInfoInput sender);
-        public event RequestParentListEventHandler ParentListRequested;
+        public event Action<CreatureInfoInput> Add2Library_Clicked;
+        public event Action<CreatureInfoInput> Save2Library_Clicked;
+        public event Action<CreatureInfoInput> ParentListRequested;
         public delegate void RequestCreatureDataEventHandler(CreatureInfoInput sender, bool openPatternEditor, bool showDuplicateNameWarning, int namingPatternIndex);
         public event RequestCreatureDataEventHandler CreatureDataRequested;
         public bool extractor;

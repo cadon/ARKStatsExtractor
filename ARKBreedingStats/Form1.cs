@@ -658,16 +658,6 @@ namespace ARKBreedingStats
             n?.Select(0, n.Text.Length);
         }
 
-        private void creatureInfoInputExtractor_Add2Library_Clicked(CreatureInfoInput sender)
-        {
-            AddCreatureToCollection();
-        }
-
-        private void creatureInfoInputTester_Add2Library_Clicked(CreatureInfoInput sender)
-        {
-            AddCreatureToCollection(false);
-        }
-
         /// <summary>
         /// Recalculate cached values affected by global stat-multipliers.
         /// </summary>

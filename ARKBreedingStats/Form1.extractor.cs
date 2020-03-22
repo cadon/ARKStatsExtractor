@@ -903,5 +903,10 @@ namespace ARKBreedingStats
             }
             return creatureAlreadyExistsInLibrary;
         }
+
+        private void creatureInfoInputExtractor_Add2Library_Clicked(CreatureInfoInput sender)
+        {
+            AddCreatureToCollection();
+        }
     }
 }

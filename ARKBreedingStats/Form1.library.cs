@@ -68,7 +68,7 @@ namespace ARKBreedingStats
             };
 
             // Ids: ArkId and Guid
-            creature.guid = input.CreatureGuid != Guid.Empty ? input.CreatureGuid : Guid.NewGuid();
+            creature.guid = fromExtractor && input.CreatureGuid != Guid.Empty ? input.CreatureGuid : Guid.NewGuid();
 
             creature.ArkId = input.ArkId;
             creature.ArkIdImported = Utils.IsArkIdImported(creature.ArkId, creature.guid);
