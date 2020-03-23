@@ -2,35 +2,26 @@
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ARKBreedingStats.library
 {
     public static class CreatureExtensions
     {
         /// <summary>
-        /// Width of the infographic in pixels.
-        /// </summary>
-        private const int width = 300;
-        /// <summary>
-        /// Height of the infographic in pixels.
-        /// </summary>
-        private const int height = 180;
-
-        /// <summary>
         /// Creates an image with infos about the creature.
         /// </summary>
         /// <param name="creature"></param>
-        /// <param name="maxGraphLevel"></param>
+        /// <param name="cc">CreatureCollection for server settings.</param>
         /// <returns></returns>
-        public static Bitmap InfoGraphic(this Creature creature, int maxGraphLevel = 50)
+        public static Bitmap InfoGraphic(this Creature creature, CreatureCollection cc)
         {
             if (creature == null) return null;
+            int maxGraphLevel = cc?.maxChartLevel ?? 0;
             if (maxGraphLevel < 1) maxGraphLevel = 50;
+
+            const int width = 300;
+            const int height = 180;
 
             var bmp = new Bitmap(width, height);
             using (var g = Graphics.FromImage(bmp))
@@ -46,9 +37,10 @@ namespace ARKBreedingStats.library
 
                 using (var backgroundBrush = new SolidBrush(Color.AntiqueWhite))
                     g.FillRectangle(backgroundBrush, 0, 0, width, height);
-                g.DrawString($"{creature.Species.DescriptiveNameAndMod} (Lvl {creature.LevelHatched})", fontHeader, fontBrush, 3, currentYPosition);
+
+                g.DrawString(creature.Species.DescriptiveNameAndMod, fontHeader, fontBrush, 3, currentYPosition);
                 currentYPosition += 19;
-                g.DrawString($"{Utils.sexSymbol(creature.sex) + (creature.flags.HasFlag(CreatureFlags.Neutered) ? $" ({Loc.s(creature.sex == Sex.Female ? "Spayed" : "Neutered")})" : string.Empty)} | {creature.Mutations} mutations", font, fontBrush, 8, currentYPosition);
+                g.DrawString($"Lvl {creature.LevelHatched} | {Utils.sexSymbol(creature.sex) + (creature.flags.HasFlag(CreatureFlags.Neutered) ? $" ({Loc.s(creature.sex == Sex.Female ? "Spayed" : "Neutered")})" : string.Empty)} | {creature.Mutations} mutations", font, fontBrush, 8, currentYPosition);
                 currentYPosition += 17;
 
                 using (var p = new Pen(Color.LightGray, 1))
@@ -69,11 +61,14 @@ namespace ARKBreedingStats.library
 
                     int y = currentYPosition + 20 + (statDisplayIndex++) * 15;
                     // box
-                    int statBoxLength = Math.Min(maxBoxLenght, maxBoxLenght * creature.levelsWild[statIndex] / maxGraphLevel);
+                    double levelFractionOfMax = Math.Min(1, (double)creature.levelsWild[statIndex] / maxGraphLevel);
+                    if (levelFractionOfMax < 0) levelFractionOfMax = 0;
+                    int levelPercentageOfMax = (int)(100 * levelFractionOfMax);
+                    int statBoxLength = (int)(maxBoxLenght * levelFractionOfMax);
                     const int statBoxHeight = 2;
-                    using (var b = new SolidBrush(Utils.getColorFromPercent(creature.levelsWild[statIndex])))
+                    using (var b = new SolidBrush(Utils.getColorFromPercent(levelPercentageOfMax)))
                         g.FillRectangle(b, xStatName, y + 14, statBoxLength, statBoxHeight);
-                    using (var p = new Pen(Utils.getColorFromPercent(creature.levelsWild[statIndex], -0.5), 1))
+                    using (var p = new Pen(Utils.getColorFromPercent(levelPercentageOfMax, -0.5), 1))
                         g.DrawRectangle(p, xStatName, y + 14, statBoxLength, statBoxHeight);
 
                     // number
@@ -122,6 +117,17 @@ namespace ARKBreedingStats.library
                             fontSmall, fontBrush, xColor + circleDiameter + 4, y);
                     }
                 }
+
+                // max wild level on server
+                if (cc != null)
+                {
+                    g.DrawString($"max wild level: {cc.maxWildLevel}",
+                        fontSmall, fontBrush, width - 4, height - 14, stringFormatRight);
+                }
+
+                // frame
+                using (var p = new Pen(Color.DarkRed, 1))
+                    g.DrawRectangle(p, 0, 0, width - 1, height - 1);
             }
 
             return bmp;
@@ -131,12 +137,12 @@ namespace ARKBreedingStats.library
         /// Creates infographic and copies it to the clipboard.
         /// </summary>
         /// <param name="creature"></param>
-        /// <param name="maxGraphLevel"></param>
-        public static void ExportInfoGraphicToClipboard(this Creature creature, int maxGraphLevel = 50)
+        /// <param name="cc">CreatureCollection for server settings.</param>
+        public static void ExportInfoGraphicToClipboard(this Creature creature, CreatureCollection cc)
         {
             if (creature == null) return;
 
-            using (var bmp = creature.InfoGraphic(maxGraphLevel))
+            using (var bmp = creature.InfoGraphic(cc))
             {
                 if (bmp != null)
                     System.Windows.Forms.Clipboard.SetImage(bmp);

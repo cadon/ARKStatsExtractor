@@ -674,7 +674,7 @@ namespace ARKBreedingStats
             raisingControl1.UpdateRaisingData();
 
             // apply level settings
-            creatureBoxListView.BarMaxLevel = creatureCollection.maxChartLevel;
+            creatureBoxListView.CreatureCollection = creatureCollection;
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 statIOs[s].barMaxLevel = creatureCollection.maxChartLevel;
@@ -2105,7 +2105,7 @@ namespace ARKBreedingStats
                     if (settingsfrm.LanguageChanged) setLocalizations();
                     autoSave = Properties.Settings.Default.autosave;
                     autoSaveMinutes = Properties.Settings.Default.autosaveMinutes;
-                    creatureBoxListView.maxDomLevel = creatureCollection.maxDomLevel;
+                    creatureBoxListView.CreatureCollection = creatureCollection;
                     fileSync.ChangeFile(currentFileName); // only to trigger the update, filename is not changed
 
                     bool enableExportWatcher = Utils.GetFirstImportExportFolder(out string exportFolderDefault)
@@ -3362,7 +3362,7 @@ namespace ARKBreedingStats
         {
             if (listViewLibrary.SelectedItems.Count == 0) return;
 
-            (listViewLibrary.SelectedItems[0].Tag as Creature).ExportInfoGraphicToClipboard(creatureCollection?.maxChartLevel ?? 50);
+            (listViewLibrary.SelectedItems[0].Tag as Creature).ExportInfoGraphicToClipboard(creatureCollection);
         }
 
         private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)

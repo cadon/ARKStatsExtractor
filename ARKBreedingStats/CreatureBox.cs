@@ -17,7 +17,7 @@ namespace ARKBreedingStats
         public List<Creature>[] parentList; // all creatures that could be parents (i.e. same species, separated by sex)
         public List<int>[] parentListSimilarity; // for all possible parents the number of equal stats (to find the parents easier)
         private bool[] colorRegionUseds;
-        public int maxDomLevel = 0;
+        private CreatureCollection cc;
         ToolTip tt = new ToolTip();
 
         public CreatureBox()
@@ -59,9 +59,13 @@ namespace ARKBreedingStats
             UpdateLabel();
         }
 
-        public int BarMaxLevel
+        public CreatureCollection CreatureCollection
         {
-            set => statsDisplay1.BarMaxLevel = value;
+            set
+            {
+                cc = value;
+                statsDisplay1.BarMaxLevel = cc?.maxWildLevel ?? 50;
+            }
         }
 
         private void buttonEdit_Click(object sender, EventArgs e)
@@ -114,7 +118,7 @@ namespace ARKBreedingStats
             labelParents.Text = "";
             if (creature != null)
             {
-                groupBox1.Text = $"{creature.name} (Lvl {creature.Level}/{creature.LevelHatched + maxDomLevel})";
+                groupBox1.Text = $"{creature.name} (Lvl {creature.Level}/{creature.LevelHatched + cc.maxDomLevel})";
                 if (creature.Mother != null || creature.Father != null)
                 {
                     if (creature.Mother != null)
@@ -136,7 +140,8 @@ namespace ARKBreedingStats
                 labelNotes.Text = creature.note;
                 labelSpecies.Text = creature.Species.name;
                 pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.Species, colorRegionUseds);
-                tt.SetToolTip(pictureBox1, CreatureColored.RegionColorInfo(creature.Species, creature.colors));
+                tt.SetToolTip(pictureBox1, CreatureColored.RegionColorInfo(creature.Species, creature.colors)
+                    + "\n\nClick to copy creature infos as image to the clipboard");
                 pictureBox1.Visible = true;
             }
         }
@@ -237,7 +242,7 @@ namespace ARKBreedingStats
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            creature?.ExportInfoGraphicToClipboard(statsDisplay1.BarMaxLevel);
+            creature?.ExportInfoGraphicToClipboard(cc);
         }
     }
 }

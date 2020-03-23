@@ -75,7 +75,6 @@ namespace ARKBreedingStats.uiControls
                     stats[s].barMaxLevel = value;
                 }
             }
-            get => stats[0].barMaxLevel;
         }
 
         public void Clear()
