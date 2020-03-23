@@ -1638,9 +1638,9 @@ namespace ARKBreedingStats
             this.creatureInfoInputTester.Size = new System.Drawing.Size(229, 518);
             this.creatureInfoInputTester.TabIndex = 4;
             this.creatureInfoInputTester.TribeLock = false;
-            this.creatureInfoInputTester.Add2Library_Clicked += new System.Action<CreatureInfoInput>(this.creatureInfoInputTester_Add2Library_Clicked);
-            this.creatureInfoInputTester.Save2Library_Clicked += new System.Action<CreatureInfoInput>(this.creatureInfoInputTester_Save2Library_Clicked);
-            this.creatureInfoInputTester.ParentListRequested += new System.Action<CreatureInfoInput>(this.CreatureInfoInput_ParentListRequested);
+            this.creatureInfoInputTester.Add2Library_Clicked += new System.Action<ARKBreedingStats.CreatureInfoInput>(this.creatureInfoInputTester_Add2Library_Clicked);
+            this.creatureInfoInputTester.Save2Library_Clicked += new System.Action<ARKBreedingStats.CreatureInfoInput>(this.creatureInfoInputTester_Save2Library_Clicked);
+            this.creatureInfoInputTester.ParentListRequested += new System.Action<ARKBreedingStats.CreatureInfoInput>(this.CreatureInfoInput_ParentListRequested);
             // 
             // tabPageExtractor
             // 
@@ -1869,8 +1869,8 @@ namespace ARKBreedingStats
             this.creatureInfoInputExtractor.Size = new System.Drawing.Size(229, 518);
             this.creatureInfoInputExtractor.TabIndex = 7;
             this.creatureInfoInputExtractor.TribeLock = false;
-            this.creatureInfoInputExtractor.Add2Library_Clicked += new System.Action<CreatureInfoInput>(this.creatureInfoInputExtractor_Add2Library_Clicked);
-            this.creatureInfoInputExtractor.ParentListRequested += new System.Action<CreatureInfoInput>(this.CreatureInfoInput_ParentListRequested);
+            this.creatureInfoInputExtractor.Add2Library_Clicked += new System.Action<ARKBreedingStats.CreatureInfoInput>(this.creatureInfoInputExtractor_Add2Library_Clicked);
+            this.creatureInfoInputExtractor.ParentListRequested += new System.Action<ARKBreedingStats.CreatureInfoInput>(this.CreatureInfoInput_ParentListRequested);
             // 
             // tabPageLibrary
             // 

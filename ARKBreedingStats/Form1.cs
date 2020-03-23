@@ -3361,9 +3361,8 @@ namespace ARKBreedingStats
         private void copyInfographicToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (listViewLibrary.SelectedItems.Count == 0) return;
-            var bmp = (listViewLibrary.SelectedItems[0].Tag as Creature).InfoGraphic();
-            if (bmp != null)
-                Clipboard.SetImage(bmp);
+
+            (listViewLibrary.SelectedItems[0].Tag as Creature).ExportInfoGraphicToClipboard(creatureCollection?.maxChartLevel ?? 50);
         }
 
         private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)

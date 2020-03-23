@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+﻿using ARKBreedingStats.library;
+using ARKBreedingStats.Library;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -232,6 +233,11 @@ namespace ARKBreedingStats
             creature.colors = regionColorChooser1.ColorIDs;
             pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.Species, colorRegionUseds);
             Changed(creature, false, false);
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            creature?.ExportInfoGraphicToClipboard(statsDisplay1.BarMaxLevel);
         }
     }
 }

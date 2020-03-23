@@ -25,11 +25,12 @@ namespace ARKBreedingStats.library
         /// Creates an image with infos about the creature.
         /// </summary>
         /// <param name="creature"></param>
+        /// <param name="maxGraphLevel"></param>
         /// <returns></returns>
-        public static Bitmap InfoGraphic(this Creature creature)
+        public static Bitmap InfoGraphic(this Creature creature, int maxGraphLevel = 50)
         {
             if (creature == null) return null;
-
+            if (maxGraphLevel < 1) maxGraphLevel = 50;
 
             var bmp = new Bitmap(width, height);
             using (var g = Graphics.FromImage(bmp))
@@ -37,6 +38,7 @@ namespace ARKBreedingStats.library
             using (var fontSmall = new Font("Arial", 8))
             using (var fontHeader = new Font("Arial", 12, FontStyle.Bold))
             using (var fontBrush = new SolidBrush(Color.Black))
+            using (var penBlack = new Pen(Color.Black, 1))
             using (var stringFormatRight = new StringFormat() { Alignment = StringAlignment.Far })
             {
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
@@ -56,19 +58,29 @@ namespace ARKBreedingStats.library
                 // levels
                 const int xStatName = 8;
                 int xLevelValue = xStatName + 30 + (creature.levelsWild[2].ToString().Length) * 7;
+                int maxBoxLenght = xLevelValue - xStatName;
                 g.DrawString("Levels", font, fontBrush, xStatName, currentYPosition);
                 int statDisplayIndex = 0;
                 for (int si = 0; si < Values.STATS_COUNT; si++)
                 {
                     int statIndex = Values.statsDisplayOrder[si];
-                    if (statIndex != (int)StatNames.Torpidity && creature.Species.UsesStat(statIndex))
-                    {
-                        int y = currentYPosition + 20 + (statDisplayIndex++) * 14;
-                        g.DrawString($"{Utils.statName(statIndex, true, creature.Species.IsGlowSpecies)}",
-                            font, fontBrush, xStatName, y);
-                        g.DrawString($"{creature.levelsWild[statIndex]}",
-                            font, fontBrush, xLevelValue, y, stringFormatRight);
-                    }
+                    if (statIndex == (int)StatNames.Torpidity || !creature.Species.UsesStat(statIndex))
+                        continue;
+
+                    int y = currentYPosition + 20 + (statDisplayIndex++) * 15;
+                    // box
+                    int statBoxLength = Math.Min(maxBoxLenght, maxBoxLenght * creature.levelsWild[statIndex] / maxGraphLevel);
+                    const int statBoxHeight = 2;
+                    using (var b = new SolidBrush(Utils.getColorFromPercent(creature.levelsWild[statIndex])))
+                        g.FillRectangle(b, xStatName, y + 14, statBoxLength, statBoxHeight);
+                    using (var p = new Pen(Utils.getColorFromPercent(creature.levelsWild[statIndex], -0.5), 1))
+                        g.DrawRectangle(p, xStatName, y + 14, statBoxLength, statBoxHeight);
+
+                    // number
+                    g.DrawString($"{Utils.statName(statIndex, true, creature.Species.IsGlowSpecies)}",
+                        font, fontBrush, xStatName, y);
+                    g.DrawString($"{creature.levelsWild[statIndex]}",
+                        font, fontBrush, xLevelValue, y, stringFormatRight);
                 }
 
                 // colors
@@ -89,8 +101,7 @@ namespace ARKBreedingStats.library
 
                         using (var b = new SolidBrush(c))
                             g.FillEllipse(b, xColor, y, circleDiameter, circleDiameter);
-                        using (var p = new Pen(Color.Black, 1))
-                            g.DrawEllipse(p, xColor, y, circleDiameter, circleDiameter);
+                        g.DrawEllipse(penBlack, xColor, y, circleDiameter, circleDiameter);
 
                         string colorRegionName = creature.Species.colors[ci].name;
                         string colorName = CreatureColors.creatureColorName(creature.colors[ci]);
@@ -114,6 +125,22 @@ namespace ARKBreedingStats.library
             }
 
             return bmp;
+        }
+
+        /// <summary>
+        /// Creates infographic and copies it to the clipboard.
+        /// </summary>
+        /// <param name="creature"></param>
+        /// <param name="maxGraphLevel"></param>
+        public static void ExportInfoGraphicToClipboard(this Creature creature, int maxGraphLevel = 50)
+        {
+            if (creature == null) return;
+
+            using (var bmp = creature.InfoGraphic(maxGraphLevel))
+            {
+                if (bmp != null)
+                    System.Windows.Forms.Clipboard.SetImage(bmp);
+            }
         }
     }
 }
