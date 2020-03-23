@@ -229,11 +229,11 @@ namespace ARKBreedingStats.uiControls
                             return p1;
                         return p1.Replace(m.Groups[3].Value.Replace("&nbsp;", " "), m.Groups[4].Value.Replace("&nbsp;", " "));
                     case "customreplace":
-                        // parameter: 1: customreplace, 2: text
+                        // parameter: 1: customreplace, 2: key, 3: return if key not available
                         if (customReplacings == null
                             || string.IsNullOrEmpty(p1)
                             || !customReplacings.ContainsKey(p1))
-                            return p1;
+                            return m.Groups[3].Value;
                         return customReplacings[p1];
                     case "time":
                         // parameter: 1: time, 2: format
