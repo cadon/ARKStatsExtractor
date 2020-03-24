@@ -64,16 +64,23 @@ namespace ARKBreedingStats.library
                     double levelFractionOfMax = Math.Min(1, (double)creature.levelsWild[statIndex] / maxGraphLevel);
                     if (levelFractionOfMax < 0) levelFractionOfMax = 0;
                     int levelPercentageOfMax = (int)(100 * levelFractionOfMax);
-                    int statBoxLength = (int)(maxBoxLenght * levelFractionOfMax);
+                    int statBoxLength = Math.Max((int)(maxBoxLenght * levelFractionOfMax), 1);
                     const int statBoxHeight = 2;
-                    using (var b = new SolidBrush(Utils.getColorFromPercent(levelPercentageOfMax)))
+                    var statColor = Utils.getColorFromPercent(levelPercentageOfMax);
+                    using (var b = new SolidBrush(statColor))
                         g.FillRectangle(b, xStatName, y + 14, statBoxLength, statBoxHeight);
+                    using (var b = new SolidBrush(Color.FromArgb(10, statColor)))
+                    {
+                        for (int r = 4; r > 0; r--)
+                            g.FillRectangle(b, xStatName - r, y + 13 - r, statBoxLength + 2 * r, statBoxHeight + 2 * r);
+                    }
                     using (var p = new Pen(Utils.getColorFromPercent(levelPercentageOfMax, -0.5), 1))
                         g.DrawRectangle(p, xStatName, y + 14, statBoxLength, statBoxHeight);
 
-                    // number
+                    // stat name
                     g.DrawString($"{Utils.statName(statIndex, true, creature.Species.IsGlowSpecies)}",
                         font, fontBrush, xStatName, y);
+                    // stat level number
                     g.DrawString($"{creature.levelsWild[statIndex]}",
                         font, fontBrush, xLevelValue, y, stringFormatRight);
                 }
