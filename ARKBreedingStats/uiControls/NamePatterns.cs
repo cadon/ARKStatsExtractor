@@ -83,7 +83,7 @@ namespace ARKBreedingStats.uiControls
             int nrFunctions = 0;
             int nrFunctionsAfterResolving = NrFunctions(pattern);
             // the second and third parameter are optional
-            Regex r = new Regex(@"\{\{#(\w+) *: *([^\|\{\}]+?) *(?:\| *([^\|\{\}]+?) *)?(?:\| *([^\|\{\}]+?) *)?\}\}", RegexOptions.IgnoreCase);
+            Regex r = new Regex(@"\{\{ *#(\w+) *: *([^\|\{\}]+?) *(?:\| *([^\|\{\}]+?) *)?(?:\| *([^\|\{\}]+?) *)?\}\}", RegexOptions.IgnoreCase);
             // resolve nested functions
             while (nrFunctions != nrFunctionsAfterResolving)
             {
