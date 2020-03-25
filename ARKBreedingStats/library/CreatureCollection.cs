@@ -100,9 +100,10 @@ namespace ARKBreedingStats.Library
 
         /// <summary>
         /// Some mods allow to change stat values of species in an extra ini file. These overrides are stored here.
+        /// The last item is an array of possible imprintingMultiplier overrides.
         /// </summary>
         [JsonProperty]
-        public Dictionary<string, double[][]> CustomSpeciesStats;
+        public Dictionary<string, double?[][]> CustomSpeciesStats;
 
         /// <summary>
         /// Calculates a hashcode for a list of mods and their order. Can be used to check for changes.

@@ -32,6 +32,10 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.tbFilterSpecies = new System.Windows.Forms.TextBox();
+            this.btClearFilter = new System.Windows.Forms.Button();
+            this.cbOnlyDisplayOverriddenSpecies = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanelOverrideEdits = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -48,11 +52,9 @@
             this.loadOverrideFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addOverrideFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportOverrideFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.tbFilterSpecies = new System.Windows.Forms.TextBox();
-            this.cbOnlyDisplayOverriddenSpecies = new System.Windows.Forms.CheckBox();
-            this.btClearFilter = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.flowLayoutPanelOverrideEdits.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -62,7 +64,6 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lvSpecies
@@ -76,7 +77,7 @@
             this.lvSpecies.Location = new System.Drawing.Point(3, 48);
             this.lvSpecies.MultiSelect = false;
             this.lvSpecies.Name = "lvSpecies";
-            this.lvSpecies.Size = new System.Drawing.Size(705, 655);
+            this.lvSpecies.Size = new System.Drawing.Size(608, 655);
             this.lvSpecies.TabIndex = 0;
             this.lvSpecies.UseCompatibleStateImageBehavior = false;
             this.lvSpecies.View = System.Windows.Forms.View.Details;
@@ -99,10 +100,51 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(711, 706);
+            this.groupBox1.Size = new System.Drawing.Size(614, 706);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Species";
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.tbFilterSpecies);
+            this.flowLayoutPanel1.Controls.Add(this.btClearFilter);
+            this.flowLayoutPanel1.Controls.Add(this.cbOnlyDisplayOverriddenSpecies);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 16);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(608, 32);
+            this.flowLayoutPanel1.TabIndex = 1;
+            // 
+            // tbFilterSpecies
+            // 
+            this.tbFilterSpecies.Location = new System.Drawing.Point(3, 3);
+            this.tbFilterSpecies.Name = "tbFilterSpecies";
+            this.tbFilterSpecies.Size = new System.Drawing.Size(376, 20);
+            this.tbFilterSpecies.TabIndex = 0;
+            this.tbFilterSpecies.TextChanged += new System.EventHandler(this.tbFilterSpecies_TextChanged);
+            // 
+            // btClearFilter
+            // 
+            this.btClearFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btClearFilter.Location = new System.Drawing.Point(385, 3);
+            this.btClearFilter.Name = "btClearFilter";
+            this.btClearFilter.Size = new System.Drawing.Size(24, 23);
+            this.btClearFilter.TabIndex = 2;
+            this.btClearFilter.Text = "×";
+            this.btClearFilter.UseVisualStyleBackColor = true;
+            this.btClearFilter.Click += new System.EventHandler(this.btClearFilter_Click);
+            // 
+            // cbOnlyDisplayOverriddenSpecies
+            // 
+            this.cbOnlyDisplayOverriddenSpecies.AutoSize = true;
+            this.cbOnlyDisplayOverriddenSpecies.Location = new System.Drawing.Point(415, 3);
+            this.cbOnlyDisplayOverriddenSpecies.Name = "cbOnlyDisplayOverriddenSpecies";
+            this.cbOnlyDisplayOverriddenSpecies.Size = new System.Drawing.Size(164, 17);
+            this.cbOnlyDisplayOverriddenSpecies.TabIndex = 1;
+            this.cbOnlyDisplayOverriddenSpecies.Text = "Display only adjusted species";
+            this.cbOnlyDisplayOverriddenSpecies.UseVisualStyleBackColor = true;
+            this.cbOnlyDisplayOverriddenSpecies.CheckedChanged += new System.EventHandler(this.cbOnlyDisplayOverriddenSpecies_CheckedChanged);
             // 
             // groupBox2
             // 
@@ -111,7 +153,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(3, 35);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(633, 692);
+            this.groupBox2.Size = new System.Drawing.Size(730, 692);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Overrides";
@@ -122,11 +164,12 @@
             this.flowLayoutPanelOverrideEdits.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelOverrideEdits.Location = new System.Drawing.Point(3, 16);
             this.flowLayoutPanelOverrideEdits.Name = "flowLayoutPanelOverrideEdits";
-            this.flowLayoutPanelOverrideEdits.Size = new System.Drawing.Size(627, 673);
+            this.flowLayoutPanelOverrideEdits.Size = new System.Drawing.Size(724, 673);
             this.flowLayoutPanelOverrideEdits.TabIndex = 0;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
@@ -135,7 +178,7 @@
             this.flowLayoutPanelOverrideEdits.SetFlowBreak(this.panel1, true);
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(592, 22);
+            this.panel1.Size = new System.Drawing.Size(715, 22);
             this.panel1.TabIndex = 0;
             // 
             // label5
@@ -195,7 +238,7 @@
             // 
             // btRemoveOverride
             // 
-            this.btRemoveOverride.Location = new System.Drawing.Point(322, 3);
+            this.btRemoveOverride.Location = new System.Drawing.Point(371, 3);
             this.btRemoveOverride.Name = "btRemoveOverride";
             this.btRemoveOverride.Size = new System.Drawing.Size(136, 23);
             this.btRemoveOverride.TabIndex = 4;
@@ -217,7 +260,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(639, 706);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(736, 706);
             this.tableLayoutPanel1.TabIndex = 5;
             // 
             // splitContainer1
@@ -234,7 +277,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel1);
             this.splitContainer1.Size = new System.Drawing.Size(1354, 706);
-            this.splitContainer1.SplitterDistance = 711;
+            this.splitContainer1.SplitterDistance = 614;
             this.splitContainer1.TabIndex = 7;
             // 
             // menuStrip1
@@ -270,46 +313,14 @@
             this.exportOverrideFileToolStripMenuItem.Text = "Export override file";
             this.exportOverrideFileToolStripMenuItem.Click += new System.EventHandler(this.exportOverrideFileToolStripMenuItem_Click);
             // 
-            // flowLayoutPanel1
+            // label6
             // 
-            this.flowLayoutPanel1.Controls.Add(this.tbFilterSpecies);
-            this.flowLayoutPanel1.Controls.Add(this.btClearFilter);
-            this.flowLayoutPanel1.Controls.Add(this.cbOnlyDisplayOverriddenSpecies);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 16);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(705, 32);
-            this.flowLayoutPanel1.TabIndex = 1;
-            // 
-            // tbFilterSpecies
-            // 
-            this.tbFilterSpecies.Location = new System.Drawing.Point(3, 3);
-            this.tbFilterSpecies.Name = "tbFilterSpecies";
-            this.tbFilterSpecies.Size = new System.Drawing.Size(376, 20);
-            this.tbFilterSpecies.TabIndex = 0;
-            this.tbFilterSpecies.TextChanged += new System.EventHandler(this.tbFilterSpecies_TextChanged);
-            // 
-            // cbOnlyDisplayOverriddenSpecies
-            // 
-            this.cbOnlyDisplayOverriddenSpecies.AutoSize = true;
-            this.cbOnlyDisplayOverriddenSpecies.Location = new System.Drawing.Point(415, 3);
-            this.cbOnlyDisplayOverriddenSpecies.Name = "cbOnlyDisplayOverriddenSpecies";
-            this.cbOnlyDisplayOverriddenSpecies.Size = new System.Drawing.Size(164, 17);
-            this.cbOnlyDisplayOverriddenSpecies.TabIndex = 1;
-            this.cbOnlyDisplayOverriddenSpecies.Text = "Display only adjusted species";
-            this.cbOnlyDisplayOverriddenSpecies.UseVisualStyleBackColor = true;
-            this.cbOnlyDisplayOverriddenSpecies.CheckedChanged += new System.EventHandler(this.cbOnlyDisplayOverriddenSpecies_CheckedChanged);
-            // 
-            // btClearFilter
-            // 
-            this.btClearFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btClearFilter.Location = new System.Drawing.Point(385, 3);
-            this.btClearFilter.Name = "btClearFilter";
-            this.btClearFilter.Size = new System.Drawing.Size(24, 23);
-            this.btClearFilter.TabIndex = 2;
-            this.btClearFilter.Text = "×";
-            this.btClearFilter.UseVisualStyleBackColor = true;
-            this.btClearFilter.Click += new System.EventHandler(this.btClearFilter_Click);
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(618, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(94, 13);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "imprinting multiplier";
             // 
             // CustomStatOverridesEditor
             // 
@@ -323,6 +334,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Custom Stat Overrides Editor";
             this.groupBox1.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.flowLayoutPanelOverrideEdits.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
@@ -334,8 +347,6 @@
             this.splitContainer1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -367,5 +378,6 @@
         private System.Windows.Forms.TextBox tbFilterSpecies;
         private System.Windows.Forms.Button btClearFilter;
         private System.Windows.Forms.CheckBox cbOnlyDisplayOverriddenSpecies;
+        private System.Windows.Forms.Label label6;
     }
 }

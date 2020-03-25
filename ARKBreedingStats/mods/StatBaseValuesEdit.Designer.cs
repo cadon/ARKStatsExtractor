@@ -34,11 +34,14 @@
             this.nudId = new ARKBreedingStats.uiControls.Nud();
             this.nudIw = new ARKBreedingStats.uiControls.Nud();
             this.nudBase = new ARKBreedingStats.uiControls.Nud();
+            this.cbImprintingOverride = new System.Windows.Forms.CheckBox();
+            this.nudImprintingOverride = new ARKBreedingStats.uiControls.Nud();
             ((System.ComponentModel.ISupportInitialize)(this.nudTm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudId)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudIw)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBase)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudImprintingOverride)).BeginInit();
             this.SuspendLayout();
             // 
             // cbOverride
@@ -187,10 +190,36 @@
             this.nudBase.Size = new System.Drawing.Size(94, 20);
             this.nudBase.TabIndex = 0;
             // 
+            // cbImprintingOverride
+            // 
+            this.cbImprintingOverride.AutoSize = true;
+            this.cbImprintingOverride.Location = new System.Drawing.Point(627, 5);
+            this.cbImprintingOverride.Name = "cbImprintingOverride";
+            this.cbImprintingOverride.Size = new System.Drawing.Size(15, 14);
+            this.cbImprintingOverride.TabIndex = 6;
+            this.cbImprintingOverride.UseVisualStyleBackColor = true;
+            this.cbImprintingOverride.CheckedChanged += new System.EventHandler(this.cbImprintingOverride_CheckedChanged);
+            // 
+            // nudImprintingOverride
+            // 
+            this.nudImprintingOverride.DecimalPlaces = 2;
+            this.nudImprintingOverride.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudImprintingOverride.Location = new System.Drawing.Point(648, 3);
+            this.nudImprintingOverride.Name = "nudImprintingOverride";
+            this.nudImprintingOverride.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudImprintingOverride.Size = new System.Drawing.Size(52, 20);
+            this.nudImprintingOverride.TabIndex = 7;
+            // 
             // StatBaseValuesEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.nudImprintingOverride);
+            this.Controls.Add(this.cbImprintingOverride);
             this.Controls.Add(this.cbOverride);
             this.Controls.Add(this.nudTm);
             this.Controls.Add(this.nudTa);
@@ -198,12 +227,13 @@
             this.Controls.Add(this.nudIw);
             this.Controls.Add(this.nudBase);
             this.Name = "StatBaseValuesEdit";
-            this.Size = new System.Drawing.Size(596, 26);
+            this.Size = new System.Drawing.Size(703, 26);
             ((System.ComponentModel.ISupportInitialize)(this.nudTm)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTa)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudId)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudIw)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBase)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudImprintingOverride)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -217,5 +247,7 @@
         private uiControls.Nud nudTa;
         private uiControls.Nud nudTm;
         private System.Windows.Forms.CheckBox cbOverride;
+        private System.Windows.Forms.CheckBox cbImprintingOverride;
+        private uiControls.Nud nudImprintingOverride;
     }
 }

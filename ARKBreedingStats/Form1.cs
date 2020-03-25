@@ -17,7 +17,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using static ARKBreedingStats.settings.Settings;
 
 namespace ARKBreedingStats
@@ -2681,7 +2680,7 @@ namespace ARKBreedingStats
             }
             else if (e.Button == MouseButtons.Right)
             {
-                double imprintingFactorTorpor = speciesSelector1.SelectedSpecies.statImprintMult[(int)StatNames.Torpidity] * creatureCollection.serverMultipliers.BabyImprintingStatScaleMultiplier;
+                double imprintingFactorTorpor = speciesSelector1.SelectedSpecies.StatImprintMultipliers[(int)StatNames.Torpidity] * creatureCollection.serverMultipliers.BabyImprintingStatScaleMultiplier;
                 // set imprinting value so the set levels in the tester yield the value in the extractor
                 double imprintingBonus = imprintingFactorTorpor != 0
                                          ? (statIOs[(int)StatNames.Torpidity].Input / StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, (int)StatNames.Torpidity, testingIOs[(int)StatNames.Torpidity].LevelWild, 0, true, 1, 0) - 1) / imprintingFactorTorpor
