@@ -18,6 +18,7 @@ namespace ARKBreedingStats.uiControls
         private Creature _creature;
         private List<Creature> _females;
         private List<Creature> _males;
+        private int[] _speciesTopLevels;
         private Dictionary<string, string> _customReplacings;
         public Action<PatternEditor> OnReloadCustomReplacings;
 
@@ -26,12 +27,13 @@ namespace ARKBreedingStats.uiControls
             InitializeComponent();
         }
 
-        public PatternEditor(Creature creature, List<Creature> females, List<Creature> males, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback) : this()
+        public PatternEditor(Creature creature, List<Creature> females, List<Creature> males, int[] speciesTopLevels, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback) : this()
         {
             OnReloadCustomReplacings = reloadCallback;
             _creature = creature;
             _females = females;
             _males = males;
+            _speciesTopLevels = speciesTopLevels;
             _customReplacings = customReplacings;
             txtboxPattern.Text = Properties.Settings.Default.NamingPatterns?[namingPatternIndex] ?? string.Empty;
             txtboxPattern.SelectionStart = txtboxPattern.Text.Length;
@@ -268,7 +270,8 @@ namespace ARKBreedingStats.uiControls
 
         private static Dictionary<string, string> FunctionExplanations() => new Dictionary<string, string>()
         {
-            {"isTopStat", "{{#if: isTop<stat> | true | false }}, to check if a stat is a top stat (i.e. highest in library).\n{{#if: isTopHP | bestHP {hp} }}" },
+            {"isTopStat", "{{#if: isTop<stat> | true | false }}, to check if a stat is a top stat in that species (i.e. highest in library).\n{{#if: isTopHP | bestHP {hp} }}" },
+            {"isNewTopStat", "{{#if: isNewTop<stat> | true | false }}, to check if a stat is a top stat in that species (i.e. higher than the ones in the library).\n{{#if: isNewTopHP | newBestHP {hp} }}" },
             {"substring","{{#substring: text | start | length }}. Length can be ommited. If start is negative it takes the characters from the end.\n{{#substring: {species} | 0 | 4 }}"},
             {"replace","{{#replace: text | find | replaceBy }}\n{{#replace: {species} | Abberant | Ab }}"},
             {"customreplace","{{#customreplace: text }}. Replaces the text with a value saved in the file customReplacings.json.\nIf a second parameter is given, that is returned if the key is not available.\n{{#customreplace: {species} }}"},
@@ -319,7 +322,7 @@ namespace ARKBreedingStats.uiControls
 
         private void DisplayPreview()
         {
-            cbPreview.Text = NamePatterns.GenerateCreatureName(_creature, _females, _males, _customReplacings, false, -1, false, txtboxPattern.Text, false);
+            cbPreview.Text = NamePatterns.GenerateCreatureName(_creature, _females, _males, _speciesTopLevels, _customReplacings, false, -1, false, txtboxPattern.Text, false);
         }
     }
 }

@@ -2977,25 +2977,11 @@ namespace ARKBreedingStats
             Species species = speciesSelector1.SelectedSpecies;
             cr.Species = species;
             cr.RecalculateCreatureValues(creatureCollection.getWildLevelStep());
-            if (topLevels.ContainsKey(species))
-            {
-                for (int si = 0; si < Values.STATS_COUNT; si++)
-                {
-                    cr.topBreedingStats[si] = species.UsesStat(si) && cr.levelsWild[si] >= topLevels[species][si];
-                }
-            }
-            else
-            {
-                for (int si = 0; si < Values.STATS_COUNT; si++)
-                {
-                    cr.topBreedingStats[si] = species.UsesStat(si) && cr.levelsWild[si] > 0;
-                }
-            }
 
             if (openPatternEditor)
-                input.OpenNamePatternEditor(cr, customReplacingsNamingPattern, namingPatternIndex, ReloadNamePatternCustomReplacings);
+                input.OpenNamePatternEditor(cr, topLevels.ContainsKey(cr.Species) ? topLevels[species] : null, customReplacingsNamingPattern, namingPatternIndex, ReloadNamePatternCustomReplacings);
             else
-                input.GenerateCreatureName(cr, customReplacingsNamingPattern, showDuplicateNameWarning, namingPatternIndex);
+                input.GenerateCreatureName(cr, topLevels.ContainsKey(cr.Species) ? topLevels[species] : null, customReplacingsNamingPattern, showDuplicateNameWarning, namingPatternIndex);
         }
 
         private void ExtractionTestControl1_CopyToTester(string speciesBP, int[] wildLevels, int[] domLevels, bool postTamed, bool bred, double te, double imprintingBonus, bool gotoTester, testCases.TestCaseControl tcc)
@@ -3287,7 +3273,7 @@ namespace ARKBreedingStats
                     sameSpecies = creatureCollection.creatures.Where(c => c.Species == cr.Species).ToList();
 
                 // set new name
-                cr.name = NamePatterns.GenerateCreatureName(cr, sameSpecies, customReplacingsNamingPattern, false, 0);
+                cr.name = NamePatterns.GenerateCreatureName(cr, sameSpecies, topLevels.ContainsKey(cr.Species) ? topLevels[cr.Species] : null, customReplacingsNamingPattern, false, 0);
 
                 UpdateDisplayedCreatureValues(cr, false, false);
             }
