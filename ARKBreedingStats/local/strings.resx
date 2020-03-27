@@ -1001,4 +1001,10 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   <data name="speciesNotTameable" xml:space="preserve">
     <value>The selected species is not tameable. Maybe you have selected a non-tameable variant of a tameable species?</value>
   </data>
+  <data name="cbBPMutationLimitOnlyOnePartner" xml:space="preserve">
+    <value>One partner may have more mutations</value>
+  </data>
+  <data name="cbBPOnlyOneSuggestionForFemales" xml:space="preserve">
+    <value>Only best suggestion for females</value>
+  </data>
 </root>
