@@ -15,15 +15,16 @@ namespace ARKBreedingStats.mods
         public StatBaseValuesEdit()
         {
             InitializeComponent();
-            SetEnabled(false);
+            SetStatOverrideEnabled(false);
+            SetImprintingOverrideEnabled(false);
         }
 
         private void cbOverride_CheckedChanged(object sender, EventArgs e)
         {
-            SetEnabled(cbOverride.Checked);
+            SetStatOverrideEnabled(cbOverride.Checked);
         }
 
-        private void SetEnabled(bool enabled)
+        private void SetStatOverrideEnabled(bool enabled)
         {
             nudBase.Enabled = enabled;
             nudIw.Enabled = enabled;
@@ -32,37 +33,47 @@ namespace ARKBreedingStats.mods
             nudTm.Enabled = enabled;
         }
 
+        private void cbImprintingOverride_CheckedChanged(object sender, EventArgs e)
+        {
+            SetImprintingOverrideEnabled(cbImprintingOverride.Checked);
+        }
+
+        private void SetImprintingOverrideEnabled(bool enabled)
+        {
+            nudImprintingOverride.Enabled = enabled;
+        }
+
         public string StatName
         {
             set => cbOverride.Text = "Override " + value;
         }
 
-        internal void SetOverrides(double[] statOverrides, bool isOverridden = true)
+        internal void SetStatOverrides(double[] defaultValues, double?[] statOverrides = null)
         {
             if (statOverrides == null || statOverrides.Length < 5)
             {
                 cbOverride.Checked = false;
-                nudBase.ValueSave = 0;
-                nudIw.ValueSave = 0;
-                nudId.ValueSave = 0;
-                nudTa.ValueSave = 0;
-                nudTm.ValueSave = 0;
+                nudBase.ValueSave = (decimal)(defaultValues?[0] ?? 0);
+                nudIw.ValueSave = (decimal)(defaultValues?[1] ?? 0);
+                nudId.ValueSave = (decimal)(defaultValues?[2] ?? 0);
+                nudTa.ValueSave = (decimal)(defaultValues?[3] ?? 0);
+                nudTm.ValueSave = (decimal)(defaultValues?[4] ?? 0);
                 return;
             }
-            cbOverride.Checked = isOverridden;
-            nudBase.ValueSave = (decimal)statOverrides[0];
-            nudIw.ValueSave = (decimal)statOverrides[1];
-            nudId.ValueSave = (decimal)statOverrides[2];
-            nudTa.ValueSave = (decimal)statOverrides[3];
-            nudTm.ValueSave = (decimal)statOverrides[4];
+            cbOverride.Checked = true;
+            nudBase.ValueSave = (decimal)(statOverrides[0] ?? defaultValues?[0] ?? 0);
+            nudIw.ValueSave = (decimal)(statOverrides[1] ?? defaultValues?[1] ?? 0);
+            nudId.ValueSave = (decimal)(statOverrides[2] ?? defaultValues?[2] ?? 0);
+            nudTa.ValueSave = (decimal)(statOverrides[3] ?? defaultValues?[3] ?? 0);
+            nudTm.ValueSave = (decimal)(statOverrides[4] ?? defaultValues?[4] ?? 0);
         }
 
-        internal double[] Overrides
+        internal double?[] StatOverrides
         {
             get
             {
                 if (!cbOverride.Checked) return null;
-                return new double[]{
+                return new double?[]{
                     (double)nudBase.Value,
                     (double)nudIw.Value,
                     (double)nudId.Value,
@@ -70,6 +81,17 @@ namespace ARKBreedingStats.mods
                     (double)nudTm.Value
                 };
             }
+        }
+
+        internal double? ImprintingOverride
+        {
+            get => cbImprintingOverride.Checked ? (double)nudImprintingOverride.Value : default(double?);
+        }
+
+        internal void SetImprintingMultiplierOverride(double defaultImprintingMultiplier, double? overrideValue)
+        {
+            cbImprintingOverride.Checked = overrideValue.HasValue && overrideValue.Value != defaultImprintingMultiplier;
+            nudImprintingOverride.ValueSave = (decimal)(overrideValue ?? defaultImprintingMultiplier);
         }
     }
 }

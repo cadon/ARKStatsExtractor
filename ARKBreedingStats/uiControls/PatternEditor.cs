@@ -18,6 +18,7 @@ namespace ARKBreedingStats.uiControls
         private Creature _creature;
         private List<Creature> _females;
         private List<Creature> _males;
+        private int[] _speciesTopLevels;
         private Dictionary<string, string> _customReplacings;
         public Action<PatternEditor> OnReloadCustomReplacings;
 
@@ -26,12 +27,13 @@ namespace ARKBreedingStats.uiControls
             InitializeComponent();
         }
 
-        public PatternEditor(Creature creature, List<Creature> females, List<Creature> males, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback) : this()
+        public PatternEditor(Creature creature, List<Creature> females, List<Creature> males, int[] speciesTopLevels, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback) : this()
         {
             OnReloadCustomReplacings = reloadCallback;
             _creature = creature;
             _females = females;
             _males = males;
+            _speciesTopLevels = speciesTopLevels;
             _customReplacings = customReplacings;
             txtboxPattern.Text = Properties.Settings.Default.NamingPatterns?[namingPatternIndex] ?? string.Empty;
             txtboxPattern.SelectionStart = txtboxPattern.Text.Length;
@@ -56,7 +58,14 @@ namespace ARKBreedingStats.uiControls
             void SetControlsToTable(TableLayoutPanel tlp, Dictionary<string, string> nameExamples, bool columns = true, bool useExampleAsInput = false, int buttonWidth = 120)
             {
                 tlp.Dock = DockStyle.Fill;
+
+                // to deactivate the horizontal scrolling but keep the vertical scrolling,
+                // apparently that is the way to go ¯\_(ツ)_/¯
+                tlp.HorizontalScroll.Maximum = 0;
+                tlp.AutoScroll = false;
+                tlp.VerticalScroll.Visible = false;
                 tlp.AutoScroll = true;
+
                 tlp.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
                 tlp.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
                 int i = 0;
@@ -81,10 +90,10 @@ namespace ARKBreedingStats.uiControls
                     Label lbl = new Label
                     {
                         Dock = DockStyle.Fill,
-                        MinimumSize = new Size(50, 30),
-                        Text = useExampleAsInput ? p.Value.Substring(0, substringUntil) : p.Value + (examples.ContainsKey(p.Key) ? ". E.g. \"" + examples[p.Key] + "\"" : "")
+                        MinimumSize = new Size(50, 40),
+                        Text = useExampleAsInput ? p.Value.Substring(0, substringUntil) : p.Value + (examples.ContainsKey(p.Key) ? ". E.g. \"" + examples[p.Key] + "\"" : ""),
+                        Margin = new Padding(3, 3, 3, 5)
                     };
-                    lbl.Margin = new Padding(3, 3, 3, 5);
                     tlp.Controls.Add(lbl);
                     tlp.SetCellPosition(lbl, new TableLayoutPanelCellPosition(columns ? 1 : 0, columns ? i : ++i));
                     if (!columns)
@@ -261,10 +270,11 @@ namespace ARKBreedingStats.uiControls
 
         private static Dictionary<string, string> FunctionExplanations() => new Dictionary<string, string>()
         {
-            {"isTopStat", "{{#if: isTop<stat> | true | false }}, to check if a stat is a top stat (i.e. highest in library).\n{{#if: isTopHP | bestHP {hp} }}" },
+            {"isTopStat", "{{#if: isTop<stat> | true | false }}, to check if a stat is a top stat in that species (i.e. highest in library).\n{{#if: isTopHP | bestHP {hp} }}" },
+            {"isNewTopStat", "{{#if: isNewTop<stat> | true | false }}, to check if a stat is a top stat in that species (i.e. higher than the ones in the library).\n{{#if: isNewTopHP | newBestHP {hp} }}" },
             {"substring","{{#substring: text | start | length }}. Length can be ommited. If start is negative it takes the characters from the end.\n{{#substring: {species} | 0 | 4 }}"},
             {"replace","{{#replace: text | find | replaceBy }}\n{{#replace: {species} | Abberant | Ab }}"},
-            {"customreplace","{{#customreplace: text }}. Replaces the text with a value saved in the file customReplacings.json\n{{#customreplace: {species} }}"},
+            {"customreplace","{{#customreplace: text }}. Replaces the text with a value saved in the file customReplacings.json.\nIf a second parameter is given, that is returned if the key is not available.\n{{#customreplace: {species} }}"},
             {"float divide by","{{#float_div: number | divisor | formatString }}, can be used to display stat-values in thousands, e.g. '{{#float_div: {hp_vb} | 1000 | F2 }}kHP'.\n{{#float_div: {hp_vb} | 1000 | F2 }}"},
             {"divide by","{{#div: number | divisor }}, can be used to display stat-values in thousands, e.g. '{{#div: {hp_vb} | 1000 }}kHP'.\n{{#div: {hp_vb} | 1000 }}"},
             {"padleft","{{#padleft: number | length | padding character }}\n{{#padleft: {hp_vb} | 8 | 0 }}"},
@@ -312,7 +322,7 @@ namespace ARKBreedingStats.uiControls
 
         private void DisplayPreview()
         {
-            cbPreview.Text = NamePatterns.GenerateCreatureName(_creature, _females, _males, _customReplacings, false, -1, false, txtboxPattern.Text, false);
+            cbPreview.Text = NamePatterns.GenerateCreatureName(_creature, _females, _males, _speciesTopLevels, _customReplacings, false, -1, false, txtboxPattern.Text, false);
         }
     }
 }

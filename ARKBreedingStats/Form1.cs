@@ -17,7 +17,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using static ARKBreedingStats.settings.Settings;
 
 namespace ARKBreedingStats
@@ -658,16 +657,6 @@ namespace ARKBreedingStats
             n?.Select(0, n.Text.Length);
         }
 
-        private void creatureInfoInputExtractor_Add2Library_Clicked(CreatureInfoInput sender)
-        {
-            AddCreatureToCollection();
-        }
-
-        private void creatureInfoInputTester_Add2Library_Clicked(CreatureInfoInput sender)
-        {
-            AddCreatureToCollection(false);
-        }
-
         /// <summary>
         /// Recalculate cached values affected by global stat-multipliers.
         /// </summary>
@@ -684,7 +673,7 @@ namespace ARKBreedingStats
             raisingControl1.UpdateRaisingData();
 
             // apply level settings
-            creatureBoxListView.BarMaxLevel = creatureCollection.maxChartLevel;
+            creatureBoxListView.CreatureCollection = creatureCollection;
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 statIOs[s].barMaxLevel = creatureCollection.maxChartLevel;
@@ -2115,7 +2104,7 @@ namespace ARKBreedingStats
                     if (settingsfrm.LanguageChanged) setLocalizations();
                     autoSave = Properties.Settings.Default.autosave;
                     autoSaveMinutes = Properties.Settings.Default.autosaveMinutes;
-                    creatureBoxListView.maxDomLevel = creatureCollection.maxDomLevel;
+                    creatureBoxListView.CreatureCollection = creatureCollection;
                     fileSync.ChangeFile(currentFileName); // only to trigger the update, filename is not changed
 
                     bool enableExportWatcher = Utils.GetFirstImportExportFolder(out string exportFolderDefault)
@@ -2691,7 +2680,7 @@ namespace ARKBreedingStats
             }
             else if (e.Button == MouseButtons.Right)
             {
-                double imprintingFactorTorpor = speciesSelector1.SelectedSpecies.statImprintMult[(int)StatNames.Torpidity] * creatureCollection.serverMultipliers.BabyImprintingStatScaleMultiplier;
+                double imprintingFactorTorpor = speciesSelector1.SelectedSpecies.StatImprintMultipliers[(int)StatNames.Torpidity] * creatureCollection.serverMultipliers.BabyImprintingStatScaleMultiplier;
                 // set imprinting value so the set levels in the tester yield the value in the extractor
                 double imprintingBonus = imprintingFactorTorpor != 0
                                          ? (statIOs[(int)StatNames.Torpidity].Input / StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, (int)StatNames.Torpidity, testingIOs[(int)StatNames.Torpidity].LevelWild, 0, true, 1, 0) - 1) / imprintingFactorTorpor
@@ -2988,25 +2977,11 @@ namespace ARKBreedingStats
             Species species = speciesSelector1.SelectedSpecies;
             cr.Species = species;
             cr.RecalculateCreatureValues(creatureCollection.getWildLevelStep());
-            if (topLevels.ContainsKey(species))
-            {
-                for (int si = 0; si < Values.STATS_COUNT; si++)
-                {
-                    cr.topBreedingStats[si] = species.UsesStat(si) && cr.levelsWild[si] >= topLevels[species][si];
-                }
-            }
-            else
-            {
-                for (int si = 0; si < Values.STATS_COUNT; si++)
-                {
-                    cr.topBreedingStats[si] = species.UsesStat(si) && cr.levelsWild[si] > 0;
-                }
-            }
 
             if (openPatternEditor)
-                input.OpenNamePatternEditor(cr, customReplacingsNamingPattern, namingPatternIndex, ReloadNamePatternCustomReplacings);
+                input.OpenNamePatternEditor(cr, topLevels.ContainsKey(cr.Species) ? topLevels[species] : null, customReplacingsNamingPattern, namingPatternIndex, ReloadNamePatternCustomReplacings);
             else
-                input.GenerateCreatureName(cr, customReplacingsNamingPattern, showDuplicateNameWarning, namingPatternIndex);
+                input.GenerateCreatureName(cr, topLevels.ContainsKey(cr.Species) ? topLevels[species] : null, customReplacingsNamingPattern, showDuplicateNameWarning, namingPatternIndex);
         }
 
         private void ExtractionTestControl1_CopyToTester(string speciesBP, int[] wildLevels, int[] domLevels, bool postTamed, bool bred, double te, double imprintingBonus, bool gotoTester, testCases.TestCaseControl tcc)
@@ -3298,7 +3273,7 @@ namespace ARKBreedingStats
                     sameSpecies = creatureCollection.creatures.Where(c => c.Species == cr.Species).ToList();
 
                 // set new name
-                cr.name = NamePatterns.GenerateCreatureName(cr, sameSpecies, customReplacingsNamingPattern, false, 0);
+                cr.name = NamePatterns.GenerateCreatureName(cr, sameSpecies, topLevels.ContainsKey(cr.Species) ? topLevels[cr.Species] : null, customReplacingsNamingPattern, false, 0);
 
                 UpdateDisplayedCreatureValues(cr, false, false);
             }
@@ -3371,9 +3346,8 @@ namespace ARKBreedingStats
         private void copyInfographicToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (listViewLibrary.SelectedItems.Count == 0) return;
-            var bmp = (listViewLibrary.SelectedItems[0].Tag as Creature).InfoGraphic();
-            if (bmp != null)
-                Clipboard.SetImage(bmp);
+
+            (listViewLibrary.SelectedItems[0].Tag as Creature).ExportInfoGraphicToClipboard(creatureCollection);
         }
 
         private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)

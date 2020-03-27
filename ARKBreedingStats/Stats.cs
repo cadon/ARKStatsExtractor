@@ -28,9 +28,9 @@ namespace ARKBreedingStats
                     domMultAffinity *= tamingEff;
                 domMult = (tamingEff >= 0 ? (1 + domMultAffinity) : 1) * (1 + levelDom * species.stats[stat].IncPerTamedLevel);
                 if (imprintingBonus > 0
-                    && species.statImprintMult[stat] != 0
+                    && species.StatImprintMultipliers[stat] != 0
                     )
-                    imprintingM = 1 + species.statImprintMult[stat] * imprintingBonus * Values.V.currentServerMultipliers.BabyImprintingStatScaleMultiplier;
+                    imprintingM = 1 + species.StatImprintMultipliers[stat] * imprintingBonus * Values.V.currentServerMultipliers.BabyImprintingStatScaleMultiplier;
                 if (stat == 0)
                     tamedBaseHP = (float)species.TamedBaseHealthMultiplier;
             }

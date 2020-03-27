@@ -65,10 +65,10 @@ namespace ARKBreedingStats
                     + string.Join("\n- ", onlineAvailableModFiles)
                     : "")
                 + (unavailableModsExist ?
-                    "\n\nThe value files for the following mods are unknown. You probably manually need to create a mod-file to import the creatures depending on it.\n\n- "
+                    "\n\nThe value files for the following mods are unknown. Currently you cannot create a mod-values file manually. Check on the discord server of ASB the #mod-requests channel and ask for that mod, maybe we'll add support for it in the future.\n\n- "
                     + string.Join("\n- ", unavailableModFiles)
                     : ""),
-                "Unknown species", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                "ASB: Unknown species", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             if ((locallyAvailableModsExist || onlineAvailableModsExist)
                 && MessageBox.Show("Do you want to " + (onlineAvailableModsExist ? "download and " : "") + "add the values-files for the following mods to the library?\n\n- "

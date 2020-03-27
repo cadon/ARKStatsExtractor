@@ -146,7 +146,7 @@ namespace ARKBreedingStats
                         continue;
                     TimeSpan diff = t.time.Subtract(now);
                     if (updateTimer)
-                        t.lvi.SubItems[2].Text = diff.TotalSeconds > 0 ? diff.ToString("d':'hh':'mm':'ss") : "Finished";
+                        t.lvi.SubItems[2].Text = diff.TotalSeconds > 0 ? diff.ToString("dd':'hh':'mm':'ss") : "Finished";
                     if (!(diff.TotalSeconds >= 0))
                         continue;
                     if (diff.TotalSeconds < 60 && diff.TotalSeconds > 10)

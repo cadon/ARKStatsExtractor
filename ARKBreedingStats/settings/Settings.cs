@@ -35,7 +35,7 @@ namespace ARKBreedingStats.settings
             {
                 multSetter[s] = new MultiplierSetting
                 {
-                    StatName = $"{Utils.statName(s)} [{s}]"
+                    StatName = $"[{s}] {Utils.statName(s)}"
                 };
                 flowLayoutPanelStatMultipliers.Controls.Add(multSetter[s]);
             }
@@ -447,6 +447,9 @@ namespace ARKBreedingStats.settings
         {
             if (string.IsNullOrWhiteSpace(text)) return;
 
+            // ignore lines that start with a semicolon (comments)
+            text = Regex.Replace(text, @"(?:\A|[\r\n]+);[^\r\n]*", "");
+
             double d;
             Match m;
             var cultureForStrings = System.Globalization.CultureInfo.GetCultureInfo("en-US");
@@ -496,8 +499,8 @@ namespace ARKBreedingStats.settings
             ParseAndSetValue(nudMaxDomLevels, @"ASBMaxDomLevels_Dinos ?= ?(\d+)");
             ParseAndSetValue(nudMaxGraphLevel, @"ASBMaxGraphLevels ?= ?(\d+)");
             // extractor
-            ParseAndSetValue(nudWildLevelStep, @"ASBExtractorWildLevelSteps ?= ?(\d+)");
-            cbConsiderWildLevelSteps.Checked = nudWildLevelStep.Value != 1;
+            if (ParseAndSetValue(nudWildLevelStep, @"ASBExtractorWildLevelSteps ?= ?(\d+)"))
+                cbConsiderWildLevelSteps.Checked = nudWildLevelStep.Value != 1;
             ParseAndSetCheckbox(cbAllowMoreThanHundredImprinting, @"ASBAllowHyperImprinting ?= ?(true|false)");
 
             // event multipliers breeding
@@ -510,13 +513,15 @@ namespace ARKBreedingStats.settings
             ParseAndSetValue(nudTamingSpeedEvent, @"ASBEvent_TamingSpeedMultiplier ?= ?(\d*\.?\d+)");
             ParseAndSetValue(nudDinoCharacterFoodDrainEvent, @"ASBEvent_DinoCharacterFoodDrainMultiplier ?= ?(\d*\.?\d+)");
 
-            void ParseAndSetValue(uiControls.Nud _nud, string _regexPattern)
+            bool ParseAndSetValue(uiControls.Nud _nud, string _regexPattern)
             {
                 m = Regex.Match(text, _regexPattern);
                 if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, cultureForStrings, out d))
                 {
                     _nud.ValueSave = (decimal)d;
+                    return true;
                 }
+                return false;
             }
             void ParseAndSetCheckbox(CheckBox _cb, string _regexPattern)
             {

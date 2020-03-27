@@ -419,7 +419,7 @@ namespace ARKBreedingStats
             if (!keepCurrentSelections && creatureCollection.creatures.Any())
                 tabControlMain.SelectedTab = tabPageLibrary;
 
-            creatureBoxListView.maxDomLevel = creatureCollection.maxDomLevel;
+            creatureBoxListView.CreatureCollection = creatureCollection;
 
             UpdateCreatureListings();
 

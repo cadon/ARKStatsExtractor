@@ -14,18 +14,18 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// Generate a creature name with the naming pattern.
         /// </summary>
-        public static string GenerateCreatureName(Creature creature, List<Creature> females, List<Creature> males, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, int namingPatternIndex, bool showTooLongWarning = true, string pattern = null, bool displayError = true)
+        public static string GenerateCreatureName(Creature creature, List<Creature> females, List<Creature> males, int[] speciesTopLevels, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, int namingPatternIndex, bool showTooLongWarning = true, string pattern = null, bool displayError = true)
         {
             // collect creatures of the same species
             List<Creature> sameSpecies = (females ?? new List<Creature>()).Concat(males ?? new List<Creature>()).ToList();
 
-            return GenerateCreatureName(creature, sameSpecies, customReplacings, showDuplicateNameWarning, namingPatternIndex, showTooLongWarning, pattern, displayError);
+            return GenerateCreatureName(creature, sameSpecies, speciesTopLevels, customReplacings, showDuplicateNameWarning, namingPatternIndex, showTooLongWarning, pattern, displayError);
         }
 
         /// <summary>
         /// Generate a creature name with the naming pattern.
         /// </summary>
-        public static string GenerateCreatureName(Creature creature, List<Creature> sameSpecies, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, int namingPatternIndex, bool showTooLongWarning = true, string pattern = null, bool displayError = true)
+        public static string GenerateCreatureName(Creature creature, List<Creature> sameSpecies, int[] speciesTopLevels, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, int namingPatternIndex, bool showTooLongWarning = true, string pattern = null, bool displayError = true)
         {
             List<string> creatureNames = sameSpecies.Select(x => x.name).ToList();
             if (pattern == null)
@@ -39,8 +39,8 @@ namespace ARKBreedingStats.uiControls
             Dictionary<string, string> tokenDictionary = CreateTokenDictionary(creature, sameSpecies);
             // first resolve keys, then functions
             string name = ResolveFunctions(
-                ResolveKeysToValues(tokenDictionary, pattern.Replace("\r\n", string.Empty), 0),
-                creature, customReplacings, displayError, false);
+                ResolveKeysToValues(tokenDictionary, pattern.Replace("\r", string.Empty).Replace("\n", string.Empty), 0),
+                creature, speciesTopLevels, customReplacings, displayError, false);
 
             if (name.Contains("{n}"))
             {
@@ -52,7 +52,7 @@ namespace ARKBreedingStats.uiControls
                 {
                     numberedUniqueName = ResolveFunctions(
                         ResolveKeysToValues(tokenDictionary, name, n++),
-                        creature, customReplacings, displayError, true);
+                        creature, speciesTopLevels, customReplacings, displayError, true);
                 } while (creatureNames.Contains(numberedUniqueName, StringComparer.OrdinalIgnoreCase));
                 name = numberedUniqueName;
             }
@@ -78,17 +78,17 @@ namespace ARKBreedingStats.uiControls
         /// <param name="customReplacings">Dictionary of user defined replacings</param>
         /// <param name="displayError"></param>
         /// <returns></returns>
-        private static string ResolveFunctions(string pattern, Creature creature, Dictionary<string, string> customReplacings, bool displayError, bool processNumberField)
+        private static string ResolveFunctions(string pattern, Creature creature, int[] speciesTopLevels, Dictionary<string, string> customReplacings, bool displayError, bool processNumberField)
         {
             int nrFunctions = 0;
             int nrFunctionsAfterResolving = NrFunctions(pattern);
             // the second and third parameter are optional
-            Regex r = new Regex(@"\{\{#(\w+) *: *([^\|\{\}]+?) *(?:\| *([^\|\{\}]+?) *)?(?:\| *([^\|\{\}]+?) *)?\}\}", RegexOptions.IgnoreCase);
+            Regex r = new Regex(@"\{\{ *#(\w+) *: *([^\|\{\}]+?) *(?:\| *([^\|\{\}]+?) *)?(?:\| *([^\|\{\}]+?) *)?\}\}", RegexOptions.IgnoreCase);
             // resolve nested functions
             while (nrFunctions != nrFunctionsAfterResolving)
             {
                 nrFunctions = nrFunctionsAfterResolving;
-                pattern = r.Replace(pattern, (m) => ResolveFunction(m, creature, customReplacings, displayError, processNumberField));
+                pattern = r.Replace(pattern, (m) => ResolveFunction(m, creature, speciesTopLevels, customReplacings, displayError, processNumberField));
                 nrFunctionsAfterResolving = NrFunctions(pattern);
             }
             return pattern;
@@ -110,7 +110,7 @@ namespace ARKBreedingStats.uiControls
         /// <param name="displayError"></param>
         /// <param name="processNumberField">The number field {n} will add the lowest possible positive integer for the name to be unique. It has to be processed after all other functions.</param>
         /// <returns></returns>
-        private static string ResolveFunction(Match m, Creature creature, Dictionary<string, string> customReplacings, bool displayError, bool processNumberField)
+        private static string ResolveFunction(Match m, Creature creature, int[] speciesTopLevels, Dictionary<string, string> customReplacings, bool displayError, bool processNumberField)
         {
             // function parameters can be nonnumeric if numbers are parsed
             try
@@ -126,15 +126,31 @@ namespace ARKBreedingStats.uiControls
                     case "if":
                         // Group3 contains the result if true
                         // Group4 (optional) contains the result if false
-                        if (p1.Length != 7)
-                            return ParametersInvalid($"The condition-parameter expects exactly 7 characters, e.g. \"isTopHP\", given is \"{p1}\"");
+                        int p1Length = p1.Length;
+                        if (p1Length < 7)
+                            return ParametersInvalid($"The condition-parameter expects exactly 7 or 10 characters, e.g. \"isTopHP\" or \"isNewTopHP\", given is \"{p1}\"");
                         string conditional = p1.ToLower();
-                        if (conditional.Substring(0, 5) != "istop")
-                            return ParametersInvalid($"The condition-parameter \"{p1}\"is invalid. It has to start with \"isTop\" followed by a stat specifier, e.g. \"hp\"");
-                        int si = StatIndexFromAbbreviation(conditional.Substring(5, 2));
-                        if (si == -1)
-                            return ParametersInvalid($"Invalid stat name \"{p1}\".");
-                        return m.Groups[creature.topBreedingStats[si] ? 3 : 4].Value;
+                        if (p1Length == 7 && conditional.Substring(0, 5) == "istop")
+                        {
+                            int si = StatIndexFromAbbreviation(conditional.Substring(5, 2));
+                            if (si == -1)
+                                return ParametersInvalid($"Invalid stat name \"{p1}\".");
+                            return m.Groups[speciesTopLevels == null
+                                ? (creature.levelsWild[si] > 0 ? 3 : 4)
+                                : (creature.levelsWild[si] >= speciesTopLevels[si]
+                                ? 3 : 4)].Value;
+                        }
+                        else if (p1Length == 10 && conditional.Substring(0, 8) == "isnewtop")
+                        {
+                            int si = StatIndexFromAbbreviation(conditional.Substring(8, 2));
+                            if (si == -1)
+                                return ParametersInvalid($"Invalid stat name \"{p1}\".");
+                            return m.Groups[speciesTopLevels == null
+                                ? (creature.levelsWild[si] > 0 ? 3 : 4)
+                                : (creature.levelsWild[si] > speciesTopLevels[si]
+                                ? 3 : 4)].Value;
+                        }
+                        else return ParametersInvalid($"The condition-parameter \"{p1}\"is invalid. It has to start with \"isTop\" or \"isNewTop\" followed by a stat specifier, e.g. \"hp\"");
                     case "substring":
                         // check param number: 1: substring, 2: p1, 3: pos, 4: length
 
@@ -229,11 +245,11 @@ namespace ARKBreedingStats.uiControls
                             return p1;
                         return p1.Replace(m.Groups[3].Value.Replace("&nbsp;", " "), m.Groups[4].Value.Replace("&nbsp;", " "));
                     case "customreplace":
-                        // parameter: 1: customreplace, 2: text
+                        // parameter: 1: customreplace, 2: key, 3: return if key not available
                         if (customReplacings == null
                             || string.IsNullOrEmpty(p1)
                             || !customReplacings.ContainsKey(p1))
-                            return p1;
+                            return m.Groups[3].Value;
                         return customReplacings[p1];
                     case "time":
                         // parameter: 1: time, 2: format

@@ -10,12 +10,9 @@ namespace ARKBreedingStats
 {
     public partial class CreatureInfoInput : UserControl
     {
-        public delegate void Add2LibraryClickedEventHandler(CreatureInfoInput sender);
-        public event Add2LibraryClickedEventHandler Add2Library_Clicked;
-        public delegate void Save2LibraryClickedEventHandler(CreatureInfoInput sender);
-        public event Save2LibraryClickedEventHandler Save2Library_Clicked;
-        public delegate void RequestParentListEventHandler(CreatureInfoInput sender);
-        public event RequestParentListEventHandler ParentListRequested;
+        public event Action<CreatureInfoInput> Add2Library_Clicked;
+        public event Action<CreatureInfoInput> Save2Library_Clicked;
+        public event Action<CreatureInfoInput> ParentListRequested;
         public delegate void RequestCreatureDataEventHandler(CreatureInfoInput sender, bool openPatternEditor, bool showDuplicateNameWarning, int namingPatternIndex);
         public event RequestCreatureDataEventHandler CreatureDataRequested;
         public bool extractor;
@@ -470,16 +467,16 @@ namespace ARKBreedingStats
         /// <summary>
         /// Generates a creature name with a given pattern
         /// </summary>
-        public void GenerateCreatureName(Creature creature, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, int namingPatternIndex)
+        public void GenerateCreatureName(Creature creature, int[] speciesTopLevels, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, int namingPatternIndex)
         {
             SetCreatureData(creature);
-            CreatureName = uiControls.NamePatterns.GenerateCreatureName(creature, _females, _males, customReplacings, showDuplicateNameWarning, namingPatternIndex);
+            CreatureName = uiControls.NamePatterns.GenerateCreatureName(creature, _females, _males, speciesTopLevels, customReplacings, showDuplicateNameWarning, namingPatternIndex);
         }
 
-        public void OpenNamePatternEditor(Creature creature, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<uiControls.PatternEditor> reloadCallback)
+        public void OpenNamePatternEditor(Creature creature, int[] speciesTopLevels, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<uiControls.PatternEditor> reloadCallback)
         {
             SetCreatureData(creature);
-            using (var pe = new uiControls.PatternEditor(creature, _females, _males, customReplacings, namingPatternIndex, reloadCallback))
+            using (var pe = new uiControls.PatternEditor(creature, _females, _males, speciesTopLevels, customReplacings, namingPatternIndex, reloadCallback))
             {
                 if (Properties.Settings.Default.PatternEditorLocation.X > -100000)
                     pe.Location = Properties.Settings.Default.PatternEditorLocation;

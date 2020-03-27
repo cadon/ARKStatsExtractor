@@ -1067,5 +1067,17 @@ namespace ARKBreedingStats.Properties {
                 this["BreedingPlanOnlyBestSuggestionForEachFemale"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BreedingPlanOnePartnerMoreMutationsThanLimit {
+            get {
+                return ((bool)(this["BreedingPlanOnePartnerMoreMutationsThanLimit"]));
+            }
+            set {
+                this["BreedingPlanOnePartnerMoreMutationsThanLimit"] = value;
+            }
+        }
     }
 }
