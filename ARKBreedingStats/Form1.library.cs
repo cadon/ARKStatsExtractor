@@ -695,7 +695,7 @@ namespace ARKBreedingStats
 
             string[] subItems = new[]
                     {
-                            cr.name + (cr.status!=CreatureStatus.Available ? $" ({Utils.statusSymbol(cr.status)})" : ""),
+                            cr.name,
                             cr.owner,
                             cr.note,
                             cr.server,
@@ -717,9 +717,11 @@ namespace ARKBreedingStats
                 subItems = subItems.Concat(new string[6]).ToArray();
 
             // add the species and status and tribe
-            subItems = subItems.Concat(new[] { cr.Species.DescriptiveNameAndMod,
+            subItems = subItems.Concat(new[] { 
+                cr.Species.DescriptiveNameAndMod,
                 cr.status.ToString(),
-                cr.tribe
+                cr.tribe,
+                Utils.statusSymbol(cr.status, "") 
             }).ToArray();
 
             // check if we display group for species or not.

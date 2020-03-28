@@ -3247,7 +3247,13 @@ namespace ARKBreedingStats
         private void CopySelectedCreatureName()
         {
             if (listViewLibrary.SelectedItems.Count > 0)
-                Clipboard.SetText(((Creature)listViewLibrary.SelectedItems[0].Tag).name);
+            {
+                string name = ((Creature)listViewLibrary.SelectedItems[0].Tag).name;
+                Clipboard.Clear();
+                if (name != "")
+                    Clipboard.SetText(name);
+            }
+
         }
 
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
