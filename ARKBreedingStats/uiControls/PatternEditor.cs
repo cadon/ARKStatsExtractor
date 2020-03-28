@@ -247,6 +247,7 @@ namespace ARKBreedingStats.uiControls
                 { "sex_lang_gen", "sex (\"Male_gen\", \"Female_gen\", \"Unknown_gen\") by loc" },
                 { "sex_lang_short_gen", "\"Male_gen\", \"Female_gen\", \"Unknown_gen\" by loc(short)" },
 
+                { "topPercent", "Percentage of the considered stat levels compared to the top levels of the species in the library" },
                 { "baselvl", "Base-level (level without manually added ones), i.e. level right after taming / hatching" },
                 { "effImp", "Taming-effectiveness or Imprinting (if tamed / bred)" },
                 { "muta", "Mutations. Numbers larger than 99 will be displayed as 99" },

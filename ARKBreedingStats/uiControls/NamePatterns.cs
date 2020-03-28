@@ -36,6 +36,31 @@ namespace ARKBreedingStats.uiControls
                     pattern = Properties.Settings.Default.NamingPatterns?[namingPatternIndex] ?? string.Empty;
             }
 
+            if (creature.topness == 0)
+            {
+                if (speciesTopLevels == null)
+                {
+                    creature.topness = 1000;
+                }
+                else
+                {
+                    int topLevelSum = 0;
+                    int creatureLevelSum = 0;
+                    for (int s = 0; s < Values.STATS_COUNT; s++)
+                    {
+                        if (s != (int)StatNames.Torpidity && creature.Species.UsesStat(s))
+                        {
+                            int creatureLevel = Math.Max(0, creature.levelsWild[s]);
+                            topLevelSum += Math.Max(creatureLevel, speciesTopLevels[s]);
+                            creatureLevelSum += creatureLevel;
+                        }
+                    }
+                    if (topLevelSum != 0)
+                        creature.topness = (short)(creatureLevelSum * 1000f / topLevelSum);
+                    else creature.topness = 1000;
+                }
+            }
+
             Dictionary<string, string> tokenDictionary = CreateTokenDictionary(creature, sameSpecies);
             // first resolve keys, then functions
             string name = ResolveFunctions(
@@ -422,9 +447,9 @@ namespace ARKBreedingStats.uiControls
                 { "spcsNm", spcsNm },
                 { "firstWordOfOldest", firstWordOfOldest },
 
-                {"owner", creature.owner },
-                {"tribe", creature.tribe },
-                {"server", creature.server },
+                { "owner", creature.owner },
+                { "tribe", creature.tribe },
+                { "server", creature.server },
 
                 { "sex", creature.sex.ToString() },
                 { "sex_short", creature.sex.ToString().Substring(0, 1) },
@@ -463,6 +488,7 @@ namespace ARKBreedingStats.uiControls
                 { "sex_lang_gen",   Loc.s(creature.sex.ToString() + "_gen") },
                 { "sex_lang_short_gen", Loc.s(creature.sex.ToString() + "_gen").Substring(0, 1) },
 
+                { "topPercent" , (creature.topness / 10f).ToString() },
                 { "baselvl" , baselvl },
                 { "effImp" , effImp },
                 { "muta", mutas},
