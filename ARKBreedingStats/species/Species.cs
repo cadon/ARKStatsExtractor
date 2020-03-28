@@ -62,7 +62,11 @@ namespace ARKBreedingStats.species
         /// Indicates the multipliers for each stat applied to the imprinting-bonus
         /// </summary>
         [JsonProperty]
-        public double[] statImprintMult;
+        private double[] statImprintMult;
+        /// <summary>
+        /// Custom override for stat imprinting multipliers.
+        /// </summary>
+        private double[] statImprintMultOverride;
         [JsonProperty]
         public List<ColorRegion> colors; // every species has up to 6 colorregions
         [JsonProperty]
@@ -165,6 +169,54 @@ namespace ARKBreedingStats.species
         {
             for (int i = 0; i < COLOR_REGION_COUNT; i++)
                 colors[i]?.Initialize(arkColors);
+        }
+
+        /// <summary>
+        /// Indicates the multipliers for each stat applied to the imprinting-bonus.
+        /// To override the multipliers, set the value to a custom array.
+        /// </summary>
+        public double[] StatImprintMultipliers
+        {
+            get => statImprintMultOverride ?? statImprintMult;
+        }
+
+        /// <summary>
+        /// The default stat imprinting multipliers.
+        /// </summary>
+        public double[] StatImprintingMultipliersDefault => statImprintMult;
+
+        /// <summary>
+        /// Sets the stat imprinting multipliers to custom values. If null is passed, the default values are used.
+        /// </summary>
+        /// <param name="overrides"></param>
+        public void SetCustomImprintingMultipliers(double?[] overrides)
+        {
+            if (overrides == null)
+            {
+                statImprintMultOverride = null;
+                return;
+            }
+
+            // if a value if null, use the default value
+            double[] overrideValues = new double[Values.STATS_COUNT];
+
+            // if value is equal to default, set override to null
+            bool isEqual = true;
+            for (int s = 0; s < Values.STATS_COUNT; s++)
+            {
+                if (overrides[s] == null)
+                {
+                    overrideValues[s] = statImprintMult[s];
+                    continue;
+                }
+                overrideValues[s] = overrides[s] ?? 0;
+                if (statImprintMult[s] != overrideValues[s])
+                {
+                    isEqual = false;
+                }
+            }
+            if (isEqual) statImprintMultOverride = null;
+            else statImprintMultOverride = overrideValues;
         }
 
         /// <summary>

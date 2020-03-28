@@ -71,15 +71,13 @@ namespace ARKBreedingStats.mods
             if (!(lvSpecies.SelectedItems[0].Tag is Species species)) return;
             selectedSpecies = species;
 
-            double[][] overrides = cc?.CustomSpeciesStats?.ContainsKey(selectedSpecies.blueprintPath) ?? false ? cc.CustomSpeciesStats[selectedSpecies.blueprintPath] : null;
+            double?[][] overrides = cc?.CustomSpeciesStats?.ContainsKey(selectedSpecies.blueprintPath) ?? false ? cc.CustomSpeciesStats[selectedSpecies.blueprintPath] : null;
 
             // set control values to overridden values or to default values.
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                if (overrides?[s] != null)
-                    overrideEdits[s].SetOverrides(overrides[s]);
-                else
-                    overrideEdits[s].SetOverrides(selectedSpecies.fullStatsRaw[s], false);
+                overrideEdits[s].SetStatOverrides(selectedSpecies.fullStatsRaw[s], overrides?[s]);
+                overrideEdits[s].SetImprintingMultiplierOverride(selectedSpecies.StatImprintingMultipliersDefault[s], overrides != null && overrides.Length > Values.STATS_COUNT ? overrides[Values.STATS_COUNT]?[s] : null);
             }
             ResumeLayout();
         }
@@ -99,21 +97,35 @@ namespace ARKBreedingStats.mods
         private void btSaveOverride_Click(object sender, EventArgs e)
         {
             if (cc == null) return;
-            if (cc.CustomSpeciesStats == null) cc.CustomSpeciesStats = new Dictionary<string, double[][]>();
+            if (cc.CustomSpeciesStats == null) cc.CustomSpeciesStats = new Dictionary<string, double?[][]>();
             if (!cc.CustomSpeciesStats.ContainsKey(selectedSpecies.blueprintPath))
-                cc.CustomSpeciesStats.Add(selectedSpecies.blueprintPath, new double[Values.STATS_COUNT][]);
+                cc.CustomSpeciesStats.Add(selectedSpecies.blueprintPath, new double?[Values.STATS_COUNT + 1][]);
 
-            var overrides = cc.CustomSpeciesStats[selectedSpecies.blueprintPath];
-
-            bool hasOverride = false;
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            // if current array doesn't consider statImprintingMultipliers, add an element
+            if (cc.CustomSpeciesStats[selectedSpecies.blueprintPath].Length == Values.STATS_COUNT)
             {
-                overrides[s] = overrideEdits[s].Overrides;
-                if (overrides[s] != null) hasOverride = true;
+                cc.CustomSpeciesStats[selectedSpecies.blueprintPath] = cc.CustomSpeciesStats[selectedSpecies.blueprintPath].Append(null).ToArray();
             }
 
+            var overrides = cc.CustomSpeciesStats[selectedSpecies.blueprintPath];
+            double?[] imprintingOverrides = new double?[Values.STATS_COUNT];
+
+            bool hasOverride = false;
+            bool hasImprintingOverride = false;
+            for (int s = 0; s < Values.STATS_COUNT; s++)
+            {
+                overrides[s] = overrideEdits[s].StatOverrides;
+                if (overrides[s] != null) hasOverride = true;
+
+                // stat imprinting multipliers
+                imprintingOverrides[s] = overrideEdits[s].ImprintingOverride;
+                if (imprintingOverrides[s] != null) hasImprintingOverride = true;
+            }
+
+            cc.CustomSpeciesStats[selectedSpecies.blueprintPath][Values.STATS_COUNT] = hasImprintingOverride ? imprintingOverrides : null;
+
             if (lvSpecies.SelectedItems.Count != 0)
-                lvSpecies.SelectedItems[0].BackColor = RowBackColor(hasOverride);
+                lvSpecies.SelectedItems[0].BackColor = RowBackColor(hasOverride || hasImprintingOverride);
             StatOverridesChanged = true;
         }
 
@@ -135,7 +147,7 @@ namespace ARKBreedingStats.mods
             })
             {
                 if (dlg.ShowDialog() != DialogResult.OK) return;
-                if (!FileService.LoadJSONFile(dlg.FileName, out Dictionary<string, double[][]> dict, out string error))
+                if (!FileService.LoadJSONFile(dlg.FileName, out Dictionary<string, double?[][]> dict, out string error))
                 {
                     MessageBox.Show(error, "Error loading file", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;

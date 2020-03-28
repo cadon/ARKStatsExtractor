@@ -147,6 +147,7 @@ namespace ARKBreedingStats
             this.parentComboBoxFather.FormattingEnabled = true;
             this.parentComboBoxFather.Location = new System.Drawing.Point(49, 41);
             this.parentComboBoxFather.Name = "parentComboBoxFather";
+            this.parentComboBoxFather.PreselectedCreatureGuid = new System.Guid("00000000-0000-0000-0000-000000000000");
             this.parentComboBoxFather.Size = new System.Drawing.Size(124, 21);
             this.parentComboBoxFather.TabIndex = 39;
             // 
@@ -157,6 +158,7 @@ namespace ARKBreedingStats
             this.parentComboBoxMother.FormattingEnabled = true;
             this.parentComboBoxMother.Location = new System.Drawing.Point(49, 19);
             this.parentComboBoxMother.Name = "parentComboBoxMother";
+            this.parentComboBoxMother.PreselectedCreatureGuid = new System.Guid("00000000-0000-0000-0000-000000000000");
             this.parentComboBoxMother.Size = new System.Drawing.Size(124, 21);
             this.parentComboBoxMother.TabIndex = 38;
             // 
@@ -279,6 +281,7 @@ namespace ARKBreedingStats
             this.pictureBox1.Size = new System.Drawing.Size(128, 128);
             this.pictureBox1.TabIndex = 19;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // labelNotes
             // 

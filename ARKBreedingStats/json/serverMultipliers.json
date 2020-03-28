@@ -76,6 +76,12 @@
       "MatingIntervalMultiplier": 0.5,
       "EggHatchSpeedMultiplier": 2,
       "BabyMatureSpeedMultiplier": 2
+    },
+    "Conquest": {
+      "TamingSpeedMultiplier": 2,
+      "MatingIntervalMultiplier": 0.5,
+      "EggHatchSpeedMultiplier": 2,
+      "BabyMatureSpeedMultiplier": 2
     }
   }
 }

@@ -219,7 +219,7 @@ namespace ARKBreedingStats.multiplierTesting
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
                     statControls[s].SetStatValues(selectedSpecies.fullStatsRaw[s]);
-                    statControls[s].StatImprintingBonusMultiplier = selectedSpecies.statImprintMult[s];
+                    statControls[s].StatImprintingBonusMultiplier = selectedSpecies.StatImprintMultipliers[s];
                     statControls[s].Visible = species.UsesStat(s);
                 }
                 statControls[(int)StatNames.Health].TBHM = selectedSpecies.TamedBaseHealthMultiplier;

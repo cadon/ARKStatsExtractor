@@ -79,6 +79,8 @@ namespace ARKBreedingStats
             cbOwnerFilterLibrary.Checked = Properties.Settings.Default.UseOwnerFilterForBreedingPlan;
             cbBPIncludeCooldowneds.Checked = Properties.Settings.Default.IncludeCooldownsInBreedingPlan;
             cbBPIncludeCryoCreatures.Checked = Properties.Settings.Default.IncludeCryoedInBreedingPlan;
+            cbBPOnlyOneSuggestionForFemales.Checked = Properties.Settings.Default.BreedingPlanOnlyBestSuggestionForEachFemale;
+            cbBPMutationLimitOnlyOnePartner.Checked = Properties.Settings.Default.BreedingPlanOnePartnerMoreMutationsThanLimit;
 
             tagSelectorList1.OnTagChanged += TagSelectorList1_OnTagChanged;
             updateBreedingPlanAllowed = true;
@@ -166,7 +168,7 @@ namespace ARKBreedingStats
             breedingPlanNeedsUpdate = false;
         }
 
-        private List<Creature> FilterByTags(List<Creature> cl)
+        private List<Creature> FilterByTags(IEnumerable<Creature> cl)
         {
             List<string> excludingTagList = tagSelectorList1.excludingTags;
             List<string> includingTagList = tagSelectorList1.includingTags;
@@ -205,7 +207,7 @@ namespace ARKBreedingStats
                 }
                 return filteredList;
             }
-            return cl;
+            return cl.ToList();
         }
 
         /// <summary>
@@ -246,15 +248,19 @@ namespace ARKBreedingStats
             // chosen Creature (only consider this one for its sex)
             bool considerChosenCreature = chosenCreature != null;
 
+            bool considerMutationLimit = nudBPMutationLimit.Value >= 0;
+
             // filter by tags
             int crCountF = females.Count;
             int crCountM = males.Count;
             List<Creature> chosenF, chosenM;
             if (considerChosenCreature && chosenCreature.sex == Sex.Female)
                 chosenF = new List<Creature>();
+            else if (!cbBPMutationLimitOnlyOnePartner.Checked && considerMutationLimit) chosenF = FilterByTags(females.Where(c => c.Mutations <= nudBPMutationLimit.Value));
             else chosenF = FilterByTags(females);
             if (considerChosenCreature && chosenCreature.sex == Sex.Male)
                 chosenM = new List<Creature>();
+            else if (!cbBPMutationLimitOnlyOnePartner.Checked && considerMutationLimit) chosenM = FilterByTags(males.Where(c => c.Mutations <= nudBPMutationLimit.Value));
             else chosenM = FilterByTags(males);
 
             // filter by servers
@@ -320,7 +326,6 @@ namespace ARKBreedingStats
 
                 breedingPairs.Clear();
                 short[] bestPossLevels = new short[Values.STATS_COUNT]; // best possible levels
-                bool considerMutationLimit = nudBPMutationLimit.Value >= 0;
 
                 for (int fi = 0; fi < chosenF.Count; fi++)
                 {
@@ -451,7 +456,7 @@ namespace ARKBreedingStats
 
                 breedingPairs = breedingPairs.OrderByDescending(p => p.BreedingScore).ToList();
 
-                if (Properties.Settings.Default.BreedingPlanOnlyBestSuggestionForEachFemale)
+                if (cbBPOnlyOneSuggestionForFemales.Checked)
                 {
                     var onlyOneSuggestionPerFemale = new List<BreedingPair>();
                     foreach (var bp in breedingPairs)
@@ -1069,6 +1074,8 @@ namespace ARKBreedingStats
             Loc.ControlText(gbBPBreedingMode);
             Loc.ControlText(lbBPBreedingTimes);
             Loc.ControlText(btBPJustMated);
+            Loc.ControlText(cbBPOnlyOneSuggestionForFemales);
+            Loc.ControlText(cbBPMutationLimitOnlyOnePartner);
             columnHeader2.Text = Loc.s("Time");
             columnHeader3.Text = Loc.s("TotalTime");
             columnHeader4.Text = Loc.s("FinishedAt");
@@ -1104,7 +1111,13 @@ namespace ARKBreedingStats
 
         private void cbOnlyOneSuggestionForFemales_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.BreedingPlanOnlyBestSuggestionForEachFemale = cbOnlyOneSuggestionForFemales.Checked;
+            Properties.Settings.Default.BreedingPlanOnlyBestSuggestionForEachFemale = cbBPOnlyOneSuggestionForFemales.Checked;
+            CalculateBreedingScoresAndDisplayPairs();
+        }
+
+        private void cbMutationLimitOnlyOnePartner_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.BreedingPlanOnePartnerMoreMutationsThanLimit = cbBPMutationLimitOnlyOnePartner.Checked;
             CalculateBreedingScoresAndDisplayPairs();
         }
     }

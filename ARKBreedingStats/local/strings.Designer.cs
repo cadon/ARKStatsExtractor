@@ -443,6 +443,24 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to One partner may have more mutations.
+        /// </summary>
+        internal static string cbBPMutationLimitOnlyOnePartner {
+            get {
+                return ResourceManager.GetString("cbBPMutationLimitOnlyOnePartner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only best suggestion for females.
+        /// </summary>
+        internal static string cbBPOnlyOneSuggestionForFemales {
+            get {
+                return ResourceManager.GetString("cbBPOnlyOneSuggestionForFemales", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check if all creatures should be excluded and only be included when have the include-mark on their tag.
         ///If this checkbox is unchecked, all creatures will be included by default, and only excluded if one of their tags has the exclude-mark and none has the include-mark..
         /// </summary>

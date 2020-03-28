@@ -441,7 +441,7 @@ namespace ARKBreedingStats.values
                 if (applyStatMultipliers)
                 {
                     bool customOverrideExists = cc.CustomSpeciesStats?.ContainsKey(sp.blueprintPath) ?? false;
-                    double[][] customFullStatsRaw = customOverrideExists ? cc.CustomSpeciesStats[sp.blueprintPath] : null;
+                    double?[][] customFullStatsRaw = customOverrideExists ? cc.CustomSpeciesStats[sp.blueprintPath] : null;
 
                     // stat-multiplier
                     for (int s = 0; s < STATS_COUNT; s++)
@@ -470,10 +470,14 @@ namespace ARKBreedingStats.values
 
                         double GetRawStatValue(int statIndex, int statValueTypeIndex, bool customOverride)
                         {
-                            return customOverride ? customFullStatsRaw[statIndex][statValueTypeIndex] : sp.fullStatsRaw[statIndex][statValueTypeIndex];
+                            return customOverride && customFullStatsRaw[statIndex][statValueTypeIndex].HasValue ? customFullStatsRaw[statIndex][statValueTypeIndex].Value : sp.fullStatsRaw[statIndex][statValueTypeIndex];
                         }
                     }
+
+                    // imprinting multiplier override
+                    sp.SetCustomImprintingMultipliers(customOverrideExists && cc.CustomSpeciesStats[sp.blueprintPath].Length > Values.STATS_COUNT ? cc.CustomSpeciesStats[sp.blueprintPath][Values.STATS_COUNT] : null);
                 }
+
                 // breeding multiplier
                 if (sp.breeding == null)
                     continue;

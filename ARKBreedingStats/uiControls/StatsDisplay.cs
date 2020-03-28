@@ -9,8 +9,8 @@ namespace ARKBreedingStats.uiControls
     {
         private readonly StatDisplay[] stats;
         private readonly ToolTip tt = new ToolTip();
-        private static int[] displayedStats;
-        private static int displayedStatsCount;
+        private readonly int[] displayedStats;
+        private readonly int displayedStatsCount;
 
         public StatsDisplay()
         {
@@ -54,7 +54,7 @@ namespace ARKBreedingStats.uiControls
             SuspendLayout();
 
             bool glowSpecies = creature.Species.IsGlowSpecies;
-            for (int s = 0; s < displayedStats.Length; s++)
+            for (int s = 0; s < displayedStatsCount; s++)
             {
                 int si = displayedStats[s];
                 stats[s].GlowSpecies = glowSpecies;
@@ -70,7 +70,7 @@ namespace ARKBreedingStats.uiControls
         {
             set
             {
-                for (int s = 0; s < 8; s++)
+                for (int s = 0; s < displayedStatsCount; s++)
                 {
                     stats[s].barMaxLevel = value;
                 }
@@ -79,7 +79,7 @@ namespace ARKBreedingStats.uiControls
 
         public void Clear()
         {
-            for (int s = 0; s < 8; s++)
+            for (int s = 0; s < displayedStatsCount; s++)
             {
                 stats[s].setNumbers(0, 0, 0, 0);
             }
