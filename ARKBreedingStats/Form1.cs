@@ -3236,7 +3236,7 @@ namespace ARKBreedingStats
                 DoOCR(files[0]);
         }
 
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        private void toolStripMenuItemCopyCreatureName_Click(object sender, EventArgs e)
         {
             CopySelectedCreatureName();
         }
@@ -3249,11 +3249,11 @@ namespace ARKBreedingStats
             if (listViewLibrary.SelectedItems.Count > 0)
             {
                 string name = ((Creature)listViewLibrary.SelectedItems[0].Tag).name;
-                Clipboard.Clear();
-                if (name != "")
+                if (string.IsNullOrEmpty(name))
+                    Clipboard.Clear();
+                else
                     Clipboard.SetText(name);
             }
-
         }
 
         private void toolStripMenuItem5_Click(object sender, EventArgs e)

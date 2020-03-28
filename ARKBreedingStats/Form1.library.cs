@@ -717,11 +717,11 @@ namespace ARKBreedingStats
                 subItems = subItems.Concat(new string[6]).ToArray();
 
             // add the species and status and tribe
-            subItems = subItems.Concat(new[] { 
+            subItems = subItems.Concat(new[] {
                 cr.Species.DescriptiveNameAndMod,
                 cr.status.ToString(),
                 cr.tribe,
-                Utils.statusSymbol(cr.status, "") 
+                Utils.statusSymbol(cr.status, string.Empty)
             }).ToArray();
 
             // check if we display group for species or not.

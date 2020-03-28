@@ -2598,7 +2598,7 @@ namespace ARKBreedingStats
             this.toolStripMenuItemCopyCreatureName.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
             this.toolStripMenuItemCopyCreatureName.Size = new System.Drawing.Size(258, 22);
             this.toolStripMenuItemCopyCreatureName.Text = "Copy creature Name";
-            this.toolStripMenuItemCopyCreatureName.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            this.toolStripMenuItemCopyCreatureName.Click += new System.EventHandler(this.toolStripMenuItemCopyCreatureName_Click);
             // 
             // toolStripSeparator9
             // 
