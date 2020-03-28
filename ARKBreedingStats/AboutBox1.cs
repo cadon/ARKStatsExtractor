@@ -103,6 +103,7 @@ namespace ARKBreedingStats
 * tsebring (naming-generator, fixes)
 * maxime-paquatte (custom timer sounds)
 * hallipr (FTP savefile import)
+* EmkioA (Cryopod import, listView tweaks)
 * dunger (fixes)
 
 Translations:
