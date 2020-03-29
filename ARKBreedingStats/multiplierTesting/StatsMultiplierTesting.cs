@@ -274,7 +274,14 @@ namespace ARKBreedingStats.multiplierTesting
 
             nudCreatureLevel.Value = level > totalLevel ? level : totalLevel;
 
-            // check if the currently set multipliers are the ones of the cc-settings, if not, display a warning button
+            CheckIfMultipliersAreEqualToSettings();
+        }
+
+        /// <summary>
+        /// Checks if the currently set multipliers are the ones of the creatureCollection-settings. If not display a warning button.
+        /// </summary>
+        internal void CheckIfMultipliersAreEqualToSettings()
+        {
             bool showWarning = false;
             if (cc?.serverMultipliers?.statMultipliers != null)
             {

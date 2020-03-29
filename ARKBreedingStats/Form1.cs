@@ -2113,6 +2113,8 @@ namespace ARKBreedingStats
 
                     InitializeSpeechRecognition();
                     overlay?.SetInfoPositions();
+                    if (Properties.Settings.Default.DevTools)
+                        statsMultiplierTesting1.CheckIfMultipliersAreEqualToSettings();
 
                     SetCollectionChanged(true);
                 }

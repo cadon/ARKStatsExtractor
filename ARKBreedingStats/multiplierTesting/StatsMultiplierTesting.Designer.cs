@@ -34,6 +34,7 @@
             this.cbUpdateOnSpeciesChange = new System.Windows.Forms.CheckBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.cbSingleplayerSettings = new System.Windows.Forms.CheckBox();
+            this.btUseMultipliersFromSettings = new System.Windows.Forms.Button();
             this.llStatCalculation = new System.Windows.Forms.LinkLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rbBred = new System.Windows.Forms.RadioButton();
@@ -85,7 +86,6 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.setAllWildLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btUseMultipliersFromSettings = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -177,11 +177,23 @@
             this.cbSingleplayerSettings.UseVisualStyleBackColor = true;
             this.cbSingleplayerSettings.CheckedChanged += new System.EventHandler(this.cbSingleplayerSettings_CheckedChanged);
             // 
+            // btUseMultipliersFromSettings
+            // 
+            this.btUseMultipliersFromSettings.BackColor = System.Drawing.Color.LightSalmon;
+            this.btUseMultipliersFromSettings.Location = new System.Drawing.Point(511, 3);
+            this.btUseMultipliersFromSettings.Name = "btUseMultipliersFromSettings";
+            this.btUseMultipliersFromSettings.Size = new System.Drawing.Size(256, 44);
+            this.btUseMultipliersFromSettings.TabIndex = 12;
+            this.btUseMultipliersFromSettings.Text = "The current multipliers here are different from the settings. Click to use the on" +
+    "es of the settings.";
+            this.btUseMultipliersFromSettings.UseVisualStyleBackColor = false;
+            this.btUseMultipliersFromSettings.Click += new System.EventHandler(this.btUseMultipliersFromSettings_Click);
+            // 
             // llStatCalculation
             // 
             this.llStatCalculation.AutoSize = true;
             this.flowLayoutPanel1.SetFlowBreak(this.llStatCalculation, true);
-            this.llStatCalculation.Location = new System.Drawing.Point(725, 16);
+            this.llStatCalculation.Location = new System.Drawing.Point(773, 16);
             this.llStatCalculation.Margin = new System.Windows.Forms.Padding(3, 16, 3, 0);
             this.llStatCalculation.Name = "llStatCalculation";
             this.llStatCalculation.Size = new System.Drawing.Size(160, 13);
@@ -709,17 +721,6 @@
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Text = "Set all Dom levels to the closest value";
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Click += new System.EventHandler(this.setAllDomLevelsToTheClosestValueToolStripMenuItem_Click);
-            // 
-            // btUseMultipliersFromSettings
-            // 
-            this.btUseMultipliersFromSettings.BackColor = System.Drawing.Color.LightSalmon;
-            this.btUseMultipliersFromSettings.Location = new System.Drawing.Point(511, 3);
-            this.btUseMultipliersFromSettings.Name = "btUseMultipliersFromSettings";
-            this.btUseMultipliersFromSettings.Size = new System.Drawing.Size(208, 44);
-            this.btUseMultipliersFromSettings.TabIndex = 12;
-            this.btUseMultipliersFromSettings.Text = "The current multipliers are different from the settings. Click to use them.";
-            this.btUseMultipliersFromSettings.UseVisualStyleBackColor = false;
-            this.btUseMultipliersFromSettings.Click += new System.EventHandler(this.btUseMultipliersFromSettings_Click);
             // 
             // StatsMultiplierTesting
             // 
