@@ -44,11 +44,16 @@ namespace ARKBreedingStats.species
                             (double)colorValues[3],
                             })
                         { id = idStart };
-                        if (!colorsByHash.ContainsKey(ac.hash))
-                            colorsByHash.Add(ac.hash, ac);
-                        if (!colorsByName.ContainsKey(ac.name))
-                            colorsByName.Add(ac.name, ac);
-                        colorsList.Add(ac);
+
+                        // add color to lists if it is valid
+                        if (ac.arkRgba != null)
+                        {
+                            if (!colorsByHash.ContainsKey(ac.hash))
+                                colorsByHash.Add(ac.hash, ac);
+                            if (!colorsByName.ContainsKey(ac.name))
+                                colorsByName.Add(ac.name, ac);
+                            colorsList.Add(ac);
+                        }
                     }
                     idStart++;
                 }
@@ -78,36 +83,48 @@ namespace ARKBreedingStats.species
         }
 
         /// <summary>
-        /// Returns the ARK-id of the color that is closest to the rgb values.
+        /// Returns the ARK-id of the color that is closest to the sRGB values.
         /// </summary>
-        public int ClosestColorID(double r, double g, double b)
-        {
-            return ClosestColor(r, g, b).id;
-        }
+        public int ClosestColorID(double r, double g, double b, double a)
+            => ClosestColor(r, g, b, a).id;
 
-        public ARKColor ClosestColor(double r, double g, double b)
+        /// <summary>
+        /// Returns the ARKColor that is closest to the given argb (sRGB) values.
+        /// </summary>
+        /// <param name="r"></param>
+        /// <param name="g"></param>
+        /// <param name="b"></param>
+        /// <param name="a"></param>
+        /// <returns></returns>
+        public ARKColor ClosestColor(double r, double g, double b, double a)
         {
-            int hash = ARKColor.ColorHashCode(r, g, b);
+            int hash = ARKColor.ColorHashCode(r, g, b, a);
             ARKColor ac = ByHash(hash);
-            if (ac.name != "unknown") return ac;
+            if (ac.id != 0) return ac;
 
-            return ClosestColorFromRGB(r, g, b);
-        }
-
-        private ARKColor ClosestColorFromRGB(double r, double g, double b)
-        {
-            return colorsList.OrderBy(n => ColorDifference(n.arkRgb, r, g, b)).First();
+            return ClosestColorFromRGB(r, g, b, a);
         }
 
         /// <summary>
-        /// Distance in RGB space
+        /// Returns the ARKColor that is closest to the given sRGB-values.
+        /// </summary>
+        /// <param name="r"></param>
+        /// <param name="g"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        private ARKColor ClosestColorFromRGB(double r, double g, double b, double a)
+            => colorsList.OrderBy(n => ColorDifference(n.arkRgba, r, g, b, a)).First();
+
+        /// <summary>
+        /// Distance in sRGB space
         /// </summary>
         /// <returns></returns>
-        private static double ColorDifference(double[] rgb, double r, double g, double b)
-        {
-            return Math.Sqrt((rgb[0] - r) * (rgb[0] - r)
-                                + (rgb[1] - g) * (rgb[1] - g)
-                                + (rgb[2] - b) * (rgb[2] - b));
-        }
+        private static double ColorDifference(double[] srgb, double r, double g, double b, double a)
+            => srgb == null ? int.MaxValue
+            : Math.Sqrt((srgb[0] - r) * (srgb[0] - r)
+                                + (srgb[1] - g) * (srgb[1] - g)
+                                + (srgb[2] - b) * (srgb[2] - b)
+                                + (srgb[3] - a) * (srgb[3] - a)
+                                );
     }
 }

@@ -77,7 +77,7 @@ namespace ARKBreedingStats.importExported
                             }
                             else
                             {
-                                cv.ARKID = buildARKID(text, id);
+                                cv.ARKID = BuildARKID(text, id);
                                 cv.guid = Utils.ConvertArkIdToGuid(cv.ARKID);
                             }
                             break;
@@ -88,7 +88,7 @@ namespace ARKBreedingStats.importExported
                             }
                             else
                             {
-                                cv.ARKID = buildARKID(id, text);
+                                cv.ARKID = BuildARKID(id, text);
                                 cv.guid = Utils.ConvertArkIdToGuid(cv.ARKID);
                             }
                             break;
@@ -149,22 +149,22 @@ namespace ARKBreedingStats.importExported
                             break;
                         // Colorization
                         case "ColorSet[0]":
-                            cv.colorIDs[0] = parseColor(text);
+                            cv.colorIDs[0] = ParseColor(text);
                             break;
                         case "ColorSet[1]":
-                            cv.colorIDs[1] = parseColor(text);
+                            cv.colorIDs[1] = ParseColor(text);
                             break;
                         case "ColorSet[2]":
-                            cv.colorIDs[2] = parseColor(text);
+                            cv.colorIDs[2] = ParseColor(text);
                             break;
                         case "ColorSet[3]":
-                            cv.colorIDs[3] = parseColor(text);
+                            cv.colorIDs[3] = ParseColor(text);
                             break;
                         case "ColorSet[4]":
-                            cv.colorIDs[4] = parseColor(text);
+                            cv.colorIDs[4] = ParseColor(text);
                             break;
                         case "ColorSet[5]":
-                            cv.colorIDs[5] = parseColor(text);
+                            cv.colorIDs[5] = ParseColor(text);
                             break;
                         case "Health":
                             cv.statValues[(int)StatNames.Health] = value;
@@ -207,8 +207,8 @@ namespace ARKBreedingStats.importExported
                             Match m = r.Match(text);
                             if (m.Success)
                             {
-                                cv.motherArkId = buildARKID(m.Groups[5].Value, m.Groups[6].Value);
-                                cv.fatherArkId = buildARKID(m.Groups[2].Value, m.Groups[3].Value);
+                                cv.motherArkId = BuildARKID(m.Groups[5].Value, m.Groups[6].Value);
+                                cv.fatherArkId = BuildARKID(m.Groups[2].Value, m.Groups[3].Value);
                                 cv.isBred = true;
                             }
                             break;
@@ -238,18 +238,35 @@ namespace ARKBreedingStats.importExported
             return cv;
         }
 
-        private static int parseColor(string text)
+        /// <summary>
+        /// Determines the ARK color id represented by the given text in the format
+        /// (R=0.000000,G=0.000000,B=0.000000,A=1.000000)
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        private static int ParseColor(string text)
         {
             if (text.Length < 33) return 0;
-            double.TryParse(text.Substring(3, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double r);
-            double.TryParse(text.Substring(14, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double g);
-            double.TryParse(text.Substring(25, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double b);
-            if (r == 0 && g == 0 && b == 0) return 0;
 
-            return Values.V.Colors.ClosestColorID(r, g, b);
+            if (double.TryParse(text.Substring(3, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double r)
+                && double.TryParse(text.Substring(14, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double g)
+                && double.TryParse(text.Substring(25, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double b)
+                && double.TryParse(text.Substring(36, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double a)
+                )
+                return Values.V.Colors.ClosestColorID(r, g, b, a);
+
+            // color recognition failed
+            return 0;
         }
 
-        private static long buildARKID(string id1, string id2)
+        /// <summary>
+        /// Returns the true ARK-Id from two strings in a long.
+        /// ARK just concatenates the strings ingame, resulting in nonunique displayed IDs.
+        /// </summary>
+        /// <param name="id1"></param>
+        /// <param name="id2"></param>
+        /// <returns></returns>
+        private static long BuildARKID(string id1, string id2)
         {
             int.TryParse(id1, out int id1int);
             int.TryParse(id2, out int id2int);
