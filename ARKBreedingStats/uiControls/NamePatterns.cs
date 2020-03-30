@@ -176,6 +176,26 @@ namespace ARKBreedingStats.uiControls
                                 ? 3 : 4)].Value;
                         }
                         else return ParametersInvalid($"The condition-parameter \"{p1}\"is invalid. It has to start with \"isTop\" or \"isNewTop\" followed by a stat specifier, e.g. \"hp\"");
+                    case "ifexpr":
+                        // tries to evaluate the expression
+                        // possible operators are ==, !=, <, >, =<, =>
+                        var match = Regex.Match(p1, @"\A\s*(\d+(?:\.\d*)?)\s*(==|!=|<|<=|>|>=)\s*(\d+(?:\.\d*)?)\s*\Z");
+                        if (match.Success
+                            && double.TryParse(match.Groups[1].Value, out double d1)
+                            && double.TryParse(match.Groups[3].Value, out double d2)
+                            )
+                        {
+                            switch (match.Groups[2].Value)
+                            {
+                                case "==": return d1 == d2 ? m.Groups[3].Value : m.Groups[4].Value;
+                                case "!=": return d1 != d2 ? m.Groups[3].Value : m.Groups[4].Value;
+                                case "<": return d1 < d2 ? m.Groups[3].Value : m.Groups[4].Value;
+                                case "<=": return d1 <= d2 ? m.Groups[3].Value : m.Groups[4].Value;
+                                case ">": return d1 > d2 ? m.Groups[3].Value : m.Groups[4].Value;
+                                case ">=": return d1 >= d2 ? m.Groups[3].Value : m.Groups[4].Value;
+                            }
+                        }
+                        return ParametersInvalid($"The expression for ifexpr invalid: \"{p1}\"");
                     case "substring":
                         // check param number: 1: substring, 2: p1, 3: pos, 4: length
 

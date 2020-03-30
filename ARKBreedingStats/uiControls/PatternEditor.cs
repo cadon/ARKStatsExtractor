@@ -38,7 +38,7 @@ namespace ARKBreedingStats.uiControls
             txtboxPattern.Text = Properties.Settings.Default.NamingPatterns?[namingPatternIndex] ?? string.Empty;
             txtboxPattern.SelectionStart = txtboxPattern.Text.Length;
 
-            Text = $"Naming Pattern Editor: pattern {(namingPatternIndex + 1).ToString()}";
+            Text = $"Naming Pattern Editor: pattern {(namingPatternIndex + 1)}";
 
             // collect creatures of the same species
             var sameSpecies = (females ?? new List<Creature> { }).Concat((males ?? new List<Creature> { })).ToList();
@@ -273,6 +273,7 @@ namespace ARKBreedingStats.uiControls
         {
             {"isTopStat", "{{#if: isTop<stat> | true | false }}, to check if a stat is a top stat in that species (i.e. highest in library).\n{{#if: isTopHP | bestHP {hp} }}" },
             {"isNewTopStat", "{{#if: isNewTop<stat> | true | false }}, to check if a stat is a top stat in that species (i.e. higher than the ones in the library).\n{{#if: isNewTopHP | newBestHP {hp} }}" },
+            {"ifexpr", "{{#ifexpr: expression | true | false }}, to check if a numerical expression is true or false. Possible operators are ==, !=, <, <=, <, >=.\n{{#ifexpr: {topPercent} > 80 | top80 }}" },
             {"substring","{{#substring: text | start | length }}. Length can be ommited. If start is negative it takes the characters from the end.\n{{#substring: {species} | 0 | 4 }}"},
             {"replace","{{#replace: text | find | replaceBy }}\n{{#replace: {species} | Abberant | Ab }}"},
             {"customreplace","{{#customreplace: text }}. Replaces the text with a value saved in the file customReplacings.json.\nIf a second parameter is given, that is returned if the key is not available.\n{{#customreplace: {species} }}"},
