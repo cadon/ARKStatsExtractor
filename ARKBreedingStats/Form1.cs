@@ -102,13 +102,13 @@ namespace ARKBreedingStats
         /// <param name="e"></param>
         private void contextMenuStripLibrary_Opening(object sender, CancelEventArgs e)
         {
-            Win32API.RECT rc = new Win32API.RECT();
+            Win32API.Rect rc = new Win32API.Rect();
 
             IntPtr headerHandle = Win32API.SendMessage(listViewLibrary.Handle, Win32API.LVM_GETHEADER, 0, 0);
 
             if (Win32API.GetWindowRect(headerHandle, out rc))
             {
-                if ((Control.MousePosition.Y >= rc.Top) && (Control.MousePosition.Y < rc.Bottom))
+                if ((Control.MousePosition.Y >= rc.top) && (Control.MousePosition.Y < rc.bottom))
                 {
                     e.Cancel = true;
                     contextMenuStripLibraryHeader.Show(Control.MousePosition);

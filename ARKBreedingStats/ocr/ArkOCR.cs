@@ -44,7 +44,7 @@ namespace ARKBreedingStats.ocr
             return setResolution(GetScreenshotOfProcess());
         }
 
-        public Bitmap GetScreenshotOfProcess() => Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture);
+        public Bitmap GetScreenshotOfProcess() => Win32API.GetSreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture);
 
         // figure out the current resolution and positions
         // return true if the calibration was successful
@@ -478,7 +478,7 @@ namespace ARKBreedingStats.ocr
             else
             {
                 // grab screenshot from ark
-                screenshotbmp = Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture, true);
+                screenshotbmp = Win32API.GetSreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture, true);
             }
             if (screenshotbmp == null)
             {
@@ -528,7 +528,7 @@ namespace ARKBreedingStats.ocr
             finalValues[8] = -1; // set imprinting to -1 to mark it as unknown and to set a difference to a creature with 0% imprinting.
 
             if (changeForegroundWindow)
-                Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
+                Win32API.SetForegroundWindow(Application.OpenForms[0].Handle);
 
 
             bool wild = false; // todo: set to true and find out if the creature is wild in the first loop
@@ -1014,10 +1014,10 @@ namespace ARKBreedingStats.ocr
                 else return false;
             }
 
-            if (Win32Stuff.GetForegroundWindow() != ScreenCaptureProcess.MainWindowHandle)
+            if (Win32API.GetForegroundWindow() != ScreenCaptureProcess.MainWindowHandle)
                 return false;
 
-            Bitmap screenshotbmp = Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture);
+            Bitmap screenshotbmp = Win32API.GetSreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture);
 
             if (screenshotbmp == null)
                 return false;

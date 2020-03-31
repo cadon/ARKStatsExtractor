@@ -552,7 +552,6 @@
     <Compile Include="values\ServerMultipliers.cs" />
     <Compile Include="values\Values.cs" />
     <Compile Include="Win32API.cs" />
-    <Compile Include="Win32Stuff.cs" />
     <None Include="json\ignoreSpeciesClasses.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
