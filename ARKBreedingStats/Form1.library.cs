@@ -398,7 +398,7 @@ namespace ARKBreedingStats
                             int si = usedAndConsideredStatIndices[s];
                             sumCreatureLevels += c.levelsWild[si] > 0 ? c.levelsWild[si] : 0;
                         }
-                        c.topness = (short)(100 * sumCreatureLevels / sumTopLevels);
+                        c.topness = (short)(1000 * sumCreatureLevels / sumTopLevels);
                     }
                 }
 
@@ -701,7 +701,7 @@ namespace ARKBreedingStats
                             cr.server,
                             Utils.SexSymbol(cr.sex),
                             cr.domesticatedAt?.ToString("yyyy'-'MM'-'dd HH':'mm':'ss") ?? "?",
-                            cr.topness.ToString(),
+                            (cr.topness / 10).ToString(),
                             cr.topStatsCount.ToString(),
                             cr.generation.ToString(),
                             cr.levelFound.ToString(),
@@ -799,7 +799,7 @@ namespace ARKBreedingStats
             }
 
             // color for topness
-            lvi.SubItems[6].BackColor = Utils.GetColorFromPercent(cr.topness * 2 - 100, 0.8); // topness is in percent. gradient from 50-100
+            lvi.SubItems[6].BackColor = Utils.GetColorFromPercent(cr.topness / 5 - 100, 0.8); // topness is in permille. gradient from 50-100
 
             // color for generation
             if (cr.generation == 0)
