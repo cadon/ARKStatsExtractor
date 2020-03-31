@@ -131,16 +131,16 @@ namespace ARKBreedingStats.uiControls
 
         private void buttonStatus_Click(object sender, EventArgs e)
         {
-            creatureStatus = Utils.nextStatus(creatureStatus);
-            buttonStatus.Text = Utils.statusSymbol(creatureStatus);
+            creatureStatus = Utils.NextStatus(creatureStatus);
+            buttonStatus.Text = Utils.StatusSymbol(creatureStatus);
             checkBoxStatus.Checked = true;
             tt.SetToolTip(buttonStatus, "Status: " + creatureStatus);
         }
 
         private void buttonSex_Click(object sender, EventArgs e)
         {
-            creatureSex = Utils.nextSex(creatureSex);
-            buttonSex.Text = Utils.sexSymbol(creatureSex);
+            creatureSex = Utils.NextSex(creatureSex);
+            buttonSex.Text = Utils.SexSymbol(creatureSex);
             checkBoxSex.Checked = true;
             tt.SetToolTip(buttonSex, "Sex: " + creatureSex);
         }

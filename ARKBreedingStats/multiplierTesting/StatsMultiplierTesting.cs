@@ -30,9 +30,9 @@ namespace ARKBreedingStats.multiplierTesting
             {
                 var sc = new StatMultiplierTestingControl
                 {
-                    StatName = "[" + s.ToString() + "]" + Utils.statName(s, true)
+                    StatName = "[" + s.ToString() + "]" + Utils.StatName(s, true)
                 };
-                if (Utils.precision(s) == 3)
+                if (Utils.Precision(s) == 3)
                     sc.Percent = true;
                 sc.OnLevelChanged += Sc_OnLevelChanged;
                 sc.OnTECalculated += SetTE;
@@ -118,7 +118,7 @@ namespace ARKBreedingStats.multiplierTesting
                 lbLevelSumWild.Text += " (" + (positive ? "+" : "") + (sumW - statControls[(int)StatNames.Torpidity].LevelWild) + ")";
 
                 if (diff > 50) diff = 50;
-                lbLevelSumWild.BackColor = Utils.getColorFromPercent(50 - diff, 0.6, !positive);
+                lbLevelSumWild.BackColor = Utils.GetColorFromPercent(50 - diff, 0.6, !positive);
             }
             else { lbLevelSumWild.BackColor = SystemColors.Window; }
 
@@ -131,7 +131,7 @@ namespace ARKBreedingStats.multiplierTesting
                 lbLevelSumDom.Text += " (" + (positive ? "+" : "") + (sumW + sumD + 1 - (int)nudCreatureLevel.Value) + ")";
 
                 if (diff > 50) diff = 50;
-                lbLevelSumDom.BackColor = Utils.getColorFromPercent(50 - diff, 0.6, !positive);
+                lbLevelSumDom.BackColor = Utils.GetColorFromPercent(50 - diff, 0.6, !positive);
             }
             else { lbLevelSumDom.BackColor = SystemColors.Window; }
         }

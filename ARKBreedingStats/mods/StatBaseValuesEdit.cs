@@ -43,7 +43,7 @@ namespace ARKBreedingStats.mods
             nudImprintingOverride.Enabled = enabled;
         }
 
-        public void SetStatNameByIndex(int statIndex, bool isGlowSpecies = false) => StatName = $"[{statIndex}] {Utils.statName(statIndex, false, glow: isGlowSpecies)}";
+        public void SetStatNameByIndex(int statIndex, bool isGlowSpecies = false) => StatName = $"[{statIndex}] {Utils.StatName(statIndex, false, glowSpecies: isGlowSpecies)}";
 
         public string StatName
         {

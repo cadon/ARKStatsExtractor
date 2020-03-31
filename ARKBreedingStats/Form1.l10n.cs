@@ -7,7 +7,7 @@ namespace ARKBreedingStats
         private void initLocalization()
         {
             Loc.LoadResourceFile();
-            Utils.initializeLocalizations();
+            Utils.InitializeLocalizations();
         }
 
         private void setLocalizations(bool init = true)
@@ -121,18 +121,18 @@ namespace ARKBreedingStats
             columnHeaderOwner.Text = Loc.s("Owner");
             columnHeaderNote.Text = Loc.s("Note");
             columnHeaderServer.Text = Loc.s("Server");
-            columnHeaderHP.Text = Utils.statName(StatNames.Health, true);
-            columnHeaderSt.Text = Utils.statName(StatNames.Stamina, true);
-            columnHeaderOx.Text = Utils.statName(StatNames.Oxygen, true);
-            columnHeaderFo.Text = Utils.statName(StatNames.Food, true);
-            columnHeaderWe.Text = Utils.statName(StatNames.Weight, true);
-            columnHeaderDm.Text = Utils.statName(StatNames.MeleeDamageMultiplier, true);
-            columnHeaderSp.Text = Utils.statName(StatNames.SpeedMultiplier, true);
-            columnHeaderTo.Text = Utils.statName(StatNames.Torpidity, true);
-            columnHeaderWa.Text = Utils.statName(StatNames.CraftingSpeedMultiplier, true);
-            columnHeaderTemp.Text = Utils.statName(StatNames.Temperature, true);
-            columnHeaderCr.Text = Utils.statName(StatNames.Water, true);
-            columnHeaderFr.Text = Utils.statName(StatNames.TemperatureFortitude, true);
+            columnHeaderHP.Text = Utils.StatName(StatNames.Health, true);
+            columnHeaderSt.Text = Utils.StatName(StatNames.Stamina, true);
+            columnHeaderOx.Text = Utils.StatName(StatNames.Oxygen, true);
+            columnHeaderFo.Text = Utils.StatName(StatNames.Food, true);
+            columnHeaderWe.Text = Utils.StatName(StatNames.Weight, true);
+            columnHeaderDm.Text = Utils.StatName(StatNames.MeleeDamageMultiplier, true);
+            columnHeaderSp.Text = Utils.StatName(StatNames.SpeedMultiplier, true);
+            columnHeaderTo.Text = Utils.StatName(StatNames.Torpidity, true);
+            columnHeaderWa.Text = Utils.StatName(StatNames.CraftingSpeedMultiplier, true);
+            columnHeaderTemp.Text = Utils.StatName(StatNames.Temperature, true);
+            columnHeaderCr.Text = Utils.StatName(StatNames.Water, true);
+            columnHeaderFr.Text = Utils.StatName(StatNames.TemperatureFortitude, true);
             columnHeaderTopStatsNr.Text = Loc.s("Top");
             columnHeaderTopness.Text = Loc.s("topPercentage");
             columnHeaderGen.Text = Loc.s("Generation_Abb");

@@ -233,7 +233,7 @@ namespace ARKBreedingStats
             }
             else if (enoughFood)
             {
-                labelResult.Text = $"It takes {Utils.durationUntil(duration)} to tame the {selectedSpecies.name}.\n\n" +
+                labelResult.Text = $"It takes {Utils.DurationUntil(duration)} to tame the {selectedSpecies.name}.\n\n" +
                         $"Taming Effectiveness: {Math.Round(100 * te, 1)} %\n" +
                         $"Bonus-Level: +{bonusLevel} (total level after Taming: {(nudLevel.Value + bonusLevel)})\n\n" +
                         $"Food has to drop by {neededHunger:F1} units.\n\n" +
@@ -285,7 +285,7 @@ namespace ARKBreedingStats
             if (hunger < 0) hunger = 0;
             if (hunger > neededHunger) hunger = neededHunger;
             var durationStarving = new TimeSpan(0, 0, (int)((neededHunger - hunger) / foodDepletion));
-            lbTimeUntilStarving.Text = (enoughFood ? $"{Loc.s("TimeUntilFeedingAllFood")}: {Utils.duration(durationStarving)}" : "");
+            lbTimeUntilStarving.Text = (enoughFood ? $"{Loc.s("TimeUntilFeedingAllFood")}: {Utils.Duration(durationStarving)}" : "");
             if ((double)nudTotalFood.Value < neededHunger)
             {
                 lbTimeUntilStarving.Text += (lbTimeUntilStarving.Text.Length > 0 ? "\n" : "") + $"{Loc.s("WarningMoreStarvingThanFood")}";
@@ -331,7 +331,7 @@ namespace ARKBreedingStats
         private void numericUpDownCurrentTorpor_ValueChanged(object sender, EventArgs e)
         {
             var duration = new TimeSpan(0, 0, Taming.SecondsUntilWakingUp(selectedSpecies, (int)nudLevel.Value, (double)numericUpDownCurrentTorpor.Value));
-            lbTimeUntilWakingUp.Text = string.Format(Loc.s("lbTimeUntilWakingUp"), Utils.duration(duration));
+            lbTimeUntilWakingUp.Text = string.Format(Loc.s("lbTimeUntilWakingUp"), Utils.Duration(duration));
             if (duration.TotalSeconds < 30) lbTimeUntilWakingUp.ForeColor = Color.DarkRed;
             else if (duration.TotalSeconds < 120) lbTimeUntilWakingUp.ForeColor = Color.DarkGoldenrod;
             else lbTimeUntilWakingUp.ForeColor = Color.Black;
@@ -450,7 +450,7 @@ namespace ARKBreedingStats
         {
             int s = Taming.DurationAfterFirstFeeding(selectedSpecies, (int)nudLevel.Value, foodDepletion);
             if (s > 0)
-                firstFeedingWaiting = "\n\n" + string.Format(Loc.s("waitingAfterFirstFeeding"), Utils.duration(s));
+                firstFeedingWaiting = "\n\n" + string.Format(Loc.s("waitingAfterFirstFeeding"), Utils.Duration(s));
             else firstFeedingWaiting = "";
         }
 

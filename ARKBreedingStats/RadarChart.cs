@@ -121,10 +121,10 @@ namespace ARKBreedingStats
 
                 double stepFactor = (double)step / maxLevel;
                 for (int r = 0; r < 5; r++)
-                    g.DrawEllipse(new Pen(Utils.getColorFromPercent((int)(100 * r * stepFactor), -0.4)),
+                    g.DrawEllipse(new Pen(Utils.GetColorFromPercent((int)(100 * r * stepFactor), -0.4)),
                             (int)(xm - maxR * r * stepFactor), (int)(ym - maxR * r * stepFactor),
                             (int)(2 * maxR * r * stepFactor + 1), (int)(2 * maxR * r * stepFactor + 1));
-                g.DrawEllipse(new Pen(Utils.getColorFromPercent(100, -0.4)), xm - maxR, ym - maxR, 2 * maxR + 1, 2 * maxR + 1);
+                g.DrawEllipse(new Pen(Utils.GetColorFromPercent(100, -0.4)), xm - maxR, ym - maxR, 2 * maxR + 1, 2 * maxR + 1);
 
                 Pen pen = new Pen(Color.Black);
                 for (int s = 0; s < levelIndices.Length; s++)
@@ -132,7 +132,7 @@ namespace ARKBreedingStats
                     pen.Width = 1;
                     pen.Color = Color.Gray;
                     g.DrawLine(pen, xm, ym, maxPs[s].X, maxPs[s].Y);
-                    Color cl = Utils.getColorFromPercent(100 * oldLevels[s] / maxLevel);
+                    Color cl = Utils.GetColorFromPercent(100 * oldLevels[s] / maxLevel);
                     pen.Color = cl;
                     pen.Width = 3;
                     g.DrawLine(pen, xm, ym, ps[s].X, ps[s].Y);
@@ -149,7 +149,7 @@ namespace ARKBreedingStats
                 for (int s = 0; s < levelIndices.Length; s++)
                 {
                     double angle = angleSeven * s - offset;
-                    g.DrawString(Utils.statName(levelIndices[s], true), new Font("Microsoft Sans Serif", 8f), new SolidBrush(Color.Black), xm - 9 + (int)((maxR + 10) * Math.Cos(angle)), ym - 5 + (int)((maxR + 10) * Math.Sin(angle)));
+                    g.DrawString(Utils.StatName(levelIndices[s], true), new Font("Microsoft Sans Serif", 8f), new SolidBrush(Color.Black), xm - 9 + (int)((maxR + 10) * Math.Cos(angle)), ym - 5 + (int)((maxR + 10) * Math.Sin(angle)));
                 }
 
                 g.Dispose();

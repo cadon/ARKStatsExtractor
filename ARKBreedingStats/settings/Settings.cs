@@ -35,7 +35,7 @@ namespace ARKBreedingStats.settings
             {
                 multSetter[s] = new MultiplierSetting
                 {
-                    StatName = $"[{s}] {Utils.statName(s)}"
+                    StatName = $"[{s}] {Utils.StatName(s)}"
                 };
                 flowLayoutPanelStatMultipliers.Controls.Add(multSetter[s]);
             }

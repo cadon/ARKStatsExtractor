@@ -115,7 +115,7 @@ namespace ARKBreedingStats
                     tt.SetToolTip(p, $"Level {prob.Key} ({Math.Round(prob.Value * 100, 2)}%)");
                     p.Left = i * barWidth;
                     p.Top = totalHeight - p.Height;
-                    p.BackColor = Utils.getColorFromPercent(100 * (prob.Key - maxWildLevel / 2) / (2 * maxWildLevel)); // color range from maxWildLevel/2 up to 2*maxWildLevel
+                    p.BackColor = Utils.GetColorFromPercent(100 * (prob.Key - maxWildLevel / 2) / (2 * maxWildLevel)); // color range from maxWildLevel/2 up to 2*maxWildLevel
                     p.BorderStyle = BorderStyle.FixedSingle;
                     Controls.Add(p);
                     barPanels.Add(p);

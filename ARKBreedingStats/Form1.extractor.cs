@@ -710,7 +710,7 @@ namespace ARKBreedingStats
                         }
                         if (table)
                         {
-                            tsv.Add(Utils.statName(s) + "\t" + (statIOs[s].LevelWild >= 0 ? statIOs[s].LevelWild.ToString() : "") + "\t" + (statIOs[s].LevelWild >= 0 ? statIOs[s].LevelWild.ToString() : "") + "\t" + breedingV);
+                            tsv.Add(Utils.StatName(s) + "\t" + (statIOs[s].LevelWild >= 0 ? statIOs[s].LevelWild.ToString() : "") + "\t" + (statIOs[s].LevelWild >= 0 ? statIOs[s].LevelWild.ToString() : "") + "\t" + breedingV);
                         }
                         else
                         {

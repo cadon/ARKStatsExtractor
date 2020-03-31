@@ -115,8 +115,8 @@ namespace ARKBreedingStats
             set
             {
                 sex = value;
-                buttonSex.Text = Utils.sexSymbol(sex);
-                buttonSex.BackColor = Utils.sexColor(sex);
+                buttonSex.Text = Utils.SexSymbol(sex);
+                buttonSex.BackColor = Utils.SexColor(sex);
                 tt.SetToolTip(buttonSex, Loc.s("Sex") + ": " + Loc.s(sex.ToString()));
                 cbNeutered.Text = Loc.s(sex == Sex.Female ? "Spayed" : "Neutered");
             }
@@ -128,7 +128,7 @@ namespace ARKBreedingStats
             set
             {
                 creatureStatus = value;
-                buttonStatus.Text = Utils.statusSymbol(creatureStatus);
+                buttonStatus.Text = Utils.StatusSymbol(creatureStatus);
                 tt.SetToolTip(buttonStatus, Loc.s("Status") + ": " + Utils.StatusText(creatureStatus));
             }
         }
@@ -166,12 +166,12 @@ namespace ARKBreedingStats
 
         private void buttonSex_Click(object sender, EventArgs e)
         {
-            CreatureSex = Utils.nextSex(sex);
+            CreatureSex = Utils.NextSex(sex);
         }
 
         private void buttonStatus_Click(object sender, EventArgs e)
         {
-            CreatureStatus = Utils.nextStatus(creatureStatus);
+            CreatureStatus = Utils.NextStatus(creatureStatus);
         }
 
         public List<Creature>[] Parents

@@ -269,17 +269,17 @@ namespace ARKBreedingStats
                 var statIO = new StatIO
                 {
                     InputType = StatIOInputType.FinalValueInputType,
-                    Title = Utils.statName(s),
+                    Title = Utils.StatName(s),
                     statIndex = s
                 };
                 var statIOTesting = new StatIO
                 {
                     InputType = StatIOInputType.LevelsInputType,
-                    Title = Utils.statName(s),
+                    Title = Utils.StatName(s),
                     statIndex = s
                 };
 
-                if (Utils.precision(s) == 3)
+                if (Utils.Precision(s) == 3)
                 {
                     statIO.Percent = true;
                     statIOTesting.Percent = true;
@@ -300,7 +300,7 @@ namespace ARKBreedingStats
                 flowLayoutPanelStatIOsExtractor.SetFlowBreak(statIOs[Values.statsDisplayOrder[s]], true);
                 flowLayoutPanelStatIOsTester.Controls.Add(testingIOs[Values.statsDisplayOrder[s]]);
                 flowLayoutPanelStatIOsTester.SetFlowBreak(testingIOs[Values.statsDisplayOrder[s]], true);
-                checkedListBoxConsiderStatTop.Items.Add(Utils.statName(Values.statsDisplayOrder[s]), considerStatHighlight[Values.statsDisplayOrder[s]]);
+                checkedListBoxConsiderStatTop.Items.Add(Utils.StatName(Values.statsDisplayOrder[s]), considerStatHighlight[Values.statsDisplayOrder[s]]);
             }
 
             // torpor should not show bar, it get's too wide and is not interesting for breeding
@@ -592,8 +592,8 @@ namespace ARKBreedingStats
                 statIOs[s].IsActive = activeStats[s];
                 testingIOs[s].IsActive = species.UsesStat(s);
                 if (!activeStats[s]) statIOs[s].Input = 0;
-                statIOs[s].Title = Utils.statName(s, false, glow: isglowSpecies);
-                testingIOs[s].Title = Utils.statName(s, false, isglowSpecies);
+                statIOs[s].Title = Utils.StatName(s, false, glowSpecies: isglowSpecies);
+                testingIOs[s].Title = Utils.StatName(s, false, isglowSpecies);
                 // don't lock special stats of glowspecies
                 if ((isglowSpecies &&
                       (s == (int)StatNames.Stamina
@@ -1732,7 +1732,7 @@ namespace ARKBreedingStats
             UpdateAllTesterValues();
             // calculate number of imprintings
             if (speciesSelector1.SelectedSpecies.breeding != null && speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted > 0)
-                lbImprintedCount.Text = "(" + Math.Round((double)numericUpDownImprintingBonusTester.Value / (100 * Utils.imprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier)), 2) + "×)";
+                lbImprintedCount.Text = "(" + Math.Round((double)numericUpDownImprintingBonusTester.Value / (100 * Utils.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier)), 2) + "×)";
             else lbImprintedCount.Text = "";
         }
 
@@ -1740,7 +1740,7 @@ namespace ARKBreedingStats
         {
             // calculate number of imprintings
             if (speciesSelector1.SelectedSpecies.breeding != null && speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted > 0)
-                lbImprintingCuddleCountExtractor.Text = "(" + Math.Round((double)numericUpDownImprintingBonusExtractor.Value / (100 * Utils.imprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier))) + "×)";
+                lbImprintingCuddleCountExtractor.Text = "(" + Math.Round((double)numericUpDownImprintingBonusExtractor.Value / (100 * Utils.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier))) + "×)";
             else lbImprintingCuddleCountExtractor.Text = "";
         }
 
@@ -1925,7 +1925,7 @@ namespace ARKBreedingStats
                         int.TryParse(m.Groups[8 + 3 * s].Value, out wl[s]);
                         if (s != (int)StatNames.Torpidity)
                             int.TryParse(m.Groups[9 + 3 * s].Value, out dl[s]);
-                        if (Utils.precision(s) == 3)// percentage values
+                        if (Utils.Precision(s) == 3)// percentage values
                             sv[s] *= 0.01;
                     }
 
@@ -2672,7 +2672,7 @@ namespace ARKBreedingStats
                 // set imprinting-count to closes integer
                 if (speciesSelector1.SelectedSpecies.breeding != null && speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted > 0)
                 {
-                    double imprintingGainPerCuddle = Utils.imprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier);
+                    double imprintingGainPerCuddle = Utils.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier);
                     int cuddleCount = (int)Math.Round((double)numericUpDownImprintingBonusTester.Value / (100 * imprintingGainPerCuddle));
                     double imprintingBonus;
                     do
@@ -3059,7 +3059,7 @@ namespace ARKBreedingStats
                         if (!statValid)
                         {
                             success = false;
-                            testText = Utils.statName(s, true) + " not expected value";
+                            testText = Utils.StatName(s, true) + " not expected value";
                             break;
                         }
                     }

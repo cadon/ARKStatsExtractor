@@ -287,7 +287,7 @@ namespace ARKBreedingStats
                 // torpor depletion per s
                 string torporDepletion = string.Empty;
                 if (torporDeplPS > 0)
-                    torporDepletion = "\n" + Loc.s("TimeUntilTorporDepleted") + ": " + Utils.durationUntil(new TimeSpan(0, 0, (int)Math.Round(totalTorpor / torporDeplPS)))
+                    torporDepletion = "\n" + Loc.s("TimeUntilTorporDepleted") + ": " + Utils.DurationUntil(new TimeSpan(0, 0, (int)Math.Round(totalTorpor / torporDeplPS)))
                             + "\n" + Loc.s("TorporDepletion") + ": " + Math.Round(torporDeplPS, 2)
                             + " / s;\n" + Loc.s("ApproxOneNarcoberryEvery") + " " + Math.Round(7.5 / torporDeplPS + 3, 1)
                             + " s " + Loc.s("OrOneAscerbicMushroom") + " " + Math.Round(25 / torporDeplPS + 3, 1)
@@ -305,7 +305,7 @@ namespace ARKBreedingStats
             TamingTimes(species, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodName, foodAmount,
                     out List<int> foodAmountUsed, out TimeSpan duration, out _, out _, out int narcotics, out _, out double te,
                     out double hunger, out int bonusLevel, out _);
-            return $"{string.Format(Loc.s("WithXFoodTamingTakesTime"), foodAmountUsed[0], foodDisplayName, Utils.durationUntil(duration))}\n" +
+            return $"{string.Format(Loc.s("WithXFoodTamingTakesTime"), foodAmountUsed[0], foodDisplayName, Utils.DurationUntil(duration))}\n" +
                     $"{Loc.s("Narcotics")}: {narcotics}\n" +
                     $"{Loc.s("TamingEffectiveness_Abb")}: {Math.Round(100 * te, 1)} %\n" +
                     $"{Loc.s("BonusLevel")}: +{(level + bonusLevel)}\n" +

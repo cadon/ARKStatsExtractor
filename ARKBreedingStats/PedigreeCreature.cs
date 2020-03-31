@@ -77,16 +77,16 @@ namespace ARKBreedingStats
             {
                 for (int s = 0; s < 8; s++) // only 8 stats are displayed
                 {
-                    labels[s].Text = Utils.statName(displayedStats[s], true, value);
+                    labels[s].Text = Utils.StatName(displayedStats[s], true, value);
                 }
-                tt.SetToolTip(labelHP, Utils.statName(StatNames.Health, glow: value));
-                tt.SetToolTip(labelSt, Utils.statName(StatNames.Stamina, glow: value));
-                tt.SetToolTip(labelOx, Utils.statName(StatNames.Oxygen, glow: value));
-                tt.SetToolTip(labelFo, Utils.statName(StatNames.Food, glow: value));
-                tt.SetToolTip(labelWe, Utils.statName(StatNames.Weight, glow: value));
-                tt.SetToolTip(labelDm, Utils.statName(StatNames.MeleeDamageMultiplier, glow: value));
-                tt.SetToolTip(labelSp, Utils.statName(StatNames.SpeedMultiplier, glow: value));
-                tt.SetToolTip(labelCr, Utils.statName(StatNames.CraftingSpeedMultiplier, glow: value));
+                tt.SetToolTip(labelHP, Utils.StatName(StatNames.Health, glowSpecies: value));
+                tt.SetToolTip(labelSt, Utils.StatName(StatNames.Stamina, glowSpecies: value));
+                tt.SetToolTip(labelOx, Utils.StatName(StatNames.Oxygen, glowSpecies: value));
+                tt.SetToolTip(labelFo, Utils.StatName(StatNames.Food, glowSpecies: value));
+                tt.SetToolTip(labelWe, Utils.StatName(StatNames.Weight, glowSpecies: value));
+                tt.SetToolTip(labelDm, Utils.StatName(StatNames.MeleeDamageMultiplier, glowSpecies: value));
+                tt.SetToolTip(labelSp, Utils.StatName(StatNames.SpeedMultiplier, glowSpecies: value));
+                tt.SetToolTip(labelCr, Utils.StatName(StatNames.CraftingSpeedMultiplier, glowSpecies: value));
             }
         }
 
@@ -154,9 +154,9 @@ namespace ARKBreedingStats
                         else
                         {
                             labels[s].Text = creature.levelsWild[si].ToString();
-                            labels[s].BackColor = Utils.getColorFromPercent((int)(creature.levelsWild[si] * 2.5), creature.topBreedingStats[si] ? 0.2 : 0.7);
+                            labels[s].BackColor = Utils.GetColorFromPercent((int)(creature.levelsWild[si] * 2.5), creature.topBreedingStats[si] ? 0.2 : 0.7);
                             labels[s].ForeColor = SystemColors.ControlText;
-                            tt.SetToolTip(labels[s], Utils.statName(si, false, isGlowSpecies) + ": " + creature.valuesBreeding[si] * (Utils.precision(si) == 3 ? 100 : 1) + (Utils.precision(si) == 3 ? "%" : ""));
+                            tt.SetToolTip(labels[s], Utils.StatName(si, false, isGlowSpecies) + ": " + creature.valuesBreeding[si] * (Utils.Precision(si) == 3 ? 100 : 1) + (Utils.Precision(si) == 3 ? "%" : ""));
                         }
                         labels[s].Font = new Font("Microsoft Sans Serif", 8.25F, creature.topBreedingStats[si] ? FontStyle.Bold : FontStyle.Regular, GraphicsUnit.Point, 0);
                     }
@@ -169,8 +169,8 @@ namespace ARKBreedingStats
                     else
                     {
                         labelSex.Visible = true;
-                        labelSex.Text = Utils.sexSymbol(creature.sex);
-                        labelSex.BackColor = creature.flags.HasFlag(CreatureFlags.Neutered) ? SystemColors.GrayText : Utils.sexColor(creature.sex);
+                        labelSex.Text = Utils.SexSymbol(creature.sex);
+                        labelSex.BackColor = creature.flags.HasFlag(CreatureFlags.Neutered) ? SystemColors.GrayText : Utils.SexColor(creature.sex);
                         // creature Colors
                         pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, null, enabledColorRegions, 24, 22, true);
                         tt.SetToolTip(pictureBox1, CreatureColored.RegionColorInfo(creature.Species, creature.colors));
@@ -199,13 +199,13 @@ namespace ARKBreedingStats
         private void setTitle()
         {
             string totalLevel = creature.LevelHatched > 0 ? creature.LevelHatched.ToString() : "?";
-            groupBox1.Text = (!onlyLevels && creature.status != CreatureStatus.Available ? "(" + Utils.statusSymbol(creature.status) + ") " : "")
+            groupBox1.Text = (!onlyLevels && creature.status != CreatureStatus.Available ? "(" + Utils.StatusSymbol(creature.status) + ") " : "")
                     + creature.name + " (" + totalLevel + (totalLevelUnknown ? "+" : "") + ")";
 
             if (creature.growingUntil > DateTime.Now)
-                groupBox1.Text += " (grown at " + Utils.shortTimeDate(creature.growingUntil) + ")";
+                groupBox1.Text += " (grown at " + Utils.ShortTimeDate(creature.growingUntil) + ")";
             else if (creature.cooldownUntil > DateTime.Now)
-                groupBox1.Text += " (cooldown until " + Utils.shortTimeDate(creature.cooldownUntil) + ")";
+                groupBox1.Text += " (cooldown until " + Utils.ShortTimeDate(creature.cooldownUntil) + ")";
         }
 
         public bool highlight

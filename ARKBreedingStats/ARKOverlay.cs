@@ -194,7 +194,7 @@ namespace ARKBreedingStats
                         }
                         sb.Append("expired ");
                     }
-                    sb.AppendLine($"{Utils.timeLeft(tle.time)} : {tle.name}");
+                    sb.AppendLine($"{Utils.TimeLeft(tle.time)} : {tle.name}");
                 }
                 if (timerListChanged)
                     timers = timers.Where(t => t.showInOverlay).ToList();

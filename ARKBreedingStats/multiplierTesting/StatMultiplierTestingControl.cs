@@ -303,7 +303,7 @@ namespace ARKBreedingStats.multiplierTesting
                 // if not, color red if the value is too low, and blue, if the value is too big
                 int proximity = (int)Math.Abs(V - statValue.Mean) / 2;
                 if (proximity > 50) proximity = 50;
-                nudStatValue.BackColor = Utils.getColorFromPercent(50 - proximity, 0.6, V < statValue.Mean);
+                nudStatValue.BackColor = Utils.GetColorFromPercent(50 - proximity, 0.6, V < statValue.Mean);
             }
         }
 

@@ -21,7 +21,7 @@ namespace ARKBreedingStats.raising
             for (int s = 0; s < values.Values.STATS_COUNT; s++)
             {
                 ParentStatValues psv = new ParentStatValues();
-                psv.StatName = Utils.statName(s, true) + (Utils.precision(s) == 1 ? "" : " %");
+                psv.StatName = Utils.StatName(s, true) + (Utils.Precision(s) == 1 ? "" : " %");
                 parentStatValues.Add(psv);
                 flowLayoutPanel1.SetFlowBreak(psv, true);
             }
@@ -79,8 +79,8 @@ namespace ARKBreedingStats.raising
                         bestLevelPercent = (100 * bestLevel) / maxChartLevel;
                 }
                 parentStatValues[s].setValues(
-                    mother == null ? -1 : (mother.valuesBreeding[s] * (Utils.precision(s) == 1 ? 1 : 100)),
-                    father == null ? -1 : (father.valuesBreeding[s] * (Utils.precision(s) == 1 ? 1 : 100)),
+                    mother == null ? -1 : (mother.valuesBreeding[s] * (Utils.Precision(s) == 1 ? 1 : 100)),
+                    father == null ? -1 : (father.valuesBreeding[s] * (Utils.Precision(s) == 1 ? 1 : 100)),
                     mother != null && father != null ? (mother.valuesBreeding[s] > father.valuesBreeding[s] ? 1 : 2) : 0,
                     bestLevel,
                     bestLevelPercent

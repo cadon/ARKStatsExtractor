@@ -23,7 +23,7 @@ namespace ARKBreedingStats.raising
             labelF.Text = fatherValue >= 0 ? fatherValue.ToString("N1") : "-";
             lbBest.Text = motherValue > fatherValue ? labelM.Text : labelF.Text;
             lbBestLevel.Text = bestLevel >= 0 ? $" [Lv {bestLevel}]" : "";
-            lbBestLevel.BackColor = bestLevel >= 0 ? Utils.getColorFromPercent(bestLevelPercent, 0.5) : SystemColors.Window;
+            lbBestLevel.BackColor = bestLevel >= 0 ? Utils.GetColorFromPercent(bestLevelPercent, 0.5) : SystemColors.Window;
             switch (highlight)
             {
                 case 1:

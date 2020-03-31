@@ -40,7 +40,7 @@ namespace ARKBreedingStats.library
 
                 g.DrawString(creature.Species.DescriptiveNameAndMod, fontHeader, fontBrush, 3, currentYPosition);
                 currentYPosition += 19;
-                g.DrawString($"Lvl {creature.LevelHatched} | {Utils.sexSymbol(creature.sex) + (creature.flags.HasFlag(CreatureFlags.Neutered) ? $" ({Loc.s(creature.sex == Sex.Female ? "Spayed" : "Neutered")})" : string.Empty)} | {creature.Mutations} mutations", font, fontBrush, 8, currentYPosition);
+                g.DrawString($"Lvl {creature.LevelHatched} | {Utils.SexSymbol(creature.sex) + (creature.flags.HasFlag(CreatureFlags.Neutered) ? $" ({Loc.s(creature.sex == Sex.Female ? "Spayed" : "Neutered")})" : string.Empty)} | {creature.Mutations} mutations", font, fontBrush, 8, currentYPosition);
                 currentYPosition += 17;
 
                 using (var p = new Pen(Color.LightGray, 1))
@@ -66,7 +66,7 @@ namespace ARKBreedingStats.library
                     int levelPercentageOfMax = (int)(100 * levelFractionOfMax);
                     int statBoxLength = Math.Max((int)(maxBoxLenght * levelFractionOfMax), 1);
                     const int statBoxHeight = 2;
-                    var statColor = Utils.getColorFromPercent(levelPercentageOfMax);
+                    var statColor = Utils.GetColorFromPercent(levelPercentageOfMax);
                     using (var b = new SolidBrush(statColor))
                         g.FillRectangle(b, xStatName, y + 14, statBoxLength, statBoxHeight);
                     using (var b = new SolidBrush(Color.FromArgb(10, statColor)))
@@ -74,11 +74,11 @@ namespace ARKBreedingStats.library
                         for (int r = 4; r > 0; r--)
                             g.FillRectangle(b, xStatName - r, y + 13 - r, statBoxLength + 2 * r, statBoxHeight + 2 * r);
                     }
-                    using (var p = new Pen(Utils.getColorFromPercent(levelPercentageOfMax, -0.5), 1))
+                    using (var p = new Pen(Utils.GetColorFromPercent(levelPercentageOfMax, -0.5), 1))
                         g.DrawRectangle(p, xStatName, y + 14, statBoxLength, statBoxHeight);
 
                     // stat name
-                    g.DrawString($"{Utils.statName(statIndex, true, creature.Species.IsGlowSpecies)}",
+                    g.DrawString($"{Utils.StatName(statIndex, true, creature.Species.IsGlowSpecies)}",
                         font, fontBrush, xStatName, y);
                     // stat level number
                     g.DrawString($"{creature.levelsWild[statIndex]}",

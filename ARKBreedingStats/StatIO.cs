@@ -236,8 +236,8 @@ namespace ARKBreedingStats
                 lengthPercentage = 0;
             }
             panelBarWildLevels.Width = lengthPercentage * 283 / 100;
-            panelBarWildLevels.BackColor = Utils.getColorFromPercent(lengthPercentage);
-            tt.SetToolTip(panelBarWildLevels, Utils.levelPercentile((int)numLvW.Value));
+            panelBarWildLevels.BackColor = Utils.GetColorFromPercent(lengthPercentage);
+            tt.SetToolTip(panelBarWildLevels, Utils.LevelPercentile((int)numLvW.Value));
 
             if (inputType != StatIOInputType.FinalValueInputType)
                 LevelChanged(this);
@@ -256,7 +256,7 @@ namespace ARKBreedingStats
                 lengthPercentage = 0;
             }
             panelBarDomLevels.Width = lengthPercentage * 283 / 100;
-            panelBarDomLevels.BackColor = Utils.getColorFromPercent(lengthPercentage);
+            panelBarDomLevels.BackColor = Utils.GetColorFromPercent(lengthPercentage);
 
             if (inputType != StatIOInputType.FinalValueInputType)
                 LevelChanged(this);
