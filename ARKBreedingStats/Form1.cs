@@ -9,6 +9,7 @@ using ARKBreedingStats.uiControls;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -93,6 +94,28 @@ namespace ARKBreedingStats
         public ARKOverlay overlay;
         private static double[] lastOCRValues;
         private Species lastOCRSpecies;
+
+        /// <summary>
+        /// Verify if the right click was into the header of the list view, if so, open a specific contextMenu.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void contextMenuStripLibrary_Opening(object sender, CancelEventArgs e)
+        {
+            Win32API.RECT rc = new Win32API.RECT();
+
+            IntPtr headerHandle = Win32API.SendMessage(listViewLibrary.Handle, Win32API.LVM_GETHEADER, 0, 0);
+
+            if (Win32API.GetWindowRect(headerHandle, out rc))
+            {
+                if ((Control.MousePosition.Y >= rc.Top) && (Control.MousePosition.Y < rc.Bottom))
+                {
+                    e.Cancel = true;
+                    contextMenuStripLibraryHeader.Show(Control.MousePosition);
+                }
+
+            }
+        }
 
         public Form1()
         {
@@ -3362,7 +3385,7 @@ namespace ARKBreedingStats
             (listViewLibrary.SelectedItems[0].Tag as Creature).ExportInfoGraphicToClipboard(creatureCollection);
         }
 
-        private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)
+         private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)
         {
             if (listViewLibrary.SelectedItems.Count > 0)
             {
