@@ -42,6 +42,7 @@
             this.removeAllExpiredTimersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxAddTimer = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.btPlaySelectedSound = new System.Windows.Forms.Button();
             this.btOpenSoundFolder = new System.Windows.Forms.Button();
             this.SoundListBox = new System.Windows.Forms.ComboBox();
@@ -55,11 +56,13 @@
             this.dateTimePickerTimerFinish = new System.Windows.Forms.DateTimePicker();
             this.textBoxTimerName = new System.Windows.Forms.TextBox();
             this.buttonAddTimer = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
+            this.contextMenuStripTimerHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItemResetTimerColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBoxAddTimer.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.contextMenuStripTimerHeader.SuspendLayout();
             this.SuspendLayout();
             // 
             // listViewTimer
@@ -109,7 +112,8 @@
             this.removeToolStripMenuItem,
             this.removeAllExpiredTimersToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(222, 120);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(222, 142);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // addToOverlayToolStripMenuItem
             // 
@@ -186,6 +190,14 @@
             this.groupBoxAddTimer.TabIndex = 1;
             this.groupBoxAddTimer.TabStop = false;
             this.groupBoxAddTimer.Text = "Add Manual Timer";
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(6, 335);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(222, 36);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "The checkboxes can be used to display timers in the overlay.";
             // 
             // btPlaySelectedSound
             // 
@@ -308,13 +320,19 @@
             this.buttonAddTimer.UseVisualStyleBackColor = true;
             this.buttonAddTimer.Click += new System.EventHandler(this.buttonAddTimer_Click);
             // 
-            // label4
+            // contextMenuStripTimerHeader
             // 
-            this.label4.Location = new System.Drawing.Point(6, 335);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(222, 36);
-            this.label4.TabIndex = 17;
-            this.label4.Text = "The checkboxes can be used to display timers in the overlay.";
+            this.contextMenuStripTimerHeader.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemResetTimerColumnWidths});
+            this.contextMenuStripTimerHeader.Name = "contextMenuStrip2";
+            this.contextMenuStripTimerHeader.Size = new System.Drawing.Size(189, 26);
+            // 
+            // toolStripMenuItemResetTimerColumnWidths
+            // 
+            this.toolStripMenuItemResetTimerColumnWidths.Name = "toolStripMenuItemResetTimerColumnWidths";
+            this.toolStripMenuItemResetTimerColumnWidths.Size = new System.Drawing.Size(188, 22);
+            this.toolStripMenuItemResetTimerColumnWidths.Text = "Reset Column Widths";
+            this.toolStripMenuItemResetTimerColumnWidths.Click += new System.EventHandler(this.toolStripMenuItemResetLibraryColumnWidths_Click);
             // 
             // TimerControl
             // 
@@ -329,6 +347,7 @@
             this.groupBoxAddTimer.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.contextMenuStripTimerHeader.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -362,5 +381,7 @@
         private System.Windows.Forms.ToolStripMenuItem addAllTimersToOverlayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hideAllTimersFromOverlayToolStripMenuItem;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripTimerHeader;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemResetTimerColumnWidths;
     }
 }
