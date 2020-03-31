@@ -524,10 +524,14 @@ namespace ARKBreedingStats.uiControls
                 { "highest2l", levelOrder[1].Item2.ToString() },
                 { "highest3l", levelOrder[2].Item2.ToString() },
                 { "highest4l", levelOrder[3].Item2.ToString() },
+                { "highest5l", levelOrder[4].Item2.ToString() },
+                { "highest6l", levelOrder[5].Item2.ToString() },
                 { "highest1s", Utils.statName(levelOrder[0].Item1, true, creature.Species.IsGlowSpecies) },
                 { "highest2s", Utils.statName(levelOrder[1].Item1, true, creature.Species.IsGlowSpecies) },
                 { "highest3s", Utils.statName(levelOrder[2].Item1, true, creature.Species.IsGlowSpecies) },
                 { "highest4s", Utils.statName(levelOrder[3].Item1, true, creature.Species.IsGlowSpecies) },
+                { "highest5s", Utils.statName(levelOrder[4].Item1, true, creature.Species.IsGlowSpecies) },
+                { "highest6s", Utils.statName(levelOrder[5].Item1, true, creature.Species.IsGlowSpecies) },
             };
         }
 

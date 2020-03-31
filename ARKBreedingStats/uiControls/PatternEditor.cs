@@ -263,17 +263,21 @@ namespace ARKBreedingStats.uiControls
                 { "highest2l", "the second highest stat-level of this creature (excluding torpidity)" },
                 { "highest3l", "the third highest stat-level of this creature (excluding torpidity)" },
                 { "highest4l", "the fourth highest stat-level of this creature (excluding torpidity)" },
+                { "highest5l", "the fifth highest stat-level of this creature (excluding torpidity)" },
+                { "highest6l", "the sixth highest stat-level of this creature (excluding torpidity)" },
                 { "highest1s", "the name of the highest stat-level of this creature (excluding torpidity)" },
                 { "highest2s", "the name of the second highest stat-level of this creature (excluding torpidity)" },
                 { "highest3s", "the name of the third highest stat-level of this creature (excluding torpidity)" },
                 { "highest4s", "the name of the fourth highest stat-level of this creature (excluding torpidity)" },
+                { "highest5s", "the name of the fifth highest stat-level of this creature (excluding torpidity)" },
+                { "highest6s", "the name of the sixth highest stat-level of this creature (excluding torpidity)" },
             };
 
         private static Dictionary<string, string> FunctionExplanations() => new Dictionary<string, string>()
         {
             {"isTopStat", "{{#if: isTop<stat> | true | false }}, to check if a stat is a top stat in that species (i.e. highest in library).\n{{#if: isTopHP | bestHP {hp} }}" },
             {"isNewTopStat", "{{#if: isNewTop<stat> | true | false }}, to check if a stat is a top stat in that species (i.e. higher than the ones in the library).\n{{#if: isNewTopHP | newBestHP {hp} }}" },
-            {"ifexpr", "{{#ifexpr: expression | true | false }}, to check if a numerical expression is true or false. Possible operators are ==, !=, <, <=, <, >=.\n{{#ifexpr: {topPercent} > 80 | top80 }}" },
+            {"ifexpr", "{{#ifexpr: expression | true | false }}, to check if a numerical expression with two operands and one operator is true or false. Possible operators are ==, !=, <, <=, <, >=.\n{{#ifexpr: {topPercent} > 80 | top80 }}" },
             {"substring","{{#substring: text | start | length }}. Length can be ommited. If start is negative it takes the characters from the end.\n{{#substring: {species} | 0 | 4 }}"},
             {"replace","{{#replace: text | find | replaceBy }}\n{{#replace: {species} | Abberant | Ab }}"},
             {"customreplace","{{#customreplace: text }}. Replaces the text with a value saved in the file customReplacings.json.\nIf a second parameter is given, that is returned if the key is not available.\n{{#customreplace: {species} }}"},
@@ -281,7 +285,7 @@ namespace ARKBreedingStats.uiControls
             {"divide by","{{#div: number | divisor }}, can be used to display stat-values in thousands, e.g. '{{#div: {hp_vb} | 1000 }}kHP'.\n{{#div: {hp_vb} | 1000 }}"},
             {"padleft","{{#padleft: number | length | padding character }}\n{{#padleft: {hp_vb} | 8 | 0 }}"},
             {"padright","{{#padright: number | length | padding character }}\n{{#padright: {hp_vb} | 8 | _ }}"},
-            {"casing","{{#casing: text | casingtype (U, L , T) }}. U for UPPER, L for lower, T for Title.\n{{#casing: {species} | U }}"},
+            {"casing","{{#casing: text | casingtype (U, L, T) }}. U for UPPER, L for lower, T for Title.\n{{#casing: {species} | U }}"},
             {"time","{{#time: formatString }}\n{{#time: yyyy-MM-dd_HH:mm }}"},
             {"format","{{#format: number | formatString }}\n{{#format: {hp_vb} | 000000 }}"},
         };
