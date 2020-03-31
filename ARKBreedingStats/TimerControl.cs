@@ -483,5 +483,28 @@ namespace ARKBreedingStats
             ((TimerListEntry)e.Item.Tag).showInOverlay = e.Item.Checked;
             RefreshOverlayTimers();
         }
+
+        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Win32API.RECT rc = new Win32API.RECT();
+
+            IntPtr headerHandle = Win32API.SendMessage(listViewTimer.Handle, Win32API.LVM_GETHEADER, 0, 0);
+
+            if (Win32API.GetWindowRect(headerHandle, out rc))
+            {
+                if ((Control.MousePosition.Y >= rc.Top) && (Control.MousePosition.Y < rc.Bottom))
+                {
+                    e.Cancel = true;
+                    contextMenuStripTimerHeader.Show(Control.MousePosition);
+                }
+
+            }
+        }
+
+        private void toolStripMenuItemResetLibraryColumnWidths_Click(object sender, EventArgs e)
+        {
+            for (int ci = 0; ci < listViewTimer.Columns.Count; ci++)
+                listViewTimer.Columns[ci].Width = 100;
+        }
     }
 }

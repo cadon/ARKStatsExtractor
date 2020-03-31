@@ -332,6 +332,7 @@
             this.toolStripMenuItemResetTimerColumnWidths.Name = "toolStripMenuItemResetTimerColumnWidths";
             this.toolStripMenuItemResetTimerColumnWidths.Size = new System.Drawing.Size(188, 22);
             this.toolStripMenuItemResetTimerColumnWidths.Text = "Reset Column Widths";
+            this.toolStripMenuItemResetTimerColumnWidths.Click += new System.EventHandler(this.toolStripMenuItemResetLibraryColumnWidths_Click);
             // 
             // TimerControl
             // 
