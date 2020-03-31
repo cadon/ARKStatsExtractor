@@ -777,7 +777,7 @@ namespace ARKBreedingStats
             // color for top-stats-nr
             if (cr.topStatsCount > 0)
             {
-                if (cr.topBreedingCreature)
+                if (Properties.Settings.Default.LibraryHighlightTopCreatures && cr.topBreedingCreature)
                 {
                     if (cr.onlyTopConsideredStats)
                         lvi.BackColor = Color.Gold;

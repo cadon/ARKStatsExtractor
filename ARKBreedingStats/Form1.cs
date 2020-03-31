@@ -2098,6 +2098,7 @@ namespace ARKBreedingStats
                 page = settingsLastTabPage;
             using (Settings settingsfrm = new Settings(creatureCollection, page))
             {
+                bool libraryTopCreatureColorHighlight = Properties.Settings.Default.LibraryHighlightTopCreatures;
                 if (settingsfrm.ShowDialog() == DialogResult.OK)
                 {
                     ApplySettingsToValues();
@@ -2115,6 +2116,9 @@ namespace ARKBreedingStats
                     overlay?.SetInfoPositions();
                     if (Properties.Settings.Default.DevTools)
                         statsMultiplierTesting1.CheckIfMultipliersAreEqualToSettings();
+
+                    if (libraryTopCreatureColorHighlight != Properties.Settings.Default.LibraryHighlightTopCreatures)
+                        FilterLib();
 
                     SetCollectionChanged(true);
                 }

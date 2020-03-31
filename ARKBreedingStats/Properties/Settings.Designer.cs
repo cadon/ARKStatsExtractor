@@ -1079,5 +1079,17 @@ namespace ARKBreedingStats.Properties {
                 this["BreedingPlanOnePartnerMoreMutationsThanLimit"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool LibraryHighlightTopCreatures {
+            get {
+                return ((bool)(this["LibraryHighlightTopCreatures"]));
+            }
+            set {
+                this["LibraryHighlightTopCreatures"] = value;
+            }
+        }
     }
 }
