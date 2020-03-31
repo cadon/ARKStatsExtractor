@@ -721,7 +721,10 @@ namespace ARKBreedingStats
                 cr.Species.DescriptiveNameAndMod,
                 cr.status.ToString(),
                 cr.tribe,
-                Utils.StatusSymbol(cr.status, string.Empty)
+                Utils.StatusSymbol(cr.status, string.Empty),
+                cr.mutationsPaternal.ToString(),
+                cr.mutationsMaternal.ToString(),
+                cr.Level.ToString()
             }).ToArray();
 
             // check if we display group for species or not.

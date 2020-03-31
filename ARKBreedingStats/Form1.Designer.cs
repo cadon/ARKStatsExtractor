@@ -332,6 +332,9 @@ namespace ARKBreedingStats
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
             this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetLibraryColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
+            this.columnHeaderFatherMutation = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderMotherMutation = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -2294,7 +2297,10 @@ namespace ARKBreedingStats
             this.columnHeaderSpecies,
             this.columnHeaderStatus,
             this.columnHeaderTribe,
-            this.columnHeaderStatusIcon});
+            this.columnHeaderStatusIcon,
+            this.columnHeaderFatherMutation,
+            this.columnHeaderMotherMutation,
+            this.columnHeaderLevel});
             this.listViewLibrary.ContextMenuStrip = this.contextMenuStripLibrary;
             this.listViewLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewLibrary.FullRowSelect = true;
@@ -3370,6 +3376,18 @@ namespace ARKBreedingStats
             this.toolStripMenuItemResetLibraryColumnWidths.Text = "Reset column width";
             this.toolStripMenuItemResetLibraryColumnWidths.Click += new System.EventHandler(this.toolStripMenuItemResetLibraryColumnWidths_Click);
             // 
+            // columnHeaderFatherMutation
+            // 
+            this.columnHeaderFatherMutation.Text = "FMu";
+            // 
+            // columnHeaderMotherMutation
+            // 
+            this.columnHeaderMotherMutation.Text = "MMu";
+            // 
+            // columnHeaderLevel
+            // 
+            this.columnHeaderLevel.Text = "Level";
+            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -3773,5 +3791,8 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ColumnHeader columnHeaderStatusIcon;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripLibraryHeader;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemResetLibraryColumnWidths;
+        private System.Windows.Forms.ColumnHeader columnHeaderFatherMutation;
+        private System.Windows.Forms.ColumnHeader columnHeaderMotherMutation;
+        private System.Windows.Forms.ColumnHeader columnHeaderLevel;
     }
 }
