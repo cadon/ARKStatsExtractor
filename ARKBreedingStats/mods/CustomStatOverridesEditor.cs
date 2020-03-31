@@ -28,7 +28,8 @@ namespace ARKBreedingStats.mods
             overrideEdits = new StatBaseValuesEdit[Values.STATS_COUNT];
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                var se = new StatBaseValuesEdit() { StatName = Utils.statName(s, true) };
+                var se = new StatBaseValuesEdit();
+                se.SetStatNameByIndex(s);
                 overrideEdits[s] = se;
                 flowLayoutPanelOverrideEdits.Controls.Add(se);
                 flowLayoutPanelOverrideEdits.SetFlowBreak(se, true);
@@ -73,9 +74,11 @@ namespace ARKBreedingStats.mods
 
             double?[][] overrides = cc?.CustomSpeciesStats?.ContainsKey(selectedSpecies.blueprintPath) ?? false ? cc.CustomSpeciesStats[selectedSpecies.blueprintPath] : null;
 
+            bool isGlowSpecies = species.IsGlowSpecies;
             // set control values to overridden values or to default values.
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
+                overrideEdits[s].SetStatNameByIndex(s, isGlowSpecies);
                 overrideEdits[s].SetStatOverrides(selectedSpecies.fullStatsRaw[s], overrides?[s]);
                 overrideEdits[s].SetImprintingMultiplierOverride(selectedSpecies.StatImprintingMultipliersDefault[s], overrides != null && overrides.Length > Values.STATS_COUNT ? overrides[Values.STATS_COUNT]?[s] : null);
             }

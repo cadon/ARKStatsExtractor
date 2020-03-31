@@ -36,6 +36,31 @@ namespace ARKBreedingStats.uiControls
                     pattern = Properties.Settings.Default.NamingPatterns?[namingPatternIndex] ?? string.Empty;
             }
 
+            if (creature.topness == 0)
+            {
+                if (speciesTopLevels == null)
+                {
+                    creature.topness = 1000;
+                }
+                else
+                {
+                    int topLevelSum = 0;
+                    int creatureLevelSum = 0;
+                    for (int s = 0; s < Values.STATS_COUNT; s++)
+                    {
+                        if (s != (int)StatNames.Torpidity && creature.Species.UsesStat(s))
+                        {
+                            int creatureLevel = Math.Max(0, creature.levelsWild[s]);
+                            topLevelSum += Math.Max(creatureLevel, speciesTopLevels[s]);
+                            creatureLevelSum += creatureLevel;
+                        }
+                    }
+                    if (topLevelSum != 0)
+                        creature.topness = (short)(creatureLevelSum * 1000f / topLevelSum);
+                    else creature.topness = 1000;
+                }
+            }
+
             Dictionary<string, string> tokenDictionary = CreateTokenDictionary(creature, sameSpecies);
             // first resolve keys, then functions
             string name = ResolveFunctions(
@@ -151,6 +176,26 @@ namespace ARKBreedingStats.uiControls
                                 ? 3 : 4)].Value;
                         }
                         else return ParametersInvalid($"The condition-parameter \"{p1}\"is invalid. It has to start with \"isTop\" or \"isNewTop\" followed by a stat specifier, e.g. \"hp\"");
+                    case "ifexpr":
+                        // tries to evaluate the expression
+                        // possible operators are ==, !=, <, >, =<, =>
+                        var match = Regex.Match(p1, @"\A\s*(\d+(?:\.\d*)?)\s*(==|!=|<|<=|>|>=)\s*(\d+(?:\.\d*)?)\s*\Z");
+                        if (match.Success
+                            && double.TryParse(match.Groups[1].Value, out double d1)
+                            && double.TryParse(match.Groups[3].Value, out double d2)
+                            )
+                        {
+                            switch (match.Groups[2].Value)
+                            {
+                                case "==": return d1 == d2 ? m.Groups[3].Value : m.Groups[4].Value;
+                                case "!=": return d1 != d2 ? m.Groups[3].Value : m.Groups[4].Value;
+                                case "<": return d1 < d2 ? m.Groups[3].Value : m.Groups[4].Value;
+                                case "<=": return d1 <= d2 ? m.Groups[3].Value : m.Groups[4].Value;
+                                case ">": return d1 > d2 ? m.Groups[3].Value : m.Groups[4].Value;
+                                case ">=": return d1 >= d2 ? m.Groups[3].Value : m.Groups[4].Value;
+                            }
+                        }
+                        return ParametersInvalid($"The expression for ifexpr invalid: \"{p1}\"");
                     case "substring":
                         // check param number: 1: substring, 2: p1, 3: pos, 4: length
 
@@ -422,9 +467,9 @@ namespace ARKBreedingStats.uiControls
                 { "spcsNm", spcsNm },
                 { "firstWordOfOldest", firstWordOfOldest },
 
-                {"owner", creature.owner },
-                {"tribe", creature.tribe },
-                {"server", creature.server },
+                { "owner", creature.owner },
+                { "tribe", creature.tribe },
+                { "server", creature.server },
 
                 { "sex", creature.sex.ToString() },
                 { "sex_short", creature.sex.ToString().Substring(0, 1) },
@@ -463,6 +508,7 @@ namespace ARKBreedingStats.uiControls
                 { "sex_lang_gen",   Loc.s(creature.sex.ToString() + "_gen") },
                 { "sex_lang_short_gen", Loc.s(creature.sex.ToString() + "_gen").Substring(0, 1) },
 
+                { "topPercent" , (creature.topness / 10f).ToString() },
                 { "baselvl" , baselvl },
                 { "effImp" , effImp },
                 { "muta", mutas},
@@ -478,10 +524,14 @@ namespace ARKBreedingStats.uiControls
                 { "highest2l", levelOrder[1].Item2.ToString() },
                 { "highest3l", levelOrder[2].Item2.ToString() },
                 { "highest4l", levelOrder[3].Item2.ToString() },
+                { "highest5l", levelOrder[4].Item2.ToString() },
+                { "highest6l", levelOrder[5].Item2.ToString() },
                 { "highest1s", Utils.statName(levelOrder[0].Item1, true, creature.Species.IsGlowSpecies) },
                 { "highest2s", Utils.statName(levelOrder[1].Item1, true, creature.Species.IsGlowSpecies) },
                 { "highest3s", Utils.statName(levelOrder[2].Item1, true, creature.Species.IsGlowSpecies) },
                 { "highest4s", Utils.statName(levelOrder[3].Item1, true, creature.Species.IsGlowSpecies) },
+                { "highest5s", Utils.statName(levelOrder[4].Item1, true, creature.Species.IsGlowSpecies) },
+                { "highest6s", Utils.statName(levelOrder[5].Item1, true, creature.Species.IsGlowSpecies) },
             };
         }
 

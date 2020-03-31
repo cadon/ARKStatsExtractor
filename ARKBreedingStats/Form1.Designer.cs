@@ -244,6 +244,7 @@ namespace ARKBreedingStats
             this.columnHeaderSpecies = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTribe = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderStatusIcon = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripLibrary = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.editAllSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -2305,7 +2306,8 @@ namespace ARKBreedingStats
             this.columnHeaderColor5,
             this.columnHeaderSpecies,
             this.columnHeaderStatus,
-            this.columnHeaderTribe});
+            this.columnHeaderTribe,
+            this.columnHeaderStatusIcon});
             this.listViewLibrary.ContextMenuStrip = this.contextMenuStripLibrary;
             this.listViewLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewLibrary.FullRowSelect = true;
@@ -2323,197 +2325,217 @@ namespace ARKBreedingStats
             // 
             // columnHeaderName
             // 
+            this.columnHeaderName.DisplayIndex = 1;
             this.columnHeaderName.Text = "Name";
             this.columnHeaderName.Width = 97;
             // 
             // columnHeaderOwner
             // 
+            this.columnHeaderOwner.DisplayIndex = 2;
             this.columnHeaderOwner.Text = "Owner";
             this.columnHeaderOwner.Width = 48;
             // 
             // columnHeaderNote
             // 
+            this.columnHeaderNote.DisplayIndex = 3;
             this.columnHeaderNote.Text = "Notes";
             this.columnHeaderNote.Width = 48;
             // 
             // columnHeaderServer
             // 
+            this.columnHeaderServer.DisplayIndex = 4;
             this.columnHeaderServer.Text = "Server";
             // 
             // columnHeaderSex
             // 
+            this.columnHeaderSex.DisplayIndex = 5;
             this.columnHeaderSex.Text = "S";
             this.columnHeaderSex.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeaderSex.Width = 22;
             // 
             // columnHeaderAdded
             // 
-            this.columnHeaderAdded.DisplayIndex = 22;
+            this.columnHeaderAdded.DisplayIndex = 23;
             this.columnHeaderAdded.Text = "Added";
             // 
             // columnHeaderTopness
             // 
-            this.columnHeaderTopness.DisplayIndex = 18;
+            this.columnHeaderTopness.DisplayIndex = 19;
             this.columnHeaderTopness.Text = "Tp%";
             this.columnHeaderTopness.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderTopness.Width = 33;
             // 
             // columnHeaderTopStatsNr
             // 
-            this.columnHeaderTopStatsNr.DisplayIndex = 17;
+            this.columnHeaderTopStatsNr.DisplayIndex = 18;
             this.columnHeaderTopStatsNr.Text = "Top";
             this.columnHeaderTopStatsNr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderTopStatsNr.Width = 31;
             // 
             // columnHeaderGen
             // 
-            this.columnHeaderGen.DisplayIndex = 19;
+            this.columnHeaderGen.DisplayIndex = 20;
             this.columnHeaderGen.Text = "Gen";
             this.columnHeaderGen.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeaderGen.Width = 34;
             // 
             // columnHeaderFound
             // 
-            this.columnHeaderFound.DisplayIndex = 20;
+            this.columnHeaderFound.DisplayIndex = 21;
             this.columnHeaderFound.Text = "LW";
             this.columnHeaderFound.Width = 30;
             // 
             // columnHeaderMutations
             // 
-            this.columnHeaderMutations.DisplayIndex = 21;
+            this.columnHeaderMutations.DisplayIndex = 22;
             this.columnHeaderMutations.Text = "Mu";
             this.columnHeaderMutations.Width = 30;
             // 
             // columnHeaderCooldown
             // 
-            this.columnHeaderCooldown.DisplayIndex = 23;
+            this.columnHeaderCooldown.DisplayIndex = 24;
             this.columnHeaderCooldown.Text = "Cooldown/Growing";
             // 
             // columnHeaderHP
             // 
-            this.columnHeaderHP.DisplayIndex = 5;
+            this.columnHeaderHP.DisplayIndex = 6;
             this.columnHeaderHP.Text = "HP";
             this.columnHeaderHP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderHP.Width = 30;
             // 
             // columnHeaderSt
             // 
-            this.columnHeaderSt.DisplayIndex = 6;
+            this.columnHeaderSt.DisplayIndex = 7;
             this.columnHeaderSt.Text = "St";
             this.columnHeaderSt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderSt.Width = 30;
             // 
             // columnHeaderTo
             // 
-            this.columnHeaderTo.DisplayIndex = 16;
+            this.columnHeaderTo.DisplayIndex = 17;
             this.columnHeaderTo.Text = "To";
             this.columnHeaderTo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderTo.Width = 30;
             // 
             // columnHeaderOx
             // 
-            this.columnHeaderOx.DisplayIndex = 7;
+            this.columnHeaderOx.DisplayIndex = 8;
             this.columnHeaderOx.Text = "Ox";
             this.columnHeaderOx.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderOx.Width = 30;
             // 
             // columnHeaderFo
             // 
-            this.columnHeaderFo.DisplayIndex = 8;
+            this.columnHeaderFo.DisplayIndex = 9;
             this.columnHeaderFo.Text = "Fo";
             this.columnHeaderFo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderFo.Width = 30;
             // 
             // columnHeaderWa
             // 
-            this.columnHeaderWa.DisplayIndex = 9;
+            this.columnHeaderWa.DisplayIndex = 10;
             this.columnHeaderWa.Text = "Wa";
             this.columnHeaderWa.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderWa.Width = 30;
             // 
             // columnHeaderTemp
             // 
-            this.columnHeaderTemp.DisplayIndex = 10;
+            this.columnHeaderTemp.DisplayIndex = 11;
             this.columnHeaderTemp.Text = "Te";
             this.columnHeaderTemp.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderTemp.Width = 30;
             // 
             // columnHeaderWe
             // 
-            this.columnHeaderWe.DisplayIndex = 11;
+            this.columnHeaderWe.DisplayIndex = 12;
             this.columnHeaderWe.Text = "We";
             this.columnHeaderWe.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderWe.Width = 30;
             // 
             // columnHeaderDm
             // 
-            this.columnHeaderDm.DisplayIndex = 12;
+            this.columnHeaderDm.DisplayIndex = 13;
             this.columnHeaderDm.Text = "Dm";
             this.columnHeaderDm.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderDm.Width = 30;
             // 
             // columnHeaderSp
             // 
-            this.columnHeaderSp.DisplayIndex = 13;
+            this.columnHeaderSp.DisplayIndex = 14;
             this.columnHeaderSp.Text = "Sp";
             this.columnHeaderSp.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderSp.Width = 30;
             // 
             // columnHeaderFr
             // 
-            this.columnHeaderFr.DisplayIndex = 14;
+            this.columnHeaderFr.DisplayIndex = 15;
             this.columnHeaderFr.Text = "Fr";
             this.columnHeaderFr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderFr.Width = 30;
             // 
             // columnHeaderCr
             // 
-            this.columnHeaderCr.DisplayIndex = 15;
+            this.columnHeaderCr.DisplayIndex = 16;
             this.columnHeaderCr.Text = "Cr";
             this.columnHeaderCr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderCr.Width = 30;
             // 
             // columnHeaderColor0
             // 
+            this.columnHeaderColor0.DisplayIndex = 25;
             this.columnHeaderColor0.Text = "C0";
             this.columnHeaderColor0.Width = 25;
             // 
             // columnHeaderColor1
             // 
+            this.columnHeaderColor1.DisplayIndex = 26;
             this.columnHeaderColor1.Text = "C1";
             this.columnHeaderColor1.Width = 25;
             // 
             // columnHeaderColor2
             // 
+            this.columnHeaderColor2.DisplayIndex = 27;
             this.columnHeaderColor2.Text = "C2";
             this.columnHeaderColor2.Width = 25;
             // 
             // columnHeaderColor3
             // 
+            this.columnHeaderColor3.DisplayIndex = 28;
             this.columnHeaderColor3.Text = "C3";
             this.columnHeaderColor3.Width = 25;
             // 
             // columnHeaderColor4
             // 
+            this.columnHeaderColor4.DisplayIndex = 29;
             this.columnHeaderColor4.Text = "C4";
             this.columnHeaderColor4.Width = 25;
             // 
             // columnHeaderColor5
             // 
+            this.columnHeaderColor5.DisplayIndex = 30;
             this.columnHeaderColor5.Text = "C5";
             this.columnHeaderColor5.Width = 25;
             // 
             // columnHeaderSpecies
             // 
+            this.columnHeaderSpecies.DisplayIndex = 31;
             this.columnHeaderSpecies.Text = "Species";
             // 
             // columnHeaderStatus
             // 
+            this.columnHeaderStatus.DisplayIndex = 32;
             this.columnHeaderStatus.Text = "Status";
             // 
             // columnHeaderTribe
             // 
+            this.columnHeaderTribe.DisplayIndex = 33;
             this.columnHeaderTribe.Text = "Tribe";
+            // 
+            // columnHeaderStatusIcon
+            // 
+            this.columnHeaderStatusIcon.DisplayIndex = 0;
+            this.columnHeaderStatusIcon.Text = "Status";
+            this.columnHeaderStatusIcon.Width = 35;
             // 
             // contextMenuStripLibrary
             // 
@@ -2576,7 +2598,7 @@ namespace ARKBreedingStats
             this.toolStripMenuItemCopyCreatureName.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
             this.toolStripMenuItemCopyCreatureName.Size = new System.Drawing.Size(258, 22);
             this.toolStripMenuItemCopyCreatureName.Text = "Copy creature Name";
-            this.toolStripMenuItemCopyCreatureName.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            this.toolStripMenuItemCopyCreatureName.Click += new System.EventHandler(this.toolStripMenuItemCopyCreatureName_Click);
             // 
             // toolStripSeparator9
             // 
@@ -3746,5 +3768,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator19;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem copyInfographicToClipboardToolStripMenuItem;
+        private System.Windows.Forms.ColumnHeader columnHeaderStatusIcon;
     }
 }

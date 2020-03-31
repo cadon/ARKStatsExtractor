@@ -39,6 +39,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanelOverrideEdits = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -52,7 +53,6 @@
             this.loadOverrideFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addOverrideFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportOverrideFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -77,7 +77,7 @@
             this.lvSpecies.Location = new System.Drawing.Point(3, 48);
             this.lvSpecies.MultiSelect = false;
             this.lvSpecies.Name = "lvSpecies";
-            this.lvSpecies.Size = new System.Drawing.Size(608, 655);
+            this.lvSpecies.Size = new System.Drawing.Size(604, 655);
             this.lvSpecies.TabIndex = 0;
             this.lvSpecies.UseCompatibleStateImageBehavior = false;
             this.lvSpecies.View = System.Windows.Forms.View.Details;
@@ -100,7 +100,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(614, 706);
+            this.groupBox1.Size = new System.Drawing.Size(610, 706);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Species";
@@ -113,7 +113,7 @@
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 16);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(608, 32);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(604, 32);
             this.flowLayoutPanel1.TabIndex = 1;
             // 
             // tbFilterSpecies
@@ -153,7 +153,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(3, 35);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(730, 692);
+            this.groupBox2.Size = new System.Drawing.Size(812, 692);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Overrides";
@@ -164,7 +164,7 @@
             this.flowLayoutPanelOverrideEdits.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelOverrideEdits.Location = new System.Drawing.Point(3, 16);
             this.flowLayoutPanelOverrideEdits.Name = "flowLayoutPanelOverrideEdits";
-            this.flowLayoutPanelOverrideEdits.Size = new System.Drawing.Size(724, 673);
+            this.flowLayoutPanelOverrideEdits.Size = new System.Drawing.Size(806, 673);
             this.flowLayoutPanelOverrideEdits.TabIndex = 0;
             // 
             // panel1
@@ -178,13 +178,22 @@
             this.flowLayoutPanelOverrideEdits.SetFlowBreak(this.panel1, true);
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(715, 22);
+            this.panel1.Size = new System.Drawing.Size(797, 22);
             this.panel1.TabIndex = 0;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(655, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(94, 13);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "imprinting multiplier";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(499, 0);
+            this.label5.Location = new System.Drawing.Point(536, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(63, 13);
             this.label5.TabIndex = 4;
@@ -193,7 +202,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(399, 0);
+            this.label4.Location = new System.Drawing.Point(436, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(51, 13);
             this.label4.TabIndex = 3;
@@ -202,7 +211,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(299, 0);
+            this.label3.Location = new System.Drawing.Point(336, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(70, 13);
             this.label3.TabIndex = 2;
@@ -211,7 +220,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(199, 0);
+            this.label2.Location = new System.Drawing.Point(236, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(68, 13);
             this.label2.TabIndex = 1;
@@ -220,7 +229,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(99, 0);
+            this.label1.Location = new System.Drawing.Point(136, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(30, 13);
             this.label1.TabIndex = 0;
@@ -238,7 +247,7 @@
             // 
             // btRemoveOverride
             // 
-            this.btRemoveOverride.Location = new System.Drawing.Point(371, 3);
+            this.btRemoveOverride.Location = new System.Drawing.Point(412, 3);
             this.btRemoveOverride.Name = "btRemoveOverride";
             this.btRemoveOverride.Size = new System.Drawing.Size(136, 23);
             this.btRemoveOverride.TabIndex = 4;
@@ -260,7 +269,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(736, 706);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(818, 706);
             this.tableLayoutPanel1.TabIndex = 5;
             // 
             // splitContainer1
@@ -276,8 +285,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel1);
-            this.splitContainer1.Size = new System.Drawing.Size(1354, 706);
-            this.splitContainer1.SplitterDistance = 614;
+            this.splitContainer1.Size = new System.Drawing.Size(1432, 706);
+            this.splitContainer1.SplitterDistance = 610;
             this.splitContainer1.TabIndex = 7;
             // 
             // menuStrip1
@@ -288,7 +297,7 @@
             this.exportOverrideFileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1354, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1432, 24);
             this.menuStrip1.TabIndex = 8;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -313,20 +322,11 @@
             this.exportOverrideFileToolStripMenuItem.Text = "Export override file";
             this.exportOverrideFileToolStripMenuItem.Click += new System.EventHandler(this.exportOverrideFileToolStripMenuItem_Click);
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(618, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(94, 13);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "imprinting multiplier";
-            // 
             // CustomStatOverridesEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1354, 730);
+            this.ClientSize = new System.Drawing.Size(1432, 730);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;

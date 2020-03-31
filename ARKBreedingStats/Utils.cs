@@ -89,7 +89,7 @@ namespace ARKBreedingStats
             }
         }
 
-        public static string statusSymbol(CreatureStatus s)
+        public static string statusSymbol(CreatureStatus s, string defaultReturn = "✓")
         {
             switch (s)
             {
@@ -97,7 +97,7 @@ namespace ARKBreedingStats
                 case CreatureStatus.Unavailable: return "✗";
                 case CreatureStatus.Obelisk: return "⌂";
                 case CreatureStatus.Cryopod: return "Θ";
-                default: return "✓";
+                default: return defaultReturn;
             }
         }
 

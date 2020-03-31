@@ -64,7 +64,7 @@ namespace ARKBreedingStats
             set
             {
                 cc = value;
-                statsDisplay1.BarMaxLevel = cc?.maxWildLevel ?? 50;
+                statsDisplay1.BarMaxLevel = cc?.maxChartLevel ?? 50;
             }
         }
 

@@ -3,6 +3,10 @@ using System.Drawing;
 
 namespace ARKBreedingStats.species
 {
+    /// <summary>
+    /// Class that represents a color in ARK.
+    /// It contains the ingame name, a Color object and the sRGBA values in the array arkRgba.
+    /// </summary>
     public class ARKColor
     {
         public string name;
@@ -11,7 +15,7 @@ namespace ARKBreedingStats.species
         /// Depends on the unreal rgb-values
         /// </summary>
         public int hash;
-        public double[] arkRgb;
+        public double[] arkRgba;
         /// <summary>
         /// The id currently used, it can change with mods.
         /// </summary>
@@ -19,9 +23,11 @@ namespace ARKBreedingStats.species
 
         public ARKColor()
         {
+            id = 0;
             name = "unknown";
             color = Color.LightGray;
-            arkRgb = new double[] { 0, 0, 0 };
+            arkRgba = null;
+            hash = 0;
         }
 
         public ARKColor(string name, double[] colorValues)
@@ -32,23 +38,25 @@ namespace ARKBreedingStats.species
                 color = Color.FromArgb(LinearColorComponentToColorComponentClamped(colorValues[0]),
                                        LinearColorComponentToColorComponentClamped(colorValues[1]),
                                        LinearColorComponentToColorComponentClamped(colorValues[2]));
-                // TODO support HDR color part
 
                 hash = ColorHashCode(
                     colorValues[0],
                     colorValues[1],
-                    colorValues[2]
+                    colorValues[2],
+                    colorValues[3]
                     );
 
-                arkRgb = new double[] {colorValues[0],
-                                       colorValues[1],
-                                       colorValues[2]};
+                arkRgba = new double[] {
+                    colorValues[0],
+                    colorValues[1],
+                    colorValues[2],
+                    colorValues[3]
+                };
             }
             else
             {
-                color = Color.LightGray;
-                hash = 0;
-                arkRgb = new double[] { 0, 0, 0 };
+                // color is invalid and will be ignored.
+                arkRgba = null;
             }
         }
 
@@ -65,21 +73,24 @@ namespace ARKBreedingStats.species
             return v;
         }
 
-        public static int ColorHashCode(double a, double r, double g, double b)
+        /// <summary>
+        /// Returns a hashcode for the given sRGBA values.
+        /// The creature export files contain the color definitions with 6 decimal places;
+        /// round to 5 decimal places to get consistent matches.
+        /// </summary>
+        /// <param name="r"></param>
+        /// <param name="g"></param>
+        /// <param name="b"></param>
+        /// <param name="a"></param>
+        /// <returns></returns>
+        public static int ColorHashCode(double r, double g, double b, double a)
         {
-            // the creature export files contain the color definitions with 6 decimal places
-            // round to 5 decimal places to get consistent matches
             return (
                     Math.Round(r, 5).ToString() + "," +
                     Math.Round(g, 5).ToString() + "," +
                     Math.Round(b, 5).ToString() + "," +
                     Math.Round(a, 5).ToString()
                     ).GetHashCode();
-        }
-
-        public static int ColorHashCode(double r, double g, double b)
-        {
-            return ColorHashCode(0, r, g, b);
         }
     }
 }

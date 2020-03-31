@@ -2098,6 +2098,7 @@ namespace ARKBreedingStats
                 page = settingsLastTabPage;
             using (Settings settingsfrm = new Settings(creatureCollection, page))
             {
+                bool libraryTopCreatureColorHighlight = Properties.Settings.Default.LibraryHighlightTopCreatures;
                 if (settingsfrm.ShowDialog() == DialogResult.OK)
                 {
                     ApplySettingsToValues();
@@ -2113,6 +2114,11 @@ namespace ARKBreedingStats
 
                     InitializeSpeechRecognition();
                     overlay?.SetInfoPositions();
+                    if (Properties.Settings.Default.DevTools)
+                        statsMultiplierTesting1.CheckIfMultipliersAreEqualToSettings();
+
+                    if (libraryTopCreatureColorHighlight != Properties.Settings.Default.LibraryHighlightTopCreatures)
+                        FilterLib();
 
                     SetCollectionChanged(true);
                 }
@@ -3236,7 +3242,7 @@ namespace ARKBreedingStats
                 DoOCR(files[0]);
         }
 
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        private void toolStripMenuItemCopyCreatureName_Click(object sender, EventArgs e)
         {
             CopySelectedCreatureName();
         }
@@ -3247,7 +3253,13 @@ namespace ARKBreedingStats
         private void CopySelectedCreatureName()
         {
             if (listViewLibrary.SelectedItems.Count > 0)
-                Clipboard.SetText(((Creature)listViewLibrary.SelectedItems[0].Tag).name);
+            {
+                string name = ((Creature)listViewLibrary.SelectedItems[0].Tag).name;
+                if (string.IsNullOrEmpty(name))
+                    Clipboard.Clear();
+                else
+                    Clipboard.SetText(name);
+            }
         }
 
         private void toolStripMenuItem5_Click(object sender, EventArgs e)

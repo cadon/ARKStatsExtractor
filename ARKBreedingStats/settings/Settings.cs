@@ -209,8 +209,12 @@ namespace ARKBreedingStats.settings
             nudWildLevelStep.ValueSave = cc.wildLevelStep;
             cbInventoryCheck.Checked = Properties.Settings.Default.inventoryCheckTimer;
             cbAllowMoreThanHundredImprinting.Checked = cc.allowMoreThanHundredImprinting;
+
+            #region library
             cbCreatureColorsLibrary.Checked = Properties.Settings.Default.showColorsInLibrary;
             cbApplyGlobalSpeciesToLibrary.Checked = Properties.Settings.Default.ApplyGlobalSpeciesToLibrary;
+            cbLibraryHighlightTopCreatures.Checked = Properties.Settings.Default.LibraryHighlightTopCreatures;
+            #endregion
 
             #region import exported
             if (Properties.Settings.Default.ExportCreatureFolders != null)
@@ -354,8 +358,12 @@ namespace ARKBreedingStats.settings
             cc.wildLevelStep = (int)nudWildLevelStep.Value;
             Properties.Settings.Default.inventoryCheckTimer = cbInventoryCheck.Checked;
             cc.allowMoreThanHundredImprinting = cbAllowMoreThanHundredImprinting.Checked;
+
+            #region library
             Properties.Settings.Default.showColorsInLibrary = cbCreatureColorsLibrary.Checked;
             Properties.Settings.Default.ApplyGlobalSpeciesToLibrary = cbApplyGlobalSpeciesToLibrary.Checked;
+            Properties.Settings.Default.LibraryHighlightTopCreatures = cbLibraryHighlightTopCreatures.Checked;
+            #endregion
 
             #region import savegame
             Properties.Settings.Default.savegameExtractionPath = fileSelectorExtractedSaveFolder.Link;

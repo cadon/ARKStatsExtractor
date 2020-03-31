@@ -112,6 +112,7 @@
             this.label32 = new System.Windows.Forms.Label();
             this.tbDefaultFontName = new System.Windows.Forms.TextBox();
             this.groupBox24 = new System.Windows.Forms.GroupBox();
+            this.cbKeepExpiredTimersInOverlay = new System.Windows.Forms.CheckBox();
             this.cbDeleteExpiredTimersOnSaving = new System.Windows.Forms.CheckBox();
             this.cbTimersInOverlayAutomatically = new System.Windows.Forms.CheckBox();
             this.groupBox20 = new System.Windows.Forms.GroupBox();
@@ -206,7 +207,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.cbOCRApp = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.cbKeepExpiredTimersInOverlay = new System.Windows.Forms.CheckBox();
+            this.cbLibraryHighlightTopCreatures = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyFoodConsumptionSpeedEvent)).BeginInit();
@@ -1419,12 +1420,22 @@
             this.groupBox24.Controls.Add(this.cbKeepExpiredTimersInOverlay);
             this.groupBox24.Controls.Add(this.cbDeleteExpiredTimersOnSaving);
             this.groupBox24.Controls.Add(this.cbTimersInOverlayAutomatically);
-            this.groupBox24.Location = new System.Drawing.Point(6, 393);
+            this.groupBox24.Location = new System.Drawing.Point(5, 418);
             this.groupBox24.Name = "groupBox24";
             this.groupBox24.Size = new System.Drawing.Size(317, 94);
             this.groupBox24.TabIndex = 11;
             this.groupBox24.TabStop = false;
             this.groupBox24.Text = "Timers";
+            // 
+            // cbKeepExpiredTimersInOverlay
+            // 
+            this.cbKeepExpiredTimersInOverlay.AutoSize = true;
+            this.cbKeepExpiredTimersInOverlay.Location = new System.Drawing.Point(6, 42);
+            this.cbKeepExpiredTimersInOverlay.Name = "cbKeepExpiredTimersInOverlay";
+            this.cbKeepExpiredTimersInOverlay.Size = new System.Drawing.Size(166, 17);
+            this.cbKeepExpiredTimersInOverlay.TabIndex = 10;
+            this.cbKeepExpiredTimersInOverlay.Text = "Keep expired timers in overlay";
+            this.cbKeepExpiredTimersInOverlay.UseVisualStyleBackColor = true;
             // 
             // cbDeleteExpiredTimersOnSaving
             // 
@@ -1469,7 +1480,7 @@
             // groupBox17
             // 
             this.groupBox17.Controls.Add(this.cbbLanguage);
-            this.groupBox17.Location = new System.Drawing.Point(6, 493);
+            this.groupBox17.Location = new System.Drawing.Point(5, 518);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(317, 51);
             this.groupBox17.TabIndex = 9;
@@ -1507,11 +1518,12 @@
             // 
             // groupBox9
             // 
+            this.groupBox9.Controls.Add(this.cbLibraryHighlightTopCreatures);
             this.groupBox9.Controls.Add(this.cbApplyGlobalSpeciesToLibrary);
             this.groupBox9.Controls.Add(this.cbCreatureColorsLibrary);
             this.groupBox9.Location = new System.Drawing.Point(6, 321);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(317, 66);
+            this.groupBox9.Size = new System.Drawing.Size(317, 91);
             this.groupBox9.TabIndex = 7;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Library";
@@ -1773,7 +1785,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1781,7 +1793,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1789,7 +1801,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1797,7 +1809,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -2449,15 +2461,15 @@
             this.label1.TabIndex = 5;
             this.label1.Text = resources.GetString("label1.Text");
             // 
-            // cbKeepExpiredTimersInOverlay
+            // cbLibraryHighlightTopCreatures
             // 
-            this.cbKeepExpiredTimersInOverlay.AutoSize = true;
-            this.cbKeepExpiredTimersInOverlay.Location = new System.Drawing.Point(6, 42);
-            this.cbKeepExpiredTimersInOverlay.Name = "cbKeepExpiredTimersInOverlay";
-            this.cbKeepExpiredTimersInOverlay.Size = new System.Drawing.Size(166, 17);
-            this.cbKeepExpiredTimersInOverlay.TabIndex = 10;
-            this.cbKeepExpiredTimersInOverlay.Text = "Keep expired timers in overlay";
-            this.cbKeepExpiredTimersInOverlay.UseVisualStyleBackColor = true;
+            this.cbLibraryHighlightTopCreatures.AutoSize = true;
+            this.cbLibraryHighlightTopCreatures.Location = new System.Drawing.Point(6, 65);
+            this.cbLibraryHighlightTopCreatures.Name = "cbLibraryHighlightTopCreatures";
+            this.cbLibraryHighlightTopCreatures.Size = new System.Drawing.Size(136, 17);
+            this.cbLibraryHighlightTopCreatures.TabIndex = 2;
+            this.cbLibraryHighlightTopCreatures.Text = "Highlight Top creatures";
+            this.cbLibraryHighlightTopCreatures.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -2750,5 +2762,6 @@
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.CheckBox cbKeepExpiredTimersInOverlay;
+        private System.Windows.Forms.CheckBox cbLibraryHighlightTopCreatures;
     }
 }
