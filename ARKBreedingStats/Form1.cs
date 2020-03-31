@@ -45,7 +45,10 @@ namespace ARKBreedingStats
         public delegate void SetMessageLabelTextEventHandler(string text = null, MessageBoxIcon icon = MessageBoxIcon.None);
 
         private bool updateTorporInTester, filterListAllowed;
-        private readonly bool[] considerStatHighlight = new bool[Values.STATS_COUNT]; // consider this stat for color-highlighting, topness etc
+        /// <summary>
+        /// The stat indices that are considered for color highlighting and topness calculation.
+        /// </summary>
+        private readonly bool[] considerStatHighlight = new bool[Values.STATS_COUNT];
         private bool autoSave;
         private DateTime lastAutoSaveBackup = DateTime.Now.AddDays(-1);
         private int autoSaveMinutes;
@@ -303,7 +306,7 @@ namespace ARKBreedingStats
                 statIOTesting.LevelChanged += testingStatIOValueUpdate;
                 statIO.InputValueChanged += StatIOQuickWildLevelCheck;
                 statIO.Click += new System.EventHandler(this.StatIO_Click);
-                considerStatHighlight[s] = (Properties.Settings.Default.consideredStats & (1 << s)) > 0;
+                considerStatHighlight[s] = (Properties.Settings.Default.consideredStats & (1 << s)) != 0;
 
                 statIOs.Add(statIO);
                 testingIOs.Add(statIOTesting);
@@ -1230,14 +1233,6 @@ namespace ARKBreedingStats
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             // savesettings save settings
-            // save consideredStats
-            int consideredStats = 0;
-            for (int s = 0; s < Values.STATS_COUNT; s++)
-            {
-                if (considerStatHighlight[s])
-                    consideredStats += 1 << s;
-            }
-            Properties.Settings.Default.consideredStats = consideredStats;
 
             // save window-position and size
             if (WindowState != FormWindowState.Minimized)
@@ -1969,8 +1964,17 @@ namespace ARKBreedingStats
 
         private void buttonRecalculateTops_Click(object sender, EventArgs e)
         {
+            int consideredStats = 0;
             for (int s = 0; s < Values.STATS_COUNT; s++)
+            {
                 considerStatHighlight[Values.statsDisplayOrder[s]] = checkedListBoxConsiderStatTop.GetItemChecked(s);
+
+                // save consideredStats
+                if (considerStatHighlight[s])
+                    consideredStats += 1 << s;
+            }
+            Properties.Settings.Default.consideredStats = consideredStats;
+
             // recalculate topstats
             CalculateTopStats(creatureCollection.creatures);
             FilterLib();

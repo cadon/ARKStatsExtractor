@@ -48,7 +48,10 @@ namespace ARKBreedingStats.uiControls
                     int creatureLevelSum = 0;
                     for (int s = 0; s < Values.STATS_COUNT; s++)
                     {
-                        if (s != (int)StatNames.Torpidity && creature.Species.UsesStat(s))
+                        if (s != (int)StatNames.Torpidity
+                            && creature.Species.UsesStat(s)
+                            && (Properties.Settings.Default.consideredStats & (1 << s)) != 0
+                            )
                         {
                             int creatureLevel = Math.Max(0, creature.levelsWild[s]);
                             topLevelSum += Math.Max(creatureLevel, speciesTopLevels[s]);
