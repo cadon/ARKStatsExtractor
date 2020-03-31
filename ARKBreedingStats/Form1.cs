@@ -102,18 +102,10 @@ namespace ARKBreedingStats
         /// <param name="e"></param>
         private void contextMenuStripLibrary_Opening(object sender, CancelEventArgs e)
         {
-            Win32API.Rect rc = new Win32API.Rect();
-
-            IntPtr headerHandle = Win32API.SendMessage(listViewLibrary.Handle, Win32API.LVM_GETHEADER, 0, 0);
-
-            if (Win32API.GetWindowRect(headerHandle, out rc))
+            if (Win32API.IsMouseOnListViewHeader(listViewLibrary.Handle, System.Windows.Forms.Control.MousePosition.Y))
             {
-                if ((Control.MousePosition.Y >= rc.top) && (Control.MousePosition.Y < rc.bottom))
-                {
-                    e.Cancel = true;
-                    contextMenuStripLibraryHeader.Show(Control.MousePosition);
-                }
-
+                e.Cancel = true;
+                contextMenuStripLibraryHeader.Show(Control.MousePosition);
             }
         }
 
@@ -3385,7 +3377,7 @@ namespace ARKBreedingStats
             (listViewLibrary.SelectedItems[0].Tag as Creature).ExportInfoGraphicToClipboard(creatureCollection);
         }
 
-         private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)
+        private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)
         {
             if (listViewLibrary.SelectedItems.Count > 0)
             {

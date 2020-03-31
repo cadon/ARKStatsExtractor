@@ -2,12 +2,13 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace ARKBreedingStats
 {
-    class Win32API
+    public static class Win32API
     {
         public const int LVM_FIRST = 0x1000;
         public const int LVM_GETHEADER = LVM_FIRST + 31;
@@ -45,14 +46,8 @@ namespace ARKBreedingStats
             public int right;
             public int bottom;
 
-            public int Width
-            {
-                get { return right - left; }
-            }
-            public int Height
-            {
-                get { return bottom - top; }
-            }
+            public int Width => right - left;
+            public int Height => bottom - top;
         }
 
         public struct Point
@@ -61,13 +56,12 @@ namespace ARKBreedingStats
             public int y;
         }
 
-        public static Bitmap GetSreenshotOfProcess(string processName, int waitMs, bool hideOverlay = false)// = 500)
+        public static Bitmap GetSreenshotOfProcess(string processName, int waitMs, bool hideOverlay = false)
         {
             Process[] p = Process.GetProcessesByName(processName);
-            Bitmap grab = null;
+            if (!p.Any()) return null;
 
-            if (p.Length == 0)
-                return null;
+            Bitmap grab = null;
 
             //Shadow Box users have multiple processes named "Shadow" but only one has an actual window.
             //Itterate through processes until window screen grab is NOT null.
@@ -129,7 +123,6 @@ namespace ARKBreedingStats
             rc.bottom = rc.top + client.Height;
 
             Bitmap bmp = new Bitmap(rc.Width, rc.Height, PixelFormat.Format32bppArgb);
-            Graphics gfxBmp = Graphics.FromImage(bmp);
 
             // hide overlay to not capture it
             bool showOverlay = false;
@@ -139,10 +132,11 @@ namespace ARKBreedingStats
                 ARKOverlay.theOverlay.Visible = false;
             }
 
-            gfxBmp.CopyFromScreen(rc.left, rc.top, 0, 0, new Size(rc.Width, rc.Height), CopyPixelOperation.SourceCopy);
-            //gfxBmp.CopyFromScreen(client.left, client.top, 0, 0, new Size(client.Width, client.Height), CopyPixelOperation.SourceCopy);
-
-            gfxBmp.Dispose();
+            using (Graphics gfxBmp = Graphics.FromImage(bmp))
+            {
+                gfxBmp.CopyFromScreen(rc.left, rc.top, 0, 0, new Size(rc.Width, rc.Height), CopyPixelOperation.SourceCopy);
+                //gfxBmp.CopyFromScreen(client.left, client.top, 0, 0, new Size(client.Width, client.Height), CopyPixelOperation.SourceCopy);
+            }
 
             // show overlay again if it was visible before and hidden for the screencapture
             if (hideOverlay && showOverlay)
@@ -168,6 +162,18 @@ namespace ARKBreedingStats
             gfxBmp.Dispose();
 
             return bmp;
+        }
+
+        /// <summary>
+        /// Returns true if the mouse is on the header of a listView regarding the y-axis.
+        /// </summary>
+        /// <param name="listView"></param>
+        /// <returns></returns>
+        public static bool IsMouseOnListViewHeader(IntPtr listViewHandle, int mouseY)
+        {
+            IntPtr headerHandle = Win32API.SendMessage(listViewHandle, Win32API.LVM_GETHEADER, 0, 0);
+            return Win32API.GetWindowRect(headerHandle, out Rect rc)
+                && (mouseY >= rc.top) && (mouseY < rc.bottom);
         }
     }
 }

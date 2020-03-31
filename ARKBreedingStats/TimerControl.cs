@@ -486,18 +486,10 @@ namespace ARKBreedingStats
 
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Win32API.Rect rc = new Win32API.Rect();
-
-            IntPtr headerHandle = Win32API.SendMessage(listViewTimer.Handle, Win32API.LVM_GETHEADER, 0, 0);
-
-            if (Win32API.GetWindowRect(headerHandle, out rc))
+            if (Win32API.IsMouseOnListViewHeader(listViewTimer.Handle, System.Windows.Forms.Control.MousePosition.Y))
             {
-                if ((Control.MousePosition.Y >= rc.top) && (Control.MousePosition.Y < rc.bottom))
-                {
-                    e.Cancel = true;
-                    contextMenuStripTimerHeader.Show(Control.MousePosition);
-                }
-
+                e.Cancel = true;
+                contextMenuStripTimerHeader.Show(Control.MousePosition);
             }
         }
 
