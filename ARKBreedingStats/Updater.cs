@@ -109,14 +109,18 @@ namespace ARKBreedingStats
 
             // backslashes and quotes in command line arguments are strange. https://stackoverflow.com/questions/9287812/backslash-and-quote-in-command-line-arguments
             var args = new System.Text.StringBuilder("\"" + AppDomain.CurrentDomain.BaseDirectory.Trim(new char[] { '\\' }) + "\"");
+            // the updater doesn't need to check again if an update is available
             args.Append(" doupdate");
+            // use the %localAppData%\ARK Smart Breeding folder for the values files
+            if (IsProgramInstalled)
+                args.Append(" useLocalAppData");
 
             // check if the application folder is protected, then ask for admin permissions for the updater.
             if (FileService.TestIfFolderIsProtected(AppDomain.CurrentDomain.BaseDirectory))
             {
                 startInfo.Verb = "runas";
-                args.Append(" useLocalAppData"); // copy data files to the localAppData folder for easier updating them
             }
+
             startInfo.Arguments = args.ToString();
 
             Process.Start(startInfo);
