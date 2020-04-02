@@ -19,7 +19,7 @@ namespace ARKBreedingStats
         public const string ReleasesUrl = "https://github.com/cadon/ARKStatsExtractor/releases/latest";
         // Release feed URL
         private const string releasesFeedUrl = "https://api.github.com/repos/cadon/ARKStatsExtractor/releases";
-        private const string UPDATER_EXE = "asb-updater.exe";
+        internal const string UPDATER_EXE = "asb-updater.exe";
 
         private const string OBELISK_URI = "https://raw.githubusercontent.com/arkutils/Obelisk/master/data/asb/";
 

@@ -98,22 +98,12 @@ namespace ARKBreedingStats
         private static double[] lastOCRValues;
         private Species lastOCRSpecies;
 
-        /// <summary>
-        /// Verify if the right click was into the header of the list view, if so, open a specific contextMenu.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void contextMenuStripLibrary_Opening(object sender, CancelEventArgs e)
-        {
-            if (Win32API.IsMouseOnListViewHeader(listViewLibrary.Handle, System.Windows.Forms.Control.MousePosition.Y))
-            {
-                e.Cancel = true;
-                contextMenuStripLibraryHeader.Show(Control.MousePosition);
-            }
-        }
-
         public Form1()
         {
+            var args = Environment.GetCommandLineArgs();
+            if (args.Contains("cleanupUpdater"))
+                FileService.TryDeleteFile(Path.Combine(Path.GetTempPath(), Updater.UPDATER_EXE));
+
             // load settings of older version if possible after an upgrade
             if (Properties.Settings.Default.UpgradeRequired)
             {
@@ -3376,6 +3366,20 @@ namespace ARKBreedingStats
                 string speciesName = ((Creature)listViewLibrary.SelectedItems[0].Tag).Species.name;
                 if (!string.IsNullOrEmpty(speciesName))
                     Process.Start("https://ark.gamepedia.com/" + speciesName);
+            }
+        }
+
+        /// <summary>
+        /// Verify if the right click was into the header of the list view, if so, open a specific contextMenu.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void contextMenuStripLibrary_Opening(object sender, CancelEventArgs e)
+        {
+            if (Win32API.IsMouseOnListViewHeader(listViewLibrary.Handle, System.Windows.Forms.Control.MousePosition.Y))
+            {
+                e.Cancel = true;
+                contextMenuStripLibraryHeader.Show(Control.MousePosition);
             }
         }
     }

@@ -211,7 +211,7 @@ namespace ASB_Updater
 
             Task.Delay(launchDelay).ContinueWith(_ =>
             {
-                Process.Start(Path.Combine(applicationPath, APPLICATIONEXE_NAME));
+                Process.Start(Path.Combine(applicationPath, APPLICATIONEXE_NAME), "cleanupUpdater");
 
                 updater.Cleanup();
                 Exit();
