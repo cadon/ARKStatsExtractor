@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -189,13 +190,21 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public bool Extract(string applicationPath)
+        public bool Extract(string applicationPath, bool useLocalAppDataForDataFiles)
         {
             Stage = Stages.EXTRACT;
             string extractedAppTempPath = Path.Combine(tempFolder, "ASB");
             Directory.CreateDirectory(extractedAppTempPath);
             ZipFile.ExtractToDirectory(tempZipNamePath, extractedAppTempPath);
-            CopyEntireDirectory(new DirectoryInfo(extractedAppTempPath), new DirectoryInfo(applicationPath), overwiteFiles: true);
+            if (useLocalAppDataForDataFiles)
+            {
+                CopyEntireDirectory(new DirectoryInfo(extractedAppTempPath), new DirectoryInfo(applicationPath), overwriteFiles: true, ignoreSubFolder: "json");
+                CopyEntireDirectory(new DirectoryInfo(Path.Combine(extractedAppTempPath, "json")), new DirectoryInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ARK Smart Breeding", "json")), overwriteFiles: true);
+            }
+            else
+            {
+                CopyEntireDirectory(new DirectoryInfo(extractedAppTempPath), new DirectoryInfo(applicationPath), overwriteFiles: true);
+            }
 
             return true;
         }
@@ -256,17 +265,18 @@ namespace ASB_Updater
             return File.Exists(outName);
         }
 
-        public static void CopyEntireDirectory(DirectoryInfo source, DirectoryInfo target, bool overwiteFiles = true)
+        public static void CopyEntireDirectory(DirectoryInfo source, DirectoryInfo target, bool overwriteFiles = true, string ignoreSubFolder = null)
         {
             if (!source.Exists) return;
             if (!target.Exists) target.Create();
 
-            Parallel.ForEach(source.GetDirectories(), (sourceChildDirectory) =>
-                CopyEntireDirectory(sourceChildDirectory, new DirectoryInfo(Path.Combine(target.FullName, sourceChildDirectory.Name))));
+            Parallel.ForEach(string.IsNullOrEmpty(ignoreSubFolder) ? source.GetDirectories() : source.GetDirectories().Where(d => d.Name != ignoreSubFolder),
+                (sourceChildDirectory) =>
+                CopyEntireDirectory(sourceChildDirectory, new DirectoryInfo(Path.Combine(target.FullName, sourceChildDirectory.Name)), overwriteFiles));
 
             Parallel.ForEach(source.GetFiles(), sourceFile =>
             {
-                sourceFile.CopyTo(Path.Combine(target.FullName, sourceFile.Name), overwiteFiles);
+                sourceFile.CopyTo(Path.Combine(target.FullName, sourceFile.Name), overwriteFiles);
             });
         }
 

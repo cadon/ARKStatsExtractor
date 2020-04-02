@@ -14,7 +14,7 @@
 
         bool Download();
 
-        bool Extract(string workingDirectory);
+        bool Extract(string workingDirectory, bool useLocalAppDataForDataFiles);
 
         bool Cleanup();
 

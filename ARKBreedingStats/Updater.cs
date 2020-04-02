@@ -70,58 +70,17 @@ namespace ARKBreedingStats
                     assemblyLocation.StartsWith(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles));
         }
 
-        public static async Task<bool?> CheckForInstallerUpdate(bool silentCheck, bool collectionDirty)
-        {
-            try
-            {
-                (bool? wantsProgramUpdate, IList<string> urls) = await CheckAndAskForUpdate(collectionDirty);
-                if (wantsProgramUpdate == null) return null;
-                if (!wantsProgramUpdate.Value) return false;
-
-                // Launch the installer and exit the app
-                string installerUrl = urls.FirstOrDefault(url => url.EndsWith(".exe"));
-                if (installerUrl != null)
-                {
-                    // download installer to temp dir
-                    string installerFile = Path.Combine(Path.GetTempPath(), Path.GetFileName(installerUrl));
-                    await DownloadAsync(installerUrl, installerFile);
-
-                    ProcessStartInfo startInfo = new ProcessStartInfo(installerFile)
-                    {
-                        Verb = "runas"
-                    };
-                    Process.Start(startInfo);
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                if (!silentCheck
-                    && MessageBox.Show("Error while checking for new version.\n\n" +
-                        $"{ex.Message}\n\n" +
-                        "Try checking for an updated version of ARK Smart Breeding. " +
-                        "Do you want to visit the releases page?",
-                        "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                    Process.Start(ReleasesUrl);
-            }
-            return null;
-        }
-
         public static async Task<bool?> CheckForPortableUpdate(bool silentCheck, bool collectionDirty)
         {
             try
             {
-                (bool? wantsProgramUpdate, IList<string> urls) = await CheckAndAskForUpdate(collectionDirty);
+                bool? wantsProgramUpdate = await CheckAndAskForUpdate(collectionDirty);
                 if (wantsProgramUpdate == null) return null;
                 if (!wantsProgramUpdate.Value) return false;
 
-                // Launch the installer and exit the app
-                string zipPackageUrl = urls.FirstOrDefault(url => url.EndsWith(".zip"));
-                if (zipPackageUrl != null)
-                {
-                    await LaunchUpdater();
-                    return true;
-                }
+                // Launch the updater and exit this app
+                LaunchUpdater();
+                return true;
             }
             catch (Exception ex)
             {
@@ -139,21 +98,28 @@ namespace ARKBreedingStats
         /// <summary>
         /// Copies the updater to the temp directory and launches it from there
         /// </summary>
-        private static async Task LaunchUpdater()
+        private static void LaunchUpdater()
         {
             string oldLocation = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, UPDATER_EXE);
             string newLocation = Path.Combine(Path.GetTempPath(), UPDATER_EXE);
 
-            // Copy file to temp using async methods
-            using (FileStream dst = File.Open(newLocation, FileMode.Create))
-            using (FileStream src = File.Open(oldLocation, FileMode.Open))
-            {
-                await src.CopyToAsync(dst);
-            }
+            File.Copy(oldLocation, newLocation, true);
+
+            ProcessStartInfo startInfo = new ProcessStartInfo(newLocation);
 
             // backslashes and quotes in command line arguments are strange. https://stackoverflow.com/questions/9287812/backslash-and-quote-in-command-line-arguments
-            string args = "\"" + AppDomain.CurrentDomain.BaseDirectory.Trim(new char[] { '\\' }) + "\" doupdate";
-            Process.Start(newLocation, args);
+            var args = new System.Text.StringBuilder("\"" + AppDomain.CurrentDomain.BaseDirectory.Trim(new char[] { '\\' }) + "\"");
+            args.Append(" doupdate");
+
+            // check if the application folder is protected, then ask for admin permissions for the updater.
+            if (FileService.TestIfFolderIsProtected(AppDomain.CurrentDomain.BaseDirectory))
+            {
+                startInfo.Verb = "runas";
+                args.Append(" useLocalAppData"); // copy data files to the localAppData folder for easier updating them
+            }
+            startInfo.Arguments = args.ToString();
+
+            Process.Start(startInfo);
         }
 
         /// <summary>
@@ -161,14 +127,14 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="collectionDirty"></param>
         /// <returns>true if new release should be installed, null if it was canceled; download urls or null</returns>
-        private static async Task<(bool?, IList<string> urls)> CheckAndAskForUpdate(bool collectionDirty)
+        private static async Task<bool?> CheckAndAskForUpdate(bool collectionDirty)
         {
-            (string releaseTag, IList<string> urls) = await FetchReleaseFeed();
+            string releaseTag = await FetchReleaseFeed();
             (bool? updateAvailable, string localVersion, string remoteVersion) = Updater.UpdateAvailable(releaseTag);
 
             if (updateAvailable == null)
             {
-                throw new Exception($"Reading version numbers failed. Local: {localVersion}, Remote: {remoteVersion}");
+                throw new Exception($"Parsing version numbers failed. Local: {localVersion}, Remote: {remoteVersion}");
             }
 
             if (updateAvailable.Value)
@@ -181,16 +147,16 @@ namespace ARKBreedingStats
                     // Ensure there are no unsaved changes
                     if (collectionDirty)
                     {
-                        MessageBox.Show("Your Creature Collection has been modified since it was last saved. " +
+                        MessageBox.Show("Your Creature Collection has been modified since it was last saved.\nThe update will abort.\n" +
                                 "Please either save or discard your changes to proceed with the update.",
                                 "Unsaved Changes", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return (null, null);
+                        return null;
                     }
 
-                    return (true, urls);
+                    return true;
                 }
             }
-            return (false, null);
+            return false;
         }
 
         #endregion
@@ -215,7 +181,7 @@ namespace ARKBreedingStats
             return (tagVersion.CompareTo(productVersion) > 0, productVersion.ToString(), tagVersion.ToString());
         }
 
-        public static async Task<(string tag, IList<string> urls)> FetchReleaseFeed()
+        public static async Task<string> FetchReleaseFeed()
         {
             string releaseFeed;
             try
@@ -244,20 +210,16 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="releaseFeed"></param>
         /// <returns>Tuple containing tag of the release version and list of urls</returns>
-        private static (string tag, IList<string> urls) ParseReleaseInfo(string releaseFeed)
+        private static string ParseReleaseInfo(string releaseFeed)
         {
             JArray releaseInfoNode = JArray.Parse(releaseFeed);
             JObject latest = (JObject)releaseInfoNode[0];
 
             string tag = latest.Value<string>("tag_name");
 
-            JArray assets = latest.Value<JArray>("assets");
-            IList<string> urls = assets.Select(token => token.Value<string>("browser_download_url")).ToList();
-
             Debug.WriteLine("Tag: " + tag);
-            Debug.WriteLine("Download URLs: " + string.Join(" ", urls));
 
-            return (tag, urls);
+            return tag;
         }
 
         #endregion

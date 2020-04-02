@@ -1055,25 +1055,13 @@ namespace ARKBreedingStats
 
         private async void CheckForUpdates(bool silentCheck = false)
         {
-            if (Updater.IsProgramInstalled)
+            bool? updaterRunning = await Updater.CheckForPortableUpdate(silentCheck, collectionDirty);
+            if (!updaterRunning.HasValue) return; // error
+            if (updaterRunning.Value)
             {
-                bool? installerUpdateRunning = await Updater.CheckForInstallerUpdate(silentCheck, collectionDirty);
-                if (!installerUpdateRunning.HasValue) return; // error
-                if (installerUpdateRunning.Value)
-                {
-                    Close();
-                    return;
-                }
-            }
-            else
-            {
-                bool? portableUpdaterRunning = await Updater.CheckForPortableUpdate(silentCheck, collectionDirty);
-                if (!portableUpdaterRunning.HasValue) return; // error
-                if (portableUpdaterRunning.Value)
-                {
-                    Close();
-                    return;
-                }
+                // new version is available, user wants to update and the updater has just been started
+                Close();
+                return;
             }
 
             // download mod-manifest file to check for value updates

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -27,6 +28,10 @@ namespace ASB_Updater
         /// the update check was already done and a new version is assumed to be available.
         /// </summary>
         private readonly bool AssumeUpdateAvailable;
+        /// <summary>
+        /// Use %appdata%\StatsExtractor for the data files (e.g. values.json).
+        /// </summary>
+        private readonly bool UseLocalAppDataForDataFiles;
 
         /// <summary>
         /// Name of the application to be updated
@@ -40,7 +45,7 @@ namespace ASB_Updater
         public MainWindow()
         {
             // Should contain the caller's filename
-            var e = System.Environment.GetCommandLineArgs();
+            var e = Environment.GetCommandLineArgs();
 
             // if the updater was started directly, copy it first to the temp directory and start it from there
             // so it's able to update itself.
@@ -69,7 +74,11 @@ namespace ASB_Updater
             if (e.Length > 1 && (Directory.Exists(e[1]) || File.Exists(e[1])))
             {
                 applicationPath = Directory.Exists(e[1]) ? e[1] : Path.GetDirectoryName(e[1]);
-                AssumeUpdateAvailable = e.Length > 2 && e[2] == "doupdate";
+                if (e.Length > 2)
+                {
+                    AssumeUpdateAvailable = e.Contains("doupdate");
+                    UseLocalAppDataForDataFiles = e.Contains("useLocalAppData");
+                }
             }
             else
             {
@@ -155,10 +164,10 @@ namespace ASB_Updater
 
             CloseASB();
 
-            if (!updater.Extract(applicationPath))
+            if (!updater.Extract(applicationPath, UseLocalAppDataForDataFiles))
             {
                 UpdateProgressBar("Extracting update files failed, retrying…");
-                if (!updater.Extract(applicationPath))
+                if (!updater.Extract(applicationPath, UseLocalAppDataForDataFiles))
                 {
                     return false;
                 }
