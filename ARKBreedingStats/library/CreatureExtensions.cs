@@ -3,6 +3,7 @@ using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using System;
 using System.Drawing;
+using System.Linq;
 
 namespace ARKBreedingStats.library
 {
@@ -50,8 +51,10 @@ namespace ARKBreedingStats.library
                 // levels
                 const int xStatName = 8;
                 int xLevelValue = xStatName + 30 + (creature.levelsWild[2].ToString().Length) * 7;
-                int maxBoxLenght = xLevelValue - xStatName;
-                g.DrawString("Levels", font, fontBrush, xStatName, currentYPosition);
+                int xRightBrValue = xLevelValue + 10 + MaxBreedingValueLength(creature.valuesBreeding) * 7;
+                int maxBoxLength = xRightBrValue - xStatName;
+                g.DrawString("Levels", font, fontBrush, xLevelValue, currentYPosition, stringFormatRight);
+                g.DrawString("Values", font, fontBrush, xRightBrValue, currentYPosition, stringFormatRight);
                 int statDisplayIndex = 0;
                 for (int si = 0; si < Values.STATS_COUNT; si++)
                 {
@@ -64,7 +67,7 @@ namespace ARKBreedingStats.library
                     double levelFractionOfMax = Math.Min(1, (double)creature.levelsWild[statIndex] / maxGraphLevel);
                     if (levelFractionOfMax < 0) levelFractionOfMax = 0;
                     int levelPercentageOfMax = (int)(100 * levelFractionOfMax);
-                    int statBoxLength = Math.Max((int)(maxBoxLenght * levelFractionOfMax), 1);
+                    int statBoxLength = Math.Max((int)(maxBoxLength * levelFractionOfMax), 1);
                     const int statBoxHeight = 2;
                     var statColor = Utils.GetColorFromPercent(levelPercentageOfMax);
                     using (var b = new SolidBrush(statColor))
@@ -83,46 +86,56 @@ namespace ARKBreedingStats.library
                     // stat level number
                     g.DrawString($"{creature.levelsWild[statIndex]}",
                         font, fontBrush, xLevelValue, y, stringFormatRight);
+                    // stat breeding value
+                    string statValueRepresentation;
+                    if (Utils.Precision(statIndex) == 3)
+                    {
+                        statValueRepresentation = (100 * creature.valuesBreeding[statIndex]).ToString("0.0");
+                        g.DrawString("%", font, fontBrush, xRightBrValue, y);
+                    }
+                    else
+                        statValueRepresentation = creature.valuesBreeding[statIndex].ToString("0.0");
+                    g.DrawString(statValueRepresentation, font, fontBrush, xRightBrValue, y, stringFormatRight);
                 }
 
                 // colors
-                const int maxColorNameLength = 38;
-                int xColor = xLevelValue + 20;
+                const int maxColorNameLength = 20;
+                int xColor = xRightBrValue + 25;
                 g.DrawString("Colors", font, fontBrush, xColor, currentYPosition);
-                int colorIndex = 0;
+                int colorRow = 0;
                 for (int ci = 0; ci < Species.COLOR_REGION_COUNT; ci++)
                 {
-                    if (!string.IsNullOrEmpty(creature.Species.colors[ci]?.name))
+                    if (string.IsNullOrEmpty(creature.Species.colors[ci]?.name))
+                        continue;
+
+                    const int circleDiameter = 16;
+                    const int rowHeight = circleDiameter + 2;
+                    int y = currentYPosition + 20 + (colorRow++) * rowHeight;
+
+                    Color c = CreatureColors.creatureColor(creature.colors[ci]);
+                    Color fc = Utils.ForeColor(c);
+
+                    using (var b = new SolidBrush(c))
+                        g.FillEllipse(b, xColor, y, circleDiameter, circleDiameter);
+                    g.DrawEllipse(penBlack, xColor, y, circleDiameter, circleDiameter);
+
+                    string colorRegionName = creature.Species.colors[ci].name;
+                    string colorName = CreatureColors.creatureColorName(creature.colors[ci]);
+
+                    int totalColorLenght = colorRegionName.Length + colorName.Length + 9;
+                    if (totalColorLenght > maxColorNameLength)
                     {
-                        const int circleDiameter = 16;
-                        const int rowHeight = circleDiameter + 2;
-                        int y = currentYPosition + 20 + (colorIndex++) * rowHeight;
-
-                        Color c = CreatureColors.creatureColor(creature.colors[ci]);
-                        Color fc = Utils.ForeColor(c);
-
-                        using (var b = new SolidBrush(c))
-                            g.FillEllipse(b, xColor, y, circleDiameter, circleDiameter);
-                        g.DrawEllipse(penBlack, xColor, y, circleDiameter, circleDiameter);
-
-                        string colorRegionName = creature.Species.colors[ci].name;
-                        string colorName = CreatureColors.creatureColorName(creature.colors[ci]);
-
-                        int totalColorLenght = colorRegionName.Length + colorName.Length + 9;
-                        if (totalColorLenght > maxColorNameLength)
-                        {
-                            // shorten color region name
-                            int lengthForRegionName = colorRegionName.Length - (totalColorLenght - maxColorNameLength);
-                            colorRegionName = lengthForRegionName <= 0
-                                ? string.Empty
-                                : lengthForRegionName < colorRegionName.Length
-                                ? colorRegionName.Substring(0, lengthForRegionName)
-                                : colorRegionName;
-                        }
-
-                        g.DrawString($"[{ci}] {colorRegionName}: [{creature.colors[ci]}] {colorName}",
-                            fontSmall, fontBrush, xColor + circleDiameter + 4, y);
+                        // shorten color region name
+                        int lengthForRegionName = colorRegionName.Length - (totalColorLenght - maxColorNameLength);
+                        colorRegionName = lengthForRegionName <= 0
+                            ? string.Empty
+                            : lengthForRegionName < colorRegionName.Length
+                            ? colorRegionName.Substring(0, lengthForRegionName)
+                            : colorRegionName;
                     }
+
+                    g.DrawString($"[{ci}]: {creature.colors[ci]} ({colorRegionName}: {colorName})",
+                        fontSmall, fontBrush, xColor + circleDiameter + 4, y);
                 }
 
                 // max wild level on server
@@ -138,6 +151,17 @@ namespace ARKBreedingStats.library
             }
 
             return bmp;
+        }
+
+        private static int MaxBreedingValueLength(double[] valuesBreeding)
+        {
+            int max = 0;
+            for (int si = 0; si < Values.STATS_COUNT; si++)
+            {
+                int l = valuesBreeding[si].ToString("0").Length + Utils.Precision(si);
+                if (l > max) max = l;
+            }
+            return max;
         }
 
         /// <summary>
