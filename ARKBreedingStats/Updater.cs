@@ -150,7 +150,9 @@ namespace ARKBreedingStats
             {
                 await src.CopyToAsync(dst);
             }
-            string args = "\"" + AppDomain.CurrentDomain.BaseDirectory + "\" doupdate";
+
+            // backslashes and quotes in command line arguments are strange. https://stackoverflow.com/questions/9287812/backslash-and-quote-in-command-line-arguments
+            string args = "\"" + AppDomain.CurrentDomain.BaseDirectory.Trim(new char[] { '\\' }) + "\" doupdate";
             Process.Start(newLocation, args);
         }
 
