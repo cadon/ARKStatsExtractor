@@ -41,7 +41,7 @@ namespace ARKBreedingStats.library
 
                 g.DrawString(creature.Species.DescriptiveNameAndMod, fontHeader, fontBrush, 3, currentYPosition);
                 currentYPosition += 19;
-                g.DrawString($"Lvl {creature.LevelHatched} | {Utils.SexSymbol(creature.sex) + (creature.flags.HasFlag(CreatureFlags.Neutered) ? $" ({Loc.s(creature.sex == Sex.Female ? "Spayed" : "Neutered")})" : string.Empty)} | {creature.Mutations} mutations", font, fontBrush, 8, currentYPosition);
+                g.DrawString($"Level {creature.LevelHatched} | {Utils.SexSymbol(creature.sex) + (creature.flags.HasFlag(CreatureFlags.Neutered) ? $" ({Loc.s(creature.sex == Sex.Female ? "Spayed" : "Neutered")})" : string.Empty)} | {creature.Mutations} mutations", font, fontBrush, 8, currentYPosition);
                 currentYPosition += 17;
 
                 using (var p = new Pen(Color.LightGray, 1))
@@ -51,7 +51,7 @@ namespace ARKBreedingStats.library
                 // levels
                 const int xStatName = 8;
                 int xLevelValue = xStatName + 30 + (creature.levelsWild[2].ToString().Length) * 7;
-                int xRightBrValue = xLevelValue + 10 + MaxBreedingValueLength(creature.valuesBreeding) * 7;
+                int xRightBrValue = xLevelValue + 14 + MaxBreedingValueLength(creature.valuesBreeding) * 7;
                 int maxBoxLength = xRightBrValue - xStatName;
                 g.DrawString("Levels", font, fontBrush, xLevelValue, currentYPosition, stringFormatRight);
                 g.DrawString("Values", font, fontBrush, xRightBrValue, currentYPosition, stringFormatRight);
@@ -99,8 +99,11 @@ namespace ARKBreedingStats.library
                 }
 
                 // colors
-                const int maxColorNameLength = 20;
                 int xColor = xRightBrValue + 25;
+                const int circleDiameter = 16;
+                const int rowHeight = circleDiameter + 2;
+                int maxColorNameLength = (width - xColor - circleDiameter) / 6; // max char length for the color region name
+                if (maxColorNameLength < 0) maxColorNameLength = 0;
                 g.DrawString("Colors", font, fontBrush, xColor, currentYPosition);
                 int colorRow = 0;
                 for (int ci = 0; ci < Species.COLOR_REGION_COUNT; ci++)
@@ -108,8 +111,6 @@ namespace ARKBreedingStats.library
                     if (string.IsNullOrEmpty(creature.Species.colors[ci]?.name))
                         continue;
 
-                    const int circleDiameter = 16;
-                    const int rowHeight = circleDiameter + 2;
                     int y = currentYPosition + 20 + (colorRow++) * rowHeight;
 
                     Color c = CreatureColors.creatureColor(creature.colors[ci]);
@@ -122,19 +123,19 @@ namespace ARKBreedingStats.library
                     string colorRegionName = creature.Species.colors[ci].name;
                     string colorName = CreatureColors.creatureColorName(creature.colors[ci]);
 
-                    int totalColorLenght = colorRegionName.Length + colorName.Length + 9;
+                    int totalColorLenght = colorRegionName.Length + 11;
                     if (totalColorLenght > maxColorNameLength)
                     {
                         // shorten color region name
                         int lengthForRegionName = colorRegionName.Length - (totalColorLenght - maxColorNameLength);
-                        colorRegionName = lengthForRegionName <= 0
+                        colorRegionName = lengthForRegionName < 2
                             ? string.Empty
-                            : lengthForRegionName < colorRegionName.Length
-                            ? colorRegionName.Substring(0, lengthForRegionName)
-                            : colorRegionName;
+                            : colorRegionName.Substring(0, lengthForRegionName - 1) + "…";
                     }
+                    if (!string.IsNullOrEmpty(colorRegionName))
+                        colorRegionName = " (" + colorRegionName + ")";
 
-                    g.DrawString($"[{ci}]: {creature.colors[ci]} ({colorRegionName}: {colorName})",
+                    g.DrawString($"{creature.colors[ci]} - [{ci}]{colorRegionName}",
                         fontSmall, fontBrush, xColor + circleDiameter + 4, y);
                 }
 
