@@ -2117,6 +2117,8 @@ namespace ARKBreedingStats
                     if (libraryTopCreatureColorHighlight != Properties.Settings.Default.LibraryHighlightTopCreatures)
                         FilterLib();
 
+                    SetOverlayLocation();
+
                     SetCollectionChanged(true);
                 }
                 settingsLastTabPage = settingsfrm.LastTabPageIndex;
@@ -2461,29 +2463,46 @@ namespace ARKBreedingStats
                 overlay.InitLabelPositions();
             }
 
-            if (cbToggleOverlay.Checked)
-            {
-                Process[] p = Process.GetProcessesByName(Properties.Settings.Default.OCRApp);
-
-                if (p.Length == 0)
-                {
-                    MessageBox.Show("Process for capturing screenshots and for overlay (e.g. the game, or a stream of the game) not found. " +
-                            "Start the game or change the process in the settings.", "Game started?", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    cbToggleOverlay.Checked = false;
-                    return;
-                }
-
-                IntPtr mwhd = p[0].MainWindowHandle;
-                Screen scr = Screen.FromHandle(mwhd);
-                overlay.Location = scr.WorkingArea.Location;
-            }
+            if (!SetOverlayLocation()) return;
 
             overlay.Visible = cbToggleOverlay.Checked;
-            overlay.enableOverlayTimer = cbToggleOverlay.Checked;
+            overlay.EnableOverlayTimer = cbToggleOverlay.Checked;
 
             // disable speechrecognition if overlay is disabled. (no use if no data can be displayed)
             if (speechRecognition != null && !cbToggleOverlay.Checked)
                 speechRecognition.Listen = false;
+        }
+
+        /// <summary>
+        /// Sets the overlay location to the game location or the custom location.
+        /// If the automatic location could not be found it disables the overlay and returns false.
+        /// </summary>
+        /// <returns></returns>
+        private bool SetOverlayLocation()
+        {
+            if (cbToggleOverlay.Checked)
+            {
+                if (Properties.Settings.Default.UseCustomOverlayLocation)
+                {
+                    overlay.Location = Properties.Settings.Default.CustomOverlayLocation;
+                }
+                else
+                {
+                    Process[] p = Process.GetProcessesByName(Properties.Settings.Default.OCRApp);
+
+                    if (!p.Any())
+                    {
+                        MessageBox.Show("Process for capturing screenshots and for overlay (e.g. the game, or a stream of the game) not found.\n" +
+                                "Start the game or change the process in the settings.\nYou can also define a custom location of the overlay.", "Game started?", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        cbToggleOverlay.Checked = false;
+                        return false;
+                    }
+                    IntPtr mwhd = p[0].MainWindowHandle;
+                    Screen scr = Screen.FromHandle(mwhd);
+                    overlay.Location = scr.WorkingArea.Location;
+                }
+            }
+            return true;
         }
 
         private void toolStripButtonCopy2Tester_Click(object sender, EventArgs e)

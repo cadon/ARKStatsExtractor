@@ -2,6 +2,7 @@
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -173,6 +174,9 @@ namespace ARKBreedingStats.settings
             nudOverlayTimerPosY.ValueSave = Properties.Settings.Default.OverlayTimerPosition.Y;
             nudOverlayInfoPosDFR.ValueSave = Properties.Settings.Default.OverlayInfoPosition.X;
             nudOverlayInfoPosY.ValueSave = Properties.Settings.Default.OverlayInfoPosition.Y;
+            cbCustomOverlayLocation.Checked = Properties.Settings.Default.UseCustomOverlayLocation;
+            nudCustomOverlayLocX.ValueSave = Properties.Settings.Default.CustomOverlayLocation.X;
+            nudCustomOverlayLocY.ValueSave = Properties.Settings.Default.CustomOverlayLocation.Y;
             #endregion
 
             #region Timers
@@ -326,8 +330,10 @@ namespace ARKBreedingStats.settings
 
             #region overlay
             Properties.Settings.Default.OverlayInfoDuration = (int)nudOverlayInfoDuration.Value;
-            Properties.Settings.Default.OverlayTimerPosition = new System.Drawing.Point((int)nudOverlayTimerPosX.Value, (int)nudOverlayTimerPosY.Value);
-            Properties.Settings.Default.OverlayInfoPosition = new System.Drawing.Point((int)nudOverlayInfoPosDFR.Value, (int)nudOverlayInfoPosY.Value);
+            Properties.Settings.Default.OverlayTimerPosition = new Point((int)nudOverlayTimerPosX.Value, (int)nudOverlayTimerPosY.Value);
+            Properties.Settings.Default.OverlayInfoPosition = new Point((int)nudOverlayInfoPosDFR.Value, (int)nudOverlayInfoPosY.Value);
+            Properties.Settings.Default.UseCustomOverlayLocation = cbCustomOverlayLocation.Checked;
+            Properties.Settings.Default.CustomOverlayLocation = new Point((int)nudCustomOverlayLocX.Value, (int)nudCustomOverlayLocY.Value);
             #endregion
 
             #region Timers
@@ -818,6 +824,11 @@ namespace ARKBreedingStats.settings
             SaveImport = 2,
             ExportedImport = 3,
             OCR = 4,
+        }
+
+        private void cbCustomOverlayLocation_CheckedChanged(object sender, EventArgs e)
+        {
+            pCustomOverlayLocation.Enabled = cbCustomOverlayLocation.Checked;
         }
     }
 }

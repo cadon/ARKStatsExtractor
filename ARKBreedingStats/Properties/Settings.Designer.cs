@@ -1103,5 +1103,29 @@ namespace ARKBreedingStats.Properties {
                 this["SaveImportCryo"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseCustomOverlayLocation {
+            get {
+                return ((bool)(this["UseCustomOverlayLocation"]));
+            }
+            set {
+                this["UseCustomOverlayLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point CustomOverlayLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["CustomOverlayLocation"]));
+            }
+            set {
+                this["CustomOverlayLocation"] = value;
+            }
+        }
     }
 }
