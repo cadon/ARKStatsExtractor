@@ -53,6 +53,7 @@ namespace ARKBreedingStats.library
                 int xLevelValue = xStatName + 30 + (creature.levelsWild[2].ToString().Length) * 7;
                 int xRightBrValue = xLevelValue + 14 + MaxBreedingValueLength(creature.valuesBreeding) * 7;
                 int maxBoxLength = xRightBrValue - xStatName;
+                const int statBoxHeight = 2;
                 g.DrawString("Levels", font, fontBrush, xLevelValue, currentYPosition, stringFormatRight);
                 g.DrawString("Values", font, fontBrush, xRightBrValue, currentYPosition, stringFormatRight);
                 int statDisplayIndex = 0;
@@ -63,12 +64,15 @@ namespace ARKBreedingStats.library
                         continue;
 
                     int y = currentYPosition + 20 + (statDisplayIndex++) * 15;
+
                     // box
+                    // empty box to show the max possible length
+                    using (var b = new SolidBrush(Color.DarkGray))
+                        g.FillRectangle(b, xStatName, y + 14, maxBoxLength, statBoxHeight);
                     double levelFractionOfMax = Math.Min(1, (double)creature.levelsWild[statIndex] / maxGraphLevel);
                     if (levelFractionOfMax < 0) levelFractionOfMax = 0;
                     int levelPercentageOfMax = (int)(100 * levelFractionOfMax);
                     int statBoxLength = Math.Max((int)(maxBoxLength * levelFractionOfMax), 1);
-                    const int statBoxHeight = 2;
                     var statColor = Utils.GetColorFromPercent(levelPercentageOfMax);
                     using (var b = new SolidBrush(statColor))
                         g.FillRectangle(b, xStatName, y + 14, statBoxLength, statBoxHeight);
