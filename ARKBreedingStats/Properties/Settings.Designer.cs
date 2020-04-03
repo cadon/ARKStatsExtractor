@@ -1091,5 +1091,17 @@ namespace ARKBreedingStats.Properties {
                 this["LibraryHighlightTopCreatures"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SaveImportCryo {
+            get {
+                return ((bool)(this["SaveImportCryo"]));
+            }
+            set {
+                this["SaveImportCryo"] = value;
+            }
+        }
     }
 }

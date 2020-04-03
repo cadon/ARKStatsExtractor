@@ -122,6 +122,7 @@
             this.groupBox16 = new System.Windows.Forms.GroupBox();
             this.cbDevTools = new System.Windows.Forms.CheckBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.cbLibraryHighlightTopCreatures = new System.Windows.Forms.CheckBox();
             this.cbApplyGlobalSpeciesToLibrary = new System.Windows.Forms.CheckBox();
             this.cbCreatureColorsLibrary = new System.Windows.Forms.CheckBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
@@ -207,7 +208,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.cbOCRApp = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.cbLibraryHighlightTopCreatures = new System.Windows.Forms.CheckBox();
+            this.cbSaveImportCryo = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyFoodConsumptionSpeedEvent)).BeginInit();
@@ -1528,6 +1529,16 @@
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Library";
             // 
+            // cbLibraryHighlightTopCreatures
+            // 
+            this.cbLibraryHighlightTopCreatures.AutoSize = true;
+            this.cbLibraryHighlightTopCreatures.Location = new System.Drawing.Point(6, 65);
+            this.cbLibraryHighlightTopCreatures.Name = "cbLibraryHighlightTopCreatures";
+            this.cbLibraryHighlightTopCreatures.Size = new System.Drawing.Size(136, 17);
+            this.cbLibraryHighlightTopCreatures.TabIndex = 2;
+            this.cbLibraryHighlightTopCreatures.Text = "Highlight Top creatures";
+            this.cbLibraryHighlightTopCreatures.UseVisualStyleBackColor = true;
+            // 
             // cbApplyGlobalSpeciesToLibrary
             // 
             this.cbApplyGlobalSpeciesToLibrary.AutoSize = true;
@@ -1785,7 +1796,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1793,7 +1804,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1801,7 +1812,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1809,7 +1820,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1834,6 +1845,7 @@
             // 
             // groupBox12
             // 
+            this.groupBox12.Controls.Add(this.cbSaveImportCryo);
             this.groupBox12.Controls.Add(this.cbIgnoreUnknownBPOnSaveImport);
             this.groupBox12.Controls.Add(this.textBoxImportTribeNameFilter);
             this.groupBox12.Controls.Add(this.label_Filter);
@@ -1861,15 +1873,15 @@
             // 
             // textBoxImportTribeNameFilter
             // 
-            this.textBoxImportTribeNameFilter.Location = new System.Drawing.Point(3, 123);
+            this.textBoxImportTribeNameFilter.Location = new System.Drawing.Point(6, 144);
             this.textBoxImportTribeNameFilter.Name = "textBoxImportTribeNameFilter";
-            this.textBoxImportTribeNameFilter.Size = new System.Drawing.Size(727, 20);
+            this.textBoxImportTribeNameFilter.Size = new System.Drawing.Size(730, 20);
             this.textBoxImportTribeNameFilter.TabIndex = 7;
             // 
             // label_Filter
             // 
             this.label_Filter.AutoSize = true;
-            this.label_Filter.Location = new System.Drawing.Point(6, 107);
+            this.label_Filter.Location = new System.Drawing.Point(6, 128);
             this.label_Filter.Name = "label_Filter";
             this.label_Filter.Size = new System.Drawing.Size(487, 13);
             this.label_Filter.TabIndex = 6;
@@ -1892,9 +1904,9 @@
             this.groupBox15.Controls.Add(this.labelSavegameFileLocationHint);
             this.groupBox15.Controls.Add(this.dataGridView_FileLocations);
             this.groupBox15.Controls.Add(this.btAddSavegameFileLocation);
-            this.groupBox15.Location = new System.Drawing.Point(6, 202);
+            this.groupBox15.Location = new System.Drawing.Point(6, 223);
             this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(727, 397);
+            this.groupBox15.Size = new System.Drawing.Size(727, 460);
             this.groupBox15.TabIndex = 4;
             this.groupBox15.TabStop = false;
             this.groupBox15.Text = "ARK save-game files";
@@ -1990,7 +2002,7 @@
             // groupBox14
             // 
             this.groupBox14.Controls.Add(this.fileSelectorExtractedSaveFolder);
-            this.groupBox14.Location = new System.Drawing.Point(6, 149);
+            this.groupBox14.Location = new System.Drawing.Point(6, 170);
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.Size = new System.Drawing.Size(730, 47);
             this.groupBox14.TabIndex = 3;
@@ -2461,15 +2473,15 @@
             this.label1.TabIndex = 5;
             this.label1.Text = resources.GetString("label1.Text");
             // 
-            // cbLibraryHighlightTopCreatures
+            // cbSaveImportCryo
             // 
-            this.cbLibraryHighlightTopCreatures.AutoSize = true;
-            this.cbLibraryHighlightTopCreatures.Location = new System.Drawing.Point(6, 65);
-            this.cbLibraryHighlightTopCreatures.Name = "cbLibraryHighlightTopCreatures";
-            this.cbLibraryHighlightTopCreatures.Size = new System.Drawing.Size(136, 17);
-            this.cbLibraryHighlightTopCreatures.TabIndex = 2;
-            this.cbLibraryHighlightTopCreatures.Text = "Highlight Top creatures";
-            this.cbLibraryHighlightTopCreatures.UseVisualStyleBackColor = true;
+            this.cbSaveImportCryo.AutoSize = true;
+            this.cbSaveImportCryo.Location = new System.Drawing.Point(9, 105);
+            this.cbSaveImportCryo.Name = "cbSaveImportCryo";
+            this.cbSaveImportCryo.Size = new System.Drawing.Size(216, 17);
+            this.cbSaveImportCryo.TabIndex = 9;
+            this.cbSaveImportCryo.Text = "Import creatures in cryopods or soultraps";
+            this.cbSaveImportCryo.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -2763,5 +2775,6 @@
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.CheckBox cbKeepExpiredTimersInOverlay;
         private System.Windows.Forms.CheckBox cbLibraryHighlightTopCreatures;
+        private System.Windows.Forms.CheckBox cbSaveImportCryo;
     }
 }

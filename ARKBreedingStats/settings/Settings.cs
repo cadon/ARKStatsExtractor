@@ -247,6 +247,7 @@ namespace ARKBreedingStats.settings
             cbImportUpdateCreatureStatus.Checked = cc.changeCreatureStatusOnSavegameImport;
             textBoxImportTribeNameFilter.Text = Properties.Settings.Default.ImportTribeNameFilter;
             cbIgnoreUnknownBPOnSaveImport.Checked = Properties.Settings.Default.IgnoreUnknownBlueprintsOnSaveImport;
+            cbSaveImportCryo.Checked = Properties.Settings.Default.SaveImportCryo;
             #endregion
 
             cbDevTools.Checked = Properties.Settings.Default.DevTools;
@@ -365,15 +366,6 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.LibraryHighlightTopCreatures = cbLibraryHighlightTopCreatures.Checked;
             #endregion
 
-            #region import savegame
-            Properties.Settings.Default.savegameExtractionPath = fileSelectorExtractedSaveFolder.Link;
-            Properties.Settings.Default.arkSavegamePaths = aTImportFileLocationBindingSource.OfType<ATImportFileLocation>()
-                    .Where(location => !string.IsNullOrWhiteSpace(location.FileLocation))
-                    .Select(location => $"{location.ConvenientName}|{location.ServerName}|{location.FileLocation}").ToArray();
-
-            Properties.Settings.Default.IgnoreUnknownBlueprintsOnSaveImport = cbIgnoreUnknownBPOnSaveImport.Checked;
-            #endregion
-
             #region import exported
             Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan = (int)nudWarnImportMoreThan.Value;
             Properties.Settings.Default.ExportCreatureFolders = aTExportFolderLocationsBindingSource.OfType<ATImportExportedFolderLocation>()
@@ -390,6 +382,16 @@ namespace ARKBreedingStats.settings
 
             cc.changeCreatureStatusOnSavegameImport = cbImportUpdateCreatureStatus.Checked;
             Properties.Settings.Default.ImportTribeNameFilter = textBoxImportTribeNameFilter.Text;
+            #endregion
+
+            #region import savegame
+            Properties.Settings.Default.savegameExtractionPath = fileSelectorExtractedSaveFolder.Link;
+            Properties.Settings.Default.arkSavegamePaths = aTImportFileLocationBindingSource.OfType<ATImportFileLocation>()
+                    .Where(location => !string.IsNullOrWhiteSpace(location.FileLocation))
+                    .Select(location => $"{location.ConvenientName}|{location.ServerName}|{location.FileLocation}").ToArray();
+
+            Properties.Settings.Default.IgnoreUnknownBlueprintsOnSaveImport = cbIgnoreUnknownBPOnSaveImport.Checked;
+            Properties.Settings.Default.SaveImportCryo = cbSaveImportCryo.Checked;
             #endregion
 
             Properties.Settings.Default.DevTools = cbDevTools.Checked;
