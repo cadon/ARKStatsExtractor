@@ -10,35 +10,41 @@ namespace ARKBreedingStats
 {
     public partial class PedigreeCreature : UserControl
     {
-        private Creature creature;
-        private bool isVirtual; // set to true for not existing creatures (e.g. possible offspring)
-
         public delegate void CreatureChangedEventHandler(Creature creature, int comboId, MouseEventArgs e);
 
         public event CreatureChangedEventHandler CreatureClicked;
 
-        public delegate void CreatureEditEventHandler(Creature creature, bool isVirtual);
+        /// <summary>
+        /// Edit the creature. Boolean parameter determines if the creature is virtual.
+        /// </summary>
+        public event Action<Creature, bool> CreatureEdit;
 
-        public event CreatureEditEventHandler CreatureEdit;
+        /// <summary>
+        /// Display the best breeding partners for the given creature.
+        /// </summary>
+        public event Action<Creature> BestBreedingPartners;
 
-        public delegate void CreaturePartnerEventHandler(Creature creature);
-
-        public event CreaturePartnerEventHandler BestBreedingPartners;
-
-        public delegate void BPRecalcEventHandler();
-
-        public event BPRecalcEventHandler BPRecalc;
+        /// <summary>
+        /// Recalculate the breeding plan, e.g. if the cooldown was reset.
+        /// </summary>
+        public event Action RecalculateBreedingPlan;
 
         public delegate void ExportToClipboardEventHandler(Creature c, bool breedingValues, bool ARKml);
 
-        public event ExportToClipboardEventHandler exportToClipboard;
+        public event ExportToClipboardEventHandler ExportToClipboard;
         private List<Label> labels;
-        ToolTip tt = new ToolTip();
+        private readonly ToolTip tt;
         public int comboId;
-        public bool onlyLevels; // no sex, status, colors
+        /// <summary>
+        /// If set to true, the control will not display sex, status or creature colors.
+        /// </summary>
+        public bool OnlyLevels { get; set; }
         public bool[] enabledColorRegions;
         private bool contextMenuAvailable;
-        public bool totalLevelUnknown = false; // if set to true, the levelHatched in parenthesis is appended with an '+'
+        /// <summary>
+        /// If set to true, the levelHatched in parenthesis is appended with an '+'.
+        /// </summary>
+        public bool TotalLevelUnknown { get; set; } = false;
 
         public static int[] displayedStats = new int[] {
                                                         (int)StatNames.Health,
@@ -50,22 +56,29 @@ namespace ARKBreedingStats
                                                         (int)StatNames.SpeedMultiplier,
                                                         (int)StatNames.CraftingSpeedMultiplier
                                                         };
+        public static int displayedStatsCount = displayedStats.Length;
 
         public PedigreeCreature()
         {
-            InitC();
-            comboId = -1;
-        }
-
-        private void InitC()
-        {
             InitializeComponent();
-            tt.InitialDelay = 100;
+            tt = new ToolTip
+            {
+                InitialDelay = 100
+            };
             tt.SetToolTip(labelSex, "Sex");
             tt.SetToolTip(labelMutations, "Mutation-Counter");
             labels = new List<Label> { labelHP, labelSt, labelOx, labelFo, labelWe, labelDm, labelSp, labelCr };
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
             Disposed += PedigreeCreature_Disposed;
+            comboId = -1;
+        }
+
+        public PedigreeCreature(Creature creature, bool[] enabledColorRegions, int comboId = -1) : this()
+        {
+            Cursor = Cursors.Hand;
+            this.enabledColorRegions = enabledColorRegions;
+            this.comboId = comboId;
+            Creature = creature;
         }
 
         /// <summary>
@@ -75,18 +88,11 @@ namespace ARKBreedingStats
         {
             set
             {
-                for (int s = 0; s < 8; s++) // only 8 stats are displayed
+                for (int s = 0; s < displayedStatsCount; s++)
                 {
                     labels[s].Text = Utils.StatName(displayedStats[s], true, value);
+                    tt.SetToolTip(labels[s], Utils.StatName(displayedStats[s], glowSpecies: value));
                 }
-                tt.SetToolTip(labelHP, Utils.StatName(StatNames.Health, glowSpecies: value));
-                tt.SetToolTip(labelSt, Utils.StatName(StatNames.Stamina, glowSpecies: value));
-                tt.SetToolTip(labelOx, Utils.StatName(StatNames.Oxygen, glowSpecies: value));
-                tt.SetToolTip(labelFo, Utils.StatName(StatNames.Food, glowSpecies: value));
-                tt.SetToolTip(labelWe, Utils.StatName(StatNames.Weight, glowSpecies: value));
-                tt.SetToolTip(labelDm, Utils.StatName(StatNames.MeleeDamageMultiplier, glowSpecies: value));
-                tt.SetToolTip(labelSp, Utils.StatName(StatNames.SpeedMultiplier, glowSpecies: value));
-                tt.SetToolTip(labelCr, Utils.StatName(StatNames.CraftingSpeedMultiplier, glowSpecies: value));
             }
         }
 
@@ -95,15 +101,10 @@ namespace ARKBreedingStats
             tt.RemoveAll();
         }
 
-        public PedigreeCreature(Creature creature, bool[] enabledColorRegions, int comboId = -1)
-        {
-            InitC();
-            Cursor = Cursors.Hand;
-            this.enabledColorRegions = enabledColorRegions;
-            this.comboId = comboId;
-            Creature = creature;
-        }
-
+        private Creature creature;
+        /// <summary>
+        /// The creature that is displayed in this control.
+        /// </summary>
         public Creature Creature
         {
             get => creature;
@@ -112,9 +113,9 @@ namespace ARKBreedingStats
                 if (value != null)
                 {
                     creature = value;
-                    setTitle();
+                    SetTitle();
 
-                    if (!onlyLevels)
+                    if (!OnlyLevels)
                     {
                         if (creature.status == CreatureStatus.Dead)
                         {
@@ -135,7 +136,7 @@ namespace ARKBreedingStats
 
                     tt.SetToolTip(labelSex, "Sex: " + Loc.s(creature.sex.ToString()));
                     bool isGlowSpecies = creature.Species?.IsGlowSpecies ?? false;
-                    for (int s = 0; s < 8; s++)
+                    for (int s = 0; s < displayedStatsCount; s++)
                     {
                         int si = displayedStats[s];
                         if (creature.valuesBreeding[si] == 0)
@@ -156,11 +157,11 @@ namespace ARKBreedingStats
                             labels[s].Text = creature.levelsWild[si].ToString();
                             labels[s].BackColor = Utils.GetColorFromPercent((int)(creature.levelsWild[si] * 2.5), creature.topBreedingStats[si] ? 0.2 : 0.7);
                             labels[s].ForeColor = SystemColors.ControlText;
-                            tt.SetToolTip(labels[s], Utils.StatName(si, false, isGlowSpecies) + ": " + creature.valuesBreeding[si] * (Utils.Precision(si) == 3 ? 100 : 1) + (Utils.Precision(si) == 3 ? "%" : ""));
+                            tt.SetToolTip(labels[s], Utils.StatName(si, false, isGlowSpecies) + ": " + creature.valuesBreeding[si] * (Utils.Precision(si) == 3 ? 100 : 1) + (Utils.Precision(si) == 3 ? "%" : string.Empty));
                         }
                         labels[s].Font = new Font("Microsoft Sans Serif", 8.25F, creature.topBreedingStats[si] ? FontStyle.Bold : FontStyle.Regular, GraphicsUnit.Point, 0);
                     }
-                    if (onlyLevels)
+                    if (OnlyLevels)
                     {
                         labelSex.Visible = false;
                         pictureBox1.Visible = false;
@@ -196,11 +197,14 @@ namespace ARKBreedingStats
             }
         }
 
-        private void setTitle()
+        /// <summary>
+        /// Sets the displayed title of the control.
+        /// </summary>
+        private void SetTitle()
         {
             string totalLevel = creature.LevelHatched > 0 ? creature.LevelHatched.ToString() : "?";
-            groupBox1.Text = (!onlyLevels && creature.status != CreatureStatus.Available ? "(" + Utils.StatusSymbol(creature.status) + ") " : "")
-                    + creature.name + " (" + totalLevel + (totalLevelUnknown ? "+" : "") + ")";
+            groupBox1.Text = (!OnlyLevels && creature.status != CreatureStatus.Available ? "(" + Utils.StatusSymbol(creature.status) + ") " : string.Empty)
+                    + creature.name + " (" + totalLevel + (TotalLevelUnknown ? "+" : string.Empty) + ")";
 
             if (creature.growingUntil > DateTime.Now)
                 groupBox1.Text += " (grown at " + Utils.ShortTimeDate(creature.growingUntil) + ")";
@@ -208,7 +212,7 @@ namespace ARKBreedingStats
                 groupBox1.Text += " (cooldown until " + Utils.ShortTimeDate(creature.cooldownUntil) + ")";
         }
 
-        public bool highlight
+        public bool Highlight
         {
             set
             {
@@ -235,16 +239,20 @@ namespace ARKBreedingStats
 
         public void Clear()
         {
-            for (int s = 0; s < 7; s++)
+            for (int s = 0; s < displayedStatsCount; s++)
             {
-                labels[s].Text = "";
+                labels[s].Text = string.Empty;
                 labels[s].BackColor = SystemColors.Control;
             }
             labelSex.Visible = false;
-            groupBox1.Text = "";
+            groupBox1.Text = string.Empty;
             pictureBox1.Visible = false;
         }
 
+        private bool isVirtual;
+        /// <summary>
+        /// If a creature is virtual, it is not a creature in the library.
+        /// </summary>
         public bool IsVirtual
         {
             get => isVirtual;
@@ -266,8 +274,8 @@ namespace ARKBreedingStats
         private void setCooldownToolStripMenuItem_Click(object sender, EventArgs e)
         {
             creature.cooldownUntil = DateTime.Now.AddHours(2);
-            BPRecalc?.Invoke();
-            setTitle();
+            RecalculateBreedingPlan?.Invoke();
+            SetTitle();
         }
 
         private void removeCooldownGrowingToolStripMenuItem_Click(object sender, EventArgs e)
@@ -276,7 +284,7 @@ namespace ARKBreedingStats
                 creature.cooldownUntil = DateTime.Now;
             if (creature.growingUntil > DateTime.Now)
                 creature.growingUntil = DateTime.Now;
-            setTitle();
+            SetTitle();
         }
 
         private void bestBreedingPartnersToolStripMenuItem_Click(object sender, EventArgs e)
@@ -294,12 +302,12 @@ namespace ARKBreedingStats
 
         private void plainTextbreedingValuesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            exportToClipboard?.Invoke(creature, true, false);
+            ExportToClipboard?.Invoke(creature, true, false);
         }
 
         private void plainTextcurrentValuesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            exportToClipboard?.Invoke(creature, false, false);
+            ExportToClipboard?.Invoke(creature, false, false);
         }
 
         private void OpenWikipageInBrowserToolStripMenuItem_Click(object sender, EventArgs e)

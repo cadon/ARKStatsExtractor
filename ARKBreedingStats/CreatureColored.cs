@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace ARKBreedingStats
 {
@@ -13,8 +14,20 @@ namespace ARKBreedingStats
         private const string cacheFolderName = "cache";
         private const string extension = ".png";
 
-        public static Bitmap getColoredCreature(int[] colorIds, Species species, bool[] enabledColorRegions, int size = 128, int pieSize = 64, bool onlyColors = false, bool dontCache = false)
+        /// <summary>
+        /// Returns a bitmap image that represents the given colors.
+        /// </summary>
+        /// <param name="colorIds"></param>
+        /// <param name="species"></param>
+        /// <param name="enabledColorRegions"></param>
+        /// <param name="size"></param>
+        /// <param name="pieSize"></param>
+        /// <param name="onlyColors"></param>
+        /// <param name="dontCache"></param>
+        /// <returns></returns>
+        public static Bitmap getColoredCreature(int[] colorIds, Species species, bool[] enabledColorRegions, int size = 128, int pieSize = 64, bool onlyColors = false)
         {
+            if (colorIds == null) return null;
             //float[][] hsl = new float[6][];
             int[][] rgb = new int[6][];
             for (int c = 0; c < 6; c++)
@@ -149,20 +162,18 @@ namespace ARKBreedingStats
 
         public static string RegionColorInfo(Species species, int[] colorIds)
         {
-            string creatureRegionColors = "";
-            if (species != null)
+            if (species == null || colorIds == null) return null;
+
+            var creatureRegionColors = new StringBuilder("Colors:");
+            var cs = species.colors;
+            for (int r = 0; r < 6; r++)
             {
-                var cs = species.colors;
-                creatureRegionColors = "Colors:";
-                for (int r = 0; r < 6; r++)
+                if (!string.IsNullOrEmpty(cs[r]?.name))
                 {
-                    if (!string.IsNullOrEmpty(cs[r]?.name))
-                    {
-                        creatureRegionColors += $"\n{cs[r].name} ({r}): {CreatureColors.creatureColorName(colorIds[r])} ({colorIds[r]})";
-                    }
+                    creatureRegionColors.Append($"\n{cs[r].name} ({r}): {CreatureColors.creatureColorName(colorIds[r])} ({colorIds[r]})");
                 }
             }
-            return creatureRegionColors;
+            return creatureRegionColors.ToString();
         }
     }
 }

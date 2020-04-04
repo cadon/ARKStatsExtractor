@@ -999,4 +999,7 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
   <data name="speciesNotTameable" xml:space="preserve">
     <value>L'espèce sélectionnée n'est pas apprivoisable. Peut-être avez-vous sélectionné une variante non apprivoisable d'une espèce apprivoisable ?</value>
   </data>
+  <data name="Descendants" xml:space="preserve">
+    <value>Progéniture</value>
+  </data>
 </root>

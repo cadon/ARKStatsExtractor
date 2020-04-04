@@ -999,4 +999,7 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   <data name="speciesNotTameable" xml:space="preserve">
     <value>Die ausgewählte Spezie ist nicht zähmbar. Vielleicht hast du eine nicht-zähmbare Variante einer zähmbaren Spezie ausgewählt?</value>
   </data>
+  <data name="Descendants" xml:space="preserve">
+    <value>Nachkommen</value>
+  </data>
 </root>
