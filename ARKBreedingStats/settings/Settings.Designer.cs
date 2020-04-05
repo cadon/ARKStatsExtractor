@@ -165,10 +165,11 @@
             this.cbShowOCRButton = new System.Windows.Forms.CheckBox();
             this.label23 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.textBoxOCRCustom = new System.Windows.Forms.TextBox();
+            this.tbOCRCaptureApp = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.cbOCRApp = new System.Windows.Forms.ComboBox();
+            this.cbbOCRApp = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.nudWildLevelStep = new ARKBreedingStats.uiControls.Nud();
             this.nudBabyFoodConsumptionSpeedEvent = new ARKBreedingStats.uiControls.Nud();
             this.nudMatingIntervalEvent = new ARKBreedingStats.uiControls.Nud();
@@ -1698,19 +1699,20 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.cbOCRIgnoreImprintValue);
             this.groupBox1.Controls.Add(this.cbShowOCRButton);
             this.groupBox1.Controls.Add(this.label23);
             this.groupBox1.Controls.Add(this.nudWaitBeforeScreenCapture);
             this.groupBox1.Controls.Add(this.label19);
             this.groupBox1.Controls.Add(this.nudWhiteThreshold);
-            this.groupBox1.Controls.Add(this.textBoxOCRCustom);
+            this.groupBox1.Controls.Add(this.tbOCRCaptureApp);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.cbOCRApp);
+            this.groupBox1.Controls.Add(this.cbbOCRApp);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(734, 237);
+            this.groupBox1.Size = new System.Drawing.Size(734, 310);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "OCR";
@@ -1751,37 +1753,31 @@
             this.label19.TabIndex = 13;
             this.label19.Text = "White Threshold (increase if you increased gamma ingame)";
             // 
-            // textBoxOCRCustom
+            // tbOCRCaptureApp
             // 
-            this.textBoxOCRCustom.Location = new System.Drawing.Point(133, 207);
-            this.textBoxOCRCustom.Name = "textBoxOCRCustom";
-            this.textBoxOCRCustom.Size = new System.Drawing.Size(274, 20);
-            this.textBoxOCRCustom.TabIndex = 11;
-            this.textBoxOCRCustom.Visible = false;
+            this.tbOCRCaptureApp.Location = new System.Drawing.Point(151, 219);
+            this.tbOCRCaptureApp.Name = "tbOCRCaptureApp";
+            this.tbOCRCaptureApp.Size = new System.Drawing.Size(577, 20);
+            this.tbOCRCaptureApp.TabIndex = 11;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 191);
+            this.label4.Location = new System.Drawing.Point(6, 201);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(289, 13);
             this.label4.TabIndex = 10;
             this.label4.Text = "Capture from (ShooterGame is default for the Steam-version)";
             // 
-            // cbOCRApp
+            // cbbOCRApp
             // 
-            this.cbOCRApp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbOCRApp.FormattingEnabled = true;
-            this.cbOCRApp.Items.AddRange(new object[] {
-            "ShooterGame",
-            "XboxApp",
-            "VLC",
-            "Custom"});
-            this.cbOCRApp.Location = new System.Drawing.Point(6, 207);
-            this.cbOCRApp.Name = "cbOCRApp";
-            this.cbOCRApp.Size = new System.Drawing.Size(121, 21);
-            this.cbOCRApp.TabIndex = 9;
-            this.cbOCRApp.SelectedIndexChanged += new System.EventHandler(this.cbOCRApp_SelectedIndexChanged);
+            this.cbbOCRApp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbOCRApp.FormattingEnabled = true;
+            this.cbbOCRApp.Location = new System.Drawing.Point(6, 246);
+            this.cbbOCRApp.Name = "cbbOCRApp";
+            this.cbbOCRApp.Size = new System.Drawing.Size(722, 21);
+            this.cbbOCRApp.TabIndex = 9;
+            this.cbbOCRApp.SelectedIndexChanged += new System.EventHandler(this.cbOCRApp_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -1790,6 +1786,16 @@
             this.label1.Size = new System.Drawing.Size(722, 77);
             this.label1.TabIndex = 5;
             this.label1.Text = resources.GetString("label1.Text");
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(6, 217);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(139, 23);
+            this.button1.TabIndex = 18;
+            this.button1.Text = "ShooterGame (default)";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // nudWildLevelStep
             // 
@@ -2861,9 +2867,9 @@
         private uiControls.Nud nudWaitBeforeScreenCapture;
         private System.Windows.Forms.Label label19;
         private uiControls.Nud nudWhiteThreshold;
-        private System.Windows.Forms.TextBox textBoxOCRCustom;
+        private System.Windows.Forms.TextBox tbOCRCaptureApp;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox cbOCRApp;
+        private System.Windows.Forms.ComboBox cbbOCRApp;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label38;
         private uiControls.Nud nudOverlayInfoPosY;
@@ -2885,5 +2891,6 @@
         private System.Windows.Forms.Label label43;
         private uiControls.Nud nudCustomOverlayLocY;
         private System.Windows.Forms.CheckBox cbCustomOverlayLocation;
+        private System.Windows.Forms.Button button1;
     }
 }

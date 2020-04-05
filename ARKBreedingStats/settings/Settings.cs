@@ -23,8 +23,31 @@ namespace ARKBreedingStats.settings
         {
             InitializeData();
             this.cc = cc;
+            CreateListOfProcesses();
             LoadSettings(cc);
             tabControlSettings.SelectTab((int)page);
+        }
+
+        private const string DefaultOCRProcessName = "ShooterGame";
+        /// <summary>
+        /// Creates the list of currently running processes for an easy selection for the process the OCR uses to capture.
+        /// </summary>
+        private void CreateListOfProcesses()
+        {
+            cbbOCRApp.DataSource = System.Diagnostics.Process.GetProcesses().Select(p => new ProcessSelector { ProcessName = p.ProcessName, MainWindowTitle = p.MainWindowTitle })
+                .Distinct().Where(pn => !string.IsNullOrEmpty(pn.MainWindowTitle) && pn.ProcessName != "System" && pn.ProcessName != "idle").OrderBy(pn => pn.ProcessName).ToArray();
+        }
+
+        private struct ProcessSelector
+        {
+            public string ProcessName;
+            public string MainWindowTitle;
+            public override string ToString() => $"{ProcessName} ({MainWindowTitle})";
+        }
+
+        private void cbOCRApp_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tbOCRCaptureApp.Text = (cbbOCRApp.SelectedItem is ProcessSelector ps) ? ps.ProcessName : null;
         }
 
         private void InitializeData()
@@ -189,15 +212,7 @@ namespace ARKBreedingStats.settings
             cbShowOCRButton.Checked = Properties.Settings.Default.showOCRButton;
             nudWaitBeforeScreenCapture.ValueSave = Properties.Settings.Default.waitBeforeScreenCapture;
             nudWhiteThreshold.ValueSave = Properties.Settings.Default.OCRWhiteThreshold;
-            string ocrApp = Properties.Settings.Default.OCRApp;
-            int ocrI = cbOCRApp.Items.IndexOf(ocrApp);
-            if (ocrI == -1)
-            {
-                textBoxOCRCustom.Text = ocrApp;
-                cbOCRApp.SelectedIndex = cbOCRApp.Items.IndexOf("Custom");
-            }
-            else
-                cbOCRApp.SelectedIndex = ocrI;
+            tbOCRCaptureApp.Text = Properties.Settings.Default.OCRApp;
 
             cbOCRIgnoreImprintValue.Checked = Properties.Settings.Default.OCRIgnoresImprintValue;
             #endregion
@@ -346,10 +361,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.showOCRButton = cbShowOCRButton.Checked;
             Properties.Settings.Default.waitBeforeScreenCapture = (int)nudWaitBeforeScreenCapture.Value;
             Properties.Settings.Default.OCRWhiteThreshold = (int)nudWhiteThreshold.Value;
-            string ocrApp = cbOCRApp.SelectedItem.ToString();
-            if (ocrApp == "Custom")
-                ocrApp = textBoxOCRCustom.Text;
-            Properties.Settings.Default.OCRApp = ocrApp;
+            Properties.Settings.Default.OCRApp = tbOCRCaptureApp.Text;
 
             Properties.Settings.Default.OCRIgnoresImprintValue = cbOCRIgnoreImprintValue.Checked;
             #endregion
@@ -547,11 +559,6 @@ namespace ARKBreedingStats.settings
                     _cb.Checked = m.Groups[1].Value.ToLower() == "true";
                 }
             }
-        }
-
-        private void cbOCRApp_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            textBoxOCRCustom.Visible = cbOCRApp.SelectedItem.ToString() == "Custom";
         }
 
         private void Settings_Disposed(object sender, EventArgs e)
@@ -829,6 +836,11 @@ namespace ARKBreedingStats.settings
         private void cbCustomOverlayLocation_CheckedChanged(object sender, EventArgs e)
         {
             pCustomOverlayLocation.Enabled = cbCustomOverlayLocation.Checked;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            tbOCRCaptureApp.Text = DefaultOCRProcessName;
         }
     }
 }
