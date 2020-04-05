@@ -246,15 +246,14 @@ namespace ARKBreedingStats.importExported
         /// <returns></returns>
         private static int ParseColor(string text, int colorIndex, Species species)
         {
-            // if species doesn't use the color region or text representation is in an unknown format, set color to 0 (unknown).
-            if (species?.colors[colorIndex]?.naturalColors == null
-                || text.Length < 33) return 0;
+            if (text.Length < 33) return 0;
 
-            if (double.TryParse(text.Substring(36, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double a)
-                && a != 1
-                && double.TryParse(text.Substring(3, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double r)
-                && double.TryParse(text.Substring(14, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double g)
-                && double.TryParse(text.Substring(25, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double b)
+            var dotSeparatorCulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
+            if (double.TryParse(text.Substring(3, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, dotSeparatorCulture, out double r)
+                && double.TryParse(text.Substring(14, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, dotSeparatorCulture, out double g)
+                && double.TryParse(text.Substring(25, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, dotSeparatorCulture, out double b)
+                && double.TryParse(text.Substring(36, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, dotSeparatorCulture, out double a)
+                && (r != 0 || g != 0 || b != 0 || a != 1) // no color
                 )
                 return Values.V.Colors.ClosestColorID(r, g, b, a);
 
