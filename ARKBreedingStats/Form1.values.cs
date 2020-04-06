@@ -182,6 +182,14 @@ namespace ARKBreedingStats
 
                 success = true;
             }
+            catch (DirectoryNotFoundException)
+            {
+                if (MessageBox.Show($"One of the following folders where the values-file is expected was not found.\n{FileService.GetJsonPath(FileService.ValuesFolder, FileService.ValuesJson)}\n\n" +
+                        "ARK Smart Breeding will not work properly without that file.\n\n" +
+                        "Do you want to visit the releases page to redownload it?",
+                        "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                    System.Diagnostics.Process.Start(Updater.ReleasesUrl);
+            }
             catch (FileNotFoundException)
             {
                 if (MessageBox.Show($"Values-File {FileService.ValuesJson} not found. " +

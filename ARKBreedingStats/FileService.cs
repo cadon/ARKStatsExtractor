@@ -181,5 +181,26 @@ namespace ARKBreedingStats
             catch { }
             return false;
         }
+
+        /// <summary>
+        /// Tests if a folder is protected and needs admin privileges to copy files over.
+        /// This is used for the updater.
+        /// </summary>
+        /// <param name="folderPath"></param>
+        /// <returns>Returns true if elevated privileges are needed.</returns>
+        public static bool TestIfFolderIsProtected(string folderPath)
+        {
+            try
+            {
+                string testFilePath = Path.Combine(folderPath, "testFile.txt");
+                File.WriteAllText(testFilePath, string.Empty);
+                TryDeleteFile(testFilePath);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

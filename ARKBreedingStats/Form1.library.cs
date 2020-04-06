@@ -398,7 +398,7 @@ namespace ARKBreedingStats
                             int si = usedAndConsideredStatIndices[s];
                             sumCreatureLevels += c.levelsWild[si] > 0 ? c.levelsWild[si] : 0;
                         }
-                        c.topness = (short)(100 * sumCreatureLevels / sumTopLevels);
+                        c.topness = (short)(1000 * sumCreatureLevels / sumTopLevels);
                     }
                 }
 
@@ -699,9 +699,9 @@ namespace ARKBreedingStats
                             cr.owner,
                             cr.note,
                             cr.server,
-                            Utils.sexSymbol(cr.sex),
+                            Utils.SexSymbol(cr.sex),
                             cr.domesticatedAt?.ToString("yyyy'-'MM'-'dd HH':'mm':'ss") ?? "?",
-                            cr.topness.ToString(),
+                            (cr.topness / 10).ToString(),
                             cr.topStatsCount.ToString(),
                             cr.generation.ToString(),
                             cr.levelFound.ToString(),
@@ -721,7 +721,7 @@ namespace ARKBreedingStats
                 cr.Species.DescriptiveNameAndMod,
                 cr.status.ToString(),
                 cr.tribe,
-                Utils.statusSymbol(cr.status, string.Empty)
+                Utils.StatusSymbol(cr.status, string.Empty)
             }).ToArray();
 
             // check if we display group for species or not.
@@ -746,7 +746,7 @@ namespace ARKBreedingStats
                     lvi.SubItems[s + 12].BackColor = Color.White;
                 }
                 else
-                    lvi.SubItems[s + 12].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * (s == (int)StatNames.Torpidity ? colorFactor / 7 : colorFactor)), // TODO set factor to number of other stats (flyers have 6, Gacha has 8?)
+                    lvi.SubItems[s + 12].BackColor = Utils.GetColorFromPercent((int)(cr.levelsWild[s] * (s == (int)StatNames.Torpidity ? colorFactor / 7 : colorFactor)), // TODO set factor to number of other stats (flyers have 6, Gacha has 8?)
                             considerStatHighlight[s] ? cr.topBreedingStats[s] ? 0.2 : 0.7 : 0.93);
             }
             lvi.SubItems[4].BackColor = cr.flags.HasFlag(CreatureFlags.Neutered) ? Color.FromArgb(220, 220, 220) :
@@ -784,7 +784,7 @@ namespace ARKBreedingStats
                     else
                         lvi.BackColor = Color.LightGreen;
                 }
-                lvi.SubItems[7].BackColor = Utils.getColorFromPercent(cr.topStatsCount * 8 + 44, 0.7);
+                lvi.SubItems[7].BackColor = Utils.GetColorFromPercent(cr.topStatsCount * 8 + 44, 0.7);
             }
             else
             {
@@ -799,7 +799,7 @@ namespace ARKBreedingStats
             }
 
             // color for topness
-            lvi.SubItems[6].BackColor = Utils.getColorFromPercent(cr.topness * 2 - 100, 0.8); // topness is in percent. gradient from 50-100
+            lvi.SubItems[6].BackColor = Utils.GetColorFromPercent(cr.topness / 5 - 100, 0.8); // topness is in permille. gradient from 50-100
 
             // color for generation
             if (cr.generation == 0)
@@ -1053,7 +1053,7 @@ namespace ARKBreedingStats
                     chargeStatsHeaders = true;
             }
             for (int s = 0; s < Values.STATS_COUNT; s++)
-                listViewLibrary.Columns[12 + s].Text = Utils.statName(s, true, chargeStatsHeaders);
+                listViewLibrary.Columns[12 + s].Text = Utils.StatName(s, true, chargeStatsHeaders);
 
             filteredList = ApplyLibraryFilterSettings(filteredList);
 
@@ -1195,7 +1195,7 @@ namespace ARKBreedingStats
                     {
                         for (int s = 0; s < Values.STATS_COUNT; s++)
                         {
-                            output += Utils.statName(Values.statsDisplayOrder[s], true) + suffix + "\t";
+                            output += Utils.StatName(Values.statsDisplayOrder[s], true) + suffix + "\t";
                         }
                     }
                     output += "mother\tfather\tMut\tNotes\tColor0\tColor1\tColor2\tColor3\tColor4\tColor5";
@@ -1214,11 +1214,11 @@ namespace ARKBreedingStats
                         }
                         for (int s = 0; s < Values.STATS_COUNT; s++)
                         {
-                            output += $"\t{c.valuesBreeding[Values.statsDisplayOrder[s]] * (Utils.precision(Values.statsDisplayOrder[s]) == 3 ? 100 : 1)}{(Utils.precision(Values.statsDisplayOrder[s]) == 3 ? "%" : "")}";
+                            output += $"\t{c.valuesBreeding[Values.statsDisplayOrder[s]] * (Utils.Precision(Values.statsDisplayOrder[s]) == 3 ? 100 : 1)}{(Utils.Precision(Values.statsDisplayOrder[s]) == 3 ? "%" : "")}";
                         }
                         for (int s = 0; s < Values.STATS_COUNT; s++)
                         {
-                            output += $"\t{c.valuesDom[Values.statsDisplayOrder[s]] * (Utils.precision(Values.statsDisplayOrder[s]) == 3 ? 100 : 1)}{(Utils.precision(Values.statsDisplayOrder[s]) == 3 ? "%" : "")}";
+                            output += $"\t{c.valuesDom[Values.statsDisplayOrder[s]] * (Utils.Precision(Values.statsDisplayOrder[s]) == 3 ? 100 : 1)}{(Utils.Precision(Values.statsDisplayOrder[s]) == 3 ? "%" : "")}";
                         }
                         output += $"\t{(c.Mother != null ? c.Mother.name : "")}\t{(c.Father != null ? c.Father.name : "")}\t{c.Mutations}\t{(c.note != null ? c.note.Replace("\r", "").Replace("\n", " ") : "")}";
                         for (int cl = 0; cl < 6; cl++)
@@ -1259,15 +1259,15 @@ namespace ARKBreedingStats
                         modifierText = ", Impr: " + Math.Round(100 * c.imprintingBonus, 2) + "%";
                 }
 
-                string output = (string.IsNullOrEmpty(c.name) ? "noName" : c.name) + " (" + (ARKml ? Utils.getARKml(c.Species.name, 50, 172, 255) : c.Species.name)
+                string output = (string.IsNullOrEmpty(c.name) ? "noName" : c.name) + " (" + (ARKml ? Utils.GetARKml(c.Species.name, 50, 172, 255) : c.Species.name)
                         + ", Lvl " + (breeding ? c.LevelHatched : c.Level) + modifierText + (c.sex != Sex.Unknown ? ", " + c.sex : "") + "): ";
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
                     int si = Values.statsDisplayOrder[s];
                     if (c.levelsWild[si] >= 0 && c.valuesBreeding[si] > 0) // ignore unknown levels (e.g. oxygen, speed)
-                        output += Utils.statName(si, true) + ": " + (breeding ? c.valuesBreeding[si] : c.valuesDom[si]) * (Utils.precision(si) == 3 ? 100 : 1) + (Utils.precision(si) == 3 ? "%" : "") +
-                                " (" + (ARKml ? Utils.getARKmlFromPercent(c.levelsWild[si].ToString(), (int)(c.levelsWild[si] * (si == (int)StatNames.Torpidity ? colorFactor / 7 : colorFactor))) : c.levelsWild[si].ToString()) +
-                                (ARKml ? breeding || si == (int)StatNames.Torpidity ? "" : ", " + Utils.getARKmlFromPercent(c.levelsDom[si].ToString(), (int)(c.levelsDom[si] * colorFactor)) : breeding || si == (int)StatNames.Torpidity ? "" : ", " + c.levelsDom[si]) + "); ";
+                        output += Utils.StatName(si, true) + ": " + (breeding ? c.valuesBreeding[si] : c.valuesDom[si]) * (Utils.Precision(si) == 3 ? 100 : 1) + (Utils.Precision(si) == 3 ? "%" : "") +
+                                " (" + (ARKml ? Utils.GetARKmlFromPercent(c.levelsWild[si].ToString(), (int)(c.levelsWild[si] * (si == (int)StatNames.Torpidity ? colorFactor / 7 : colorFactor))) : c.levelsWild[si].ToString()) +
+                                (ARKml ? breeding || si == (int)StatNames.Torpidity ? "" : ", " + Utils.GetARKmlFromPercent(c.levelsDom[si].ToString(), (int)(c.levelsDom[si] * colorFactor)) : breeding || si == (int)StatNames.Torpidity ? "" : ", " + c.levelsDom[si]) + "); ";
                 }
                 Clipboard.SetText(output.Substring(0, output.Length - 1));
             }

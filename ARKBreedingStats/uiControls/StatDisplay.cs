@@ -25,8 +25,8 @@ namespace ARKBreedingStats.uiControls
                 if (isGlowSpeciesStat != value)
                 {
                     isGlowSpeciesStat = value;
-                    labelName.Text = Utils.statName(statIndex, true, isGlowSpeciesStat.Value);
-                    tt.SetToolTip(labelName, Utils.statName(statIndex, false, isGlowSpeciesStat.Value));
+                    labelName.Text = Utils.StatName(statIndex, true, isGlowSpeciesStat.Value);
+                    tt.SetToolTip(labelName, Utils.StatName(statIndex, false, isGlowSpeciesStat.Value));
                 }
             }
         }
@@ -36,12 +36,12 @@ namespace ARKBreedingStats.uiControls
             // visualization of wild level
             int barLengthPercentage = levelWild > 0 ? (int)Math.Min(100, Math.Round(100d * levelWild / barMaxLevel)) : 0;
             panelBarWildLevels.Width = (int)(164 * barLengthPercentage / 100.0f);
-            panelBarWildLevels.BackColor = Utils.getColorFromPercent(barLengthPercentage);
-            tt.SetToolTip(panelBarWildLevels, Utils.levelPercentile(levelWild));
+            panelBarWildLevels.BackColor = Utils.GetColorFromPercent(barLengthPercentage);
+            tt.SetToolTip(panelBarWildLevels, Utils.LevelPercentile(levelWild));
             // visualization of dom level
             barLengthPercentage = (int)Math.Min(100, Math.Round(100d * levelDom / barMaxLevel));
             panelBarDomLevels.Width = (int)(164 * barLengthPercentage / 100.0f);
-            panelBarDomLevels.BackColor = Utils.getColorFromPercent(barLengthPercentage);
+            panelBarDomLevels.BackColor = Utils.GetColorFromPercent(barLengthPercentage);
 
             // if stat is not used, e.g. craftingspeed
             if (levelWild == 0 && levelDom == 0 && valueBreeding == 0 && valueDom == 0)

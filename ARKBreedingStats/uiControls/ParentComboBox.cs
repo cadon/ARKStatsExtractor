@@ -89,7 +89,7 @@ namespace ARKBreedingStats.uiControls
                         similarities = " (" + parentsSimilarity[c] + ")";
                     if (parentList[c].status != CreatureStatus.Available)
                     {
-                        status = " (" + Utils.statusSymbol(parentList[c].status) + ")";
+                        status = " (" + Utils.StatusSymbol(parentList[c].status) + ")";
                     }
                     Items.Add(parentList[c].name + status + similarities);
                     if (parentList[c].guid == _preselectedCreatureGuid)

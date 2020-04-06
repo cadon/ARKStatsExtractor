@@ -361,6 +361,14 @@ namespace ARKBreedingStats.values
         private void OrderSpecies()
         {
             string fileName = FileService.GetJsonPath("sortNames.txt");
+
+            if (!File.Exists(fileName))
+            {
+                // default sorting for aberrant variants.
+                try { File.WriteAllText(fileName, "^Aberrant (.*)$@$1a\n"); }
+                catch { }
+            }
+
             if (File.Exists(fileName))
             {
                 foreach (Species s in _V.species)

@@ -9,6 +9,7 @@ using ARKBreedingStats.uiControls;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -44,7 +45,10 @@ namespace ARKBreedingStats
         public delegate void SetMessageLabelTextEventHandler(string text = null, MessageBoxIcon icon = MessageBoxIcon.None);
 
         private bool updateTorporInTester, filterListAllowed;
-        private readonly bool[] considerStatHighlight = new bool[Values.STATS_COUNT]; // consider this stat for color-highlighting, topness etc
+        /// <summary>
+        /// The stat indices that are considered for color highlighting and topness calculation.
+        /// </summary>
+        private readonly bool[] considerStatHighlight = new bool[Values.STATS_COUNT];
         private bool autoSave;
         private DateTime lastAutoSaveBackup = DateTime.Now.AddDays(-1);
         private int autoSaveMinutes;
@@ -96,6 +100,10 @@ namespace ARKBreedingStats
 
         public Form1()
         {
+            var args = Environment.GetCommandLineArgs();
+            if (args.Contains("cleanupUpdater"))
+                FileService.TryDeleteFile(Path.Combine(Path.GetTempPath(), Updater.UPDATER_EXE));
+
             // load settings of older version if possible after an upgrade
             if (Properties.Settings.Default.UpgradeRequired)
             {
@@ -269,17 +277,17 @@ namespace ARKBreedingStats
                 var statIO = new StatIO
                 {
                     InputType = StatIOInputType.FinalValueInputType,
-                    Title = Utils.statName(s),
+                    Title = Utils.StatName(s),
                     statIndex = s
                 };
                 var statIOTesting = new StatIO
                 {
                     InputType = StatIOInputType.LevelsInputType,
-                    Title = Utils.statName(s),
+                    Title = Utils.StatName(s),
                     statIndex = s
                 };
 
-                if (Utils.precision(s) == 3)
+                if (Utils.Precision(s) == 3)
                 {
                     statIO.Percent = true;
                     statIOTesting.Percent = true;
@@ -288,7 +296,7 @@ namespace ARKBreedingStats
                 statIOTesting.LevelChanged += testingStatIOValueUpdate;
                 statIO.InputValueChanged += StatIOQuickWildLevelCheck;
                 statIO.Click += new System.EventHandler(this.StatIO_Click);
-                considerStatHighlight[s] = (Properties.Settings.Default.consideredStats & (1 << s)) > 0;
+                considerStatHighlight[s] = (Properties.Settings.Default.consideredStats & (1 << s)) != 0;
 
                 statIOs.Add(statIO);
                 testingIOs.Add(statIOTesting);
@@ -300,7 +308,7 @@ namespace ARKBreedingStats
                 flowLayoutPanelStatIOsExtractor.SetFlowBreak(statIOs[Values.statsDisplayOrder[s]], true);
                 flowLayoutPanelStatIOsTester.Controls.Add(testingIOs[Values.statsDisplayOrder[s]]);
                 flowLayoutPanelStatIOsTester.SetFlowBreak(testingIOs[Values.statsDisplayOrder[s]], true);
-                checkedListBoxConsiderStatTop.Items.Add(Utils.statName(Values.statsDisplayOrder[s]), considerStatHighlight[Values.statsDisplayOrder[s]]);
+                checkedListBoxConsiderStatTop.Items.Add(Utils.StatName(Values.statsDisplayOrder[s]), considerStatHighlight[Values.statsDisplayOrder[s]]);
             }
 
             // torpor should not show bar, it get's too wide and is not interesting for breeding
@@ -592,8 +600,8 @@ namespace ARKBreedingStats
                 statIOs[s].IsActive = activeStats[s];
                 testingIOs[s].IsActive = species.UsesStat(s);
                 if (!activeStats[s]) statIOs[s].Input = 0;
-                statIOs[s].Title = Utils.statName(s, false, glow: isglowSpecies);
-                testingIOs[s].Title = Utils.statName(s, false, isglowSpecies);
+                statIOs[s].Title = Utils.StatName(s, false, glowSpecies: isglowSpecies);
+                testingIOs[s].Title = Utils.StatName(s, false, isglowSpecies);
                 // don't lock special stats of glowspecies
                 if ((isglowSpecies &&
                       (s == (int)StatNames.Stamina
@@ -855,7 +863,7 @@ namespace ARKBreedingStats
             FilterLib();
             UpdateStatusBar();
             breedingPlan1.breedingPlanNeedsUpdate = true;
-            pedigree1.updateListView();
+            pedigree1.UpdateListView();
             raisingControl1.RecreateList();
         }
 
@@ -1037,25 +1045,13 @@ namespace ARKBreedingStats
 
         private async void CheckForUpdates(bool silentCheck = false)
         {
-            if (Updater.IsProgramInstalled)
+            bool? updaterRunning = await Updater.CheckForPortableUpdate(silentCheck, collectionDirty);
+            if (!updaterRunning.HasValue) return; // error
+            if (updaterRunning.Value)
             {
-                bool? installerUpdateRunning = await Updater.CheckForInstallerUpdate(silentCheck, collectionDirty);
-                if (!installerUpdateRunning.HasValue) return; // error
-                if (installerUpdateRunning.Value)
-                {
-                    Close();
-                    return;
-                }
-            }
-            else
-            {
-                bool? portableUpdaterRunning = await Updater.CheckForPortableUpdate(silentCheck, collectionDirty);
-                if (!portableUpdaterRunning.HasValue) return; // error
-                if (portableUpdaterRunning.Value)
-                {
-                    Close();
-                    return;
-                }
+                // new version is available, user wants to update and the updater has just been started
+                Close();
+                return;
             }
 
             // download mod-manifest file to check for value updates
@@ -1215,14 +1211,6 @@ namespace ARKBreedingStats
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             // savesettings save settings
-            // save consideredStats
-            int consideredStats = 0;
-            for (int s = 0; s < Values.STATS_COUNT; s++)
-            {
-                if (considerStatHighlight[s])
-                    consideredStats += 1 << s;
-            }
-            Properties.Settings.Default.consideredStats = consideredStats;
 
             // save window-position and size
             if (WindowState != FormWindowState.Minimized)
@@ -1676,7 +1664,7 @@ namespace ARKBreedingStats
                     c = (Creature)listViewLibrary.SelectedItems[0].Tag;
                     pedigree1.EnabledColorRegions = c.Species?.colors?.Select(n => !string.IsNullOrEmpty(n?.name)).ToArray() ?? new bool[6] { true, true, true, true, true, true };
 
-                    pedigree1.setCreature(c, true);
+                    pedigree1.SetCreature(c, true);
                     pedigreeNeedsUpdate = false;
                 }
             }
@@ -1732,7 +1720,7 @@ namespace ARKBreedingStats
             UpdateAllTesterValues();
             // calculate number of imprintings
             if (speciesSelector1.SelectedSpecies.breeding != null && speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted > 0)
-                lbImprintedCount.Text = "(" + Math.Round((double)numericUpDownImprintingBonusTester.Value / (100 * Utils.imprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier)), 2) + "×)";
+                lbImprintedCount.Text = "(" + Math.Round((double)numericUpDownImprintingBonusTester.Value / (100 * Utils.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier)), 2) + "×)";
             else lbImprintedCount.Text = "";
         }
 
@@ -1740,7 +1728,7 @@ namespace ARKBreedingStats
         {
             // calculate number of imprintings
             if (speciesSelector1.SelectedSpecies.breeding != null && speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted > 0)
-                lbImprintingCuddleCountExtractor.Text = "(" + Math.Round((double)numericUpDownImprintingBonusExtractor.Value / (100 * Utils.imprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier))) + "×)";
+                lbImprintingCuddleCountExtractor.Text = "(" + Math.Round((double)numericUpDownImprintingBonusExtractor.Value / (100 * Utils.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier))) + "×)";
             else lbImprintingCuddleCountExtractor.Text = "";
         }
 
@@ -1925,7 +1913,7 @@ namespace ARKBreedingStats
                         int.TryParse(m.Groups[8 + 3 * s].Value, out wl[s]);
                         if (s != (int)StatNames.Torpidity)
                             int.TryParse(m.Groups[9 + 3 * s].Value, out dl[s]);
-                        if (Utils.precision(s) == 3)// percentage values
+                        if (Utils.Precision(s) == 3)// percentage values
                             sv[s] *= 0.01;
                     }
 
@@ -1954,8 +1942,17 @@ namespace ARKBreedingStats
 
         private void buttonRecalculateTops_Click(object sender, EventArgs e)
         {
+            int consideredStats = 0;
             for (int s = 0; s < Values.STATS_COUNT; s++)
+            {
                 considerStatHighlight[Values.statsDisplayOrder[s]] = checkedListBoxConsiderStatTop.GetItemChecked(s);
+
+                // save consideredStats
+                if (considerStatHighlight[s])
+                    consideredStats += 1 << s;
+            }
+            Properties.Settings.Default.consideredStats = consideredStats;
+
             // recalculate topstats
             CalculateTopStats(creatureCollection.creatures);
             FilterLib();
@@ -2119,6 +2116,8 @@ namespace ARKBreedingStats
 
                     if (libraryTopCreatureColorHighlight != Properties.Settings.Default.LibraryHighlightTopCreatures)
                         FilterLib();
+
+                    SetOverlayLocation();
 
                     SetCollectionChanged(true);
                 }
@@ -2464,29 +2463,46 @@ namespace ARKBreedingStats
                 overlay.InitLabelPositions();
             }
 
-            if (cbToggleOverlay.Checked)
-            {
-                Process[] p = Process.GetProcessesByName(Properties.Settings.Default.OCRApp);
-
-                if (p.Length == 0)
-                {
-                    MessageBox.Show("Process for capturing screenshots and for overlay (e.g. the game, or a stream of the game) not found. " +
-                            "Start the game or change the process in the settings.", "Game started?", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    cbToggleOverlay.Checked = false;
-                    return;
-                }
-
-                IntPtr mwhd = p[0].MainWindowHandle;
-                Screen scr = Screen.FromHandle(mwhd);
-                overlay.Location = scr.WorkingArea.Location;
-            }
+            if (!SetOverlayLocation()) return;
 
             overlay.Visible = cbToggleOverlay.Checked;
-            overlay.enableOverlayTimer = cbToggleOverlay.Checked;
+            overlay.EnableOverlayTimer = cbToggleOverlay.Checked;
 
             // disable speechrecognition if overlay is disabled. (no use if no data can be displayed)
             if (speechRecognition != null && !cbToggleOverlay.Checked)
                 speechRecognition.Listen = false;
+        }
+
+        /// <summary>
+        /// Sets the overlay location to the game location or the custom location.
+        /// If the automatic location could not be found it disables the overlay and returns false.
+        /// </summary>
+        /// <returns></returns>
+        private bool SetOverlayLocation()
+        {
+            if (cbToggleOverlay.Checked)
+            {
+                if (Properties.Settings.Default.UseCustomOverlayLocation)
+                {
+                    overlay.Location = Properties.Settings.Default.CustomOverlayLocation;
+                }
+                else
+                {
+                    Process[] p = Process.GetProcessesByName(Properties.Settings.Default.OCRApp);
+
+                    if (!p.Any())
+                    {
+                        MessageBox.Show("Process for capturing screenshots and for overlay (e.g. the game, or a stream of the game) not found.\n" +
+                                "Start the game or change the process in the settings.\nYou can also define a custom location of the overlay.", "Game started?", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        cbToggleOverlay.Checked = false;
+                        return false;
+                    }
+                    IntPtr mwhd = p[0].MainWindowHandle;
+                    Screen scr = Screen.FromHandle(mwhd);
+                    overlay.Location = scr.WorkingArea.Location;
+                }
+            }
+            return true;
         }
 
         private void toolStripButtonCopy2Tester_Click(object sender, EventArgs e)
@@ -2672,7 +2688,7 @@ namespace ARKBreedingStats
                 // set imprinting-count to closes integer
                 if (speciesSelector1.SelectedSpecies.breeding != null && speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted > 0)
                 {
-                    double imprintingGainPerCuddle = Utils.imprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier);
+                    double imprintingGainPerCuddle = Utils.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier);
                     int cuddleCount = (int)Math.Round((double)numericUpDownImprintingBonusTester.Value / (100 * imprintingGainPerCuddle));
                     double imprintingBonus;
                     do
@@ -3059,7 +3075,7 @@ namespace ARKBreedingStats
                         if (!statValid)
                         {
                             success = false;
-                            testText = Utils.statName(s, true) + " not expected value";
+                            testText = Utils.StatName(s, true) + " not expected value";
                             break;
                         }
                     }
@@ -3369,6 +3385,20 @@ namespace ARKBreedingStats
                 string speciesName = ((Creature)listViewLibrary.SelectedItems[0].Tag).Species.name;
                 if (!string.IsNullOrEmpty(speciesName))
                     Process.Start("https://ark.gamepedia.com/" + speciesName);
+            }
+        }
+
+        /// <summary>
+        /// Verify if the right click was into the header of the list view, if so, open a specific contextMenu.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void contextMenuStripLibrary_Opening(object sender, CancelEventArgs e)
+        {
+            if (Win32API.IsMouseOnListViewHeader(listViewLibrary.Handle, System.Windows.Forms.Control.MousePosition.Y))
+            {
+                e.Cancel = true;
+                contextMenuStripLibraryHeader.Show(Control.MousePosition);
             }
         }
     }

@@ -84,13 +84,16 @@ namespace ARKBreedingStats
 
                 ArkSavegame arkSavegame = new ArkSavegame();
 
+                bool PredicateCreatures(GameObject o) => !o.IsItem && (o.Parent != null || o.Components.Any());
+                bool PredicateCreaturesAndCryopods(GameObject o) => (!o.IsItem && (o.Parent != null || o.Components.Any())) || o.ClassString.Contains("Cryopod") || o.ClassString.Contains("SoulTrap_");
+
                 using (ArkArchive archive = new ArkArchive(stream))
                 {
                     arkSavegame.ReadBinary(archive, ReadingOptions.Create()
                             .WithDataFiles(false)
                             .WithEmbeddedData(false)
                             .WithDataFilesObjectMap(false)
-                            .WithObjectFilter(o => (!o.IsItem && (o.Parent != null || o.Components.Any())) || o.ClassString.Contains("Cryopod") || o.ClassString.Contains("SoulTrap_"))
+                            .WithObjectFilter(Properties.Settings.Default.SaveImportCryo ? new Predicate<GameObject>(PredicateCreaturesAndCryopods) : new Predicate<GameObject>(PredicateCreatures))
                             .WithBuildComponentTree(true));
                 }
 
@@ -244,5 +247,4 @@ namespace ARKBreedingStats
             return creature;
         }
     }
-
 }

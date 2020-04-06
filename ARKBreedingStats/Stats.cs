@@ -48,7 +48,7 @@ namespace ARKBreedingStats
             if (result <= 0) return 0;
 
             if (roundToIngamePrecision)
-                return Math.Round(result, Utils.precision(stat), MidpointRounding.AwayFromZero);
+                return Math.Round(result, Utils.Precision(stat), MidpointRounding.AwayFromZero);
 
             return result;
         }

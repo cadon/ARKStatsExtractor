@@ -18,7 +18,7 @@ namespace ARKBreedingStats.uiControls
             stats = new StatPotential[values.Values.STATS_COUNT];
             for (int s = 0; s < values.Values.STATS_COUNT; s++)
             {
-                StatPotential stat = new StatPotential(s, Utils.precision(s) == 3);
+                StatPotential stat = new StatPotential(s, Utils.Precision(s) == 3);
                 stats[s] = stat;
             }
             for (int s = 0; s < values.Values.STATS_COUNT; s++)

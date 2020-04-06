@@ -790,6 +790,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Descendants.
+        /// </summary>
+        internal static string Descendants {
+            get {
+                return ResourceManager.GetString("Descendants", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Details.
         /// </summary>
         internal static string Details {

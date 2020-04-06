@@ -44,7 +44,7 @@ namespace ARKBreedingStats.importExported
             }
 
             groupBox1.Text = $"{creatureValues.name} ({(creatureValues.Species?.name ?? "unknown species")}, Lvl {creatureValues.level}), " +
-                    $"exported at {Utils.shortTimeDate(creatureValues.domesticatedAt)}. " +
+                    $"exported at {Utils.ShortTimeDate(creatureValues.domesticatedAt)}. " +
                     $"Filename: {Path.GetFileName(filePath)}";
             Disposed += ExportedCreatureControl_Disposed;
 
@@ -86,7 +86,7 @@ namespace ARKBreedingStats.importExported
                     groupBox1.BackColor = Color.LightGreen;
                     break;
                 case ImportStatus.OldImported:
-                    lbStatus.Text = "Already imported on " + Utils.shortTimeDate(addedToLibrary, false);
+                    lbStatus.Text = "Already imported on " + Utils.ShortTimeDate(addedToLibrary, false);
                     groupBox1.BackColor = Color.YellowGreen;
                     break;
                 case ImportStatus.NeedsLevelChosing:

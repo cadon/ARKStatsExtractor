@@ -87,9 +87,9 @@ namespace ARKBreedingStats
                     textBoxOwner.Text = creature.owner;
                     textBoxNote.Text = creature.note;
                     sex = creature.sex;
-                    buttonSex.Text = Utils.sexSymbol(sex);
+                    buttonSex.Text = Utils.SexSymbol(sex);
                     creatureStatus = creature.status;
-                    buttonStatus.Text = Utils.statusSymbol(creatureStatus);
+                    buttonStatus.Text = Utils.StatusSymbol(creatureStatus);
                     textBoxName.SelectAll();
                     textBoxName.Focus();
                     panel1.Visible = true;
@@ -216,14 +216,14 @@ namespace ARKBreedingStats
 
         private void buttonSex_Click(object sender, EventArgs e)
         {
-            sex = Utils.nextSex(sex);
-            buttonSex.Text = Utils.sexSymbol(sex);
+            sex = Utils.NextSex(sex);
+            buttonSex.Text = Utils.SexSymbol(sex);
         }
 
         private void buttonStatus_Click(object sender, EventArgs e)
         {
-            creatureStatus = Utils.nextStatus(creatureStatus);
-            buttonStatus.Text = Utils.statusSymbol(creatureStatus);
+            creatureStatus = Utils.NextStatus(creatureStatus);
+            buttonStatus.Text = Utils.StatusSymbol(creatureStatus);
         }
 
         private void checkBoxIsBred_CheckedChanged(object sender, EventArgs e)

@@ -65,6 +65,8 @@ namespace ARKBreedingStats
             notes = string.Empty;
 
             InfoDuration = 10;
+
+            Location = new Point(0, 0);
         }
 
         public void SetInfoPositions()
@@ -85,7 +87,10 @@ namespace ARKBreedingStats
             lblStatus.Location = new Point(50, 10);
         }
 
-        public bool enableOverlayTimer
+        /// <summary>
+        /// Sets the overlay timer to enabled or disabled.
+        /// </summary>
+        public bool EnableOverlayTimer
         {
             set => timerUpdateTimer.Enabled = value;
         }
@@ -194,7 +199,7 @@ namespace ARKBreedingStats
                         }
                         sb.Append("expired ");
                     }
-                    sb.AppendLine($"{Utils.timeLeft(tle.time)} : {tle.name}");
+                    sb.AppendLine($"{Utils.TimeLeft(tle.time)} : {tle.name}");
                 }
                 if (timerListChanged)
                     timers = timers.Where(t => t.showInOverlay).ToList();

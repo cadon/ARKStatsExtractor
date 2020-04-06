@@ -20,7 +20,7 @@ namespace ARKBreedingStats.uiControls
             InitializeComponent();
             statIndex = stat;
             this.percent = percent;
-            label1.Text = Utils.statName(stat, true);
+            label1.Text = Utils.StatName(stat, true);
         }
 
         public void SetLevel(Species species, int wildLevel)

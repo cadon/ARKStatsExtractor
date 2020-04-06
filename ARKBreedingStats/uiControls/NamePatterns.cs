@@ -48,7 +48,10 @@ namespace ARKBreedingStats.uiControls
                     int creatureLevelSum = 0;
                     for (int s = 0; s < Values.STATS_COUNT; s++)
                     {
-                        if (s != (int)StatNames.Torpidity && creature.Species.UsesStat(s))
+                        if (s != (int)StatNames.Torpidity
+                            && creature.Species.UsesStat(s)
+                            && (Properties.Settings.Default.consideredStats & (1 << s)) != 0
+                            )
                         {
                             int creatureLevel = Math.Max(0, creature.levelsWild[s]);
                             topLevelSum += Math.Max(creatureLevel, speciesTopLevels[s]);
@@ -350,7 +353,7 @@ namespace ARKBreedingStats.uiControls
             string[] breedingValues = new string[Values.STATS_COUNT];
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                breedingValues[s] = (creature.valuesBreeding[s] * (Utils.precision(s) == 3 ? 100 : 1)).ToString();
+                breedingValues[s] = (creature.valuesBreeding[s] * (Utils.Precision(s) == 3 ? 100 : 1)).ToString();
             }
 
             string baselvl = creature.LevelHatched.ToString();
@@ -526,12 +529,12 @@ namespace ARKBreedingStats.uiControls
                 { "highest4l", levelOrder[3].Item2.ToString() },
                 { "highest5l", levelOrder[4].Item2.ToString() },
                 { "highest6l", levelOrder[5].Item2.ToString() },
-                { "highest1s", Utils.statName(levelOrder[0].Item1, true, creature.Species.IsGlowSpecies) },
-                { "highest2s", Utils.statName(levelOrder[1].Item1, true, creature.Species.IsGlowSpecies) },
-                { "highest3s", Utils.statName(levelOrder[2].Item1, true, creature.Species.IsGlowSpecies) },
-                { "highest4s", Utils.statName(levelOrder[3].Item1, true, creature.Species.IsGlowSpecies) },
-                { "highest5s", Utils.statName(levelOrder[4].Item1, true, creature.Species.IsGlowSpecies) },
-                { "highest6s", Utils.statName(levelOrder[5].Item1, true, creature.Species.IsGlowSpecies) },
+                { "highest1s", Utils.StatName(levelOrder[0].Item1, true, creature.Species.IsGlowSpecies) },
+                { "highest2s", Utils.StatName(levelOrder[1].Item1, true, creature.Species.IsGlowSpecies) },
+                { "highest3s", Utils.StatName(levelOrder[2].Item1, true, creature.Species.IsGlowSpecies) },
+                { "highest4s", Utils.StatName(levelOrder[3].Item1, true, creature.Species.IsGlowSpecies) },
+                { "highest5s", Utils.StatName(levelOrder[4].Item1, true, creature.Species.IsGlowSpecies) },
+                { "highest6s", Utils.StatName(levelOrder[5].Item1, true, creature.Species.IsGlowSpecies) },
             };
         }
 

@@ -15,8 +15,8 @@ namespace ARKBreedingStats
 {
     public partial class BreedingPlan : UserControl
     {
-        public event PedigreeCreature.CreatureEditEventHandler EditCreature;
-        public event PedigreeCreature.CreaturePartnerEventHandler BestBreedingPartners;
+        public event Action<Creature, bool> EditCreature;
+        public event Action<Creature> BestBreedingPartners;
         public event PedigreeCreature.ExportToClipboardEventHandler ExportToClipboard;
         public event Raising.createIncubationEventHandler CreateIncubationTimer;
         public event Form1.SetMessageLabelTextEventHandler SetMessageLabelText;
@@ -61,9 +61,9 @@ namespace ARKBreedingStats
             pedigreeCreatureBest.IsVirtual = true;
             pedigreeCreatureWorst.IsVirtual = true;
             pedigreeCreatureBestPossibleInSpecies.IsVirtual = true;
-            pedigreeCreatureBest.onlyLevels = true;
-            pedigreeCreatureWorst.onlyLevels = true;
-            pedigreeCreatureBestPossibleInSpecies.onlyLevels = true;
+            pedigreeCreatureBest.OnlyLevels = true;
+            pedigreeCreatureWorst.OnlyLevels = true;
+            pedigreeCreatureBestPossibleInSpecies.OnlyLevels = true;
             pedigreeCreatureBest.Clear();
             pedigreeCreatureWorst.Clear();
             pedigreeCreatureBestPossibleInSpecies.Clear();
@@ -116,9 +116,9 @@ namespace ARKBreedingStats
             pedigreeCreatureBest.CreatureEdit += EditCreature;
             pedigreeCreatureWorst.CreatureEdit += EditCreature;
             pedigreeCreatureBestPossibleInSpecies.CreatureEdit += EditCreature;
-            pedigreeCreatureBest.exportToClipboard += ExportToClipboard;
-            pedigreeCreatureWorst.exportToClipboard += ExportToClipboard;
-            pedigreeCreatureBestPossibleInSpecies.exportToClipboard += ExportToClipboard;
+            pedigreeCreatureBest.ExportToClipboard += ExportToClipboard;
+            pedigreeCreatureWorst.ExportToClipboard += ExportToClipboard;
+            pedigreeCreatureBestPossibleInSpecies.ExportToClipboard += ExportToClipboard;
             pedigreeCreatureBest.CreatureClicked += CreatureClicked;
             pedigreeCreatureWorst.CreatureClicked += CreatureClicked;
         }
@@ -496,9 +496,9 @@ namespace ARKBreedingStats
                         //pc.Location = new Point(10 + xS, 5 + 35 * row + yS);
                         pc.CreatureClicked += CreatureClicked;
                         pc.CreatureEdit += CreatureEdit;
-                        pc.BPRecalc += RecalculateBreedingPlan;
+                        pc.RecalculateBreedingPlan += RecalculateBreedingPlan;
                         pc.BestBreedingPartners += BestBreedingPartners;
-                        pc.exportToClipboard += ExportToClipboard;
+                        pc.ExportToClipboard += ExportToClipboard;
                         flowLayoutPanelPairs.Controls.Add(pc);
                         pcs.Add(pc);
                     }
@@ -534,9 +534,9 @@ namespace ARKBreedingStats
                         //pc.Location = new Point(397 + xS, 5 + 35 * row + yS);
                         pc.CreatureClicked += CreatureClicked;
                         pc.CreatureEdit += CreatureEdit;
-                        pc.BPRecalc += RecalculateBreedingPlan;
+                        pc.RecalculateBreedingPlan += RecalculateBreedingPlan;
                         pc.BestBreedingPartners += BestBreedingPartners;
-                        pc.exportToClipboard += ExportToClipboard;
+                        pc.ExportToClipboard += ExportToClipboard;
                         flowLayoutPanelPairs.Controls.Add(pc);
                         flowLayoutPanelPairs.SetFlowBreak(pc, true);
                         pcs.Add(pc);
@@ -547,8 +547,8 @@ namespace ARKBreedingStats
                     using (g = Graphics.FromImage(bm))
                     {
                         g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-                        Brush br = new SolidBrush(Utils.getColorFromPercent((int)(breedingPairs[i].BreedingScore * 12.5), 0.5));
-                        Brush brd = new SolidBrush(Utils.getColorFromPercent((int)(breedingPairs[i].BreedingScore * 12.5), -.2));
+                        Brush br = new SolidBrush(Utils.GetColorFromPercent((int)(breedingPairs[i].BreedingScore * 12.5), 0.5));
+                        Brush brd = new SolidBrush(Utils.GetColorFromPercent((int)(breedingPairs[i].BreedingScore * 12.5), -.2));
                         g.FillRectangle(brd, 0, 15, 87, 5);
                         g.FillRectangle(brd, 20, 10, 47, 15);
                         g.FillRectangle(br, 1, 16, 85, 3);
@@ -601,7 +601,7 @@ namespace ARKBreedingStats
                         if (bestCreatureAlreadyAvailable)
                         {
                             displayFilterWarning = false;
-                            SetMessageLabelText(string.Format(Loc.s("AlreadyCreatureWithTopStats"), bestCreature.name, Utils.sexSymbol(bestCreature.sex)), MessageBoxIcon.Warning);
+                            SetMessageLabelText(string.Format(Loc.s("AlreadyCreatureWithTopStats"), bestCreature.name, Utils.SexSymbol(bestCreature.sex)), MessageBoxIcon.Warning);
                         }
                     }
                 }
@@ -713,17 +713,17 @@ namespace ARKBreedingStats
                 {
                     TimeSpan totalTime = incubationTime;
                     DateTime until = DateTime.Now.Add(totalTime);
-                    string[] times = { incubationMode, incubationTime.ToString("d':'hh':'mm':'ss"), totalTime.ToString("d':'hh':'mm':'ss"), Utils.shortTimeDate(until) };
+                    string[] times = { incubationMode, incubationTime.ToString("d':'hh':'mm':'ss"), totalTime.ToString("d':'hh':'mm':'ss"), Utils.ShortTimeDate(until) };
                     listViewRaisingTimes.Items.Add(new ListViewItem(times));
 
                     totalTime += babyTime;
                     until = DateTime.Now.Add(totalTime);
-                    times = new[] { Loc.s("Baby"), babyTime.ToString("d':'hh':'mm':'ss"), totalTime.ToString("d':'hh':'mm':'ss"), Utils.shortTimeDate(until) };
+                    times = new[] { Loc.s("Baby"), babyTime.ToString("d':'hh':'mm':'ss"), totalTime.ToString("d':'hh':'mm':'ss"), Utils.ShortTimeDate(until) };
                     listViewRaisingTimes.Items.Add(new ListViewItem(times));
 
                     totalTime = incubationTime + maturationTime;
                     until = DateTime.Now.Add(totalTime);
-                    times = new[] { Loc.s("Maturation"), maturationTime.ToString("d':'hh':'mm':'ss"), totalTime.ToString("d':'hh':'mm':'ss"), Utils.shortTimeDate(until) };
+                    times = new[] { Loc.s("Maturation"), maturationTime.ToString("d':'hh':'mm':'ss"), totalTime.ToString("d':'hh':'mm':'ss"), Utils.ShortTimeDate(until) };
                     listViewRaisingTimes.Items.Add(new ListViewItem(times));
 
                     string eggInfo = Raising.EggTemperature(species);
@@ -795,7 +795,7 @@ namespace ARKBreedingStats
             }
             crB.levelsWild[(int)StatNames.Torpidity] = crB.levelsWild.Sum();
             crB.RecalculateCreatureValues(levelStep);
-            pedigreeCreatureBestPossibleInSpecies.totalLevelUnknown = totalLevelUnknown;
+            pedigreeCreatureBestPossibleInSpecies.TotalLevelUnknown = totalLevelUnknown;
             pedigreeCreatureBestPossibleInSpecies.Creature = crB;
         }
 
@@ -852,8 +852,8 @@ namespace ARKBreedingStats
             crW.name = Loc.s("WorstPossible");
             crB.RecalculateCreatureValues(levelStep);
             crW.RecalculateCreatureValues(levelStep);
-            pedigreeCreatureBest.totalLevelUnknown = totalLevelUnknown;
-            pedigreeCreatureWorst.totalLevelUnknown = totalLevelUnknown;
+            pedigreeCreatureBest.TotalLevelUnknown = totalLevelUnknown;
+            pedigreeCreatureWorst.TotalLevelUnknown = totalLevelUnknown;
             int mutationCounterMaternal = mother.Mutations;
             int mutationCounterPaternal = father.Mutations;
             crB.mutationsMaternal = mutationCounterMaternal;
@@ -870,7 +870,7 @@ namespace ARKBreedingStats
             // highlight parents
             int hiliId = comboIndex * 2;
             for (int i = 0; i < pcs.Count; i++)
-                pcs[i].highlight = (i == hiliId || i == hiliId + 1);
+                pcs[i].Highlight = (i == hiliId || i == hiliId + 1);
         }
 
         public bool[] EnabledColorRegions

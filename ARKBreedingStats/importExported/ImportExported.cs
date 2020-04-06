@@ -149,22 +149,22 @@ namespace ARKBreedingStats.importExported
                             break;
                         // Colorization
                         case "ColorSet[0]":
-                            cv.colorIDs[0] = ParseColor(text);
+                            cv.colorIDs[0] = ParseColor(text, 0, cv.Species);
                             break;
                         case "ColorSet[1]":
-                            cv.colorIDs[1] = ParseColor(text);
+                            cv.colorIDs[1] = ParseColor(text, 1, cv.Species);
                             break;
                         case "ColorSet[2]":
-                            cv.colorIDs[2] = ParseColor(text);
+                            cv.colorIDs[2] = ParseColor(text, 2, cv.Species);
                             break;
                         case "ColorSet[3]":
-                            cv.colorIDs[3] = ParseColor(text);
+                            cv.colorIDs[3] = ParseColor(text, 3, cv.Species);
                             break;
                         case "ColorSet[4]":
-                            cv.colorIDs[4] = ParseColor(text);
+                            cv.colorIDs[4] = ParseColor(text, 4, cv.Species);
                             break;
                         case "ColorSet[5]":
-                            cv.colorIDs[5] = ParseColor(text);
+                            cv.colorIDs[5] = ParseColor(text, 5, cv.Species);
                             break;
                         case "Health":
                             cv.statValues[(int)StatNames.Health] = value;
@@ -244,18 +244,20 @@ namespace ARKBreedingStats.importExported
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        private static int ParseColor(string text)
+        private static int ParseColor(string text, int colorIndex, Species species)
         {
             if (text.Length < 33) return 0;
 
-            if (double.TryParse(text.Substring(3, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double r)
-                && double.TryParse(text.Substring(14, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double g)
-                && double.TryParse(text.Substring(25, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double b)
-                && double.TryParse(text.Substring(36, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double a)
+            var dotSeparatorCulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
+            if (double.TryParse(text.Substring(3, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, dotSeparatorCulture, out double r)
+                && double.TryParse(text.Substring(14, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, dotSeparatorCulture, out double g)
+                && double.TryParse(text.Substring(25, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, dotSeparatorCulture, out double b)
+                && double.TryParse(text.Substring(36, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, dotSeparatorCulture, out double a)
+                && (r != 0 || g != 0 || b != 0 || a != 1) // no color
                 )
                 return Values.V.Colors.ClosestColorID(r, g, b, a);
 
-            // color recognition failed
+            // color is invisible or parsing failed
             return 0;
         }
 

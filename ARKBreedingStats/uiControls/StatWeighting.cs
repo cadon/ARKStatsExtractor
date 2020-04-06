@@ -69,7 +69,7 @@ namespace ARKBreedingStats.uiControls
             currentSpecies = species;
             for (int s = 0; s < Values.STATS_COUNT; s++)
                 if (statLabels[s] != null)
-                    statLabels[s].Text = Utils.statName(s, true, species.IsGlowSpecies);
+                    statLabels[s].Text = Utils.StatName(s, true, species.IsGlowSpecies);
         }
 
         private async void Input_ValueChanged(object sender, EventArgs e)

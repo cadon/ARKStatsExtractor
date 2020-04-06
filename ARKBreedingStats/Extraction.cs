@@ -181,7 +181,7 @@ namespace ARKBreedingStats
                     statIOs[s].postTame = postTamed;
 
                     // determine the precision of the input value
-                    float toleranceForThisStat = StatValueCalculation.DisplayedAberration(statIOs[s].Input, Utils.precision(s), highPrecisionInputs);
+                    float toleranceForThisStat = StatValueCalculation.DisplayedAberration(statIOs[s].Input, Utils.Precision(s), highPrecisionInputs);
                     //Console.WriteLine($"Precision stat {s}: {toleranceForThisStat}");
 
                     MinMaxDouble inputValue = new MinMaxDouble(statIOs[s].Input - toleranceForThisStat, statIOs[s].Input + toleranceForThisStat);
@@ -390,7 +390,7 @@ namespace ARKBreedingStats
             double imprintingBonusFromGainPerCuddle = 0;
             if (species.breeding != null)
             {
-                double imprintingGainPerCuddle = Utils.imprintingGainPerCuddle(species.breeding.maturationTimeAdjusted, cuddleIntervalMultiplier);
+                double imprintingGainPerCuddle = Utils.ImprintingGainPerCuddle(species.breeding.maturationTimeAdjusted, cuddleIntervalMultiplier);
                 imprintingBonusFromGainPerCuddle = Math.Round(imprintingBonusRounded / imprintingGainPerCuddle) * imprintingGainPerCuddle;
             }
 

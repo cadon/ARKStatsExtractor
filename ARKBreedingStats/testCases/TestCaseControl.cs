@@ -78,13 +78,13 @@ namespace ARKBreedingStats.testCases
             }
 
             lbTime.Text = time.ToString() + " ms";
-            lbTime.BackColor = Utils.getColorFromPercent(100 - time);
+            lbTime.BackColor = Utils.GetColorFromPercent(100 - time);
             lbTime.ForeColor = Utils.ForeColor(lbTime.BackColor);
 
             if (additionalResults > 0)
             {
                 lbAdditionalResults.Text = "additional Results: " + additionalResults.ToString();
-                lbAdditionalResults.BackColor = Utils.getColorFromPercent(60 - additionalResults / 4);
+                lbAdditionalResults.BackColor = Utils.GetColorFromPercent(60 - additionalResults / 4);
                 lbAdditionalResults.ForeColor = Utils.ForeColor(lbAdditionalResults.BackColor);
             }
             else

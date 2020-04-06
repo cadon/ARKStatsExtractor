@@ -34,7 +34,7 @@ namespace ARKBreedingStats.uiControls
                 StatDisplay sd = new StatDisplay
                 {
                     statIndex = si,
-                    Percent = Utils.precision(si) == 3
+                    Percent = Utils.Precision(si) == 3
                 };
                 stats[s] = sd;
 
@@ -61,7 +61,7 @@ namespace ARKBreedingStats.uiControls
                 stats[s].setNumbers(creature.levelsWild[si], creature.levelsDom[si], creature.valuesBreeding[si], creature.valuesDom[si]);
             }
 
-            labelSex.Text = Utils.sexSymbol(creature.sex);
+            labelSex.Text = Utils.SexSymbol(creature.sex);
 
             ResumeLayout();
         }

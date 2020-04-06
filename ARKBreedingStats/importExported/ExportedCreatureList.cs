@@ -151,7 +151,7 @@ namespace ARKBreedingStats.importExported
             }
             hiddenSpecies.Clear();
 
-            Text = "Exported creatures in " + Utils.shortPath(folderPath, 100);
+            Text = "Exported creatures in " + Utils.ShortPath(folderPath, 100);
             UpdateStatusBarLabelAndControls();
             ResumeLayout();
 

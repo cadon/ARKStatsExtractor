@@ -2,6 +2,7 @@
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -22,8 +23,31 @@ namespace ARKBreedingStats.settings
         {
             InitializeData();
             this.cc = cc;
+            CreateListOfProcesses();
             LoadSettings(cc);
             tabControlSettings.SelectTab((int)page);
+        }
+
+        private const string DefaultOCRProcessName = "ShooterGame";
+        /// <summary>
+        /// Creates the list of currently running processes for an easy selection for the process the OCR uses to capture.
+        /// </summary>
+        private void CreateListOfProcesses()
+        {
+            cbbOCRApp.DataSource = System.Diagnostics.Process.GetProcesses().Select(p => new ProcessSelector { ProcessName = p.ProcessName, MainWindowTitle = p.MainWindowTitle })
+                .Distinct().Where(pn => !string.IsNullOrEmpty(pn.MainWindowTitle) && pn.ProcessName != "System" && pn.ProcessName != "idle").OrderBy(pn => pn.ProcessName).ToArray();
+        }
+
+        private struct ProcessSelector
+        {
+            public string ProcessName;
+            public string MainWindowTitle;
+            public override string ToString() => $"{ProcessName} ({MainWindowTitle})";
+        }
+
+        private void cbOCRApp_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tbOCRCaptureApp.Text = (cbbOCRApp.SelectedItem is ProcessSelector ps) ? ps.ProcessName : null;
         }
 
         private void InitializeData()
@@ -35,7 +59,7 @@ namespace ARKBreedingStats.settings
             {
                 multSetter[s] = new MultiplierSetting
                 {
-                    StatName = $"[{s}] {Utils.statName(s)}"
+                    StatName = $"[{s}] {Utils.StatName(s)}"
                 };
                 flowLayoutPanelStatMultipliers.Controls.Add(multSetter[s]);
             }
@@ -173,6 +197,9 @@ namespace ARKBreedingStats.settings
             nudOverlayTimerPosY.ValueSave = Properties.Settings.Default.OverlayTimerPosition.Y;
             nudOverlayInfoPosDFR.ValueSave = Properties.Settings.Default.OverlayInfoPosition.X;
             nudOverlayInfoPosY.ValueSave = Properties.Settings.Default.OverlayInfoPosition.Y;
+            cbCustomOverlayLocation.Checked = Properties.Settings.Default.UseCustomOverlayLocation;
+            nudCustomOverlayLocX.ValueSave = Properties.Settings.Default.CustomOverlayLocation.X;
+            nudCustomOverlayLocY.ValueSave = Properties.Settings.Default.CustomOverlayLocation.Y;
             #endregion
 
             #region Timers
@@ -185,15 +212,7 @@ namespace ARKBreedingStats.settings
             cbShowOCRButton.Checked = Properties.Settings.Default.showOCRButton;
             nudWaitBeforeScreenCapture.ValueSave = Properties.Settings.Default.waitBeforeScreenCapture;
             nudWhiteThreshold.ValueSave = Properties.Settings.Default.OCRWhiteThreshold;
-            string ocrApp = Properties.Settings.Default.OCRApp;
-            int ocrI = cbOCRApp.Items.IndexOf(ocrApp);
-            if (ocrI == -1)
-            {
-                textBoxOCRCustom.Text = ocrApp;
-                cbOCRApp.SelectedIndex = cbOCRApp.Items.IndexOf("Custom");
-            }
-            else
-                cbOCRApp.SelectedIndex = ocrI;
+            tbOCRCaptureApp.Text = Properties.Settings.Default.OCRApp;
 
             cbOCRIgnoreImprintValue.Checked = Properties.Settings.Default.OCRIgnoresImprintValue;
             #endregion
@@ -247,6 +266,7 @@ namespace ARKBreedingStats.settings
             cbImportUpdateCreatureStatus.Checked = cc.changeCreatureStatusOnSavegameImport;
             textBoxImportTribeNameFilter.Text = Properties.Settings.Default.ImportTribeNameFilter;
             cbIgnoreUnknownBPOnSaveImport.Checked = Properties.Settings.Default.IgnoreUnknownBlueprintsOnSaveImport;
+            cbSaveImportCryo.Checked = Properties.Settings.Default.SaveImportCryo;
             #endregion
 
             cbDevTools.Checked = Properties.Settings.Default.DevTools;
@@ -325,8 +345,10 @@ namespace ARKBreedingStats.settings
 
             #region overlay
             Properties.Settings.Default.OverlayInfoDuration = (int)nudOverlayInfoDuration.Value;
-            Properties.Settings.Default.OverlayTimerPosition = new System.Drawing.Point((int)nudOverlayTimerPosX.Value, (int)nudOverlayTimerPosY.Value);
-            Properties.Settings.Default.OverlayInfoPosition = new System.Drawing.Point((int)nudOverlayInfoPosDFR.Value, (int)nudOverlayInfoPosY.Value);
+            Properties.Settings.Default.OverlayTimerPosition = new Point((int)nudOverlayTimerPosX.Value, (int)nudOverlayTimerPosY.Value);
+            Properties.Settings.Default.OverlayInfoPosition = new Point((int)nudOverlayInfoPosDFR.Value, (int)nudOverlayInfoPosY.Value);
+            Properties.Settings.Default.UseCustomOverlayLocation = cbCustomOverlayLocation.Checked;
+            Properties.Settings.Default.CustomOverlayLocation = new Point((int)nudCustomOverlayLocX.Value, (int)nudCustomOverlayLocY.Value);
             #endregion
 
             #region Timers
@@ -339,10 +361,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.showOCRButton = cbShowOCRButton.Checked;
             Properties.Settings.Default.waitBeforeScreenCapture = (int)nudWaitBeforeScreenCapture.Value;
             Properties.Settings.Default.OCRWhiteThreshold = (int)nudWhiteThreshold.Value;
-            string ocrApp = cbOCRApp.SelectedItem.ToString();
-            if (ocrApp == "Custom")
-                ocrApp = textBoxOCRCustom.Text;
-            Properties.Settings.Default.OCRApp = ocrApp;
+            Properties.Settings.Default.OCRApp = tbOCRCaptureApp.Text;
 
             Properties.Settings.Default.OCRIgnoresImprintValue = cbOCRIgnoreImprintValue.Checked;
             #endregion
@@ -365,15 +384,6 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.LibraryHighlightTopCreatures = cbLibraryHighlightTopCreatures.Checked;
             #endregion
 
-            #region import savegame
-            Properties.Settings.Default.savegameExtractionPath = fileSelectorExtractedSaveFolder.Link;
-            Properties.Settings.Default.arkSavegamePaths = aTImportFileLocationBindingSource.OfType<ATImportFileLocation>()
-                    .Where(location => !string.IsNullOrWhiteSpace(location.FileLocation))
-                    .Select(location => $"{location.ConvenientName}|{location.ServerName}|{location.FileLocation}").ToArray();
-
-            Properties.Settings.Default.IgnoreUnknownBlueprintsOnSaveImport = cbIgnoreUnknownBPOnSaveImport.Checked;
-            #endregion
-
             #region import exported
             Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan = (int)nudWarnImportMoreThan.Value;
             Properties.Settings.Default.ExportCreatureFolders = aTExportFolderLocationsBindingSource.OfType<ATImportExportedFolderLocation>()
@@ -390,6 +400,16 @@ namespace ARKBreedingStats.settings
 
             cc.changeCreatureStatusOnSavegameImport = cbImportUpdateCreatureStatus.Checked;
             Properties.Settings.Default.ImportTribeNameFilter = textBoxImportTribeNameFilter.Text;
+            #endregion
+
+            #region import savegame
+            Properties.Settings.Default.savegameExtractionPath = fileSelectorExtractedSaveFolder.Link;
+            Properties.Settings.Default.arkSavegamePaths = aTImportFileLocationBindingSource.OfType<ATImportFileLocation>()
+                    .Where(location => !string.IsNullOrWhiteSpace(location.FileLocation))
+                    .Select(location => $"{location.ConvenientName}|{location.ServerName}|{location.FileLocation}").ToArray();
+
+            Properties.Settings.Default.IgnoreUnknownBlueprintsOnSaveImport = cbIgnoreUnknownBPOnSaveImport.Checked;
+            Properties.Settings.Default.SaveImportCryo = cbSaveImportCryo.Checked;
             #endregion
 
             Properties.Settings.Default.DevTools = cbDevTools.Checked;
@@ -539,11 +559,6 @@ namespace ARKBreedingStats.settings
                     _cb.Checked = m.Groups[1].Value.ToLower() == "true";
                 }
             }
-        }
-
-        private void cbOCRApp_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            textBoxOCRCustom.Visible = cbOCRApp.SelectedItem.ToString() == "Custom";
         }
 
         private void Settings_Disposed(object sender, EventArgs e)
@@ -816,6 +831,16 @@ namespace ARKBreedingStats.settings
             SaveImport = 2,
             ExportedImport = 3,
             OCR = 4,
+        }
+
+        private void cbCustomOverlayLocation_CheckedChanged(object sender, EventArgs e)
+        {
+            pCustomOverlayLocation.Enabled = cbCustomOverlayLocation.Checked;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            tbOCRCaptureApp.Text = DefaultOCRProcessName;
         }
     }
 }

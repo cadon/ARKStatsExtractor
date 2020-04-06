@@ -1007,4 +1007,7 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   <data name="cbBPOnlyOneSuggestionForFemales" xml:space="preserve">
     <value>Only best suggestion for females</value>
   </data>
+  <data name="Descendants" xml:space="preserve">
+    <value>Descendants</value>
+  </data>
 </root>
