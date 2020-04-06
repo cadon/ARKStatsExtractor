@@ -1,5 +1,5 @@
 {
-	"version": "307.02.4775258",
+	"version": "309.53.4852731",
 	"format": "1.12",
 	"species": [
 		{
@@ -15629,7 +15629,7 @@
 				null,
 				null
 			],
-			"immobilizedBy": [ "Bola", "Bear Trap", "Large Bear Trap", "Plant Species Y" ],
+			"immobilizedBy": [ "Chain Bola", "Bear Trap", "Large Bear Trap", "Plant Species Y" ],
 			"colors": [
 				{
 					"name": "Back",
@@ -24495,7 +24495,7 @@
 				null,
 				null
 			],
-			"immobilizedBy": [ "Bola" ],
+			"immobilizedBy": [ "Chain Bola" ],
 			"colors": [
 				{
 					"name": "Back",
@@ -36354,7 +36354,7 @@
 				null,
 				null
 			],
-			"immobilizedBy": [ "Bola", "Bear Trap", "Large Bear Trap", "Plant Species Y" ],
+			"immobilizedBy": [ "Chain Bola", "Bear Trap", "Large Bear Trap", "Plant Species Y" ],
 			"colors": [
 				{
 					"name": "Back",
