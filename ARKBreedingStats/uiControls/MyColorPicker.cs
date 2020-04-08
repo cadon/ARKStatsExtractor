@@ -19,6 +19,21 @@ namespace ARKBreedingStats.uiControls
         {
             InitializeComponent();
             tt = new ToolTip { AutomaticDelay = 200 };
+
+            // button for unknown color
+            var colorUnknown = new ARKColor();
+            Button btUnknownColor = new Button
+            {
+                Width = 75,
+                Height = 23,
+                Text = colorUnknown.name,
+                Tag = colorUnknown.id,
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Right
+            };
+            btUnknownColor.Click += ColorChosen;
+            tableLayoutPanel1.Controls.Add(btUnknownColor);
+            tableLayoutPanel1.SetCellPosition(btUnknownColor, new TableLayoutPanelCellPosition(1, 2));
+
             Disposed += MyColorPicker_Disposed;
         }
 
@@ -38,36 +53,37 @@ namespace ARKBreedingStats.uiControls
 
             flowLayoutPanel1.SuspendLayout();
 
-            for (int c = 0; c < colors.Count; c++)
+            for (int colorIndex = 1; colorIndex < colors.Count; colorIndex++)
             {
-                if (flowLayoutPanel1.Controls.Count <= c)
+                int controlIndex = colorIndex - 1;
+                if (flowLayoutPanel1.Controls.Count <= controlIndex)
                 {
                     Panel np = new Panel
                     {
                         Width = 40,
                         Height = 20
                     };
-                    np.Click += ColorChoosen;
+                    np.Click += ColorChosen;
                     flowLayoutPanel1.Controls.Add(np);
                 }
-                Panel p = flowLayoutPanel1.Controls[c] as Panel;
-                p.BackColor = colors[c].color;
-                p.Tag = colors[c].id;
-                p.BorderStyle = creatureColors[regionId] == colors[c].id ? BorderStyle.Fixed3D : BorderStyle.None;
-                p.Visible = ColorVisible(colors[c].id);
-                tt.SetToolTip(p, colors[c].id + ": " + colors[c].name);
+                Panel p = flowLayoutPanel1.Controls[controlIndex] as Panel;
+                p.BackColor = colors[colorIndex].color;
+                p.Tag = colors[colorIndex].id;
+                p.BorderStyle = creatureColors[regionId] == colors[colorIndex].id ? BorderStyle.Fixed3D : BorderStyle.None;
+                p.Visible = ColorVisible(colors[colorIndex].id);
+                tt.SetToolTip(p, colors[colorIndex].id + ": " + colors[colorIndex].name);
             }
 
             flowLayoutPanel1.ResumeLayout();
             isShown = true;
         }
 
-        private bool ColorVisible(int id) => !checkBoxOnlyNatural.Checked || naturalColorIDs == null || naturalColorIDs.Count == 0 || naturalColorIDs.Contains(id);
+        private bool ColorVisible(int id) => id == 0 || !checkBoxOnlyNatural.Checked || (naturalColorIDs?.Contains(id) ?? false);
 
-        private void ColorChoosen(object sender, EventArgs e)
+        private void ColorChosen(object sender, EventArgs e)
         {
             // store selected color-id in creature-array and close this window
-            int i = (int)((Panel)sender).Tag;
+            int i = (int)((Control)sender).Tag;
             if (i >= 0)
                 creatureColors[regionId] = i;
             HideWindow(true);
