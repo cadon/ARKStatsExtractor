@@ -1892,6 +1892,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Probability for one mutation.
+        /// </summary>
+        internal static string ProbabilityForOneMutation {
+            get {
+                return ResourceManager.GetString("ProbabilityForOneMutation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Quit.
         /// </summary>
         internal static string quitToolStripMenuItem {
