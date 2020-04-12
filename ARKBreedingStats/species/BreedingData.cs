@@ -1,28 +1,35 @@
-﻿using System.Runtime.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace ARKBreedingStats.species
 {
-    [DataContract]
+    [JsonObject(MemberSerialization.OptIn)]
     public class BreedingData
     {
-        [DataMember]
+        [JsonProperty]
         public double gestationTime;
-        [DataMember]
-        public double incubationTime;
-        [DataMember]
-        public double maturationTime;
-        [DataMember]
-        public double matingCooldownMin;
-        [DataMember]
-        public double matingCooldownMax;
-        [DataMember]
-        public double eggTempMin;
-        [DataMember]
-        public double eggTempMax;
+        /// <summary>
+        /// GestationTime with the according multipliers applied.
+        /// </summary>
         public double gestationTimeAdjusted;
+        [JsonProperty]
+        public double incubationTime;
         public double incubationTimeAdjusted;
+        [JsonProperty]
+        public double maturationTime;
         public double maturationTimeAdjusted;
+        [JsonProperty]
+        public double matingTime;
+        public double matingTimeAdjusted;
+        [JsonProperty]
+        public double matingCooldownMin;
         public double matingCooldownMinAdjusted;
+        [JsonProperty]
+        public double matingCooldownMax;
         public double matingCooldownMaxAdjusted;
+        [JsonProperty]
+        public double eggTempMin;
+        [JsonProperty]
+        public double eggTempMax;
+
     }
 }

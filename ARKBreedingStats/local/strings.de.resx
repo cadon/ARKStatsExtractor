@@ -1005,4 +1005,7 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   <data name="ProbabilityForOneMutation" xml:space="preserve">
     <value>Wahrscheinlichkeit für eine Mutation</value>
   </data>
+  <data name="matingTime" xml:space="preserve">
+    <value>Paarungsdauer</value>
+  </data>
 </root>

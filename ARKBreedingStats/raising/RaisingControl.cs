@@ -55,8 +55,10 @@ namespace ARKBreedingStats.raising
 
                     listViewRaisingTimes.Items.Clear();
 
-                    if (Raising.GetRaisingTimes(selectedSpecies, out string incubationMode, out TimeSpan incubationTime, out babyTime, out maturationTime, out TimeSpan nextMatingMin, out TimeSpan nextMatingMax))
+                    if (Raising.GetRaisingTimes(selectedSpecies, out TimeSpan matingTime, out string incubationMode, out TimeSpan incubationTime, out babyTime, out maturationTime, out TimeSpan nextMatingMin, out TimeSpan nextMatingMax))
                     {
+                        listViewRaisingTimes.Items.Add(new ListViewItem(new[] { Loc.s("matingTime"), matingTime.ToString("d':'hh':'mm':'ss") }));
+
                         TimeSpan totalTime = incubationTime;
                         DateTime until = DateTime.Now.Add(totalTime);
                         string[] times = { incubationMode, incubationTime.ToString("d':'hh':'mm':'ss"), totalTime.ToString("d':'hh':'mm':'ss"), Utils.ShortTimeDate(until) };

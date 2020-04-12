@@ -66,6 +66,7 @@ namespace ARKBreedingStats
             this.lbBPProbabilityBest = new System.Windows.Forms.Label();
             this.pedigreeCreatureBest = new ARKBreedingStats.PedigreeCreature();
             this.pedigreeCreatureWorst = new ARKBreedingStats.PedigreeCreature();
+            this.lbMutationProbability = new System.Windows.Forms.Label();
             this.btBPJustMated = new System.Windows.Forms.Button();
             this.offspringPossibilities1 = new ARKBreedingStats.OffspringPossibilities();
             this.panelCombinations = new System.Windows.Forms.Panel();
@@ -82,7 +83,6 @@ namespace ARKBreedingStats
             this.rbBPHighStats = new System.Windows.Forms.RadioButton();
             this.rbBPTopStats = new System.Windows.Forms.RadioButton();
             this.statWeighting1 = new ARKBreedingStats.uiControls.StatWeighting();
-            this.lbMutationProbability = new System.Windows.Forms.Label();
             this.tableLayoutMain.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageBreedableSpecies.SuspendLayout();
@@ -380,9 +380,9 @@ namespace ARKBreedingStats
             // 
             // labelBreedingInfos
             // 
-            this.labelBreedingInfos.Location = new System.Drawing.Point(3, 109);
+            this.labelBreedingInfos.Location = new System.Drawing.Point(3, 121);
             this.labelBreedingInfos.Name = "labelBreedingInfos";
-            this.labelBreedingInfos.Size = new System.Drawing.Size(322, 48);
+            this.labelBreedingInfos.Size = new System.Drawing.Size(322, 46);
             this.labelBreedingInfos.TabIndex = 7;
             this.labelBreedingInfos.Text = "Breeding Infos";
             // 
@@ -398,7 +398,7 @@ namespace ARKBreedingStats
             this.listViewRaisingTimes.Location = new System.Drawing.Point(3, 20);
             this.listViewRaisingTimes.Name = "listViewRaisingTimes";
             this.listViewRaisingTimes.ShowGroups = false;
-            this.listViewRaisingTimes.Size = new System.Drawing.Size(317, 86);
+            this.listViewRaisingTimes.Size = new System.Drawing.Size(351, 98);
             this.listViewRaisingTimes.TabIndex = 4;
             this.listViewRaisingTimes.UseCompatibleStateImageBehavior = false;
             this.listViewRaisingTimes.View = System.Windows.Forms.View.Details;
@@ -481,6 +481,16 @@ namespace ARKBreedingStats
             this.pedigreeCreatureWorst.Size = new System.Drawing.Size(325, 35);
             this.pedigreeCreatureWorst.TabIndex = 2;
             this.pedigreeCreatureWorst.TotalLevelUnknown = false;
+            // 
+            // lbMutationProbability
+            // 
+            this.lbMutationProbability.AutoSize = true;
+            this.flowLayoutPanel2.SetFlowBreak(this.lbMutationProbability, true);
+            this.lbMutationProbability.Location = new System.Drawing.Point(3, 95);
+            this.lbMutationProbability.Name = "lbMutationProbability";
+            this.lbMutationProbability.Size = new System.Drawing.Size(115, 13);
+            this.lbMutationProbability.TabIndex = 7;
+            this.lbMutationProbability.Text = "Probability of mutations";
             // 
             // btBPJustMated
             // 
@@ -681,16 +691,6 @@ namespace ARKBreedingStats
         1D,
         1D,
         1D};
-            // 
-            // lbMutationProbability
-            // 
-            this.lbMutationProbability.AutoSize = true;
-            this.flowLayoutPanel2.SetFlowBreak(this.lbMutationProbability, true);
-            this.lbMutationProbability.Location = new System.Drawing.Point(3, 95);
-            this.lbMutationProbability.Name = "lbMutationProbability";
-            this.lbMutationProbability.Size = new System.Drawing.Size(115, 13);
-            this.lbMutationProbability.TabIndex = 7;
-            this.lbMutationProbability.Text = "Probability of mutations";
             // 
             // BreedingPlan
             // 

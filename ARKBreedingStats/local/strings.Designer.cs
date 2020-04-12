@@ -1558,6 +1558,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mating Time.
+        /// </summary>
+        internal static string matingTime {
+            get {
+                return ResourceManager.GetString("matingTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Maturation.
         /// </summary>
         internal static string Maturation {

@@ -59614,7 +59614,8 @@
 				"incubationTime": 0,
 				"maturationTime": 175438.596,
 				"matingCooldownMin": 64800,
-				"matingCooldownMax": 172800
+				"matingCooldownMax": 172800,
+				"matingTime":60
 			},
 			"colors": [
 				{

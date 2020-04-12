@@ -160,13 +160,14 @@ namespace ARKBreedingStats.settings
             nudMaxServerLevel.ValueSave = cc.maxServerLevel > 0 ? cc.maxServerLevel : 0;
             nudMaxGraphLevel.ValueSave = cc.maxChartLevel;
             #region Non-event multiplier
+            nudMatingSpeed.ValueSave = (decimal)cc.serverMultipliers.MatingSpeedMultiplier;
+            nudMatingInterval.ValueSave = (decimal)cc.serverMultipliers.MatingIntervalMultiplier;
             nudEggHatchSpeed.ValueSave = (decimal)cc.serverMultipliers.EggHatchSpeedMultiplier;
             nudBabyMatureSpeed.ValueSave = (decimal)cc.serverMultipliers.BabyMatureSpeedMultiplier;
             nudBabyImprintingStatScale.ValueSave = (decimal)cc.serverMultipliers.BabyImprintingStatScaleMultiplier;
             nudBabyCuddleInterval.ValueSave = (decimal)cc.serverMultipliers.BabyCuddleIntervalMultiplier;
             nudTamingSpeed.ValueSave = (decimal)cc.serverMultipliers.TamingSpeedMultiplier;
             nudDinoCharacterFoodDrain.ValueSave = (decimal)cc.serverMultipliers.DinoCharacterFoodDrainMultiplier;
-            nudMatingInterval.ValueSave = (decimal)cc.serverMultipliers.MatingIntervalMultiplier;
             nudBabyFoodConsumptionSpeed.ValueSave = (decimal)cc.serverMultipliers.BabyFoodConsumptionSpeedMultiplier;
             #endregion
             #region event-multiplier
@@ -314,6 +315,7 @@ namespace ARKBreedingStats.settings
             #region non-event-multiplier
             cc.serverMultipliers.TamingSpeedMultiplier = (double)nudTamingSpeed.Value;
             cc.serverMultipliers.DinoCharacterFoodDrainMultiplier = (double)nudDinoCharacterFoodDrain.Value;
+            cc.serverMultipliers.MatingSpeedMultiplier = (double)nudMatingSpeed.Value;
             cc.serverMultipliers.MatingIntervalMultiplier = (double)nudMatingInterval.Value;
             cc.serverMultipliers.EggHatchSpeedMultiplier = (double)nudEggHatchSpeed.Value;
             cc.serverMultipliers.BabyCuddleIntervalMultiplier = (double)nudBabyCuddleInterval.Value;
