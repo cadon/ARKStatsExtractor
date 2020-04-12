@@ -1,5 +1,5 @@
 {
-	"version": "309.53.4852731",
+	"version": "310.11.4871947",
 	"format": "1.12",
 	"species": [
 		{
@@ -9352,7 +9352,7 @@
 			},
 			"colors": [
 				{
-					"name": "Main",
+					"name": "Body",
 					"colors": [
 						"BigFoot5",
 						"Dark Grey",
@@ -9375,7 +9375,7 @@
 					]
 				},
 				{
-					"name": "Unknown",
+					"name": "Spine",
 					"colors": [
 						"BigFoot5",
 						"Dark Grey",
@@ -9395,40 +9395,12 @@
 						"NearBlack",
 						"WyvernBlue0",
 						"WyvernBlue1"
-					]
-				},
-				{
-					"name": "Gradient",
-					"colors": [
-						"BigFoot5",
-						"Black",
-						"Dark Grey",
-						"Dino Dark Blue",
-						"Dino Dark Brown",
-						"Dino Dark Orange",
-						"Dino Dark Purple",
-						"Dino Dark Red",
-						"Dino Darker Grey",
-						"Dino Deep Blue",
-						"Dino Light Blue",
-						"Dino Light Brown",
-						"Dino Light Orange",
-						"Dino Light Purple",
-						"Dino Medium Blue",
-						"Dino Medium Brown",
-						"DragonBase0",
-						"DragonBase1",
-						"DragonFire",
-						"DragonGreen3",
-						"Light Grey",
-						"NearBlack",
-						"WyvernBlue0",
-						"WyvernPurple0"
 					]
 				},
 				null,
+				null,
 				{
-					"name": "Unknown",
+					"name": "Back",
 					"colors": [
 						"BigFoot5",
 						"Dark Grey",
@@ -9451,7 +9423,7 @@
 					]
 				},
 				{
-					"name": "Tips",
+					"name": "Belly",
 					"colors": [
 						"BigFoot5",
 						"Dark Grey",
@@ -45229,6 +45201,161 @@
 			"displayedStats": 927
 		},
 		{
+			"name": "Bunny Dodo",
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Dodo/Dodo_Character_BP_Bunny.Dodo_Character_BP_Bunny",
+			"fullStatsRaw": [
+				[ 40, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 30, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 50, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.01, 2, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 2999.76002,
+				"eggTempMin": 22,
+				"eggTempMax": 30,
+				"maturationTime": 55555.5556,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Dark Blue",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Purple",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dino Light Brown",
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Medium Brown",
+						"Dino Medium Green"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Medium Brown",
+						"Dino Medium Green"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Albino",
+						"Dino Dark Blue",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Purple",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				}
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.333333,
+				"affinityNeeded0": 450,
+				"affinityIncreasePL": 22.5,
+				"foodConsumptionBase": 0.000868,
+				"foodConsumptionMult": 2880.184
+			},
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_neck3": 3
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false,
+			"displayedStats": 927
+		},
+		{
 			"name": "Doedicurus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Doedicurus/Doed_Character_BP.Doed_Character_BP",
 			"fullStatsRaw": [
@@ -51541,6 +51668,155 @@
 				"foodConsumptionMult": 160.0563
 			},
 			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false,
+			"displayedStats": 927
+		},
+		{
+			"name": "Bunny Oviraptor",
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Oviraptor/BunnyOviraptor_Character_BP.BunnyOviraptor_Character_BP",
+			"fullStatsRaw": [
+				[ 140, 0.2, 0.27, 0.5, 0 ],
+				[ 120, 0.1, 0.1, 0, 0 ],
+				[ 125, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 900, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.01, 1, 0.15 ],
+				null,
+				null
+			],
+			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 4090.58184,
+				"eggTempMin": 26,
+				"eggTempMax": 30,
+				"maturationTime": 75757.5758,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Albino",
+						"Dino Dark Blue",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Purple",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Dark Blue",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Purple",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				},
+				null,
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Medium Brown",
+						"Dino Medium Green"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				}
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 16.66667,
+				"affinityNeeded0": 960,
+				"affinityIncreasePL": 42,
+				"foodConsumptionBase": 0.001302,
+				"foodConsumptionMult": 768.0491
+			},
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3,
+				"c_neck3": 3
+			},
+			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": false,
 			"displayedStats": 927
@@ -59614,8 +59890,7 @@
 				"incubationTime": 0,
 				"maturationTime": 175438.596,
 				"matingCooldownMin": 64800,
-				"matingCooldownMax": 172800,
-				"matingTime":60
+				"matingCooldownMax": 172800
 			},
 			"colors": [
 				{
