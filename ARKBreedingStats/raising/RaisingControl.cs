@@ -4,6 +4,7 @@ using ARKBreedingStats.values;
 using System;
 using System.Drawing;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.raising
@@ -57,7 +58,8 @@ namespace ARKBreedingStats.raising
 
                     if (Raising.GetRaisingTimes(selectedSpecies, out TimeSpan matingTime, out string incubationMode, out TimeSpan incubationTime, out babyTime, out maturationTime, out TimeSpan nextMatingMin, out TimeSpan nextMatingMax))
                     {
-                        listViewRaisingTimes.Items.Add(new ListViewItem(new[] { Loc.s("matingTime"), matingTime.ToString("d':'hh':'mm':'ss") }));
+                        if (matingTime != TimeSpan.Zero)
+                            listViewRaisingTimes.Items.Add(new ListViewItem(new[] { Loc.s("matingTime"), matingTime.ToString("d':'hh':'mm':'ss") }));
 
                         TimeSpan totalTime = incubationTime;
                         DateTime until = DateTime.Now.Add(totalTime);
@@ -107,11 +109,18 @@ namespace ARKBreedingStats.raising
                             foodamount += "\n - Loss by spoiling is only a rough estimate and may vary.";
                         }
 
-                        string eggInfo = Raising.EggTemperature(selectedSpecies);
 
-                        labelRaisingInfos.Text = "Time between mating: " + nextMatingMin.ToString("d':'hh':'mm':'ss") + " to " + nextMatingMax.ToString("d':'hh':'mm':'ss")
-                            + (!string.IsNullOrEmpty(eggInfo) ? "\n\n" + eggInfo : string.Empty)
-                            + (foodamount ?? string.Empty);
+                        var raisingInfo = new StringBuilder();
+                        if (nextMatingMin != TimeSpan.Zero)
+                            raisingInfo.AppendLine($"{Loc.s("TimeBetweenMating")}: {nextMatingMin:d':'hh':'mm':'ss} to {nextMatingMax:d':'hh':'mm':'ss}");
+
+                        string eggInfo = Raising.EggTemperature(selectedSpecies);
+                        if (!string.IsNullOrEmpty(eggInfo))
+                            raisingInfo.AppendLine(eggInfo);
+                        if (!string.IsNullOrEmpty(foodamount))
+                            raisingInfo.AppendLine(foodamount);
+
+                        labelRaisingInfos.Text = raisingInfo.ToString().Trim();
 
                         tabPageMaturationProgress.Enabled = true;
                     }
