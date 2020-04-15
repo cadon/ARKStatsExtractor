@@ -18,22 +18,19 @@ namespace ARKBreedingStats
         public List<int>[] parentListSimilarity; // for all possible parents the number of equal stats (to find the parents easier)
         private bool[] colorRegionUseds;
         private CreatureCollection cc;
-        ToolTip tt = new ToolTip();
+        private readonly ToolTip tt;
 
         public CreatureBox()
         {
-            InitializeVars();
-        }
-
-        public CreatureBox(Creature creature)
-        {
-            InitializeVars();
-            SetCreature(creature);
-        }
-
-        private void InitializeVars()
-        {
             InitializeComponent();
+
+            tt = new ToolTip();
+            Disposed += (s, e) =>
+            {
+                tt.RemoveAll();
+                tt.Dispose();
+            };
+
             creature = null;
             parentComboBoxMother.naLabel = "- Mother n/a";
             parentComboBoxFather.naLabel = "- Father n/a";
@@ -46,7 +43,6 @@ namespace ARKBreedingStats
             tt.SetToolTip(textBoxNote, "Note");
             tt.SetToolTip(labelParents, "Mother and Father (if bred and choosen)");
             tt.SetToolTip(buttonSex, "Sex");
-            tt.SetToolTip(buttonStatus, "Status: Available, Unavailable, Dead");
         }
 
         public void SetCreature(Creature creature)
@@ -70,7 +66,6 @@ namespace ARKBreedingStats
 
         private void buttonEdit_Click(object sender, EventArgs e)
         {
-            SuspendLayout();
             if (creature != null)
             {
                 if (panel1.Visible)
@@ -89,13 +84,18 @@ namespace ARKBreedingStats
                     sex = creature.sex;
                     buttonSex.Text = Utils.SexSymbol(sex);
                     creatureStatus = creature.status;
-                    buttonStatus.Text = Utils.StatusSymbol(creatureStatus);
+                    SetStatusButton(creatureStatus);
                     textBoxName.SelectAll();
                     textBoxName.Focus();
                     panel1.Visible = true;
                 }
             }
-            ResumeLayout();
+        }
+
+        private void SetStatusButton(CreatureStatus status)
+        {
+            buttonStatus.Text = Utils.StatusSymbol(status);
+            tt.SetToolTip(buttonStatus, $"Status: {Utils.StatusText(status)}");
         }
 
         private void PopulateParentsList()
@@ -151,7 +151,6 @@ namespace ARKBreedingStats
             panel1.Visible = false;
             if (save)
             {
-                SuspendLayout();
                 creature.name = textBoxName.Text;
                 creature.sex = sex;
                 creature.owner = textBoxOwner.Text;
@@ -185,7 +184,6 @@ namespace ARKBreedingStats
 
                 Changed(creature, creatureStatusChanged, true);
                 UpdateLabel();
-                ResumeLayout();
             }
         }
 
@@ -223,7 +221,7 @@ namespace ARKBreedingStats
         private void buttonStatus_Click(object sender, EventArgs e)
         {
             creatureStatus = Utils.NextStatus(creatureStatus);
-            buttonStatus.Text = Utils.StatusSymbol(creatureStatus);
+            SetStatusButton(creatureStatus);
         }
 
         private void checkBoxIsBred_CheckedChanged(object sender, EventArgs e)
