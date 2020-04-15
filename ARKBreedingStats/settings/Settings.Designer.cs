@@ -44,6 +44,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label44 = new System.Windows.Forms.Label();
+            this.nudMatingSpeed = new ARKBreedingStats.uiControls.Nud();
             this.nudBabyFoodConsumptionSpeedEvent = new ARKBreedingStats.uiControls.Nud();
             this.nudMatingIntervalEvent = new ARKBreedingStats.uiControls.Nud();
             this.nudBabyCuddleIntervalEvent = new ARKBreedingStats.uiControls.Nud();
@@ -216,10 +218,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.cbbOCRApp = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label44 = new System.Windows.Forms.Label();
-            this.nudMatingSpeed = new ARKBreedingStats.uiControls.Nud();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMatingSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyFoodConsumptionSpeedEvent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMatingIntervalEvent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyCuddleIntervalEvent)).BeginInit();
@@ -289,7 +290,6 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMatingSpeed)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -448,6 +448,39 @@
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Breeding-Multiplier";
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Location = new System.Drawing.Point(10, 21);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(111, 13);
+            this.label44.TabIndex = 18;
+            this.label44.Text = "MatingSpeedMultiplier";
+            // 
+            // nudMatingSpeed
+            // 
+            this.nudMatingSpeed.DecimalPlaces = 6;
+            this.nudMatingSpeed.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.nudMatingSpeed.Location = new System.Drawing.Point(183, 19);
+            this.nudMatingSpeed.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudMatingSpeed.Name = "nudMatingSpeed";
+            this.nudMatingSpeed.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudMatingSpeed.Size = new System.Drawing.Size(72, 20);
+            this.nudMatingSpeed.TabIndex = 17;
+            this.nudMatingSpeed.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // nudBabyFoodConsumptionSpeedEvent
             // 
@@ -1901,7 +1934,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1909,7 +1942,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1917,7 +1950,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1925,7 +1958,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1969,7 +2002,7 @@
             // cbSaveImportCryo
             // 
             this.cbSaveImportCryo.AutoSize = true;
-            this.cbSaveImportCryo.Location = new System.Drawing.Point(9, 105);
+            this.cbSaveImportCryo.Location = new System.Drawing.Point(9, 137);
             this.cbSaveImportCryo.Name = "cbSaveImportCryo";
             this.cbSaveImportCryo.Size = new System.Drawing.Size(216, 17);
             this.cbSaveImportCryo.TabIndex = 9;
@@ -1979,7 +2012,7 @@
             // cbIgnoreUnknownBPOnSaveImport
             // 
             this.cbIgnoreUnknownBPOnSaveImport.AutoSize = true;
-            this.cbIgnoreUnknownBPOnSaveImport.Location = new System.Drawing.Point(9, 82);
+            this.cbIgnoreUnknownBPOnSaveImport.Location = new System.Drawing.Point(9, 114);
             this.cbIgnoreUnknownBPOnSaveImport.Name = "cbIgnoreUnknownBPOnSaveImport";
             this.cbIgnoreUnknownBPOnSaveImport.Size = new System.Drawing.Size(334, 17);
             this.cbIgnoreUnknownBPOnSaveImport.TabIndex = 8;
@@ -1988,7 +2021,7 @@
             // 
             // textBoxImportTribeNameFilter
             // 
-            this.textBoxImportTribeNameFilter.Location = new System.Drawing.Point(6, 144);
+            this.textBoxImportTribeNameFilter.Location = new System.Drawing.Point(6, 183);
             this.textBoxImportTribeNameFilter.Name = "textBoxImportTribeNameFilter";
             this.textBoxImportTribeNameFilter.Size = new System.Drawing.Size(730, 20);
             this.textBoxImportTribeNameFilter.TabIndex = 7;
@@ -1996,7 +2029,7 @@
             // label_Filter
             // 
             this.label_Filter.AutoSize = true;
-            this.label_Filter.Location = new System.Drawing.Point(6, 128);
+            this.label_Filter.Location = new System.Drawing.Point(6, 167);
             this.label_Filter.Name = "label_Filter";
             this.label_Filter.Size = new System.Drawing.Size(487, 13);
             this.label_Filter.TabIndex = 6;
@@ -2005,13 +2038,13 @@
             // 
             // cbImportUpdateCreatureStatus
             // 
-            this.cbImportUpdateCreatureStatus.AutoSize = true;
-            this.cbImportUpdateCreatureStatus.Location = new System.Drawing.Point(9, 59);
+            this.cbImportUpdateCreatureStatus.Location = new System.Drawing.Point(9, 71);
             this.cbImportUpdateCreatureStatus.Name = "cbImportUpdateCreatureStatus";
-            this.cbImportUpdateCreatureStatus.Size = new System.Drawing.Size(629, 17);
+            this.cbImportUpdateCreatureStatus.Size = new System.Drawing.Size(727, 37);
             this.cbImportUpdateCreatureStatus.TabIndex = 5;
-            this.cbImportUpdateCreatureStatus.Text = "Update Creature Status on Import (disable this if you will import savegames from " +
-    "multiple servers). This setting is saved per library.";
+            this.cbImportUpdateCreatureStatus.Text = "Update Available/Unavailable Status on Import for disappeared or reappeared creat" +
+    "ures (disable this if you will import savegames from multiple servers). This set" +
+    "ting is saved per library.";
             this.cbImportUpdateCreatureStatus.UseVisualStyleBackColor = true;
             // 
             // groupBox15
@@ -2019,9 +2052,9 @@
             this.groupBox15.Controls.Add(this.labelSavegameFileLocationHint);
             this.groupBox15.Controls.Add(this.dataGridView_FileLocations);
             this.groupBox15.Controls.Add(this.btAddSavegameFileLocation);
-            this.groupBox15.Location = new System.Drawing.Point(6, 223);
+            this.groupBox15.Location = new System.Drawing.Point(6, 262);
             this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(727, 460);
+            this.groupBox15.Size = new System.Drawing.Size(730, 421);
             this.groupBox15.TabIndex = 4;
             this.groupBox15.TabStop = false;
             this.groupBox15.Text = "ARK save-game files";
@@ -2049,7 +2082,7 @@
             this.dataGridView_FileLocations.DataSource = this.aTImportFileLocationBindingSource;
             this.dataGridView_FileLocations.Location = new System.Drawing.Point(3, 61);
             this.dataGridView_FileLocations.Name = "dataGridView_FileLocations";
-            this.dataGridView_FileLocations.Size = new System.Drawing.Size(718, 353);
+            this.dataGridView_FileLocations.Size = new System.Drawing.Size(718, 354);
             this.dataGridView_FileLocations.TabIndex = 5;
             this.dataGridView_FileLocations.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_FileLocations_CellClick);
             // 
@@ -2117,7 +2150,7 @@
             // groupBox14
             // 
             this.groupBox14.Controls.Add(this.fileSelectorExtractedSaveFolder);
-            this.groupBox14.Location = new System.Drawing.Point(6, 170);
+            this.groupBox14.Location = new System.Drawing.Point(6, 209);
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.Size = new System.Drawing.Size(730, 47);
             this.groupBox14.TabIndex = 3;
@@ -2593,39 +2626,6 @@
             this.label1.TabIndex = 5;
             this.label1.Text = resources.GetString("label1.Text");
             // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(10, 21);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(111, 13);
-            this.label44.TabIndex = 18;
-            this.label44.Text = "MatingSpeedMultiplier";
-            // 
-            // nudMatingSpeed
-            // 
-            this.nudMatingSpeed.DecimalPlaces = 6;
-            this.nudMatingSpeed.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.nudMatingSpeed.Location = new System.Drawing.Point(183, 19);
-            this.nudMatingSpeed.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nudMatingSpeed.Name = "nudMatingSpeed";
-            this.nudMatingSpeed.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudMatingSpeed.Size = new System.Drawing.Size(72, 20);
-            this.nudMatingSpeed.TabIndex = 17;
-            this.nudMatingSpeed.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -2647,6 +2647,7 @@
             this.groupBoxMultiplier.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMatingSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyFoodConsumptionSpeedEvent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMatingIntervalEvent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyCuddleIntervalEvent)).EndInit();
@@ -2738,7 +2739,6 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMatingSpeed)).EndInit();
             this.ResumeLayout(false);
 
         }

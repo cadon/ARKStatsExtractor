@@ -129,6 +129,14 @@ namespace ARKBreedingStats
                     c.status = CreatureStatus.Available;
             }
 
+            // update creature status that can be determined from the import
+            var creaturesNowInPods = creatureCollection.creatures.Intersect(newCreatures.Where(c => c.status == CreatureStatus.Cryopod));
+            foreach (var c in creaturesNowInPods)
+                c.status = CreatureStatus.Cryopod;
+            var creaturesNowOutOfPods = creatureCollection.creatures.Where(c => c.status == CreatureStatus.Cryopod).Intersect(newCreatures.Where(c => c.status != CreatureStatus.Cryopod));
+            foreach (var c in creaturesNowInPods)
+                c.status = CreatureStatus.Available;
+
             newCreatures.ForEach(creature =>
             {
                 creature.server = serverName;
