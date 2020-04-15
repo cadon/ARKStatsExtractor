@@ -760,7 +760,7 @@ namespace ARKBreedingStats
                     string eggInfo = Raising.EggTemperature(species);
 
                     labelBreedingInfos.Text = (nextMatingMin != TimeSpan.Zero ? $"{Loc.s("TimeBetweenMating")}: {nextMatingMin:d':'hh':'mm':'ss} to {nextMatingMax:d':'hh':'mm':'ss}" : string.Empty)
-                        + ((!string.IsNullOrEmpty(eggInfo) ? "\n\n" + eggInfo : string.Empty));
+                        + ((!string.IsNullOrEmpty(eggInfo) ? "\n" + eggInfo : string.Empty));
                 }
             }
         }

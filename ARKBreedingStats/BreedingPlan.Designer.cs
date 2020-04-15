@@ -380,9 +380,10 @@ namespace ARKBreedingStats
             // 
             // labelBreedingInfos
             // 
+            this.labelBreedingInfos.AutoSize = true;
             this.labelBreedingInfos.Location = new System.Drawing.Point(3, 121);
             this.labelBreedingInfos.Name = "labelBreedingInfos";
-            this.labelBreedingInfos.Size = new System.Drawing.Size(322, 46);
+            this.labelBreedingInfos.Size = new System.Drawing.Size(75, 13);
             this.labelBreedingInfos.TabIndex = 7;
             this.labelBreedingInfos.Text = "Breeding Infos";
             // 
