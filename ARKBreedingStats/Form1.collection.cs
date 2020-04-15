@@ -55,7 +55,7 @@ namespace ARKBreedingStats
             creatureBoxListView.Clear();
             Properties.Settings.Default.LastSaveFile = "";
             Properties.Settings.Default.LastImportFile = "";
-            currentFileName = "";
+            currentFileName = null;
             fileSync.ChangeFile(currentFileName);
             SetCollectionChanged(false);
         }
@@ -224,7 +224,7 @@ namespace ARKBreedingStats
             Species selectedSpecies = speciesSelector1.SelectedSpecies;
             Species selectedlibrarySpecies = listBoxSpeciesLib.SelectedItem as Species;
 
-            if (!File.Exists(filePath))
+            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
             {
                 MessageBox.Show($"Save file with name \"{filePath}\" does not exist!", "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
@@ -507,8 +507,8 @@ namespace ARKBreedingStats
                 return; // function is called soon again from savecollection()
             }
             collectionDirty = changed;
-            string fileName = Path.GetFileName(currentFileName);
-            Text = $"ARK Smart Breeding{(string.IsNullOrEmpty(fileName) ? "" : " - " + fileName)}{(changed ? " *" : "")}";
+            string fileName = string.IsNullOrEmpty(currentFileName) ? null : Path.GetFileName(currentFileName);
+            Text = $"ARK Smart Breeding{(string.IsNullOrEmpty(fileName) ? string.Empty : " - " + fileName)}{(changed ? " *" : "")}";
             openFolderOfCurrentFileToolStripMenuItem.Enabled = !string.IsNullOrEmpty(currentFileName);
         }
     }

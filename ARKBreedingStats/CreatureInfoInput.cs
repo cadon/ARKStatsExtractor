@@ -588,7 +588,7 @@ namespace ARKBreedingStats
 
         private void lblName_Click(object sender, EventArgs e)
         {
-            if (textBoxName.Text.Length > 0)
+            if (!string.IsNullOrEmpty(textBoxName.Text))
                 Clipboard.SetText(textBoxName.Text);
         }
 

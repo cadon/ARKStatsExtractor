@@ -575,9 +575,9 @@ namespace ARKBreedingStats
                     double te = Math.Round(extractor.results[s][r].TE.Mean, 5);
                     subItems.Add(extractor.results[s][r].levelWild.ToString());
                     subItems.Add(extractor.results[s][r].levelDom.ToString());
-                    subItems.Add(te >= 0 ? (te * 100).ToString() : "");
+                    subItems.Add(te >= 0 ? (te * 100).ToString() : string.Empty);
 
-                    subItems.Add(te > 0 ? Creature.CalculatePreTameWildLevel(extractor.levelWildSum + 1, te).ToString() : "");
+                    subItems.Add(te > 0 ? Creature.CalculatePreTameWildLevel(extractor.levelWildSum + 1, te).ToString() : string.Empty);
 
                     ListViewItem lvi = new ListViewItem(subItems.ToArray());
                     if (!resultsValid || extractor.results[s][r].currentlyNotValid)
@@ -678,9 +678,10 @@ namespace ARKBreedingStats
             if (extractor.validResults && speciesSelector1.SelectedSpecies != null)
             {
                 List<string> tsv = new List<string>();
-                string rowLevel = speciesSelector1.SelectedSpecies.name + "\t\t", rowValues = "";
+                string rowLevel = speciesSelector1.SelectedSpecies.name + "\t\t";
+                string rowValues = string.Empty;
                 // if taming effectiveness is unique, display it, too
-                string effString = "";
+                string effString = string.Empty;
                 double eff = extractor.UniqueTE();
                 if (eff >= 0)
                 {
@@ -703,18 +704,18 @@ namespace ARKBreedingStats
                 {
                     if (extractor.chosenResults[s] < extractor.results[s].Count)
                     {
-                        string breedingV = "";
+                        string breedingV = string.Empty;
                         if (activeStats[s])
                         {
                             breedingV = statIOs[s].BreedingValue.ToString();
                         }
                         if (table)
                         {
-                            tsv.Add(Utils.StatName(s) + "\t" + (statIOs[s].LevelWild >= 0 ? statIOs[s].LevelWild.ToString() : "") + "\t" + (statIOs[s].LevelWild >= 0 ? statIOs[s].LevelWild.ToString() : "") + "\t" + breedingV);
+                            tsv.Add(Utils.StatName(s) + "\t" + (statIOs[s].LevelWild >= 0 ? statIOs[s].LevelWild.ToString() : string.Empty) + "\t" + (statIOs[s].LevelWild >= 0 ? statIOs[s].LevelWild.ToString() : string.Empty) + "\t" + breedingV);
                         }
                         else
                         {
-                            rowLevel += "\t" + (activeStats[s] ? statIOs[s].LevelWild.ToString() : "");
+                            rowLevel += "\t" + (activeStats[s] ? statIOs[s].LevelWild.ToString() : string.Empty);
                             rowValues += "\t" + breedingV;
                         }
                     }
@@ -774,7 +775,12 @@ namespace ARKBreedingStats
             {
                 CreatureInfoInput_CreatureDataRequested(creatureInfoInputExtractor, false, false, 0);
                 if (Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied)
-                    Clipboard.SetText(creatureInfoInputExtractor.CreatureName);
+                {
+                    if (string.IsNullOrEmpty(creatureInfoInputExtractor.CreatureName))
+                        Clipboard.SetText("<no name>");
+                    else
+                        Clipboard.SetText(creatureInfoInputExtractor.CreatureName);
+                }
             }
 
             tabControlMain.SelectedTab = tabPageExtractor;
