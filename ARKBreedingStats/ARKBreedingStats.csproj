@@ -106,6 +106,9 @@
     <Compile Include="mods\StatBaseValuesEdit.Designer.cs">
       <DependentUpon>StatBaseValuesEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="ocr\Common\DirectBitmap.cs" />
+    <Compile Include="ocr\Common\ImageUtils.cs" />
+    <Compile Include="ocr\Common\RecognitionPatterns.cs" />
     <Compile Include="oldLibraryFormat\FormatConverter.cs" />
     <Compile Include="importExported\ExportedCreatureList.cs">
       <SubType>Form</SubType>
@@ -154,6 +157,12 @@
     <Compile Include="oldLibraryFormat\CreatureValuesOld.cs" />
     <Compile Include="oldLibraryFormat\IncubationTimerEntryOld.cs" />
     <Compile Include="oldLibraryFormat\TimerListEntryOld.cs" />
+    <Compile Include="RecognitionTrainingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RecognitionTrainingForm.Designer.cs">
+      <DependentUpon>RecognitionTrainingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="settings\ATImportExportedFolderLocation.cs" />
     <Compile Include="settings\ATImportFileLocation.cs" />
     <Compile Include="settings\ATImportExportedFolderLoactionDialog.cs">
@@ -174,6 +183,8 @@
     <Compile Include="settings\FtpProgress.Designer.cs">
       <DependentUpon>FtpProgress.cs</DependentUpon>
     </Compile>
+    <Compile Include="settings\JsonSerialization.cs" />
+    <Compile Include="settings\SettingsController.cs" />
     <Compile Include="species\ARKColor.cs" />
     <Compile Include="species\ARKColors.cs" />
     <Compile Include="settings\FtpCredentials.cs">
@@ -628,6 +639,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="raising\ParentStatValues.resx">
       <DependentUpon>ParentStatValues.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RecognitionTrainingForm.resx">
+      <DependentUpon>RecognitionTrainingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="settings\ATImportExportedFolderLoactionDialog.resx">
       <DependentUpon>ATImportExportedFolderLoactionDialog.cs</DependentUpon>

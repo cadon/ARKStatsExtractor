@@ -6,10 +6,12 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using ARKBreedingStats.ocr.Common;
 
 namespace ARKBreedingStats.ocr
 {
@@ -25,6 +27,10 @@ namespace ARKBreedingStats.ocr
         public Process ScreenCaptureProcess;
         public int waitBeforeScreenCapture;
         public bool enableOutput = false;
+
+        private static int[] OffsetX = {-1, 0, 1, 0, -1, 1, 1, -1};
+        private static int[] OffsetY = {0, -1, 0, 1, -1, -1, 1, 1};
+        const byte ff = 0xFF;
 
         public static ArkOCR OCR => _OCR ?? (_OCR = new ArkOCR());
 
@@ -550,14 +556,23 @@ namespace ARKBreedingStats.ocr
 
                 string statOCR = "";
 
-                if (statName == "NameSpecies")
-                    statOCR = readImage(testbmp, true, false);
-                else if (statName == "Level")
-                    statOCR = readImage(testbmp, true, true);
-                else if (statName == "Tribe" || statName == "Owner")
-                    statOCR = readImage(testbmp, true, false);
-                else
-                    statOCR = readImage(testbmp, true, true); // statvalues are only numbers
+                try
+                {
+
+                    if (statName == "NameSpecies")
+                        statOCR = this.ReadImageOcr(testbmp, false, 1.7f);
+                    else if (statName == "Level")
+                        statOCR = this.ReadImageOcr(testbmp, true, 1.7f);
+                    else if (statName == "Tribe" || statName == "Owner")
+                        statOCR = this.ReadImageOcr(testbmp, false, 1.7f);
+                    else
+                        statOCR = this.ReadImageOcr(testbmp, true); // statvalues are only numbers
+                }
+                catch (OperationCanceledException e)
+                {
+                    OCRText = "Canceled";
+                    return finalValues;
+                }
 
                 if (statOCR == "" &&
                     (statName == "Health" || statName == "Imprinting" || statName == "Tribe" || statName == "Owner"))
@@ -665,9 +680,22 @@ namespace ARKBreedingStats.ocr
                     stI++;
                 }
 
-                double.TryParse(mc[0].Groups[1].Value.Replace('\'', '.').Replace(',', '.').Replace('O', '0'), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double v); // common substitutions: comma and apostrophe to dot, 
+
+
+                var splitRes = statOCR.Split('/', ',', ':');
+                var ocrValue = splitRes[splitRes.Length - 1] == "%" ? splitRes[splitRes.Length - 2] : splitRes[splitRes.Length - 1];
+
+                ocrValue = this.RemoveNonNumeric(ocrValue);
+
+                double.TryParse(ocrValue, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double v); // common substitutions: comma and apostrophe to dot, 
+
+                if (statName == "MeleeDamage" && v > 1000)
+                {
+                    v = v / 10;
+                }
 
                 finishedText += $"\t→ {v}";
+
 
                 // TODO: test here that the read stat name corresponds to the stat supposed to be read
                 finalValues[stI] = v;
@@ -689,16 +717,155 @@ namespace ARKBreedingStats.ocr
             */
         }
 
+        private string RemoveNonNumeric(string ocrValue)
+        {
+            return new string(ocrValue.Where(c => char.IsDigit(c) || c == ',' || c == '.').ToArray());
+        }
+
         private string readImageAtCoords(Bitmap source, int x, int y, int width, int height, bool onlyMaximalMatches, bool onlyNumbers, bool writingInWhite = true)
         {
             return readImage(SubImage(source, x, y, width, height), onlyMaximalMatches, onlyNumbers, writingInWhite);
         }
 
-        //// for debugging. reads a small image
-        //public void debugReadImage(Bitmap source)
-        //{
-        //    string result = readImage(source, true, false);
-        //}
+        private string ReadImageOcr(Bitmap source, bool onlyNumbers, float brightAdj = 1)
+        {
+            var ret = "";
+            
+            using (var db = ImageUtils.GetAdjustedDirectBitmapOfImage(source, brightAdj))
+            {
+                db.ToBitmap().Save(Path.Combine("C:\\", "Temp", $"c.tif"), ImageFormat.Tiff);
+
+                var charSymbols = this.SplitBySymbol(db);
+                foreach (var sym in charSymbols)
+                {
+                    char c = RecognitionPatterns.Settings.FindMatchingChar(sym);
+                    if (c == '\0')
+                    {
+                        throw new OperationCanceledException();
+                    }
+                    ret += c;
+                }
+            }
+
+            ret = this.CleanUpOcr(ret);
+
+            return ret;
+        }
+
+        private string CleanUpOcr(string ret)
+        {
+            return ret.Replace("..", ".").Replace("  ", " ");
+        }
+
+        private IEnumerable<CharData> SplitBySymbol(DirectBitmap db)
+        {
+            var ret = new List<CharData>();
+
+            var visited = new bool[db.Width, db.Height];
+            for (int i = 0; i < db.Width; i++)
+            {
+                for (int j = 0; j < db.Height; j++)
+                {
+                    var canBeVisited = !visited[i, j];
+                    visited[i, j] = true;
+                    if (canBeVisited && db.GetPixel(i, j).R != ff)
+                    {
+                        CharData charData = this.VisitChar(i, j, visited, db).ToCharData();
+                        var p = charData.Patterns[0];
+                        var xSize = p.GetLength(0);
+                        var ySize = p.GetLength(1);
+                        if (xSize > 7 && xSize > ySize)
+                        {
+                            this.SplitIn2Chars(ret, p);
+                        }
+                        else
+                        {
+                            ret.Add(charData);
+                        }
+                    }
+                }
+            }
+
+            return ret;
+        }
+
+        private void SplitIn2Chars(List<CharData> ret, bool[,] bools)
+        {
+            var xSize = bools.GetLength(0);
+            var maxX = xSize / 2;
+            var maxY = bools.GetLength(1);
+
+            var c1 = new bool[maxX, maxY];
+            var c2 = new bool[maxX, maxY];
+            for (int i = 0; i < maxX; i++)
+            {
+                for (int j = 0; j < maxY; j++)
+                {
+                    c1[i, j] = bools[i, j];
+                }
+            }
+
+            var start = xSize - maxX;
+            for (int i = xSize - maxX; i < xSize; i++)
+            {
+                for (int j = 0; j < maxY; j++)
+                {
+                    c2[i - start, j] = bools[i, j];
+                }
+            }
+
+            ret.Add(new CharData { Patterns = new List<bool[,]> { c1 }});
+            ret.Add(new CharData { Patterns = new List<bool[,]> { c2 }});
+        }
+
+        private CoordsData VisitChar(int x, int y, bool[,] visited, DirectBitmap db, CoordsData data = null)
+        {
+            data = data ?? new CoordsData(x, x, y, y);
+            data.Add(x, y);
+
+
+            for (int i = 0; i < OffsetX.Length; i++)
+            {
+                var nextX = OffsetX[i] + x;
+                var nextY = OffsetY[i] + y;
+
+                var isSafe = nextX > 0 && nextX < db.Width && nextY > 0 && nextY < db.Height && !visited[nextX, nextY];
+                if (!isSafe)
+                {
+                    continue;
+                }
+
+                visited[nextX, nextY] = true;
+
+                if (db.GetPixel(nextX, nextY).R != ff)
+                {
+                    this.VisitChar(nextX, nextY, visited, db, data);
+                }
+            }
+
+            return data;
+        }
+
+        private static string AdjustTextToNumbers(string ret)
+        {
+            var replaceList = new[]
+            {
+                new {oldChar = 'O', newChar = '0'},
+                new {oldChar = 'I', newChar = '1'},
+                new {oldChar = 'A', newChar = '4'},
+                new {oldChar = 'S', newChar = '5'},
+                new {oldChar = 'h', newChar = '6'},
+                new {oldChar = 'F', newChar = '/'},
+                new {oldChar = '\'', newChar = '/'},
+            };
+
+            foreach (var r in replaceList)
+            {
+                ret = ret.Replace(r.oldChar, r.newChar);
+            }
+
+            return ret;
+        }
 
         private string readImage(Bitmap source, bool onlyMaximalMatches, bool onlyNumbers, bool writingInWhite = true)
         {
@@ -1074,5 +1241,78 @@ namespace ARKBreedingStats.ocr
             return la;
         }
 
+    }
+
+    internal class CoordsData
+    {
+        public CoordsData(int minX, int maxX, int minY, int maxY)
+        {
+            this.MinY = minY;
+            this.MaxY = maxY;
+            this.MinX = minX;
+            this.MaxX = maxX;
+        }
+
+        public List<Coords> Coords { get; } = new List<Coords>();
+
+        public void Add(int x, int y)
+        {
+            if (x > this.MaxX)
+            {
+                this.MaxX = x;
+            }
+            else if (x < this.MinX)
+            {
+                this.MinX = x;
+            }
+
+            if (y > this.MaxY)
+            {
+                this.MaxY = y;
+            }
+            else if (y < this.MinY)
+            {
+                this.MinY = y;
+            }
+
+            this.Coords.Add(new Coords(x, y));
+        }
+
+        public int MaxX { get; private set; }
+        public int MinX { get; private set; }
+        public int MaxY { get; private set; }
+        public int MinY { get; private set; }
+
+        public CharData ToCharData()
+        {
+            var xSize = this.MaxX - this.MinX + 1;
+            var ySize = this.MaxY - this.MinY + 1;
+            var boolArr = new bool[xSize, ySize];
+
+            foreach (var c in this.Coords)
+            {
+                var x = c.X - this.MinX;
+                var y = c.Y - this.MinY;
+                boolArr[x, y] = true;
+            }
+            
+            return new CharData
+            {
+                Patterns = new List<bool[,]> {boolArr}
+            };
+        }
+    }
+
+    internal class Coords
+    {
+        public Coords(int x, int y)
+        {
+            this.X = x;
+            this.Y = y;
+        }
+
+        public int X { get; }
+
+        public int Y { get; }
     }
 }
