@@ -8,11 +8,13 @@ namespace ARKBreedingStats
     {
         private char selectedChar;
 
-        public RecognitionTrainingForm(bool[,] curPattern)
+        public RecognitionTrainingForm(bool[,] curPattern, Image originalImg)
         {
             InitializeComponent();
 
             this.DrawPattern(curPattern);
+
+            this.pictureBox2.Image = originalImg;
         }
 
         private void DrawPattern(bool[,] curPattern)
@@ -71,6 +73,14 @@ namespace ARKBreedingStats
             }
 
             this.selectedChar = tb.Text[0];
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.button1.PerformClick();
+            }
         }
     }
 }

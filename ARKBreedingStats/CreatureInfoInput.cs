@@ -64,6 +64,7 @@ namespace ARKBreedingStats
                     if (selectedSpecies != null)
                     {
                         CreatureDataRequested?.Invoke(this, false, true, localIndex);
+                        Clipboard.SetText(textBoxName.Text);
                     }
                 };
                 // open naming pattern editor

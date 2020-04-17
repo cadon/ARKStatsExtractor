@@ -862,19 +862,8 @@
     <TransformOnBuild>true</TransformOnBuild>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>copy "$(SolutionDir)ASB-Updater\bin\$(ConfigurationName)\asb-updater.exe" "$(TargetDir)"
-
-if $(ConfigurationName) == Release (
-  del "$(TargetDir)*.pdb" 2&gt;nul
-  del "$(TargetDir)*.xml" 2&gt;nul
-  powershell -nologo -noprofile -command "$version = (Get-Item '$(TargetPath)').VersionInfo.FileVersion; Compress-Archive -Force -Path '$(TargetDir)*' -DestinationPath """$(SolutionDir)_publish\ARK.Smart.Breeding_$version.zip""" "
-
-  if exist "%25ProgramFiles(x86)%25\Inno Setup 5\ISCC.exe" (
-    "%25ProgramFiles(x86)%25\Inno Setup 5\ISCC.exe" "$(SolutionDir)setup.iss"
-  ) else (
-    echo Inno Setup command line compiler not found
-  )
-)</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

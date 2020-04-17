@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -24,7 +25,7 @@ namespace ARKBreedingStats.ocr.Common
             SettingsController = new SettingsController<RecognitionPatterns>(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
         }
 
-        public char FindMatchingChar(CharData sym, float tolerance = 0.1f)
+        public char FindMatchingChar(CharData sym, Image originalImg, float tolerance = 0.1f)
         {
             var curPattern = sym.Patterns[0];
 
@@ -59,7 +60,7 @@ namespace ARKBreedingStats.ocr.Common
                 }
             }
 
-            var manualChar = new RecognitionTrainingForm(curPattern).Prompt();
+            var manualChar = new RecognitionTrainingForm(curPattern, originalImg).Prompt();
 
             if (manualChar == '\0')
             {
@@ -77,7 +78,7 @@ namespace ARKBreedingStats.ocr.Common
                 this.Chars.Add(sym);
             }
 
-            RecognitionPatterns.SettingsController.Save();
+            SettingsController.Save();
 
             return manualChar;
         }

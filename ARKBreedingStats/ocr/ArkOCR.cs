@@ -560,11 +560,11 @@ namespace ARKBreedingStats.ocr
                 {
 
                     if (statName == "NameSpecies")
-                        statOCR = this.ReadImageOcr(testbmp, false, 1.7f);
+                        statOCR = this.ReadImageOcr(testbmp, false, 0.8f);
                     else if (statName == "Level")
-                        statOCR = this.ReadImageOcr(testbmp, true, 1.7f);
+                        statOCR = this.ReadImageOcr(testbmp, true).Replace(".", ": ");
                     else if (statName == "Tribe" || statName == "Owner")
-                        statOCR = this.ReadImageOcr(testbmp, false, 1.7f);
+                        statOCR = this.ReadImageOcr(testbmp, false, 0.8f);
                     else
                         statOCR = this.ReadImageOcr(testbmp, true); // statvalues are only numbers
                 }
@@ -733,12 +733,14 @@ namespace ARKBreedingStats.ocr
             
             using (var db = ImageUtils.GetAdjustedDirectBitmapOfImage(source, brightAdj))
             {
-                db.ToBitmap().Save(Path.Combine("C:\\", "Temp", $"c.tif"), ImageFormat.Tiff);
+                //db.ToBitmap().Save(Path.Combine("C:\\", "Temp", $"c.tif"), ImageFormat.Tiff);
 
-                var charSymbols = this.SplitBySymbol(db);
+                var adjPic = db.ToBitmap();
+
+                var charSymbols = this.SplitBySymbol(db, onlyNumbers);
                 foreach (var sym in charSymbols)
                 {
-                    char c = RecognitionPatterns.Settings.FindMatchingChar(sym);
+                    char c = RecognitionPatterns.Settings.FindMatchingChar(sym, adjPic);
                     if (c == '\0')
                     {
                         throw new OperationCanceledException();
@@ -757,7 +759,7 @@ namespace ARKBreedingStats.ocr
             return ret.Replace("..", ".").Replace("  ", " ");
         }
 
-        private IEnumerable<CharData> SplitBySymbol(DirectBitmap db)
+        private IEnumerable<CharData> SplitBySymbol(DirectBitmap db, bool onlyNumbers)
         {
             var ret = new List<CharData>();
 
@@ -774,7 +776,7 @@ namespace ARKBreedingStats.ocr
                         var p = charData.Patterns[0];
                         var xSize = p.GetLength(0);
                         var ySize = p.GetLength(1);
-                        if (xSize > 7 && xSize > ySize)
+                        if (onlyNumbers && xSize > 7 && xSize > ySize)
                         {
                             this.SplitIn2Chars(ret, p);
                         }
