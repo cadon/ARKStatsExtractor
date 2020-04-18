@@ -6,12 +6,11 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
-using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using ARKBreedingStats.ocr.Common;
+using ARKBreedingStats.ocr.PatternMatching;
 
 namespace ARKBreedingStats.ocr
 {
@@ -560,7 +559,7 @@ namespace ARKBreedingStats.ocr
                     else if (statName == "Level")
                         statOCR = PatternOcr.ReadImageOcr(testbmp, true, 1.1f).Replace(".", ": ");
                     else if (statName == "Tribe" || statName == "Owner")
-                        statOCR = PatternOcr.ReadImageOcr(testbmp, false, 0.9f);
+                        statOCR = PatternOcr.ReadImageOcr(testbmp, false, 0.8f);
                     else
                         statOCR = PatternOcr.ReadImageOcr(testbmp, true); // statvalues are only numbers
                 }
@@ -702,42 +701,6 @@ namespace ARKBreedingStats.ocr
             // TODO reorder stats to match 12-stats-order
 
             return finalValues;
-
-            /*
-            Bitmap grab = Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName);
-            AddBitmapToDebug(grab);
-
-            //grab.Save("E:\\Temp\\Calibration8.png", ImageFormat.Png);
-            if (changeForegroundWindow)
-                Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
-            */
-        }
-
-        private string readImageAtCoords(Bitmap source, int x, int y, int width, int height, bool onlyMaximalMatches, bool onlyNumbers, bool writingInWhite = true)
-        {
-            return readImage(SubImage(source, x, y, width, height), onlyMaximalMatches, onlyNumbers, writingInWhite);
-        }
-
-
-        private static string AdjustTextToNumbers(string ret)
-        {
-            var replaceList = new[]
-            {
-                new {oldChar = 'O', newChar = '0'},
-                new {oldChar = 'I', newChar = '1'},
-                new {oldChar = 'A', newChar = '4'},
-                new {oldChar = 'S', newChar = '5'},
-                new {oldChar = 'h', newChar = '6'},
-                new {oldChar = 'F', newChar = '/'},
-                new {oldChar = '\'', newChar = '/'},
-            };
-
-            foreach (var r in replaceList)
-            {
-                ret = ret.Replace(r.oldChar, r.newChar);
-            }
-
-            return ret;
         }
 
         private string readImage(Bitmap source, bool onlyMaximalMatches, bool onlyNumbers, bool writingInWhite = true)

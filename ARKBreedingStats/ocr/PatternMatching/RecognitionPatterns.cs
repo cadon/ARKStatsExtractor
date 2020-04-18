@@ -7,7 +7,7 @@ using System.Linq;
 using System.Reflection;
 using ARKBreedingStats.settings;
 
-namespace ARKBreedingStats.ocr.Common
+namespace ARKBreedingStats.ocr.PatternMatching
 {
     public class RecognitionPatterns
     {
@@ -40,11 +40,13 @@ namespace ARKBreedingStats.ocr.Common
             {
                 foreach (var pattern in c.Patterns)
                 {
-                    var possibleDif = pattern.Length * tolerance;
+                    var possibleDif = ((pattern.Length + sym.Pattern.Length) / 2) * tolerance;
                     if (Math.Abs(pattern.Length - curPattern.Length) > possibleDif) continue;
 
                     var xSizeFound = curPattern.GetLength(0);
                     var ySizeFound = curPattern.GetLength(1);
+
+                    // Attempted to do offset shifting here but got too many false recognitions here, might need some tweaking.
                     //var minOffsetX = xSizeFound > 2 ? -1 : 0;
                     //var maxOffsetX = xSizeFound > 2 ? 1 : 0;
                     //var minOffsetY = xSizeFound > 2 ? -1 : 0;

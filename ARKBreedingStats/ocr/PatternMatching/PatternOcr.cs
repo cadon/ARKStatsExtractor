@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-namespace ARKBreedingStats.ocr.Common
+namespace ARKBreedingStats.ocr.PatternMatching
 {
     public static class PatternOcr
     {

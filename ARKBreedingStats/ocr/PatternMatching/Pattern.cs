@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace ARKBreedingStats.ocr.Common
+namespace ARKBreedingStats.ocr.PatternMatching
 {
     public class Pattern
     {

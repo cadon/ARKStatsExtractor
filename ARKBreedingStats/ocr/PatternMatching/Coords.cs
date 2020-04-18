@@ -1,4 +1,4 @@
-﻿namespace ARKBreedingStats.ocr
+﻿namespace ARKBreedingStats.ocr.PatternMatching
 {
     public class Coords
     {

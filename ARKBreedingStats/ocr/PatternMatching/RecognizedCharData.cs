@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace ARKBreedingStats.ocr.Common
+namespace ARKBreedingStats.ocr.PatternMatching
 {
     public class RecognizedCharData
     {
