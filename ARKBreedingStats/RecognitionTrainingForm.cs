@@ -87,7 +87,7 @@ namespace ARKBreedingStats
         {
             this.ShowDialog();
 
-            return this.selectedText.ToUpper();
+            return this.selectedText?.ToUpper();
         }
 
         private void button1_Click(object sender, EventArgs e)
