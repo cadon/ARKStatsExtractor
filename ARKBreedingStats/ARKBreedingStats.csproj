@@ -106,7 +106,8 @@
     <Compile Include="mods\StatBaseValuesEdit.Designer.cs">
       <DependentUpon>StatBaseValuesEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="ocr\Common\CharData.cs" />
+    <Compile Include="ocr\Common\Pattern.cs" />
+    <Compile Include="ocr\Common\TextData.cs" />
     <Compile Include="ocr\Common\DirectBitmap.cs" />
     <Compile Include="ocr\Common\ImageUtils.cs" />
     <Compile Include="ocr\Common\PatternOcr.cs" />

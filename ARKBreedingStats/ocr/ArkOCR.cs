@@ -556,11 +556,11 @@ namespace ARKBreedingStats.ocr
                 {
 
                     if (statName == "NameSpecies")
-                        statOCR = PatternOcr.ReadImageOcr(testbmp, false, 0.95f);
+                        statOCR = PatternOcr.ReadImageOcr(testbmp, false, 0.85f);
                     else if (statName == "Level")
                         statOCR = PatternOcr.ReadImageOcr(testbmp, true, 1.1f).Replace(".", ": ");
                     else if (statName == "Tribe" || statName == "Owner")
-                        statOCR = PatternOcr.ReadImageOcr(testbmp, false, 0.95f);
+                        statOCR = PatternOcr.ReadImageOcr(testbmp, false, 0.9f);
                     else
                         statOCR = PatternOcr.ReadImageOcr(testbmp, true); // statvalues are only numbers
                 }

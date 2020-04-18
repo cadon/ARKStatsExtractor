@@ -13,7 +13,7 @@ namespace ARKBreedingStats.ocr.Common
     {
         private static readonly SettingsController<RecognitionPatterns> SettingsController;
         private bool isTrainingEnabled = true;
-        public List<CharData> Chars { get; set; } = new List<CharData>();
+        public List<TextData> Texts { get; set; } = new List<TextData>();
 
         public static RecognitionPatterns Settings => SettingsController.Settings;
 
@@ -32,11 +32,11 @@ namespace ARKBreedingStats.ocr.Common
             SettingsController = new SettingsController<RecognitionPatterns>(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
         }
 
-        public char FindMatchingChar(RecognizedCharData sym, Image originalImg, float tolerance = 0.1f)
+        public string FindMatchingChar(RecognizedCharData sym, Image originalImg, float tolerance = 0.1f)
         {
             var curPattern = sym.Pattern;
 
-            foreach (var c in this.Chars)
+            foreach (var c in this.Texts)
             {
                 foreach (var pattern in c.Patterns)
                 {
@@ -45,10 +45,14 @@ namespace ARKBreedingStats.ocr.Common
 
                     var xSizeFound = curPattern.GetLength(0);
                     var ySizeFound = curPattern.GetLength(1);
-                    var minOffsetX = xSizeFound > 2 ? -1 : 0;
-                    var maxOffsetX = xSizeFound > 2 ? 1 : 0;
-                    var minOffsetY = xSizeFound > 2 ? -1 : 0;
-                    var maxOffsetY = xSizeFound > 2 ? 1 : 0;
+                    //var minOffsetX = xSizeFound > 2 ? -1 : 0;
+                    //var maxOffsetX = xSizeFound > 2 ? 1 : 0;
+                    //var minOffsetY = xSizeFound > 2 ? -1 : 0;
+                    //var maxOffsetY = xSizeFound > 2 ? 1 : 0;
+                    var minOffsetX = 0;
+                    var maxOffsetX = 0;
+                    var minOffsetY = 0;
+                    var maxOffsetY = 0;
 
                     for (var offSetX = minOffsetX; offSetX <= maxOffsetX; offSetX++)
                     {
@@ -56,9 +60,9 @@ namespace ARKBreedingStats.ocr.Common
                         {
                             var dif = 0;
                             var fail = false;
-                            for (var x = 0; !fail && x < xSizeFound && x < pattern.GetLength(0); x++)
+                            for (var x = 0; !fail && x < xSizeFound && x < pattern.Width; x++)
                             {
-                                for (var y = 0; !fail && y < ySizeFound && y < pattern.GetLength(1); y++)
+                                for (var y = 0; !fail && y < ySizeFound && y < pattern.Height; y++)
                                 {
                                     var curPatternX = x + offSetX;
                                     var curPatternY = y + offSetY;
@@ -78,7 +82,7 @@ namespace ARKBreedingStats.ocr.Common
 
                             if (!fail)
                             {
-                                return c.Char;
+                                return c.Text;
                             }
                         }
                     }
@@ -87,24 +91,24 @@ namespace ARKBreedingStats.ocr.Common
 
             if (!this.IsTrainingEnabled)
             {
-                return ' ';
+                return " ";
             }
 
             var manualChar = new RecognitionTrainingForm(sym, originalImg).Prompt();
 
-            if (manualChar == '\0')
+            if (manualChar == null)
             {
-                return manualChar;
+                return null;
             }
 
-            var pat = this.Chars.FirstOrDefault(x => x.Char == manualChar);
+            var pat = this.Texts.FirstOrDefault(x => x.Text == manualChar);
             if (pat != null)
             {
                 pat.Patterns.Add(curPattern);
             }
             else
             {
-                this.Chars.Add(sym.ToCharData(manualChar));
+                this.Texts.Add(sym.ToCharData(manualChar));
             }
 
             this.Save();

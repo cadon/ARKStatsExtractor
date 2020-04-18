@@ -7,7 +7,7 @@ namespace ARKBreedingStats
 {
     public partial class RecognitionTrainingForm : Form
     {
-        private char selectedChar;
+        private string selectedText = null;
 
         public RecognitionTrainingForm(RecognizedCharData charData, Image originalImg)
         {
@@ -83,11 +83,11 @@ namespace ARKBreedingStats
             this.pictureBox1.Image = b;
         }
 
-        public char Prompt()
+        public string Prompt()
         {
             this.ShowDialog();
 
-            return this.selectedChar;
+            return this.selectedText.ToUpper();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -101,16 +101,11 @@ namespace ARKBreedingStats
 
             if (tb.Text.Length == 0)
             {
-                this.selectedChar = '\0';
+                this.selectedText = null;
                 return;
             }
 
-            if (tb.Text.Length > 1)
-            {
-                tb.Text = tb.Text.Substring(tb.Text.Length - 1);
-            }
-
-            this.selectedChar = tb.Text[0];
+            this.selectedText = tb.Text;
         }
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)

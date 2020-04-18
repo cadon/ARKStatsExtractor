@@ -7,8 +7,8 @@ namespace ARKBreedingStats.ocr.Common
 {
     public static class PatternOcr
     {
-        private static readonly int[] OffsetX = { -1, 0, 1, 0, -1, 1, 1, -1 };
-        private static readonly int[] OffsetY = { 0, -1, 0, 1, -1, -1, 1, 1 };
+        private static readonly int[] offsetX = { -1, 0, 1, 0, -1, 1, 1, -1 };
+        private static readonly int[] offsetY = { 0, -1, 0, 1, -1, -1, 1, 1 };
         // ReSharper disable once InconsistentNaming
         private const byte FF = 0xFF;
 
@@ -23,12 +23,8 @@ namespace ARKBreedingStats.ocr.Common
                 var charSymbols = SplitBySymbol(db, onlyNumbers);
                 foreach (var sym in charSymbols)
                 {
-                    char c = RecognitionPatterns.Settings.FindMatchingChar(sym, adjPic);
-                    if (c == '\0')
-                    {
-                        throw new OperationCanceledException();
-                    }
-                    ret += c;
+                    var c = RecognitionPatterns.Settings.FindMatchingChar(sym, adjPic);
+                    ret += c ?? throw new OperationCanceledException();
                 }
             }
 
@@ -97,10 +93,10 @@ namespace ARKBreedingStats.ocr.Common
             data = data ?? new CoordsData(x, x, y, y);
             data.Add(x, y);
 
-            for (int i = 0; i < OffsetX.Length; i++)
+            for (int i = 0; i < offsetX.Length; i++)
             {
-                var nextX = OffsetX[i] + x;
-                var nextY = OffsetY[i] + y;
+                var nextX = offsetX[i] + x;
+                var nextY = offsetY[i] + y;
 
                 var isSafe = nextX > 0 && nextX < db.Width && nextY > 0 && nextY < db.Height && !visited[nextX, nextY];
                 if (!isSafe)

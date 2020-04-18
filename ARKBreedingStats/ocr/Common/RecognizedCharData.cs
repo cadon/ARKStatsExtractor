@@ -14,12 +14,12 @@ namespace ARKBreedingStats.ocr.Common
 
         public bool[,] Pattern { get; set; }
 
-        public CharData ToCharData(Char c)
+        public TextData ToCharData(string s)
         {
-            return new CharData
+            return new TextData
             {
-                Char = c,
-                Patterns = new List<bool[,]> { this.Pattern }
+                Text = s,
+                Patterns = new List<Pattern> { this.Pattern }
             };
         }
     }
