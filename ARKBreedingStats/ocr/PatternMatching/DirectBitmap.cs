@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ARKBreedingStats.ocr.Common
+namespace ARKBreedingStats.ocr.PatternMatching
 {
     public class DirectBitmap : IDisposable
     {

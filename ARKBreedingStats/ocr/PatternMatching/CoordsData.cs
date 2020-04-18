@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ARKBreedingStats.ocr.Common;
+using ARKBreedingStats.ocr.PatternMatching;
 
 namespace ARKBreedingStats.ocr
 {
