@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ARKBreedingStats.ocr.Common;
 
 namespace ARKBreedingStats
 {
@@ -8,13 +9,50 @@ namespace ARKBreedingStats
     {
         private char selectedChar;
 
-        public RecognitionTrainingForm(bool[,] curPattern, Image originalImg)
+        public RecognitionTrainingForm(RecognizedCharData charData, Image originalImg)
         {
             InitializeComponent();
 
-            this.DrawPattern(curPattern);
+            this.DrawPattern(charData.Pattern);
 
-            this.pictureBox2.Image = originalImg;
+            Image adjustedOriginalPicture = this.DrawFoundCharOnPicture(originalImg, charData);
+
+            this.pictureBox2.Image = adjustedOriginalPicture;
+        }
+
+        private Image DrawFoundCharOnPicture(Image img, RecognizedCharData charData)
+        {
+            using (var db = new DirectBitmap(img.Width, img.Height))
+            {
+
+                using (var graphics = Graphics.FromImage(db.Bitmap))
+                {
+                    graphics.DrawImage(img, Point.Empty);
+                }
+
+                using (var graphics = Graphics.FromImage(db.Bitmap))
+                {
+                    graphics.DrawImage(img, Point.Empty);
+                }
+
+                var xMax = charData.Coords.X + charData.Pattern.GetLength(0);
+                var yMax = charData.Coords.Y + charData.Pattern.GetLength(1);
+
+                var x = 0;
+                for (var i = charData.Coords.X; i < xMax; i++, x++)
+                {
+                    var y = 0;
+                    for (var j = charData.Coords.Y; j < yMax; j++, y++)
+                    {
+                        if (charData.Pattern[x, y])
+                        {
+                            db.SetPixel(i, j, Color.Red);
+                        }
+                    }
+                }
+
+                return db.ToBitmap();
+            }
         }
 
         private void DrawPattern(bool[,] curPattern)

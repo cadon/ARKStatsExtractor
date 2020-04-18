@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ARKBreedingStats.ocr.Common;
 
 namespace ARKBreedingStats.ocr
 {
@@ -30,6 +31,7 @@ namespace ARKBreedingStats.ocr
             debugPanel = OCRDebugLayoutPanel;
             output = txtOCROutput;
             ocrLetterEditTemplate.drawingEnabled = true;
+            this.TrainingCheckBox.Checked = RecognitionPatterns.Settings.IsTrainingEnabled;
         }
 
         public void Initialize()
@@ -472,9 +474,7 @@ namespace ARKBreedingStats.ocr
                 return false;
             ArkOCR.OCR.ocrConfig = t;
             UpdateOCRLabel(fileName);
-            UpdateOCRFontSizes();
             InitLabelEntries();
-            nudResizing.Value = ArkOCR.OCR.ocrConfig.resize == 0 ? 1 : (decimal)ArkOCR.OCR.ocrConfig.resize;
             return true;
         }
 
@@ -490,8 +490,6 @@ namespace ARKBreedingStats.ocr
 
         private void buttonLoadCalibrationImage_Click(object sender, EventArgs e)
         {
-            if (ArkOCR.OCR.calibrateFromFontFile((int)nudFontSizeCalibration.Value, textBoxCalibrationText.Text))
-                UpdateOCRFontSizes();
         }
 
         internal void SetScreenshot(Bitmap screenshotbmp)
@@ -516,52 +514,19 @@ namespace ARKBreedingStats.ocr
             ArkOCR.OCR.ocrConfig.resolutionHeight = (int)nudResolutionHeight.Value;
         }
 
+        private void TrainingCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            var cb = (CheckBox)sender;
+            RecognitionPatterns.Settings.IsTrainingEnabled = cb.Checked;
+            RecognitionPatterns.Settings.Save();
+        }
+
         private void buttonGetResFromScreenshot_Click(object sender, EventArgs e)
         {
             if (screenshot != null)
             {
                 nudResolutionWidth.Value = screenshot.Width;
                 nudResolutionHeight.Value = screenshot.Height;
-            }
-        }
-
-        private void btnDeleteFontSize_Click(object sender, EventArgs e)
-        {
-            if (int.TryParse(cbbFontSizeDelete.SelectedItem.ToString(), out int fontSize)
-                    && MessageBox.Show($"Delete all character-templates for the font-size {fontSize}?", "Delete?",
-                            MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-            {
-                int ocrIndex = ArkOCR.OCR.ocrConfig.fontSizes.IndexOf(fontSize);
-                if (ocrIndex >= 0)
-                {
-                    ArkOCR.OCR.ocrConfig.fontSizes.RemoveAt(ocrIndex);
-                    ArkOCR.OCR.ocrConfig.letterArrays.RemoveAt(ocrIndex);
-                    ArkOCR.OCR.ocrConfig.letters.RemoveAt(ocrIndex);
-                    UpdateOCRFontSizes();
-                }
-            }
-        }
-
-        private void nudResizing_ValueChanged(object sender, EventArgs e)
-        {
-            ArkOCR.OCR.ocrConfig.resize = (double)nudResizing.Value;
-            int resizedHeight = (int)(ArkOCR.OCR.ocrConfig.resize * ArkOCR.OCR.ocrConfig.resolutionHeight);
-            lbResizeResult.Text = $"{ArkOCR.OCR.ocrConfig.resolutionWidth} × {ArkOCR.OCR.ocrConfig.resolutionHeight} -> " +
-                    $"{(int)(ArkOCR.OCR.ocrConfig.resize * ArkOCR.OCR.ocrConfig.resolutionWidth)} × {resizedHeight}";
-            string infoText = "\nKeep in mind, any change of the resizing needs new character templates to be made";
-            if (resizedHeight < 1080)
-                lbResizeResult.Text += "\nThe size is probably too small for good results, you can try to increse the factor." + infoText;
-            if (resizedHeight > 1800) // TODO correct value?
-                lbResizeResult.Text += "\nThe size is probably too large for the character-templates (max-size is 31px), " +
-                        "you can try to decrese the factor." + infoText;
-        }
-
-        private void UpdateOCRFontSizes()
-        {
-            cbbFontSizeDelete.Items.Clear();
-            foreach (int s in ArkOCR.OCR.ocrConfig.fontSizes)
-            {
-                cbbFontSizeDelete.Items.Add(s.ToString());
             }
         }
     }

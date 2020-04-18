@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -12,22 +12,29 @@ namespace ARKBreedingStats.ocr.Common
     public class RecognitionPatterns
     {
         private static readonly SettingsController<RecognitionPatterns> SettingsController;
+        private bool isTrainingEnabled = true;
         public List<CharData> Chars { get; set; } = new List<CharData>();
 
-        public int Width { get; set; }
-
-        public int Height { get; set; }
-
         public static RecognitionPatterns Settings => SettingsController.Settings;
+
+        [DefaultValue(true)]
+        public bool IsTrainingEnabled
+        {
+            get => this.isTrainingEnabled;
+            set
+            {
+                this.isTrainingEnabled = value;
+            }
+        }
 
         static RecognitionPatterns()
         {
             SettingsController = new SettingsController<RecognitionPatterns>(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
         }
 
-        public char FindMatchingChar(CharData sym, Image originalImg, float tolerance = 0.1f)
+        public char FindMatchingChar(RecognizedCharData sym, Image originalImg, float tolerance = 0.1f)
         {
-            var curPattern = sym.Patterns[0];
+            var curPattern = sym.Pattern;
 
             foreach (var c in this.Chars)
             {
@@ -36,31 +43,54 @@ namespace ARKBreedingStats.ocr.Common
                     var possibleDif = pattern.Length * tolerance;
                     if (Math.Abs(pattern.Length - curPattern.Length) > possibleDif) continue;
 
-                    int dif = 0;
-                    var fail = false;
-                    for (int x = 0; !fail && x < curPattern.GetLength(0) && x < pattern.GetLength(0); x++)
+                    var xSizeFound = curPattern.GetLength(0);
+                    var ySizeFound = curPattern.GetLength(1);
+                    var minOffsetX = xSizeFound > 2 ? -1 : 0;
+                    var maxOffsetX = xSizeFound > 2 ? 1 : 0;
+                    var minOffsetY = xSizeFound > 2 ? -1 : 0;
+                    var maxOffsetY = xSizeFound > 2 ? 1 : 0;
+
+                    for (var offSetX = minOffsetX; offSetX <= maxOffsetX; offSetX++)
                     {
-                        for (int y = 0; !fail && y < curPattern.GetLength(1) && y < pattern.GetLength(1); y++)
+                        for (var offSetY = minOffsetY; offSetY <= maxOffsetY; offSetY++)
                         {
-                            if (curPattern[x, y] != pattern[x, y])
+                            var dif = 0;
+                            var fail = false;
+                            for (var x = 0; !fail && x < xSizeFound && x < pattern.GetLength(0); x++)
                             {
-                                dif++;
-                                if (dif > possibleDif)
+                                for (var y = 0; !fail && y < ySizeFound && y < pattern.GetLength(1); y++)
                                 {
-                                    fail = true;
+                                    var curPatternX = x + offSetX;
+                                    var curPatternY = y + offSetY;
+                                    if (curPatternX >= 0 && curPatternY >= 0 && curPatternY < ySizeFound && curPatternX < xSizeFound)
+                                    {
+                                        if (curPattern[curPatternX, curPatternY] != pattern[x, y])
+                                        {
+                                            dif++;
+                                            if (dif > possibleDif)
+                                            {
+                                                fail = true;
+                                            }
+                                        }
+                                    }
                                 }
                             }
-                        }
-                    }
 
-                    if (!fail)
-                    {
-                        return c.Char;
+                            if (!fail)
+                            {
+                                return c.Char;
+                            }
+                        }
                     }
                 }
             }
 
-            var manualChar = new RecognitionTrainingForm(curPattern, originalImg).Prompt();
+            if (!this.IsTrainingEnabled)
+            {
+                return ' ';
+            }
+
+            var manualChar = new RecognitionTrainingForm(sym, originalImg).Prompt();
 
             if (manualChar == '\0')
             {
@@ -74,20 +104,17 @@ namespace ARKBreedingStats.ocr.Common
             }
             else
             {
-                sym.Char = manualChar;
-                this.Chars.Add(sym);
+                this.Chars.Add(sym.ToCharData(manualChar));
             }
 
-            SettingsController.Save();
+            this.Save();
 
             return manualChar;
         }
-    }
 
-    public class CharData
-    {
-        public char Char { get; set; }
-
-        public List<bool[,]> Patterns { get; set; } = new List<bool[,]>();
+        public void Save()
+        {
+            SettingsController.Save();
+        }
     }
 }

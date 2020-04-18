@@ -106,9 +106,14 @@
     <Compile Include="mods\StatBaseValuesEdit.Designer.cs">
       <DependentUpon>StatBaseValuesEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="ocr\Common\CharData.cs" />
     <Compile Include="ocr\Common\DirectBitmap.cs" />
     <Compile Include="ocr\Common\ImageUtils.cs" />
+    <Compile Include="ocr\Common\PatternOcr.cs" />
     <Compile Include="ocr\Common\RecognitionPatterns.cs" />
+    <Compile Include="ocr\Common\CoordsData.cs" />
+    <Compile Include="ocr\Common\Coords.cs" />
+    <Compile Include="ocr\Common\RecognizedCharData.cs" />
     <Compile Include="oldLibraryFormat\FormatConverter.cs" />
     <Compile Include="importExported\ExportedCreatureList.cs">
       <SubType>Form</SubType>
