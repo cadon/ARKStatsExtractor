@@ -329,9 +329,9 @@ namespace ARKBreedingStats
             this.lbListening = new System.Windows.Forms.Label();
             this.lbSpecies = new System.Windows.Forms.Label();
             this.lbLibrarySelectionInfo = new System.Windows.Forms.Label();
-            this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
             this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetLibraryColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
+            this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -2303,7 +2303,7 @@ namespace ARKBreedingStats
             this.listViewLibrary.Name = "listViewLibrary";
             this.tableLayoutPanelLibrary.SetRowSpan(this.listViewLibrary, 2);
             this.listViewLibrary.ShowItemToolTips = true;
-            this.listViewLibrary.Size = new System.Drawing.Size(994, 688);
+            this.listViewLibrary.Size = new System.Drawing.Size(994, 691);
             this.listViewLibrary.TabIndex = 2;
             this.listViewLibrary.UseCompatibleStateImageBehavior = false;
             this.listViewLibrary.View = System.Windows.Forms.View.Details;
@@ -3346,16 +3346,6 @@ namespace ARKBreedingStats
             this.lbLibrarySelectionInfo.Size = new System.Drawing.Size(719, 45);
             this.lbLibrarySelectionInfo.TabIndex = 5;
             // 
-            // speciesSelector1
-            // 
-            this.speciesSelector1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.speciesSelector1.LastSpecies = new string[0];
-            this.speciesSelector1.Location = new System.Drawing.Point(0, 103);
-            this.speciesSelector1.Name = "speciesSelector1";
-            this.speciesSelector1.Size = new System.Drawing.Size(1232, 716);
-            this.speciesSelector1.SplitterDistance = 500;
-            this.speciesSelector1.TabIndex = 0;
-            // 
             // contextMenuStripLibraryHeader
             // 
             this.contextMenuStripLibraryHeader.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -3369,6 +3359,16 @@ namespace ARKBreedingStats
             this.toolStripMenuItemResetLibraryColumnWidths.Size = new System.Drawing.Size(179, 22);
             this.toolStripMenuItemResetLibraryColumnWidths.Text = "Reset column width";
             this.toolStripMenuItemResetLibraryColumnWidths.Click += new System.EventHandler(this.toolStripMenuItemResetLibraryColumnWidths_Click);
+            // 
+            // speciesSelector1
+            // 
+            this.speciesSelector1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.speciesSelector1.LastSpecies = new string[0];
+            this.speciesSelector1.Location = new System.Drawing.Point(0, 103);
+            this.speciesSelector1.Name = "speciesSelector1";
+            this.speciesSelector1.Size = new System.Drawing.Size(1232, 716);
+            this.speciesSelector1.SplitterDistance = 500;
+            this.speciesSelector1.TabIndex = 0;
             // 
             // Form1
             // 

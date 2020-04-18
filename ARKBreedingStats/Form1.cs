@@ -199,20 +199,27 @@ namespace ARKBreedingStats
             if (Size.Width < 400)
                 Size = new Size(400, Size.Height);
             Location = Properties.Settings.Default.formLocation;
-            // check if form is on screen
-            bool isOnScreen = false;
-            foreach (Screen screen in Screen.AllScreens)
-            {
-                Rectangle formRectangle = new Rectangle(Left, Top, Width, Height);
+            this.WindowState = Properties.Settings.Default.FormState;
 
-                if (screen.WorkingArea.Contains(formRectangle))
+            if (this.WindowState != FormWindowState.Maximized)
+            {
+                // check if form is on screen
+                bool isOnScreen = false;
+                foreach (Screen screen in Screen.AllScreens)
                 {
-                    isOnScreen = true;
-                    break;
+                    // no need to check for the entire window, should check top left edge only.
+                    Rectangle formRectangle = new Rectangle(Left, Top, 10, 10);
+
+                    if (screen.WorkingArea.Contains(formRectangle))
+                    {
+                        isOnScreen = true;
+                        break;
+                    }
                 }
+
+                if (!isOnScreen)
+                    Location = new Point(50, 50);
             }
-            if (!isOnScreen)
-                Location = new Point(50, 50);
 
             // Load column-widths, display-indices and sort-order of the TimerControlListView
             ListView lv = (ListView)timerList1.Controls["tableLayoutPanel1"].Controls["listViewTimer"];
@@ -1217,6 +1224,7 @@ namespace ARKBreedingStats
             {
                 Properties.Settings.Default.formSize = Size;
                 Properties.Settings.Default.formLocation = Location;
+                Properties.Settings.Default.FormState = this.WindowState;
             }
 
             // Save column-widths, display-indices and sort-order of the TimerControlListView
