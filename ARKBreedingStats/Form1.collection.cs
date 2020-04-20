@@ -313,19 +313,22 @@ namespace ARKBreedingStats
                     else
                     {
                         // new json-format
-                        CreatureCollection tmpCC;
-                        using (StreamReader file = File.OpenText(filePath))
+                        if (FileService.LoadJSONFile(filePath, out CreatureCollection readCollection, out string errorMessage))
                         {
-                            JsonSerializer serializer = new JsonSerializer();
-                            tmpCC = (CreatureCollection)serializer.Deserialize(file, typeof(CreatureCollection));
+                            if (!Version.TryParse(readCollection.FormatVersion, out Version ccVersion)
+                               || !Version.TryParse(CreatureCollection.CURRENT_FORMAT_VERSION, out Version currentVersion)
+                               || ccVersion > currentVersion)
+                            {
+                                throw new FormatException("Unhandled format version");
+                            }
+                            creatureCollection = readCollection;
                         }
-                        if (!Version.TryParse(tmpCC.FormatVersion, out Version ccVersion)
-                           || !Version.TryParse(CreatureCollection.CURRENT_FORMAT_VERSION, out Version currentVersion)
-                           || ccVersion > currentVersion)
+                        else
                         {
-                            throw new FormatException("Unhandled format version");
+                            MessageBox.Show($"Error while trying to read the library-file\n{filePath}\n\n{errorMessage}",
+                                    "Error reading library-file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return false;
                         }
-                        creatureCollection = tmpCC;
                     }
 
                     break;
