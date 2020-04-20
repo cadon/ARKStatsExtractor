@@ -206,5 +206,27 @@ namespace ARKBreedingStats
             }
             return false;
         }
+
+        /// <summary>
+        /// Checks if a file is a valid json file.
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        internal static bool IsValidJsonFile(string filePath)
+        {
+            if (!File.Exists(filePath))
+                return false;
+
+            string fileContent = File.ReadAllText(filePath);
+            // currently very basic test, could be improved
+            return fileContent.StartsWith("{") && fileContent.EndsWith("}");
+
+            //try
+            //{
+            //    Newtonsoft.Json.Linq.JToken.Parse(fileContent);
+            //    return true;
+            //}
+            //catch { return false; }
+        }
     }
 }

@@ -476,7 +476,7 @@ namespace ARKBreedingStats
             if (autoSave && changed)
             {
                 // save changes automatically
-                if (!string.IsNullOrEmpty(currentFileName) && autoSaveMinutes > 0 && (DateTime.Now - lastAutoSaveBackup).TotalMinutes > autoSaveMinutes)
+                if (!string.IsNullOrEmpty(currentFileName) && autoSaveMinutes > 0 && (DateTime.Now - lastAutoSaveBackup).TotalMinutes > autoSaveMinutes && FileService.IsValidJsonFile(currentFileName))
                 {
                     string filenameWOExt = Path.GetFileNameWithoutExtension(currentFileName);
                     string timeStamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
