@@ -223,7 +223,7 @@ namespace ARKBreedingStats
 
             //try
             //{
-            //    Newtonsoft.Json.Linq.JToken.Parse(fileContent);
+            //    Newtonsoft.Json.Linq.JObject.Parse(fileContent);
             //    return true;
             //}
             //catch { return false; }
