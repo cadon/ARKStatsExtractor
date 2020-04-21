@@ -106,6 +106,8 @@
     <Compile Include="mods\StatBaseValuesEdit.Designer.cs">
       <DependentUpon>StatBaseValuesEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="ocr\PatternMatching\Boolean2DimArrayConverter.cs" />
+    <Compile Include="ocr\PatternMatching\OcrUtils.cs" />
     <Compile Include="ocr\PatternMatching\Pattern.cs" />
     <Compile Include="ocr\PatternMatching\TextData.cs" />
     <Compile Include="ocr\PatternMatching\DirectBitmap.cs" />
@@ -115,6 +117,7 @@
     <Compile Include="ocr\PatternMatching\CoordsData.cs" />
     <Compile Include="ocr\PatternMatching\Coords.cs" />
     <Compile Include="ocr\PatternMatching\RecognizedCharData.cs" />
+    <Compile Include="ocr\PatternMatching\TrainingSettings.cs" />
     <Compile Include="oldLibraryFormat\FormatConverter.cs" />
     <Compile Include="importExported\ExportedCreatureList.cs">
       <SubType>Form</SubType>

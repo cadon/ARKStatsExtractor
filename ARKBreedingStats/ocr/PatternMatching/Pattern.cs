@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Linq;
+using Newtonsoft.Json;
 
 namespace ARKBreedingStats.ocr.PatternMatching
 {
@@ -31,6 +32,15 @@ namespace ARKBreedingStats.ocr.PatternMatching
         {
             return new Pattern(arr);
 
+        }
+        public int CountBlacks()
+        {
+            return this.Data.Cast<bool>().Count(b => b);
+        }
+
+        public override string ToString()
+        {
+            return OcrUtils.BoolArrayToString(this.Data);
         }
     }
 }

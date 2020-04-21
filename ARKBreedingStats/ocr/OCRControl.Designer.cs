@@ -64,6 +64,8 @@ namespace ARKBreedingStats.ocr
             this.ocrLetterEditRecognized = new ARKBreedingStats.ocr.OCRLetterEdit();
             this.button2 = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.TrainingCheckBox = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.buttonGetResFromScreenshot = new System.Windows.Forms.Button();
@@ -88,8 +90,9 @@ namespace ARKBreedingStats.ocr
             this.nudX = new ARKBreedingStats.uiControls.Nud();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.listBoxLabelRectangles = new System.Windows.Forms.ListBox();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.TrainingCheckBox = new System.Windows.Forms.CheckBox();
+            this.SkipNameCheckBox = new System.Windows.Forms.CheckBox();
+            this.SkipTribeCheckBox = new System.Windows.Forms.CheckBox();
+            this.SkipOwnerCheckBox = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel4.SuspendLayout();
             this.tabControlManage.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -102,6 +105,7 @@ namespace ARKBreedingStats.ocr
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditRecognized)).BeginInit();
             this.tabPage4.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudResolutionHeight)).BeginInit();
@@ -114,7 +118,6 @@ namespace ARKBreedingStats.ocr
             ((System.ComponentModel.ISupportInitialize)(this.nudY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudX)).BeginInit();
             this.groupBox3.SuspendLayout();
-            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel4
@@ -504,6 +507,32 @@ namespace ARKBreedingStats.ocr
             this.tabPage4.Text = "Manage";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox7.Controls.Add(this.SkipOwnerCheckBox);
+            this.groupBox7.Controls.Add(this.SkipTribeCheckBox);
+            this.groupBox7.Controls.Add(this.SkipNameCheckBox);
+            this.groupBox7.Controls.Add(this.TrainingCheckBox);
+            this.groupBox7.Location = new System.Drawing.Point(6, 6);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(334, 319);
+            this.groupBox7.TabIndex = 0;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Pattern recognition settings";
+            // 
+            // TrainingCheckBox
+            // 
+            this.TrainingCheckBox.AutoSize = true;
+            this.TrainingCheckBox.Location = new System.Drawing.Point(6, 19);
+            this.TrainingCheckBox.Name = "TrainingCheckBox";
+            this.TrainingCheckBox.Size = new System.Drawing.Size(105, 17);
+            this.TrainingCheckBox.TabIndex = 0;
+            this.TrainingCheckBox.Text = "Train recognition";
+            this.TrainingCheckBox.UseVisualStyleBackColor = true;
+            this.TrainingCheckBox.CheckedChanged += new System.EventHandler(this.TrainingCheckBox_CheckedChanged);
+            // 
             // tabPage3
             // 
             this.tabPage3.AutoScroll = true;
@@ -827,28 +856,38 @@ namespace ARKBreedingStats.ocr
             this.listBoxLabelRectangles.TabIndex = 0;
             this.listBoxLabelRectangles.SelectedIndexChanged += new System.EventHandler(this.listBoxLabelRectangles_SelectedIndexChanged);
             // 
-            // groupBox7
+            // checkBox1
             // 
-            this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox7.Controls.Add(this.TrainingCheckBox);
-            this.groupBox7.Location = new System.Drawing.Point(6, 6);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(334, 112);
-            this.groupBox7.TabIndex = 0;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Pattern recognition settings";
+            this.SkipNameCheckBox.AutoSize = true;
+            this.SkipNameCheckBox.Location = new System.Drawing.Point(6, 42);
+            this.SkipNameCheckBox.Name = "SkipNameCheckBox";
+            this.SkipNameCheckBox.Size = new System.Drawing.Size(133, 17);
+            this.SkipNameCheckBox.TabIndex = 1;
+            this.SkipNameCheckBox.Text = "Skip Name recognition";
+            this.SkipNameCheckBox.UseVisualStyleBackColor = true;
+            this.SkipNameCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
-            // TrainingCheckBox
+            // checkBox2
             // 
-            this.TrainingCheckBox.AutoSize = true;
-            this.TrainingCheckBox.Location = new System.Drawing.Point(6, 19);
-            this.TrainingCheckBox.Name = "TrainingCheckBox";
-            this.TrainingCheckBox.Size = new System.Drawing.Size(105, 17);
-            this.TrainingCheckBox.TabIndex = 0;
-            this.TrainingCheckBox.Text = "Train recognition";
-            this.TrainingCheckBox.UseVisualStyleBackColor = true;
-            this.TrainingCheckBox.CheckedChanged += new System.EventHandler(this.TrainingCheckBox_CheckedChanged);
+            this.SkipTribeCheckBox.AutoSize = true;
+            this.SkipTribeCheckBox.Location = new System.Drawing.Point(6, 65);
+            this.SkipTribeCheckBox.Name = "SkipTribeCheckBox";
+            this.SkipTribeCheckBox.Size = new System.Drawing.Size(129, 17);
+            this.SkipTribeCheckBox.TabIndex = 2;
+            this.SkipTribeCheckBox.Text = "Skip Tribe recognition";
+            this.SkipTribeCheckBox.UseVisualStyleBackColor = true;
+            this.SkipTribeCheckBox.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            // 
+            // checkBox3
+            // 
+            this.SkipOwnerCheckBox.AutoSize = true;
+            this.SkipOwnerCheckBox.Location = new System.Drawing.Point(6, 88);
+            this.SkipOwnerCheckBox.Name = "SkipOwnerCheckBox";
+            this.SkipOwnerCheckBox.Size = new System.Drawing.Size(136, 17);
+            this.SkipOwnerCheckBox.TabIndex = 3;
+            this.SkipOwnerCheckBox.Text = "Skip Owner recognition";
+            this.SkipOwnerCheckBox.UseVisualStyleBackColor = true;
+            this.SkipOwnerCheckBox.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
             // OCRControl
             // 
@@ -871,6 +910,8 @@ namespace ARKBreedingStats.ocr
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditRecognized)).EndInit();
             this.tabPage4.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
@@ -885,8 +926,6 @@ namespace ARKBreedingStats.ocr
             ((System.ComponentModel.ISupportInitialize)(this.nudY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudX)).EndInit();
             this.groupBox3.ResumeLayout(false);
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -952,5 +991,8 @@ namespace ARKBreedingStats.ocr
         private System.Windows.Forms.Button btUnloadOCR;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.CheckBox TrainingCheckBox;
+        private System.Windows.Forms.CheckBox SkipOwnerCheckBox;
+        private System.Windows.Forms.CheckBox SkipTribeCheckBox;
+        private System.Windows.Forms.CheckBox SkipNameCheckBox;
     }
 }

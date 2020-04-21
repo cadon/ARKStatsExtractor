@@ -540,6 +540,32 @@ namespace ARKBreedingStats.ocr
                 if (lbI == 8) stI = 8;
                 string statName = ocrConfig.labelNames[stI];
 
+                switch (statName)
+                {
+                    case "NameSpecies":
+                        if (RecognitionPatterns.Settings.TrainingSettings.SkipName)
+                        {
+                            dinoName = "";
+                            continue;
+                        }
+                        break;
+                    case "Tribe":
+                        if (RecognitionPatterns.Settings.TrainingSettings.SkipTribe)
+                        {
+                            tribeName = "";
+                            continue;
+                        }
+
+                        break;
+                    case "Owner":
+                        if (RecognitionPatterns.Settings.TrainingSettings.SkipOwner)
+                        {
+                            ownerName = "";
+                            continue;
+                        }
+                        break;
+                }
+
                 Rectangle rec = ocrConfig.labelRectangles[lbI];
 
                 // wild creatures don't have the xp-bar, all stats are moved one row up

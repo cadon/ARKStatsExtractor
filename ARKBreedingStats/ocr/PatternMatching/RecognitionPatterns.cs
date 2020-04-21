@@ -11,25 +11,24 @@ namespace ARKBreedingStats.ocr.PatternMatching
 {
     public class RecognitionPatterns
     {
-        private static readonly SettingsController<RecognitionPatterns> SettingsController;
-        private bool isTrainingEnabled = true;
+        private static readonly int[] offsetX = { -1, 0, 1, 0 };
+        private static readonly int[] offsetY = { 0, -1, 0, 1 };
+
+        // ReSharper disable once InconsistentNaming
+        private static readonly SettingsController<RecognitionPatterns> settingsController;
+
         public List<TextData> Texts { get; set; } = new List<TextData>();
 
-        public static RecognitionPatterns Settings => SettingsController.Settings;
+        public static RecognitionPatterns Settings => settingsController.Settings;
 
         [DefaultValue(true)]
-        public bool IsTrainingEnabled
-        {
-            get => this.isTrainingEnabled;
-            set
-            {
-                this.isTrainingEnabled = value;
-            }
-        }
+        public bool IsTrainingEnabled { get; set; } = true;
+
+        public TrainingSettings TrainingSettings { get; set; } = new TrainingSettings();
 
         static RecognitionPatterns()
         {
-            SettingsController = new SettingsController<RecognitionPatterns>(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+            settingsController = new SettingsController<RecognitionPatterns>(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
         }
 
         public string FindMatchingChar(RecognizedCharData sym, Image originalImg, float tolerance = 0.1f)
@@ -42,6 +41,10 @@ namespace ARKBreedingStats.ocr.PatternMatching
                 {
                     var possibleDif = ((pattern.Length + sym.Pattern.Length) / 2) * tolerance;
                     if (Math.Abs(pattern.Length - curPattern.Length) > possibleDif) continue;
+
+                    var blackCount = pattern.CountBlacks();
+
+                    possibleDif = blackCount * (1.5f * tolerance);
 
                     var xSizeFound = curPattern.GetLength(0);
                     var ySizeFound = curPattern.GetLength(1);
@@ -60,7 +63,7 @@ namespace ARKBreedingStats.ocr.PatternMatching
                     {
                         for (var offSetY = minOffsetY; offSetY <= maxOffsetY; offSetY++)
                         {
-                            var dif = 0;
+                            var dif = 0f;
                             var fail = false;
                             for (var x = 0; !fail && x < xSizeFound && x < pattern.Width; x++)
                             {
@@ -70,9 +73,11 @@ namespace ARKBreedingStats.ocr.PatternMatching
                                     var curPatternY = y + offSetY;
                                     if (curPatternX >= 0 && curPatternY >= 0 && curPatternY < ySizeFound && curPatternX < xSizeFound)
                                     {
-                                        if (curPattern[curPatternX, curPatternY] != pattern[x, y])
+                                        var cHave = curPattern[curPatternX, curPatternY];
+                                        var pHave = pattern[x, y];
+                                        if ((cHave || pHave) && curPattern[curPatternX, curPatternY] != pattern[x, y])
                                         {
-                                            dif++;
+                                            dif += IsNearby(cHave ? pattern : curPattern, x, y) ? 0.33f : 1f;
                                             if (dif > possibleDif)
                                             {
                                                 fail = true;
@@ -84,7 +89,7 @@ namespace ARKBreedingStats.ocr.PatternMatching
 
                             if (!fail)
                             {
-                                return c.Text;
+                                return c.Text.ToUpper();
                             }
                         }
                     }
@@ -103,6 +108,35 @@ namespace ARKBreedingStats.ocr.PatternMatching
                 return null;
             }
 
+            return this.AddNewPattern(sym, manualChar, curPattern);
+        }
+
+        private static bool IsNearby(Pattern pattern, int x, int y)
+        {
+            var width = pattern.Width;
+            var height = pattern.Height;
+            for (int i = 0; i < offsetX.Length; i++)
+            {
+                var nextX = offsetX[i] + x;
+                var nextY = offsetY[i] + y;
+
+                var isSafe = nextX > 0 && nextX < width && nextY > 0 && nextY < height;
+                if (!isSafe)
+                {
+                    continue;
+                }
+
+                if (pattern[x,y])
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private string AddNewPattern(RecognizedCharData sym, string manualChar, bool[,] curPattern)
+        {
             var pat = this.Texts.FirstOrDefault(x => x.Text == manualChar);
             if (pat != null)
             {
@@ -120,7 +154,7 @@ namespace ARKBreedingStats.ocr.PatternMatching
 
         public void Save()
         {
-            SettingsController.Save();
+            settingsController.Save();
         }
     }
 }

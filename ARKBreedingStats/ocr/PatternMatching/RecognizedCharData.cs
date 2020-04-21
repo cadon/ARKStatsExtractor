@@ -21,5 +21,10 @@ namespace ARKBreedingStats.ocr.PatternMatching
                 Patterns = new List<Pattern> { this.Pattern }
             };
         }
+
+        public override string ToString()
+        {
+            return OcrUtils.BoolArrayToString(this.Pattern);
+        }
     }
 }
