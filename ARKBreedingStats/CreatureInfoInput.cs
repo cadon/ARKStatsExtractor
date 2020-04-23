@@ -338,7 +338,13 @@ namespace ARKBreedingStats
         public DateTime? DomesticatedAt
         {
             get => dateTimePickerAdded.Value;
-            set => dateTimePickerAdded.Value = value ?? dateTimePickerAdded.MinDate;
+            set
+            {
+                if (value.HasValue)
+                    dateTimePickerAdded.Value = value.Value < dateTimePickerAdded.MinDate ? dateTimePickerAdded.MinDate : value.Value;
+                else
+                    dateTimePickerAdded.Value = dateTimePickerAdded.MinDate;
+            }
         }
 
         /// <summary>
@@ -686,7 +692,7 @@ namespace ARKBreedingStats
             //tooltips
             Loc.setToolTip(buttonSex, "Sex", tt);
             Loc.setToolTip(buttonStatus, "Status", tt);
-            Loc.setToolTip(dateTimePickerAdded, "domesticatedAt", tt);
+            Loc.setToolTip(dateTimePickerAdded, "addedAt", tt);
             Loc.setToolTip(nudMutationsMother, "mutationCounter", tt);
             Loc.setToolTip(nudMutationsFather, "mutationCounter", tt);
 

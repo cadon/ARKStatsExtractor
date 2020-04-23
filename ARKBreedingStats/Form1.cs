@@ -2522,8 +2522,9 @@ namespace ARKBreedingStats
                 testingIOs[s].LevelDom = statIOs[s].LevelDom;
                 testingStatIOValueUpdate(testingIOs[s]);
             }
+
             // set the data in the creatureInfoInput
-            SetTesterInfoInputCreature();
+            SetTesterInfoInputCreature(); // clear data
             creatureInfoInputTester.CreatureName = creatureInfoInputExtractor.CreatureName;
             creatureInfoInputTester.CreatureOwner = creatureInfoInputExtractor.CreatureOwner;
             creatureInfoInputTester.CreatureTribe = creatureInfoInputExtractor.CreatureTribe;
@@ -2533,6 +2534,7 @@ namespace ARKBreedingStats
             creatureInfoInputTester.CreatureNote = creatureInfoInputExtractor.CreatureNote;
             creatureInfoInputTester.CooldownUntil = creatureInfoInputExtractor.CooldownUntil;
             creatureInfoInputTester.GrowingUntil = creatureInfoInputExtractor.GrowingUntil;
+            creatureInfoInputTester.AddedToLibraryAt = creatureInfoInputExtractor.AddedToLibraryAt;
             creatureInfoInputTester.MutationCounterMother = creatureInfoInputExtractor.MutationCounterMother;
             creatureInfoInputTester.MutationCounterFather = creatureInfoInputExtractor.MutationCounterFather;
             creatureInfoInputTester.CreatureSex = creatureInfoInputExtractor.CreatureSex;

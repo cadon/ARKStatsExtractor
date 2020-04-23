@@ -60,7 +60,7 @@ namespace ARKBreedingStats
                 note = input.CreatureNote,
                 server = input.CreatureServer,
 
-                domesticatedAt = input.DomesticatedAt,
+                domesticatedAt = input.DomesticatedAt.HasValue && input.DomesticatedAt.Value.Year > 2014 ? input.DomesticatedAt.Value : default(DateTime?),
                 addedToLibrary = DateTime.Now,
                 mutationsMaternal = input.MutationCounterMother,
                 mutationsPaternal = input.MutationCounterFather,
