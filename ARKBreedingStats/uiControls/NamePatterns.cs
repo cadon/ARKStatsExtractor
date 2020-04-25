@@ -517,6 +517,7 @@ namespace ARKBreedingStats.uiControls
                 { "muta", mutas},
                 { "gen", generation.ToString()},
                 { "gena", Dec2hexvig(generation)},
+                { "genn", (speciesCreatures.Count(c=>c.generation==generation) + 1).ToString()},
                 { "nr_in_gen", nrInGeneration.ToString()},
                 { "rnd", randStr },
                 { "tn", speciesCount.ToString()},
