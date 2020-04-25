@@ -274,6 +274,8 @@ namespace ARKBreedingStats.settings
 
             cbPrettifyJSON.Checked = Properties.Settings.Default.prettifyCollectionJson;
 
+            cbAdminConsoleCommandWithCheat.Checked = Properties.Settings.Default.AdminConsoleCommandWithCheat;
+
             string langKey = languages.FirstOrDefault(x => x.Value == Properties.Settings.Default.language).Key ?? "";
             int langI = cbbLanguage.Items.IndexOf(langKey);
             cbbLanguage.SelectedIndex = langI == -1 ? 0 : langI;
@@ -417,6 +419,8 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.DevTools = cbDevTools.Checked;
 
             Properties.Settings.Default.prettifyCollectionJson = cbPrettifyJSON.Checked;
+
+            Properties.Settings.Default.AdminConsoleCommandWithCheat = cbAdminConsoleCommandWithCheat.Checked;
 
             string oldLanguageSetting = Properties.Settings.Default.language;
             string lang = cbbLanguage.SelectedItem.ToString();

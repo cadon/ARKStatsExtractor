@@ -172,6 +172,8 @@
             this.cbbOCRApp = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox26 = new System.Windows.Forms.GroupBox();
+            this.cbAdminConsoleCommandWithCheat = new System.Windows.Forms.CheckBox();
             this.nudWildLevelStep = new ARKBreedingStats.uiControls.Nud();
             this.nudMatingSpeed = new ARKBreedingStats.uiControls.Nud();
             this.nudBabyFoodConsumptionSpeedEvent = new ARKBreedingStats.uiControls.Nud();
@@ -256,6 +258,7 @@
             this.tabPageOCR.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBox26.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMatingSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyFoodConsumptionSpeedEvent)).BeginInit();
@@ -882,6 +885,7 @@
             // tabPage1
             // 
             this.tabPage1.AutoScroll = true;
+            this.tabPage1.Controls.Add(this.groupBox26);
             this.tabPage1.Controls.Add(this.groupBox25);
             this.tabPage1.Controls.Add(this.groupBox24);
             this.tabPage1.Controls.Add(this.groupBox20);
@@ -1828,6 +1832,26 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
+            // groupBox26
+            // 
+            this.groupBox26.Controls.Add(this.cbAdminConsoleCommandWithCheat);
+            this.groupBox26.Location = new System.Drawing.Point(5, 575);
+            this.groupBox26.Name = "groupBox26";
+            this.groupBox26.Size = new System.Drawing.Size(318, 43);
+            this.groupBox26.TabIndex = 13;
+            this.groupBox26.TabStop = false;
+            this.groupBox26.Text = "Console Commands";
+            // 
+            // cbAdminConsoleCommandWithCheat
+            // 
+            this.cbAdminConsoleCommandWithCheat.AutoSize = true;
+            this.cbAdminConsoleCommandWithCheat.Location = new System.Drawing.Point(6, 19);
+            this.cbAdminConsoleCommandWithCheat.Name = "cbAdminConsoleCommandWithCheat";
+            this.cbAdminConsoleCommandWithCheat.Size = new System.Drawing.Size(239, 17);
+            this.cbAdminConsoleCommandWithCheat.TabIndex = 0;
+            this.cbAdminConsoleCommandWithCheat.Text = "Admin console commands with prefix \"cheat\"";
+            this.cbAdminConsoleCommandWithCheat.UseVisualStyleBackColor = true;
+            // 
             // nudWildLevelStep
             // 
             this.nudWildLevelStep.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -2720,6 +2744,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.groupBox26.ResumeLayout(false);
+            this.groupBox26.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMatingSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyFoodConsumptionSpeedEvent)).EndInit();
@@ -2951,5 +2977,7 @@
         private System.Windows.Forms.Label label44;
         private uiControls.Nud nudMatingSpeed;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.GroupBox groupBox26;
+        private System.Windows.Forms.CheckBox cbAdminConsoleCommandWithCheat;
     }
 }

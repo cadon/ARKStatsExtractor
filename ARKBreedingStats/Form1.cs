@@ -3213,7 +3213,7 @@ namespace ARKBreedingStats
                 }
                 if (colorCommands.Any())
                 {
-                    Clipboard.SetText(string.Join(" | ", colorCommands));
+                    Clipboard.SetText((Properties.Settings.Default.AdminConsoleCommandWithCheat ? "cheat " : string.Empty) + string.Join(" | ", colorCommands));
                 }
             }
         }
