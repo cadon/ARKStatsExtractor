@@ -1,5 +1,5 @@
 {
-	"version": "310.11.4871947",
+	"version": "310.41.4923984",
 	"format": "1.12",
 	"species": [
 		{
@@ -8122,7 +8122,7 @@
 			},
 			"colors": [
 				{
-					"name": "Main body",
+					"name": "Underside",
 					"colors": [
 						"BigFoot0",
 						"BigFoot4",
@@ -8142,7 +8142,7 @@
 					]
 				},
 				{
-					"name": "Unknown",
+					"name": "Skin Accent",
 					"colors": [
 						"BigFoot0",
 						"BigFoot4",
@@ -8162,47 +8162,7 @@
 					]
 				},
 				{
-					"name": "Dark accents",
-					"colors": [
-						"BigFoot0",
-						"BigFoot4",
-						"BigFoot5",
-						"Black",
-						"Dark Grey",
-						"DarkWolfFur",
-						"Dino Albino",
-						"Dino Light Blue",
-						"Dino Light Brown",
-						"Dino Light Purple",
-						"Dino Medium Brown",
-						"Light Grey",
-						"NearBlack",
-						"NearWhite",
-						"WolfFur"
-					]
-				},
-				{
-					"name": "Spots",
-					"colors": [
-						"BigFoot0",
-						"BigFoot4",
-						"BigFoot5",
-						"Black",
-						"Dark Grey",
-						"DarkWolfFur",
-						"Dino Albino",
-						"Dino Light Blue",
-						"Dino Light Brown",
-						"Dino Light Purple",
-						"Dino Medium Brown",
-						"Light Grey",
-						"NearBlack",
-						"NearWhite",
-						"WolfFur"
-					]
-				},
-				{
-					"name": "Belly",
+					"name": "Upper Fur Stripes",
 					"colors": [
 						"BigFoot0",
 						"BigFoot4",
@@ -8223,6 +8183,46 @@
 				},
 				{
 					"name": "Back",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Black",
+						"Dark Grey",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Purple",
+						"Dino Medium Brown",
+						"Light Grey",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Skin",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Black",
+						"Dark Grey",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Purple",
+						"Dino Medium Brown",
+						"Light Grey",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Lower Fur Stripes",
 					"colors": [
 						"BigFoot0",
 						"BigFoot4",
@@ -15597,7 +15597,7 @@
 				null,
 				[ 350, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0.2, 0 ],
+				[ 1, 0, 0.001, 0.2, 0 ],
 				null,
 				null
 			],
@@ -24463,7 +24463,7 @@
 				null,
 				[ 700, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0.2, 0 ],
+				[ 1, 0, 0.001, 0.2, 0 ],
 				null,
 				null
 			],
@@ -36322,7 +36322,7 @@
 				null,
 				[ 350, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0.2, 0 ],
+				[ 1, 0, 0.001, 0.2, 0 ],
 				null,
 				null
 			],
@@ -61573,23 +61573,7 @@
 					]
 				},
 				null,
-				{
-					"name": "Unknown",
-					"colors": [
-						"BigFoot0",
-						"BigFoot4",
-						"BigFoot5",
-						"Black",
-						"Dark Grey",
-						"Dino Dark Brown",
-						"Dino Dark Orange",
-						"Dino Darker Grey",
-						"Dino Light Brown",
-						"Dino Light Orange",
-						"Dino Medium Brown",
-						"Light Grey"
-					]
-				},
+				null,
 				{
 					"name": "Underside",
 					"colors": [
