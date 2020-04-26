@@ -1127,5 +1127,17 @@ namespace ARKBreedingStats.Properties {
                 this["CustomOverlayLocation"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AdminConsoleCommandWithCheat {
+            get {
+                return ((bool)(this["AdminConsoleCommandWithCheat"]));
+            }
+            set {
+                this["AdminConsoleCommandWithCheat"] = value;
+            }
+        }
     }
 }

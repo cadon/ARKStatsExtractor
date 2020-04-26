@@ -55,7 +55,7 @@ namespace ARKBreedingStats
             creatureBoxListView.Clear();
             Properties.Settings.Default.LastSaveFile = "";
             Properties.Settings.Default.LastImportFile = "";
-            currentFileName = "";
+            currentFileName = null;
             fileSync.ChangeFile(currentFileName);
             SetCollectionChanged(false);
         }
@@ -224,7 +224,7 @@ namespace ARKBreedingStats
             Species selectedSpecies = speciesSelector1.SelectedSpecies;
             Species selectedlibrarySpecies = listBoxSpeciesLib.SelectedItem as Species;
 
-            if (!File.Exists(filePath))
+            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
             {
                 MessageBox.Show($"Save file with name \"{filePath}\" does not exist!", "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
@@ -313,19 +313,22 @@ namespace ARKBreedingStats
                     else
                     {
                         // new json-format
-                        CreatureCollection tmpCC;
-                        using (StreamReader file = File.OpenText(filePath))
+                        if (FileService.LoadJSONFile(filePath, out CreatureCollection readCollection, out string errorMessage))
                         {
-                            JsonSerializer serializer = new JsonSerializer();
-                            tmpCC = (CreatureCollection)serializer.Deserialize(file, typeof(CreatureCollection));
+                            if (!Version.TryParse(readCollection.FormatVersion, out Version ccVersion)
+                               || !Version.TryParse(CreatureCollection.CURRENT_FORMAT_VERSION, out Version currentVersion)
+                               || ccVersion > currentVersion)
+                            {
+                                throw new FormatException("Unhandled format version");
+                            }
+                            creatureCollection = readCollection;
                         }
-                        if (!Version.TryParse(tmpCC.FormatVersion, out Version ccVersion)
-                           || !Version.TryParse(CreatureCollection.CURRENT_FORMAT_VERSION, out Version currentVersion)
-                           || ccVersion > currentVersion)
+                        else
                         {
-                            throw new FormatException("Unhandled format version");
+                            MessageBox.Show($"Error while trying to read the library-file\n{filePath}\n\n{errorMessage}",
+                                    "Error reading library-file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return false;
                         }
-                        creatureCollection = tmpCC;
                     }
 
                     break;
@@ -473,7 +476,7 @@ namespace ARKBreedingStats
             if (autoSave && changed)
             {
                 // save changes automatically
-                if (!string.IsNullOrEmpty(currentFileName) && autoSaveMinutes > 0 && (DateTime.Now - lastAutoSaveBackup).TotalMinutes > autoSaveMinutes)
+                if (!string.IsNullOrEmpty(currentFileName) && autoSaveMinutes > 0 && (DateTime.Now - lastAutoSaveBackup).TotalMinutes > autoSaveMinutes && FileService.IsValidJsonFile(currentFileName))
                 {
                     string filenameWOExt = Path.GetFileNameWithoutExtension(currentFileName);
                     string timeStamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
@@ -507,8 +510,8 @@ namespace ARKBreedingStats
                 return; // function is called soon again from savecollection()
             }
             collectionDirty = changed;
-            string fileName = Path.GetFileName(currentFileName);
-            Text = $"ARK Smart Breeding{(string.IsNullOrEmpty(fileName) ? "" : " - " + fileName)}{(changed ? " *" : "")}";
+            string fileName = string.IsNullOrEmpty(currentFileName) ? null : Path.GetFileName(currentFileName);
+            Text = $"ARK Smart Breeding{(string.IsNullOrEmpty(fileName) ? string.Empty : " - " + fileName)}{(changed ? " *" : "")}";
             openFolderOfCurrentFileToolStripMenuItem.Enabled = !string.IsNullOrEmpty(currentFileName);
         }
     }

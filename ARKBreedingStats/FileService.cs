@@ -100,10 +100,10 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="filePath">filePath</param>
         /// <param name="data"></param>
-        public static bool LoadJSONFile<T>(string filePath, out T data, out string errorMessage)
+        public static bool LoadJSONFile<T>(string filePath, out T data, out string errorMessage) where T : class
         {
             errorMessage = null;
-            data = default;
+            data = null;
             if (!File.Exists(filePath))
                 return false;
 
@@ -114,7 +114,11 @@ namespace ARKBreedingStats
                 {
                     var ser = new Newtonsoft.Json.JsonSerializer();
                     data = (T)ser.Deserialize(sr, typeof(T));
-                    return true;
+                    if (data != null)
+                        return true;
+
+                    errorMessage = $"File\n{Path.GetFullPath(filePath)}\n contains no readable data.";
+                    return false;
                 }
             }
             catch (Newtonsoft.Json.JsonReaderException ex)
@@ -201,6 +205,28 @@ namespace ARKBreedingStats
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// Checks if a file is a valid json file.
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        internal static bool IsValidJsonFile(string filePath)
+        {
+            if (!File.Exists(filePath))
+                return false;
+
+            string fileContent = File.ReadAllText(filePath);
+            // currently very basic test, could be improved
+            return fileContent.StartsWith("{") && fileContent.EndsWith("}");
+
+            //try
+            //{
+            //    Newtonsoft.Json.Linq.JObject.Parse(fileContent);
+            //    return true;
+            //}
+            //catch { return false; }
         }
     }
 }

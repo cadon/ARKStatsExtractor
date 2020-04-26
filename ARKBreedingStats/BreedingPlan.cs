@@ -47,6 +47,22 @@ namespace ARKBreedingStats
         private ToolTip tt = new ToolTip();
         public const double probabilityHigherLevel = 0.55; // probability of inheriting the higher level-stat
         public const double probabilityLowerLevel = 1 - probabilityHigherLevel; // probability of inheriting the lower level-stat
+        private const double probabilityOfMutation = 0.025;
+        //private const int maxMutationRolls = 3;
+        /// <summary>
+        /// A mutation is possible if the Mutations are less than this number.
+        /// </summary>
+        private const int mutationPossibleWithLessThan = 20;
+        /// <summary>
+        /// The probability that at least one mutation happens if both parents have a mutation counter of less than 20.
+        /// </summary>
+        private const double probabilityOfOneMutation = 1 - (1 - probabilityOfMutation) * (1 - probabilityOfMutation) * (1 - probabilityOfMutation);
+        /// <summary>
+        /// The approximate probability of at least one mutation if one parent has less and one parent has larger or equal 20 mutation.
+        /// It's assumed that the stats of the mutated stat are the same for the parents.
+        /// If they differ, the probability for a mutation from the parent with the higher stat is probabilityHigherLevel * probabilityOfMutation etc.
+        /// </summary>
+        private const double probabilityOfOneMutationFromOneParent = 1 - (1 - probabilityOfMutation / 2) * (1 - probabilityOfMutation / 2) * (1 - probabilityOfMutation / 2);
 
         public BreedingPlan()
         {
@@ -450,7 +466,11 @@ namespace ARKBreedingStats
                             //t *= 2; // scale conservative mode as it rather displays improvement, but only scarcely
                         }
 
-                        breedingPairs.Add(new BreedingPair(female, male, t * 1.25));
+
+                        int mutationPossibleFrom = female.Mutations < mutationPossibleWithLessThan && male.Mutations < mutationPossibleWithLessThan ? 2
+                            : female.Mutations < mutationPossibleWithLessThan || male.Mutations < mutationPossibleWithLessThan ? 1 : 0;
+
+                        breedingPairs.Add(new BreedingPair(female, male, t * 1.25, (mutationPossibleFrom == 2 ? probabilityOfOneMutation : mutationPossibleFrom == 1 ? probabilityOfOneMutationFromOneParent : 0)));
                     }
                 }
 
@@ -543,17 +563,24 @@ namespace ARKBreedingStats
                     }
 
                     Bitmap bm = new Bitmap(pb.Width, pb.Height);
-                    Graphics g;
-                    using (g = Graphics.FromImage(bm))
+                    using (Graphics g = Graphics.FromImage(bm))
                     {
                         g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-                        Brush br = new SolidBrush(Utils.GetColorFromPercent((int)(breedingPairs[i].BreedingScore * 12.5), 0.5));
-                        Brush brd = new SolidBrush(Utils.GetColorFromPercent((int)(breedingPairs[i].BreedingScore * 12.5), -.2));
-                        g.FillRectangle(brd, 0, 15, 87, 5);
-                        g.FillRectangle(brd, 20, 10, 47, 15);
-                        g.FillRectangle(br, 1, 16, 85, 3);
-                        g.FillRectangle(br, 21, 11, 45, 13);
-                        g.DrawString(breedingPairs[i].BreedingScore.ToString("N4"), new Font("Microsoft Sans Serif", 8.25f), new SolidBrush(Color.Black), 24, 12);
+                        using (Brush br = new SolidBrush(Utils.GetColorFromPercent((int)(breedingPairs[i].BreedingScore * 12.5), 0.5)))
+                        using (Brush brOutline = new SolidBrush(Utils.GetColorFromPercent((int)(breedingPairs[i].BreedingScore * 12.5), -.2)))
+                        using (Brush bb = new SolidBrush(Color.Black))
+                        using (Brush bMut = new SolidBrush(Utils.MutationColor))
+                        {
+                            if (breedingPairs[i].Female.Mutations < mutationPossibleWithLessThan)
+                                g.FillRectangle(bMut, 0, 5, 10, 10);
+                            if (breedingPairs[i].Male.Mutations < mutationPossibleWithLessThan)
+                                g.FillRectangle(bMut, 77, 5, 10, 10);
+                            g.FillRectangle(brOutline, 0, 15, 87, 5);
+                            g.FillRectangle(brOutline, 20, 10, 47, 15);
+                            g.FillRectangle(br, 1, 16, 85, 3);
+                            g.FillRectangle(br, 21, 11, 45, 13);
+                            g.DrawString(breedingPairs[i].BreedingScore.ToString("N4"), new Font("Microsoft Sans Serif", 8.25f), bb, 24, 12);
+                        }
                         pb.Image = bm;
                     }
 
@@ -681,6 +708,7 @@ namespace ARKBreedingStats
             pedigreeCreatureWorst.Clear();
             lbBreedingPlanInfo.Visible = false;
             lbBPProbabilityBest.Text = string.Empty;
+            lbMutationProbability.Text = string.Empty;
             offspringPossibilities1.Clear();
             SetMessageLabelText();
         }
@@ -709,8 +737,11 @@ namespace ARKBreedingStats
                 bool isGlowSpecies = species.IsGlowSpecies;
                 pedigreeCreature1.IsGlowSpecies = isGlowSpecies;
                 pedigreeCreature2.IsGlowSpecies = isGlowSpecies;
-                if (Raising.GetRaisingTimes(species, out string incubationMode, out incubationTime, out TimeSpan babyTime, out TimeSpan maturationTime, out TimeSpan nextMatingMin, out TimeSpan nextMatingMax))
+                if (Raising.GetRaisingTimes(species, out TimeSpan matingTime, out string incubationMode, out incubationTime, out TimeSpan babyTime, out TimeSpan maturationTime, out TimeSpan nextMatingMin, out TimeSpan nextMatingMax))
                 {
+                    if (matingTime != TimeSpan.Zero)
+                        listViewRaisingTimes.Items.Add(new ListViewItem(new[] { Loc.s("matingTime"), matingTime.ToString("d':'hh':'mm':'ss") }));
+
                     TimeSpan totalTime = incubationTime;
                     DateTime until = DateTime.Now.Add(totalTime);
                     string[] times = { incubationMode, incubationTime.ToString("d':'hh':'mm':'ss"), totalTime.ToString("d':'hh':'mm':'ss"), Utils.ShortTimeDate(until) };
@@ -728,7 +759,8 @@ namespace ARKBreedingStats
 
                     string eggInfo = Raising.EggTemperature(species);
 
-                    labelBreedingInfos.Text = $"{Loc.s("TimeBetweenMating")}: {nextMatingMin:d':'hh':'mm':'ss} to {nextMatingMax:d':'hh':'mm':'ss}{(!string.IsNullOrEmpty(eggInfo) ? "\n\n" + eggInfo : string.Empty)}";
+                    labelBreedingInfos.Text = (nextMatingMin != TimeSpan.Zero ? $"{Loc.s("TimeBetweenMating")}: {nextMatingMin:d':'hh':'mm':'ss} to {nextMatingMax:d':'hh':'mm':'ss}" : string.Empty)
+                        + ((!string.IsNullOrEmpty(eggInfo) ? "\n" + eggInfo : string.Empty));
                 }
             }
         }
@@ -818,6 +850,7 @@ namespace ARKBreedingStats
                 pedigreeCreatureWorst.Clear();
                 lbBreedingPlanInfo.Visible = false;
                 lbBPProbabilityBest.Text = string.Empty;
+                lbMutationProbability.Text = string.Empty;
                 return;
             }
 
@@ -862,7 +895,8 @@ namespace ARKBreedingStats
             crW.mutationsPaternal = mutationCounterPaternal;
             pedigreeCreatureBest.Creature = crB;
             pedigreeCreatureWorst.Creature = crW;
-            lbBPProbabilityBest.Text = $"{Loc.s("ProbabilityForBest")}: {Math.Round(100 * probabilityBest, 1)}%";
+            lbBPProbabilityBest.Text = $"{Loc.s("ProbabilityForBest")}: {Math.Round(100 * probabilityBest, 1)} %";
+            lbMutationProbability.Text = $"{Loc.s("ProbabilityForOneMutation")}: {Math.Round(100 * breedingPairs[comboIndex].MutationProbability, 1)} %";
 
             // set probability barChart
             offspringPossibilities1.Calculate(currentSpecies, mother.levelsWild, father.levelsWild);

@@ -6,7 +6,7 @@ namespace ARKBreedingStats
 {
     class FileSync
     {
-        string currentFile = "";
+        string currentFile;
         readonly FileSystemWatcher file_watcher;
         DateTime lastUpdated;
         WatcherChangeTypes lastChangeType;
@@ -39,6 +39,8 @@ namespace ARKBreedingStats
 
         private void OnChanged(object source, FileSystemEventArgs e)
         {
+            if (string.IsNullOrEmpty(currentFile)) return;
+
             if (e.ChangeType != WatcherChangeTypes.Changed &&                                                    // default || DropBox
                 !(e.ChangeType == WatcherChangeTypes.Renamed && lastChangeType == WatcherChangeTypes.Deleted) && // NextCloud
                 !(e.ChangeType == WatcherChangeTypes.Created && lastChangeType == WatcherChangeTypes.Deleted))   // CloudStation
@@ -89,7 +91,7 @@ namespace ARKBreedingStats
 
         private void UpdateProperties()
         {
-            if (currentFile != "" && Properties.Settings.Default.syncCollection)
+            if (!string.IsNullOrEmpty(currentFile) && Properties.Settings.Default.syncCollection)
             {
                 // Update the path notify filter and filter of the watcher
                 file_watcher.Path = Directory.GetParent(currentFile).ToString();

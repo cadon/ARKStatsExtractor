@@ -79,6 +79,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Added at.
+        /// </summary>
+        internal static string addedAt {
+            get {
+                return ResourceManager.GetString("addedAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is already a creature in your library that has all the available top-stats ({0} {1}).
         ///The currently selected conservative-breeding-mode might show some suggestions that may seem non-optimal.
         ///Change the breeding-mode to &quot;High Stats&quot; for better suggestions..
@@ -1558,6 +1567,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mating Time.
+        /// </summary>
+        internal static string matingTime {
+            get {
+                return ResourceManager.GetString("matingTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Maturation.
         /// </summary>
         internal static string Maturation {
@@ -1888,6 +1906,15 @@ namespace ARKBreedingStats.local {
         internal static string ProbabilityForBest {
             get {
                 return ResourceManager.GetString("ProbabilityForBest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Probability for one mutation.
+        /// </summary>
+        internal static string ProbabilityForOneMutation {
+            get {
+                return ResourceManager.GetString("ProbabilityForOneMutation", resourceCulture);
             }
         }
         

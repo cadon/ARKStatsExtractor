@@ -1010,4 +1010,13 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   <data name="Descendants" xml:space="preserve">
     <value>Descendants</value>
   </data>
+  <data name="ProbabilityForOneMutation" xml:space="preserve">
+    <value>Probability for one mutation</value>
+  </data>
+  <data name="matingTime" xml:space="preserve">
+    <value>Mating Time</value>
+  </data>
+  <data name="addedAt" xml:space="preserve">
+    <value>Added at</value>
+  </data>
 </root>

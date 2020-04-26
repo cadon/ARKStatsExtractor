@@ -494,6 +494,8 @@ namespace ARKBreedingStats.values
                     sp.breeding.gestationTimeAdjusted = sp.breeding.gestationTime / currentServerMultipliers.EggHatchSpeedMultiplier;
                     sp.breeding.incubationTimeAdjusted = sp.breeding.incubationTime / currentServerMultipliers.EggHatchSpeedMultiplier;
                 }
+                if (currentServerMultipliers.MatingSpeedMultiplier > 0)
+                    sp.breeding.matingTimeAdjusted = sp.breeding.matingTime / currentServerMultipliers.MatingSpeedMultiplier;
                 if (currentServerMultipliers.BabyMatureSpeedMultiplier > 0)
                     sp.breeding.maturationTimeAdjusted = sp.breeding.maturationTime / currentServerMultipliers.BabyMatureSpeedMultiplier;
 

@@ -25,7 +25,7 @@ namespace ARKBreedingStats
     public partial class Form1 : Form
     {
         private CreatureCollection creatureCollection = new CreatureCollection();
-        private string currentFileName = "";
+        private string currentFileName;
         private bool collectionDirty;
         /// <summary>
         /// List of all top stats per species
@@ -1853,7 +1853,7 @@ namespace ARKBreedingStats
             if (c != null)
             {
                 string clpb = Newtonsoft.Json.JsonConvert.SerializeObject(c);
-                if (clpb.Length > 0)
+                if (!string.IsNullOrEmpty(clpb))
                     Clipboard.SetText(clpb);
             }
         }
@@ -2522,8 +2522,9 @@ namespace ARKBreedingStats
                 testingIOs[s].LevelDom = statIOs[s].LevelDom;
                 testingStatIOValueUpdate(testingIOs[s]);
             }
+
             // set the data in the creatureInfoInput
-            SetTesterInfoInputCreature();
+            SetTesterInfoInputCreature(); // clear data
             creatureInfoInputTester.CreatureName = creatureInfoInputExtractor.CreatureName;
             creatureInfoInputTester.CreatureOwner = creatureInfoInputExtractor.CreatureOwner;
             creatureInfoInputTester.CreatureTribe = creatureInfoInputExtractor.CreatureTribe;
@@ -2533,6 +2534,7 @@ namespace ARKBreedingStats
             creatureInfoInputTester.CreatureNote = creatureInfoInputExtractor.CreatureNote;
             creatureInfoInputTester.CooldownUntil = creatureInfoInputExtractor.CooldownUntil;
             creatureInfoInputTester.GrowingUntil = creatureInfoInputExtractor.GrowingUntil;
+            creatureInfoInputTester.AddedToLibraryAt = creatureInfoInputExtractor.AddedToLibraryAt;
             creatureInfoInputTester.MutationCounterMother = creatureInfoInputExtractor.MutationCounterMother;
             creatureInfoInputTester.MutationCounterFather = creatureInfoInputExtractor.MutationCounterFather;
             creatureInfoInputTester.CreatureSex = creatureInfoInputExtractor.CreatureSex;
@@ -3203,18 +3205,16 @@ namespace ARKBreedingStats
             {
                 int[] cl = cr.colors;
                 if (cl == null) return;
-                StringBuilder sb = new StringBuilder();
-                for (int c = 0; c < 6; c++)
+                var colorCommands = new List<string>(6);
+                for (int ci = 0; ci < 6; ci++)
                 {
-                    if (cl[c] != 0) sb.Append($"setTargetDinoColor {c} {cl[c]}|");
+                    if (!string.IsNullOrEmpty(cr.Species.colors[ci]?.name))
+                        colorCommands.Add($"setTargetDinoColor {ci} {cl[ci]}");
                 }
-                if (sb.Length > 0)
+                if (colorCommands.Any())
                 {
-                    sb.Remove(sb.Length - 1, 1); // remove pipe at the end
-                    Clipboard.SetText(sb.ToString());
+                    Clipboard.SetText((Properties.Settings.Default.AdminConsoleCommandWithCheat ? "cheat " : string.Empty) + string.Join(" | ", colorCommands));
                 }
-                else
-                    Clipboard.SetText(string.Empty);
             }
         }
 

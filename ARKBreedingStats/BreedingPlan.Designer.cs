@@ -42,12 +42,16 @@ namespace ARKBreedingStats
             this.cbServerFilterLibrary = new System.Windows.Forms.CheckBox();
             this.cbBPTagExcludeDefault = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.tagSelectorList1 = new ARKBreedingStats.uiControls.TagSelectorList();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.lbBreedingPlanHeader = new System.Windows.Forms.Label();
+            this.pedigreeCreatureBestPossibleInSpecies = new ARKBreedingStats.PedigreeCreature();
             this.btShowAllCreatures = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pedigreeCreature1 = new ARKBreedingStats.PedigreeCreature();
             this.lbBPBreedingScore = new System.Windows.Forms.Label();
+            this.pedigreeCreature2 = new ARKBreedingStats.PedigreeCreature();
             this.gbBPOffspring = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
@@ -60,27 +64,24 @@ namespace ARKBreedingStats
             this.lbBPBreedingTimes = new System.Windows.Forms.Label();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.lbBPProbabilityBest = new System.Windows.Forms.Label();
+            this.pedigreeCreatureBest = new ARKBreedingStats.PedigreeCreature();
+            this.pedigreeCreatureWorst = new ARKBreedingStats.PedigreeCreature();
+            this.lbMutationProbability = new System.Windows.Forms.Label();
             this.btBPJustMated = new System.Windows.Forms.Button();
+            this.offspringPossibilities1 = new ARKBreedingStats.OffspringPossibilities();
             this.panelCombinations = new System.Windows.Forms.Panel();
             this.lbBreedingPlanInfo = new System.Windows.Forms.Label();
             this.flowLayoutPanelPairs = new System.Windows.Forms.FlowLayoutPanel();
             this.gbBPBreedingMode = new System.Windows.Forms.GroupBox();
+            this.cbBPMutationLimitOnlyOnePartner = new System.Windows.Forms.CheckBox();
             this.cbBPOnlyOneSuggestionForFemales = new System.Windows.Forms.CheckBox();
             this.cbBPIncludeCryoCreatures = new System.Windows.Forms.CheckBox();
+            this.nudBPMutationLimit = new ARKBreedingStats.uiControls.Nud();
             this.label2 = new System.Windows.Forms.Label();
             this.cbBPIncludeCooldowneds = new System.Windows.Forms.CheckBox();
             this.rbBPTopStatsCn = new System.Windows.Forms.RadioButton();
             this.rbBPHighStats = new System.Windows.Forms.RadioButton();
             this.rbBPTopStats = new System.Windows.Forms.RadioButton();
-            this.cbBPMutationLimitOnlyOnePartner = new System.Windows.Forms.CheckBox();
-            this.tagSelectorList1 = new ARKBreedingStats.uiControls.TagSelectorList();
-            this.pedigreeCreatureBestPossibleInSpecies = new ARKBreedingStats.PedigreeCreature();
-            this.pedigreeCreature1 = new ARKBreedingStats.PedigreeCreature();
-            this.pedigreeCreature2 = new ARKBreedingStats.PedigreeCreature();
-            this.pedigreeCreatureBest = new ARKBreedingStats.PedigreeCreature();
-            this.pedigreeCreatureWorst = new ARKBreedingStats.PedigreeCreature();
-            this.offspringPossibilities1 = new ARKBreedingStats.OffspringPossibilities();
-            this.nudBPMutationLimit = new ARKBreedingStats.uiControls.Nud();
             this.statWeighting1 = new ARKBreedingStats.uiControls.StatWeighting();
             this.tableLayoutMain.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -217,6 +218,14 @@ namespace ARKBreedingStats
             this.label1.Text = "Consider creatures by tag. \r\n✕ excludes creatures, ✓ includes creatures (even if " +
     "they have an exclusive tag). Add tags in the library with F3.";
             // 
+            // tagSelectorList1
+            // 
+            this.tagSelectorList1.AutoScroll = true;
+            this.tagSelectorList1.Location = new System.Drawing.Point(6, 144);
+            this.tagSelectorList1.Name = "tagSelectorList1";
+            this.tagSelectorList1.Size = new System.Drawing.Size(174, 263);
+            this.tagSelectorList1.TabIndex = 3;
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
@@ -261,6 +270,17 @@ namespace ARKBreedingStats
             this.lbBreedingPlanHeader.Text = "Select a species and click on \"Determine Best Breeding\" to see suggestions";
             this.lbBreedingPlanHeader.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // pedigreeCreatureBestPossibleInSpecies
+            // 
+            this.pedigreeCreatureBestPossibleInSpecies.Creature = null;
+            this.pedigreeCreatureBestPossibleInSpecies.IsVirtual = false;
+            this.pedigreeCreatureBestPossibleInSpecies.Location = new System.Drawing.Point(3, 44);
+            this.pedigreeCreatureBestPossibleInSpecies.Name = "pedigreeCreatureBestPossibleInSpecies";
+            this.pedigreeCreatureBestPossibleInSpecies.OnlyLevels = false;
+            this.pedigreeCreatureBestPossibleInSpecies.Size = new System.Drawing.Size(325, 35);
+            this.pedigreeCreatureBestPossibleInSpecies.TabIndex = 5;
+            this.pedigreeCreatureBestPossibleInSpecies.TotalLevelUnknown = false;
+            // 
             // btShowAllCreatures
             // 
             this.btShowAllCreatures.Location = new System.Drawing.Point(426, 44);
@@ -280,6 +300,18 @@ namespace ARKBreedingStats
             this.panel1.Size = new System.Drawing.Size(10, 32);
             this.panel1.TabIndex = 7;
             // 
+            // pedigreeCreature1
+            // 
+            this.pedigreeCreature1.Creature = null;
+            this.pedigreeCreature1.IsVirtual = false;
+            this.pedigreeCreature1.Location = new System.Drawing.Point(3, 82);
+            this.pedigreeCreature1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
+            this.pedigreeCreature1.Name = "pedigreeCreature1";
+            this.pedigreeCreature1.OnlyLevels = false;
+            this.pedigreeCreature1.Size = new System.Drawing.Size(325, 35);
+            this.pedigreeCreature1.TabIndex = 2;
+            this.pedigreeCreature1.TotalLevelUnknown = false;
+            // 
             // lbBPBreedingScore
             // 
             this.lbBPBreedingScore.Location = new System.Drawing.Point(334, 97);
@@ -288,6 +320,18 @@ namespace ARKBreedingStats
             this.lbBPBreedingScore.Size = new System.Drawing.Size(87, 20);
             this.lbBPBreedingScore.TabIndex = 4;
             this.lbBPBreedingScore.Text = "Breeding-Score";
+            // 
+            // pedigreeCreature2
+            // 
+            this.pedigreeCreature2.Creature = null;
+            this.pedigreeCreature2.IsVirtual = false;
+            this.pedigreeCreature2.Location = new System.Drawing.Point(427, 82);
+            this.pedigreeCreature2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
+            this.pedigreeCreature2.Name = "pedigreeCreature2";
+            this.pedigreeCreature2.OnlyLevels = false;
+            this.pedigreeCreature2.Size = new System.Drawing.Size(325, 35);
+            this.pedigreeCreature2.TabIndex = 3;
+            this.pedigreeCreature2.TotalLevelUnknown = false;
             // 
             // gbBPOffspring
             // 
@@ -336,9 +380,10 @@ namespace ARKBreedingStats
             // 
             // labelBreedingInfos
             // 
-            this.labelBreedingInfos.Location = new System.Drawing.Point(3, 109);
+            this.labelBreedingInfos.AutoSize = true;
+            this.labelBreedingInfos.Location = new System.Drawing.Point(3, 121);
             this.labelBreedingInfos.Name = "labelBreedingInfos";
-            this.labelBreedingInfos.Size = new System.Drawing.Size(322, 48);
+            this.labelBreedingInfos.Size = new System.Drawing.Size(75, 13);
             this.labelBreedingInfos.TabIndex = 7;
             this.labelBreedingInfos.Text = "Breeding Infos";
             // 
@@ -354,7 +399,7 @@ namespace ARKBreedingStats
             this.listViewRaisingTimes.Location = new System.Drawing.Point(3, 20);
             this.listViewRaisingTimes.Name = "listViewRaisingTimes";
             this.listViewRaisingTimes.ShowGroups = false;
-            this.listViewRaisingTimes.Size = new System.Drawing.Size(317, 86);
+            this.listViewRaisingTimes.Size = new System.Drawing.Size(351, 98);
             this.listViewRaisingTimes.TabIndex = 4;
             this.listViewRaisingTimes.UseCompatibleStateImageBehavior = false;
             this.listViewRaisingTimes.View = System.Windows.Forms.View.Details;
@@ -394,6 +439,7 @@ namespace ARKBreedingStats
             this.flowLayoutPanel2.Controls.Add(this.lbBPProbabilityBest);
             this.flowLayoutPanel2.Controls.Add(this.pedigreeCreatureBest);
             this.flowLayoutPanel2.Controls.Add(this.pedigreeCreatureWorst);
+            this.flowLayoutPanel2.Controls.Add(this.lbMutationProbability);
             this.flowLayoutPanel2.Controls.Add(this.btBPJustMated);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 3);
@@ -411,15 +457,58 @@ namespace ARKBreedingStats
             this.lbBPProbabilityBest.TabIndex = 6;
             this.lbBPProbabilityBest.Text = "Probability for this Best Possible outcome:";
             // 
+            // pedigreeCreatureBest
+            // 
+            this.pedigreeCreatureBest.Creature = null;
+            this.pedigreeCreatureBest.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.flowLayoutPanel2.SetFlowBreak(this.pedigreeCreatureBest, true);
+            this.pedigreeCreatureBest.IsVirtual = false;
+            this.pedigreeCreatureBest.Location = new System.Drawing.Point(3, 16);
+            this.pedigreeCreatureBest.Name = "pedigreeCreatureBest";
+            this.pedigreeCreatureBest.OnlyLevels = false;
+            this.pedigreeCreatureBest.Size = new System.Drawing.Size(325, 35);
+            this.pedigreeCreatureBest.TabIndex = 1;
+            this.pedigreeCreatureBest.TotalLevelUnknown = false;
+            // 
+            // pedigreeCreatureWorst
+            // 
+            this.pedigreeCreatureWorst.Creature = null;
+            this.pedigreeCreatureWorst.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.flowLayoutPanel2.SetFlowBreak(this.pedigreeCreatureWorst, true);
+            this.pedigreeCreatureWorst.IsVirtual = false;
+            this.pedigreeCreatureWorst.Location = new System.Drawing.Point(3, 57);
+            this.pedigreeCreatureWorst.Name = "pedigreeCreatureWorst";
+            this.pedigreeCreatureWorst.OnlyLevels = false;
+            this.pedigreeCreatureWorst.Size = new System.Drawing.Size(325, 35);
+            this.pedigreeCreatureWorst.TabIndex = 2;
+            this.pedigreeCreatureWorst.TotalLevelUnknown = false;
+            // 
+            // lbMutationProbability
+            // 
+            this.lbMutationProbability.AutoSize = true;
+            this.flowLayoutPanel2.SetFlowBreak(this.lbMutationProbability, true);
+            this.lbMutationProbability.Location = new System.Drawing.Point(3, 95);
+            this.lbMutationProbability.Name = "lbMutationProbability";
+            this.lbMutationProbability.Size = new System.Drawing.Size(115, 13);
+            this.lbMutationProbability.TabIndex = 7;
+            this.lbMutationProbability.Text = "Probability of mutations";
+            // 
             // btBPJustMated
             // 
-            this.btBPJustMated.Location = new System.Drawing.Point(3, 98);
+            this.btBPJustMated.Location = new System.Drawing.Point(3, 111);
             this.btBPJustMated.Name = "btBPJustMated";
-            this.btBPJustMated.Size = new System.Drawing.Size(325, 33);
+            this.btBPJustMated.Size = new System.Drawing.Size(325, 29);
             this.btBPJustMated.TabIndex = 0;
             this.btBPJustMated.Text = "These Parents just mated";
             this.btBPJustMated.UseVisualStyleBackColor = true;
             this.btBPJustMated.Click += new System.EventHandler(this.buttonJustMated_Click);
+            // 
+            // offspringPossibilities1
+            // 
+            this.offspringPossibilities1.Location = new System.Drawing.Point(361, 3);
+            this.offspringPossibilities1.Name = "offspringPossibilities1";
+            this.offspringPossibilities1.Size = new System.Drawing.Size(247, 151);
+            this.offspringPossibilities1.TabIndex = 1;
             // 
             // panelCombinations
             // 
@@ -470,6 +559,17 @@ namespace ARKBreedingStats
             this.gbBPBreedingMode.TabStop = false;
             this.gbBPBreedingMode.Text = "Breeding-Mode";
             // 
+            // cbBPMutationLimitOnlyOnePartner
+            // 
+            this.cbBPMutationLimitOnlyOnePartner.AutoSize = true;
+            this.cbBPMutationLimitOnlyOnePartner.Location = new System.Drawing.Point(29, 160);
+            this.cbBPMutationLimitOnlyOnePartner.Name = "cbBPMutationLimitOnlyOnePartner";
+            this.cbBPMutationLimitOnlyOnePartner.Size = new System.Drawing.Size(205, 17);
+            this.cbBPMutationLimitOnlyOnePartner.TabIndex = 8;
+            this.cbBPMutationLimitOnlyOnePartner.Text = "One partner may have more mutations";
+            this.cbBPMutationLimitOnlyOnePartner.UseVisualStyleBackColor = true;
+            this.cbBPMutationLimitOnlyOnePartner.CheckedChanged += new System.EventHandler(this.cbMutationLimitOnlyOnePartner_CheckedChanged);
+            // 
             // cbBPOnlyOneSuggestionForFemales
             // 
             this.cbBPOnlyOneSuggestionForFemales.AutoSize = true;
@@ -491,6 +591,30 @@ namespace ARKBreedingStats
             this.cbBPIncludeCryoCreatures.Text = "Include Creatures in Cryopods";
             this.cbBPIncludeCryoCreatures.UseVisualStyleBackColor = true;
             this.cbBPIncludeCryoCreatures.CheckedChanged += new System.EventHandler(this.cbBPIncludeCryoCreatures_CheckedChanged);
+            // 
+            // nudBPMutationLimit
+            // 
+            this.nudBPMutationLimit.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudBPMutationLimit.Location = new System.Drawing.Point(162, 134);
+            this.nudBPMutationLimit.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudBPMutationLimit.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.nudBPMutationLimit.Name = "nudBPMutationLimit";
+            this.nudBPMutationLimit.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudBPMutationLimit.Size = new System.Drawing.Size(50, 20);
+            this.nudBPMutationLimit.TabIndex = 4;
+            this.nudBPMutationLimit.ValueChanged += new System.EventHandler(this.nudMutationLimit_ValueChanged);
             // 
             // label2
             // 
@@ -546,107 +670,6 @@ namespace ARKBreedingStats
             this.rbBPTopStats.Text = "Top Stats Lc";
             this.rbBPTopStats.UseVisualStyleBackColor = true;
             this.rbBPTopStats.CheckedChanged += new System.EventHandler(this.radioButtonBPTopStats_CheckedChanged);
-            // 
-            // cbBPMutationLimitOnlyOnePartner
-            // 
-            this.cbBPMutationLimitOnlyOnePartner.AutoSize = true;
-            this.cbBPMutationLimitOnlyOnePartner.Location = new System.Drawing.Point(29, 160);
-            this.cbBPMutationLimitOnlyOnePartner.Name = "cbBPMutationLimitOnlyOnePartner";
-            this.cbBPMutationLimitOnlyOnePartner.Size = new System.Drawing.Size(205, 17);
-            this.cbBPMutationLimitOnlyOnePartner.TabIndex = 8;
-            this.cbBPMutationLimitOnlyOnePartner.Text = "One partner may have more mutations";
-            this.cbBPMutationLimitOnlyOnePartner.UseVisualStyleBackColor = true;
-            this.cbBPMutationLimitOnlyOnePartner.CheckedChanged += new System.EventHandler(this.cbMutationLimitOnlyOnePartner_CheckedChanged);
-            // 
-            // tagSelectorList1
-            // 
-            this.tagSelectorList1.AutoScroll = true;
-            this.tagSelectorList1.Location = new System.Drawing.Point(6, 144);
-            this.tagSelectorList1.Name = "tagSelectorList1";
-            this.tagSelectorList1.Size = new System.Drawing.Size(174, 263);
-            this.tagSelectorList1.TabIndex = 3;
-            // 
-            // pedigreeCreatureBestPossibleInSpecies
-            // 
-            this.pedigreeCreatureBestPossibleInSpecies.Creature = null;
-            this.pedigreeCreatureBestPossibleInSpecies.IsVirtual = false;
-            this.pedigreeCreatureBestPossibleInSpecies.Location = new System.Drawing.Point(3, 44);
-            this.pedigreeCreatureBestPossibleInSpecies.Name = "pedigreeCreatureBestPossibleInSpecies";
-            this.pedigreeCreatureBestPossibleInSpecies.Size = new System.Drawing.Size(325, 35);
-            this.pedigreeCreatureBestPossibleInSpecies.TabIndex = 5;
-            // 
-            // pedigreeCreature1
-            // 
-            this.pedigreeCreature1.Creature = null;
-            this.pedigreeCreature1.IsVirtual = false;
-            this.pedigreeCreature1.Location = new System.Drawing.Point(3, 82);
-            this.pedigreeCreature1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.pedigreeCreature1.Name = "pedigreeCreature1";
-            this.pedigreeCreature1.Size = new System.Drawing.Size(325, 35);
-            this.pedigreeCreature1.TabIndex = 2;
-            // 
-            // pedigreeCreature2
-            // 
-            this.pedigreeCreature2.Creature = null;
-            this.pedigreeCreature2.IsVirtual = false;
-            this.pedigreeCreature2.Location = new System.Drawing.Point(427, 82);
-            this.pedigreeCreature2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.pedigreeCreature2.Name = "pedigreeCreature2";
-            this.pedigreeCreature2.Size = new System.Drawing.Size(325, 35);
-            this.pedigreeCreature2.TabIndex = 3;
-            // 
-            // pedigreeCreatureBest
-            // 
-            this.pedigreeCreatureBest.Creature = null;
-            this.pedigreeCreatureBest.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.flowLayoutPanel2.SetFlowBreak(this.pedigreeCreatureBest, true);
-            this.pedigreeCreatureBest.IsVirtual = false;
-            this.pedigreeCreatureBest.Location = new System.Drawing.Point(3, 16);
-            this.pedigreeCreatureBest.Name = "pedigreeCreatureBest";
-            this.pedigreeCreatureBest.Size = new System.Drawing.Size(325, 35);
-            this.pedigreeCreatureBest.TabIndex = 1;
-            // 
-            // pedigreeCreatureWorst
-            // 
-            this.pedigreeCreatureWorst.Creature = null;
-            this.pedigreeCreatureWorst.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.flowLayoutPanel2.SetFlowBreak(this.pedigreeCreatureWorst, true);
-            this.pedigreeCreatureWorst.IsVirtual = false;
-            this.pedigreeCreatureWorst.Location = new System.Drawing.Point(3, 57);
-            this.pedigreeCreatureWorst.Name = "pedigreeCreatureWorst";
-            this.pedigreeCreatureWorst.Size = new System.Drawing.Size(325, 35);
-            this.pedigreeCreatureWorst.TabIndex = 2;
-            // 
-            // offspringPossibilities1
-            // 
-            this.offspringPossibilities1.Location = new System.Drawing.Point(361, 3);
-            this.offspringPossibilities1.Name = "offspringPossibilities1";
-            this.offspringPossibilities1.Size = new System.Drawing.Size(247, 151);
-            this.offspringPossibilities1.TabIndex = 1;
-            // 
-            // nudBPMutationLimit
-            // 
-            this.nudBPMutationLimit.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudBPMutationLimit.Location = new System.Drawing.Point(162, 134);
-            this.nudBPMutationLimit.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.nudBPMutationLimit.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            this.nudBPMutationLimit.Name = "nudBPMutationLimit";
-            this.nudBPMutationLimit.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudBPMutationLimit.Size = new System.Drawing.Size(50, 20);
-            this.nudBPMutationLimit.TabIndex = 4;
-            this.nudBPMutationLimit.ValueChanged += new System.EventHandler(this.nudMutationLimit_ValueChanged);
             // 
             // statWeighting1
             // 
@@ -750,5 +773,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.CheckBox cbBPIncludeCryoCreatures;
         private System.Windows.Forms.CheckBox cbBPOnlyOneSuggestionForFemales;
         private System.Windows.Forms.CheckBox cbBPMutationLimitOnlyOnePartner;
+        private System.Windows.Forms.Label lbMutationProbability;
     }
 }

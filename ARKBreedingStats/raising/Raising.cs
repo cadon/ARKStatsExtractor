@@ -12,8 +12,9 @@ namespace ARKBreedingStats.raising
         /// Retrieves the times for raising, i.e. for incubation, baby-phase, total maturation, and mating interval.
         /// </summary>
         /// <returns></returns>
-        public static bool GetRaisingTimes(Species species, out string incubationMode, out TimeSpan incubation, out TimeSpan baby, out TimeSpan maturation, out TimeSpan nextMatingMin, out TimeSpan nextMatingMax)
+        public static bool GetRaisingTimes(Species species, out TimeSpan matingTime, out string incubationMode, out TimeSpan incubation, out TimeSpan baby, out TimeSpan maturation, out TimeSpan nextMatingMin, out TimeSpan nextMatingMax)
         {
+            matingTime = new TimeSpan();
             incubation = new TimeSpan();
             baby = new TimeSpan();
             maturation = new TimeSpan();
@@ -29,6 +30,7 @@ namespace ARKBreedingStats.raising
 
             incubationMode = species.breeding.gestationTimeAdjusted == 0 ? "Incubation" : "Gestation";
 
+            matingTime = new TimeSpan(0, 0, (int)(species.breeding.matingTimeAdjusted));
             incubation = new TimeSpan(0, 0, (int)(species.breeding.incubationTimeAdjusted + species.breeding.gestationTimeAdjusted));
             baby = new TimeSpan(0, 0, (int)(.1f * species.breeding.maturationTimeAdjusted));
             maturation = new TimeSpan(0, 0, (int)(species.breeding.maturationTimeAdjusted));

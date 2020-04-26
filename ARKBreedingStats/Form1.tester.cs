@@ -36,35 +36,35 @@ namespace ARKBreedingStats
         /// <param name="virtualCreature">set to true if the creature is not in the library</param>
         private void EditCreatureInTester(Creature c, bool virtualCreature = false)
         {
-            if (c != null)
+            if (c == null)
+                return;
+
+            speciesSelector1.SetSpecies(c.Species);
+            NumericUpDownTestingTE.ValueSave = c.tamingEff >= 0 ? (decimal)c.tamingEff * 100 : 0;
+            numericUpDownImprintingBonusTester.ValueSave = (decimal)c.imprintingBonus * 100;
+            if (c.isBred)
+                rbBredTester.Checked = true;
+            else if (c.tamingEff > 0 || c.tamingEff == -2) // -2 is unknown (e.g. Giganotosaurus)
+                rbTamedTester.Checked = true;
+            else
+                rbWildTester.Checked = true;
+
+            hiddenLevelsCreatureTester = c.levelsWild[(int)StatNames.Torpidity];
+            for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                speciesSelector1.SetSpecies(c.Species);
-                NumericUpDownTestingTE.ValueSave = c.tamingEff >= 0 ? (decimal)c.tamingEff * 100 : 0;
-                numericUpDownImprintingBonusTester.ValueSave = (decimal)c.imprintingBonus * 100;
-                if (c.isBred)
-                    rbBredTester.Checked = true;
-                else if (c.tamingEff > 0 || c.tamingEff == -2) // -2 is unknown (e.g. Giganotosaurus)
-                    rbTamedTester.Checked = true;
-                else
-                    rbWildTester.Checked = true;
-
-                hiddenLevelsCreatureTester = c.levelsWild[(int)StatNames.Torpidity];
-                for (int s = 0; s < Values.STATS_COUNT; s++)
-                {
-                    if (s != (int)StatNames.Torpidity && c.levelsWild[s] > 0)
-                        hiddenLevelsCreatureTester -= c.levelsWild[s];
-                }
-
-                for (int s = 0; s < Values.STATS_COUNT; s++)
-                {
-                    if (s == (int)StatNames.Torpidity)
-                        continue;
-                    testingIOs[s].LevelWild = c.levelsWild[s];
-                    testingIOs[s].LevelDom = c.levelsDom[s];
-                }
-                tabControlMain.SelectedTab = tabPageStatTesting;
-                SetTesterInfoInputCreature(c, virtualCreature);
+                if (s != (int)StatNames.Torpidity && c.levelsWild[s] > 0)
+                    hiddenLevelsCreatureTester -= c.levelsWild[s];
             }
+
+            for (int s = 0; s < Values.STATS_COUNT; s++)
+            {
+                if (s == (int)StatNames.Torpidity)
+                    continue;
+                testingIOs[s].LevelWild = c.levelsWild[s];
+                testingIOs[s].LevelDom = c.levelsDom[s];
+            }
+            tabControlMain.SelectedTab = tabPageStatTesting;
+            SetTesterInfoInputCreature(c, virtualCreature);
         }
 
         private void UpdateAllTesterValues()
@@ -260,13 +260,13 @@ namespace ARKBreedingStats
             {
                 creatureInfoInputTester.Mother = null;
                 creatureInfoInputTester.Father = null;
-                creatureInfoInputTester.CreatureName = "";
+                creatureInfoInputTester.CreatureName = string.Empty;
                 creatureInfoInputTester.CreatureSex = Sex.Unknown;
-                creatureInfoInputTester.CreatureOwner = "";
-                creatureInfoInputTester.CreatureTribe = "";
-                creatureInfoInputTester.CreatureServer = "";
+                creatureInfoInputTester.CreatureOwner = string.Empty;
+                creatureInfoInputTester.CreatureTribe = string.Empty;
+                creatureInfoInputTester.CreatureServer = string.Empty;
                 creatureInfoInputTester.CreatureStatus = CreatureStatus.Available;
-                creatureInfoInputTester.CreatureNote = "";
+                creatureInfoInputTester.CreatureNote = string.Empty;
                 creatureInfoInputTester.CooldownUntil = DateTime.Now.AddHours(-1);
                 creatureInfoInputTester.GrowingUntil = DateTime.Now.AddHours(-1);
                 creatureInfoInputTester.DomesticatedAt = null;
