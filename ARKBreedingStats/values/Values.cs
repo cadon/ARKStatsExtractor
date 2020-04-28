@@ -17,7 +17,7 @@ namespace ARKBreedingStats.values
     public class Values
     {
         public const int STATS_COUNT = 12;
-        public const string CURRENT_FORMAT_VERSION = "1.12";
+        public const string CURRENT_FORMAT_VERSION = "1.13";
 
         private static Values _V;
 
@@ -36,6 +36,12 @@ namespace ARKBreedingStats.values
         public List<List<object>> colorDefinitions;
         [JsonProperty]
         public List<List<object>> dyeDefinitions;
+        /// <summary>
+        /// If a species for a blueprintpath is requestet, the blueprintPath will be remapped if an according key is present.
+        /// This is needed if species are remapped ingame, e.g. if a variant is removed.
+        /// </summary>
+        [JsonProperty]
+        public Dictionary<string, string> remaps;
 
         public ARKColors Colors;
         public ARKColors Dyes;
@@ -643,6 +649,10 @@ namespace ARKBreedingStats.values
         public Species SpeciesByBlueprint(string blueprintpath)
         {
             if (string.IsNullOrEmpty(blueprintpath)) return null;
+            if (remaps != null && remaps.ContainsKey(blueprintpath))
+            {
+                blueprintpath = remaps[blueprintpath];
+            }
             return blueprintToSpecies.ContainsKey(blueprintpath) ? blueprintToSpecies[blueprintpath] : null;
         }
 
