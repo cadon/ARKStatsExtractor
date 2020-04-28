@@ -6,29 +6,41 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Title="ASB Updater" 
-    Height="95" 
-    Width="250"
+    Height="300" 
+    Width="450"
     WindowStyle="None"
     WindowStartupLocation="CenterScreen" >
 
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="1*" />
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-
-        <Label
+        <ScrollViewer 
+            VerticalScrollBarVisibility="Auto"
+            x:Name="scrollViewer">
+            <TextBlock
+            Padding="3"
+            Foreground="White"
+            Background="Black"
+            TextWrapping="Wrap"
             x:Name="updateStatus"
+            Text="ARK Smart Breeding updater" />
+        </ScrollViewer>
+        <ProgressBar 
+            x:Name="progressBar"
             Grid.Row="1"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            HorizontalContentAlignment="Center"
-            Width="250"
-            Height="27"
-            Content="Checking for updates…" />
+            Height="5"/>
+        <Button 
+            Content="Close"
+            Click="CloseClick"
+            Grid.Row="2"
+            Padding="5"
+            IsEnabled="False" 
+            x:Name="btClose"/>
 
     </Grid>
-    
+
 </Window>
