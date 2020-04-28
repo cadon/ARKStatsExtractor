@@ -180,7 +180,8 @@ namespace ARKBreedingStats.Library
             set
             {
                 _species = value;
-                speciesBlueprint = value?.blueprintPath ?? string.Empty;
+                if (value != null)
+                    speciesBlueprint = value.blueprintPath;
             }
             get { return _species; }
         }
