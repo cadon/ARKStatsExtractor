@@ -23,7 +23,7 @@
             x:Name="scrollViewer">
             <TextBlock
             Padding="3"
-            Foreground="White"
+            Foreground="Ivory"
             Background="Black"
             TextWrapping="Wrap"
             x:Name="updateStatus"
