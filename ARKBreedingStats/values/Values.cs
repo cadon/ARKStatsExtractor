@@ -17,7 +17,17 @@ namespace ARKBreedingStats.values
     public class Values
     {
         public const int STATS_COUNT = 12;
-        public const string CURRENT_FORMAT_VERSION = "1.13";
+
+        /// <summary>
+        /// Checks if the version string is a format version that is supported by the version of this application.
+        /// </summary>
+        /// <param name="version"></param>
+        /// <returns></returns>
+        public static bool IsValidFormatVersion(string version)
+        => !string.IsNullOrEmpty(version) && (
+               version == "1.12"
+            || version == "1.13"
+            );
 
         private static Values _V;
 
@@ -166,14 +176,12 @@ namespace ARKBreedingStats.values
 
         private static Values LoadValuesFile(string filePath)
         {
-            Values tmpV;
-            using (StreamReader file = File.OpenText(filePath))
+            if (FileService.LoadJSONFile(filePath, out Values readData, out string errorMessage))
             {
-                JsonSerializer serializer = new JsonSerializer();
-                tmpV = (Values)serializer.Deserialize(file, typeof(Values));
+                if (!IsValidFormatVersion(readData.format)) throw new FormatException("Unhandled format version");
+                return readData;
             }
-            if (tmpV.format != CURRENT_FORMAT_VERSION) throw new FormatException("Unhandled format version");
-            return tmpV;
+            throw new FileLoadException(errorMessage);
         }
 
         /// <summary>

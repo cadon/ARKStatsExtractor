@@ -1,19 +1,15 @@
-﻿using System.Runtime.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace ARKBreedingStats.species
 {
-    [DataContract]
+    [JsonObject]
     public class CreatureStat
     {
-        public StatNames Stat;
         public double BaseValue;
         public double IncPerWildLevel;
         public double IncPerTamedLevel;
         public double AddWhenTamed;
         public double MultAffinity; // used with taming effectiveness
-
-        public CreatureStat(StatNames s) { Stat = s; }
-
     }
 
     public enum StatNames

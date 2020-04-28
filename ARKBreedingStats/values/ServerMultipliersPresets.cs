@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,14 +9,13 @@ using System.Windows.Forms;
 
 namespace ARKBreedingStats.values
 {
-    [DataContract]
+    [JsonObject(MemberSerialization.OptIn)]
     public class ServerMultipliersPresets
     {
-        [DataMember]
+        [JsonProperty]
         private string format = string.Empty; // must be present and a supported value
-        [DataMember]
+        [JsonProperty]
         public Dictionary<string, ServerMultipliers> serverMultiplierDictionary;
-        [IgnoreDataMember]
         public List<string> PresetNameList;
 
         public const string OFFICIAL = "official";
@@ -35,42 +35,28 @@ namespace ARKBreedingStats.values
         public static bool TryLoadServerMultipliersPresets(out ServerMultipliersPresets serverMultipliersPresets)
         {
             serverMultipliersPresets = new ServerMultipliersPresets();
-            try
+            if (FileService.LoadJSONFile(FileService.GetJsonPath(FileService.ValuesServerMultipliers), out ServerMultipliersPresets readData, out string errorMessage))
             {
-                using (FileStream file = FileService.GetJsonFileStream(FileService.ValuesServerMultipliers))
+                if (Values.IsValidFormatVersion(readData.format))
                 {
-                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(ServerMultipliersPresets), new DataContractJsonSerializerSettings()
-                    {
-                        UseSimpleDictionaryFormat = true
-                    });
-                    var tmpV = (ServerMultipliersPresets)ser.ReadObject(file);
-                    if (tmpV.format != Values.CURRENT_FORMAT_VERSION) throw new FormatException("Unhandled format version");
-                    serverMultipliersPresets = tmpV;
+                    serverMultipliersPresets = readData;
                     return true;
                 }
-            }
-            catch (FileNotFoundException)
-            {
-                if (MessageBox.Show($"Servermultipliers-File {FileService.ValuesServerMultipliers} not found. " +
-                        "ARK Smart Breeding will not work properly without that file.\n\n" +
-                        "Do you want to visit the releases page to redownload it?",
-                        "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                    System.Diagnostics.Process.Start(Updater.ReleasesUrl);
-                return false;
-            }
-            catch (FormatException)
-            {
                 MessageBox.Show($"File {FileService.ValuesServerMultipliers} is a format that is unsupported in this version of ARK Smart Breeding." +
                         "\n\nTry updating to a newer version.",
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+
             }
-            catch (Exception e)
+            else
             {
-                MessageBox.Show($"File {FileService.ValuesServerMultipliers} couldn't be opened or read.\nErrormessage:\n\n" + e.Message,
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                if (MessageBox.Show($"Servermultipliers-File {FileService.ValuesServerMultipliers} couldn't be read.\n{errorMessage}\n\n" +
+                        "ARK Smart Breeding will not work properly without that file.\n\n" +
+                        "Do you want to visit the releases page to redownload it?",
+                        "ASB Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                    System.Diagnostics.Process.Start(Updater.ReleasesUrl);
             }
+
+            return false;
         }
 
         /// <summary>

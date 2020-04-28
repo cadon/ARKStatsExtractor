@@ -1,24 +1,23 @@
-﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace ARKBreedingStats.species
 {
-    [DataContract]
+    [JsonObject]
     public class TamingData
     {
-        [DataMember]
         public bool violent;
-        [DataMember]
         public bool nonViolent;
-        [DataMember]
         public double tamingIneffectiveness;
-        [DataMember]
-        public List<string> eats = new List<string>();
-        [DataMember]
+        public string[] eats;
         public string favoriteKibble;
-        [DataMember]
         public Dictionary<string, TamingFood> specialFoodValues;
-        [DataMember]
-        public double affinityNeeded0, affinityIncreasePL, torporDepletionPS0, foodConsumptionBase, foodConsumptionMult, wakeAffinityMult, wakeFoodDeplMult;
+        public double affinityNeeded0;
+        public double affinityIncreasePL;
+        public double torporDepletionPS0;
+        public double foodConsumptionBase;
+        public double foodConsumptionMult;
+        public double wakeAffinityMult;
+        public double wakeFoodDeplMult;
     }
 }

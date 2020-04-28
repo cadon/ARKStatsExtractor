@@ -1,30 +1,26 @@
 ﻿using ARKBreedingStats.Library;
+using Newtonsoft.Json;
 using System;
-using System.Runtime.Serialization;
 
 namespace ARKBreedingStats
 {
-    [DataContract]
+    [JsonObject(MemberSerialization.OptIn)]
     public class TimerListEntry
     {
-        [DataMember]
+        [JsonProperty]
         public DateTime time;
-        [DataMember]
+        [JsonProperty]
         public string name;
-        [DataMember]
+        [JsonProperty]
         public string sound;
-        [DataMember]
+        [JsonProperty]
         public string group;
-        [IgnoreDataMember]
         public System.Windows.Forms.ListViewItem lvi;
-        [IgnoreDataMember]
         public bool showInOverlay;
-        [DataMember]
-        public Guid creatureGuid = Guid.Empty;
-        [IgnoreDataMember]
+        [JsonProperty]
+        public Guid creatureGuid;
         private Creature _creature;
 
-        [IgnoreDataMember]
         public Creature creature
         {
             get => _creature;

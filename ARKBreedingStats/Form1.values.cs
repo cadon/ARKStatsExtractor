@@ -201,6 +201,8 @@ namespace ARKBreedingStats
             catch (FormatException)
             {
                 FormatExceptionMessageBox(FileService.ValuesJson);
+                if ((DateTime.Now - Properties.Settings.Default.lastUpdateCheck).TotalMinutes < 10)
+                    CheckForUpdates();
             }
             catch (SerializationException e)
             {

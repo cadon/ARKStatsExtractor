@@ -1,6 +1,6 @@
 {
-	"version": "310.41.4923984",
-	"format": "1.12",
+	"version": "310.47.4923984",
+	"format": "1.13",
 	"species": [
 		{
 			"name": "Rockwell",
@@ -63674,5 +63674,9 @@
 		[ "Navy Coloring", [ 0.03, 0.03, 0.15, 0 ] ],
 		[ "Olive Coloring", [ 0.5, 0.5, 0.1, 0 ] ],
 		[ "Slate Coloring", [ 0.1, 0.1, 0.1, 0 ] ]
-	]
+	],
+	"remaps": {
+		"/Game/Mods/Valguero/Assets/Dinos/IceWyvern/Ragnarok_Wyvern_Override_Ice.Ragnarok_Wyvern_Override_Ice": "/Game/Mods/Ragnarok/Custom_Assets/Dinos/Wyvern/Ice_Wyvern/Ragnarok_Wyvern_Override_Ice.Ragnarok_Wyvern_Override_Ice",
+		"/Game/Mods/Valguero/Assets/Dinos/PolarBear/Polar_Bear.Polar_Bear": "/Game/Mods/Ragnarok/Custom_Assets/Dinos/Polar_Bear/Polar_Bear.Polar_Bear"
+	}
 }

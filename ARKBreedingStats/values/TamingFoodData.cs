@@ -1,9 +1,8 @@
 ﻿using ARKBreedingStats.species;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.values
@@ -11,18 +10,18 @@ namespace ARKBreedingStats.values
     /// <summary>
     /// Contains the default food data for taming.
     /// </summary>
-    [DataContract]
+    [JsonObject(MemberSerialization.OptIn)]
     class TamingFoodData
     {
-        [DataMember]
+        [JsonProperty]
         private string format = string.Empty; // must be present and a supported value
-        [DataMember]
+        [JsonProperty]
         private string version = string.Empty; // must be present and a supported value
         /// <summary>
         /// The key is the species name, so it can be used for modded species with the same name, they often have the same taming-data.
         /// The value is a dictionary with the food-name as key and TamingFood info as value.
         /// </summary>
-        [DataMember]
+        [JsonProperty]
         public Dictionary<string, TamingData> tamingFoodData = new Dictionary<string, TamingData>();
 
         /// <summary>
@@ -33,43 +32,25 @@ namespace ARKBreedingStats.values
         public static bool TryLoadDefaultFoodData(out Dictionary<string, TamingData> tamingFoodData)
         {
             tamingFoodData = null;
-            try
+
+            if (FileService.LoadJSONFile(FileService.GetJsonPath(FileService.TamingFoodData), out TamingFoodData readData, out string errorMessage))
             {
-                using (FileStream file = FileService.GetJsonFileStream(FileService.TamingFoodData))
+                if (Values.IsValidFormatVersion(readData.format))
                 {
-                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(TamingFoodData), new DataContractJsonSerializerSettings()
-                    {
-                        UseSimpleDictionaryFormat = true
-                    });
-                    var tmpV = (TamingFoodData)ser.ReadObject(file);
-                    if (tmpV.format != Values.CURRENT_FORMAT_VERSION) throw new FormatException("Unhandled format version");
-                    tamingFoodData = tmpV.tamingFoodData;
+                    tamingFoodData = readData.tamingFoodData;
                     return tamingFoodData != null;
                 }
             }
-            catch (FileNotFoundException)
+            else
             {
-                if (MessageBox.Show($"The default food data file {FileService.TamingFoodData} was not found.\n" +
+                if (MessageBox.Show($"The default food data file {FileService.TamingFoodData} couldn't be loaded:\n{errorMessage}\n\n" +
                         "The taming info will be incomplete without that file.\n\n" +
                         "Do you want to visit the releases page to redownload it?",
                         "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                     System.Diagnostics.Process.Start(Updater.ReleasesUrl);
-                return false;
             }
-            catch (FormatException)
-            {
-                MessageBox.Show($"File {FileService.TamingFoodData} is a format that is unsupported in this version of ARK Smart Breeding." +
-                        "\n\nTry updating to a newer version.",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show($"File {FileService.TamingFoodData} couldn't be opened or read.\nErrormessage:\n\n" + e.Message,
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-        }
 
+            return false;
+        }
     }
 }

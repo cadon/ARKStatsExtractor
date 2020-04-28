@@ -1,46 +1,32 @@
 ﻿using ARKBreedingStats.species;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats
 {
-    [DataContract]
+    [JsonObject(MemberSerialization.OptIn)]
     public class Kibbles
     {
-        [DataMember]
+        [JsonProperty]
         private string ver = "0.0";
 
-        [DataMember]
+        [JsonProperty]
         public Dictionary<string, Kibble> kibble = new Dictionary<string, Kibble>();
 
         public Version version = new Version(0, 0);
         private static Kibbles _K;
         public static Kibbles K => _K ?? (_K = new Kibbles());
 
-        public bool loadValues()
+        public bool LoadValues()
         {
             _K.version = new Version(0, 0);
 
-            try
-            {
-                using (FileStream file = FileService.GetJsonFileStream(FileService.KibblesJson))
-                {
-                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Kibbles), new DataContractJsonSerializerSettings()
-                    {
-                        UseSimpleDictionaryFormat = true
-                    });
-
-                    _K = (Kibbles)ser.ReadObject(file);
-
-                    _K.version = new Version(_K.ver);
-                }
-                return true;
-            }
-            catch (FileNotFoundException)
+            string filePath = FileService.GetJsonPath(FileService.KibblesJson);
+            if (!File.Exists(filePath))
             {
                 if (MessageBox.Show($"Kibble-File {FileService.KibblesJson} not found. " +
                         "This tool will not show kibble recipes without this file.\n\n" +
@@ -48,9 +34,15 @@ namespace ARKBreedingStats
                         "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                     System.Diagnostics.Process.Start(Updater.ReleasesUrl);
             }
-            catch (Exception e)
+            else if (FileService.LoadJSONFile(filePath, out Kibbles tempK, out string errorMessage))
             {
-                MessageBox.Show($"File {FileService.KibblesJson} couldn\'t be opened or read.\nErrormessage:\n\n{e.Message}", "Error",
+                _K = tempK;
+                _K.version = new Version(_K.ver);
+                return true;
+            }
+            else
+            {
+                MessageBox.Show($"File {FileService.KibblesJson} couldn\'t be opened or read.\nErrormessage:\n\n{errorMessage}", "Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return false;

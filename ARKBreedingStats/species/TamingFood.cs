@@ -1,15 +1,16 @@
-﻿using System.Runtime.Serialization;
+﻿using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace ARKBreedingStats.species
 {
-    [DataContract]
+    [JsonObject]
     public class TamingFood
     {
-        [DataMember(Name = "a")]
+        [JsonProperty("a")]
         public double affinity;
-        [DataMember(Name = "f")]
+        [JsonProperty("f")]
         public double foodValue;
-        [DataMember(Name = "q")]
+        [JsonProperty("q")]
         public int quantity;
 
         [OnDeserializing]

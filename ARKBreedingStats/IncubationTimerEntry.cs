@@ -1,29 +1,24 @@
 ﻿using ARKBreedingStats.Library;
+using Newtonsoft.Json;
 using System;
-using System.Runtime.Serialization;
 
 namespace ARKBreedingStats
 {
-    [DataContract]
+    [JsonObject(MemberSerialization.OptIn)]
     public class IncubationTimerEntry
     {
-        [DataMember]
+        [JsonProperty]
         public bool timerIsRunning;
-        [IgnoreDataMember]
         public TimeSpan incubationDuration;
-        [DataMember]
+        [JsonProperty]
         public DateTime incubationEnd;
-        [IgnoreDataMember]
         public Creature _mother;
-        [IgnoreDataMember]
         public Creature _father;
-        [DataMember]
+        [JsonProperty]
         public Guid motherGuid;
-        [DataMember]
+        [JsonProperty]
         public Guid fatherGuid;
-        [IgnoreDataMember]
         public string kind; // contains "Egg" or "Gestation", depending on the species
-        [IgnoreDataMember]
         public bool expired;
 
         public IncubationTimerEntry()
@@ -69,7 +64,6 @@ namespace ARKBreedingStats
             else pauseTimer();
         }
 
-        [IgnoreDataMember]
         public Creature mother
         {
             get => _mother;
@@ -80,7 +74,6 @@ namespace ARKBreedingStats
             }
         }
 
-        [IgnoreDataMember]
         public Creature father
         {
             get => _father;
@@ -93,7 +86,7 @@ namespace ARKBreedingStats
 
         // XmlSerializer does not support TimeSpan, so use this property for serialization instead.
         [System.ComponentModel.Browsable(false)]
-        [DataMember(Name = "incubationDuration")]
+        [JsonProperty("incubationDuration")]
         public string incubationDurationString
         {
             get => System.Xml.XmlConvert.ToString(incubationDuration);
