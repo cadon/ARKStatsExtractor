@@ -3345,10 +3345,11 @@ namespace ARKBreedingStats
         private void ReloadNamePatternCustomReplacings(PatternEditor pe = null)
         {
             string filePath = FileService.GetJsonPath(FileService.CustomReplacingsNamePattern);
-            if (!FileService.LoadJSONFile(filePath, out customReplacingsNamingPattern, out string error))
+            string errorMessage = null;
+            if (!File.Exists(filePath) || !FileService.LoadJSONFile(filePath, out customReplacingsNamingPattern, out errorMessage))
             {
-                if (!string.IsNullOrEmpty(error))
-                    MessageBox.Show(error, "ASB Custom replacings file loading error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!string.IsNullOrEmpty(errorMessage))
+                    MessageBox.Show(errorMessage, "ASB Custom replacings file loading error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (pe != null) pe.SetCustomReplacings(customReplacingsNamingPattern);
         }
