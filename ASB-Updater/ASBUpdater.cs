@@ -126,7 +126,7 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public async Task<bool> Parse(IProgress<ProgressReporter> progress)
+        public bool Parse(IProgress<ProgressReporter> progress)
         {
             SetStatus(Stages.PARSE, progress);
 
@@ -161,7 +161,7 @@ namespace ASB_Updater
         /// Checks if the parsed info indicates that a newer version is available
         /// </summary>
         /// <returns>Newer version available for download</returns>
-        public async Task<bool> Check(string applicationPath, IProgress<ProgressReporter> progress)
+        public bool Check(string applicationPath, IProgress<ProgressReporter> progress)
         {
             SetStatus(Stages.CHECK, progress);
             if (string.IsNullOrEmpty(applicationPath)
@@ -207,7 +207,7 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public async Task<bool> Extract(string applicationPath, bool useLocalAppDataForDataFiles, IProgress<ProgressReporter> progress)
+        public bool Extract(string applicationPath, bool useLocalAppDataForDataFiles, IProgress<ProgressReporter> progress)
         {
             SetStatus(Stages.EXTRACT, progress);
             string extractedAppTempPath = Path.Combine(tempFolder, "ASB");
@@ -231,7 +231,7 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public async Task<bool> Cleanup(IProgress<ProgressReporter> progress)
+        public bool Cleanup(IProgress<ProgressReporter> progress)
         {
             SetStatus(Stages.CLEANUP, progress);
             bool result = true;
@@ -270,7 +270,7 @@ namespace ASB_Updater
                 if (url == null)
                 {
                     await Fetch(progress);
-                    await Parse(progress);
+                    Parse(progress);
 
                     url = downloadURL;
                     if (url == null)

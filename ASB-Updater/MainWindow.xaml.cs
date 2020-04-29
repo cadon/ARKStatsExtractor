@@ -48,9 +48,9 @@ namespace ASB_Updater
             var e = Environment.GetCommandLineArgs();
 
             //// uncomment for debugging
-            //string debugFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "ASBUpdaterTest");
-            //Directory.CreateDirectory(debugFolder);
-            //e = new string[] { e[0], debugFolder, "doupdate" };
+            string debugFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "ASBUpdaterTest");
+            Directory.CreateDirectory(debugFolder);
+            e = new string[] { e[0], debugFolder, "doupdate" };
 
             // if the updater was started directly, copy it first to the temp directory and start it from there
             // so it's able to update itself.
@@ -121,7 +121,7 @@ namespace ASB_Updater
                 wasAlreadyUptodate = false;
                 result = await DoUpdate(progress);
                 if (result)
-                    await updater.Cleanup(progress);
+                    updater.Cleanup(progress);
             }
 
             Launch(wasAlreadyUptodate, result, progress);
@@ -144,14 +144,14 @@ namespace ASB_Updater
                     return false;
                 }
             }
-            if (!await updater.Parse(progress))
+            if (!updater.Parse(progress))
             {
                 reporter.statusMessage = updater.LastError();
                 progress.Report(reporter);
                 return false;
             }
 
-            return await updater.Check(applicationPath, progress);
+            return updater.Check(applicationPath, progress);
         }
 
         /// <summary>
@@ -164,7 +164,7 @@ namespace ASB_Updater
             reporter.progress = -1;
             if (!await updater.Download(progress))
             {
-                if (!await updater.Fetch(progress) || !await updater.Parse(progress))
+                if (!await updater.Fetch(progress) || !updater.Parse(progress))
                 {
                     reporter.statusMessage = updater.LastError();
                     progress.Report(reporter);
@@ -181,11 +181,11 @@ namespace ASB_Updater
 
             CloseASB();
 
-            if (!await updater.Extract(applicationPath, UseLocalAppDataForDataFiles, progress))
+            if (!updater.Extract(applicationPath, UseLocalAppDataForDataFiles, progress))
             {
                 reporter.statusMessage = "Extracting update files failed, retrying…";
                 progress.Report(reporter);
-                if (!await updater.Extract(applicationPath, UseLocalAppDataForDataFiles, progress))
+                if (!updater.Extract(applicationPath, UseLocalAppDataForDataFiles, progress))
                 {
                     return false;
                 }
