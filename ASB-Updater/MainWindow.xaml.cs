@@ -48,9 +48,9 @@ namespace ASB_Updater
             var e = Environment.GetCommandLineArgs();
 
             //// uncomment for debugging
-            string debugFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "ASBUpdaterTest");
-            Directory.CreateDirectory(debugFolder);
-            e = new string[] { e[0], debugFolder, "doupdate" };
+            //string debugFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "ASBUpdaterTest");
+            //Directory.CreateDirectory(debugFolder);
+            //e = new string[] { e[0], debugFolder, "doupdate" };
 
             // if the updater was started directly, copy it first to the temp directory and start it from there
             // so it's able to update itself.
