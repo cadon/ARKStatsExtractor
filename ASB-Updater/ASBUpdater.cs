@@ -7,10 +7,11 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ASB_Updater
 {
-    public class ASBUpdater : IUpdater
+    public class ASBUpdater
     {
 
         // Update stages to go through (determines progress bar display %)
@@ -29,16 +30,16 @@ namespace ASB_Updater
         private readonly string[] stageMessages = {
             "Fetching release list…",
             "Checking for updates…",
-            "Checking for updates…",
+            "Checking the versions…",
             "Downloading updates…",
             "Extracting files…",
             "Cleaning up…",
-            "Done!"
+            "Update Done!"
         };
         private readonly string[] stageErrors = {
             "Download of release list failed",
             "Failed to read realease list",
-            "Failed to read realease list",
+            "Failed checking the version number",
             "Download of updates failed",
             "File extraction failed",
             "Could not complete cleanup",
@@ -81,7 +82,22 @@ namespace ASB_Updater
             int max = Enum.GetNames(typeof(Stages)).Length;
             int current = (int)Stage;
 
-            return (current / max) * 100;
+            return (current * 100 / max);
+        }
+
+        /// <summary>
+        /// Calculates the progress made in updating
+        /// </summary>
+        /// <returns></returns>
+        public string GetProgressState()
+        {
+            return stageMessages[(int)Stage];
+        }
+
+        private void SetStatus(Stages stage, IProgress<ProgressReporter> progress)
+        {
+            Stage = stage;
+            progress.Report(new ProgressReporter(GetProgress(), GetProgressState()));
         }
 
         /// <summary>
@@ -99,10 +115,10 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public bool Fetch()
+        public async Task<bool> Fetch(IProgress<ProgressReporter> progress)
         {
-            Stage = Stages.FETCH;
-            return DownloadFile(releasesURL, tempReleasesPath);
+            SetStatus(Stages.FETCH, progress);
+            return await DownloadFile(releasesURL, tempReleasesPath, progress);
         }
 
         /// <summary>
@@ -110,9 +126,9 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public bool Parse()
+        public bool Parse(IProgress<ProgressReporter> progress)
         {
-            Stage = Stages.PARSE;
+            SetStatus(Stages.PARSE, progress);
 
             try
             {
@@ -122,6 +138,7 @@ namespace ASB_Updater
                 dynamic assets = latest.assets[0];
 
                 downloadURL = assets.browser_download_url;
+
                 // get latest version number
                 var match = System.Text.RegularExpressions.Regex.Match(downloadURL, @"([\d\.]+)\.zip");
                 latestVersion = match.Success ? match.Groups[1].Value : string.Empty;
@@ -132,6 +149,7 @@ namespace ASB_Updater
             }
             catch (Exception e)
             {
+                progress.Report(new ProgressReporter($"Error while parsing download uri: {e.Message}"));
                 Debug.Write(e.StackTrace.ToString());
                 return false;
             }
@@ -143,9 +161,9 @@ namespace ASB_Updater
         /// Checks if the parsed info indicates that a newer version is available
         /// </summary>
         /// <returns>Newer version available for download</returns>
-        public bool Check(string applicationPath)
+        public bool Check(string applicationPath, IProgress<ProgressReporter> progress)
         {
-            Stage = Stages.CHECK;
+            SetStatus(Stages.CHECK, progress);
             if (string.IsNullOrEmpty(applicationPath)
                 || !Directory.Exists(applicationPath))
                 return false;
@@ -158,8 +176,7 @@ namespace ASB_Updater
 
                 string installedVersion = FileVersionInfo.GetVersionInfo(exePath).FileVersion;
 
-                Debug.WriteLine($"installed version: {installedVersion}");
-                Debug.WriteLine($"available version: {latestVersion}");
+                progress.Report(new ProgressReporter($"installed version: {installedVersion}\navailable version: {latestVersion}"));
 
                 return Version.TryParse(installedVersion, out Version installedVer)
                     && Version.TryParse(latestVersion, out Version latestVer)
@@ -168,7 +185,7 @@ namespace ASB_Updater
             }
             catch (Exception e)
             {
-                Debug.Write("Exception while checking versions. " + e.Message);
+                progress.Report(new ProgressReporter("Exception while checking versions. " + e.Message));
             }
 
             return false;
@@ -179,10 +196,10 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public bool Download()
+        public async Task<bool> Download(IProgress<ProgressReporter> progress)
         {
-            Stage = Stages.DOWNLOAD;
-            return DownloadFile(downloadURL, tempZipNamePath);
+            SetStatus(Stages.DOWNLOAD, progress);
+            return await DownloadFile(downloadURL, tempZipNamePath, progress);
         }
 
         /// <summary>
@@ -190,9 +207,9 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public bool Extract(string applicationPath, bool useLocalAppDataForDataFiles)
+        public bool Extract(string applicationPath, bool useLocalAppDataForDataFiles, IProgress<ProgressReporter> progress)
         {
-            Stage = Stages.EXTRACT;
+            SetStatus(Stages.EXTRACT, progress);
             string extractedAppTempPath = Path.Combine(tempFolder, "ASB");
             Directory.CreateDirectory(extractedAppTempPath);
             ZipFile.ExtractToDirectory(tempZipNamePath, extractedAppTempPath);
@@ -214,9 +231,9 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public bool Cleanup()
+        public bool Cleanup(IProgress<ProgressReporter> progress)
         {
-            Stage = Stages.CLEANUP;
+            SetStatus(Stages.CLEANUP, progress);
             bool result = true;
             try
             {
@@ -229,7 +246,7 @@ namespace ASB_Updater
 
             if (result)
             {
-                Stage = Stages.COMPLETE;
+                SetStatus(Stages.COMPLETE, progress);
             }
             return result;
         }
@@ -242,24 +259,32 @@ namespace ASB_Updater
         /// <param name="outName">File to output contents to</param>
         /// 
         /// <returns>Success or Fail</returns>
-        private bool DownloadFile(string url, string outName)
+        private async Task<bool> DownloadFile(string url, string outName, IProgress<ProgressReporter> progress)
         {
             using (var client = new WebClient())
             {
                 client.Headers.Add("User-Agent", "Anything");
 
+                var reporter = new ProgressReporter(GetProgress());
+
                 if (url == null)
                 {
-                    Debug.WriteLine("Fetch? " + Fetch());
-                    Debug.WriteLine("Parse? " + Parse());
+                    await Fetch(progress);
+                    Parse(progress);
 
                     url = downloadURL;
+                    if (url == null)
+                    {
+                        progress.Report(new ProgressReporter("url for downloading is null due to error while parsing."));
+                        return false;
+                    }
                 }
 
+                progress.Report(new ProgressReporter($"downloading {url} to {outName}"));
                 Debug.WriteLine("URL: " + url);
                 Debug.WriteLine("Out File: " + outName);
 
-                client.DownloadFile(url, outName);
+                await client.DownloadFileTaskAsync(url, outName);
             }
 
             return File.Exists(outName);

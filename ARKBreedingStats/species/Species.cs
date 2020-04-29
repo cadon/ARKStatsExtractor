@@ -115,7 +115,7 @@ namespace ARKBreedingStats.species
             double[][] completeRaws = new double[Values.STATS_COUNT][];
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                stats.Add(new CreatureStat((StatNames)s));
+                stats.Add(new CreatureStat());
                 completeRaws[s] = new double[] { 0, 0, 0, 0, 0 };
                 if (fullStatsRaw.Length > s && fullStatsRaw[s] != null)
                 {

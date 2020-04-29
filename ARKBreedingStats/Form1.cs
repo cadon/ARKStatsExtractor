@@ -1102,7 +1102,7 @@ namespace ARKBreedingStats
                 success.statValuesLoaded = true;
             }
 
-            success.kibbleValuesLoaded = Kibbles.K.loadValues();
+            success.kibbleValuesLoaded = Kibbles.K.LoadValues();
             if (!success.kibbleValuesLoaded)
             {
                 MessageBox.Show("The kibbles-file couldn't be loaded, the kibble-recipes will not be available. " +

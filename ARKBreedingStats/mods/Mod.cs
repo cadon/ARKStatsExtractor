@@ -1,32 +1,31 @@
-﻿using System.Runtime.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace ARKBreedingStats.species
 {
     /// <summary>
     /// Information about a mod which contains new species
     /// </summary>
-    [DataContract]
+    [JsonObject(MemberSerialization.OptIn)]
     public class Mod
     {
         /// <summary>
         /// The id used by steam
         /// </summary>
-        [DataMember]
+        [JsonProperty]
         public string id;
         /// <summary>
         /// The tag used by ARK in the blueprints
         /// </summary>
-        [DataMember]
+        [JsonProperty]
         public string tag;
         /// <summary>
         /// Commonly used name to describe the mod
         /// </summary>
-        [DataMember]
+        [JsonProperty]
         public string title;
         /// <summary>
         /// Filename of the mod-values
         /// </summary>
-        [IgnoreDataMember]
         public string FileName;
 
         public override int GetHashCode()

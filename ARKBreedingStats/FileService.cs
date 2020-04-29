@@ -105,7 +105,10 @@ namespace ARKBreedingStats
             errorMessage = null;
             data = null;
             if (!File.Exists(filePath))
+            {
+                errorMessage = $"File not found: {filePath}";
                 return false;
+            }
 
             // load json-file of data
             try

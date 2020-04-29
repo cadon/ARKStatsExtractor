@@ -1,41 +1,31 @@
-﻿using ARKBreedingStats.values;
-using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace ARKBreedingStats.mods
 {
     /// <summary>
     /// Contains info about available mod files and their version.
     /// </summary>
-    [DataContract]
+    [JsonObject(MemberSerialization.OptIn)]
     public class ModsManifest
     {
         /// <summary>
-        /// Must be present and a supported value. Defaults to an invalid value
-        /// </summary>
-        [DataMember]
-        private string format = string.Empty;
-        /// <summary>
         /// Dictionary of ModInfos. The key is the mod-filename.
         /// </summary>
-        [DataMember(Name = "files")]
+        [JsonProperty("files")]
         public Dictionary<string, ModInfo> modsByFiles;
 
         /// <summary>
         /// Dictionary of ModInfos. The key is the modTag.
         /// </summary>
-        [IgnoreDataMember]
         public Dictionary<string, ModInfo> modsByTag;
 
         /// <summary>
         /// Dictionary of ModInfos. The key is the modID.
         /// </summary>
-        [IgnoreDataMember]
         public Dictionary<string, ModInfo> modsByID;
 
         public ModsManifest()
@@ -57,32 +47,19 @@ namespace ARKBreedingStats.mods
             if (forceDownload || !File.Exists(FileService.GetJsonPath(modsManifestPath)))
                 await TryDownloadFileAsync();
 
-            try
+            if (FileService.LoadJSONFile(FileService.GetJsonPath(modsManifestPath), out ModsManifest tmpV, out string errorMessage))
             {
-                using (FileStream file = FileService.GetJsonFileStream(modsManifestPath))
-                {
-                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(ModsManifest)
-                        , new DataContractJsonSerializerSettings()
-                        {
-                            UseSimpleDictionaryFormat = true
-                        }
-                        );
-                    var tmpV = (ModsManifest)ser.ReadObject(file);
-                    if (tmpV.format != Values.CURRENT_FORMAT_VERSION) throw new FormatException("Unhandled format version");
-
-                    tmpV.Initialize();
-                    return tmpV;
-                }
+                tmpV.Initialize();
+                return tmpV;
             }
-            catch (SerializationException e)
+            else
             {
-                if (downloadTry == 0)
+                if (!forceDownload && downloadTry == 0)
                 {
                     // file is probably corrupted, try to redownload
                     return await TryLoadModManifestFile(forceDownload: true, downloadTry: 1);
                 }
-                // redownload didn't solve the issue
-                throw e;
+                else throw new SerializationException(errorMessage);
             }
         }
 

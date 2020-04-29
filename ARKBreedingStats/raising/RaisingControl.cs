@@ -94,7 +94,7 @@ namespace ARKBreedingStats.raising
 
                             string FoodAmountString(string _foodName)
                             {
-                                if (selectedSpecies.taming.eats.IndexOf(_foodName) == -1) return null;
+                                if (Array.IndexOf(selectedSpecies.taming.eats, _foodName) == -1) return null;
                                 double foodValue;
                                 if (selectedSpecies.taming.specialFoodValues.TryGetValue(_foodName, out TamingFood tf))
                                     foodValue = tf.foodValue;
@@ -188,14 +188,14 @@ namespace ARKBreedingStats.raising
             if (selectedSpecies.taming.eats != null)
             {
                 double foodAmount;
-                if (selectedSpecies.taming.eats.IndexOf("Raw Meat") >= 0)
+                if (Array.IndexOf(selectedSpecies.taming.eats, "Raw Meat") != -1)
                 {
                     if (uiControls.Trough.foodAmountFromUntil(selectedSpecies, Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier, maturation, 0.1, out foodAmount))
                         foodAmountBabyString = Math.Ceiling(foodAmount / 50) + " Raw Meat";
                     if (uiControls.Trough.foodAmountFromUntil(selectedSpecies, Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier, maturation, 1, out foodAmount))
                         foodAmountAdultString = Math.Ceiling(foodAmount / 50) + " Raw Meat";
                 }
-                else if (selectedSpecies.taming.eats.IndexOf("Mejoberry") >= 0)
+                else if (Array.IndexOf(selectedSpecies.taming.eats, "Mejoberry") != -1)
                 {
                     if (uiControls.Trough.foodAmountFromUntil(selectedSpecies, Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier, maturation, 0.1, out foodAmount))
                         foodAmountBabyString = Math.Ceiling(foodAmount / 30) + " Mejoberries";

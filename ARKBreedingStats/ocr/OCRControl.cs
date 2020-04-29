@@ -401,7 +401,7 @@ namespace ARKBreedingStats.ocr
         private void btnSaveOCRconfig_Click(object sender, EventArgs e)
         {
             string fileName = GetFileName();
-            ArkOCR.OCR.ocrConfig.saveFile(fileName);
+            ArkOCR.OCR.ocrConfig.SaveFile(fileName);
             UpdateOCRLabel(fileName);
         }
 
@@ -428,7 +428,7 @@ namespace ARKBreedingStats.ocr
                     Properties.Settings.Default.Save();
 
                     fileName = GetFileName();
-                    ArkOCR.OCR.ocrConfig.saveFile(fileName);
+                    ArkOCR.OCR.ocrConfig.SaveFile(fileName);
                     LoadOCRTemplate(fileName);
                 }
             }
@@ -467,7 +467,7 @@ namespace ARKBreedingStats.ocr
             if (string.IsNullOrEmpty(fileName)) return false;
             if (ArkOCR.OCR.ocrConfig == null)
                 ArkOCR.OCR.ocrConfig = new OCRTemplate();
-            OCRTemplate t = ArkOCR.OCR.ocrConfig.loadFile(fileName);
+            OCRTemplate t = ArkOCR.OCR.ocrConfig.LoadFile(fileName);
             if (t == null)
                 return false;
             ArkOCR.OCR.ocrConfig = t;

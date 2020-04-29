@@ -117,7 +117,7 @@ namespace ARKBreedingStats
             int i = 0;
             if (td.eats != null)
             {
-                for (i = 0; i < td.eats.Count; i++)
+                for (i = 0; i < td.eats.Length; i++)
                 {
                     string f = td.eats[i];
                     TamingFoodControl tf;
@@ -205,7 +205,7 @@ namespace ARKBreedingStats
 
             if (tameable && selectedSpecies.taming.eats != null)
             {
-                int foodCounter = selectedSpecies.taming.eats.Count;
+                int foodCounter = selectedSpecies.taming.eats.Length;
                 foreach (TamingFoodControl tfc in foodControls)
                 {
                     if (foodCounter == 0)

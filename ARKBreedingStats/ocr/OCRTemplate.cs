@@ -78,7 +78,7 @@ namespace ARKBreedingStats.ocr
             return fontSizes.IndexOf(fontSize);
         }
 
-        public OCRTemplate loadFile(string filename)
+        public OCRTemplate LoadFile(string filename)
         {
             OCRTemplate ocrConfig = null;
 
@@ -107,7 +107,7 @@ namespace ARKBreedingStats.ocr
             return ocrConfig;
         }
 
-        public bool saveFile(string filename)
+        public bool SaveFile(string filename)
         {
             try
             {

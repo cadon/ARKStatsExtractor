@@ -75,6 +75,7 @@ namespace ARKBreedingStats.settings
             nudTamingSpeed.NeutralNumber = 1;
             nudDinoCharacterFoodDrain.NeutralNumber = 1;
             nudMatingInterval.NeutralNumber = 1;
+            nudMatingSpeed.NeutralNumber = 1;
             nudEggHatchSpeed.NeutralNumber = 1;
             nudBabyMatureSpeed.NeutralNumber = 1;
             nudBabyCuddleInterval.NeutralNumber = 1;
@@ -719,6 +720,7 @@ namespace ARKBreedingStats.settings
                 nudBabyImprintingStatScale.ValueSave = (decimal)sm.BabyImprintingStatScaleMultiplier;
                 nudBabyCuddleInterval.ValueSave = (decimal)sm.BabyCuddleIntervalMultiplier;
                 nudMatingInterval.ValueSave = (decimal)sm.MatingIntervalMultiplier;
+                nudMatingSpeed.ValueSave = (decimal)sm.MatingSpeedMultiplier;
                 nudBabyFoodConsumptionSpeed.ValueSave = (decimal)sm.BabyFoodConsumptionSpeedMultiplier;
 
                 ////numericUpDownDomLevelNr.ValueSave = ;

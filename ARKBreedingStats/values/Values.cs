@@ -17,7 +17,17 @@ namespace ARKBreedingStats.values
     public class Values
     {
         public const int STATS_COUNT = 12;
-        public const string CURRENT_FORMAT_VERSION = "1.12";
+
+        /// <summary>
+        /// Checks if the version string is a format version that is supported by the version of this application.
+        /// </summary>
+        /// <param name="version"></param>
+        /// <returns></returns>
+        public static bool IsValidFormatVersion(string version)
+        => !string.IsNullOrEmpty(version) && (
+               version == "1.12"
+            || version == "1.13"
+            );
 
         private static Values _V;
 
@@ -36,6 +46,12 @@ namespace ARKBreedingStats.values
         public List<List<object>> colorDefinitions;
         [JsonProperty]
         public List<List<object>> dyeDefinitions;
+        /// <summary>
+        /// If a species for a blueprintpath is requested, the blueprintPath will be remapped if an according key is present.
+        /// This is needed if species are remapped ingame, e.g. if a variant is removed.
+        /// </summary>
+        [JsonProperty("remaps")]
+        private Dictionary<string, string> blueprintRemapping;
 
         public ARKColors Colors;
         public ARKColors Dyes;
@@ -160,14 +176,12 @@ namespace ARKBreedingStats.values
 
         private static Values LoadValuesFile(string filePath)
         {
-            Values tmpV;
-            using (StreamReader file = File.OpenText(filePath))
+            if (FileService.LoadJSONFile(filePath, out Values readData, out string errorMessage))
             {
-                JsonSerializer serializer = new JsonSerializer();
-                tmpV = (Values)serializer.Deserialize(file, typeof(Values));
+                if (!IsValidFormatVersion(readData.format)) throw new FormatException("Unhandled format version");
+                return readData;
             }
-            if (tmpV.format != CURRENT_FORMAT_VERSION) throw new FormatException("Unhandled format version");
-            return tmpV;
+            throw new FileLoadException(errorMessage);
         }
 
         /// <summary>
@@ -643,6 +657,10 @@ namespace ARKBreedingStats.values
         public Species SpeciesByBlueprint(string blueprintpath)
         {
             if (string.IsNullOrEmpty(blueprintpath)) return null;
+            if (blueprintRemapping != null && blueprintRemapping.ContainsKey(blueprintpath))
+            {
+                blueprintpath = blueprintRemapping[blueprintpath];
+            }
             return blueprintToSpecies.ContainsKey(blueprintpath) ? blueprintToSpecies[blueprintpath] : null;
         }
 

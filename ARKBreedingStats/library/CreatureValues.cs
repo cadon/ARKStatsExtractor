@@ -1,81 +1,78 @@
 ﻿using ARKBreedingStats.species;
 using ARKBreedingStats.values;
+using Newtonsoft.Json;
 using System;
-using System.Runtime.Serialization;
 
 namespace ARKBreedingStats.Library
 {
     /// <summary>
     /// This class is used to store creature-values of creatures that couldn't be extracted, to store their values temporarily until the issue is solved
     /// </summary>
-    [DataContract]
+    [JsonObject(MemberSerialization.OptIn)]
     public class CreatureValues
     {
         /// <summary>
         /// Used to identify the species
         /// </summary>
-        [DataMember]
+        [JsonProperty]
         internal string speciesBlueprint;
         /// <summary>
         /// Used for displaying the speciesName
         /// </summary>
-        [DataMember]
+        [JsonProperty]
         internal string speciesName;
-        [IgnoreDataMember]
         private Species _species;
-        [DataMember]
+        [JsonProperty]
         public Guid guid;
-        [DataMember]
+        [JsonProperty]
         public long ARKID;
-        [DataMember]
+        [JsonProperty]
         public string name;
-        [DataMember]
+        [JsonProperty]
         public Sex sex;
-        [DataMember]
+        [JsonProperty]
         public double[] statValues = new double[Values.STATS_COUNT];
-        [DataMember]
+        [JsonProperty]
         public int[] levelsWild = new int[Values.STATS_COUNT];
-        [DataMember]
+        [JsonProperty]
         public int[] levelsDom = new int[Values.STATS_COUNT];
-        [DataMember]
+        [JsonProperty]
         public int level = 0;
-        [DataMember]
+        [JsonProperty]
         public double tamingEffMin, tamingEffMax;
-        [DataMember]
+        [JsonProperty]
         public double imprintingBonus;
-        [DataMember]
+        [JsonProperty]
         public bool isTamed, isBred;
-        [DataMember]
+        [JsonProperty]
         public string owner = "";
-        [DataMember]
+        [JsonProperty]
         public string imprinterName = "";
-        [DataMember]
+        [JsonProperty]
         public string tribe = "";
-        [DataMember]
+        [JsonProperty]
         public string server = "";
-        [DataMember]
+        [JsonProperty]
         public long fatherArkId; // used when importing creatures, parents are indicated by this id
-        [DataMember]
+        [JsonProperty]
         public long motherArkId;
-        [DataMember]
+        [JsonProperty]
         public Guid motherGuid;
-        [DataMember]
+        [JsonProperty]
         public Guid fatherGuid;
-        [IgnoreDataMember]
         private Creature mother;
-        [IgnoreDataMember]
         private Creature father;
-        [DataMember]
+        [JsonProperty]
         public DateTime? growingUntil;
-        [DataMember]
+        [JsonProperty]
         public DateTime? cooldownUntil;
-        [DataMember]
+        [JsonProperty]
         public DateTime? domesticatedAt;
-        [DataMember]
+        [JsonProperty]
         public CreatureFlags flags;
-        [DataMember]
+        [JsonProperty]
         public int mutationCounter, mutationCounterMother, mutationCounterFather;
-        [DataMember]
+        [JsonProperty]
         public int[] colorIDs = new int[6];
 
         public CreatureValues() { }
@@ -101,7 +98,6 @@ namespace ARKBreedingStats.Library
             Father = father;
         }
 
-        [IgnoreDataMember]
         public Creature Mother
         {
             get => mother;
@@ -113,7 +109,6 @@ namespace ARKBreedingStats.Library
             }
         }
 
-        [IgnoreDataMember]
         public Creature Father
         {
             get => father;
@@ -125,14 +120,16 @@ namespace ARKBreedingStats.Library
             }
         }
 
-        [IgnoreDataMember]
         public Species Species
         {
             set
             {
                 _species = value;
-                speciesBlueprint = value?.blueprintPath ?? string.Empty;
-                speciesName = value?.name ?? string.Empty;
+                if (value != null)
+                {
+                    speciesBlueprint = value.blueprintPath;
+                    speciesName = value.name;
+                }
             }
             get
             {

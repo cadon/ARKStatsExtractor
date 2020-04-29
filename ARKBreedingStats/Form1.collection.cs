@@ -344,6 +344,8 @@ namespace ARKBreedingStats
                     MessageBox.Show($"This library format is unsupported in this version of ARK Smart Breeding." +
                             "\n\nTry updating to a newer version.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if ((DateTime.Now - Properties.Settings.Default.lastUpdateCheck).TotalMinutes < 10)
+                        CheckForUpdates();
                     return false;
                 }
                 catch (InvalidOperationException e)
