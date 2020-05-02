@@ -283,6 +283,7 @@ namespace ARKBreedingStats.Library
                         }
                         old.colors = creature.colors;
                         old.status = creature.status;
+                        old.sex = creature.sex;
                     }
 
                     if (recalculate)
