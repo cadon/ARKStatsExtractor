@@ -1195,8 +1195,11 @@ namespace ARKBreedingStats
             // load column display indices
             if (Properties.Settings.Default[indicesName] is int[] colIndices)
             {
-                for (int c = 0; c < colIndices.Length && c < lv.Columns.Count; c++)
-                    lv.Columns[c].DisplayIndex = colIndices[c];
+                // indices have to be set increasingly, or they will "push" other values up
+                var colIndicesOrdered = colIndices.Select((i, c) => (columnIndex: c, displayIndex: i))
+                    .OrderBy(c => c.displayIndex).ToArray();
+                for (int c = 0; c < colIndicesOrdered.Length && c < lv.Columns.Count; c++)
+                    lv.Columns[colIndicesOrdered[c].columnIndex].DisplayIndex = colIndicesOrdered[c].displayIndex;
             }
 
             // load listviewLibSorting
