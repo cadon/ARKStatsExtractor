@@ -278,7 +278,7 @@ namespace ARKBreedingStats.uiControls
         {
             {"isTopStat", "{{#if: isTop<stat> | true | false }}, to check if a stat is a top stat in that species (i.e. highest in library).\n{{#if: isTopHP | bestHP {hp} }}" },
             {"isNewTopStat", "{{#if: isNewTop<stat> | true | false }}, to check if a stat is a top stat in that species (i.e. higher than the ones in the library).\n{{#if: isNewTopHP | newBestHP {hp} }}" },
-            {"ifexpr", "{{#ifexpr: expression | true | false }}, to check if a numerical expression with two operands and one operator is true or false. Possible operators are ==, !=, <, <=, <, >=.\n{{#ifexpr: {topPercent} > 80 | top80 }}" },
+            {"ifexpr", "{{#ifexpr: expression | true | false }}, to check if an expression with two operands and one operator is true or false. Possible operators are == and !=, numerical expressions also handle <, <=, <, >=.\n{{#ifexpr: {topPercent} > 80 | top80 }}" },
             {"substring","{{#substring: text | start | length }}. Length can be ommited. If start is negative it takes the characters from the end.\n{{#substring: {species} | 0 | 4 }}"},
             {"replace","{{#replace: text | find | replaceBy }}\n{{#replace: {species} | Abberant | Ab }}"},
             {"customreplace","{{#customreplace: text }}. Replaces the text with a value saved in the file customReplacings.json.\nIf a second parameter is given, that is returned if the key is not available.\n{{#customreplace: {species} }}"},

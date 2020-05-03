@@ -198,6 +198,19 @@ namespace ARKBreedingStats.uiControls
                                 case ">=": return d1 >= d2 ? m.Groups[3].Value : m.Groups[4].Value;
                             }
                         }
+                        else
+                        {
+                            // compare the values as strings
+                            match = Regex.Match(p1, @"\A\s*(.*?)\s*(==|!=)\s*(.*?)\s*\Z");
+                            if (match.Success)
+                            {
+                                switch (match.Groups[2].Value)
+                                {
+                                    case "==": return match.Groups[1].Value == match.Groups[3].Value ? m.Groups[3].Value : m.Groups[4].Value;
+                                    case "!=": return match.Groups[1].Value != match.Groups[3].Value ? m.Groups[3].Value : m.Groups[4].Value;
+                                }
+                            }
+                        }
                         return ParametersInvalid($"The expression for ifexpr invalid: \"{p1}\"");
                     case "substring":
                         // check param number: 1: substring, 2: p1, 3: pos, 4: length
