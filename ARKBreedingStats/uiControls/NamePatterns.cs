@@ -201,13 +201,18 @@ namespace ARKBreedingStats.uiControls
                         else
                         {
                             // compare the values as strings
-                            match = Regex.Match(p1, @"\A\s*(.*?)\s*(==|!=)\s*(.*?)\s*\Z");
+                            match = Regex.Match(p1, @"\A\s*(.*?)\s*(==|!=|<=|<|>=|>)\s*(.*?)\s*\Z");
                             if (match.Success)
                             {
+                                int stringComparingResult = match.Groups[1].Value.CompareTo(match.Groups[3].Value);
                                 switch (match.Groups[2].Value)
                                 {
-                                    case "==": return match.Groups[1].Value == match.Groups[3].Value ? m.Groups[3].Value : m.Groups[4].Value;
-                                    case "!=": return match.Groups[1].Value != match.Groups[3].Value ? m.Groups[3].Value : m.Groups[4].Value;
+                                    case "==": return stringComparingResult == 0 ? m.Groups[3].Value : m.Groups[4].Value;
+                                    case "!=": return stringComparingResult != 0 ? m.Groups[3].Value : m.Groups[4].Value;
+                                    case "<": return stringComparingResult < 0 ? m.Groups[3].Value : m.Groups[4].Value;
+                                    case "<=": return stringComparingResult <= 0 ? m.Groups[3].Value : m.Groups[4].Value;
+                                    case ">": return stringComparingResult > 0 ? m.Groups[3].Value : m.Groups[4].Value;
+                                    case ">=": return stringComparingResult >= 0 ? m.Groups[3].Value : m.Groups[4].Value;
                                 }
                             }
                         }
