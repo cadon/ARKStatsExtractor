@@ -945,7 +945,7 @@ namespace ARKBreedingStats
                     || listViewSpeciesBP.SelectedItems[0].Text != currentSpecies.DescriptiveNameAndMod)
                 )
             {
-                SetGlobalSpecies?.Invoke((Species)((ListViewItem)listViewSpeciesBP.SelectedItems[0]).Tag);
+                SetGlobalSpecies?.Invoke((Species)listViewSpeciesBP.SelectedItems[0].Tag);
             }
         }
 

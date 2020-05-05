@@ -213,7 +213,8 @@ namespace ARKBreedingStats
 
         public void SetSpecies(Species species)
         {
-            if (species == null) return;
+            if (species == null
+            || SelectedSpecies == species) return;
 
             lastSpeciesBPs.Remove(species.blueprintPath);
             if (lastSpeciesBPs.Count > keepNrLastSpecies) // only keep keepNrLastSpecies of the last species in this list

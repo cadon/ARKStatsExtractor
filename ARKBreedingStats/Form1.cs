@@ -630,7 +630,7 @@ namespace ARKBreedingStats
             else if (tabControlMain.SelectedTab == tabPageLibrary)
             {
                 if (Properties.Settings.Default.ApplyGlobalSpeciesToLibrary)
-                    listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(species);
+                    listBoxSpeciesLib.SelectedItem = species;
             }
             else if (tabControlMain.SelectedTab == tabPageTaming)
             {
@@ -1394,6 +1394,7 @@ namespace ARKBreedingStats
 
         private void listBoxSpeciesLib_SelectedIndexChanged(object sender, EventArgs e)
         {
+            SetSpecies(listBoxSpeciesLib.SelectedItem as Species);
             FilterLib();
         }
 
