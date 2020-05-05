@@ -517,6 +517,7 @@ namespace ARKBreedingStats
             cr.tribe = CreatureTribe;
             cr.server = CreatureServer;
             cr.flags = CreatureFlags;
+            cr.colors = RegionColors;
         }
 
         private void textBoxOwner_Leave(object sender, EventArgs e)
