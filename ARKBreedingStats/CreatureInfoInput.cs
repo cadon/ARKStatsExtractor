@@ -407,7 +407,7 @@ namespace ARKBreedingStats
             {
                 if (selectedSpecies != null)
                 {
-                    regionColorIDs = (int[])value.Clone();
+                    regionColorIDs = (int[])value?.Clone() ?? new int[6];
                     regionColorChooser1.SetSpecies(selectedSpecies, regionColorIDs);
                 }
             }
