@@ -186,6 +186,13 @@ namespace ARKBreedingStats.Library
                     else if (creature.fatherGuid != Guid.Empty)
                         old.fatherGuid = creature.fatherGuid;
 
+                    // if the new ArkId is imported, use that
+                    if (old.ArkId != creature.ArkId && Utils.IsArkIdImported(creature.ArkId, creature.guid))
+                    {
+                        old.ArkId = creature.ArkId;
+                        old.ArkIdImported = true;
+                    }
+
                     bool recalculate = false;
                     if (old.flags.HasFlag(CreatureFlags.Placeholder) ||
                         (old.status == CreatureStatus.Unavailable && creature.status == CreatureStatus.Available))
@@ -222,8 +229,6 @@ namespace ARKBreedingStats.Library
                         old.tribe = creature.tribe;
                         old.valuesBreeding = creature.valuesBreeding;
                         old.valuesDom = creature.valuesDom;
-                        old.ArkId = creature.ArkId;
-                        old.ArkIdImported = creature.ArkIdImported;
                         creaturesWereAdded = true;
                         recalculate = true;
                     }
