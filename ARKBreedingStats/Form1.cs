@@ -757,7 +757,7 @@ namespace ARKBreedingStats
                     ATImportExportedFolderLocation aTImportExportedFolderLocation = ATImportExportedFolderLocation.CreateFromString(f);
                     string menuItemHeader = string.IsNullOrEmpty(aTImportExportedFolderLocation.ConvenientName) ? "<unnamed>" : aTImportExportedFolderLocation.ConvenientName;
                     ToolStripMenuItem tsmi = new ToolStripMenuItem(menuItemHeader
-                        + (string.IsNullOrEmpty(aTImportExportedFolderLocation.OwnerSuffix) ? "" : " - " + aTImportExportedFolderLocation.OwnerSuffix))
+                        + (string.IsNullOrEmpty(aTImportExportedFolderLocation.OwnerSuffix) ? string.Empty : " - " + aTImportExportedFolderLocation.OwnerSuffix))
                     {
                         Tag = aTImportExportedFolderLocation
                     };
@@ -786,7 +786,7 @@ namespace ARKBreedingStats
                     {
                         Tag = atImportFileLocation
                     };
-                    tsmi.Click += RunSavegameImport;
+                    tsmi.Click += SavegameImportClick;
                     importingFromSavegameToolStripMenuItem.DropDownItems.Add(tsmi);
                 }
             }
@@ -3257,6 +3257,12 @@ namespace ARKBreedingStats
                 {
                     LoadCollectionFile(filePath);
                 }
+            }
+            else if (ext == ".ark")
+            {
+                if (MessageBox.Show($"Import all of the creatures in the following ARK save file to the currently opened library?\n{filePath}",
+                    "Import savefile?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    RunSavegameImport(new ATImportFileLocation(null, null, filePath));
             }
             else
                 DoOCR(files[0]);
