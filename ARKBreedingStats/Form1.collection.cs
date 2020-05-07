@@ -230,12 +230,7 @@ namespace ARKBreedingStats
                 return false;
             }
 
-            List<Creature> oldCreatures = null;
-            if (keepCurrentCreatures)
-                oldCreatures = creatureCollection.creatures;
-
-            // for the case the collectionfile has no multipliers, keep the current ones
-            ServerMultipliers oldMultipliers = creatureCollection.serverMultipliers;
+            CreatureCollection previouslyLoadedCreatureCollection = creatureCollection;
 
             // Wait until the file is readable
             const int numberOfRetries = 5;
@@ -378,7 +373,7 @@ namespace ARKBreedingStats
 
             if (creatureCollection.serverMultipliers == null)
             {
-                creatureCollection.serverMultipliers = oldMultipliers ?? Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.OFFICIAL);
+                creatureCollection.serverMultipliers = previouslyLoadedCreatureCollection.serverMultipliers ?? Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.OFFICIAL);
             }
 
             if (speciesSelector1.LastSpecies != null && speciesSelector1.LastSpecies.Length > 0)
@@ -393,7 +388,10 @@ namespace ARKBreedingStats
             bool creatureWasAdded = false;
 
             if (keepCurrentCreatures)
-                creatureWasAdded = creatureCollection.MergeCreatureList(oldCreatures);
+            {
+                creatureWasAdded = previouslyLoadedCreatureCollection.MergeCreatureList(creatureCollection.creatures);
+                creatureCollection = previouslyLoadedCreatureCollection;
+            }
             else
             {
                 currentFileName = filePath;
