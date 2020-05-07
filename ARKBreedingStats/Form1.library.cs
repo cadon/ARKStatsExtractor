@@ -102,7 +102,7 @@ namespace ARKBreedingStats
                 && creatureCollection.DeletedCreatureGuids.Contains(creature.guid))
                 creatureCollection.DeletedCreatureGuids.RemoveAll(guid => guid == creature.guid);
 
-            creatureCollection.MergeCreatureList(new List<Creature> { creature }, update: true);
+            creatureCollection.MergeCreatureList(new List<Creature> { creature });
 
             // if creature already exists by guid, use the already existing creature object for the parent assignments
             creature = creatureCollection.creatures.SingleOrDefault(c => c.guid == creature.guid) ?? creature;

@@ -153,149 +153,131 @@ namespace ARKBreedingStats.Library
         /// Adds creatures to the current library.
         /// </summary>
         /// <param name="creaturesToMerge">List of creatures to add</param>
-        /// <param name="update">If true and a creature is already added, its parameters will be updated</param>
-        /// <param name="updateStatus">If true the creature status will be updated</param>
         /// <param name="addPreviouslylDeletedCreatures">If true creatures will be added even if they were just deleted.</param>
         /// <returns></returns>
-        public bool MergeCreatureList(List<Creature> creaturesToMerge, bool update = false, bool updateStatus = true, bool addPreviouslylDeletedCreatures = false)
+        public bool MergeCreatureList(List<Creature> creaturesToMerge, bool addPreviouslylDeletedCreatures = false)
         {
-            bool creaturesWereAdded = false;
-            foreach (Creature creature in creaturesToMerge)
+            bool creaturesWereAddedOrUpdated = false;
+            foreach (Creature creatureNew in creaturesToMerge)
             {
-                if (!addPreviouslylDeletedCreatures && DeletedCreatureGuids != null && DeletedCreatureGuids.Contains(creature.guid)) continue;
+                if (!addPreviouslylDeletedCreatures && DeletedCreatureGuids != null && DeletedCreatureGuids.Contains(creatureNew.guid)) continue;
 
-                if (!creatures.Contains(creature))
+                if (!creatures.Contains(creatureNew))
                 {
-                    creatures.Add(creature);
-                    creaturesWereAdded = true;
+                    creatures.Add(creatureNew);
+                    creaturesWereAddedOrUpdated = true;
+                    continue;
                 }
-                else if (update)
+
+                // creature is already in the library. Update it's properties.
+                var creatureExisting = creatures.Single(c => c.guid == creatureNew.guid);
+                if (creatureExisting.Species == null)
+                    creatureExisting.Species = creatureNew.Species;
+                else if (!creatureExisting.Species.Equals(creatureNew.Species)) continue;
+
+                if (creatureNew.Mother != null)
+                    creatureExisting.Mother = creatureNew.Mother;
+                else if (creatureNew.motherGuid != Guid.Empty)
+                    creatureExisting.motherGuid = creatureNew.motherGuid;
+                if (creatureNew.Father != null)
+                    creatureExisting.Father = creatureNew.Father;
+                else if (creatureNew.fatherGuid != Guid.Empty)
+                    creatureExisting.fatherGuid = creatureNew.fatherGuid;
+
+                if (!string.IsNullOrEmpty(creatureNew.motherName))
+                    creatureExisting.motherName = creatureNew.motherName;
+                if (!string.IsNullOrEmpty(creatureNew.fatherName))
+                    creatureExisting.fatherName = creatureNew.fatherName;
+
+                // if the new ArkId is imported, use that
+                if (creatureExisting.ArkId != creatureNew.ArkId && Utils.IsArkIdImported(creatureNew.ArkId, creatureNew.guid))
                 {
-                    // Merge in some specific parts: imprinting level, dom stats, name
-                    var old = creatures.Single(c => c.guid == creature.guid);
-                    if (old.Species == null)
-                        old.Species = creature.Species;
-                    else if (old.Species != creature.Species) continue;
+                    creatureExisting.ArkId = creatureNew.ArkId;
+                    creatureExisting.ArkIdImported = true;
+                }
 
-                    if (creature.Mother != null)
-                        old.Mother = creature.Mother;
-                    else if (creature.motherGuid != Guid.Empty)
-                        old.motherGuid = creature.motherGuid;
-                    if (creature.Father != null)
-                        old.Father = creature.Father;
-                    else if (creature.fatherGuid != Guid.Empty)
-                        old.fatherGuid = creature.fatherGuid;
+                creatureExisting.colors = creatureNew.colors;
+                creatureExisting.status = creatureNew.status;
+                creatureExisting.sex = creatureNew.sex;
+                creatureExisting.cooldownUntil = creatureNew.cooldownUntil;
+                creatureExisting.domesticatedAt = creatureNew.domesticatedAt;
+                creatureExisting.generation = creatureNew.generation;
+                creatureExisting.growingUntil = creatureNew.growingUntil;
+                creatureExisting.imprintingBonus = creatureNew.imprintingBonus;
+                creatureExisting.isBred = creatureNew.isBred;
+                if (!string.IsNullOrEmpty(creatureNew.note))
+                    creatureExisting.note = creatureNew.note;
 
-                    // if the new ArkId is imported, use that
-                    if (old.ArkId != creature.ArkId && Utils.IsArkIdImported(creature.ArkId, creature.guid))
+                UpdateString(ref creatureExisting.name, ref creatureNew.name);
+                UpdateString(ref creatureExisting.owner, ref creatureNew.owner);
+                UpdateString(ref creatureExisting.tribe, ref creatureNew.tribe);
+                UpdateString(ref creatureExisting.server, ref creatureNew.server);
+                UpdateString(ref creatureExisting.imprinterName, ref creatureNew.imprinterName);
+
+                void UpdateString(ref string oldCreatureValue, ref string newCreatureValue)
+                {
+                    if (oldCreatureValue != newCreatureValue)
                     {
-                        old.ArkId = creature.ArkId;
-                        old.ArkIdImported = true;
+                        oldCreatureValue = newCreatureValue;
+                        creaturesWereAddedOrUpdated = true;
                     }
+                }
 
-                    bool recalculate = false;
-                    if (old.flags.HasFlag(CreatureFlags.Placeholder) ||
-                        (old.status == CreatureStatus.Unavailable && creature.status == CreatureStatus.Available))
+                bool recalculate = false;
+                if (creatureExisting.flags.HasFlag(CreatureFlags.Placeholder) ||
+                    (creatureExisting.status == CreatureStatus.Unavailable && creatureNew.status == CreatureStatus.Available))
+                {
+                    creatureExisting.levelFound = creatureNew.levelFound;
+                    creatureExisting.levelsDom = creatureNew.levelsDom;
+                    creatureExisting.levelsWild = creatureNew.levelsWild;
+                    creatureExisting.mutationsMaternal = creatureNew.mutationsMaternal;
+                    creatureExisting.mutationsPaternal = creatureNew.mutationsPaternal;
+                    creatureExisting.tamingEff = creatureNew.tamingEff;
+                    creaturesWereAddedOrUpdated = true;
+                    recalculate = true;
+                }
+                else
+                {
+                    if (!creatureExisting.levelsWild.SequenceEqual(creatureNew.levelsWild))
                     {
-                        old.colors = creature.colors;
-                        old.cooldownUntil = creature.cooldownUntil;
-                        old.domesticatedAt = creature.domesticatedAt;
-                        old.sex = creature.sex;
-                        old.generation = creature.generation;
-                        old.growingUntil = creature.growingUntil;
-                        old.imprinterName = creature.imprinterName;
-                        old.imprintingBonus = creature.imprintingBonus;
-                        old.isBred = creature.isBred;
-                        old.levelFound = creature.levelFound;
-                        old.levelsDom = creature.levelsDom;
-                        old.levelsWild = creature.levelsWild;
-                        old.motherName = creature.motherName;
-                        old.fatherName = creature.fatherName;
-                        old.mutationsMaternal = creature.mutationsMaternal;
-                        old.mutationsPaternal = creature.mutationsPaternal;
-                        old.name = creature.name;
-                        old.note = creature.note;
-                        old.owner = creature.owner;
-                        old.server = creature.server;
-                        old.flags = creature.flags;
-                        if (updateStatus)
-                            old.status = creature.status;
-                        old.tamingEff = creature.tamingEff;
-                        old.topBreedingCreature = creature.topBreedingCreature;
-                        old.topBreedingStats = creature.topBreedingStats;
-                        old.topStatsCount = creature.topStatsCount;
-                        old.topStatsCountBP = creature.topStatsCountBP;
-                        old.topness = creature.topness;
-                        old.tribe = creature.tribe;
-                        old.valuesBreeding = creature.valuesBreeding;
-                        old.valuesDom = creature.valuesDom;
-                        creaturesWereAdded = true;
+                        creatureExisting.levelsWild = creatureNew.levelsWild;
                         recalculate = true;
+                        creaturesWereAddedOrUpdated = true;
                     }
-                    else
+
+                    if (!creatureExisting.levelsDom.SequenceEqual(creatureNew.levelsDom))
                     {
-                        if (old.name != creature.name)
-                        {
-                            old.name = creature.name;
-                            creaturesWereAdded = true;
-                        }
-
-                        if (old.server != creature.server)
-                        {
-                            old.server = creature.server;
-                            creaturesWereAdded = true;
-                        }
-
-                        if (!old.levelsWild.SequenceEqual(creature.levelsWild))
-                        {
-                            old.levelsWild = creature.levelsWild;
-                            recalculate = true;
-                            creaturesWereAdded = true;
-                        }
-
-                        if (!old.levelsDom.SequenceEqual(creature.levelsDom))
-                        {
-                            old.levelsDom = creature.levelsDom;
-                            recalculate = true;
-                            creaturesWereAdded = true;
-                        }
-
-                        if (old.imprintingBonus != creature.imprintingBonus)
-                        {
-                            old.imprintingBonus = creature.imprintingBonus;
-                            recalculate = true;
-                            creaturesWereAdded = true;
-                        }
-
-                        if (old.tamingEff != creature.tamingEff)
-                        {
-                            old.tamingEff = creature.tamingEff;
-                            recalculate = true;
-                            creaturesWereAdded = true;
-                        }
-                        // usually not necessary, mutations will not change, but if in ARK before exporting the ancestors screen was not opened, 0 will be assumed by ARK.
-                        if (creature.mutationsMaternal != 0 || creature.mutationsPaternal != 0)
-                        {
-                            old.mutationsMaternal = creature.mutationsMaternal;
-                            old.mutationsPaternal = creature.mutationsPaternal;
-                        }
-                        if (old.motherGuid == Guid.Empty || old.fatherGuid == Guid.Empty)
-                        {
-                            old.motherGuid = creature.motherGuid;
-                            old.motherName = creature.motherName;
-                            old.fatherGuid = creature.fatherGuid;
-                            old.fatherName = creature.fatherName;
-                        }
-                        old.colors = creature.colors;
-                        old.status = creature.status;
-                        old.sex = creature.sex;
+                        creatureExisting.levelsDom = creatureNew.levelsDom;
+                        recalculate = true;
+                        creaturesWereAddedOrUpdated = true;
                     }
 
-                    if (recalculate)
-                        old.RecalculateCreatureValues(getWildLevelStep());
+                    if (creatureExisting.imprintingBonus != creatureNew.imprintingBonus)
+                    {
+                        creatureExisting.imprintingBonus = creatureNew.imprintingBonus;
+                        recalculate = true;
+                        creaturesWereAddedOrUpdated = true;
+                    }
+
+                    if (creatureExisting.tamingEff != creatureNew.tamingEff)
+                    {
+                        creatureExisting.tamingEff = creatureNew.tamingEff;
+                        recalculate = true;
+                        creaturesWereAddedOrUpdated = true;
+                    }
+                    // usually not necessary, mutations will not change, but if in ARK before exporting the ancestors screen was not opened, 0 will be assumed by ARK.
+                    if (creatureNew.mutationsMaternal != 0 || creatureNew.mutationsPaternal != 0)
+                    {
+                        creatureExisting.mutationsMaternal = creatureNew.mutationsMaternal;
+                        creatureExisting.mutationsPaternal = creatureNew.mutationsPaternal;
+                    }
                 }
+                creatureExisting.flags = creatureNew.flags;
+
+                if (recalculate)
+                    creatureExisting.RecalculateCreatureValues(getWildLevelStep());
             }
-            return creaturesWereAdded;
+            return creaturesWereAddedOrUpdated;
         }
 
         /// <summary>
