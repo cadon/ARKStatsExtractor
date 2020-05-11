@@ -189,7 +189,7 @@ Changez le mode de reproduction en "Statistiques élevées" pour de meilleures s
     <value>Ces parents viennent de s'accoupler</value>
   </data>
   <data name="btBPJustMatedTT" xml:space="preserve">
-    <value>Cliquez pour créer une entrée d'incubation dans l'onglet Elevage</value>
+    <value>Cliquez pour créer une entrée d'incubation dans l'onglet Élevage</value>
   </data>
   <data name="btClearColorsTT" xml:space="preserve">
     <value>Cliquez pour effacer toutes les zones de couleur.</value>
@@ -204,7 +204,7 @@ Changez le mode de reproduction en "Statistiques élevées" pour de meilleures s
     <value>Importer le fichier-créature qui a été exporté en dernier (en jeu avec la fonction "Exporter les données")</value>
   </data>
   <data name="btnAddStarvingTimer" xml:space="preserve">
-    <value>ajouter un minuteur pour l'affamement</value>
+    <value>Ajouter un minuteur pour l'affamement</value>
   </data>
   <data name="btnGenerateUniqueNameTT" xml:space="preserve">
     <value>Générer un nom automatiquement
@@ -693,7 +693,7 @@ Régler sur -1 pour n'importe quel nombre de mutation.</value>
     <value>&amp;Quitter</value>
   </data>
   <data name="Raising" xml:space="preserve">
-    <value>Elevage</value>
+    <value>Élevage</value>
   </data>
   <data name="rbBPHighStats" xml:space="preserve">
     <value>Statistiques élevées</value>
@@ -784,7 +784,7 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
     <value>Test des statistiques</value>
   </data>
   <data name="Status" xml:space="preserve">
-    <value>Status</value>
+    <value>Statut</value>
   </data>
   <data name="Tail" xml:space="preserve">
     <value>Queue</value>
@@ -814,7 +814,7 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
     <value>Temps entre les accouplements</value>
   </data>
   <data name="timerFeedAll" xml:space="preserve">
-    <value>tout nourrir de</value>
+    <value>Tout nourrir de</value>
   </data>
   <data name="timerWakeupOf" xml:space="preserve">
     <value>Réveil</value>
@@ -999,7 +999,22 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
   <data name="speciesNotTameable" xml:space="preserve">
     <value>L'espèce sélectionnée n'est pas apprivoisable. Peut-être avez-vous sélectionné une variante non apprivoisable d'une espèce apprivoisable ?</value>
   </data>
+  <data name="cbBPMutationLimitOnlyOnePartner" xml:space="preserve">
+    <value>Un partenaire peut avoir plus de mutations</value>
+  </data>
+  <data name="cbBPOnlyOneSuggestionForFemales" xml:space="preserve">
+    <value>Seulement la meilleure suggestion pour les femelles</value>
+  </data>
   <data name="Descendants" xml:space="preserve">
     <value>Progéniture</value>
+  </data>
+  <data name="ProbabilityForOneMutation" xml:space="preserve">
+    <value>Probabilité d'une mutation</value>
+  </data>
+  <data name="matingTime" xml:space="preserve">
+    <value>Temps d'accouplement</value>
+  </data>
+  <data name="addedAt" xml:space="preserve">
+    <value>Ajouté à</value>
   </data>
 </root>
