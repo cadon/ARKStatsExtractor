@@ -381,7 +381,7 @@ namespace ARKBreedingStats
 
         private void listViewCreatures_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-            ListViewColumnSorter.doSort((ListView)sender, e.Column);
+            ListViewColumnSorter.DoSort((ListView)sender, e.Column);
         }
 
         public void SetLocalizations()

@@ -33,6 +33,7 @@ namespace ARKBreedingStats.raising
             listViewBabies.Groups.Add("growing", "Juveniles / Adolescent");
             updateListView = false;
             listViewBabies.DoubleBuffered(true); // prevent flickering
+            listViewBabies.ListViewItemSorter = new ListViewColumnSorter();
         }
 
         public void UpdateRaisingData()
@@ -593,6 +594,11 @@ namespace ARKBreedingStats.raising
             AdjustTimers?.Invoke(offset);
             dhmsInputOffsetAllTimers.Timespan = default;
             Utils.BlinkAsync(btAdjustAllTimers, Color.LightGreen, 500, false);
+        }
+
+        private void listViewBabies_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            ListViewColumnSorter.DoSort((ListView)sender, e.Column);
         }
 
         private void bSaveTimerEdit_Click(object sender, EventArgs e)

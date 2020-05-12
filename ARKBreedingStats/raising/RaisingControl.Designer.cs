@@ -233,6 +233,7 @@
             this.listViewBabies.TabIndex = 6;
             this.listViewBabies.UseCompatibleStateImageBehavior = false;
             this.listViewBabies.View = System.Windows.Forms.View.Details;
+            this.listViewBabies.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewBabies_ColumnClick);
             this.listViewBabies.SelectedIndexChanged += new System.EventHandler(this.listViewBabies_SelectedIndexChanged);
             // 
             // columnHeaderBabyName
