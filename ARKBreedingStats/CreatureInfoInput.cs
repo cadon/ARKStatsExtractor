@@ -650,6 +650,20 @@ namespace ARKBreedingStats
             CalculateNewMutations();
         }
 
+        private void BtSaveOTSPreset_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.DefaultOwnerName = CreatureOwner;
+            Properties.Settings.Default.DefaultTribeName = CreatureTribe;
+            Properties.Settings.Default.DefaultServerName = CreatureServer;
+        }
+
+        private void BtApplyOTSPreset_Click(object sender, EventArgs e)
+        {
+            CreatureOwner = Properties.Settings.Default.DefaultOwnerName;
+            CreatureTribe = Properties.Settings.Default.DefaultTribeName;
+            CreatureServer = Properties.Settings.Default.DefaultServerName;
+        }
+
         internal void Clear()
         {
             textBoxName.Clear();

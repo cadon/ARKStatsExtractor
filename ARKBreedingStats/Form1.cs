@@ -403,6 +403,7 @@ namespace ARKBreedingStats
             // default owner and tribe
             creatureInfoInputExtractor.CreatureOwner = Properties.Settings.Default.DefaultOwnerName;
             creatureInfoInputExtractor.CreatureTribe = Properties.Settings.Default.DefaultTribeName;
+            creatureInfoInputExtractor.CreatureServer = Properties.Settings.Default.DefaultServerName;
             creatureInfoInputExtractor.OwnerLock = Properties.Settings.Default.OwnerNameLocked;
             creatureInfoInputExtractor.TribeLock = Properties.Settings.Default.TribeNameLocked;
 
@@ -1251,9 +1252,7 @@ namespace ARKBreedingStats
             // save onlyNonMutatedInBreedingPlanner
             Properties.Settings.Default.MutationLimitBreedingPlanner = breedingPlan1.MutationLimit;
 
-            // save default owner and tribe name and if they're locked
-            Properties.Settings.Default.DefaultOwnerName = creatureInfoInputExtractor.CreatureOwner;
-            Properties.Settings.Default.DefaultTribeName = creatureInfoInputExtractor.CreatureTribe;
+            // save locked state of owner and tribe name
             Properties.Settings.Default.OwnerNameLocked = creatureInfoInputExtractor.OwnerLock;
             Properties.Settings.Default.TribeNameLocked = creatureInfoInputExtractor.TribeLock;
 
