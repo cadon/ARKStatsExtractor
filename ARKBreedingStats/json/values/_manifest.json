@@ -18,7 +18,8 @@
 			"mod": { "id": "111111111", "tag": "PrimitivePlus", "title": "PrimitivePlus" }
 		},
 		"1125442531-Gaia.json": {
-			"version": "310.36.1587342854",
+			"version": "310.77.1589030706",
+			"format": "1.13",
 			"mod": { "id": "1125442531", "tag": "Gaia", "title": "Gaia" }
 		},
 		"1136390783-PhoenixBreeding.json": {
@@ -70,11 +71,13 @@
 			"mod": { "id": "1522327484", "tag": "Additions_Pack", "title": "ARK Additions!" }
 		},
 		"1523045986-Paranoia.json": {
-			"version": "309.53.1586276630",
+			"version": "310.62.1588570766",
+			"format": "1.13",
 			"mod": { "id": "1523045986", "tag": "Paranoia", "title": "Additional Creatures 2: Paranoia!" }
 		},
 		"1565015734-BetterDinosTest.json": {
-			"version": "310.41.1587774145",
+			"version": "310.62.1588873988",
+			"format": "1.13",
 			"mod": { "id": "1565015734", "tag": "BetterDinosTest", "title": "Better Dinos" }
 		},
 		"1576299694-ElementalDinos.json": {
@@ -98,11 +101,13 @@
 			"mod": { "id": "1633860796", "tag": "DE_Breedable_RockDrakes", "title": "Dark Edges Breedable Rock Drakes" }
 		},
 		"1652120435-AtlasPort.json": {
-			"version": "306.83.1569282532",
+			"version": "310.62.1588940053",
+			"format": "1.13",
 			"mod": { "id": "1652120435", "tag": "AtlasPort", "title": "Shad's Atlas Imports" }
 		},
 		"1654255131-AtlasImports.json": {
-			"version": "310.41.1587683797",
+			"version": "310.50.1588055957",
+			"format": "1.13",
 			"mod": { "id": "1654255131", "tag": "AtlasImports", "title": "Animals of Atlas" }
 		},
 		"1662691167-Senior.json": {
@@ -110,11 +115,13 @@
 			"mod": { "id": "1662691167", "tag": "Senior", "title": "Additional Creatures: Senior Class" }
 		},
 		"1675895024-NoUntameables.json": {
-			"version": "310.36.1587027746",
+			"version": "310.62.1588527963",
+			"format": "1.13",
 			"mod": { "id": "1675895024", "tag": "NoUntameables", "title": "No Untameables" }
 		},
 		"1676159020-Aquaria.json": {
-			"version": "307.4.1584246685",
+			"version": "310.62.1588370282",
+			"format": "1.13",
 			"mod": { "id": "1676159020", "tag": "Aquaria", "title": "Additional Creatures: Aquaria" }
 		},
 		"1681125667-Primal_Fear_EX.json": {
@@ -126,7 +133,8 @@
 			"mod": { "id": "1696957410", "tag": "MarniimodsTest", "title": "Marnii's Equines" }
 		},
 		"1729386191-BonusDinoMod.json": {
-			"version": "310.36.1587240193",
+			"version": "310.62.1588448169",
+			"format": "1.13",
 			"mod": { "id": "1729386191", "tag": "BonusDinoMod", "title": "Additional Creatures: Bonus Content" }
 		},
 		"1729512589-Brachiosaurus.json": {
@@ -165,9 +173,15 @@
 			"version": "309.53.1581239136",
 			"mod": { "id": "1934081600", "tag": "SoloFarmAnky", "title": "Solo Farm Mod" }
 		},
+		"1984936918-MarniiModsWildlife.json": {
+			"version": "310.77.1589127051",
+			"format": "1.13",
+			"mod": { "id": "1984936918", "tag": "MarniiModsWildlife", "title": "MarniiMods:Wildlife" }
+		},
 		"2000326197-ExtraResources.json": {
-			"version": "309.53.1582726065",
-			"mod": { "id": "2000326197", "tag": "ExtraResources", "title": "Extra Resources" }
+			"version": "310.50.1588186841",
+			"format": "1.13",
+			"mod": { "id": "2000326197", "tag": "ExtraResources", "title": "Event Assets" }
 		},
 		"729352919-IndomRex.json": {
 			"version": "306.83.1488771984",
@@ -182,7 +196,8 @@
 			"mod": { "id": "839162288", "tag": "Primal_Fear", "title": "Primal Fear" }
 		},
 		"893735676-AE.json": {
-			"version": "310.36.1587436399",
+			"version": "310.62.1588820272",
+			"format": "1.13",
 			"mod": { "id": "893735676", "tag": "AE", "title": "ARK: Eternal" }
 		},
 		"895711211-ClassicFlyers.json": {
@@ -202,7 +217,7 @@
 			"mod": { "id": "919470289", "tag": "SSFlyer", "title": "SSFlyer" }
 		},
 		"values.json": {
-			"version": "310.47.4923984",
+			"version": "310.62.4973089",
 			"format": "1.13"
 		}
 	}

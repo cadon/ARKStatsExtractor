@@ -1,5 +1,5 @@
 {
-	"version": "310.47.4923984",
+	"version": "310.62.4973089",
 	"format": "1.13",
 	"species": [
 		{
@@ -9824,6 +9824,166 @@
 			"boneDamageAdjusters": {
 				"c_jaw": 2,
 				"c_head": 2
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false,
+			"displayedStats": 927
+		},
+		{
+			"name": "Corrupted Avatar",
+			"blueprintPath": "/Game/Genesis/Dinos/Bots/Bot_Character_BP.Bot_Character_BP",
+			"fullStatsRaw": [
+				[ 100, 0.5, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 20,
+				"affinityNeeded0": 100,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false,
+			"displayedStats": 927
+		},
+		{
+			"name": "Corrupted Avatar",
+			"blueprintPath": "/Game/Genesis/Dinos/Bots/Bot_WithBow_BP.Bot_WithBow_BP",
+			"fullStatsRaw": [
+				[ 100, 0.5, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 20,
+				"affinityNeeded0": 100,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false,
+			"displayedStats": 927
+		},
+		{
+			"name": "Corrupted Avatar",
+			"blueprintPath": "/Game/Genesis/Dinos/Bots/Bot_WithSpear_BP.Bot_WithSpear_BP",
+			"fullStatsRaw": [
+				[ 100, 0.5, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 20,
+				"affinityNeeded0": 100,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false,
+			"displayedStats": 927
+		},
+		{
+			"name": "Corrupted Avatar",
+			"blueprintPath": "/Game/Genesis/Dinos/Bots/Bot_WithTekGrenades_BP.Bot_WithTekGrenades_BP",
+			"fullStatsRaw": [
+				[ 100, 0.5, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 20,
+				"affinityNeeded0": 100,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false,
+			"displayedStats": 927
+		},
+		{
+			"name": "Corrupted Avatar",
+			"blueprintPath": "/Game/Genesis/Dinos/Bots/Bot_WithTekRifle_BP.Bot_WithTekRifle_BP",
+			"fullStatsRaw": [
+				[ 100, 0.5, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 20,
+				"affinityNeeded0": 100,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
@@ -36918,6 +37078,105 @@
 			"displayedStats": 919
 		},
 		{
+			"name": "Corrupted Master Controller",
+			"blueprintPath": "/Game/Genesis/Dinos/VRMainBoss/VRMainBoss_Character_Easy.VRMainBoss_Character_Easy",
+			"variants": [ "Boss", "Gamma", "VR" ],
+			"fullStatsRaw": [
+				[ 25000, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 20,
+				"affinityNeeded0": 100,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false,
+			"displayedStats": 927
+		},
+		{
+			"name": "Corrupted Master Controller",
+			"blueprintPath": "/Game/Genesis/Dinos/VRMainBoss/VRMainBoss_Character_Hard.VRMainBoss_Character_Hard",
+			"variants": [ "Alpha", "Boss", "VR" ],
+			"fullStatsRaw": [
+				[ 150000, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 20,
+				"affinityNeeded0": 100,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false,
+			"displayedStats": 927
+		},
+		{
+			"name": "Corrupted Master Controller",
+			"blueprintPath": "/Game/Genesis/Dinos/VRMainBoss/VRMainBoss_Character_Medium.VRMainBoss_Character_Medium",
+			"variants": [ "Beta", "Boss", "VR" ],
+			"fullStatsRaw": [
+				[ 60000, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 20,
+				"affinityNeeded0": 100,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false,
+			"displayedStats": 927
+		},
+		{
 			"name": "Dragon",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Bosses/Dragon_Character_BP_Boss_Easy_Ragnarok.Dragon_Character_BP_Boss_Easy_Ragnarok",
 			"variants": [ "Boss", "Gamma", "Ragnarok" ],
@@ -38191,168 +38450,6 @@
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
 			"displayedStats": 919
-		},
-		{
-			"name": "Ice Wyvern",
-			"blueprintPath": "/Game/Mods/Valguero/Assets/Dinos/IceWyvern/Ragnarok_Wyvern_Override_Ice.Ragnarok_Wyvern_Override_Ice",
-			"variants": [ "Valguero" ],
-			"fullStatsRaw": [
-				[ 1725, 0.15, 0.2025, -1050, 0 ],
-				[ 275, 0.05, 0.05, 0, 0 ],
-				[ 725, 0.06, 0, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 2000, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 400, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, -0.25, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
-				null,
-				null
-			],
-			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
-			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
-			"breeding": {
-				"gestationTime": 0,
-				"incubationTime": 17998.5601,
-				"eggTempMin": 80,
-				"eggTempMax": 90,
-				"maturationTime": 333333.333,
-				"matingCooldownMin": 64800,
-				"matingCooldownMax": 172800
-			},
-			"colors": [
-				{
-					"name": "Body Main",
-					"colors": [
-						"BigFoot4",
-						"Dino Albino",
-						"Dino Light Blue",
-						"Dino Light Green",
-						"Dino Light Purple",
-						"DragonBlue0",
-						"DragonGreen3",
-						"Light Grey",
-						"NearBlack",
-						"WyvernBlue0",
-						"WyvernBlue1",
-						"WyvernPurple1"
-					]
-				},
-				{
-					"name": "Fins",
-					"colors": [
-						"Black",
-						"Dino Light Blue",
-						"DragonBlue0",
-						"Light Grey",
-						"WyvernBlue0",
-						"WyvernBlue1"
-					]
-				},
-				{
-					"name": "Wings",
-					"colors": [
-						"Dino Dark Purple",
-						"Dino Darker Grey",
-						"Dino Light Blue",
-						"Dino Light Purple",
-						"DragonBlue0",
-						"Light Grey",
-						"WyvernBlue0",
-						"WyvernPurple0",
-						"WyvernPurple1"
-					]
-				},
-				null,
-				{
-					"name": "Scales Belly",
-					"colors": [
-						"BigFoot0",
-						"BigFoot4",
-						"Dino Albino",
-						"Dino Light Blue",
-						"Dino Light Brown",
-						"Dino Light Green",
-						"Dino Light Purple",
-						"DragonBlue0",
-						"DragonGreen3",
-						"Light Grey",
-						"NearBlack",
-						"WolfFur",
-						"WyvernBlue0",
-						"WyvernBlue1"
-					]
-				},
-				{
-					"name": "Scales Top and Fins",
-					"colors": [
-						"Dino Albino",
-						"Dino Light Blue",
-						"Dino Light Green",
-						"Dino Light Purple",
-						"DragonGreen3",
-						"Light Grey",
-						"NearBlack",
-						"WyvernBlue0",
-						"WyvernPurple1"
-					]
-				}
-			],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 1.5,
-				"affinityNeeded0": 8500,
-				"affinityIncreasePL": 150,
-				"foodConsumptionBase": 0.000185,
-				"foodConsumptionMult": 199.984
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
-			"displayedStats": 927
-		},
-		{
-			"name": "Dire Polar Bear",
-			"blueprintPath": "/Game/Mods/Valguero/Assets/Dinos/PolarBear/Polar_Bear.Polar_Bear",
-			"variants": [ "Valguero" ],
-			"fullStatsRaw": [
-				[ 400, 0.2, 0.27, 0.5, 0 ],
-				[ 500, 0.1, 0.1, 0, 0 ],
-				[ 1000, 0.06, 0, 0.5, 0 ],
-				[ 270, 0.1, 0.1, 0, 0 ],
-				[ 3000, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 650, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0.01, 1.226, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
-			"breeding": {
-				"gestationTime": 14285.7143,
-				"incubationTime": 0,
-				"maturationTime": 166666.667,
-				"matingCooldownMin": 64800,
-				"matingCooldownMax": 172800
-			},
-			"taming": {
-				"nonViolent": false,
-				"violent": true,
-				"tamingIneffectiveness": 1.25,
-				"affinityNeeded0": 4000,
-				"affinityIncreasePL": 125,
-				"torporDepletionPS0": 0.9,
-				"foodConsumptionBase": 0.003156,
-				"foodConsumptionMult": 150
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
-			"displayedStats": 927
 		},
 		{
 			"name": "Chalk Golem",
