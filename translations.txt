@@ -1,5 +1,6 @@
 aboutToolStripMenuItem	about…	
 added	Added	
+addedAt  Added at
 AlreadyCreatureWithTopStats	"There is already a creature in your library that has all the available top-stats ({0} {1}).
 The currently selected conservative-breeding-mode might show some suggestions that may seem non-optimal.
 Change the breeding-mode to "High Stats" for better suggestions."	
@@ -43,6 +44,8 @@ C3	C3
 C4	C4	
 C5	C5	
 Cancel	Cancel	
+cbBPMutationLimitOnlyOnePartner  One partner may have more mutations
+cbBPOnlyOneSuggestionForFemales  Only best suggestion for females
 cbBPTagExcludeDefaultTT	"Check if all creatures should be excluded and only be included when have the include-mark on their tag.
 If this checkbox is unchecked, all creatures will be included by default, and only excluded if one of their tags has the exclude-mark and none has the include-mark."	
 cbExactlyImprinting	Exactly, don't adjust	
@@ -85,6 +88,7 @@ de	German
 deadCreaturesToolStripMenuItem	Dead Creatures	
 Default	Default	
 deleteSelectedToolStripMenuItem	Remove…	
+Descendants  Descendants
 Details	Details	
 domesticatedAt	Domesticated at	
 domLevelExplanation	Levels assigned manually to this stat after the creature was domesticated	
@@ -180,6 +184,7 @@ loadToolStripMenuItem	&Load...
 Longneck	Longneck	
 Male	Male	
 malesToolStripMenuItem	Males	
+matingTime  Mating Time
 Maturation	Maturation	
 modValueManagerToolStripMenuItem	Load additional values…	
 Mother	Mother	
@@ -218,6 +223,7 @@ pasteCreatureToolStripMenuItem	Paste Creature
 pedigree	Pedigree	
 Player	Player	
 ProbabilityForBest	Probability for this Best Possible outcome	
+ProbabilityForOneMutation  Probability for one mutation
 quitToolStripMenuItem	&Quit	
 Raising	Raising	
 rbBPHighStats	High Stats	

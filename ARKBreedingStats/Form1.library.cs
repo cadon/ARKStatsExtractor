@@ -102,7 +102,7 @@ namespace ARKBreedingStats
                 && creatureCollection.DeletedCreatureGuids.Contains(creature.guid))
                 creatureCollection.DeletedCreatureGuids.RemoveAll(guid => guid == creature.guid);
 
-            creatureCollection.MergeCreatureList(new List<Creature> { creature }, update: true);
+            creatureCollection.MergeCreatureList(new List<Creature> { creature });
 
             // if creature already exists by guid, use the already existing creature object for the parent assignments
             creature = creatureCollection.creatures.SingleOrDefault(c => c.guid == creature.guid) ?? creature;
@@ -894,7 +894,7 @@ namespace ARKBreedingStats
 
         private void listView_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-            ListViewColumnSorter.doSort((ListView)sender, e.Column);
+            ListViewColumnSorter.DoSort((ListView)sender, e.Column);
         }
 
         // onlibrarychange
@@ -1046,10 +1046,9 @@ namespace ARKBreedingStats
             // if only one species should be shown adjust statnames if the selected species is a glow-species
             bool chargeStatsHeaders = false;
             if (listBoxSpeciesLib.SelectedIndex > 0
-                && listBoxSpeciesLib.SelectedItem.GetType() == typeof(Species))
+                && listBoxSpeciesLib.SelectedItem is Species selectedSpecies)
             {
-                Species selectedSpecies = listBoxSpeciesLib.SelectedItem as Species;
-                filteredList = filteredList.Where(c => c.Species == selectedSpecies);
+                filteredList = filteredList.Where(c => c.Species.Equals(selectedSpecies));
                 if (selectedSpecies.IsGlowSpecies)
                     chargeStatsHeaders = true;
             }

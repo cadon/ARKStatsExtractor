@@ -278,7 +278,7 @@ namespace ARKBreedingStats.uiControls
         {
             {"isTopStat", "{{#if: isTop<stat> | true | false }}, to check if a stat is a top stat in that species (i.e. highest in library).\n{{#if: isTopHP | bestHP {hp} }}" },
             {"isNewTopStat", "{{#if: isNewTop<stat> | true | false }}, to check if a stat is a top stat in that species (i.e. higher than the ones in the library).\n{{#if: isNewTopHP | newBestHP {hp} }}" },
-            {"ifexpr", "{{#ifexpr: expression | true | false }}, to check if a numerical expression with two operands and one operator is true or false. Possible operators are ==, !=, <, <=, <, >=.\n{{#ifexpr: {topPercent} > 80 | top80 }}" },
+            {"ifexpr", "{{#ifexpr: expression | true | false }}, to check if an expression with two operands and one operator is true or false. Possible operators are ==, !=, <, <=, <, >=.\n{{#ifexpr: {topPercent} > 80 | true | false }}" },
             {"substring","{{#substring: text | start | length }}. Length can be ommited. If start is negative it takes the characters from the end.\n{{#substring: {species} | 0 | 4 }}"},
             {"replace","{{#replace: text | find | replaceBy }}\n{{#replace: {species} | Abberant | Ab }}"},
             {"customreplace","{{#customreplace: text }}. Replaces the text with a value saved in the file customReplacings.json.\nIf a second parameter is given, that is returned if the key is not available.\n{{#customreplace: {species} }}"},
@@ -289,6 +289,7 @@ namespace ARKBreedingStats.uiControls
             {"casing","{{#casing: text | casingtype (U, L, T) }}. U for UPPER, L for lower, T for Title.\n{{#casing: {species} | U }}"},
             {"time","{{#time: formatString }}\n{{#time: yyyy-MM-dd_HH:mm }}"},
             {"format","{{#format: number | formatString }}\n{{#format: {hp_vb} | 000000 }}"},
+            {"color","{{#color: regionId | colorName }}. Returns the colorId of the region. If the second parameter is not empty, the color name will be returned.\n{{#color: 0 | true }}"},
         };
 
         private void btnClear_Click(object sender, EventArgs e)

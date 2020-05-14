@@ -407,7 +407,7 @@ namespace ARKBreedingStats
             {
                 if (selectedSpecies != null)
                 {
-                    regionColorIDs = (int[])value.Clone();
+                    regionColorIDs = (int[])value?.Clone() ?? new int[6];
                     regionColorChooser1.SetSpecies(selectedSpecies, regionColorIDs);
                 }
             }
@@ -517,6 +517,7 @@ namespace ARKBreedingStats
             cr.tribe = CreatureTribe;
             cr.server = CreatureServer;
             cr.flags = CreatureFlags;
+            cr.colors = RegionColors;
         }
 
         private void textBoxOwner_Leave(object sender, EventArgs e)
@@ -647,6 +648,20 @@ namespace ARKBreedingStats
         private void NudMutations_ValueChanged(object sender, EventArgs e)
         {
             CalculateNewMutations();
+        }
+
+        private void BtSaveOTSPreset_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.DefaultOwnerName = CreatureOwner;
+            Properties.Settings.Default.DefaultTribeName = CreatureTribe;
+            Properties.Settings.Default.DefaultServerName = CreatureServer;
+        }
+
+        private void BtApplyOTSPreset_Click(object sender, EventArgs e)
+        {
+            CreatureOwner = Properties.Settings.Default.DefaultOwnerName;
+            CreatureTribe = Properties.Settings.Default.DefaultTribeName;
+            CreatureServer = Properties.Settings.Default.DefaultServerName;
         }
 
         internal void Clear()

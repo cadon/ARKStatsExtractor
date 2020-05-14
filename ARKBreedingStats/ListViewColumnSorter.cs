@@ -14,21 +14,22 @@ namespace ARKBreedingStats
         /// <summary>
         /// Specifies the last column to be sorted (is used for sorting when current compare is equal)
         /// </summary>
-        public int LastSortColumn { set; get; }
+        private int _lastSortColumn;
 
         /// <summary>
         /// Gets or sets the order of sorting to apply (for example, 'Ascending' or 'Descending').
         /// </summary>
         public SortOrder Order { set; get; }
+
         /// <summary>
         /// Gets or sets the order of the last column sorting (for example, 'Ascending' or 'Descending').
         /// </summary>
-        public SortOrder LastOrder { set; get; }
+        private SortOrder _lastOrder;
 
         /// <summary>
         /// Case insensitive comparer object
         /// </summary>
-        private CaseInsensitiveComparer ObjectCompare;
+        private readonly CaseInsensitiveComparer _objectCompare;
 
         /// <summary>
         /// Class constructor.  Initializes various elements
@@ -37,13 +38,13 @@ namespace ARKBreedingStats
         {
             // Initialize the column to '0'
             SortColumn = 0;
-            LastSortColumn = 0;
+            _lastSortColumn = 0;
 
             // Initialize the sort order to 'none'
             Order = SortOrder.None;
 
             // Initialize the CaseInsensitiveComparer object
-            ObjectCompare = new CaseInsensitiveComparer();
+            _objectCompare = new CaseInsensitiveComparer();
         }
 
         /// <summary>
@@ -57,21 +58,25 @@ namespace ARKBreedingStats
             int compareResult;
 
             // Cast the objects to be compared to ListViewItem objects
-            ListViewItem listviewX = (ListViewItem)x;
-            ListViewItem listviewY = (ListViewItem)y;
+            if (!(x is ListViewItem listViewX
+                  && y is ListViewItem listViewY))
+            {
+                return 0;
+            }
+
             double c1, c2;
 
-            if (listviewX.SubItems.Count <= SortColumn) SortColumn = 0;
+            if (listViewX.SubItems.Count <= SortColumn) SortColumn = 0;
 
             // Compare the two items
-            if ((listviewX.SubItems[SortColumn].Text + listviewY.SubItems[SortColumn].Text).Length == 0)
+            if ((listViewX.SubItems[SortColumn].Text + listViewY.SubItems[SortColumn].Text).Length == 0)
                 compareResult = 0;
             else
             {
-                compareResult = double.TryParse(listviewX.SubItems[SortColumn].Text, out c1) &&
-                        double.TryParse(listviewY.SubItems[SortColumn].Text, out c2) ?
+                compareResult = double.TryParse(listViewX.SubItems[SortColumn].Text, out c1) &&
+                        double.TryParse(listViewY.SubItems[SortColumn].Text, out c2) ?
                                 Math.Sign(c1 - c2) :
-                                ObjectCompare.Compare(listviewX.SubItems[SortColumn].Text, listviewY.SubItems[SortColumn].Text);
+                                _objectCompare.Compare(listViewX.SubItems[SortColumn].Text, listViewY.SubItems[SortColumn].Text);
 
                 // if descending sort is selected, return negative result of compare operation
                 if (Order == SortOrder.Descending)
@@ -81,15 +86,15 @@ namespace ARKBreedingStats
             // if comparing is 0 (items equal), use LastColumnToSort
             if (compareResult == 0)
             {
-                if (listviewX.SubItems.Count <= LastSortColumn) LastSortColumn = 0;
+                if (listViewX.SubItems.Count <= _lastSortColumn) _lastSortColumn = 0;
                 // Compare the two items
                 // the first two columns are text, the others are int as string
-                compareResult = double.TryParse(listviewX.SubItems[LastSortColumn].Text, out c1) &&
-                        double.TryParse(listviewY.SubItems[LastSortColumn].Text, out c2) ?
+                compareResult = double.TryParse(listViewX.SubItems[_lastSortColumn].Text, out c1) &&
+                        double.TryParse(listViewY.SubItems[_lastSortColumn].Text, out c2) ?
                                 Math.Sign(c1 - c2) :
-                                ObjectCompare.Compare(listviewX.SubItems[LastSortColumn].Text, listviewY.SubItems[LastSortColumn].Text);
+                                _objectCompare.Compare(listViewX.SubItems[_lastSortColumn].Text, listViewY.SubItems[_lastSortColumn].Text);
                 // if descending sort is selected, return negative result of compare operation
-                if (LastOrder == SortOrder.Descending)
+                if (_lastOrder == SortOrder.Descending)
                     compareResult = -compareResult;
             }
 
@@ -97,22 +102,22 @@ namespace ARKBreedingStats
             // Return '0' to indicate they are equal
         }
 
-        public static void doSort(ListView lw, int column)
+        public static void DoSort(ListView lw, int column)
         {
-            ListViewColumnSorter lwcs = (ListViewColumnSorter)lw.ListViewItemSorter;
+            if (!(lw.ListViewItemSorter is ListViewColumnSorter lvcs)) return;
             // Determine if clicked column is already the column that is being sorted.
-            if (column == lwcs.SortColumn)
+            if (column == lvcs.SortColumn)
             {
                 // Reverse the current sort direction for this column.
-                lwcs.Order = lwcs.Order == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
+                lvcs.Order = lvcs.Order == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
             }
             else
             {
                 // Set the column number that is to be sorted; default to descending (except the name and owner column).
-                lwcs.LastSortColumn = lwcs.SortColumn;
-                lwcs.LastOrder = lwcs.Order;
-                lwcs.SortColumn = column;
-                lwcs.Order = column > 1 ? SortOrder.Descending : SortOrder.Ascending;
+                lvcs._lastSortColumn = lvcs.SortColumn;
+                lvcs._lastOrder = lvcs.Order;
+                lvcs.SortColumn = column;
+                lvcs.Order = column > 1 ? SortOrder.Descending : SortOrder.Ascending;
             }
 
             // Perform the sort with these new sort options.

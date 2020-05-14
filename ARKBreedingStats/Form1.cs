@@ -403,6 +403,7 @@ namespace ARKBreedingStats
             // default owner and tribe
             creatureInfoInputExtractor.CreatureOwner = Properties.Settings.Default.DefaultOwnerName;
             creatureInfoInputExtractor.CreatureTribe = Properties.Settings.Default.DefaultTribeName;
+            creatureInfoInputExtractor.CreatureServer = Properties.Settings.Default.DefaultServerName;
             creatureInfoInputExtractor.OwnerLock = Properties.Settings.Default.OwnerNameLocked;
             creatureInfoInputExtractor.TribeLock = Properties.Settings.Default.TribeNameLocked;
 
@@ -630,7 +631,7 @@ namespace ARKBreedingStats
             else if (tabControlMain.SelectedTab == tabPageLibrary)
             {
                 if (Properties.Settings.Default.ApplyGlobalSpeciesToLibrary)
-                    listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(species);
+                    listBoxSpeciesLib.SelectedItem = species;
             }
             else if (tabControlMain.SelectedTab == tabPageTaming)
             {
@@ -757,7 +758,7 @@ namespace ARKBreedingStats
                     ATImportExportedFolderLocation aTImportExportedFolderLocation = ATImportExportedFolderLocation.CreateFromString(f);
                     string menuItemHeader = string.IsNullOrEmpty(aTImportExportedFolderLocation.ConvenientName) ? "<unnamed>" : aTImportExportedFolderLocation.ConvenientName;
                     ToolStripMenuItem tsmi = new ToolStripMenuItem(menuItemHeader
-                        + (string.IsNullOrEmpty(aTImportExportedFolderLocation.OwnerSuffix) ? "" : " - " + aTImportExportedFolderLocation.OwnerSuffix))
+                        + (string.IsNullOrEmpty(aTImportExportedFolderLocation.OwnerSuffix) ? string.Empty : " - " + aTImportExportedFolderLocation.OwnerSuffix))
                     {
                         Tag = aTImportExportedFolderLocation
                     };
@@ -786,7 +787,7 @@ namespace ARKBreedingStats
                     {
                         Tag = atImportFileLocation
                     };
-                    tsmi.Click += RunSavegameImport;
+                    tsmi.Click += SavegameImportClick;
                     importingFromSavegameToolStripMenuItem.DropDownItems.Add(tsmi);
                 }
             }
@@ -1195,8 +1196,11 @@ namespace ARKBreedingStats
             // load column display indices
             if (Properties.Settings.Default[indicesName] is int[] colIndices)
             {
-                for (int c = 0; c < colIndices.Length && c < lv.Columns.Count; c++)
-                    lv.Columns[c].DisplayIndex = colIndices[c];
+                // indices have to be set increasingly, or they will "push" other values up
+                var colIndicesOrdered = colIndices.Select((i, c) => (columnIndex: c, displayIndex: i))
+                    .OrderBy(c => c.displayIndex).ToArray();
+                for (int c = 0; c < colIndicesOrdered.Length && c < lv.Columns.Count; c++)
+                    lv.Columns[colIndicesOrdered[c].columnIndex].DisplayIndex = colIndicesOrdered[c].displayIndex;
             }
 
             // load listviewLibSorting
@@ -1248,9 +1252,7 @@ namespace ARKBreedingStats
             // save onlyNonMutatedInBreedingPlanner
             Properties.Settings.Default.MutationLimitBreedingPlanner = breedingPlan1.MutationLimit;
 
-            // save default owner and tribe name and if they're locked
-            Properties.Settings.Default.DefaultOwnerName = creatureInfoInputExtractor.CreatureOwner;
-            Properties.Settings.Default.DefaultTribeName = creatureInfoInputExtractor.CreatureTribe;
+            // save locked state of owner and tribe name
             Properties.Settings.Default.OwnerNameLocked = creatureInfoInputExtractor.OwnerLock;
             Properties.Settings.Default.TribeNameLocked = creatureInfoInputExtractor.TribeLock;
 
@@ -1391,6 +1393,7 @@ namespace ARKBreedingStats
 
         private void listBoxSpeciesLib_SelectedIndexChanged(object sender, EventArgs e)
         {
+            SetSpecies(listBoxSpeciesLib.SelectedItem as Species);
             FilterLib();
         }
 
@@ -3254,6 +3257,12 @@ namespace ARKBreedingStats
                     LoadCollectionFile(filePath);
                 }
             }
+            else if (ext == ".ark")
+            {
+                if (MessageBox.Show($"Import all of the creatures in the following ARK save file to the currently opened library?\n{filePath}",
+                    "Import savefile?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    RunSavegameImport(new ATImportFileLocation(null, null, filePath));
+            }
             else
                 DoOCR(files[0]);
         }
@@ -3345,10 +3354,11 @@ namespace ARKBreedingStats
         private void ReloadNamePatternCustomReplacings(PatternEditor pe = null)
         {
             string filePath = FileService.GetJsonPath(FileService.CustomReplacingsNamePattern);
-            if (!FileService.LoadJSONFile(filePath, out customReplacingsNamingPattern, out string error))
+            string errorMessage = null;
+            if (!File.Exists(filePath) || !FileService.LoadJSONFile(filePath, out customReplacingsNamingPattern, out errorMessage))
             {
-                if (!string.IsNullOrEmpty(error))
-                    MessageBox.Show(error, "ASB Custom replacings file loading error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!string.IsNullOrEmpty(errorMessage))
+                    MessageBox.Show(errorMessage, "ASB Custom replacings file loading error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (pe != null) pe.SetCustomReplacings(customReplacingsNamingPattern);
         }

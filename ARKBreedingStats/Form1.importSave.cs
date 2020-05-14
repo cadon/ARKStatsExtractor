@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,12 +16,19 @@ namespace ARKBreedingStats
 {
     public partial class Form1
     {
-        private async void RunSavegameImport(object sender, EventArgs e)
+        private void SavegameImportClick(object sender, EventArgs e)
+        {
+            RunSavegameImport((ATImportFileLocation)((ToolStripMenuItem)sender).Tag);
+        }
+
+        /// <summary>
+        /// Imports the creatures from the given savegame. ftp is possible.
+        /// </summary>
+        /// <param name="atImportFileLocation"></param>
+        private async void RunSavegameImport(ATImportFileLocation atImportFileLocation)
         {
             try
             {
-                ATImportFileLocation atImportFileLocation = (ATImportFileLocation)((ToolStripMenuItem)sender).Tag;
-
                 string workingCopyfilename = Properties.Settings.Default.savegameExtractionPath;
 
                 // working dir not configured? use temp dir

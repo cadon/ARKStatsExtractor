@@ -198,6 +198,24 @@ namespace ARKBreedingStats.uiControls
                                 case ">=": return d1 >= d2 ? m.Groups[3].Value : m.Groups[4].Value;
                             }
                         }
+                        else
+                        {
+                            // compare the values as strings
+                            match = Regex.Match(p1, @"\A\s*(.*?)\s*(==|!=|<=|<|>=|>)\s*(.*?)\s*\Z");
+                            if (match.Success)
+                            {
+                                int stringComparingResult = match.Groups[1].Value.CompareTo(match.Groups[3].Value);
+                                switch (match.Groups[2].Value)
+                                {
+                                    case "==": return stringComparingResult == 0 ? m.Groups[3].Value : m.Groups[4].Value;
+                                    case "!=": return stringComparingResult != 0 ? m.Groups[3].Value : m.Groups[4].Value;
+                                    case "<": return stringComparingResult < 0 ? m.Groups[3].Value : m.Groups[4].Value;
+                                    case "<=": return stringComparingResult <= 0 ? m.Groups[3].Value : m.Groups[4].Value;
+                                    case ">": return stringComparingResult > 0 ? m.Groups[3].Value : m.Groups[4].Value;
+                                    case ">=": return stringComparingResult >= 0 ? m.Groups[3].Value : m.Groups[4].Value;
+                                }
+                            }
+                        }
                         return ParametersInvalid($"The expression for ifexpr invalid: \"{p1}\"");
                     case "substring":
                         // check param number: 1: substring, 2: p1, 3: pos, 4: length
@@ -302,6 +320,15 @@ namespace ARKBreedingStats.uiControls
                     case "time":
                         // parameter: 1: time, 2: format
                         return DateTime.Now.ToString(p1);
+                    case "color":
+                        // parameter 1: region id (0,...,5), 2: if not empty, the color name instead of the numerical id is returned
+                        if (!int.TryParse(p1, out int regionId)
+                        || regionId < 0 || regionId > 5) return ParametersInvalid("color region id has to be a number in the range 0 - 5");
+
+                        if ((creature.colors?[regionId] ?? 0) == 0) return string.Empty; // no color info
+                        if (string.IsNullOrWhiteSpace(m.Groups[3].Value))
+                            return creature.colors[regionId].ToString();
+                        return CreatureColors.creatureColorName(creature.colors[regionId]);
                 }
             }
             catch (Exception ex)
