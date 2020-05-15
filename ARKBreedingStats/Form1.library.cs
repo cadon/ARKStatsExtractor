@@ -1048,7 +1048,7 @@ namespace ARKBreedingStats
             if (listBoxSpeciesLib.SelectedIndex > 0
                 && listBoxSpeciesLib.SelectedItem is Species selectedSpecies)
             {
-                filteredList = filteredList.Where(c => c.Species.Equals(selectedSpecies));
+                filteredList = filteredList.Where(c => c.Species == selectedSpecies);
                 if (selectedSpecies.IsGlowSpecies)
                     chargeStatsHeaders = true;
             }

@@ -399,7 +399,11 @@ namespace ARKBreedingStats
                 creatureBoxListView.Clear();
             }
 
-            creatureCollection.DeletedCreatureGuids = null; // no longer needed
+            creatureCollection.DeletedCreatureGuids = null; // the info was processed and is no longer needed.
+            
+            // remove creature entries without species information. some outdated and invisible entries can exist with that. the blueprintInfo is not deleted with the current version, so no new such entries should appear.
+            creatureCollection.creatures = creatureCollection.creatures
+                .Where(c => !string.IsNullOrEmpty(c.speciesBlueprint)).ToList();
 
             InitializeCollection();
 
