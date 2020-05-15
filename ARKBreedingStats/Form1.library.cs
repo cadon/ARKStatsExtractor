@@ -104,6 +104,9 @@ namespace ARKBreedingStats
 
             creatureCollection.MergeCreatureList(new List<Creature> { creature });
 
+            // set status of exportedCreatureControl if available
+            exportedCreatureControl?.setStatus(importExported.ExportedCreatureControl.ImportStatus.JustImported, DateTime.Now);
+
             // if creature already exists by guid, use the already existing creature object for the parent assignments
             creature = creatureCollection.creatures.SingleOrDefault(c => c.guid == creature.guid) ?? creature;
 
@@ -141,9 +144,6 @@ namespace ARKBreedingStats
 
             creatureInfoInputExtractor.parentListValid = false;
             creatureInfoInputTester.parentListValid = false;
-
-            // set status of exportedCreatureControl if available
-            exportedCreatureControl?.setStatus(importExported.ExportedCreatureControl.ImportStatus.JustImported, DateTime.Now);
 
             SetCollectionChanged(true, species);
         }

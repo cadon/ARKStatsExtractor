@@ -802,7 +802,7 @@ namespace ARKBreedingStats
             // gets deleted in extractLevels()
             exportedCreatureControl = ecc;
 
-            if (exportedCreatureList != null && exportedCreatureList.ownerSuffix != null)
+            if (!string.IsNullOrEmpty(exportedCreatureList?.ownerSuffix))
                 creatureInfoInputExtractor.CreatureOwner += exportedCreatureList.ownerSuffix;
         }
 
