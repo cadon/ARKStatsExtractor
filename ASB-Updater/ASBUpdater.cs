@@ -71,6 +71,8 @@ namespace ASB_Updater
             tempFolder = GetTemporaryDirectory();
             _tempZipNamePath = Path.Combine(tempFolder, TempZipName);
             _tempReleasesPath = Path.Combine(tempFolder, TempReleases);
+            // set TLS-protocol (github needs at least TLS 1.2) for update-check
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
         }
 
         /// <summary>
@@ -290,8 +292,8 @@ namespace ASB_Updater
 
                 if (url == null)
                 {
-                    await Fetch(progress);
-                    Parse(progress);
+                    if (!await Fetch(progress) || !Parse(progress))
+                        return false;
 
                     url = _downloadUrl;
                     if (url == null)
