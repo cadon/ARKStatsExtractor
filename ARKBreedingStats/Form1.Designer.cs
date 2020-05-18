@@ -332,6 +332,9 @@ namespace ARKBreedingStats
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
             this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetLibraryColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
+            this.setToMatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearMatingCooldownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.justMatedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -1934,7 +1937,7 @@ namespace ARKBreedingStats
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(187, 266);
+            this.tabPage2.Size = new System.Drawing.Size(187, 296);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Owner";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1946,7 +1949,7 @@ namespace ARKBreedingStats
             this.checkedListBoxOwner.FormattingEnabled = true;
             this.checkedListBoxOwner.Location = new System.Drawing.Point(3, 27);
             this.checkedListBoxOwner.Name = "checkedListBoxOwner";
-            this.checkedListBoxOwner.Size = new System.Drawing.Size(181, 236);
+            this.checkedListBoxOwner.Size = new System.Drawing.Size(181, 266);
             this.checkedListBoxOwner.TabIndex = 0;
             this.checkedListBoxOwner.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxOwner_ItemCheck);
             // 
@@ -1968,7 +1971,7 @@ namespace ARKBreedingStats
             this.tabPageServer.Location = new System.Drawing.Point(4, 22);
             this.tabPageServer.Name = "tabPageServer";
             this.tabPageServer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageServer.Size = new System.Drawing.Size(187, 266);
+            this.tabPageServer.Size = new System.Drawing.Size(187, 296);
             this.tabPageServer.TabIndex = 5;
             this.tabPageServer.Text = "Server";
             this.tabPageServer.UseVisualStyleBackColor = true;
@@ -1980,7 +1983,7 @@ namespace ARKBreedingStats
             this.checkedListBoxFilterServers.FormattingEnabled = true;
             this.checkedListBoxFilterServers.Location = new System.Drawing.Point(3, 27);
             this.checkedListBoxFilterServers.Name = "checkedListBoxFilterServers";
-            this.checkedListBoxFilterServers.Size = new System.Drawing.Size(181, 236);
+            this.checkedListBoxFilterServers.Size = new System.Drawing.Size(181, 266);
             this.checkedListBoxFilterServers.TabIndex = 2;
             this.checkedListBoxFilterServers.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxFilterServers_ItemCheck);
             // 
@@ -2002,7 +2005,7 @@ namespace ARKBreedingStats
             this.tabPageTags.Location = new System.Drawing.Point(4, 22);
             this.tabPageTags.Name = "tabPageTags";
             this.tabPageTags.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTags.Size = new System.Drawing.Size(187, 266);
+            this.tabPageTags.Size = new System.Drawing.Size(187, 296);
             this.tabPageTags.TabIndex = 6;
             this.tabPageTags.Text = "Tags";
             this.tabPageTags.UseVisualStyleBackColor = true;
@@ -2014,7 +2017,7 @@ namespace ARKBreedingStats
             this.checkedListBoxFilterTags.FormattingEnabled = true;
             this.checkedListBoxFilterTags.Location = new System.Drawing.Point(3, 27);
             this.checkedListBoxFilterTags.Name = "checkedListBoxFilterTags";
-            this.checkedListBoxFilterTags.Size = new System.Drawing.Size(181, 236);
+            this.checkedListBoxFilterTags.Size = new System.Drawing.Size(181, 266);
             this.checkedListBoxFilterTags.TabIndex = 4;
             this.checkedListBoxFilterTags.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxFilterTags_ItemCheck);
             // 
@@ -2035,7 +2038,7 @@ namespace ARKBreedingStats
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(187, 266);
+            this.tabPage3.Size = new System.Drawing.Size(187, 296);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Stats";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -2054,7 +2057,7 @@ namespace ARKBreedingStats
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(181, 260);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(181, 290);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // checkedListBoxConsiderStatTop
@@ -2064,13 +2067,13 @@ namespace ARKBreedingStats
             this.checkedListBoxConsiderStatTop.FormattingEnabled = true;
             this.checkedListBoxConsiderStatTop.Location = new System.Drawing.Point(3, 35);
             this.checkedListBoxConsiderStatTop.Name = "checkedListBoxConsiderStatTop";
-            this.checkedListBoxConsiderStatTop.Size = new System.Drawing.Size(175, 193);
+            this.checkedListBoxConsiderStatTop.Size = new System.Drawing.Size(175, 223);
             this.checkedListBoxConsiderStatTop.TabIndex = 3;
             // 
             // buttonRecalculateTops
             // 
             this.buttonRecalculateTops.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonRecalculateTops.Location = new System.Drawing.Point(3, 234);
+            this.buttonRecalculateTops.Location = new System.Drawing.Point(3, 264);
             this.buttonRecalculateTops.Name = "buttonRecalculateTops";
             this.buttonRecalculateTops.Size = new System.Drawing.Size(175, 23);
             this.buttonRecalculateTops.TabIndex = 2;
@@ -2102,7 +2105,7 @@ namespace ARKBreedingStats
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(187, 266);
+            this.tabPage4.Size = new System.Drawing.Size(187, 296);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "View";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -2241,7 +2244,7 @@ namespace ARKBreedingStats
             this.tabPageLibRadarChart.Location = new System.Drawing.Point(4, 22);
             this.tabPageLibRadarChart.Name = "tabPageLibRadarChart";
             this.tabPageLibRadarChart.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLibRadarChart.Size = new System.Drawing.Size(187, 266);
+            this.tabPageLibRadarChart.Size = new System.Drawing.Size(187, 296);
             this.tabPageLibRadarChart.TabIndex = 4;
             this.tabPageLibRadarChart.Text = "Chart";
             this.tabPageLibRadarChart.UseVisualStyleBackColor = true;
@@ -2252,7 +2255,7 @@ namespace ARKBreedingStats
             this.radarChartLibrary.Image = ((System.Drawing.Image)(resources.GetObject("radarChartLibrary.Image")));
             this.radarChartLibrary.Location = new System.Drawing.Point(3, 3);
             this.radarChartLibrary.Name = "radarChartLibrary";
-            this.radarChartLibrary.Size = new System.Drawing.Size(181, 260);
+            this.radarChartLibrary.Size = new System.Drawing.Size(181, 290);
             this.radarChartLibrary.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.radarChartLibrary.TabIndex = 0;
             this.radarChartLibrary.TabStop = false;
@@ -2548,7 +2551,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator14,
             this.toolStripMenuItemRemove});
             this.contextMenuStripLibrary.Name = "contextMenuStripLibrary";
-            this.contextMenuStripLibrary.Size = new System.Drawing.Size(259, 342);
+            this.contextMenuStripLibrary.Size = new System.Drawing.Size(259, 364);
             this.contextMenuStripLibrary.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripLibrary_Opening);
             // 
             // toolStripMenuItemEdit
@@ -2657,10 +2660,13 @@ namespace ARKBreedingStats
             // 
             // removeCooldownGrowingToolStripMenuItem
             // 
+            this.removeCooldownGrowingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.setToMatureToolStripMenuItem,
+            this.clearMatingCooldownToolStripMenuItem,
+            this.justMatedToolStripMenuItem});
             this.removeCooldownGrowingToolStripMenuItem.Name = "removeCooldownGrowingToolStripMenuItem";
             this.removeCooldownGrowingToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
-            this.removeCooldownGrowingToolStripMenuItem.Text = "Set to mature / ready to mate";
-            this.removeCooldownGrowingToolStripMenuItem.Click += new System.EventHandler(this.removeCooldownGrowingToolStripMenuItem_Click);
+            this.removeCooldownGrowingToolStripMenuItem.Text = "Set maturity / breeding state";
             // 
             // bestBreedingPartnersToolStripMenuItem
             // 
@@ -3370,6 +3376,27 @@ namespace ARKBreedingStats
             this.toolStripMenuItemResetLibraryColumnWidths.Text = "Reset column width";
             this.toolStripMenuItemResetLibraryColumnWidths.Click += new System.EventHandler(this.toolStripMenuItemResetLibraryColumnWidths_Click);
             // 
+            // setToMatureToolStripMenuItem
+            // 
+            this.setToMatureToolStripMenuItem.Name = "setToMatureToolStripMenuItem";
+            this.setToMatureToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.setToMatureToolStripMenuItem.Text = "Set to mature";
+            this.setToMatureToolStripMenuItem.Click += new System.EventHandler(this.setToMatureToolStripMenuItem_Click);
+            // 
+            // clearMatingCooldownToolStripMenuItem
+            // 
+            this.clearMatingCooldownToolStripMenuItem.Name = "clearMatingCooldownToolStripMenuItem";
+            this.clearMatingCooldownToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.clearMatingCooldownToolStripMenuItem.Text = "Clear mating cooldown";
+            this.clearMatingCooldownToolStripMenuItem.Click += new System.EventHandler(this.clearMatingCooldownToolStripMenuItem_Click);
+            // 
+            // justMatedToolStripMenuItem
+            // 
+            this.justMatedToolStripMenuItem.Name = "justMatedToolStripMenuItem";
+            this.justMatedToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.justMatedToolStripMenuItem.Text = "Just mated";
+            this.justMatedToolStripMenuItem.Click += new System.EventHandler(this.justMatedToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -3773,5 +3800,8 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ColumnHeader columnHeaderStatusIcon;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripLibraryHeader;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemResetLibraryColumnWidths;
+        private System.Windows.Forms.ToolStripMenuItem setToMatureToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearMatingCooldownToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem justMatedToolStripMenuItem;
     }
 }

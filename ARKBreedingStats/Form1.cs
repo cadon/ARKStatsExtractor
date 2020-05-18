@@ -1960,25 +1960,45 @@ namespace ARKBreedingStats
             FilterLib();
         }
 
-        private void removeCooldownGrowingToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SetMatureBreedingStateOfSelectedCreatures(bool setMature = false, bool clearMatingCooldown = false, bool justMated = false)
         {
             listViewLibrary.BeginUpdate();
             foreach (ListViewItem i in listViewLibrary.SelectedItems)
             {
                 Creature c = (Creature)i.Tag;
-                if (c.cooldownUntil > DateTime.Now)
-                    c.cooldownUntil = null;
-                if (c.growingUntil > DateTime.Now)
+                if (setMature && c.growingUntil > DateTime.Now)
                     c.growingUntil = null;
 
-                i.SubItems[11].Text = "-"; // LVI index
-                                           // color for cooldown
+                if (clearMatingCooldown && c.cooldownUntil > DateTime.Now)
+                    c.cooldownUntil = null;
+
+                if (justMated)
+                    c.cooldownUntil = DateTime.Now.AddSeconds(c.Species.breeding?.matingCooldownMinAdjusted ?? 0);
+
+                i.SubItems[11].Text =
+                    DisplayedCreatureCountdown(c.cooldownUntil, c.growingUntil)?.ToString() ?? "-";
+
                 CooldownColors(c, out Color forecolor, out Color backcolor);
                 i.SubItems[11].ForeColor = forecolor;
                 i.SubItems[11].BackColor = backcolor;
             }
             breedingPlan1.breedingPlanNeedsUpdate = true;
             listViewLibrary.EndUpdate();
+        }
+
+        private void setToMatureToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetMatureBreedingStateOfSelectedCreatures(setMature: true);
+        }
+
+        private void clearMatingCooldownToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetMatureBreedingStateOfSelectedCreatures(clearMatingCooldown: true);
+        }
+
+        private void justMatedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetMatureBreedingStateOfSelectedCreatures(justMated: true);
         }
 
         private void aliveToolStripMenuItem_Click(object sender, EventArgs e)
