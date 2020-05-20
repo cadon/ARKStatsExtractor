@@ -21,6 +21,9 @@ namespace ARKBreedingStats
         public event Form1.collectionChangedEventHandler OnTimerChange;
         private List<Creature> creatures;
         public SoundPlayer[] sounds;
+        /// <summary>
+        /// List of seconds when an alarm should be played if a countdown reaches one these values.
+        /// </summary>
         private List<int> timerAlerts;
         private bool noOverlayUpdate;
 
@@ -126,7 +129,7 @@ namespace ARKBreedingStats
                 g = new ListViewGroup(tle.group);
                 listViewTimer.Groups.Add(g);
             }
-            ListViewItem lvi = new ListViewItem(new[] { name, finishTime.ToString(), "" }, g)
+            ListViewItem lvi = new ListViewItem(new[] { name, finishTime.ToString(), string.Empty }, g)
             {
                 Tag = tle,
                 Checked = Properties.Settings.Default.DisplayTimersInOverlayAutomatically
@@ -145,22 +148,24 @@ namespace ARKBreedingStats
                     if (t.lvi == null)
                         continue;
                     TimeSpan diff = t.time.Subtract(now);
+                    int totalSeconds = (int)diff.TotalSeconds;
                     if (updateTimer)
-                        t.lvi.SubItems[2].Text = diff.TotalSeconds > 0 ? diff.ToString("dd':'hh':'mm':'ss") : "Finished";
-                    if (!(diff.TotalSeconds >= 0))
+                        t.lvi.SubItems[2].Text = totalSeconds > 0 ? diff.ToString("dd':'hh':'mm':'ss") : "Finished";
+                    if (diff.TotalSeconds < 0)
                         continue;
-                    if (diff.TotalSeconds < 60 && diff.TotalSeconds > 10)
-                        t.lvi.BackColor = Color.Gold;
-                    else if (diff.TotalSeconds < 11)
+                    if (totalSeconds < 11)
                         t.lvi.BackColor = Color.LightSalmon;
+                    else if (totalSeconds < 61)
+                        t.lvi.BackColor = Color.Gold;
 
-                    if (!(diff.TotalSeconds < timerAlerts.First() + 1))
+                    if (timerAlerts == null || !timerAlerts.Any() || totalSeconds > timerAlerts.First())
                         continue;
+
                     for (int i = 0; i < timerAlerts.Count; i++)
                     {
-                        if (diff.TotalSeconds < timerAlerts[i] + 0.8 && diff.TotalSeconds > timerAlerts[i] - 0.8)
+                        if (totalSeconds == timerAlerts[i])
                         {
-                            PlaySound(t.@group, i, "", t.sound);
+                            PlaySound(t.@group, i, string.Empty, t.sound);
                             break;
                         }
                     }
@@ -221,9 +226,6 @@ namespace ARKBreedingStats
                             timerAlerts.RemoveAt(i--);
                     }
                     timerAlerts.Sort((t1, t2) => -t1.CompareTo(t2));
-
-                    if (timerAlerts.Count == 0)
-                        timerAlerts.Add(0);
                 }
             }
         }
@@ -285,16 +287,16 @@ namespace ARKBreedingStats
 
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            removeSelectedEntry();
+            RemoveSelectedEntry();
         }
 
         private void listViewTimer_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
-                removeSelectedEntry();
+                RemoveSelectedEntry();
         }
 
-        private void removeSelectedEntry()
+        private void RemoveSelectedEntry()
         {
             if (listViewTimer.SelectedIndices.Count > 0 && MessageBox.Show("Remove the timer \"" + ((TimerListEntry)listViewTimer.SelectedItems[0].Tag).name + "\""
                     + (listViewTimer.SelectedIndices.Count > 1 ? " and " + (listViewTimer.SelectedIndices.Count - 1) + " more timers" : "") + "?"
