@@ -15,7 +15,7 @@ namespace ARKBreedingStats.multiplierTesting
         public event Action OnApplyMultipliers;
 
         private readonly List<StatMultiplierTestingControl> statControls;
-        private CreatureCollection cc;
+        private CreatureCollection _cc;
         private Species selectedSpecies;
         private Nud fineAdjustmentsNud;
         private MinMaxDouble fineAdjustmentRange;
@@ -195,18 +195,18 @@ namespace ARKBreedingStats.multiplierTesting
         /// </summary>
         private void SetStatMultipliersFromCC()
         {
-            if (cc?.serverMultipliers?.statMultipliers == null) return;
+            if (_cc?.serverMultipliers?.statMultipliers == null) return;
 
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 var m = new double[4];
                 for (int i = 0; i < 4; i++)
-                    m[i] = cc.serverMultipliers.statMultipliers[s]?[i] ?? 1;
+                    m[i] = _cc.serverMultipliers.statMultipliers[s]?[i] ?? 1;
                 statControls[s].StatMultipliers = m;
             }
-            SetIBM(cc.serverMultipliers.BabyImprintingStatScaleMultiplier);
+            SetIBM(_cc.serverMultipliers.BabyImprintingStatScaleMultiplier);
 
-            cbSingleplayerSettings.Checked = cc.singlePlayerSettings;
+            cbSingleplayerSettings.Checked = _cc.singlePlayerSettings;
 
             btUseMultipliersFromSettings.Visible = false;
         }
@@ -216,10 +216,15 @@ namespace ARKBreedingStats.multiplierTesting
             if (species != null && (forceUpdate || cbUpdateOnSpeciesChange.Checked))
             {
                 selectedSpecies = species;
+
+                double?[][] customStatOverrides = null;
+                bool customStatsAvailable =
+                    _cc?.CustomSpeciesStats?.TryGetValue(species.blueprintPath, out customStatOverrides) ?? false;
+
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
-                    statControls[s].SetStatValues(selectedSpecies.fullStatsRaw[s]);
-                    statControls[s].StatImprintingBonusMultiplier = selectedSpecies.StatImprintMultipliers[s];
+                    statControls[s].SetStatValues(selectedSpecies.fullStatsRaw[s], customStatsAvailable ? customStatOverrides?[s] : null);
+                    statControls[s].StatImprintingBonusMultiplier = customStatsAvailable ? customStatOverrides?[Values.STATS_COUNT]?[s] ?? selectedSpecies.StatImprintMultipliers[s] : selectedSpecies.StatImprintMultipliers[s];
                     statControls[s].Visible = species.UsesStat(s);
                 }
                 statControls[(int)StatNames.Health].TBHM = selectedSpecies.TamedBaseHealthMultiplier;
@@ -283,17 +288,17 @@ namespace ARKBreedingStats.multiplierTesting
         internal void CheckIfMultipliersAreEqualToSettings()
         {
             bool showWarning = false;
-            if (cc?.serverMultipliers?.statMultipliers != null)
+            if (_cc?.serverMultipliers?.statMultipliers != null)
             {
-                showWarning = cc.serverMultipliers.BabyImprintingStatScaleMultiplier != (double)nudIBM.Value
-                                || cc.singlePlayerSettings != cbSingleplayerSettings.Checked;
+                showWarning = _cc.serverMultipliers.BabyImprintingStatScaleMultiplier != (double)nudIBM.Value
+                                || _cc.singlePlayerSettings != cbSingleplayerSettings.Checked;
                 if (!showWarning)
                 {
                     for (int s = 0; s < Values.STATS_COUNT; s++)
                     {
                         for (int si = 0; si < 4; si++)
                         {
-                            showWarning = cc.serverMultipliers.statMultipliers[s][si] != statControls[s].StatMultipliers[si];
+                            showWarning = _cc.serverMultipliers.statMultipliers[s][si] != statControls[s].StatMultipliers[si];
                             if (showWarning) break;
                         }
                         if (showWarning) break;
@@ -312,7 +317,7 @@ namespace ARKBreedingStats.multiplierTesting
         {
             set
             {
-                cc = value;
+                _cc = value;
                 SetStatMultipliersFromCC();
             }
         }
@@ -376,12 +381,12 @@ namespace ARKBreedingStats.multiplierTesting
 
         private void copyStatMultipliersToSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (cc?.serverMultipliers?.statMultipliers == null) return;
+            if (_cc?.serverMultipliers?.statMultipliers == null) return;
 
             for (int s = 0; s < Values.STATS_COUNT; s++)
-                cc.serverMultipliers.statMultipliers[s] = statControls[s].StatMultipliers;
-            cc.serverMultipliers.BabyImprintingStatScaleMultiplier = (double)nudIBM.Value;
-            cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
+                _cc.serverMultipliers.statMultipliers[s] = statControls[s].StatMultipliers;
+            _cc.serverMultipliers.BabyImprintingStatScaleMultiplier = (double)nudIBM.Value;
+            _cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
             OnApplyMultipliers?.Invoke();
             btUseMultipliersFromSettings.Visible = false;
         }
