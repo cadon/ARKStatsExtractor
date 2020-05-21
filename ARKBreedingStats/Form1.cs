@@ -932,7 +932,8 @@ namespace ARKBreedingStats
 
 
             //// check all creature for info
-            foreach (Creature c in creatureCollection.creatures)
+            var creaturesToCheck = creatureCollection.creatures.Where(c => !c.flags.HasFlag(CreatureFlags.Placeholder)).ToArray();
+            foreach (Creature c in creaturesToCheck)
             {
                 SetListValue(c.owner, ownerList);
                 SetListValue(c.tribe, tribesList);
