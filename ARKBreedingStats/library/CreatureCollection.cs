@@ -200,7 +200,9 @@ namespace ARKBreedingStats.Library
                 creatureExisting.status = creatureNew.status;
                 creatureExisting.sex = creatureNew.sex;
                 creatureExisting.cooldownUntil = creatureNew.cooldownUntil;
-                creatureExisting.domesticatedAt = creatureNew.domesticatedAt;
+                if (!creatureExisting.domesticatedAt.HasValue || creatureExisting.domesticatedAt.Value.Year < 2000
+                    || (creatureNew.domesticatedAt.HasValue && creatureNew.domesticatedAt.Value.Year > 2000 && creatureExisting.domesticatedAt > creatureNew.domesticatedAt))
+                    creatureExisting.domesticatedAt = creatureNew.domesticatedAt;
                 creatureExisting.generation = creatureNew.generation;
                 creatureExisting.growingUntil = creatureNew.growingUntil;
                 creatureExisting.imprintingBonus = creatureNew.imprintingBonus;
