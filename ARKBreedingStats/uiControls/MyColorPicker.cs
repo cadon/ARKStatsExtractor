@@ -20,21 +20,12 @@ namespace ARKBreedingStats.uiControls
             InitializeComponent();
             tt = new ToolTip { AutomaticDelay = 200 };
 
-            // button for unknown color
-            var colorUnknown = new ARKColor();
-            Button btUnknownColor = new Button
-            {
-                Width = 75,
-                Height = 23,
-                Text = colorUnknown.name,
-                Tag = colorUnknown.id,
-                Anchor = AnchorStyles.Bottom | AnchorStyles.Right
-            };
-            btUnknownColor.Click += ColorChosen;
-            tableLayoutPanel1.Controls.Add(btUnknownColor);
-            tableLayoutPanel1.SetCellPosition(btUnknownColor, new TableLayoutPanelCellPosition(1, 2));
+            BtUnknownColor.Tag = 0; // id of unknown color
+            BtUnknownColor.Text = Loc.s("Unknown");
 
             Disposed += MyColorPicker_Disposed;
+
+            checkBoxOnlyNatural.Text = Loc.s("showOnlyNaturalOccuring");
         }
 
         private void MyColorPicker_Disposed(object sender, EventArgs e)
@@ -42,9 +33,9 @@ namespace ARKBreedingStats.uiControls
             tt.RemoveAll();
         }
 
-        public void SetColors(int[] creatureColors, int regionId, string name, List<ARKColor> naturalColors = null)
+        public void SetColors(int[] creatureColors, int regionId, string regionName, List<ARKColor> naturalColors = null)
         {
-            label1.Text = name;
+            label1.Text = regionName;
             this.regionId = regionId;
             var colors = values.Values.V.Colors.colorsList;
 

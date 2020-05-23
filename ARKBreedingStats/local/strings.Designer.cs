@@ -2106,6 +2106,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show only natural occuring colors.
+        /// </summary>
+        internal static string showOnlyNaturalOccuring {
+            get {
+                return ResourceManager.GetString("showOnlyNaturalOccuring", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Slingshot.
         /// </summary>
         internal static string Slingshot {

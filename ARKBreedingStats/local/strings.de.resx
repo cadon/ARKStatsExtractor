@@ -1014,4 +1014,7 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   <data name="na" xml:space="preserve">
     <value>n. a.</value>
   </data>
+  <data name="showOnlyNaturalOccuring" xml:space="preserve">
+    <value>nur natürlich vorkommende Farben</value>
+  </data>
 </root>
