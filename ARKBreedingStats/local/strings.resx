@@ -1019,4 +1019,10 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   <data name="addedAt" xml:space="preserve">
     <value>Added at</value>
   </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="na" xml:space="preserve">
+    <value>n/a</value>
+  </data>
 </root>

@@ -139,7 +139,7 @@ namespace ARKBreedingStats
                 || (alreadyExists && extractor.validResults))
             {
                 AddCreatureToCollection(true, goToLibraryTab: false);
-                SetMessageLabelText($"Successful {(alreadyExists ? "updated" : "added")} creature of the exported file\n" + filePath);
+                SetMessageLabelText($"Successful {(alreadyExists ? "updated" : "added")} {creatureInfoInputExtractor.CreatureName} ({speciesSelector1.SelectedSpecies.name}) of the exported file\n" + filePath, MessageBoxIcon.Information);
                 added = true;
             }
 

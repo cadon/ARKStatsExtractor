@@ -134,11 +134,11 @@ namespace ARKBreedingStats
             if (creature.Mother == null || creature.Father == null)
                 UpdateParents(new List<Creature> { creature });
 
-            UpdateCreatureListings(species);
+            UpdateCreatureListings(species, false);
             // show only the added creatures' species
             if (goToLibraryTab)
             {
-                listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(creature.Species);
+                listBoxSpeciesLib.SelectedItem = creature.Species;
                 tabControlMain.SelectedTab = tabPageLibrary;
             }
 
@@ -1058,8 +1058,7 @@ namespace ARKBreedingStats
 
             // if only one species should be shown adjust statnames if the selected species is a glow-species
             bool chargeStatsHeaders = false;
-            if (listBoxSpeciesLib.SelectedIndex > 0
-                && listBoxSpeciesLib.SelectedItem is Species selectedSpecies)
+            if (listBoxSpeciesLib.SelectedItem is Species selectedSpecies)
             {
                 filteredList = filteredList.Where(c => c.Species == selectedSpecies);
                 if (selectedSpecies.IsGlowSpecies)

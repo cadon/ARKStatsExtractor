@@ -259,6 +259,9 @@ namespace ARKBreedingStats
             this.forSpreadsheetToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.copyInfographicToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeCooldownGrowingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setToMatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearMatingCooldownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.justMatedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bestBreedingPartnersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemStatus = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -332,9 +335,6 @@ namespace ARKBreedingStats
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
             this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetLibraryColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
-            this.setToMatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearMatingCooldownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.justMatedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -2306,7 +2306,7 @@ namespace ARKBreedingStats
             this.listViewLibrary.Name = "listViewLibrary";
             this.tableLayoutPanelLibrary.SetRowSpan(this.listViewLibrary, 2);
             this.listViewLibrary.ShowItemToolTips = true;
-            this.listViewLibrary.Size = new System.Drawing.Size(994, 688);
+            this.listViewLibrary.Size = new System.Drawing.Size(1011, 718);
             this.listViewLibrary.TabIndex = 2;
             this.listViewLibrary.UseCompatibleStateImageBehavior = false;
             this.listViewLibrary.View = System.Windows.Forms.View.Details;
@@ -2551,7 +2551,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator14,
             this.toolStripMenuItemRemove});
             this.contextMenuStripLibrary.Name = "contextMenuStripLibrary";
-            this.contextMenuStripLibrary.Size = new System.Drawing.Size(259, 364);
+            this.contextMenuStripLibrary.Size = new System.Drawing.Size(259, 342);
             this.contextMenuStripLibrary.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripLibrary_Opening);
             // 
             // toolStripMenuItemEdit
@@ -2667,6 +2667,27 @@ namespace ARKBreedingStats
             this.removeCooldownGrowingToolStripMenuItem.Name = "removeCooldownGrowingToolStripMenuItem";
             this.removeCooldownGrowingToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
             this.removeCooldownGrowingToolStripMenuItem.Text = "Set maturity / breeding state";
+            // 
+            // setToMatureToolStripMenuItem
+            // 
+            this.setToMatureToolStripMenuItem.Name = "setToMatureToolStripMenuItem";
+            this.setToMatureToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.setToMatureToolStripMenuItem.Text = "Set to mature";
+            this.setToMatureToolStripMenuItem.Click += new System.EventHandler(this.setToMatureToolStripMenuItem_Click);
+            // 
+            // clearMatingCooldownToolStripMenuItem
+            // 
+            this.clearMatingCooldownToolStripMenuItem.Name = "clearMatingCooldownToolStripMenuItem";
+            this.clearMatingCooldownToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.clearMatingCooldownToolStripMenuItem.Text = "Clear mating cooldown";
+            this.clearMatingCooldownToolStripMenuItem.Click += new System.EventHandler(this.clearMatingCooldownToolStripMenuItem_Click);
+            // 
+            // justMatedToolStripMenuItem
+            // 
+            this.justMatedToolStripMenuItem.Name = "justMatedToolStripMenuItem";
+            this.justMatedToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.justMatedToolStripMenuItem.Text = "Just mated";
+            this.justMatedToolStripMenuItem.Click += new System.EventHandler(this.justMatedToolStripMenuItem_Click);
             // 
             // bestBreedingPartnersToolStripMenuItem
             // 
@@ -3375,27 +3396,6 @@ namespace ARKBreedingStats
             this.toolStripMenuItemResetLibraryColumnWidths.Size = new System.Drawing.Size(179, 22);
             this.toolStripMenuItemResetLibraryColumnWidths.Text = "Reset column width";
             this.toolStripMenuItemResetLibraryColumnWidths.Click += new System.EventHandler(this.toolStripMenuItemResetLibraryColumnWidths_Click);
-            // 
-            // setToMatureToolStripMenuItem
-            // 
-            this.setToMatureToolStripMenuItem.Name = "setToMatureToolStripMenuItem";
-            this.setToMatureToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.setToMatureToolStripMenuItem.Text = "Set to mature";
-            this.setToMatureToolStripMenuItem.Click += new System.EventHandler(this.setToMatureToolStripMenuItem_Click);
-            // 
-            // clearMatingCooldownToolStripMenuItem
-            // 
-            this.clearMatingCooldownToolStripMenuItem.Name = "clearMatingCooldownToolStripMenuItem";
-            this.clearMatingCooldownToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.clearMatingCooldownToolStripMenuItem.Text = "Clear mating cooldown";
-            this.clearMatingCooldownToolStripMenuItem.Click += new System.EventHandler(this.clearMatingCooldownToolStripMenuItem_Click);
-            // 
-            // justMatedToolStripMenuItem
-            // 
-            this.justMatedToolStripMenuItem.Name = "justMatedToolStripMenuItem";
-            this.justMatedToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.justMatedToolStripMenuItem.Text = "Just mated";
-            this.justMatedToolStripMenuItem.Click += new System.EventHandler(this.justMatedToolStripMenuItem_Click);
             // 
             // Form1
             // 

@@ -849,7 +849,7 @@ namespace ARKBreedingStats
         /// This function should be called if the creatureCollection was changed, i.e. after loading a file or adding/removing a creature
         /// </summary>
         /// <param name="species">If not null, only the creatures of the species are updated</param>
-        private void UpdateCreatureListings(Species species = null)
+        private void UpdateCreatureListings(Species species = null, bool keepCurrentlySelectedSpecies = true)
         {
             // if speciesIndex == null consider all creatures, else recalculate only the indicated species if applicable
             List<Creature> creatures = creatureCollection.creatures;
@@ -859,7 +859,7 @@ namespace ARKBreedingStats
             }
             UpdateOwnerServerTagLists();
             CalculateTopStats(creatures);
-            UpdateSpeciesLists(creatureCollection.creatures);
+            UpdateSpeciesLists(creatureCollection.creatures, keepCurrentlySelectedSpecies);
             FilterLib();
             UpdateStatusBar();
             breedingPlan1.breedingPlanNeedsUpdate = true;
@@ -871,12 +871,10 @@ namespace ARKBreedingStats
         /// This function should be called if the creatureCollection is changed, i.e. after loading a file or adding/removing a creature.
         /// It updates the listed species in the treelist and in the speciesSelector.
         /// </summary>
-        private void UpdateSpeciesLists(List<Creature> creatures)
+        private void UpdateSpeciesLists(List<Creature> creatures, bool keepCurrentlySelectedSpecies = true)
         {
-            Species selectedSpecies = null;
-            if (listBoxSpeciesLib.SelectedIndex > 0
-                && listBoxSpeciesLib.SelectedItem.GetType() == typeof(Species))
-                selectedSpecies = listBoxSpeciesLib.SelectedItem as Species;
+            Species selectedSpecies = keepCurrentlySelectedSpecies && listBoxSpeciesLib.SelectedItem is Species sp ? sp : null;
+
             // clear specieslist
             listBoxSpeciesLib.Items.Clear();
             List<Species> availableSpecies = new List<Species>();
@@ -895,13 +893,13 @@ namespace ARKBreedingStats
 
             // add node to show all
             listBoxSpeciesLib.BeginUpdate();
-            listBoxSpeciesLib.Items.Insert(0, "All");
+            listBoxSpeciesLib.Items.Add(Loc.s("All"));
             foreach (Species s in availableSpecies)
                 listBoxSpeciesLib.Items.Add(s);
             listBoxSpeciesLib.EndUpdate();
 
             if (selectedSpecies != null)
-                listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(selectedSpecies);
+                listBoxSpeciesLib.SelectedItem = selectedSpecies;
 
             breedingPlan1.SetSpeciesList(availableSpecies, creatures);
             speciesSelector1.SetLibrarySpecies(availableSpecies);
@@ -912,7 +910,7 @@ namespace ARKBreedingStats
         /// </summary>
         private void UpdateOwnerServerTagLists()
         {
-            const string NOTAVAILABLE = "n/a";
+            string notavailable = Loc.s("na");
             filterListAllowed = false;
 
             //// clear lists
@@ -943,10 +941,10 @@ namespace ARKBreedingStats
                 {
                     if (string.IsNullOrEmpty(_value))
                     {
-                        if (!_list.ContainsKey(NOTAVAILABLE))
-                            _list.Add(NOTAVAILABLE, 1);
+                        if (!_list.ContainsKey(notavailable))
+                            _list.Add(notavailable, 1);
                         else
-                            _list[NOTAVAILABLE]++;
+                            _list[notavailable]++;
                     }
                     else if (!_list.ContainsKey(_value))
                     {
@@ -961,10 +959,10 @@ namespace ARKBreedingStats
                 // tags
                 if (!(c.tags?.Any() ?? false))
                 {
-                    if (!tagList.ContainsKey(NOTAVAILABLE))
-                        tagList.Add(NOTAVAILABLE, 1);
+                    if (!tagList.ContainsKey(notavailable))
+                        tagList.Add(notavailable, 1);
                     else
-                        tagList[NOTAVAILABLE]++;
+                        tagList[notavailable]++;
                 }
                 else
                 {
@@ -984,28 +982,28 @@ namespace ARKBreedingStats
 
             //// create checkbox controls
             // owners
-            foreach (var owner in ownerList.OrderBy(o => o.Key != NOTAVAILABLE).ThenBy(o => o.Key))
+            foreach (var owner in ownerList.OrderBy(o => o.Key != notavailable).ThenBy(o => o.Key))
             {
                 checkedListBoxOwner.Items.Add($"{owner.Key} ({owner.Value})", !creatureCollection.hiddenOwners.Contains(owner.Key));
-                if (owner.Key != NOTAVAILABLE && !tribesControl1.PlayerExists(owner.Key))
+                if (owner.Key != notavailable && !tribesControl1.PlayerExists(owner.Key))
                     tribesControl1.AddPlayer(owner.Key);
             }
 
             // tribes
-            foreach (var tribe in tribesList.OrderBy(o => o.Key != NOTAVAILABLE).ThenBy(o => o.Key))
+            foreach (var tribe in tribesList.OrderBy(o => o.Key != notavailable).ThenBy(o => o.Key))
             {
-                if (tribe.Key != NOTAVAILABLE && !tribesControl1.TribeExists(tribe.Key))
+                if (tribe.Key != notavailable && !tribesControl1.TribeExists(tribe.Key))
                     tribesControl1.AddTribe(tribe.Key);
             }
 
             // servers
-            foreach (var server in serverList.OrderBy(o => o.Key != NOTAVAILABLE).ThenBy(o => o.Key))
+            foreach (var server in serverList.OrderBy(o => o.Key != notavailable).ThenBy(o => o.Key))
             {
                 checkedListBoxFilterServers.Items.Add($"{server.Key} ({server.Value})", !creatureCollection.hiddenServers.Contains(server.Key));
             }
 
             // tags
-            foreach (var tag in tagList.OrderBy(o => o.Key != NOTAVAILABLE).ThenBy(o => o.Key))
+            foreach (var tag in tagList.OrderBy(o => o.Key != notavailable).ThenBy(o => o.Key))
             {
                 checkedListBoxFilterTags.Items.Add($"{tag.Key} ({tag.Value})", !creatureCollection.dontShowTags.Contains(tag.Key));
             }
@@ -1295,6 +1293,9 @@ namespace ARKBreedingStats
             lbLibrarySelectionInfo.Text = text;
             switch (icon)
             {
+                case MessageBoxIcon.Information:
+                    lbLibrarySelectionInfo.BackColor = Color.LightGreen;
+                    break;
                 case MessageBoxIcon.Warning:
                     lbLibrarySelectionInfo.BackColor = Color.LightSalmon;
                     break;
@@ -1655,7 +1656,7 @@ namespace ARKBreedingStats
             else if (tabControlMain.SelectedTab == tabPageLibrary)
             {
                 if (Properties.Settings.Default.ApplyGlobalSpeciesToLibrary && speciesSelector1.SelectedSpecies != null)
-                    listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(speciesSelector1.SelectedSpecies);
+                    listBoxSpeciesLib.SelectedItem = speciesSelector1.SelectedSpecies;
                 else if (libraryNeedsUpdate)
                     FilterLib();
             }
