@@ -23,6 +23,8 @@ namespace ARKBreedingStats.uiControls
             BtUnknownColor.Tag = 0; // id of unknown color
             BtUnknownColor.Text = Loc.s("Unknown");
 
+            buttonCancel.Text = Loc.s("Cancel");
+
             Disposed += MyColorPicker_Disposed;
 
             checkBoxOnlyNatural.Text = Loc.s("showOnlyNaturalOccuring");
