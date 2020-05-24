@@ -32,7 +32,7 @@ namespace ARKBreedingStats
             int[][] rgb = new int[6][];
             for (int c = 0; c < 6; c++)
             {
-                Color cl = CreatureColors.creatureColor(colorIds[c]);
+                Color cl = CreatureColors.CreatureColor(colorIds[c]);
                 rgb[c] = new int[] { cl.R, cl.G, cl.B };
             }
             Bitmap bm = new Bitmap(size, size);
@@ -146,7 +146,7 @@ namespace ARKBreedingStats
                         {
                             if (colorIds[c] > 0)
                             {
-                                using (var b = new SolidBrush(CreatureColors.creatureColor(colorIds[c])))
+                                using (var b = new SolidBrush(CreatureColors.CreatureColor(colorIds[c])))
                                 {
                                     graph.FillPie(b, (size - pieSize) / 2, (size - pieSize) / 2, pieSize, pieSize, pieNr * pieAngle + 270, pieAngle);
                                 }
@@ -170,7 +170,7 @@ namespace ARKBreedingStats
             {
                 if (!string.IsNullOrEmpty(cs[r]?.name))
                 {
-                    creatureRegionColors.Append($"\n{cs[r].name} ({r}): {CreatureColors.creatureColorName(colorIds[r])} ({colorIds[r]})");
+                    creatureRegionColors.Append($"\n{cs[r].name} ({r}): {CreatureColors.CreatureColorName(colorIds[r])} ({colorIds[r]})");
                 }
             }
             return creatureRegionColors.ToString();

@@ -24,16 +24,6 @@ namespace ARKBreedingStats.Library
         [JsonProperty]
         public List<IncubationTimerEntry> incubationListEntries = new List<IncubationTimerEntry>();
         [JsonProperty]
-        public List<string> hiddenOwners = new List<string>(); // which owners are not selected to be shown
-        [JsonProperty]
-        public List<string> hiddenServers = new List<string>();
-        [JsonProperty]
-        public List<string> dontShowTags = new List<string>(); // which tags are selected to be not shown
-        [JsonProperty]
-        internal CreatureFlags showFlags = CreatureFlags.Available | CreatureFlags.Cryopod | CreatureFlags.Dead | CreatureFlags.Mutated | CreatureFlags.Neutered | CreatureFlags.Obelisk | CreatureFlags.Unavailable;
-        [JsonProperty]
-        public bool useFiltersInTopStatCalculation = false;
-        [JsonProperty]
         public int maxDomLevel = 73;
         [JsonProperty]
         public int maxWildLevel = 150;

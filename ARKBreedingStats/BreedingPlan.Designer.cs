@@ -83,6 +83,8 @@ namespace ARKBreedingStats
             this.rbBPHighStats = new System.Windows.Forms.RadioButton();
             this.rbBPTopStats = new System.Windows.Forms.RadioButton();
             this.statWeighting1 = new ARKBreedingStats.uiControls.StatWeighting();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.cbTribeFilterLibrary = new System.Windows.Forms.CheckBox();
             this.tableLayoutMain.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageBreedableSpecies.SuspendLayout();
@@ -96,6 +98,7 @@ namespace ARKBreedingStats
             this.panelCombinations.SuspendLayout();
             this.gbBPBreedingMode.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudBPMutationLimit)).BeginInit();
+            this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutMain
@@ -163,45 +166,41 @@ namespace ARKBreedingStats
             // 
             // tabPageTags
             // 
-            this.tabPageTags.Controls.Add(this.cbOwnerFilterLibrary);
-            this.tabPageTags.Controls.Add(this.cbServerFilterLibrary);
-            this.tabPageTags.Controls.Add(this.cbBPTagExcludeDefault);
-            this.tabPageTags.Controls.Add(this.label1);
-            this.tabPageTags.Controls.Add(this.tagSelectorList1);
+            this.tabPageTags.Controls.Add(this.tableLayoutPanel3);
             this.tabPageTags.Location = new System.Drawing.Point(4, 22);
             this.tabPageTags.Name = "tabPageTags";
             this.tabPageTags.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageTags.Size = new System.Drawing.Size(236, 516);
             this.tabPageTags.TabIndex = 1;
-            this.tabPageTags.Text = "Tags";
+            this.tabPageTags.Text = "Filters / Tags";
             this.tabPageTags.UseVisualStyleBackColor = true;
             // 
             // cbOwnerFilterLibrary
             // 
             this.cbOwnerFilterLibrary.AutoSize = true;
-            this.cbOwnerFilterLibrary.Location = new System.Drawing.Point(3, 29);
+            this.cbOwnerFilterLibrary.Location = new System.Drawing.Point(3, 3);
             this.cbOwnerFilterLibrary.Name = "cbOwnerFilterLibrary";
-            this.cbOwnerFilterLibrary.Size = new System.Drawing.Size(139, 17);
+            this.cbOwnerFilterLibrary.Size = new System.Drawing.Size(136, 17);
             this.cbOwnerFilterLibrary.TabIndex = 6;
-            this.cbOwnerFilterLibrary.Text = "Owner Filter from Library";
+            this.cbOwnerFilterLibrary.Text = "Owner filter from Library";
             this.cbOwnerFilterLibrary.UseVisualStyleBackColor = true;
             this.cbOwnerFilterLibrary.CheckedChanged += new System.EventHandler(this.cbOwnerFilterLibrary_CheckedChanged);
             // 
             // cbServerFilterLibrary
             // 
             this.cbServerFilterLibrary.AutoSize = true;
-            this.cbServerFilterLibrary.Location = new System.Drawing.Point(3, 6);
+            this.cbServerFilterLibrary.Location = new System.Drawing.Point(3, 49);
             this.cbServerFilterLibrary.Name = "cbServerFilterLibrary";
-            this.cbServerFilterLibrary.Size = new System.Drawing.Size(139, 17);
+            this.cbServerFilterLibrary.Size = new System.Drawing.Size(136, 17);
             this.cbServerFilterLibrary.TabIndex = 5;
-            this.cbServerFilterLibrary.Text = "Server Filter from Library";
+            this.cbServerFilterLibrary.Text = "Server filter from Library";
             this.cbServerFilterLibrary.UseVisualStyleBackColor = true;
             this.cbServerFilterLibrary.CheckedChanged += new System.EventHandler(this.cbServerFilterLibrary_CheckedChanged);
             // 
             // cbBPTagExcludeDefault
             // 
             this.cbBPTagExcludeDefault.AutoSize = true;
-            this.cbBPTagExcludeDefault.Location = new System.Drawing.Point(6, 121);
+            this.cbBPTagExcludeDefault.Location = new System.Drawing.Point(3, 141);
             this.cbBPTagExcludeDefault.Name = "cbBPTagExcludeDefault";
             this.cbBPTagExcludeDefault.Size = new System.Drawing.Size(160, 17);
             this.cbBPTagExcludeDefault.TabIndex = 4;
@@ -211,7 +210,7 @@ namespace ARKBreedingStats
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(6, 49);
+            this.label1.Location = new System.Drawing.Point(3, 69);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(174, 69);
             this.label1.TabIndex = 2;
@@ -221,9 +220,10 @@ namespace ARKBreedingStats
             // tagSelectorList1
             // 
             this.tagSelectorList1.AutoScroll = true;
-            this.tagSelectorList1.Location = new System.Drawing.Point(6, 144);
+            this.tagSelectorList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tagSelectorList1.Location = new System.Drawing.Point(3, 164);
             this.tagSelectorList1.Name = "tagSelectorList1";
-            this.tagSelectorList1.Size = new System.Drawing.Size(174, 263);
+            this.tagSelectorList1.Size = new System.Drawing.Size(224, 343);
             this.tagSelectorList1.TabIndex = 3;
             // 
             // tableLayoutPanel1
@@ -693,6 +693,39 @@ namespace ARKBreedingStats
         1D,
         1D};
             // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 1;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Controls.Add(this.cbTribeFilterLibrary, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.cbOwnerFilterLibrary, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.tagSelectorList1, 0, 5);
+            this.tableLayoutPanel3.Controls.Add(this.cbBPTagExcludeDefault, 0, 4);
+            this.tableLayoutPanel3.Controls.Add(this.cbServerFilterLibrary, 0, 2);
+            this.tableLayoutPanel3.Controls.Add(this.label1, 0, 3);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 6;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(230, 510);
+            this.tableLayoutPanel3.TabIndex = 7;
+            // 
+            // cbTribeFilterLibrary
+            // 
+            this.cbTribeFilterLibrary.AutoSize = true;
+            this.cbTribeFilterLibrary.Location = new System.Drawing.Point(3, 26);
+            this.cbTribeFilterLibrary.Name = "cbTribeFilterLibrary";
+            this.cbTribeFilterLibrary.Size = new System.Drawing.Size(129, 17);
+            this.cbTribeFilterLibrary.TabIndex = 7;
+            this.cbTribeFilterLibrary.Text = "Tribe filter from Library";
+            this.cbTribeFilterLibrary.UseVisualStyleBackColor = true;
+            // 
             // BreedingPlan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -705,7 +738,6 @@ namespace ARKBreedingStats
             this.tabControl1.ResumeLayout(false);
             this.tabPageBreedableSpecies.ResumeLayout(false);
             this.tabPageTags.ResumeLayout(false);
-            this.tabPageTags.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.gbBPOffspring.ResumeLayout(false);
@@ -718,6 +750,8 @@ namespace ARKBreedingStats
             this.gbBPBreedingMode.ResumeLayout(false);
             this.gbBPBreedingMode.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudBPMutationLimit)).EndInit();
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -774,5 +808,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.CheckBox cbBPOnlyOneSuggestionForFemales;
         private System.Windows.Forms.CheckBox cbBPMutationLimitOnlyOnePartner;
         private System.Windows.Forms.Label lbMutationProbability;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.CheckBox cbTribeFilterLibrary;
     }
 }

@@ -328,7 +328,7 @@ namespace ARKBreedingStats.uiControls
                         if ((creature.colors?[regionId] ?? 0) == 0) return string.Empty; // no color info
                         if (string.IsNullOrWhiteSpace(m.Groups[3].Value))
                             return creature.colors[regionId].ToString();
-                        return CreatureColors.creatureColorName(creature.colors[regionId]);
+                        return CreatureColors.CreatureColorName(creature.colors[regionId]);
                 }
             }
             catch (Exception ex)

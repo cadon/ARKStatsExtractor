@@ -105,16 +105,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.copyCreatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteCreatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deadCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.unavailableCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.obeliskCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.neuteredCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mutatedCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cryopodCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.femalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.malesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.speciesGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.libraryFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
@@ -181,31 +172,11 @@ namespace ARKBreedingStats
             this.tabControlLibFilter = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.listBoxSpeciesLib = new System.Windows.Forms.ListBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.checkedListBoxOwner = new System.Windows.Forms.CheckedListBox();
-            this.cbOwnerFilterAll = new System.Windows.Forms.CheckBox();
-            this.tabPageServer = new System.Windows.Forms.TabPage();
-            this.checkedListBoxFilterServers = new System.Windows.Forms.CheckedListBox();
-            this.cbServerFilterAll = new System.Windows.Forms.CheckBox();
-            this.tabPageTags = new System.Windows.Forms.TabPage();
-            this.checkedListBoxFilterTags = new System.Windows.Forms.CheckedListBox();
-            this.cbFilterTagsAll = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.checkedListBoxConsiderStatTop = new System.Windows.Forms.CheckedListBox();
             this.buttonRecalculateTops = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.checkBoxSpeciesGroups = new System.Windows.Forms.CheckBox();
-            this.checkBoxShowCryopodCreatures = new System.Windows.Forms.CheckBox();
-            this.cbLibraryShowMales = new System.Windows.Forms.CheckBox();
-            this.cbLibraryShowFemales = new System.Windows.Forms.CheckBox();
-            this.checkBoxShowObeliskCreatures = new System.Windows.Forms.CheckBox();
-            this.checkBoxUseFiltersInTopStatCalculation = new System.Windows.Forms.CheckBox();
-            this.checkBoxShowMutatedCreatures = new System.Windows.Forms.CheckBox();
-            this.checkBoxShowNeuteredCreatures = new System.Windows.Forms.CheckBox();
-            this.checkBoxShowUnavailableCreatures = new System.Windows.Forms.CheckBox();
-            this.checkBoxShowDead = new System.Windows.Forms.CheckBox();
             this.tabPageLibRadarChart = new System.Windows.Forms.TabPage();
             this.radarChartLibrary = new ARKBreedingStats.RadarChart();
             this.listViewLibrary = new System.Windows.Forms.ListView();
@@ -370,12 +341,8 @@ namespace ARKBreedingStats
             this.tableLayoutPanelLibrary.SuspendLayout();
             this.tabControlLibFilter.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPageServer.SuspendLayout();
-            this.tabPageTags.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            this.tabPage4.SuspendLayout();
             this.tabPageLibRadarChart.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radarChartLibrary)).BeginInit();
             this.contextMenuStripLibrary.SuspendLayout();
@@ -918,7 +885,7 @@ namespace ARKBreedingStats
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
-            this.viewToolStripMenuItem,
+            this.libraryFilterToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -1073,111 +1040,12 @@ namespace ARKBreedingStats
             this.pasteCreatureToolStripMenuItem.Text = "Paste Creature";
             this.pasteCreatureToolStripMenuItem.Click += new System.EventHandler(this.pasteCreatureToolStripMenuItem_Click);
             // 
-            // viewToolStripMenuItem
+            // libraryFilterToolStripMenuItem
             // 
-            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.deadCreaturesToolStripMenuItem,
-            this.unavailableCreaturesToolStripMenuItem,
-            this.obeliskCreaturesToolStripMenuItem,
-            this.neuteredCreaturesToolStripMenuItem,
-            this.mutatedCreaturesToolStripMenuItem,
-            this.cryopodCreaturesToolStripMenuItem,
-            this.femalesToolStripMenuItem,
-            this.malesToolStripMenuItem,
-            this.speciesGroupToolStripMenuItem});
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.viewToolStripMenuItem.Text = "View";
-            // 
-            // deadCreaturesToolStripMenuItem
-            // 
-            this.deadCreaturesToolStripMenuItem.Checked = true;
-            this.deadCreaturesToolStripMenuItem.CheckOnClick = true;
-            this.deadCreaturesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.deadCreaturesToolStripMenuItem.Name = "deadCreaturesToolStripMenuItem";
-            this.deadCreaturesToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.deadCreaturesToolStripMenuItem.Text = "Dead Creatures";
-            this.deadCreaturesToolStripMenuItem.Click += new System.EventHandler(this.deadCreaturesToolStripMenuItem_Click);
-            // 
-            // unavailableCreaturesToolStripMenuItem
-            // 
-            this.unavailableCreaturesToolStripMenuItem.Checked = true;
-            this.unavailableCreaturesToolStripMenuItem.CheckOnClick = true;
-            this.unavailableCreaturesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.unavailableCreaturesToolStripMenuItem.Name = "unavailableCreaturesToolStripMenuItem";
-            this.unavailableCreaturesToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.unavailableCreaturesToolStripMenuItem.Text = "Unavailable Creatures";
-            this.unavailableCreaturesToolStripMenuItem.Click += new System.EventHandler(this.unavailableCreaturesToolStripMenuItem_Click);
-            // 
-            // obeliskCreaturesToolStripMenuItem
-            // 
-            this.obeliskCreaturesToolStripMenuItem.Checked = true;
-            this.obeliskCreaturesToolStripMenuItem.CheckOnClick = true;
-            this.obeliskCreaturesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.obeliskCreaturesToolStripMenuItem.Name = "obeliskCreaturesToolStripMenuItem";
-            this.obeliskCreaturesToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.obeliskCreaturesToolStripMenuItem.Text = "Obelisk Creatures";
-            this.obeliskCreaturesToolStripMenuItem.Click += new System.EventHandler(this.obeliskCreaturesToolStripMenuItem_Click);
-            // 
-            // neuteredCreaturesToolStripMenuItem
-            // 
-            this.neuteredCreaturesToolStripMenuItem.Checked = true;
-            this.neuteredCreaturesToolStripMenuItem.CheckOnClick = true;
-            this.neuteredCreaturesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.neuteredCreaturesToolStripMenuItem.Name = "neuteredCreaturesToolStripMenuItem";
-            this.neuteredCreaturesToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.neuteredCreaturesToolStripMenuItem.Text = "Neutered Creatures";
-            this.neuteredCreaturesToolStripMenuItem.Click += new System.EventHandler(this.neuteredCreaturesToolStripMenuItem_Click);
-            // 
-            // mutatedCreaturesToolStripMenuItem
-            // 
-            this.mutatedCreaturesToolStripMenuItem.Checked = true;
-            this.mutatedCreaturesToolStripMenuItem.CheckOnClick = true;
-            this.mutatedCreaturesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.mutatedCreaturesToolStripMenuItem.Name = "mutatedCreaturesToolStripMenuItem";
-            this.mutatedCreaturesToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.mutatedCreaturesToolStripMenuItem.Text = "Mutated Creatures";
-            this.mutatedCreaturesToolStripMenuItem.Click += new System.EventHandler(this.mutatedCreaturesToolStripMenuItem_Click);
-            // 
-            // cryopodCreaturesToolStripMenuItem
-            // 
-            this.cryopodCreaturesToolStripMenuItem.Checked = true;
-            this.cryopodCreaturesToolStripMenuItem.CheckOnClick = true;
-            this.cryopodCreaturesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cryopodCreaturesToolStripMenuItem.Name = "cryopodCreaturesToolStripMenuItem";
-            this.cryopodCreaturesToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.cryopodCreaturesToolStripMenuItem.Text = "Cryopod Creatures";
-            this.cryopodCreaturesToolStripMenuItem.Click += new System.EventHandler(this.cryopodCreaturesToolStripMenuItem_Click);
-            // 
-            // femalesToolStripMenuItem
-            // 
-            this.femalesToolStripMenuItem.Checked = true;
-            this.femalesToolStripMenuItem.CheckOnClick = true;
-            this.femalesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.femalesToolStripMenuItem.Name = "femalesToolStripMenuItem";
-            this.femalesToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.femalesToolStripMenuItem.Text = "Females";
-            this.femalesToolStripMenuItem.Click += new System.EventHandler(this.femalesToolStripMenuItem_Click);
-            // 
-            // malesToolStripMenuItem
-            // 
-            this.malesToolStripMenuItem.Checked = true;
-            this.malesToolStripMenuItem.CheckOnClick = true;
-            this.malesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.malesToolStripMenuItem.Name = "malesToolStripMenuItem";
-            this.malesToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.malesToolStripMenuItem.Text = "Males";
-            this.malesToolStripMenuItem.Click += new System.EventHandler(this.malesToolStripMenuItem_Click);
-            // 
-            // speciesGroupToolStripMenuItem
-            // 
-            this.speciesGroupToolStripMenuItem.Checked = true;
-            this.speciesGroupToolStripMenuItem.CheckOnClick = true;
-            this.speciesGroupToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.speciesGroupToolStripMenuItem.Name = "speciesGroupToolStripMenuItem";
-            this.speciesGroupToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.speciesGroupToolStripMenuItem.Text = "Species Group";
-            this.speciesGroupToolStripMenuItem.Click += new System.EventHandler(this.speciesGroupToolStripMenuItem_Click);
+            this.libraryFilterToolStripMenuItem.Name = "libraryFilterToolStripMenuItem";
+            this.libraryFilterToolStripMenuItem.Size = new System.Drawing.Size(91, 20);
+            this.libraryFilterToolStripMenuItem.Text = "Library filter…";
+            this.libraryFilterToolStripMenuItem.Click += new System.EventHandler(this.libraryFilterToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -1896,11 +1764,7 @@ namespace ARKBreedingStats
             // tabControlLibFilter
             // 
             this.tabControlLibFilter.Controls.Add(this.tabPage1);
-            this.tabControlLibFilter.Controls.Add(this.tabPage2);
-            this.tabControlLibFilter.Controls.Add(this.tabPageServer);
-            this.tabControlLibFilter.Controls.Add(this.tabPageTags);
             this.tabControlLibFilter.Controls.Add(this.tabPage3);
-            this.tabControlLibFilter.Controls.Add(this.tabPage4);
             this.tabControlLibFilter.Controls.Add(this.tabPageLibRadarChart);
             this.tabControlLibFilter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlLibFilter.Location = new System.Drawing.Point(3, 399);
@@ -1929,108 +1793,6 @@ namespace ARKBreedingStats
             this.listBoxSpeciesLib.Size = new System.Drawing.Size(181, 290);
             this.listBoxSpeciesLib.TabIndex = 0;
             this.listBoxSpeciesLib.SelectedIndexChanged += new System.EventHandler(this.listBoxSpeciesLib_SelectedIndexChanged);
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.checkedListBoxOwner);
-            this.tabPage2.Controls.Add(this.cbOwnerFilterAll);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(187, 296);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Owner";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // checkedListBoxOwner
-            // 
-            this.checkedListBoxOwner.CheckOnClick = true;
-            this.checkedListBoxOwner.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkedListBoxOwner.FormattingEnabled = true;
-            this.checkedListBoxOwner.Location = new System.Drawing.Point(3, 27);
-            this.checkedListBoxOwner.Name = "checkedListBoxOwner";
-            this.checkedListBoxOwner.Size = new System.Drawing.Size(181, 266);
-            this.checkedListBoxOwner.TabIndex = 0;
-            this.checkedListBoxOwner.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxOwner_ItemCheck);
-            // 
-            // cbOwnerFilterAll
-            // 
-            this.cbOwnerFilterAll.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cbOwnerFilterAll.Location = new System.Drawing.Point(3, 3);
-            this.cbOwnerFilterAll.Name = "cbOwnerFilterAll";
-            this.cbOwnerFilterAll.Size = new System.Drawing.Size(181, 24);
-            this.cbOwnerFilterAll.TabIndex = 1;
-            this.cbOwnerFilterAll.Text = "All";
-            this.cbOwnerFilterAll.UseVisualStyleBackColor = true;
-            this.cbOwnerFilterAll.CheckedChanged += new System.EventHandler(this.cbOwnerFilterAll_CheckedChanged);
-            // 
-            // tabPageServer
-            // 
-            this.tabPageServer.Controls.Add(this.checkedListBoxFilterServers);
-            this.tabPageServer.Controls.Add(this.cbServerFilterAll);
-            this.tabPageServer.Location = new System.Drawing.Point(4, 22);
-            this.tabPageServer.Name = "tabPageServer";
-            this.tabPageServer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageServer.Size = new System.Drawing.Size(187, 296);
-            this.tabPageServer.TabIndex = 5;
-            this.tabPageServer.Text = "Server";
-            this.tabPageServer.UseVisualStyleBackColor = true;
-            // 
-            // checkedListBoxFilterServers
-            // 
-            this.checkedListBoxFilterServers.CheckOnClick = true;
-            this.checkedListBoxFilterServers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkedListBoxFilterServers.FormattingEnabled = true;
-            this.checkedListBoxFilterServers.Location = new System.Drawing.Point(3, 27);
-            this.checkedListBoxFilterServers.Name = "checkedListBoxFilterServers";
-            this.checkedListBoxFilterServers.Size = new System.Drawing.Size(181, 266);
-            this.checkedListBoxFilterServers.TabIndex = 2;
-            this.checkedListBoxFilterServers.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxFilterServers_ItemCheck);
-            // 
-            // cbServerFilterAll
-            // 
-            this.cbServerFilterAll.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cbServerFilterAll.Location = new System.Drawing.Point(3, 3);
-            this.cbServerFilterAll.Name = "cbServerFilterAll";
-            this.cbServerFilterAll.Size = new System.Drawing.Size(181, 24);
-            this.cbServerFilterAll.TabIndex = 3;
-            this.cbServerFilterAll.Text = "All";
-            this.cbServerFilterAll.UseVisualStyleBackColor = true;
-            this.cbServerFilterAll.CheckedChanged += new System.EventHandler(this.cbServerFilterAll_CheckedChanged);
-            // 
-            // tabPageTags
-            // 
-            this.tabPageTags.Controls.Add(this.checkedListBoxFilterTags);
-            this.tabPageTags.Controls.Add(this.cbFilterTagsAll);
-            this.tabPageTags.Location = new System.Drawing.Point(4, 22);
-            this.tabPageTags.Name = "tabPageTags";
-            this.tabPageTags.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTags.Size = new System.Drawing.Size(187, 296);
-            this.tabPageTags.TabIndex = 6;
-            this.tabPageTags.Text = "Tags";
-            this.tabPageTags.UseVisualStyleBackColor = true;
-            // 
-            // checkedListBoxFilterTags
-            // 
-            this.checkedListBoxFilterTags.CheckOnClick = true;
-            this.checkedListBoxFilterTags.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkedListBoxFilterTags.FormattingEnabled = true;
-            this.checkedListBoxFilterTags.Location = new System.Drawing.Point(3, 27);
-            this.checkedListBoxFilterTags.Name = "checkedListBoxFilterTags";
-            this.checkedListBoxFilterTags.Size = new System.Drawing.Size(181, 266);
-            this.checkedListBoxFilterTags.TabIndex = 4;
-            this.checkedListBoxFilterTags.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxFilterTags_ItemCheck);
-            // 
-            // cbFilterTagsAll
-            // 
-            this.cbFilterTagsAll.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cbFilterTagsAll.Location = new System.Drawing.Point(3, 3);
-            this.cbFilterTagsAll.Name = "cbFilterTagsAll";
-            this.cbFilterTagsAll.Size = new System.Drawing.Size(181, 24);
-            this.cbFilterTagsAll.TabIndex = 5;
-            this.cbFilterTagsAll.Text = "All";
-            this.cbFilterTagsAll.UseVisualStyleBackColor = true;
-            this.cbFilterTagsAll.CheckedChanged += new System.EventHandler(this.cbFilterTagsAll_CheckedChanged);
             // 
             // tabPage3
             // 
@@ -2089,154 +1851,6 @@ namespace ARKBreedingStats
             this.label17.Size = new System.Drawing.Size(171, 26);
             this.label17.TabIndex = 4;
             this.label17.Text = "Select the stats considered for the TopStat-Calculation and Coloring";
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.checkBoxSpeciesGroups);
-            this.tabPage4.Controls.Add(this.checkBoxShowCryopodCreatures);
-            this.tabPage4.Controls.Add(this.cbLibraryShowMales);
-            this.tabPage4.Controls.Add(this.cbLibraryShowFemales);
-            this.tabPage4.Controls.Add(this.checkBoxShowObeliskCreatures);
-            this.tabPage4.Controls.Add(this.checkBoxUseFiltersInTopStatCalculation);
-            this.tabPage4.Controls.Add(this.checkBoxShowMutatedCreatures);
-            this.tabPage4.Controls.Add(this.checkBoxShowNeuteredCreatures);
-            this.tabPage4.Controls.Add(this.checkBoxShowUnavailableCreatures);
-            this.tabPage4.Controls.Add(this.checkBoxShowDead);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(187, 296);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "View";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxSpeciesGroups
-            // 
-            this.checkBoxSpeciesGroups.AutoSize = true;
-            this.checkBoxSpeciesGroups.Checked = true;
-            this.checkBoxSpeciesGroups.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxSpeciesGroups.Location = new System.Drawing.Point(6, 213);
-            this.checkBoxSpeciesGroups.Name = "checkBoxSpeciesGroups";
-            this.checkBoxSpeciesGroups.Size = new System.Drawing.Size(131, 17);
-            this.checkBoxSpeciesGroups.TabIndex = 9;
-            this.checkBoxSpeciesGroups.Text = "Show Species Groups";
-            this.checkBoxSpeciesGroups.UseVisualStyleBackColor = true;
-            this.checkBoxSpeciesGroups.CheckedChanged += new System.EventHandler(this.checkBoxSpeciesGroups_CheckedChanged);
-            // 
-            // checkBoxShowCryopodCreatures
-            // 
-            this.checkBoxShowCryopodCreatures.AutoSize = true;
-            this.checkBoxShowCryopodCreatures.Checked = true;
-            this.checkBoxShowCryopodCreatures.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxShowCryopodCreatures.Location = new System.Drawing.Point(6, 121);
-            this.checkBoxShowCryopodCreatures.Name = "checkBoxShowCryopodCreatures";
-            this.checkBoxShowCryopodCreatures.Size = new System.Drawing.Size(143, 17);
-            this.checkBoxShowCryopodCreatures.TabIndex = 8;
-            this.checkBoxShowCryopodCreatures.Text = "Show Cryopod Creatures";
-            this.checkBoxShowCryopodCreatures.UseVisualStyleBackColor = true;
-            this.checkBoxShowCryopodCreatures.CheckedChanged += new System.EventHandler(this.checkBoxShowCryopodCreatures_CheckedChanged);
-            // 
-            // cbLibraryShowMales
-            // 
-            this.cbLibraryShowMales.AutoSize = true;
-            this.cbLibraryShowMales.Checked = true;
-            this.cbLibraryShowMales.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbLibraryShowMales.Location = new System.Drawing.Point(6, 167);
-            this.cbLibraryShowMales.Name = "cbLibraryShowMales";
-            this.cbLibraryShowMales.Size = new System.Drawing.Size(84, 17);
-            this.cbLibraryShowMales.TabIndex = 7;
-            this.cbLibraryShowMales.Text = "Show Males";
-            this.cbLibraryShowMales.UseVisualStyleBackColor = true;
-            this.cbLibraryShowMales.CheckedChanged += new System.EventHandler(this.cbLibraryShowMales_CheckedChanged);
-            // 
-            // cbLibraryShowFemales
-            // 
-            this.cbLibraryShowFemales.AutoSize = true;
-            this.cbLibraryShowFemales.Checked = true;
-            this.cbLibraryShowFemales.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbLibraryShowFemales.Location = new System.Drawing.Point(6, 144);
-            this.cbLibraryShowFemales.Name = "cbLibraryShowFemales";
-            this.cbLibraryShowFemales.Size = new System.Drawing.Size(95, 17);
-            this.cbLibraryShowFemales.TabIndex = 6;
-            this.cbLibraryShowFemales.Text = "Show Females";
-            this.cbLibraryShowFemales.UseVisualStyleBackColor = true;
-            this.cbLibraryShowFemales.CheckedChanged += new System.EventHandler(this.cbLibraryShowFemales_CheckedChanged);
-            // 
-            // checkBoxShowObeliskCreatures
-            // 
-            this.checkBoxShowObeliskCreatures.AutoSize = true;
-            this.checkBoxShowObeliskCreatures.Checked = true;
-            this.checkBoxShowObeliskCreatures.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxShowObeliskCreatures.Location = new System.Drawing.Point(6, 52);
-            this.checkBoxShowObeliskCreatures.Name = "checkBoxShowObeliskCreatures";
-            this.checkBoxShowObeliskCreatures.Size = new System.Drawing.Size(139, 17);
-            this.checkBoxShowObeliskCreatures.TabIndex = 5;
-            this.checkBoxShowObeliskCreatures.Text = "Show Obelisk Creatures";
-            this.checkBoxShowObeliskCreatures.UseVisualStyleBackColor = true;
-            this.checkBoxShowObeliskCreatures.CheckedChanged += new System.EventHandler(this.checkBoxShowObeliskCreatures_CheckedChanged);
-            // 
-            // checkBoxUseFiltersInTopStatCalculation
-            // 
-            this.checkBoxUseFiltersInTopStatCalculation.AutoSize = true;
-            this.checkBoxUseFiltersInTopStatCalculation.Location = new System.Drawing.Point(6, 190);
-            this.checkBoxUseFiltersInTopStatCalculation.Name = "checkBoxUseFiltersInTopStatCalculation";
-            this.checkBoxUseFiltersInTopStatCalculation.Size = new System.Drawing.Size(182, 17);
-            this.checkBoxUseFiltersInTopStatCalculation.TabIndex = 4;
-            this.checkBoxUseFiltersInTopStatCalculation.Text = "Use Filters in TopStat-Calculation";
-            this.checkBoxUseFiltersInTopStatCalculation.UseVisualStyleBackColor = true;
-            this.checkBoxUseFiltersInTopStatCalculation.CheckedChanged += new System.EventHandler(this.checkBoxUseFiltersInTopStatCalculation_CheckedChanged);
-            // 
-            // checkBoxShowMutatedCreatures
-            // 
-            this.checkBoxShowMutatedCreatures.AutoSize = true;
-            this.checkBoxShowMutatedCreatures.Checked = true;
-            this.checkBoxShowMutatedCreatures.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxShowMutatedCreatures.Location = new System.Drawing.Point(6, 98);
-            this.checkBoxShowMutatedCreatures.Name = "checkBoxShowMutatedCreatures";
-            this.checkBoxShowMutatedCreatures.Size = new System.Drawing.Size(143, 17);
-            this.checkBoxShowMutatedCreatures.TabIndex = 3;
-            this.checkBoxShowMutatedCreatures.Text = "Show Mutated Creatures";
-            this.checkBoxShowMutatedCreatures.UseVisualStyleBackColor = true;
-            this.checkBoxShowMutatedCreatures.CheckedChanged += new System.EventHandler(this.checkBoxShowMutatedCreatures_CheckedChanged);
-            // 
-            // checkBoxShowNeuteredCreatures
-            // 
-            this.checkBoxShowNeuteredCreatures.AutoSize = true;
-            this.checkBoxShowNeuteredCreatures.Checked = true;
-            this.checkBoxShowNeuteredCreatures.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxShowNeuteredCreatures.Location = new System.Drawing.Point(6, 75);
-            this.checkBoxShowNeuteredCreatures.Name = "checkBoxShowNeuteredCreatures";
-            this.checkBoxShowNeuteredCreatures.Size = new System.Drawing.Size(148, 17);
-            this.checkBoxShowNeuteredCreatures.TabIndex = 2;
-            this.checkBoxShowNeuteredCreatures.Text = "Show Neutered Creatures";
-            this.checkBoxShowNeuteredCreatures.UseVisualStyleBackColor = true;
-            this.checkBoxShowNeuteredCreatures.CheckedChanged += new System.EventHandler(this.checkBoxShowNeuteredCreatures_CheckedChanged);
-            // 
-            // checkBoxShowUnavailableCreatures
-            // 
-            this.checkBoxShowUnavailableCreatures.AutoSize = true;
-            this.checkBoxShowUnavailableCreatures.Checked = true;
-            this.checkBoxShowUnavailableCreatures.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxShowUnavailableCreatures.Location = new System.Drawing.Point(6, 29);
-            this.checkBoxShowUnavailableCreatures.Name = "checkBoxShowUnavailableCreatures";
-            this.checkBoxShowUnavailableCreatures.Size = new System.Drawing.Size(160, 17);
-            this.checkBoxShowUnavailableCreatures.TabIndex = 1;
-            this.checkBoxShowUnavailableCreatures.Text = "Show Unavailable Creatures";
-            this.checkBoxShowUnavailableCreatures.UseVisualStyleBackColor = true;
-            this.checkBoxShowUnavailableCreatures.CheckedChanged += new System.EventHandler(this.checkBoxShowUnavailableCreatures_CheckedChanged);
-            // 
-            // checkBoxShowDead
-            // 
-            this.checkBoxShowDead.AutoSize = true;
-            this.checkBoxShowDead.Checked = true;
-            this.checkBoxShowDead.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxShowDead.Location = new System.Drawing.Point(6, 6);
-            this.checkBoxShowDead.Name = "checkBoxShowDead";
-            this.checkBoxShowDead.Size = new System.Drawing.Size(130, 17);
-            this.checkBoxShowDead.TabIndex = 0;
-            this.checkBoxShowDead.Text = "Show Dead Creatures";
-            this.checkBoxShowDead.UseVisualStyleBackColor = true;
-            this.checkBoxShowDead.CheckedChanged += new System.EventHandler(this.checkBoxShowDead_CheckedChanged);
             // 
             // tabPageLibRadarChart
             // 
@@ -3466,14 +3080,9 @@ namespace ARKBreedingStats
             this.tableLayoutPanelLibrary.ResumeLayout(false);
             this.tabControlLibFilter.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPageServer.ResumeLayout(false);
-            this.tabPageTags.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
             this.tabPageLibRadarChart.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radarChartLibrary)).EndInit();
             this.contextMenuStripLibrary.ResumeLayout(false);
@@ -3577,24 +3186,19 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem onlinehelpToolStripMenuItem;
         private System.Windows.Forms.TabControl tabControlLibFilter;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.ColumnHeader columnHeaderTopness;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.CheckedListBox checkedListBoxConsiderStatTop;
         private System.Windows.Forms.Button buttonRecalculateTops;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.CheckedListBox checkedListBoxOwner;
         private CreatureInfoInput creatureInfoInputExtractor;
         private CreatureInfoInput creatureInfoInputTester;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.CheckBox checkBoxShowDead;
         private System.Windows.Forms.ToolStripMenuItem setStatusToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aliveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem unavailableToolStripMenuItem;
-        private System.Windows.Forms.CheckBox checkBoxShowUnavailableCreatures;
         private System.Windows.Forms.ColumnHeader columnHeaderFound;
         private System.Windows.Forms.TabPage tabPageBreedingPlan;
         private System.Windows.Forms.ToolStripMenuItem multiSetterToolStripMenuItem;
@@ -3660,7 +3264,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.Label labelTamingInfo;
         private System.Windows.Forms.GroupBox groupBoxTamingInfo;
         private System.Windows.Forms.ColumnHeader columnHeaderAdded;
-        private System.Windows.Forms.CheckBox checkBoxShowNeuteredCreatures;
         private System.Windows.Forms.Label lbImprintingFailInfo;
         private System.Windows.Forms.Label lbImprintedCount;
         private System.Windows.Forms.Label lbImprintingCuddleCountExtractor;
@@ -3701,8 +3304,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.Label lbListening;
         private System.Windows.Forms.CheckBox cbToggleOverlay;
         private System.Windows.Forms.ToolStripButton toolStripButtonDeleteExpiredIncubationTimers;
-        private System.Windows.Forms.CheckBox checkBoxShowMutatedCreatures;
-        private System.Windows.Forms.CheckBox checkBoxUseFiltersInTopStatCalculation;
         private ocr.OCRControl ocrControl1;
         private System.Windows.Forms.TabPage tabPageLibRadarChart;
         private RadarChart radarChartLibrary;
@@ -3715,14 +3316,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ColumnHeader columnHeaderNote;
         private System.Windows.Forms.ToolStripMenuItem obeliskToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem obeliskToolStripMenuItem1;
-        private System.Windows.Forms.CheckBox checkBoxShowObeliskCreatures;
         private System.Windows.Forms.Label lbLibrarySelectionInfo;
-        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem deadCreaturesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem unavailableCreaturesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem obeliskCreaturesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem neuteredCreaturesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mutatedCreaturesToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.CheckBox cbGuessSpecies;
         private System.Windows.Forms.ColumnHeader columnHeaderColor0;
@@ -3733,10 +3327,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ColumnHeader columnHeaderColor5;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
         private System.Windows.Forms.ColumnHeader columnHeaderServer;
-        private System.Windows.Forms.CheckBox cbOwnerFilterAll;
-        private System.Windows.Forms.TabPage tabPageServer;
-        private System.Windows.Forms.CheckedListBox checkedListBoxFilterServers;
-        private System.Windows.Forms.CheckBox cbServerFilterAll;
         private SpeciesSelector speciesSelector1;
         private uiControls.TextBoxSuggest tbSpeciesGlobal;
         private System.Windows.Forms.PictureBox pbSpecies;
@@ -3744,10 +3334,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.TabPage tabPageMultiplierTesting;
         private testCases.ExtractionTestControl extractionTestControl1;
         private System.Windows.Forms.ToolStripButton tsBtAddAsExtractionTest;
-        private System.Windows.Forms.CheckBox cbLibraryShowMales;
-        private System.Windows.Forms.CheckBox cbLibraryShowFemales;
-        private System.Windows.Forms.ToolStripMenuItem femalesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem malesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importExportedCreaturesToolStripMenuItem;
         private System.Windows.Forms.Button btImportLastExported;
         private System.Windows.Forms.LinkLabel llOnlineHelpExtractionIssues;
@@ -3758,15 +3344,10 @@ namespace ARKBreedingStats
         private StatsMultiplierTesting statsMultiplierTesting1;
         private System.Windows.Forms.ToolStripButton copyToMultiplierTesterToolStripButton;
         private System.Windows.Forms.Label lbWildLevelTester;
-        private System.Windows.Forms.TabPage tabPageTags;
-        private System.Windows.Forms.CheckedListBox checkedListBoxFilterTags;
-        private System.Windows.Forms.CheckBox cbFilterTagsAll;
         private System.Windows.Forms.ToolStripMenuItem importValuesFromClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
         private System.Windows.Forms.ToolStripMenuItem importingFromSavegameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importingFromSavegameEmptyToolStripMenuItem;
-        private System.Windows.Forms.CheckBox checkBoxShowCryopodCreatures;
-        private System.Windows.Forms.ToolStripMenuItem cryopodCreaturesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cryopodToolStripMenuItem;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelStatIOsExtractor;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelStatIOsTester;
@@ -3791,8 +3372,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem customStatOverridesToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem openJsonDataFolderToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem speciesGroupToolStripMenuItem;
-        private System.Windows.Forms.CheckBox checkBoxSpeciesGroups;
         private System.Windows.Forms.ColumnHeader columnHeaderSpecies;
         private System.Windows.Forms.ColumnHeader columnHeaderStatus;
         private System.Windows.Forms.ColumnHeader columnHeaderTribe;
@@ -3803,5 +3382,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem setToMatureToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearMatingCooldownToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem justMatedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem libraryFilterToolStripMenuItem;
     }
 }

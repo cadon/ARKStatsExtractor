@@ -203,7 +203,7 @@ namespace ARKBreedingStats
 
         private void ExportedCreatureList_CheckGuidInLibrary(importExported.ExportedCreatureControl exportedCreatureControl)
         {
-            Creature cr = creatureCollection.creatures.SingleOrDefault(c => c.guid == exportedCreatureControl.creatureValues.guid);
+            Creature cr = _creatureCollection.creatures.SingleOrDefault(c => c.guid == exportedCreatureControl.creatureValues.guid);
             if (cr != null && !cr.flags.HasFlag(CreatureFlags.Placeholder))
                 exportedCreatureControl.setStatus(importExported.ExportedCreatureControl.ImportStatus.OldImported, cr.addedToLibrary);
             else
@@ -235,10 +235,10 @@ namespace ARKBreedingStats
 
         private void ExportedCreatureList_CheckForUnknownMods(List<string> unknownSpeciesBlueprintPaths)
         {
-            CheckForMissingModFiles(creatureCollection, unknownSpeciesBlueprintPaths);
+            CheckForMissingModFiles(_creatureCollection, unknownSpeciesBlueprintPaths);
             // if mods were added, try to import the creature values again
-            if (creatureCollection.ModValueReloadNeeded
-                && LoadModValuesOfCollection(creatureCollection, true, true))
+            if (_creatureCollection.ModValueReloadNeeded
+                && LoadModValuesOfCollection(_creatureCollection, true, true))
                 exportedCreatureList.LoadFilesInFolder();
         }
     }

@@ -12,7 +12,7 @@ namespace ARKBreedingStats.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.5.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.6.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -1149,6 +1149,110 @@ namespace ARKBreedingStats.Properties {
             }
             set {
                 this["AdminConsoleCommandWithCheat"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int FilterHideCreaturesFlags {
+            get {
+                return ((int)(this["FilterHideCreaturesFlags"]));
+            }
+            set {
+                this["FilterHideCreaturesFlags"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public string[] FilterHideOwners {
+            get {
+                return ((string[])(this["FilterHideOwners"]));
+            }
+            set {
+                this["FilterHideOwners"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public string[] FilterHideTribes {
+            get {
+                return ((string[])(this["FilterHideTribes"]));
+            }
+            set {
+                this["FilterHideTribes"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public string[] FilterHideServers {
+            get {
+                return ((string[])(this["FilterHideServers"]));
+            }
+            set {
+                this["FilterHideServers"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public string[] FilterHideTags {
+            get {
+                return ((string[])(this["FilterHideTags"]));
+            }
+            set {
+                this["FilterHideTags"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool useFiltersInTopStatCalculation {
+            get {
+                return ((bool)(this["useFiltersInTopStatCalculation"]));
+            }
+            set {
+                this["useFiltersInTopStatCalculation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int FilterOnlyIfColorId {
+            get {
+                return ((int)(this["FilterOnlyIfColorId"]));
+            }
+            set {
+                this["FilterOnlyIfColorId"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool LibraryGroupBySpecies {
+            get {
+                return ((bool)(this["LibraryGroupBySpecies"]));
+            }
+            set {
+                this["LibraryGroupBySpecies"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50, 50, 800, 600")]
+        public global::System.Drawing.Rectangle LibraryFilterWindowRect {
+            get {
+                return ((global::System.Drawing.Rectangle)(this["LibraryFilterWindowRect"]));
+            }
+            set {
+                this["LibraryFilterWindowRect"] = value;
             }
         }
     }

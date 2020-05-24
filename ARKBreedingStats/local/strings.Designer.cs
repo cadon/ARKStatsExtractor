@@ -108,6 +108,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to apply.
+        /// </summary>
+        internal static string apply {
+            get {
+                return ResourceManager.GetString("apply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to That is approx. one Narcoberry every.
         /// </summary>
         internal static string ApproxOneNarcoberryEvery {
@@ -628,6 +637,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear Color Filters.
+        /// </summary>
+        internal static string clearColorsFilters {
+            get {
+                return ResourceManager.GetString("clearColorsFilters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Club.
         /// </summary>
         internal static string Club {
@@ -1132,6 +1150,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Group library by species.
+        /// </summary>
+        internal static string groupLibraryBySpecies {
+            get {
+                return ResourceManager.GetString("groupLibraryBySpecies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Grown in.
         /// </summary>
         internal static string grownIn {
@@ -1182,6 +1209,15 @@ namespace ARKBreedingStats.local {
         internal static string helpToolStripMenuItem {
             get {
                 return ResourceManager.GetString("helpToolStripMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to hide status.
+        /// </summary>
+        internal static string hideStatus {
+            get {
+                return ResourceManager.GetString("hideStatus", resourceCulture);
             }
         }
         
@@ -1531,6 +1567,24 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Library Filter.
+        /// </summary>
+        internal static string libraryFilter {
+            get {
+                return ResourceManager.GetString("libraryFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter library….
+        /// </summary>
+        internal static string libraryFilterToolStripMenuItem {
+            get {
+                return ResourceManager.GetString("libraryFilterToolStripMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Load and A&amp;dd....
         /// </summary>
         internal static string loadAndAddToolStripMenuItem {
@@ -1820,6 +1874,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Only creatures that have this color.
+        /// </summary>
+        internal static string onlyCreaturesWithThisColor {
+            get {
+                return ResourceManager.GetString("onlyCreaturesWithThisColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to only pairings with &quot;{0}&quot;.
         /// </summary>
         internal static string onlyPairingsWith {
@@ -1874,6 +1937,24 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Owner filter from library.
+        /// </summary>
+        internal static string ownerFilterFromLibrary {
+            get {
+                return ResourceManager.GetString("ownerFilterFromLibrary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to owners.
+        /// </summary>
+        internal static string owners {
+            get {
+                return ResourceManager.GetString("owners", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Oxygen.
         /// </summary>
         internal static string Oxygen {
@@ -1915,6 +1996,15 @@ namespace ARKBreedingStats.local {
         internal static string Player {
             get {
                 return ResourceManager.GetString("Player", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Possible Level-Range: {0}–{1}.
+        /// </summary>
+        internal static string possibleLevelRange {
+            get {
+                return ResourceManager.GetString("possibleLevelRange", resourceCulture);
             }
         }
         
@@ -2066,6 +2156,24 @@ namespace ARKBreedingStats.local {
         internal static string Server {
             get {
                 return ResourceManager.GetString("Server", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server filter from library.
+        /// </summary>
+        internal static string serverFilterFromLibrary {
+            get {
+                return ResourceManager.GetString("serverFilterFromLibrary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to servers.
+        /// </summary>
+        internal static string servers {
+            get {
+                return ResourceManager.GetString("servers", resourceCulture);
             }
         }
         
@@ -2228,6 +2336,15 @@ namespace ARKBreedingStats.local {
         internal static string Status {
             get {
                 return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to tags.
+        /// </summary>
+        internal static string tags {
+            get {
+                return ResourceManager.GetString("tags", resourceCulture);
             }
         }
         
@@ -2574,6 +2691,24 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tribe filter from library.
+        /// </summary>
+        internal static string tribeFilterFromLibrary {
+            get {
+                return ResourceManager.GetString("tribeFilterFromLibrary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to tribes.
+        /// </summary>
+        internal static string tribes {
+            get {
+                return ResourceManager.GetString("tribes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add as Test.
         /// </summary>
         internal static string tsBtAddAsExtractionTest {
@@ -2606,6 +2741,15 @@ namespace ARKBreedingStats.local {
         internal static string until {
             get {
                 return ResourceManager.GetString("until", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use filter in top stat calculation.
+        /// </summary>
+        internal static string useFilterInTopStatCalculation {
+            get {
+                return ResourceManager.GetString("useFilterInTopStatCalculation", resourceCulture);
             }
         }
         

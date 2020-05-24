@@ -37,7 +37,7 @@ namespace ARKBreedingStats
                 speciesSelector1.SetSpeciesLists(Values.V.species, Values.V.aliases);
             }
 
-            creatureCollection.ModList = mods;
+            _creatureCollection.ModList = mods;
             UpdateStatusBar();
             return modFilesLoaded;
         }

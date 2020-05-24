@@ -61,22 +61,22 @@ namespace ARKBreedingStats
                     File.Copy(atImportFileLocation.FileLocation, workingCopyfilename, true);
                 }
 
-                await ImportSavegame.ImportCollectionFromSavegame(creatureCollection, workingCopyfilename, atImportFileLocation.ServerName);
+                await ImportSavegame.ImportCollectionFromSavegame(_creatureCollection, workingCopyfilename, atImportFileLocation.ServerName);
 
-                UpdateParents(creatureCollection.creatures);
+                UpdateParents(_creatureCollection.creatures);
 
-                foreach (var creature in creatureCollection.creatures)
+                foreach (var creature in _creatureCollection.creatures)
                 {
                     creature.RecalculateAncestorGenerations();
                 }
 
-                UpdateIncubationParents(creatureCollection);
+                UpdateIncubationParents(_creatureCollection);
 
                 // update UI
                 SetCollectionChanged(true);
                 UpdateCreatureListings();
 
-                if (creatureCollection.creatures.Any())
+                if (_creatureCollection.creatures.Any())
                     tabControlMain.SelectedTab = tabPageLibrary;
 
                 // reapply last sorting
@@ -85,8 +85,8 @@ namespace ARKBreedingStats
                 UpdateTempCreatureDropDown();
 
                 // if unknown mods are used in the savegame-file and the user wants to load the missing mod-files, do it
-                if (creatureCollection.ModValueReloadNeeded
-                    && LoadModValuesOfCollection(creatureCollection, true, true))
+                if (_creatureCollection.ModValueReloadNeeded
+                    && LoadModValuesOfCollection(_creatureCollection, true, true))
                     SetCollectionChanged(true);
             }
             catch (Exception ex)

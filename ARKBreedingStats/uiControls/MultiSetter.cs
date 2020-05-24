@@ -282,11 +282,12 @@ namespace ARKBreedingStats.uiControls
         {
             if (creatureList[0] != null && !cp.isShown)
             {
-                cp.SetColors(colors, region, "Region " + region);
+                cp.SetColors(colors[region], "Region " + region);
                 if (cp.ShowDialog() == DialogResult.OK)
                 {
                     // color was chosen
-                    setColorButton(sender, species.CreatureColors.creatureColor(colors[region]));
+                    colors[region] = cp.SelectedColorId;
+                    setColorButton(sender, species.CreatureColors.CreatureColor(colors[region]));
                     pictureBox1.Image = CreatureColored.getColoredCreature(colors, uniqueSpecies ? creatureList[0].Species : null,
                             new[] { true, true, true, true, true, true });
                 }
@@ -335,7 +336,7 @@ namespace ARKBreedingStats.uiControls
             Loc.ControlText(cbServer, "Server");
             Loc.ControlText(checkBoxNote, "Note");
             Loc.ControlText(checkBoxSpecies, "Species");
-            Loc.ControlText(buttonApply, "Apply");
+            Loc.ControlText(buttonApply, "apply");
             Loc.ControlText(buttonCancel, "Cancel");
         }
     }

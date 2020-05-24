@@ -90,7 +90,10 @@ namespace ARKBreedingStats.species
         /// </summary>
         public bool IsDomesticable;
 
-        public const int COLOR_REGION_COUNT = 6;
+        /// <summary>
+        /// Number of possible color regions for all species.
+        /// </summary>
+        public const int ColorRegionCount = 6;
 
         /// <summary>
         /// creates properties that are not created during deserialization. They are set later with the raw-values with the multipliers applied.
@@ -137,8 +140,8 @@ namespace ARKBreedingStats.species
                 TamedBaseHealthMultiplier = 1;
 
             if (colors == null)
-                colors = new List<ColorRegion>(COLOR_REGION_COUNT);
-            for (int ci = colors.Count; ci < COLOR_REGION_COUNT; ci++)
+                colors = new List<ColorRegion>(ColorRegionCount);
+            for (int ci = colors.Count; ci < ColorRegionCount; ci++)
                 colors.Add(null);
             if (string.IsNullOrEmpty(blueprintPath))
                 blueprintPath = string.Empty;
@@ -167,7 +170,7 @@ namespace ARKBreedingStats.species
 
         public void InitializeColors(ARKColors arkColors)
         {
-            for (int i = 0; i < COLOR_REGION_COUNT; i++)
+            for (int i = 0; i < ColorRegionCount; i++)
                 colors[i]?.Initialize(arkColors);
         }
 

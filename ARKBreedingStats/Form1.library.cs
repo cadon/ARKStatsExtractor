@@ -5,7 +5,6 @@ using ARKBreedingStats.values;
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -45,7 +44,7 @@ namespace ARKBreedingStats
                 imprinting = (double)numericUpDownImprintingBonusTester.Value / 100;
             }
 
-            var levelStep = creatureCollection.getWildLevelStep();
+            var levelStep = _creatureCollection.getWildLevelStep();
             Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex, GetCurrentWildLevels(fromExtractor), GetCurrentDomLevels(fromExtractor), te, bred, imprinting, levelStep: levelStep)
             {
                 // set parents
@@ -98,30 +97,30 @@ namespace ARKBreedingStats
             creature.RecalculateCreatureValues(levelStep);
             creature.RecalculateNewMutations();
 
-            if (creatureCollection.DeletedCreatureGuids != null
-                && creatureCollection.DeletedCreatureGuids.Contains(creature.guid))
-                creatureCollection.DeletedCreatureGuids.RemoveAll(guid => guid == creature.guid);
+            if (_creatureCollection.DeletedCreatureGuids != null
+                && _creatureCollection.DeletedCreatureGuids.Contains(creature.guid))
+                _creatureCollection.DeletedCreatureGuids.RemoveAll(guid => guid == creature.guid);
 
-            creatureCollection.MergeCreatureList(new List<Creature> { creature });
+            _creatureCollection.MergeCreatureList(new List<Creature> { creature });
 
             // set status of exportedCreatureControl if available
             exportedCreatureControl?.setStatus(importExported.ExportedCreatureControl.ImportStatus.JustImported, DateTime.Now);
 
             // if creature already exists by guid, use the already existing creature object for the parent assignments
-            creature = creatureCollection.creatures.SingleOrDefault(c => c.guid == creature.guid) ?? creature;
+            creature = _creatureCollection.creatures.SingleOrDefault(c => c.guid == creature.guid) ?? creature;
 
             // if new creature is parent of existing creatures, update link
-            var motherOf = creatureCollection.creatures.Where(c => c.motherGuid == creature.guid).ToList();
+            var motherOf = _creatureCollection.creatures.Where(c => c.motherGuid == creature.guid).ToList();
             foreach (Creature c in motherOf)
                 c.Mother = creature;
-            var fatherOf = creatureCollection.creatures.Where(c => c.fatherGuid == creature.guid).ToList();
+            var fatherOf = _creatureCollection.creatures.Where(c => c.fatherGuid == creature.guid).ToList();
             foreach (Creature c in fatherOf)
                 c.Father = creature;
 
             // if the new creature is the ancestor of any other creatures, update the generation count of all creatures
             if (motherOf.Any() || fatherOf.Any())
             {
-                var creaturesOfSpecies = creatureCollection.creatures.Where(c => c.Species == c.Species).ToList();
+                var creaturesOfSpecies = _creatureCollection.creatures.Where(c => c.Species == c.Species).ToList();
                 foreach (var cr in creaturesOfSpecies) cr.generation = -1;
                 foreach (var cr in creaturesOfSpecies) cr.RecalculateAncestorGenerations();
             }
@@ -171,9 +170,9 @@ namespace ARKBreedingStats
                                 if (species != ((Creature)i.Tag).Species)
                                     onlyOneSpecies = false;
                             }
-                            creatureCollection.DeleteCreature((Creature)i.Tag);
+                            _creatureCollection.DeleteCreature((Creature)i.Tag);
                         }
-                        creatureCollection.RemoveUnlinkedPlaceholders();
+                        _creatureCollection.RemoveUnlinkedPlaceholders();
                         UpdateCreatureListings(onlyOneSpecies ? species : null);
                         SetCollectionChanged(true, onlyOneSpecies ? species : null);
                     }
@@ -194,13 +193,13 @@ namespace ARKBreedingStats
         {
             bool arkIdIsUnique = true;
 
-            if (creature.ArkId != 0 && creatureCollection.ArkIdAlreadyExist(creature.ArkId, creature, out Creature guidCreature))
+            if (creature.ArkId != 0 && _creatureCollection.ArkIdAlreadyExist(creature.ArkId, creature, out Creature guidCreature))
             {
                 // if the creature is a placeholder replace the placeholder with the real creature
                 if (guidCreature.flags.HasFlag(CreatureFlags.Placeholder) && creature.sex == guidCreature.sex && creature.Species == guidCreature.Species)
                 {
                     // remove placeholder-creature from collection (is replaced by new creature)
-                    creatureCollection.creatures.Remove(guidCreature);
+                    _creatureCollection.creatures.Remove(guidCreature);
                 }
                 else
                 {
@@ -228,7 +227,7 @@ namespace ARKBreedingStats
             int[] levelsWild = new int[Values.STATS_COUNT];
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                levelsWild[s] = fromExtractor ? statIOs[s].LevelWild : testingIOs[s].LevelWild;
+                levelsWild[s] = fromExtractor ? _statIOs[s].LevelWild : _testingIOs[s].LevelWild;
             }
             return levelsWild;
         }
@@ -243,7 +242,7 @@ namespace ARKBreedingStats
             int[] levelsDom = new int[Values.STATS_COUNT];
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                levelsDom[s] = fromExtractor ? statIOs[s].LevelDom : testingIOs[s].LevelDom;
+                levelsDom[s] = fromExtractor ? _statIOs[s].LevelDom : _testingIOs[s].LevelDom;
             }
             return levelsDom;
         }
@@ -254,31 +253,31 @@ namespace ARKBreedingStats
         private void InitializeCollection()
         {
             // set pointer to current collection
-            pedigree1.creatures = creatureCollection.creatures;
-            breedingPlan1.creatureCollection = creatureCollection;
-            tribesControl1.Tribes = creatureCollection.tribes;
-            tribesControl1.Players = creatureCollection.players;
-            timerList1.CreatureCollection = creatureCollection;
-            notesControl1.NoteList = creatureCollection.noteList;
-            raisingControl1.creatureCollection = creatureCollection;
-            statsMultiplierTesting1.CreatureCollection = creatureCollection;
+            pedigree1.creatures = _creatureCollection.creatures;
+            breedingPlan1.creatureCollection = _creatureCollection;
+            tribesControl1.Tribes = _creatureCollection.tribes;
+            tribesControl1.Players = _creatureCollection.players;
+            timerList1.CreatureCollection = _creatureCollection;
+            notesControl1.NoteList = _creatureCollection.noteList;
+            raisingControl1.creatureCollection = _creatureCollection;
+            statsMultiplierTesting1.CreatureCollection = _creatureCollection;
 
-            UpdateParents(creatureCollection.creatures);
-            UpdateIncubationParents(creatureCollection);
+            UpdateParents(_creatureCollection.creatures);
+            UpdateIncubationParents(_creatureCollection);
 
             CreateCreatureTagList();
 
-            if (creatureCollection.modIDs == null) creatureCollection.modIDs = new List<string>();
+            if (_creatureCollection.modIDs == null) _creatureCollection.modIDs = new List<string>();
 
             pedigree1.Clear();
             breedingPlan1.Clear();
 
             // assign species objects to creatures
-            foreach (var cr in creatureCollection.creatures)
+            foreach (var cr in _creatureCollection.creatures)
             {
                 cr.Species = Values.V.SpeciesByBlueprint(cr.speciesBlueprint);
             }
-            foreach (var cv in creatureCollection.creaturesValues)
+            foreach (var cv in _creatureCollection.creaturesValues)
             {
                 cv.Species = Values.V.SpeciesByBlueprint(cv.speciesBlueprint);
             }
@@ -296,7 +295,7 @@ namespace ARKBreedingStats
             toolStripProgressBar1.Maximum = Values.V.speciesNames.Count;
             toolStripProgressBar1.Visible = true;
 
-            List<Creature> filteredCreatures = (creatureCollection.useFiltersInTopStatCalculation ? ApplyLibraryFilterSettings(creatures) : Enumerable.Empty<Creature>()).ToList();
+            List<Creature> filteredCreatures = (Properties.Settings.Default.useFiltersInTopStatCalculation ? ApplyLibraryFilterSettings(creatures) : Enumerable.Empty<Creature>()).ToList();
             foreach (Species species in Values.V.species)
             {
                 toolStripProgressBar1.Value++;
@@ -329,7 +328,7 @@ namespace ARKBreedingStats
                     c.topBreedingStats = new bool[Values.STATS_COUNT];
                     c.topBreedingCreature = false;
 
-                    if (creatureCollection.useFiltersInTopStatCalculation)
+                    if (Properties.Settings.Default.useFiltersInTopStatCalculation)
                     {
                         //if not in the filtered collection (using library filter settings), continue
                         if (!filteredCreatures.Contains(c))
@@ -367,13 +366,13 @@ namespace ARKBreedingStats
                     continue;
                 }
 
-                if (!topLevels.ContainsKey(species))
+                if (!_topLevels.ContainsKey(species))
                 {
-                    topLevels.Add(species, bestStat);
+                    _topLevels.Add(species, bestStat);
                 }
                 else
                 {
-                    topLevels[species] = bestStat;
+                    _topLevels[species] = bestStat;
                 }
 
                 // beststat and bestcreatures now contain the best stats and creatures for each stat.
@@ -494,7 +493,7 @@ namespace ARKBreedingStats
                 {
                     Creature mother = null;
                     Creature father = null;
-                    foreach (Creature p in creatureCollection.creatures)
+                    foreach (Creature p in _creatureCollection.creatures)
                     {
                         if (c.motherGuid != Guid.Empty && c.motherGuid == p.guid)
                         {
@@ -520,7 +519,7 @@ namespace ARKBreedingStats
                 }
             }
 
-            creatureCollection.creatures.AddRange(placeholderAncestors);
+            _creatureCollection.creatures.AddRange(placeholderAncestors);
         }
 
         /// <summary>
@@ -547,7 +546,7 @@ namespace ARKBreedingStats
 
             Guid creatureGuid = arkId != 0 ? Utils.ConvertArkIdToGuid(arkId) : guid;
             var creature = new Creature(tmpl.Species, name, tmpl.owner, tmpl.tribe, sex, new[] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
-                    levelStep: creatureCollection.getWildLevelStep())
+                    levelStep: _creatureCollection.getWildLevelStep())
             {
                 guid = creatureGuid,
                 status = CreatureStatus.Unavailable,
@@ -637,11 +636,11 @@ namespace ARKBreedingStats
                 selectedCreatures.Add((Creature)i.Tag);
 
             // data of the selected creature changed, update listview
-            cr.RecalculateCreatureValues(creatureCollection.getWildLevelStep());
-            // if creaturestatus (available/dead) changed, recalculate topstats (dead creatures are not considered there)
+            cr.RecalculateCreatureValues(_creatureCollection.getWildLevelStep());
+            // if creatureStatus (available/dead) changed, recalculate topStats (dead creatures are not considered there)
             if (creatureStatusChanged)
             {
-                CalculateTopStats(creatureCollection.creatures.Where(c => c.Species == cr.Species).ToList());
+                CalculateTopStats(_creatureCollection.creatures.Where(c => c.Species == cr.Species).ToList());
                 FilterLib();
                 UpdateStatusBar();
             }
@@ -702,7 +701,7 @@ namespace ARKBreedingStats
 
         private ListViewItem CreateCreatureLVItem(Creature cr, ListViewGroup g)
         {
-            double colorFactor = 100d / creatureCollection.maxChartLevel;
+            double colorFactor = 100d / _creatureCollection.maxChartLevel;
             DateTime? cldGr = cr.cooldownUntil.HasValue && cr.growingUntil.HasValue ?
                 (cr.cooldownUntil.Value > cr.growingUntil.Value ? cr.cooldownUntil.Value : cr.growingUntil.Value)
                 : cr.cooldownUntil ?? (cr.growingUntil);
@@ -739,11 +738,7 @@ namespace ARKBreedingStats
             }).ToArray();
 
             // check if we display group for species or not.
-            ListViewItem lvi;
-            if (checkBoxSpeciesGroups.Checked)
-                lvi = new ListViewItem(subItems, g);
-            else
-                lvi = new ListViewItem(subItems);
+            ListViewItem lvi = Properties.Settings.Default.LibraryGroupBySpecies ? new ListViewItem(subItems, g) : new ListViewItem(subItems);
 
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
@@ -780,8 +775,8 @@ namespace ARKBreedingStats
             {
                 lvi.SubItems[0].ForeColor = Color.DarkBlue;
             }
-            else if (creatureCollection.maxServerLevel > 0
-                    && cr.levelsWild[(int)StatNames.Torpidity] + 1 + creatureCollection.maxDomLevel > creatureCollection.maxServerLevel)
+            else if (_creatureCollection.maxServerLevel > 0
+                    && cr.levelsWild[(int)StatNames.Torpidity] + 1 + _creatureCollection.maxDomLevel > _creatureCollection.maxServerLevel)
             {
                 lvi.SubItems[0].ForeColor = Color.OrangeRed; // this creature may pass the max server level and could be deleted by the game
             }
@@ -846,7 +841,7 @@ namespace ARKBreedingStats
                 {
                     if (cr.colors[cl] != 0)
                     {
-                        lvi.SubItems[24 + cl].BackColor = CreatureColors.creatureColor(cr.colors[cl]);
+                        lvi.SubItems[24 + cl].BackColor = CreatureColors.CreatureColor(cr.colors[cl]);
                         lvi.SubItems[24 + cl].ForeColor = Utils.ForeColor(lvi.SubItems[24 + cl].BackColor);
                     }
                     else
@@ -948,7 +943,7 @@ namespace ARKBreedingStats
                     creatureBoxListView.SetCreature(c);
                     if (tabControlLibFilter.SelectedTab == tabPageLibRadarChart)
                         radarChartLibrary.setLevels(c.levelsWild);
-                    pedigreeNeedsUpdate = true;
+                    _pedigreeNeedsUpdate = true;
                 }
 
                 // display infos about the selected creatures
@@ -982,64 +977,6 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Filter the displayed creatures for the library listview
-        /// </summary>
-        /// <param name="param"></param>
-        /// <param name="show"></param>
-        private void SetLibraryFilter(string param, bool show)
-        {
-            if (libraryViews.ContainsKey(param) && libraryViews[param] != show)
-            {
-                libraryViews[param] = show;
-
-                switch (param)
-                {
-                    case "Dead":
-                        creatureCollection.showFlags = show ? (creatureCollection.showFlags | CreatureFlags.Dead) : (creatureCollection.showFlags & ~CreatureFlags.Dead);
-                        checkBoxShowDead.Checked = show;
-                        deadCreaturesToolStripMenuItem.Checked = show;
-                        break;
-                    case "Unavailable":
-                        creatureCollection.showFlags = show ? (creatureCollection.showFlags | CreatureFlags.Unavailable) : (creatureCollection.showFlags & ~CreatureFlags.Unavailable);
-                        checkBoxShowUnavailableCreatures.Checked = show;
-                        unavailableCreaturesToolStripMenuItem.Checked = show;
-                        break;
-                    case "Neutered":
-                        creatureCollection.showFlags = show ? (creatureCollection.showFlags | CreatureFlags.Neutered) : (creatureCollection.showFlags & ~CreatureFlags.Neutered);
-                        checkBoxShowNeuteredCreatures.Checked = show;
-                        neuteredCreaturesToolStripMenuItem.Checked = show;
-                        break;
-                    case "Obelisk":
-                        creatureCollection.showFlags = show ? (creatureCollection.showFlags | CreatureFlags.Obelisk) : (creatureCollection.showFlags & ~CreatureFlags.Obelisk);
-                        checkBoxShowObeliskCreatures.Checked = show;
-                        obeliskCreaturesToolStripMenuItem.Checked = show;
-                        break;
-                    case "Cryopod":
-                        creatureCollection.showFlags = show ? (creatureCollection.showFlags | CreatureFlags.Cryopod) : (creatureCollection.showFlags & ~CreatureFlags.Cryopod);
-                        checkBoxShowCryopodCreatures.Checked = show;
-                        cryopodCreaturesToolStripMenuItem.Checked = show;
-                        break;
-                    case "Mutated":
-                        creatureCollection.showFlags = show ? (creatureCollection.showFlags | CreatureFlags.Mutated) : (creatureCollection.showFlags & ~CreatureFlags.Mutated);
-                        checkBoxShowMutatedCreatures.Checked = show;
-                        mutatedCreaturesToolStripMenuItem.Checked = show;
-                        break;
-                    case "Females":
-                        cbLibraryShowFemales.Checked = show;
-                        femalesToolStripMenuItem.Checked = show;
-                        break;
-                    case "Males":
-                        cbLibraryShowMales.Checked = show;
-                        malesToolStripMenuItem.Checked = show;
-                        break;
-                }
-
-                RecalculateTopStatsIfNeeded();
-                FilterLib();
-            }
-        }
-
-        /// <summary>
         /// Call this list to set the listview for the library to the current filters
         /// </summary>
         private void FilterLib()
@@ -1052,7 +989,7 @@ namespace ARKBreedingStats
             foreach (ListViewItem i in listViewLibrary.SelectedItems)
                 selectedCreatures.Add((Creature)i.Tag);
 
-            var filteredList = from creature in creatureCollection.creatures
+            var filteredList = from creature in _creatureCollection.creatures
                                where !creature.flags.HasFlag(CreatureFlags.Placeholder)
                                select creature;
 
@@ -1083,10 +1020,10 @@ namespace ARKBreedingStats
                 {
                     if (selectedCreatures.Contains((Creature)listViewLibrary.Items[i].Tag))
                     {
-                        listViewLibrary.Items[i].Focused = true;
                         listViewLibrary.Items[i].Selected = true;
                         if (--selectedCount == 0)
                         {
+                            listViewLibrary.Items[i].Focused = true;
                             listViewLibrary.EnsureVisible(i);
                             break;
                         }
@@ -1103,47 +1040,52 @@ namespace ARKBreedingStats
             if (creatures == null)
                 return Enumerable.Empty<Creature>();
 
-            // if only certain owner's creatures should be shown
-            bool hideWOOwner = creatureCollection.hiddenOwners.Contains("n/a");
-            creatures = creatures.Where(c => !creatureCollection.hiddenOwners.Contains(c.owner) && (!hideWOOwner || !string.IsNullOrEmpty(c.owner)));
+            if (Properties.Settings.Default.FilterHideOwners?.Any() ?? false)
+                creatures = creatures.Where(c => !Properties.Settings.Default.FilterHideOwners.Contains(c.owner));
 
-            // server filter
-            bool hideWOServer = creatureCollection.hiddenServers.Contains("n/a");
-            creatures = creatures.Where(c => !creatureCollection.hiddenServers.Contains(c.server) && (!hideWOServer || !string.IsNullOrEmpty(c.server)));
+            if (Properties.Settings.Default.FilterHideTribes?.Any() ?? false)
+                creatures = creatures.Where(c => !Properties.Settings.Default.FilterHideTribes.Contains(c.tribe));
+
+            if (Properties.Settings.Default.FilterHideServers?.Any() ?? false)
+                creatures = creatures.Where(c => !Properties.Settings.Default.FilterHideServers.Contains(c.server));
+
+            if (Properties.Settings.Default.FilterOnlyIfColorId != 0)
+                creatures = creatures.Where(c => c.colors.Contains(Properties.Settings.Default.FilterOnlyIfColorId));
 
             // tags filter
-            bool dontShowWOTags = creatureCollection.dontShowTags.Contains("n/a");
-            creatures = creatures.Where(c => !dontShowWOTags && c.tags.Count == 0 || c.tags.Except(creatureCollection.dontShowTags).Any());
+            if (Properties.Settings.Default.FilterHideTags?.Any() ?? false)
+            {
+                bool hideCreaturesWOTags = Properties.Settings.Default.FilterHideTags.Contains(string.Empty);
+                creatures = creatures.Where(c =>
+                    !hideCreaturesWOTags && c.tags.Count == 0 ||
+                    c.tags.Except(Properties.Settings.Default.FilterHideTags).Any());
+            }
 
-            // show also dead creatures?
-            if (!libraryViews["Dead"])
-                creatures = creatures.Where(c => c.status != CreatureStatus.Dead);
+            // hide creatures with the set hide flags
+            if (Properties.Settings.Default.FilterHideCreaturesFlags != 0)
+            {
+                creatures = creatures.Where(c => ((int)c.flags & Properties.Settings.Default.FilterHideCreaturesFlags) == 0);
 
-            // show also unavailable creatures?
-            if (!libraryViews["Unavailable"])
-                creatures = creatures.Where(c => c.status != CreatureStatus.Unavailable);
+                // TODO creature status is not (yet) saved in the flags
+                CreatureFlags hideFlags = (CreatureFlags)Properties.Settings.Default.FilterHideCreaturesFlags;
+                if (hideFlags.HasFlag(CreatureFlags.Available))
+                    creatures = creatures.Where(c => c.status != CreatureStatus.Available);
+                if (hideFlags.HasFlag(CreatureFlags.Unavailable))
+                    creatures = creatures.Where(c => c.status != CreatureStatus.Unavailable);
+                if (hideFlags.HasFlag(CreatureFlags.Cryopod))
+                    creatures = creatures.Where(c => c.status != CreatureStatus.Cryopod);
+                if (hideFlags.HasFlag(CreatureFlags.Obelisk))
+                    creatures = creatures.Where(c => c.status != CreatureStatus.Obelisk);
+                if (hideFlags.HasFlag(CreatureFlags.Dead))
+                    creatures = creatures.Where(c => c.status != CreatureStatus.Dead);
+                if (hideFlags.HasFlag(CreatureFlags.Mutated))
+                    creatures = creatures.Where(c => c.Mutations == 0);
 
-            // show also in obelisks uploaded creatures?
-            if (!libraryViews["Obelisk"])
-                creatures = creatures.Where(c => c.status != CreatureStatus.Obelisk);
-
-            // show also creatures in cryopods?
-            if (!libraryViews["Cryopod"])
-                creatures = creatures.Where(c => c.status != CreatureStatus.Cryopod);
-
-            // show also neutered creatures?
-            if (!libraryViews["Neutered"])
-                creatures = creatures.Where(c => !c.flags.HasFlag(CreatureFlags.Neutered));
-
-            // show also creatures with mutations?
-            if (!libraryViews["Mutated"])
-                creatures = creatures.Where(c => c.Mutations <= 0);
-
-            // show also different sexes?
-            if (!libraryViews["Females"])
-                creatures = creatures.Where(c => c.sex != Sex.Female);
-            if (!libraryViews["Males"])
-                creatures = creatures.Where(c => c.sex != Sex.Male);
+                if (hideFlags.HasFlag(CreatureFlags.Female))
+                    creatures = creatures.Where(c => c.sex != Sex.Female);
+                if (hideFlags.HasFlag(CreatureFlags.Male))
+                    creatures = creatures.Where(c => c.sex != Sex.Male);
+            }
 
             return creatures;
         }
@@ -1258,7 +1200,7 @@ namespace ARKBreedingStats
         {
             if (c != null)
             {
-                double colorFactor = 100d / creatureCollection.maxChartLevel;
+                double colorFactor = 100d / _creatureCollection.maxChartLevel;
                 bool wild = c.tamingEff == -2;
                 string modifierText = string.Empty;
                 if (!breeding)
@@ -1315,11 +1257,11 @@ namespace ARKBreedingStats
 
             using (MultiSetter ms = new MultiSetter(selectedCreatures,
                 parents,
-                creatureCollection.tags,
+                _creatureCollection.tags,
                 Values.V.species,
-                creatureCollection.ownerList,
-                creatureCollection.tribes.Select(t => t.TribeName).ToArray(),
-                creatureCollection.serverList))
+                _creatureCollection.ownerList,
+                _creatureCollection.tribes.Select(t => t.TribeName).ToArray(),
+                _creatureCollection.serverList))
             {
                 if (ms.ShowDialog() == DialogResult.OK)
                 {
@@ -1328,7 +1270,7 @@ namespace ARKBreedingStats
                     if (ms.TagsChanged)
                         CreateCreatureTagList();
                     if (ms.SpeciesChanged)
-                        UpdateSpeciesLists(creatureCollection.creatures);
+                        UpdateSpeciesLists(_creatureCollection.creatures);
                     UpdateOwnerServerTagLists();
                     SetCollectionChanged(true, !multipleSpecies ? sp : null);
                     RecalculateTopStatsIfNeeded();

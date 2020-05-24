@@ -184,7 +184,7 @@ namespace ARKBreedingStats
             breedingPlanNeedsUpdate = false;
         }
 
-        private List<Creature> FilterByTags(IEnumerable<Creature> cl)
+        private IEnumerable<Creature> FilterByTags(IEnumerable<Creature> cl)
         {
             List<string> excludingTagList = tagSelectorList1.excludingTags;
             List<string> includingTagList = tagSelectorList1.includingTags;
@@ -223,7 +223,7 @@ namespace ARKBreedingStats
                 }
                 return filteredList;
             }
-            return cl.ToList();
+            return cl;
         }
 
         /// <summary>
@@ -269,35 +269,41 @@ namespace ARKBreedingStats
             // filter by tags
             int crCountF = females.Count;
             int crCountM = males.Count;
-            List<Creature> chosenF, chosenM;
+            IEnumerable<Creature> selectFemales;
+            IEnumerable<Creature> selectMales;
             if (considerChosenCreature && chosenCreature.sex == Sex.Female)
-                chosenF = new List<Creature>();
-            else if (!cbBPMutationLimitOnlyOnePartner.Checked && considerMutationLimit) chosenF = FilterByTags(females.Where(c => c.Mutations <= nudBPMutationLimit.Value));
-            else chosenF = FilterByTags(females);
+                selectFemales = new List<Creature>();
+            else if (!cbBPMutationLimitOnlyOnePartner.Checked && considerMutationLimit) selectFemales = FilterByTags(females.Where(c => c.Mutations <= nudBPMutationLimit.Value));
+            else selectFemales = FilterByTags(females);
             if (considerChosenCreature && chosenCreature.sex == Sex.Male)
-                chosenM = new List<Creature>();
-            else if (!cbBPMutationLimitOnlyOnePartner.Checked && considerMutationLimit) chosenM = FilterByTags(males.Where(c => c.Mutations <= nudBPMutationLimit.Value));
-            else chosenM = FilterByTags(males);
+                selectMales = new List<Creature>();
+            else if (!cbBPMutationLimitOnlyOnePartner.Checked && considerMutationLimit) selectMales = FilterByTags(males.Where(c => c.Mutations <= nudBPMutationLimit.Value));
+            else selectMales = FilterByTags(males);
 
             // filter by servers
             if (cbServerFilterLibrary.Checked)
             {
-                chosenF = chosenF.Where(c => (string.IsNullOrEmpty(c.server) && !creatureCollection.hiddenServers.Contains("n/a"))
-                                              || (!string.IsNullOrEmpty(c.server) && !creatureCollection.hiddenServers.Contains(c.server))).ToList();
-                chosenM = chosenM.Where(c => (string.IsNullOrEmpty(c.server) && !creatureCollection.hiddenServers.Contains("n/a"))
-                                              || (!string.IsNullOrEmpty(c.server) && !creatureCollection.hiddenServers.Contains(c.server))).ToList();
+                selectFemales = selectFemales.Where(c => !Properties.Settings.Default.FilterHideServers.Contains(c.server));
+                selectMales = selectMales.Where(c => !Properties.Settings.Default.FilterHideServers.Contains(c.server));
             }
             // filter by owner
             if (cbOwnerFilterLibrary.Checked)
             {
-                chosenF = chosenF.Where(c => (string.IsNullOrEmpty(c.owner) && !creatureCollection.hiddenOwners.Contains("n/a"))
-                                              || (!string.IsNullOrEmpty(c.owner) && !creatureCollection.hiddenOwners.Contains(c.owner))).ToList();
-                chosenM = chosenM.Where(c => (string.IsNullOrEmpty(c.owner) && !creatureCollection.hiddenOwners.Contains("n/a"))
-                                              || (!string.IsNullOrEmpty(c.owner) && !creatureCollection.hiddenOwners.Contains(c.owner))).ToList();
+                selectFemales = selectFemales.Where(c => !Properties.Settings.Default.FilterHideOwners.Contains(c.owner));
+                selectMales = selectMales.Where(c => !Properties.Settings.Default.FilterHideOwners.Contains(c.owner));
+            }
+            // filter by tribe
+            if (cbTribeFilterLibrary.Checked)
+            {
+                selectFemales = selectFemales.Where(c => !Properties.Settings.Default.FilterHideTribes.Contains(c.tribe));
+                selectMales = selectMales.Where(c => !Properties.Settings.Default.FilterHideTribes.Contains(c.tribe));
             }
 
-            bool creaturesTagFilteredOut = (crCountF != chosenF.Count)
-                                              || (crCountM != chosenM.Count);
+            Creature[] selectedFemales = selectFemales.ToArray();
+            Creature[] selectedMales = selectMales.ToArray();
+
+            bool creaturesTagFilteredOut = (crCountF != selectedFemales.Length)
+                                              || (crCountM != selectedMales.Length);
 
             bool creaturesMutationsFilteredOut = false;
             bool displayFilterWarning = true;
@@ -306,8 +312,8 @@ namespace ARKBreedingStats
             if (considerChosenCreature && (chosenCreature.flags.HasFlag(CreatureFlags.Neutered) || chosenCreature.status != CreatureStatus.Available))
                 lbBreedingPlanHeader.Text += $"{Loc.s("BreedingNotPossible")} ! ({(chosenCreature.flags.HasFlag(CreatureFlags.Neutered) ? Loc.s("Neutered") : Loc.s("notAvailable"))})";
 
-            var combinedCreatures = new List<Creature>(chosenF);
-            combinedCreatures.AddRange(chosenM);
+            var combinedCreatures = new List<Creature>(selectedFemales);
+            combinedCreatures.AddRange(selectedMales);
             // determine top-stats for choosen creatures.
             int[] topStats = new int[Values.STATS_COUNT];
             foreach (Creature c in combinedCreatures)
@@ -321,20 +327,20 @@ namespace ARKBreedingStats
 
             if (Properties.Settings.Default.IgnoreSexInBreedingPlan)
             {
-                chosenF = new List<Creature>(combinedCreatures);
-                chosenM = new List<Creature>(combinedCreatures);
+                selectedFemales = combinedCreatures.ToArray();
+                selectedMales = combinedCreatures.ToArray();
             }
 
             // if only pairings for one specific creatures are shown, add the creature after the filtering
             if (considerChosenCreature)
             {
                 if (chosenCreature.sex == Sex.Female)
-                    chosenF = new List<Creature> { chosenCreature };
+                    selectedFemales = new Creature[] { chosenCreature };
                 if (chosenCreature.sex == Sex.Male)
-                    chosenM = new List<Creature> { chosenCreature };
+                    selectedMales = new Creature[] { chosenCreature };
             }
 
-            if (chosenF.Any() && chosenM.Any())
+            if (selectedFemales.Any() && selectedMales.Any())
             {
                 pedigreeCreature1.Show();
                 pedigreeCreature2.Show();
@@ -343,12 +349,12 @@ namespace ARKBreedingStats
                 breedingPairs.Clear();
                 short[] bestPossLevels = new short[Values.STATS_COUNT]; // best possible levels
 
-                for (int fi = 0; fi < chosenF.Count; fi++)
+                for (int fi = 0; fi < selectedFemales.Length; fi++)
                 {
-                    var female = chosenF[fi];
-                    for (int mi = 0; mi < chosenM.Count; mi++)
+                    var female = selectedFemales[fi];
+                    for (int mi = 0; mi < selectedMales.Length; mi++)
                     {
-                        var male = chosenM[mi];
+                        var male = selectedMales[mi];
                         // if Properties.Settings.Default.IgnoreSexInBreedingPlan (useful when using S+ mutator), skip pair if
                         // creatures are the same, or pair has already been added
                         if (Properties.Settings.Default.IgnoreSexInBreedingPlan)
@@ -424,7 +430,7 @@ namespace ARKBreedingStats
                             // check if the best possible stat outcome already exists in a male
                             bool maleExists = false;
 
-                            foreach (Creature cr in chosenM)
+                            foreach (Creature cr in selectMales)
                             {
                                 maleExists = true;
                                 for (int s = 0; s < Values.STATS_COUNT; s++)
@@ -445,7 +451,7 @@ namespace ARKBreedingStats
                             {
                                 // check if the best possible stat outcome already exists in a female
                                 bool femaleExists = false;
-                                foreach (Creature cr in chosenF)
+                                foreach (Creature cr in selectFemales)
                                 {
                                     femaleExists = true;
                                     for (int s = 0; s < Values.STATS_COUNT; s++)
@@ -605,7 +611,7 @@ namespace ARKBreedingStats
                     {
                         bool bestCreatureAlreadyAvailable = true;
                         Creature bestCreature = null;
-                        List<Creature> choosenFemalesAndMales = chosenF.Concat(chosenM).ToList();
+                        List<Creature> choosenFemalesAndMales = selectFemales.Concat(selectMales).ToList();
                         foreach (Creature cr in choosenFemalesAndMales)
                         {
                             bestCreatureAlreadyAvailable = true;

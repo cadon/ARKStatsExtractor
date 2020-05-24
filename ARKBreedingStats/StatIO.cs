@@ -43,7 +43,7 @@ namespace ARKBreedingStats
                 if (value < 0)
                 {
                     numericUpDownInput.Value = 0;
-                    labelFinalValue.Text = "unknown";
+                    labelFinalValue.Text = Loc.s("Unknown");
                 }
                 else
                 {
@@ -103,7 +103,7 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    labelBValue.Text = "unknown";
+                    labelBValue.Text = Loc.s("Unknown");
                 }
             }
         }

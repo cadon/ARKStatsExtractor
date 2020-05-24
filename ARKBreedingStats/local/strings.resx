@@ -1028,4 +1028,52 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   <data name="showOnlyNaturalOccuring" xml:space="preserve">
     <value>Show only natural occuring colors</value>
   </data>
+  <data name="apply" xml:space="preserve">
+    <value>apply</value>
+  </data>
+  <data name="libraryFilter" xml:space="preserve">
+    <value>Library Filter</value>
+  </data>
+  <data name="owners" xml:space="preserve">
+    <value>owners</value>
+  </data>
+  <data name="servers" xml:space="preserve">
+    <value>servers</value>
+  </data>
+  <data name="tags" xml:space="preserve">
+    <value>tags</value>
+  </data>
+  <data name="tribes" xml:space="preserve">
+    <value>tribes</value>
+  </data>
+  <data name="hideStatus" xml:space="preserve">
+    <value>hide status</value>
+  </data>
+  <data name="useFilterInTopStatCalculation" xml:space="preserve">
+    <value>Use filter in top stat calculation</value>
+  </data>
+  <data name="clearColorsFilters" xml:space="preserve">
+    <value>Clear Color Filters</value>
+  </data>
+  <data name="groupLibraryBySpecies" xml:space="preserve">
+    <value>Group library by species</value>
+  </data>
+  <data name="libraryFilterToolStripMenuItem" xml:space="preserve">
+    <value>Filter library…</value>
+  </data>
+  <data name="onlyCreaturesWithThisColor" xml:space="preserve">
+    <value>Only creatures that have this color</value>
+  </data>
+  <data name="ownerFilterFromLibrary" xml:space="preserve">
+    <value>Owner filter from library</value>
+  </data>
+  <data name="possibleLevelRange" xml:space="preserve">
+    <value>Possible Level-Range: {0}–{1}</value>
+  </data>
+  <data name="serverFilterFromLibrary" xml:space="preserve">
+    <value>Server filter from library</value>
+  </data>
+  <data name="tribeFilterFromLibrary" xml:space="preserve">
+    <value>Tribe filter from library</value>
+  </data>
 </root>

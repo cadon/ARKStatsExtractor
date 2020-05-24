@@ -1017,4 +1017,52 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   <data name="showOnlyNaturalOccuring" xml:space="preserve">
     <value>nur natürlich vorkommende Farben</value>
   </data>
+  <data name="apply" xml:space="preserve">
+    <value>Anwenden</value>
+  </data>
+  <data name="libraryFilter" xml:space="preserve">
+    <value>Bibliotheks-Filter</value>
+  </data>
+  <data name="owners" xml:space="preserve">
+    <value>Besitzer</value>
+  </data>
+  <data name="servers" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="tribes" xml:space="preserve">
+    <value>Stämme</value>
+  </data>
+  <data name="hideStatus" xml:space="preserve">
+    <value>Status verbergen</value>
+  </data>
+  <data name="useFilterInTopStatCalculation" xml:space="preserve">
+    <value>Filter in Berechnung der Top Stats benutzen</value>
+  </data>
+  <data name="clearColorsFilters" xml:space="preserve">
+    <value>Farbfilter löschen</value>
+  </data>
+  <data name="groupLibraryBySpecies" xml:space="preserve">
+    <value>Bibliothek nach Spezies gruppieren</value>
+  </data>
+  <data name="libraryFilterToolStripMenuItem" xml:space="preserve">
+    <value>Bibliothek filtern…</value>
+  </data>
+  <data name="onlyCreaturesWithThisColor" xml:space="preserve">
+    <value>Nur Kreaturen mit dieser Farbe</value>
+  </data>
+  <data name="ownerFilterFromLibrary" xml:space="preserve">
+    <value>Besitzer Filter von der Bibliothek</value>
+  </data>
+  <data name="possibleLevelRange" xml:space="preserve">
+    <value>Möglicher Level-Bereich: {0}–{1}</value>
+  </data>
+  <data name="serverFilterFromLibrary" xml:space="preserve">
+    <value>Server Filter von der Bibliothek</value>
+  </data>
+  <data name="tribeFilterFromLibrary" xml:space="preserve">
+    <value>Stamm Filter von der Bibliothek</value>
+  </data>
 </root>

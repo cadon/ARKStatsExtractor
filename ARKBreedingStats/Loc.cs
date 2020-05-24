@@ -24,7 +24,7 @@ namespace ARKBreedingStats
         {
             if (rm == null) return string.Empty;
             string s = rm.GetString(key);
-            //if (string.IsNullOrEmpty(s)) System.Console.WriteLine("missing: " + key);
+            if (string.IsNullOrEmpty(s)) System.Console.WriteLine("missing: " + key);
             //return string.IsNullOrEmpty(s) ? "MISSING" : s;
             return s ?? (returnKeyIfValueNA && key != null ? key : string.Empty);
         }

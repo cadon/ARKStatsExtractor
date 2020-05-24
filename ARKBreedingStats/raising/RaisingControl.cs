@@ -466,7 +466,7 @@ namespace ARKBreedingStats.raising
                             nudMaturationProgress.Value = (decimal)maturing;
                         }
                     }
-                    parentStats1.setParentValues(c.Mother, c.Father);
+                    parentStats1.SetParentValues(c.Mother, c.Father);
 
                     // edit-box
                     creatureMaturationEdit = c;
@@ -480,7 +480,7 @@ namespace ARKBreedingStats.raising
                     Species species = ite.mother.Species;
                     SetGlobalSpecies?.Invoke(species);
 
-                    parentStats1.setParentValues(ite.mother, ite.father);
+                    parentStats1.SetParentValues(ite.mother, ite.father);
 
                     // edit-box
                     creatureMaturationEdit = null;

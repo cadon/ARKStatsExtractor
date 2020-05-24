@@ -475,6 +475,8 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// If a creature has unknown parents, they are placeholders until they are imported. placeholders are not shown in the library
         /// </summary>
-        Placeholder = 256
+        Placeholder = 256,
+        Female = 512,
+        Male = 1024
     }
 }

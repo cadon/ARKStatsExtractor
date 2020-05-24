@@ -293,7 +293,7 @@ namespace ARKBreedingStats
         /// <returns></returns>
         public static string ShortTimeDate(DateTime? dt, bool omitDateIfToday = true)
         {
-            if (dt == null) return "unknown";
+            if (dt == null) return Loc.s("Unknown");
             return dt.Value.ToShortTimeString() + (omitDateIfToday && DateTime.Today == dt.Value.Date ? string.Empty : " - " + dt.Value.ToShortDateString());
         }
 
@@ -445,6 +445,22 @@ namespace ARKBreedingStats
                 await Task.Delay(duration);
                 ctlr.BackColor = original;
             }
+        }
+
+        /// <summary>
+        /// Returns the rectangle of the passed form.
+        /// </summary>
+        public static Rectangle SaveFormRectangle(Form form) =>
+            new Rectangle(form.Location.X, form.Location.Y, form.Width, form.Height);
+
+        /// <summary>
+        /// Sets the form rectangle to the passed data.
+        /// </summary>
+        public static void SetFormRectangle(Form form, Rectangle rect)
+        {
+            form.Location = new Point(rect.X, rect.Y);
+            form.Width = rect.Width;
+            form.Height = rect.Height;
         }
     }
 }

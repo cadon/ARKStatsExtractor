@@ -44,14 +44,7 @@ namespace ARKBreedingStats
             Loc.ControlText(findDuplicatesToolStripMenuItem);
             Loc.ControlText(copyCreatureToolStripMenuItem);
             Loc.ControlText(pasteCreatureToolStripMenuItem);
-            Loc.ControlText(viewToolStripMenuItem);
-            Loc.ControlText(deadCreaturesToolStripMenuItem);
-            Loc.ControlText(unavailableCreaturesToolStripMenuItem);
-            Loc.ControlText(obeliskCreaturesToolStripMenuItem);
-            Loc.ControlText(neuteredCreaturesToolStripMenuItem);
-            Loc.ControlText(mutatedCreaturesToolStripMenuItem);
-            Loc.ControlText(femalesToolStripMenuItem);
-            Loc.ControlText(malesToolStripMenuItem);
+            Loc.ControlText(libraryFilterToolStripMenuItem);
             Loc.ControlText(helpToolStripMenuItem);
             Loc.ControlText(aboutToolStripMenuItem);
             Loc.ControlText(onlinehelpToolStripMenuItem);
@@ -119,6 +112,7 @@ namespace ARKBreedingStats
             Loc.ControlText(tabPageLibrary, "library");
             columnHeaderName.Text = Loc.s("Name");
             columnHeaderOwner.Text = Loc.s("Owner");
+            columnHeaderTribe.Text = Loc.s("Tribe");
             columnHeaderNote.Text = Loc.s("Note");
             columnHeaderServer.Text = Loc.s("Server");
             columnHeaderHP.Text = Utils.StatName(StatNames.Health, true);

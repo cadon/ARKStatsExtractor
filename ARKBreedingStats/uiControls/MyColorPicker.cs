@@ -9,9 +9,8 @@ namespace ARKBreedingStats.uiControls
 {
     public partial class MyColorPicker : Form
     {
-        private int regionId;
-        private int[] creatureColors;
-        private List<int> naturalColorIDs;
+        public int SelectedColorId;
+        private List<int> _naturalColorIDs;
         public bool isShown;
         private readonly ToolTip tt;
 
@@ -28,6 +27,8 @@ namespace ARKBreedingStats.uiControls
             Disposed += MyColorPicker_Disposed;
 
             checkBoxOnlyNatural.Text = Loc.s("showOnlyNaturalOccuring");
+
+            TopMost = true;
         }
 
         private void MyColorPicker_Disposed(object sender, EventArgs e)
@@ -35,14 +36,16 @@ namespace ARKBreedingStats.uiControls
             tt.RemoveAll();
         }
 
-        public void SetColors(int[] creatureColors, int regionId, string regionName, List<ARKColor> naturalColors = null)
+        public void SetColors(int selectedColorId, string regionName, List<ARKColor> naturalColors = null)
         {
             label1.Text = regionName;
-            this.regionId = regionId;
             var colors = values.Values.V.Colors.colorsList;
 
-            this.creatureColors = creatureColors;
-            this.naturalColorIDs = naturalColors?.Select(ac => ac.id).ToList();
+            SelectedColorId = selectedColorId;
+            _naturalColorIDs = naturalColors?.Select(ac => ac.id).ToList();
+            checkBoxOnlyNatural.Visible = _naturalColorIDs != null;
+            if (_naturalColorIDs == null)
+                checkBoxOnlyNatural.Checked = true;
 
             flowLayoutPanel1.SuspendLayout();
 
@@ -62,7 +65,7 @@ namespace ARKBreedingStats.uiControls
                 Panel p = flowLayoutPanel1.Controls[controlIndex] as Panel;
                 p.BackColor = colors[colorIndex].color;
                 p.Tag = colors[colorIndex].id;
-                p.BorderStyle = creatureColors[regionId] == colors[colorIndex].id ? BorderStyle.Fixed3D : BorderStyle.None;
+                p.BorderStyle = SelectedColorId == colors[colorIndex].id ? BorderStyle.Fixed3D : BorderStyle.None;
                 p.Visible = ColorVisible(colors[colorIndex].id);
                 tt.SetToolTip(p, colors[colorIndex].id + ": " + colors[colorIndex].name);
             }
@@ -71,14 +74,16 @@ namespace ARKBreedingStats.uiControls
             isShown = true;
         }
 
-        private bool ColorVisible(int id) => id == 0 || !checkBoxOnlyNatural.Checked || (naturalColorIDs?.Contains(id) ?? false);
+        private bool ColorVisible(int id) => !checkBoxOnlyNatural.Checked || (_naturalColorIDs?.Contains(id) ?? true);
 
+        /// <summary>
+        /// Color was chosen and saved in the property SelectedColorId. Window then will be hidden.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ColorChosen(object sender, EventArgs e)
         {
-            // store selected color-id in creature-array and close this window
-            int i = (int)((Control)sender).Tag;
-            if (i >= 0)
-                creatureColors[regionId] = i;
+            SelectedColorId = (int)((Control)sender).Tag;
             HideWindow(true);
         }
 
