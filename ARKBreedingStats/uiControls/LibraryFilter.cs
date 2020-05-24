@@ -17,7 +17,7 @@ namespace ARKBreedingStats.uiControls
     public partial class LibraryFilter : Form
     {
         private CreatureCollection _cc;
-        private List<CheckBox> _statusCheckBoxes;
+        private List<Button> _statusButtons;
         private int _selectedColorFilter;
         private MyColorPicker _colorPicker;
 
@@ -30,15 +30,16 @@ namespace ARKBreedingStats.uiControls
         {
             _cc = cc;
 
-            Localization();
-
             _colorPicker = new MyColorPicker();
 
             SetColorFilter(Properties.Settings.Default.FilterOnlyIfColorId);
             CbUseFilterInTopStatCalculation.Checked = Properties.Settings.Default.useFiltersInTopStatCalculation;
             CbLibraryGroupSpecies.Checked = Properties.Settings.Default.LibraryGroupBySpecies;
+            TbFilterByName.Text = Properties.Settings.Default.FilterByName;
 
             UpdateOwnerServerTagLists();
+
+            Localization();
         }
 
         /// <summary>
@@ -59,24 +60,29 @@ namespace ARKBreedingStats.uiControls
                 CreatureFlags.Female,
                 CreatureFlags.Male,
             };
-            _statusCheckBoxes = new List<CheckBox>(statusList.Length);
+            _statusButtons = new List<Button>(statusList.Length);
             int statusButtonWidth = FlpStatus.Width - 6;
             foreach (var s in statusList)
             {
-                bool isChecked = (Properties.Settings.Default.FilterHideCreaturesFlags & (int)s) != 0;
-                var cb = new CheckBox()
+                ButtonState buttonState = ButtonState.Neutral;
+                if ((Properties.Settings.Default.FilterFlagsOneNeeded & (int)s) != 0)
+                    buttonState = ButtonState.OneNeeded;
+                else if ((Properties.Settings.Default.FilterFlagsAllNeeded & (int)s) != 0)
+                    buttonState = ButtonState.AllNeeded;
+                else if ((Properties.Settings.Default.FilterFlagsExclude & (int)s) != 0)
+                    buttonState = ButtonState.Exclude;
+
+                var b = new Button()
                 {
                     Text = s.ToString(),
-                    Appearance = Appearance.Button,
-                    Tag = s,
-                    Checked = isChecked,
-                    BackColor = CheckBoxColor(isChecked),
+                    Tag = (s, buttonState),
+                    BackColor = ColorButtonState(buttonState),
                     Width = statusButtonWidth
                 };
-                FlpStatus.Controls.Add(cb);
-                FlpStatus.SetFlowBreak(cb, true);
-                _statusCheckBoxes.Add(cb);
-                cb.CheckedChanged += CbStatusCheckedChanged;
+                FlpStatus.Controls.Add(b);
+                FlpStatus.SetFlowBreak(b, true);
+                _statusButtons.Add(b);
+                b.Click += BtStatusClicked;
             }
 
             //// lists with number of according creatures
@@ -163,14 +169,15 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
-        private void CbStatusCheckedChanged(object sender, EventArgs e)
+        private void BtStatusClicked(object sender, EventArgs e)
         {
-            if (!(sender is CheckBox cb)) return;
+            if (!(sender is Button b)) return;
 
-            cb.BackColor = CheckBoxColor(cb.Checked);
+            (var flag, var state) = ((CreatureFlags, ButtonState))b.Tag;
+            state = NextState(state);
+            b.BackColor = ColorButtonState(state);
+            b.Tag = (flag, state);
         }
-
-        private static Color CheckBoxColor(bool isChecked) => isChecked ? Color.LightSalmon : Color.LightGreen;
 
         private void SetAllChecked(CheckedListBox clb, bool isChecked)
         {
@@ -199,11 +206,14 @@ namespace ARKBreedingStats.uiControls
             SetAllChecked(ClbTags, CbTagsAll.Checked);
         }
 
-        private void CbStatusAll_CheckedChanged(object sender, EventArgs e)
+        private void BtClearFlagFilter_Click(object sender, EventArgs e)
         {
-            bool isChecked = (sender as CheckBox)?.Checked ?? false;
-            foreach (var cb in _statusCheckBoxes)
-                cb.Checked = isChecked;
+            ButtonState state = ButtonState.Neutral;
+            foreach (var b in _statusButtons)
+            {
+                b.Tag = ((((CreatureFlags, ButtonState))b.Tag).Item1, state);
+                b.BackColor = ColorButtonState(state);
+            }
         }
 
         /// <summary>
@@ -233,17 +243,32 @@ namespace ARKBreedingStats.uiControls
             Properties.Settings.Default.FilterHideServers = GetCheckedStrings(ClbServers);
             Properties.Settings.Default.FilterHideTags = GetCheckedStrings(ClbTags);
 
-            var hiddenCreatureFlags = CreatureFlags.None;
-            foreach (var cb in _statusCheckBoxes)
+            var flagsOneNeeded = CreatureFlags.None;
+            var flagsAllNeeded = CreatureFlags.None;
+            var flagsExclude = CreatureFlags.None;
+            foreach (var b in _statusButtons)
             {
-                if (cb.Checked)
-                    hiddenCreatureFlags |= (CreatureFlags)cb.Tag;
+                switch ((((CreatureFlags, ButtonState))b.Tag).Item2)
+                {
+                    case ButtonState.OneNeeded:
+                        flagsOneNeeded |= (((CreatureFlags, ButtonState))b.Tag).Item1;
+                        break;
+                    case ButtonState.AllNeeded:
+                        flagsAllNeeded |= (((CreatureFlags, ButtonState))b.Tag).Item1;
+                        break;
+                    case ButtonState.Exclude:
+                        flagsExclude |= (((CreatureFlags, ButtonState))b.Tag).Item1;
+                        break;
+                }
             }
 
-            Properties.Settings.Default.FilterHideCreaturesFlags = (int)hiddenCreatureFlags;
+            Properties.Settings.Default.FilterFlagsOneNeeded = (int)flagsOneNeeded;
+            Properties.Settings.Default.FilterFlagsAllNeeded = (int)flagsAllNeeded;
+            Properties.Settings.Default.FilterFlagsExclude = (int)flagsExclude;
             Properties.Settings.Default.useFiltersInTopStatCalculation = CbUseFilterInTopStatCalculation.Checked;
             Properties.Settings.Default.FilterOnlyIfColorId = _selectedColorFilter;
             Properties.Settings.Default.LibraryGroupBySpecies = CbLibraryGroupSpecies.Checked;
+            Properties.Settings.Default.FilterByName = TbFilterByName.Text;
         }
 
         private void BtClearColorFilters_Click(object sender, EventArgs e)
@@ -280,11 +305,13 @@ namespace ARKBreedingStats.uiControls
             LbTribes.Text = Loc.s("tribes");
             LbServers.Text = Loc.s("servers");
             LbTags.Text = Loc.s("tags");
-            LbStatus.Text = Loc.s("hideStatus");
+            LbStatus.Text = Loc.s("Status");
             LbColors.Text = Loc.s("Colors");
             BtClearColorFilters.Text = Loc.s("clearColorsFilters");
             CbUseFilterInTopStatCalculation.Text = Loc.s("useFilterInTopStatCalculation");
             CbLibraryGroupSpecies.Text = Loc.s("groupLibraryBySpecies");
+            BtClearFlagFilter.Text = Loc.s("clear");
+            LbFilterByName.Text = Loc.s("filterByName");
 
             string allString = Loc.s("All");
 
@@ -292,7 +319,37 @@ namespace ARKBreedingStats.uiControls
             CbTribesAll.Text = allString;
             CbServersAll.Text = allString;
             CbTagsAll.Text = allString;
-            CbStatusAll.Text = allString;
+
+            FlpStatus.Controls.Add(new Label() { Text = Loc.s("filterOneNeededInfo"), BackColor = ColorButtonState(ButtonState.OneNeeded), AutoSize = true, Padding = new Padding(5), Margin = new Padding(3) });
+            FlpStatus.Controls.Add(new Label() { Text = Loc.s("filterAllNeededInfo"), BackColor = ColorButtonState(ButtonState.AllNeeded), AutoSize = true, Padding = new Padding(5), Margin = new Padding(3) });
+            FlpStatus.Controls.Add(new Label() { Text = Loc.s("filterExcludeInfo"), BackColor = ColorButtonState(ButtonState.Exclude), AutoSize = true, Padding = new Padding(5), Margin = new Padding(3) });
+        }
+
+        private enum ButtonState
+        {
+            Neutral, OneNeeded, AllNeeded, Exclude
+        }
+
+        private ButtonState NextState(ButtonState currentState)
+        {
+            switch (currentState)
+            {
+                case ButtonState.OneNeeded: return ButtonState.AllNeeded;
+                case ButtonState.AllNeeded: return ButtonState.Exclude;
+                case ButtonState.Exclude: return ButtonState.Neutral;
+                default: return ButtonState.OneNeeded;
+            }
+        }
+
+        private Color ColorButtonState(ButtonState state)
+        {
+            switch (state)
+            {
+                case ButtonState.OneNeeded: return Color.LightGreen;
+                case ButtonState.AllNeeded: return Color.LightSkyBlue;
+                case ButtonState.Exclude: return Color.LightSalmon;
+                default: return Color.LightGray;
+            }
         }
     }
 }

@@ -112,7 +112,7 @@ namespace ARKBreedingStats.oldLibraryFormat
                     owner = c.owner,
                     server = c.server,
                     sex = c.sex,
-                    status = c.status,
+                    Status = c.status,
                     tags = c.tags,
                     tamingEff = c.tamingEff,
                     tribe = c.tribe

@@ -87,9 +87,9 @@ namespace ARKBreedingStats.uiControls
                     string status = "";
                     if (parentsSimilarity != null && parentsSimilarity.Count > c)
                         similarities = " (" + parentsSimilarity[c] + ")";
-                    if (parentList[c].status != CreatureStatus.Available)
+                    if (parentList[c].Status != CreatureStatus.Available)
                     {
-                        status = " (" + Utils.StatusSymbol(parentList[c].status) + ")";
+                        status = " (" + Utils.StatusSymbol(parentList[c].Status) + ")";
                     }
                     Items.Add(parentList[c].name + status + similarities);
                     if (parentList[c].guid == _preselectedCreatureGuid)

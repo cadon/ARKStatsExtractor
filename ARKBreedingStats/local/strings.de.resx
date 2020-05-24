@@ -1035,9 +1035,6 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   <data name="tribes" xml:space="preserve">
     <value>Stämme</value>
   </data>
-  <data name="hideStatus" xml:space="preserve">
-    <value>Status verbergen</value>
-  </data>
   <data name="useFilterInTopStatCalculation" xml:space="preserve">
     <value>Filter in Berechnung der Top Stats benutzen</value>
   </data>
@@ -1064,5 +1061,20 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   </data>
   <data name="tribeFilterFromLibrary" xml:space="preserve">
     <value>Stamm Filter von der Bibliothek</value>
+  </data>
+  <data name="clear" xml:space="preserve">
+    <value>Zurücksetzen</value>
+  </data>
+  <data name="filterAllNeededInfo" xml:space="preserve">
+    <value>Nur Kreaturen mit allen diesen Eigenschaften wird angezeigt</value>
+  </data>
+  <data name="filterByName" xml:space="preserve">
+    <value>Nach Namen filtern</value>
+  </data>
+  <data name="filterExcludeInfo" xml:space="preserve">
+    <value>Kreaturen mit einer dieser Eigenschaften wird nicht angezeigt</value>
+  </data>
+  <data name="filterOneNeededInfo" xml:space="preserve">
+    <value>Nur Kreaturen mit einer dieser Eigenschaften wird angezeigt</value>
   </data>
 </root>

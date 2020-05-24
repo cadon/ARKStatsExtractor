@@ -637,6 +637,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        internal static string clear {
+            get {
+                return ResourceManager.GetString("clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clear Color Filters.
         /// </summary>
         internal static string clearColorsFilters {
@@ -997,6 +1006,42 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Only creatures with all of these flags will be displayed.
+        /// </summary>
+        internal static string filterAllNeededInfo {
+            get {
+                return ResourceManager.GetString("filterAllNeededInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter by name.
+        /// </summary>
+        internal static string filterByName {
+            get {
+                return ResourceManager.GetString("filterByName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creatures with this flag will not be shown.
+        /// </summary>
+        internal static string filterExcludeInfo {
+            get {
+                return ResourceManager.GetString("filterExcludeInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only creatures with one of these flags will be displayed.
+        /// </summary>
+        internal static string filterOneNeededInfo {
+            get {
+                return ResourceManager.GetString("filterOneNeededInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Find Duplicates….
         /// </summary>
         internal static string findDuplicatesToolStripMenuItem {
@@ -1209,15 +1254,6 @@ namespace ARKBreedingStats.local {
         internal static string helpToolStripMenuItem {
             get {
                 return ResourceManager.GetString("helpToolStripMenuItem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to hide status.
-        /// </summary>
-        internal static string hideStatus {
-            get {
-                return ResourceManager.GetString("hideStatus", resourceCulture);
             }
         }
         

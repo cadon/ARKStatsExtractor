@@ -187,7 +187,7 @@ namespace ARKBreedingStats.Library
                 }
 
                 creatureExisting.colors = creatureNew.colors;
-                creatureExisting.status = creatureNew.status;
+                creatureExisting.Status = creatureNew.Status;
                 creatureExisting.sex = creatureNew.sex;
                 creatureExisting.cooldownUntil = creatureNew.cooldownUntil;
                 if (!creatureExisting.domesticatedAt.HasValue || creatureExisting.domesticatedAt.Value.Year < 2000
@@ -217,7 +217,7 @@ namespace ARKBreedingStats.Library
 
                 bool recalculate = false;
                 if (creatureExisting.flags.HasFlag(CreatureFlags.Placeholder) ||
-                    (creatureExisting.status == CreatureStatus.Unavailable && creatureNew.status == CreatureStatus.Available))
+                    (creatureExisting.Status == CreatureStatus.Unavailable && creatureNew.Status == CreatureStatus.Available))
                 {
                     creatureExisting.levelFound = creatureNew.levelFound;
                     creatureExisting.levelsDom = creatureNew.levelsDom;

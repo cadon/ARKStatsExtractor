@@ -174,7 +174,7 @@ namespace ARKBreedingStats
             // Ids: ArkId and Guid
             //if (!IsArkIdUniqueOrOnlyPlaceHolder(creatureTesterEdit)) { return; }
 
-            bool statusChanged = creatureTesterEdit.status != creatureInfoInputTester.CreatureStatus
+            bool statusChanged = creatureTesterEdit.Status != creatureInfoInputTester.CreatureStatus
                     || creatureTesterEdit.owner != creatureInfoInputTester.CreatureOwner
                     || creatureTesterEdit.mutationsMaternal != creatureInfoInputTester.MutationCounterMother
                     || creatureTesterEdit.mutationsPaternal != creatureInfoInputTester.MutationCounterFather;
@@ -193,7 +193,7 @@ namespace ARKBreedingStats
             creatureTesterEdit.Mother = creatureInfoInputTester.Mother;
             creatureTesterEdit.Father = creatureInfoInputTester.Father;
             creatureTesterEdit.note = creatureInfoInputTester.CreatureNote;
-            creatureTesterEdit.status = creatureInfoInputTester.CreatureStatus;
+            creatureTesterEdit.Status = creatureInfoInputTester.CreatureStatus;
             creatureTesterEdit.cooldownUntil = creatureInfoInputTester.CooldownUntil;
             creatureTesterEdit.growingUntil = creatureInfoInputTester.GrowingUntil;
             creatureTesterEdit.domesticatedAt = creatureInfoInputTester.DomesticatedAt;
@@ -242,7 +242,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.CreatureOwner = c.owner;
                 creatureInfoInputTester.CreatureTribe = c.tribe;
                 creatureInfoInputTester.CreatureServer = c.server;
-                creatureInfoInputTester.CreatureStatus = c.status;
+                creatureInfoInputTester.CreatureStatus = c.Status;
                 creatureInfoInputTester.CreatureNote = c.note;
                 creatureInfoInputTester.CooldownUntil = c.cooldownUntil;
                 creatureInfoInputTester.GrowingUntil = c.growingUntil;

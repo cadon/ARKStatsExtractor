@@ -168,8 +168,8 @@ namespace ARKBreedingStats
             if (forceUpdate || breedingPlanNeedsUpdate)
                 Creatures = creatureCollection.creatures
                         .Where(c => c.speciesBlueprint == currentSpecies.blueprintPath
-                                && (c.status == CreatureStatus.Available
-                                    || (c.status == CreatureStatus.Cryopod && cbBPIncludeCryoCreatures.Checked))
+                                && (c.Status == CreatureStatus.Available
+                                    || (c.Status == CreatureStatus.Cryopod && cbBPIncludeCryoCreatures.Checked))
                                 && !c.flags.HasFlag(CreatureFlags.Neutered)
                                 && (cbBPIncludeCooldowneds.Checked
                                     || !(c.cooldownUntil > DateTime.Now
@@ -309,7 +309,7 @@ namespace ARKBreedingStats
             bool displayFilterWarning = true;
 
             lbBreedingPlanHeader.Text = currentSpecies.DescriptiveNameAndMod + (considerChosenCreature ? " (" + string.Format(Loc.s("onlyPairingsWith"), chosenCreature.name) + ")" : string.Empty);
-            if (considerChosenCreature && (chosenCreature.flags.HasFlag(CreatureFlags.Neutered) || chosenCreature.status != CreatureStatus.Available))
+            if (considerChosenCreature && (chosenCreature.flags.HasFlag(CreatureFlags.Neutered) || chosenCreature.Status != CreatureStatus.Available))
                 lbBreedingPlanHeader.Text += $"{Loc.s("BreedingNotPossible")} ! ({(chosenCreature.flags.HasFlag(CreatureFlags.Neutered) ? Loc.s("Neutered") : Loc.s("notAvailable"))})";
 
             var combinedCreatures = new List<Creature>(selectedFemales);
@@ -1041,7 +1041,7 @@ namespace ARKBreedingStats
             {
                 ListViewItem lvi = new ListViewItem { Text = s.DescriptiveNameAndMod, Tag = s };
                 // check if species has both available males and females
-                if (s == null || s.breeding == null || !creatures.Any(c => c.Species == s && c.status == CreatureStatus.Available && c.sex == Sex.Female) || !creatures.Any(c => c.Species == s && c.status == CreatureStatus.Available && c.sex == Sex.Male))
+                if (s == null || s.breeding == null || !creatures.Any(c => c.Species == s && c.Status == CreatureStatus.Available && c.sex == Sex.Female) || !creatures.Any(c => c.Species == s && c.Status == CreatureStatus.Available && c.sex == Sex.Male))
                     lvi.ForeColor = Color.LightGray;
                 listViewSpeciesBP.Items.Add(lvi);
             }

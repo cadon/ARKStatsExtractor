@@ -63,7 +63,7 @@ namespace ARKBreedingStats
                 addedToLibrary = DateTime.Now,
                 mutationsMaternal = input.MutationCounterMother,
                 mutationsPaternal = input.MutationCounterFather,
-                status = input.CreatureStatus,
+                Status = input.CreatureStatus,
                 colors = input.RegionColors
             };
 
@@ -337,9 +337,9 @@ namespace ARKBreedingStats
                     else
                     {
                         // only consider creature if it's available for breeding
-                        if (!(c.status == CreatureStatus.Available
-                            || c.status == CreatureStatus.Cryopod
-                            || c.status == CreatureStatus.Obelisk
+                        if (!(c.Status == CreatureStatus.Available
+                            || c.Status == CreatureStatus.Cryopod
+                            || c.Status == CreatureStatus.Obelisk
                             ))
                             continue;
                     }
@@ -549,7 +549,7 @@ namespace ARKBreedingStats
                     levelStep: _creatureCollection.getWildLevelStep())
             {
                 guid = creatureGuid,
-                status = CreatureStatus.Unavailable,
+                Status = CreatureStatus.Unavailable,
                 flags = CreatureFlags.Placeholder,
                 ArkId = arkId,
                 ArkIdImported = Utils.IsArkIdImported(arkId, creatureGuid)
@@ -732,9 +732,9 @@ namespace ARKBreedingStats
             // add the species and status and tribe
             subItems = subItems.Concat(new[] {
                 cr.Species.DescriptiveNameAndMod,
-                cr.status.ToString(),
+                cr.Status.ToString(),
                 cr.tribe,
-                Utils.StatusSymbol(cr.status, string.Empty)
+                Utils.StatusSymbol(cr.Status, string.Empty)
             }).ToArray();
 
             // check if we display group for species or not.
@@ -762,16 +762,16 @@ namespace ARKBreedingStats
                     cr.sex == Sex.Female ? Color.FromArgb(255, 230, 255) :
                     cr.sex == Sex.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window;
 
-            if (cr.status == CreatureStatus.Dead)
+            if (cr.Status == CreatureStatus.Dead)
             {
                 lvi.SubItems[0].ForeColor = SystemColors.GrayText;
                 lvi.BackColor = Color.FromArgb(255, 250, 240);
             }
-            else if (cr.status == CreatureStatus.Unavailable)
+            else if (cr.Status == CreatureStatus.Unavailable)
             {
                 lvi.SubItems[0].ForeColor = SystemColors.GrayText;
             }
-            else if (cr.status == CreatureStatus.Obelisk)
+            else if (cr.Status == CreatureStatus.Obelisk)
             {
                 lvi.SubItems[0].ForeColor = Color.DarkBlue;
             }
@@ -1062,29 +1062,24 @@ namespace ARKBreedingStats
             }
 
             // hide creatures with the set hide flags
-            if (Properties.Settings.Default.FilterHideCreaturesFlags != 0)
+            if (Properties.Settings.Default.FilterFlagsExclude != 0)
             {
-                creatures = creatures.Where(c => ((int)c.flags & Properties.Settings.Default.FilterHideCreaturesFlags) == 0);
+                creatures = creatures.Where(c => ((int)c.flags & Properties.Settings.Default.FilterFlagsExclude) == 0);
+            }
+            if (Properties.Settings.Default.FilterFlagsAllNeeded != 0)
+            {
+                creatures = creatures.Where(c => ((int)c.flags & Properties.Settings.Default.FilterFlagsAllNeeded) == Properties.Settings.Default.FilterFlagsAllNeeded);
+            }
+            if (Properties.Settings.Default.FilterFlagsOneNeeded != 0)
+            {
+                int flagsOneNeeded = Properties.Settings.Default.FilterFlagsOneNeeded |
+                                     Properties.Settings.Default.FilterFlagsAllNeeded;
+                creatures = creatures.Where(c => ((int)c.flags & flagsOneNeeded) != 0);
+            }
 
-                // TODO creature status is not (yet) saved in the flags
-                CreatureFlags hideFlags = (CreatureFlags)Properties.Settings.Default.FilterHideCreaturesFlags;
-                if (hideFlags.HasFlag(CreatureFlags.Available))
-                    creatures = creatures.Where(c => c.status != CreatureStatus.Available);
-                if (hideFlags.HasFlag(CreatureFlags.Unavailable))
-                    creatures = creatures.Where(c => c.status != CreatureStatus.Unavailable);
-                if (hideFlags.HasFlag(CreatureFlags.Cryopod))
-                    creatures = creatures.Where(c => c.status != CreatureStatus.Cryopod);
-                if (hideFlags.HasFlag(CreatureFlags.Obelisk))
-                    creatures = creatures.Where(c => c.status != CreatureStatus.Obelisk);
-                if (hideFlags.HasFlag(CreatureFlags.Dead))
-                    creatures = creatures.Where(c => c.status != CreatureStatus.Dead);
-                if (hideFlags.HasFlag(CreatureFlags.Mutated))
-                    creatures = creatures.Where(c => c.Mutations == 0);
-
-                if (hideFlags.HasFlag(CreatureFlags.Female))
-                    creatures = creatures.Where(c => c.sex != Sex.Female);
-                if (hideFlags.HasFlag(CreatureFlags.Male))
-                    creatures = creatures.Where(c => c.sex != Sex.Male);
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.FilterByName))
+            {
+                creatures = creatures.Where(c => c.name.Contains(Properties.Settings.Default.FilterByName));
             }
 
             return creatures;

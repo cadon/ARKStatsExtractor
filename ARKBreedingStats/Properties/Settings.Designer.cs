@@ -1155,12 +1155,12 @@ namespace ARKBreedingStats.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int FilterHideCreaturesFlags {
+        public int FilterFlagsExclude {
             get {
-                return ((int)(this["FilterHideCreaturesFlags"]));
+                return ((int)(this["FilterFlagsExclude"]));
             }
             set {
-                this["FilterHideCreaturesFlags"] = value;
+                this["FilterFlagsExclude"] = value;
             }
         }
         
@@ -1253,6 +1253,42 @@ namespace ARKBreedingStats.Properties {
             }
             set {
                 this["LibraryFilterWindowRect"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int FilterFlagsAllNeeded {
+            get {
+                return ((int)(this["FilterFlagsAllNeeded"]));
+            }
+            set {
+                this["FilterFlagsAllNeeded"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int FilterFlagsOneNeeded {
+            get {
+                return ((int)(this["FilterFlagsOneNeeded"]));
+            }
+            set {
+                this["FilterFlagsOneNeeded"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FilterByName {
+            get {
+                return ((string)(this["FilterByName"]));
+            }
+            set {
+                this["FilterByName"] = value;
             }
         }
     }

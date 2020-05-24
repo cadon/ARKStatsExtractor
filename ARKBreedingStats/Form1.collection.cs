@@ -408,13 +408,16 @@ namespace ARKBreedingStats
             InitializeCollection();
 
             filterListAllowed = false;
-            
+
             SetCollectionChanged(creatureWasAdded); // setCollectionChanged only if there really were creatures added from the old library to the just opened one
 
             ///// creatures loaded.
 
             // calculate creature values
             RecalculateAllCreaturesValues();
+
+            // set flags for all creatures. this is needed for backwards compatibility (added 05/2020)
+            foreach (Creature c in _creatureCollection.creatures) c.InitializeFlags();
 
             if (!keepCurrentSelections && _creatureCollection.creatures.Any())
                 tabControlMain.SelectedTab = tabPageLibrary;

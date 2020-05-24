@@ -117,17 +117,17 @@ namespace ARKBreedingStats
 
                     if (!OnlyLevels)
                     {
-                        if (creature.status == CreatureStatus.Dead)
+                        if (creature.Status == CreatureStatus.Dead)
                         {
                             groupBox1.ForeColor = SystemColors.GrayText;
                             tt.SetToolTip(groupBox1, "Creature has passed away");
                         }
-                        else if (creature.status == CreatureStatus.Unavailable)
+                        else if (creature.Status == CreatureStatus.Unavailable)
                         {
                             groupBox1.ForeColor = SystemColors.GrayText;
                             tt.SetToolTip(groupBox1, "Creature is currently not available");
                         }
-                        else if (creature.status == CreatureStatus.Obelisk)
+                        else if (creature.Status == CreatureStatus.Obelisk)
                         {
                             groupBox1.ForeColor = SystemColors.GrayText;
                             tt.SetToolTip(groupBox1, "Creature is currently uploaded in an obelisk");
@@ -203,7 +203,7 @@ namespace ARKBreedingStats
         private void SetTitle()
         {
             string totalLevel = creature.LevelHatched > 0 ? creature.LevelHatched.ToString() : "?";
-            groupBox1.Text = (!OnlyLevels && creature.status != CreatureStatus.Available ? "(" + Utils.StatusSymbol(creature.status) + ") " : string.Empty)
+            groupBox1.Text = (!OnlyLevels && creature.Status != CreatureStatus.Available ? "(" + Utils.StatusSymbol(creature.Status) + ") " : string.Empty)
                     + creature.name + " (" + totalLevel + (TotalLevelUnknown ? "+" : string.Empty) + ")";
 
             if (creature.growingUntil > DateTime.Now)

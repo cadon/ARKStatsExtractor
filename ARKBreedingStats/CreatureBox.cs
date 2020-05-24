@@ -83,7 +83,7 @@ namespace ARKBreedingStats
                     textBoxNote.Text = creature.note;
                     sex = creature.sex;
                     buttonSex.Text = Utils.SexSymbol(sex);
-                    creatureStatus = creature.status;
+                    creatureStatus = creature.Status;
                     SetStatusButton(creatureStatus);
                     textBoxName.SelectAll();
                     textBoxName.Focus();
@@ -179,8 +179,8 @@ namespace ARKBreedingStats
                 creature.isBred = checkBoxIsBred.Checked;
 
                 creature.note = textBoxNote.Text;
-                bool creatureStatusChanged = (creature.status != creatureStatus);
-                creature.status = creatureStatus;
+                bool creatureStatusChanged = (creature.Status != creatureStatus);
+                creature.Status = creatureStatus;
 
                 Changed(creature, creatureStatusChanged, true);
                 UpdateLabel();

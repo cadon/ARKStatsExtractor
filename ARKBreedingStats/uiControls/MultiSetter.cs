@@ -156,7 +156,7 @@ namespace ARKBreedingStats.uiControls
                 if (checkBoxOwner.Checked) c.owner = cbbOwner.Text;
                 if (cbTribe.Checked) c.tribe = cbbTribe.Text;
                 if (cbServer.Checked) c.server = cbbServer.Text;
-                if (checkBoxStatus.Checked) c.status = creatureStatus;
+                if (checkBoxStatus.Checked) c.Status = creatureStatus;
                 if (checkBoxSex.Checked) c.sex = creatureSex;
                 if (checkBoxBred.Checked) c.isBred = checkBoxIsBred.Checked;
                 if (checkBoxMother.Enabled && checkBoxMother.Checked)

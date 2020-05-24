@@ -1310,7 +1310,7 @@ namespace ARKBreedingStats
                     int moved = 0;
                     for (int p = 0; p < parents[ps].Count - moved; p++)
                     {
-                        if (parents[ps][p].status != CreatureStatus.Available)
+                        if (parents[ps][p].Status != CreatureStatus.Available)
                         {
                             parentListSimilarities[ps].Add(parentListSimilarities[ps][p]);
                             parentListSimilarities[ps].RemoveAt(p);
@@ -1753,10 +1753,10 @@ namespace ARKBreedingStats
             List<string> speciesBlueprints = new List<string>();
             foreach (Creature c in cs)
             {
-                if (c.status != s)
+                if (c.Status != s)
                 {
                     changed = true;
-                    c.status = s;
+                    c.Status = s;
                     if (!speciesBlueprints.Contains(c.speciesBlueprint))
                         speciesBlueprints.Add(c.speciesBlueprint);
                 }
@@ -1796,7 +1796,7 @@ namespace ARKBreedingStats
         /// <param name="c"></param>
         private void ShowBestBreedingPartner(Creature c)
         {
-            if (c.status != CreatureStatus.Available
+            if (c.Status != CreatureStatus.Available
                     && MessageBox.Show("Selected Creature is currently not marked as \"Available\" and probably cannot be used for breeding right now. " +
                             "Do you want to change its status to \"Available\"?",
                             "Selected Creature not Available",
@@ -2521,16 +2521,16 @@ namespace ARKBreedingStats
         {
             var creatureCount = _creatureCollection.creatures.Where(c => !c.flags.HasFlag(CreatureFlags.Placeholder));
             int total = creatureCount.Count();
-            int obelisk = creatureCount.Count(c => c.status == CreatureStatus.Obelisk);
-            int cryopod = creatureCount.Count(c => c.status == CreatureStatus.Cryopod);
+            int obelisk = creatureCount.Count(c => c.Status == CreatureStatus.Obelisk);
+            int cryopod = creatureCount.Count(c => c.Status == CreatureStatus.Cryopod);
 
             bool modsLoaded = _creatureCollection.ModList?.Any() ?? false;
 
             toolStripStatusLabel.Text = total + " creatures in Library"
                 + (total > 0 ? " ("
-                + "available: " + creatureCount.Count(c => c.status == CreatureStatus.Available)
-                + ", unavailable: " + creatureCount.Count(c => c.status == CreatureStatus.Unavailable)
-                + ", dead: " + creatureCount.Count(c => c.status == CreatureStatus.Dead)
+                + "available: " + creatureCount.Count(c => c.Status == CreatureStatus.Available)
+                + ", unavailable: " + creatureCount.Count(c => c.Status == CreatureStatus.Unavailable)
+                + ", dead: " + creatureCount.Count(c => c.Status == CreatureStatus.Dead)
                 + (obelisk > 0 ? ", obelisk: " + obelisk : string.Empty)
                 + (cryopod > 0 ? ", cryopod: " + cryopod : string.Empty)
                 + ")" : string.Empty)
