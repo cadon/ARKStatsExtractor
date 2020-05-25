@@ -15,6 +15,7 @@ namespace ARKBreedingStats
         public const string ValuesServerMultipliers = "serverMultipliers.json";
         public const string TamingFoodData = "tamingFoodData.json";
         public const string ModsManifest = "_manifest.json";
+        public const string ModsManifestCustom = "_manifestCustom.json";
         public const string KibblesJson = "kibbles.json";
         public const string AliasesJson = "aliases.json";
         public const string ArkDataJson = "ark_data.json";
@@ -55,7 +56,8 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Gets the full path for the given filename or the path to the json folder
+        /// Gets the full path for the given filename or the path to the json folder.
+        /// If fileName2 is given, fileName is considered to be the containing folder.
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
@@ -100,15 +102,11 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="filePath">filePath</param>
         /// <param name="data"></param>
+        /// <param name="errorMessage"></param>
         public static bool LoadJSONFile<T>(string filePath, out T data, out string errorMessage) where T : class
         {
             errorMessage = null;
             data = null;
-            if (!File.Exists(filePath))
-            {
-                errorMessage = $"File not found: {filePath}";
-                return false;
-            }
 
             // load json-file of data
             try

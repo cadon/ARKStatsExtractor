@@ -450,7 +450,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// Returns the rectangle of the passed form.
         /// </summary>
-        public static Rectangle SaveFormRectangle(Form form) =>
+        public static Rectangle GetFormRectangle(Form form) =>
             new Rectangle(form.Location.X, form.Location.Y, form.Width, form.Height);
 
         /// <summary>

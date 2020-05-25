@@ -179,12 +179,8 @@ namespace ARKBreedingStats
             setLocalizations(false);
 
             // load window-position and size
-            Size = Properties.Settings.Default.formSize;
-            if (Size.Height < 200)
-                Size = new Size(Size.Width, 200);
-            if (Size.Width < 400)
-                Size = new Size(400, Size.Height);
-            Location = Properties.Settings.Default.formLocation;
+            Size = new Size(Math.Max(600, Properties.Settings.Default.MainWindowRect.Width), Math.Max(500, Properties.Settings.Default.MainWindowRect.Height));
+            Location = new Point(Properties.Settings.Default.MainWindowRect.X, Properties.Settings.Default.MainWindowRect.Y);
             // check if form is on screen
             bool isOnScreen = false;
             foreach (Screen screen in Screen.AllScreens)
@@ -1147,8 +1143,7 @@ namespace ARKBreedingStats
             // save window-position and size
             if (WindowState != FormWindowState.Minimized)
             {
-                Properties.Settings.Default.formSize = Size;
-                Properties.Settings.Default.formLocation = Location;
+                Properties.Settings.Default.MainWindowRect = new Rectangle(Location.X, Location.Y, Size.Width, Size.Height);
             }
 
             // Save column-widths, display-indices and sort-order of the TimerControlListView
@@ -2501,7 +2496,9 @@ namespace ARKBreedingStats
                 CreatureCollection = _creatureCollection
             })
             {
+                Utils.SetFormRectangle(modValuesManager, Properties.Settings.Default.ModManagerWindowRect);
                 modValuesManager.ShowDialog();
+                Properties.Settings.Default.ModManagerWindowRect = Utils.GetFormRectangle(modValuesManager);
             }
 
             // if the mods for the library changed,
@@ -3137,7 +3134,7 @@ namespace ARKBreedingStats
                 FilterLib();
             }
 
-            Properties.Settings.Default.LibraryFilterWindowRect = Utils.SaveFormRectangle(libraryFilter);
+            Properties.Settings.Default.LibraryFilterWindowRect = Utils.GetFormRectangle(libraryFilter);
         }
 
         /// <summary>

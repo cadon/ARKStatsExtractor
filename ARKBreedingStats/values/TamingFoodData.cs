@@ -32,8 +32,10 @@ namespace ARKBreedingStats.values
         public static bool TryLoadDefaultFoodData(out Dictionary<string, TamingData> tamingFoodData)
         {
             tamingFoodData = null;
+            string filePath = FileService.GetJsonPath(FileService.TamingFoodData);
+            string errorMessage = $"File not found: {filePath}";
 
-            if (FileService.LoadJSONFile(FileService.GetJsonPath(FileService.TamingFoodData), out TamingFoodData readData, out string errorMessage))
+            if (File.Exists(filePath) && FileService.LoadJSONFile(filePath, out TamingFoodData readData, out errorMessage))
             {
                 if (Values.IsValidFormatVersion(readData.format))
                 {

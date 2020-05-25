@@ -84,7 +84,6 @@ namespace ARKBreedingStats.uiControls
                         else
                         {
                             cc.ModList.Add(modValues.mod);
-                            Values.V.UpdateManualModValueFiles();
                             UpdateModListBoxes();
                         }
                     }
@@ -151,7 +150,10 @@ namespace ARKBreedingStats.uiControls
 
             foreach (ModInfo mi in modInfos)
             {
-                if (!mi.currentlyInLibrary) lbAvailableModFiles.Items.Add(mi);
+                if (!mi.currentlyInLibrary)
+                {
+                    lbAvailableModFiles.Items.Add(mi);
+                }
             }
 
             lbModList.SelectedItem = selectedMiLib;
@@ -178,8 +180,10 @@ namespace ARKBreedingStats.uiControls
         {
             if (modInfo?.mod == null) return;
             lbModName.Text = modInfo.mod.title;
+            LbModVersion.Text = modInfo.version;
             lbModTag.Text = modInfo.mod.tag;
             lbModId.Text = modInfo.mod.id;
+            llbSteamPage.Visible = modInfo.onlineAvailable; // it's assumed that the officially supported mods all have a steam page
         }
 
         private void BtClose_Click(object sender, EventArgs e)

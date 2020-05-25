@@ -108,15 +108,15 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Calculates a hashcode for a list of mods and their order. Can be used to check for changes.
         /// </summary>
-        public static int CalculateModListHash(List<string> modIDList)
+        public static int CalculateModListHash(List<string> modIdList)
         {
-            if (modIDList == null) { return 0; }
-            return string.Join(",", modIDList).GetHashCode();
+            if (modIdList == null) { return 0; }
+            return string.Join(",", modIdList).GetHashCode();
         }
 
         /// <summary>
-        /// Recalculates the modListHash for comparison and sets the mod-IDs of the modvalues for the library.
-        /// Should be called after the mods are changed.
+        /// Recalculates the modListHash for comparison and sets the mod-IDs of the modValues for the library.
+        /// Should be called after the loaded mods are changed.
         /// </summary>
         public void UpdateModList()
         {
@@ -137,7 +137,7 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Returns true if the currently loaded modValues differ from the listed modValues of the library-file.
         /// </summary>
-        public bool ModValueReloadNeeded { get { return modListHash == 0 || modListHash != Values.V.loadedModsHash; } }
+        public bool ModValueReloadNeeded => modListHash == 0 || modListHash != Values.V.loadedModsHash;
 
         /// <summary>
         /// Adds creatures to the current library.

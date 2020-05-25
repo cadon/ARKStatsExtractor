@@ -49,25 +49,13 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1400, 1000")]
-        public global::System.Drawing.Size formSize {
+        [global::System.Configuration.DefaultSettingValueAttribute("100, 100, 1400, 1000")]
+        public global::System.Drawing.Rectangle MainWindowRect {
             get {
-                return ((global::System.Drawing.Size)(this["formSize"]));
+                return ((global::System.Drawing.Rectangle)(this["MainWindowRect"]));
             }
             set {
-                this["formSize"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100, 100")]
-        public global::System.Drawing.Point formLocation {
-            get {
-                return ((global::System.Drawing.Point)(this["formLocation"]));
-            }
-            set {
-                this["formLocation"] = value;
+                this["MainWindowRect"] = value;
             }
         }
         
@@ -1289,6 +1277,18 @@ namespace ARKBreedingStats.Properties {
             }
             set {
                 this["FilterByName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50, 50, 800, 600")]
+        public global::System.Drawing.Rectangle ModManagerWindowRect {
+            get {
+                return ((global::System.Drawing.Rectangle)(this["ModManagerWindowRect"]));
+            }
+            set {
+                this["ModManagerWindowRect"] = value;
             }
         }
     }
