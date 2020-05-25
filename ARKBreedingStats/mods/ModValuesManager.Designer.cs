@@ -51,6 +51,7 @@
             this.btClose = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btAddMod = new System.Windows.Forms.Button();
+            this.BtRemoveAllMods = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -84,6 +85,7 @@
             this.tableLayoutPanel1.Controls.Add(this.btClose, 3, 2);
             this.tableLayoutPanel1.Controls.Add(this.groupBox2, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.btAddMod, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.BtRemoveAllMods, 1, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -319,6 +321,16 @@
             this.btAddMod.UseVisualStyleBackColor = true;
             this.btAddMod.Click += new System.EventHandler(this.BtAddMod_Click);
             // 
+            // BtRemoveAllMods
+            // 
+            this.BtRemoveAllMods.Location = new System.Drawing.Point(236, 477);
+            this.BtRemoveAllMods.Name = "BtRemoveAllMods";
+            this.BtRemoveAllMods.Size = new System.Drawing.Size(34, 23);
+            this.BtRemoveAllMods.TabIndex = 7;
+            this.BtRemoveAllMods.Text = "≪";
+            this.BtRemoveAllMods.UseVisualStyleBackColor = true;
+            this.BtRemoveAllMods.Click += new System.EventHandler(this.BtRemoveAllMods_Click);
+            // 
             // ModValuesManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -365,5 +377,6 @@
         private System.Windows.Forms.Button btAddMod;
         private System.Windows.Forms.Label lbAvailableForDownload;
         private System.Windows.Forms.Button btOpenValuesFolder;
+        private System.Windows.Forms.Button BtRemoveAllMods;
     }
 }

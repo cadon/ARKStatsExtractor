@@ -79,7 +79,7 @@ namespace ARKBreedingStats.uiControls
                     {
                         if (cc.ModList.Contains(modValues.mod))
                         {
-                            MessageBox.Show("The mod\n" + modValues.mod.title + "\nis already loaded.", "Already loaded", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show($"The mod\n{modValues.mod.title}\nis already loaded.", "Already loaded", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
@@ -242,6 +242,18 @@ namespace ARKBreedingStats.uiControls
         private void LbModList_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             RemoveSelectedMod();
+        }
+
+        private void BtRemoveAllMods_Click(object sender, EventArgs e)
+        {
+            ModInfo mi = (ModInfo)lbModList.SelectedItem;
+            if (mi?.mod == null || cc?.ModList == null) return;
+
+            cc.ModList.Clear();
+
+            UpdateModListBoxes();
+            lbModList.SelectedIndex = -1;
+            lbAvailableModFiles.SelectedItem = null;
         }
     }
 }
