@@ -24,7 +24,7 @@ namespace ARKBreedingStats.species
         public ARKColor()
         {
             id = 0;
-            name = Loc.s("Unknown");
+            name = Loc.S("Unknown");
             color = Color.LightGray;
             arkRgba = null;
             hash = 0;

@@ -279,6 +279,24 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apply OTS Preset.
+        /// </summary>
+        internal static string BtApplyOTSPreset {
+            get {
+                return ResourceManager.GetString("BtApplyOTSPreset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set the values for owner, tribe and server from the saved preset.
+        /// </summary>
+        internal static string BtApplyOTSPresetTT {
+            get {
+                return ResourceManager.GetString("BtApplyOTSPresetTT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Apply new Weightings.
         /// </summary>
         internal static string btBPApplyNewWeights {
@@ -385,6 +403,25 @@ namespace ARKBreedingStats.local {
         internal static string btSaveChanges {
             get {
                 return ResourceManager.GetString("btSaveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save OTS.
+        /// </summary>
+        internal static string BtSaveOTSPreset {
+            get {
+                return ResourceManager.GetString("BtSaveOTSPreset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Owner, Tribe and Server as preset.
+        ///The preset can be applied by the Apply Preset button.
+        /// </summary>
+        internal static string BtSaveOTSPresetTT {
+            get {
+                return ResourceManager.GetString("BtSaveOTSPresetTT", resourceCulture);
             }
         }
         
@@ -1326,6 +1363,135 @@ namespace ARKBreedingStats.local {
         internal static string imprintingBonus {
             get {
                 return ResourceManager.GetString("imprintingBonus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This species is known to show wrong stat values ingame, this can prevent a successful extraction..
+        /// </summary>
+        internal static string issueCauseArkStatIssue {
+            get {
+                return ResourceManager.GetString("issueCauseArkStatIssue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check if the total level of the creature is entered correctly.
+        ///If the creature is bred, also check if the BabyStatScaleImprintingBonus is set correctly..
+        /// </summary>
+        internal static string issueCauseCreatureLevel {
+            get {
+                return ResourceManager.GetString("issueCauseCreatureLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You locked the imprinting-value by checking &quot;Exactly, don&apos;t adjust&quot; and the tool won&apos;t adjust it, this may cause the extraction to fail..
+        /// </summary>
+        internal static string issueCauseImprintingLocked {
+            get {
+                return ResourceManager.GetString("issueCauseImprintingLocked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The imprinting-percentage given is not possible with the current multipliers and may cause wrong values during the extraction-process.
+        ///Make sure the BabyCuddleIntervallMultiplier and the BabyMatureSpeedMultiplier are set correctly.
+        ///They may have to be set to the value when the creature hatched/was born, even if they were changed..
+        /// </summary>
+        internal static string issueCauseImprintingNotPossible {
+            get {
+                return ResourceManager.GetString("issueCauseImprintingNotPossible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sometimes the game doesn&apos;t update the stat-value after an imprinting. Try the extraction after the creature was cryoed again..
+        /// </summary>
+        internal static string issueCauseImprintingNotUpdated {
+            get {
+                return ResourceManager.GetString("issueCauseImprintingNotUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uncheck all Lock-to-Zero-buttons in the stats (all lock-symbols should be green and opened)..
+        /// </summary>
+        internal static string issueCauseLockedDomLevel {
+            get {
+                return ResourceManager.GetString("issueCauseLockedDomLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The maximal wild level is set too low, go to the settings and adjust it..
+        /// </summary>
+        internal static string issueCauseMaxWildLevel {
+            get {
+                return ResourceManager.GetString("issueCauseMaxWildLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The stats of the creature were changed recently and the game displays the old values. Level up a stat, that should trigger a recalculation of the values..
+        /// </summary>
+        internal static string issueCauseOutdatedIngameValues {
+            get {
+                return ResourceManager.GetString("issueCauseOutdatedIngameValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you have enabled the Singleplayer-Settings in the game, make sure the according checkbox is enabled in the settings in this application as well..
+        /// </summary>
+        internal static string issueCauseSingleplayer {
+            get {
+                return ResourceManager.GetString("issueCauseSingleplayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The stat multipliers in the Settings are not set to the multipliers of the server. Ask your admin for the correct multipliers and adjust them in the Settings..
+        /// </summary>
+        internal static string issueCauseStatMultipliers {
+            get {
+                return ResourceManager.GetString("issueCauseStatMultipliers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taming-Effectiveness-Range too narrow, increase the upper and / or decrase the lower bound..
+        /// </summary>
+        internal static string issueCauseTamingEffectivenessRange {
+            get {
+                return ResourceManager.GetString("issueCauseTamingEffectivenessRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Double check if all stat-values are entered correctly..
+        /// </summary>
+        internal static string issueCauseTypo {
+            get {
+                return ResourceManager.GetString("issueCauseTypo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adjust or disable the &quot;Consider Wild-level - steps&quot; in the settings..
+        /// </summary>
+        internal static string issueCauseWildLevelSteps {
+            get {
+                return ResourceManager.GetString("issueCauseWildLevelSteps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Make sure the correct state (wild, tamed, bred) for the creature is chosen..
+        /// </summary>
+        internal static string issueCauseWildTamedBred {
+            get {
+                return ResourceManager.GetString("issueCauseWildTamedBred", resourceCulture);
             }
         }
         

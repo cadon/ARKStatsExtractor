@@ -18,7 +18,7 @@ namespace ARKBreedingStats
 
         public bool updateTimer;
         private List<TimerListEntry> timerListEntries;
-        public event Form1.collectionChangedEventHandler OnTimerChange;
+        public event Form1.CollectionChangedEventHandler OnTimerChange;
         private List<Creature> creatures;
         public SoundPlayer[] sounds;
         /// <summary>

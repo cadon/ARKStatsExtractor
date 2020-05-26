@@ -42,10 +42,10 @@ namespace ARKBreedingStats
             InitializeComponent();
             selectedSpecies = null;
             textBoxName.Text = "";
-            parentComboBoxMother.naLabel = " - " + Loc.s("Mother") + " n/a";
-            parentComboBoxMother.Items.Add(" - " + Loc.s("Mother") + " n/a");
-            parentComboBoxFather.naLabel = " - " + Loc.s("Father") + " n/a";
-            parentComboBoxFather.Items.Add(" - " + Loc.s("Father") + " n/a");
+            parentComboBoxMother.naLabel = " - " + Loc.S("Mother") + " n/a";
+            parentComboBoxMother.Items.Add(" - " + Loc.S("Mother") + " n/a");
+            parentComboBoxFather.naLabel = " - " + Loc.S("Father") + " n/a";
+            parentComboBoxFather.Items.Add(" - " + Loc.S("Father") + " n/a");
             parentComboBoxMother.SelectedIndex = 0;
             parentComboBoxFather.SelectedIndex = 0;
             updateMaturation = true;
@@ -117,8 +117,8 @@ namespace ARKBreedingStats
                 sex = value;
                 buttonSex.Text = Utils.SexSymbol(sex);
                 buttonSex.BackColor = Utils.SexColor(sex);
-                tt.SetToolTip(buttonSex, Loc.s("Sex") + ": " + Loc.s(sex.ToString()));
-                cbNeutered.Text = Loc.s(sex == Sex.Female ? "Spayed" : "Neutered");
+                tt.SetToolTip(buttonSex, Loc.S("Sex") + ": " + Loc.S(sex.ToString()));
+                cbNeutered.Text = Loc.S(sex == Sex.Female ? "Spayed" : "Neutered");
             }
         }
 
@@ -129,7 +129,7 @@ namespace ARKBreedingStats
             {
                 creatureStatus = value;
                 buttonStatus.Text = Utils.StatusSymbol(creatureStatus);
-                tt.SetToolTip(buttonStatus, Loc.s("Status") + ": " + Utils.StatusText(creatureStatus));
+                tt.SetToolTip(buttonStatus, Loc.S("Status") + ": " + Utils.StatusText(creatureStatus));
             }
         }
 
@@ -211,8 +211,8 @@ namespace ARKBreedingStats
             set
             {
                 btSaveChanges.Visible = value;
-                btAdd2Library.Location = new Point((value ? 154 : 88), btAdd2Library.Location.Y);
-                btAdd2Library.Size = new Size((value ? 68 : 134), 37);
+                btAdd2Library.Size = new Size((value ? 120 : 250), 37);
+                btAdd2Library.Location = new Point(value ? 136 : 6, btAdd2Library.Location.Y);
             }
         }
 
@@ -567,8 +567,8 @@ namespace ARKBreedingStats
             set
             {
                 btAdd2Library.Text = value ?
-                                     Loc.s("btUpdateLibraryCreature") :
-                                     Loc.s("btAdd2Library");
+                                     Loc.S("btUpdateLibraryCreature") :
+                                     Loc.S("btAdd2Library");
 
                 isNewCreature = !value;
                 SetAdd2LibColor(btAdd2Library.Enabled);
@@ -664,6 +664,11 @@ namespace ARKBreedingStats
             CreatureServer = Properties.Settings.Default.DefaultServerName;
         }
 
+        private void dhmsInputGrown_ValueChanged(uiControls.dhmsInput sender, TimeSpan timespan)
+        {
+
+        }
+
         internal void Clear()
         {
             textBoxName.Clear();
@@ -697,7 +702,7 @@ namespace ARKBreedingStats
             Loc.ControlText(lbNote, "Note");
             Loc.ControlText(lbCooldown, "cooldown");
             Loc.ControlText(lbGrownIn, "grownIn");
-            lbMaturationPerc.Text = Loc.s("Maturation") + " [%]";
+            lbMaturationPerc.Text = Loc.S("Maturation") + " [%]";
             Loc.ControlText(lbMutations, "Mutations");
             Loc.ControlText(lbSex, "Sex");
             Loc.ControlText(lbStatus, "Status");
@@ -705,15 +710,17 @@ namespace ARKBreedingStats
             Loc.ControlText(btSaveChanges);
             Loc.ControlText(btAdd2Library);
             //tooltips
-            Loc.setToolTip(buttonSex, "Sex", tt);
-            Loc.setToolTip(buttonStatus, "Status", tt);
-            Loc.setToolTip(dateTimePickerAdded, "addedAt", tt);
-            Loc.setToolTip(nudMutationsMother, "mutationCounter", tt);
-            Loc.setToolTip(nudMutationsFather, "mutationCounter", tt);
+            Loc.SetToolTip(buttonSex, "Sex", tt);
+            Loc.SetToolTip(buttonStatus, "Status", tt);
+            Loc.SetToolTip(dateTimePickerAdded, "addedAt", tt);
+            Loc.SetToolTip(nudMutationsMother, "mutationCounter", tt);
+            Loc.SetToolTip(nudMutationsFather, "mutationCounter", tt);
+            Loc.ControlText(BtApplyOTSPreset, tt);
+            Loc.ControlText(BtSaveOTSPreset, tt);
 
             var namingPatternButtons = new List<Button> { btnGenerateUniqueName, btNamingPattern2, btNamingPattern3, btNamingPattern4, btNamingPattern5, btNamingPattern6 };
             for (int bi = 0; bi < namingPatternButtons.Count; bi++)
-                tt.SetToolTip(namingPatternButtons[bi], Loc.s("btnGenerateUniqueNameTT", false));
+                tt.SetToolTip(namingPatternButtons[bi], Loc.S("btnGenerateUniqueNameTT", false));
         }
     }
 }

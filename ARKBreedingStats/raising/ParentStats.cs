@@ -49,8 +49,8 @@ namespace ARKBreedingStats.raising
         {
             if (mother == null && father == null)
             {
-                labelMother.Text = Loc.s("Unknown");
-                labelFather.Text = Loc.s("Unknown");
+                labelMother.Text = Loc.S("Unknown");
+                labelFather.Text = Loc.S("Unknown");
                 for (int s = 0; s < values.Values.STATS_COUNT; s++)
                 {
                     _parentStatValues[s].setValues();
@@ -86,8 +86,8 @@ namespace ARKBreedingStats.raising
                     bestLevelPercent
                     );
             }
-            labelMother.Text = mother == null ? Loc.s("Unknown") : mother.name;
-            labelFather.Text = father == null ? Loc.s("Unknown") : (labelMother.Width > 78 ? "\n" : "") + father.name;
+            labelMother.Text = mother == null ? Loc.S("Unknown") : mother.name;
+            labelFather.Text = father == null ? Loc.S("Unknown") : (labelMother.Width > 78 ? "\n" : "") + father.name;
             if (mother != null && father != null)
             {
                 int minLv = 1, maxLv = 1;
@@ -104,7 +104,7 @@ namespace ARKBreedingStats.raising
                         minLv += father.levelsWild[s];
                     }
                 }
-                _lbLevel.Text = string.Format(Loc.s("possibleLevelRange"), minLv, maxLv);
+                _lbLevel.Text = string.Format(Loc.S("possibleLevelRange"), minLv, maxLv);
             }
             else
                 _lbLevel.Text = "";

@@ -10,7 +10,7 @@ namespace ARKBreedingStats
     {
         private List<Note> noteList;
         private Note selectedNote;
-        public event Form1.collectionChangedEventHandler changed;
+        public event Form1.CollectionChangedEventHandler changed;
 
         public NotesControl()
         {

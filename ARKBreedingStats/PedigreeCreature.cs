@@ -134,7 +134,7 @@ namespace ARKBreedingStats
                         }
                     }
 
-                    tt.SetToolTip(labelSex, "Sex: " + Loc.s(creature.sex.ToString()));
+                    tt.SetToolTip(labelSex, "Sex: " + Loc.S(creature.sex.ToString()));
                     bool isGlowSpecies = creature.Species?.IsGlowSpecies ?? false;
                     for (int s = 0; s < displayedStatsCount; s++)
                     {

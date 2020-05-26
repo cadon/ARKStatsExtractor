@@ -26,8 +26,8 @@ namespace ARKBreedingStats
             else
             {
                 ShowExportedCreatureListControl();
-                exportedCreatureList.ownerSuffix = loc.OwnerSuffix;
-                exportedCreatureList.LoadFilesInFolder(loc.FolderPath);
+                _exportedCreatureList.ownerSuffix = loc.OwnerSuffix;
+                _exportedCreatureList.LoadFilesInFolder(loc.FolderPath);
             }
         }
 
@@ -40,7 +40,7 @@ namespace ARKBreedingStats
             if (Utils.GetFirstImportExportFolder(out string folder))
             {
                 ShowExportedCreatureListControl();
-                exportedCreatureList.LoadFilesInFolder(folder);
+                _exportedCreatureList.LoadFilesInFolder(folder);
             }
             else if (
                 MessageBox.Show("There is no valid folder set where the exported creatures are located. Set this folder in the settings.\n\nOpen the settings-page?",
@@ -53,7 +53,7 @@ namespace ARKBreedingStats
         private void ImportAllCreaturesInSelectedFolder(object sender, EventArgs e)
         {
             ShowExportedCreatureListControl();
-            exportedCreatureList.chooseFolderAndImport();
+            _exportedCreatureList.chooseFolderAndImport();
         }
 
         private void btImportLastExported_Click(object sender, EventArgs e)
@@ -98,7 +98,7 @@ namespace ARKBreedingStats
             // add to library automatically if batch-extracting exportedImported values and uniqueLevels
             if (addToLibraryIfUnique)
             {
-                if (extractor.uniqueResults)
+                if (_extractor.uniqueResults)
                     AddCreatureToCollection(true, exportedCreatureControl.creatureValues.motherArkId, exportedCreatureControl.creatureValues.fatherArkId, goToLibraryTab);
                 else
                     exportedCreatureControl.setStatus(importExported.ExportedCreatureControl.ImportStatus.NeedsLevelChosing, DateTime.Now);
@@ -135,8 +135,8 @@ namespace ARKBreedingStats
             bool copyNameToClipboard = Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
                                        && Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied;
 
-            if (extractor.uniqueResults
-                || (alreadyExists && extractor.validResults))
+            if (_extractor.uniqueResults
+                || (alreadyExists && _extractor.validResults))
             {
                 AddCreatureToCollection(true, goToLibraryTab: false);
                 SetMessageLabelText($"Successful {(alreadyExists ? "updated" : "added")} {creatureInfoInputExtractor.CreatureName} ({speciesSelector1.SelectedSpecies.name}) of the exported file\n" + filePath, MessageBoxIcon.Information);
@@ -158,7 +158,7 @@ namespace ARKBreedingStats
             }
 
             // give feedback in overlay
-            if (overlay != null)
+            if (_overlay != null)
             {
                 string infoText;
                 Color textColor;
@@ -175,7 +175,7 @@ namespace ARKBreedingStats
                     textColor = Color.FromArgb(255, colorSaturation, colorSaturation);
                 }
 
-                overlay.SetInfoText(infoText, textColor);
+                _overlay.SetInfoText(infoText, textColor);
             }
             if (added)
             {
@@ -220,17 +220,17 @@ namespace ARKBreedingStats
         /// </summary>
         private void ShowExportedCreatureListControl()
         {
-            if (exportedCreatureList == null || exportedCreatureList.IsDisposed)
+            if (_exportedCreatureList == null || _exportedCreatureList.IsDisposed)
             {
-                exportedCreatureList = new importExported.ExportedCreatureList();
-                exportedCreatureList.CopyValuesToExtractor += ExportedCreatureList_CopyValuesToExtractor;
-                exportedCreatureList.CheckArkIdInLibrary += ExportedCreatureList_CheckGuidInLibrary;
-                exportedCreatureList.Location = Properties.Settings.Default.importExportedLocation;
-                exportedCreatureList.CheckForUnknownMods += ExportedCreatureList_CheckForUnknownMods;
+                _exportedCreatureList = new importExported.ExportedCreatureList();
+                _exportedCreatureList.CopyValuesToExtractor += ExportedCreatureList_CopyValuesToExtractor;
+                _exportedCreatureList.CheckArkIdInLibrary += ExportedCreatureList_CheckGuidInLibrary;
+                _exportedCreatureList.Location = Properties.Settings.Default.importExportedLocation;
+                _exportedCreatureList.CheckForUnknownMods += ExportedCreatureList_CheckForUnknownMods;
             }
-            exportedCreatureList.ownerSuffix = "";
-            exportedCreatureList.Show();
-            exportedCreatureList.BringToFront();
+            _exportedCreatureList.ownerSuffix = "";
+            _exportedCreatureList.Show();
+            _exportedCreatureList.BringToFront();
         }
 
         private void ExportedCreatureList_CheckForUnknownMods(List<string> unknownSpeciesBlueprintPaths)
@@ -239,7 +239,7 @@ namespace ARKBreedingStats
             // if mods were added, try to import the creature values again
             if (_creatureCollection.ModValueReloadNeeded
                 && LoadModValuesOfCollection(_creatureCollection, true, true))
-                exportedCreatureList.LoadFilesInFolder();
+                _exportedCreatureList.LoadFilesInFolder();
         }
     }
 }

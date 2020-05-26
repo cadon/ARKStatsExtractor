@@ -20,7 +20,7 @@ namespace ARKBreedingStats
         public event PedigreeCreature.ExportToClipboardEventHandler ExportToClipboard;
         public event Raising.createIncubationEventHandler CreateIncubationTimer;
         public event Form1.SetMessageLabelTextEventHandler SetMessageLabelText;
-        public event Form1.SetSpeciesEventHandler SetGlobalSpecies;
+        public event Action<Species> SetGlobalSpecies;
         private List<Creature> females = new List<Creature>();
         private List<Creature> males = new List<Creature>();
         private List<BreedingPair> breedingPairs;
@@ -308,9 +308,9 @@ namespace ARKBreedingStats
             bool creaturesMutationsFilteredOut = false;
             bool displayFilterWarning = true;
 
-            lbBreedingPlanHeader.Text = currentSpecies.DescriptiveNameAndMod + (considerChosenCreature ? " (" + string.Format(Loc.s("onlyPairingsWith"), chosenCreature.name) + ")" : string.Empty);
+            lbBreedingPlanHeader.Text = currentSpecies.DescriptiveNameAndMod + (considerChosenCreature ? " (" + string.Format(Loc.S("onlyPairingsWith"), chosenCreature.name) + ")" : string.Empty);
             if (considerChosenCreature && (chosenCreature.flags.HasFlag(CreatureFlags.Neutered) || chosenCreature.Status != CreatureStatus.Available))
-                lbBreedingPlanHeader.Text += $"{Loc.s("BreedingNotPossible")} ! ({(chosenCreature.flags.HasFlag(CreatureFlags.Neutered) ? Loc.s("Neutered") : Loc.s("notAvailable"))})";
+                lbBreedingPlanHeader.Text += $"{Loc.S("BreedingNotPossible")} ! ({(chosenCreature.flags.HasFlag(CreatureFlags.Neutered) ? Loc.S("Neutered") : Loc.S("notAvailable"))})";
 
             var combinedCreatures = new List<Creature>(selectedFemales);
             combinedCreatures.AddRange(selectedMales);
@@ -634,7 +634,7 @@ namespace ARKBreedingStats
                         if (bestCreatureAlreadyAvailable)
                         {
                             displayFilterWarning = false;
-                            SetMessageLabelText(string.Format(Loc.s("AlreadyCreatureWithTopStats"), bestCreature.name, Utils.SexSymbol(bestCreature.sex)), MessageBoxIcon.Warning);
+                            SetMessageLabelText(string.Format(Loc.S("AlreadyCreatureWithTopStats"), bestCreature.name, Utils.SexSymbol(bestCreature.sex)), MessageBoxIcon.Warning);
                         }
                     }
                 }
@@ -653,7 +653,7 @@ namespace ARKBreedingStats
                     pcs[2 * i + 1].Hide();
                     pbs[i].Hide();
                 }
-                lbBreedingPlanInfo.Text = string.Format(Loc.s("NoPossiblePairingForSpeciesFound"), currentSpecies);
+                lbBreedingPlanInfo.Text = string.Format(Loc.S("NoPossiblePairingForSpeciesFound"), currentSpecies);
                 lbBreedingPlanInfo.Visible = true;
                 if (updateBreedingData)
                     SetBreedingData(currentSpecies);
@@ -663,8 +663,8 @@ namespace ARKBreedingStats
             {
                 // display warning if breeding pairs are filtered out
                 string warningText = null;
-                if (creaturesTagFilteredOut) warningText = Loc.s("BPsomeCreaturesAreFilteredOutTags") + ".\n" + Loc.s("BPTopStatsShownMightNotTotalTopStats");
-                if (creaturesMutationsFilteredOut) warningText = (!string.IsNullOrEmpty(warningText) ? warningText + "\n" : string.Empty) + Loc.s("BPsomePairingsAreFilteredOutMutations");
+                if (creaturesTagFilteredOut) warningText = Loc.S("BPsomeCreaturesAreFilteredOutTags") + ".\n" + Loc.S("BPTopStatsShownMightNotTotalTopStats");
+                if (creaturesMutationsFilteredOut) warningText = (!string.IsNullOrEmpty(warningText) ? warningText + "\n" : string.Empty) + Loc.S("BPsomePairingsAreFilteredOutMutations");
                 if (!string.IsNullOrEmpty(warningText)) SetMessageLabelText(warningText, MessageBoxIcon.Warning);
             }
 
@@ -727,7 +727,7 @@ namespace ARKBreedingStats
             currentSpecies = null;
             males.Clear();
             females.Clear();
-            lbBreedingPlanHeader.Text = Loc.s("SelectSpeciesBreedingPlanner");
+            lbBreedingPlanHeader.Text = Loc.S("SelectSpeciesBreedingPlanner");
         }
 
         private void SetBreedingData(Species species = null)
@@ -735,7 +735,7 @@ namespace ARKBreedingStats
             listViewRaisingTimes.Items.Clear();
             if (species?.breeding == null)
             {
-                listViewRaisingTimes.Items.Add(Loc.s("naYet"));
+                listViewRaisingTimes.Items.Add(Loc.S("naYet"));
                 labelBreedingInfos.Text = string.Empty;
             }
             else
@@ -746,7 +746,7 @@ namespace ARKBreedingStats
                 if (Raising.GetRaisingTimes(species, out TimeSpan matingTime, out string incubationMode, out incubationTime, out TimeSpan babyTime, out TimeSpan maturationTime, out TimeSpan nextMatingMin, out TimeSpan nextMatingMax))
                 {
                     if (matingTime != TimeSpan.Zero)
-                        listViewRaisingTimes.Items.Add(new ListViewItem(new[] { Loc.s("matingTime"), matingTime.ToString("d':'hh':'mm':'ss") }));
+                        listViewRaisingTimes.Items.Add(new ListViewItem(new[] { Loc.S("matingTime"), matingTime.ToString("d':'hh':'mm':'ss") }));
 
                     TimeSpan totalTime = incubationTime;
                     DateTime until = DateTime.Now.Add(totalTime);
@@ -755,17 +755,17 @@ namespace ARKBreedingStats
 
                     totalTime += babyTime;
                     until = DateTime.Now.Add(totalTime);
-                    times = new[] { Loc.s("Baby"), babyTime.ToString("d':'hh':'mm':'ss"), totalTime.ToString("d':'hh':'mm':'ss"), Utils.ShortTimeDate(until) };
+                    times = new[] { Loc.S("Baby"), babyTime.ToString("d':'hh':'mm':'ss"), totalTime.ToString("d':'hh':'mm':'ss"), Utils.ShortTimeDate(until) };
                     listViewRaisingTimes.Items.Add(new ListViewItem(times));
 
                     totalTime = incubationTime + maturationTime;
                     until = DateTime.Now.Add(totalTime);
-                    times = new[] { Loc.s("Maturation"), maturationTime.ToString("d':'hh':'mm':'ss"), totalTime.ToString("d':'hh':'mm':'ss"), Utils.ShortTimeDate(until) };
+                    times = new[] { Loc.S("Maturation"), maturationTime.ToString("d':'hh':'mm':'ss"), totalTime.ToString("d':'hh':'mm':'ss"), Utils.ShortTimeDate(until) };
                     listViewRaisingTimes.Items.Add(new ListViewItem(times));
 
                     string eggInfo = Raising.EggTemperature(species);
 
-                    labelBreedingInfos.Text = (nextMatingMin != TimeSpan.Zero ? $"{Loc.s("TimeBetweenMating")}: {nextMatingMin:d':'hh':'mm':'ss} to {nextMatingMax:d':'hh':'mm':'ss}" : string.Empty)
+                    labelBreedingInfos.Text = (nextMatingMin != TimeSpan.Zero ? $"{Loc.S("TimeBetweenMating")}: {nextMatingMin:d':'hh':'mm':'ss} to {nextMatingMax:d':'hh':'mm':'ss}" : string.Empty)
                         + ((!string.IsNullOrEmpty(eggInfo) ? "\n" + eggInfo : string.Empty));
                 }
             }
@@ -887,8 +887,8 @@ namespace ARKBreedingStats
             }
             crB.levelsWild[(int)StatNames.Torpidity] = crB.levelsWild.Sum();
             crW.levelsWild[(int)StatNames.Torpidity] = crW.levelsWild.Sum();
-            crB.name = Loc.s("BestPossible");
-            crW.name = Loc.s("WorstPossible");
+            crB.name = Loc.S("BestPossible");
+            crW.name = Loc.S("WorstPossible");
             crB.RecalculateCreatureValues(levelStep);
             crW.RecalculateCreatureValues(levelStep);
             pedigreeCreatureBest.TotalLevelUnknown = totalLevelUnknown;
@@ -901,8 +901,8 @@ namespace ARKBreedingStats
             crW.mutationsPaternal = mutationCounterPaternal;
             pedigreeCreatureBest.Creature = crB;
             pedigreeCreatureWorst.Creature = crW;
-            lbBPProbabilityBest.Text = $"{Loc.s("ProbabilityForBest")}: {Math.Round(100 * probabilityBest, 1)} %";
-            lbMutationProbability.Text = $"{Loc.s("ProbabilityForOneMutation")}: {Math.Round(100 * breedingPairs[comboIndex].MutationProbability, 1)} %";
+            lbBPProbabilityBest.Text = $"{Loc.S("ProbabilityForBest")}: {Math.Round(100 * probabilityBest, 1)} %";
+            lbMutationProbability.Text = $"{Loc.S("ProbabilityForOneMutation")}: {Math.Round(100 * breedingPairs[comboIndex].MutationProbability, 1)} %";
 
             // set probability barChart
             offspringPossibilities1.Calculate(currentSpecies, mother.levelsWild, father.levelsWild);
@@ -1116,9 +1116,9 @@ namespace ARKBreedingStats
             Loc.ControlText(btBPJustMated);
             Loc.ControlText(cbBPOnlyOneSuggestionForFemales);
             Loc.ControlText(cbBPMutationLimitOnlyOnePartner);
-            columnHeader2.Text = Loc.s("Time");
-            columnHeader3.Text = Loc.s("TotalTime");
-            columnHeader4.Text = Loc.s("FinishedAt");
+            columnHeader2.Text = Loc.S("Time");
+            columnHeader3.Text = Loc.S("TotalTime");
+            columnHeader4.Text = Loc.S("FinishedAt");
 
             // tooltips
             Loc.ControlText(lbBPBreedingScore, tt);
@@ -1126,8 +1126,8 @@ namespace ARKBreedingStats
             Loc.ControlText(rbBPTopStats, tt);
             Loc.ControlText(rbBPHighStats, tt);
             Loc.ControlText(btBPJustMated, tt);
-            Loc.setToolTip(nudBPMutationLimit, tt);
-            Loc.setToolTip(cbBPTagExcludeDefault, tt);
+            Loc.SetToolTip(nudBPMutationLimit, tt);
+            Loc.SetToolTip(cbBPTagExcludeDefault, tt);
         }
 
         private void cbServerFilterLibrary_CheckedChanged(object sender, EventArgs e)

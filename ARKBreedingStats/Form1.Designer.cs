@@ -568,7 +568,7 @@ namespace ARKBreedingStats
             // groupBoxPossibilities
             // 
             this.groupBoxPossibilities.Controls.Add(this.listViewPossibilities);
-            this.groupBoxPossibilities.Location = new System.Drawing.Point(556, 43);
+            this.groupBoxPossibilities.Location = new System.Drawing.Point(590, 43);
             this.groupBoxPossibilities.Name = "groupBoxPossibilities";
             this.groupBoxPossibilities.Size = new System.Drawing.Size(189, 295);
             this.groupBoxPossibilities.TabIndex = 11;
@@ -812,7 +812,7 @@ namespace ARKBreedingStats
             // 
             // lbInfoYellowStats
             // 
-            this.lbInfoYellowStats.Location = new System.Drawing.Point(556, 341);
+            this.lbInfoYellowStats.Location = new System.Drawing.Point(590, 341);
             this.lbInfoYellowStats.Name = "lbInfoYellowStats";
             this.lbInfoYellowStats.Size = new System.Drawing.Size(177, 187);
             this.lbInfoYellowStats.TabIndex = 15;
@@ -1269,7 +1269,7 @@ namespace ARKBreedingStats
             // 
             // statPotentials1
             // 
-            this.statPotentials1.Location = new System.Drawing.Point(556, 243);
+            this.statPotentials1.Location = new System.Drawing.Point(589, 243);
             this.statPotentials1.Name = "statPotentials1";
             this.statPotentials1.Size = new System.Drawing.Size(293, 433);
             this.statPotentials1.TabIndex = 12;
@@ -1277,7 +1277,7 @@ namespace ARKBreedingStats
             // gbStatChart
             // 
             this.gbStatChart.Controls.Add(this.radarChart1);
-            this.gbStatChart.Location = new System.Drawing.Point(556, 9);
+            this.gbStatChart.Location = new System.Drawing.Point(589, 9);
             this.gbStatChart.Name = "gbStatChart";
             this.gbStatChart.Size = new System.Drawing.Size(213, 228);
             this.gbStatChart.TabIndex = 11;
@@ -1494,7 +1494,7 @@ namespace ARKBreedingStats
         0,
         0,
         0};
-            this.creatureInfoInputTester.Size = new System.Drawing.Size(229, 542);
+            this.creatureInfoInputTester.Size = new System.Drawing.Size(262, 542);
             this.creatureInfoInputTester.TabIndex = 4;
             this.creatureInfoInputTester.TribeLock = false;
             this.creatureInfoInputTester.Add2Library_Clicked += new System.Action<ARKBreedingStats.CreatureInfoInput>(this.creatureInfoInputTester_Add2Library_Clicked);
@@ -1531,7 +1531,7 @@ namespace ARKBreedingStats
             // llOnlineHelpExtractionIssues
             // 
             this.llOnlineHelpExtractionIssues.AutoSize = true;
-            this.llOnlineHelpExtractionIssues.Location = new System.Drawing.Point(559, 609);
+            this.llOnlineHelpExtractionIssues.Location = new System.Drawing.Point(593, 609);
             this.llOnlineHelpExtractionIssues.Name = "llOnlineHelpExtractionIssues";
             this.llOnlineHelpExtractionIssues.Size = new System.Drawing.Size(141, 13);
             this.llOnlineHelpExtractionIssues.TabIndex = 50;
@@ -1542,7 +1542,7 @@ namespace ARKBreedingStats
             // groupBoxRadarChartExtractor
             // 
             this.groupBoxRadarChartExtractor.Controls.Add(this.radarChartExtractor);
-            this.groupBoxRadarChartExtractor.Location = new System.Drawing.Point(751, 6);
+            this.groupBoxRadarChartExtractor.Location = new System.Drawing.Point(785, 6);
             this.groupBoxRadarChartExtractor.Name = "groupBoxRadarChartExtractor";
             this.groupBoxRadarChartExtractor.Size = new System.Drawing.Size(150, 163);
             this.groupBoxRadarChartExtractor.TabIndex = 11;
@@ -1565,7 +1565,7 @@ namespace ARKBreedingStats
             this.lbImprintingFailInfo.BackColor = System.Drawing.Color.MistyRose;
             this.lbImprintingFailInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lbImprintingFailInfo.ForeColor = System.Drawing.Color.Maroon;
-            this.lbImprintingFailInfo.Location = new System.Drawing.Point(562, 622);
+            this.lbImprintingFailInfo.Location = new System.Drawing.Point(596, 622);
             this.lbImprintingFailInfo.Name = "lbImprintingFailInfo";
             this.lbImprintingFailInfo.Size = new System.Drawing.Size(322, 54);
             this.lbImprintingFailInfo.TabIndex = 49;
@@ -1577,7 +1577,7 @@ namespace ARKBreedingStats
             // groupBoxTamingInfo
             // 
             this.groupBoxTamingInfo.Controls.Add(this.labelTamingInfo);
-            this.groupBoxTamingInfo.Location = new System.Drawing.Point(556, 60);
+            this.groupBoxTamingInfo.Location = new System.Drawing.Point(590, 60);
             this.groupBoxTamingInfo.Name = "groupBoxTamingInfo";
             this.groupBoxTamingInfo.Size = new System.Drawing.Size(174, 532);
             this.groupBoxTamingInfo.TabIndex = 48;
@@ -1594,7 +1594,7 @@ namespace ARKBreedingStats
             // 
             // button2TamingCalc
             // 
-            this.button2TamingCalc.Location = new System.Drawing.Point(556, 32);
+            this.button2TamingCalc.Location = new System.Drawing.Point(590, 32);
             this.button2TamingCalc.Name = "button2TamingCalc";
             this.button2TamingCalc.Size = new System.Drawing.Size(177, 23);
             this.button2TamingCalc.TabIndex = 9;
@@ -1668,7 +1668,7 @@ namespace ARKBreedingStats
             // 
             // labelErrorHelp
             // 
-            this.labelErrorHelp.Location = new System.Drawing.Point(556, 43);
+            this.labelErrorHelp.Location = new System.Drawing.Point(590, 43);
             this.labelErrorHelp.Name = "labelErrorHelp";
             this.labelErrorHelp.Size = new System.Drawing.Size(239, 569);
             this.labelErrorHelp.TabIndex = 40;
@@ -1725,7 +1725,7 @@ namespace ARKBreedingStats
         0,
         0,
         0};
-            this.creatureInfoInputExtractor.Size = new System.Drawing.Size(229, 542);
+            this.creatureInfoInputExtractor.Size = new System.Drawing.Size(262, 542);
             this.creatureInfoInputExtractor.TabIndex = 7;
             this.creatureInfoInputExtractor.TribeLock = false;
             this.creatureInfoInputExtractor.Add2Library_Clicked += new System.Action<ARKBreedingStats.CreatureInfoInput>(this.creatureInfoInputExtractor_Add2Library_Clicked);

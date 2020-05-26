@@ -12,8 +12,8 @@ namespace ARKBreedingStats
         private string statName;
         private double breedingValue;
         private StatIOInputType inputType;
-        public event Form1.LevelChangedEventHandler LevelChanged;
-        public event Form1.InputValueChangedEventHandler InputValueChanged;
+        public event Action<StatIO> LevelChanged;
+        public event Action<StatIO> InputValueChanged;
         public int statIndex;
         private bool domZeroFixed;
         ToolTip tt = new ToolTip();
@@ -43,7 +43,7 @@ namespace ARKBreedingStats
                 if (value < 0)
                 {
                     numericUpDownInput.Value = 0;
-                    labelFinalValue.Text = Loc.s("Unknown");
+                    labelFinalValue.Text = Loc.S("Unknown");
                 }
                 else
                 {
@@ -103,7 +103,7 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    labelBValue.Text = Loc.s("Unknown");
+                    labelBValue.Text = Loc.S("Unknown");
                 }
             }
         }

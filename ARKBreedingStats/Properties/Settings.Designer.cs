@@ -190,12 +190,12 @@ namespace ARKBreedingStats.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool oxygenForAll {
+        public bool DisplayHiddenStats {
             get {
-                return ((bool)(this["oxygenForAll"]));
+                return ((bool)(this["DisplayHiddenStats"]));
             }
             set {
-                this["oxygenForAll"] = value;
+                this["DisplayHiddenStats"] = value;
             }
         }
         

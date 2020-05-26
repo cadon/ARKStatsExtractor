@@ -25,6 +25,7 @@ namespace ARKBreedingStats.settings
             this.cc = cc;
             CreateListOfProcesses();
             LoadSettings(cc);
+            Localization();
             tabControlSettings.SelectTab((int)page);
         }
 
@@ -129,12 +130,12 @@ namespace ARKBreedingStats.settings
             languages = new Dictionary<string, string>
             {
                 { "System language", ""},
-                { Loc.s("de"), "de"},
-                { Loc.s("en"), "en"},
-                { Loc.s("es"), "es"},
-                { Loc.s("fr"), "fr"},
-                { Loc.s("it"), "it"},
-                { Loc.s("zh"), "zh"},
+                { Loc.S("de"), "de"},
+                { Loc.S("en"), "en"},
+                { Loc.S("es"), "es"},
+                { Loc.S("fr"), "fr"},
+                { Loc.S("it"), "it"},
+                { Loc.S("zh"), "zh"},
             };
             foreach (string l in languages.Keys)
                 cbbLanguage.Items.Add(l);
@@ -189,7 +190,7 @@ namespace ARKBreedingStats.settings
             if (Properties.Settings.Default.celsius) radioButtonCelsius.Checked = true;
             else radioButtonFahrenheit.Checked = true;
             cbIgnoreSexInBreedingPlan.Checked = Properties.Settings.Default.IgnoreSexInBreedingPlan;
-            checkBoxDisplayHiddenStats.Checked = Properties.Settings.Default.oxygenForAll;
+            checkBoxDisplayHiddenStats.Checked = Properties.Settings.Default.DisplayHiddenStats;
             tbDefaultFontName.Text = Properties.Settings.Default.DefaultFontName;
             nudDefaultFontSize.Value = (decimal)Properties.Settings.Default.DefaultFontSize;
 
@@ -344,7 +345,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.SpeechRecognition = chkbSpeechRecognition.Checked;
             Properties.Settings.Default.syncCollection = chkCollectionSync.Checked;
             Properties.Settings.Default.celsius = radioButtonCelsius.Checked;
-            Properties.Settings.Default.oxygenForAll = checkBoxDisplayHiddenStats.Checked;
+            Properties.Settings.Default.DisplayHiddenStats = checkBoxDisplayHiddenStats.Checked;
             Properties.Settings.Default.DefaultFontName = tbDefaultFontName.Text;
             Properties.Settings.Default.DefaultFontSize = (float)nudDefaultFontSize.Value;
 
@@ -851,6 +852,12 @@ namespace ARKBreedingStats.settings
         private void button1_Click(object sender, EventArgs e)
         {
             tbOCRCaptureApp.Text = DefaultOCRProcessName;
+        }
+
+        private void Localization()
+        {
+            Loc.ControlText(buttonOK, "OK");
+            Loc.ControlText(buttonCancel, "Cancel");
         }
     }
 }

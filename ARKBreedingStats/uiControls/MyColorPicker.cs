@@ -20,13 +20,13 @@ namespace ARKBreedingStats.uiControls
             tt = new ToolTip { AutomaticDelay = 200 };
 
             BtUnknownColor.Tag = 0; // id of unknown color
-            BtUnknownColor.Text = Loc.s("Unknown");
+            BtUnknownColor.Text = Loc.S("Unknown");
 
-            buttonCancel.Text = Loc.s("Cancel");
+            buttonCancel.Text = Loc.S("Cancel");
 
             Disposed += MyColorPicker_Disposed;
 
-            checkBoxOnlyNatural.Text = Loc.s("showOnlyNaturalOccuring");
+            checkBoxOnlyNatural.Text = Loc.S("showOnlyNaturalOccuring");
 
             TopMost = true;
         }

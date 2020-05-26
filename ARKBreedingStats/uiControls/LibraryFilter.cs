@@ -278,7 +278,7 @@ namespace ARKBreedingStats.uiControls
 
         private void BtColorFilter_Click(object sender, EventArgs e)
         {
-            _colorPicker.SetColors(_selectedColorFilter, Loc.s("onlyCreaturesWithThisColor"));
+            _colorPicker.SetColors(_selectedColorFilter, Loc.S("onlyCreaturesWithThisColor"));
             if (_colorPicker.ShowDialog() == DialogResult.OK)
             {
                 SetColorFilter(_colorPicker.SelectedColorId);
@@ -297,32 +297,32 @@ namespace ARKBreedingStats.uiControls
 
         private void Localization()
         {
-            Text = Loc.s("libraryFilter");
-            BtApply.Text = Loc.s("apply");
-            BtCancel.Text = Loc.s("Cancel");
+            Text = Loc.S("libraryFilter");
+            BtApply.Text = Loc.S("apply");
+            BtCancel.Text = Loc.S("Cancel");
 
-            LbOwners.Text = Loc.s("owners");
-            LbTribes.Text = Loc.s("tribes");
-            LbServers.Text = Loc.s("servers");
-            LbTags.Text = Loc.s("tags");
-            LbStatus.Text = Loc.s("Status");
-            LbColors.Text = Loc.s("Colors");
-            BtClearColorFilters.Text = Loc.s("clearColorsFilters");
-            CbUseFilterInTopStatCalculation.Text = Loc.s("useFilterInTopStatCalculation");
-            CbLibraryGroupSpecies.Text = Loc.s("groupLibraryBySpecies");
-            BtClearFlagFilter.Text = Loc.s("clear");
-            LbFilterByName.Text = Loc.s("filterByName");
+            LbOwners.Text = Loc.S("owners");
+            LbTribes.Text = Loc.S("tribes");
+            LbServers.Text = Loc.S("servers");
+            LbTags.Text = Loc.S("tags");
+            LbStatus.Text = Loc.S("Status");
+            LbColors.Text = Loc.S("Colors");
+            BtClearColorFilters.Text = Loc.S("clearColorsFilters");
+            CbUseFilterInTopStatCalculation.Text = Loc.S("useFilterInTopStatCalculation");
+            CbLibraryGroupSpecies.Text = Loc.S("groupLibraryBySpecies");
+            BtClearFlagFilter.Text = Loc.S("clear");
+            LbFilterByName.Text = Loc.S("filterByName");
 
-            string allString = Loc.s("All");
+            string allString = Loc.S("All");
 
             CbOwnersAll.Text = allString;
             CbTribesAll.Text = allString;
             CbServersAll.Text = allString;
             CbTagsAll.Text = allString;
 
-            FlpStatus.Controls.Add(new Label() { Text = Loc.s("filterOneNeededInfo"), BackColor = ColorButtonState(ButtonState.OneNeeded), AutoSize = true, Padding = new Padding(5), Margin = new Padding(3) });
-            FlpStatus.Controls.Add(new Label() { Text = Loc.s("filterAllNeededInfo"), BackColor = ColorButtonState(ButtonState.AllNeeded), AutoSize = true, Padding = new Padding(5), Margin = new Padding(3) });
-            FlpStatus.Controls.Add(new Label() { Text = Loc.s("filterExcludeInfo"), BackColor = ColorButtonState(ButtonState.Exclude), AutoSize = true, Padding = new Padding(5), Margin = new Padding(3) });
+            FlpStatus.Controls.Add(new Label() { Text = Loc.S("filterOneNeededInfo"), BackColor = ColorButtonState(ButtonState.OneNeeded), AutoSize = true, Padding = new Padding(5), Margin = new Padding(3) });
+            FlpStatus.Controls.Add(new Label() { Text = Loc.S("filterAllNeededInfo"), BackColor = ColorButtonState(ButtonState.AllNeeded), AutoSize = true, Padding = new Padding(5), Margin = new Padding(3) });
+            FlpStatus.Controls.Add(new Label() { Text = Loc.S("filterExcludeInfo"), BackColor = ColorButtonState(ButtonState.Exclude), AutoSize = true, Padding = new Padding(5), Margin = new Padding(3) });
         }
 
         private enum ButtonState

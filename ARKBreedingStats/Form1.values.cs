@@ -19,6 +19,14 @@ namespace ARKBreedingStats
 
     public partial class Form1
     {
+        /// <summary>
+        /// Loads the mod value files for the creatureCollection. If a file is not available locally, it's tried to download it.
+        /// </summary>
+        /// <param name="modValueFileNames"></param>
+        /// <param name="showResult"></param>
+        /// <param name="applySettings"></param>
+        /// <param name="mods"></param>
+        /// <returns></returns>
         private bool LoadModValueFiles(List<string> modValueFileNames, bool showResult, bool applySettings, out List<Mod> mods)
         {
             if (modValueFileNames == null) throw new ArgumentNullException();

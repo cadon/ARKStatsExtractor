@@ -33,8 +33,8 @@ namespace ARKBreedingStats
             {
                 input = creatureInfoInputExtractor;
                 bred = rbBredExtractor.Checked;
-                te = extractor.UniqueTE();
-                imprinting = extractor.ImprintingBonus;
+                te = _extractor.UniqueTE();
+                imprinting = _extractor.ImprintingBonus;
             }
             else
             {
@@ -104,7 +104,7 @@ namespace ARKBreedingStats
             _creatureCollection.MergeCreatureList(new List<Creature> { creature });
 
             // set status of exportedCreatureControl if available
-            exportedCreatureControl?.setStatus(importExported.ExportedCreatureControl.ImportStatus.JustImported, DateTime.Now);
+            _exportedCreatureControl?.setStatus(importExported.ExportedCreatureControl.ImportStatus.JustImported, DateTime.Now);
 
             // if creature already exists by guid, use the already existing creature object for the parent assignments
             creature = _creatureCollection.creatures.SingleOrDefault(c => c.guid == creature.guid) ?? creature;
@@ -308,7 +308,7 @@ namespace ARKBreedingStats
                     if (species.UsesStat(s))
                     {
                         usedStatIndices.Add(s);
-                        if (considerStatHighlight[s])
+                        if (_considerStatHighlight[s])
                             usedAndConsideredStatIndices.Add(s);
                     }
                 }
@@ -474,7 +474,7 @@ namespace ARKBreedingStats
                     }
                 }
                 foreach (Creature c in creatures)
-                    c.SetTopStatCount(considerStatHighlight);
+                    c.SetTopStatCount(_considerStatHighlight);
             }
             toolStripProgressBar1.Visible = false;
         }
@@ -756,7 +756,7 @@ namespace ARKBreedingStats
                 }
                 else
                     lvi.SubItems[s + 12].BackColor = Utils.GetColorFromPercent((int)(cr.levelsWild[s] * (s == (int)StatNames.Torpidity ? colorFactor / 7 : colorFactor)), // TODO set factor to number of other stats (flyers have 6, Gacha has 8?)
-                            considerStatHighlight[s] ? cr.topBreedingStats[s] ? 0.2 : 0.7 : 0.93);
+                            _considerStatHighlight[s] ? cr.topBreedingStats[s] ? 0.2 : 0.7 : 0.93);
             }
             lvi.SubItems[4].BackColor = cr.flags.HasFlag(CreatureFlags.Neutered) ? Color.FromArgb(220, 220, 220) :
                     cr.sex == Sex.Female ? Color.FromArgb(255, 230, 255) :
@@ -908,14 +908,14 @@ namespace ARKBreedingStats
         // onlibrarychange
         private async void listViewLibrary_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cancelTokenLibrarySelection?.Cancel();
-            using (cancelTokenLibrarySelection = new CancellationTokenSource())
+            _cancelTokenLibrarySelection?.Cancel();
+            using (_cancelTokenLibrarySelection = new CancellationTokenSource())
             {
                 try
                 {
-                    reactOnSelectionChange = false;
-                    await Task.Delay(20, cancelTokenLibrarySelection.Token); // recalculate breedingplan at most a certain interval
-                    reactOnSelectionChange = true;
+                    _reactOnCreatureSelectionChange = false;
+                    await Task.Delay(20, _cancelTokenLibrarySelection.Token); // recalculate breedingplan at most a certain interval
+                    _reactOnCreatureSelectionChange = true;
                     LibrarySelectedIndexChanged();
                 }
                 catch (TaskCanceledException)
@@ -923,7 +923,7 @@ namespace ARKBreedingStats
                     return;
                 }
             }
-            cancelTokenLibrarySelection = null;
+            _cancelTokenLibrarySelection = null;
         }
 
         /// <summary>
@@ -931,7 +931,7 @@ namespace ARKBreedingStats
         /// </summary>
         private void LibrarySelectedIndexChanged()
         {
-            if (!reactOnSelectionChange)
+            if (!_reactOnCreatureSelectionChange)
                 return;
 
             int cnt = listViewLibrary.SelectedItems.Count;
@@ -981,7 +981,7 @@ namespace ARKBreedingStats
         /// </summary>
         private void FilterLib()
         {
-            if (!filterListAllowed)
+            if (!_filterListAllowed)
                 return;
 
             // save selected creatures to re-select them after the filtering
@@ -1109,12 +1109,12 @@ namespace ARKBreedingStats
             else if (e.KeyCode == Keys.A && e.Control)
             {
                 // select all list-entries
-                reactOnSelectionChange = false;
+                _reactOnCreatureSelectionChange = false;
                 listViewLibrary.BeginUpdate();
                 foreach (ListViewItem i in listViewLibrary.Items)
                     i.Selected = true;
                 listViewLibrary.EndUpdate();
-                reactOnSelectionChange = true;
+                _reactOnCreatureSelectionChange = true;
                 listViewLibrary_SelectedIndexChanged(null, null);
             }
             else if (e.KeyCode == Keys.G && e.Control)

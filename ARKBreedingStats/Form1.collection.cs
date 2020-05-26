@@ -56,7 +56,7 @@ namespace ARKBreedingStats
             Properties.Settings.Default.LastSaveFile = "";
             Properties.Settings.Default.LastImportFile = "";
             _currentFileName = null;
-            fileSync.ChangeFile(_currentFileName);
+            _fileSync.ChangeFile(_currentFileName);
             SetCollectionChanged(false);
         }
 
@@ -145,7 +145,7 @@ namespace ARKBreedingStats
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     _currentFileName = dlg.FileName;
-                    fileSync.ChangeFile(_currentFileName);
+                    _fileSync.ChangeFile(_currentFileName);
                     SaveCollectionToFileName(_currentFileName);
                 }
             }
@@ -167,7 +167,7 @@ namespace ARKBreedingStats
             {
                 try
                 {
-                    fileSync.JustSaving();
+                    _fileSync.JustSaving();
                     using (StreamWriter file = File.CreateText(filePath))
                     {
                         JsonSerializer serializer = new JsonSerializer()
@@ -395,7 +395,7 @@ namespace ARKBreedingStats
             else
             {
                 _currentFileName = filePath;
-                fileSync.ChangeFile(_currentFileName);
+                _fileSync.ChangeFile(_currentFileName);
                 creatureBoxListView.Clear();
             }
 
@@ -407,7 +407,7 @@ namespace ARKBreedingStats
 
             InitializeCollection();
 
-            filterListAllowed = false;
+            _filterListAllowed = false;
 
             SetCollectionChanged(creatureWasAdded); // setCollectionChanged only if there really were creatures added from the old library to the just opened one
 
@@ -444,7 +444,7 @@ namespace ARKBreedingStats
             if (selectedlibrarySpecies != null)
                 listBoxSpeciesLib.SelectedItem = selectedlibrarySpecies;
 
-            filterListAllowed = true;
+            _filterListAllowed = true;
             FilterLib();
 
             // apply last sorting
@@ -453,7 +453,7 @@ namespace ARKBreedingStats
             UpdateTempCreatureDropDown();
 
             Properties.Settings.Default.LastSaveFile = filePath;
-            lastAutoSaveBackup = DateTime.Now.AddMinutes(-10);
+            _lastAutoSaveBackup = DateTime.Now.AddMinutes(-10);
 
             return true;
         }
@@ -473,17 +473,17 @@ namespace ARKBreedingStats
                     breedingPlan1.breedingPlanNeedsUpdate = true;
             }
 
-            if (autoSave && changed)
+            if (_autoSave && changed)
             {
                 // save changes automatically
-                if (!string.IsNullOrEmpty(_currentFileName) && autoSaveMinutes > 0 && (DateTime.Now - lastAutoSaveBackup).TotalMinutes > autoSaveMinutes && FileService.IsValidJsonFile(_currentFileName))
+                if (!string.IsNullOrEmpty(_currentFileName) && _autoSaveMinutes > 0 && (DateTime.Now - _lastAutoSaveBackup).TotalMinutes > _autoSaveMinutes && FileService.IsValidJsonFile(_currentFileName))
                 {
                     string filenameWOExt = Path.GetFileNameWithoutExtension(_currentFileName);
                     string timeStamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
                     string backupFileName = filenameWOExt + "_backup_" + timeStamp + COLLECTION_FILE_EXTENSION;
                     string backupFilePath = Path.Combine(Path.GetDirectoryName(_currentFileName), backupFileName);
                     File.Copy(_currentFileName, backupFilePath);
-                    lastAutoSaveBackup = DateTime.Now;
+                    _lastAutoSaveBackup = DateTime.Now;
                     // delete oldest backupfile if more than a certain number
                     var directory = new DirectoryInfo(Path.GetDirectoryName(_currentFileName));
                     var oldBackupfiles = directory.GetFiles()

@@ -93,7 +93,7 @@ namespace ARKBreedingStats
                     rbBD.CheckedChanged += rbBoneDamage_CheckedChanged;
                 }
                 rbBoneDamageAdjusterValues[ib] = bd.Value;
-                rbBoneDamageAdjusters[ib].Text = $"{Loc.s(bd.Key)} (× {bd.Value})";
+                rbBoneDamageAdjusters[ib].Text = $"{Loc.S(bd.Key)} (× {bd.Value})";
                 rbBoneDamageAdjusters[ib].Visible = true;
             }
             for (int j = ib + 1; j < rbBoneDamageAdjusters.Count; j++)
@@ -149,7 +149,7 @@ namespace ARKBreedingStats
                         tf.Show();
                     }
                     if (f == "Kibble")
-                        tf.foodNameDisplay = $"Kibble ({td.favoriteKibble} {Loc.s("Egg")})";
+                        tf.foodNameDisplay = $"Kibble ({td.favoriteKibble} {Loc.S("Egg")})";
                     if (td.specialFoodValues != null && td.specialFoodValues.ContainsKey(f) && td.specialFoodValues[f].quantity > 1)
                         tf.foodNameDisplay = td.specialFoodValues[f].quantity + "× " + tf.foodNameDisplay;
                 }
@@ -228,7 +228,7 @@ namespace ARKBreedingStats
             labelResult.ForeColor = SystemColors.ControlText;
             if (!tameable)
             {
-                labelResult.Text = Loc.s("speciesNotTameable");
+                labelResult.Text = Loc.S("speciesNotTameable");
                 labelResult.ForeColor = Color.Red;
             }
             else if (enoughFood)
@@ -245,9 +245,9 @@ namespace ARKBreedingStats
                 labelResult.Text += kibbleRecipe;
             }
             else if (foodAmountUsed.Count == 0)
-                labelResult.Text = Loc.s("noTamingData");
+                labelResult.Text = Loc.S("noTamingData");
             else
-                labelResult.Text = Loc.s("notEnoughFoodToTame");
+                labelResult.Text = Loc.S("notEnoughFoodToTame");
 
             numericUpDownCurrentTorpor.ValueSave = (decimal)(selectedSpecies.stats[(int)StatNames.Torpidity].BaseValue * (1 + selectedSpecies.stats[(int)StatNames.Torpidity].IncPerWildLevel * (level - 1)));
 
@@ -285,10 +285,10 @@ namespace ARKBreedingStats
             if (hunger < 0) hunger = 0;
             if (hunger > neededHunger) hunger = neededHunger;
             var durationStarving = new TimeSpan(0, 0, (int)((neededHunger - hunger) / foodDepletion));
-            lbTimeUntilStarving.Text = (enoughFood ? $"{Loc.s("TimeUntilFeedingAllFood")}: {Utils.Duration(durationStarving)}" : "");
+            lbTimeUntilStarving.Text = (enoughFood ? $"{Loc.S("TimeUntilFeedingAllFood")}: {Utils.Duration(durationStarving)}" : "");
             if ((double)nudTotalFood.Value < neededHunger)
             {
-                lbTimeUntilStarving.Text += (lbTimeUntilStarving.Text.Length > 0 ? "\n" : "") + $"{Loc.s("WarningMoreStarvingThanFood")}";
+                lbTimeUntilStarving.Text += (lbTimeUntilStarving.Text.Length > 0 ? "\n" : "") + $"{Loc.S("WarningMoreStarvingThanFood")}";
                 lbTimeUntilStarving.ForeColor = Color.DarkRed;
             }
             else lbTimeUntilStarving.ForeColor = SystemColors.ControlText;
@@ -302,8 +302,8 @@ namespace ARKBreedingStats
         private void NoTamingData()
         {
             // clear text fields
-            labelResult.Text = Loc.s("noTamingData");
-            lbTimeUntilStarving.Text = Loc.s("noTamingData");
+            labelResult.Text = Loc.S("noTamingData");
+            lbTimeUntilStarving.Text = Loc.S("noTamingData");
 
             // disable enture (i)? tab
             this.Enabled = false;
@@ -331,7 +331,7 @@ namespace ARKBreedingStats
         private void numericUpDownCurrentTorpor_ValueChanged(object sender, EventArgs e)
         {
             var duration = new TimeSpan(0, 0, Taming.SecondsUntilWakingUp(selectedSpecies, (int)nudLevel.Value, (double)numericUpDownCurrentTorpor.Value));
-            lbTimeUntilWakingUp.Text = string.Format(Loc.s("lbTimeUntilWakingUp"), Utils.Duration(duration));
+            lbTimeUntilWakingUp.Text = string.Format(Loc.S("lbTimeUntilWakingUp"), Utils.Duration(duration));
             if (duration.TotalSeconds < 30) lbTimeUntilWakingUp.ForeColor = Color.DarkRed;
             else if (duration.TotalSeconds < 120) lbTimeUntilWakingUp.ForeColor = Color.DarkGoldenrod;
             else lbTimeUntilWakingUp.ForeColor = Color.Black;
@@ -413,13 +413,13 @@ namespace ARKBreedingStats
         private void buttonAddTorporTimer_Click(object sender, EventArgs e)
         {
             if (selectedSpecies != null)
-                CreateTimer(Loc.s("timerWakeupOf") + " " + selectedSpecies.name, wakeUpTime, null, TimerControl.TimerGroups.Wakeup.ToString());
+                CreateTimer(Loc.S("timerWakeupOf") + " " + selectedSpecies.name, wakeUpTime, null, TimerControl.TimerGroups.Wakeup.ToString());
         }
 
         private void btnAddStarvingTimer_Click(object sender, EventArgs e)
         {
             if (selectedSpecies != null)
-                CreateTimer(Loc.s("timerStarvingOf") + " " + selectedSpecies.name, starvingTime, null, TimerControl.TimerGroups.Starving.ToString());
+                CreateTimer(Loc.S("timerStarvingOf") + " " + selectedSpecies.name, starvingTime, null, TimerControl.TimerGroups.Starving.ToString());
         }
 
         public void SetTamingMultipliers(double tamingSpeedMultiplier, double tamingFoodRateMultiplier)
@@ -450,7 +450,7 @@ namespace ARKBreedingStats
         {
             int s = Taming.DurationAfterFirstFeeding(selectedSpecies, (int)nudLevel.Value, foodDepletion);
             if (s > 0)
-                firstFeedingWaiting = "\n\n" + string.Format(Loc.s("waitingAfterFirstFeeding"), Utils.Duration(s));
+                firstFeedingWaiting = "\n\n" + string.Format(Loc.S("waitingAfterFirstFeeding"), Utils.Duration(s));
             else firstFeedingWaiting = "";
         }
 

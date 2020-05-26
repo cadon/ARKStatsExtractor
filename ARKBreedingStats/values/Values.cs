@@ -332,9 +332,12 @@ namespace ARKBreedingStats.values
                     // check if an update is available
                     if (modsManifest.modsByFiles[mf].onlineAvailable
                         && modsManifest.modsByFiles[mf].Version != null
-                        && TryLoadValuesFile(modFilePath, setModFileName: false, throwExceptionOnFail: false, out Values modValues, errorMessage: out _)
+                        && TryLoadValuesFile(modFilePath, setModFileName: false, throwExceptionOnFail: false,
+                            out Values modValues, errorMessage: out _)
                         && modValues.Version < modsManifest.modsByFiles[mf].Version)
+                    {
                         modValueFilesWithAvailableUpdate.Add(mf);
+                    }
                 }
             }
 
