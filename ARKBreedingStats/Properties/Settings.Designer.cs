@@ -1303,5 +1303,17 @@ namespace ARKBreedingStats.Properties {
                 this["SpeciesSelectorCountLastSpecies"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool applyNamePatternOnAutoImportForNewCreatures {
+            get {
+                return ((bool)(this["applyNamePatternOnAutoImportForNewCreatures"]));
+            }
+            set {
+                this["applyNamePatternOnAutoImportForNewCreatures"] = value;
+            }
+        }
     }
 }

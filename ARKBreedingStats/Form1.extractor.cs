@@ -770,8 +770,11 @@ namespace ARKBreedingStats
 
             bool creatureExists = ExtractValuesInExtractor(cv, exportFile, true);
 
-            if (Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
+            if ((Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
                 && string.IsNullOrEmpty(creatureInfoInputExtractor.CreatureName))
+                || (Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures
+                && !creatureExists)
+                )
             {
                 CreatureInfoInput_CreatureDataRequested(creatureInfoInputExtractor, false, false, 0);
                 if (Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied)
@@ -806,6 +809,14 @@ namespace ARKBreedingStats
                 creatureInfoInputExtractor.CreatureOwner += _exportedCreatureList.ownerSuffix;
         }
 
+        /// <summary>
+        /// Sets the values of a creature to the extractor and extracts its levels.
+        /// It returns if the creature is already present in the library.
+        /// </summary>
+        /// <param name="cv"></param>
+        /// <param name="filePath"></param>
+        /// <param name="autoExtraction"></param>
+        /// <returns></returns>
         private bool ExtractValuesInExtractor(CreatureValues cv, string filePath, bool autoExtraction)
         {
             SetCreatureValuesToExtractor(cv, false);

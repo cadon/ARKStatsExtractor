@@ -132,8 +132,9 @@ namespace ARKBreedingStats
         {
             bool alreadyExists = ExtractExportedFileInExtractor(filePath);
             bool added = false;
-            bool copyNameToClipboard = Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
-                                       && Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied;
+            bool copyNameToClipboard = Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied
+                && (Properties.Settings.Default.applyNamePatternOnImportIfEmptyName ||
+                   (!alreadyExists && Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures));
 
             if (_extractor.uniqueResults
                 || (alreadyExists && _extractor.validResults))
