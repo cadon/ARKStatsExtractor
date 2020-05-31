@@ -162,7 +162,7 @@ namespace ARKBreedingStats
                 row++;
             }
 
-            pictureBox.Image = CreatureColored.getColoredCreature(creature.colors, creature.Species, enabledColorRegions, 256);
+            pictureBox.Image = CreatureColored.GetColoredCreature(creature.colors, creature.Species, enabledColorRegions, 256, creatureSex: creature.sex);
 
             Invalidate();
             ResumeLayout();

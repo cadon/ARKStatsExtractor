@@ -72,6 +72,18 @@ namespace ARKBreedingStats.uiControls
                 _selectedRegionColorIds[r] = 0;
                 SetColorButton(_buttonColors[r], r);
             }
+            RegionColorChosen?.Invoke();
+        }
+
+        internal void RandomColors()
+        {
+            var rand = new Random();
+            for (int r = 0; r < _buttonColors.Length; r++)
+            {
+                _selectedRegionColorIds[r] = rand.Next(99) + 1;
+                SetColorButton(_buttonColors[r], r);
+            }
+            RegionColorChosen?.Invoke();
         }
 
         private void buttonColor0_Click(object sender, EventArgs e)

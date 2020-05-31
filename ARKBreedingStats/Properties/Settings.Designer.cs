@@ -1291,5 +1291,17 @@ namespace ARKBreedingStats.Properties {
                 this["ModManagerWindowRect"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int SpeciesSelectorCountLastSpecies {
+            get {
+                return ((int)(this["SpeciesSelectorCountLastSpecies"]));
+            }
+            set {
+                this["SpeciesSelectorCountLastSpecies"] = value;
+            }
+        }
     }
 }

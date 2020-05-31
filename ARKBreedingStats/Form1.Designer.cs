@@ -129,6 +129,7 @@ namespace ARKBreedingStats
             this.rbWildExtractor = new System.Windows.Forms.RadioButton();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageStatTesting = new System.Windows.Forms.TabPage();
+            this.pictureBoxColorRegionsTester = new System.Windows.Forms.PictureBox();
             this.statPotentials1 = new ARKBreedingStats.uiControls.StatPotentials();
             this.gbStatChart = new System.Windows.Forms.GroupBox();
             this.radarChart1 = new ARKBreedingStats.RadarChart();
@@ -321,6 +322,7 @@ namespace ARKBreedingStats
             this.panelWildTamedBred.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabPageStatTesting.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxColorRegionsTester)).BeginInit();
             this.gbStatChart.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radarChart1)).BeginInit();
             this.panelWildTamedBredTester.SuspendLayout();
@@ -1252,6 +1254,7 @@ namespace ARKBreedingStats
             // tabPageStatTesting
             // 
             this.tabPageStatTesting.AutoScroll = true;
+            this.tabPageStatTesting.Controls.Add(this.pictureBoxColorRegionsTester);
             this.tabPageStatTesting.Controls.Add(this.statPotentials1);
             this.tabPageStatTesting.Controls.Add(this.gbStatChart);
             this.tabPageStatTesting.Controls.Add(this.panelWildTamedBredTester);
@@ -1267,9 +1270,17 @@ namespace ARKBreedingStats
             this.tabPageStatTesting.Text = "Stat Testing";
             this.tabPageStatTesting.UseVisualStyleBackColor = true;
             // 
+            // pictureBoxColorRegionsTester
+            // 
+            this.pictureBoxColorRegionsTester.Location = new System.Drawing.Point(589, 470);
+            this.pictureBoxColorRegionsTester.Name = "pictureBoxColorRegionsTester";
+            this.pictureBoxColorRegionsTester.Size = new System.Drawing.Size(256, 256);
+            this.pictureBoxColorRegionsTester.TabIndex = 13;
+            this.pictureBoxColorRegionsTester.TabStop = false;
+            // 
             // statPotentials1
             // 
-            this.statPotentials1.Location = new System.Drawing.Point(589, 243);
+            this.statPotentials1.Location = new System.Drawing.Point(808, 9);
             this.statPotentials1.Name = "statPotentials1";
             this.statPotentials1.Size = new System.Drawing.Size(293, 433);
             this.statPotentials1.TabIndex = 12;
@@ -3054,6 +3065,7 @@ namespace ARKBreedingStats
             this.panelWildTamedBred.PerformLayout();
             this.tabControlMain.ResumeLayout(false);
             this.tabPageStatTesting.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxColorRegionsTester)).EndInit();
             this.gbStatChart.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radarChart1)).EndInit();
             this.panelWildTamedBredTester.ResumeLayout(false);
@@ -3383,5 +3395,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem clearMatingCooldownToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem justMatedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem libraryFilterToolStripMenuItem;
+        private System.Windows.Forms.PictureBox pictureBoxColorRegionsTester;
     }
 }

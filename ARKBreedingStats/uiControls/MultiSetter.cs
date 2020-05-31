@@ -61,7 +61,7 @@ namespace ARKBreedingStats.uiControls
             TagsChanged = false;
             SpeciesChanged = false;
 
-            pictureBox1.Image = CreatureColored.getColoredCreature(colors, uniqueSpecies ? creatureList[0].Species : null,
+            pictureBox1.Image = CreatureColored.GetColoredCreature(colors, uniqueSpecies ? creatureList[0].Species : null,
                     new[] { true, true, true, true, true, true });
 
             // tags
@@ -288,7 +288,7 @@ namespace ARKBreedingStats.uiControls
                     // color was chosen
                     colors[region] = cp.SelectedColorId;
                     setColorButton(sender, species.CreatureColors.CreatureColor(colors[region]));
-                    pictureBox1.Image = CreatureColored.getColoredCreature(colors, uniqueSpecies ? creatureList[0].Species : null,
+                    pictureBox1.Image = CreatureColored.GetColoredCreature(colors, uniqueSpecies ? creatureList[0].Species : null,
                             new[] { true, true, true, true, true, true });
                 }
             }

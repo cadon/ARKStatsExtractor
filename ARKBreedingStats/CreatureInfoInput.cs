@@ -15,7 +15,6 @@ namespace ARKBreedingStats
         public event Action<CreatureInfoInput> ParentListRequested;
         public delegate void RequestCreatureDataEventHandler(CreatureInfoInput sender, bool openPatternEditor, bool showDuplicateNameWarning, int namingPatternIndex);
         public event RequestCreatureDataEventHandler CreatureDataRequested;
-        public bool extractor;
         private Sex sex;
         private CreatureFlags _creatureFlags;
         public Guid CreatureGuid;
@@ -36,6 +35,8 @@ namespace ARKBreedingStats
         /// True if creature is new, false if creature already exists
         /// </summary>
         private bool isNewCreature;
+
+        public PictureBox pBcolorRegion;
 
         public CreatureInfoInput()
         {
@@ -75,6 +76,15 @@ namespace ARKBreedingStats
                     }
                 };
             }
+
+            regionColorChooser1.RegionColorChosen += UpdateRegionColorImage;
+        }
+
+        private void UpdateRegionColorImage()
+        {
+            if (pBcolorRegion == null) return;
+
+            pBcolorRegion.Image = CreatureColored.GetColoredCreature(RegionColors, selectedSpecies, regionColorChooser1.ColorRegionsUseds, 256, creatureSex: CreatureSex);
         }
 
         private void buttonAdd2Library_Click(object sender, EventArgs e)
@@ -438,6 +448,7 @@ namespace ARKBreedingStats
                     dhmsInputCooldown.Timespan = TimeSpan.Zero;
                 }
                 RegionColors = new int[6];
+                UpdateRegionColorImage();
             }
         }
 
@@ -601,7 +612,10 @@ namespace ARKBreedingStats
 
         private void btClearColors_Click(object sender, EventArgs e)
         {
-            clearColors();
+            if ((Control.ModifierKeys & Keys.Control) != 0)
+                regionColorChooser1.RandomColors();
+            else
+                clearColors();
         }
 
         private void clearColors()

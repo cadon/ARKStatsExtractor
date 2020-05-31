@@ -149,7 +149,7 @@ namespace ARKBreedingStats
             notesControl1.changed += SetCollectionChanged;
             creatureInfoInputExtractor.CreatureDataRequested += CreatureInfoInput_CreatureDataRequested;
             creatureInfoInputTester.CreatureDataRequested += CreatureInfoInput_CreatureDataRequested;
-            speciesSelector1.onSpeciesChanged += SpeciesSelector1_onSpeciesChanged;
+            speciesSelector1.OnSpeciesSelected += SpeciesSelector1OnSpeciesSelected;
             statsMultiplierTesting1.OnApplyMultipliers += StatsMultiplierTesting1_OnApplyMultipliers;
             raisingControl1.AdjustTimers += timerList1.AdjustAllTimersByOffset;
 
@@ -360,7 +360,6 @@ namespace ARKBreedingStats
             }
 
             speciesSelector1.LastSpecies = Properties.Settings.Default.lastSpecies;
-            speciesSelector1.lastTabPage = tabPageExtractor;
 
             if (Properties.Settings.Default.lastSpecies?.Any() == true)
             {
@@ -402,6 +401,8 @@ namespace ARKBreedingStats
             {
                 extractionTestControl1.LoadExtractionTestCases(Properties.Settings.Default.LastSaveFileTestCases);
             }
+
+            creatureInfoInputTester.pBcolorRegion = pictureBoxColorRegionsTester;
 
             // set TLS-protocol (github needs at least TLS 1.2) for update-check
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
@@ -554,7 +555,7 @@ namespace ARKBreedingStats
         }
 
         // global species changed / globalspecieschanged
-        private void SpeciesSelector1_onSpeciesChanged(bool speciesChanged)
+        private void SpeciesSelector1OnSpeciesSelected(bool speciesChanged)
         {
             Species species = speciesSelector1.SelectedSpecies;
             ToggleViewSpeciesSelector(false);

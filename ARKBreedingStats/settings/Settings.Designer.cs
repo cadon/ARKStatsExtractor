@@ -108,6 +108,7 @@
             this.buttonEventToDefault = new System.Windows.Forms.Button();
             this.labelEvent = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.GbSpecies = new System.Windows.Forms.GroupBox();
             this.groupBox26 = new System.Windows.Forms.GroupBox();
             this.cbAdminConsoleCommandWithCheat = new System.Windows.Forms.CheckBox();
             this.groupBox25 = new System.Windows.Forms.GroupBox();
@@ -221,6 +222,8 @@
             this.cbbOCRApp = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.NudSpeciesSelectorCountLastUsed = new ARKBreedingStats.uiControls.Nud();
+            this.LbSpeciesSelectorCountLastUsed = new System.Windows.Forms.Label();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMatingSpeed)).BeginInit();
@@ -256,6 +259,7 @@
             this.groupBox11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).BeginInit();
             this.tabPage1.SuspendLayout();
+            this.GbSpecies.SuspendLayout();
             this.groupBox26.SuspendLayout();
             this.groupBox25.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudDefaultFontSize)).BeginInit();
@@ -295,6 +299,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NudSpeciesSelectorCountLastUsed)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -1197,7 +1202,7 @@
             this.groupBox7.Size = new System.Drawing.Size(317, 49);
             this.groupBox7.TabIndex = 2;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Hidden Stats";
+            this.groupBox7.Text = "Extractor";
             // 
             // checkBoxDisplayHiddenStats
             // 
@@ -1401,6 +1406,7 @@
             // tabPage1
             // 
             this.tabPage1.AutoScroll = true;
+            this.tabPage1.Controls.Add(this.GbSpecies);
             this.tabPage1.Controls.Add(this.groupBox26);
             this.tabPage1.Controls.Add(this.groupBox25);
             this.tabPage1.Controls.Add(this.groupBox24);
@@ -1421,12 +1427,23 @@
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // GbSpecies
+            // 
+            this.GbSpecies.Controls.Add(this.LbSpeciesSelectorCountLastUsed);
+            this.GbSpecies.Controls.Add(this.NudSpeciesSelectorCountLastUsed);
+            this.GbSpecies.Location = new System.Drawing.Point(6, 321);
+            this.GbSpecies.Name = "GbSpecies";
+            this.GbSpecies.Size = new System.Drawing.Size(317, 46);
+            this.GbSpecies.TabIndex = 14;
+            this.GbSpecies.TabStop = false;
+            this.GbSpecies.Text = "Species Selection";
+            // 
             // groupBox26
             // 
             this.groupBox26.Controls.Add(this.cbAdminConsoleCommandWithCheat);
-            this.groupBox26.Location = new System.Drawing.Point(5, 575);
+            this.groupBox26.Location = new System.Drawing.Point(329, 624);
             this.groupBox26.Name = "groupBox26";
-            this.groupBox26.Size = new System.Drawing.Size(318, 43);
+            this.groupBox26.Size = new System.Drawing.Size(413, 43);
             this.groupBox26.TabIndex = 13;
             this.groupBox26.TabStop = false;
             this.groupBox26.Text = "Console Commands";
@@ -1498,7 +1515,7 @@
             this.groupBox24.Controls.Add(this.cbKeepExpiredTimersInOverlay);
             this.groupBox24.Controls.Add(this.cbDeleteExpiredTimersOnSaving);
             this.groupBox24.Controls.Add(this.cbTimersInOverlayAutomatically);
-            this.groupBox24.Location = new System.Drawing.Point(5, 418);
+            this.groupBox24.Location = new System.Drawing.Point(6, 470);
             this.groupBox24.Name = "groupBox24";
             this.groupBox24.Size = new System.Drawing.Size(317, 94);
             this.groupBox24.TabIndex = 11;
@@ -1558,7 +1575,7 @@
             // groupBox17
             // 
             this.groupBox17.Controls.Add(this.cbbLanguage);
-            this.groupBox17.Location = new System.Drawing.Point(5, 518);
+            this.groupBox17.Location = new System.Drawing.Point(6, 570);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(317, 51);
             this.groupBox17.TabIndex = 9;
@@ -1599,7 +1616,7 @@
             this.groupBox9.Controls.Add(this.cbLibraryHighlightTopCreatures);
             this.groupBox9.Controls.Add(this.cbApplyGlobalSpeciesToLibrary);
             this.groupBox9.Controls.Add(this.cbCreatureColorsLibrary);
-            this.groupBox9.Location = new System.Drawing.Point(6, 321);
+            this.groupBox9.Location = new System.Drawing.Point(6, 373);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(317, 91);
             this.groupBox9.TabIndex = 7;
@@ -2667,6 +2684,27 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
+            // NudSpeciesSelectorCountLastUsed
+            // 
+            this.NudSpeciesSelectorCountLastUsed.Location = new System.Drawing.Point(252, 19);
+            this.NudSpeciesSelectorCountLastUsed.Name = "NudSpeciesSelectorCountLastUsed";
+            this.NudSpeciesSelectorCountLastUsed.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.NudSpeciesSelectorCountLastUsed.Size = new System.Drawing.Size(57, 20);
+            this.NudSpeciesSelectorCountLastUsed.TabIndex = 0;
+            // 
+            // LbSpeciesSelectorCountLastUsed
+            // 
+            this.LbSpeciesSelectorCountLastUsed.AutoSize = true;
+            this.LbSpeciesSelectorCountLastUsed.Location = new System.Drawing.Point(6, 21);
+            this.LbSpeciesSelectorCountLastUsed.Name = "LbSpeciesSelectorCountLastUsed";
+            this.LbSpeciesSelectorCountLastUsed.Size = new System.Drawing.Size(187, 13);
+            this.LbSpeciesSelectorCountLastUsed.TabIndex = 1;
+            this.LbSpeciesSelectorCountLastUsed.Text = "Number of displayed last used species";
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -2727,6 +2765,8 @@
             this.groupBox11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).EndInit();
             this.tabPage1.ResumeLayout(false);
+            this.GbSpecies.ResumeLayout(false);
+            this.GbSpecies.PerformLayout();
             this.groupBox26.ResumeLayout(false);
             this.groupBox26.PerformLayout();
             this.groupBox25.ResumeLayout(false);
@@ -2782,6 +2822,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.NudSpeciesSelectorCountLastUsed)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2979,5 +3020,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.GroupBox groupBox26;
         private System.Windows.Forms.CheckBox cbAdminConsoleCommandWithCheat;
+        private System.Windows.Forms.GroupBox GbSpecies;
+        private System.Windows.Forms.Label LbSpeciesSelectorCountLastUsed;
+        private uiControls.Nud NudSpeciesSelectorCountLastUsed;
     }
 }

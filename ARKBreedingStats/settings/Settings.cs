@@ -272,6 +272,8 @@ namespace ARKBreedingStats.settings
             cbSaveImportCryo.Checked = Properties.Settings.Default.SaveImportCryo;
             #endregion
 
+            NudSpeciesSelectorCountLastUsed.ValueSave = Properties.Settings.Default.SpeciesSelectorCountLastSpecies;
+
             cbDevTools.Checked = Properties.Settings.Default.DevTools;
 
             cbPrettifyJSON.Checked = Properties.Settings.Default.prettifyCollectionJson;
@@ -417,6 +419,8 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.IgnoreUnknownBlueprintsOnSaveImport = cbIgnoreUnknownBPOnSaveImport.Checked;
             Properties.Settings.Default.SaveImportCryo = cbSaveImportCryo.Checked;
             #endregion
+
+            Properties.Settings.Default.SpeciesSelectorCountLastSpecies = (int)NudSpeciesSelectorCountLastUsed.Value;
 
             Properties.Settings.Default.DevTools = cbDevTools.Checked;
 

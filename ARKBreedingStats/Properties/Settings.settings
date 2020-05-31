@@ -323,5 +323,8 @@
     <Setting Name="ModManagerWindowRect" Type="System.Drawing.Rectangle" Scope="User">
       <Value Profile="(Default)">50, 50, 800, 600</Value>
     </Setting>
+    <Setting Name="SpeciesSelectorCountLastSpecies" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

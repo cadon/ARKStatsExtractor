@@ -173,7 +173,7 @@ namespace ARKBreedingStats
                         labelSex.Text = Utils.SexSymbol(creature.sex);
                         labelSex.BackColor = creature.flags.HasFlag(CreatureFlags.Neutered) ? SystemColors.GrayText : Utils.SexColor(creature.sex);
                         // creature Colors
-                        pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, null, enabledColorRegions, 24, 22, true);
+                        pictureBox1.Image = CreatureColored.GetColoredCreature(creature.colors, null, enabledColorRegions, 24, 22, true);
                         tt.SetToolTip(pictureBox1, CreatureColored.RegionColorInfo(creature.Species, creature.colors));
                         labelSex.Visible = true;
                         pictureBox1.Visible = true;
