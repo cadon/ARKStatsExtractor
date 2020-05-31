@@ -329,6 +329,12 @@ namespace ARKBreedingStats.uiControls
                         if (string.IsNullOrWhiteSpace(m.Groups[3].Value))
                             return creature.colors[regionId].ToString();
                         return CreatureColors.CreatureColorName(creature.colors[regionId]);
+                    case "indexof":
+                        // parameter: 1: source string, 2: string to find
+                        if (string.IsNullOrEmpty(p1) || string.IsNullOrEmpty(m.Groups[3].Value))
+                            return string.Empty;
+                        int index = p1.IndexOf(m.Groups[3].Value);
+                        return index >= 0 ? index.ToString() : string.Empty;
                 }
             }
             catch (Exception ex)
