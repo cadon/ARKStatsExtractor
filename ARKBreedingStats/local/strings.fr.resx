@@ -1020,4 +1020,10 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
   <data name="noColor" xml:space="preserve">
     <value>sans couleur</value>
   </data>
+  <data name="topLevel" xml:space="preserve">
+    <value>haut niveau</value>
+  </data>
+  <data name="newTopLevel" xml:space="preserve">
+    <value>nouveau niveau supérieur</value>
+  </data>
 </root>

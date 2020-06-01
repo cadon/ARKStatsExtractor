@@ -1140,4 +1140,10 @@ Diese kann mit BSS Preset angewandt werden.</value>
   <data name="noColor" xml:space="preserve">
     <value>keine Farbe</value>
   </data>
+  <data name="topLevel" xml:space="preserve">
+    <value>top Level</value>
+  </data>
+  <data name="newTopLevel" xml:space="preserve">
+    <value>neues top Level</value>
+  </data>
 </root>

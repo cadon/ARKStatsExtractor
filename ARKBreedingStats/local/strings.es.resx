@@ -995,4 +995,10 @@ Algunas crías pueden ser peores que en el modo de estadísticas altas, pero tam
   <data name="noColor" xml:space="preserve">
     <value>sin color</value>
   </data>
+  <data name="topLevel" xml:space="preserve">
+    <value>nivel superior</value>
+  </data>
+  <data name="newTopLevel" xml:space="preserve">
+    <value>nuevo nivel superior</value>
+  </data>
 </root>

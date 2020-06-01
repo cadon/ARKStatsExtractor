@@ -276,7 +276,7 @@ namespace ARKBreedingStats
                     }
                     if (_extractor.results[s].Count > 1)
                     {
-                        _statIOs[s].Status = StatIOStatus.Nonunique;
+                        _statIOs[s].Status = StatIOStatus.NonUnique;
                         nonUniqueStats = true;
                     }
                     else
@@ -545,7 +545,7 @@ namespace ARKBreedingStats
                 listViewPossibilities.Items.Clear();
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
-                    if (s == statIndex && _statIOs[s].Status == StatIOStatus.Nonunique)
+                    if (s == statIndex && _statIOs[s].Status == StatIOStatus.NonUnique)
                     {
                         _statIOs[s].Selected = true;
                         SetPossibilitiesListview(s);
@@ -772,17 +772,16 @@ namespace ARKBreedingStats
 
             if ((Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
                 && string.IsNullOrEmpty(creatureInfoInputExtractor.CreatureName))
-                || (Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures
-                && !creatureExists)
+                || (!creatureExists
+                    && Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures)
                 )
             {
                 CreatureInfoInput_CreatureDataRequested(creatureInfoInputExtractor, false, false, 0);
                 if (Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied)
                 {
-                    if (string.IsNullOrEmpty(creatureInfoInputExtractor.CreatureName))
-                        Clipboard.SetText("<no name>");
-                    else
-                        Clipboard.SetText(creatureInfoInputExtractor.CreatureName);
+                    Clipboard.SetText(string.IsNullOrEmpty(creatureInfoInputExtractor.CreatureName)
+                        ? "<no name>"
+                        : creatureInfoInputExtractor.CreatureName);
                 }
             }
 

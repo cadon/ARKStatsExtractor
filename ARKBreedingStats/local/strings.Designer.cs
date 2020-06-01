@@ -1987,6 +1987,15 @@ namespace ARKBreedingStats.local {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string newTopLevel {
+            get {
+                return ResourceManager.GetString("newTopLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to no color.
+        /// </summary>
         internal static string noColor {
             get {
                 return ResourceManager.GetString("noColor", resourceCulture);
@@ -2799,6 +2808,15 @@ namespace ARKBreedingStats.local {
         internal static string Top {
             get {
                 return ResourceManager.GetString("Top", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to top level.
+        /// </summary>
+        internal static string topLevel {
+            get {
+                return ResourceManager.GetString("topLevel", resourceCulture);
             }
         }
         

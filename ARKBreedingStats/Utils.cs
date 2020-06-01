@@ -462,5 +462,38 @@ namespace ARKBreedingStats
             form.Width = rect.Width;
             form.Height = rect.Height;
         }
+
+        /// <summary>
+        /// Beeps. 0: failure, 1: success, 2: good, 3: great.
+        /// </summary>
+        /// <param name="kind"></param>
+        public static void BeepSignal(int kind)
+        {
+            switch (kind)
+            {
+                case 0:
+                    Console.Beep(300, 50);
+                    Console.Beep(200, 100);
+                    break;
+                case 1:
+                    Console.Beep(300, 50);
+                    Console.Beep(400, 100);
+                    break;
+                case 2:
+                    Console.Beep(300, 50);
+                    Console.Beep(400, 50);
+                    Console.Beep(500, 50);
+                    Console.Beep(400, 100);
+                    break;
+                case 3:
+                    Console.Beep(300, 50);
+                    Console.Beep(400, 50);
+                    Console.Beep(500, 50);
+                    Console.Beep(600, 50);
+                    Console.Beep(650, 50);
+                    Console.Beep(600, 100);
+                    break;
+            }
+        }
     }
 }

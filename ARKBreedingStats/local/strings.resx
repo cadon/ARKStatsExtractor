@@ -1149,4 +1149,10 @@ The preset can be applied by the Apply Preset button</value>
   <data name="noColor" xml:space="preserve">
     <value>no color</value>
   </data>
+  <data name="topLevel" xml:space="preserve">
+    <value>top level</value>
+  </data>
+  <data name="newTopLevel" xml:space="preserve">
+    <value>new top level</value>
+  </data>
 </root>

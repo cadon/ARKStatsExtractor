@@ -6,7 +6,9 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
+using ARKBreedingStats.species;
 
 namespace ARKBreedingStats
 {
@@ -135,49 +137,61 @@ namespace ARKBreedingStats
             bool copyNameToClipboard = Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied
                 && (Properties.Settings.Default.applyNamePatternOnImportIfEmptyName ||
                    (!alreadyExists && Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures));
+            Species species = speciesSelector1.SelectedSpecies;
 
             if (_extractor.uniqueResults
                 || (alreadyExists && _extractor.validResults))
             {
                 AddCreatureToCollection(true, goToLibraryTab: false);
-                SetMessageLabelText($"Successful {(alreadyExists ? "updated" : "added")} {creatureInfoInputExtractor.CreatureName} ({speciesSelector1.SelectedSpecies.name}) of the exported file\n" + filePath, MessageBoxIcon.Information);
+                SetMessageLabelText($"Successful {(alreadyExists ? "updated" : "added")} {creatureInfoInputExtractor.CreatureName} ({species.name}) of the exported file\n" + filePath, MessageBoxIcon.Information);
                 added = true;
             }
 
-            if (Properties.Settings.Default.PlaySoundOnAutoImport)
-            {
-                if (added)
-                {
-                    Console.Beep(300, 50);
-                    Console.Beep(400, 100);
-                }
-                else
-                {
-                    Console.Beep(300, 50);
-                    Console.Beep(200, 100);
-                }
-            }
+            bool topLevels = false;
+            bool newTopLevels = false;
 
             // give feedback in overlay
-            if (_overlay != null)
+            string infoText;
+            Color textColor;
+            const int colorSaturation = 200;
+            if (added)
             {
-                string infoText;
-                Color textColor;
-                const int colorSaturation = 200;
-                if (added)
+                var sb = new StringBuilder();
+                sb.AppendLine($"{species.name} \"{creatureInfoInputExtractor.CreatureName}\" {(alreadyExists ? "updated in " : "added to")} the library.");
+                if (copyNameToClipboard)
+                    sb.AppendLine("Name copied to clipboard.");
+
+                for (int s = 0; s < values.Values.STATS_COUNT; s++)
                 {
-                    infoText = $"Creature \"{creatureInfoInputExtractor.CreatureName}\" {(alreadyExists ? "updated in " : "added to")} the library."
-                    + (copyNameToClipboard ? "\nName copied to clipboard." : "");
-                    textColor = Color.FromArgb(colorSaturation, 255, colorSaturation);
-                }
-                else
-                {
-                    infoText = $"Creature \"{creatureInfoInputExtractor.CreatureName}\" couldn't be extracted uniquely, manual level selection is necessary.";
-                    textColor = Color.FromArgb(255, colorSaturation, colorSaturation);
+                    int statIndex = values.Values.statsDisplayOrder[s];
+                    if (!species.UsesStat(statIndex)) continue;
+
+                    sb.Append($"{Utils.StatName(statIndex, true, species.IsGlowSpecies)}: {_statIOs[statIndex].LevelWild} ({_statIOs[statIndex].BreedingValue})");
+                    if (_statIOs[statIndex].TopLevel == StatIOStatus.NewTopLevel)
+                    {
+                        sb.Append($" {Loc.S("newTopLevel")}");
+                        newTopLevels = true;
+                    }
+                    else if (_statIOs[statIndex].TopLevel == StatIOStatus.TopLevel)
+                    {
+                        sb.Append($" {Loc.S("topLevel")}");
+                        topLevels = true;
+                    }
+                    sb.AppendLine();
                 }
 
-                _overlay.SetInfoText(infoText, textColor);
+                infoText = sb.ToString();
+                textColor = Color.FromArgb(colorSaturation, 255, colorSaturation);
             }
+            else
+            {
+                infoText = $"Creature \"{creatureInfoInputExtractor.CreatureName}\" couldn't be extracted uniquely, manual level selection is necessary.";
+                textColor = Color.FromArgb(255, colorSaturation, colorSaturation);
+            }
+
+            if (_overlay != null)
+                _overlay.SetInfoText(infoText, textColor);
+
             if (added)
             {
                 if (Properties.Settings.Default.MoveAutoImportedFileToSubFolder)
@@ -199,6 +213,23 @@ namespace ARKBreedingStats
             {
                 // extraction failed, user might expect the name of the new creature in the clipboard
                 Clipboard.SetText("Automatic extraction was not possible");
+            }
+
+            if (Properties.Settings.Default.PlaySoundOnAutoImport)
+            {
+                if (added)
+                {
+                    if (newTopLevels)
+                        Utils.BeepSignal(3);
+                    else if (topLevels)
+                        Utils.BeepSignal(2);
+                    else
+                        Utils.BeepSignal(1);
+                }
+                else
+                {
+                    Utils.BeepSignal(0);
+                }
             }
         }
 

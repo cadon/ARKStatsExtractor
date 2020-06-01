@@ -928,4 +928,10 @@ Questa modalità arriverà alla miglior prole possibile, ferma e sicura.Alcune p
   <data name="noColor" xml:space="preserve">
     <value>nessun colore</value>
   </data>
+  <data name="topLevel" xml:space="preserve">
+    <value>livello superiore</value>
+  </data>
+  <data name="newTopLevel" xml:space="preserve">
+    <value>nuovo livello superiore</value>
+  </data>
 </root>
