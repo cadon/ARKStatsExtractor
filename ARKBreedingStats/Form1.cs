@@ -1025,7 +1025,10 @@ namespace ARKBreedingStats
         {
             // set possible parents
             bool fromExtractor = input == creatureInfoInputExtractor;
-            Creature creature = new Creature(speciesSelector1.SelectedSpecies, "", "", "", 0, GetCurrentWildLevels(fromExtractor), levelStep: _creatureCollection.getWildLevelStep());
+            Creature creature = new Creature(speciesSelector1.SelectedSpecies, "", "", "", 0, GetCurrentWildLevels(fromExtractor), levelStep: _creatureCollection.getWildLevelStep())
+            {
+                guid = input.CreatureGuid
+            };
             List<Creature>[] parents = FindPossibleParents(creature);
             input.ParentsSimilarities = FindParentSimilarities(parents, creature);
             input.Parents = parents;
@@ -1245,10 +1248,10 @@ namespace ARKBreedingStats
         private List<Creature>[] FindPossibleParents(Creature creature)
         {
             var fatherList = _creatureCollection.creatures
-                    .Where(cr => cr.Species == creature.Species && cr.sex == Sex.Male && cr != creature)
+                    .Where(cr => cr.Species == creature.Species && cr.sex == Sex.Male && cr.guid != creature.guid && !cr.flags.HasFlag(CreatureFlags.Placeholder))
                     .OrderBy(cr => cr.name);
             var motherList = _creatureCollection.creatures
-                    .Where(cr => cr.Species == creature.Species && cr.sex == Sex.Female && cr != creature)
+                    .Where(cr => cr.Species == creature.Species && cr.sex == Sex.Female && cr.guid != creature.guid && !cr.flags.HasFlag(CreatureFlags.Placeholder))
                     .OrderBy(cr => cr.name);
 
             // display new results
