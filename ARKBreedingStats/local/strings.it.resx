@@ -925,4 +925,7 @@ Questa modalità arriverà alla miglior prole possibile, ferma e sicura.Alcune p
   <data name="Creature" xml:space="preserve">
     <value>Creatura</value>
   </data>
+  <data name="noColor" xml:space="preserve">
+    <value>nessun colore</value>
+  </data>
 </root>

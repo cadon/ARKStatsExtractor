@@ -162,7 +162,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bonus-Level.
+        ///   Looks up a localized string similar to Bonus Level.
         /// </summary>
         internal static string BonusLevel {
             get {
@@ -1981,6 +1981,15 @@ namespace ARKBreedingStats.local {
         internal static string newToolStripMenuItem {
             get {
                 return ResourceManager.GetString("newToolStripMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string noColor {
+            get {
+                return ResourceManager.GetString("noColor", resourceCulture);
             }
         }
         

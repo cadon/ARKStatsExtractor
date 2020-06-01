@@ -1017,4 +1017,7 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
   <data name="addedAt" xml:space="preserve">
     <value>Ajouté à</value>
   </data>
+  <data name="noColor" xml:space="preserve">
+    <value>sans couleur</value>
+  </data>
 </root>

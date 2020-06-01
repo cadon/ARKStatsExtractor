@@ -992,4 +992,7 @@ Algunas crías pueden ser peores que en el modo de estadísticas altas, pero tam
   <data name="settingsToolStripMenuItem" xml:space="preserve">
     <value>Co&amp;nfiguracíón</value>
   </data>
+  <data name="noColor" xml:space="preserve">
+    <value>sin color</value>
+  </data>
 </root>

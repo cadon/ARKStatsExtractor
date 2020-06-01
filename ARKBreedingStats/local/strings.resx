@@ -1146,4 +1146,7 @@ The preset can be applied by the Apply Preset button</value>
   <data name="BtApplyOTSPresetTT" xml:space="preserve">
     <value>Set the values for owner, tribe and server from the saved preset</value>
   </data>
+  <data name="noColor" xml:space="preserve">
+    <value>no color</value>
+  </data>
 </root>

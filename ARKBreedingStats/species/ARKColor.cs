@@ -24,7 +24,7 @@ namespace ARKBreedingStats.species
         public ARKColor()
         {
             id = 0;
-            name = Loc.S("Unknown");
+            name = Loc.S("noColor");
             color = Color.LightGray;
             arkRgba = null;
             hash = 0;
@@ -84,13 +84,6 @@ namespace ARKBreedingStats.species
         /// <param name="a"></param>
         /// <returns></returns>
         public static int ColorHashCode(double r, double g, double b, double a)
-        {
-            return (
-                    Math.Round(r, 5).ToString() + "," +
-                    Math.Round(g, 5).ToString() + "," +
-                    Math.Round(b, 5).ToString() + "," +
-                    Math.Round(a, 5).ToString()
-                    ).GetHashCode();
-        }
+            => $"{Math.Round(r, 5)},{Math.Round(g, 5)},{Math.Round(b, 5)},{Math.Round(a, 5)}".GetHashCode();
     }
 }

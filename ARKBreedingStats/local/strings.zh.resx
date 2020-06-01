@@ -935,4 +935,7 @@ If a number with a plus sign is shown, the sum is too high and you need to choos
   <data name="cbBPIncludeCooldowneds" xml:space="preserve">
     <value>包括具有冷却的生物</value>
   </data>
+  <data name="noColor" xml:space="preserve">
+    <value>没有颜色</value>
+  </data>
 </root>
