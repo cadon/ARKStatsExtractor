@@ -1315,5 +1315,17 @@ namespace ARKBreedingStats.Properties {
                 this["applyNamePatternOnAutoImportForNewCreatures"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AskedToDownloadImageFiles {
+            get {
+                return ((bool)(this["AskedToDownloadImageFiles"]));
+            }
+            set {
+                this["AskedToDownloadImageFiles"] = value;
+            }
+        }
     }
 }

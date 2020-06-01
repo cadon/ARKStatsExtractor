@@ -15,6 +15,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using static ARKBreedingStats.settings.Settings;
 
@@ -93,7 +94,7 @@ namespace ARKBreedingStats
         {
             var args = Environment.GetCommandLineArgs();
             if (args.Contains("cleanupUpdater"))
-                FileService.TryDeleteFile(Path.Combine(Path.GetTempPath(), Updater.UPDATER_EXE));
+                FileService.TryDeleteFile(Path.Combine(Path.GetTempPath(), Updater.UpdaterExe));
 
             // load settings of older version if possible after an upgrade
             if (Properties.Settings.Default.UpgradeRequired)
@@ -408,8 +409,16 @@ namespace ARKBreedingStats
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
 
             // check for updates
-            if (DateTime.Now.AddHours(-12) > Properties.Settings.Default.lastUpdateCheck)
+            if (DateTime.Now.AddHours(-20) > Properties.Settings.Default.lastUpdateCheck)
                 CheckForUpdates(true);
+
+            if (!Properties.Settings.Default.AskedToDownloadImageFiles)
+            {
+                Properties.Settings.Default.AskedToDownloadImageFiles = true;
+                if (MessageBox.Show("Download species images to display the creature colors?\n\nThe file to be downloaded has a size of ~13 MB.",
+                    "Download species images?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    DownloadSpeciesImagesAsync();
+            }
 
             _timerGlobal.Start();
         }
@@ -1180,7 +1189,7 @@ namespace ARKBreedingStats
             Properties.Settings.Default.Save();
 
             // remove old cache-files
-            string imgCachePath = FileService.GetPath("img/cache");
+            string imgCachePath = FileService.GetPath("img", "cache");
             if (Directory.Exists(imgCachePath))
             {
                 DirectoryInfo directory = new DirectoryInfo(imgCachePath);
@@ -3142,6 +3151,31 @@ namespace ARKBreedingStats
                 e.Cancel = true;
                 contextMenuStripLibraryHeader.Show(Control.MousePosition);
             }
+        }
+
+        private void downloadSpeciesImagesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DownloadSpeciesImagesAsync();
+        }
+
+        private async void DownloadSpeciesImagesAsync()
+        {
+            bool overwrite = !Directory.Exists(FileService.GetPath("img"));
+            if (!overwrite)
+            {
+                var msgBoxResult = MessageBox.Show(
+                    "Some species color region image files seem to already exist.\nDo you want to overwrite them with possible new versions?",
+                    "ASB: Overwrite existing species images?", MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Question);
+                if (msgBoxResult == DialogResult.Yes)
+                    overwrite = true;
+                else if (msgBoxResult != DialogResult.No)
+                    return;
+            }
+
+            var (success, result) = await Updater.DownloadSpeciesImages(overwrite).ConfigureAwait(true);
+
+            MessageBox.Show(result, "ASB: Species images download", MessageBoxButtons.OK, success ? MessageBoxIcon.Information : MessageBoxIcon.Error);
         }
     }
 }

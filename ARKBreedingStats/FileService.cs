@@ -46,25 +46,21 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Gets the full path for the given filename or the path to the application data folder
+        /// Gets the full path for the given filename or the path to the application data folder.
+        /// If fileName2 is given, fileName is considered to be the containing folder.
         /// </summary>
-        /// <param name="fileName"></param>
         /// <returns></returns>
-        public static string GetPath(string fileName = null)
-        {
-            return Path.Combine(Updater.IsProgramInstalled ? getLocalApplicationDataPath() : ExeLocation, fileName ?? string.Empty);
-        }
+        public static string GetPath(string fileName = null, string fileName2 = null, string fileName3 = null)
+            => Path.Combine(Updater.IsProgramInstalled ? getLocalApplicationDataPath() : ExeLocation, fileName ?? string.Empty, fileName2 ?? string.Empty, fileName3 ?? string.Empty);
+
 
         /// <summary>
         /// Gets the full path for the given filename or the path to the json folder.
         /// If fileName2 is given, fileName is considered to be the containing folder.
         /// </summary>
-        /// <param name="fileName"></param>
         /// <returns></returns>
-        public static string GetJsonPath(string fileName = null, string fileName2 = null)
-        {
-            return Path.Combine(Updater.IsProgramInstalled ? getLocalApplicationDataPath() : ExeLocation, jsonFolder, fileName ?? string.Empty, fileName2 ?? string.Empty);
-        }
+        public static string GetJsonPath(string fileName = null, string fileName2 = null) =>
+            GetPath(jsonFolder, fileName, fileName2);
 
         private static string getLocalApplicationDataPath()
         {
