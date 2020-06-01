@@ -19,8 +19,8 @@ namespace ARKBreedingStats.uiControls
             InitializeComponent();
             tt = new ToolTip { AutomaticDelay = 200 };
 
-            BtUnknownColor.Tag = 0; // id of unknown color
-            BtUnknownColor.Text = Loc.S("Unknown");
+            BtNoColor.Tag = 0; // id of no color
+            BtNoColor.Text = Loc.S("noColor");
 
             buttonCancel.Text = Loc.S("Cancel");
 

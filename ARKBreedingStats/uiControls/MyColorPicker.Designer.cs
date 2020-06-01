@@ -33,7 +33,7 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.BtUnknownColor = new System.Windows.Forms.Button();
+            this.BtNoColor = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -96,7 +96,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxOnlyNatural, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.BtUnknownColor, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.BtNoColor, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.buttonCancel, 2, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(1, 1);
@@ -109,16 +109,16 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(526, 420);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
-            // BtUnknownColor
+            // BtNoColor
             // 
-            this.BtUnknownColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtUnknownColor.Location = new System.Drawing.Point(365, 393);
-            this.BtUnknownColor.Name = "BtUnknownColor";
-            this.BtUnknownColor.Size = new System.Drawing.Size(75, 23);
-            this.BtUnknownColor.TabIndex = 4;
-            this.BtUnknownColor.Text = "unknown";
-            this.BtUnknownColor.UseVisualStyleBackColor = true;
-            this.BtUnknownColor.Click += new System.EventHandler(this.ColorChosen);
+            this.BtNoColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtNoColor.Location = new System.Drawing.Point(365, 393);
+            this.BtNoColor.Name = "BtNoColor";
+            this.BtNoColor.Size = new System.Drawing.Size(75, 23);
+            this.BtNoColor.TabIndex = 4;
+            this.BtNoColor.Text = "no color";
+            this.BtNoColor.UseVisualStyleBackColor = true;
+            this.BtNoColor.Click += new System.EventHandler(this.ColorChosen);
             // 
             // MyColorPicker
             // 
@@ -146,6 +146,6 @@
         private System.Windows.Forms.CheckBox checkBoxOnlyNatural;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Button BtUnknownColor;
+        private System.Windows.Forms.Button BtNoColor;
     }
 }
