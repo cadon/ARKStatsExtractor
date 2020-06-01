@@ -119,9 +119,9 @@ namespace ARKBreedingStats
             if (creatureCollection.changeCreatureStatusOnSavegameImport)
             {
                 // mark creatures that are no longer present as unavailable
-                var removedCreatures = creatureCollection.creatures.Where(c => c.status == CreatureStatus.Available && c.server == serverName).Except(newCreatures);
+                var removedCreatures = creatureCollection.creatures.Where(c => c.Status == CreatureStatus.Available && c.server == serverName).Except(newCreatures);
                 foreach (var c in removedCreatures)
-                    c.status = CreatureStatus.Unavailable;
+                    c.Status = CreatureStatus.Unavailable;
             }
 
             newCreatures.ForEach(creature =>
@@ -226,11 +226,11 @@ namespace ARKBreedingStats
             bool isDead = creatureObject.GetPropertyValue<bool>("bIsDead");
             if (isDead)
             {
-                creature.status = CreatureStatus.Dead; // dead is always dead
+                creature.Status = CreatureStatus.Dead; // dead is always dead
             }
 
             if (creatureObject.IsCryo)
-                creature.status = CreatureStatus.Cryopod;
+                creature.Status = CreatureStatus.Cryopod;
 
             creature.RecalculateCreatureValues(levelStep);
 

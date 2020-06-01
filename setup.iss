@@ -65,8 +65,8 @@ DotNetFrameworkFailed5100=Your computer does not meet the requirements of the .N
 de.DotNetFrameworkFailed5100=Ihr Computer erfüllt nicht die Voraussetzungen für das .NET Framework.
 DotNetFrameworkFailedOther=The .NET Framework installer exited with an unexpected status code "%1". Please review any other messages shown by the installer to determine whether the installation completed successfully, and abort this installation and fix the problem if it did not.
 de.DotNetFrameworkFailedOther=Die .NET Framework Installation endete mit dem nicht erwarteten Statuscode "%1". Überprüfen Sie alle anderen vom Installationsprogramm angezeigten Meldungen, um festzustellen, ob die Installation erfolgreich abgeschlossen wurde, und falls nicht, brechen Sie die Installation ab und beheben Sie das Problem.
-DownloadImages=Download images for some of the creatures.
-de.DownloadImages=Bilder für einige der Dinos herunterladen.
+DownloadImages=Download images for some of the species (~13 MB).
+de.DownloadImages=Bilder für einige der Dinos herunterladen (~13 MB).
 CreatureImages=Additional creature images
 de.CreatureImages=Zusätzliche Dino-Bilder
 InstallImages=Installing additionally creature images
@@ -101,7 +101,7 @@ Name: "{group}\{cm:UninstallProgram,{#AppName}}"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\{#AppName}"; Filename: "{app}\{#AppExeName}"; Tasks: desktopicon
 
 [Run]
-Filename: "powershell.exe"; Parameters: "-nologo -noprofile -command ""& {{ Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('{tmp}\images.zip', '{localappdata}\{#AppName}\'); }"""; Flags: runminimized; StatusMsg: "{cm:InstallImages}"; Tasks: images
+Filename: "powershell.exe"; Parameters: "-nologo -noprofile -command ""& {{ Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('{tmp}\img.zip', '{localappdata}\{#AppName}\img\'); }"""; Flags: runminimized; StatusMsg: "{cm:InstallImages}"; Tasks: images
 Filename: "{app}\{#AppExeName}"; Flags: nowait postinstall skipifsilent unchecked; Description: "{cm:LaunchProgram,{#StringChange(AppName, '&', '&&')}}"
 
 [UninstallRun]
@@ -159,7 +159,7 @@ begin
   end;
   if (CurPageID = wpSelectTasks) then begin
     if IsTaskSelected('images') then
-      idpAddFile('https://github.com/cadon/ARKStatsExtractor/raw/master/images.zip', ExpandConstant('{tmp}\images.zip'));
+      idpAddFile('https://github.com/cadon/ARKStatsExtractor/raw/master/img.zip', ExpandConstant('{tmp}\img.zip'));
       idpDownloadAfter(wpReady);
   end;
   Result := True;

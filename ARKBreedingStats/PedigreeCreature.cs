@@ -117,24 +117,24 @@ namespace ARKBreedingStats
 
                     if (!OnlyLevels)
                     {
-                        if (creature.status == CreatureStatus.Dead)
+                        if (creature.Status == CreatureStatus.Dead)
                         {
                             groupBox1.ForeColor = SystemColors.GrayText;
                             tt.SetToolTip(groupBox1, "Creature has passed away");
                         }
-                        else if (creature.status == CreatureStatus.Unavailable)
+                        else if (creature.Status == CreatureStatus.Unavailable)
                         {
                             groupBox1.ForeColor = SystemColors.GrayText;
                             tt.SetToolTip(groupBox1, "Creature is currently not available");
                         }
-                        else if (creature.status == CreatureStatus.Obelisk)
+                        else if (creature.Status == CreatureStatus.Obelisk)
                         {
                             groupBox1.ForeColor = SystemColors.GrayText;
                             tt.SetToolTip(groupBox1, "Creature is currently uploaded in an obelisk");
                         }
                     }
 
-                    tt.SetToolTip(labelSex, "Sex: " + Loc.s(creature.sex.ToString()));
+                    tt.SetToolTip(labelSex, "Sex: " + Loc.S(creature.sex.ToString()));
                     bool isGlowSpecies = creature.Species?.IsGlowSpecies ?? false;
                     for (int s = 0; s < displayedStatsCount; s++)
                     {
@@ -173,7 +173,7 @@ namespace ARKBreedingStats
                         labelSex.Text = Utils.SexSymbol(creature.sex);
                         labelSex.BackColor = creature.flags.HasFlag(CreatureFlags.Neutered) ? SystemColors.GrayText : Utils.SexColor(creature.sex);
                         // creature Colors
-                        pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, null, enabledColorRegions, 24, 22, true);
+                        pictureBox1.Image = CreatureColored.GetColoredCreature(creature.colors, null, enabledColorRegions, 24, 22, true);
                         tt.SetToolTip(pictureBox1, CreatureColored.RegionColorInfo(creature.Species, creature.colors));
                         labelSex.Visible = true;
                         pictureBox1.Visible = true;
@@ -203,7 +203,7 @@ namespace ARKBreedingStats
         private void SetTitle()
         {
             string totalLevel = creature.LevelHatched > 0 ? creature.LevelHatched.ToString() : "?";
-            groupBox1.Text = (!OnlyLevels && creature.status != CreatureStatus.Available ? "(" + Utils.StatusSymbol(creature.status) + ") " : string.Empty)
+            groupBox1.Text = (!OnlyLevels && creature.Status != CreatureStatus.Available ? "(" + Utils.StatusSymbol(creature.Status) + ") " : string.Empty)
                     + creature.name + " (" + totalLevel + (TotalLevelUnknown ? "+" : string.Empty) + ")";
 
             if (creature.growingUntil > DateTime.Now)

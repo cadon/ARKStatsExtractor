@@ -19,9 +19,9 @@ namespace ARKBreedingStats.mods
         /// <summary>
         /// Indicates if the according json-file is downloaded.
         /// </summary>
-        public bool downloaded;
+        public bool locallyAvailable;
         /// <summary>
-        /// If true the modInfo is available online. If not it's probably customly created.
+        /// If true the modInfo is available online. If not it's probably manually created.
         /// </summary>
         public bool onlineAvailable;
         public bool currentlyInLibrary;
@@ -35,7 +35,9 @@ namespace ARKBreedingStats.mods
         public override string ToString()
         {
             return (mod?.title ?? "unknown mod")
-                + (!downloaded && onlineAvailable ? " (DL)" : "");
+                + (onlineAvailable
+                    ? (!locallyAvailable ? " (DL)" : string.Empty)
+                    : " (Custom)");
         }
     }
 }

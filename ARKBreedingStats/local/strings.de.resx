@@ -139,7 +139,7 @@
     <value>Gezüchtet</value>
   </data>
   <data name="BreedingPlanHelpToolStripMenuItem" xml:space="preserve">
-    <value>Breeding Plan…</value>
+    <value>Zucht Plan…</value>
   </data>
   <data name="breedingValue" xml:space="preserve">
     <value>Zucht-Wert</value>
@@ -292,7 +292,7 @@ Die angezeigten Level werden ohne Validierung angezeigt und gelten nur für wild
     <value>Tote Kreaturen</value>
   </data>
   <data name="Default" xml:space="preserve">
-    <value>Default</value>
+    <value>Standard</value>
   </data>
   <data name="deleteSelectedToolStripMenuItem" xml:space="preserve">
     <value>Entfernen…</value>
@@ -334,7 +334,7 @@ Die angezeigten Level werden ohne Validierung angezeigt und gelten nur für wild
     <value>In Zwischenablage exportieren</value>
   </data>
   <data name="extractionIssuesToolStripMenuItem" xml:space="preserve">
-    <value>Extraction Issues…</value>
+    <value>Extraktionsprobleme…</value>
   </data>
   <data name="extractor" xml:space="preserve">
     <value>Extraktor</value>
@@ -382,7 +382,7 @@ Die angezeigten Level werden ohne Validierung angezeigt und gelten nur für wild
     <value>Hunger-Zeit</value>
   </data>
   <data name="gpTorporTime" xml:space="preserve">
-    <value>Torpor-Time</value>
+    <value>Benommenheits-Zeit</value>
   </data>
   <data name="grownIn" xml:space="preserve">
     <value>Ausgewachsen</value>
@@ -415,7 +415,7 @@ Die angezeigten Level werden ohne Validierung angezeigt und gelten nur für wild
     <value>Werte von Zwischenablage importieren</value>
   </data>
   <data name="imprintingBonus" xml:space="preserve">
-    <value>Imprinting Bonus</value>
+    <value>Prägungsbonus</value>
   </data>
   <data name="issueMaxWildLevelTooLow" xml:space="preserve">
     <value>Die Extraktion ist möglich, jedoch scheint das maximale wilde Level zu niedrig eingestellt zu sein, um die Level korrekt zu extrahieren.Prüfe, ob der richtige Werde in den Einstellungen gesetzt ist.
@@ -574,7 +574,7 @@ Wenn eine Nummer mit Plus-Zeichen angezeigt wird, ist die Summe zu hoch, und ein
     <value>OK</value>
   </data>
   <data name="onlinehelpToolStripMenuItem" xml:space="preserve">
-    <value>Online Manual…</value>
+    <value>Online Anleitung…</value>
   </data>
   <data name="OrOneBioToxinEvery" xml:space="preserve">
     <value>oder ein Bio-Toxin pro</value>
@@ -682,7 +682,7 @@ Wenn eine Nummer mit Plus-Zeichen angezeigt wird, ist die Summe zu hoch, und ein
     <value>Zähm-Info</value>
   </data>
   <data name="TamingEffectiveness_Abb" xml:space="preserve">
-    <value>TE</value>
+    <value>ZE</value>
   </data>
   <data name="timerFeedAll" xml:space="preserve">
     <value>Alles füttern von</value>
@@ -837,8 +837,7 @@ Wähle den "Hohe-Stats"-Modus aus, um bessere Vorschläge zu erhalten.</value>
     <value>Click to create an incubation-entry in the Raising-tab</value>
   </data>
   <data name="cbBPTagExcludeDefaultTT" xml:space="preserve">
-    <value>Check if all creatures should be excluded and only be included when have the include-mark on their tag.
-If this checkbox is unchecked, all creatures will be included by default, and only excluded if one of their tags has the exclude-mark and none has the include-mark.</value>
+    <value>Aktivieren, um nur Kreaturen hinzuzufügen, wenn sie einen Tag haben, der explizit ausgewählt ist. Wenn dies deaktiviert ist, werden alle Kreaturen standardmäßig berücksichtigt und nur ausgeschlossen, wenn sie einen Ausschluss Tag und keinen Einschluss Tag haben.</value>
   </data>
   <data name="cbBPIncludeCooldowneds" xml:space="preserve">
     <value>Inklusive Kreaturen mit Cooldown</value>
@@ -856,8 +855,7 @@ If this checkbox is unchecked, all creatures will be included by default, and on
     <value>Zucht-Score</value>
   </data>
   <data name="lbBPBreedingScoreTT" xml:space="preserve">
-    <value>The Breeding-Score of a paring is not comparable to the Breeding-Score of another breeding-mode.
-The numbers in the different modes are generated in incompatible ways.</value>
+    <value>Der Zucht-Score eines Paares kann nicht mit dem Zucht-Score von anderen Zucht-Modi verglichen werden, die Werte werden imkompatibel erzeugt.</value>
   </data>
   <data name="lbBPBreedingTimes" xml:space="preserve">
     <value>Zucht Zeiten</value>
@@ -872,8 +870,8 @@ The numbers in the different modes are generated in incompatible ways.</value>
     <value>nicht verfügbar</value>
   </data>
   <data name="nudBPMutationLimitTT" xml:space="preserve">
-    <value>Consider only creatures with at most this many mutations.
-Set to -1 for any number of mutation.</value>
+    <value>Nur Kreaturen mit maximal diesen Mutationen einbeziehen.
+Setze auf -1 um Kreaturen unabhängig der Mutationen anzuzeigen.</value>
   </data>
   <data name="onlyPairingsWith" xml:space="preserve">
     <value>nur Paarungen mit "{0}"</value>
@@ -891,26 +889,22 @@ Set to -1 for any number of mutation.</value>
     <value>Hohe Stats</value>
   </data>
   <data name="rbBPHighStatsTT" xml:space="preserve">
-    <value>Check for best next-generation-results.
-The chance for an overall good creature is better.
-Check if it's not important to have a Top-Stats-Offspring.</value>
+    <value>Aktivieren um die besten Vorschläge für die nächste Generation zu bekommen, wenn Top-Stats nicht wichtig sind.</value>
   </data>
   <data name="rbBPTopStats" xml:space="preserve">
-    <value>Top Stats Lc</value>
+    <value>Kombiniere Top Stats lucky</value>
   </data>
   <data name="rbBPTopStatsCn" xml:space="preserve">
-    <value>Top Stats Cn</value>
+    <value>Kombiniere Top Stats sicher</value>
   </data>
   <data name="rbBPTopStatsCnTT" xml:space="preserve">
-    <value>Top Stats, Conservative.
-Check for best long-term-results and if you want to go safe.
-This mode will get to the best possible offspring steady and surely.
-Some offsprings might be worse than in High-Stats-Mode, but that's the mode you go if you want to have that perfect creature in some generations.</value>
+    <value>Kombiniere Top Stats sicher
+Wählen, um alle Top stats in einer Kreatur zu vereinen.
+Einige Nachkommen werden teilweise ein niedrigeres Gesamtlevel als im High-Stats-Mode haben, aber die Top-Stats werden hier nacheinander zusammengeführt.</value>
   </data>
   <data name="rbBPTopStatsTT" xml:space="preserve">
-    <value>Top Stats, Feeling Lucky.
-Check for best long-term-results and if you're feeling lucky. It can be faster to get the perfect creature than in the Top-Stat-Conservative-Mode if you're lucky.
-Some offsprings might be worse than in High-Stats-Mode, but you also have a chance to the best possible offspring.</value>
+    <value>Kombiniere Top Stats lucky
+Wählen, um die Top stats in einer Kreature zu vereinen. Dieser Modus geht ein Risiko ein und versucht mehrere Top-Stats auf einmal zu vereinen. Wenn es klappt, geht es schneller, aber die Wahrscheinlichkeit ist geringer als im konservativen Modus.</value>
   </data>
   <data name="SelectSpeciesBreedingPlanner" xml:space="preserve">
     <value>Wähle eine Spezies aus, um Vorschläge zu Paarungen nach dem ausgewählten Zucht-Modus zu bekommen.</value>
@@ -1007,5 +1001,155 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   </data>
   <data name="matingTime" xml:space="preserve">
     <value>Paarungsdauer</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="na" xml:space="preserve">
+    <value>n. a.</value>
+  </data>
+  <data name="showOnlyNaturalOccuring" xml:space="preserve">
+    <value>nur natürlich vorkommende Farben</value>
+  </data>
+  <data name="apply" xml:space="preserve">
+    <value>Anwenden</value>
+  </data>
+  <data name="libraryFilter" xml:space="preserve">
+    <value>Bibliotheks-Filter</value>
+  </data>
+  <data name="owners" xml:space="preserve">
+    <value>Besitzer</value>
+  </data>
+  <data name="servers" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="tribes" xml:space="preserve">
+    <value>Stämme</value>
+  </data>
+  <data name="useFilterInTopStatCalculation" xml:space="preserve">
+    <value>Filter in Berechnung der Top Stats benutzen</value>
+  </data>
+  <data name="clearColorsFilters" xml:space="preserve">
+    <value>Farbfilter löschen</value>
+  </data>
+  <data name="groupLibraryBySpecies" xml:space="preserve">
+    <value>Bibliothek nach Spezies gruppieren</value>
+  </data>
+  <data name="libraryFilterToolStripMenuItem" xml:space="preserve">
+    <value>Bibliothek filtern…</value>
+  </data>
+  <data name="onlyCreaturesWithThisColor" xml:space="preserve">
+    <value>Nur Kreaturen mit dieser Farbe</value>
+  </data>
+  <data name="ownerFilterFromLibrary" xml:space="preserve">
+    <value>Besitzer Filter von der Bibliothek</value>
+  </data>
+  <data name="possibleLevelRange" xml:space="preserve">
+    <value>Möglicher Level-Bereich: {0}–{1}</value>
+  </data>
+  <data name="serverFilterFromLibrary" xml:space="preserve">
+    <value>Server Filter von der Bibliothek</value>
+  </data>
+  <data name="tribeFilterFromLibrary" xml:space="preserve">
+    <value>Stamm Filter von der Bibliothek</value>
+  </data>
+  <data name="clear" xml:space="preserve">
+    <value>Zurücksetzen</value>
+  </data>
+  <data name="filterAllNeededInfo" xml:space="preserve">
+    <value>Nur Kreaturen mit allen diesen Eigenschaften wird angezeigt</value>
+  </data>
+  <data name="filterByName" xml:space="preserve">
+    <value>Nach Namen filtern</value>
+  </data>
+  <data name="filterExcludeInfo" xml:space="preserve">
+    <value>Kreaturen mit einer dieser Eigenschaften wird nicht angezeigt</value>
+  </data>
+  <data name="filterOneNeededInfo" xml:space="preserve">
+    <value>Nur Kreaturen mit einer dieser Eigenschaften wird angezeigt</value>
+  </data>
+  <data name="addedAt" xml:space="preserve">
+    <value>Hinzugefügt am</value>
+  </data>
+  <data name="issueCauseTypo" xml:space="preserve">
+    <value>Überprüfe ob alle Werte korrekt eingetragen sind.</value>
+  </data>
+  <data name="issueCauseWildTamedBred" xml:space="preserve">
+    <value>Stelle sicher, dass der Status (wild, gezähmt, gezüchtet) richtig eingestellt ist.</value>
+  </data>
+  <data name="issueCauseTamingEffectivenessRange" xml:space="preserve">
+    <value>Zucht-Effektivitäts-Bereich zu eingeschränkt, erhöhe die obere, bzw. erniedrige die untere Grenze.</value>
+  </data>
+  <data name="issueCauseLockedDomLevel" xml:space="preserve">
+    <value>Deaktiviere alle Sperre-domestizierte-Level-Schlösser (setze alle Schloss-Symbole auf grün und offen).</value>
+  </data>
+  <data name="issueCauseImprintingLocked" xml:space="preserve">
+    <value>Der Imprinting Wert ist gesperrt, weil "Exakt, nicht anpassen" aktiviert ist, und der Extraktor diesen Wert nicht anpassen kann, dies kann eine erfolgreiche Extraktion verhindern.</value>
+  </data>
+  <data name="issueCauseImprintingNotUpdated" xml:space="preserve">
+    <value>Manchmal aktualisiert ARK die Stat-Werte nach einer Prägung nicht direkt. Versuche die Extraktion erneut nachdem die Kreatur in einem Cryopod war.</value>
+  </data>
+  <data name="issueCauseImprintingNotPossible" xml:space="preserve">
+    <value>Der eingegebene Prägungs-Wert ist mit den eingestellten Server-Multiplikatoren nicht möglich.
+Stelle sicher, dass die Werte von BabyCuddleIntervallMultiplier und BabyMatureSpeedMultiplier in den Einstellungen wie auf dem Server eingestellt sind.</value>
+  </data>
+  <data name="issueCauseSingleplayer" xml:space="preserve">
+    <value>Stelle sicher dass die Einzelspieler-Einstellung in den Einstellungen wie im Spiel gesetzt ist.</value>
+  </data>
+  <data name="issueCauseWildLevelSteps" xml:space="preserve">
+    <value>Passe den Wert "Berücksichtige wilde Level" in den Einstellung an oder deaktiviere sie.</value>
+  </data>
+  <data name="issueCauseMaxWildLevel" xml:space="preserve">
+    <value>Die Einstellung "Maximales wildes Level" ist zu niedrig, passe sie auf den Wert des Servers an.</value>
+  </data>
+  <data name="issueCauseStatMultipliers" xml:space="preserve">
+    <value>Die Stat Multiplikatoren in den Einstellungen entsprechen nicht denen auf dem Server. Frage den Admin über die korrekten Werte und passe sie in den Einstellungen an.</value>
+  </data>
+  <data name="issueCauseOutdatedIngameValues" xml:space="preserve">
+    <value>Die Stat-Werte der Kreatur wurden möglicherweise kürzlich im Spiel geändert und das Spiel zeigt noch die alten Werte an. Cryo die Kreatur oder levele den entsprechenden Stat auf, um die Werte zu aktualisieren.</value>
+  </data>
+  <data name="issueCauseCreatureLevel" xml:space="preserve">
+    <value>Überprüfe ob das Gesamtlevel der Kreatur richtig eingegeben wurde.
+Wenn die Kreature gezüchtet ist, überprüfe auch den BabyStatScaleImprintingMultiplier.</value>
+  </data>
+  <data name="issueCauseArkStatIssue" xml:space="preserve">
+    <value>Diese Spezies ist bekannt dafür in ARK falsche Werte anzuzeigen, dies kann eine erfolgreiche Extraktion verhindern.</value>
+  </data>
+  <data name="BtApplyOTSPreset" xml:space="preserve">
+    <value>BSS Preset</value>
+  </data>
+  <data name="BtSaveOTSPreset" xml:space="preserve">
+    <value>BSS speichern</value>
+  </data>
+  <data name="BtSaveOTSPresetTT" xml:space="preserve">
+    <value>Speichere Besitzer, Stamm und Server als Voreinstellung.
+Diese kann mit BSS Preset angewandt werden.</value>
+  </data>
+  <data name="BtApplyOTSPresetTT" xml:space="preserve">
+    <value>Setze die Werte für Besitzer, Stamm und Server von der Voreinstellung ein.</value>
+  </data>
+  <data name="cbBPOnlyOneSuggestionForFemales" xml:space="preserve">
+    <value>Nur die beste Empfehlung für Weibchen</value>
+  </data>
+  <data name="cbBPMutationLimitOnlyOnePartner" xml:space="preserve">
+    <value>Ein Partner kann mehr Mutationen haben</value>
+  </data>
+  <data name="noColor" xml:space="preserve">
+    <value>keine Farbe</value>
+  </data>
+  <data name="topLevel" xml:space="preserve">
+    <value>top Level</value>
+  </data>
+  <data name="newTopLevel" xml:space="preserve">
+    <value>neues top Level</value>
+  </data>
+  <data name="holdCtrlForRandomColors" xml:space="preserve">
+    <value>Halte Strg für zufällige Farben</value>
+  </data>
+  <data name="clearColors" xml:space="preserve">
+    <value>Lösche Farben</value>
   </data>
 </root>

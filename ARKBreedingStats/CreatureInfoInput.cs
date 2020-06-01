@@ -15,21 +15,20 @@ namespace ARKBreedingStats
         public event Action<CreatureInfoInput> ParentListRequested;
         public delegate void RequestCreatureDataEventHandler(CreatureInfoInput sender, bool openPatternEditor, bool showDuplicateNameWarning, int namingPatternIndex);
         public event RequestCreatureDataEventHandler CreatureDataRequested;
-        public bool extractor;
-        private Sex sex;
+        private Sex _sex;
         private CreatureFlags _creatureFlags;
         public Guid CreatureGuid;
         public bool ArkIdImported;
-        private CreatureStatus creatureStatus;
+        private CreatureStatus _creatureStatus;
         public bool parentListValid; // TODO change to parameter, if set to false, show n/a in the comboboxes
-        private Species selectedSpecies;
-        private ToolTip tt = new ToolTip();
-        private bool updateMaturation;
+        private Species _selectedSpecies;
+        private readonly ToolTip _tt;
+        private bool _updateMaturation;
         private List<Creature> _females;
         private List<Creature> _males;
         public List<string> NamesOfAllCreatures;
         private string[] _ownersTribes;
-        private int[] regionColorIDs;
+        private int[] _regionColorIDs;
         private bool _tribeLock, _ownerLock;
         public long MotherArkId, FatherArkId; // is only used when importing creatures with set parents. these ids are set externally after the creature data is set in the infoinput
         /// <summary>
@@ -37,19 +36,21 @@ namespace ARKBreedingStats
         /// </summary>
         private bool isNewCreature;
 
+        public PictureBox pBcolorRegion;
+
         public CreatureInfoInput()
         {
             InitializeComponent();
-            selectedSpecies = null;
-            textBoxName.Text = "";
-            parentComboBoxMother.naLabel = " - " + Loc.s("Mother") + " n/a";
-            parentComboBoxMother.Items.Add(" - " + Loc.s("Mother") + " n/a");
-            parentComboBoxFather.naLabel = " - " + Loc.s("Father") + " n/a";
-            parentComboBoxFather.Items.Add(" - " + Loc.s("Father") + " n/a");
+            _selectedSpecies = null;
+            textBoxName.Text = string.Empty;
+            parentComboBoxMother.naLabel = " - " + Loc.S("Mother") + " n/a";
+            parentComboBoxMother.Items.Add(" - " + Loc.S("Mother") + " n/a");
+            parentComboBoxFather.naLabel = " - " + Loc.S("Father") + " n/a";
+            parentComboBoxFather.Items.Add(" - " + Loc.S("Father") + " n/a");
             parentComboBoxMother.SelectedIndex = 0;
             parentComboBoxFather.SelectedIndex = 0;
-            updateMaturation = true;
-            regionColorIDs = new int[6];
+            _updateMaturation = true;
+            _regionColorIDs = new int[6];
             CooldownUntil = new DateTime(2000, 1, 1);
             GrowingUntil = new DateTime(2000, 1, 1);
             NamesOfAllCreatures = new List<string>();
@@ -61,7 +62,7 @@ namespace ARKBreedingStats
                 // apply naming pattern
                 namingPatternButtons[bi].Click += (s, e) =>
                 {
-                    if (selectedSpecies != null)
+                    if (_selectedSpecies != null)
                     {
                         CreatureDataRequested?.Invoke(this, false, true, localIndex);
                     }
@@ -75,6 +76,16 @@ namespace ARKBreedingStats
                     }
                 };
             }
+            _tt = new ToolTip();
+
+            regionColorChooser1.RegionColorChosen += UpdateRegionColorImage;
+        }
+
+        private void UpdateRegionColorImage()
+        {
+            if (pBcolorRegion == null) return;
+
+            pBcolorRegion.Image = CreatureColored.GetColoredCreature(RegionColors, _selectedSpecies, regionColorChooser1.ColorRegionsUseds, 256, onlyImage: true, creatureSex: CreatureSex);
         }
 
         private void buttonAdd2Library_Click(object sender, EventArgs e)
@@ -111,25 +122,25 @@ namespace ARKBreedingStats
 
         public Sex CreatureSex
         {
-            get => sex;
+            get => _sex;
             set
             {
-                sex = value;
-                buttonSex.Text = Utils.SexSymbol(sex);
-                buttonSex.BackColor = Utils.SexColor(sex);
-                tt.SetToolTip(buttonSex, Loc.s("Sex") + ": " + Loc.s(sex.ToString()));
-                cbNeutered.Text = Loc.s(sex == Sex.Female ? "Spayed" : "Neutered");
+                _sex = value;
+                buttonSex.Text = Utils.SexSymbol(_sex);
+                buttonSex.BackColor = Utils.SexColor(_sex);
+                _tt.SetToolTip(buttonSex, $"{Loc.S("Sex")}: {Loc.S(_sex.ToString())}");
+                cbNeutered.Text = Loc.S(_sex == Sex.Female ? "Spayed" : "Neutered");
             }
         }
 
         public CreatureStatus CreatureStatus
         {
-            get => creatureStatus;
+            get => _creatureStatus;
             set
             {
-                creatureStatus = value;
-                buttonStatus.Text = Utils.StatusSymbol(creatureStatus);
-                tt.SetToolTip(buttonStatus, Loc.s("Status") + ": " + Utils.StatusText(creatureStatus));
+                _creatureStatus = value;
+                buttonStatus.Text = Utils.StatusSymbol(_creatureStatus);
+                _tt.SetToolTip(buttonStatus, $"{Loc.S("Status")}: {Utils.StatusText(_creatureStatus)}");
             }
         }
 
@@ -166,12 +177,12 @@ namespace ARKBreedingStats
 
         private void buttonSex_Click(object sender, EventArgs e)
         {
-            CreatureSex = Utils.NextSex(sex);
+            CreatureSex = Utils.NextSex(_sex);
         }
 
         private void buttonStatus_Click(object sender, EventArgs e)
         {
-            CreatureStatus = Utils.NextStatus(creatureStatus);
+            CreatureStatus = Utils.NextStatus(_creatureStatus);
         }
 
         public List<Creature>[] Parents
@@ -211,8 +222,8 @@ namespace ARKBreedingStats
             set
             {
                 btSaveChanges.Visible = value;
-                btAdd2Library.Location = new Point((value ? 154 : 88), btAdd2Library.Location.Y);
-                btAdd2Library.Size = new Size((value ? 68 : 134), 37);
+                btAdd2Library.Size = new Size((value ? 120 : 250), 37);
+                btAdd2Library.Location = new Point(value ? 136 : 6, btAdd2Library.Location.Y);
             }
         }
 
@@ -224,35 +235,35 @@ namespace ARKBreedingStats
 
         private void dhmsInputGrown_ValueChanged(object sender, TimeSpan ts)
         {
-            if (updateMaturation && selectedSpecies != null)
+            if (_updateMaturation && _selectedSpecies != null)
             {
-                updateMaturation = false;
+                _updateMaturation = false;
                 double maturation = 0;
-                if (selectedSpecies.breeding != null && selectedSpecies.breeding.maturationTimeAdjusted > 0)
+                if (_selectedSpecies.breeding != null && _selectedSpecies.breeding.maturationTimeAdjusted > 0)
                 {
-                    maturation = 1 - dhmsInputGrown.Timespan.TotalSeconds / selectedSpecies.breeding.maturationTimeAdjusted;
+                    maturation = 1 - dhmsInputGrown.Timespan.TotalSeconds / _selectedSpecies.breeding.maturationTimeAdjusted;
                     if (maturation < 0) maturation = 0;
                     if (maturation > 1) maturation = 1;
                 }
                 nudMaturation.Value = (decimal)maturation * 100;
 
-                updateMaturation = true;
+                _updateMaturation = true;
             }
         }
 
         private void nudMaturation_ValueChanged(object sender, EventArgs e)
         {
-            if (updateMaturation)
+            if (_updateMaturation)
             {
-                updateMaturation = false;
-                if (selectedSpecies.breeding != null)
+                _updateMaturation = false;
+                if (_selectedSpecies.breeding != null)
                 {
-                    dhmsInputGrown.Timespan = new TimeSpan(0, 0, (int)(selectedSpecies.breeding.maturationTimeAdjusted *
+                    dhmsInputGrown.Timespan = new TimeSpan(0, 0, (int)(_selectedSpecies.breeding.maturationTimeAdjusted *
                             (1 - (double)nudMaturation.Value / 100)));
                     dhmsInputGrown.changed = true;
                 }
                 else dhmsInputGrown.Timespan = TimeSpan.Zero;
-                updateMaturation = true;
+                _updateMaturation = true;
             }
         }
 
@@ -405,10 +416,11 @@ namespace ARKBreedingStats
             get => regionColorChooser1.ColorIDs;
             set
             {
-                if (selectedSpecies != null)
+                if (_selectedSpecies != null)
                 {
-                    regionColorIDs = (int[])value?.Clone() ?? new int[6];
-                    regionColorChooser1.SetSpecies(selectedSpecies, regionColorIDs);
+                    _regionColorIDs = (int[])value?.Clone() ?? new int[6];
+                    regionColorChooser1.SetSpecies(_selectedSpecies, _regionColorIDs);
+                    UpdateRegionColorImage();
                 }
             }
         }
@@ -417,8 +429,8 @@ namespace ARKBreedingStats
         {
             set
             {
-                selectedSpecies = value;
-                bool breedingPossible = selectedSpecies.breeding != null;
+                _selectedSpecies = value;
+                bool breedingPossible = _selectedSpecies.breeding != null;
 
                 dhmsInputCooldown.Visible = breedingPossible;
                 dhmsInputGrown.Visible = breedingPossible;
@@ -438,6 +450,7 @@ namespace ARKBreedingStats
                     dhmsInputCooldown.Timespan = TimeSpan.Zero;
                 }
                 RegionColors = new int[6];
+                UpdateRegionColorImage();
             }
         }
 
@@ -510,7 +523,7 @@ namespace ARKBreedingStats
         {
             cr.Mother = Mother;
             cr.Father = Father;
-            cr.sex = sex;
+            cr.sex = _sex;
             cr.mutationsMaternal = MutationCounterMother;
             cr.mutationsPaternal = MutationCounterFather;
             cr.owner = CreatureOwner;
@@ -567,8 +580,8 @@ namespace ARKBreedingStats
             set
             {
                 btAdd2Library.Text = value ?
-                                     Loc.s("btUpdateLibraryCreature") :
-                                     Loc.s("btAdd2Library");
+                                     Loc.S("btUpdateLibraryCreature") :
+                                     Loc.S("btAdd2Library");
 
                 isNewCreature = !value;
                 SetAdd2LibColor(btAdd2Library.Enabled);
@@ -601,7 +614,10 @@ namespace ARKBreedingStats
 
         private void btClearColors_Click(object sender, EventArgs e)
         {
-            clearColors();
+            if ((Control.ModifierKeys & Keys.Control) != 0)
+                regionColorChooser1.RandomColors();
+            else
+                clearColors();
         }
 
         private void clearColors()
@@ -664,6 +680,11 @@ namespace ARKBreedingStats
             CreatureServer = Properties.Settings.Default.DefaultServerName;
         }
 
+        private void dhmsInputGrown_ValueChanged(uiControls.dhmsInput sender, TimeSpan timespan)
+        {
+
+        }
+
         internal void Clear()
         {
             textBoxName.Clear();
@@ -688,32 +709,35 @@ namespace ARKBreedingStats
         public void SetLocalizations()
         {
             Loc.ControlText(gbCreatureInfo);
-            Loc.ControlText(lbName, "Name", tt);
-            Loc.ControlText(lbOwner, "Owner", tt);
-            Loc.ControlText(lbTribe, "Tribe", tt);
+            Loc.ControlText(lbName, "Name", _tt);
+            Loc.ControlText(lbOwner, "Owner", _tt);
+            Loc.ControlText(lbTribe, "Tribe", _tt);
             Loc.ControlText(lbServer, "Server");
             Loc.ControlText(lbMother, "Mother");
             Loc.ControlText(lbFather, "Father");
             Loc.ControlText(lbNote, "Note");
             Loc.ControlText(lbCooldown, "cooldown");
             Loc.ControlText(lbGrownIn, "grownIn");
-            lbMaturationPerc.Text = Loc.s("Maturation") + " [%]";
+            lbMaturationPerc.Text = $"{Loc.S("Maturation")} [%]";
             Loc.ControlText(lbMutations, "Mutations");
             Loc.ControlText(lbSex, "Sex");
             Loc.ControlText(lbStatus, "Status");
-            Loc.ControlText(btClearColors, "Colors", tt);
+            Loc.ControlText(btClearColors, "clearColors");
+            _tt.SetToolTip(btClearColors, Loc.S("clearColors") + "\n" + Loc.S("holdCtrlForRandomColors"));
             Loc.ControlText(btSaveChanges);
             Loc.ControlText(btAdd2Library);
             //tooltips
-            Loc.setToolTip(buttonSex, "Sex", tt);
-            Loc.setToolTip(buttonStatus, "Status", tt);
-            Loc.setToolTip(dateTimePickerAdded, "addedAt", tt);
-            Loc.setToolTip(nudMutationsMother, "mutationCounter", tt);
-            Loc.setToolTip(nudMutationsFather, "mutationCounter", tt);
+            Loc.SetToolTip(buttonSex, "Sex", _tt);
+            Loc.SetToolTip(buttonStatus, "Status", _tt);
+            Loc.SetToolTip(dateTimePickerAdded, "addedAt", _tt);
+            Loc.SetToolTip(nudMutationsMother, "mutationCounter", _tt);
+            Loc.SetToolTip(nudMutationsFather, "mutationCounter", _tt);
+            Loc.ControlText(BtApplyOTSPreset, _tt);
+            Loc.ControlText(BtSaveOTSPreset, _tt);
 
             var namingPatternButtons = new List<Button> { btnGenerateUniqueName, btNamingPattern2, btNamingPattern3, btNamingPattern4, btNamingPattern5, btNamingPattern6 };
             for (int bi = 0; bi < namingPatternButtons.Count; bi++)
-                tt.SetToolTip(namingPatternButtons[bi], Loc.s("btnGenerateUniqueNameTT", false));
+                _tt.SetToolTip(namingPatternButtons[bi], Loc.S("btnGenerateUniqueNameTT", false));
         }
     }
 }

@@ -130,7 +130,7 @@
     <value>Body</value>
   </data>
   <data name="BonusLevel" xml:space="preserve">
-    <value>Bonus-Level</value>
+    <value>Bonus Level</value>
   </data>
   <data name="Bow" xml:space="preserve">
     <value>Bow</value>
@@ -898,19 +898,19 @@ The chance for an overall good creature is better.
 Check if it's not important to have a Top-Stats-Offspring.</value>
   </data>
   <data name="rbBPTopStats" xml:space="preserve">
-    <value>Top Stats Lc</value>
+    <value>Combine top stats lucky</value>
   </data>
   <data name="rbBPTopStatsCn" xml:space="preserve">
-    <value>Top Stats Cn</value>
+    <value>Combine top stats steady</value>
   </data>
   <data name="rbBPTopStatsCnTT" xml:space="preserve">
-    <value>Top Stats, Conservative.
+    <value>Combine top stats steady
 Check for best long-term-results and if you want to go safe.
 This mode will get to the best possible offspring steady and surely.
 Some offsprings might be worse than in High-Stats-Mode, but that's the mode you go if you want to have that perfect creature in some generations.</value>
   </data>
   <data name="rbBPTopStatsTT" xml:space="preserve">
-    <value>Top Stats, Feeling Lucky.
+    <value>Combine top stats steady
 Check for best long-term-results and if you're feeling lucky. It can be faster to get the perfect creature than in the Top-Stat-Conservative-Mode if you're lucky.
 Some offsprings might be worse than in High-Stats-Mode, but you also have a chance to the best possible offspring.</value>
   </data>
@@ -1018,5 +1018,147 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   </data>
   <data name="addedAt" xml:space="preserve">
     <value>Added at</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="na" xml:space="preserve">
+    <value>n/a</value>
+  </data>
+  <data name="showOnlyNaturalOccuring" xml:space="preserve">
+    <value>Show only natural occuring colors</value>
+  </data>
+  <data name="apply" xml:space="preserve">
+    <value>apply</value>
+  </data>
+  <data name="libraryFilter" xml:space="preserve">
+    <value>Library Filter</value>
+  </data>
+  <data name="owners" xml:space="preserve">
+    <value>owners</value>
+  </data>
+  <data name="servers" xml:space="preserve">
+    <value>servers</value>
+  </data>
+  <data name="tags" xml:space="preserve">
+    <value>tags</value>
+  </data>
+  <data name="tribes" xml:space="preserve">
+    <value>tribes</value>
+  </data>
+  <data name="useFilterInTopStatCalculation" xml:space="preserve">
+    <value>Use filter in top stat calculation</value>
+  </data>
+  <data name="clearColorsFilters" xml:space="preserve">
+    <value>Clear Color Filters</value>
+  </data>
+  <data name="groupLibraryBySpecies" xml:space="preserve">
+    <value>Group library by species</value>
+  </data>
+  <data name="libraryFilterToolStripMenuItem" xml:space="preserve">
+    <value>Filter library…</value>
+  </data>
+  <data name="onlyCreaturesWithThisColor" xml:space="preserve">
+    <value>Only creatures that have this color</value>
+  </data>
+  <data name="ownerFilterFromLibrary" xml:space="preserve">
+    <value>Owner filter from library</value>
+  </data>
+  <data name="possibleLevelRange" xml:space="preserve">
+    <value>Possible Level-Range: {0}–{1}</value>
+  </data>
+  <data name="serverFilterFromLibrary" xml:space="preserve">
+    <value>Server filter from library</value>
+  </data>
+  <data name="tribeFilterFromLibrary" xml:space="preserve">
+    <value>Tribe filter from library</value>
+  </data>
+  <data name="clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="filterAllNeededInfo" xml:space="preserve">
+    <value>Only creatures with all of these flags will be displayed</value>
+  </data>
+  <data name="filterByName" xml:space="preserve">
+    <value>Filter by name</value>
+  </data>
+  <data name="filterExcludeInfo" xml:space="preserve">
+    <value>Creatures with this flag will not be shown</value>
+  </data>
+  <data name="filterOneNeededInfo" xml:space="preserve">
+    <value>Only creatures with one of these flags will be displayed</value>
+  </data>
+  <data name="issueCauseTypo" xml:space="preserve">
+    <value>Double check if all stat-values are entered correctly.</value>
+  </data>
+  <data name="issueCauseWildTamedBred" xml:space="preserve">
+    <value>Make sure the correct state (wild, tamed, bred) for the creature is chosen.</value>
+  </data>
+  <data name="issueCauseTamingEffectivenessRange" xml:space="preserve">
+    <value>Taming-Effectiveness-Range too narrow, increase the upper and / or decrase the lower bound.</value>
+  </data>
+  <data name="issueCauseLockedDomLevel" xml:space="preserve">
+    <value>Uncheck all Lock-to-Zero-buttons in the stats (all lock-symbols should be green and opened).</value>
+  </data>
+  <data name="issueCauseImprintingLocked" xml:space="preserve">
+    <value>You locked the imprinting-value by checking "Exactly, don't adjust" and the tool won't adjust it, this may cause the extraction to fail.</value>
+  </data>
+  <data name="issueCauseImprintingNotUpdated" xml:space="preserve">
+    <value>Sometimes the game doesn't update the stat-value after an imprinting. Try the extraction after the creature was cryoed again.</value>
+  </data>
+  <data name="issueCauseImprintingNotPossible" xml:space="preserve">
+    <value>The imprinting-percentage given is not possible with the current multipliers and may cause wrong values during the extraction-process.
+Make sure the BabyCuddleIntervallMultiplier and the BabyMatureSpeedMultiplier are set correctly.
+They may have to be set to the value when the creature hatched/was born, even if they were changed.</value>
+  </data>
+  <data name="issueCauseSingleplayer" xml:space="preserve">
+    <value>If you have enabled the Singleplayer-Settings in the game, make sure the according checkbox is enabled in the settings in this application as well.</value>
+  </data>
+  <data name="issueCauseWildLevelSteps" xml:space="preserve">
+    <value>Adjust or disable the "Consider Wild-level - steps" in the settings.</value>
+  </data>
+  <data name="issueCauseMaxWildLevel" xml:space="preserve">
+    <value>The maximal wild level is set too low, go to the settings and adjust it.</value>
+  </data>
+  <data name="issueCauseStatMultipliers" xml:space="preserve">
+    <value>The stat multipliers in the Settings are not set to the multipliers of the server. Ask your admin for the correct multipliers and adjust them in the Settings.</value>
+  </data>
+  <data name="issueCauseOutdatedIngameValues" xml:space="preserve">
+    <value>The stats of the creature were changed recently and the game displays the old values. Level up a stat, that should trigger a recalculation of the values.</value>
+  </data>
+  <data name="issueCauseCreatureLevel" xml:space="preserve">
+    <value>Check if the total level of the creature is entered correctly.
+If the creature is bred, also check if the BabyStatScaleImprintingBonus is set correctly.</value>
+  </data>
+  <data name="issueCauseArkStatIssue" xml:space="preserve">
+    <value>This species is known to show wrong stat values ingame, this can prevent a successful extraction.</value>
+  </data>
+  <data name="BtApplyOTSPreset" xml:space="preserve">
+    <value>Apply OTS Preset</value>
+  </data>
+  <data name="BtSaveOTSPreset" xml:space="preserve">
+    <value>Save OTS</value>
+  </data>
+  <data name="BtSaveOTSPresetTT" xml:space="preserve">
+    <value>Save Owner, Tribe and Server as preset.
+The preset can be applied by the Apply Preset button</value>
+  </data>
+  <data name="BtApplyOTSPresetTT" xml:space="preserve">
+    <value>Set the values for owner, tribe and server from the saved preset</value>
+  </data>
+  <data name="noColor" xml:space="preserve">
+    <value>no color</value>
+  </data>
+  <data name="topLevel" xml:space="preserve">
+    <value>top level</value>
+  </data>
+  <data name="newTopLevel" xml:space="preserve">
+    <value>new top level</value>
+  </data>
+  <data name="clearColors" xml:space="preserve">
+    <value>clear colors</value>
+  </data>
+  <data name="holdCtrlForRandomColors" xml:space="preserve">
+    <value>Hold Ctrl for random colors</value>
   </data>
 </root>

@@ -34,10 +34,12 @@ namespace ARKBreedingStats.mods
             {
                 if (Values.V.modsManifest.modsByTag.ContainsKey(modTag))
                 {
-                    if (Values.V.modsManifest.modsByTag[modTag].downloaded)
+                    if (Values.V.modsManifest.modsByTag[modTag].locallyAvailable)
                         locallyAvailableModFiles.Add(modTag);
-                    else
+                    else if (Values.V.modsManifest.modsByTag[modTag].onlineAvailable)
                         onlineAvailableModFiles.Add(modTag);
+                    else
+                        unavailableModFiles.Add(modTag);
                 }
                 else
                     unavailableModFiles.Add(modTag);

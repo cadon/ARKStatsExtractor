@@ -253,7 +253,8 @@ namespace ARKBreedingStats.importExported
                 && double.TryParse(text.Substring(14, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, dotSeparatorCulture, out double g)
                 && double.TryParse(text.Substring(25, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, dotSeparatorCulture, out double b)
                 && double.TryParse(text.Substring(36, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, dotSeparatorCulture, out double a)
-                && (r != 0 || g != 0 || b != 0 || a != 1) // no color
+                && !(r == 0 && g == 0 && b == 0 && a == 1) // no color
+                && !(r == 1 && g == 1 && b == 1 && a == 1) // no color
                 )
                 return Values.V.Colors.ClosestColorID(r, g, b, a);
 

@@ -2,7 +2,6 @@
 using ARKBreedingStats.Library;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats
@@ -83,7 +82,7 @@ namespace ARKBreedingStats
                     textBoxNote.Text = creature.note;
                     sex = creature.sex;
                     buttonSex.Text = Utils.SexSymbol(sex);
-                    creatureStatus = creature.status;
+                    creatureStatus = creature.Status;
                     SetStatusButton(creatureStatus);
                     textBoxName.SelectAll();
                     textBoxName.Focus();
@@ -139,7 +138,7 @@ namespace ARKBreedingStats
                 statsDisplay1.SetCreatureValues(creature);
                 labelNotes.Text = creature.note;
                 labelSpecies.Text = creature.Species.name;
-                pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.Species, colorRegionUseds);
+                pictureBox1.Image = CreatureColored.GetColoredCreature(creature.colors, creature.Species, colorRegionUseds, creatureSex: creature.sex);
                 tt.SetToolTip(pictureBox1, CreatureColored.RegionColorInfo(creature.Species, creature.colors)
                     + "\n\nClick to copy creature infos as image to the clipboard");
                 pictureBox1.Visible = true;
@@ -179,10 +178,10 @@ namespace ARKBreedingStats
                 creature.isBred = checkBoxIsBred.Checked;
 
                 creature.note = textBoxNote.Text;
-                bool creatureStatusChanged = (creature.status != creatureStatus);
-                creature.status = creatureStatus;
+                bool creatureStatusChanged = (creature.Status != creatureStatus);
+                creature.Status = creatureStatus;
 
-                Changed(creature, creatureStatusChanged, true);
+                Changed?.Invoke(creature, creatureStatusChanged, true);
                 UpdateLabel();
             }
         }
@@ -194,9 +193,9 @@ namespace ARKBreedingStats
             parentComboBoxFather.Items.Clear();
             parentList = new List<Creature>[2];
             CloseSettings(false);
-            groupBox1.Text = "";
+            groupBox1.Text = string.Empty;
             creature = null;
-            labelParents.Text = "";
+            labelParents.Text = string.Empty;
             statsDisplay1.Clear();
             pictureBox1.Visible = false;
             regionColorChooser1.Clear();
@@ -233,9 +232,11 @@ namespace ARKBreedingStats
 
         private void RegionColorChooser1_RegionColorChosen()
         {
+            if (creature == null) return;
+
+            pictureBox1.Image = CreatureColored.GetColoredCreature(creature.colors, creature.Species, colorRegionUseds, creatureSex: creature.sex);
             creature.colors = regionColorChooser1.ColorIDs;
-            pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.Species, colorRegionUseds);
-            Changed(creature, false, false);
+            Changed?.Invoke(creature, false, false);
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)

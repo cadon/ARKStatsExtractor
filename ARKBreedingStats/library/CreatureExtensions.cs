@@ -41,7 +41,7 @@ namespace ARKBreedingStats.library
 
                 g.DrawString(creature.Species.DescriptiveNameAndMod, fontHeader, fontBrush, 3, currentYPosition);
                 currentYPosition += 19;
-                g.DrawString($"Level {creature.LevelHatched} | {Utils.SexSymbol(creature.sex) + (creature.flags.HasFlag(CreatureFlags.Neutered) ? $" ({Loc.s(creature.sex == Sex.Female ? "Spayed" : "Neutered")})" : string.Empty)} | {creature.Mutations} mutations | generation {creature.generation}", font, fontBrush, 8, currentYPosition);
+                g.DrawString($"Level {creature.LevelHatched} | {Utils.SexSymbol(creature.sex) + (creature.flags.HasFlag(CreatureFlags.Neutered) ? $" ({Loc.S(creature.sex == Sex.Female ? "Spayed" : "Neutered")})" : string.Empty)} | {creature.Mutations} mutations | generation {creature.generation}", font, fontBrush, 8, currentYPosition);
                 currentYPosition += 17;
 
                 using (var p = new Pen(Color.LightGray, 1))
@@ -110,22 +110,22 @@ namespace ARKBreedingStats.library
                 if (maxColorNameLength < 0) maxColorNameLength = 0;
                 g.DrawString("Colors", font, fontBrush, xColor, currentYPosition);
                 int colorRow = 0;
-                for (int ci = 0; ci < Species.COLOR_REGION_COUNT; ci++)
+                for (int ci = 0; ci < Species.ColorRegionCount; ci++)
                 {
                     if (string.IsNullOrEmpty(creature.Species.colors[ci]?.name))
                         continue;
 
                     int y = currentYPosition + 20 + (colorRow++) * rowHeight;
 
-                    Color c = CreatureColors.creatureColor(creature.colors[ci]);
-                    Color fc = Utils.ForeColor(c);
+                    Color c = CreatureColors.CreatureColor(creature.colors[ci]);
+                    //Color fc = Utils.ForeColor(c);
 
                     using (var b = new SolidBrush(c))
                         g.FillEllipse(b, xColor, y, circleDiameter, circleDiameter);
                     g.DrawEllipse(penBlack, xColor, y, circleDiameter, circleDiameter);
 
                     string colorRegionName = creature.Species.colors[ci].name;
-                    string colorName = CreatureColors.creatureColorName(creature.colors[ci]);
+                    string colorName = CreatureColors.CreatureColorName(creature.colors[ci]);
 
                     int totalColorLenght = colorRegionName.Length + 11;
                     if (totalColorLenght > maxColorNameLength)

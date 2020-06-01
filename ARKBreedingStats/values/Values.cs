@@ -238,7 +238,7 @@ namespace ARKBreedingStats.values
             {
                 string filename = FileService.GetJsonPath(Path.Combine(FileService.ValuesFolder, mf));
 
-                if (TryLoadValuesFile(filename, setModFileName: true, throwExceptionOnFail, out Values modValues, out string modFileErrorMessage))
+                if (TryLoadValuesFile(filename, setModFileName: true, false, out Values modValues, out string modFileErrorMessage))
                 {
                     modifiedValues.Add(modValues);
                 }
@@ -321,7 +321,8 @@ namespace ARKBreedingStats.values
                 string modFilePath = Path.Combine(valuesFolder, mf);
                 if (!File.Exists(modFilePath))
                 {
-                    if (modsManifest.modsByFiles.ContainsKey(mf))
+                    if (modsManifest.modsByFiles.ContainsKey(mf)
+                        && modsManifest.modsByFiles[mf].onlineAvailable)
                         missingModValueFilesOnlineAvailable.Add(mf);
                     else
                         missingModValueFilesOnlineNotAvailable.Add(mf);
@@ -329,20 +330,16 @@ namespace ARKBreedingStats.values
                 else if (modsManifest.modsByFiles.ContainsKey(mf))
                 {
                     // check if an update is available
-                    bool downloadRecommended = true;
-
-
-                    if (TryLoadValuesFile(modFilePath, setModFileName: false, throwExceptionOnFail: false, out Values modValues, errorMessage: out _)
-                        && modValues.Version >= modsManifest.modsByFiles[mf].Version)
+                    if (modsManifest.modsByFiles[mf].onlineAvailable
+                        && modsManifest.modsByFiles[mf].Version != null
+                        && TryLoadValuesFile(modFilePath, setModFileName: false, throwExceptionOnFail: false,
+                            out Values modValues, errorMessage: out _)
+                        && modValues.Version < modsManifest.modsByFiles[mf].Version)
                     {
-                        downloadRecommended = false;
-                    }
-                    if (downloadRecommended)
                         modValueFilesWithAvailableUpdate.Add(mf);
+                    }
                 }
             }
-
-            // UpdateManualModValueFiles(); // TODO
 
             return (missingModValueFilesOnlineAvailable,
                     missingModValueFilesOnlineNotAvailable,
@@ -670,18 +667,7 @@ namespace ARKBreedingStats.values
         /// <param name="mm"></param>
         internal void SetModsManifest(ModsManifest mm)
         {
-            if (mm == null)
-                modsManifest = new ModsManifest();
-            else
-                modsManifest = mm;
-        }
-
-        /// <summary>
-        /// add possible mod-value files that are not listed in the manifest-file (manually created)
-        /// </summary>
-        internal void UpdateManualModValueFiles()
-        {
-            // TODO loop through modvalue files and check if file is not yet loaded in manifest.
+            modsManifest = mm ?? new ModsManifest();
         }
 
         private void LoadIgnoreSpeciesClassesFile()

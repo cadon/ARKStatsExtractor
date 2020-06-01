@@ -311,9 +311,6 @@ Se lo strumento riconosce il nome della specie, lo prenderà, altrimenti control
   <data name="copyToMultiplierTesterToolStripButtonTT" xml:space="preserve">
     <value>Tutti i livelli, TE e IB del Tester, e i valori delle statistiche dell'estrattore saranno copiati in Stat-Multiplier-Tester</value>
   </data>
-  <data name="Creatura" xml:space="preserve">
-    <value>Creature</value>
-  </data>
   <data name="Crossbow" xml:space="preserve">
     <value>Balestra</value>
   </data>
@@ -671,9 +668,6 @@ Se viene visualizzato un numero con un segno più, la somma è troppo alta e dev
   <data name="pedigree" xml:space="preserve">
     <value>Pedigree</value>
   </data>
-  <data name="per ottenere informazioni di addomesticazione nella sovrapposizione&quot;" xml:space="preserve">
-    <value />
-  </data>
   <data name="Player" xml:space="preserve">
     <value>Giocatore</value>
   </data>
@@ -927,5 +921,23 @@ Questa modalità arriverà alla miglior prole possibile, ferma e sicura.Alcune p
   </data>
   <data name="settingsToolStripMenuItem" xml:space="preserve">
     <value>Impostazioni</value>
+  </data>
+  <data name="Creature" xml:space="preserve">
+    <value>Creatura</value>
+  </data>
+  <data name="noColor" xml:space="preserve">
+    <value>nessun colore</value>
+  </data>
+  <data name="topLevel" xml:space="preserve">
+    <value>livello superiore</value>
+  </data>
+  <data name="newTopLevel" xml:space="preserve">
+    <value>nuovo livello superiore</value>
+  </data>
+  <data name="servers" xml:space="preserve">
+    <value>server</value>
+  </data>
+  <data name="showOnlyNaturalOccuring" xml:space="preserve">
+    <value>mostra solo i colori naturali</value>
   </data>
 </root>

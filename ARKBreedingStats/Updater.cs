@@ -1,10 +1,9 @@
 ﻿using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
+using System.IO.Compression;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -12,16 +11,17 @@ using System.Windows.Forms;
 
 namespace ARKBreedingStats
 {
-    public class Updater
+    public static class Updater
     {
-        public const string MasterBranchUrl = "https://github.com/cadon/ARKStatsExtractor/raw/master/ARKBreedingStats/";
-
+        /// <summary>
+        /// Latest release url.
+        /// </summary>
         public const string ReleasesUrl = "https://github.com/cadon/ARKStatsExtractor/releases/latest";
-        // Release feed URL
-        private const string releasesFeedUrl = "https://api.github.com/repos/cadon/ARKStatsExtractor/releases";
-        internal const string UPDATER_EXE = "asb-updater.exe";
-
-        private const string OBELISK_URI = "https://raw.githubusercontent.com/arkutils/Obelisk/master/data/asb/";
+        private const string ReleasesFeedUrl = "https://api.github.com/repos/cadon/ARKStatsExtractor/releases";
+        internal const string UpdaterExe = "asb-updater.exe";
+        private const string ObeliskUrl = "https://raw.githubusercontent.com/arkutils/Obelisk/master/data/asb/";
+        private const string MasterRawUrl = "https://github.com/cadon/ARKStatsExtractor/raw/master";
+        private const string SpeciesColorRegionZipFileName = "img.zip";
 
         #region main program
 
@@ -100,8 +100,8 @@ namespace ARKBreedingStats
         /// </summary>
         private static void LaunchUpdater()
         {
-            string oldLocation = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, UPDATER_EXE);
-            string newLocation = Path.Combine(Path.GetTempPath(), UPDATER_EXE);
+            string oldLocation = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, UpdaterExe);
+            string newLocation = Path.Combine(Path.GetTempPath(), UpdaterExe);
 
             File.Copy(oldLocation, newLocation, true);
 
@@ -190,7 +190,7 @@ namespace ARKBreedingStats
             string releaseFeed;
             try
             {
-                (_, releaseFeed) = await DownloadAsync(releasesFeedUrl);
+                (_, releaseFeed) = await DownloadAsync(ReleasesFeedUrl);
             }
             catch (Exception e)
             {
@@ -259,7 +259,8 @@ namespace ARKBreedingStats
                 catch (Exception e)
                 {
                     successfulDownloaded = false;
-                    MessageBox.Show("Error while trying to download the file\n" + url + "\n\n" + e.Message, "ASB download error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Error while trying to download the file\n{url}\n\n{e.Message}{(e.InnerException == null ? string.Empty : $"\n\n{e.InnerException.Message}")}",
+                        "ASB download error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 if (!File.Exists(outFileName))
@@ -297,7 +298,7 @@ namespace ARKBreedingStats
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Error while trying to download the file\n" + url + "\n\n" + e.Message, "ASB download error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Error while trying to download the file\n{url}\n\n{e.Message}", "ASB download error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 if (!File.Exists(outFileName))
@@ -305,6 +306,54 @@ namespace ARKBreedingStats
 
                 return true;
             }
+        }
+
+        /// <summary>
+        /// Downloads the species color region images and saves them in the data folder.
+        /// </summary>
+        internal static async Task<(bool, string)> DownloadSpeciesImages(bool overwrite)
+        {
+            string imagesFolderPath = FileService.GetPath("img");
+            string url = MasterRawUrl + "/" + SpeciesColorRegionZipFileName;
+            string tempFilePath = Path.GetTempFileName();
+            var (downloaded, _) = await DownloadAsync(url, tempFilePath);
+            if (!downloaded)
+                return (false, $"File {url} couldn't be downloaded");
+
+            int fileCountExtracted = 0;
+            int fileCountSkipped = 0;
+
+            try
+            {
+                using (var archive = ZipFile.OpenRead(tempFilePath))
+                {
+                    foreach (ZipArchiveEntry file in archive.Entries)
+                    {
+                        if (string.IsNullOrEmpty(file.Name)) continue;
+
+                        var filePathUnzipped = Path.Combine(imagesFolderPath, file.Name);
+                        if (File.Exists(filePathUnzipped) &&
+                            (!overwrite || !FileService.TryDeleteFile(filePathUnzipped)))
+                        {
+                            fileCountSkipped++;
+                            continue;
+                        }
+
+                        file.ExtractToFile(filePathUnzipped);
+                        fileCountExtracted++;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return (false, $"Error while extracting the files in {imagesFolderPath}\n\n{ex.Message}");
+            }
+            finally
+            {
+                FileService.TryDeleteFile(tempFilePath);
+            }
+
+            return (true, $"Image files were downloaded successfully.\n{fileCountExtracted} images extracted\n{fileCountSkipped} already existing images skipped");
         }
 
         #region mod values
@@ -319,7 +368,7 @@ namespace ARKBreedingStats
 
             try
             {
-                if ((await DownloadAsync(OBELISK_URI + FileService.ModsManifest,
+                if ((await DownloadAsync(ObeliskUrl + FileService.ModsManifest,
                     tempFilePath)).Item1)
                 {
                     // if successful downloaded, move tempFile
@@ -327,20 +376,24 @@ namespace ARKBreedingStats
                     {
                         if (File.Exists(destFilePath)) File.Delete(destFilePath);
                         File.Move(tempFilePath, destFilePath);
-                        TryDeleteFile(tempFilePath);
                         return true;
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("Error while moving mod-manifest file:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error while moving mod-manifest file:\n\n" + e.Message, "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error while downloading mod-manifest:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error while downloading mod-manifest:\n\n" + e.Message, "Error", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
-            TryDeleteFile(tempFilePath);
+            finally
+            {
+                TryDeleteFile(tempFilePath);
+            }
 
             return false;
         }
@@ -362,7 +415,7 @@ namespace ARKBreedingStats
         {
             try
             {
-                await DownloadAsync(OBELISK_URI + modValuesFileName,
+                await DownloadAsync(ObeliskUrl + modValuesFileName,
                     FileService.GetJsonPath(Path.Combine(FileService.ValuesFolder, modValuesFileName)));
                 return true;
             }
@@ -377,13 +430,13 @@ namespace ARKBreedingStats
         {
             try
             {
-                Download(OBELISK_URI + modValuesFileName,
+                Download(ObeliskUrl + modValuesFileName,
                     FileService.GetJsonPath(Path.Combine(FileService.ValuesFolder, modValuesFileName)));
                 return true;
             }
             catch
             {
-                // TODO
+                // ignored
             }
             return false;
         }

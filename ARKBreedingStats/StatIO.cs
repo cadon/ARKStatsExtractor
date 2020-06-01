@@ -12,11 +12,11 @@ namespace ARKBreedingStats
         private string statName;
         private double breedingValue;
         private StatIOInputType inputType;
-        public event Form1.LevelChangedEventHandler LevelChanged;
-        public event Form1.InputValueChangedEventHandler InputValueChanged;
+        public event Action<StatIO> LevelChanged;
+        public event Action<StatIO> InputValueChanged;
         public int statIndex;
         private bool domZeroFixed;
-        ToolTip tt = new ToolTip();
+        private readonly ToolTip _tt;
         public int barMaxLevel = 45;
 
         public StatIO()
@@ -31,8 +31,8 @@ namespace ARKBreedingStats
             groupBox1.Click += groupBox1_Click;
             InputType = inputType;
             // ToolTips
-            tt.InitialDelay = 300;
-            tt.SetToolTip(checkBoxFixDomZero, "Check to lock to zero (if you never leveled up this stat)");
+            _tt = new ToolTip { InitialDelay = 300 };
+            _tt.SetToolTip(checkBoxFixDomZero, "Check to lock to zero (if you never leveled up this stat)");
         }
 
         public double Input
@@ -43,7 +43,7 @@ namespace ARKBreedingStats
                 if (value < 0)
                 {
                     numericUpDownInput.Value = 0;
-                    labelFinalValue.Text = "unknown";
+                    labelFinalValue.Text = Loc.S("Unknown");
                 }
                 else
                 {
@@ -103,7 +103,7 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    labelBValue.Text = "unknown";
+                    labelBValue.Text = Loc.S("Unknown");
                 }
             }
         }
@@ -150,7 +150,7 @@ namespace ARKBreedingStats
                     case StatIOStatus.Neutral:
                         BackColor = Color.Transparent; //SystemColors.Control;
                         break;
-                    case StatIOStatus.Nonunique:
+                    case StatIOStatus.NonUnique:
                         BackColor = Color.FromArgb(255, 255, 127);
                         break;
                     case StatIOStatus.Error:
@@ -161,20 +161,27 @@ namespace ARKBreedingStats
             }
         }
 
+        private StatIOStatus _topLevel;
         public StatIOStatus TopLevel
         {
+            get => _topLevel;
             set
             {
-                switch (value)
+                _topLevel = value;
+                switch (_topLevel)
                 {
                     case StatIOStatus.TopLevel:
                         labelWildLevel.BackColor = Color.LightGreen;
+                        _tt.SetToolTip(labelWildLevel, Loc.S("topLevel"));
                         break;
                     case StatIOStatus.NewTopLevel:
                         labelWildLevel.BackColor = Color.Gold;
+                        _tt.SetToolTip(labelWildLevel, Loc.S("newTopLevel"));
                         break;
                     default:
                         labelWildLevel.BackColor = Color.Transparent;
+                        _tt.SetToolTip(labelWildLevel, null);
+                        _topLevel = StatIOStatus.Neutral;
                         break;
                 }
             }
@@ -237,7 +244,7 @@ namespace ARKBreedingStats
             }
             panelBarWildLevels.Width = lengthPercentage * 283 / 100;
             panelBarWildLevels.BackColor = Utils.GetColorFromPercent(lengthPercentage);
-            tt.SetToolTip(panelBarWildLevels, Utils.LevelPercentile((int)numLvW.Value));
+            _tt.SetToolTip(panelBarWildLevels, Utils.LevelPercentile((int)numLvW.Value));
 
             if (inputType != StatIOInputType.FinalValueInputType)
                 LevelChanged(this);
@@ -321,7 +328,7 @@ namespace ARKBreedingStats
     {
         Neutral,
         Unique,
-        Nonunique,
+        NonUnique,
         Error,
         /// <summary>
         /// wild level is equal to the current top-level

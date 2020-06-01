@@ -44,14 +44,7 @@ namespace ARKBreedingStats
             Loc.ControlText(findDuplicatesToolStripMenuItem);
             Loc.ControlText(copyCreatureToolStripMenuItem);
             Loc.ControlText(pasteCreatureToolStripMenuItem);
-            Loc.ControlText(viewToolStripMenuItem);
-            Loc.ControlText(deadCreaturesToolStripMenuItem);
-            Loc.ControlText(unavailableCreaturesToolStripMenuItem);
-            Loc.ControlText(obeliskCreaturesToolStripMenuItem);
-            Loc.ControlText(neuteredCreaturesToolStripMenuItem);
-            Loc.ControlText(mutatedCreaturesToolStripMenuItem);
-            Loc.ControlText(femalesToolStripMenuItem);
-            Loc.ControlText(malesToolStripMenuItem);
+            Loc.ControlText(libraryFilterToolStripMenuItem);
             Loc.ControlText(helpToolStripMenuItem);
             Loc.ControlText(aboutToolStripMenuItem);
             Loc.ControlText(onlinehelpToolStripMenuItem);
@@ -70,9 +63,9 @@ namespace ARKBreedingStats
             Loc.ControlText(copyToMultiplierTesterToolStripButton);
 
             // top bar
-            Loc.ControlText(cbGuessSpecies, tt);
-            Loc.ControlText(btReadValuesFromArk, tt);
-            Loc.ControlText(btImportLastExported, tt);
+            Loc.ControlText(cbGuessSpecies, _tt);
+            Loc.ControlText(btReadValuesFromArk, _tt);
+            Loc.ControlText(btImportLastExported, _tt);
             Loc.ControlText(cbToggleOverlay);
 
             // tester
@@ -89,9 +82,9 @@ namespace ARKBreedingStats
             Loc.ControlText(lbTestingInfo);
             Loc.ControlText(gbStatChart, "statChart");
             Loc.ControlText(lbCurrentCreature, "CurrentCreature");
-            Loc.setToolTip(lbImprintedCount, tt);
-            Loc.setToolTip(lbTesterDomLevel, "domLevelExplanation", tt);
-            Loc.setToolTip(lbTesterWildLevel, "wildLevelExplanation", tt);
+            Loc.SetToolTip(lbImprintedCount, _tt);
+            Loc.SetToolTip(lbTesterDomLevel, "domLevelExplanation", _tt);
+            Loc.SetToolTip(lbTesterWildLevel, "wildLevelExplanation", _tt);
 
             // extractor
             Loc.ControlText(tabPageExtractor, "extractor");
@@ -101,26 +94,27 @@ namespace ARKBreedingStats
             Loc.ControlText(lbSum);
             Loc.ControlText(lbShouldBe);
             Loc.ControlText(lbImprintingFailInfo);
-            Loc.ControlText(cbExactlyImprinting, tt);
+            Loc.ControlText(cbExactlyImprinting, _tt);
             Loc.ControlText(btExtractLevels);
-            Loc.ControlText(cbQuickWildCheck, tt);
+            Loc.ControlText(cbQuickWildCheck, _tt);
             Loc.ControlText(rbWildExtractor, "wild");
             Loc.ControlText(rbTamedExtractor, "tamed");
             Loc.ControlText(rbBredExtractor, "bred");
-            Loc.setToolTip(lbImprintingCuddleCountExtractor, tt);
-            Loc.setToolTip(lbSumWild, tt);
-            Loc.setToolTip(lbSumDom, tt);
-            Loc.setToolTip(lbSumDomSB, tt);
-            Loc.setToolTip(lbListening, tt);
-            Loc.setToolTip(lbExtractorDomLevel, "domLevelExplanation", tt);
-            Loc.setToolTip(lbExtractorWildLevel, "wildLevelExplanation", tt);
+            Loc.SetToolTip(lbImprintingCuddleCountExtractor, _tt);
+            Loc.SetToolTip(lbSumWild, _tt);
+            Loc.SetToolTip(lbSumDom, _tt);
+            Loc.SetToolTip(lbSumDomSB, _tt);
+            Loc.SetToolTip(lbListening, _tt);
+            Loc.SetToolTip(lbExtractorDomLevel, "domLevelExplanation", _tt);
+            Loc.SetToolTip(lbExtractorWildLevel, "wildLevelExplanation", _tt);
 
             // library
             Loc.ControlText(tabPageLibrary, "library");
-            columnHeaderName.Text = Loc.s("Name");
-            columnHeaderOwner.Text = Loc.s("Owner");
-            columnHeaderNote.Text = Loc.s("Note");
-            columnHeaderServer.Text = Loc.s("Server");
+            columnHeaderName.Text = Loc.S("Name");
+            columnHeaderOwner.Text = Loc.S("Owner");
+            columnHeaderTribe.Text = Loc.S("Tribe");
+            columnHeaderNote.Text = Loc.S("Note");
+            columnHeaderServer.Text = Loc.S("Server");
             columnHeaderHP.Text = Utils.StatName(StatNames.Health, true);
             columnHeaderSt.Text = Utils.StatName(StatNames.Stamina, true);
             columnHeaderOx.Text = Utils.StatName(StatNames.Oxygen, true);
@@ -133,19 +127,19 @@ namespace ARKBreedingStats
             columnHeaderTemp.Text = Utils.StatName(StatNames.Temperature, true);
             columnHeaderCr.Text = Utils.StatName(StatNames.Water, true);
             columnHeaderFr.Text = Utils.StatName(StatNames.TemperatureFortitude, true);
-            columnHeaderTopStatsNr.Text = Loc.s("Top");
-            columnHeaderTopness.Text = Loc.s("topPercentage");
-            columnHeaderGen.Text = Loc.s("Generation_Abb");
-            columnHeaderLW.Text = Loc.s("LevelWild_Abb");
-            columnHeaderMutations.Text = Loc.s("Mutations_Abb");
-            columnHeaderAdded.Text = Loc.s("added");
-            columnHeaderCooldown.Text = Loc.s("cooldownGrowing");
-            columnHeaderColor0.Text = Loc.s("C0");
-            columnHeaderColor1.Text = Loc.s("C1");
-            columnHeaderColor2.Text = Loc.s("C2");
-            columnHeaderColor3.Text = Loc.s("C3");
-            columnHeaderColor4.Text = Loc.s("C4");
-            columnHeaderColor5.Text = Loc.s("C5");
+            columnHeaderTopStatsNr.Text = Loc.S("Top");
+            columnHeaderTopness.Text = Loc.S("topPercentage");
+            columnHeaderGen.Text = Loc.S("Generation_Abb");
+            columnHeaderLW.Text = Loc.S("LevelWild_Abb");
+            columnHeaderMutations.Text = Loc.S("Mutations_Abb");
+            columnHeaderAdded.Text = Loc.S("added");
+            columnHeaderCooldown.Text = Loc.S("cooldownGrowing");
+            columnHeaderColor0.Text = Loc.S("C0");
+            columnHeaderColor1.Text = Loc.S("C1");
+            columnHeaderColor2.Text = Loc.S("C2");
+            columnHeaderColor3.Text = Loc.S("C3");
+            columnHeaderColor4.Text = Loc.S("C4");
+            columnHeaderColor5.Text = Loc.S("C5");
 
             // other tabs
             Loc.ControlText(tabPagePedigree, "pedigree");

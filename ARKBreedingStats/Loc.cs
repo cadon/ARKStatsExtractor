@@ -20,53 +20,69 @@ namespace ARKBreedingStats
             rm = new ResourceManager("ARKBreedingStats.local.strings", typeof(Form1).Assembly);
         }
 
-        public static string s(string key, bool returnKeyIfValueNA = true)
+        /// <summary>
+        /// Returns the localized string.
+        /// </summary>
+        public static string S(string key, bool returnKeyIfValueNA = true)
         {
-            if (rm == null) return string.Empty;
+            if (rm == null) return null;
             string s = rm.GetString(key);
-            //if (string.IsNullOrEmpty(s)) System.Console.WriteLine("missing: " + key);
-            //return string.IsNullOrEmpty(s) ? "MISSING" : s;
-            return s ?? (returnKeyIfValueNA && key != null ? key : string.Empty);
+            //if (string.IsNullOrEmpty(s) && !key.EndsWith("TT")) System.Console.WriteLine("missing: " + key); // TODO debug
+            return s ?? (returnKeyIfValueNA ? key : null);
         }
 
-        public static void ControlText(Control c) => c.Text = s(c.Name);
-        public static void ControlText(Control c, string key) => c.Text = s(key);
+        public static void ControlText(Control c) => c.Text = S(c.Name);
+        public static void ControlText(Control c, string key) => c.Text = S(key);
+
+        /// <summary>
+        /// Sets the Text property of the control to the localized string, using the control.Name as key.
+        /// If there is a key with an appended TT, a tooltip is set.
+        /// </summary>
         public static void ControlText(Control c, ToolTip tt)
         {
-            c.Text = s(c.Name);
-            tt.SetToolTip(c, s(c.Name + "TT", false));
+            c.Text = S(c.Name);
+            tt.SetToolTip(c, S(c.Name + "TT", false));
         }
-        public static void setToolTip(Control c, ToolTip tt)
-        {
-            tt.SetToolTip(c, s(c.Name + "TT", false));
-        }
-        public static void setToolTip(Control c, string key, ToolTip tt)
-        {
-            tt.SetToolTip(c, s(key));
-        }
+
         /// <summary>
-        /// sets the Text of the control according to the key. Sets the tooltip according to the controlName
+        /// Sets the tooltip of the control using the localization key of the control name with TT appended.
+        /// </summary>
+        public static void SetToolTip(Control c, ToolTip tt)
+        {
+            tt.SetToolTip(c, S(c.Name + "TT", false));
+        }
+
+        /// <summary>
+        /// Sets the tooltip of the control using the custom key.
+        /// </summary>
+        public static void SetToolTip(Control c, string key, ToolTip tt)
+        {
+            tt.SetToolTip(c, S(key));
+        }
+
+        /// <summary>
+        /// Sets the Text of the control according to the key. Sets the tooltip according to the controlName
         /// </summary>
         /// <param name="c"></param>
         /// <param name="key"></param>
         /// <param name="tt"></param>
         public static void ControlText(Control c, string key, ToolTip tt)
         {
-            c.Text = s(key);
-            tt.SetToolTip(c, s(c.Name + "TT", false));
+            c.Text = S(key);
+            tt.SetToolTip(c, S(c.Name + "TT", false));
         }
         public static void ControlText(ToolStripMenuItem i)
         {
-            i.Text = s(i.Name);
-            string tt = s(i.Name + "TT", false);
+            i.Text = S(i.Name);
+            string tt = S(i.Name + "TT", false);
             if (!string.IsNullOrEmpty(tt))
                 i.ToolTipText = tt;
         }
 
         public static void ControlText(ToolStripButton i)
         {
-            i.Text = s(i.Name);
-            string tt = s(i.Name + "TT", false);
+            i.Text = S(i.Name);
+            string tt = S(i.Name + "TT", false);
             if (!string.IsNullOrEmpty(tt))
                 i.ToolTipText = tt;
         }

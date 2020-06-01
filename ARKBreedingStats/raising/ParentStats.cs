@@ -9,31 +9,31 @@ namespace ARKBreedingStats.raising
 {
     public partial class ParentStats : UserControl
     {
-        private readonly List<ParentStatValues> parentStatValues;
-        private readonly Label lbLevel;
+        private readonly List<ParentStatValues> _parentStatValues;
+        private readonly Label _lbLevel;
         public int maxChartLevel;
 
         public ParentStats()
         {
             InitializeComponent();
 
-            parentStatValues = new List<ParentStatValues>();
+            _parentStatValues = new List<ParentStatValues>();
             for (int s = 0; s < values.Values.STATS_COUNT; s++)
             {
                 ParentStatValues psv = new ParentStatValues();
                 psv.StatName = Utils.StatName(s, true) + (Utils.Precision(s) == 1 ? "" : " %");
-                parentStatValues.Add(psv);
+                _parentStatValues.Add(psv);
                 flowLayoutPanel1.SetFlowBreak(psv, true);
             }
             for (int s = 0; s < values.Values.STATS_COUNT; s++)
-                flowLayoutPanel1.Controls.Add(parentStatValues[values.Values.statsDisplayOrder[s]]);
+                flowLayoutPanel1.Controls.Add(_parentStatValues[values.Values.statsDisplayOrder[s]]);
 
-            lbLevel = new Label
+            _lbLevel = new Label
             {
                 Location = new Point(6, 215),
                 AutoSize = true
             };
-            groupBox1.Controls.Add(lbLevel);
+            groupBox1.Controls.Add(_lbLevel);
 
             Clear();
         }
@@ -41,19 +41,19 @@ namespace ARKBreedingStats.raising
         public void Clear()
         {
             for (int s = 0; s < values.Values.STATS_COUNT; s++)
-                parentStatValues[s].setValues();
-            lbLevel.Text = "";
+                _parentStatValues[s].setValues();
+            _lbLevel.Text = "";
         }
 
-        public void setParentValues(Creature mother, Creature father)
+        public void SetParentValues(Creature mother, Creature father)
         {
             if (mother == null && father == null)
             {
-                labelMother.Text = "unknown";
-                labelFather.Text = "unknown";
+                labelMother.Text = Loc.S("Unknown");
+                labelFather.Text = Loc.S("Unknown");
                 for (int s = 0; s < values.Values.STATS_COUNT; s++)
                 {
-                    parentStatValues[s].setValues();
+                    _parentStatValues[s].setValues();
                 }
                 return;
             }
@@ -66,7 +66,7 @@ namespace ARKBreedingStats.raising
                 bool statDisplayed = s != (int)StatNames.Torpidity
                                      && species.UsesStat(s);
 
-                parentStatValues[s].Visible = statDisplayed;
+                _parentStatValues[s].Visible = statDisplayed;
                 if (!statDisplayed)
                     continue;
 
@@ -78,7 +78,7 @@ namespace ARKBreedingStats.raising
                     if (maxChartLevel > 0)
                         bestLevelPercent = (100 * bestLevel) / maxChartLevel;
                 }
-                parentStatValues[s].setValues(
+                _parentStatValues[s].setValues(
                     mother == null ? -1 : (mother.valuesBreeding[s] * (Utils.Precision(s) == 1 ? 1 : 100)),
                     father == null ? -1 : (father.valuesBreeding[s] * (Utils.Precision(s) == 1 ? 1 : 100)),
                     mother != null && father != null ? (mother.valuesBreeding[s] > father.valuesBreeding[s] ? 1 : 2) : 0,
@@ -86,8 +86,8 @@ namespace ARKBreedingStats.raising
                     bestLevelPercent
                     );
             }
-            labelMother.Text = mother == null ? "unknown" : mother.name;
-            labelFather.Text = father == null ? "unknown" : (labelMother.Width > 78 ? "\n" : "") + father.name;
+            labelMother.Text = mother == null ? Loc.S("Unknown") : mother.name;
+            labelFather.Text = father == null ? Loc.S("Unknown") : (labelMother.Width > 78 ? "\n" : "") + father.name;
             if (mother != null && father != null)
             {
                 int minLv = 1, maxLv = 1;
@@ -104,10 +104,10 @@ namespace ARKBreedingStats.raising
                         minLv += father.levelsWild[s];
                     }
                 }
-                lbLevel.Text = $"Possible Level-Range: {minLv} - {maxLv}";
+                _lbLevel.Text = string.Format(Loc.S("possibleLevelRange"), minLv, maxLv);
             }
             else
-                lbLevel.Text = "";
+                _lbLevel.Text = "";
         }
     }
 }

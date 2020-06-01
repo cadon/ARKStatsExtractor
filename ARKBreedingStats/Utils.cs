@@ -155,11 +155,11 @@ namespace ARKBreedingStats
         {
             switch (status)
             {
-                case CreatureStatus.Available: return Loc.s(CreatureStatus.Available.ToString());
-                case CreatureStatus.Dead: return Loc.s(CreatureStatus.Dead.ToString());
-                case CreatureStatus.Unavailable: return Loc.s(CreatureStatus.Unavailable.ToString());
-                case CreatureStatus.Obelisk: return Loc.s(CreatureStatus.Obelisk.ToString());
-                case CreatureStatus.Cryopod: return Loc.s(CreatureStatus.Cryopod.ToString());
+                case CreatureStatus.Available: return Loc.S(CreatureStatus.Available.ToString());
+                case CreatureStatus.Dead: return Loc.S(CreatureStatus.Dead.ToString());
+                case CreatureStatus.Unavailable: return Loc.S(CreatureStatus.Unavailable.ToString());
+                case CreatureStatus.Obelisk: return Loc.S(CreatureStatus.Obelisk.ToString());
+                case CreatureStatus.Cryopod: return Loc.S(CreatureStatus.Cryopod.ToString());
                 default: return "n/a";
             }
         }
@@ -209,16 +209,16 @@ namespace ARKBreedingStats
             double[] prb = { 100, 100, 100, 100, 100, 100, 100, 100, 100, 99.99, 99.98, 99.95, 99.88, 99.72, 99.40, 98.83, 97.85, 96.28, 93.94, 90.62, 86.20, 80.61, 73.93, 66.33, 58.10, 49.59, 41.19, 33.26, 26.08, 19.85, 14.66, 10.50, 7.30, 4.92, 3.21, 2.04, 1.25, 0.75, 0.43, 0.24, 0.13 };
             if (level < 0) level = 0;
             if (level >= prb.Length) level = prb.Length - 1;
-            return string.Format(Loc.s("topPercentileLevel"), prb[level].ToString("N2"));
+            return string.Format(Loc.S("topPercentileLevel"), prb[level].ToString("N2"));
         }
 
         private static string[] statNames, statNamesAbb, statNamesAberrant, statNamesAberrantAbb;
         public static void InitializeLocalizations()
         {
-            statNames = new[] { Loc.s("Health"), Loc.s("Stamina"), Loc.s("Torpidity"), Loc.s("Oxygen"), Loc.s("Food"), Loc.s("Water"), Loc.s("Temperature"), Loc.s("Weight"), Loc.s("Damage"), Loc.s("Speed"), Loc.s("Fortitude"), Loc.s("CraftingSpeed") };
-            statNamesAbb = new[] { Loc.s("Health_Abb"), Loc.s("Stamina_Abb"), Loc.s("Torpidity_Abb"), Loc.s("Oxygen_Abb"), Loc.s("Food_Abb"), Loc.s("Water_Abb"), Loc.s("Temperature_Abb"), Loc.s("Weight_Abb"), Loc.s("Damage_Abb"), Loc.s("Speed_Abb"), Loc.s("Fortitude_Abb"), Loc.s("CraftingSpeed_Abb") };
-            statNamesAberrant = new[] { Loc.s("Health"), Loc.s("ChargeCapacity"), Loc.s("Torpidity"), Loc.s("ChargeRegeneration"), Loc.s("Food"), Loc.s("Water"), Loc.s("Temperature"), Loc.s("Weight"), Loc.s("ChargeEmissionRange"), Loc.s("Speed"), Loc.s("Fortitude"), Loc.s("CraftingSpeed") };
-            statNamesAberrantAbb = new[] { Loc.s("Health_Abb"), Loc.s("ChargeCapacity_Abb"), Loc.s("Torpidity_Abb"), Loc.s("ChargeRegeneration_Abb"), Loc.s("Food_Abb"), Loc.s("Water_Abb"), Loc.s("Temperature_Abb"), Loc.s("Weight_Abb"), Loc.s("ChargeEmissionRange_Abb"), Loc.s("Speed_Abb"), Loc.s("Fortitude_Abb"), Loc.s("CraftingSpeed_Abb") };
+            statNames = new[] { Loc.S("Health"), Loc.S("Stamina"), Loc.S("Torpidity"), Loc.S("Oxygen"), Loc.S("Food"), Loc.S("Water"), Loc.S("Temperature"), Loc.S("Weight"), Loc.S("Damage"), Loc.S("Speed"), Loc.S("Fortitude"), Loc.S("CraftingSpeed") };
+            statNamesAbb = new[] { Loc.S("Health_Abb"), Loc.S("Stamina_Abb"), Loc.S("Torpidity_Abb"), Loc.S("Oxygen_Abb"), Loc.S("Food_Abb"), Loc.S("Water_Abb"), Loc.S("Temperature_Abb"), Loc.S("Weight_Abb"), Loc.S("Damage_Abb"), Loc.S("Speed_Abb"), Loc.S("Fortitude_Abb"), Loc.S("CraftingSpeed_Abb") };
+            statNamesAberrant = new[] { Loc.S("Health"), Loc.S("ChargeCapacity"), Loc.S("Torpidity"), Loc.S("ChargeRegeneration"), Loc.S("Food"), Loc.S("Water"), Loc.S("Temperature"), Loc.S("Weight"), Loc.S("ChargeEmissionRange"), Loc.S("Speed"), Loc.S("Fortitude"), Loc.S("CraftingSpeed") };
+            statNamesAberrantAbb = new[] { Loc.S("Health_Abb"), Loc.S("ChargeCapacity_Abb"), Loc.S("Torpidity_Abb"), Loc.S("ChargeRegeneration_Abb"), Loc.S("Food_Abb"), Loc.S("Water_Abb"), Loc.S("Temperature_Abb"), Loc.S("Weight_Abb"), Loc.S("ChargeEmissionRange_Abb"), Loc.S("Speed_Abb"), Loc.S("Fortitude_Abb"), Loc.S("CraftingSpeed_Abb") };
         }
 
         /// <summary>
@@ -282,7 +282,7 @@ namespace ARKBreedingStats
         /// <returns>Returns the timespan and the DateTime when the timespan is over</returns>
         public static string DurationUntil(TimeSpan ts)
         {
-            return ts.ToString("d':'hh':'mm':'ss") + " (" + Loc.s("until") + ": " + ShortTimeDate(DateTime.Now.Add(ts)) + ")";
+            return ts.ToString("d':'hh':'mm':'ss") + " (" + Loc.S("until") + ": " + ShortTimeDate(DateTime.Now.Add(ts)) + ")";
         }
 
         /// <summary>
@@ -293,7 +293,7 @@ namespace ARKBreedingStats
         /// <returns></returns>
         public static string ShortTimeDate(DateTime? dt, bool omitDateIfToday = true)
         {
-            if (dt == null) return "unknown";
+            if (dt == null) return Loc.S("Unknown");
             return dt.Value.ToShortTimeString() + (omitDateIfToday && DateTime.Today == dt.Value.Date ? string.Empty : " - " + dt.Value.ToShortDateString());
         }
 
@@ -341,8 +341,8 @@ namespace ARKBreedingStats
             };
             Label textLabel = new Label { Left = 20, Top = 15, Text = text, AutoSize = true };
             TextBox textBox = new TextBox { Left = 20, Top = 40, Width = 200 };
-            Button buttonOK = new Button { Text = Loc.s("OK"), Left = 120, Width = 100, Top = 70, DialogResult = DialogResult.OK };
-            Button buttonCancel = new Button { Text = Loc.s("Cancel"), Left = 20, Width = 80, Top = 70, DialogResult = DialogResult.Cancel };
+            Button buttonOK = new Button { Text = Loc.S("OK"), Left = 120, Width = 100, Top = 70, DialogResult = DialogResult.OK };
+            Button buttonCancel = new Button { Text = Loc.S("Cancel"), Left = 20, Width = 80, Top = 70, DialogResult = DialogResult.Cancel };
             buttonOK.Click += (sender, e) => { inputForm.Close(); };
             buttonCancel.Click += (sender, e) => { inputForm.Close(); };
             inputForm.Controls.Add(textBox);
@@ -444,6 +444,55 @@ namespace ARKBreedingStats
                 ctlr.BackColor = c;
                 await Task.Delay(duration);
                 ctlr.BackColor = original;
+            }
+        }
+
+        /// <summary>
+        /// Returns the rectangle of the passed form.
+        /// </summary>
+        public static Rectangle GetFormRectangle(Form form) =>
+            new Rectangle(form.Location.X, form.Location.Y, form.Width, form.Height);
+
+        /// <summary>
+        /// Sets the form rectangle to the passed data.
+        /// </summary>
+        public static void SetFormRectangle(Form form, Rectangle rect)
+        {
+            form.Location = new Point(rect.X, rect.Y);
+            form.Width = rect.Width;
+            form.Height = rect.Height;
+        }
+
+        /// <summary>
+        /// Beeps. 0: failure, 1: success, 2: good, 3: great.
+        /// </summary>
+        /// <param name="kind"></param>
+        public static void BeepSignal(int kind)
+        {
+            switch (kind)
+            {
+                case 0:
+                    Console.Beep(300, 50);
+                    Console.Beep(200, 100);
+                    break;
+                case 1:
+                    Console.Beep(300, 50);
+                    Console.Beep(400, 100);
+                    break;
+                case 2:
+                    Console.Beep(300, 50);
+                    Console.Beep(400, 50);
+                    Console.Beep(500, 50);
+                    Console.Beep(400, 100);
+                    break;
+                case 3:
+                    Console.Beep(300, 50);
+                    Console.Beep(400, 50);
+                    Console.Beep(500, 50);
+                    Console.Beep(600, 50);
+                    Console.Beep(650, 50);
+                    Console.Beep(600, 100);
+                    break;
             }
         }
     }

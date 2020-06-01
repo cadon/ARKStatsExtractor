@@ -8,11 +8,8 @@
     <Setting Name="consideredStats" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">387</Value>
     </Setting>
-    <Setting Name="formSize" Type="System.Drawing.Size" Scope="User">
-      <Value Profile="(Default)">1400, 1000</Value>
-    </Setting>
-    <Setting Name="formLocation" Type="System.Drawing.Point" Scope="User">
-      <Value Profile="(Default)">100, 100</Value>
+    <Setting Name="MainWindowRect" Type="System.Drawing.Rectangle" Scope="User">
+      <Value Profile="(Default)">100, 100, 1400, 1000</Value>
     </Setting>
     <Setting Name="columnWidths" Type="System.Int32[]" Scope="User">
       <Value Profile="(Default)" />
@@ -47,7 +44,7 @@
     <Setting Name="lastSpecies" Type="System.String[]" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="oxygenForAll" Type="System.Boolean" Scope="User">
+    <Setting Name="DisplayHiddenStats" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="OCRApp" Type="System.String" Scope="User">
@@ -285,6 +282,54 @@
       <Value Profile="(Default)">0, 0</Value>
     </Setting>
     <Setting Name="AdminConsoleCommandWithCheat" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="FilterFlagsExclude" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="FilterHideOwners" Type="System.String[]" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="FilterHideTribes" Type="System.String[]" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="FilterHideServers" Type="System.String[]" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="FilterHideTags" Type="System.String[]" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="useFiltersInTopStatCalculation" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="FilterOnlyIfColorId" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="LibraryGroupBySpecies" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="LibraryFilterWindowRect" Type="System.Drawing.Rectangle" Scope="User">
+      <Value Profile="(Default)">50, 50, 800, 600</Value>
+    </Setting>
+    <Setting Name="FilterFlagsAllNeeded" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="FilterFlagsOneNeeded" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="FilterByName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ModManagerWindowRect" Type="System.Drawing.Rectangle" Scope="User">
+      <Value Profile="(Default)">50, 50, 800, 600</Value>
+    </Setting>
+    <Setting Name="SpeciesSelectorCountLastSpecies" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="applyNamePatternOnAutoImportForNewCreatures" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="AskedToDownloadImageFiles" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>

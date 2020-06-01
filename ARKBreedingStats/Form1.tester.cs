@@ -49,19 +49,19 @@ namespace ARKBreedingStats
             else
                 rbWildTester.Checked = true;
 
-            hiddenLevelsCreatureTester = c.levelsWild[(int)StatNames.Torpidity];
+            _hiddenLevelsCreatureTester = c.levelsWild[(int)StatNames.Torpidity];
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (s != (int)StatNames.Torpidity && c.levelsWild[s] > 0)
-                    hiddenLevelsCreatureTester -= c.levelsWild[s];
+                    _hiddenLevelsCreatureTester -= c.levelsWild[s];
             }
 
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (s == (int)StatNames.Torpidity)
                     continue;
-                testingIOs[s].LevelWild = c.levelsWild[s];
-                testingIOs[s].LevelDom = c.levelsDom[s];
+                _testingIOs[s].LevelWild = c.levelsWild[s];
+                _testingIOs[s].LevelDom = c.levelsDom[s];
             }
             tabControlMain.SelectedTab = tabPageStatTesting;
             SetTesterInfoInputCreature(c, virtualCreature);
@@ -69,22 +69,22 @@ namespace ARKBreedingStats
 
         private void UpdateAllTesterValues()
         {
-            updateTorporInTester = false;
+            _updateTorporInTester = false;
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (s == (int)StatNames.Torpidity)
                     continue;
                 if (s == Values.STATS_COUNT - 2) // update torpor after last stat-update
-                    updateTorporInTester = true;
-                testingStatIOsRecalculateValue(testingIOs[s]);
+                    _updateTorporInTester = true;
+                testingStatIOsRecalculateValue(_testingIOs[s]);
             }
-            testingStatIOsRecalculateValue(testingIOs[(int)StatNames.Torpidity]);
+            testingStatIOsRecalculateValue(_testingIOs[(int)StatNames.Torpidity]);
         }
 
         private void setTesterInputsTamed(bool tamed)
         {
             for (int s = 0; s < Values.STATS_COUNT; s++)
-                testingIOs[s].postTame = tamed;
+                _testingIOs[s].postTame = tamed;
             lbNotYetTamed.Visible = !tamed;
         }
 
@@ -97,36 +97,36 @@ namespace ARKBreedingStats
             testingStatIOsRecalculateValue(sIo);
 
             // update Torpor-level if changed value is not from torpor-StatIO
-            if (updateTorporInTester && sIo.statIndex != (int)StatNames.Torpidity)
+            if (_updateTorporInTester && sIo.statIndex != (int)StatNames.Torpidity)
             {
                 int torporLvl = 0;
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
                     if (s != (int)StatNames.Torpidity)
-                        torporLvl += testingIOs[s].LevelWild > 0 ? testingIOs[s].LevelWild : 0;
+                        torporLvl += _testingIOs[s].LevelWild > 0 ? _testingIOs[s].LevelWild : 0;
                 }
-                testingIOs[(int)StatNames.Torpidity].LevelWild = torporLvl + hiddenLevelsCreatureTester;
+                _testingIOs[(int)StatNames.Torpidity].LevelWild = torporLvl + _hiddenLevelsCreatureTester;
             }
 
             int domLevels = 0;
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                domLevels += testingIOs[s].LevelDom;
+                domLevels += _testingIOs[s].LevelDom;
             }
-            labelDomLevelSum.Text = $"Dom Levels: {domLevels}/{creatureCollection.maxDomLevel}";
-            labelDomLevelSum.BackColor = domLevels > creatureCollection.maxDomLevel ? Color.LightSalmon : Color.Transparent;
-            labelTesterTotalLevel.Text = $"Total Levels: {testingIOs[(int)StatNames.Torpidity].LevelWild + domLevels + 1}/{testingIOs[(int)StatNames.Torpidity].LevelWild + 1 + creatureCollection.maxDomLevel}";
+            labelDomLevelSum.Text = $"Dom Levels: {domLevels}/{_creatureCollection.maxDomLevel}";
+            labelDomLevelSum.BackColor = domLevels > _creatureCollection.maxDomLevel ? Color.LightSalmon : Color.Transparent;
+            labelTesterTotalLevel.Text = $"Total Levels: {_testingIOs[(int)StatNames.Torpidity].LevelWild + domLevels + 1}/{_testingIOs[(int)StatNames.Torpidity].LevelWild + 1 + _creatureCollection.maxDomLevel}";
             creatureInfoInputTester.parentListValid = false;
 
-            int[] levelsWild = testingIOs.Select(s => s.LevelWild).ToArray();
-            if (!testingIOs[2].Enabled)
+            int[] levelsWild = _testingIOs.Select(s => s.LevelWild).ToArray();
+            if (!_testingIOs[2].Enabled)
                 levelsWild[2] = 0;
             radarChart1.setLevels(levelsWild);
             statPotentials1.SetLevels(levelsWild, false);
             //statGraphs1.setGraph(sE, 0, testingIOs[0].LevelWild, testingIOs[0].LevelDom, !radioButtonTesterWild.Checked, (double)NumericUpDownTestingTE.Value / 100, (double)numericUpDownImprintingBonusTester.Value / 100);
 
             if (sIo.statIndex == (int)StatNames.Torpidity)
-                lbWildLevelTester.Text = "PreTame Level: " + Math.Ceiling(Math.Round((testingIOs[(int)StatNames.Torpidity].LevelWild + 1) / (1 + NumericUpDownTestingTE.Value / 200), 6));
+                lbWildLevelTester.Text = "PreTame Level: " + Math.Ceiling(Math.Round((_testingIOs[(int)StatNames.Torpidity].LevelWild + 1) / (1 + NumericUpDownTestingTE.Value / 200), 6));
         }
 
         private void testingStatIOsRecalculateValue(StatIO sIo)
@@ -145,16 +145,16 @@ namespace ARKBreedingStats
 
         private void creatureInfoInputTester_Save2Library_Clicked(CreatureInfoInput sender)
         {
-            if (creatureTesterEdit == null)
+            if (_creatureTesterEdit == null)
                 return;
             // check if wild levels are changed, if yes warn that the creature can become invalid
-            bool wildChanged = Math.Abs(creatureTesterEdit.tamingEff - (double)NumericUpDownTestingTE.Value / 100) > .0005;
+            bool wildChanged = Math.Abs(_creatureTesterEdit.tamingEff - (double)NumericUpDownTestingTE.Value / 100) > .0005;
             if (!wildChanged)
             {
                 int[] wildLevels = GetCurrentWildLevels(false);
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
-                    if (wildLevels[s] != creatureTesterEdit.levelsWild[s])
+                    if (wildLevels[s] != _creatureTesterEdit.levelsWild[s])
                     {
                         wildChanged = true;
                         break;
@@ -174,47 +174,47 @@ namespace ARKBreedingStats
             // Ids: ArkId and Guid
             //if (!IsArkIdUniqueOrOnlyPlaceHolder(creatureTesterEdit)) { return; }
 
-            bool statusChanged = creatureTesterEdit.status != creatureInfoInputTester.CreatureStatus
-                    || creatureTesterEdit.owner != creatureInfoInputTester.CreatureOwner
-                    || creatureTesterEdit.mutationsMaternal != creatureInfoInputTester.MutationCounterMother
-                    || creatureTesterEdit.mutationsPaternal != creatureInfoInputTester.MutationCounterFather;
-            bool parentsChanged = creatureTesterEdit.Mother != creatureInfoInputTester.Mother || creatureTesterEdit.Father != creatureInfoInputTester.Father;
-            creatureTesterEdit.levelsWild = GetCurrentWildLevels(false);
-            creatureTesterEdit.levelsDom = GetCurrentDomLevels(false);
-            creatureTesterEdit.tamingEff = (double)NumericUpDownTestingTE.Value / 100;
-            creatureTesterEdit.isBred = rbBredTester.Checked;
-            creatureTesterEdit.imprintingBonus = (double)numericUpDownImprintingBonusTester.Value / 100;
+            bool statusChanged = _creatureTesterEdit.Status != creatureInfoInputTester.CreatureStatus
+                    || _creatureTesterEdit.owner != creatureInfoInputTester.CreatureOwner
+                    || _creatureTesterEdit.mutationsMaternal != creatureInfoInputTester.MutationCounterMother
+                    || _creatureTesterEdit.mutationsPaternal != creatureInfoInputTester.MutationCounterFather;
+            bool parentsChanged = _creatureTesterEdit.Mother != creatureInfoInputTester.Mother || _creatureTesterEdit.Father != creatureInfoInputTester.Father;
+            _creatureTesterEdit.levelsWild = GetCurrentWildLevels(false);
+            _creatureTesterEdit.levelsDom = GetCurrentDomLevels(false);
+            _creatureTesterEdit.tamingEff = (double)NumericUpDownTestingTE.Value / 100;
+            _creatureTesterEdit.isBred = rbBredTester.Checked;
+            _creatureTesterEdit.imprintingBonus = (double)numericUpDownImprintingBonusTester.Value / 100;
 
-            creatureTesterEdit.name = creatureInfoInputTester.CreatureName;
-            creatureTesterEdit.sex = creatureInfoInputTester.CreatureSex;
-            creatureTesterEdit.owner = creatureInfoInputTester.CreatureOwner;
-            creatureTesterEdit.tribe = creatureInfoInputTester.CreatureTribe;
-            creatureTesterEdit.server = creatureInfoInputTester.CreatureServer;
-            creatureTesterEdit.Mother = creatureInfoInputTester.Mother;
-            creatureTesterEdit.Father = creatureInfoInputTester.Father;
-            creatureTesterEdit.note = creatureInfoInputTester.CreatureNote;
-            creatureTesterEdit.status = creatureInfoInputTester.CreatureStatus;
-            creatureTesterEdit.cooldownUntil = creatureInfoInputTester.CooldownUntil;
-            creatureTesterEdit.growingUntil = creatureInfoInputTester.GrowingUntil;
-            creatureTesterEdit.domesticatedAt = creatureInfoInputTester.DomesticatedAt;
-            creatureTesterEdit.flags = creatureInfoInputTester.CreatureFlags;
-            creatureTesterEdit.mutationsMaternal = creatureInfoInputTester.MutationCounterMother;
-            creatureTesterEdit.mutationsPaternal = creatureInfoInputTester.MutationCounterFather;
-            creatureTesterEdit.colors = creatureInfoInputTester.RegionColors;
-            creatureTesterEdit.ArkId = creatureInfoInputTester.ArkId;
+            _creatureTesterEdit.name = creatureInfoInputTester.CreatureName;
+            _creatureTesterEdit.sex = creatureInfoInputTester.CreatureSex;
+            _creatureTesterEdit.owner = creatureInfoInputTester.CreatureOwner;
+            _creatureTesterEdit.tribe = creatureInfoInputTester.CreatureTribe;
+            _creatureTesterEdit.server = creatureInfoInputTester.CreatureServer;
+            _creatureTesterEdit.Mother = creatureInfoInputTester.Mother;
+            _creatureTesterEdit.Father = creatureInfoInputTester.Father;
+            _creatureTesterEdit.note = creatureInfoInputTester.CreatureNote;
+            _creatureTesterEdit.Status = creatureInfoInputTester.CreatureStatus;
+            _creatureTesterEdit.cooldownUntil = creatureInfoInputTester.CooldownUntil;
+            _creatureTesterEdit.growingUntil = creatureInfoInputTester.GrowingUntil;
+            _creatureTesterEdit.domesticatedAt = creatureInfoInputTester.DomesticatedAt;
+            _creatureTesterEdit.flags = creatureInfoInputTester.CreatureFlags;
+            _creatureTesterEdit.mutationsMaternal = creatureInfoInputTester.MutationCounterMother;
+            _creatureTesterEdit.mutationsPaternal = creatureInfoInputTester.MutationCounterFather;
+            _creatureTesterEdit.colors = creatureInfoInputTester.RegionColors;
+            _creatureTesterEdit.ArkId = creatureInfoInputTester.ArkId;
 
             if (wildChanged)
-                CalculateTopStats(creatureCollection.creatures.Where(c => c.Species == creatureTesterEdit.Species).ToList());
-            UpdateDisplayedCreatureValues(creatureTesterEdit, statusChanged, true);
+                CalculateTopStats(_creatureCollection.creatures.Where(c => c.Species == _creatureTesterEdit.Species).ToList());
+            UpdateDisplayedCreatureValues(_creatureTesterEdit, statusChanged, true);
 
             if (parentsChanged)
-                creatureTesterEdit.RecalculateAncestorGenerations();
+                _creatureTesterEdit.RecalculateAncestorGenerations();
 
             // if maturation was changed, update raising-timers
-            if (creatureTesterEdit.growingUntil != creatureInfoInputTester.GrowingUntil)
+            if (_creatureTesterEdit.growingUntil != creatureInfoInputTester.GrowingUntil)
             {
                 raisingControl1.RecreateList();
-                creatureTesterEdit.StartStopMatureTimer(true);
+                _creatureTesterEdit.StartStopMatureTimer(true);
             }
 
             SetTesterInfoInputCreature();
@@ -242,7 +242,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.CreatureOwner = c.owner;
                 creatureInfoInputTester.CreatureTribe = c.tribe;
                 creatureInfoInputTester.CreatureServer = c.server;
-                creatureInfoInputTester.CreatureStatus = c.status;
+                creatureInfoInputTester.CreatureStatus = c.Status;
                 creatureInfoInputTester.CreatureNote = c.note;
                 creatureInfoInputTester.CooldownUntil = c.cooldownUntil;
                 creatureInfoInputTester.GrowingUntil = c.growingUntil;
@@ -278,7 +278,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.MutationCounterMother = 0;
                 creatureInfoInputTester.parentListValid = false;
             }
-            creatureTesterEdit = c;
+            _creatureTesterEdit = c;
         }
 
         private void SetCreatureValuesToExtractor(Creature c, bool onlyWild = false)
@@ -291,7 +291,7 @@ namespace ARKBreedingStats
                     ClearAll();
                     // copy values over to extractor
                     for (int s = 0; s < Values.STATS_COUNT; s++)
-                        statIOs[s].Input = onlyWild ? StatValueCalculation.CalculateValue(species, s, c.levelsWild[s], 0, true, c.tamingEff, c.imprintingBonus) : c.valuesDom[s];
+                        _statIOs[s].Input = onlyWild ? StatValueCalculation.CalculateValue(species, s, c.levelsWild[s], 0, true, c.tamingEff, c.imprintingBonus) : c.valuesDom[s];
                     speciesSelector1.SetSpecies(species);
 
                     if (c.isBred)

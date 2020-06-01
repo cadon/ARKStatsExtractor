@@ -108,6 +108,9 @@
             this.buttonEventToDefault = new System.Windows.Forms.Button();
             this.labelEvent = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.GbSpecies = new System.Windows.Forms.GroupBox();
+            this.LbSpeciesSelectorCountLastUsed = new System.Windows.Forms.Label();
+            this.NudSpeciesSelectorCountLastUsed = new ARKBreedingStats.uiControls.Nud();
             this.groupBox26 = new System.Windows.Forms.GroupBox();
             this.cbAdminConsoleCommandWithCheat = new System.Windows.Forms.CheckBox();
             this.groupBox25 = new System.Windows.Forms.GroupBox();
@@ -193,7 +196,7 @@
             this.groupBox21 = new System.Windows.Forms.GroupBox();
             this.label41 = new System.Windows.Forms.Label();
             this.cbCopyPatternNameToClipboard = new System.Windows.Forms.CheckBox();
-            this.cbApplyNamePatternOnImport = new System.Windows.Forms.CheckBox();
+            this.cbApplyNamePatternOnImportOnEmptyNames = new System.Windows.Forms.CheckBox();
             this.groupBox19 = new System.Windows.Forms.GroupBox();
             this.label26 = new System.Windows.Forms.Label();
             this.nudWarnImportMoreThan = new System.Windows.Forms.NumericUpDown();
@@ -221,6 +224,7 @@
             this.cbbOCRApp = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cbApplyNamePatternOnImportOnNewCreatures = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMatingSpeed)).BeginInit();
@@ -256,6 +260,8 @@
             this.groupBox11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).BeginInit();
             this.tabPage1.SuspendLayout();
+            this.GbSpecies.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NudSpeciesSelectorCountLastUsed)).BeginInit();
             this.groupBox26.SuspendLayout();
             this.groupBox25.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudDefaultFontSize)).BeginInit();
@@ -1197,7 +1203,7 @@
             this.groupBox7.Size = new System.Drawing.Size(317, 49);
             this.groupBox7.TabIndex = 2;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Hidden Stats";
+            this.groupBox7.Text = "Extractor";
             // 
             // checkBoxDisplayHiddenStats
             // 
@@ -1401,6 +1407,7 @@
             // tabPage1
             // 
             this.tabPage1.AutoScroll = true;
+            this.tabPage1.Controls.Add(this.GbSpecies);
             this.tabPage1.Controls.Add(this.groupBox26);
             this.tabPage1.Controls.Add(this.groupBox25);
             this.tabPage1.Controls.Add(this.groupBox24);
@@ -1421,12 +1428,45 @@
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // GbSpecies
+            // 
+            this.GbSpecies.Controls.Add(this.LbSpeciesSelectorCountLastUsed);
+            this.GbSpecies.Controls.Add(this.NudSpeciesSelectorCountLastUsed);
+            this.GbSpecies.Location = new System.Drawing.Point(6, 321);
+            this.GbSpecies.Name = "GbSpecies";
+            this.GbSpecies.Size = new System.Drawing.Size(317, 46);
+            this.GbSpecies.TabIndex = 14;
+            this.GbSpecies.TabStop = false;
+            this.GbSpecies.Text = "Species Selection";
+            // 
+            // LbSpeciesSelectorCountLastUsed
+            // 
+            this.LbSpeciesSelectorCountLastUsed.AutoSize = true;
+            this.LbSpeciesSelectorCountLastUsed.Location = new System.Drawing.Point(6, 21);
+            this.LbSpeciesSelectorCountLastUsed.Name = "LbSpeciesSelectorCountLastUsed";
+            this.LbSpeciesSelectorCountLastUsed.Size = new System.Drawing.Size(187, 13);
+            this.LbSpeciesSelectorCountLastUsed.TabIndex = 1;
+            this.LbSpeciesSelectorCountLastUsed.Text = "Number of displayed last used species";
+            // 
+            // NudSpeciesSelectorCountLastUsed
+            // 
+            this.NudSpeciesSelectorCountLastUsed.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.NudSpeciesSelectorCountLastUsed.Location = new System.Drawing.Point(252, 19);
+            this.NudSpeciesSelectorCountLastUsed.Name = "NudSpeciesSelectorCountLastUsed";
+            this.NudSpeciesSelectorCountLastUsed.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.NudSpeciesSelectorCountLastUsed.Size = new System.Drawing.Size(57, 20);
+            this.NudSpeciesSelectorCountLastUsed.TabIndex = 0;
+            // 
             // groupBox26
             // 
             this.groupBox26.Controls.Add(this.cbAdminConsoleCommandWithCheat);
-            this.groupBox26.Location = new System.Drawing.Point(5, 575);
+            this.groupBox26.Location = new System.Drawing.Point(329, 624);
             this.groupBox26.Name = "groupBox26";
-            this.groupBox26.Size = new System.Drawing.Size(318, 43);
+            this.groupBox26.Size = new System.Drawing.Size(413, 43);
             this.groupBox26.TabIndex = 13;
             this.groupBox26.TabStop = false;
             this.groupBox26.Text = "Console Commands";
@@ -1498,7 +1538,7 @@
             this.groupBox24.Controls.Add(this.cbKeepExpiredTimersInOverlay);
             this.groupBox24.Controls.Add(this.cbDeleteExpiredTimersOnSaving);
             this.groupBox24.Controls.Add(this.cbTimersInOverlayAutomatically);
-            this.groupBox24.Location = new System.Drawing.Point(5, 418);
+            this.groupBox24.Location = new System.Drawing.Point(6, 470);
             this.groupBox24.Name = "groupBox24";
             this.groupBox24.Size = new System.Drawing.Size(317, 94);
             this.groupBox24.TabIndex = 11;
@@ -1558,7 +1598,7 @@
             // groupBox17
             // 
             this.groupBox17.Controls.Add(this.cbbLanguage);
-            this.groupBox17.Location = new System.Drawing.Point(5, 518);
+            this.groupBox17.Location = new System.Drawing.Point(6, 570);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(317, 51);
             this.groupBox17.TabIndex = 9;
@@ -1599,7 +1639,7 @@
             this.groupBox9.Controls.Add(this.cbLibraryHighlightTopCreatures);
             this.groupBox9.Controls.Add(this.cbApplyGlobalSpeciesToLibrary);
             this.groupBox9.Controls.Add(this.cbCreatureColorsLibrary);
-            this.groupBox9.Location = new System.Drawing.Point(6, 321);
+            this.groupBox9.Location = new System.Drawing.Point(6, 373);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(317, 91);
             this.groupBox9.TabIndex = 7;
@@ -1963,7 +2003,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1971,7 +2011,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1979,7 +2019,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1987,7 +2027,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -2341,12 +2381,13 @@
             // 
             // groupBox21
             // 
+            this.groupBox21.Controls.Add(this.cbApplyNamePatternOnImportOnNewCreatures);
             this.groupBox21.Controls.Add(this.label41);
             this.groupBox21.Controls.Add(this.cbCopyPatternNameToClipboard);
-            this.groupBox21.Controls.Add(this.cbApplyNamePatternOnImport);
+            this.groupBox21.Controls.Add(this.cbApplyNamePatternOnImportOnEmptyNames);
             this.groupBox21.Location = new System.Drawing.Point(6, 549);
             this.groupBox21.Name = "groupBox21";
-            this.groupBox21.Size = new System.Drawing.Size(318, 82);
+            this.groupBox21.Size = new System.Drawing.Size(318, 121);
             this.groupBox21.TabIndex = 8;
             this.groupBox21.TabStop = false;
             this.groupBox21.Text = "Auto naming on import";
@@ -2354,31 +2395,31 @@
             // label41
             // 
             this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(23, 39);
+            this.label41.Location = new System.Drawing.Point(6, 19);
             this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(157, 13);
+            this.label41.Size = new System.Drawing.Size(235, 13);
             this.label41.TabIndex = 11;
-            this.label41.Text = "The first naming pattern is used.";
+            this.label41.Text = "Apply first naming pattern automatically on import";
             // 
             // cbCopyPatternNameToClipboard
             // 
             this.cbCopyPatternNameToClipboard.AutoSize = true;
-            this.cbCopyPatternNameToClipboard.Location = new System.Drawing.Point(26, 58);
+            this.cbCopyPatternNameToClipboard.Location = new System.Drawing.Point(6, 98);
             this.cbCopyPatternNameToClipboard.Name = "cbCopyPatternNameToClipboard";
             this.cbCopyPatternNameToClipboard.Size = new System.Drawing.Size(208, 17);
             this.cbCopyPatternNameToClipboard.TabIndex = 1;
             this.cbCopyPatternNameToClipboard.Text = "When applied, copy name to clipboard";
             this.cbCopyPatternNameToClipboard.UseVisualStyleBackColor = true;
             // 
-            // cbApplyNamePatternOnImport
+            // cbApplyNamePatternOnImportOnEmptyNames
             // 
-            this.cbApplyNamePatternOnImport.AutoSize = true;
-            this.cbApplyNamePatternOnImport.Location = new System.Drawing.Point(6, 19);
-            this.cbApplyNamePatternOnImport.Name = "cbApplyNamePatternOnImport";
-            this.cbApplyNamePatternOnImport.Size = new System.Drawing.Size(243, 17);
-            this.cbApplyNamePatternOnImport.TabIndex = 0;
-            this.cbApplyNamePatternOnImport.Text = "Apply name pattern on empty names on import";
-            this.cbApplyNamePatternOnImport.UseVisualStyleBackColor = true;
+            this.cbApplyNamePatternOnImportOnEmptyNames.AutoSize = true;
+            this.cbApplyNamePatternOnImportOnEmptyNames.Location = new System.Drawing.Point(6, 38);
+            this.cbApplyNamePatternOnImportOnEmptyNames.Name = "cbApplyNamePatternOnImportOnEmptyNames";
+            this.cbApplyNamePatternOnImportOnEmptyNames.Size = new System.Drawing.Size(119, 17);
+            this.cbApplyNamePatternOnImportOnEmptyNames.TabIndex = 0;
+            this.cbApplyNamePatternOnImportOnEmptyNames.Text = "if the name is empty";
+            this.cbApplyNamePatternOnImportOnEmptyNames.UseVisualStyleBackColor = true;
             // 
             // groupBox19
             // 
@@ -2667,6 +2708,16 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
+            // cbApplyNamePatternOnImportOnNewCreatures
+            // 
+            this.cbApplyNamePatternOnImportOnNewCreatures.AutoSize = true;
+            this.cbApplyNamePatternOnImportOnNewCreatures.Location = new System.Drawing.Point(6, 61);
+            this.cbApplyNamePatternOnImportOnNewCreatures.Name = "cbApplyNamePatternOnImportOnNewCreatures";
+            this.cbApplyNamePatternOnImportOnNewCreatures.Size = new System.Drawing.Size(203, 17);
+            this.cbApplyNamePatternOnImportOnNewCreatures.TabIndex = 12;
+            this.cbApplyNamePatternOnImportOnNewCreatures.Text = "if the creature is imported the first time";
+            this.cbApplyNamePatternOnImportOnNewCreatures.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -2727,6 +2778,9 @@
             this.groupBox11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).EndInit();
             this.tabPage1.ResumeLayout(false);
+            this.GbSpecies.ResumeLayout(false);
+            this.GbSpecies.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NudSpeciesSelectorCountLastUsed)).EndInit();
             this.groupBox26.ResumeLayout(false);
             this.groupBox26.PerformLayout();
             this.groupBox25.ResumeLayout(false);
@@ -2917,7 +2971,7 @@
         private System.Windows.Forms.GroupBox groupBox20;
         private System.Windows.Forms.CheckBox cbPrettifyJSON;
         private System.Windows.Forms.GroupBox groupBox21;
-        private System.Windows.Forms.CheckBox cbApplyNamePatternOnImport;
+        private System.Windows.Forms.CheckBox cbApplyNamePatternOnImportOnEmptyNames;
         private System.Windows.Forms.CheckBox cbCopyPatternNameToClipboard;
         private System.Windows.Forms.GroupBox groupBox22;
         private System.Windows.Forms.Label label28;
@@ -2979,5 +3033,9 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.GroupBox groupBox26;
         private System.Windows.Forms.CheckBox cbAdminConsoleCommandWithCheat;
+        private System.Windows.Forms.GroupBox GbSpecies;
+        private System.Windows.Forms.Label LbSpeciesSelectorCountLastUsed;
+        private uiControls.Nud NudSpeciesSelectorCountLastUsed;
+        private System.Windows.Forms.CheckBox cbApplyNamePatternOnImportOnNewCreatures;
     }
 }

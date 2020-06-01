@@ -19,6 +19,14 @@ namespace ARKBreedingStats
 
     public partial class Form1
     {
+        /// <summary>
+        /// Loads the mod value files for the creatureCollection. If a file is not available locally, it's tried to download it.
+        /// </summary>
+        /// <param name="modValueFileNames"></param>
+        /// <param name="showResult"></param>
+        /// <param name="applySettings"></param>
+        /// <param name="mods"></param>
+        /// <returns></returns>
         private bool LoadModValueFiles(List<string> modValueFileNames, bool showResult, bool applySettings, out List<Mod> mods)
         {
             if (modValueFileNames == null) throw new ArgumentNullException();
@@ -37,7 +45,7 @@ namespace ARKBreedingStats
                 speciesSelector1.SetSpeciesLists(Values.V.species, Values.V.aliases);
             }
 
-            creatureCollection.ModList = mods;
+            _creatureCollection.ModList = mods;
             UpdateStatusBar();
             return modFilesLoaded;
         }
@@ -98,8 +106,8 @@ namespace ARKBreedingStats
             if (modValueFilesWithAvailableUpdate.Any()
                 && MessageBox.Show("For " + modValueFilesWithAvailableUpdate.Count.ToString() + " value files there is an update available. It is strongly recommended to use the updated versions.\n"
                 + "The updated files can be downloaded automatically if you want.\n"
-                + "The following files can be downloaded\n\n- "
-                + string.Join("\n- ", modValueFilesWithAvailableUpdate)
+                + "The following files can be downloaded\n\n"
+                + string.Join("\n", modValueFilesWithAvailableUpdate)
                 + "\n\nDo you want to download these files?",
                 "Updates for value files available", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
                 == DialogResult.Yes)
@@ -110,8 +118,8 @@ namespace ARKBreedingStats
             if (missingModValueFilesOnlineAvailable.Any()
                 && MessageBox.Show(missingModValueFilesOnlineAvailable.Count.ToString() + " mod-value files are not available locally. Without these files the library will not display all creatures.\n"
                 + "The missing files can be downloaded automatically if you want.\n"
-                + "The following files can be downloaded\n\n- "
-                + string.Join("\n- ", missingModValueFilesOnlineAvailable)
+                + "The following files can be downloaded\n\n"
+                + string.Join("\n", missingModValueFilesOnlineAvailable)
                 + "\n\nDo you want to download these files?",
                 "Missing value files", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
                 == DialogResult.Yes)
@@ -122,36 +130,55 @@ namespace ARKBreedingStats
             if (missingModValueFilesOnlineNotAvailable.Any())
             {
                 MessageBox.Show(missingModValueFilesOnlineNotAvailable.Count.ToString() + " mod-value files are neither available locally nor online. The creatures of the missing mod will not be displayed.\n"
-                + "The following files are missing\n\n- "
-                + string.Join("\n- ", missingModValueFilesOnlineNotAvailable),
+                + "The following files are missing\n\n"
+                + string.Join("\n", missingModValueFilesOnlineNotAvailable),
                 "Missing value files", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return filesDownloaded;
         }
 
-        private async static Task<bool> LoadModsManifestAsync(Values values, bool forceUpdate = false)
+        private static async Task<bool> LoadModsManifestAsync(Values values, bool forceUpdate = false)
         {
-            bool success = false;
             ModsManifest modsManifest = null;
             try
             {
-                modsManifest = await ModsManifest.TryLoadModManifestFile(forceUpdate);
-                success = true;
+                try
+                {
+                    modsManifest = await ModsManifest.TryLoadModManifestFile(forceUpdate);
+                    // assume all officially supported mods are online available
+                    foreach (var m in modsManifest.modsByFiles) m.Value.onlineAvailable = true;
+                }
+                catch (FileNotFoundException)
+                {
+                    MessageBox.Show(
+                        $"Mods manifest file {Path.Combine(FileService.ValuesFolder, FileService.ModsManifest)} not found " +
+                        "and downloading it failed. You can try it later or try to update your application.",
+                        "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                catch (FormatException)
+                {
+                    FormatExceptionMessageBox(Path.Combine(FileService.ValuesFolder, FileService.ModsManifest));
+                    return false;
+                }
+
+                // load custom manifest file for manually created mod value files
+                if (ModsManifest.TryLoadCustomModManifestFile(out var customModsManifest))
+                {
+                    modsManifest = ModsManifest.MergeModsManifest(modsManifest, customModsManifest);
+                }
             }
-            catch (FileNotFoundException)
+            catch (SerializationException serEx)
             {
-                MessageBox.Show($"Mods manifest file {Path.Combine(FileService.ValuesFolder, FileService.ModsManifest)} not found " +
-                    "and downloading it failed. You can try it later or try to update your application.",
-                    "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (FormatException)
-            {
-                FormatExceptionMessageBox(Path.Combine(FileService.ValuesFolder, FileService.ModsManifest));
+                MessageBox.Show(
+                    $"Serialization exception while trying to load the mods-manifest file.\n\n{serEx.Message}",
+                    "ASB file load error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+            modsManifest?.Initialize();
             values.SetModsManifest(modsManifest);
-            return success;
+            return true;
         }
 
         private static void LoadServerMultiplierPresets(Values values)

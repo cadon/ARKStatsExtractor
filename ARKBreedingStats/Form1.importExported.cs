@@ -6,7 +6,9 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
+using ARKBreedingStats.species;
 
 namespace ARKBreedingStats
 {
@@ -26,8 +28,8 @@ namespace ARKBreedingStats
             else
             {
                 ShowExportedCreatureListControl();
-                exportedCreatureList.ownerSuffix = loc.OwnerSuffix;
-                exportedCreatureList.LoadFilesInFolder(loc.FolderPath);
+                _exportedCreatureList.ownerSuffix = loc.OwnerSuffix;
+                _exportedCreatureList.LoadFilesInFolder(loc.FolderPath);
             }
         }
 
@@ -40,7 +42,7 @@ namespace ARKBreedingStats
             if (Utils.GetFirstImportExportFolder(out string folder))
             {
                 ShowExportedCreatureListControl();
-                exportedCreatureList.LoadFilesInFolder(folder);
+                _exportedCreatureList.LoadFilesInFolder(folder);
             }
             else if (
                 MessageBox.Show("There is no valid folder set where the exported creatures are located. Set this folder in the settings.\n\nOpen the settings-page?",
@@ -53,7 +55,7 @@ namespace ARKBreedingStats
         private void ImportAllCreaturesInSelectedFolder(object sender, EventArgs e)
         {
             ShowExportedCreatureListControl();
-            exportedCreatureList.chooseFolderAndImport();
+            _exportedCreatureList.chooseFolderAndImport();
         }
 
         private void btImportLastExported_Click(object sender, EventArgs e)
@@ -98,7 +100,7 @@ namespace ARKBreedingStats
             // add to library automatically if batch-extracting exportedImported values and uniqueLevels
             if (addToLibraryIfUnique)
             {
-                if (extractor.uniqueResults)
+                if (_extractor.uniqueResults)
                     AddCreatureToCollection(true, exportedCreatureControl.creatureValues.motherArkId, exportedCreatureControl.creatureValues.fatherArkId, goToLibraryTab);
                 else
                     exportedCreatureControl.setStatus(importExported.ExportedCreatureControl.ImportStatus.NeedsLevelChosing, DateTime.Now);
@@ -132,51 +134,64 @@ namespace ARKBreedingStats
         {
             bool alreadyExists = ExtractExportedFileInExtractor(filePath);
             bool added = false;
-            bool copyNameToClipboard = Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
-                                       && Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied;
+            bool copyNameToClipboard = Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied
+                && (Properties.Settings.Default.applyNamePatternOnImportIfEmptyName ||
+                   (!alreadyExists && Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures));
+            Species species = speciesSelector1.SelectedSpecies;
 
-            if (extractor.uniqueResults
-                || (alreadyExists && extractor.validResults))
+            if (_extractor.uniqueResults
+                || (alreadyExists && _extractor.validResults))
             {
                 AddCreatureToCollection(true, goToLibraryTab: false);
-                SetMessageLabelText($"Successful {(alreadyExists ? "updated" : "added")} creature of the exported file\n" + filePath);
+                SetMessageLabelText($"Successful {(alreadyExists ? "updated" : "added")} {creatureInfoInputExtractor.CreatureName} ({species.name}) of the exported file\n" + filePath, MessageBoxIcon.Information);
                 added = true;
             }
 
-            if (Properties.Settings.Default.PlaySoundOnAutoImport)
-            {
-                if (added)
-                {
-                    Console.Beep(300, 50);
-                    Console.Beep(400, 100);
-                }
-                else
-                {
-                    Console.Beep(300, 50);
-                    Console.Beep(200, 100);
-                }
-            }
+            bool topLevels = false;
+            bool newTopLevels = false;
 
             // give feedback in overlay
-            if (overlay != null)
+            string infoText;
+            Color textColor;
+            const int colorSaturation = 200;
+            if (added)
             {
-                string infoText;
-                Color textColor;
-                const int colorSaturation = 200;
-                if (added)
+                var sb = new StringBuilder();
+                sb.AppendLine($"{species.name} \"{creatureInfoInputExtractor.CreatureName}\" {(alreadyExists ? "updated in " : "added to")} the library.");
+                if (copyNameToClipboard)
+                    sb.AppendLine("Name copied to clipboard.");
+
+                for (int s = 0; s < values.Values.STATS_COUNT; s++)
                 {
-                    infoText = $"Creature \"{creatureInfoInputExtractor.CreatureName}\" {(alreadyExists ? "updated in " : "added to")} the library."
-                    + (copyNameToClipboard ? "\nName copied to clipboard." : "");
-                    textColor = Color.FromArgb(colorSaturation, 255, colorSaturation);
-                }
-                else
-                {
-                    infoText = $"Creature \"{creatureInfoInputExtractor.CreatureName}\" couldn't be extracted uniquely, manual level selection is necessary.";
-                    textColor = Color.FromArgb(255, colorSaturation, colorSaturation);
+                    int statIndex = values.Values.statsDisplayOrder[s];
+                    if (!species.UsesStat(statIndex)) continue;
+
+                    sb.Append($"{Utils.StatName(statIndex, true, species.IsGlowSpecies)}: {_statIOs[statIndex].LevelWild} ({_statIOs[statIndex].BreedingValue})");
+                    if (_statIOs[statIndex].TopLevel == StatIOStatus.NewTopLevel)
+                    {
+                        sb.Append($" {Loc.S("newTopLevel")}");
+                        newTopLevels = true;
+                    }
+                    else if (_statIOs[statIndex].TopLevel == StatIOStatus.TopLevel)
+                    {
+                        sb.Append($" {Loc.S("topLevel")}");
+                        topLevels = true;
+                    }
+                    sb.AppendLine();
                 }
 
-                overlay.SetInfoText(infoText, textColor);
+                infoText = sb.ToString();
+                textColor = Color.FromArgb(colorSaturation, 255, colorSaturation);
             }
+            else
+            {
+                infoText = $"Creature \"{creatureInfoInputExtractor.CreatureName}\" couldn't be extracted uniquely, manual level selection is necessary.";
+                textColor = Color.FromArgb(255, colorSaturation, colorSaturation);
+            }
+
+            if (_overlay != null)
+                _overlay.SetInfoText(infoText, textColor);
+
             if (added)
             {
                 if (Properties.Settings.Default.MoveAutoImportedFileToSubFolder)
@@ -199,11 +214,28 @@ namespace ARKBreedingStats
                 // extraction failed, user might expect the name of the new creature in the clipboard
                 Clipboard.SetText("Automatic extraction was not possible");
             }
+
+            if (Properties.Settings.Default.PlaySoundOnAutoImport)
+            {
+                if (added)
+                {
+                    if (newTopLevels)
+                        Utils.BeepSignal(3);
+                    else if (topLevels)
+                        Utils.BeepSignal(2);
+                    else
+                        Utils.BeepSignal(1);
+                }
+                else
+                {
+                    Utils.BeepSignal(0);
+                }
+            }
         }
 
         private void ExportedCreatureList_CheckGuidInLibrary(importExported.ExportedCreatureControl exportedCreatureControl)
         {
-            Creature cr = creatureCollection.creatures.SingleOrDefault(c => c.guid == exportedCreatureControl.creatureValues.guid);
+            Creature cr = _creatureCollection.creatures.SingleOrDefault(c => c.guid == exportedCreatureControl.creatureValues.guid);
             if (cr != null && !cr.flags.HasFlag(CreatureFlags.Placeholder))
                 exportedCreatureControl.setStatus(importExported.ExportedCreatureControl.ImportStatus.OldImported, cr.addedToLibrary);
             else
@@ -220,26 +252,26 @@ namespace ARKBreedingStats
         /// </summary>
         private void ShowExportedCreatureListControl()
         {
-            if (exportedCreatureList == null || exportedCreatureList.IsDisposed)
+            if (_exportedCreatureList == null || _exportedCreatureList.IsDisposed)
             {
-                exportedCreatureList = new importExported.ExportedCreatureList();
-                exportedCreatureList.CopyValuesToExtractor += ExportedCreatureList_CopyValuesToExtractor;
-                exportedCreatureList.CheckArkIdInLibrary += ExportedCreatureList_CheckGuidInLibrary;
-                exportedCreatureList.Location = Properties.Settings.Default.importExportedLocation;
-                exportedCreatureList.CheckForUnknownMods += ExportedCreatureList_CheckForUnknownMods;
+                _exportedCreatureList = new importExported.ExportedCreatureList();
+                _exportedCreatureList.CopyValuesToExtractor += ExportedCreatureList_CopyValuesToExtractor;
+                _exportedCreatureList.CheckArkIdInLibrary += ExportedCreatureList_CheckGuidInLibrary;
+                _exportedCreatureList.Location = Properties.Settings.Default.importExportedLocation;
+                _exportedCreatureList.CheckForUnknownMods += ExportedCreatureList_CheckForUnknownMods;
             }
-            exportedCreatureList.ownerSuffix = "";
-            exportedCreatureList.Show();
-            exportedCreatureList.BringToFront();
+            _exportedCreatureList.ownerSuffix = "";
+            _exportedCreatureList.Show();
+            _exportedCreatureList.BringToFront();
         }
 
         private void ExportedCreatureList_CheckForUnknownMods(List<string> unknownSpeciesBlueprintPaths)
         {
-            CheckForMissingModFiles(creatureCollection, unknownSpeciesBlueprintPaths);
+            CheckForMissingModFiles(_creatureCollection, unknownSpeciesBlueprintPaths);
             // if mods were added, try to import the creature values again
-            if (creatureCollection.ModValueReloadNeeded
-                && LoadModValuesOfCollection(creatureCollection, true, true))
-                exportedCreatureList.LoadFilesInFolder();
+            if (_creatureCollection.ModValueReloadNeeded
+                && LoadModValuesOfCollection(_creatureCollection, true, true))
+                _exportedCreatureList.LoadFilesInFolder();
         }
     }
 }

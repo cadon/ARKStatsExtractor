@@ -24,16 +24,6 @@ namespace ARKBreedingStats.Library
         [JsonProperty]
         public List<IncubationTimerEntry> incubationListEntries = new List<IncubationTimerEntry>();
         [JsonProperty]
-        public List<string> hiddenOwners = new List<string>(); // which owners are not selected to be shown
-        [JsonProperty]
-        public List<string> hiddenServers = new List<string>();
-        [JsonProperty]
-        public List<string> dontShowTags = new List<string>(); // which tags are selected to be not shown
-        [JsonProperty]
-        internal CreatureFlags showFlags = CreatureFlags.Available | CreatureFlags.Cryopod | CreatureFlags.Dead | CreatureFlags.Mutated | CreatureFlags.Neutered | CreatureFlags.Obelisk | CreatureFlags.Unavailable;
-        [JsonProperty]
-        public bool useFiltersInTopStatCalculation = false;
-        [JsonProperty]
         public int maxDomLevel = 73;
         [JsonProperty]
         public int maxWildLevel = 150;
@@ -100,7 +90,7 @@ namespace ARKBreedingStats.Library
 
         /// <summary>
         /// Some mods allow to change stat values of species in an extra ini file. These overrides are stored here.
-        /// The last item is an array of possible imprintingMultiplier overrides.
+        /// The last item (i.e. index Values.STATS_COUNT) is an array of possible imprintingMultiplier overrides.
         /// </summary>
         [JsonProperty]
         public Dictionary<string, double?[][]> CustomSpeciesStats;
@@ -118,15 +108,15 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Calculates a hashcode for a list of mods and their order. Can be used to check for changes.
         /// </summary>
-        public static int CalculateModListHash(List<string> modIDList)
+        public static int CalculateModListHash(List<string> modIdList)
         {
-            if (modIDList == null) { return 0; }
-            return string.Join(",", modIDList).GetHashCode();
+            if (modIdList == null) { return 0; }
+            return string.Join(",", modIdList).GetHashCode();
         }
 
         /// <summary>
-        /// Recalculates the modListHash for comparison and sets the mod-IDs of the modvalues for the library.
-        /// Should be called after the mods are changed.
+        /// Recalculates the modListHash for comparison and sets the mod-IDs of the modValues for the library.
+        /// Should be called after the loaded mods are changed.
         /// </summary>
         public void UpdateModList()
         {
@@ -147,7 +137,7 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Returns true if the currently loaded modValues differ from the listed modValues of the library-file.
         /// </summary>
-        public bool ModValueReloadNeeded { get { return modListHash == 0 || modListHash != Values.V.loadedModsHash; } }
+        public bool ModValueReloadNeeded => modListHash == 0 || modListHash != Values.V.loadedModsHash;
 
         /// <summary>
         /// Adds creatures to the current library.
@@ -197,10 +187,12 @@ namespace ARKBreedingStats.Library
                 }
 
                 creatureExisting.colors = creatureNew.colors;
-                creatureExisting.status = creatureNew.status;
+                creatureExisting.Status = creatureNew.Status;
                 creatureExisting.sex = creatureNew.sex;
                 creatureExisting.cooldownUntil = creatureNew.cooldownUntil;
-                creatureExisting.domesticatedAt = creatureNew.domesticatedAt;
+                if (!creatureExisting.domesticatedAt.HasValue || creatureExisting.domesticatedAt.Value.Year < 2000
+                    || (creatureNew.domesticatedAt.HasValue && creatureNew.domesticatedAt.Value.Year > 2000 && creatureExisting.domesticatedAt > creatureNew.domesticatedAt))
+                    creatureExisting.domesticatedAt = creatureNew.domesticatedAt;
                 creatureExisting.generation = creatureNew.generation;
                 creatureExisting.growingUntil = creatureNew.growingUntil;
                 creatureExisting.imprintingBonus = creatureNew.imprintingBonus;
@@ -225,7 +217,7 @@ namespace ARKBreedingStats.Library
 
                 bool recalculate = false;
                 if (creatureExisting.flags.HasFlag(CreatureFlags.Placeholder) ||
-                    (creatureExisting.status == CreatureStatus.Unavailable && creatureNew.status == CreatureStatus.Available))
+                    (creatureExisting.Status == CreatureStatus.Unavailable && creatureNew.Status == CreatureStatus.Available))
                 {
                     creatureExisting.levelFound = creatureNew.levelFound;
                     creatureExisting.levelsDom = creatureNew.levelsDom;

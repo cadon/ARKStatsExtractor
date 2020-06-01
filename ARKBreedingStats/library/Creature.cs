@@ -18,8 +18,8 @@ namespace ARKBreedingStats.Library
         public string name;
         [JsonProperty]
         public Sex sex;
-        [JsonProperty]
-        public CreatureStatus status;
+        [JsonProperty("status")]
+        private CreatureStatus _status;
         [JsonProperty]
         public CreatureFlags flags;
         [JsonProperty]
@@ -171,7 +171,7 @@ namespace ARKBreedingStats.Library
                 this.tamingEff = tamingEff;
             this.isBred = isBred;
             imprintingBonus = imprinting;
-            status = CreatureStatus.Available;
+            Status = CreatureStatus.Available;
             CalculateLevelFound(levelStep);
         }
 
@@ -183,7 +183,7 @@ namespace ARKBreedingStats.Library
                 if (value != null)
                     speciesBlueprint = value.blueprintPath;
             }
-            get { return _species; }
+            get => _species;
         }
 
         /// <summary>
@@ -199,17 +199,19 @@ namespace ARKBreedingStats.Library
             flags = CreatureFlags.Placeholder;
         }
 
-        public bool Equals(Creature other)
-        {
-            return other.guid == guid;
-        }
+        public bool Equals(Creature other) => other != null && other.guid == guid;
 
-        public override bool Equals(object obj)
-        {
-            if (obj == null)
-                return false;
+        public override bool Equals(object obj) => obj is Creature creatureObj && creatureObj.guid == guid;
 
-            return obj is Creature creatureObj && Equals(creatureObj);
+        public CreatureStatus Status
+        {
+            get => _status;
+            set
+            {
+                _status = value;
+                // remove other status while keeping the other flags
+                flags = (flags & CreatureFlags.StatusMask) | (CreatureFlags)(1 << (int)value);
+            }
         }
 
         public override int GetHashCode()
@@ -369,10 +371,7 @@ namespace ARKBreedingStats.Library
 
         public int Mutations => mutationsMaternal + mutationsPaternal;
 
-        public override string ToString()
-        {
-            return name + " (" + _species.name + ")";
-        }
+        public override string ToString() => $"{name} ({_species.name})";
 
         /// <summary>
         /// Starts the timer for maturation.
@@ -436,6 +435,20 @@ namespace ARKBreedingStats.Library
         }
 
         /// <summary>
+        /// Sets flags of properties that are stored in their own field.
+        /// Should be called until the flags are used globally and if no backwards compatibility is needed anymore.
+        /// </summary>
+        public void InitializeFlags()
+        {
+            // status
+            flags = (flags & CreatureFlags.StatusMask) | (CreatureFlags)(1 << (int)_status);
+            // sex
+            flags = (flags & ~(CreatureFlags.Female | CreatureFlags.Male)) | (sex == Sex.Female ? CreatureFlags.Female : sex == Sex.Male ? CreatureFlags.Male : CreatureFlags.None);
+            // mutated
+            flags = (flags & ~CreatureFlags.Mutated) | (Mutations > 0 ? CreatureFlags.Mutated : CreatureFlags.None);
+        }
+
+        /// <summary>
         /// Calculates the pretame wild level. This value can be off due to wrong inputs due to ingame rounding.
         /// </summary>
         /// <param name="postTameLevel"></param>
@@ -465,8 +478,8 @@ namespace ARKBreedingStats.Library
     {
         None = 0,
         Available = 1,
-        Unavailable = 2,
-        Dead = 4,
+        Dead = 2,
+        Unavailable = 4,
         Obelisk = 8,
         Cryopod = 16,
         // Deleted = 32, // not used anymore
@@ -475,6 +488,12 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// If a creature has unknown parents, they are placeholders until they are imported. placeholders are not shown in the library
         /// </summary>
-        Placeholder = 256
+        Placeholder = 256,
+        Female = 512,
+        Male = 1024,
+        /// <summary>
+        /// If applied to the flags with &, the status is removed.
+        /// </summary>
+        StatusMask = Mutated | Neutered | Placeholder | Female | Male
     }
 }

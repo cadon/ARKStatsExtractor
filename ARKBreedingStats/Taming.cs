@@ -275,24 +275,24 @@ namespace ARKBreedingStats
                 // shocking tranq dart: 26*17 = 442
                 // electric prod: 226
 
-                koNumbers = (harpoon > 0 ? Math.Ceiling(totalTorpor / (306 * boneDamageAdjuster * harpoon)) + " × " + Loc.s("TranqSpearBolts") + "\n" : string.Empty)
-                        + (longneck > 0 ? Math.Ceiling(totalTorpor / (442 * boneDamageAdjuster * longneck)) + " × " + Loc.s("ShockingTranqDarts") + "\n" : string.Empty)
-                        + (longneck > 0 ? Math.Ceiling(totalTorpor / (221 * boneDamageAdjuster * longneck)) + " × " + Loc.s("TranqDarts") + "\n" : string.Empty)
-                        + (prod > 0 ? Math.Ceiling(totalTorpor / (226 * boneDamageAdjuster * prod)) + " × " + Loc.s("ElectricProdHits") + "\n" : string.Empty)
-                        + (crossbow > 0 ? Math.Ceiling(totalTorpor / (157.5 * boneDamageAdjuster * crossbow)) + " × " + Loc.s("TranqArrowsCrossBow") + "\n" : string.Empty)
-                        + (bow > 0 ? Math.Ceiling(totalTorpor / (90 * boneDamageAdjuster * bow)) + " × " + Loc.s("TranqArrowsBow") + "\n" : string.Empty)
-                        + (slingshot > 0 ? Math.Ceiling(totalTorpor / (24.5 * boneDamageAdjuster * slingshot)) + " × " + Loc.s("SlingshotHits") + "\n" : string.Empty)
-                        + (club > 0 ? Math.Ceiling(totalTorpor / (10 * boneDamageAdjuster * club)) + " × " + Loc.s("WoodenClubHits") + "\n" : string.Empty);
+                koNumbers = (harpoon > 0 ? Math.Ceiling(totalTorpor / (306 * boneDamageAdjuster * harpoon)) + " × " + Loc.S("TranqSpearBolts") + "\n" : string.Empty)
+                        + (longneck > 0 ? Math.Ceiling(totalTorpor / (442 * boneDamageAdjuster * longneck)) + " × " + Loc.S("ShockingTranqDarts") + "\n" : string.Empty)
+                        + (longneck > 0 ? Math.Ceiling(totalTorpor / (221 * boneDamageAdjuster * longneck)) + " × " + Loc.S("TranqDarts") + "\n" : string.Empty)
+                        + (prod > 0 ? Math.Ceiling(totalTorpor / (226 * boneDamageAdjuster * prod)) + " × " + Loc.S("ElectricProdHits") + "\n" : string.Empty)
+                        + (crossbow > 0 ? Math.Ceiling(totalTorpor / (157.5 * boneDamageAdjuster * crossbow)) + " × " + Loc.S("TranqArrowsCrossBow") + "\n" : string.Empty)
+                        + (bow > 0 ? Math.Ceiling(totalTorpor / (90 * boneDamageAdjuster * bow)) + " × " + Loc.S("TranqArrowsBow") + "\n" : string.Empty)
+                        + (slingshot > 0 ? Math.Ceiling(totalTorpor / (24.5 * boneDamageAdjuster * slingshot)) + " × " + Loc.S("SlingshotHits") + "\n" : string.Empty)
+                        + (club > 0 ? Math.Ceiling(totalTorpor / (10 * boneDamageAdjuster * club)) + " × " + Loc.S("WoodenClubHits") + "\n" : string.Empty);
 
                 // torpor depletion per s
                 string torporDepletion = string.Empty;
                 if (torporDeplPS > 0)
-                    torporDepletion = "\n" + Loc.s("TimeUntilTorporDepleted") + ": " + Utils.DurationUntil(new TimeSpan(0, 0, (int)Math.Round(totalTorpor / torporDeplPS)))
-                            + "\n" + Loc.s("TorporDepletion") + ": " + Math.Round(torporDeplPS, 2)
-                            + " / s;\n" + Loc.s("ApproxOneNarcoberryEvery") + " " + Math.Round(7.5 / torporDeplPS + 3, 1)
-                            + " s " + Loc.s("OrOneAscerbicMushroom") + " " + Math.Round(25 / torporDeplPS + 3, 1)
-                            + " s " + Loc.s("OrOneNarcoticEvery") + " " + Math.Round(40 / torporDeplPS + 8, 1)
-                            + " s " + Loc.s("OrOneBioToxinEvery") + " " + Math.Round(80 / torporDeplPS + 16, 1) + " s";
+                    torporDepletion = "\n" + Loc.S("TimeUntilTorporDepleted") + ": " + Utils.DurationUntil(new TimeSpan(0, 0, (int)Math.Round(totalTorpor / torporDeplPS)))
+                            + "\n" + Loc.S("TorporDepletion") + ": " + Math.Round(torporDeplPS, 2)
+                            + " / s;\n" + Loc.S("ApproxOneNarcoberryEvery") + " " + Math.Round(7.5 / torporDeplPS + 3, 1)
+                            + " s " + Loc.S("OrOneAscerbicMushroom") + " " + Math.Round(25 / torporDeplPS + 3, 1)
+                            + " s " + Loc.S("OrOneNarcoticEvery") + " " + Math.Round(40 / torporDeplPS + 8, 1)
+                            + " s " + Loc.S("OrOneBioToxinEvery") + " " + Math.Round(80 / torporDeplPS + 16, 1) + " s";
 
                 return warning + koNumbers + torporDepletion;
             }
@@ -305,11 +305,11 @@ namespace ARKBreedingStats
             TamingTimes(species, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodName, foodAmount,
                     out List<int> foodAmountUsed, out TimeSpan duration, out _, out _, out int narcotics, out _, out double te,
                     out double hunger, out int bonusLevel, out _);
-            return $"{string.Format(Loc.s("WithXFoodTamingTakesTime"), foodAmountUsed[0], foodDisplayName, Utils.DurationUntil(duration))}\n" +
-                    $"{Loc.s("Narcotics")}: {narcotics}\n" +
-                    $"{Loc.s("TamingEffectiveness_Abb")}: {Math.Round(100 * te, 1)} %\n" +
-                    $"{Loc.s("BonusLevel")}: +{(level + bonusLevel)}\n" +
-                    $"{string.Format(Loc.s("FoodHasToDropUnits"), Math.Round(hunger, 1))}";
+            return $"{string.Format(Loc.S("WithXFoodTamingTakesTime"), foodAmountUsed[0], foodDisplayName, Utils.DurationUntil(duration))}\n" +
+                    $"{Loc.S("Narcotics")}: {narcotics}\n" +
+                    $"{Loc.S("TamingEffectiveness_Abb")}: {Math.Round(100 * te, 1)} %\n" +
+                    $"{Loc.S("BonusLevel")}: +{(level + bonusLevel)}\n" +
+                    $"{string.Format(Loc.S("FoodHasToDropUnits"), Math.Round(hunger, 1))}";
         }
 
         public static string BoneDamageAdjustersImmobilization(Species species, out Dictionary<string, double> boneDamageAdjusters)
@@ -327,7 +327,7 @@ namespace ARKBreedingStats
                     }
                 }
                 if (species.immobilizedBy != null && species.immobilizedBy.Any())
-                    text += $"{(text.Length > 0 ? "\n" : string.Empty)}{Loc.s("ImmobilizedBy")}: " +
+                    text += $"{(text.Length > 0 ? "\n" : string.Empty)}{Loc.S("ImmobilizedBy")}: " +
                             $"{string.Join(", ", species.immobilizedBy)}";
             }
             return text;

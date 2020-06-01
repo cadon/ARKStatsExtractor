@@ -112,7 +112,7 @@ namespace ARKBreedingStats.oldLibraryFormat
                     owner = c.owner,
                     server = c.server,
                     sex = c.sex,
-                    status = c.status,
+                    Status = c.status,
                     tags = c.tags,
                     tamingEff = c.tamingEff,
                     tribe = c.tribe
@@ -230,9 +230,6 @@ namespace ARKBreedingStats.oldLibraryFormat
             ccNew.allowMoreThanHundredImprinting = ccOld.allowMoreThanHundredImprinting;
             ccNew.changeCreatureStatusOnSavegameImport = ccOld.changeCreatureStatusOnSavegameImport;
             ccNew.considerWildLevelSteps = ccOld.considerWildLevelSteps;
-            ccNew.dontShowTags = ccOld.dontShowTags;
-            ccNew.hiddenOwners = ccOld.hiddenOwners;
-            ccNew.hiddenServers = ccOld.hiddenServers;
             ccNew.incubationListEntries = ccOld.incubationListEntries.Select(ile => new IncubationTimerEntry
             {
                 fatherGuid = ile.fatherGuid,
@@ -249,19 +246,6 @@ namespace ARKBreedingStats.oldLibraryFormat
             ccNew.ownerList = ccOld.ownerList;
             ccNew.players = ccOld.players;
             ccNew.serverList = ccOld.serverList;
-            ccNew.showFlags = CreatureFlags.Available;
-            if (ccOld.showCryopod)
-                ccNew.showFlags |= CreatureFlags.Cryopod;
-            if (ccOld.showDeads)
-                ccNew.showFlags |= CreatureFlags.Dead;
-            if (ccOld.showMutated)
-                ccNew.showFlags |= CreatureFlags.Mutated;
-            if (ccOld.showNeutered)
-                ccNew.showFlags |= CreatureFlags.Neutered;
-            if (ccOld.showObelisk)
-                ccNew.showFlags |= CreatureFlags.Obelisk;
-            if (ccOld.showUnavailable)
-                ccNew.showFlags |= CreatureFlags.Unavailable;
             ccNew.singlePlayerSettings = ccOld.singlePlayerSettings;
             ccNew.tags = ccOld.tags;
             ccNew.tagsExclude = ccOld.tagsExclude;
@@ -275,7 +259,6 @@ namespace ARKBreedingStats.oldLibraryFormat
                 time = tle.time
             }).ToList();
             ccNew.tribes = ccOld.tribes;
-            ccNew.useFiltersInTopStatCalculation = ccOld.useFiltersInTopStatCalculation;
             ccNew.wildLevelStep = ccOld.wildLevelStep;
 
             // check if multiplier-conversion is possible

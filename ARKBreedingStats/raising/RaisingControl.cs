@@ -13,8 +13,8 @@ namespace ARKBreedingStats.raising
     {
         public delegate void ExtractBabyEventHandler(Creature mother, Creature father);
         public event ExtractBabyEventHandler extractBaby;
-        public event Form1.collectionChangedEventHandler onChange;
-        public event Form1.SetSpeciesEventHandler SetGlobalSpecies;
+        public event Form1.CollectionChangedEventHandler onChange;
+        public event Action<Species> SetGlobalSpecies;
         private Species selectedSpecies;
         public bool updateListView;
         private TimeSpan babyTime, maturationTime;
@@ -60,7 +60,7 @@ namespace ARKBreedingStats.raising
                     if (Raising.GetRaisingTimes(selectedSpecies, out TimeSpan matingTime, out string incubationMode, out TimeSpan incubationTime, out babyTime, out maturationTime, out TimeSpan nextMatingMin, out TimeSpan nextMatingMax))
                     {
                         if (matingTime != TimeSpan.Zero)
-                            listViewRaisingTimes.Items.Add(new ListViewItem(new[] { Loc.s("matingTime"), matingTime.ToString("d':'hh':'mm':'ss") }));
+                            listViewRaisingTimes.Items.Add(new ListViewItem(new[] { Loc.S("matingTime"), matingTime.ToString("d':'hh':'mm':'ss") }));
 
                         TimeSpan totalTime = incubationTime;
                         DateTime until = DateTime.Now.Add(totalTime);
@@ -113,7 +113,7 @@ namespace ARKBreedingStats.raising
 
                         var raisingInfo = new StringBuilder();
                         if (nextMatingMin != TimeSpan.Zero)
-                            raisingInfo.AppendLine($"{Loc.s("TimeBetweenMating")}: {nextMatingMin:d':'hh':'mm':'ss} to {nextMatingMax:d':'hh':'mm':'ss}");
+                            raisingInfo.AppendLine($"{Loc.S("TimeBetweenMating")}: {nextMatingMin:d':'hh':'mm':'ss} to {nextMatingMax:d':'hh':'mm':'ss}");
 
                         string eggInfo = Raising.EggTemperature(selectedSpecies);
                         if (!string.IsNullOrEmpty(eggInfo))
@@ -466,7 +466,7 @@ namespace ARKBreedingStats.raising
                             nudMaturationProgress.Value = (decimal)maturing;
                         }
                     }
-                    parentStats1.setParentValues(c.Mother, c.Father);
+                    parentStats1.SetParentValues(c.Mother, c.Father);
 
                     // edit-box
                     creatureMaturationEdit = c;
@@ -480,7 +480,7 @@ namespace ARKBreedingStats.raising
                     Species species = ite.mother.Species;
                     SetGlobalSpecies?.Invoke(species);
 
-                    parentStats1.setParentValues(ite.mother, ite.father);
+                    parentStats1.SetParentValues(ite.mother, ite.father);
 
                     // edit-box
                     creatureMaturationEdit = null;

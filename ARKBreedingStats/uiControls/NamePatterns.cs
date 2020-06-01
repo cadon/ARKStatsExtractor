@@ -328,7 +328,13 @@ namespace ARKBreedingStats.uiControls
                         if ((creature.colors?[regionId] ?? 0) == 0) return string.Empty; // no color info
                         if (string.IsNullOrWhiteSpace(m.Groups[3].Value))
                             return creature.colors[regionId].ToString();
-                        return CreatureColors.creatureColorName(creature.colors[regionId]);
+                        return CreatureColors.CreatureColorName(creature.colors[regionId]);
+                    case "indexof":
+                        // parameter: 1: source string, 2: string to find
+                        if (string.IsNullOrEmpty(p1) || string.IsNullOrEmpty(m.Groups[3].Value))
+                            return string.Empty;
+                        int index = p1.IndexOf(m.Groups[3].Value);
+                        return index >= 0 ? index.ToString() : string.Empty;
                 }
             }
             catch (Exception ex)
@@ -533,10 +539,10 @@ namespace ARKBreedingStats.uiControls
                 { "effImp_short", effImp_short},
                 { "index", index_str},
                 { "oldname", old_name },
-                { "sex_lang",   Loc.s(creature.sex.ToString()) },
-                { "sex_lang_short", Loc.s(creature.sex.ToString()).Substring(0, 1) },
-                { "sex_lang_gen",   Loc.s(creature.sex.ToString() + "_gen") },
-                { "sex_lang_short_gen", Loc.s(creature.sex.ToString() + "_gen").Substring(0, 1) },
+                { "sex_lang",   Loc.S(creature.sex.ToString()) },
+                { "sex_lang_short", Loc.S(creature.sex.ToString()).Substring(0, 1) },
+                { "sex_lang_gen",   Loc.S(creature.sex.ToString() + "_gen") },
+                { "sex_lang_short_gen", Loc.S(creature.sex.ToString() + "_gen").Substring(0, 1) },
 
                 { "topPercent" , (creature.topness / 10f).ToString() },
                 { "baselvl" , baselvl },

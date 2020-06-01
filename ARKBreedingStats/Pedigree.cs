@@ -76,7 +76,7 @@ namespace ARKBreedingStats
                     g.DrawLine(myPen, line[0], line[1], line[2], line[3]);
                 }
                 if (children.Any())
-                    g.DrawString(Loc.s("Descendants"), new Font("Arial", 14), new SolidBrush(Color.Black), 210, 170);
+                    g.DrawString(Loc.S("Descendants"), new Font("Arial", 14), new SolidBrush(Color.Black), 210, 170);
             }
         }
 
@@ -162,7 +162,7 @@ namespace ARKBreedingStats
                 row++;
             }
 
-            pictureBox.Image = CreatureColored.getColoredCreature(creature.colors, creature.Species, enabledColorRegions, 256);
+            pictureBox.Image = CreatureColored.GetColoredCreature(creature.colors, creature.Species, enabledColorRegions, 256, creatureSex: creature.sex);
 
             Invalidate();
             ResumeLayout();

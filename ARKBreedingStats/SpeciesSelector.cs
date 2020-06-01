@@ -13,25 +13,31 @@ namespace ARKBreedingStats
 {
     public partial class SpeciesSelector : UserControl
     {
-        public delegate void speciesChangedEventHandler(bool speciesChanged = true);
+        /// <summary>
+        /// Is invoked if a species was selected. The parameter is true if the species was changed.
+        /// </summary>
+        public event Action<bool> OnSpeciesSelected;
 
-        public event speciesChangedEventHandler onSpeciesChanged;
         /// <summary>
         /// The currently selected species
         /// </summary>
         public Species SelectedSpecies { get; private set; }
+
         /// <summary>
         /// Items for the species list.
         /// </summary>
         private List<SpeciesListEntry> entryList;
-        public TabPage lastTabPage;
+
+        /// <summary>
+        /// The TextBox control for the species searching which is outside of this control.
+        /// </summary>
         private uiControls.TextBoxSuggest textbox;
+
         /// <summary>
         /// List of species-blueprintpaths last used by the user
         /// </summary>
         private List<string> lastSpeciesBPs;
         private readonly List<string> iconIndices;
-        public readonly int keepNrLastSpecies;
         private CancellationTokenSource cancelSource;
 
         public SpeciesSelector()
@@ -39,7 +45,6 @@ namespace ARKBreedingStats
             InitializeComponent();
             lastSpeciesBPs = new List<string>();
             iconIndices = new List<string>();
-            keepNrLastSpecies = 20;
             SplitterDistance = Properties.Settings.Default.SpeciesSelectorVerticalSplitterDistance;
 
             // imageList
@@ -217,13 +222,13 @@ namespace ARKBreedingStats
             || SelectedSpecies == species) return;
 
             lastSpeciesBPs.Remove(species.blueprintPath);
-            if (lastSpeciesBPs.Count > keepNrLastSpecies) // only keep keepNrLastSpecies of the last species in this list
-                lastSpeciesBPs.RemoveRange(keepNrLastSpecies, lastSpeciesBPs.Count - keepNrLastSpecies);
             lastSpeciesBPs.Insert(0, species.blueprintPath);
+            if (lastSpeciesBPs.Count > Properties.Settings.Default.SpeciesSelectorCountLastSpecies) // only keep keepNrLastSpecies of the last species in this list
+                lastSpeciesBPs.RemoveRange(Properties.Settings.Default.SpeciesSelectorCountLastSpecies, lastSpeciesBPs.Count - Properties.Settings.Default.SpeciesSelectorCountLastSpecies);
             UpdateLastSpecies();
             SelectedSpecies = species;
 
-            onSpeciesChanged?.Invoke();
+            OnSpeciesSelected?.Invoke(true);
         }
 
         public void SetTextBox(uiControls.TextBoxSuggest textbox)
@@ -285,7 +290,7 @@ namespace ARKBreedingStats
 
         private void btCancel_Click(object sender, EventArgs e)
         {
-            onSpeciesChanged?.Invoke(false);
+            OnSpeciesSelected?.Invoke(false);
         }
 
         private void cbDisplayUntameable_CheckedChanged(object sender, EventArgs e)

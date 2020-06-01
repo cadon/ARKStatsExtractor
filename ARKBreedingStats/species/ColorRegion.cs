@@ -20,7 +20,7 @@ namespace ARKBreedingStats.species
 
         public ColorRegion()
         {
-            name = Loc.s("unknown");
+            name = Loc.S("Unknown");
         }
 
         /// <summary>

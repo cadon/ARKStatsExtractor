@@ -297,9 +297,6 @@
   <data name="Club" xml:space="preserve">
     <value>Club</value>
   </data>
-  <data name="cnBPIncludeCooldowneds" xml:space="preserve">
-    <value>包括具有冷却的生物</value>
-  </data>
   <data name="Colors" xml:space="preserve">
     <value>颜色</value>
   </data>
@@ -568,9 +565,6 @@ If a number with a plus sign is shown, the sum is too high and you need to choos
   </data>
   <data name="library" xml:space="preserve">
     <value>库</value>
-  </data>
-  <data name="loadAndAddToolStripMenuItem 加载和添加..." xml:space="preserve">
-    <value />
   </data>
   <data name="loadToolStripMenuItem" xml:space="preserve">
     <value>&amp;读取...</value>
@@ -934,5 +928,20 @@ If a number with a plus sign is shown, the sum is too high and you need to choos
   </data>
   <data name="WorstPossible" xml:space="preserve">
     <value>最差可能</value>
+  </data>
+  <data name="loadAndAddToolStripMenuItem" xml:space="preserve">
+    <value>加载和添加…</value>
+  </data>
+  <data name="cbBPIncludeCooldowneds" xml:space="preserve">
+    <value>包括具有冷却的生物</value>
+  </data>
+  <data name="noColor" xml:space="preserve">
+    <value>没有颜色</value>
+  </data>
+  <data name="servers" xml:space="preserve">
+    <value>伺服器</value>
+  </data>
+  <data name="showOnlyNaturalOccuring" xml:space="preserve">
+    <value>仅显示自然发生的颜色</value>
   </data>
 </root>

@@ -2,9 +2,12 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace ASB_Updater
@@ -50,7 +53,8 @@ namespace ASB_Updater
             //// uncomment for debugging
             //string debugFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "ASBUpdaterTest");
             //Directory.CreateDirectory(debugFolder);
-            //e = new string[] { e[0], debugFolder, "doupdate" };
+            ////e = new string[] { e[0], debugFolder, "doupdate" };
+            //e = new string[] { e[0], debugFolder };
 
             // if the updater was started directly, copy it first to the temp directory and start it from there
             // so it's able to update itself.
@@ -137,7 +141,7 @@ namespace ASB_Updater
             var reporter = new ProgressReporter(-1);
             if (!await updater.Fetch(progress))
             {
-                reporter.statusMessage = "Fetch failed, retrying…";
+                reporter.StatusMessage = "Fetch failed, retrying…";
                 progress.Report(reporter);
                 if (!await updater.Fetch(progress))
                 {
@@ -146,7 +150,7 @@ namespace ASB_Updater
             }
             if (!updater.Parse(progress))
             {
-                reporter.statusMessage = updater.LastError();
+                reporter.StatusMessage = updater.LastError();
                 progress.Report(reporter);
                 return false;
             }
@@ -161,17 +165,17 @@ namespace ASB_Updater
         {
             var reporter = new ProgressReporter(0, "Starting the update");
             progress.Report(reporter);
-            reporter.progress = -1;
+            reporter.Progress = -1;
             if (!await updater.Download(progress))
             {
                 if (!await updater.Fetch(progress) || !updater.Parse(progress))
                 {
-                    reporter.statusMessage = updater.LastError();
+                    reporter.StatusMessage = updater.LastError();
                     progress.Report(reporter);
                     return false;
                 }
 
-                reporter.statusMessage = "Download of update failed, retrying…";
+                reporter.StatusMessage = "Download of update failed, retrying…";
                 progress.Report(reporter);
                 if (!await updater.Download(progress))
                 {
@@ -183,7 +187,7 @@ namespace ASB_Updater
 
             if (!updater.Extract(applicationPath, UseLocalAppDataForDataFiles, progress))
             {
-                reporter.statusMessage = "Extracting update files failed, retrying…";
+                reporter.StatusMessage = "Extracting update files failed, retrying…";
                 progress.Report(reporter);
                 if (!updater.Extract(applicationPath, UseLocalAppDataForDataFiles, progress))
                 {
@@ -201,11 +205,9 @@ namespace ASB_Updater
         {
             Process[] processes = Process.GetProcessesByName(APPLICATION_NAME);
 
-            if (processes == null) return;
-
             foreach (Process proc in processes)
             {
-                if (proc.MainModule.FileName.Equals(APPLICATIONEXE_NAME))
+                if (proc.MainModule?.FileName.Equals(APPLICATIONEXE_NAME) ?? false)
                 {
                     proc.CloseMainWindow();
                     proc.WaitForExit();
@@ -220,7 +222,7 @@ namespace ASB_Updater
         {
             if (updateResult)
             {
-                progress.Report(new ProgressReporter(100, "ASB is up to date!"));
+                progress.Report(new ProgressReporter(100, "ASB is up to date!", ProgressReporter.State.Success));
                 Process.Start(Path.Combine(applicationPath, APPLICATIONEXE_NAME), "cleanupUpdater");
 
                 if (wasAlreadyUptodate)
@@ -233,9 +235,12 @@ namespace ASB_Updater
             }
             else
             {
-                UpdateProgressBar(new ProgressReporter { progress = 0, statusMessage = updater.LastError() });
+                UpdateProgressBar(new ProgressReporter(updater.LastError(), ProgressReporter.State.Error));
+                UpdateProgressBar(new ProgressReporter("Updating failed.", ProgressReporter.State.Error));
+                progressBar.Value = 100;
+                progressBar.Foreground = new SolidColorBrush(Colors.DarkRed);
             }
-            btClose.IsEnabled = true;
+            BtClose.IsEnabled = true;
         }
 
         /// <summary>
@@ -244,15 +249,29 @@ namespace ASB_Updater
         private void UpdateProgressBar(ProgressReporter progressReport)
         {
             //int progress = updater.GetProgress();
-            if (!string.IsNullOrEmpty(progressReport.statusMessage))
+            if (!string.IsNullOrEmpty(progressReport.StatusMessage))
             {
-                updateStatus.Text += "\n" + progressReport.statusMessage;
-                scrollViewer.ScrollToBottom();
+                Brush foregroundBrush;
+                switch (progressReport.MessageState)
+                {
+                    case ProgressReporter.State.Success:
+                        foregroundBrush = new SolidColorBrush(Colors.LightGreen);
+                        break;
+                    case ProgressReporter.State.Error:
+                        foregroundBrush = new SolidColorBrush(Colors.LightSalmon);
+                        break;
+                    default:
+                        foregroundBrush = new SolidColorBrush(Colors.Ivory);
+                        break;
+                }
+
+                StackPanelLog.Children.Add(new TextBlock() { Text = progressReport.StatusMessage, Foreground = foregroundBrush });
+                ScrollViewer.ScrollToBottom();
             }
 
-            if (progressReport.progress >= 0)
+            if (progressReport.Progress >= 0)
             {
-                progressBar.Value = progressReport.progress;
+                progressBar.Value = progressReport.Progress;
             }
         }
 
@@ -267,13 +286,24 @@ namespace ASB_Updater
             }
             catch
             {
-                return;
+                // ignored
             }
         }
 
         private void CloseClick(object sender, RoutedEventArgs e)
         {
             Exit();
+        }
+
+        private void CopyToClipboardClick(object sender, RoutedEventArgs e)
+        {
+            var sb = new StringBuilder();
+            foreach (TextBlock tb in StackPanelLog.Children)
+            {
+                sb.AppendLine(tb.Text);
+            }
+            if (sb.Length != 0)
+                Clipboard.SetText(sb.ToString());
         }
     }
 
@@ -282,27 +312,29 @@ namespace ASB_Updater
         /// <summary>
         /// Progress in percent.
         /// </summary>
-        public int progress;
+        public int Progress;
 
-        public string statusMessage;
+        public string StatusMessage;
 
-        public ProgressReporter() { }
+        public readonly State MessageState;
 
-        public ProgressReporter(int progress)
+        public ProgressReporter(int progress, string message = null, State state = State.Default)
         {
-            this.progress = progress;
+            this.Progress = progress;
+            StatusMessage = message;
+            MessageState = state;
         }
 
-        public ProgressReporter(int progress, string message)
+        public ProgressReporter(string message, State state = State.Default)
         {
-            this.progress = progress;
-            statusMessage = message;
+            this.Progress = -1;
+            StatusMessage = message;
+            MessageState = state;
         }
 
-        public ProgressReporter(string message)
+        public enum State
         {
-            progress = -1;
-            statusMessage = message;
+            Default, Error, Success
         }
     }
 }

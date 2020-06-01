@@ -141,16 +141,16 @@ namespace ARKBreedingStats.multiplierTesting
             }
         }
 
-        public void SetStatValues(double[] statValues)
+        public void SetStatValues(double[] statValues, double?[] customOverrides)
         {
             if (statValues != null && statValues.Length == 5)
             {
                 updateValues = false;
-                nudB.Value = (decimal)statValues[0];
-                nudIw.Value = (decimal)statValues[1];
-                nudId.Value = (decimal)statValues[2];
-                nudTa.Value = (decimal)statValues[3];
-                nudTm.Value = (decimal)statValues[4];
+                nudB.Value = (decimal)(customOverrides?[0] ?? statValues[0]);
+                nudIw.Value = (decimal)(customOverrides?[1] ?? statValues[1]);
+                nudId.Value = (decimal)(customOverrides?[2] ?? statValues[2]);
+                nudTa.Value = (decimal)(customOverrides?[3] ?? statValues[3]);
+                nudTm.Value = (decimal)(customOverrides?[4] ?? statValues[4]);
                 UpdateCalculations(true);
             }
         }
