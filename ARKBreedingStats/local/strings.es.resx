@@ -1001,4 +1001,13 @@ Algunas crías pueden ser peores que en el modo de estadísticas altas, pero tam
   <data name="newTopLevel" xml:space="preserve">
     <value>nuevo nivel superior</value>
   </data>
+  <data name="clearColors" xml:space="preserve">
+    <value>eliminar colores</value>
+  </data>
+  <data name="servers" xml:space="preserve">
+    <value>servidores</value>
+  </data>
+  <data name="showOnlyNaturalOccuring" xml:space="preserve">
+    <value>mostrar solo colores naturales</value>
+  </data>
 </root>

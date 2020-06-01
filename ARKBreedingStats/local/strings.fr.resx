@@ -1026,4 +1026,10 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
   <data name="newTopLevel" xml:space="preserve">
     <value>nouveau niveau supérieur</value>
   </data>
+  <data name="servers" xml:space="preserve">
+    <value>serveurs</value>
+  </data>
+  <data name="showOnlyNaturalOccuring" xml:space="preserve">
+    <value>n'afficher que les couleurs naturelles</value>
+  </data>
 </root>

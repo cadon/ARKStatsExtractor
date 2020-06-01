@@ -898,19 +898,19 @@ The chance for an overall good creature is better.
 Check if it's not important to have a Top-Stats-Offspring.</value>
   </data>
   <data name="rbBPTopStats" xml:space="preserve">
-    <value>Top Stats Lc</value>
+    <value>Combine top stats lucky</value>
   </data>
   <data name="rbBPTopStatsCn" xml:space="preserve">
-    <value>Top Stats Cn</value>
+    <value>Combine top stats steady</value>
   </data>
   <data name="rbBPTopStatsCnTT" xml:space="preserve">
-    <value>Top Stats, Conservative.
+    <value>Combine top stats steady
 Check for best long-term-results and if you want to go safe.
 This mode will get to the best possible offspring steady and surely.
 Some offsprings might be worse than in High-Stats-Mode, but that's the mode you go if you want to have that perfect creature in some generations.</value>
   </data>
   <data name="rbBPTopStatsTT" xml:space="preserve">
-    <value>Top Stats, Feeling Lucky.
+    <value>Combine top stats steady
 Check for best long-term-results and if you're feeling lucky. It can be faster to get the perfect creature than in the Top-Stat-Conservative-Mode if you're lucky.
 Some offsprings might be worse than in High-Stats-Mode, but you also have a chance to the best possible offspring.</value>
   </data>
@@ -1154,5 +1154,11 @@ The preset can be applied by the Apply Preset button</value>
   </data>
   <data name="newTopLevel" xml:space="preserve">
     <value>new top level</value>
+  </data>
+  <data name="clearColors" xml:space="preserve">
+    <value>clear colors</value>
+  </data>
+  <data name="holdCtrlForRandomColors" xml:space="preserve">
+    <value>Hold Ctrl for random colors</value>
   </data>
 </root>

@@ -15,7 +15,6 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static ARKBreedingStats.settings.Settings;
 
@@ -404,6 +403,7 @@ namespace ARKBreedingStats
             }
 
             creatureInfoInputTester.pBcolorRegion = pictureBoxColorRegionsTester;
+            creatureInfoInputExtractor.pBcolorRegion = PbCreatureColorsExtractor;
 
             // set TLS-protocol (github needs at least TLS 1.2) for update-check
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;

@@ -17,17 +17,17 @@ namespace ARKBreedingStats
         private const string extension = ".png";
 
         /// <summary>
-        /// Returns a bitmap image that represents the given colors.
+        /// Returns a bitmap image that represents the given colors. If a species color file is available, that is used, else a pic-chart like representation.
         /// </summary>
         /// <param name="colorIds"></param>
         /// <param name="species"></param>
         /// <param name="enabledColorRegions"></param>
         /// <param name="size"></param>
         /// <param name="pieSize"></param>
-        /// <param name="onlyColors"></param>
-        /// <param name="dontCache"></param>
+        /// <param name="onlyColors">Only return a pie-chart like color representation.</param>
+        /// <param name="onlyImage">Only return an image of the colored creature. If that's not possible, return null.</param>
         /// <returns></returns>
-        public static Bitmap GetColoredCreature(int[] colorIds, Species species, bool[] enabledColorRegions, int size = 128, int pieSize = 64, bool onlyColors = false, Library.Sex creatureSex = Sex.Unknown)
+        public static Bitmap GetColoredCreature(int[] colorIds, Species species, bool[] enabledColorRegions, int size = 128, int pieSize = 64, bool onlyColors = false, bool onlyImage = false, Library.Sex creatureSex = Sex.Unknown)
         {
             if (colorIds == null) return null;
             //float[][] hsl = new float[Species.ColorRegionCount][];
@@ -177,11 +177,15 @@ namespace ARKBreedingStats
                 }
             }
 
+            bool cacheFileExists = File.Exists(cacheFileName);
+
+            if (onlyImage && !cacheFileExists) return null;
+
             Bitmap bm = new Bitmap(size, size);
             using (Graphics graph = Graphics.FromImage(bm))
             {
                 graph.SmoothingMode = SmoothingMode.AntiAlias;
-                if (File.Exists(cacheFileName))
+                if (cacheFileExists)
                 {
                     graph.CompositingMode = CompositingMode.SourceCopy;
                     graph.CompositingQuality = CompositingQuality.HighQuality;

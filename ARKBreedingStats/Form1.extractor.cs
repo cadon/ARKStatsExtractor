@@ -424,6 +424,7 @@ namespace ARKBreedingStats
                 labelErrorHelp.Visible = false;
                 lbImprintingFailInfo.Visible = false; // TODO move imprinting-fail to upper note-info
                 _extractor.possibleIssues = IssueNotes.Issue.None;
+                PbCreatureColorsExtractor.Visible = true;
             }
             else
             {
@@ -497,6 +498,7 @@ namespace ARKBreedingStats
                     lbImprintingFailInfo.Visible = true;
                 }
                 toolStripButtonSaveCreatureValuesTemp.Visible = true;
+                PbCreatureColorsExtractor.Visible = false;
 
                 // check for updates
                 if (DateTime.Now.AddHours(-5) > Properties.Settings.Default.lastUpdateCheck)

@@ -938,4 +938,10 @@ If a number with a plus sign is shown, the sum is too high and you need to choos
   <data name="noColor" xml:space="preserve">
     <value>没有颜色</value>
   </data>
+  <data name="servers" xml:space="preserve">
+    <value>伺服器</value>
+  </data>
+  <data name="showOnlyNaturalOccuring" xml:space="preserve">
+    <value>仅显示自然发生的颜色</value>
+  </data>
 </root>

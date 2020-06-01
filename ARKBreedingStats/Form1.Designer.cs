@@ -119,6 +119,7 @@ namespace ARKBreedingStats
             this.BreedingPlanHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.extractionIssuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
+            this.downloadSpeciesImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdatedStatsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelSums = new System.Windows.Forms.Panel();
             this.lbShouldBe = new System.Windows.Forms.Label();
@@ -153,6 +154,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputTester = new ARKBreedingStats.CreatureInfoInput();
             this.tabPageExtractor = new System.Windows.Forms.TabPage();
             this.llOnlineHelpExtractionIssues = new System.Windows.Forms.LinkLabel();
+            this.PbCreatureColorsExtractor = new System.Windows.Forms.PictureBox();
             this.groupBoxRadarChartExtractor = new System.Windows.Forms.GroupBox();
             this.radarChartExtractor = new ARKBreedingStats.RadarChart();
             this.lbImprintingFailInfo = new System.Windows.Forms.Label();
@@ -307,7 +309,6 @@ namespace ARKBreedingStats
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
             this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetLibraryColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
-            this.downloadSpeciesImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -333,6 +334,7 @@ namespace ARKBreedingStats
             this.panelStatTesterFootnote.SuspendLayout();
             this.gpPreviewEdit.SuspendLayout();
             this.tabPageExtractor.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PbCreatureColorsExtractor)).BeginInit();
             this.groupBoxRadarChartExtractor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radarChartExtractor)).BeginInit();
             this.groupBoxTamingInfo.SuspendLayout();
@@ -1148,6 +1150,13 @@ namespace ARKBreedingStats
             this.toolStripSeparator12.Name = "toolStripSeparator12";
             this.toolStripSeparator12.Size = new System.Drawing.Size(207, 6);
             // 
+            // downloadSpeciesImagesToolStripMenuItem
+            // 
+            this.downloadSpeciesImagesToolStripMenuItem.Name = "downloadSpeciesImagesToolStripMenuItem";
+            this.downloadSpeciesImagesToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.downloadSpeciesImagesToolStripMenuItem.Text = "Download species images";
+            this.downloadSpeciesImagesToolStripMenuItem.Click += new System.EventHandler(this.downloadSpeciesImagesToolStripMenuItem_Click);
+            // 
             // checkForUpdatedStatsToolStripMenuItem
             // 
             this.checkForUpdatedStatsToolStripMenuItem.Name = "checkForUpdatedStatsToolStripMenuItem";
@@ -1518,6 +1527,7 @@ namespace ARKBreedingStats
             // 
             this.tabPageExtractor.AutoScroll = true;
             this.tabPageExtractor.Controls.Add(this.llOnlineHelpExtractionIssues);
+            this.tabPageExtractor.Controls.Add(this.PbCreatureColorsExtractor);
             this.tabPageExtractor.Controls.Add(this.groupBoxRadarChartExtractor);
             this.tabPageExtractor.Controls.Add(this.lbImprintingFailInfo);
             this.tabPageExtractor.Controls.Add(this.groupBoxTamingInfo);
@@ -1551,6 +1561,14 @@ namespace ARKBreedingStats
             this.llOnlineHelpExtractionIssues.TabStop = true;
             this.llOnlineHelpExtractionIssues.Text = "Red Stat-boxes: Online-Help";
             this.llOnlineHelpExtractionIssues.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llOnlineHelpExtractionIssues_LinkClicked);
+            // 
+            // PbCreatureColorsExtractor
+            // 
+            this.PbCreatureColorsExtractor.Location = new System.Drawing.Point(589, 470);
+            this.PbCreatureColorsExtractor.Name = "PbCreatureColorsExtractor";
+            this.PbCreatureColorsExtractor.Size = new System.Drawing.Size(256, 256);
+            this.PbCreatureColorsExtractor.TabIndex = 51;
+            this.PbCreatureColorsExtractor.TabStop = false;
             // 
             // groupBoxRadarChartExtractor
             // 
@@ -3024,13 +3042,6 @@ namespace ARKBreedingStats
             this.toolStripMenuItemResetLibraryColumnWidths.Text = "Reset column width";
             this.toolStripMenuItemResetLibraryColumnWidths.Click += new System.EventHandler(this.toolStripMenuItemResetLibraryColumnWidths_Click);
             // 
-            // downloadSpeciesImagesToolStripMenuItem
-            // 
-            this.downloadSpeciesImagesToolStripMenuItem.Name = "downloadSpeciesImagesToolStripMenuItem";
-            this.downloadSpeciesImagesToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
-            this.downloadSpeciesImagesToolStripMenuItem.Text = "Download species images";
-            this.downloadSpeciesImagesToolStripMenuItem.Click += new System.EventHandler(this.downloadSpeciesImagesToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -3089,6 +3100,7 @@ namespace ARKBreedingStats
             this.gpPreviewEdit.PerformLayout();
             this.tabPageExtractor.ResumeLayout(false);
             this.tabPageExtractor.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PbCreatureColorsExtractor)).EndInit();
             this.groupBoxRadarChartExtractor.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radarChartExtractor)).EndInit();
             this.groupBoxTamingInfo.ResumeLayout(false);
@@ -3406,5 +3418,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem libraryFilterToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBoxColorRegionsTester;
         private System.Windows.Forms.ToolStripMenuItem downloadSpeciesImagesToolStripMenuItem;
+        private System.Windows.Forms.PictureBox PbCreatureColorsExtractor;
     }
 }

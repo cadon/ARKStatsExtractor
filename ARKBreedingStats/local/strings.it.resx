@@ -934,4 +934,10 @@ Questa modalità arriverà alla miglior prole possibile, ferma e sicura.Alcune p
   <data name="newTopLevel" xml:space="preserve">
     <value>nuovo livello superiore</value>
   </data>
+  <data name="servers" xml:space="preserve">
+    <value>server</value>
+  </data>
+  <data name="showOnlyNaturalOccuring" xml:space="preserve">
+    <value>mostra solo i colori naturali</value>
+  </data>
 </root>

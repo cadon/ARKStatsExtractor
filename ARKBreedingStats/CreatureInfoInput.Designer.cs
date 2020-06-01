@@ -45,10 +45,17 @@ namespace ARKBreedingStats
             this.cbServer = new System.Windows.Forms.ComboBox();
             this.textBoxTribe = new System.Windows.Forms.TextBox();
             this.textBoxNote = new System.Windows.Forms.TextBox();
+            this.parentComboBoxFather = new ARKBreedingStats.uiControls.ParentComboBox();
+            this.parentComboBoxMother = new ARKBreedingStats.uiControls.ParentComboBox();
             this.textBoxOwner = new System.Windows.Forms.TextBox();
             this.textBoxName = new System.Windows.Forms.TextBox();
+            this.nudMutationsFather = new ARKBreedingStats.uiControls.Nud();
+            this.nudMutationsMother = new ARKBreedingStats.uiControls.Nud();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.dhmsInputGrown = new ARKBreedingStats.uiControls.dhmsInput();
+            this.dhmsInputCooldown = new ARKBreedingStats.uiControls.dhmsInput();
+            this.nudMaturation = new ARKBreedingStats.uiControls.Nud();
             this.cbNeutered = new System.Windows.Forms.CheckBox();
             this.dateTimePickerAdded = new System.Windows.Forms.DateTimePicker();
             this.buttonStatus = new System.Windows.Forms.Button();
@@ -57,6 +64,7 @@ namespace ARKBreedingStats
             this.lbArkIdIngame = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btClearColors = new System.Windows.Forms.Button();
+            this.regionColorChooser1 = new ARKBreedingStats.uiControls.RegionColorChooser();
             this.lbServer = new System.Windows.Forms.Label();
             this.lbTribe = new System.Windows.Forms.Label();
             this.lbStatus = new System.Windows.Forms.Label();
@@ -73,14 +81,6 @@ namespace ARKBreedingStats
             this.lbOwner = new System.Windows.Forms.Label();
             this.lbName = new System.Windows.Forms.Label();
             this.btAdd2Library = new System.Windows.Forms.Button();
-            this.parentComboBoxFather = new ARKBreedingStats.uiControls.ParentComboBox();
-            this.parentComboBoxMother = new ARKBreedingStats.uiControls.ParentComboBox();
-            this.nudMutationsFather = new ARKBreedingStats.uiControls.Nud();
-            this.nudMutationsMother = new ARKBreedingStats.uiControls.Nud();
-            this.dhmsInputGrown = new ARKBreedingStats.uiControls.dhmsInput();
-            this.dhmsInputCooldown = new ARKBreedingStats.uiControls.dhmsInput();
-            this.nudMaturation = new ARKBreedingStats.uiControls.Nud();
-            this.regionColorChooser1 = new ARKBreedingStats.uiControls.RegionColorChooser();
             this.gbCreatureInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsFather)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsMother)).BeginInit();
@@ -279,6 +279,30 @@ namespace ARKBreedingStats
             this.textBoxNote.Size = new System.Drawing.Size(188, 20);
             this.textBoxNote.TabIndex = 7;
             // 
+            // parentComboBoxFather
+            // 
+            this.parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.parentComboBoxFather.FormattingEnabled = true;
+            this.parentComboBoxFather.Location = new System.Drawing.Point(68, 202);
+            this.parentComboBoxFather.Name = "parentComboBoxFather";
+            this.parentComboBoxFather.PreselectedCreatureGuid = new System.Guid("00000000-0000-0000-0000-000000000000");
+            this.parentComboBoxFather.Size = new System.Drawing.Size(188, 21);
+            this.parentComboBoxFather.TabIndex = 6;
+            this.parentComboBoxFather.SelectedIndexChanged += new System.EventHandler(this.parentComboBox_SelectedIndexChanged);
+            // 
+            // parentComboBoxMother
+            // 
+            this.parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.parentComboBoxMother.FormattingEnabled = true;
+            this.parentComboBoxMother.Location = new System.Drawing.Point(68, 175);
+            this.parentComboBoxMother.Name = "parentComboBoxMother";
+            this.parentComboBoxMother.PreselectedCreatureGuid = new System.Guid("00000000-0000-0000-0000-000000000000");
+            this.parentComboBoxMother.Size = new System.Drawing.Size(188, 21);
+            this.parentComboBoxMother.TabIndex = 5;
+            this.parentComboBoxMother.SelectedIndexChanged += new System.EventHandler(this.parentComboBox_SelectedIndexChanged);
+            // 
             // textBoxOwner
             // 
             this.textBoxOwner.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
@@ -297,6 +321,54 @@ namespace ARKBreedingStats
             this.textBoxName.TabIndex = 0;
             this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
             // 
+            // nudMutationsFather
+            // 
+            this.nudMutationsFather.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudMutationsFather.Location = new System.Drawing.Point(196, 386);
+            this.nudMutationsFather.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.nudMutationsFather.Minimum = new decimal(new int[] {
+            -2147483648,
+            0,
+            0,
+            -2147483648});
+            this.nudMutationsFather.Name = "nudMutationsFather";
+            this.nudMutationsFather.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudMutationsFather.Size = new System.Drawing.Size(60, 20);
+            this.nudMutationsFather.TabIndex = 13;
+            this.nudMutationsFather.ValueChanged += new System.EventHandler(this.NudMutations_ValueChanged);
+            // 
+            // nudMutationsMother
+            // 
+            this.nudMutationsMother.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudMutationsMother.Location = new System.Drawing.Point(107, 386);
+            this.nudMutationsMother.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.nudMutationsMother.Minimum = new decimal(new int[] {
+            -2147483648,
+            0,
+            0,
+            -2147483648});
+            this.nudMutationsMother.Name = "nudMutationsMother";
+            this.nudMutationsMother.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudMutationsMother.Size = new System.Drawing.Size(60, 20);
+            this.nudMutationsMother.TabIndex = 12;
+            this.nudMutationsMother.ValueChanged += new System.EventHandler(this.NudMutations_ValueChanged);
+            // 
             // label12
             // 
             this.label12.AutoSize = true;
@@ -314,6 +386,43 @@ namespace ARKBreedingStats
             this.label11.Size = new System.Drawing.Size(16, 13);
             this.label11.TabIndex = 33;
             this.label11.Text = "♀";
+            // 
+            // dhmsInputGrown
+            // 
+            this.dhmsInputGrown.Location = new System.Drawing.Point(120, 331);
+            this.dhmsInputGrown.Name = "dhmsInputGrown";
+            this.dhmsInputGrown.Size = new System.Drawing.Size(136, 26);
+            this.dhmsInputGrown.TabIndex = 10;
+            this.dhmsInputGrown.Timespan = System.TimeSpan.Parse("00:00:00");
+            this.dhmsInputGrown.ValueChanged += new ARKBreedingStats.uiControls.dhmsInput.ValueChangedEventHandler(this.dhmsInputGrown_ValueChanged);
+            // 
+            // dhmsInputCooldown
+            // 
+            this.dhmsInputCooldown.Location = new System.Drawing.Point(120, 304);
+            this.dhmsInputCooldown.Name = "dhmsInputCooldown";
+            this.dhmsInputCooldown.Size = new System.Drawing.Size(136, 26);
+            this.dhmsInputCooldown.TabIndex = 9;
+            this.dhmsInputCooldown.Timespan = System.TimeSpan.Parse("00:00:00");
+            // 
+            // nudMaturation
+            // 
+            this.nudMaturation.DecimalPlaces = 2;
+            this.nudMaturation.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.nudMaturation.Location = new System.Drawing.Point(180, 360);
+            this.nudMaturation.Name = "nudMaturation";
+            this.nudMaturation.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudMaturation.Size = new System.Drawing.Size(76, 20);
+            this.nudMaturation.TabIndex = 11;
+            this.nudMaturation.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.nudMaturation.ValueChanged += new System.EventHandler(this.nudMaturation_ValueChanged);
             // 
             // cbNeutered
             // 
@@ -385,13 +494,22 @@ namespace ARKBreedingStats
             // 
             // btClearColors
             // 
-            this.btClearColors.Location = new System.Drawing.Point(6, 473);
+            this.btClearColors.Location = new System.Drawing.Point(6, 470);
             this.btClearColors.Name = "btClearColors";
-            this.btClearColors.Size = new System.Drawing.Size(45, 23);
+            this.btClearColors.Size = new System.Drawing.Size(73, 23);
             this.btClearColors.TabIndex = 37;
-            this.btClearColors.Text = "Colors";
+            this.btClearColors.Text = "Clear colors";
             this.btClearColors.UseVisualStyleBackColor = true;
             this.btClearColors.Click += new System.EventHandler(this.btClearColors_Click);
+            // 
+            // regionColorChooser1
+            // 
+            this.regionColorChooser1.Location = new System.Drawing.Point(82, 467);
+            this.regionColorChooser1.Margin = new System.Windows.Forms.Padding(0);
+            this.regionColorChooser1.Name = "regionColorChooser1";
+            this.regionColorChooser1.Size = new System.Drawing.Size(174, 29);
+            this.regionColorChooser1.TabIndex = 19;
+            this.regionColorChooser1.VerboseButtonTexts = false;
             // 
             // lbServer
             // 
@@ -547,124 +665,6 @@ namespace ARKBreedingStats
             this.btAdd2Library.Text = "Add new to Library";
             this.btAdd2Library.UseVisualStyleBackColor = true;
             this.btAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
-            // 
-            // parentComboBoxFather
-            // 
-            this.parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.parentComboBoxFather.FormattingEnabled = true;
-            this.parentComboBoxFather.Location = new System.Drawing.Point(68, 202);
-            this.parentComboBoxFather.Name = "parentComboBoxFather";
-            this.parentComboBoxFather.PreselectedCreatureGuid = new System.Guid("00000000-0000-0000-0000-000000000000");
-            this.parentComboBoxFather.Size = new System.Drawing.Size(188, 21);
-            this.parentComboBoxFather.TabIndex = 6;
-            this.parentComboBoxFather.SelectedIndexChanged += new System.EventHandler(this.parentComboBox_SelectedIndexChanged);
-            // 
-            // parentComboBoxMother
-            // 
-            this.parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.parentComboBoxMother.FormattingEnabled = true;
-            this.parentComboBoxMother.Location = new System.Drawing.Point(68, 175);
-            this.parentComboBoxMother.Name = "parentComboBoxMother";
-            this.parentComboBoxMother.PreselectedCreatureGuid = new System.Guid("00000000-0000-0000-0000-000000000000");
-            this.parentComboBoxMother.Size = new System.Drawing.Size(188, 21);
-            this.parentComboBoxMother.TabIndex = 5;
-            this.parentComboBoxMother.SelectedIndexChanged += new System.EventHandler(this.parentComboBox_SelectedIndexChanged);
-            // 
-            // nudMutationsFather
-            // 
-            this.nudMutationsFather.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudMutationsFather.Location = new System.Drawing.Point(196, 386);
-            this.nudMutationsFather.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.nudMutationsFather.Minimum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            -2147483648});
-            this.nudMutationsFather.Name = "nudMutationsFather";
-            this.nudMutationsFather.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudMutationsFather.Size = new System.Drawing.Size(60, 20);
-            this.nudMutationsFather.TabIndex = 13;
-            this.nudMutationsFather.ValueChanged += new System.EventHandler(this.NudMutations_ValueChanged);
-            // 
-            // nudMutationsMother
-            // 
-            this.nudMutationsMother.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudMutationsMother.Location = new System.Drawing.Point(107, 386);
-            this.nudMutationsMother.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.nudMutationsMother.Minimum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            -2147483648});
-            this.nudMutationsMother.Name = "nudMutationsMother";
-            this.nudMutationsMother.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudMutationsMother.Size = new System.Drawing.Size(60, 20);
-            this.nudMutationsMother.TabIndex = 12;
-            this.nudMutationsMother.ValueChanged += new System.EventHandler(this.NudMutations_ValueChanged);
-            // 
-            // dhmsInputGrown
-            // 
-            this.dhmsInputGrown.Location = new System.Drawing.Point(120, 331);
-            this.dhmsInputGrown.Name = "dhmsInputGrown";
-            this.dhmsInputGrown.Size = new System.Drawing.Size(136, 26);
-            this.dhmsInputGrown.TabIndex = 10;
-            this.dhmsInputGrown.Timespan = System.TimeSpan.Parse("00:00:00");
-            this.dhmsInputGrown.ValueChanged += new ARKBreedingStats.uiControls.dhmsInput.ValueChangedEventHandler(this.dhmsInputGrown_ValueChanged);
-            // 
-            // dhmsInputCooldown
-            // 
-            this.dhmsInputCooldown.Location = new System.Drawing.Point(120, 304);
-            this.dhmsInputCooldown.Name = "dhmsInputCooldown";
-            this.dhmsInputCooldown.Size = new System.Drawing.Size(136, 26);
-            this.dhmsInputCooldown.TabIndex = 9;
-            this.dhmsInputCooldown.Timespan = System.TimeSpan.Parse("00:00:00");
-            // 
-            // nudMaturation
-            // 
-            this.nudMaturation.DecimalPlaces = 2;
-            this.nudMaturation.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.nudMaturation.Location = new System.Drawing.Point(180, 360);
-            this.nudMaturation.Name = "nudMaturation";
-            this.nudMaturation.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudMaturation.Size = new System.Drawing.Size(76, 20);
-            this.nudMaturation.TabIndex = 11;
-            this.nudMaturation.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.nudMaturation.ValueChanged += new System.EventHandler(this.nudMaturation_ValueChanged);
-            // 
-            // regionColorChooser1
-            // 
-            this.regionColorChooser1.Location = new System.Drawing.Point(82, 467);
-            this.regionColorChooser1.Margin = new System.Windows.Forms.Padding(0);
-            this.regionColorChooser1.Name = "regionColorChooser1";
-            this.regionColorChooser1.Size = new System.Drawing.Size(174, 29);
-            this.regionColorChooser1.TabIndex = 19;
-            this.regionColorChooser1.VerboseButtonTexts = false;
             // 
             // CreatureInfoInput
             // 

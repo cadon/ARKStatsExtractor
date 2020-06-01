@@ -683,6 +683,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string clearColors {
+            get {
+                return ResourceManager.GetString("clearColors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clear Color Filters.
         /// </summary>
         internal static string clearColorsFilters {
@@ -1291,6 +1300,15 @@ namespace ARKBreedingStats.local {
         internal static string helpToolStripMenuItem {
             get {
                 return ResourceManager.GetString("helpToolStripMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string holdCtrlForRandomColors {
+            get {
+                return ResourceManager.GetString("holdCtrlForRandomColors", resourceCulture);
             }
         }
         
@@ -1985,7 +2003,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to new top level.
         /// </summary>
         internal static string newTopLevel {
             get {

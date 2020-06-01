@@ -892,18 +892,18 @@ Setze auf -1 um Kreaturen unabhängig der Mutationen anzuzeigen.</value>
     <value>Aktivieren um die besten Vorschläge für die nächste Generation zu bekommen, wenn Top-Stats nicht wichtig sind.</value>
   </data>
   <data name="rbBPTopStats" xml:space="preserve">
-    <value>Top Stats Lc</value>
+    <value>Kombiniere Top Stats lucky</value>
   </data>
   <data name="rbBPTopStatsCn" xml:space="preserve">
-    <value>Top Stats Cn</value>
+    <value>Kombiniere Top Stats sicher</value>
   </data>
   <data name="rbBPTopStatsCnTT" xml:space="preserve">
-    <value>Top Stats, konservativ.
+    <value>Kombiniere Top Stats sicher
 Wählen, um alle Top stats in einer Kreatur zu vereinen.
 Einige Nachkommen werden teilweise ein niedrigeres Gesamtlevel als im High-Stats-Mode haben, aber die Top-Stats werden hier nacheinander zusammengeführt.</value>
   </data>
   <data name="rbBPTopStatsTT" xml:space="preserve">
-    <value>Top Stats, mit Glück
+    <value>Kombiniere Top Stats lucky
 Wählen, um die Top stats in einer Kreature zu vereinen. Dieser Modus geht ein Risiko ein und versucht mehrere Top-Stats auf einmal zu vereinen. Wenn es klappt, geht es schneller, aber die Wahrscheinlichkeit ist geringer als im konservativen Modus.</value>
   </data>
   <data name="SelectSpeciesBreedingPlanner" xml:space="preserve">
@@ -1145,5 +1145,11 @@ Diese kann mit BSS Preset angewandt werden.</value>
   </data>
   <data name="newTopLevel" xml:space="preserve">
     <value>neues top Level</value>
+  </data>
+  <data name="holdCtrlForRandomColors" xml:space="preserve">
+    <value>Halte Strg für zufällige Farben</value>
+  </data>
+  <data name="clearColors" xml:space="preserve">
+    <value>Lösche Farben</value>
   </data>
 </root>
