@@ -203,37 +203,9 @@ namespace ARKBreedingStats
             Dictionary<string, double[]> custW = new Dictionary<string, double[]>();
             if (custWs != null && custWd != null)
             {
-                var newToOldIndicesStatWeightings = new int[] { 0, 1, -1, 2, 3, -1, -1, 4, 5, 6, -1, -1 };
-
-                // TODO remove this when new stat-order is established, e.g. in 6 months (2019-11)
-                // if statWeights use the old order, convert
-                for (int i = 0; i < custWd.Length; i++)
+                for (int i = 0; i < custWs.Length && i < custWd.Length; i++)
                 {
-                    if (custWd[i].Length == 7)
-                    {
-                        double[] newOrder = new double[Values.STATS_COUNT];
-                        for (int s = 0; s < Values.STATS_COUNT; s++)
-                        {
-                            if (newToOldIndicesStatWeightings[s] >= 0)
-                            {
-                                newOrder[s] = custWd[i][newToOldIndicesStatWeightings[s]];
-                            }
-                            else
-                            {
-                                newOrder[s] = 1;
-                            }
-                        }
-                        custWd[i] = newOrder;
-                    }
-                }
-                // end of conversion
-
-                for (int i = 0; i < custWs.Length; i++)
-                {
-                    if (i < custWd.Length)
-                    {
-                        custW.Add(custWs[i], custWd[i]);
-                    }
+                    custW.Add(custWs[i], custWd[i]);
                 }
             }
             breedingPlan1.statWeighting.CustomWeightings = custW;
