@@ -149,22 +149,22 @@ namespace ARKBreedingStats.importExported
                             break;
                         // Colorization
                         case "ColorSet[0]":
-                            cv.colorIDs[0] = ParseColor(text, 0, cv.Species);
+                            cv.colorIDs[0] = ParseColor(text);
                             break;
                         case "ColorSet[1]":
-                            cv.colorIDs[1] = ParseColor(text, 1, cv.Species);
+                            cv.colorIDs[1] = ParseColor(text);
                             break;
                         case "ColorSet[2]":
-                            cv.colorIDs[2] = ParseColor(text, 2, cv.Species);
+                            cv.colorIDs[2] = ParseColor(text);
                             break;
                         case "ColorSet[3]":
-                            cv.colorIDs[3] = ParseColor(text, 3, cv.Species);
+                            cv.colorIDs[3] = ParseColor(text);
                             break;
                         case "ColorSet[4]":
-                            cv.colorIDs[4] = ParseColor(text, 4, cv.Species);
+                            cv.colorIDs[4] = ParseColor(text);
                             break;
                         case "ColorSet[5]":
-                            cv.colorIDs[5] = ParseColor(text, 5, cv.Species);
+                            cv.colorIDs[5] = ParseColor(text);
                             break;
                         case "Health":
                             cv.statValues[(int)StatNames.Health] = value;
@@ -244,7 +244,7 @@ namespace ARKBreedingStats.importExported
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        private static int ParseColor(string text, int colorIndex, Species species)
+        private static int ParseColor(string text)
         {
             if (text.Length < 33) return 0;
 
@@ -256,7 +256,7 @@ namespace ARKBreedingStats.importExported
                 && !(r == 0 && g == 0 && b == 0 && a == 1) // no color
                 && !(r == 1 && g == 1 && b == 1 && a == 1) // no color
                 )
-                return Values.V.Colors.ClosestColorID(r, g, b, a);
+                return Values.V.Colors.ClosestColorId(r, g, b, a);
 
             // color is invisible or parsing failed
             return 0;

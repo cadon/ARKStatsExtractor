@@ -5,58 +5,61 @@ namespace ARKBreedingStats.species
 {
     /// <summary>
     /// Class that represents a color in ARK.
-    /// It contains the ingame name, a Color object and the sRGBA values in the array arkRgba.
+    /// It contains the ingame name, a Color object and the linear color values.
     /// </summary>
-    public class ARKColor
+    public class ArkColor
     {
-        public string name;
-        public Color color;
+        public readonly string Name;
+        public Color Color;
         /// <summary>
-        /// Depends on the unreal rgb-values
+        /// Depends on the linear rgb-values
         /// </summary>
-        public int hash;
-        public double[] arkRgba;
+        public readonly int Hash;
         /// <summary>
-        /// The id currently used, it can change with mods.
+        /// Linear color values.
         /// </summary>
-        public int id;
+        public readonly double[] LinearRgba;
+        /// <summary>
+        /// Color Id in Ark.
+        /// </summary>
+        public int Id;
 
-        public ARKColor()
+        public ArkColor()
         {
-            id = 0;
-            name = Loc.S("noColor");
-            color = Color.LightGray;
-            arkRgba = null;
-            hash = 0;
+            Id = 0;
+            Name = Loc.S("noColor");
+            Color = Color.LightGray;
+            LinearRgba = null;
+            Hash = 0;
         }
 
-        public ARKColor(string name, double[] colorValues)
+        public ArkColor(string name, double[] linearColorValues)
         {
-            this.name = name;
-            if (colorValues.Length > 3)
+            Name = name;
+            if (linearColorValues.Length > 3)
             {
-                color = Color.FromArgb(LinearColorComponentToColorComponentClamped(colorValues[0]),
-                                       LinearColorComponentToColorComponentClamped(colorValues[1]),
-                                       LinearColorComponentToColorComponentClamped(colorValues[2]));
+                Color = Color.FromArgb(LinearColorComponentToColorComponentClamped(linearColorValues[0]),
+                                       LinearColorComponentToColorComponentClamped(linearColorValues[1]),
+                                       LinearColorComponentToColorComponentClamped(linearColorValues[2]));
 
-                hash = ColorHashCode(
-                    colorValues[0],
-                    colorValues[1],
-                    colorValues[2],
-                    colorValues[3]
+                Hash = ColorHashCode(
+                    linearColorValues[0],
+                    linearColorValues[1],
+                    linearColorValues[2],
+                    linearColorValues[3]
                     );
 
-                arkRgba = new double[] {
-                    colorValues[0],
-                    colorValues[1],
-                    colorValues[2],
-                    colorValues[3]
+                LinearRgba = new double[] {
+                    linearColorValues[0],
+                    linearColorValues[1],
+                    linearColorValues[2],
+                    linearColorValues[3]
                 };
             }
             else
             {
                 // color is invalid and will be ignored.
-                arkRgba = null;
+                LinearRgba = null;
             }
         }
 
@@ -67,7 +70,9 @@ namespace ARKBreedingStats.species
         /// <returns></returns>
         private static int LinearColorComponentToColorComponentClamped(double lc)
         {
-            int v = (int)(255.999f * (lc <= 0.0031308f ? lc * 12.92f : Math.Pow(lc, 1.0f / 2.4f) * 1.055f - 0.055f));
+            //int v = (int)(255.999f * (lc <= 0.0031308f ? lc * 12.92f : Math.Pow(lc, 1.0f / 2.4f) * 1.055f - 0.055f)); // this formula is only used since UE4.15
+            // ARK uses this simplified formula
+            int v = (int)(255.999f * Math.Pow(lc, 1f / 2.2f));
             if (v > 255) return 255;
             if (v < 0) return 0;
             return v;
