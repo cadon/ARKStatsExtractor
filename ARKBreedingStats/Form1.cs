@@ -112,6 +112,18 @@ namespace ARKBreedingStats
                 Properties.Settings.Default.NamingPatterns = new string[6];
                 Properties.Settings.Default.NamingPatterns[0] = Properties.Settings.Default.sequentialUniqueNamePattern;
             }
+            else
+            {
+                var newPatterns = new string[6];
+                // update isTopHP etc. to new format
+                Regex r = new Regex(@"(?<!\{)is(new)?top(hp|st|to|ox|fo|wa|te|we|dm|sp|fr|cr)(?!\})", RegexOptions.IgnoreCase);
+                for (int i = 0; i < 6; i++)
+                {
+                    newPatterns[i] = r.Replace(Properties.Settings.Default.NamingPatterns[i], m => $"{{is{m.Groups[1].Value}Top{m.Groups[2].Value.ToLowerInvariant()}}}");
+                }
+
+                Properties.Settings.Default.NamingPatterns = newPatterns;
+            }
 
             _tt = new ToolTip();
             initLocalization();
