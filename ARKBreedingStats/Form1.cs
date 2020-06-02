@@ -384,9 +384,9 @@ namespace ARKBreedingStats
             if (DateTime.Now.AddHours(-20) > Properties.Settings.Default.lastUpdateCheck)
                 CheckForUpdates(true);
 
-            if (!Properties.Settings.Default.AskedToDownloadImageFiles)
+            if (!Properties.Settings.Default.AlreadyAskedToDownloadImageFiles)
             {
-                Properties.Settings.Default.AskedToDownloadImageFiles = true;
+                Properties.Settings.Default.AlreadyAskedToDownloadImageFiles = true;
                 if (!File.Exists(FileService.GetPath("img", "Giant Queen Bee.png"))
                     && MessageBox.Show("Download species images to display the creature colors?\n\nThe file to be downloaded has a size of ~13 MB.",
                     "Download species images?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
