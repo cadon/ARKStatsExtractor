@@ -61,7 +61,7 @@ namespace ARKBreedingStats
             }
 
             string speciesBackgroundFilePath = Path.Combine(imgFolder, speciesName + extension);
-            string cacheFileName = Path.Combine(cacheFolder, speciesName.Substring(0, Math.Min(speciesName.Length, 5)) + "_" + (speciesName + string.Join("", colorIds.Select(i => i.ToString()))).GetHashCode().ToString("X8") + extension);
+            string cacheFileName = Path.Combine(cacheFolder, speciesName.Substring(0, Math.Min(speciesName.Length, 5)) + "_" + (speciesName + string.Join(".", colorIds.Select(i => i.ToString()))).GetHashCode().ToString("X8") + extension);
             string speciesColorMaskFilePath = Path.Combine(imgFolder, speciesName + "_m" + extension);
             if (!onlyColors && File.Exists(speciesBackgroundFilePath) && File.Exists(speciesColorMaskFilePath) && !File.Exists(cacheFileName))
             {
@@ -82,9 +82,8 @@ namespace ARKBreedingStats
                         float o = 0;
                         try
                         {
-                            const int shadowValue = 220;
-                            // background
-                            using (var b = new SolidBrush(Color.FromArgb(100, shadowValue, shadowValue, shadowValue)))
+                            // shadow
+                            using (var b = new SolidBrush(Color.FromArgb(12, 0, 0, 0)))
                             {
                                 int scx = defaultSizeOfTemplates / 2;
                                 int scy = (int)(scx * 1.6);

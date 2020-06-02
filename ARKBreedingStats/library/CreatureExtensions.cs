@@ -21,7 +21,7 @@ namespace ARKBreedingStats.library
             int maxGraphLevel = cc?.maxChartLevel ?? 0;
             if (maxGraphLevel < 1) maxGraphLevel = 50;
 
-            const int width = 300;
+            const int width = 330;
             const int height = 180;
 
             var bmp = new Bitmap(width, height);
@@ -105,12 +105,13 @@ namespace ARKBreedingStats.library
                 // colors
                 var enabledColorRegions = creature.Species.colors.Select(c => !string.IsNullOrEmpty(c?.name)).ToArray();
                 bool creatureImageShown = false;
+                const int imageSize = 125;
                 using (var crBmp =
-                    CreatureColored.GetColoredCreature(creature.colors, creature.Species, enabledColorRegions, 96, onlyImage: true, creatureSex: creature.sex))
+                    CreatureColored.GetColoredCreature(creature.colors, creature.Species, enabledColorRegions, imageSize, onlyImage: true, creatureSex: creature.sex))
                 {
                     if (crBmp != null)
                     {
-                        g.DrawImage(crBmp, 200, 68, 96, 96);
+                        g.DrawImage(crBmp, 200, 40, imageSize, imageSize);
                         creatureImageShown = true;
                     }
                 }
