@@ -11,7 +11,7 @@ namespace ARKBreedingStats.species
         /// <returns></returns>
         public static string CreatureColorName(int colorId)
         {
-            return values.Values.V.Colors.ByID(colorId).name;
+            return values.Values.V.Colors.ById(colorId).Name;
         }
 
         /// <summary>
@@ -21,15 +21,15 @@ namespace ARKBreedingStats.species
         /// <returns></returns>
         public static Color CreatureColor(int colorId)
         {
-            return values.Values.V.Colors.ByID(colorId).color;
+            return values.Values.V.Colors.ById(colorId).Color;
         }
 
         /// <summary>
         /// Returns the ArkColor by id.
         /// </summary>
-        public static ARKColor CreatureArkColor(int colorId)
+        public static ArkColor CreatureArkColor(int colorId)
         {
-            return values.Values.V.Colors.ByID(colorId);
+            return values.Values.V.Colors.ById(colorId);
         }
     }
 }

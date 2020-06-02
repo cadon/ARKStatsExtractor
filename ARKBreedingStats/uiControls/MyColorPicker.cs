@@ -36,13 +36,13 @@ namespace ARKBreedingStats.uiControls
             tt.RemoveAll();
         }
 
-        public void SetColors(int selectedColorId, string regionName, List<ARKColor> naturalColors = null)
+        public void SetColors(int selectedColorId, string regionName, List<ArkColor> naturalColors = null)
         {
             label1.Text = regionName;
             var colors = values.Values.V.Colors.colorsList;
 
             SelectedColorId = selectedColorId;
-            _naturalColorIDs = naturalColors?.Select(ac => ac.id).ToList();
+            _naturalColorIDs = naturalColors?.Select(ac => ac.Id).ToList();
             checkBoxOnlyNatural.Visible = _naturalColorIDs != null;
             if (_naturalColorIDs == null)
                 checkBoxOnlyNatural.Checked = true;
@@ -63,11 +63,11 @@ namespace ARKBreedingStats.uiControls
                     flowLayoutPanel1.Controls.Add(np);
                 }
                 Panel p = flowLayoutPanel1.Controls[controlIndex] as Panel;
-                p.BackColor = colors[colorIndex].color;
-                p.Tag = colors[colorIndex].id;
-                p.BorderStyle = SelectedColorId == colors[colorIndex].id ? BorderStyle.Fixed3D : BorderStyle.None;
-                p.Visible = ColorVisible(colors[colorIndex].id);
-                tt.SetToolTip(p, colors[colorIndex].id + ": " + colors[colorIndex].name);
+                p.BackColor = colors[colorIndex].Color;
+                p.Tag = colors[colorIndex].Id;
+                p.BorderStyle = SelectedColorId == colors[colorIndex].Id ? BorderStyle.Fixed3D : BorderStyle.None;
+                p.Visible = ColorVisible(colors[colorIndex].Id);
+                tt.SetToolTip(p, colors[colorIndex].Id + ": " + colors[colorIndex].Name);
             }
 
             flowLayoutPanel1.ResumeLayout();

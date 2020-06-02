@@ -1319,12 +1319,12 @@ namespace ARKBreedingStats.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AskedToDownloadImageFiles {
+        public bool AlreadyAskedToDownloadImageFiles {
             get {
-                return ((bool)(this["AskedToDownloadImageFiles"]));
+                return ((bool)(this["AlreadyAskedToDownloadImageFiles"]));
             }
             set {
-                this["AskedToDownloadImageFiles"] = value;
+                this["AlreadyAskedToDownloadImageFiles"] = value;
             }
         }
     }

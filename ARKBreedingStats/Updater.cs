@@ -325,6 +325,7 @@ namespace ARKBreedingStats
 
             try
             {
+                Directory.CreateDirectory(imagesFolderPath);
                 using (var archive = ZipFile.OpenRead(tempFilePath))
                 {
                     foreach (ZipArchiveEntry file in archive.Entries)

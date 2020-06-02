@@ -6,17 +6,17 @@ namespace ARKBreedingStats.species
 {
     public class ARKColors
     {
-        private readonly Dictionary<int, ARKColor> colorsByHash;
-        private readonly Dictionary<string, ARKColor> colorsByName;
-        public readonly List<ARKColor> colorsList;
-        private readonly Dictionary<int, ARKColor> colorsById;
+        private readonly Dictionary<int, ArkColor> colorsByHash;
+        private readonly Dictionary<string, ArkColor> colorsByName;
+        public readonly List<ArkColor> colorsList;
+        private readonly Dictionary<int, ArkColor> colorsById;
 
         public ARKColors(List<List<object>> colorDefinitions, List<List<object>> colorDefinitions2 = null)
         {
-            colorsByHash = new Dictionary<int, ARKColor>();
-            colorsByName = new Dictionary<string, ARKColor>();
-            colorsList = new List<ARKColor>() {
-                new ARKColor()
+            colorsByHash = new Dictionary<int, ArkColor>();
+            colorsByName = new Dictionary<string, ArkColor>();
+            colorsList = new List<ArkColor>() {
+                new ArkColor()
             };
 
             if (colorDefinitions == null) return;
@@ -36,57 +36,42 @@ namespace ARKBreedingStats.species
                         && cd[0] is string colorName
                         && cd[1] is Newtonsoft.Json.Linq.JArray colorValues)
                     {
-                        ARKColor ac = new ARKColor(colorName,
+                        ArkColor ac = new ArkColor(colorName,
                             new double[] {
                             (double)colorValues[0],
                             (double)colorValues[1],
                             (double)colorValues[2],
                             (double)colorValues[3],
                             })
-                        { id = idStart };
+                        { Id = idStart };
 
                         // add color to lists if it is valid
-                        if (ac.arkRgba != null)
+                        if (ac.LinearRgba != null)
                         {
-                            if (!colorsByHash.ContainsKey(ac.hash))
-                                colorsByHash.Add(ac.hash, ac);
-                            if (!colorsByName.ContainsKey(ac.name))
-                                colorsByName.Add(ac.name, ac);
+                            if (!colorsByHash.ContainsKey(ac.Hash))
+                                colorsByHash.Add(ac.Hash, ac);
+                            if (!colorsByName.ContainsKey(ac.Name))
+                                colorsByName.Add(ac.Name, ac);
                             colorsList.Add(ac);
                         }
                     }
                     idStart++;
                 }
             }
-            colorsById = colorsList.ToDictionary(c => c.id, c => c);
+            colorsById = colorsList.ToDictionary(c => c.Id, c => c);
         }
 
-        public ARKColor ByID(int id)
-        {
-            if (colorsById.ContainsKey(id))
-                return colorsById[id];
-            return new ARKColor();
-        }
+        public ArkColor ById(int id) => colorsById.ContainsKey(id) ? colorsById[id] : new ArkColor();
 
-        public ARKColor ByName(string name)
-        {
-            if (colorsByName.ContainsKey(name))
-                return colorsByName[name];
-            return new ARKColor();
-        }
+        public ArkColor ByName(string name) => colorsByName.ContainsKey(name) ? colorsByName[name] : new ArkColor();
 
-        public ARKColor ByHash(int hash)
-        {
-            if (colorsByHash.ContainsKey(hash))
-                return colorsByHash[hash];
-            return new ARKColor();
-        }
+        public ArkColor ByHash(int hash) => colorsByHash.ContainsKey(hash) ? colorsByHash[hash] : new ArkColor();
 
         /// <summary>
         /// Returns the ARK-id of the color that is closest to the sRGB values.
         /// </summary>
-        public int ClosestColorID(double r, double g, double b, double a)
-            => ClosestColor(r, g, b, a).id;
+        public int ClosestColorId(double r, double g, double b, double a)
+            => ClosestColor(r, g, b, a).Id;
 
         /// <summary>
         /// Returns the ARKColor that is closest to the given argb (sRGB) values.
@@ -96,13 +81,13 @@ namespace ARKBreedingStats.species
         /// <param name="b"></param>
         /// <param name="a"></param>
         /// <returns></returns>
-        public ARKColor ClosestColor(double r, double g, double b, double a)
+        private ArkColor ClosestColor(double r, double g, double b, double a)
         {
-            int hash = ARKColor.ColorHashCode(r, g, b, a);
-            ARKColor ac = ByHash(hash);
-            if (ac.id != 0) return ac;
+            int hash = ArkColor.ColorHashCode(r, g, b, a);
+            ArkColor ac = ByHash(hash);
+            if (ac.Id != 0) return ac;
 
-            return ClosestColorFromRGB(r, g, b, a);
+            return ClosestColorFromRgb(r, g, b, a);
         }
 
         /// <summary>
@@ -112,8 +97,8 @@ namespace ARKBreedingStats.species
         /// <param name="g"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        private ARKColor ClosestColorFromRGB(double r, double g, double b, double a)
-            => colorsList.OrderBy(n => ColorDifference(n.arkRgba, r, g, b, a)).First();
+        private ArkColor ClosestColorFromRgb(double r, double g, double b, double a)
+            => colorsList.OrderBy(n => ColorDifference(n.LinearRgba, r, g, b, a)).First();
 
         /// <summary>
         /// Distance in sRGB space

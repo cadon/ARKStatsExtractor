@@ -21,7 +21,7 @@ namespace ARKBreedingStats.library
             int maxGraphLevel = cc?.maxChartLevel ?? 0;
             if (maxGraphLevel < 1) maxGraphLevel = 50;
 
-            const int width = 300;
+            const int width = 330;
             const int height = 180;
 
             var bmp = new Bitmap(width, height);
@@ -103,6 +103,19 @@ namespace ARKBreedingStats.library
                 }
 
                 // colors
+                var enabledColorRegions = creature.Species.colors.Select(c => !string.IsNullOrEmpty(c?.name)).ToArray();
+                bool creatureImageShown = false;
+                const int imageSize = 125;
+                using (var crBmp =
+                    CreatureColored.GetColoredCreature(creature.colors, creature.Species, enabledColorRegions, imageSize, onlyImage: true, creatureSex: creature.sex))
+                {
+                    if (crBmp != null)
+                    {
+                        g.DrawImage(crBmp, 200, 40, imageSize, imageSize);
+                        creatureImageShown = true;
+                    }
+                }
+
                 int xColor = xRightBrValue + 25;
                 const int circleDiameter = 16;
                 const int rowHeight = circleDiameter + 2;
@@ -112,7 +125,7 @@ namespace ARKBreedingStats.library
                 int colorRow = 0;
                 for (int ci = 0; ci < Species.ColorRegionCount; ci++)
                 {
-                    if (string.IsNullOrEmpty(creature.Species.colors[ci]?.name))
+                    if (!enabledColorRegions[ci])
                         continue;
 
                     int y = currentYPosition + 20 + (colorRow++) * rowHeight;
@@ -124,20 +137,25 @@ namespace ARKBreedingStats.library
                         g.FillEllipse(b, xColor, y, circleDiameter, circleDiameter);
                     g.DrawEllipse(penBlack, xColor, y, circleDiameter, circleDiameter);
 
-                    string colorRegionName = creature.Species.colors[ci].name;
-                    string colorName = CreatureColors.CreatureColorName(creature.colors[ci]);
+                    string colorRegionName = null;
+                    //string colorName = CreatureColors.CreatureColorName(creature.colors[ci]);
 
-                    int totalColorLenght = colorRegionName.Length + 11;
-                    if (totalColorLenght > maxColorNameLength)
+                    if (!creatureImageShown)
                     {
-                        // shorten color region name
-                        int lengthForRegionName = colorRegionName.Length - (totalColorLenght - maxColorNameLength);
-                        colorRegionName = lengthForRegionName < 2
-                            ? string.Empty
-                            : colorRegionName.Substring(0, lengthForRegionName - 1) + "…";
+                        colorRegionName = creature.Species.colors[ci].name;
+                        int totalColorLenght = colorRegionName.Length + 11;
+                        if (totalColorLenght > maxColorNameLength)
+                        {
+                            // shorten color region name
+                            int lengthForRegionName = colorRegionName.Length - (totalColorLenght - maxColorNameLength);
+                            colorRegionName = lengthForRegionName < 2
+                                ? string.Empty
+                                : colorRegionName.Substring(0, lengthForRegionName - 1) + "…";
+                        }
+
+                        if (!string.IsNullOrEmpty(colorRegionName))
+                            colorRegionName = " (" + colorRegionName + ")";
                     }
-                    if (!string.IsNullOrEmpty(colorRegionName))
-                        colorRegionName = " (" + colorRegionName + ")";
 
                     g.DrawString($"{creature.colors[ci]} - [{ci}]{colorRegionName}",
                         fontSmall, fontBrush, xColor + circleDiameter + 4, y);

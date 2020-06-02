@@ -112,6 +112,18 @@ namespace ARKBreedingStats
                 Properties.Settings.Default.NamingPatterns = new string[6];
                 Properties.Settings.Default.NamingPatterns[0] = Properties.Settings.Default.sequentialUniqueNamePattern;
             }
+            else
+            {
+                var newPatterns = new string[6];
+                // update isTopHP etc. to new format
+                Regex r = new Regex(@"(?<!\{)is(new)?top(hp|st|to|ox|fo|wa|te|we|dm|sp|fr|cr)(?!\})", RegexOptions.IgnoreCase);
+                for (int i = 0; i < 6; i++)
+                {
+                    newPatterns[i] = r.Replace(Properties.Settings.Default.NamingPatterns[i], m => $"{{is{m.Groups[1].Value}Top{m.Groups[2].Value.ToLowerInvariant()}}}");
+                }
+
+                Properties.Settings.Default.NamingPatterns = newPatterns;
+            }
 
             _tt = new ToolTip();
             initLocalization();
@@ -384,9 +396,9 @@ namespace ARKBreedingStats
             if (DateTime.Now.AddHours(-20) > Properties.Settings.Default.lastUpdateCheck)
                 CheckForUpdates(true);
 
-            if (!Properties.Settings.Default.AskedToDownloadImageFiles)
+            if (!Properties.Settings.Default.AlreadyAskedToDownloadImageFiles)
             {
-                Properties.Settings.Default.AskedToDownloadImageFiles = true;
+                Properties.Settings.Default.AlreadyAskedToDownloadImageFiles = true;
                 if (!File.Exists(FileService.GetPath("img", "Giant Queen Bee.png"))
                     && MessageBox.Show("Download species images to display the creature colors?\n\nThe file to be downloaded has a size of ~13 MB.",
                     "Download species images?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -1025,7 +1037,10 @@ namespace ARKBreedingStats
         {
             // set possible parents
             bool fromExtractor = input == creatureInfoInputExtractor;
-            Creature creature = new Creature(speciesSelector1.SelectedSpecies, "", "", "", 0, GetCurrentWildLevels(fromExtractor), levelStep: _creatureCollection.getWildLevelStep());
+            Creature creature = new Creature(speciesSelector1.SelectedSpecies, "", "", "", 0, GetCurrentWildLevels(fromExtractor), levelStep: _creatureCollection.getWildLevelStep())
+            {
+                guid = input.CreatureGuid
+            };
             List<Creature>[] parents = FindPossibleParents(creature);
             input.ParentsSimilarities = FindParentSimilarities(parents, creature);
             input.Parents = parents;
@@ -1245,10 +1260,10 @@ namespace ARKBreedingStats
         private List<Creature>[] FindPossibleParents(Creature creature)
         {
             var fatherList = _creatureCollection.creatures
-                    .Where(cr => cr.Species == creature.Species && cr.sex == Sex.Male && cr != creature)
+                    .Where(cr => cr.Species == creature.Species && cr.sex == Sex.Male && cr.guid != creature.guid && !cr.flags.HasFlag(CreatureFlags.Placeholder))
                     .OrderBy(cr => cr.name);
             var motherList = _creatureCollection.creatures
-                    .Where(cr => cr.Species == creature.Species && cr.sex == Sex.Female && cr != creature)
+                    .Where(cr => cr.Species == creature.Species && cr.sex == Sex.Female && cr.guid != creature.guid && !cr.flags.HasFlag(CreatureFlags.Placeholder))
                     .OrderBy(cr => cr.name);
 
             // display new results

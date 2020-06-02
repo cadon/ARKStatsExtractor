@@ -281,19 +281,19 @@ namespace ARKBreedingStats
             else selectMales = FilterByTags(males);
 
             // filter by servers
-            if (cbServerFilterLibrary.Checked)
+            if (cbServerFilterLibrary.Checked && (Properties.Settings.Default.FilterHideServers?.Any() ?? false))
             {
                 selectFemales = selectFemales.Where(c => !Properties.Settings.Default.FilterHideServers.Contains(c.server));
                 selectMales = selectMales.Where(c => !Properties.Settings.Default.FilterHideServers.Contains(c.server));
             }
             // filter by owner
-            if (cbOwnerFilterLibrary.Checked)
+            if (cbOwnerFilterLibrary.Checked && (Properties.Settings.Default.FilterHideOwners?.Any() ?? false))
             {
                 selectFemales = selectFemales.Where(c => !Properties.Settings.Default.FilterHideOwners.Contains(c.owner));
                 selectMales = selectMales.Where(c => !Properties.Settings.Default.FilterHideOwners.Contains(c.owner));
             }
             // filter by tribe
-            if (cbTribeFilterLibrary.Checked)
+            if (cbTribeFilterLibrary.Checked && (Properties.Settings.Default.FilterHideTribes?.Any() ?? false))
             {
                 selectFemales = selectFemales.Where(c => !Properties.Settings.Default.FilterHideTribes.Contains(c.tribe));
                 selectMales = selectMales.Where(c => !Properties.Settings.Default.FilterHideTribes.Contains(c.tribe));
