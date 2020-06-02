@@ -119,7 +119,8 @@ namespace ARKBreedingStats
                 Regex r = new Regex(@"(?<!\{)is(new)?top(hp|st|to|ox|fo|wa|te|we|dm|sp|fr|cr)(?!\})", RegexOptions.IgnoreCase);
                 for (int i = 0; i < 6; i++)
                 {
-                    newPatterns[i] = r.Replace(Properties.Settings.Default.NamingPatterns[i], m => $"{{is{m.Groups[1].Value}Top{m.Groups[2].Value.ToLowerInvariant()}}}");
+                    newPatterns[i] = string.IsNullOrEmpty(Properties.Settings.Default.NamingPatterns[i]) ? string.Empty 
+                        : r.Replace(Properties.Settings.Default.NamingPatterns[i], m => $"{{is{m.Groups[1].Value}Top{m.Groups[2].Value.ToLowerInvariant()}}}");
                 }
 
                 Properties.Settings.Default.NamingPatterns = newPatterns;
