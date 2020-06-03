@@ -163,7 +163,7 @@ namespace ARKBreedingStats.Library
                 var creatureExisting = creatures.Single(c => c.guid == creatureNew.guid);
                 if (creatureExisting.Species == null)
                     creatureExisting.Species = creatureNew.Species;
-                else if (!creatureExisting.Species.Equals(creatureNew.Species)) continue;
+                else if (creatureExisting.speciesBlueprint != creatureNew.speciesBlueprint) continue;
 
                 if (creatureNew.Mother != null)
                     creatureExisting.Mother = creatureNew.Mother;
