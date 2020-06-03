@@ -15,7 +15,7 @@ namespace ARKBreedingStats
 {
     public partial class Form1
     {
-        private const string COLLECTION_FILE_EXTENSION = ".asb";
+        private const string CollectionFileExtension = ".asb";
 
         private void NewCollection()
         {
@@ -53,8 +53,7 @@ namespace ARKBreedingStats
 
             UpdateCreatureListings();
             creatureBoxListView.Clear();
-            Properties.Settings.Default.LastSaveFile = "";
-            Properties.Settings.Default.LastImportFile = "";
+            Properties.Settings.Default.LastSaveFile = null;
             _currentFileName = null;
             _fileSync.ChangeFile(_currentFileName);
             SetCollectionChanged(false);
@@ -108,8 +107,8 @@ namespace ARKBreedingStats
             }
             using (OpenFileDialog dlg = new OpenFileDialog
             {
-                Filter = $"ASB Collection Files (*{COLLECTION_FILE_EXTENSION}; *.xml)|*{COLLECTION_FILE_EXTENSION};*.xml"
-                        + $"|ASB Collection File (*{COLLECTION_FILE_EXTENSION})|*{COLLECTION_FILE_EXTENSION}"
+                Filter = $"ASB Collection Files (*{CollectionFileExtension}; *.xml)|*{CollectionFileExtension};*.xml"
+                        + $"|ASB Collection File (*{CollectionFileExtension})|*{CollectionFileExtension}"
                         + "|Old ASB Collection File(*.xml)| *.xml"
             })
             {
@@ -139,7 +138,7 @@ namespace ARKBreedingStats
         {
             using (SaveFileDialog dlg = new SaveFileDialog
             {
-                Filter = $"Creature Collection File (*{COLLECTION_FILE_EXTENSION})|*{COLLECTION_FILE_EXTENSION}"
+                Filter = $"Creature Collection File (*{CollectionFileExtension})|*{CollectionFileExtension}"
             })
             {
                 if (dlg.ShowDialog() == DialogResult.OK)
@@ -293,12 +292,12 @@ namespace ARKBreedingStats
 
                             string fileNameWOExt = Path.Combine(Path.GetDirectoryName(filePath), Path.GetFileNameWithoutExtension(filePath));
                             // check if new fileName is not yet existing
-                            filePath = fileNameWOExt + COLLECTION_FILE_EXTENSION;
+                            filePath = fileNameWOExt + CollectionFileExtension;
                             if (File.Exists(filePath))
                             {
                                 int fi = 2;
-                                while (File.Exists(fileNameWOExt + "_" + fi + COLLECTION_FILE_EXTENSION)) fi++;
-                                filePath = fileNameWOExt + "_" + fi + COLLECTION_FILE_EXTENSION;
+                                while (File.Exists(fileNameWOExt + "_" + fi + CollectionFileExtension)) fi++;
+                                filePath = fileNameWOExt + "_" + fi + CollectionFileExtension;
                             }
 
                             // save converted library
@@ -437,12 +436,10 @@ namespace ARKBreedingStats
                 speciesSelector1.SetSpecies(_creatureCollection.creatures[0].Species);
 
             // set library species to what it was before loading
-            if (selectedlibrarySpecies == null
-                || !_creatureCollection.creatures.Any(c => c.Species != null && c.Species.Equals(selectedlibrarySpecies))
-                )
-                selectedlibrarySpecies = speciesSelector1.SelectedSpecies;
             if (selectedlibrarySpecies != null)
                 listBoxSpeciesLib.SelectedItem = selectedlibrarySpecies;
+            else if (Properties.Settings.Default.LibrarySelectSelectedSpeciesOnLoad)
+                listBoxSpeciesLib.SelectedItem = speciesSelector1.SelectedSpecies;
 
             _filterListAllowed = true;
             FilterLib();
@@ -480,7 +477,7 @@ namespace ARKBreedingStats
                 {
                     string filenameWOExt = Path.GetFileNameWithoutExtension(_currentFileName);
                     string timeStamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
-                    string backupFileName = filenameWOExt + "_backup_" + timeStamp + COLLECTION_FILE_EXTENSION;
+                    string backupFileName = filenameWOExt + "_backup_" + timeStamp + CollectionFileExtension;
                     string backupFilePath = Path.Combine(Path.GetDirectoryName(_currentFileName), backupFileName);
                     File.Copy(_currentFileName, backupFilePath);
                     _lastAutoSaveBackup = DateTime.Now;

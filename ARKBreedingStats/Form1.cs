@@ -119,7 +119,7 @@ namespace ARKBreedingStats
                 Regex r = new Regex(@"(?<!\{)is(new)?top(hp|st|to|ox|fo|wa|te|we|dm|sp|fr|cr)(?!\})", RegexOptions.IgnoreCase);
                 for (int i = 0; i < 6; i++)
                 {
-                    newPatterns[i] = string.IsNullOrEmpty(Properties.Settings.Default.NamingPatterns[i]) ? string.Empty 
+                    newPatterns[i] = string.IsNullOrEmpty(Properties.Settings.Default.NamingPatterns[i]) ? string.Empty
                         : r.Replace(Properties.Settings.Default.NamingPatterns[i], m => $"{{is{m.Groups[1].Value}Top{m.Groups[2].Value.ToLowerInvariant()}}}");
                 }
 
@@ -295,7 +295,6 @@ namespace ARKBreedingStats
             _statIOs[(int)StatNames.Food].DomLevelLockedZero = true;
 
             InitializeCollection();
-            _filterListAllowed = true;
 
             // Set up the file watcher
             _fileSync = new FileSync(_currentFileName, CollectionChanged);
@@ -310,34 +309,6 @@ namespace ARKBreedingStats
                         "Error: Values-file not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(1);
             }
-
-            bool createNewCollection = string.IsNullOrEmpty(Properties.Settings.Default.LastSaveFile);
-            if (!createNewCollection)
-            {
-                // if the last loaded file was already converted by someone else (e.g. if the library-file is shared),
-                // ask if the converted version should be loaded instead.
-                if (Path.GetExtension(Properties.Settings.Default.LastSaveFile).ToLower() == ".xml")
-                {
-                    string possibleConvertedCollectionPath = Path.Combine(Path.GetDirectoryName(Properties.Settings.Default.LastSaveFile), Path.GetFileNameWithoutExtension(Properties.Settings.Default.LastSaveFile) + COLLECTION_FILE_EXTENSION);
-                    if (File.Exists(possibleConvertedCollectionPath)
-                        && MessageBox.Show("The creature collection file seems to be already converted to the new file format.\n"
-                        + "Path of the collection file:\n" + Properties.Settings.Default.LastSaveFile
-                        + "\n\nIf you click No, the old file-version will be loaded and then automatically converted."
-                        + "\nIt is recommended to load the already converted version to avoid synchronisation-issues."
-                        + "\nDo you want to load the converted version?", "Library seems to be already converted",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Question
-                        ) == DialogResult.Yes)
-                    {
-                        Properties.Settings.Default.LastSaveFile = possibleConvertedCollectionPath;
-                    }
-                }
-                // load last save file:
-                if (!LoadCollectionFile(Properties.Settings.Default.LastSaveFile))
-                    createNewCollection = true;
-            }
-
-            if (createNewCollection)
-                NewCollection();
 
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
@@ -406,18 +377,48 @@ namespace ARKBreedingStats
                     DownloadSpeciesImagesAsync();
             }
 
+            _filterListAllowed = true;
+            // load last loaded file
+            bool createNewCollection = string.IsNullOrEmpty(Properties.Settings.Default.LastSaveFile);
+            if (!createNewCollection)
+            {
+                // if the last loaded file was already converted by someone else (e.g. if the library-file is shared),
+                // ask if the converted version should be loaded instead.
+                if (Path.GetExtension(Properties.Settings.Default.LastSaveFile).ToLower() == ".xml")
+                {
+                    string possibleConvertedCollectionPath = Path.Combine(Path.GetDirectoryName(Properties.Settings.Default.LastSaveFile), Path.GetFileNameWithoutExtension(Properties.Settings.Default.LastSaveFile) + CollectionFileExtension);
+                    if (File.Exists(possibleConvertedCollectionPath)
+                        && MessageBox.Show("The creature collection file seems to be already converted to the new file format.\n"
+                                           + "Path of the collection file:\n" + Properties.Settings.Default.LastSaveFile
+                                           + "\n\nIf you click No, the old file-version will be loaded and then automatically converted."
+                                           + "\nIt is recommended to load the already converted version to avoid synchronisation-issues."
+                                           + "\nDo you want to load the converted version?", "Library seems to be already converted",
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Question
+                        ) == DialogResult.Yes)
+                    {
+                        Properties.Settings.Default.LastSaveFile = possibleConvertedCollectionPath;
+                    }
+                }
+                // load last save file:
+                if (!LoadCollectionFile(Properties.Settings.Default.LastSaveFile))
+                    createNewCollection = true;
+            }
+
+            if (createNewCollection)
+                NewCollection();
+
             _timerGlobal.Start();
         }
 
         /// <summary>
-        /// If the according property is set, the speechrecognition is initialized. Else it's disposed.
+        /// If the according property is set, the speechRecognition is initialized. Else it's disposed.
         /// </summary>
         private void InitializeSpeechRecognition()
         {
             bool speechRecognitionInitialized = false;
             if (Properties.Settings.Default.SpeechRecognition)
             {
-                // var speechRecognitionAvailable = (AppDomain.CurrentDomain.GetAssemblies().Any(a => a.FullName.Substring(0, 13) == "System.Speech")); // TODO doens't work as intended. Should only require System.Speech if available to allow running it on MONO
+                // var speechRecognitionAvailable = (AppDomain.CurrentDomain.GetAssemblies().Any(a => a.FullName.Substring(0, 13) == "System.Speech")); // TODO doesn't work as intended. Should only require System.Speech if available to allow running it on MONO
 
                 _speechRecognition = new SpeechRecognition(_creatureCollection.maxWildLevel, _creatureCollection.considerWildLevelSteps ? _creatureCollection.wildLevelStep : 1, Values.V.speciesWithAliasesList, lbListening);
                 if (_speechRecognition.Initialized)
@@ -881,7 +882,7 @@ namespace ARKBreedingStats
         /// </summary>
         private void UpdateOwnerServerTagLists()
         {
-            string notavailable = Loc.S("na");
+            bool filterListAllowedKeeper = _filterListAllowed;
             _filterListAllowed = false;
 
             //// clear lists
@@ -947,7 +948,7 @@ namespace ARKBreedingStats
             _creatureCollection.ownerList = owners;
             _creatureCollection.serverList = serverArray;
 
-            _filterListAllowed = true;
+            _filterListAllowed = filterListAllowedKeeper;
         }
 
         #region check for update
@@ -1229,7 +1230,7 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Recalculate topstats if filters are used in topstat-calculation
+        /// Recalculate topStats if filters are used in topStat-calculation
         /// </summary>
         private void RecalculateTopStatsIfNeeded()
         {

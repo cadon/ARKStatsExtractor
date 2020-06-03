@@ -92,9 +92,6 @@
     <Setting Name="inventoryCheckTimer" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="LastImportFile" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="showColorsInLibrary" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
@@ -330,6 +327,9 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="AlreadyAskedToDownloadImageFiles" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="LibrarySelectSelectedSpeciesOnLoad" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>

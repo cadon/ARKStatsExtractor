@@ -194,6 +194,7 @@
             this.label28 = new System.Windows.Forms.Label();
             this.cbAutoImportExported = new System.Windows.Forms.CheckBox();
             this.groupBox21 = new System.Windows.Forms.GroupBox();
+            this.cbApplyNamePatternOnImportOnNewCreatures = new System.Windows.Forms.CheckBox();
             this.label41 = new System.Windows.Forms.Label();
             this.cbCopyPatternNameToClipboard = new System.Windows.Forms.CheckBox();
             this.cbApplyNamePatternOnImportOnEmptyNames = new System.Windows.Forms.CheckBox();
@@ -224,7 +225,7 @@
             this.cbbOCRApp = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.cbApplyNamePatternOnImportOnNewCreatures = new System.Windows.Forms.CheckBox();
+            this.CbLibrarySelectSelectedSpeciesOnLoad = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMatingSpeed)).BeginInit();
@@ -1538,7 +1539,7 @@
             this.groupBox24.Controls.Add(this.cbKeepExpiredTimersInOverlay);
             this.groupBox24.Controls.Add(this.cbDeleteExpiredTimersOnSaving);
             this.groupBox24.Controls.Add(this.cbTimersInOverlayAutomatically);
-            this.groupBox24.Location = new System.Drawing.Point(6, 470);
+            this.groupBox24.Location = new System.Drawing.Point(6, 516);
             this.groupBox24.Name = "groupBox24";
             this.groupBox24.Size = new System.Drawing.Size(317, 94);
             this.groupBox24.TabIndex = 11;
@@ -1598,7 +1599,7 @@
             // groupBox17
             // 
             this.groupBox17.Controls.Add(this.cbbLanguage);
-            this.groupBox17.Location = new System.Drawing.Point(6, 570);
+            this.groupBox17.Location = new System.Drawing.Point(6, 616);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(317, 51);
             this.groupBox17.TabIndex = 9;
@@ -1636,12 +1637,13 @@
             // 
             // groupBox9
             // 
+            this.groupBox9.Controls.Add(this.CbLibrarySelectSelectedSpeciesOnLoad);
             this.groupBox9.Controls.Add(this.cbLibraryHighlightTopCreatures);
             this.groupBox9.Controls.Add(this.cbApplyGlobalSpeciesToLibrary);
             this.groupBox9.Controls.Add(this.cbCreatureColorsLibrary);
             this.groupBox9.Location = new System.Drawing.Point(6, 373);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(317, 91);
+            this.groupBox9.Size = new System.Drawing.Size(317, 137);
             this.groupBox9.TabIndex = 7;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Library";
@@ -1649,7 +1651,7 @@
             // cbLibraryHighlightTopCreatures
             // 
             this.cbLibraryHighlightTopCreatures.AutoSize = true;
-            this.cbLibraryHighlightTopCreatures.Location = new System.Drawing.Point(6, 65);
+            this.cbLibraryHighlightTopCreatures.Location = new System.Drawing.Point(6, 88);
             this.cbLibraryHighlightTopCreatures.Name = "cbLibraryHighlightTopCreatures";
             this.cbLibraryHighlightTopCreatures.Size = new System.Drawing.Size(136, 17);
             this.cbLibraryHighlightTopCreatures.TabIndex = 2;
@@ -2003,7 +2005,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -2011,7 +2013,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -2019,7 +2021,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -2027,7 +2029,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -2392,6 +2394,16 @@
             this.groupBox21.TabStop = false;
             this.groupBox21.Text = "Auto naming on import";
             // 
+            // cbApplyNamePatternOnImportOnNewCreatures
+            // 
+            this.cbApplyNamePatternOnImportOnNewCreatures.AutoSize = true;
+            this.cbApplyNamePatternOnImportOnNewCreatures.Location = new System.Drawing.Point(6, 61);
+            this.cbApplyNamePatternOnImportOnNewCreatures.Name = "cbApplyNamePatternOnImportOnNewCreatures";
+            this.cbApplyNamePatternOnImportOnNewCreatures.Size = new System.Drawing.Size(203, 17);
+            this.cbApplyNamePatternOnImportOnNewCreatures.TabIndex = 12;
+            this.cbApplyNamePatternOnImportOnNewCreatures.Text = "if the creature is imported the first time";
+            this.cbApplyNamePatternOnImportOnNewCreatures.UseVisualStyleBackColor = true;
+            // 
             // label41
             // 
             this.label41.AutoSize = true;
@@ -2708,15 +2720,15 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // cbApplyNamePatternOnImportOnNewCreatures
+            // CbLibrarySelectSelectedSpeciesOnLoad
             // 
-            this.cbApplyNamePatternOnImportOnNewCreatures.AutoSize = true;
-            this.cbApplyNamePatternOnImportOnNewCreatures.Location = new System.Drawing.Point(6, 61);
-            this.cbApplyNamePatternOnImportOnNewCreatures.Name = "cbApplyNamePatternOnImportOnNewCreatures";
-            this.cbApplyNamePatternOnImportOnNewCreatures.Size = new System.Drawing.Size(203, 17);
-            this.cbApplyNamePatternOnImportOnNewCreatures.TabIndex = 12;
-            this.cbApplyNamePatternOnImportOnNewCreatures.Text = "if the creature is imported the first time";
-            this.cbApplyNamePatternOnImportOnNewCreatures.UseVisualStyleBackColor = true;
+            this.CbLibrarySelectSelectedSpeciesOnLoad.AutoSize = true;
+            this.CbLibrarySelectSelectedSpeciesOnLoad.Location = new System.Drawing.Point(6, 65);
+            this.CbLibrarySelectSelectedSpeciesOnLoad.Name = "CbLibrarySelectSelectedSpeciesOnLoad";
+            this.CbLibrarySelectSelectedSpeciesOnLoad.Size = new System.Drawing.Size(202, 17);
+            this.CbLibrarySelectSelectedSpeciesOnLoad.TabIndex = 3;
+            this.CbLibrarySelectSelectedSpeciesOnLoad.Text = "Select currently used species on load";
+            this.CbLibrarySelectSelectedSpeciesOnLoad.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -3037,5 +3049,6 @@
         private System.Windows.Forms.Label LbSpeciesSelectorCountLastUsed;
         private uiControls.Nud NudSpeciesSelectorCountLastUsed;
         private System.Windows.Forms.CheckBox cbApplyNamePatternOnImportOnNewCreatures;
+        private System.Windows.Forms.CheckBox CbLibrarySelectSelectedSpeciesOnLoad;
     }
 }
