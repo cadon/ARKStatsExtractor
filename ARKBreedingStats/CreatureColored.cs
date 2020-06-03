@@ -38,7 +38,7 @@ namespace ARKBreedingStats
 
             string imgFolder = FileService.GetPath(FileService.ImageFolderName);
             string cacheFolder = FileService.GetPath(FileService.ImageFolderName, FileService.CacheFolderName);
-            string speciesName = species?.name ?? string.Empty;
+            string speciesName = (species?.name ?? string.Empty).Replace("Aberrant ", string.Empty);
             // check if there are sex specific images
             if (creatureSex != Sex.Unknown)
             {
