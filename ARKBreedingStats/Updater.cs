@@ -313,7 +313,7 @@ namespace ARKBreedingStats
         /// </summary>
         internal static async Task<(bool, string)> DownloadSpeciesImages(bool overwrite)
         {
-            string imagesFolderPath = FileService.GetPath("img");
+            string imagesFolderPath = FileService.GetPath(FileService.ImageFolderName);
             string url = MasterRawUrl + "/" + SpeciesColorRegionZipFileName;
             string tempFilePath = Path.GetTempFileName();
             var (downloaded, _) = await DownloadAsync(url, tempFilePath);

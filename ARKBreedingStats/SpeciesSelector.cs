@@ -49,21 +49,23 @@ namespace ARKBreedingStats
 
             // imageList
             ImageList lImgList = new ImageList();
-            if (Directory.Exists("img"))
+            string imgPath = FileService.GetPath(FileService.ImageFolderName);
+            if (Directory.Exists(imgPath))
             {
-                string[] speciesImageFiles = Directory.GetFiles("img", "*.png", SearchOption.TopDirectoryOnly);
-                foreach (string icon in speciesImageFiles)
+                string[] speciesImageFiles = Directory.GetFiles(imgPath, "*.png", SearchOption.TopDirectoryOnly);
+                foreach (string iconFile in speciesImageFiles)
                 {
-                    int i = icon.IndexOf("_");
+                    int i = iconFile.IndexOf("_");
                     if (i == -1)
                     {
-                        lImgList.Images.Add(Image.FromFile(icon));
-                        iconIndices.Add(Path.GetFileNameWithoutExtension(icon));
+                        lImgList.Images.Add(Image.FromFile(iconFile));
+                        iconIndices.Add(Path.GetFileNameWithoutExtension(iconFile));
                     }
                 }
 
                 lImgList.ImageSize = new Size(64, 64);
                 lvLastSpecies.LargeImageList = lImgList;
+                lvSpeciesInLibrary.LargeImageList = lImgList;
             }
         }
 
@@ -127,11 +129,17 @@ namespace ARKBreedingStats
         {
             lvSpeciesInLibrary.Items.Clear();
             foreach (Species s in librarySpeciesList)
-                lvSpeciesInLibrary.Items.Add(new ListViewItem
+            {
+                ListViewItem lvi = new ListViewItem
                 {
                     Text = s.DescriptiveNameAndMod,
                     Tag = s
-                });
+                };
+                int ii = SpeciesImageIndex(s.name);
+                if (ii != -1)
+                    lvi.ImageIndex = ii;
+                lvSpeciesInLibrary.Items.Add(lvi);
+            }
         }
 
         /// <summary>
@@ -195,13 +203,13 @@ namespace ARKBreedingStats
         private void lvOftenUsed_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lvLastSpecies.SelectedItems.Count > 0)
-                SetSpecies((Species)((ListViewItem)lvLastSpecies.SelectedItems[0]).Tag);
+                SetSpecies((Species)lvLastSpecies.SelectedItems[0].Tag);
         }
 
         private void lvSpeciesInLibrary_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lvSpeciesInLibrary.SelectedItems.Count > 0)
-                SetSpecies((Species)((ListViewItem)lvSpeciesInLibrary.SelectedItems[0]).Tag);
+                SetSpecies((Species)lvSpeciesInLibrary.SelectedItems[0].Tag);
         }
 
         /// <summary>
@@ -270,7 +278,7 @@ namespace ARKBreedingStats
             }
         }
 
-        private int SpeciesImageIndex(string speciesName = "")
+        private int SpeciesImageIndex(string speciesName = null)
         {
             if (string.IsNullOrWhiteSpace(speciesName))
                 speciesName = SelectedSpecies.name;
@@ -280,7 +288,7 @@ namespace ARKBreedingStats
             return iconIndices.IndexOf(speciesName);
         }
 
-        public Image SpeciesImage(string speciesName = "")
+        public Image SpeciesImage(string speciesName = null)
         {
             int ii = SpeciesImageIndex(speciesName);
             if (ii != -1 && ii < lvLastSpecies.LargeImageList.Images.Count)

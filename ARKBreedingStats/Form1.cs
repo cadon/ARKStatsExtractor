@@ -371,7 +371,7 @@ namespace ARKBreedingStats
             if (!Properties.Settings.Default.AlreadyAskedToDownloadImageFiles)
             {
                 Properties.Settings.Default.AlreadyAskedToDownloadImageFiles = true;
-                if (!File.Exists(FileService.GetPath("img", "Giant Queen Bee.png"))
+                if (!File.Exists(FileService.GetPath(FileService.ImageFolderName, "Giant Queen Bee.png"))
                     && MessageBox.Show("Download species images to display the creature colors?\n\nThe file to be downloaded has a size of ~13 MB.",
                     "Download species images?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     DownloadSpeciesImagesAsync();
@@ -1179,7 +1179,7 @@ namespace ARKBreedingStats
             Properties.Settings.Default.Save();
 
             // remove old cache-files
-            string imgCachePath = FileService.GetPath("img", "cache");
+            string imgCachePath = FileService.GetPath(FileService.ImageFolderName, FileService.CacheFolderName);
             if (Directory.Exists(imgCachePath))
             {
                 DirectoryInfo directory = new DirectoryInfo(imgCachePath);
@@ -3150,7 +3150,7 @@ namespace ARKBreedingStats
 
         private async void DownloadSpeciesImagesAsync()
         {
-            bool overwrite = !Directory.Exists(FileService.GetPath("img"));
+            bool overwrite = !Directory.Exists(FileService.GetPath(FileService.ImageFolderName));
             if (!overwrite)
             {
                 var msgBoxResult = MessageBox.Show(

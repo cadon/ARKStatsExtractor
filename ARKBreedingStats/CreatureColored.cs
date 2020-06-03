@@ -12,8 +12,6 @@ namespace ARKBreedingStats
 {
     static class CreatureColored
     {
-        private const string imageFolderName = "img";
-        private const string cacheFolderName = "cache";
         private const string extension = ".png";
 
         /// <summary>
@@ -38,8 +36,8 @@ namespace ARKBreedingStats
                 rgb[c] = new int[] { cl.R, cl.G, cl.B };
             }
 
-            string imgFolder = Path.Combine(FileService.GetPath(), imageFolderName);
-            string cacheFolder = Path.Combine(FileService.GetPath(), imageFolderName, cacheFolderName);
+            string imgFolder = FileService.GetPath(FileService.ImageFolderName);
+            string cacheFolder = FileService.GetPath(FileService.ImageFolderName, FileService.CacheFolderName);
             string speciesName = species?.name ?? string.Empty;
             // check if there are sex specific images
             if (creatureSex != Sex.Unknown)
