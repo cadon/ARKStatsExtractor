@@ -1179,23 +1179,7 @@ namespace ARKBreedingStats
             Properties.Settings.Default.Save();
 
             // remove old cache-files
-            string imgCachePath = FileService.GetPath(FileService.ImageFolderName, FileService.CacheFolderName);
-            if (Directory.Exists(imgCachePath))
-            {
-                DirectoryInfo directory = new DirectoryInfo(imgCachePath);
-                List<FileInfo> oldCacheFiles = directory.GetFiles().Where(f => f.LastAccessTime < DateTime.Now.AddDays(-5)).ToList();
-                foreach (FileInfo f in oldCacheFiles)
-                {
-                    try
-                    {
-                        f.Delete();
-                    }
-                    catch
-                    {
-                        // ignored
-                    }
-                }
-            }
+            CreatureColored.CleanupCache();
 
             _tt.Dispose();
             _timerGlobal.Dispose();

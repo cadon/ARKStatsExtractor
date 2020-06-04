@@ -12,7 +12,7 @@ namespace ARKBreedingStats
 {
     static class CreatureColored
     {
-        private const string extension = ".png";
+        private const string Extension = ".png";
 
         /// <summary>
         /// Returns a bitmap image that represents the given colors. If a species color file is available, that is used, else a pic-chart like representation.
@@ -24,17 +24,11 @@ namespace ARKBreedingStats
         /// <param name="pieSize"></param>
         /// <param name="onlyColors">Only return a pie-chart like color representation.</param>
         /// <param name="onlyImage">Only return an image of the colored creature. If that's not possible, return null.</param>
+        /// <param name="creatureSex">If given, it's tried for find a sex-specific image.</param>
         /// <returns></returns>
-        public static Bitmap GetColoredCreature(int[] colorIds, Species species, bool[] enabledColorRegions, int size = 128, int pieSize = 64, bool onlyColors = false, bool onlyImage = false, Library.Sex creatureSex = Sex.Unknown)
+        public static Bitmap GetColoredCreature(int[] colorIds, Species species, bool[] enabledColorRegions, int size = 128, int pieSize = 64, bool onlyColors = false, bool onlyImage = false, Sex creatureSex = Sex.Unknown)
         {
             if (colorIds == null) return null;
-            //float[][] hsl = new float[Species.ColorRegionCount][];
-            int[][] rgb = new int[Species.ColorRegionCount][];
-            for (int c = 0; c < Species.ColorRegionCount; c++)
-            {
-                Color cl = CreatureColors.CreatureColor(colorIds[c]);
-                rgb[c] = new int[] { cl.R, cl.G, cl.B };
-            }
 
             string imgFolder = FileService.GetPath(FileService.ImageFolderName);
             string cacheFolder = FileService.GetPath(FileService.ImageFolderName, FileService.CacheFolderName);
@@ -42,63 +36,139 @@ namespace ARKBreedingStats
             // check if there are sex specific images
             if (creatureSex != Sex.Unknown)
             {
-                string speciesNameWithSex = null;
+                string speciesNameWithSex;
                 switch (creatureSex)
                 {
                     case Sex.Female:
                         speciesNameWithSex = speciesName + "F";
-                        if (File.Exists(Path.Combine(imgFolder, speciesNameWithSex + extension)))
+                        if (File.Exists(Path.Combine(imgFolder, speciesNameWithSex + Extension)))
                             speciesName = speciesNameWithSex;
                         break;
                     case Sex.Male:
                         speciesNameWithSex = speciesName + "M";
-                        if (File.Exists(Path.Combine(imgFolder, speciesNameWithSex + extension)))
+                        if (File.Exists(Path.Combine(imgFolder, speciesNameWithSex + Extension)))
                             speciesName = speciesNameWithSex;
                         break;
                 }
             }
 
-            string speciesBackgroundFilePath = Path.Combine(imgFolder, speciesName + extension);
-            string cacheFileName = Path.Combine(cacheFolder, speciesName.Substring(0, Math.Min(speciesName.Length, 5)) + "_" + (speciesName + string.Join(".", colorIds.Select(i => i.ToString()))).GetHashCode().ToString("X8") + extension);
-            string speciesColorMaskFilePath = Path.Combine(imgFolder, speciesName + "_m" + extension);
-            if (!onlyColors && File.Exists(speciesBackgroundFilePath) && File.Exists(speciesColorMaskFilePath) && !File.Exists(cacheFileName))
+            string speciesBackgroundFilePath = Path.Combine(imgFolder, speciesName + Extension);
+            string cacheFileName = Path.Combine(cacheFolder, speciesName.Substring(0, Math.Min(speciesName.Length, 5)) + "_" + (speciesName + string.Join(".", colorIds.Select(i => i.ToString()))).GetHashCode().ToString("X8") + Extension);
+            string speciesColorMaskFilePath = Path.Combine(imgFolder, speciesName + "_m" + Extension);
+            bool cacheFileExists = File.Exists(cacheFileName);
+            if (!onlyColors && !cacheFileExists && File.Exists(speciesBackgroundFilePath))
             {
-                using (Bitmap bmpBackground = new Bitmap(speciesBackgroundFilePath))
-                using (Bitmap bmpCreature = new Bitmap(bmpBackground.Width, bmpBackground.Height, PixelFormat.Format32bppArgb))
-                using (Graphics graph = Graphics.FromImage(bmpCreature))
+                cacheFileExists = CreateAndSaveCacheSpeciesFile(colorIds, enabledColorRegions, speciesBackgroundFilePath, speciesColorMaskFilePath, cacheFileName);
+            }
+
+            if (onlyImage && !cacheFileExists) return null;
+
+            Bitmap bm = new Bitmap(size, size);
+            using (Graphics graph = Graphics.FromImage(bm))
+            {
+                graph.SmoothingMode = SmoothingMode.AntiAlias;
+                if (cacheFileExists)
                 {
-                    bool imageFine = false;
-                    graph.SmoothingMode = SmoothingMode.AntiAlias;
-                    const int defaultSizeOfTemplates = 256;
-
-                    using (Bitmap bmpMask = new Bitmap(defaultSizeOfTemplates, defaultSizeOfTemplates))
+                    graph.CompositingMode = CompositingMode.SourceCopy;
+                    graph.CompositingQuality = CompositingQuality.HighQuality;
+                    graph.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    graph.SmoothingMode = SmoothingMode.HighQuality;
+                    graph.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                    graph.DrawImage(new Bitmap(cacheFileName), 0, 0, size, size);
+                }
+                else
+                {
+                    // draw piechart
+                    int pieAngle = enabledColorRegions.Count(c => c);
+                    pieAngle = 360 / (pieAngle > 0 ? pieAngle : 1);
+                    int pieNr = 0;
+                    for (int c = 0; c < Species.ColorRegionCount; c++)
                     {
-                        using (var g = Graphics.FromImage(bmpMask))
-                        using (var bmpMaskOriginal = new Bitmap(speciesColorMaskFilePath))
-                            g.DrawImage(bmpMaskOriginal, 0, 0,
-                        defaultSizeOfTemplates, defaultSizeOfTemplates);
-                        float o = 0;
-                        try
+                        if (enabledColorRegions[c])
                         {
-                            // shadow
-                            using (var b = new SolidBrush(Color.FromArgb(12, 0, 0, 0)))
+                            if (colorIds[c] > 0)
                             {
-                                int scx = defaultSizeOfTemplates / 2;
-                                int scy = (int)(scx * 1.6);
-                                int factor = 25;
-                                int sr = scx - 2 * factor;
-                                double heightFactor = 0.3;
-
-                                for (int i = 2; i >= 0; i--)
+                                using (var b = new SolidBrush(CreatureColors.CreatureColor(colorIds[c])))
                                 {
-                                    int radius = sr + i * factor;
-                                    graph.FillEllipse(b, scx - radius, scy - (int)(heightFactor * .7 * radius), 2 * radius,
-                                        (int)(2 * heightFactor * radius));
+                                    graph.FillPie(b, (size - pieSize) / 2, (size - pieSize) / 2, pieSize, pieSize,
+                                        pieNr * pieAngle + 270, pieAngle);
                                 }
                             }
 
-                            graph.DrawImage(bmpBackground, 0, 0, defaultSizeOfTemplates, defaultSizeOfTemplates);
+                            pieNr++;
+                        }
+                    }
 
+                    using (var pen = new Pen(Color.Gray))
+                        graph.DrawEllipse(pen, (size - pieSize) / 2, (size - pieSize) / 2, pieSize, pieSize);
+                }
+            }
+
+            return bm;
+        }
+
+        /// <summary>
+        /// Creates a colored species image and saves it as cache file
+        /// </summary>
+        /// <param name="colorIds"></param>
+        /// <param name="enabledColorRegions"></param>
+        /// <param name="speciesBackgroundFilePath"></param>
+        /// <param name="speciesColorMaskFilePath"></param>
+        /// <param name="cacheFileName"></param>
+        /// <returns></returns>
+        private static bool CreateAndSaveCacheSpeciesFile(int[] colorIds, bool[] enabledColorRegions,
+            string speciesBackgroundFilePath, string speciesColorMaskFilePath, string cacheFileName)
+        {
+            using (Bitmap bmpBackground = new Bitmap(speciesBackgroundFilePath))
+            using (Bitmap bmpCreature = new Bitmap(bmpBackground.Width, bmpBackground.Height, PixelFormat.Format32bppArgb))
+            using (Graphics graph = Graphics.FromImage(bmpCreature))
+            {
+                bool imageFine = true;
+                graph.SmoothingMode = SmoothingMode.AntiAlias;
+                const int defaultSizeOfTemplates = 256;
+
+                // shadow
+                using (var b = new SolidBrush(Color.FromArgb(12, 0, 0, 0)))
+                {
+                    int scx = defaultSizeOfTemplates / 2;
+                    int scy = (int)(scx * 1.6);
+                    int factor = 25;
+                    int sr = scx - 2 * factor;
+                    double heightFactor = 0.3;
+
+                    for (int i = 2; i >= 0; i--)
+                    {
+                        int radius = sr + i * factor;
+                        graph.FillEllipse(b, scx - radius, scy - (int)(heightFactor * .7 * radius), 2 * radius,
+                            (int)(2 * heightFactor * radius));
+                    }
+                }
+
+                // shaded base image
+                graph.DrawImage(bmpBackground, 0, 0, defaultSizeOfTemplates, defaultSizeOfTemplates);
+
+                // not all species have color regions
+                if (File.Exists(speciesColorMaskFilePath))
+                {
+                    imageFine = false;
+                    using (Bitmap bmpMask = new Bitmap(defaultSizeOfTemplates, defaultSizeOfTemplates))
+                    {
+                        // get mask in correct size
+                        using (var g = Graphics.FromImage(bmpMask))
+                        using (var bmpMaskOriginal = new Bitmap(speciesColorMaskFilePath))
+                            g.DrawImage(bmpMaskOriginal, 0, 0,
+                                defaultSizeOfTemplates, defaultSizeOfTemplates);
+
+                        var rgb = new int[Species.ColorRegionCount][];
+                        for (int c = 0; c < Species.ColorRegionCount; c++)
+                        {
+                            Color cl = CreatureColors.CreatureColor(colorIds[c]);
+                            rgb[c] = new int[] { cl.R, cl.G, cl.B };
+                        }
+
+                        float o = 0;
+                        try
+                        {
                             for (int i = 0; i < bmpBackground.Width; i++)
                             {
                                 for (int j = 0; j < bmpBackground.Height; j++)
@@ -165,61 +235,19 @@ namespace ARKBreedingStats
                             // error during drawing, maybe mask is smaller than image
                         }
                     }
-                    if (imageFine)
-                    {
-                        if (!Directory.Exists(cacheFolder))
-                            Directory.CreateDirectory(cacheFolder);
-                        bmpCreature.Save(cacheFileName); // safe in cache}
-                    }
+                }
+
+                if (imageFine)
+                {
+                    string cacheFolder = Path.GetDirectoryName(cacheFileName);
+                    if (!Directory.Exists(cacheFolder))
+                        Directory.CreateDirectory(cacheFolder);
+                    bmpCreature.Save(cacheFileName);
+                    return true;
                 }
             }
 
-            bool cacheFileExists = File.Exists(cacheFileName);
-
-            if (onlyImage && !cacheFileExists) return null;
-
-            Bitmap bm = new Bitmap(size, size);
-            using (Graphics graph = Graphics.FromImage(bm))
-            {
-                graph.SmoothingMode = SmoothingMode.AntiAlias;
-                if (cacheFileExists)
-                {
-                    graph.CompositingMode = CompositingMode.SourceCopy;
-                    graph.CompositingQuality = CompositingQuality.HighQuality;
-                    graph.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                    graph.SmoothingMode = SmoothingMode.HighQuality;
-                    graph.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                    graph.DrawImage(new Bitmap(cacheFileName), 0, 0, size, size);
-                }
-                else
-                {
-                    // draw piechart
-                    int pieAngle = enabledColorRegions.Count(c => c);
-                    pieAngle = 360 / (pieAngle > 0 ? pieAngle : 1);
-                    int pieNr = 0;
-                    for (int c = 0; c < Species.ColorRegionCount; c++)
-                    {
-                        if (enabledColorRegions[c])
-                        {
-                            if (colorIds[c] > 0)
-                            {
-                                using (var b = new SolidBrush(CreatureColors.CreatureColor(colorIds[c])))
-                                {
-                                    graph.FillPie(b, (size - pieSize) / 2, (size - pieSize) / 2, pieSize, pieSize,
-                                        pieNr * pieAngle + 270, pieAngle);
-                                }
-                            }
-
-                            pieNr++;
-                        }
-                    }
-
-                    using (var pen = new Pen(Color.Gray))
-                        graph.DrawEllipse(pen, (size - pieSize) / 2, (size - pieSize) / 2, pieSize, pieSize);
-                }
-            }
-
-            return bm;
+            return false;
         }
 
         public static string RegionColorInfo(Species species, int[] colorIds)
@@ -236,6 +264,22 @@ namespace ARKBreedingStats
                 }
             }
             return creatureRegionColors.ToString();
+        }
+
+        /// <summary>
+        /// Deletes all cached species color images with a specific pattern that weren't used for some time.
+        /// </summary>
+        internal static void CleanupCache()
+        {
+            string imgCachePath = FileService.GetPath(FileService.ImageFolderName, FileService.CacheFolderName);
+            if (!Directory.Exists(imgCachePath)) return;
+
+            DirectoryInfo directory = new DirectoryInfo(imgCachePath);
+            var oldCacheFiles = directory.GetFiles().Where(f => f.LastAccessTime < DateTime.Now.AddDays(-5)).ToArray();
+            foreach (FileInfo f in oldCacheFiles)
+            {
+                FileService.TryDeleteFile(f);
+            }
         }
     }
 }
