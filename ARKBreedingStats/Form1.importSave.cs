@@ -52,7 +52,7 @@ namespace ARKBreedingStats
                                 return;
                             break;
                         default:
-                            throw new Exception($"Unsuppoerted uri scheme: {uri.Scheme}");
+                            throw new Exception($"Unsupported uri scheme: {uri.Scheme}");
                     }
                 }
                 else

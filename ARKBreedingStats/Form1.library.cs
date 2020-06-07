@@ -133,11 +133,16 @@ namespace ARKBreedingStats
             if (creature.Mother == null || creature.Father == null)
                 UpdateParents(new List<Creature> { creature });
 
+            _filterListAllowed = false;
             UpdateCreatureListings(species, false);
+
             // show only the added creatures' species
+            listBoxSpeciesLib.SelectedItem = creature.Species;
+            _filterListAllowed = true;
+            _libraryNeedsUpdate = true;
+
             if (goToLibraryTab)
             {
-                listBoxSpeciesLib.SelectedItem = creature.Species;
                 tabControlMain.SelectedTab = tabPageLibrary;
             }
 

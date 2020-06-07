@@ -841,13 +841,13 @@ namespace ARKBreedingStats
 
         /// <summary>
         /// This function should be called if the creatureCollection is changed, i.e. after loading a file or adding/removing a creature.
-        /// It updates the listed species in the treelist and in the speciesSelector.
+        /// It updates the listed species in the treeList and in the speciesSelector.
         /// </summary>
         private void UpdateSpeciesLists(List<Creature> creatures, bool keepCurrentlySelectedSpecies = true)
         {
-            Species selectedSpecies = keepCurrentlySelectedSpecies && listBoxSpeciesLib.SelectedItem is Species sp ? sp : null;
+            Species selectedSpeciesLibrary = keepCurrentlySelectedSpecies && listBoxSpeciesLib.SelectedItem is Species sp ? sp : null;
 
-            // clear specieslist
+            // clear speciesList
             listBoxSpeciesLib.Items.Clear();
             List<Species> availableSpecies = new List<Species>();
 
@@ -870,8 +870,8 @@ namespace ARKBreedingStats
                 listBoxSpeciesLib.Items.Add(s);
             listBoxSpeciesLib.EndUpdate();
 
-            if (selectedSpecies != null)
-                listBoxSpeciesLib.SelectedItem = selectedSpecies;
+            if (selectedSpeciesLibrary != null)
+                listBoxSpeciesLib.SelectedItem = selectedSpeciesLibrary;
 
             breedingPlan1.SetSpeciesList(availableSpecies, creatures);
             speciesSelector1.SetLibrarySpecies(availableSpecies);
