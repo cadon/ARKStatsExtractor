@@ -253,7 +253,7 @@ namespace ARKBreedingStats
         private void InitializeCollection()
         {
             // set pointer to current collection
-            pedigree1.creatures = _creatureCollection.creatures;
+            pedigree1.SetCreatures(_creatureCollection.creatures);
             breedingPlan1.creatureCollection = _creatureCollection;
             tribesControl1.Tribes = _creatureCollection.tribes;
             tribesControl1.Players = _creatureCollection.players;

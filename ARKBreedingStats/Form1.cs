@@ -145,7 +145,7 @@ namespace ARKBreedingStats
             // delegates
             pedigree1.EditCreature += EditCreatureInTester;
             pedigree1.BestBreedingPartners += ShowBestBreedingPartner;
-            pedigree1.exportToClipboard += ExportAsTextToClipboard;
+            pedigree1.ExportToClipboard += ExportAsTextToClipboard;
             breedingPlan1.EditCreature += EditCreatureInTester;
             breedingPlan1.CreateIncubationTimer += CreateIncubationTimer;
             breedingPlan1.BestBreedingPartners += ShowBestBreedingPartner;

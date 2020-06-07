@@ -464,7 +464,7 @@ namespace ARKBreedingStats
         {
             if (changed)
             {
-                if (species == null || pedigree1.creature != null && pedigree1.creature.Species == species)
+                if (species == null || pedigree1.SelectedSpecies == species)
                     _pedigreeNeedsUpdate = true;
                 if (species == null || breedingPlan1.CurrentSpecies == species)
                     breedingPlan1.breedingPlanNeedsUpdate = true;
