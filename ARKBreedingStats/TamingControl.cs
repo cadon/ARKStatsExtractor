@@ -305,7 +305,7 @@ namespace ARKBreedingStats
             labelResult.Text = Loc.S("noTamingData");
             lbTimeUntilStarving.Text = Loc.S("noTamingData");
 
-            // disable enture (i)? tab
+            // disable entire tab
             this.Enabled = false;
         }
 

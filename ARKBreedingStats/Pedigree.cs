@@ -97,6 +97,7 @@ namespace ARKBreedingStats
             lines.Add(new List<int[]>());
             lines.Add(new List<int[]>());
             pictureBox.Image = null;
+            pictureBox.Visible = false;
             ResumeLayout();
         }
 
@@ -163,6 +164,7 @@ namespace ARKBreedingStats
             }
 
             pictureBox.Image = CreatureColored.GetColoredCreature(creature.colors, creature.Species, enabledColorRegions, 256, creatureSex: creature.sex);
+            pictureBox.Visible = true;
 
             Invalidate();
             ResumeLayout();
