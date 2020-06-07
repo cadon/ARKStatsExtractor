@@ -46,27 +46,6 @@ namespace ARKBreedingStats
             lastSpeciesBPs = new List<string>();
             iconIndices = new List<string>();
             SplitterDistance = Properties.Settings.Default.SpeciesSelectorVerticalSplitterDistance;
-
-            // imageList
-            ImageList lImgList = new ImageList();
-            string imgPath = FileService.GetPath(FileService.ImageFolderName);
-            if (Directory.Exists(imgPath))
-            {
-                string[] speciesImageFiles = Directory.GetFiles(imgPath, "*.png", SearchOption.TopDirectoryOnly);
-                foreach (string iconFile in speciesImageFiles)
-                {
-                    int i = iconFile.IndexOf("_");
-                    if (i == -1)
-                    {
-                        lImgList.Images.Add(Image.FromFile(iconFile));
-                        iconIndices.Add(Path.GetFileNameWithoutExtension(iconFile));
-                    }
-                }
-
-                lImgList.ImageSize = new Size(64, 64);
-                lvLastSpecies.LargeImageList = lImgList;
-                lvSpeciesInLibrary.LargeImageList = lImgList;
-            }
         }
 
         /// <summary>
@@ -78,11 +57,29 @@ namespace ARKBreedingStats
         {
             Dictionary<string, Species> speciesNameToSpecies = new Dictionary<string, Species>();
 
+            var creatureColors = new int[] { 44, 42, 57, 10, 26, 78 }; // uniform color pattern that is used for all species in the selector
+            ImageList lImgList = new ImageList();
+
+            //var speciesWOImage = new List<string>();// TODO debug
             foreach (Species ss in species)
             {
                 if (!speciesNameToSpecies.ContainsKey(ss.DescriptiveNameAndMod))
                     speciesNameToSpecies.Add(ss.DescriptiveNameAndMod, ss);
+
+                var (imgExists, imagePath, speciesListName) = CreatureColored.SpeciesImageExists(ss, ss.name.Contains("Polar") ? new[] { 18, 18, 18, 18, 18, 18 } : creatureColors);
+                if (imgExists)
+                {
+                    lImgList.Images.Add(Image.FromFile(imagePath));
+                    iconIndices.Add(speciesListName);
+                }
+                //else if (!speciesWOImage.Contains(ss.name)) speciesWOImage.Add(ss.name);
             }
+            //Clipboard.SetText(string.Join("\n", speciesWOImage));
+
+            lImgList.ImageSize = new Size(64, 64);
+            lvLastSpecies.LargeImageList = lImgList;
+            lvSpeciesInLibrary.LargeImageList = lImgList;
+
             entryList = new List<SpeciesListEntry>();
 
             foreach (var s in species)
@@ -283,8 +280,7 @@ namespace ARKBreedingStats
             if (string.IsNullOrWhiteSpace(speciesName))
                 speciesName = SelectedSpecies.name;
             else speciesName = Values.V.SpeciesName(speciesName);
-            if (speciesName.IndexOf("Aberrant ") != -1)
-                speciesName = speciesName.Substring(9);
+            speciesName = CreatureColored.SpeciesImageName(speciesName, false);
             return iconIndices.IndexOf(speciesName);
         }
 

@@ -13,6 +13,48 @@ namespace ARKBreedingStats
     static class CreatureColored
     {
         private const string Extension = ".png";
+        private static readonly string ImgFolder = FileService.GetPath(FileService.ImageFolderName);
+        private static readonly string CacheFolder = FileService.GetPath(FileService.ImageFolderName, FileService.CacheFolderName);
+
+        /// <summary>
+        /// Returns the name of the image file used for the species. E.g. parts like Aberrant or Brute are removed, they share the same graphics.
+        /// </summary>
+        internal static string SpeciesImageName(string speciesName, bool replacePolar = true)
+        {
+            if (string.IsNullOrEmpty(speciesName)) return string.Empty;
+            return replacePolar
+                ? speciesName.Replace("Aberrant ", string.Empty).Replace("Brute ", string.Empty)
+                    .Replace("Polar Bear", "Dire Bear")
+                : speciesName.Replace("Aberrant ", string.Empty).Replace("Brute ", string.Empty);
+        }
+
+        /// <summary>
+        /// Returns the image file path to the image with the according colorization.
+        /// </summary>
+        private static string ColoredCreatureCacheFilePath(string speciesName, int[] colorIds, bool listView = false)
+            => Path.Combine(CacheFolder, speciesName.Substring(0, Math.Min(speciesName.Length, 5)) + "_" + (speciesName + string.Join(".", colorIds.Select(i => i.ToString()))).GetHashCode().ToString("X8") + (listView ? "_lv" : string.Empty) + Extension);
+
+        /// <summary>
+        /// Checks if an according species image exists in the cache folder, if not it tries to creates one. Returns false if there's no image.
+        /// </summary>
+        internal static (bool imageExists, string imagePath, string speciesListName) SpeciesImageExists(Species species, int[] colorIds)
+        {
+            string speciesImageName = SpeciesImageName(species?.name);
+            string speciesNameForList = SpeciesImageName(species?.name, false);
+            string cacheFileName = ColoredCreatureCacheFilePath(speciesImageName, colorIds, true);
+            if (File.Exists(cacheFileName))
+                return (true, cacheFileName, speciesNameForList);
+
+            string speciesBackgroundFilePath = Path.Combine(ImgFolder, speciesImageName + Extension);
+            string speciesColorMaskFilePath = Path.Combine(ImgFolder, speciesImageName + "_m" + Extension);
+
+            if (CreateAndSaveCacheSpeciesFile(colorIds,
+                    species?.colors.Select(c => !string.IsNullOrEmpty(c?.name)).ToArray(),
+                    speciesBackgroundFilePath, speciesColorMaskFilePath, cacheFileName, 64))
+                return (true, cacheFileName, speciesNameForList);
+
+            return (false, null, null);
+        }
 
         /// <summary>
         /// Returns a bitmap image that represents the given colors. If a species color file is available, that is used, else a pic-chart like representation.
@@ -30,9 +72,8 @@ namespace ARKBreedingStats
         {
             if (colorIds == null) return null;
 
-            string imgFolder = FileService.GetPath(FileService.ImageFolderName);
-            string cacheFolder = FileService.GetPath(FileService.ImageFolderName, FileService.CacheFolderName);
-            string speciesName = (species?.name ?? string.Empty).Replace("Aberrant ", string.Empty);
+            string speciesName = SpeciesImageName(species?.name);
+
             // check if there are sex specific images
             if (creatureSex != Sex.Unknown)
             {
@@ -41,22 +82,22 @@ namespace ARKBreedingStats
                 {
                     case Sex.Female:
                         speciesNameWithSex = speciesName + "F";
-                        if (File.Exists(Path.Combine(imgFolder, speciesNameWithSex + Extension)))
+                        if (File.Exists(Path.Combine(ImgFolder, speciesNameWithSex + Extension)))
                             speciesName = speciesNameWithSex;
                         break;
                     case Sex.Male:
                         speciesNameWithSex = speciesName + "M";
-                        if (File.Exists(Path.Combine(imgFolder, speciesNameWithSex + Extension)))
+                        if (File.Exists(Path.Combine(ImgFolder, speciesNameWithSex + Extension)))
                             speciesName = speciesNameWithSex;
                         break;
                 }
             }
 
-            string speciesBackgroundFilePath = Path.Combine(imgFolder, speciesName + Extension);
-            string cacheFileName = Path.Combine(cacheFolder, speciesName.Substring(0, Math.Min(speciesName.Length, 5)) + "_" + (speciesName + string.Join(".", colorIds.Select(i => i.ToString()))).GetHashCode().ToString("X8") + Extension);
-            string speciesColorMaskFilePath = Path.Combine(imgFolder, speciesName + "_m" + Extension);
+            string speciesBackgroundFilePath = Path.Combine(ImgFolder, speciesName + Extension);
+            string speciesColorMaskFilePath = Path.Combine(ImgFolder, speciesName + "_m" + Extension);
+            string cacheFileName = ColoredCreatureCacheFilePath(speciesName, colorIds);
             bool cacheFileExists = File.Exists(cacheFileName);
-            if (!onlyColors && !cacheFileExists && File.Exists(speciesBackgroundFilePath))
+            if (!onlyColors && !cacheFileExists)
             {
                 cacheFileExists = CreateAndSaveCacheSpeciesFile(colorIds, enabledColorRegions, speciesBackgroundFilePath, speciesColorMaskFilePath, cacheFileName);
             }
@@ -79,12 +120,12 @@ namespace ARKBreedingStats
                 else
                 {
                     // draw piechart
-                    int pieAngle = enabledColorRegions.Count(c => c);
+                    int pieAngle = enabledColorRegions?.Count(c => c) ?? Species.ColorRegionCount;
                     pieAngle = 360 / (pieAngle > 0 ? pieAngle : 1);
                     int pieNr = 0;
                     for (int c = 0; c < Species.ColorRegionCount; c++)
                     {
-                        if (enabledColorRegions[c])
+                        if (enabledColorRegions?[c] ?? true)
                         {
                             if (colorIds[c] > 0)
                             {
@@ -108,29 +149,27 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Creates a colored species image and saves it as cache file
+        /// Creates a colored species image and saves it as cache file.
         /// </summary>
-        /// <param name="colorIds"></param>
-        /// <param name="enabledColorRegions"></param>
-        /// <param name="speciesBackgroundFilePath"></param>
-        /// <param name="speciesColorMaskFilePath"></param>
-        /// <param name="cacheFileName"></param>
         /// <returns></returns>
         private static bool CreateAndSaveCacheSpeciesFile(int[] colorIds, bool[] enabledColorRegions,
-            string speciesBackgroundFilePath, string speciesColorMaskFilePath, string cacheFileName)
+            string speciesBackgroundFilePath, string speciesColorMaskFilePath, string cacheFileName, int outputSize = 256)
         {
+            if (!File.Exists(speciesBackgroundFilePath)) return false;
+
+            const int templateSize = 256;
+
             using (Bitmap bmpBackground = new Bitmap(speciesBackgroundFilePath))
             using (Bitmap bmpCreature = new Bitmap(bmpBackground.Width, bmpBackground.Height, PixelFormat.Format32bppArgb))
             using (Graphics graph = Graphics.FromImage(bmpCreature))
             {
                 bool imageFine = true;
                 graph.SmoothingMode = SmoothingMode.AntiAlias;
-                const int defaultSizeOfTemplates = 256;
 
                 // shadow
                 using (var b = new SolidBrush(Color.FromArgb(12, 0, 0, 0)))
                 {
-                    int scx = defaultSizeOfTemplates / 2;
+                    int scx = templateSize / 2;
                     int scy = (int)(scx * 1.6);
                     int factor = 25;
                     int sr = scx - 2 * factor;
@@ -145,19 +184,19 @@ namespace ARKBreedingStats
                 }
 
                 // shaded base image
-                graph.DrawImage(bmpBackground, 0, 0, defaultSizeOfTemplates, defaultSizeOfTemplates);
+                graph.DrawImage(bmpBackground, 0, 0, templateSize, templateSize);
 
                 // not all species have color regions
                 if (File.Exists(speciesColorMaskFilePath))
                 {
                     imageFine = false;
-                    using (Bitmap bmpMask = new Bitmap(defaultSizeOfTemplates, defaultSizeOfTemplates))
+                    using (Bitmap bmpMask = new Bitmap(templateSize, templateSize))
                     {
                         // get mask in correct size
                         using (var g = Graphics.FromImage(bmpMask))
                         using (var bmpMaskOriginal = new Bitmap(speciesColorMaskFilePath))
                             g.DrawImage(bmpMaskOriginal, 0, 0,
-                                defaultSizeOfTemplates, defaultSizeOfTemplates);
+                                templateSize, templateSize);
 
                         var rgb = new int[Species.ColorRegionCount][];
                         for (int c = 0; c < Species.ColorRegionCount; c++)
@@ -242,7 +281,20 @@ namespace ARKBreedingStats
                     string cacheFolder = Path.GetDirectoryName(cacheFileName);
                     if (!Directory.Exists(cacheFolder))
                         Directory.CreateDirectory(cacheFolder);
-                    bmpCreature.Save(cacheFileName);
+                    if (outputSize != templateSize)
+                    {
+                        using (var resized = new Bitmap(outputSize, outputSize))
+                        using (var g = Graphics.FromImage(resized))
+                        {
+                            g.CompositingQuality = CompositingQuality.HighQuality;
+                            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                            g.SmoothingMode = SmoothingMode.HighQuality;
+                            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                            g.DrawImage(bmpCreature, 0, 0, outputSize, outputSize);
+                            resized.Save(cacheFileName);
+                        }
+                    }
+                    else bmpCreature.Save(cacheFileName);
                     return true;
                 }
             }
