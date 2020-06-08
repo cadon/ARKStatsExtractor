@@ -160,8 +160,8 @@ namespace ARKBreedingStats
             const int templateSize = 256;
 
             using (Bitmap bmpBackground = new Bitmap(speciesBackgroundFilePath))
-            using (Bitmap bmpCreature = new Bitmap(bmpBackground.Width, bmpBackground.Height, PixelFormat.Format32bppArgb))
-            using (Graphics graph = Graphics.FromImage(bmpCreature))
+            using (Bitmap bmpColoredCreature = new Bitmap(bmpBackground.Width, bmpBackground.Height, PixelFormat.Format32bppArgb))
+            using (Graphics graph = Graphics.FromImage(bmpColoredCreature))
             {
                 bool imageFine = true;
                 graph.SmoothingMode = SmoothingMode.AntiAlias;
@@ -186,94 +186,20 @@ namespace ARKBreedingStats
                 // shaded base image
                 graph.DrawImage(bmpBackground, 0, 0, templateSize, templateSize);
 
-                // not all species have color regions
+                // if species has color regions, apply colors
                 if (File.Exists(speciesColorMaskFilePath))
                 {
-                    imageFine = false;
-                    using (Bitmap bmpMask = new Bitmap(templateSize, templateSize))
+                    var rgb = new byte[Species.ColorRegionCount][];
+                    for (int c = 0; c < Species.ColorRegionCount; c++)
                     {
-                        // get mask in correct size
-                        using (var g = Graphics.FromImage(bmpMask))
-                        using (var bmpMaskOriginal = new Bitmap(speciesColorMaskFilePath))
-                            g.DrawImage(bmpMaskOriginal, 0, 0,
-                                templateSize, templateSize);
-
-                        var rgb = new int[Species.ColorRegionCount][];
-                        for (int c = 0; c < Species.ColorRegionCount; c++)
+                        enabledColorRegions[c] = enabledColorRegions[c] && colorIds[c] != 0;
+                        if (enabledColorRegions[c])
                         {
                             Color cl = CreatureColors.CreatureColor(colorIds[c]);
-                            rgb[c] = new int[] { cl.R, cl.G, cl.B };
-                        }
-
-                        float o = 0;
-                        try
-                        {
-                            for (int i = 0; i < bmpBackground.Width; i++)
-                            {
-                                for (int j = 0; j < bmpBackground.Height; j++)
-                                {
-                                    Color bc = bmpBackground.GetPixel(i, j);
-                                    if (bc.A > 0)
-                                    {
-                                        var cl = bmpMask.GetPixel(i, j);
-                                        int r = cl.R;
-                                        int g = cl.G;
-                                        int b = cl.B;
-                                        for (int m = 0; m < Species.ColorRegionCount; m++)
-                                        {
-                                            if (!enabledColorRegions[m] || colorIds[m] == 0)
-                                                continue;
-                                            switch (m)
-                                            {
-                                                case 0:
-                                                    o = Math.Max(0, r - g - b) / 255f;
-                                                    break;
-                                                case 1:
-                                                    o = Math.Max(0, g - r - b) / 255f;
-                                                    break;
-                                                case 2:
-                                                    o = Math.Max(0, b - r - g) / 255f;
-                                                    break;
-                                                case 3:
-                                                    o = Math.Min(g, b) / 255f;
-                                                    break;
-                                                case 4:
-                                                    o = Math.Min(r, g) / 255f;
-                                                    break;
-                                                case 5:
-                                                    o = Math.Min(r, b) / 255f;
-                                                    break;
-                                            }
-
-                                            if (o == 0)
-                                                continue;
-                                            // using "grain merge", e.g. see https://docs.gimp.org/en/gimp-concepts-layer-modes.html
-                                            int rMix = bc.R + rgb[m][0] - 128;
-                                            if (rMix < 0) rMix = 0;
-                                            else if (rMix > 255) rMix = 255;
-                                            int gMix = bc.G + rgb[m][1] - 128;
-                                            if (gMix < 0) gMix = 0;
-                                            else if (gMix > 255) gMix = 255;
-                                            int bMix = bc.B + rgb[m][2] - 128;
-                                            if (bMix < 0) bMix = 0;
-                                            else if (bMix > 255) bMix = 255;
-                                            Color c = Color.FromArgb(rMix, gMix, bMix);
-                                            bc = Color.FromArgb(bc.A, (int)(o * c.R + (1 - o) * bc.R),
-                                                (int)(o * c.G + (1 - o) * bc.G), (int)(o * c.B + (1 - o) * bc.B));
-                                        }
-
-                                        bmpCreature.SetPixel(i, j, bc);
-                                    }
-                                }
-                            }
-
-                            imageFine = true;
-                        }
-                        catch
-                        {
-                            // error during drawing, maybe mask is smaller than image
+                            rgb[c] = new byte[] { cl.R, cl.G, cl.B };
                         }
                     }
+                    imageFine = ApplyColorsUnsafe(rgb, enabledColorRegions, speciesColorMaskFilePath, templateSize, bmpBackground, bmpColoredCreature);
                 }
 
                 if (imageFine)
@@ -290,16 +216,145 @@ namespace ARKBreedingStats
                             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
                             g.SmoothingMode = SmoothingMode.HighQuality;
                             g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                            g.DrawImage(bmpCreature, 0, 0, outputSize, outputSize);
+                            g.DrawImage(bmpColoredCreature, 0, 0, outputSize, outputSize);
                             resized.Save(cacheFileName);
                         }
                     }
-                    else bmpCreature.Save(cacheFileName);
+                    else bmpColoredCreature.Save(cacheFileName);
                     return true;
                 }
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Applies the colors to the base image.
+        /// </summary>
+        private static bool ApplyColorsUnsafe(byte[][] rgb, bool[] enabledColorRegions, string speciesColorMaskFilePath,
+            int templateSize, Bitmap bmpBackground, Bitmap bmpColoredCreature)
+        {
+            var imageFine = false;
+            using (Bitmap bmpMask = new Bitmap(templateSize, templateSize))
+            {
+                // get mask in correct size
+                using (var g = Graphics.FromImage(bmpMask))
+                using (var bmpMaskOriginal = new Bitmap(speciesColorMaskFilePath))
+                {
+                    g.InterpolationMode = InterpolationMode.Bicubic;
+                    g.SmoothingMode = SmoothingMode.AntiAlias;
+                    g.DrawImage(bmpMaskOriginal, 0, 0,
+                        templateSize, templateSize);
+                }
+
+                BitmapData bmpDataBackground = bmpBackground.LockBits(
+                    new Rectangle(0, 0, bmpBackground.Width, bmpBackground.Height), ImageLockMode.ReadOnly,
+                    bmpBackground.PixelFormat);
+                BitmapData bmpDataMask = bmpMask.LockBits(
+                    new Rectangle(0, 0, bmpMask.Width, bmpMask.Height), ImageLockMode.ReadOnly,
+                    bmpMask.PixelFormat);
+                BitmapData bmpDataColoredCreature = bmpColoredCreature.LockBits(
+                    new Rectangle(0, 0, bmpColoredCreature.Width, bmpColoredCreature.Height),
+                    ImageLockMode.WriteOnly,
+                    bmpColoredCreature.PixelFormat);
+
+                int bgBytes = bmpBackground.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
+                int msBytes = bmpDataMask.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
+                int ccBytes = bmpColoredCreature.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
+
+                float o = 0;
+                try
+                {
+                    unsafe
+                    {
+                        byte* scan0Bg = (byte*)bmpDataBackground.Scan0.ToPointer();
+                        byte* scan0Ms = (byte*)bmpDataMask.Scan0.ToPointer();
+                        byte* scan0Cc = (byte*)bmpDataColoredCreature.Scan0.ToPointer();
+
+                        for (int i = 0; i < bmpDataBackground.Width; i++)
+                        {
+                            for (int j = 0; j < bmpDataBackground.Height; j++)
+                            {
+                                byte* dBg = scan0Bg + j * bmpDataBackground.Stride + i * bgBytes;
+                                // continue if the pixel is transparent
+                                if (dBg[3] == 0)
+                                    continue;
+
+                                byte* dMs = scan0Ms + j * bmpDataMask.Stride + i * msBytes;
+                                byte* dCc = scan0Cc + j * bmpDataColoredCreature.Stride + i * ccBytes;
+
+                                int r = dMs[2];
+                                int g = dMs[1];
+                                int b = dMs[0];
+                                byte finalR = dBg[2];
+                                byte finalG = dBg[1];
+                                byte finalB = dBg[0];
+
+                                for (int m = 0; m < Species.ColorRegionCount; m++)
+                                {
+                                    if (!enabledColorRegions[m])
+                                        continue;
+                                    switch (m)
+                                    {
+                                        case 0:
+                                            o = Math.Max(0, r - g - b) / 255f;
+                                            break;
+                                        case 1:
+                                            o = Math.Max(0, g - r - b) / 255f;
+                                            break;
+                                        case 2:
+                                            o = Math.Max(0, b - r - g) / 255f;
+                                            break;
+                                        case 3:
+                                            o = Math.Min(g, b) / 255f;
+                                            break;
+                                        case 4:
+                                            o = Math.Min(r, g) / 255f;
+                                            break;
+                                        case 5:
+                                            o = Math.Min(r, b) / 255f;
+                                            break;
+                                    }
+
+                                    if (o == 0)
+                                        continue;
+                                    // using "grain merge", e.g. see https://docs.gimp.org/en/gimp-concepts-layer-modes.html
+                                    int rMix = finalR + rgb[m][0] - 128;
+                                    if (rMix < 0) rMix = 0;
+                                    else if (rMix > 255) rMix = 255;
+                                    int gMix = finalG + rgb[m][1] - 128;
+                                    if (gMix < 0) gMix = 0;
+                                    else if (gMix > 255) gMix = 255;
+                                    int bMix = finalB + rgb[m][2] - 128;
+                                    if (bMix < 0) bMix = 0;
+                                    else if (bMix > 255) bMix = 255;
+
+                                    finalR = (byte)(o * rMix + (1 - o) * finalR);
+                                    finalG = (byte)(o * gMix + (1 - o) * finalG);
+                                    finalB = (byte)(o * bMix + (1 - o) * finalB);
+                                }
+
+                                // set final color
+                                dCc[0] = finalB;
+                                dCc[1] = finalG;
+                                dCc[2] = finalR;
+                                dCc[3] = dBg[3]; // same alpha as base image
+                            }
+                        }
+                        imageFine = true;
+                    }
+                }
+                catch
+                {
+                    // error during drawing, maybe mask is smaller than image
+                }
+
+                bmpBackground.UnlockBits(bmpDataBackground);
+                bmpMask.UnlockBits(bmpDataMask);
+                bmpColoredCreature.UnlockBits(bmpDataColoredCreature);
+            }
+
+            return imageFine;
         }
 
         public static string RegionColorInfo(Species species, int[] colorIds)
