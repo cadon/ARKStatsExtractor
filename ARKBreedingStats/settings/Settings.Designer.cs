@@ -129,6 +129,7 @@
             this.groupBox16 = new System.Windows.Forms.GroupBox();
             this.cbDevTools = new System.Windows.Forms.CheckBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.CbLibrarySelectSelectedSpeciesOnLoad = new System.Windows.Forms.CheckBox();
             this.cbLibraryHighlightTopCreatures = new System.Windows.Forms.CheckBox();
             this.cbApplyGlobalSpeciesToLibrary = new System.Windows.Forms.CheckBox();
             this.cbCreatureColorsLibrary = new System.Windows.Forms.CheckBox();
@@ -225,7 +226,7 @@
             this.cbbOCRApp = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.CbLibrarySelectSelectedSpeciesOnLoad = new System.Windows.Forms.CheckBox();
+            this.LbDefaultLevelups = new System.Windows.Forms.Label();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMatingSpeed)).BeginInit();
@@ -814,6 +815,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.LbDefaultLevelups);
             this.groupBox3.Controls.Add(this.nudMaxServerLevel);
             this.groupBox3.Controls.Add(this.lbMaxTotalLevel);
             this.groupBox3.Controls.Add(this.nudMaxGraphLevel);
@@ -824,7 +826,7 @@
             this.groupBox3.Controls.Add(this.nudMaxDomLevels);
             this.groupBox3.Location = new System.Drawing.Point(394, 6);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(246, 127);
+            this.groupBox3.Size = new System.Drawing.Size(345, 127);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Maximum Levels on Server";
@@ -1325,6 +1327,7 @@
             this.cbSingleplayerSettings.TabIndex = 11;
             this.cbSingleplayerSettings.Text = "Singleplayer Settings";
             this.cbSingleplayerSettings.UseVisualStyleBackColor = true;
+            this.cbSingleplayerSettings.CheckedChanged += new System.EventHandler(this.cbSingleplayerSettings_CheckedChanged);
             // 
             // groupBox11
             // 
@@ -1647,6 +1650,16 @@
             this.groupBox9.TabIndex = 7;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Library";
+            // 
+            // CbLibrarySelectSelectedSpeciesOnLoad
+            // 
+            this.CbLibrarySelectSelectedSpeciesOnLoad.AutoSize = true;
+            this.CbLibrarySelectSelectedSpeciesOnLoad.Location = new System.Drawing.Point(6, 65);
+            this.CbLibrarySelectSelectedSpeciesOnLoad.Name = "CbLibrarySelectSelectedSpeciesOnLoad";
+            this.CbLibrarySelectSelectedSpeciesOnLoad.Size = new System.Drawing.Size(202, 17);
+            this.CbLibrarySelectSelectedSpeciesOnLoad.TabIndex = 3;
+            this.CbLibrarySelectSelectedSpeciesOnLoad.Text = "Select currently used species on load";
+            this.CbLibrarySelectSelectedSpeciesOnLoad.UseVisualStyleBackColor = true;
             // 
             // cbLibraryHighlightTopCreatures
             // 
@@ -2005,7 +2018,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -2013,7 +2026,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -2021,7 +2034,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -2029,7 +2042,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -2720,15 +2733,13 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // CbLibrarySelectSelectedSpeciesOnLoad
+            // LbDefaultLevelups
             // 
-            this.CbLibrarySelectSelectedSpeciesOnLoad.AutoSize = true;
-            this.CbLibrarySelectSelectedSpeciesOnLoad.Location = new System.Drawing.Point(6, 65);
-            this.CbLibrarySelectSelectedSpeciesOnLoad.Name = "CbLibrarySelectSelectedSpeciesOnLoad";
-            this.CbLibrarySelectSelectedSpeciesOnLoad.Size = new System.Drawing.Size(202, 17);
-            this.CbLibrarySelectSelectedSpeciesOnLoad.TabIndex = 3;
-            this.CbLibrarySelectSelectedSpeciesOnLoad.Text = "Select currently used species on load";
-            this.CbLibrarySelectSelectedSpeciesOnLoad.UseVisualStyleBackColor = true;
+            this.LbDefaultLevelups.AutoSize = true;
+            this.LbDefaultLevelups.Location = new System.Drawing.Point(246, 47);
+            this.LbDefaultLevelups.Name = "LbDefaultLevelups";
+            this.LbDefaultLevelups.Size = new System.Drawing.Size(0, 13);
+            this.LbDefaultLevelups.TabIndex = 13;
             // 
             // Settings
             // 
@@ -3050,5 +3061,6 @@
         private uiControls.Nud NudSpeciesSelectorCountLastUsed;
         private System.Windows.Forms.CheckBox cbApplyNamePatternOnImportOnNewCreatures;
         private System.Windows.Forms.CheckBox CbLibrarySelectSelectedSpeciesOnLoad;
+        private System.Windows.Forms.Label LbDefaultLevelups;
     }
 }
