@@ -21,6 +21,8 @@ namespace ARKBreedingStats
         public const string ArkDataJson = "ark_data.json";
         public const string IgnoreSpeciesClasses = "ignoreSpeciesClasses.json";
         public const string CustomReplacingsNamePattern = "customReplacings.json";
+        public const string ImageFolderName = "img";
+        public const string CacheFolderName = "cache";
 
         public static readonly string ExeFilePath = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
         public static readonly string ExeLocation = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
@@ -154,7 +156,6 @@ namespace ARKBreedingStats
         /// <summary>
         /// Tries to delete a file, doesn't throw an exception.
         /// </summary>
-        /// <param name="filePath"></param>
         public static bool TryDeleteFile(string filePath)
         {
             if (!File.Exists(filePath)) return false;
@@ -163,7 +164,28 @@ namespace ARKBreedingStats
                 File.Delete(filePath);
                 return true;
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Tries to delete a file, doesn't throw an exception.
+        /// </summary>
+        public static bool TryDeleteFile(FileInfo fileInfo)
+        {
+            if (!fileInfo.Exists) return false;
+            try
+            {
+                fileInfo.Delete();
+                return true;
+            }
+            catch
+            {
+                // ignored
+            }
             return false;
         }
 

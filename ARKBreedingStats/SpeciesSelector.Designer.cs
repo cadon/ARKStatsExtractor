@@ -172,7 +172,6 @@
             this.lvSpeciesInLibrary.Size = new System.Drawing.Size(510, 208);
             this.lvSpeciesInLibrary.TabIndex = 4;
             this.lvSpeciesInLibrary.UseCompatibleStateImageBehavior = false;
-            this.lvSpeciesInLibrary.View = System.Windows.Forms.View.Tile;
             this.lvSpeciesInLibrary.SelectedIndexChanged += new System.EventHandler(this.lvSpeciesInLibrary_SelectedIndexChanged);
             // 
             // splitContainer2

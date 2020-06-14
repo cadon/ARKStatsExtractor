@@ -189,8 +189,7 @@ namespace ARKBreedingStats
                 textColor = Color.FromArgb(255, colorSaturation, colorSaturation);
             }
 
-            if (_overlay != null)
-                _overlay.SetInfoText(infoText, textColor);
+            _overlay?.SetInfoText(infoText, textColor);
 
             if (added)
             {

@@ -15,20 +15,20 @@ namespace ARKBreedingStats
 
         public event EditCreatureEventHandler EditCreature;
         public event Action<Creature> BestBreedingPartners;
-        public event PedigreeCreature.ExportToClipboardEventHandler exportToClipboard;
-        public List<Creature> creatures;
-        public Creature creature;
-        private List<Creature> children = new List<Creature>();
-        private readonly List<List<int[]>> lines = new List<List<int[]>>();
-        private List<PedigreeCreature> pcs = new List<PedigreeCreature>();
-        private bool[] enabledColorRegions = { true, true, true, true, true, true };
+        public event PedigreeCreature.ExportToClipboardEventHandler ExportToClipboard;
+        private List<Creature> _creatures;
+        private Creature _selectedCreature;
+        private List<Creature> _creatureChildren = new List<Creature>();
+        private readonly List<List<int[]>> _lines = new List<List<int[]>>();
+        private readonly List<PedigreeCreature> _pcs = new List<PedigreeCreature>();
+        private bool[] _enabledColorRegions = { true, true, true, true, true, true };
 
         public Pedigree()
         {
             InitializeComponent();
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
-            lines.Add(new List<int[]>());
-            lines.Add(new List<int[]>());
+            _lines.Add(new List<int[]>());
+            _lines.Add(new List<int[]>());
             NoCreatureSelected();
             listViewCreatures.ListViewItemSorter = new ListViewColumnSorter();
             splitContainer1.Panel2.Paint += Panel2_Paint;
@@ -37,7 +37,7 @@ namespace ARKBreedingStats
         private void Panel2_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.TranslateTransform(splitContainer1.Panel2.AutoScrollPosition.X, splitContainer1.Panel2.AutoScrollPosition.Y);
-            if (creature != null)
+            if (_selectedCreature != null)
                 DrawLines(e.Graphics);
         }
 
@@ -53,7 +53,7 @@ namespace ARKBreedingStats
                 myPen.EndCap = System.Drawing.Drawing2D.LineCap.ArrowAnchor;
 
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                foreach (int[] line in lines[0])
+                foreach (int[] line in _lines[0])
                 {
                     if (line[4] == 1)
                         myPen.Color = Color.DarkRed;
@@ -71,18 +71,18 @@ namespace ARKBreedingStats
                 }
                 myPen.Color = Color.DarkGray;
                 myPen.Width = 1;
-                foreach (int[] line in lines[1])
+                foreach (int[] line in _lines[1])
                 {
                     g.DrawLine(myPen, line[0], line[1], line[2], line[3]);
                 }
-                if (children.Any())
+                if (_creatureChildren.Any())
                     g.DrawString(Loc.S("Descendants"), new Font("Arial", 14), new SolidBrush(Color.Black), 210, 170);
             }
         }
 
         public void Clear()
         {
-            creature = null;
+            _selectedCreature = null;
             ClearControls();
             NoCreatureSelected();
         }
@@ -91,12 +91,13 @@ namespace ARKBreedingStats
         {
             // clear pedigree   
             SuspendLayout();
-            foreach (PedigreeCreature pc in pcs)
+            foreach (PedigreeCreature pc in _pcs)
                 pc.Dispose();
-            lines.Clear();
-            lines.Add(new List<int[]>());
-            lines.Add(new List<int[]>());
+            _lines.Clear();
+            _lines.Add(new List<int[]>());
+            _lines.Add(new List<int[]>());
             pictureBox.Image = null;
+            pictureBox.Visible = false;
             ResumeLayout();
         }
 
@@ -107,7 +108,7 @@ namespace ARKBreedingStats
         {
             // clear old pedigreeCreatures
             ClearControls();
-            if (creature == null)
+            if (_selectedCreature == null)
             {
                 NoCreatureSelected();
                 return;
@@ -115,7 +116,7 @@ namespace ARKBreedingStats
 
             SuspendLayout();
 
-            pedigreeCreature1.IsGlowSpecies = creature.Species?.IsGlowSpecies ?? false;
+            pedigreeCreature1.IsGlowSpecies = _selectedCreature.Species?.IsGlowSpecies ?? false;
 
             const int leftBorder = 40;
             const int pedigreeElementWidth = 325;
@@ -124,16 +125,16 @@ namespace ARKBreedingStats
             lbPedigreeEmpty.Visible = false;
 
             // create ancestors
-            CreateParentsChild(creature, leftBorder + pedigreeElementWidth + margin, 60, true, true);
-            if (creature.Mother != null)
+            CreateParentsChild(_selectedCreature, leftBorder + pedigreeElementWidth + margin, 60, true, true);
+            if (_selectedCreature.Mother != null)
             {
-                if (CreateParentsChild(creature.Mother, leftBorder, 20))
-                    lines[1].Add(new[] { leftBorder + pedigreeElementWidth, 79, leftBorder + pedigreeElementWidth + margin, 79 });
+                if (CreateParentsChild(_selectedCreature.Mother, leftBorder, 20))
+                    _lines[1].Add(new[] { leftBorder + pedigreeElementWidth, 79, leftBorder + pedigreeElementWidth + margin, 79 });
             }
-            if (creature.Father != null)
+            if (_selectedCreature.Father != null)
             {
-                if (CreateParentsChild(creature.Father, leftBorder + 2 * (pedigreeElementWidth + margin), 20))
-                    lines[1].Add(new[] { leftBorder + 2 * pedigreeElementWidth + 2 * margin, 79, leftBorder + 2 * pedigreeElementWidth + margin, 159 });
+                if (CreateParentsChild(_selectedCreature.Father, leftBorder + 2 * (pedigreeElementWidth + margin), 20))
+                    _lines[1].Add(new[] { leftBorder + 2 * pedigreeElementWidth + 2 * margin, 79, leftBorder + 2 * pedigreeElementWidth + margin, 159 });
             }
 
             // create descendants
@@ -141,28 +142,29 @@ namespace ARKBreedingStats
             // scrolloffsets
             int xS = AutoScrollPosition.X;
             int yS = AutoScrollPosition.Y;
-            foreach (Creature c in children)
+            foreach (Creature c in _creatureChildren)
             {
-                PedigreeCreature pc = new PedigreeCreature(c, enabledColorRegions)
+                PedigreeCreature pc = new PedigreeCreature(c, _enabledColorRegions)
                 {
                     Location = new Point(leftBorder + xS, 200 + 35 * row + yS)
                 };
                 for (int s = 0; s < PedigreeCreature.displayedStatsCount; s++)
                 {
                     int si = PedigreeCreature.displayedStats[s];
-                    if (creature.valuesDom[si] > 0 && creature.levelsWild[si] >= 0 && creature.levelsWild[si] == c.levelsWild[si])
-                        lines[0].Add(new[] { leftBorder + 38 + 29 * s, 200 + 35 * row + 6, leftBorder + 38 + 29 * s, 200 + 35 * row + 15, 0, 0 });
+                    if (_selectedCreature.valuesDom[si] > 0 && _selectedCreature.levelsWild[si] >= 0 && _selectedCreature.levelsWild[si] == c.levelsWild[si])
+                        _lines[0].Add(new[] { leftBorder + 38 + 29 * s, 200 + 35 * row + 6, leftBorder + 38 + 29 * s, 200 + 35 * row + 15, 0, 0 });
                 }
                 pc.CreatureClicked += CreatureClicked;
                 pc.CreatureEdit += CreatureEdit;
                 pc.BestBreedingPartners += BestBreedingPartners;
-                pc.ExportToClipboard += exportToClipboard;
+                pc.ExportToClipboard += ExportToClipboard;
                 splitContainer1.Panel2.Controls.Add(pc);
-                pcs.Add(pc);
+                _pcs.Add(pc);
                 row++;
             }
 
-            pictureBox.Image = CreatureColored.GetColoredCreature(creature.colors, creature.Species, enabledColorRegions, 256, creatureSex: creature.sex);
+            pictureBox.Image = CreatureColored.GetColoredCreature(_selectedCreature.colors, _selectedCreature.Species, _enabledColorRegions, 256, creatureSex: _selectedCreature.sex);
+            pictureBox.Visible = true;
 
             Invalidate();
             ResumeLayout();
@@ -186,7 +188,7 @@ namespace ARKBreedingStats
             int xS = AutoScrollPosition.X;
             int yS = AutoScrollPosition.Y;
             // creature
-            AddCreatureControl(new PedigreeCreature(creature, enabledColorRegions)
+            AddCreatureControl(new PedigreeCreature(creature, _enabledColorRegions)
             {
                 Location = new Point(x + xS, y + yS + 40),
                 Highlight = highlightCreature
@@ -198,14 +200,14 @@ namespace ARKBreedingStats
                 _pc.CreatureClicked += CreatureClicked;
                 _pc.CreatureEdit += CreatureEdit;
                 _pc.BestBreedingPartners += BestBreedingPartners;
-                _pc.ExportToClipboard += exportToClipboard;
-                pcs.Add(_pc);
+                _pc.ExportToClipboard += ExportToClipboard;
+                _pcs.Add(_pc);
             }
 
             // mother
             if (creature.Mother != null)
             {
-                AddCreatureControl(new PedigreeCreature(creature.Mother, enabledColorRegions)
+                AddCreatureControl(new PedigreeCreature(creature.Mother, _enabledColorRegions)
                 {
                     Location = new Point(x + xS, y + yS)
                 });
@@ -213,7 +215,7 @@ namespace ARKBreedingStats
             // father
             if (creature.Father != null)
             {
-                AddCreatureControl(new PedigreeCreature(creature.Father, enabledColorRegions)
+                AddCreatureControl(new PedigreeCreature(creature.Father, _enabledColorRegions)
                 {
                     Location = new Point(x + xS, y + yS + 80)
                 });
@@ -235,11 +237,11 @@ namespace ARKBreedingStats
                 // offspring can have stats that are up to 2 levels higher due to mutations. currently there are no decreasing levels due to mutations
                 if (creature.Mother != null && creature.levelsWild[si] >= 0 && (creature.levelsWild[si] == creature.Mother.levelsWild[si] || creature.levelsWild[si] == creature.Mother.levelsWild[si] + 2))
                 {
-                    lines[0].Add(new[] { 38 + x + 29 * s, y + 33, 38 + x + 29 * s, y + 42, (better == -1 ? 1 : 2), (creature.levelsWild[si] > creature.Mother.levelsWild[si] ? 1 : 0) });
+                    _lines[0].Add(new[] { 38 + x + 29 * s, y + 33, 38 + x + 29 * s, y + 42, (better == -1 ? 1 : 2), (creature.levelsWild[si] > creature.Mother.levelsWild[si] ? 1 : 0) });
                 }
                 if (creature.Father != null && creature.levelsWild[si] >= 0 && (creature.levelsWild[si] == creature.Father.levelsWild[si] || creature.levelsWild[si] == creature.Father.levelsWild[si] + 2))
                 {
-                    lines[0].Add(new[] { 38 + x + 29 * s, y + 83, 38 + x + 29 * s, y + 74, (better == 1 ? 1 : 2), (creature.levelsWild[si] > creature.Father.levelsWild[si] ? 1 : 0) });
+                    _lines[0].Add(new[] { 38 + x + 29 * s, y + 83, 38 + x + 29 * s, y + 74, (better == 1 ? 1 : 2), (creature.levelsWild[si] > creature.Father.levelsWild[si] ? 1 : 0) });
                 }
             }
             return true;
@@ -255,6 +257,8 @@ namespace ARKBreedingStats
             EditCreature?.Invoke(c, isVirtual);
         }
 
+        public void SetCreatures(List<Creature> creatures) => _creatures = creatures;
+
         /// <summary>
         /// Creates the pedigree with the given creature in the center.
         /// </summary>
@@ -264,14 +268,14 @@ namespace ARKBreedingStats
         {
             if (centralCreature == null)
             {
-                creature = null;
+                _selectedCreature = null;
                 ClearControls();
             }
-            else if (creatures != null && (centralCreature != creature || forceUpdate))
+            else if (_creatures != null && (centralCreature != _selectedCreature || forceUpdate))
             {
-                creature = centralCreature;
+                _selectedCreature = centralCreature;
                 // set children
-                children = creatures.Where(cr => cr.motherGuid == creature.guid || cr.fatherGuid == creature.guid)
+                _creatureChildren = _creatures.Where(cr => cr.motherGuid == _selectedCreature.guid || cr.fatherGuid == _selectedCreature.guid)
                         .OrderBy(cr => cr.name)
                         .ToList();
 
@@ -312,11 +316,11 @@ namespace ARKBreedingStats
             {
                 if (value != null && value.Length == 6)
                 {
-                    enabledColorRegions = value;
+                    _enabledColorRegions = value;
                 }
                 else
                 {
-                    enabledColorRegions = new[] { true, true, true, true, true, true };
+                    _enabledColorRegions = new[] { true, true, true, true, true, true };
                 }
             }
         }
@@ -346,7 +350,7 @@ namespace ARKBreedingStats
                 listViewCreatures.Groups.Add(new ListViewGroup(s.DescriptiveNameAndMod));
             }
 
-            foreach (Creature cr in creatures)
+            foreach (Creature cr in _creatures)
             {
                 // if species is unknown, don't display creature
                 if (cr.Species == null) continue;
@@ -388,5 +392,7 @@ namespace ARKBreedingStats
         {
             Loc.ControlText(lbPedigreeEmpty);
         }
+
+        public Species SelectedSpecies => _selectedCreature?.Species;
     }
 }

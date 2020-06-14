@@ -133,11 +133,16 @@ namespace ARKBreedingStats
             if (creature.Mother == null || creature.Father == null)
                 UpdateParents(new List<Creature> { creature });
 
+            _filterListAllowed = false;
             UpdateCreatureListings(species, false);
+
             // show only the added creatures' species
+            listBoxSpeciesLib.SelectedItem = creature.Species;
+            _filterListAllowed = true;
+            _libraryNeedsUpdate = true;
+
             if (goToLibraryTab)
             {
-                listBoxSpeciesLib.SelectedItem = creature.Species;
                 tabControlMain.SelectedTab = tabPageLibrary;
             }
 
@@ -253,7 +258,7 @@ namespace ARKBreedingStats
         private void InitializeCollection()
         {
             // set pointer to current collection
-            pedigree1.creatures = _creatureCollection.creatures;
+            pedigree1.SetCreatures(_creatureCollection.creatures);
             breedingPlan1.creatureCollection = _creatureCollection;
             tribesControl1.Tribes = _creatureCollection.tribes;
             tribesControl1.Players = _creatureCollection.players;
@@ -581,7 +586,7 @@ namespace ARKBreedingStats
             }
         }
 
-        private void ShowCreaturesInListView(List<Creature> creatures)
+        private void ShowCreaturesInListView(IEnumerable<Creature> creatures)
         {
             listViewLibrary.BeginUpdate();
 
@@ -977,7 +982,7 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Call this list to set the listview for the library to the current filters
+        /// Call this list to set the listView for the library to the current filters
         /// </summary>
         private void FilterLib()
         {
@@ -1007,12 +1012,12 @@ namespace ARKBreedingStats
             filteredList = ApplyLibraryFilterSettings(filteredList);
 
             // display new results
-            ShowCreaturesInListView(filteredList.OrderBy(c => c.name).ToList());
+            ShowCreaturesInListView(filteredList);
 
-            // update creaturebox
+            // update creatureBox
             creatureBoxListView.UpdateLabel();
 
-            // select previous selecteded creatures again
+            // select previous selected creatures again
             int selectedCount = selectedCreatures.Count;
             if (selectedCount > 0)
             {

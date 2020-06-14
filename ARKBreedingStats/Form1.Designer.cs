@@ -819,7 +819,7 @@ namespace ARKBreedingStats
             // 
             this.lbInfoYellowStats.Location = new System.Drawing.Point(590, 341);
             this.lbInfoYellowStats.Name = "lbInfoYellowStats";
-            this.lbInfoYellowStats.Size = new System.Drawing.Size(177, 187);
+            this.lbInfoYellowStats.Size = new System.Drawing.Size(255, 126);
             this.lbInfoYellowStats.TabIndex = 15;
             this.lbInfoYellowStats.Text = resources.GetString("lbInfoYellowStats.Text");
             // 

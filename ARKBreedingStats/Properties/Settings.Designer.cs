@@ -380,18 +380,6 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LastImportFile {
-            get {
-                return ((string)(this["LastImportFile"]));
-            }
-            set {
-                this["LastImportFile"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool showColorsInLibrary {
             get {
@@ -1319,12 +1307,24 @@ namespace ARKBreedingStats.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AlreadyAskedToDownloadImageFiles {
+        public bool AlreadyAskedToDownloadImageFilesTropeognathus {
             get {
-                return ((bool)(this["AlreadyAskedToDownloadImageFiles"]));
+                return ((bool)(this["AlreadyAskedToDownloadImageFilesTropeognathus"]));
             }
             set {
-                this["AlreadyAskedToDownloadImageFiles"] = value;
+                this["AlreadyAskedToDownloadImageFilesTropeognathus"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LibrarySelectSelectedSpeciesOnLoad {
+            get {
+                return ((bool)(this["LibrarySelectSelectedSpeciesOnLoad"]));
+            }
+            set {
+                this["LibrarySelectSelectedSpeciesOnLoad"] = value;
             }
         }
     }
