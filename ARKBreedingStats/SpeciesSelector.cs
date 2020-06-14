@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -81,25 +82,28 @@ namespace ARKBreedingStats
                 {18, 18, 18, 18, 18, 18}; // uniform color pattern that is used for all polar species in the selector
             ImageList lImgList = new ImageList();
             var iconIndices = new List<string>();
+            bool imageFolderExist = Directory.Exists(FileService.GetPath(FileService.ImageFolderName));
 
-            //var speciesWOImage = new List<string>();// TODO debug
+            //var speciesWOImage = new List<string>();// to determine which species have no image yet
             foreach (Species ss in species)
             {
                 if (!speciesNameToSpecies.ContainsKey(ss.DescriptiveNameAndMod))
                     speciesNameToSpecies.Add(ss.DescriptiveNameAndMod, ss);
 
-                var (imgExists, imagePath, speciesListName) = CreatureColored.SpeciesImageExists(ss,
-                    ss.name.Contains("Polar") ? creatureColorsPolar : creatureColors);
-                if (imgExists && !iconIndices.Contains(speciesListName))
+                if (imageFolderExist)
                 {
-                    lImgList.Images.Add(Image.FromFile(imagePath));
-                    iconIndices.Add(speciesListName);
-                }
+                    var (imgExists, imagePath, speciesListName) = CreatureColored.SpeciesImageExists(ss,
+                        ss.name.Contains("Polar") ? creatureColorsPolar : creatureColors);
+                    if (imgExists && !iconIndices.Contains(speciesListName))
+                    {
+                        lImgList.Images.Add(Image.FromFile(imagePath));
+                        iconIndices.Add(speciesListName);
+                    }
 
-                //if (!imgExists && !speciesWOImage.Contains(ss.name)) speciesWOImage.Add(ss.name);
+                    //if (!imgExists && !speciesWOImage.Contains(ss.name)) speciesWOImage.Add(ss.name);
+                }
             }
             //Clipboard.SetText(string.Join("\n", speciesWOImage));
-
 
             var entryList = new List<SpeciesListEntry>();
 
