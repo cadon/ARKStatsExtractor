@@ -105,6 +105,7 @@ namespace ARKBreedingStats
 * hallipr (FTP savefile import)
 * EmkioA (Cryopod import, listView tweaks)
 * dunger (fixes)
+* Myrmecoleon (extra species images)
 
 Translations:
 * French by Vykan and Yanuut

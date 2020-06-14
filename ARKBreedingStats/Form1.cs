@@ -368,11 +368,11 @@ namespace ARKBreedingStats
             if (DateTime.Now.AddHours(-20) > Properties.Settings.Default.lastUpdateCheck)
                 CheckForUpdates(true);
 
-            if (!Properties.Settings.Default.AlreadyAskedToDownloadImageFiles)
+            if (!Properties.Settings.Default.AlreadyAskedToDownloadImageFilesTropeognathus)
             {
-                Properties.Settings.Default.AlreadyAskedToDownloadImageFiles = true;
-                if (!File.Exists(FileService.GetPath(FileService.ImageFolderName, "Giant Queen Bee.png"))
-                    && MessageBox.Show("Download species images to display the creature colors?\n\nThe file to be downloaded has a size of ~13 MB.",
+                Properties.Settings.Default.AlreadyAskedToDownloadImageFilesTropeognathus = true;
+                if (!File.Exists(FileService.GetPath(FileService.ImageFolderName, "Tropeognathus.png"))
+                    && MessageBox.Show("Download new species images to display the creature colors?\n\nThe file to be downloaded has a size of ~17 MB.\nYou can later download these images in the menu ? - Download Species Images",
                     "Download species images?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     DownloadSpeciesImagesAsync();
             }
