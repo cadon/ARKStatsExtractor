@@ -449,8 +449,7 @@ namespace ARKBreedingStats
                     dhmsInputGrown.Timespan = TimeSpan.Zero;
                     dhmsInputCooldown.Timespan = TimeSpan.Zero;
                 }
-                RegionColors = new int[6];
-                UpdateRegionColorImage();
+                RegionColors = null;
             }
         }
 

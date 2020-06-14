@@ -15,6 +15,7 @@ namespace ARKBreedingStats
         private const string Extension = ".png";
         private static readonly string ImgFolder = FileService.GetPath(FileService.ImageFolderName);
         private static readonly string CacheFolder = FileService.GetPath(FileService.ImageFolderName, FileService.CacheFolderName);
+        private const int TemplateSize = 256;
 
         /// <summary>
         /// Returns the name of the image file used for the species. E.g. parts like Aberrant or Brute are removed, they share the same graphics.
@@ -95,14 +96,17 @@ namespace ARKBreedingStats
 
             string speciesBackgroundFilePath = Path.Combine(ImgFolder, speciesName + Extension);
             string speciesColorMaskFilePath = Path.Combine(ImgFolder, speciesName + "_m" + Extension);
-            string cacheFileName = ColoredCreatureCacheFilePath(speciesName, colorIds);
-            bool cacheFileExists = File.Exists(cacheFileName);
+            string cacheFilePath = ColoredCreatureCacheFilePath(speciesName, colorIds);
+            bool cacheFileExists = File.Exists(cacheFilePath);
             if (!onlyColors && !cacheFileExists)
             {
-                cacheFileExists = CreateAndSaveCacheSpeciesFile(colorIds, enabledColorRegions, speciesBackgroundFilePath, speciesColorMaskFilePath, cacheFileName);
+                cacheFileExists = CreateAndSaveCacheSpeciesFile(colorIds, enabledColorRegions, speciesBackgroundFilePath, speciesColorMaskFilePath, cacheFilePath);
             }
 
             if (onlyImage && !cacheFileExists) return null;
+
+            if (cacheFileExists && size == TemplateSize)
+                return new Bitmap(cacheFilePath);
 
             Bitmap bm = new Bitmap(size, size);
             using (Graphics graph = Graphics.FromImage(bm))
@@ -115,7 +119,7 @@ namespace ARKBreedingStats
                     graph.InterpolationMode = InterpolationMode.HighQualityBicubic;
                     graph.SmoothingMode = SmoothingMode.HighQuality;
                     graph.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                    graph.DrawImage(new Bitmap(cacheFileName), 0, 0, size, size);
+                    graph.DrawImage(new Bitmap(cacheFilePath), 0, 0, size, size);
                 }
                 else
                 {
@@ -153,11 +157,9 @@ namespace ARKBreedingStats
         /// </summary>
         /// <returns></returns>
         private static bool CreateAndSaveCacheSpeciesFile(int[] colorIds, bool[] enabledColorRegions,
-            string speciesBackgroundFilePath, string speciesColorMaskFilePath, string cacheFileName, int outputSize = 256)
+            string speciesBackgroundFilePath, string speciesColorMaskFilePath, string cacheFilePath, int outputSize = 256)
         {
             if (!File.Exists(speciesBackgroundFilePath)) return false;
-
-            const int templateSize = 256;
 
             using (Bitmap bmpBackground = new Bitmap(speciesBackgroundFilePath))
             using (Bitmap bmpColoredCreature = new Bitmap(bmpBackground.Width, bmpBackground.Height, PixelFormat.Format32bppArgb))
@@ -169,7 +171,7 @@ namespace ARKBreedingStats
                 // shadow
                 using (var b = new SolidBrush(Color.FromArgb(12, 0, 0, 0)))
                 {
-                    int scx = templateSize / 2;
+                    int scx = TemplateSize / 2;
                     int scy = (int)(scx * 1.6);
                     int factor = 25;
                     int sr = scx - 2 * factor;
@@ -184,30 +186,31 @@ namespace ARKBreedingStats
                 }
 
                 // shaded base image
-                graph.DrawImage(bmpBackground, 0, 0, templateSize, templateSize);
+                graph.DrawImage(bmpBackground, 0, 0, TemplateSize, TemplateSize);
 
                 // if species has color regions, apply colors
                 if (File.Exists(speciesColorMaskFilePath))
                 {
                     var rgb = new byte[Species.ColorRegionCount][];
+                    var useColorRegions = new bool[Species.ColorRegionCount];
                     for (int c = 0; c < Species.ColorRegionCount; c++)
                     {
-                        enabledColorRegions[c] = enabledColorRegions[c] && colorIds[c] != 0;
-                        if (enabledColorRegions[c])
+                        useColorRegions[c] = enabledColorRegions[c] && colorIds[c] != 0;
+                        if (useColorRegions[c])
                         {
                             Color cl = CreatureColors.CreatureColor(colorIds[c]);
                             rgb[c] = new byte[] { cl.R, cl.G, cl.B };
                         }
                     }
-                    imageFine = ApplyColorsUnsafe(rgb, enabledColorRegions, speciesColorMaskFilePath, templateSize, bmpBackground, bmpColoredCreature);
+                    imageFine = ApplyColorsUnsafe(rgb, useColorRegions, speciesColorMaskFilePath, TemplateSize, bmpBackground, bmpColoredCreature);
                 }
 
                 if (imageFine)
                 {
-                    string cacheFolder = Path.GetDirectoryName(cacheFileName);
+                    string cacheFolder = Path.GetDirectoryName(cacheFilePath);
                     if (!Directory.Exists(cacheFolder))
                         Directory.CreateDirectory(cacheFolder);
-                    if (outputSize != templateSize)
+                    if (outputSize != TemplateSize)
                     {
                         using (var resized = new Bitmap(outputSize, outputSize))
                         using (var g = Graphics.FromImage(resized))
@@ -217,10 +220,10 @@ namespace ARKBreedingStats
                             g.SmoothingMode = SmoothingMode.HighQuality;
                             g.PixelOffsetMode = PixelOffsetMode.HighQuality;
                             g.DrawImage(bmpColoredCreature, 0, 0, outputSize, outputSize);
-                            resized.Save(cacheFileName);
+                            resized.Save(cacheFilePath);
                         }
                     }
-                    else bmpColoredCreature.Save(cacheFileName);
+                    else bmpColoredCreature.Save(cacheFilePath);
                     return true;
                 }
             }
