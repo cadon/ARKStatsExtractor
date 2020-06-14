@@ -13,6 +13,9 @@ namespace ARKBreedingStats.Library
     {
         public const string CURRENT_FORMAT_VERSION = "1.13";
 
+        public const int MaxDomLevelDefault = 73;
+        public const int MaxDomLevelSinglePlayerDefault = 88;
+
         [JsonProperty]
         public string FormatVersion;
         [JsonProperty]
@@ -24,7 +27,7 @@ namespace ARKBreedingStats.Library
         [JsonProperty]
         public List<IncubationTimerEntry> incubationListEntries = new List<IncubationTimerEntry>();
         [JsonProperty]
-        public int maxDomLevel = 73;
+        public int maxDomLevel = MaxDomLevelDefault;
         [JsonProperty]
         public int maxWildLevel = 150;
         [JsonProperty]

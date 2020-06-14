@@ -25,7 +25,7 @@ namespace ARKBreedingStats
             if (string.IsNullOrEmpty(speciesName)) return string.Empty;
             return replacePolar
                 ? speciesName.Replace("Aberrant ", string.Empty).Replace("Brute ", string.Empty)
-                    .Replace("Polar Bear", "Dire Bear")
+                    .Replace("Polar Bear", "Dire Bear").Replace("Polar ", string.Empty)
                 : speciesName.Replace("Aberrant ", string.Empty).Replace("Brute ", string.Empty);
         }
 

@@ -867,5 +867,21 @@ namespace ARKBreedingStats.settings
             Loc.ControlText(buttonOK, "OK");
             Loc.ControlText(buttonCancel, "Cancel");
         }
+
+        private void cbSingleplayerSettings_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbSingleplayerSettings.Checked)
+            {
+                if (nudMaxDomLevels.Value != CreatureCollection.MaxDomLevelSinglePlayerDefault)
+                    LbDefaultLevelups.Text = $"default: {CreatureCollection.MaxDomLevelSinglePlayerDefault}";
+                else LbDefaultLevelups.Text = string.Empty;
+            }
+            else
+            {
+                if (nudMaxDomLevels.Value != CreatureCollection.MaxDomLevelDefault)
+                    LbDefaultLevelups.Text = $"default: {CreatureCollection.MaxDomLevelDefault}";
+                else LbDefaultLevelups.Text = string.Empty;
+            }
+        }
     }
 }
