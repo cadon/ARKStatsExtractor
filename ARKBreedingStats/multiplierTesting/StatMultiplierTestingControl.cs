@@ -87,24 +87,22 @@ namespace ARKBreedingStats.multiplierTesting
 
             // ValueWild
             double Vw = (double)nudB.Value * (1 + (double)nudLw.Value * (double)nudIw.Value * spIw * (double)nudIwM.Value);
-            string VwDisplay = Math.Round(Vw * (_percent ? 100 : 1), 4).ToString() + (_percent ? "%" : string.Empty);
-            tbVw.Text = nudB.Value.ToString() + " * ( 1 + " + nudLw.Value.ToString() + " * " + nudIw.Value.ToString() + (spIw != 1 ? " * " + spIw : string.Empty) + " * " + nudIwM.Value.ToString()
-                    + " ) = " + VwDisplay;
+            string VwDisplay = Math.Round(Vw * (_percent ? 100 : 1), 4) + (_percent ? "%" : string.Empty);
+            tbVw.Text = $"{nudB.Value} * ( 1 + {nudLw.Value} * {nudIw.Value}{(spIw != 1 ? " * " + spIw : string.Empty)} * {nudIwM.Value} ) = {VwDisplay}";
             if (_tamed || _bred)
             {
                 // ValueDom
                 Vd = (Vw * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * _sIBM : 1) + (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * spTa : 1))
                         * (1 + (nudTm.Value > 0 ? (_bred ? 1 : _TE) * (double)nudTm.Value * (double)nudTmM.Value * spTm : (double)nudTm.Value));
-                string VdDisplay = Math.Round(Vd * (_percent ? 100 : 1), 4).ToString() + (_percent ? "%" : string.Empty);
-                tbVd.Text = "( " + VwDisplay + (nudTBHM.Value != 1 ? " * " + nudTBHM.Value.ToString() : string.Empty) + (!_NoIB && _bred ? " * ( 1 + " + _IB + " * " + _IBM + $" * {_sIBM} )" : string.Empty)
-                        + " + " + nudTa.Value.ToString() + (nudTa.Value > 0 ? " * " + nudTaM.Value.ToString() + (spTa != 1 ? " * " + spTa : string.Empty) : string.Empty) + " ) "
-                        + " * ( 1 + " + (nudTm.Value > 0 ? (_bred ? 1 : _TE) + " * " + nudTm.Value.ToString() + " * " + nudTmM.Value.ToString() + (spTm != 1 ? " * " + spTm : string.Empty) : nudTm.Value.ToString()) + " )"
+                string VdDisplay = Math.Round(Vd * (_percent ? 100 : 1), 4) + (_percent ? "%" : string.Empty);
+                tbVd.Text = "( " + VwDisplay + (nudTBHM.Value != 1 ? " * " + nudTBHM.Value : string.Empty) + (!_NoIB && _bred ? " * ( 1 + " + _IB + " * " + _IBM + $" * {_sIBM} )" : string.Empty)
+                        + " + " + nudTa.Value + (nudTa.Value > 0 ? " * " + nudTaM.Value + (spTa != 1 ? " * " + spTa : string.Empty) : string.Empty) + " ) "
+                        + " * ( 1 + " + (nudTm.Value > 0 ? (_bred ? 1 : _TE) + " * " + nudTm.Value + " * " + nudTmM.Value + (spTm != 1 ? " * " + spTm : string.Empty) : nudTm.Value.ToString()) + " )"
                         + " = " + VdDisplay;
                 // Value
                 V = Vd * (1 + (double)nudLd.Value * (double)nudId.Value * spId * (double)nudIdM.Value);
-                string VDisplay = Math.Round(V * (_percent ? 100 : 1), 4).ToString() + (_percent ? "%" : string.Empty);
-                tbV.Text = VdDisplay + " * ( 1 + " + nudLd.Value + " * " + nudId.Value + (spId != 1 ? " * " + spId : string.Empty) + " * " + nudIdM.Value + " )"
-                        + " = " + VDisplay;
+                string VDisplay = Math.Round(V * (_percent ? 100 : 1), 4) + (_percent ? "%" : string.Empty);
+                tbV.Text = $"{VdDisplay} * ( 1 + {nudLd.Value} * {nudId.Value}{(spId != 1 ? " * " + spId : string.Empty)} * {nudIdM.Value} ) = {VDisplay}";
             }
             else
             {
@@ -491,7 +489,7 @@ namespace ARKBreedingStats.multiplierTesting
         {
             double denominator = (double)nudIw.Value * (double)nudIwM.Value;
             if (denominator == 0) return;
-            nudLw.ValueSave = (decimal)Math.Round((((double)nudStatValue.Value / ((_percent ? 100 : 1) * (1 + (_bred ? 1 : _TE) * (double)nudTm.Value * (nudTmM.Value > 0 ? (double)nudTmM.Value * spTm : 1)) * (1 + (double)nudLd.Value * (double)nudId.Value * spId * (double)nudIdM.Value)) - ((double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value : 1))) / ((double)nudB.Value * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * _sIBM : 1)) - 1) / denominator);
+            nudLw.ValueSave = (decimal)Math.Round((((double)nudStatValue.Value / ((_percent ? 100 : 1) * (1 + (_bred ? 1 : _TE) * (double)nudTm.Value * (nudTmM.Value > 0 ? (double)nudTmM.Value * spTm : 1)) * (1 + (double)nudLd.Value * (double)nudId.Value * spId * (double)nudIdM.Value)) - ((double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * spTa : 1))) / ((double)nudB.Value * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * _sIBM : 1)) - 1) / denominator);
             UpdateCalculations(true);
         }
 
