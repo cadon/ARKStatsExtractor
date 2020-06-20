@@ -239,6 +239,12 @@ namespace ARKBreedingStats
 
             for (int i = 1; i <= numberOfRetries; ++i)
             {
+                // sometimes a synchronized file has only 0 bytes, i.e. it's not yet synchronized fully. In this case wait a bit and try again
+                if (Properties.Settings.Default.syncCollection && new FileInfo(filePath).Length == 0)
+                {
+                    Thread.Sleep(delayOnRetry);
+                    continue;
+                }
                 try
                 {
                     if (Path.GetExtension(filePath).ToLower() == ".xml")
