@@ -329,6 +329,7 @@
             this.ClientSize = new System.Drawing.Size(1432, 730);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "CustomStatOverridesEditor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
