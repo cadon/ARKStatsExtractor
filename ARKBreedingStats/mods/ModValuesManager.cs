@@ -4,6 +4,7 @@ using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -32,62 +33,6 @@ namespace ARKBreedingStats.uiControls
                     modInfos = Values.V.modsManifest.modsByFiles.Select(smi => smi.Value).Where(mi => mi.mod != null).ToList();
                 }
                 UpdateModListBoxes();
-            }
-        }
-
-        private void BtLoadModFile_Click(object sender, EventArgs e)
-        {
-            string valuesFolder = FileService.GetJsonPath(FileService.ValuesFolder);
-            using (OpenFileDialog dlg = new OpenFileDialog
-            {
-                Filter = "Additional values-file (*.json)|*.json",
-                InitialDirectory = valuesFolder,
-            })
-            {
-                if (dlg.ShowDialog() == DialogResult.OK)
-                {
-                    string filePath = dlg.FileName;
-                    // copy to json folder if loaded from somewhere else
-                    if (!filePath.StartsWith(valuesFolder))
-                    {
-                        try
-                        {
-                            string destination = Path.Combine(valuesFolder, Path.GetFileName(filePath));
-                            File.Copy(filePath, destination);
-                            filePath = destination;
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Trying to copy the file to the application's json folder failed.\n" +
-                                    "The program won't be able to load it at its next start.\n\n" +
-                                    "Error message:\n\n" + ex.Message, "Copy file", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-
-                    bool modFileLoaded = false;
-                    Values modValues = null;
-                    try
-                    {
-                        modFileLoaded = Values.TryLoadValuesFile(filePath, setModFileName: true, throwExceptionOnFail: true, out modValues, errorMessage: out _);
-                    }
-                    catch (FormatException)
-                    {
-                        Form1.FormatExceptionMessageBox(filePath);
-                    }
-
-                    if (modFileLoaded && modValues != null)
-                    {
-                        if (cc.ModList.Contains(modValues.mod))
-                        {
-                            MessageBox.Show($"The mod\n{modValues.mod.title}\nis already loaded.", "Already loaded", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else
-                        {
-                            cc.ModList.Add(modValues.mod);
-                            UpdateModListBoxes();
-                        }
-                    }
-                }
             }
         }
 
@@ -258,6 +203,11 @@ namespace ARKBreedingStats.uiControls
             UpdateModListBoxes();
             lbModList.SelectedIndex = -1;
             lbAvailableModFiles.SelectedItem = null;
+        }
+
+        private void linkLabelCustomModManual_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki/Mod-Values");
         }
     }
 }
