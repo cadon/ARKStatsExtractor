@@ -256,6 +256,10 @@ namespace ARKBreedingStats.settings
             cbMoveImportedFileToSubFolder.Checked = Properties.Settings.Default.MoveAutoImportedFileToSubFolder;
             cbDeleteAutoImportedFile.Checked = Properties.Settings.Default.DeleteAutoImportedFile;
             nudImportLowerBoundTE.ValueSave = (decimal)Properties.Settings.Default.ImportLowerBoundTE * 100;
+            if (Properties.Settings.Default.ImportExportUseTamerStringForOwner)
+                RbTamerStringForOwner.Checked = true;
+            else
+                RbTamerStringForTribe.Checked = true;
             #endregion
 
             #region import savegame
@@ -412,6 +416,7 @@ namespace ARKBreedingStats.settings
 
             cc.changeCreatureStatusOnSavegameImport = cbImportUpdateCreatureStatus.Checked;
             Properties.Settings.Default.ImportTribeNameFilter = textBoxImportTribeNameFilter.Text;
+            Properties.Settings.Default.ImportExportUseTamerStringForOwner = RbTamerStringForOwner.Checked;
             #endregion
 
             #region import savegame

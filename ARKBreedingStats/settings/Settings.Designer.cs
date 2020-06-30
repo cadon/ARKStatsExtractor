@@ -135,6 +135,7 @@
             this.cbApplyGlobalSpeciesToLibrary = new System.Windows.Forms.CheckBox();
             this.cbCreatureColorsLibrary = new System.Windows.Forms.CheckBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.label45 = new System.Windows.Forms.Label();
             this.pCustomOverlayLocation = new System.Windows.Forms.Panel();
             this.nudCustomOverlayLocX = new ARKBreedingStats.uiControls.Nud();
             this.label42 = new System.Windows.Forms.Label();
@@ -184,6 +185,9 @@
             this.fileSelectorExtractedSaveFolder = new ARKBreedingStats.uiControls.FileSelector();
             this.label24 = new System.Windows.Forms.Label();
             this.tabPageImportExported = new System.Windows.Forms.TabPage();
+            this.groupBox27 = new System.Windows.Forms.GroupBox();
+            this.RbTamerStringForTribe = new System.Windows.Forms.RadioButton();
+            this.RbTamerStringForOwner = new System.Windows.Forms.RadioButton();
             this.groupBox23 = new System.Windows.Forms.GroupBox();
             this.label31 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
@@ -227,7 +231,7 @@
             this.cbbOCRApp = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label45 = new System.Windows.Forms.Label();
+            this.label46 = new System.Windows.Forms.Label();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMatingSpeed)).BeginInit();
@@ -290,6 +294,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.aTImportFileLocationBindingSource)).BeginInit();
             this.groupBox14.SuspendLayout();
             this.tabPageImportExported.SuspendLayout();
+            this.groupBox27.SuspendLayout();
             this.groupBox23.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudImportLowerBoundTE)).BeginInit();
             this.groupBox22.SuspendLayout();
@@ -1726,6 +1731,15 @@
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Overlay";
             // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Location = new System.Drawing.Point(6, 16);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(315, 13);
+            this.label45.TabIndex = 24;
+            this.label45.Text = "The window-mode \"Fullscreen-Windowed\" should be set ingame.";
+            // 
             // pCustomOverlayLocation
             // 
             this.pCustomOverlayLocation.Controls.Add(this.nudCustomOverlayLocX);
@@ -2271,6 +2285,7 @@
             // tabPageImportExported
             // 
             this.tabPageImportExported.AutoScroll = true;
+            this.tabPageImportExported.Controls.Add(this.groupBox27);
             this.tabPageImportExported.Controls.Add(this.groupBox23);
             this.tabPageImportExported.Controls.Add(this.groupBox22);
             this.tabPageImportExported.Controls.Add(this.groupBox21);
@@ -2284,6 +2299,40 @@
             this.tabPageImportExported.TabIndex = 3;
             this.tabPageImportExported.Text = "Import Exported";
             this.tabPageImportExported.UseVisualStyleBackColor = true;
+            // 
+            // groupBox27
+            // 
+            this.groupBox27.Controls.Add(this.label46);
+            this.groupBox27.Controls.Add(this.RbTamerStringForTribe);
+            this.groupBox27.Controls.Add(this.RbTamerStringForOwner);
+            this.groupBox27.Location = new System.Drawing.Point(330, 575);
+            this.groupBox27.Name = "groupBox27";
+            this.groupBox27.Size = new System.Drawing.Size(318, 95);
+            this.groupBox27.TabIndex = 11;
+            this.groupBox27.TabStop = false;
+            this.groupBox27.Text = "Tribe / Owner";
+            // 
+            // RbTamerStringForTribe
+            // 
+            this.RbTamerStringForTribe.AutoSize = true;
+            this.RbTamerStringForTribe.Location = new System.Drawing.Point(6, 72);
+            this.RbTamerStringForTribe.Name = "RbTamerStringForTribe";
+            this.RbTamerStringForTribe.Size = new System.Drawing.Size(184, 17);
+            this.RbTamerStringForTribe.TabIndex = 1;
+            this.RbTamerStringForTribe.TabStop = true;
+            this.RbTamerStringForTribe.Text = "Use TamerString for creature tribe";
+            this.RbTamerStringForTribe.UseVisualStyleBackColor = true;
+            // 
+            // RbTamerStringForOwner
+            // 
+            this.RbTamerStringForOwner.AutoSize = true;
+            this.RbTamerStringForOwner.Location = new System.Drawing.Point(6, 49);
+            this.RbTamerStringForOwner.Name = "RbTamerStringForOwner";
+            this.RbTamerStringForOwner.Size = new System.Drawing.Size(193, 17);
+            this.RbTamerStringForOwner.TabIndex = 0;
+            this.RbTamerStringForOwner.TabStop = true;
+            this.RbTamerStringForOwner.Text = "Use TamerString for creature owner";
+            this.RbTamerStringForOwner.UseVisualStyleBackColor = true;
             // 
             // groupBox23
             // 
@@ -2743,14 +2792,14 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // label45
+            // label46
             // 
-            this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(6, 16);
-            this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(315, 13);
-            this.label45.TabIndex = 24;
-            this.label45.Text = "The window-mode \"Fullscreen-Windowed\" should be set ingame.";
+            this.label46.Location = new System.Drawing.Point(6, 17);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(306, 29);
+            this.label46.TabIndex = 2;
+            this.label46.Text = "The TamerString in the export file contains either the creature owner or the trib" +
+    "e, depending on the tribe permissions.";
             // 
             // Settings
             // 
@@ -2851,6 +2900,8 @@
             this.groupBox14.ResumeLayout(false);
             this.tabPageImportExported.ResumeLayout(false);
             this.tabPageImportExported.PerformLayout();
+            this.groupBox27.ResumeLayout(false);
+            this.groupBox27.PerformLayout();
             this.groupBox23.ResumeLayout(false);
             this.groupBox23.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudImportLowerBoundTE)).EndInit();
@@ -3074,5 +3125,9 @@
         private System.Windows.Forms.CheckBox CbLibrarySelectSelectedSpeciesOnLoad;
         private System.Windows.Forms.Label LbDefaultLevelups;
         private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.GroupBox groupBox27;
+        private System.Windows.Forms.RadioButton RbTamerStringForTribe;
+        private System.Windows.Forms.RadioButton RbTamerStringForOwner;
+        private System.Windows.Forms.Label label46;
     }
 }

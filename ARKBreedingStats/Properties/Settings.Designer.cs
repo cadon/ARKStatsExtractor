@@ -1327,5 +1327,17 @@ namespace ARKBreedingStats.Properties {
                 this["LibrarySelectSelectedSpeciesOnLoad"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ImportExportUseTamerStringForOwner {
+            get {
+                return ((bool)(this["ImportExportUseTamerStringForOwner"]));
+            }
+            set {
+                this["ImportExportUseTamerStringForOwner"] = value;
+            }
+        }
     }
 }

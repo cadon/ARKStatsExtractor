@@ -117,7 +117,10 @@ namespace ARKBreedingStats.importExported
                                 cv.flags |= CreatureFlags.Neutered;
                             break;
                         case "TamerString":
-                            cv.tribe = text;
+                            if (Properties.Settings.Default.ImportExportUseTamerStringForOwner)
+                                cv.owner = text;
+                            else
+                                cv.tribe = text;
                             break;
                         case "TamedName":
                             cv.name = text;
@@ -127,7 +130,7 @@ namespace ARKBreedingStats.importExported
                             if (string.IsNullOrEmpty(cv.owner))
                                 cv.owner = text;
                             if (!string.IsNullOrWhiteSpace(text))
-                                cv.isBred = true; // TODO is this a correct assumption?
+                                cv.isBred = true;
                             break;
                         // todo mutations for mother and father
                         case "RandomMutationsMale":

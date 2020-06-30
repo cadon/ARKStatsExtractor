@@ -117,6 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label25.Text" xml:space="preserve">
+    <value>In ARK you can export a creature (hold use while looking at a creature, then choose "Options" - "Export" from the wheel).
+
+The exported creatures are saved as a file. Select the folder to import these files. Usually the folder is
+...\Steam\steamapps\common\ARK\ShooterGame\Saved\DinoExports\&lt;ID&gt;
+
+The first entry is the default export folder and is used for 'Import last exported' and the Auto Import.</value>
+  </data>
+  <metadata name="dgvFileLocation_Change.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dgvFileLocation_Delete.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="aTImportFileLocationBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <metadata name="dgvFileLocation_Change.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -139,14 +156,15 @@ If you set the according files below, you can start the process automatically fr
   <metadata name="aTExportFolderLocationsBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>262, 17</value>
   </metadata>
-  <data name="label25.Text" xml:space="preserve">
-    <value>In ARK you can export a creature (hold use while looking at a creature, then choose "Options" - "Export" from the wheel).
-
-The exported creatures are saved as a file. Select the folder to import these files. Usually the folder is
-...\Steam\steamapps\common\ARK\ShooterGame\Saved\DinoExports\&lt;ID&gt;
-
-The first entry is the default export folder and is used for 'Import last exported' and the Auto Import.</value>
-  </data>
+  <metadata name="dgvExportFolderChange.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dgvExportFolderDelete.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="aTExportFolderLocationsBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>262, 17</value>
+  </metadata>
   <data name="label1.Text" xml:space="preserve">
     <value>OCR is a feature that tries to read the values from the screen by creating a screenshot and extracting the numbers from that (i.e. it does not trigger BattlEye).
 To work propertly, it needs a config file for the used resolution and UI-scaling. It works not perfectly reliable and a resolution of at least 1680×1050 is recommended. Usually using the import features is more comfortable.
