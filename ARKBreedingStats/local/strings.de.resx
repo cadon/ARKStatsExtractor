@@ -1113,7 +1113,7 @@ Stelle sicher, dass die Werte von BabyCuddleIntervallMultiplier und BabyMatureSp
   </data>
   <data name="issueCauseCreatureLevel" xml:space="preserve">
     <value>Überprüfe ob das Gesamtlevel der Kreatur richtig eingegeben wurde.
-Wenn die Kreature gezüchtet ist, überprüfe auch den BabyStatScaleImprintingMultiplier.</value>
+Wenn die Kreature gezüchtet ist, überprüfe auch den BabyImprintingStatScaleMultiplier.</value>
   </data>
   <data name="issueCauseArkStatIssue" xml:space="preserve">
     <value>Diese Spezies ist bekannt dafür in ARK falsche Werte anzuzeigen, dies kann eine erfolgreiche Extraktion verhindern.</value>

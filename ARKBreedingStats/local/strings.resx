@@ -1128,7 +1128,7 @@ They may have to be set to the value when the creature hatched/was born, even if
   </data>
   <data name="issueCauseCreatureLevel" xml:space="preserve">
     <value>Check if the total level of the creature is entered correctly.
-If the creature is bred, also check if the BabyStatScaleImprintingBonus is set correctly.</value>
+If the creature is bred, also check if the BabyImprintingStatScaleMultiplier is set correctly.</value>
   </data>
   <data name="issueCauseArkStatIssue" xml:space="preserve">
     <value>This species is known to show wrong stat values ingame, this can prevent a successful extraction.</value>
