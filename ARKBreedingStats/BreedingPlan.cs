@@ -266,6 +266,7 @@ namespace ARKBreedingStats
 
             bool considerMutationLimit = nudBPMutationLimit.Value >= 0;
 
+            bool creaturesMutationsFilteredOut = false;
             // filter by tags
             int crCountF = females.Count;
             int crCountM = males.Count;
@@ -273,11 +274,19 @@ namespace ARKBreedingStats
             IEnumerable<Creature> selectMales;
             if (considerChosenCreature && chosenCreature.sex == Sex.Female)
                 selectFemales = new List<Creature>();
-            else if (!cbBPMutationLimitOnlyOnePartner.Checked && considerMutationLimit) selectFemales = FilterByTags(females.Where(c => c.Mutations <= nudBPMutationLimit.Value));
+            else if (!cbBPMutationLimitOnlyOnePartner.Checked && considerMutationLimit)
+            {
+                selectFemales = FilterByTags(females.Where(c => c.Mutations <= nudBPMutationLimit.Value));
+                creaturesMutationsFilteredOut = females.Any(c => c.Mutations > nudBPMutationLimit.Value);
+            }
             else selectFemales = FilterByTags(females);
             if (considerChosenCreature && chosenCreature.sex == Sex.Male)
                 selectMales = new List<Creature>();
-            else if (!cbBPMutationLimitOnlyOnePartner.Checked && considerMutationLimit) selectMales = FilterByTags(males.Where(c => c.Mutations <= nudBPMutationLimit.Value));
+            else if (!cbBPMutationLimitOnlyOnePartner.Checked && considerMutationLimit)
+            {
+                selectMales = FilterByTags(males.Where(c => c.Mutations <= nudBPMutationLimit.Value));
+                creaturesMutationsFilteredOut = creaturesMutationsFilteredOut || males.Any(c => c.Mutations > nudBPMutationLimit.Value);
+            }
             else selectMales = FilterByTags(males);
 
             // filter by servers
@@ -305,7 +314,6 @@ namespace ARKBreedingStats
             bool creaturesTagFilteredOut = (crCountF != selectedFemales.Length)
                                               || (crCountM != selectedMales.Length);
 
-            bool creaturesMutationsFilteredOut = false;
             bool displayFilterWarning = true;
 
             lbBreedingPlanHeader.Text = currentSpecies.DescriptiveNameAndMod + (considerChosenCreature ? " (" + string.Format(Loc.S("onlyPairingsWith"), chosenCreature.name) + ")" : string.Empty);
@@ -314,7 +322,7 @@ namespace ARKBreedingStats
 
             var combinedCreatures = new List<Creature>(selectedFemales);
             combinedCreatures.AddRange(selectedMales);
-            // determine top-stats for choosen creatures.
+            // determine top-stats for chosen creatures.
             int[] topStats = new int[Values.STATS_COUNT];
             foreach (Creature c in combinedCreatures)
             {
@@ -430,7 +438,7 @@ namespace ARKBreedingStats
                             // check if the best possible stat outcome already exists in a male
                             bool maleExists = false;
 
-                            foreach (Creature cr in selectMales)
+                            foreach (Creature cr in selectedMales)
                             {
                                 maleExists = true;
                                 for (int s = 0; s < Values.STATS_COUNT; s++)
@@ -451,7 +459,7 @@ namespace ARKBreedingStats
                             {
                                 // check if the best possible stat outcome already exists in a female
                                 bool femaleExists = false;
-                                foreach (Creature cr in selectFemales)
+                                foreach (Creature cr in selectedFemales)
                                 {
                                     femaleExists = true;
                                     for (int s = 0; s < Values.STATS_COUNT; s++)
@@ -501,7 +509,7 @@ namespace ARKBreedingStats
                 }
 
                 // draw best parents
-                int row = 0;
+
                 // scrolloffsets
                 int xS = AutoScrollPosition.X;
                 int yS = AutoScrollPosition.Y;
@@ -589,8 +597,6 @@ namespace ARKBreedingStats
                         }
                         pb.Image = bm;
                     }
-
-                    row++;
                 }
                 // hide unused controls
                 for (int i = creatureCollection.maxBreedingSuggestions; 2 * i + 1 < pcs.Count && i < pbs.Count; i++)
