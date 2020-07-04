@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="aboutToolStripMenuItem" xml:space="preserve">
-    <value>关于</value>
+    <value>关于…</value>
     <comment>…</comment>
   </data>
   <data name="added" xml:space="preserve">
@@ -430,7 +430,7 @@
     <value>武器信息 [%]</value>
   </data>
   <data name="Generation_Abb" xml:space="preserve">
-    <value>Gen</value>
+    <value>代</value>
   </data>
   <data name="gpPreviewEdit" xml:space="preserve">
     <value>回顾 / 编辑</value>
@@ -457,7 +457,7 @@
     <value>?</value>
   </data>
   <data name="ImmobilizedBy" xml:space="preserve">
-    <value>Immobilized by</value>
+    <value>被固定</value>
   </data>
   <data name="importCreatedJsonfileToolStripMenuItem" xml:space="preserve">
     <value>导入 .json文件…</value>
@@ -477,6 +477,7 @@
   <data name="issueMaxWildLevelTooLow" xml:space="preserve">
     <value>此次提取理论上成立, 但是对于完成一个有效提取, 最大野生等级似乎被设置太低. 请检查是否在设定中输入了正确的值.
 当前值为 {0}, 该生物似乎拥有高于当前值的野生等级.
+
 由于其他原因造成的提取失败,请在关闭此提示框后参阅右侧列表.</value>
   </data>
   <data name="lbBPBreedingScore" xml:space="preserve">
@@ -535,8 +536,8 @@
 如果数据不匹配,请点击标位黄色的属性然后修改其可能的数据分布.</value>
   </data>
   <data name="lbSumWildTT" xml:space="preserve">
-    <value>This is an indicator if the sum of the wild levels is valid.
-If a number with a plus sign is shown, the sum is too high and you need to choose another possibility from the lists of yellow stats.</value>
+    <value>这是总体野生等级是否有效的指示器.
+如果数字后显示带加号则表明总和过高,您需要从黄色的列表中选取另外一种可能性.</value>
   </data>
   <data name="lbTamingTime" xml:space="preserve">
     <value>驯服时间</value>
@@ -738,7 +739,7 @@ If a number with a plus sign is shown, the sum is too high and you need to choos
     <value>服务器</value>
   </data>
   <data name="setStatusToolStripMenuItem" xml:space="preserve">
-    <value>Set Status</value>
+    <value>设置属性</value>
   </data>
   <data name="settingsToolStripMenuItem" xml:space="preserve">
     <value>设置</value>
@@ -858,10 +859,10 @@ If a number with a plus sign is shown, the sum is too high and you need to choos
     <value>保存输入值直到提取问题被解决. 正确提取前此生物无法用于程序的其他地方.</value>
   </data>
   <data name="Top" xml:space="preserve">
-    <value>Top</value>
+    <value>最大</value>
   </data>
   <data name="topPercentage" xml:space="preserve">
-    <value>Tp%</value>
+    <value>最大%</value>
   </data>
   <data name="topPercentileLevel" xml:space="preserve">
     <value>该等级在你能找到的所有中排前 {0} %.</value>
@@ -943,5 +944,78 @@ If a number with a plus sign is shown, the sum is too high and you need to choos
   </data>
   <data name="showOnlyNaturalOccuring" xml:space="preserve">
     <value>仅显示自然发生的颜色</value>
+  </data>
+  <data name="addedAt" xml:space="preserve">
+    <value>添加到</value>
+  </data>
+  <data name="cbBPMutationLimitOnlyOnePartner" xml:space="preserve">
+    <value>一对种可能有多个变异</value>
+  </data>
+  <data name="cbBPOnlyOneSuggestionForFemales" xml:space="preserve">
+    <value>仅母系最优建议</value>
+  </data>
+  <data name="CraftingSpeed" xml:space="preserve">
+    <value>制作速度</value>
+  </data>
+  <data name="CraftingSpeed_Abb" xml:space="preserve">
+    <value>制作速度</value>
+  </data>
+  <data name="CurrentCreature" xml:space="preserve">
+    <value>当前生物</value>
+  </data>
+  <data name="es" xml:space="preserve">
+    <value>西班牙语</value>
+  </data>
+  <data name="fr" xml:space="preserve">
+    <value>法语</value>
+  </data>
+  <data name="importingFromSavegameEmptyToolStripMenuItem" xml:space="preserve">
+    <value>首先请配置 "导入保存游戏"</value>
+  </data>
+  <data name="importingFromSavegameToolStripMenuItem" xml:space="preserve">
+    <value>从保存游戏导入</value>
+  </data>
+  <data name="it" xml:space="preserve">
+    <value>意大利语</value>
+  </data>
+  <data name="lbImprintingFailInfo" xml:space="preserve">
+    <value>游戏可能没有及时修改受留痕加成影响的数值(通常收球再扔出/上传再下载/让龙离开渲染距离再回来/服务器重启可以解决)
+到达此留痕加成所需的留痕次数.</value>
+  </data>
+  <data name="matingTime" xml:space="preserve">
+    <value>交配时长</value>
+  </data>
+  <data name="OrOneAscerbicMushroom" xml:space="preserve">
+    <value>每个黑色蘑菇</value>
+  </data>
+  <data name="ProbabilityForOneMutation" xml:space="preserve">
+    <value>单次变异可能性</value>
+  </data>
+  <data name="speciesNotTameable" xml:space="preserve">
+    <value>已选中午中不可被驯服, 您可能选中了此生物不可驯服的变种.</value>
+  </data>
+  <data name="Temperature" xml:space="preserve">
+    <value>温度</value>
+  </data>
+  <data name="Temperature_Abb" xml:space="preserve">
+    <value>温度</value>
+  </data>
+  <data name="TorporDepletion" xml:space="preserve">
+    <value>眩晕消耗</value>
+  </data>
+  <data name="TranqSpearBolts" xml:space="preserve">
+    <value>鱼叉麻醉箭</value>
+  </data>
+  <data name="until" xml:space="preserve">
+    <value>直到</value>
+  </data>
+  <data name="Water" xml:space="preserve">
+    <value>水份</value>
+  </data>
+  <data name="Water_Abb" xml:space="preserve">
+    <value>水份</value>
+  </data>
+  <data name="zh" xml:space="preserve">
+    <value>简体中文</value>
   </data>
 </root>
