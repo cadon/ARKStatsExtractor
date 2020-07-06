@@ -834,7 +834,7 @@ Wähle den "Hohe-Stats"-Modus aus, um bessere Vorschläge zu erhalten.</value>
     <value>Dieses Paar hat sich gerade fortgepflanzt</value>
   </data>
   <data name="btBPJustMatedTT" xml:space="preserve">
-    <value>Click to create an incubation-entry in the Raising-tab</value>
+    <value>Klicke um einen Inkubationseintrag im Aufzucht-Tab zu erstellen</value>
   </data>
   <data name="cbBPTagExcludeDefaultTT" xml:space="preserve">
     <value>Aktivieren, um nur Kreaturen hinzuzufügen, wenn sie einen Tag haben, der explizit ausgewählt ist. Wenn dies deaktiviert ist, werden alle Kreaturen standardmäßig berücksichtigt und nur ausgeschlossen, wenn sie einen Ausschluss Tag und keinen Einschluss Tag haben.</value>
@@ -1151,5 +1151,29 @@ Diese kann mit BSS Preset angewandt werden.</value>
   </data>
   <data name="clearColors" xml:space="preserve">
     <value>Lösche Farben</value>
+  </data>
+  <data name="BtBeepFailure" xml:space="preserve">
+    <value>Import Fehler</value>
+  </data>
+  <data name="BtBeepFailureTT" xml:space="preserve">
+    <value>Dieser Ton wird abgespielt, wenn ein automatischer Import fehlgeschlagen ist und ggf. eine manuelle Level-Auswahl erfordert</value>
+  </data>
+  <data name="BtBeepNewTop" xml:space="preserve">
+    <value>Neuer top Level</value>
+  </data>
+  <data name="BtBeepNewTopTT" xml:space="preserve">
+    <value>Dieser Ton wird abgespielt, wenn die importierte Kreatur ein Level in einem Stat hat, welches höher als die aller anderen Kreaturen dieser Spezies in der Bibliothek ist</value>
+  </data>
+  <data name="BtBeepSuccess" xml:space="preserve">
+    <value>Import Ok</value>
+  </data>
+  <data name="BtBeepSuccessTT" xml:space="preserve">
+    <value>Dieser Ton wird abgespielt, wenn ein automatischer Import erfolgreich war</value>
+  </data>
+  <data name="BtBeepTop" xml:space="preserve">
+    <value>Top Level</value>
+  </data>
+  <data name="BtBeepTopTT" xml:space="preserve">
+    <value>Dieser Ton wird abgespielt, wenn die importierte Kreatur ein Level in einem Stat hat, welches gleich dem höchsten Level in diesem Stat von allen Kreaturen dieser Spezies in der Bibliothek ist</value>
   </data>
 </root>

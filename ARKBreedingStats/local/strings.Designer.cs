@@ -297,6 +297,78 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string BtBeepFailure {
+            get {
+                return ResourceManager.GetString("BtBeepFailure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string BtBeepFailureTT {
+            get {
+                return ResourceManager.GetString("BtBeepFailureTT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string BtBeepNewTop {
+            get {
+                return ResourceManager.GetString("BtBeepNewTop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string BtBeepNewTopTT {
+            get {
+                return ResourceManager.GetString("BtBeepNewTopTT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string BtBeepSuccess {
+            get {
+                return ResourceManager.GetString("BtBeepSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string BtBeepSuccessTT {
+            get {
+                return ResourceManager.GetString("BtBeepSuccessTT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string BtBeepTop {
+            get {
+                return ResourceManager.GetString("BtBeepTop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string BtBeepTopTT {
+            get {
+                return ResourceManager.GetString("BtBeepTopTT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Apply new Weightings.
         /// </summary>
         internal static string btBPApplyNewWeights {
@@ -683,7 +755,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to clear colors.
         /// </summary>
         internal static string clearColors {
             get {
@@ -1304,7 +1376,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Hold Ctrl for random colors.
         /// </summary>
         internal static string holdCtrlForRandomColors {
             get {
@@ -1395,7 +1467,7 @@ namespace ARKBreedingStats.local {
         
         /// <summary>
         ///   Looks up a localized string similar to Check if the total level of the creature is entered correctly.
-        ///If the creature is bred, also check if the BabyStatScaleImprintingBonus is set correctly..
+        ///If the creature is bred, also check if the BabyImprintingStatScaleMultiplier is set correctly..
         /// </summary>
         internal static string issueCauseCreatureLevel {
             get {
@@ -2303,7 +2375,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Top Stats Lc.
+        ///   Looks up a localized string similar to Combine top stats lucky.
         /// </summary>
         internal static string rbBPTopStats {
             get {
@@ -2312,7 +2384,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Top Stats Cn.
+        ///   Looks up a localized string similar to Combine top stats steady.
         /// </summary>
         internal static string rbBPTopStatsCn {
             get {
@@ -2321,7 +2393,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Top Stats, Conservative.
+        ///   Looks up a localized string similar to Combine top stats steady
         ///Check for best long-term-results and if you want to go safe.
         ///This mode will get to the best possible offspring steady and surely.
         ///Some offsprings might be worse than in High-Stats-Mode, but that&apos;s the mode you go if you want to have that perfect creature in some generations..
@@ -2333,7 +2405,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Top Stats, Feeling Lucky.
+        ///   Looks up a localized string similar to Combine top stats steady
         ///Check for best long-term-results and if you&apos;re feeling lucky. It can be faster to get the perfect creature than in the Top-Stat-Conservative-Mode if you&apos;re lucky.
         ///Some offsprings might be worse than in High-Stats-Mode, but you also have a chance to the best possible offspring..
         /// </summary>

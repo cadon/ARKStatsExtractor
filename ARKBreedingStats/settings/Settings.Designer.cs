@@ -186,6 +186,7 @@
             this.label24 = new System.Windows.Forms.Label();
             this.tabPageImportExported = new System.Windows.Forms.TabPage();
             this.groupBox27 = new System.Windows.Forms.GroupBox();
+            this.label46 = new System.Windows.Forms.Label();
             this.RbTamerStringForTribe = new System.Windows.Forms.RadioButton();
             this.RbTamerStringForOwner = new System.Windows.Forms.RadioButton();
             this.groupBox23 = new System.Windows.Forms.GroupBox();
@@ -231,7 +232,12 @@
             this.cbbOCRApp = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label46 = new System.Windows.Forms.Label();
+            this.BtBeepFailure = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label47 = new System.Windows.Forms.Label();
+            this.BtBeepSuccess = new System.Windows.Forms.Button();
+            this.BtBeepTop = new System.Windows.Forms.Button();
+            this.BtBeepNewTop = new System.Windows.Forms.Button();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMatingSpeed)).BeginInit();
@@ -309,6 +315,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).BeginInit();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -2042,7 +2049,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -2050,7 +2057,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -2058,7 +2065,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -2066,7 +2073,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -2307,10 +2314,19 @@
             this.groupBox27.Controls.Add(this.RbTamerStringForOwner);
             this.groupBox27.Location = new System.Drawing.Point(330, 575);
             this.groupBox27.Name = "groupBox27";
-            this.groupBox27.Size = new System.Drawing.Size(318, 95);
+            this.groupBox27.Size = new System.Drawing.Size(412, 95);
             this.groupBox27.TabIndex = 11;
             this.groupBox27.TabStop = false;
             this.groupBox27.Text = "Tribe / Owner";
+            // 
+            // label46
+            // 
+            this.label46.Location = new System.Drawing.Point(6, 17);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(306, 29);
+            this.label46.TabIndex = 2;
+            this.label46.Text = "The TamerString in the export file contains either the creature owner or the trib" +
+    "e, depending on the tribe permissions.";
             // 
             // RbTamerStringForTribe
             // 
@@ -2380,6 +2396,7 @@
             // 
             // groupBox22
             // 
+            this.groupBox22.Controls.Add(this.panel2);
             this.groupBox22.Controls.Add(this.cbPlaySoundOnAutomaticImport);
             this.groupBox22.Controls.Add(this.label29);
             this.groupBox22.Controls.Add(this.cbDeleteAutoImportedFile);
@@ -2388,7 +2405,7 @@
             this.groupBox22.Controls.Add(this.cbAutoImportExported);
             this.groupBox22.Location = new System.Drawing.Point(330, 421);
             this.groupBox22.Name = "groupBox22";
-            this.groupBox22.Size = new System.Drawing.Size(318, 148);
+            this.groupBox22.Size = new System.Drawing.Size(412, 148);
             this.groupBox22.TabIndex = 9;
             this.groupBox22.TabStop = false;
             this.groupBox22.Text = "Auto import";
@@ -2792,14 +2809,66 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // label46
+            // BtBeepFailure
             // 
-            this.label46.Location = new System.Drawing.Point(6, 17);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(306, 29);
-            this.label46.TabIndex = 2;
-            this.label46.Text = "The TamerString in the export file contains either the creature owner or the trib" +
-    "e, depending on the tribe permissions.";
+            this.BtBeepFailure.Location = new System.Drawing.Point(3, 18);
+            this.BtBeepFailure.Name = "BtBeepFailure";
+            this.BtBeepFailure.Size = new System.Drawing.Size(115, 23);
+            this.BtBeepFailure.TabIndex = 6;
+            this.BtBeepFailure.Text = "import failed";
+            this.BtBeepFailure.UseVisualStyleBackColor = true;
+            this.BtBeepFailure.Click += new System.EventHandler(this.BtBeepFailure_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.BtBeepNewTop);
+            this.panel2.Controls.Add(this.BtBeepTop);
+            this.panel2.Controls.Add(this.BtBeepSuccess);
+            this.panel2.Controls.Add(this.label47);
+            this.panel2.Controls.Add(this.BtBeepFailure);
+            this.panel2.Location = new System.Drawing.Point(285, 11);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(121, 131);
+            this.panel2.TabIndex = 7;
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Location = new System.Drawing.Point(3, 2);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(108, 13);
+            this.label47.TabIndex = 7;
+            this.label47.Text = "Import sound preview";
+            // 
+            // BtBeepSuccess
+            // 
+            this.BtBeepSuccess.Location = new System.Drawing.Point(3, 47);
+            this.BtBeepSuccess.Name = "BtBeepSuccess";
+            this.BtBeepSuccess.Size = new System.Drawing.Size(115, 23);
+            this.BtBeepSuccess.TabIndex = 8;
+            this.BtBeepSuccess.Text = "import success";
+            this.BtBeepSuccess.UseVisualStyleBackColor = true;
+            this.BtBeepSuccess.Click += new System.EventHandler(this.BtBeepSuccess_Click);
+            // 
+            // BtBeepTop
+            // 
+            this.BtBeepTop.Location = new System.Drawing.Point(3, 76);
+            this.BtBeepTop.Name = "BtBeepTop";
+            this.BtBeepTop.Size = new System.Drawing.Size(115, 23);
+            this.BtBeepTop.TabIndex = 9;
+            this.BtBeepTop.Text = "top stat";
+            this.BtBeepTop.UseVisualStyleBackColor = true;
+            this.BtBeepTop.Click += new System.EventHandler(this.BtBeepTop_Click);
+            // 
+            // BtBeepNewTop
+            // 
+            this.BtBeepNewTop.Location = new System.Drawing.Point(3, 105);
+            this.BtBeepNewTop.Name = "BtBeepNewTop";
+            this.BtBeepNewTop.Size = new System.Drawing.Size(115, 23);
+            this.BtBeepNewTop.TabIndex = 10;
+            this.BtBeepNewTop.Text = "new top stat";
+            this.BtBeepNewTop.UseVisualStyleBackColor = true;
+            this.BtBeepNewTop.Click += new System.EventHandler(this.BtBeepNewTop_Click);
             // 
             // Settings
             // 
@@ -2921,6 +2990,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3129,5 +3200,11 @@
         private System.Windows.Forms.RadioButton RbTamerStringForTribe;
         private System.Windows.Forms.RadioButton RbTamerStringForOwner;
         private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.Button BtBeepFailure;
+        private System.Windows.Forms.Button BtBeepNewTop;
+        private System.Windows.Forms.Button BtBeepTop;
+        private System.Windows.Forms.Button BtBeepSuccess;
     }
 }

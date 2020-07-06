@@ -1161,4 +1161,28 @@ The preset can be applied by the Apply Preset button</value>
   <data name="holdCtrlForRandomColors" xml:space="preserve">
     <value>Hold Ctrl for random colors</value>
   </data>
+  <data name="BtBeepFailure" xml:space="preserve">
+    <value>import failed</value>
+  </data>
+  <data name="BtBeepSuccess" xml:space="preserve">
+    <value>import success</value>
+  </data>
+  <data name="BtBeepTop" xml:space="preserve">
+    <value>top stat</value>
+  </data>
+  <data name="BtBeepNewTop" xml:space="preserve">
+    <value>new top stat</value>
+  </data>
+  <data name="BtBeepFailureTT" xml:space="preserve">
+    <value>This sound is played when an automatic import failed, manual selection of levels may be needed.</value>
+  </data>
+  <data name="BtBeepSuccessTT" xml:space="preserve">
+    <value>This sound is played when an automatic import succeeded</value>
+  </data>
+  <data name="BtBeepTopTT" xml:space="preserve">
+    <value>This sound is played when a level of the imported creature is a top stat, i.e. equal to the current highest level in the library</value>
+  </data>
+  <data name="BtBeepNewTopTT" xml:space="preserve">
+    <value>This sound is played when an automatic imported creature has a higher level in a stat than all other creatures of that species in the library</value>
+  </data>
 </root>
