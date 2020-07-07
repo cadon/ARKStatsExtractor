@@ -910,7 +910,7 @@ This mode will get to the best possible offspring steady and surely.
 Some offsprings might be worse than in High-Stats-Mode, but that's the mode you go if you want to have that perfect creature in some generations.</value>
   </data>
   <data name="rbBPTopStatsTT" xml:space="preserve">
-    <value>Combine top stats steady
+    <value>Combine top stats lucky
 Check for best long-term-results and if you're feeling lucky. It can be faster to get the perfect creature than in the Top-Stat-Conservative-Mode if you're lucky.
 Some offsprings might be worse than in High-Stats-Mode, but you also have a chance to the best possible offspring.</value>
   </data>
