@@ -1159,7 +1159,6 @@ Le préréglage peut être appliqué par le bouton Appliquer le préréglage</va
   <data name="holdCtrlForRandomColors" xml:space="preserve">
     <value>Maintenez Ctrl pour des couleurs aléatoires</value>
   </data>
-  </data>
   <data name="BtBeepFailure" xml:space="preserve">
     <value>échec de l'importation</value>
   </data>
