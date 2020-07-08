@@ -124,7 +124,7 @@
     <value>Ajouté</value>
   </data>
   <data name="AlreadyCreatureWithTopStats" xml:space="preserve">
-    <value>Une créature ayant les statistiques maximales est déjà présente dans la librairie ({0} {1}).
+    <value>Une créature ayant les meilleures statistiques est déjà présente dans la librairie ({0} {1}).
 Le mode de reproduction conservateur actuellement sélectionné peut indiquer certaines suggestions pouvant sembler non optimales.
 Changez le mode de reproduction en "Statistiques élevées" pour de meilleures suggestions.</value>
   </data>
@@ -156,13 +156,13 @@ Changez le mode de reproduction en "Statistiques élevées" pour de meilleures s
     <value>Certaines paires pourraient être filtrées en raison de leurs mutations.</value>
   </data>
   <data name="BPsomeCreaturesAreFilteredOutTags" xml:space="preserve">
-    <value>Certaines créatures sont filtrées en raison de leurs balises.</value>
+    <value>Certaines créatures sont filtrées en raison de leurs tags.</value>
   </data>
   <data name="BPTopStatsShownMightNotTotalTopStats" xml:space="preserve">
     <value>Les meilleures statistiques présentées ici ne sont peut être pas les meilleures de toute votre bibliothèque.</value>
   </data>
   <data name="bred" xml:space="preserve">
-    <value>Bred</value>
+    <value>Élevé</value>
   </data>
   <data name="BreedingNotPossible" xml:space="preserve">
     <value>Reproduction impossible</value>
@@ -242,14 +242,14 @@ Pour utiliser cette fonctionnalité, vous devez activer l'OCR dans les paramètr
     <value>Annuler</value>
   </data>
   <data name="cbBPTagExcludeDefaultTT" xml:space="preserve">
-    <value>Vérifiez si toutes les créatures doivent être exclues et ne sont incluses que lorsqu'elles ont la marque d'inclusion dans leur balise.
-Si cette case n'est pas cochée, toutes les créatures seront incluses par défaut et exclues uniquement si l'une de leurs balises porte la marque d'exclusion et si aucune n'a la marque d'inclusion.</value>
+    <value>Vérifiez si toutes les créatures doivent être exclues et ne sont incluses que lorsqu'elles ont la marque d'inclusion dans leur tag.
+Si cette case n'est pas cochée, toutes les créatures seront incluses par défaut et exclues uniquement si l'un de leurs tags porte la marque d'exclusion et qu'aucun n'a la marque d'inclusion.</value>
   </data>
   <data name="cbExactlyImprinting" xml:space="preserve">
     <value>Exactement, ne pas ajuster</value>
   </data>
   <data name="cbExactlyImprintingTT" xml:space="preserve">
-    <value>Cochez cette case si vous avez exactement 100% de bonus d'élevage.</value>
+    <value>Cochez cette case si vous avez un bonus d'élevage d'exactement 100%.</value>
   </data>
   <data name="cbGuessSpecies" xml:space="preserve">
     <value>Deviner espèce</value>
@@ -629,7 +629,7 @@ Activez-le si l'OCR ne reconnaît pas correctement le nom de tribu et si vous so
     <value>&amp;Nouvelle bibliothèque</value>
   </data>
   <data name="NoPossiblePairingForSpeciesFound" xml:space="preserve">
-    <value>Aucun jumelage possible trouvé pour {0}. Assurez-vous qu'au moins une femelle et un mâle sont disponibles dans votre bibliothèque et que vous n'avez pas exclu toutes les créatures possibles via le sélecteur de balises.</value>
+    <value>Aucun jumelage possible trouvé pour {0}. Assurez-vous qu'au moins une femelle et un mâle sont disponibles dans votre bibliothèque et que vous n'avez pas exclu toutes les créatures possibles via le sélecteur de tags.</value>
   </data>
   <data name="noTamingData" xml:space="preserve">
     <value>aucune donnée d'apprivoisement disponible</value>
@@ -699,25 +699,25 @@ Régler sur -1 pour n'importe quel nombre de mutation.</value>
     <value>Statistiques élevées</value>
   </data>
   <data name="rbBPHighStatsTT" xml:space="preserve">
-    <value>Vérifiez les meilleurs résultats de prochaine génération.
+    <value>Testez les meilleurs résultats de la prochaine génération.
 La chance pour une bonne créature est meilleure.
-Vérifiez s'il n'est pas important d'avoir une Progéniture Top Statistiques-.</value>
+Vérifiez s'il n'est pas important d'avoir une Progéniture avec les meilleures statistiques.</value>
   </data>
   <data name="rbBPTopStats" xml:space="preserve">
-    <value>Top Statistiques Ch</value>
+    <value>Combiner les tops stats, Chanceux</value>
   </data>
   <data name="rbBPTopStatsCn" xml:space="preserve">
-    <value>Top Statistiques Co</value>
+    <value>Combiner les tops stats, Stable</value>
   </data>
   <data name="rbBPTopStatsCnTT" xml:space="preserve">
-    <value>Top Statistiques, Conservateur.
-Vérifiez les meilleurs résultats à long terme et si vous voulez aller en toute sécurité.
+    <value>Combiner les tops stats, Stable.
+Testez les meilleurs résultats à long terme et si vous voulez aller en toute sécurité.
 Ce mode atteindra la meilleure progéniture possible stable et sûre.
 Certaines progénitures peuvent être pire qu'en mode Statistiques Elevées, mais c'est le mode que vous utilisez si vous voulez avoir cette créature parfaite en quelques générations.</value>
   </data>
   <data name="rbBPTopStatsTT" xml:space="preserve">
-    <value>Statistiques Elevées, Chanceux.
-Vérifiez les meilleurs résultats à long terme et si vous vous sentez chanceux. Il peut être plus rapide d'obtenir la créature parfaite qu'en mode Top Statistiques, Conservateur si vous avez de la chance.
+    <value>Combiner les tops stats, Chanceux
+Testez les meilleurs résultats à long terme et si vous vous sentez chanceux. Il peut être plus rapide d'obtenir la créature parfaite qu'en mode Meilleures statistiques, Conservateur si vous avez de la chance.
 Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elevées, mais vous avez aussi la chance d'avoir la meilleure progéniture possible.</value>
   </data>
   <data name="runDefaultExtractionAndImportFileToolStripMenuItem" xml:space="preserve">
@@ -802,7 +802,7 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
     <value>Efficacité d'apprivoisement</value>
   </data>
   <data name="TamingEffectiveness_Abb" xml:space="preserve">
-    <value>TE</value>
+    <value>EA</value>
   </data>
   <data name="tamingInfo" xml:space="preserve">
     <value>Information d'apprivoisement</value>
@@ -862,7 +862,7 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
     <value>Top</value>
   </data>
   <data name="topPercentage" xml:space="preserve">
-    <value>Tp%</value>
+    <value>Top%</value>
   </data>
   <data name="topPercentileLevel" xml:space="preserve">
     <value>Ce niveau est dans le top {0}% de ce que vous pouvez trouver.</value>
@@ -939,23 +939,20 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
   <data name="TranqSpearBolts" xml:space="preserve">
     <value>Flèches tranquillisantes en fonte</value>
   </data>
-  <data name="until" xml:space="preserve">
-    <value>jusqu'à</value>
-  </data>
-  <data name="it" xml:space="preserve">
-    <value>Italien</value>
-  </data>
-  <data name="es" xml:space="preserve">
-    <value>Espagnol</value>
-  </data>
   <data name="importingFromSavegameToolStripMenuItem" xml:space="preserve">
     <value>Importer d'une sauvegarde</value>
   </data>
   <data name="importingFromSavegameEmptyToolStripMenuItem" xml:space="preserve">
     <value>Configurez d'abord "Import Savegame"</value>
   </data>
+  <data name="until" xml:space="preserve">
+    <value>jusqu'à</value>
+  </data>
   <data name="lbImprintingFailInfo" xml:space="preserve">
     <value>Si la créature est élevée, l'extraction peut échouer car le jeu "oublie" parfois d'augmenter certaines valeurs des statistiques pendant le processus d'élevage. Généralement, cela fonctionne après que vous ayez mis puis sorti la créature dans un cryopod, que vous l'ayez téléchargé dans un obélisque/terminal puis que vous vous éloigniez de la distance de rendu ou que vous attendiez un redémarrage du serveur.</value>
+  </data>
+  <data name="it" xml:space="preserve">
+    <value>Italien</value>
   </data>
   <data name="CraftingSpeed" xml:space="preserve">
     <value>Vitesse de fabrication</value>
@@ -983,6 +980,9 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
   </data>
   <data name="btUpdateLibraryCreature" xml:space="preserve">
     <value>Mettre à jour la créature dans la bibliothèque</value>
+  </data>
+  <data name="es" xml:space="preserve">
+    <value>Espagnol</value>
   </data>
   <data name="zh" xml:space="preserve">
     <value>Chinois</value>
@@ -1017,19 +1017,171 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
   <data name="addedAt" xml:space="preserve">
     <value>Ajouté à</value>
   </data>
-  <data name="noColor" xml:space="preserve">
-    <value>sans couleur</value>
+  <data name="All" xml:space="preserve">
+    <value>Tout</value>
   </data>
-  <data name="topLevel" xml:space="preserve">
-    <value>haut niveau</value>
+  <data name="na" xml:space="preserve">
+    <value>n/a</value>
   </data>
-  <data name="newTopLevel" xml:space="preserve">
-    <value>nouveau niveau supérieur</value>
+  <data name="showOnlyNaturalOccuring" xml:space="preserve">
+    <value>N'afficher que les couleurs naturelles</value>
+  </data>
+  <data name="apply" xml:space="preserve">
+    <value>appliquer</value>
+  </data>
+  <data name="libraryFilter" xml:space="preserve">
+    <value>Filtres de la bibliothèque</value>
+  </data>
+  <data name="owners" xml:space="preserve">
+    <value>propriétaires</value>
   </data>
   <data name="servers" xml:space="preserve">
     <value>serveurs</value>
   </data>
-  <data name="showOnlyNaturalOccuring" xml:space="preserve">
-    <value>n'afficher que les couleurs naturelles</value>
+  <data name="tags" xml:space="preserve">
+    <value>tags</value>
+  </data>
+  <data name="tribes" xml:space="preserve">
+    <value>tribus</value>
+  </data>
+  <data name="useFilterInTopStatCalculation" xml:space="preserve">
+    <value>Utiliser les filtres dans le calcul de stat élevés</value>
+  </data>
+  <data name="clearColorsFilters" xml:space="preserve">
+    <value>Effacer les filtres de couleur</value>
+  </data>
+  <data name="groupLibraryBySpecies" xml:space="preserve">
+    <value>Grouper la bibliothèque par espèces</value>
+  </data>
+  <data name="libraryFilterToolStripMenuItem" xml:space="preserve">
+    <value>Filtres de la bibliothèque…</value>
+  </data>
+  <data name="onlyCreaturesWithThisColor" xml:space="preserve">
+    <value>Uniquement les créatures qui ont cette couleur</value>
+  </data>
+  <data name="ownerFilterFromLibrary" xml:space="preserve">
+    <value>Filtre de propriétaire de la bibliothèque</value>
+  </data>
+  <data name="possibleLevelRange" xml:space="preserve">
+    <value>Plage de niveaux possible : {0}–{1}</value>
+  </data>
+  <data name="serverFilterFromLibrary" xml:space="preserve">
+    <value>Filtre de serveur de la bibliothèque</value>
+  </data>
+  <data name="tribeFilterFromLibrary" xml:space="preserve">
+    <value>Filtre de tribu de la bibliothèque</value>
+  </data>
+  <data name="clear" xml:space="preserve">
+    <value>Effacer</value>
+  </data>
+  <data name="filterAllNeededInfo" xml:space="preserve">
+    <value>Seules les créatures avec tous ces tags seront affichées</value>
+  </data>
+  <data name="filterByName" xml:space="preserve">
+    <value>Filtrer par nom</value>
+  </data>
+  <data name="filterExcludeInfo" xml:space="preserve">
+    <value>Les créatures avec ce tag ne seront pas affichées</value>
+  </data>
+  <data name="filterOneNeededInfo" xml:space="preserve">
+    <value>Seules les créatures avec un de ces tags seront affichées</value>
+  </data>
+  <data name="issueCauseTypo" xml:space="preserve">
+    <value>Vérifiez si toutes les valeurs des statistiques ont été saisies correctement.</value>
+  </data>
+  <data name="issueCauseWildTamedBred" xml:space="preserve">
+    <value>Assurez-vous que l'état correct (sauvage, apprivoisé, élevé) pour la créature est choisi.</value>
+  </data>
+  <data name="issueCauseTamingEffectivenessRange" xml:space="preserve">
+    <value>Plage de l'efficacité d'apprivoisement trop étroite, augmentez la limite supérieure et/ou diminuez la limite inférieure.</value>
+  </data>
+  <data name="issueCauseLockedDomLevel" xml:space="preserve">
+    <value>Décochez tous les boutons de verrouillage à zéro dans les stats (tous les symboles de verrouillage doivent être verts et ouverts).</value>
+  </data>
+  <data name="issueCauseImprintingLocked" xml:space="preserve">
+    <value>Vous avez verrouillé la valeur du bonus d'élevage en cochant "Exactement, ne pas ajuster" et l'outil ne l'ajustera pas, cela peut entraîner l'échec de l'extraction.</value>
+  </data>
+  <data name="issueCauseImprintingNotUpdated" xml:space="preserve">
+    <value>Parfois, le jeu ne met pas à jour la valeur des statistiques après un bonus d'élevage. Essayez l'extraction après avoir remis la créature cryopod.</value>
+  </data>
+  <data name="issueCauseImprintingNotPossible" xml:space="preserve">
+    <value>Le pourcentage du bonus d'élevage donné n'est pas possible avec les multiplicateurs actuels et peut provoquer des valeurs erronées pendant le processus d'extraction.
+Assurez-vous que BabyCuddleIntervallMultiplier et BabyMatureSpeedMultiplier sont correctement définis.
+Ils peuvent devoir être modifés quand la créature a éclos/est née, même s'ils ont été modifiés.</value>
+  </data>
+  <data name="issueCauseSingleplayer" xml:space="preserve">
+    <value>Si vous avez activé les paramètres solo dans le jeu, assurez-vous que la case correspondante soit également cochée dans les paramètres de cette application.</value>
+  </data>
+  <data name="issueCauseWildLevelSteps" xml:space="preserve">
+    <value>Ajustez ou désactivez "Consider Wild-level - steps" dans les paramètres.</value>
+  </data>
+  <data name="issueCauseMaxWildLevel" xml:space="preserve">
+    <value>Le niveau sauvage maximum est réglé trop bas, allez dans les paramètres et ajustez-le.</value>
+  </data>
+  <data name="issueCauseStatMultipliers" xml:space="preserve">
+    <value>Les multiplicateurs de statistiques dans les paramètres ne correspondent pas aux multiplicateurs du serveur. Demandez à votre administrateur les multiplicateurs corrects et ajustez-les dans les paramètres.</value>
+  </data>
+  <data name="issueCauseOutdatedIngameValues" xml:space="preserve">
+    <value>Les statistiques de la créature ont été modifiées récemment et le jeu affiche les anciennes valeurs. Augmentez une stat, ce qui devrait déclencher un recalcul des valeurs.</value>
+  </data>
+  <data name="issueCauseCreatureLevel" xml:space="preserve">
+    <value>Vérifiez que le niveau total de la créature soit entré correctement.
+Si la créature est élevée, vérifiez également que BabyImprintingStatScaleMultiplier soit correctement défini.</value>
+  </data>
+  <data name="issueCauseArkStatIssue" xml:space="preserve">
+    <value>Cette espèce est connue pour afficher des valeurs de stats incorrectes dans le jeu, cela peut empêcher une extraction réussie.</value>
+  </data>
+  <data name="BtApplyOTSPreset" xml:space="preserve">
+    <value>Appliquer le préréglage PTS</value>
+  </data>
+  <data name="BtSaveOTSPreset" xml:space="preserve">
+    <value>Enregistrer PTS</value>
+  </data>
+  <data name="BtSaveOTSPresetTT" xml:space="preserve">
+    <value>Enregistrer le Propriétaire, la Tribu et le Serveur en tant que préréglage.
+Le préréglage peut être appliqué par le bouton Appliquer le préréglage</value>
+  </data>
+  <data name="BtApplyOTSPresetTT" xml:space="preserve">
+    <value>Définir les valeurs pour le Propriétaire, la Tribu et le Serveur à partir du préréglage enregistré</value>
+  </data>
+  <data name="noColor" xml:space="preserve">
+    <value>sans couleur</value>
+  </data>
+  <data name="topLevel" xml:space="preserve">
+    <value>meilleur niveau</value>
+  </data>
+  <data name="newTopLevel" xml:space="preserve">
+    <value>nouveau meilleur niveau</value>
+  </data>
+  <data name="clearColors" xml:space="preserve">
+    <value>effacer les couleurs</value>
+  </data>
+  <data name="holdCtrlForRandomColors" xml:space="preserve">
+    <value>Maintenez Ctrl pour des couleurs aléatoires</value>
+  </data>
+  </data>
+  <data name="BtBeepFailure" xml:space="preserve">
+    <value>échec de l'importation</value>
+  </data>
+  <data name="BtBeepSuccess" xml:space="preserve">
+    <value>succès de l'importation</value>
+  </data>
+  <data name="BtBeepTop" xml:space="preserve">
+    <value>top stat</value>
+  </data>
+  <data name="BtBeepNewTop" xml:space="preserve">
+    <value>nouvelle top stat</value>
+  </data>
+  <data name="BtBeepFailureTT" xml:space="preserve">
+    <value>Ce son est joué en cas d'échec d'une importation automatique, une sélection manuelle des niveaux peut être nécessaire.</value>
+  </data>
+  <data name="BtBeepSuccessTT" xml:space="preserve">
+    <value>Ce son est joué lorsqu'une importation automatique a réussi</value>
+  </data>
+  <data name="BtBeepTopTT" xml:space="preserve">
+    <value>Ce son est joué lorsqu'un niveau de la créature importée est une top stat, c'est-à-dire égale au plus haut niveau actuel de la bibliothèque</value>
+  </data>
+  <data name="BtBeepNewTopTT" xml:space="preserve">
+    <value>Ce son est joué lorsqu'une créature importée automatiquement a un niveau supérieur dans une statistique que toutes les autres créatures de cette espèce dans la bibliothèque</value>
   </data>
 </root>
