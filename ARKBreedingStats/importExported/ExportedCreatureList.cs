@@ -277,7 +277,7 @@ namespace ARKBreedingStats.importExported
                 string importedPath = Path.Combine(selectedFolder, "imported");
                 if (!FileService.TryCreateDirectory(importedPath, out string errorMessage))
                 {
-                    MessageBox.Show($"Subfolder\n{importedPath}\ncould not be created.\n{errorMessage}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Subfolder\n{importedPath}\ncould not be created.\n{errorMessage}", $"Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -294,7 +294,7 @@ namespace ARKBreedingStats.importExported
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show($"The file\n{ecc.exportedFile}\ncould not be moved. The following files will not be moved either.\n\nException:\n{ex.Message}", "Error moving file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show($"The file\n{ecc.exportedFile}\ncould not be moved. The following files will not be moved either.\n\nException:\n{ex.Message}", $"Error moving file - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
                         }
                     }

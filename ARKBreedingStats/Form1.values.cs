@@ -132,7 +132,7 @@ namespace ARKBreedingStats
                 MessageBox.Show(missingModValueFilesOnlineNotAvailable.Count.ToString() + " mod-value files are neither available locally nor online. The creatures of the missing mod will not be displayed.\n"
                 + "The following files are missing\n\n"
                 + string.Join("\n", missingModValueFilesOnlineNotAvailable),
-                "Missing value files", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                $"Missing value files - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return filesDownloaded;
@@ -154,7 +154,7 @@ namespace ARKBreedingStats
                     MessageBox.Show(
                         $"Mods manifest file {Path.Combine(FileService.ValuesFolder, FileService.ModsManifest)} not found " +
                         "and downloading it failed. You can try it later or try to update your application.",
-                        "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        $"File not found - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
                 catch (FormatException)
@@ -173,7 +173,7 @@ namespace ARKBreedingStats
             {
                 MessageBox.Show(
                     $"Serialization exception while trying to load the mods-manifest file.\n\n{serEx.Message}",
-                    "ASB file load error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    $"File loading error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             modsManifest?.Initialize();
@@ -186,7 +186,7 @@ namespace ARKBreedingStats
             if (!ServerMultipliersPresets.TryLoadServerMultipliersPresets(out values.serverMultipliersPresets))
             {
                 MessageBox.Show("The file with the server multipliers couldn't be loaded. Changed settings, e.g. for the singleplayer will be not available.\nIt's recommended to download the application again.",
-                    "Server multiplier file not loaded.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    $"Server multiplier file not loaded - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -214,7 +214,7 @@ namespace ARKBreedingStats
                 if (MessageBox.Show($"One of the following folders where the values-file is expected was not found.\n{FileService.GetJsonPath(FileService.ValuesFolder, FileService.ValuesJson)}\n\n" +
                         "ARK Smart Breeding will not work properly without that file.\n\n" +
                         "Do you want to visit the releases page to redownload it?",
-                        "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                        $"Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                     System.Diagnostics.Process.Start(Updater.ReleasesUrl);
             }
             catch (FileNotFoundException)
@@ -222,7 +222,7 @@ namespace ARKBreedingStats
                 if (MessageBox.Show($"Values-File {FileService.ValuesJson} not found. " +
                         "ARK Smart Breeding will not work properly without that file.\n\n" +
                         "Do you want to visit the releases page to redownload it?",
-                        "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                        $"Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                     System.Diagnostics.Process.Start(Updater.ReleasesUrl);
             }
             catch (FormatException)
@@ -243,13 +243,13 @@ namespace ARKBreedingStats
         {
             MessageBox.Show($"File {filePath} is a format that is unsupported in this version of ARK Smart Breeding." +
                         "\n\nTry updating to a newer version.",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        $"Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         public static void DeserializeExceptionMessageBox(string filePath, string eMessage)
         {
             MessageBox.Show($"File {filePath} couldn't be deserialized.\nErrormessage:\n\n" + eMessage,
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        $"Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

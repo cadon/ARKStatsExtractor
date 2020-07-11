@@ -31,7 +31,7 @@ namespace ARKBreedingStats
                 var (statValuesLoaded, _) = LoadStatAndKibbleValues(applySettings: false);
                 if (!statValuesLoaded)
                 {
-                    MessageBox.Show("Couldn't load stat values. Please redownload the application.", "Error while loading the stat-values", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Couldn't load stat values. Please redownload the application.", $"Error while loading the stat-values - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
@@ -190,13 +190,13 @@ namespace ARKBreedingStats
                 catch (System.Runtime.Serialization.SerializationException e)
                 {
                     MessageBox.Show($"Error during serialization.\nErrormessage:\n\n{e.Message}" + (e.InnerException == null ? string.Empty : $"\n\nInnerException:{e.InnerException.Message}"),
-                        "Serialization-Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        $"Serialization-Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
                 }
                 catch (InvalidOperationException e)
                 {
                     MessageBox.Show($"Error during serialization.\nErrormessage:\n\n{e.Message}" + (e.InnerException == null ? string.Empty : $"\n\nInnerException:{e.InnerException.Message}"),
-                        "Serialization-Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        $"Serialization-Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
                 }
                 finally
@@ -208,7 +208,7 @@ namespace ARKBreedingStats
             if (fileSaved)
                 SetCollectionChanged(false);
             else
-                MessageBox.Show($"This file couldn\'t be saved:\n{filePath}\nMaybe the file is used by another application.", "Error during saving", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"This file couldn\'t be saved:\n{filePath}\nMaybe the file is used by another application.", $"Error during saving - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>
@@ -225,7 +225,7 @@ namespace ARKBreedingStats
 
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
             {
-                MessageBox.Show($"Save file with name \"{filePath}\" does not exist!", "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Save file with name \"{filePath}\" does not exist!", $"File not found - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
@@ -273,7 +273,7 @@ namespace ARKBreedingStats
                                         MessageBox.Show("The library contains creatures of modded species. For a correct file-conversion the correct mod-values file is needed.\n\n"
                                             + "If the mod-value file is not loaded, the conversion may assign wrong species to your creatures.\n"
                                             + "If the mod-value file is not available locally, it will be tried to download it.",
-                                            "Mod values needed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                            $"Mod values needed - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                                         if (Values.V.loadedModsHash != CreatureCollection.CalculateModListHash(new List<Mod>()))
                                             LoadStatAndKibbleValues(false); // reset values to default
@@ -286,7 +286,7 @@ namespace ARKBreedingStats
                                         + "If you're loading the library the conversion of some modded species to the new format may fail and the according creatures have to be imported again later.\n\n"
                                         + $"File:\n{filePath}\n"
                                         + $"unknown mod-file: {modTag}\n\n"
-                                        + "Do you want to load the library and risk losing creatures?", "Unknown mod-file",
+                                        + "Do you want to load the library and risk losing creatures?", $"Unknown mod-file - {Utils.ApplicationNameVersion}",
                                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
                                     return false;
                             }
@@ -326,7 +326,7 @@ namespace ARKBreedingStats
                         else
                         {
                             MessageBox.Show($"Error while trying to read the library-file\n{filePath}\n\n{errorMessage}",
-                                    "Error reading library-file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    $"Error reading library-file - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return false;
                         }
                     }
@@ -343,7 +343,7 @@ namespace ARKBreedingStats
                     // This FormatVersion is not understood, abort
                     MessageBox.Show($"This library format is unsupported in this version of ARK Smart Breeding." +
                             "\n\nTry updating to a newer version.",
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            $"Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     if ((DateTime.Now - Properties.Settings.Default.lastUpdateCheck).TotalMinutes < 10)
                         CheckForUpdates();
                     return false;
@@ -351,7 +351,7 @@ namespace ARKBreedingStats
                 catch (InvalidOperationException e)
                 {
                     MessageBox.Show($"The library-file\n{filePath}\ncouldn\'t be opened, we thought you should know.\nErrormessage:\n\n{e.Message}" + (e.InnerException == null ? string.Empty : $"\n\nInnerException:\n\n{e.InnerException.Message}"),
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            $"Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
                 finally

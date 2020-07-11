@@ -431,7 +431,7 @@ namespace ARKBreedingStats
             }
             catch
             {
-                MessageBox.Show("Error while trying to create the custom sound folder for custom timer-sounds", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error while trying to create the custom sound folder for custom timer-sounds", $"Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (Directory.Exists(soundPath))

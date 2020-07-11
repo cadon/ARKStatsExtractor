@@ -843,7 +843,7 @@ namespace ARKBreedingStats.settings
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error while writing settings file:\n\n" + ex.Message, "ASB File error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error while writing settings file:\n\n" + ex.Message, $"File writing error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

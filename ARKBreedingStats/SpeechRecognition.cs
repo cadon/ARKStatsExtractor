@@ -44,7 +44,7 @@ namespace ARKBreedingStats
                 catch
                 {
                     MessageBox.Show("Couldn't set Audio-Input to default-audio device. The speech recognition will not work until a restart.\nTry to change the default-audio-input (e.g. plug-in a microphone).",
-                            "Microphone Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            $"Microphone Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 recognizer.SpeechRecognitionRejected += Recognizer_SpeechRecognitionRejected;
             }
@@ -121,7 +121,7 @@ namespace ARKBreedingStats
                     catch
                     {
                         MessageBox.Show("Couldn't set Audio-Input to default-audio device. The speech recognition will not work until a restart.\nTry to change the default-audio-input (e.g. plug-in a microphone).",
-                                "Microphone Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                $"Microphone Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         listening = false;
                         indicator.ForeColor = SystemColors.GrayText;
                     }

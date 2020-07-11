@@ -42,7 +42,7 @@ namespace ARKBreedingStats.settings
                 try { soundplayer.Play(); }
                 catch
                 {
-                    MessageBox.Show("Unsupported sound-format. Only PCM-WAV is supported.", "Unsupported sound-format", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Unsupported sound-format. Only PCM-WAV is supported.", $"Unsupported sound-format - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

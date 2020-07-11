@@ -89,7 +89,7 @@ namespace ARKBreedingStats
                         $"{ex.Message}\n\n" +
                         "Try checking for an updated version of ARK Smart Breeding. " +
                         "Do you want to visit the releases page?",
-                        "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                        $"Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                     Process.Start(ReleasesUrl);
             }
             return null;
@@ -260,7 +260,7 @@ namespace ARKBreedingStats
                 {
                     successfulDownloaded = false;
                     MessageBox.Show($"Error while trying to download the file\n{url}\n\n{e.Message}{(e.InnerException == null ? string.Empty : $"\n\n{e.InnerException.Message}")}",
-                        "ASB download error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        $"Download error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 if (!File.Exists(outFileName))
@@ -298,7 +298,7 @@ namespace ARKBreedingStats
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show($"Error while trying to download the file\n{url}\n\n{e.Message}", "ASB download error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Error while trying to download the file\n{url}\n\n{e.Message}", $"Download error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 if (!File.Exists(outFileName))
@@ -381,14 +381,14 @@ namespace ARKBreedingStats
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("Error while moving mod-manifest file:\n\n" + e.Message, "Error",
+                        MessageBox.Show("Error while moving mod-manifest file:\n\n" + e.Message, $"Error - {Utils.ApplicationNameVersion}",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error while downloading mod-manifest:\n\n" + e.Message, "Error", MessageBoxButtons.OK,
+                MessageBox.Show("Error while downloading mod-manifest:\n\n" + e.Message, $"Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
             finally
@@ -422,7 +422,7 @@ namespace ARKBreedingStats
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error while downloading values file:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error while downloading values file:\n\n" + e.Message, $"Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return false;
         }

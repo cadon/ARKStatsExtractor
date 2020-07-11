@@ -494,5 +494,19 @@ namespace ARKBreedingStats
                     break;
             }
         }
+
+        private static string _ApplicationNameVersion;
+        /// <summary>
+        /// The name and version of this application.
+        /// </summary>
+        public static string ApplicationNameVersion
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_ApplicationNameVersion))
+                    _ApplicationNameVersion = $"{Application.ProductName} v{Application.ProductVersion}";
+                return _ApplicationNameVersion;
+            }
+        }
     }
 }

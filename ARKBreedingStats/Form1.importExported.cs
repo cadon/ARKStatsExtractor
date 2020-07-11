@@ -80,13 +80,13 @@ namespace ARKBreedingStats
                     MessageBox.Show($"No exported creature-file found in the set folder\n{folder}\nYou have to export a creature first ingame.\n\n" +
                             "You may also want to check the set folder in the settings. Usually the folder is\n" +
                             @"…\Steam\steamapps\common\ARK\ShooterGame\Saved\DinoExports\<ID>",
-                            "No files found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            $"No files found - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (MessageBox.Show("There is no folder set where the exported creatures are located. Set this folder in the settings. " +
                                 "Usually the folder is\n" + @"…\Steam\steamapps\common\ARK\ShooterGame\Saved\DinoExports\<ID>" + "\n\nOpen the settings-page?",
-                                "No default export-folder set", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                                $"No default export-folder set - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                 OpenSettingsDialog(Settings.SettingsTabPages.ExportedImport);
             }
@@ -198,7 +198,7 @@ namespace ARKBreedingStats
                     string importedPath = Path.Combine(Path.GetDirectoryName(filePath), "imported");
                     if (!FileService.TryCreateDirectory(importedPath, out string errorMessage))
                     {
-                        MessageBox.Show($"Subfolder\n{importedPath}\ncould not be created.\n{errorMessage}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show($"Subfolder\n{importedPath}\ncould not be created.\n{errorMessage}", $"Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
                     FileService.TryMoveFile(filePath, Path.Combine(importedPath, Path.GetFileName(filePath)));

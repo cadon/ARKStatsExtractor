@@ -154,7 +154,7 @@ namespace ARKBreedingStats.uiControls
             }
             catch (FileNotFoundException ex)
             {
-                MessageBox.Show($"File not found\n{filePath}\n\nException: {ex.Message}", "ASB - File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"File not found\n{filePath}\n\nException: {ex.Message}", $"File not found - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (System.ComponentModel.Win32Exception)
             {
@@ -173,7 +173,7 @@ namespace ARKBreedingStats.uiControls
                     }
                     catch
                     {
-                        MessageBox.Show("The file couldn't be opened\n" + filePath, "ASB error while opening file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("The file couldn't be opened\n" + filePath, $"Error while opening file - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }

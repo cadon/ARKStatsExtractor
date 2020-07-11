@@ -26,7 +26,7 @@ namespace ARKBreedingStats.testCases
 
                 if (!File.Exists(fileName))
                 {
-                    MessageBox.Show("Save file with name \"" + fileName + "\" does not exist!", "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Save file with name \"" + fileName + "\" does not exist!", $"File not found - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -39,7 +39,7 @@ namespace ARKBreedingStats.testCases
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("File Couldn't be opened, we thought you should know.\nErrormessage:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("File Couldn't be opened, we thought you should know.\nErrormessage:\n\n" + e.Message, $"Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     finally
                     {
@@ -71,7 +71,7 @@ namespace ARKBreedingStats.testCases
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error during serialization of testcase-data.\nErrormessage:\n\n" + e.Message, "Serialization-Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error during serialization of testcase-data.\nErrormessage:\n\n" + e.Message, $"Serialization-Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

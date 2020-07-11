@@ -138,7 +138,7 @@ namespace ARKBreedingStats.importExported
             }
             else
             {
-                MessageBox.Show("The file does not exist:\n" + exportedFile, "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("The file does not exist:\n" + exportedFile, $"File not found - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return successfullyDeleted;
         }

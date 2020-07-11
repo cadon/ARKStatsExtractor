@@ -306,7 +306,7 @@ namespace ARKBreedingStats
             if (!LoadStatAndKibbleValues(applySettings: false).statValuesLoaded || !Values.V.species.Any())
             {
                 MessageBox.Show("The values-file couldn't be loaded, this application does not work without. Try redownloading the tool.",
-                        "Error: Values-file not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        $"Error: Values-file not found - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(1);
             }
 
@@ -991,7 +991,7 @@ namespace ARKBreedingStats
                 else
                 {
                     MessageBox.Show("Download of new stat successful, but files couldn't be loaded.\nTry again later, or redownload the tool.",
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            $"Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else if (!silentCheck)
@@ -1022,7 +1022,7 @@ namespace ARKBreedingStats
             {
                 MessageBox.Show("The kibbles-file couldn't be loaded, the kibble-recipes will not be available. " +
                         "You can redownload this application to get this file.",
-                        "Error: Kibble-recipe-file not loaded", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        $"Error: Kibble-recipe-file not loaded - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return success;
@@ -1564,7 +1564,7 @@ namespace ARKBreedingStats
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show($"Invalid Data in clipboard. Couldn\'t paste creature-data\nErrormessage:\n\n{e.Message}", "Error",
+                    MessageBox.Show($"Invalid Data in clipboard. Couldn\'t paste creature-data\nErrormessage:\n\n{e.Message}", $"Error - {Utils.ApplicationNameVersion}",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
@@ -1626,7 +1626,7 @@ namespace ARKBreedingStats
                         else
                             SetCreatureValuesToExtractor(cv);
                     }
-                    else MessageBox.Show("unknown species:\n" + m.Groups[2].Value, "Species not recognized", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    else MessageBox.Show("unknown species:\n" + m.Groups[2].Value, $"Species not recognized - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -1923,7 +1923,7 @@ namespace ARKBreedingStats
             ocrControl1.output.Text = debugText;
             if (OCRvalues.Length <= 1)
             {
-                if (manuallyTriggered) MessageBox.Show(debugText, "ASB - OCR error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (manuallyTriggered) MessageBox.Show(debugText, $"OCR error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -2204,7 +2204,7 @@ namespace ARKBreedingStats
                     if (!p.Any())
                     {
                         MessageBox.Show("Process for capturing screenshots and for overlay (e.g. the game, or a stream of the game) not found.\n" +
-                                "Start the game or change the process in the settings.\nYou can also define a custom location of the overlay.", "Game started?", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                "Start the game or change the process in the settings.\nYou can also define a custom location of the overlay.", $"Game started? - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         cbToggleOverlay.Checked = false;
                         return false;
                     }
@@ -3053,7 +3053,7 @@ namespace ARKBreedingStats
             }
             catch (FileNotFoundException ex)
             {
-                MessageBox.Show($"Folder not found\n{FileService.GetJsonPath()}\n\nException: {ex.Message}", "No data folder for ASB", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Folder not found\n{FileService.GetJsonPath()}\n\nException: {ex.Message}", $"No data folder - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -3067,7 +3067,7 @@ namespace ARKBreedingStats
             if (!File.Exists(filePath) || !FileService.LoadJSONFile(filePath, out _customReplacingNamingPattern, out errorMessage))
             {
                 if (!string.IsNullOrEmpty(errorMessage))
-                    MessageBox.Show(errorMessage, "ASB Custom replacings file loading error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(errorMessage, $"Custom replacing file loading error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (pe != null) pe.SetCustomReplacings(_customReplacingNamingPattern);
         }
@@ -3139,7 +3139,7 @@ namespace ARKBreedingStats
             {
                 var msgBoxResult = MessageBox.Show(
                     "Some species color region image files seem to already exist.\nDo you want to overwrite them with possible new versions?",
-                    "ASB: Overwrite existing species images?", MessageBoxButtons.YesNoCancel,
+                    $"Overwrite existing species images? - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Question);
                 if (msgBoxResult == DialogResult.Yes)
                     overwrite = true;
@@ -3149,7 +3149,7 @@ namespace ARKBreedingStats
 
             var (success, result) = await Updater.DownloadSpeciesImages(overwrite).ConfigureAwait(true);
 
-            MessageBox.Show(result, "ASB: Species images download", MessageBoxButtons.OK, success ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+            MessageBox.Show(result, $"Species images download - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, success ? MessageBoxIcon.Information : MessageBoxIcon.Error);
         }
     }
 }

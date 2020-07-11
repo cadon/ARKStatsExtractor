@@ -44,7 +44,7 @@ namespace ARKBreedingStats.values
                 }
                 MessageBox.Show($"File {FileService.ValuesServerMultipliers} is a format that is unsupported in this version of ARK Smart Breeding." +
                         "\n\nTry updating to a newer version.",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        $"Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
             else
@@ -52,7 +52,7 @@ namespace ARKBreedingStats.values
                 if (MessageBox.Show($"Servermultipliers-File {FileService.ValuesServerMultipliers} couldn't be read.\n{errorMessage}\n\n" +
                         "ARK Smart Breeding will not work properly without that file.\n\n" +
                         "Do you want to visit the releases page to redownload it?",
-                        "ASB Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                        $"Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                     System.Diagnostics.Process.Start(Updater.ReleasesUrl);
             }
 

@@ -36,7 +36,7 @@ namespace ARKBreedingStats
                             "Ark Smart Breeding will stop now.\n" +
                             "Should the file be deleted? This might fix it.\n" +
                             "The library file remains untouched.",
-                            "Error reading configuration", MessageBoxButtons.YesNo, MessageBoxIcon.Error))
+                            $"Error reading configuration - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error))
                     {
                         case DialogResult.Yes:
                             File.Delete(ex.Filename);
@@ -53,7 +53,7 @@ namespace ARKBreedingStats
                             $"Message:\n{e.Message}\n\n" +
                             "Ark Smart Breeding will stop now.\n" +
                             $"You can try to delete/rename the folder {folder}",
-                            "Error reading configuration", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            $"Error reading configuration - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 Environment.Exit(0);
             }
@@ -66,7 +66,7 @@ namespace ARKBreedingStats
                     + "\n\nStackTrace:\n" + e.StackTrace
                     + (e.InnerException != null ? "\n\nInner Exception:\n" + e.InnerException.Message : string.Empty)
                     ;
-                MessageBox.Show(message, "Unhandled Exception in ARK Smart Breeding " + Application.ProductVersion, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(message, $"Unhandled Exception in {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

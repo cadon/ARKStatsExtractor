@@ -234,7 +234,7 @@ namespace ARKBreedingStats
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occured while loading saved ftp credentials. Message: \n\n{ex.Message}",
-                        "Settings Error", MessageBoxButtons.OK);
+                        $"Settings Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK);
             }
 
             return new Dictionary<string, FtpCredentials>(StringComparer.OrdinalIgnoreCase);

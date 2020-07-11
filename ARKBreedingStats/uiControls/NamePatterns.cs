@@ -317,7 +317,7 @@ namespace ARKBreedingStats.uiControls
             catch (Exception ex)
             {
                 MessageBox.Show($"The syntax of the following pattern function\n{m.Groups[0].Value}\ncannot be processed and will be ignored.\n\nSpecific error-message:\n{ex.Message}",
-                    "Naming pattern function error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    $"Naming pattern function error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return string.Empty;
 
@@ -326,7 +326,7 @@ namespace ARKBreedingStats.uiControls
                 if (displayError)
                     MessageBox.Show($"The syntax of the following pattern function\n{m.Groups[0].Value}\ncannot be processed and will be ignored."
                         + (string.IsNullOrEmpty(specificError) ? string.Empty : $"\n\nSpecific error:\n{specificError}"),
-                        "Naming pattern function error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        $"Naming pattern function error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return displayError ? m.Groups[2].Value : specificError;
             }
         }
