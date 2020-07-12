@@ -1343,8 +1343,12 @@ namespace ARKBreedingStats
             }
             else if (tabControlMain.SelectedTab == tabPageLibrary)
             {
-                if (Properties.Settings.Default.ApplyGlobalSpeciesToLibrary && speciesSelector1.SelectedSpecies != null)
+                if (Properties.Settings.Default.ApplyGlobalSpeciesToLibrary
+                    && speciesSelector1.SelectedSpecies != null
+                    && (listBoxSpeciesLib.SelectedItem as Species) != speciesSelector1.SelectedSpecies)
+                {
                     listBoxSpeciesLib.SelectedItem = speciesSelector1.SelectedSpecies;
+                }
                 else if (_libraryNeedsUpdate)
                     FilterLib();
             }
