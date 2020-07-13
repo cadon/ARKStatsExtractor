@@ -1185,4 +1185,7 @@ The preset can be applied by the Apply Preset button</value>
   <data name="BtBeepNewTopTT" xml:space="preserve">
     <value>This sound is played when an automatic imported creature has a higher level in a stat than all other creatures of that species in the library</value>
   </data>
+  <data name="creatureOfFile" xml:space="preserve">
+    <value>Creature of the export file</value>
+  </data>
 </root>

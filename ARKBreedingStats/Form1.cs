@@ -1243,17 +1243,20 @@ namespace ARKBreedingStats
             creatureBoxListView.parentList = parents;
         }
 
+        /// <summary>
+        /// Returns lists of possible parents.
+        /// </summary>
         private List<Creature>[] FindPossibleParents(Creature creature)
         {
             var fatherList = _creatureCollection.creatures
                     .Where(cr => cr.Species == creature.Species && cr.sex == Sex.Male && cr.guid != creature.guid && !cr.flags.HasFlag(CreatureFlags.Placeholder))
-                    .OrderBy(cr => cr.name);
+                    .OrderBy(cr => cr.name).ToList();
             var motherList = _creatureCollection.creatures
                     .Where(cr => cr.Species == creature.Species && cr.sex == Sex.Female && cr.guid != creature.guid && !cr.flags.HasFlag(CreatureFlags.Placeholder))
-                    .OrderBy(cr => cr.name);
+                    .OrderBy(cr => cr.name).ToList();
 
             // display new results
-            return new List<Creature>[2] { motherList.ToList(), fatherList.ToList() };
+            return new List<Creature>[2] { motherList, fatherList };
         }
 
         private List<int>[] FindParentSimilarities(List<Creature>[] parents, Creature creature)

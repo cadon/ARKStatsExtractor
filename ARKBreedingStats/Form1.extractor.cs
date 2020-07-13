@@ -769,6 +769,7 @@ namespace ARKBreedingStats
                 return false;
             }
 
+            tabControlMain.SelectedTab = tabPageExtractor;
 
             bool creatureExists = ExtractValuesInExtractor(cv, exportFile, true);
 
@@ -786,8 +787,6 @@ namespace ARKBreedingStats
                         : creatureInfoInputExtractor.CreatureName);
                 }
             }
-
-            tabControlMain.SelectedTab = tabPageExtractor;
             return creatureExists;
         }
 
@@ -828,10 +827,10 @@ namespace ARKBreedingStats
             bool creatureExists = IsCreatureAlreadyInLibrary(cv.guid, cv.ARKID, out Creature existingCreature);
 
             ExtractLevels(autoExtraction: autoExtraction, statInputsHighPrecision: true, existingCreature: existingCreature);
-            UpdateParentListInput(creatureInfoInputExtractor); // this function is only used for single-creature extractions, e.g. LastExport
             SetCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
+            UpdateParentListInput(creatureInfoInputExtractor); // this function is only used for single-creature extractions, e.g. LastExport
             creatureInfoInputExtractor.UpdateExistingCreature = creatureExists;
-            SetMessageLabelText("Creature of the exported file\n" + filePath);
+            SetMessageLabelText(Loc.S("creatureOfFile") + "\n" + filePath);
             return creatureExists;
         }
 

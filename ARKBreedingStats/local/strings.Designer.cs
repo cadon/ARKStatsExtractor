@@ -297,7 +297,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to import failed.
         /// </summary>
         internal static string BtBeepFailure {
             get {
@@ -306,7 +306,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to This sound is played when an automatic import failed, manual selection of levels may be needed..
         /// </summary>
         internal static string BtBeepFailureTT {
             get {
@@ -315,7 +315,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to new top stat.
         /// </summary>
         internal static string BtBeepNewTop {
             get {
@@ -324,7 +324,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to This sound is played when an automatic imported creature has a higher level in a stat than all other creatures of that species in the library.
         /// </summary>
         internal static string BtBeepNewTopTT {
             get {
@@ -333,7 +333,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to import success.
         /// </summary>
         internal static string BtBeepSuccess {
             get {
@@ -342,7 +342,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to This sound is played when an automatic import succeeded.
         /// </summary>
         internal static string BtBeepSuccessTT {
             get {
@@ -351,7 +351,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to top stat.
         /// </summary>
         internal static string BtBeepTop {
             get {
@@ -360,7 +360,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to This sound is played when a level of the imported creature is a top stat, i.e. equal to the current highest level in the library.
         /// </summary>
         internal static string BtBeepTopTT {
             get {
@@ -859,6 +859,15 @@ namespace ARKBreedingStats.local {
         internal static string Creature {
             get {
                 return ResourceManager.GetString("Creature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string creatureOfFile {
+            get {
+                return ResourceManager.GetString("creatureOfFile", resourceCulture);
             }
         }
         
@@ -2405,7 +2414,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Combine top stats steady
+        ///   Looks up a localized string similar to Combine top stats lucky
         ///Check for best long-term-results and if you&apos;re feeling lucky. It can be faster to get the perfect creature than in the Top-Stat-Conservative-Mode if you&apos;re lucky.
         ///Some offsprings might be worse than in High-Stats-Mode, but you also have a chance to the best possible offspring..
         /// </summary>

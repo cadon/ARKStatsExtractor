@@ -1176,4 +1176,7 @@ Diese kann mit BSS Preset angewandt werden.</value>
   <data name="BtBeepTopTT" xml:space="preserve">
     <value>Dieser Ton wird abgespielt, wenn die importierte Kreatur ein Level in einem Stat hat, welches gleich dem höchsten Level in diesem Stat von allen Kreaturen dieser Spezies in der Bibliothek ist</value>
   </data>
+  <data name="creatureOfFile" xml:space="preserve">
+    <value>Kreatur der Export-Datei</value>
+  </data>
 </root>

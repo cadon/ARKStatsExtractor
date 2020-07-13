@@ -76,11 +76,11 @@ namespace ARKBreedingStats
                     ExtractExportedFileInExtractor(files.OrderByDescending(f => File.GetLastWriteTime(f)).First());
                     return;
                 }
-                else
-                    MessageBox.Show($"No exported creature-file found in the set folder\n{folder}\nYou have to export a creature first ingame.\n\n" +
-                            "You may also want to check the set folder in the settings. Usually the folder is\n" +
-                            @"…\Steam\steamapps\common\ARK\ShooterGame\Saved\DinoExports\<ID>",
-                            $"No files found - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                MessageBox.Show($"No exported creature-file found in the set folder\n{folder}\nYou have to export a creature first ingame.\n\n" +
+                                "You may also want to check the set folder in the settings. Usually the folder is\n" +
+                                @"…\Steam\steamapps\common\ARK\ShooterGame\Saved\DinoExports\<ID>",
+                    $"No files found - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

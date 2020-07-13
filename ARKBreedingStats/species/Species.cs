@@ -248,14 +248,18 @@ namespace ARKBreedingStats.species
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as Species);
+            return obj is Species other && !string.IsNullOrEmpty(other.blueprintPath) && other.blueprintPath == blueprintPath;
         }
 
-        public bool Equals(Species other)
+        public static bool operator ==(Species a, Species b)
         {
-            return other != null && !string.IsNullOrEmpty(blueprintPath)
-                && other.blueprintPath == blueprintPath;
+            if (a is null)
+                return b is null;
+
+            return ReferenceEquals(a, b) || a.Equals(b);
         }
+
+        public static bool operator !=(Species a, Species b) => !(a == b);
 
         public Mod Mod
         {
