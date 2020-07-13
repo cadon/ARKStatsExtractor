@@ -277,17 +277,25 @@ namespace ARKBreedingStats
             pedigree1.Clear();
             breedingPlan1.Clear();
 
-            // assign species objects to creatures
-            foreach (var cr in _creatureCollection.creatures)
+            ApplySpeciesObjectsToCollection(_creatureCollection);
+
+            UpdateTempCreatureDropDown();
+        }
+
+        /// <summary>
+        /// Applies the species object to the creatures and creatureValues of the collection.
+        /// </summary>
+        /// <param name="cc"></param>
+        private static void ApplySpeciesObjectsToCollection(CreatureCollection cc)
+        {
+            foreach (var cr in cc.creatures)
             {
                 cr.Species = Values.V.SpeciesByBlueprint(cr.speciesBlueprint);
             }
-            foreach (var cv in _creatureCollection.creaturesValues)
+            foreach (var cv in cc.creaturesValues)
             {
                 cv.Species = Values.V.SpeciesByBlueprint(cv.speciesBlueprint);
             }
-
-            UpdateTempCreatureDropDown();
         }
 
         /// <summary>

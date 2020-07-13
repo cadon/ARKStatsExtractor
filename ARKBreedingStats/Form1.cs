@@ -987,6 +987,7 @@ namespace ARKBreedingStats
                 {
                     MessageBox.Show("Downloading and updating of the new species-stats was successful.",
                             "Success updating values", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ApplySpeciesObjectsToCollection(_creatureCollection);
                 }
                 else
                 {
