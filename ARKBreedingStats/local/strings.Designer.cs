@@ -863,7 +863,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Creature of the export file.
         /// </summary>
         internal static string creatureOfFile {
             get {
@@ -1007,6 +1007,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Downloading and updating of the new species-stats was successful..
+        /// </summary>
+        internal static string downloadingValuesSuccess {
+            get {
+                return ResourceManager.GetString("downloadingValuesSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         internal static string editToolStripMenuItem {
@@ -1048,6 +1057,15 @@ namespace ARKBreedingStats.local {
         internal static string en {
             get {
                 return ResourceManager.GetString("en", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string error {
+            get {
+                return ResourceManager.GetString("error", resourceCulture);
             }
         }
         
@@ -2102,6 +2120,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There are no creatures in the library selected to copy to the clipboard..
+        /// </summary>
+        internal static string noCreatureSelectedInLibrary {
+            get {
+                return ResourceManager.GetString("noCreatureSelectedInLibrary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No possible pairings found for {0}. Make sure at least one female and male are available in your library and that you didn&apos;t exclude all possible creatures via the tag-selector..
         /// </summary>
         internal static string NoPossiblePairingForSpeciesFound {
@@ -2152,6 +2179,24 @@ namespace ARKBreedingStats.local {
         internal static string notYetTamed {
             get {
                 return ResourceManager.GetString("notYetTamed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No valid data.
+        /// </summary>
+        internal static string noValidData {
+            get {
+                return ResourceManager.GetString("noValidData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no valid extracted creature to export..
+        /// </summary>
+        internal static string noValidExtractedCreatureToExport {
+            get {
+                return ResourceManager.GetString("noValidExtractedCreatureToExport", resourceCulture);
             }
         }
         
@@ -2324,6 +2369,15 @@ namespace ARKBreedingStats.local {
         internal static string possibleLevelRange {
             get {
                 return ResourceManager.GetString("possibleLevelRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pre tame level.
+        /// </summary>
+        internal static string preTameLevel {
+            get {
+                return ResourceManager.GetString("preTameLevel", resourceCulture);
             }
         }
         
@@ -3064,6 +3118,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string unknownSpecies {
+            get {
+                return ResourceManager.GetString("unknownSpecies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to until.
         /// </summary>
         internal static string until {
@@ -3073,11 +3136,29 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update successful.
+        /// </summary>
+        internal static string updateSuccessTitle {
+            get {
+                return ResourceManager.GetString("updateSuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use filter in top stat calculation.
         /// </summary>
         internal static string useFilterInTopStatCalculation {
             get {
                 return ResourceManager.GetString("useFilterInTopStatCalculation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The species values-file couldn&apos;t be loaded, this application does not work without. Try redownloading the tool..
+        /// </summary>
+        internal static string valuesFileLoadingError {
+            get {
+                return ResourceManager.GetString("valuesFileLoadingError", resourceCulture);
             }
         }
         

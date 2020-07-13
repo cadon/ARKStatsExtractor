@@ -1204,7 +1204,7 @@ namespace ARKBreedingStats
         /// <param name="c">Creature to export</param>
         /// <param name="breeding">Stat values that are inherited</param>
         /// <param name="ARKml">True if ARKml markup for coloring should be used. That feature was disabled in the ARK-chat.</param>
-        private void ExportAsTextToClipboard(Creature c, bool breeding = true, bool ARKml = true)
+        private void ExportAsTextToClipboard(Creature c, bool breeding = true, bool ARKml = false)
         {
             if (c != null)
             {

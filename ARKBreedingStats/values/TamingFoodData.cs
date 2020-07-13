@@ -48,7 +48,7 @@ namespace ARKBreedingStats.values
                 if (MessageBox.Show($"The default food data file {FileService.TamingFoodData} couldn't be loaded:\n{errorMessage}\n\n" +
                         "The taming info will be incomplete without that file.\n\n" +
                         "Do you want to visit the releases page to redownload it?",
-                        $"Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                        $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                     System.Diagnostics.Process.Start(Updater.ReleasesUrl);
             }
 

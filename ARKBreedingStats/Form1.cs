@@ -305,8 +305,8 @@ namespace ARKBreedingStats
 
             if (!LoadStatAndKibbleValues(applySettings: false).statValuesLoaded || !Values.V.species.Any())
             {
-                MessageBox.Show("The values-file couldn't be loaded, this application does not work without. Try redownloading the tool.",
-                        $"Error: Values-file not found - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Loc.S("valuesFileLoadingError"),
+                        $"{Loc.S("error")}: Values-file not found - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(1);
             }
 
@@ -985,14 +985,14 @@ namespace ARKBreedingStats
                 var statsLoaded = LoadStatAndKibbleValues();
                 if (statsLoaded.statValuesLoaded)
                 {
-                    MessageBox.Show("Downloading and updating of the new species-stats was successful.",
-                            "Success updating values", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(Loc.S("downloadingValuesSuccess"),
+                            Loc.S("updateSuccessTitle"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ApplySpeciesObjectsToCollection(_creatureCollection);
                 }
                 else
                 {
                     MessageBox.Show("Download of new stat successful, but files couldn't be loaded.\nTry again later, or redownload the tool.",
-                            $"Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else if (!silentCheck)
@@ -1023,7 +1023,7 @@ namespace ARKBreedingStats
             {
                 MessageBox.Show("The kibbles-file couldn't be loaded, the kibble-recipes will not be available. " +
                         "You can redownload this application to get this file.",
-                        $"Error: Kibble-recipe-file not loaded - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        $"{Loc.S("error")}: Kibble-recipe-file not loaded - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return success;
@@ -1411,7 +1411,8 @@ namespace ARKBreedingStats
         private void NumericUpDownTestingTE_ValueChanged(object sender, EventArgs e)
         {
             UpdateAllTesterValues();
-            lbWildLevelTester.Text = "PreTame Level: " + Math.Ceiling(Math.Round((_testingIOs[(int)StatNames.Torpidity].LevelWild + 1) / (1 + NumericUpDownTestingTE.Value / 200), 6));
+            lbWildLevelTester.Text =
+                $"{Loc.S("preTameLevel")}: {Math.Ceiling(Math.Round((_testingIOs[(int)StatNames.Torpidity].LevelWild + 1) / (1 + NumericUpDownTestingTE.Value / 200), 6))}";
         }
 
         private void numericUpDownImprintingBonusTester_ValueChanged(object sender, EventArgs e)
@@ -1420,7 +1421,7 @@ namespace ARKBreedingStats
             // calculate number of imprintings
             if (speciesSelector1.SelectedSpecies.breeding != null && speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted > 0)
                 lbImprintedCount.Text = "(" + Math.Round((double)numericUpDownImprintingBonusTester.Value / (100 * Utils.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier)), 2) + "×)";
-            else lbImprintedCount.Text = "";
+            else lbImprintedCount.Text = string.Empty;
         }
 
         private void numericUpDownImprintingBonusExtractor_ValueChanged(object sender, EventArgs e)
@@ -1428,7 +1429,7 @@ namespace ARKBreedingStats
             // calculate number of imprintings
             if (speciesSelector1.SelectedSpecies.breeding != null && speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted > 0)
                 lbImprintingCuddleCountExtractor.Text = "(" + Math.Round((double)numericUpDownImprintingBonusExtractor.Value / (100 * Utils.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier))) + "×)";
-            else lbImprintingCuddleCountExtractor.Text = "";
+            else lbImprintingCuddleCountExtractor.Text = string.Empty;
         }
 
         private void checkBoxQuickWildCheck_CheckedChanged(object sender, EventArgs e)
@@ -1451,7 +1452,7 @@ namespace ARKBreedingStats
             Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki/Extraction-issues");
         }
 
-        private void ExportSelectedCreatureToClipboard(bool breeding = true, bool ARKml = true)
+        private void ExportSelectedCreatureToClipboard(bool breeding = true, bool ARKml = false)
         {
             if (tabControlMain.SelectedTab == tabPageStatTesting || tabControlMain.SelectedTab == tabPageExtractor)
             {
@@ -1487,15 +1488,11 @@ namespace ARKBreedingStats
                     ExportAsTextToClipboard(creature, breeding, ARKml);
                 }
                 else
-                    MessageBox.Show("There is no valid extracted creature to export.", "No valid data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Loc.S("noValidExtractedCreatureToExport"), Loc.S("NoValidData"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                if (listViewLibrary.SelectedItems.Count > 0)
-                    ExportAsTextToClipboard((Creature)listViewLibrary.SelectedItems[0].Tag, breeding, ARKml);
-                else
-                    MessageBox.Show("No creatures in the library selected to copy to the clipboard", "No Creatures Selected",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                CopySelectedCreatureFromLibraryToClipboard(breeding, ARKml);
             }
         }
 
@@ -1526,11 +1523,19 @@ namespace ARKBreedingStats
 
         private void copyCreatureToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            CopySelectedCreatureFromLibraryToClipboard();
+        }
+
+        /// <summary>
+        /// Copies the values of the first selected creature in the library to the clipboard.
+        /// </summary>
+        private void CopySelectedCreatureFromLibraryToClipboard(bool breedingValues = true, bool ARKml = false)
+        {
             if (listViewLibrary.SelectedItems.Count > 0)
-                CopyCreatureToClipboard((Creature)listViewLibrary.SelectedItems[0].Tag);
+                ExportAsTextToClipboard((Creature)listViewLibrary.SelectedItems[0].Tag, breedingValues, ARKml);
             else
-                MessageBox.Show("No creatures in the library selected to copy to the clipboard", "No Creatures Selected",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Loc.S("noCreatureSelectedInLibrary"), Loc.S("error"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void importValuesFromClipboardToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1572,7 +1577,7 @@ namespace ARKBreedingStats
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show($"Invalid Data in clipboard. Couldn\'t paste creature-data\nErrormessage:\n\n{e.Message}", $"Error - {Utils.ApplicationNameVersion}",
+                    MessageBox.Show($"Invalid Data in clipboard. Couldn\'t paste creature-data\nErrormessage:\n\n{e.Message}", $"{Loc.S("error")} - {Utils.ApplicationNameVersion}",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
@@ -1634,7 +1639,7 @@ namespace ARKBreedingStats
                         else
                             SetCreatureValuesToExtractor(cv);
                     }
-                    else MessageBox.Show("unknown species:\n" + m.Groups[2].Value, $"Species not recognized - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    else MessageBox.Show($"{Loc.S("unknownSpecies")}:\n" + m.Groups[2].Value, $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -1931,7 +1936,7 @@ namespace ARKBreedingStats
             ocrControl1.output.Text = debugText;
             if (OCRvalues.Length <= 1)
             {
-                if (manuallyTriggered) MessageBox.Show(debugText, $"OCR error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (manuallyTriggered) MessageBox.Show(debugText, $"OCR {Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

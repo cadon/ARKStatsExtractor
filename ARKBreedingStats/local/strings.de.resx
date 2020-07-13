@@ -1179,4 +1179,31 @@ Diese kann mit BSS Preset angewandt werden.</value>
   <data name="creatureOfFile" xml:space="preserve">
     <value>Kreatur der Export-Datei</value>
   </data>
+  <data name="downloadingValuesSuccess" xml:space="preserve">
+    <value>Die neuen Spezies-Werte wurden erfolgreich heruntergeladen und angewendet.</value>
+  </data>
+  <data name="updateSuccessTitle" xml:space="preserve">
+    <value>Aktualisierung erfolgreich</value>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>Fehler</value>
+  </data>
+  <data name="valuesFileLoadingError" xml:space="preserve">
+    <value>Die Datei mit den Spezies-Werten konnte nicht geladen werden, diese Anwendung funktioniert ohne diese Datei nicht. Versuche diese Anwendung erneut herunterzuladen.</value>
+  </data>
+  <data name="preTameLevel" xml:space="preserve">
+    <value>Level vor dem Zähmen</value>
+  </data>
+  <data name="noValidData" xml:space="preserve">
+    <value>Keine gültigen Daten</value>
+  </data>
+  <data name="noValidExtractedCreatureToExport" xml:space="preserve">
+    <value>Keine gültig extrahierte Kreature zum Export vorhanden.</value>
+  </data>
+  <data name="noCreatureSelectedInLibrary" xml:space="preserve">
+    <value>Keine Kreaturen in der Bibliothek zum Kopieren ausgewählt.</value>
+  </data>
+  <data name="unknownSpecies" xml:space="preserve">
+    <value>unbekannte Spezies</value>
+  </data>
 </root>

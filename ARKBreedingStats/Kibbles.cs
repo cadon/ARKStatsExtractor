@@ -31,7 +31,7 @@ namespace ARKBreedingStats
                 if (MessageBox.Show($"Kibble-File {FileService.KibblesJson} not found. " +
                         "This tool will not show kibble recipes without this file.\n\n" +
                         "Do you want to visit the homepage of the tool to redownload it?",
-                        $"Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                        $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                     System.Diagnostics.Process.Start(Updater.ReleasesUrl);
             }
             else if (FileService.LoadJSONFile(filePath, out Kibbles tempK, out string errorMessage))
@@ -42,7 +42,7 @@ namespace ARKBreedingStats
             }
             else
             {
-                MessageBox.Show($"File {FileService.KibblesJson} couldn\'t be opened or read.\nErrormessage:\n\n{errorMessage}", $"Error - {Utils.ApplicationNameVersion}",
+                MessageBox.Show($"File {FileService.KibblesJson} couldn\'t be opened or read.\nErrormessage:\n\n{errorMessage}", $"{Loc.S("error")} - {Utils.ApplicationNameVersion}",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return false;

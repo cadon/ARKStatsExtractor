@@ -1188,4 +1188,31 @@ The preset can be applied by the Apply Preset button</value>
   <data name="creatureOfFile" xml:space="preserve">
     <value>Creature of the export file</value>
   </data>
+  <data name="downloadingValuesSuccess" xml:space="preserve">
+    <value>Downloading and updating of the new species-stats was successful.</value>
+  </data>
+  <data name="updateSuccessTitle" xml:space="preserve">
+    <value>Update successful</value>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="valuesFileLoadingError" xml:space="preserve">
+    <value>The species values-file couldn't be loaded, this application does not work without. Try redownloading the tool.</value>
+  </data>
+  <data name="preTameLevel" xml:space="preserve">
+    <value>Pre tame level</value>
+  </data>
+  <data name="noValidData" xml:space="preserve">
+    <value>No valid data</value>
+  </data>
+  <data name="noValidExtractedCreatureToExport" xml:space="preserve">
+    <value>There is no valid extracted creature to export.</value>
+  </data>
+  <data name="noCreatureSelectedInLibrary" xml:space="preserve">
+    <value>There are no creatures in the library selected to copy to the clipboard.</value>
+  </data>
+  <data name="unknownSpecies" xml:space="preserve">
+    <value>unknown species</value>
+  </data>
 </root>

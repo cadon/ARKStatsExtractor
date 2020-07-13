@@ -85,7 +85,7 @@ namespace ARKBreedingStats.ocr
             // check if file exists
             if (!File.Exists(filename))
             {
-                MessageBox.Show($"OCR-File '{filename}' not found. OCR is not possible without the config-file.", $"Error - {Utils.ApplicationNameVersion}",
+                MessageBox.Show($"OCR-File '{filename}' not found. OCR is not possible without the config-file.", $"{Loc.S("error")} - {Utils.ApplicationNameVersion}",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
@@ -100,7 +100,7 @@ namespace ARKBreedingStats.ocr
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("File Couldn't be opened or read.\nErrormessage:\n\n" + e.Message, $"Error - {Utils.ApplicationNameVersion}",
+                    MessageBox.Show("File Couldn't be opened or read.\nErrormessage:\n\n" + e.Message, $"{Loc.S("error")} - {Utils.ApplicationNameVersion}",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }

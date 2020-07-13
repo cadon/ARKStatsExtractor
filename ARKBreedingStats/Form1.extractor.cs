@@ -744,7 +744,7 @@ namespace ARKBreedingStats
             var cv = importExported.ImportExported.importExportedCreature(exportFile);
             if (cv == null)
             {
-                MessageBox.Show("Exported creature-file not recognized.", $"Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Exported creature-file not recognized.", $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             // check if last exported file is a species that should be ignored, e.g. a raft

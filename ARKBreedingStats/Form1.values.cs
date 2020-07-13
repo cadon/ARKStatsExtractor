@@ -214,7 +214,7 @@ namespace ARKBreedingStats
                 if (MessageBox.Show($"One of the following folders where the values-file is expected was not found.\n{FileService.GetJsonPath(FileService.ValuesFolder, FileService.ValuesJson)}\n\n" +
                         "ARK Smart Breeding will not work properly without that file.\n\n" +
                         "Do you want to visit the releases page to redownload it?",
-                        $"Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                        $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                     System.Diagnostics.Process.Start(Updater.ReleasesUrl);
             }
             catch (FileNotFoundException)
@@ -222,7 +222,7 @@ namespace ARKBreedingStats
                 if (MessageBox.Show($"Values-File {FileService.ValuesJson} not found. " +
                         "ARK Smart Breeding will not work properly without that file.\n\n" +
                         "Do you want to visit the releases page to redownload it?",
-                        $"Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                        $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                     System.Diagnostics.Process.Start(Updater.ReleasesUrl);
             }
             catch (FormatException)
@@ -243,13 +243,13 @@ namespace ARKBreedingStats
         {
             MessageBox.Show($"File {filePath} is a format that is unsupported in this version of ARK Smart Breeding." +
                         "\n\nTry updating to a newer version.",
-                        $"Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         public static void DeserializeExceptionMessageBox(string filePath, string eMessage)
         {
             MessageBox.Show($"File {filePath} couldn't be deserialized.\nErrormessage:\n\n" + eMessage,
-                        $"Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
