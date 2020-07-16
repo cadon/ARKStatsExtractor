@@ -594,25 +594,13 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Drawing.Point importExportedLocation {
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0, 700, 700")]
+        public global::System.Drawing.Rectangle ImportExportedFormRectangle {
             get {
-                return ((global::System.Drawing.Point)(this["importExportedLocation"]));
+                return ((global::System.Drawing.Rectangle)(this["ImportExportedFormRectangle"]));
             }
             set {
-                this["importExportedLocation"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("700, 700")]
-        public global::System.Drawing.Size importExportedSize {
-            get {
-                return ((global::System.Drawing.Size)(this["importExportedSize"]));
-            }
-            set {
-                this["importExportedSize"] = value;
+                this["ImportExportedFormRectangle"] = value;
             }
         }
         
@@ -786,25 +774,13 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Drawing.Size PatternEditorSize {
+        [global::System.Configuration.DefaultSettingValueAttribute("50, 50, 700, 700")]
+        public global::System.Drawing.Rectangle PatternEditorFormRectangle {
             get {
-                return ((global::System.Drawing.Size)(this["PatternEditorSize"]));
+                return ((global::System.Drawing.Rectangle)(this["PatternEditorFormRectangle"]));
             }
             set {
-                this["PatternEditorSize"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Drawing.Point PatternEditorLocation {
-            get {
-                return ((global::System.Drawing.Point)(this["PatternEditorLocation"]));
-            }
-            set {
-                this["PatternEditorLocation"] = value;
+                this["PatternEditorFormRectangle"] = value;
             }
         }
         
@@ -929,25 +905,13 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Drawing.Point CustomStatOverrideLocation {
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0, 0, 0")]
+        public global::System.Drawing.Rectangle CustomStatOverrideFormRectangle {
             get {
-                return ((global::System.Drawing.Point)(this["CustomStatOverrideLocation"]));
+                return ((global::System.Drawing.Rectangle)(this["CustomStatOverrideFormRectangle"]));
             }
             set {
-                this["CustomStatOverrideLocation"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Drawing.Size CustomStatOverrideSize {
-            get {
-                return ((global::System.Drawing.Size)(this["CustomStatOverrideSize"]));
-            }
-            set {
-                this["CustomStatOverrideSize"] = value;
+                this["CustomStatOverrideFormRectangle"] = value;
             }
         }
         
@@ -1337,6 +1301,18 @@ namespace ARKBreedingStats.Properties {
             }
             set {
                 this["ImportExportUseTamerStringForOwner"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MainWindowMaximized {
+            get {
+                return ((bool)(this["MainWindowMaximized"]));
+            }
+            set {
+                this["MainWindowMaximized"] = value;
             }
         }
     }

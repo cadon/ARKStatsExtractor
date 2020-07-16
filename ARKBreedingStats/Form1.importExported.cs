@@ -256,7 +256,7 @@ namespace ARKBreedingStats
                 _exportedCreatureList = new importExported.ExportedCreatureList();
                 _exportedCreatureList.CopyValuesToExtractor += ExportedCreatureList_CopyValuesToExtractor;
                 _exportedCreatureList.CheckArkIdInLibrary += ExportedCreatureList_CheckGuidInLibrary;
-                _exportedCreatureList.Location = Properties.Settings.Default.importExportedLocation;
+                Utils.SetWindowRectangle(_exportedCreatureList, Properties.Settings.Default.ImportExportedFormRectangle);
                 _exportedCreatureList.CheckForUnknownMods += ExportedCreatureList_CheckForUnknownMods;
             }
             _exportedCreatureList.ownerSuffix = "";

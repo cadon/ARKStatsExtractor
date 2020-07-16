@@ -31,8 +31,6 @@ namespace ARKBreedingStats.importExported
             speciesHideItems = new List<ToolStripMenuItem>();
             allowFiltering = true;
 
-            Size = Properties.Settings.Default.importExportedSize;
-
             FormClosing += ExportedCreatureList_FormClosing;
 
             eccComparer = new EccComparer();
@@ -46,8 +44,7 @@ namespace ARKBreedingStats.importExported
             // if window is not minimized
             if (this.WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.importExportedLocation = Location;
-                Properties.Settings.Default.importExportedSize = Size;
+                (Properties.Settings.Default.ImportExportedFormRectangle, _) = Utils.GetWindowRectangle(this);
             }
         }
 
@@ -101,7 +98,6 @@ namespace ARKBreedingStats.importExported
 
             List<string> unknownSpeciesBlueprintPaths = new List<string>();
             List<string> ignoreSpeciesBlueprintPaths = new List<string>();
-            var ignoreClasses = Values.V.IgnoreSpeciesClassesOnImport;
 
             foreach (string f in files)
             {

@@ -165,22 +165,7 @@ namespace ARKBreedingStats
             setLocalizations(false);
 
             // load window-position and size
-            Size = new Size(Math.Max(600, Properties.Settings.Default.MainWindowRect.Width), Math.Max(500, Properties.Settings.Default.MainWindowRect.Height));
-            Location = new Point(Properties.Settings.Default.MainWindowRect.X, Properties.Settings.Default.MainWindowRect.Y);
-            // check if form is on screen
-            bool isOnScreen = false;
-            foreach (Screen screen in Screen.AllScreens)
-            {
-                Rectangle formRectangle = new Rectangle(Left, Top, Width, Height);
-
-                if (screen.WorkingArea.Contains(formRectangle))
-                {
-                    isOnScreen = true;
-                    break;
-                }
-            }
-            if (!isOnScreen)
-                Location = new Point(50, 50);
+            Utils.SetWindowRectangle(this, Properties.Settings.Default.MainWindowRect, Properties.Settings.Default.MainWindowMaximized);
 
             // Load column-widths, display-indices and sort-order of the TimerControlListView
             ListView lv = (ListView)timerList1.Controls["tableLayoutPanel1"].Controls["listViewTimer"];
@@ -1116,7 +1101,7 @@ namespace ARKBreedingStats
             // save window-position and size
             if (WindowState != FormWindowState.Minimized)
             {
-                Properties.Settings.Default.MainWindowRect = new Rectangle(Location.X, Location.Y, Size.Width, Size.Height);
+                (Properties.Settings.Default.MainWindowRect, Properties.Settings.Default.MainWindowMaximized) = Utils.GetWindowRectangle(this);
             }
 
             // Save column-widths, display-indices and sort-order of the TimerControlListView
@@ -2464,9 +2449,9 @@ namespace ARKBreedingStats
                 CreatureCollection = _creatureCollection
             })
             {
-                Utils.SetFormRectangle(modValuesManager, Properties.Settings.Default.ModManagerWindowRect);
+                Utils.SetWindowRectangle(modValuesManager, Properties.Settings.Default.ModManagerWindowRect);
                 modValuesManager.ShowDialog();
-                Properties.Settings.Default.ModManagerWindowRect = Utils.GetFormRectangle(modValuesManager);
+                (Properties.Settings.Default.ModManagerWindowRect, _) = Utils.GetWindowRectangle(modValuesManager);
             }
 
             // if the mods for the library changed,
@@ -2882,18 +2867,14 @@ namespace ARKBreedingStats
         {
             using (var frm = new mods.CustomStatOverridesEditor(Values.V.species, _creatureCollection))
             {
-                frm.Location = Properties.Settings.Default.CustomStatOverrideLocation;
-                if (Properties.Settings.Default.CustomStatOverrideSize.Width > 40
-                    && Properties.Settings.Default.CustomStatOverrideSize.Height > 40)
-                    frm.Size = Properties.Settings.Default.CustomStatOverrideSize;
+                Utils.SetWindowRectangle(frm, Properties.Settings.Default.CustomStatOverrideFormRectangle);
                 frm.ShowDialog();
                 if (frm.StatOverridesChanged)
                 {
                     Values.V.ApplyMultipliers(_creatureCollection, eventMultipliers: cbEventMultipliers.Checked, applyStatMultipliers: true);
                     SetCollectionChanged(true);
                 }
-                Properties.Settings.Default.CustomStatOverrideLocation = frm.Location;
-                Properties.Settings.Default.CustomStatOverrideSize = frm.Size;
+                (Properties.Settings.Default.CustomStatOverrideFormRectangle, _) = Utils.GetWindowRectangle(frm);
             }
         }
 
@@ -3090,7 +3071,7 @@ namespace ARKBreedingStats
         private void libraryFilterToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var libraryFilter = new LibraryFilter(_creatureCollection);
-            Utils.SetFormRectangle(libraryFilter, Properties.Settings.Default.LibraryFilterWindowRect);
+            Utils.SetWindowRectangle(libraryFilter, Properties.Settings.Default.LibraryFilterWindowRect);
 
             bool useFilterInTopStatsOld = Properties.Settings.Default.useFiltersInTopStatCalculation;
             if (libraryFilter.ShowDialog() == DialogResult.OK)
@@ -3102,7 +3083,7 @@ namespace ARKBreedingStats
                 FilterLib();
             }
 
-            Properties.Settings.Default.LibraryFilterWindowRect = Utils.GetFormRectangle(libraryFilter);
+            (Properties.Settings.Default.LibraryFilterWindowRect, _) = Utils.GetWindowRectangle(libraryFilter);
         }
 
         /// <summary>

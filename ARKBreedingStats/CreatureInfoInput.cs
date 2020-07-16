@@ -496,10 +496,7 @@ namespace ARKBreedingStats
             SetCreatureData(creature);
             using (var pe = new uiControls.PatternEditor(creature, _females, _males, speciesTopLevels, customReplacings, namingPatternIndex, reloadCallback))
             {
-                if (Properties.Settings.Default.PatternEditorLocation.X > -100000)
-                    pe.Location = Properties.Settings.Default.PatternEditorLocation;
-                if (Properties.Settings.Default.PatternEditorSize.Width > 50)
-                    pe.Size = Properties.Settings.Default.PatternEditorSize;
+                Utils.SetWindowRectangle(pe, Properties.Settings.Default.PatternEditorFormRectangle);
                 if (Properties.Settings.Default.PatternEditorSplitterDistance > 0)
                     pe.SplitterDistance = Properties.Settings.Default.PatternEditorSplitterDistance;
                 if (pe.ShowDialog() == DialogResult.OK)
@@ -508,8 +505,8 @@ namespace ARKBreedingStats
                     namingPatterns[namingPatternIndex] = pe.NamePattern;
                     Properties.Settings.Default.NamingPatterns = namingPatterns;
                 }
-                Properties.Settings.Default.PatternEditorLocation = pe.Location;
-                Properties.Settings.Default.PatternEditorSize = pe.Size;
+
+                (Properties.Settings.Default.PatternEditorFormRectangle, _) = Utils.GetWindowRectangle(pe);
                 Properties.Settings.Default.PatternEditorSplitterDistance = pe.SplitterDistance;
             }
         }

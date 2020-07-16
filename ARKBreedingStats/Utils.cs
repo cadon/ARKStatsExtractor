@@ -447,19 +447,71 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Returns the rectangle of the passed form.
+        /// Sets the borders of the window according to a Rectangle and tries to make sure it's visible on the available screens.
         /// </summary>
-        public static Rectangle GetFormRectangle(Form form) =>
-            new Rectangle(form.Location.X, form.Location.Y, form.Width, form.Height);
+        public static void SetWindowRectangle(Form form, Rectangle windowRect, bool maximized = false)
+        {
+            if (form == null) return;
+
+            if (double.IsInfinity(windowRect.Top)
+                || double.IsInfinity(windowRect.Left)
+                || double.IsInfinity(windowRect.Height)
+                || double.IsInfinity(windowRect.Width)
+                || windowRect.Height < 100
+                || windowRect.Width < 100
+            )
+            {
+                windowRect = DefaultFormRectangle;
+            }
+            else
+            {
+                // check if rectangle is on screen
+                bool isOnScreen = false;
+                foreach (Screen screen in Screen.AllScreens)
+                {
+                    if (screen.WorkingArea.Contains(windowRect))
+                    {
+                        isOnScreen = true;
+                        break;
+                    }
+                }
+                if (!isOnScreen)
+                {
+                    windowRect.X = 100;
+                    windowRect.Y = 100;
+                }
+            }
+
+            form.Top = windowRect.Top;
+            form.Left = windowRect.Left;
+            form.Width = windowRect.Width;
+            form.Height = windowRect.Height;
+
+            if (maximized)
+            {
+                form.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private static Rectangle DefaultFormRectangle => new Rectangle(100, 100, 800, 600);
 
         /// <summary>
-        /// Sets the form rectangle to the passed data.
+        /// Returns the window rectangle and state for saving.
         /// </summary>
-        public static void SetFormRectangle(Form form, Rectangle rect)
+        public static (Rectangle windowRect, bool maximized) GetWindowRectangle(Form form)
         {
-            form.Location = new Point(rect.X, rect.Y);
-            form.Width = rect.Width;
-            form.Height = rect.Height;
+            if (form == null)
+                return (DefaultFormRectangle, false);
+
+            switch (form.WindowState)
+            {
+                case FormWindowState.Maximized:
+                    return (form.RestoreBounds, true);
+                case FormWindowState.Normal:
+                    return (new Rectangle(form.Left, form.Top, form.Width, form.Height), false);
+                default:
+                    return (form.RestoreBounds, false);
+            }
         }
 
         /// <summary>

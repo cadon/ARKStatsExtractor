@@ -17,21 +17,20 @@ namespace ARKBreedingStats.importExported
         public ImportStatus Status { get; private set; }
         public DateTime? AddedToLibrary;
         public readonly string exportedFile;
-        private ToolTip tt;
+        private readonly ToolTip _tt;
         public bool validValues;
         public string speciesBlueprintPath;
 
         public ExportedCreatureControl()
         {
             InitializeComponent();
-            if (tt == null)
-                tt = new ToolTip();
+            if (_tt == null)
+                _tt = new ToolTip();
             validValues = true;
         }
 
-        public ExportedCreatureControl(string filePath)
+        public ExportedCreatureControl(string filePath) : this()
         {
-            InitializeComponent();
             exportedFile = filePath;
             creatureValues = ImportExported.importExportedCreature(filePath);
 
@@ -48,16 +47,12 @@ namespace ARKBreedingStats.importExported
                     $"Filename: {Path.GetFileName(filePath)}";
             Disposed += ExportedCreatureControl_Disposed;
 
-            if (tt == null)
-                tt = new ToolTip();
-            tt.SetToolTip(btRemoveFile, "Delete the exported game-file");
-
-            validValues = true;
+            _tt.SetToolTip(btRemoveFile, "Delete the exported game-file");
         }
 
         private void ExportedCreatureControl_Disposed(object sender, EventArgs e)
         {
-            tt.RemoveAll();
+            _tt.RemoveAll();
         }
 
         private void btLoadValues_Click(object sender, EventArgs e)

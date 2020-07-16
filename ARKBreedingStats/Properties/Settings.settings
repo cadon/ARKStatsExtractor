@@ -146,11 +146,8 @@
     <Setting Name="UseServerFilterForBreedingPlan" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="importExportedLocation" Type="System.Drawing.Point" Scope="User">
-      <Value Profile="(Default)">0, 0</Value>
-    </Setting>
-    <Setting Name="importExportedSize" Type="System.Drawing.Size" Scope="User">
-      <Value Profile="(Default)">700, 700</Value>
+    <Setting Name="ImportExportedFormRectangle" Type="System.Drawing.Rectangle" Scope="User">
+      <Value Profile="(Default)">0, 0, 700, 700</Value>
     </Setting>
     <Setting Name="ApplyGlobalSpeciesToLibrary" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -194,11 +191,8 @@
     <Setting Name="PlaySoundOnAutoImport" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="PatternEditorSize" Type="System.Drawing.Size" Scope="User">
-      <Value Profile="(Default)">0, 0</Value>
-    </Setting>
-    <Setting Name="PatternEditorLocation" Type="System.Drawing.Point" Scope="User">
-      <Value Profile="(Default)">0, 0</Value>
+    <Setting Name="PatternEditorFormRectangle" Type="System.Drawing.Rectangle" Scope="User">
+      <Value Profile="(Default)">50, 50, 700, 700</Value>
     </Setting>
     <Setting Name="PatternEditorSplitterDistance" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">40</Value>
@@ -230,11 +224,8 @@
     <Setting Name="libraryColumnDisplayIndices" Type="System.Int32[]" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="CustomStatOverrideLocation" Type="System.Drawing.Point" Scope="User">
-      <Value Profile="(Default)">0, 0</Value>
-    </Setting>
-    <Setting Name="CustomStatOverrideSize" Type="System.Drawing.Size" Scope="User">
-      <Value Profile="(Default)">0, 0</Value>
+    <Setting Name="CustomStatOverrideFormRectangle" Type="System.Drawing.Rectangle" Scope="User">
+      <Value Profile="(Default)">0, 0, 0, 0</Value>
     </Setting>
     <Setting Name="OverlayTimerPosition" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">30, 30</Value>
@@ -333,6 +324,9 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="ImportExportUseTamerStringForOwner" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MainWindowMaximized" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
