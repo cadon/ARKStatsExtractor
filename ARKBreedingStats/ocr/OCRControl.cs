@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -10,19 +11,17 @@ namespace ARKBreedingStats.ocr
 {
     public partial class OCRControl : UserControl
     {
-        public delegate void IntEventHandler(int value);
-
-        public event IntEventHandler updateWhiteThreshold;
-        public event DragEventHandler dragEnter;
-        public event DragEventHandler dragDrop;
+        public event Action<int> UpdateWhiteThreshold;
+        public event Action<string, bool> DoOcr;
         public readonly FlowLayoutPanel debugPanel;
         public readonly TextBox output;
-        private readonly List<uint[]> recognizedLetterArrays = new List<uint[]>();
-        private readonly List<char> recognizedLetters = new List<char>();
-        private readonly List<int> recognizedFontSizes = new List<int>();
-        private Bitmap screenshot;
-        private bool updateDrawing = true, ignoreValueChange;
-        private CancellationTokenSource cancelSource;
+        private readonly List<uint[]> _recognizedLetterArrays = new List<uint[]>();
+        private readonly List<char> _recognizedLetters = new List<char>();
+        private readonly List<int> _recognizedFontSizes = new List<int>();
+        private Bitmap _screenshot;
+        private bool _updateDrawing = true;
+        private bool _ignoreValueChange;
+        private CancellationTokenSource _cancelSource;
 
         public OCRControl()
         {
@@ -51,7 +50,7 @@ namespace ARKBreedingStats.ocr
 
         private void nudWhiteTreshold_ValueChanged(object sender, EventArgs e)
         {
-            updateWhiteThreshold?.Invoke((int)nudWhiteTreshold.Value);
+            UpdateWhiteThreshold?.Invoke((int)nudWhiteTreshold.Value);
             ShowPreviewWhiteThreshold((int)nudWhiteTreshold.Value);
         }
 
@@ -66,12 +65,12 @@ namespace ARKBreedingStats.ocr
         /// <param name="value">The white-threshold. -1 disables the preview</param>
         private async void ShowPreviewWhiteThreshold(int value)
         {
-            cancelSource?.Cancel();
+            _cancelSource?.Cancel();
             try
             {
-                using (cancelSource = new CancellationTokenSource())
+                using (_cancelSource = new CancellationTokenSource())
                 {
-                    await Task.Delay(400, cancelSource.Token); // update preview only each interval
+                    await Task.Delay(400, _cancelSource.Token); // update preview only each interval
                     RedrawScreenshot(-1, false, value);
                 }
             }
@@ -79,28 +78,51 @@ namespace ARKBreedingStats.ocr
             {
                 return;
             }
-            cancelSource = null;
+            _cancelSource = null;
         }
 
         private void OCRDebugLayoutPanel_DragEnter(object sender, DragEventArgs e)
         {
-            dragEnter?.Invoke(sender, e);
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
         }
 
         private void OCRDebugLayoutPanel_DragDrop(object sender, DragEventArgs e)
         {
-            dragDrop?.Invoke(sender, e);
+            if (!(e.Data.GetData(DataFormats.FileDrop) is string[] files && files.Any()))
+                return;
+
+            cbEnableOutput.Checked = true;
+            try
+            {
+                var bmp = new Bitmap(files[0]);
+
+                if (bmp.Width == nudResolutionWidth.Value
+                    && bmp.Height == nudResolutionHeight.Value)
+                {
+                    bmp.Dispose();
+                    DoOcr?.Invoke(files[0], true);
+                }
+                else
+                {
+                    AddBitmapToDebug(bmp);
+                    SetScreenshot(bmp);
+                }
+            }
+            catch
+            {
+                // ignore
+            }
         }
 
         private void listBoxRecognized_SelectedIndexChanged(object sender, EventArgs e)
         {
             int i = listBoxRecognized.SelectedIndex;
-            if (i >= 0 && i < recognizedLetters.Count)
+            if (i >= 0 && i < _recognizedLetters.Count)
             {
-                textBoxTemplate.Text = recognizedLetters[i].ToString();
-                nudFontSize.Value = recognizedFontSizes[i];
-                ocrLetterEditRecognized.LetterArray = recognizedLetterArrays[i];
-                ocrLetterEditTemplate.LetterArrayComparing = recognizedLetterArrays[i];
+                textBoxTemplate.Text = _recognizedLetters[i].ToString();
+                nudFontSize.Value = _recognizedFontSizes[i];
+                ocrLetterEditRecognized.LetterArray = _recognizedLetterArrays[i];
+                ocrLetterEditTemplate.LetterArrayComparing = _recognizedLetterArrays[i];
                 ShowMatch();
                 textBoxTemplate.Focus();
                 textBoxTemplate.SelectAll();
@@ -118,17 +140,17 @@ namespace ARKBreedingStats.ocr
 
         public void ClearLists()
         {
-            recognizedLetterArrays.Clear();
-            recognizedLetters.Clear();
-            recognizedFontSizes.Clear();
+            _recognizedLetterArrays.Clear();
+            _recognizedLetters.Clear();
+            _recognizedFontSizes.Clear();
             listBoxRecognized.Items.Clear();
         }
 
         public void AddLetterToRecognized(uint[] letterArray, char ch, int fontSize)
         {
-            recognizedLetterArrays.Add(letterArray);
-            recognizedLetters.Add(ch);
-            recognizedFontSizes.Add(fontSize);
+            _recognizedLetterArrays.Add(letterArray);
+            _recognizedLetters.Add(ch);
+            _recognizedFontSizes.Add(fontSize);
             listBoxRecognized.Items.Add(ch);
         }
 
@@ -220,15 +242,22 @@ namespace ARKBreedingStats.ocr
             if (rectangleIndex >= 0 && rectangleIndex < ArkOCR.OCR.ocrConfig.labelRectangles.Count)
             {
                 Rectangle rec = ArkOCR.OCR.ocrConfig.labelRectangles[rectangleIndex];
-                ignoreValueChange = true;
+                _ignoreValueChange = true;
                 nudX.Value = rec.X;
                 nudY.Value = rec.Y;
                 nudWidth.Value = rec.Width;
                 nudHeight.Value = rec.Height;
                 nudWidthL.Value = rec.Width;
                 nudHeightT.Value = rec.Height;
-                ignoreValueChange = false;
+                _ignoreValueChange = false;
             }
+        }
+
+        internal void AddBitmapToDebug(Bitmap bmp)
+        {
+            PictureBox b = new PictureBox { SizeMode = PictureBoxSizeMode.AutoSize, Image = bmp };
+            OCRDebugLayoutPanel.Controls.Add(b);
+            OCRDebugLayoutPanel.Controls.SetChildIndex(b, 0);
         }
 
         /// <summary>
@@ -239,10 +268,10 @@ namespace ARKBreedingStats.ocr
         /// <param name="whiteThreshold">preview of white-Threshold. -1 to disable</param>
         private void RedrawScreenshot(int hightlightIndex, bool showLabels = true, int whiteThreshold = -1)
         {
-            if (OCRDebugLayoutPanel.Controls.Count > 0 && OCRDebugLayoutPanel.Controls[OCRDebugLayoutPanel.Controls.Count - 1] is PictureBox && screenshot != null)
+            if (OCRDebugLayoutPanel.Controls.Count > 0 && OCRDebugLayoutPanel.Controls[OCRDebugLayoutPanel.Controls.Count - 1] is PictureBox && _screenshot != null)
             {
                 PictureBox p = (PictureBox)OCRDebugLayoutPanel.Controls[OCRDebugLayoutPanel.Controls.Count - 1];
-                Bitmap b = new Bitmap((whiteThreshold >= 0 ? ArkOCR.removePixelsUnderThreshold(ArkOCR.GetGreyScale(screenshot), whiteThreshold, true) : screenshot));
+                Bitmap b = new Bitmap((whiteThreshold >= 0 ? ArkOCR.removePixelsUnderThreshold(ArkOCR.GetGreyScale(_screenshot), whiteThreshold, true) : _screenshot));
                 using (Graphics g = Graphics.FromImage(b))
                 {
                     if (showLabels)
@@ -277,14 +306,14 @@ namespace ARKBreedingStats.ocr
                 }
                 Bitmap disp = (Bitmap)p.Image; // take pointer to old image to dispose it soon
                 p.Image = b;
-                if (disp != null && disp != screenshot)
+                if (disp != null && disp != _screenshot)
                     disp.Dispose();
             }
         }
 
         private void nudX_ValueChanged(object sender, EventArgs e)
         {
-            if (!ignoreValueChange)
+            if (!_ignoreValueChange)
             {
                 UpdateRectangle();
             }
@@ -292,7 +321,7 @@ namespace ARKBreedingStats.ocr
 
         private void nudY_ValueChanged(object sender, EventArgs e)
         {
-            if (!ignoreValueChange)
+            if (!_ignoreValueChange)
             {
                 UpdateRectangle();
             }
@@ -300,65 +329,63 @@ namespace ARKBreedingStats.ocr
 
         private void nudWidth_ValueChanged(object sender, EventArgs e)
         {
-            if (!ignoreValueChange)
+            if (!_ignoreValueChange)
             {
-                updateDrawing = false;
+                _updateDrawing = false;
                 nudWidthL.Value = nudWidth.Value;
-                updateDrawing = true;
+                _updateDrawing = true;
                 UpdateRectangle();
             }
         }
 
         private void nudHeight_ValueChanged(object sender, EventArgs e)
         {
-            if (!ignoreValueChange)
+            if (!_ignoreValueChange)
             {
-                updateDrawing = false;
+                _updateDrawing = false;
                 nudHeightT.Value = nudHeight.Value;
-                updateDrawing = true;
+                _updateDrawing = true;
                 UpdateRectangle();
             }
         }
 
         private void nudWidthL_ValueChanged(object sender, EventArgs e)
         {
-            if (!ignoreValueChange)
+            if (!_ignoreValueChange)
             {
-                updateDrawing = false;
+                _updateDrawing = false;
                 nudX.Value = nudX.Value + nudWidth.Value - nudWidthL.Value;
-                updateDrawing = true;
+                _updateDrawing = true;
                 nudWidth.Value = nudWidthL.Value;
             }
         }
 
         private void nudHeightT_ValueChanged(object sender, EventArgs e)
         {
-            if (!ignoreValueChange)
+            if (!_ignoreValueChange)
             {
-                updateDrawing = false;
+                _updateDrawing = false;
                 nudY.Value = nudY.Value + nudHeight.Value - nudHeightT.Value;
-                updateDrawing = true;
+                _updateDrawing = true;
                 nudHeight.Value = nudHeightT.Value;
             }
         }
 
         private void UpdateRectangle()
         {
-            if (updateDrawing)
+            if (!_updateDrawing) return;
+            int i = listBoxLabelRectangles.SelectedIndex;
+            if (i >= 0 && i < ArkOCR.OCR.ocrConfig.labelRectangles.Count)
             {
-                int i = listBoxLabelRectangles.SelectedIndex;
-                if (i >= 0 && i < ArkOCR.OCR.ocrConfig.labelRectangles.Count)
+                // set all stat-labels if wanted
+                if (chkbSetAllStatLabels.Checked && i < 9)
                 {
-                    // set all stat-labels if wanted
-                    if (chkbSetAllStatLabels.Checked && i < 9)
-                    {
-                        for (int s = 0; s < 9; s++)
-                            if (i != s)
-                                ArkOCR.OCR.ocrConfig.labelRectangles[s] = new Rectangle((int)nudX.Value, ArkOCR.OCR.ocrConfig.labelRectangles[s].Y, (int)nudWidth.Value, (int)nudHeight.Value);
-                    }
-                    ArkOCR.OCR.ocrConfig.labelRectangles[i] = new Rectangle((int)nudX.Value, (int)nudY.Value, (int)nudWidth.Value, (int)nudHeight.Value);
-                    RedrawScreenshot(i);
+                    for (int s = 0; s < 9; s++)
+                        if (i != s)
+                            ArkOCR.OCR.ocrConfig.labelRectangles[s] = new Rectangle((int)nudX.Value, ArkOCR.OCR.ocrConfig.labelRectangles[s].Y, (int)nudWidth.Value, (int)nudHeight.Value);
                 }
+                ArkOCR.OCR.ocrConfig.labelRectangles[i] = new Rectangle((int)nudX.Value, (int)nudY.Value, (int)nudWidth.Value, (int)nudHeight.Value);
+                RedrawScreenshot(i);
             }
         }
 
@@ -496,9 +523,9 @@ namespace ARKBreedingStats.ocr
 
         internal void SetScreenshot(Bitmap screenshotbmp)
         {
-            screenshot?.Dispose();
-            screenshot = screenshotbmp;
-            OCRDebugLayoutPanel.AutoScrollPosition = new Point(screenshot.Width / 3, screenshot.Height / 4);
+            _screenshot?.Dispose();
+            _screenshot = screenshotbmp;
+            OCRDebugLayoutPanel.AutoScrollPosition = new Point(_screenshot.Width / 3, _screenshot.Height / 4);
         }
 
         private void cbEnableOutput_CheckedChanged(object sender, EventArgs e)
@@ -518,10 +545,10 @@ namespace ARKBreedingStats.ocr
 
         private void buttonGetResFromScreenshot_Click(object sender, EventArgs e)
         {
-            if (screenshot != null)
+            if (_screenshot != null)
             {
-                nudResolutionWidth.Value = screenshot.Width;
-                nudResolutionHeight.Value = screenshot.Height;
+                nudResolutionWidth.Value = _screenshot.Width;
+                nudResolutionHeight.Value = _screenshot.Height;
             }
         }
 

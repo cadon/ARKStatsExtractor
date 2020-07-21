@@ -19,10 +19,10 @@ namespace ARKBreedingStats.ocr
         public int whiteThreshold = 155;
         public OCRTemplate ocrConfig;
         private static ArkOCR _OCR;
-        private static OCRControl ocrControl;
-        public readonly Dictionary<string, Point> lastLetterPositions = new Dictionary<string, Point>();
+        private static OCRControl _ocrControl;
+        private readonly Dictionary<string, Point> _lastLetterPositions = new Dictionary<string, Point>();
         public string screenCaptureApplicationName;
-        public Process ScreenCaptureProcess;
+        private Process _screenCaptureProcess;
         public int waitBeforeScreenCapture;
         public bool enableOutput = false;
 
@@ -34,7 +34,7 @@ namespace ARKBreedingStats.ocr
 
             Process[] p = Process.GetProcessesByName(screenCaptureApplicationName);
             if (p.Length > 0)
-                ScreenCaptureProcess = p[0];
+                _screenCaptureProcess = p[0];
 
             waitBeforeScreenCapture = 500;
         }
@@ -57,20 +57,6 @@ namespace ARKBreedingStats.ocr
                 return true;
 
             return false; // resolution not supported
-        }
-
-        private PictureBox AddBitmapToDebug(Bitmap bmp)
-        {
-            if (ocrControl.debugPanel != null)
-            {
-                PictureBox b = new PictureBox();
-                b.SizeMode = PictureBoxSizeMode.AutoSize;
-                b.Image = bmp;
-                ocrControl.debugPanel.Controls.Add(b);
-                ocrControl.debugPanel.Controls.SetChildIndex(b, 0);
-                return b;
-            }
-            return null;
         }
 
         public Bitmap SubImage(Bitmap source, int x, int y, int width, int height)
@@ -451,7 +437,7 @@ namespace ARKBreedingStats.ocr
         //    return Rectangle.Empty;
         //}
 
-        public double[] doOCR(out string OCRText, out string dinoName, out string species, out string ownerName, out string tribeName, out Sex sex, string useImageFilePath = "", bool changeForegroundWindow = true)
+        public double[] DoOcr(out string OCRText, out string dinoName, out string species, out string ownerName, out string tribeName, out Sex sex, string useImageFilePath = "", bool changeForegroundWindow = true)
         {
             string finishedText = "";
             dinoName = "";
@@ -468,8 +454,8 @@ namespace ARKBreedingStats.ocr
 
             Bitmap screenshotbmp;
 
-            ocrControl.debugPanel.Controls.Clear();
-            ocrControl.ClearLists();
+            _ocrControl.debugPanel.Controls.Clear();
+            _ocrControl.ClearLists();
 
             if (System.IO.File.Exists(useImageFilePath))
             {
@@ -518,10 +504,10 @@ namespace ARKBreedingStats.ocr
                 }
             }
 
-            if (enableOutput)
+            if (enableOutput && _ocrControl != null)
             {
-                AddBitmapToDebug(screenshotbmp);
-                ocrControl.SetScreenshot(screenshotbmp);
+                _ocrControl.AddBitmapToDebug(screenshotbmp);
+                _ocrControl.SetScreenshot(screenshotbmp);
             }
 
             finalValues = new double[ocrConfig.labelRectangles.Count];
@@ -571,7 +557,7 @@ namespace ARKBreedingStats.ocr
                 }
 
 
-                lastLetterPositions[statName] = new Point(rec.X + lastLetterPosition(removePixelsUnderThreshold(GetGreyScale(testbmp), whiteThreshold)), rec.Y);
+                _lastLetterPositions[statName] = new Point(rec.X + lastLetterPosition(removePixelsUnderThreshold(GetGreyScale(testbmp), whiteThreshold)), rec.Y);
 
                 finishedText += (finishedText.Length == 0 ? "" : "\r\n") + statName + ":\t" + statOCR;
 
@@ -848,7 +834,7 @@ namespace ARKBreedingStats.ocr
 
                             // add letter to list of recognized
                             if (enableOutput)
-                                ocrControl.AddLetterToRecognized(HWs, c, fontSize);
+                                _ocrControl.AddLetterToRecognized(HWs, c, fontSize);
                         }
                         else
                         {
@@ -863,7 +849,7 @@ namespace ARKBreedingStats.ocr
 
                                         // add letter to config
                                         if (enableOutput)
-                                            ocrControl.AddLetterToRecognized(HWs, ocrConfig.letters[ocrIndex][l], fontSize);
+                                            _ocrControl.AddLetterToRecognized(HWs, ocrConfig.letters[ocrIndex][l], fontSize);
 
                                         if ((int)letterArrays[l][0] - offsets[l] > 0)
                                             letterStart += (int)letterArrays[l][0] - offsets[l];
@@ -1001,20 +987,20 @@ namespace ARKBreedingStats.ocr
 
         internal void setOCRControl(OCRControl ocrControlObject)
         {
-            ocrControl = ocrControlObject;
+            _ocrControl = ocrControlObject;
         }
 
         public bool isDinoInventoryVisible()
         {
-            if (ScreenCaptureProcess == null)
+            if (_screenCaptureProcess == null)
             {
                 Process[] p = Process.GetProcessesByName(screenCaptureApplicationName);
                 if (p.Length > 0)
-                    ScreenCaptureProcess = p[0];
+                    _screenCaptureProcess = p[0];
                 else return false;
             }
 
-            if (Win32API.GetForegroundWindow() != ScreenCaptureProcess.MainWindowHandle)
+            if (Win32API.GetForegroundWindow() != _screenCaptureProcess.MainWindowHandle)
                 return false;
 
             Bitmap screenshotbmp = Win32API.GetSreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture);

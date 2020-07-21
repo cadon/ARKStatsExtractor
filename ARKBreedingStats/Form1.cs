@@ -148,7 +148,8 @@ namespace ARKBreedingStats
             speciesSelector1.SetTextBox(tbSpeciesGlobal);
 
             ArkOCR.OCR.setOCRControl(ocrControl1);
-            ocrControl1.updateWhiteThreshold += OcrupdateWhiteThreshold;
+            ocrControl1.UpdateWhiteThreshold += OcrupdateWhiteThreshold;
+            ocrControl1.DoOcr += DoOcr;
 
             openSettingsToolStripMenuItem.ShortcutKeyDisplayString = new KeysConverter().ConvertTo(Keys.Control, typeof(string))?.ToString().Replace("None", ",");
 
@@ -427,7 +428,7 @@ namespace ARKBreedingStats
         {
             // currently this command is not existing, accidental execution occured too often
             if (command == SpeechRecognition.Commands.Extract)
-                DoOCR();
+                DoOcr();
         }
 
         private void radioButtonWild_CheckedChanged(object sender, EventArgs e)
@@ -1891,11 +1892,11 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="imageFilePath">If specified, this image is taken instead of a screenshot.</param>
         /// <param name="manuallyTriggered">If false, the method is called by a timer based event when the user looks at a creature-inventory.</param>
-        public void DoOCR(string imageFilePath = "", bool manuallyTriggered = true)
+        public void DoOcr(string imageFilePath = "", bool manuallyTriggered = true)
         {
             cbQuickWildCheck.Checked = false;
 
-            double[] OCRvalues = ArkOCR.OCR.doOCR(out string debugText, out string dinoName, out string speciesName, out string ownerName, out string tribeName, out Sex sex, imageFilePath, manuallyTriggered);
+            double[] OCRvalues = ArkOCR.OCR.DoOcr(out string debugText, out string dinoName, out string speciesName, out string ownerName, out string tribeName, out Sex sex, imageFilePath, manuallyTriggered);
 
             ocrControl1.output.Text = debugText;
             if (OCRvalues.Length <= 1)
@@ -2350,7 +2351,7 @@ namespace ARKBreedingStats
         private void btnReadValuesFromArk_Click(object sender, EventArgs e)
         {
             if (Properties.Settings.Default.showOCRButton)
-                DoOCR();
+                DoOcr();
             else
                 ImportExportedCreaturesDefaultFolder();
         }
@@ -2915,8 +2916,8 @@ namespace ARKBreedingStats
         /// <param name="e"></param>
         private void Form1_DragDrop(object sender, DragEventArgs e)
         {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            if (files.Length == 0) return;
+            if (!(e.Data.GetData(DataFormats.FileDrop) is string[] files && files.Any()))
+                return;
 
             string filePath = files[0];
             string ext = Path.GetExtension(filePath).ToLower();
@@ -2946,7 +2947,7 @@ namespace ARKBreedingStats
                     RunSavegameImport(new ATImportFileLocation(null, null, filePath));
             }
             else
-                DoOCR(files[0]);
+                DoOcr(files[0]);
         }
 
         private void toolStripMenuItemCopyCreatureName_Click(object sender, EventArgs e)
