@@ -3,15 +3,14 @@ using ARKBreedingStats.species;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats
 {
     public partial class CreatureInfoInput : UserControl
     {
-        public event Action<CreatureInfoInput> Add2Library_Clicked;
-        public event Action<CreatureInfoInput> Save2Library_Clicked;
+        public event Action<CreatureInfoInput> Add2LibraryClicked;
+        public event Action<CreatureInfoInput> Save2LibraryClicked;
         public event Action<CreatureInfoInput> ParentListRequested;
         public delegate void RequestCreatureDataEventHandler(CreatureInfoInput sender, bool openPatternEditor, bool showDuplicateNameWarning, int namingPatternIndex);
         public event RequestCreatureDataEventHandler CreatureDataRequested;
@@ -20,7 +19,7 @@ namespace ARKBreedingStats
         public Guid CreatureGuid;
         public bool ArkIdImported;
         private CreatureStatus _creatureStatus;
-        public bool parentListValid; // TODO change to parameter, if set to false, show n/a in the comboboxes
+        public bool parentListValid; // TODO change to parameter, if set to false, show n/a in the comboBoxes
         private Species _selectedSpecies;
         private readonly ToolTip _tt;
         private bool _updateMaturation;
@@ -34,9 +33,12 @@ namespace ARKBreedingStats
         /// <summary>
         /// True if creature is new, false if creature already exists
         /// </summary>
-        private bool isNewCreature;
+        private bool _isNewCreature;
 
-        public PictureBox pBcolorRegion;
+        /// <summary>
+        /// The pictureBox that displays the colored species dependent on the selected region colors.
+        /// </summary>
+        public PictureBox PbColorRegion;
 
         public CreatureInfoInput()
         {
@@ -83,19 +85,19 @@ namespace ARKBreedingStats
 
         private void UpdateRegionColorImage()
         {
-            if (pBcolorRegion == null) return;
+            if (PbColorRegion == null) return;
 
-            pBcolorRegion.Image = CreatureColored.GetColoredCreature(RegionColors, _selectedSpecies, regionColorChooser1.ColorRegionsUseds, 256, onlyImage: true, creatureSex: CreatureSex);
+            PbColorRegion.Image = CreatureColored.GetColoredCreature(RegionColors, _selectedSpecies, regionColorChooser1.ColorRegionsUseds, 256, onlyImage: true, creatureSex: CreatureSex);
         }
 
         private void buttonAdd2Library_Click(object sender, EventArgs e)
         {
-            Add2Library_Clicked(this);
+            Add2LibraryClicked?.Invoke(this);
         }
 
         private void buttonSaveChanges_Click(object sender, EventArgs e)
         {
-            Save2Library_Clicked(this);
+            Save2LibraryClicked?.Invoke(this);
         }
 
         public string CreatureName
@@ -579,7 +581,7 @@ namespace ARKBreedingStats
                                      Loc.S("btUpdateLibraryCreature") :
                                      Loc.S("btAdd2Library");
 
-                isNewCreature = !value;
+                _isNewCreature = !value;
                 SetAdd2LibColor(btAdd2Library.Enabled);
             }
         }
@@ -593,7 +595,7 @@ namespace ARKBreedingStats
         {
             btAdd2Library.BackColor = !buttonEnabled
                 ? SystemColors.Control
-                : isNewCreature ? Color.LightGreen
+                : _isNewCreature ? Color.LightGreen
                 : Color.LightSkyBlue;
         }
 
@@ -613,10 +615,10 @@ namespace ARKBreedingStats
             if ((Control.ModifierKeys & Keys.Control) != 0)
                 regionColorChooser1.RandomColors();
             else
-                clearColors();
+                ClearColors();
         }
 
-        private void clearColors()
+        private void ClearColors()
         {
             regionColorChooser1.Clear();
         }
@@ -653,7 +655,7 @@ namespace ARKBreedingStats
                 newMutations += (int)nudMutationsFather.Value - parentComboBoxFather.SelectedParent.Mutations;
             }
 
-            lbNewMutations.Text = "+" + newMutations + " mut";
+            lbNewMutations.Text = $"+{newMutations} mut";
             lbNewMutations.BackColor = newMutations != 0 ? Utils.MutationColor : SystemColors.Control;
         }
 
@@ -698,7 +700,7 @@ namespace ARKBreedingStats
             MutationCounterFather = 0;
             CreatureSex = Sex.Unknown;
             CreatureFlags = CreatureFlags.None;
-            clearColors();
+            ClearColors();
             CreatureStatus = CreatureStatus.Available;
         }
 

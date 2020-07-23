@@ -323,8 +323,8 @@ namespace ARKBreedingStats
                 extractionTestControl1.LoadExtractionTestCases(Properties.Settings.Default.LastSaveFileTestCases);
             }
 
-            creatureInfoInputTester.pBcolorRegion = pictureBoxColorRegionsTester;
-            creatureInfoInputExtractor.pBcolorRegion = PbCreatureColorsExtractor;
+            creatureInfoInputTester.PbColorRegion = pictureBoxColorRegionsTester;
+            creatureInfoInputExtractor.PbColorRegion = PbCreatureColorsExtractor;
 
             // set TLS-protocol (github needs at least TLS 1.2) for update-check
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
