@@ -194,6 +194,12 @@
             this.label30 = new System.Windows.Forms.Label();
             this.nudImportLowerBoundTE = new ARKBreedingStats.uiControls.Nud();
             this.groupBox22 = new System.Windows.Forms.GroupBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.BtBeepNewTop = new System.Windows.Forms.Button();
+            this.BtBeepTop = new System.Windows.Forms.Button();
+            this.BtBeepSuccess = new System.Windows.Forms.Button();
+            this.label47 = new System.Windows.Forms.Label();
+            this.BtBeepFailure = new System.Windows.Forms.Button();
             this.cbPlaySoundOnAutomaticImport = new System.Windows.Forms.CheckBox();
             this.label29 = new System.Windows.Forms.Label();
             this.cbDeleteAutoImportedFile = new System.Windows.Forms.CheckBox();
@@ -232,12 +238,6 @@
             this.cbbOCRApp = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.BtBeepFailure = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label47 = new System.Windows.Forms.Label();
-            this.BtBeepSuccess = new System.Windows.Forms.Button();
-            this.BtBeepTop = new System.Windows.Forms.Button();
-            this.BtBeepNewTop = new System.Windows.Forms.Button();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMatingSpeed)).BeginInit();
@@ -304,6 +304,7 @@
             this.groupBox23.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudImportLowerBoundTE)).BeginInit();
             this.groupBox22.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.groupBox21.SuspendLayout();
             this.groupBox19.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWarnImportMoreThan)).BeginInit();
@@ -315,7 +316,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).BeginInit();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -413,9 +413,9 @@
             this.checkBoxAutoSave.AutoSize = true;
             this.checkBoxAutoSave.Location = new System.Drawing.Point(6, 19);
             this.checkBoxAutoSave.Name = "checkBoxAutoSave";
-            this.checkBoxAutoSave.Size = new System.Drawing.Size(71, 17);
+            this.checkBoxAutoSave.Size = new System.Drawing.Size(74, 17);
             this.checkBoxAutoSave.TabIndex = 0;
-            this.checkBoxAutoSave.Text = "Autosave";
+            this.checkBoxAutoSave.Text = "Auto save";
             this.checkBoxAutoSave.UseVisualStyleBackColor = true;
             this.checkBoxAutoSave.CheckedChanged += new System.EventHandler(this.checkBoxAutoSave_CheckedChanged);
             // 
@@ -424,9 +424,9 @@
             this.chkCollectionSync.AutoSize = true;
             this.chkCollectionSync.Location = new System.Drawing.Point(6, 68);
             this.chkCollectionSync.Name = "chkCollectionSync";
-            this.chkCollectionSync.Size = new System.Drawing.Size(136, 17);
+            this.chkCollectionSync.Size = new System.Drawing.Size(135, 17);
             this.chkCollectionSync.TabIndex = 5;
-            this.chkCollectionSync.Text = "Autoload Collection File";
+            this.chkCollectionSync.Text = "Auto load collection file";
             this.chkCollectionSync.UseVisualStyleBackColor = true;
             // 
             // label6
@@ -1203,7 +1203,8 @@
             this.label2.Size = new System.Drawing.Size(305, 48);
             this.label2.TabIndex = 6;
             this.label2.Text = "Enable both checkboxes if you want to edit the library file with multiple persons" +
-    ". Place the library-file in a shared-folder that the others have access to.";
+    ". Place the .asb collection-file in a shared-folder that the others have access " +
+    "to.";
             // 
             // numericUpDownAutosaveMinutes
             // 
@@ -2049,7 +2050,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -2057,7 +2058,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -2065,7 +2066,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -2073,7 +2074,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -2409,6 +2410,67 @@
             this.groupBox22.TabIndex = 9;
             this.groupBox22.TabStop = false;
             this.groupBox22.Text = "Auto import";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.BtBeepNewTop);
+            this.panel2.Controls.Add(this.BtBeepTop);
+            this.panel2.Controls.Add(this.BtBeepSuccess);
+            this.panel2.Controls.Add(this.label47);
+            this.panel2.Controls.Add(this.BtBeepFailure);
+            this.panel2.Location = new System.Drawing.Point(285, 11);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(121, 131);
+            this.panel2.TabIndex = 7;
+            // 
+            // BtBeepNewTop
+            // 
+            this.BtBeepNewTop.Location = new System.Drawing.Point(3, 105);
+            this.BtBeepNewTop.Name = "BtBeepNewTop";
+            this.BtBeepNewTop.Size = new System.Drawing.Size(115, 23);
+            this.BtBeepNewTop.TabIndex = 10;
+            this.BtBeepNewTop.Text = "new top stat";
+            this.BtBeepNewTop.UseVisualStyleBackColor = true;
+            this.BtBeepNewTop.Click += new System.EventHandler(this.BtBeepNewTop_Click);
+            // 
+            // BtBeepTop
+            // 
+            this.BtBeepTop.Location = new System.Drawing.Point(3, 76);
+            this.BtBeepTop.Name = "BtBeepTop";
+            this.BtBeepTop.Size = new System.Drawing.Size(115, 23);
+            this.BtBeepTop.TabIndex = 9;
+            this.BtBeepTop.Text = "top stat";
+            this.BtBeepTop.UseVisualStyleBackColor = true;
+            this.BtBeepTop.Click += new System.EventHandler(this.BtBeepTop_Click);
+            // 
+            // BtBeepSuccess
+            // 
+            this.BtBeepSuccess.Location = new System.Drawing.Point(3, 47);
+            this.BtBeepSuccess.Name = "BtBeepSuccess";
+            this.BtBeepSuccess.Size = new System.Drawing.Size(115, 23);
+            this.BtBeepSuccess.TabIndex = 8;
+            this.BtBeepSuccess.Text = "import success";
+            this.BtBeepSuccess.UseVisualStyleBackColor = true;
+            this.BtBeepSuccess.Click += new System.EventHandler(this.BtBeepSuccess_Click);
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Location = new System.Drawing.Point(3, 2);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(108, 13);
+            this.label47.TabIndex = 7;
+            this.label47.Text = "Import sound preview";
+            // 
+            // BtBeepFailure
+            // 
+            this.BtBeepFailure.Location = new System.Drawing.Point(3, 18);
+            this.BtBeepFailure.Name = "BtBeepFailure";
+            this.BtBeepFailure.Size = new System.Drawing.Size(115, 23);
+            this.BtBeepFailure.TabIndex = 6;
+            this.BtBeepFailure.Text = "import failed";
+            this.BtBeepFailure.UseVisualStyleBackColor = true;
+            this.BtBeepFailure.Click += new System.EventHandler(this.BtBeepFailure_Click);
             // 
             // cbPlaySoundOnAutomaticImport
             // 
@@ -2809,67 +2871,6 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // BtBeepFailure
-            // 
-            this.BtBeepFailure.Location = new System.Drawing.Point(3, 18);
-            this.BtBeepFailure.Name = "BtBeepFailure";
-            this.BtBeepFailure.Size = new System.Drawing.Size(115, 23);
-            this.BtBeepFailure.TabIndex = 6;
-            this.BtBeepFailure.Text = "import failed";
-            this.BtBeepFailure.UseVisualStyleBackColor = true;
-            this.BtBeepFailure.Click += new System.EventHandler(this.BtBeepFailure_Click);
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.BtBeepNewTop);
-            this.panel2.Controls.Add(this.BtBeepTop);
-            this.panel2.Controls.Add(this.BtBeepSuccess);
-            this.panel2.Controls.Add(this.label47);
-            this.panel2.Controls.Add(this.BtBeepFailure);
-            this.panel2.Location = new System.Drawing.Point(285, 11);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(121, 131);
-            this.panel2.TabIndex = 7;
-            // 
-            // label47
-            // 
-            this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(3, 2);
-            this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(108, 13);
-            this.label47.TabIndex = 7;
-            this.label47.Text = "Import sound preview";
-            // 
-            // BtBeepSuccess
-            // 
-            this.BtBeepSuccess.Location = new System.Drawing.Point(3, 47);
-            this.BtBeepSuccess.Name = "BtBeepSuccess";
-            this.BtBeepSuccess.Size = new System.Drawing.Size(115, 23);
-            this.BtBeepSuccess.TabIndex = 8;
-            this.BtBeepSuccess.Text = "import success";
-            this.BtBeepSuccess.UseVisualStyleBackColor = true;
-            this.BtBeepSuccess.Click += new System.EventHandler(this.BtBeepSuccess_Click);
-            // 
-            // BtBeepTop
-            // 
-            this.BtBeepTop.Location = new System.Drawing.Point(3, 76);
-            this.BtBeepTop.Name = "BtBeepTop";
-            this.BtBeepTop.Size = new System.Drawing.Size(115, 23);
-            this.BtBeepTop.TabIndex = 9;
-            this.BtBeepTop.Text = "top stat";
-            this.BtBeepTop.UseVisualStyleBackColor = true;
-            this.BtBeepTop.Click += new System.EventHandler(this.BtBeepTop_Click);
-            // 
-            // BtBeepNewTop
-            // 
-            this.BtBeepNewTop.Location = new System.Drawing.Point(3, 105);
-            this.BtBeepNewTop.Name = "BtBeepNewTop";
-            this.BtBeepNewTop.Size = new System.Drawing.Size(115, 23);
-            this.BtBeepNewTop.TabIndex = 10;
-            this.BtBeepNewTop.Text = "new top stat";
-            this.BtBeepNewTop.UseVisualStyleBackColor = true;
-            this.BtBeepNewTop.Click += new System.EventHandler(this.BtBeepNewTop_Click);
-            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -2976,6 +2977,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudImportLowerBoundTE)).EndInit();
             this.groupBox22.ResumeLayout(false);
             this.groupBox22.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.groupBox21.ResumeLayout(false);
             this.groupBox21.PerformLayout();
             this.groupBox19.ResumeLayout(false);
@@ -2990,8 +2993,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
