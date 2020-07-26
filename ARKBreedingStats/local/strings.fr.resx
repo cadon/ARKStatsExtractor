@@ -1183,4 +1183,34 @@ Le préréglage peut être appliqué par le bouton Appliquer le préréglage</va
   <data name="BtBeepNewTopTT" xml:space="preserve">
     <value>Ce son est joué lorsqu'une créature importée automatiquement a un niveau supérieur dans une statistique que toutes les autres créatures de cette espèce dans la bibliothèque</value>
   </data>
+  <data name="creatureOfFile" xml:space="preserve">
+    <value>Créature du fichier d'exportation</value>
+  </data>
+  <data name="downloadingValuesSuccess" xml:space="preserve">
+    <value>Le téléchargement et la mise à jour des nouvelles stats des espèces ont réussi.</value>
+  </data>
+  <data name="updateSuccessTitle" xml:space="preserve">
+    <value>Mise à jour réussie</value>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="valuesFileLoadingError" xml:space="preserve">
+    <value>Le fichier de valeurs d'espèces n'a pas pu être chargé, cette application ne fonctionne pas sans. Essayez de retélécharger l'outil.</value>
+  </data>
+  <data name="preTameLevel" xml:space="preserve">
+    <value>Niveau pré-apprivoisé</value>
+  </data>
+  <data name="noValidData" xml:space="preserve">
+    <value>Aucune donnée valide</value>
+  </data>
+  <data name="noValidExtractedCreatureToExport" xml:space="preserve">
+    <value>Il n'y aucune créature extraite valide à exporter.</value>
+  </data>
+  <data name="noCreatureSelectedInLibrary" xml:space="preserve">
+    <value>Il n'y a aucune créature dans la bibliothèque sélectionnée à copier dans le presse-papiers.</value>
+  </data>
+  <data name="unknownSpecies" xml:space="preserve">
+    <value>espèce inconnue</value>
+  </data>
 </root>
