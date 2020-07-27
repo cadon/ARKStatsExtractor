@@ -573,9 +573,19 @@ namespace ARKBreedingStats.values
                         blueprintToSpecies.Add(s.blueprintPath, s);
 
                     string name = s.DescriptiveName;
-                    if (!nameToSpecies.ContainsKey(name))
+                    var existingSpecies = nameToSpecies.TryGetValue(name, out var exSp) ? exSp : null;
+
+
+                    if (existingSpecies == null)
                         nameToSpecies.Add(name, s);
-                    else nameToSpecies[name] = s; // overwrite earlier entry, keep latest entry
+                    else if (
+                        (!existingSpecies.IsDomesticable && s.IsDomesticable) // prefer species that are domesticable
+                        || (existingSpecies.variants != null && existingSpecies.variants.Any() && (s.variants == null || !s.variants.Any())) // prefer species that are not variants
+                        || (existingSpecies.Mod == null && s.Mod != null) // prefer species from mods with the same name
+                        )
+                    {
+                        nameToSpecies[name] = s;
+                    }
 
                     Match classNameMatch = rClassName.Match(s.blueprintPath);
                     if (classNameMatch.Success)
