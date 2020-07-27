@@ -69,6 +69,7 @@ namespace ARKBreedingStats
             _textBox.AutoCompleteCustomSource = al;
 
             cbDisplayUntameable.Checked = Properties.Settings.Default.DisplayNonDomesticableSpecies;
+            CbDisplayVariantSpecies.Checked = Properties.Settings.Default.DisplayVariantSpecies;
             FilterList();
         }
 
@@ -191,6 +192,7 @@ namespace ARKBreedingStats
             foreach (var s in _entryList)
             {
                 if ((Properties.Settings.Default.DisplayNonDomesticableSpecies || s.Species.IsDomesticable)
+                    && (Properties.Settings.Default.DisplayVariantSpecies || string.IsNullOrEmpty(s.Species.VariantInfo))
                     && (inputIsEmpty
                        || s.SearchName.ToLower().Contains(part.ToLower())
                        )
@@ -331,6 +333,12 @@ namespace ARKBreedingStats
         {
             get => splitContainer2.SplitterDistance;
             set => splitContainer2.SplitterDistance = value;
+        }
+
+        private void CbDisplayVariantSpecies_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.DisplayVariantSpecies = ((CheckBox)sender).Checked;
+            Textbox_TextChanged(null, null);
         }
     }
 

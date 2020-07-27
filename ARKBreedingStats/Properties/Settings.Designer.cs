@@ -1315,5 +1315,17 @@ namespace ARKBreedingStats.Properties {
                 this["MainWindowMaximized"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool DisplayVariantSpecies {
+            get {
+                return ((bool)(this["DisplayVariantSpecies"]));
+            }
+            set {
+                this["DisplayVariantSpecies"] = value;
+            }
+        }
     }
 }

@@ -31,9 +31,10 @@
             this.lvLastSpecies = new System.Windows.Forms.ListView();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.CbDisplayVariantSpecies = new System.Windows.Forms.CheckBox();
             this.btCancel = new System.Windows.Forms.Button();
             this.cbDisplayUntameable = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.lvSpeciesInLibrary = new System.Windows.Forms.ListView();
@@ -61,7 +62,7 @@
             this.tableLayoutPanel2.SetColumnSpan(this.lvLastSpecies, 2);
             this.lvLastSpecies.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvLastSpecies.HideSelection = false;
-            this.lvLastSpecies.Location = new System.Drawing.Point(3, 53);
+            this.lvLastSpecies.Location = new System.Drawing.Point(3, 65);
             this.lvLastSpecies.Name = "lvLastSpecies";
             this.lvLastSpecies.Size = new System.Drawing.Size(510, 209);
             this.lvLastSpecies.TabIndex = 1;
@@ -91,35 +92,40 @@
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.label1, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.lvLastSpecies, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.CbDisplayVariantSpecies, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.lvLastSpecies, 0, 3);
             this.tableLayoutPanel2.Controls.Add(this.btCancel, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.cbDisplayUntameable, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label1, 0, 2);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 3;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel2.RowCount = 4;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 21F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 21F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.Size = new System.Drawing.Size(516, 235);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
-            // label1
+            // CbDisplayVariantSpecies
             // 
-            this.label1.AutoSize = true;
-            this.tableLayoutPanel2.SetColumnSpan(this.label1, 2);
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 30);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 16);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Last Used";
+            this.CbDisplayVariantSpecies.AutoSize = true;
+            this.CbDisplayVariantSpecies.Checked = true;
+            this.CbDisplayVariantSpecies.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CbDisplayVariantSpecies.Location = new System.Drawing.Point(3, 24);
+            this.CbDisplayVariantSpecies.Name = "CbDisplayVariantSpecies";
+            this.CbDisplayVariantSpecies.Size = new System.Drawing.Size(132, 15);
+            this.CbDisplayVariantSpecies.TabIndex = 8;
+            this.CbDisplayVariantSpecies.Text = "display variant species";
+            this.CbDisplayVariantSpecies.UseVisualStyleBackColor = true;
+            this.CbDisplayVariantSpecies.CheckedChanged += new System.EventHandler(this.CbDisplayVariantSpecies_CheckedChanged);
             // 
             // btCancel
             // 
             this.btCancel.Location = new System.Drawing.Point(192, 3);
             this.btCancel.Name = "btCancel";
+            this.tableLayoutPanel2.SetRowSpan(this.btCancel, 2);
             this.btCancel.Size = new System.Drawing.Size(82, 23);
             this.btCancel.TabIndex = 6;
             this.btCancel.Text = "Cancel";
@@ -131,11 +137,22 @@
             this.cbDisplayUntameable.AutoSize = true;
             this.cbDisplayUntameable.Location = new System.Drawing.Point(3, 3);
             this.cbDisplayUntameable.Name = "cbDisplayUntameable";
-            this.cbDisplayUntameable.Size = new System.Drawing.Size(183, 17);
+            this.cbDisplayUntameable.Size = new System.Drawing.Size(183, 15);
             this.cbDisplayUntameable.TabIndex = 7;
             this.cbDisplayUntameable.Text = "display non-domesticable species";
             this.cbDisplayUntameable.UseVisualStyleBackColor = true;
             this.cbDisplayUntameable.CheckedChanged += new System.EventHandler(this.cbDisplayUntameable_CheckedChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.tableLayoutPanel2.SetColumnSpan(this.label1, 2);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(3, 42);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(78, 16);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Last Used";
             // 
             // tableLayoutPanel3
             // 
@@ -279,5 +296,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.CheckBox CbDisplayVariantSpecies;
     }
 }
