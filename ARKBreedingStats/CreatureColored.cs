@@ -5,6 +5,8 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using ARKBreedingStats.Library;
 
@@ -153,7 +155,7 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Creates a colored species image and saves it as cache file.
+        /// Creates a colored species image and saves it as cache file. Returns true when created successful.
         /// </summary>
         /// <returns></returns>
         private static bool CreateAndSaveCacheSpeciesFile(int[] colorIds, bool[] enabledColorRegions,
@@ -210,25 +212,38 @@ namespace ARKBreedingStats
                     string cacheFolder = Path.GetDirectoryName(cacheFilePath);
                     if (!Directory.Exists(cacheFolder))
                         Directory.CreateDirectory(cacheFolder);
-                    if (outputSize != TemplateSize)
+                    if (outputSize == TemplateSize)
+                        return SaveBitmapToFile(bmpColoredCreature, cacheFilePath);
+
+                    using (var resized = new Bitmap(outputSize, outputSize))
+                    using (var g = Graphics.FromImage(resized))
                     {
-                        using (var resized = new Bitmap(outputSize, outputSize))
-                        using (var g = Graphics.FromImage(resized))
-                        {
-                            g.CompositingQuality = CompositingQuality.HighQuality;
-                            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                            g.SmoothingMode = SmoothingMode.HighQuality;
-                            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                            g.DrawImage(bmpColoredCreature, 0, 0, outputSize, outputSize);
-                            resized.Save(cacheFilePath);
-                        }
+                        g.CompositingQuality = CompositingQuality.HighQuality;
+                        g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                        g.SmoothingMode = SmoothingMode.HighQuality;
+                        g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                        g.DrawImage(bmpColoredCreature, 0, 0, outputSize, outputSize);
+                        return SaveBitmapToFile(resized, cacheFilePath);
                     }
-                    else bmpColoredCreature.Save(cacheFilePath);
-                    return true;
                 }
             }
 
             return false;
+        }
+
+        private static bool SaveBitmapToFile(Bitmap bmp, string filePath)
+        {
+            try
+            {
+                bmp.Save(filePath);
+                return true;
+            }
+            catch
+            {
+                // something went wrong when trying to save the cached creature image.
+                // could be related to have no write access if the portable version is placed in a protected folder like program files.
+                return false;
+            }
         }
 
         /// <summary>
