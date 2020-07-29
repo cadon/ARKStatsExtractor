@@ -2937,7 +2937,7 @@ namespace ARKBreedingStats
             // 
             this.btImportLastExported.Location = new System.Drawing.Point(379, 3);
             this.btImportLastExported.Name = "btImportLastExported";
-            this.btImportLastExported.Size = new System.Drawing.Size(57, 44);
+            this.btImportLastExported.Size = new System.Drawing.Size(85, 44);
             this.btImportLastExported.TabIndex = 4;
             this.btImportLastExported.Text = "Last Export";
             this.btImportLastExported.UseVisualStyleBackColor = true;
@@ -3013,9 +3013,9 @@ namespace ARKBreedingStats
             // 
             // lbLibrarySelectionInfo
             // 
-            this.lbLibrarySelectionInfo.Location = new System.Drawing.Point(442, 3);
+            this.lbLibrarySelectionInfo.Location = new System.Drawing.Point(470, 3);
             this.lbLibrarySelectionInfo.Name = "lbLibrarySelectionInfo";
-            this.lbLibrarySelectionInfo.Size = new System.Drawing.Size(719, 45);
+            this.lbLibrarySelectionInfo.Size = new System.Drawing.Size(691, 45);
             this.lbLibrarySelectionInfo.TabIndex = 5;
             // 
             // speciesSelector1
