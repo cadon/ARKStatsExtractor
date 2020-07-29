@@ -59,7 +59,7 @@ namespace ARKBreedingStats
             theOverlay = this;
             currentlyInInventory = false;
 
-            ocrPossible = ArkOCR.OCR.setResolution();
+            ocrPossible = ArkOCR.OCR.ocrConfig != null && ArkOCR.OCR.CheckResolutionSupportedByOcr();
 
             SetInfoPositions();
             notes = string.Empty;

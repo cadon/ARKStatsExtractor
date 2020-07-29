@@ -2157,7 +2157,7 @@ namespace ARKBreedingStats
             _overlay.Visible = cbToggleOverlay.Checked;
             _overlay.EnableOverlayTimer = cbToggleOverlay.Checked;
 
-            // disable speechrecognition if overlay is disabled. (no use if no data can be displayed)
+            // disable speechRecognition if overlay is disabled. (no use if no data can be displayed)
             if (_speechRecognition != null && !cbToggleOverlay.Checked)
                 _speechRecognition.Listen = false;
         }
@@ -2182,7 +2182,7 @@ namespace ARKBreedingStats
                     if (!p.Any())
                     {
                         MessageBox.Show("Process for capturing screenshots and for overlay (e.g. the game, or a stream of the game) not found.\n" +
-                                "Start the game or change the process in the settings.\nYou can also define a custom location of the overlay.", $"Game started? - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                "Start the game or change the process in the settings.", $"Game started? - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         cbToggleOverlay.Checked = false;
                         return false;
                     }
@@ -2470,8 +2470,8 @@ namespace ARKBreedingStats
 
         private void UpdateStatusBar()
         {
-            var creatureCount = _creatureCollection.creatures.Where(c => !c.flags.HasFlag(CreatureFlags.Placeholder));
-            int total = creatureCount.Count();
+            var creatureCount = _creatureCollection.creatures.Where(c => !c.flags.HasFlag(CreatureFlags.Placeholder)).ToArray();
+            int total = creatureCount.Length;
             int obelisk = creatureCount.Count(c => c.Status == CreatureStatus.Obelisk);
             int cryopod = creatureCount.Count(c => c.Status == CreatureStatus.Cryopod);
 
@@ -2485,7 +2485,9 @@ namespace ARKBreedingStats
                 + (obelisk > 0 ? ", obelisk: " + obelisk : string.Empty)
                 + (cryopod > 0 ? ", cryopod: " + cryopod : string.Empty)
                 + ")" : string.Empty)
-                + ". v" + Application.ProductVersion /*+ "-BETA"*/ + " / values: " + Values.V.Version +
+                + ". v" + Application.ProductVersion
+                //+ "-BETA" // TODO BETA indicator
+                + " / values: " + Values.V.Version +
                     (modsLoaded ? ", additional values from " + _creatureCollection.ModList.Count + " mods (" + string.Join(", ", _creatureCollection.ModList.Select(m => m.title).ToArray()) + ")" : string.Empty);
         }
 

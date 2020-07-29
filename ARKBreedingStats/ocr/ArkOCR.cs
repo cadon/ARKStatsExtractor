@@ -20,7 +20,7 @@ namespace ARKBreedingStats.ocr
         public OCRTemplate ocrConfig;
         private static ArkOCR _OCR;
         private static OCRControl _ocrControl;
-        private readonly Dictionary<string, Point> _lastLetterPositions = new Dictionary<string, Point>();
+        //private readonly Dictionary<string, Point> _lastLetterPositions = new Dictionary<string, Point>(); // TODO remove?
         public string screenCaptureApplicationName;
         private Process _screenCaptureProcess;
         public int waitBeforeScreenCapture;
@@ -30,7 +30,7 @@ namespace ARKBreedingStats.ocr
 
         public ArkOCR()
         {
-            screenCaptureApplicationName = "ShooterGame";
+            screenCaptureApplicationName = Properties.Settings.Default.OCRApp;
 
             Process[] p = Process.GetProcessesByName(screenCaptureApplicationName);
             if (p.Length > 0)
@@ -39,18 +39,23 @@ namespace ARKBreedingStats.ocr
             waitBeforeScreenCapture = 500;
         }
 
-        public bool setResolution()
+        public Bitmap GetScreenshotOfProcess() => Win32API.GetScreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture);
+
+        /// <summary>
+        /// Checks if the resolution of the default set process is supported by the currently load ocrConfig.
+        /// </summary>
+        public bool CheckResolutionSupportedByOcr()
         {
-            return setResolution(GetScreenshotOfProcess());
+            return CheckResolutionSupportedByOcr(GetScreenshotOfProcess());
         }
 
-        public Bitmap GetScreenshotOfProcess() => Win32API.GetSreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture);
-
-        // figure out the current resolution and positions
-        // return true if the calibration was successful
-        public bool setResolution(Bitmap screenshot)
+        /// <summary>
+        /// Checks if the screenshot is supported by the currently load ocrConfig.
+        /// </summary>
+        public bool CheckResolutionSupportedByOcr(Bitmap screenshot)
         {
-            if (screenshot == null)
+            if (screenshot == null
+                || ocrConfig == null)
                 return false;
 
             if (screenshot.Width == ocrConfig.resolutionWidth && screenshot.Height == ocrConfig.resolutionHeight)
@@ -464,7 +469,7 @@ namespace ARKBreedingStats.ocr
             else
             {
                 // grab screenshot from ark
-                screenshotbmp = Win32API.GetSreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture, true);
+                screenshotbmp = Win32API.GetScreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture, true);
             }
             if (screenshotbmp == null)
             {
@@ -472,7 +477,7 @@ namespace ARKBreedingStats.ocr
                 return finalValues;
             }
 
-            if (!setResolution(screenshotbmp))
+            if (!CheckResolutionSupportedByOcr(screenshotbmp))
             {
                 OCRText = "Error while calibrating: The game-resolution is not supported by the currently loaded OCR-configuration.\n"
                     + $"The tested image has a resolution of {screenshotbmp.Width.ToString()} × {screenshotbmp.Height.ToString()} px,\n"
@@ -557,7 +562,7 @@ namespace ARKBreedingStats.ocr
                 }
 
 
-                _lastLetterPositions[statName] = new Point(rec.X + lastLetterPosition(removePixelsUnderThreshold(GetGreyScale(testbmp), whiteThreshold)), rec.Y);
+                //_lastLetterPositions[statName] = new Point(rec.X + lastLetterPosition(removePixelsUnderThreshold(GetGreyScale(testbmp), whiteThreshold)), rec.Y); // TODO remove?
 
                 finishedText += (finishedText.Length == 0 ? "" : "\r\n") + statName + ":\t" + statOCR;
 
@@ -591,17 +596,17 @@ namespace ARKBreedingStats.ocr
                 {
                     if (statName == "NameSpecies" || statName == "Owner" || statName == "Tribe")
                         continue;
-                    if (statName == "Torpor" && false)
-                    {
-                        // probably it's a wild creature
-                        // todo
-                    }
-                    else
-                    {
-                        finishedText += "error reading stat " + statName;
-                        finalValues[stI] = 0;
-                        continue;
-                    }
+                    //if (statName == "Torpor")
+                    //{
+                    //    // probably it's a wild creature
+                    //    // todo
+                    //}
+                    //else
+                    //{
+                    finishedText += "error reading stat " + statName;
+                    finalValues[stI] = 0;
+                    continue;
+                    //}
                 }
 
                 if (statName == "NameSpecies" || statName == "Owner" || statName == "Tribe")
@@ -1003,11 +1008,11 @@ namespace ARKBreedingStats.ocr
             if (Win32API.GetForegroundWindow() != _screenCaptureProcess.MainWindowHandle)
                 return false;
 
-            Bitmap screenshotbmp = Win32API.GetSreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture);
+            Bitmap screenshotbmp = Win32API.GetScreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture);
 
             if (screenshotbmp == null)
                 return false;
-            if (!setResolution(screenshotbmp))
+            if (!CheckResolutionSupportedByOcr(screenshotbmp))
                 return false;
 
             const string statName = "Level";

@@ -56,7 +56,7 @@ namespace ARKBreedingStats
             public int y;
         }
 
-        public static Bitmap GetSreenshotOfProcess(string processName, int waitMs, bool hideOverlay = false)
+        public static Bitmap GetScreenshotOfProcess(string processName, int waitMs, bool hideOverlay = false)
         {
             Process[] p = Process.GetProcessesByName(processName);
             if (!p.Any()) return null;
@@ -64,7 +64,7 @@ namespace ARKBreedingStats
             Bitmap grab = null;
 
             //Shadow Box users have multiple processes named "Shadow" but only one has an actual window.
-            //Itterate through processes until window screen grab is NOT null.
+            //Iterate through processes until window screen grab is NOT null.
             foreach (Process i in p)
             {
                 IntPtr proc = i.MainWindowHandle;
@@ -121,6 +121,9 @@ namespace ARKBreedingStats
             rc.top = p.y;
             rc.right = rc.left + client.Width;
             rc.bottom = rc.top + client.Height;
+
+            if (rc.Width == 0 || rc.Height == 0)
+                return null;
 
             Bitmap bmp = new Bitmap(rc.Width, rc.Height, PixelFormat.Format32bppArgb);
 
