@@ -1206,4 +1206,7 @@ Diese kann mit BSS Preset angewandt werden.</value>
   <data name="unknownSpecies" xml:space="preserve">
     <value>unbekannte Spezies</value>
   </data>
+  <data name="BestPossibleSpeciesLibrary" xml:space="preserve">
+    <value>Bestmöglicher {0} für diese Bibliothek</value>
+  </data>
 </root>

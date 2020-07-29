@@ -153,6 +153,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string BestPossibleSpeciesLibrary {
+            get {
+                return ResourceManager.GetString("BestPossibleSpeciesLibrary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Body.
         /// </summary>
         internal static string Body {
@@ -3118,7 +3127,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to unknown species.
         /// </summary>
         internal static string unknownSpecies {
             get {

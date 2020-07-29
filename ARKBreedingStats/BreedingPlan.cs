@@ -825,7 +825,7 @@ namespace ARKBreedingStats
             int? levelStep = creatureCollection.getWildLevelStep();
             Creature crB = new Creature(currentSpecies, string.Empty, string.Empty, string.Empty, 0, new int[Values.STATS_COUNT], null, 100, true, levelStep: levelStep)
             {
-                name = "Best possible " + currentSpecies.name + " for this library"
+                name = string.Format(Loc.S("BestPossibleSpeciesLibrary"), currentSpecies.name)
             };
             bool totalLevelUnknown = false;
             for (int s = 0; s < Values.STATS_COUNT; s++)

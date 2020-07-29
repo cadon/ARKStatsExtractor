@@ -1215,4 +1215,7 @@ The preset can be applied by the Apply Preset button</value>
   <data name="unknownSpecies" xml:space="preserve">
     <value>unknown species</value>
   </data>
+  <data name="BestPossibleSpeciesLibrary" xml:space="preserve">
+    <value>Best possible {0} for this library</value>
+  </data>
 </root>
