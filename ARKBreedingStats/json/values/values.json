@@ -1,5 +1,5 @@
 {
-	"version": "312.40.5277022",
+	"version": "312.57.5320732",
 	"format": "1.13",
 	"species": [
 		{
@@ -43945,126 +43945,8 @@
 		},
 		{
 			"name": "Dimorphodon",
-			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP_Aggressive.Dimorph_Character_BP_Aggressive",
-			"fullStatsRaw": [
-				[ 264, 0.2, 0.27, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 100, 0.06, 0, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 900, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 50, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0.01, 0, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
-			"breeding": {
-				"gestationTime": 0,
-				"incubationTime": 4864.47571,
-				"eggTempMin": 35,
-				"eggTempMax": 38,
-				"maturationTime": 90090.0901,
-				"matingCooldownMin": 64800,
-				"matingCooldownMax": 172800
-			},
-			"colors": [
-				{
-					"name": "Unknown",
-					"colors": [
-						"Black",
-						"Dark Grey",
-						"Dino Albino",
-						"Dino Dark Brown",
-						"Dino Dark Orange",
-						"Dino Dark Red",
-						"Dino Dark Yellow",
-						"Dino Darker Grey",
-						"Dino Light Brown",
-						"Dino Light Orange",
-						"Dino Light Yellow",
-						"Dino Medium Brown",
-						"Light Grey"
-					]
-				},
-				null,
-				null,
-				null,
-				{
-					"name": "Unknown",
-					"colors": [
-						"Black",
-						"Dark Grey",
-						"Dino Albino",
-						"Dino Dark Blue",
-						"Dino Dark Brown",
-						"Dino Dark Green",
-						"Dino Dark Orange",
-						"Dino Dark Purple",
-						"Dino Dark Red",
-						"Dino Dark Yellow",
-						"Dino Darker Grey",
-						"Dino Light Blue",
-						"Dino Light Brown",
-						"Dino Light Green",
-						"Dino Light Orange",
-						"Dino Light Purple",
-						"Dino Light Red",
-						"Dino Light Yellow",
-						"Dino Medium Brown",
-						"Dino Medium Green",
-						"Light Grey"
-					]
-				},
-				{
-					"name": "Unknown",
-					"colors": [
-						"Black",
-						"Dark Grey",
-						"Dino Albino",
-						"Dino Dark Blue",
-						"Dino Dark Brown",
-						"Dino Dark Green",
-						"Dino Dark Orange",
-						"Dino Dark Purple",
-						"Dino Dark Red",
-						"Dino Dark Yellow",
-						"Dino Darker Grey",
-						"Dino Light Blue",
-						"Dino Light Brown",
-						"Dino Light Green",
-						"Dino Light Orange",
-						"Dino Light Purple",
-						"Dino Light Red",
-						"Dino Light Yellow",
-						"Dino Medium Brown",
-						"Dino Medium Green",
-						"Light Grey"
-					]
-				}
-			],
-			"taming": {
-				"nonViolent": false,
-				"violent": true,
-				"tamingIneffectiveness": 4.166666,
-				"affinityNeeded0": 900,
-				"affinityIncreasePL": 45,
-				"torporDepletionPS0": 0.8333,
-				"foodConsumptionBase": 0.001302,
-				"foodConsumptionMult": 1152.074
-			},
-			"boneDamageAdjusters": { "c_head": 3 },
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
-			"displayedStats": 927
-		},
-		{
-			"name": "Dimorphodon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP_Aggressive_DragonBoss.Dimorph_Character_BP_Aggressive_DragonBoss",
-			"variants": [ "Boss", "Gamma" ],
+			"variants": [ "Boss", "Gamma", "Minion" ],
 			"fullStatsRaw": [
 				[ 264, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -44183,7 +44065,7 @@
 		{
 			"name": "Dimorphodon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP_Aggressive_DragonBoss_Hard.Dimorph_Character_BP_Aggressive_DragonBoss_Hard",
-			"variants": [ "Alpha", "Boss" ],
+			"variants": [ "Alpha", "Boss", "Minion" ],
 			"fullStatsRaw": [
 				[ 792, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -44302,7 +44184,7 @@
 		{
 			"name": "Dimorphodon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP_Aggressive_DragonBoss_Med.Dimorph_Character_BP_Aggressive_DragonBoss_Med",
-			"variants": [ "Beta", "Boss" ],
+			"variants": [ "Beta", "Boss", "Minion" ],
 			"fullStatsRaw": [
 				[ 528, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
