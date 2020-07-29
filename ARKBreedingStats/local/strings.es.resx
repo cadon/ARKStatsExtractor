@@ -223,7 +223,7 @@ Desmarque esto si la herramienta selecciona repetidamente las especies incorrect
 Los niveles se muestran sin el proceso de extracción (y sin validación).</value>
   </data>
   <data name="cbToggleOverlay" xml:space="preserve">
-    <value>Ocultar</value>
+    <value>Overlay</value>
   </data>
   <data name="ChargeCapacity_Abb" xml:space="preserve">
     <value>CC</value>
