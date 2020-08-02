@@ -432,6 +432,7 @@ namespace ARKBreedingStats
             UpdateCreatureListings();
 
             // set global species that was set before loading
+            selectedSpecies = Values.V.SpeciesByBlueprint(selectedSpecies?.blueprintPath);
             if (selectedSpecies != null
                 && _creatureCollection.creatures.Any(c => c.Species != null && c.Species.Equals(selectedSpecies))
                 )

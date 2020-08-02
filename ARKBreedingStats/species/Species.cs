@@ -68,7 +68,7 @@ namespace ARKBreedingStats.species
         /// </summary>
         private double[] statImprintMultOverride;
         [JsonProperty]
-        public List<ColorRegion> colors; // every species has up to 6 colorregions
+        public List<ColorRegion> colors; // every species has up to 6 color regions
         [JsonProperty]
         public TamingData taming;
         [JsonProperty]

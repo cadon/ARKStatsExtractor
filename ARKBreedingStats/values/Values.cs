@@ -248,7 +248,6 @@ namespace ARKBreedingStats.values
                 }
             }
 
-            int speciesUpdated = 0;
             int speciesAdded = 0;
             // update data if existing
             foreach (Values modValues in modifiedValues)
@@ -283,7 +282,7 @@ namespace ARKBreedingStats.values
 
             loadedModsHash = CreatureCollection.CalculateModListHash(mods);
 
-            if (speciesUpdated == 0 && speciesAdded == 0)
+            if (speciesAdded == 0)
                 return true; // nothing changed
 
             // sort new species
@@ -295,7 +294,7 @@ namespace ARKBreedingStats.values
             _V.UpdateSpeciesBlueprintDictionaries();
 
             resultsMessageSB.AppendLine($"The following mods were loaded:\n\n- {string.Join("\n- ", modifiedValues.Select(m => m.mod.title).ToArray())}\n\n"
-                           + $"Species with changed stats: {speciesUpdated}\nSpecies added: {speciesAdded}");
+                           + $"Species added: {speciesAdded}");
             resultsMessage = resultsMessageSB.ToString();
 
             return true;
@@ -435,9 +434,9 @@ namespace ARKBreedingStats.values
 
             if (cc.singlePlayerSettings)
             {
-                /// The singleplayer multipliers are saved as a regular multiplierpreset, but they work differently
-                /// in the way they are multiplied on existing multipliers and won't work on their own.
-                /// The preset name "singleplayer" should only be used for this purpose.
+                // The singleplayer multipliers are saved as a regular multiplierpreset, but they work differently
+                // in the way they are multiplied on existing multipliers and won't work on their own.
+                // The preset name "singleplayer" should only be used for this purpose.
                 singlePlayerServerMultipliers = serverMultipliersPresets.GetPreset(ServerMultipliersPresets.SINGLEPLAYER);
                 if (singlePlayerServerMultipliers == null)
                     throw new FileNotFoundException("No server multiplier values for singleplayer settings found.\nIt's recommend to redownload ARK Smart Breeding.");

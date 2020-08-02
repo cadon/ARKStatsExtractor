@@ -56,6 +56,11 @@ namespace ARKBreedingStats
         /// <param name="aliases"></param>
         public void SetSpeciesLists(List<Species> species, Dictionary<string, string> aliases)
         {
+            if (SelectedSpecies != null)
+            {
+                SelectedSpecies = Values.V.SpeciesByBlueprint(SelectedSpecies.blueprintPath);
+            }
+
             ImageList imageList;
             (_entryList, imageList, _iconIndices) = LoadSpeciesImagesAndCreateSpeciesList(species, aliases);
 
