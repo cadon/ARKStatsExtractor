@@ -153,7 +153,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Best possible {0} for this library.
         /// </summary>
         internal static string BestPossibleSpeciesLibrary {
             get {
@@ -3168,6 +3168,24 @@ namespace ARKBreedingStats.local {
         internal static string valuesFileLoadingError {
             get {
                 return ResourceManager.GetString("valuesFileLoadingError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Variant Selector.
+        /// </summary>
+        internal static string VariantSelector {
+            get {
+                return ResourceManager.GetString("VariantSelector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string VariantSelectorInfo {
+            get {
+                return ResourceManager.GetString("VariantSelectorInfo", resourceCulture);
             }
         }
         

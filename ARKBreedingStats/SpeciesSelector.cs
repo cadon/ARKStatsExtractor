@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ARKBreedingStats.uiControls;
 
 namespace ARKBreedingStats
 {
@@ -41,12 +42,15 @@ namespace ARKBreedingStats
         private List<string> _iconIndices;
         private CancellationTokenSource _cancelSource;
 
+        internal readonly VariantSelector VariantSelector;
+
         public SpeciesSelector()
         {
             InitializeComponent();
             _lastSpeciesBPs = new List<string>();
             _iconIndices = new List<string>();
             SplitterDistance = Properties.Settings.Default.SpeciesSelectorVerticalSplitterDistance;
+            VariantSelector = new VariantSelector();
         }
 
         /// <summary>
@@ -73,9 +77,10 @@ namespace ARKBreedingStats
             al.AddRange(_entryList.Select(e => e.SearchName).ToArray());
             _textBox.AutoCompleteCustomSource = al;
 
+            VariantSelector.SetVariants(species);
             cbDisplayUntameable.Checked = Properties.Settings.Default.DisplayNonDomesticableSpecies;
-            CbDisplayVariantSpecies.Checked = Properties.Settings.Default.DisplayVariantSpecies;
-            FilterList();
+
+            Textbox_TextChanged(null, null);
         }
 
         private static (List<SpeciesListEntry>, ImageList, List<string>) LoadSpeciesImagesAndCreateSpeciesList(List<Species> species, Dictionary<string, string> aliases)
@@ -191,16 +196,19 @@ namespace ARKBreedingStats
         {
             if (_entryList == null) return;
 
+            bool noVariantFiltering = VariantSelector.DisabledVariants == null || !VariantSelector.DisabledVariants.Any();
             lvSpeciesList.BeginUpdate();
             lvSpeciesList.Items.Clear();
             bool inputIsEmpty = string.IsNullOrWhiteSpace(part);
             foreach (var s in _entryList)
             {
                 if ((Properties.Settings.Default.DisplayNonDomesticableSpecies || s.Species.IsDomesticable)
-                    && (Properties.Settings.Default.DisplayVariantSpecies || string.IsNullOrEmpty(s.Species.VariantInfo))
                     && (inputIsEmpty
                        || s.SearchName.ToLower().Contains(part.ToLower())
                        )
+                    && (noVariantFiltering
+                        || (string.IsNullOrEmpty(s.Species.VariantInfo) ? !VariantSelector.DisabledVariants.Contains(string.Empty)
+                        : !VariantSelector.DisabledVariants.Intersect(s.Species.variants).Any()))
                    )
                 {
                     lvSpeciesList.Items.Add(new ListViewItem(new[] { s.DisplayName, s.Species.VariantInfo, s.Species.IsDomesticable ? "✓" : string.Empty, s.ModName })
@@ -340,10 +348,11 @@ namespace ARKBreedingStats
             set => splitContainer2.SplitterDistance = value;
         }
 
-        private void CbDisplayVariantSpecies_CheckedChanged(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.DisplayVariantSpecies = ((CheckBox)sender).Checked;
-            Textbox_TextChanged(null, null);
+            VariantSelector.InitializeCheckStates();
+            if (VariantSelector.ShowDialog() == DialogResult.OK)
+                Textbox_TextChanged(null, null);
         }
     }
 

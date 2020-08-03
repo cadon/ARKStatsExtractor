@@ -1140,6 +1140,7 @@ namespace ARKBreedingStats
 
             // save splitter distance of speciesSelector
             Properties.Settings.Default.SpeciesSelectorVerticalSplitterDistance = speciesSelector1.SplitterDistance;
+            Properties.Settings.Default.DisabledVariants = speciesSelector1.VariantSelector.DisabledVariants.ToArray();
 
             /////// save settings for next session
             Properties.Settings.Default.Save();

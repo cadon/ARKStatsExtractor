@@ -1318,13 +1318,12 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool DisplayVariantSpecies {
+        public string[] DisabledVariants {
             get {
-                return ((bool)(this["DisplayVariantSpecies"]));
+                return ((string[])(this["DisabledVariants"]));
             }
             set {
-                this["DisplayVariantSpecies"] = value;
+                this["DisabledVariants"] = value;
             }
         }
     }

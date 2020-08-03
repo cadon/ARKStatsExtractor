@@ -1218,4 +1218,10 @@ The preset can be applied by the Apply Preset button</value>
   <data name="BestPossibleSpeciesLibrary" xml:space="preserve">
     <value>Best possible {0} for this library</value>
   </data>
+  <data name="VariantSelector" xml:space="preserve">
+    <value>Variant Selector</value>
+  </data>
+  <data name="VariantSelectorInfo" xml:space="preserve">
+    <value>Species that contain one variant that is unchecked will be hidden.</value>
+  </data>
 </root>
