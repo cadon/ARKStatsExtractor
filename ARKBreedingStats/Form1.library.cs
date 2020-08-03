@@ -2,7 +2,6 @@
 using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.values;
-
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -19,7 +18,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// Add a new creature to the library based from the data of the extractor or tester
         /// </summary>
-        /// <param name="fromExtractor">if true, take data from extractor-infoinput, else from tester</param>
+        /// <param name="fromExtractor">if true, take data from extractor-infoInput, else from tester</param>
         /// <param name="motherArkId">only pass if from import. Used for creating placeholder parents</param>
         /// <param name="fatherArkId">only pass if from import. Used for creating placeholder parents</param>
         /// <param name="goToLibraryTab">go to library tab after the creature is added</param>

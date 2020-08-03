@@ -274,7 +274,7 @@ namespace ARKBreedingStats.species
             set
             {
                 _mod = value;
-                DescriptiveNameAndMod = DescriptiveName + (string.IsNullOrEmpty(_mod?.title) ? "" : " (" + _mod.title + ")");
+                InitializeNames();
             }
             get => _mod;
         }
