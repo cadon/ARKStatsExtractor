@@ -21,6 +21,7 @@ namespace ARKBreedingStats
         public const string ArkDataJson = "ark_data.json";
         public const string IgnoreSpeciesClasses = "ignoreSpeciesClasses.json";
         public const string CustomReplacingsNamePattern = "customReplacings.json";
+        public const string CustomSpeciesVariants = "customSpeciesVariants.json";
         public const string ImageFolderName = "img";
         public const string CacheFolderName = "cache";
 

@@ -163,7 +163,7 @@ namespace ARKBreedingStats.values
                 }
             }
 
-            OrderSpecies();
+            OrderSpeciesAndApplyCustomVariants();
 
             _V.LoadAliases();
             _V.UpdateSpeciesBlueprintDictionaries();
@@ -185,7 +185,7 @@ namespace ARKBreedingStats.values
         }
 
         /// <summary>
-        /// Tries to load a modfile.
+        /// Tries to load a mod file.
         /// If the mod-values will be used, setModFileName should be true.
         /// If the file cannot be found or the format is wrong, the file is ignored and no exception is thrown if throwExceptionOnFail is false.
         /// </summary>
@@ -286,7 +286,7 @@ namespace ARKBreedingStats.values
                 return true; // nothing changed
 
             // sort new species
-            OrderSpecies();
+            OrderSpeciesAndApplyCustomVariants();
 
             // mod-fooddata TODO
 
@@ -368,15 +368,20 @@ namespace ARKBreedingStats.values
             //    Clipboard.SetText(duplicateSpeciesNames);
         }
 
-        private void OrderSpecies()
+        private void OrderSpeciesAndApplyCustomVariants()
         {
             string fileName = FileService.GetJsonPath("sortNames.txt");
 
             if (!File.Exists(fileName))
             {
                 // default sorting for aberrant variants.
-                try { File.WriteAllText(fileName, "^Aberrant (.*)$@$1a\n"); }
-                catch { }
+                try
+                {
+                    File.WriteAllText(fileName, "^Aberrant (.*)$@$1a\n");
+                }
+                catch
+                {
+                }
             }
 
             if (File.Exists(fileName))
@@ -387,14 +392,16 @@ namespace ARKBreedingStats.values
                 string[] lines = File.ReadAllLines(fileName);
                 foreach (string l in lines)
                 {
-                    if (l.IndexOf("@", StringComparison.Ordinal) <= 0 || l.IndexOf("@", StringComparison.Ordinal) + 1 >= l.Length)
+                    if (l.IndexOf("@", StringComparison.Ordinal) <= 0 ||
+                        l.IndexOf("@", StringComparison.Ordinal) + 1 >= l.Length)
                         continue;
                     string matchName = l.Substring(0, l.IndexOf("@", StringComparison.Ordinal)).Trim();
                     string replaceName = l.Substring(l.IndexOf("@", StringComparison.Ordinal) + 1).Trim();
 
                     Regex r = new Regex(matchName);
 
-                    List<Species> matchedSpecies = _V.species.Where(s => string.IsNullOrEmpty(s.SortName) && r.IsMatch(s.name)).ToList();
+                    List<Species> matchedSpecies =
+                        _V.species.Where(s => string.IsNullOrEmpty(s.SortName) && r.IsMatch(s.name)).ToList();
 
                     foreach (Species s in matchedSpecies)
                     {
@@ -412,6 +419,28 @@ namespace ARKBreedingStats.values
 
             _V.species = _V.species.OrderBy(s => s.SortName).ToList();
             _V.speciesNames = _V.species.Select(s => s.name).ToList();
+
+            // apply custom species variants
+            var customSpeciesVariantsFilePath = FileService.GetJsonPath(FileService.CustomSpeciesVariants);
+
+            if (File.Exists(customSpeciesVariantsFilePath)
+                && FileService.LoadJSONFile(customSpeciesVariantsFilePath,
+                    out Dictionary<string, string[]> customSpeciesVariants, out var error))
+            {
+                if (customSpeciesVariants.Any())
+                {
+                    foreach (Species sp in _V.species)
+                    {
+                        if (customSpeciesVariants.TryGetValue(sp.blueprintPath, out var variants))
+                        {
+                            var spVars = (sp.variants?.ToList() ?? new List<string>());
+                            spVars.AddRange(variants);
+                            sp.variants = spVars.Any() ? spVars.Distinct().ToArray() : null;
+                            sp.InitializeNames();
+                        }
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -428,7 +457,6 @@ namespace ARKBreedingStats.values
             {
                 throw new FileNotFoundException("No default server multiplier values found.\nIt's recommend to redownload ARK Smart Breeding.");
             }
-
 
             ServerMultipliers singlePlayerServerMultipliers = null;
 

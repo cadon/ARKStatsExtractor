@@ -103,16 +103,7 @@ namespace ARKBreedingStats.species
         {
             // TODO: Base species are maybe not used ingame and may only lead to confusion (e.g. Giganotosaurus).
 
-            // ignore variants that already appear in the species name, e.g. Corrupted
-            if (variants != null && variants.Any())
-            {
-                VariantInfo = string.Join(", ", variants.Where(v => !name.Contains(v)));
-            }
-
-            DescriptiveName = name + (string.IsNullOrEmpty(VariantInfo) ? string.Empty : " (" + VariantInfo + ")");
-            SortName = DescriptiveName;
-            string modSuffix = string.IsNullOrEmpty(_mod?.title) ? string.Empty : _mod.title;
-            DescriptiveNameAndMod = DescriptiveName + (string.IsNullOrEmpty(modSuffix) ? "" : " (" + modSuffix + ")");
+            InitializeNames();
             stats = new List<CreatureStat>();
             usedStats = 0;
             double[][] completeRaws = new double[Values.STATS_COUNT][];
@@ -166,6 +157,23 @@ namespace ARKBreedingStats.species
             IsDomesticable = (taming != null && (taming.nonViolent || taming.violent)) || breeding != null;
 
             if (statImprintMult == null) statImprintMult = new double[] { 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 }; // default values for the stat imprint multipliers
+        }
+
+        /// <summary>
+        /// Sets the name, descriptive name and variant info.
+        /// </summary>
+        public void InitializeNames()
+        {
+            // ignore variants that already appear in the species name, e.g. Corrupted
+            if (variants != null && variants.Any())
+            {
+                VariantInfo = string.Join(", ", variants.Where(v => !name.Contains(v)));
+            }
+
+            DescriptiveName = name + (string.IsNullOrEmpty(VariantInfo) ? string.Empty : " (" + VariantInfo + ")");
+            SortName = DescriptiveName;
+            string modSuffix = string.IsNullOrEmpty(_mod?.title) ? string.Empty : _mod.title;
+            DescriptiveNameAndMod = DescriptiveName + (string.IsNullOrEmpty(modSuffix) ? "" : " (" + modSuffix + ")");
         }
 
         public void InitializeColors(ARKColors arkColors)
