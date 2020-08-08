@@ -111,7 +111,7 @@ namespace ARKBreedingStats.uiControls
             int nrFunctions = 0;
             int nrFunctionsAfterResolving = NrFunctions(pattern);
             // the second and third parameter are optional
-            Regex r = new Regex(@"\{\{ *#(\w+) *: *([^\|\{\}]+?) *(?:\| *([^\|\{\}]+?) *)?(?:\| *([^\|\{\}]+?) *)?\}\}", RegexOptions.IgnoreCase);
+            Regex r = new Regex(@"\{\{ *#(\w+) *: *([^\|\{\}]*?) *(?:\| *([^\|\{\}]*?) *)?(?:\| *([^\|\{\}]*?) *)?\}\}", RegexOptions.IgnoreCase);
             // resolve nested functions
             while (nrFunctions != nrFunctionsAfterResolving)
             {
@@ -140,7 +140,7 @@ namespace ARKBreedingStats.uiControls
         /// <returns></returns>
         private static string ResolveFunction(Match m, Creature creature, Dictionary<string, string> customReplacings, bool displayError, bool processNumberField)
         {
-            // function parameters can be nonnumeric if numbers are parsed
+            // function parameters can be non numeric if numbers are parsed
             try
             {
                 // first parameter value
