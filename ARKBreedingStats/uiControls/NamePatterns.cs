@@ -72,7 +72,7 @@ namespace ARKBreedingStats.uiControls
 
             if (name.Contains("{n}"))
             {
-                // replace the unique number key with the lowest possibe positive number to get a unique name.
+                // replace the unique number key with the lowest possible positive number to get a unique name.
                 // TODO: this ignores creatures without set sex.
                 string numberedUniqueName;
                 int n = 1;

@@ -194,11 +194,7 @@ namespace ARKBreedingStats.uiControls
             txtboxPattern.Focus();
         }
 
-        public string NamePattern
-        {
-            get => txtboxPattern.Text;
-            set => txtboxPattern.Text = value;
-        }
+        public string NamePattern => txtboxPattern.Text;
 
         private static Dictionary<string, string> PatternExplanations(bool isGlowSpecies) => new Dictionary<string, string>()
             {

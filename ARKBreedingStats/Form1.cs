@@ -106,6 +106,14 @@ namespace ARKBreedingStats
                 Properties.Settings.Default.Save();
             }
 
+            // the eol is changed during the loading of the settings, the \r is removed. re-add it.
+            var namingPatterns = Properties.Settings.Default.NamingPatterns;
+            if (namingPatterns != null)
+            {
+                for (int i = 0; i < namingPatterns.Length; i++)
+                    namingPatterns[i] = namingPatterns[i].Replace("\r", string.Empty).Replace("\n", "\r\n");
+            }
+
             _tt = new ToolTip();
             initLocalization();
             InitializeComponent();
