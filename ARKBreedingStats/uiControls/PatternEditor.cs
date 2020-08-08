@@ -19,6 +19,7 @@ namespace ARKBreedingStats.uiControls
         private List<Creature> _females;
         private List<Creature> _males;
         private int[] _speciesTopLevels;
+        private int[] _speciesLowestLevels;
         private Dictionary<string, string> _customReplacings;
         public Action<PatternEditor> OnReloadCustomReplacings;
 
@@ -27,13 +28,14 @@ namespace ARKBreedingStats.uiControls
             InitializeComponent();
         }
 
-        public PatternEditor(Creature creature, List<Creature> females, List<Creature> males, int[] speciesTopLevels, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback) : this()
+        public PatternEditor(Creature creature, List<Creature> females, List<Creature> males, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback) : this()
         {
             OnReloadCustomReplacings = reloadCallback;
             _creature = creature;
             _females = females;
             _males = males;
             _speciesTopLevels = speciesTopLevels;
+            _speciesLowestLevels = speciesLowestLevels;
             _customReplacings = customReplacings;
             txtboxPattern.Text = Properties.Settings.Default.NamingPatterns?[namingPatternIndex] ?? string.Empty;
             txtboxPattern.SelectionStart = txtboxPattern.Text.Length;
@@ -43,7 +45,7 @@ namespace ARKBreedingStats.uiControls
             // collect creatures of the same species
             var sameSpecies = (females ?? new List<Creature>()).Concat((males ?? new List<Creature>())).ToList();
 
-            var examples = NamePatterns.CreateTokenDictionary(creature, sameSpecies, _speciesTopLevels);
+            var examples = NamePatterns.CreateTokenDictionary(creature, sameSpecies, _speciesTopLevels, _speciesLowestLevels);
 
             TableLayoutPanel tlpKeys = new TableLayoutPanel();
             tableLayoutPanel1.Controls.Add(tlpKeys);
@@ -240,6 +242,8 @@ namespace ARKBreedingStats.uiControls
 
                 { "isTophp", "if hp is top, it will return 1 and nothing if it's not top. Combine with the if-function. All stat name abbreviations are possible, e.g. replace hp with st, to, ox etc."},
                 { "isNewTophp", "if hp is higher than the current top hp, it will return 1 and nothing else. Combine with the if-function. All stat name abbreviations are possible."},
+                { "isLowesthp", "if hp is the lowest, it will return 1 and nothing if it's not the lowest. Combine with the if-function. All stat name abbreviations are possible, e.g. replace hp with st, to, ox etc."},
+                { "isNewLowesthp", "if hp is lower than the current lowest hp, it will return 1 and nothing else. Combine with the if-function. All stat name abbreviations are possible."},
 
                 { "effImp_short", "Short Taming-effectiveness or Imprinting (if tamed / bred)"},
                 { "index",        "Index in library (same species)."},
@@ -332,7 +336,7 @@ namespace ARKBreedingStats.uiControls
 
         private void DisplayPreview()
         {
-            cbPreview.Text = NamePatterns.GenerateCreatureName(_creature, _females, _males, _speciesTopLevels, _customReplacings, false, -1, false, txtboxPattern.Text, false);
+            cbPreview.Text = NamePatterns.GenerateCreatureName(_creature, _females, _males, _speciesTopLevels, _speciesLowestLevels, _customReplacings, false, -1, false, txtboxPattern.Text, false);
         }
     }
 }

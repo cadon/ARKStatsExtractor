@@ -314,9 +314,11 @@ namespace ARKBreedingStats
                 List<int> usedStatIndices = new List<int>(Values.STATS_COUNT);
                 List<int> usedAndConsideredStatIndices = new List<int>(Values.STATS_COUNT);
                 int[] bestStat = new int[Values.STATS_COUNT];
+                int[] lowestStat = new int[Values.STATS_COUNT];
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
                     bestStat[s] = -1;
+                    lowestStat[s] = -1;
                     if (species.UsesStat(s))
                     {
                         usedStatIndices.Add(s);
@@ -359,16 +361,20 @@ namespace ARKBreedingStats
                     for (int s = 0; s < usedStatsCount; s++)
                     {
                         int si = usedStatIndices[s];
-                        if (c.levelsWild[si] <= 0)
-                            continue;
+                        if (c.levelsWild[si] != -1 && (lowestStat[si] == -1 || c.levelsWild[si] < lowestStat[si]))
+                        {
+                            lowestStat[si] = c.levelsWild[si];
+                        }
+
+                        if (c.levelsWild[si] <= 0) continue;
+
                         if (c.levelsWild[si] == bestStat[si])
                         {
                             bestCreatures[si].Add(c);
                         }
                         else if (c.levelsWild[si] > bestStat[si])
                         {
-                            bestCreatures[si] = new List<Creature>
-                                    { c };
+                            bestCreatures[si] = new List<Creature> { c };
                             bestStat[si] = c.levelsWild[si];
                         }
                     }
@@ -385,6 +391,15 @@ namespace ARKBreedingStats
                 else
                 {
                     _topLevels[species] = bestStat;
+                }
+
+                if (!_lowestLevels.ContainsKey(species))
+                {
+                    _lowestLevels.Add(species, lowestStat);
+                }
+                else
+                {
+                    _lowestLevels[species] = lowestStat;
                 }
 
                 // beststat and bestcreatures now contain the best stats and creatures for each stat.

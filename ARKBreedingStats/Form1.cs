@@ -29,6 +29,7 @@ namespace ARKBreedingStats
         /// List of all top stats per species
         /// </summary>
         private readonly Dictionary<Species, int[]> _topLevels = new Dictionary<Species, int[]>();
+        private readonly Dictionary<Species, int[]> _lowestLevels = new Dictionary<Species, int[]>();
         private readonly List<StatIO> _statIOs = new List<StatIO>();
         private readonly List<StatIO> _testingIOs = new List<StatIO>();
         private int _activeStatIndex = -1;
@@ -2696,9 +2697,11 @@ namespace ARKBreedingStats
             cr.RecalculateCreatureValues(_creatureCollection.getWildLevelStep());
 
             if (openPatternEditor)
-                input.OpenNamePatternEditor(cr, _topLevels.ContainsKey(cr.Species) ? _topLevels[species] : null, _customReplacingNamingPattern, namingPatternIndex, ReloadNamePatternCustomReplacings);
+                input.OpenNamePatternEditor(cr, _topLevels.ContainsKey(cr.Species) ? _topLevels[species] : null, _lowestLevels.ContainsKey(cr.Species) ? _lowestLevels[species] : null,
+                    _customReplacingNamingPattern, namingPatternIndex, ReloadNamePatternCustomReplacings);
             else
-                input.GenerateCreatureName(cr, _topLevels.ContainsKey(cr.Species) ? _topLevels[species] : null, _customReplacingNamingPattern, showDuplicateNameWarning, namingPatternIndex);
+                input.GenerateCreatureName(cr, _topLevels.ContainsKey(cr.Species) ? _topLevels[species] : null, _lowestLevels.ContainsKey(cr.Species) ? _lowestLevels[species] : null,
+                    _customReplacingNamingPattern, showDuplicateNameWarning, namingPatternIndex);
         }
 
         private void ExtractionTestControl1_CopyToTester(string speciesBP, int[] wildLevels, int[] domLevels, bool postTamed, bool bred, double te, double imprintingBonus, bool gotoTester, testCases.TestCaseControl tcc)
@@ -2996,7 +2999,9 @@ namespace ARKBreedingStats
                     sameSpecies = _creatureCollection.creatures.Where(c => c.Species == cr.Species).ToList();
 
                 // set new name
-                cr.name = NamePatterns.GenerateCreatureName(cr, sameSpecies, _topLevels.ContainsKey(cr.Species) ? _topLevels[cr.Species] : null, _customReplacingNamingPattern, false, 0);
+                cr.name = NamePatterns.GenerateCreatureName(cr, sameSpecies,
+                    _topLevels.ContainsKey(cr.Species) ? _topLevels[cr.Species] : null,
+                    _lowestLevels.ContainsKey(cr.Species) ? _lowestLevels[cr.Species] : null, _customReplacingNamingPattern, false, 0);
 
                 UpdateDisplayedCreatureValues(cr, false, false);
             }

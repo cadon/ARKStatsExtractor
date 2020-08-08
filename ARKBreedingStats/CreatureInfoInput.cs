@@ -487,16 +487,16 @@ namespace ARKBreedingStats
         /// <summary>
         /// Generates a creature name with a given pattern
         /// </summary>
-        public void GenerateCreatureName(Creature creature, int[] speciesTopLevels, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, int namingPatternIndex)
+        public void GenerateCreatureName(Creature creature, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, int namingPatternIndex)
         {
             SetCreatureData(creature);
-            CreatureName = uiControls.NamePatterns.GenerateCreatureName(creature, _females, _males, speciesTopLevels, customReplacings, showDuplicateNameWarning, namingPatternIndex);
+            CreatureName = uiControls.NamePatterns.GenerateCreatureName(creature, _females, _males, speciesTopLevels, speciesLowestLevels, customReplacings, showDuplicateNameWarning, namingPatternIndex);
         }
 
-        public void OpenNamePatternEditor(Creature creature, int[] speciesTopLevels, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<uiControls.PatternEditor> reloadCallback)
+        public void OpenNamePatternEditor(Creature creature, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<uiControls.PatternEditor> reloadCallback)
         {
             SetCreatureData(creature);
-            using (var pe = new uiControls.PatternEditor(creature, _females, _males, speciesTopLevels, customReplacings, namingPatternIndex, reloadCallback))
+            using (var pe = new uiControls.PatternEditor(creature, _females, _males, speciesTopLevels, speciesLowestLevels, customReplacings, namingPatternIndex, reloadCallback))
             {
                 Utils.SetWindowRectangle(pe, Properties.Settings.Default.PatternEditorFormRectangle);
                 if (Properties.Settings.Default.PatternEditorSplitterDistance > 0)
