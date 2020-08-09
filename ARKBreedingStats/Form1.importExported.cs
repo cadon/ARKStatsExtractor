@@ -169,7 +169,7 @@ namespace ARKBreedingStats
                     int statIndex = values.Values.statsDisplayOrder[s];
                     if (!species.UsesStat(statIndex)) continue;
 
-                    sb.Append($"{Utils.StatName(statIndex, true, species.IsGlowSpecies)}: {_statIOs[statIndex].LevelWild} ({_statIOs[statIndex].BreedingValue})");
+                    sb.Append($"{Utils.StatName(statIndex, true, species.statNames)}: {_statIOs[statIndex].LevelWild} ({_statIOs[statIndex].BreedingValue})");
                     if (_statIOs[statIndex].TopLevel == StatIOStatus.NewTopLevel)
                     {
                         sb.Append($" {Loc.S("newTopLevel")}");

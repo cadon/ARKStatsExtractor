@@ -270,22 +270,22 @@
   <data name="cbToggleOverlay" xml:space="preserve">
     <value>覆盖</value>
   </data>
-  <data name="ChargeCapacity" xml:space="preserve">
+  <data name="Charge Capacity" xml:space="preserve">
     <value>光宠蓄电量</value>
   </data>
-  <data name="ChargeCapacity_Abb" xml:space="preserve">
+  <data name="Charge Capacity_Abb" xml:space="preserve">
     <value>光宠蓄电量</value>
   </data>
-  <data name="ChargeEmissionRange" xml:space="preserve">
+  <data name="Charge Emission Range" xml:space="preserve">
     <value>Ch 光宠照明范围</value>
   </data>
-  <data name="ChargeEmissionRange_Abb" xml:space="preserve">
+  <data name="Charge Emission Range_Abb" xml:space="preserve">
     <value>光宠照明范围</value>
   </data>
-  <data name="ChargeRegeneration" xml:space="preserve">
+  <data name="Charge Regen" xml:space="preserve">
     <value>光充电量回复</value>
   </data>
-  <data name="ChargeRegeneration_Abb" xml:space="preserve">
+  <data name="Charge Regen_Abb" xml:space="preserve">
     <value>光宠电量回复</value>
   </data>
   <data name="Chart" xml:space="preserve">
@@ -954,10 +954,10 @@
   <data name="cbBPOnlyOneSuggestionForFemales" xml:space="preserve">
     <value>仅母系最优建议</value>
   </data>
-  <data name="CraftingSpeed" xml:space="preserve">
+  <data name="Crafting Speed" xml:space="preserve">
     <value>制作速度</value>
   </data>
-  <data name="CraftingSpeed_Abb" xml:space="preserve">
+  <data name="Crafting Speed_Abb" xml:space="preserve">
     <value>制作速度</value>
   </data>
   <data name="CurrentCreature" xml:space="preserve">

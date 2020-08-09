@@ -81,10 +81,15 @@ namespace ARKBreedingStats.species
         /// Information about the mod. If this value equals null, the species is probably from the base-game.
         /// </summary>
         private Mod _mod;
+
         /// <summary>
-        /// Determines if species has different stat-names.
+        /// Custom stat names of the species, e.g. glowSpecies use this.
+        /// The key is the stat index as string, the value the statName.
+        /// If this property is null, the default names are used.
         /// </summary>
-        public bool IsGlowSpecies;
+        [JsonProperty]
+        public Dictionary<string, string> statNames;
+
         /// <summary>
         /// True if the species is tameable or domesticable in other ways (e.g. raising from collected eggs).
         /// </summary>
@@ -153,7 +158,6 @@ namespace ARKBreedingStats.species
                 boneDamageAdjusters = boneDamageAdjustersCleanedUp;
             }
 
-            IsGlowSpecies = new List<string> { "Bulbdog", "Featherlight", "Glowbug", "Glowtail", "Shinehorn" }.Contains(name);
             IsDomesticable = (taming != null && (taming.nonViolent || taming.violent)) || breeding != null;
 
             if (statImprintMult == null) statImprintMult = new double[] { 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 }; // default values for the stat imprint multipliers

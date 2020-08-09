@@ -536,7 +536,7 @@ namespace ARKBreedingStats
 
             creatureInfoInputExtractor.SelectedSpecies = species;
             creatureInfoInputTester.SelectedSpecies = species;
-            bool isglowSpecies = species.IsGlowSpecies;
+            var statNames = species.statNames;
 
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
@@ -548,13 +548,13 @@ namespace ARKBreedingStats
                 _statIOs[s].IsActive = _activeStats[s];
                 _testingIOs[s].IsActive = species.UsesStat(s);
                 if (!_activeStats[s]) _statIOs[s].Input = 0;
-                _statIOs[s].Title = Utils.StatName(s, false, glowSpecies: isglowSpecies);
-                _testingIOs[s].Title = Utils.StatName(s, false, isglowSpecies);
+                _statIOs[s].Title = Utils.StatName(s, false, statNames);
+                _testingIOs[s].Title = Utils.StatName(s, false, statNames);
                 // don't lock special stats of glowspecies
-                if ((isglowSpecies &&
-                      (s == (int)StatNames.Stamina
-                    || s == (int)StatNames.Oxygen
-                    || s == (int)StatNames.MeleeDamageMultiplier)
+                if ((statNames != null &&
+                     (s == (int)StatNames.Stamina
+                      || s == (int)StatNames.Oxygen
+                      || s == (int)StatNames.MeleeDamageMultiplier)
                   )
                   || (species.name.Contains("Daeodon")
                          && s == (int)StatNames.Food

@@ -225,22 +225,22 @@ Los niveles se muestran sin el proceso de extracción (y sin validación).</valu
   <data name="cbToggleOverlay" xml:space="preserve">
     <value>Overlay</value>
   </data>
-  <data name="ChargeCapacity_Abb" xml:space="preserve">
+  <data name="Charge Capacity_Abb" xml:space="preserve">
     <value>CC</value>
   </data>
   <data name="Chart" xml:space="preserve">
     <value>Gráfico</value>
   </data>
-  <data name="ChargeCapacity" xml:space="preserve">
+  <data name="Charge Capacity" xml:space="preserve">
     <value>Ch Capacidad</value>
   </data>
   <data name="checkForUpdatedStatsToolStripMenuItem" xml:space="preserve">
     <value>Buscar actualizaciones</value>
   </data>
-  <data name="ChargeEmissionRange" xml:space="preserve">
+  <data name="Charge Emission Range" xml:space="preserve">
     <value>Ch Rango de emisión</value>
   </data>
-  <data name="ChargeRegeneration" xml:space="preserve">
+  <data name="Charge Regen" xml:space="preserve">
     <value>Ch Regen</value>
   </data>
   <data name="Club" xml:space="preserve">
@@ -264,10 +264,10 @@ Los niveles se muestran sin el proceso de extracción (y sin validación).</valu
   <data name="copyToMultiplierTesterToolStripButtonTT" xml:space="preserve">
     <value>Todos los niveles, TE e IB del probador, y los valores estadísticos del extractor se copiarán en el probador multiplicador de estadísticas</value>
   </data>
-  <data name="ChargeEmissionRange_Abb" xml:space="preserve">
+  <data name="Charge Emission Range_Abb" xml:space="preserve">
     <value>CRa</value>
   </data>
-  <data name="ChargeRegeneration_Abb" xml:space="preserve">
+  <data name="Charge Regen_Abb" xml:space="preserve">
     <value>CRe</value>
   </data>
   <data name="Creature" xml:space="preserve">
@@ -956,10 +956,10 @@ Algunas crías pueden ser peores que en el modo de estadísticas altas, pero tam
   <data name="it" xml:space="preserve">
     <value>Italiano</value>
   </data>
-  <data name="CraftingSpeed" xml:space="preserve">
+  <data name="Crafting Speed" xml:space="preserve">
     <value>Velocidad de fabricación</value>
   </data>
-  <data name="CraftingSpeed_Abb" xml:space="preserve">
+  <data name="Crafting Speed_Abb" xml:space="preserve">
     <value>Cr</value>
   </data>
   <data name="Fortitude" xml:space="preserve">

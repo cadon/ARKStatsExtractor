@@ -225,22 +225,22 @@ The levels are then shown without the extraction-process (and without validation
   <data name="cbToggleOverlay" xml:space="preserve">
     <value>Overlay</value>
   </data>
-  <data name="ChargeCapacity_Abb" xml:space="preserve">
+  <data name="Charge Capacity_Abb" xml:space="preserve">
     <value>CC</value>
   </data>
   <data name="Chart" xml:space="preserve">
     <value>Chart</value>
   </data>
-  <data name="ChargeCapacity" xml:space="preserve">
+  <data name="Charge Capacity" xml:space="preserve">
     <value>Ch Capacity</value>
   </data>
   <data name="checkForUpdatedStatsToolStripMenuItem" xml:space="preserve">
     <value>Check for Updates</value>
   </data>
-  <data name="ChargeEmissionRange" xml:space="preserve">
+  <data name="Charge Emission Range" xml:space="preserve">
     <value>Ch Emission Range</value>
   </data>
-  <data name="ChargeRegeneration" xml:space="preserve">
+  <data name="Charge Regen" xml:space="preserve">
     <value>Ch Regen</value>
   </data>
   <data name="Club" xml:space="preserve">
@@ -264,10 +264,10 @@ The levels are then shown without the extraction-process (and without validation
   <data name="copyToMultiplierTesterToolStripButtonTT" xml:space="preserve">
     <value>All the levels, TE and IB from the Tester, and the stat-values from the Extractor will be copied to the Stat-Multiplier-Tester</value>
   </data>
-  <data name="ChargeEmissionRange_Abb" xml:space="preserve">
+  <data name="Charge Emission Range_Abb" xml:space="preserve">
     <value>CRa</value>
   </data>
-  <data name="ChargeRegeneration_Abb" xml:space="preserve">
+  <data name="Charge Regen_Abb" xml:space="preserve">
     <value>CRe</value>
   </data>
   <data name="Creature" xml:space="preserve">
@@ -956,10 +956,10 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   <data name="it" xml:space="preserve">
     <value>Italian</value>
   </data>
-  <data name="CraftingSpeed" xml:space="preserve">
+  <data name="Crafting Speed" xml:space="preserve">
     <value>Crafting Speed</value>
   </data>
-  <data name="CraftingSpeed_Abb" xml:space="preserve">
+  <data name="Crafting Speed_Abb" xml:space="preserve">
     <value>Cr</value>
   </data>
   <data name="Fortitude" xml:space="preserve">

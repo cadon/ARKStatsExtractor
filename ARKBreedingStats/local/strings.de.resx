@@ -225,22 +225,22 @@ Die angezeigten Level werden ohne Validierung angezeigt und gelten nur für wild
   <data name="cbToggleOverlay" xml:space="preserve">
     <value>Overlay</value>
   </data>
-  <data name="ChargeCapacity_Abb" xml:space="preserve">
+  <data name="Charge Capacity_Abb" xml:space="preserve">
     <value>LK</value>
   </data>
   <data name="Chart" xml:space="preserve">
     <value>Chart</value>
   </data>
-  <data name="ChargeCapacity" xml:space="preserve">
+  <data name="Charge Capacity" xml:space="preserve">
     <value>La Kapazität</value>
   </data>
   <data name="checkForUpdatedStatsToolStripMenuItem" xml:space="preserve">
     <value>Prüfe auf Updates</value>
   </data>
-  <data name="ChargeEmissionRange" xml:space="preserve">
+  <data name="Charge Emission Range" xml:space="preserve">
     <value>La Reichweite</value>
   </data>
-  <data name="ChargeRegeneration" xml:space="preserve">
+  <data name="Charge Regen" xml:space="preserve">
     <value>La Regen</value>
   </data>
   <data name="Club" xml:space="preserve">
@@ -264,10 +264,10 @@ Die angezeigten Level werden ohne Validierung angezeigt und gelten nur für wild
   <data name="copyToMultiplierTesterToolStripButtonTT" xml:space="preserve">
     <value>Alle Level, TE und IB vom Tester und die Stat-Werte vom Extraktor werden zum Stat-Multiplikator-Tester kopiert.</value>
   </data>
-  <data name="ChargeEmissionRange_Abb" xml:space="preserve">
+  <data name="Charge Emission Range_Abb" xml:space="preserve">
     <value>LWe</value>
   </data>
-  <data name="ChargeRegeneration_Abb" xml:space="preserve">
+  <data name="Charge Regen_Abb" xml:space="preserve">
     <value>LRe</value>
   </data>
   <data name="Creature" xml:space="preserve">
@@ -948,10 +948,10 @@ Wählen, um die Top stats in einer Kreature zu vereinen. Dieser Modus geht ein R
   <data name="it" xml:space="preserve">
     <value>Italienisch</value>
   </data>
-  <data name="CraftingSpeed" xml:space="preserve">
+  <data name="Crafting Speed" xml:space="preserve">
     <value>Herstellungsgeschwindigkeit</value>
   </data>
-  <data name="CraftingSpeed_Abb" xml:space="preserve">
+  <data name="Crafting Speed_Abb" xml:space="preserve">
     <value>He</value>
   </data>
   <data name="Fortitude" xml:space="preserve">

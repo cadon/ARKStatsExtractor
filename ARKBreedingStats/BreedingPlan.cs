@@ -746,9 +746,8 @@ namespace ARKBreedingStats
             }
             else
             {
-                bool isGlowSpecies = species.IsGlowSpecies;
-                pedigreeCreature1.IsGlowSpecies = isGlowSpecies;
-                pedigreeCreature2.IsGlowSpecies = isGlowSpecies;
+                pedigreeCreature1.SetCustomStatNames(species.statNames);
+                pedigreeCreature2.SetCustomStatNames(species.statNames);
                 if (Raising.GetRaisingTimes(species, out TimeSpan matingTime, out string incubationMode, out incubationTime, out TimeSpan babyTime, out TimeSpan maturationTime, out TimeSpan nextMatingMin, out TimeSpan nextMatingMax))
                 {
                     if (matingTime != TimeSpan.Zero)

@@ -31,11 +31,7 @@ namespace ARKBreedingStats.uiControls
             for (int s = 0; s < displayedStatsCount; s++)
             {
                 int si = displayedStats[s];
-                StatDisplay sd = new StatDisplay
-                {
-                    statIndex = si,
-                    Percent = Utils.Precision(si) == 3
-                };
+                StatDisplay sd = new StatDisplay(si, Utils.Precision(si) == 3);
                 stats[s] = sd;
 
                 sd.Location = new System.Drawing.Point(3, 19 + s * 23);
@@ -53,12 +49,11 @@ namespace ARKBreedingStats.uiControls
         {
             SuspendLayout();
 
-            bool glowSpecies = creature.Species.IsGlowSpecies;
             for (int s = 0; s < displayedStatsCount; s++)
             {
                 int si = displayedStats[s];
-                stats[s].GlowSpecies = glowSpecies;
-                stats[s].setNumbers(creature.levelsWild[si], creature.levelsDom[si], creature.valuesBreeding[si], creature.valuesDom[si]);
+                stats[s].SetCustomStatNames(creature.Species.statNames);
+                stats[s].SetNumbers(creature.levelsWild[si], creature.levelsDom[si], creature.valuesBreeding[si], creature.valuesDom[si]);
             }
 
             labelSex.Text = Utils.SexSymbol(creature.sex);
@@ -81,7 +76,7 @@ namespace ARKBreedingStats.uiControls
         {
             for (int s = 0; s < displayedStatsCount; s++)
             {
-                stats[s].setNumbers(0, 0, 0, 0);
+                stats[s].SetNumbers(0, 0, 0, 0);
             }
             labelSex.Text = "";
         }

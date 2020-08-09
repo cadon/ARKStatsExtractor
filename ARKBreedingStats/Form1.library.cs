@@ -1020,16 +1020,15 @@ namespace ARKBreedingStats
                                where !creature.flags.HasFlag(CreatureFlags.Placeholder)
                                select creature;
 
-            // if only one species should be shown adjust statnames if the selected species is a glow-species
-            bool chargeStatsHeaders = false;
+            // if only one species should be shown adjust headers if the selected species has custom statNames
+            Dictionary<string, string> customStatNames = null;
             if (listBoxSpeciesLib.SelectedItem is Species selectedSpecies)
             {
                 filteredList = filteredList.Where(c => c.Species == selectedSpecies);
-                if (selectedSpecies.IsGlowSpecies)
-                    chargeStatsHeaders = true;
+                customStatNames = selectedSpecies.statNames;
             }
             for (int s = 0; s < Values.STATS_COUNT; s++)
-                listViewLibrary.Columns[12 + s].Text = Utils.StatName(s, true, chargeStatsHeaders);
+                listViewLibrary.Columns[12 + s].Text = Utils.StatName(s, true, customStatNames);
 
             filteredList = ApplyLibraryFilterSettings(filteredList);
 

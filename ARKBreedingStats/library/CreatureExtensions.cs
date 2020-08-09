@@ -85,7 +85,7 @@ namespace ARKBreedingStats.library
                         g.DrawRectangle(p, xStatName, y + 14, statBoxLength, statBoxHeight);
 
                     // stat name
-                    g.DrawString($"{Utils.StatName(statIndex, true, creature.Species.IsGlowSpecies)}",
+                    g.DrawString($"{Utils.StatName(statIndex, true, creature.Species.statNames)}",
                         font, fontBrush, xStatName, y);
                     // stat level number
                     g.DrawString($"{creature.levelsWild[statIndex]}",

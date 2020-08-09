@@ -1,6 +1,7 @@
 ﻿using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -212,36 +213,45 @@ namespace ARKBreedingStats
             return string.Format(Loc.S("topPercentileLevel"), prb[level].ToString("N2"));
         }
 
-        private static string[] _statNames, _statNamesAbb, _statNamesAberrant, _statNamesAberrantAbb;
+        /// <summary>
+        /// Default stat names, localized.
+        /// </summary>
+        private static string[] _statNames;
+
+        /// <summary>
+        /// Default stat names, abbreviated and localized.
+        /// </summary>
+        private static string[] _statNamesAbb;
+
         public static void InitializeLocalizations()
         {
-            _statNames = new[] { Loc.S("Health"), Loc.S("Stamina"), Loc.S("Torpidity"), Loc.S("Oxygen"), Loc.S("Food"), Loc.S("Water"), Loc.S("Temperature"), Loc.S("Weight"), Loc.S("Damage"), Loc.S("Speed"), Loc.S("Fortitude"), Loc.S("CraftingSpeed") };
-            _statNamesAbb = new[] { Loc.S("Health_Abb"), Loc.S("Stamina_Abb"), Loc.S("Torpidity_Abb"), Loc.S("Oxygen_Abb"), Loc.S("Food_Abb"), Loc.S("Water_Abb"), Loc.S("Temperature_Abb"), Loc.S("Weight_Abb"), Loc.S("Damage_Abb"), Loc.S("Speed_Abb"), Loc.S("Fortitude_Abb"), Loc.S("CraftingSpeed_Abb") };
-            _statNamesAberrant = new[] { Loc.S("Health"), Loc.S("ChargeCapacity"), Loc.S("Torpidity"), Loc.S("ChargeRegeneration"), Loc.S("Food"), Loc.S("Water"), Loc.S("Temperature"), Loc.S("Weight"), Loc.S("ChargeEmissionRange"), Loc.S("Speed"), Loc.S("Fortitude"), Loc.S("CraftingSpeed") };
-            _statNamesAberrantAbb = new[] { Loc.S("Health_Abb"), Loc.S("ChargeCapacity_Abb"), Loc.S("Torpidity_Abb"), Loc.S("ChargeRegeneration_Abb"), Loc.S("Food_Abb"), Loc.S("Water_Abb"), Loc.S("Temperature_Abb"), Loc.S("Weight_Abb"), Loc.S("ChargeEmissionRange_Abb"), Loc.S("Speed_Abb"), Loc.S("Fortitude_Abb"), Loc.S("CraftingSpeed_Abb") };
+            _statNames = new[] { Loc.S("Health"), Loc.S("Stamina"), Loc.S("Torpidity"), Loc.S("Oxygen"), Loc.S("Food"), Loc.S("Water"), Loc.S("Temperature"), Loc.S("Weight"), Loc.S("Damage"), Loc.S("Speed"), Loc.S("Fortitude"), Loc.S("Crafting Speed") };
+            _statNamesAbb = new[] { Loc.S("Health_Abb"), Loc.S("Stamina_Abb"), Loc.S("Torpidity_Abb"), Loc.S("Oxygen_Abb"), Loc.S("Food_Abb"), Loc.S("Water_Abb"), Loc.S("Temperature_Abb"), Loc.S("Weight_Abb"), Loc.S("Damage_Abb"), Loc.S("Speed_Abb"), Loc.S("Fortitude_Abb"), Loc.S("Crafting Speed_Abb") };
         }
 
         /// <summary>
-        /// String that represents the localized stat name.
+        /// Returns a string that represents the localized stat name.
         /// </summary>
         /// <param name="statIndex"></param>
         /// <param name="abbreviation"></param>
-        /// <param name="glowSpecies"></param>
+        /// <param name="customStatNames">Dictionary with custom stat names</param>
         /// <returns></returns>
-        public static string StatName(int statIndex, bool abbreviation = false, bool glowSpecies = false)
+        public static string StatName(int statIndex, bool abbreviation = false, Dictionary<string, string> customStatNames = null)
         {
             if (_statNames == null || statIndex < 0 || statIndex >= _statNames.Length)
                 return string.Empty;
-            if (glowSpecies)
+
+            if (customStatNames != null && customStatNames.TryGetValue(statIndex.ToString(), out string statName))
             {
-                return abbreviation ? _statNamesAberrantAbb[statIndex] : _statNamesAberrant[statIndex];
+                return Loc.S(abbreviation ? $"{statName}_Abb" : statName);
             }
+
             return abbreviation ? _statNamesAbb[statIndex] : _statNames[statIndex];
         }
 
-        public static string StatName(StatNames sn, bool abbreviation = false, bool glowSpecies = false)
+        public static string StatName(StatNames sn, bool abbreviation = false, Dictionary<string, string> customStatNames = null)
         {
-            return StatName((int)sn, abbreviation, glowSpecies);
+            return StatName((int)sn, abbreviation, customStatNames);
         }
 
         /// <summary>

@@ -74,11 +74,10 @@ namespace ARKBreedingStats.mods
 
             double?[][] overrides = cc?.CustomSpeciesStats?.ContainsKey(selectedSpecies.blueprintPath) ?? false ? cc.CustomSpeciesStats[selectedSpecies.blueprintPath] : null;
 
-            bool isGlowSpecies = species.IsGlowSpecies;
             // set control values to overridden values or to default values.
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                overrideEdits[s].SetStatNameByIndex(s, isGlowSpecies);
+                overrideEdits[s].SetStatNameByIndex(s, species.statNames);
                 overrideEdits[s].SetStatOverrides(selectedSpecies.fullStatsRaw[s], overrides?[s]);
                 overrideEdits[s].SetImprintingMultiplierOverride(selectedSpecies.StatImprintingMultipliersDefault[s], overrides != null && overrides.Length > Values.STATS_COUNT ? overrides[Values.STATS_COUNT]?[s] : null);
             }

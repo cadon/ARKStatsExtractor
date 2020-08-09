@@ -685,54 +685,54 @@ namespace ARKBreedingStats.local {
         /// <summary>
         ///   Looks up a localized string similar to Ch Capacity.
         /// </summary>
-        internal static string ChargeCapacity {
+        internal static string Charge_Capacity {
             get {
-                return ResourceManager.GetString("ChargeCapacity", resourceCulture);
+                return ResourceManager.GetString("Charge Capacity", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to CC.
         /// </summary>
-        internal static string ChargeCapacity_Abb {
+        internal static string Charge_Capacity_Abb {
             get {
-                return ResourceManager.GetString("ChargeCapacity_Abb", resourceCulture);
+                return ResourceManager.GetString("Charge Capacity_Abb", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ch Emission Range.
         /// </summary>
-        internal static string ChargeEmissionRange {
+        internal static string Charge_Emission_Range {
             get {
-                return ResourceManager.GetString("ChargeEmissionRange", resourceCulture);
+                return ResourceManager.GetString("Charge Emission Range", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to CRa.
         /// </summary>
-        internal static string ChargeEmissionRange_Abb {
+        internal static string Charge_Emission_Range_Abb {
             get {
-                return ResourceManager.GetString("ChargeEmissionRange_Abb", resourceCulture);
+                return ResourceManager.GetString("Charge Emission Range_Abb", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ch Regen.
         /// </summary>
-        internal static string ChargeRegeneration {
+        internal static string Charge_Regen {
             get {
-                return ResourceManager.GetString("ChargeRegeneration", resourceCulture);
+                return ResourceManager.GetString("Charge Regen", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to CRe.
         /// </summary>
-        internal static string ChargeRegeneration_Abb {
+        internal static string Charge_Regen_Abb {
             get {
-                return ResourceManager.GetString("ChargeRegeneration_Abb", resourceCulture);
+                return ResourceManager.GetString("Charge Regen_Abb", resourceCulture);
             }
         }
         
@@ -847,18 +847,18 @@ namespace ARKBreedingStats.local {
         /// <summary>
         ///   Looks up a localized string similar to Crafting Speed.
         /// </summary>
-        internal static string CraftingSpeed {
+        internal static string Crafting_Speed {
             get {
-                return ResourceManager.GetString("CraftingSpeed", resourceCulture);
+                return ResourceManager.GetString("Crafting Speed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Cr.
         /// </summary>
-        internal static string CraftingSpeed_Abb {
+        internal static string Crafting_Speed_Abb {
             get {
-                return ResourceManager.GetString("CraftingSpeed_Abb", resourceCulture);
+                return ResourceManager.GetString("Crafting Speed_Abb", resourceCulture);
             }
         }
         
@@ -3181,7 +3181,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Species that contain one variant that is unchecked will be hidden..
         /// </summary>
         internal static string VariantSelectorInfo {
             get {

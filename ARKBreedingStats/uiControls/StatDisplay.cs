@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -6,11 +7,11 @@ namespace ARKBreedingStats.uiControls
 {
     public partial class StatDisplay : UserControl
     {
-        public bool Percent = false;
+        private readonly bool _isPercent;
+        private readonly int _statIndex;
         private ToolTip tt = new ToolTip();
         public int barMaxLevel = 45;
-        public int statIndex;
-        private bool? isGlowSpeciesStat;
+        private bool _statNamesAreDefault;
 
         public StatDisplay()
         {
@@ -18,20 +19,23 @@ namespace ARKBreedingStats.uiControls
             tt.InitialDelay = 300;
         }
 
-        public bool GlowSpecies
+        public StatDisplay(int statIndex, bool isPercent) : this()
         {
-            set
-            {
-                if (isGlowSpeciesStat != value)
-                {
-                    isGlowSpeciesStat = value;
-                    labelName.Text = Utils.StatName(statIndex, true, isGlowSpeciesStat.Value);
-                    tt.SetToolTip(labelName, Utils.StatName(statIndex, false, isGlowSpeciesStat.Value));
-                }
-            }
+            _statIndex = statIndex;
+            _isPercent = isPercent;
         }
 
-        public void setNumbers(int levelWild, int levelDom, double valueBreeding, double valueDom)
+        public void SetCustomStatNames(Dictionary<string, string> customStatNames)
+        {
+            if (customStatNames == null && _statNamesAreDefault) return;
+
+            _statNamesAreDefault = customStatNames == null;
+
+            labelName.Text = Utils.StatName(_statIndex, true, customStatNames);
+            tt.SetToolTip(labelName, Utils.StatName(_statIndex, false, customStatNames));
+        }
+
+        public void SetNumbers(int levelWild, int levelDom, double valueBreeding, double valueDom)
         {
             // visualization of wild level
             int barLengthPercentage = levelWild > 0 ? (int)Math.Min(100, Math.Round(100d * levelWild / barMaxLevel)) : 0;
@@ -43,10 +47,10 @@ namespace ARKBreedingStats.uiControls
             panelBarDomLevels.Width = (int)(164 * barLengthPercentage / 100.0f);
             panelBarDomLevels.BackColor = Utils.GetColorFromPercent(barLengthPercentage);
 
-            // if stat is not used, e.g. craftingspeed
+            // if stat is not used, e.g. crafting speed
             if (levelWild == 0 && levelDom == 0 && valueBreeding == 0 && valueDom == 0)
             {
-                labelWildLevel.Text = "n/a";
+                labelWildLevel.Text = Loc.S("na");
                 labelWildLevel.ForeColor = Color.LightGray;
                 labelLevelDom.Text = string.Empty;
                 labelBreedingValue.Text = string.Empty;
@@ -56,7 +60,7 @@ namespace ARKBreedingStats.uiControls
             {
                 if (levelWild < 0)
                 {
-                    labelWildLevel.Text = "n/a";
+                    labelWildLevel.Text = Loc.S("na");
                     labelWildLevel.ForeColor = Color.LightGray;
                 }
                 else
@@ -65,8 +69,8 @@ namespace ARKBreedingStats.uiControls
                     labelWildLevel.ForeColor = SystemColors.ControlText;
                 }
                 labelLevelDom.Text = levelDom.ToString();
-                labelBreedingValue.Text = valueBreeding > 0 ? (Percent ? Math.Round(100 * valueBreeding, 1).ToString("N1") + " %" : valueBreeding.ToString("N1")) : "?";
-                labelDomValue.Text = valueDom > 0 ? (Percent ? Math.Round(100 * valueDom, 1).ToString("N1") + " %" : valueDom.ToString("N1")) : "?";
+                labelBreedingValue.Text = valueBreeding > 0 ? (_isPercent ? Math.Round(100 * valueBreeding, 1).ToString("N1") + " %" : valueBreeding.ToString("N1")) : "?";
+                labelDomValue.Text = valueDom > 0 ? (_isPercent ? Math.Round(100 * valueDom, 1).ToString("N1") + " %" : valueDom.ToString("N1")) : "?";
             }
         }
 

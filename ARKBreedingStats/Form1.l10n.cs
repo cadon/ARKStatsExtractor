@@ -1,4 +1,5 @@
 ﻿using ARKBreedingStats.species;
+using ARKBreedingStats.values;
 
 namespace ARKBreedingStats
 {
@@ -107,6 +108,12 @@ namespace ARKBreedingStats
             Loc.SetToolTip(lbListening, _tt);
             Loc.SetToolTip(lbExtractorDomLevel, "domLevelExplanation", _tt);
             Loc.SetToolTip(lbExtractorWildLevel, "wildLevelExplanation", _tt);
+            var statNames = speciesSelector1.SelectedSpecies?.statNames;
+            for (int si = 0; si < _statIOs.Count; si++)
+            {
+                _statIOs[si].Title = Utils.StatName(si, false, statNames);
+                _testingIOs[si].Title = Utils.StatName(si, false, statNames);
+            }
 
             // library
             Loc.ControlText(tabPageLibrary, "library");

@@ -49,7 +49,7 @@ namespace ARKBreedingStats.uiControls
 
             TableLayoutPanel tlpKeys = new TableLayoutPanel();
             tableLayoutPanel1.Controls.Add(tlpKeys);
-            SetControlsToTable(tlpKeys, PatternExplanations(creature.Species.IsGlowSpecies));
+            SetControlsToTable(tlpKeys, PatternExplanations(creature.Species.statNames));
 
             TableLayoutPanel tlpFunctions = new TableLayoutPanel();
             tableLayoutPanel1.Controls.Add(tlpFunctions);
@@ -196,7 +196,7 @@ namespace ARKBreedingStats.uiControls
 
         public string NamePattern => txtboxPattern.Text;
 
-        private static Dictionary<string, string> PatternExplanations(bool isGlowSpecies) => new Dictionary<string, string>()
+        private static Dictionary<string, string> PatternExplanations(Dictionary<string, string> customStatNames) => new Dictionary<string, string>()
             {
                 { "species", "species name" },
                 { "spcsNm", "species name without vowels" },
@@ -210,31 +210,31 @@ namespace ARKBreedingStats.uiControls
                 { "sex_short", "\"M\", \"F\", \"U\"" },
                 { "n", "if the name is not unique, the smallest possible number is appended (only creatues with a given sex are considered)." },
 
-                { "hp", "Level of " + Utils.StatName((int)StatNames.Health, glowSpecies: isGlowSpecies) },
-                { "st", "Level of " + Utils.StatName((int)StatNames.Stamina, glowSpecies: isGlowSpecies) },
-                { "to", "Level of " + Utils.StatName((int)StatNames.Torpidity, glowSpecies: isGlowSpecies) },
-                { "ox", "Level of " + Utils.StatName((int)StatNames.Oxygen, glowSpecies: isGlowSpecies) },
-                { "fo", "Level of " + Utils.StatName((int)StatNames.Food, glowSpecies: isGlowSpecies) },
-                { "wa", "Level of " + Utils.StatName((int)StatNames.Water, glowSpecies: isGlowSpecies) },
-                { "te", "Level of " + Utils.StatName((int)StatNames.Temperature, glowSpecies: isGlowSpecies) },
-                { "we", "Level of " + Utils.StatName((int)StatNames.Weight, glowSpecies: isGlowSpecies) },
-                { "dm", "Level of " + Utils.StatName((int)StatNames.MeleeDamageMultiplier, glowSpecies: isGlowSpecies) },
-                { "sp", "Level of " + Utils.StatName((int)StatNames.SpeedMultiplier, glowSpecies: isGlowSpecies) },
-                { "fr", "Level of " + Utils.StatName((int)StatNames.TemperatureFortitude, glowSpecies: isGlowSpecies) },
-                { "cr", "Level of " + Utils.StatName((int)StatNames.CraftingSpeedMultiplier, glowSpecies: isGlowSpecies) },
+                { "hp", "Level of " + Utils.StatName((int)StatNames.Health, customStatNames:customStatNames) },
+                { "st", "Level of " + Utils.StatName((int)StatNames.Stamina, customStatNames:customStatNames) },
+                { "to", "Level of " + Utils.StatName((int)StatNames.Torpidity, customStatNames:customStatNames) },
+                { "ox", "Level of " + Utils.StatName((int)StatNames.Oxygen, customStatNames:customStatNames) },
+                { "fo", "Level of " + Utils.StatName((int)StatNames.Food, customStatNames:customStatNames) },
+                { "wa", "Level of " + Utils.StatName((int)StatNames.Water, customStatNames:customStatNames) },
+                { "te", "Level of " + Utils.StatName((int)StatNames.Temperature, customStatNames:customStatNames) },
+                { "we", "Level of " + Utils.StatName((int)StatNames.Weight, customStatNames:customStatNames) },
+                { "dm", "Level of " + Utils.StatName((int)StatNames.MeleeDamageMultiplier, customStatNames:customStatNames) },
+                { "sp", "Level of " + Utils.StatName((int)StatNames.SpeedMultiplier, customStatNames:customStatNames) },
+                { "fr", "Level of " + Utils.StatName((int)StatNames.TemperatureFortitude, customStatNames:customStatNames) },
+                { "cr", "Level of " + Utils.StatName((int)StatNames.CraftingSpeedMultiplier, customStatNames:customStatNames) },
 
-                { "hp_vb", "Breeding value of "+ Utils.StatName((int)StatNames.Health, glowSpecies: isGlowSpecies) },
-                { "st_vb", "Breeding value of "+ Utils.StatName((int)StatNames.Stamina, glowSpecies: isGlowSpecies) },
-                { "to_vb", "Breeding value of "+ Utils.StatName((int)StatNames.Torpidity, glowSpecies: isGlowSpecies) },
-                { "ox_vb", "Breeding value of "+ Utils.StatName((int)StatNames.Oxygen, glowSpecies: isGlowSpecies) },
-                { "fo_vb", "Breeding value of "+ Utils.StatName((int)StatNames.Food, glowSpecies: isGlowSpecies) },
-                { "wa_vb", "Breeding value of "+ Utils.StatName((int)StatNames.Water, glowSpecies: isGlowSpecies) },
-                { "te_vb", "Breeding value of "+ Utils.StatName((int)StatNames.Temperature, glowSpecies: isGlowSpecies) },
-                { "we_vb", "Breeding value of "+ Utils.StatName((int)StatNames.Weight, glowSpecies: isGlowSpecies) },
-                { "dm_vb", "Breeding value of "+ Utils.StatName((int)StatNames.MeleeDamageMultiplier, glowSpecies: isGlowSpecies) },
-                { "sp_vb", "Breeding value of "+ Utils.StatName((int)StatNames.SpeedMultiplier, glowSpecies: isGlowSpecies) },
-                { "fr_vb", "Breeding value of "+ Utils.StatName((int)StatNames.TemperatureFortitude, glowSpecies: isGlowSpecies) },
-                { "cr_vb", "Breeding value of "+ Utils.StatName((int)StatNames.CraftingSpeedMultiplier, glowSpecies: isGlowSpecies) },
+                { "hp_vb", "Breeding value of "+ Utils.StatName((int)StatNames.Health, customStatNames:customStatNames) },
+                { "st_vb", "Breeding value of "+ Utils.StatName((int)StatNames.Stamina, customStatNames:customStatNames) },
+                { "to_vb", "Breeding value of "+ Utils.StatName((int)StatNames.Torpidity, customStatNames:customStatNames) },
+                { "ox_vb", "Breeding value of "+ Utils.StatName((int)StatNames.Oxygen, customStatNames:customStatNames) },
+                { "fo_vb", "Breeding value of "+ Utils.StatName((int)StatNames.Food, customStatNames:customStatNames) },
+                { "wa_vb", "Breeding value of "+ Utils.StatName((int)StatNames.Water, customStatNames:customStatNames) },
+                { "te_vb", "Breeding value of "+ Utils.StatName((int)StatNames.Temperature, customStatNames:customStatNames) },
+                { "we_vb", "Breeding value of "+ Utils.StatName((int)StatNames.Weight, customStatNames:customStatNames) },
+                { "dm_vb", "Breeding value of "+ Utils.StatName((int)StatNames.MeleeDamageMultiplier, customStatNames:customStatNames) },
+                { "sp_vb", "Breeding value of "+ Utils.StatName((int)StatNames.SpeedMultiplier, customStatNames:customStatNames) },
+                { "fr_vb", "Breeding value of "+ Utils.StatName((int)StatNames.TemperatureFortitude, customStatNames:customStatNames) },
+                { "cr_vb", "Breeding value of "+ Utils.StatName((int)StatNames.CraftingSpeedMultiplier, customStatNames:customStatNames) },
 
                 { "isTophp", "if hp is top, it will return 1 and nothing if it's not top. Combine with the if-function. All stat name abbreviations are possible, e.g. replace hp with st, to, ox etc."},
                 { "isNewTophp", "if hp is higher than the current top hp, it will return 1 and nothing else. Combine with the if-function. All stat name abbreviations are possible."},
