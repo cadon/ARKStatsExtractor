@@ -132,7 +132,10 @@ namespace ARKBreedingStats
         /// <param name="filePath"></param>
         private void ImportExportedAddIfPossible(string filePath)
         {
-            bool alreadyExists = ExtractExportedFileInExtractor(filePath);
+            var loadResult = ExtractExportedFileInExtractor(filePath);
+            if (!loadResult.HasValue) return;
+
+            bool alreadyExists = loadResult.Value;
             bool added = false;
             bool copyNameToClipboard = Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied
                 && (Properties.Settings.Default.applyNamePatternOnImportIfEmptyName ||

@@ -6,6 +6,7 @@ using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -737,15 +738,26 @@ namespace ARKBreedingStats
         /// <summary>
         /// Export the given creature export file in the extractor.
         /// Returns true if the creature already exists in the library.
+        /// Returns null if file couldn't be loaded.
         /// </summary>
         /// <param name="exportFile"></param>
-        private bool ExtractExportedFileInExtractor(string exportFile)
+        private bool? ExtractExportedFileInExtractor(string exportFile)
         {
-            var cv = importExported.ImportExported.importExportedCreature(exportFile);
+            CreatureValues cv = null;
+            try
+            {
+                cv = importExported.ImportExported.importExportedCreature(exportFile);
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show($"Exported creature-file couldn't be read.\n{exportFile}\n\n{ex.Message}", $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+
             if (cv == null)
             {
                 MessageBox.Show("Exported creature-file not recognized.", $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                return null;
             }
             // check if last exported file is a species that should be ignored, e.g. a raft
             if (Values.V.IgnoreSpeciesBlueprint(cv.speciesBlueprint))
@@ -764,7 +776,9 @@ namespace ARKBreedingStats
                 if (_creatureCollection.ModValueReloadNeeded
                     && LoadModValuesOfCollection(_creatureCollection, true, true)
                     && oldModHash != _creatureCollection.modListHash)
-                    ExtractExportedFileInExtractor(exportFile);
+                {
+                    return ExtractExportedFileInExtractor(exportFile);
+                }
 
                 return false;
             }
