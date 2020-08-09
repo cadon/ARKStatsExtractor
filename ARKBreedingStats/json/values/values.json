@@ -1,11 +1,11 @@
 {
-	"version": "312.57.5320732",
+	"version": "312.65.5349305.1",
 	"format": "1.13",
 	"species": [
 		{
 			"name": "Rockwell",
 			"blueprintPath": "/Game/Aberration/Boss/Rockwell/Rockwell_Character_BP_Easy.Rockwell_Character_BP_Easy",
-			"variants": [ "Boss", "Gamma" ],
+			"variants": [ "Aberration", "Boss", "Gamma" ],
 			"fullStatsRaw": [
 				[ 42000, 0.2, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -38,7 +38,7 @@
 		{
 			"name": "Rockwell",
 			"blueprintPath": "/Game/Aberration/Boss/Rockwell/Rockwell_Character_BP_Hard.Rockwell_Character_BP_Hard",
-			"variants": [ "Alpha", "Boss" ],
+			"variants": [ "Aberration", "Alpha", "Boss" ],
 			"fullStatsRaw": [
 				[ 115000, 0.2, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -71,7 +71,7 @@
 		{
 			"name": "Rockwell",
 			"blueprintPath": "/Game/Aberration/Boss/Rockwell/Rockwell_Character_BP_Medium.Rockwell_Character_BP_Medium",
-			"variants": [ "Beta", "Boss" ],
+			"variants": [ "Aberration", "Beta", "Boss" ],
 			"fullStatsRaw": [
 				[ 68500, 0.2, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -104,7 +104,7 @@
 		{
 			"name": "RockwellTentacle",
 			"blueprintPath": "/Game/Aberration/Boss/RockwellTentacle/RockwellTentacle_Character_BP_Alpha.RockwellTentacle_Character_BP_Alpha",
-			"variants": [ "Alpha", "Boss" ],
+			"variants": [ "Aberration", "Alpha", "Boss" ],
 			"fullStatsRaw": [
 				[ 15250, 0, 0.27, 0.5, 0 ],
 				[ 250, 0.1, 0.1, 0, 0 ],
@@ -137,7 +137,7 @@
 		{
 			"name": "RockwellTentacle",
 			"blueprintPath": "/Game/Aberration/Boss/RockwellTentacle/RockwellTentacle_Character_BP_Beta.RockwellTentacle_Character_BP_Beta",
-			"variants": [ "Beta", "Boss" ],
+			"variants": [ "Aberration", "Beta", "Boss" ],
 			"fullStatsRaw": [
 				[ 8500, 0, 0.27, 0.5, 0 ],
 				[ 250, 0.1, 0.1, 0, 0 ],
@@ -170,7 +170,7 @@
 		{
 			"name": "RockwellTentacle",
 			"blueprintPath": "/Game/Aberration/Boss/RockwellTentacle/RockwellTentacle_Character_BP_Gamma.RockwellTentacle_Character_BP_Gamma",
-			"variants": [ "Boss", "Gamma" ],
+			"variants": [ "Aberration", "Boss", "Gamma" ],
 			"fullStatsRaw": [
 				[ 3800, 0, 0.27, 0.5, 0 ],
 				[ 250, 0.1, 0.1, 0, 0 ],
@@ -203,6 +203,7 @@
 		{
 			"name": "Basilisk",
 			"blueprintPath": "/Game/Aberration/Dinos/Basilisk/Basilisk_Character_BP.Basilisk_Character_BP",
+			"variants": [ "Aberration" ],
 			"fullStatsRaw": [
 				[ 2750, 0.2, 0.27, 0.5, 0 ],
 				[ 650, 0.1, 0.1, 0, 0 ],
@@ -334,6 +335,7 @@
 		{
 			"name": "Alpha Basilisk",
 			"blueprintPath": "/Game/Aberration/Dinos/Basilisk/MegaBasilisk_Character_BP.MegaBasilisk_Character_BP",
+			"variants": [ "Aberration", "Mega" ],
 			"fullStatsRaw": [
 				[ 19500, 0.2, 0.27, 0.5, 0 ],
 				[ 650, 0.1, 0.1, 0, 0 ],
@@ -372,6 +374,7 @@
 		{
 			"name": "Ravager",
 			"blueprintPath": "/Game/Aberration/Dinos/CaveWolf/CaveWolf_Character_BP.CaveWolf_Character_BP",
+			"variants": [ "Aberration" ],
 			"fullStatsRaw": [
 				[ 400, 0.2, 0.27, 0.5, 0 ],
 				[ 350, 0.1, 0.1, 0, 0 ],
@@ -463,6 +466,7 @@
 		{
 			"name": "Nameless",
 			"blueprintPath": "/Game/Aberration/Dinos/ChupaCabra/ChupaCabra_Character_BP.ChupaCabra_Character_BP",
+			"variants": [ "Aberration" ],
 			"fullStatsRaw": [
 				[ 220, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -547,7 +551,7 @@
 		{
 			"name": "Nameless",
 			"blueprintPath": "/Game/Aberration/Dinos/ChupaCabra/ChupaCabra_Character_BP_Minion.ChupaCabra_Character_BP_Minion",
-			"variants": [ "Minion" ],
+			"variants": [ "Aberration", "Minion" ],
 			"fullStatsRaw": [
 				[ 220, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -632,7 +636,7 @@
 		{
 			"name": "Nameless",
 			"blueprintPath": "/Game/Aberration/Dinos/ChupaCabra/ChupaCabra_Character_BP_Surface.ChupaCabra_Character_BP_Surface",
-			"variants": [ "Surface" ],
+			"variants": [ "Aberration", "Surface" ],
 			"fullStatsRaw": [
 				[ 220, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -717,6 +721,7 @@
 		{
 			"name": "Karkinos",
 			"blueprintPath": "/Game/Aberration/Dinos/Crab/Crab_Character_BP.Crab_Character_BP",
+			"variants": [ "Aberration" ],
 			"fullStatsRaw": [
 				[ 1200, 0.2, 0.27, 0.5, 0 ],
 				[ 600, 0.1, 0.1, 0, 0 ],
@@ -804,6 +809,7 @@
 		{
 			"name": "Alpha Karkinos",
 			"blueprintPath": "/Game/Aberration/Dinos/Crab/MegaCrab_Character_BP.MegaCrab_Character_BP",
+			"variants": [ "Aberration", "Mega" ],
 			"fullStatsRaw": [
 				[ 20400, 0.2, 0.27, 0.5, 0 ],
 				[ 600, 0.1, 0.1, 0, 0 ],
@@ -890,6 +896,7 @@
 		{
 			"name": "Lamprey",
 			"blueprintPath": "/Game/Aberration/Dinos/Lamprey/Lamprey_Character.Lamprey_Character",
+			"variants": [ "Aberration" ],
 			"fullStatsRaw": [
 				[ 40, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -922,6 +929,7 @@
 		{
 			"name": "Featherlight",
 			"blueprintPath": "/Game/Aberration/Dinos/LanternBird/LanternBird_Character_BP.LanternBird_Character_BP",
+			"variants": [ "Aberration" ],
 			"fullStatsRaw": [
 				[ 115, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -1030,11 +1038,17 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": false,
-			"displayedStats": 927
+			"displayedStats": 927,
+			"statNames": {
+				"1": "Charge Capacity",
+				"3": "Charge Regen",
+				"8": "Charge Emission Range"
+			}
 		},
 		{
 			"name": "Shinehorn",
 			"blueprintPath": "/Game/Aberration/Dinos/LanternGoat/LanternGoat_Character_BP.LanternGoat_Character_BP",
+			"variants": [ "Aberration" ],
 			"fullStatsRaw": [
 				[ 115, 0.2, 0.27, 0.5, 0 ],
 				[ 180, 0.11, 0.11, 0.1, 0 ],
@@ -1178,11 +1192,17 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": false,
-			"displayedStats": 927
+			"displayedStats": 927,
+			"statNames": {
+				"1": "Charge Capacity",
+				"3": "Charge Regen",
+				"8": "Charge Emission Range"
+			}
 		},
 		{
 			"name": "Glowtail",
 			"blueprintPath": "/Game/Aberration/Dinos/LanternLizard/LanternLizard_Character_BP.LanternLizard_Character_BP",
+			"variants": [ "Aberration" ],
 			"fullStatsRaw": [
 				[ 115, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.125, 0, 0 ],
@@ -1324,11 +1344,17 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": false,
-			"displayedStats": 927
+			"displayedStats": 927,
+			"statNames": {
+				"1": "Charge Capacity",
+				"3": "Charge Regen",
+				"8": "Charge Emission Range"
+			}
 		},
 		{
 			"name": "Bulbdog",
 			"blueprintPath": "/Game/Aberration/Dinos/LanternPug/LanternPug_Character_BP.LanternPug_Character_BP",
+			"variants": [ "Aberration" ],
 			"fullStatsRaw": [
 				[ 145, 0.2, 0.27, 0.5, 0 ],
 				[ 200, 0.12, 0.12, 0.05, 0 ],
@@ -1467,11 +1493,17 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": false,
-			"displayedStats": 927
+			"displayedStats": 927,
+			"statNames": {
+				"1": "Charge Capacity",
+				"3": "Charge Regen",
+				"8": "Charge Emission Range"
+			}
 		},
 		{
 			"name": "Glowbug",
 			"blueprintPath": "/Game/Aberration/Dinos/Lightbug/Lightbug_Character_BaseBP.Lightbug_Character_BaseBP",
+			"variants": [ "Aberration" ],
 			"fullStatsRaw": [
 				[ 75, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -1560,6 +1592,7 @@
 		{
 			"name": "Roll Rat",
 			"blueprintPath": "/Game/Aberration/Dinos/MoleRat/MoleRat_Character_BP.MoleRat_Character_BP",
+			"variants": [ "Aberration" ],
 			"fullStatsRaw": [
 				[ 850, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -1658,7 +1691,7 @@
 		{
 			"name": "Alpha Surface Reaper King",
 			"blueprintPath": "/Game/Aberration/Dinos/Nameless/MegaXenomorph_Character_BP_Male_Surface.MegaXenomorph_Character_BP_Male_Surface",
-			"variants": [ "Male", "Surface" ],
+			"variants": [ "Aberration", "Male", "Mega", "Surface" ],
 			"fullStatsRaw": [
 				[ 42500, 0.2, 0.27, 0.5, 0 ],
 				[ 480, 0.1, 0.1, 0, 0 ],
@@ -1703,7 +1736,7 @@
 		{
 			"name": "Reaper Queen",
 			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Xenomorph_Character_BP_Female.Xenomorph_Character_BP_Female",
-			"variants": [ "Female" ],
+			"variants": [ "Aberration", "Female" ],
 			"fullStatsRaw": [
 				[ 45000, 0.0052, 0.135, -38500, 0 ],
 				[ 480, 0.1, 0.1, 0, 0 ],
@@ -1780,7 +1813,7 @@
 		{
 			"name": "Subterranean Reaper King",
 			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Xenomorph_Character_BP_Male_Chupa.Xenomorph_Character_BP_Male_Chupa",
-			"variants": [ "Male" ],
+			"variants": [ "Aberration", "Male" ],
 			"fullStatsRaw": [
 				[ 2000, 0.2, 0.27, 0.5, 0 ],
 				[ 480, 0.1, 0.1, 0, 0 ],
@@ -1857,7 +1890,7 @@
 		{
 			"name": "Surface Reaper King",
 			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Xenomorph_Character_BP_Male_Lunar.Xenomorph_Character_BP_Male_Lunar",
-			"variants": [ "Lunar", "Male" ],
+			"variants": [ "Aberration", "Lunar", "Male" ],
 			"fullStatsRaw": [
 				[ 2500, 0.2, 0.27, 0.5, 0 ],
 				[ 480, 0.1, 0.1, 0, 0 ],
@@ -1934,7 +1967,7 @@
 		{
 			"name": "Elemental Reaper King",
 			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Xenomorph_Character_BP_Male_Minion.Xenomorph_Character_BP_Male_Minion",
-			"variants": [ "Male", "Minion" ],
+			"variants": [ "Aberration", "Male", "Minion" ],
 			"fullStatsRaw": [
 				[ 1250, 0.2, 0.27, 0.5, 0 ],
 				[ 480, 0.1, 0.1, 0, 0 ],
@@ -2013,7 +2046,7 @@
 		{
 			"name": "Surface Reaper King",
 			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Xenomorph_Character_BP_Male_Surface.Xenomorph_Character_BP_Male_Surface",
-			"variants": [ "Male", "Surface" ],
+			"variants": [ "Aberration", "Male", "Surface" ],
 			"fullStatsRaw": [
 				[ 2500, 0.2, 0.27, 0.5, 0 ],
 				[ 480, 0.1, 0.1, 0, 0 ],
@@ -2090,7 +2123,7 @@
 		{
 			"name": "Reaper King",
 			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Xenomorph_Character_BP_Male_Tamed.Xenomorph_Character_BP_Male_Tamed",
-			"variants": [ "Male", "Tamed" ],
+			"variants": [ "Aberration", "Male", "Tamed" ],
 			"fullStatsRaw": [
 				[ 45000, 0.0052, 0.135, -38500, 0 ],
 				[ 480, 0.1, 0.1, 0, 0 ],
@@ -2194,6 +2227,7 @@
 		{
 			"name": "Seeker",
 			"blueprintPath": "/Game/Aberration/Dinos/Pteroteuthis/Pteroteuthis_Char_BP.Pteroteuthis_Char_BP",
+			"variants": [ "Aberration" ],
 			"fullStatsRaw": [
 				[ 250, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -2287,7 +2321,7 @@
 		{
 			"name": "Seeker",
 			"blueprintPath": "/Game/Aberration/Dinos/Pteroteuthis/Pteroteuthis_Char_BP_Surface.Pteroteuthis_Char_BP_Surface",
-			"variants": [ "Surface" ],
+			"variants": [ "Aberration", "Surface" ],
 			"fullStatsRaw": [
 				[ 250, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -2381,6 +2415,7 @@
 		{
 			"name": "Rock Drake",
 			"blueprintPath": "/Game/Aberration/Dinos/RockDrake/RockDrake_Character_BP.RockDrake_Character_BP",
+			"variants": [ "Aberration" ],
 			"fullStatsRaw": [
 				[ 1950, 0.085, 0.2025, -1050, 0 ],
 				[ 450, 0.05, 0.05, 0, 0 ],
@@ -3265,7 +3300,7 @@
 		{
 			"name": "Corrupted Arthropluera",
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Arthropluera/Arthro_Character_BP_Corrupt.Arthro_Character_BP_Corrupt",
-			"variants": [ "Corrupted" ],
+			"variants": [ "Corrupted", "Extinction" ],
 			"fullStatsRaw": [
 				[ 500, 0.2, 0.27, 0.5, 0 ],
 				[ 200, 0.1, 0.1, 0, 0 ],
@@ -3305,7 +3340,7 @@
 		{
 			"name": "Corrupted Carnotaurus",
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Carno/Carno_Character_BP_Corrupt.Carno_Character_BP_Corrupt",
-			"variants": [ "Corrupted" ],
+			"variants": [ "Corrupted", "Extinction" ],
 			"fullStatsRaw": [
 				[ 420, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -3344,7 +3379,7 @@
 		{
 			"name": "Corrupted Chalicotherium",
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Chalicotherium/Chalico_Character_BP_Corrupt.Chalico_Character_BP_Corrupt",
-			"variants": [ "Corrupted" ],
+			"variants": [ "Corrupted", "Extinction" ],
 			"fullStatsRaw": [
 				[ 600, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -3378,7 +3413,7 @@
 		{
 			"name": "Corrupted Deathworm",
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Deathworm/Deathworm_Character_BP_Corrupt.Deathworm_Character_BP_Corrupt",
-			"variants": [ "Corrupted" ],
+			"variants": [ "Corrupted", "Extinction" ],
 			"fullStatsRaw": [
 				[ 20000, 0.002, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -3412,7 +3447,7 @@
 		{
 			"name": "Corrupted Dilophosaur",
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Dilo/Dilo_Character_BP_Corrupt.Dilo_Character_BP_Corrupt",
-			"variants": [ "Corrupted" ],
+			"variants": [ "Corrupted", "Extinction" ],
 			"fullStatsRaw": [
 				[ 130, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -3451,7 +3486,7 @@
 		{
 			"name": "Corrupted Dimorphodon",
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Dimorphodon/Dimorph_Character_BP_Corrupt.Dimorph_Character_BP_Corrupt",
-			"variants": [ "Corrupted" ],
+			"variants": [ "Corrupted", "Extinction" ],
 			"fullStatsRaw": [
 				[ 125, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -3486,7 +3521,7 @@
 		{
 			"name": "Corrupted Giganotosaurus",
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Giganotosaurus/Gigant_Character_BP_Corrupt.Gigant_Character_BP_Corrupt",
-			"variants": [ "Corrupted" ],
+			"variants": [ "Corrupted", "Extinction" ],
 			"fullStatsRaw": [
 				[ 35000, 0.0005, 0.002, 0, 0 ],
 				[ 400, 0.0005, 0.01, 0, 0 ],
@@ -3520,7 +3555,7 @@
 		{
 			"name": "Corrupted Reaper King",
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Nameless/Xenomorph_Character_BP_Male_Tamed_Corrupt.Xenomorph_Character_BP_Male_Tamed_Corrupt",
-			"variants": [ "Corrupted", "Male", "Tamed" ],
+			"variants": [ "Corrupted", "Extinction", "Male", "Tamed" ],
 			"fullStatsRaw": [
 				[ 18500, 0.001, 0.135, 0, 0 ],
 				[ 480, 0.1, 0.1, 0, 0 ],
@@ -3559,9 +3594,9 @@
 		{
 			"name": "Corrupted Paraceratherium",
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Paraceratherium/Paracer_Character_BP_Corrupt.Paracer_Character_BP_Corrupt",
-			"variants": [ "Corrupted" ],
+			"variants": [ "Corrupted", "Extinction" ],
 			"fullStatsRaw": [
-				[ 1026, 0.2, 0.2025, 0.5, 0 ],
+				[ 1026, 0.2, 0.172125, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
 				[ 1300, 0.06, 0, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -3593,7 +3628,7 @@
 		{
 			"name": "Corrupted Pteranodon",
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Ptero/Ptero_Character_BP_Corrupt.Ptero_Character_BP_Corrupt",
-			"variants": [ "Corrupted" ],
+			"variants": [ "Corrupted", "Extinction" ],
 			"fullStatsRaw": [
 				[ 210, 0.2, 0.15, 0.5, 0 ],
 				[ 150, 0.05, 0.04, 0, 0 ],
@@ -3635,7 +3670,7 @@
 		{
 			"name": "Corrupted Raptor",
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Raptor/Raptor_Character_BP_Corrupt.Raptor_Character_BP_Corrupt",
-			"variants": [ "Corrupted" ],
+			"variants": [ "Corrupted", "Extinction" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -3674,7 +3709,7 @@
 		{
 			"name": "Enraged Corrupted Rex",
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Rex/MegaRex_Character_BP_Corrupt.MegaRex_Character_BP_Corrupt",
-			"variants": [ "Corrupted" ],
+			"variants": [ "Corrupted", "Extinction" ],
 			"fullStatsRaw": [
 				[ 8500, 0.2, 0.27, 0.5, 0 ],
 				[ 420, 0.1, 0.1, 0, 0 ],
@@ -3708,7 +3743,7 @@
 		{
 			"name": "Corrupted Rex",
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Rex/Rex_Character_BP_Corrupt.Rex_Character_BP_Corrupt",
-			"variants": [ "Corrupted" ],
+			"variants": [ "Corrupted", "Extinction" ],
 			"fullStatsRaw": [
 				[ 1100, 0.2, 0.27, 0.5, 0 ],
 				[ 420, 0.1, 0.1, 0, 0 ],
@@ -3742,7 +3777,7 @@
 		{
 			"name": "Corrupted Rock Drake",
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/RockDrake/RockDrake_Character_BP_Corrupt.RockDrake_Character_BP_Corrupt",
-			"variants": [ "Corrupted" ],
+			"variants": [ "Corrupted", "Extinction" ],
 			"fullStatsRaw": [
 				[ 1950, 0.085, 0.2025, -1050, 0 ],
 				[ 450, 0.05, 0.05, 0, 0 ],
@@ -3777,7 +3812,7 @@
 		{
 			"name": "Corrupted Spino",
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Spino/Spino_Character_BP_Corrupt.Spino_Character_BP_Corrupt",
-			"variants": [ "Corrupted" ],
+			"variants": [ "Corrupted", "Extinction" ],
 			"fullStatsRaw": [
 				[ 700, 0.2, 0.27, 0.5, 0 ],
 				[ 350, 0.1, 0.1, 0, 0 ],
@@ -3811,7 +3846,7 @@
 		{
 			"name": "Corrupted Stegosaurus",
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Stego/Stego_Character_BP_Corrupt.Stego_Character_BP_Corrupt",
-			"variants": [ "Corrupted" ],
+			"variants": [ "Corrupted", "Extinction" ],
 			"fullStatsRaw": [
 				[ 650, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -3855,7 +3890,7 @@
 		{
 			"name": "Enraged Triceratops",
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Trike/MegaTrike_Character_BP_Corrupt.MegaTrike_Character_BP_Corrupt",
-			"variants": [ "Corrupted" ],
+			"variants": [ "Corrupted", "Extinction" ],
 			"fullStatsRaw": [
 				[ 2500, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -3893,7 +3928,7 @@
 		{
 			"name": "Corrupted Triceratops",
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Trike/Trike_Character_BP_Corrupt.Trike_Character_BP_Corrupt",
-			"variants": [ "Corrupted" ],
+			"variants": [ "Corrupted", "Extinction" ],
 			"fullStatsRaw": [
 				[ 375, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -3931,7 +3966,7 @@
 		{
 			"name": "Corrupted Wyvern",
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Wyvern/Wyvern_Character_BP_Fire_Corrupt.Wyvern_Character_BP_Fire_Corrupt",
-			"variants": [ "Corrupted" ],
+			"variants": [ "Corrupted", "Extinction" ],
 			"fullStatsRaw": [
 				[ 1725, 0.15, 0.2025, -1050, 0 ],
 				[ 275, 0.05, 0.05, 0, 0 ],
@@ -3966,7 +4001,7 @@
 		{
 			"name": "Desert Titan",
 			"blueprintPath": "/Game/Extinction/Dinos/DesertKaiju/DesertKaiju_Character_BP.DesertKaiju_Character_BP",
-			"variants": [ "Boss" ],
+			"variants": [ "Boss", "Extinction" ],
 			"fullStatsRaw": [
 				[ 250000, 0, 0, 0, 0 ],
 				[ 5000, 0, 0, 0, 0 ],
@@ -4002,6 +4037,7 @@
 		{
 			"name": "Desert Titan Flock",
 			"blueprintPath": "/Game/Extinction/Dinos/DesertKaiju/DesertKaiju_FirstFlockChar_BP.DesertKaiju_FirstFlockChar_BP",
+			"variants": [ "Extinction" ],
 			"fullStatsRaw": [
 				[ 4000, 0.2, 0.27, 0.5, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -4111,6 +4147,7 @@
 		{
 			"name": "Enforcer",
 			"blueprintPath": "/Game/Extinction/Dinos/Enforcer/Enforcer_Character_BP.Enforcer_Character_BP",
+			"variants": [ "Extinction" ],
 			"fullStatsRaw": [
 				[ 375, 0.2, 0.27, 0.5, 0 ],
 				[ 450, 0.1, 0.1, 0, 0 ],
@@ -4189,7 +4226,7 @@
 		{
 			"name": "Forest Titan",
 			"blueprintPath": "/Game/Extinction/Dinos/ForestKaiju/ForestKaiju_Character_BP.ForestKaiju_Character_BP",
-			"variants": [ "Boss" ],
+			"variants": [ "Boss", "Extinction" ],
 			"fullStatsRaw": [
 				[ 400000, 0, 0, 0.5, 0 ],
 				[ 6000, 0, 0, 0, 0 ],
@@ -4223,7 +4260,7 @@
 		{
 			"name": "Forest Wyvern",
 			"blueprintPath": "/Game/Extinction/Dinos/ForestKaiju/Minion/Wyvern_Character_BP_Fire_Minion.Wyvern_Character_BP_Fire_Minion",
-			"variants": [ "Minion" ],
+			"variants": [ "Extinction", "Minion" ],
 			"fullStatsRaw": [
 				[ 1725, 0.15, 0.2025, -1050, 0 ],
 				[ 275, 0.05, 0.05, 0, 0 ],
@@ -4266,6 +4303,7 @@
 		{
 			"name": "Gacha",
 			"blueprintPath": "/Game/Extinction/Dinos/Gacha/Gacha_Character_BP.Gacha_Character_BP",
+			"variants": [ "Extinction" ],
 			"fullStatsRaw": [
 				[ 750, 0.2, 0.27, 0.5, 0 ],
 				[ 325, 0.1, 0.1, 0, 0 ],
@@ -4410,6 +4448,7 @@
 		{
 			"name": "Gasbags",
 			"blueprintPath": "/Game/Extinction/Dinos/GasBag/GasBags_Character_BP.GasBags_Character_BP",
+			"variants": [ "Extinction" ],
 			"fullStatsRaw": [
 				[ 650, 0.2, 0.27, 0.5, 0 ],
 				[ 600, 0.1, 0.1, 0, 0 ],
@@ -4581,6 +4620,7 @@
 		{
 			"name": "Managarmr",
 			"blueprintPath": "/Game/Extinction/Dinos/IceJumper/IceJumper_Character_BP.IceJumper_Character_BP",
+			"variants": [ "Extinction" ],
 			"fullStatsRaw": [
 				[ 825, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.06, 0, 0 ],
@@ -4720,7 +4760,7 @@
 		{
 			"name": "Ice Titan",
 			"blueprintPath": "/Game/Extinction/Dinos/IceKaiju/IceKaiju_Character_BP.IceKaiju_Character_BP",
-			"variants": [ "Boss" ],
+			"variants": [ "Boss", "Extinction" ],
 			"fullStatsRaw": [
 				[ 350000, 0, 0, 0.5, 0 ],
 				[ 10000, 0, 0, 0, 0 ],
@@ -4755,7 +4795,7 @@
 		{
 			"name": "Corrupt Tumor",
 			"blueprintPath": "/Game/Extinction/Dinos/KingKaiju/CorruptTumor_Character_BP.CorruptTumor_Character_BP",
-			"variants": [ "Corrupted" ],
+			"variants": [ "Corrupted", "Extinction" ],
 			"fullStatsRaw": [
 				[ 15000, 0, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -4788,7 +4828,7 @@
 		{
 			"name": "Gamma King Titan",
 			"blueprintPath": "/Game/Extinction/Dinos/KingKaiju/KingKaiju_Character_BP.KingKaiju_Character_BP",
-			"variants": [ "Boss", "Gamma" ],
+			"variants": [ "Boss", "Extinction", "Gamma" ],
 			"fullStatsRaw": [
 				[ 1500000, 0, 0, 0, 0 ],
 				[ 1000000, 0.1, 0.1, 0, 0 ],
@@ -4821,7 +4861,7 @@
 		{
 			"name": "Alpha King Titan",
 			"blueprintPath": "/Game/Extinction/Dinos/KingKaiju/KingKaiju_Character_BP_Alpha.KingKaiju_Character_BP_Alpha",
-			"variants": [ "Alpha", "Boss" ],
+			"variants": [ "Alpha", "Boss", "Extinction", "Mega" ],
 			"fullStatsRaw": [
 				[ 1500000, 0, 0, 0, 0 ],
 				[ 1000000, 0.1, 0.1, 0, 0 ],
@@ -4854,7 +4894,7 @@
 		{
 			"name": "Beta King Titan",
 			"blueprintPath": "/Game/Extinction/Dinos/KingKaiju/KingKaiju_Character_BP_Beta.KingKaiju_Character_BP_Beta",
-			"variants": [ "Beta", "Boss" ],
+			"variants": [ "Beta", "Boss", "Extinction" ],
 			"fullStatsRaw": [
 				[ 1500000, 0, 0, 0, 0 ],
 				[ 1000000, 0.1, 0.1, 0, 0 ],
@@ -4887,7 +4927,7 @@
 		{
 			"name": "Corruptling",
 			"blueprintPath": "/Game/Extinction/Dinos/KingKaiju/Minions/Corrupt_Arthro_Character_BP.Corrupt_Arthro_Character_BP",
-			"variants": [ "Corrupted" ],
+			"variants": [ "Corrupted", "Extinction" ],
 			"fullStatsRaw": [
 				[ 7000, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -4920,6 +4960,7 @@
 		{
 			"name": "Mega Mek",
 			"blueprintPath": "/Game/Extinction/Dinos/Mek/MegaMek_Character_BP.MegaMek_Character_BP",
+			"variants": [ "Extinction" ],
 			"fullStatsRaw": [
 				[ 9000, 0.2, 0.27, 0.5, 0 ],
 				[ 1000, 0.1, 0.1, 0, 0 ],
@@ -5005,6 +5046,7 @@
 		{
 			"name": "Mek",
 			"blueprintPath": "/Game/Extinction/Dinos/Mek/Mek_Character_BP.Mek_Character_BP",
+			"variants": [ "Extinction" ],
 			"fullStatsRaw": [
 				[ 5500, 0.16, 0.27, 0.5, 0 ],
 				[ 1000, 0.1, 0.1, 0, 0 ],
@@ -5090,6 +5132,7 @@
 		{
 			"name": "Snow Owl",
 			"blueprintPath": "/Game/Extinction/Dinos/Owl/Owl_Character_BP.Owl_Character_BP",
+			"variants": [ "Extinction" ],
 			"fullStatsRaw": [
 				[ 325, 0.2, 0.27, 0.5, 0 ],
 				[ 350, 0.1, 0.1, 0, 0 ],
@@ -5187,6 +5230,7 @@
 		{
 			"name": "Scout",
 			"blueprintPath": "/Game/Extinction/Dinos/Scout/Scout_Character_BP.Scout_Character_BP",
+			"variants": [ "Extinction" ],
 			"fullStatsRaw": [
 				[ 3, 0.075, 0, 0.5, 0 ],
 				[ 90, 2, 0, 0, 0 ],
@@ -5306,6 +5350,7 @@
 		{
 			"name": "Velonasaur",
 			"blueprintPath": "/Game/Extinction/Dinos/Spindles/Spindles_Character_BP.Spindles_Character_BP",
+			"variants": [ "Extinction" ],
 			"fullStatsRaw": [
 				[ 440, 0.2, 0.27, 0.5, 0 ],
 				[ 325, 0.1, 0.1, 0, 0 ],
@@ -5454,6 +5499,7 @@
 		{
 			"name": "Defense Unit",
 			"blueprintPath": "/Game/Extinction/Dinos/Tank/Defender_Character_BP.Defender_Character_BP",
+			"variants": [ "Extinction" ],
 			"fullStatsRaw": [
 				[ 924.000061, 0.2, 0.27, 0.5, 0 ],
 				[ 2000, 0.1, 0.1, 0, 0 ],
@@ -5486,7 +5532,7 @@
 		{
 			"name": "X-Parasaur",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/BogPara/Bog_Para_Character_BP.Bog_Para_Character_BP",
-			"variants": [ "Bog" ],
+			"variants": [ "Bog", "Genesis" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.5, 0 ],
 				[ 450, 0.1, 0.1, 0, 0 ],
@@ -5658,9 +5704,9 @@
 		{
 			"name": "X-Paraceratherium",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/BogParaceratherium/Bog_Paracer_Character_BP.Bog_Paracer_Character_BP",
-			"variants": [ "Bog" ],
+			"variants": [ "Bog", "Genesis" ],
 			"fullStatsRaw": [
-				[ 1026, 0.2, 0.2025, 0.5, 0 ],
+				[ 1026, 0.2, 0.172125, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
 				[ 1300, 0.06, 0, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -5799,7 +5845,7 @@
 		{
 			"name": "X-Raptor",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Bog_Raptor/Bog_Raptor_Character_BP.Bog_Raptor_Character_BP",
-			"variants": [ "Bog" ],
+			"variants": [ "Bog", "Genesis" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -5993,7 +6039,7 @@
 		{
 			"name": "X-Spino",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Bog_Spino/Bog_Spino_Character_BP.Bog_Spino_Character_BP",
-			"variants": [ "Bog" ],
+			"variants": [ "Bog", "Genesis" ],
 			"fullStatsRaw": [
 				[ 700, 0.2, 0.27, 0.5, 0 ],
 				[ 350, 0.1, 0.1, 0, 0 ],
@@ -6161,7 +6207,7 @@
 		{
 			"name": "X-Tapejara",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Bog_Tapejara/Bog_Tapejara_Character_BP.Bog_Tapejara_Character_BP",
-			"variants": [ "Bog" ],
+			"variants": [ "Bog", "Genesis" ],
 			"fullStatsRaw": [
 				[ 325, 0.2, 0.27, 0.5, 0 ],
 				[ 250, 0.05, 0.06, 0, 0 ],
@@ -6365,7 +6411,7 @@
 		{
 			"name": "X-Rock Elemental",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Lava_Golem/Volcano_Golem_Character_BP.Volcano_Golem_Character_BP",
-			"variants": [ "Volcano" ],
+			"variants": [ "Genesis", "Volcano" ],
 			"fullStatsRaw": [
 				[ 25000, 0.0125, 0.135, -22000, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -6575,7 +6621,7 @@
 		{
 			"name": "X-Sabertooth Salmon",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Lunar_Salmon/Lunar_Salmon_Character_BP.Lunar_Salmon_Character_BP",
-			"variants": [ "Lunar" ],
+			"variants": [ "Genesis", "Lunar" ],
 			"fullStatsRaw": [
 				[ 65, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -6731,7 +6777,7 @@
 		{
 			"name": "X-Sabertooth Salmon",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Lunar_Salmon/Rare_Lunar_Salmon_Character_BP.Rare_Lunar_Salmon_Character_BP",
-			"variants": [ "Lunar", "Rare" ],
+			"variants": [ "Genesis", "Lunar", "Rare" ],
 			"fullStatsRaw": [
 				[ 65, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -6887,7 +6933,7 @@
 		{
 			"name": "X-Basilosaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Ocean_Basilosaurus/Ocean_Basilosaurus_Character_BP.Ocean_Basilosaurus_Character_BP",
-			"variants": [ "Ocean" ],
+			"variants": [ "Genesis", "Ocean" ],
 			"fullStatsRaw": [
 				[ 2400, 0.2, 0.243, 0.3, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -6906,7 +6952,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 666666.667,
+				"maturationTime": 416666.667,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -7021,7 +7067,7 @@
 		{
 			"name": "X-Ichthyosaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Ocean_Dolphin/Ocean_Dolphin_Character_BP.Ocean_Dolphin_Character_BP",
-			"variants": [ "Ocean" ],
+			"variants": [ "Genesis", "Ocean" ],
 			"fullStatsRaw": [
 				[ 275, 0.05, 0.0675, 0.3, 0 ],
 				[ 300, 0.2, 0.2, 0, 0 ],
@@ -7040,7 +7086,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 95238.0952,
+				"maturationTime": 208333.333,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -7187,7 +7233,7 @@
 		{
 			"name": "X-Dunkleosteus",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Ocean_Dunkleosteus/Ocean_Dunkle_Character_BP.Ocean_Dunkle_Character_BP",
-			"variants": [ "Ocean" ],
+			"variants": [ "Genesis", "Ocean" ],
 			"fullStatsRaw": [
 				[ 710, 0.2, 0.27, 0.3, 0 ],
 				[ 200, 0.1, 0.1, 0, 0 ],
@@ -7206,7 +7252,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 333333.333,
+				"maturationTime": 296296.296,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -7362,7 +7408,7 @@
 		{
 			"name": "X-Megalodon",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Ocean_Megalodon/Ocean_Megalodon_Character_BP.Ocean_Megalodon_Character_BP",
-			"variants": [ "Ocean" ],
+			"variants": [ "Genesis", "Ocean" ],
 			"fullStatsRaw": [
 				[ 600, 0.2, 0.27, 0.3, 0 ],
 				[ 320, 0.1, 0.1, 0, 0 ],
@@ -7527,7 +7573,7 @@
 		{
 			"name": "X-Mosasaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Ocean_Mosasaurus/Ocean_Mosa_Character_BP.Ocean_Mosa_Character_BP",
-			"variants": [ "Ocean" ],
+			"variants": [ "Genesis", "Ocean" ],
 			"fullStatsRaw": [
 				[ 3600, 0.12, 0.21, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -7546,7 +7592,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 1010101.01,
+				"maturationTime": 666666.667,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -7694,7 +7740,7 @@
 		{
 			"name": "X-Argentavis",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Snow_Argentavis/Snow_Argent_Character_BP.Snow_Argent_Character_BP",
-			"variants": [ "Snow" ],
+			"variants": [ "Genesis", "Snow" ],
 			"fullStatsRaw": [
 				[ 365, 0.2, 0.30375, 0.5, 0 ],
 				[ 400, 0.05, 0.075, 0, 0 ],
@@ -7823,7 +7869,7 @@
 		{
 			"name": "X-Otter",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Snow_Otter/Snow_Otter_Character_BP.Snow_Otter_Character_BP",
-			"variants": [ "Snow" ],
+			"variants": [ "Genesis", "Snow" ],
 			"fullStatsRaw": [
 				[ 40, 0.2, 0.27, 0.5, 0 ],
 				[ 180, 0.1, 0.1, 0, 0 ],
@@ -7968,7 +8014,7 @@
 		{
 			"name": "X-Sabertooth",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Snow_Saber/Snow_Saber_Character_BP.Snow_Saber_Character_BP",
-			"variants": [ "Snow" ],
+			"variants": [ "Genesis", "Snow" ],
 			"fullStatsRaw": [
 				[ 250, 0.2, 0.27, 0.5, 0 ],
 				[ 200, 0.1, 0.1, 0, 0 ],
@@ -8097,7 +8143,7 @@
 		{
 			"name": "X-Woolly Rhino",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Snow_WoollyRhino/Snow_Rhino_Character_BP.Snow_Rhino_Character_BP",
-			"variants": [ "Snow" ],
+			"variants": [ "Genesis", "Snow" ],
 			"fullStatsRaw": [
 				[ 500, 0.2, 0.27, 0.5, 0 ],
 				[ 120, 0.1, 0.1, 0, 0 ],
@@ -8116,7 +8162,7 @@
 			"breeding": {
 				"gestationTime": 14285.7143,
 				"incubationTime": 0,
-				"maturationTime": 166666.667,
+				"maturationTime": 208333.333,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -8260,7 +8306,7 @@
 		{
 			"name": "X-Yutyrannus",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Snow_Yutyrannus/Snow_Yutyrannus_Character_BP.Snow_Yutyrannus_Character_BP",
-			"variants": [ "Snow" ],
+			"variants": [ "Genesis", "Snow" ],
 			"fullStatsRaw": [
 				[ 1100, 0.2, 0.27, 0.5, 0 ],
 				[ 420, 0.1, 0.1, 0, 0 ],
@@ -8425,7 +8471,7 @@
 		{
 			"name": "Corrupted Dinotar",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VRDaeodon_Character_BP.VRDaeodon_Character_BP",
-			"variants": [ "VR" ],
+			"variants": [ "Genesis", "Minion", "VR" ],
 			"fullStatsRaw": [
 				[ 900, 0.2, 0.27, 0.5, 0 ],
 				[ 250, 0.1, 0.1, 0, 0 ],
@@ -8520,7 +8566,7 @@
 		{
 			"name": "Attack Drone",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VREndDrone_Character_BP.VREndDrone_Character_BP",
-			"variants": [ "Boss", "VR" ],
+			"variants": [ "Boss", "Genesis", "Minion", "VR" ],
 			"fullStatsRaw": [
 				[ 100, 0.05, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -8563,7 +8609,7 @@
 		{
 			"name": "Corrupted Dinotar",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VRGigant_Character_BP.VRGigant_Character_BP",
-			"variants": [ "VR" ],
+			"variants": [ "Genesis", "Minion", "VR" ],
 			"fullStatsRaw": [
 				[ 5000, 0.01, 0.27, 0.5, 0 ],
 				[ 420, 0.1, 0.1, 0, 0 ],
@@ -8606,7 +8652,7 @@
 		{
 			"name": "Corrupted Dinotar",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VRRaptor_Character_BP.VRRaptor_Character_BP",
-			"variants": [ "VR" ],
+			"variants": [ "Genesis", "Minion", "VR" ],
 			"fullStatsRaw": [
 				[ 300, 0.06, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -8654,7 +8700,7 @@
 		{
 			"name": "Corrupted Dinotar",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VRRex_Character_BP.VRRex_Character_BP",
-			"variants": [ "VR" ],
+			"variants": [ "Genesis", "Minion", "VR" ],
 			"fullStatsRaw": [
 				[ 900, 0.04, 0.27, 0.5, 0 ],
 				[ 420, 0.1, 0.1, 0, 0 ],
@@ -8697,7 +8743,7 @@
 		{
 			"name": "Corrupted Dinotar",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VRTrike_Character_BP.VRTrike_Character_BP",
-			"variants": [ "VR" ],
+			"variants": [ "Genesis", "Minion", "VR" ],
 			"fullStatsRaw": [
 				[ 400, 0.05, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -8744,7 +8790,7 @@
 		{
 			"name": "Corrupted Dinotar",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VRXenomorph_Character_BP_Male_Minion.VRXenomorph_Character_BP_Male_Minion",
-			"variants": [ "Male", "Minion", "VR" ],
+			"variants": [ "Genesis", "Male", "Minion", "VR" ],
 			"fullStatsRaw": [
 				[ 1800, 0.04, 0.27, 0.5, 0 ],
 				[ 420, 0.1, 0.1, 0, 0 ],
@@ -8791,7 +8837,7 @@
 		{
 			"name": "Corrupted Dinotar",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VRYutyrannus_Character_BP.VRYutyrannus_Character_BP",
-			"variants": [ "VR" ],
+			"variants": [ "Genesis", "Minion", "VR" ],
 			"fullStatsRaw": [
 				[ 1100, 0.2, 0.27, 0.5, 0 ],
 				[ 420, 0.1, 0.1, 0, 0 ],
@@ -8900,7 +8946,7 @@
 		{
 			"name": "X-Allosaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Volcano_Allosaurus/Volcano_Allo_Character_BP.Volcano_Allo_Character_BP",
-			"variants": [ "Volcano" ],
+			"variants": [ "Genesis", "Volcano" ],
 			"fullStatsRaw": [
 				[ 630, 0.2, 0.27, 0.5, 0 ],
 				[ 250, 0.1, 0.1, 0, 0 ],
@@ -9072,7 +9118,7 @@
 		{
 			"name": "X-Ankylosaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Volcano_Ankylosaurus/Volcano_Ankylo_Character_BP.Volcano_Ankylo_Character_BP",
-			"variants": [ "Volcano" ],
+			"variants": [ "Genesis", "Volcano" ],
 			"fullStatsRaw": [
 				[ 700, 0.2, 0.27, 0.5, 0 ],
 				[ 175, 0.1, 0.1, 0, 0 ],
@@ -9291,7 +9337,7 @@
 		{
 			"name": "X-Dragon",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Volcano_Dragon/Volcanic_Dragon_Character_BP.Volcanic_Dragon_Character_BP",
-			"variants": [ "Boss", "Volcano" ],
+			"variants": [ "Boss", "Genesis", "Volcano" ],
 			"fullStatsRaw": [
 				[ 240000, 0.2, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -9324,7 +9370,7 @@
 		{
 			"name": "X-Rex",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Volcano_Rex/Volcano_Rex_Character_BP.Volcano_Rex_Character_BP",
-			"variants": [ "Volcano" ],
+			"variants": [ "Genesis", "Volcano" ],
 			"fullStatsRaw": [
 				[ 1100, 0.2, 0.27, 0.5, 0 ],
 				[ 420, 0.1, 0.1, 0, 0 ],
@@ -9463,7 +9509,7 @@
 		{
 			"name": "X-Triceratops",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Volcano_Trike/Volcano_Trike_Character_BP.Volcano_Trike_Character_BP",
-			"variants": [ "Volcano" ],
+			"variants": [ "Genesis", "Volcano" ],
 			"fullStatsRaw": [
 				[ 375, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -9686,7 +9732,7 @@
 		{
 			"name": "Bloodstalker",
 			"blueprintPath": "/Game/Genesis/Dinos/BogSpider/BogSpider_Character_BP.BogSpider_Character_BP",
-			"variants": [ "Bog" ],
+			"variants": [ "Bog", "Genesis" ],
 			"fullStatsRaw": [
 				[ 450, 0.2, 0.27, 0.5, 0 ],
 				[ 600, 0.1, 0.1, 0, 0 ],
@@ -9832,6 +9878,7 @@
 		{
 			"name": "Corrupted Avatar",
 			"blueprintPath": "/Game/Genesis/Dinos/Bots/Bot_Character_BP.Bot_Character_BP",
+			"variants": [ "Genesis" ],
 			"fullStatsRaw": [
 				[ 100, 0.5, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -9864,6 +9911,7 @@
 		{
 			"name": "Corrupted Avatar",
 			"blueprintPath": "/Game/Genesis/Dinos/Bots/Bot_WithBow_BP.Bot_WithBow_BP",
+			"variants": [ "Genesis" ],
 			"fullStatsRaw": [
 				[ 100, 0.5, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -9896,6 +9944,7 @@
 		{
 			"name": "Corrupted Avatar",
 			"blueprintPath": "/Game/Genesis/Dinos/Bots/Bot_WithSpear_BP.Bot_WithSpear_BP",
+			"variants": [ "Genesis" ],
 			"fullStatsRaw": [
 				[ 100, 0.5, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -9928,6 +9977,7 @@
 		{
 			"name": "Corrupted Avatar",
 			"blueprintPath": "/Game/Genesis/Dinos/Bots/Bot_WithTekGrenades_BP.Bot_WithTekGrenades_BP",
+			"variants": [ "Genesis" ],
 			"fullStatsRaw": [
 				[ 100, 0.5, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -9960,6 +10010,7 @@
 		{
 			"name": "Corrupted Avatar",
 			"blueprintPath": "/Game/Genesis/Dinos/Bots/Bot_WithTekRifle_BP.Bot_WithTekRifle_BP",
+			"variants": [ "Genesis" ],
 			"fullStatsRaw": [
 				[ 100, 0.5, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -9992,6 +10043,7 @@
 		{
 			"name": "Magmasaur",
 			"blueprintPath": "/Game/Genesis/Dinos/Cherufe/Cherufe_Character_BP.Cherufe_Character_BP",
+			"variants": [ "Genesis" ],
 			"fullStatsRaw": [
 				[ 3000, 0.05, 0.135, 3000, 0 ],
 				[ 500, 0.05, 0.05, 0, 0 ],
@@ -10115,7 +10167,7 @@
 		{
 			"name": "Moeder, Master of the Ocean",
 			"blueprintPath": "/Game/Genesis/Dinos/EelBoss/EelBoss_Character_BP_Easy.EelBoss_Character_BP_Easy",
-			"variants": [ "Boss", "Gamma" ],
+			"variants": [ "Boss", "Gamma", "Genesis" ],
 			"fullStatsRaw": [
 				[ 490000, 0.2, 0.27, 0.5, 0 ],
 				[ 600, 0.1, 0.1, 0, 0 ],
@@ -10148,7 +10200,7 @@
 		{
 			"name": "Moeder, Master of the Ocean",
 			"blueprintPath": "/Game/Genesis/Dinos/EelBoss/EelBoss_Character_BP_Hard.EelBoss_Character_BP_Hard",
-			"variants": [ "Alpha", "Boss" ],
+			"variants": [ "Alpha", "Boss", "Genesis" ],
 			"fullStatsRaw": [
 				[ 960400, 0.2, 0.27, 0.5, 0 ],
 				[ 600, 0.1, 0.1, 0, 0 ],
@@ -10181,7 +10233,7 @@
 		{
 			"name": "Moeder, Master of the Ocean",
 			"blueprintPath": "/Game/Genesis/Dinos/EelBoss/EelBoss_Character_BP_Medium.EelBoss_Character_BP_Medium",
-			"variants": [ "Beta", "Boss" ],
+			"variants": [ "Beta", "Boss", "Genesis" ],
 			"fullStatsRaw": [
 				[ 686000, 0.2, 0.27, 0.5, 0 ],
 				[ 600, 0.1, 0.1, 0, 0 ],
@@ -10214,7 +10266,7 @@
 		{
 			"name": "Eel Minion",
 			"blueprintPath": "/Game/Genesis/Dinos/EelBoss/EelMinion_Character_BP_Easy.EelMinion_Character_BP_Easy",
-			"variants": [ "Boss", "Gamma", "Minion" ],
+			"variants": [ "Boss", "Gamma", "Genesis", "Minion" ],
 			"fullStatsRaw": [
 				[ 3200, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -10247,7 +10299,7 @@
 		{
 			"name": "Eel Minion",
 			"blueprintPath": "/Game/Genesis/Dinos/EelBoss/EelMinion_Character_BP_Hard.EelMinion_Character_BP_Hard",
-			"variants": [ "Alpha", "Boss", "Minion" ],
+			"variants": [ "Alpha", "Boss", "Genesis", "Minion" ],
 			"fullStatsRaw": [
 				[ 9600, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -10280,7 +10332,7 @@
 		{
 			"name": "Eel Minion",
 			"blueprintPath": "/Game/Genesis/Dinos/EelBoss/EelMinion_Character_BP_Medium.EelMinion_Character_BP_Medium",
-			"variants": [ "Beta", "Boss", "Minion" ],
+			"variants": [ "Beta", "Boss", "Genesis", "Minion" ],
 			"fullStatsRaw": [
 				[ 6400, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -10313,8 +10365,9 @@
 		{
 			"name": "Megachelon",
 			"blueprintPath": "/Game/Genesis/Dinos/GiantTurtle/GiantTurtle_Character_BP.GiantTurtle_Character_BP",
+			"variants": [ "Genesis" ],
 			"fullStatsRaw": [
-				[ 1920, 0.2, 0.27, 0.5, 0 ],
+				[ 1920, 0.2, 0.2295, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
 				[ 10000, 0.06, 0, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -10410,7 +10463,7 @@
 				"foodConsumptionBase": 0.01,
 				"foodConsumptionMult": 0.05
 			},
-			"boneDamageAdjusters": { "Pelvis": 0.2 },
+			"boneDamageAdjusters": { "Pelvis": 0.5 },
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
@@ -10419,7 +10472,7 @@
 		{
 			"name": "Daeodon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Arctic/Daeodon_Character_BP_Escort.Daeodon_Character_BP_Escort",
-			"variants": [ "Escort", "Snow" ],
+			"variants": [ "Escort", "Genesis", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 900, 0.2, 0.27, 0.5, 0 ],
 				[ 250, 0.1, 0.1, 0, 0 ],
@@ -10513,7 +10566,7 @@
 		{
 			"name": "Polar Bear",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Arctic/Direbear_Character_Polar_Escort.Direbear_Character_Polar_Escort",
-			"variants": [ "Escort", "Snow" ],
+			"variants": [ "Escort", "Genesis", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 400, 0.2, 0.27, 0.5, 0 ],
 				[ 500, 0.1, 0.1, 0, 0 ],
@@ -10576,7 +10629,7 @@
 		{
 			"name": "Direwolf",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Arctic/Direwolf_Character_BP_Escort.Direwolf_Character_BP_Escort",
-			"variants": [ "Escort", "Snow" ],
+			"variants": [ "Escort", "Genesis", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 330, 0.2, 0.27, 0.66, 0 ],
 				[ 260, 0.1, 0.1, 0, 0 ],
@@ -10673,7 +10726,7 @@
 		{
 			"name": "Procoptodon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Arctic/Procoptodon_Character_BP_Escort.Procoptodon_Character_BP_Escort",
-			"variants": [ "Escort", "Snow" ],
+			"variants": [ "Escort", "Genesis", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 2000, 0.005, 0, -495, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -10817,7 +10870,7 @@
 		{
 			"name": "X-Sabertooth",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Arctic/Snow_Saber_Character_BP_Escort.Snow_Saber_Character_BP_Escort",
-			"variants": [ "Escort", "Snow" ],
+			"variants": [ "Escort", "Genesis", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 250, 0.2, 0.27, 0.5, 0 ],
 				[ 200, 0.1, 0.1, 0, 0 ],
@@ -10945,7 +10998,7 @@
 		{
 			"name": "Baryonyx",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Bog/Baryonyx_Character_BP_Escort.Baryonyx_Character_BP_Escort",
-			"variants": [ "Bog", "Escort" ],
+			"variants": [ "Bog", "Escort", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 440, 0.2, 0.27, 0.5, 0 ],
 				[ 325, 0.1, 0.1, 0, 0 ],
@@ -11045,7 +11098,7 @@
 		{
 			"name": "Titanoboa",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Bog/BoaFrill_Character_BP_Escort.BoaFrill_Character_BP_Escort",
-			"variants": [ "Bog", "Escort" ],
+			"variants": [ "Bog", "Escort", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 170, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -11189,7 +11242,7 @@
 		{
 			"name": "X-Raptor",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Bog/Bog_Raptor_Character_BP_Escort.Bog_Raptor_Character_BP_Escort",
-			"variants": [ "Bog", "Escort" ],
+			"variants": [ "Bog", "Escort", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -11382,7 +11435,7 @@
 		{
 			"name": "Terror Bird",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Bog/TerrorBird_Character_BP_Escort.TerrorBird_Character_BP_Escort",
-			"variants": [ "Bog", "Escort" ],
+			"variants": [ "Bog", "Escort", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 270, 0.2, 0.27, 0.5, 0 ],
 				[ 160, 0.1, 0.1, 0, 0 ],
@@ -11533,7 +11586,7 @@
 		{
 			"name": "Beelzebufo",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Bog/Toad_Character_BP_Escort.Toad_Character_BP_Escort",
-			"variants": [ "Bog", "Escort" ],
+			"variants": [ "Bog", "Escort", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 2000, 0.005, 0, -495, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -11674,7 +11727,7 @@
 		{
 			"name": "Shinehorn",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Lunar/LanternGoat_Character_BP_Escort.LanternGoat_Character_BP_Escort",
-			"variants": [ "Escort", "Lunar" ],
+			"variants": [ "Escort", "Genesis", "Lunar", "Mission" ],
 			"fullStatsRaw": [
 				[ 2500, 0.002, 0, -495, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -11818,12 +11871,18 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 919
+			"displayedStats": 919,
+			"statNames": {
+				"1": "Charge Capacity",
+				"2": "My custom Stat Name",
+				"3": "Charge Regen",
+				"8": "Charge Emission Range"
+			}
 		},
 		{
 			"name": "Bulbdog",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Lunar/LanternPug_Character_BP_Escort.LanternPug_Character_BP_Escort",
-			"variants": [ "Escort", "Lunar" ],
+			"variants": [ "Escort", "Genesis", "Lunar", "Mission" ],
 			"fullStatsRaw": [
 				[ 2500, 0.002, 0, -495, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -11962,12 +12021,17 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 919
+			"displayedStats": 919,
+			"statNames": {
+				"1": "Charge Capacity",
+				"3": "Charge Regen",
+				"8": "Charge Emission Range"
+			}
 		},
 		{
 			"name": "Seeker",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Lunar/Pteroteuthis_Char_BP_Escort.Pteroteuthis_Char_BP_Escort",
-			"variants": [ "Escort", "Lunar" ],
+			"variants": [ "Escort", "Genesis", "Lunar", "Mission" ],
 			"fullStatsRaw": [
 				[ 250, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -12061,7 +12125,7 @@
 		{
 			"name": "Anglerfish",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Ocean/Angler_Character_BP_Escort.Angler_Character_BP_Escort",
-			"variants": [ "Escort", "Ocean" ],
+			"variants": [ "Escort", "Genesis", "Mission", "Ocean" ],
 			"fullStatsRaw": [
 				[ 450, 0.2, 0.27, 0.3, 0 ],
 				[ 240, 0.1, 0.1, 0, 0 ],
@@ -12174,7 +12238,7 @@
 		{
 			"name": "Electrophorus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Ocean/Eel_Character_BP_Escort.Eel_Character_BP_Escort",
-			"variants": [ "Escort", "Ocean" ],
+			"variants": [ "Escort", "Genesis", "Mission", "Ocean" ],
 			"fullStatsRaw": [
 				[ 180, 0.2, 0.27, -0.2, 0 ],
 				[ 165, 0.1, 0.1, 0, 0 ],
@@ -12290,7 +12354,7 @@
 		{
 			"name": "Megachelon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Ocean/GiantTurtle_Character_BP_Escort.GiantTurtle_Character_BP_Escort",
-			"variants": [ "Escort", "Ocean" ],
+			"variants": [ "Escort", "Genesis", "Mission", "Ocean" ],
 			"fullStatsRaw": [
 				[ 2000, 0.005, 0, -495, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -12388,7 +12452,7 @@
 				"foodConsumptionBase": 0.01,
 				"foodConsumptionMult": 0.05
 			},
-			"boneDamageAdjusters": { "Pelvis": 0.2 },
+			"boneDamageAdjusters": { "Pelvis": 0.5 },
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
@@ -12397,7 +12461,7 @@
 		{
 			"name": "Liopleurodon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Ocean/Liopleurodon_Character_BP_Escort.Liopleurodon_Character_BP_Escort",
-			"variants": [ "Escort", "Ocean" ],
+			"variants": [ "Escort", "Genesis", "Mission", "Ocean" ],
 			"fullStatsRaw": [
 				[ 1800, 0.2, 0.27, 0.3, 0 ],
 				[ 800, 0.1, 0.1, 0, 0 ],
@@ -12477,7 +12541,7 @@
 		{
 			"name": "Manta",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Ocean/Manta_Character_BP_Escort.Manta_Character_BP_Escort",
-			"variants": [ "Escort", "Ocean" ],
+			"variants": [ "Escort", "Genesis", "Mission", "Ocean" ],
 			"fullStatsRaw": [
 				[ 320, 0.05, 0.0675, 0.5, 0 ],
 				[ 270, 0.2, 0.2, 0, 0 ],
@@ -12606,7 +12670,7 @@
 		{
 			"name": "Parakeet Fish School",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Ocean/MicrobeSwarmChar_BP_Escort.MicrobeSwarmChar_BP_Escort",
-			"variants": [ "Escort", "Ocean" ],
+			"variants": [ "Escort", "Genesis", "Mission", "Ocean" ],
 			"fullStatsRaw": [
 				[ 1800, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -12715,7 +12779,7 @@
 		{
 			"name": "X-Ichthyosaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Ocean/Ocean_Dolphin_Character_BP_Escort.Ocean_Dolphin_Character_BP_Escort",
-			"variants": [ "Escort", "Ocean" ],
+			"variants": [ "Escort", "Genesis", "Mission", "Ocean" ],
 			"fullStatsRaw": [
 				[ 275, 0.05, 0.0675, 0.3, 0 ],
 				[ 300, 0.2, 0.2, 0, 0 ],
@@ -12734,7 +12798,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 95238.0952,
+				"maturationTime": 208333.333,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -12881,7 +12945,7 @@
 		{
 			"name": "X-Dunkleosteus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Ocean/Ocean_Dunkle_Character_BP_Escort.Ocean_Dunkle_Character_BP_Escort",
-			"variants": [ "Escort", "Ocean" ],
+			"variants": [ "Escort", "Genesis", "Mission", "Ocean" ],
 			"fullStatsRaw": [
 				[ 710, 0.2, 0.27, 0.3, 0 ],
 				[ 200, 0.1, 0.1, 0, 0 ],
@@ -12900,7 +12964,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 333333.333,
+				"maturationTime": 296296.296,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -13055,7 +13119,7 @@
 		{
 			"name": "X-Megalodon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Ocean/Ocean_Megalodon_Character_BP_Escort.Ocean_Megalodon_Character_BP_Escort",
-			"variants": [ "Escort", "Ocean" ],
+			"variants": [ "Escort", "Genesis", "Mission", "Ocean" ],
 			"fullStatsRaw": [
 				[ 600, 0.2, 0.27, 0.3, 0 ],
 				[ 320, 0.1, 0.1, 0, 0 ],
@@ -13219,7 +13283,7 @@
 		{
 			"name": "Plesiosaur",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Ocean/Plesiosaur_Character_BP_Escort.Plesiosaur_Character_BP_Escort",
-			"variants": [ "Escort", "Ocean" ],
+			"variants": [ "Escort", "Genesis", "Mission", "Ocean" ],
 			"fullStatsRaw": [
 				[ 2400, 0.12, 0.162, 0.16, 0 ],
 				[ 800, 0.1, 0.1, 0, 0 ],
@@ -13238,7 +13302,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 666666.667,
+				"maturationTime": 416666.667,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -13334,7 +13398,7 @@
 		{
 			"name": "Pteranodon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Ocean/Ptero_Character_BP_Escort.Ptero_Character_BP_Escort",
-			"variants": [ "Escort", "Ocean" ],
+			"variants": [ "Escort", "Genesis", "Mission", "Ocean" ],
 			"fullStatsRaw": [
 				[ 2000, 0.005, 0, -495, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -13487,7 +13551,7 @@
 		{
 			"name": "Sabertooth Salmon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Ocean/Salmon_Character_BP_Escort.Salmon_Character_BP_Escort",
-			"variants": [ "Escort", "Ocean" ],
+			"variants": [ "Escort", "Genesis", "Mission", "Ocean" ],
 			"fullStatsRaw": [
 				[ 65, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -13576,7 +13640,7 @@
 		{
 			"name": "Carbonemys",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Ocean/Turtle_Character_BP_Escort.Turtle_Character_BP_Escort",
-			"variants": [ "Escort", "Ocean" ],
+			"variants": [ "Escort", "Genesis", "Mission", "Ocean" ],
 			"fullStatsRaw": [
 				[ 1750, 0.005, 0, -495, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -13686,7 +13750,7 @@
 		{
 			"name": "Carnotaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Volcanic/Carno_Character_BP_Escort.Carno_Character_BP_Escort",
-			"variants": [ "Escort", "Volcano" ],
+			"variants": [ "Escort", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 420, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -13801,7 +13865,7 @@
 		{
 			"name": "Parasaur",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Volcanic/Para_Character_BP_Escort.Para_Character_BP_Escort",
-			"variants": [ "Escort", "Volcano" ],
+			"variants": [ "Escort", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 1250, 0.005, 0, -495, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -13950,7 +14014,7 @@
 		{
 			"name": "Raptor",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Volcanic/Raptor_Character_BP_Escort.Raptor_Character_BP_Escort",
-			"variants": [ "Escort", "Volcano" ],
+			"variants": [ "Escort", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -14073,7 +14137,7 @@
 		{
 			"name": "Pulmonoscorpius",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Volcanic/Scorpion_Character_BP_Escort.Scorpion_Character_BP_Escort",
-			"variants": [ "Escort", "Volcano" ],
+			"variants": [ "Escort", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 280, 0.2, 0.27, 0.5, 0 ],
 				[ 200, 0.1, 0.1, 0, 0 ],
@@ -14235,7 +14299,7 @@
 		{
 			"name": "X-Allosaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Volcanic/Volcano_Allo_Character_BP_Escort.Volcano_Allo_Character_BP_Escort",
-			"variants": [ "Escort", "Volcano" ],
+			"variants": [ "Escort", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 630, 0.2, 0.27, 0.5, 0 ],
 				[ 250, 0.1, 0.1, 0, 0 ],
@@ -14406,7 +14470,7 @@
 		{
 			"name": "X-Rex",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Volcanic/Volcano_Rex_Character_BP_Escort.Volcano_Rex_Character_BP_Escort",
-			"variants": [ "Escort", "Volcano" ],
+			"variants": [ "Escort", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 1100, 0.2, 0.27, 0.5, 0 ],
 				[ 420, 0.1, 0.1, 0, 0 ],
@@ -14572,7 +14636,7 @@
 		{
 			"name": "Castoroides",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Arctic/Beaver_Character_BP_Gauntlet.Beaver_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Snow" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -14716,7 +14780,7 @@
 		{
 			"name": "Yeti",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Arctic/Bigfoot_Character_BP_Gauntlet.Bigfoot_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Snow" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -14777,7 +14841,7 @@
 		{
 			"name": "Chalicotherium",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Arctic/Chalico_Character_BP_Gauntlet.Chalico_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Snow" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -14861,7 +14925,7 @@
 		{
 			"name": "Daeodon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Arctic/Daeodon_Character_BP_Gauntlet.Daeodon_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Snow" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -14955,7 +15019,7 @@
 		{
 			"name": "Polar Bear",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Arctic/Direbear_Character_Polar_Gauntlet.Direbear_Character_Polar_Gauntlet",
-			"variants": [ "Gauntlet", "Snow" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -15018,7 +15082,7 @@
 		{
 			"name": "Direwolf",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Arctic/Direwolf_Character_BP_Gauntlet.Direwolf_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Snow" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -15137,7 +15201,13 @@
 		{
 			"name": "Megapithecus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Arctic/Gorilla_Character_BP_Gauntlet.Gorilla_Character_BP_Gauntlet",
-			"variants": [ "Boss", "Gauntlet", "Snow" ],
+			"variants": [
+				"Boss",
+				"Gauntlet",
+				"Genesis",
+				"Mission",
+				"Snow"
+			],
 			"fullStatsRaw": [
 				[ 125000, 0.01, 0.2, 0.3, 0 ],
 				[ 650, 0, 0, 0, 0 ],
@@ -15268,7 +15338,7 @@
 		{
 			"name": "Rock Elemental",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Arctic/IceGolem_Character_BP_Gauntlet.IceGolem_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Snow" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 25000, 0.0125, 0.135, -22000, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -15301,7 +15371,7 @@
 		{
 			"name": "Managarmr",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Arctic/IceJumper_Character_BP_Gauntlet.IceJumper_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Snow" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -15440,7 +15510,7 @@
 		{
 			"name": "Mammoth",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Arctic/Mammoth_Character_BP_Gauntlet.Mammoth_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Snow" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -15555,7 +15625,7 @@
 		{
 			"name": "Megatherium",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Arctic/Megatherium_Character_BP_Gauntlet.Megatherium_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Snow" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -15647,7 +15717,7 @@
 		{
 			"name": "Snow Owl",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Arctic/Owl_Character_BP_Gauntlet.Owl_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Snow" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -15744,7 +15814,13 @@
 		{
 			"name": "Ferox",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Arctic/Shapeshifter_Large_Character_BP_Gauntlet.Shapeshifter_Large_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Large", "Snow" ],
+			"variants": [
+				"Gauntlet",
+				"Genesis",
+				"Large",
+				"Mission",
+				"Snow"
+			],
 			"fullStatsRaw": [
 				[ 1100, 0.2, 0.27, 0.5, 0 ],
 				[ 1000, 0.1, 0.1, 0, 0 ],
@@ -15867,7 +15943,7 @@
 		{
 			"name": "X-Argentavis",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Arctic/Snow_Argent_Character_BP_Gauntlet.Snow_Argent_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Snow" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -15994,7 +16070,7 @@
 		{
 			"name": "X-Woolly Rhino",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Arctic/Snow_Rhino_Character_BP_Gauntlet.Snow_Rhino_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Snow" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -16013,7 +16089,7 @@
 			"breeding": {
 				"gestationTime": 14285.7143,
 				"incubationTime": 0,
-				"maturationTime": 166666.667,
+				"maturationTime": 208333.333,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -16156,7 +16232,7 @@
 		{
 			"name": "X-Sabertooth",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Arctic/Snow_Saber_Character_BP_Gauntlet.Snow_Saber_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Snow" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -16284,7 +16360,7 @@
 		{
 			"name": "X-Yutyrannus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Arctic/Snow_Yutyrannus_Character_BP_Gauntlet.Snow_Yutyrannus_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Snow" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -16448,7 +16524,7 @@
 		{
 			"name": "Therizinosaur",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Arctic/Therizino_Character_BP_Gauntlet.Therizino_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Snow" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -16557,7 +16633,7 @@
 		{
 			"name": "Baryonyx",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Baryonyx_Character_BP_Gauntlet.Baryonyx_Character_BP_Gauntlet",
-			"variants": [ "Bog", "Gauntlet" ],
+			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -16657,7 +16733,7 @@
 		{
 			"name": "Giant Queen Bee",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Bee_Queen_Character_BP_Gauntlet.Bee_Queen_Character_BP_Gauntlet",
-			"variants": [ "Bog", "Gauntlet" ],
+			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -16753,7 +16829,7 @@
 		{
 			"name": "Titanoboa",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/BoaFrill_Character_BP_Gauntlet.BoaFrill_Character_BP_Gauntlet",
-			"variants": [ "Bog", "Gauntlet" ],
+			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -16897,7 +16973,7 @@
 		{
 			"name": "Bloodstalker",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/BogSpider_Character_BP_Gauntlet.BogSpider_Character_BP_Gauntlet",
-			"variants": [ "Bog", "Gauntlet" ],
+			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -17041,7 +17117,7 @@
 		{
 			"name": "X-Paraceratherium",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Bog_Paracer_Character_BP_Gauntlet.Bog_Paracer_Character_BP_Gauntlet",
-			"variants": [ "Bog", "Gauntlet" ],
+			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -17181,7 +17257,7 @@
 		{
 			"name": "X-Raptor",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Bog_Raptor_Character_BP_Gauntlet.Bog_Raptor_Character_BP_Gauntlet",
-			"variants": [ "Bog", "Gauntlet" ],
+			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -17374,7 +17450,7 @@
 		{
 			"name": "X-Spino",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Bog_Spino_Character_BP_Gauntlet.Bog_Spino_Character_BP_Gauntlet",
-			"variants": [ "Bog", "Gauntlet" ],
+			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 500, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -17541,7 +17617,7 @@
 		{
 			"name": "X-Tapejara",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Bog_Tapejara_Character_BP_Gauntlet.Bog_Tapejara_Character_BP_Gauntlet",
-			"variants": [ "Bog", "Gauntlet" ],
+			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -17743,7 +17819,7 @@
 		{
 			"name": "Dilophosaur",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Dilo_Character_BP_Gauntlet.Dilo_Character_BP_Gauntlet",
-			"variants": [ "Bog", "Gauntlet" ],
+			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -17884,7 +17960,7 @@
 		{
 			"name": "Dodo",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Dodo_Character_BP_Aggressive.Dodo_Character_BP_Aggressive",
-			"variants": [ "Bog", "Gauntlet" ],
+			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -18175,7 +18251,7 @@
 		{
 			"name": "Dodo",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Dodo_Character_BP_Aggressive_Large.Dodo_Character_BP_Aggressive_Large",
-			"variants": [ "Bog", "Gauntlet" ],
+			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -18466,7 +18542,7 @@
 		{
 			"name": "Iguanodon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Iguanodon_Character_BP_Gauntlet.Iguanodon_Character_BP_Gauntlet",
-			"variants": [ "Bog", "Gauntlet" ],
+			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -18567,7 +18643,7 @@
 		{
 			"name": "Kaprosuchus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Kaprosuchus_Character_BP_Gauntlet.Kaprosuchus_Character_BP_Gauntlet",
-			"variants": [ "Bog", "Gauntlet" ],
+			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -18669,7 +18745,7 @@
 		{
 			"name": "Mantis",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Mantis_Character_BP_Gauntlet.Mantis_Character_BP_Gauntlet",
-			"variants": [ "Bog", "Gauntlet" ],
+			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -18827,7 +18903,7 @@
 		{
 			"name": "Lymantria",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Moth_Character_BP_Gauntlet.Moth_Character_BP_Gauntlet",
-			"variants": [ "Bog", "Gauntlet" ],
+			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -18940,7 +19016,7 @@
 		{
 			"name": "Pachyrhinosaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Pachyrhino_Character_BP_Gauntlet.Pachyrhino_Character_BP_Gauntlet",
-			"variants": [ "Bog", "Gauntlet" ],
+			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -19050,7 +19126,7 @@
 		{
 			"name": "Sarco",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Sarco_Character_BP_Gauntlet.Sarco_Character_BP_Gauntlet",
-			"variants": [ "Bog", "Gauntlet" ],
+			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -19165,7 +19241,13 @@
 		{
 			"name": "Broodmother Lysrix",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/SpiderL_Character_BP_Gauntlet.SpiderL_Character_BP_Gauntlet",
-			"variants": [ "Bog", "Boss", "Gauntlet" ],
+			"variants": [
+				"Bog",
+				"Boss",
+				"Gauntlet",
+				"Genesis",
+				"Mission"
+			],
 			"fullStatsRaw": [
 				[ 300000, 0.01, 0.27, 0.5, 0 ],
 				[ 150, 0, 0, 0, 0 ],
@@ -19198,7 +19280,7 @@
 		{
 			"name": "Araneo",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/SpiderS_Character_BP_Gauntlet.SpiderS_Character_BP_Gauntlet",
-			"variants": [ "Bog", "Gauntlet" ],
+			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -19436,7 +19518,7 @@
 		{
 			"name": "Terror Bird",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/TerrorBird_Character_BP_Gauntlet.TerrorBird_Character_BP_Gauntlet",
-			"variants": [ "Bog", "Gauntlet" ],
+			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -19728,7 +19810,7 @@
 		{
 			"name": "Beelzebufo",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Toad_Character_BP_Gauntlet.Toad_Character_BP_Gauntlet",
-			"variants": [ "Bog", "Gauntlet" ],
+			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -19869,7 +19951,7 @@
 		{
 			"name": "Poison Wyvern",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Wyvern_Character_BP_Poison_Gauntlet.Wyvern_Character_BP_Poison_Gauntlet",
-			"variants": [ "Bog", "Gauntlet" ],
+			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -19988,7 +20070,7 @@
 		{
 			"name": "Malfunctioned Tek Giganotosaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Lunar/BionicGigant_Character_BP_Malfunctioned_Gauntlet.BionicGigant_Character_BP_Malfunctioned_Gauntlet",
-			"variants": [ "Gauntlet", "Lunar" ],
+			"variants": [ "Gauntlet", "Genesis", "Lunar", "Mission" ],
 			"fullStatsRaw": [
 				[ 75000, 0.01, 0.002, -63000, 0 ],
 				[ 400, 0, 0, 0, 0 ],
@@ -20056,7 +20138,7 @@
 		{
 			"name": "Malfunctioned Tek Parasaur",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Lunar/BionicPara_Character_BP_Malfunctioned_Gauntlet.BionicPara_Character_BP_Malfunctioned_Gauntlet",
-			"variants": [ "Gauntlet", "Lunar" ],
+			"variants": [ "Gauntlet", "Genesis", "Lunar", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -20128,7 +20210,7 @@
 		{
 			"name": "Malfunctioned Tek Quetzal",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Lunar/BionicQuetz_Character_BP_Malfunctioned_Gauntlet.BionicQuetz_Character_BP_Malfunctioned_Gauntlet",
-			"variants": [ "Gauntlet", "Lunar" ],
+			"variants": [ "Gauntlet", "Genesis", "Lunar", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -20149,7 +20231,7 @@
 				"incubationTime": 59995.2004,
 				"eggTempMin": 5,
 				"eggTempMax": 6,
-				"maturationTime": 666666.667,
+				"maturationTime": 476190.476,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -20197,7 +20279,7 @@
 		{
 			"name": "Malfunctioned Tek Raptor",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Lunar/BionicRaptor_Character_BP_Malfunctioned_Gauntlet.BionicRaptor_Character_BP_Malfunctioned_Gauntlet",
-			"variants": [ "Gauntlet", "Lunar" ],
+			"variants": [ "Gauntlet", "Genesis", "Lunar", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -20270,7 +20352,7 @@
 		{
 			"name": "Malfunctioned Tek Rex",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Lunar/BionicRex_Character_BP_Malfunctioned_Gauntlet.BionicRex_Character_BP_Malfunctioned_Gauntlet",
-			"variants": [ "Gauntlet", "Lunar" ],
+			"variants": [ "Gauntlet", "Genesis", "Lunar", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -20338,7 +20420,7 @@
 		{
 			"name": "Malfunctioned Tek Stegosaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Lunar/BionicStego_Character_BP_Malfunctioned_Gauntlet.BionicStego_Character_BP_Malfunctioned_Gauntlet",
-			"variants": [ "Gauntlet", "Lunar" ],
+			"variants": [ "Gauntlet", "Genesis", "Lunar", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -20416,7 +20498,7 @@
 		{
 			"name": "Malfunctioned Tek Triceratops",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Lunar/BionicTrike_Character_BP_Malfunctioned_Gauntlet.BionicTrike_Character_BP_Malfunctioned_Gauntlet",
-			"variants": [ "Gauntlet", "Lunar" ],
+			"variants": [ "Gauntlet", "Genesis", "Lunar", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -20488,7 +20570,7 @@
 		{
 			"name": "Deathworm",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Lunar/Deathworm_Character_BP_Gauntlet.Deathworm_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Lunar" ],
+			"variants": [ "Gauntlet", "Genesis", "Lunar", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -20697,7 +20779,13 @@
 		{
 			"name": "Attack Drone",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Lunar/EndDrone_Character_BP_Gauntlet.EndDrone_Character_BP_Gauntlet",
-			"variants": [ "Boss", "Gauntlet", "Lunar" ],
+			"variants": [
+				"Boss",
+				"Gauntlet",
+				"Genesis",
+				"Lunar",
+				"Mission"
+			],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -20740,7 +20828,13 @@
 		{
 			"name": "Defense Unit",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Lunar/EndTank_Character_BP_Gauntlet.EndTank_Character_BP_Gauntlet",
-			"variants": [ "Boss", "Gauntlet", "Lunar" ],
+			"variants": [
+				"Boss",
+				"Gauntlet",
+				"Genesis",
+				"Lunar",
+				"Mission"
+			],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -20773,7 +20867,7 @@
 		{
 			"name": "Bulbdog",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Lunar/LanternPug_Character_BP_Gauntlet.LanternPug_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Lunar" ],
+			"variants": [ "Gauntlet", "Genesis", "Lunar", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -20915,7 +21009,7 @@
 		{
 			"name": "Seeker",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Lunar/Pteroteuthis_Char_BP_Gauntlet.Pteroteuthis_Char_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Lunar" ],
+			"variants": [ "Gauntlet", "Genesis", "Lunar", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -21009,7 +21103,7 @@
 		{
 			"name": "Rock Drake",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Lunar/RockDrake_Character_BP_Gauntlet.RockDrake_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Lunar" ],
+			"variants": [ "Gauntlet", "Genesis", "Lunar", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -21164,7 +21258,7 @@
 		{
 			"name": "Lightning Wyvern",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Lunar/Wyvern_Character_BP_Lightning_Gauntlet.Wyvern_Character_BP_Lightning_Gauntlet",
-			"variants": [ "Gauntlet", "Lunar" ],
+			"variants": [ "Gauntlet", "Genesis", "Lunar", "Mission" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -21276,7 +21370,7 @@
 		{
 			"name": "Arthropluera",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Volcanic/Arthro_Character_BP_Gauntlet.Arthro_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Volcano" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -21560,7 +21654,7 @@
 		{
 			"name": "Onyc",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Volcanic/Bat_Character_BP_Gauntlet.Bat_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Volcano" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -21658,7 +21752,7 @@
 		{
 			"name": "Carnotaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Volcanic/Carno_Character_BP_Gauntlet.Carno_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Volcano" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -21773,7 +21867,7 @@
 		{
 			"name": "Ravager",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Volcanic/CaveWolf_Character_BP_Gauntlet.CaveWolf_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Volcano" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -21864,7 +21958,7 @@
 		{
 			"name": "Magmasaur",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Volcanic/Cherufe_Character_BP_Gauntlet.Cherufe_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Volcano" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -21988,7 +22082,7 @@
 		{
 			"name": "Kentrosaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Volcanic/Kentro_Character_BP_Gauntlet.Kentro_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Volcano" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -22122,7 +22216,7 @@
 		{
 			"name": "Megalania",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Volcanic/Megalania_Character_BP_Gauntlet.Megalania_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Volcano" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -22234,7 +22328,7 @@
 		{
 			"name": "Megalosaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Volcanic/Megalosaurus_Character_BP_Gauntlet.Megalosaurus_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Volcano" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -22334,7 +22428,7 @@
 		{
 			"name": "Phoenix",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Volcanic/Phoenix_Character_BP_Gauntlet.Phoenix_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Volcano" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -22421,7 +22515,7 @@
 		{
 			"name": "Purlovia",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Volcanic/Purlovia_Character_BP_Gauntlet.Purlovia_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Volcano" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -22505,7 +22599,7 @@
 		{
 			"name": "Pulmonoscorpius",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Volcanic/Scorpion_Character_BP_Gauntlet.Scorpion_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Volcano" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -22783,7 +22877,7 @@
 		{
 			"name": "Thorny Dragon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Volcanic/SpineyLizard_Character_BP_Gauntlet.SpineyLizard_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Volcano" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -22917,7 +23011,7 @@
 		{
 			"name": "X-Allosaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Volcanic/Volcano_Allo_Character_BP_Gauntlet.Volcano_Allo_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Volcano" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -23088,7 +23182,7 @@
 		{
 			"name": "X-Ankylosaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Volcanic/Volcano_Ankylo_Character_BP_Gauntlet.Volcano_Ankylo_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Volcano" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -23306,7 +23400,7 @@
 		{
 			"name": "X-Rock Elemental",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Volcanic/Volcano_Golem_Character_BP_Gauntlet.Volcano_Golem_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Volcano" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 25000, 0.0125, 0.135, -22000, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -23515,7 +23609,7 @@
 		{
 			"name": "X-Rex",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Volcanic/Volcano_Rex_Character_BP_Gauntlet.Volcano_Rex_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Volcano" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -23681,7 +23775,7 @@
 		{
 			"name": "X-Triceratops",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Volcanic/Volcano_Trike_Character_BP_Gauntlet.Volcano_Trike_Character_BP_Gauntlet",
-			"variants": [ "Gauntlet", "Volcano" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -23903,7 +23997,7 @@
 		{
 			"name": "Fire Wyvern",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Volcanic/Wyvern_Character_BP_Fire_Gauntlet.Wyvern_Character_BP_Fire_Gauntlet",
-			"variants": [ "Gauntlet", "Volcano" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -24011,7 +24105,7 @@
 		{
 			"name": "Brute Fire Wyvern",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Volcanic/Wyvern_Character_BP_Fire_GauntletBoss.Wyvern_Character_BP_Fire_GauntletBoss",
-			"variants": [ "Gauntlet", "Volcano" ],
+			"variants": [ "Gauntlet", "Genesis", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 150000, 0.01, 0.2, 0.3, 0 ],
 				[ 10000, 0, 0, 0, 0 ],
@@ -24089,7 +24183,7 @@
 		{
 			"name": "Carnotaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Arctic/Carno_Character_BP_HuntFollower.Carno_Character_BP_HuntFollower",
-			"variants": [ "Hunt", "Snow" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 420, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -24204,7 +24298,7 @@
 		{
 			"name": "Direwolf",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Arctic/Direwolf_Character_BP_Hunt.Direwolf_Character_BP_Hunt",
-			"variants": [ "Hunt", "Snow" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 820, 0.2, 0.27, 0.5, 0 ],
 				[ 200, 0.1, 0.1, 0, 0 ],
@@ -24324,7 +24418,7 @@
 		{
 			"name": "Brute Mammoth",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Arctic/Mammoth_Character_BP_Hunt.Mammoth_Character_BP_Hunt",
-			"variants": [ "Hunt", "Snow" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 3800, 0.3, 0.27, 0.5, 0 ],
 				[ 495, 0.1, 0.1, 0, 0 ],
@@ -24462,7 +24556,7 @@
 		{
 			"name": "Mammoth",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Arctic/Mammoth_Character_BP_HuntFollower.Mammoth_Character_BP_HuntFollower",
-			"variants": [ "Hunt", "Snow" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 850, 0.2, 0.27, 0.5, 0 ],
 				[ 330, 0.1, 0.1, 0, 0 ],
@@ -24600,7 +24694,13 @@
 		{
 			"name": "Brute Ferox",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Arctic/Shapeshifter_Large_Character_BP_Hunt.Shapeshifter_Large_Character_BP_Hunt",
-			"variants": [ "Hunt", "Large", "Snow" ],
+			"variants": [
+				"Genesis",
+				"Hunt",
+				"Large",
+				"Mission",
+				"Snow"
+			],
 			"fullStatsRaw": [
 				[ 3900, 0.3, 0.27, 0.5, 0 ],
 				[ 900, 0.1, 0.1, 0, 0 ],
@@ -24723,7 +24823,7 @@
 		{
 			"name": "X-Sabertooth",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Arctic/Snow_Saber_Character_BP_Hunt.Snow_Saber_Character_BP_Hunt",
-			"variants": [ "Hunt", "Snow" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 820, 0.2, 0.27, 0.5, 0 ],
 				[ 200, 0.1, 0.1, 0, 0 ],
@@ -24852,7 +24952,7 @@
 		{
 			"name": "Brute X-Yutyrannus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Arctic/Snow_Yutyrannus_Character_BP_Hunt.Snow_Yutyrannus_Character_BP_Hunt",
-			"variants": [ "Hunt", "Snow" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 3300, 0.3, 0.27, 0.5, 0 ],
 				[ 840, 0.1, 0.1, 0, 0 ],
@@ -25016,7 +25116,7 @@
 		{
 			"name": "X-Yutyrannus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Arctic/Snow_Yutyrannus_Character_BP_HuntFollower.Snow_Yutyrannus_Character_BP_HuntFollower",
-			"variants": [ "Hunt", "Snow" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 1100, 0.2, 0.27, 0.5, 0 ],
 				[ 420, 0.1, 0.1, 0, 0 ],
@@ -25180,7 +25280,7 @@
 		{
 			"name": "Brute Megaloceros",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Arctic/Stag_Character_BP_Hunt.Stag_Character_BP_Hunt",
-			"variants": [ "Hunt", "Snow" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 760, 0.3, 0.27, 0.5, 0 ],
 				[ 560, 0.1, 0.1, 0, 0 ],
@@ -25300,7 +25400,7 @@
 		{
 			"name": "Brute Megaloceros",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Arctic/Stag_Character_BP_Hunt_Mega.Stag_Character_BP_Hunt_Mega",
-			"variants": [ "Hunt", "Snow" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Snow" ],
 			"fullStatsRaw": [
 				[ 2350, 0.3, 0.27, 0.5, 0 ],
 				[ 560, 0.1, 0.1, 0, 0 ],
@@ -25420,7 +25520,7 @@
 		{
 			"name": "Baryonyx",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Bog/Baryonyx_Character_BP_Hunt.Baryonyx_Character_BP_Hunt",
-			"variants": [ "Bog", "Hunt" ],
+			"variants": [ "Bog", "Genesis", "Hunt", "Mission" ],
 			"fullStatsRaw": [
 				[ 440, 0.2, 0.27, 0.5, 0 ],
 				[ 325, 0.1, 0.1, 0, 0 ],
@@ -25520,7 +25620,7 @@
 		{
 			"name": "Brute Bloodstalker",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Bog/BogSpider_Character_BP_Hunt.BogSpider_Character_BP_Hunt",
-			"variants": [ "Bog", "Hunt" ],
+			"variants": [ "Bog", "Genesis", "Hunt", "Mission" ],
 			"fullStatsRaw": [
 				[ 2600, 0.3, 0.27, 0.5, 0 ],
 				[ 550, 0.1, 0.1, 0, 0 ],
@@ -25664,7 +25764,7 @@
 		{
 			"name": "Brute X-Raptor",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Bog/Bog_Raptor_Character_BP_Hunt.Bog_Raptor_Character_BP_Hunt",
-			"variants": [ "Bog", "Hunt" ],
+			"variants": [ "Bog", "Genesis", "Hunt", "Mission" ],
 			"fullStatsRaw": [
 				[ 820, 0.3, 0.27, 0.5, 0 ],
 				[ 250, 0.1, 0.1, 0, 0 ],
@@ -25857,7 +25957,7 @@
 		{
 			"name": "X-Raptor",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Bog/Bog_Raptor_Character_BP_Hunt_Secondary.Bog_Raptor_Character_BP_Hunt_Secondary",
-			"variants": [ "Bog", "Hunt" ],
+			"variants": [ "Bog", "Genesis", "Hunt", "Mission" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -26050,7 +26150,7 @@
 		{
 			"name": "Brute X-Spino",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Bog/Bog_Spino_Character_BP_Hunt.Bog_Spino_Character_BP_Hunt",
-			"variants": [ "Bog", "Hunt" ],
+			"variants": [ "Bog", "Genesis", "Hunt", "Mission" ],
 			"fullStatsRaw": [
 				[ 3200, 0.3, 0.27, 0.5, 0 ],
 				[ 700, 0.1, 0.1, 0, 0 ],
@@ -26217,7 +26317,7 @@
 		{
 			"name": "Dimetrodon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Bog/Dimetro_Character_BP_Hunt.Dimetro_Character_BP_Hunt",
-			"variants": [ "Bog", "Hunt" ],
+			"variants": [ "Bog", "Genesis", "Hunt", "Mission" ],
 			"fullStatsRaw": [
 				[ 350, 0.2, 0.27, 0.65, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -26370,7 +26470,7 @@
 		{
 			"name": "Brute Sarco",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Bog/Sarco_Character_BP_Hunt.Sarco_Character_BP_Hunt",
-			"variants": [ "Bog", "Hunt" ],
+			"variants": [ "Bog", "Genesis", "Hunt", "Mission" ],
 			"fullStatsRaw": [
 				[ 2700, 0.3, 0.27, 0.65, 0 ],
 				[ 450, 0.1, 0.1, 0, 0 ],
@@ -26617,7 +26717,7 @@
 		{
 			"name": "Sarco",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Bog/Sarco_Character_BP_Hunt_Secondary.Sarco_Character_BP_Hunt_Secondary",
-			"variants": [ "Bog", "Hunt" ],
+			"variants": [ "Bog", "Genesis", "Hunt", "Mission" ],
 			"fullStatsRaw": [
 				[ 400, 0.2, 0.27, 0.65, 0 ],
 				[ 450, 0.1, 0.1, 0, 0 ],
@@ -26864,7 +26964,7 @@
 		{
 			"name": "Brute Araneo",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Bog/SpiderS_Character_BP_Hunt.SpiderS_Character_BP_Hunt",
-			"variants": [ "Bog", "Hunt" ],
+			"variants": [ "Bog", "Genesis", "Hunt", "Mission" ],
 			"fullStatsRaw": [
 				[ 1850, 0.2, 0.405, 0.5, 0 ],
 				[ 250, 0.1, 0.1, 0, 0 ],
@@ -26984,7 +27084,7 @@
 		{
 			"name": "Brute Malfunctioned Tek Giganotosaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Lunar/BionicGigant_Character_BP_Malfunctioned_Hunt.BionicGigant_Character_BP_Malfunctioned_Hunt",
-			"variants": [ "Hunt", "Lunar" ],
+			"variants": [ "Genesis", "Hunt", "Lunar", "Mission" ],
 			"fullStatsRaw": [
 				[ 10000, 0.045, 0.002, -63000, 0 ],
 				[ 400, 0.0005, 0.01, 0, 0 ],
@@ -27052,7 +27152,7 @@
 		{
 			"name": "Malfunctioned Tek Rex",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Lunar/BionicRex_Character_BP_Malfunctioned_Adolescent_Hunt.BionicRex_Character_BP_Malfunctioned_Adolescent_Hunt",
-			"variants": [ "Hunt", "Lunar" ],
+			"variants": [ "Genesis", "Hunt", "Lunar", "Mission" ],
 			"fullStatsRaw": [
 				[ 1100, 0.2, 0.27, 0.5, 0 ],
 				[ 420, 0.1, 0.1, 0, 0 ],
@@ -27120,7 +27220,7 @@
 		{
 			"name": "Brute Malfunctioned Tek Rex",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Lunar/BionicRex_Character_BP_Malfunctioned_Hunt.BionicRex_Character_BP_Malfunctioned_Hunt",
-			"variants": [ "Hunt", "Lunar" ],
+			"variants": [ "Genesis", "Hunt", "Lunar", "Mission" ],
 			"fullStatsRaw": [
 				[ 3950, 0.3, 0.27, 0.5, 0 ],
 				[ 630, 0.1, 0.1, 0, 0 ],
@@ -27188,7 +27288,7 @@
 		{
 			"name": "Brute Seeker",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Lunar/Pteroteuthis_Char_BP_HuntFollower.Pteroteuthis_Char_BP_HuntFollower",
-			"variants": [ "Hunt", "Lunar" ],
+			"variants": [ "Genesis", "Hunt", "Lunar", "Mission" ],
 			"fullStatsRaw": [
 				[ 680, 0.3, 0.27, 0.5, 0 ],
 				[ 250, 0.1, 0.1, 0, 0 ],
@@ -27282,7 +27382,7 @@
 		{
 			"name": "Brute Astrocetus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Lunar/SpaceWhale_Character_BP_Brute.SpaceWhale_Character_BP_Brute",
-			"variants": [ "Hunt", "Lunar" ],
+			"variants": [ "Genesis", "Hunt", "Lunar", "Mission" ],
 			"fullStatsRaw": [
 				[ 10000, 0.009, 0.108, 0.5, 0 ],
 				[ 900, 0.05, 0.05, 0, 0 ],
@@ -27335,7 +27435,7 @@
 		{
 			"name": "Brute Basilosaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Ocean/Basilosaurus_Character_BP_Hunt.Basilosaurus_Character_BP_Hunt",
-			"variants": [ "Hunt", "Ocean" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Ocean" ],
 			"fullStatsRaw": [
 				[ 2400, 0.2, 0.243, 0.3, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -27354,7 +27454,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 666666.667,
+				"maturationTime": 416666.667,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -27408,7 +27508,7 @@
 		{
 			"name": "Electrophorus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Ocean/Eel_Character_BP_Hunt.Eel_Character_BP_Hunt",
-			"variants": [ "Hunt", "Ocean" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Ocean" ],
 			"fullStatsRaw": [
 				[ 180, 0.2, 0.27, -0.2, 0 ],
 				[ 165, 0.1, 0.1, 0, 0 ],
@@ -27524,7 +27624,7 @@
 		{
 			"name": "Brute Leedsichthys",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Ocean/Leedsichthys_Character_BP_Hunt.Leedsichthys_Character_BP_Hunt",
-			"variants": [ "Hunt", "Ocean" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Ocean" ],
 			"fullStatsRaw": [
 				[ 8400, 0.18, 0.243, 0.3, 0 ],
 				[ 750, 0.1, 0.1, 0, 0 ],
@@ -27574,7 +27674,7 @@
 		{
 			"name": "Liopleurodon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Ocean/Liopleurodon_Character_BP_Hunt.Liopleurodon_Character_BP_Hunt",
-			"variants": [ "Hunt", "Ocean" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Ocean" ],
 			"fullStatsRaw": [
 				[ 3200, 0.2, 0.27, 0.3, 0 ],
 				[ 800, 0.1, 0.1, 0, 0 ],
@@ -27654,7 +27754,7 @@
 		{
 			"name": "Brute X-Megalodon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Ocean/Ocean_Megalodon_Character_BP_Hunt.Ocean_Megalodon_Character_BP_Hunt",
-			"variants": [ "Hunt", "Ocean" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Ocean" ],
 			"fullStatsRaw": [
 				[ 2600, 0.3, 0.27, 0.3, 0 ],
 				[ 640, 0.1, 0.1, 0, 0 ],
@@ -27818,7 +27918,7 @@
 		{
 			"name": "Brute X-Mosasaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Ocean/Ocean_Mosa_Character_BP_Hunt.Ocean_Mosa_Character_BP_Hunt",
-			"variants": [ "Hunt", "Ocean" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Ocean" ],
 			"fullStatsRaw": [
 				[ 5300, 0.18, 0.21, 0.3, 0 ],
 				[ 600, 0.1, 0.1, 0, 0 ],
@@ -27837,7 +27937,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 1010101.01,
+				"maturationTime": 666666.667,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -27984,7 +28084,7 @@
 		{
 			"name": "Brute Plesiosaur",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Ocean/Plesiosaur_Character_BP_Hunt.Plesiosaur_Character_BP_Hunt",
-			"variants": [ "Hunt", "Ocean" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Ocean" ],
 			"fullStatsRaw": [
 				[ 5100, 0.18, 0.162, 0.16, 0 ],
 				[ 1200, 0.1, 0.1, 0, 0 ],
@@ -28003,7 +28103,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 666666.667,
+				"maturationTime": 416666.667,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -28181,7 +28281,7 @@
 		{
 			"name": "Brute Tusoteuthis",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Ocean/Tusoteuthis_Character_BP_Hunt.Tusoteuthis_Character_BP_Hunt",
-			"variants": [ "Hunt", "Ocean" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Ocean" ],
 			"fullStatsRaw": [
 				[ 7400, 0.3, 0.2025, 0.5, 0 ],
 				[ 450, 0.1, 0.1, 0, 0 ],
@@ -28202,7 +28302,7 @@
 				"incubationTime": 17998.5601,
 				"eggTempMin": -75,
 				"eggTempMax": 75,
-				"maturationTime": 1010101.01,
+				"maturationTime": 666666.667,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -28351,7 +28451,7 @@
 		{
 			"name": "Basilisk",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Volcanic/Basilisk_Character_BP_Hunt.Basilisk_Character_BP_Hunt",
-			"variants": [ "Hunt", "Volcano" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 2500, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -28481,7 +28581,7 @@
 		{
 			"name": "Carnotaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Volcanic/Carno_Character_BP_Hunt.Carno_Character_BP_Hunt",
-			"variants": [ "Hunt", "Volcano" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 2800, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -28596,7 +28696,7 @@
 		{
 			"name": "Brute Magmasaur",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Volcanic/Cherufe_Character_BP_Hunt.Cherufe_Character_BP_Hunt",
-			"variants": [ "Hunt", "Volcano" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 2250, 0.3, 0.135, 3000, 0 ],
 				[ 750, 0.05, 0.05, 0, 0 ],
@@ -28720,7 +28820,7 @@
 		{
 			"name": "Raptor",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Volcanic/Raptor_Character_BP_Hunt_Volcanic.Raptor_Character_BP_Hunt_Volcanic",
-			"variants": [ "Hunt", "Volcano" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 2200, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -28843,7 +28943,7 @@
 		{
 			"name": "Pulmonoscorpius",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Volcanic/Scorpion_Character_BP_Hunt.Scorpion_Character_BP_Hunt",
-			"variants": [ "Hunt", "Volcano" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 1800, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -29005,7 +29105,7 @@
 		{
 			"name": "Brute X-Allosaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Volcanic/Volcano_Allo_Character_BP_Hunt.Volcano_Allo_Character_BP_Hunt",
-			"variants": [ "Hunt", "Volcano" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 1750, 0.3, 0.27, 0.5, 0 ],
 				[ 500, 0.1, 0.1, 0, 0 ],
@@ -29176,7 +29276,7 @@
 		{
 			"name": "Brute X-Rock Elemental",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Volcanic/Volcano_Golem_Character_BP_Hunt.Volcano_Golem_Character_BP_Hunt",
-			"variants": [ "Hunt", "Volcano" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 2100, 0.0175, 0.135, -22000, 0 ],
 				[ 450, 0.1, 0.1, 0, 0 ],
@@ -29385,7 +29485,7 @@
 		{
 			"name": "Brute X-Rex",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Volcanic/Volcano_Rex_Character_BP_Hunt.Volcano_Rex_Character_BP_Hunt",
-			"variants": [ "Hunt", "Volcano" ],
+			"variants": [ "Genesis", "Hunt", "Mission", "Volcano" ],
 			"fullStatsRaw": [
 				[ 3950, 0.3, 0.27, 0.5, 0 ],
 				[ 630, 0.1, 0.1, 0, 0 ],
@@ -29551,7 +29651,7 @@
 		{
 			"name": "Bloodstalker",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Race/BogSpider_Character_BP_Race.BogSpider_Character_BP_Race",
-			"variants": [ "Bog", "Race" ],
+			"variants": [ "Bog", "Genesis", "Mission", "Race" ],
 			"fullStatsRaw": [
 				[ 450, 0.2, 0.27, 0.5, 0 ],
 				[ 600, 0.1, 0.1, 0, 0 ],
@@ -29697,7 +29797,7 @@
 		{
 			"name": "Doedicurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Race/Doed_Character_BP_Race.Doed_Character_BP_Race",
-			"variants": [ "Race" ],
+			"variants": [ "Genesis", "Mission", "Race" ],
 			"fullStatsRaw": [
 				[ 1000, 0.2, 0.27, 0.5, 0 ],
 				[ 1000, 0.1, 0.1, 0, 0 ],
@@ -29807,7 +29907,7 @@
 		{
 			"name": "Gallimimus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Race/Galli_Character_BP_Race.Galli_Character_BP_Race",
-			"variants": [ "Race" ],
+			"variants": [ "Genesis", "Mission", "Race" ],
 			"fullStatsRaw": [
 				[ 1000, 0.2, 0.27, 0.5, 0 ],
 				[ 1000, 0.1, 0.1, 0, 0 ],
@@ -29935,7 +30035,7 @@
 		{
 			"name": "Kaprosuchus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Race/Kapro_Character_BP_Race.Kapro_Character_BP_Race",
-			"variants": [ "Race" ],
+			"variants": [ "Genesis", "Mission", "Race" ],
 			"fullStatsRaw": [
 				[ 1000, 0.2, 0.27, 0.5, 0 ],
 				[ 1000, 0.1, 0.1, 0, 0 ],
@@ -30029,7 +30129,7 @@
 		{
 			"name": "Manta",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Race/Manta_Character_BP_Race.Manta_Character_BP_Race",
-			"variants": [ "Race" ],
+			"variants": [ "Genesis", "Mission", "Race" ],
 			"fullStatsRaw": [
 				[ 1000, 0.2, 0.27, 0.5, 0 ],
 				[ 1000, 0.1, 0.1, 0, 0 ],
@@ -30153,7 +30253,7 @@
 		{
 			"name": "Ichthyosaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Race/RaceDolphin_Character_BP.RaceDolphin_Character_BP",
-			"variants": [ "Race" ],
+			"variants": [ "Genesis", "Mission", "Race" ],
 			"fullStatsRaw": [
 				[ 1000, 0.2, 0.27, 0.5, 0 ],
 				[ 1000, 0.1, 0.1, 0, 0 ],
@@ -30172,7 +30272,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 95238.0952,
+				"maturationTime": 208333.333,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -30242,7 +30342,7 @@
 		{
 			"name": "X-Sabertooth",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Race/RaceSnow_Saber_Character_BP.RaceSnow_Saber_Character_BP",
-			"variants": [ "Race", "Snow" ],
+			"variants": [ "Genesis", "Mission", "Race", "Snow" ],
 			"fullStatsRaw": [
 				[ 1000, 0.2, 0.27, 0.5, 0 ],
 				[ 1000, 0.1, 0.1, 0, 0 ],
@@ -30364,7 +30464,7 @@
 		{
 			"name": "X-Woolly Rhino",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Race/Snow_Rhino_Character_BP_Race.Snow_Rhino_Character_BP_Race",
-			"variants": [ "Race", "Snow" ],
+			"variants": [ "Genesis", "Mission", "Race", "Snow" ],
 			"fullStatsRaw": [
 				[ 500, 0.2, 0.27, 0.5, 0 ],
 				[ 120, 0.1, 0.1, 0, 0 ],
@@ -30383,7 +30483,7 @@
 			"breeding": {
 				"gestationTime": 14285.7143,
 				"incubationTime": 0,
-				"maturationTime": 166666.667,
+				"maturationTime": 208333.333,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -30527,7 +30627,7 @@
 		{
 			"name": "Carnotaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Arctic/Carno_Character_BP_Retrieve.Carno_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Snow" ],
+			"variants": [ "Genesis", "Mission", "Retrieve", "Snow" ],
 			"fullStatsRaw": [
 				[ 420, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -30642,7 +30742,7 @@
 		{
 			"name": "Daeodon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Arctic/Daeodon_Character_BP_Retrieve.Daeodon_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Snow" ],
+			"variants": [ "Genesis", "Mission", "Retrieve", "Snow" ],
 			"fullStatsRaw": [
 				[ 900, 0.2, 0.27, 0.5, 0 ],
 				[ 250, 0.1, 0.1, 0, 0 ],
@@ -30736,7 +30836,7 @@
 		{
 			"name": "Polar Bear",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Arctic/Direbear_Character_Polar_Retrieve.Direbear_Character_Polar_Retrieve",
-			"variants": [ "Retrieve", "Snow" ],
+			"variants": [ "Genesis", "Mission", "Retrieve", "Snow" ],
 			"fullStatsRaw": [
 				[ 400, 0.2, 0.27, 0.5, 0 ],
 				[ 500, 0.1, 0.1, 0, 0 ],
@@ -30799,7 +30899,7 @@
 		{
 			"name": "Direwolf",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Arctic/Direwolf_Character_BP_Retrieve.Direwolf_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Snow" ],
+			"variants": [ "Genesis", "Mission", "Retrieve", "Snow" ],
 			"fullStatsRaw": [
 				[ 330, 0.2, 0.27, 0.66, 0 ],
 				[ 260, 0.1, 0.1, 0, 0 ],
@@ -30896,7 +30996,7 @@
 		{
 			"name": "Rock Elemental",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Arctic/IceGolem_Character_BP_Retrieve.IceGolem_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Snow" ],
+			"variants": [ "Genesis", "Mission", "Retrieve", "Snow" ],
 			"fullStatsRaw": [
 				[ 25000, 0.0125, 0.135, -22000, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -30929,7 +31029,7 @@
 		{
 			"name": "Microraptor",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Arctic/Microraptor_Character_BP_Retrieve.Microraptor_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Snow" ],
+			"variants": [ "Genesis", "Mission", "Retrieve", "Snow" ],
 			"fullStatsRaw": [
 				[ 130, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -31080,7 +31180,7 @@
 		{
 			"name": "Purlovia",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Arctic/Purlovia_Character_BP_Polar_Retrieve.Purlovia_Character_BP_Polar_Retrieve",
-			"variants": [ "Retrieve", "Snow" ],
+			"variants": [ "Genesis", "Mission", "Retrieve", "Snow" ],
 			"fullStatsRaw": [
 				[ 275, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -31143,7 +31243,7 @@
 		{
 			"name": "X-Argentavis",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Arctic/Snow_Argent_Character_BP_Retrieve.Snow_Argent_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Snow" ],
+			"variants": [ "Genesis", "Mission", "Retrieve", "Snow" ],
 			"fullStatsRaw": [
 				[ 365, 0.2, 0.30375, 0.5, 0 ],
 				[ 400, 0.05, 0.075, 0, 0 ],
@@ -31271,7 +31371,7 @@
 		{
 			"name": "X-Sabertooth",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Arctic/Snow_Saber_Character_BP_Retrieve.Snow_Saber_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Snow" ],
+			"variants": [ "Genesis", "Mission", "Retrieve", "Snow" ],
 			"fullStatsRaw": [
 				[ 250, 0.2, 0.27, 0.5, 0 ],
 				[ 200, 0.1, 0.1, 0, 0 ],
@@ -31399,7 +31499,7 @@
 		{
 			"name": "X-Yutyrannus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Arctic/Snow_Yutyrannus_Character_BP_Retrieve.Snow_Yutyrannus_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Snow" ],
+			"variants": [ "Genesis", "Mission", "Retrieve", "Snow" ],
 			"fullStatsRaw": [
 				[ 1100, 0.2, 0.27, 0.5, 0 ],
 				[ 420, 0.1, 0.1, 0, 0 ],
@@ -31563,7 +31663,7 @@
 		{
 			"name": "Titanoboa",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Bog/BoaFrill_Character_BP_Retrieve.BoaFrill_Character_BP_Retrieve",
-			"variants": [ "Bog", "Retrieve" ],
+			"variants": [ "Bog", "Genesis", "Mission", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 170, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -31707,7 +31807,7 @@
 		{
 			"name": "X-Raptor",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Bog/Bog_Raptor_Character_BP_Retrieve.Bog_Raptor_Character_BP_Retrieve",
-			"variants": [ "Bog", "Retrieve" ],
+			"variants": [ "Bog", "Genesis", "Mission", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -31900,7 +32000,7 @@
 		{
 			"name": "X-Spino",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Bog/Bog_Spino_Character_BP_Retrieve.Bog_Spino_Character_BP_Retrieve",
-			"variants": [ "Bog", "Retrieve" ],
+			"variants": [ "Bog", "Genesis", "Mission", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 700, 0.2, 0.27, 0.5, 0 ],
 				[ 350, 0.1, 0.1, 0, 0 ],
@@ -32067,7 +32167,7 @@
 		{
 			"name": "Dilophosaur",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Bog/Dilo_Character_BP_Retrieve.Dilo_Character_BP_Retrieve",
-			"variants": [ "Bog", "Retrieve" ],
+			"variants": [ "Bog", "Genesis", "Mission", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 130, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -32208,7 +32308,7 @@
 		{
 			"name": "Kaprosuchus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Bog/Kaprosuchus_Character_BP_Retrieve.Kaprosuchus_Character_BP_Retrieve",
-			"variants": [ "Bog", "Retrieve" ],
+			"variants": [ "Bog", "Genesis", "Mission", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.5, 0 ],
 				[ 350, 0.1, 0.1, 0, 0 ],
@@ -32310,7 +32410,7 @@
 		{
 			"name": "Sarco",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Bog/Sarco_Character_BP_Retrieve.Sarco_Character_BP_Retrieve",
-			"variants": [ "Bog", "Retrieve" ],
+			"variants": [ "Bog", "Genesis", "Mission", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 400, 0.2, 0.27, 0.65, 0 ],
 				[ 450, 0.1, 0.1, 0, 0 ],
@@ -32425,7 +32525,7 @@
 		{
 			"name": "Araneo",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Bog/SpiderS_Character_BP_Retrieve.SpiderS_Character_BP_Retrieve",
-			"variants": [ "Bog", "Retrieve" ],
+			"variants": [ "Bog", "Genesis", "Mission", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 150, 0.2, 0.135, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -32545,7 +32645,7 @@
 		{
 			"name": "Malfunctioned Tek Parasaur",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Lunar/BionicPara_Character_BP_Malfunctioned_Retrieve.BionicPara_Character_BP_Malfunctioned_Retrieve",
-			"variants": [ "Lunar", "Retrieve" ],
+			"variants": [ "Genesis", "Lunar", "Mission", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.5, 0 ],
 				[ 450, 0.1, 0.1, 0, 0 ],
@@ -32617,7 +32717,7 @@
 		{
 			"name": "Malfunctioned Tek Quetzal",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Lunar/BionicQuetz_Character_BP_Malfunctioned_Retrieve.BionicQuetz_Character_BP_Malfunctioned_Retrieve",
-			"variants": [ "Lunar", "Retrieve" ],
+			"variants": [ "Genesis", "Lunar", "Mission", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -32638,7 +32738,7 @@
 				"incubationTime": 59995.2004,
 				"eggTempMin": 5,
 				"eggTempMax": 6,
-				"maturationTime": 666666.667,
+				"maturationTime": 476190.476,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -32686,7 +32786,7 @@
 		{
 			"name": "Malfunctioned Tek Raptor",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Lunar/BionicRaptor_Character_BP_Malfunctioned_Retrieve.BionicRaptor_Character_BP_Malfunctioned_Retrieve",
-			"variants": [ "Lunar", "Retrieve" ],
+			"variants": [ "Genesis", "Lunar", "Mission", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -32759,7 +32859,7 @@
 		{
 			"name": "Malfunctioned Tek Rex",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Lunar/BionicRex_Character_BP_Malfunctioned_Retrieve.BionicRex_Character_BP_Malfunctioned_Retrieve",
-			"variants": [ "Lunar", "Retrieve" ],
+			"variants": [ "Genesis", "Lunar", "Mission", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 1100, 0.2, 0.27, 0.5, 0 ],
 				[ 420, 0.1, 0.1, 0, 0 ],
@@ -32827,7 +32927,7 @@
 		{
 			"name": "Malfunctioned Tek Stegosaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Lunar/BionicStego_Character_BP_Malfunctioned_Retrieve.BionicStego_Character_BP_Malfunctioned_Retrieve",
-			"variants": [ "Lunar", "Retrieve" ],
+			"variants": [ "Genesis", "Lunar", "Mission", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 650, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -32905,7 +33005,7 @@
 		{
 			"name": "Malfunctioned Tek Triceratops",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Lunar/BionicTrike_Character_BP_Malfunctioned_Retrieve.BionicTrike_Character_BP_Malfunctioned_Retrieve",
-			"variants": [ "Lunar", "Retrieve" ],
+			"variants": [ "Genesis", "Lunar", "Mission", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 375, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -32977,7 +33077,7 @@
 		{
 			"name": "Seeker",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Lunar/Pteroteuthis_Char_BP_Retrieve.Pteroteuthis_Char_BP_Retrieve",
-			"variants": [ "Lunar", "Retrieve" ],
+			"variants": [ "Genesis", "Lunar", "Mission", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 250, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -33071,7 +33171,7 @@
 		{
 			"name": "Cnidaria",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Ocean/Cnidaria_Character_BP_Retrieve.Cnidaria_Character_BP_Retrieve",
-			"variants": [ "Ocean", "Retrieve" ],
+			"variants": [ "Genesis", "Mission", "Ocean", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 180, 0.2, 0.27, 0.5, 0 ],
 				[ 120, 0.1, 0.1, 0, 0 ],
@@ -33104,7 +33204,7 @@
 		{
 			"name": "Electrophorus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Ocean/Eel_Character_BP_Retrieve.Eel_Character_BP_Retrieve",
-			"variants": [ "Ocean", "Retrieve" ],
+			"variants": [ "Genesis", "Mission", "Ocean", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 180, 0.2, 0.27, -0.2, 0 ],
 				[ 165, 0.1, 0.1, 0, 0 ],
@@ -33220,7 +33320,7 @@
 		{
 			"name": "Leedsichthys",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Ocean/Leedsichthys_Character_BP_Retrieve.Leedsichthys_Character_BP_Retrieve",
-			"variants": [ "Ocean", "Retrieve" ],
+			"variants": [ "Genesis", "Mission", "Ocean", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 4400, 0.12, 0.243, 0.3, 0 ],
 				[ 500, 0.1, 0.1, 0, 0 ],
@@ -33300,7 +33400,7 @@
 		{
 			"name": "Liopleurodon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Ocean/Liopleurodon_Character_BP_Retrieve.Liopleurodon_Character_BP_Retrieve",
-			"variants": [ "Ocean", "Retrieve" ],
+			"variants": [ "Genesis", "Mission", "Ocean", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 1800, 0.2, 0.27, 0.3, 0 ],
 				[ 800, 0.1, 0.1, 0, 0 ],
@@ -33380,7 +33480,7 @@
 		{
 			"name": "Manta",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Ocean/Manta_Character_BP_Retrieve.Manta_Character_BP_Retrieve",
-			"variants": [ "Ocean", "Retrieve" ],
+			"variants": [ "Genesis", "Mission", "Ocean", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 320, 0.05, 0.0675, 0.5, 0 ],
 				[ 270, 0.2, 0.2, 0, 0 ],
@@ -33509,7 +33609,7 @@
 		{
 			"name": "Golden Striped Megalodon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Ocean/Ocean_Megalodon_Character_BP_Retrieve.Ocean_Megalodon_Character_BP_Retrieve",
-			"variants": [ "Ocean", "Retrieve" ],
+			"variants": [ "Genesis", "Mission", "Ocean", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 600, 0.2, 0.27, 0.3, 0 ],
 				[ 320, 0.1, 0.1, 0, 0 ],
@@ -33575,7 +33675,7 @@
 		{
 			"name": "X-Megalodon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Ocean/Ocean_Megalodon_Character_BP_RetrieveNonTarget.Ocean_Megalodon_Character_BP_RetrieveNonTarget",
-			"variants": [ "Ocean", "Retrieve" ],
+			"variants": [ "Genesis", "Mission", "Ocean", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 600, 0.2, 0.27, 0.3, 0 ],
 				[ 320, 0.1, 0.1, 0, 0 ],
@@ -33739,7 +33839,7 @@
 		{
 			"name": "Golden Striped Brute Megalodon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Ocean/Ocean_Megalodon_Character_BP_Retrieve_Brute.Ocean_Megalodon_Character_BP_Retrieve_Brute",
-			"variants": [ "Ocean", "Retrieve" ],
+			"variants": [ "Genesis", "Mission", "Ocean", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 2600, 0.3, 0.27, 0.3, 0 ],
 				[ 640, 0.1, 0.1, 0, 0 ],
@@ -33805,7 +33905,7 @@
 		{
 			"name": "X-Mosasaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Ocean/Ocean_Mosa_Character_BP_Retrieve.Ocean_Mosa_Character_BP_Retrieve",
-			"variants": [ "Ocean", "Retrieve" ],
+			"variants": [ "Genesis", "Mission", "Ocean", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 3600, 0.12, 0.21, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -33824,7 +33924,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 1010101.01,
+				"maturationTime": 666666.667,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -33971,7 +34071,7 @@
 		{
 			"name": "Plesiosaur",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Ocean/Plesiosaur_Character_BP_Retrieve.Plesiosaur_Character_BP_Retrieve",
-			"variants": [ "Ocean", "Retrieve" ],
+			"variants": [ "Genesis", "Mission", "Ocean", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 2400, 0.12, 0.162, 0.16, 0 ],
 				[ 800, 0.1, 0.1, 0, 0 ],
@@ -33990,7 +34090,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 666666.667,
+				"maturationTime": 416666.667,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -34086,7 +34186,7 @@
 		{
 			"name": "Tusoteuthis",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Ocean/Tusoteuthis_Character_BP_Retrieve.Tusoteuthis_Character_BP_Retrieve",
-			"variants": [ "Ocean", "Retrieve" ],
+			"variants": [ "Genesis", "Mission", "Ocean", "Retrieve" ],
 			"fullStatsRaw": [
 				[ 2700, 0.2, 0.2025, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -34107,7 +34207,7 @@
 				"incubationTime": 17998.5601,
 				"eggTempMin": -75,
 				"eggTempMax": 75,
-				"maturationTime": 1010101.01,
+				"maturationTime": 666666.667,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -34193,7 +34293,7 @@
 		{
 			"name": "Argentavis",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Volcanic/Argent_Character_BP_Retrieve.Argent_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Volcano" ],
+			"variants": [ "Genesis", "Mission", "Retrieve", "Volcano" ],
 			"fullStatsRaw": [
 				[ 365, 0.2, 0.30375, 0.5, 0 ],
 				[ 400, 0.05, 0.075, 0, 0 ],
@@ -34308,7 +34408,7 @@
 		{
 			"name": "Arthropluera",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Volcanic/Arthro_Character_BP_Retrieve.Arthro_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Volcano" ],
+			"variants": [ "Genesis", "Mission", "Retrieve", "Volcano" ],
 			"fullStatsRaw": [
 				[ 500, 0.2, 0.27, 0.5, 0 ],
 				[ 200, 0.1, 0.1, 0, 0 ],
@@ -34446,7 +34546,7 @@
 		{
 			"name": "Basilisk",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Volcanic/Basilisk_Character_BP_Retrieve.Basilisk_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Volcano" ],
+			"variants": [ "Genesis", "Mission", "Retrieve", "Volcano" ],
 			"fullStatsRaw": [
 				[ 2750, 0.2, 0.27, 0.5, 0 ],
 				[ 650, 0.1, 0.1, 0, 0 ],
@@ -34576,7 +34676,7 @@
 		{
 			"name": "Onyc",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Volcanic/Bat_Character_BP_Retrieve.Bat_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Volcano" ],
+			"variants": [ "Genesis", "Mission", "Retrieve", "Volcano" ],
 			"fullStatsRaw": [
 				[ 250, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -34674,7 +34774,7 @@
 		{
 			"name": "Magmasaur",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Volcanic/Cherufe_Character_BP_Retrieve.Cherufe_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Volcano" ],
+			"variants": [ "Genesis", "Mission", "Retrieve", "Volcano" ],
 			"fullStatsRaw": [
 				[ 3000, 0.05, 0.135, 3000, 0 ],
 				[ 500, 0.05, 0.05, 0, 0 ],
@@ -34798,7 +34898,7 @@
 		{
 			"name": "Dimorphodon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Volcanic/Dimorph_Character_BP_Aggressive_Retrieve.Dimorph_Character_BP_Aggressive_Retrieve",
-			"variants": [ "Retrieve", "Volcano" ],
+			"variants": [ "Genesis", "Mission", "Retrieve", "Volcano" ],
 			"fullStatsRaw": [
 				[ 264, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -34916,7 +35016,7 @@
 		{
 			"name": "Kentrosaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Volcanic/Kentro_Character_BP_Retrieve.Kentro_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Volcano" ],
+			"variants": [ "Genesis", "Mission", "Retrieve", "Volcano" ],
 			"fullStatsRaw": [
 				[ 650, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -35050,7 +35150,7 @@
 		{
 			"name": "Purlovia",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Volcanic/Purlovia_Character_BP_Retrieve.Purlovia_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Volcano" ],
+			"variants": [ "Genesis", "Mission", "Retrieve", "Volcano" ],
 			"fullStatsRaw": [
 				[ 275, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -35134,7 +35234,7 @@
 		{
 			"name": "Raptor",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Volcanic/Raptor_Character_BP_Retrieve.Raptor_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Volcano" ],
+			"variants": [ "Genesis", "Mission", "Retrieve", "Volcano" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -35257,7 +35357,7 @@
 		{
 			"name": "Pulmonoscorpius",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Volcanic/Scorpion_Character_BP_Retrieve.Scorpion_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Volcano" ],
+			"variants": [ "Genesis", "Mission", "Retrieve", "Volcano" ],
 			"fullStatsRaw": [
 				[ 280, 0.2, 0.27, 0.5, 0 ],
 				[ 200, 0.1, 0.1, 0, 0 ],
@@ -35419,7 +35519,7 @@
 		{
 			"name": "Thorny Dragon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Volcanic/SpineyLizard_Character_BP_Retrieve.SpineyLizard_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Volcano" ],
+			"variants": [ "Genesis", "Mission", "Retrieve", "Volcano" ],
 			"fullStatsRaw": [
 				[ 260, 0.2, 0.27, 0.66, 0 ],
 				[ 350, 0.1, 0.1, 0, 0 ],
@@ -35553,7 +35653,7 @@
 		{
 			"name": "X-Allosaurus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Volcanic/Volcano_Allo_Character_BP_Retrieve.Volcano_Allo_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Volcano" ],
+			"variants": [ "Genesis", "Mission", "Retrieve", "Volcano" ],
 			"fullStatsRaw": [
 				[ 630, 0.2, 0.27, 0.5, 0 ],
 				[ 250, 0.1, 0.1, 0, 0 ],
@@ -35724,7 +35824,7 @@
 		{
 			"name": "X-Rex",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Volcanic/Volcano_Rex_Character_BP_Retrieve.Volcano_Rex_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Volcano" ],
+			"variants": [ "Genesis", "Mission", "Retrieve", "Volcano" ],
 			"fullStatsRaw": [
 				[ 1100, 0.2, 0.27, 0.5, 0 ],
 				[ 420, 0.1, 0.1, 0, 0 ],
@@ -35890,7 +35990,7 @@
 		{
 			"name": "X-Triceratops",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Volcanic/Volcano_Trike_Character_BP_Retrieve.Volcano_Trike_Character_BP_Retrieve",
-			"variants": [ "Retrieve", "Volcano" ],
+			"variants": [ "Genesis", "Mission", "Retrieve", "Volcano" ],
 			"fullStatsRaw": [
 				[ 375, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -36112,7 +36212,13 @@
 		{
 			"name": "Alpha X-Triceratops",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Volcanic/Volcano_Trike_Character_BP_Retrieve_Alpha.Volcano_Trike_Character_BP_Retrieve_Alpha",
-			"variants": [ "Retrieve", "Volcano" ],
+			"variants": [
+				"Genesis",
+				"Mega",
+				"Mission",
+				"Retrieve",
+				"Volcano"
+			],
 			"fullStatsRaw": [
 				[ 3500, 0.3, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -36158,7 +36264,7 @@
 		{
 			"name": "Dodo",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Sport/Dodo_Character_BP_Basketball.Dodo_Character_BP_Basketball",
-			"variants": [ "Sport" ],
+			"variants": [ "Genesis", "Mission", "Sport" ],
 			"fullStatsRaw": [
 				[ 40, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -36314,7 +36420,7 @@
 		{
 			"name": "Bulbdog",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Sport/LanternPug_Character_BP_Basketball.LanternPug_Character_BP_Basketball",
-			"variants": [ "Sport" ],
+			"variants": [ "Genesis", "Mission", "Sport" ],
 			"fullStatsRaw": [
 				[ 145, 0.2, 0.27, 0.5, 0 ],
 				[ 200, 0.12, 0.12, 0.05, 0 ],
@@ -36453,12 +36559,17 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": false,
-			"displayedStats": 927
+			"displayedStats": 927,
+			"statNames": {
+				"1": "Charge Capacity",
+				"3": "Charge Regen",
+				"8": "Charge Emission Range"
+			}
 		},
 		{
 			"name": "Ferox",
 			"blueprintPath": "/Game/Genesis/Dinos/Shapeshifter/Shapeshifter_Large/Shapeshifter_Large_Character_BP.Shapeshifter_Large_Character_BP",
-			"variants": [ "Large" ],
+			"variants": [ "Genesis", "Large" ],
 			"fullStatsRaw": [
 				[ 1100, 0.2, 0.27, 0.5, 0 ],
 				[ 1000, 0.1, 0.1, 0, 0 ],
@@ -36581,7 +36692,7 @@
 		{
 			"name": "Ferox",
 			"blueprintPath": "/Game/Genesis/Dinos/Shapeshifter/Shapeshifter_Small/Shapeshifter_Small_Character_BP.Shapeshifter_Small_Character_BP",
-			"variants": [ "Small" ],
+			"variants": [ "Genesis", "Small" ],
 			"fullStatsRaw": [
 				[ 55, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -36710,6 +36821,7 @@
 		{
 			"name": "Astrocetus",
 			"blueprintPath": "/Game/Genesis/Dinos/SpaceWhale/SpaceWhale_Character_BP.SpaceWhale_Character_BP",
+			"variants": [ "Genesis" ],
 			"fullStatsRaw": [
 				[ 2800, 0.14, 0.108, 0.5, 0 ],
 				[ 600, 0.05, 0.05, 0, 0 ],
@@ -36854,6 +36966,7 @@
 		{
 			"name": "Insect Swarm",
 			"blueprintPath": "/Game/Genesis/Dinos/Swarms/InsectSwarmChar_BP.InsectSwarmChar_BP",
+			"variants": [ "Genesis" ],
 			"fullStatsRaw": [
 				[ 500, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -36959,6 +37072,7 @@
 		{
 			"name": "Parakeet Fish School",
 			"blueprintPath": "/Game/Genesis/Dinos/Swarms/MicrobeSwarmChar_BP.MicrobeSwarmChar_BP",
+			"variants": [ "Genesis" ],
 			"fullStatsRaw": [
 				[ 1800, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -37067,7 +37181,13 @@
 		{
 			"name": "Corrupted Master Controller",
 			"blueprintPath": "/Game/Genesis/Dinos/VRMainBoss/VRMainBoss_Character_Easy.VRMainBoss_Character_Easy",
-			"variants": [ "Boss", "Gamma", "VR" ],
+			"variants": [
+				"Boss",
+				"Gamma",
+				"Genesis",
+				"Minion",
+				"VR"
+			],
 			"fullStatsRaw": [
 				[ 25000, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -37100,7 +37220,13 @@
 		{
 			"name": "Corrupted Master Controller",
 			"blueprintPath": "/Game/Genesis/Dinos/VRMainBoss/VRMainBoss_Character_Hard.VRMainBoss_Character_Hard",
-			"variants": [ "Alpha", "Boss", "VR" ],
+			"variants": [
+				"Alpha",
+				"Boss",
+				"Genesis",
+				"Minion",
+				"VR"
+			],
 			"fullStatsRaw": [
 				[ 150000, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -37133,7 +37259,13 @@
 		{
 			"name": "Corrupted Master Controller",
 			"blueprintPath": "/Game/Genesis/Dinos/VRMainBoss/VRMainBoss_Character_Medium.VRMainBoss_Character_Medium",
-			"variants": [ "Beta", "Boss", "VR" ],
+			"variants": [
+				"Beta",
+				"Boss",
+				"Genesis",
+				"Minion",
+				"VR"
+			],
 			"fullStatsRaw": [
 				[ 60000, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -37359,7 +37491,7 @@
 		{
 			"name": "Dire Bear",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Bosses/LifeLabyrinth/Bear/Direbear_LL_Character_BP.Direbear_LL_Character_BP",
-			"variants": [ "LifeLabyrinth", "Ragnarok" ],
+			"variants": [ "Cave", "LifeLabyrinth", "Ragnarok" ],
 			"fullStatsRaw": [
 				[ 400, 0.2, 0.27, 0.5, 0 ],
 				[ 500, 0.1, 0.1, 0, 0 ],
@@ -37488,7 +37620,7 @@
 		{
 			"name": "Megaloceros",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Bosses/LifeLabyrinth/Elk/Stag_LL_Character_BP.Stag_LL_Character_BP",
-			"variants": [ "LifeLabyrinth", "Ragnarok" ],
+			"variants": [ "Cave", "LifeLabyrinth", "Ragnarok" ],
 			"fullStatsRaw": [
 				[ 300, 0.2, 0.27, 0.5, 0 ],
 				[ 280, 0.1, 0.1, 0, 0 ],
@@ -37590,7 +37722,7 @@
 		{
 			"name": "Direwolf",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Bosses/LifeLabyrinth/Wolf/Direwolf_LL_Character_BP.Direwolf_LL_Character_BP",
-			"variants": [ "LifeLabyrinth", "Ragnarok" ],
+			"variants": [ "Cave", "LifeLabyrinth", "Ragnarok" ],
 			"fullStatsRaw": [
 				[ 330, 0.2, 0.27, 0.66, 0 ],
 				[ 260, 0.1, 0.1, 0, 0 ],
@@ -38025,7 +38157,7 @@
 		{
 			"name": "Iceworm Queen",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/JacksonL/Iceworm/Iceworm_Queen_Character_BP.Iceworm_Queen_Character_BP",
-			"variants": [ "Ragnarok" ],
+			"variants": [ "Boss", "Ragnarok" ],
 			"fullStatsRaw": [
 				[ 27000, 0.002, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -40485,7 +40617,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 666666.667,
+				"maturationTime": 416666.667,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -42055,6 +42187,7 @@
 		{
 			"name": "Alpha Carnotaurus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Carno/MegaCarno_Character_BP.MegaCarno_Character_BP",
+			"variants": [ "Mega" ],
 			"fullStatsRaw": [
 				[ 6400, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -42701,7 +42834,7 @@
 				"incubationTime": 2999.76002,
 				"eggTempMin": 24,
 				"eggTempMax": 32,
-				"maturationTime": 333333.333,
+				"maturationTime": 75757.5758,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -42808,6 +42941,7 @@
 		{
 			"name": "Blood Crystal Wyvern",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/CrystalWyvern/CrystalWyvern_Character_BP_Blood.CrystalWyvern_Character_BP_Blood",
+			"variants": [ "CrystalIsles" ],
 			"fullStatsRaw": [
 				[ 1295, 0.15, 0.2025, -785, 0 ],
 				[ 325, 0.05, 0.05, 0, 0 ],
@@ -42899,6 +43033,7 @@
 		{
 			"name": "Ember Crystal Wyvern",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/CrystalWyvern/CrystalWyvern_Character_BP_Ember.CrystalWyvern_Character_BP_Ember",
+			"variants": [ "CrystalIsles" ],
 			"fullStatsRaw": [
 				[ 1295, 0.15, 0.2025, -785, 0 ],
 				[ 325, 0.05, 0.05, 0, 0 ],
@@ -42991,6 +43126,7 @@
 		{
 			"name": "Alpha Blood Crystal Wyvern",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/CrystalWyvern/CrystalWyvern_Character_BP_Mega.CrystalWyvern_Character_BP_Mega",
+			"variants": [ "CrystalIsles", "Mega" ],
 			"fullStatsRaw": [
 				[ 5920, 0.15, 0.2025, -785, 0 ],
 				[ 710, 0.05, 0.05, 0, 0 ],
@@ -43051,6 +43187,7 @@
 		{
 			"name": "Tropical Crystal Wyvern",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/CrystalWyvern/CrystalWyvern_Character_BP_WS.CrystalWyvern_Character_BP_WS",
+			"variants": [ "CrystalIsles" ],
 			"fullStatsRaw": [
 				[ 1295, 0.15, 0.2025, -785, 0 ],
 				[ 325, 0.05, 0.05, 0, 0 ],
@@ -46089,7 +46226,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 95238.0952,
+				"maturationTime": 208333.333,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -46730,7 +46867,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 333333.333,
+				"maturationTime": 296296.296,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -47052,7 +47189,7 @@
 			"breeding": {
 				"gestationTime": 47619.0476,
 				"incubationTime": 0,
-				"maturationTime": 208333.333,
+				"maturationTime": 166666.667,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -47156,7 +47293,7 @@
 			"breeding": {
 				"gestationTime": 47619.0476,
 				"incubationTime": 0,
-				"maturationTime": 208333.333,
+				"maturationTime": 166666.667,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -47259,7 +47396,7 @@
 			"breeding": {
 				"gestationTime": 47619.0476,
 				"incubationTime": 0,
-				"maturationTime": 208333.333,
+				"maturationTime": 166666.667,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -47860,7 +47997,7 @@
 		{
 			"name": "Giganotosaurus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Giganotosaurus/Gigant_Character_BP_TekCave.Gigant_Character_BP_TekCave",
-			"variants": [ "TekCave" ],
+			"variants": [ "Cave", "TekCave" ],
 			"fullStatsRaw": [
 				[ 80000, 0.0005, 0.002, -63000, 0 ],
 				[ 400, 0.0005, 0.01, 0, 0 ],
@@ -48149,6 +48286,7 @@
 		{
 			"name": "Griffin",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Griffin/Griffin_Character_BP.Griffin_Character_BP",
+			"variants": [ "Ragnarok" ],
 			"fullStatsRaw": [
 				[ 950, 0.15, 0.216, -900, 0 ],
 				[ 225, 0.05, 0.06, 0, 0 ],
@@ -49193,6 +49331,7 @@
 		{
 			"name": "Alpha Leedsichthys",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Leedsichthys/Alpha_Leedsichthys_Character_BP.Alpha_Leedsichthys_Character_BP",
+			"variants": [ "Mega" ],
 			"fullStatsRaw": [
 				[ 4400, 0.12, 0.243, 0.3, 0 ],
 				[ 500, 0.1, 0.1, 0, 0 ],
@@ -50202,6 +50341,7 @@
 		{
 			"name": "Alpha Megalodon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Megalodon/MEgaMegalodon_Character_BP.MegaMegalodon_Character_BP",
+			"variants": [ "Mega" ],
 			"fullStatsRaw": [
 				[ 9600, 0.2, 0.27, 0.3, 0 ],
 				[ 320, 0.1, 0.1, 0, 0 ],
@@ -50546,7 +50686,7 @@
 		{
 			"name": "Megalosaurus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Megalosaurus/Megalosaurus_Character_BP_TekCave.Megalosaurus_Character_BP_TekCave",
-			"variants": [ "TekCave" ],
+			"variants": [ "Cave", "TekCave" ],
 			"fullStatsRaw": [
 				[ 1025, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -51374,7 +51514,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 1010101.01,
+				"maturationTime": 666666.667,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -51608,6 +51748,7 @@
 		{
 			"name": "Alpha Mosasaur",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Mosasaurus/Mosa_Character_BP_Mega.Mosa_Character_BP_Mega",
+			"variants": [ "Mega" ],
 			"fullStatsRaw": [
 				[ 54000, 0.12, 0.21, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -51626,7 +51767,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 1010101.01,
+				"maturationTime": 666666.667,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -51673,7 +51814,7 @@
 		{
 			"name": "Alpha Mosasaur",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Mosasaurus/Mosa_Character_BP_Mega_Cave.Mosa_Character_BP_Mega_Cave",
-			"variants": [ "Cave" ],
+			"variants": [ "Cave", "Mega" ],
 			"fullStatsRaw": [
 				[ 54000, 0.12, 0.21, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -51692,7 +51833,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 1010101.01,
+				"maturationTime": 666666.667,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -53222,7 +53363,7 @@
 			"name": "Paraceratherium",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Paraceratherium/Paracer_Character_BP.Paracer_Character_BP",
 			"fullStatsRaw": [
-				[ 1026, 0.2, 0.2025, 0.5, 0 ],
+				[ 1026, 0.2, 0.172125, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
 				[ 1300, 0.06, 0, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -53319,7 +53460,7 @@
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Paraceratherium/Paracer_Character_BP_Aberrant.Paracer_Character_BP_Aberrant",
 			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
-				[ 1026, 0.2, 0.2025, 0.5, 0 ],
+				[ 1026, 0.2, 0.172125, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
 				[ 1300, 0.06, 0, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -53641,7 +53782,7 @@
 			"breeding": {
 				"gestationTime": 35714.2857,
 				"incubationTime": 0,
-				"maturationTime": 416666.667,
+				"maturationTime": 175438.596,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -54211,7 +54352,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 666666.667,
+				"maturationTime": 416666.667,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -55305,7 +55446,7 @@
 				"incubationTime": 59995.2004,
 				"eggTempMin": 5,
 				"eggTempMax": 6,
-				"maturationTime": 666666.667,
+				"maturationTime": 476190.476,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -55474,7 +55615,7 @@
 				"incubationTime": 59995.2004,
 				"eggTempMin": 5,
 				"eggTempMax": 6,
-				"maturationTime": 666666.667,
+				"maturationTime": 476190.476,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -55543,7 +55684,7 @@
 				"incubationTime": 59995.2004,
 				"eggTempMin": 5,
 				"eggTempMax": 6,
-				"maturationTime": 666666.667,
+				"maturationTime": 476190.476,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -55900,6 +56041,7 @@
 		{
 			"name": "Alpha Raptor",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Raptor/MegaRaptor_Character_BP.MegaRaptor_Character_BP",
+			"variants": [ "Mega" ],
 			"fullStatsRaw": [
 				[ 3600, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -56211,6 +56353,7 @@
 		{
 			"name": "Deinonychus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Raptor/Uberraptor/Deinonychus_Character_BP.Deinonychus_Character_BP",
+			"variants": [ "Valguero" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -56633,6 +56776,7 @@
 		{
 			"name": "Alpha T-Rex",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Rex/MegaRex_Character_BP.MegaRex_Character_BP",
+			"variants": [ "Mega" ],
 			"fullStatsRaw": [
 				[ 17500, 0.2, 0.27, 0.5, 0 ],
 				[ 420, 0.1, 0.1, 0, 0 ],
@@ -61462,6 +61606,7 @@
 		{
 			"name": "Tropeognathus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Tropeognathus/Tropeognathus_Character_BP.Tropeognathus_Character_BP",
+			"variants": [ "CrystalIsles" ],
 			"fullStatsRaw": [
 				[ 360, 0.2, 0.243, 0.5, 0 ],
 				[ 250, 0.05, 0.05, 0, 0 ],
@@ -61902,6 +62047,7 @@
 		{
 			"name": "Alpha Tusoteuthis",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Tusoteuthis/Mega_Tusoteuthis_Character_BP.Mega_Tusoteuthis_Character_BP",
+			"variants": [ "Mega" ],
 			"fullStatsRaw": [
 				[ 30000, 0.2, 0.2025, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -61922,7 +62068,7 @@
 				"incubationTime": 17998.5601,
 				"eggTempMin": -75,
 				"eggTempMax": 75,
-				"maturationTime": 1010101.01,
+				"maturationTime": 666666.667,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -62028,7 +62174,7 @@
 				"incubationTime": 17998.5601,
 				"eggTempMin": -75,
 				"eggTempMax": 75,
-				"maturationTime": 1010101.01,
+				"maturationTime": 666666.667,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -62232,7 +62378,7 @@
 			"breeding": {
 				"gestationTime": 14285.7143,
 				"incubationTime": 0,
-				"maturationTime": 166666.667,
+				"maturationTime": 208333.333,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -62434,6 +62580,7 @@
 		{
 			"name": "Morellatops",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Camelsaurus/camelsaurus_Character_BP.camelsaurus_Character_BP",
+			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 400, 0.2, 0.27, 0.5, 0 ],
 				[ 220, 0.1, 0.1, 0, 0 ],
@@ -62586,6 +62733,7 @@
 		{
 			"name": "Deathworm",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Deathworm/Deathworm_Character_BP.Deathworm_Character_BP",
+			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 20000, 0.002, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -62686,6 +62834,7 @@
 		{
 			"name": "Alpha Deathworm",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Deathworm/MegaDeathworm_Character_BP.MegaDeathworm_Character_BP",
+			"variants": [ "Mega", "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 27000, 0.002, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -62786,6 +62935,7 @@
 		{
 			"name": "Jerboa",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Jerboa/Jerboa_Character_BP.Jerboa_Character_BP",
+			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 55, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -62804,7 +62954,7 @@
 			"breeding": {
 				"gestationTime": 9523.80952,
 				"incubationTime": 0,
-				"maturationTime": 111111.111,
+				"maturationTime": 75757.5758,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -62886,6 +63036,7 @@
 		{
 			"name": "Oil Jug Bug",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/JugBug/Jugbug_Oil_Character_BP.Jugbug_Oil_Character_BP",
+			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 75, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -62918,6 +63069,7 @@
 		{
 			"name": "Water Jug Bug",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/JugBug/Jugbug_Water_Character_BP.Jugbug_Water_Character_BP",
+			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 75, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -62950,7 +63102,7 @@
 		{
 			"name": "Manticore",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Manticore/Manticore_Character_BP_Easy.Manticore_Character_BP_Easy",
-			"variants": [ "Boss", "Gamma" ],
+			"variants": [ "Boss", "Gamma", "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 100000, 0.2, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -62983,7 +63135,7 @@
 		{
 			"name": "Manticore",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Manticore/Manticore_Character_BP_Hard.Manticore_Character_BP_Hard",
-			"variants": [ "Alpha", "Boss" ],
+			"variants": [ "Alpha", "Boss", "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 160000, 0.3, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -63016,7 +63168,7 @@
 		{
 			"name": "Manticore",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Manticore/Manticore_Character_BP_Medium.Manticore_Character_BP_Medium",
-			"variants": [ "Beta", "Boss" ],
+			"variants": [ "Beta", "Boss", "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 130000, 0.25, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -63049,7 +63201,7 @@
 		{
 			"name": "Deathworm",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Manticore/Minions/Deathworm_Character_Minion_BP.Deathworm_Character_Minion_BP",
-			"variants": [ "Minion" ],
+			"variants": [ "Minion", "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 8000, 0.002, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -63150,7 +63302,7 @@
 		{
 			"name": "Rock Elemental",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Manticore/RockGolem_Character_Minion_BP.RockGolem_Character_Minion_BP",
-			"variants": [ "Minion" ],
+			"variants": [ "Minion", "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 50000, 0.0125, 0.135, -22000, 0 ],
 				[ 1000, 0.1, 0.1, 0, 0 ],
@@ -63203,6 +63355,7 @@
 		{
 			"name": "Mantis",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Mantis/Mantis_Character_BP.Mantis_Character_BP",
+			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 275, 0.2, 0.135, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -63284,6 +63437,7 @@
 		{
 			"name": "Lymantria",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Moth/Moth_Character_BP.Moth_Character_BP",
+			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 260, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.05, 0.06, 0, 0 ],
@@ -63398,6 +63552,7 @@
 		{
 			"name": "Phoenix",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Phoenix/Phoenix_Character_BP.Phoenix_Character_BP",
+			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 640, 0.2, 0.27, 0.5, 0 ],
 				[ 352, 0.1, 0.1, 0, 0 ],
@@ -63486,6 +63641,7 @@
 		{
 			"name": "Rock Elemental",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/RockGolem/RockGolem_Character_BP.RockGolem_Character_BP",
+			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 25000, 0.0125, 0.135, -22000, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -63539,6 +63695,7 @@
 		{
 			"name": "Rubble Golem",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/RockGolem/RubbleGolem_Character_BP.RubbleGolem_Character_BP",
+			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 4000, 0.0125, 0.135, 0, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -63591,6 +63748,7 @@
 		{
 			"name": "Thorny Dragon",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/SpineyLizard/SpineyLizard_Character_BP.SpineyLizard_Character_BP",
+			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 260, 0.2, 0.27, 0.66, 0 ],
 				[ 350, 0.1, 0.1, 0, 0 ],
@@ -63725,6 +63883,7 @@
 		{
 			"name": "Vulture",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Vulture/Vulture_Character_BP.Vulture_Character_BP",
+			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 125, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -63829,6 +63988,7 @@
 		{
 			"name": "Alpha Fire Wyvern",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/MegaWyvern_Character_BP_Fire.MegaWyvern_Character_BP_Fire",
+			"variants": [ "Mega", "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 8000, 0.15, 0.2025, -1050, 0 ],
 				[ 600, 0.05, 0.05, 0, 0 ],
@@ -63907,6 +64067,7 @@
 		{
 			"name": "Fire Wyvern",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_Fire.Wyvern_Character_BP_Fire",
+			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 1725, 0.15, 0.2025, -1050, 0 ],
 				[ 275, 0.05, 0.05, 0, 0 ],
@@ -64015,6 +64176,7 @@
 		{
 			"name": "Lightning Wyvern",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_Lightning.Wyvern_Character_BP_Lightning",
+			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 1725, 0.15, 0.2025, -1050, 0 ],
 				[ 275, 0.05, 0.05, 0, 0 ],
@@ -64127,6 +64289,7 @@
 		{
 			"name": "Poison Wyvern",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_Poison.Wyvern_Character_BP_Poison",
+			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 1725, 0.15, 0.2025, -1050, 0 ],
 				[ 275, 0.05, 0.05, 0, 0 ],
@@ -64246,6 +64409,7 @@
 		{
 			"name": "Zombie Fire Wyvern",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_ZombieFire.Wyvern_Character_BP_ZombieFire",
+			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 1725, 0.15, 0.2025, -1050, 0 ],
 				[ 275, 0.05, 0.05, 0, 0 ],
@@ -64286,6 +64450,7 @@
 		{
 			"name": "Zombie Lightning Wyvern",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_ZombieLightning.Wyvern_Character_BP_ZombieLightning",
+			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 1725, 0.15, 0.2025, -1050, 0 ],
 				[ 275, 0.05, 0.05, 0, 0 ],
@@ -64326,6 +64491,7 @@
 		{
 			"name": "Zombie Poison Wyvern",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_ZombiePoison.Wyvern_Character_BP_ZombiePoison",
+			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
 				[ 1725, 0.15, 0.2025, -1050, 0 ],
 				[ 275, 0.05, 0.05, 0, 0 ],
