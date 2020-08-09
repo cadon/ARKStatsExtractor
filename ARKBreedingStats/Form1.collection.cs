@@ -156,18 +156,19 @@ namespace ARKBreedingStats
             if (Properties.Settings.Default.DeleteExpiredTimersOnSaving)
                 timerList1.DeleteAllExpiredTimers(false, false);
 
-            // Wait until the file is writeable
+            // Wait until the file is writable
             const int numberOfRetries = 5;
-            const int delayOnRetry = 1000;
+            const int delayOnRetryBase = 500;
             bool fileSaved = false;
-            FileStream fileStream = null;
 
-            for (int i = 1; i <= numberOfRetries; ++i)
+            var tempSavePath = filePath + ".tmp";
+
+            for (int i = 0; i < numberOfRetries; ++i)
             {
                 try
                 {
                     _fileSync.JustSaving();
-                    using (StreamWriter file = File.CreateText(filePath))
+                    using (StreamWriter file = File.CreateText(tempSavePath))
                     {
                         JsonSerializer serializer = new JsonSerializer()
                         {
@@ -177,6 +178,13 @@ namespace ARKBreedingStats
                         serializer.Serialize(file, _creatureCollection);
                     }
 
+                    if (new FileInfo(tempSavePath).Length == 0)
+                        throw new IOException("Saved file is empty and contains no data.");
+
+                    // if saving was successful, remove outdated library file and move successfully saved file
+                    File.Delete(filePath);
+                    File.Move(tempSavePath, filePath);
+
                     fileSaved = true;
                     Properties.Settings.Default.LastSaveFile = filePath;
 
@@ -184,8 +192,8 @@ namespace ARKBreedingStats
                 }
                 catch (IOException)
                 {
-                    // if file is not saveable
-                    Thread.Sleep(delayOnRetry);
+                    // if file is not saveable wait a bit, each time longer
+                    Thread.Sleep(delayOnRetryBase * (1 << i));
                 }
                 catch (System.Runtime.Serialization.SerializationException e)
                 {
@@ -198,10 +206,6 @@ namespace ARKBreedingStats
                     MessageBox.Show($"Error during serialization.\nErrormessage:\n\n{e.Message}" + (e.InnerException == null ? string.Empty : $"\n\nInnerException:{e.InnerException.Message}"),
                         $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
-                }
-                finally
-                {
-                    fileStream?.Close();
                 }
             }
 
