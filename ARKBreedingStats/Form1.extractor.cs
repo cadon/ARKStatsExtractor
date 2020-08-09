@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats
@@ -744,14 +745,28 @@ namespace ARKBreedingStats
         private bool? ExtractExportedFileInExtractor(string exportFile)
         {
             CreatureValues cv = null;
-            try
+
+            // if the file is blocked, try it again
+            const int waitingTimeBase = 200;
+            const int tryCount = 3;
+            for (int i = 0; i < tryCount; i++)
             {
-                cv = importExported.ImportExported.importExportedCreature(exportFile);
-            }
-            catch (IOException ex)
-            {
-                MessageBox.Show($"Exported creature-file couldn't be read.\n{exportFile}\n\n{ex.Message}", $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return null;
+                try
+                {
+                    cv = importExported.ImportExported.importExportedCreature(exportFile);
+                    break;
+                }
+                catch (IOException ex)
+                {
+                    if (i == tryCount - 1)
+                    {
+                        MessageBox.Show($"Exported creature-file couldn't be read.\n{exportFile}\n\n{ex.Message}",
+                            $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        return null;
+                    }
+                    Thread.Sleep(waitingTimeBase * (1 << i));
+                }
             }
 
             if (cv == null)
