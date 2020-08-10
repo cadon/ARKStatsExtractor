@@ -198,7 +198,9 @@ namespace ARKBreedingStats
             {
                 if (Properties.Settings.Default.MoveAutoImportedFileToSubFolder)
                 {
-                    string importedPath = Path.Combine(Path.GetDirectoryName(filePath), "imported");
+                    string importedPath = string.IsNullOrEmpty(Properties.Settings.Default.ImportExportedArchiveFolder)
+                            ? Path.Combine(Path.GetDirectoryName(filePath), "imported")
+                            : Properties.Settings.Default.ImportExportedArchiveFolder;
                     if (!FileService.TryCreateDirectory(importedPath, out string errorMessage))
                     {
                         MessageBox.Show($"Subfolder\n{importedPath}\ncould not be created.\n{errorMessage}", $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);

@@ -238,6 +238,7 @@
             this.cbbOCRApp = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.BtImportArchiveFolder = new System.Windows.Forms.Button();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMatingSpeed)).BeginInit();
@@ -2050,7 +2051,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -2058,7 +2059,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -2066,7 +2067,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -2074,7 +2075,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -2397,6 +2398,7 @@
             // 
             // groupBox22
             // 
+            this.groupBox22.Controls.Add(this.BtImportArchiveFolder);
             this.groupBox22.Controls.Add(this.panel2);
             this.groupBox22.Controls.Add(this.cbPlaySoundOnAutomaticImport);
             this.groupBox22.Controls.Add(this.label29);
@@ -2494,7 +2496,7 @@
             // cbDeleteAutoImportedFile
             // 
             this.cbDeleteAutoImportedFile.AutoSize = true;
-            this.cbDeleteAutoImportedFile.Location = new System.Drawing.Point(32, 117);
+            this.cbDeleteAutoImportedFile.Location = new System.Drawing.Point(23, 117);
             this.cbDeleteAutoImportedFile.Name = "cbDeleteAutoImportedFile";
             this.cbDeleteAutoImportedFile.Size = new System.Drawing.Size(114, 17);
             this.cbDeleteAutoImportedFile.TabIndex = 3;
@@ -2505,11 +2507,11 @@
             // cbMoveImportedFileToSubFolder
             // 
             this.cbMoveImportedFileToSubFolder.AutoSize = true;
-            this.cbMoveImportedFileToSubFolder.Location = new System.Drawing.Point(32, 94);
+            this.cbMoveImportedFileToSubFolder.Location = new System.Drawing.Point(23, 94);
             this.cbMoveImportedFileToSubFolder.Name = "cbMoveImportedFileToSubFolder";
-            this.cbMoveImportedFileToSubFolder.Size = new System.Drawing.Size(222, 17);
+            this.cbMoveImportedFileToSubFolder.Size = new System.Drawing.Size(123, 17);
             this.cbMoveImportedFileToSubFolder.TabIndex = 2;
-            this.cbMoveImportedFileToSubFolder.Text = "move imported file to \"imported\" subfolder";
+            this.cbMoveImportedFileToSubFolder.Text = "move imported file to";
             this.cbMoveImportedFileToSubFolder.UseVisualStyleBackColor = true;
             this.cbMoveImportedFileToSubFolder.CheckedChanged += new System.EventHandler(this.cbMoveImportedFileToSubFolder_CheckedChanged);
             // 
@@ -2622,7 +2624,7 @@
             this.groupBox13.Controls.Add(this.btAddExportFolder);
             this.groupBox13.Location = new System.Drawing.Point(6, 111);
             this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(736, 304);
+            this.groupBox13.Size = new System.Drawing.Size(736, 254);
             this.groupBox13.TabIndex = 5;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "ARK export folders";
@@ -2640,7 +2642,7 @@
             this.dataGridViewExportFolders.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewExportFolders.Location = new System.Drawing.Point(3, 39);
             this.dataGridViewExportFolders.Name = "dataGridViewExportFolders";
-            this.dataGridViewExportFolders.Size = new System.Drawing.Size(730, 262);
+            this.dataGridViewExportFolders.Size = new System.Drawing.Size(730, 212);
             this.dataGridViewExportFolders.TabIndex = 5;
             this.dataGridViewExportFolders.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewExportFolders_CellClick);
             // 
@@ -2870,6 +2872,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
+            // 
+            // BtImportArchiveFolder
+            // 
+            this.BtImportArchiveFolder.Location = new System.Drawing.Point(152, 91);
+            this.BtImportArchiveFolder.Name = "BtImportArchiveFolder";
+            this.BtImportArchiveFolder.Size = new System.Drawing.Size(127, 21);
+            this.BtImportArchiveFolder.TabIndex = 8;
+            this.BtImportArchiveFolder.Text = "…";
+            this.BtImportArchiveFolder.UseVisualStyleBackColor = true;
+            this.BtImportArchiveFolder.Click += new System.EventHandler(this.BtImportArchiveFolder_Click);
             // 
             // Settings
             // 
@@ -3207,5 +3219,6 @@
         private System.Windows.Forms.Button BtBeepNewTop;
         private System.Windows.Forms.Button BtBeepTop;
         private System.Windows.Forms.Button BtBeepSuccess;
+        private System.Windows.Forms.Button BtImportArchiveFolder;
     }
 }

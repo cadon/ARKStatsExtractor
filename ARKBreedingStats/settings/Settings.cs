@@ -254,6 +254,7 @@ namespace ARKBreedingStats.settings
             cbAutoImportExported.Checked = Properties.Settings.Default.AutoImportExportedCreatures;
             cbPlaySoundOnAutomaticImport.Checked = Properties.Settings.Default.PlaySoundOnAutoImport;
             cbMoveImportedFileToSubFolder.Checked = Properties.Settings.Default.MoveAutoImportedFileToSubFolder;
+            SetImportExportFolder(Properties.Settings.Default.ImportExportedArchiveFolder);
             cbDeleteAutoImportedFile.Checked = Properties.Settings.Default.DeleteAutoImportedFile;
             nudImportLowerBoundTE.ValueSave = (decimal)Properties.Settings.Default.ImportLowerBoundTE * 100;
             if (Properties.Settings.Default.ImportExportUseTamerStringForOwner)
@@ -411,6 +412,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.AutoImportExportedCreatures = cbAutoImportExported.Checked;
             Properties.Settings.Default.PlaySoundOnAutoImport = cbPlaySoundOnAutomaticImport.Checked;
             Properties.Settings.Default.MoveAutoImportedFileToSubFolder = cbMoveImportedFileToSubFolder.Checked;
+            Properties.Settings.Default.ImportExportedArchiveFolder = BtImportArchiveFolder.Tag as string;
             Properties.Settings.Default.DeleteAutoImportedFile = cbDeleteAutoImportedFile.Checked;
             Properties.Settings.Default.ImportLowerBoundTE = (double)nudImportLowerBoundTE.Value / 100;
 
@@ -911,6 +913,33 @@ namespace ARKBreedingStats.settings
         private void BtBeepNewTop_Click(object sender, EventArgs e)
         {
             Utils.BeepSignal(3);
+        }
+
+        private void BtImportArchiveFolder_Click(object sender, EventArgs e)
+        {
+            using (var dlg = new FolderBrowserDialog())
+            {
+                // get folder of first export path
+                var exportFolder = BtImportArchiveFolder.Tag is string lastFolder && !string.IsNullOrEmpty(lastFolder) ? lastFolder
+                    : aTExportFolderLocationsBindingSource.OfType<ATImportExportedFolderLocation>()
+                     .Where(location => !string.IsNullOrWhiteSpace(location.FolderPath))
+                     .Select(location => location.FolderPath).FirstOrDefault();
+
+                dlg.RootFolder = Environment.SpecialFolder.Desktop;
+                if (exportFolder != null && Directory.Exists(exportFolder))
+                    dlg.SelectedPath = exportFolder;
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    SetImportExportFolder(dlg.SelectedPath);
+                }
+            }
+        }
+
+        private void SetImportExportFolder(string folderPath)
+        {
+            BtImportArchiveFolder.Text = string.IsNullOrEmpty(folderPath) ? "…" : Path.GetFileName(folderPath);
+            BtImportArchiveFolder.Tag = folderPath;
+            _tt.SetToolTip(BtImportArchiveFolder, folderPath);
         }
     }
 }
