@@ -34,7 +34,7 @@ namespace ARKBreedingStats
                         $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                     System.Diagnostics.Process.Start(Updater.ReleasesUrl);
             }
-            else if (FileService.LoadJSONFile(filePath, out Kibbles tempK, out string errorMessage))
+            else if (FileService.LoadJsonFile(filePath, out Kibbles tempK, out string errorMessage))
             {
                 _K = tempK;
                 _K.version = new Version(_K.ver);

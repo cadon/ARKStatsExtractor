@@ -3054,7 +3054,7 @@ namespace ARKBreedingStats
         {
             string filePath = FileService.GetJsonPath(FileService.CustomReplacingsNamePattern);
             string errorMessage = null;
-            if (!File.Exists(filePath) || !FileService.LoadJSONFile(filePath, out _customReplacingNamingPattern, out errorMessage))
+            if (!File.Exists(filePath) || !FileService.LoadJsonFile(filePath, out _customReplacingNamingPattern, out errorMessage))
             {
                 if (!string.IsNullOrEmpty(errorMessage))
                     MessageBox.Show(errorMessage, $"Custom replacing file loading error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);

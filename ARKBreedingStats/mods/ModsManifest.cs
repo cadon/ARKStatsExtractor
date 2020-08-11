@@ -49,7 +49,7 @@ namespace ARKBreedingStats.mods
                 string modsManifestPath = Path.Combine(FileService.ValuesFolder, FileService.ModsManifest);
                 if (forceDownload || !File.Exists(FileService.GetJsonPath(modsManifestPath))) await TryDownloadFileAsync();
 
-                if (FileService.LoadJSONFile(FileService.GetJsonPath(modsManifestPath), out ModsManifest tmpV, out string errorMessage))
+                if (FileService.LoadJsonFile(FileService.GetJsonPath(modsManifestPath), out ModsManifest tmpV, out string errorMessage))
                 {
                     return tmpV;
                 }
@@ -76,7 +76,7 @@ namespace ARKBreedingStats.mods
             string filePath = FileService.GetJsonPath(FileService.ValuesFolder, FileService.ModsManifestCustom);
             if (!File.Exists(filePath)) return false;
 
-            if (FileService.LoadJSONFile(filePath, out ModsManifest tmpV, out string errorMessage))
+            if (FileService.LoadJsonFile(filePath, out ModsManifest tmpV, out string errorMessage))
             {
                 customModsManifest = tmpV;
                 return true;

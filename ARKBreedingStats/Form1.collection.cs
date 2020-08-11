@@ -317,7 +317,7 @@ namespace ARKBreedingStats
                     else
                     {
                         // new json-format
-                        if (FileService.LoadJSONFile(filePath, out CreatureCollection readCollection, out string errorMessage))
+                        if (FileService.LoadJsonFile(filePath, out CreatureCollection readCollection, out string errorMessage))
                         {
                             if (!Version.TryParse(readCollection.FormatVersion, out Version ccVersion)
                                || !Version.TryParse(CreatureCollection.CURRENT_FORMAT_VERSION, out Version currentVersion)

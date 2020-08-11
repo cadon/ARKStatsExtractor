@@ -35,7 +35,7 @@ namespace ARKBreedingStats.values
         public static bool TryLoadServerMultipliersPresets(out ServerMultipliersPresets serverMultipliersPresets)
         {
             serverMultipliersPresets = new ServerMultipliersPresets();
-            if (FileService.LoadJSONFile(FileService.GetJsonPath(FileService.ValuesServerMultipliers), out ServerMultipliersPresets readData, out string errorMessage))
+            if (FileService.LoadJsonFile(FileService.GetJsonPath(FileService.ValuesServerMultipliers), out ServerMultipliersPresets readData, out string errorMessage))
             {
                 if (Values.IsValidFormatVersion(readData.format))
                 {

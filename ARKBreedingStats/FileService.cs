@@ -8,8 +8,7 @@ namespace ARKBreedingStats
 
     public static class FileService
     {
-        private const string jsonFolder = "json";
-
+        private const string JsonFolder = "json";
         public const string ValuesFolder = "values";
         public const string ValuesJson = "values.json";
         public const string ValuesServerMultipliers = "serverMultipliers.json";
@@ -18,7 +17,6 @@ namespace ARKBreedingStats
         public const string ModsManifestCustom = "_manifestCustom.json";
         public const string KibblesJson = "kibbles.json";
         public const string AliasesJson = "aliases.json";
-        public const string ArkDataJson = "ark_data.json";
         public const string IgnoreSpeciesClasses = "ignoreSpeciesClasses.json";
         public const string CustomReplacingsNamePattern = "customReplacings.json";
         public const string CustomSpeciesVariants = "customSpeciesVariants.json";
@@ -26,17 +24,7 @@ namespace ARKBreedingStats
         public const string CacheFolderName = "cache";
 
         public static readonly string ExeFilePath = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
-        public static readonly string ExeLocation = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
-
-        /// <summary>
-        /// Returns a <see cref="FileStream"/> of a file located in the json data folder
-        /// </summary>
-        /// <param name="fileName">name of file to read; use FileService constants</param>
-        /// <returns></returns>
-        public static FileStream GetJsonFileStream(string fileName)
-        {
-            return File.OpenRead(GetJsonPath(fileName));
-        }
+        private static readonly string ExeLocation = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
 
         /// <summary>
         /// Returns a <see cref="StreamReader"/> of a file located in the json data folder
@@ -54,7 +42,7 @@ namespace ARKBreedingStats
         /// </summary>
         /// <returns></returns>
         public static string GetPath(string fileName = null, string fileName2 = null, string fileName3 = null)
-            => Path.Combine(Updater.IsProgramInstalled ? getLocalApplicationDataPath() : ExeLocation, fileName ?? string.Empty, fileName2 ?? string.Empty, fileName3 ?? string.Empty);
+            => Path.Combine(Updater.IsProgramInstalled ? GetLocalApplicationDataPath() : ExeLocation, fileName ?? string.Empty, fileName2 ?? string.Empty, fileName3 ?? string.Empty);
 
 
         /// <summary>
@@ -63,9 +51,9 @@ namespace ARKBreedingStats
         /// </summary>
         /// <returns></returns>
         public static string GetJsonPath(string fileName = null, string fileName2 = null) =>
-            GetPath(jsonFolder, fileName, fileName2);
+            GetPath(JsonFolder, fileName, fileName2);
 
-        private static string getLocalApplicationDataPath()
+        private static string GetLocalApplicationDataPath()
         {
             return Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), // C:\Users\xxx\AppData\Local\
@@ -75,9 +63,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// Saves an object to a json-file.
         /// </summary>
-        /// <param name="data"></param>
-        /// <param name="filePath">filePath</param>
-        public static bool SaveJSONFile(string filePath, object data, out string errorMessage)
+        public static bool SaveJsonFile(string filePath, object data, out string errorMessage)
         {
             errorMessage = null;
             try
@@ -91,7 +77,7 @@ namespace ARKBreedingStats
             }
             catch (SerializationException ex)
             {
-                errorMessage = $"File\n{Path.GetFullPath(filePath)}\ncouldn't be saved.\nErrormessage:\n\n" + ex.Message;
+                errorMessage = $"File\n{Path.GetFullPath(filePath)}\ncouldn't be saved.\nError message:\n\n" + ex.Message;
             }
             return false;
         }
@@ -99,10 +85,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// Loads a serialized object from a json-file.
         /// </summary>
-        /// <param name="filePath">filePath</param>
-        /// <param name="data"></param>
-        /// <param name="errorMessage"></param>
-        public static bool LoadJSONFile<T>(string filePath, out T data, out string errorMessage) where T : class
+        public static bool LoadJsonFile<T>(string filePath, out T data, out string errorMessage) where T : class
         {
             errorMessage = null;
             data = null;
@@ -123,11 +106,11 @@ namespace ARKBreedingStats
             }
             catch (Newtonsoft.Json.JsonReaderException ex)
             {
-                errorMessage = $"File\n{Path.GetFullPath(filePath)}\ncouldn't be opened or read.\nErrormessage:\n\n" + ex.Message;
+                errorMessage = $"File\n{Path.GetFullPath(filePath)}\ncouldn't be opened or read.\nError message:\n\n" + ex.Message;
             }
             catch (Newtonsoft.Json.JsonSerializationException ex)
             {
-                errorMessage = $"File\n{Path.GetFullPath(filePath)}\ncouldn't be opened or read.\nErrormessage:\n\n" + ex.Message;
+                errorMessage = $"File\n{Path.GetFullPath(filePath)}\ncouldn't be opened or read.\nError message:\n\n" + ex.Message;
             }
             return false;
         }
@@ -135,8 +118,6 @@ namespace ARKBreedingStats
         /// <summary>
         /// Tries to create a directory if not existing. Returns true if the path exists.
         /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
         public static bool TryCreateDirectory(string path, out string error)
         {
             error = null;
@@ -193,7 +174,6 @@ namespace ARKBreedingStats
         /// <summary>
         /// Tries to move a file, doesn't throw an exception.
         /// </summary>
-        /// <param name="filePath"></param>
         public static bool TryMoveFile(string filePathFrom, string filePathTo)
         {
             if (!File.Exists(filePathFrom)) return false;
@@ -202,7 +182,11 @@ namespace ARKBreedingStats
                 File.Move(filePathFrom, filePathTo);
                 return true;
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
+
             return false;
         }
 

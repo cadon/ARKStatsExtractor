@@ -176,7 +176,7 @@ namespace ARKBreedingStats.values
 
         private static Values LoadValuesFile(string filePath)
         {
-            if (FileService.LoadJSONFile(filePath, out Values readData, out string errorMessage))
+            if (FileService.LoadJsonFile(filePath, out Values readData, out string errorMessage))
             {
                 if (!IsValidFormatVersion(readData.format)) throw new FormatException("Unhandled format version");
                 return readData;
@@ -424,7 +424,7 @@ namespace ARKBreedingStats.values
             var customSpeciesVariantsFilePath = FileService.GetJsonPath(FileService.CustomSpeciesVariants);
 
             if (File.Exists(customSpeciesVariantsFilePath)
-                && FileService.LoadJSONFile(customSpeciesVariantsFilePath,
+                && FileService.LoadJsonFile(customSpeciesVariantsFilePath,
                     out Dictionary<string, string[]> customSpeciesVariants, out var error))
             {
                 if (customSpeciesVariants.Any())

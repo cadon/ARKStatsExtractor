@@ -35,7 +35,7 @@ namespace ARKBreedingStats.values
             string filePath = FileService.GetJsonPath(FileService.TamingFoodData);
             string errorMessage = $"File not found: {filePath}";
 
-            if (File.Exists(filePath) && FileService.LoadJSONFile(filePath, out TamingFoodData readData, out errorMessage))
+            if (File.Exists(filePath) && FileService.LoadJsonFile(filePath, out TamingFoodData readData, out errorMessage))
             {
                 if (Values.IsValidFormatVersion(readData.format))
                 {
