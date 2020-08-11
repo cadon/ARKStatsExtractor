@@ -741,8 +741,7 @@ namespace ARKBreedingStats
         /// Returns true if the creature already exists in the library.
         /// Returns null if file couldn't be loaded.
         /// </summary>
-        /// <param name="exportFile"></param>
-        private bool? ExtractExportedFileInExtractor(string exportFile)
+        private bool? ExtractExportedFileInExtractor(string exportFilePath)
         {
             CreatureValues cv = null;
 
@@ -753,14 +752,14 @@ namespace ARKBreedingStats
             {
                 try
                 {
-                    cv = importExported.ImportExported.importExportedCreature(exportFile);
+                    cv = importExported.ImportExported.importExportedCreature(exportFilePath);
                     break;
                 }
                 catch (IOException ex)
                 {
                     if (i == tryCount - 1)
                     {
-                        MessageBox.Show($"Exported creature-file couldn't be read.\n{exportFile}\n\n{ex.Message}",
+                        MessageBox.Show($"Exported creature-file couldn't be read.\n{exportFilePath}\n\n{ex.Message}",
                             $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
                         return null;
@@ -771,7 +770,7 @@ namespace ARKBreedingStats
 
             if (cv == null)
             {
-                MessageBox.Show("Exported creature-file not recognized.", $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Exported creature-file not recognized.\n{exportFilePath}", $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
             // check if last exported file is a species that should be ignored, e.g. a raft
@@ -792,7 +791,7 @@ namespace ARKBreedingStats
                     && LoadModValuesOfCollection(_creatureCollection, true, true)
                     && oldModHash != _creatureCollection.modListHash)
                 {
-                    return ExtractExportedFileInExtractor(exportFile);
+                    return ExtractExportedFileInExtractor(exportFilePath);
                 }
 
                 return false;
@@ -800,7 +799,7 @@ namespace ARKBreedingStats
 
             tabControlMain.SelectedTab = tabPageExtractor;
 
-            bool creatureExists = ExtractValuesInExtractor(cv, exportFile, true);
+            bool creatureExists = ExtractValuesInExtractor(cv, exportFilePath, true);
 
             if ((Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
                 && string.IsNullOrEmpty(creatureInfoInputExtractor.CreatureName))
