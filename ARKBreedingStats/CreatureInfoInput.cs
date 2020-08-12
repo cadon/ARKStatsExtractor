@@ -23,6 +23,7 @@ namespace ARKBreedingStats
         private Species _selectedSpecies;
         private readonly ToolTip _tt;
         private bool _updateMaturation;
+        private Creature[] _sameSpecies;
         private List<Creature> _females;
         private List<Creature> _males;
         public List<string> NamesOfAllCreatures;
@@ -187,26 +188,27 @@ namespace ARKBreedingStats
             CreatureStatus = Utils.NextStatus(_creatureStatus);
         }
 
+        public Creature[] CreaturesOfSameSpecies
+        {
+            set => _sameSpecies = value;
+        }
+
         public List<Creature>[] Parents
         {
             set
             {
-                if (value != null)
-                {
-                    _females = parentComboBoxMother.ParentList = value[0];
-                    _males = parentComboBoxFather.ParentList = value[1];
-                }
+                if (value == null) return;
+                _females = parentComboBoxMother.ParentList = value[0];
+                _males = parentComboBoxFather.ParentList = value[1];
             }
         }
         public List<int>[] ParentsSimilarities
         {
             set
             {
-                if (value != null)
-                {
-                    parentComboBoxMother.parentsSimilarity = value[0];
-                    parentComboBoxFather.parentsSimilarity = value[1];
-                }
+                if (value == null) return;
+                parentComboBoxMother.parentsSimilarity = value[0];
+                parentComboBoxFather.parentsSimilarity = value[1];
             }
         }
 
@@ -490,13 +492,13 @@ namespace ARKBreedingStats
         public void GenerateCreatureName(Creature creature, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, int namingPatternIndex)
         {
             SetCreatureData(creature);
-            CreatureName = uiControls.NamePatterns.GenerateCreatureName(creature, _females, _males, speciesTopLevels, speciesLowestLevels, customReplacings, showDuplicateNameWarning, namingPatternIndex);
+            CreatureName = uiControls.NamePatterns.GenerateCreatureName(creature, _sameSpecies, speciesTopLevels, speciesLowestLevels, customReplacings, showDuplicateNameWarning, namingPatternIndex);
         }
 
         public void OpenNamePatternEditor(Creature creature, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<uiControls.PatternEditor> reloadCallback)
         {
             SetCreatureData(creature);
-            using (var pe = new uiControls.PatternEditor(creature, _females, _males, speciesTopLevels, speciesLowestLevels, customReplacings, namingPatternIndex, reloadCallback))
+            using (var pe = new uiControls.PatternEditor(creature, _sameSpecies, speciesTopLevels, speciesLowestLevels, customReplacings, namingPatternIndex, reloadCallback))
             {
                 Utils.SetWindowRectangle(pe, Properties.Settings.Default.PatternEditorFormRectangle);
                 if (Properties.Settings.Default.PatternEditorSplitterDistance > 0)

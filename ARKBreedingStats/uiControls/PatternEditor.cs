@@ -16,24 +16,23 @@ namespace ARKBreedingStats.uiControls
     {
         private CancellationTokenSource cancelSource;
         private Creature _creature;
-        private List<Creature> _females;
-        private List<Creature> _males;
+        private Creature[] _creatureOfSameSpecies;
         private int[] _speciesTopLevels;
         private int[] _speciesLowestLevels;
         private Dictionary<string, string> _customReplacings;
-        public Action<PatternEditor> OnReloadCustomReplacings;
+        private Dictionary<string, string> _tokenDictionary;
+        private Action<PatternEditor> OnReloadCustomReplacings;
 
         public PatternEditor()
         {
             InitializeComponent();
         }
 
-        public PatternEditor(Creature creature, List<Creature> females, List<Creature> males, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback) : this()
+        public PatternEditor(Creature creature, Creature[] creatureOfSameSpecies, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback) : this()
         {
             OnReloadCustomReplacings = reloadCallback;
             _creature = creature;
-            _females = females;
-            _males = males;
+            _creatureOfSameSpecies = creatureOfSameSpecies;
             _speciesTopLevels = speciesTopLevels;
             _speciesLowestLevels = speciesLowestLevels;
             _customReplacings = customReplacings;
@@ -42,10 +41,7 @@ namespace ARKBreedingStats.uiControls
 
             Text = $"Naming Pattern Editor: pattern {(namingPatternIndex + 1)}";
 
-            // collect creatures of the same species
-            var sameSpecies = (females ?? new List<Creature>()).Concat((males ?? new List<Creature>())).ToList();
-
-            var examples = NamePatterns.CreateTokenDictionary(creature, sameSpecies, _speciesTopLevels, _speciesLowestLevels);
+            _tokenDictionary = NamePatterns.CreateTokenDictionary(creature, _creatureOfSameSpecies, _speciesTopLevels, _speciesLowestLevels);
 
             TableLayoutPanel tlpKeys = new TableLayoutPanel();
             tableLayoutPanel1.Controls.Add(tlpKeys);
@@ -92,7 +88,7 @@ namespace ARKBreedingStats.uiControls
                     {
                         Dock = DockStyle.Fill,
                         MinimumSize = new Size(50, 40),
-                        Text = useExampleAsInput ? p.Value.Substring(0, substringUntil) : p.Value + (examples.ContainsKey(p.Key) ? ". E.g. \"" + examples[p.Key] + "\"" : ""),
+                        Text = useExampleAsInput ? p.Value.Substring(0, substringUntil) : p.Value + (_tokenDictionary.ContainsKey(p.Key) ? ". E.g. \"" + _tokenDictionary[p.Key] + "\"" : ""),
                         Margin = new Padding(3, 3, 3, 5)
                     };
                     tlp.Controls.Add(lbl);
@@ -332,7 +328,7 @@ namespace ARKBreedingStats.uiControls
 
         private void DisplayPreview()
         {
-            cbPreview.Text = NamePatterns.GenerateCreatureName(_creature, _females, _males, _speciesTopLevels, _speciesLowestLevels, _customReplacings, false, -1, false, txtboxPattern.Text, false);
+            cbPreview.Text = NamePatterns.GenerateCreatureName(_creature, _creatureOfSameSpecies, _speciesTopLevels, _speciesLowestLevels, _customReplacings, false, -1, false, txtboxPattern.Text, false, _tokenDictionary);
         }
     }
 }

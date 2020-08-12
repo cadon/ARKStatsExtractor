@@ -1024,6 +1024,8 @@ namespace ARKBreedingStats
             List<Creature>[] parents = FindPossibleParents(creature);
             input.ParentsSimilarities = FindParentSimilarities(parents, creature);
             input.Parents = parents;
+            input.CreaturesOfSameSpecies = _creatureCollection.creatures
+                .Where(c => c.Species == speciesSelector1.SelectedSpecies).ToArray();
             input.parentListValid = true;
             input.NamesOfAllCreatures = _creatureCollection.creatures.Select(c => c.name).ToList();
         }
@@ -2999,7 +3001,7 @@ namespace ARKBreedingStats
         {
             if (listViewLibrary.SelectedItems.Count == 0) return;
 
-            List<Creature> sameSpecies = null;
+            Creature[] sameSpecies = null;
 
             listViewLibrary.BeginUpdate();
             for (int s = 0; s < listViewLibrary.SelectedItems.Count; s++)
@@ -3007,7 +3009,7 @@ namespace ARKBreedingStats
                 Creature cr = ((Creature)listViewLibrary.SelectedItems[s].Tag);
 
                 if (sameSpecies == null || sameSpecies[0].Species != cr.Species)
-                    sameSpecies = _creatureCollection.creatures.Where(c => c.Species == cr.Species).ToList();
+                    sameSpecies = _creatureCollection.creatures.Where(c => c.Species == cr.Species).ToArray();
 
                 // set new name
                 cr.name = NamePatterns.GenerateCreatureName(cr, sameSpecies,
