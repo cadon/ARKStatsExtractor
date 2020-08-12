@@ -382,6 +382,9 @@ namespace ARKBreedingStats
                 NewCollection();
 
             _timerGlobal.Start();
+
+
+            utils.ExportFolderLocation.GetListOfExportFolders(out _, out _);
         }
 
         /// <summary>

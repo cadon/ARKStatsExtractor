@@ -194,6 +194,7 @@
             this.label30 = new System.Windows.Forms.Label();
             this.nudImportLowerBoundTE = new ARKBreedingStats.uiControls.Nud();
             this.groupBox22 = new System.Windows.Forms.GroupBox();
+            this.BtImportArchiveFolder = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.BtBeepNewTop = new System.Windows.Forms.Button();
             this.BtBeepTop = new System.Windows.Forms.Button();
@@ -238,7 +239,7 @@
             this.cbbOCRApp = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.BtImportArchiveFolder = new System.Windows.Forms.Button();
+            this.BtGetExportFolderAutomatically = new System.Windows.Forms.Button();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMatingSpeed)).BeginInit();
@@ -2051,7 +2052,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -2059,7 +2060,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -2067,7 +2068,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -2075,7 +2076,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -2294,6 +2295,7 @@
             // tabPageImportExported
             // 
             this.tabPageImportExported.AutoScroll = true;
+            this.tabPageImportExported.Controls.Add(this.BtGetExportFolderAutomatically);
             this.tabPageImportExported.Controls.Add(this.groupBox27);
             this.tabPageImportExported.Controls.Add(this.groupBox23);
             this.tabPageImportExported.Controls.Add(this.groupBox22);
@@ -2412,6 +2414,16 @@
             this.groupBox22.TabIndex = 9;
             this.groupBox22.TabStop = false;
             this.groupBox22.Text = "Auto import";
+            // 
+            // BtImportArchiveFolder
+            // 
+            this.BtImportArchiveFolder.Location = new System.Drawing.Point(152, 91);
+            this.BtImportArchiveFolder.Name = "BtImportArchiveFolder";
+            this.BtImportArchiveFolder.Size = new System.Drawing.Size(127, 21);
+            this.BtImportArchiveFolder.TabIndex = 8;
+            this.BtImportArchiveFolder.Text = "…";
+            this.BtImportArchiveFolder.UseVisualStyleBackColor = true;
+            this.BtImportArchiveFolder.Click += new System.EventHandler(this.BtImportArchiveFolder_Click);
             // 
             // panel2
             // 
@@ -2873,15 +2885,15 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // BtImportArchiveFolder
+            // BtGetExportFolderAutomatically
             // 
-            this.BtImportArchiveFolder.Location = new System.Drawing.Point(152, 91);
-            this.BtImportArchiveFolder.Name = "BtImportArchiveFolder";
-            this.BtImportArchiveFolder.Size = new System.Drawing.Size(127, 21);
-            this.BtImportArchiveFolder.TabIndex = 8;
-            this.BtImportArchiveFolder.Text = "…";
-            this.BtImportArchiveFolder.UseVisualStyleBackColor = true;
-            this.BtImportArchiveFolder.Click += new System.EventHandler(this.BtImportArchiveFolder_Click);
+            this.BtGetExportFolderAutomatically.Location = new System.Drawing.Point(621, 44);
+            this.BtGetExportFolderAutomatically.Name = "BtGetExportFolderAutomatically";
+            this.BtGetExportFolderAutomatically.Size = new System.Drawing.Size(121, 53);
+            this.BtGetExportFolderAutomatically.TabIndex = 12;
+            this.BtGetExportFolderAutomatically.Text = "Try to set export folder automatically";
+            this.BtGetExportFolderAutomatically.UseVisualStyleBackColor = true;
+            this.BtGetExportFolderAutomatically.Click += new System.EventHandler(this.BtGetExportFolderAutomatically_Click);
             // 
             // Settings
             // 
@@ -3220,5 +3232,6 @@
         private System.Windows.Forms.Button BtBeepTop;
         private System.Windows.Forms.Button BtBeepSuccess;
         private System.Windows.Forms.Button BtImportArchiveFolder;
+        private System.Windows.Forms.Button BtGetExportFolderAutomatically;
     }
 }

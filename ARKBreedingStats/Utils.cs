@@ -420,7 +420,7 @@ namespace ARKBreedingStats
         /// <returns></returns>
         public static bool GetFirstImportExportFolder(out string folder)
         {
-            folder = "";
+            folder = null;
             if (Properties.Settings.Default.ExportCreatureFolders != null
                 && Properties.Settings.Default.ExportCreatureFolders.Length > 0)
             {

@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.settings
 {
@@ -254,7 +255,7 @@ namespace ARKBreedingStats.settings
             cbAutoImportExported.Checked = Properties.Settings.Default.AutoImportExportedCreatures;
             cbPlaySoundOnAutomaticImport.Checked = Properties.Settings.Default.PlaySoundOnAutoImport;
             cbMoveImportedFileToSubFolder.Checked = Properties.Settings.Default.MoveAutoImportedFileToSubFolder;
-            SetImportExportFolder(Properties.Settings.Default.ImportExportedArchiveFolder);
+            SetImportExportArchiveFolder(Properties.Settings.Default.ImportExportedArchiveFolder);
             cbDeleteAutoImportedFile.Checked = Properties.Settings.Default.DeleteAutoImportedFile;
             nudImportLowerBoundTE.ValueSave = (decimal)Properties.Settings.Default.ImportLowerBoundTE * 100;
             if (Properties.Settings.Default.ImportExportUseTamerStringForOwner)
@@ -930,16 +931,24 @@ namespace ARKBreedingStats.settings
                     dlg.SelectedPath = exportFolder;
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    SetImportExportFolder(dlg.SelectedPath);
+                    SetImportExportArchiveFolder(dlg.SelectedPath);
                 }
             }
         }
 
-        private void SetImportExportFolder(string folderPath)
+        private void SetImportExportArchiveFolder(string folderPath)
         {
             BtImportArchiveFolder.Text = string.IsNullOrEmpty(folderPath) ? "…" : Path.GetFileName(folderPath);
             BtImportArchiveFolder.Tag = folderPath;
             _tt.SetToolTip(BtImportArchiveFolder, folderPath);
+        }
+
+        private void BtGetExportFolderAutomatically_Click(object sender, EventArgs e)
+        {
+            if (ExportFolderLocation.GetListOfExportFolders(out string[] arkInstallFolders, out (string steamPlayerName, string steamPlayerId)[] steamNamesIds))
+            {
+                aTExportFolderLocationsBindingSource.Insert(0, ATImportExportedFolderLocation.CreateFromString("default||" + arkInstallFolders.First()));
+            }
         }
     }
 }
