@@ -945,9 +945,12 @@ namespace ARKBreedingStats.settings
 
         private void BtGetExportFolderAutomatically_Click(object sender, EventArgs e)
         {
-            if (ExportFolderLocation.GetListOfExportFolders(out string[] arkInstallFolders, out (string steamPlayerName, string steamPlayerId)[] steamNamesIds))
+            if (ExportFolderLocation.GetListOfExportFolders(out (string path, string steamPlayerName)[] arkInstallFolders))
             {
-                aTExportFolderLocationsBindingSource.Insert(0, ATImportExportedFolderLocation.CreateFromString("default||" + arkInstallFolders.First()));
+                int i = 0;
+                foreach (var p in arkInstallFolders)
+                    aTExportFolderLocationsBindingSource.Insert(i++, ATImportExportedFolderLocation.CreateFromString(
+                        $"default ({p.steamPlayerName})||{p.path}"));
             }
             else
             {

@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 using Microsoft.Win32;
 
 namespace ARKBreedingStats.utils
@@ -14,23 +13,34 @@ namespace ARKBreedingStats.utils
     /// </summary>
     internal static class ExportFolderLocation
     {
-        internal static bool GetListOfExportFolders(out string[] exportFolders,
-            out (string steamPlayerName, string steamPlayerId)[] steamNamesIds)
+        internal static bool GetListOfExportFolders(out (string path, string steamPlayerName)[] exportFolders)
         {
             exportFolders = null;
-            steamNamesIds = null;
 
             if (GetSteamInstallationPath(out var steamPath)
                 && ReadSteamPlayerIdsAndArkInstallPaths(Path.Combine(steamPath, "config", "config.vdf"),
-                    out steamNamesIds, out string[] arkInstallFolders))
+                    out (string steamPlayerName, string steamPlayerId)[] steamNamesIds, out string[] arkInstallFolders))
             {
-                // TODO install folders from config file
+                if (!steamNamesIds.Any()) return false;
 
-                var arkFolder = Path.Combine(steamPath, "steamapps", "common", "ARK");
-                if (!Directory.Exists(arkFolder)) return false;
+                var relativeArkPath = Path.Combine("steamapps", "common", "ARK");
+                var possibleArkPaths = new List<string> { Path.Combine(steamPath, relativeArkPath) };
+                possibleArkPaths.AddRange(arkInstallFolders.Select(f => Path.Combine(f, relativeArkPath)));
 
-                exportFolders = new[]
-                    {Path.Combine(arkFolder, "ShooterGame", "Saved", "DinoExports", steamNamesIds.First().steamPlayerId)};
+                var existingArkPaths = possibleArkPaths.Where(Directory.Exists).ToArray();
+
+                if (!existingArkPaths.Any()) return false;
+
+                var relativeExportFolder = Path.Combine("ShooterGame", "Saved", "DinoExports");
+
+                // there can be multiple steam users, so list the possible export folder for each user
+                exportFolders = new (string, string)[existingArkPaths.Length * steamNamesIds.Length];
+                int i = 0;
+                foreach (var arkPath in existingArkPaths)
+                {
+                    foreach (var steamNameId in steamNamesIds)
+                        exportFolders[i++] = (Path.Combine(arkPath, relativeExportFolder, steamNameId.steamPlayerId), steamNameId.steamPlayerName);
+                }
 
                 return true;
             }
@@ -59,13 +69,13 @@ namespace ARKBreedingStats.utils
         /// </summary>
         /// <param name="steamConfigFilePath"></param>
         /// <param name="steamPlayerIds"></param>
-        /// <param name="ArkInstallPaths"></param>
+        /// <param name="arkInstallPaths"></param>
         /// <returns></returns>
         private static bool ReadSteamPlayerIdsAndArkInstallPaths(string steamConfigFilePath, out (string steamPlayerName, string steamPlayerId)[] steamPlayerIds,
-            out string[] ArkInstallPaths)
+            out string[] arkInstallPaths)
         {
             steamPlayerIds = null;
-            ArkInstallPaths = null; // TODO
+            arkInstallPaths = null;
 
             if (!File.Exists(steamConfigFilePath)) return false;
 
@@ -80,6 +90,12 @@ namespace ARKBreedingStats.utils
             var mm = playerIdRegEx.Matches(configFileContent, m.Length);
 
             steamPlayerIds = (from Match mi in mm select (mi.Groups[1].Value, mi.Groups[2].Value)).ToArray();
+
+            // steam library locations
+            var libraryRegEx = new Regex(@"""BaseInstallFolder_\d+""\s*""([^""]+)""");
+            mm = libraryRegEx.Matches(configFileContent);
+            var removeEscapeBackslashes = new Regex(@"\\(.)");
+            arkInstallPaths = (from Match mi in mm select removeEscapeBackslashes.Replace(mi.Groups[1].Value, "$1")).ToArray();
 
             return steamPlayerIds.Any();
         }
