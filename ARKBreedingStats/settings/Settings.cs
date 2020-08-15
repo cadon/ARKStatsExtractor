@@ -949,6 +949,12 @@ namespace ARKBreedingStats.settings
             {
                 aTExportFolderLocationsBindingSource.Insert(0, ATImportExportedFolderLocation.CreateFromString("default||" + arkInstallFolders.First()));
             }
+            else
+            {
+                MessageBox.Show(
+                    "The export folder of steam couldn't be detected automatically. You have to set it manually.",
+                    "Folder detection failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
