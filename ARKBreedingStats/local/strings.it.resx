@@ -681,7 +681,7 @@ Se viene visualizzato un numero con un segno più, la somma è troppo alta e dev
     <value>Raising</value>
   </data>
   <data name="rbBPHighStats" xml:space="preserve">
-    <value>Stat alte</value>
+    <value>Migliore prossima generazione</value>
   </data>
   <data name="rbBPHighStatsTT" xml:space="preserve">
     <value>Verifica i migliori risultati della prossima generazione.
@@ -939,5 +939,8 @@ Questa modalità arriverà alla miglior prole possibile, ferma e sicura.Alcune p
   </data>
   <data name="showOnlyNaturalOccuring" xml:space="preserve">
     <value>mostra solo i colori naturali</value>
+  </data>
+  <data name="BPCancelRestrictionOn" xml:space="preserve">
+    <value>annullare la restrizione su {0}</value>
   </data>
 </root>

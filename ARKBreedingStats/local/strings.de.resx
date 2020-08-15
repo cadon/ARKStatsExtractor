@@ -886,7 +886,7 @@ Setze auf -1 um Kreaturen unabhängig der Mutationen anzuzeigen.</value>
     <value>Aufzucht</value>
   </data>
   <data name="rbBPHighStats" xml:space="preserve">
-    <value>Hohe Stats</value>
+    <value>Beste nächste Generation</value>
   </data>
   <data name="rbBPHighStatsTT" xml:space="preserve">
     <value>Aktivieren um die besten Vorschläge für die nächste Generation zu bekommen, wenn Top-Stats nicht wichtig sind.</value>
@@ -1214,5 +1214,8 @@ Diese kann mit BSS Preset angewandt werden.</value>
   </data>
   <data name="VariantSelectorInfo" xml:space="preserve">
     <value>Spezies, die eine Variante besitzen die nicht ausgewählt ist, werden nicht angezeigt.</value>
+  </data>
+  <data name="BPCancelRestrictionOn" xml:space="preserve">
+    <value>Beschränkung auf {0} aufheben</value>
   </data>
 </root>

@@ -189,6 +189,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel restriction on {0}.
+        /// </summary>
+        internal static string BPCancelRestrictionOn {
+            get {
+                return ResourceManager.GetString("BPCancelRestrictionOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to or mutations.
         /// </summary>
         internal static string BPorMutations {
@@ -2427,7 +2436,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to High Stats.
+        ///   Looks up a localized string similar to Best next generation.
         /// </summary>
         internal static string rbBPHighStats {
             get {

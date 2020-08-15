@@ -699,7 +699,7 @@
     <value>抚养</value>
   </data>
   <data name="rbBPHighStats" xml:space="preserve">
-    <value>高状态</value>
+    <value>最好的下一代</value>
   </data>
   <data name="rbBPHighStatsTT" xml:space="preserve">
     <value>查询下一代的最佳结果.
@@ -1017,5 +1017,8 @@
   </data>
   <data name="zh" xml:space="preserve">
     <value>简体中文</value>
+  </data>
+  <data name="BPCancelRestrictionOn" xml:space="preserve">
+    <value>取消对 {0} 的限制</value>
   </data>
 </root>

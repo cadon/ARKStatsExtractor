@@ -890,7 +890,7 @@ Set to -1 for any number of mutation.</value>
     <value>Raising</value>
   </data>
   <data name="rbBPHighStats" xml:space="preserve">
-    <value>High Stats</value>
+    <value>Best next generation</value>
   </data>
   <data name="rbBPHighStatsTT" xml:space="preserve">
     <value>Check for best next-generation-results.
@@ -1223,5 +1223,8 @@ The preset can be applied by the Apply Preset button</value>
   </data>
   <data name="VariantSelectorInfo" xml:space="preserve">
     <value>Species that contain one variant that is unchecked will be hidden.</value>
+  </data>
+  <data name="BPCancelRestrictionOn" xml:space="preserve">
+    <value>Cancel restriction on {0}</value>
   </data>
 </root>

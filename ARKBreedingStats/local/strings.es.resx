@@ -890,7 +890,7 @@ Establezca en -1 para cualquier número de mutación.</value>
     <value>Subida</value>
   </data>
   <data name="rbBPHighStats" xml:space="preserve">
-    <value>Estadísticas altas</value>
+    <value>Mejor próxima generación</value>
   </data>
   <data name="rbBPHighStatsTT" xml:space="preserve">
     <value>Verifique los mejores resultados de la próxima generación.
@@ -1009,5 +1009,8 @@ Algunas crías pueden ser peores que en el modo de estadísticas altas, pero tam
   </data>
   <data name="showOnlyNaturalOccuring" xml:space="preserve">
     <value>mostrar solo colores naturales</value>
+  </data>
+  <data name="BPCancelRestrictionOn" xml:space="preserve">
+    <value>cancelar la restricción sobre {0}</value>
   </data>
 </root>

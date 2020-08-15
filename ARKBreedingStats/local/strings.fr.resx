@@ -696,7 +696,7 @@ Régler sur -1 pour n'importe quel nombre de mutation.</value>
     <value>Élevage</value>
   </data>
   <data name="rbBPHighStats" xml:space="preserve">
-    <value>Statistiques élevées</value>
+    <value>Meilleure prochaine génération</value>
   </data>
   <data name="rbBPHighStatsTT" xml:space="preserve">
     <value>Testez les meilleurs résultats de la prochaine génération.
@@ -1212,5 +1212,8 @@ Le préréglage peut être appliqué par le bouton Appliquer le préréglage</va
   </data>
   <data name="unknownSpecies" xml:space="preserve">
     <value>espèce inconnue</value>
+  </data>
+  <data name="BPCancelRestrictionOn" xml:space="preserve">
+    <value>annuler la restriction sur {0}</value>
   </data>
 </root>
