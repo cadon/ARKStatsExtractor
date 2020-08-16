@@ -111,7 +111,7 @@ namespace ARKBreedingStats.testCases
 
         private void Tcc_RemoveTestCase(TestCaseControl tcc)
         {
-            cases.testCases.Remove(tcc.testCase);
+            cases.testCases.Remove(tcc.TestCase);
             tcc.Dispose();
             extractionTestControls.Remove(tcc);
             ShowTestCases();
@@ -193,7 +193,7 @@ namespace ARKBreedingStats.testCases
                 t.ClearTestResult();
             Invalidate();
             foreach (var t in extractionTestControls)
-                t.runTest();
+                t.RunTest();
         }
     }
 }

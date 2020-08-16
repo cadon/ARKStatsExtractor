@@ -1,74 +1,71 @@
-﻿using ARKBreedingStats.species;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using ARKBreedingStats.species;
 
 namespace ARKBreedingStats.testCases
 {
     public partial class TestCaseControl : UserControl
     {
-        public delegate void CopyTestToExtractorEventHandler(string speciesBP, int level, double[] statValues, bool postTamed, bool bred, double imprintingBonus, bool gotoExtractor, TestCaseControl tcc);
-        public delegate void CopyTestToTesterEventHandler(string speciesBP, int[] wildLevels, int[] domLevels, bool postTamed, bool bred, double te, double imprintingBonus, bool gotoTester, TestCaseControl tcc);
+        public delegate void CopyTestToExtractorEventHandler(string speciesBp, int level, double[] statValues, bool postTamed, bool bred, double imprintingBonus, bool gotoExtractor, TestCaseControl tcc);
+        public delegate void CopyTestToTesterEventHandler(string speciesBp, int[] wildLevels, int[] domLevels, bool postTamed, bool bred, double te, double imprintingBonus, bool gotoTester, TestCaseControl tcc);
         public delegate void RemoveTestCaseEventHandler(TestCaseControl tcc);
         public event CopyTestToExtractorEventHandler CopyToExtractor;
         public event CopyTestToTesterEventHandler CopyToTester;
         public event RemoveTestCaseEventHandler RemoveTestCase;
 
-        public ExtractionTestCase testCase;
-        public bool? success;
+        public ExtractionTestCase TestCase;
 
         public TestCaseControl()
         {
             InitializeComponent();
         }
 
-        public TestCaseControl(ExtractionTestCase testcase)
+        public TestCaseControl(ExtractionTestCase testCase)
         {
             InitializeComponent();
-            setTestCase(testcase);
+            SetTestCase(testCase);
         }
 
-        public void setTestCase(ExtractionTestCase testCase)
+        private void SetTestCase(ExtractionTestCase testCase)
         {
-            this.testCase = testCase;
-            updateTestCaseTitle();
+            TestCase = testCase;
+            UpdateTestCaseTitle();
             lbTestResult.BackColor = SystemColors.Control;
-            success = null;
         }
 
-        private void updateTestCaseTitle()
+        private void UpdateTestCaseTitle()
         {
-            groupBox1.Text = this.testCase.speciesName + " (Lv " + testCase.totalLevel + ", " + (testCase.bred ? "B" : (testCase.postTamed ? "T" : "W")) + "), " + this.testCase.testName;
+            groupBox1.Text = $"{TestCase.speciesName} (Lv {TestCase.totalLevel}, {(TestCase.bred ? "B" : (TestCase.postTamed ? "T" : "W"))}), {TestCase.testName}";
         }
 
         private void bt2Ex_Click(object sender, EventArgs e)
         {
-            CopyToExtractor?.Invoke(testCase.speciesBlueprintPath, testCase.levelsWild[(int)StatNames.Torpidity] + 1 + testCase.levelsDom.Sum(), testCase.statValues, testCase.postTamed, testCase.bred, testCase.imprintingBonus, true, this);
+            CopyToExtractor?.Invoke(TestCase.speciesBlueprintPath, TestCase.levelsWild[(int)StatNames.Torpidity] + 1 + TestCase.levelsDom.Sum(), TestCase.statValues, TestCase.postTamed, TestCase.bred, TestCase.imprintingBonus, true, this);
         }
 
         private void bt2Te_Click(object sender, EventArgs e)
         {
-            CopyToTester?.Invoke(testCase.speciesBlueprintPath, testCase.levelsWild, testCase.levelsDom, testCase.postTamed, testCase.bred, testCase.tamingEff, testCase.imprintingBonus, true, this);
+            CopyToTester?.Invoke(TestCase.speciesBlueprintPath, TestCase.levelsWild, TestCase.levelsDom, TestCase.postTamed, TestCase.bred, TestCase.tamingEff, TestCase.imprintingBonus, true, this);
         }
 
         private void btRunTest_Click(object sender, EventArgs e)
         {
-            runTest();
+            RunTest();
         }
 
-        public void runTest()
+        public void RunTest()
         {
             ClearTestResult();
-            CopyToExtractor?.Invoke(testCase.speciesBlueprintPath, testCase.levelsWild[(int)StatNames.Torpidity] + 1 + testCase.levelsDom.Sum(), testCase.statValues, testCase.postTamed, testCase.bred, testCase.imprintingBonus, false, this);
+            CopyToExtractor?.Invoke(TestCase.speciesBlueprintPath, TestCase.levelsWild[(int)StatNames.Torpidity] + 1 + TestCase.levelsDom.Sum(), TestCase.statValues, TestCase.postTamed, TestCase.bred, TestCase.imprintingBonus, false, this);
         }
 
-        public void setTestResult(bool success, int time, int additionalResults = 0, string info = "")
+        public void SetTestResult(bool success, int time, int additionalResults = 0, string info = null)
         {
-            this.success = success;
-            if (success == true)
+            if (success)
             {
-                lbTestResult.Text = "Check" + (info.Length > 0 ? " | " + info : "");
+                lbTestResult.Text = "Check" + (string.IsNullOrEmpty(info) ? string.Empty : " | " + info);
                 lbTestResult.BackColor = Color.LightGreen;
             }
             else
@@ -77,19 +74,19 @@ namespace ARKBreedingStats.testCases
                 lbTestResult.BackColor = Color.LightSalmon;
             }
 
-            lbTime.Text = time.ToString() + " ms";
+            lbTime.Text = $"{time} ms";
             lbTime.BackColor = Utils.GetColorFromPercent(100 - time);
             lbTime.ForeColor = Utils.ForeColor(lbTime.BackColor);
 
             if (additionalResults > 0)
             {
-                lbAdditionalResults.Text = "additional Results: " + additionalResults.ToString();
+                lbAdditionalResults.Text = $"additional Results: {additionalResults}";
                 lbAdditionalResults.BackColor = Utils.GetColorFromPercent(60 - additionalResults / 4);
                 lbAdditionalResults.ForeColor = Utils.ForeColor(lbAdditionalResults.BackColor);
             }
             else
             {
-                lbAdditionalResults.Text = "";
+                lbAdditionalResults.Text = null;
                 lbAdditionalResults.BackColor = Color.Transparent;
             }
         }
@@ -97,25 +94,23 @@ namespace ARKBreedingStats.testCases
         public void ClearTestResult()
         {
             lbTestResult.Text = "untested";
-            lbTime.Text = "";
+            lbTime.Text = null;
             lbTestResult.BackColor = Color.Transparent;
         }
 
         private void lbTestResult_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Right
+                && Utils.ShowTextInput("Test case info", out string name, "Name of the test case", TestCase.testName))
             {
-                if (Utils.ShowTextInput("Testcase-info", out string name, "Name of the testcase", testCase.testName))
-                {
-                    testCase.testName = name;
-                    updateTestCaseTitle();
-                }
+                TestCase.testName = name;
+                UpdateTestCaseTitle();
             }
         }
 
         private void btDelete_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Delete this testcase?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Delete this test case?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 RemoveTestCase?.Invoke(this);
         }
     }
