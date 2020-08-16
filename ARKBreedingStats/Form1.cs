@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 using static ARKBreedingStats.settings.Settings;
 
 namespace ARKBreedingStats
@@ -376,6 +377,15 @@ namespace ARKBreedingStats
                 // load last save file:
                 if (!LoadCollectionFile(Properties.Settings.Default.LastSaveFile))
                     createNewCollection = true;
+            }
+
+            // if no export folder is set, try to detect it
+            if ((Properties.Settings.Default.ExportCreatureFolders == null
+                || Properties.Settings.Default.ExportCreatureFolders.Length == 0)
+                && ExportFolderLocation.GetListOfExportFolders(out (string path, string steamPlayerName)[] arkInstallFolders, out _))
+            {
+                Properties.Settings.Default.ExportCreatureFolders = arkInstallFolders
+                    .Select(f => $"default ({f.steamPlayerName})||{f.path}").ToArray();
             }
 
             if (createNewCollection)
