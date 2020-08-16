@@ -111,7 +111,10 @@ namespace ARKBreedingStats
             if (namingPatterns != null)
             {
                 for (int i = 0; i < namingPatterns.Length; i++)
-                    namingPatterns[i] = namingPatterns[i].Replace("\r", string.Empty).Replace("\n", "\r\n");
+                {
+                    if (!string.IsNullOrEmpty(namingPatterns[i]))
+                        namingPatterns[i] = namingPatterns[i].Replace("\r", string.Empty).Replace("\n", "\r\n");
+                }
             }
 
             _tt = new ToolTip();
