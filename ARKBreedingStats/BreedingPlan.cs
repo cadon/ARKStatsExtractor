@@ -19,6 +19,7 @@ namespace ARKBreedingStats
     {
         public event Action<Creature, bool> EditCreature;
         public event Action<Creature> BestBreedingPartners;
+        public event Action<Creature> DisplayInPedigree;
         public event PedigreeCreature.ExportToClipboardEventHandler ExportToClipboard;
         public event Raising.createIncubationEventHandler CreateIncubationTimer;
         public event Form1.SetMessageLabelTextEventHandler SetMessageLabelText;
@@ -167,7 +168,7 @@ namespace ARKBreedingStats
                 CurrentSpecies = selectedSpecies;
                 newSpecies = true;
 
-                EnabledColorRegions = _currentSpecies?.colors.Select(n => !string.IsNullOrEmpty(n?.name)).ToArray() ?? new bool[] { true, true, true, true, true, true };
+                EnabledColorRegions = _currentSpecies?.EnabledColorRegions;
 
                 breedingPlanNeedsUpdate = true;
             }
@@ -528,11 +529,12 @@ namespace ARKBreedingStats
                     }
                     else
                     {
-                        pc = new PedigreeCreature(_breedingPairs[i].Female, _enabledColorRegions, i);
+                        pc = new PedigreeCreature(_breedingPairs[i].Female, _enabledColorRegions, i, true);
                         pc.CreatureClicked += CreatureClicked;
                         pc.CreatureEdit += CreatureEdit;
                         pc.RecalculateBreedingPlan += RecalculateBreedingPlan;
                         pc.BestBreedingPartners += BestBreedingPartners;
+                        pc.DisplayInPedigree += DisplayInPedigree;
                         pc.ExportToClipboard += ExportToClipboard;
                         flowLayoutPanelPairs.Controls.Add(pc);
                         _pcs.Add(pc);
@@ -564,11 +566,12 @@ namespace ARKBreedingStats
                     }
                     else
                     {
-                        pc = new PedigreeCreature(_breedingPairs[i].Male, _enabledColorRegions, i);
+                        pc = new PedigreeCreature(_breedingPairs[i].Male, _enabledColorRegions, i, true);
                         pc.CreatureClicked += CreatureClicked;
                         pc.CreatureEdit += CreatureEdit;
                         pc.RecalculateBreedingPlan += RecalculateBreedingPlan;
                         pc.BestBreedingPartners += BestBreedingPartners;
+                        pc.DisplayInPedigree += DisplayInPedigree;
                         pc.ExportToClipboard += ExportToClipboard;
                         flowLayoutPanelPairs.Controls.Add(pc);
                         flowLayoutPanelPairs.SetFlowBreak(pc, true);

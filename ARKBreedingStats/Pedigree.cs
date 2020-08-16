@@ -22,6 +22,7 @@ namespace ARKBreedingStats
         private readonly List<List<int[]>> _lines = new List<List<int[]>>();
         private readonly List<PedigreeCreature> _pcs = new List<PedigreeCreature>();
         private bool[] _enabledColorRegions = { true, true, true, true, true, true };
+        internal bool PedigreeNeedsUpdate;
 
         public Pedigree()
         {
@@ -87,7 +88,7 @@ namespace ARKBreedingStats
             NoCreatureSelected();
         }
 
-        public void ClearControls()
+        private void ClearControls()
         {
             // clear pedigree   
             SuspendLayout();
@@ -273,7 +274,10 @@ namespace ARKBreedingStats
             }
             else if (_creatures != null && (centralCreature != _selectedCreature || forceUpdate))
             {
+                if (centralCreature.Species != _selectedCreature?.Species)
+                    EnabledColorRegions = centralCreature.Species?.EnabledColorRegions;
                 _selectedCreature = centralCreature;
+
                 // set children
                 _creatureChildren = _creatures.Where(cr => cr.motherGuid == _selectedCreature.guid || cr.fatherGuid == _selectedCreature.guid)
                         .OrderBy(cr => cr.name)
@@ -300,6 +304,8 @@ namespace ARKBreedingStats
 
                 CreatePedigree();
             }
+
+            PedigreeNeedsUpdate = false;
         }
 
         /// <summary>
@@ -310,7 +316,7 @@ namespace ARKBreedingStats
             lbPedigreeEmpty.Visible = true;
         }
 
-        public bool[] EnabledColorRegions
+        private bool[] EnabledColorRegions
         {
             set
             {

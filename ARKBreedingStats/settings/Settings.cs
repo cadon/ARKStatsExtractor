@@ -878,6 +878,7 @@ namespace ARKBreedingStats.settings
             Loc.ControlText(BtBeepSuccess, _tt);
             Loc.ControlText(BtBeepTop, _tt);
             Loc.ControlText(BtBeepNewTop, _tt);
+            Loc.ControlText(BtGetExportFolderAutomatically);
         }
 
         private void cbSingleplayerSettings_CheckedChanged(object sender, EventArgs e)
@@ -945,7 +946,7 @@ namespace ARKBreedingStats.settings
 
         private void BtGetExportFolderAutomatically_Click(object sender, EventArgs e)
         {
-            if (ExportFolderLocation.GetListOfExportFolders(out (string path, string steamPlayerName)[] arkInstallFolders))
+            if (ExportFolderLocation.GetListOfExportFolders(out (string path, string steamPlayerName)[] arkInstallFolders, out string error))
             {
                 int i = 0;
                 foreach (var p in arkInstallFolders)
@@ -955,7 +956,7 @@ namespace ARKBreedingStats.settings
             else
             {
                 MessageBox.Show(
-                    "The export folder of steam couldn't be detected automatically. You have to set it manually.",
+                    Loc.S("ExportFolderDetectionFailed") + (string.IsNullOrEmpty(error) ? string.Empty : "\n\n" + error),
                     "Folder detection failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

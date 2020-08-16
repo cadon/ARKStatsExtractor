@@ -1021,4 +1021,10 @@
   <data name="BPCancelRestrictionOn" xml:space="preserve">
     <value>取消对 {0} 的限制</value>
   </data>
+  <data name="BtGetExportFolderAutomatically" xml:space="preserve">
+    <value>自动设置导出文件夹</value>
+  </data>
+  <data name="ExportFolderDetectionFailed" xml:space="preserve">
+    <value>无法自动检测Steam的导出文件夹。</value>
+  </data>
 </root>

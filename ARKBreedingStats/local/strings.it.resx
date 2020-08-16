@@ -943,4 +943,10 @@ Questa modalità arriverà alla miglior prole possibile, ferma e sicura.Alcune p
   <data name="BPCancelRestrictionOn" xml:space="preserve">
     <value>annullare la restrizione su {0}</value>
   </data>
+  <data name="BtGetExportFolderAutomatically" xml:space="preserve">
+    <value>Imposta automaticamente la cartella di esportazione</value>
+  </data>
+  <data name="ExportFolderDetectionFailed" xml:space="preserve">
+    <value>La cartella di esportazione di Steam non è stata rilevata automaticamente.</value>
+  </data>
 </root>

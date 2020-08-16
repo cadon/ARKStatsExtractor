@@ -1216,4 +1216,10 @@ Le préréglage peut être appliqué par le bouton Appliquer le préréglage</va
   <data name="BPCancelRestrictionOn" xml:space="preserve">
     <value>annuler la restriction sur {0}</value>
   </data>
+  <data name="BtGetExportFolderAutomatically" xml:space="preserve">
+    <value>Définir automatiquement le dossier d'exportation</value>
+  </data>
+  <data name="ExportFolderDetectionFailed" xml:space="preserve">
+    <value>Le dossier d'exportation de Steam n'a pas pu être détecté automatiquement.</value>
+  </data>
 </root>

@@ -1227,4 +1227,10 @@ The preset can be applied by the Apply Preset button</value>
   <data name="BPCancelRestrictionOn" xml:space="preserve">
     <value>Cancel restriction on {0}</value>
   </data>
+  <data name="BtGetExportFolderAutomatically" xml:space="preserve">
+    <value>Set export folder automatically</value>
+  </data>
+  <data name="ExportFolderDetectionFailed" xml:space="preserve">
+    <value>The export folder of Steam couldn't be detected automatically.</value>
+  </data>
 </root>

@@ -187,6 +187,12 @@ namespace ARKBreedingStats.species
         }
 
         /// <summary>
+        /// Array indicating which color regions are used by this species.
+        /// </summary>
+        public bool[] EnabledColorRegions => colors?.Select(n => !string.IsNullOrEmpty(n?.name)).ToArray() ??
+                                             new[] { true, true, true, true, true, true, };
+
+        /// <summary>
         /// Indicates the multipliers for each stat applied to the imprinting-bonus.
         /// To override the multipliers, set the value to a custom array.
         /// </summary>

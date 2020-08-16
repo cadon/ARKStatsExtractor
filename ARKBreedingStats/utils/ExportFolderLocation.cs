@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 using Microsoft.Win32;
 
 namespace ARKBreedingStats.utils
@@ -13,23 +12,41 @@ namespace ARKBreedingStats.utils
     /// </summary>
     internal static class ExportFolderLocation
     {
-        internal static bool GetListOfExportFolders(out (string path, string steamPlayerName)[] exportFolders)
+        internal static bool GetListOfExportFolders(out (string path, string steamPlayerName)[] exportFolders, out string error)
         {
             exportFolders = null;
+            error = null;
+            string configFilePath;
 
-            if (GetSteamInstallationPath(out var steamPath)
-                && ReadSteamPlayerIdsAndArkInstallPaths(Path.Combine(steamPath, "config", "config.vdf"),
-                    out (string steamPlayerName, string steamPlayerId)[] steamNamesIds, out string[] arkInstallFolders))
+            if (GetSteamInstallationPath(out var steamPath))
             {
-                if (!steamNamesIds.Any()) return false;
+                configFilePath = Path.Combine(steamPath, "config", "config.vdf");
+                if (!File.Exists(configFilePath))
+                {
+                    error = $"Steam config file {configFilePath} not found.";
+                    return false;
+                }
+            }
+            else
+            {
+                error = "Steam installation couldn't be found, is it installed?";
+                return false;
+            }
 
+            if (ReadSteamPlayerIdsAndArkInstallPaths(configFilePath,
+                    out (string steamPlayerName, string steamPlayerId)[] steamNamesIds, out string[] arkInstallFolders, out error))
+            {
                 var relativeArkPath = Path.Combine("steamapps", "common", "ARK");
                 var possibleArkPaths = new List<string> { Path.Combine(steamPath, relativeArkPath) };
                 possibleArkPaths.AddRange(arkInstallFolders.Select(f => Path.Combine(f, relativeArkPath)));
 
                 var existingArkPaths = possibleArkPaths.Where(Directory.Exists).ToArray();
 
-                if (!existingArkPaths.Any()) return false;
+                if (!existingArkPaths.Any())
+                {
+                    error = "No installation folders with ARK found.";
+                    return false;
+                }
 
                 var relativeExportFolder = Path.Combine("ShooterGame", "Saved", "DinoExports");
 
@@ -72,19 +89,32 @@ namespace ARKBreedingStats.utils
         /// <param name="arkInstallPaths"></param>
         /// <returns></returns>
         private static bool ReadSteamPlayerIdsAndArkInstallPaths(string steamConfigFilePath, out (string steamPlayerName, string steamPlayerId)[] steamPlayerIds,
-            out string[] arkInstallPaths)
+            out string[] arkInstallPaths, out string error)
         {
             steamPlayerIds = null;
             arkInstallPaths = null;
+            error = null;
 
-            if (!File.Exists(steamConfigFilePath)) return false;
+            if (!File.Exists(steamConfigFilePath))
+            {
+                error = $"Steam config file not found\n{steamConfigFilePath}";
+                return false;
+            }
 
             string configFileContent = File.ReadAllText(steamConfigFilePath);
-            if (string.IsNullOrEmpty(configFileContent)) return false;
+            if (string.IsNullOrEmpty(configFileContent))
+            {
+                error = $"Steam config file empty\n{steamConfigFilePath}";
+                return false;
+            }
 
-            var steamAccountRegEx = new Regex(@"""InstallConfigStore"".+""Software"".+""Valve"".+""Steam"".+""Accounts""\s*\{", RegexOptions.Singleline);
+            var steamAccountRegEx = new Regex(@"""InstallConfigStore"".+""Software"".+""Valve"".+""Steam"".+""Accounts""\s*\{", RegexOptions.Singleline | RegexOptions.IgnoreCase);
             var m = steamAccountRegEx.Match(configFileContent);
-            if (!m.Success) return false;
+            if (!m.Success)
+            {
+                error = $"Steam account info property not found in\n{steamConfigFilePath}";
+                return false;
+            }
 
             var playerIdRegEx = new Regex(@"\s*""([^""]+)""\s*\{\s*""SteamID""\s*""(\d+)""\s*\}", RegexOptions.Singleline);
             var mm = playerIdRegEx.Matches(configFileContent, m.Length);
@@ -97,7 +127,11 @@ namespace ARKBreedingStats.utils
             var removeEscapeBackslashes = new Regex(@"\\(.)");
             arkInstallPaths = (from Match mi in mm select removeEscapeBackslashes.Replace(mi.Groups[1].Value, "$1")).ToArray();
 
-            return steamPlayerIds.Any();
+            bool anyPlayerIds = steamPlayerIds.Any();
+            if (!anyPlayerIds)
+                error = "No steam accounts in the steam config file found.";
+
+            return anyPlayerIds;
         }
     }
 }

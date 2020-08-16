@@ -432,6 +432,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set export folder automatically.
+        /// </summary>
+        internal static string BtGetExportFolderAutomatically {
+            get {
+                return ResourceManager.GetString("BtGetExportFolderAutomatically", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last Export.
         /// </summary>
         internal static string btImportLastExported {
@@ -1102,6 +1111,15 @@ namespace ARKBreedingStats.local {
         internal static string Event_ {
             get {
                 return ResourceManager.GetString("Event_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ExportFolderDetectionFailed {
+            get {
+                return ResourceManager.GetString("ExportFolderDetectionFailed", resourceCulture);
             }
         }
         

@@ -25,6 +25,11 @@ namespace ARKBreedingStats
         public event Action<Creature> BestBreedingPartners;
 
         /// <summary>
+        /// Display the creature in the pedigree.
+        /// </summary>
+        public event Action<Creature> DisplayInPedigree;
+
+        /// <summary>
         /// Recalculate the breeding plan, e.g. if the cooldown was reset.
         /// </summary>
         public event Action RecalculateBreedingPlan;
@@ -73,12 +78,13 @@ namespace ARKBreedingStats
             comboId = -1;
         }
 
-        public PedigreeCreature(Creature creature, bool[] enabledColorRegions, int comboId = -1) : this()
+        public PedigreeCreature(Creature creature, bool[] enabledColorRegions, int comboId = -1, bool displayPedigreeLink = false) : this()
         {
             Cursor = Cursors.Hand;
             this.enabledColorRegions = enabledColorRegions;
             this.comboId = comboId;
             Creature = creature;
+            TsMiViewInPedigree.Visible = displayPedigreeLink;
         }
 
         /// <summary>
@@ -308,6 +314,11 @@ namespace ARKBreedingStats
         {
             if (creature?.Species != null)
                 System.Diagnostics.Process.Start("https://ark.gamepedia.com/" + creature.Species.name);
+        }
+
+        private void TsMiViewInPedigree_Click(object sender, EventArgs e)
+        {
+            DisplayInPedigree?.Invoke(creature);
         }
     }
 }

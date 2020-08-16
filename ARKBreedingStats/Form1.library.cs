@@ -970,7 +970,7 @@ namespace ARKBreedingStats
                     creatureBoxListView.SetCreature(c);
                     if (tabControlLibFilter.SelectedTab == tabPageLibRadarChart)
                         radarChartLibrary.setLevels(c.levelsWild);
-                    _pedigreeNeedsUpdate = true;
+                    pedigree1.PedigreeNeedsUpdate = true;
                 }
 
                 // display infos about the selected creatures

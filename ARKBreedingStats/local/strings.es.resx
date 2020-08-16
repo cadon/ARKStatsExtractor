@@ -1013,4 +1013,10 @@ Algunas crías pueden ser peores que en el modo de estadísticas altas, pero tam
   <data name="BPCancelRestrictionOn" xml:space="preserve">
     <value>cancelar la restricción sobre {0}</value>
   </data>
+  <data name="BtGetExportFolderAutomatically" xml:space="preserve">
+    <value>Establecer carpeta de exportación automáticamente</value>
+  </data>
+  <data name="ExportFolderDetectionFailed" xml:space="preserve">
+    <value>La carpeta de exportación de Steam no se pudo detectar automáticamente.</value>
+  </data>
 </root>

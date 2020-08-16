@@ -52,7 +52,7 @@ namespace ARKBreedingStats
             string speciesColorMaskFilePath = Path.Combine(ImgFolder, speciesImageName + "_m" + Extension);
 
             if (CreateAndSaveCacheSpeciesFile(colorIds,
-                    species?.colors.Select(c => !string.IsNullOrEmpty(c?.name)).ToArray(),
+                    species?.EnabledColorRegions,
                     speciesBackgroundFilePath, speciesColorMaskFilePath, cacheFileName, 64))
                 return (true, cacheFileName, speciesNameForList);
 

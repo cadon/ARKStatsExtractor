@@ -34,7 +34,6 @@ namespace ARKBreedingStats
         private readonly List<StatIO> _testingIOs = new List<StatIO>();
         private int _activeStatIndex = -1;
         private readonly bool[] _activeStats = { true, true, true, true, true, true, true, true, true, true, true, true }; // stats used by the creature (some don't use oxygen)
-        private bool _pedigreeNeedsUpdate;
         private bool _libraryNeedsUpdate;
 
         public delegate void CollectionChangedEventHandler(bool changed = true, Species species = null); // if null is passed for species, breeding-related controls are not updated
@@ -135,6 +134,7 @@ namespace ARKBreedingStats
             pedigree1.BestBreedingPartners += ShowBestBreedingPartner;
             pedigree1.ExportToClipboard += ExportAsTextToClipboard;
             breedingPlan1.EditCreature += EditCreatureInTester;
+            breedingPlan1.DisplayInPedigree += DisplayCreatureInPedigree;
             breedingPlan1.CreateIncubationTimer += CreateIncubationTimer;
             breedingPlan1.BestBreedingPartners += ShowBestBreedingPartner;
             breedingPlan1.ExportToClipboard += ExportAsTextToClipboard;
@@ -1335,13 +1335,10 @@ namespace ARKBreedingStats
             }
             else if (tabControlMain.SelectedTab == tabPagePedigree)
             {
-                if (_pedigreeNeedsUpdate && listViewLibrary.SelectedItems.Count > 0)
+                if (pedigree1.PedigreeNeedsUpdate && listViewLibrary.SelectedItems.Count > 0)
                 {
                     Creature c = (Creature)listViewLibrary.SelectedItems[0].Tag;
-                    pedigree1.EnabledColorRegions = c.Species?.colors?.Select(n => !string.IsNullOrEmpty(n?.name)).ToArray() ?? new bool[6] { true, true, true, true, true, true };
-
                     pedigree1.SetCreature(c, true);
-                    _pedigreeNeedsUpdate = false;
                 }
             }
             else if (tabControlMain.SelectedTab == tabPageTaming)
@@ -1365,6 +1362,12 @@ namespace ARKBreedingStats
             {
                 statsMultiplierTesting1.SetSpecies(speciesSelector1.SelectedSpecies);
             }
+        }
+
+        private void DisplayCreatureInPedigree(Creature creature)
+        {
+            pedigree1.SetCreature(creature, true);
+            tabControlMain.SelectedTab = tabPagePedigree;
         }
 
         private void ExtractBaby(Creature mother, Creature father)
@@ -2908,9 +2911,10 @@ namespace ARKBreedingStats
                 int[] cl = cr.colors;
                 if (cl == null) return;
                 var colorCommands = new List<string>(6);
+                var enabledColorRegions = cr.Species.EnabledColorRegions;
                 for (int ci = 0; ci < 6; ci++)
                 {
-                    if (!string.IsNullOrEmpty(cr.Species.colors[ci]?.name))
+                    if (enabledColorRegions[ci])
                         colorCommands.Add($"setTargetDinoColor {ci} {cl[ci]}");
                 }
                 if (colorCommands.Any())

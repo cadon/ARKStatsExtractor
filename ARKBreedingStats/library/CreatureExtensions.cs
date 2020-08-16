@@ -103,7 +103,7 @@ namespace ARKBreedingStats.library
                 }
 
                 // colors
-                var enabledColorRegions = creature.Species.colors.Select(c => !string.IsNullOrEmpty(c?.name)).ToArray();
+                var enabledColorRegions = creature.Species.EnabledColorRegions;
                 bool creatureImageShown = false;
                 const int imageSize = 125;
                 using (var crBmp =
