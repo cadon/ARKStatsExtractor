@@ -492,6 +492,8 @@ namespace ARKBreedingStats
 
         public void OpenNamePatternEditor(Creature creature, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<uiControls.PatternEditor> reloadCallback)
         {
+            if (!parentListValid)
+                ParentListRequested?.Invoke(this);
             SetCreatureData(creature);
             using (var pe = new uiControls.PatternEditor(creature, _sameSpecies, speciesTopLevels, speciesLowestLevels, customReplacings, namingPatternIndex, reloadCallback))
             {
