@@ -873,7 +873,7 @@ namespace ARKBreedingStats
                     }
                     else
                     {
-                        lvi.SubItems[24 + cl].ForeColor = Color.LightGray;
+                        lvi.SubItems[24 + cl].ForeColor = cr.Species.EnabledColorRegions[cl] ? Color.LightGray : Color.White;
                     }
                 }
             }
