@@ -442,11 +442,6 @@ namespace ARKBreedingStats
                 lbGrownIn.Visible = breedingPossible;
                 lbCooldown.Visible = breedingPossible;
                 lbMaturationPerc.Visible = breedingPossible;
-                nudMutationsMother.Visible = breedingPossible;
-                nudMutationsFather.Visible = breedingPossible;
-                lbMutations.Visible = breedingPossible;
-                label11.Visible = breedingPossible;
-                label12.Visible = breedingPossible;
                 if (!breedingPossible)
                 {
                     nudMaturation.Value = 0;
