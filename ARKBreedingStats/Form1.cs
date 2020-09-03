@@ -1451,7 +1451,7 @@ namespace ARKBreedingStats
             if (tabControlMain.SelectedTab == tabPageStatTesting || tabControlMain.SelectedTab == tabPageExtractor)
             {
                 bool fromExtractor = tabControlMain.SelectedTab == tabPageExtractor;
-                if (!fromExtractor || _extractor.validResults)
+                if (!fromExtractor || _extractor.ValidResults)
                 {
                     CreatureInfoInput input;
                     bool bred;
@@ -2341,7 +2341,7 @@ namespace ARKBreedingStats
                 int levelDom = tamedLevels.Sum();
 
                 string extraText = speciesSelector1.SelectedSpecies.name;
-                if (!_extractor.postTamed)
+                if (!_extractor.PostTamed)
                 {
                     string foodName = speciesSelector1.SelectedSpecies.taming.eats[0];
                     int foodNeeded = Taming.FoodAmountNeeded(speciesSelector1.SelectedSpecies, levelWild, Values.V.currentServerMultipliers.TamingSpeedMultiplier, foodName, speciesSelector1.SelectedSpecies.taming.nonViolent);
@@ -2774,7 +2774,7 @@ namespace ARKBreedingStats
 
             if (tcc != null)
             {
-                bool success = _extractor.validResults;
+                bool success = _extractor.ValidResults;
                 if (!success)
                     tcc.SetTestResult(false, (int)watch.ElapsedMilliseconds, 0, "extraction failed");
                 else
@@ -2784,13 +2784,13 @@ namespace ARKBreedingStats
                     int resultCount = -Values.STATS_COUNT; // one result per stat is allowed, only count the additional ones. // TODO only consider possible stats
                     for (int s = 0; s < Values.STATS_COUNT; s++)
                     {
-                        resultCount += _extractor.results[s].Count;
+                        resultCount += _extractor.Results[s].Count;
                         bool statValid = false;
-                        for (int r = 0; r < _extractor.results[s].Count; r++)
+                        for (int r = 0; r < _extractor.Results[s].Count; r++)
                         {
-                            if (_extractor.results[s][r].levelWild == -1 || s == (int)StatNames.SpeedMultiplier && _extractor.results[s][r].levelWild == 0 || _extractor.results[s][r].levelWild == tcc.TestCase.levelsWild[s]
-                                    && _extractor.results[s][r].levelDom == tcc.TestCase.levelsDom[s]
-                                    && (_extractor.results[s][r].TE.Max == -1 || _extractor.results[s][r].TE.Includes(tcc.TestCase.tamingEff))
+                            if (_extractor.Results[s][r].levelWild == -1 || s == (int)StatNames.SpeedMultiplier && _extractor.Results[s][r].levelWild == 0 || _extractor.Results[s][r].levelWild == tcc.TestCase.levelsWild[s]
+                                    && _extractor.Results[s][r].levelDom == tcc.TestCase.levelsDom[s]
+                                    && (_extractor.Results[s][r].TE.Max == -1 || _extractor.Results[s][r].TE.Includes(tcc.TestCase.tamingEff))
                             )
                             {
                                 statValid = true;

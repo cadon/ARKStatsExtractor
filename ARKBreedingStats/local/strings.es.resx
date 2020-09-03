@@ -1037,4 +1037,7 @@ Algunas crías pueden ser peores que en el modo de estadísticas altas, pero tam
   <data name="notABabyAnymore" xml:space="preserve">
     <value>Ya no es una bebe</value>
   </data>
+  <data name="extractionFailedHeader" xml:space="preserve">
+    <value>La extracción falló. Consulte la siguiente lista de posibles causas.</value>
+  </data>
 </root>

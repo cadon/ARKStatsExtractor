@@ -1142,6 +1142,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string extractionFailedHeader {
+            get {
+                return ResourceManager.GetString("extractionFailedHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Extraction Issues….
         /// </summary>
         internal static string extractionIssuesToolStripMenuItem {
@@ -1600,6 +1609,15 @@ namespace ARKBreedingStats.local {
         internal static string issueCauseMaxWildLevel {
             get {
                 return ResourceManager.GetString("issueCauseMaxWildLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If the creature is from a mod, you may need to enable the according mod values in Settings - Mod value manager..
+        /// </summary>
+        internal static string issueCauseModValues {
+            get {
+                return ResourceManager.GetString("issueCauseModValues", resourceCulture);
             }
         }
         

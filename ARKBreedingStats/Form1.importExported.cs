@@ -100,7 +100,7 @@ namespace ARKBreedingStats
             // add to library automatically if batch-extracting exportedImported values and uniqueLevels
             if (addToLibraryIfUnique)
             {
-                if (_extractor.uniqueResults)
+                if (_extractor.UniqueResults)
                     AddCreatureToCollection(true, exportedCreatureControl.creatureValues.motherArkId, exportedCreatureControl.creatureValues.fatherArkId, goToLibraryTab);
                 else
                     exportedCreatureControl.setStatus(importExported.ExportedCreatureControl.ImportStatus.NeedsLevelChosing, DateTime.Now);
@@ -142,8 +142,8 @@ namespace ARKBreedingStats
                    (!alreadyExists && Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures));
             Species species = speciesSelector1.SelectedSpecies;
 
-            if (_extractor.uniqueResults
-                || (alreadyExists && _extractor.validResults))
+            if (_extractor.UniqueResults
+                || (alreadyExists && _extractor.ValidResults))
             {
                 AddCreatureToCollection(true, goToLibraryTab: false);
                 SetMessageLabelText($"Successful {(alreadyExists ? "updated" : "added")} {creatureInfoInputExtractor.CreatureName} ({species.name}) of the exported file\n" + filePath, MessageBoxIcon.Information);

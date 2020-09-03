@@ -35,7 +35,7 @@ namespace ARKBreedingStats
         /// </summary>
         private void ShowSumOfChosenLevels()
         {
-            // The speedlevel is not chosen, but calculated from the other chosen levels, and must not be included in the sum, except all the other levels are determined uniquely!
+            // The speedLevel is not chosen, but calculated from the other chosen levels, and must not be included in the sum, except all the other levels are determined uniquely!
 
             // this method will show only the offset of the value, it's less confusing to the user and gives all the infos needed
             int sumW = 0, sumD = 0;
@@ -44,11 +44,11 @@ namespace ARKBreedingStats
             {
                 if (s == (int)StatNames.Torpidity)
                     continue;
-                if (_extractor.results[s].Count > _extractor.chosenResults[s])
+                if (_extractor.Results[s].Count > _extractor.ChosenResults[s])
                 {
                     sumW += _statIOs[s].LevelWild > 0 ? _statIOs[s].LevelWild : 0;
                     sumD += _statIOs[s].LevelDom;
-                    if (_extractor.results[s].Count != 1)
+                    if (_extractor.Results[s].Count != 1)
                     {
                         allUnique = false;
                     }
@@ -65,17 +65,17 @@ namespace ARKBreedingStats
                 sumW -= allUnique || _statIOs[(int)StatNames.SpeedMultiplier].LevelWild < 0 ? 0 : _statIOs[(int)StatNames.SpeedMultiplier].LevelWild;
                 string offSetWild = "✓";
                 lbSumDom.Text = sumD.ToString();
-                if (sumW <= _extractor.levelWildSum)
+                if (sumW <= _extractor.LevelWildSum)
                 {
                     lbSumWild.ForeColor = SystemColors.ControlText;
                 }
                 else
                 {
                     lbSumWild.ForeColor = Color.Red;
-                    offSetWild = "+" + (sumW - _extractor.levelWildSum);
+                    offSetWild = "+" + (sumW - _extractor.LevelWildSum);
                     inbound = false;
                 }
-                if (sumD == _extractor.levelDomSum)
+                if (sumD == _extractor.LevelDomSum)
                 {
                     lbSumDom.ForeColor = SystemColors.ControlText;
                 }
@@ -84,7 +84,7 @@ namespace ARKBreedingStats
                     lbSumDom.ForeColor = Color.Red;
                     inbound = false;
                     // if there are no other combination options, the total level may be wrong
-                    if (_extractor.uniqueResults)
+                    if (_extractor.UniqueResults)
                         numericUpDownLevel.BackColor = Color.LightSalmon;
                 }
                 lbSumWild.Text = offSetWild;
@@ -103,7 +103,7 @@ namespace ARKBreedingStats
                 _statIOs[(int)StatNames.Torpidity].Status = StatIOStatus.Error;
             }
 
-            bool allValid = valid && inbound && torporLevelValid && _extractor.validResults;
+            bool allValid = valid && inbound && torporLevelValid && _extractor.ValidResults;
             if (allValid)
             {
                 radarChartExtractor.setLevels(_statIOs.Select(s => s.LevelWild).ToArray());
@@ -186,12 +186,8 @@ namespace ARKBreedingStats
         /// <returns></returns>
         private bool ExtractLevels(bool autoExtraction = false, bool statInputsHighPrecision = false, bool showLevelsInOverlay = false, Creature existingCreature = null)
         {
-            SuspendLayout();
             int activeStatKeeper = _activeStatIndex;
             ClearAll(_clearExtractionCreatureData);
-
-            if (cbExactlyImprinting.Checked)
-                _extractor.possibleIssues |= IssueNotes.Issue.ImprintingLocked;
 
             _extractor.ExtractLevels(speciesSelector1.SelectedSpecies, (int)numericUpDownLevel.Value, _statIOs,
                     (double)numericUpDownLowerTEffBound.Value / 100, (double)numericUpDownUpperTEffBound.Value / 100,
@@ -204,10 +200,16 @@ namespace ARKBreedingStats
             numericUpDownImprintingBonusExtractor.ValueSave = (decimal)_extractor.ImprintingBonus * 100;
             numericUpDownImprintingBonusExtractor_ValueChanged(null, null);
 
+            var possibleExtractionIssues = IssueNotes.Issue.None;
+            if (cbExactlyImprinting.Checked)
+                possibleExtractionIssues |= IssueNotes.Issue.ImprintingLocked;
+
+            // if values are entered manually, it could be a creature from a mod the user hasn't loaded in ASB
+            if (!statInputsHighPrecision)
+                possibleExtractionIssues |= IssueNotes.Issue.ModValues;
+
             if (imprintingBonusChanged && !autoExtraction)
-            {
-                _extractor.possibleIssues |= IssueNotes.Issue.ImprintingNotPossible;
-            }
+                possibleExtractionIssues |= IssueNotes.Issue.ImprintingNotPossible;
 
             bool everyStatHasAtLeastOneResult = _extractor.EveryStatHasAtLeastOneResult;
 
@@ -224,20 +226,20 @@ namespace ARKBreedingStats
             {
                 if (statIssue == -1)
                 {
-                    ExtractionFailed(IssueNotes.Issue.WildTamedBred
-                            | IssueNotes.Issue.CreatureLevel
-                            | (rbTamedExtractor.Checked ? IssueNotes.Issue.TamingEffectivenessRange : IssueNotes.Issue.None));
-                    ResumeLayout();
+                    ExtractionFailed(possibleExtractionIssues
+                                     | IssueNotes.Issue.WildTamedBred
+                                     | IssueNotes.Issue.CreatureLevel
+                                     | (rbTamedExtractor.Checked ? IssueNotes.Issue.TamingEffectivenessRange : IssueNotes.Issue.None));
                     return false;
                 }
-                _extractor.possibleIssues |= IssueNotes.Issue.Typo | IssueNotes.Issue.CreatureLevel;
+                possibleExtractionIssues |= IssueNotes.Issue.Typo | IssueNotes.Issue.CreatureLevel;
                 _statIOs[statIssue].Status = StatIOStatus.Error;
                 _statIOs[(int)StatNames.Torpidity].Status = StatIOStatus.Error;
             }
 
             // get mean-level (most probable for the wild levels)
             // TODO handle species without wild levels in speed better (some flyers)
-            double meanWildLevel = Math.Round((double)_extractor.levelWildSum / 7, 1);
+            double meanWildLevel = Math.Round((double)_extractor.LevelWildSum / 7, 1);
             bool nonUniqueStats = false;
 
             for (int s = 0; s < Values.STATS_COUNT; s++)
@@ -246,17 +248,17 @@ namespace ARKBreedingStats
                 {
                     _statIOs[s].Status = StatIOStatus.Neutral;
                 }
-                else if (_extractor.results[s].Any())
+                else if (_extractor.Results[s].Any())
                 {
                     if (existingCreature != null)
                     {
                         // set the wild levels to the existing ones
                         int r = 0;
-                        for (int b = 1; b < _extractor.results[s].Count; b++)
+                        for (int b = 1; b < _extractor.Results[s].Count; b++)
                         {
-                            if (_extractor.results[s][b].levelWild == existingCreature.levelsWild[s]
-                                && _extractor.results[s][b].levelDom >= existingCreature.levelsDom[s]
-                                && _extractor.results[s][b].TE.Includes(existingCreature.tamingEff))
+                            if (_extractor.Results[s][b].levelWild == existingCreature.levelsWild[s]
+                                && _extractor.Results[s][b].levelDom >= existingCreature.levelsDom[s]
+                                && _extractor.Results[s][b].TE.Includes(existingCreature.tamingEff))
                             {
                                 r = b;
                                 break;
@@ -268,15 +270,15 @@ namespace ARKBreedingStats
                     {
                         // choose the most probable wild-level, aka the level nearest to the mean of the wild levels.
                         int r = 0;
-                        for (int b = 1; b < _extractor.results[s].Count; b++)
+                        for (int b = 1; b < _extractor.Results[s].Count; b++)
                         {
-                            if (Math.Abs(meanWildLevel - _extractor.results[s][b].levelWild) < Math.Abs(meanWildLevel - _extractor.results[s][r].levelWild))
+                            if (Math.Abs(meanWildLevel - _extractor.Results[s][b].levelWild) < Math.Abs(meanWildLevel - _extractor.Results[s][r].levelWild))
                                 r = b;
                         }
 
                         SetLevelCombination(s, r);
                     }
-                    if (_extractor.results[s].Count > 1)
+                    if (_extractor.Results[s].Count > 1)
                     {
                         _statIOs[s].Status = StatIOStatus.NonUnique;
                         nonUniqueStats = true;
@@ -290,29 +292,28 @@ namespace ARKBreedingStats
                 {
                     // no results for this stat
                     _statIOs[s].Status = StatIOStatus.Error;
-                    _extractor.validResults = false;
-                    if (rbTamedExtractor.Checked && _extractor.statsWithTE.Contains(s))
+                    _extractor.ValidResults = false;
+                    if (rbTamedExtractor.Checked && _extractor.StatsWithTE.Contains(s))
                     {
-                        _extractor.possibleIssues |= IssueNotes.Issue.TamingEffectivenessRange;
+                        possibleExtractionIssues |= IssueNotes.Issue.TamingEffectivenessRange;
                     }
                     // if the stat is changed by singleplayer-settings, list that as a possible issue
                     if (s == (int)StatNames.Health
                         || s == (int)StatNames.MeleeDamageMultiplier)
                     {
-                        _extractor.possibleIssues |= IssueNotes.Issue.Singleplayer;
+                        possibleExtractionIssues |= IssueNotes.Issue.Singleplayer;
                     }
                 }
             }
-            if (!_extractor.validResults)
+            if (!_extractor.ValidResults)
             {
-                ExtractionFailed(IssueNotes.Issue.Typo | IssueNotes.Issue.WildTamedBred | IssueNotes.Issue.LockedDom |
-                        IssueNotes.Issue.OutdatedIngameValues | IssueNotes.Issue.ImprintingNotUpdated |
-                        (_statIOs[(int)StatNames.Torpidity].LevelWild >= (int)numericUpDownLevel.Value ? IssueNotes.Issue.CreatureLevel : IssueNotes.Issue.None));
-                ResumeLayout();
+                ExtractionFailed(possibleExtractionIssues | IssueNotes.Issue.Typo | IssueNotes.Issue.WildTamedBred | IssueNotes.Issue.LockedDom |
+                                 IssueNotes.Issue.OutdatedIngameValues | IssueNotes.Issue.ImprintingNotUpdated |
+                                 (_statIOs[(int)StatNames.Torpidity].LevelWild >= (int)numericUpDownLevel.Value ? IssueNotes.Issue.CreatureLevel : IssueNotes.Issue.None));
                 return false;
             }
-            _extractor.uniqueResults = !nonUniqueStats;
-            if (!_extractor.uniqueResults)
+            _extractor.UniqueResults = !nonUniqueStats;
+            if (!_extractor.UniqueResults)
             {
                 groupBoxPossibilities.Visible = true;
                 lbInfoYellowStats.Visible = true;
@@ -323,17 +324,17 @@ namespace ARKBreedingStats
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (s != (int)StatNames.Torpidity)
-                    domLevelsChosenSum += _extractor.results[s][_extractor.chosenResults[s]].levelDom;
+                    domLevelsChosenSum += _extractor.Results[s][_extractor.ChosenResults[s]].levelDom;
             }
-            if (domLevelsChosenSum != _extractor.levelDomSum)
+            if (domLevelsChosenSum != _extractor.LevelDomSum)
             {
                 // sum of domlevels is not correct. Try to find another combination
-                domLevelsChosenSum -= _extractor.results[(int)StatNames.MeleeDamageMultiplier][_extractor.chosenResults[(int)StatNames.MeleeDamageMultiplier]].levelDom;
+                domLevelsChosenSum -= _extractor.Results[(int)StatNames.MeleeDamageMultiplier][_extractor.ChosenResults[(int)StatNames.MeleeDamageMultiplier]].levelDom;
                 bool changeChosenResult = false;
                 int cR = 0;
-                for (int r = 0; r < _extractor.results[(int)StatNames.MeleeDamageMultiplier].Count; r++)
+                for (int r = 0; r < _extractor.Results[(int)StatNames.MeleeDamageMultiplier].Count; r++)
                 {
-                    if (domLevelsChosenSum + _extractor.results[(int)StatNames.MeleeDamageMultiplier][r].levelDom == _extractor.levelDomSum)
+                    if (domLevelsChosenSum + _extractor.Results[(int)StatNames.MeleeDamageMultiplier][r].levelDom == _extractor.LevelDomSum)
                     {
                         cR = r;
                         changeChosenResult = true;
@@ -344,7 +345,7 @@ namespace ARKBreedingStats
                     SetLevelCombination((int)StatNames.MeleeDamageMultiplier, cR);
             }
 
-            if (_extractor.postTamed)
+            if (_extractor.PostTamed)
                 SetUniqueTE();
             else
             {
@@ -354,14 +355,14 @@ namespace ARKBreedingStats
 
             SetWildSpeedLevelAccordingToOthers();
 
-            lbSumDomSB.Text = _extractor.levelDomSum.ToString();
+            lbSumDomSB.Text = _extractor.LevelDomSum.ToString();
             ShowSumOfChosenLevels();
             if (showLevelsInOverlay)
                 ShowLevelsInOverlay();
 
             SetActiveStat(activeStatKeeper);
 
-            if (!_extractor.postTamed)
+            if (!_extractor.PostTamed)
             {
                 labelFootnote.Text = Loc.S("lbNotYetTamed");
                 button2TamingCalc.Visible = true;
@@ -372,7 +373,6 @@ namespace ARKBreedingStats
                     : (int)numericUpDownLevel.Value);
             }
 
-            ResumeLayout();
             return true;
         }
 
@@ -410,7 +410,6 @@ namespace ARKBreedingStats
         /// <param name="issues"></param>
         private void ExtractionFailed(IssueNotes.Issue issues = IssueNotes.Issue.None)
         {
-            issues |= _extractor.possibleIssues; // add all issues that arised during extraction
             if (issues == IssueNotes.Issue.None)
             {
                 // set background of inputs to neutral
@@ -425,7 +424,6 @@ namespace ARKBreedingStats
                 llOnlineHelpExtractionIssues.Visible = false;
                 labelErrorHelp.Visible = false;
                 lbImprintingFailInfo.Visible = false; // TODO move imprinting-fail to upper note-info
-                _extractor.possibleIssues = IssueNotes.Issue.None;
                 PbCreatureColorsExtractor.Visible = true;
             }
             else
@@ -478,8 +476,7 @@ namespace ARKBreedingStats
                 if (rbTamedExtractor.Checked && _creatureCollection.considerWildLevelSteps)
                     issues |= IssueNotes.Issue.WildLevelSteps;
 
-                labelErrorHelp.Text = "The extraction failed. See the following list of possible causes:\n\n" +
-                        IssueNotes.getHelpTexts(issues);
+                labelErrorHelp.Text = $"{Loc.S("extractionFailedHeader")}:\n\n{IssueNotes.getHelpTexts(issues)}";
                 labelErrorHelp.Visible = true;
                 llOnlineHelpExtractionIssues.Visible = true;
                 groupBoxPossibilities.Visible = false;
@@ -518,7 +515,7 @@ namespace ARKBreedingStats
             if (te >= 0)
             {
                 labelTE.Text = $"Extracted: {Math.Round(100 * te, 2)} %";
-                if (rbTamedExtractor.Checked && _extractor.postTamed)
+                if (rbTamedExtractor.Checked && _extractor.PostTamed)
                     labelTE.Text += $" (wildlevel: {Creature.CalculatePreTameWildLevel(_statIOs[(int)StatNames.Torpidity].LevelWild + 1, te)})";
                 labelTE.BackColor = Color.Transparent;
             }
@@ -570,23 +567,23 @@ namespace ARKBreedingStats
         /// <param name="s"></param>
         private void SetPossibilitiesListview(int s)
         {
-            if (s < _extractor.results.Length)
+            if (s < _extractor.Results.Length)
             {
                 bool resultsValid = _extractor.FilterResultsByFixed(s) == -1;
-                for (int r = 0; r < _extractor.results[s].Count; r++)
+                for (int r = 0; r < _extractor.Results[s].Count; r++)
                 {
                     List<string> subItems = new List<string>();
-                    double te = Math.Round(_extractor.results[s][r].TE.Mean, 5);
-                    subItems.Add(_extractor.results[s][r].levelWild.ToString());
-                    subItems.Add(_extractor.results[s][r].levelDom.ToString());
+                    double te = Math.Round(_extractor.Results[s][r].TE.Mean, 5);
+                    subItems.Add(_extractor.Results[s][r].levelWild.ToString());
+                    subItems.Add(_extractor.Results[s][r].levelDom.ToString());
                     subItems.Add(te >= 0 ? (te * 100).ToString() : string.Empty);
 
-                    subItems.Add(te > 0 ? Creature.CalculatePreTameWildLevel(_extractor.levelWildSum + 1, te).ToString() : string.Empty);
+                    subItems.Add(te > 0 ? Creature.CalculatePreTameWildLevel(_extractor.LevelWildSum + 1, te).ToString() : string.Empty);
 
                     ListViewItem lvi = new ListViewItem(subItems.ToArray());
-                    if (!resultsValid || _extractor.results[s][r].currentlyNotValid)
+                    if (!resultsValid || _extractor.Results[s][r].currentlyNotValid)
                         lvi.BackColor = Color.LightSalmon;
-                    if (_extractor.fixedResults[s] && _extractor.chosenResults[s] == r)
+                    if (_extractor.FixedResults[s] && _extractor.ChosenResults[s] == r)
                     {
                         lvi.BackColor = Color.LightSkyBlue;
                     }
@@ -606,11 +603,11 @@ namespace ARKBreedingStats
                 if (index >= 0 && _activeStatIndex >= 0)
                 {
                     SetLevelCombination(_activeStatIndex, index, true);
-                    _extractor.fixedResults[_activeStatIndex] = true;
+                    _extractor.FixedResults[_activeStatIndex] = true;
                 }
             }
             else if (_activeStatIndex >= 0)
-                _extractor.fixedResults[_activeStatIndex] = false;
+                _extractor.FixedResults[_activeStatIndex] = false;
         }
 
         /// <summary>
@@ -621,10 +618,10 @@ namespace ARKBreedingStats
         /// <param name="validateCombination"></param>
         private void SetLevelCombination(int s, int i, bool validateCombination = false)
         {
-            _statIOs[s].LevelWild = _extractor.results[s][i].levelWild;
-            _statIOs[s].LevelDom = _extractor.results[s][i].levelDom;
-            _statIOs[s].BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, s, _extractor.results[s][i].levelWild, 0, true, 1, 0);
-            _extractor.chosenResults[s] = i;
+            _statIOs[s].LevelWild = _extractor.Results[s][i].levelWild;
+            _statIOs[s].LevelDom = _extractor.Results[s][i].levelDom;
+            _statIOs[s].BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, s, _extractor.Results[s][i].levelWild, 0, true, 1, 0);
+            _extractor.ChosenResults[s] = i;
             if (validateCombination)
             {
                 SetUniqueTE();
@@ -679,7 +676,7 @@ namespace ARKBreedingStats
             bool header = true;
             bool table = MessageBox.Show("Results can be copied as own table or as a long table-row. Should it be copied as own table?",
                     "Copy as own table?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
-            if (_extractor.validResults && speciesSelector1.SelectedSpecies != null)
+            if (_extractor.ValidResults && speciesSelector1.SelectedSpecies != null)
             {
                 List<string> tsv = new List<string>();
                 string rowLevel = speciesSelector1.SelectedSpecies.name + "\t\t";
@@ -706,7 +703,7 @@ namespace ARKBreedingStats
                 }
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
-                    if (_extractor.chosenResults[s] < _extractor.results[s].Count)
+                    if (_extractor.ChosenResults[s] < _extractor.Results[s].Count)
                     {
                         string breedingV = string.Empty;
                         if (_activeStats[s])

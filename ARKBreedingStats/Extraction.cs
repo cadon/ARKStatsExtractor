@@ -11,43 +11,43 @@ namespace ARKBreedingStats
 {
     public class Extraction
     {
-        public readonly List<StatResult>[] results = new List<StatResult>[Values.STATS_COUNT]; // stores the possible results of all stats as array (wildlevel, domlevel, tamingEff)
-        public readonly int[] chosenResults;
-        public readonly bool[] fixedResults;
-        public readonly List<int> statsWithTE;
+        public readonly List<StatResult>[] Results = new List<StatResult>[Values.STATS_COUNT]; // stores the possible results of all stats as array (wildlevel, domlevel, tamingEff)
+        public readonly int[] ChosenResults;
+        public readonly bool[] FixedResults;
+        public readonly List<int> StatsWithTE;
         /// <summary>
         /// The selected results are valid regarding their level sums.
         /// </summary>
-        public bool validResults;
+        public bool ValidResults;
         /// <summary>
         /// All stats have only 1 possible combination.
         /// </summary>
-        public bool uniqueResults;
-        public bool postTamed;
-        private bool bred;
+        public bool UniqueResults;
+        public bool PostTamed;
+        private bool _bred;
         // lower/upper possible Bound of each stat (wild has no upper bound as wild-speed and sometimes oxygen is unknown,
         // and could be up to levelWildSum, so no results could be filtered out)
-        private readonly int[] lowerBoundWilds;
-        private readonly int[] lowerBoundDoms;
-        private readonly int[] upperBoundDoms;
-        private int levelsUndeterminedWild, levelsUndeterminedDom;
-        public int levelWildSum, levelDomSum;
-        public bool lastTEUnique;
-        private MinMaxDouble imprintingBonusRange;
-        public IssueNotes.Issue possibleIssues; // possible issues during the extraction, will be shown if extraction failed
+        private readonly int[] _lowerBoundWilds;
+        private readonly int[] _lowerBoundDoms;
+        private readonly int[] _upperBoundDoms;
+        private int _levelsUndeterminedWild;
+        private int _levelsUndeterminedDom;
+        public int LevelWildSum;
+        public int LevelDomSum;
+        private MinMaxDouble _imprintingBonusRange;
 
         public Extraction()
         {
-            fixedResults = new bool[Values.STATS_COUNT];
-            chosenResults = new int[Values.STATS_COUNT];
-            statsWithTE = new List<int>();
-            lowerBoundWilds = new int[Values.STATS_COUNT];
-            lowerBoundDoms = new int[Values.STATS_COUNT];
-            upperBoundDoms = new int[Values.STATS_COUNT];
+            FixedResults = new bool[Values.STATS_COUNT];
+            ChosenResults = new int[Values.STATS_COUNT];
+            StatsWithTE = new List<int>();
+            _lowerBoundWilds = new int[Values.STATS_COUNT];
+            _lowerBoundDoms = new int[Values.STATS_COUNT];
+            _upperBoundDoms = new int[Values.STATS_COUNT];
 
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                results[s] = new List<StatResult>();
+                Results[s] = new List<StatResult>();
             }
         }
 
@@ -55,21 +55,19 @@ namespace ARKBreedingStats
         {
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                chosenResults[s] = 0;
-                fixedResults[s] = false;
-                results[s].Clear();
-                lowerBoundWilds[s] = 0;
-                lowerBoundDoms[s] = 0;
-                upperBoundDoms[s] = 0;
+                ChosenResults[s] = 0;
+                FixedResults[s] = false;
+                Results[s].Clear();
+                _lowerBoundWilds[s] = 0;
+                _lowerBoundDoms[s] = 0;
+                _upperBoundDoms[s] = 0;
             }
-            validResults = false;
-            uniqueResults = false;
-            statsWithTE.Clear();
-            imprintingBonusRange = new MinMaxDouble(0);
-            levelWildSum = 0;
-            levelDomSum = 0;
-            lastTEUnique = false;
-            possibleIssues = IssueNotes.Issue.None;
+            ValidResults = false;
+            UniqueResults = false;
+            StatsWithTE.Clear();
+            _imprintingBonusRange = new MinMaxDouble(0);
+            LevelWildSum = 0;
+            LevelDomSum = 0;
         }
 
         /// <summary>
@@ -97,7 +95,7 @@ namespace ARKBreedingStats
             bool considerWildLevelSteps, int wildLevelSteps, bool highPrecisionInputs, out bool imprintingChanged)
         {
             List<CreatureStat> stats = species.stats;
-            validResults = true;
+            ValidResults = true;
             imprintingChanged = false;
             considerWildLevelSteps = considerWildLevelSteps
                 && !bred
@@ -105,8 +103,8 @@ namespace ARKBreedingStats
                 && species.name != "Jerboa"
                 ;
 
-            this.bred = bred;
-            postTamed = bred || tamed;
+            this._bred = bred;
+            PostTamed = bred || tamed;
 
             List<MinMaxDouble> imprintingBonusList = new List<MinMaxDouble> { new MinMaxDouble(0) };
             if (bred)
@@ -123,8 +121,8 @@ namespace ARKBreedingStats
 
             for (int IBi = 0; IBi < imprintingBonusList.Count; IBi++)
             {
-                imprintingBonusRange = imprintingBonusList[IBi];
-                imprintingBonusRange.SetToIntersectionWith(0, (allowMoreThanHundredImprinting ? 5 : 1)); // it's assumed that a valid IB will not be larger than 500%
+                _imprintingBonusRange = imprintingBonusList[IBi];
+                _imprintingBonusRange.SetToIntersectionWith(0, (allowMoreThanHundredImprinting ? 5 : 1)); // it's assumed that a valid IB will not be larger than 500%
 
 
                 var imprintingMultiplierRanges = new MinMaxDouble[Values.STATS_COUNT];
@@ -132,21 +130,21 @@ namespace ARKBreedingStats
                 {
                     double statImprintingMultiplier = species.StatImprintMultipliers[s];
                     imprintingMultiplierRanges[s] = statImprintingMultiplier != 0
-                        ? new MinMaxDouble(1 + imprintingBonusRange.Min * imprintingBonusMultiplier * statImprintingMultiplier,
-                                           1 + imprintingBonusRange.Max * imprintingBonusMultiplier * statImprintingMultiplier)
+                        ? new MinMaxDouble(1 + _imprintingBonusRange.Min * imprintingBonusMultiplier * statImprintingMultiplier,
+                                           1 + _imprintingBonusRange.Max * imprintingBonusMultiplier * statImprintingMultiplier)
                         : new MinMaxDouble(1);
                 }
 
-                var levelWildSumRange = new MinMaxInt((int)Math.Round((statIOs[(int)StatNames.Torpidity].Input / imprintingMultiplierRanges[(int)StatNames.Torpidity].Max - (postTamed ? stats[(int)StatNames.Torpidity].AddWhenTamed : 0) - stats[(int)StatNames.Torpidity].BaseValue) / (stats[(int)StatNames.Torpidity].BaseValue * stats[(int)StatNames.Torpidity].IncPerWildLevel)),
-                                                      (int)Math.Round((statIOs[(int)StatNames.Torpidity].Input / imprintingMultiplierRanges[(int)StatNames.Torpidity].Min - (postTamed ? stats[(int)StatNames.Torpidity].AddWhenTamed : 0) - stats[(int)StatNames.Torpidity].BaseValue) / (stats[(int)StatNames.Torpidity].BaseValue * stats[(int)StatNames.Torpidity].IncPerWildLevel)));
+                var levelWildSumRange = new MinMaxInt((int)Math.Round((statIOs[(int)StatNames.Torpidity].Input / imprintingMultiplierRanges[(int)StatNames.Torpidity].Max - (PostTamed ? stats[(int)StatNames.Torpidity].AddWhenTamed : 0) - stats[(int)StatNames.Torpidity].BaseValue) / (stats[(int)StatNames.Torpidity].BaseValue * stats[(int)StatNames.Torpidity].IncPerWildLevel)),
+                                                      (int)Math.Round((statIOs[(int)StatNames.Torpidity].Input / imprintingMultiplierRanges[(int)StatNames.Torpidity].Min - (PostTamed ? stats[(int)StatNames.Torpidity].AddWhenTamed : 0) - stats[(int)StatNames.Torpidity].BaseValue) / (stats[(int)StatNames.Torpidity].BaseValue * stats[(int)StatNames.Torpidity].IncPerWildLevel)));
                 var levelDomSumRange = new MinMaxInt(Math.Max(0, level - 1 - levelWildSumRange.Max),
                                                      Math.Max(0, level - 1 - levelWildSumRange.Min));
 
-                levelWildSum = levelWildSumRange.Min;
-                levelDomSum = levelDomSumRange.Min; // TODO implement range-mechanic
+                LevelWildSum = levelWildSumRange.Min;
+                LevelDomSum = levelDomSumRange.Min; // TODO implement range-mechanic
 
-                levelsUndeterminedWild = levelWildSum;
-                levelsUndeterminedDom = levelDomSum;
+                _levelsUndeterminedWild = LevelWildSum;
+                _levelsUndeterminedDom = LevelDomSum;
 
                 if (bred)
                 {
@@ -169,16 +167,16 @@ namespace ARKBreedingStats
                 {
                     if (!species.UsesStat(s))
                     {
-                        results[s].Add(new StatResult(0, 0));
+                        Results[s].Add(new StatResult(0, 0));
                         continue;
                     }
                     if (statIOs[s].Input <= 0) // if stat is unknown (e.g. oxygen sometimes is not shown)
                     {
-                        results[s].Add(new StatResult(-1, 0));
+                        Results[s].Add(new StatResult(-1, 0));
                         continue;
                     }
 
-                    statIOs[s].postTame = postTamed;
+                    statIOs[s].postTame = PostTamed;
 
                     // determine the precision of the input value
                     float toleranceForThisStat = StatValueCalculation.DisplayedAberration(statIOs[s].Input, Utils.Precision(s), highPrecisionInputs);
@@ -186,17 +184,17 @@ namespace ARKBreedingStats
 
                     MinMaxDouble inputValue = new MinMaxDouble(statIOs[s].Input - toleranceForThisStat, statIOs[s].Input + toleranceForThisStat);
                     double statBaseValue = stats[s].BaseValue;
-                    if (postTamed && s == (int)StatNames.Health) statBaseValue *= (double)species.TamedBaseHealthMultiplier;// + 0.00000000001; // todo double-precision handling
+                    if (PostTamed && s == (int)StatNames.Health) statBaseValue *= (double)species.TamedBaseHealthMultiplier;// + 0.00000000001; // todo double-precision handling
 
-                    bool withTEff = (postTamed && stats[s].MultAffinity > 0);
-                    if (withTEff) { statsWithTE.Add(s); }
+                    bool withTEff = (PostTamed && stats[s].MultAffinity > 0);
+                    if (withTEff) { StatsWithTE.Add(s); }
 
                     int minLW = 0;
                     int maxLW;
                     if (stats[s].IncPerWildLevel > 0)
                     {
                         double multAffinityFactor = stats[s].MultAffinity;
-                        if (postTamed)
+                        if (PostTamed)
                         {
                             // the multiplicative bonus is only multiplied with the TE if it is positive (i.e. negative boni won't get less bad if the TE is low)
                             if (multAffinityFactor > 0)
@@ -205,17 +203,17 @@ namespace ARKBreedingStats
                         }
                         else
                             multAffinityFactor = 1;
-                        maxLW = (int)Math.Round(((inputValue.Max / multAffinityFactor - (postTamed ? stats[s].AddWhenTamed : 0)) / statBaseValue - 1) / stats[s].IncPerWildLevel); // floor is too unprecise
+                        maxLW = (int)Math.Round(((inputValue.Max / multAffinityFactor - (PostTamed ? stats[s].AddWhenTamed : 0)) / statBaseValue - 1) / stats[s].IncPerWildLevel); // floor is too unprecise
                     }
                     else
                     {
                         minLW = -1;
                         maxLW = -1;
                     }
-                    if (maxLW > levelWildSum) { maxLW = levelWildSum; }
+                    if (maxLW > LevelWildSum) { maxLW = LevelWildSum; }
 
                     double maxLD = 0;
-                    if (!statIOs[s].DomLevelLockedZero && postTamed && species.DisplaysStat(s) && stats[s].IncPerTamedLevel > 0)
+                    if (!statIOs[s].DomLevelLockedZero && PostTamed && species.DisplaysStat(s) && stats[s].IncPerTamedLevel > 0)
                     {
                         int ww = 0; // base wild level for the tamed creature needed to be alive
                         if (statBaseValue + stats[s].AddWhenTamed < 0)
@@ -229,7 +227,7 @@ namespace ARKBreedingStats
                         }
                         maxLD = Math.Round((inputValue.Max / ((statBaseValue * (1 + stats[s].IncPerWildLevel * ww) + stats[s].AddWhenTamed) * (1 + lowerTEBound * stats[s].MultAffinity)) - 1) / stats[s].IncPerTamedLevel); //floor is sometimes too low
                     }
-                    if (maxLD > levelsUndeterminedDom) maxLD = levelsUndeterminedDom;
+                    if (maxLD > _levelsUndeterminedDom) maxLD = _levelsUndeterminedDom;
                     if (maxLD < 0) maxLD = 0;
 
                     MinMaxDouble statImprintingMultiplierRange = new MinMaxDouble(1);
@@ -245,19 +243,19 @@ namespace ARKBreedingStats
                         if (stats[s].IncPerWildLevel == 0)
                         {
                             // check if the input value is valid
-                            MinMaxDouble possibleStatValues = new MinMaxDouble(StatValueCalculation.CalculateValue(species, s, 0, 0, postTamed, lowerTEBound, imprintingBonusRange.Min, false),
-                                StatValueCalculation.CalculateValue(species, s, 0, 0, postTamed, upperTEBound, imprintingBonusRange.Max, false));
+                            MinMaxDouble possibleStatValues = new MinMaxDouble(StatValueCalculation.CalculateValue(species, s, 0, 0, PostTamed, lowerTEBound, _imprintingBonusRange.Min, false),
+                                StatValueCalculation.CalculateValue(species, s, 0, 0, PostTamed, upperTEBound, _imprintingBonusRange.Max, false));
                             if (inputValue.Overlaps(possibleStatValues))
-                                results[s].Add(new StatResult(0, 0, inputValue.Mean));
+                                Results[s].Add(new StatResult(0, 0, inputValue.Mean));
                         }
                         else
                         {
-                            MinMaxDouble lwRange = new MinMaxDouble(((inputValue.Min / (postTamed ? 1 + stats[s].MultAffinity : 1) - (postTamed ? stats[s].AddWhenTamed : 0)) / (statBaseValue * statImprintingMultiplierRange.Max) - 1) / stats[s].IncPerWildLevel,
-                                                                    ((inputValue.Max / (postTamed ? 1 + stats[s].MultAffinity : 1) - (postTamed ? stats[s].AddWhenTamed : 0)) / (statBaseValue * statImprintingMultiplierRange.Min) - 1) / stats[s].IncPerWildLevel);
+                            MinMaxDouble lwRange = new MinMaxDouble(((inputValue.Min / (PostTamed ? 1 + stats[s].MultAffinity : 1) - (PostTamed ? stats[s].AddWhenTamed : 0)) / (statBaseValue * statImprintingMultiplierRange.Max) - 1) / stats[s].IncPerWildLevel,
+                                                                    ((inputValue.Max / (PostTamed ? 1 + stats[s].MultAffinity : 1) - (PostTamed ? stats[s].AddWhenTamed : 0)) / (statBaseValue * statImprintingMultiplierRange.Min) - 1) / stats[s].IncPerWildLevel);
                             int lw = (int)Math.Round(lwRange.Mean);
                             if (lwRange.Includes(lw) && lw >= 0 && lw <= maxLW)
                             {
-                                results[s].Add(new StatResult(lw, 0, inputValue.Mean));
+                                Results[s].Add(new StatResult(lw, 0, inputValue.Mean));
                             }
                         }
                         // even if no result was found, there is no other valid
@@ -267,31 +265,31 @@ namespace ARKBreedingStats
                     for (int lw = minLW; lw < maxLW + 1; lw++)
                     {
                         // imprinting bonus is applied to all stats except stamina (s==1) and oxygen (s==2) and speed (s==6)
-                        MinMaxDouble valueWODomRange = new MinMaxDouble(statBaseValue * (1 + stats[s].IncPerWildLevel * lw) * statImprintingMultiplierRange.Min + (postTamed ? stats[s].AddWhenTamed : 0),
-                                                                        statBaseValue * (1 + stats[s].IncPerWildLevel * lw) * statImprintingMultiplierRange.Max + (postTamed ? stats[s].AddWhenTamed : 0)); // value without domesticated levels
+                        MinMaxDouble valueWODomRange = new MinMaxDouble(statBaseValue * (1 + stats[s].IncPerWildLevel * lw) * statImprintingMultiplierRange.Min + (PostTamed ? stats[s].AddWhenTamed : 0),
+                                                                        statBaseValue * (1 + stats[s].IncPerWildLevel * lw) * statImprintingMultiplierRange.Max + (PostTamed ? stats[s].AddWhenTamed : 0)); // value without domesticated levels
                         if (!withTEff)
                         {
                             // calculate the only possible Ld, if it's an integer, take it.
                             if (stats[s].IncPerTamedLevel > 0)
                             {
-                                MinMaxDouble ldRange = new MinMaxDouble((inputValue.Min / (valueWODomRange.Max * (postTamed ? 1 + stats[s].MultAffinity : 1)) - 1) / stats[s].IncPerTamedLevel,
-                                                                        (inputValue.Max / (valueWODomRange.Min * (postTamed ? 1 + stats[s].MultAffinity : 1)) - 1) / stats[s].IncPerTamedLevel);
+                                MinMaxDouble ldRange = new MinMaxDouble((inputValue.Min / (valueWODomRange.Max * (PostTamed ? 1 + stats[s].MultAffinity : 1)) - 1) / stats[s].IncPerTamedLevel,
+                                                                        (inputValue.Max / (valueWODomRange.Min * (PostTamed ? 1 + stats[s].MultAffinity : 1)) - 1) / stats[s].IncPerTamedLevel);
                                 int ld = (int)Math.Round(ldRange.Mean);
                                 if (ldRange.Includes(ld) && ld >= 0 && ld <= maxLD)
                                 {
-                                    results[s].Add(new StatResult(lw, ld, inputValue.Mean));
+                                    Results[s].Add(new StatResult(lw, ld, inputValue.Mean));
                                 }
                             }
                             else
                             {
-                                results[s].Add(new StatResult(lw, 0, inputValue.Mean));
+                                Results[s].Add(new StatResult(lw, 0, inputValue.Mean));
                             }
                         }
                         else
                         {
                             for (int ld = 0; ld <= maxLD; ld++)
                             {
-                                // taming bonus is dependant on taming-effectiveness
+                                // taming bonus is dependent on taming-effectiveness
                                 // get tamingEffectiveness-possibility
                                 // calculate rounding-error thresholds. Here it's assumed that the displayed ingame value is maximal 0.5 off of the true ingame value
                                 MinMaxDouble tamingEffectiveness = new MinMaxDouble((inputValue.Min / (1 + stats[s].IncPerTamedLevel * ld) - valueWODomRange.Max) / (valueWODomRange.Max * stats[s].MultAffinity),
@@ -309,7 +307,7 @@ namespace ARKBreedingStats
                                 if (!bred)
                                 {
                                     // check if the totalLevel and the TE is possible by using the TE-levelbonus (credits for this check which sorts out more impossible results: https://github.com/VolatilePulse , thanks!)
-                                    int levelPostTame = levelWildSum + 1;
+                                    int levelPostTame = LevelWildSum + 1;
                                     MinMaxInt levelPreTameRange = new MinMaxInt(Creature.CalculatePreTameWildLevel(levelPostTame, tamingEffectiveness.Max),
                                                                            Creature.CalculatePreTameWildLevel(levelPostTame, tamingEffectiveness.Min));
 
@@ -341,23 +339,23 @@ namespace ARKBreedingStats
                                         if (!validWildLevel) continue;
                                     }
 
-                                    // if another stat already is dependant on TE, check if this TE overlaps any of their TE-ranges. If not, TE is not possible (a creature can only have the same TE for all TE-dependant stats)
-                                    if (statsWithTE.Count > 1)
+                                    // if another stat already is dependent on TE, check if this TE overlaps any of their TE-ranges. If not, TE is not possible (a creature can only have the same TE for all TE-dependent stats)
+                                    if (StatsWithTE.Count > 1)
                                     {
-                                        bool TEExistant = false;
-                                        for (int er = 0; er < results[statsWithTE[0]].Count; er++)
+                                        bool teExistent = false;
+                                        for (int er = 0; er < Results[StatsWithTE[0]].Count; er++)
                                         {
-                                            if (tamingEffectiveness.Overlaps(results[statsWithTE[0]][er].TE))
+                                            if (tamingEffectiveness.Overlaps(Results[StatsWithTE[0]][er].TE))
                                             {
-                                                TEExistant = true;
+                                                teExistent = true;
                                                 break;
                                             }
                                         }
-                                        if (!TEExistant) continue;
+                                        if (!teExistent) continue;
                                     }
                                 }
 
-                                results[s].Add(new StatResult(lw, ld, inputValue.Mean, tamingEffectiveness));
+                                Results[s].Add(new StatResult(lw, ld, inputValue.Mean, tamingEffectiveness));
                             }
                         }
                     }
@@ -375,7 +373,7 @@ namespace ARKBreedingStats
                     {
                         // not all stats got a result, clear results for the next round
                         Clear();
-                        validResults = true;
+                        ValidResults = true;
                     }
                 }
             }
@@ -400,7 +398,7 @@ namespace ARKBreedingStats
                 (int)Math.Round(((((torpor / (1 + species.stats[(int)StatNames.Torpidity].MultAffinity)) - species.stats[(int)StatNames.Torpidity].AddWhenTamed) / ((1 + (imprintingBonusRounded + 0.005) * statImprintMultipliers[(int)StatNames.Torpidity] * imprintingBonusMultiplier) * species.stats[(int)StatNames.Torpidity].BaseValue)) - 1) / species.stats[(int)StatNames.Torpidity].IncPerWildLevel),
                 (int)Math.Round(((((torpor / (1 + species.stats[(int)StatNames.Torpidity].MultAffinity)) - species.stats[(int)StatNames.Torpidity].AddWhenTamed) / ((1 + (imprintingBonusRounded - 0.005) * statImprintMultipliers[(int)StatNames.Torpidity] * imprintingBonusMultiplier) * species.stats[(int)StatNames.Torpidity].BaseValue)) - 1) / species.stats[(int)StatNames.Torpidity].IncPerWildLevel));
 
-            // assuming food has no dom-levels, extract the exact imprinting from this stat. If the range is in the range of the torpor-dependant IB, take this more precise value for the imprinting. (food has higher values and yields more precise results)
+            // assuming food has no dom-levels, extract the exact imprinting from this stat. If the range is in the range of the torpor-dependent IB, take this more precise value for the imprinting. (food has higher values and yields more precise results)
             MinMaxInt wildLevelsFromImprintedFood = new MinMaxInt(
                 (int)Math.Round(((((food / (1 + species.stats[(int)StatNames.Food].MultAffinity)) - species.stats[(int)StatNames.Food].AddWhenTamed) / ((1 + (imprintingBonusRounded + 0.005) * statImprintMultipliers[(int)StatNames.Food] * imprintingBonusMultiplier) * species.stats[(int)StatNames.Food].BaseValue)) - 1) / species.stats[(int)StatNames.Food].IncPerWildLevel),
                 (int)Math.Round(((((food / (1 + species.stats[(int)StatNames.Food].MultAffinity)) - species.stats[(int)StatNames.Food].AddWhenTamed) / ((1 + (imprintingBonusRounded - 0.005) * statImprintMultipliers[(int)StatNames.Food] * imprintingBonusMultiplier) * species.stats[(int)StatNames.Food].BaseValue)) - 1) / species.stats[(int)StatNames.Food].IncPerWildLevel));
@@ -449,7 +447,7 @@ namespace ARKBreedingStats
                     support++;
                 }
 
-                // TODO check if this range has already been added to avoid double loops in the extraction. if existant, update support
+                // TODO check if this range has already been added to avoid double loops in the extraction. if existent, update support
                 imprintingBonusList.Add(imprintingBonusRange);
                 otherStatsSupportIB.Add(support);
             }
@@ -460,23 +458,23 @@ namespace ARKBreedingStats
 
         public void RemoveImpossibleTEsAccordingToMaxWildLevel(int maxWildLevel)
         {
-            if (!bred
+            if (!_bred
                 && maxWildLevel > 0
-                && levelWildSum + 1 > maxWildLevel)
+                && LevelWildSum + 1 > maxWildLevel)
             {
-                double minTECheck = 2d * (levelWildSum + 1 - maxWildLevel) / maxWildLevel;
+                double minTECheck = 2d * (LevelWildSum + 1 - maxWildLevel) / maxWildLevel;
 
                 // if min TE is equal or greater than 1, that indicates it can't possibly be anything but bred, and there cannot be any results that should be sorted out
                 if (minTECheck < 1)
                 {
                     for (int s = 0; s < Values.STATS_COUNT; s++)
                     {
-                        if (results[s].Count == 0 || results[s][0].TE.Max < 0)
+                        if (Results[s].Count == 0 || Results[s][0].TE.Max < 0)
                             continue;
-                        for (int r = 0; r < results[s].Count; r++)
+                        for (int r = 0; r < Results[s].Count; r++)
                         {
-                            if (results[s][r].TE.Max < minTECheck)
-                                results[s].RemoveAt(r--);
+                            if (Results[s][r].TE.Max < minTECheck)
+                                Results[s].RemoveAt(r--);
                         }
                     }
                 }
@@ -492,19 +490,19 @@ namespace ARKBreedingStats
         {
             statError = -1;
 
-            levelsUndeterminedWild = levelWildSum;
-            levelsUndeterminedDom = levelDomSum;
-            // substract all uniquely solved stat-levels from possible max and min of sum
+            _levelsUndeterminedWild = LevelWildSum;
+            _levelsUndeterminedDom = LevelDomSum;
+            // subtract all uniquely solved stat-levels from possible max and min of sum
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (s == (int)StatNames.Torpidity) continue;
                 AdjustBoundsToStatResults(s);
             }
-            if (levelsUndeterminedWild < lowerBoundWilds.Sum() || levelsUndeterminedDom < lowerBoundDoms.Sum())
+            if (_levelsUndeterminedWild < _lowerBoundWilds.Sum() || _levelsUndeterminedDom < _lowerBoundDoms.Sum())
             {
                 Clear();
-                validResults = false;
-                return validResults;
+                ValidResults = false;
+                return ValidResults;
             }
 
             // remove all results that violate restrictions
@@ -519,33 +517,33 @@ namespace ARKBreedingStats
                     for (int s = 0; s < Values.STATS_COUNT; s++)
                     {
                         if (s == (int)StatNames.Torpidity) continue;
-                        for (int r = 0; r < results[s].Count; r++)
+                        for (int r = 0; r < Results[s].Count; r++)
                         {
-                            if (results[s].Count > 1
-                                && (results[s][r].levelWild > levelsUndeterminedWild - lowerBoundWilds.Sum() + lowerBoundWilds[s]
-                                 || results[s][r].levelDom > levelsUndeterminedDom - lowerBoundDoms.Sum() + lowerBoundDoms[s]
-                                 || results[s][r].levelDom < levelsUndeterminedDom - upperBoundDoms.Sum() + upperBoundDoms[s]))
+                            if (Results[s].Count > 1
+                                && (Results[s][r].levelWild > _levelsUndeterminedWild - _lowerBoundWilds.Sum() + _lowerBoundWilds[s]
+                                 || Results[s][r].levelDom > _levelsUndeterminedDom - _lowerBoundDoms.Sum() + _lowerBoundDoms[s]
+                                 || Results[s][r].levelDom < _levelsUndeterminedDom - _upperBoundDoms.Sum() + _upperBoundDoms[s]))
                             {
                                 // if the sorted out result could affect the bounds, set the bounds again
-                                bool adjustBounds = results[s][r].levelWild == lowerBoundWilds[s]
-                                                   || results[s][r].levelDom == lowerBoundDoms[s]
-                                                   || results[s][r].levelDom == upperBoundDoms[s];
+                                bool adjustBounds = Results[s][r].levelWild == _lowerBoundWilds[s]
+                                                   || Results[s][r].levelDom == _lowerBoundDoms[s]
+                                                   || Results[s][r].levelDom == _upperBoundDoms[s];
 
                                 // remove result that violated the restrictions
-                                results[s].RemoveAt(r--);
+                                Results[s].RemoveAt(r--);
 
                                 // if result gets unique due to this, check if remaining result doesn't violate for max level
-                                if (results[s].Count == 1 || adjustBounds)
+                                if (Results[s].Count == 1 || adjustBounds)
                                 {
                                     filterBoundsAgain = AdjustBoundsToStatResults(s) || filterBoundsAgain;
 
                                     // check if undeterminedLevels are too low
-                                    if (levelsUndeterminedWild < 0 || levelsUndeterminedDom < 0)
+                                    if (_levelsUndeterminedWild < 0 || _levelsUndeterminedDom < 0)
                                     {
-                                        results[s].Clear();
-                                        validResults = false;
+                                        Results[s].Clear();
+                                        ValidResults = false;
                                         statError = s; // this stat has an issue (no valid results)
-                                        return validResults;
+                                        return ValidResults;
                                     }
                                 }
                             }
@@ -553,22 +551,22 @@ namespace ARKBreedingStats
                     }
                 } while (filterBoundsAgain);
 
-                // if more than one parameter is affected by tamingEffectiveness filter out all numbers that occure not in all
+                // if more than one parameter is affected by tamingEffectiveness filter out all numbers that occur not in all
                 // if creature is bred, all TE is 1 anyway, no need to filter then
-                if (!bred && statsWithTE.Count > 1)
+                if (!_bred && StatsWithTE.Count > 1)
                 {
-                    for (int es = 0; es < statsWithTE.Count - 1; es++)
+                    for (int es = 0; es < StatsWithTE.Count - 1; es++)
                     {
-                        for (int et = es + 1; et < statsWithTE.Count; et++)
+                        for (int et = es + 1; et < StatsWithTE.Count; et++)
                         {
                             List<int> equalEffs1 = new List<int>();
                             List<int> equalEffs2 = new List<int>();
-                            for (int ere = 0; ere < results[statsWithTE[es]].Count; ere++)
+                            for (int ere = 0; ere < Results[StatsWithTE[es]].Count; ere++)
                             {
-                                for (int erf = 0; erf < results[statsWithTE[et]].Count; erf++)
+                                for (int erf = 0; erf < Results[StatsWithTE[et]].Count; erf++)
                                 {
                                     // test if the TE-ranges overlap each other, if yes, add them to whitelist
-                                    if (results[statsWithTE[es]][ere].TE.Overlaps(results[statsWithTE[et]][erf].TE))
+                                    if (Results[StatsWithTE[es]][ere].TE.Overlaps(Results[StatsWithTE[et]][erf].TE))
                                     {
                                         if (!equalEffs1.Contains(ere)) equalEffs1.Add(ere);
                                         if (!equalEffs2.Contains(erf)) equalEffs2.Add(erf);
@@ -580,42 +578,42 @@ namespace ARKBreedingStats
                             List<StatResult> validResults1 = new List<StatResult>();
                             foreach (int ev in equalEffs1)
                             {
-                                validResults1.Add(results[statsWithTE[es]][ev]);
+                                validResults1.Add(Results[StatsWithTE[es]][ev]);
                             }
                             // replace long list with (hopefully) shorter list with valid entries
-                            int oldResultCount = results[statsWithTE[es]].Count;
-                            results[statsWithTE[es]] = validResults1;
-                            bool resultsRemoved1 = (oldResultCount != results[statsWithTE[es]].Count);
+                            int oldResultCount = Results[StatsWithTE[es]].Count;
+                            Results[StatsWithTE[es]] = validResults1;
+                            bool resultsRemoved1 = (oldResultCount != Results[StatsWithTE[es]].Count);
                             if (resultsRemoved1)
                             {
-                                filterBoundsAndTEAgain = AdjustBoundsToStatResults(statsWithTE[es]);
+                                filterBoundsAndTEAgain = AdjustBoundsToStatResults(StatsWithTE[es]);
                             }
 
                             List<StatResult> validResults2 = new List<StatResult>();
                             foreach (int ev in equalEffs2)
                             {
-                                validResults2.Add(results[statsWithTE[et]][ev]);
+                                validResults2.Add(Results[StatsWithTE[et]][ev]);
                             }
-                            oldResultCount = results[statsWithTE[et]].Count;
-                            results[statsWithTE[et]] = validResults2;
-                            bool resultsRemoved2 = (oldResultCount != results[statsWithTE[et]].Count);
+                            oldResultCount = Results[StatsWithTE[et]].Count;
+                            Results[StatsWithTE[et]] = validResults2;
+                            bool resultsRemoved2 = (oldResultCount != Results[StatsWithTE[et]].Count);
                             if (resultsRemoved2)
                             {
-                                filterBoundsAndTEAgain = AdjustBoundsToStatResults(statsWithTE[et]) || filterBoundsAndTEAgain;
+                                filterBoundsAndTEAgain = AdjustBoundsToStatResults(StatsWithTE[et]) || filterBoundsAndTEAgain;
                             }
 
                             if ((resultsRemoved1 || resultsRemoved2) && et > 1)
                             {
                                 // if  results were removed after the comparison of the first two statsWithTE, start over.
-                                // This case doesn't happen for now, because only food and melee are dependant on TE, i.e. statsWithTE.Count <= 2.
+                                // This case doesn't happen for now, because only food and melee are dependent on TE, i.e. statsWithTE.Count <= 2.
                                 es = -1;
-                                et = statsWithTE.Count;
+                                et = StatsWithTE.Count;
                             }
                         }
                     }
                 }
             } while (filterBoundsAndTEAgain);
-            return validResults;
+            return ValidResults;
         }
 
         /// <summary>
@@ -625,38 +623,38 @@ namespace ARKBreedingStats
         private bool AdjustBoundsToStatResults(int statIndex)
         {
             bool boundsWhereChanged = false;
-            if (results[statIndex].Count == 1)
+            if (Results[statIndex].Count == 1)
             {
                 // if stat is unknown, ignore in bounds (speed, sometimes oxygen is unknown (==-1))
-                if (results[statIndex][0].levelWild > 0)
-                    levelsUndeterminedWild -= results[statIndex][0].levelWild;
-                if (results[statIndex][0].levelDom > 0)
-                    levelsUndeterminedDom -= results[statIndex][0].levelDom;
+                if (Results[statIndex][0].levelWild > 0)
+                    _levelsUndeterminedWild -= Results[statIndex][0].levelWild;
+                if (Results[statIndex][0].levelDom > 0)
+                    _levelsUndeterminedDom -= Results[statIndex][0].levelDom;
                 // bounds only contain the bounds of not unique stats
-                lowerBoundWilds[statIndex] = 0;
-                lowerBoundDoms[statIndex] = 0;
-                upperBoundDoms[statIndex] = 0;
+                _lowerBoundWilds[statIndex] = 0;
+                _lowerBoundDoms[statIndex] = 0;
+                _upperBoundDoms[statIndex] = 0;
                 boundsWhereChanged = true;
             }
-            else if (results[statIndex].Count > 1)
+            else if (Results[statIndex].Count > 1)
             {
                 // get the smallest and largest value
-                int minW = results[statIndex][0].levelWild, minD = results[statIndex][0].levelDom, maxD = results[statIndex][0].levelDom;
-                for (int r = 1; r < results[statIndex].Count; r++)
+                int minW = Results[statIndex][0].levelWild, minD = Results[statIndex][0].levelDom, maxD = Results[statIndex][0].levelDom;
+                for (int r = 1; r < Results[statIndex].Count; r++)
                 {
-                    if (results[statIndex][r].levelWild < minW) { minW = results[statIndex][r].levelWild; }
-                    if (results[statIndex][r].levelDom < minD) { minD = results[statIndex][r].levelDom; }
-                    if (results[statIndex][r].levelDom > maxD) { maxD = results[statIndex][r].levelDom; }
+                    if (Results[statIndex][r].levelWild < minW) { minW = Results[statIndex][r].levelWild; }
+                    if (Results[statIndex][r].levelDom < minD) { minD = Results[statIndex][r].levelDom; }
+                    if (Results[statIndex][r].levelDom > maxD) { maxD = Results[statIndex][r].levelDom; }
                 }
 
-                boundsWhereChanged = lowerBoundWilds[statIndex] != minW
-                                  || lowerBoundDoms[statIndex] != minD
-                                  || upperBoundDoms[statIndex] != maxD;
+                boundsWhereChanged = _lowerBoundWilds[statIndex] != minW
+                                  || _lowerBoundDoms[statIndex] != minD
+                                  || _upperBoundDoms[statIndex] != maxD;
 
                 // save min/max-possible value
-                lowerBoundWilds[statIndex] = minW;
-                lowerBoundDoms[statIndex] = minD;
-                upperBoundDoms[statIndex] = maxD;
+                _lowerBoundWilds[statIndex] = minW;
+                _lowerBoundDoms[statIndex] = minD;
+                _upperBoundDoms[statIndex] = maxD;
             }
             return boundsWhereChanged;
         }
@@ -666,24 +664,24 @@ namespace ARKBreedingStats
         /// </summary>
         public int FilterResultsByFixed(int dontFix = -1)
         {
-            int[] lowBoundWs = (int[])lowerBoundWilds.Clone();
-            int[] lowBoundDs = (int[])lowerBoundDoms.Clone();
-            int[] uppBoundDs = (int[])upperBoundDoms.Clone();
-            int wildMax = levelsUndeterminedWild, dom = levelsUndeterminedDom;
+            int[] lowBoundWs = (int[])_lowerBoundWilds.Clone();
+            int[] lowBoundDs = (int[])_lowerBoundDoms.Clone();
+            int[] uppBoundDs = (int[])_upperBoundDoms.Clone();
+            int wildMax = _levelsUndeterminedWild, dom = _levelsUndeterminedDom;
 
             // set all results to non-valid that are in a fixed stat and not the chosen one
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (s == (int)StatNames.Torpidity) continue;
-                for (int r = 0; r < results[s].Count; r++)
+                for (int r = 0; r < Results[s].Count; r++)
                 {
-                    results[s][r].currentlyNotValid = (fixedResults[s] && dontFix != s && r != chosenResults[s]);
+                    Results[s][r].currentlyNotValid = (FixedResults[s] && dontFix != s && r != ChosenResults[s]);
                 }
                 // subtract fixed stat-levels, but not from the current stat
-                if (fixedResults[s] && dontFix != s)
+                if (FixedResults[s] && dontFix != s)
                 {
-                    wildMax -= results[s][chosenResults[s]].levelWild;
-                    dom -= results[s][chosenResults[s]].levelDom;
+                    wildMax -= Results[s][ChosenResults[s]].levelWild;
+                    dom -= Results[s][ChosenResults[s]].levelDom;
                     lowBoundWs[s] = 0;
                     lowBoundDs[s] = 0;
                     uppBoundDs[s] = 0;
@@ -701,34 +699,34 @@ namespace ARKBreedingStats
                     if (s == (int)StatNames.Torpidity) continue;
                     int validResultsNr = 0;
                     int uniqueR = -1;
-                    for (int r = 0; r < results[s].Count; r++)
+                    for (int r = 0; r < Results[s].Count; r++)
                     {
-                        if (!results[s][r].currentlyNotValid)
+                        if (!Results[s][r].currentlyNotValid)
                             validResultsNr++;
                     }
                     if (validResultsNr > 1)
                     {
-                        for (int r = 0; r < results[s].Count; r++)
+                        for (int r = 0; r < Results[s].Count; r++)
                         {
-                            if (!results[s][r].currentlyNotValid && (results[s][r].levelWild > wildMax - lowBoundWs.Sum() + lowBoundWs[s] || results[s][r].levelDom > dom - lowBoundDs.Sum() + lowBoundDs[s] || results[s][r].levelDom < dom - uppBoundDs.Sum() + uppBoundDs[s]))
+                            if (!Results[s][r].currentlyNotValid && (Results[s][r].levelWild > wildMax - lowBoundWs.Sum() + lowBoundWs[s] || Results[s][r].levelDom > dom - lowBoundDs.Sum() + lowBoundDs[s] || Results[s][r].levelDom < dom - uppBoundDs.Sum() + uppBoundDs[s]))
                             {
-                                results[s][r].currentlyNotValid = true;
+                                Results[s][r].currentlyNotValid = true;
                                 validResultsNr--;
                                 // if result gets unique due to this, check if remaining result doesn't violate for max level
                                 if (validResultsNr == 1)
                                 {
                                     // find unique valid result
-                                    for (int rr = 0; rr < results[s].Count; rr++)
+                                    for (int rr = 0; rr < Results[s].Count; rr++)
                                     {
-                                        if (!results[s][rr].currentlyNotValid)
+                                        if (!Results[s][rr].currentlyNotValid)
                                         {
                                             uniqueR = rr;
                                             break;
                                         }
                                     }
                                     loopAgain = true;
-                                    wildMax -= results[s][uniqueR].levelWild;
-                                    dom -= results[s][uniqueR].levelDom;
+                                    wildMax -= Results[s][uniqueR].levelWild;
+                                    dom -= Results[s][uniqueR].levelDom;
                                     lowBoundWs[s] = 0;
                                     lowBoundDs[s] = 0;
                                     uppBoundDs[s] = 0;
@@ -752,7 +750,7 @@ namespace ARKBreedingStats
             {
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
-                    if (results[s].Count == 0)
+                    if (Results[s].Count == 0)
                     {
                         return false;
                     }
@@ -764,18 +762,17 @@ namespace ARKBreedingStats
         public double UniqueTE()
         {
             double eff = -2;
-            if (statsWithTE.Any() && results[statsWithTE[0]].Count > chosenResults[statsWithTE[0]])
+            if (StatsWithTE.Any() && Results[StatsWithTE[0]].Count > ChosenResults[StatsWithTE[0]])
             {
-                for (int s = 0; s < statsWithTE.Count; s++)
+                for (int s = 0; s < StatsWithTE.Count; s++)
                 {
-                    for (int ss = s + 1; ss < statsWithTE.Count; ss++)
+                    for (int ss = s + 1; ss < StatsWithTE.Count; ss++)
                     {
                         // effectiveness-calculation can be a bit off due to ingame-rounding
-                        if (results[statsWithTE[ss]].Count <= chosenResults[statsWithTE[ss]]
-                            || !MinMaxDouble.Overlaps(results[statsWithTE[s]][chosenResults[statsWithTE[s]]].TE,
-                                                      results[statsWithTE[ss]][chosenResults[statsWithTE[ss]]].TE))
+                        if (Results[StatsWithTE[ss]].Count <= ChosenResults[StatsWithTE[ss]]
+                            || !MinMaxDouble.Overlaps(Results[StatsWithTE[s]][ChosenResults[StatsWithTE[s]]].TE,
+                                                      Results[StatsWithTE[ss]][ChosenResults[StatsWithTE[ss]]].TE))
                         {
-                            lastTEUnique = false;
                             return -1; // no unique TE
                         }
                     }
@@ -783,22 +780,21 @@ namespace ARKBreedingStats
                 // calculate most probable real TE
                 // get intersection of all TE-ranges
 
-                MinMaxDouble te = results[statsWithTE[0]][chosenResults[statsWithTE[0]]].TE.Clone();
-                for (int s = 1; s < statsWithTE.Count; s++)
+                MinMaxDouble te = Results[StatsWithTE[0]][ChosenResults[StatsWithTE[0]]].TE.Clone();
+                for (int s = 1; s < StatsWithTE.Count; s++)
                 {
                     // the overlap is ensured at this point
-                    te.SetToIntersectionWith(results[statsWithTE[s]][chosenResults[statsWithTE[s]]].TE);
+                    te.SetToIntersectionWith(Results[StatsWithTE[s]][ChosenResults[StatsWithTE[s]]].TE);
                 }
 
                 eff = te.Mean;
             }
-            lastTEUnique = eff >= 0;
             return eff;
         }
 
         /// <summary>
-        /// The mean of the calcaulted imprinting bonus range.
+        /// The mean of the calculated imprinting bonus range.
         /// </summary>
-        public double ImprintingBonus => imprintingBonusRange.Mean;
+        public double ImprintingBonus => _imprintingBonusRange.Mean;
     }
 }

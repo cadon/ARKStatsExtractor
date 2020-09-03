@@ -1242,4 +1242,10 @@ Diese kann mit BSS Preset angewandt werden.</value>
   <data name="notABabyAnymore" xml:space="preserve">
     <value>kein Baby mehr</value>
   </data>
+  <data name="issueCauseModValues" xml:space="preserve">
+    <value>Wenn die Kreatur von einem Mod stammt, müssen eventuell die entsprechenden Mod-Werte in dieser App geladen werden (Einstellungen - Lade Mod Werte).</value>
+  </data>
+  <data name="extractionFailedHeader" xml:space="preserve">
+    <value>Die Level Bestimmung ist fehlgeschlagen. Überprüfe die folgende List möglicher Ursachen</value>
+  </data>
 </root>

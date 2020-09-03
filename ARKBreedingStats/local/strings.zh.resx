@@ -1045,4 +1045,7 @@
   <data name="notABabyAnymore" xml:space="preserve">
     <value>不再是婴儿</value>
   </data>
+  <data name="extractionFailedHeader" xml:space="preserve">
+    <value>提取失败。 请参阅以下可能的原因列表</value>
+  </data>
 </root>

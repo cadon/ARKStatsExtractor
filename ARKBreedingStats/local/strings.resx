@@ -1251,4 +1251,10 @@ The preset can be applied by the Apply Preset button</value>
   <data name="notABabyAnymore" xml:space="preserve">
     <value>not a baby anymore</value>
   </data>
+  <data name="issueCauseModValues" xml:space="preserve">
+    <value>If the creature is from a mod, you may need to enable the according mod values in Settings - Mod value manager.</value>
+  </data>
+  <data name="extractionFailedHeader" xml:space="preserve">
+    <value>The extraction failed. See the following list of possible causes</value>
+  </data>
 </root>

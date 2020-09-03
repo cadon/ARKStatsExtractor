@@ -42,6 +42,7 @@ namespace ARKBreedingStats.miscClasses
                 case Issue.WildLevelSteps: return Loc.S("issueCauseWildLevelSteps");
                 case Issue.MaxWildLevel: return Loc.S("issueCauseMaxWildLevel");
                 case Issue.StatMultipliers: return Loc.S("issueCauseStatMultipliers");
+                case Issue.ModValues: return Loc.S("issueCauseModValues");
                 case Issue.ArkStatIssue: return Loc.S("issueCauseArkStatIssue");
                 case Issue.CreatureLevel: return Loc.S("issueCauseCreatureLevel");
                 case Issue.OutdatedIngameValues: return Loc.S("issueCauseOutdatedIngameValues");
@@ -65,9 +66,10 @@ namespace ARKBreedingStats.miscClasses
             ImprintingNotUpdated = 256,
             TamingEffectivenessRange = 512,
             ImprintingLocked = 1024,
-            WildLevelSteps = 2048,
-            ArkStatIssue = 4096,
-            OutdatedIngameValues = 8192
+            ModValues = 2048,
+            WildLevelSteps = 4096,
+            ArkStatIssue = 8192,
+            OutdatedIngameValues = 16384
         }
     }
 }
