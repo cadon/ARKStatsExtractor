@@ -109,5 +109,11 @@ namespace ARKBreedingStats.raising
             else
                 _lbLevel.Text = "";
         }
+
+        public void SetLocalizations()
+        {
+            Loc.ControlText(label1, "Mother");
+            Loc.ControlText(label2, "Father");
+        }
     }
 }

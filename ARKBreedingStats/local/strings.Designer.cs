@@ -1108,14 +1108,23 @@ namespace ARKBreedingStats.local {
         /// <summary>
         ///   Looks up a localized string similar to Event.
         /// </summary>
-        internal static string Event_ {
+        internal static string Event {
             get {
-                return ResourceManager.GetString("Event_", resourceCulture);
+                return ResourceManager.GetString("Event", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to expired.
+        /// </summary>
+        internal static string expired {
+            get {
+                return ResourceManager.GetString("expired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The export folder of Steam couldn&apos;t be detected automatically..
         /// </summary>
         internal static string ExportFolderDetectionFailed {
             get {
@@ -1516,6 +1525,15 @@ namespace ARKBreedingStats.local {
         internal static string imprintingBonus {
             get {
                 return ResourceManager.GetString("imprintingBonus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to incubation.
+        /// </summary>
+        internal static string incubation {
+            get {
+                return ResourceManager.GetString("incubation", resourceCulture);
             }
         }
         
@@ -2003,6 +2021,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to mature.
+        /// </summary>
+        internal static string mature {
+            get {
+                return ResourceManager.GetString("mature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mod value manager….
         /// </summary>
         internal static string modValueManagerToolStripMenuItem {
@@ -2174,6 +2201,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to not a baby anymore.
+        /// </summary>
+        internal static string notABabyAnymore {
+            get {
+                return ResourceManager.GetString("notABabyAnymore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to no taming-data available.
         /// </summary>
         internal static string noTamingData {
@@ -2206,6 +2242,15 @@ namespace ARKBreedingStats.local {
         internal static string notEnoughFoodToTame {
             get {
                 return ResourceManager.GetString("notEnoughFoodToTame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to no timer selected.
+        /// </summary>
+        internal static string noTimerSelected {
+            get {
+                return ResourceManager.GetString("noTimerSelected", resourceCulture);
             }
         }
         
@@ -2378,6 +2423,15 @@ namespace ARKBreedingStats.local {
         internal static string pasteCreatureToolStripMenuItem {
             get {
                 return ResourceManager.GetString("pasteCreatureToolStripMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to paused.
+        /// </summary>
+        internal static string paused {
+            get {
+                return ResourceManager.GetString("paused", resourceCulture);
             }
         }
         

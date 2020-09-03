@@ -64,6 +64,7 @@ namespace ARKBreedingStats
             Loc.ControlText(copyToMultiplierTesterToolStripButton);
 
             // top bar
+            Loc.ControlText(cbEventMultipliers, "Event");
             Loc.ControlText(cbGuessSpecies, _tt);
             Loc.ControlText(btReadValuesFromArk, _tt);
             Loc.ControlText(btImportLastExported, _tt);
@@ -161,6 +162,7 @@ namespace ARKBreedingStats
             pedigree1.SetLocalizations();
             tamingControl1.SetLocalizations();
             breedingPlan1.SetLocalizations();
+            raisingControl1.SetLocalizations();
         }
     }
 }

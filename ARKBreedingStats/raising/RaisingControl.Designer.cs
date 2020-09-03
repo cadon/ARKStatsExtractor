@@ -338,7 +338,7 @@
             this.btStartPauseTimer.Name = "btStartPauseTimer";
             this.btStartPauseTimer.Size = new System.Drawing.Size(354, 34);
             this.btStartPauseTimer.TabIndex = 4;
-            this.btStartPauseTimer.Text = "⏵/⏸";
+            this.btStartPauseTimer.Text = "⏯";
             this.btStartPauseTimer.UseVisualStyleBackColor = true;
             this.btStartPauseTimer.Click += new System.EventHandler(this.btStartPauseTimer_Click);
             // 

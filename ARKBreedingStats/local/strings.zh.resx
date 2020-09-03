@@ -372,7 +372,7 @@
   <data name="en" xml:space="preserve">
     <value>英语</value>
   </data>
-  <data name="Event_" xml:space="preserve">
+  <data name="Event" xml:space="preserve">
     <value>活动</value>
   </data>
   <data name="exportValuesToClipboardToolStripMenuItem" xml:space="preserve">
@@ -1026,5 +1026,23 @@
   </data>
   <data name="ExportFolderDetectionFailed" xml:space="preserve">
     <value>无法自动检测Steam的导出文件夹。</value>
+  </data>
+  <data name="incubation" xml:space="preserve">
+    <value>孵化</value>
+  </data>
+  <data name="noTimerSelected" xml:space="preserve">
+    <value>未选择计时器</value>
+  </data>
+  <data name="paused" xml:space="preserve">
+    <value>已暂停</value>
+  </data>
+  <data name="expired" xml:space="preserve">
+    <value>已过期</value>
+  </data>
+  <data name="mature" xml:space="preserve">
+    <value>成熟</value>
+  </data>
+  <data name="notABabyAnymore" xml:space="preserve">
+    <value>不再是婴儿</value>
   </data>
 </root>

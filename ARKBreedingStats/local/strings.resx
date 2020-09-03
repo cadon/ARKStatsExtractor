@@ -327,7 +327,7 @@ The levels are then shown without the extraction-process (and without validation
   <data name="en" xml:space="preserve">
     <value>English</value>
   </data>
-  <data name="Event_" xml:space="preserve">
+  <data name="Event" xml:space="preserve">
     <value>Event</value>
   </data>
   <data name="exportValuesToClipboardToolStripMenuItem" xml:space="preserve">
@@ -1232,5 +1232,23 @@ The preset can be applied by the Apply Preset button</value>
   </data>
   <data name="ExportFolderDetectionFailed" xml:space="preserve">
     <value>The export folder of Steam couldn't be detected automatically.</value>
+  </data>
+  <data name="incubation" xml:space="preserve">
+    <value>incubation</value>
+  </data>
+  <data name="noTimerSelected" xml:space="preserve">
+    <value>no timer selected</value>
+  </data>
+  <data name="paused" xml:space="preserve">
+    <value>paused</value>
+  </data>
+  <data name="expired" xml:space="preserve">
+    <value>expired</value>
+  </data>
+  <data name="mature" xml:space="preserve">
+    <value>mature</value>
+  </data>
+  <data name="notABabyAnymore" xml:space="preserve">
+    <value>not a baby anymore</value>
   </data>
 </root>
