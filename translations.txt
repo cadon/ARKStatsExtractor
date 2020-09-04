@@ -10,9 +10,11 @@ ApproxOneNarcoberryEvery	That is approx. one Narcoberry every
 Available	Available
 Baby	Baby
 BestPossible	Best Possible
+BestPossibleSpeciesLibrary  Best possible {0} for this library
 Body	Body
 BonusLevel	Bonus Level
 Bow	Bow
+BPCancelRestrictionOn  Cancel restriction on {0}
 BPorMutations	or mutations
 BPsomeCreaturesAreFilteredOutTags	Some creatures are filtered out due to their tags.
 BPsomePairingsAreFilteredOutMutations	Some pairs could be filtered out due to their mutations.
@@ -39,6 +41,7 @@ btBPJustMated	These Parents just mated
 btBPJustMatedTT	Click to create an incubation-entry in the Raising-tab
 btClearColorsTT	Click to clear all color-regions.
 btExtractLevels	Extract Level Distribution
+BtGetExportFolderAutomatically  Set export folder automatically
 btImportLastExported	Last Export
 btImportLastExportedTT	Import the creature-file that was exported last (ingame with the "Export Data"-function
 btnAddStarvingTimer	add Starving-Timer
@@ -74,12 +77,12 @@ cbQuickWildCheck	Quick Wild-Creature Check
 cbQuickWildCheckTT	"Check this if you just want a quick check of the levels of a wild (untamed) creature.
 The levels are then shown without the extraction-process (and without validation)."
 cbToggleOverlay	Overlay
-ChargeCapacity	Ch Capacity
-ChargeCapacity_Abb	CC
-ChargeEmissionRange	Ch Emission Range
-ChargeEmissionRange_Abb	CRa
-ChargeRegeneration	Ch Regen
-ChargeRegeneration_Abb	CRe
+Charge Capacity	Ch Capacity
+Charge Capacity_Abb	CC
+Charge Emission Range	Ch Emission Range
+Charge Emission Range_Abb	CRa
+Charge Regen	Ch Regen
+Charge Regen_Abb	CRe
 Chart	Chart
 checkForUpdatedStatsToolStripMenuItem	Check for Updates
 clear  Clear
@@ -93,8 +96,8 @@ cooldownGrowing	Cooldown/Growing
 copyCreatureToolStripMenuItem	Copy Creature
 copyToMultiplierTesterToolStripButton	Copy to MultiplierTester
 copyToMultiplierTesterToolStripButtonTT	All the levels, TE and IB from the Tester, and the stat-values from the Extractor will be copied to the Stat-Multiplier-Tester
-CraftingSpeed	Crafting Speed
-CraftingSpeed_Abb Cr
+Crafting Speed	Crafting Speed
+Crafting Speed_Abb Cr
 Creature	Creature
 creatureOfFile  Creature of the export file
 Crossbow	Crossbow
@@ -120,8 +123,11 @@ ElectricProdHits	Electric Prod Hits
 en	English
 error  Error
 es	Spanish
-Event_	Event
+Event	Event
+expired  expired
+ExportFolderDetectionFailed  The export folder of Steam couldn't be detected automatically.
 exportValuesToClipboardToolStripMenuItem	Export to Clipboard
+extractionFailedHeader  The extraction failed. See the following list of possible causes
 extractionIssuesToolStripMenuItem	Extraction Issues…
 extractor	Extractor
 Father	Father
@@ -166,6 +172,7 @@ importingFromSavegameEmptyToolStripMenuItem	At first configure "Import Savegame"
 importingFromSavegameToolStripMenuItem	Importing from savegame
 importValuesFromClipboardToolStripMenuItem	Import Values from Clipboard
 imprintingBonus	Imprinting Bonus
+incubation  incubation
 issueCauseArkStatIssue  This species is known to show wrong stat values ingame, this can prevent a successful extraction.
 issueCauseCreatureLevel  "Check if the total level of the creature is entered correctly.
 If the creature is bred, also check if the BabyImprintingStatScaleMultiplier is set correctly."
@@ -176,6 +183,7 @@ They may have to be set to the value when the creature hatched/was born, even if
 issueCauseImprintingNotUpdated  Sometimes the game doesn't update the stat-value after an imprinting. Try the extraction after the creature was cryoed again.
 issueCauseLockedDomLevel  Uncheck all Lock-to-Zero-buttons in the stats (all lock-symbols should be green and opened).
 issueCauseMaxWildLevel  The maximal wild level is set too low, go to the settings and adjust it.
+issueCauseModValues  If the creature is from a mod, you may need to enable the according mod values in Settings - Mod value manager.
 issueCauseOutdatedIngameValues  The stats of the creature were changed recently and the game displays the old values. Level up a stat, that should trigger a recalculation of the values.
 issueCauseSingleplayer  If you have enabled the Singleplayer-Settings in the game, make sure the according checkbox is enabled in the settings in this application as well.
 issueCauseStatMultipliers  The stat multipliers in the Settings are not set to the multipliers of the server. Ask your admin for the correct multipliers and adjust them in the Settings.
@@ -233,6 +241,7 @@ Male	Male
 malesToolStripMenuItem	Males
 matingTime  Mating Time
 Maturation	Maturation
+mature  mature
 modValueManagerToolStripMenuItem	Load additional values…
 Mother	Mother
 multiSetterToolStripMenuItem	MultiSetter…
@@ -252,10 +261,12 @@ newTopLevel  new top level
 noColor no color
 noCreatureSelectedInLibrary  There are no creatures in the library selected to copy to the clipboard.
 NoPossiblePairingForSpeciesFound	No possible pairings found for {0}. Make sure at least one female and male are available in your library and that you didn't exclude all possible creatures via the tag-selector.
+notABabyAnymore  not a baby anymore
 noTamingData	no taming-data available
 notAvailable	not available
 Note	Note
 notEnoughFoodToTame	Not enough food to tame the creature!
+noTimerSelected  no timer selected
 notYetTamed	not yet tamed
 noValidData  No valid data
 noValidExtractedCreatureToExport  There is no valid extracted creature to export.
@@ -276,6 +287,7 @@ owners  owners
 Oxygen	Oxygen
 Oxygen_Abb	Ox
 pasteCreatureToolStripMenuItem	Paste Creature
+paused  paused
 pedigree	Pedigree
 Player	Player
 possibleLevelRange  Possible Level-Range: {0}–{1}
@@ -284,7 +296,7 @@ ProbabilityForBest	Probability for this Best Possible outcome
 ProbabilityForOneMutation  Probability for one mutation
 quitToolStripMenuItem	&Quit
 Raising	Raising
-rbBPHighStats	High Stats
+rbBPHighStats	Best next generation
 rbBPHighStatsTT	"Check for best next-generation-results.
 The chance for an overall good creature is better.
 Check if it's not important to have a Top-Stats-Offspring."
@@ -372,9 +384,11 @@ until until
 updateSuccessTitle  Update successful
 useFilterInTopStatCalculation  Use filter in top stat calculation
 valuesFileLoadingError  The species values-file couldn't be loaded, this application does not work without. Try redownloading the tool.
+VariantSelector  Variant Selector
+VariantSelectorInfo  Species that contain one variant that is unchecked will be hidden.
 viewToolStripMenuItem	View
 waitingAfterFirstFeeding	Waiting time after first feeding: ~ {0}
-WarningMoreStarvingThanFood	Careful: this creature could have not enough food, so you might have to feed it before this time to prevent it from starving (check its inventory)!
+WarningMoreStarvingThanFood  Careful: this creature could have not enough food, so you might have to feed it before this time to prevent it from starving (check its inventory)!
 Water Water
 Water_Abb Wa
 Weight	Weight
