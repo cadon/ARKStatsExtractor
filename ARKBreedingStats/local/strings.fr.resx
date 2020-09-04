@@ -1213,8 +1213,17 @@ Le préréglage peut être appliqué par le bouton Appliquer le préréglage</va
   <data name="unknownSpecies" xml:space="preserve">
     <value>espèce inconnue</value>
   </data>
+  <data name="BestPossibleSpeciesLibrary" xml:space="preserve">
+    <value>Meilleur {0} possible pour cette bibliothèque</value>
+  </data>
+  <data name="VariantSelector" xml:space="preserve">
+    <value>Sélecteur de variante</value>
+  </data>
+  <data name="VariantSelectorInfo" xml:space="preserve">
+    <value>Les espèces qui contiennent une variante non cochée seront masquées.</value>
+  </data>
   <data name="BPCancelRestrictionOn" xml:space="preserve">
-    <value>annuler la restriction sur {0}</value>
+    <value>Annuler la restriction sur {0}</value>
   </data>
   <data name="BtGetExportFolderAutomatically" xml:space="preserve">
     <value>Définir automatiquement le dossier d'exportation</value>
@@ -1236,6 +1245,9 @@ Le préréglage peut être appliqué par le bouton Appliquer le préréglage</va
   </data>
   <data name="mature" xml:space="preserve">
     <value>mature</value>
+  </data>
+  <data name="issueCauseModValues" xml:space="preserve">
+    <value>Si la créature provient d'un mod, vous devrez peut-être activer les valeurs du mod correspondant dans Paramètres - Gestionnaire des valeurs des mods.</value>
   </data>
   <data name="notABabyAnymore" xml:space="preserve">
     <value>plus un bébé</value>
