@@ -32,7 +32,7 @@ namespace ARKBreedingStats.importExported
         public ExportedCreatureControl(string filePath) : this()
         {
             exportedFile = filePath;
-            creatureValues = ImportExported.importExportedCreature(filePath);
+            creatureValues = ImportExported.ImportExportedCreature(filePath);
 
             // check if the values are valid, i.e. if the read file was a creature-file at all.
             if (creatureValues?.Species == null)

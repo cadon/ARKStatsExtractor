@@ -749,7 +749,7 @@ namespace ARKBreedingStats
             {
                 try
                 {
-                    cv = importExported.ImportExported.importExportedCreature(exportFilePath);
+                    cv = importExported.ImportExported.ImportExportedCreature(exportFilePath);
                     break;
                 }
                 catch (IOException ex)

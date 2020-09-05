@@ -9,7 +9,7 @@ namespace ARKBreedingStats.importExported
 {
     static class ImportExported
     {
-        public static CreatureValues importExportedCreature(string filePath)
+        public static CreatureValues ImportExportedCreature(string filePath)
         {
             CreatureValues cv = new CreatureValues
             {
@@ -19,24 +19,28 @@ namespace ARKBreedingStats.importExported
                 tamingEffMin = Properties.Settings.Default.ImportLowerBoundTE
             };
             string[] iniLines = File.ReadAllLines(filePath);
-            string id = "";
-            int statIndexIngame = -1;
-            // this is the order how the stats appear in the ini-file; field names in the file are localized
-            string[] statIndices =
+            string id = null;
+            int statIndex = -1;
+            // this is the order how the stats appear in the ini-file; field names in the file are localized and cannot be used directly
+            string[] statParameterNames =
             {
-                    "Health",
-                    "Stamina",
-                    "Torpidity",
-                    "Oxygen",
-                    "Food",
-                    "Water",
-                    "Temperature",
-                    "Weight",
-                    "Melee Damage",
-                    "Movement Speed",
-                    "Fortitude",
-                    "Crafting Skill"
+                "Health",
+                "Stamina",
+                "Torpidity",
+                "Oxygen",
+                "Food",
+                "Water",
+                "Temperature",
+                "Weight",
+                "Melee Damage",
+                "Movement Speed",
+                "Fortitude",
+                "Crafting Skill"
             };
+
+            var numberStyle = System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign;
+            var dotSeparatorCulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
+
             bool inStatSection = false;
             foreach (string line in iniLines)
             {
@@ -51,15 +55,15 @@ namespace ARKBreedingStats.importExported
 
                 string parameterName;
                 string text = line.Substring(i + 1);
-                double.TryParse(text, System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double value);
+                double.TryParse(text, numberStyle, dotSeparatorCulture, out double value);
                 if (inStatSection)
                 {
-                    statIndexIngame++;
-                    if (statIndexIngame > 11)
+                    statIndex++;
+                    if (statIndex > 11)
                         inStatSection = false;
                 }
                 if (inStatSection)
-                    parameterName = statIndices[statIndexIngame];
+                    parameterName = statParameterNames[statIndex];
                 else
                 {
                     parameterName = line.Substring(0, i);
@@ -67,8 +71,9 @@ namespace ARKBreedingStats.importExported
                         parameterName = "DinoAncestorsMale"; // only the last entry contains the parents
                 }
 
-                if (parameterName.Length <= 0)
+                if (string.IsNullOrEmpty(parameterName))
                     continue;
+
                 switch (parameterName)
                 {
                     case "DinoID1":
@@ -78,7 +83,7 @@ namespace ARKBreedingStats.importExported
                         }
                         else
                         {
-                            cv.ARKID = BuildARKID(text, id);
+                            cv.ARKID = BuildArkId(text, id);
                             cv.guid = Utils.ConvertArkIdToGuid(cv.ARKID);
                         }
                         break;
@@ -89,7 +94,7 @@ namespace ARKBreedingStats.importExported
                         }
                         else
                         {
-                            cv.ARKID = BuildARKID(id, text);
+                            cv.ARKID = BuildArkId(id, text);
                             cv.guid = Utils.ConvertArkIdToGuid(cv.ARKID);
                         }
                         break;
@@ -210,8 +215,8 @@ namespace ARKBreedingStats.importExported
                         Match m = r.Match(text);
                         if (m.Success)
                         {
-                            cv.motherArkId = BuildARKID(m.Groups[5].Value, m.Groups[6].Value);
-                            cv.fatherArkId = BuildARKID(m.Groups[2].Value, m.Groups[3].Value);
+                            cv.motherArkId = BuildArkId(m.Groups[5].Value, m.Groups[6].Value);
+                            cv.fatherArkId = BuildArkId(m.Groups[2].Value, m.Groups[3].Value);
                             cv.isBred = true;
                         }
                         break;
@@ -244,17 +249,16 @@ namespace ARKBreedingStats.importExported
         /// Determines the ARK color id represented by the given text in the format
         /// (R=0.000000,G=0.000000,B=0.000000,A=1.000000)
         /// </summary>
-        /// <param name="text"></param>
-        /// <returns></returns>
         private static int ParseColor(string text)
         {
             if (text.Length < 33) return 0;
 
+            var numberStyle = System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign;
             var dotSeparatorCulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
-            if (double.TryParse(text.Substring(3, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, dotSeparatorCulture, out double r)
-                && double.TryParse(text.Substring(14, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, dotSeparatorCulture, out double g)
-                && double.TryParse(text.Substring(25, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, dotSeparatorCulture, out double b)
-                && double.TryParse(text.Substring(36, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, dotSeparatorCulture, out double a)
+            if (double.TryParse(text.Substring(3, 8), numberStyle, dotSeparatorCulture, out double r)
+                && double.TryParse(text.Substring(14, 8), numberStyle, dotSeparatorCulture, out double g)
+                && double.TryParse(text.Substring(25, 8), numberStyle, dotSeparatorCulture, out double b)
+                && double.TryParse(text.Substring(36, 8), numberStyle, dotSeparatorCulture, out double a)
                 && !(r == 0 && g == 0 && b == 0 && a == 1) // no color
                 && !(r == 1 && g == 1 && b == 1 && a == 1) // no color
                 )
@@ -266,16 +270,14 @@ namespace ARKBreedingStats.importExported
 
         /// <summary>
         /// Returns the true ARK-Id from two strings in a long.
-        /// ARK just concatenates the strings ingame, resulting in nonunique displayed IDs.
+        /// ARK just concatenates the strings ingame, resulting in non unique displayed IDs.
         /// </summary>
-        /// <param name="id1"></param>
-        /// <param name="id2"></param>
-        /// <returns></returns>
-        private static long BuildARKID(string id1, string id2)
+        private static long BuildArkId(string id1, string id2)
         {
-            int.TryParse(id1, out int id1int);
-            int.TryParse(id2, out int id2int);
-            return ((long)id1int << 32) | (id2int & 0xFFFFFFFFL);
+            if (int.TryParse(id1, out int id1Int)
+                && int.TryParse(id2, out int id2Int))
+                return ((long)id1Int << 32) | (id2Int & 0xFFFFFFFFL);
+            return 0;
         }
     }
 }
