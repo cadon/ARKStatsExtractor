@@ -45,177 +45,176 @@ namespace ARKBreedingStats.importExported
                     inStatSection = true;
                     continue;
                 }
-                if (line.Contains("="))
+
+                int i = line.IndexOf("=", StringComparison.Ordinal);
+                if (i == -1) continue;
+
+                string parameterName;
+                string text = line.Substring(i + 1);
+                double.TryParse(text, System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double value);
+                if (inStatSection)
                 {
-                    string parameterName;
-                    int i = line.IndexOf("=");
-                    string text = line.Substring(i + 1);
-                    double.TryParse(text, System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double value);
-                    if (inStatSection)
-                    {
-                        statIndexIngame++;
-                        if (statIndexIngame > 11)
-                            inStatSection = false;
-                    }
-                    if (inStatSection)
-                        parameterName = statIndices[statIndexIngame];
-                    else
-                    {
-                        parameterName = line.Substring(0, i);
-                        if (parameterName.Contains("DinoAncestorsMale"))
-                            parameterName = "DinoAncestorsMale"; // only the last entry contains the parents
-                    }
+                    statIndexIngame++;
+                    if (statIndexIngame > 11)
+                        inStatSection = false;
+                }
+                if (inStatSection)
+                    parameterName = statIndices[statIndexIngame];
+                else
+                {
+                    parameterName = line.Substring(0, i);
+                    if (parameterName.Contains("DinoAncestorsMale"))
+                        parameterName = "DinoAncestorsMale"; // only the last entry contains the parents
+                }
 
-                    if (parameterName.Length <= 0)
-                        continue;
-                    switch (parameterName)
-                    {
-                        case "DinoID1":
-                            if (string.IsNullOrEmpty(id))
-                            {
-                                id = text;
-                            }
-                            else
-                            {
-                                cv.ARKID = BuildARKID(text, id);
-                                cv.guid = Utils.ConvertArkIdToGuid(cv.ARKID);
-                            }
-                            break;
-                        case "DinoID2":
-                            if (string.IsNullOrEmpty(id))
-                            {
-                                id = text;
-                            }
-                            else
-                            {
-                                cv.ARKID = BuildARKID(id, text);
-                                cv.guid = Utils.ConvertArkIdToGuid(cv.ARKID);
-                            }
-                            break;
-                        case "DinoClass":
-                            // despite the property is called DinoClass it contains the complete blueprint-path
-                            if (text.Length > 2 && text.Substring(text.Length - 2) == "_C")
-                                text = text.Substring(0, text.Length - 2); // the last two characters are "_C"
+                if (parameterName.Length <= 0)
+                    continue;
+                switch (parameterName)
+                {
+                    case "DinoID1":
+                        if (string.IsNullOrEmpty(id))
+                        {
+                            id = text;
+                        }
+                        else
+                        {
+                            cv.ARKID = BuildARKID(text, id);
+                            cv.guid = Utils.ConvertArkIdToGuid(cv.ARKID);
+                        }
+                        break;
+                    case "DinoID2":
+                        if (string.IsNullOrEmpty(id))
+                        {
+                            id = text;
+                        }
+                        else
+                        {
+                            cv.ARKID = BuildARKID(id, text);
+                            cv.guid = Utils.ConvertArkIdToGuid(cv.ARKID);
+                        }
+                        break;
+                    case "DinoClass":
+                        // despite the property is called DinoClass it contains the complete blueprint-path
+                        if (text.Length > 2 && text.Substring(text.Length - 2) == "_C")
+                            text = text.Substring(0, text.Length - 2); // the last two characters are "_C"
 
-                            cv.Species = Values.V.SpeciesByBlueprint(text);
-                            if (cv.Species == null)
-                                cv.speciesBlueprint = text; // species is unknown, check the needed mods later
-                            break;
-                        //case "DinoNameTag":
-                        //    // get name if blueprintpath is not available (in this case a custom values_mod.json should be created, this is just a fallback
-                        //    if (cv.Species == null &&
-                        //        Values.V.TryGetSpeciesByName(text, out Species species))
-                        //    {
-                        //        cv.Species = species;
-                        //    }
-                        //    break;
-                        case "bIsFemale":
-                            cv.sex = text == "True" ? Sex.Female : Sex.Male;
-                            break;
-                        case "bIsNeutered":
-                            if (text != "False")
-                                cv.flags |= CreatureFlags.Neutered;
-                            break;
-                        case "TamerString":
-                            if (Properties.Settings.Default.ImportExportUseTamerStringForOwner)
-                                cv.owner = text;
-                            else
-                                cv.tribe = text;
-                            break;
-                        case "TamedName":
-                            cv.name = text;
-                            break;
-                        case "ImprinterName":
-                            cv.imprinterName = text;
-                            if (string.IsNullOrEmpty(cv.owner))
-                                cv.owner = text;
-                            if (!string.IsNullOrWhiteSpace(text))
-                                cv.isBred = true;
-                            break;
-                        // todo mutations for mother and father
-                        case "RandomMutationsMale":
-                            cv.mutationCounterFather = (int)value;
-                            break;
-                        case "RandomMutationsFemale":
-                            cv.mutationCounterMother = (int)value;
-                            break;
-                        case "BabyAge":
-                            if (cv.Species?.breeding != null)
-                                cv.growingUntil = DateTime.Now.AddSeconds((int)(cv.Species.breeding.maturationTimeAdjusted * (1 - value)));
-                            break;
-                        case "CharacterLevel":
-                            cv.level = (int)value;
-                            break;
-                        case "DinoImprintingQuality":
-                            cv.imprintingBonus = value;
-                            if (value > 0) cv.isBred = true;
-                            break;
-                        // Colorization
-                        case "ColorSet[0]":
-                            cv.colorIDs[0] = ParseColor(text);
-                            break;
-                        case "ColorSet[1]":
-                            cv.colorIDs[1] = ParseColor(text);
-                            break;
-                        case "ColorSet[2]":
-                            cv.colorIDs[2] = ParseColor(text);
-                            break;
-                        case "ColorSet[3]":
-                            cv.colorIDs[3] = ParseColor(text);
-                            break;
-                        case "ColorSet[4]":
-                            cv.colorIDs[4] = ParseColor(text);
-                            break;
-                        case "ColorSet[5]":
-                            cv.colorIDs[5] = ParseColor(text);
-                            break;
-                        case "Health":
-                            cv.statValues[(int)StatNames.Health] = value;
-                            break;
-                        case "Stamina":
-                            cv.statValues[(int)StatNames.Stamina] = value;
-                            break;
-                        case "Torpidity":
-                            cv.statValues[(int)StatNames.Torpidity] = value;
-                            break;
-                        case "Oxygen":
-                            cv.statValues[(int)StatNames.Oxygen] = value;
-                            break;
-                        case "Food":
-                            cv.statValues[(int)StatNames.Food] = value;
-                            break;
-                        case "Water":
-                            cv.statValues[(int)StatNames.Water] = value;
-                            break;
-                        case "Temperature":
-                            cv.statValues[(int)StatNames.Temperature] = value;
-                            break;
-                        case "Weight":
-                            cv.statValues[(int)StatNames.Weight] = value;
-                            break;
-                        case "Melee Damage":
-                            cv.statValues[(int)StatNames.MeleeDamageMultiplier] = 1 + value;
-                            break;
-                        case "Movement Speed":
-                            cv.statValues[(int)StatNames.SpeedMultiplier] = 1 + value;
-                            break;
-                        case "Fortitude":
-                            cv.statValues[(int)StatNames.TemperatureFortitude] = 1 + value;
-                            break;
-                        case "Crafting Skill":
-                            cv.statValues[(int)StatNames.CraftingSpeedMultiplier] = 1 + value;
-                            break;
-                        case "DinoAncestorsMale":
-                            Regex r = new Regex(@"MaleName=([^;]+);MaleDinoID1=([^;]+);MaleDinoID2=([^;]+);FemaleName=([^;]+);FemaleDinoID1=([^;]+);FemaleDinoID2=([^;]+)");
-                            Match m = r.Match(text);
-                            if (m.Success)
-                            {
-                                cv.motherArkId = BuildARKID(m.Groups[5].Value, m.Groups[6].Value);
-                                cv.fatherArkId = BuildARKID(m.Groups[2].Value, m.Groups[3].Value);
-                                cv.isBred = true;
-                            }
-                            break;
-                    }
+                        cv.Species = Values.V.SpeciesByBlueprint(text);
+                        if (cv.Species == null)
+                            cv.speciesBlueprint = text; // species is unknown, check the needed mods later
+                        break;
+                    //case "DinoNameTag":
+                    //    // get name if blueprintpath is not available (in this case a custom values_mod.json should be created, this is just a fallback
+                    //    if (cv.Species == null &&
+                    //        Values.V.TryGetSpeciesByName(text, out Species species))
+                    //    {
+                    //        cv.Species = species;
+                    //    }
+                    //    break;
+                    case "bIsFemale":
+                        cv.sex = text == "True" ? Sex.Female : Sex.Male;
+                        break;
+                    case "bIsNeutered":
+                        if (text != "False")
+                            cv.flags |= CreatureFlags.Neutered;
+                        break;
+                    case "TamerString":
+                        if (Properties.Settings.Default.ImportExportUseTamerStringForOwner)
+                            cv.owner = text;
+                        else
+                            cv.tribe = text;
+                        break;
+                    case "TamedName":
+                        cv.name = text;
+                        break;
+                    case "ImprinterName":
+                        cv.imprinterName = text;
+                        if (string.IsNullOrEmpty(cv.owner))
+                            cv.owner = text;
+                        if (!string.IsNullOrWhiteSpace(text))
+                            cv.isBred = true;
+                        break;
+                    case "RandomMutationsMale":
+                        cv.mutationCounterFather = (int)value;
+                        break;
+                    case "RandomMutationsFemale":
+                        cv.mutationCounterMother = (int)value;
+                        break;
+                    case "BabyAge":
+                        if (cv.Species?.breeding != null)
+                            cv.growingUntil = DateTime.Now.AddSeconds((int)(cv.Species.breeding.maturationTimeAdjusted * (1 - value)));
+                        break;
+                    case "CharacterLevel":
+                        cv.level = (int)value;
+                        break;
+                    case "DinoImprintingQuality":
+                        cv.imprintingBonus = value;
+                        if (value > 0) cv.isBred = true;
+                        break;
+                    // Colorization
+                    case "ColorSet[0]":
+                        cv.colorIDs[0] = ParseColor(text);
+                        break;
+                    case "ColorSet[1]":
+                        cv.colorIDs[1] = ParseColor(text);
+                        break;
+                    case "ColorSet[2]":
+                        cv.colorIDs[2] = ParseColor(text);
+                        break;
+                    case "ColorSet[3]":
+                        cv.colorIDs[3] = ParseColor(text);
+                        break;
+                    case "ColorSet[4]":
+                        cv.colorIDs[4] = ParseColor(text);
+                        break;
+                    case "ColorSet[5]":
+                        cv.colorIDs[5] = ParseColor(text);
+                        break;
+                    case "Health":
+                        cv.statValues[(int)StatNames.Health] = value;
+                        break;
+                    case "Stamina":
+                        cv.statValues[(int)StatNames.Stamina] = value;
+                        break;
+                    case "Torpidity":
+                        cv.statValues[(int)StatNames.Torpidity] = value;
+                        break;
+                    case "Oxygen":
+                        cv.statValues[(int)StatNames.Oxygen] = value;
+                        break;
+                    case "Food":
+                        cv.statValues[(int)StatNames.Food] = value;
+                        break;
+                    case "Water":
+                        cv.statValues[(int)StatNames.Water] = value;
+                        break;
+                    case "Temperature":
+                        cv.statValues[(int)StatNames.Temperature] = value;
+                        break;
+                    case "Weight":
+                        cv.statValues[(int)StatNames.Weight] = value;
+                        break;
+                    case "Melee Damage":
+                        cv.statValues[(int)StatNames.MeleeDamageMultiplier] = 1 + value;
+                        break;
+                    case "Movement Speed":
+                        cv.statValues[(int)StatNames.SpeedMultiplier] = 1 + value;
+                        break;
+                    case "Fortitude":
+                        cv.statValues[(int)StatNames.TemperatureFortitude] = 1 + value;
+                        break;
+                    case "Crafting Skill":
+                        cv.statValues[(int)StatNames.CraftingSpeedMultiplier] = 1 + value;
+                        break;
+                    case "DinoAncestorsMale":
+                        Regex r = new Regex(@"MaleName=([^;]+);MaleDinoID1=([^;]+);MaleDinoID2=([^;]+);FemaleName=([^;]+);FemaleDinoID1=([^;]+);FemaleDinoID2=([^;]+)");
+                        Match m = r.Match(text);
+                        if (m.Success)
+                        {
+                            cv.motherArkId = BuildARKID(m.Groups[5].Value, m.Groups[6].Value);
+                            cv.fatherArkId = BuildARKID(m.Groups[2].Value, m.Groups[3].Value);
+                            cv.isBred = true;
+                        }
+                        break;
                 }
             }
 
