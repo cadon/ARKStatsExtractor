@@ -1095,7 +1095,21 @@ namespace ARKBreedingStats
 
             var filterString = ToolStripTextBoxLibraryFilter.Text.Trim();
             if (!string.IsNullOrEmpty(filterString))
-                creatures = creatures.Where(c => c.name.IndexOf(filterString, StringComparison.InvariantCultureIgnoreCase) != -1);
+            {
+                // filter parameter are separated by commas and all parameter must be found on an item to have it included
+                var filterStrings = filterString.Split(',').Select(f => f.Trim())
+                    .Where(f => !string.IsNullOrEmpty(f)).ToArray();
+
+                creatures = creatures.Where(c => filterStrings.All(f =>
+                    c.name.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) != -1
+                    || (c.Species?.name.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
+                    || (c.owner?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
+                    || (c.tribe?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
+                    || (c.note?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
+                    || (c.server?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
+                    || (c.tags?.Any(t => string.Equals(t, f, StringComparison.InvariantCultureIgnoreCase)) ?? false)
+                ));
+            }
 
             return creatures;
         }
