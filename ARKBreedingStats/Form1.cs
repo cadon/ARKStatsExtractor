@@ -1318,7 +1318,10 @@ namespace ARKBreedingStats
             toolStripButtonAddPlayer.Visible = tabControlMain.SelectedTab == tabPagePlayerTribes;
             toolStripButtonAddTribe.Visible = tabControlMain.SelectedTab == tabPagePlayerTribes;
             toolStripButtonClear.Visible = tabControlMain.SelectedTab == tabPageExtractor || tabControlMain.SelectedTab == tabPageStatTesting;
-            //creatureToolStripMenuItem.Enabled = (tabControlMain.SelectedTab == tabPageLibrary);
+            var libraryShown = tabControlMain.SelectedTab == tabPageLibrary;
+            ToolStripLabelFilter.Visible = libraryShown;
+            ToolStripTextBoxLibraryFilter.Visible = libraryShown;
+            ToolStripButtonLibraryFilterClear.Visible = libraryShown;
             SetMessageLabelText();
             copyCreatureToolStripMenuItem.Visible = tabControlMain.SelectedTab == tabPageLibrary;
             toolStripButtonAddNote.Visible = tabControlMain.SelectedTab == tabPageNotes;
