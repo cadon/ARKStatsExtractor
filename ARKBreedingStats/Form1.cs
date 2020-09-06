@@ -14,7 +14,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
 using static ARKBreedingStats.settings.Settings;
@@ -61,7 +60,6 @@ namespace ARKBreedingStats
         private ExportedCreatureControl _exportedCreatureControl;
         private readonly ToolTip _tt;
         private bool _reactOnCreatureSelectionChange;
-        private CancellationTokenSource _cancelTokenLibrarySelection;
         private bool _clearExtractionCreatureData;
         /// <summary>
         /// The last tab-page opened in the settings.

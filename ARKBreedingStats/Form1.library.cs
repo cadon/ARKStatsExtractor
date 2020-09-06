@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Threading;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
 {
@@ -258,7 +260,7 @@ namespace ARKBreedingStats
         {
             // set pointer to current collection
             pedigree1.SetCreatures(_creatureCollection.creatures);
-            breedingPlan1.creatureCollection = _creatureCollection;
+            breedingPlan1.CreatureCollection = _creatureCollection;
             tribesControl1.Tribes = _creatureCollection.tribes;
             tribesControl1.Players = _creatureCollection.players;
             timerList1.CreatureCollection = _creatureCollection;
@@ -648,6 +650,10 @@ namespace ARKBreedingStats
             }
             listViewLibrary.Items.AddRange(items.ToArray());
             listViewLibrary.EndUpdate();
+
+            // highlight filter input if something is entered and no results are available
+            ToolStripTextBoxLibraryFilter.BackColor = string.IsNullOrEmpty(ToolStripTextBoxLibraryFilter.Text) || items.Any()
+                ? SystemColors.Window : Color.LightSalmon;
         }
 
         /// <summary>
@@ -932,25 +938,13 @@ namespace ARKBreedingStats
             ListViewColumnSorter.DoSort((ListView)sender, e.Column);
         }
 
+        private Debouncer libraryIndexChangedDebouncer = new Debouncer();
+
         // onlibrarychange
-        private async void listViewLibrary_SelectedIndexChanged(object sender, EventArgs e)
+        private void listViewLibrary_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _cancelTokenLibrarySelection?.Cancel();
-            using (_cancelTokenLibrarySelection = new CancellationTokenSource())
-            {
-                try
-                {
-                    _reactOnCreatureSelectionChange = false;
-                    await Task.Delay(20, _cancelTokenLibrarySelection.Token); // recalculate breedingplan at most a certain interval
-                    _reactOnCreatureSelectionChange = true;
-                    LibrarySelectedIndexChanged();
-                }
-                catch (TaskCanceledException)
-                {
-                    return;
-                }
-            }
-            _cancelTokenLibrarySelection = null;
+            if (_reactOnCreatureSelectionChange)
+                libraryIndexChangedDebouncer.Debounce(100, LibrarySelectedIndexChanged, Dispatcher.CurrentDispatcher);
         }
 
         /// <summary>
@@ -958,49 +952,45 @@ namespace ARKBreedingStats
         /// </summary>
         private void LibrarySelectedIndexChanged()
         {
-            if (!_reactOnCreatureSelectionChange)
-                return;
-
             int cnt = listViewLibrary.SelectedItems.Count;
-            if (cnt > 0)
-            {
-                if (cnt == 1)
-                {
-                    Creature c = (Creature)listViewLibrary.SelectedItems[0].Tag;
-                    creatureBoxListView.SetCreature(c);
-                    if (tabControlLibFilter.SelectedTab == tabPageLibRadarChart)
-                        radarChartLibrary.setLevels(c.levelsWild);
-                    pedigree1.PedigreeNeedsUpdate = true;
-                }
-
-                // display infos about the selected creatures
-                List<Creature> selCrs = new List<Creature>();
-                for (int i = 0; i < cnt; i++)
-                    selCrs.Add((Creature)listViewLibrary.SelectedItems[i].Tag);
-
-                List<string> tagList = new List<string>();
-                foreach (Creature cr in selCrs)
-                {
-                    foreach (string t in cr.tags)
-                        if (!tagList.Contains(t))
-                            tagList.Add(t);
-                }
-                tagList.Sort();
-
-                SetMessageLabelText($"{cnt} creatures selected, " +
-                        $"{selCrs.Count(cr => cr.sex == Sex.Female)} females, " +
-                        $"{selCrs.Count(cr => cr.sex == Sex.Male)} males\n" +
-                        (cnt == 1
-                            ? $"level: {selCrs[0].Level}" + (selCrs[0].ArkIdImported ? $"; Ark-Id (ingame): {Utils.ConvertImportedArkIdToIngameVisualization(selCrs[0].ArkId)}" : string.Empty)
-                            : $"level-range: {selCrs.Min(cr => cr.Level)} - {selCrs.Max(cr => cr.Level)}"
-                        ) + "\n" +
-                        $"Tags: {string.Join(", ", tagList)}");
-            }
-            else
+            if (cnt == 0)
             {
                 SetMessageLabelText();
                 creatureBoxListView.Clear();
+                return;
             }
+
+            if (cnt == 1)
+            {
+                Creature c = (Creature)listViewLibrary.SelectedItems[0].Tag;
+                creatureBoxListView.SetCreature(c);
+                if (tabControlLibFilter.SelectedTab == tabPageLibRadarChart)
+                    radarChartLibrary.setLevels(c.levelsWild);
+                pedigree1.PedigreeNeedsUpdate = true;
+            }
+
+            // display infos about the selected creatures
+            List<Creature> selCrs = new List<Creature>();
+            for (int i = 0; i < cnt; i++)
+                selCrs.Add((Creature)listViewLibrary.SelectedItems[i].Tag);
+
+            List<string> tagList = new List<string>();
+            foreach (Creature cr in selCrs)
+            {
+                foreach (string t in cr.tags)
+                    if (!tagList.Contains(t))
+                        tagList.Add(t);
+            }
+            tagList.Sort();
+
+            SetMessageLabelText($"{cnt} creatures selected, " +
+                    $"{selCrs.Count(cr => cr.sex == Sex.Female)} females, " +
+                    $"{selCrs.Count(cr => cr.sex == Sex.Male)} males\n" +
+                    (cnt == 1
+                        ? $"level: {selCrs[0].Level}" + (selCrs[0].ArkIdImported ? $"; Ark-Id (ingame): {Utils.ConvertImportedArkIdToIngameVisualization(selCrs[0].ArkId)}" : string.Empty)
+                        : $"level-range: {selCrs.Min(cr => cr.Level)} - {selCrs.Max(cr => cr.Level)}"
+                    ) + "\n" +
+                    $"Tags: {string.Join(", ", tagList)}");
         }
 
         /// <summary>
@@ -1103,10 +1093,9 @@ namespace ARKBreedingStats
                 creatures = creatures.Where(c => ((int)c.flags & flagsOneNeeded) != 0);
             }
 
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.FilterByName))
-            {
-                creatures = creatures.Where(c => c.name.Contains(Properties.Settings.Default.FilterByName));
-            }
+            var filterString = ToolStripTextBoxLibraryFilter.Text.Trim();
+            if (!string.IsNullOrEmpty(filterString))
+                creatures = creatures.Where(c => c.name.IndexOf(filterString, StringComparison.InvariantCultureIgnoreCase) != -1);
 
             return creatures;
         }
@@ -1298,6 +1287,18 @@ namespace ARKBreedingStats
                     FilterLib();
                 }
             }
+        }
+
+        private Debouncer filterLibraryDebouncer = new Debouncer();
+
+        private void ToolStripTextBoxLibraryFilter_TextChanged(object sender, EventArgs e)
+        {
+            filterLibraryDebouncer.Debounce(500, FilterLib, Dispatcher.CurrentDispatcher);
+        }
+
+        private void ToolStripButtonLibraryFilterClear_Click(object sender, EventArgs e)
+        {
+            ToolStripTextBoxLibraryFilter.Clear();
         }
     }
 }

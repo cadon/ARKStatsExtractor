@@ -54,14 +54,10 @@
             this.CbUseFilterInTopStatCalculation = new System.Windows.Forms.CheckBox();
             this.BtApply = new System.Windows.Forms.Button();
             this.BtCancel = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.TbFilterByName = new System.Windows.Forms.TextBox();
-            this.LbFilterByName = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -70,14 +66,12 @@
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 450);
             this.tableLayoutPanel1.TabIndex = 0;
@@ -118,7 +112,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(796, 370);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(796, 408);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
             // CbTagsAll
@@ -204,7 +198,7 @@
             this.ClbTags.FormattingEnabled = true;
             this.ClbTags.Location = new System.Drawing.Point(432, 48);
             this.ClbTags.Name = "ClbTags";
-            this.ClbTags.Size = new System.Drawing.Size(136, 316);
+            this.ClbTags.Size = new System.Drawing.Size(136, 354);
             this.ClbTags.TabIndex = 3;
             // 
             // ClbServers
@@ -213,7 +207,7 @@
             this.ClbServers.FormattingEnabled = true;
             this.ClbServers.Location = new System.Drawing.Point(290, 48);
             this.ClbServers.Name = "ClbServers";
-            this.ClbServers.Size = new System.Drawing.Size(136, 316);
+            this.ClbServers.Size = new System.Drawing.Size(136, 354);
             this.ClbServers.TabIndex = 2;
             // 
             // ClbTribes
@@ -222,7 +216,7 @@
             this.ClbTribes.FormattingEnabled = true;
             this.ClbTribes.Location = new System.Drawing.Point(148, 48);
             this.ClbTribes.Name = "ClbTribes";
-            this.ClbTribes.Size = new System.Drawing.Size(136, 316);
+            this.ClbTribes.Size = new System.Drawing.Size(136, 354);
             this.ClbTribes.TabIndex = 1;
             // 
             // ClbOwners
@@ -231,7 +225,7 @@
             this.ClbOwners.FormattingEnabled = true;
             this.ClbOwners.Location = new System.Drawing.Point(6, 48);
             this.ClbOwners.Name = "ClbOwners";
-            this.ClbOwners.Size = new System.Drawing.Size(136, 316);
+            this.ClbOwners.Size = new System.Drawing.Size(136, 354);
             this.ClbOwners.TabIndex = 0;
             // 
             // LbOwners
@@ -261,7 +255,7 @@
             this.FlpStatus.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FlpStatus.Location = new System.Drawing.Point(574, 48);
             this.FlpStatus.Name = "FlpStatus";
-            this.FlpStatus.Size = new System.Drawing.Size(104, 316);
+            this.FlpStatus.Size = new System.Drawing.Size(104, 354);
             this.FlpStatus.TabIndex = 14;
             // 
             // LbColors
@@ -281,7 +275,7 @@
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(684, 48);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(106, 316);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(106, 354);
             this.flowLayoutPanel1.TabIndex = 16;
             // 
             // BtColorFilter
@@ -373,35 +367,6 @@
             this.BtCancel.Text = "Cancel";
             this.BtCancel.UseVisualStyleBackColor = true;
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.TbFilterByName);
-            this.panel2.Controls.Add(this.LbFilterByName);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(5, 377);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(790, 30);
-            this.panel2.TabIndex = 5;
-            // 
-            // TbFilterByName
-            // 
-            this.TbFilterByName.Dock = System.Windows.Forms.DockStyle.Left;
-            this.TbFilterByName.Location = new System.Drawing.Point(69, 0);
-            this.TbFilterByName.Name = "TbFilterByName";
-            this.TbFilterByName.Size = new System.Drawing.Size(260, 20);
-            this.TbFilterByName.TabIndex = 1;
-            // 
-            // LbFilterByName
-            // 
-            this.LbFilterByName.AutoSize = true;
-            this.LbFilterByName.Dock = System.Windows.Forms.DockStyle.Left;
-            this.LbFilterByName.Location = new System.Drawing.Point(0, 0);
-            this.LbFilterByName.Name = "LbFilterByName";
-            this.LbFilterByName.Size = new System.Drawing.Size(69, 13);
-            this.LbFilterByName.TabIndex = 0;
-            this.LbFilterByName.Text = "filter by name";
-            this.LbFilterByName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // LibraryFilter
             // 
             this.AcceptButton = this.BtApply;
@@ -421,8 +386,6 @@
             this.flowLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -455,8 +418,5 @@
         private System.Windows.Forms.Button BtClearColorFilters;
         private System.Windows.Forms.CheckBox CbLibraryGroupSpecies;
         private System.Windows.Forms.Button BtClearFlagFilter;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.TextBox TbFilterByName;
-        private System.Windows.Forms.Label LbFilterByName;
     }
 }

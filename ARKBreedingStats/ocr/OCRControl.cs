@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Threading;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.ocr
 {
@@ -21,7 +23,7 @@ namespace ARKBreedingStats.ocr
         private Bitmap _screenshot;
         private bool _updateDrawing = true;
         private bool _ignoreValueChange;
-        private CancellationTokenSource _cancelSource;
+        private readonly Debouncer _redrawingDebouncer = new Debouncer();
 
         public OCRControl()
         {
@@ -65,20 +67,7 @@ namespace ARKBreedingStats.ocr
         /// <param name="value">The white-threshold. -1 disables the preview</param>
         private async void ShowPreviewWhiteThreshold(int value)
         {
-            _cancelSource?.Cancel();
-            try
-            {
-                using (_cancelSource = new CancellationTokenSource())
-                {
-                    await Task.Delay(400, _cancelSource.Token); // update preview only each interval
-                    RedrawScreenshot(-1, false, value);
-                }
-            }
-            catch (TaskCanceledException)
-            {
-                return;
-            }
-            _cancelSource = null;
+            _redrawingDebouncer.Debounce(500, RedrawScreenshot, Dispatcher.CurrentDispatcher, (-1, false, value));
         }
 
         private void OCRDebugLayoutPanel_DragEnter(object sender, DragEventArgs e)
@@ -222,9 +211,9 @@ namespace ARKBreedingStats.ocr
             labelMatching.Text = $"matching: {Math.Round(match * 100, 1)} %";
         }
 
-        internal void SetWhiteThreshold(int oCRWhiteThreshold)
+        internal void SetWhiteThreshold(int ocrWhiteThreshold)
         {
-            nudWhiteTreshold.Value = oCRWhiteThreshold;
+            nudWhiteTreshold.Value = ocrWhiteThreshold;
         }
 
         private void listBoxLabelRectangles_SelectedIndexChanged(object sender, EventArgs e)
@@ -260,6 +249,12 @@ namespace ARKBreedingStats.ocr
             OCRDebugLayoutPanel.Controls.SetChildIndex(b, 0);
         }
 
+        private void RedrawScreenshot(object ob)
+        {
+            var args = ((int, bool, int))ob;
+            RedrawScreenshot(args.Item1, args.Item2, args.Item3);
+        }
+
         /// <summary>
         /// Redraws the screenshot
         /// </summary>
@@ -268,47 +263,48 @@ namespace ARKBreedingStats.ocr
         /// <param name="whiteThreshold">preview of white-Threshold. -1 to disable</param>
         private void RedrawScreenshot(int hightlightIndex, bool showLabels = true, int whiteThreshold = -1)
         {
-            if (OCRDebugLayoutPanel.Controls.Count > 0 && OCRDebugLayoutPanel.Controls[OCRDebugLayoutPanel.Controls.Count - 1] is PictureBox && _screenshot != null)
+            if (OCRDebugLayoutPanel.Controls.Count <= 0 ||
+                !(OCRDebugLayoutPanel.Controls[OCRDebugLayoutPanel.Controls.Count - 1] is PictureBox) ||
+                _screenshot == null) return;
+
+            PictureBox p = (PictureBox)OCRDebugLayoutPanel.Controls[OCRDebugLayoutPanel.Controls.Count - 1];
+            Bitmap b = new Bitmap((whiteThreshold >= 0 ? ArkOCR.removePixelsUnderThreshold(ArkOCR.GetGreyScale(_screenshot), whiteThreshold, true) : _screenshot));
+            using (Graphics g = Graphics.FromImage(b))
             {
-                PictureBox p = (PictureBox)OCRDebugLayoutPanel.Controls[OCRDebugLayoutPanel.Controls.Count - 1];
-                Bitmap b = new Bitmap((whiteThreshold >= 0 ? ArkOCR.removePixelsUnderThreshold(ArkOCR.GetGreyScale(_screenshot), whiteThreshold, true) : _screenshot));
-                using (Graphics g = Graphics.FromImage(b))
+                if (showLabels)
                 {
-                    if (showLabels)
+                    using (Pen penW = new Pen(Color.White, 2))
+                    using (Pen penY = new Pen(Color.Yellow, 2))
+                    using (Pen penB = new Pen(Color.Black, 2))
                     {
-                        using (Pen penW = new Pen(Color.White, 2))
-                        using (Pen penY = new Pen(Color.Yellow, 2))
-                        using (Pen penB = new Pen(Color.Black, 2))
+                        penW.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
+                        penY.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
+                        penB.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
+                        for (int r = 0; r < ArkOCR.OCR.ocrConfig.labelRectangles.Count; r++)
                         {
-                            penW.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
-                            penY.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
-                            penB.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
-                            for (int r = 0; r < ArkOCR.OCR.ocrConfig.labelRectangles.Count; r++)
+                            Rectangle rec = ArkOCR.OCR.ocrConfig.labelRectangles[r];
+                            if (r == hightlightIndex)
                             {
-                                Rectangle rec = ArkOCR.OCR.ocrConfig.labelRectangles[r];
-                                if (r == hightlightIndex)
-                                {
-                                    rec.Inflate(2, 2);
-                                    g.DrawRectangle(penY, rec);
-                                    rec.Inflate(2, 2);
-                                    g.DrawRectangle(penB, rec);
-                                }
-                                else
-                                {
-                                    rec.Inflate(2, 2);
-                                    g.DrawRectangle(penW, rec);
-                                    rec.Inflate(2, 2);
-                                    g.DrawRectangle(penB, rec);
-                                }
+                                rec.Inflate(2, 2);
+                                g.DrawRectangle(penY, rec);
+                                rec.Inflate(2, 2);
+                                g.DrawRectangle(penB, rec);
+                            }
+                            else
+                            {
+                                rec.Inflate(2, 2);
+                                g.DrawRectangle(penW, rec);
+                                rec.Inflate(2, 2);
+                                g.DrawRectangle(penB, rec);
                             }
                         }
                     }
                 }
-                Bitmap disp = (Bitmap)p.Image; // take pointer to old image to dispose it soon
-                p.Image = b;
-                if (disp != null && disp != _screenshot)
-                    disp.Dispose();
             }
+            Bitmap disp = (Bitmap)p.Image; // take pointer to old image to dispose it soon
+            p.Image = b;
+            if (disp != null && disp != _screenshot)
+                disp.Dispose();
         }
 
         private void nudX_ValueChanged(object sender, EventArgs e)
@@ -398,7 +394,7 @@ namespace ARKBreedingStats.ocr
             fileName = fileName ?? Properties.Settings.Default.ocrFile;
 
             string exePath = Path.GetDirectoryName(FileService.ExeFilePath);
-            if (Updater.IsProgramInstalled && fileName.StartsWith(exePath))
+            if (Updater.IsProgramInstalled && !string.IsNullOrEmpty(exePath) && fileName.StartsWith(exePath))
             {
                 // if ASB is installed the json files are in AppData system folder. trim the exe path from filename
                 fileName = fileName.Substring(exePath.Length).Trim('/', '\\');
@@ -499,7 +495,7 @@ namespace ARKBreedingStats.ocr
                 return false;
             ArkOCR.OCR.ocrConfig = t;
             UpdateOCRLabel(fileName);
-            UpdateOCRFontSizes();
+            UpdateOcrFontSizes();
             InitLabelEntries();
             nudResizing.Value = ArkOCR.OCR.ocrConfig.resize == 0 ? 1 : (decimal)ArkOCR.OCR.ocrConfig.resize;
             return true;
@@ -518,7 +514,7 @@ namespace ARKBreedingStats.ocr
         private void buttonLoadCalibrationImage_Click(object sender, EventArgs e)
         {
             if (ArkOCR.OCR.calibrateFromFontFile((int)nudFontSizeCalibration.Value, textBoxCalibrationText.Text))
-                UpdateOCRFontSizes();
+                UpdateOcrFontSizes();
         }
 
         internal void SetScreenshot(Bitmap screenshotbmp)
@@ -564,7 +560,7 @@ namespace ARKBreedingStats.ocr
                     ArkOCR.OCR.ocrConfig.fontSizes.RemoveAt(ocrIndex);
                     ArkOCR.OCR.ocrConfig.letterArrays.RemoveAt(ocrIndex);
                     ArkOCR.OCR.ocrConfig.letters.RemoveAt(ocrIndex);
-                    UpdateOCRFontSizes();
+                    UpdateOcrFontSizes();
                 }
             }
         }
@@ -583,7 +579,7 @@ namespace ARKBreedingStats.ocr
                         "you can try to decrese the factor." + infoText;
         }
 
-        private void UpdateOCRFontSizes()
+        private void UpdateOcrFontSizes()
         {
             cbbFontSizeDelete.Items.Clear();
             foreach (int s in ArkOCR.OCR.ocrConfig.fontSizes)

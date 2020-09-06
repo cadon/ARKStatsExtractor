@@ -2,14 +2,13 @@
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Threading;
 using ARKBreedingStats.uiControls;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
 {
@@ -33,14 +32,14 @@ namespace ARKBreedingStats
         /// <summary>
         /// The TextBox control for the species searching which is outside of this control.
         /// </summary>
-        private uiControls.TextBoxSuggest _textBox;
+        private TextBoxSuggest _textBox;
 
         /// <summary>
         /// List of species-blueprintPaths last used by the user
         /// </summary>
         private List<string> _lastSpeciesBPs;
         private List<string> _iconIndices;
-        private CancellationTokenSource _cancelSource;
+        private readonly Debouncer _speciesChangeDebouncer = new Debouncer();
 
         internal readonly VariantSelector VariantSelector;
 
@@ -192,6 +191,8 @@ namespace ARKBreedingStats
             }
         }
 
+        private void FilterListWithUnselectedText() => FilterList(_textBox.Text.Substring(0, _textBox.SelectionStart));
+
         private void FilterList(string part = null)
         {
             if (_entryList == null) return;
@@ -274,28 +275,15 @@ namespace ARKBreedingStats
             OnSpeciesSelected?.Invoke(true);
         }
 
-        public void SetTextBox(uiControls.TextBoxSuggest textbox)
+        public void SetTextBox(TextBoxSuggest textbox)
         {
-            this._textBox = textbox;
+            _textBox = textbox;
             textbox.TextChanged += Textbox_TextChanged;
         }
 
-        private async void Textbox_TextChanged(object sender, EventArgs e)
+        private void Textbox_TextChanged(object sender, EventArgs e)
         {
-            _cancelSource?.Cancel();
-            using (_cancelSource = new CancellationTokenSource())
-            {
-                try
-                {
-                    await Task.Delay(200, _cancelSource.Token); // give the textBox time to apply the selection for the appended text
-                    FilterList(_textBox.Text.Substring(0, _textBox.SelectionStart));
-                }
-                catch (TaskCanceledException)
-                {
-                    return;
-                }
-            }
-            _cancelSource = null;
+            _speciesChangeDebouncer.Debounce(300, FilterListWithUnselectedText, Dispatcher.CurrentDispatcher);
         }
 
         public string[] LastSpecies

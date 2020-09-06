@@ -305,9 +305,6 @@
     <Setting Name="FilterFlagsOneNeeded" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="FilterByName" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="ModManagerWindowRect" Type="System.Drawing.Rectangle" Scope="User">
       <Value Profile="(Default)">50, 50, 800, 600</Value>
     </Setting>

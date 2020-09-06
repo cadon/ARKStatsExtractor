@@ -5,34 +5,31 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Threading;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.uiControls
 {
     public partial class PatternEditor : Form
     {
-        private CancellationTokenSource cancelSource;
-        private Creature _creature;
-        private Creature[] _creatureOfSameSpecies;
-        private int[] _speciesTopLevels;
-        private int[] _speciesLowestLevels;
+        private readonly Creature _creature;
+        private readonly Creature[] _creaturesOfSameSpecies;
+        private readonly int[] _speciesTopLevels;
+        private readonly int[] _speciesLowestLevels;
         private Dictionary<string, string> _customReplacings;
-        private Dictionary<string, string> _tokenDictionary;
-        private Action<PatternEditor> OnReloadCustomReplacings;
+        private readonly Dictionary<string, string> _tokenDictionary;
+        private readonly Debouncer _updateNameDebouncer = new Debouncer();
 
         public PatternEditor()
         {
             InitializeComponent();
         }
 
-        public PatternEditor(Creature creature, Creature[] creatureOfSameSpecies, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback) : this()
+        public PatternEditor(Creature creature, Creature[] creaturesOfSameSpecies, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback) : this()
         {
-            OnReloadCustomReplacings = reloadCallback;
             _creature = creature;
-            _creatureOfSameSpecies = creatureOfSameSpecies;
+            _creaturesOfSameSpecies = creaturesOfSameSpecies;
             _speciesTopLevels = speciesTopLevels;
             _speciesLowestLevels = speciesLowestLevels;
             _customReplacings = customReplacings;
@@ -41,7 +38,7 @@ namespace ARKBreedingStats.uiControls
 
             Text = $"Naming Pattern Editor: pattern {(namingPatternIndex + 1)}";
 
-            _tokenDictionary = NamePatterns.CreateTokenDictionary(creature, _creatureOfSameSpecies, _speciesTopLevels, _speciesLowestLevels);
+            _tokenDictionary = NamePatterns.CreateTokenDictionary(creature, _creaturesOfSameSpecies, _speciesTopLevels, _speciesLowestLevels);
 
             TableLayoutPanel tlpKeys = new TableLayoutPanel();
             tableLayoutPanel1.Controls.Add(tlpKeys);
@@ -106,7 +103,7 @@ namespace ARKBreedingStats.uiControls
                         tlp.Controls.Add(btCustomReplacings);
                         tlp.SetCellPosition(btCustomReplacings, new TableLayoutPanelCellPosition(0, i));
                         var btCustomReplacingsReload = new Button() { Text = "Reload custom replacings", Width = 150 };
-                        btCustomReplacingsReload.Click += (sender, eventArgs) => OnReloadCustomReplacings?.Invoke(this);
+                        btCustomReplacingsReload.Click += (sender, eventArgs) => reloadCallback?.Invoke(this);
                         tlp.Controls.Add(btCustomReplacingsReload);
                         tlp.SetCellPosition(btCustomReplacingsReload, new TableLayoutPanelCellPosition(1, i));
                     }
@@ -306,29 +303,15 @@ namespace ARKBreedingStats.uiControls
             set => splitContainer1.SplitterDistance = value;
         }
 
-        private async void txtboxPattern_TextChanged(object sender, EventArgs e)
+        private void txtboxPattern_TextChanged(object sender, EventArgs e)
         {
-            if (!cbPreview.Checked) return;
-
-            cancelSource?.Cancel();
-            using (cancelSource = new CancellationTokenSource())
-            {
-                try
-                {
-                    await Task.Delay(500, cancelSource.Token); // display preview only at interval
-                    DisplayPreview();
-                }
-                catch (TaskCanceledException)
-                {
-                    return;
-                }
-            }
-            cancelSource = null;
+            if (cbPreview.Checked)
+                _updateNameDebouncer.Debounce(500, DisplayPreview, Dispatcher.CurrentDispatcher);
         }
 
         private void DisplayPreview()
         {
-            cbPreview.Text = NamePatterns.GenerateCreatureName(_creature, _creatureOfSameSpecies, _speciesTopLevels, _speciesLowestLevels, _customReplacings, false, -1, false, txtboxPattern.Text, false, _tokenDictionary);
+            cbPreview.Text = NamePatterns.GenerateCreatureName(_creature, _creaturesOfSameSpecies, _speciesTopLevels, _speciesLowestLevels, _customReplacings, false, -1, false, txtboxPattern.Text, false, _tokenDictionary);
         }
     }
 }
