@@ -453,7 +453,7 @@ namespace ARKBreedingStats
                 listBoxSpeciesLib.SelectedItem = speciesSelector1.SelectedSpecies;
 
             _filterListAllowed = true;
-            FilterLib();
+            FilterLibRecalculate();
 
             // apply last sorting
             listViewLibrary.Sort();

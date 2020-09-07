@@ -4,11 +4,10 @@ using ARKBreedingStats.uiControls;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.utils;
@@ -17,6 +16,12 @@ namespace ARKBreedingStats
 {
     public partial class Form1
     {
+        /// <summary>
+        /// Creatures filtered according to the library-filter.
+        /// Used so the live filter doesn't need to do the base filtering everytime.
+        /// </summary>
+        private Creature[] _creaturesPreFiltered;
+
         /// <summary>
         /// Add a new creature to the library based from the data of the extractor or tester
         /// </summary>
@@ -674,7 +679,7 @@ namespace ARKBreedingStats
             if (creatureStatusChanged)
             {
                 CalculateTopStats(_creatureCollection.creatures.Where(c => c.Species == cr.Species).ToList());
-                FilterLib();
+                FilterLibRecalculate();
                 UpdateStatusBar();
             }
             else
@@ -994,7 +999,18 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Call this list to set the listView for the library to the current filters
+        /// Display the creatures with the current filter.
+        /// Recalculate all filters.
+        /// </summary>
+        private void FilterLibRecalculate()
+        {
+            _creaturesPreFiltered = null;
+            FilterLib();
+        }
+
+        /// <summary>
+        /// Display the creatures with the current filter.
+        /// Use the pre filtered list (if available) and only apply the live filter.
         /// </summary>
         private void FilterLib()
         {
@@ -1006,21 +1022,47 @@ namespace ARKBreedingStats
             foreach (ListViewItem i in listViewLibrary.SelectedItems)
                 selectedCreatures.Add((Creature)i.Tag);
 
-            var filteredList = from creature in _creatureCollection.creatures
+            IEnumerable<Creature> filteredList;
+
+            if (_creaturesPreFiltered == null)
+            {
+                filteredList = from creature in _creatureCollection.creatures
                                where !creature.flags.HasFlag(CreatureFlags.Placeholder)
                                select creature;
 
-            // if only one species should be shown adjust headers if the selected species has custom statNames
-            Dictionary<string, string> customStatNames = null;
-            if (listBoxSpeciesLib.SelectedItem is Species selectedSpecies)
-            {
-                filteredList = filteredList.Where(c => c.Species == selectedSpecies);
-                customStatNames = selectedSpecies.statNames;
-            }
-            for (int s = 0; s < Values.STATS_COUNT; s++)
-                listViewLibrary.Columns[12 + s].Text = Utils.StatName(s, true, customStatNames);
+                // if only one species should be shown adjust headers if the selected species has custom statNames
+                Dictionary<string, string> customStatNames = null;
+                if (listBoxSpeciesLib.SelectedItem is Species selectedSpecies)
+                {
+                    filteredList = filteredList.Where(c => c.Species == selectedSpecies);
+                    customStatNames = selectedSpecies.statNames;
+                }
 
-            filteredList = ApplyLibraryFilterSettings(filteredList);
+                for (int s = 0; s < Values.STATS_COUNT; s++)
+                    listViewLibrary.Columns[12 + s].Text = Utils.StatName(s, true, customStatNames);
+
+                _creaturesPreFiltered = ApplyLibraryFilterSettings(filteredList).ToArray();
+            }
+
+            filteredList = _creaturesPreFiltered;
+            // apply live filter
+            var filterString = ToolStripTextBoxLibraryFilter.Text.Trim();
+            if (!string.IsNullOrEmpty(filterString))
+            {
+                // filter parameter are separated by commas and all parameter must be found on an item to have it included
+                var filterStrings = filterString.Split(',').Select(f => f.Trim())
+                    .Where(f => !string.IsNullOrEmpty(f)).ToArray();
+
+                filteredList = filteredList.Where(c => filterStrings.All(f =>
+                    c.name.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) != -1
+                    || (c.Species?.name.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
+                    || (c.owner?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
+                    || (c.tribe?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
+                    || (c.note?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
+                    || (c.server?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
+                    || (c.tags?.Any(t => string.Equals(t, f, StringComparison.InvariantCultureIgnoreCase)) ?? false)
+                ));
+            }
 
             // display new results
             ShowCreaturesInListView(filteredList);
@@ -1091,24 +1133,6 @@ namespace ARKBreedingStats
                 int flagsOneNeeded = Properties.Settings.Default.FilterFlagsOneNeeded |
                                      Properties.Settings.Default.FilterFlagsAllNeeded;
                 creatures = creatures.Where(c => ((int)c.flags & flagsOneNeeded) != 0);
-            }
-
-            var filterString = ToolStripTextBoxLibraryFilter.Text.Trim();
-            if (!string.IsNullOrEmpty(filterString))
-            {
-                // filter parameter are separated by commas and all parameter must be found on an item to have it included
-                var filterStrings = filterString.Split(',').Select(f => f.Trim())
-                    .Where(f => !string.IsNullOrEmpty(f)).ToArray();
-
-                creatures = creatures.Where(c => filterStrings.All(f =>
-                    c.name.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) != -1
-                    || (c.Species?.name.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
-                    || (c.owner?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
-                    || (c.tribe?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
-                    || (c.note?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
-                    || (c.server?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
-                    || (c.tags?.Any(t => string.Equals(t, f, StringComparison.InvariantCultureIgnoreCase)) ?? false)
-                ));
             }
 
             return creatures;
@@ -1298,7 +1322,7 @@ namespace ARKBreedingStats
                     UpdateOwnerServerTagLists();
                     SetCollectionChanged(true, !multipleSpecies ? sp : null);
                     RecalculateTopStatsIfNeeded();
-                    FilterLib();
+                    FilterLibRecalculate();
                 }
             }
         }
@@ -1307,12 +1331,13 @@ namespace ARKBreedingStats
 
         private void ToolStripTextBoxLibraryFilter_TextChanged(object sender, EventArgs e)
         {
-            filterLibraryDebouncer.Debounce(500, FilterLib, Dispatcher.CurrentDispatcher);
+            filterLibraryDebouncer.Debounce(ToolStripTextBoxLibraryFilter.Text == string.Empty ? 0 : 300, FilterLib, Dispatcher.CurrentDispatcher);
         }
 
         private void ToolStripButtonLibraryFilterClear_Click(object sender, EventArgs e)
         {
             ToolStripTextBoxLibraryFilter.Clear();
+            ToolStripTextBoxLibraryFilter.Focus();
         }
     }
 }

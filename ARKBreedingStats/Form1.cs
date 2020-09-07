@@ -818,7 +818,7 @@ namespace ARKBreedingStats
             UpdateOwnerServerTagLists();
             CalculateTopStats(creatures);
             UpdateSpeciesLists(_creatureCollection.creatures, keepCurrentlySelectedSpecies);
-            FilterLib();
+            FilterLibRecalculate();
             UpdateStatusBar();
             breedingPlan1.breedingPlanNeedsUpdate = true;
             pedigree1.UpdateListView();
@@ -1200,7 +1200,7 @@ namespace ARKBreedingStats
         private void listBoxSpeciesLib_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetSpecies(listBoxSpeciesLib.SelectedItem as Species);
-            FilterLib();
+            FilterLibRecalculate();
         }
 
         /// <summary>
@@ -1346,7 +1346,7 @@ namespace ARKBreedingStats
                     listBoxSpeciesLib.SelectedItem = speciesSelector1.SelectedSpecies;
                 }
                 else if (_libraryNeedsUpdate)
-                    FilterLib();
+                    FilterLibRecalculate();
             }
             else if (tabControlMain.SelectedTab == tabPagePedigree)
             {
@@ -1654,7 +1654,7 @@ namespace ARKBreedingStats
 
             // recalculate topstats
             CalculateTopStats(_creatureCollection.creatures);
-            FilterLib();
+            FilterLibRecalculate();
         }
 
         private void SetMatureBreedingStateOfSelectedCreatures(bool setMature = false, bool clearMatingCooldown = false, bool justMated = false)
@@ -1745,7 +1745,7 @@ namespace ARKBreedingStats
             {
                 // update list / recalculate topStats
                 CalculateTopStats(_creatureCollection.creatures.Where(c => speciesBlueprints.Contains(c.speciesBlueprint)).ToList());
-                FilterLib();
+                FilterLibRecalculate();
                 UpdateStatusBar();
                 SetCollectionChanged(true, speciesBlueprints.Count == 1 ? Values.V.SpeciesByBlueprint(speciesBlueprints[0]) : null);
             }
@@ -1834,7 +1834,7 @@ namespace ARKBreedingStats
                         statsMultiplierTesting1.CheckIfMultipliersAreEqualToSettings();
 
                     if (libraryTopCreatureColorHighlight != Properties.Settings.Default.LibraryHighlightTopCreatures)
-                        FilterLib();
+                        FilterLibRecalculate();
 
                     SetOverlayLocation();
 
@@ -3118,7 +3118,7 @@ namespace ARKBreedingStats
                     || Properties.Settings.Default.useFiltersInTopStatCalculation != useFilterInTopStatsOld)
                     CalculateTopStats(_creatureCollection.creatures);
 
-                FilterLib();
+                FilterLibRecalculate();
             }
 
             (Properties.Settings.Default.LibraryFilterWindowRect, _) = Utils.GetWindowRectangle(libraryFilter);
