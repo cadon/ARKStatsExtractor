@@ -20,8 +20,14 @@ namespace ARKBreedingStats.utils
         public void Debounce(int interval, Action action, Dispatcher dispatcher)
         {
             _timer?.Stop();
-            _timer = new Timer(interval) { AutoReset = false };
+            if (interval <= 0)
+            {
+                _timer = null;
+                dispatcher.BeginInvoke(action, null);
+                return;
+            }
 
+            _timer = new Timer(interval) { AutoReset = false };
             _timer.Elapsed += (s, o) =>
             {
                 if (_timer == null)
@@ -45,8 +51,14 @@ namespace ARKBreedingStats.utils
         public void Debounce(int interval, Action<object> action, Dispatcher dispatcher, object args)
         {
             _timer?.Stop();
-            _timer = new Timer(interval) { AutoReset = false };
+            if (interval <= 0)
+            {
+                _timer = null;
+                dispatcher.BeginInvoke(action, args);
+                return;
+            }
 
+            _timer = new Timer(interval) { AutoReset = false };
             _timer.Elapsed += (s, o) =>
             {
                 if (_timer == null)
