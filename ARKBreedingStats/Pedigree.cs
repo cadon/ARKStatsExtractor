@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Threading;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
 {
@@ -16,13 +18,19 @@ namespace ARKBreedingStats
         public event EditCreatureEventHandler EditCreature;
         public event Action<Creature> BestBreedingPartners;
         public event PedigreeCreature.ExportToClipboardEventHandler ExportToClipboard;
+        /// <summary>
+        /// All creatures of the current collection.
+        /// </summary>
         private List<Creature> _creatures;
+
+        private Creature[] _prefilteredCreatures;
         private Creature _selectedCreature;
         private List<Creature> _creatureChildren = new List<Creature>();
         private readonly List<List<int[]>> _lines = new List<List<int[]>>();
         private readonly List<PedigreeCreature> _pcs = new List<PedigreeCreature>();
         private bool[] _enabledColorRegions = { true, true, true, true, true, true };
         internal bool PedigreeNeedsUpdate;
+        private readonly Debouncer _filterDebouncer = new Debouncer();
 
         public Pedigree()
         {
@@ -185,7 +193,7 @@ namespace ARKBreedingStats
             if (creature == null || (!drawWithNoParents && creature.Mother == null && creature.Father == null))
                 return false;
 
-            // scrolloffset for control-locations (not for lines)
+            // scroll offset for control-locations (not for lines)
             int xS = AutoScrollPosition.X;
             int yS = AutoScrollPosition.Y;
             // creature
@@ -347,7 +355,6 @@ namespace ARKBreedingStats
             listViewCreatures.BeginUpdate();
 
             // clear ListView
-            listViewCreatures.Items.Clear();
             listViewCreatures.Groups.Clear();
 
             // add groups for each species (so they are sorted alphabetically)
@@ -356,12 +363,36 @@ namespace ARKBreedingStats
                 listViewCreatures.Groups.Add(new ListViewGroup(s.DescriptiveNameAndMod));
             }
 
-            foreach (Creature cr in _creatures)
-            {
-                // if species is unknown, don't display creature
-                if (cr.Species == null) continue;
+            _prefilteredCreatures = _creatures.Where(c => c.Species != null).ToArray();
+            listViewCreatures.EndUpdate();
 
-                // check if group of species exists
+            DisplayFilteredCreatureList();
+        }
+
+        private void DisplayFilteredCreatureList()
+        {
+            listViewCreatures.BeginUpdate();
+            listViewCreatures.Items.Clear();
+
+            var filterStrings = TextBoxFilter.Text.Split(',').Select(f => f.Trim())
+                .Where(f => !string.IsNullOrEmpty(f)).ToArray();
+            if (!filterStrings.Any()) filterStrings = null;
+
+            foreach (Creature cr in _prefilteredCreatures)
+            {
+                if (filterStrings != null
+                   && !filterStrings.All(f =>
+                       cr.name.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) != -1
+                       || (cr.Species?.name.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
+                       || (cr.owner?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
+                       || (cr.tribe?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
+                       || (cr.note?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
+                       || (cr.server?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
+                       || (cr.tags?.Any(t => string.Equals(t, f, StringComparison.InvariantCultureIgnoreCase)) ?? false)
+                   ))
+                    continue;
+
+                // species group of creature
                 ListViewGroup g = null;
                 foreach (ListViewGroup lvg in listViewCreatures.Groups)
                 {
@@ -371,15 +402,12 @@ namespace ARKBreedingStats
                         break;
                     }
                 }
-                if (g == null)
-                {
-                    g = new ListViewGroup(cr.Species.DescriptiveNameAndMod);
-                    listViewCreatures.Groups.Add(g);
-                }
                 string crLevel = cr.LevelHatched > 0 ? cr.LevelHatched.ToString() : "?";
-                ListViewItem lvi = new ListViewItem(new[] { cr.name, crLevel }, g);
-                lvi.Tag = cr;
-                lvi.UseItemStyleForSubItems = false;
+                ListViewItem lvi = new ListViewItem(new[] { cr.name, crLevel }, g)
+                {
+                    Tag = cr,
+                    UseItemStyleForSubItems = false
+                };
                 if (cr.flags.HasFlag(CreatureFlags.Placeholder))
                     lvi.SubItems[0].ForeColor = Color.LightGray;
                 if (crLevel == "?")
@@ -400,5 +428,16 @@ namespace ARKBreedingStats
         }
 
         public Species SelectedSpecies => _selectedCreature?.Species;
+
+        private void TextBoxFilterTextChanged(object sender, EventArgs e)
+        {
+            _filterDebouncer.Debounce(TextBoxFilter.Text == string.Empty ? 0 : 500, DisplayFilteredCreatureList, Dispatcher.CurrentDispatcher);
+        }
+
+        private void ButtonClearFilter_Click(object sender, EventArgs e)
+        {
+            TextBoxFilter.Clear();
+            TextBoxFilter.Focus();
+        }
     }
 }
