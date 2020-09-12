@@ -194,6 +194,7 @@
             // 
             // ClbTags
             // 
+            this.ClbTags.CheckOnClick = true;
             this.ClbTags.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClbTags.FormattingEnabled = true;
             this.ClbTags.Location = new System.Drawing.Point(432, 48);
@@ -203,6 +204,7 @@
             // 
             // ClbServers
             // 
+            this.ClbServers.CheckOnClick = true;
             this.ClbServers.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClbServers.FormattingEnabled = true;
             this.ClbServers.Location = new System.Drawing.Point(290, 48);
@@ -212,6 +214,7 @@
             // 
             // ClbTribes
             // 
+            this.ClbTribes.CheckOnClick = true;
             this.ClbTribes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClbTribes.FormattingEnabled = true;
             this.ClbTribes.Location = new System.Drawing.Point(148, 48);
@@ -221,6 +224,7 @@
             // 
             // ClbOwners
             // 
+            this.ClbOwners.CheckOnClick = true;
             this.ClbOwners.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClbOwners.FormattingEnabled = true;
             this.ClbOwners.Location = new System.Drawing.Point(6, 48);
