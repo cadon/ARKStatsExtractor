@@ -156,7 +156,6 @@
             // pedigreeCreature1
             // 
             this.pedigreeCreature1.Creature = null;
-            this.pedigreeCreature1.IsVirtual = false;
             this.pedigreeCreature1.Location = new System.Drawing.Point(375, 19);
             this.pedigreeCreature1.Name = "pedigreeCreature1";
             this.pedigreeCreature1.OnlyLevels = false;

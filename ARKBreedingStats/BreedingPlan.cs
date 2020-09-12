@@ -88,9 +88,9 @@ namespace ARKBreedingStats
             _breedingMode = BreedingMode.TopStatsConservative;
 
             _breedingPairs = new List<BreedingPair>();
-            pedigreeCreatureBest.IsVirtual = true;
-            pedigreeCreatureWorst.IsVirtual = true;
-            pedigreeCreatureBestPossibleInSpecies.IsVirtual = true;
+            pedigreeCreatureBest.SetIsVirtual(true);
+            pedigreeCreatureWorst.SetIsVirtual(true);
+            pedigreeCreatureBestPossibleInSpecies.SetIsVirtual(true);
             pedigreeCreatureBest.OnlyLevels = true;
             pedigreeCreatureWorst.OnlyLevels = true;
             pedigreeCreatureBestPossibleInSpecies.OnlyLevels = true;

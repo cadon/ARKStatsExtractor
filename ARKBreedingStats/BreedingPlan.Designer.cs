@@ -273,7 +273,6 @@ namespace ARKBreedingStats
             // pedigreeCreatureBestPossibleInSpecies
             // 
             this.pedigreeCreatureBestPossibleInSpecies.Creature = null;
-            this.pedigreeCreatureBestPossibleInSpecies.IsVirtual = false;
             this.pedigreeCreatureBestPossibleInSpecies.Location = new System.Drawing.Point(3, 44);
             this.pedigreeCreatureBestPossibleInSpecies.Name = "pedigreeCreatureBestPossibleInSpecies";
             this.pedigreeCreatureBestPossibleInSpecies.OnlyLevels = false;
@@ -303,7 +302,6 @@ namespace ARKBreedingStats
             // pedigreeCreature1
             // 
             this.pedigreeCreature1.Creature = null;
-            this.pedigreeCreature1.IsVirtual = false;
             this.pedigreeCreature1.Location = new System.Drawing.Point(3, 82);
             this.pedigreeCreature1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.pedigreeCreature1.Name = "pedigreeCreature1";
@@ -324,7 +322,6 @@ namespace ARKBreedingStats
             // pedigreeCreature2
             // 
             this.pedigreeCreature2.Creature = null;
-            this.pedigreeCreature2.IsVirtual = false;
             this.pedigreeCreature2.Location = new System.Drawing.Point(427, 82);
             this.pedigreeCreature2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.pedigreeCreature2.Name = "pedigreeCreature2";
@@ -462,7 +459,6 @@ namespace ARKBreedingStats
             this.pedigreeCreatureBest.Creature = null;
             this.pedigreeCreatureBest.Cursor = System.Windows.Forms.Cursors.Hand;
             this.flowLayoutPanel2.SetFlowBreak(this.pedigreeCreatureBest, true);
-            this.pedigreeCreatureBest.IsVirtual = false;
             this.pedigreeCreatureBest.Location = new System.Drawing.Point(3, 16);
             this.pedigreeCreatureBest.Name = "pedigreeCreatureBest";
             this.pedigreeCreatureBest.OnlyLevels = false;
@@ -475,7 +471,6 @@ namespace ARKBreedingStats
             this.pedigreeCreatureWorst.Creature = null;
             this.pedigreeCreatureWorst.Cursor = System.Windows.Forms.Cursors.Hand;
             this.flowLayoutPanel2.SetFlowBreak(this.pedigreeCreatureWorst, true);
-            this.pedigreeCreatureWorst.IsVirtual = false;
             this.pedigreeCreatureWorst.Location = new System.Drawing.Point(3, 57);
             this.pedigreeCreatureWorst.Name = "pedigreeCreatureWorst";
             this.pedigreeCreatureWorst.OnlyLevels = false;
