@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats
@@ -33,6 +34,18 @@ namespace ARKBreedingStats
             {
                 _foodName = value;
                 foodNameDisplay = _foodName;
+
+                // display specific colors of kibbles
+                switch (_foodName)
+                {
+                    case "Basic Kibble": PanelColorIndicator.BackColor = Color.FromArgb(215, 215, 215); break;
+                    case "Simple Kibble": PanelColorIndicator.BackColor = Color.FromArgb(0, 255, 0); break;
+                    case "Regular Kibble": PanelColorIndicator.BackColor = Color.FromArgb(0, 0, 255); break;
+                    case "Superior Kibble": PanelColorIndicator.BackColor = Color.FromArgb(225, 50, 200); break;
+                    case "Exceptional Kibble": PanelColorIndicator.BackColor = Color.FromArgb(255, 255, 0); break;
+                    case "Extraordinary Kibble": PanelColorIndicator.BackColor = Color.FromArgb(0, 255, 255); break;
+                    default: PanelColorIndicator.BackColor = Color.Transparent; break;
+                }
             }
         }
 
