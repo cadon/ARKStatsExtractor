@@ -320,5 +320,11 @@ namespace ARKBreedingStats
         {
             DisplayInPedigree?.Invoke(creature);
         }
+
+        private void copyNameToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(creature?.name))
+                Clipboard.SetText(creature.name);
+        }
     }
 }
