@@ -18,6 +18,7 @@ namespace ARKBreedingStats
         public event EditCreatureEventHandler EditCreature;
         public event Action<Creature> BestBreedingPartners;
         public event PedigreeCreature.ExportToClipboardEventHandler ExportToClipboard;
+
         /// <summary>
         /// All creatures of the current collection.
         /// </summary>
@@ -35,7 +36,8 @@ namespace ARKBreedingStats
         public Pedigree()
         {
             InitializeComponent();
-            SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
+            SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer,
+                true);
             _lines.Add(new List<int[]>());
             _lines.Add(new List<int[]>());
             NoCreatureSelected();
@@ -45,7 +47,8 @@ namespace ARKBreedingStats
 
         private void Panel2_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.TranslateTransform(splitContainer1.Panel2.AutoScrollPosition.X, splitContainer1.Panel2.AutoScrollPosition.Y);
+            e.Graphics.TranslateTransform(splitContainer1.Panel2.AutoScrollPosition.X,
+                splitContainer1.Panel2.AutoScrollPosition.Y);
             if (_selectedCreature != null)
                 DrawLines(e.Graphics);
         }
@@ -74,16 +77,20 @@ namespace ARKBreedingStats
                     {
                         // if stat is mutated
                         int mutationBoxWidth = 14;
-                        g.FillEllipse(Brushes.LightGreen, (line[0] + line[2] - mutationBoxWidth) / 2, (line[1] + line[3] - mutationBoxWidth) / 2, mutationBoxWidth, mutationBoxWidth);
+                        g.FillEllipse(Brushes.LightGreen, (line[0] + line[2] - mutationBoxWidth) / 2,
+                            (line[1] + line[3] - mutationBoxWidth) / 2, mutationBoxWidth, mutationBoxWidth);
                     }
+
                     g.DrawLine(myPen, line[0], line[1], line[2], line[3]);
                 }
+
                 myPen.Color = Color.DarkGray;
                 myPen.Width = 1;
                 foreach (int[] line in _lines[1])
                 {
                     g.DrawLine(myPen, line[0], line[1], line[2], line[3]);
                 }
+
                 if (_creatureChildren.Any())
                     g.DrawString(Loc.S("Descendants"), new Font("Arial", 14), new SolidBrush(Color.Black), 210, 170);
             }
@@ -94,6 +101,24 @@ namespace ARKBreedingStats
             _selectedCreature = null;
             ClearControls();
             NoCreatureSelected();
+        }
+
+        /// <summary>
+        /// Redraws the pedigree after the creature objects were reloaded.
+        /// </summary>
+        /// <param name="isActiveControl">if true, the data is updated immediately.</param>
+        public void RecreateAfterLoading(bool isActiveControl = false)
+        {
+            if (_selectedCreature == null)
+                return;
+
+            _selectedCreature = _creatures.FirstOrDefault(c => c.guid == _selectedCreature.guid);
+
+            if (_selectedCreature == null)
+                Clear();
+            else if (isActiveControl)
+                CreatePedigree();
+            else PedigreeNeedsUpdate = true;
         }
 
         private void ClearControls()
@@ -148,7 +173,7 @@ namespace ARKBreedingStats
 
             // create descendants
             int row = 0;
-            // scrolloffsets
+            // scroll offsets
             int xS = AutoScrollPosition.X;
             int yS = AutoScrollPosition.Y;
             foreach (Creature c in _creatureChildren)
@@ -275,45 +300,52 @@ namespace ARKBreedingStats
         /// <param name="forceUpdate"></param>
         public void SetCreature(Creature centralCreature, bool forceUpdate = false)
         {
+            PedigreeNeedsUpdate = false;
             if (centralCreature == null)
             {
-                _selectedCreature = null;
-                ClearControls();
-            }
-            else if (_creatures != null && (centralCreature != _selectedCreature || forceUpdate))
-            {
-                if (centralCreature.Species != _selectedCreature?.Species)
-                    EnabledColorRegions = centralCreature.Species?.EnabledColorRegions;
-                _selectedCreature = centralCreature;
-
-                // set children
-                _creatureChildren = _creatures.Where(cr => cr.motherGuid == _selectedCreature.guid || cr.fatherGuid == _selectedCreature.guid)
-                        .OrderBy(cr => cr.name)
-                        .ToList();
-
-                // select creature in listView
-                if (listViewCreatures.SelectedItems.Count == 0 || (Creature)listViewCreatures.SelectedItems[0].Tag != centralCreature)
+                if (forceUpdate && _selectedCreature != null)
                 {
-                    int index = -1;
-                    for (int i = 0; i < listViewCreatures.Items.Count; i++)
+                    centralCreature = _selectedCreature;
+                }
+                else
+                {
+                    _selectedCreature = null;
+                    ClearControls();
+                    return;
+                }
+            }
+
+            if (_creatures == null || (centralCreature == _selectedCreature && !forceUpdate)) return;
+
+            if (centralCreature.Species != _selectedCreature?.Species)
+                EnabledColorRegions = centralCreature.Species?.EnabledColorRegions;
+            _selectedCreature = centralCreature;
+
+            // set children
+            _creatureChildren = _creatures.Where(cr => cr.motherGuid == _selectedCreature.guid || cr.fatherGuid == _selectedCreature.guid)
+                .OrderBy(cr => cr.name)
+                .ToList();
+
+            // select creature in listView
+            if (listViewCreatures.SelectedItems.Count == 0 || (Creature)listViewCreatures.SelectedItems[0].Tag != centralCreature)
+            {
+                int index = -1;
+                for (int i = 0; i < listViewCreatures.Items.Count; i++)
+                {
+                    if ((Creature)listViewCreatures.Items[i].Tag == centralCreature)
                     {
-                        if ((Creature)listViewCreatures.Items[i].Tag == centralCreature)
-                        {
-                            index = i;
-                            break;
-                        }
-                    }
-                    if (index >= 0)
-                    {
-                        listViewCreatures.Items[index].Selected = true;
-                        listViewCreatures.EnsureVisible(index);
+                        index = i;
+                        break;
                     }
                 }
-
-                CreatePedigree();
+                if (index >= 0)
+                {
+                    listViewCreatures.Items[index].Selected = true;
+                    listViewCreatures.EnsureVisible(index);
+                }
             }
 
-            PedigreeNeedsUpdate = false;
+            CreatePedigree();
         }
 
         /// <summary>

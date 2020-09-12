@@ -1,21 +1,23 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Windows.Threading;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
 {
     public partial class StatIO : UserControl
     {
         public bool postTame; // if false (aka creature untamed) display note that stat can be higher after taming
-        private StatIOStatus status;
+        private StatIOStatus _status;
         public bool percent; // indicates whether this stat is expressed as a percentile
-        private string statName;
-        private double breedingValue;
-        private StatIOInputType inputType;
+        private string _statName;
+        private double _breedingValue;
+        private StatIOInputType _inputType;
         public event Action<StatIO> LevelChanged;
         public event Action<StatIO> InputValueChanged;
         public int statIndex;
-        private bool domZeroFixed;
+        private bool _domZeroFixed;
         private readonly ToolTip _tt;
         public int barMaxLevel = 45;
 
@@ -27,9 +29,9 @@ namespace ARKBreedingStats
             labelBValue.Text = "";
             postTame = true;
             percent = false;
-            breedingValue = 0;
+            _breedingValue = 0;
             groupBox1.Click += groupBox1_Click;
-            InputType = inputType;
+            InputType = _inputType;
             // ToolTips
             _tt = new ToolTip { InitialDelay = 300 };
             _tt.SetToolTip(checkBoxFixDomZero, "Check to lock to zero (if you never leveled up this stat)");
@@ -58,7 +60,7 @@ namespace ARKBreedingStats
         {
             set
             {
-                statName = value;
+                _statName = value;
                 groupBox1.Text = value + (Percent ? " [%]" : "");
             }
         }
@@ -93,13 +95,13 @@ namespace ARKBreedingStats
 
         public double BreedingValue
         {
-            get => breedingValue;
+            get => _breedingValue;
             set
             {
                 if (value >= 0)
                 {
                     labelBValue.Text = Math.Round((percent ? 100 : 1) * value, 1).ToString("N1") + (postTame ? "" : " +*");
-                    breedingValue = value;
+                    _breedingValue = value;
                 }
                 else
                 {
@@ -114,7 +116,7 @@ namespace ARKBreedingStats
             set
             {
                 percent = value;
-                Title = statName;
+                Title = _statName;
             }
         }
 
@@ -129,20 +131,20 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    Status = status;
+                    Status = _status;
                 }
             }
         }
 
         public StatIOStatus Status
         {
-            get => status;
+            get => _status;
             set
             {
-                status = value;
+                _status = value;
                 ForeColor = SystemColors.ControlText;
                 numericUpDownInput.BackColor = SystemColors.Window;
-                switch (status)
+                switch (_status)
                 {
                     case StatIOStatus.Unique:
                         BackColor = Color.FromArgb(180, 255, 128);
@@ -199,13 +201,13 @@ namespace ARKBreedingStats
 
         public StatIOInputType InputType
         {
-            get => inputType;
+            get => _inputType;
             set
             {
                 panelFinalValue.Visible = (value == StatIOInputType.FinalValueInputType);
                 inputPanel.Visible = (value != StatIOInputType.FinalValueInputType);
 
-                inputType = value;
+                _inputType = value;
             }
         }
 
@@ -232,7 +234,7 @@ namespace ARKBreedingStats
 
         private void numLvW_ValueChanged(object sender, EventArgs e)
         {
-            int lengthPercentage = 100 * (int)numLvW.Value / barMaxLevel; // in percentage of the max-barwidth
+            int lengthPercentage = 100 * (int)numLvW.Value / barMaxLevel; // in percentage of the max bar width
 
             if (lengthPercentage > 100)
             {
@@ -246,13 +248,13 @@ namespace ARKBreedingStats
             panelBarWildLevels.BackColor = Utils.GetColorFromPercent(lengthPercentage);
             _tt.SetToolTip(panelBarWildLevels, Utils.LevelPercentile((int)numLvW.Value));
 
-            if (inputType != StatIOInputType.FinalValueInputType)
-                LevelChanged(this);
+            if (_inputType != StatIOInputType.FinalValueInputType)
+                LevelChangedDebouncer();
         }
 
         private void numLvD_ValueChanged(object sender, EventArgs e)
         {
-            int lengthPercentage = 100 * (int)numLvD.Value / barMaxLevel; // in percentage of the max-barwidth
+            int lengthPercentage = 100 * (int)numLvD.Value / barMaxLevel; // in percentage of the max bar width
 
             if (lengthPercentage > 100)
             {
@@ -265,9 +267,15 @@ namespace ARKBreedingStats
             panelBarDomLevels.Width = lengthPercentage * 283 / 100;
             panelBarDomLevels.BackColor = Utils.GetColorFromPercent(lengthPercentage);
 
-            if (inputType != StatIOInputType.FinalValueInputType)
-                LevelChanged(this);
+            if (_inputType != StatIOInputType.FinalValueInputType)
+                LevelChangedDebouncer();
         }
+
+        private readonly Debouncer _levelChangedDebouncer = new Debouncer();
+
+        private void LevelChangedDebouncer() => _levelChangedDebouncer.Debounce(200, FireLevelChanged, Dispatcher.CurrentDispatcher);
+
+        private void FireLevelChanged() => LevelChanged?.Invoke(this);
 
         private void numericUpDownInput_ValueChanged(object sender, EventArgs e)
         {
@@ -303,8 +311,8 @@ namespace ARKBreedingStats
 
         private void checkBoxFixDomZero_CheckedChanged(object sender, EventArgs e)
         {
-            domZeroFixed = checkBoxFixDomZero.Checked;
-            checkBoxFixDomZero.Image = (domZeroFixed ? Properties.Resources.locked : Properties.Resources.unlocked);
+            _domZeroFixed = checkBoxFixDomZero.Checked;
+            checkBoxFixDomZero.Image = (_domZeroFixed ? Properties.Resources.locked : Properties.Resources.unlocked);
         }
 
         private void panelFinalValue_Click(object sender, EventArgs e)
@@ -319,7 +327,7 @@ namespace ARKBreedingStats
 
         public bool DomLevelLockedZero
         {
-            get => domZeroFixed;
+            get => _domZeroFixed;
             set => checkBoxFixDomZero.Checked = value;
         }
     }

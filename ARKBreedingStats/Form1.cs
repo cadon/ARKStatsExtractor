@@ -317,9 +317,9 @@ namespace ARKBreedingStats
             // UI loaded
 
             //// initialize controls
-            radarChart1.initializeVariables(_creatureCollection.maxChartLevel);
-            radarChartExtractor.initializeVariables(_creatureCollection.maxChartLevel);
-            radarChartLibrary.initializeVariables(_creatureCollection.maxChartLevel);
+            radarChart1.InitializeVariables(_creatureCollection.maxChartLevel);
+            radarChartExtractor.InitializeVariables(_creatureCollection.maxChartLevel);
+            radarChartLibrary.InitializeVariables(_creatureCollection.maxChartLevel);
             extractionTestControl1.CopyToExtractor += ExtractionTestControl1_CopyToExtractor;
             extractionTestControl1.CopyToTester += ExtractionTestControl1_CopyToTester;
 
@@ -647,9 +647,9 @@ namespace ARKBreedingStats
                 _testingIOs[s].barMaxLevel = _creatureCollection.maxChartLevel;
             }
             breedingPlan1.MaxWildLevels = _creatureCollection.maxWildLevel;
-            radarChart1.initializeVariables(_creatureCollection.maxChartLevel);
-            radarChartExtractor.initializeVariables(_creatureCollection.maxChartLevel);
-            radarChartLibrary.initializeVariables(_creatureCollection.maxChartLevel);
+            radarChart1.InitializeVariables(_creatureCollection.maxChartLevel);
+            radarChartExtractor.InitializeVariables(_creatureCollection.maxChartLevel);
+            radarChartLibrary.InitializeVariables(_creatureCollection.maxChartLevel);
             statPotentials1.levelDomMax = _creatureCollection.maxDomLevel;
             statPotentials1.levelGraphMax = _creatureCollection.maxChartLevel;
 
@@ -1350,9 +1350,11 @@ namespace ARKBreedingStats
             }
             else if (tabControlMain.SelectedTab == tabPagePedigree)
             {
-                if (pedigree1.PedigreeNeedsUpdate && listViewLibrary.SelectedItems.Count > 0)
+                if (pedigree1.PedigreeNeedsUpdate)
                 {
-                    Creature c = (Creature)listViewLibrary.SelectedItems[0].Tag;
+                    Creature c = null;
+                    if (listViewLibrary.SelectedItems.Count > 0)
+                        c = (Creature)listViewLibrary.SelectedItems[0].Tag;
                     pedigree1.SetCreature(c, true);
                 }
             }

@@ -668,6 +668,25 @@ namespace ARKBreedingStats
             ResumeLayout();
         }
 
+        /// <summary>
+        /// Recreates the breeding plan after the same library is loaded.
+        /// </summary>
+        /// <param name="isActiveControl">if true, the data is updated immediately.</param>
+        public void RecreateAfterLoading(bool isActiveControl = false)
+        {
+            if (_chosenCreature != null)
+                _chosenCreature = CreatureCollection.creatures.FirstOrDefault(c => c.guid == _chosenCreature.guid);
+
+            if (_currentSpecies != null)
+            {
+                _currentSpecies = Values.V.SpeciesByBlueprint(_currentSpecies.blueprintPath);
+                if (isActiveControl)
+                    DetermineBestBreeding(_chosenCreature, true);
+                else
+                    breedingPlanNeedsUpdate = true;
+            }
+        }
+
         private void RecalculateBreedingPlan()
         {
             DetermineBestBreeding(_chosenCreature, true);
@@ -679,7 +698,7 @@ namespace ARKBreedingStats
                 DetermineBestBreeding(_chosenCreature);
         }
 
-        public void ClearControls()
+        private void ClearControls()
         {
             // hide unused controls
             for (int i = 0; i < CreatureCollection.maxBreedingSuggestions && 2 * i + 1 < _pcs.Count && i < _pbs.Count; i++)
@@ -1042,7 +1061,7 @@ namespace ARKBreedingStats
                 listViewSpeciesBP.Items.Add(lvi);
             }
 
-            // select previous selecteded again
+            // select previous selected species again
             if (previouslySelectedSpecies != null)
             {
                 for (int i = 0; i < listViewSpeciesBP.Items.Count; i++)
@@ -1086,7 +1105,7 @@ namespace ARKBreedingStats
             set => nudBPMutationLimit.Value = value;
         }
 
-        public enum BreedingMode
+        private enum BreedingMode
         {
             BestNextGen,
             TopStatsLucky,

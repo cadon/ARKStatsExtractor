@@ -121,7 +121,7 @@ namespace ARKBreedingStats
             int[] levelsWild = _testingIOs.Select(s => s.LevelWild).ToArray();
             if (!_testingIOs[2].Enabled)
                 levelsWild[2] = 0;
-            radarChart1.setLevels(levelsWild);
+            radarChart1.SetLevels(levelsWild);
             statPotentials1.SetLevels(levelsWild, false);
             //statGraphs1.setGraph(sE, 0, testingIOs[0].LevelWild, testingIOs[0].LevelDom, !radioButtonTesterWild.Checked, (double)NumericUpDownTestingTE.Value / 100, (double)numericUpDownImprintingBonusTester.Value / 100);
 

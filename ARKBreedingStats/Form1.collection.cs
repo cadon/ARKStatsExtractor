@@ -220,12 +220,12 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="filePath">File that contains the collection</param>
         /// <param name="keepCurrentCreatures">add the creatures of the loaded file to the current ones</param>
-        /// <param name="keepCurrentSelections">don't change the species selection or tab</param>
+        /// <param name="keepCurrentSelections">don't change the species selection or tab, use if a synchronized library is loaded</param>
         /// <returns></returns>
         private bool LoadCollectionFile(string filePath, bool keepCurrentCreatures = false, bool keepCurrentSelections = false)
         {
             Species selectedSpecies = speciesSelector1.SelectedSpecies;
-            Species selectedlibrarySpecies = listBoxSpeciesLib.SelectedItem as Species;
+            Species selectedLibrarySpecies = listBoxSpeciesLib.SelectedItem as Species;
 
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
             {
@@ -414,7 +414,7 @@ namespace ARKBreedingStats
             _creatureCollection.creatures = _creatureCollection.creatures
                 .Where(c => !string.IsNullOrEmpty(c.speciesBlueprint)).ToList();
 
-            InitializeCollection();
+            InitializeCollection(keepCurrentSelections);
 
             _filterListAllowed = false;
 
@@ -447,8 +447,8 @@ namespace ARKBreedingStats
                 speciesSelector1.SetSpecies(_creatureCollection.creatures[0].Species);
 
             // set library species to what it was before loading
-            if (selectedlibrarySpecies != null)
-                listBoxSpeciesLib.SelectedItem = selectedlibrarySpecies;
+            if (selectedLibrarySpecies != null)
+                listBoxSpeciesLib.SelectedItem = selectedLibrarySpecies;
             else if (Properties.Settings.Default.LibrarySelectSelectedSpeciesOnLoad)
                 listBoxSpeciesLib.SelectedItem = speciesSelector1.SelectedSpecies;
 

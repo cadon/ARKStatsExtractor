@@ -106,7 +106,7 @@ namespace ARKBreedingStats
             bool allValid = valid && inbound && torporLevelValid && _extractor.ValidResults;
             if (allValid)
             {
-                radarChartExtractor.setLevels(_statIOs.Select(s => s.LevelWild).ToArray());
+                radarChartExtractor.SetLevels(_statIOs.Select(s => s.LevelWild).ToArray());
                 toolStripButtonSaveCreatureValuesTemp.Visible = false;
                 cbExactlyImprinting.BackColor = Color.Transparent;
                 if (_topLevels.TryGetValue(speciesSelector1.SelectedSpecies, out int[] topSpeciesLevels))

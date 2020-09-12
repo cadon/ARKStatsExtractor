@@ -7,61 +7,66 @@ using System.Windows.Forms;
 
 namespace ARKBreedingStats
 {
-    class RadarChart : PictureBox
+    internal class RadarChart : PictureBox
     {
-        private int maxLevel; // outer border of graph
-        private List<Point> maxPs, ps; // coords of outer points
-        private int maxR, xm, ym; // max-radius,centerx,centery
-        private int[] oldLevels;
-        private PathGradientBrush grBrushBG, grBrushFG;
-        private int step;
+        private int _maxLevel; // outer border of graph
+        private List<Point> _maxPs, _ps; // coords of outer points
+        private int _maxR, _xm, _ym; // max-radius, centerX, centerY
+        private int[] _oldLevels;
+        private PathGradientBrush _grBrushBg, _grBrushFg;
+        private int _step;
+        private const int DisplayedStats = 7;
+        private const double AnglePerStat = Math.PI * 2 / DisplayedStats;
+        private const double AngleOffset = Math.PI / 2;
 
         public RadarChart()
         {
-            initializeVariables(50);
+            _oldLevels = new int[DisplayedStats];
+            InitializeVariables(50);
             SizeMode = PictureBoxSizeMode.Zoom;
         }
 
-        public void initializeVariables(int maxLevel)
+        /// <summary>
+        /// Initialize with a new max chart level.
+        /// </summary>
+        /// <param name="maxLevel"></param>
+        public void InitializeVariables(int maxLevel)
         {
-            this.maxLevel = maxLevel;
-            maxR = Math.Min(Width, Height) / 2;
-            xm = maxR + 1;
-            ym = maxR + 1;
-            maxR -= 15;
-            const double angleSeven = Math.PI / 3.5;
-            const double offset = Math.PI / 2;
+            this._maxLevel = maxLevel;
+            _maxR = Math.Min(Width, Height) / 2;
+            _xm = _maxR + 1;
+            _ym = _maxR + 1;
+            _maxR -= 15;
 
-            step = (int)Math.Round(maxLevel / 25d);
-            if (step < 1) step = 1;
-            step *= 5;
+            _step = (int)Math.Round(maxLevel / 25d);
+            if (_step < 1) _step = 1;
+            _step *= 5;
 
-            maxPs = new List<Point>();
-            ps = new List<Point>();
-            oldLevels = new int[7];
+            _maxPs = new List<Point>();
+            _ps = new List<Point>();
             int r = 0;
-            for (int s = 0; s < 7; s++)
+            for (int s = 0; s < DisplayedStats; s++)
             {
-                double angle = angleSeven * s - offset;
-                ps.Add(new Point(xm + (int)(r * Math.Cos(angle)), ym + (int)(r * Math.Sin(angle))));
+                double angle = AnglePerStat * s - AngleOffset;
+                _ps.Add(new Point(_xm + (int)(r * Math.Cos(angle)), _ym + (int)(r * Math.Sin(angle))));
 
-                maxPs.Add(new Point(xm + (int)(maxR * Math.Cos(angle)), ym + (int)(maxR * Math.Sin(angle))));
+                _maxPs.Add(new Point(_xm + (int)(_maxR * Math.Cos(angle)), _ym + (int)(_maxR * Math.Sin(angle))));
             }
 
-            // colorgradient
+            // color gradient
             GraphicsPath path = new GraphicsPath();
-            path.AddEllipse(xm - maxR, ym - maxR, 2 * maxR + 1, 2 * maxR + 1);
-            grBrushBG = new PathGradientBrush(path);
-            grBrushFG = new PathGradientBrush(path);
+            path.AddEllipse(_xm - _maxR, _ym - _maxR, 2 * _maxR + 1, 2 * _maxR + 1);
+            _grBrushBg = new PathGradientBrush(path);
+            _grBrushFg = new PathGradientBrush(path);
 
-            Color[] colorsBG =
+            Color[] colorsBg =
             {
                     Color.FromArgb(0, 90, 0),
                     Color.FromArgb(90, 90, 0),
                     Color.FromArgb(90, 0, 0)
             };
 
-            Color[] colorsFG =
+            Color[] colorsFg =
             {
                     Color.FromArgb(0, 180, 0),
                     Color.FromArgb(180, 180, 0),
@@ -70,92 +75,105 @@ namespace ARKBreedingStats
 
             float[] relativePositions = { 0, 0.45f, 1 };
 
-            ColorBlend colorBlendBG = new ColorBlend
+            ColorBlend colorBlendBg = new ColorBlend
             {
-                Colors = colorsBG,
+                Colors = colorsBg,
                 Positions = relativePositions
             };
-            grBrushBG.InterpolationColors = colorBlendBG;
+            _grBrushBg.InterpolationColors = colorBlendBg;
 
-            ColorBlend colorBlendFG = new ColorBlend
+            ColorBlend colorBlendFg = new ColorBlend
             {
-                Colors = colorsFG,
+                Colors = colorsFg,
                 Positions = relativePositions
             };
-            grBrushFG.InterpolationColors = colorBlendFG;
+            _grBrushFg.InterpolationColors = colorBlendFg;
 
-            setLevels(new int[values.Values.STATS_COUNT]);
+            SetLevels();
         }
 
-        public void setLevels(int[] levels)
+        /// <summary>
+        /// Draws a chart with the given levels.
+        /// </summary>
+        /// <param name="levels">If null, the previous values are redrawn.</param>
+        public void SetLevels(int[] levels = null)
         {
-            if (levels != null && levels.Length > 6 && maxR > 5)
+            if ((levels != null && levels.Length <= 6) || _maxR <= 5) return;
+
+            Bitmap bmp = new Bitmap(Width, Height);
+            using (Graphics g = Graphics.FromImage(bmp))
             {
-                Bitmap bmp = new Bitmap(Width, Height);
-                Graphics g = Graphics.FromImage(bmp);
                 g.SmoothingMode = SmoothingMode.AntiAlias;
 
-                const double angleSeven = Math.PI / 3.5;
-                const double offset = Math.PI / 2;
-
                 // the indices of the displayed stats
-                var levelIndices = new int[] { (int)StatNames.Health, (int)StatNames.Stamina, (int)StatNames.Oxygen, (int)StatNames.Food, (int)StatNames.Weight, (int)StatNames.MeleeDamageMultiplier, (int)StatNames.SpeedMultiplier };
+                var levelIndices = new[]
+                {
+                    (int) StatNames.Health, (int) StatNames.Stamina, (int) StatNames.Oxygen, (int) StatNames.Food,
+                    (int) StatNames.Weight, (int) StatNames.MeleeDamageMultiplier, (int) StatNames.SpeedMultiplier
+                };
 
                 for (int s = 0; s < levelIndices.Length; s++)
                 {
-                    if (levels[levelIndices[s]] != oldLevels[s])
+                    if (levels == null || levels[levelIndices[s]] != _oldLevels[s])
                     {
-                        oldLevels[s] = levels[levelIndices[s]];
-                        int r = oldLevels[s] * maxR / maxLevel;
+                        if (levels != null)
+                            _oldLevels[s] = levels[levelIndices[s]];
+                        int r = _oldLevels[s] * _maxR / _maxLevel;
                         if (r < 0) r = 0;
-                        if (r > maxR) r = maxR;
-                        double angle = angleSeven * s - offset;
-                        ps[s] = new Point(xm + (int)(r * Math.Cos(angle)), ym + (int)(r * Math.Sin(angle)));
+                        if (r > _maxR) r = _maxR;
+                        double angle = AnglePerStat * s - AngleOffset;
+                        _ps[s] = new Point(_xm + (int)(r * Math.Cos(angle)), _ym + (int)(r * Math.Sin(angle)));
                     }
                 }
-                g.FillEllipse(grBrushBG, xm - maxR, ym - maxR, 2 * maxR + 1, 2 * maxR + 1);
+
+                g.FillEllipse(_grBrushBg, _xm - _maxR, _ym - _maxR, 2 * _maxR + 1, 2 * _maxR + 1);
 
                 Pen penL = new Pen(Color.FromArgb(128, 255, 255, 255));
-                g.FillPolygon(grBrushFG, ps.ToArray());
-                g.DrawPolygon(penL, ps.ToArray());
+                g.FillPolygon(_grBrushFg, _ps.ToArray());
+                g.DrawPolygon(penL, _ps.ToArray());
 
-                double stepFactor = (double)step / maxLevel;
+                double stepFactor = (double)_step / _maxLevel;
                 for (int r = 0; r < 5; r++)
                     g.DrawEllipse(new Pen(Utils.GetColorFromPercent((int)(100 * r * stepFactor), -0.4)),
-                            (int)(xm - maxR * r * stepFactor), (int)(ym - maxR * r * stepFactor),
-                            (int)(2 * maxR * r * stepFactor + 1), (int)(2 * maxR * r * stepFactor + 1));
-                g.DrawEllipse(new Pen(Utils.GetColorFromPercent(100, -0.4)), xm - maxR, ym - maxR, 2 * maxR + 1, 2 * maxR + 1);
+                        (int)(_xm - _maxR * r * stepFactor), (int)(_ym - _maxR * r * stepFactor),
+                        (int)(2 * _maxR * r * stepFactor + 1), (int)(2 * _maxR * r * stepFactor + 1));
+                g.DrawEllipse(new Pen(Utils.GetColorFromPercent(100, -0.4)), _xm - _maxR, _ym - _maxR,
+                    2 * _maxR + 1, 2 * _maxR + 1);
 
                 Pen pen = new Pen(Color.Black);
                 for (int s = 0; s < levelIndices.Length; s++)
                 {
                     pen.Width = 1;
                     pen.Color = Color.Gray;
-                    g.DrawLine(pen, xm, ym, maxPs[s].X, maxPs[s].Y);
-                    Color cl = Utils.GetColorFromPercent(100 * oldLevels[s] / maxLevel);
+                    g.DrawLine(pen, _xm, _ym, _maxPs[s].X, _maxPs[s].Y);
+                    Color cl = Utils.GetColorFromPercent(100 * _oldLevels[s] / _maxLevel);
                     pen.Color = cl;
                     pen.Width = 3;
-                    g.DrawLine(pen, xm, ym, ps[s].X, ps[s].Y);
+                    g.DrawLine(pen, _xm, _ym, _ps[s].X, _ps[s].Y);
                     Brush b = new SolidBrush(cl);
-                    g.FillEllipse(b, ps[s].X - 4, ps[s].Y - 4, 8, 8);
-                    g.DrawEllipse(penL, ps[s].X - 4, ps[s].Y - 4, 8, 8);
+                    g.FillEllipse(b, _ps[s].X - 4, _ps[s].Y - 4, 8, 8);
+                    g.DrawEllipse(penL, _ps[s].X - 4, _ps[s].Y - 4, 8, 8);
                     b.Dispose();
                 }
+
                 for (int r = 1; r < 5; r++)
-                    g.DrawString((step * r).ToString("N0"), new Font("Microsoft Sans Serif", 8f), new SolidBrush(Color.FromArgb(190, 255, 255, 255)), xm - 8, ym - 6 + r * maxR / 5);
-                g.DrawString((maxLevel).ToString("N0"), new Font("Microsoft Sans Serif", 8f), new SolidBrush(Color.FromArgb(190, 255, 255, 255)), xm - 8, ym - 11 + maxR);
+                    g.DrawString((_step * r).ToString("N0"), new Font("Microsoft Sans Serif", 8f),
+                        new SolidBrush(Color.FromArgb(190, 255, 255, 255)), _xm - 8, _ym - 6 + r * _maxR / 5);
+                g.DrawString((_maxLevel).ToString("N0"), new Font("Microsoft Sans Serif", 8f),
+                    new SolidBrush(Color.FromArgb(190, 255, 255, 255)), _xm - 8, _ym - 11 + _maxR);
 
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
                 for (int s = 0; s < levelIndices.Length; s++)
                 {
-                    double angle = angleSeven * s - offset;
-                    g.DrawString(Utils.StatName(levelIndices[s], true), new Font("Microsoft Sans Serif", 8f), new SolidBrush(Color.Black), xm - 9 + (int)((maxR + 10) * Math.Cos(angle)), ym - 5 + (int)((maxR + 10) * Math.Sin(angle)));
+                    double angle = AnglePerStat * s - AngleOffset;
+                    g.DrawString(Utils.StatName(levelIndices[s], true), new Font("Microsoft Sans Serif", 8f),
+                        new SolidBrush(Color.Black), _xm - 9 + (int)((_maxR + 10) * Math.Cos(angle)),
+                        _ym - 5 + (int)((_maxR + 10) * Math.Sin(angle)));
                 }
-
-                g.Dispose();
-
-                Image = bmp;
             }
+
+            Image?.Dispose();
+            Image = bmp;
         }
     }
 }

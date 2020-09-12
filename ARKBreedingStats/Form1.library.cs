@@ -261,7 +261,8 @@ namespace ARKBreedingStats
         /// <summary>
         /// Call after the creatureCollection-object was created anew (e.g. after loading a file)
         /// </summary>
-        private void InitializeCollection()
+        /// <param name="keepCurrentSelection">True if synchronized library file is loaded.</param>
+        private void InitializeCollection(bool keepCurrentSelection = false)
         {
             // set pointer to current collection
             pedigree1.SetCreatures(_creatureCollection.creatures);
@@ -280,8 +281,16 @@ namespace ARKBreedingStats
 
             if (_creatureCollection.modIDs == null) _creatureCollection.modIDs = new List<string>();
 
-            pedigree1.Clear();
-            breedingPlan1.Clear();
+            if (keepCurrentSelection)
+            {
+                pedigree1.RecreateAfterLoading(tabControlMain.SelectedTab == tabPagePedigree);
+                breedingPlan1.RecreateAfterLoading(tabControlMain.SelectedTab == tabPageBreedingPlan);
+            }
+            else
+            {
+                pedigree1.Clear();
+                breedingPlan1.Clear();
+            }
 
             ApplySpeciesObjectsToCollection(_creatureCollection);
 
@@ -970,7 +979,7 @@ namespace ARKBreedingStats
                 Creature c = (Creature)listViewLibrary.SelectedItems[0].Tag;
                 creatureBoxListView.SetCreature(c);
                 if (tabControlLibFilter.SelectedTab == tabPageLibRadarChart)
-                    radarChartLibrary.setLevels(c.levelsWild);
+                    radarChartLibrary.SetLevels(c.levelsWild);
                 pedigree1.PedigreeNeedsUpdate = true;
             }
 
