@@ -323,7 +323,7 @@ namespace ARKBreedingStats
             toolStripProgressBar1.Maximum = Values.V.speciesNames.Count;
             toolStripProgressBar1.Visible = true;
 
-            List<Creature> filteredCreatures = (Properties.Settings.Default.useFiltersInTopStatCalculation ? ApplyLibraryFilterSettings(creatures) : Enumerable.Empty<Creature>()).ToList();
+            var filteredCreatures = Properties.Settings.Default.useFiltersInTopStatCalculation ? ApplyLibraryFilterSettings(creatures).ToArray() : null;
             foreach (Species species in Values.V.species)
             {
                 toolStripProgressBar1.Value++;
@@ -358,20 +358,17 @@ namespace ARKBreedingStats
                     c.topBreedingStats = new bool[Values.STATS_COUNT];
                     c.topBreedingCreature = false;
 
-                    if (Properties.Settings.Default.useFiltersInTopStatCalculation)
-                    {
+                    if (
                         //if not in the filtered collection (using library filter settings), continue
-                        if (!filteredCreatures.Contains(c))
-                            continue;
-                    }
-                    else
-                    {
+                        (filteredCreatures != null && !filteredCreatures.Contains(c))
                         // only consider creature if it's available for breeding
-                        if (!(c.Status == CreatureStatus.Available
+                        || !(c.Status == CreatureStatus.Available
                             || c.Status == CreatureStatus.Cryopod
                             || c.Status == CreatureStatus.Obelisk
-                            ))
-                            continue;
+                            )
+                        )
+                    {
+                        continue;
                     }
 
                     for (int s = 0; s < usedStatsCount; s++)
@@ -1108,13 +1105,13 @@ namespace ARKBreedingStats
                 return Enumerable.Empty<Creature>();
 
             if (Properties.Settings.Default.FilterHideOwners?.Any() ?? false)
-                creatures = creatures.Where(c => !Properties.Settings.Default.FilterHideOwners.Contains(c.owner));
+                creatures = creatures.Where(c => !Properties.Settings.Default.FilterHideOwners.Contains(c.owner ?? string.Empty));
 
             if (Properties.Settings.Default.FilterHideTribes?.Any() ?? false)
-                creatures = creatures.Where(c => !Properties.Settings.Default.FilterHideTribes.Contains(c.tribe));
+                creatures = creatures.Where(c => !Properties.Settings.Default.FilterHideTribes.Contains(c.tribe ?? string.Empty));
 
             if (Properties.Settings.Default.FilterHideServers?.Any() ?? false)
-                creatures = creatures.Where(c => !Properties.Settings.Default.FilterHideServers.Contains(c.server));
+                creatures = creatures.Where(c => !Properties.Settings.Default.FilterHideServers.Contains(c.server ?? string.Empty));
 
             if (Properties.Settings.Default.FilterOnlyIfColorId != 0)
                 creatures = creatures.Where(c => c.colors.Contains(Properties.Settings.Default.FilterOnlyIfColorId));
