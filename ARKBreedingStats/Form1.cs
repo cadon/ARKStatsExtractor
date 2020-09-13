@@ -2718,6 +2718,7 @@ namespace ARKBreedingStats
                 cr.imprintingBonus = _extractor.ImprintingBonus;
                 cr.tamingEff = _extractor.UniqueTE();
                 cr.isBred = rbBredExtractor.Checked;
+                cr.topBreedingStats = _statIOs.Select(s => s.TopLevel == StatIOStatus.TopLevel || s.TopLevel == StatIOStatus.NewTopLevel).ToArray();
             }
             else
             {
