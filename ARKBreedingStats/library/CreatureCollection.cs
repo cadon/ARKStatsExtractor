@@ -83,13 +83,30 @@ namespace ARKBreedingStats.Library
         [JsonProperty]
         public List<Note> noteList = new List<Note>();
         public List<string> tags = new List<string>();
+        /// <summary>
+        /// Which tags are checked for including in the breeding plan
+        /// </summary>
         [JsonProperty]
-        public List<string> tagsInclude = new List<string>(); // which tags are checked for including in the breedingplan
+        public List<string> tagsInclude = new List<string>();
+        /// <summary>
+        /// Which tags are checked for excluding in the breeding plan
+        /// </summary>
         [JsonProperty]
-        public List<string> tagsExclude = new List<string>(); // which tags are checked for excluding in the breedingplan
+        public List<string> tagsExclude = new List<string>();
 
-        public string[] ownerList; // temporary list of all owners (used in autocomplete / dropdowns)
-        public string[] serverList; // temporary list of all servers (used in autocomplete / dropdowns)
+        /// <summary>
+        /// Temporary list of all owners (used in autocomplete / dropdowns)
+        /// </summary>
+        public string[] ownerList;
+        /// <summary>
+        /// Temporary list of all servers (used in autocomplete / dropdowns)
+        /// </summary>
+        public string[] serverList;
+        /// <summary>
+        /// All existing color ids for each species (by blueprint path). Each species has an array of 7 int[].
+        /// Index 0-5 is an array of the colors of the according region, index 6 is an array of all colors in all regions.
+        /// </summary>
+        private readonly Dictionary<string, List<int>[]> _existingColors = new Dictionary<string, List<int>[]>();
 
         /// <summary>
         /// Some mods allow to change stat values of species in an extra ini file. These overrides are stored here.
@@ -151,9 +168,20 @@ namespace ARKBreedingStats.Library
         public bool MergeCreatureList(List<Creature> creaturesToMerge, bool addPreviouslylDeletedCreatures = false)
         {
             bool creaturesWereAddedOrUpdated = false;
+            Species onlyThisSpeciesAdded = null;
+            bool onlyOneSpeciesAdded = true;
+
             foreach (Creature creatureNew in creaturesToMerge)
             {
                 if (!addPreviouslylDeletedCreatures && DeletedCreatureGuids != null && DeletedCreatureGuids.Contains(creatureNew.guid)) continue;
+
+                if (onlyOneSpeciesAdded)
+                {
+                    if (onlyThisSpeciesAdded == null || onlyThisSpeciesAdded == creatureNew.Species)
+                        onlyThisSpeciesAdded = creatureNew.Species;
+                    else
+                        onlyOneSpeciesAdded = false;
+                }
 
                 if (!creatures.Contains(creatureNew))
                 {
@@ -272,6 +300,10 @@ namespace ARKBreedingStats.Library
                 if (recalculate)
                     creatureExisting.RecalculateCreatureValues(getWildLevelStep());
             }
+
+            if (creaturesWereAddedOrUpdated)
+                ResetExistingColors(onlyOneSpeciesAdded ? onlyThisSpeciesAdded : null);
+
             return creaturesWereAddedOrUpdated;
         }
 
@@ -392,6 +424,74 @@ namespace ARKBreedingStats.Library
                 c.domesticatedAt = c.domesticatedAt?.ToLocalTime();
                 c.addedToLibrary = c.addedToLibrary?.ToLocalTime();
             }
+        }
+
+        /// <summary>
+        /// Reset the lists of available color ids. Call this method after a creature was added or removed from the collection.
+        /// </summary>
+        /// <param name="species"></param>
+        internal void ResetExistingColors(Species species = null)
+        {
+            if (species == null)
+                _existingColors.Clear();
+            else if (!string.IsNullOrEmpty(species.blueprintPath))
+                _existingColors.Remove(species.blueprintPath);
+        }
+
+        /// <summary>
+        /// Returns a tuple that indicates if a color id is already available in that species
+        /// (inTheRegion, inAnyRegion).
+        /// </summary>
+        /// <returns></returns>
+        internal ColorExisting[] ColorAlreadyAvailable(Species species, int[] colorIds)
+        {
+            if (string.IsNullOrEmpty(species?.blueprintPath)) return null;
+
+            if (!_existingColors.TryGetValue(species.blueprintPath, out var speciesExistingColors))
+            {
+                speciesExistingColors = new List<int>[Species.ColorRegionCount + 1];
+                for (int i = 0; i < Species.ColorRegionCount + 1; i++) speciesExistingColors[i] = new List<int>();
+                foreach (Creature c in creatures)
+                {
+                    if (c.flags.HasFlag(CreatureFlags.Placeholder) || c.Species == null || c.speciesBlueprint != species.blueprintPath)
+                        continue;
+
+                    for (int i = 0; i < Species.ColorRegionCount; i++)
+                    {
+                        int cColorId = c.colors[i];
+                        if (!speciesExistingColors[i].Contains(cColorId))
+                            speciesExistingColors[i].Add(cColorId);
+                        if (!speciesExistingColors[Species.ColorRegionCount].Contains(cColorId))
+                            speciesExistingColors[Species.ColorRegionCount].Add(cColorId);
+                    }
+                }
+
+                _existingColors.Add(species.blueprintPath, speciesExistingColors);
+            }
+
+            var results = new ColorExisting[Species.ColorRegionCount];
+            for (int ci = 0; ci < Species.ColorRegionCount; ci++)
+                results[ci] = speciesExistingColors[ci].Contains(colorIds[ci]) ? ColorExisting.ColorExistingInRegion
+                    : speciesExistingColors[Species.ColorRegionCount].Contains(colorIds[ci]) ? ColorExisting.ColorExistingInOtherRegion
+                    : ColorExisting.ColorIsNew;
+            return results;
+        }
+
+        internal enum ColorExisting
+        {
+            Unknown,
+            /// <summary>
+            /// The color is already available in that region on a creature of that species.
+            /// </summary>
+            ColorExistingInRegion,
+            /// <summary>
+            /// The color is already available in a different region on a creature of that species.
+            /// </summary>
+            ColorExistingInOtherRegion,
+            /// <summary>
+            /// The color is not existing on any region on any creature of that species.
+            /// </summary>
+            ColorIsNew
         }
     }
 }

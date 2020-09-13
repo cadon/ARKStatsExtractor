@@ -15,6 +15,12 @@ namespace ARKBreedingStats
 {
     public partial class Form1
     {
+        /// <summary>
+        /// Set to false if many creatures are processed automatically, e.g. a bulk import.
+        /// It will prevent visual feedback updates.
+        /// </summary>
+        private bool _updateExtractorVisualData;
+
         private void UpdateExtractorDetails()
         {
             panelExtrTE.Visible = rbTamedExtractor.Checked;
@@ -951,6 +957,12 @@ namespace ARKBreedingStats
         private void creatureInfoInputExtractor_Add2Library_Clicked(CreatureInfoInput sender)
         {
             AddCreatureToCollection();
+        }
+
+        private void CreatureInfoInputExtractor_ColorsChanged(CreatureInfoInput input)
+        {
+            if (_updateExtractorVisualData)
+                input.SetRegionColorsExisting(_creatureCollection.ColorAlreadyAvailable(speciesSelector1.SelectedSpecies, input.RegionColors));
         }
     }
 }

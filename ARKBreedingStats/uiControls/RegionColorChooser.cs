@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.values;
 
 namespace ARKBreedingStats.uiControls
@@ -11,18 +12,36 @@ namespace ARKBreedingStats.uiControls
     public partial class RegionColorChooser : UserControl
     {
         public event Action RegionColorChosen;
+        private readonly Panel[] _panels;
         private readonly Button[] _buttonColors;
         private int[] _selectedRegionColorIds;
         public readonly bool[] ColorRegionsUseds;
         private readonly MyColorPicker _colorPicker;
         private List<ColorRegion> _colorRegions;
         private readonly ToolTip _tt = new ToolTip();
+        /// <summary>
+        /// If true, the button text will display the region and color id.
+        /// </summary>
         public bool VerboseButtonTexts { get; set; }
 
         public RegionColorChooser()
         {
             InitializeComponent();
-            _buttonColors = new[] { buttonColor0, buttonColor1, buttonColor2, buttonColor3, buttonColor4, buttonColor5 };
+
+            _buttonColors = new Button[Species.ColorRegionCount];
+            _panels = new Panel[Species.ColorRegionCount];
+            for (int i = 0; i < Species.ColorRegionCount; i++)
+            {
+                var p = new Panel { Width = 27, Height = 27, Margin = new Padding(1) };
+                _panels[i] = p;
+                var b = new Button { Width = 23, Height = 23, Left = 2, Top = 2, Text = i.ToString() };
+                var ii = i;
+                b.Click += (s, e) => ChooseColor(ii, b);
+                _buttonColors[i] = b;
+                p.Controls.Add(b);
+                flowLayoutPanel1.Controls.Add(p);
+            }
+
             _selectedRegionColorIds = new int[Species.ColorRegionCount];
             ColorRegionsUseds = new bool[Species.ColorRegionCount];
             _colorPicker = new MyColorPicker();
@@ -54,7 +73,7 @@ namespace ARKBreedingStats.uiControls
             for (int r = 0; r < _buttonColors.Length; r++)
             {
                 ColorRegionsUseds[r] = !string.IsNullOrEmpty(_colorRegions[r]?.name);
-                _buttonColors[r].Visible = ColorRegionsUseds[r];
+                _panels[r].Visible = ColorRegionsUseds[r];
 
                 if (ColorRegionsUseds[r])
                 {
@@ -84,36 +103,6 @@ namespace ARKBreedingStats.uiControls
                 SetColorButton(_buttonColors[r], r);
             }
             RegionColorChosen?.Invoke();
-        }
-
-        private void buttonColor0_Click(object sender, EventArgs e)
-        {
-            ChooseColor(0, buttonColor0);
-        }
-
-        private void buttonColor1_Click(object sender, EventArgs e)
-        {
-            ChooseColor(1, buttonColor1);
-        }
-
-        private void buttonColor2_Click(object sender, EventArgs e)
-        {
-            ChooseColor(2, buttonColor2);
-        }
-
-        private void buttonColor3_Click(object sender, EventArgs e)
-        {
-            ChooseColor(3, buttonColor3);
-        }
-
-        private void buttonColor4_Click(object sender, EventArgs e)
-        {
-            ChooseColor(4, buttonColor4);
-        }
-
-        private void buttonColor5_Click(object sender, EventArgs e)
-        {
-            ChooseColor(5, buttonColor5);
         }
 
         private void ChooseColor(int region, Button sender)
@@ -147,6 +136,25 @@ namespace ARKBreedingStats.uiControls
         private void RegionColorChooser_Disposed(object sender, EventArgs e)
         {
             _tt.RemoveAll();
+        }
+
+        internal void SetRegionColorsExisting(CreatureCollection.ColorExisting[] colorAlreadyAvailable)
+        {
+            var parameter = CreatureCollection.ColorExisting.Unknown;
+            for (int ci = 0; ci < Species.ColorRegionCount; ci++)
+            {
+                if (colorAlreadyAvailable != null)
+                    parameter = colorAlreadyAvailable[ci];
+                switch (parameter)
+                {
+                    case CreatureCollection.ColorExisting.ColorIsNew:
+                        _panels[ci].BackColor = Color.Gold; break;
+                    case CreatureCollection.ColorExisting.ColorExistingInOtherRegion:
+                        _panels[ci].BackColor = Color.DarkGreen; break;
+                    default:
+                        _panels[ci].BackColor = Color.Transparent; break;
+                }
+            }
         }
     }
 }

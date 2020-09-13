@@ -73,9 +73,8 @@ namespace ARKBreedingStats.uiControls
             GbParents.Text = Loc.S("Parents");
         }
 
-        internal void SetSpecies(Species species)
-        {
-            pedigreeCreatureHeaders.SetCustomStatNames(species?.statNames);
-        }
+        internal void SetSpecies(Species species) => pedigreeCreatureHeaders.SetCustomStatNames(species?.statNames);
+
+        internal void UpdateColors(int[] colorIds) => ControlOffspring.UpdateColors(colorIds);
     }
 }

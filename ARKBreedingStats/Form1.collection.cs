@@ -48,6 +48,8 @@ namespace ARKBreedingStats
             _creatureCollection.FormatVersion = CreatureCollection.CURRENT_FORMAT_VERSION;
             pedigree1.Clear();
             breedingPlan1.Clear();
+            creatureInfoInputExtractor.Clear(true);
+            creatureInfoInputTester.Clear(true);
             ApplySettingsToValues();
             InitializeCollection();
 

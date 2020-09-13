@@ -152,6 +152,8 @@ namespace ARKBreedingStats
             notesControl1.changed += SetCollectionChanged;
             creatureInfoInputExtractor.CreatureDataRequested += CreatureInfoInput_CreatureDataRequested;
             creatureInfoInputTester.CreatureDataRequested += CreatureInfoInput_CreatureDataRequested;
+            creatureInfoInputExtractor.ColorsChanged += CreatureInfoInputExtractor_ColorsChanged;
+            creatureInfoInputTester.ColorsChanged += CreatureInfoInputExtractor_ColorsChanged;
             speciesSelector1.OnSpeciesSelected += SpeciesSelector1OnSpeciesSelected;
             statsMultiplierTesting1.OnApplyMultipliers += StatsMultiplierTesting1_OnApplyMultipliers;
             raisingControl1.AdjustTimers += timerList1.AdjustAllTimersByOffset;
@@ -256,7 +258,7 @@ namespace ARKBreedingStats
             flowLayoutPanelStatIOsExtractor.Controls.Add(labelFootnote);
             flowLayoutPanelStatIOsTester.Controls.Add(panelStatTesterFootnote);
 
-            // some stats are not used for any species, hide them permamently (until needed in a later release)
+            // some stats are not used for any species, hide them permanently (until needed in a later release)
             _statIOs[(int)StatNames.Water].Hide();
             _statIOs[(int)StatNames.Temperature].Hide();
             _statIOs[(int)StatNames.TemperatureFortitude].Hide();
@@ -290,7 +292,6 @@ namespace ARKBreedingStats
             {
                 _statIOs[s].Input = 0;
             }
-
 
             creatureInfoInputTester.PbColorRegion = pictureBoxColorRegionsTester;
             creatureInfoInputExtractor.PbColorRegion = PbCreatureColorsExtractor;
@@ -395,7 +396,8 @@ namespace ARKBreedingStats
 
             if (createNewCollection)
                 NewCollection();
-
+            
+            _updateExtractorVisualData = true;
             _timerGlobal.Start();
         }
 
@@ -2732,16 +2734,20 @@ namespace ARKBreedingStats
             cr.RecalculateCreatureValues(_creatureCollection.getWildLevelStep());
 
             if (openPatternEditor)
+            {
                 input.OpenNamePatternEditor(cr, _topLevels.ContainsKey(cr.Species) ? _topLevels[species] : null, _lowestLevels.ContainsKey(cr.Species) ? _lowestLevels[species] : null,
-                    _customReplacingNamingPattern, namingPatternIndex, ReloadNamePatternCustomReplacings);
+                       _customReplacingNamingPattern, namingPatternIndex, ReloadNamePatternCustomReplacings);
+            }
             else if (updateInheritance)
             {
-                if (_extractor.ValidResults)
+                if (_extractor.ValidResults && _updateExtractorVisualData)
                     input.UpdateParentInheritances(cr);
             }
             else
+            {
                 input.GenerateCreatureName(cr, _topLevels.ContainsKey(cr.Species) ? _topLevels[species] : null, _lowestLevels.ContainsKey(cr.Species) ? _lowestLevels[species] : null,
                     _customReplacingNamingPattern, showDuplicateNameWarning, namingPatternIndex);
+            }
         }
 
         private void ExtractionTestControl1_CopyToTester(string speciesBP, int[] wildLevels, int[] domLevels, bool postTamed, bool bred, double te, double imprintingBonus, bool gotoTester, testCases.TestCaseControl tcc)

@@ -187,8 +187,7 @@ namespace ARKBreedingStats
                     labelSex.Visible = true;
                     labelSex.Text = Utils.SexSymbol(_creature.sex);
                     labelSex.BackColor = _creature.flags.HasFlag(CreatureFlags.Neutered) ? SystemColors.GrayText : Utils.SexColor(_creature.sex);
-                    // creature Colors
-                    pictureBox1.Image = CreatureColored.GetColoredCreature(_creature.colors, null, enabledColorRegions, 24, 22, true);
+                    UpdateColors(_creature.colors);
                     _tt.SetToolTip(pictureBox1, CreatureColored.RegionColorInfo(_creature.Species, _creature.colors));
                     labelSex.Visible = true;
                     pictureBox1.Visible = true;
@@ -208,6 +207,13 @@ namespace ARKBreedingStats
                 _contextMenuAvailable = true;
             }
         }
+
+        /// <summary>
+        /// Update the colors displayed in the wheel.
+        /// </summary>
+        /// <param name="colorIds"></param>
+        internal void UpdateColors(int[] colorIds)
+            => pictureBox1.Image = CreatureColored.GetColoredCreature(colorIds, null, enabledColorRegions, 24, 22, true);
 
         /// <summary>
         /// Sets the displayed title of the control.

@@ -95,7 +95,15 @@ namespace ARKBreedingStats
         private void ExportedCreatureList_CopyValuesToExtractor(importExported.ExportedCreatureControl exportedCreatureControl, bool addToLibraryIfUnique, bool goToLibraryTab)
         {
             tabControlMain.SelectedTab = tabPageExtractor;
+
+            bool updateExtractorVisualKeeper = _updateExtractorVisualData;
+            if (addToLibraryIfUnique)
+                _updateExtractorVisualData = false;
+
             ExtractExportedFileInExtractor(exportedCreatureControl, updateParentVisuals: !addToLibraryIfUnique);
+
+            if (addToLibraryIfUnique)
+                _updateExtractorVisualData = updateExtractorVisualKeeper;
 
             // add to library automatically if batch-extracting exportedImported values and uniqueLevels
             if (addToLibraryIfUnique)
