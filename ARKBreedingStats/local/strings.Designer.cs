@@ -1142,7 +1142,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to The extraction failed. See the following list of possible causes.
         /// </summary>
         internal static string extractionFailedHeader {
             get {
@@ -2432,6 +2432,15 @@ namespace ARKBreedingStats.local {
         internal static string Oxygen_Abb {
             get {
                 return ResourceManager.GetString("Oxygen_Abb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Parents {
+            get {
+                return ResourceManager.GetString("Parents", resourceCulture);
             }
         }
         

@@ -970,4 +970,7 @@ Questa modalità arriverà alla miglior prole possibile, ferma e sicura.Alcune p
   <data name="extractionFailedHeader" xml:space="preserve">
     <value>L'estrazione non è riuscita. Vedere il seguente elenco di possibili cause</value>
   </data>
+  <data name="Parents" xml:space="preserve">
+    <value>genitori</value>
+  </data>
 </root>

@@ -115,6 +115,7 @@ namespace ARKBreedingStats
                 _statIOs[si].Title = Utils.StatName(si, false, statNames);
                 _testingIOs[si].Title = Utils.StatName(si, false, statNames);
             }
+            parentInheritanceExtractor.SetLocalizations();
 
             // library
             Loc.ControlText(tabPageLibrary, "library");

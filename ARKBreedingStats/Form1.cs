@@ -291,6 +291,13 @@ namespace ARKBreedingStats
                 _statIOs[s].Input = 0;
             }
 
+
+            creatureInfoInputTester.PbColorRegion = pictureBoxColorRegionsTester;
+            creatureInfoInputExtractor.PbColorRegion = PbCreatureColorsExtractor;
+            creatureInfoInputExtractor.ParentInheritance = parentInheritanceExtractor;
+            parentInheritanceExtractor.Visible = false;
+
+            // set last species
             speciesSelector1.LastSpecies = Properties.Settings.Default.lastSpecies;
 
             if (Properties.Settings.Default.lastSpecies?.Any() == true)
@@ -333,9 +340,6 @@ namespace ARKBreedingStats
             {
                 extractionTestControl1.LoadExtractionTestCases(Properties.Settings.Default.LastSaveFileTestCases);
             }
-
-            creatureInfoInputTester.PbColorRegion = pictureBoxColorRegionsTester;
-            creatureInfoInputExtractor.PbColorRegion = PbCreatureColorsExtractor;
 
             // set TLS-protocol (github needs at least TLS 1.2) for update-check
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
@@ -2699,15 +2703,15 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="input"></param>
         /// <param name="openPatternEditor"></param>
-        private void CreatureInfoInput_CreatureDataRequested(CreatureInfoInput input, bool openPatternEditor, bool showDuplicateNameWarning, int namingPatternIndex)
+        private void CreatureInfoInput_CreatureDataRequested(CreatureInfoInput input, bool openPatternEditor, bool updateInheritance, bool showDuplicateNameWarning, int namingPatternIndex)
         {
             Creature cr = new Creature
             {
                 ArkId = input.ArkId,
-                ArkIdImported = input.ArkIdImported
+                ArkIdImported = input.ArkIdImported,
+                guid = input.CreatureGuid,
+                name = input.CreatureName
             };
-            cr.guid = input.CreatureGuid;
-            cr.name = input.CreatureName;
             if (input == creatureInfoInputExtractor)
             {
                 cr.levelsWild = _statIOs.Select(s => s.LevelWild).ToArray();
@@ -2729,6 +2733,11 @@ namespace ARKBreedingStats
             if (openPatternEditor)
                 input.OpenNamePatternEditor(cr, _topLevels.ContainsKey(cr.Species) ? _topLevels[species] : null, _lowestLevels.ContainsKey(cr.Species) ? _lowestLevels[species] : null,
                     _customReplacingNamingPattern, namingPatternIndex, ReloadNamePatternCustomReplacings);
+            else if (updateInheritance)
+            {
+                if (_extractor.ValidResults)
+                    input.UpdateParentInheritances(cr);
+            }
             else
                 input.GenerateCreatureName(cr, _topLevels.ContainsKey(cr.Species) ? _topLevels[species] : null, _lowestLevels.ContainsKey(cr.Species) ? _lowestLevels[species] : null,
                     _customReplacingNamingPattern, showDuplicateNameWarning, namingPatternIndex);

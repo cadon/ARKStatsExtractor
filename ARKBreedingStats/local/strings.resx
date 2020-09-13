@@ -1257,4 +1257,7 @@ The preset can be applied by the Apply Preset button</value>
   <data name="extractionFailedHeader" xml:space="preserve">
     <value>The extraction failed. See the following list of possible causes</value>
   </data>
+  <data name="Parents" xml:space="preserve">
+    <value>Parents</value>
+  </data>
 </root>

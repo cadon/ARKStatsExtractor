@@ -153,6 +153,7 @@ namespace ARKBreedingStats
             this.lbTestingInfo = new System.Windows.Forms.Label();
             this.creatureInfoInputTester = new ARKBreedingStats.CreatureInfoInput();
             this.tabPageExtractor = new System.Windows.Forms.TabPage();
+            this.parentInheritanceExtractor = new ARKBreedingStats.uiControls.ParentInheritance();
             this.llOnlineHelpExtractionIssues = new System.Windows.Forms.LinkLabel();
             this.PbCreatureColorsExtractor = new System.Windows.Forms.PictureBox();
             this.groupBoxRadarChartExtractor = new System.Windows.Forms.GroupBox();
@@ -1529,6 +1530,7 @@ namespace ARKBreedingStats
             // tabPageExtractor
             // 
             this.tabPageExtractor.AutoScroll = true;
+            this.tabPageExtractor.Controls.Add(this.parentInheritanceExtractor);
             this.tabPageExtractor.Controls.Add(this.llOnlineHelpExtractionIssues);
             this.tabPageExtractor.Controls.Add(this.PbCreatureColorsExtractor);
             this.tabPageExtractor.Controls.Add(this.groupBoxRadarChartExtractor);
@@ -1553,6 +1555,13 @@ namespace ARKBreedingStats
             this.tabPageExtractor.TabIndex = 0;
             this.tabPageExtractor.Text = "Extractor";
             this.tabPageExtractor.UseVisualStyleBackColor = true;
+            // 
+            // parentInheritanceExtractor
+            // 
+            this.parentInheritanceExtractor.Location = new System.Drawing.Point(851, 470);
+            this.parentInheritanceExtractor.Name = "parentInheritanceExtractor";
+            this.parentInheritanceExtractor.Size = new System.Drawing.Size(337, 182);
+            this.parentInheritanceExtractor.TabIndex = 52;
             // 
             // llOnlineHelpExtractionIssues
             // 
@@ -2930,7 +2939,7 @@ namespace ARKBreedingStats
             // ToolStripTextBoxLibraryFilter
             // 
             this.ToolStripTextBoxLibraryFilter.Name = "ToolStripTextBoxLibraryFilter";
-            this.ToolStripTextBoxLibraryFilter.Size = new System.Drawing.Size(200, 23);
+            this.ToolStripTextBoxLibraryFilter.Size = new System.Drawing.Size(200, 25);
             this.ToolStripTextBoxLibraryFilter.TextChanged += new System.EventHandler(this.ToolStripTextBoxLibraryFilter_TextChanged);
             // 
             // ToolStripButtonLibraryFilterClear
@@ -2938,7 +2947,7 @@ namespace ARKBreedingStats
             this.ToolStripButtonLibraryFilterClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.ToolStripButtonLibraryFilterClear.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ToolStripButtonLibraryFilterClear.Name = "ToolStripButtonLibraryFilterClear";
-            this.ToolStripButtonLibraryFilterClear.Size = new System.Drawing.Size(23, 19);
+            this.ToolStripButtonLibraryFilterClear.Size = new System.Drawing.Size(23, 22);
             this.ToolStripButtonLibraryFilterClear.Text = "×";
             this.ToolStripButtonLibraryFilterClear.Click += new System.EventHandler(this.ToolStripButtonLibraryFilterClear_Click);
             // 
@@ -3449,5 +3458,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripTextBox ToolStripTextBoxLibraryFilter;
         private System.Windows.Forms.ToolStripButton ToolStripButtonLibraryFilterClear;
         private System.Windows.Forms.ToolStripLabel ToolStripLabelFilter;
+        private uiControls.ParentInheritance parentInheritanceExtractor;
     }
 }

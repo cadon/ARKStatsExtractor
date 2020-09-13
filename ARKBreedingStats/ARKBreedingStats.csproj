@@ -364,6 +364,12 @@
     <Compile Include="uiControls\Nud.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="uiControls\ParentInheritance.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uiControls\ParentInheritance.Designer.cs">
+      <DependentUpon>ParentInheritance.cs</DependentUpon>
+    </Compile>
     <Compile Include="uiControls\PatternEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -572,6 +578,9 @@
     <Compile Include="values\ServerMultipliers.cs" />
     <Compile Include="values\Values.cs" />
     <Compile Include="Win32API.cs" />
+    <EmbeddedResource Include="uiControls\ParentInheritance.resx">
+      <DependentUpon>ParentInheritance.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="uiControls\VariantSelector.resx">
       <DependentUpon>VariantSelector.cs</DependentUpon>
     </EmbeddedResource>

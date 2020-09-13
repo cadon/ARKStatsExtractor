@@ -97,6 +97,8 @@ namespace ARKBreedingStats
                 _labels[s].Text = Utils.StatName(displayedStats[s], true, customStatNames);
                 _tt.SetToolTip(_labels[s], Utils.StatName(displayedStats[s], customStatNames: customStatNames));
             }
+
+            labelMutations.Visible = true;
         }
 
         private void PedigreeCreature_Disposed(object sender, EventArgs e)
@@ -113,8 +115,12 @@ namespace ARKBreedingStats
             get => _creature;
             set
             {
-                if (value == null) return;
                 _creature = value;
+                if (_creature == null)
+                {
+                    Clear();
+                    return;
+                }
                 SetTitle();
 
                 if (!OnlyLevels)
@@ -191,9 +197,7 @@ namespace ARKBreedingStats
                 int totalMutations = _creature.Mutations;
                 if (totalMutations > 0)
                 {
-                    labelMutations.Text = totalMutations.ToString();
-                    if (totalMutations > 9999)
-                        labelMutations.Text = totalMutations.ToString().Substring(0, 4) + "…";
+                    labelMutations.Text = totalMutations > 9999 ? totalMutations.ToString().Substring(0, 4) + "…" : totalMutations.ToString();
                     if (totalMutations > 19)
                         labelMutations.BackColor = Utils.MutationColorOverLimit;
                     else
@@ -253,6 +257,7 @@ namespace ARKBreedingStats
                 _labels[s].BackColor = SystemColors.Control;
             }
             labelSex.Visible = false;
+            labelMutations.Visible = false;
             groupBox1.Text = string.Empty;
             pictureBox1.Visible = false;
         }

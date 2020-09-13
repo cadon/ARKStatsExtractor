@@ -1040,4 +1040,7 @@ Algunas crías pueden ser peores que en el modo de estadísticas altas, pero tam
   <data name="extractionFailedHeader" xml:space="preserve">
     <value>La extracción falló. Consulte la siguiente lista de posibles causas.</value>
   </data>
+  <data name="Parents" xml:space="preserve">
+    <value>Padres</value>
+  </data>
 </root>

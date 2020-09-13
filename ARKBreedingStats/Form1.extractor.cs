@@ -127,6 +127,7 @@ namespace ARKBreedingStats
             }
             creatureInfoInputExtractor.ButtonEnabled = allValid;
             groupBoxRadarChartExtractor.Visible = allValid;
+            CreatureInfoInput_CreatureDataRequested(creatureInfoInputExtractor, false, true, false, 0);
         }
 
         /// <summary>
@@ -498,6 +499,7 @@ namespace ARKBreedingStats
                 }
                 toolStripButtonSaveCreatureValuesTemp.Visible = true;
                 PbCreatureColorsExtractor.Visible = false;
+                parentInheritanceExtractor.Visible = false;
 
                 // check for updates
                 if (DateTime.Now.AddHours(-5) > Properties.Settings.Default.lastUpdateCheck)
@@ -804,7 +806,7 @@ namespace ARKBreedingStats
                     && Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures)
                 )
             {
-                CreatureInfoInput_CreatureDataRequested(creatureInfoInputExtractor, false, false, 0);
+                CreatureInfoInput_CreatureDataRequested(creatureInfoInputExtractor, false, false, false, 0);
                 if (Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied)
                 {
                     Clipboard.SetText(string.IsNullOrEmpty(creatureInfoInputExtractor.CreatureName)

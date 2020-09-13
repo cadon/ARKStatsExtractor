@@ -27,19 +27,20 @@ namespace ARKBreedingStats
         private Creature[] _prefilteredCreatures;
         private Creature _selectedCreature;
         private List<Creature> _creatureChildren = new List<Creature>();
-        private readonly List<List<int[]>> _lines = new List<List<int[]>>();
+        private readonly List<int[]>[] _lines;
         private readonly List<PedigreeCreature> _pcs = new List<PedigreeCreature>();
         private bool[] _enabledColorRegions = { true, true, true, true, true, true };
         internal bool PedigreeNeedsUpdate;
         private readonly Debouncer _filterDebouncer = new Debouncer();
 
+        private const int HorizontalStatDistance = 29;
+        private const int XOffsetFirstStat = 38;
+
         public Pedigree()
         {
             InitializeComponent();
-            SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer,
-                true);
-            _lines.Add(new List<int[]>());
-            _lines.Add(new List<int[]>());
+            SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
+            _lines = new[] { new List<int[]>(), new List<int[]>() };
             NoCreatureSelected();
             listViewCreatures.ListViewItemSorter = new ListViewColumnSorter();
             splitContainer1.Panel2.Paint += Panel2_Paint;
@@ -50,49 +51,61 @@ namespace ARKBreedingStats
             e.Graphics.TranslateTransform(splitContainer1.Panel2.AutoScrollPosition.X,
                 splitContainer1.Panel2.AutoScrollPosition.Y);
             if (_selectedCreature != null)
-                DrawLines(e.Graphics);
+            {
+                DrawLines(e.Graphics, _lines);
+                if (_creatureChildren.Any())
+                    e.Graphics.DrawString(Loc.S("Descendants"), new Font("Arial", 14), new SolidBrush(Color.Black), 210, 170);
+            }
         }
 
         /// <summary>
         /// Draws the lines that connect ancestors.
         /// </summary>
         /// <param name="g"></param>
-        private void DrawLines(Graphics g)
+        /// <param name="lines">Array of arrow coordinates. lines[0] contains stat inheritance arrows, lines[1] parent-offspring-connections.</param>
+        internal static void DrawLines(Graphics g, List<int[]>[] lines)
         {
             // lines contains all the coordinates the arrows should be drawn: x1,y1,x2,y2,red/green,mutated/equal
             using (Pen myPen = new Pen(Color.Green, 3))
             {
                 myPen.EndCap = System.Drawing.Drawing2D.LineCap.ArrowAnchor;
-
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                foreach (int[] line in _lines[0])
+
+                if (lines[0] != null)
                 {
-                    if (line[4] == 1)
-                        myPen.Color = Color.DarkRed;
-                    else if (line[4] == 2)
-                        myPen.Color = Color.Green;
-                    else
-                        myPen.Color = Color.LightGray;
-                    if (line[5] > 0)
+                    foreach (int[] line in lines[0])
                     {
-                        // if stat is mutated
-                        int mutationBoxWidth = 14;
-                        g.FillEllipse(Brushes.LightGreen, (line[0] + line[2] - mutationBoxWidth) / 2,
-                            (line[1] + line[3] - mutationBoxWidth) / 2, mutationBoxWidth, mutationBoxWidth);
+                        switch (line[4])
+                        {
+                            case 1:
+                                myPen.Color = Color.DarkRed; break;
+                            case 2:
+                                myPen.Color = Color.Green; break;
+                            default:
+                                myPen.Color = Color.LightGray; break;
+                        }
+                        if (line[5] > 0)
+                        {
+                            // if stat is mutated
+                            const int mutationBoxWidth = 14;
+                            g.FillEllipse(Brushes.LightGreen, (line[0] + line[2] - mutationBoxWidth) / 2,
+                                (line[1] + line[3] - mutationBoxWidth) / 2, mutationBoxWidth, mutationBoxWidth);
+                        }
+
+                        g.DrawLine(myPen, line[0], line[1], line[2], line[3]);
                     }
 
-                    g.DrawLine(myPen, line[0], line[1], line[2], line[3]);
                 }
 
                 myPen.Color = Color.DarkGray;
                 myPen.Width = 1;
-                foreach (int[] line in _lines[1])
+                if (lines[1] != null)
                 {
-                    g.DrawLine(myPen, line[0], line[1], line[2], line[3]);
+                    foreach (int[] line in lines[1])
+                    {
+                        g.DrawLine(myPen, line[0], line[1], line[2], line[3]);
+                    }
                 }
-
-                if (_creatureChildren.Any())
-                    g.DrawString(Loc.S("Descendants"), new Font("Arial", 14), new SolidBrush(Color.Black), 210, 170);
             }
         }
 
@@ -127,9 +140,8 @@ namespace ARKBreedingStats
             SuspendLayout();
             foreach (PedigreeCreature pc in _pcs)
                 pc.Dispose();
-            _lines.Clear();
-            _lines.Add(new List<int[]>());
-            _lines.Add(new List<int[]>());
+            _lines[0].Clear();
+            _lines[1].Clear();
             pictureBox.Image = null;
             pictureBox.Visible = false;
             ResumeLayout();
@@ -150,7 +162,7 @@ namespace ARKBreedingStats
 
             SuspendLayout();
 
-            pedigreeCreature1.SetCustomStatNames(_selectedCreature?.Species?.statNames);
+            pedigreeCreatureHeaders.SetCustomStatNames(_selectedCreature?.Species?.statNames);
 
             const int leftBorder = 40;
             const int pedigreeElementWidth = 325;
@@ -186,7 +198,7 @@ namespace ARKBreedingStats
                 {
                     int si = PedigreeCreature.displayedStats[s];
                     if (_selectedCreature.valuesDom[si] > 0 && _selectedCreature.levelsWild[si] >= 0 && _selectedCreature.levelsWild[si] == c.levelsWild[si])
-                        _lines[0].Add(new[] { leftBorder + 38 + 29 * s, 200 + 35 * row + 6, leftBorder + 38 + 29 * s, 200 + 35 * row + 15, 0, 0 });
+                        _lines[0].Add(new[] { leftBorder + XOffsetFirstStat + HorizontalStatDistance * s, 200 + 35 * row + 6, leftBorder + XOffsetFirstStat + HorizontalStatDistance * s, 200 + 35 * row + 15, 0, 0 });
                 }
                 pc.CreatureClicked += CreatureClicked;
                 pc.CreatureEdit += CreatureEdit;
@@ -207,11 +219,6 @@ namespace ARKBreedingStats
         /// <summary>
         /// Creates the controls that display a creature and its parents.
         /// </summary>
-        /// <param name="creature"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="drawWithNoParents"></param>
-        /// <param name="highlightCreature"></param>
         /// <returns></returns>
         private bool CreateParentsChild(Creature creature, int x, int y, bool drawWithNoParents = false, bool highlightCreature = false)
         {
@@ -228,14 +235,14 @@ namespace ARKBreedingStats
                 Highlight = highlightCreature
             });
 
-            void AddCreatureControl(PedigreeCreature _pc)
+            void AddCreatureControl(PedigreeCreature pc)
             {
-                splitContainer1.Panel2.Controls.Add(_pc);
-                _pc.CreatureClicked += CreatureClicked;
-                _pc.CreatureEdit += CreatureEdit;
-                _pc.BestBreedingPartners += BestBreedingPartners;
-                _pc.ExportToClipboard += ExportToClipboard;
-                _pcs.Add(_pc);
+                splitContainer1.Panel2.Controls.Add(pc);
+                pc.CreatureClicked += CreatureClicked;
+                pc.CreatureEdit += CreatureEdit;
+                pc.BestBreedingPartners += BestBreedingPartners;
+                pc.ExportToClipboard += ExportToClipboard;
+                _pcs.Add(pc);
             }
 
             // mother
@@ -254,31 +261,35 @@ namespace ARKBreedingStats
                     Location = new Point(x + xS, y + yS + 80)
                 });
             }
-            // gene-inheritance-lines
-            // better: if father < mother: 1, if mother < father: -1
+
+            CreateGeneInheritanceLines(creature, creature.Mother, creature.Father, _lines, x, y);
+            return true;
+        }
+
+        internal static void CreateGeneInheritanceLines(Creature offspring, Creature mother, Creature father, List<int[]>[] lines, int x, int y)
+        {
             for (int s = 0; s < PedigreeCreature.displayedStatsCount; s++)
             {
                 int si = PedigreeCreature.displayedStats[s];
-                if (creature.valuesDom[si] <= 0) continue; // don't display arrows for non used stats
-                int better = 0;
-                if (creature.Mother != null && creature.Father != null)
+                if (offspring.valuesDom[si] <= 0) continue; // don't display arrows for non used stats
+                int better = 0; // if father < mother: 1, if mother < father: -1
+                if (mother != null && father != null)
                 {
-                    if (creature.Mother.levelsWild[si] < creature.Father.levelsWild[si])
+                    if (mother.levelsWild[si] < father.levelsWild[si])
                         better = -1;
-                    else if (creature.Mother.levelsWild[si] > creature.Father.levelsWild[si])
+                    else if (mother.levelsWild[si] > father.levelsWild[si])
                         better = 1;
                 }
                 // offspring can have stats that are up to 2 levels higher due to mutations. currently there are no decreasing levels due to mutations
-                if (creature.Mother != null && creature.levelsWild[si] >= 0 && (creature.levelsWild[si] == creature.Mother.levelsWild[si] || creature.levelsWild[si] == creature.Mother.levelsWild[si] + 2))
+                if (mother != null && offspring.levelsWild[si] >= 0 && (offspring.levelsWild[si] == mother.levelsWild[si] || offspring.levelsWild[si] == mother.levelsWild[si] + 2))
                 {
-                    _lines[0].Add(new[] { 38 + x + 29 * s, y + 33, 38 + x + 29 * s, y + 42, (better == -1 ? 1 : 2), (creature.levelsWild[si] > creature.Mother.levelsWild[si] ? 1 : 0) });
+                    lines[0].Add(new[] { XOffsetFirstStat + x + HorizontalStatDistance * s, y + 33, XOffsetFirstStat + x + HorizontalStatDistance * s, y + 42, (better == -1 ? 1 : 2), (offspring.levelsWild[si] > mother.levelsWild[si] ? 1 : 0) });
                 }
-                if (creature.Father != null && creature.levelsWild[si] >= 0 && (creature.levelsWild[si] == creature.Father.levelsWild[si] || creature.levelsWild[si] == creature.Father.levelsWild[si] + 2))
+                if (father != null && offspring.levelsWild[si] >= 0 && (offspring.levelsWild[si] == father.levelsWild[si] || offspring.levelsWild[si] == father.levelsWild[si] + 2))
                 {
-                    _lines[0].Add(new[] { 38 + x + 29 * s, y + 83, 38 + x + 29 * s, y + 74, (better == 1 ? 1 : 2), (creature.levelsWild[si] > creature.Father.levelsWild[si] ? 1 : 0) });
+                    lines[0].Add(new[] { XOffsetFirstStat + x + HorizontalStatDistance * s, y + 83, XOffsetFirstStat + x + HorizontalStatDistance * s, y + 74, (better == 1 ? 1 : 2), (offspring.levelsWild[si] > father.levelsWild[si] ? 1 : 0) });
                 }
             }
-            return true;
         }
 
         private void CreatureClicked(Creature c, int comboIndex, MouseEventArgs e)

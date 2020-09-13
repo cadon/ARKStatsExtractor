@@ -1248,4 +1248,7 @@ Diese kann mit BSS Preset angewandt werden.</value>
   <data name="extractionFailedHeader" xml:space="preserve">
     <value>Die Level Bestimmung ist fehlgeschlagen. Überprüfe die folgende List möglicher Ursachen</value>
   </data>
+  <data name="Parents" xml:space="preserve">
+    <value>Eltern</value>
+  </data>
 </root>

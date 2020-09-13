@@ -1048,4 +1048,7 @@
   <data name="extractionFailedHeader" xml:space="preserve">
     <value>提取失败。 请参阅以下可能的原因列表</value>
   </data>
+  <data name="Parents" xml:space="preserve">
+    <value>父母</value>
+  </data>
 </root>

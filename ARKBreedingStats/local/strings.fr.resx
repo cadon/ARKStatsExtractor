@@ -1255,4 +1255,7 @@ Le préréglage peut être appliqué par le bouton Appliquer le préréglage</va
   <data name="extractionFailedHeader" xml:space="preserve">
     <value>L'extraction a échoué. Voir la liste suivante des causes possibles</value>
   </data>
+  <data name="Parents" xml:space="preserve">
+    <value>Parents</value>
+  </data>
 </root>

@@ -394,7 +394,6 @@ namespace ARKBreedingStats
             this.dhmsInputGrown.Size = new System.Drawing.Size(136, 26);
             this.dhmsInputGrown.TabIndex = 10;
             this.dhmsInputGrown.Timespan = System.TimeSpan.Parse("00:00:00");
-            this.dhmsInputGrown.ValueChanged += new ARKBreedingStats.uiControls.dhmsInput.ValueChangedEventHandler(this.dhmsInputGrown_ValueChanged);
             // 
             // dhmsInputCooldown
             // 
