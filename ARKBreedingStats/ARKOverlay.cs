@@ -6,25 +6,25 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using ARKBreedingStats.Library;
 
 namespace ARKBreedingStats
 {
     public partial class ARKOverlay : Form
     {
-        private const int LABEL_COUNT = 8;
-        private readonly Control[] labels = new Control[LABEL_COUNT];
-        private readonly Timer timerUpdateTimer;
+        private readonly Label[] _labels;
+        private readonly Timer _timerUpdateTimer;
         public Form1 ExtractorForm;
-        private bool ocrPossible;
-        public bool OCRing;
+        private bool _ocrPossible;
+        private bool _OCRing;
         public List<TimerListEntry> timers;
-        private string notes;
+        private string _notes;
         public static ARKOverlay theOverlay;
-        private DateTime infoShownAt;
+        private DateTime _infoShownAt;
         public int InfoDuration;
-        private bool currentlyInInventory;
+        private bool _currentlyInInventory;
         public bool checkInventoryStats;
-        private bool toggleInventoryCheck; // check inventory only every other time
+        private bool _toggleInventoryCheck; // check inventory only every other time
 
         public ARKOverlay()
         {
@@ -32,19 +32,12 @@ namespace ARKBreedingStats
             FormBorderStyle = FormBorderStyle.None;
             ShowInTaskbar = false;
             TopMost = true;
+            parentInheritance1.ForeColor = Color.FromArgb(1, 1, 1); // so it's not transparent (black == TransparencyKey)
 
-            infoShownAt = DateTime.Now.AddMinutes(-10);
+            _infoShownAt = DateTime.Now.AddMinutes(-10);
+            _labels = new[] { lblHealth, lblStamina, lblOxygen, lblFood, lblWeight, lblMeleeDamage, lblMovementSpeed, lblLevel };
 
-            labels[0] = lblHealth;
-            labels[1] = lblStamina;
-            labels[2] = lblOxygen;
-            labels[3] = lblFood;
-            labels[4] = lblWeight;
-            labels[5] = lblMeleeDamage;
-            labels[6] = lblMovementSpeed;
-            labels[7] = lblLevel;
-
-            foreach (Label l in labels)
+            foreach (Label l in _labels)
                 l.Text = string.Empty;
             lblStatus.Text = string.Empty;
             labelTimer.Text = string.Empty;
@@ -54,15 +47,17 @@ namespace ARKBreedingStats
             if (Size == default)
                 Size = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
 
-            timerUpdateTimer = new Timer { Interval = 1000 };
-            timerUpdateTimer.Tick += TimerUpdateTimer_Tick;
+            _timerUpdateTimer = new Timer { Interval = 1000 };
+            _timerUpdateTimer.Tick += TimerUpdateTimer_Tick;
             theOverlay = this;
-            currentlyInInventory = false;
+            _currentlyInInventory = false;
 
-            ocrPossible = ArkOCR.OCR.ocrConfig != null && ArkOCR.OCR.CheckResolutionSupportedByOcr();
+            _ocrPossible = ArkOCR.OCR.ocrConfig != null && ArkOCR.OCR.CheckResolutionSupportedByOcr();
 
             SetInfoPositions();
-            notes = string.Empty;
+            _notes = string.Empty;
+            SetInheritanceCreatures();
+            SetLocatlizations();
 
             InfoDuration = 10;
 
@@ -77,12 +72,12 @@ namespace ARKBreedingStats
 
         public void InitLabelPositions()
         {
-            if (!ocrPossible) return;
+            if (!_ocrPossible) return;
 
-            for (int statIndex = 0; statIndex < LABEL_COUNT; statIndex++)
+            for (int statIndex = 0; statIndex < _labels.Length; statIndex++)
             {
                 Rectangle r = ArkOCR.OCR.ocrConfig.labelRectangles[statIndex];
-                labels[statIndex].Location = new Point(r.Left + r.Width + 6, r.Top - 10); //this.PointToClient(new Point(r.Left + r.Width + 6, r.Top - 10));
+                _labels[statIndex].Location = new Point(r.Left + r.Width + 6, r.Top - 10); //this.PointToClient(new Point(r.Left + r.Width + 6, r.Top - 10));
             }
             lblStatus.Location = new Point(50, 10);
         }
@@ -92,7 +87,7 @@ namespace ARKBreedingStats
         /// </summary>
         public bool EnableOverlayTimer
         {
-            set => timerUpdateTimer.Enabled = value;
+            set => _timerUpdateTimer.Enabled = value;
         }
 
         private void TimerUpdateTimer_Tick(object sender, EventArgs e)
@@ -100,41 +95,44 @@ namespace ARKBreedingStats
             SetTimerAndNotesText();
 
             // info
-            if (labelInfo.Text != "" && infoShownAt.AddSeconds(InfoDuration) < DateTime.Now)
-                labelInfo.Text = string.Empty;
-
-            if (!ocrPossible) return;
-
-            toggleInventoryCheck = !toggleInventoryCheck;
-            if (checkInventoryStats && toggleInventoryCheck)
+            if (labelInfo.Text != "" && _infoShownAt.AddSeconds(InfoDuration) < DateTime.Now)
             {
-                if (OCRing)
+                labelInfo.Text = string.Empty;
+                parentInheritance1.Visible = false;
+            }
+
+            if (!_ocrPossible) return;
+
+            _toggleInventoryCheck = !_toggleInventoryCheck;
+            if (checkInventoryStats && _toggleInventoryCheck)
+            {
+                if (_OCRing)
                     return;
                 lblStatus.Text = "…";
                 Application.DoEvents();
-                OCRing = true;
+                _OCRing = true;
                 if (!ArkOCR.OCR.isDinoInventoryVisible())
                 {
-                    if (currentlyInInventory)
+                    if (_currentlyInInventory)
                     {
-                        for (int i = 0; i < LABEL_COUNT; i++)
-                            if (labels[i] != null)
-                                labels[i].Text = string.Empty;
-                        currentlyInInventory = false;
+                        for (int i = 0; i < _labels.Length; i++)
+                            if (_labels[i] != null)
+                                _labels[i].Text = string.Empty;
+                        _currentlyInInventory = false;
                     }
                 }
-                else if (currentlyInInventory)
+                else if (_currentlyInInventory)
                 {
                     // assuming it's still the same inventory, don't do anything, assuming nothing changed
                 }
                 else
                 {
-                    currentlyInInventory = true;
+                    _currentlyInInventory = true;
                     lblStatus.Text = "Reading Values";
                     Application.DoEvents();
                     ExtractorForm?.DoOcr("", false);
                 }
-                OCRing = false;
+                _OCRing = false;
                 lblStatus.Text = string.Empty;
                 Application.DoEvents();
             }
@@ -147,19 +145,19 @@ namespace ARKBreedingStats
             for (int s = 0; s < 7; s++)
             {
                 int di = displayIndices[s];
-                labels[s].Text = "[w" + wildValues[di];
+                _labels[s].Text = "[w" + wildValues[di];
                 if (tamedValues[di] != 0)
-                    labels[s].Text += "+d" + tamedValues[di];
-                labels[s].Text += "]";
+                    _labels[s].Text += "+d" + tamedValues[di];
+                _labels[s].Text += "]";
                 if (colors != null && di < colors.Length)
-                    labels[s].ForeColor = colors[di];
+                    _labels[s].ForeColor = colors[di];
             }
 
             // total level
-            labels[7].Text = "[w" + levelWild;
+            _labels[7].Text = "[w" + levelWild;
             if (levelDom != 0)
-                labels[7].Text += "+d" + levelDom;
-            labels[7].Text += "]";
+                _labels[7].Text += "+d" + levelDom;
+            _labels[7].Text += "]";
         }
 
         /// <summary>
@@ -171,7 +169,7 @@ namespace ARKBreedingStats
             labelInfo.ForeColor = textColor;
             labelInfo.Visible = true;
             labelInfo.Text = infoText;
-            infoShownAt = DateTime.Now;
+            _infoShownAt = DateTime.Now;
         }
 
         internal void SetInfoText(string infoText) => SetInfoText(infoText, Color.White);
@@ -204,14 +202,21 @@ namespace ARKBreedingStats
                 if (timerListChanged)
                     timers = timers.Where(t => t.showInOverlay).ToList();
             }
-            sb.Append(notes);
+            sb.Append(_notes);
             labelTimer.Text = sb.ToString();
         }
 
         internal void SetNotes(string notes)
         {
-            this.notes = notes;
+            _notes = notes;
             SetTimerAndNotesText();
+        }
+
+        internal void SetInheritanceCreatures(Creature creature = null, Creature mother = null, Creature father = null) => parentInheritance1.SetCreatures(creature, mother, father);
+
+        internal void SetLocatlizations()
+        {
+            parentInheritance1.SetLocalizations();
         }
     }
 }

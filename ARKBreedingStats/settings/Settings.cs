@@ -30,7 +30,7 @@ namespace ARKBreedingStats.settings
             tabControlSettings.SelectTab((int)page);
         }
 
-        private const string DefaultOCRProcessName = "ShooterGame";
+        private const string DefaultOcrProcessName = "ShooterGame";
         /// <summary>
         /// Creates the list of currently running processes for an easy selection for the process the OCR uses to capture.
         /// </summary>
@@ -204,6 +204,7 @@ namespace ARKBreedingStats.settings
             cbCustomOverlayLocation.Checked = Properties.Settings.Default.UseCustomOverlayLocation;
             nudCustomOverlayLocX.ValueSave = Properties.Settings.Default.CustomOverlayLocation.X;
             nudCustomOverlayLocY.ValueSave = Properties.Settings.Default.CustomOverlayLocation.Y;
+            CbOverlayDisplayInheritance.Checked = Properties.Settings.Default.DisplayInheritanceInOverlay;
             #endregion
 
             #region Timers
@@ -365,6 +366,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.OverlayInfoPosition = new Point((int)nudOverlayInfoPosDFR.Value, (int)nudOverlayInfoPosY.Value);
             Properties.Settings.Default.UseCustomOverlayLocation = cbCustomOverlayLocation.Checked;
             Properties.Settings.Default.CustomOverlayLocation = new Point((int)nudCustomOverlayLocX.Value, (int)nudCustomOverlayLocY.Value);
+            Properties.Settings.Default.DisplayInheritanceInOverlay = CbOverlayDisplayInheritance.Checked;
             #endregion
 
             #region Timers
@@ -867,7 +869,7 @@ namespace ARKBreedingStats.settings
 
         private void button1_Click(object sender, EventArgs e)
         {
-            tbOCRCaptureApp.Text = DefaultOCRProcessName;
+            tbOCRCaptureApp.Text = DefaultOcrProcessName;
         }
 
         private void Localization()

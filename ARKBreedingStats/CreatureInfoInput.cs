@@ -473,7 +473,6 @@ namespace ARKBreedingStats
                     dhmsInputCooldown.Timespan = TimeSpan.Zero;
                 }
                 RegionColors = null;
-                ParentInheritance?.SetSpecies(_selectedSpecies);
             }
         }
 

@@ -396,7 +396,7 @@ namespace ARKBreedingStats
 
             if (createNewCollection)
                 NewCollection();
-            
+
             _updateExtractorVisualData = true;
             _timerGlobal.Start();
         }

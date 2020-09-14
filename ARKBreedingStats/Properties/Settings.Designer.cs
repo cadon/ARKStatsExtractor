@@ -1326,5 +1326,17 @@ namespace ARKBreedingStats.Properties {
                 this["ImportExportedArchiveFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisplayInheritanceInOverlay {
+            get {
+                return ((bool)(this["DisplayInheritanceInOverlay"]));
+            }
+            set {
+                this["DisplayInheritanceInOverlay"] = value;
+            }
+        }
     }
 }

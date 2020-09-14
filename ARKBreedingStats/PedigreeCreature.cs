@@ -171,7 +171,7 @@ namespace ARKBreedingStats
                     {
                         _labels[s].Text = _creature.levelsWild[si].ToString();
                         _labels[s].BackColor = Utils.GetColorFromPercent((int)(_creature.levelsWild[si] * 2.5), _creature.topBreedingStats[si] ? 0.2 : 0.7);
-                        _labels[s].ForeColor = SystemColors.ControlText;
+                        _labels[s].ForeColor = Parent.ForeColor; // needed so text is not transparent on overlay
                         _tt.SetToolTip(_labels[s], Utils.StatName(si, false, _creature.Species?.statNames) + ": " + _creature.valuesBreeding[si] * (Utils.Precision(si) == 3 ? 100 : 1) + (Utils.Precision(si) == 3 ? "%" : string.Empty));
                     }
                     _labels[s].Font = new Font("Microsoft Sans Serif", 8.25F, _creature.topBreedingStats[si] ? FontStyle.Bold : FontStyle.Regular, GraphicsUnit.Point, 0);

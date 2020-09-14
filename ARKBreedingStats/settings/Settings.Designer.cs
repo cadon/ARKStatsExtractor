@@ -135,6 +135,7 @@
             this.cbApplyGlobalSpeciesToLibrary = new System.Windows.Forms.CheckBox();
             this.cbCreatureColorsLibrary = new System.Windows.Forms.CheckBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.CbOverlayDisplayInheritance = new System.Windows.Forms.CheckBox();
             this.label45 = new System.Windows.Forms.Label();
             this.pCustomOverlayLocation = new System.Windows.Forms.Panel();
             this.nudCustomOverlayLocX = new ARKBreedingStats.uiControls.Nud();
@@ -1645,7 +1646,7 @@
             // groupBox16
             // 
             this.groupBox16.Controls.Add(this.cbDevTools);
-            this.groupBox16.Location = new System.Drawing.Point(329, 590);
+            this.groupBox16.Location = new System.Drawing.Point(329, 621);
             this.groupBox16.Name = "groupBox16";
             this.groupBox16.Size = new System.Drawing.Size(413, 43);
             this.groupBox16.TabIndex = 8;
@@ -1717,6 +1718,7 @@
             // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.CbOverlayDisplayInheritance);
             this.groupBox10.Controls.Add(this.label45);
             this.groupBox10.Controls.Add(this.pCustomOverlayLocation);
             this.groupBox10.Controls.Add(this.cbCustomOverlayLocation);
@@ -1736,10 +1738,20 @@
             this.groupBox10.Controls.Add(this.chkbSpeechRecognition);
             this.groupBox10.Location = new System.Drawing.Point(329, 368);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(413, 216);
+            this.groupBox10.Size = new System.Drawing.Size(413, 247);
             this.groupBox10.TabIndex = 6;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Overlay";
+            // 
+            // CbOverlayDisplayInheritance
+            // 
+            this.CbOverlayDisplayInheritance.AutoSize = true;
+            this.CbOverlayDisplayInheritance.Location = new System.Drawing.Point(6, 215);
+            this.CbOverlayDisplayInheritance.Name = "CbOverlayDisplayInheritance";
+            this.CbOverlayDisplayInheritance.Size = new System.Drawing.Size(162, 17);
+            this.CbOverlayDisplayInheritance.TabIndex = 25;
+            this.CbOverlayDisplayInheritance.Text = "Display Inheritance on import";
+            this.CbOverlayDisplayInheritance.UseVisualStyleBackColor = true;
             // 
             // label45
             // 
@@ -3233,5 +3245,6 @@
         private System.Windows.Forms.Button BtBeepSuccess;
         private System.Windows.Forms.Button BtImportArchiveFolder;
         private System.Windows.Forms.Button BtGetExportFolderAutomatically;
+        private System.Windows.Forms.CheckBox CbOverlayDisplayInheritance;
     }
 }

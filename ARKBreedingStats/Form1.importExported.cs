@@ -149,12 +149,13 @@ namespace ARKBreedingStats
                 && (Properties.Settings.Default.applyNamePatternOnImportIfEmptyName ||
                    (!alreadyExists && Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures));
             Species species = speciesSelector1.SelectedSpecies;
+            Creature creature = null;
 
             if (_extractor.UniqueResults
                 || (alreadyExists && _extractor.ValidResults))
             {
-                AddCreatureToCollection(true, goToLibraryTab: false);
-                SetMessageLabelText($"Successful {(alreadyExists ? "updated" : "added")} {creatureInfoInputExtractor.CreatureName} ({species.name}) of the exported file\n" + filePath, MessageBoxIcon.Information);
+                creature = AddCreatureToCollection(true, goToLibraryTab: false);
+                SetMessageLabelText($"Successful {(alreadyExists ? "updated" : "added")} {creature.name} ({species.name}) of the exported file\n" + filePath, MessageBoxIcon.Information);
                 added = true;
             }
 
@@ -168,7 +169,7 @@ namespace ARKBreedingStats
             if (added)
             {
                 var sb = new StringBuilder();
-                sb.AppendLine($"{species.name} \"{creatureInfoInputExtractor.CreatureName}\" {(alreadyExists ? "updated in " : "added to")} the library.");
+                sb.AppendLine($"{species.name} \"{creature.name}\" {(alreadyExists ? "updated in " : "added to")} the library.");
                 if (copyNameToClipboard)
                     sb.AppendLine("Name copied to clipboard.");
 
@@ -177,7 +178,7 @@ namespace ARKBreedingStats
                     int statIndex = values.Values.statsDisplayOrder[s];
                     if (!species.UsesStat(statIndex)) continue;
 
-                    sb.Append($"{Utils.StatName(statIndex, true, species.statNames)}: {_statIOs[statIndex].LevelWild} ({_statIOs[statIndex].BreedingValue})");
+                    sb.Append($"{Utils.StatName(statIndex, true, species.statNames)}: { _statIOs[statIndex].LevelWild} ({_statIOs[statIndex].BreedingValue})");
                     if (_statIOs[statIndex].TopLevel == StatIOStatus.NewTopLevel)
                     {
                         sb.Append($" {Loc.S("newTopLevel")}");
@@ -200,7 +201,12 @@ namespace ARKBreedingStats
                 textColor = Color.FromArgb(255, colorSaturation, colorSaturation);
             }
 
-            _overlay?.SetInfoText(infoText, textColor);
+            if (_overlay != null)
+            {
+                _overlay.SetInfoText(infoText, textColor);
+                if (Properties.Settings.Default.DisplayInheritanceInOverlay && creature != null)
+                    _overlay.SetInheritanceCreatures(creature, creature.Mother, creature.Father);
+            }
 
             if (added)
             {

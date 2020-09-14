@@ -29,7 +29,7 @@ namespace ARKBreedingStats
         /// <param name="motherArkId">only pass if from import. Used for creating placeholder parents</param>
         /// <param name="fatherArkId">only pass if from import. Used for creating placeholder parents</param>
         /// <param name="goToLibraryTab">go to library tab after the creature is added</param>
-        private void AddCreatureToCollection(bool fromExtractor = true, long motherArkId = 0, long fatherArkId = 0, bool goToLibraryTab = true)
+        private Creature AddCreatureToCollection(bool fromExtractor = true, long motherArkId = 0, long fatherArkId = 0, bool goToLibraryTab = true)
         {
             CreatureInfoInput input;
             bool bred;
@@ -156,6 +156,7 @@ namespace ARKBreedingStats
             creatureInfoInputTester.parentListValid = false;
 
             SetCollectionChanged(true, species);
+            return creature;
         }
 
         /// <summary>

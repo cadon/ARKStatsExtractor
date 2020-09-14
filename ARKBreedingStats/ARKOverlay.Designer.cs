@@ -39,6 +39,7 @@
             this.lblWeight = new System.Windows.Forms.Label();
             this.lblMeleeDamage = new System.Windows.Forms.Label();
             this.lblMovementSpeed = new System.Windows.Forms.Label();
+            this.parentInheritance1 = new ARKBreedingStats.uiControls.ParentInheritance();
             this.SuspendLayout();
             // 
             // lblHealth
@@ -170,12 +171,22 @@
             this.lblMovementSpeed.TabIndex = 6;
             this.lblMovementSpeed.Text = "Movement";
             // 
+            // parentInheritance1
+            // 
+            this.parentInheritance1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.parentInheritance1.BackColor = System.Drawing.Color.LightGray;
+            this.parentInheritance1.Location = new System.Drawing.Point(293, 347);
+            this.parentInheritance1.Name = "parentInheritance1";
+            this.parentInheritance1.Size = new System.Drawing.Size(337, 182);
+            this.parentInheritance1.TabIndex = 16;
+            // 
             // ARKOverlay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(764, 541);
+            this.Controls.Add(this.parentInheritance1);
             this.Controls.Add(this.lblMovementSpeed);
             this.Controls.Add(this.labelTimer);
             this.Controls.Add(this.lblMeleeDamage);
@@ -209,5 +220,6 @@
         private System.Windows.Forms.Label lblWeight;
         private System.Windows.Forms.Label lblMeleeDamage;
         private System.Windows.Forms.Label lblMovementSpeed;
+        private uiControls.ParentInheritance parentInheritance1;
     }
 }
