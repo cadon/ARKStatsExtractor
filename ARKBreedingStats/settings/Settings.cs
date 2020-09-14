@@ -125,18 +125,18 @@ namespace ARKBreedingStats.settings
 
             // localizations / translations
             // for a new translation
-            // * a file local/strins.[languageCode].resx needs to exist.
+            // * a file local/strings.[languageCode].resx needs to exist.
             // * that file needs to be added to the installer files, for that edit the file setup.iss and setup-debug.iss in the repository base folder.
             // * the entry in the next dictionary needs to be added
             _languages = new Dictionary<string, string>
             {
-                { "System language", ""},
-                { Loc.S("de"), "de"},
-                { Loc.S("en"), "en"},
-                { Loc.S("es"), "es"},
-                { Loc.S("fr"), "fr"},
-                { Loc.S("it"), "it"},
-                { Loc.S("zh"), "zh"},
+                { Loc.S("SystemLanguage"), ""},
+                { "Deutsch", "de"},
+                { "English", "en"},
+                { "Español", "es"},
+                { "Français", "fr"},
+                { "Italiano", "it"},
+                { "中文", "zh"},
             };
             foreach (string l in _languages.Keys)
                 cbbLanguage.Items.Add(l);
@@ -289,7 +289,7 @@ namespace ARKBreedingStats.settings
 
             cbAdminConsoleCommandWithCheat.Checked = Properties.Settings.Default.AdminConsoleCommandWithCheat;
 
-            string langKey = _languages.FirstOrDefault(x => x.Value == Properties.Settings.Default.language).Key ?? "";
+            string langKey = _languages.FirstOrDefault(x => x.Value == Properties.Settings.Default.language).Key ?? string.Empty;
             int langI = cbbLanguage.Items.IndexOf(langKey);
             cbbLanguage.SelectedIndex = langI == -1 ? 0 : langI;
         }

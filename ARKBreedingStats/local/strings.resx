@@ -285,9 +285,6 @@ The levels are then shown without the extraction-process (and without validation
   <data name="Damage" xml:space="preserve">
     <value>Damage</value>
   </data>
-  <data name="de" xml:space="preserve">
-    <value>German</value>
-  </data>
   <data name="deadCreaturesToolStripMenuItem" xml:space="preserve">
     <value>Dead Creatures</value>
   </data>
@@ -323,9 +320,6 @@ The levels are then shown without the extraction-process (and without validation
   </data>
   <data name="ElectricProdHits" xml:space="preserve">
     <value>Electric Prod Hits</value>
-  </data>
-  <data name="en" xml:space="preserve">
-    <value>English</value>
   </data>
   <data name="Event" xml:space="preserve">
     <value>Event</value>
@@ -932,9 +926,6 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   <data name="Available" xml:space="preserve">
     <value>Available</value>
   </data>
-  <data name="fr" xml:space="preserve">
-    <value>French</value>
-  </data>
   <data name="HarpoonLauncher" xml:space="preserve">
     <value>Harpoon Launcher</value>
   </data>
@@ -952,9 +943,6 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   </data>
   <data name="lbImprintingFailInfo" xml:space="preserve">
     <value>If the creature is imprinted the extraction may fail because the game sometimes "forgets" to increase some stat-values during the imprinting-process. Usually it works after you put the creature in and out of a cryopod, up- and download it in an obelisk/terminal, go out of render-distance, or wait for a server-restart.</value>
-  </data>
-  <data name="it" xml:space="preserve">
-    <value>Italian</value>
   </data>
   <data name="Crafting Speed" xml:space="preserve">
     <value>Crafting Speed</value>
@@ -982,12 +970,6 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   </data>
   <data name="btUpdateLibraryCreature" xml:space="preserve">
     <value>Update creature in Library</value>
-  </data>
-  <data name="es" xml:space="preserve">
-    <value>Spanish</value>
-  </data>
-  <data name="zh" xml:space="preserve">
-    <value>Chinese</value>
   </data>
   <data name="CurrentCreature" xml:space="preserve">
     <value>Current Creature</value>
@@ -1259,5 +1241,8 @@ The preset can be applied by the Apply Preset button</value>
   </data>
   <data name="Parents" xml:space="preserve">
     <value>Parents</value>
+  </data>
+  <data name="SystemLanguage" xml:space="preserve">
+    <value>System Language</value>
   </data>
 </root>

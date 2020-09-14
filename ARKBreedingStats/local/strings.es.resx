@@ -285,9 +285,6 @@ Los niveles se muestran sin el proceso de extracción (y sin validación).</valu
   <data name="Damage" xml:space="preserve">
     <value>Dañar</value>
   </data>
-  <data name="de" xml:space="preserve">
-    <value>Alemán</value>
-  </data>
   <data name="deadCreaturesToolStripMenuItem" xml:space="preserve">
     <value>Criaturas muertas</value>
   </data>
@@ -323,9 +320,6 @@ Los niveles se muestran sin el proceso de extracción (y sin validación).</valu
   </data>
   <data name="ElectricProdHits" xml:space="preserve">
     <value>Golpes de productos eléctricos</value>
-  </data>
-  <data name="en" xml:space="preserve">
-    <value>Inglés</value>
   </data>
   <data name="Event" xml:space="preserve">
     <value>Evento</value>
@@ -932,9 +926,6 @@ Algunas crías pueden ser peores que en el modo de estadísticas altas, pero tam
   <data name="Available" xml:space="preserve">
     <value>Disponible</value>
   </data>
-  <data name="fr" xml:space="preserve">
-    <value>Francés</value>
-  </data>
   <data name="HarpoonLauncher" xml:space="preserve">
     <value>Lanzador de arpones</value>
   </data>
@@ -952,9 +943,6 @@ Algunas crías pueden ser peores que en el modo de estadísticas altas, pero tam
   </data>
   <data name="lbImprintingFailInfo" xml:space="preserve">
     <value>Si la criatura está impresa, la extracción puede fallar porque el juego a veces se "olvida" de aumentar algunos valores estadísticos durante el proceso de impresión. Por lo general, funciona después de poner y sacar a la criatura de un criópodo, subirla y descargarla en un obelisco/terminal, salir de la distancia de renderizado o esperar el reinicio del servidor.</value>
-  </data>
-  <data name="it" xml:space="preserve">
-    <value>Italiano</value>
   </data>
   <data name="Crafting Speed" xml:space="preserve">
     <value>Velocidad de fabricación</value>
@@ -982,12 +970,6 @@ Algunas crías pueden ser peores que en el modo de estadísticas altas, pero tam
   </data>
   <data name="btUpdateLibraryCreature" xml:space="preserve">
     <value>Actualizar criatura en la biblioteca</value>
-  </data>
-  <data name="es" xml:space="preserve">
-    <value>Español</value>
-  </data>
-  <data name="zh" xml:space="preserve">
-    <value>chino</value>
   </data>
   <data name="settingsToolStripMenuItem" xml:space="preserve">
     <value>Co&amp;nfiguracíón</value>
@@ -1042,5 +1024,8 @@ Algunas crías pueden ser peores que en el modo de estadísticas altas, pero tam
   </data>
   <data name="Parents" xml:space="preserve">
     <value>Padres</value>
+  </data>
+  <data name="SystemLanguage" xml:space="preserve">
+    <value>Lenguaje del sistema</value>
   </data>
 </root>

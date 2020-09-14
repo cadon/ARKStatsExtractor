@@ -326,9 +326,6 @@ Se lo strumento riconosce il nome della specie, lo prenderà, altrimenti control
   <data name="Damage_Abb" xml:space="preserve">
     <value>Da</value>
   </data>
-  <data name="de" xml:space="preserve">
-    <value>Tedesco</value>
-  </data>
   <data name="deadCreaturesToolStripMenuItem" xml:space="preserve">
     <value>Creature morte</value>
   </data>
@@ -361,9 +358,6 @@ Se lo strumento riconosce il nome della specie, lo prenderà, altrimenti control
   </data>
   <data name="ElectricProdHits" xml:space="preserve">
     <value>Colpi dal taser</value>
-  </data>
-  <data name="en" xml:space="preserve">
-    <value>English</value>
   </data>
   <data name="Event" xml:space="preserve">
     <value>Evento</value>
@@ -467,9 +461,6 @@ Se lo strumento riconosce il nome della specie, lo prenderà, altrimenti control
   <data name="issueMaxWildLevelTooLow" xml:space="preserve">
     <value>L'estrazione è potenzialmente possibile, ma sembra che il livello selvatico massimo sia troppo basso per un'estrazione valida. Controlla se hai impostato il valore corretto nelle impostazioni.
 Il valore corrente è {0} e questa creatura sembra avere un livello selvatico più alto di questo.Per altri motivi del fallimento dell'estrazione, vedere l'elenco a destra dopo la chiusura di questo messaggio.</value>
-  </data>
-  <data name="it" xml:space="preserve">
-    <value>italiano</value>
   </data>
   <data name="lbBPBreedingScore" xml:space="preserve">
     <value>Punteggio allevamento</value>
@@ -913,12 +904,6 @@ Questa modalità arriverà alla miglior prole possibile, ferma e sicura.Alcune p
   <data name="WorstPossible" xml:space="preserve">
     <value>Peggiore Possibile</value>
   </data>
-  <data name="es" xml:space="preserve">
-    <value>Spagnolo</value>
-  </data>
-  <data name="zh" xml:space="preserve">
-    <value>cinese</value>
-  </data>
   <data name="settingsToolStripMenuItem" xml:space="preserve">
     <value>Impostazioni</value>
   </data>
@@ -972,5 +957,8 @@ Questa modalità arriverà alla miglior prole possibile, ferma e sicura.Alcune p
   </data>
   <data name="Parents" xml:space="preserve">
     <value>genitori</value>
+  </data>
+  <data name="SystemLanguage" xml:space="preserve">
+    <value>Lingua di sistema</value>
   </data>
 </root>

@@ -953,15 +953,6 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to German.
-        /// </summary>
-        internal static string de {
-            get {
-                return ResourceManager.GetString("de", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Dead Creatures.
         /// </summary>
         internal static string deadCreaturesToolStripMenuItem {
@@ -1079,29 +1070,11 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to English.
-        /// </summary>
-        internal static string en {
-            get {
-                return ResourceManager.GetString("en", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         internal static string error {
             get {
                 return ResourceManager.GetString("error", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Spanish.
-        /// </summary>
-        internal static string es {
-            get {
-                return ResourceManager.GetString("es", resourceCulture);
             }
         }
         
@@ -1300,15 +1273,6 @@ namespace ARKBreedingStats.local {
         internal static string Fortitude_Abb {
             get {
                 return ResourceManager.GetString("Fortitude_Abb", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to French.
-        /// </summary>
-        internal static string fr {
-            get {
-                return ResourceManager.GetString("fr", resourceCulture);
             }
         }
         
@@ -1693,15 +1657,6 @@ namespace ARKBreedingStats.local {
         internal static string issueMaxWildLevelTooLow {
             get {
                 return ResourceManager.GetString("issueMaxWildLevelTooLow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Italian.
-        /// </summary>
-        internal static string it {
-            get {
-                return ResourceManager.GetString("it", resourceCulture);
             }
         }
         
@@ -2436,7 +2391,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Parents.
         /// </summary>
         internal static string Parents {
             get {
@@ -2826,6 +2781,15 @@ namespace ARKBreedingStats.local {
         internal static string Status {
             get {
                 return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System Language.
+        /// </summary>
+        internal static string SystemLanguage {
+            get {
+                return ResourceManager.GetString("SystemLanguage", resourceCulture);
             }
         }
         
@@ -3411,15 +3375,6 @@ namespace ARKBreedingStats.local {
         internal static string WorstPossible {
             get {
                 return ResourceManager.GetString("WorstPossible", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Chinese.
-        /// </summary>
-        internal static string zh {
-            get {
-                return ResourceManager.GetString("zh", resourceCulture);
             }
         }
     }

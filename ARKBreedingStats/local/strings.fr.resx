@@ -335,9 +335,6 @@ Les niveaux sont ensuite affichés sans le processus d'extraction (et sans valid
   <data name="Damage_Abb" xml:space="preserve">
     <value>Dm</value>
   </data>
-  <data name="de" xml:space="preserve">
-    <value>Allemand</value>
-  </data>
   <data name="deadCreaturesToolStripMenuItem" xml:space="preserve">
     <value>Créatures mortes</value>
   </data>
@@ -370,9 +367,6 @@ Les niveaux sont ensuite affichés sans le processus d'extraction (et sans valid
   </data>
   <data name="ElectricProdHits" xml:space="preserve">
     <value>Coups de matraque électrique</value>
-  </data>
-  <data name="en" xml:space="preserve">
-    <value>Anglais</value>
   </data>
   <data name="Event" xml:space="preserve">
     <value>Evénement</value>
@@ -412,9 +406,6 @@ Les niveaux sont ensuite affichés sans le processus d'extraction (et sans valid
   </data>
   <data name="Food_Abb" xml:space="preserve">
     <value>Nou</value>
-  </data>
-  <data name="fr" xml:space="preserve">
-    <value>Français</value>
   </data>
   <data name="gbBPBreedingMode" xml:space="preserve">
     <value>Mode d'élevage</value>
@@ -951,9 +942,6 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
   <data name="lbImprintingFailInfo" xml:space="preserve">
     <value>Si la créature est élevée, l'extraction peut échouer car le jeu "oublie" parfois d'augmenter certaines valeurs des statistiques pendant le processus d'élevage. Généralement, cela fonctionne après que vous ayez mis puis sorti la créature dans un cryopod, que vous l'ayez téléchargé dans un obélisque/terminal puis que vous vous éloigniez de la distance de rendu ou que vous attendiez un redémarrage du serveur.</value>
   </data>
-  <data name="it" xml:space="preserve">
-    <value>Italien</value>
-  </data>
   <data name="Crafting Speed" xml:space="preserve">
     <value>Vitesse de fabrication</value>
   </data>
@@ -980,12 +968,6 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
   </data>
   <data name="btUpdateLibraryCreature" xml:space="preserve">
     <value>Mettre à jour la créature dans la bibliothèque</value>
-  </data>
-  <data name="es" xml:space="preserve">
-    <value>Espagnol</value>
-  </data>
-  <data name="zh" xml:space="preserve">
-    <value>Chinois</value>
   </data>
   <data name="CurrentCreature" xml:space="preserve">
     <value>Créature actuelle</value>
@@ -1257,5 +1239,8 @@ Le préréglage peut être appliqué par le bouton Appliquer le préréglage</va
   </data>
   <data name="Parents" xml:space="preserve">
     <value>Parents</value>
+  </data>
+  <data name="SystemLanguage" xml:space="preserve">
+    <value>Langue du système</value>
   </data>
 </root>

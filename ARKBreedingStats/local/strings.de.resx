@@ -285,9 +285,6 @@ Die angezeigten Level werden ohne Validierung angezeigt und gelten nur für wild
   <data name="Damage" xml:space="preserve">
     <value>Schaden</value>
   </data>
-  <data name="de" xml:space="preserve">
-    <value>Deutsch</value>
-  </data>
   <data name="deadCreaturesToolStripMenuItem" xml:space="preserve">
     <value>Tote Kreaturen</value>
   </data>
@@ -323,9 +320,6 @@ Die angezeigten Level werden ohne Validierung angezeigt und gelten nur für wild
   </data>
   <data name="ElectricProdHits" xml:space="preserve">
     <value>Electric Prod Hits</value>
-  </data>
-  <data name="en" xml:space="preserve">
-    <value>Englisch</value>
   </data>
   <data name="Event" xml:space="preserve">
     <value>Event</value>
@@ -924,9 +918,6 @@ Wählen, um die Top stats in einer Kreature zu vereinen. Dieser Modus geht ein R
   <data name="Available" xml:space="preserve">
     <value>Verfügbar</value>
   </data>
-  <data name="fr" xml:space="preserve">
-    <value>Französisch</value>
-  </data>
   <data name="HarpoonLauncher" xml:space="preserve">
     <value>Harpunenschleuder</value>
   </data>
@@ -944,9 +935,6 @@ Wählen, um die Top stats in einer Kreature zu vereinen. Dieser Modus geht ein R
   </data>
   <data name="lbImprintingFailInfo" xml:space="preserve">
     <value>Wenn die Kreatur geprägt wurde, kann die Extraktion fehlschlagen, weil das Spiel manchmal "vergisst" einige Stat-Werte während des Prägungs-Prozesses zu erhöhen. Oft funktioniert die Extraktion, nachdem das Tier in und wieder aus einem Cryopod genommen wurde, nachdem es in einem Obelisken/Terminal hoch- und wieder heruntergeladen wurde, nachdem du aus der Render-Entfernung gegangen bist, oder nach einem Server-Neustart.</value>
-  </data>
-  <data name="it" xml:space="preserve">
-    <value>Italienisch</value>
   </data>
   <data name="Crafting Speed" xml:space="preserve">
     <value>Herstellungsgeschwindigkeit</value>
@@ -974,12 +962,6 @@ Wählen, um die Top stats in einer Kreature zu vereinen. Dieser Modus geht ein R
   </data>
   <data name="btUpdateLibraryCreature" xml:space="preserve">
     <value>Kreatur aktualisieren</value>
-  </data>
-  <data name="es" xml:space="preserve">
-    <value>Spanisch</value>
-  </data>
-  <data name="zh" xml:space="preserve">
-    <value>Chinesisch</value>
   </data>
   <data name="CurrentCreature" xml:space="preserve">
     <value>Ausgewählte Kreatur</value>
@@ -1250,5 +1232,8 @@ Diese kann mit BSS Preset angewandt werden.</value>
   </data>
   <data name="Parents" xml:space="preserve">
     <value>Eltern</value>
+  </data>
+  <data name="SystemLanguage" xml:space="preserve">
+    <value>Systemsprache</value>
   </data>
 </root>
