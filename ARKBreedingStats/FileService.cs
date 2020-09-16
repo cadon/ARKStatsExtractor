@@ -136,7 +136,7 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Tries to delete a file, doesn't throw an exception.
+        /// Tries to delete a file, doesn't throw an exception when failing.
         /// </summary>
         public static bool TryDeleteFile(string filePath)
         {
@@ -154,7 +154,7 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Tries to delete a file, doesn't throw an exception.
+        /// Tries to delete a file, doesn't throw an exception when failing.
         /// </summary>
         public static bool TryDeleteFile(FileInfo fileInfo)
         {
@@ -162,6 +162,24 @@ namespace ARKBreedingStats
             try
             {
                 fileInfo.Delete();
+                return true;
+            }
+            catch
+            {
+                // ignored
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Tries to delete a directory, doesn't throw an exception when failing.
+        /// </summary>
+        public static bool TryDeleteDirectory(string dirPath)
+        {
+            if (!Directory.Exists(dirPath)) return false;
+            try
+            {
+                Directory.Delete(dirPath);
                 return true;
             }
             catch
@@ -188,6 +206,18 @@ namespace ARKBreedingStats
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Creates a temporary directory and returns its path.
+        /// </summary>
+        /// <returns></returns>
+        public static string GetTempDirectory()
+        {
+            string tempFolder = Path.GetTempFileName();
+            File.Delete(tempFolder);
+            Directory.CreateDirectory(tempFolder);
+            return tempFolder;
         }
 
         /// <summary>

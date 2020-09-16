@@ -2,7 +2,6 @@
 using ARKBreedingStats.miscClasses;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
-
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -431,6 +430,7 @@ namespace ARKBreedingStats
                 llOnlineHelpExtractionIssues.Visible = false;
                 labelErrorHelp.Visible = false;
                 lbImprintingFailInfo.Visible = false; // TODO move imprinting-fail to upper note-info
+                BtCopyIssueDumpToClipboard.Visible = false;
                 PbCreatureColorsExtractor.Visible = true;
             }
             else
@@ -489,6 +489,7 @@ namespace ARKBreedingStats
                 groupBoxPossibilities.Visible = false;
                 groupBoxRadarChartExtractor.Visible = false;
                 lbInfoYellowStats.Visible = false;
+                BtCopyIssueDumpToClipboard.Visible = true;
                 if (rbBredExtractor.Checked && numericUpDownImprintingBonusExtractor.Value > 0)
                 {
                     lbImprintingFailInfo.Text = Loc.S("lbImprintingFailInfo");

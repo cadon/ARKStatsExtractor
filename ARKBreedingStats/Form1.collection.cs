@@ -5,7 +5,9 @@ using ARKBreedingStats.values;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -523,6 +525,82 @@ namespace ARKBreedingStats
             string fileName = string.IsNullOrEmpty(_currentFileName) ? null : Path.GetFileName(_currentFileName);
             Text = $"ARK Smart Breeding{(string.IsNullOrEmpty(fileName) ? string.Empty : " - " + fileName)}{(changed ? " *" : "")}";
             openFolderOfCurrentFileToolStripMenuItem.Enabled = !string.IsNullOrEmpty(_currentFileName);
+        }
+
+        /// <summary>
+        /// Saves a file with the current library and the currently entered values in the extractor for issue reporting.
+        /// </summary>
+        private void SaveDebugFile()
+        {
+            // get temp folder for zipping
+            var tempFolder = FileService.GetTempDirectory();
+            var timeStamp = $"{DateTime.Now:yyyy-MM-dd_hh-mm-ss}";
+            string tempFilePath = Path.Combine(tempFolder, $"ASB_issue_{timeStamp}.asb");
+            string tempZipFilePath = Path.Combine(Path.GetDirectoryName(tempFolder), $"ASB_issue_{timeStamp}.zip");
+
+            // add currently set values in the extractor to the saved values
+            var debugCreatureValues = GetCreatureValuesFromExtractor();
+            debugCreatureValues.name = "DebugValues_" + debugCreatureValues.name;
+            _creatureCollection.creaturesValues.Add(debugCreatureValues);
+
+            using (StreamWriter file = File.CreateText(tempFilePath))
+            {
+                JsonSerializer serializer = new JsonSerializer()
+                {
+                    DateTimeZoneHandling = DateTimeZoneHandling.Utc // save all date-times as UTC, so synced files don't change the timezones
+                };
+                serializer.Serialize(file, _creatureCollection);
+            }
+            // remove debug creature
+            _creatureCollection.creaturesValues.Remove(debugCreatureValues);
+
+            // zip file
+            ZipFile.CreateFromDirectory(tempFolder, tempZipFilePath);
+
+            // remove temp library file and folder
+            FileService.TryDeleteFile(tempFilePath);
+            FileService.TryDeleteDirectory(tempFolder);
+
+            // copy zip file to clipboard
+            Clipboard.SetFileDropList(new StringCollection { tempZipFilePath });
+
+            // display info that debug file is in clipboard
+            SetMessageLabelText("File with the current library and the values in the extractor has been copied to the clipboard. You can add this file to an issue report.", MessageBoxIcon.Information);
+        }
+
+        private bool OpenZippedLibrary(string filePath)
+        {
+            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
+                return false;
+
+            try
+            {
+                // get temp folder for zipping
+                var tempFolder = FileService.GetTempDirectory();
+                // unzip file
+                ZipFile.ExtractToDirectory(filePath, tempFolder);
+
+                var tempLibPath = Directory.GetFiles(tempFolder)[0];
+                LoadCollectionFile(tempLibPath);
+
+                // delete temp extracted file
+                FileService.TryDeleteFile(tempLibPath);
+                FileService.TryDeleteDirectory(tempFolder);
+
+                Properties.Settings.Default.LastSaveFile = null;
+                _currentFileName = null;
+
+                // select last creature values
+                toolStripCBTempCreatures.SelectedIndex = toolStripCBTempCreatures.Items.Count - 1;
+                ExtractLevels();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error while loading debug library dump\n{ex.Message}", $"Error loading zipped library dump - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
         }
     }
 }

@@ -2646,6 +2646,16 @@ namespace ARKBreedingStats
 
         private void toolStripButtonSaveCreatureValuesTemp_Click(object sender, EventArgs e)
         {
+            _creatureCollection.creaturesValues.Add(GetCreatureValuesFromExtractor());
+            SetCollectionChanged(true);
+            UpdateTempCreatureDropDown();
+        }
+
+        /// <summary>
+        /// Returns the entered creature values from the extractor.
+        /// </summary>
+        private CreatureValues GetCreatureValuesFromExtractor()
+        {
             CreatureValues cv = new CreatureValues();
             for (int s = 0; s < Values.STATS_COUNT; s++)
                 cv.statValues[s] = _statIOs[s].Input;
@@ -2673,10 +2683,7 @@ namespace ARKBreedingStats
                 cv.isTamed = true;
             cv.imprintingBonus = (double)numericUpDownImprintingBonusExtractor.Value * 0.01;
 
-            _creatureCollection.creaturesValues.Add(cv);
-            SetCollectionChanged(true);
-
-            UpdateTempCreatureDropDown();
+            return cv;
         }
 
         private void toolStripButtonDeleteTempCreature_Click(object sender, EventArgs e)
@@ -2691,7 +2698,7 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Update the combolist with the temporary saved creature-values.
+        /// Update the combo list with the temporary saved creature-values.
         /// </summary>
         private void UpdateTempCreatureDropDown()
         {
@@ -2993,6 +3000,16 @@ namespace ARKBreedingStats
                     LoadCollectionFile(filePath);
                 }
             }
+            else if (ext == ".zip")
+            {
+                if (!_collectionDirty
+                    || MessageBox.Show("Your Creature Collection has been modified since it was last saved, " +
+                            "are you sure you want to discard your changes and load the file without saving first?",
+                            "Discard Changes?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    OpenZippedLibrary(filePath);
+                }
+            }
             else if (ext == ".ark")
             {
                 if (MessageBox.Show($"Import all of the creatures in the following ARK save file to the currently opened library?\n{filePath}",
@@ -3179,6 +3196,16 @@ namespace ARKBreedingStats
             var (success, result) = await Updater.DownloadSpeciesImages(overwrite).ConfigureAwait(true);
 
             MessageBox.Show(result, $"Species images download - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, success ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+        }
+
+        private void copyLibrarydumpToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveDebugFile();
+        }
+
+        private void BtCopyIssueDumpToClipboard_Click(object sender, EventArgs e)
+        {
+            SaveDebugFile();
         }
     }
 }
