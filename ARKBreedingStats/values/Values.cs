@@ -288,7 +288,7 @@ namespace ARKBreedingStats.values
             // sort new species
             OrderSpeciesAndApplyCustomVariants();
 
-            // mod-fooddata TODO
+            // mod food data TODO
 
             _V.LoadAliases();
             _V.UpdateSpeciesBlueprintDictionaries();
@@ -636,26 +636,26 @@ namespace ARKBreedingStats.values
         {
             if (speciesNames.Contains(alias))
                 return alias;
-            return aliases.ContainsKey(alias) ? aliases[alias] : string.Empty;
+            return aliases.TryGetValue(alias, out var speciesName) ? speciesName : string.Empty;
         }
 
         /// <summary>
         /// Checks species names and loaded aliases for a match and sets the out parameter.
-        /// Especially when mods are used, this is not garantueed to result in the correct species.
+        /// Especially when mods are used, this is not guaranteed to result in the correct species.
         /// </summary>
         /// <param name="speciesName"></param>
-        /// <param name="species"></param>
+        /// <param name="recognizedSpecies"></param>
         /// <returns>True on success</returns>
-        public bool TryGetSpeciesByName(string speciesName, out Species species)
+        public bool TryGetSpeciesByName(string speciesName, out Species recognizedSpecies)
         {
-            species = null;
+            recognizedSpecies = null;
             if (string.IsNullOrEmpty(speciesName)) return false;
 
-            if (aliases.ContainsKey(speciesName))
-                speciesName = aliases[speciesName];
-            if (nameToSpecies.ContainsKey(speciesName))
+            if (aliases.TryGetValue(speciesName, out var realSpeciesName))
+                speciesName = realSpeciesName;
+            if (nameToSpecies.TryGetValue(speciesName, out var s))
             {
-                species = nameToSpecies[speciesName];
+                recognizedSpecies = s;
                 return true;
             }
 
@@ -667,16 +667,16 @@ namespace ARKBreedingStats.values
         /// Especially when mods are used, this is not garantueed to result in the correct species.
         /// </summary>
         /// <param name="speciesClassName"></param>
-        /// <param name="species"></param>
+        /// <param name="recognizedSpecies"></param>
         /// <returns>True on success</returns>
-        public bool TryGetSpeciesByClassName(string speciesClassName, out Species species)
+        public bool TryGetSpeciesByClassName(string speciesClassName, out Species recognizedSpecies)
         {
-            species = null;
+            recognizedSpecies = null;
             if (string.IsNullOrEmpty(speciesClassName)) return false;
 
-            if (classNameToSpecies.ContainsKey(speciesClassName))
+            if (classNameToSpecies.TryGetValue(speciesClassName, out var s))
             {
-                species = classNameToSpecies[speciesClassName];
+                recognizedSpecies = s;
                 return true;
             }
 
@@ -686,16 +686,16 @@ namespace ARKBreedingStats.values
         /// <summary>
         /// Returns the according species to the passed blueprintpath or null if unknown.
         /// </summary>
-        /// <param name="blueprintpath"></param>
+        /// <param name="blueprintPath"></param>
         /// <returns></returns>
-        public Species SpeciesByBlueprint(string blueprintpath)
+        public Species SpeciesByBlueprint(string blueprintPath)
         {
-            if (string.IsNullOrEmpty(blueprintpath)) return null;
-            if (blueprintRemapping != null && blueprintRemapping.ContainsKey(blueprintpath))
+            if (string.IsNullOrEmpty(blueprintPath)) return null;
+            if (blueprintRemapping != null && blueprintRemapping.TryGetValue(blueprintPath, out var realBlueprintPath))
             {
-                blueprintpath = blueprintRemapping[blueprintpath];
+                blueprintPath = realBlueprintPath;
             }
-            return blueprintToSpecies.ContainsKey(blueprintpath) ? blueprintToSpecies[blueprintpath] : null;
+            return blueprintToSpecies.TryGetValue(blueprintPath, out var s) ? s : null;
         }
 
         /// <summary>
