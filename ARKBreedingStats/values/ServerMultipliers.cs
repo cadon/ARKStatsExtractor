@@ -37,7 +37,7 @@ namespace ARKBreedingStats.values
         public double BabyImprintingStatScaleMultiplier { get; set; }
 
         [OnDeserializing]
-        private void SetDefaultValues(StreamingContext context)
+        internal void SetDefaultValues(StreamingContext context)
         {
             TamingSpeedMultiplier = 1;
             DinoCharacterFoodDrainMultiplier = 1;

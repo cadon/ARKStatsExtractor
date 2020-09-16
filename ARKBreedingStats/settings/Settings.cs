@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
@@ -130,7 +131,7 @@ namespace ARKBreedingStats.settings
             // * the entry in the next dictionary needs to be added
             _languages = new Dictionary<string, string>
             {
-                { Loc.S("SystemLanguage"), ""},
+                { Loc.S("SystemLanguage"), string.Empty},
                 { "Deutsch", "de"},
                 { "English", "en"},
                 { "Español", "es"},
@@ -163,25 +164,31 @@ namespace ARKBreedingStats.settings
             nudMaxServerLevel.ValueSave = cc.maxServerLevel > 0 ? cc.maxServerLevel : 0;
             nudMaxGraphLevel.ValueSave = cc.maxChartLevel;
             #region Non-event multiplier
-            nudMatingSpeed.ValueSave = (decimal)cc.serverMultipliers.MatingSpeedMultiplier;
-            nudMatingInterval.ValueSave = (decimal)cc.serverMultipliers.MatingIntervalMultiplier;
-            nudEggHatchSpeed.ValueSave = (decimal)cc.serverMultipliers.EggHatchSpeedMultiplier;
-            nudBabyMatureSpeed.ValueSave = (decimal)cc.serverMultipliers.BabyMatureSpeedMultiplier;
-            nudBabyImprintingStatScale.ValueSave = (decimal)cc.serverMultipliers.BabyImprintingStatScaleMultiplier;
-            nudBabyCuddleInterval.ValueSave = (decimal)cc.serverMultipliers.BabyCuddleIntervalMultiplier;
-            nudTamingSpeed.ValueSave = (decimal)cc.serverMultipliers.TamingSpeedMultiplier;
-            nudDinoCharacterFoodDrain.ValueSave = (decimal)cc.serverMultipliers.DinoCharacterFoodDrainMultiplier;
-            nudBabyFoodConsumptionSpeed.ValueSave = (decimal)cc.serverMultipliers.BabyFoodConsumptionSpeedMultiplier;
+            var multipliers = cc.serverMultipliers;
+            if (multipliers == null)
+            {
+                multipliers = new ServerMultipliers();
+                multipliers.SetDefaultValues(new StreamingContext());
+            }
+            nudMatingSpeed.ValueSave = (decimal)multipliers.MatingSpeedMultiplier;
+            nudMatingInterval.ValueSave = (decimal)multipliers.MatingIntervalMultiplier;
+            nudEggHatchSpeed.ValueSave = (decimal)multipliers.EggHatchSpeedMultiplier;
+            nudBabyMatureSpeed.ValueSave = (decimal)multipliers.BabyMatureSpeedMultiplier;
+            nudBabyImprintingStatScale.ValueSave = (decimal)multipliers.BabyImprintingStatScaleMultiplier;
+            nudBabyCuddleInterval.ValueSave = (decimal)multipliers.BabyCuddleIntervalMultiplier;
+            nudTamingSpeed.ValueSave = (decimal)multipliers.TamingSpeedMultiplier;
+            nudDinoCharacterFoodDrain.ValueSave = (decimal)multipliers.DinoCharacterFoodDrainMultiplier;
+            nudBabyFoodConsumptionSpeed.ValueSave = (decimal)multipliers.BabyFoodConsumptionSpeedMultiplier;
             #endregion
             #region event-multiplier
-            ServerMultipliers serverMultipliersEvent = cc.serverMultipliersEvents ?? cc.serverMultipliers;
-            nudBabyCuddleIntervalEvent.ValueSave = (decimal)serverMultipliersEvent.BabyCuddleIntervalMultiplier;
-            nudTamingSpeedEvent.ValueSave = (decimal)serverMultipliersEvent.TamingSpeedMultiplier;
-            nudDinoCharacterFoodDrainEvent.ValueSave = (decimal)serverMultipliersEvent.DinoCharacterFoodDrainMultiplier;
-            nudMatingIntervalEvent.ValueSave = (decimal)serverMultipliersEvent.MatingIntervalMultiplier;
-            nudEggHatchSpeedEvent.ValueSave = (decimal)serverMultipliersEvent.EggHatchSpeedMultiplier;
-            nudBabyMatureSpeedEvent.ValueSave = (decimal)serverMultipliersEvent.BabyMatureSpeedMultiplier;
-            nudBabyFoodConsumptionSpeedEvent.ValueSave = (decimal)serverMultipliersEvent.BabyFoodConsumptionSpeedMultiplier;
+            multipliers = cc.serverMultipliersEvents ?? multipliers;
+            nudBabyCuddleIntervalEvent.ValueSave = (decimal)multipliers.BabyCuddleIntervalMultiplier;
+            nudTamingSpeedEvent.ValueSave = (decimal)multipliers.TamingSpeedMultiplier;
+            nudDinoCharacterFoodDrainEvent.ValueSave = (decimal)multipliers.DinoCharacterFoodDrainMultiplier;
+            nudMatingIntervalEvent.ValueSave = (decimal)multipliers.MatingIntervalMultiplier;
+            nudEggHatchSpeedEvent.ValueSave = (decimal)multipliers.EggHatchSpeedMultiplier;
+            nudBabyMatureSpeedEvent.ValueSave = (decimal)multipliers.BabyMatureSpeedMultiplier;
+            nudBabyFoodConsumptionSpeedEvent.ValueSave = (decimal)multipliers.BabyFoodConsumptionSpeedMultiplier;
             #endregion
 
             checkBoxAutoSave.Checked = Properties.Settings.Default.autosave;
@@ -520,13 +527,13 @@ namespace ARKBreedingStats.settings
                 ParseAndSetStatMultiplier(2, @"PerLevelStatsMultiplier_DinoTamed\[" + s + @"\] ?= ?(\d*\.?\d+)");
                 ParseAndSetStatMultiplier(3, @"PerLevelStatsMultiplier_DinoWild\[" + s + @"\] ?= ?(\d*\.?\d+)");
 
-                void ParseAndSetStatMultiplier(int _multiplierIndex, string _regexPattern)
+                void ParseAndSetStatMultiplier(int multiplierIndex, string regexPattern)
                 {
-                    m = Regex.Match(text, _regexPattern);
+                    m = Regex.Match(text, regexPattern);
                     if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, cultureForStrings, out d))
                     {
                         var multipliers = _multSetter[s].Multipliers;
-                        multipliers[_multiplierIndex] = d == 0 ? 1 : d;
+                        multipliers[multiplierIndex] = d == 0 ? 1 : d;
                         _multSetter[s].Multipliers = multipliers;
                     }
                 }
@@ -568,22 +575,22 @@ namespace ARKBreedingStats.settings
             ParseAndSetValue(nudTamingSpeedEvent, @"ASBEvent_TamingSpeedMultiplier ?= ?(\d*\.?\d+)");
             ParseAndSetValue(nudDinoCharacterFoodDrainEvent, @"ASBEvent_DinoCharacterFoodDrainMultiplier ?= ?(\d*\.?\d+)");
 
-            bool ParseAndSetValue(uiControls.Nud _nud, string _regexPattern)
+            bool ParseAndSetValue(uiControls.Nud nud, string regexPattern)
             {
-                m = Regex.Match(text, _regexPattern);
+                m = Regex.Match(text, regexPattern);
                 if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, cultureForStrings, out d))
                 {
-                    _nud.ValueSave = (decimal)d;
+                    nud.ValueSave = (decimal)d;
                     return true;
                 }
                 return false;
             }
-            void ParseAndSetCheckbox(CheckBox _cb, string _regexPattern)
+            void ParseAndSetCheckbox(CheckBox cb, string regexPattern)
             {
-                m = Regex.Match(text, _regexPattern, RegexOptions.IgnoreCase);
+                m = Regex.Match(text, regexPattern, RegexOptions.IgnoreCase);
                 if (m.Success)
                 {
-                    _cb.Checked = m.Groups[1].Value.ToLower() == "true";
+                    cb.Checked = m.Groups[1].Value.ToLower() == "true";
                 }
             }
         }
@@ -725,7 +732,6 @@ namespace ARKBreedingStats.settings
         /// <summary>
         /// Applies the multipliers of the preset.
         /// </summary>
-        /// <param name="sm"></param>
         private void ApplyMultiplierPreset(ServerMultipliers sm, bool onlyStatMultipliers = false)
         {
             if (sm == null) return;
