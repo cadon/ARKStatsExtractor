@@ -1,21 +1,20 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace ASB_Updater
 {
     public class ASBUpdater
     {
-
-        // Update stages to go through (determines progress bar display %)
-        public enum Stages
+        /// <summary>
+        /// Update stages to go through (determines progress bar display %)
+        /// </summary>
+        private enum Stages
         {
             FETCH,
             PARSE,
@@ -24,10 +23,10 @@ namespace ASB_Updater
             EXTRACT,
             CLEANUP,
             COMPLETE
-        };
+        }
 
         // Messages/Errors order matches Stages order and quantity
-        private readonly string[] stageMessages = {
+        private readonly string[] _stageMessages = {
             "Fetching release list…",
             "Checking for updates…",
             "Checking the versions…",
@@ -36,9 +35,9 @@ namespace ASB_Updater
             "Cleaning up…",
             "Update Done!"
         };
-        private readonly string[] stageErrors = {
+        private readonly string[] _stageErrors = {
             "Download of release list failed",
-            "Failed to read realease list",
+            "Failed to read release list",
             "Failed checking the version number",
             "Download of updates failed",
             "File extraction failed",
@@ -58,28 +57,28 @@ namespace ASB_Updater
         /// <summary>
         /// Temporary path for the update related files.
         /// </summary>
-        private readonly string tempFolder;
+        private readonly string _tempFolder;
 
         private string _downloadUrl;
         private string _latestVersion;
         private string _date;
 
-        public Stages Stage { get; internal set; }
+        private Stages Stage { get; set; }
 
         public ASBUpdater()
         {
-            tempFolder = GetTemporaryDirectory();
-            _tempZipNamePath = Path.Combine(tempFolder, TempZipName);
-            _tempReleasesPath = Path.Combine(tempFolder, TempReleases);
+            _tempFolder = GetTemporaryDirectory();
+            _tempZipNamePath = Path.Combine(_tempFolder, TempZipName);
+            _tempReleasesPath = Path.Combine(_tempFolder, TempReleases);
             // set TLS-protocol (github needs at least TLS 1.2) for update-check
-            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
         }
 
         /// <summary>
         /// Calculates the progress made in updating
         /// </summary>
         /// <returns></returns>
-        public int GetProgress()
+        private int GetProgress()
         {
             int max = Enum.GetNames(typeof(Stages)).Length;
             int current = (int)Stage;
@@ -91,10 +90,7 @@ namespace ASB_Updater
         /// Calculates the progress made in updating
         /// </summary>
         /// <returns></returns>
-        public string GetProgressState()
-        {
-            return stageMessages[(int)Stage];
-        }
+        private string GetProgressState() => _stageMessages[(int)Stage];
 
         private void SetStatus(Stages stage, IProgress<ProgressReporter> progress)
         {
@@ -109,7 +105,7 @@ namespace ASB_Updater
         /// <returns>Last logged error</returns>
         public string LastError()
         {
-            return stageErrors[(int)Stage];
+            return _stageErrors[(int)Stage];
         }
 
         /// <summary>
@@ -209,7 +205,7 @@ namespace ASB_Updater
             IProgress<ProgressReporter> progress)
         {
             SetStatus(Stages.EXTRACT, progress);
-            string extractedAppTempPath = Path.Combine(tempFolder, "ASB");
+            string extractedAppTempPath = Path.Combine(_tempFolder, "ASB");
 
             // assume that if the directory already exists, the files were already extracted to there
             if (!Directory.Exists(extractedAppTempPath))
@@ -254,7 +250,6 @@ namespace ASB_Updater
         /// <summary>
         /// Cleans up temporary files
         /// </summary>
-        /// 
         /// <returns>Success or Fail</returns>
         public bool Cleanup(IProgress<ProgressReporter> progress)
         {
@@ -262,7 +257,7 @@ namespace ASB_Updater
             bool result = true;
             try
             {
-                Directory.Delete(tempFolder, recursive: true);
+                Directory.Delete(_tempFolder, recursive: true);
             }
             catch
             {
@@ -324,7 +319,7 @@ namespace ASB_Updater
             return File.Exists(outName);
         }
 
-        public static bool CopyEntireDirectory(DirectoryInfo source, DirectoryInfo target, bool overwriteFiles = true, string ignoreSubFolder = null, IProgress<ProgressReporter> progress = null)
+        private static bool CopyEntireDirectory(DirectoryInfo source, DirectoryInfo target, bool overwriteFiles = true, string ignoreSubFolder = null, IProgress<ProgressReporter> progress = null)
         {
             if (!source.Exists)
             {
@@ -365,7 +360,7 @@ namespace ASB_Updater
             return true;
         }
 
-        public static string GetTemporaryDirectory()
+        private static string GetTemporaryDirectory()
         {
             string tempFolder = Path.GetTempFileName();
             File.Delete(tempFolder);
