@@ -105,6 +105,11 @@ namespace ARKBreedingStats.values
         public int loadedModsHash;
 
         /// <summary>
+        /// Hash if no mod is loaded.
+        /// </summary>
+        public static int NoModsHash = CreatureCollection.CalculateModListHash(new List<Mod>());
+
+        /// <summary>
         /// Returns the stat-index for the given order index (like it is ordered ingame).
         /// </summary>
         public static int[] statsDisplayOrder = new int[] {
@@ -167,7 +172,7 @@ namespace ARKBreedingStats.values
 
             _V.LoadAliases();
             _V.UpdateSpeciesBlueprintDictionaries();
-            _V.loadedModsHash = CreatureCollection.CalculateModListHash(new List<Mod>());
+            _V.loadedModsHash = NoModsHash;
 
             // transfer extra loaded objects from the old object to the new one
             _V.modsManifest = modsManifest;

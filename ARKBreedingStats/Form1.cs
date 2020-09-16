@@ -584,6 +584,15 @@ namespace ARKBreedingStats
             if (tabControlMain.SelectedTab == tabPageExtractor)
             {
                 ClearAll();
+                // warn if a species selected that has a possible mod variant
+                if (Values.V.loadedModsHash != Values.NoModsHash
+                    && species.Mod == null
+                    && Values.V.TryGetSpeciesByName(species.name, out var modSpecies)
+                    && modSpecies.Mod != null
+                    )
+                {
+                    SetMessageLabelText($"The selected species \"{species}\" is not from a mod, but there is a variant of that species that appears in the loaded mod \"{modSpecies.Mod.title}\". Probably you want to select the mod variant", MessageBoxIcon.Warning);
+                }
             }
             else if (tabControlMain.SelectedTab == tabPageStatTesting)
             {

@@ -283,7 +283,7 @@ namespace ARKBreedingStats
                                             + "If the mod-value file is not available locally, it will be tried to download it.",
                                             $"Mod values needed - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                        if (Values.V.loadedModsHash != CreatureCollection.CalculateModListHash(new List<Mod>()))
+                                        if (Values.V.loadedModsHash != Values.NoModsHash)
                                             LoadStatAndKibbleValues(false); // reset values to default
                                         LoadModValueFiles(new List<string> { tmi.Value.mod.FileName }, true, true, out mods);
                                         break;
