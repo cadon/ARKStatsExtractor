@@ -147,17 +147,17 @@ namespace ARKBreedingStats
                 switch (_status)
                 {
                     case StatIOStatus.Unique:
-                        BackColor = Color.FromArgb(180, 255, 128);
+                        BackColor = ColorModeColors.Success;
                         break;
                     case StatIOStatus.Neutral:
-                        BackColor = Color.Transparent; //SystemColors.Control;
+                        BackColor = ColorModeColors.Neutral;
                         break;
                     case StatIOStatus.NonUnique:
-                        BackColor = Color.FromArgb(255, 255, 127);
+                        BackColor = ColorModeColors.NonUnique;
                         break;
                     case StatIOStatus.Error:
                         numericUpDownInput.BackColor = Color.FromArgb(255, 200, 200);
-                        BackColor = Color.LightCoral;
+                        BackColor = ColorModeColors.Error;
                         break;
                 }
             }

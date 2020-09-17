@@ -141,6 +141,9 @@ namespace ARKBreedingStats.settings
             };
             foreach (string l in _languages.Keys)
                 cbbLanguage.Items.Add(l);
+
+            foreach (var cm in Enum.GetNames(typeof(ColorModeColors.AsbColorMode)))
+                CbbColorMode.Items.Add(cm);
         }
 
         private void LoadSettings(CreatureCollection cc)
@@ -299,6 +302,8 @@ namespace ARKBreedingStats.settings
             string langKey = _languages.FirstOrDefault(x => x.Value == Properties.Settings.Default.language).Key ?? string.Empty;
             int langI = cbbLanguage.Items.IndexOf(langKey);
             cbbLanguage.SelectedIndex = langI == -1 ? 0 : langI;
+
+            CbbColorMode.SelectedIndex = Math.Min(CbbColorMode.Items.Count, Math.Max(0, Properties.Settings.Default.ColorMode));
         }
 
         private void SaveSettings()
@@ -453,6 +458,8 @@ namespace ARKBreedingStats.settings
             string lang = cbbLanguage.SelectedItem.ToString();
             Properties.Settings.Default.language = _languages.ContainsKey(lang) ? _languages[lang] : string.Empty;
             LanguageChanged = oldLanguageSetting != Properties.Settings.Default.language;
+
+            Properties.Settings.Default.ColorMode = Math.Max(0, CbbColorMode.SelectedIndex);
 
             Properties.Settings.Default.Save();
         }

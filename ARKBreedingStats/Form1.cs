@@ -649,6 +649,7 @@ namespace ARKBreedingStats
             tamingControl1.SetTamingMultipliers(Values.V.currentServerMultipliers.TamingSpeedMultiplier,
                                                 Values.V.currentServerMultipliers.DinoCharacterFoodDrainMultiplier);
 
+            ColorModeColors.SetColors((ColorModeColors.AsbColorMode)Properties.Settings.Default.ColorMode);
             RecalculateAllCreaturesValues();
 
             breedingPlan1.UpdateBreedingData();
