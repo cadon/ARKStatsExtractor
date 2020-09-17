@@ -84,7 +84,7 @@ namespace ARKBreedingStats.importExported
                     lbStatus.Text = "Already imported on " + Utils.ShortTimeDate(addedToLibrary, false);
                     groupBox1.BackColor = Color.YellowGreen;
                     break;
-                case ImportStatus.NeedsLevelChosing:
+                case ImportStatus.NeedsLevelChoosing:
                     lbStatus.Text = "Cannot be extracted automatically, you need to choose from level combinations";
                     groupBox1.BackColor = Color.Yellow;
                     break;
@@ -98,7 +98,7 @@ namespace ARKBreedingStats.importExported
 
         public enum ImportStatus
         {
-            NeedsLevelChosing,
+            NeedsLevelChoosing,
             NotImported,
             JustImported,
             OldImported
@@ -106,7 +106,7 @@ namespace ARKBreedingStats.importExported
 
         private void btRemoveFile_Click(object sender, EventArgs e)
         {
-            if (removeFile())
+            if (removeFile((ModifierKeys & Keys.Shift) == 0))
             {
                 DisposeThis?.Invoke(this, null);
             }
