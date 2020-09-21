@@ -408,19 +408,28 @@ namespace ARKBreedingStats
             bool speechRecognitionInitialized = false;
             if (Properties.Settings.Default.SpeechRecognition)
             {
-                // var speechRecognitionAvailable = (AppDomain.CurrentDomain.GetAssemblies().Any(a => a.FullName.Substring(0, 13) == "System.Speech")); // TODO doesn't work as intended. Should only require System.Speech if available to allow running it on MONO
-
-                _speechRecognition = new SpeechRecognition(_creatureCollection.maxWildLevel, _creatureCollection.considerWildLevelSteps ? _creatureCollection.wildLevelStep : 1, Values.V.speciesWithAliasesList, lbListening);
-                if (_speechRecognition.Initialized)
+                try
                 {
-                    speechRecognitionInitialized = true;
-                    _speechRecognition.speechRecognized += TellTamingData;
-                    _speechRecognition.speechCommandRecognized += SpeechCommand;
-                    lbListening.Visible = true;
+                    _speechRecognition = new SpeechRecognition(_creatureCollection.maxWildLevel,
+                        _creatureCollection.considerWildLevelSteps ? _creatureCollection.wildLevelStep : 1,
+                        Values.V.speciesWithAliasesList, lbListening);
+                    if (_speechRecognition.Initialized)
+                    {
+                        speechRecognitionInitialized = true;
+                        _speechRecognition.speechRecognized += TellTamingData;
+                        _speechRecognition.speechCommandRecognized += SpeechCommand;
+                        lbListening.Visible = true;
+                    }
+                    else
+                    {
+                        Properties.Settings.Default.SpeechRecognition = false;
+                    }
                 }
-                else
+                catch (PlatformNotSupportedException ex)
                 {
-                    Properties.Settings.Default.SpeechRecognition = false;
+                    MessageBox.Show($"The speech recognition could not be initialized on this system.\n\n{ex.Message}",
+                        $"{Loc.S("error")} - {Utils.ApplicationNameVersion}",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             if (!speechRecognitionInitialized)
