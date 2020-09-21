@@ -349,11 +349,10 @@ namespace ARKBreedingStats
             if (DateTime.Now.AddHours(-20) > Properties.Settings.Default.lastUpdateCheck)
                 CheckForUpdates(true);
 
-            if (!Properties.Settings.Default.AlreadyAskedToDownloadImageFilesTropeognathus)
+            if (!Properties.Settings.Default.AlreadyAskedToDownloadImageFiles20200921)
             {
-                Properties.Settings.Default.AlreadyAskedToDownloadImageFilesTropeognathus = true;
-                if (!File.Exists(FileService.GetPath(FileService.ImageFolderName, "Tropeognathus.png"))
-                    && MessageBox.Show("Download new species images to display the creature colors?\n\nThe file to be downloaded has a size of ~17 MB.\nYou can later download these images in the menu ? - Download Species Images",
+                Properties.Settings.Default.AlreadyAskedToDownloadImageFiles20200921 = true;
+                if (MessageBox.Show("Download new species images to display the creature colors?\n\nThe file to be downloaded has a size of ~17 MB.\nYou can later download these images in the menu ? - Download Species Images",
                     "Download species images?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     DownloadSpeciesImagesAsync();
             }
