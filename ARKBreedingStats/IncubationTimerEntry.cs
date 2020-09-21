@@ -36,10 +36,10 @@ namespace ARKBreedingStats
             this.incubationDuration = incubationDuration;
             incubationEnd = new DateTime();
             if (incubationStarted)
-                startTimer();
+                StartTimer();
         }
 
-        private void startTimer()
+        private void StartTimer()
         {
             if (!timerIsRunning)
             {
@@ -48,7 +48,7 @@ namespace ARKBreedingStats
             }
         }
 
-        private void pauseTimer()
+        private void PauseTimer()
         {
             if (timerIsRunning)
             {
@@ -57,11 +57,11 @@ namespace ARKBreedingStats
             }
         }
 
-        public void startStopTimer(bool start)
+        public void StartStopTimer(bool start)
         {
             if (start)
-                startTimer();
-            else pauseTimer();
+                StartTimer();
+            else PauseTimer();
         }
 
         public Creature mother
@@ -84,17 +84,14 @@ namespace ARKBreedingStats
             }
         }
 
-        // XmlSerializer does not support TimeSpan, so use this property for serialization instead.
+        // Serializer does not support TimeSpan directly, so use this property for serialization instead.
         [System.ComponentModel.Browsable(false)]
         [JsonProperty("incubationDuration")]
         public string incubationDurationString
         {
             get => System.Xml.XmlConvert.ToString(incubationDuration);
-            set
-            {
-                incubationDuration = string.IsNullOrEmpty(value) ?
+            set => incubationDuration = string.IsNullOrEmpty(value) ?
                     TimeSpan.Zero : System.Xml.XmlConvert.ToTimeSpan(value);
-            }
         }
     }
 }

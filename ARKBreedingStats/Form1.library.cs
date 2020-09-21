@@ -272,7 +272,7 @@ namespace ARKBreedingStats
             tribesControl1.Players = _creatureCollection.players;
             timerList1.CreatureCollection = _creatureCollection;
             notesControl1.NoteList = _creatureCollection.noteList;
-            raisingControl1.creatureCollection = _creatureCollection;
+            raisingControl1.CreatureCollection = _creatureCollection;
             statsMultiplierTesting1.CreatureCollection = _creatureCollection;
 
             UpdateParents(_creatureCollection.creatures);

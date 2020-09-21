@@ -56,6 +56,7 @@
             this.dateTimePickerTimerFinish = new System.Windows.Forms.DateTimePicker();
             this.textBoxTimerName = new System.Windows.Forms.TextBox();
             this.buttonAddTimer = new System.Windows.Forms.Button();
+            this.BtStartPauseTimers = new System.Windows.Forms.Button();
             this.contextMenuStripTimerHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetTimerColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
@@ -79,6 +80,7 @@
             this.listViewTimer.HideSelection = false;
             this.listViewTimer.Location = new System.Drawing.Point(243, 3);
             this.listViewTimer.Name = "listViewTimer";
+            this.tableLayoutPanel1.SetRowSpan(this.listViewTimer, 3);
             this.listViewTimer.Size = new System.Drawing.Size(402, 488);
             this.listViewTimer.TabIndex = 0;
             this.listViewTimer.UseCompatibleStateImageBehavior = false;
@@ -112,7 +114,7 @@
             this.removeToolStripMenuItem,
             this.removeAllExpiredTimersToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(222, 142);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(222, 120);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // addToOverlayToolStripMenuItem
@@ -162,12 +164,14 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.listViewTimer, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.groupBoxAddTimer, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.BtStartPauseTimers, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 494F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 494F));
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(648, 494);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -320,6 +324,18 @@
             this.buttonAddTimer.UseVisualStyleBackColor = true;
             this.buttonAddTimer.Click += new System.EventHandler(this.buttonAddTimer_Click);
             // 
+            // BtStartPauseTimers
+            // 
+            this.BtStartPauseTimers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BtStartPauseTimers.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F);
+            this.BtStartPauseTimers.Location = new System.Drawing.Point(3, 383);
+            this.BtStartPauseTimers.Name = "BtStartPauseTimers";
+            this.BtStartPauseTimers.Size = new System.Drawing.Size(234, 34);
+            this.BtStartPauseTimers.TabIndex = 2;
+            this.BtStartPauseTimers.Text = "⏯";
+            this.BtStartPauseTimers.UseVisualStyleBackColor = true;
+            this.BtStartPauseTimers.Click += new System.EventHandler(this.BtStartPauseTimers_Click);
+            // 
             // contextMenuStripTimerHeader
             // 
             this.contextMenuStripTimerHeader.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -383,5 +399,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripTimerHeader;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemResetTimerColumnWidths;
+        private System.Windows.Forms.Button BtStartPauseTimers;
     }
 }

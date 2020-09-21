@@ -146,7 +146,7 @@ namespace ARKBreedingStats
             breedingPlan1.BindChildrenControlEvents();
             raisingControl1.onChange += SetCollectionChanged;
             tamingControl1.CreateTimer += CreateTimer;
-            raisingControl1.extractBaby += ExtractBaby;
+            raisingControl1.ExtractBaby += ExtractBaby;
             raisingControl1.SetGlobalSpecies += SetSpecies;
             raisingControl1.timerControl = timerList1;
             notesControl1.changed += SetCollectionChanged;
@@ -156,7 +156,7 @@ namespace ARKBreedingStats
             creatureInfoInputTester.ColorsChanged += CreatureInfoInputExtractor_ColorsChanged;
             speciesSelector1.OnSpeciesSelected += SpeciesSelector1OnSpeciesSelected;
             statsMultiplierTesting1.OnApplyMultipliers += StatsMultiplierTesting1_OnApplyMultipliers;
-            raisingControl1.AdjustTimers += timerList1.AdjustAllTimersByOffset;
+            raisingControl1.AdjustTimersByOffset += timerList1.AdjustAllTimersByOffset;
 
             speciesSelector1.SetTextBox(tbSpeciesGlobal);
 
