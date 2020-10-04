@@ -25,9 +25,9 @@ namespace ARKBreedingStats.library
             int width = Properties.Settings.Default.InfoGraphicWidth; // 330
             int height = width * 6 / 11; //180
 
-            int fontSize = height / 18; // 10
-            int fontSizeSmall = height * 2 / 45; // 8
-            int fontSizeHeader = height / 15; // 12
+            int fontSize = Math.Max(1, height / 18); // 10
+            int fontSizeSmall = Math.Max(1, height * 2 / 45); // 8
+            int fontSizeHeader = Math.Max(1, height / 15); // 12
             int frameThickness = Math.Max(1, height / 180);
 
             int statLineHeight = height * 5 / 59; // 15
@@ -58,7 +58,7 @@ namespace ARKBreedingStats.library
 
                 // levels
                 double meanLetterWidth = fontSize * 7d / 10;
-                const int xStatName = 8;
+                int xStatName = (int)meanLetterWidth;
                 // x position of level number. torpor is the largest level number.
                 int xRightLevelValue = (int)(xStatName + (4 + creature.levelsWild[2].ToString().Length) * meanLetterWidth);
                 int xRightBrValue = (int)(xRightLevelValue + (2 + MaxCharLength(creature.valuesBreeding)) * meanLetterWidth);
@@ -123,13 +123,18 @@ namespace ARKBreedingStats.library
 
                 bool creatureImageShown = false;
                 int imageSize = (int)(width - xColor - circleDiameter - 8 * meanLetterWidth - frameThickness * 4); // 125
-                using (var crBmp =
-                    CreatureColored.GetColoredCreature(creature.colors, creature.Species, enabledColorRegions, imageSize, onlyImage: true, creatureSex: creature.sex))
+                if (imageSize > 5)
                 {
-                    if (crBmp != null)
+                    using (var crBmp =
+                        CreatureColored.GetColoredCreature(creature.colors, creature.Species, enabledColorRegions,
+                            imageSize, onlyImage: true, creatureSex: creature.sex))
                     {
-                        g.DrawImage(crBmp, width - imageSize - frameThickness * 4, height - imageSize - frameThickness * 4 - fontSizeSmall, imageSize, imageSize);
-                        creatureImageShown = true;
+                        if (crBmp != null)
+                        {
+                            g.DrawImage(crBmp, width - imageSize - frameThickness * 4,
+                                height - imageSize - frameThickness * 4 - fontSizeSmall, imageSize, imageSize);
+                            creatureImageShown = true;
+                        }
                     }
                 }
 
