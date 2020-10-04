@@ -52,7 +52,7 @@ namespace ARKBreedingStats
         private Creature _creatureTesterEdit;
         private int _hiddenLevelsCreatureTester;
         private FileSync _fileSync;
-        private FileWatcherExports _filewatcherExports;
+        private FileWatcherExports _fileWatcherExports;
         private readonly Extraction _extractor = new Extraction();
         private SpeechRecognition _speechRecognition;
         private readonly System.Windows.Forms.Timer _timerGlobal = new System.Windows.Forms.Timer();
@@ -279,7 +279,7 @@ namespace ARKBreedingStats
             // exports file watcher
             bool enableExportWatcher = Utils.GetFirstImportExportFolder(out string exportFolderDefault)
                 && Properties.Settings.Default.AutoImportExportedCreatures;
-            _filewatcherExports = new FileWatcherExports(exportFolderDefault, ImportExportedAddIfPossible_WatcherThread, enableExportWatcher);
+            _fileWatcherExports = new FileWatcherExports(exportFolderDefault, ImportExportedAddIfPossible_WatcherThread, enableExportWatcher);
 
             if (!LoadStatAndKibbleValues(applySettings: false).statValuesLoaded || !Values.V.species.Any())
             {
@@ -1852,7 +1852,7 @@ namespace ARKBreedingStats
 
                     bool enableExportWatcher = Utils.GetFirstImportExportFolder(out string exportFolderDefault)
                         && Properties.Settings.Default.AutoImportExportedCreatures;
-                    _filewatcherExports.SetWatchFolder(exportFolderDefault, enableExportWatcher);
+                    _fileWatcherExports.SetWatchFolder(exportFolderDefault, enableExportWatcher);
 
                     InitializeSpeechRecognition();
                     _overlay?.SetInfoPositions();

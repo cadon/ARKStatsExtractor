@@ -37,8 +37,20 @@ namespace ARKBreedingStats.settings
         /// </summary>
         private void CreateListOfProcesses()
         {
-            cbbOCRApp.DataSource = System.Diagnostics.Process.GetProcesses().Select(p => new ProcessSelector { ProcessName = p.ProcessName, MainWindowTitle = p.MainWindowTitle })
-                .Distinct().Where(pn => !string.IsNullOrEmpty(pn.MainWindowTitle) && pn.ProcessName != "System" && pn.ProcessName != "idle").OrderBy(pn => pn.ProcessName).ToArray();
+            // Wine doesn't support the Process.ProcessName getter and OCR doesn't work there currently
+            try
+            {
+                cbbOCRApp.DataSource = System.Diagnostics.Process.GetProcesses().Select(p => new ProcessSelector
+                { ProcessName = p.ProcessName, MainWindowTitle = p.MainWindowTitle })
+                    .Distinct().Where(pn =>
+                        !string.IsNullOrEmpty(pn.MainWindowTitle) && pn.ProcessName != "System" &&
+                        pn.ProcessName != "idle").OrderBy(pn => pn.ProcessName).ToArray();
+            }
+            catch (InvalidOperationException)
+            {
+                // OCR currently doesn't work on Wine, so hide settings tab page
+                tabControlSettings.TabPages.Remove(tabPageOCR);
+            }
         }
 
         private struct ProcessSelector

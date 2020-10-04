@@ -20,7 +20,6 @@ namespace ARKBreedingStats.ocr
         public OCRTemplate ocrConfig;
         private static ArkOCR _OCR;
         private static OCRControl _ocrControl;
-        //private readonly Dictionary<string, Point> _lastLetterPositions = new Dictionary<string, Point>(); // TODO remove?
         public string screenCaptureApplicationName;
         private Process _screenCaptureProcess;
         public int waitBeforeScreenCapture;
@@ -28,13 +27,10 @@ namespace ARKBreedingStats.ocr
 
         public static ArkOCR OCR => _OCR ?? (_OCR = new ArkOCR());
 
-        public ArkOCR()
+        private ArkOCR()
         {
             screenCaptureApplicationName = Properties.Settings.Default.OCRApp;
-
-            Process[] p = Process.GetProcessesByName(screenCaptureApplicationName);
-            if (p.Length > 0)
-                _screenCaptureProcess = p[0];
+            _screenCaptureProcess = Process.GetProcessesByName(screenCaptureApplicationName).FirstOrDefault();
 
             waitBeforeScreenCapture = 500;
         }
