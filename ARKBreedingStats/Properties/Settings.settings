@@ -338,5 +338,8 @@
     <Setting Name="ColorMode" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="InfoGraphicWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">330</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -1036,4 +1036,13 @@
   <data name="SystemLanguage" xml:space="preserve">
     <value>系统语言</value>
   </data>
+  <data name="Levels" xml:space="preserve">
+    <value>等级</value>
+  </data>
+  <data name="Values" xml:space="preserve">
+    <value>价值观</value>
+  </data>
+  <data name="generation" xml:space="preserve">
+    <value>代</value>
+  </data>
 </root>

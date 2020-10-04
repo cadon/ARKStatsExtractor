@@ -1028,4 +1028,13 @@ Algunas crías pueden ser peores que en el modo de estadísticas altas, pero tam
   <data name="SystemLanguage" xml:space="preserve">
     <value>Lenguaje del sistema</value>
   </data>
+  <data name="Levels" xml:space="preserve">
+    <value>Niveles</value>
+  </data>
+  <data name="Values" xml:space="preserve">
+    <value>Valores</value>
+  </data>
+  <data name="generation" xml:space="preserve">
+    <value>Generacion</value>
+  </data>
 </root>

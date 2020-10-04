@@ -1243,4 +1243,13 @@ Le préréglage peut être appliqué par le bouton Appliquer le préréglage</va
   <data name="SystemLanguage" xml:space="preserve">
     <value>Langue du système</value>
   </data>
+  <data name="Levels" xml:space="preserve">
+    <value>Niveaux</value>
+  </data>
+  <data name="Values" xml:space="preserve">
+    <value>Valeurs</value>
+  </data>
+  <data name="generation" xml:space="preserve">
+    <value>génération</value>
+  </data>
 </root>

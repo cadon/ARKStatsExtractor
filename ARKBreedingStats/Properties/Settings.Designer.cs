@@ -1350,5 +1350,17 @@ namespace ARKBreedingStats.Properties {
                 this["ColorMode"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("330")]
+        public int InfoGraphicWidth {
+            get {
+                return ((int)(this["InfoGraphicWidth"]));
+            }
+            set {
+                this["InfoGraphicWidth"] = value;
+            }
+        }
     }
 }

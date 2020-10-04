@@ -1322,6 +1322,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to generation.
+        /// </summary>
+        internal static string generation {
+            get {
+                return ResourceManager.GetString("generation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gen.
         /// </summary>
         internal static string Generation_Abb {
@@ -1895,6 +1904,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Levels.
+        /// </summary>
+        internal static string Levels {
+            get {
+                return ResourceManager.GetString("Levels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LW.
         /// </summary>
         internal static string LevelWild_Abb {
@@ -1999,6 +2017,15 @@ namespace ARKBreedingStats.local {
         internal static string mature {
             get {
                 return ResourceManager.GetString("mature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to max wild level.
+        /// </summary>
+        internal static string max_wild_level {
+            get {
+                return ResourceManager.GetString("max wild level", resourceCulture);
             }
         }
         
@@ -3231,6 +3258,15 @@ namespace ARKBreedingStats.local {
         internal static string useFilterInTopStatCalculation {
             get {
                 return ResourceManager.GetString("useFilterInTopStatCalculation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Values.
+        /// </summary>
+        internal static string Values {
+            get {
+                return ResourceManager.GetString("Values", resourceCulture);
             }
         }
         

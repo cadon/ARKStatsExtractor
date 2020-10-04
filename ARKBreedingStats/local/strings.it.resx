@@ -961,4 +961,13 @@ Questa modalità arriverà alla miglior prole possibile, ferma e sicura.Alcune p
   <data name="SystemLanguage" xml:space="preserve">
     <value>Lingua di sistema</value>
   </data>
+  <data name="Levels" xml:space="preserve">
+    <value>Livelli</value>
+  </data>
+  <data name="Values" xml:space="preserve">
+    <value>Valori</value>
+  </data>
+  <data name="generation" xml:space="preserve">
+    <value>generazione</value>
+  </data>
 </root>

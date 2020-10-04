@@ -91,6 +91,8 @@
             this.groupBox26 = new System.Windows.Forms.GroupBox();
             this.cbAdminConsoleCommandWithCheat = new System.Windows.Forms.CheckBox();
             this.groupBox25 = new System.Windows.Forms.GroupBox();
+            this.label48 = new System.Windows.Forms.Label();
+            this.CbbColorMode = new System.Windows.Forms.ComboBox();
             this.label33 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.tbDefaultFontName = new System.Windows.Forms.TextBox();
@@ -193,8 +195,7 @@
             this.cbbOCRApp = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.CbbColorMode = new System.Windows.Forms.ComboBox();
-            this.label48 = new System.Windows.Forms.Label();
+            this.LbInfoGraphicSize = new System.Windows.Forms.Label();
             this.nudWildLevelStep = new ARKBreedingStats.uiControls.Nud();
             this.nudMatingSpeed = new ARKBreedingStats.uiControls.Nud();
             this.nudBabyFoodConsumptionSpeedEvent = new ARKBreedingStats.uiControls.Nud();
@@ -217,6 +218,7 @@
             this.nudDinoCharacterFoodDrain = new ARKBreedingStats.uiControls.Nud();
             this.nudTamingSpeed = new ARKBreedingStats.uiControls.Nud();
             this.NudSpeciesSelectorCountLastUsed = new ARKBreedingStats.uiControls.Nud();
+            this.nudInfoGraphicWidth = new ARKBreedingStats.uiControls.Nud();
             this.nudDefaultFontSize = new ARKBreedingStats.uiControls.Nud();
             this.nudCustomOverlayLocX = new ARKBreedingStats.uiControls.Nud();
             this.nudCustomOverlayLocY = new ARKBreedingStats.uiControls.Nud();
@@ -306,6 +308,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudDinoCharacterFoodDrain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamingSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudSpeciesSelectorCountLastUsed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudInfoGraphicWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDefaultFontSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCustomOverlayLocX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCustomOverlayLocY)).BeginInit();
@@ -985,18 +988,38 @@
             // 
             // groupBox25
             // 
+            this.groupBox25.Controls.Add(this.nudInfoGraphicWidth);
+            this.groupBox25.Controls.Add(this.LbInfoGraphicSize);
             this.groupBox25.Controls.Add(this.label48);
             this.groupBox25.Controls.Add(this.CbbColorMode);
             this.groupBox25.Controls.Add(this.nudDefaultFontSize);
             this.groupBox25.Controls.Add(this.label33);
             this.groupBox25.Controls.Add(this.label32);
             this.groupBox25.Controls.Add(this.tbDefaultFontName);
-            this.groupBox25.Location = new System.Drawing.Point(329, 290);
+            this.groupBox25.Location = new System.Drawing.Point(329, 279);
             this.groupBox25.Name = "groupBox25";
-            this.groupBox25.Size = new System.Drawing.Size(413, 80);
+            this.groupBox25.Size = new System.Drawing.Size(413, 100);
             this.groupBox25.TabIndex = 12;
             this.groupBox25.TabStop = false;
             this.groupBox25.Text = "Visuals";
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(6, 48);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(60, 13);
+            this.label48.TabIndex = 5;
+            this.label48.Text = "Color mode";
+            // 
+            // CbbColorMode
+            // 
+            this.CbbColorMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CbbColorMode.FormattingEnabled = true;
+            this.CbbColorMode.Location = new System.Drawing.Point(74, 45);
+            this.CbbColorMode.Name = "CbbColorMode";
+            this.CbbColorMode.Size = new System.Drawing.Size(222, 21);
+            this.CbbColorMode.TabIndex = 4;
             // 
             // label33
             // 
@@ -1070,7 +1093,7 @@
             this.groupBox20.Controls.Add(this.cbPrettifyJSON);
             this.groupBox20.Location = new System.Drawing.Point(329, 233);
             this.groupBox20.Name = "groupBox20";
-            this.groupBox20.Size = new System.Drawing.Size(413, 51);
+            this.groupBox20.Size = new System.Drawing.Size(413, 40);
             this.groupBox20.TabIndex = 10;
             this.groupBox20.TabStop = false;
             this.groupBox20.Text = "Prettify Library JSON-file";
@@ -1330,7 +1353,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(27, 61);
+            this.label21.Location = new System.Drawing.Point(6, 61);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(138, 13);
             this.label21.TabIndex = 2;
@@ -2083,23 +2106,14 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // CbbColorMode
+            // LbInfoGraphicSize
             // 
-            this.CbbColorMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CbbColorMode.FormattingEnabled = true;
-            this.CbbColorMode.Location = new System.Drawing.Point(74, 45);
-            this.CbbColorMode.Name = "CbbColorMode";
-            this.CbbColorMode.Size = new System.Drawing.Size(222, 21);
-            this.CbbColorMode.TabIndex = 4;
-            // 
-            // label48
-            // 
-            this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(6, 48);
-            this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(60, 13);
-            this.label48.TabIndex = 5;
-            this.label48.Text = "Color mode";
+            this.LbInfoGraphicSize.AutoSize = true;
+            this.LbInfoGraphicSize.Location = new System.Drawing.Point(6, 74);
+            this.LbInfoGraphicSize.Name = "LbInfoGraphicSize";
+            this.LbInfoGraphicSize.Size = new System.Drawing.Size(110, 13);
+            this.LbInfoGraphicSize.TabIndex = 6;
+            this.LbInfoGraphicSize.Text = "InfoGraphic width [px]";
             // 
             // nudWildLevelStep
             // 
@@ -2598,6 +2612,34 @@
             this.NudSpeciesSelectorCountLastUsed.Size = new System.Drawing.Size(57, 20);
             this.NudSpeciesSelectorCountLastUsed.TabIndex = 0;
             // 
+            // nudInfoGraphicWidth
+            // 
+            this.nudInfoGraphicWidth.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.nudInfoGraphicWidth.Location = new System.Drawing.Point(139, 72);
+            this.nudInfoGraphicWidth.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.nudInfoGraphicWidth.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudInfoGraphicWidth.Name = "nudInfoGraphicWidth";
+            this.nudInfoGraphicWidth.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudInfoGraphicWidth.Size = new System.Drawing.Size(57, 20);
+            this.nudInfoGraphicWidth.TabIndex = 26;
+            this.nudInfoGraphicWidth.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
             // nudDefaultFontSize
             // 
             this.nudDefaultFontSize.DecimalPlaces = 2;
@@ -2734,7 +2776,7 @@
             // nudOverlayInfoDuration
             // 
             this.nudOverlayInfoDuration.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.nudOverlayInfoDuration.Location = new System.Drawing.Point(189, 59);
+            this.nudOverlayInfoDuration.Location = new System.Drawing.Point(150, 59);
             this.nudOverlayInfoDuration.Minimum = new decimal(new int[] {
             1,
             0,
@@ -3036,6 +3078,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudDinoCharacterFoodDrain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamingSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudSpeciesSelectorCountLastUsed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudInfoGraphicWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDefaultFontSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCustomOverlayLocX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCustomOverlayLocY)).EndInit();
@@ -3270,5 +3313,7 @@
         private System.Windows.Forms.CheckBox CbOverlayDisplayInheritance;
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.ComboBox CbbColorMode;
+        private uiControls.Nud nudInfoGraphicWidth;
+        private System.Windows.Forms.Label LbInfoGraphicSize;
     }
 }

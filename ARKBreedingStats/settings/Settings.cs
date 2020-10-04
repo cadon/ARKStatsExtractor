@@ -243,6 +243,7 @@ namespace ARKBreedingStats.settings
             nudWildLevelStep.ValueSave = cc.wildLevelStep;
             cbInventoryCheck.Checked = Properties.Settings.Default.inventoryCheckTimer;
             cbAllowMoreThanHundredImprinting.Checked = cc.allowMoreThanHundredImprinting;
+            nudInfoGraphicWidth.ValueSave = Properties.Settings.Default.InfoGraphicWidth;
 
             #region library
             cbCreatureColorsLibrary.Checked = Properties.Settings.Default.showColorsInLibrary;
@@ -407,6 +408,7 @@ namespace ARKBreedingStats.settings
             _cc.wildLevelStep = (int)nudWildLevelStep.Value;
             Properties.Settings.Default.inventoryCheckTimer = cbInventoryCheck.Checked;
             _cc.allowMoreThanHundredImprinting = cbAllowMoreThanHundredImprinting.Checked;
+            Properties.Settings.Default.InfoGraphicWidth = (int)nudInfoGraphicWidth.Value;
 
             #region library
             Properties.Settings.Default.showColorsInLibrary = cbCreatureColorsLibrary.Checked;

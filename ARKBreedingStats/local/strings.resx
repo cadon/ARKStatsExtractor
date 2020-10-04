@@ -1245,4 +1245,16 @@ The preset can be applied by the Apply Preset button</value>
   <data name="SystemLanguage" xml:space="preserve">
     <value>System Language</value>
   </data>
+  <data name="max wild level" xml:space="preserve">
+    <value>max wild level</value>
+  </data>
+  <data name="Values" xml:space="preserve">
+    <value>Values</value>
+  </data>
+  <data name="Levels" xml:space="preserve">
+    <value>Levels</value>
+  </data>
+  <data name="generation" xml:space="preserve">
+    <value>generation</value>
+  </data>
 </root>

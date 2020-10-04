@@ -1236,4 +1236,16 @@ Diese kann mit BSS Preset angewandt werden.</value>
   <data name="SystemLanguage" xml:space="preserve">
     <value>Systemsprache</value>
   </data>
+  <data name="max wild level" xml:space="preserve">
+    <value>max wild Level</value>
+  </data>
+  <data name="Values" xml:space="preserve">
+    <value>Werte</value>
+  </data>
+  <data name="Levels" xml:space="preserve">
+    <value>Levels</value>
+  </data>
+  <data name="generation" xml:space="preserve">
+    <value>Generation</value>
+  </data>
 </root>
