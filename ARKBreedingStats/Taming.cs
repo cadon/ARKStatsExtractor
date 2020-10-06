@@ -8,6 +8,13 @@ namespace ARKBreedingStats
 {
     public static class Taming
     {
+        /// <summary>
+        /// *2 in accordance with the hardcoded 2x taming-bonus that was introduced in the game in patch 253.0 on 2016-12-23
+        /// https://ark.gamepedia.com/253.0
+        /// and again *2 in patch https://ark.gamepedia.com/313.5
+        /// </summary>
+        private const int _hardCodedTamingMultiplier = 4;
+
         public static void TamingTimes(Species species, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier,
                 List<string> usedFood, List<int> foodAmount, out List<int> foodAmountUsed, out TimeSpan duration,
                 out int neededNarcoberries, out int neededAscerbicMushrooms, out int neededNarcotics, out int neededBioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
@@ -34,7 +41,7 @@ namespace ARKBreedingStats
 
                 double affinityNeeded = species.taming.affinityNeeded0 + species.taming.affinityIncreasePL * level;
 
-                // test if creature is tamend non-violently, then use wakeTame multiplicators
+                // test if creature is tamed non-violently, then use wakeTame multipliers
                 if (!species.taming.nonViolent)
                 {
                     //total torpor for level
@@ -78,9 +85,7 @@ namespace ARKBreedingStats
                                 foodValue = foodValue * species.taming.wakeFoodDeplMult;
                             }
 
-                            // *2 in accordance with the hardcoded 2x taming-bonus that was introduced in the game in patch 253.0 on 2016-12-23
-                            // https://ark.gamepedia.com/253.0
-                            foodAffinity *= tamingSpeedMultiplier * 2;
+                            foodAffinity *= tamingSpeedMultiplier * _hardCodedTamingMultiplier;
 
                             if (foodAffinity > 0 && foodValue > 0)
                             {
@@ -184,7 +189,7 @@ namespace ARKBreedingStats
                 if (nonViolent)
                     foodAffinity *= species.taming.wakeAffinityMult;
 
-                foodAffinity *= tamingSpeedMultiplier * 2; // *2 in accordance with the permament 2x taming-bonus that was introduced in the game on 2016-12-12
+                foodAffinity *= tamingSpeedMultiplier * _hardCodedTamingMultiplier;
 
                 if (foodAffinity > 0)
                 {
