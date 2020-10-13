@@ -3126,7 +3126,10 @@ namespace ARKBreedingStats
         /// </summary>
         private void ReloadNamePatternCustomReplacings(PatternEditor pe = null)
         {
-            string filePath = FileService.GetJsonPath(FileService.CustomReplacingsNamePattern);
+            string filePath = Properties.Settings.Default.CustomReplacingFilePath;
+            if (string.IsNullOrEmpty(filePath))
+                filePath = FileService.GetJsonPath(FileService.CustomReplacingsNamePattern);
+
             string errorMessage = null;
             if (!File.Exists(filePath) || !FileService.LoadJsonFile(filePath, out _customReplacingNamingPattern, out errorMessage))
             {

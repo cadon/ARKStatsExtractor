@@ -109,11 +109,16 @@ namespace ARKBreedingStats
                 if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to load without saving first?", "Discard Changes?", MessageBoxButtons.YesNo) != DialogResult.Yes)
                     return;
             }
+
+            string selectedFolder =
+                string.IsNullOrEmpty(_currentFileName) ? null : Path.GetDirectoryName(_currentFileName);
+
             using (OpenFileDialog dlg = new OpenFileDialog
             {
                 Filter = $"ASB Collection Files (*{CollectionFileExtension}; *.xml)|*{CollectionFileExtension};*.xml"
                         + $"|ASB Collection File (*{CollectionFileExtension})|*{CollectionFileExtension}"
-                        + "|Old ASB Collection File(*.xml)| *.xml"
+                        + "|Old ASB Collection File(*.xml)| *.xml",
+                InitialDirectory = selectedFolder
             })
             {
                 if (dlg.ShowDialog() == DialogResult.OK)

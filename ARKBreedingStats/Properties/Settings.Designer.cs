@@ -1362,5 +1362,17 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicWidth"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CustomReplacingFilePath {
+            get {
+                return ((string)(this["CustomReplacingFilePath"]));
+            }
+            set {
+                this["CustomReplacingFilePath"] = value;
+            }
+        }
     }
 }

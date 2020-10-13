@@ -341,5 +341,8 @@
     <Setting Name="InfoGraphicWidth" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">330</Value>
     </Setting>
+    <Setting Name="CustomReplacingFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -20,6 +20,7 @@ namespace ARKBreedingStats.uiControls
         private Dictionary<string, string> _customReplacings;
         private readonly Dictionary<string, string> _tokenDictionary;
         private readonly Debouncer _updateNameDebouncer = new Debouncer();
+        private Action<PatternEditor> _reloadCallback;
 
         public PatternEditor()
         {
@@ -33,6 +34,7 @@ namespace ARKBreedingStats.uiControls
             _speciesTopLevels = speciesTopLevels;
             _speciesLowestLevels = speciesLowestLevels;
             _customReplacings = customReplacings;
+            _reloadCallback = reloadCallback;
             txtboxPattern.Text = Properties.Settings.Default.NamingPatterns?[namingPatternIndex] ?? string.Empty;
             txtboxPattern.SelectionStart = txtboxPattern.Text.Length;
 
@@ -62,6 +64,7 @@ namespace ARKBreedingStats.uiControls
 
                 tlp.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
                 tlp.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+                tlp.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
                 int i = 0;
                 foreach (KeyValuePair<string, string> p in nameExamples)
                 {
@@ -78,7 +81,7 @@ namespace ARKBreedingStats.uiControls
                     tlp.Controls.Add(btn);
                     tlp.SetCellPosition(btn, new TableLayoutPanelCellPosition(0, i));
                     if (!columns)
-                        tlp.SetColumnSpan(btn, 2);
+                        tlp.SetColumnSpan(btn, 3);
                     btn.Click += Btn_Click;
 
                     Label lbl = new Label
@@ -91,21 +94,27 @@ namespace ARKBreedingStats.uiControls
                     tlp.Controls.Add(lbl);
                     tlp.SetCellPosition(lbl, new TableLayoutPanelCellPosition(columns ? 1 : 0, columns ? i : ++i));
                     if (!columns)
-                        tlp.SetColumnSpan(lbl, 2);
+                        tlp.SetColumnSpan(lbl, 3);
 
                     if (!columns && p.Value.Contains("#customreplace"))
                     {
                         // button to open custom replacings file
                         tlp.RowStyles.Add(new RowStyle(SizeType.AutoSize));
                         i++;
-                        var btCustomReplacings = new Button() { Text = "Open custom replacings file", Width = 150 };
+
+                        const int buttonCustomReplacingWidth = 100;
+                        var btCustomReplacings = new Button() { Text = "Open file", Width = buttonCustomReplacingWidth };
                         btCustomReplacings.Click += BtCustomReplacings_Click;
                         tlp.Controls.Add(btCustomReplacings);
                         tlp.SetCellPosition(btCustomReplacings, new TableLayoutPanelCellPosition(0, i));
-                        var btCustomReplacingsReload = new Button() { Text = "Reload custom replacings", Width = 150 };
-                        btCustomReplacingsReload.Click += (sender, eventArgs) => reloadCallback?.Invoke(this);
+                        var btCustomReplacingsReload = new Button() { Text = "Reload file", Width = buttonCustomReplacingWidth };
+                        btCustomReplacingsReload.Click += (s, e) => _reloadCallback?.Invoke(this);
                         tlp.Controls.Add(btCustomReplacingsReload);
                         tlp.SetCellPosition(btCustomReplacingsReload, new TableLayoutPanelCellPosition(1, i));
+                        var btCustomReplacingsFilePath = new Button() { Text = "Select file", Width = buttonCustomReplacingWidth };
+                        btCustomReplacingsFilePath.Click += ChangeCustomReplacingsFilePath;
+                        tlp.Controls.Add(btCustomReplacingsFilePath);
+                        tlp.SetCellPosition(btCustomReplacingsFilePath, new TableLayoutPanelCellPosition(2, i));
                     }
 
                     // separator
@@ -121,10 +130,37 @@ namespace ARKBreedingStats.uiControls
                         };
                         tlp.Controls.Add(separator);
                         tlp.SetRow(separator, ++i);
-                        tlp.SetColumnSpan(separator, 2);
+                        tlp.SetColumnSpan(separator, 3);
                     }
 
                     i++;
+                }
+            }
+        }
+
+        private void ChangeCustomReplacingsFilePath(object sender, EventArgs e)
+        {
+            string selectedFilePath = Properties.Settings.Default.CustomReplacingFilePath;
+            if (string.IsNullOrEmpty(selectedFilePath))
+                selectedFilePath = FileService.GetJsonPath(FileService.CustomReplacingsNamePattern);
+
+            string selectedFolder =
+                string.IsNullOrEmpty(selectedFilePath) ? null : Path.GetDirectoryName(selectedFilePath);
+
+            var selectedFileName = string.IsNullOrEmpty(selectedFilePath) ? null : Path.GetFileName(selectedFilePath);
+
+            using (OpenFileDialog dlg = new OpenFileDialog
+            {
+                Filter = $"ASB Custom Replacings File (*.json)|*.json",
+                CheckFileExists = true,
+                InitialDirectory = selectedFolder,
+                FileName = selectedFileName
+            })
+            {
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    Properties.Settings.Default.CustomReplacingFilePath = dlg.FileName;
+                    _reloadCallback?.Invoke(this);
                 }
             }
         }
@@ -142,7 +178,7 @@ namespace ARKBreedingStats.uiControls
             {
                 if (!File.Exists(filePath))
                 {
-                    // çreate file with example dictionary entries to start with
+                    // create file with example dictionary entries to start with
                     File.WriteAllText(filePath, "{\n  \"Allosaurus\": \"Allo\",\n  \"Snow Owl\": \"Owl\"\n}");
                 }
                 Process.Start(filePath);
