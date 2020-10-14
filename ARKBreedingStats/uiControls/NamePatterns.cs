@@ -51,6 +51,9 @@ namespace ARKBreedingStats.uiControls
                         creature.topness = (short)(creatureLevelSum * 1000f / topLevelSum);
                     else creature.topness = 1000;
                 }
+
+                if (tokenDictionary != null)
+                    tokenDictionary["topPercent"] = (creature.topness / 10f).ToString();
             }
 
             if (tokenDictionary == null)
