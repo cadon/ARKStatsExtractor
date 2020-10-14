@@ -7,5 +7,6 @@
   "GalleonRaft_BP_C",
   "CogRaft_BP_C",
   "TekHoverSkiff_Character_BP_C",
-  "BP_HoverSkiff_C"
+  "BP_HoverSkiff_C",
+  "TargetActor_C"
 ]
