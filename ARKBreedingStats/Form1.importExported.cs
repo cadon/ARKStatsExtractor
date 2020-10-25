@@ -146,8 +146,10 @@ namespace ARKBreedingStats
             bool alreadyExists = loadResult.Value;
             bool added = false;
             bool copyNameToClipboard = Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied
-                && (Properties.Settings.Default.applyNamePatternOnImportIfEmptyName ||
-                   (!alreadyExists && Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures));
+                && (Properties.Settings.Default.applyNamePatternOnAutoImportAlways
+                    || Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
+                    || (!alreadyExists && Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures)
+                   );
             Species species = speciesSelector1.SelectedSpecies;
             Creature creature = null;
 

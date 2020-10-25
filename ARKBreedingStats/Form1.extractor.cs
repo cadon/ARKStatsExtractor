@@ -807,8 +807,9 @@ namespace ARKBreedingStats
 
             bool creatureExists = ExtractValuesInExtractor(cv, exportFilePath, true);
 
-            if ((Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
-                && string.IsNullOrEmpty(creatureInfoInputExtractor.CreatureName))
+            if (Properties.Settings.Default.applyNamePatternOnAutoImportAlways
+                || (Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
+                    && string.IsNullOrEmpty(creatureInfoInputExtractor.CreatureName))
                 || (!creatureExists
                     && Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures)
                 )

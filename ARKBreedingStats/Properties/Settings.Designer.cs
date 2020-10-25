@@ -1374,5 +1374,17 @@ namespace ARKBreedingStats.Properties {
                 this["CustomReplacingFilePath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool applyNamePatternOnAutoImportAlways {
+            get {
+                return ((bool)(this["applyNamePatternOnAutoImportAlways"]));
+            }
+            set {
+                this["applyNamePatternOnAutoImportAlways"] = value;
+            }
+        }
     }
 }
