@@ -291,6 +291,7 @@ namespace ARKBreedingStats.uiControls
                 { "sn", "number of creatures of the current species with the same sex in the library + 1" },
                 { "dom", "how the creature was domesticated, \"T\" for tamed, \"B\" for bred" },
                 { "arkid", "the Ark-Id (as entered or seen ingame)"},
+                { "alreadyExists", "returns 1 if the creature is already in the library, can be used with {{#if: }}"},
                 { "highest1l", "the highest stat-level of this creature (excluding torpidity)" },
                 { "highest2l", "the second highest stat-level of this creature (excluding torpidity)" },
                 { "highest3l", "the third highest stat-level of this creature (excluding torpidity)" },

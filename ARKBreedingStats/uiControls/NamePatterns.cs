@@ -489,6 +489,7 @@ namespace ARKBreedingStats.uiControls
                 { "sn", speciesSexCount.ToString()},
                 { "dom", dom},
                 { "arkid", arkid },
+                { "alreadyExists", speciesCreatures.Contains(creature) ? "1" : string.Empty },
                 { "highest1l", levelOrder[0].Item2.ToString() },
                 { "highest2l", levelOrder[1].Item2.ToString() },
                 { "highest3l", levelOrder[2].Item2.ToString() },
