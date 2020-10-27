@@ -456,7 +456,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.savegameExtractionPath = fileSelectorExtractedSaveFolder.Link;
             Properties.Settings.Default.arkSavegamePaths = aTImportFileLocationBindingSource.OfType<ATImportFileLocation>()
                     .Where(location => !string.IsNullOrWhiteSpace(location.FileLocation))
-                    .Select(location => $"{location.ConvenientName}|{location.ServerName}|{location.FileLocation}").ToArray();
+                    .Select(location => location.ToString()).ToArray();
 
             Properties.Settings.Default.IgnoreUnknownBlueprintsOnSaveImport = cbIgnoreUnknownBPOnSaveImport.Checked;
             Properties.Settings.Default.SaveImportCryo = cbSaveImportCryo.Checked;

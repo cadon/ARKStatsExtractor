@@ -26,6 +26,7 @@
                     new ATImportFileLocation(path, string.Empty, path);
         }
 
+        public override string ToString() => $"{ConvenientName}|{ServerName}|{FileLocation}";
     }
 
 }
