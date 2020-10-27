@@ -2542,7 +2542,7 @@ namespace ARKBreedingStats
                 + (cryopod > 0 ? ", cryopod: " + cryopod : string.Empty)
                 + ")" : string.Empty)
                 + ". v" + Application.ProductVersion
-                //+ "-BETA" // TODO BETA indicator
+                + "-BETA .NET 4.8.0" // TODO BETA indicator
                 + " / values: " + Values.V.Version +
                     (modsLoaded ? ", additional values from " + _creatureCollection.ModList.Count + " mods (" + string.Join(", ", _creatureCollection.ModList.Select(m => m.title).ToArray()) + ")" : string.Empty);
         }
