@@ -186,6 +186,24 @@ namespace ARKBreedingStats.uiControls
                             }
                         }
                         return ParametersInvalid($"The expression for ifexpr invalid: \"{p1}\"");
+                    case "expr":
+                        // tries to calculate the result of the expression
+                        // possible operators are +, -, *, /
+                        match = Regex.Match(p1, @"\A\s*(\d+(?:\.\d*)?)\s*(\+|\-|\*|\/)\s*(\d+(?:\.\d*)?)\s*\Z");
+                        if (match.Success
+                            && double.TryParse(match.Groups[1].Value, out d1)
+                            && double.TryParse(match.Groups[3].Value, out d2)
+                            )
+                        {
+                            switch (match.Groups[2].Value)
+                            {
+                                case "+": return (d1 + d2).ToString();
+                                case "-": return (d1 - d2).ToString();
+                                case "*": return (d1 * d2).ToString();
+                                case "/": return d2 == 0 ? "divByZero" : (d1 / d2).ToString();
+                            }
+                        }
+                        return ParametersInvalid($"The expression for expr invalid: \"{p1}\"");
                     case "substring":
                         // check param number: 1: substring, 2: p1, 3: pos, 4: length
 
