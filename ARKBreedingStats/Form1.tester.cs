@@ -218,6 +218,7 @@ namespace ARKBreedingStats
             }
 
             SetTesterInfoInputCreature();
+            _libraryNeedsUpdate = true;
             tabControlMain.SelectedTab = tabPageLibrary;
         }
 

@@ -118,7 +118,7 @@ namespace ARKBreedingStats.importExported
                     case "bIsFemale":
                         cv.sex = text == "True" ? Sex.Female : Sex.Male;
                         break;
-                    case "bIsNeutered":
+                    case "bNeutered":
                         if (text != "False")
                             cv.flags |= CreatureFlags.Neutered;
                         break;

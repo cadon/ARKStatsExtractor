@@ -183,7 +183,8 @@ namespace ARKBreedingStats
                 domesticatedAt = DateTime.Now, // TODO: possible to convert ingame-time to realtime?
                 addedToLibrary = DateTime.Now,
                 mutationsMaternal = creatureObject.GetPropertyValue<int>("RandomMutationsFemale"),
-                mutationsPaternal = creatureObject.GetPropertyValue<int>("RandomMutationsMale")
+                mutationsPaternal = creatureObject.GetPropertyValue<int>("RandomMutationsMale"),
+                flags = creatureObject.GetPropertyValue<bool>("bNeutered") ? CreatureFlags.Neutered : CreatureFlags.None
             };
 
             // If it's a baby and still growing, work out growingUntil
