@@ -417,8 +417,8 @@ namespace ARKBreedingStats.uiControls
             while (spcsNm.LastIndexOfAny(vowels) > 0)
                 spcsNm = spcsNm.Remove(spcsNm.LastIndexOfAny(vowels), 1); // remove last vowel (not the first letter)
 
-            int speciesCount = speciesCreatures?.Length ?? 0 + 1;
-            int speciesSexCount = speciesCreatures?.Count(c => c.sex == creature.sex) ?? 0 + 1;
+            int speciesCount = (speciesCreatures?.Length ?? 0) + 1;
+            int speciesSexCount = (speciesCreatures?.Count(c => c.sex == creature.sex) ?? 0) + 1;
             string arkid = string.Empty;
             if (creature.ArkId != 0)
             {
