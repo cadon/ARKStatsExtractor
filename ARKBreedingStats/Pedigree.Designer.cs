@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats
+﻿using ARKBreedingStats.uiControls;
+
+namespace ARKBreedingStats
 {
     partial class Pedigree
     {
@@ -38,7 +40,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.TextBoxFilter = new System.Windows.Forms.TextBox();
             this.ButtonClearFilter = new System.Windows.Forms.Button();
-            this.pedigreeCreatureHeaders = new ARKBreedingStats.PedigreeCreature();
+            this.pedigreeCreatureHeaders = new PedigreeCreature();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();

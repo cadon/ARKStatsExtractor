@@ -471,10 +471,10 @@
     <Compile Include="Pedigree.Designer.cs">
       <DependentUpon>Pedigree.cs</DependentUpon>
     </Compile>
-    <Compile Include="PedigreeCreature.cs">
+    <Compile Include="uiControls\PedigreeCreature.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PedigreeCreature.Designer.cs">
+    <Compile Include="uiControls\PedigreeCreature.Designer.cs">
       <DependentUpon>PedigreeCreature.cs</DependentUpon>
     </Compile>
     <Compile Include="library\Player.cs" />
@@ -803,7 +803,7 @@
     <EmbeddedResource Include="Pedigree.resx">
       <DependentUpon>Pedigree.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PedigreeCreature.resx">
+    <EmbeddedResource Include="uiControls\PedigreeCreature.resx">
       <DependentUpon>PedigreeCreature.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

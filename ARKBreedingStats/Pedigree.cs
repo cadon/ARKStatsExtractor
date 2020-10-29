@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Threading;
+using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
@@ -194,9 +195,9 @@ namespace ARKBreedingStats
                 {
                     Location = new Point(leftBorder + xS, 200 + 35 * row + yS)
                 };
-                for (int s = 0; s < PedigreeCreature.displayedStatsCount; s++)
+                for (int s = 0; s < PedigreeCreature.DisplayedStatsCount; s++)
                 {
-                    int si = PedigreeCreature.displayedStats[s];
+                    int si = PedigreeCreature.DisplayedStats[s];
                     if (_selectedCreature.valuesDom[si] > 0 && _selectedCreature.levelsWild[si] >= 0 && _selectedCreature.levelsWild[si] == c.levelsWild[si])
                         _lines[0].Add(new[] { leftBorder + XOffsetFirstStat + HorizontalStatDistance * s, 200 + 35 * row + 6, leftBorder + XOffsetFirstStat + HorizontalStatDistance * s, 200 + 35 * row + 15, 0, 0 });
                 }
@@ -268,9 +269,9 @@ namespace ARKBreedingStats
 
         internal static void CreateGeneInheritanceLines(Creature offspring, Creature mother, Creature father, List<int[]>[] lines, int x, int y)
         {
-            for (int s = 0; s < PedigreeCreature.displayedStatsCount; s++)
+            for (int s = 0; s < PedigreeCreature.DisplayedStatsCount; s++)
             {
-                int si = PedigreeCreature.displayedStats[s];
+                int si = PedigreeCreature.DisplayedStats[s];
                 if (offspring.valuesDom[si] <= 0) continue; // don't display arrows for non used stats
                 int better = 0; // if father < mother: 1, if mother < father: -1
                 if (mother != null && father != null)

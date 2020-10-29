@@ -1398,5 +1398,29 @@ namespace ARKBreedingStats.Properties {
                 this["LastImportedSaveGame"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Highlight255Level {
+            get {
+                return ((bool)(this["Highlight255Level"]));
+            }
+            set {
+                this["Highlight255Level"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool HighlightEvenOdd {
+            get {
+                return ((bool)(this["HighlightEvenOdd"]));
+            }
+            set {
+                this["HighlightEvenOdd"] = value;
+            }
+        }
     }
 }

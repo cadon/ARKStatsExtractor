@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.ControlMother = new ARKBreedingStats.PedigreeCreature();
+            this.ControlMother = new PedigreeCreature();
             this.GbParents = new System.Windows.Forms.GroupBox();
-            this.ControlFather = new ARKBreedingStats.PedigreeCreature();
-            this.ControlOffspring = new ARKBreedingStats.PedigreeCreature();
-            this.pedigreeCreatureHeaders = new ARKBreedingStats.PedigreeCreature();
+            this.ControlFather = new PedigreeCreature();
+            this.ControlOffspring = new PedigreeCreature();
+            this.pedigreeCreatureHeaders = new PedigreeCreature();
             this.GbParents.SuspendLayout();
             this.SuspendLayout();
             // 

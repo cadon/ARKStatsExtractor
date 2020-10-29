@@ -46,12 +46,12 @@ namespace ARKBreedingStats
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.lbBreedingPlanHeader = new System.Windows.Forms.Label();
-            this.pedigreeCreatureBestPossibleInSpecies = new ARKBreedingStats.PedigreeCreature();
+            this.pedigreeCreatureBestPossibleInSpecies = new PedigreeCreature();
             this.btShowAllCreatures = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pedigreeCreature1 = new ARKBreedingStats.PedigreeCreature();
+            this.pedigreeCreature1 = new PedigreeCreature();
             this.lbBPBreedingScore = new System.Windows.Forms.Label();
-            this.pedigreeCreature2 = new ARKBreedingStats.PedigreeCreature();
+            this.pedigreeCreature2 = new PedigreeCreature();
             this.gbBPOffspring = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
@@ -64,8 +64,8 @@ namespace ARKBreedingStats
             this.lbBPBreedingTimes = new System.Windows.Forms.Label();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.lbBPProbabilityBest = new System.Windows.Forms.Label();
-            this.pedigreeCreatureBest = new ARKBreedingStats.PedigreeCreature();
-            this.pedigreeCreatureWorst = new ARKBreedingStats.PedigreeCreature();
+            this.pedigreeCreatureBest = new PedigreeCreature();
+            this.pedigreeCreatureWorst = new PedigreeCreature();
             this.lbMutationProbability = new System.Windows.Forms.Label();
             this.btBPJustMated = new System.Windows.Forms.Button();
             this.offspringPossibilities1 = new ARKBreedingStats.OffspringPossibilities();

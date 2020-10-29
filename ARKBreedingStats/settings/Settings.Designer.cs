@@ -214,6 +214,7 @@
             this.label28 = new System.Windows.Forms.Label();
             this.cbAutoImportExported = new System.Windows.Forms.CheckBox();
             this.groupBox21 = new System.Windows.Forms.GroupBox();
+            this.CbApplyNamingPatternOnImportAlways = new System.Windows.Forms.CheckBox();
             this.cbApplyNamePatternOnImportOnNewCreatures = new System.Windows.Forms.CheckBox();
             this.label41 = new System.Windows.Forms.Label();
             this.cbCopyPatternNameToClipboard = new System.Windows.Forms.CheckBox();
@@ -245,7 +246,9 @@
             this.cbbOCRApp = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.CbApplyNamingPatternOnImportAlways = new System.Windows.Forms.CheckBox();
+            this.tabPageOverlay = new System.Windows.Forms.TabPage();
+            this.CbHighlightLevel255 = new System.Windows.Forms.CheckBox();
+            this.CbHighlightLevelEvenOdd = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMatingSpeed)).BeginInit();
@@ -325,6 +328,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).BeginInit();
             this.panel1.SuspendLayout();
+            this.tabPageOverlay.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -971,6 +975,8 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.CbHighlightLevelEvenOdd);
+            this.groupBox4.Controls.Add(this.CbHighlightLevel255);
             this.groupBox4.Controls.Add(this.cbIgnoreSexInBreedingPlan);
             this.groupBox4.Controls.Add(this.label16);
             this.groupBox4.Controls.Add(this.radioButtonFahrenheit);
@@ -979,7 +985,7 @@
             this.groupBox4.Controls.Add(this.numericUpDownMaxBreedingSug);
             this.groupBox4.Location = new System.Drawing.Point(6, 154);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(317, 90);
+            this.groupBox4.Size = new System.Drawing.Size(317, 138);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Breeding Planner";
@@ -1232,7 +1238,7 @@
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.checkBoxDisplayHiddenStats);
-            this.groupBox7.Location = new System.Drawing.Point(6, 250);
+            this.groupBox7.Location = new System.Drawing.Point(6, 298);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(317, 43);
             this.groupBox7.TabIndex = 2;
@@ -1255,6 +1261,7 @@
             this.tabControlSettings.Controls.Add(this.tabPage1);
             this.tabControlSettings.Controls.Add(this.tabPageImportSavegame);
             this.tabControlSettings.Controls.Add(this.tabPageImportExported);
+            this.tabControlSettings.Controls.Add(this.tabPageOverlay);
             this.tabControlSettings.Controls.Add(this.tabPageOCR);
             this.tabControlSettings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlSettings.Location = new System.Drawing.Point(0, 0);
@@ -1450,7 +1457,6 @@
             this.tabPage1.Controls.Add(this.groupBox17);
             this.tabPage1.Controls.Add(this.groupBox16);
             this.tabPage1.Controls.Add(this.groupBox9);
-            this.tabPage1.Controls.Add(this.groupBox10);
             this.tabPage1.Controls.Add(this.groupBox8);
             this.tabPage1.Controls.Add(this.groupBox7);
             this.tabPage1.Controls.Add(this.groupBox4);
@@ -1467,7 +1473,7 @@
             // 
             this.GbSpecies.Controls.Add(this.LbSpeciesSelectorCountLastUsed);
             this.GbSpecies.Controls.Add(this.NudSpeciesSelectorCountLastUsed);
-            this.GbSpecies.Location = new System.Drawing.Point(6, 299);
+            this.GbSpecies.Location = new System.Drawing.Point(6, 347);
             this.GbSpecies.Name = "GbSpecies";
             this.GbSpecies.Size = new System.Drawing.Size(317, 43);
             this.GbSpecies.TabIndex = 14;
@@ -1499,7 +1505,7 @@
             // groupBox26
             // 
             this.groupBox26.Controls.Add(this.cbAdminConsoleCommandWithCheat);
-            this.groupBox26.Location = new System.Drawing.Point(6, 564);
+            this.groupBox26.Location = new System.Drawing.Point(6, 512);
             this.groupBox26.Name = "groupBox26";
             this.groupBox26.Size = new System.Drawing.Size(317, 43);
             this.groupBox26.TabIndex = 13;
@@ -1526,7 +1532,7 @@
             this.groupBox25.Controls.Add(this.label33);
             this.groupBox25.Controls.Add(this.label32);
             this.groupBox25.Controls.Add(this.tbDefaultFontName);
-            this.groupBox25.Location = new System.Drawing.Point(329, 279);
+            this.groupBox25.Location = new System.Drawing.Point(329, 333);
             this.groupBox25.Name = "groupBox25";
             this.groupBox25.Size = new System.Drawing.Size(413, 100);
             this.groupBox25.TabIndex = 12;
@@ -1632,9 +1638,9 @@
             this.groupBox24.Controls.Add(this.cbKeepExpiredTimersInOverlay);
             this.groupBox24.Controls.Add(this.cbDeleteExpiredTimersOnSaving);
             this.groupBox24.Controls.Add(this.cbTimersInOverlayAutomatically);
-            this.groupBox24.Location = new System.Drawing.Point(6, 464);
+            this.groupBox24.Location = new System.Drawing.Point(329, 233);
             this.groupBox24.Name = "groupBox24";
-            this.groupBox24.Size = new System.Drawing.Size(317, 94);
+            this.groupBox24.Size = new System.Drawing.Size(413, 94);
             this.groupBox24.TabIndex = 11;
             this.groupBox24.TabStop = false;
             this.groupBox24.Text = "Timers";
@@ -1672,7 +1678,7 @@
             // groupBox20
             // 
             this.groupBox20.Controls.Add(this.cbPrettifyJSON);
-            this.groupBox20.Location = new System.Drawing.Point(329, 233);
+            this.groupBox20.Location = new System.Drawing.Point(329, 439);
             this.groupBox20.Name = "groupBox20";
             this.groupBox20.Size = new System.Drawing.Size(413, 40);
             this.groupBox20.TabIndex = 10;
@@ -1692,7 +1698,7 @@
             // groupBox17
             // 
             this.groupBox17.Controls.Add(this.cbbLanguage);
-            this.groupBox17.Location = new System.Drawing.Point(6, 613);
+            this.groupBox17.Location = new System.Drawing.Point(6, 561);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(317, 51);
             this.groupBox17.TabIndex = 9;
@@ -1711,7 +1717,7 @@
             // groupBox16
             // 
             this.groupBox16.Controls.Add(this.cbDevTools);
-            this.groupBox16.Location = new System.Drawing.Point(329, 627);
+            this.groupBox16.Location = new System.Drawing.Point(329, 485);
             this.groupBox16.Name = "groupBox16";
             this.groupBox16.Size = new System.Drawing.Size(413, 43);
             this.groupBox16.TabIndex = 8;
@@ -1734,7 +1740,7 @@
             this.groupBox9.Controls.Add(this.cbLibraryHighlightTopCreatures);
             this.groupBox9.Controls.Add(this.cbApplyGlobalSpeciesToLibrary);
             this.groupBox9.Controls.Add(this.cbCreatureColorsLibrary);
-            this.groupBox9.Location = new System.Drawing.Point(6, 348);
+            this.groupBox9.Location = new System.Drawing.Point(6, 396);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(317, 110);
             this.groupBox9.TabIndex = 7;
@@ -1801,9 +1807,9 @@
             this.groupBox10.Controls.Add(this.label21);
             this.groupBox10.Controls.Add(this.nudOverlayInfoDuration);
             this.groupBox10.Controls.Add(this.chkbSpeechRecognition);
-            this.groupBox10.Location = new System.Drawing.Point(329, 385);
+            this.groupBox10.Location = new System.Drawing.Point(8, 6);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(413, 236);
+            this.groupBox10.Size = new System.Drawing.Size(734, 243);
             this.groupBox10.TabIndex = 6;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Overlay";
@@ -2129,7 +2135,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -2137,7 +2143,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -2145,7 +2151,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -2153,7 +2159,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -2647,6 +2653,16 @@
             this.groupBox21.TabStop = false;
             this.groupBox21.Text = "Auto naming on import";
             // 
+            // CbApplyNamingPatternOnImportAlways
+            // 
+            this.CbApplyNamingPatternOnImportAlways.AutoSize = true;
+            this.CbApplyNamingPatternOnImportAlways.Location = new System.Drawing.Point(6, 39);
+            this.CbApplyNamingPatternOnImportAlways.Name = "CbApplyNamingPatternOnImportAlways";
+            this.CbApplyNamingPatternOnImportAlways.Size = new System.Drawing.Size(177, 17);
+            this.CbApplyNamingPatternOnImportAlways.TabIndex = 13;
+            this.CbApplyNamingPatternOnImportAlways.Text = "always (overwrite existing name)";
+            this.CbApplyNamingPatternOnImportAlways.UseVisualStyleBackColor = true;
+            // 
             // cbApplyNamePatternOnImportOnNewCreatures
             // 
             this.cbApplyNamePatternOnImportOnNewCreatures.AutoSize = true;
@@ -2973,15 +2989,36 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // CbApplyNamingPatternOnImportAlways
+            // tabPageOverlay
             // 
-            this.CbApplyNamingPatternOnImportAlways.AutoSize = true;
-            this.CbApplyNamingPatternOnImportAlways.Location = new System.Drawing.Point(6, 39);
-            this.CbApplyNamingPatternOnImportAlways.Name = "CbApplyNamingPatternOnImportAlways";
-            this.CbApplyNamingPatternOnImportAlways.Size = new System.Drawing.Size(177, 17);
-            this.CbApplyNamingPatternOnImportAlways.TabIndex = 13;
-            this.CbApplyNamingPatternOnImportAlways.Text = "always (overwrite existing name)";
-            this.CbApplyNamingPatternOnImportAlways.UseVisualStyleBackColor = true;
+            this.tabPageOverlay.Controls.Add(this.groupBox10);
+            this.tabPageOverlay.Location = new System.Drawing.Point(4, 22);
+            this.tabPageOverlay.Name = "tabPageOverlay";
+            this.tabPageOverlay.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageOverlay.Size = new System.Drawing.Size(750, 676);
+            this.tabPageOverlay.TabIndex = 5;
+            this.tabPageOverlay.Text = "Overlay";
+            this.tabPageOverlay.UseVisualStyleBackColor = true;
+            // 
+            // CbHighlightLevel255
+            // 
+            this.CbHighlightLevel255.AutoSize = true;
+            this.CbHighlightLevel255.Location = new System.Drawing.Point(6, 91);
+            this.CbHighlightLevel255.Name = "CbHighlightLevel255";
+            this.CbHighlightLevel255.Size = new System.Drawing.Size(159, 17);
+            this.CbHighlightLevel255.TabIndex = 6;
+            this.CbHighlightLevel255.Text = "Highlight Level 254 and 255";
+            this.CbHighlightLevel255.UseVisualStyleBackColor = true;
+            // 
+            // CbHighlightLevelEvenOdd
+            // 
+            this.CbHighlightLevelEvenOdd.AutoSize = true;
+            this.CbHighlightLevelEvenOdd.Location = new System.Drawing.Point(6, 114);
+            this.CbHighlightLevelEvenOdd.Name = "CbHighlightLevelEvenOdd";
+            this.CbHighlightLevelEvenOdd.Size = new System.Drawing.Size(156, 17);
+            this.CbHighlightLevelEvenOdd.TabIndex = 7;
+            this.CbHighlightLevelEvenOdd.Text = "Highlight  even / odd levels";
+            this.CbHighlightLevelEvenOdd.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -3106,6 +3143,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.tabPageOverlay.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -3328,5 +3366,8 @@
         private uiControls.Nud nudInfoGraphicWidth;
         private System.Windows.Forms.Label LbInfoGraphicSize;
         private System.Windows.Forms.CheckBox CbApplyNamingPatternOnImportAlways;
+        private System.Windows.Forms.CheckBox CbHighlightLevelEvenOdd;
+        private System.Windows.Forms.CheckBox CbHighlightLevel255;
+        private System.Windows.Forms.TabPage tabPageOverlay;
     }
 }

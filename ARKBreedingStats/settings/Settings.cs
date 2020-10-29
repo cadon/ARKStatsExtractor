@@ -256,6 +256,8 @@ namespace ARKBreedingStats.settings
             cbInventoryCheck.Checked = Properties.Settings.Default.inventoryCheckTimer;
             cbAllowMoreThanHundredImprinting.Checked = cc.allowMoreThanHundredImprinting;
             nudInfoGraphicWidth.ValueSave = Properties.Settings.Default.InfoGraphicWidth;
+            CbHighlightLevel255.Checked = Properties.Settings.Default.Highlight255Level;
+            CbHighlightLevelEvenOdd.Checked = Properties.Settings.Default.HighlightEvenOdd;
 
             #region library
             cbCreatureColorsLibrary.Checked = Properties.Settings.Default.showColorsInLibrary;
@@ -422,6 +424,8 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.inventoryCheckTimer = cbInventoryCheck.Checked;
             _cc.allowMoreThanHundredImprinting = cbAllowMoreThanHundredImprinting.Checked;
             Properties.Settings.Default.InfoGraphicWidth = (int)nudInfoGraphicWidth.Value;
+            Properties.Settings.Default.Highlight255Level = CbHighlightLevel255.Checked;
+            Properties.Settings.Default.HighlightEvenOdd = CbHighlightLevelEvenOdd.Checked;
 
             #region library
             Properties.Settings.Default.showColorsInLibrary = cbCreatureColorsLibrary.Checked;

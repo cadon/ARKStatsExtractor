@@ -85,6 +85,127 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
+        /// Adjusts the lightness of a color.
+        /// </summary>
+        /// <param name="color"></param>
+        /// <param name="light"></param>
+        /// <returns></returns>
+        public static Color AdjustColorLight(Color color, double light = 0)
+        {
+            if (light == 0) return color;
+
+            if (light > 1) { light = 1; }
+            if (light < -1) { light = -1; }
+            byte r = color.R;
+            byte g = color.G;
+            byte b = color.B;
+
+            if (light > 0)
+            {
+                r = (byte)((255 - r) * light + r);
+                g = (byte)((255 - g) * light + g);
+                b = (byte)((255 - b) * light + b);
+            }
+            else
+            {
+                light += 1;
+                r = (byte)(r * light);
+                g = (byte)(g * light);
+                b = (byte)(b * light);
+            }
+            return Color.FromArgb(r, g, b);
+        }
+
+        /// <summary>
+        /// Returns a color from a hue value.
+        /// </summary>
+        /// <param name="hue">red: 0, green: 120, blue: 240</param>
+        /// <param name="light">-1 very dark, 0 default, 1 very bright</param>
+        /// <returns></returns>
+        public static Color ColorFromHue(int hue, double light = 0)
+        {
+            hue %= 360;
+            if (hue < 0) hue += 360;
+            // there are six sections, 0-120, 120-240, 240-360
+            // in each section one channel is either ascending, descending, max or 0
+            byte sectionPos = (byte)(hue % 60);
+            byte asc = (byte)(sectionPos * 4.25); // == sectionPos * 255 / 60;
+            byte desc = (byte)(255 - asc);
+            const byte zero = 0;
+            const byte max = 255;
+
+            byte r, g, b;
+
+            if (hue < 60)
+            {
+                r = max;
+                g = asc;
+                b = zero;
+            }
+            else if (hue < 120)
+            {
+                r = desc;
+                g = max;
+                b = zero;
+            }
+            else if (hue < 180)
+            {
+                r = zero;
+                g = max;
+                b = asc;
+            }
+            else if (hue < 240)
+            {
+                r = zero;
+                g = desc;
+                b = max;
+            }
+            else if (hue < 300)
+            {
+                r = asc;
+                g = zero;
+                b = max;
+            }
+            else
+            {
+                r = max;
+                g = zero;
+                b = desc;
+            }
+
+            if (light != 0)
+            {
+                if (light > 1) { light = 1; }
+                if (light < -1) { light = -1; }
+
+                if (light > 0)
+                {
+                    r = (byte)((255 - r) * light + r);
+                    g = (byte)((255 - g) * light + g);
+                    b = (byte)((255 - b) * light + b);
+                }
+                else
+                {
+                    light += 1;
+                    r = (byte)(r * light);
+                    g = (byte)(g * light);
+                    b = (byte)(b * light);
+                }
+            }
+            return Color.FromArgb(r, g, b);
+        }
+
+        /// <summary>
+        /// Used for highlighting critical levels. Level 254 is the highest level that allows dom leveling.
+        /// </summary>
+        public static Color Level254 => Color.FromArgb(0, 196, 255);
+
+        /// <summary>
+        /// Used for highlighting critical levels. Level 255 is the highest level that can be saved.
+        /// </summary>
+        public static Color Level255 => Color.FromArgb(255, 0, 159);
+
+        /// <summary>
         /// Color that represents a mutation.
         /// </summary>
         public static Color MutationColor => Color.FromArgb(225, 192, 255);

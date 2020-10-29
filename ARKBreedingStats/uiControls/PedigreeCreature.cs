@@ -1,12 +1,12 @@
-﻿using ARKBreedingStats.Library;
-using ARKBreedingStats.species;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using ARKBreedingStats.Library;
+using ARKBreedingStats.species;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.uiControls
 {
     public partial class PedigreeCreature : UserControl
     {
@@ -51,7 +51,7 @@ namespace ARKBreedingStats
         /// </summary>
         public bool TotalLevelUnknown { get; set; } = false;
 
-        public static int[] displayedStats = new int[] {
+        public static readonly int[] DisplayedStats = new[] {
                                                         (int)StatNames.Health,
                                                         (int)StatNames.Stamina,
                                                         (int)StatNames.Oxygen,
@@ -61,7 +61,7 @@ namespace ARKBreedingStats
                                                         (int)StatNames.SpeedMultiplier,
                                                         (int)StatNames.CraftingSpeedMultiplier
                                                         };
-        public static int displayedStatsCount = displayedStats.Length;
+        public static readonly int DisplayedStatsCount = DisplayedStats.Length;
 
         public PedigreeCreature()
         {
@@ -92,10 +92,10 @@ namespace ARKBreedingStats
         /// </summary>
         public void SetCustomStatNames(Dictionary<string, string> customStatNames = null)
         {
-            for (int s = 0; s < displayedStatsCount; s++)
+            for (int s = 0; s < DisplayedStatsCount; s++)
             {
-                _labels[s].Text = Utils.StatName(displayedStats[s], true, customStatNames);
-                _tt.SetToolTip(_labels[s], Utils.StatName(displayedStats[s], customStatNames: customStatNames));
+                _labels[s].Text = Utils.StatName(DisplayedStats[s], true, customStatNames);
+                _tt.SetToolTip(_labels[s], Utils.StatName(DisplayedStats[s], customStatNames: customStatNames));
             }
 
             labelMutations.Visible = true;
@@ -143,9 +143,9 @@ namespace ARKBreedingStats
                 }
 
                 _tt.SetToolTip(labelSex, "Sex: " + Loc.S(_creature.sex.ToString()));
-                for (int s = 0; s < displayedStatsCount; s++)
+                for (int s = 0; s < DisplayedStatsCount; s++)
                 {
-                    int si = displayedStats[s];
+                    int si = DisplayedStats[s];
                     if (_creature.valuesBreeding[si] == 0)
                     {
                         // stat not used // TODO hide label?
@@ -170,7 +170,14 @@ namespace ARKBreedingStats
                     else
                     {
                         _labels[s].Text = _creature.levelsWild[si].ToString();
-                        _labels[s].BackColor = Utils.GetColorFromPercent((int)(_creature.levelsWild[si] * 2.5), _creature.topBreedingStats[si] ? 0.2 : 0.7);
+                        if (Properties.Settings.Default.Highlight255Level && _creature.levelsWild[si] > 253) // 255 is max, 254 is the highest that allows dom leveling
+                            _labels[s].BackColor = Utils.AdjustColorLight(_creature.levelsWild[si] == 254 ? Utils.Level254 : Utils.Level255, _creature.topBreedingStats[si] ? 0.2 : 0.7);
+                        else if (Properties.Settings.Default.HighlightEvenOdd)
+                        {
+                            _labels[s].BackColor = Utils.ColorFromHue((_creature.levelsWild[si] % 2 == 0 ? 120 : 240) + Math.Min((int)(_creature.levelsWild[si]), 48), _creature.topBreedingStats[si] ? 0.4 : 0.7);
+                        }
+                        else
+                            _labels[s].BackColor = Utils.GetColorFromPercent((int)(_creature.levelsWild[si] * 2.5), _creature.topBreedingStats[si] ? 0.2 : 0.7);
                         _labels[s].ForeColor = Parent?.ForeColor ?? Color.Black; // needed so text is not transparent on overlay
                         _tt.SetToolTip(_labels[s], Utils.StatName(si, false, _creature.Species?.statNames) + ": " + _creature.valuesBreeding[si] * (Utils.Precision(si) == 3 ? 100 : 1) + (Utils.Precision(si) == 3 ? "%" : string.Empty));
                     }
@@ -257,7 +264,7 @@ namespace ARKBreedingStats
 
         public void Clear()
         {
-            for (int s = 0; s < displayedStatsCount; s++)
+            for (int s = 0; s < DisplayedStatsCount; s++)
             {
                 _labels[s].Text = string.Empty;
                 _labels[s].BackColor = SystemColors.Control;
