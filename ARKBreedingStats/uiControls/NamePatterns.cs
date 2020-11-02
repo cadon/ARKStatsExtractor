@@ -204,6 +204,9 @@ namespace ARKBreedingStats.uiControls
                             }
                         }
                         return ParametersInvalid($"The expression for expr invalid: \"{p1}\"");
+                    case "len":
+                        // returns the length of the parameter
+                        return p1.Length.ToString();
                     case "substring":
                         // check param number: 1: substring, 2: p1, 3: pos, 4: length
 
