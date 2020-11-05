@@ -48,14 +48,14 @@ namespace ARKBreedingStats
         public readonly StatWeighting statWeighting;
         public bool breedingPlanNeedsUpdate;
         private bool _speciesInfoNeedsUpdate;
-        private Debouncer _breedingPlanDebouncer = new Debouncer();
+        private readonly Debouncer _breedingPlanDebouncer = new Debouncer();
 
         /// <summary>
         /// Set to false if settings are changed and update should only performed after that.
         /// </summary>
         private bool _updateBreedingPlanAllowed;
         public CreatureCollection CreatureCollection;
-        private readonly ToolTip _tt = new ToolTip();
+        private readonly ToolTip _tt = new ToolTip() { AutoPopDelay = 10000 };
 
         #region inheritance probabilities
         public const double ProbabilityHigherLevel = 0.55; // probability of inheriting the higher level-stat
