@@ -15,12 +15,11 @@
 			"mod": { "id": "1092784125", "tag": "Gryphons", "title": "Gryphons" }
 		},
 		"111111111-PrimitivePlus.json": {
-			"version": "306.83.4740398",
-			"format": "1.12",
+			"version": "315.2.5726315",
 			"mod": { "id": "111111111", "tag": "PrimitivePlus", "title": "PrimitivePlus" }
 		},
 		"1125442531-Gaia.json": {
-			"version": "313.11.1599577428",
+			"version": "313.57.1601816964",
 			"mod": { "id": "1125442531", "tag": "Gaia", "title": "Gaia" }
 		},
 		"1136390783-PhoenixBreeding.json": {
@@ -55,7 +54,7 @@
 			"mod": { "id": "1356703358", "tag": "Primal_Fear_Noxious_Creatures", "title": "Primal Fear Noxious Creatures" }
 		},
 		"1373744537-AC2.json": {
-			"version": "312.57.1595533011",
+			"version": "315.9.1604273359",
 			"mod": { "id": "1373744537", "tag": "AC2", "title": "Additional Creatures 2: Wild Ark" }
 		},
 		"1420423699-ARKaeologyDinos.json": {
@@ -78,11 +77,11 @@
 			"mod": { "id": "1498206270", "tag": "SmallDragon", "title": "Small Dragons!" }
 		},
 		"1522327484-Additions_Pack.json": {
-			"version": "311.98.1592356709",
+			"version": "313.57.1601942670",
 			"mod": { "id": "1522327484", "tag": "Additions_Pack", "title": "ARK Additions!" }
 		},
 		"1523045986-Paranoia.json": {
-			"version": "312.57.1595963523",
+			"version": "314.13.1603392444",
 			"mod": { "id": "1523045986", "tag": "Paranoia", "title": "Additional Creatures 2: Paranoia!" }
 		},
 		"1565015734-BetterDinosTest.json": {
@@ -99,8 +98,7 @@
 			"mod": { "id": "1587391872", "tag": "FasterFlyers", "title": "Faster Flyers By EddyChomps" }
 		},
 		"1590726079-AutoHarvestAnky.json": {
-			"version": "309.53.1545529811",
-			"format": "1.12",
+			"version": "313.55.1601422507",
 			"mod": { "id": "1590726079", "tag": "AutoHarvestAnky", "title": "Auto Harvest Anky" }
 		},
 		"1606708617-MysteriousMysteries.json": {
@@ -114,7 +112,7 @@
 			"mod": { "id": "1633860796", "tag": "DE_Breedable_RockDrakes", "title": "Dark Edges Breedable Rock Drakes" }
 		},
 		"1652120435-AtlasPort.json": {
-			"version": "312.65.1596008041",
+			"version": "314.3.1602449980",
 			"mod": { "id": "1652120435", "tag": "AtlasPort", "title": "Shad's Atlas Imports" }
 		},
 		"1654255131-AtlasImports.json": {
@@ -127,7 +125,7 @@
 			"mod": { "id": "1662691167", "tag": "Senior", "title": "Additional Creatures: Senior Class" }
 		},
 		"1675895024-NoUntameables.json": {
-			"version": "312.40.1593933327",
+			"version": "314.13.1603130669",
 			"mod": { "id": "1675895024", "tag": "NoUntameables", "title": "No Untameables" }
 		},
 		"1676159020-Aquaria.json": {
@@ -157,7 +155,7 @@
 			"mod": { "id": "1734595558", "tag": "Pyria2", "title": "Pyria: The Second Chapter" }
 		},
 		"1768499278-BalancedJPE.json": {
-			"version": "312.40.1584234429",
+			"version": "315.9.1604273208",
 			"mod": { "id": "1768499278", "tag": "BalancedJPE", "title": "AC2: Balanced JPE" }
 		},
 		"1783616332-IceWyvernMating.json": {
@@ -193,11 +191,11 @@
 			"mod": { "id": "1934081600", "tag": "SoloFarmAnky", "title": "Solo Farm Mod" }
 		},
 		"1984129536-MTSMod.json": {
-			"version": "313.11.1599499408",
+			"version": "315.9.1604071552",
 			"mod": { "id": "1984129536", "tag": "MTSMod", "title": "MTS.co.uk Community Mod" }
 		},
 		"1984936918-MarniiModsWildlife.json": {
-			"version": "312.72.1597518499",
+			"version": "314.3.1602354582",
 			"mod": { "id": "1984936918", "tag": "MarniiModsWildlife", "title": "MarniiMods:Wildlife" }
 		},
 		"2000326197-ExtraResources.json": {
@@ -222,11 +220,11 @@
 			"mod": { "id": "814833973", "tag": "Wyvern_Mating", "title": "Wyvern Mating" }
 		},
 		"839162288-Primal_Fear.json": {
-			"version": "313.23.1600286520",
+			"version": "314.3.1602182813",
 			"mod": { "id": "839162288", "tag": "Primal_Fear", "title": "Primal Fear" }
 		},
 		"893735676-AE.json": {
-			"version": "312.84.1598012083",
+			"version": "315.9.1604487980",
 			"mod": { "id": "893735676", "tag": "AE", "title": "ARK: Eternal" }
 		},
 		"895711211-ClassicFlyers.json": {
@@ -253,7 +251,7 @@
 			"mod": { "id": "CrystalIsles", "tag": "CrystalIsles", "title": "CrystalIsles" }
 		},
 		"values.json": {
-			"version": "313.11.5506614"
+			"version": "315.2.5726315"
 		}
 	}
 }
