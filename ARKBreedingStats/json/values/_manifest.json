@@ -2,7 +2,7 @@
 	"format": "1.13",
 	"files": {
 		"1083349027-SpeedyFlyers.json": {
-			"version": "312.65.1593091330",
+			"version": "316.18.1593091330",
 			"mod": { "id": "1083349027", "tag": "SpeedyFlyers", "title": "Najs Speedy Flyers" }
 		},
 		"1090809604-Pyria.json": {
@@ -15,11 +15,11 @@
 			"mod": { "id": "1092784125", "tag": "Gryphons", "title": "Gryphons" }
 		},
 		"111111111-PrimitivePlus.json": {
-			"version": "315.2.5726315",
+			"version": "316.18.5797625",
 			"mod": { "id": "111111111", "tag": "PrimitivePlus", "title": "PrimitivePlus" }
 		},
 		"1125442531-Gaia.json": {
-			"version": "313.57.1601816964",
+			"version": "316.18.1602616393",
 			"mod": { "id": "1125442531", "tag": "Gaia", "title": "Gaia" }
 		},
 		"1136390783-PhoenixBreeding.json": {
@@ -42,19 +42,19 @@
 			"mod": { "id": "1270132511", "tag": "GiantGlowpets", "title": "Rideable Glowpets" }
 		},
 		"1270181453-AdditionalAberrantDinos.json": {
-			"version": "312.65.1596568719",
+			"version": "316.18.1598007954",
 			"mod": { "id": "1270181453", "tag": "AdditionalAberrantDinos", "title": "Additional Aberrant Dinos" }
 		},
 		"1300713111-RareSightings.json": {
-			"version": "312.65.1555557079.1",
+			"version": "316.18.1555557079",
 			"mod": { "id": "1300713111", "tag": "RareSightings", "title": "Rare Sightings" }
 		},
 		"1356703358-Primal_Fear_Noxious_Creatures.json": {
-			"version": "312.65.1541166845",
+			"version": "316.18.1598470602",
 			"mod": { "id": "1356703358", "tag": "Primal_Fear_Noxious_Creatures", "title": "Primal Fear Noxious Creatures" }
 		},
 		"1373744537-AC2.json": {
-			"version": "315.9.1604273359",
+			"version": "316.18.1604273359",
 			"mod": { "id": "1373744537", "tag": "AC2", "title": "Additional Creatures 2: Wild Ark" }
 		},
 		"1420423699-ARKaeologyDinos.json": {
@@ -68,7 +68,7 @@
 			"mod": { "id": "1445395055", "tag": "Indominus", "title": "ARK Additions: Indominus Rex!" }
 		},
 		"1449927867-Phoenix.json": {
-			"version": "312.57.1590347154",
+			"version": "316.18.1604247442",
 			"mod": { "id": "1449927867", "tag": "Phoenix", "title": "Phoenix: Reborn From the Ashes" }
 		},
 		"1498206270-SmallDragon.json": {
@@ -81,15 +81,15 @@
 			"mod": { "id": "1522327484", "tag": "Additions_Pack", "title": "ARK Additions!" }
 		},
 		"1523045986-Paranoia.json": {
-			"version": "314.13.1603392444",
+			"version": "316.18.1603392444",
 			"mod": { "id": "1523045986", "tag": "Paranoia", "title": "Additional Creatures 2: Paranoia!" }
 		},
 		"1565015734-BetterDinosTest.json": {
-			"version": "312.84.1597970080",
+			"version": "316.18.1600722880",
 			"mod": { "id": "1565015734", "tag": "BetterDinosTest", "title": "Better Dinos" }
 		},
 		"1576299694-ElementalDinos.json": {
-			"version": "312.84.1598278077",
+			"version": "316.18.1604148004",
 			"mod": { "id": "1576299694", "tag": "ElementalDinos", "title": "Elemental Ark" }
 		},
 		"1587391872-FasterFlyers.json": {
@@ -133,7 +133,7 @@
 			"mod": { "id": "1676159020", "tag": "Aquaria", "title": "Additional Creatures: Aquaria" }
 		},
 		"1681125667-Primal_Fear_EX.json": {
-			"version": "312.65.1561175829",
+			"version": "316.18.1561175829",
 			"mod": { "id": "1681125667", "tag": "Primal_Fear_EX", "title": "Primal Fear Extinction Expansion" }
 		},
 		"1696957410-MarniimodsTest.json": {
@@ -151,16 +151,15 @@
 			"mod": { "id": "1729512589", "tag": "Brachiosaurus", "title": "ARK Additions: Brachiosaurus!" }
 		},
 		"1734595558-Pyria2.json": {
-			"version": "313.11.1599351934",
+			"version": "316.18.1599351934",
 			"mod": { "id": "1734595558", "tag": "Pyria2", "title": "Pyria: The Second Chapter" }
 		},
 		"1768499278-BalancedJPE.json": {
-			"version": "315.9.1604273208",
+			"version": "316.18.1604273208",
 			"mod": { "id": "1768499278", "tag": "BalancedJPE", "title": "AC2: Balanced JPE" }
 		},
 		"1783616332-IceWyvernMating.json": {
-			"version": "307.4.1561791527",
-			"format": "1.12",
+			"version": "316.18.1561791527",
 			"mod": { "id": "1783616332", "tag": "IceWyvernMating", "title": "Ice Wyvern Mating" }
 		},
 		"1787443195-ChasmAdditionalDinos.json": {
@@ -191,7 +190,7 @@
 			"mod": { "id": "1934081600", "tag": "SoloFarmAnky", "title": "Solo Farm Mod" }
 		},
 		"1984129536-MTSMod.json": {
-			"version": "315.9.1604071552",
+			"version": "316.18.1604292530",
 			"mod": { "id": "1984129536", "tag": "MTSMod", "title": "MTS.co.uk Community Mod" }
 		},
 		"1984936918-MarniiModsWildlife.json": {
@@ -199,7 +198,7 @@
 			"mod": { "id": "1984936918", "tag": "MarniiModsWildlife", "title": "MarniiMods:Wildlife" }
 		},
 		"2000326197-ExtraResources.json": {
-			"version": "310.90.1589585703",
+			"version": "316.18.1589585703",
 			"mod": { "id": "2000326197", "tag": "ExtraResources", "title": "Event Assets" }
 		},
 		"2034355411-Roya.json": {
@@ -207,7 +206,7 @@
 			"mod": { "id": "2034355411", "tag": "Roya", "title": "Additional Creatures: Roya Creations" }
 		},
 		"2135314513-CI_Dinos.json": {
-			"version": "313.7.1599153423",
+			"version": "316.18.1599153423",
 			"mod": { "id": "2135314513", "tag": "CI_Dinos", "title": "Crystal Isles Dino Addition" }
 		},
 		"729352919-IndomRex.json": {
@@ -215,16 +214,15 @@
 			"mod": { "id": "729352919", "tag": "IndomRex", "title": "Indom Rex Nemesis" }
 		},
 		"814833973-Wyvern_Mating.json": {
-			"version": "309.53.1482240799",
-			"format": "1.12",
+			"version": "316.18.1482240799",
 			"mod": { "id": "814833973", "tag": "Wyvern_Mating", "title": "Wyvern Mating" }
 		},
 		"839162288-Primal_Fear.json": {
-			"version": "314.3.1602182813",
+			"version": "316.18.1602542052",
 			"mod": { "id": "839162288", "tag": "Primal_Fear", "title": "Primal Fear" }
 		},
 		"893735676-AE.json": {
-			"version": "315.9.1604487980",
+			"version": "316.18.1604487980",
 			"mod": { "id": "893735676", "tag": "AE", "title": "ARK: Eternal" }
 		},
 		"895711211-ClassicFlyers.json": {
@@ -233,12 +231,11 @@
 			"mod": { "id": "895711211", "tag": "ClassicFlyers", "title": "Classic Flyers" }
 		},
 		"899987403-Primal_Fear_Bosses.json": {
-			"version": "312.40.1570545692",
+			"version": "316.18.1570545692",
 			"mod": { "id": "899987403", "tag": "Primal_Fear_Bosses", "title": "Primal Fear Bosses" }
 		},
 		"909297874-NorwegianVikings.json": {
-			"version": "306.83.1582885862",
-			"format": "1.12",
+			"version": "316.18.1582885862",
 			"mod": { "id": "909297874", "tag": "NorwegianVikings", "title": "Norwegian Vikings" }
 		},
 		"919470289-SSFlyer.json": {
@@ -251,7 +248,7 @@
 			"mod": { "id": "CrystalIsles", "tag": "CrystalIsles", "title": "CrystalIsles" }
 		},
 		"values.json": {
-			"version": "315.2.5726315"
+			"version": "316.18.5797625"
 		}
 	}
 }

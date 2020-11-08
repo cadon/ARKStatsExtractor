@@ -1,5 +1,5 @@
 {
-	"version": "315.2.5726315",
+	"version": "316.18.5797625",
 	"format": "1.13",
 	"species": [
 		{
@@ -3655,6 +3655,15 @@
 				null
 			],
 			"immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 8999.28006,
+				"eggTempMin": 18,
+				"eggTempMax": 22,
+				"maturationTime": 185185.185,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [],
 			"taming": {
 				"nonViolent": false,
@@ -4307,11 +4316,11 @@
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Wyvern/Wyvern_Character_BP_Fire_Corrupt.Wyvern_Character_BP_Fire_Corrupt",
 			"variants": [ "Corrupted", "Extinction" ],
 			"fullStatsRaw": [
-				[ 1725, 0.15, 0.2025, -1050, 0 ],
-				[ 275, 0.05, 0.05, 0, 0 ],
+				[ 1295, 0.15, 0.2025, -785, 0 ],
+				[ 315, 0.05, 0.05, 0, 0 ],
 				[ 725, 0.06, 0, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 2000, 0.1, 0.1, 0, 0 ],
+				[ 1800, 0.1, 0.1, 0, 0 ],
 				null,
 				null,
 				[ 400, 0.02, 0.04, 0, 0 ],
@@ -4601,11 +4610,11 @@
 			"blueprintPath": "/Game/Extinction/Dinos/ForestKaiju/Minion/Wyvern_Character_BP_Fire_Minion.Wyvern_Character_BP_Fire_Minion",
 			"variants": [ "Extinction", "Minion" ],
 			"fullStatsRaw": [
-				[ 1725, 0.15, 0.2025, -1050, 0 ],
-				[ 275, 0.05, 0.05, 0, 0 ],
+				[ 1295, 0.15, 0.2025, -785, 0 ],
+				[ 315, 0.05, 0.05, 0, 0 ],
 				[ 725, 0.06, 0, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 2000, 0.1, 0.1, 0, 0 ],
+				[ 1800, 0.1, 0.1, 0, 0 ],
 				null,
 				null,
 				[ 400, 0.02, 0.04, 0, 0 ],
@@ -7838,7 +7847,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 333333.333,
+				"maturationTime": 256410.256,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -9022,7 +9031,7 @@
 				"incubationTime": 179985.601,
 				"eggTempMin": 43,
 				"eggTempMax": 44,
-				"maturationTime": 1010101.01,
+				"maturationTime": 878348.704,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -11353,7 +11362,7 @@
 				null,
 				null
 			],
-			"immobilizedBy": [ "Bola", "Bear Trap", "Large Bear Trap", "Plant Species Y" ],
+			"immobilizedBy": [ "Chain Bola", "Bear Trap", "Large Bear Trap", "Plant Species Y" ],
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 7199.42405,
@@ -13477,7 +13486,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 333333.333,
+				"maturationTime": 256410.256,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -14492,6 +14501,15 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 7199.42405,
+				"eggTempMin": 12,
+				"eggTempMax": 16,
+				"maturationTime": 133333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Unknown",
@@ -15874,76 +15892,102 @@
 			},
 			"colors": [
 				{
-					"name": "Unknown",
+					"name": "Main Body",
 					"colors": [
-						"Black",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
 						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
 						"Dino Albino",
-						"Dino Dark Blue",
 						"Dino Dark Brown",
-						"Dino Dark Orange",
-						"Dino Dark Red",
-						"Dino Dark Yellow",
 						"Dino Darker Grey",
-						"Dino Light Blue",
 						"Dino Light Brown",
-						"Dino Light Orange",
-						"Dino Light Yellow",
 						"Dino Medium Brown",
-						"Light Grey"
+						"Light Grey",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Highlights",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
+						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Tusks",
+					"colors": [
+						"BigFoot0",
+						"BigFoot5",
+						"Dino Light Brown",
+						"LightWarmGray",
+						"WolfFur"
 					]
 				},
 				null,
 				{
-					"name": "Unknown",
+					"name": "Highlights",
 					"colors": [
-						"Black",
-						"Dino Light Blue",
-						"Dino Light Brown",
-						"Dino Light Yellow",
-						"Dino Medium Brown",
-						"Light Grey"
-					]
-				},
-				null,
-				{
-					"name": "Unknown",
-					"colors": [
-						"Black",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
 						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
 						"Dino Albino",
-						"Dino Dark Blue",
 						"Dino Dark Brown",
-						"Dino Dark Orange",
-						"Dino Dark Red",
-						"Dino Dark Yellow",
 						"Dino Darker Grey",
-						"Dino Light Blue",
 						"Dino Light Brown",
-						"Dino Light Orange",
-						"Dino Light Yellow",
 						"Dino Medium Brown",
-						"Light Grey"
+						"Light Grey",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"WolfFur"
 					]
 				},
 				{
-					"name": "Unknown",
+					"name": "Highlights",
 					"colors": [
-						"Black",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
 						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
 						"Dino Albino",
-						"Dino Dark Blue",
 						"Dino Dark Brown",
-						"Dino Dark Orange",
-						"Dino Dark Red",
-						"Dino Dark Yellow",
 						"Dino Darker Grey",
-						"Dino Light Blue",
 						"Dino Light Brown",
-						"Dino Light Orange",
-						"Dino Light Yellow",
 						"Dino Medium Brown",
-						"Light Grey"
+						"Light Grey",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"WolfFur"
 					]
 				}
 			],
@@ -16987,7 +17031,7 @@
 				null,
 				null
 			],
-			"immobilizedBy": [ "Bola", "Bear Trap", "Large Bear Trap", "Plant Species Y" ],
+			"immobilizedBy": [ "Chain Bola", "Bear Trap", "Large Bear Trap", "Plant Species Y" ],
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 7199.42405,
@@ -19100,6 +19144,15 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Bear Trap", "Plant Species Y" ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 9999.20006,
+				"eggTempMin": 35,
+				"eggTempMax": 38,
+				"maturationTime": 196078.431,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Main color",
@@ -19264,6 +19317,15 @@
 				"Large Bear Trap",
 				"Plant Species Y"
 			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5454.10913,
+				"eggTempMin": 35,
+				"eggTempMax": 38,
+				"maturationTime": 111111.111,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Facial Highlights",
@@ -19635,6 +19697,15 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5142.44575,
+				"eggTempMin": 4,
+				"eggTempMax": 12,
+				"maturationTime": 90090.0901,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Main color",
@@ -20430,7 +20501,7 @@
 				"incubationTime": 8999.28006,
 				"eggTempMin": 24,
 				"eggTempMax": 28,
-				"maturationTime": 1010101.01,
+				"maturationTime": 878348.704,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -21725,6 +21796,15 @@
 				null
 			],
 			"immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 8999.28006,
+				"eggTempMin": 18,
+				"eggTempMax": 22,
+				"maturationTime": 185185.185,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Main color",
@@ -22009,6 +22089,13 @@
 				null
 			],
 			"immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 14285.7143,
+				"incubationTime": 0,
+				"maturationTime": 101010.101,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Unknown",
@@ -22954,6 +23041,15 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 7199.42405,
+				"eggTempMin": 12,
+				"eggTempMax": 16,
+				"maturationTime": 133333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Main color",
@@ -24803,7 +24899,30 @@
 						"WolfFur"
 					]
 				},
-				null,
+				{
+					"name": "Unknown",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Black",
+						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Purple",
+						"Dino Medium Brown",
+						"Glacial",
+						"Light Grey",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				},
 				{
 					"name": "Unknown",
 					"colors": [
@@ -24941,7 +25060,30 @@
 						"WolfFur"
 					]
 				},
-				null,
+				{
+					"name": "Unknown",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Black",
+						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Purple",
+						"Dino Medium Brown",
+						"Glacial",
+						"Light Grey",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				},
 				{
 					"name": "Unknown",
 					"colors": [
@@ -25874,7 +26016,7 @@
 				null,
 				null
 			],
-			"immobilizedBy": [ "Bola", "Bear Trap", "Large Bear Trap", "Plant Species Y" ],
+			"immobilizedBy": [ "Chain Bola", "Bear Trap", "Large Bear Trap", "Plant Species Y" ],
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 7199.42405,
@@ -27319,6 +27461,15 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Large Bear Trap", "Plant Species Y" ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5142.44575,
+				"eggTempMin": 4,
+				"eggTempMax": 12,
+				"maturationTime": 90090.0901,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Unknown",
@@ -27444,7 +27595,7 @@
 				"incubationTime": 8999.28006,
 				"eggTempMin": 24,
 				"eggTempMax": 28,
-				"maturationTime": 1010101.01,
+				"maturationTime": 878348.704,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -28112,7 +28263,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 333333.333,
+				"maturationTime": 256410.256,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -29298,6 +29449,15 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 7199.42405,
+				"eggTempMin": 12,
+				"eggTempMax": 16,
+				"maturationTime": 133333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Unknown",
@@ -32880,6 +33040,15 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5142.44575,
+				"eggTempMin": 4,
+				"eggTempMax": 12,
+				"maturationTime": 90090.0901,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Unknown",
@@ -33967,7 +34136,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 333333.333,
+				"maturationTime": 256410.256,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -34033,7 +34202,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 333333.333,
+				"maturationTime": 256410.256,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -34197,7 +34366,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 333333.333,
+				"maturationTime": 256410.256,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -34763,6 +34932,15 @@
 				null
 			],
 			"immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 8999.28006,
+				"eggTempMin": 18,
+				"eggTempMax": 22,
+				"maturationTime": 185185.185,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Unknown",
@@ -35031,6 +35209,13 @@
 				null
 			],
 			"immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 14285.7143,
+				"incubationTime": 0,
+				"maturationTime": 101010.101,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Unknown",
@@ -35712,6 +35897,15 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 7199.42405,
+				"eggTempMin": 12,
+				"eggTempMax": 16,
+				"maturationTime": 133333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Unknown",
@@ -37040,7 +37234,7 @@
 				[ 450, 0.1, 0.1, 0, 0.15 ],
 				null,
 				null,
-				[ 55, 0.02, 0.04, 0, 0 ],
+				[ 120, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, 1, 0.4 ],
 				[ 1, 0, 0.01, 0.5, 0 ],
 				null,
@@ -38301,11 +38495,11 @@
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Dinos/Wyvern/Ice_Wyvern/Ragnarok_Wyvern_Override_Ice.Ragnarok_Wyvern_Override_Ice",
 			"variants": [ "Ragnarok" ],
 			"fullStatsRaw": [
-				[ 1725, 0.15, 0.2025, -1050, 0 ],
-				[ 275, 0.05, 0.05, 0, 0 ],
+				[ 1295, 0.15, 0.2025, -785, 0 ],
+				[ 315, 0.05, 0.05, 0, 0 ],
 				[ 725, 0.06, 0, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 2000, 0.1, 0.1, 0, 0 ],
+				[ 1800, 0.1, 0.1, 0, 0 ],
 				null,
 				null,
 				[ 400, 0.02, 0.04, 0, 0 ],
@@ -38399,11 +38593,11 @@
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Dinos/Wyvern/Ragnarok_Wyvern_Override.Ragnarok_Wyvern_Override",
 			"variants": [ "Ragnarok" ],
 			"fullStatsRaw": [
-				[ 1725, 0.15, 0.2025, -1050, 0 ],
-				[ 275, 0.05, 0.05, 0, 0 ],
+				[ 1295, 0.15, 0.2025, -785, 0 ],
+				[ 315, 0.05, 0.05, 0, 0 ],
 				[ 725, 0.06, 0, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 2000, 0.1, 0.1, 0, 0 ],
+				[ 1800, 0.1, 0.1, 0, 0 ],
 				null,
 				null,
 				[ 400, 0.02, 0.04, 0, 0 ],
@@ -40450,6 +40644,15 @@
 				null
 			],
 			"immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 8999.28006,
+				"eggTempMin": 18,
+				"eggTempMax": 22,
+				"maturationTime": 185185.185,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Segments",
@@ -40590,6 +40793,15 @@
 				null
 			],
 			"immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 8999.28006,
+				"eggTempMin": 18,
+				"eggTempMax": 22,
+				"maturationTime": 185185.185,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Unknown",
@@ -40728,7 +40940,7 @@
 				null,
 				null
 			],
-			"immobilizedBy": [ "Bola", "Bear Trap", "Large Bear Trap", "Plant Species Y" ],
+			"immobilizedBy": [ "Chain Bola", "Bear Trap", "Large Bear Trap", "Plant Species Y" ],
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 7199.42405,
@@ -40829,7 +41041,7 @@
 				null,
 				null
 			],
-			"immobilizedBy": [ "Bola", "Bear Trap", "Large Bear Trap", "Plant Species Y" ],
+			"immobilizedBy": [ "Chain Bola", "Bear Trap", "Large Bear Trap", "Plant Species Y" ],
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 7199.42405,
@@ -41004,6 +41216,13 @@
 				null
 			],
 			"immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 14285.7143,
+				"incubationTime": 0,
+				"maturationTime": 101010.101,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Main Body",
@@ -44818,7 +45037,7 @@
 			"name": "Diplocaulus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Diplocaulus/Diplocaulus_Character_BP.Diplocaulus_Character_BP",
 			"fullStatsRaw": [
-				[ 190, 0.2, 0.27, 0.5, 0 ],
+				[ 250, 0.2, 0.27, 0.5, 0 ],
 				[ 165, 0.1, 0.1, 0, 0 ],
 				[ 220, 0.06, 0, 0.5, 0 ],
 				[ 1050, 0.1, 0.1, 0, 0 ],
@@ -44932,7 +45151,7 @@
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Diplocaulus/Diplocaulus_Character_BP_Aberrant.Diplocaulus_Character_BP_Aberrant",
 			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
-				[ 190, 0.2, 0.27, 0.5, 0 ],
+				[ 250, 0.2, 0.27, 0.5, 0 ],
 				[ 165, 0.1, 0.1, 0, 0 ],
 				[ 220, 0.06, 0, 0.5, 0 ],
 				[ 1050, 0.1, 0.1, 0, 0 ],
@@ -48381,7 +48600,7 @@
 				"incubationTime": 8999.28006,
 				"eggTempMin": 24,
 				"eggTempMax": 28,
-				"maturationTime": 1010101.01,
+				"maturationTime": 878348.704,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -48542,7 +48761,7 @@
 				"incubationTime": 8999.28006,
 				"eggTempMin": 24,
 				"eggTempMax": 28,
-				"maturationTime": 1010101.01,
+				"maturationTime": 878348.704,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -48609,7 +48828,7 @@
 				"incubationTime": 179985.601,
 				"eggTempMin": 43,
 				"eggTempMax": 44,
-				"maturationTime": 1010101.01,
+				"maturationTime": 878348.704,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -48699,7 +48918,7 @@
 				"incubationTime": 179985.601,
 				"eggTempMin": 43,
 				"eggTempMax": 44,
-				"maturationTime": 1010101.01,
+				"maturationTime": 878348.704,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -50579,74 +50798,100 @@
 				{
 					"name": "Fur Main",
 					"colors": [
-						"Black",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
 						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
 						"Dino Albino",
-						"Dino Dark Blue",
 						"Dino Dark Brown",
-						"Dino Dark Orange",
-						"Dino Dark Red",
-						"Dino Dark Yellow",
 						"Dino Darker Grey",
-						"Dino Light Blue",
 						"Dino Light Brown",
-						"Dino Light Orange",
-						"Dino Light Yellow",
 						"Dino Medium Brown",
-						"Light Grey"
+						"Light Grey",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"WolfFur"
 					]
 				},
-				null,
+				{
+					"name": "Highlights",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
+						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"WolfFur"
+					]
+				},
 				{
 					"name": "Tusks and Toes",
 					"colors": [
-						"Black",
-						"Dino Light Blue",
+						"BigFoot0",
+						"BigFoot5",
 						"Dino Light Brown",
-						"Dino Light Yellow",
-						"Dino Medium Brown",
-						"Light Grey"
+						"LightWarmGray",
+						"WolfFur"
 					]
 				},
 				null,
 				{
 					"name": "Fur Accent",
 					"colors": [
-						"Black",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
 						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
 						"Dino Albino",
-						"Dino Dark Blue",
 						"Dino Dark Brown",
-						"Dino Dark Orange",
-						"Dino Dark Red",
-						"Dino Dark Yellow",
 						"Dino Darker Grey",
-						"Dino Light Blue",
 						"Dino Light Brown",
-						"Dino Light Orange",
-						"Dino Light Yellow",
 						"Dino Medium Brown",
-						"Light Grey"
+						"Light Grey",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"WolfFur"
 					]
 				},
 				{
 					"name": "Underside",
 					"colors": [
-						"Black",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
 						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
 						"Dino Albino",
-						"Dino Dark Blue",
 						"Dino Dark Brown",
-						"Dino Dark Orange",
-						"Dino Dark Red",
-						"Dino Dark Yellow",
 						"Dino Darker Grey",
-						"Dino Light Blue",
 						"Dino Light Brown",
-						"Dino Light Orange",
-						"Dino Light Yellow",
 						"Dino Medium Brown",
-						"Light Grey"
+						"Light Grey",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"WolfFur"
 					]
 				}
 			],
@@ -51133,7 +51378,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 333333.333,
+				"maturationTime": 256410.256,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -51189,7 +51434,7 @@
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
-				"maturationTime": 333333.333,
+				"maturationTime": 256410.256,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -58972,6 +59217,15 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 7199.42405,
+				"eggTempMin": 12,
+				"eggTempMax": 16,
+				"maturationTime": 133333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Plate Edges",
@@ -59135,6 +59389,15 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 7199.42405,
+				"eggTempMin": 12,
+				"eggTempMax": 16,
+				"maturationTime": 133333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Unknown",
@@ -59786,6 +60049,15 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5142.44575,
+				"eggTempMin": 4,
+				"eggTempMax": 12,
+				"maturationTime": 90090.0901,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Thorax and Head",
@@ -59908,6 +60180,15 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5142.44575,
+				"eggTempMin": 4,
+				"eggTempMax": 12,
+				"maturationTime": 90090.0901,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Unknown",
@@ -60030,6 +60311,15 @@
 				null
 			],
 			"immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5142.44575,
+				"eggTempMin": 4,
+				"eggTempMax": 12,
+				"maturationTime": 90090.0901,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Unknown",
@@ -60152,6 +60442,15 @@
 				null
 			],
 			"immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5142.44575,
+				"eggTempMin": 4,
+				"eggTempMax": 12,
+				"maturationTime": 90090.0901,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Unknown",
@@ -60274,6 +60573,15 @@
 				null
 			],
 			"immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5142.44575,
+				"eggTempMin": 4,
+				"eggTempMax": 12,
+				"maturationTime": 90090.0901,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Unknown",
@@ -61082,14 +61390,12 @@
 						"Dark Grey",
 						"Dino Dark Blue",
 						"Dino Dark Brown",
-						"Dino Dark Green",
 						"Dino Dark Orange",
 						"Dino Dark Purple",
 						"Dino Dark Red",
 						"Dino Dark Yellow",
 						"Dino Darker Grey",
-						"Dino Medium Brown",
-						"Dino Medium Green"
+						"Dino Medium Brown"
 					]
 				},
 				{
@@ -61110,17 +61416,19 @@
 				{
 					"name": "Unknown",
 					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
 						"Black",
+						"Cream",
 						"Dino Light Blue",
 						"Dino Light Brown",
-						"Dino Light Green",
 						"Dino Light Orange",
 						"Dino Light Purple",
-						"Dino Light Red",
 						"Dino Light Yellow",
 						"Dino Medium Brown",
-						"Dino Medium Green",
-						"Light Grey"
+						"Light Grey",
+						"WolfFur"
 					]
 				},
 				{
@@ -61228,14 +61536,12 @@
 						"Dark Grey",
 						"Dino Dark Blue",
 						"Dino Dark Brown",
-						"Dino Dark Green",
 						"Dino Dark Orange",
 						"Dino Dark Purple",
 						"Dino Dark Red",
 						"Dino Dark Yellow",
 						"Dino Darker Grey",
-						"Dino Medium Brown",
-						"Dino Medium Green"
+						"Dino Medium Brown"
 					]
 				},
 				{
@@ -61256,17 +61562,19 @@
 				{
 					"name": "Plate Edge and Spike Tips",
 					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
 						"Black",
+						"Cream",
 						"Dino Light Blue",
 						"Dino Light Brown",
-						"Dino Light Green",
 						"Dino Light Orange",
 						"Dino Light Purple",
-						"Dino Light Red",
 						"Dino Light Yellow",
 						"Dino Medium Brown",
-						"Dino Medium Green",
-						"Light Grey"
+						"Light Grey",
+						"WolfFur"
 					]
 				},
 				{
@@ -61376,14 +61684,12 @@
 						"Dark Grey",
 						"Dino Dark Blue",
 						"Dino Dark Brown",
-						"Dino Dark Green",
 						"Dino Dark Orange",
 						"Dino Dark Purple",
 						"Dino Dark Red",
 						"Dino Dark Yellow",
 						"Dino Darker Grey",
-						"Dino Medium Brown",
-						"Dino Medium Green"
+						"Dino Medium Brown"
 					]
 				},
 				{
@@ -61404,17 +61710,19 @@
 				{
 					"name": "Unknown",
 					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
 						"Black",
+						"Cream",
 						"Dino Light Blue",
 						"Dino Light Brown",
-						"Dino Light Green",
 						"Dino Light Orange",
 						"Dino Light Purple",
-						"Dino Light Red",
 						"Dino Light Yellow",
 						"Dino Medium Brown",
-						"Dino Medium Green",
-						"Light Grey"
+						"Light Grey",
+						"WolfFur"
 					]
 				},
 				{
@@ -64622,7 +64930,7 @@
 				[ 450, 0.1, 0.1, 0, 0.15 ],
 				null,
 				null,
-				[ 55, 0.02, 0.04, 0, 0 ],
+				[ 120, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, 1, 0.4 ],
 				[ 1, 0, 0.01, 0.5, 0 ],
 				null,
@@ -65049,6 +65357,15 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Bear Trap", "Plant Species Y" ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 9999.20006,
+				"eggTempMin": 35,
+				"eggTempMax": 38,
+				"maturationTime": 196078.431,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Body",
@@ -65129,6 +65446,15 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Bear Trap", "Plant Species Y" ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 9999.20006,
+				"eggTempMin": 35,
+				"eggTempMax": 38,
+				"maturationTime": 196078.431,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Body",
@@ -65218,6 +65544,15 @@
 				"Large Bear Trap",
 				"Plant Species Y"
 			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5454.10913,
+				"eggTempMin": 35,
+				"eggTempMax": 38,
+				"maturationTime": 111111.111,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Facial Highlights",
@@ -65748,11 +66083,11 @@
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Bone_MegaWyvern_Character_BP_Fire.Bone_MegaWyvern_Character_BP_Fire",
 			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
-				[ 8000, 0.15, 0.2025, -1050, 0 ],
+				[ 8000, 0.15, 0.2025, -785, 0 ],
 				[ 600, 0.05, 0.05, 0, 0 ],
 				[ 725, 0.06, 0, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 2000, 0.1, 0.1, 0, 0 ],
+				[ 1800, 0.1, 0.1, 0, 0 ],
 				null,
 				null,
 				[ 400, 0.02, 0.04, 0, 0 ],
@@ -65827,11 +66162,11 @@
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/MegaWyvern_Character_BP_Fire.MegaWyvern_Character_BP_Fire",
 			"variants": [ "Mega", "ScorchedEarth" ],
 			"fullStatsRaw": [
-				[ 8000, 0.15, 0.2025, -1050, 0 ],
+				[ 8000, 0.15, 0.2025, -785, 0 ],
 				[ 600, 0.05, 0.05, 0, 0 ],
 				[ 725, 0.06, 0, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 2000, 0.1, 0.1, 0, 0 ],
+				[ 1800, 0.1, 0.1, 0, 0 ],
 				null,
 				null,
 				[ 400, 0.02, 0.04, 0, 0 ],
@@ -65906,11 +66241,11 @@
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_Fire.Wyvern_Character_BP_Fire",
 			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
-				[ 1725, 0.15, 0.2025, -1050, 0 ],
-				[ 275, 0.05, 0.05, 0, 0 ],
+				[ 1295, 0.15, 0.2025, -785, 0 ],
+				[ 315, 0.05, 0.05, 0, 0 ],
 				[ 725, 0.06, 0, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 2000, 0.1, 0.1, 0, 0 ],
+				[ 1800, 0.1, 0.1, 0, 0 ],
 				null,
 				null,
 				[ 400, 0.02, 0.04, 0, 0 ],
@@ -66015,11 +66350,11 @@
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_Lightning.Wyvern_Character_BP_Lightning",
 			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
-				[ 1725, 0.15, 0.2025, -1050, 0 ],
-				[ 275, 0.05, 0.05, 0, 0 ],
+				[ 1295, 0.15, 0.2025, -785, 0 ],
+				[ 315, 0.05, 0.05, 0, 0 ],
 				[ 725, 0.06, 0, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 2000, 0.1, 0.1, 0, 0 ],
+				[ 1800, 0.1, 0.1, 0, 0 ],
 				null,
 				null,
 				[ 400, 0.02, 0.04, 0, 0 ],
@@ -66128,11 +66463,11 @@
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_Poison.Wyvern_Character_BP_Poison",
 			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
-				[ 1725, 0.15, 0.2025, -1050, 0 ],
-				[ 275, 0.05, 0.05, 0, 0 ],
+				[ 1295, 0.15, 0.2025, -785, 0 ],
+				[ 315, 0.05, 0.05, 0, 0 ],
 				[ 725, 0.06, 0, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 2000, 0.1, 0.1, 0, 0 ],
+				[ 1800, 0.1, 0.1, 0, 0 ],
 				null,
 				null,
 				[ 400, 0.02, 0.04, 0, 0 ],
@@ -66248,11 +66583,11 @@
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_ZombieFire.Wyvern_Character_BP_ZombieFire",
 			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
-				[ 1725, 0.15, 0.2025, -1050, 0 ],
-				[ 275, 0.05, 0.05, 0, 0 ],
+				[ 1295, 0.15, 0.2025, -785, 0 ],
+				[ 315, 0.05, 0.05, 0, 0 ],
 				[ 725, 0.06, 0, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 2000, 0.1, 0.1, 0, 0 ],
+				[ 1800, 0.1, 0.1, 0, 0 ],
 				null,
 				null,
 				[ 400, 0.02, 0.04, 0, 0 ],
@@ -66289,11 +66624,11 @@
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_ZombieLightning.Wyvern_Character_BP_ZombieLightning",
 			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
-				[ 1725, 0.15, 0.2025, -1050, 0 ],
-				[ 275, 0.05, 0.05, 0, 0 ],
+				[ 1295, 0.15, 0.2025, -785, 0 ],
+				[ 315, 0.05, 0.05, 0, 0 ],
 				[ 725, 0.06, 0, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 2000, 0.1, 0.1, 0, 0 ],
+				[ 1800, 0.1, 0.1, 0, 0 ],
 				null,
 				null,
 				[ 400, 0.02, 0.04, 0, 0 ],
@@ -66330,11 +66665,11 @@
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_ZombiePoison.Wyvern_Character_BP_ZombiePoison",
 			"variants": [ "ScorchedEarth" ],
 			"fullStatsRaw": [
-				[ 1725, 0.15, 0.2025, -1050, 0 ],
-				[ 275, 0.05, 0.05, 0, 0 ],
+				[ 1295, 0.15, 0.2025, -785, 0 ],
+				[ 315, 0.05, 0.05, 0, 0 ],
 				[ 725, 0.06, 0, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 2000, 0.1, 0.1, 0, 0 ],
+				[ 1800, 0.1, 0.1, 0, 0 ],
 				null,
 				null,
 				[ 400, 0.02, 0.04, 0, 0 ],
