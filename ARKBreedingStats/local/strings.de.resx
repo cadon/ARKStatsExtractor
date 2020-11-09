@@ -795,7 +795,7 @@ Wenn eine Nummer mit Plus-Zeichen angezeigt wird, ist die Summe zu hoch, und ein
   <data name="AlreadyCreatureWithTopStats" xml:space="preserve">
     <value>Es gibt bereits eine Kreatur, die alle verfügbaren Top-Stats besitzt ({0} {1}).
 Der aktuell gewählte konservative Zucht-Modus könnte einige suboptimale Vorschläge anzeigen.
-Wähle den "Hohe-Stats"-Modus aus, um bessere Vorschläge zu erhalten.</value>
+Wähle den "Beste nächste Generation"-Modus aus, um bessere Vorschläge zu erhalten.</value>
   </data>
   <data name="Baby" xml:space="preserve">
     <value>Baby</value>

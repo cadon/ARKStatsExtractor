@@ -125,7 +125,7 @@
   </data>
   <data name="AlreadyCreatureWithTopStats" xml:space="preserve">
     <value>C'è già una creatura nella tua libreria che ha tutte le statistiche migliori disponibili ({0} {1}).
-La modalità di allevamento conservativo attualmente selezionata potrebbe mostrare alcuni suggerimenti che potrebbero sembrare non ottimali.Cambia la modalità di riproduzione in "Statistiche alte" per suggerimenti migliori.</value>
+La modalità di allevamento conservativo attualmente selezionata potrebbe mostrare alcuni suggerimenti che potrebbero sembrare non ottimali.Cambia la modalità di riproduzione in "Migliore prossima generazione" per suggerimenti migliori.</value>
   </data>
   <data name="ApproxOneNarcoberryEvery" xml:space="preserve">
     <value>Questo è appros. una Narcobacca ogni</value>

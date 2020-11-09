@@ -127,7 +127,7 @@
   <data name="AlreadyCreatureWithTopStats" xml:space="preserve">
     <value>库中已有一个生物拥有库中的最强属性 ({0} {1}).
 保守繁殖模式中的一些建议可能不会是最佳建议
-将繁殖模式改为"极致属性"来获得更好的建议.</value>
+将繁殖模式改为"最好的下一代"来获得更好的建议.</value>
   </data>
   <data name="ApproxOneNarcoberryEvery" xml:space="preserve">
     <value>每一个黑果子的大概数值</value>

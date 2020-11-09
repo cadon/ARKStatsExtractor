@@ -797,7 +797,7 @@ Habilítelo si el OCR no reconoce el nombre de la tribu correctamente y desea ag
   <data name="AlreadyCreatureWithTopStats" xml:space="preserve">
     <value>Ya hay una criatura en tu biblioteca que tiene todas las estadísticas principales disponibles ({0} {1}).
 El modo de reproducción conservadora seleccionado actualmente puede mostrar algunas sugerencias que pueden parecer no óptimas.
-Cambia el modo de reproducción a "Estadísticas altas" para obtener mejores sugerencias.</value>
+Cambia el modo de reproducción a "Mejor próxima generación" para obtener mejores sugerencias.</value>
   </data>
   <data name="Baby" xml:space="preserve">
     <value>Bebé</value>

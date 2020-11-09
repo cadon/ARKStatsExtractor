@@ -126,7 +126,7 @@
   <data name="AlreadyCreatureWithTopStats" xml:space="preserve">
     <value>Une créature ayant les meilleures statistiques est déjà présente dans la librairie ({0} {1}).
 Le mode de reproduction conservateur actuellement sélectionné peut indiquer certaines suggestions pouvant sembler non optimales.
-Changez le mode de reproduction en "Statistiques élevées" pour de meilleures suggestions.</value>
+Changez le mode de reproduction en "Meilleure prochaine génération" pour de meilleures suggestions.</value>
   </data>
   <data name="ApproxOneNarcoberryEvery" xml:space="preserve">
     <value>C'est approximativement 1 Narcoberry chaque</value>

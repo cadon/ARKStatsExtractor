@@ -99,7 +99,7 @@ namespace ARKBreedingStats.local {
         /// <summary>
         ///   Looks up a localized string similar to There is already a creature in your library that has all the available top-stats ({0} {1}).
         ///The currently selected conservative-breeding-mode might show some suggestions that may seem non-optimal.
-        ///Change the breeding-mode to &quot;High Stats&quot; for better suggestions..
+        ///Change the breeding-mode to &quot;Best next generation&quot; for better suggestions..
         /// </summary>
         internal static string AlreadyCreatureWithTopStats {
             get {
