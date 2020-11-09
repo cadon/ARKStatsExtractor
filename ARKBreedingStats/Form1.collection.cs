@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
 {
@@ -33,7 +34,7 @@ namespace ARKBreedingStats
                 var (statValuesLoaded, _) = LoadStatAndKibbleValues(applySettings: false);
                 if (!statValuesLoaded)
                 {
-                    MessageBox.Show("Couldn't load stat values. Please redownload the application.", $"{Loc.S("error")} while loading the stat-values - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxes.ErrorMessageBox("Couldn't load stat values. Please redownload the application.", $"{Loc.S("error")} while loading the stat-values");
                 }
             }
 
@@ -204,16 +205,14 @@ namespace ARKBreedingStats
                     // if file is not saveable wait a bit, each time longer
                     Thread.Sleep(delayOnRetryBase * (1 << i));
                 }
-                catch (System.Runtime.Serialization.SerializationException e)
+                catch (System.Runtime.Serialization.SerializationException ex)
                 {
-                    MessageBox.Show($"Error during serialization.\nErrormessage:\n\n{e.Message}" + (e.InnerException == null ? string.Empty : $"\n\nInnerException:{e.InnerException.Message}"),
-                        $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxes.ExceptionMessageBox(ex, "Error during serialization.");
                     break;
                 }
-                catch (InvalidOperationException e)
+                catch (InvalidOperationException ex)
                 {
-                    MessageBox.Show($"Error during serialization.\nErrormessage:\n\n{e.Message}" + (e.InnerException == null ? string.Empty : $"\n\nInnerException:{e.InnerException.Message}"),
-                        $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxes.ExceptionMessageBox(ex, "Error during serialization.");
                     break;
                 }
             }
@@ -221,7 +220,7 @@ namespace ARKBreedingStats
             if (fileSaved)
                 SetCollectionChanged(false);
             else
-                MessageBox.Show($"This file couldn\'t be saved:\n{filePath}\nMaybe the file is used by another application.", $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxes.ErrorMessageBox($"This file couldn\'t be saved:\n{filePath}\nMaybe the file is used by another application.");
         }
 
         /// <summary>
@@ -238,7 +237,7 @@ namespace ARKBreedingStats
 
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
             {
-                MessageBox.Show($"Save file with name \"{filePath}\" does not exist!", $"File not found - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxes.ErrorMessageBox($"Save file with name \"{filePath}\" does not exist!", $"File not found");
                 return false;
             }
 
@@ -338,8 +337,7 @@ namespace ARKBreedingStats
                         }
                         else
                         {
-                            MessageBox.Show($"Error while trying to read the library-file\n{filePath}\n\n{errorMessage}",
-                                    $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBoxes.ErrorMessageBox($"Error while trying to read the library-file\n{filePath}\n\n{errorMessage}");
                             return false;
                         }
                     }
@@ -354,17 +352,15 @@ namespace ARKBreedingStats
                 catch (FormatException)
                 {
                     // This FormatVersion is not understood, abort
-                    MessageBox.Show($"This library format is unsupported in this version of ARK Smart Breeding." +
-                            "\n\nTry updating to a newer version.",
-                            $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxes.ErrorMessageBox($"This library format is unsupported in this version of ARK Smart Breeding." +
+                                                 "\n\nTry updating to a newer version.");
                     if ((DateTime.Now - Properties.Settings.Default.lastUpdateCheck).TotalMinutes < 10)
                         CheckForUpdates();
                     return false;
                 }
-                catch (InvalidOperationException e)
+                catch (InvalidOperationException ex)
                 {
-                    MessageBox.Show($"The library-file\n{filePath}\ncouldn\'t be opened, we thought you should know.\nErrormessage:\n\n{e.Message}" + (e.InnerException == null ? string.Empty : $"\n\nInnerException:\n\n{e.InnerException.Message}"),
-                            $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxes.ExceptionMessageBox(ex, $"The library-file\n{filePath}\ncouldn't be opened, we thought you should know.");
                     return false;
                 }
                 finally
@@ -560,15 +556,14 @@ namespace ARKBreedingStats
             _creatureCollection.creaturesValues.Remove(debugCreatureValues);
 
             // zip file
-            FileService.TryDeleteFile(tempZipFilePath);
+            //FileService.TryDeleteFile(tempZipFilePath);
             try
             {
                 ZipFile.CreateFromDirectory(tempFolder, tempZipFilePath);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"The debug file couldn't be saved.\nErrormessage:\n\n{ex.Message}" + (ex.InnerException == null ? string.Empty : $"\n\nInnerException:\n\n{ex.InnerException.Message}"),
-                    $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxes.ExceptionMessageBox(ex, "The debug file couldn't be saved.");
             }
 
             // remove temp library file and folder
@@ -610,7 +605,7 @@ namespace ARKBreedingStats
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error while loading debug library dump\n{ex.Message}", $"Error loading zipped library dump - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxes.ExceptionMessageBox(ex, "Error while loading zipped debug library dump");
                 return false;
             }
 

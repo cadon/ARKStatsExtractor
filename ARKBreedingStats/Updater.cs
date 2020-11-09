@@ -8,6 +8,7 @@ using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
 {
@@ -256,11 +257,10 @@ namespace ARKBreedingStats
                         Directory.CreateDirectory(directory);
                     await client.DownloadFileTaskAsync(url, outFileName);
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
                     successfulDownloaded = false;
-                    MessageBox.Show($"Error while trying to download the file\n{url}\n\n{e.Message}{(e.InnerException == null ? string.Empty : $"\n\n{e.InnerException.Message}")}",
-                        $"Download error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxes.ExceptionMessageBox(ex, $"Error while trying to download the file\n{url}", "Download error");
                 }
 
                 if (!File.Exists(outFileName))
@@ -296,9 +296,9 @@ namespace ARKBreedingStats
                         Directory.CreateDirectory(directory);
                     client.DownloadFile(url, outFileName);
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    MessageBox.Show($"Error while trying to download the file\n{url}\n\n{e.Message}", $"Download error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxes.ExceptionMessageBox(ex, $"Error while trying to download the file\n{url}", "Download error");
                 }
 
                 if (!File.Exists(outFileName))
@@ -379,17 +379,15 @@ namespace ARKBreedingStats
                         File.Move(tempFilePath, destFilePath);
                         return true;
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
-                        MessageBox.Show("Error while moving mod-manifest file:\n\n" + e.Message, $"{Loc.S("error")} - {Utils.ApplicationNameVersion}",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBoxes.ExceptionMessageBox(ex, "Error while moving mod-manifest file");
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageBox.Show("Error while downloading mod-manifest:\n\n" + e.Message, $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBoxes.ExceptionMessageBox(ex, "Error while downloading mod-manifest");
             }
             finally
             {
@@ -420,9 +418,9 @@ namespace ARKBreedingStats
                     FileService.GetJsonPath(Path.Combine(FileService.ValuesFolder, modValuesFileName)));
                 return true;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageBox.Show("Error while downloading values file:\n\n" + e.Message, $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxes.ExceptionMessageBox(ex, "Error while downloading values file");
             }
             return false;
         }

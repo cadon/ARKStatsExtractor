@@ -485,16 +485,12 @@ namespace ARKBreedingStats.ocr
             UpdateOCRLabel();
         }
 
-        public bool LoadOCRTemplate(string fileName)
+        private bool LoadOCRTemplate(string filePath)
         {
-            if (string.IsNullOrEmpty(fileName)) return false;
-            if (ArkOCR.OCR.ocrConfig == null)
-                ArkOCR.OCR.ocrConfig = new OCRTemplate();
-            OCRTemplate t = ArkOCR.OCR.ocrConfig.LoadFile(fileName);
-            if (t == null)
-                return false;
-            ArkOCR.OCR.ocrConfig = t;
-            UpdateOCRLabel(fileName);
+            if (string.IsNullOrEmpty(filePath)) return false;
+
+            ArkOCR.OCR.ocrConfig = OCRTemplate.LoadFile(filePath) ?? new OCRTemplate();
+            UpdateOCRLabel(filePath);
             UpdateOcrFontSizes();
             InitLabelEntries();
             nudResizing.Value = ArkOCR.OCR.ocrConfig.resize == 0 ? 1 : (decimal)ArkOCR.OCR.ocrConfig.resize;

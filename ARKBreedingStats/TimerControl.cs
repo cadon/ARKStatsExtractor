@@ -7,6 +7,7 @@ using System.Linq;
 using System.Media;
 using System.Speech.Synthesis;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
 {
@@ -428,9 +429,9 @@ namespace ARKBreedingStats
             {
                 Directory.CreateDirectory(soundPath);
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Error while trying to create the custom sound folder for custom timer-sounds", $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxes.ExceptionMessageBox(ex, "Error while trying to create the custom sound folder for custom timer-sounds");
                 return;
             }
             if (Directory.Exists(soundPath))

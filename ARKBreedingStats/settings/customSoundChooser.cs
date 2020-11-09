@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.settings
 {
@@ -42,7 +43,7 @@ namespace ARKBreedingStats.settings
                 try { soundplayer.Play(); }
                 catch
                 {
-                    MessageBox.Show("Unsupported sound-format. Only PCM-WAV is supported.", $"Unsupported sound-format - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxes.ErrorMessageBox("Unsupported sound-format. Only PCM-WAV is supported.", $"Unsupported sound-format");
                 }
             }
         }

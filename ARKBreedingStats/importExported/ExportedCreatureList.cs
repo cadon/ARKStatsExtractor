@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 using static ARKBreedingStats.importExported.EccComparer;
 
 namespace ARKBreedingStats.importExported
@@ -274,7 +275,7 @@ namespace ARKBreedingStats.importExported
                 string importedPath = Path.Combine(selectedFolder, "imported");
                 if (!FileService.TryCreateDirectory(importedPath, out string errorMessage))
                 {
-                    MessageBox.Show($"Subfolder\n{importedPath}\ncould not be created.\n{errorMessage}", $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxes.ErrorMessageBox($"Subfolder\n{importedPath}\ncould not be created.\n{errorMessage}");
                     return;
                 }
 
@@ -291,7 +292,7 @@ namespace ARKBreedingStats.importExported
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show($"The file\n{ecc.exportedFile}\ncould not be moved. The following files will not be moved either.\n\nException:\n{ex.Message}", $"Error moving file - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBoxes.ExceptionMessageBox(ex, $"The file\n{ecc.exportedFile}\ncould not be moved. The following files will not be moved either.", "Error moving file");
                             break;
                         }
                     }
@@ -322,7 +323,7 @@ namespace ARKBreedingStats.importExported
                 {
                     if (ecc.Status == ExportedCreatureControl.ImportStatus.JustImported || ecc.Status == ExportedCreatureControl.ImportStatus.OldImported)
                     {
-                        if (ecc.removeFile(false))
+                        if (ecc.RemoveFile(false))
                         {
                             deletedFilesCount++;
                             ecc.Dispose();
@@ -351,7 +352,7 @@ namespace ARKBreedingStats.importExported
                 int deletedFilesCount = 0;
                 foreach (ExportedCreatureControl ecc in eccs)
                 {
-                    if (ecc.removeFile(false))
+                    if (ecc.RemoveFile(false))
                     {
                         deletedFilesCount++;
                         ecc.Dispose();

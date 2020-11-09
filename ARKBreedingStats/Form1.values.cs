@@ -10,6 +10,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
 {
@@ -129,10 +130,9 @@ namespace ARKBreedingStats
 
             if (missingModValueFilesOnlineNotAvailable.Any())
             {
-                MessageBox.Show(missingModValueFilesOnlineNotAvailable.Count.ToString() + " mod-value files are neither available locally nor online. The creatures of the missing mod will not be displayed.\n"
-                + "The following files are missing\n\n"
-                + string.Join("\n", missingModValueFilesOnlineNotAvailable),
-                $"Missing value files - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxes.ErrorMessageBox(missingModValueFilesOnlineNotAvailable.Count + " mod-value files are neither available locally nor online. The creatures of the missing mod will not be displayed.\n"
+                                             + "The following files are missing\n\n"
+                                             + string.Join("\n", missingModValueFilesOnlineNotAvailable), "Missing value files");
             }
 
             return filesDownloaded;
@@ -149,12 +149,10 @@ namespace ARKBreedingStats
                     // assume all officially supported mods are online available
                     foreach (var m in modsManifest.modsByFiles) m.Value.onlineAvailable = true;
                 }
-                catch (FileNotFoundException)
+                catch (FileNotFoundException ex)
                 {
-                    MessageBox.Show(
-                        $"Mods manifest file {Path.Combine(FileService.ValuesFolder, FileService.ModsManifest)} not found " +
-                        "and downloading it failed. You can try it later or try to update your application.",
-                        $"File not found - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxes.ExceptionMessageBox(ex, $"Mods manifest file {Path.Combine(FileService.ValuesFolder, FileService.ModsManifest)} not found " +
+                                                        "and downloading it failed. You can try it later or try to update your application.");
                     return false;
                 }
                 catch (FormatException)
@@ -171,9 +169,7 @@ namespace ARKBreedingStats
             }
             catch (SerializationException serEx)
             {
-                MessageBox.Show(
-                    $"Serialization exception while trying to load the mods-manifest file.\n\n{serEx.Message}",
-                    $"File loading error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxes.ExceptionMessageBox(serEx, "Serialization exception while trying to load the mods-manifest file.");
             }
 
             modsManifest?.Initialize();
@@ -185,8 +181,8 @@ namespace ARKBreedingStats
         {
             if (!ServerMultipliersPresets.TryLoadServerMultipliersPresets(out values.serverMultipliersPresets))
             {
-                MessageBox.Show("The file with the server multipliers couldn't be loaded. Changed settings, e.g. for the singleplayer will be not available.\nIt's recommended to download the application again.",
-                    $"Server multiplier file not loaded - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxes.ErrorMessageBox("The file with the server multipliers couldn't be loaded. Changed settings, e.g. for the singleplayer will be not available.\nIt's recommended to download the application again.",
+                    $"Server multiplier file not loaded");
             }
         }
 
@@ -231,25 +227,16 @@ namespace ARKBreedingStats
                 if ((DateTime.Now - Properties.Settings.Default.lastUpdateCheck).TotalMinutes < 10)
                     CheckForUpdates();
             }
-            catch (SerializationException e)
+            catch (SerializationException ex)
             {
-                DeserializeExceptionMessageBox(FileService.ValuesJson, e.Message);
+                MessageBoxes.ExceptionMessageBox(ex, $"File {FileService.ValuesJson} couldn't be deserialized.");
             }
 
             return success;
         }
 
-        public static void FormatExceptionMessageBox(string filePath)
-        {
-            MessageBox.Show($"File {filePath} is a format that is unsupported in this version of ARK Smart Breeding." +
-                        "\n\nTry updating to a newer version.",
-                        $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
-        public static void DeserializeExceptionMessageBox(string filePath, string eMessage)
-        {
-            MessageBox.Show($"File {filePath} couldn't be deserialized.\nErrormessage:\n\n" + eMessage,
-                        $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
+        private static void FormatExceptionMessageBox(string filePath) =>
+            MessageBoxes.ErrorMessageBox($"File {filePath} is a format that is unsupported in this version of ARK Smart Breeding." +
+                                         "\n\nTry updating to a newer version of this application, either by using the updater or downloading it again.");
     }
 }

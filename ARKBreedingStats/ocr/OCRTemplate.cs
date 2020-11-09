@@ -5,6 +5,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.ocr
 {
@@ -78,19 +79,18 @@ namespace ARKBreedingStats.ocr
             return fontSizes.IndexOf(fontSize);
         }
 
-        public OCRTemplate LoadFile(string filename)
+        public static OCRTemplate LoadFile(string filePath)
         {
             OCRTemplate ocrConfig = null;
 
             // check if file exists
-            if (!File.Exists(filename))
+            if (!File.Exists(filePath))
             {
-                MessageBox.Show($"OCR-File '{filename}' not found. OCR is not possible without the config-file.", $"{Loc.S("error")} - {Utils.ApplicationNameVersion}",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxes.ErrorMessageBox($"OCR-File '{filePath}' not found. OCR is not possible without the config-file.");
                 return null;
             }
 
-            using (FileStream file = File.OpenRead(filename))
+            using (FileStream file = File.OpenRead(filePath))
             {
                 try
                 {
@@ -98,10 +98,9 @@ namespace ARKBreedingStats.ocr
                     ocrConfig = (OCRTemplate)ser.ReadObject(file);
                     ocrConfig.init();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("File Couldn't be opened or read.\nErrormessage:\n\n" + e.Message, $"{Loc.S("error")} - {Utils.ApplicationNameVersion}",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxes.ExceptionMessageBox(ex, "File Couldn't be opened or read.");
                 }
             }
             return ocrConfig;
@@ -120,8 +119,7 @@ namespace ARKBreedingStats.ocr
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error during serialization.\nErrormessage:\n\n" + ex.Message, $"Serialization-Error - {Utils.ApplicationNameVersion}",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxes.ExceptionMessageBox(ex, "Error during serialization.", "Serialization-Error");
             }
             return false;
         }

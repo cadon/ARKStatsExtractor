@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
 {
@@ -765,9 +766,7 @@ namespace ARKBreedingStats
                 {
                     if (i == tryCount - 1)
                     {
-                        MessageBox.Show($"Exported creature-file couldn't be read.\n{exportFilePath}\n\n{ex.Message}",
-                            $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        MessageBoxes.ExceptionMessageBox(ex,$"Exported creature-file couldn't be read.\n{exportFilePath}");
                         return null;
                     }
                     Thread.Sleep(waitingTimeBase * (1 << i));
@@ -776,7 +775,7 @@ namespace ARKBreedingStats
 
             if (cv == null)
             {
-                MessageBox.Show($"Exported creature-file not recognized.\n{exportFilePath}", $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxes.ErrorMessageBox($"Exported creature-file not recognized.\n{exportFilePath}");
                 return null;
             }
             // check if last exported file is a species that should be ignored, e.g. a raft

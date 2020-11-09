@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.mods
 {
@@ -151,7 +152,7 @@ namespace ARKBreedingStats.mods
                 if (dlg.ShowDialog() != DialogResult.OK) return;
                 if (!FileService.LoadJsonFile(dlg.FileName, out Dictionary<string, double?[][]> dict, out string error))
                 {
-                    MessageBox.Show(error, $"Error loading file - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxes.ErrorMessageBox(error, $"Error loading file");
                     return;
                 }
 
@@ -206,7 +207,7 @@ namespace ARKBreedingStats.mods
                 if (dlg.ShowDialog() != DialogResult.OK) return;
                 if (!FileService.SaveJsonFile(dlg.FileName, cc.CustomSpeciesStats, out string error))
                 {
-                    MessageBox.Show(error, $"Error saving file - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxes.ErrorMessageBox(error, $"Error saving file");
                 }
             }
         }

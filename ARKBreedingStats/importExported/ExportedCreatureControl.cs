@@ -3,6 +3,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.importExported
 {
@@ -106,13 +107,13 @@ namespace ARKBreedingStats.importExported
 
         private void btRemoveFile_Click(object sender, EventArgs e)
         {
-            if (removeFile((ModifierKeys & Keys.Shift) == 0))
+            if (RemoveFile((ModifierKeys & Keys.Shift) == 0))
             {
                 DisposeThis?.Invoke(this, null);
             }
         }
 
-        public bool removeFile(bool getConfirmation = true)
+        public bool RemoveFile(bool getConfirmation = true)
         {
             bool successfullyDeleted = false;
             if (File.Exists(exportedFile))
@@ -133,7 +134,7 @@ namespace ARKBreedingStats.importExported
             }
             else
             {
-                MessageBox.Show("The file does not exist:\n" + exportedFile, $"File not found - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxes.ErrorMessageBox($"The file does not exist:\n{exportedFile}");
             }
             return successfullyDeleted;
         }

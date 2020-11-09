@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
 {
@@ -236,8 +237,7 @@ namespace ARKBreedingStats
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occured while loading saved ftp credentials. Message: \n\n{ex.Message}",
-                        $"Settings Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK);
+                MessageBoxes.ExceptionMessageBox(ex, $"An error occured while loading saved ftp credentials.");
             }
 
             return new Dictionary<string, FtpCredentials>(StringComparer.OrdinalIgnoreCase);

@@ -185,7 +185,7 @@ namespace ARKBreedingStats.uiControls
             }
             catch (FileNotFoundException ex)
             {
-                MessageBox.Show($"File not found\n{filePath}\n\nException: {ex.Message}", $"File not found - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxes.ExceptionMessageBox(ex);
             }
             catch (System.ComponentModel.Win32Exception)
             {
@@ -202,9 +202,9 @@ namespace ARKBreedingStats.uiControls
                         // open explorer and display file
                         Process.Start("explorer.exe", @"/select,""" + filePath + "\"");
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        MessageBox.Show("The file couldn't be opened\n" + filePath, $"Error while opening file - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBoxes.ExceptionMessageBox(ex, $"The file couldn't be opened\n{filePath}");
                     }
                 }
             }

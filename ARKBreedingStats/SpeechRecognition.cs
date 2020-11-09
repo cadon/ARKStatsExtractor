@@ -7,6 +7,7 @@ using System.Speech.Recognition;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
 {
@@ -43,8 +44,8 @@ namespace ARKBreedingStats
                 }
                 catch
                 {
-                    MessageBox.Show("Couldn't set Audio-Input to default-audio device. The speech recognition will not work until a restart.\nTry to change the default-audio-input (e.g. plug-in a microphone).",
-                            $"Microphone Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxes.ErrorMessageBox("Couldn't set Audio-Input to default-audio device. The speech recognition will not work until a restart.\nTry to change the default-audio-input (e.g. plug-in a microphone).",
+                        $"Microphone Error");
                 }
                 recognizer.SpeechRecognitionRejected += Recognizer_SpeechRecognitionRejected;
             }
@@ -120,8 +121,8 @@ namespace ARKBreedingStats
                     }
                     catch
                     {
-                        MessageBox.Show("Couldn't set Audio-Input to default-audio device. The speech recognition will not work until a restart.\nTry to change the default-audio-input (e.g. plug-in a microphone).",
-                                $"Microphone Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBoxes.ErrorMessageBox("Couldn't set Audio-Input to default-audio device. The speech recognition will not work until a restart.\nTry to change the default-audio-input (e.g. plug-in a microphone).",
+                            $"Microphone Error");
                         listening = false;
                         indicator.ForeColor = SystemColors.GrayText;
                     }

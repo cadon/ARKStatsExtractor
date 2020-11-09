@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.testCases
 {
@@ -26,7 +27,7 @@ namespace ARKBreedingStats.testCases
 
                 if (!File.Exists(fileName))
                 {
-                    MessageBox.Show("Save file with name \"" + fileName + "\" does not exist!", $"File not found - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxes.ErrorMessageBox($"Save file with name \"{fileName}\" does not exist!", $"File not found");
                     return;
                 }
 
@@ -37,9 +38,9 @@ namespace ARKBreedingStats.testCases
                         cases = (ExtractionTestCases)reader.Deserialize(file);
                         Properties.Settings.Default.LastSaveFileTestCases = fileName;
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
-                        MessageBox.Show("File Couldn't be opened, we thought you should know.\nErrormessage:\n\n" + e.Message, $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBoxes.ExceptionMessageBox(ex, "File Couldn't be opened, we thought you should know.");
                     }
                     finally
                     {
@@ -63,15 +64,15 @@ namespace ARKBreedingStats.testCases
             XmlSerializer writer = new XmlSerializer(typeof(ExtractionTestCases));
             try
             {
-                System.IO.FileStream file = System.IO.File.Create(fileName);
+                FileStream file = File.Create(fileName);
                 writer.Serialize(file, cases);
                 file.Close();
                 Properties.Settings.Default.LastSaveFileTestCases = fileName;
                 UpdateFileLabel();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageBox.Show("Error during serialization of testcase-data.\nErrormessage:\n\n" + e.Message, $"Serialization-Error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxes.ExceptionMessageBox(ex, "Error during serialization of testcase-data.", "Serialization-Error");
             }
         }
 

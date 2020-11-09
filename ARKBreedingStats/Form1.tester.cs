@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
 {
@@ -310,8 +311,7 @@ namespace ARKBreedingStats
                     tabControlMain.SelectedTab = tabPageExtractor;
                 }
                 else
-                    MessageBox.Show("Unknown Species. Try to update the species-stats, or redownload the tool.", $"{Loc.S("error")} - {Utils.ApplicationNameVersion}",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxes.ErrorMessageBox("Unknown Species. Try to update the species-stats, or redownload the tool.");
             }
         }
     }

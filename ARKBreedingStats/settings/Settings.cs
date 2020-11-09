@@ -881,7 +881,7 @@ namespace ARKBreedingStats.settings
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error while writing settings file:\n\n" + ex.Message, $"File writing error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxes.ExceptionMessageBox(ex, "Error while writing settings file:", "File writing error");
             }
         }
 
@@ -892,7 +892,7 @@ namespace ARKBreedingStats.settings
             General = 1,
             SaveImport = 2,
             ExportedImport = 3,
-            OCR = 4,
+            Ocr = 4,
         }
 
         private void cbCustomOverlayLocation_CheckedChanged(object sender, EventArgs e)

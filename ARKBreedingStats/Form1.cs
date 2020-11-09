@@ -283,8 +283,7 @@ namespace ARKBreedingStats
 
             if (!LoadStatAndKibbleValues(applySettings: false).statValuesLoaded || !Values.V.species.Any())
             {
-                MessageBox.Show(Loc.S("valuesFileLoadingError"),
-                        $"{Loc.S("error")}: Values-file not found - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxes.ErrorMessageBox(Loc.S("valuesFileLoadingError"), $"{Loc.S("error")}: Values-file not found");
                 Environment.Exit(1);
             }
 
@@ -434,9 +433,7 @@ namespace ARKBreedingStats
                 }
                 catch (PlatformNotSupportedException ex)
                 {
-                    MessageBox.Show($"The speech recognition could not be initialized on this system.\n\n{ex.Message}",
-                        $"{Loc.S("error")} - {Utils.ApplicationNameVersion}",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxes.ExceptionMessageBox(ex, "The speech recognition could not be initialized on this system.");
                 }
             }
             if (!speechRecognitionInitialized)
@@ -1008,8 +1005,7 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    MessageBox.Show("Download of new stat successful, but files couldn't be loaded.\nTry again later, or redownload the tool.",
-                            $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxes.ErrorMessageBox("Download of new stat successful, but files couldn't be loaded.\nTry again later, or redownload the tool.");
                 }
             }
             else if (!silentCheck)
@@ -1038,9 +1034,8 @@ namespace ARKBreedingStats
             success.kibbleValuesLoaded = Kibbles.K.LoadValues();
             if (!success.kibbleValuesLoaded)
             {
-                MessageBox.Show("The kibbles-file couldn't be loaded, the kibble-recipes will not be available. " +
-                        "You can redownload this application to get this file.",
-                        $"{Loc.S("error")}: Kibble-recipe-file not loaded - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxes.ErrorMessageBox("The kibbles-file couldn't be loaded, the kibble-recipes will not be available. " +
+                                             "You can redownload this application to get this file.", $"{Loc.S("error")}: Kibble-recipe-file not loaded");
             }
 
             return success;
@@ -1603,10 +1598,9 @@ namespace ARKBreedingStats
                 {
                     c = Newtonsoft.Json.JsonConvert.DeserializeObject<Creature>(clpb);
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    MessageBox.Show($"Invalid Data in clipboard. Couldn\'t paste creature-data\nErrormessage:\n\n{e.Message}", $"{Loc.S("error")} - {Utils.ApplicationNameVersion}",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxes.ExceptionMessageBox(ex, "Invalid Data in clipboard. Couldn\'t paste creature-data.");
                     return;
                 }
                 UpdateParents(new List<Creature> { c });
@@ -1667,7 +1661,8 @@ namespace ARKBreedingStats
                         else
                             SetCreatureValuesToExtractor(cv);
                     }
-                    else MessageBox.Show($"{Loc.S("unknownSpecies")}:\n" + m.Groups[2].Value, $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    else
+                        MessageBoxes.ErrorMessageBox($"{Loc.S("unknownSpecies")}:\n" + m.Groups[2].Value);
                 }
             }
         }
@@ -1964,7 +1959,7 @@ namespace ARKBreedingStats
             ocrControl1.output.Text = debugText;
             if (OCRvalues.Length <= 1)
             {
-                if (manuallyTriggered) MessageBox.Show(debugText, $"OCR {Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (manuallyTriggered) MessageBoxes.ErrorMessageBox(debugText, "OCR " + Loc.S("error"));
                 return;
             }
 
@@ -2244,8 +2239,8 @@ namespace ARKBreedingStats
 
                     if (!p.Any())
                     {
-                        MessageBox.Show("Process for capturing screenshots and for overlay (e.g. the game, or a stream of the game) not found.\n" +
-                                "Start the game or change the process in the settings.", $"Game started? - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBoxes.ErrorMessageBox("Process for capturing screenshots and for overlay (e.g. the game, or a stream of the game) not found.\n" +
+                                                     "Start the game or change the process in the settings.", "Game started?", MessageBoxIcon.Warning);
                         cbToggleOverlay.Checked = false;
                         return false;
                     }
@@ -3124,7 +3119,7 @@ namespace ARKBreedingStats
             }
             catch (FileNotFoundException ex)
             {
-                MessageBox.Show($"Folder not found\n{FileService.GetJsonPath()}\n\nException: {ex.Message}", $"No data folder - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxes.ExceptionMessageBox(ex, $"Folder not found\n{FileService.GetJsonPath()}", "No data folder");
             }
         }
 
@@ -3141,7 +3136,7 @@ namespace ARKBreedingStats
             if (!File.Exists(filePath) || !FileService.LoadJsonFile(filePath, out _customReplacingNamingPattern, out errorMessage))
             {
                 if (!string.IsNullOrEmpty(errorMessage))
-                    MessageBox.Show(errorMessage, $"Custom replacing file loading error - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxes.ErrorMessageBox(errorMessage, "Custom replacing file loading error");
             }
             else if (pe != null) pe.SetCustomReplacings(_customReplacingNamingPattern);
         }
