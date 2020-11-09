@@ -560,7 +560,16 @@ namespace ARKBreedingStats
             _creatureCollection.creaturesValues.Remove(debugCreatureValues);
 
             // zip file
-            ZipFile.CreateFromDirectory(tempFolder, tempZipFilePath);
+            FileService.TryDeleteFile(tempZipFilePath);
+            try
+            {
+                ZipFile.CreateFromDirectory(tempFolder, tempZipFilePath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"The debug file couldn't be saved.\nErrormessage:\n\n{ex.Message}" + (ex.InnerException == null ? string.Empty : $"\n\nInnerException:\n\n{ex.InnerException.Message}"),
+                    $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             // remove temp library file and folder
             FileService.TryDeleteFile(tempFilePath);
