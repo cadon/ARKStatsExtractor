@@ -376,7 +376,7 @@ namespace ARKBreedingStats.uiControls
             double eff = creature.tamingEff * 100;
 
             Random rand = new Random(DateTime.Now.Millisecond);
-            string randStr = rand.Next(100000, 999999).ToString();
+            string randStr = rand.Next(0, 999999).ToString("000000");
 
             string effImp = "Z";
             string prefix = string.Empty;
