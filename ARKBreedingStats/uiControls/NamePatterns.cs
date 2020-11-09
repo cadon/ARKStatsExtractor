@@ -380,7 +380,7 @@ namespace ARKBreedingStats.uiControls
 
             string effImp = "Z";
             string prefix = string.Empty;
-            if (imp > 0)
+            if (creature.isBred)
             {
                 prefix = "I";
                 effImp = Math.Round(imp).ToString();
