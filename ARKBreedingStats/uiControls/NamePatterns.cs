@@ -204,14 +204,15 @@ namespace ARKBreedingStats.uiControls
                                 case "/": return d2 == 0 ? "divByZero" : (d1 / d2).ToString();
                             }
                         }
-                        return ParametersInvalid($"The expression for expr invalid: \"{p1}\"");
+                        return ParametersInvalid($"The expression for expr is invalid: \"{p1}\"");
                     case "len":
                         // returns the length of the parameter
                         return p1.Length.ToString();
                     case "substring":
                         // check param number: 1: substring, 2: p1, 3: pos, 4: length
+                        if (!int.TryParse(m.Groups[3].Value, out var pos))
+                            return p1;
 
-                        int pos = Convert.ToInt32(m.Groups[3].Value);
                         bool fromEnd = pos < 0;
                         pos = Math.Min(Math.Abs(pos), p1.Length);
                         if (string.IsNullOrEmpty(m.Groups[4].Value))
