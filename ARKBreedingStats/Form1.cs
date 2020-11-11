@@ -3072,9 +3072,9 @@ namespace ARKBreedingStats
         {
             if (listViewLibrary.SelectedItems.Count == 0) return;
 
+            var creaturesToUpdate = new List<Creature>();
             Creature[] sameSpecies = null;
 
-            listViewLibrary.BeginUpdate();
             for (int s = 0; s < listViewLibrary.SelectedItems.Count; s++)
             {
                 Creature cr = ((Creature)listViewLibrary.SelectedItems[s].Tag);
@@ -3087,8 +3087,13 @@ namespace ARKBreedingStats
                     _topLevels.ContainsKey(cr.Species) ? _topLevels[cr.Species] : null,
                     _lowestLevels.ContainsKey(cr.Species) ? _lowestLevels[cr.Species] : null, _customReplacingNamingPattern, false, 0);
 
-                UpdateDisplayedCreatureValues(cr, false, false);
+                creaturesToUpdate.Add(cr);
             }
+
+            listViewLibrary.BeginUpdate();
+            foreach (var cr in creaturesToUpdate)
+                UpdateDisplayedCreatureValues(cr, false, false);
+
             listViewLibrary.EndUpdate();
         }
 

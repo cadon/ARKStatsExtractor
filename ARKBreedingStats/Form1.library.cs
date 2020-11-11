@@ -675,6 +675,7 @@ namespace ARKBreedingStats
         /// <param name="creatureStatusChanged"></param>
         private void UpdateDisplayedCreatureValues(Creature cr, bool creatureStatusChanged, bool ownerServerChanged)
         {
+            _reactOnCreatureSelectionChange = false;
             // if row is selected, save and reselect later
             List<Creature> selectedCreatures = new List<Creature>();
             foreach (ListViewItem i in listViewLibrary.SelectedItems)
@@ -728,6 +729,7 @@ namespace ARKBreedingStats
                     }
                 }
             }
+            _reactOnCreatureSelectionChange = true;
         }
 
         /// <summary>
@@ -1176,10 +1178,6 @@ namespace ARKBreedingStats
                 listViewLibrary.EndUpdate();
                 _reactOnCreatureSelectionChange = true;
                 listViewLibrary_SelectedIndexChanged(null, null);
-            }
-            else if (e.KeyCode == Keys.G && e.Control)
-            {
-                GenerateCreatureNames();
             }
             else if (e.KeyCode == Keys.B && e.Control)
             {

@@ -535,7 +535,7 @@ namespace ARKBreedingStats
         {
             // get temp folder for zipping
             var tempFolder = FileService.GetTempDirectory();
-            var timeStamp = $"{DateTime.Now:yyyy-MM-dd_hh-mm-ss}";
+            var timeStamp = $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss}";
             string tempFilePath = Path.Combine(tempFolder, $"ASB_issue_{timeStamp}.asb");
             string tempZipFilePath = Path.Combine(Path.GetDirectoryName(tempFolder), $"ASB_issue_{timeStamp}.zip");
 
