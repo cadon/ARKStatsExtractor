@@ -1578,9 +1578,9 @@ namespace ARKBreedingStats
             // 
             // BtCopyIssueDumpToClipboard
             // 
-            this.BtCopyIssueDumpToClipboard.Location = new System.Drawing.Point(589, 679);
+            this.BtCopyIssueDumpToClipboard.Location = new System.Drawing.Point(590, 703);
             this.BtCopyIssueDumpToClipboard.Name = "BtCopyIssueDumpToClipboard";
-            this.BtCopyIssueDumpToClipboard.Size = new System.Drawing.Size(329, 23);
+            this.BtCopyIssueDumpToClipboard.Size = new System.Drawing.Size(345, 23);
             this.BtCopyIssueDumpToClipboard.TabIndex = 53;
             this.BtCopyIssueDumpToClipboard.Text = "Copy library dump to clipboard for a report";
             this.BtCopyIssueDumpToClipboard.UseVisualStyleBackColor = true;
@@ -1596,7 +1596,7 @@ namespace ARKBreedingStats
             // llOnlineHelpExtractionIssues
             // 
             this.llOnlineHelpExtractionIssues.AutoSize = true;
-            this.llOnlineHelpExtractionIssues.Location = new System.Drawing.Point(593, 609);
+            this.llOnlineHelpExtractionIssues.Location = new System.Drawing.Point(593, 599);
             this.llOnlineHelpExtractionIssues.Name = "llOnlineHelpExtractionIssues";
             this.llOnlineHelpExtractionIssues.Size = new System.Drawing.Size(141, 13);
             this.llOnlineHelpExtractionIssues.TabIndex = 50;
@@ -1638,9 +1638,9 @@ namespace ARKBreedingStats
             this.lbImprintingFailInfo.BackColor = System.Drawing.Color.MistyRose;
             this.lbImprintingFailInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lbImprintingFailInfo.ForeColor = System.Drawing.Color.Maroon;
-            this.lbImprintingFailInfo.Location = new System.Drawing.Point(596, 622);
+            this.lbImprintingFailInfo.Location = new System.Drawing.Point(589, 612);
             this.lbImprintingFailInfo.Name = "lbImprintingFailInfo";
-            this.lbImprintingFailInfo.Size = new System.Drawing.Size(322, 54);
+            this.lbImprintingFailInfo.Size = new System.Drawing.Size(443, 88);
             this.lbImprintingFailInfo.TabIndex = 49;
             this.lbImprintingFailInfo.Text = "If the creature is imprinted the extraction may fail because the game sometimes \"" +
     "forgets\" to increase some stat-values during the imprinting-process. Usually it " +
@@ -2238,7 +2238,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator14,
             this.toolStripMenuItemRemove});
             this.contextMenuStripLibrary.Name = "contextMenuStripLibrary";
-            this.contextMenuStripLibrary.Size = new System.Drawing.Size(259, 364);
+            this.contextMenuStripLibrary.Size = new System.Drawing.Size(259, 342);
             this.contextMenuStripLibrary.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripLibrary_Opening);
             // 
             // toolStripMenuItemEdit

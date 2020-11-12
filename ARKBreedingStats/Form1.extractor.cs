@@ -491,20 +491,40 @@ namespace ARKBreedingStats
                 groupBoxRadarChartExtractor.Visible = false;
                 lbInfoYellowStats.Visible = false;
                 BtCopyIssueDumpToClipboard.Visible = true;
+                string redInfoText = null;
                 if (rbBredExtractor.Checked && numericUpDownImprintingBonusExtractor.Value > 0)
                 {
-                    lbImprintingFailInfo.Text = Loc.S("lbImprintingFailInfo");
-                    lbImprintingFailInfo.Visible = true;
+                    redInfoText = Loc.S("lbImprintingFailInfo");
                 }
-                else if (rbTamedExtractor.Checked
-                    && "Desert Titan,Desert Titan Flock,Ice Titan,Gacha,Aberrant Electrophorus,Electrophorus,Aberrant Pulmonoscorpius,Pulmonoscorpius,Aberrant Titanoboa,Titanoboa,Pegomastax,Procoptodon,Troodon"
-                    .Split(',').ToList().Contains(speciesSelector1.SelectedSpecies.name))
+                if (!rbWildExtractor.Checked
+                    && new[]{
+                            "Desert Titan",
+                            "Desert Titan Flock",
+                            "Ice Titan",
+                            "Gacha",
+                            "Aberrant Electrophorus",
+                            "Electrophorus",
+                            "Aberrant Pulmonoscorpius",
+                            "Pulmonoscorpius",
+                            "Aberrant Titanoboa",
+                            "Titanoboa",
+                            "Pegomastax",
+                            "Procoptodon",
+                            "Troodon"
+                            }.Contains(speciesSelector1.SelectedSpecies.name))
                 {
                     // creatures that display wrong stat-values after taming
-                    lbImprintingFailInfo.Text = $"The {speciesSelector1.SelectedSpecies.name} is known for displaying wrong stat-values after taming. " +
+                    redInfoText = (string.IsNullOrEmpty(redInfoText) ? string.Empty : redInfoText + "\n")
+                            + $"The {speciesSelector1.SelectedSpecies.name} is known for displaying wrong stat-values after taming. " +
                             "This can prevent a successful extraction. Currently there's no known fix for that issue.";
+                }
+
+                if (!string.IsNullOrEmpty(redInfoText))
+                {
+                    lbImprintingFailInfo.Text = redInfoText;
                     lbImprintingFailInfo.Visible = true;
                 }
+
                 toolStripButtonSaveCreatureValuesTemp.Visible = true;
                 PbCreatureColorsExtractor.Visible = false;
                 parentInheritanceExtractor.Visible = false;
@@ -766,7 +786,7 @@ namespace ARKBreedingStats
                 {
                     if (i == tryCount - 1)
                     {
-                        MessageBoxes.ExceptionMessageBox(ex,$"Exported creature-file couldn't be read.\n{exportFilePath}");
+                        MessageBoxes.ExceptionMessageBox(ex, $"Exported creature-file couldn't be read.\n{exportFilePath}");
                         return null;
                     }
                     Thread.Sleep(waitingTimeBase * (1 << i));
