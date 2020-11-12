@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using ARKBreedingStats.local;
 using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.uiControls
@@ -313,11 +314,15 @@ namespace ARKBreedingStats.uiControls
                         // parameter: 1: time, 2: format
                         return DateTime.Now.ToString(p1);
                     case "color":
-                        // parameter 1: region id (0,...,5), 2: if not empty, the color name instead of the numerical id is returned
+                        // parameter 1: region id (0,...,5), 2: if not empty, the color name instead of the numerical id is returned, 3: if not empty, the function will return also a value even if the color region is not used on that species.
                         if (!int.TryParse(p1, out int regionId)
                         || regionId < 0 || regionId > 5) return ParametersInvalid("color region id has to be a number in the range 0 - 5");
 
-                        if ((creature.colors?[regionId] ?? 0) == 0) return string.Empty; // no color info
+                        if (!creature.Species.EnabledColorRegions[regionId] &&
+                            string.IsNullOrWhiteSpace(m.Groups[4].Value))
+                            return string.Empty; // species does not use this region and user doesn't want it (param 3 is empty)
+
+                        if (creature.colors == null) return string.Empty; // no color info
                         if (string.IsNullOrWhiteSpace(m.Groups[3].Value))
                             return creature.colors[regionId].ToString();
                         return CreatureColors.CreatureColorName(creature.colors[regionId]);
