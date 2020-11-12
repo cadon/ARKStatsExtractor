@@ -168,10 +168,9 @@ namespace ARKBreedingStats.species
         /// </summary>
         public void InitializeNames()
         {
-            // ignore variants that already appear in the species name, e.g. Corrupted
             if (variants != null && variants.Any())
             {
-                VariantInfo = string.Join(", ", variants.Where(v => !name.Contains(v)));
+                VariantInfo = string.Join(", ", variants);
             }
 
             DescriptiveName = name + (string.IsNullOrEmpty(VariantInfo) ? string.Empty : " (" + VariantInfo + ")");
