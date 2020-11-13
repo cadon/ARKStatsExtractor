@@ -84,14 +84,13 @@ namespace ARKBreedingStats
         /// <param name="adjustImprinting"></param>
         /// <param name="allowMoreThanHundredImprinting"></param>
         /// <param name="imprintingBonusMultiplier"></param>
-        /// <param name="cuddleIntervalMultiplier"></param>
         /// <param name="considerWildLevelSteps"></param>
         /// <param name="wildLevelSteps"></param>
         /// <param name="highPrecisionInputs">If true, the input is expected to be a float value from an export file.
         /// If false, it's assumed to be a displayed value from the game with one decimal digit.</param>
         /// <param name="imprintingChanged"></param>
         public void ExtractLevels(Species species, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound,
-            bool tamed, bool bred, double imprintingBonusRounded, bool adjustImprinting, bool allowMoreThanHundredImprinting, double imprintingBonusMultiplier, double cuddleIntervalMultiplier,
+            bool tamed, bool bred, double imprintingBonusRounded, bool adjustImprinting, bool allowMoreThanHundredImprinting, double imprintingBonusMultiplier,
             bool considerWildLevelSteps, int wildLevelSteps, bool highPrecisionInputs, out bool imprintingChanged)
         {
             List<CreatureStat> stats = species.stats;
@@ -115,7 +114,7 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    imprintingBonusList = CalculateImprintingBonus(species, imprintingBonusRounded, imprintingBonusMultiplier, cuddleIntervalMultiplier, statIOs[(int)StatNames.Torpidity].Input, statIOs[(int)StatNames.Food].Input);
+                    imprintingBonusList = CalculateImprintingBonus(species, imprintingBonusRounded, imprintingBonusMultiplier, statIOs[(int)StatNames.Torpidity].Input, statIOs[(int)StatNames.Food].Input);
                 }
             }
 
@@ -379,7 +378,7 @@ namespace ARKBreedingStats
             }
         }
 
-        private List<MinMaxDouble> CalculateImprintingBonus(Species species, double imprintingBonusRounded, double imprintingBonusMultiplier, double cuddleIntervalMultiplier, double torpor, double food)
+        private List<MinMaxDouble> CalculateImprintingBonus(Species species, double imprintingBonusRounded, double imprintingBonusMultiplier, double torpor, double food)
         {
             List<MinMaxDouble> imprintingBonusList = new List<MinMaxDouble>();
             if (species.stats[(int)StatNames.Torpidity].BaseValue == 0 || species.stats[(int)StatNames.Torpidity].IncPerWildLevel == 0) return imprintingBonusList; // invalid species-data
@@ -388,7 +387,7 @@ namespace ARKBreedingStats
             double imprintingBonusFromGainPerCuddle = 0;
             if (species.breeding != null)
             {
-                double imprintingGainPerCuddle = Utils.ImprintingGainPerCuddle(species.breeding.maturationTimeAdjusted, cuddleIntervalMultiplier);
+                double imprintingGainPerCuddle = Utils.ImprintingGainPerCuddle(species.breeding.maturationTimeAdjusted);
                 imprintingBonusFromGainPerCuddle = Math.Round(imprintingBonusRounded / imprintingGainPerCuddle) * imprintingGainPerCuddle;
             }
 

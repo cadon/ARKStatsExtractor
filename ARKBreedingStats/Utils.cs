@@ -3,8 +3,10 @@ using ARKBreedingStats.species;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Design;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ARKBreedingStats.values;
 
 namespace ARKBreedingStats
 {
@@ -439,14 +441,19 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
+        /// By default the cuddle interval is 8 hours.
+        /// </summary>
+        private const int DefaultCuddleIntervalInSeconds = 8 * 60 * 60;
+
+        /// <summary>
         /// Returns the imprinting gain per cuddle, dependent on the maturation time and the cuddle interval multiplier.
         /// </summary>
-        /// <param name="maturationTime"></param>
-        /// <param name="cuddleIntervalMultiplier"></param>
+        /// <param name="maturationTime">Maturation time in seconds</param>
         /// <returns></returns>
-        public static double ImprintingGainPerCuddle(double maturationTime, double cuddleIntervalMultiplier)
+        public static double ImprintingGainPerCuddle(double maturationTime)
         {
-            return 1d / Math.Max(1, Math.Floor(maturationTime / (28800 * cuddleIntervalMultiplier)));
+            var multipliers = Values.V.currentServerMultipliers;
+            return Math.Min(1, DefaultCuddleIntervalInSeconds * multipliers.BabyCuddleIntervalMultiplier * multipliers.BabyImprintAmountMultiplier / maturationTime);
         }
 
         /// <summary>

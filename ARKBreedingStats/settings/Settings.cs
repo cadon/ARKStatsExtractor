@@ -94,6 +94,7 @@ namespace ARKBreedingStats.settings
             nudEggHatchSpeed.NeutralNumber = 1;
             nudBabyMatureSpeed.NeutralNumber = 1;
             nudBabyCuddleInterval.NeutralNumber = 1;
+            nudBabyImprintAmount.NeutralNumber = 1;
             nudBabyImprintingStatScale.NeutralNumber = 1;
             nudBabyFoodConsumptionSpeed.NeutralNumber = 1;
             // event
@@ -103,6 +104,7 @@ namespace ARKBreedingStats.settings
             nudEggHatchSpeedEvent.NeutralNumber = 1;
             nudBabyMatureSpeedEvent.NeutralNumber = 1;
             nudBabyCuddleIntervalEvent.NeutralNumber = 1;
+            nudBabyImprintAmountEvent.NeutralNumber = 1;
             nudBabyFoodConsumptionSpeedEvent.NeutralNumber = 1;
 
             customSCStarving.Title = "Starving: ";
@@ -191,6 +193,7 @@ namespace ARKBreedingStats.settings
             nudBabyMatureSpeed.ValueSave = (decimal)multipliers.BabyMatureSpeedMultiplier;
             nudBabyImprintingStatScale.ValueSave = (decimal)multipliers.BabyImprintingStatScaleMultiplier;
             nudBabyCuddleInterval.ValueSave = (decimal)multipliers.BabyCuddleIntervalMultiplier;
+            nudBabyImprintAmount.ValueSave = (decimal)multipliers.BabyImprintAmountMultiplier;
             nudTamingSpeed.ValueSave = (decimal)multipliers.TamingSpeedMultiplier;
             nudDinoCharacterFoodDrain.ValueSave = (decimal)multipliers.DinoCharacterFoodDrainMultiplier;
             nudBabyFoodConsumptionSpeed.ValueSave = (decimal)multipliers.BabyFoodConsumptionSpeedMultiplier;
@@ -198,6 +201,7 @@ namespace ARKBreedingStats.settings
             #region event-multiplier
             multipliers = cc.serverMultipliersEvents ?? multipliers;
             nudBabyCuddleIntervalEvent.ValueSave = (decimal)multipliers.BabyCuddleIntervalMultiplier;
+            nudBabyImprintAmountEvent.ValueSave = (decimal)multipliers.BabyImprintAmountMultiplier;
             nudTamingSpeedEvent.ValueSave = (decimal)multipliers.TamingSpeedMultiplier;
             nudDinoCharacterFoodDrainEvent.ValueSave = (decimal)multipliers.DinoCharacterFoodDrainMultiplier;
             nudMatingIntervalEvent.ValueSave = (decimal)multipliers.MatingIntervalMultiplier;
@@ -362,6 +366,7 @@ namespace ARKBreedingStats.settings
             _cc.serverMultipliers.MatingIntervalMultiplier = (double)nudMatingInterval.Value;
             _cc.serverMultipliers.EggHatchSpeedMultiplier = (double)nudEggHatchSpeed.Value;
             _cc.serverMultipliers.BabyCuddleIntervalMultiplier = (double)nudBabyCuddleInterval.Value;
+            _cc.serverMultipliers.BabyImprintAmountMultiplier = (double)nudBabyImprintAmount.Value;
             _cc.serverMultipliers.BabyImprintingStatScaleMultiplier = (double)nudBabyImprintingStatScale.Value;
             _cc.serverMultipliers.BabyMatureSpeedMultiplier = (double)nudBabyMatureSpeed.Value;
             _cc.serverMultipliers.BabyFoodConsumptionSpeedMultiplier = (double)nudBabyFoodConsumptionSpeed.Value;
@@ -374,6 +379,7 @@ namespace ARKBreedingStats.settings
             _cc.serverMultipliersEvents.MatingIntervalMultiplier = (double)nudMatingIntervalEvent.Value;
             _cc.serverMultipliersEvents.EggHatchSpeedMultiplier = (double)nudEggHatchSpeedEvent.Value;
             _cc.serverMultipliersEvents.BabyCuddleIntervalMultiplier = (double)nudBabyCuddleIntervalEvent.Value;
+            _cc.serverMultipliersEvents.BabyImprintAmountMultiplier = (double)nudBabyImprintAmountEvent.Value;
             _cc.serverMultipliersEvents.BabyImprintingStatScaleMultiplier = (double)nudBabyImprintingStatScale.Value;
             _cc.serverMultipliersEvents.BabyMatureSpeedMultiplier = (double)nudBabyMatureSpeedEvent.Value;
             _cc.serverMultipliersEvents.BabyFoodConsumptionSpeedMultiplier = (double)nudBabyFoodConsumptionSpeedEvent.Value;
@@ -771,6 +777,7 @@ namespace ARKBreedingStats.settings
                 nudBabyMatureSpeed.ValueSave = (decimal)sm.BabyMatureSpeedMultiplier;
                 nudBabyImprintingStatScale.ValueSave = (decimal)sm.BabyImprintingStatScaleMultiplier;
                 nudBabyCuddleInterval.ValueSave = (decimal)sm.BabyCuddleIntervalMultiplier;
+                nudBabyImprintAmount.ValueSave = (decimal)sm.BabyImprintAmountMultiplier;
                 nudMatingInterval.ValueSave = (decimal)sm.MatingIntervalMultiplier;
                 nudMatingSpeed.ValueSave = (decimal)sm.MatingSpeedMultiplier;
                 nudBabyFoodConsumptionSpeed.ValueSave = (decimal)sm.BabyFoodConsumptionSpeedMultiplier;

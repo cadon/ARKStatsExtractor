@@ -273,10 +273,9 @@ namespace ARKBreedingStats.oldLibraryFormat
                 MatingIntervalMultiplier = ccOld.MatingIntervalMultiplier,
                 EggHatchSpeedMultiplier = ccOld.EggHatchSpeedMultiplier,
                 BabyMatureSpeedMultiplier = ccOld.BabyMatureSpeedMultiplier,
-                BabyFoodConsumptionSpeedMultiplier = ccOld.BabyFoodConsumptionSpeedMultiplier
+                BabyFoodConsumptionSpeedMultiplier = ccOld.BabyFoodConsumptionSpeedMultiplier,
+                statMultipliers = ccOld.multipliers // was converted to 12-stats before
             };
-
-            ccNew.serverMultipliers.statMultipliers = ccOld.multipliers; // was converted to 12-stats before
 
             ccNew.serverMultipliersEvents = new ServerMultipliers
             {

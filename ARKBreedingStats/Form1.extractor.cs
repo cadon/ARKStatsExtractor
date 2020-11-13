@@ -201,7 +201,6 @@ namespace ARKBreedingStats
                     rbTamedExtractor.Checked, rbBredExtractor.Checked,
                     (double)numericUpDownImprintingBonusExtractor.Value / 100, !cbExactlyImprinting.Checked,
                     _creatureCollection.allowMoreThanHundredImprinting, _creatureCollection.serverMultipliers.BabyImprintingStatScaleMultiplier,
-                    Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier,
                     _creatureCollection.considerWildLevelSteps, _creatureCollection.wildLevelStep, statInputsHighPrecision, out bool imprintingBonusChanged);
 
             numericUpDownImprintingBonusExtractor.ValueSave = (decimal)_extractor.ImprintingBonus * 100;
