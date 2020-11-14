@@ -54,6 +54,8 @@
             this.contextMenuStripBabyList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.extractValuesOfHatchedbornBabyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.addCreatureImprintTimersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteTimerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeAllExpiredTimersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -77,6 +79,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.dhmsInputOffsetAllTimers = new ARKBreedingStats.uiControls.dhmsInput();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.columnHeaderImprintTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripBabyList.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -220,7 +223,8 @@
             this.columnHeaderIncubation,
             this.columnHeaderBabyTime,
             this.columnHeaderGrowingTime,
-            this.columnHeaderStatus});
+            this.columnHeaderStatus,
+            this.columnHeaderImprintTime});
             this.listViewBabies.ContextMenuStrip = this.contextMenuStripBabyList;
             this.listViewBabies.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewBabies.FullRowSelect = true;
@@ -270,10 +274,12 @@
             this.contextMenuStripBabyList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.extractValuesOfHatchedbornBabyToolStripMenuItem,
             this.toolStripSeparator1,
+            this.addCreatureImprintTimersMenuItem,
+            this.toolStripSeparator2,
             this.deleteTimerToolStripMenuItem,
             this.removeAllExpiredTimersToolStripMenuItem});
             this.contextMenuStripBabyList.Name = "contextMenuStripBabyList";
-            this.contextMenuStripBabyList.Size = new System.Drawing.Size(266, 76);
+            this.contextMenuStripBabyList.Size = new System.Drawing.Size(266, 104);
             // 
             // extractValuesOfHatchedbornBabyToolStripMenuItem
             // 
@@ -286,6 +292,18 @@
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(262, 6);
+            // 
+            // addCreatureImprintTimersMenuItem
+            // 
+            this.addCreatureImprintTimersMenuItem.Name = "addCreatureImprintTimersMenuItem";
+            this.addCreatureImprintTimersMenuItem.Size = new System.Drawing.Size(265, 22);
+            this.addCreatureImprintTimersMenuItem.Text = "Add Creature Imprint Timers";
+            this.addCreatureImprintTimersMenuItem.Click += new System.EventHandler(this.addCreatureImprintTimersMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(262, 6);
             // 
             // deleteTimerToolStripMenuItem
             // 
@@ -620,5 +638,8 @@
         private System.Windows.Forms.Label label10;
         private uiControls.dhmsInput dhmsInputOffsetAllTimers;
         private System.Windows.Forms.CheckBox cbSubtractOffsetToAllTimers;
+        private System.Windows.Forms.ToolStripMenuItem addCreatureImprintTimersMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ColumnHeader columnHeaderImprintTime;
     }
 }

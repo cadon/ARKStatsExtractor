@@ -390,7 +390,8 @@ namespace ARKBreedingStats
         {
             Birth,
             Wakeup,
-            Starving
+            Starving,
+            Imprint,
         }
 
         /// <summary>

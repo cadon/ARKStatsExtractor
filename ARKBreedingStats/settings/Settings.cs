@@ -96,6 +96,7 @@ namespace ARKBreedingStats.settings
             nudBabyCuddleInterval.NeutralNumber = 1;
             nudBabyImprintingStatScale.NeutralNumber = 1;
             nudBabyFoodConsumptionSpeed.NeutralNumber = 1;
+            nudBabyImprintAmount.NeutralNumber = 1;
             // event
             nudTamingSpeedEvent.NeutralNumber = 1.5M;
             nudDinoCharacterFoodDrainEvent.NeutralNumber = 1;
@@ -104,6 +105,7 @@ namespace ARKBreedingStats.settings
             nudBabyMatureSpeedEvent.NeutralNumber = 1;
             nudBabyCuddleIntervalEvent.NeutralNumber = 1;
             nudBabyFoodConsumptionSpeedEvent.NeutralNumber = 1;
+            nudBabyImprintAmountEvent.NeutralNumber = 1;
 
             customSCStarving.Title = "Starving: ";
             customSCWakeup.Title = "Wakeup: ";
@@ -194,6 +196,7 @@ namespace ARKBreedingStats.settings
             nudTamingSpeed.ValueSave = (decimal)multipliers.TamingSpeedMultiplier;
             nudDinoCharacterFoodDrain.ValueSave = (decimal)multipliers.DinoCharacterFoodDrainMultiplier;
             nudBabyFoodConsumptionSpeed.ValueSave = (decimal)multipliers.BabyFoodConsumptionSpeedMultiplier;
+            nudBabyImprintAmount.ValueSave = (decimal)multipliers.BabyImprintAmountMultiplier;
             #endregion
             #region event-multiplier
             multipliers = cc.serverMultipliersEvents ?? multipliers;
@@ -204,6 +207,7 @@ namespace ARKBreedingStats.settings
             nudEggHatchSpeedEvent.ValueSave = (decimal)multipliers.EggHatchSpeedMultiplier;
             nudBabyMatureSpeedEvent.ValueSave = (decimal)multipliers.BabyMatureSpeedMultiplier;
             nudBabyFoodConsumptionSpeedEvent.ValueSave = (decimal)multipliers.BabyFoodConsumptionSpeedMultiplier;
+            nudBabyImprintAmountEvent.ValueSave = (decimal)multipliers.BabyImprintAmountMultiplier;
             #endregion
 
             checkBoxAutoSave.Checked = Properties.Settings.Default.autosave;
@@ -365,6 +369,7 @@ namespace ARKBreedingStats.settings
             _cc.serverMultipliers.BabyImprintingStatScaleMultiplier = (double)nudBabyImprintingStatScale.Value;
             _cc.serverMultipliers.BabyMatureSpeedMultiplier = (double)nudBabyMatureSpeed.Value;
             _cc.serverMultipliers.BabyFoodConsumptionSpeedMultiplier = (double)nudBabyFoodConsumptionSpeed.Value;
+            _cc.serverMultipliers.BabyImprintAmountMultiplier = (double)nudBabyImprintAmount.Value;
             #endregion
 
             #region event-multiplier
@@ -377,6 +382,7 @@ namespace ARKBreedingStats.settings
             _cc.serverMultipliersEvents.BabyImprintingStatScaleMultiplier = (double)nudBabyImprintingStatScale.Value;
             _cc.serverMultipliersEvents.BabyMatureSpeedMultiplier = (double)nudBabyMatureSpeedEvent.Value;
             _cc.serverMultipliersEvents.BabyFoodConsumptionSpeedMultiplier = (double)nudBabyFoodConsumptionSpeedEvent.Value;
+            _cc.serverMultipliersEvents.BabyImprintAmountMultiplier = (double)nudBabyImprintAmountEvent.Value;
             #endregion
 
             Properties.Settings.Default.autosave = checkBoxAutoSave.Checked;
@@ -643,6 +649,7 @@ namespace ARKBreedingStats.settings
             nudBabyImprintingStatScale.ValueSave = 1;
             nudBabyCuddleInterval.ValueSave = 1;
             nudBabyFoodConsumptionSpeed.ValueSave = 1;
+            nudBabyImprintAmount.ValueSave = 1;
         }
 
         private void buttonEventToDefault_Click(object sender, EventArgs e)
@@ -654,6 +661,7 @@ namespace ARKBreedingStats.settings
             nudBabyMatureSpeedEvent.ValueSave = nudBabyMatureSpeed.Value;
             nudBabyCuddleIntervalEvent.ValueSave = nudBabyCuddleInterval.Value;
             nudBabyFoodConsumptionSpeedEvent.ValueSave = nudBabyFoodConsumptionSpeed.Value;
+            nudBabyImprintAmountEvent.ValueSave = nudBabyImprintAmount.Value;
         }
 
         private void btAddExportFolder_Click(object sender, EventArgs e)
@@ -774,6 +782,7 @@ namespace ARKBreedingStats.settings
                 nudMatingInterval.ValueSave = (decimal)sm.MatingIntervalMultiplier;
                 nudMatingSpeed.ValueSave = (decimal)sm.MatingSpeedMultiplier;
                 nudBabyFoodConsumptionSpeed.ValueSave = (decimal)sm.BabyFoodConsumptionSpeedMultiplier;
+                nudBabyImprintAmount.ValueSave = (decimal)sm.BabyImprintAmountMultiplier;
 
                 ////numericUpDownDomLevelNr.ValueSave = ;
                 //numericUpDownMaxBreedingSug.ValueSave = cc.maxBreedingSuggestions;
@@ -848,6 +857,7 @@ namespace ARKBreedingStats.settings
             sb.AppendLine($"BabyImprintingStatScaleMultiplier = {nudBabyImprintingStatScale.Value.ToString(cultureForStrings)}");
             sb.AppendLine($"BabyCuddleIntervalMultiplier = {nudBabyCuddleInterval.Value.ToString(cultureForStrings)}");
             sb.AppendLine($"BabyFoodConsumptionSpeedMultiplier = {nudBabyFoodConsumptionSpeed.Value.ToString(cultureForStrings)}");
+            sb.AppendLine($"BabyImprintAmountMultiplier = {nudBabyImprintAmount.Value.ToString(cultureForStrings)}");
 
             sb.AppendLine($"bUseSingleplayerSettings = {(cbSingleplayerSettings.Checked ? "true" : "false")}");
             sb.AppendLine($"DestroyTamesOverLevelClamp = {nudMaxServerLevel.Value.ToString(cultureForStrings)}");
@@ -874,6 +884,7 @@ namespace ARKBreedingStats.settings
             sb.AppendLine($"ASBEvent_BabyFoodConsumptionSpeedMultiplier = {nudBabyFoodConsumptionSpeedEvent.Value.ToString(cultureForStrings)}");
             sb.AppendLine($"ASBEvent_TamingSpeedMultiplier = {nudTamingSpeedEvent.Value.ToString(cultureForStrings)}");
             sb.AppendLine($"ASBEvent_DinoCharacterFoodDrainMultiplier = {nudDinoCharacterFoodDrainEvent.Value.ToString(cultureForStrings)}");
+            sb.AppendLine($"ASBEvent_BabyImprintAmountMultiplier = {nudBabyImprintAmountEvent.Value.ToString(cultureForStrings)}");
 
             try
             {
@@ -995,5 +1006,7 @@ namespace ARKBreedingStats.settings
                     "Folder detection failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
     }
 }

@@ -146,6 +146,7 @@ namespace ARKBreedingStats
             breedingPlan1.BindChildrenControlEvents();
             raisingControl1.onChange += SetCollectionChanged;
             tamingControl1.CreateTimer += CreateTimer;
+            raisingControl1.CreateTimer += CreateTimer;
             raisingControl1.ExtractBaby += ExtractBaby;
             raisingControl1.SetGlobalSpecies += SetSpecies;
             raisingControl1.timerControl = timerList1;
@@ -1443,7 +1444,7 @@ namespace ARKBreedingStats
             UpdateAllTesterValues();
             // calculate number of imprintings
             if (speciesSelector1.SelectedSpecies.breeding != null && speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted > 0)
-                lbImprintedCount.Text = "(" + Math.Round((double)numericUpDownImprintingBonusTester.Value / (100 * Utils.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier)), 2) + "×)";
+                lbImprintedCount.Text = "(" + Math.Round((double)numericUpDownImprintingBonusTester.Value / (100 * Utils.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier, Values.V.currentServerMultipliers.BabyImprintAmountMultiplier)), 2) + "×)";
             else lbImprintedCount.Text = string.Empty;
         }
 
@@ -1451,7 +1452,7 @@ namespace ARKBreedingStats
         {
             // calculate number of imprintings
             if (speciesSelector1.SelectedSpecies.breeding != null && speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted > 0)
-                lbImprintingCuddleCountExtractor.Text = "(" + Math.Round((double)numericUpDownImprintingBonusExtractor.Value / (100 * Utils.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier))) + "×)";
+                lbImprintingCuddleCountExtractor.Text = "(" + Math.Round((double)numericUpDownImprintingBonusExtractor.Value / (100 * Utils.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier, Values.V.currentServerMultipliers.BabyImprintAmountMultiplier))) + "×)";
             else lbImprintingCuddleCountExtractor.Text = string.Empty;
         }
 
@@ -2436,7 +2437,7 @@ namespace ARKBreedingStats
                 // set imprinting-count to closes integer
                 if (speciesSelector1.SelectedSpecies.breeding != null && speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted > 0)
                 {
-                    double imprintingGainPerCuddle = Utils.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier);
+                    double imprintingGainPerCuddle = Utils.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier, Values.V.currentServerMultipliers.BabyImprintAmountMultiplier);
                     int cuddleCount = (int)Math.Round((double)numericUpDownImprintingBonusTester.Value / (100 * imprintingGainPerCuddle));
                     double imprintingBonus;
                     do

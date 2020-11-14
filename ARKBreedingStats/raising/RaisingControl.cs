@@ -23,6 +23,7 @@ namespace ARKBreedingStats.raising
         public TimerControl timerControl;
         private IncubationTimerEntry _iteEdit;
         private Creature _creatureMaturationEdit;
+        public event TimerControl.CreateTimerEventHandler CreateTimer;
 
         public RaisingControl()
         {
@@ -681,6 +682,30 @@ namespace ARKBreedingStats.raising
         internal void SetLocalizations()
         {
             parentStats1.SetLocalizations();
+        }
+
+        private void addCreatureImprintTimersMenuItem_Click(object sender, EventArgs e)
+        {
+            var cuddleTime = new TimeSpan(0, 0, (int)(8 * 60 * 60 * Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier));
+
+            foreach (ListViewItem lvi in listViewBabies.Items)
+            {
+                if (lvi.Tag is Creature c)
+                {
+                    Species species = c.Species;
+                    if (species?.breeding != null && c.growingUntil.HasValue)
+                    {
+                        var now = DateTime.Now;
+                        var nextImprintTime = now.AddMilliseconds(cuddleTime.TotalMilliseconds);
+
+                        while (c.growingUntil > nextImprintTime)
+                        {
+                            CreateTimer(c.name, nextImprintTime, c, TimerControl.TimerGroups.Imprint.ToString());
+                            nextImprintTime = nextImprintTime.AddMilliseconds(cuddleTime.TotalMilliseconds);
+                        }
+                    }
+                }
+            }
         }
     }
 }

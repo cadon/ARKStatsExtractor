@@ -438,15 +438,26 @@ namespace ARKBreedingStats
             return dt < DateTime.Now ? "-" : Duration(dt.Subtract(DateTime.Now));
         }
 
+        ///// <summary>
+        ///// Returns the imprinting gain per cuddle, dependent on the maturation time and the cuddle interval multiplier.
+        ///// </summary>
+        ///// <param name="maturationTime"></param>
+        ///// <param name="cuddleIntervalMultiplier"></param>
+        ///// <returns></returns>
+        //public static double ImprintingGainPerCuddle(double maturationTime, double cuddleIntervalMultiplier)
+        //{
+        //    return 1d / Math.Max(1, Math.Floor(maturationTime / (28800 * cuddleIntervalMultiplier)));
+        //}
+
         /// <summary>
         /// Returns the imprinting gain per cuddle, dependent on the maturation time and the cuddle interval multiplier.
         /// </summary>
         /// <param name="maturationTime"></param>
         /// <param name="cuddleIntervalMultiplier"></param>
         /// <returns></returns>
-        public static double ImprintingGainPerCuddle(double maturationTime, double cuddleIntervalMultiplier)
+        public static double ImprintingGainPerCuddle(double maturationTime, double cuddleIntervalMultiplier, double imprintAmmountMultiplier)
         {
-            return 1d / Math.Max(1, Math.Floor(maturationTime / (28800 * cuddleIntervalMultiplier)));
+            return 1d / Math.Max(1, Math.Floor(maturationTime / (28800 * cuddleIntervalMultiplier) * imprintAmmountMultiplier));
         }
 
         /// <summary>

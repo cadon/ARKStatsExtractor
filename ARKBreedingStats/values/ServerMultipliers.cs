@@ -35,6 +35,9 @@ namespace ARKBreedingStats.values
         public double BabyCuddleIntervalMultiplier { get; set; }
         [JsonProperty]
         public double BabyImprintingStatScaleMultiplier { get; set; }
+        [JsonProperty]
+        public double BabyImprintAmountMultiplier { get; set; }
+
 
         [OnDeserializing]
         internal void SetDefaultValues(StreamingContext context)
@@ -48,6 +51,7 @@ namespace ARKBreedingStats.values
             BabyFoodConsumptionSpeedMultiplier = 1;
             BabyCuddleIntervalMultiplier = 1;
             BabyImprintingStatScaleMultiplier = 1;
+            BabyImprintAmountMultiplier = 1;
         }
 
         /// <summary>
@@ -82,7 +86,8 @@ namespace ARKBreedingStats.values
                 BabyMatureSpeedMultiplier = BabyMatureSpeedMultiplier,
                 BabyFoodConsumptionSpeedMultiplier = BabyFoodConsumptionSpeedMultiplier,
                 BabyCuddleIntervalMultiplier = BabyCuddleIntervalMultiplier,
-                BabyImprintingStatScaleMultiplier = BabyImprintingStatScaleMultiplier
+                BabyImprintingStatScaleMultiplier = BabyImprintingStatScaleMultiplier,
+                BabyImprintAmountMultiplier = BabyImprintAmountMultiplier,
             };
 
             if (withStatMultipliers && statMultipliers != null)
@@ -111,6 +116,7 @@ namespace ARKBreedingStats.values
             if (BabyMatureSpeedMultiplier == 0) BabyMatureSpeedMultiplier = 1;
             if (BabyCuddleIntervalMultiplier == 0) BabyCuddleIntervalMultiplier = 1;
             if (TamingSpeedMultiplier == 0) TamingSpeedMultiplier = 1;
+            if (BabyImprintAmountMultiplier == 0) BabyImprintAmountMultiplier = 1;
         }
     }
 }
