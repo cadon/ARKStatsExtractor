@@ -152,7 +152,7 @@ namespace ARKBreedingStats.mods
                 if (dlg.ShowDialog() != DialogResult.OK) return;
                 if (!FileService.LoadJsonFile(dlg.FileName, out Dictionary<string, double?[][]> dict, out string error))
                 {
-                    MessageBoxes.ErrorMessageBox(error, $"Error loading file");
+                    MessageBoxes.ShowMessageBox(error, $"Error loading file");
                     return;
                 }
 
@@ -207,7 +207,7 @@ namespace ARKBreedingStats.mods
                 if (dlg.ShowDialog() != DialogResult.OK) return;
                 if (!FileService.SaveJsonFile(dlg.FileName, cc.CustomSpeciesStats, out string error))
                 {
-                    MessageBoxes.ErrorMessageBox(error, $"Error saving file");
+                    MessageBoxes.ShowMessageBox(error, $"Error saving file");
                 }
             }
         }

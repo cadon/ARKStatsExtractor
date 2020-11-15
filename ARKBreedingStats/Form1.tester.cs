@@ -311,7 +311,7 @@ namespace ARKBreedingStats
                     tabControlMain.SelectedTab = tabPageExtractor;
                 }
                 else
-                    MessageBoxes.ErrorMessageBox("Unknown Species. Try to update the species-stats, or redownload the tool.");
+                    MessageBoxes.ShowMessageBox("Unknown Species. Try to update the species-stats, or redownload the tool.");
             }
         }
     }

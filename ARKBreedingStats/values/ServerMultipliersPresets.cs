@@ -43,7 +43,7 @@ namespace ARKBreedingStats.values
                     serverMultipliersPresets = readData;
                     return true;
                 }
-                MessageBoxes.ErrorMessageBox($"File {FileService.ValuesServerMultipliers} is a format that is unsupported in this version of ARK Smart Breeding." +
+                MessageBoxes.ShowMessageBox($"File {FileService.ValuesServerMultipliers} is a format that is unsupported in this version of ARK Smart Breeding." +
                                              "\n\nTry updating to a newer version.");
 
             }

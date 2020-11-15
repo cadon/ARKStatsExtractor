@@ -63,7 +63,7 @@ namespace ARKBreedingStats
             bool onlineAvailableModsExist = onlineAvailableModFiles != null && onlineAvailableModFiles.Any();
             bool unavailableModsExist = unavailableModFiles != null && unavailableModFiles.Any();
 
-            MessageBox.Show("Some of the creatures to be imported have an unknown species, most likely because a mod is used.\n"
+            MessageBoxes.ShowMessageBox("Some of the creatures to be imported have an unknown species, most likely because a mod is used.\n"
                 + "To import these creatures, this application needs additional informations about these mods."
                 + (locallyAvailableModsExist ?
                     "\n\nThe value files for the following mods are already locally available and just need to be added to the library:\n\n- "
@@ -74,10 +74,10 @@ namespace ARKBreedingStats
                     + string.Join("\n- ", onlineAvailableModFiles)
                     : "")
                 + (unavailableModsExist ?
-                    "\n\nThe value files for the following mods are unknown. Currently you cannot create a mod-values file manually. Check on the discord server of ASB the #mod-requests channel and ask for that mod, maybe we'll add support for it in the future.\n\n- "
+                    "\n\nThe values for species for the following mods are unknown.\nYou can create a mod values file manually if you have all the needed stat values, see the manual for more info.\nYou can also check on the discord server of ASB the #mod-requests channel and ask for that mod, maybe we'll add support for it in the future.\n\n- "
                     + string.Join("\n- ", unavailableModFiles)
                     : ""),
-                "ASB: Unknown species", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                "Unknown species", MessageBoxIcon.Information);
 
             if ((locallyAvailableModsExist || onlineAvailableModsExist)
                 && MessageBox.Show("Do you want to " + (onlineAvailableModsExist ? "download and " : "") + "add the values-files for the following mods to the library?\n\n- "
@@ -130,7 +130,7 @@ namespace ARKBreedingStats
 
             if (missingModValueFilesOnlineNotAvailable.Any())
             {
-                MessageBoxes.ErrorMessageBox(missingModValueFilesOnlineNotAvailable.Count + " mod-value files are neither available locally nor online. The creatures of the missing mod will not be displayed.\n"
+                MessageBoxes.ShowMessageBox(missingModValueFilesOnlineNotAvailable.Count + " mod-value files are neither available locally nor online. The creatures of the missing mod will not be displayed.\n"
                                              + "The following files are missing\n\n"
                                              + string.Join("\n", missingModValueFilesOnlineNotAvailable), "Missing value files");
             }
@@ -181,7 +181,7 @@ namespace ARKBreedingStats
         {
             if (!ServerMultipliersPresets.TryLoadServerMultipliersPresets(out values.serverMultipliersPresets))
             {
-                MessageBoxes.ErrorMessageBox("The file with the server multipliers couldn't be loaded. Changed settings, e.g. for the singleplayer will be not available.\nIt's recommended to download the application again.",
+                MessageBoxes.ShowMessageBox("The file with the server multipliers couldn't be loaded. Changed settings, e.g. for the singleplayer will be not available.\nIt's recommended to download the application again.",
                     $"Server multiplier file not loaded");
             }
         }
@@ -236,7 +236,7 @@ namespace ARKBreedingStats
         }
 
         private static void FormatExceptionMessageBox(string filePath) =>
-            MessageBoxes.ErrorMessageBox($"File {filePath} is a format that is unsupported in this version of ARK Smart Breeding." +
+            MessageBoxes.ShowMessageBox($"File {filePath} is a format that is unsupported in this version of ARK Smart Breeding." +
                                          "\n\nTry updating to a newer version of this application, either by using the updater or downloading it again.");
     }
 }

@@ -134,7 +134,7 @@ namespace ARKBreedingStats.importExported
             }
             else
             {
-                MessageBoxes.ErrorMessageBox($"The file does not exist:\n{exportedFile}");
+                MessageBoxes.ShowMessageBox($"The file does not exist:\n{exportedFile}");
             }
             return successfullyDeleted;
         }

@@ -43,7 +43,7 @@ namespace ARKBreedingStats
             }
             else
             {
-                MessageBoxes.ErrorMessageBox($"File {FileService.KibblesJson} couldn\'t be opened or read.\nErrormessage:\n\n{errorMessage}");
+                MessageBoxes.ShowMessageBox($"File {FileService.KibblesJson} couldn\'t be opened or read.\nErrormessage:\n\n{errorMessage}");
             }
             return false;
         }

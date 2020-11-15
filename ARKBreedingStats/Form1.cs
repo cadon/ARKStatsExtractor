@@ -283,7 +283,7 @@ namespace ARKBreedingStats
 
             if (!LoadStatAndKibbleValues(applySettings: false).statValuesLoaded || !Values.V.species.Any())
             {
-                MessageBoxes.ErrorMessageBox(Loc.S("valuesFileLoadingError"), $"{Loc.S("error")}: Values-file not found");
+                MessageBoxes.ShowMessageBox(Loc.S("valuesFileLoadingError"), $"{Loc.S("error")}: Values-file not found");
                 Environment.Exit(1);
             }
 
@@ -1005,7 +1005,7 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    MessageBoxes.ErrorMessageBox("Download of new stat successful, but files couldn't be loaded.\nTry again later, or redownload the tool.");
+                    MessageBoxes.ShowMessageBox("Download of new stat successful, but files couldn't be loaded.\nTry again later, or redownload the tool.");
                 }
             }
             else if (!silentCheck)
@@ -1034,7 +1034,7 @@ namespace ARKBreedingStats
             success.kibbleValuesLoaded = Kibbles.K.LoadValues();
             if (!success.kibbleValuesLoaded)
             {
-                MessageBoxes.ErrorMessageBox("The kibbles-file couldn't be loaded, the kibble-recipes will not be available. " +
+                MessageBoxes.ShowMessageBox("The kibbles-file couldn't be loaded, the kibble-recipes will not be available. " +
                                              "You can redownload this application to get this file.", $"{Loc.S("error")}: Kibble-recipe-file not loaded");
             }
 
@@ -1662,7 +1662,7 @@ namespace ARKBreedingStats
                             SetCreatureValuesToExtractor(cv);
                     }
                     else
-                        MessageBoxes.ErrorMessageBox($"{Loc.S("unknownSpecies")}:\n" + m.Groups[2].Value);
+                        MessageBoxes.ShowMessageBox($"{Loc.S("unknownSpecies")}:\n" + m.Groups[2].Value);
                 }
             }
         }
@@ -1959,7 +1959,7 @@ namespace ARKBreedingStats
             ocrControl1.output.Text = debugText;
             if (OCRvalues.Length <= 1)
             {
-                if (manuallyTriggered) MessageBoxes.ErrorMessageBox(debugText, "OCR " + Loc.S("error"));
+                if (manuallyTriggered) MessageBoxes.ShowMessageBox(debugText, "OCR " + Loc.S("error"));
                 return;
             }
 
@@ -2239,7 +2239,7 @@ namespace ARKBreedingStats
 
                     if (!p.Any())
                     {
-                        MessageBoxes.ErrorMessageBox("Process for capturing screenshots and for overlay (e.g. the game, or a stream of the game) not found.\n" +
+                        MessageBoxes.ShowMessageBox("Process for capturing screenshots and for overlay (e.g. the game, or a stream of the game) not found.\n" +
                                                      "Start the game or change the process in the settings.", "Game started?", MessageBoxIcon.Warning);
                         cbToggleOverlay.Checked = false;
                         return false;
@@ -3141,7 +3141,7 @@ namespace ARKBreedingStats
             if (!File.Exists(filePath) || !FileService.LoadJsonFile(filePath, out _customReplacingNamingPattern, out errorMessage))
             {
                 if (!string.IsNullOrEmpty(errorMessage))
-                    MessageBoxes.ErrorMessageBox(errorMessage, "Custom replacing file loading error");
+                    MessageBoxes.ShowMessageBox(errorMessage, "Custom replacing file loading error");
             }
             else if (pe != null) pe.SetCustomReplacings(_customReplacingNamingPattern);
         }

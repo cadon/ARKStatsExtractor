@@ -78,7 +78,7 @@ namespace ARKBreedingStats
                     return;
                 }
 
-                MessageBoxes.ErrorMessageBox($"No exported creature-file found in the set folder\n{folder}\nYou have to export a creature first ingame.\n\n" +
+                MessageBoxes.ShowMessageBox($"No exported creature-file found in the set folder\n{folder}\nYou have to export a creature first ingame.\n\n" +
                                              "You may also want to check the set folder in the settings. Usually the folder is\n" +
                                              @"…\Steam\steamapps\common\ARK\ShooterGame\Saved\DinoExports\<ID>",
                     $"No files found");
@@ -220,7 +220,7 @@ namespace ARKBreedingStats
                             : Properties.Settings.Default.ImportExportedArchiveFolder;
                     if (!FileService.TryCreateDirectory(importedPath, out string errorMessage))
                     {
-                        MessageBoxes.ErrorMessageBox($"Subfolder\n{importedPath}\ncould not be created.\n{errorMessage}");
+                        MessageBoxes.ShowMessageBox($"Subfolder\n{importedPath}\ncould not be created.\n{errorMessage}");
                         return;
                     }
                     FileService.TryMoveFile(filePath, Path.Combine(importedPath, Path.GetFileName(filePath)));

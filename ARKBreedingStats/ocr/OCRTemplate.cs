@@ -86,7 +86,7 @@ namespace ARKBreedingStats.ocr
             // check if file exists
             if (!File.Exists(filePath))
             {
-                MessageBoxes.ErrorMessageBox($"OCR-File '{filePath}' not found. OCR is not possible without the config-file.");
+                MessageBoxes.ShowMessageBox($"OCR-File '{filePath}' not found. OCR is not possible without the config-file.");
                 return null;
             }
 

@@ -34,7 +34,7 @@ namespace ARKBreedingStats
                 var (statValuesLoaded, _) = LoadStatAndKibbleValues(applySettings: false);
                 if (!statValuesLoaded)
                 {
-                    MessageBoxes.ErrorMessageBox("Couldn't load stat values. Please redownload the application.", $"{Loc.S("error")} while loading the stat-values");
+                    MessageBoxes.ShowMessageBox("Couldn't load stat values. Please redownload the application.", $"{Loc.S("error")} while loading the stat-values");
                 }
             }
 
@@ -220,7 +220,7 @@ namespace ARKBreedingStats
             if (fileSaved)
                 SetCollectionChanged(false);
             else
-                MessageBoxes.ErrorMessageBox($"This file couldn\'t be saved:\n{filePath}\nMaybe the file is used by another application.");
+                MessageBoxes.ShowMessageBox($"This file couldn\'t be saved:\n{filePath}\nMaybe the file is used by another application.");
         }
 
         /// <summary>
@@ -237,7 +237,7 @@ namespace ARKBreedingStats
 
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
             {
-                MessageBoxes.ErrorMessageBox($"Save file with name \"{filePath}\" does not exist!", $"File not found");
+                MessageBoxes.ShowMessageBox($"Save file with name \"{filePath}\" does not exist!", $"File not found");
                 return false;
             }
 
@@ -337,7 +337,7 @@ namespace ARKBreedingStats
                         }
                         else
                         {
-                            MessageBoxes.ErrorMessageBox($"Error while trying to read the library-file\n{filePath}\n\n{errorMessage}");
+                            MessageBoxes.ShowMessageBox($"Error while trying to read the library-file\n{filePath}\n\n{errorMessage}");
                             return false;
                         }
                     }
@@ -352,7 +352,7 @@ namespace ARKBreedingStats
                 catch (FormatException)
                 {
                     // This FormatVersion is not understood, abort
-                    MessageBoxes.ErrorMessageBox($"This library format is unsupported in this version of ARK Smart Breeding." +
+                    MessageBoxes.ShowMessageBox($"This library format is unsupported in this version of ARK Smart Breeding." +
                                                  "\n\nTry updating to a newer version.");
                     if ((DateTime.Now - Properties.Settings.Default.lastUpdateCheck).TotalMinutes < 10)
                         CheckForUpdates();

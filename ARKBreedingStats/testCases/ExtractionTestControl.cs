@@ -27,7 +27,7 @@ namespace ARKBreedingStats.testCases
 
                 if (!File.Exists(fileName))
                 {
-                    MessageBoxes.ErrorMessageBox($"Save file with name \"{fileName}\" does not exist!", $"File not found");
+                    MessageBoxes.ShowMessageBox($"Save file with name \"{fileName}\" does not exist!", $"File not found");
                     return;
                 }
 

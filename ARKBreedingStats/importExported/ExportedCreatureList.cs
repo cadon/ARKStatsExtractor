@@ -275,7 +275,7 @@ namespace ARKBreedingStats.importExported
                 string importedPath = Path.Combine(selectedFolder, "imported");
                 if (!FileService.TryCreateDirectory(importedPath, out string errorMessage))
                 {
-                    MessageBoxes.ErrorMessageBox($"Subfolder\n{importedPath}\ncould not be created.\n{errorMessage}");
+                    MessageBoxes.ShowMessageBox($"Subfolder\n{importedPath}\ncould not be created.\n{errorMessage}");
                     return;
                 }
 

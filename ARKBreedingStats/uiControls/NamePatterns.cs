@@ -343,7 +343,7 @@ namespace ARKBreedingStats.uiControls
             string ParametersInvalid(string specificError)
             {
                 if (displayError)
-                    MessageBoxes.ErrorMessageBox($"The syntax of the following pattern function\n{m.Groups[0].Value}\ncannot be processed and will be ignored."
+                    MessageBoxes.ShowMessageBox($"The syntax of the following pattern function\n{m.Groups[0].Value}\ncannot be processed and will be ignored."
                                                   + (string.IsNullOrEmpty(specificError) ? string.Empty : $"\n\nSpecific error:\n{specificError}"),
                         $"Naming pattern function error");
                 return displayError ? m.Groups[2].Value : specificError;
