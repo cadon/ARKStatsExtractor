@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using ARKBreedingStats.values;
 
 namespace ARKBreedingStats
 {
@@ -26,6 +27,7 @@ namespace ARKBreedingStats
         private readonly List<double> rbBoneDamageAdjusterValues;
         private double currentBoneDamageAdjuster;
         private double neededHunger;
+        private ToolTip _tt;
 
         public TamingControl()
         {
@@ -33,15 +35,10 @@ namespace ARKBreedingStats
             updateCalculation = true;
             wakeUpTime = DateTime.Now;
             starvingTime = DateTime.Now;
-            rbBoneDamageAdjusters = new List<RadioButton>
-            {
-                    rbBoneDamageDefault
-            };
+            rbBoneDamageAdjusters = new List<RadioButton> { rbBoneDamageDefault };
             flcBodyDamageMultipliers.SetFlowBreak(rbBoneDamageDefault, true);
-            rbBoneDamageAdjusterValues = new List<double>
-            {
-                    1
-            };
+            rbBoneDamageAdjusterValues = new List<double> { 1 };
+            _tt = new ToolTip();
         }
 
         public void SetLevel(int level, bool updateTamingData = true)
@@ -103,14 +100,19 @@ namespace ARKBreedingStats
 
             updateCalculation = false;
             TamingData td = species.taming;
-            kibbleRecipe = "";
+            kibbleRecipe = string.Empty;
 
-
-            // TODO replace with new kibble recipes
-            //if (td.favoriteKibble != null && Kibbles.K.kibble.ContainsKey(td.favoriteKibble))
-            //{
-            //    kibbleRecipe = "\n\nKibble:" + Kibbles.K.kibble[td.favoriteKibble].RecipeAsText();
-            //}
+            // list all recipes of kibbles that give a reasonable affinity (assuming that is larger or equal than 100)
+            foreach (var k in Kibbles.K.kibble)
+            {
+                var kibbleName = $"{k.Key} Kibble";
+                if ((td.specialFoodValues.TryGetValue(kibbleName, out var kFood)
+                    || Values.V.defaultFoodData.TryGetValue(kibbleName, out kFood))
+                    && kFood.affinity >= 100)
+                {
+                    kibbleRecipe += $"\n\n{k.Key} Kibble:{k.Value.RecipeAsText()}";
+                }
+            }
 
             foodDepletion = td.foodConsumptionBase * td.foodConsumptionMult * tamingFoodRateMultiplier;
 
@@ -148,8 +150,8 @@ namespace ARKBreedingStats
                         tf.FoodName = f;
                         tf.Show();
                     }
-                    if (f == "Kibble")
-                        tf.foodNameDisplay = $"Kibble ({td.favoriteKibble} {Loc.S("Egg")})";
+
+                    // special cases where a creature eats multiple food items of one kind at once
                     if (td.specialFoodValues != null && td.specialFoodValues.ContainsKey(f) && td.specialFoodValues[f].quantity > 1)
                         tf.foodNameDisplay = td.specialFoodValues[f].quantity + "× " + tf.foodNameDisplay;
                 }

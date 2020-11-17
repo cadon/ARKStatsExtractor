@@ -12,7 +12,7 @@ namespace ARKBreedingStats.species
 
             foreach (string s in Keys)
             {
-                result += "\n " + this[s] + " x " + s;
+                result += $"\n {this[s]} × {s}";
             }
 
             return result;
