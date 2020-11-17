@@ -988,8 +988,10 @@ namespace ARKBreedingStats
                 return;
 
             // check if values-files can be updated
-            //Values.V.CheckAndUpdateModFiles(Values.V.modsManifest.modsByFiles.Select(mikv => mikv.Value).Where(mi => mi.downloaded).Select(mi => mi.mod.FileName).ToList()); // mod-files are already checked when loaded
-            bool valuesUpdated = CheckAvailabilityAndUpdateModFiles(new List<string> { FileService.ValuesJson }, Values.V);
+            var downloadedModFiles = Values.V.modsManifest.modsByFiles.Select(mikv => mikv.Value).Where(mi => mi.locallyAvailable).Select(mi => mi.mod.FileName).ToList();
+            downloadedModFiles.Add(FileService.ValuesJson); // check also base values file
+
+            bool valuesUpdated = CheckAvailabilityAndUpdateModFiles(downloadedModFiles, Values.V);
 
             // update last successful update check
             Properties.Settings.Default.lastUpdateCheck = DateTime.Now;

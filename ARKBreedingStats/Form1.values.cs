@@ -64,7 +64,7 @@ namespace ARKBreedingStats
             bool unavailableModsExist = unavailableModFiles != null && unavailableModFiles.Any();
 
             MessageBoxes.ShowMessageBox("Some of the creatures to be imported have an unknown species, most likely because a mod is used.\n"
-                + "To import these creatures, this application needs additional informations about these mods."
+                + "To import these creatures, this application needs additional information about these mods."
                 + (locallyAvailableModsExist ?
                     "\n\nThe value files for the following mods are already locally available and just need to be added to the library:\n\n- "
                     + string.Join("\n- ", locallyAvailableModFiles)
