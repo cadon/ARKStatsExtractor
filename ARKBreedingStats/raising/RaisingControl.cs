@@ -687,7 +687,6 @@ namespace ARKBreedingStats.raising
         private void addCreatureImprintTimersMenuItem_Click(object sender, EventArgs e)
         {
             var cuddleTime = new TimeSpan(0, 0, (int)(8 * 60 * 60 * Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier));
-
             foreach (ListViewItem lvi in listViewBabies.Items)
             {
                 if (lvi.Tag is Creature c)
@@ -697,8 +696,12 @@ namespace ARKBreedingStats.raising
                     {
                         var now = DateTime.Now;
                         var nextImprintTime = now.AddMilliseconds(cuddleTime.TotalMilliseconds);
+                        double imprintingGainPerCuddle = Utils.ImprintingGainPerCuddle(species.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier, Values.V.currentServerMultipliers.BabyImprintAmountMultiplier);
+                        var countGrowthBase = (c.growingUntil - now).Value.TotalMilliseconds/ cuddleTime.TotalMilliseconds;
+                        var countImprint = (1 - c.imprintingBonus) / imprintingGainPerCuddle;
+                        var timersCount = Math.Min(countGrowthBase, countImprint);
 
-                        while (c.growingUntil > nextImprintTime)
+                        for (int i = 1; i <= timersCount; i++)
                         {
                             CreateTimer(c.name, nextImprintTime, c, TimerControl.TimerGroups.Imprint.ToString());
                             nextImprintTime = nextImprintTime.AddMilliseconds(cuddleTime.TotalMilliseconds);

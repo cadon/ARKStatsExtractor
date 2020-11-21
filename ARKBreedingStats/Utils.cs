@@ -457,7 +457,7 @@ namespace ARKBreedingStats
         /// <returns></returns>
         public static double ImprintingGainPerCuddle(double maturationTime, double cuddleIntervalMultiplier, double imprintAmmountMultiplier)
         {
-            return 1d / Math.Max(1, Math.Floor(maturationTime / (28800 * cuddleIntervalMultiplier) * imprintAmmountMultiplier));
+            return 1d / Math.Max(1, Math.Floor(maturationTime / (28800 * cuddleIntervalMultiplier))) * imprintAmmountMultiplier;
         }
 
         /// <summary>
