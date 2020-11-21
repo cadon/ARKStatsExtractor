@@ -2981,7 +2981,8 @@ namespace ARKBreedingStats
                 }
                 if (colorCommands.Any())
                 {
-                    Clipboard.SetText((Properties.Settings.Default.AdminConsoleCommandWithCheat ? "cheat " : string.Empty) + string.Join(" | ", colorCommands));
+                    var cheatPrefix = Properties.Settings.Default.AdminConsoleCommandWithCheat ? "cheat " : string.Empty;
+                    Clipboard.SetText(cheatPrefix + string.Join(" | " + cheatPrefix, colorCommands));
                 }
             }
         }
