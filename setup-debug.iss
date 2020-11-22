@@ -41,20 +41,20 @@ WelcomeLabel2=This will install [name/ver] on your computer.%n%nIf you plan to r
 de.WelcomeLabel2=Dieser Assistent wird jetzt [name/ver] auf Ihrem Computer installieren.%n%nWenn Sie planen [name] als portable Version in einem gemeinsam genutzten Verzeichnis (das heißt, außerhalb des Verzeichnisses für Programme) auszuführen, empfehlen wir anstelle dieses Installationsprogramms die Zip-Datei-Version zu nutzen.
 
 [CustomMessages]
-DotNetFrameworkNeededCaption=.NET Framework 4.7.2 required
-de.DotNetFrameworkNeededCaption=.NET Framework 4.7.2 benötigt
-DotNetFrameworkNeededDescription=To run {#AppName} the .NET Framework 4.7.2 is required.
-de.DotNetFrameworkNeededDescription=Um {#AppName} auszuführen wird .NET Framework 4.7.2 benötigt.
-DotNetFrameworkNeededSubCaption=Check the box below to download and install .NET Framework 4.7.2.
-de.DotNetFrameworkNeededSubCaption=Markieren Sie das folgende Kästchen, um .NET Framework 4.7.2 herunterzuladen und zu installieren.
-DotNetFrameworkInstall=Download and install .NET Framework 4.7.2
-de.DotNetFrameworkInstall=Herunterladen und Installation von .NET Framework 4.7.2
-IDP_DownloadFailed=Download of .NET Framework 4.7.2 failed. .NET Framework 4.7.2 is required to run {#AppName}.
-de.IDP_DownloadFailed=Herunterladen von .NET Framework 4.7.2 fehlgeschlagen. .NET Framework 4.7.2 wird benötigt um {#AppName} auszuführen.
+DotNetFrameworkNeededCaption=.NET Framework 4.8 required
+de.DotNetFrameworkNeededCaption=.NET Framework 4.8 benötigt
+DotNetFrameworkNeededDescription=To run {#AppName} the .NET Framework 4.8 is required.
+de.DotNetFrameworkNeededDescription=Um {#AppName} auszuführen wird .NET Framework 4.8 benötigt.
+DotNetFrameworkNeededSubCaption=Check the box below to download and install .NET Framework 4.8.
+de.DotNetFrameworkNeededSubCaption=Markieren Sie das folgende Kästchen, um .NET Framework 4.8 herunterzuladen und zu installieren.
+DotNetFrameworkInstall=Download and install .NET Framework 4.8
+de.DotNetFrameworkInstall=Herunterladen und Installation von .NET Framework 4.8
+IDP_DownloadFailed=Download of .NET Framework 4.8 failed. .NET Framework 4.8 is required to run {#AppName}.
+de.IDP_DownloadFailed=Herunterladen von .NET Framework 4.8 fehlgeschlagen. .NET Framework 4.8 wird benötigt um {#AppName} auszuführen.
 IDP_RetryCancel=Click 'Retry' to try downloading the files again, or click 'Cancel' to terminate setup.
 de.IDP_RetryCancel=Klicken Sie 'Wiederholen', um das Herunterladen der Dateien erneut zu versuchen, oder klicken Sie auf "Abbrechen", um die Installation abzubrechen.
-InstallingDotNetFramework=Installing .NET Framework 4.7.2. This might take a few minutes...
-de.InstallingDotNetFramework=Installiere .NET Framework 4.7.2. Das wird eine Weile dauern ...
+InstallingDotNetFramework=Installing .NET Framework 4.8. This might take a few minutes...
+de.InstallingDotNetFramework=Installiere .NET Framework 4.8. Das wird eine Weile dauern ...
 DotNetFrameworkFailedToLaunch=Failed to launch .NET Framework Installer with error "%1". Please fix the error then run this installer again.
 de.DotNetFrameworkFailedToLaunch=Starten des .NET Framework Installer fehlgeschlagen mit Fehler "%1". Bitte den Fehler beheben und dieses Installationsprogramm erneut ausführen.
 DotNetFrameworkFailed1602=.NET Framework installation was cancelled. This installation can continue, but be aware that this application may not run unless the .NET Framework installation is completed successfully.
@@ -124,7 +124,7 @@ begin
   Result := True;
 
   bSuccess := RegQueryDWordValue(HKLM, 'Software\Microsoft\NET Framework Setup\NDP\v4\Full', 'Release', regVersion);
-  if (True = bSuccess) and (regVersion >= 461308) then begin
+  if (True = bSuccess) and (regVersion >= 528040) then begin
     Result := False;
   end;
 end;
@@ -153,7 +153,7 @@ begin
   if (CurPageID = DotNetPage.ID) and DotNetFrameworkIsMissing() then begin
     if DotNetPage.Values[0] then begin
       InstallDotNetFramework := True;
-      idpAddFile('http://go.microsoft.com/fwlink/?LinkId=863262', ExpandConstant('{tmp}\NetFrameworkInstaller.exe'));
+      idpAddFile('https://go.microsoft.com/fwlink/?LinkId=2085155', ExpandConstant('{tmp}\NetFrameworkInstaller.exe'));
       idpDownloadAfter(wpReady);
     end;
   end;
