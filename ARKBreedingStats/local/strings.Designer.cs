@@ -97,7 +97,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There is already a creature in your library that has all the available top-stats ({0} {1}).
+        ///   Looks up a localized string similar to There is already a creature in your library that has all the available top-stats with the current set filters ({0} {1}).
         ///The currently selected conservative-breeding-mode might show some suggestions that may seem non-optimal.
         ///Change the breeding-mode to &quot;Best next generation&quot; for better suggestions..
         /// </summary>
@@ -158,6 +158,15 @@ namespace ARKBreedingStats.local {
         internal static string BestPossibleSpeciesLibrary {
             get {
                 return ResourceManager.GetString("BestPossibleSpeciesLibrary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Best possible {0} for this filter.
+        /// </summary>
+        internal static string BestPossibleSpeciesLibraryFiltered {
+            get {
+                return ResourceManager.GetString("BestPossibleSpeciesLibraryFiltered", resourceCulture);
             }
         }
         

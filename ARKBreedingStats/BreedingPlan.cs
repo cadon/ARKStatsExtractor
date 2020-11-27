@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.Library;
@@ -39,6 +37,11 @@ namespace ARKBreedingStats
         /// If the weighting is negative, a low level is considered better.
         /// </summary>
         private readonly int[] _bestLevels = new int[Values.STATS_COUNT];
+        /// <summary>
+        /// The best possible levels of the selected species for each stat, after the filters are applied.
+        /// If the weighting is negative, a low level is considered better.
+        /// </summary>
+        private readonly int[] _bestLevelsFiltered = new int[Values.STATS_COUNT];
         private readonly List<PedigreeCreature> _pcs = new List<PedigreeCreature>();
         private readonly List<PictureBox> _pbs = new List<PictureBox>();
         private bool[] _enabledColorRegions;
@@ -273,15 +276,20 @@ namespace ARKBreedingStats
             IEnumerable<Creature> selectFemales;
             IEnumerable<Creature> selectMales;
             if (considerChosenCreature && _chosenCreature.sex == Sex.Female)
-                selectFemales = new List<Creature>();
+            {
+                selectFemales = new List<Creature>(); // the specific creature is added after the filtering
+            }
             else if (!cbBPMutationLimitOnlyOnePartner.Checked && considerMutationLimit)
             {
                 selectFemales = FilterByTags(_females.Where(c => c.Mutations <= nudBPMutationLimit.Value));
                 creaturesMutationsFilteredOut = _females.Any(c => c.Mutations > nudBPMutationLimit.Value);
             }
             else selectFemales = FilterByTags(_females);
+
             if (considerChosenCreature && _chosenCreature.sex == Sex.Male)
-                selectMales = new List<Creature>();
+            {
+                selectMales = new List<Creature>(); // the specific creature is added after the filtering
+            }
             else if (!cbBPMutationLimitOnlyOnePartner.Checked && considerMutationLimit)
             {
                 selectMales = FilterByTags(_males.Where(c => c.Mutations <= nudBPMutationLimit.Value));
@@ -327,6 +335,17 @@ namespace ARKBreedingStats
             {
                 selectedFemales = combinedCreatures.ToArray();
                 selectedMales = combinedCreatures.ToArray();
+            }
+
+            if (creaturesTagFilteredOut)
+            {
+                // if creatures are filtered out, set the best possible creature according to the filtering
+                SetBestLevels(_bestLevelsFiltered, combinedCreatures, false);
+                pedigreeCreatureBestPossibleInSpeciesFiltered.Visible = true;
+            }
+            else
+            {
+                pedigreeCreatureBestPossibleInSpeciesFiltered.Visible = false;
             }
 
             // if only pairings for one specific creatures are shown, add the creature after the filtering
@@ -603,14 +622,15 @@ namespace ARKBreedingStats
                     {
                         bool bestCreatureAlreadyAvailable = true;
                         Creature bestCreature = null;
-                        List<Creature> chosenFemalesAndMales = selectedFemales.Concat(selectedMales).ToList();
+                        var chosenFemalesAndMales = selectedFemales.Concat(selectedMales);
+                        var usedBestStats = creaturesTagFilteredOut ? _bestLevelsFiltered : _bestLevels;
                         foreach (Creature cr in chosenFemalesAndMales)
                         {
                             bestCreatureAlreadyAvailable = true;
                             for (int s = 0; s < Values.STATS_COUNT; s++)
                             {
                                 // if the stat is not a top stat and the stat is leveled in wild creatures
-                                if (cr.Species.UsesStat(s) && cr.levelsWild[s] != _bestLevels[s])
+                                if (cr.Species.UsesStat(s) && cr.levelsWild[s] != usedBestStats[s])
                                 {
                                     bestCreatureAlreadyAvailable = false;
                                     break;
@@ -807,47 +827,60 @@ namespace ARKBreedingStats
 
         private void DetermineBestLevels(List<Creature> creatures = null)
         {
+            pedigreeCreatureBestPossibleInSpecies.Clear();
             if (creatures == null)
             {
                 if (_females == null || _males == null) return;
                 creatures = _females.ToList();
                 creatures.AddRange(_males);
             }
-            if (!creatures.Any()) return;
 
+            SetBestLevels(_bestLevels, creatures, true);
+        }
+
+        /// <summary>
+        /// Sets the best levels in the passed array according to the stat weights and the passed creature list.
+        /// </summary>
+        /// <param name="bestLevels"></param>
+        /// <param name="creatures"></param>
+        /// <param name="bestInSpecies">If true, the display of the best species library will be updated, if false the best filtered species will be updated.</param>
+        private void SetBestLevels(int[] bestLevels, IEnumerable<Creature> creatures, bool bestInSpecies)
+        {
             for (int s = 0; s < Values.STATS_COUNT; s++)
-                _bestLevels[s] = -1;
+                bestLevels[s] = -1;
 
             foreach (Creature c in creatures)
             {
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
-                    if ((s == (int)StatNames.Torpidity || _statWeights[s] >= 0) && c.levelsWild[s] > _bestLevels[s])
-                        _bestLevels[s] = c.levelsWild[s];
-                    else if (s != (int)StatNames.Torpidity && _statWeights[s] < 0 && c.levelsWild[s] >= 0 && (c.levelsWild[s] < _bestLevels[s] || _bestLevels[s] < 0))
-                        _bestLevels[s] = c.levelsWild[s];
+                    if ((s == (int)StatNames.Torpidity || _statWeights[s] >= 0) && c.levelsWild[s] > bestLevels[s])
+                        bestLevels[s] = c.levelsWild[s];
+                    else if (s != (int)StatNames.Torpidity && _statWeights[s] < 0 && c.levelsWild[s] >= 0 && (c.levelsWild[s] < bestLevels[s] || bestLevels[s] < 0))
+                        bestLevels[s] = c.levelsWild[s];
                 }
             }
 
             // display top levels in species
             int? levelStep = CreatureCollection.getWildLevelStep();
-            Creature crB = new Creature(_currentSpecies, string.Empty, string.Empty, string.Empty, 0, new int[Values.STATS_COUNT], null, 100, true, levelStep: levelStep)
-            {
-                name = string.Format(Loc.S("BestPossibleSpeciesLibrary"), _currentSpecies.name)
-            };
+            Creature crB = new Creature(_currentSpecies,
+                string.Format(Loc.S(bestInSpecies ? "BestPossibleSpeciesLibrary" : "BestPossibleSpeciesLibraryFiltered"), _currentSpecies.name),
+                string.Empty, string.Empty, 0, new int[Values.STATS_COUNT], null, 100, true, levelStep: levelStep);
             bool totalLevelUnknown = false;
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (s == (int)StatNames.Torpidity) continue;
-                crB.levelsWild[s] = _bestLevels[s];
+                crB.levelsWild[s] = bestLevels[s];
                 if (crB.levelsWild[s] == -1)
                     totalLevelUnknown = true;
-                crB.topBreedingStats[s] = (crB.levelsWild[s] > 0);
+                crB.topBreedingStats[s] = crB.levelsWild[s] > 0 && crB.levelsWild[s] == _bestLevels[s];
             }
             crB.levelsWild[(int)StatNames.Torpidity] = crB.levelsWild.Sum();
             crB.RecalculateCreatureValues(levelStep);
-            pedigreeCreatureBestPossibleInSpecies.TotalLevelUnknown = totalLevelUnknown;
-            pedigreeCreatureBestPossibleInSpecies.Creature = crB;
+            var pc = bestInSpecies
+                ? pedigreeCreatureBestPossibleInSpecies
+                : pedigreeCreatureBestPossibleInSpeciesFiltered;
+            pc.TotalLevelUnknown = totalLevelUnknown;
+            pc.Creature = crB;
         }
 
         private void CreatureClicked(Creature c, int comboIndex, MouseEventArgs e)

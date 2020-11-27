@@ -262,6 +262,9 @@ namespace ARKBreedingStats.uiControls
             PedigreeCreature_MouseClick(sender, e);
         }
 
+        /// <summary>
+        /// Clears the displayed data.
+        /// </summary>
         public void Clear()
         {
             for (int s = 0; s < DisplayedStatsCount; s++)

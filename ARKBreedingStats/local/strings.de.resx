@@ -793,7 +793,7 @@ Wenn eine Nummer mit Plus-Zeichen angezeigt wird, ist die Summe zu hoch, und ein
     <value>Knüppel-Schläge</value>
   </data>
   <data name="AlreadyCreatureWithTopStats" xml:space="preserve">
-    <value>Es gibt bereits eine Kreatur, die alle verfügbaren Top-Stats besitzt ({0} {1}).
+    <value>Es gibt bereits eine Kreatur, die alle verfügbaren Top-Stats mit den gesetzten Filtern besitzt ({0} {1}).
 Der aktuell gewählte konservative Zucht-Modus könnte einige suboptimale Vorschläge anzeigen.
 Wähle den "Beste nächste Generation"-Modus aus, um bessere Vorschläge zu erhalten.</value>
   </data>
@@ -1247,5 +1247,8 @@ Diese kann mit BSS Preset angewandt werden.</value>
   </data>
   <data name="generation" xml:space="preserve">
     <value>Generation</value>
+  </data>
+  <data name="BestPossibleSpeciesLibraryFiltered" xml:space="preserve">
+    <value>Bestmöglicher {0} für diese Auswahl</value>
   </data>
 </root>

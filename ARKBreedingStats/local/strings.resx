@@ -795,7 +795,7 @@ Enable it if the OCR doesn't recognize the tribe-name correctly and you want to 
     <value>Wooden Club Hits</value>
   </data>
   <data name="AlreadyCreatureWithTopStats" xml:space="preserve">
-    <value>There is already a creature in your library that has all the available top-stats ({0} {1}).
+    <value>There is already a creature in your library that has all the available top-stats with the current set filters ({0} {1}).
 The currently selected conservative-breeding-mode might show some suggestions that may seem non-optimal.
 Change the breeding-mode to "Best next generation" for better suggestions.</value>
   </data>
@@ -1256,5 +1256,8 @@ The preset can be applied by the Apply Preset button</value>
   </data>
   <data name="generation" xml:space="preserve">
     <value>generation</value>
+  </data>
+  <data name="BestPossibleSpeciesLibraryFiltered" xml:space="preserve">
+    <value>Best possible {0} for this filter</value>
   </data>
 </root>
