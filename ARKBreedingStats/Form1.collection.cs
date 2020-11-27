@@ -111,8 +111,13 @@ namespace ARKBreedingStats
                     return;
             }
 
-            string selectedFolder =
-                string.IsNullOrEmpty(_currentFileName) ? null : Path.GetDirectoryName(_currentFileName);
+            string selectedFolder = !string.IsNullOrEmpty(_currentFileName)
+                    ? Path.GetDirectoryName(_currentFileName)
+                    : !string.IsNullOrEmpty(Properties.Settings.Default.LastUsedCollectionFolder)
+                        && Directory.Exists(Properties.Settings.Default.LastUsedCollectionFolder)
+                    ? Properties.Settings.Default.LastUsedCollectionFolder
+                    : null
+                ;
 
             using (OpenFileDialog dlg = new OpenFileDialog
             {
@@ -180,7 +185,7 @@ namespace ARKBreedingStats
                     _fileSync.JustSaving();
                     using (StreamWriter file = File.CreateText(tempSavePath))
                     {
-                        JsonSerializer serializer = new JsonSerializer()
+                        JsonSerializer serializer = new JsonSerializer
                         {
                             Formatting = Properties.Settings.Default.prettifyCollectionJson ? Formatting.Indented : Formatting.None,
                             DateTimeZoneHandling = DateTimeZoneHandling.Utc // save all date-times as UTC, so synced files don't change the timezones
@@ -466,6 +471,7 @@ namespace ARKBreedingStats
             UpdateTempCreatureDropDown();
 
             Properties.Settings.Default.LastSaveFile = filePath;
+            Properties.Settings.Default.LastUsedCollectionFolder = Path.GetDirectoryName(filePath);
             _lastAutoSaveBackup = DateTime.Now.AddMinutes(-10);
 
             return true;
