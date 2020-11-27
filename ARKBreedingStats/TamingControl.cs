@@ -106,7 +106,7 @@ namespace ARKBreedingStats
             foreach (var k in Kibbles.K.kibble)
             {
                 var kibbleName = $"{k.Key} Kibble";
-                if ((td.specialFoodValues.TryGetValue(kibbleName, out var kFood)
+                if (((td.specialFoodValues != null && td.specialFoodValues.TryGetValue(kibbleName, out var kFood))
                     || Values.V.defaultFoodData.TryGetValue(kibbleName, out kFood))
                     && kFood.affinity >= 100)
                 {
