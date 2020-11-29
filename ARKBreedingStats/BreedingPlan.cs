@@ -94,15 +94,19 @@ namespace ARKBreedingStats
             pedigreeCreatureBest.SetIsVirtual(true);
             pedigreeCreatureWorst.SetIsVirtual(true);
             pedigreeCreatureBestPossibleInSpecies.SetIsVirtual(true);
+            pedigreeCreatureBestPossibleInSpeciesFiltered.SetIsVirtual(true);
             pedigreeCreatureBest.OnlyLevels = true;
             pedigreeCreatureWorst.OnlyLevels = true;
             pedigreeCreatureBestPossibleInSpecies.OnlyLevels = true;
+            pedigreeCreatureBestPossibleInSpeciesFiltered.OnlyLevels = true;
             pedigreeCreatureBest.Clear();
             pedigreeCreatureWorst.Clear();
             pedigreeCreatureBestPossibleInSpecies.Clear();
+            pedigreeCreatureBestPossibleInSpeciesFiltered.Clear();
             pedigreeCreatureBest.HandCursor = false;
             pedigreeCreatureWorst.HandCursor = false;
             pedigreeCreatureBestPossibleInSpecies.HandCursor = false;
+            pedigreeCreatureBestPossibleInSpeciesFiltered.HandCursor = false;
 
             StatWeighting = statWeighting1;
             StatWeighting.WeightingsChanged += StatWeighting_WeightingsChanged;
@@ -149,9 +153,11 @@ namespace ARKBreedingStats
             pedigreeCreatureBest.CreatureEdit += EditCreature;
             pedigreeCreatureWorst.CreatureEdit += EditCreature;
             pedigreeCreatureBestPossibleInSpecies.CreatureEdit += EditCreature;
+            pedigreeCreatureBestPossibleInSpeciesFiltered.CreatureEdit += EditCreature;
             pedigreeCreatureBest.ExportToClipboard += ExportToClipboard;
             pedigreeCreatureWorst.ExportToClipboard += ExportToClipboard;
             pedigreeCreatureBestPossibleInSpecies.ExportToClipboard += ExportToClipboard;
+            pedigreeCreatureBestPossibleInSpeciesFiltered.ExportToClipboard += ExportToClipboard;
             pedigreeCreatureBest.CreatureClicked += CreatureClicked;
             pedigreeCreatureWorst.CreatureClicked += CreatureClicked;
         }
