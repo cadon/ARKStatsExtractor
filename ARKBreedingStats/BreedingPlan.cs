@@ -48,8 +48,8 @@ namespace ARKBreedingStats
         private TimeSpan _incubationTime;
         private Creature _chosenCreature;
         private BreedingMode _breedingMode;
-        public readonly StatWeighting statWeighting;
-        public bool breedingPlanNeedsUpdate;
+        public readonly StatWeighting StatWeighting;
+        public bool BreedingPlanNeedsUpdate;
         private bool _speciesInfoNeedsUpdate;
         private readonly Debouncer _breedingPlanDebouncer = new Debouncer();
 
@@ -104,9 +104,9 @@ namespace ARKBreedingStats
             pedigreeCreatureWorst.HandCursor = false;
             pedigreeCreatureBestPossibleInSpecies.HandCursor = false;
 
-            statWeighting = statWeighting1;
-            statWeighting.WeightingsChanged += StatWeighting_WeightingsChanged;
-            breedingPlanNeedsUpdate = false;
+            StatWeighting = statWeighting1;
+            StatWeighting.WeightingsChanged += StatWeighting_WeightingsChanged;
+            BreedingPlanNeedsUpdate = false;
 
             cbServerFilterLibrary.Checked = Settings.Default.UseServerFilterForBreedingPlan;
             cbOwnerFilterLibrary.Checked = Settings.Default.UseOwnerFilterForBreedingPlan;
@@ -123,7 +123,7 @@ namespace ARKBreedingStats
         {
             // check if sign of a weighting changed (then the best levels change)
             bool signChanged = false;
-            var newWeightings = statWeighting.Weightings;
+            var newWeightings = StatWeighting.Weightings;
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (Math.Sign(_statWeights[s]) != Math.Sign(newWeightings[s]))
@@ -177,12 +177,12 @@ namespace ARKBreedingStats
 
                 EnabledColorRegions = _currentSpecies?.EnabledColorRegions;
 
-                breedingPlanNeedsUpdate = true;
+                BreedingPlanNeedsUpdate = true;
             }
 
-            _statWeights = statWeighting.Weightings;
+            _statWeights = StatWeighting.Weightings;
 
-            if (forceUpdate || breedingPlanNeedsUpdate)
+            if (forceUpdate || BreedingPlanNeedsUpdate)
                 Creatures = CreatureCollection.creatures
                         .Where(c => c.speciesBlueprint == _currentSpecies.blueprintPath
                                 && (c.Status == CreatureStatus.Available
@@ -198,7 +198,7 @@ namespace ARKBreedingStats
 
             _chosenCreature = chosenCreature;
             CalculateBreedingScoresAndDisplayPairs();
-            breedingPlanNeedsUpdate = false;
+            BreedingPlanNeedsUpdate = false;
         }
 
         private IEnumerable<Creature> FilterByTags(IEnumerable<Creature> cl)
@@ -703,7 +703,7 @@ namespace ARKBreedingStats
                 if (isActiveControl)
                     DetermineBestBreeding(_chosenCreature, true);
                 else
-                    breedingPlanNeedsUpdate = true;
+                    BreedingPlanNeedsUpdate = true;
             }
         }
 
@@ -714,7 +714,7 @@ namespace ARKBreedingStats
 
         internal void UpdateIfNeeded()
         {
-            if (breedingPlanNeedsUpdate)
+            if (BreedingPlanNeedsUpdate)
                 DetermineBestBreeding(_chosenCreature);
         }
 
@@ -748,7 +748,7 @@ namespace ARKBreedingStats
             lbBPProbabilityBest.Text = string.Empty;
             lbMutationProbability.Text = string.Empty;
             offspringPossibilities1.Clear();
-            SetMessageLabelText();
+            SetMessageLabelText?.Invoke();
         }
 
         public void Clear()
@@ -987,7 +987,7 @@ namespace ARKBreedingStats
             set
             {
                 _currentSpecies = value;
-                statWeighting.SetSpecies(value);
+                StatWeighting.SetSpecies(value);
             }
         }
 
@@ -1012,10 +1012,10 @@ namespace ARKBreedingStats
         {
             if (_currentSpecies == species) return;
 
-            // automatically set preset if preset with the speciesname exists
+            // automatically set preset if preset with the species name exists
             _updateBreedingPlanAllowed = false;
-            if (!statWeighting.TrySetPresetByName(species.name))
-                statWeighting.TrySetPresetByName("Default");
+            if (!StatWeighting.TrySetPresetByName(species.name))
+                StatWeighting.TrySetPresetByName("Default");
             _updateBreedingPlanAllowed = true;
 
             DetermineBestBreeding(setSpecies: species);
@@ -1083,6 +1083,7 @@ namespace ARKBreedingStats
         {
             Species previouslySelectedSpecies = listViewSpeciesBP.SelectedItems.Count > 0 ? listViewSpeciesBP.SelectedItems[0].Tag as Species : null;
 
+            listViewSpeciesBP.BeginUpdate();
             listViewSpeciesBP.Items.Clear();
 
             foreach (Species s in species)
@@ -1108,6 +1109,7 @@ namespace ARKBreedingStats
                     }
                 }
             }
+            listViewSpeciesBP.EndUpdate();
         }
 
         private void CreateIncubationEntry(bool startNow = true)

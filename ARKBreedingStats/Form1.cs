@@ -55,7 +55,7 @@ namespace ARKBreedingStats
         private FileWatcherExports _fileWatcherExports;
         private readonly Extraction _extractor = new Extraction();
         private SpeechRecognition _speechRecognition;
-        private readonly System.Windows.Forms.Timer _timerGlobal = new System.Windows.Forms.Timer();
+        private readonly Timer _timerGlobal = new Timer();
         private ExportedCreatureList _exportedCreatureList;
         private ExportedCreatureControl _exportedCreatureControl;
         private readonly ToolTip _tt;
@@ -199,10 +199,10 @@ namespace ARKBreedingStats
                     custW.Add(custWs[i], custWd[i]);
                 }
             }
-            breedingPlan1.statWeighting.CustomWeightings = custW;
+            breedingPlan1.StatWeighting.CustomWeightings = custW;
             // last set values are saved at the end of the custom weightings
             if (custWs != null && custWd != null && custWd.Length > custWs.Length)
-                breedingPlan1.statWeighting.WeightValues = custWd[custWs.Length];
+                breedingPlan1.StatWeighting.WeightValues = custWd[custWs.Length];
 
             _autoSave = Properties.Settings.Default.autosave;
             _autoSaveMinutes = Properties.Settings.Default.autosaveMinutes;
@@ -219,7 +219,7 @@ namespace ARKBreedingStats
                     Title = Utils.StatName(s),
                     statIndex = s
                 };
-                var statIOTesting = new StatIO
+                var statIoTesting = new StatIO
                 {
                     InputType = StatIOInputType.LevelsInputType,
                     Title = Utils.StatName(s),
@@ -229,18 +229,18 @@ namespace ARKBreedingStats
                 if (Utils.Precision(s) == 3)
                 {
                     statIO.Percent = true;
-                    statIOTesting.Percent = true;
+                    statIoTesting.Percent = true;
                 }
 
-                statIOTesting.LevelChanged += testingStatIOValueUpdate;
+                statIoTesting.LevelChanged += testingStatIOValueUpdate;
                 statIO.InputValueChanged += StatIOQuickWildLevelCheck;
-                statIO.Click += new System.EventHandler(this.StatIO_Click);
+                statIO.Click += StatIO_Click;
                 _considerStatHighlight[s] = (Properties.Settings.Default.consideredStats & (1 << s)) != 0;
 
                 _statIOs.Add(statIO);
-                _testingIOs.Add(statIOTesting);
+                _testingIOs.Add(statIoTesting);
             }
-            // add controls in the order they are shown ingame
+            // add controls in the order they are shown in-game
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 flowLayoutPanelStatIOsExtractor.Controls.Add(_statIOs[Values.statsDisplayOrder[s]]);
@@ -848,7 +848,7 @@ namespace ARKBreedingStats
             UpdateSpeciesLists(_creatureCollection.creatures, keepCurrentlySelectedSpecies);
             FilterLibRecalculate();
             UpdateStatusBar();
-            breedingPlan1.breedingPlanNeedsUpdate = true;
+            breedingPlan1.BreedingPlanNeedsUpdate = true;
             pedigree1.UpdateListView();
             raisingControl1.RecreateList();
         }
@@ -1137,7 +1137,7 @@ namespace ARKBreedingStats
                     lv.Columns[colIndicesOrdered[c].columnIndex].DisplayIndex = colIndicesOrdered[c].displayIndex;
             }
 
-            // load listviewLibSorting
+            // load listViewLibSorting
             if (lv.ListViewItemSorter is ListViewColumnSorter lvcs)
             {
                 lvcs.SortColumn = (int)Properties.Settings.Default[sortColName];
@@ -1166,12 +1166,12 @@ namespace ARKBreedingStats
             // save custom statweights
             List<string> custWs = new List<string>();
             List<double[]> custWd = new List<double[]>();
-            foreach (KeyValuePair<string, double[]> w in breedingPlan1.statWeighting.CustomWeightings)
+            foreach (KeyValuePair<string, double[]> w in breedingPlan1.StatWeighting.CustomWeightings)
             {
                 custWs.Add(w.Key);
                 custWd.Add(w.Value);
             }
-            custWd.Add(breedingPlan1.statWeighting.WeightValues); // add current values
+            custWd.Add(breedingPlan1.StatWeighting.WeightValues); // add current values
             Properties.Settings.Default.customStatWeights = custWd.ToArray();
             Properties.Settings.Default.customStatWeightNames = custWs.ToArray();
 
@@ -1283,7 +1283,7 @@ namespace ARKBreedingStats
             int e; // number of equal wildLevels
             List<int> motherListSimilarities = new List<int>();
             List<int> fatherListSimilarities = new List<int>();
-            List<int>[] parentListSimilarities = new List<int>[2] { motherListSimilarities, fatherListSimilarities };
+            List<int>[] parentListSimilarities = { motherListSimilarities, fatherListSimilarities };
 
             if (parents.Length == 2 && parents[0] != null && parents[1] != null)
             {
@@ -1709,7 +1709,7 @@ namespace ARKBreedingStats
                 i.SubItems[11].ForeColor = foreColor;
                 i.SubItems[11].BackColor = backColor;
             }
-            breedingPlan1.breedingPlanNeedsUpdate = true;
+            breedingPlan1.BreedingPlanNeedsUpdate = true;
             listViewLibrary.EndUpdate();
         }
 
@@ -1813,11 +1813,11 @@ namespace ARKBreedingStats
                             MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 SetStatus(new List<Creature> { c }, CreatureStatus.Available);
-                breedingPlan1.breedingPlanNeedsUpdate = false;
+                breedingPlan1.BreedingPlanNeedsUpdate = false;
             }
             else
             {
-                breedingPlan1.breedingPlanNeedsUpdate = true;
+                breedingPlan1.BreedingPlanNeedsUpdate = true;
             }
             speciesSelector1.SetSpecies(c.Species);
             breedingPlan1.DetermineBestBreeding(c);
@@ -1948,9 +1948,9 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Performs an optical character recognition on either the specified image or a screenshot of the game and extracts the stat-values.
+        /// Performs an optical character recognition on either the specified image or a screenShot of the game and extracts the stat-values.
         /// </summary>
-        /// <param name="imageFilePath">If specified, this image is taken instead of a screenshot.</param>
+        /// <param name="imageFilePath">If specified, this image is taken instead of a screenShot.</param>
         /// <param name="manuallyTriggered">If false, the method is called by a timer based event when the user looks at a creature-inventory.</param>
         public void DoOcr(string imageFilePath = "", bool manuallyTriggered = true)
         {
@@ -2043,9 +2043,9 @@ namespace ARKBreedingStats
                     // on automated, we take the first one that yields an error-free level extraction
                     if (manuallyTriggered && sameValues)
                     {
-                        int newindex = (possibleSpecies.IndexOf(_lastOcrSpecies) + 1) % possibleSpecies.Count;
-                        speciesSelector1.SetSpecies(possibleSpecies[newindex]);
-                        _lastOcrSpecies = possibleSpecies[newindex];
+                        int newIndex = (possibleSpecies.IndexOf(_lastOcrSpecies) + 1) % possibleSpecies.Count;
+                        speciesSelector1.SetSpecies(possibleSpecies[newIndex]);
+                        _lastOcrSpecies = possibleSpecies[newIndex];
                         _lastOcrValues = OCRvalues;
                         ExtractLevels(true);
                     }
@@ -2546,7 +2546,7 @@ namespace ARKBreedingStats
                 + (cryopod > 0 ? ", cryopod: " + cryopod : string.Empty)
                 + ")" : string.Empty)
                 + ". v" + Application.ProductVersion
-                //+ "-BETA .NET 4.8.0" // TODO BETA indicator
+                //+ "-BETA" // TODO BETA indicator
                 + " / values: " + Values.V.Version +
                     (modsLoaded ? ", additional values from " + _creatureCollection.ModList.Count + " mods (" + string.Join(", ", _creatureCollection.ModList.Select(m => m.title).ToArray()) + ")" : string.Empty);
         }
@@ -2786,14 +2786,14 @@ namespace ARKBreedingStats
             Species species = Values.V.SpeciesByBlueprint(speciesBP);
             if (species != null)
             {
-                EditCreatureInTester(new Creature(species, "", "", "", Sex.Unknown, wildLevels, domLevels, te, bred, imprintingBonus), true);
+                EditCreatureInTester(new Creature(species, String.Empty, String.Empty, String.Empty, Sex.Unknown, wildLevels, domLevels, te, bred, imprintingBonus), true);
                 if (gotoTester) tabControlMain.SelectedTab = tabPageStatTesting;
             }
         }
 
         private void ExtractionTestControl1_CopyToExtractor(string speciesBlueprint, int level, double[] statValues, bool postTamed, bool bred, double imprintingBonus, bool gotoExtractor, testCases.TestCaseControl tcc)
         {
-            // test if the testcase can be extracted
+            // test if the testCase can be extracted
             NewCollection();
             ClearAll();
             for (int s = 0; s < Values.STATS_COUNT; s++)
@@ -2820,47 +2820,44 @@ namespace ARKBreedingStats
             ExtractLevels(true);
             watch.Stop();
 
-            if (tcc != null)
+            bool success = _extractor.ValidResults;
+            if (!success)
+                tcc.SetTestResult(false, (int)watch.ElapsedMilliseconds, 0, "extraction failed");
+            else
             {
-                bool success = _extractor.ValidResults;
-                if (!success)
-                    tcc.SetTestResult(false, (int)watch.ElapsedMilliseconds, 0, "extraction failed");
-                else
+                string testText = null;
+                // test if the expected levels are possible
+                int resultCount = -Values.STATS_COUNT; // one result per stat is allowed, only count the additional ones. // TODO only consider possible stats
+                for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
-                    string testText = null;
-                    // test if the expected levels are possible
-                    int resultCount = -Values.STATS_COUNT; // one result per stat is allowed, only count the additional ones. // TODO only consider possible stats
-                    for (int s = 0; s < Values.STATS_COUNT; s++)
+                    resultCount += _extractor.Results[s].Count;
+                    bool statValid = false;
+                    for (int r = 0; r < _extractor.Results[s].Count; r++)
                     {
-                        resultCount += _extractor.Results[s].Count;
-                        bool statValid = false;
-                        for (int r = 0; r < _extractor.Results[s].Count; r++)
+                        if (_extractor.Results[s][r].levelWild == -1 || s == (int)StatNames.SpeedMultiplier && _extractor.Results[s][r].levelWild == 0 || _extractor.Results[s][r].levelWild == tcc.TestCase.levelsWild[s]
+                            && _extractor.Results[s][r].levelDom == tcc.TestCase.levelsDom[s]
+                            && (_extractor.Results[s][r].TE.Max == -1 || _extractor.Results[s][r].TE.Includes(tcc.TestCase.tamingEff))
+                        )
                         {
-                            if (_extractor.Results[s][r].levelWild == -1 || s == (int)StatNames.SpeedMultiplier && _extractor.Results[s][r].levelWild == 0 || _extractor.Results[s][r].levelWild == tcc.TestCase.levelsWild[s]
-                                    && _extractor.Results[s][r].levelDom == tcc.TestCase.levelsDom[s]
-                                    && (_extractor.Results[s][r].TE.Max == -1 || _extractor.Results[s][r].TE.Includes(tcc.TestCase.tamingEff))
-                            )
-                            {
-                                statValid = true;
-                                break;
-                            }
-                        }
-                        if (!statValid)
-                        {
-                            success = false;
-                            testText = Utils.StatName(s, true) + " not expected value";
+                            statValid = true;
                             break;
                         }
                     }
-                    tcc.SetTestResult(success, (int)watch.ElapsedMilliseconds, resultCount, testText);
+                    if (!statValid)
+                    {
+                        success = false;
+                        testText = Utils.StatName(s, true) + " not expected value";
+                        break;
+                    }
                 }
+                tcc.SetTestResult(success, (int)watch.ElapsedMilliseconds, resultCount, testText);
             }
             if (gotoExtractor) tabControlMain.SelectedTab = tabPageExtractor;
         }
 
         private void LoadMultipliersFromTestCase(testCases.ExtractionTestCase etc)
         {
-            // set all stat-multipliers from testcase
+            // set all stat-multipliers from testCase
             _creatureCollection.serverMultipliers = etc.serverMultipliers.Copy(true);
             _creatureCollection.singlePlayerSettings = etc.singleplayerSettings;
             _creatureCollection.allowMoreThanHundredImprinting = etc.allowMoreThanHundredPercentImprinting;
