@@ -1,5 +1,5 @@
 {
-	"version": "316.18.5797625",
+	"version": "318.12.5883569",
 	"format": "1.13",
 	"species": [
 		{
@@ -46665,10 +46665,10 @@
 			"displayedStats": 927
 		},
 		{
-			"name": "Zomdodo",
-			"blueprintPath": "/Game/PrimalEarth/Dinos/Dodo/ZombieDodo_Character_BP.ZombieDodo_Character_BP",
+			"name": "Super Turkey",
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Dodo/Turkey_Character_BP.Turkey_Character_BP",
 			"fullStatsRaw": [
-				[ 700, 0.2, 0.27, 0.2, 0 ],
+				[ 2000, 0.2, 0.27, 0.2, 0 ],
 				[ 1000, 0.1, 0.1, 0, 0 ],
 				[ 1000, 0.06, 0, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -46681,113 +46681,107 @@
 				null,
 				null
 			],
-			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"immobilizedBy": [ "Large Bear Trap" ],
 			"colors": [
 				{
-					"name": "Body",
+					"name": "Unknown",
 					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
 						"Black",
 						"Dark Grey",
-						"Dino Dark Blue",
 						"Dino Dark Brown",
-						"Dino Dark Green",
 						"Dino Dark Orange",
-						"Dino Dark Purple",
-						"Dino Dark Red",
-						"Dino Dark Yellow",
 						"Dino Darker Grey",
-						"Dino Light Blue",
-						"Dino Light Brown",
-						"Dino Light Green",
-						"Dino Light Orange",
-						"Dino Light Purple",
-						"Dino Light Red",
-						"Dino Light Yellow",
-						"Dino Medium Brown",
-						"Dino Medium Green",
-						"Light Grey"
-					]
-				},
-				{
-					"name": "Face",
-					"colors": [
-						"Black",
 						"Dino Light Brown",
 						"Dino Light Orange",
-						"Dino Light Yellow",
 						"Dino Medium Brown",
 						"Light Grey"
 					]
 				},
 				{
-					"name": "Beak",
+					"name": "Unknown",
 					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
 						"Black",
 						"Dark Grey",
 						"Dino Dark Brown",
-						"Dino Dark Green",
 						"Dino Dark Orange",
-						"Dino Dark Red",
-						"Dino Dark Yellow",
 						"Dino Darker Grey",
-						"Dino Medium Brown",
-						"Dino Medium Green"
-					]
-				},
-				{
-					"name": "Forehead, Neck and Feet",
-					"colors": [
-						"Black",
-						"Dark Grey",
-						"Dino Dark Brown",
-						"Dino Dark Green",
-						"Dino Dark Orange",
-						"Dino Dark Red",
-						"Dino Dark Yellow",
-						"Dino Darker Grey",
-						"Dino Medium Brown",
-						"Dino Medium Green"
-					]
-				},
-				{
-					"name": "Head",
-					"colors": [
-						"Black",
-						"Dark Grey",
-						"Dino Albino",
-						"Dino Dark Blue",
-						"Dino Dark Brown",
-						"Dino Dark Green",
-						"Dino Dark Orange",
-						"Dino Dark Purple",
-						"Dino Dark Red",
-						"Dino Dark Yellow",
-						"Dino Darker Grey",
-						"Dino Light Blue",
 						"Dino Light Brown",
-						"Dino Light Green",
 						"Dino Light Orange",
-						"Dino Light Purple",
-						"Dino Light Red",
-						"Dino Light Yellow",
 						"Dino Medium Brown",
-						"Dino Medium Green",
 						"Light Grey"
 					]
 				},
 				{
-					"name": "Wings and Patterning",
+					"name": "Unknown",
 					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
 						"Black",
-						"Dino Light Blue",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
 						"Dino Light Brown",
-						"Dino Light Green",
 						"Dino Light Orange",
-						"Dino Light Purple",
-						"Dino Light Red",
-						"Dino Light Yellow",
 						"Dino Medium Brown",
-						"Dino Medium Green",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Black",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Light Orange",
+						"Dino Medium Brown",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Black",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Light Orange",
+						"Dino Medium Brown",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Black",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Light Orange",
+						"Dino Medium Brown",
 						"Light Grey"
 					]
 				}
@@ -46802,8 +46796,8 @@
 				"foodConsumptionMult": 0
 			},
 			"boneDamageAdjusters": {
-				"c_head": 2,
-				"c_neck3": 2
+				"c_head": 3,
+				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
@@ -46845,6 +46839,38 @@
 		{
 			"name": "DodoRex",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/DodoRex/DodoRex_Character_BP_FearEvolved.DodoRex_Character_BP_FearEvolved",
+			"fullStatsRaw": [
+				[ 666666, 0.2, 0.27, 0, 0 ],
+				[ 1666, 0.1, 0.1, 0, 0 ],
+				[ 1550, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 500, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [ "Large Bear Trap" ],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.25,
+				"affinityNeeded0": 3450,
+				"affinityIncreasePL": 150,
+				"foodConsumptionBase": 0.002314,
+				"foodConsumptionMult": 180.0634
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true,
+			"displayedStats": 919
+		},
+		{
+			"name": "DodoRex",
+			"blueprintPath": "/Game/PrimalEarth/Dinos/DodoRex/DodoRex_Character_BP_TurkeyTrials.DodoRex_Character_BP_TurkeyTrials",
 			"fullStatsRaw": [
 				[ 666666, 0.2, 0.27, 0, 0 ],
 				[ 1666, 0.1, 0.1, 0, 0 ],
