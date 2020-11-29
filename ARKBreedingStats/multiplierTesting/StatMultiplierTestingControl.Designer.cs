@@ -82,6 +82,11 @@
             this.btCalculateTE = new System.Windows.Forms.Button();
             this.btCalculateIB = new System.Windows.Forms.Button();
             this.btCalculateIBM = new System.Windows.Forms.Button();
+            this.CbTrodB = new System.Windows.Forms.CheckBox();
+            this.CbTrodIw = new System.Windows.Forms.CheckBox();
+            this.CbTrodTa = new System.Windows.Forms.CheckBox();
+            this.CbTrodTm = new System.Windows.Forms.CheckBox();
+            this.CbTrodId = new System.Windows.Forms.CheckBox();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudIdM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudId)).BeginInit();
@@ -795,11 +800,76 @@
             this.btCalculateIBM.UseVisualStyleBackColor = true;
             this.btCalculateIBM.Click += new System.EventHandler(this.btCalculateIBM_Click);
             // 
+            // CbTrodB
+            // 
+            this.CbTrodB.AutoSize = true;
+            this.CbTrodB.BackColor = System.Drawing.Color.LightPink;
+            this.CbTrodB.Location = new System.Drawing.Point(80, 28);
+            this.CbTrodB.Name = "CbTrodB";
+            this.CbTrodB.Size = new System.Drawing.Size(58, 17);
+            this.CbTrodB.TabIndex = 36;
+            this.CbTrodB.Text = "Trod B";
+            this.CbTrodB.UseVisualStyleBackColor = false;
+            this.CbTrodB.CheckedChanged += new System.EventHandler(this.CbTrodB_CheckedChanged);
+            // 
+            // CbTrodIw
+            // 
+            this.CbTrodIw.AutoSize = true;
+            this.CbTrodIw.BackColor = System.Drawing.Color.LightPink;
+            this.CbTrodIw.Location = new System.Drawing.Point(243, 28);
+            this.CbTrodIw.Name = "CbTrodIw";
+            this.CbTrodIw.Size = new System.Drawing.Size(62, 17);
+            this.CbTrodIw.TabIndex = 37;
+            this.CbTrodIw.Text = "Trod Iw";
+            this.CbTrodIw.UseVisualStyleBackColor = false;
+            this.CbTrodIw.CheckedChanged += new System.EventHandler(this.CbTrodIw_CheckedChanged);
+            // 
+            // CbTrodTa
+            // 
+            this.CbTrodTa.AutoSize = true;
+            this.CbTrodTa.BackColor = System.Drawing.Color.LightPink;
+            this.CbTrodTa.Location = new System.Drawing.Point(435, 28);
+            this.CbTrodTa.Name = "CbTrodTa";
+            this.CbTrodTa.Size = new System.Drawing.Size(64, 17);
+            this.CbTrodTa.TabIndex = 38;
+            this.CbTrodTa.Text = "Trod Ta";
+            this.CbTrodTa.UseVisualStyleBackColor = false;
+            this.CbTrodTa.CheckedChanged += new System.EventHandler(this.CbTrodTa_CheckedChanged);
+            // 
+            // CbTrodTm
+            // 
+            this.CbTrodTm.AutoSize = true;
+            this.CbTrodTm.BackColor = System.Drawing.Color.LightPink;
+            this.CbTrodTm.Location = new System.Drawing.Point(563, 28);
+            this.CbTrodTm.Name = "CbTrodTm";
+            this.CbTrodTm.Size = new System.Drawing.Size(66, 17);
+            this.CbTrodTm.TabIndex = 39;
+            this.CbTrodTm.Text = "Trod Tm";
+            this.CbTrodTm.UseVisualStyleBackColor = false;
+            this.CbTrodTm.CheckedChanged += new System.EventHandler(this.CbTrodTm_CheckedChanged);
+            // 
+            // CbTrodId
+            // 
+            this.CbTrodId.AutoSize = true;
+            this.CbTrodId.BackColor = System.Drawing.Color.LightPink;
+            this.CbTrodId.Location = new System.Drawing.Point(749, 28);
+            this.CbTrodId.Name = "CbTrodId";
+            this.CbTrodId.Size = new System.Drawing.Size(60, 17);
+            this.CbTrodId.TabIndex = 40;
+            this.CbTrodId.Text = "Trod Id";
+            this.CbTrodId.UseVisualStyleBackColor = false;
+            this.CbTrodId.CheckedChanged += new System.EventHandler(this.CbTrodId_CheckedChanged);
+            // 
             // StatMultiplierTestingControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ContextMenuStrip = this.contextMenuStrip1;
+            this.Controls.Add(this.CbTrodId);
+            this.Controls.Add(this.CbTrodTm);
+            this.Controls.Add(this.CbTrodTa);
+            this.Controls.Add(this.CbTrodIw);
+            this.Controls.Add(this.CbTrodB);
             this.Controls.Add(this.btCalculateIBM);
             this.Controls.Add(this.btCalculateIB);
             this.Controls.Add(this.btCalculateTE);
@@ -911,5 +981,10 @@
         private System.Windows.Forms.Button btCalculateTE;
         private System.Windows.Forms.Button btCalculateIB;
         private System.Windows.Forms.Button btCalculateIBM;
+        private System.Windows.Forms.CheckBox CbTrodB;
+        private System.Windows.Forms.CheckBox CbTrodIw;
+        private System.Windows.Forms.CheckBox CbTrodTa;
+        private System.Windows.Forms.CheckBox CbTrodTm;
+        private System.Windows.Forms.CheckBox CbTrodId;
     }
 }

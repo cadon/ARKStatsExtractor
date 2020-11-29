@@ -69,6 +69,7 @@
             this.lbLevelSumWild = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.nudCreatureLevel = new ARKBreedingStats.uiControls.Nud();
+            this.LbAbbreviations = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.statMultipliersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.useStatMultipliersOfSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -117,6 +118,7 @@
             this.flowLayoutPanel1.Controls.Add(this.lBDummyEmptyFlowBreak);
             this.flowLayoutPanel1.Controls.Add(this.panel1);
             this.flowLayoutPanel1.Controls.Add(this.gbLevel);
+            this.flowLayoutPanel1.Controls.Add(this.LbAbbreviations);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 24);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -589,6 +591,16 @@
             this.nudCreatureLevel.TabIndex = 13;
             this.nudCreatureLevel.ValueChanged += new System.EventHandler(this.nudCreatureLevel_ValueChanged);
             // 
+            // LbAbbreviations
+            // 
+            this.LbAbbreviations.AutoSize = true;
+            this.LbAbbreviations.Location = new System.Drawing.Point(209, 140);
+            this.LbAbbreviations.Name = "LbAbbreviations";
+            this.LbAbbreviations.Size = new System.Drawing.Size(619, 13);
+            this.LbAbbreviations.TabIndex = 13;
+            this.LbAbbreviations.Text = "C: Calculate best value; R: Reset value; TE: Taming Effectivenes; IB: Imprinting " +
+    "Bonus; IBM: ~Multiplier; Trod: Troodonism-variant";
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -818,5 +830,6 @@
         private System.Windows.Forms.ToolStripMenuItem setAllWildLevelsToTheClosestValueToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setAllDomLevelsToTheClosestValueToolStripMenuItem;
         private System.Windows.Forms.Button btUseMultipliersFromSettings;
+        private System.Windows.Forms.Label LbAbbreviations;
     }
 }

@@ -42,9 +42,19 @@ namespace ARKBreedingStats.species
         [JsonProperty]
         public double[][] fullStatsRaw;
         /// <summary>
+        /// The  alternative / Troodonism / bugged raw stat values without multipliers.
+        /// The key is the stat index.
+        /// </summary>
+        [JsonProperty]
+        public Dictionary<int, double[]> altStatsRaw;
+        /// <summary>
         /// The stat values with all multipliers applied and ready to use.
         /// </summary>
-        public List<CreatureStat> stats;
+        public CreatureStat[] stats;
+        /// <summary>
+        /// The alternative / Troodonism stat values with all multipliers applied and ready to use.
+        /// </summary>
+        public CreatureStat[] altStats;
 
         /// <summary>
         /// Indicates if a stat is shown ingame represented by bit-flags
@@ -109,12 +119,19 @@ namespace ARKBreedingStats.species
             // TODO: Base species are maybe not used ingame and may only lead to confusion (e.g. Giganotosaurus).
 
             InitializeNames();
-            stats = new List<CreatureStat>();
+
+            stats = new CreatureStat[Values.STATS_COUNT];
+            if (altStatsRaw != null)
+                altStats = new CreatureStat[Values.STATS_COUNT];
+
             usedStats = 0;
             double[][] completeRaws = new double[Values.STATS_COUNT][];
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                stats.Add(new CreatureStat());
+                stats[s] = new CreatureStat();
+                if (altStatsRaw?.ContainsKey(s) ?? false)
+                    altStats[s] = new CreatureStat();
+
                 completeRaws[s] = new double[] { 0, 0, 0, 0, 0 };
                 if (fullStatsRaw.Length > s && fullStatsRaw[s] != null)
                 {

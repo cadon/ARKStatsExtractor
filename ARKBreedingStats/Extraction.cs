@@ -93,7 +93,7 @@ namespace ARKBreedingStats
             bool tamed, bool bred, double imprintingBonusRounded, bool adjustImprinting, bool allowMoreThanHundredImprinting, double imprintingBonusMultiplier,
             bool considerWildLevelSteps, int wildLevelSteps, bool highPrecisionInputs, out bool imprintingChanged)
         {
-            List<CreatureStat> stats = species.stats;
+            var stats = species.stats;
             ValidResults = true;
             imprintingChanged = false;
             considerWildLevelSteps = considerWildLevelSteps

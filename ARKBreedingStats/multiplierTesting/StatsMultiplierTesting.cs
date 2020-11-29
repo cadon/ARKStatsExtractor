@@ -47,8 +47,9 @@ namespace ARKBreedingStats.multiplierTesting
                 flowLayoutPanel1.SetFlowBreak(_statControls[Values.statsDisplayOrder[s]], true);
             }
 
-            // set level-control to last
+            // set bottom controls to bottom
             flowLayoutPanel1.Controls.Add(gbLevel);
+            flowLayoutPanel1.Controls.Add(LbAbbreviations);
 
             _fineAdjustmentRange = new MinMaxDouble(0);
             rbTamed.Checked = true;
@@ -223,7 +224,8 @@ namespace ARKBreedingStats.multiplierTesting
 
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
-                    _statControls[s].SetStatValues(_selectedSpecies.fullStatsRaw[s], customStatsAvailable ? customStatOverrides?[s] : null);
+                    _statControls[s].SetStatValues(_selectedSpecies.fullStatsRaw[s], customStatsAvailable ? customStatOverrides?[s] : null,
+                        _selectedSpecies.altStatsRaw != null && _selectedSpecies.altStatsRaw.TryGetValue(s, out var altV) ? altV : null);
                     _statControls[s].StatImprintingBonusMultiplier = customStatsAvailable ? customStatOverrides?[Values.STATS_COUNT]?[s] ?? _selectedSpecies.StatImprintMultipliers[s] : _selectedSpecies.StatImprintMultipliers[s];
                     _statControls[s].Visible = species.UsesStat(s);
                 }

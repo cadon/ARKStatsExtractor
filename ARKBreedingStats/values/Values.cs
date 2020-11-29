@@ -500,24 +500,59 @@ namespace ARKBreedingStats.values
                         double[] statMultipliers = cc.serverMultipliers?.statMultipliers?[s] ?? defaultMultipliers;
 
                         bool customOverrideForThisStatExists = customOverrideExists && customFullStatsRaw[s] != null;
+
                         sp.stats[s].BaseValue = GetRawStatValue(s, 0, customOverrideForThisStatExists);
+
                         // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
                         double addWhenTamed = GetRawStatValue(s, 3, customOverrideForThisStatExists);
                         sp.stats[s].AddWhenTamed = addWhenTamed * (addWhenTamed > 0 ? statMultipliers[0] : 1);
+
                         // don't apply the multiplier if MultAffinity is negative (e.g. Aberration variants)
                         double multAffinity = GetRawStatValue(s, 4, customOverrideForThisStatExists);
                         sp.stats[s].MultAffinity = multAffinity * (multAffinity > 0 ? statMultipliers[1] : 1);
+
                         sp.stats[s].IncPerTamedLevel = GetRawStatValue(s, 2, customOverrideForThisStatExists) * statMultipliers[2];
                         sp.stats[s].IncPerWildLevel = GetRawStatValue(s, 1, customOverrideForThisStatExists) * statMultipliers[3];
 
+                        // set troodonism values
+                        if (sp.altStats?[s] != null)
+                        {
+                            sp.altStats[s].BaseValue = sp.altStatsRaw[s][0];
+
+                            // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
+                            addWhenTamed = sp.altStatsRaw[s][3];
+                            sp.altStats[s].AddWhenTamed = addWhenTamed * (addWhenTamed > 0 ? statMultipliers[0] : 1);
+
+                            // don't apply the multiplier if MultAffinity is negative (e.g. Aberration variants)
+                            multAffinity = sp.altStatsRaw[s][4];
+                            sp.altStats[s].MultAffinity = multAffinity * (multAffinity > 0 ? statMultipliers[1] : 1);
+
+                            sp.altStats[s].IncPerTamedLevel = sp.altStatsRaw[s][2];
+                            sp.altStats[s].IncPerWildLevel = sp.altStatsRaw[s][3];
+                        }
+
                         if (singlePlayerServerMultipliers?.statMultipliers?[s] == null)
                             continue;
+
                         // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
                         sp.stats[s].AddWhenTamed *= sp.stats[s].AddWhenTamed > 0 ? singlePlayerServerMultipliers.statMultipliers[s][0] : 1;
                         // don't apply the multiplier if MultAffinity is negative (e.g. Aberration variants)
                         sp.stats[s].MultAffinity *= sp.stats[s].MultAffinity > 0 ? singlePlayerServerMultipliers.statMultipliers[s][1] : 1;
                         sp.stats[s].IncPerTamedLevel *= singlePlayerServerMultipliers.statMultipliers[s][2];
                         sp.stats[s].IncPerWildLevel *= singlePlayerServerMultipliers.statMultipliers[s][3];
+
+                        // troodonism values
+                        if (sp.altStats[s] != null)
+                        {
+                            sp.altStats[s].AddWhenTamed *= sp.altStats[s].AddWhenTamed > 0
+                                ? singlePlayerServerMultipliers.statMultipliers[s][0]
+                                : 1;
+                            sp.altStats[s].MultAffinity *= sp.altStats[s].MultAffinity > 0
+                                ? singlePlayerServerMultipliers.statMultipliers[s][1]
+                                : 1;
+                            sp.altStats[s].IncPerTamedLevel *= singlePlayerServerMultipliers.statMultipliers[s][2];
+                            sp.altStats[s].IncPerWildLevel *= singlePlayerServerMultipliers.statMultipliers[s][3];
+                        }
 
                         double GetRawStatValue(int statIndex, int statValueTypeIndex, bool customOverride)
                         {
