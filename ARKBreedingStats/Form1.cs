@@ -358,7 +358,8 @@ namespace ARKBreedingStats
             if (!Properties.Settings.Default.AlreadyAskedToDownloadImageFiles20200921)
             {
                 Properties.Settings.Default.AlreadyAskedToDownloadImageFiles20200921 = true;
-                if (MessageBox.Show("Download new species images to display the creature colors?\n\nThe file to be downloaded has a size of ~17 MB.\nYou can later download these images in the menu ? - Download Species Images",
+
+                if (!Updater.IsProgramInstalled && MessageBox.Show("Download new species images to display the creature colors?\n\nThe file to be downloaded has a size of ~17 MB.\nYou can later download these images in the menu ? - Download Species Images",
                     "Download species images?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     DownloadSpeciesImagesAsync();
             }
