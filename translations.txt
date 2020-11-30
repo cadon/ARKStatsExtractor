@@ -11,6 +11,7 @@ Available	Available
 Baby	Baby
 BestPossible	Best Possible
 BestPossibleSpeciesLibrary  Best possible {0} for this library
+BestPossibleSpeciesLibraryFiltered  Best possible {0} for this filter
 Body	Body
 BonusLevel	Bonus Level
 Bow	Bow
@@ -106,7 +107,6 @@ currentStatValue	Current stat-value
 currentValue	Current Value
 Damage	Damage
 Damage_Abb	Dm
-de	German
 deadCreaturesToolStripMenuItem	Dead Creatures
 Default	Default
 deleteSelectedToolStripMenuItem	Remove…
@@ -120,9 +120,7 @@ editToolStripMenuItem	Edit
 Egg	Egg
 ElectricProd	Electric Prod
 ElectricProdHits	Electric Prod Hits
-en	English
 error  Error
-es	Spanish
 Event	Event
 expired  expired
 ExportFolderDetectionFailed  The export folder of Steam couldn't be detected automatically.
@@ -145,12 +143,12 @@ Food_Abb	Fo
 FoodHasToDropUnits	Food has to drop by {0} units.
 Fortitude Fortitude
 Fortitude_Abb Fr
-fr	French
 gbBPBreedingMode	Breeding-Mode
 gbBPOffspring	Offspring
 gbCreatureInfo	Creature-info
 gbKOInfo	Knockout Info
 gbWeaponDamage	Weapon Damage [%]
+generation  generation
 Generation_Abb	Gen
 gpPreviewEdit	Preview / Edit
 gpStarvingTime	Starving-Time
@@ -195,7 +193,6 @@ issueMaxWildLevelTooLow	"The extraction is potentially possible, but it seems th
 The current value is {0} and this creature seems to have a higher wild level than this.
 
 For other reasons of the failing of the extraction, see the list on the right after closing this messagebox."
-it Italian
 lbBPBreedingScore	Breeding Score
 lbBPBreedingScoreTT	"The Breeding-Score of a paring is not comparable to the Breeding-Score of another breeding-mode.
 The numbers in the different modes are generated in incompatible ways."
@@ -230,6 +227,7 @@ Enable it if the OCR doesn't recognize the tribe-name correctly and you want to 
 lbUsed	used
 Level	Level
 Level_Abb	Lvl
+Levels  Levels
 LevelWild_Abb	LW
 library	Library
 libraryFilter  Library Filter
@@ -242,6 +240,7 @@ malesToolStripMenuItem	Males
 matingTime  Mating Time
 Maturation	Maturation
 mature  mature
+max wild level  max wild level
 modValueManagerToolStripMenuItem	Load additional values…
 Mother	Mother
 multiSetterToolStripMenuItem	MultiSetter…
@@ -286,6 +285,7 @@ ownerFilterFromLibrary  Owner filter from library
 owners  owners
 Oxygen	Oxygen
 Oxygen_Abb	Ox
+Parents  Parents
 pasteCreatureToolStripMenuItem	Paste Creature
 paused  paused
 pedigree	Pedigree
@@ -334,6 +334,7 @@ statChart	Stat-Chart
 Stats	Stats
 statTesting	Stat Testing
 Status	Status
+SystemLanguage  System Language
 tags  tags
 Tail	Tail
 tamed	Tamed
@@ -383,6 +384,7 @@ unknownSpecies  unknown species
 until until
 updateSuccessTitle  Update successful
 useFilterInTopStatCalculation  Use filter in top stat calculation
+Values  Values
 valuesFileLoadingError  The species values-file couldn't be loaded, this application does not work without. Try redownloading the tool.
 VariantSelector  Variant Selector
 VariantSelectorInfo  Species that contain one variant that is unchecked will be hidden.
@@ -399,4 +401,3 @@ wildLvl	Wild-Lvl
 WithXFoodTamingTakesTime	With {0} × {1} taming takes {2}
 WoodenClubHits	Wooden Club Hits
 WorstPossible	Worst Possible
-zh Chinese
