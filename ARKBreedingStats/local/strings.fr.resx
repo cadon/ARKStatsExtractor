@@ -124,7 +124,7 @@
     <value>Ajouté</value>
   </data>
   <data name="AlreadyCreatureWithTopStats" xml:space="preserve">
-    <value>Une créature ayant les meilleures statistiques est déjà présente dans la librairie avec les choisi filtres ({0} {1}).
+    <value>Une créature ayant les meilleures statistiques est déjà présente dans la librairie avec les filtres choisis ({0} {1}).
 Le mode de reproduction conservateur actuellement sélectionné peut indiquer certaines suggestions pouvant sembler non optimales.
 Changez le mode de reproduction en "Meilleure prochaine génération" pour de meilleures suggestions.</value>
   </data>
@@ -1253,6 +1253,6 @@ Le préréglage peut être appliqué par le bouton Appliquer le préréglage</va
     <value>génération</value>
   </data>
   <data name="BestPossibleSpeciesLibraryFiltered" xml:space="preserve">
-    <value>Meilleur {0} possible pour cette filtre</value>
+    <value>Meilleur {0} possible pour ce filtre</value>
   </data>
 </root>
