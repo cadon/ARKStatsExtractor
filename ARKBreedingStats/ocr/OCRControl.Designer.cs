@@ -36,6 +36,7 @@ namespace ARKBreedingStats.ocr
             this.tabControlManage = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.btUnloadOCR = new System.Windows.Forms.Button();
             this.btnSaveOCRconfig = new System.Windows.Forms.Button();
             this.buttonLoadOCRTemplate = new System.Windows.Forms.Button();
             this.labelOCRFile = new System.Windows.Forms.Label();
@@ -63,20 +64,8 @@ namespace ARKBreedingStats.ocr
             this.ocrLetterEditRecognized = new ARKBreedingStats.ocr.OCRLetterEdit();
             this.button2 = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.lbResizeResult = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.nudResizing = new ARKBreedingStats.uiControls.Nud();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.nudFontSizeCalibration = new ARKBreedingStats.uiControls.Nud();
-            this.buttonLoadCalibrationImage = new System.Windows.Forms.Button();
-            this.label14 = new System.Windows.Forms.Label();
-            this.textBoxCalibrationText = new System.Windows.Forms.TextBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.btnDeleteFontSize = new System.Windows.Forms.Button();
-            this.label18 = new System.Windows.Forms.Label();
-            this.cbbFontSizeDelete = new System.Windows.Forms.ComboBox();
+            this.TrainingCheckBox = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.buttonGetResFromScreenshot = new System.Windows.Forms.Button();
@@ -101,7 +90,9 @@ namespace ARKBreedingStats.ocr
             this.nudX = new ARKBreedingStats.uiControls.Nud();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.listBoxLabelRectangles = new System.Windows.Forms.ListBox();
-            this.btUnloadOCR = new System.Windows.Forms.Button();
+            this.SkipNameCheckBox = new System.Windows.Forms.CheckBox();
+            this.SkipTribeCheckBox = new System.Windows.Forms.CheckBox();
+            this.SkipOwnerCheckBox = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel4.SuspendLayout();
             this.tabControlManage.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -114,10 +105,6 @@ namespace ARKBreedingStats.ocr
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditRecognized)).BeginInit();
             this.tabPage4.SuspendLayout();
-            this.groupBox9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudResizing)).BeginInit();
-            this.groupBox8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudFontSizeCalibration)).BeginInit();
             this.groupBox7.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -200,6 +187,16 @@ namespace ARKBreedingStats.ocr
             this.groupBox6.TabIndex = 25;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "OCR config file";
+            // 
+            // btUnloadOCR
+            // 
+            this.btUnloadOCR.Location = new System.Drawing.Point(142, 21);
+            this.btUnloadOCR.Name = "btUnloadOCR";
+            this.btUnloadOCR.Size = new System.Drawing.Size(130, 23);
+            this.btUnloadOCR.TabIndex = 26;
+            this.btUnloadOCR.Text = "unload OCR config";
+            this.btUnloadOCR.UseVisualStyleBackColor = true;
+            this.btUnloadOCR.Click += new System.EventHandler(this.btUnloadOCR_Click);
             // 
             // btnSaveOCRconfig
             // 
@@ -501,8 +498,6 @@ namespace ARKBreedingStats.ocr
             // tabPage4
             // 
             this.tabPage4.AutoScroll = true;
-            this.tabPage4.Controls.Add(this.groupBox9);
-            this.tabPage4.Controls.Add(this.groupBox8);
             this.tabPage4.Controls.Add(this.groupBox7);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
@@ -512,175 +507,31 @@ namespace ARKBreedingStats.ocr
             this.tabPage4.Text = "Manage";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // groupBox9
-            // 
-            this.groupBox9.Controls.Add(this.lbResizeResult);
-            this.groupBox9.Controls.Add(this.label19);
-            this.groupBox9.Controls.Add(this.nudResizing);
-            this.groupBox9.Location = new System.Drawing.Point(6, 325);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(334, 94);
-            this.groupBox9.TabIndex = 30;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Resize the captured screenshot";
-            // 
-            // lbResizeResult
-            // 
-            this.lbResizeResult.Location = new System.Drawing.Point(107, 34);
-            this.lbResizeResult.Name = "lbResizeResult";
-            this.lbResizeResult.Size = new System.Drawing.Size(221, 57);
-            this.lbResizeResult.TabIndex = 31;
-            this.lbResizeResult.Text = "->";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(6, 16);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(297, 13);
-            this.label19.TabIndex = 30;
-            this.label19.Text = "If the font-sizes are too large (>31) you can set a resize-factor.";
-            // 
-            // nudResizing
-            // 
-            this.nudResizing.DecimalPlaces = 6;
-            this.nudResizing.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudResizing.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nudResizing.Location = new System.Drawing.Point(0, 32);
-            this.nudResizing.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.nudResizing.Name = "nudResizing";
-            this.nudResizing.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudResizing.Size = new System.Drawing.Size(101, 20);
-            this.nudResizing.TabIndex = 29;
-            this.nudResizing.ValueChanged += new System.EventHandler(this.nudResizing_ValueChanged);
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.label17);
-            this.groupBox8.Controls.Add(this.nudFontSizeCalibration);
-            this.groupBox8.Controls.Add(this.buttonLoadCalibrationImage);
-            this.groupBox8.Controls.Add(this.label14);
-            this.groupBox8.Controls.Add(this.textBoxCalibrationText);
-            this.groupBox8.Location = new System.Drawing.Point(6, 6);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(334, 186);
-            this.groupBox8.TabIndex = 28;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Add font-size";
-            // 
-            // label17
-            // 
-            this.label17.Location = new System.Drawing.Point(6, 16);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(322, 72);
-            this.label17.TabIndex = 25;
-            this.label17.Text = resources.GetString("label17.Text");
-            // 
-            // nudFontSizeCalibration
-            // 
-            this.nudFontSizeCalibration.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.nudFontSizeCalibration.Location = new System.Drawing.Point(77, 140);
-            this.nudFontSizeCalibration.Maximum = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            this.nudFontSizeCalibration.Minimum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.nudFontSizeCalibration.Name = "nudFontSizeCalibration";
-            this.nudFontSizeCalibration.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudFontSizeCalibration.Size = new System.Drawing.Size(59, 20);
-            this.nudFontSizeCalibration.TabIndex = 21;
-            this.nudFontSizeCalibration.Value = new decimal(new int[] {
-            18,
-            0,
-            0,
-            0});
-            // 
-            // buttonLoadCalibrationImage
-            // 
-            this.buttonLoadCalibrationImage.Location = new System.Drawing.Point(6, 111);
-            this.buttonLoadCalibrationImage.Name = "buttonLoadCalibrationImage";
-            this.buttonLoadCalibrationImage.Size = new System.Drawing.Size(130, 23);
-            this.buttonLoadCalibrationImage.TabIndex = 23;
-            this.buttonLoadCalibrationImage.Text = "Calibrate from Font";
-            this.buttonLoadCalibrationImage.UseVisualStyleBackColor = true;
-            this.buttonLoadCalibrationImage.Click += new System.EventHandler(this.buttonLoadCalibrationImage_Click);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(25, 142);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(46, 13);
-            this.label14.TabIndex = 22;
-            this.label14.Text = "font size";
-            // 
-            // textBoxCalibrationText
-            // 
-            this.textBoxCalibrationText.Location = new System.Drawing.Point(142, 113);
-            this.textBoxCalibrationText.Name = "textBoxCalibrationText";
-            this.textBoxCalibrationText.Size = new System.Drawing.Size(186, 20);
-            this.textBoxCalibrationText.TabIndex = 24;
-            this.textBoxCalibrationText.Text = "!#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqr" +
-    "stuvwxyz{|}~";
-            // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.btnDeleteFontSize);
-            this.groupBox7.Controls.Add(this.label18);
-            this.groupBox7.Controls.Add(this.cbbFontSizeDelete);
-            this.groupBox7.Location = new System.Drawing.Point(6, 198);
+            this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox7.Controls.Add(this.SkipOwnerCheckBox);
+            this.groupBox7.Controls.Add(this.SkipTribeCheckBox);
+            this.groupBox7.Controls.Add(this.SkipNameCheckBox);
+            this.groupBox7.Controls.Add(this.TrainingCheckBox);
+            this.groupBox7.Location = new System.Drawing.Point(6, 6);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(334, 121);
-            this.groupBox7.TabIndex = 27;
+            this.groupBox7.Size = new System.Drawing.Size(334, 319);
+            this.groupBox7.TabIndex = 0;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Delete font-size";
+            this.groupBox7.Text = "Pattern recognition settings";
             // 
-            // btnDeleteFontSize
+            // TrainingCheckBox
             // 
-            this.btnDeleteFontSize.Location = new System.Drawing.Point(84, 53);
-            this.btnDeleteFontSize.Name = "btnDeleteFontSize";
-            this.btnDeleteFontSize.Size = new System.Drawing.Size(93, 23);
-            this.btnDeleteFontSize.TabIndex = 28;
-            this.btnDeleteFontSize.Text = "Delete Font Size";
-            this.btnDeleteFontSize.UseVisualStyleBackColor = true;
-            this.btnDeleteFontSize.Click += new System.EventHandler(this.btnDeleteFontSize_Click);
-            // 
-            // label18
-            // 
-            this.label18.Location = new System.Drawing.Point(6, 16);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(322, 36);
-            this.label18.TabIndex = 27;
-            this.label18.Text = "Delete all character-templates for a font-size if they are not needed.";
-            // 
-            // cbbFontSizeDelete
-            // 
-            this.cbbFontSizeDelete.FormattingEnabled = true;
-            this.cbbFontSizeDelete.Location = new System.Drawing.Point(6, 55);
-            this.cbbFontSizeDelete.Name = "cbbFontSizeDelete";
-            this.cbbFontSizeDelete.Size = new System.Drawing.Size(72, 21);
-            this.cbbFontSizeDelete.TabIndex = 26;
+            this.TrainingCheckBox.AutoSize = true;
+            this.TrainingCheckBox.Location = new System.Drawing.Point(6, 19);
+            this.TrainingCheckBox.Name = "TrainingCheckBox";
+            this.TrainingCheckBox.Size = new System.Drawing.Size(105, 17);
+            this.TrainingCheckBox.TabIndex = 0;
+            this.TrainingCheckBox.Text = "Train recognition";
+            this.TrainingCheckBox.UseVisualStyleBackColor = true;
+            this.TrainingCheckBox.CheckedChanged += new System.EventHandler(this.TrainingCheckBox_CheckedChanged);
             // 
             // tabPage3
             // 
@@ -722,6 +573,7 @@ namespace ARKBreedingStats.ocr
             // 
             // nudResolutionHeight
             // 
+            this.nudResolutionHeight.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudResolutionHeight.Location = new System.Drawing.Point(47, 45);
             this.nudResolutionHeight.Maximum = new decimal(new int[] {
             10000,
@@ -749,6 +601,7 @@ namespace ARKBreedingStats.ocr
             // 
             // nudResolutionWidth
             // 
+            this.nudResolutionWidth.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudResolutionWidth.Location = new System.Drawing.Point(47, 19);
             this.nudResolutionWidth.Maximum = new decimal(new int[] {
             10000,
@@ -818,6 +671,7 @@ namespace ARKBreedingStats.ocr
             // 
             // nudHeightT
             // 
+            this.nudHeightT.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudHeightT.Location = new System.Drawing.Point(193, 117);
             this.nudHeightT.Maximum = new decimal(new int[] {
             4000,
@@ -845,6 +699,7 @@ namespace ARKBreedingStats.ocr
             // 
             // nudWidthL
             // 
+            this.nudWidthL.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudWidthL.Location = new System.Drawing.Point(56, 117);
             this.nudWidthL.Maximum = new decimal(new int[] {
             4000,
@@ -881,6 +736,7 @@ namespace ARKBreedingStats.ocr
             // 
             // nudHeight
             // 
+            this.nudHeight.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudHeight.Location = new System.Drawing.Point(193, 91);
             this.nudHeight.Maximum = new decimal(new int[] {
             4000,
@@ -908,6 +764,7 @@ namespace ARKBreedingStats.ocr
             // 
             // nudWidth
             // 
+            this.nudWidth.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudWidth.Location = new System.Drawing.Point(56, 91);
             this.nudWidth.Maximum = new decimal(new int[] {
             4000,
@@ -935,6 +792,7 @@ namespace ARKBreedingStats.ocr
             // 
             // nudY
             // 
+            this.nudY.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudY.Location = new System.Drawing.Point(193, 65);
             this.nudY.Maximum = new decimal(new int[] {
             4000,
@@ -962,6 +820,7 @@ namespace ARKBreedingStats.ocr
             // 
             // nudX
             // 
+            this.nudX.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudX.Location = new System.Drawing.Point(56, 65);
             this.nudX.Maximum = new decimal(new int[] {
             4000,
@@ -997,15 +856,38 @@ namespace ARKBreedingStats.ocr
             this.listBoxLabelRectangles.TabIndex = 0;
             this.listBoxLabelRectangles.SelectedIndexChanged += new System.EventHandler(this.listBoxLabelRectangles_SelectedIndexChanged);
             // 
-            // btUnloadOCR
+            // checkBox1
             // 
-            this.btUnloadOCR.Location = new System.Drawing.Point(142, 21);
-            this.btUnloadOCR.Name = "btUnloadOCR";
-            this.btUnloadOCR.Size = new System.Drawing.Size(130, 23);
-            this.btUnloadOCR.TabIndex = 26;
-            this.btUnloadOCR.Text = "unload OCR config";
-            this.btUnloadOCR.UseVisualStyleBackColor = true;
-            this.btUnloadOCR.Click += new System.EventHandler(this.btUnloadOCR_Click);
+            this.SkipNameCheckBox.AutoSize = true;
+            this.SkipNameCheckBox.Location = new System.Drawing.Point(6, 42);
+            this.SkipNameCheckBox.Name = "SkipNameCheckBox";
+            this.SkipNameCheckBox.Size = new System.Drawing.Size(133, 17);
+            this.SkipNameCheckBox.TabIndex = 1;
+            this.SkipNameCheckBox.Text = "Skip Name recognition";
+            this.SkipNameCheckBox.UseVisualStyleBackColor = true;
+            this.SkipNameCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // checkBox2
+            // 
+            this.SkipTribeCheckBox.AutoSize = true;
+            this.SkipTribeCheckBox.Location = new System.Drawing.Point(6, 65);
+            this.SkipTribeCheckBox.Name = "SkipTribeCheckBox";
+            this.SkipTribeCheckBox.Size = new System.Drawing.Size(129, 17);
+            this.SkipTribeCheckBox.TabIndex = 2;
+            this.SkipTribeCheckBox.Text = "Skip Tribe recognition";
+            this.SkipTribeCheckBox.UseVisualStyleBackColor = true;
+            this.SkipTribeCheckBox.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            // 
+            // checkBox3
+            // 
+            this.SkipOwnerCheckBox.AutoSize = true;
+            this.SkipOwnerCheckBox.Location = new System.Drawing.Point(6, 88);
+            this.SkipOwnerCheckBox.Name = "SkipOwnerCheckBox";
+            this.SkipOwnerCheckBox.Size = new System.Drawing.Size(136, 17);
+            this.SkipOwnerCheckBox.TabIndex = 3;
+            this.SkipOwnerCheckBox.Text = "Skip Owner recognition";
+            this.SkipOwnerCheckBox.UseVisualStyleBackColor = true;
+            this.SkipOwnerCheckBox.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
             // OCRControl
             // 
@@ -1028,13 +910,8 @@ namespace ARKBreedingStats.ocr
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditRecognized)).EndInit();
             this.tabPage4.ResumeLayout(false);
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudResizing)).EndInit();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudFontSizeCalibration)).EndInit();
             this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
@@ -1111,20 +988,11 @@ namespace ARKBreedingStats.ocr
         private System.Windows.Forms.Button btnSaveOCRConfigAs;
         private System.Windows.Forms.Button btnSaveOCRConfigFile2;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textBoxCalibrationText;
-        private System.Windows.Forms.Button buttonLoadCalibrationImage;
-        private uiControls.Nud nudFontSizeCalibration;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.Button btnDeleteFontSize;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.ComboBox cbbFontSizeDelete;
-        private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.GroupBox groupBox9;
-        private System.Windows.Forms.Label lbResizeResult;
-        private System.Windows.Forms.Label label19;
-        private uiControls.Nud nudResizing;
         private System.Windows.Forms.Button btUnloadOCR;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.CheckBox TrainingCheckBox;
+        private System.Windows.Forms.CheckBox SkipOwnerCheckBox;
+        private System.Windows.Forms.CheckBox SkipTribeCheckBox;
+        private System.Windows.Forms.CheckBox SkipNameCheckBox;
     }
 }
