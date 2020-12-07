@@ -36,6 +36,7 @@ namespace ARKBreedingStats.ocr
             this.tabControlManage = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.btUnloadOCR = new System.Windows.Forms.Button();
             this.btnSaveOCRconfig = new System.Windows.Forms.Button();
             this.buttonLoadOCRTemplate = new System.Windows.Forms.Button();
             this.labelOCRFile = new System.Windows.Forms.Label();
@@ -101,7 +102,11 @@ namespace ARKBreedingStats.ocr
             this.nudX = new ARKBreedingStats.uiControls.Nud();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.listBoxLabelRectangles = new System.Windows.Forms.ListBox();
-            this.btUnloadOCR = new System.Windows.Forms.Button();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.CbTrainRecognition = new System.Windows.Forms.CheckBox();
+            this.CbSkipOwnerRecognition = new System.Windows.Forms.CheckBox();
+            this.CbSkipTribeRecognition = new System.Windows.Forms.CheckBox();
+            this.CbSkipNameRecognition = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel4.SuspendLayout();
             this.tabControlManage.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -131,6 +136,7 @@ namespace ARKBreedingStats.ocr
             ((System.ComponentModel.ISupportInitialize)(this.nudY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudX)).BeginInit();
             this.groupBox3.SuspendLayout();
+            this.groupBox10.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel4
@@ -200,6 +206,16 @@ namespace ARKBreedingStats.ocr
             this.groupBox6.TabIndex = 25;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "OCR config file";
+            // 
+            // btUnloadOCR
+            // 
+            this.btUnloadOCR.Location = new System.Drawing.Point(142, 21);
+            this.btUnloadOCR.Name = "btUnloadOCR";
+            this.btUnloadOCR.Size = new System.Drawing.Size(130, 23);
+            this.btUnloadOCR.TabIndex = 26;
+            this.btUnloadOCR.Text = "unload OCR config";
+            this.btUnloadOCR.UseVisualStyleBackColor = true;
+            this.btUnloadOCR.Click += new System.EventHandler(this.btUnloadOCR_Click);
             // 
             // btnSaveOCRconfig
             // 
@@ -501,6 +517,7 @@ namespace ARKBreedingStats.ocr
             // tabPage4
             // 
             this.tabPage4.AutoScroll = true;
+            this.tabPage4.Controls.Add(this.groupBox10);
             this.tabPage4.Controls.Add(this.groupBox9);
             this.tabPage4.Controls.Add(this.groupBox8);
             this.tabPage4.Controls.Add(this.groupBox7);
@@ -722,6 +739,7 @@ namespace ARKBreedingStats.ocr
             // 
             // nudResolutionHeight
             // 
+            this.nudResolutionHeight.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudResolutionHeight.Location = new System.Drawing.Point(47, 45);
             this.nudResolutionHeight.Maximum = new decimal(new int[] {
             10000,
@@ -749,6 +767,7 @@ namespace ARKBreedingStats.ocr
             // 
             // nudResolutionWidth
             // 
+            this.nudResolutionWidth.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudResolutionWidth.Location = new System.Drawing.Point(47, 19);
             this.nudResolutionWidth.Maximum = new decimal(new int[] {
             10000,
@@ -818,6 +837,7 @@ namespace ARKBreedingStats.ocr
             // 
             // nudHeightT
             // 
+            this.nudHeightT.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudHeightT.Location = new System.Drawing.Point(193, 117);
             this.nudHeightT.Maximum = new decimal(new int[] {
             4000,
@@ -845,6 +865,7 @@ namespace ARKBreedingStats.ocr
             // 
             // nudWidthL
             // 
+            this.nudWidthL.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudWidthL.Location = new System.Drawing.Point(56, 117);
             this.nudWidthL.Maximum = new decimal(new int[] {
             4000,
@@ -881,6 +902,7 @@ namespace ARKBreedingStats.ocr
             // 
             // nudHeight
             // 
+            this.nudHeight.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudHeight.Location = new System.Drawing.Point(193, 91);
             this.nudHeight.Maximum = new decimal(new int[] {
             4000,
@@ -908,6 +930,7 @@ namespace ARKBreedingStats.ocr
             // 
             // nudWidth
             // 
+            this.nudWidth.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudWidth.Location = new System.Drawing.Point(56, 91);
             this.nudWidth.Maximum = new decimal(new int[] {
             4000,
@@ -935,6 +958,7 @@ namespace ARKBreedingStats.ocr
             // 
             // nudY
             // 
+            this.nudY.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudY.Location = new System.Drawing.Point(193, 65);
             this.nudY.Maximum = new decimal(new int[] {
             4000,
@@ -962,6 +986,7 @@ namespace ARKBreedingStats.ocr
             // 
             // nudX
             // 
+            this.nudX.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudX.Location = new System.Drawing.Point(56, 65);
             this.nudX.Maximum = new decimal(new int[] {
             4000,
@@ -997,15 +1022,62 @@ namespace ARKBreedingStats.ocr
             this.listBoxLabelRectangles.TabIndex = 0;
             this.listBoxLabelRectangles.SelectedIndexChanged += new System.EventHandler(this.listBoxLabelRectangles_SelectedIndexChanged);
             // 
-            // btUnloadOCR
+            // groupBox10
             // 
-            this.btUnloadOCR.Location = new System.Drawing.Point(142, 21);
-            this.btUnloadOCR.Name = "btUnloadOCR";
-            this.btUnloadOCR.Size = new System.Drawing.Size(130, 23);
-            this.btUnloadOCR.TabIndex = 26;
-            this.btUnloadOCR.Text = "unload OCR config";
-            this.btUnloadOCR.UseVisualStyleBackColor = true;
-            this.btUnloadOCR.Click += new System.EventHandler(this.btUnloadOCR_Click);
+            this.groupBox10.Controls.Add(this.CbSkipNameRecognition);
+            this.groupBox10.Controls.Add(this.CbSkipTribeRecognition);
+            this.groupBox10.Controls.Add(this.CbSkipOwnerRecognition);
+            this.groupBox10.Controls.Add(this.CbTrainRecognition);
+            this.groupBox10.Location = new System.Drawing.Point(6, 425);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(334, 139);
+            this.groupBox10.TabIndex = 31;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Pattern recognition settings";
+            // 
+            // CbTrainRecognition
+            // 
+            this.CbTrainRecognition.AutoSize = true;
+            this.CbTrainRecognition.Location = new System.Drawing.Point(6, 19);
+            this.CbTrainRecognition.Name = "CbTrainRecognition";
+            this.CbTrainRecognition.Size = new System.Drawing.Size(105, 17);
+            this.CbTrainRecognition.TabIndex = 0;
+            this.CbTrainRecognition.Text = "Train recognition";
+            this.CbTrainRecognition.UseVisualStyleBackColor = true;
+            this.CbTrainRecognition.CheckedChanged += new System.EventHandler(this.CbTrainRecognition_CheckedChanged);
+            // 
+            // CbSkipOwnerRecognition
+            // 
+            this.CbSkipOwnerRecognition.AutoSize = true;
+            this.CbSkipOwnerRecognition.Location = new System.Drawing.Point(6, 88);
+            this.CbSkipOwnerRecognition.Name = "CbSkipOwnerRecognition";
+            this.CbSkipOwnerRecognition.Size = new System.Drawing.Size(134, 17);
+            this.CbSkipOwnerRecognition.TabIndex = 1;
+            this.CbSkipOwnerRecognition.Text = "Skip owner recognition";
+            this.CbSkipOwnerRecognition.UseVisualStyleBackColor = true;
+            this.CbSkipOwnerRecognition.CheckedChanged += new System.EventHandler(this.CbSkipOwnerRecognition_CheckedChanged);
+            // 
+            // CbSkipTribeRecognition
+            // 
+            this.CbSkipTribeRecognition.AutoSize = true;
+            this.CbSkipTribeRecognition.Location = new System.Drawing.Point(6, 65);
+            this.CbSkipTribeRecognition.Name = "CbSkipTribeRecognition";
+            this.CbSkipTribeRecognition.Size = new System.Drawing.Size(125, 17);
+            this.CbSkipTribeRecognition.TabIndex = 2;
+            this.CbSkipTribeRecognition.Text = "Skip tribe recognition";
+            this.CbSkipTribeRecognition.UseVisualStyleBackColor = true;
+            this.CbSkipTribeRecognition.CheckedChanged += new System.EventHandler(this.CbSkipTribeRecognition_CheckedChanged);
+            // 
+            // CbSkipNameRecognition
+            // 
+            this.CbSkipNameRecognition.AutoSize = true;
+            this.CbSkipNameRecognition.Location = new System.Drawing.Point(6, 42);
+            this.CbSkipNameRecognition.Name = "CbSkipNameRecognition";
+            this.CbSkipNameRecognition.Size = new System.Drawing.Size(131, 17);
+            this.CbSkipNameRecognition.TabIndex = 3;
+            this.CbSkipNameRecognition.Text = "Skip name recognition";
+            this.CbSkipNameRecognition.UseVisualStyleBackColor = true;
+            this.CbSkipNameRecognition.CheckedChanged += new System.EventHandler(this.CbSkipNameRecognition_CheckedChanged);
             // 
             // OCRControl
             // 
@@ -1049,6 +1121,8 @@ namespace ARKBreedingStats.ocr
             ((System.ComponentModel.ISupportInitialize)(this.nudY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudX)).EndInit();
             this.groupBox3.ResumeLayout(false);
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1126,5 +1200,10 @@ namespace ARKBreedingStats.ocr
         private System.Windows.Forms.Label label19;
         private uiControls.Nud nudResizing;
         private System.Windows.Forms.Button btUnloadOCR;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.CheckBox CbSkipNameRecognition;
+        private System.Windows.Forms.CheckBox CbSkipTribeRecognition;
+        private System.Windows.Forms.CheckBox CbSkipOwnerRecognition;
+        private System.Windows.Forms.CheckBox CbTrainRecognition;
     }
 }

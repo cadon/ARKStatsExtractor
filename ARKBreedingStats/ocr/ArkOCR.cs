@@ -10,6 +10,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using ARKBreedingStats.ocr.PatternMatching;
 
 namespace ARKBreedingStats.ocr
 {
@@ -476,7 +477,7 @@ namespace ARKBreedingStats.ocr
             if (!CheckResolutionSupportedByOcr(screenshotbmp))
             {
                 OCRText = "Error while calibrating: The game-resolution is not supported by the currently loaded OCR-configuration.\n"
-                    + $"The tested image has a resolution of {screenshotbmp.Width.ToString()} × {screenshotbmp.Height.ToString()} px,\n"
+                    + $"The tested image has a resolution of {screenshotbmp.Width} × {screenshotbmp.Height} px,\n"
                     + $"the resolution of the loaded ocr-config is {ocrConfig.resolutionWidth} × {ocrConfig.resolutionHeight} px.\n\n"
                     + "Load a ocr-config file with the resolution of the game to make it work.";
                 return finalValues;
@@ -526,6 +527,32 @@ namespace ARKBreedingStats.ocr
                 if (lbI == 8) stI = 8;
                 string statName = ocrConfig.labelNames[stI];
 
+                switch (statName)
+                {
+                    case "NameSpecies":
+                        if (RecognitionPatterns.Settings.TrainingSettings.SkipName)
+                        {
+                            dinoName = string.Empty;
+                            continue;
+                        }
+                        break;
+                    case "Tribe":
+                        if (RecognitionPatterns.Settings.TrainingSettings.SkipTribe)
+                        {
+                            tribeName = string.Empty;
+                            continue;
+                        }
+
+                        break;
+                    case "Owner":
+                        if (RecognitionPatterns.Settings.TrainingSettings.SkipOwner)
+                        {
+                            ownerName = string.Empty;
+                            continue;
+                        }
+                        break;
+                }
+
                 Rectangle rec = ocrConfig.labelRectangles[lbI];
 
                 // wild creatures don't have the xp-bar, all stats are moved one row up
@@ -537,14 +564,22 @@ namespace ARKBreedingStats.ocr
 
                 string statOCR = "";
 
-                if (statName == "NameSpecies")
-                    statOCR = readImage(testbmp, true, false);
-                else if (statName == "Level")
-                    statOCR = readImage(testbmp, true, true);
-                else if (statName == "Tribe" || statName == "Owner")
-                    statOCR = readImage(testbmp, true, false);
-                else
-                    statOCR = readImage(testbmp, true, true); // statvalues are only numbers
+                try
+                {
+                    if (statName == "NameSpecies")
+                        statOCR = PatternOcr.ReadImageOcr(testbmp, false, 0.85f);
+                    else if (statName == "Level")
+                        statOCR = PatternOcr.ReadImageOcr(testbmp, true, 1.1f).Replace(".", ": ");
+                    else if (statName == "Tribe" || statName == "Owner")
+                        statOCR = PatternOcr.ReadImageOcr(testbmp, false, 0.8f);
+                    else
+                        statOCR = PatternOcr.ReadImageOcr(testbmp, true); // statvalues are only numbers
+                }
+                catch (OperationCanceledException e)
+                {
+                    OCRText = "Canceled";
+                    return finalValues;
+                }
 
                 if (statOCR == "" &&
                     (statName == "Health" || statName == "Imprinting" || statName == "Tribe" || statName == "Owner"))
@@ -557,15 +592,11 @@ namespace ARKBreedingStats.ocr
                     continue; // these can be missing, it's fine
                 }
 
-
-                //_lastLetterPositions[statName] = new Point(rec.X + lastLetterPosition(removePixelsUnderThreshold(GetGreyScale(testbmp), whiteThreshold)), rec.Y); // TODO remove?
-
                 finishedText += (finishedText.Length == 0 ? "" : "\r\n") + statName + ":\t" + statOCR;
 
                 // parse the OCR String
 
-                Regex r;
-                r = new Regex(@"^[_\/\\]*(.*?)[_\/\\]*$"); // trim. often the background is misinterpreted as underscores or slash/backslash
+                var r = new Regex(@"^[_\/\\]*(.*?)[_\/\\]*$");
                 statOCR = r.Replace(statOCR, "$1");
 
                 if (statName == "NameSpecies")
@@ -652,7 +683,17 @@ namespace ARKBreedingStats.ocr
                     stI++;
                 }
 
-                double.TryParse(mc[0].Groups[1].Value.Replace('\'', '.').Replace(',', '.').Replace('O', '0'), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double v); // common substitutions: comma and apostrophe to dot, 
+                var splitRes = statOCR.Split('/', ',', ':');
+                var ocrValue = splitRes[splitRes.Length - 1] == "%" ? splitRes[splitRes.Length - 2] : splitRes[splitRes.Length - 1];
+
+                ocrValue = PatternOcr.RemoveNonNumeric(ocrValue);
+
+                double.TryParse(ocrValue, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double v); // common substitutions: comma and apostrophe to dot, 
+
+                if (statName == "MeleeDamage" && v > 1000)
+                {
+                    v = v / 10;
+                }
 
                 finishedText += $"\t→ {v}";
 

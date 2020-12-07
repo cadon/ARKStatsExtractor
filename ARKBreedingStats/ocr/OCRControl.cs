@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Threading;
+using ARKBreedingStats.ocr.PatternMatching;
 using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.ocr
@@ -31,6 +32,10 @@ namespace ARKBreedingStats.ocr
             debugPanel = OCRDebugLayoutPanel;
             output = txtOCROutput;
             ocrLetterEditTemplate.drawingEnabled = true;
+            CbTrainRecognition.Checked = RecognitionPatterns.Settings.IsTrainingEnabled;
+            CbSkipNameRecognition.Checked = RecognitionPatterns.Settings.TrainingSettings.SkipName;
+            CbSkipTribeRecognition.Checked = RecognitionPatterns.Settings.TrainingSettings.SkipTribe;
+            CbSkipOwnerRecognition.Checked = RecognitionPatterns.Settings.TrainingSettings.SkipOwner;
         }
 
         public void Initialize()
@@ -582,6 +587,30 @@ namespace ARKBreedingStats.ocr
             {
                 cbbFontSizeDelete.Items.Add(s.ToString());
             }
+        }
+
+        private void CbTrainRecognition_CheckedChanged(object sender, EventArgs e)
+        {
+            RecognitionPatterns.Settings.IsTrainingEnabled = sender is CheckBox cb && cb.Checked;
+            RecognitionPatterns.Settings.Save();
+        }
+
+        private void CbSkipNameRecognition_CheckedChanged(object sender, EventArgs e)
+        {
+            RecognitionPatterns.Settings.TrainingSettings.SkipName = sender is CheckBox cb && cb.Checked;
+            RecognitionPatterns.Settings.Save();
+        }
+
+        private void CbSkipTribeRecognition_CheckedChanged(object sender, EventArgs e)
+        {
+            RecognitionPatterns.Settings.TrainingSettings.SkipTribe = sender is CheckBox cb && cb.Checked;
+            RecognitionPatterns.Settings.Save();
+        }
+
+        private void CbSkipOwnerRecognition_CheckedChanged(object sender, EventArgs e)
+        {
+            RecognitionPatterns.Settings.TrainingSettings.SkipOwner = sender is CheckBox cb && cb.Checked;
+            RecognitionPatterns.Settings.Save();
         }
     }
 }

@@ -111,6 +111,24 @@
     <Compile Include="mods\StatBaseValuesEdit.Designer.cs">
       <DependentUpon>StatBaseValuesEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="ocr\PatternMatching\Boolean2DimArrayConverter.cs" />
+    <Compile Include="ocr\PatternMatching\Coords.cs" />
+    <Compile Include="ocr\PatternMatching\CoordsData.cs" />
+    <Compile Include="ocr\PatternMatching\DirectBitmap.cs" />
+    <Compile Include="ocr\PatternMatching\ImageUtils.cs" />
+    <Compile Include="ocr\PatternMatching\OcrUtils.cs" />
+    <Compile Include="ocr\PatternMatching\Pattern.cs" />
+    <Compile Include="ocr\PatternMatching\PatternOcr.cs" />
+    <Compile Include="ocr\PatternMatching\RecognitionPatterns.cs" />
+    <Compile Include="ocr\PatternMatching\RecognitionTrainingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ocr\PatternMatching\RecognitionTrainingForm.designer.cs">
+      <DependentUpon>RecognitionTrainingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ocr\PatternMatching\RecognizedCharData.cs" />
+    <Compile Include="ocr\PatternMatching\TextData.cs" />
+    <Compile Include="ocr\PatternMatching\TrainingSettings.cs" />
     <Compile Include="oldLibraryFormat\FormatConverter.cs" />
     <Compile Include="importExported\ExportedCreatureList.cs">
       <SubType>Form</SubType>
@@ -180,6 +198,8 @@
     <Compile Include="settings\FtpProgress.Designer.cs">
       <DependentUpon>FtpProgress.cs</DependentUpon>
     </Compile>
+    <Compile Include="settings\JsonSerialization.cs" />
+    <Compile Include="settings\SettingsController.cs" />
     <Compile Include="species\ARKColor.cs" />
     <Compile Include="species\ARKColors.cs" />
     <Compile Include="settings\FtpCredentials.cs">
@@ -580,6 +600,9 @@
     <Compile Include="values\ServerMultipliers.cs" />
     <Compile Include="values\Values.cs" />
     <Compile Include="Win32API.cs" />
+    <EmbeddedResource Include="ocr\PatternMatching\RecognitionTrainingForm.resx">
+      <DependentUpon>RecognitionTrainingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="uiControls\ParentInheritance.resx">
       <DependentUpon>ParentInheritance.cs</DependentUpon>
     </EmbeddedResource>
