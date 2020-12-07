@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.utils;
-using ARKBreedingStats.ocr.PatternMatching;
 
 namespace ARKBreedingStats.ocr
 {
@@ -32,10 +31,6 @@ namespace ARKBreedingStats.ocr
             debugPanel = OCRDebugLayoutPanel;
             output = txtOCROutput;
             ocrLetterEditTemplate.drawingEnabled = true;
-            this.TrainingCheckBox.Checked = RecognitionPatterns.Settings.IsTrainingEnabled;
-            this.SkipNameCheckBox.Checked = RecognitionPatterns.Settings.TrainingSettings.SkipName;
-            this.SkipTribeCheckBox.Checked = RecognitionPatterns.Settings.TrainingSettings.SkipTribe;
-            this.SkipOwnerCheckBox.Checked = RecognitionPatterns.Settings.TrainingSettings.SkipOwner;
         }
 
         public void Initialize()
@@ -588,27 +583,5 @@ namespace ARKBreedingStats.ocr
                 cbbFontSizeDelete.Items.Add(s.ToString());
             }
         }
-
-         private void TrainingCheckBox_CheckedChanged(object sender, EventArgs e){
-             var cb = (CheckBox)sender;
-             RecognitionPatterns.Settings.IsTrainingEnabled = cb.Checked;
-             RecognitionPatterns.Settings.Save();
-         }
-
-         private void checkBox1_CheckedChanged(object sender, EventArgs e){
-             var cb = (CheckBox)sender;
-             RecognitionPatterns.Settings.TrainingSettings.SkipName = cb.Checked;
-             RecognitionPatterns.Settings.Save();
-         }
-         private void checkBox2_CheckedChanged(object sender, EventArgs e){
-             var cb = (CheckBox)sender;
-             RecognitionPatterns.Settings.TrainingSettings.SkipTribe = cb.Checked;
-             RecognitionPatterns.Settings.Save();
-         }
-         private void checkBox3_CheckedChanged(object sender, EventArgs e){
-             var cb = (CheckBox)sender;
-             RecognitionPatterns.Settings.TrainingSettings.SkipOwner = cb.Checked;
-             RecognitionPatterns.Settings.Save();
-         }
     }
 }

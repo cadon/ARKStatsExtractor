@@ -10,7 +10,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using ARKBreedingStats.ocr.PatternMatching;
 
 namespace ARKBreedingStats.ocr
 {
@@ -527,32 +526,6 @@ namespace ARKBreedingStats.ocr
                 if (lbI == 8) stI = 8;
                 string statName = ocrConfig.labelNames[stI];
 
-                switch (statName)
-                {
-                    case "NameSpecies":
-                        if (RecognitionPatterns.Settings.TrainingSettings.SkipName)
-                        {
-                            dinoName = "";
-                            continue;
-                        }
-                        break;
-                    case "Tribe":
-                        if (RecognitionPatterns.Settings.TrainingSettings.SkipTribe)
-                        {
-                            tribeName = "";
-                            continue;
-                        }
-
-                        break;
-                    case "Owner":
-                        if (RecognitionPatterns.Settings.TrainingSettings.SkipOwner)
-                        {
-                            ownerName = "";
-                            continue;
-                        }
-                        break;
-                }
-
                 Rectangle rec = ocrConfig.labelRectangles[lbI];
 
                 // wild creatures don't have the xp-bar, all stats are moved one row up
@@ -564,23 +537,14 @@ namespace ARKBreedingStats.ocr
 
                 string statOCR = "";
 
-                try
-                {
-
-                    if (statName == "NameSpecies")
-                        statOCR = PatternOcr.ReadImageOcr(testbmp, false, 0.85f);
-                    else if (statName == "Level")
-                        statOCR = PatternOcr.ReadImageOcr(testbmp, true, 1.1f).Replace(".", ": ");
-                    else if (statName == "Tribe" || statName == "Owner")
-                        statOCR = PatternOcr.ReadImageOcr(testbmp, false, 0.8f);
-                    else
-                        statOCR = PatternOcr.ReadImageOcr(testbmp, true); // statvalues are only numbers
-                }
-                catch (OperationCanceledException e)
-                {
-                    OCRText = "Canceled";
-                    return finalValues;
-                }
+                if (statName == "NameSpecies")
+                    statOCR = readImage(testbmp, true, false);
+                else if (statName == "Level")
+                    statOCR = readImage(testbmp, true, true);
+                else if (statName == "Tribe" || statName == "Owner")
+                    statOCR = readImage(testbmp, true, false);
+                else
+                    statOCR = readImage(testbmp, true, true); // statvalues are only numbers
 
                 if (statOCR == "" &&
                     (statName == "Health" || statName == "Imprinting" || statName == "Tribe" || statName == "Owner"))
@@ -688,22 +652,9 @@ namespace ARKBreedingStats.ocr
                     stI++;
                 }
 
-
-
-                var splitRes = statOCR.Split('/', ',', ':');
-                var ocrValue = splitRes[splitRes.Length - 1] == "%" ? splitRes[splitRes.Length - 2] : splitRes[splitRes.Length - 1];
-
-                ocrValue = PatternOcr.RemoveNonNumeric(ocrValue);
-
-                double.TryParse(ocrValue, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double v); // common substitutions: comma and apostrophe to dot, 
-
-                if (statName == "MeleeDamage" && v > 1000)
-                {
-                    v = v / 10;
-                }
+                double.TryParse(mc[0].Groups[1].Value.Replace('\'', '.').Replace(',', '.').Replace('O', '0'), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double v); // common substitutions: comma and apostrophe to dot, 
 
                 finishedText += $"\t→ {v}";
-
 
                 // TODO: test here that the read stat name corresponds to the stat supposed to be read
                 finalValues[stI] = v;
@@ -714,7 +665,27 @@ namespace ARKBreedingStats.ocr
             // TODO reorder stats to match 12-stats-order
 
             return finalValues;
+
+            /*
+            Bitmap grab = Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName);
+            AddBitmapToDebug(grab);
+
+            //grab.Save("E:\\Temp\\Calibration8.png", ImageFormat.Png);
+            if (changeForegroundWindow)
+                Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
+            */
         }
+
+        private string readImageAtCoords(Bitmap source, int x, int y, int width, int height, bool onlyMaximalMatches, bool onlyNumbers, bool writingInWhite = true)
+        {
+            return readImage(SubImage(source, x, y, width, height), onlyMaximalMatches, onlyNumbers, writingInWhite);
+        }
+
+        //// for debugging. reads a small image
+        //public void debugReadImage(Bitmap source)
+        //{
+        //    string result = readImage(source, true, false);
+        //}
 
         private string readImage(Bitmap source, bool onlyMaximalMatches, bool onlyNumbers, bool writingInWhite = true)
         {
