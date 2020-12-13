@@ -416,11 +416,11 @@ namespace ARKBreedingStats
         private void DisplayFilteredCreatureList()
         {
             listViewCreatures.BeginUpdate();
-            listViewCreatures.Items.Clear();
-
             var filterStrings = TextBoxFilter.Text.Split(',').Select(f => f.Trim())
                 .Where(f => !string.IsNullOrEmpty(f)).ToArray();
             if (!filterStrings.Any()) filterStrings = null;
+
+            var items = new List<ListViewItem>();
 
             foreach (Creature cr in _prefilteredCreatures)
             {
@@ -456,8 +456,11 @@ namespace ARKBreedingStats
                     lvi.SubItems[0].ForeColor = Color.LightGray;
                 if (crLevel == "?")
                     lvi.SubItems[1].ForeColor = Color.LightGray;
-                listViewCreatures.Items.Add(lvi);
+                items.Add(lvi);
             }
+
+            listViewCreatures.Items.Clear();
+            listViewCreatures.Items.AddRange(items.ToArray());
             listViewCreatures.EndUpdate();
         }
 
