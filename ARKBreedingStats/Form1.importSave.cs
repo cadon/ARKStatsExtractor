@@ -28,6 +28,7 @@ namespace ARKBreedingStats
         /// <param name="atImportFileLocation"></param>
         private async void RunSavegameImport(ATImportFileLocation atImportFileLocation)
         {
+            TsbImportLastSaveGame.Enabled = false;
             try
             {
                 string workingCopyfilename = Properties.Settings.Default.savegameExtractionPath;
@@ -35,7 +36,7 @@ namespace ARKBreedingStats
                 // working dir not configured? use temp dir
                 // luser configured savegame folder as working dir? use temp dir instead
                 if (string.IsNullOrWhiteSpace(workingCopyfilename) ||
-                        Path.GetDirectoryName(atImportFileLocation.FileLocation) == workingCopyfilename)
+                    Path.GetDirectoryName(atImportFileLocation.FileLocation) == workingCopyfilename)
                 {
                     workingCopyfilename = Path.GetTempPath();
                 }
@@ -47,7 +48,8 @@ namespace ARKBreedingStats
                     switch (uri.Scheme)
                     {
                         case "ftp":
-                            workingCopyfilename = await CopyFtpFileAsync(uri, atImportFileLocation.ConvenientName, workingCopyfilename);
+                            workingCopyfilename = await CopyFtpFileAsync(uri, atImportFileLocation.ConvenientName,
+                                workingCopyfilename);
                             if (workingCopyfilename == null)
                                 // the user didn't enter credentials
                                 return;
@@ -58,11 +60,13 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    workingCopyfilename = Path.Combine(workingCopyfilename, Path.GetFileName(atImportFileLocation.FileLocation));
+                    workingCopyfilename = Path.Combine(workingCopyfilename,
+                        Path.GetFileName(atImportFileLocation.FileLocation));
                     File.Copy(atImportFileLocation.FileLocation, workingCopyfilename, true);
                 }
 
-                await ImportSavegame.ImportCollectionFromSavegame(_creatureCollection, workingCopyfilename, atImportFileLocation.ServerName);
+                await ImportSavegame.ImportCollectionFromSavegame(_creatureCollection, workingCopyfilename,
+                    atImportFileLocation.ServerName);
 
                 UpdateParents(_creatureCollection.creatures);
 
@@ -96,13 +100,20 @@ namespace ARKBreedingStats
             catch (Exception ex)
             {
                 string message = ex.Message
-                       + "\n\nException in " + ex.Source
-                       + "\n\nMethod throwing the error: " + ex.TargetSite.DeclaringType.FullName + "." + ex.TargetSite.Name
-                       + "\n\nStackTrace:\n" + ex.StackTrace
-                       + (ex.InnerException != null ? "\n\nInner Exception:\n" + ex.InnerException.Message : string.Empty)
-                       ;
+                                 + "\n\nException in " + ex.Source
+                                 + "\n\nMethod throwing the error: " + ex.TargetSite.DeclaringType.FullName + "." +
+                                 ex.TargetSite.Name
+                                 + "\n\nStackTrace:\n" + ex.StackTrace
+                                 + (ex.InnerException != null
+                                     ? "\n\nInner Exception:\n" + ex.InnerException.Message
+                                     : string.Empty)
+                    ;
                 MessageBox.Show($"An error occured while importing. Message: \n\n{message}",
-                        "Import Error", MessageBoxButtons.OK);
+                    "Import Error", MessageBoxButtons.OK);
+            }
+            finally
+            {
+                TsbImportLastSaveGame.Enabled = true;
             }
         }
 
