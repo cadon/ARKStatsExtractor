@@ -560,6 +560,7 @@ namespace ARKBreedingStats
             Species species = speciesSelector1.SelectedSpecies;
             ToggleViewSpeciesSelector(false);
             tbSpeciesGlobal.Text = species.name;
+            LbBlueprintPath.Text = species.blueprintPath;
             if (!speciesChanged) return;
             _clearExtractionCreatureData = true; // as soon as the user changes the species, it's assumed it's not an exported creature anymore
             pbSpecies.Image = speciesSelector1.SpeciesImage();
@@ -644,6 +645,7 @@ namespace ARKBreedingStats
             _hiddenLevelsCreatureTester = 0;
 
             _tt.SetToolTip(tbSpeciesGlobal, species.DescriptiveNameAndMod + "\n" + species.blueprintPath);
+            _tt.SetToolTip(LbBlueprintPath, "Click to copy blueprint path to clipboard.");
         }
 
         private void numericUpDown_Enter(object sender, EventArgs e)
@@ -3225,16 +3227,6 @@ namespace ARKBreedingStats
             var (success, result) = await Updater.DownloadSpeciesImages(overwrite).ConfigureAwait(true);
 
             MessageBox.Show(result, $"Species images download - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, success ? MessageBoxIcon.Information : MessageBoxIcon.Error);
-        }
-
-        private void copyLibrarydumpToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SaveDebugFile();
-        }
-
-        private void BtCopyIssueDumpToClipboard_Click(object sender, EventArgs e)
-        {
-            SaveDebugFile();
         }
     }
 }

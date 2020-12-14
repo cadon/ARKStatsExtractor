@@ -155,6 +155,7 @@ namespace ARKBreedingStats
             this.lbTestingInfo = new System.Windows.Forms.Label();
             this.creatureInfoInputTester = new ARKBreedingStats.CreatureInfoInput();
             this.tabPageExtractor = new System.Windows.Forms.TabPage();
+            this.LbBlueprintPath = new System.Windows.Forms.Label();
             this.BtCopyIssueDumpToClipboard = new System.Windows.Forms.Button();
             this.parentInheritanceExtractor = new ARKBreedingStats.uiControls.ParentInheritance();
             this.llOnlineHelpExtractionIssues = new System.Windows.Forms.LinkLabel();
@@ -1549,6 +1550,7 @@ namespace ARKBreedingStats
             // tabPageExtractor
             // 
             this.tabPageExtractor.AutoScroll = true;
+            this.tabPageExtractor.Controls.Add(this.LbBlueprintPath);
             this.tabPageExtractor.Controls.Add(this.BtCopyIssueDumpToClipboard);
             this.tabPageExtractor.Controls.Add(this.parentInheritanceExtractor);
             this.tabPageExtractor.Controls.Add(this.llOnlineHelpExtractionIssues);
@@ -1575,6 +1577,17 @@ namespace ARKBreedingStats
             this.tabPageExtractor.TabIndex = 0;
             this.tabPageExtractor.Text = "Extractor";
             this.tabPageExtractor.UseVisualStyleBackColor = true;
+            // 
+            // LbBlueprintPath
+            // 
+            this.LbBlueprintPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbBlueprintPath.ForeColor = System.Drawing.Color.DarkGray;
+            this.LbBlueprintPath.Location = new System.Drawing.Point(8, 34);
+            this.LbBlueprintPath.Name = "LbBlueprintPath";
+            this.LbBlueprintPath.Size = new System.Drawing.Size(307, 41);
+            this.LbBlueprintPath.TabIndex = 54;
+            this.LbBlueprintPath.Text = "/Game/";
+            this.LbBlueprintPath.Click += new System.EventHandler(this.LbBlueprintPath_Click);
             // 
             // BtCopyIssueDumpToClipboard
             // 
@@ -1679,7 +1692,7 @@ namespace ARKBreedingStats
             // gbStatsExtractor
             // 
             this.gbStatsExtractor.Controls.Add(this.flowLayoutPanelStatIOsExtractor);
-            this.gbStatsExtractor.Location = new System.Drawing.Point(8, 37);
+            this.gbStatsExtractor.Location = new System.Drawing.Point(8, 76);
             this.gbStatsExtractor.Name = "gbStatsExtractor";
             this.gbStatsExtractor.Size = new System.Drawing.Size(307, 639);
             this.gbStatsExtractor.TabIndex = 3;
@@ -3512,5 +3525,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.Button BtCopyIssueDumpToClipboard;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator20;
         private System.Windows.Forms.ToolStripButton TsbImportLastSaveGame;
+        private System.Windows.Forms.Label LbBlueprintPath;
     }
 }

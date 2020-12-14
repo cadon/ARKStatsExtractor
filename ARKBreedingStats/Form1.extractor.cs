@@ -984,5 +984,22 @@ namespace ARKBreedingStats
             if (_updateExtractorVisualData)
                 input.SetRegionColorsExisting(_creatureCollection.ColorAlreadyAvailable(speciesSelector1.SelectedSpecies, input.RegionColors));
         }
+
+        private void copyLibrarydumpToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveDebugFile();
+        }
+
+        private void BtCopyIssueDumpToClipboard_Click(object sender, EventArgs e)
+        {
+            SaveDebugFile();
+        }
+
+        private void LbBlueprintPath_Click(object sender, EventArgs e)
+        {
+            // copy blueprint path to clipboard
+            if (!string.IsNullOrEmpty(LbBlueprintPath.Text))
+                Clipboard.SetText(LbBlueprintPath.Text);
+        }
     }
 }
