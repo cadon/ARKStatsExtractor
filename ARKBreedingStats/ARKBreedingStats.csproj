@@ -198,8 +198,6 @@
     <Compile Include="settings\FtpProgress.Designer.cs">
       <DependentUpon>FtpProgress.cs</DependentUpon>
     </Compile>
-    <Compile Include="settings\JsonSerialization.cs" />
-    <Compile Include="settings\SettingsController.cs" />
     <Compile Include="species\ARKColor.cs" />
     <Compile Include="species\ARKColors.cs" />
     <Compile Include="settings\FtpCredentials.cs">

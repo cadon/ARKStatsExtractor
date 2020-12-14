@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.ocr.PatternMatching;
@@ -18,9 +15,7 @@ namespace ARKBreedingStats.ocr
         public event Action<string, bool> DoOcr;
         public readonly FlowLayoutPanel debugPanel;
         public readonly TextBox output;
-        private readonly List<uint[]> _recognizedLetterArrays = new List<uint[]>();
-        private readonly List<char> _recognizedLetters = new List<char>();
-        private readonly List<int> _recognizedFontSizes = new List<int>();
+        private readonly List<Pattern> _recognizedPatterns = new List<Pattern>();
         private Bitmap _screenshot;
         private bool _updateDrawing = true;
         private bool _ignoreValueChange;
@@ -32,16 +27,12 @@ namespace ARKBreedingStats.ocr
             debugPanel = OCRDebugLayoutPanel;
             output = txtOCROutput;
             ocrLetterEditTemplate.drawingEnabled = true;
-            CbTrainRecognition.Checked = RecognitionPatterns.Settings.IsTrainingEnabled;
-            CbSkipNameRecognition.Checked = RecognitionPatterns.Settings.TrainingSettings.SkipName;
-            CbSkipTribeRecognition.Checked = RecognitionPatterns.Settings.TrainingSettings.SkipTribe;
-            CbSkipOwnerRecognition.Checked = RecognitionPatterns.Settings.TrainingSettings.SkipOwner;
         }
 
         public void Initialize()
         {
             SetWhiteThreshold(Properties.Settings.Default.OCRWhiteThreshold);
-            LoadOCRTemplate(GetFileName());
+            LoadOcrTemplate(Properties.Settings.Default.ocrFile);
         }
 
         private void InitLabelEntries()
@@ -102,58 +93,9 @@ namespace ARKBreedingStats.ocr
                     SetScreenshot(bmp);
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 // ignore
-            }
-        }
-
-        private void listBoxRecognized_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int i = listBoxRecognized.SelectedIndex;
-            if (i >= 0 && i < _recognizedLetters.Count)
-            {
-                textBoxTemplate.Text = _recognizedLetters[i].ToString();
-                nudFontSize.Value = _recognizedFontSizes[i];
-                ocrLetterEditRecognized.LetterArray = _recognizedLetterArrays[i];
-                ocrLetterEditTemplate.LetterArrayComparing = _recognizedLetterArrays[i];
-                ShowMatch();
-                textBoxTemplate.Focus();
-                textBoxTemplate.SelectAll();
-
-                // for debugging, can be commented out for release
-                //ArkOCR.saveLetterArrayToFile(ocrLetterEditRecognized.LetterArray, @"D:\Temp\array" + DateTime.Now.ToString("HHmmss\\-fffffff\\-") + "_recognized.png");
-                //ArkOCR.saveLetterArrayToFile(ocrLetterEditTemplate.LetterArray, @"D:\Temp\array" + DateTime.Now.ToString("HHmmss\\-fffffff\\-") + "_template.png");
-            }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            ocrLetterEditTemplate.LetterArray = ocrLetterEditRecognized.LetterArray;
-        }
-
-        public void ClearLists()
-        {
-            _recognizedLetterArrays.Clear();
-            _recognizedLetters.Clear();
-            _recognizedFontSizes.Clear();
-            listBoxRecognized.Items.Clear();
-        }
-
-        public void AddLetterToRecognized(uint[] letterArray, char ch, int fontSize)
-        {
-            _recognizedLetterArrays.Add(letterArray);
-            _recognizedLetters.Add(ch);
-            _recognizedFontSizes.Add(fontSize);
-            listBoxRecognized.Items.Add(ch);
-        }
-
-        private void textBoxTemplate_TextChanged(object sender, EventArgs e)
-        {
-            if (textBoxTemplate.Text.Length > 0)
-            {
-                textBoxTemplate.SelectAll();
-                LoadTemplateLetter();
             }
         }
 
@@ -164,11 +106,25 @@ namespace ARKBreedingStats.ocr
 
         private void LoadTemplateLetter()
         {
+            var text = textBoxTemplate.Text;
+            if (string.IsNullOrEmpty(text)) return;
+
+            _selectedTextData = ArkOCR.OCR.ocrConfig.RecognitionPatterns.Texts.FirstOrDefault(t => t.Text == text);
+            ListBoxPatternsOfString.Items.Clear();
+
+            if (_selectedTextData == null) return;
+            int patternCount = _selectedTextData.Patterns.Count;
+            ListBoxPatternsOfString.Items.AddRange(Enumerable.Range(1, patternCount).Select(ii => ii.ToString()).ToArray());
+            if (patternCount > 0)
+                ListBoxPatternsOfString.SelectedIndex = 0;
+
+            return;
+
             //ocrLetterEditTemplate.Clear();
             if (textBoxTemplate.Text.Length > 0)
             {
                 char c = textBoxTemplate.Text[0];
-                int ocrIndex = ArkOCR.OCR.ocrConfig.fontSizeIndex((int)nudFontSize.Value);
+                int ocrIndex = 1; // TODO ArkOCR.OCR.ocrConfig.fontSizeIndex((int)nudFontSize.Value);
                 if (ocrIndex != -1)
                 {
                     int lI = ArkOCR.OCR.ocrConfig.letters[ocrIndex].IndexOf(c);
@@ -181,25 +137,33 @@ namespace ARKBreedingStats.ocr
 
         private void btnSaveTemplate_Click(object sender, EventArgs e)
         {
-            SaveTemplate(textBoxTemplate.Text[0], ocrLetterEditTemplate.LetterArray);
+            SaveTemplate(textBoxTemplate.Text, ocrLetterEditTemplate.PatternDisplay);
         }
 
         private void buttonSaveAsTemplate_Click(object sender, EventArgs e)
         {
-            SaveTemplate(textBoxTemplate.Text[0], ocrLetterEditRecognized.LetterArray);
+            SaveTemplate(textBoxTemplate.Text, ocrLetterEditRecognized.PatternDisplay);
         }
 
-        private void SaveTemplate(char c, uint[] letterArray)
+        /// <summary>
+        /// Saves the pattern.
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="letterArray"></param>
+        private void SaveTemplate(string text, Pattern pattern)
         {
-            int ocrIndex = ArkOCR.OCR.ocrConfig.fontSizeIndex((int)nudFontSize.Value, true);
-            int lI = ArkOCR.OCR.ocrConfig.letters[ocrIndex].IndexOf(c);
-            if (lI == -1)
+            var existingTemplate = ArkOCR.OCR.ocrConfig.RecognitionPatterns.Texts.FirstOrDefault(t => t.Text == text);
+            if (existingTemplate == null)
             {
-                ArkOCR.OCR.ocrConfig.letters[ocrIndex].Add(c);
-                ArkOCR.OCR.ocrConfig.letterArrays[ocrIndex].Add(letterArray);
+                ArkOCR.OCR.ocrConfig.RecognitionPatterns.Texts.Add(new TextData { Text = text, Patterns = new List<Pattern> { pattern } });
             }
             else
-                ArkOCR.OCR.ocrConfig.letterArrays[ocrIndex][lI] = letterArray;
+            {
+                existingTemplate.Patterns.Add(pattern);
+            }
+
+            ArkOCR.OCR.ocrConfig.SaveFile(Properties.Settings.Default.ocrFile);
+
             LoadTemplateLetter();
         }
 
@@ -210,7 +174,7 @@ namespace ARKBreedingStats.ocr
 
         private void ShowMatch()
         {
-            ArkOCR.letterMatch(ocrLetterEditRecognized.LetterArray, ocrLetterEditTemplate.LetterArray, out float match, out int offset);
+            RecognitionPatterns.PatternMatch(ocrLetterEditTemplate.PatternDisplay.Data, ocrLetterEditRecognized.PatternDisplay?.Data, out float match, out int offset);
             ocrLetterEditTemplate.recognizedOffset = offset;
 
             labelMatching.Text = $"matching: {Math.Round(match * 100, 1)} %";
@@ -233,7 +197,7 @@ namespace ARKBreedingStats.ocr
 
         private void SetLabelControls(int rectangleIndex)
         {
-            if (rectangleIndex >= 0 && rectangleIndex < ArkOCR.OCR.ocrConfig.labelRectangles.Count)
+            if (rectangleIndex >= 0 && rectangleIndex < ArkOCR.OCR.ocrConfig.labelRectangles.Length)
             {
                 Rectangle rec = ArkOCR.OCR.ocrConfig.labelRectangles[rectangleIndex];
                 _ignoreValueChange = true;
@@ -252,6 +216,7 @@ namespace ARKBreedingStats.ocr
             PictureBox b = new PictureBox { SizeMode = PictureBoxSizeMode.AutoSize, Image = bmp };
             OCRDebugLayoutPanel.Controls.Add(b);
             OCRDebugLayoutPanel.Controls.SetChildIndex(b, 0);
+            b.Click += PictureBoxClicked;
         }
 
         private void RedrawScreenshot(object ob)
@@ -285,7 +250,7 @@ namespace ARKBreedingStats.ocr
                         penW.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
                         penY.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
                         penB.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
-                        for (int r = 0; r < ArkOCR.OCR.ocrConfig.labelRectangles.Count; r++)
+                        for (int r = 0; r < ArkOCR.OCR.ocrConfig.labelRectangles.Length; r++)
                         {
                             Rectangle rec = ArkOCR.OCR.ocrConfig.labelRectangles[r];
                             if (r == hightlightIndex)
@@ -376,7 +341,7 @@ namespace ARKBreedingStats.ocr
         {
             if (!_updateDrawing) return;
             int i = listBoxLabelRectangles.SelectedIndex;
-            if (i >= 0 && i < ArkOCR.OCR.ocrConfig.labelRectangles.Count)
+            if (i >= 0 && i < ArkOCR.OCR.ocrConfig.labelRectangles.Length)
             {
                 // set all stat-labels if wanted
                 if (chkbSetAllStatLabels.Checked && i < 9)
@@ -386,56 +351,31 @@ namespace ARKBreedingStats.ocr
                             ArkOCR.OCR.ocrConfig.labelRectangles[s] = new Rectangle((int)nudX.Value, ArkOCR.OCR.ocrConfig.labelRectangles[s].Y, (int)nudWidth.Value, (int)nudHeight.Value);
                 }
                 ArkOCR.OCR.ocrConfig.labelRectangles[i] = new Rectangle((int)nudX.Value, (int)nudY.Value, (int)nudWidth.Value, (int)nudHeight.Value);
-                RedrawScreenshot(i);
+
+                _redrawingDebouncer.Debounce(100, RedrawScreenshot, Dispatcher.CurrentDispatcher, (i, true, -1));
             }
-        }
-
-        /// <summary>
-        /// Gets ocrFile from settings. Returns full path, considering that path has changed for installed version.
-        /// </summary>
-        /// <returns></returns>
-        private static string GetFileName(string fileName = null)
-        {
-            fileName = fileName ?? Properties.Settings.Default.ocrFile;
-
-            string exePath = Path.GetDirectoryName(FileService.ExeFilePath);
-            if (Updater.IsProgramInstalled && !string.IsNullOrEmpty(exePath) && fileName.StartsWith(exePath))
-            {
-                // if ASB is installed the json files are in AppData system folder. trim the exe path from filename
-                fileName = fileName.Substring(exePath.Length).Trim('/', '\\');
-            }
-
-            // strip json folder prefix and add path
-            if (fileName.StartsWith("json/") || fileName.StartsWith("json\\"))
-            {
-                fileName = fileName.Substring("json/".Length);
-                fileName = FileService.GetJsonPath(fileName);
-            }
-
-            return fileName;
-        }
-
-        /// <summary>
-        /// Normalize file name if possible, i.e. get rid of default json folder path
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="fileName"></param>
-        /// <returns></returns>
-        private static string NormalizeFileName(string path, string fileName)
-        {
-            return fileName.StartsWith(path) ? Path.Combine("json", fileName.Substring(path.Length).Trim('/', '\\')) : fileName;
         }
 
         private void btnSaveOCRconfig_Click(object sender, EventArgs e)
         {
-            string fileName = GetFileName();
-            ArkOCR.OCR.ocrConfig.SaveFile(fileName);
-            UpdateOCRLabel(fileName);
+            string filePath = Properties.Settings.Default.ocrFile;
+            if (string.IsNullOrEmpty(filePath))
+            {
+                SaveOcrFileAs();
+                return;
+            }
+            ArkOCR.OCR.ocrConfig.SaveFile(filePath);
+            UpdateOCRLabel(filePath);
         }
 
         private void btnSaveOCRConfigAs_Click(object sender, EventArgs e)
         {
-            string path = FileService.GetJsonPath();
+            SaveOcrFileAs();
+        }
+
+        private void SaveOcrFileAs()
+        {
+            string path = FileService.GetJsonPath(FileService.OcrFolderName);
             using (SaveFileDialog dlg = new SaveFileDialog
             {
                 Filter = "OCR configuration File (*.json)|*.json",
@@ -450,34 +390,29 @@ namespace ARKBreedingStats.ocr
                         return;
                     }
 
-                    string fileName = NormalizeFileName(path, dlg.FileName);
+                    var filePath = dlg.FileName;
 
-                    Properties.Settings.Default.ocrFile = fileName;
-                    Properties.Settings.Default.Save();
-
-                    fileName = GetFileName();
-                    ArkOCR.OCR.ocrConfig.SaveFile(fileName);
-                    LoadOCRTemplate(fileName);
+                    ArkOCR.OCR.ocrConfig.SaveFile(filePath);
+                    Properties.Settings.Default.ocrFile = filePath;
+                    LoadOcrTemplate(filePath);
                 }
             }
         }
 
         private void buttonLoadOCRTemplate_Click(object sender, EventArgs e)
         {
-            string path = FileService.GetJsonPath();
+            string path = FileService.GetJsonPath(FileService.OcrFolderName);
 
             using (OpenFileDialog dlg = new OpenFileDialog
             {
                 Filter = "OCR configuration File (*.json)|*.json",
-                InitialDirectory = path
+                InitialDirectory = path,
+                CheckFileExists = true
             })
             {
-                if (dlg.ShowDialog() == DialogResult.OK && File.Exists(dlg.FileName) && LoadOCRTemplate(dlg.FileName))
+                if (dlg.ShowDialog() == DialogResult.OK && LoadOcrTemplate(dlg.FileName))
                 {
-                    string fileName = NormalizeFileName(path, dlg.FileName);
-
-                    Properties.Settings.Default.ocrFile = fileName;
-                    Properties.Settings.Default.Save();
+                    Properties.Settings.Default.ocrFile = dlg.FileName;
                 }
             }
         }
@@ -485,12 +420,11 @@ namespace ARKBreedingStats.ocr
         private void btUnloadOCR_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.ocrFile = string.Empty;
-            Properties.Settings.Default.Save();
             ArkOCR.OCR.ocrConfig = null;
             UpdateOCRLabel();
         }
 
-        private bool LoadOCRTemplate(string filePath)
+        private bool LoadOcrTemplate(string filePath)
         {
             if (string.IsNullOrEmpty(filePath)) return false;
 
@@ -499,6 +433,10 @@ namespace ARKBreedingStats.ocr
             UpdateOcrFontSizes();
             InitLabelEntries();
             nudResizing.Value = ArkOCR.OCR.ocrConfig.resize == 0 ? 1 : (decimal)ArkOCR.OCR.ocrConfig.resize;
+            CbTrainRecognition.Checked = ArkOCR.OCR.ocrConfig.RecognitionPatterns.TrainingSettings.IsTrainingEnabled;
+            CbSkipNameRecognition.Checked = ArkOCR.OCR.ocrConfig.RecognitionPatterns.TrainingSettings.SkipName;
+            CbSkipTribeRecognition.Checked = ArkOCR.OCR.ocrConfig.RecognitionPatterns.TrainingSettings.SkipTribe;
+            CbSkipOwnerRecognition.Checked = ArkOCR.OCR.ocrConfig.RecognitionPatterns.TrainingSettings.SkipOwner;
             return true;
         }
 
@@ -555,10 +493,10 @@ namespace ARKBreedingStats.ocr
                     && MessageBox.Show($"Delete all character-templates for the font-size {fontSize}?", "Delete?",
                             MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
-                int ocrIndex = ArkOCR.OCR.ocrConfig.fontSizes.IndexOf(fontSize);
+                int ocrIndex = 15; // TODO ArkOCR.OCR.ocrConfig.fontSizes.IndexOf(fontSize);
                 if (ocrIndex >= 0)
                 {
-                    ArkOCR.OCR.ocrConfig.fontSizes.RemoveAt(ocrIndex);
+                    //ArkOCR.OCR.ocrConfig.fontSizes.RemoveAt(ocrIndex);
                     ArkOCR.OCR.ocrConfig.letterArrays.RemoveAt(ocrIndex);
                     ArkOCR.OCR.ocrConfig.letters.RemoveAt(ocrIndex);
                     UpdateOcrFontSizes();
@@ -582,35 +520,145 @@ namespace ARKBreedingStats.ocr
 
         private void UpdateOcrFontSizes()
         {
-            cbbFontSizeDelete.Items.Clear();
-            foreach (int s in ArkOCR.OCR.ocrConfig.fontSizes)
-            {
-                cbbFontSizeDelete.Items.Add(s.ToString());
-            }
+            // TODO remove?
+            //cbbFontSizeDelete.Items.Clear();
+            //foreach (int s in ArkOCR.OCR.ocrConfig.fontSizes)
+            //{
+            //    cbbFontSizeDelete.Items.Add(s.ToString());
+            //}
         }
 
         private void CbTrainRecognition_CheckedChanged(object sender, EventArgs e)
         {
-            RecognitionPatterns.Settings.IsTrainingEnabled = sender is CheckBox cb && cb.Checked;
-            RecognitionPatterns.Settings.Save();
+            SaveOcrSettings(ref ArkOCR.OCR.ocrConfig.RecognitionPatterns.TrainingSettings.IsTrainingEnabled, sender);
         }
 
         private void CbSkipNameRecognition_CheckedChanged(object sender, EventArgs e)
         {
-            RecognitionPatterns.Settings.TrainingSettings.SkipName = sender is CheckBox cb && cb.Checked;
-            RecognitionPatterns.Settings.Save();
+            SaveOcrSettings(ref ArkOCR.OCR.ocrConfig.RecognitionPatterns.TrainingSettings.SkipName, sender);
         }
 
         private void CbSkipTribeRecognition_CheckedChanged(object sender, EventArgs e)
         {
-            RecognitionPatterns.Settings.TrainingSettings.SkipTribe = sender is CheckBox cb && cb.Checked;
-            RecognitionPatterns.Settings.Save();
+            SaveOcrSettings(ref ArkOCR.OCR.ocrConfig.RecognitionPatterns.TrainingSettings.SkipTribe, sender);
         }
 
         private void CbSkipOwnerRecognition_CheckedChanged(object sender, EventArgs e)
         {
-            RecognitionPatterns.Settings.TrainingSettings.SkipOwner = sender is CheckBox cb && cb.Checked;
-            RecognitionPatterns.Settings.Save();
+            SaveOcrSettings(ref ArkOCR.OCR.ocrConfig.RecognitionPatterns.TrainingSettings.SkipOwner, sender);
         }
+
+        private void SaveOcrSettings(ref bool setting, object sender)
+        {
+            bool setTo = sender is CheckBox cb && cb.Checked;
+            if (setting == setTo) return;
+
+            setting = setTo;
+            ArkOCR.OCR.ocrConfig.SaveFile(Properties.Settings.Default.ocrFile);
+        }
+
+        private void PictureBoxClicked(object sender, EventArgs e)
+        {
+            // set position of active label to that position
+            if (tabControlManage.SelectedTab != tabPage3
+                || listBoxLabelRectangles.SelectedIndex == -1
+            )
+                return;
+
+            var coords = (MouseEventArgs)e;
+            nudX.ValueSave = coords.X;
+            nudY.ValueSave = coords.Y;
+        }
+
+        #region Pattern editing
+
+        private TextData _selectedTextData;
+
+        /// <summary>
+        /// Display the patterns for the recognized text.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listBoxRecognized_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int i = listBoxRecognized.SelectedIndex;
+            string s = listBoxRecognized.SelectedItem.ToString();
+            if (i >= 0 && i < _recognizedPatterns.Count)
+            {
+                // TODO implement new multi pattern system, allow editing / removing patterns from string
+                _selectedTextData = ArkOCR.OCR.ocrConfig.RecognitionPatterns.Texts.FirstOrDefault(t => t.Text == s) ??
+                                    new TextData();
+
+                ocrLetterEditRecognized.PatternDisplay = _recognizedPatterns[i];
+                ocrLetterEditTemplate.PatternComparing = _recognizedPatterns[i];
+                textBoxTemplate.Text = _selectedTextData.Text; // this also loads the pattern template
+            }
+        }
+
+        private void ListBoxPatternsOfString_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int i = ((ListBox)sender).SelectedIndex;
+            if (i == -1 || _selectedTextData == null) return;
+
+            ocrLetterEditTemplate.PatternDisplay = _selectedTextData.Patterns[i];
+
+            ShowMatch();
+            textBoxTemplate.Focus();
+            textBoxTemplate.SelectAll();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ocrLetterEditTemplate.LetterArray = ocrLetterEditRecognized.LetterArray;
+        }
+
+        /// <summary>
+        /// Clears the lists of recognized ocr patterns. Call before each ocr.
+        /// </summary>
+        public void ClearLists()
+        {
+            _recognizedPatterns.Clear();
+            listBoxRecognized.Items.Clear();
+        }
+
+        /// <summary>
+        /// Adds the recognized characters to a selectable list, where they can be viewed and adjusted / fine tuned.
+        /// </summary>
+        public void AddLetterToRecognized(string characters, Pattern readPattern)
+        {
+            _recognizedPatterns.Add(readPattern);
+            listBoxRecognized.Items.Add(characters);
+        }
+
+        private void textBoxTemplate_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxTemplate.Text.Length > 0)
+            {
+                textBoxTemplate.SelectAll();
+                LoadTemplateLetter();
+            }
+        }
+
+        private void BtRemovePattern_Click(object sender, EventArgs e)
+        {
+            if (_selectedTextData == null
+                || ListBoxPatternsOfString.SelectedIndex == -1
+                || MessageBox.Show($"Remove the selected pattern for the string {_selectedTextData.Text}", "Remove Pattern?",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                return;
+
+            var selectedIndex = ListBoxPatternsOfString.SelectedIndex;
+            _selectedTextData.Patterns.RemoveAt(selectedIndex);
+
+            ListBoxPatternsOfString.Items.Clear();
+
+            int patternCount = _selectedTextData.Patterns.Count;
+            if (selectedIndex >= patternCount) selectedIndex = patternCount - 1;
+            ListBoxPatternsOfString.Items.AddRange(Enumerable.Range(1, patternCount).Select(ii => ii.ToString()).ToArray());
+            if (patternCount > 0)
+                ListBoxPatternsOfString.SelectedIndex = selectedIndex;
+        }
+
+        #endregion
     }
 }

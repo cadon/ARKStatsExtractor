@@ -2,12 +2,17 @@
 {
     public static class HammingWeight
     {
-        // Hamming-weight lookup-table, taken from http://www.necessaryandsufficient.net/2009/04/optimising-bit-counting-using-iterative-data-driven-development/
+        // Hamming-weight lookup-table, https://en.wikipedia.org/wiki/Hamming_weight
 
         private static readonly byte[] bitCounts = new byte[ushort.MaxValue + 1];
 
         private static bool HammingIsInitialized; // will be false by default
 
+        /// <summary>
+        /// Returns the number of 1-bits in an uint. E.g. 3 == 0b11 => 2, 4 == 0b100 => 1, 7 == 0b111 => 3.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         private static uint BitsSetCountWegner(uint input)
         {
             uint count;

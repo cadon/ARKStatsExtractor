@@ -21,7 +21,11 @@ namespace ARKBreedingStats
         public const string CustomReplacingsNamePattern = "customReplacings.json";
         public const string CustomSpeciesVariants = "customSpeciesVariants.json";
         public const string ImageFolderName = "img";
+        /// <summary>
+        /// Where the colored species images are cached.
+        /// </summary>
         public const string CacheFolderName = "cache";
+        public const string OcrFolderName = "ocr";
 
         public static readonly string ExeFilePath = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
         private static readonly string ExeLocation = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);

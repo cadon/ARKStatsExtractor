@@ -1,41 +1,40 @@
 ﻿using System.Collections.Generic;
-using ARKBreedingStats.ocr.PatternMatching;
 
-namespace ARKBreedingStats.ocr
+namespace ARKBreedingStats.ocr.PatternMatching
 {
     internal class CoordsData
     {
         public CoordsData(int minX, int maxX, int minY, int maxY)
         {
-            this.MinY = minY;
-            this.MaxY = maxY;
-            this.MinX = minX;
-            this.MaxX = maxX;
+            MinY = minY;
+            MaxY = maxY;
+            MinX = minX;
+            MaxX = maxX;
         }
 
         public List<Coords> Coords { get; } = new List<Coords>();
 
         public void Add(int x, int y)
         {
-            if (x > this.MaxX)
+            if (x > MaxX)
             {
-                this.MaxX = x;
+                MaxX = x;
             }
-            else if (x < this.MinX)
+            else if (x < MinX)
             {
-                this.MinX = x;
-            }
-
-            if (y > this.MaxY)
-            {
-                this.MaxY = y;
-            }
-            else if (y < this.MinY)
-            {
-                this.MinY = y;
+                MinX = x;
             }
 
-            this.Coords.Add(new Coords(x, y));
+            if (y > MaxY)
+            {
+                MaxY = y;
+            }
+            else if (y < MinY)
+            {
+                MinY = y;
+            }
+
+            Coords.Add(new Coords(x, y));
         }
 
         public int MaxX { get; private set; }
@@ -45,18 +44,18 @@ namespace ARKBreedingStats.ocr
 
         public RecognizedCharData ToRecognizedCharData()
         {
-            var xSize = this.MaxX - this.MinX + 1;
-            var ySize = this.MaxY - this.MinY + 1;
+            var xSize = MaxX - MinX + 1;
+            var ySize = MaxY - MinY + 1;
             var boolArr = new bool[xSize, ySize];
 
-            foreach (var c in this.Coords)
+            foreach (var c in Coords)
             {
-                var x = c.X - this.MinX;
-                var y = c.Y - this.MinY;
+                var x = c.X - MinX;
+                var y = c.Y - MinY;
                 boolArr[x, y] = true;
             }
-            
-            return new RecognizedCharData(this.MinX, this.MinY)
+
+            return new RecognizedCharData(MinX, MinY)
             {
                 Pattern = boolArr
             };

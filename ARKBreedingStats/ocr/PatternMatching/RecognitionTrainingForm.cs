@@ -6,17 +6,18 @@ namespace ARKBreedingStats.ocr.PatternMatching
 {
     public partial class RecognitionTrainingForm : Form
     {
-        private string selectedText = null;
+        private string _selectedText;
 
         public RecognitionTrainingForm(RecognizedCharData charData, Image originalImg)
         {
             InitializeComponent();
 
-            this.DrawPattern(charData.Pattern);
+            DrawPattern(charData.Pattern);
 
-            Image adjustedOriginalPicture = this.DrawFoundCharOnPicture(originalImg, charData);
+            Image adjustedOriginalPicture = DrawFoundCharOnPicture(originalImg, charData);
 
-            this.pictureBox2.Image = adjustedOriginalPicture;
+            pictureBox2.Image = adjustedOriginalPicture;
+            _selectedText = string.Empty;
         }
 
         private Image DrawFoundCharOnPicture(Image img, RecognizedCharData charData)
@@ -79,40 +80,34 @@ namespace ARKBreedingStats.ocr.PatternMatching
                 }
             }
 
-            this.pictureBox1.Image = b;
+            pictureBox1.Image = b;
         }
 
         public string Prompt()
         {
-            this.ShowDialog();
+            ShowDialog();
 
-            return this.selectedText?.ToUpper();
+            return _selectedText;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Close();
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            var tb = (TextBox)sender;
-
-            if (tb.Text.Length == 0)
-            {
-                this.selectedText = null;
-                return;
-            }
-
-            this.selectedText = tb.Text;
+            _selectedText = textBox1.Text;
+            Close();
         }
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                this.button1.PerformClick();
+                button1.PerformClick();
             }
+        }
+
+        private void BtAbort_Click(object sender, EventArgs e)
+        {
+            _selectedText = null;
+            Close();
         }
     }
 }

@@ -6,7 +6,7 @@ namespace ARKBreedingStats.ocr.PatternMatching
     {
         public RecognizedCharData(int x, int y)
         {
-            this.Coords = new Coords(x, y);
+            Coords = new Coords(x, y);
         }
 
         public Coords Coords { get; }
@@ -18,13 +18,13 @@ namespace ARKBreedingStats.ocr.PatternMatching
             return new TextData
             {
                 Text = s,
-                Patterns = new List<Pattern> { this.Pattern }
+                Patterns = new List<Pattern> { Pattern }
             };
         }
 
         public override string ToString()
         {
-            return OcrUtils.BoolArrayToString(this.Pattern);
+            return OcrUtils.BoolArrayToString(Pattern);
         }
     }
 }

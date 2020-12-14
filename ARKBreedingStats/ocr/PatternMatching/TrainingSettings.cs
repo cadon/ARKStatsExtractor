@@ -1,11 +1,13 @@
-﻿namespace ARKBreedingStats.ocr.PatternMatching
+﻿using System.ComponentModel;
+
+namespace ARKBreedingStats.ocr.PatternMatching
 {
     public class TrainingSettings
     {
-        public bool SkipName { get; set; }
-
-        public bool SkipTribe { get; set; }
-
-        public bool SkipOwner { get; set; }
+        [DefaultValue(true)]
+        public bool IsTrainingEnabled = true;
+        public bool SkipName;
+        public bool SkipTribe;
+        public bool SkipOwner;
     }
 }

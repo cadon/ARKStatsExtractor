@@ -6,20 +6,19 @@ namespace ARKBreedingStats.ocr.PatternMatching
     {
         public static string BoolArrayToString(bool[,] arr)
         {
-            StringBuilder sb = new StringBuilder();
             var xSize = arr.GetLength(0);
             var ySize = arr.GetLength(1);
+            StringBuilder sb = new StringBuilder(xSize * ySize);
             for (var y = 0; y < ySize; y++)
             {
-                var row = string.Empty;
                 for (var x = 0; x < xSize; x++)
                 {
-                    row += arr[x, y] ? '1' : '0';
+                    sb.Append(arr[x, y] ? '1' : '0');
                 }
-                sb.AppendLine(row);
+                sb.AppendLine();
             }
 
-            return "\r\n" + sb.ToString() + "\r\n";
+            return $"\r\n{sb}\r\n";
         }
     }
 }

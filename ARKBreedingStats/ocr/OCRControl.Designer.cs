@@ -43,6 +43,7 @@ namespace ARKBreedingStats.ocr
             this.btnSaveOCRConfigAs = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.ListBoxPatternsOfString = new System.Windows.Forms.ListBox();
             this.btnSaveOCRConfigFile2 = new System.Windows.Forms.Button();
             this.cbEnableOutput = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -64,6 +65,11 @@ namespace ARKBreedingStats.ocr
             this.ocrLetterEditRecognized = new ARKBreedingStats.ocr.OCRLetterEdit();
             this.button2 = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.CbSkipNameRecognition = new System.Windows.Forms.CheckBox();
+            this.CbSkipTribeRecognition = new System.Windows.Forms.CheckBox();
+            this.CbSkipOwnerRecognition = new System.Windows.Forms.CheckBox();
+            this.CbTrainRecognition = new System.Windows.Forms.CheckBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.lbResizeResult = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
@@ -102,11 +108,7 @@ namespace ARKBreedingStats.ocr
             this.nudX = new ARKBreedingStats.uiControls.Nud();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.listBoxLabelRectangles = new System.Windows.Forms.ListBox();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.CbTrainRecognition = new System.Windows.Forms.CheckBox();
-            this.CbSkipOwnerRecognition = new System.Windows.Forms.CheckBox();
-            this.CbSkipTribeRecognition = new System.Windows.Forms.CheckBox();
-            this.CbSkipNameRecognition = new System.Windows.Forms.CheckBox();
+            this.BtRemovePattern = new System.Windows.Forms.Button();
             this.tableLayoutPanel4.SuspendLayout();
             this.tabControlManage.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -119,6 +121,7 @@ namespace ARKBreedingStats.ocr
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditRecognized)).BeginInit();
             this.tabPage4.SuspendLayout();
+            this.groupBox10.SuspendLayout();
             this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudResizing)).BeginInit();
             this.groupBox8.SuspendLayout();
@@ -136,7 +139,6 @@ namespace ARKBreedingStats.ocr
             ((System.ComponentModel.ISupportInitialize)(this.nudY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudX)).BeginInit();
             this.groupBox3.SuspendLayout();
-            this.groupBox10.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel4
@@ -266,6 +268,7 @@ namespace ARKBreedingStats.ocr
             // tabPage2
             // 
             this.tabPage2.AutoScroll = true;
+            this.tabPage2.Controls.Add(this.ListBoxPatternsOfString);
             this.tabPage2.Controls.Add(this.btnSaveOCRConfigFile2);
             this.tabPage2.Controls.Add(this.cbEnableOutput);
             this.tabPage2.Controls.Add(this.label3);
@@ -283,6 +286,15 @@ namespace ARKBreedingStats.ocr
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Output";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // ListBoxPatternsOfString
+            // 
+            this.ListBoxPatternsOfString.FormattingEnabled = true;
+            this.ListBoxPatternsOfString.Location = new System.Drawing.Point(260, 268);
+            this.ListBoxPatternsOfString.Name = "ListBoxPatternsOfString";
+            this.ListBoxPatternsOfString.Size = new System.Drawing.Size(33, 251);
+            this.ListBoxPatternsOfString.TabIndex = 27;
+            this.ListBoxPatternsOfString.SelectedIndexChanged += new System.EventHandler(this.ListBoxPatternsOfString_SelectedIndexChanged);
             // 
             // btnSaveOCRConfigFile2
             // 
@@ -343,6 +355,7 @@ namespace ARKBreedingStats.ocr
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.BtRemovePattern);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.nudFontSize);
@@ -528,6 +541,63 @@ namespace ARKBreedingStats.ocr
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Manage";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.CbSkipNameRecognition);
+            this.groupBox10.Controls.Add(this.CbSkipTribeRecognition);
+            this.groupBox10.Controls.Add(this.CbSkipOwnerRecognition);
+            this.groupBox10.Controls.Add(this.CbTrainRecognition);
+            this.groupBox10.Location = new System.Drawing.Point(6, 425);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(334, 139);
+            this.groupBox10.TabIndex = 31;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Pattern recognition settings";
+            // 
+            // CbSkipNameRecognition
+            // 
+            this.CbSkipNameRecognition.AutoSize = true;
+            this.CbSkipNameRecognition.Location = new System.Drawing.Point(6, 42);
+            this.CbSkipNameRecognition.Name = "CbSkipNameRecognition";
+            this.CbSkipNameRecognition.Size = new System.Drawing.Size(131, 17);
+            this.CbSkipNameRecognition.TabIndex = 3;
+            this.CbSkipNameRecognition.Text = "Skip name recognition";
+            this.CbSkipNameRecognition.UseVisualStyleBackColor = true;
+            this.CbSkipNameRecognition.CheckedChanged += new System.EventHandler(this.CbSkipNameRecognition_CheckedChanged);
+            // 
+            // CbSkipTribeRecognition
+            // 
+            this.CbSkipTribeRecognition.AutoSize = true;
+            this.CbSkipTribeRecognition.Location = new System.Drawing.Point(6, 65);
+            this.CbSkipTribeRecognition.Name = "CbSkipTribeRecognition";
+            this.CbSkipTribeRecognition.Size = new System.Drawing.Size(125, 17);
+            this.CbSkipTribeRecognition.TabIndex = 2;
+            this.CbSkipTribeRecognition.Text = "Skip tribe recognition";
+            this.CbSkipTribeRecognition.UseVisualStyleBackColor = true;
+            this.CbSkipTribeRecognition.CheckedChanged += new System.EventHandler(this.CbSkipTribeRecognition_CheckedChanged);
+            // 
+            // CbSkipOwnerRecognition
+            // 
+            this.CbSkipOwnerRecognition.AutoSize = true;
+            this.CbSkipOwnerRecognition.Location = new System.Drawing.Point(6, 88);
+            this.CbSkipOwnerRecognition.Name = "CbSkipOwnerRecognition";
+            this.CbSkipOwnerRecognition.Size = new System.Drawing.Size(134, 17);
+            this.CbSkipOwnerRecognition.TabIndex = 1;
+            this.CbSkipOwnerRecognition.Text = "Skip owner recognition";
+            this.CbSkipOwnerRecognition.UseVisualStyleBackColor = true;
+            this.CbSkipOwnerRecognition.CheckedChanged += new System.EventHandler(this.CbSkipOwnerRecognition_CheckedChanged);
+            // 
+            // CbTrainRecognition
+            // 
+            this.CbTrainRecognition.AutoSize = true;
+            this.CbTrainRecognition.Location = new System.Drawing.Point(6, 19);
+            this.CbTrainRecognition.Name = "CbTrainRecognition";
+            this.CbTrainRecognition.Size = new System.Drawing.Size(105, 17);
+            this.CbTrainRecognition.TabIndex = 0;
+            this.CbTrainRecognition.Text = "Train recognition";
+            this.CbTrainRecognition.UseVisualStyleBackColor = true;
+            this.CbTrainRecognition.CheckedChanged += new System.EventHandler(this.CbTrainRecognition_CheckedChanged);
             // 
             // groupBox9
             // 
@@ -1022,62 +1092,15 @@ namespace ARKBreedingStats.ocr
             this.listBoxLabelRectangles.TabIndex = 0;
             this.listBoxLabelRectangles.SelectedIndexChanged += new System.EventHandler(this.listBoxLabelRectangles_SelectedIndexChanged);
             // 
-            // groupBox10
+            // BtRemovePattern
             // 
-            this.groupBox10.Controls.Add(this.CbSkipNameRecognition);
-            this.groupBox10.Controls.Add(this.CbSkipTribeRecognition);
-            this.groupBox10.Controls.Add(this.CbSkipOwnerRecognition);
-            this.groupBox10.Controls.Add(this.CbTrainRecognition);
-            this.groupBox10.Location = new System.Drawing.Point(6, 425);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(334, 139);
-            this.groupBox10.TabIndex = 31;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Pattern recognition settings";
-            // 
-            // CbTrainRecognition
-            // 
-            this.CbTrainRecognition.AutoSize = true;
-            this.CbTrainRecognition.Location = new System.Drawing.Point(6, 19);
-            this.CbTrainRecognition.Name = "CbTrainRecognition";
-            this.CbTrainRecognition.Size = new System.Drawing.Size(105, 17);
-            this.CbTrainRecognition.TabIndex = 0;
-            this.CbTrainRecognition.Text = "Train recognition";
-            this.CbTrainRecognition.UseVisualStyleBackColor = true;
-            this.CbTrainRecognition.CheckedChanged += new System.EventHandler(this.CbTrainRecognition_CheckedChanged);
-            // 
-            // CbSkipOwnerRecognition
-            // 
-            this.CbSkipOwnerRecognition.AutoSize = true;
-            this.CbSkipOwnerRecognition.Location = new System.Drawing.Point(6, 88);
-            this.CbSkipOwnerRecognition.Name = "CbSkipOwnerRecognition";
-            this.CbSkipOwnerRecognition.Size = new System.Drawing.Size(134, 17);
-            this.CbSkipOwnerRecognition.TabIndex = 1;
-            this.CbSkipOwnerRecognition.Text = "Skip owner recognition";
-            this.CbSkipOwnerRecognition.UseVisualStyleBackColor = true;
-            this.CbSkipOwnerRecognition.CheckedChanged += new System.EventHandler(this.CbSkipOwnerRecognition_CheckedChanged);
-            // 
-            // CbSkipTribeRecognition
-            // 
-            this.CbSkipTribeRecognition.AutoSize = true;
-            this.CbSkipTribeRecognition.Location = new System.Drawing.Point(6, 65);
-            this.CbSkipTribeRecognition.Name = "CbSkipTribeRecognition";
-            this.CbSkipTribeRecognition.Size = new System.Drawing.Size(125, 17);
-            this.CbSkipTribeRecognition.TabIndex = 2;
-            this.CbSkipTribeRecognition.Text = "Skip tribe recognition";
-            this.CbSkipTribeRecognition.UseVisualStyleBackColor = true;
-            this.CbSkipTribeRecognition.CheckedChanged += new System.EventHandler(this.CbSkipTribeRecognition_CheckedChanged);
-            // 
-            // CbSkipNameRecognition
-            // 
-            this.CbSkipNameRecognition.AutoSize = true;
-            this.CbSkipNameRecognition.Location = new System.Drawing.Point(6, 42);
-            this.CbSkipNameRecognition.Name = "CbSkipNameRecognition";
-            this.CbSkipNameRecognition.Size = new System.Drawing.Size(131, 17);
-            this.CbSkipNameRecognition.TabIndex = 3;
-            this.CbSkipNameRecognition.Text = "Skip name recognition";
-            this.CbSkipNameRecognition.UseVisualStyleBackColor = true;
-            this.CbSkipNameRecognition.CheckedChanged += new System.EventHandler(this.CbSkipNameRecognition_CheckedChanged);
+            this.BtRemovePattern.Location = new System.Drawing.Point(6, 45);
+            this.BtRemovePattern.Name = "BtRemovePattern";
+            this.BtRemovePattern.Size = new System.Drawing.Size(59, 36);
+            this.BtRemovePattern.TabIndex = 16;
+            this.BtRemovePattern.Text = "Remove template";
+            this.BtRemovePattern.UseVisualStyleBackColor = true;
+            this.BtRemovePattern.Click += new System.EventHandler(this.BtRemovePattern_Click);
             // 
             // OCRControl
             // 
@@ -1100,6 +1123,8 @@ namespace ARKBreedingStats.ocr
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditRecognized)).EndInit();
             this.tabPage4.ResumeLayout(false);
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudResizing)).EndInit();
@@ -1121,8 +1146,6 @@ namespace ARKBreedingStats.ocr
             ((System.ComponentModel.ISupportInitialize)(this.nudY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudX)).EndInit();
             this.groupBox3.ResumeLayout(false);
-            this.groupBox10.ResumeLayout(false);
-            this.groupBox10.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1205,5 +1228,7 @@ namespace ARKBreedingStats.ocr
         private System.Windows.Forms.CheckBox CbSkipTribeRecognition;
         private System.Windows.Forms.CheckBox CbSkipOwnerRecognition;
         private System.Windows.Forms.CheckBox CbTrainRecognition;
+        private System.Windows.Forms.ListBox ListBoxPatternsOfString;
+        private System.Windows.Forms.Button BtRemovePattern;
     }
 }

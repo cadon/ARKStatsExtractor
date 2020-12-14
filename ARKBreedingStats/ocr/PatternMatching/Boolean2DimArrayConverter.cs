@@ -11,7 +11,7 @@ namespace ARKBreedingStats.ocr.PatternMatching
     {
         private const long Black = 1L;
         private const long White = 0L;
-        ulong white = 0L;
+
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             var arr = (bool[,])value;
@@ -68,7 +68,6 @@ namespace ARKBreedingStats.ocr.PatternMatching
                         i++;
                     }
                 }
-
             }
 
             /*
@@ -84,19 +83,19 @@ namespace ARKBreedingStats.ocr.PatternMatching
             return ret;
         }
 
-        private static void ToDebugLog(bool[,] arr)
+        public static void ToDebugLog(bool[,] arr)
         {
-            StringBuilder sb = new StringBuilder();
             var xSize = arr.GetLength(0);
             var ySize = arr.GetLength(1);
+            StringBuilder sb = new StringBuilder(xSize * ySize);
             for (var y = 0; y < ySize; y++)
             {
-                var row = string.Empty;
                 for (var x = 0; x < xSize; x++)
                 {
-                    row += arr[x, y] ? '1' : '0';
+                    //row += arr[x, y] ? '1' : '0';
+                    sb.Append(arr[x, y] ? '♥' : ' ');
                 }
-                sb.AppendLine(row);
+                sb.AppendLine();
             }
             Debug.WriteLine(sb);
         }
