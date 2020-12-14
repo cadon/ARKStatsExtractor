@@ -111,20 +111,12 @@ namespace ARKBreedingStats
                     return;
             }
 
-            string selectedFolder = !string.IsNullOrEmpty(_currentFileName)
-                    ? Path.GetDirectoryName(_currentFileName)
-                    : !string.IsNullOrEmpty(Properties.Settings.Default.LastUsedCollectionFolder)
-                        && Directory.Exists(Properties.Settings.Default.LastUsedCollectionFolder)
-                    ? Properties.Settings.Default.LastUsedCollectionFolder
-                    : null
-                ;
-
             using (OpenFileDialog dlg = new OpenFileDialog
             {
                 Filter = $"ASB Collection Files (*{CollectionFileExtension}; *.xml)|*{CollectionFileExtension};*.xml"
-                        + $"|ASB Collection File (*{CollectionFileExtension})|*{CollectionFileExtension}"
-                        + "|Old ASB Collection File(*.xml)| *.xml",
-                InitialDirectory = selectedFolder
+                                + $"|ASB Collection File (*{CollectionFileExtension})|*{CollectionFileExtension}"
+                                + "|Old ASB Collection File(*.xml)| *.xml",
+                InitialDirectory = InitialDirectoryForLoadSave
             })
             {
                 if (dlg.ShowDialog() == DialogResult.OK)
@@ -135,6 +127,17 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
+        /// Returns the directory of the currently used file or the last used directory when loading a file.
+        /// </summary>
+        private string InitialDirectoryForLoadSave => !string.IsNullOrEmpty(_currentFileName)
+            ? Path.GetDirectoryName(_currentFileName)
+            : !string.IsNullOrEmpty(Properties.Settings.Default.LastUsedCollectionFolder)
+              && Directory.Exists(Properties.Settings.Default.LastUsedCollectionFolder)
+                ? Properties.Settings.Default.LastUsedCollectionFolder
+                : null
+            ;
+
+        /// <summary>
         /// Save the current collection under its file. If it has no file, use saveAs.
         /// </summary>
         private void SaveCollection()
@@ -142,6 +145,8 @@ namespace ARKBreedingStats
             if (string.IsNullOrEmpty(_currentFileName))
             {
                 SaveNewCollection();
+                if (!string.IsNullOrEmpty(_currentFileName))
+                    Properties.Settings.Default.LastUsedCollectionFolder = Path.GetDirectoryName(_currentFileName);
             }
             else
             {
@@ -153,7 +158,8 @@ namespace ARKBreedingStats
         {
             using (SaveFileDialog dlg = new SaveFileDialog
             {
-                Filter = $"Creature Collection File (*{CollectionFileExtension})|*{CollectionFileExtension}"
+                Filter = $"Creature Collection File (*{CollectionFileExtension})|*{CollectionFileExtension}",
+                InitialDirectory = InitialDirectoryForLoadSave
             })
             {
                 if (dlg.ShowDialog() == DialogResult.OK)
