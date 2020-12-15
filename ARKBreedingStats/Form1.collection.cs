@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
@@ -23,10 +24,13 @@ namespace ARKBreedingStats
         private void NewCollection()
         {
             if (_collectionDirty
-                && MessageBox.Show("Your Creature Collection has been modified since it was last saved, " +
-                        "are you sure you want to discard your changes and create a new Library without saving?",
-                        "Discard Changes?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+                && CustomMessageBox.Show(
+                    "Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes and create a new Library without saving?",
+                    "Discard Changes?", "Discard changes and create new library", "Cancel") != DialogResult.Yes
+            )
+            {
                 return;
+            }
 
             if (_creatureCollection.modIDs?.Any() ?? false)
             {
@@ -105,10 +109,13 @@ namespace ARKBreedingStats
         /// <param name="add">If true, the current loaded creatures will be kept and the ones of the loaded file are added</param>
         private void LoadCollection(bool add = false)
         {
-            if (!add && _collectionDirty)
+            if (!add
+                && _collectionDirty
+                && CustomMessageBox.Show(
+                "Your Creature Collection has been modified since it was last saved, are you sure you want to load without saving first?",
+                "Discard Changes?", "Discard changes and load new library", "Cancel") != DialogResult.Yes)
             {
-                if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to load without saving first?", "Discard Changes?", MessageBoxButtons.YesNo) != DialogResult.Yes)
-                    return;
+                return;
             }
 
             using (OpenFileDialog dlg = new OpenFileDialog

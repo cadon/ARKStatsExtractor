@@ -1586,7 +1586,8 @@ namespace ARKBreedingStats
             this.LbBlueprintPath.Name = "LbBlueprintPath";
             this.LbBlueprintPath.Size = new System.Drawing.Size(307, 41);
             this.LbBlueprintPath.TabIndex = 54;
-            this.LbBlueprintPath.Text = "/Game/";
+            this.LbBlueprintPath.Text = "/Game/​PrimalEarth/​Dinos/​Direwolf/ ​Direwolf_Character_BP.Direwolf_Character_BP" +
+    "";
             this.LbBlueprintPath.Click += new System.EventHandler(this.LbBlueprintPath_Click);
             // 
             // BtCopyIssueDumpToClipboard

@@ -342,6 +342,12 @@
     <Compile Include="uiControls\ButtonAddTime.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="uiControls\CustomMessageBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="uiControls\CustomMessageBox.Designer.cs">
+      <DependentUpon>CustomMessageBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="uiControls\dhmsInput.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -600,6 +606,9 @@
     <Compile Include="Win32API.cs" />
     <EmbeddedResource Include="ocr\PatternMatching\RecognitionTrainingForm.resx">
       <DependentUpon>RecognitionTrainingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\CustomMessageBox.resx">
+      <DependentUpon>CustomMessageBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\ParentInheritance.resx">
       <DependentUpon>ParentInheritance.cs</DependentUpon>

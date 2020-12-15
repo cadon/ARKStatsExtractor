@@ -998,8 +998,9 @@ namespace ARKBreedingStats
         private void LbBlueprintPath_Click(object sender, EventArgs e)
         {
             // copy blueprint path to clipboard
-            if (!string.IsNullOrEmpty(LbBlueprintPath.Text))
-                Clipboard.SetText(LbBlueprintPath.Text);
+            if (speciesSelector1.SelectedSpecies?.blueprintPath is string bp
+                && !string.IsNullOrEmpty(bp))
+                Clipboard.SetText(bp);
         }
     }
 }

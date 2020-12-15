@@ -1077,9 +1077,9 @@ namespace ARKBreedingStats
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (_collectionDirty && MessageBox.Show("Your Creature Collection has been modified since it was last saved, " +
+            if (_collectionDirty && CustomMessageBox.Show("Your Creature Collection has been modified since it was last saved, " +
                     "are you sure you want to discard your changes and quit without saving?",
-                    "Discard Changes?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                    "Discard Changes?", "Discard changes and quit", "Cancel quitting") != DialogResult.Yes)
                 e.Cancel = true;
         }
 
@@ -3016,9 +3016,9 @@ namespace ARKBreedingStats
             else if (ext == ".asb")
             {
                 if (!_collectionDirty
-                    || MessageBox.Show("Your Creature Collection has been modified since it was last saved, " +
-                            "are you sure you want to discard your changes and load the file without saving first?",
-                            "Discard Changes?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                    || CustomMessageBox.Show("Your Creature Collection has been modified since it was last saved, " +
+                                            "are you sure you want to discard your changes and load the file without saving first?",
+                        "Discard Changes?", "Discard changes and load new library", "Cancel") == DialogResult.Yes)
                 {
                     LoadCollectionFile(filePath);
                 }
@@ -3026,9 +3026,9 @@ namespace ARKBreedingStats
             else if (ext == ".zip")
             {
                 if (!_collectionDirty
-                    || MessageBox.Show("Your Creature Collection has been modified since it was last saved, " +
-                            "are you sure you want to discard your changes and load the file without saving first?",
-                            "Discard Changes?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                    || CustomMessageBox.Show("Your Creature Collection has been modified since it was last saved, " +
+                                             "are you sure you want to discard your changes and load the file without saving first?",
+                        "Discard Changes?", "Discard changes and load new library", "Cancel") == DialogResult.Yes)
                 {
                     OpenZippedLibrary(filePath);
                 }
