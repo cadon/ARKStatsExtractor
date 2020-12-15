@@ -319,6 +319,8 @@ namespace ARKBreedingStats
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
             this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetLibraryColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
+            this.recentlyUsedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator21 = new System.Windows.Forms.ToolStripSeparator();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -394,6 +396,8 @@ namespace ARKBreedingStats
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem,
             this.toolStripSeparator2,
+            this.recentlyUsedToolStripMenuItem,
+            this.toolStripSeparator21,
             this.openFolderOfCurrentFileToolStripMenuItem,
             this.toolStripSeparator15,
             this.importingFromSavegameToolStripMenuItem,
@@ -3140,6 +3144,17 @@ namespace ARKBreedingStats
             this.toolStripMenuItemResetLibraryColumnWidths.Text = "Reset column width";
             this.toolStripMenuItemResetLibraryColumnWidths.Click += new System.EventHandler(this.toolStripMenuItemResetLibraryColumnWidths_Click);
             // 
+            // recentlyUsedToolStripMenuItem
+            // 
+            this.recentlyUsedToolStripMenuItem.Name = "recentlyUsedToolStripMenuItem";
+            this.recentlyUsedToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.recentlyUsedToolStripMenuItem.Text = "Recently used";
+            // 
+            // toolStripSeparator21
+            // 
+            this.toolStripSeparator21.Name = "toolStripSeparator21";
+            this.toolStripSeparator21.Size = new System.Drawing.Size(239, 6);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -3527,5 +3542,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator20;
         private System.Windows.Forms.ToolStripButton TsbImportLastSaveGame;
         private System.Windows.Forms.Label LbBlueprintPath;
+        private System.Windows.Forms.ToolStripMenuItem recentlyUsedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator21;
     }
 }

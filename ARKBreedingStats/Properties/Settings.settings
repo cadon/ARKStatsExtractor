@@ -359,5 +359,8 @@
     <Setting Name="LastUsedCollectionFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="LastUsedLibraryFiles" Type="System.String[]" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

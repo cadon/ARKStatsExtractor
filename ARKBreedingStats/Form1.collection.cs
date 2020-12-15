@@ -109,11 +109,7 @@ namespace ARKBreedingStats
         /// <param name="add">If true, the current loaded creatures will be kept and the ones of the loaded file are added</param>
         private void LoadCollection(bool add = false)
         {
-            if (!add
-                && _collectionDirty
-                && CustomMessageBox.Show(
-                "Your Creature Collection has been modified since it was last saved, are you sure you want to load without saving first?",
-                "Discard Changes?", "Discard changes and load new library", "Cancel") != DialogResult.Yes)
+            if (!add && !DiscardChangesAndLoadNewLibrary())
             {
                 return;
             }
@@ -131,6 +127,18 @@ namespace ARKBreedingStats
                     LoadCollectionFile(dlg.FileName, add);
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns true if there are no unsaved changes or the user wants to discard the changes of the currently loaded library.
+        /// </summary>
+        /// <returns></returns>
+        private bool DiscardChangesAndLoadNewLibrary()
+        {
+            return !_collectionDirty
+                    || CustomMessageBox.Show(
+                    "Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes and load the file without saving first?",
+                    "Discard Changes?", "Discard changes and load new library", "Cancel") == DialogResult.Yes;
         }
 
         /// <summary>
@@ -485,6 +493,8 @@ namespace ARKBreedingStats
 
             Properties.Settings.Default.LastSaveFile = filePath;
             Properties.Settings.Default.LastUsedCollectionFolder = Path.GetDirectoryName(filePath);
+            AddPathToRecentlyUsed(filePath);
+
             _lastAutoSaveBackup = DateTime.Now.AddMinutes(-10);
 
             return true;
@@ -629,6 +639,58 @@ namespace ARKBreedingStats
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Adds a file path to the recently used list for libraries.
+        /// </summary>
+        /// <param name="filePath"></param>
+        private void AddPathToRecentlyUsed(string filePath)
+        {
+            if (string.IsNullOrEmpty(filePath)) return;
+
+            var files = Properties.Settings.Default.LastUsedLibraryFiles;
+            if (files == null)
+            {
+                Properties.Settings.Default.LastUsedLibraryFiles = new[] { filePath };
+                UpdateRecentlyUsedFileMenu();
+                return;
+            }
+
+            if (files.FirstOrDefault() == filePath)
+            {
+                if (recentlyUsedToolStripMenuItem.DropDownItems.Count == 0)
+                    UpdateRecentlyUsedFileMenu();
+                return;
+            }
+
+            // add filePath to the first position
+            Properties.Settings.Default.LastUsedLibraryFiles =
+                files.Where(f => f != filePath).Prepend(filePath).Take(10).ToArray();
+            UpdateRecentlyUsedFileMenu();
+        }
+
+        /// <summary>
+        /// Updates the menu items for the last used files.
+        /// </summary>
+        private void UpdateRecentlyUsedFileMenu()
+        {
+            recentlyUsedToolStripMenuItem.DropDownItems.Clear();
+
+            if (!(Properties.Settings.Default.LastUsedLibraryFiles?.Any() ?? false)) return;
+
+            recentlyUsedToolStripMenuItem.DropDownItems.AddRange(
+                Properties.Settings.Default.LastUsedLibraryFiles.Select(f => new ToolStripMenuItem(f, null, OpenRecentlyUsedFile)).ToArray()
+            );
+        }
+
+        private void OpenRecentlyUsedFile(object sender, EventArgs e)
+        {
+            if (sender is ToolStripMenuItem mi
+                && !string.IsNullOrEmpty(mi.Text)
+                && DiscardChangesAndLoadNewLibrary()
+                )
+                LoadCollectionFile(mi.Text);
         }
     }
 }

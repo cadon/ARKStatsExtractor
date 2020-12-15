@@ -3015,20 +3015,14 @@ namespace ARKBreedingStats
             }
             else if (ext == ".asb")
             {
-                if (!_collectionDirty
-                    || CustomMessageBox.Show("Your Creature Collection has been modified since it was last saved, " +
-                                            "are you sure you want to discard your changes and load the file without saving first?",
-                        "Discard Changes?", "Discard changes and load new library", "Cancel") == DialogResult.Yes)
+                if (DiscardChangesAndLoadNewLibrary())
                 {
                     LoadCollectionFile(filePath);
                 }
             }
             else if (ext == ".zip")
             {
-                if (!_collectionDirty
-                    || CustomMessageBox.Show("Your Creature Collection has been modified since it was last saved, " +
-                                             "are you sure you want to discard your changes and load the file without saving first?",
-                        "Discard Changes?", "Discard changes and load new library", "Cancel") == DialogResult.Yes)
+                if (DiscardChangesAndLoadNewLibrary())
                 {
                     OpenZippedLibrary(filePath);
                 }

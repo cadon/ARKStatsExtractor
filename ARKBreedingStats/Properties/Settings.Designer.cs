@@ -1434,5 +1434,16 @@ namespace ARKBreedingStats.Properties {
                 this["LastUsedCollectionFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public string[] LastUsedLibraryFiles {
+            get {
+                return ((string[])(this["LastUsedLibraryFiles"]));
+            }
+            set {
+                this["LastUsedLibraryFiles"] = value;
+            }
+        }
     }
 }
