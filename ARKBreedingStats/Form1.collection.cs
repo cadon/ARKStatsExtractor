@@ -24,9 +24,8 @@ namespace ARKBreedingStats
         private void NewCollection()
         {
             if (_collectionDirty
-                && CustomMessageBox.Show(
-                    "Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes and create a new Library without saving?",
-                    "Discard Changes?", "Discard changes and create new library", "Cancel") != DialogResult.Yes
+                && CustomMessageBox.Show(Loc.S("Collection changed discard and new?"),
+                    Loc.S("Discard changes?"), Loc.S("Discard changes and new"), Loc.S("Cancel")) != DialogResult.Yes
             )
             {
                 return;
@@ -132,13 +131,11 @@ namespace ARKBreedingStats
         /// <summary>
         /// Returns true if there are no unsaved changes or the user wants to discard the changes of the currently loaded library.
         /// </summary>
-        /// <returns></returns>
         private bool DiscardChangesAndLoadNewLibrary()
         {
             return !_collectionDirty
-                    || CustomMessageBox.Show(
-                    "Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes and load the file without saving first?",
-                    "Discard Changes?", "Discard changes and load new library", "Cancel") == DialogResult.Yes;
+                    || CustomMessageBox.Show(Loc.S("Collection changed discard and load?"),
+                    Loc.S("Discard changes?"), Loc.S("Discard changes and load file"), Loc.S("Cancel")) == DialogResult.Yes;
         }
 
         /// <summary>

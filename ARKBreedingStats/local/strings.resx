@@ -1260,4 +1260,28 @@ The preset can be applied by the Apply Preset button</value>
   <data name="BestPossibleSpeciesLibraryFiltered" xml:space="preserve">
     <value>Best possible {0} for this filter</value>
   </data>
+  <data name="Discard changes?" xml:space="preserve">
+    <value>Discard changes?</value>
+  </data>
+  <data name="Collection changed discard and load?" xml:space="preserve">
+    <value>Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes and load the file without saving first?</value>
+  </data>
+  <data name="Discard changes and load file" xml:space="preserve">
+    <value>Discard changes and load new library</value>
+  </data>
+  <data name="Discard changes and quit" xml:space="preserve">
+    <value>Discard changes and quit</value>
+  </data>
+  <data name="Cancel quitting" xml:space="preserve">
+    <value>Cancel quitting</value>
+  </data>
+  <data name="Collection changed discard and quit?" xml:space="preserve">
+    <value>Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes and quit without saving?</value>
+  </data>
+  <data name="Collection changed discard and new?" xml:space="preserve">
+    <value>Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes and create a new Library without saving?</value>
+  </data>
+  <data name="Discard changes and new" xml:space="preserve">
+    <value>Discard changes and create new library</value>
+  </data>
 </root>

@@ -606,6 +606,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel quitting.
+        /// </summary>
+        internal static string Cancel_quitting {
+            get {
+                return ResourceManager.GetString("Cancel quitting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Include Creatures with Cooldown.
         /// </summary>
         internal static string cbBPIncludeCooldowneds {
@@ -818,6 +827,33 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes and load the file without saving first?.
+        /// </summary>
+        internal static string Collection_changed_discard_and_load_ {
+            get {
+                return ResourceManager.GetString("Collection changed discard and load?", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes and create a new Library without saving?.
+        /// </summary>
+        internal static string Collection_changed_discard_and_new_ {
+            get {
+                return ResourceManager.GetString("Collection changed discard and new?", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes and quit without saving?.
+        /// </summary>
+        internal static string Collection_changed_discard_and_quit_ {
+            get {
+                return ResourceManager.GetString("Collection changed discard and quit?", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Colors.
         /// </summary>
         internal static string Colors {
@@ -1003,6 +1039,42 @@ namespace ARKBreedingStats.local {
         internal static string Details {
             get {
                 return ResourceManager.GetString("Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discard changes?.
+        /// </summary>
+        internal static string Discard_changes_ {
+            get {
+                return ResourceManager.GetString("Discard changes?", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discard changes and load new library.
+        /// </summary>
+        internal static string Discard_changes_and_load_file {
+            get {
+                return ResourceManager.GetString("Discard changes and load file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discard changes and create new library.
+        /// </summary>
+        internal static string Discard_changes_and_new {
+            get {
+                return ResourceManager.GetString("Discard changes and new", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discard changes and quit.
+        /// </summary>
+        internal static string Discard_changes_and_quit {
+            get {
+                return ResourceManager.GetString("Discard changes and quit", resourceCulture);
             }
         }
         

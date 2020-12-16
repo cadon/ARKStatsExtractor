@@ -1077,9 +1077,8 @@ namespace ARKBreedingStats
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (_collectionDirty && CustomMessageBox.Show("Your Creature Collection has been modified since it was last saved, " +
-                    "are you sure you want to discard your changes and quit without saving?",
-                    "Discard Changes?", "Discard changes and quit", "Cancel quitting") != DialogResult.Yes)
+            if (_collectionDirty && CustomMessageBox.Show(Loc.S("Collection changed discard and quit?"),
+                Loc.S("Discard changes?"), Loc.S("Discard changes and quit"), Loc.S("Cancel quitting")) != DialogResult.Yes)
                 e.Cancel = true;
         }
 

@@ -1251,4 +1251,28 @@ Diese kann mit BSS Preset angewandt werden.</value>
   <data name="BestPossibleSpeciesLibraryFiltered" xml:space="preserve">
     <value>Bestmöglicher {0} für diese Auswahl</value>
   </data>
+  <data name="Discard changes?" xml:space="preserve">
+    <value>Änderungen verwerfen?</value>
+  </data>
+  <data name="Collection changed discard and load?" xml:space="preserve">
+    <value>Die aktuell geladene Datei wurde seit dem letzten Speichern verändert. Sollen diese Änderungen verworfen und eine neue Datei geladen werden?</value>
+  </data>
+  <data name="Discard changes and load file" xml:space="preserve">
+    <value>Änderungen verwerfen und neue Datei laden</value>
+  </data>
+  <data name="Discard changes and quit" xml:space="preserve">
+    <value>Änderungen verwerfen und beenden</value>
+  </data>
+  <data name="Cancel quitting" xml:space="preserve">
+    <value>Nicht beenden</value>
+  </data>
+  <data name="Collection changed discard and quit?" xml:space="preserve">
+    <value>Die aktuell geladene Datei wurde seit dem letzten Speichern verändert. Sollen diese Änderungen verworfen und die Anwendung beendet werden?</value>
+  </data>
+  <data name="Collection changed discard and new?" xml:space="preserve">
+    <value>Die aktuell geladene Datei wurde seit dem letzten Speichern verändert. Sollen diese Änderungen verworfen und eine neue Sammlung erstellt werden?</value>
+  </data>
+  <data name="Discard changes and new" xml:space="preserve">
+    <value>Änderungen verwerfen und neue Datei erstellen</value>
+  </data>
 </root>
