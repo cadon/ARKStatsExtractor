@@ -44,6 +44,9 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.nudBabyImprintAmountEvent = new ARKBreedingStats.uiControls.Nud();
+            this.label49 = new System.Windows.Forms.Label();
+            this.nudBabyImprintAmount = new ARKBreedingStats.uiControls.Nud();
             this.label44 = new System.Windows.Forms.Label();
             this.nudMatingSpeed = new ARKBreedingStats.uiControls.Nud();
             this.nudBabyFoodConsumptionSpeedEvent = new ARKBreedingStats.uiControls.Nud();
@@ -249,11 +252,10 @@
             this.cbbOCRApp = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.nudBabyImprintAmountEvent = new ARKBreedingStats.uiControls.Nud();
-            this.label49 = new System.Windows.Forms.Label();
-            this.nudBabyImprintAmount = new ARKBreedingStats.uiControls.Nud();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmountEvent)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMatingSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyFoodConsumptionSpeedEvent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMatingIntervalEvent)).BeginInit();
@@ -332,8 +334,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmountEvent)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmount)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -495,6 +495,63 @@
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Breeding-Multiplier";
+            // 
+            // nudBabyImprintAmountEvent
+            // 
+            this.nudBabyImprintAmountEvent.DecimalPlaces = 6;
+            this.nudBabyImprintAmountEvent.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.nudBabyImprintAmountEvent.Location = new System.Drawing.Point(263, 149);
+            this.nudBabyImprintAmountEvent.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudBabyImprintAmountEvent.Name = "nudBabyImprintAmountEvent";
+            this.nudBabyImprintAmountEvent.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudBabyImprintAmountEvent.Size = new System.Drawing.Size(72, 20);
+            this.nudBabyImprintAmountEvent.TabIndex = 21;
+            this.nudBabyImprintAmountEvent.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Location = new System.Drawing.Point(10, 151);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(139, 13);
+            this.label49.TabIndex = 20;
+            this.label49.Text = "BabyImprintAmountMultiplier";
+            // 
+            // nudBabyImprintAmount
+            // 
+            this.nudBabyImprintAmount.DecimalPlaces = 6;
+            this.nudBabyImprintAmount.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.nudBabyImprintAmount.Location = new System.Drawing.Point(183, 149);
+            this.nudBabyImprintAmount.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudBabyImprintAmount.Name = "nudBabyImprintAmount";
+            this.nudBabyImprintAmount.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudBabyImprintAmount.Size = new System.Drawing.Size(72, 20);
+            this.nudBabyImprintAmount.TabIndex = 19;
+            this.nudBabyImprintAmount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // label44
             // 
@@ -1852,7 +1909,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1860,7 +1917,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1868,7 +1925,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1876,7 +1933,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -2113,11 +2170,11 @@
             // 
             // BtGetExportFolderAutomatically
             // 
-            this.BtGetExportFolderAutomatically.Location = new System.Drawing.Point(621, 44);
+            this.BtGetExportFolderAutomatically.Location = new System.Drawing.Point(597, 41);
             this.BtGetExportFolderAutomatically.Name = "BtGetExportFolderAutomatically";
-            this.BtGetExportFolderAutomatically.Size = new System.Drawing.Size(121, 53);
+            this.BtGetExportFolderAutomatically.Size = new System.Drawing.Size(145, 53);
             this.BtGetExportFolderAutomatically.TabIndex = 12;
-            this.BtGetExportFolderAutomatically.Text = "Set export folder automatically";
+            this.BtGetExportFolderAutomatically.Text = "Set export folder automatically (only Steam)";
             this.BtGetExportFolderAutomatically.UseVisualStyleBackColor = true;
             this.BtGetExportFolderAutomatically.Click += new System.EventHandler(this.BtGetExportFolderAutomatically_Click);
             // 
@@ -2455,9 +2512,9 @@
             // 
             this.groupBox13.Controls.Add(this.dataGridViewExportFolders);
             this.groupBox13.Controls.Add(this.btAddExportFolder);
-            this.groupBox13.Location = new System.Drawing.Point(6, 111);
+            this.groupBox13.Location = new System.Drawing.Point(6, 112);
             this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(736, 278);
+            this.groupBox13.Size = new System.Drawing.Size(736, 277);
             this.groupBox13.TabIndex = 5;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "ARK export folders";
@@ -2475,7 +2532,7 @@
             this.dataGridViewExportFolders.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewExportFolders.Location = new System.Drawing.Point(3, 39);
             this.dataGridViewExportFolders.Name = "dataGridViewExportFolders";
-            this.dataGridViewExportFolders.Size = new System.Drawing.Size(730, 236);
+            this.dataGridViewExportFolders.Size = new System.Drawing.Size(730, 235);
             this.dataGridViewExportFolders.TabIndex = 5;
             this.dataGridViewExportFolders.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewExportFolders_CellClick);
             // 
@@ -2542,9 +2599,9 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(6, 19);
+            this.label25.Location = new System.Drawing.Point(3, 3);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(579, 78);
+            this.label25.Size = new System.Drawing.Size(669, 91);
             this.label25.TabIndex = 0;
             this.label25.Text = resources.GetString("label25.Text");
             // 
@@ -3028,63 +3085,6 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // nudBabyImprintAmountEvent
-            // 
-            this.nudBabyImprintAmountEvent.DecimalPlaces = 6;
-            this.nudBabyImprintAmountEvent.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.nudBabyImprintAmountEvent.Location = new System.Drawing.Point(263, 149);
-            this.nudBabyImprintAmountEvent.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nudBabyImprintAmountEvent.Name = "nudBabyImprintAmountEvent";
-            this.nudBabyImprintAmountEvent.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudBabyImprintAmountEvent.Size = new System.Drawing.Size(72, 20);
-            this.nudBabyImprintAmountEvent.TabIndex = 21;
-            this.nudBabyImprintAmountEvent.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label49
-            // 
-            this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(10, 151);
-            this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(139, 13);
-            this.label49.TabIndex = 20;
-            this.label49.Text = "BabyImprintAmountMultiplier";
-            // 
-            // nudBabyImprintAmount
-            // 
-            this.nudBabyImprintAmount.DecimalPlaces = 6;
-            this.nudBabyImprintAmount.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.nudBabyImprintAmount.Location = new System.Drawing.Point(183, 149);
-            this.nudBabyImprintAmount.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nudBabyImprintAmount.Name = "nudBabyImprintAmount";
-            this.nudBabyImprintAmount.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudBabyImprintAmount.Size = new System.Drawing.Size(72, 20);
-            this.nudBabyImprintAmount.TabIndex = 19;
-            this.nudBabyImprintAmount.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -3105,6 +3105,8 @@
             this.groupBoxMultiplier.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmountEvent)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMatingSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyFoodConsumptionSpeedEvent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMatingIntervalEvent)).EndInit();
@@ -3209,8 +3211,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).EndInit();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmountEvent)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmount)).EndInit();
             this.ResumeLayout(false);
 
         }
