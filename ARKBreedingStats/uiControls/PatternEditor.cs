@@ -287,6 +287,7 @@ namespace ARKBreedingStats.uiControls
                 { "gena", "Generation in letters (0=A, 1=B, 26=AA, 27=AB)" },
                 { "genn", "The number of creatures with the same species and the same generation plus one" },
                 { "nr_in_gen", "The number of the creature in its generation, ordered by added to the library" },
+                { "nr_in_gen_sex", "The number of the creature in its generation with the same sex, ordered by added to the library" },
                 { "rnd", "6-digit random number in the range 0 – 999999" },
                 { "tn", "number of creatures of the current species in the library + 1" },
                 { "sn", "number of creatures of the current species with the same sex in the library + 1" },

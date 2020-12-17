@@ -376,6 +376,8 @@ namespace ARKBreedingStats.uiControls
         /// <returns>A dictionary containing all tokens and their replacements</returns>
         public static Dictionary<string, string> CreateTokenDictionary(Creature creature, Creature[] speciesCreatures, int[] speciesTopLevels, int[] speciesLowestLevels)
         {
+            var creatureInLibrary = creature.guid != Guid.Empty ? speciesCreatures.FirstOrDefault(c => c.guid == creature.guid) : null;
+
             string dom = creature.isBred ? "B" : "T";
 
             double imp = creature.imprintingBonus * 100;
@@ -412,9 +414,6 @@ namespace ARKBreedingStats.uiControls
                     creature.Father?.generation + 1 ?? 0
                 );
 
-            // the index of the creature in its generation, ordered by addedToLibrary
-            int nrInGeneration = (speciesCreatures?.Count(c => c.guid != creature.guid && c.addedToLibrary != null && c.generation == generation && (creature.addedToLibrary == null || c.addedToLibrary < creature.addedToLibrary)) ?? 0) + 1;
-
             int mutasn = creature.Mutations;
             string mutas = mutasn > 99 ? "99" : mutasn.ToString();
 
@@ -431,7 +430,7 @@ namespace ARKBreedingStats.uiControls
 
                 if (creature.guid != Guid.Empty)
                 {
-                    oldName = speciesCreatures.FirstOrDefault(c => c.guid == creature.guid)?.name ?? creature.name;
+                    oldName = creatureInLibrary?.name ?? creature.name;
                 }
                 else if (creature.ArkId != 0)
                 {
@@ -444,8 +443,14 @@ namespace ARKBreedingStats.uiControls
             while (spcsNm.LastIndexOfAny(vowels) > 0)
                 spcsNm = spcsNm.Remove(spcsNm.LastIndexOfAny(vowels), 1); // remove last vowel (not the first letter)
 
-            int speciesCount = (speciesCreatures?.Length ?? 0) + 1;
-            int speciesSexCount = (speciesCreatures?.Count(c => c.sex == creature.sex) ?? 0) + 1;
+            // for counting, add 1 if the creature is not yet in the library
+            var addOne = creatureInLibrary == null ? 1 : 0;
+            int speciesCount = (speciesCreatures?.Length ?? 0) + addOne;
+            // the index of the creature in its generation, ordered by addedToLibrary
+            int nrInGeneration = (speciesCreatures?.Count(c => c.guid != creature.guid && c.addedToLibrary != null && c.generation == generation && (creature.addedToLibrary == null || c.addedToLibrary < creature.addedToLibrary)) ?? 0) + addOne;
+            int nrInGenerationAndSameSex = (speciesCreatures?.Count(c => c.guid != creature.guid && c.sex == creature.sex && c.addedToLibrary != null && c.generation == generation && (creature.addedToLibrary == null || c.addedToLibrary < creature.addedToLibrary)) ?? 0) + addOne;
+            int speciesSexCount = (speciesCreatures?.Count(c => c.guid != creature.guid && c.sex == creature.sex) ?? 0) + addOne;
+
             string arkid = string.Empty;
             if (creature.ArkId != 0)
             {
@@ -511,6 +516,7 @@ namespace ARKBreedingStats.uiControls
                 { "gena", Dec2Hexvig(generation)},
                 { "genn", (speciesCreatures?.Count(c=>c.generation==generation) ?? 0 + 1).ToString()},
                 { "nr_in_gen", nrInGeneration.ToString()},
+                { "nr_in_gen_sex", nrInGenerationAndSameSex.ToString()},
                 { "rnd", randStr },
                 { "tn", speciesCount.ToString()},
                 { "sn", speciesSexCount.ToString()},
