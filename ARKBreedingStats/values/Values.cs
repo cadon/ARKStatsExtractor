@@ -542,7 +542,7 @@ namespace ARKBreedingStats.values
                         sp.stats[s].IncPerWildLevel *= singlePlayerServerMultipliers.statMultipliers[s][3];
 
                         // troodonism values
-                        if (sp.altStats[s] != null)
+                        if (sp.altStats?[s] != null)
                         {
                             sp.altStats[s].AddWhenTamed *= sp.altStats[s].AddWhenTamed > 0
                                 ? singlePlayerServerMultipliers.statMultipliers[s][0]
