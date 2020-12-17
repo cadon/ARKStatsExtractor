@@ -34,7 +34,9 @@ namespace ARKBreedingStats.uiControls
             this.ButtonYes = new System.Windows.Forms.Button();
             this.ButtonNo = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.PbIcon = new System.Windows.Forms.PictureBox();
             this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PbIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // LabelMessage
@@ -47,7 +49,7 @@ namespace ARKBreedingStats.uiControls
             this.LabelMessage.TabIndex = 0;
             this.LabelMessage.Text = "Message";
             // 
-            // BtRight
+            // ButtonCancel
             // 
             this.ButtonCancel.AutoSize = true;
             this.ButtonCancel.Location = new System.Drawing.Point(335, 5);
@@ -58,7 +60,7 @@ namespace ARKBreedingStats.uiControls
             this.ButtonCancel.Text = "BtRight";
             this.ButtonCancel.UseVisualStyleBackColor = true;
             // 
-            // BtLeft
+            // ButtonYes
             // 
             this.ButtonYes.AutoSize = true;
             this.ButtonYes.Location = new System.Drawing.Point(199, 5);
@@ -69,7 +71,7 @@ namespace ARKBreedingStats.uiControls
             this.ButtonYes.Text = "BtLeft";
             this.ButtonYes.UseVisualStyleBackColor = true;
             // 
-            // BtMiddle
+            // ButtonNo
             // 
             this.ButtonNo.AutoSize = true;
             this.ButtonNo.Location = new System.Drawing.Point(267, 5);
@@ -93,12 +95,21 @@ namespace ARKBreedingStats.uiControls
             this.flowLayoutPanel1.Size = new System.Drawing.Size(398, 41);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
+            // PbIcon
+            // 
+            this.PbIcon.Location = new System.Drawing.Point(12, 41);
+            this.PbIcon.Name = "PbIcon";
+            this.PbIcon.Size = new System.Drawing.Size(45, 45);
+            this.PbIcon.TabIndex = 3;
+            this.PbIcon.TabStop = false;
+            // 
             // CustomMessageBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(398, 187);
+            this.Controls.Add(this.PbIcon);
             this.Controls.Add(this.LabelMessage);
             this.Controls.Add(this.flowLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -107,6 +118,7 @@ namespace ARKBreedingStats.uiControls
             this.Text = "CustomMessageBox";
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PbIcon)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -118,5 +130,6 @@ namespace ARKBreedingStats.uiControls
         private System.Windows.Forms.Button ButtonYes;
         private System.Windows.Forms.Button ButtonNo;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.PictureBox PbIcon;
     }
 }

@@ -25,7 +25,7 @@ namespace ARKBreedingStats
         {
             if (_collectionDirty
                 && CustomMessageBox.Show(Loc.S("Collection changed discard and new?"),
-                    Loc.S("Discard changes?"), Loc.S("Discard changes and new"), Loc.S("Cancel")) != DialogResult.Yes
+                    Loc.S("Discard changes?"), Loc.S("Discard changes and new"), buttonCancel: Loc.S("Cancel"), icon: MessageBoxIcon.Warning) != DialogResult.Yes
             )
             {
                 return;
@@ -135,7 +135,7 @@ namespace ARKBreedingStats
         {
             return !_collectionDirty
                     || CustomMessageBox.Show(Loc.S("Collection changed discard and load?"),
-                    Loc.S("Discard changes?"), Loc.S("Discard changes and load file"), Loc.S("Cancel")) == DialogResult.Yes;
+                    Loc.S("Discard changes?"), Loc.S("Discard changes and load file"), buttonCancel: Loc.S("Cancel"), icon: MessageBoxIcon.Warning) == DialogResult.Yes;
         }
 
         /// <summary>
