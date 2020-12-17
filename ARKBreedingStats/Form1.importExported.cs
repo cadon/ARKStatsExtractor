@@ -240,16 +240,19 @@ namespace ARKBreedingStats
             {
                 if (added)
                 {
+                    if (alreadyExists)
+                        SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Indifferent);
+
                     if (newTopLevels)
-                        Utils.BeepSignal(3);
+                        SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Great);
                     else if (topLevels)
-                        Utils.BeepSignal(2);
+                        SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Good);
                     else
-                        Utils.BeepSignal(1);
+                        SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Success);
                 }
                 else
                 {
-                    Utils.BeepSignal(0);
+                    SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Failure);
                 }
             }
         }

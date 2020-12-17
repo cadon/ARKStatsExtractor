@@ -653,39 +653,6 @@ namespace ARKBreedingStats
             }
         }
 
-        /// <summary>
-        /// Beeps. 0: failure, 1: success, 2: good, 3: great.
-        /// </summary>
-        /// <param name="kind"></param>
-        public static void BeepSignal(int kind)
-        {
-            switch (kind)
-            {
-                case 0:
-                    Console.Beep(300, 50);
-                    Console.Beep(200, 100);
-                    break;
-                case 1:
-                    Console.Beep(300, 50);
-                    Console.Beep(400, 100);
-                    break;
-                case 2:
-                    Console.Beep(300, 50);
-                    Console.Beep(400, 50);
-                    Console.Beep(500, 50);
-                    Console.Beep(400, 100);
-                    break;
-                case 3:
-                    Console.Beep(300, 50);
-                    Console.Beep(400, 50);
-                    Console.Beep(500, 50);
-                    Console.Beep(600, 50);
-                    Console.Beep(675, 50);
-                    Console.Beep(600, 100);
-                    break;
-            }
-        }
-
         private static string _ApplicationNameVersion;
         /// <summary>
         /// The name and version of this application.

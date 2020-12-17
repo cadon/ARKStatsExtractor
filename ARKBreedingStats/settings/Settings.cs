@@ -941,22 +941,22 @@ namespace ARKBreedingStats.settings
 
         private void BtBeepFailure_Click(object sender, EventArgs e)
         {
-            Utils.BeepSignal(0);
+            SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Failure);
         }
 
         private void BtBeepSuccess_Click(object sender, EventArgs e)
         {
-            Utils.BeepSignal(1);
+            SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Success);
         }
 
         private void BtBeepTop_Click(object sender, EventArgs e)
         {
-            Utils.BeepSignal(2);
+            SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Good);
         }
 
         private void BtBeepNewTop_Click(object sender, EventArgs e)
         {
-            Utils.BeepSignal(3);
+            SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Great);
         }
 
         private void BtImportArchiveFolder_Click(object sender, EventArgs e)

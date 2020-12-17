@@ -599,6 +599,7 @@
     <Compile Include="utils\ExportFolderLocation.cs" />
     <Compile Include="utils\ExtensionMethods.cs" />
     <Compile Include="utils\MessageBoxes.cs" />
+    <Compile Include="utils\SoundFeedback.cs" />
     <Compile Include="values\TamingFoodData.cs" />
     <Compile Include="values\ServerMultipliersPresets.cs" />
     <Compile Include="values\ServerMultipliers.cs" />
