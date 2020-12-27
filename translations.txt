@@ -63,6 +63,7 @@ C3	C3
 C4	C4
 C5	C5
 Cancel	Cancel
+Cancel quitting  Cancel quitting
 cbBPMutationLimitOnlyOnePartner  One partner may have more mutations
 cbBPOnlyOneSuggestionForFemales  Only best suggestion for females
 cbBPTagExcludeDefaultTT	"Check if all creatures should be excluded and only be included when have the include-mark on their tag.
@@ -91,6 +92,9 @@ clearColors  clear colors
 clearColorsFilters  Clear Color Filters
 Club	Club
 cnBPIncludeCooldowneds	Include Creatures with Cooldown
+Collection changed discard and load?  Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes and load the file without saving first?
+Collection changed discard and new?  Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes and create a new Library without saving?
+Collection changed discard and quit?  Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes and quit without saving?
 Colors	Colors
 cooldown	Cooldown
 cooldownGrowing	Cooldown/Growing
@@ -112,6 +116,10 @@ Default	Default
 deleteSelectedToolStripMenuItem	Remove…
 Descendants  Descendants
 Details	Details
+Discard changes?  Discard changes?
+Discard changes and load file  Discard changes and load new library
+Discard changes and new  Discard changes and create new library
+Discard changes and quit  Discard changes and quit
 domesticatedAt	Domesticated at
 domLevelExplanation	Levels assigned manually to this stat after the creature was domesticated
 domLvl	Dom-Lvl
