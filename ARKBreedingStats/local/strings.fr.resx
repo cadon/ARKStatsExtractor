@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="aboutToolStripMenuItem" xml:space="preserve">
-    <value>à propos...</value>
+    <value>À propos...</value>
   </data>
   <data name="added" xml:space="preserve">
     <value>Ajouté</value>
@@ -1254,5 +1254,29 @@ Le préréglage peut être appliqué par le bouton Appliquer le préréglage</va
   </data>
   <data name="BestPossibleSpeciesLibraryFiltered" xml:space="preserve">
     <value>Meilleur {0} possible pour ce filtre</value>
+  </data>
+  <data name="Discard changes?" xml:space="preserve">
+    <value>Annuler les modifications ?</value>
+  </data>
+  <data name="Collection changed discard and load?" xml:space="preserve">
+    <value>Votre collection de créatures a été modifiée depuis sa dernière sauvegarde. Êtes-vous sûr de vouloir annuler vos modifications et charger le fichier sans sauvegarder au préalable ?</value>
+  </data>
+  <data name="Discard changes and load file" xml:space="preserve">
+    <value>Annuler les modifications et charger une nouvelle bibliothèque</value>
+  </data>
+  <data name="Discard changes and quit" xml:space="preserve">
+    <value>Annuler les modifications et quitter</value>
+  </data>
+  <data name="Cancel quitting" xml:space="preserve">
+    <value>Annuler l'abandon</value>
+  </data>
+  <data name="Collection changed discard and quit?" xml:space="preserve">
+    <value>Votre collection de créatures a été modifiée depuis sa dernière sauvegarde. Êtes-vous sûr de vouloir annuler vos modifications et quitter sans sauvegarder ?</value>
+  </data>
+  <data name="Collection changed discard and new?" xml:space="preserve">
+    <value>Votre collection de créatures a été modifiée depuis sa dernière sauvegarde. Êtes-vous sûr de vouloir annuler vos modifications et créer une nouvelle bibliothèque sans sauvegarder ?</value>
+  </data>
+  <data name="Discard changes and new" xml:space="preserve">
+    <value>Annuler les modifications et créer une nouvelle bibliothèque</value>
   </data>
 </root>
