@@ -2920,13 +2920,14 @@ namespace ARKBreedingStats
                 wildLevels[(int)StatNames.Torpidity] = _statIOs[(int)StatNames.Torpidity].LevelWild;
 
             statsMultiplierTesting1.SetCreatureValues(statValues,
-               wildLevels,
+                wildLevels,
                 GetCurrentDomLevels(false),
                 (int)numericUpDownLevel.Value,
                 (double)NumericUpDownTestingTE.Value / 100,
                 (double)(fromExtractor ? numericUpDownImprintingBonusExtractor.Value : numericUpDownImprintingBonusTester.Value) / 100,
                 fromExtractor ? rbTamedExtractor.Checked : rbTamedTester.Checked,
-                fromExtractor ? rbBredExtractor.Checked : rbBredTester.Checked);
+                fromExtractor ? rbBredExtractor.Checked : rbBredTester.Checked,
+                speciesSelector1.SelectedSpecies);
             tabControlMain.SelectedTab = tabPageMultiplierTesting;
         }
 

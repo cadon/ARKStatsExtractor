@@ -699,7 +699,7 @@
             // 
             // nudStatValue
             // 
-            this.nudStatValue.DecimalPlaces = 2;
+            this.nudStatValue.DecimalPlaces = 6;
             this.nudStatValue.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudStatValue.Location = new System.Drawing.Point(897, 3);
             this.nudStatValue.Maximum = new decimal(new int[] {

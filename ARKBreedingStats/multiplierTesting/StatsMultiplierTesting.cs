@@ -214,7 +214,11 @@ namespace ARKBreedingStats.multiplierTesting
 
         public void SetSpecies(Species species, bool forceUpdate = false)
         {
-            if (species != null && (forceUpdate || cbUpdateOnSpeciesChange.Checked))
+            if (species != null
+                && (forceUpdate
+                    || (_selectedSpecies != species && cbUpdateOnSpeciesChange.Checked)
+                    )
+                )
             {
                 _selectedSpecies = species;
 
@@ -249,9 +253,15 @@ namespace ARKBreedingStats.multiplierTesting
         /// <param name="IB">Imprinting Bonus of the creature</param>
         /// <param name="tamed"></param>
         /// <param name="bred"></param>
-        public void SetCreatureValues(double[] statValues, int[] levelsWild, int[] levelsDom, int totalLevel, double TE, double IB, bool tamed, bool bred)
+        public void SetCreatureValues(double[] statValues, int[] levelsWild, int[] levelsDom, int totalLevel, double TE, double IB, bool tamed, bool bred, Species species)
         {
             int level = 1;
+
+            for (int s = 0; s < Values.STATS_COUNT; s++)
+                _statControls[s].BeginUpdate();
+
+            SetSpecies(species);
+
             if (statValues != null)
             {
                 for (int s = 0; s < Values.STATS_COUNT; s++)
@@ -273,11 +283,15 @@ namespace ARKBreedingStats.multiplierTesting
             }
             SetTE(TE);
             SetIB(IB);
+
             if (tamed)
                 rbTamed.Checked = true;
             else if (bred)
                 rbBred.Checked = true;
             else rbWild.Checked = true;
+
+            for (int s = 0; s < Values.STATS_COUNT; s++)
+                _statControls[s].EndUpdate(true);
 
             nudCreatureLevel.Value = level > totalLevel ? level : totalLevel;
 

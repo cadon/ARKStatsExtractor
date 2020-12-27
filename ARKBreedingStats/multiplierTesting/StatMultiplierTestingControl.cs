@@ -79,15 +79,17 @@ namespace ARKBreedingStats.multiplierTesting
         /// </summary>
         private double[] _altStatValues;
 
+        private const int DecimalPlaces = 6;
+
         public StatMultiplierTestingControl()
         {
             InitializeComponent();
-            updateValues = true;
             Percent = false;
             _NoIB = false;
             _IBM = 1;
             nudTBHM.NeutralNumber = 1;
             SetSinglePlayerSettings();
+            updateValues = true;
         }
 
         private void UpdateCalculations(bool forceUpdate = false)
@@ -97,21 +99,21 @@ namespace ARKBreedingStats.multiplierTesting
 
             // ValueWild
             double Vw = (double)nudB.Value * (1 + (double)nudLw.Value * (double)nudIw.Value * _spIw * (double)nudIwM.Value);
-            string VwDisplay = Math.Round(Vw * (_percent ? 100 : 1), 4) + (_percent ? "%" : string.Empty);
+            string VwDisplay = Math.Round(Vw * (_percent ? 100 : 1), DecimalPlaces) + (_percent ? "%" : string.Empty);
             tbVw.Text = $"{nudB.Value} * ( 1 + {nudLw.Value} * {nudIw.Value}{(_spIw != 1 ? " * " + _spIw : string.Empty)} * {nudIwM.Value} ) = {VwDisplay}";
             if (_tamed || _bred)
             {
                 // ValueDom
                 Vd = (Vw * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * _sIBM : 1) + (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * _spTa : 1))
                         * (1 + (nudTm.Value > 0 ? (_bred ? 1 : _TE) * (double)nudTm.Value * (double)nudTmM.Value * _spTm : (double)nudTm.Value));
-                string VdDisplay = Math.Round(Vd * (_percent ? 100 : 1), 4) + (_percent ? "%" : string.Empty);
+                string VdDisplay = Math.Round(Vd * (_percent ? 100 : 1), DecimalPlaces) + (_percent ? "%" : string.Empty);
                 tbVd.Text = "( " + VwDisplay + (nudTBHM.Value != 1 ? " * " + nudTBHM.Value : string.Empty) + (!_NoIB && _bred ? " * ( 1 + " + _IB + " * " + _IBM + $" * {_sIBM} )" : string.Empty)
                         + " + " + nudTa.Value + (nudTa.Value > 0 ? " * " + nudTaM.Value + (_spTa != 1 ? " * " + _spTa : string.Empty) : string.Empty) + " ) "
                         + " * ( 1 + " + (nudTm.Value > 0 ? (_bred ? 1 : _TE) + " * " + nudTm.Value + " * " + nudTmM.Value + (_spTm != 1 ? " * " + _spTm : string.Empty) : nudTm.Value.ToString()) + " )"
                         + " = " + VdDisplay;
                 // Value
                 V = Vd * (1 + (double)nudLd.Value * (double)nudId.Value * _spId * (double)nudIdM.Value);
-                string VDisplay = Math.Round(V * (_percent ? 100 : 1), 4) + (_percent ? "%" : string.Empty);
+                string VDisplay = Math.Round(V * (_percent ? 100 : 1), DecimalPlaces) + (_percent ? "%" : string.Empty);
                 tbV.Text = $"{VdDisplay} * ( 1 + {nudLd.Value} * {nudId.Value}{(_spId != 1 ? " * " + _spId : string.Empty)} * {nudIdM.Value} ) = {VDisplay}";
             }
             else
@@ -138,13 +140,14 @@ namespace ARKBreedingStats.multiplierTesting
                 if (value != null && value.Length == 4)
                 {
                     _multipliersOfSettings = value;
+                    var updateValuesKeeper = updateValues;
                     updateValues = false;
                     // 0:tamingadd, 1:tamingmult, 2:levelupdom, 3:levelupwild
                     nudTaM.Value = (decimal)value[0];
                     nudTmM.Value = (decimal)value[1];
                     nudIdM.Value = (decimal)value[2];
                     nudIwM.Value = (decimal)value[3];
-                    UpdateCalculations(true);
+                    UpdateCalculations(updateValuesKeeper);
                 }
             }
         }
@@ -155,6 +158,7 @@ namespace ARKBreedingStats.multiplierTesting
             {
                 _statValues = new double[5];
 
+                var updateValuesKeeper = updateValues;
                 updateValues = false;
                 nudB.Value = (decimal)(_statValues[0] = customOverrides?[0] ?? statValues[0]);
                 nudIw.Value = (decimal)(_statValues[1] = customOverrides?[1] ?? statValues[1]);
@@ -168,7 +172,7 @@ namespace ARKBreedingStats.multiplierTesting
                 CbTrodId.Visible = _altStatValues != null && _altStatValues[2] != _statValues[2];
                 CbTrodTa.Visible = _altStatValues != null && _altStatValues[3] != _statValues[3];
                 CbTrodTm.Visible = _altStatValues != null && _altStatValues[4] != _statValues[4];
-                UpdateCalculations(true);
+                UpdateCalculations(updateValuesKeeper);
             }
         }
 
@@ -756,6 +760,24 @@ namespace ARKBreedingStats.multiplierTesting
         {
             nudTm.Value = (decimal)(((CheckBox)sender).Checked ? _altStatValues[4] : _statValues[4]);
             UpdateCalculations(true);
+        }
+
+        /// <summary>
+        /// Calculations are not performed until EndUpdate() is called or a forceUpdate is performed.
+        /// </summary>
+        public void BeginUpdate()
+        {
+            updateValues = false;
+        }
+
+        /// <summary>
+        /// Updates are possible by value changes again.
+        /// </summary>
+        public void EndUpdate(bool doUpdate = false)
+        {
+            updateValues = true;
+            if (doUpdate)
+                UpdateCalculations(true);
         }
     }
 }
