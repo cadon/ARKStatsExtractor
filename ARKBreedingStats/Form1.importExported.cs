@@ -129,8 +129,8 @@ namespace ARKBreedingStats
 
             // moving to the archived folder can trigger another fileWatcherEvent, first check if the file is still there
             if (File.Exists(filePath))
-                // filewatcher is on another thread, invoke ui-thread to work with ui
-                Invoke(new Action(delegate () { ImportExportedAddIfPossible(filePath); }));
+                // fileWatcher is on another thread, invoke ui-thread to work with ui
+                Invoke(new Action(delegate { ImportExportedAddIfPossible(filePath); }));
 
             fwe.Watching = true;
         }

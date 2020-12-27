@@ -15,7 +15,7 @@ namespace ARKBreedingStats
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1()
+            Application.Run(new Form1
             {
                 Font = new System.Drawing.Font(Properties.Settings.Default.DefaultFontName, Properties.Settings.Default.DefaultFontSize)
             });
@@ -26,20 +26,19 @@ namespace ARKBreedingStats
             Exception e = (Exception)args.ExceptionObject;
             if (e is ConfigurationErrorsException ex)
             {
-                if (ex.InnerException is ConfigurationErrorsException)
+                if (ex.InnerException is ConfigurationErrorsException configEx)
                 {
-                    ex = (ConfigurationErrorsException)ex.InnerException;
                     switch (MessageBox.Show("Error while accessing the configuration file.\n\n" +
                             $"Message:\n{e.Message}\n" +
-                            $"{ex.Message}\n" +
-                            $"File: {ex.Filename}\n\n" +
+                            $"{configEx.Message}\n" +
+                            $"File: {configEx.Filename}\n\n" +
                             "Ark Smart Breeding will stop now.\n" +
                             "Should the file be deleted? This might fix it.\n" +
                             "The library file remains untouched.",
-                            $"Error reading configuration - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error))
+                            $"Error reading configuration- {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error))
                     {
                         case DialogResult.Yes:
-                            File.Delete(ex.Filename);
+                            File.Delete(configEx.Filename);
                             //Properties.Settings.Default.Reload();
                             break;
                     }
@@ -52,7 +51,7 @@ namespace ARKBreedingStats
                     MessageBox.Show("Error while accessing the configuration file.\n\n" +
                             $"Message:\n{e.Message}\n\n" +
                             "Ark Smart Breeding will stop now.\n" +
-                            $"You can try to delete/rename the folder {folder}",
+                            $"You can try to delete/rename the folder\n{folder}",
                             $"Error reading configuration - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 Environment.Exit(0);
