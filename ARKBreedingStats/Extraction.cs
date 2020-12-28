@@ -66,6 +66,7 @@ namespace ARKBreedingStats
             UniqueResults = false;
             StatsWithTE.Clear();
             _imprintingBonusRange = new MinMaxDouble(0);
+            ImprintingBonus = 0;
             LevelWildSum = 0;
             LevelDomSum = 0;
         }
@@ -102,27 +103,30 @@ namespace ARKBreedingStats
                 && species.name != "Jerboa"
                 ;
 
-            this._bred = bred;
+            _bred = bred;
             PostTamed = bred || tamed;
 
-            List<MinMaxDouble> imprintingBonusList = new List<MinMaxDouble> { new MinMaxDouble(0) };
+            List<MinMaxDouble> imprintingBonusList = null;
             if (bred)
             {
                 if (!adjustImprinting)
                 {
-                    imprintingBonusList[0] = new MinMaxDouble(imprintingBonusRounded);
+                    imprintingBonusList = new List<MinMaxDouble> { new MinMaxDouble(imprintingBonusRounded) };
                 }
                 else
                 {
                     imprintingBonusList = CalculateImprintingBonus(species, imprintingBonusRounded, imprintingBonusMultiplier, statIOs[(int)StatNames.Torpidity].Input, statIOs[(int)StatNames.Food].Input);
                 }
             }
+            if (imprintingBonusList == null)
+                imprintingBonusList = new List<MinMaxDouble> { new MinMaxDouble(0) };
 
             for (int IBi = 0; IBi < imprintingBonusList.Count; IBi++)
             {
                 _imprintingBonusRange = imprintingBonusList[IBi];
-                _imprintingBonusRange.SetToIntersectionWith(0, (allowMoreThanHundredImprinting ? 5 : 1)); // it's assumed that a valid IB will not be larger than 500%
-
+                // don't cut off too much possible values, consider a margin of 0.01 to not sort out possible correct values
+                _imprintingBonusRange.SetToIntersectionWith(-.01, allowMoreThanHundredImprinting ? 5 : 1.01); // it's assumed that a valid IB will not be larger than 500%
+                ImprintingBonus = Math.Max(0, Math.Min(allowMoreThanHundredImprinting ? 5 : 1, _imprintingBonusRange.Mean));
 
                 var imprintingMultiplierRanges = new MinMaxDouble[Values.STATS_COUNT];
                 for (int s = 0; s < Values.STATS_COUNT; s++)
@@ -792,8 +796,8 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// The mean of the calculated imprinting bonus range.
+        /// The mean of the calculated imprinting bonus range, then clamped to the allowed range.
         /// </summary>
-        public double ImprintingBonus => _imprintingBonusRange.Mean;
+        public double ImprintingBonus;
     }
 }
