@@ -598,6 +598,17 @@ namespace ARKBreedingStats.multiplierTesting
             }
         }
 
+        /// <summary>
+        /// If the value of the Nud is not the default value, highlight the reset button.
+        /// </summary>
+        /// <param name="nud"></param>
+        /// <param name="defaultValue"></param>
+        /// <param name="resetIwM"></param>
+        private void SetResetButtonColor(Nud nud, double defaultValue, Button resetButton)
+        {
+            resetButton.BackColor = (double)nud.Value == defaultValue ? SystemColors.Control : Color.LightSalmon;
+        }
+
         private void nudB_ValueChanged(object sender, EventArgs e)
         {
             UpdateCalculations();
@@ -618,6 +629,7 @@ namespace ARKBreedingStats.multiplierTesting
             SetBackColorDependingOnNeutral(nudLw, Color.FromArgb(0, 170, 28),
                     nudIw, Color.FromArgb(219, 253, 201),
                     nudIwM, Color.FromArgb(167, 246, 125));
+            SetResetButtonColor(nudIwM, _multipliersOfSettings[3], btResetIwM);
         }
 
         private void nudTBHM_ValueChanged(object sender, EventArgs e)
@@ -632,6 +644,7 @@ namespace ARKBreedingStats.multiplierTesting
             if (_tamed || _bred)
                 SetBackColorDependingOnNeutral(nudTa, Color.FromArgb(255, 233, 203),
                         nudTaM, Color.FromArgb(255, 202, 129));
+            SetResetButtonColor(nudTaM, _multipliersOfSettings[0], btResetTaM);
         }
 
         private void nudTm_ValueChanged(object sender, EventArgs e)
@@ -640,6 +653,7 @@ namespace ARKBreedingStats.multiplierTesting
             if (_tamed || _bred)
                 SetBackColorDependingOnNeutral(nudTm, Color.FromArgb(202, 227, 249),
                         nudTmM, Color.FromArgb(124, 181, 229));
+            SetResetButtonColor(nudTmM, _multipliersOfSettings[1], btResetTmM);
         }
 
         private void nudLd_ValueChanged(object sender, EventArgs e)
@@ -657,6 +671,7 @@ namespace ARKBreedingStats.multiplierTesting
             SetBackColorDependingOnNeutral(nudLd, Color.FromArgb(242, 41, 81),
                     nudId, Color.FromArgb(254, 202, 213),
                     nudIdM, Color.FromArgb(250, 127, 153));
+            SetResetButtonColor(nudIdM, _multipliersOfSettings[2], btResetIdM);
         }
 
         private enum ControlsInUse

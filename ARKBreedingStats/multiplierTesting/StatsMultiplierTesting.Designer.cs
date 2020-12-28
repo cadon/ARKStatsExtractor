@@ -83,6 +83,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.setAllWildLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.LbBlueprintPath = new System.Windows.Forms.Label();
             this.nudTE = new ARKBreedingStats.uiControls.Nud();
             this.nudIBM = new ARKBreedingStats.uiControls.Nud();
             this.nudIB = new ARKBreedingStats.uiControls.Nud();
@@ -111,6 +112,7 @@
             this.flowLayoutPanel1.Controls.Add(this.groupBox5);
             this.flowLayoutPanel1.Controls.Add(this.btUseMultipliersFromSettings);
             this.flowLayoutPanel1.Controls.Add(this.llStatCalculation);
+            this.flowLayoutPanel1.Controls.Add(this.LbBlueprintPath);
             this.flowLayoutPanel1.Controls.Add(this.groupBox1);
             this.flowLayoutPanel1.Controls.Add(this.groupBox2);
             this.flowLayoutPanel1.Controls.Add(this.groupBox3);
@@ -209,7 +211,7 @@
             this.groupBox1.Controls.Add(this.rbBred);
             this.groupBox1.Controls.Add(this.rbTamed);
             this.groupBox1.Controls.Add(this.rbWild);
-            this.groupBox1.Location = new System.Drawing.Point(3, 53);
+            this.groupBox1.Location = new System.Drawing.Point(3, 74);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(167, 49);
             this.groupBox1.TabIndex = 4;
@@ -253,7 +255,7 @@
             // 
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.nudTE);
-            this.groupBox2.Location = new System.Drawing.Point(176, 53);
+            this.groupBox2.Location = new System.Drawing.Point(176, 74);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(121, 49);
             this.groupBox2.TabIndex = 5;
@@ -274,7 +276,7 @@
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.nudIBM);
             this.groupBox3.Controls.Add(this.nudIB);
-            this.groupBox3.Location = new System.Drawing.Point(303, 53);
+            this.groupBox3.Location = new System.Drawing.Point(303, 74);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(213, 49);
             this.groupBox3.TabIndex = 6;
@@ -293,7 +295,7 @@
             // gbFineAdjustment
             // 
             this.gbFineAdjustment.Controls.Add(this.tbFineAdjustments);
-            this.gbFineAdjustment.Location = new System.Drawing.Point(522, 53);
+            this.gbFineAdjustment.Location = new System.Drawing.Point(522, 74);
             this.gbFineAdjustment.Name = "gbFineAdjustment";
             this.gbFineAdjustment.Size = new System.Drawing.Size(376, 49);
             this.gbFineAdjustment.TabIndex = 7;
@@ -316,7 +318,7 @@
             // 
             this.lBDummyEmptyFlowBreak.AutoSize = true;
             this.flowLayoutPanel1.SetFlowBreak(this.lBDummyEmptyFlowBreak, true);
-            this.lBDummyEmptyFlowBreak.Location = new System.Drawing.Point(904, 50);
+            this.lBDummyEmptyFlowBreak.Location = new System.Drawing.Point(904, 71);
             this.lBDummyEmptyFlowBreak.Name = "lBDummyEmptyFlowBreak";
             this.lBDummyEmptyFlowBreak.Size = new System.Drawing.Size(0, 13);
             this.lBDummyEmptyFlowBreak.TabIndex = 11;
@@ -337,7 +339,7 @@
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
             this.flowLayoutPanel1.SetFlowBreak(this.panel1, true);
-            this.panel1.Location = new System.Drawing.Point(3, 108);
+            this.panel1.Location = new System.Drawing.Point(3, 129);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1005, 29);
             this.panel1.TabIndex = 8;
@@ -478,7 +480,7 @@
             this.gbLevel.Controls.Add(this.lbLevelSumWild);
             this.gbLevel.Controls.Add(this.label16);
             this.gbLevel.Controls.Add(this.nudCreatureLevel);
-            this.gbLevel.Location = new System.Drawing.Point(3, 143);
+            this.gbLevel.Location = new System.Drawing.Point(3, 164);
             this.gbLevel.Name = "gbLevel";
             this.gbLevel.Size = new System.Drawing.Size(200, 81);
             this.gbLevel.TabIndex = 9;
@@ -515,7 +517,7 @@
             // LbAbbreviations
             // 
             this.LbAbbreviations.AutoSize = true;
-            this.LbAbbreviations.Location = new System.Drawing.Point(209, 140);
+            this.LbAbbreviations.Location = new System.Drawing.Point(209, 161);
             this.LbAbbreviations.Name = "LbAbbreviations";
             this.LbAbbreviations.Size = new System.Drawing.Size(619, 13);
             this.LbAbbreviations.TabIndex = 13;
@@ -654,6 +656,16 @@
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Text = "Set all Dom levels to the closest value";
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Click += new System.EventHandler(this.setAllDomLevelsToTheClosestValueToolStripMenuItem_Click);
+            // 
+            // LbBlueprintPath
+            // 
+            this.flowLayoutPanel1.SetFlowBreak(this.LbBlueprintPath, true);
+            this.LbBlueprintPath.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.LbBlueprintPath.Location = new System.Drawing.Point(3, 50);
+            this.LbBlueprintPath.Name = "LbBlueprintPath";
+            this.LbBlueprintPath.Size = new System.Drawing.Size(901, 21);
+            this.LbBlueprintPath.TabIndex = 14;
+            this.LbBlueprintPath.Text = "blueprintPath";
             // 
             // nudTE
             // 
@@ -831,5 +843,6 @@
         private System.Windows.Forms.ToolStripMenuItem setAllDomLevelsToTheClosestValueToolStripMenuItem;
         private System.Windows.Forms.Button btUseMultipliersFromSettings;
         private System.Windows.Forms.Label LbAbbreviations;
+        private System.Windows.Forms.Label LbBlueprintPath;
     }
 }

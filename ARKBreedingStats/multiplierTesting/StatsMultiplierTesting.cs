@@ -221,6 +221,7 @@ namespace ARKBreedingStats.multiplierTesting
                 )
             {
                 _selectedSpecies = species;
+                LbBlueprintPath.Text = $"BlueprintPath: {species.blueprintPath}";
 
                 double?[][] customStatOverrides = null;
                 bool customStatsAvailable =
