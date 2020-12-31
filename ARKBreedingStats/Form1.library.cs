@@ -664,8 +664,17 @@ namespace ARKBreedingStats
             listViewLibrary.EndUpdate();
 
             // highlight filter input if something is entered and no results are available
-            ToolStripTextBoxLibraryFilter.BackColor = string.IsNullOrEmpty(ToolStripTextBoxLibraryFilter.Text) || items.Any()
-                ? SystemColors.Window : Color.LightSalmon;
+            if (string.IsNullOrEmpty(ToolStripTextBoxLibraryFilter.Text))
+            {
+                ToolStripTextBoxLibraryFilter.BackColor = SystemColors.Window;
+                ToolStripButtonLibraryFilterClear.BackColor = SystemColors.Control;
+            }
+            else
+            {
+                // if no items are shown, shade red, if something is shown and potentially some are sorted out, shade yellow
+                ToolStripTextBoxLibraryFilter.BackColor = items.Any() ? Color.LightGoldenrodYellow : Color.LightSalmon;
+                ToolStripButtonLibraryFilterClear.BackColor = Color.Orange;
+            }
         }
 
         /// <summary>
@@ -1072,6 +1081,10 @@ namespace ARKBreedingStats
                     || (c.server?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
                     || (c.tags?.Any(t => string.Equals(t, f, StringComparison.InvariantCultureIgnoreCase)) ?? false)
                 ));
+            }
+            else
+            {
+
             }
 
             // display new results
