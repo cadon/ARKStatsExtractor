@@ -1082,10 +1082,6 @@ namespace ARKBreedingStats
                     || (c.tags?.Any(t => string.Equals(t, f, StringComparison.InvariantCultureIgnoreCase)) ?? false)
                 ));
             }
-            else
-            {
-
-            }
 
             // display new results
             ShowCreaturesInListView(filteredList);

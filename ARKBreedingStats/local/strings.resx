@@ -1284,4 +1284,17 @@ The preset can be applied by the Apply Preset button</value>
   <data name="Discard changes and new" xml:space="preserve">
     <value>Discard changes and create new library</value>
   </data>
+  <data name="ToolStripLabelFilter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="ToolStripLabelFilterTT" xml:space="preserve">
+    <value>Filters the library. Multiple search words are separated by commas. Considered are the creature's
+Name
+Owner
+Tribe
+Note
+Ark id in game
+Server
+Tags</value>
+  </data>
 </root>

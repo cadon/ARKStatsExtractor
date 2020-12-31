@@ -3145,6 +3145,31 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filter.
+        /// </summary>
+        internal static string ToolStripLabelFilter {
+            get {
+                return ResourceManager.GetString("ToolStripLabelFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filters the library. Multiple search words are separated by commas. Considered are the creature&apos;s
+        ///Name
+        ///Owner
+        ///Tribe
+        ///Note
+        ///Ark id in game
+        ///Server
+        ///Tags.
+        /// </summary>
+        internal static string ToolStripLabelFilterTT {
+            get {
+                return ResourceManager.GetString("ToolStripLabelFilterTT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Top.
         /// </summary>
         internal static string Top {

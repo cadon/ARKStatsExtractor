@@ -149,6 +149,7 @@ namespace ARKBreedingStats
             columnHeaderColor3.Text = Loc.S("C3");
             columnHeaderColor4.Text = Loc.S("C4");
             columnHeaderColor5.Text = Loc.S("C5");
+            Loc.ControlText(ToolStripLabelFilter);
 
             // other tabs
             Loc.ControlText(tabPagePedigree, "pedigree");
