@@ -195,7 +195,7 @@ namespace ARKBreedingStats
             this.columnHeaderNote = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderServer = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderSex = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderAdded = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderDomesticated = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTopness = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTopStatsNr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderGen = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -1985,7 +1985,7 @@ namespace ARKBreedingStats
             this.columnHeaderNote,
             this.columnHeaderServer,
             this.columnHeaderSex,
-            this.columnHeaderAdded,
+            this.columnHeaderDomesticated,
             this.columnHeaderTopness,
             this.columnHeaderTopStatsNr,
             this.columnHeaderGen,
@@ -2060,10 +2060,10 @@ namespace ARKBreedingStats
             this.columnHeaderSex.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeaderSex.Width = 22;
             // 
-            // columnHeaderAdded
+            // columnHeaderDomesticated
             // 
-            this.columnHeaderAdded.DisplayIndex = 23;
-            this.columnHeaderAdded.Text = "Added";
+            this.columnHeaderDomesticated.DisplayIndex = 23;
+            this.columnHeaderDomesticated.Text = "Domesticated";
             // 
             // columnHeaderTopness
             // 
@@ -3410,7 +3410,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.Button button2TamingCalc;
         private System.Windows.Forms.Label labelTamingInfo;
         private System.Windows.Forms.GroupBox groupBoxTamingInfo;
-        private System.Windows.Forms.ColumnHeader columnHeaderAdded;
+        private System.Windows.Forms.ColumnHeader columnHeaderDomesticated;
         private System.Windows.Forms.Label lbImprintingFailInfo;
         private System.Windows.Forms.Label lbImprintedCount;
         private System.Windows.Forms.Label lbImprintingCuddleCountExtractor;

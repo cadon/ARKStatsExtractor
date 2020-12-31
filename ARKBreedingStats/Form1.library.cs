@@ -69,13 +69,11 @@ namespace ARKBreedingStats
                 mutationsMaternal = input.MutationCounterMother,
                 mutationsPaternal = input.MutationCounterFather,
                 Status = input.CreatureStatus,
-                colors = input.RegionColors
+                colors = input.RegionColors,
+                guid = fromExtractor && input.CreatureGuid != Guid.Empty ? input.CreatureGuid : Guid.NewGuid(),
+                ArkId = input.ArkId
             };
 
-            // Ids: ArkId and Guid
-            creature.guid = fromExtractor && input.CreatureGuid != Guid.Empty ? input.CreatureGuid : Guid.NewGuid();
-
-            creature.ArkId = input.ArkId;
             creature.ArkIdImported = Utils.IsArkIdImported(creature.ArkId, creature.guid);
             creature.InitializeArkInGame();
 
@@ -760,7 +758,7 @@ namespace ARKBreedingStats
             double colorFactor = 100d / _creatureCollection.maxChartLevel;
             DateTime? cldGr = cr.cooldownUntil.HasValue && cr.growingUntil.HasValue ?
                 (cr.cooldownUntil.Value > cr.growingUntil.Value ? cr.cooldownUntil.Value : cr.growingUntil.Value)
-                : cr.cooldownUntil ?? (cr.growingUntil);
+                : cr.cooldownUntil ?? cr.growingUntil;
 
             string[] subItems = new[]
                     {
@@ -769,7 +767,7 @@ namespace ARKBreedingStats
                             cr.note,
                             cr.server,
                             Utils.SexSymbol(cr.sex),
-                            cr.domesticatedAt?.ToString("yyyy'-'MM'-'dd HH':'mm':'ss") ?? "?",
+                            cr.domesticatedAt?.ToString("yyyy'-'MM'-'dd HH':'mm':'ss") ?? string.Empty,
                             (cr.topness / 10).ToString(),
                             cr.topStatsCount.ToString(),
                             cr.generation.ToString(),
@@ -856,7 +854,7 @@ namespace ARKBreedingStats
                 lvi.SubItems[7].ForeColor = Color.LightGray;
             }
 
-            // color for timestamp added
+            // color for timestamp domesticated
             if (cr.domesticatedAt == null || cr.domesticatedAt.Value.Year < 2015)
             {
                 lvi.SubItems[5].Text = "n/a";

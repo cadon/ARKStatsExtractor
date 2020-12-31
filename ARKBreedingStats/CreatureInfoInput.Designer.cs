@@ -57,7 +57,7 @@ namespace ARKBreedingStats
             this.dhmsInputCooldown = new ARKBreedingStats.uiControls.dhmsInput();
             this.nudMaturation = new ARKBreedingStats.uiControls.Nud();
             this.cbNeutered = new System.Windows.Forms.CheckBox();
-            this.dateTimePickerAdded = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerDomesticatedAt = new System.Windows.Forms.DateTimePicker();
             this.buttonStatus = new System.Windows.Forms.Button();
             this.buttonSex = new System.Windows.Forms.Button();
             this.lbNewMutations = new System.Windows.Forms.Label();
@@ -115,7 +115,7 @@ namespace ARKBreedingStats
             this.gbCreatureInfo.Controls.Add(this.dhmsInputCooldown);
             this.gbCreatureInfo.Controls.Add(this.nudMaturation);
             this.gbCreatureInfo.Controls.Add(this.cbNeutered);
-            this.gbCreatureInfo.Controls.Add(this.dateTimePickerAdded);
+            this.gbCreatureInfo.Controls.Add(this.dateTimePickerDomesticatedAt);
             this.gbCreatureInfo.Controls.Add(this.buttonStatus);
             this.gbCreatureInfo.Controls.Add(this.buttonSex);
             this.gbCreatureInfo.Controls.Add(this.lbNewMutations);
@@ -434,15 +434,15 @@ namespace ARKBreedingStats
             this.cbNeutered.Text = "Neutered";
             this.cbNeutered.UseVisualStyleBackColor = true;
             // 
-            // dateTimePickerAdded
+            // dateTimePickerDomesticatedAt
             // 
-            this.dateTimePickerAdded.Checked = false;
-            this.dateTimePickerAdded.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePickerAdded.Location = new System.Drawing.Point(180, 440);
-            this.dateTimePickerAdded.MinDate = new System.DateTime(2014, 12, 31, 0, 0, 0, 0);
-            this.dateTimePickerAdded.Name = "dateTimePickerAdded";
-            this.dateTimePickerAdded.Size = new System.Drawing.Size(76, 20);
-            this.dateTimePickerAdded.TabIndex = 18;
+            this.dateTimePickerDomesticatedAt.Checked = false;
+            this.dateTimePickerDomesticatedAt.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dateTimePickerDomesticatedAt.Location = new System.Drawing.Point(180, 440);
+            this.dateTimePickerDomesticatedAt.MinDate = new System.DateTime(2014, 12, 31, 0, 0, 0, 0);
+            this.dateTimePickerDomesticatedAt.Name = "dateTimePickerDomesticatedAt";
+            this.dateTimePickerDomesticatedAt.Size = new System.Drawing.Size(76, 20);
+            this.dateTimePickerDomesticatedAt.TabIndex = 18;
             // 
             // buttonStatus
             // 
@@ -562,9 +562,9 @@ namespace ARKBreedingStats
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(136, 446);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(38, 13);
+            this.label7.Size = new System.Drawing.Size(41, 13);
             this.label7.TabIndex = 17;
-            this.label7.Text = "Added";
+            this.label7.Text = "Dom at";
             // 
             // lbMaturationPerc
             // 
@@ -700,7 +700,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.Button btSaveChanges;
         private System.Windows.Forms.Label lbCooldown;
         private System.Windows.Forms.Label lbGrownIn;
-        private System.Windows.Forms.DateTimePicker dateTimePickerAdded;
+        private System.Windows.Forms.DateTimePicker dateTimePickerDomesticatedAt;
         private System.Windows.Forms.CheckBox cbNeutered;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lbMaturationPerc;

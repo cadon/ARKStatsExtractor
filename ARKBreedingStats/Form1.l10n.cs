@@ -141,7 +141,7 @@ namespace ARKBreedingStats
             columnHeaderGen.Text = Loc.S("Generation_Abb");
             columnHeaderLW.Text = Loc.S("LevelWild_Abb");
             columnHeaderMutations.Text = Loc.S("Mutations_Abb");
-            columnHeaderAdded.Text = Loc.S("added");
+            columnHeaderDomesticated.Text = Loc.S("domesticatedAt");
             columnHeaderCooldown.Text = Loc.S("cooldownGrowing");
             columnHeaderColor0.Text = Loc.S("C0");
             columnHeaderColor1.Text = Loc.S("C1");
