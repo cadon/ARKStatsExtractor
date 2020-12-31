@@ -818,6 +818,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Click to show file in explorer.
+        /// </summary>
+        internal static string ClickDisplayFile {
+            get {
+                return ResourceManager.GetString("ClickDisplayFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Club.
         /// </summary>
         internal static string Club {

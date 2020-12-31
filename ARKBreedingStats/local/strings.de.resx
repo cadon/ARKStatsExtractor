@@ -1288,4 +1288,7 @@ Ark id im Spiel
 Server
 Tags</value>
   </data>
+  <data name="ClickDisplayFile" xml:space="preserve">
+    <value>Klicken um Datei im Explorer anzuzeigen</value>
+  </data>
 </root>

@@ -37,7 +37,7 @@ namespace ARKBreedingStats
         private bool _libraryNeedsUpdate;
 
         public delegate void CollectionChangedEventHandler(bool changed = true, Species species = null); // if null is passed for species, breeding-related controls are not updated
-        public delegate void SetMessageLabelTextEventHandler(string text = null, MessageBoxIcon icon = MessageBoxIcon.None);
+        public delegate void SetMessageLabelTextEventHandler(string text = null, MessageBoxIcon icon = MessageBoxIcon.None, string actionInfo = null);
 
         private bool _updateTorporInTester;
         private bool _filterListAllowed;
@@ -1210,9 +1210,22 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="text"></param>
         /// <param name="icon"></param>
-        private void SetMessageLabelText(string text = null, MessageBoxIcon icon = MessageBoxIcon.None)
+        private void SetMessageLabelText(string text = null, MessageBoxIcon icon = MessageBoxIcon.None, string actionInfo = null)
         {
             lbLibrarySelectionInfo.Text = text;
+            _librarySelectionInfoClickInfo = actionInfo;
+
+            if (string.IsNullOrEmpty(actionInfo))
+            {
+                lbLibrarySelectionInfo.Cursor = null;
+                _tt.SetToolTip(lbLibrarySelectionInfo, null);
+            }
+            else
+            {
+                lbLibrarySelectionInfo.Cursor = Cursors.Hand;
+                _tt.SetToolTip(lbLibrarySelectionInfo, Loc.S("ClickDisplayFile"));
+            }
+
             switch (icon)
             {
                 case MessageBoxIcon.Information:
@@ -3221,6 +3234,19 @@ namespace ARKBreedingStats
             var (success, result) = await Updater.DownloadSpeciesImages(overwrite).ConfigureAwait(true);
 
             MessageBox.Show(result, $"Species images download - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, success ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+        }
+
+        /// <summary>
+        /// Contains the path to open if the library selection info label is clicked, used to open the folder of the export file.
+        /// </summary>
+        private string _librarySelectionInfoClickInfo;
+        private void lbLibrarySelectionInfo_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(_librarySelectionInfoClickInfo)
+                || !File.Exists(_librarySelectionInfoClickInfo)
+            ) return;
+
+            Process.Start("explorer.exe", $"/select, \"{_librarySelectionInfoClickInfo}\"");
         }
     }
 }
