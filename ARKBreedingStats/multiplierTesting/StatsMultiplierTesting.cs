@@ -230,7 +230,7 @@ namespace ARKBreedingStats.multiplierTesting
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
                     _statControls[s].SetStatValues(_selectedSpecies.fullStatsRaw[s], customStatsAvailable ? customStatOverrides?[s] : null,
-                        _selectedSpecies.altStatsRaw != null && _selectedSpecies.altStatsRaw.TryGetValue(s, out var altV) ? altV : null);
+                        _selectedSpecies.altBaseStatsRaw != null && _selectedSpecies.altBaseStatsRaw.TryGetValue(s, out var altV) ? altV / _selectedSpecies.fullStatsRaw[s][0] : 1);
                     _statControls[s].StatImprintingBonusMultiplier = customStatsAvailable ? customStatOverrides?[Values.STATS_COUNT]?[s] ?? _selectedSpecies.StatImprintMultipliers[s] : _selectedSpecies.StatImprintMultipliers[s];
                     _statControls[s].Visible = species.UsesStat(s);
                 }

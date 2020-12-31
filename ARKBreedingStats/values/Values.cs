@@ -515,20 +515,17 @@ namespace ARKBreedingStats.values
                         sp.stats[s].IncPerWildLevel = GetRawStatValue(s, 1, customOverrideForThisStatExists) * statMultipliers[3];
 
                         // set troodonism values
-                        if (sp.altStats?[s] != null)
+                        if (sp.altStats?[s] != null && sp.stats[s].BaseValue != 0)
                         {
-                            sp.altStats[s].BaseValue = sp.altStatsRaw[s][0];
+                            sp.altStats[s].BaseValue = sp.altBaseStatsRaw[s];
 
-                            // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
-                            addWhenTamed = sp.altStatsRaw[s][3];
-                            sp.altStats[s].AddWhenTamed = addWhenTamed * (addWhenTamed > 0 ? statMultipliers[0] : 1);
+                            // alt / troodonism values depend on the base value
+                            var altFactor = sp.altStats[s].BaseValue / sp.stats[s].BaseValue;
 
-                            // don't apply the multiplier if MultAffinity is negative (e.g. Aberration variants)
-                            multAffinity = sp.altStatsRaw[s][4];
-                            sp.altStats[s].MultAffinity = multAffinity * (multAffinity > 0 ? statMultipliers[1] : 1);
-
-                            sp.altStats[s].IncPerTamedLevel = sp.altStatsRaw[s][2];
-                            sp.altStats[s].IncPerWildLevel = sp.altStatsRaw[s][3];
+                            sp.altStats[s].AddWhenTamed = altFactor * sp.stats[s].AddWhenTamed;
+                            sp.altStats[s].MultAffinity = altFactor * sp.stats[s].MultAffinity;
+                            sp.altStats[s].IncPerTamedLevel = altFactor * sp.stats[s].IncPerTamedLevel;
+                            sp.altStats[s].IncPerWildLevel = altFactor * sp.stats[s].IncPerWildLevel;
                         }
 
                         if (singlePlayerServerMultipliers?.statMultipliers?[s] == null)

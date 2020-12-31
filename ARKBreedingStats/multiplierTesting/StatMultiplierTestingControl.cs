@@ -75,9 +75,9 @@ namespace ARKBreedingStats.multiplierTesting
         /// </summary>
         private double[] _statValues;
         /// <summary>
-        /// The alt / Troodonism values of this stat, if available, else null.
+        /// The factor the correct value is multiplied with to get the alt / Troodonism value.
         /// </summary>
-        private double[] _altStatValues;
+        private double _altStatFactor;
 
         private const int DecimalPlaces = 6;
 
@@ -152,7 +152,7 @@ namespace ARKBreedingStats.multiplierTesting
             }
         }
 
-        public void SetStatValues(double[] statValues, double?[] customOverrides, double[] altStatValues)
+        public void SetStatValues(double[] statValues, double?[] customOverrides, double altStatFactor)
         {
             if (statValues != null && statValues.Length == 5)
             {
@@ -166,12 +166,17 @@ namespace ARKBreedingStats.multiplierTesting
                 nudTa.Value = (decimal)(_statValues[3] = customOverrides?[3] ?? statValues[3]);
                 nudTm.Value = (decimal)(_statValues[4] = customOverrides?[4] ?? statValues[4]);
 
-                _altStatValues = altStatValues;
-                CbTrodB.Visible = _altStatValues != null && _altStatValues[0] != _statValues[0];
-                CbTrodIw.Visible = _altStatValues != null && _altStatValues[1] != _statValues[1];
-                CbTrodId.Visible = _altStatValues != null && _altStatValues[2] != _statValues[2];
-                CbTrodTa.Visible = _altStatValues != null && _altStatValues[3] != _statValues[3];
-                CbTrodTm.Visible = _altStatValues != null && _altStatValues[4] != _statValues[4];
+                _altStatFactor = altStatFactor;
+
+                bool altValuesExist = _altStatFactor != 1;
+
+                CbTrodB.Visible = altValuesExist;
+                CbTrodIw.Visible = altValuesExist;
+                CbTrodId.Visible = altValuesExist;
+                // not sure yet if and how exactly these values are affected by the altBaseValue
+                CbTrodTa.Visible = false;
+                CbTrodTm.Visible = false;
+
                 UpdateCalculations(updateValuesKeeper);
             }
         }
@@ -749,31 +754,31 @@ namespace ARKBreedingStats.multiplierTesting
         // A Troodonism checkbox changed, set according values and recalculate.
         private void CbTrodB_CheckedChanged(object sender, EventArgs e)
         {
-            nudB.Value = (decimal)(((CheckBox)sender).Checked ? _altStatValues[0] : _statValues[0]);
+            nudB.Value = (decimal)((((CheckBox)sender).Checked ? _altStatFactor : 1) * _statValues[0]);
             UpdateCalculations(true);
         }
 
         private void CbTrodIw_CheckedChanged(object sender, EventArgs e)
         {
-            nudIw.Value = (decimal)(((CheckBox)sender).Checked ? _altStatValues[1] : _statValues[1]);
+            nudIw.Value = (decimal)((((CheckBox)sender).Checked ? _altStatFactor : 1) * _statValues[1]);
             UpdateCalculations(true);
         }
 
         private void CbTrodId_CheckedChanged(object sender, EventArgs e)
         {
-            nudId.Value = (decimal)(((CheckBox)sender).Checked ? _altStatValues[2] : _statValues[2]);
+            nudId.Value = (decimal)((((CheckBox)sender).Checked ? _altStatFactor : 1) * _statValues[2]);
             UpdateCalculations(true);
         }
 
         private void CbTrodTa_CheckedChanged(object sender, EventArgs e)
         {
-            nudTa.Value = (decimal)(((CheckBox)sender).Checked ? _altStatValues[3] : _statValues[3]);
+            nudTa.Value = (decimal)((((CheckBox)sender).Checked ? _altStatFactor : 1) * _statValues[3]);
             UpdateCalculations(true);
         }
 
         private void CbTrodTm_CheckedChanged(object sender, EventArgs e)
         {
-            nudTm.Value = (decimal)(((CheckBox)sender).Checked ? _altStatValues[4] : _statValues[4]);
+            nudTm.Value = (decimal)((((CheckBox)sender).Checked ? _altStatFactor : 1) * _statValues[4]);
             UpdateCalculations(true);
         }
 
