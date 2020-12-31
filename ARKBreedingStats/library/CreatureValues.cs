@@ -24,8 +24,16 @@ namespace ARKBreedingStats.Library
         private Species _species;
         [JsonProperty]
         public Guid guid;
+        /// <summary>
+        /// Real Ark Id, not the one displayed ingame. Can only be set by importing a creature.
+        /// </summary>
         [JsonProperty]
         public long ARKID;
+        /// <summary>
+        /// Ark Id like it is shown in game. Is not unique, because it's built by two 32 bit integers concatenated as strings.
+        /// </summary>
+        [JsonProperty]
+        public string ArkIdInGame;
         [JsonProperty]
         public string name;
         [JsonProperty]

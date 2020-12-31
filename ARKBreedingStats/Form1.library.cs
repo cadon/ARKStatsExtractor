@@ -4,7 +4,6 @@ using ARKBreedingStats.uiControls;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -78,6 +77,7 @@ namespace ARKBreedingStats
 
             creature.ArkId = input.ArkId;
             creature.ArkIdImported = Utils.IsArkIdImported(creature.ArkId, creature.guid);
+            creature.InitializeArkInGame();
 
             // parent guids
             if (motherArkId != 0)
@@ -1001,7 +1001,7 @@ namespace ARKBreedingStats
                     $"{selCrs.Count(cr => cr.sex == Sex.Female)} females, " +
                     $"{selCrs.Count(cr => cr.sex == Sex.Male)} males\n" +
                     (cnt == 1
-                        ? $"level: {selCrs[0].Level}" + (selCrs[0].ArkIdImported ? $"; Ark-Id (ingame): {Utils.ConvertImportedArkIdToIngameVisualization(selCrs[0].ArkId)}" : string.Empty)
+                        ? $"level: {selCrs[0].Level}; Ark-Id (ingame): " + (selCrs[0].ArkIdImported ? Utils.ConvertImportedArkIdToIngameVisualization(selCrs[0].ArkId) : selCrs[0].ArkId.ToString())
                         : $"level-range: {selCrs.Min(cr => cr.Level)} - {selCrs.Max(cr => cr.Level)}"
                     ) + "\n" +
                     $"Tags: {string.Join(", ", tagList)}");
@@ -1068,6 +1068,7 @@ namespace ARKBreedingStats
                     || (c.owner?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
                     || (c.tribe?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
                     || (c.note?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
+                    || c.ArkIdInGame.StartsWith(f)
                     || (c.server?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
                     || (c.tags?.Any(t => string.Equals(t, f, StringComparison.InvariantCultureIgnoreCase)) ?? false)
                 ));
@@ -1195,7 +1196,7 @@ namespace ARKBreedingStats
                 if (listViewLibrary.SelectedItems.Count > 0)
                 {
                     // header
-                    var output = new StringBuilder("Species\tName\tSex\tOwner\t");
+                    var output = new StringBuilder("Species\tName\tSex\tOwner\tId ingame\t");
 
                     var suffixe = new List<string> { "w", "d", "b", "v" }; // wild, dom, bred-values, dom-values
                     foreach (var suffix in suffixe)
@@ -1210,7 +1211,7 @@ namespace ARKBreedingStats
                     foreach (ListViewItem l in listViewLibrary.SelectedItems)
                     {
                         Creature c = (Creature)l.Tag;
-                        output.Append("\n" + c.Species.name + "\t" + c.name + "\t" + c.sex + "\t" + c.owner);
+                        output.Append($"\n{c.Species.name}\t{c.name}\t{c.sex}\t{c.owner}\t{c.ArkIdInGame}");
                         for (int s = 0; s < Values.STATS_COUNT; s++)
                         {
                             output.Append("\t" + c.levelsWild[Values.statsDisplayOrder[s]]);

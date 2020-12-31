@@ -92,7 +92,11 @@ namespace ARKBreedingStats
                     }
                 };
             }
+
+            // set tooltips
             _tt = new ToolTip();
+            _tt.SetToolTip(LbArkId, "The real Ark id of the creature, not directly shown in game.\nEach creature has its id stored in two 32 bit integers (id1, id2), this value is created by (id1 << 32) | id2");
+            _tt.SetToolTip(LbArkIdIngame, "The id of the creature like it is shown in game.\nIt is created by the game by two 32 bit integers which are concatenated as strings.");
 
             regionColorChooser1.RegionColorChosen += UpdateRegionColorImage;
         }
@@ -419,22 +423,28 @@ namespace ARKBreedingStats
 
         public void SetArkId(long arkId, bool arkIdImported)
         {
-            tbARKID.Text = arkId.ToString();
             ArkIdImported = arkIdImported;
 
             if (arkIdImported)
             {
-                tbArkIdIngame.Text = Utils.ConvertImportedArkIdToIngameVisualization(arkId);
+                TbArkIdIngame.Text = Utils.ConvertImportedArkIdToIngameVisualization(arkId);
+                TbArkId.Text = arkId.ToString();
             }
-            lbArkIdIngame.Visible = arkIdImported;
-            tbArkIdIngame.Visible = arkIdImported;
+            else
+            {
+                TbArkIdIngame.Text = arkId.ToString();
+            }
+            // if the creature is imported, the id is considered to be correct and the user should not change it.
+            TbArkIdIngame.ReadOnly = arkIdImported;
+            LbArkId.Visible = arkIdImported;
+            TbArkId.Visible = arkIdImported;
         }
 
         public long ArkId
         {
             get
             {
-                long.TryParse(tbARKID.Text, out long result);
+                long.TryParse(ArkIdImported ? TbArkId.Text : TbArkIdIngame.Text, out long result);
                 return result;
             }
         }

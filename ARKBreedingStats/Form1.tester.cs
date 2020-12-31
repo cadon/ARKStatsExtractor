@@ -203,6 +203,7 @@ namespace ARKBreedingStats
             _creatureTesterEdit.mutationsPaternal = creatureInfoInputTester.MutationCounterFather;
             _creatureTesterEdit.colors = creatureInfoInputTester.RegionColors;
             _creatureTesterEdit.ArkId = creatureInfoInputTester.ArkId;
+            _creatureTesterEdit.InitializeArkInGame();
 
             if (wildChanged)
                 CalculateTopStats(_creatureCollection.creatures.Where(c => c.Species == _creatureTesterEdit.Species).ToList());

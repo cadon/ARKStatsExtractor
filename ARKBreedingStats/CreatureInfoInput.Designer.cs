@@ -40,8 +40,8 @@ namespace ARKBreedingStats
             this.btNamingPattern2 = new System.Windows.Forms.Button();
             this.btNamingPatternEditor = new System.Windows.Forms.Button();
             this.btnGenerateUniqueName = new System.Windows.Forms.Button();
-            this.tbArkIdIngame = new System.Windows.Forms.TextBox();
-            this.tbARKID = new System.Windows.Forms.TextBox();
+            this.TbArkIdIngame = new System.Windows.Forms.TextBox();
+            this.TbArkId = new System.Windows.Forms.TextBox();
             this.cbServer = new System.Windows.Forms.ComboBox();
             this.textBoxTribe = new System.Windows.Forms.TextBox();
             this.textBoxNote = new System.Windows.Forms.TextBox();
@@ -61,8 +61,8 @@ namespace ARKBreedingStats
             this.buttonStatus = new System.Windows.Forms.Button();
             this.buttonSex = new System.Windows.Forms.Button();
             this.lbNewMutations = new System.Windows.Forms.Label();
-            this.lbArkIdIngame = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.LbArkIdIngame = new System.Windows.Forms.Label();
+            this.LbArkId = new System.Windows.Forms.Label();
             this.btClearColors = new System.Windows.Forms.Button();
             this.regionColorChooser1 = new ARKBreedingStats.uiControls.RegionColorChooser();
             this.lbServer = new System.Windows.Forms.Label();
@@ -98,8 +98,8 @@ namespace ARKBreedingStats
             this.gbCreatureInfo.Controls.Add(this.btNamingPattern2);
             this.gbCreatureInfo.Controls.Add(this.btNamingPatternEditor);
             this.gbCreatureInfo.Controls.Add(this.btnGenerateUniqueName);
-            this.gbCreatureInfo.Controls.Add(this.tbArkIdIngame);
-            this.gbCreatureInfo.Controls.Add(this.tbARKID);
+            this.gbCreatureInfo.Controls.Add(this.TbArkIdIngame);
+            this.gbCreatureInfo.Controls.Add(this.TbArkId);
             this.gbCreatureInfo.Controls.Add(this.cbServer);
             this.gbCreatureInfo.Controls.Add(this.textBoxTribe);
             this.gbCreatureInfo.Controls.Add(this.textBoxNote);
@@ -119,8 +119,8 @@ namespace ARKBreedingStats
             this.gbCreatureInfo.Controls.Add(this.buttonStatus);
             this.gbCreatureInfo.Controls.Add(this.buttonSex);
             this.gbCreatureInfo.Controls.Add(this.lbNewMutations);
-            this.gbCreatureInfo.Controls.Add(this.lbArkIdIngame);
-            this.gbCreatureInfo.Controls.Add(this.label1);
+            this.gbCreatureInfo.Controls.Add(this.LbArkIdIngame);
+            this.gbCreatureInfo.Controls.Add(this.LbArkId);
             this.gbCreatureInfo.Controls.Add(this.btClearColors);
             this.gbCreatureInfo.Controls.Add(this.regionColorChooser1);
             this.gbCreatureInfo.Controls.Add(this.lbServer);
@@ -238,20 +238,20 @@ namespace ARKBreedingStats
             this.btnGenerateUniqueName.Text = "Generate";
             this.btnGenerateUniqueName.UseVisualStyleBackColor = true;
             // 
-            // tbArkIdIngame
+            // TbArkIdIngame
             // 
-            this.tbArkIdIngame.Location = new System.Drawing.Point(118, 281);
-            this.tbArkIdIngame.Name = "tbArkIdIngame";
-            this.tbArkIdIngame.ReadOnly = true;
-            this.tbArkIdIngame.Size = new System.Drawing.Size(138, 20);
-            this.tbArkIdIngame.TabIndex = 40;
+            this.TbArkIdIngame.Location = new System.Drawing.Point(82, 255);
+            this.TbArkIdIngame.Name = "TbArkIdIngame";
+            this.TbArkIdIngame.Size = new System.Drawing.Size(174, 20);
+            this.TbArkIdIngame.TabIndex = 40;
             // 
-            // tbARKID
+            // TbArkId
             // 
-            this.tbARKID.Location = new System.Drawing.Point(68, 255);
-            this.tbARKID.Name = "tbARKID";
-            this.tbARKID.Size = new System.Drawing.Size(188, 20);
-            this.tbARKID.TabIndex = 8;
+            this.TbArkId.Location = new System.Drawing.Point(68, 281);
+            this.TbArkId.Name = "TbArkId";
+            this.TbArkId.ReadOnly = true;
+            this.TbArkId.Size = new System.Drawing.Size(188, 20);
+            this.TbArkId.TabIndex = 8;
             // 
             // cbServer
             // 
@@ -473,23 +473,23 @@ namespace ARKBreedingStats
             this.lbNewMutations.Text = "+mut";
             this.lbNewMutations.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // lbArkIdIngame
+            // LbArkIdIngame
             // 
-            this.lbArkIdIngame.AutoSize = true;
-            this.lbArkIdIngame.Location = new System.Drawing.Point(5, 284);
-            this.lbArkIdIngame.Name = "lbArkIdIngame";
-            this.lbArkIdIngame.Size = new System.Drawing.Size(72, 13);
-            this.lbArkIdIngame.TabIndex = 41;
-            this.lbArkIdIngame.Text = "Ark-Id ingame";
+            this.LbArkIdIngame.AutoSize = true;
+            this.LbArkIdIngame.Location = new System.Drawing.Point(6, 258);
+            this.LbArkIdIngame.Name = "LbArkIdIngame";
+            this.LbArkIdIngame.Size = new System.Drawing.Size(72, 13);
+            this.LbArkIdIngame.TabIndex = 41;
+            this.LbArkIdIngame.Text = "Ark-Id ingame";
             // 
-            // label1
+            // LbArkId
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 258);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 39;
-            this.label1.Text = "Ark-Id";
+            this.LbArkId.AutoSize = true;
+            this.LbArkId.Location = new System.Drawing.Point(6, 284);
+            this.LbArkId.Name = "LbArkId";
+            this.LbArkId.Size = new System.Drawing.Size(35, 13);
+            this.LbArkId.TabIndex = 39;
+            this.LbArkId.Text = "Ark-Id";
             // 
             // btClearColors
             // 
@@ -721,10 +721,10 @@ namespace ARKBreedingStats
         private System.Windows.Forms.Label label11;
         private uiControls.RegionColorChooser regionColorChooser1;
         private System.Windows.Forms.Button btClearColors;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox tbARKID;
-        private System.Windows.Forms.Label lbArkIdIngame;
-        private System.Windows.Forms.TextBox tbArkIdIngame;
+        private System.Windows.Forms.Label LbArkId;
+        private System.Windows.Forms.TextBox TbArkId;
+        private System.Windows.Forms.Label LbArkIdIngame;
+        private System.Windows.Forms.TextBox TbArkIdIngame;
         private System.Windows.Forms.Label lbNewMutations;
         private System.Windows.Forms.Button btNamingPatternEditor;
         private System.Windows.Forms.Button btNamingPattern6;
