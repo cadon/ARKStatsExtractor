@@ -283,6 +283,7 @@ namespace ARKBreedingStats
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ToolStripStatusLabelImport = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.newToolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.openToolStripButton1 = new System.Windows.Forms.ToolStripButton();
@@ -321,7 +322,8 @@ namespace ARKBreedingStats
             this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetLibraryColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
-            this.ToolStripStatusLabelImport = new System.Windows.Forms.ToolStripStatusLabel();
+            this.saveInfographicsToFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator22 = new System.Windows.Forms.ToolStripSeparator();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -2257,6 +2259,8 @@ namespace ARKBreedingStats
             this.copyValuesToExtractorToolStripMenuItem,
             this.exportToClipboardToolStripMenuItem1,
             this.copyInfographicToClipboardToolStripMenuItem,
+            this.saveInfographicsToFolderToolStripMenuItem,
+            this.toolStripSeparator22,
             this.removeCooldownGrowingToolStripMenuItem,
             this.bestBreedingPartnersToolStripMenuItem,
             this.toolStripMenuItemStatus,
@@ -2268,7 +2272,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator14,
             this.toolStripMenuItemRemove});
             this.contextMenuStripLibrary.Name = "contextMenuStripLibrary";
-            this.contextMenuStripLibrary.Size = new System.Drawing.Size(259, 342);
+            this.contextMenuStripLibrary.Size = new System.Drawing.Size(259, 392);
             this.contextMenuStripLibrary.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripLibrary_Opening);
             // 
             // toolStripMenuItemEdit
@@ -2765,6 +2769,14 @@ namespace ARKBreedingStats
             this.toolStripStatusLabel.Size = new System.Drawing.Size(119, 17);
             this.toolStripStatusLabel.Text = "ToolStripStatusLabel1";
             // 
+            // ToolStripStatusLabelImport
+            // 
+            this.ToolStripStatusLabelImport.BackColor = System.Drawing.Color.Yellow;
+            this.ToolStripStatusLabelImport.Name = "ToolStripStatusLabelImport";
+            this.ToolStripStatusLabelImport.Size = new System.Drawing.Size(125, 17);
+            this.ToolStripStatusLabelImport.Text = "Importing savegame…";
+            this.ToolStripStatusLabelImport.Visible = false;
+            // 
             // toolStrip2
             // 
             this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
@@ -3158,13 +3170,17 @@ namespace ARKBreedingStats
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
-            // ToolStripStatusLabelImport
+            // saveInfographicsToFolderToolStripMenuItem
             // 
-            this.ToolStripStatusLabelImport.BackColor = System.Drawing.Color.Yellow;
-            this.ToolStripStatusLabelImport.Name = "ToolStripStatusLabelImport";
-            this.ToolStripStatusLabelImport.Size = new System.Drawing.Size(125, 17);
-            this.ToolStripStatusLabelImport.Text = "Importing savegame…";
-            this.ToolStripStatusLabelImport.Visible = false;
+            this.saveInfographicsToFolderToolStripMenuItem.Name = "saveInfographicsToFolderToolStripMenuItem";
+            this.saveInfographicsToFolderToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
+            this.saveInfographicsToFolderToolStripMenuItem.Text = "Save Infographics to folder…";
+            this.saveInfographicsToFolderToolStripMenuItem.Click += new System.EventHandler(this.saveInfographicsToFolderToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator22
+            // 
+            this.toolStripSeparator22.Name = "toolStripSeparator22";
+            this.toolStripSeparator22.Size = new System.Drawing.Size(255, 6);
             // 
             // Form1
             // 
@@ -3556,5 +3572,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem recentlyUsedToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator21;
         private System.Windows.Forms.ToolStripStatusLabel ToolStripStatusLabelImport;
+        private System.Windows.Forms.ToolStripMenuItem saveInfographicsToFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator22;
     }
 }

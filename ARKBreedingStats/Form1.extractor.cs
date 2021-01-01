@@ -883,7 +883,7 @@ namespace ARKBreedingStats
             SetCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
             UpdateParentListInput(creatureInfoInputExtractor); // this function is only used for single-creature extractions, e.g. LastExport
             creatureInfoInputExtractor.UpdateExistingCreature = creatureExists;
-            SetMessageLabelText(Loc.S("creatureOfFile") + "\n" + filePath, actionInfo: filePath);
+            SetMessageLabelText(Loc.S("creatureOfFile") + "\n" + filePath, path: filePath);
             return creatureExists;
         }
 

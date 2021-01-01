@@ -1445,5 +1445,17 @@ namespace ARKBreedingStats.Properties {
                 this["LastUsedLibraryFiles"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string InfoGraphicExportFolder {
+            get {
+                return ((string)(this["InfoGraphicExportFolder"]));
+            }
+            set {
+                this["InfoGraphicExportFolder"] = value;
+            }
+        }
     }
 }

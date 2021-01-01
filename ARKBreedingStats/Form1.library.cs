@@ -10,6 +10,8 @@ using System.Text;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.utils;
+using System.IO;
+using ARKBreedingStats.library;
 
 namespace ARKBreedingStats
 {
@@ -1351,6 +1353,59 @@ namespace ARKBreedingStats
         {
             ToolStripTextBoxLibraryFilter.Clear();
             ToolStripTextBoxLibraryFilter.Focus();
+        }
+
+        /// <summary>
+        /// User can select a folder where infoGraphics for all selected creatures are saved.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void saveInfographicsToFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var si = listViewLibrary.SelectedItems;
+            if (si.Count == 0) return;
+
+            var initialFolder = Properties.Settings.Default.InfoGraphicExportFolder;
+            if (string.IsNullOrEmpty(initialFolder) || !Directory.Exists(initialFolder))
+                initialFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            string folderPath = null;
+            using (var fs = new FolderBrowserDialog
+            {
+                SelectedPath = initialFolder
+            })
+            {
+                if (fs.ShowDialog() == DialogResult.OK)
+                    folderPath = fs.SelectedPath;
+            }
+
+            if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath)) return;
+
+            Properties.Settings.Default.InfoGraphicExportFolder = folderPath;
+
+            int imagesCreated = 0;
+
+            foreach (ListViewItem li in si)
+            {
+                var c = (Creature)li.Tag;
+                var filePath = Path.Combine(folderPath, $"info_{c.Species.name}_{c.name}.png");
+                if (File.Exists(filePath))
+                {
+                    switch (MessageBox.Show($"The file\n{filePath}\nalready exists.\nOverwrite the file?", "File exists already", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning))
+                    {
+                        case DialogResult.No: continue;
+                        case DialogResult.Yes: break;
+                        default: return;
+                    }
+                }
+                c.InfoGraphic(_creatureCollection).Save(filePath);
+                imagesCreated++;
+            }
+
+            if (imagesCreated == 0) return;
+
+            var pluralS = (imagesCreated != 1 ? "s" : string.Empty);
+            SetMessageLabelText($"Infographic{pluralS} for {imagesCreated} creature{pluralS} created at\n{folderPath}", MessageBoxIcon.Information, folderPath);
         }
     }
 }

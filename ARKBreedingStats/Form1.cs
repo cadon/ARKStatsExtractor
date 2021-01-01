@@ -1208,14 +1208,15 @@ namespace ARKBreedingStats
         /// <summary>
         /// Sets the text at the top to display infos.
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="icon"></param>
-        private void SetMessageLabelText(string text = null, MessageBoxIcon icon = MessageBoxIcon.None, string actionInfo = null)
+        /// <param name="text">Text to display</param>
+        /// <param name="icon">Backcolor of the label</param>
+        /// <param name="path">If valid path to file or folder, the user can click on the label to display the path in the explorer</param>
+        private void SetMessageLabelText(string text = null, MessageBoxIcon icon = MessageBoxIcon.None, string path = null)
         {
             lbLibrarySelectionInfo.Text = text;
-            _librarySelectionInfoClickInfo = actionInfo;
+            _librarySelectionInfoClickPath = path;
 
-            if (string.IsNullOrEmpty(actionInfo))
+            if (string.IsNullOrEmpty(path))
             {
                 lbLibrarySelectionInfo.Cursor = null;
                 _tt.SetToolTip(lbLibrarySelectionInfo, null);
@@ -1238,6 +1239,23 @@ namespace ARKBreedingStats
                     lbLibrarySelectionInfo.BackColor = SystemColors.Control;
                     break;
             }
+        }
+
+        /// <summary>
+        /// Contains the path to open if the library selection info label is clicked, used to open the path in the explorer.
+        /// </summary>
+        private string _librarySelectionInfoClickPath;
+        private void lbLibrarySelectionInfo_Click(object sender, EventArgs e)
+        {
+            bool isFile = false;
+            if (string.IsNullOrEmpty(_librarySelectionInfoClickPath)) return;
+
+            if (File.Exists(_librarySelectionInfoClickPath))
+                isFile = true;
+            else if (!Directory.Exists(_librarySelectionInfoClickPath))
+                return;
+
+            Process.Start("explorer.exe", $"{(isFile ? "/select, " : string.Empty)}\"{_librarySelectionInfoClickPath}\"");
         }
 
         private void listBoxSpeciesLib_SelectedIndexChanged(object sender, EventArgs e)
@@ -3238,19 +3256,6 @@ namespace ARKBreedingStats
             var (success, result) = await Updater.DownloadSpeciesImages(overwrite).ConfigureAwait(true);
 
             MessageBox.Show(result, $"Species images download - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, success ? MessageBoxIcon.Information : MessageBoxIcon.Error);
-        }
-
-        /// <summary>
-        /// Contains the path to open if the library selection info label is clicked, used to open the folder of the export file.
-        /// </summary>
-        private string _librarySelectionInfoClickInfo;
-        private void lbLibrarySelectionInfo_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(_librarySelectionInfoClickInfo)
-                || !File.Exists(_librarySelectionInfoClickInfo)
-            ) return;
-
-            Process.Start("explorer.exe", $"/select, \"{_librarySelectionInfoClickInfo}\"");
         }
     }
 }
