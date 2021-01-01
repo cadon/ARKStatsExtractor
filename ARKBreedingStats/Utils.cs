@@ -3,7 +3,6 @@ using ARKBreedingStats.species;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Design;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ARKBreedingStats.values;
@@ -522,10 +521,12 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="importedArkId"></param>
         /// <returns>Ingame visualisation of the Ark-Id (not unique in rare cases)</returns>
-        public static string ConvertImportedArkIdToIngameVisualization(long importedArkId)
-        {
-            return ((int)(importedArkId >> 32)).ToString() + ((int)importedArkId).ToString();
-        }
+        public static string ConvertImportedArkIdToIngameVisualization(long importedArkId) => $"{(int)(importedArkId >> 32)}{(int)importedArkId}";
+
+        /// <summary>
+        /// Converts the two 32 bit Ark id parts into one 64 bit Ark id.
+        /// </summary>
+        public static long ConvertArkIdsToLongArkId(int id1, int id2) => ((long)id1 << 32) | (id2 & 0xFFFFFFFFL);
 
         /// <summary>
         /// returns a shortened string with an ellipsis in the middle. One third of the beginning is shown and two thirds of then end

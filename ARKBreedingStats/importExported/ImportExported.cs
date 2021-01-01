@@ -276,7 +276,7 @@ namespace ARKBreedingStats.importExported
         {
             if (int.TryParse(id1, out int id1Int)
                 && int.TryParse(id2, out int id2Int))
-                return ((long)id1Int << 32) | (id2Int & 0xFFFFFFFFL);
+                return Utils.ConvertArkIdsToLongArkId(id1Int, id2Int);
             return 0;
         }
     }
