@@ -144,6 +144,9 @@ namespace ARKBreedingStats.Library
             modListHash = CalculateModListHash(ModList);
         }
 
+        /// <summary>
+        /// Mods currently loaded to this collection.
+        /// </summary>
         public List<Mod> ModList
         {
             set

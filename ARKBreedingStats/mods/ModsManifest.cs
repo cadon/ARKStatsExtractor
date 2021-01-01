@@ -109,7 +109,7 @@ namespace ARKBreedingStats.mods
                 if (fmi.Value.mod == null) continue;
 
                 fmi.Value.mod.FileName = fmi.Key;
-                fmi.Value.locallyAvailable = !string.IsNullOrEmpty(fmi.Value.mod.FileName) && File.Exists(Path.Combine(valuesPath, fmi.Value.mod.FileName));
+                fmi.Value.LocallyAvailable = !string.IsNullOrEmpty(fmi.Value.mod.FileName) && File.Exists(Path.Combine(valuesPath, fmi.Value.mod.FileName));
 
                 if (!string.IsNullOrEmpty(fmi.Value.mod.tag)
                     && !modsByTag.ContainsKey(fmi.Value.mod.tag))
@@ -138,7 +138,7 @@ namespace ARKBreedingStats.mods
                 if (Updater.DownloadModValuesFile(mf)
                     && modsByFiles.ContainsKey(mf))
                 {
-                    modsByFiles[mf].locallyAvailable = true;
+                    modsByFiles[mf].LocallyAvailable = true;
                     filesDownloaded = true;
                 }
             }

@@ -82,20 +82,20 @@ namespace ARKBreedingStats.uiControls
 
             var modToModInfo = modInfos.ToDictionary(mi => mi.mod, mi => mi);
 
-            foreach (ModInfo mi in modInfos) mi.currentlyInLibrary = false;
+            foreach (ModInfo mi in modInfos) mi.CurrentlyInLibrary = false;
 
             foreach (Mod m in cc.ModList)
             {
                 if (modToModInfo.ContainsKey(m))
                 {
                     lbModList.Items.Add(modToModInfo[m]);
-                    modToModInfo[m].currentlyInLibrary = true;
+                    modToModInfo[m].CurrentlyInLibrary = true;
                 }
             }
 
             foreach (ModInfo mi in modInfos)
             {
-                if (!mi.currentlyInLibrary)
+                if (!mi.CurrentlyInLibrary)
                 {
                     lbAvailableModFiles.Items.Add(mi);
                 }
@@ -128,7 +128,7 @@ namespace ARKBreedingStats.uiControls
             LbModVersion.Text = modInfo.version;
             lbModTag.Text = modInfo.mod.tag;
             lbModId.Text = modInfo.mod.id;
-            llbSteamPage.Visible = modInfo.onlineAvailable; // it's assumed that the officially supported mods all have a steam page
+            llbSteamPage.Visible = modInfo.OnlineAvailable; // it's assumed that the officially supported mods all have a steam page
         }
 
         private void BtClose_Click(object sender, EventArgs e)

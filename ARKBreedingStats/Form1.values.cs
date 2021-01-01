@@ -57,30 +57,36 @@ namespace ARKBreedingStats
         /// <param name="unknownSpeciesBlueprints"></param>
         public static void CheckForMissingModFiles(CreatureCollection creatureCollection, List<string> unknownSpeciesBlueprints)
         {
-            var (locallyAvailableModFiles, onlineAvailableModFiles, unavailableModFiles) = mods.HandleUnknownMods.CheckForMissingModFiles(unknownSpeciesBlueprints);
+            var (locallyAvailableModFiles, onlineAvailableModFiles, unavailableModFiles, alreadyLoadedModFilesWithoutNeededClass) = HandleUnknownMods.CheckForMissingModFiles(unknownSpeciesBlueprints, creatureCollection.ModList);
 
             bool locallyAvailableModsExist = locallyAvailableModFiles != null && locallyAvailableModFiles.Any();
             bool onlineAvailableModsExist = onlineAvailableModFiles != null && onlineAvailableModFiles.Any();
             bool unavailableModsExist = unavailableModFiles != null && unavailableModFiles.Any();
+            bool alreadyLoadedModFilesWithoutNeededClassExist = alreadyLoadedModFilesWithoutNeededClass != null && alreadyLoadedModFilesWithoutNeededClass.Any();
 
             MessageBoxes.ShowMessageBox("Some of the creatures to be imported have an unknown species, most likely because a mod is used.\n"
                 + "To import these creatures, this application needs additional information about these mods."
                 + (locallyAvailableModsExist ?
                     "\n\nThe value files for the following mods are already locally available and just need to be added to the library:\n\n- "
                     + string.Join("\n- ", locallyAvailableModFiles)
-                    : "")
+                    : string.Empty)
                 + (onlineAvailableModsExist ?
                     "\n\nThe value files for the following mods can be downloaded automatically if you want:\n\n- "
                     + string.Join("\n- ", onlineAvailableModFiles)
-                    : "")
+                    : string.Empty)
                 + (unavailableModsExist ?
                     "\n\nThe values for species for the following mods are unknown.\nYou can create a mod values file manually if you have all the needed stat values, see the manual for more info.\nYou can also check on the discord server of ASB the #mod-requests channel and ask for that mod, maybe we'll add support for it in the future.\n\n- "
                     + string.Join("\n- ", unavailableModFiles)
-                    : ""),
+                    : string.Empty)
+                + (alreadyLoadedModFilesWithoutNeededClassExist ?
+                    "\n\nThe values for species for the following mods are unknown even though an according mod file was already loaded, i.e. the species blueprint path is not in the mod file. If it is a manual mod file, make sure the blueprint path is correct.\n\n- "
+                    + string.Join("\n- ", alreadyLoadedModFilesWithoutNeededClass) + "\n\nThe following blueprint paths were not found in the mod file:\n\n"
+                    + string.Join("\n", unknownSpeciesBlueprints.Where(bp => alreadyLoadedModFilesWithoutNeededClass.Any(m => bp.StartsWith($"/Game/Mods/{m}/"))))
+                    : string.Empty),
                 "Unknown species", MessageBoxIcon.Information);
 
             if ((locallyAvailableModsExist || onlineAvailableModsExist)
-                && MessageBox.Show("Do you want to " + (onlineAvailableModsExist ? "download and " : "") + "add the values-files for the following mods to the library?\n\n- "
+                && MessageBox.Show("Do you want to " + (onlineAvailableModsExist ? "download and " : string.Empty) + "add the values-files for the following mods to the library?\n\n- "
                                    + string.Join("\n- ", onlineAvailableModFiles) + (locallyAvailableModsExist && onlineAvailableModsExist ? "\n\n- " : string.Empty)
                                    + string.Join("\n- ", locallyAvailableModFiles),
                                    "Add value-files?", MessageBoxButtons.YesNo, MessageBoxIcon.Question
@@ -89,7 +95,7 @@ namespace ARKBreedingStats
                 List<string> modTagsToAdd = new List<string>();
                 if (locallyAvailableModsExist) modTagsToAdd.AddRange(locallyAvailableModFiles);
                 if (onlineAvailableModsExist) modTagsToAdd.AddRange(onlineAvailableModFiles);
-                mods.HandleUnknownMods.AddModsToCollection(creatureCollection, modTagsToAdd);
+                HandleUnknownMods.AddModsToCollection(creatureCollection, modTagsToAdd);
             }
         }
 
@@ -147,7 +153,7 @@ namespace ARKBreedingStats
                 {
                     modsManifest = await ModsManifest.TryLoadModManifestFile(forceUpdate);
                     // assume all officially supported mods are online available
-                    foreach (var m in modsManifest.modsByFiles) m.Value.onlineAvailable = true;
+                    foreach (var m in modsManifest.modsByFiles) m.Value.OnlineAvailable = true;
                 }
                 catch (FileNotFoundException ex)
                 {

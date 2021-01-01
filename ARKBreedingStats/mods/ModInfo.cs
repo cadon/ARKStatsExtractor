@@ -19,12 +19,15 @@ namespace ARKBreedingStats.mods
         /// <summary>
         /// Indicates if the according json-file is downloaded.
         /// </summary>
-        public bool locallyAvailable;
+        public bool LocallyAvailable;
         /// <summary>
         /// If true the modInfo is available online. If not it's probably manually created.
         /// </summary>
-        public bool onlineAvailable;
-        public bool currentlyInLibrary;
+        public bool OnlineAvailable;
+        /// <summary>
+        /// Only used in the mod selector, is not reliable else.
+        /// </summary>
+        public bool CurrentlyInLibrary;
 
         [OnDeserialized]
         private void SetVersion(StreamingContext context)
@@ -35,8 +38,8 @@ namespace ARKBreedingStats.mods
         public override string ToString()
         {
             return (mod?.title ?? "unknown mod")
-                + (onlineAvailable
-                    ? (!locallyAvailable ? " (DL)" : string.Empty)
+                + (OnlineAvailable
+                    ? (!LocallyAvailable ? " (DL)" : string.Empty)
                     : " (Custom)");
         }
     }

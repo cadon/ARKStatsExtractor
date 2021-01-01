@@ -277,7 +277,7 @@ namespace ARKBreedingStats.values
                         sp.Mod = modValues.mod;
                         speciesAdded++;
 
-                        if (!blueprintToSpecies.ContainsKey(sp.blueprintPath))
+                         if (!blueprintToSpecies.ContainsKey(sp.blueprintPath))
                             blueprintToSpecies.Add(sp.blueprintPath, sp);
                     }
                 }
@@ -326,7 +326,7 @@ namespace ARKBreedingStats.values
                 if (!File.Exists(modFilePath))
                 {
                     if (modsManifest.modsByFiles.ContainsKey(mf)
-                        && modsManifest.modsByFiles[mf].onlineAvailable)
+                        && modsManifest.modsByFiles[mf].OnlineAvailable)
                         missingModValueFilesOnlineAvailable.Add(mf);
                     else
                         missingModValueFilesOnlineNotAvailable.Add(mf);
@@ -334,7 +334,7 @@ namespace ARKBreedingStats.values
                 else if (modsManifest.modsByFiles.ContainsKey(mf))
                 {
                     // check if an update is available
-                    if (modsManifest.modsByFiles[mf].onlineAvailable
+                    if (modsManifest.modsByFiles[mf].OnlineAvailable
                         && modsManifest.modsByFiles[mf].Version != null
                         && TryLoadValuesFile(modFilePath, setModFileName: false, throwExceptionOnFail: false,
                             out Values modValues, errorMessage: out _)
