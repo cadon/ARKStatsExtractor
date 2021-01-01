@@ -160,6 +160,7 @@
             // 
             // flowLayoutPanelOverrideEdits
             // 
+            this.flowLayoutPanelOverrideEdits.AutoScroll = true;
             this.flowLayoutPanelOverrideEdits.Controls.Add(this.panel1);
             this.flowLayoutPanelOverrideEdits.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelOverrideEdits.Location = new System.Drawing.Point(3, 16);

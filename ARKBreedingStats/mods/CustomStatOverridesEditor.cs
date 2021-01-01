@@ -3,12 +3,8 @@ using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
 
@@ -59,7 +55,7 @@ namespace ARKBreedingStats.mods
         /// <summary>
         /// Backcolor of the list row depending if the species is overridden.
         /// </summary>
-        private Color RowBackColor(bool hasOverride) => hasOverride ? Color.Lavender : SystemColors.Window;
+        private Color RowBackColor(bool hasOverride) => hasOverride ? Color.PeachPuff : SystemColors.Window;
 
         private void lvSpecies_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -194,6 +190,7 @@ namespace ARKBreedingStats.mods
                     MessageBox.Show($"{dict.Count} overrides imported.", "Import done", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 FilterList();
+                StatOverridesChanged = true;
             }
         }
 

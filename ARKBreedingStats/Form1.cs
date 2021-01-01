@@ -2968,6 +2968,10 @@ namespace ARKBreedingStats
                 {
                     Values.V.ApplyMultipliers(_creatureCollection, eventMultipliers: cbEventMultipliers.Checked, applyStatMultipliers: true);
                     SetCollectionChanged(true);
+                    if (tabControlMain.SelectedTab == tabPageStatTesting)
+                    {
+                        UpdateAllTesterValues();
+                    }
                 }
                 (Properties.Settings.Default.CustomStatOverrideFormRectangle, _) = Utils.GetWindowRectangle(frm);
             }
