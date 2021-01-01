@@ -1291,4 +1291,7 @@ Tags</value>
   <data name="ClickDisplayFile" xml:space="preserve">
     <value>Klicken um Datei im Explorer anzuzeigen</value>
   </data>
+  <data name="ImportingSavegame" xml:space="preserve">
+    <value>Importiere Spielstand</value>
+  </data>
 </root>

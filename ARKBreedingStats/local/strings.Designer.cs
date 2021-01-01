@@ -1583,6 +1583,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Importing savegame.
+        /// </summary>
+        internal static string ImportingSavegame {
+            get {
+                return ResourceManager.GetString("ImportingSavegame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Import Values from Clipboard.
         /// </summary>
         internal static string importValuesFromClipboardToolStripMenuItem {

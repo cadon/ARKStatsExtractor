@@ -4,6 +4,7 @@ using FluentFTP;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -29,6 +30,9 @@ namespace ARKBreedingStats
         private async void RunSavegameImport(ATImportFileLocation atImportFileLocation)
         {
             TsbImportLastSaveGame.Enabled = false;
+            TsbImportLastSaveGame.BackColor = Color.Yellow;
+            ToolStripStatusLabelImport.Text = $"{Loc.S("ImportingSavegame")} {atImportFileLocation.ConvenientName}";
+            ToolStripStatusLabelImport.Visible = true;
             try
             {
                 string workingCopyfilename = Properties.Settings.Default.savegameExtractionPath;
@@ -114,6 +118,8 @@ namespace ARKBreedingStats
             finally
             {
                 TsbImportLastSaveGame.Enabled = true;
+                TsbImportLastSaveGame.BackColor = SystemColors.Control;
+                ToolStripStatusLabelImport.Visible = false;
             }
         }
 

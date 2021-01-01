@@ -1300,4 +1300,7 @@ Tags</value>
   <data name="ClickDisplayFile" xml:space="preserve">
     <value>Click to show file in explorer</value>
   </data>
+  <data name="ImportingSavegame" xml:space="preserve">
+    <value>Importing savegame</value>
+  </data>
 </root>

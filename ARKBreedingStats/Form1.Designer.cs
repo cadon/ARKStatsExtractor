@@ -321,6 +321,7 @@ namespace ARKBreedingStats
             this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetLibraryColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
+            this.ToolStripStatusLabelImport = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -2744,7 +2745,8 @@ namespace ARKBreedingStats
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripProgressBar1,
-            this.toolStripStatusLabel});
+            this.toolStripStatusLabel,
+            this.ToolStripStatusLabelImport});
             this.statusStrip1.Location = new System.Drawing.Point(0, 859);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1134, 22);
@@ -3156,6 +3158,14 @@ namespace ARKBreedingStats
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
+            // ToolStripStatusLabelImport
+            // 
+            this.ToolStripStatusLabelImport.BackColor = System.Drawing.Color.Yellow;
+            this.ToolStripStatusLabelImport.Name = "ToolStripStatusLabelImport";
+            this.ToolStripStatusLabelImport.Size = new System.Drawing.Size(125, 17);
+            this.ToolStripStatusLabelImport.Text = "Importing savegame…";
+            this.ToolStripStatusLabelImport.Visible = false;
+            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -3545,5 +3555,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.Label LbBlueprintPath;
         private System.Windows.Forms.ToolStripMenuItem recentlyUsedToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator21;
+        private System.Windows.Forms.ToolStripStatusLabel ToolStripStatusLabelImport;
     }
 }
