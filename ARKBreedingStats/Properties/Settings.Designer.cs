@@ -1457,5 +1457,17 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicExportFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool InfoGraphicShowMaxWildLevel {
+            get {
+                return ((bool)(this["InfoGraphicShowMaxWildLevel"]));
+            }
+            set {
+                this["InfoGraphicShowMaxWildLevel"] = value;
+            }
+        }
     }
 }

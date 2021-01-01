@@ -252,6 +252,7 @@
             this.cbbOCRApp = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.CbInfoGraphicDisplayMaxWildLevel = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmountEvent)).BeginInit();
@@ -1609,6 +1610,7 @@
             // 
             // groupBox25
             // 
+            this.groupBox25.Controls.Add(this.CbInfoGraphicDisplayMaxWildLevel);
             this.groupBox25.Controls.Add(this.nudInfoGraphicWidth);
             this.groupBox25.Controls.Add(this.LbInfoGraphicSize);
             this.groupBox25.Controls.Add(this.label48);
@@ -1627,7 +1629,7 @@
             // nudInfoGraphicWidth
             // 
             this.nudInfoGraphicWidth.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.nudInfoGraphicWidth.Location = new System.Drawing.Point(139, 72);
+            this.nudInfoGraphicWidth.Location = new System.Drawing.Point(122, 72);
             this.nudInfoGraphicWidth.Maximum = new decimal(new int[] {
             99999,
             0,
@@ -1909,7 +1911,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1917,7 +1919,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1925,7 +1927,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1933,7 +1935,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -3085,6 +3087,16 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
+            // CbInfoGraphicDisplayMaxWildLevel
+            // 
+            this.CbInfoGraphicDisplayMaxWildLevel.AutoSize = true;
+            this.CbInfoGraphicDisplayMaxWildLevel.Location = new System.Drawing.Point(185, 73);
+            this.CbInfoGraphicDisplayMaxWildLevel.Name = "CbInfoGraphicDisplayMaxWildLevel";
+            this.CbInfoGraphicDisplayMaxWildLevel.Size = new System.Drawing.Size(229, 17);
+            this.CbInfoGraphicDisplayMaxWildLevel.TabIndex = 27;
+            this.CbInfoGraphicDisplayMaxWildLevel.Text = "Display max wild server level in InfoGraphic";
+            this.CbInfoGraphicDisplayMaxWildLevel.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -3439,5 +3451,6 @@
         private uiControls.Nud nudBabyImprintAmountEvent;
         private System.Windows.Forms.Label label49;
         private uiControls.Nud nudBabyImprintAmount;
+        private System.Windows.Forms.CheckBox CbInfoGraphicDisplayMaxWildLevel;
     }
 }

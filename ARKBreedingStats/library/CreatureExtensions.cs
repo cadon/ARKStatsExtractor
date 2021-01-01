@@ -4,6 +4,7 @@ using ARKBreedingStats.values;
 using System;
 using System.Drawing;
 using System.Linq;
+using System.Security.Policy;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.library
@@ -122,7 +123,10 @@ namespace ARKBreedingStats.library
                 if (maxColorNameLength < 0) maxColorNameLength = 0;
 
                 bool creatureImageShown = false;
-                int imageSize = (int)(width - xColor - circleDiameter - 8 * meanLetterWidth - frameThickness * 4); // 125
+                bool displayMaxWild = Properties.Settings.Default.InfoGraphicShowMaxWildLevel;
+                int extraMarginBottom = displayMaxWild ? fontSizeSmall : 0;
+                int imageSize = (int)Math.Min(width - xColor - circleDiameter - 8 * meanLetterWidth - frameThickness * 4,
+                                              height - currentYPosition - frameThickness * 4 - extraMarginBottom);
                 if (imageSize > 5)
                 {
                     using (var crBmp =
@@ -132,7 +136,7 @@ namespace ARKBreedingStats.library
                         if (crBmp != null)
                         {
                             g.DrawImage(crBmp, width - imageSize - frameThickness * 4,
-                                height - imageSize - frameThickness * 4 - fontSizeSmall, imageSize, imageSize);
+                                height - imageSize - frameThickness * 4 - extraMarginBottom, imageSize, imageSize);
                             creatureImageShown = true;
                         }
                     }
@@ -179,7 +183,7 @@ namespace ARKBreedingStats.library
                 }
 
                 // max wild level on server
-                if (cc != null)
+                if (cc != null && displayMaxWild)
                 {
                     g.DrawString($"{Loc.S("max wild level")}: {cc.maxWildLevel}",
                         fontSmall, fontBrush, width - 2 * frameThickness, height - fontSizeSmall - 4 * frameThickness, stringFormatRight);
