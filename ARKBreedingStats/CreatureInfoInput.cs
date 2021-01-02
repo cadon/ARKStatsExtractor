@@ -108,8 +108,7 @@ namespace ARKBreedingStats
         {
             ParentInheritance?.UpdateColors(RegionColors);
             ColorsChanged?.Invoke(this);
-            if (PbColorRegion != null)
-                PbColorRegion.Image = CreatureColored.GetColoredCreature(RegionColors, _selectedSpecies, regionColorChooser1.ColorRegionsUseds, 256, onlyImage: true, creatureSex: CreatureSex);
+            PbColorRegion?.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(RegionColors, _selectedSpecies, regionColorChooser1.ColorRegionsUseds, 256, onlyImage: true, creatureSex: CreatureSex));
         }
 
         internal void UpdateParentInheritances(Creature creature)

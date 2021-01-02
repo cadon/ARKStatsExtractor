@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ARKBreedingStats.utils
 {
@@ -32,6 +34,16 @@ namespace ARKBreedingStats.utils
             v = BitConverter.ToSingle(BitConverter.GetBytes(i), 0);
 
             return v - x;
+        }
+
+        /// <summary>
+        /// Sets the Image property of the PictureBox to the passed Bitmap and disposes the previous Bitmap.
+        /// </summary>
+        public static void SetImageAndDisposeOld(this PictureBox pb, Bitmap bmp)
+        {
+            var oldBmp = pb.Image as Bitmap;
+            pb.Image = bmp;
+            oldBmp?.Dispose();
         }
     }
 }

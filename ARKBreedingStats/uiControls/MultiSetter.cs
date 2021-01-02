@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -61,8 +62,8 @@ namespace ARKBreedingStats.uiControls
             TagsChanged = false;
             SpeciesChanged = false;
 
-            pictureBox1.Image = CreatureColored.GetColoredCreature(colors, uniqueSpecies ? creatureList[0].Species : null,
-                    new[] { true, true, true, true, true, true });
+            pictureBox1.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(colors, uniqueSpecies ? creatureList[0].Species : null,
+                    new[] { true, true, true, true, true, true }));
 
             // tags
             foreach (string t in tagList)
@@ -288,8 +289,8 @@ namespace ARKBreedingStats.uiControls
                     // color was chosen
                     colors[region] = cp.SelectedColorId;
                     setColorButton(sender, species.CreatureColors.CreatureColor(colors[region]));
-                    pictureBox1.Image = CreatureColored.GetColoredCreature(colors, uniqueSpecies ? creatureList[0].Species : null,
-                            new[] { true, true, true, true, true, true });
+                    pictureBox1.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(colors, uniqueSpecies ? creatureList[0].Species : null,
+                            new[] { true, true, true, true, true, true }));
                 }
             }
         }

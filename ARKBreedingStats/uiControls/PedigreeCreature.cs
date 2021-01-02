@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -218,9 +219,8 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// Update the colors displayed in the wheel.
         /// </summary>
-        /// <param name="colorIds"></param>
         internal void UpdateColors(int[] colorIds)
-            => pictureBox1.Image = CreatureColored.GetColoredCreature(colorIds, null, enabledColorRegions, 24, 22, true);
+            => pictureBox1.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(colorIds, null, enabledColorRegions, 24, 22, true));
 
         /// <summary>
         /// Sets the displayed title of the control.

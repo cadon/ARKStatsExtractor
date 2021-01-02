@@ -2,7 +2,9 @@
 using ARKBreedingStats.Library;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
 {
@@ -138,7 +140,7 @@ namespace ARKBreedingStats
                 statsDisplay1.SetCreatureValues(_creature);
                 labelNotes.Text = _creature.note;
                 labelSpecies.Text = _creature.Species.name;
-                pictureBox1.Image = CreatureColored.GetColoredCreature(_creature.colors, _creature.Species, colorRegionUseds, creatureSex: _creature.sex);
+                pictureBox1.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(_creature.colors, _creature.Species, colorRegionUseds, creatureSex: _creature.sex));
                 tt.SetToolTip(pictureBox1, CreatureColored.RegionColorInfo(_creature.Species, _creature.colors)
                     + "\n\nClick to copy creature infos as image to the clipboard");
                 pictureBox1.Visible = true;
@@ -234,7 +236,7 @@ namespace ARKBreedingStats
         {
             if (_creature == null) return;
 
-            pictureBox1.Image = CreatureColored.GetColoredCreature(_creature.colors, _creature.Species, colorRegionUseds, creatureSex: _creature.sex);
+            pictureBox1.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(_creature.colors, _creature.Species, colorRegionUseds, creatureSex: _creature.sex));
             _creature.colors = regionColorChooser1.ColorIDs;
             Changed?.Invoke(_creature, false, false);
         }

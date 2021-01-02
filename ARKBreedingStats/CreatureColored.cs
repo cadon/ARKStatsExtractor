@@ -121,11 +121,12 @@ namespace ARKBreedingStats
                     graph.InterpolationMode = InterpolationMode.HighQualityBicubic;
                     graph.SmoothingMode = SmoothingMode.HighQuality;
                     graph.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                    graph.DrawImage(new Bitmap(cacheFilePath), 0, 0, size, size);
+                    using (var cachedImgBmp = new Bitmap(cacheFilePath))
+                        graph.DrawImage(cachedImgBmp, 0, 0, size, size);
                 }
                 else
                 {
-                    // draw piechart
+                    // draw pieChart
                     int pieAngle = enabledColorRegions?.Count(c => c) ?? Species.ColorRegionCount;
                     pieAngle = 360 / (pieAngle > 0 ? pieAngle : 1);
                     int pieNr = 0;
