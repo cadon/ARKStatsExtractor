@@ -21,9 +21,14 @@ namespace ARKBreedingStats
     {
         private const string CollectionFileExtension = ".asb";
 
-        private void NewCollection()
+        /// <summary>
+        /// Creates a new collection.
+        /// </summary>
+        /// <param name="resetCollection">If true, the user is not asked and a new collection is created. This can be used if something went wrong while loading a file and a clean collection is needed.</param>
+        private void NewCollection(bool resetCollection = false)
         {
-            if (_collectionDirty
+            if (!resetCollection
+                && _collectionDirty
                 && CustomMessageBox.Show(Loc.S("Collection changed discard and new?"),
                     Loc.S("Discard changes?"), Loc.S("Discard changes and new"), buttonCancel: Loc.S("Cancel"), icon: MessageBoxIcon.Warning) != DialogResult.Yes
             )
@@ -51,7 +56,6 @@ namespace ARKBreedingStats
                 serverMultipliers = oldMultipliers,
                 ModList = new List<Mod>()
             };
-            _creatureCollection.FormatVersion = CreatureCollection.CURRENT_FORMAT_VERSION;
             pedigree1.Clear();
             breedingPlan1.Clear();
             creatureInfoInputExtractor.Clear(true);
@@ -177,8 +181,8 @@ namespace ARKBreedingStats
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     _currentFileName = dlg.FileName;
-                    _fileSync.ChangeFile(_currentFileName);
                     SaveCollectionToFileName(_currentFileName);
+                    _fileSync.ChangeFile(_currentFileName);
                 }
             }
         }
@@ -351,10 +355,10 @@ namespace ARKBreedingStats
                         if (FileService.LoadJsonFile(filePath, out CreatureCollection readCollection, out string errorMessage))
                         {
                             if (!Version.TryParse(readCollection.FormatVersion, out Version ccVersion)
-                               || !Version.TryParse(CreatureCollection.CURRENT_FORMAT_VERSION, out Version currentVersion)
+                               || !Version.TryParse(CreatureCollection.CurrentLibraryFormatVersion, out Version currentVersion)
                                || ccVersion > currentVersion)
                             {
-                                throw new FormatException("Unhandled format version");
+                                throw new FormatException($"Unhandled format version: {(readCollection.FormatVersion ?? "null")}");
                             }
                             _creatureCollection = readCollection;
                         }
@@ -372,11 +376,11 @@ namespace ARKBreedingStats
                     // if file is not readable
                     Thread.Sleep(delayOnRetry);
                 }
-                catch (FormatException)
+                catch (FormatException ex)
                 {
                     // This FormatVersion is not understood, abort
                     MessageBoxes.ShowMessageBox($"This library format is unsupported in this version of ARK Smart Breeding." +
-                                                 "\n\nTry updating to a newer version.");
+                                                 $"\n\n{ex.Message}\n\nTry updating to a newer version.");
                     if ((DateTime.Now - Properties.Settings.Default.lastUpdateCheck).TotalMinutes < 10)
                         CheckForUpdates();
                     return false;
@@ -397,14 +401,14 @@ namespace ARKBreedingStats
                 // load original multipliers if they were changed
                 if (!LoadStatAndKibbleValues(false).statValuesLoaded)
                 {
-                    _creatureCollection = new CreatureCollection();
+                    NewCollection(true);
                     return false;
                 }
             }
             if (_creatureCollection.ModValueReloadNeeded
                 && !LoadModValuesOfCollection(_creatureCollection, false, false))
             {
-                _creatureCollection = new CreatureCollection();
+                NewCollection(true);
                 return false;
             }
 
@@ -418,7 +422,7 @@ namespace ARKBreedingStats
                 tamingControl1.SetSpecies(Values.V.SpeciesByBlueprint(speciesSelector1.LastSpecies[0]));
             }
 
-            _creatureCollection.FormatVersion = CreatureCollection.CURRENT_FORMAT_VERSION;
+            _creatureCollection.FormatVersion = CreatureCollection.CurrentLibraryFormatVersion;
 
             ApplySettingsToValues();
 

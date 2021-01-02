@@ -22,10 +22,7 @@ namespace ARKBreedingStats.oldLibraryFormat
             MessageBox.Show($"The library will be converted to the new format that supports all possible ARK-stats (e.g. the crafting speed for the Gacha).\n\nThe old library file is still available at \n{libraryFilePath}\nyou can keep it as a backup.",
                         "Library will be converted", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            CreatureCollection ccNew = new CreatureCollection()
-            {
-                FormatVersion = CreatureCollection.CURRENT_FORMAT_VERSION
-            };
+            CreatureCollection ccNew = new CreatureCollection();
 
             UpgradeFormatTo12Stats(ccOld, ccNew);
             TransferParameters(ccOld, ccNew);

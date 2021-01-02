@@ -11,7 +11,12 @@ namespace ARKBreedingStats.Library
     [JsonObject(MemberSerialization.OptIn)]
     public class CreatureCollection
     {
-        public const string CURRENT_FORMAT_VERSION = "1.13";
+        public const string CurrentLibraryFormatVersion = "1.13";
+
+        public CreatureCollection()
+        {
+            FormatVersion = CurrentLibraryFormatVersion;
+        }
 
         public const int MaxDomLevelDefault = 73;
         public const int MaxDomLevelSinglePlayerDefault = 88;
