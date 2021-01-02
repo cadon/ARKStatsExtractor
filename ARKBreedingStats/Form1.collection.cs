@@ -630,8 +630,12 @@ namespace ARKBreedingStats
                 _currentFileName = null;
 
                 // select last creature values
-                toolStripCBTempCreatures.SelectedIndex = toolStripCBTempCreatures.Items.Count - 1;
-                ExtractLevels();
+                var tempCreatureCount = toolStripCBTempCreatures.Items.Count;
+                if (tempCreatureCount > 0)
+                {
+                    toolStripCBTempCreatures.SelectedIndex = tempCreatureCount - 1;
+                    ExtractLevels();
+                }
             }
             catch (Exception ex)
             {
