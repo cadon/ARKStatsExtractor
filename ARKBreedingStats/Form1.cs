@@ -355,9 +355,9 @@ namespace ARKBreedingStats
             if (DateTime.Now.AddHours(-20) > Properties.Settings.Default.lastUpdateCheck)
                 CheckForUpdates(true);
 
-            if (!Properties.Settings.Default.AlreadyAskedToDownloadImageFiles20200921)
+            if (!Properties.Settings.Default.AlreadyAskedToDownloadSpeciesImageFiles20210102)
             {
-                Properties.Settings.Default.AlreadyAskedToDownloadImageFiles20200921 = true;
+                Properties.Settings.Default.AlreadyAskedToDownloadSpeciesImageFiles20210102 = true;
 
                 if (!Updater.IsProgramInstalled && MessageBox.Show("Download new species images to display the creature colors?\n\nThe file to be downloaded has a size of ~17 MB.\nYou can later download these images in the menu ? - Download Species Images",
                     "Download species images?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
