@@ -17,7 +17,7 @@
     <Setting Name="autosave" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="autosaveMinutes" Type="System.Int32" Scope="User">
+    <Setting Name="BackupEveryMinutes" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">5</Value>
     </Setting>
     <Setting Name="customStatWeights" Type="System.Double[][]" Scope="User">
@@ -379,6 +379,12 @@
     </Setting>
     <Setting Name="InfoGraphicBorderColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">Maroon</Value>
+    </Setting>
+    <Setting Name="BackupFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="BackupFileCount" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">3</Value>
     </Setting>
   </Settings>
 </SettingsFile>

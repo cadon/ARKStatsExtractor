@@ -85,12 +85,12 @@ namespace ARKBreedingStats.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("5")]
-        public int autosaveMinutes {
+        public int BackupEveryMinutes {
             get {
-                return ((int)(this["autosaveMinutes"]));
+                return ((int)(this["BackupEveryMinutes"]));
             }
             set {
-                this["autosaveMinutes"] = value;
+                this["BackupEveryMinutes"] = value;
             }
         }
         
@@ -1515,6 +1515,30 @@ namespace ARKBreedingStats.Properties {
             }
             set {
                 this["InfoGraphicBorderColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BackupFolder {
+            get {
+                return ((string)(this["BackupFolder"]));
+            }
+            set {
+                this["BackupFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int BackupFileCount {
+            get {
+                return ((int)(this["BackupFileCount"]));
+            }
+            set {
+                this["BackupFileCount"] = value;
             }
         }
     }

@@ -119,7 +119,7 @@ namespace ARKBreedingStats.settings
 
             // Tooltips
             _tt = new ToolTip();
-            _tt.SetToolTip(numericUpDownAutosaveMinutes, "To disable set to 0");
+            _tt.SetToolTip(NudBackupEveryMinutes, "If the value is 0 then every time something is changed a backup file is created.\nThis can create very similar backup files and potential data losses could be overwritten fast.\nA value of 5 is recommended.");
             _tt.SetToolTip(chkCollectionSync, "If checked, the tool automatically reloads the library if it was changed. Use this if multiple persons edit the file, e.g. via a shared folder.\nIt's recommended to check this along with \"Auto save\"");
             _tt.SetToolTip(checkBoxAutoSave, "If checked, the library is saved after each change automatically.\nIt's recommended to check this along with \"Auto load collection file\"");
             _tt.SetToolTip(nudMaxGraphLevel, "This number defines the level that is shown as maximum in the charts.\nUsually it's good to set this value to one third of the max wild level.");
@@ -211,9 +211,12 @@ namespace ARKBreedingStats.settings
             #endregion
 
             checkBoxAutoSave.Checked = Properties.Settings.Default.autosave;
-            numericUpDownAutosaveMinutes.ValueSave = Properties.Settings.Default.autosaveMinutes;
-            chkbSpeechRecognition.Checked = Properties.Settings.Default.SpeechRecognition;
             chkCollectionSync.Checked = Properties.Settings.Default.syncCollection;
+            NudBackupEveryMinutes.ValueSave = Properties.Settings.Default.BackupEveryMinutes;
+            NudKeepBackupFilesCount.ValueSave = Properties.Settings.Default.BackupFileCount;
+            SetFolderSelectionButton(BtBackupFolder, Properties.Settings.Default.BackupFolder, true);
+
+            chkbSpeechRecognition.Checked = Properties.Settings.Default.SpeechRecognition;
             if (Properties.Settings.Default.celsius) radioButtonCelsius.Checked = true;
             else radioButtonFahrenheit.Checked = true;
             cbIgnoreSexInBreedingPlan.Checked = Properties.Settings.Default.IgnoreSexInBreedingPlan;
@@ -296,7 +299,7 @@ namespace ARKBreedingStats.settings
             cbAutoImportExported.Checked = Properties.Settings.Default.AutoImportExportedCreatures;
             cbPlaySoundOnAutomaticImport.Checked = Properties.Settings.Default.PlaySoundOnAutoImport;
             cbMoveImportedFileToSubFolder.Checked = Properties.Settings.Default.MoveAutoImportedFileToSubFolder;
-            SetImportExportArchiveFolder(Properties.Settings.Default.ImportExportedArchiveFolder);
+            SetFolderSelectionButton(BtImportArchiveFolder, Properties.Settings.Default.ImportExportedArchiveFolder);
             cbDeleteAutoImportedFile.Checked = Properties.Settings.Default.DeleteAutoImportedFile;
             nudImportLowerBoundTE.ValueSave = (decimal)Properties.Settings.Default.ImportLowerBoundTE * 100;
             if (Properties.Settings.Default.ImportExportUseTamerStringForOwner)
@@ -396,9 +399,12 @@ namespace ARKBreedingStats.settings
             #endregion
 
             Properties.Settings.Default.autosave = checkBoxAutoSave.Checked;
-            Properties.Settings.Default.autosaveMinutes = (int)numericUpDownAutosaveMinutes.Value;
-            Properties.Settings.Default.SpeechRecognition = chkbSpeechRecognition.Checked;
             Properties.Settings.Default.syncCollection = chkCollectionSync.Checked;
+            Properties.Settings.Default.BackupEveryMinutes = (int)NudBackupEveryMinutes.Value;
+            Properties.Settings.Default.BackupFileCount = (int)NudKeepBackupFilesCount.Value;
+            Properties.Settings.Default.BackupFolder = BtBackupFolder.Tag as string;
+
+            Properties.Settings.Default.SpeechRecognition = chkbSpeechRecognition.Checked;
             Properties.Settings.Default.celsius = radioButtonCelsius.Checked;
             Properties.Settings.Default.DisplayHiddenStats = checkBoxDisplayHiddenStats.Checked;
             Properties.Settings.Default.DefaultFontName = tbDefaultFontName.Text;
@@ -522,11 +528,6 @@ namespace ARKBreedingStats.settings
         private void buttonOK_Click(object sender, EventArgs e)
         {
             SaveSettings();
-        }
-
-        private void checkBoxAutoSave_CheckedChanged(object sender, EventArgs e)
-        {
-            numericUpDownAutosaveMinutes.Enabled = checkBoxAutoSave.Checked;
         }
 
         private void tabPage2_DragEnter(object sender, DragEventArgs e)
@@ -981,29 +982,38 @@ namespace ARKBreedingStats.settings
 
         private void BtImportArchiveFolder_Click(object sender, EventArgs e)
         {
+            // get folder of first export path
+            SelectFolder(BtImportArchiveFolder,
+                BtImportArchiveFolder.Tag is string lastFolder && !string.IsNullOrEmpty(lastFolder)
+                ? lastFolder
+                : aTExportFolderLocationsBindingSource.OfType<ATImportExportedFolderLocation>()
+                    .Where(location => !string.IsNullOrWhiteSpace(location.FolderPath))
+                    .Select(location => location.FolderPath).FirstOrDefault());
+        }
+
+        private void SelectFolder(Button folderButton, string initialFolder = null, bool displayFullPathOnButton = false)
+        {
             using (var dlg = new FolderBrowserDialog())
             {
-                // get folder of first export path
-                var exportFolder = BtImportArchiveFolder.Tag is string lastFolder && !string.IsNullOrEmpty(lastFolder) ? lastFolder
-                    : aTExportFolderLocationsBindingSource.OfType<ATImportExportedFolderLocation>()
-                     .Where(location => !string.IsNullOrWhiteSpace(location.FolderPath))
-                     .Select(location => location.FolderPath).FirstOrDefault();
-
                 dlg.RootFolder = Environment.SpecialFolder.Desktop;
-                if (exportFolder != null && Directory.Exists(exportFolder))
-                    dlg.SelectedPath = exportFolder;
+                if (!string.IsNullOrEmpty(initialFolder) && Directory.Exists(initialFolder))
+                    dlg.SelectedPath = initialFolder;
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    SetImportExportArchiveFolder(dlg.SelectedPath);
+                    SetFolderSelectionButton(folderButton, dlg.SelectedPath, displayFullPathOnButton);
                 }
             }
         }
 
-        private void SetImportExportArchiveFolder(string folderPath)
+        /// <summary>
+        /// Sets the Text and Tag of a button to a folder path
+        /// </summary>
+        private void SetFolderSelectionButton(Button button, string folderPath = null, bool displayFullPathOnButton = false)
         {
-            BtImportArchiveFolder.Text = string.IsNullOrEmpty(folderPath) ? "…" : Path.GetFileName(folderPath);
-            BtImportArchiveFolder.Tag = folderPath;
-            _tt.SetToolTip(BtImportArchiveFolder, folderPath);
+            button.Text = string.IsNullOrEmpty(folderPath) ? $"<{Loc.S("na")}>" : displayFullPathOnButton ? folderPath : Path.GetFileName(folderPath);
+            button.Tag = folderPath;
+            if (!button.AutoEllipsis)
+                _tt.SetToolTip(button, folderPath);
         }
 
         private void BtGetExportFolderAutomatically_Click(object sender, EventArgs e)
@@ -1036,6 +1046,16 @@ namespace ARKBreedingStats.settings
             if (colorDialog1.ShowDialog() != DialogResult.OK) return;
 
             bt.SetBackColorAndAccordingForeColor(colorDialog1.Color);
+        }
+
+        private void BtBackupFolder_Click(object sender, EventArgs e)
+        {
+            SelectFolder(BtBackupFolder, BtBackupFolder.Tag as string, true);
+        }
+
+        private void BtClearBackupFolder_Click(object sender, EventArgs e)
+        {
+            SetFolderSelectionButton(BtBackupFolder);
         }
     }
 }

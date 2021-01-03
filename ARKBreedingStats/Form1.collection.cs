@@ -218,8 +218,21 @@ namespace ARKBreedingStats
                     if (new FileInfo(tempSavePath).Length == 0)
                         throw new IOException("Saved file is empty and contains no data.");
 
-                    // if saving was successful, remove outdated library file and move successfully saved file
-                    File.Delete(filePath);
+                    // if saving was successful, keep old file as backup if set or remove it, then move successfully saved temp file to correct
+                    var backupEveryMinutes = Properties.Settings.Default.BackupEveryMinutes;
+                    var keepBackupFilesCount = Properties.Settings.Default.BackupFileCount;
+
+                    if (keepBackupFilesCount != 0
+                        && (backupEveryMinutes == 0 ||
+                            (DateTime.Now - _lastAutoSaveBackup).TotalMinutes > backupEveryMinutes)
+                        && FileService.IsValidJsonFile(filePath))
+                    {
+                        if (!KeepBackupFile(filePath, keepBackupFilesCount))
+                            File.Delete(filePath); // outdated file is not needed anymore
+                    }
+                    else
+                        File.Delete(filePath); // outdated file is not needed anymore
+
                     File.Move(tempSavePath, filePath);
 
                     fileSaved = true;
@@ -247,7 +260,53 @@ namespace ARKBreedingStats
             if (fileSaved)
                 SetCollectionChanged(false);
             else
-                MessageBoxes.ShowMessageBox($"This file couldn\'t be saved:\n{filePath}\nMaybe the file is used by another application.");
+                MessageBoxes.ShowMessageBox($"This file couldn't be saved:\n{filePath}\nMaybe the file is used by another application.");
+        }
+
+        /// <summary>
+        /// Creates a backup file of the current library file, then removes old backup files to keep number to setting.
+        /// Returns true if the currentSaveFile was moved as a backup, false if it's still existing.
+        /// </summary>
+        private bool KeepBackupFile(string currentSaveFilePath, int keepBackupFilesCount)
+        {
+            string fileNameWoExt = Path.GetFileNameWithoutExtension(currentSaveFilePath);
+            string backupFileName = $"{fileNameWoExt}_backup_{new FileInfo(currentSaveFilePath).LastWriteTime:yyyy-MM-dd_HH-mm-ss}{CollectionFileExtension}";
+
+            var backupFolderPath = Properties.Settings.Default.BackupFolder;
+            if (string.IsNullOrEmpty(backupFolderPath))
+                backupFolderPath = Path.GetDirectoryName(currentSaveFilePath);
+            else
+                Directory.CreateDirectory(backupFolderPath);
+
+            string backupFilePath = Path.Combine(backupFolderPath, backupFileName);
+            if (File.Exists(backupFilePath))
+            {
+                return false; // backup file of that timestamp already exists, no extra backup needed.
+            }
+
+            File.Move(currentSaveFilePath, backupFilePath);
+            _lastAutoSaveBackup = DateTime.Now;
+
+            // delete oldest backup file if more than a certain number
+
+            var directory = new DirectoryInfo(backupFolderPath);
+            var oldBackupFiles = directory.GetFiles($"{fileNameWoExt}_backup_*{CollectionFileExtension}")
+                .OrderByDescending(f => f.Name)
+                .Skip(keepBackupFilesCount)
+                .ToArray();
+            foreach (FileInfo f in oldBackupFiles)
+            {
+                try
+                {
+                    f.Delete();
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
+
+            return true;
         }
 
         /// <summary>
@@ -516,46 +575,20 @@ namespace ARKBreedingStats
                     breedingPlan1.BreedingPlanNeedsUpdate = true;
             }
 
-            if (_autoSave && changed)
+            var currentFileNotEmpty = !string.IsNullOrEmpty(_currentFileName);
+
+            if (changed && Properties.Settings.Default.autosave)
             {
                 // save changes automatically
-                if (!string.IsNullOrEmpty(_currentFileName) && _autoSaveMinutes > 0 && (DateTime.Now - _lastAutoSaveBackup).TotalMinutes > _autoSaveMinutes && FileService.IsValidJsonFile(_currentFileName))
-                {
-                    string filenameWOExt = Path.GetFileNameWithoutExtension(_currentFileName);
-                    string timeStamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
-                    string backupFileName = filenameWOExt + "_backup_" + timeStamp + CollectionFileExtension;
-                    string backupFilePath = Path.Combine(Path.GetDirectoryName(_currentFileName), backupFileName);
-                    File.Copy(_currentFileName, backupFilePath);
-                    _lastAutoSaveBackup = DateTime.Now;
-                    // delete oldest backupfile if more than a certain number
-                    var directory = new DirectoryInfo(Path.GetDirectoryName(_currentFileName));
-                    var oldBackupfiles = directory.GetFiles()
-                            .Where(f => f.Name.Length == backupFileName.Length &&
-                                    f.Name.Substring(0, filenameWOExt.Length + 8) == filenameWOExt + "_backup_")
-                            .OrderByDescending(f => f.LastWriteTime)
-                            .Skip(3)
-                            .ToList();
-                    foreach (FileInfo f in oldBackupfiles)
-                    {
-                        try
-                        {
-                            f.Delete();
-                        }
-                        catch
-                        {
-                            // ignored
-                        }
-                    }
-                }
-
-                // save changes
                 SaveCollection();
-                return; // function is called soon again from savecollection()
+                // function is called soon again from SaveCollectionToFileName(string filePath) to perform title text update
+                return;
             }
+
             _collectionDirty = changed;
-            string fileName = string.IsNullOrEmpty(_currentFileName) ? null : Path.GetFileName(_currentFileName);
-            Text = $"ARK Smart Breeding{(string.IsNullOrEmpty(fileName) ? string.Empty : " - " + fileName)}{(changed ? " *" : "")}";
-            openFolderOfCurrentFileToolStripMenuItem.Enabled = !string.IsNullOrEmpty(_currentFileName);
+            string fileName = currentFileNotEmpty ? Path.GetFileName(_currentFileName) : null;
+            Text = $"{Utils.ApplicationNameVersion}{(currentFileNotEmpty ? " - " + fileName : string.Empty)}{(changed ? " *" : string.Empty)}";
+            openFolderOfCurrentFileToolStripMenuItem.Enabled = currentFileNotEmpty;
         }
 
         /// <summary>

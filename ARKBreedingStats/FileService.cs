@@ -258,7 +258,7 @@ namespace ARKBreedingStats
         /// <returns></returns>
         internal static bool IsValidJsonFile(string filePath)
         {
-            if (!File.Exists(filePath))
+            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
                 return false;
 
             string fileContent = File.ReadAllText(filePath);

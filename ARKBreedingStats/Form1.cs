@@ -46,9 +46,7 @@ namespace ARKBreedingStats
         /// The stat indices that are considered for color highlighting and topness calculation.
         /// </summary>
         private readonly bool[] _considerStatHighlight = new bool[Values.STATS_COUNT];
-        private bool _autoSave;
-        private DateTime _lastAutoSaveBackup = DateTime.Now.AddDays(-1);
-        private int _autoSaveMinutes;
+        private DateTime _lastAutoSaveBackup;
         private Creature _creatureTesterEdit;
         private int _hiddenLevelsCreatureTester;
         private FileSync _fileSync;
@@ -203,9 +201,6 @@ namespace ARKBreedingStats
             // last set values are saved at the end of the custom weightings
             if (custWs != null && custWd != null && custWd.Length > custWs.Length)
                 breedingPlan1.StatWeighting.WeightValues = custWd[custWs.Length];
-
-            _autoSave = Properties.Settings.Default.autosave;
-            _autoSaveMinutes = Properties.Settings.Default.autosaveMinutes;
 
             // load weapon damages
             tamingControl1.WeaponDamages = Properties.Settings.Default.weaponDamages;
@@ -1882,8 +1877,6 @@ namespace ARKBreedingStats
                 {
                     ApplySettingsToValues();
                     if (settingsfrm.LanguageChanged) setLocalizations();
-                    _autoSave = Properties.Settings.Default.autosave;
-                    _autoSaveMinutes = Properties.Settings.Default.autosaveMinutes;
                     creatureBoxListView.CreatureCollection = _creatureCollection;
                     _fileSync.ChangeFile(_currentFileName); // only to trigger the update, filename is not changed
 

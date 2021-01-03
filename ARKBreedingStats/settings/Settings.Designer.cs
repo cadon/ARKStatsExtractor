@@ -94,8 +94,14 @@
             this.nudTamingSpeed = new ARKBreedingStats.uiControls.Nud();
             this.label15 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label54 = new System.Windows.Forms.Label();
+            this.NudKeepBackupFilesCount = new ARKBreedingStats.uiControls.Nud();
+            this.label53 = new System.Windows.Forms.Label();
+            this.BtClearBackupFolder = new System.Windows.Forms.Button();
+            this.label52 = new System.Windows.Forms.Label();
+            this.BtBackupFolder = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.numericUpDownAutosaveMinutes = new ARKBreedingStats.uiControls.Nud();
+            this.NudBackupEveryMinutes = new ARKBreedingStats.uiControls.Nud();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.checkBoxDisplayHiddenStats = new System.Windows.Forms.CheckBox();
             this.tabControlSettings = new System.Windows.Forms.TabControl();
@@ -114,15 +120,24 @@
             this.buttonEventToDefault = new System.Windows.Forms.Button();
             this.labelEvent = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox28 = new System.Windows.Forms.GroupBox();
+            this.BtInfoGraphicBorderColor = new System.Windows.Forms.Button();
+            this.BtInfoGraphicBackColor = new System.Windows.Forms.Button();
+            this.BtInfoGraphicForeColor = new System.Windows.Forms.Button();
+            this.label51 = new System.Windows.Forms.Label();
+            this.TbInfoGraphicFontName = new System.Windows.Forms.TextBox();
+            this.CbInfoGraphicDisplayMaxWildLevel = new System.Windows.Forms.CheckBox();
+            this.label50 = new System.Windows.Forms.Label();
+            this.LbInfoGraphicSize = new System.Windows.Forms.Label();
+            this.nudInfoGraphicWidth = new ARKBreedingStats.uiControls.Nud();
+            this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.cbDevTools = new System.Windows.Forms.CheckBox();
             this.GbSpecies = new System.Windows.Forms.GroupBox();
             this.LbSpeciesSelectorCountLastUsed = new System.Windows.Forms.Label();
             this.NudSpeciesSelectorCountLastUsed = new ARKBreedingStats.uiControls.Nud();
             this.groupBox26 = new System.Windows.Forms.GroupBox();
             this.cbAdminConsoleCommandWithCheat = new System.Windows.Forms.CheckBox();
             this.groupBox25 = new System.Windows.Forms.GroupBox();
-            this.CbInfoGraphicDisplayMaxWildLevel = new System.Windows.Forms.CheckBox();
-            this.nudInfoGraphicWidth = new ARKBreedingStats.uiControls.Nud();
-            this.LbInfoGraphicSize = new System.Windows.Forms.Label();
             this.label48 = new System.Windows.Forms.Label();
             this.CbbColorMode = new System.Windows.Forms.ComboBox();
             this.nudDefaultFontSize = new ARKBreedingStats.uiControls.Nud();
@@ -137,8 +152,6 @@
             this.cbPrettifyJSON = new System.Windows.Forms.CheckBox();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
             this.cbbLanguage = new System.Windows.Forms.ComboBox();
-            this.groupBox16 = new System.Windows.Forms.GroupBox();
-            this.cbDevTools = new System.Windows.Forms.CheckBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.CbLibrarySelectSelectedSpeciesOnLoad = new System.Windows.Forms.CheckBox();
             this.cbLibraryHighlightTopCreatures = new System.Windows.Forms.CheckBox();
@@ -253,14 +266,7 @@
             this.cbbOCRApp = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.groupBox28 = new System.Windows.Forms.GroupBox();
-            this.label50 = new System.Windows.Forms.Label();
-            this.label51 = new System.Windows.Forms.Label();
-            this.TbInfoGraphicFontName = new System.Windows.Forms.TextBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.BtInfoGraphicForeColor = new System.Windows.Forms.Button();
-            this.BtInfoGraphicBackColor = new System.Windows.Forms.Button();
-            this.BtInfoGraphicBorderColor = new System.Windows.Forms.Button();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmountEvent)).BeginInit();
@@ -290,7 +296,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudDinoCharacterFoodDrain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamingSpeed)).BeginInit();
             this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutosaveMinutes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NudKeepBackupFilesCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NudBackupEveryMinutes)).BeginInit();
             this.groupBox7.SuspendLayout();
             this.tabControlSettings.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -298,16 +305,17 @@
             this.groupBox11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).BeginInit();
             this.tabPage1.SuspendLayout();
+            this.groupBox28.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudInfoGraphicWidth)).BeginInit();
+            this.groupBox16.SuspendLayout();
             this.GbSpecies.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NudSpeciesSelectorCountLastUsed)).BeginInit();
             this.groupBox26.SuspendLayout();
             this.groupBox25.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudInfoGraphicWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDefaultFontSize)).BeginInit();
             this.groupBox24.SuspendLayout();
             this.groupBox20.SuspendLayout();
             this.groupBox17.SuspendLayout();
-            this.groupBox16.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.tabPageImportSavegame.SuspendLayout();
@@ -343,7 +351,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).BeginInit();
             this.panel1.SuspendLayout();
-            this.groupBox28.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -445,12 +452,11 @@
             this.checkBoxAutoSave.TabIndex = 0;
             this.checkBoxAutoSave.Text = "Auto save";
             this.checkBoxAutoSave.UseVisualStyleBackColor = true;
-            this.checkBoxAutoSave.CheckedChanged += new System.EventHandler(this.checkBoxAutoSave_CheckedChanged);
             // 
             // chkCollectionSync
             // 
             this.chkCollectionSync.AutoSize = true;
-            this.chkCollectionSync.Location = new System.Drawing.Point(6, 68);
+            this.chkCollectionSync.Location = new System.Drawing.Point(6, 42);
             this.chkCollectionSync.Name = "chkCollectionSync";
             this.chkCollectionSync.Size = new System.Drawing.Size(135, 17);
             this.chkCollectionSync.TabIndex = 5;
@@ -460,20 +466,20 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(19, 44);
+            this.label6.Location = new System.Drawing.Point(6, 146);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(120, 13);
+            this.label6.Size = new System.Drawing.Size(122, 13);
             this.label6.TabIndex = 1;
-            this.label6.Text = "Create Backupfile every";
+            this.label6.Text = "Create backup file every";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(194, 44);
+            this.label5.Location = new System.Drawing.Point(185, 146);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(44, 13);
+            this.label5.Size = new System.Drawing.Size(134, 13);
             this.label5.TabIndex = 3;
-            this.label5.Text = "Minutes";
+            this.label5.Text = "minutes (>0 recommended)";
             // 
             // groupBox2
             // 
@@ -1058,7 +1064,7 @@
             this.groupBox4.Controls.Add(this.radioButtonCelsius);
             this.groupBox4.Controls.Add(this.label12);
             this.groupBox4.Controls.Add(this.numericUpDownMaxBreedingSug);
-            this.groupBox4.Location = new System.Drawing.Point(6, 154);
+            this.groupBox4.Location = new System.Drawing.Point(6, 233);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(317, 138);
             this.groupBox4.TabIndex = 1;
@@ -1293,22 +1299,89 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.label54);
+            this.groupBox6.Controls.Add(this.NudKeepBackupFilesCount);
+            this.groupBox6.Controls.Add(this.label53);
+            this.groupBox6.Controls.Add(this.BtClearBackupFolder);
+            this.groupBox6.Controls.Add(this.label52);
+            this.groupBox6.Controls.Add(this.BtBackupFolder);
             this.groupBox6.Controls.Add(this.label2);
             this.groupBox6.Controls.Add(this.label5);
             this.groupBox6.Controls.Add(this.checkBoxAutoSave);
             this.groupBox6.Controls.Add(this.chkCollectionSync);
             this.groupBox6.Controls.Add(this.label6);
-            this.groupBox6.Controls.Add(this.numericUpDownAutosaveMinutes);
+            this.groupBox6.Controls.Add(this.NudBackupEveryMinutes);
             this.groupBox6.Location = new System.Drawing.Point(6, 6);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(317, 142);
+            this.groupBox6.Size = new System.Drawing.Size(317, 221);
             this.groupBox6.TabIndex = 0;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Save / Load";
             // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(110, 120);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(171, 13);
+            this.label54.TabIndex = 12;
+            this.label54.Text = "backup files (0 to disable backups)";
+            // 
+            // NudKeepBackupFilesCount
+            // 
+            this.NudKeepBackupFilesCount.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.NudKeepBackupFilesCount.Location = new System.Drawing.Point(44, 118);
+            this.NudKeepBackupFilesCount.Name = "NudKeepBackupFilesCount";
+            this.NudKeepBackupFilesCount.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.NudKeepBackupFilesCount.Size = new System.Drawing.Size(59, 20);
+            this.NudKeepBackupFilesCount.TabIndex = 11;
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(6, 120);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(32, 13);
+            this.label53.TabIndex = 10;
+            this.label53.Text = "Keep";
+            // 
+            // BtClearBackupFolder
+            // 
+            this.BtClearBackupFolder.Location = new System.Drawing.Point(288, 191);
+            this.BtClearBackupFolder.Name = "BtClearBackupFolder";
+            this.BtClearBackupFolder.Size = new System.Drawing.Size(23, 23);
+            this.BtClearBackupFolder.TabIndex = 9;
+            this.BtClearBackupFolder.Text = "×";
+            this.BtClearBackupFolder.UseVisualStyleBackColor = true;
+            this.BtClearBackupFolder.Click += new System.EventHandler(this.BtClearBackupFolder_Click);
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(6, 175);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(308, 13);
+            this.label52.TabIndex = 8;
+            this.label52.Text = "Global backup folder (if emtpy, the folder of the save file is used)";
+            // 
+            // BtBackupFolder
+            // 
+            this.BtBackupFolder.AutoEllipsis = true;
+            this.BtBackupFolder.Location = new System.Drawing.Point(6, 191);
+            this.BtBackupFolder.Name = "BtBackupFolder";
+            this.BtBackupFolder.Size = new System.Drawing.Size(276, 23);
+            this.BtBackupFolder.TabIndex = 7;
+            this.BtBackupFolder.Text = "n/a";
+            this.BtBackupFolder.UseVisualStyleBackColor = true;
+            this.BtBackupFolder.Click += new System.EventHandler(this.BtBackupFolder_Click);
+            // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(6, 94);
+            this.label2.Location = new System.Drawing.Point(6, 62);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(305, 48);
             this.label2.TabIndex = 6;
@@ -1316,24 +1389,23 @@
     ". Place the .asb collection-file in a shared-folder that the others have access " +
     "to.";
             // 
-            // numericUpDownAutosaveMinutes
+            // NudBackupEveryMinutes
             // 
-            this.numericUpDownAutosaveMinutes.Enabled = false;
-            this.numericUpDownAutosaveMinutes.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.numericUpDownAutosaveMinutes.Location = new System.Drawing.Point(145, 42);
-            this.numericUpDownAutosaveMinutes.Name = "numericUpDownAutosaveMinutes";
-            this.numericUpDownAutosaveMinutes.NeutralNumber = new decimal(new int[] {
+            this.NudBackupEveryMinutes.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.NudBackupEveryMinutes.Location = new System.Drawing.Point(132, 144);
+            this.NudBackupEveryMinutes.Name = "NudBackupEveryMinutes";
+            this.NudBackupEveryMinutes.NeutralNumber = new decimal(new int[] {
             0,
             0,
             0,
             0});
-            this.numericUpDownAutosaveMinutes.Size = new System.Drawing.Size(43, 20);
-            this.numericUpDownAutosaveMinutes.TabIndex = 2;
+            this.NudBackupEveryMinutes.Size = new System.Drawing.Size(47, 20);
+            this.NudBackupEveryMinutes.TabIndex = 2;
             // 
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.checkBoxDisplayHiddenStats);
-            this.groupBox7.Location = new System.Drawing.Point(6, 298);
+            this.groupBox7.Location = new System.Drawing.Point(6, 377);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(317, 43);
             this.groupBox7.TabIndex = 2;
@@ -1545,13 +1617,13 @@
             // 
             this.tabPage1.AutoScroll = true;
             this.tabPage1.Controls.Add(this.groupBox28);
+            this.tabPage1.Controls.Add(this.groupBox16);
             this.tabPage1.Controls.Add(this.GbSpecies);
             this.tabPage1.Controls.Add(this.groupBox26);
             this.tabPage1.Controls.Add(this.groupBox25);
             this.tabPage1.Controls.Add(this.groupBox24);
             this.tabPage1.Controls.Add(this.groupBox20);
             this.tabPage1.Controls.Add(this.groupBox17);
-            this.tabPage1.Controls.Add(this.groupBox16);
             this.tabPage1.Controls.Add(this.groupBox9);
             this.tabPage1.Controls.Add(this.groupBox8);
             this.tabPage1.Controls.Add(this.groupBox7);
@@ -1565,11 +1637,151 @@
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // groupBox28
+            // 
+            this.groupBox28.Controls.Add(this.BtInfoGraphicBorderColor);
+            this.groupBox28.Controls.Add(this.BtInfoGraphicBackColor);
+            this.groupBox28.Controls.Add(this.BtInfoGraphicForeColor);
+            this.groupBox28.Controls.Add(this.label51);
+            this.groupBox28.Controls.Add(this.TbInfoGraphicFontName);
+            this.groupBox28.Controls.Add(this.CbInfoGraphicDisplayMaxWildLevel);
+            this.groupBox28.Controls.Add(this.label50);
+            this.groupBox28.Controls.Add(this.LbInfoGraphicSize);
+            this.groupBox28.Controls.Add(this.nudInfoGraphicWidth);
+            this.groupBox28.Location = new System.Drawing.Point(329, 413);
+            this.groupBox28.Name = "groupBox28";
+            this.groupBox28.Size = new System.Drawing.Size(413, 111);
+            this.groupBox28.TabIndex = 15;
+            this.groupBox28.TabStop = false;
+            this.groupBox28.Text = "Infographic";
+            // 
+            // BtInfoGraphicBorderColor
+            // 
+            this.BtInfoGraphicBorderColor.Location = new System.Drawing.Point(332, 77);
+            this.BtInfoGraphicBorderColor.Name = "BtInfoGraphicBorderColor";
+            this.BtInfoGraphicBorderColor.Size = new System.Drawing.Size(75, 23);
+            this.BtInfoGraphicBorderColor.TabIndex = 32;
+            this.BtInfoGraphicBorderColor.Text = "BorderColor";
+            this.BtInfoGraphicBorderColor.UseVisualStyleBackColor = true;
+            this.BtInfoGraphicBorderColor.Click += new System.EventHandler(this.ColorButtonClick);
+            // 
+            // BtInfoGraphicBackColor
+            // 
+            this.BtInfoGraphicBackColor.Location = new System.Drawing.Point(332, 48);
+            this.BtInfoGraphicBackColor.Name = "BtInfoGraphicBackColor";
+            this.BtInfoGraphicBackColor.Size = new System.Drawing.Size(75, 23);
+            this.BtInfoGraphicBackColor.TabIndex = 31;
+            this.BtInfoGraphicBackColor.Text = "BackColor";
+            this.BtInfoGraphicBackColor.UseVisualStyleBackColor = true;
+            this.BtInfoGraphicBackColor.Click += new System.EventHandler(this.ColorButtonClick);
+            // 
+            // BtInfoGraphicForeColor
+            // 
+            this.BtInfoGraphicForeColor.Location = new System.Drawing.Point(332, 19);
+            this.BtInfoGraphicForeColor.Name = "BtInfoGraphicForeColor";
+            this.BtInfoGraphicForeColor.Size = new System.Drawing.Size(75, 23);
+            this.BtInfoGraphicForeColor.TabIndex = 30;
+            this.BtInfoGraphicForeColor.Text = "ForeColor";
+            this.BtInfoGraphicForeColor.UseVisualStyleBackColor = true;
+            this.BtInfoGraphicForeColor.Click += new System.EventHandler(this.ColorButtonClick);
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Location = new System.Drawing.Point(6, 84);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(28, 13);
+            this.label51.TabIndex = 29;
+            this.label51.Text = "Font";
+            // 
+            // TbInfoGraphicFontName
+            // 
+            this.TbInfoGraphicFontName.Location = new System.Drawing.Point(74, 81);
+            this.TbInfoGraphicFontName.Name = "TbInfoGraphicFontName";
+            this.TbInfoGraphicFontName.Size = new System.Drawing.Size(222, 20);
+            this.TbInfoGraphicFontName.TabIndex = 28;
+            // 
+            // CbInfoGraphicDisplayMaxWildLevel
+            // 
+            this.CbInfoGraphicDisplayMaxWildLevel.AutoSize = true;
+            this.CbInfoGraphicDisplayMaxWildLevel.Location = new System.Drawing.Point(6, 58);
+            this.CbInfoGraphicDisplayMaxWildLevel.Name = "CbInfoGraphicDisplayMaxWildLevel";
+            this.CbInfoGraphicDisplayMaxWildLevel.Size = new System.Drawing.Size(229, 17);
+            this.CbInfoGraphicDisplayMaxWildLevel.TabIndex = 27;
+            this.CbInfoGraphicDisplayMaxWildLevel.Text = "Display max wild server level in InfoGraphic";
+            this.CbInfoGraphicDisplayMaxWildLevel.UseVisualStyleBackColor = true;
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(6, 16);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(298, 13);
+            this.label50.TabIndex = 27;
+            this.label50.Text = "Styling of the infographic that can be exported from the library.";
+            // 
+            // LbInfoGraphicSize
+            // 
+            this.LbInfoGraphicSize.AutoSize = true;
+            this.LbInfoGraphicSize.Location = new System.Drawing.Point(6, 34);
+            this.LbInfoGraphicSize.Name = "LbInfoGraphicSize";
+            this.LbInfoGraphicSize.Size = new System.Drawing.Size(110, 13);
+            this.LbInfoGraphicSize.TabIndex = 6;
+            this.LbInfoGraphicSize.Text = "InfoGraphic width [px]";
+            // 
+            // nudInfoGraphicWidth
+            // 
+            this.nudInfoGraphicWidth.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.nudInfoGraphicWidth.Location = new System.Drawing.Point(122, 32);
+            this.nudInfoGraphicWidth.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.nudInfoGraphicWidth.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudInfoGraphicWidth.Name = "nudInfoGraphicWidth";
+            this.nudInfoGraphicWidth.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudInfoGraphicWidth.Size = new System.Drawing.Size(57, 20);
+            this.nudInfoGraphicWidth.TabIndex = 26;
+            this.nudInfoGraphicWidth.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // groupBox16
+            // 
+            this.groupBox16.Controls.Add(this.cbDevTools);
+            this.groupBox16.Location = new System.Drawing.Point(329, 625);
+            this.groupBox16.Name = "groupBox16";
+            this.groupBox16.Size = new System.Drawing.Size(413, 43);
+            this.groupBox16.TabIndex = 8;
+            this.groupBox16.TabStop = false;
+            this.groupBox16.Text = "Dev-Tools";
+            // 
+            // cbDevTools
+            // 
+            this.cbDevTools.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbDevTools.Location = new System.Drawing.Point(3, 16);
+            this.cbDevTools.Name = "cbDevTools";
+            this.cbDevTools.Size = new System.Drawing.Size(407, 24);
+            this.cbDevTools.TabIndex = 0;
+            this.cbDevTools.Text = "Show Dev Tools (needs restart). Adds a statmultiplier-tester and extractor tests";
+            this.cbDevTools.UseVisualStyleBackColor = true;
+            // 
             // GbSpecies
             // 
             this.GbSpecies.Controls.Add(this.LbSpeciesSelectorCountLastUsed);
             this.GbSpecies.Controls.Add(this.NudSpeciesSelectorCountLastUsed);
-            this.GbSpecies.Location = new System.Drawing.Point(6, 347);
+            this.GbSpecies.Location = new System.Drawing.Point(6, 426);
             this.GbSpecies.Name = "GbSpecies";
             this.GbSpecies.Size = new System.Drawing.Size(317, 43);
             this.GbSpecies.TabIndex = 14;
@@ -1601,9 +1813,9 @@
             // groupBox26
             // 
             this.groupBox26.Controls.Add(this.cbAdminConsoleCommandWithCheat);
-            this.groupBox26.Location = new System.Drawing.Point(6, 512);
+            this.groupBox26.Location = new System.Drawing.Point(329, 530);
             this.groupBox26.Name = "groupBox26";
-            this.groupBox26.Size = new System.Drawing.Size(317, 43);
+            this.groupBox26.Size = new System.Drawing.Size(413, 43);
             this.groupBox26.TabIndex = 13;
             this.groupBox26.TabStop = false;
             this.groupBox26.Text = "Console Commands";
@@ -1626,59 +1838,12 @@
             this.groupBox25.Controls.Add(this.label33);
             this.groupBox25.Controls.Add(this.label32);
             this.groupBox25.Controls.Add(this.tbDefaultFontName);
-            this.groupBox25.Location = new System.Drawing.Point(329, 333);
+            this.groupBox25.Location = new System.Drawing.Point(329, 329);
             this.groupBox25.Name = "groupBox25";
             this.groupBox25.Size = new System.Drawing.Size(413, 78);
             this.groupBox25.TabIndex = 12;
             this.groupBox25.TabStop = false;
             this.groupBox25.Text = "Visuals";
-            // 
-            // CbInfoGraphicDisplayMaxWildLevel
-            // 
-            this.CbInfoGraphicDisplayMaxWildLevel.AutoSize = true;
-            this.CbInfoGraphicDisplayMaxWildLevel.Location = new System.Drawing.Point(6, 58);
-            this.CbInfoGraphicDisplayMaxWildLevel.Name = "CbInfoGraphicDisplayMaxWildLevel";
-            this.CbInfoGraphicDisplayMaxWildLevel.Size = new System.Drawing.Size(229, 17);
-            this.CbInfoGraphicDisplayMaxWildLevel.TabIndex = 27;
-            this.CbInfoGraphicDisplayMaxWildLevel.Text = "Display max wild server level in InfoGraphic";
-            this.CbInfoGraphicDisplayMaxWildLevel.UseVisualStyleBackColor = true;
-            // 
-            // nudInfoGraphicWidth
-            // 
-            this.nudInfoGraphicWidth.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.nudInfoGraphicWidth.Location = new System.Drawing.Point(122, 32);
-            this.nudInfoGraphicWidth.Maximum = new decimal(new int[] {
-            99999,
-            0,
-            0,
-            0});
-            this.nudInfoGraphicWidth.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudInfoGraphicWidth.Name = "nudInfoGraphicWidth";
-            this.nudInfoGraphicWidth.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudInfoGraphicWidth.Size = new System.Drawing.Size(57, 20);
-            this.nudInfoGraphicWidth.TabIndex = 26;
-            this.nudInfoGraphicWidth.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            // 
-            // LbInfoGraphicSize
-            // 
-            this.LbInfoGraphicSize.AutoSize = true;
-            this.LbInfoGraphicSize.Location = new System.Drawing.Point(6, 34);
-            this.LbInfoGraphicSize.Name = "LbInfoGraphicSize";
-            this.LbInfoGraphicSize.Size = new System.Drawing.Size(110, 13);
-            this.LbInfoGraphicSize.TabIndex = 6;
-            this.LbInfoGraphicSize.Text = "InfoGraphic width [px]";
             // 
             // label48
             // 
@@ -1744,7 +1909,7 @@
             this.groupBox24.Controls.Add(this.cbTimersInOverlayAutomatically);
             this.groupBox24.Location = new System.Drawing.Point(329, 233);
             this.groupBox24.Name = "groupBox24";
-            this.groupBox24.Size = new System.Drawing.Size(413, 94);
+            this.groupBox24.Size = new System.Drawing.Size(413, 90);
             this.groupBox24.TabIndex = 11;
             this.groupBox24.TabStop = false;
             this.groupBox24.Text = "Timers";
@@ -1782,7 +1947,7 @@
             // groupBox20
             // 
             this.groupBox20.Controls.Add(this.cbPrettifyJSON);
-            this.groupBox20.Location = new System.Drawing.Point(329, 534);
+            this.groupBox20.Location = new System.Drawing.Point(329, 579);
             this.groupBox20.Name = "groupBox20";
             this.groupBox20.Size = new System.Drawing.Size(413, 40);
             this.groupBox20.TabIndex = 10;
@@ -1802,7 +1967,7 @@
             // groupBox17
             // 
             this.groupBox17.Controls.Add(this.cbbLanguage);
-            this.groupBox17.Location = new System.Drawing.Point(6, 561);
+            this.groupBox17.Location = new System.Drawing.Point(6, 591);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(317, 51);
             this.groupBox17.TabIndex = 9;
@@ -1818,33 +1983,13 @@
             this.cbbLanguage.Size = new System.Drawing.Size(305, 21);
             this.cbbLanguage.TabIndex = 0;
             // 
-            // groupBox16
-            // 
-            this.groupBox16.Controls.Add(this.cbDevTools);
-            this.groupBox16.Location = new System.Drawing.Point(329, 580);
-            this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(413, 43);
-            this.groupBox16.TabIndex = 8;
-            this.groupBox16.TabStop = false;
-            this.groupBox16.Text = "Dev-Tools";
-            // 
-            // cbDevTools
-            // 
-            this.cbDevTools.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cbDevTools.Location = new System.Drawing.Point(3, 16);
-            this.cbDevTools.Name = "cbDevTools";
-            this.cbDevTools.Size = new System.Drawing.Size(407, 24);
-            this.cbDevTools.TabIndex = 0;
-            this.cbDevTools.Text = "Show Dev Tools (needs restart). Adds a statmultiplier-tester and extractor tests";
-            this.cbDevTools.UseVisualStyleBackColor = true;
-            // 
             // groupBox9
             // 
             this.groupBox9.Controls.Add(this.CbLibrarySelectSelectedSpeciesOnLoad);
             this.groupBox9.Controls.Add(this.cbLibraryHighlightTopCreatures);
             this.groupBox9.Controls.Add(this.cbApplyGlobalSpeciesToLibrary);
             this.groupBox9.Controls.Add(this.cbCreatureColorsLibrary);
-            this.groupBox9.Location = new System.Drawing.Point(6, 396);
+            this.groupBox9.Location = new System.Drawing.Point(6, 475);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(317, 110);
             this.groupBox9.TabIndex = 7;
@@ -3104,79 +3249,6 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // groupBox28
-            // 
-            this.groupBox28.Controls.Add(this.BtInfoGraphicBorderColor);
-            this.groupBox28.Controls.Add(this.BtInfoGraphicBackColor);
-            this.groupBox28.Controls.Add(this.BtInfoGraphicForeColor);
-            this.groupBox28.Controls.Add(this.label51);
-            this.groupBox28.Controls.Add(this.TbInfoGraphicFontName);
-            this.groupBox28.Controls.Add(this.CbInfoGraphicDisplayMaxWildLevel);
-            this.groupBox28.Controls.Add(this.label50);
-            this.groupBox28.Controls.Add(this.LbInfoGraphicSize);
-            this.groupBox28.Controls.Add(this.nudInfoGraphicWidth);
-            this.groupBox28.Location = new System.Drawing.Point(329, 417);
-            this.groupBox28.Name = "groupBox28";
-            this.groupBox28.Size = new System.Drawing.Size(413, 111);
-            this.groupBox28.TabIndex = 15;
-            this.groupBox28.TabStop = false;
-            this.groupBox28.Text = "Infographic";
-            // 
-            // label50
-            // 
-            this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(6, 16);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(298, 13);
-            this.label50.TabIndex = 27;
-            this.label50.Text = "Styling of the infographic that can be exported from the library.";
-            // 
-            // label51
-            // 
-            this.label51.AutoSize = true;
-            this.label51.Location = new System.Drawing.Point(6, 84);
-            this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(28, 13);
-            this.label51.TabIndex = 29;
-            this.label51.Text = "Font";
-            // 
-            // TbInfoGraphicFontName
-            // 
-            this.TbInfoGraphicFontName.Location = new System.Drawing.Point(74, 81);
-            this.TbInfoGraphicFontName.Name = "TbInfoGraphicFontName";
-            this.TbInfoGraphicFontName.Size = new System.Drawing.Size(222, 20);
-            this.TbInfoGraphicFontName.TabIndex = 28;
-            // 
-            // BtInfoGraphicForeColor
-            // 
-            this.BtInfoGraphicForeColor.Location = new System.Drawing.Point(332, 19);
-            this.BtInfoGraphicForeColor.Name = "BtInfoGraphicForeColor";
-            this.BtInfoGraphicForeColor.Size = new System.Drawing.Size(75, 23);
-            this.BtInfoGraphicForeColor.TabIndex = 30;
-            this.BtInfoGraphicForeColor.Text = "ForeColor";
-            this.BtInfoGraphicForeColor.UseVisualStyleBackColor = true;
-            this.BtInfoGraphicForeColor.Click += new System.EventHandler(this.ColorButtonClick);
-            // 
-            // BtInfoGraphicBackColor
-            // 
-            this.BtInfoGraphicBackColor.Location = new System.Drawing.Point(332, 48);
-            this.BtInfoGraphicBackColor.Name = "BtInfoGraphicBackColor";
-            this.BtInfoGraphicBackColor.Size = new System.Drawing.Size(75, 23);
-            this.BtInfoGraphicBackColor.TabIndex = 31;
-            this.BtInfoGraphicBackColor.Text = "BackColor";
-            this.BtInfoGraphicBackColor.UseVisualStyleBackColor = true;
-            this.BtInfoGraphicBackColor.Click += new System.EventHandler(this.ColorButtonClick);
-            // 
-            // BtInfoGraphicBorderColor
-            // 
-            this.BtInfoGraphicBorderColor.Location = new System.Drawing.Point(332, 77);
-            this.BtInfoGraphicBorderColor.Name = "BtInfoGraphicBorderColor";
-            this.BtInfoGraphicBorderColor.Size = new System.Drawing.Size(75, 23);
-            this.BtInfoGraphicBorderColor.TabIndex = 32;
-            this.BtInfoGraphicBorderColor.Text = "BorderColor";
-            this.BtInfoGraphicBorderColor.UseVisualStyleBackColor = true;
-            this.BtInfoGraphicBorderColor.Click += new System.EventHandler(this.ColorButtonClick);
-            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -3228,7 +3300,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudTamingSpeed)).EndInit();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutosaveMinutes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NudKeepBackupFilesCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NudBackupEveryMinutes)).EndInit();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.tabControlSettings.ResumeLayout(false);
@@ -3239,6 +3312,10 @@
             this.groupBox11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).EndInit();
             this.tabPage1.ResumeLayout(false);
+            this.groupBox28.ResumeLayout(false);
+            this.groupBox28.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudInfoGraphicWidth)).EndInit();
+            this.groupBox16.ResumeLayout(false);
             this.GbSpecies.ResumeLayout(false);
             this.GbSpecies.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NudSpeciesSelectorCountLastUsed)).EndInit();
@@ -3246,14 +3323,12 @@
             this.groupBox26.PerformLayout();
             this.groupBox25.ResumeLayout(false);
             this.groupBox25.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudInfoGraphicWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDefaultFontSize)).EndInit();
             this.groupBox24.ResumeLayout(false);
             this.groupBox24.PerformLayout();
             this.groupBox20.ResumeLayout(false);
             this.groupBox20.PerformLayout();
             this.groupBox17.ResumeLayout(false);
-            this.groupBox16.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             this.groupBox8.ResumeLayout(false);
@@ -3303,8 +3378,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.groupBox28.ResumeLayout(false);
-            this.groupBox28.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3321,7 +3394,7 @@
         private System.Windows.Forms.Label labelInfo;
         private System.Windows.Forms.CheckBox checkBoxAutoSave;
         private System.Windows.Forms.Label label5;
-        private ARKBreedingStats.uiControls.Nud numericUpDownAutosaveMinutes;
+        private ARKBreedingStats.uiControls.Nud NudBackupEveryMinutes;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label8;
@@ -3542,5 +3615,11 @@
         private System.Windows.Forms.TextBox TbInfoGraphicFontName;
         private System.Windows.Forms.Label label50;
         private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.Button BtClearBackupFolder;
+        private System.Windows.Forms.Label label52;
+        private System.Windows.Forms.Button BtBackupFolder;
+        private System.Windows.Forms.Label label54;
+        private uiControls.Nud NudKeepBackupFilesCount;
+        private System.Windows.Forms.Label label53;
     }
 }
