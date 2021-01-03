@@ -69,6 +69,12 @@ namespace ARKBreedingStats
         /// </summary>
         public static bool SaveJsonFile(string filePath, object data, out string errorMessage)
         {
+            if (string.IsNullOrEmpty(filePath))
+            {
+                errorMessage = "File path is empty.\nCouldn't be saved.";
+                return false;
+            }
+
             errorMessage = null;
             try
             {

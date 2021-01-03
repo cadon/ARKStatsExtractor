@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Threading;
@@ -32,7 +34,7 @@ namespace ARKBreedingStats.ocr
         public void Initialize()
         {
             SetWhiteThreshold(Properties.Settings.Default.OCRWhiteThreshold);
-            LoadOcrTemplate(Properties.Settings.Default.ocrFile);
+            LoadAndInitializeOcrTemplate(Properties.Settings.Default.ocrFile);
         }
 
         private void InitLabelEntries()
@@ -373,8 +375,10 @@ namespace ARKBreedingStats.ocr
             SaveOcrFileAs();
         }
 
-        private void SaveOcrFileAs()
+        private bool SaveOcrFileAs()
         {
+            if (ArkOCR.OCR.ocrConfig == null) return false;
+
             string path = FileService.GetJsonPath(FileService.OcrFolderName);
             using (SaveFileDialog dlg = new SaveFileDialog
             {
@@ -387,16 +391,19 @@ namespace ARKBreedingStats.ocr
                     if (string.IsNullOrWhiteSpace(dlg.FileName))
                     {
                         MessageBox.Show("Can't save, no file name specified.", "Missing file name", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        return;
+                        return false;
                     }
 
                     var filePath = dlg.FileName;
 
                     ArkOCR.OCR.ocrConfig.SaveFile(filePath);
                     Properties.Settings.Default.ocrFile = filePath;
-                    LoadOcrTemplate(filePath);
+                    LoadAndInitializeOcrTemplate(filePath);
+                    return true;
                 }
             }
+
+            return false;
         }
 
         private void buttonLoadOCRTemplate_Click(object sender, EventArgs e)
@@ -410,7 +417,7 @@ namespace ARKBreedingStats.ocr
                 CheckFileExists = true
             })
             {
-                if (dlg.ShowDialog() == DialogResult.OK && LoadOcrTemplate(dlg.FileName))
+                if (dlg.ShowDialog() == DialogResult.OK && LoadAndInitializeOcrTemplate(dlg.FileName))
                 {
                     Properties.Settings.Default.ocrFile = dlg.FileName;
                 }
@@ -419,14 +426,28 @@ namespace ARKBreedingStats.ocr
 
         private void btUnloadOCR_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.ocrFile = string.Empty;
+            Properties.Settings.Default.ocrFile = null;
             ArkOCR.OCR.ocrConfig = null;
             UpdateOCRLabel();
         }
 
-        private bool LoadOcrTemplate(string filePath)
+        private void BtNewOcrConfig_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(filePath)) return false;
+            var currentOcrConfig = ArkOCR.OCR.ocrConfig;
+            ArkOCR.OCR.ocrConfig = new OCRTemplate();
+            if (SaveOcrFileAs()) return;
+
+            // user doesn't want to create new config, reset to old one
+            ArkOCR.OCR.ocrConfig = currentOcrConfig;
+        }
+
+        private bool LoadAndInitializeOcrTemplate(string filePath)
+        {
+            if (string.IsNullOrEmpty(filePath))
+            {
+                UpdateOCRLabel();
+                return false;
+            }
 
             ArkOCR.OCR.ocrConfig = OCRTemplate.LoadFile(filePath) ?? new OCRTemplate();
             UpdateOCRLabel(filePath);
@@ -442,12 +463,17 @@ namespace ARKBreedingStats.ocr
 
         private void UpdateOCRLabel(string fileName = null)
         {
-            labelOCRFile.Text = string.IsNullOrEmpty(fileName) || ArkOCR.OCR.ocrConfig == null
+            var ocrAvailable = !string.IsNullOrEmpty(fileName) && ArkOCR.OCR.ocrConfig != null;
+            labelOCRFile.Text = !ocrAvailable
                 ? "no ocr-File loaded (OCR won't work)"
                 : $"{fileName}\n\n" +
                 $"Resolution: {ArkOCR.OCR.ocrConfig.resolutionWidth} × {ArkOCR.OCR.ocrConfig.resolutionHeight}\n" +
                 $"UI-Scaling: {ArkOCR.OCR.ocrConfig.guiZoom}\n" +
                 $"Screenshot-Resizing-Factor: {ArkOCR.OCR.ocrConfig.resize}";
+
+            BtSaveOCRConfigAs.Enabled = ocrAvailable;
+            BtSaveOCRconfig.Enabled = ocrAvailable;
+            BtUnloadOCR.Enabled = ocrAvailable;
         }
 
         private void buttonLoadCalibrationImage_Click(object sender, EventArgs e)
@@ -548,7 +574,7 @@ namespace ARKBreedingStats.ocr
             SaveOcrSettings(ref ArkOCR.OCR.ocrConfig.RecognitionPatterns.TrainingSettings.SkipOwner, sender);
         }
 
-        private void SaveOcrSettings(ref bool setting, object sender)
+        private static void SaveOcrSettings(ref bool setting, object sender)
         {
             bool setTo = sender is CheckBox cb && cb.Checked;
             if (setting == setTo) return;
@@ -660,5 +686,14 @@ namespace ARKBreedingStats.ocr
         }
 
         #endregion
+
+        private void labelOCRFile_Click(object sender, EventArgs e)
+        {
+            // open explorer with currently loaded ocrConfigFile
+            var ocrFile = Properties.Settings.Default.ocrFile;
+            if (string.IsNullOrEmpty(ocrFile) || !File.Exists(ocrFile)) return;
+
+            Process.Start("explorer.exe", $"/select,\"{ocrFile}\"");
+        }
     }
 }

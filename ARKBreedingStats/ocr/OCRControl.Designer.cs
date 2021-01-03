@@ -36,11 +36,12 @@ namespace ARKBreedingStats.ocr
             this.tabControlManage = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.btUnloadOCR = new System.Windows.Forms.Button();
-            this.btnSaveOCRconfig = new System.Windows.Forms.Button();
-            this.buttonLoadOCRTemplate = new System.Windows.Forms.Button();
+            this.BtNewOcrConfig = new System.Windows.Forms.Button();
+            this.BtUnloadOCR = new System.Windows.Forms.Button();
             this.labelOCRFile = new System.Windows.Forms.Label();
-            this.btnSaveOCRConfigAs = new System.Windows.Forms.Button();
+            this.BtSaveOCRconfig = new System.Windows.Forms.Button();
+            this.BtLoadOCRTemplate = new System.Windows.Forms.Button();
+            this.BtSaveOCRConfigAs = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.ListBoxPatternsOfString = new System.Windows.Forms.ListBox();
@@ -51,6 +52,7 @@ namespace ARKBreedingStats.ocr
             this.label11 = new System.Windows.Forms.Label();
             this.listBoxRecognized = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.BtRemovePattern = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.nudFontSize = new ARKBreedingStats.uiControls.Nud();
@@ -108,7 +110,6 @@ namespace ARKBreedingStats.ocr
             this.nudX = new ARKBreedingStats.uiControls.Nud();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.listBoxLabelRectangles = new System.Windows.Forms.ListBox();
-            this.BtRemovePattern = new System.Windows.Forms.Button();
             this.tableLayoutPanel4.SuspendLayout();
             this.tabControlManage.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -197,11 +198,12 @@ namespace ARKBreedingStats.ocr
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.btUnloadOCR);
-            this.groupBox6.Controls.Add(this.btnSaveOCRconfig);
-            this.groupBox6.Controls.Add(this.buttonLoadOCRTemplate);
+            this.groupBox6.Controls.Add(this.BtNewOcrConfig);
+            this.groupBox6.Controls.Add(this.BtUnloadOCR);
             this.groupBox6.Controls.Add(this.labelOCRFile);
-            this.groupBox6.Controls.Add(this.btnSaveOCRConfigAs);
+            this.groupBox6.Controls.Add(this.BtSaveOCRconfig);
+            this.groupBox6.Controls.Add(this.BtLoadOCRTemplate);
+            this.groupBox6.Controls.Add(this.BtSaveOCRConfigAs);
             this.groupBox6.Location = new System.Drawing.Point(6, 219);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(334, 195);
@@ -209,53 +211,64 @@ namespace ARKBreedingStats.ocr
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "OCR config file";
             // 
-            // btUnloadOCR
+            // BtNewOcrConfig
             // 
-            this.btUnloadOCR.Location = new System.Drawing.Point(142, 21);
-            this.btUnloadOCR.Name = "btUnloadOCR";
-            this.btUnloadOCR.Size = new System.Drawing.Size(130, 23);
-            this.btUnloadOCR.TabIndex = 26;
-            this.btUnloadOCR.Text = "unload OCR config";
-            this.btUnloadOCR.UseVisualStyleBackColor = true;
-            this.btUnloadOCR.Click += new System.EventHandler(this.btUnloadOCR_Click);
+            this.BtNewOcrConfig.Location = new System.Drawing.Point(6, 19);
+            this.BtNewOcrConfig.Name = "BtNewOcrConfig";
+            this.BtNewOcrConfig.Size = new System.Drawing.Size(94, 23);
+            this.BtNewOcrConfig.TabIndex = 27;
+            this.BtNewOcrConfig.Text = "new";
+            this.BtNewOcrConfig.UseVisualStyleBackColor = true;
+            this.BtNewOcrConfig.Click += new System.EventHandler(this.BtNewOcrConfig_Click);
             // 
-            // btnSaveOCRconfig
+            // BtUnloadOCR
             // 
-            this.btnSaveOCRconfig.Location = new System.Drawing.Point(6, 50);
-            this.btnSaveOCRconfig.Name = "btnSaveOCRconfig";
-            this.btnSaveOCRconfig.Size = new System.Drawing.Size(130, 23);
-            this.btnSaveOCRconfig.TabIndex = 25;
-            this.btnSaveOCRconfig.Text = "save OCR config";
-            this.btnSaveOCRconfig.UseVisualStyleBackColor = true;
-            this.btnSaveOCRconfig.Click += new System.EventHandler(this.btnSaveOCRconfig_Click);
-            // 
-            // buttonLoadOCRTemplate
-            // 
-            this.buttonLoadOCRTemplate.Location = new System.Drawing.Point(6, 19);
-            this.buttonLoadOCRTemplate.Name = "buttonLoadOCRTemplate";
-            this.buttonLoadOCRTemplate.Size = new System.Drawing.Size(130, 23);
-            this.buttonLoadOCRTemplate.TabIndex = 23;
-            this.buttonLoadOCRTemplate.Text = "load OCR config";
-            this.buttonLoadOCRTemplate.UseVisualStyleBackColor = true;
-            this.buttonLoadOCRTemplate.Click += new System.EventHandler(this.buttonLoadOCRTemplate_Click);
+            this.BtUnloadOCR.Location = new System.Drawing.Point(106, 48);
+            this.BtUnloadOCR.Name = "BtUnloadOCR";
+            this.BtUnloadOCR.Size = new System.Drawing.Size(94, 23);
+            this.BtUnloadOCR.TabIndex = 26;
+            this.BtUnloadOCR.Text = "unload";
+            this.BtUnloadOCR.UseVisualStyleBackColor = true;
+            this.BtUnloadOCR.Click += new System.EventHandler(this.btUnloadOCR_Click);
             // 
             // labelOCRFile
             // 
-            this.labelOCRFile.Location = new System.Drawing.Point(6, 76);
+            this.labelOCRFile.Location = new System.Drawing.Point(6, 74);
             this.labelOCRFile.Name = "labelOCRFile";
             this.labelOCRFile.Size = new System.Drawing.Size(322, 116);
             this.labelOCRFile.TabIndex = 24;
             this.labelOCRFile.Text = "no ocr-File loaded (OCR won\'t work)";
+            this.labelOCRFile.Click += new System.EventHandler(this.labelOCRFile_Click);
             // 
-            // btnSaveOCRConfigAs
+            // BtSaveOCRconfig
             // 
-            this.btnSaveOCRConfigAs.Location = new System.Drawing.Point(142, 50);
-            this.btnSaveOCRConfigAs.Name = "btnSaveOCRConfigAs";
-            this.btnSaveOCRConfigAs.Size = new System.Drawing.Size(130, 23);
-            this.btnSaveOCRConfigAs.TabIndex = 22;
-            this.btnSaveOCRConfigAs.Text = "save OCR config as...";
-            this.btnSaveOCRConfigAs.UseVisualStyleBackColor = true;
-            this.btnSaveOCRConfigAs.Click += new System.EventHandler(this.btnSaveOCRConfigAs_Click);
+            this.BtSaveOCRconfig.Location = new System.Drawing.Point(206, 19);
+            this.BtSaveOCRconfig.Name = "BtSaveOCRconfig";
+            this.BtSaveOCRconfig.Size = new System.Drawing.Size(94, 23);
+            this.BtSaveOCRconfig.TabIndex = 25;
+            this.BtSaveOCRconfig.Text = "save";
+            this.BtSaveOCRconfig.UseVisualStyleBackColor = true;
+            this.BtSaveOCRconfig.Click += new System.EventHandler(this.btnSaveOCRconfig_Click);
+            // 
+            // BtLoadOCRTemplate
+            // 
+            this.BtLoadOCRTemplate.Location = new System.Drawing.Point(106, 19);
+            this.BtLoadOCRTemplate.Name = "BtLoadOCRTemplate";
+            this.BtLoadOCRTemplate.Size = new System.Drawing.Size(94, 23);
+            this.BtLoadOCRTemplate.TabIndex = 23;
+            this.BtLoadOCRTemplate.Text = "load";
+            this.BtLoadOCRTemplate.UseVisualStyleBackColor = true;
+            this.BtLoadOCRTemplate.Click += new System.EventHandler(this.buttonLoadOCRTemplate_Click);
+            // 
+            // BtSaveOCRConfigAs
+            // 
+            this.BtSaveOCRConfigAs.Location = new System.Drawing.Point(206, 48);
+            this.BtSaveOCRConfigAs.Name = "BtSaveOCRConfigAs";
+            this.BtSaveOCRConfigAs.Size = new System.Drawing.Size(94, 23);
+            this.BtSaveOCRConfigAs.TabIndex = 22;
+            this.BtSaveOCRConfigAs.Text = "save as…";
+            this.BtSaveOCRConfigAs.UseVisualStyleBackColor = true;
+            this.BtSaveOCRConfigAs.Click += new System.EventHandler(this.btnSaveOCRConfigAs_Click);
             // 
             // label12
             // 
@@ -369,6 +382,16 @@ namespace ARKBreedingStats.ocr
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Template";
             // 
+            // BtRemovePattern
+            // 
+            this.BtRemovePattern.Location = new System.Drawing.Point(6, 45);
+            this.BtRemovePattern.Name = "BtRemovePattern";
+            this.BtRemovePattern.Size = new System.Drawing.Size(59, 36);
+            this.BtRemovePattern.TabIndex = 16;
+            this.BtRemovePattern.Text = "Remove template";
+            this.BtRemovePattern.UseVisualStyleBackColor = true;
+            this.BtRemovePattern.Click += new System.EventHandler(this.BtRemovePattern_Click);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -423,6 +446,7 @@ namespace ARKBreedingStats.ocr
         ((uint)(0u))};
             this.ocrLetterEditTemplate.Location = new System.Drawing.Point(136, 19);
             this.ocrLetterEditTemplate.Name = "ocrLetterEditTemplate";
+            this.ocrLetterEditTemplate.PatternDisplay = null;
             this.ocrLetterEditTemplate.Size = new System.Drawing.Size(100, 100);
             this.ocrLetterEditTemplate.TabIndex = 12;
             this.ocrLetterEditTemplate.TabStop = false;
@@ -513,6 +537,7 @@ namespace ARKBreedingStats.ocr
         ((uint)(0u))};
             this.ocrLetterEditRecognized.Location = new System.Drawing.Point(136, 16);
             this.ocrLetterEditRecognized.Name = "ocrLetterEditRecognized";
+            this.ocrLetterEditRecognized.PatternDisplay = null;
             this.ocrLetterEditRecognized.Size = new System.Drawing.Size(100, 100);
             this.ocrLetterEditRecognized.TabIndex = 13;
             this.ocrLetterEditRecognized.TabStop = false;
@@ -1092,16 +1117,6 @@ namespace ARKBreedingStats.ocr
             this.listBoxLabelRectangles.TabIndex = 0;
             this.listBoxLabelRectangles.SelectedIndexChanged += new System.EventHandler(this.listBoxLabelRectangles_SelectedIndexChanged);
             // 
-            // BtRemovePattern
-            // 
-            this.BtRemovePattern.Location = new System.Drawing.Point(6, 45);
-            this.BtRemovePattern.Name = "BtRemovePattern";
-            this.BtRemovePattern.Size = new System.Drawing.Size(59, 36);
-            this.BtRemovePattern.TabIndex = 16;
-            this.BtRemovePattern.Text = "Remove template";
-            this.BtRemovePattern.UseVisualStyleBackColor = true;
-            this.BtRemovePattern.Click += new System.EventHandler(this.BtRemovePattern_Click);
-            // 
             // OCRControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1202,10 +1217,10 @@ namespace ARKBreedingStats.ocr
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Button buttonGetResFromScreenshot;
         private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.Button btnSaveOCRconfig;
-        private System.Windows.Forms.Button buttonLoadOCRTemplate;
+        private System.Windows.Forms.Button BtSaveOCRconfig;
+        private System.Windows.Forms.Button BtLoadOCRTemplate;
         private System.Windows.Forms.Label labelOCRFile;
-        private System.Windows.Forms.Button btnSaveOCRConfigAs;
+        private System.Windows.Forms.Button BtSaveOCRConfigAs;
         private System.Windows.Forms.Button btnSaveOCRConfigFile2;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Label label14;
@@ -1222,7 +1237,7 @@ namespace ARKBreedingStats.ocr
         private System.Windows.Forms.Label lbResizeResult;
         private System.Windows.Forms.Label label19;
         private uiControls.Nud nudResizing;
-        private System.Windows.Forms.Button btUnloadOCR;
+        private System.Windows.Forms.Button BtUnloadOCR;
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.CheckBox CbSkipNameRecognition;
         private System.Windows.Forms.CheckBox CbSkipTribeRecognition;
@@ -1230,5 +1245,6 @@ namespace ARKBreedingStats.ocr
         private System.Windows.Forms.CheckBox CbTrainRecognition;
         private System.Windows.Forms.ListBox ListBoxPatternsOfString;
         private System.Windows.Forms.Button BtRemovePattern;
+        private System.Windows.Forms.Button BtNewOcrConfig;
     }
 }
