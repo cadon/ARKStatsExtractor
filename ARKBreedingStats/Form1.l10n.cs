@@ -165,6 +165,7 @@ namespace ARKBreedingStats
             tamingControl1.SetLocalizations();
             breedingPlan1.SetLocalizations();
             raisingControl1.SetLocalizations();
+            creatureBoxListView.SetLocalizations();
             _overlay?.SetLocatlizations();
         }
     }
