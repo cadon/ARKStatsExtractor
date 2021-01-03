@@ -120,6 +120,7 @@
             this.groupBox26 = new System.Windows.Forms.GroupBox();
             this.cbAdminConsoleCommandWithCheat = new System.Windows.Forms.CheckBox();
             this.groupBox25 = new System.Windows.Forms.GroupBox();
+            this.CbInfoGraphicDisplayMaxWildLevel = new System.Windows.Forms.CheckBox();
             this.nudInfoGraphicWidth = new ARKBreedingStats.uiControls.Nud();
             this.LbInfoGraphicSize = new System.Windows.Forms.Label();
             this.label48 = new System.Windows.Forms.Label();
@@ -252,7 +253,14 @@
             this.cbbOCRApp = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.CbInfoGraphicDisplayMaxWildLevel = new System.Windows.Forms.CheckBox();
+            this.groupBox28 = new System.Windows.Forms.GroupBox();
+            this.label50 = new System.Windows.Forms.Label();
+            this.label51 = new System.Windows.Forms.Label();
+            this.TbInfoGraphicFontName = new System.Windows.Forms.TextBox();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.BtInfoGraphicForeColor = new System.Windows.Forms.Button();
+            this.BtInfoGraphicBackColor = new System.Windows.Forms.Button();
+            this.BtInfoGraphicBorderColor = new System.Windows.Forms.Button();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmountEvent)).BeginInit();
@@ -335,6 +343,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).BeginInit();
             this.panel1.SuspendLayout();
+            this.groupBox28.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -1535,6 +1544,7 @@
             // tabPage1
             // 
             this.tabPage1.AutoScroll = true;
+            this.tabPage1.Controls.Add(this.groupBox28);
             this.tabPage1.Controls.Add(this.GbSpecies);
             this.tabPage1.Controls.Add(this.groupBox26);
             this.tabPage1.Controls.Add(this.groupBox25);
@@ -1610,9 +1620,6 @@
             // 
             // groupBox25
             // 
-            this.groupBox25.Controls.Add(this.CbInfoGraphicDisplayMaxWildLevel);
-            this.groupBox25.Controls.Add(this.nudInfoGraphicWidth);
-            this.groupBox25.Controls.Add(this.LbInfoGraphicSize);
             this.groupBox25.Controls.Add(this.label48);
             this.groupBox25.Controls.Add(this.CbbColorMode);
             this.groupBox25.Controls.Add(this.nudDefaultFontSize);
@@ -1621,15 +1628,25 @@
             this.groupBox25.Controls.Add(this.tbDefaultFontName);
             this.groupBox25.Location = new System.Drawing.Point(329, 333);
             this.groupBox25.Name = "groupBox25";
-            this.groupBox25.Size = new System.Drawing.Size(413, 100);
+            this.groupBox25.Size = new System.Drawing.Size(413, 78);
             this.groupBox25.TabIndex = 12;
             this.groupBox25.TabStop = false;
             this.groupBox25.Text = "Visuals";
             // 
+            // CbInfoGraphicDisplayMaxWildLevel
+            // 
+            this.CbInfoGraphicDisplayMaxWildLevel.AutoSize = true;
+            this.CbInfoGraphicDisplayMaxWildLevel.Location = new System.Drawing.Point(6, 58);
+            this.CbInfoGraphicDisplayMaxWildLevel.Name = "CbInfoGraphicDisplayMaxWildLevel";
+            this.CbInfoGraphicDisplayMaxWildLevel.Size = new System.Drawing.Size(229, 17);
+            this.CbInfoGraphicDisplayMaxWildLevel.TabIndex = 27;
+            this.CbInfoGraphicDisplayMaxWildLevel.Text = "Display max wild server level in InfoGraphic";
+            this.CbInfoGraphicDisplayMaxWildLevel.UseVisualStyleBackColor = true;
+            // 
             // nudInfoGraphicWidth
             // 
             this.nudInfoGraphicWidth.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.nudInfoGraphicWidth.Location = new System.Drawing.Point(122, 72);
+            this.nudInfoGraphicWidth.Location = new System.Drawing.Point(122, 32);
             this.nudInfoGraphicWidth.Maximum = new decimal(new int[] {
             99999,
             0,
@@ -1657,7 +1674,7 @@
             // LbInfoGraphicSize
             // 
             this.LbInfoGraphicSize.AutoSize = true;
-            this.LbInfoGraphicSize.Location = new System.Drawing.Point(6, 74);
+            this.LbInfoGraphicSize.Location = new System.Drawing.Point(6, 34);
             this.LbInfoGraphicSize.Name = "LbInfoGraphicSize";
             this.LbInfoGraphicSize.Size = new System.Drawing.Size(110, 13);
             this.LbInfoGraphicSize.TabIndex = 6;
@@ -1765,7 +1782,7 @@
             // groupBox20
             // 
             this.groupBox20.Controls.Add(this.cbPrettifyJSON);
-            this.groupBox20.Location = new System.Drawing.Point(329, 439);
+            this.groupBox20.Location = new System.Drawing.Point(329, 534);
             this.groupBox20.Name = "groupBox20";
             this.groupBox20.Size = new System.Drawing.Size(413, 40);
             this.groupBox20.TabIndex = 10;
@@ -1804,7 +1821,7 @@
             // groupBox16
             // 
             this.groupBox16.Controls.Add(this.cbDevTools);
-            this.groupBox16.Location = new System.Drawing.Point(329, 485);
+            this.groupBox16.Location = new System.Drawing.Point(329, 580);
             this.groupBox16.Name = "groupBox16";
             this.groupBox16.Size = new System.Drawing.Size(413, 43);
             this.groupBox16.TabIndex = 8;
@@ -1911,7 +1928,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1919,7 +1936,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1927,7 +1944,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1935,7 +1952,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -3087,15 +3104,78 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // CbInfoGraphicDisplayMaxWildLevel
+            // groupBox28
             // 
-            this.CbInfoGraphicDisplayMaxWildLevel.AutoSize = true;
-            this.CbInfoGraphicDisplayMaxWildLevel.Location = new System.Drawing.Point(185, 73);
-            this.CbInfoGraphicDisplayMaxWildLevel.Name = "CbInfoGraphicDisplayMaxWildLevel";
-            this.CbInfoGraphicDisplayMaxWildLevel.Size = new System.Drawing.Size(229, 17);
-            this.CbInfoGraphicDisplayMaxWildLevel.TabIndex = 27;
-            this.CbInfoGraphicDisplayMaxWildLevel.Text = "Display max wild server level in InfoGraphic";
-            this.CbInfoGraphicDisplayMaxWildLevel.UseVisualStyleBackColor = true;
+            this.groupBox28.Controls.Add(this.BtInfoGraphicBorderColor);
+            this.groupBox28.Controls.Add(this.BtInfoGraphicBackColor);
+            this.groupBox28.Controls.Add(this.BtInfoGraphicForeColor);
+            this.groupBox28.Controls.Add(this.label51);
+            this.groupBox28.Controls.Add(this.TbInfoGraphicFontName);
+            this.groupBox28.Controls.Add(this.CbInfoGraphicDisplayMaxWildLevel);
+            this.groupBox28.Controls.Add(this.label50);
+            this.groupBox28.Controls.Add(this.LbInfoGraphicSize);
+            this.groupBox28.Controls.Add(this.nudInfoGraphicWidth);
+            this.groupBox28.Location = new System.Drawing.Point(329, 417);
+            this.groupBox28.Name = "groupBox28";
+            this.groupBox28.Size = new System.Drawing.Size(413, 111);
+            this.groupBox28.TabIndex = 15;
+            this.groupBox28.TabStop = false;
+            this.groupBox28.Text = "Infographic";
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(6, 16);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(298, 13);
+            this.label50.TabIndex = 27;
+            this.label50.Text = "Styling of the infographic that can be exported from the library.";
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Location = new System.Drawing.Point(6, 84);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(28, 13);
+            this.label51.TabIndex = 29;
+            this.label51.Text = "Font";
+            // 
+            // TbInfoGraphicFontName
+            // 
+            this.TbInfoGraphicFontName.Location = new System.Drawing.Point(74, 81);
+            this.TbInfoGraphicFontName.Name = "TbInfoGraphicFontName";
+            this.TbInfoGraphicFontName.Size = new System.Drawing.Size(222, 20);
+            this.TbInfoGraphicFontName.TabIndex = 28;
+            // 
+            // BtInfoGraphicForeColor
+            // 
+            this.BtInfoGraphicForeColor.Location = new System.Drawing.Point(332, 19);
+            this.BtInfoGraphicForeColor.Name = "BtInfoGraphicForeColor";
+            this.BtInfoGraphicForeColor.Size = new System.Drawing.Size(75, 23);
+            this.BtInfoGraphicForeColor.TabIndex = 30;
+            this.BtInfoGraphicForeColor.Text = "ForeColor";
+            this.BtInfoGraphicForeColor.UseVisualStyleBackColor = true;
+            this.BtInfoGraphicForeColor.Click += new System.EventHandler(this.ColorButtonClick);
+            // 
+            // BtInfoGraphicBackColor
+            // 
+            this.BtInfoGraphicBackColor.Location = new System.Drawing.Point(332, 48);
+            this.BtInfoGraphicBackColor.Name = "BtInfoGraphicBackColor";
+            this.BtInfoGraphicBackColor.Size = new System.Drawing.Size(75, 23);
+            this.BtInfoGraphicBackColor.TabIndex = 31;
+            this.BtInfoGraphicBackColor.Text = "BackColor";
+            this.BtInfoGraphicBackColor.UseVisualStyleBackColor = true;
+            this.BtInfoGraphicBackColor.Click += new System.EventHandler(this.ColorButtonClick);
+            // 
+            // BtInfoGraphicBorderColor
+            // 
+            this.BtInfoGraphicBorderColor.Location = new System.Drawing.Point(332, 77);
+            this.BtInfoGraphicBorderColor.Name = "BtInfoGraphicBorderColor";
+            this.BtInfoGraphicBorderColor.Size = new System.Drawing.Size(75, 23);
+            this.BtInfoGraphicBorderColor.TabIndex = 32;
+            this.BtInfoGraphicBorderColor.Text = "BorderColor";
+            this.BtInfoGraphicBorderColor.UseVisualStyleBackColor = true;
+            this.BtInfoGraphicBorderColor.Click += new System.EventHandler(this.ColorButtonClick);
             // 
             // Settings
             // 
@@ -3223,6 +3303,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.groupBox28.ResumeLayout(false);
+            this.groupBox28.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3452,5 +3534,13 @@
         private System.Windows.Forms.Label label49;
         private uiControls.Nud nudBabyImprintAmount;
         private System.Windows.Forms.CheckBox CbInfoGraphicDisplayMaxWildLevel;
+        private System.Windows.Forms.GroupBox groupBox28;
+        private System.Windows.Forms.Button BtInfoGraphicBorderColor;
+        private System.Windows.Forms.Button BtInfoGraphicBackColor;
+        private System.Windows.Forms.Button BtInfoGraphicForeColor;
+        private System.Windows.Forms.Label label51;
+        private System.Windows.Forms.TextBox TbInfoGraphicFontName;
+        private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.ColorDialog colorDialog1;
     }
 }

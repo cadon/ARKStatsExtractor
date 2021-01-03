@@ -288,8 +288,7 @@ namespace ARKBreedingStats.uiControls
             _selectedColorFilter = colorId;
             CreatureColors.CreatureColorName(colorId);
             var color = CreatureColors.CreatureArkColor(colorId);
-            BtColorFilter.BackColor = color.Color;
-            BtColorFilter.ForeColor = Utils.ForeColor(color.Color);
+            BtColorFilter.SetBackColorAndAccordingForeColor(color.Color);
             BtColorFilter.Text = $"{colorId} - {color.Name}";
         }
 

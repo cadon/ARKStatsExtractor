@@ -1469,5 +1469,53 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicShowMaxWildLevel"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("AntiqueWhite")]
+        public global::System.Drawing.Color InfoGraphicBackColor {
+            get {
+                return ((global::System.Drawing.Color)(this["InfoGraphicBackColor"]));
+            }
+            set {
+                this["InfoGraphicBackColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
+        public global::System.Drawing.Color InfoGraphicForeColor {
+            get {
+                return ((global::System.Drawing.Color)(this["InfoGraphicForeColor"]));
+            }
+            set {
+                this["InfoGraphicForeColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Arial")]
+        public string InfoGraphicFontName {
+            get {
+                return ((string)(this["InfoGraphicFontName"]));
+            }
+            set {
+                this["InfoGraphicFontName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Maroon")]
+        public global::System.Drawing.Color InfoGraphicBorderColor {
+            get {
+                return ((global::System.Drawing.Color)(this["InfoGraphicBorderColor"]));
+            }
+            set {
+                this["InfoGraphicBorderColor"] = value;
+            }
+        }
     }
 }

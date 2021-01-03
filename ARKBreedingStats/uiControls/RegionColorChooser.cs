@@ -123,9 +123,7 @@ namespace ARKBreedingStats.uiControls
         private void SetColorButton(Button bt, int region)
         {
             int colorId = _selectedRegionColorIds[region];
-            Color cl = CreatureColors.CreatureColor(colorId);
-            bt.BackColor = cl;
-            bt.ForeColor = Utils.ForeColor(cl);
+            bt.SetBackColorAndAccordingForeColor(CreatureColors.CreatureColor(colorId));
             if (VerboseButtonTexts)
                 bt.Text = $"[{region}]: {colorId}";
             // tooltip

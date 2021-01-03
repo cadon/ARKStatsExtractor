@@ -33,27 +33,34 @@ namespace ARKBreedingStats.library
 
             int statLineHeight = height * 5 / 59; // 15
 
+            var fontName = Properties.Settings.Default.InfoGraphicFontName;
+            if (string.IsNullOrWhiteSpace(fontName))
+            {
+                fontName = "Arial";
+                Properties.Settings.Default.InfoGraphicFontName = fontName;
+            }
+
             var bmp = new Bitmap(width, height);
             using (var g = Graphics.FromImage(bmp))
-            using (var font = new Font("Arial", fontSize))
-            using (var fontSmall = new Font("Arial", fontSizeSmall))
-            using (var fontHeader = new Font("Arial", fontSizeHeader, FontStyle.Bold))
-            using (var fontBrush = new SolidBrush(Color.Black))
-            using (var penBlack = new Pen(Color.Black, 1))
-            using (var stringFormatRight = new StringFormat() { Alignment = StringAlignment.Far })
+            using (var font = new Font(fontName, fontSize))
+            using (var fontSmall = new Font(fontName, fontSizeSmall))
+            using (var fontHeader = new Font(fontName, fontSizeHeader, FontStyle.Bold))
+            using (var fontBrush = new SolidBrush(Properties.Settings.Default.InfoGraphicForeColor))
+            using (var borderAroundColors = new Pen(Utils.ForeColor(Properties.Settings.Default.InfoGraphicBackColor), 1))
+            using (var stringFormatRight = new StringFormat { Alignment = StringAlignment.Far })
             {
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 int currentYPosition = frameThickness * 3;
 
-                using (var backgroundBrush = new SolidBrush(Color.AntiqueWhite))
+                using (var backgroundBrush = new SolidBrush(Properties.Settings.Default.InfoGraphicBackColor))
                     g.FillRectangle(backgroundBrush, 0, 0, width, height);
 
                 g.DrawString(creature.Species.DescriptiveNameAndMod, fontHeader, fontBrush, 3, currentYPosition);
                 currentYPosition += height * 19 / 180; //19
-                g.DrawString($"Level {creature.LevelHatched} | {Utils.SexSymbol(creature.sex) + (creature.flags.HasFlag(CreatureFlags.Neutered) ? $" ({Loc.S(creature.sex == Sex.Female ? "Spayed" : "Neutered")})" : string.Empty)} | {creature.Mutations} {Loc.S("Mutations")} | {Loc.S("generation")} {creature.generation}", font, fontBrush, width * 4 / 165, currentYPosition);
+                g.DrawString($"{Loc.S("Level")} {creature.LevelHatched} | {Utils.SexSymbol(creature.sex) + (creature.flags.HasFlag(CreatureFlags.Neutered) ? $" ({Loc.S(creature.sex == Sex.Female ? "Spayed" : "Neutered")})" : string.Empty)} | {creature.Mutations} {Loc.S("Mutations")} | {Loc.S("generation")} {creature.generation}", font, fontBrush, width * 4 / 165, currentYPosition);
                 currentYPosition += height * 17 / 180; //17
 
-                using (var p = new Pen(Color.LightGray, 1))
+                using (var p = new Pen(Color.FromArgb(50, Properties.Settings.Default.InfoGraphicForeColor), 1))
                     g.DrawLine(p, 0, currentYPosition, width, currentYPosition);
                 currentYPosition += 2;
 
@@ -156,7 +163,7 @@ namespace ARKBreedingStats.library
 
                     using (var b = new SolidBrush(c))
                         g.FillEllipse(b, xColor, y, circleDiameter, circleDiameter);
-                    g.DrawEllipse(penBlack, xColor, y, circleDiameter, circleDiameter);
+                    g.DrawEllipse(borderAroundColors, xColor, y, circleDiameter, circleDiameter);
 
                     string colorRegionName = null;
                     //string colorName = CreatureColors.CreatureColorName(creature.colors[ci]);
@@ -190,7 +197,7 @@ namespace ARKBreedingStats.library
                 }
 
                 // frame
-                using (var p = new Pen(Color.DarkRed, frameThickness))
+                using (var p = new Pen(Properties.Settings.Default.InfoGraphicBorderColor, frameThickness))
                     g.DrawRectangle(p, 0, 0, width - frameThickness, height - frameThickness);
             }
 
@@ -223,7 +230,7 @@ namespace ARKBreedingStats.library
             using (var bmp = creature.InfoGraphic(cc))
             {
                 if (bmp != null)
-                    System.Windows.Forms.Clipboard.SetImage(bmp);
+                    Clipboard.SetImage(bmp);
             }
         }
     }

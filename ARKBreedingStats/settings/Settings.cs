@@ -259,10 +259,19 @@ namespace ARKBreedingStats.settings
             nudWildLevelStep.ValueSave = cc.wildLevelStep;
             cbInventoryCheck.Checked = Properties.Settings.Default.inventoryCheckTimer;
             cbAllowMoreThanHundredImprinting.Checked = cc.allowMoreThanHundredImprinting;
-            nudInfoGraphicWidth.ValueSave = Properties.Settings.Default.InfoGraphicWidth;
-            CbInfoGraphicDisplayMaxWildLevel.Checked = Properties.Settings.Default.InfoGraphicShowMaxWildLevel;
             CbHighlightLevel255.Checked = Properties.Settings.Default.Highlight255Level;
             CbHighlightLevelEvenOdd.Checked = Properties.Settings.Default.HighlightEvenOdd;
+
+            #region InfoGraphic
+
+            nudInfoGraphicWidth.ValueSave = Properties.Settings.Default.InfoGraphicWidth;
+            CbInfoGraphicDisplayMaxWildLevel.Checked = Properties.Settings.Default.InfoGraphicShowMaxWildLevel;
+            TbInfoGraphicFontName.Text = Properties.Settings.Default.InfoGraphicFontName;
+            BtInfoGraphicBackColor.SetBackColorAndAccordingForeColor(Properties.Settings.Default.InfoGraphicBackColor);
+            BtInfoGraphicForeColor.SetBackColorAndAccordingForeColor(Properties.Settings.Default.InfoGraphicForeColor);
+            BtInfoGraphicBorderColor.SetBackColorAndAccordingForeColor(Properties.Settings.Default.InfoGraphicBorderColor);
+
+            #endregion
 
             #region library
             cbCreatureColorsLibrary.Checked = Properties.Settings.Default.showColorsInLibrary;
@@ -430,10 +439,19 @@ namespace ARKBreedingStats.settings
             _cc.wildLevelStep = (int)nudWildLevelStep.Value;
             Properties.Settings.Default.inventoryCheckTimer = cbInventoryCheck.Checked;
             _cc.allowMoreThanHundredImprinting = cbAllowMoreThanHundredImprinting.Checked;
-            Properties.Settings.Default.InfoGraphicWidth = (int)nudInfoGraphicWidth.Value;
-            Properties.Settings.Default.InfoGraphicShowMaxWildLevel = CbInfoGraphicDisplayMaxWildLevel.Checked;
             Properties.Settings.Default.Highlight255Level = CbHighlightLevel255.Checked;
             Properties.Settings.Default.HighlightEvenOdd = CbHighlightLevelEvenOdd.Checked;
+
+            #region InfoGraphic
+
+            Properties.Settings.Default.InfoGraphicWidth = (int)nudInfoGraphicWidth.Value;
+            Properties.Settings.Default.InfoGraphicShowMaxWildLevel = CbInfoGraphicDisplayMaxWildLevel.Checked;
+            Properties.Settings.Default.InfoGraphicFontName = TbInfoGraphicFontName.Text;
+            Properties.Settings.Default.InfoGraphicBackColor = BtInfoGraphicBackColor.BackColor;
+            Properties.Settings.Default.InfoGraphicForeColor = BtInfoGraphicForeColor.BackColor;
+            Properties.Settings.Default.InfoGraphicBorderColor = BtInfoGraphicBorderColor.BackColor;
+
+            #endregion
 
             #region library
             Properties.Settings.Default.showColorsInLibrary = cbCreatureColorsLibrary.Checked;
@@ -1003,6 +1021,21 @@ namespace ARKBreedingStats.settings
                     Loc.S("ExportFolderDetectionFailed") + (string.IsNullOrEmpty(error) ? string.Empty : "\n\n" + error),
                     "Folder detection failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        /// <summary>
+        /// Opens a colorDialog and sets the BackColor of the button to the according color.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ColorButtonClick(object sender, EventArgs e)
+        {
+            if (!(sender is Button bt)) return;
+
+            colorDialog1.Color = bt.BackColor;
+            if (colorDialog1.ShowDialog() != DialogResult.OK) return;
+
+            bt.SetBackColorAndAccordingForeColor(colorDialog1.Color);
         }
     }
 }

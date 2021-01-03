@@ -408,7 +408,7 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Returns the formated timespan and also the DateTime when the timespan is over
+        /// Returns the formatted timespan and also the DateTime when the timespan is over
         /// </summary>
         /// <param name="ts">timespan of countdown</param>
         /// <returns>Returns the timespan and the DateTime when the timespan is over</returns>
@@ -456,7 +456,7 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Returns either black or white, depending on the backcolor, so text can be read well.
+        /// Returns either black or white, depending on the backColor, so text can be read well.
         /// </summary>
         /// <param name="backColor"></param>
         /// <returns>ForeColor</returns>
@@ -654,7 +654,7 @@ namespace ARKBreedingStats
             }
         }
 
-        private static string _ApplicationNameVersion;
+        private static string _applicationNameVersion;
         /// <summary>
         /// The name and version of this application.
         /// </summary>
@@ -662,9 +662,9 @@ namespace ARKBreedingStats
         {
             get
             {
-                if (string.IsNullOrEmpty(_ApplicationNameVersion))
-                    _ApplicationNameVersion = $"{Application.ProductName} v{Application.ProductVersion}";
-                return _ApplicationNameVersion;
+                if (string.IsNullOrEmpty(_applicationNameVersion))
+                    _applicationNameVersion = $"{Application.ProductName} v{Application.ProductVersion}";
+                return _applicationNameVersion;
             }
         }
     }

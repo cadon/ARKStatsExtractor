@@ -288,17 +288,11 @@ namespace ARKBreedingStats.uiControls
                 {
                     // color was chosen
                     colors[region] = cp.SelectedColorId;
-                    setColorButton(sender, species.CreatureColors.CreatureColor(colors[region]));
+                    sender.SetBackColorAndAccordingForeColor(CreatureColors.CreatureColor(colors[region]));
                     pictureBox1.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(colors, uniqueSpecies ? creatureList[0].Species : null,
                             new[] { true, true, true, true, true, true }));
                 }
             }
-        }
-
-        private void setColorButton(Button bt, Color cl)
-        {
-            bt.BackColor = cl;
-            bt.ForeColor = Utils.ForeColor(cl);
         }
 
         private void checkBoxSpecies_CheckedChanged(object sender, EventArgs e)
