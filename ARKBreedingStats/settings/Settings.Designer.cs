@@ -121,6 +121,7 @@
             this.labelEvent = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox28 = new System.Windows.Forms.GroupBox();
+            this.CbInfoGraphicDomLevels = new System.Windows.Forms.CheckBox();
             this.BtInfoGraphicBorderColor = new System.Windows.Forms.Button();
             this.BtInfoGraphicBackColor = new System.Windows.Forms.Button();
             this.BtInfoGraphicForeColor = new System.Windows.Forms.Button();
@@ -267,6 +268,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.CbInfoGraphicGenerations = new System.Windows.Forms.CheckBox();
+            this.CbInfoGraphicMutations = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmountEvent)).BeginInit();
@@ -1639,6 +1642,9 @@
             // 
             // groupBox28
             // 
+            this.groupBox28.Controls.Add(this.CbInfoGraphicMutations);
+            this.groupBox28.Controls.Add(this.CbInfoGraphicGenerations);
+            this.groupBox28.Controls.Add(this.CbInfoGraphicDomLevels);
             this.groupBox28.Controls.Add(this.BtInfoGraphicBorderColor);
             this.groupBox28.Controls.Add(this.BtInfoGraphicBackColor);
             this.groupBox28.Controls.Add(this.BtInfoGraphicForeColor);
@@ -1654,6 +1660,16 @@
             this.groupBox28.TabIndex = 15;
             this.groupBox28.TabStop = false;
             this.groupBox28.Text = "Infographic";
+            // 
+            // CbInfoGraphicDomLevels
+            // 
+            this.CbInfoGraphicDomLevels.AutoSize = true;
+            this.CbInfoGraphicDomLevels.Location = new System.Drawing.Point(135, 58);
+            this.CbInfoGraphicDomLevels.Name = "CbInfoGraphicDomLevels";
+            this.CbInfoGraphicDomLevels.Size = new System.Drawing.Size(76, 17);
+            this.CbInfoGraphicDomLevels.TabIndex = 33;
+            this.CbInfoGraphicDomLevels.Text = "dom levels";
+            this.CbInfoGraphicDomLevels.UseVisualStyleBackColor = true;
             // 
             // BtInfoGraphicBorderColor
             // 
@@ -1706,9 +1722,9 @@
             this.CbInfoGraphicDisplayMaxWildLevel.AutoSize = true;
             this.CbInfoGraphicDisplayMaxWildLevel.Location = new System.Drawing.Point(6, 58);
             this.CbInfoGraphicDisplayMaxWildLevel.Name = "CbInfoGraphicDisplayMaxWildLevel";
-            this.CbInfoGraphicDisplayMaxWildLevel.Size = new System.Drawing.Size(229, 17);
+            this.CbInfoGraphicDisplayMaxWildLevel.Size = new System.Drawing.Size(123, 17);
             this.CbInfoGraphicDisplayMaxWildLevel.TabIndex = 27;
-            this.CbInfoGraphicDisplayMaxWildLevel.Text = "Display max wild server level in InfoGraphic";
+            this.CbInfoGraphicDisplayMaxWildLevel.Text = "max wild server level";
             this.CbInfoGraphicDisplayMaxWildLevel.UseVisualStyleBackColor = true;
             // 
             // label50
@@ -3249,6 +3265,26 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
+            // CbInfoGraphicGenerations
+            // 
+            this.CbInfoGraphicGenerations.AutoSize = true;
+            this.CbInfoGraphicGenerations.Location = new System.Drawing.Point(267, 58);
+            this.CbInfoGraphicGenerations.Name = "CbInfoGraphicGenerations";
+            this.CbInfoGraphicGenerations.Size = new System.Drawing.Size(44, 17);
+            this.CbInfoGraphicGenerations.TabIndex = 34;
+            this.CbInfoGraphicGenerations.Text = "gen";
+            this.CbInfoGraphicGenerations.UseVisualStyleBackColor = true;
+            // 
+            // CbInfoGraphicMutations
+            // 
+            this.CbInfoGraphicMutations.AutoSize = true;
+            this.CbInfoGraphicMutations.Location = new System.Drawing.Point(217, 58);
+            this.CbInfoGraphicMutations.Name = "CbInfoGraphicMutations";
+            this.CbInfoGraphicMutations.Size = new System.Drawing.Size(43, 17);
+            this.CbInfoGraphicMutations.TabIndex = 35;
+            this.CbInfoGraphicMutations.Text = "mut";
+            this.CbInfoGraphicMutations.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -3621,5 +3657,8 @@
         private System.Windows.Forms.Label label54;
         private uiControls.Nud NudKeepBackupFilesCount;
         private System.Windows.Forms.Label label53;
+        private System.Windows.Forms.CheckBox CbInfoGraphicDomLevels;
+        private System.Windows.Forms.CheckBox CbInfoGraphicMutations;
+        private System.Windows.Forms.CheckBox CbInfoGraphicGenerations;
     }
 }

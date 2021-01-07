@@ -269,7 +269,10 @@ namespace ARKBreedingStats.settings
 
             nudInfoGraphicWidth.ValueSave = Properties.Settings.Default.InfoGraphicWidth;
             CbInfoGraphicDisplayMaxWildLevel.Checked = Properties.Settings.Default.InfoGraphicShowMaxWildLevel;
+            CbInfoGraphicDomLevels.Checked = Properties.Settings.Default.InfoGraphicWithDomLevels;
             TbInfoGraphicFontName.Text = Properties.Settings.Default.InfoGraphicFontName;
+            CbInfoGraphicMutations.Checked = Properties.Settings.Default.InfoGraphicDisplayMutations;
+            CbInfoGraphicGenerations.Checked = Properties.Settings.Default.InfoGraphicDisplayGeneration;
             BtInfoGraphicBackColor.SetBackColorAndAccordingForeColor(Properties.Settings.Default.InfoGraphicBackColor);
             BtInfoGraphicForeColor.SetBackColorAndAccordingForeColor(Properties.Settings.Default.InfoGraphicForeColor);
             BtInfoGraphicBorderColor.SetBackColorAndAccordingForeColor(Properties.Settings.Default.InfoGraphicBorderColor);
@@ -452,7 +455,10 @@ namespace ARKBreedingStats.settings
 
             Properties.Settings.Default.InfoGraphicWidth = (int)nudInfoGraphicWidth.Value;
             Properties.Settings.Default.InfoGraphicShowMaxWildLevel = CbInfoGraphicDisplayMaxWildLevel.Checked;
+            Properties.Settings.Default.InfoGraphicWithDomLevels = CbInfoGraphicDomLevels.Checked;
             Properties.Settings.Default.InfoGraphicFontName = TbInfoGraphicFontName.Text;
+            Properties.Settings.Default.InfoGraphicDisplayMutations = CbInfoGraphicMutations.Checked;
+            Properties.Settings.Default.InfoGraphicDisplayGeneration = CbInfoGraphicGenerations.Checked;
             Properties.Settings.Default.InfoGraphicBackColor = BtInfoGraphicBackColor.BackColor;
             Properties.Settings.Default.InfoGraphicForeColor = BtInfoGraphicForeColor.BackColor;
             Properties.Settings.Default.InfoGraphicBorderColor = BtInfoGraphicBorderColor.BackColor;

@@ -1541,5 +1541,41 @@ namespace ARKBreedingStats.Properties {
                 this["BackupFileCount"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool InfoGraphicWithDomLevels {
+            get {
+                return ((bool)(this["InfoGraphicWithDomLevels"]));
+            }
+            set {
+                this["InfoGraphicWithDomLevels"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool InfoGraphicDisplayMutations {
+            get {
+                return ((bool)(this["InfoGraphicDisplayMutations"]));
+            }
+            set {
+                this["InfoGraphicDisplayMutations"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool InfoGraphicDisplayGeneration {
+            get {
+                return ((bool)(this["InfoGraphicDisplayGeneration"]));
+            }
+            set {
+                this["InfoGraphicDisplayGeneration"] = value;
+            }
+        }
     }
 }
