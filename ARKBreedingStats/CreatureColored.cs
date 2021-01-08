@@ -215,22 +215,25 @@ namespace ARKBreedingStats
                 bool imageFine = true;
                 graph.SmoothingMode = SmoothingMode.AntiAlias;
 
-                // shadow
-                using (var b = new SolidBrush(Color.FromArgb(12, 0, 0, 0)))
+                //// ellipse shadow
+                const int scx = TemplateSize / 2;
+                const int scy = (int)(scx * 1.6);
+                const double perspectiveFactor = 0.3;
+                const int yStart = scy - (int)(perspectiveFactor * .7 * scx);
+                const int yEnd = (int)(2 * perspectiveFactor * scx);
+                GraphicsPath pathShadow = new GraphicsPath();
+                pathShadow.AddEllipse(0, yStart, TemplateSize, yEnd);
+                var colorBlend = new ColorBlend
                 {
-                    int scx = TemplateSize / 2;
-                    int scy = (int)(scx * 1.6);
-                    int factor = 25;
-                    int sr = scx - 2 * factor;
-                    double heightFactor = 0.3;
-
-                    for (int i = 2; i >= 0; i--)
-                    {
-                        int radius = sr + i * factor;
-                        graph.FillEllipse(b, scx - radius, scy - (int)(heightFactor * .7 * radius), 2 * radius,
-                            (int)(2 * heightFactor * radius));
-                    }
-                }
+                    Colors = new[] { Color.FromArgb(0), Color.FromArgb(40, 0, 0, 0), Color.FromArgb(80, 0, 0, 0) },
+                    Positions = new[] { 0, 0.6f, 1 }
+                };
+                PathGradientBrush pthGrBrush = new PathGradientBrush(pathShadow)
+                {
+                    InterpolationColors = colorBlend
+                };
+                graph.FillEllipse(pthGrBrush, 0, yStart, TemplateSize, yEnd);
+                // shadow done
 
                 // shaded base image
                 graph.DrawImage(bmpBackground, 0, 0, TemplateSize, TemplateSize);
