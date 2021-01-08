@@ -5,14 +5,12 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Runtime.Remoting.Messaging;
 using System.Text;
 using ARKBreedingStats.Library;
 
 namespace ARKBreedingStats
 {
-    static class CreatureColored
+    internal static class CreatureColored
     {
         private const string Extension = ".png";
         private static readonly string ImgFolder = FileService.GetPath(FileService.ImageFolderName);
@@ -105,10 +103,32 @@ namespace ARKBreedingStats
                 cacheFileExists = CreateAndSaveCacheSpeciesFile(colorIds, enabledColorRegions, speciesBackgroundFilePath, speciesColorMaskFilePath, cacheFilePath);
             }
 
-            if (onlyImage && !cacheFileExists) return null;
+            if (onlyImage && !cacheFileExists) return null; // creating the species file failed
 
             if (cacheFileExists && size == TemplateSize)
-                return new Bitmap(cacheFilePath);
+            {
+                try
+                {
+                    return new Bitmap(cacheFilePath);
+                }
+                catch
+                {
+                    // cached file corrupted, recreate
+                    if (CreateAndSaveCacheSpeciesFile(colorIds, enabledColorRegions, speciesBackgroundFilePath,
+                        speciesColorMaskFilePath, cacheFilePath))
+                    {
+                        try
+                        {
+                            return new Bitmap(cacheFilePath);
+                        }
+                        catch
+                        {
+                            // file is still invalid after recreation, ignore file
+                        }
+                    }
+                }
+                return null;
+            }
 
             Bitmap bm = new Bitmap(size, size);
             using (Graphics graph = Graphics.FromImage(bm))
@@ -121,8 +141,30 @@ namespace ARKBreedingStats
                     graph.InterpolationMode = InterpolationMode.HighQualityBicubic;
                     graph.SmoothingMode = SmoothingMode.HighQuality;
                     graph.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                    using (var cachedImgBmp = new Bitmap(cacheFilePath))
-                        graph.DrawImage(cachedImgBmp, 0, 0, size, size);
+                    try
+                    {
+                        using (var cachedImgBmp = new Bitmap(cacheFilePath))
+                            graph.DrawImage(cachedImgBmp, 0, 0, size, size);
+                    }
+                    catch
+                    {
+                        // cached file invalid, recreate
+                        if (CreateAndSaveCacheSpeciesFile(colorIds, enabledColorRegions, speciesBackgroundFilePath,
+                            speciesColorMaskFilePath, cacheFilePath))
+                        {
+                            try
+                            {
+                                using (var cachedImgBmp = new Bitmap(cacheFilePath))
+                                    graph.DrawImage(cachedImgBmp, 0, 0, size, size);
+                            }
+                            catch
+                            {
+                                // file is still invalid after recreation, ignore file
+                                bm.Dispose();
+                                return null;
+                            }
+                        }
+                    }
                 }
                 else
                 {
@@ -162,7 +204,9 @@ namespace ARKBreedingStats
         private static bool CreateAndSaveCacheSpeciesFile(int[] colorIds, bool[] enabledColorRegions,
             string speciesBackgroundFilePath, string speciesColorMaskFilePath, string cacheFilePath, int outputSize = 256)
         {
-            if (!File.Exists(speciesBackgroundFilePath)) return false;
+            if (!File.Exists(speciesBackgroundFilePath)
+                || string.IsNullOrEmpty(cacheFilePath))
+                return false;
 
             using (Bitmap bmpBackground = new Bitmap(speciesBackgroundFilePath))
             using (Bitmap bmpColoredCreature = new Bitmap(bmpBackground.Width, bmpBackground.Height, PixelFormat.Format32bppArgb))
@@ -202,7 +246,7 @@ namespace ARKBreedingStats
                         if (useColorRegions[c])
                         {
                             Color cl = CreatureColors.CreatureColor(colorIds[c]);
-                            rgb[c] = new byte[] { cl.R, cl.G, cl.B };
+                            rgb[c] = new[] { cl.R, cl.G, cl.B };
                         }
                     }
                     imageFine = ApplyColorsUnsafe(rgb, useColorRegions, speciesColorMaskFilePath, TemplateSize, bmpBackground, bmpColoredCreature);
@@ -211,6 +255,7 @@ namespace ARKBreedingStats
                 if (imageFine)
                 {
                     string cacheFolder = Path.GetDirectoryName(cacheFilePath);
+                    if (string.IsNullOrEmpty(cacheFolder)) return false;
                     if (!Directory.Exists(cacheFolder))
                         Directory.CreateDirectory(cacheFolder);
                     if (outputSize == TemplateSize)
