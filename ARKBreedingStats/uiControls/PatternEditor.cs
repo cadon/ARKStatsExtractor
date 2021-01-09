@@ -237,7 +237,7 @@ namespace ARKBreedingStats.uiControls
 
                 { "sex", "sex (\"Male\", \"Female\", \"Unknown\")" },
                 { "sex_short", "\"M\", \"F\", \"U\"" },
-                { "n", "if the name is not unique, the smallest possible number is appended (only creatures with a given sex are considered)." },
+                { "n", "if the name is not unique, the smallest possible number >1 is used. For a prefix for that number you can use e.g. {{#:if {n} | _{n} }}" },
 
                 { "hp", "Level of " + Utils.StatName((int)StatNames.Health, customStatNames:customStatNames) },
                 { "st", "Level of " + Utils.StatName((int)StatNames.Stamina, customStatNames:customStatNames) },

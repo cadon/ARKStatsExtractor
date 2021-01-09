@@ -67,7 +67,8 @@ namespace ARKBreedingStats.uiControls
 
             if (name.Contains("{n}"))
             {
-                // replace the unique number key with the lowest possible positive number to get a unique name.
+                // replace the unique number key with the lowest possible positive number > 1 to get a unique name.
+                // if the name is already unique without that number, leave it like that
                 string numberedUniqueName;
                 int n = 1;
                 do
@@ -99,6 +100,7 @@ namespace ARKBreedingStats.uiControls
         /// <param name="creature"></param>
         /// <param name="customReplacings">Dictionary of user defined replacings</param>
         /// <param name="displayError"></param>
+        /// <param name="processNumberField">If true, the {n} will be processed</param>
         /// <returns></returns>
         private static string ResolveFunctions(string pattern, Creature creature, Dictionary<string, string> customReplacings, bool displayError, bool processNumberField)
         {
@@ -582,7 +584,13 @@ namespace ARKBreedingStats.uiControls
             string regularExpression = "\\{(?<key>" + string.Join("|", tokenDictionary.Keys.Select(x => Regex.Escape(x))) + ")\\}";
             const RegexOptions regularExpressionOptions = RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.ExplicitCapture;
             Regex r = new Regex(regularExpression, regularExpressionOptions);
-            if (uniqueNumber != 0) pattern = pattern.Replace("{n}", uniqueNumber.ToString());
+            if (uniqueNumber != 0)
+            {
+                if (uniqueNumber == 1)
+                    pattern = pattern.Replace("{n}", string.Empty);
+                else
+                    pattern = pattern.Replace("{n}", uniqueNumber.ToString());
+            }
 
             return r.Replace(pattern, m => tokenDictionary.TryGetValue(m.Groups["key"].Value, out string replacement) ? replacement : m.Value);
         }
