@@ -12,6 +12,10 @@ namespace ARKBreedingStats
         private Creature _creature;
         public event Action<Creature, bool, bool> Changed;
         public event Action<Creature> GiveParents;
+        /// <summary>
+        /// Selects the creature in the library.
+        /// </summary>
+        public event Action<Creature> SelectCreature;
         private Sex sex;
         private CreatureStatus _creatureStatus;
         public List<Creature>[] parentList; // all creatures that could be parents (i.e. same species, separated by sex)
@@ -24,7 +28,10 @@ namespace ARKBreedingStats
         {
             InitializeComponent();
 
-            _tt = new ToolTip();
+            _tt = new ToolTip
+            {
+                AutoPopDelay = 10000
+            };
             Disposed += (s, e) =>
             {
                 _tt.RemoveAll();
@@ -105,29 +112,36 @@ namespace ARKBreedingStats
 
         public void UpdateLabel()
         {
-            labelParents.Text = "";
+            LbMotherAndWildInfo.Text = "";
             if (_creature != null)
             {
                 groupBox1.Text = $"{_creature.name} (Lvl {_creature.Level}/{_creature.LevelHatched + _cc.maxDomLevel})";
+
+                void SetParentLabel(Label l, string lbText = null, bool clickable = false)
+                {
+                    l.Text = lbText;
+                    l.Cursor = clickable ? Cursors.Hand : null;
+                    _tt.SetToolTip(l, clickable ? lbText : null);
+                }
+
                 if (_creature.Mother != null || _creature.Father != null)
                 {
-                    if (_creature.Mother != null)
-                        labelParents.Text = "Mo: " + _creature.Mother.name;
-                    if (_creature.Father != null && _creature.Mother != null)
-                        labelParents.Text += "; ";
-                    if (_creature.Father != null)
-                        labelParents.Text += "Fa: " + _creature.Father.name;
+                    SetParentLabel(LbMotherAndWildInfo, _creature.Mother != null ? $"{Loc.S("Mother")}: {_creature.Mother.name}" : null, _creature.Mother != null);
+                    SetParentLabel(LbFather, _creature.Father != null ? $"{Loc.S("Father")}: {_creature.Father.name}" : null, _creature.Father != null);
                 }
                 else if (_creature.isBred)
                 {
-                    labelParents.Text = "bred, click 'edit' to add parents";
+                    SetParentLabel(LbMotherAndWildInfo, "bred, click 'edit' to add parents");
+                    SetParentLabel(LbFather);
                 }
                 else
                 {
-                    labelParents.Text = "found wild " + _creature.levelFound + (_creature.tamingEff >= 0 ? ", tamed with TE: " + (_creature.tamingEff * 100).ToString("N1") + "%" : ", TE unknown.");
+                    SetParentLabel(LbMotherAndWildInfo, "found wild " + _creature.levelFound + (_creature.tamingEff >= 0 ? ", tamed with TE: " + (_creature.tamingEff * 100).ToString("N1") + "%" : ", TE unknown."));
+                    SetParentLabel(LbFather);
                 }
                 statsDisplay1.SetCreatureValues(_creature);
                 labelNotes.Text = _creature.note;
+                _tt.SetToolTip(labelNotes, _creature.note);
                 labelSpecies.Text = _creature.Species.name;
                 pictureBox1.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(_creature.colors, _creature.Species, _colorRegionUseds, creatureSex: _creature.sex));
                 _tt.SetToolTip(pictureBox1, CreatureColored.RegionColorInfo(_creature.Species, _creature.colors)
@@ -186,7 +200,7 @@ namespace ARKBreedingStats
             CloseSettings(false);
             groupBox1.Text = string.Empty;
             _creature = null;
-            labelParents.Text = string.Empty;
+            LbMotherAndWildInfo.Text = string.Empty;
             statsDisplay1.Clear();
             pictureBox1.Visible = false;
             regionColorChooser1.Clear();
@@ -244,8 +258,19 @@ namespace ARKBreedingStats
             _tt.SetToolTip(labelM, Loc.S("Mother"));
             _tt.SetToolTip(labelF, Loc.S("Father"));
             _tt.SetToolTip(textBoxNote, "Note");
-            _tt.SetToolTip(labelParents, "Mother and Father (if bred and choosen)");
             _tt.SetToolTip(buttonSex, Loc.S("Sex"));
+        }
+
+        private void LbMotherClick(object sender, EventArgs e)
+        {
+            if (_creature?.Mother == null) return;
+            SelectCreature?.Invoke(_creature.Mother);
+        }
+
+        private void LbFatherClick(object sender, EventArgs e)
+        {
+            if (_creature?.Father == null) return;
+            SelectCreature?.Invoke(_creature.Father);
         }
     }
 }

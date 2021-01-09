@@ -1861,7 +1861,7 @@ namespace ARKBreedingStats
             this.tableLayoutPanelLibrary.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanelLibrary.Name = "tableLayoutPanelLibrary";
             this.tableLayoutPanelLibrary.RowCount = 2;
-            this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 396F));
+            this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 412F));
             this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelLibrary.Size = new System.Drawing.Size(1120, 724);
             this.tableLayoutPanelLibrary.TabIndex = 4;
@@ -1872,10 +1872,10 @@ namespace ARKBreedingStats
             this.tabControlLibFilter.Controls.Add(this.tabPage3);
             this.tabControlLibFilter.Controls.Add(this.tabPageLibRadarChart);
             this.tabControlLibFilter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControlLibFilter.Location = new System.Drawing.Point(3, 399);
+            this.tabControlLibFilter.Location = new System.Drawing.Point(3, 415);
             this.tabControlLibFilter.Name = "tabControlLibFilter";
             this.tabControlLibFilter.SelectedIndex = 0;
-            this.tabControlLibFilter.Size = new System.Drawing.Size(195, 322);
+            this.tabControlLibFilter.Size = new System.Drawing.Size(195, 306);
             this.tabControlLibFilter.TabIndex = 5;
             // 
             // tabPage1
@@ -1884,7 +1884,7 @@ namespace ARKBreedingStats
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(187, 296);
+            this.tabPage1.Size = new System.Drawing.Size(187, 280);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Species";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1895,7 +1895,7 @@ namespace ARKBreedingStats
             this.listBoxSpeciesLib.FormattingEnabled = true;
             this.listBoxSpeciesLib.Location = new System.Drawing.Point(3, 3);
             this.listBoxSpeciesLib.Name = "listBoxSpeciesLib";
-            this.listBoxSpeciesLib.Size = new System.Drawing.Size(181, 290);
+            this.listBoxSpeciesLib.Size = new System.Drawing.Size(181, 274);
             this.listBoxSpeciesLib.TabIndex = 0;
             this.listBoxSpeciesLib.SelectedIndexChanged += new System.EventHandler(this.listBoxSpeciesLib_SelectedIndexChanged);
             // 
@@ -2525,10 +2525,11 @@ namespace ARKBreedingStats
             // 
             this.creatureBoxListView.Location = new System.Drawing.Point(3, 3);
             this.creatureBoxListView.Name = "creatureBoxListView";
-            this.creatureBoxListView.Size = new System.Drawing.Size(195, 390);
+            this.creatureBoxListView.Size = new System.Drawing.Size(195, 406);
             this.creatureBoxListView.TabIndex = 0;
             this.creatureBoxListView.Changed += new System.Action<ARKBreedingStats.Library.Creature, bool, bool>(this.UpdateDisplayedCreatureValues);
             this.creatureBoxListView.GiveParents += new System.Action<ARKBreedingStats.Library.Creature>(this.CreatureBoxListView_FindParents);
+            this.creatureBoxListView.SelectCreature += new System.Action<ARKBreedingStats.Library.Creature>(this.SelectCreatureInLibrary);
             // 
             // tabPagePedigree
             // 

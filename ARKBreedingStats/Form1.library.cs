@@ -715,12 +715,12 @@ namespace ARKBreedingStats
                     listViewLibrary.Items[ci] = CreateCreatureLVItem(cr, listViewLibrary.Items[ci].Group);
             }
 
-            // recreate ownerlist
+            // recreate ownerList
             if (ownerServerChanged)
                 UpdateOwnerServerTagLists();
             SetCollectionChanged(true, cr.Species);
 
-            // select previous selecteded again
+            // select previous selected creatures again
             int selectedCount = selectedCreatures.Count;
             if (selectedCount > 0)
             {
@@ -1406,6 +1406,37 @@ namespace ARKBreedingStats
 
             var pluralS = (imagesCreated != 1 ? "s" : string.Empty);
             SetMessageLabelText($"Infographic{pluralS} for {imagesCreated} creature{pluralS} created at\n{folderPath}", MessageBoxIcon.Information, folderPath);
+        }
+
+        /// <summary>
+        /// Selects a creature in the library
+        /// </summary>
+        /// <param name="creature"></param>
+        private void SelectCreatureInLibrary(Creature creature)
+        {
+            if (creature == null) return;
+
+            ListViewItem lviCreature = null;
+            foreach (ListViewItem lvi in listViewLibrary.Items)
+            {
+                if (lvi.Tag is Creature c && c == creature)
+                {
+                    lviCreature = lvi;
+                    break;
+                }
+            }
+
+            if (lviCreature == null) return;
+
+            _reactOnCreatureSelectionChange = false;
+            // deselect
+            foreach (ListViewItem lvi in listViewLibrary.SelectedItems)
+                lvi.Selected = false;
+            _reactOnCreatureSelectionChange = true;
+
+            lviCreature.Focused = true;
+            lviCreature.Selected = true;
+            listViewLibrary.EnsureVisible(lviCreature.Index);
         }
     }
 }
