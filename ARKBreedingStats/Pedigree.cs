@@ -46,6 +46,8 @@ namespace ARKBreedingStats
             NoCreatureSelected();
             listViewCreatures.ListViewItemSorter = new ListViewColumnSorter();
             splitContainer1.Panel2.Paint += Panel2_Paint;
+            var tt = new ToolTip();
+            tt.SetToolTip(pictureBox,"Click with the left mouse button to copy InfoGraphic to Clipboard.");
         }
 
         private void Panel2_Paint(object sender, PaintEventArgs e)
