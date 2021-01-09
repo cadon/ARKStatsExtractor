@@ -249,7 +249,7 @@ namespace ARKBreedingStats
                             MinMaxDouble possibleStatValues = new MinMaxDouble(StatValueCalculation.CalculateValue(species, s, 0, 0, PostTamed, lowerTEBound, _imprintingBonusRange.Min, false),
                                 StatValueCalculation.CalculateValue(species, s, 0, 0, PostTamed, upperTEBound, _imprintingBonusRange.Max, false));
                             if (inputValue.Overlaps(possibleStatValues))
-                                Results[s].Add(new StatResult(0, 0, inputValue.Mean));
+                                Results[s].Add(new StatResult(0, 0));
                         }
                         else
                         {
@@ -258,7 +258,7 @@ namespace ARKBreedingStats
                             int lw = (int)Math.Round(lwRange.Mean);
                             if (lwRange.Includes(lw) && lw >= 0 && lw <= maxLW)
                             {
-                                Results[s].Add(new StatResult(lw, 0, inputValue.Mean));
+                                Results[s].Add(new StatResult(lw, 0));
                             }
                         }
                         // even if no result was found, there is no other valid
@@ -280,12 +280,12 @@ namespace ARKBreedingStats
                                 int ld = (int)Math.Round(ldRange.Mean);
                                 if (ldRange.Includes(ld) && ld >= 0 && ld <= maxLD)
                                 {
-                                    Results[s].Add(new StatResult(lw, ld, inputValue.Mean));
+                                    Results[s].Add(new StatResult(lw, ld));
                                 }
                             }
                             else
                             {
-                                Results[s].Add(new StatResult(lw, 0, inputValue.Mean));
+                                Results[s].Add(new StatResult(lw, 0));
                             }
                         }
                         else
@@ -358,7 +358,7 @@ namespace ARKBreedingStats
                                     }
                                 }
 
-                                Results[s].Add(new StatResult(lw, ld, inputValue.Mean, tamingEffectiveness));
+                                Results[s].Add(new StatResult(lw, ld, tamingEffectiveness));
                             }
                         }
                     }
