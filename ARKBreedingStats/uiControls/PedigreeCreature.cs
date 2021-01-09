@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
@@ -35,7 +36,7 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         public event Action RecalculateBreedingPlan;
 
-        public delegate void ExportToClipboardEventHandler(Creature c, bool breedingValues, bool ArkMl);
+        public delegate void ExportToClipboardEventHandler(Creature c, bool breedingValues, bool arkMl);
 
         public event ExportToClipboardEventHandler ExportToClipboard;
         private readonly List<Label> _labels;
@@ -50,9 +51,9 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// If set to true, the levelHatched in parenthesis is appended with an '+'.
         /// </summary>
-        public bool TotalLevelUnknown { get; set; } = false;
+        public bool TotalLevelUnknown { get; set; }
 
-        public static readonly int[] DisplayedStats = new[] {
+        public static readonly int[] DisplayedStats = {
                                                         (int)StatNames.Health,
                                                         (int)StatNames.Stamina,
                                                         (int)StatNames.Oxygen,
@@ -350,6 +351,11 @@ namespace ARKBreedingStats.uiControls
         {
             if (!string.IsNullOrEmpty(_creature?.name))
                 Clipboard.SetText(_creature.name);
+        }
+
+        private void copyInfoGraphicToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _creature?.ExportInfoGraphicToClipboard(CreatureCollection.CurrentCreatureCollection);
         }
     }
 }

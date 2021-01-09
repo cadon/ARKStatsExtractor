@@ -21,6 +21,11 @@ namespace ARKBreedingStats.Library
         public const int MaxDomLevelDefault = 73;
         public const int MaxDomLevelSinglePlayerDefault = 88;
 
+        /// <summary>
+        /// The currently loaded creature collection.
+        /// </summary>
+        [JsonIgnore]
+        public static CreatureCollection CurrentCreatureCollection;
         [JsonProperty]
         public string FormatVersion;
         [JsonProperty]

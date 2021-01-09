@@ -40,7 +40,7 @@ namespace ARKBreedingStats
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.TextBoxFilter = new System.Windows.Forms.TextBox();
             this.ButtonClearFilter = new System.Windows.Forms.Button();
-            this.pedigreeCreatureHeaders = new PedigreeCreature();
+            this.pedigreeCreatureHeaders = new ARKBreedingStats.uiControls.PedigreeCreature();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -56,6 +56,7 @@ namespace ARKBreedingStats
             this.pictureBox.Size = new System.Drawing.Size(256, 256);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
+            this.pictureBox.Click += new System.EventHandler(this.pictureBox_Click);
             // 
             // lbPedigreeEmpty
             // 

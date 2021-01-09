@@ -243,7 +243,7 @@ namespace ARKBreedingStats.library
         /// </summary>
         /// <param name="creature"></param>
         /// <param name="cc">CreatureCollection for server settings.</param>
-        public static void ExportInfoGraphicToClipboard(this Creature creature, CreatureCollection cc)
+        public static void ExportInfoGraphicToClipboard(this Creature creature, CreatureCollection cc = null)
         {
             if (creature == null) return;
 

@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Threading;
+using ARKBreedingStats.library;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 
@@ -485,6 +486,11 @@ namespace ARKBreedingStats
         {
             TextBoxFilter.Clear();
             TextBoxFilter.Focus();
+        }
+
+        private void pictureBox_Click(object sender, EventArgs e)
+        {
+            _selectedCreature?.ExportInfoGraphicToClipboard(CreatureCollection.CurrentCreatureCollection);
         }
     }
 }
