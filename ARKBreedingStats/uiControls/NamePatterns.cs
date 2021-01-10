@@ -237,6 +237,7 @@ namespace ARKBreedingStats.uiControls
                         // check param number: 1: format, 2: p1, 3: formatString
 
                         // only use last param
+                        if (string.IsNullOrEmpty(p1)) return string.Empty;
                         string formatString = m.Groups[3].Value;
                         if (!string.IsNullOrEmpty(formatString))
                         {
