@@ -823,14 +823,24 @@ namespace ARKBreedingStats
 
             tabControlMain.SelectedTab = tabPageExtractor;
 
-            bool creatureExists = ExtractValuesInExtractor(cv, exportFilePath, true);
+            bool creatureAlreadyExists = ExtractValuesInExtractor(cv, exportFilePath, true);
+            CopyNameToClipboardIfSet(creatureAlreadyExists);
 
+            return creatureAlreadyExists;
+        }
+
+        /// <summary>
+        /// Copies the creature name to the clipboard if the conditions according to the user settings are fulfilled.
+        /// </summary>
+        /// <param name="creatureAlreadyExists"></param>
+        private void CopyNameToClipboardIfSet(bool creatureAlreadyExists)
+        {
             if (Properties.Settings.Default.applyNamePatternOnAutoImportAlways
                 || (Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
                     && string.IsNullOrEmpty(creatureInfoInputExtractor.CreatureName))
-                || (!creatureExists
+                || (!creatureAlreadyExists
                     && Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures)
-                )
+            )
             {
                 CreatureInfoInput_CreatureDataRequested(creatureInfoInputExtractor, false, false, false, 0);
                 if (Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied)
@@ -840,7 +850,6 @@ namespace ARKBreedingStats
                         : creatureInfoInputExtractor.CreatureName);
                 }
             }
-            return creatureExists;
         }
 
         /// <summary>
@@ -853,7 +862,8 @@ namespace ARKBreedingStats
             if (ecc == null)
                 return;
 
-            ExtractValuesInExtractor(ecc.creatureValues, ecc.exportedFile, false);
+            bool creatureAlreadyExists = ExtractValuesInExtractor(ecc.creatureValues, ecc.exportedFile, false);
+            CopyNameToClipboardIfSet(creatureAlreadyExists);
 
             // gets deleted in extractLevels()
             _exportedCreatureControl = ecc;
@@ -861,6 +871,8 @@ namespace ARKBreedingStats
             if (!string.IsNullOrEmpty(_exportedCreatureList?.ownerSuffix))
                 creatureInfoInputExtractor.CreatureOwner += _exportedCreatureList.ownerSuffix;
         }
+
+
 
         /// <summary>
         /// Sets the values of a creature to the extractor and extracts its levels.
