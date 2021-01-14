@@ -99,7 +99,7 @@ namespace ARKBreedingStats.uiControls
         /// <param name="pattern"></param>
         /// <param name="creature"></param>
         /// <param name="customReplacings">Dictionary of user defined replacings</param>
-        /// <param name="displayError"></param>
+        /// <param name="displayError">If true, a MessageBox with the error will be displayed.</param>
         /// <param name="processNumberField">If true, the {n} will be processed</param>
         /// <returns></returns>
         private static string ResolveFunctions(string pattern, Creature creature, Dictionary<string, string> customReplacings, bool displayError, bool processNumberField)
@@ -108,11 +108,18 @@ namespace ARKBreedingStats.uiControls
             int nrFunctionsAfterResolving = NrFunctions(pattern);
             // the second and third parameter are optional
             Regex r = new Regex(@"\{\{ *#(\w+) *: *([^\|\{\}]*?) *(?:\| *([^\|\{\}]*?) *)?(?:\| *([^\|\{\}]*?) *)?\}\}", RegexOptions.IgnoreCase);
+            var parameters = new NamePatternParameters
+            {
+                Creature = creature,
+                CustomReplacings = customReplacings,
+                DisplayError = displayError,
+                ProcessNumberField = processNumberField
+            };
             // resolve nested functions
             while (nrFunctions != nrFunctionsAfterResolving)
             {
                 nrFunctions = nrFunctionsAfterResolving;
-                pattern = r.Replace(pattern, (m) => ResolveFunction(m, creature, customReplacings, displayError, processNumberField));
+                pattern = r.Replace(pattern, (m) => ResolveFunction(m, parameters));
                 nrFunctionsAfterResolving = NrFunctions(pattern);
             }
             return pattern;
@@ -128,228 +135,21 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// Resolves the naming-pattern functions
         /// </summary>
-        /// <param name="m"></param>
-        /// <param name="creature"></param>
-        /// <param name="customReplacings"></param>
-        /// <param name="displayError"></param>
-        /// <param name="processNumberField">The number field {n} will add the lowest possible positive integer for the name to be unique. It has to be processed after all other functions.</param>
         /// <returns></returns>
-        private static string ResolveFunction(Match m, Creature creature, Dictionary<string, string> customReplacings, bool displayError, bool processNumberField)
+        private static string ResolveFunction(Match m, NamePatternParameters parameters)
         {
             // function parameters can be non numeric if numbers are parsed
             try
             {
-                // first parameter value
-                string p1 = m.Groups[2].Value;
-                bool isInteger = false;
+                if (!parameters.ProcessNumberField && m.Groups[2].Value.Contains("{n}")) return m.Groups[0].Value;
 
-                if (!processNumberField && p1.Contains("{n}")) return m.Groups[0].Value;
-
-                // switch function name
-                switch (m.Groups[1].Value.ToLower())
-                {
-                    case "if":
-                        // check if Group2 !isNullOrWhiteSpace
-                        // Group3 contains the result if true
-                        // Group4 (optional) contains the result if false
-                        return string.IsNullOrWhiteSpace(p1) ? m.Groups[4].Value : m.Groups[3].Value;
-                    case "ifexpr":
-                        // tries to evaluate the expression
-                        // possible operators are ==, !=, <, >, =<, =>
-                        var match = Regex.Match(p1, @"\A\s*(\d+(?:\.\d*)?)\s*(==|!=|<|<=|>|>=)\s*(\d+(?:\.\d*)?)\s*\Z");
-                        if (match.Success
-                            && double.TryParse(match.Groups[1].Value, out double d1)
-                            && double.TryParse(match.Groups[3].Value, out double d2)
-                            )
-                        {
-                            switch (match.Groups[2].Value)
-                            {
-                                case "==": return d1 == d2 ? m.Groups[3].Value : m.Groups[4].Value;
-                                case "!=": return d1 != d2 ? m.Groups[3].Value : m.Groups[4].Value;
-                                case "<": return d1 < d2 ? m.Groups[3].Value : m.Groups[4].Value;
-                                case "<=": return d1 <= d2 ? m.Groups[3].Value : m.Groups[4].Value;
-                                case ">": return d1 > d2 ? m.Groups[3].Value : m.Groups[4].Value;
-                                case ">=": return d1 >= d2 ? m.Groups[3].Value : m.Groups[4].Value;
-                            }
-                        }
-                        else
-                        {
-                            // compare the values as strings
-                            match = Regex.Match(p1, @"\A\s*(.*?)\s*(==|!=|<=|<|>=|>)\s*(.*?)\s*\Z");
-                            if (match.Success)
-                            {
-                                int stringComparingResult = match.Groups[1].Value.CompareTo(match.Groups[3].Value);
-                                switch (match.Groups[2].Value)
-                                {
-                                    case "==": return stringComparingResult == 0 ? m.Groups[3].Value : m.Groups[4].Value;
-                                    case "!=": return stringComparingResult != 0 ? m.Groups[3].Value : m.Groups[4].Value;
-                                    case "<": return stringComparingResult < 0 ? m.Groups[3].Value : m.Groups[4].Value;
-                                    case "<=": return stringComparingResult <= 0 ? m.Groups[3].Value : m.Groups[4].Value;
-                                    case ">": return stringComparingResult > 0 ? m.Groups[3].Value : m.Groups[4].Value;
-                                    case ">=": return stringComparingResult >= 0 ? m.Groups[3].Value : m.Groups[4].Value;
-                                }
-                            }
-                        }
-                        return ParametersInvalid($"The expression for ifexpr invalid: \"{p1}\"");
-                    case "expr":
-                        // tries to calculate the result of the expression
-                        // possible operators are +, -, *, /
-                        match = Regex.Match(p1, @"\A\s*(\d+(?:\.\d*)?)\s*(\+|\-|\*|\/)\s*(\d+(?:\.\d*)?)\s*\Z");
-                        if (match.Success
-                            && double.TryParse(match.Groups[1].Value, out d1)
-                            && double.TryParse(match.Groups[3].Value, out d2)
-                            )
-                        {
-                            switch (match.Groups[2].Value)
-                            {
-                                case "+": return (d1 + d2).ToString();
-                                case "-": return (d1 - d2).ToString();
-                                case "*": return (d1 * d2).ToString();
-                                case "/": return d2 == 0 ? "divByZero" : (d1 / d2).ToString();
-                            }
-                        }
-                        return ParametersInvalid($"The expression for expr is invalid: \"{p1}\"");
-                    case "len":
-                        // returns the length of the parameter
-                        return p1.Length.ToString();
-                    case "substring":
-                        // check param number: 1: substring, 2: p1, 3: pos, 4: length
-                        if (!int.TryParse(m.Groups[3].Value, out var pos))
-                            return p1;
-
-                        bool fromEnd = pos < 0;
-                        pos = Math.Min(Math.Abs(pos), p1.Length);
-                        if (string.IsNullOrEmpty(m.Groups[4].Value))
-                        {
-                            if (fromEnd)
-                                return p1.Substring(p1.Length - pos);
-                            return p1.Substring(pos);
-                        }
-                        else
-                        {
-                            int length = Math.Min(Convert.ToInt32(Convert.ToInt32(m.Groups[4].Value)), fromEnd ? pos : p1.Length - pos);
-                            if (fromEnd)
-                                return p1.Substring(p1.Length - pos, length);
-                            return p1.Substring(pos, length);
-                        }
-                    case "format_int":
-                        isInteger = true;
-                        goto case "format";
-                    case "format":
-                        // check param number: 1: format, 2: p1, 3: formatString
-
-                        // only use last param
-                        if (string.IsNullOrEmpty(p1)) return string.Empty;
-                        string formatString = m.Groups[3].Value;
-                        if (!string.IsNullOrEmpty(formatString))
-                        {
-                            return isInteger ? Convert.ToInt32(p1).ToString(formatString) : Convert.ToDouble(p1).ToString(formatString);
-                        }
-                        else
-                            return ParametersInvalid("No Format string given");
-                    case "padleft":
-                        // check param number: 1: padleft, 2: p1, 3: desired length, 4: padding char
-
-                        int padLen = Convert.ToInt32(m.Groups[3].Value);
-                        string padChar = m.Groups[4].Value;
-                        if (!string.IsNullOrEmpty(padChar))
-                        {
-                            return p1.PadLeft(padLen, padChar[0]);
-                        }
-                        else
-                        {
-                            ParametersInvalid($"No padding char given.");
-                            return p1;
-                        }
-                    case "padright":
-                        // check param number: 1: padright, 2: p1, 3: desired length, 4: padding char
-
-                        padLen = Convert.ToInt32(m.Groups[3].Value);
-                        padChar = m.Groups[4].Value;
-                        if (!string.IsNullOrEmpty(padChar))
-                        {
-                            return p1.PadRight(padLen, padChar[0]);
-                        }
-                        else
-                            return ParametersInvalid($"No padding char given.");
-                    case "float_div":
-                        // returns an float after dividing the parsed number
-                        // parameter: 1: div, 2: number, 3: divided by 4: format string
-                        double dividend = double.Parse(p1);
-                        double divisor = double.Parse(m.Groups[3].Value);
-                        if (divisor > 0)
-                            return ((dividend / divisor)).ToString(m.Groups[4].Value);
-                        else
-                            return ParametersInvalid("Division by 0");
-                    case "div":
-                        // returns an integer after dividing the parsed number
-                        // parameter: 1: div, 2: number, 3: divided by
-                        double number = double.Parse(p1);
-                        double div = double.Parse(m.Groups[3].Value);
-                        if (div > 0)
-                            return ((int)(number / div)).ToString();
-                        else
-                            return ParametersInvalid("Division by 0");
-                    case "casing":
-                        // parameter: 1: casing, 2: text, 3: U for UPPER, L for lower, T for Title
-                        switch (m.Groups[3].Value.ToLower())
-                        {
-                            case "u": return p1.ToUpperInvariant();
-                            case "l": return p1.ToLowerInvariant();
-                            case "t": return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(p1);
-                        }
-                        return ParametersInvalid($"casing expects 'U', 'L' or 'T', given is '{m.Groups[3].Value}'");
-                    case "replace":
-                        // parameter: 1: replace, 2: text, 3: find, 4: replace
-                        if (string.IsNullOrEmpty(p1)
-                            || string.IsNullOrEmpty(m.Groups[3].Value))
-                            return p1;
-                        return p1.Replace(m.Groups[3].Value.Replace("&nbsp;", " "), m.Groups[4].Value.Replace("&nbsp;", " "));
-                    case "customreplace":
-                        // parameter: 1: customreplace, 2: key, 3: return if key not available
-                        if (customReplacings == null
-                            || string.IsNullOrEmpty(p1)
-                            || !customReplacings.ContainsKey(p1))
-                            return m.Groups[3].Value;
-                        return customReplacings[p1];
-                    case "time":
-                        // parameter: 1: time, 2: format
-                        return DateTime.Now.ToString(p1);
-                    case "color":
-                        // parameter 1: region id (0,...,5), 2: if not empty, the color name instead of the numerical id is returned, 3: if not empty, the function will return also a value even if the color region is not used on that species.
-                        if (!int.TryParse(p1, out int regionId)
-                        || regionId < 0 || regionId > 5) return ParametersInvalid("color region id has to be a number in the range 0 - 5");
-
-                        if (!creature.Species.EnabledColorRegions[regionId] &&
-                            string.IsNullOrWhiteSpace(m.Groups[4].Value))
-                            return string.Empty; // species does not use this region and user doesn't want it (param 3 is empty)
-
-                        if (creature.colors == null) return string.Empty; // no color info
-                        if (string.IsNullOrWhiteSpace(m.Groups[3].Value))
-                            return creature.colors[regionId].ToString();
-                        return CreatureColors.CreatureColorName(creature.colors[regionId]);
-                    case "indexof":
-                        // parameter: 1: source string, 2: string to find
-                        if (string.IsNullOrEmpty(p1) || string.IsNullOrEmpty(m.Groups[3].Value))
-                            return string.Empty;
-                        int index = p1.IndexOf(m.Groups[3].Value);
-                        return index >= 0 ? index.ToString() : string.Empty;
-                }
+                return NamePatternFunctions.ResolveFunction(m, parameters);
             }
             catch (Exception ex)
             {
                 MessageBoxes.ExceptionMessageBox(ex, $"The syntax of the following pattern function\n{m.Groups[0].Value}\ncannot be processed and will be ignored.", "Naming pattern function error");
             }
             return string.Empty;
-
-            string ParametersInvalid(string specificError)
-            {
-                if (displayError)
-                    MessageBoxes.ShowMessageBox($"The syntax of the following pattern function\n{m.Groups[0].Value}\ncannot be processed and will be ignored."
-                                                  + (string.IsNullOrEmpty(specificError) ? string.Empty : $"\n\nSpecific error:\n{specificError}"),
-                        $"Naming pattern function error");
-                return displayError ? m.Groups[2].Value : specificError;
-            }
         }
 
         private static readonly string[] StatAbbreviationFromIndex = {
