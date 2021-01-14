@@ -117,7 +117,9 @@ namespace ARKBreedingStats
             if (creatureCollection.changeCreatureStatusOnSavegameImport)
             {
                 // mark creatures that are no longer present as unavailable
-                var removedCreatures = creatureCollection.creatures.Where(c => c.Status == CreatureStatus.Available && c.server == serverName).Except(newCreatures);
+                var removedCreatures = creatureCollection.creatures.Where(c =>
+                        (c.Status == CreatureStatus.Available || c.Status == CreatureStatus.Cryopod) && c.server == serverName
+                        ).Except(newCreatures);
                 foreach (var c in removedCreatures)
                     c.Status = CreatureStatus.Unavailable;
             }
