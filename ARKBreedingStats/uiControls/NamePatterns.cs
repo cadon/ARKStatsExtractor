@@ -141,6 +141,7 @@ namespace ARKBreedingStats.uiControls
             {
                 // first parameter value
                 string p1 = m.Groups[2].Value;
+                bool isInteger = false;
 
                 if (!processNumberField && p1.Contains("{n}")) return m.Groups[0].Value;
 
@@ -222,17 +223,18 @@ namespace ARKBreedingStats.uiControls
                         {
                             if (fromEnd)
                                 return p1.Substring(p1.Length - pos);
-                            else
-                                return p1.Substring(pos);
+                            return p1.Substring(pos);
                         }
                         else
                         {
                             int length = Math.Min(Convert.ToInt32(Convert.ToInt32(m.Groups[4].Value)), fromEnd ? pos : p1.Length - pos);
                             if (fromEnd)
                                 return p1.Substring(p1.Length - pos, length);
-                            else
-                                return p1.Substring(pos, length);
+                            return p1.Substring(pos, length);
                         }
+                    case "format_int":
+                        isInteger = true;
+                        goto case "format";
                     case "format":
                         // check param number: 1: format, 2: p1, 3: formatString
 
@@ -241,10 +243,7 @@ namespace ARKBreedingStats.uiControls
                         string formatString = m.Groups[3].Value;
                         if (!string.IsNullOrEmpty(formatString))
                         {
-                            // convert to double
-                            double value = Convert.ToDouble(p1);
-                            // format it
-                            return value.ToString(formatString);
+                            return isInteger ? Convert.ToInt32(p1).ToString(formatString) : Convert.ToDouble(p1).ToString(formatString);
                         }
                         else
                             return ParametersInvalid("No Format string given");

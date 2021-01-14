@@ -323,6 +323,7 @@ namespace ARKBreedingStats.uiControls
             {"casing","{{#casing: text | case (U, L, T) }}. U for UPPER, L for lower, T for Title.\n{{#casing: {species} | U }}"},
             {"time","{{#time: formatString }}\n{{#time: yyyy-MM-dd_HH:mm }}"},
             {"format","{{#format: number | formatString }}\n{{#format: {hp_vb} | 000000 }}"},
+            {"format_int","Like #format, but supports \"x\" in the format for hexadecimal representations. {{#format_int: number | formatString }}\n{{#format_int: {{#color: 0 }} | x2 }}"},
             {"color","{{#color: regionId | return color name | return value even for unused regions }}. Returns the colorId of the region. If the second parameter is not empty, the color name will be returned. Unused regions will only return a value if the third value is not empty.\n{{#color: 0 | true }}"},
             {"indexof","{{#indexof: source string | string to find }}. Returns the index of the second parameter in the first parameter. If the string is not contained, an empty string will be returned.\n{{#indexof: hello | ll }}"},
         };
