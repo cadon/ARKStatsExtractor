@@ -24,7 +24,7 @@ namespace ARKBreedingStats.settings
         public Settings(CreatureCollection cc, SettingsTabPages page)
         {
             InitializeData();
-            this._cc = cc;
+            _cc = cc;
             CreateListOfProcesses();
             LoadSettings(cc);
             Localization();
@@ -224,6 +224,9 @@ namespace ARKBreedingStats.settings
             tbDefaultFontName.Text = Properties.Settings.Default.DefaultFontName;
             nudDefaultFontSize.Value = (decimal)Properties.Settings.Default.DefaultFontSize;
 
+            GbImgCacheLocalAppData.Visible = !Updater.IsProgramInstalled; // setting is only relevant for portable app
+            CbImgCacheUseLocalAppData.Checked = Properties.Settings.Default.ImgCacheUseLocalAppData || Updater.IsProgramInstalled;
+
             #region overlay
             nudOverlayInfoDuration.ValueSave = Properties.Settings.Default.OverlayInfoDuration;
             nudOverlayTimerPosX.ValueSave = Properties.Settings.Default.OverlayTimerPosition.X;
@@ -412,6 +415,8 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.DisplayHiddenStats = checkBoxDisplayHiddenStats.Checked;
             Properties.Settings.Default.DefaultFontName = tbDefaultFontName.Text;
             Properties.Settings.Default.DefaultFontSize = (float)nudDefaultFontSize.Value;
+
+            Properties.Settings.Default.ImgCacheUseLocalAppData = CbImgCacheUseLocalAppData.Checked;
 
             #region overlay
             Properties.Settings.Default.OverlayInfoDuration = (int)nudOverlayInfoDuration.Value;
@@ -926,7 +931,9 @@ namespace ARKBreedingStats.settings
             General = 1,
             SaveImport = 2,
             ExportedImport = 3,
-            Ocr = 4,
+            Timers = 4,
+            Overlay = 5,
+            Ocr = 6,
         }
 
         private void cbCustomOverlayLocation_CheckedChanged(object sender, EventArgs e)

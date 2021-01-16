@@ -105,7 +105,7 @@
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.checkBoxDisplayHiddenStats = new System.Windows.Forms.CheckBox();
             this.tabControlSettings = new System.Windows.Forms.TabControl();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPageMultipliers = new System.Windows.Forms.TabPage();
             this.label34 = new System.Windows.Forms.Label();
             this.btExportMultipliers = new System.Windows.Forms.Button();
             this.groupBox18 = new System.Windows.Forms.GroupBox();
@@ -119,8 +119,10 @@
             this.cbConsiderWildLevelSteps = new System.Windows.Forms.CheckBox();
             this.buttonEventToDefault = new System.Windows.Forms.Button();
             this.labelEvent = new System.Windows.Forms.Label();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPageGeneral = new System.Windows.Forms.TabPage();
             this.groupBox28 = new System.Windows.Forms.GroupBox();
+            this.CbInfoGraphicMutations = new System.Windows.Forms.CheckBox();
+            this.CbInfoGraphicGenerations = new System.Windows.Forms.CheckBox();
             this.CbInfoGraphicDomLevels = new System.Windows.Forms.CheckBox();
             this.BtInfoGraphicBorderColor = new System.Windows.Forms.Button();
             this.BtInfoGraphicBackColor = new System.Windows.Forms.Button();
@@ -145,10 +147,6 @@
             this.label33 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.tbDefaultFontName = new System.Windows.Forms.TextBox();
-            this.groupBox24 = new System.Windows.Forms.GroupBox();
-            this.cbKeepExpiredTimersInOverlay = new System.Windows.Forms.CheckBox();
-            this.cbDeleteExpiredTimersOnSaving = new System.Windows.Forms.CheckBox();
-            this.cbTimersInOverlayAutomatically = new System.Windows.Forms.CheckBox();
             this.groupBox20 = new System.Windows.Forms.GroupBox();
             this.cbPrettifyJSON = new System.Windows.Forms.CheckBox();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
@@ -158,14 +156,6 @@
             this.cbLibraryHighlightTopCreatures = new System.Windows.Forms.CheckBox();
             this.cbApplyGlobalSpeciesToLibrary = new System.Windows.Forms.CheckBox();
             this.cbCreatureColorsLibrary = new System.Windows.Forms.CheckBox();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.tbPlayAlarmsSeconds = new System.Windows.Forms.TextBox();
-            this.customSCCustom = new ARKBreedingStats.settings.customSoundChooser();
-            this.customSCWakeup = new ARKBreedingStats.settings.customSoundChooser();
-            this.customSCBirth = new ARKBreedingStats.settings.customSoundChooser();
-            this.customSCStarving = new ARKBreedingStats.settings.customSoundChooser();
-            this.label20 = new System.Windows.Forms.Label();
             this.tabPageImportSavegame = new System.Windows.Forms.TabPage();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.cbSaveImportCryo = new System.Windows.Forms.CheckBox();
@@ -268,8 +258,21 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.CbInfoGraphicGenerations = new System.Windows.Forms.CheckBox();
-            this.CbInfoGraphicMutations = new System.Windows.Forms.CheckBox();
+            this.tabPageTimers = new System.Windows.Forms.TabPage();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.tbPlayAlarmsSeconds = new System.Windows.Forms.TextBox();
+            this.customSCCustom = new ARKBreedingStats.settings.customSoundChooser();
+            this.customSCWakeup = new ARKBreedingStats.settings.customSoundChooser();
+            this.customSCBirth = new ARKBreedingStats.settings.customSoundChooser();
+            this.customSCStarving = new ARKBreedingStats.settings.customSoundChooser();
+            this.label20 = new System.Windows.Forms.Label();
+            this.groupBox24 = new System.Windows.Forms.GroupBox();
+            this.cbKeepExpiredTimersInOverlay = new System.Windows.Forms.CheckBox();
+            this.cbDeleteExpiredTimersOnSaving = new System.Windows.Forms.CheckBox();
+            this.cbTimersInOverlayAutomatically = new System.Windows.Forms.CheckBox();
+            this.GbImgCacheLocalAppData = new System.Windows.Forms.GroupBox();
+            this.CbImgCacheUseLocalAppData = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmountEvent)).BeginInit();
@@ -303,11 +306,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.NudBackupEveryMinutes)).BeginInit();
             this.groupBox7.SuspendLayout();
             this.tabControlSettings.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tabPageMultipliers.SuspendLayout();
             this.groupBox18.SuspendLayout();
             this.groupBox11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).BeginInit();
-            this.tabPage1.SuspendLayout();
+            this.tabPageGeneral.SuspendLayout();
             this.groupBox28.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudInfoGraphicWidth)).BeginInit();
             this.groupBox16.SuspendLayout();
@@ -316,11 +319,9 @@
             this.groupBox26.SuspendLayout();
             this.groupBox25.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudDefaultFontSize)).BeginInit();
-            this.groupBox24.SuspendLayout();
             this.groupBox20.SuspendLayout();
             this.groupBox17.SuspendLayout();
             this.groupBox9.SuspendLayout();
-            this.groupBox8.SuspendLayout();
             this.tabPageImportSavegame.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.groupBox15.SuspendLayout();
@@ -354,6 +355,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).BeginInit();
             this.panel1.SuspendLayout();
+            this.tabPageTimers.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            this.groupBox24.SuspendLayout();
+            this.GbImgCacheLocalAppData.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -1427,10 +1432,11 @@
             // 
             // tabControlSettings
             // 
-            this.tabControlSettings.Controls.Add(this.tabPage2);
-            this.tabControlSettings.Controls.Add(this.tabPage1);
+            this.tabControlSettings.Controls.Add(this.tabPageMultipliers);
+            this.tabControlSettings.Controls.Add(this.tabPageGeneral);
             this.tabControlSettings.Controls.Add(this.tabPageImportSavegame);
             this.tabControlSettings.Controls.Add(this.tabPageImportExported);
+            this.tabControlSettings.Controls.Add(this.tabPageTimers);
             this.tabControlSettings.Controls.Add(this.tabPageOverlay);
             this.tabControlSettings.Controls.Add(this.tabPageOCR);
             this.tabControlSettings.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1440,32 +1446,32 @@
             this.tabControlSettings.Size = new System.Drawing.Size(758, 702);
             this.tabControlSettings.TabIndex = 11;
             // 
-            // tabPage2
+            // tabPageMultipliers
             // 
-            this.tabPage2.AllowDrop = true;
-            this.tabPage2.AutoScroll = true;
-            this.tabPage2.Controls.Add(this.label34);
-            this.tabPage2.Controls.Add(this.btExportMultipliers);
-            this.tabPage2.Controls.Add(this.groupBox18);
-            this.tabPage2.Controls.Add(this.label27);
-            this.tabPage2.Controls.Add(this.cbSingleplayerSettings);
-            this.tabPage2.Controls.Add(this.groupBox11);
-            this.tabPage2.Controls.Add(this.buttonEventToDefault);
-            this.tabPage2.Controls.Add(this.labelEvent);
-            this.tabPage2.Controls.Add(this.groupBoxMultiplier);
-            this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Controls.Add(this.groupBox3);
-            this.tabPage2.Controls.Add(this.label15);
-            this.tabPage2.Controls.Add(this.groupBox5);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(750, 676);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Multipliers";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            this.tabPage2.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragDrop);
-            this.tabPage2.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragEnter);
+            this.tabPageMultipliers.AllowDrop = true;
+            this.tabPageMultipliers.AutoScroll = true;
+            this.tabPageMultipliers.Controls.Add(this.label34);
+            this.tabPageMultipliers.Controls.Add(this.btExportMultipliers);
+            this.tabPageMultipliers.Controls.Add(this.groupBox18);
+            this.tabPageMultipliers.Controls.Add(this.label27);
+            this.tabPageMultipliers.Controls.Add(this.cbSingleplayerSettings);
+            this.tabPageMultipliers.Controls.Add(this.groupBox11);
+            this.tabPageMultipliers.Controls.Add(this.buttonEventToDefault);
+            this.tabPageMultipliers.Controls.Add(this.labelEvent);
+            this.tabPageMultipliers.Controls.Add(this.groupBoxMultiplier);
+            this.tabPageMultipliers.Controls.Add(this.groupBox2);
+            this.tabPageMultipliers.Controls.Add(this.groupBox3);
+            this.tabPageMultipliers.Controls.Add(this.label15);
+            this.tabPageMultipliers.Controls.Add(this.groupBox5);
+            this.tabPageMultipliers.Location = new System.Drawing.Point(4, 22);
+            this.tabPageMultipliers.Name = "tabPageMultipliers";
+            this.tabPageMultipliers.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageMultipliers.Size = new System.Drawing.Size(750, 676);
+            this.tabPageMultipliers.TabIndex = 1;
+            this.tabPageMultipliers.Text = "Multipliers";
+            this.tabPageMultipliers.UseVisualStyleBackColor = true;
+            this.tabPageMultipliers.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragDrop);
+            this.tabPageMultipliers.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragEnter);
             // 
             // label34
             // 
@@ -1616,29 +1622,28 @@
             this.labelEvent.TabIndex = 9;
             this.labelEvent.Text = "↓ Event-values";
             // 
-            // tabPage1
+            // tabPageGeneral
             // 
-            this.tabPage1.AutoScroll = true;
-            this.tabPage1.Controls.Add(this.groupBox28);
-            this.tabPage1.Controls.Add(this.groupBox16);
-            this.tabPage1.Controls.Add(this.GbSpecies);
-            this.tabPage1.Controls.Add(this.groupBox26);
-            this.tabPage1.Controls.Add(this.groupBox25);
-            this.tabPage1.Controls.Add(this.groupBox24);
-            this.tabPage1.Controls.Add(this.groupBox20);
-            this.tabPage1.Controls.Add(this.groupBox17);
-            this.tabPage1.Controls.Add(this.groupBox9);
-            this.tabPage1.Controls.Add(this.groupBox8);
-            this.tabPage1.Controls.Add(this.groupBox7);
-            this.tabPage1.Controls.Add(this.groupBox4);
-            this.tabPage1.Controls.Add(this.groupBox6);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(750, 676);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "General";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPageGeneral.AutoScroll = true;
+            this.tabPageGeneral.Controls.Add(this.GbImgCacheLocalAppData);
+            this.tabPageGeneral.Controls.Add(this.groupBox28);
+            this.tabPageGeneral.Controls.Add(this.groupBox16);
+            this.tabPageGeneral.Controls.Add(this.GbSpecies);
+            this.tabPageGeneral.Controls.Add(this.groupBox26);
+            this.tabPageGeneral.Controls.Add(this.groupBox25);
+            this.tabPageGeneral.Controls.Add(this.groupBox20);
+            this.tabPageGeneral.Controls.Add(this.groupBox17);
+            this.tabPageGeneral.Controls.Add(this.groupBox9);
+            this.tabPageGeneral.Controls.Add(this.groupBox7);
+            this.tabPageGeneral.Controls.Add(this.groupBox4);
+            this.tabPageGeneral.Controls.Add(this.groupBox6);
+            this.tabPageGeneral.Location = new System.Drawing.Point(4, 22);
+            this.tabPageGeneral.Name = "tabPageGeneral";
+            this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageGeneral.Size = new System.Drawing.Size(750, 676);
+            this.tabPageGeneral.TabIndex = 0;
+            this.tabPageGeneral.Text = "General";
+            this.tabPageGeneral.UseVisualStyleBackColor = true;
             // 
             // groupBox28
             // 
@@ -1654,12 +1659,32 @@
             this.groupBox28.Controls.Add(this.label50);
             this.groupBox28.Controls.Add(this.LbInfoGraphicSize);
             this.groupBox28.Controls.Add(this.nudInfoGraphicWidth);
-            this.groupBox28.Location = new System.Drawing.Point(329, 413);
+            this.groupBox28.Location = new System.Drawing.Point(329, 90);
             this.groupBox28.Name = "groupBox28";
             this.groupBox28.Size = new System.Drawing.Size(413, 111);
             this.groupBox28.TabIndex = 15;
             this.groupBox28.TabStop = false;
             this.groupBox28.Text = "Infographic";
+            // 
+            // CbInfoGraphicMutations
+            // 
+            this.CbInfoGraphicMutations.AutoSize = true;
+            this.CbInfoGraphicMutations.Location = new System.Drawing.Point(217, 58);
+            this.CbInfoGraphicMutations.Name = "CbInfoGraphicMutations";
+            this.CbInfoGraphicMutations.Size = new System.Drawing.Size(43, 17);
+            this.CbInfoGraphicMutations.TabIndex = 35;
+            this.CbInfoGraphicMutations.Text = "mut";
+            this.CbInfoGraphicMutations.UseVisualStyleBackColor = true;
+            // 
+            // CbInfoGraphicGenerations
+            // 
+            this.CbInfoGraphicGenerations.AutoSize = true;
+            this.CbInfoGraphicGenerations.Location = new System.Drawing.Point(267, 58);
+            this.CbInfoGraphicGenerations.Name = "CbInfoGraphicGenerations";
+            this.CbInfoGraphicGenerations.Size = new System.Drawing.Size(44, 17);
+            this.CbInfoGraphicGenerations.TabIndex = 34;
+            this.CbInfoGraphicGenerations.Text = "gen";
+            this.CbInfoGraphicGenerations.UseVisualStyleBackColor = true;
             // 
             // CbInfoGraphicDomLevels
             // 
@@ -1776,7 +1801,7 @@
             // groupBox16
             // 
             this.groupBox16.Controls.Add(this.cbDevTools);
-            this.groupBox16.Location = new System.Drawing.Point(329, 625);
+            this.groupBox16.Location = new System.Drawing.Point(329, 302);
             this.groupBox16.Name = "groupBox16";
             this.groupBox16.Size = new System.Drawing.Size(413, 43);
             this.groupBox16.TabIndex = 8;
@@ -1829,7 +1854,7 @@
             // groupBox26
             // 
             this.groupBox26.Controls.Add(this.cbAdminConsoleCommandWithCheat);
-            this.groupBox26.Location = new System.Drawing.Point(329, 530);
+            this.groupBox26.Location = new System.Drawing.Point(329, 207);
             this.groupBox26.Name = "groupBox26";
             this.groupBox26.Size = new System.Drawing.Size(413, 43);
             this.groupBox26.TabIndex = 13;
@@ -1854,7 +1879,7 @@
             this.groupBox25.Controls.Add(this.label33);
             this.groupBox25.Controls.Add(this.label32);
             this.groupBox25.Controls.Add(this.tbDefaultFontName);
-            this.groupBox25.Location = new System.Drawing.Point(329, 329);
+            this.groupBox25.Location = new System.Drawing.Point(329, 6);
             this.groupBox25.Name = "groupBox25";
             this.groupBox25.Size = new System.Drawing.Size(413, 78);
             this.groupBox25.TabIndex = 12;
@@ -1918,52 +1943,10 @@
             this.tbDefaultFontName.Size = new System.Drawing.Size(222, 20);
             this.tbDefaultFontName.TabIndex = 0;
             // 
-            // groupBox24
-            // 
-            this.groupBox24.Controls.Add(this.cbKeepExpiredTimersInOverlay);
-            this.groupBox24.Controls.Add(this.cbDeleteExpiredTimersOnSaving);
-            this.groupBox24.Controls.Add(this.cbTimersInOverlayAutomatically);
-            this.groupBox24.Location = new System.Drawing.Point(329, 233);
-            this.groupBox24.Name = "groupBox24";
-            this.groupBox24.Size = new System.Drawing.Size(413, 90);
-            this.groupBox24.TabIndex = 11;
-            this.groupBox24.TabStop = false;
-            this.groupBox24.Text = "Timers";
-            // 
-            // cbKeepExpiredTimersInOverlay
-            // 
-            this.cbKeepExpiredTimersInOverlay.AutoSize = true;
-            this.cbKeepExpiredTimersInOverlay.Location = new System.Drawing.Point(6, 42);
-            this.cbKeepExpiredTimersInOverlay.Name = "cbKeepExpiredTimersInOverlay";
-            this.cbKeepExpiredTimersInOverlay.Size = new System.Drawing.Size(166, 17);
-            this.cbKeepExpiredTimersInOverlay.TabIndex = 10;
-            this.cbKeepExpiredTimersInOverlay.Text = "Keep expired timers in overlay";
-            this.cbKeepExpiredTimersInOverlay.UseVisualStyleBackColor = true;
-            // 
-            // cbDeleteExpiredTimersOnSaving
-            // 
-            this.cbDeleteExpiredTimersOnSaving.AutoSize = true;
-            this.cbDeleteExpiredTimersOnSaving.Location = new System.Drawing.Point(6, 65);
-            this.cbDeleteExpiredTimersOnSaving.Name = "cbDeleteExpiredTimersOnSaving";
-            this.cbDeleteExpiredTimersOnSaving.Size = new System.Drawing.Size(217, 17);
-            this.cbDeleteExpiredTimersOnSaving.TabIndex = 9;
-            this.cbDeleteExpiredTimersOnSaving.Text = "Delete expired timers when saving library";
-            this.cbDeleteExpiredTimersOnSaving.UseVisualStyleBackColor = true;
-            // 
-            // cbTimersInOverlayAutomatically
-            // 
-            this.cbTimersInOverlayAutomatically.AutoSize = true;
-            this.cbTimersInOverlayAutomatically.Location = new System.Drawing.Point(6, 19);
-            this.cbTimersInOverlayAutomatically.Name = "cbTimersInOverlayAutomatically";
-            this.cbTimersInOverlayAutomatically.Size = new System.Drawing.Size(202, 17);
-            this.cbTimersInOverlayAutomatically.TabIndex = 8;
-            this.cbTimersInOverlayAutomatically.Text = "Display timers in overlay automatically";
-            this.cbTimersInOverlayAutomatically.UseVisualStyleBackColor = true;
-            // 
             // groupBox20
             // 
             this.groupBox20.Controls.Add(this.cbPrettifyJSON);
-            this.groupBox20.Location = new System.Drawing.Point(329, 579);
+            this.groupBox20.Location = new System.Drawing.Point(329, 256);
             this.groupBox20.Name = "groupBox20";
             this.groupBox20.Size = new System.Drawing.Size(413, 40);
             this.groupBox20.TabIndex = 10;
@@ -2051,79 +2034,6 @@
             this.cbCreatureColorsLibrary.TabIndex = 0;
             this.cbCreatureColorsLibrary.Text = "Show Creature-Colors columns in library";
             this.cbCreatureColorsLibrary.UseVisualStyleBackColor = true;
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.label22);
-            this.groupBox8.Controls.Add(this.tbPlayAlarmsSeconds);
-            this.groupBox8.Controls.Add(this.customSCCustom);
-            this.groupBox8.Controls.Add(this.customSCWakeup);
-            this.groupBox8.Controls.Add(this.customSCBirth);
-            this.groupBox8.Controls.Add(this.customSCStarving);
-            this.groupBox8.Controls.Add(this.label20);
-            this.groupBox8.Location = new System.Drawing.Point(329, 6);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(413, 221);
-            this.groupBox8.TabIndex = 5;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Timer Sounds";
-            // 
-            // label22
-            // 
-            this.label22.Location = new System.Drawing.Point(6, 171);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(255, 66);
-            this.label22.TabIndex = 9;
-            this.label22.Text = "List of seconds the alarms play before they reach 0.\r\nE.g. \"60,0\" to play the ala" +
-    "rm at 60 s and at 0 s. Use commas to separate the values.";
-            // 
-            // tbPlayAlarmsSeconds
-            // 
-            this.tbPlayAlarmsSeconds.Location = new System.Drawing.Point(267, 168);
-            this.tbPlayAlarmsSeconds.Name = "tbPlayAlarmsSeconds";
-            this.tbPlayAlarmsSeconds.Size = new System.Drawing.Size(140, 20);
-            this.tbPlayAlarmsSeconds.TabIndex = 8;
-            // 
-            // customSCCustom
-            // 
-            this.customSCCustom.Location = new System.Drawing.Point(6, 139);
-            this.customSCCustom.Name = "customSCCustom";
-            this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
-            this.customSCCustom.TabIndex = 7;
-            // 
-            // customSCWakeup
-            // 
-            this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
-            this.customSCWakeup.Name = "customSCWakeup";
-            this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
-            this.customSCWakeup.TabIndex = 6;
-            // 
-            // customSCBirth
-            // 
-            this.customSCBirth.Location = new System.Drawing.Point(6, 110);
-            this.customSCBirth.Name = "customSCBirth";
-            this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
-            this.customSCBirth.TabIndex = 5;
-            // 
-            // customSCStarving
-            // 
-            this.customSCStarving.Location = new System.Drawing.Point(6, 52);
-            this.customSCStarving.Name = "customSCStarving";
-            this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
-            this.customSCStarving.TabIndex = 4;
-            // 
-            // label20
-            // 
-            this.label20.Location = new System.Drawing.Point(6, 16);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(316, 33);
-            this.label20.TabIndex = 3;
-            this.label20.Text = "Only PCM-WAV-files are supported. The sound will play 1 min before the timer runs" +
-    " out.";
             // 
             // tabPageImportSavegame
             // 
@@ -3265,25 +3175,152 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // CbInfoGraphicGenerations
+            // tabPageTimers
             // 
-            this.CbInfoGraphicGenerations.AutoSize = true;
-            this.CbInfoGraphicGenerations.Location = new System.Drawing.Point(267, 58);
-            this.CbInfoGraphicGenerations.Name = "CbInfoGraphicGenerations";
-            this.CbInfoGraphicGenerations.Size = new System.Drawing.Size(44, 17);
-            this.CbInfoGraphicGenerations.TabIndex = 34;
-            this.CbInfoGraphicGenerations.Text = "gen";
-            this.CbInfoGraphicGenerations.UseVisualStyleBackColor = true;
+            this.tabPageTimers.Controls.Add(this.groupBox24);
+            this.tabPageTimers.Controls.Add(this.groupBox8);
+            this.tabPageTimers.Location = new System.Drawing.Point(4, 22);
+            this.tabPageTimers.Name = "tabPageTimers";
+            this.tabPageTimers.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageTimers.Size = new System.Drawing.Size(750, 676);
+            this.tabPageTimers.TabIndex = 6;
+            this.tabPageTimers.Text = "Timers";
+            this.tabPageTimers.UseVisualStyleBackColor = true;
             // 
-            // CbInfoGraphicMutations
+            // groupBox8
             // 
-            this.CbInfoGraphicMutations.AutoSize = true;
-            this.CbInfoGraphicMutations.Location = new System.Drawing.Point(217, 58);
-            this.CbInfoGraphicMutations.Name = "CbInfoGraphicMutations";
-            this.CbInfoGraphicMutations.Size = new System.Drawing.Size(43, 17);
-            this.CbInfoGraphicMutations.TabIndex = 35;
-            this.CbInfoGraphicMutations.Text = "mut";
-            this.CbInfoGraphicMutations.UseVisualStyleBackColor = true;
+            this.groupBox8.Controls.Add(this.label22);
+            this.groupBox8.Controls.Add(this.tbPlayAlarmsSeconds);
+            this.groupBox8.Controls.Add(this.customSCCustom);
+            this.groupBox8.Controls.Add(this.customSCWakeup);
+            this.groupBox8.Controls.Add(this.customSCBirth);
+            this.groupBox8.Controls.Add(this.customSCStarving);
+            this.groupBox8.Controls.Add(this.label20);
+            this.groupBox8.Location = new System.Drawing.Point(8, 6);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(413, 221);
+            this.groupBox8.TabIndex = 6;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Timer Sounds";
+            // 
+            // label22
+            // 
+            this.label22.Location = new System.Drawing.Point(6, 171);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(255, 66);
+            this.label22.TabIndex = 9;
+            this.label22.Text = "List of seconds the alarms play before they reach 0.\r\nE.g. \"60,0\" to play the ala" +
+    "rm at 60 s and at 0 s. Use commas to separate the values.";
+            // 
+            // tbPlayAlarmsSeconds
+            // 
+            this.tbPlayAlarmsSeconds.Location = new System.Drawing.Point(267, 168);
+            this.tbPlayAlarmsSeconds.Name = "tbPlayAlarmsSeconds";
+            this.tbPlayAlarmsSeconds.Size = new System.Drawing.Size(140, 20);
+            this.tbPlayAlarmsSeconds.TabIndex = 8;
+            // 
+            // customSCCustom
+            // 
+            this.customSCCustom.Location = new System.Drawing.Point(6, 139);
+            this.customSCCustom.Name = "customSCCustom";
+            this.customSCCustom.Size = new System.Drawing.Size(401, 23);
+            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.TabIndex = 7;
+            // 
+            // customSCWakeup
+            // 
+            this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
+            this.customSCWakeup.Name = "customSCWakeup";
+            this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
+            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.TabIndex = 6;
+            // 
+            // customSCBirth
+            // 
+            this.customSCBirth.Location = new System.Drawing.Point(6, 110);
+            this.customSCBirth.Name = "customSCBirth";
+            this.customSCBirth.Size = new System.Drawing.Size(401, 23);
+            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.TabIndex = 5;
+            // 
+            // customSCStarving
+            // 
+            this.customSCStarving.Location = new System.Drawing.Point(6, 52);
+            this.customSCStarving.Name = "customSCStarving";
+            this.customSCStarving.Size = new System.Drawing.Size(401, 23);
+            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.TabIndex = 4;
+            // 
+            // label20
+            // 
+            this.label20.Location = new System.Drawing.Point(6, 16);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(316, 33);
+            this.label20.TabIndex = 3;
+            this.label20.Text = "Only PCM-WAV-files are supported. The sound will play 1 min before the timer runs" +
+    " out.";
+            // 
+            // groupBox24
+            // 
+            this.groupBox24.Controls.Add(this.cbKeepExpiredTimersInOverlay);
+            this.groupBox24.Controls.Add(this.cbDeleteExpiredTimersOnSaving);
+            this.groupBox24.Controls.Add(this.cbTimersInOverlayAutomatically);
+            this.groupBox24.Location = new System.Drawing.Point(8, 233);
+            this.groupBox24.Name = "groupBox24";
+            this.groupBox24.Size = new System.Drawing.Size(413, 90);
+            this.groupBox24.TabIndex = 12;
+            this.groupBox24.TabStop = false;
+            this.groupBox24.Text = "Timers";
+            // 
+            // cbKeepExpiredTimersInOverlay
+            // 
+            this.cbKeepExpiredTimersInOverlay.AutoSize = true;
+            this.cbKeepExpiredTimersInOverlay.Location = new System.Drawing.Point(6, 42);
+            this.cbKeepExpiredTimersInOverlay.Name = "cbKeepExpiredTimersInOverlay";
+            this.cbKeepExpiredTimersInOverlay.Size = new System.Drawing.Size(166, 17);
+            this.cbKeepExpiredTimersInOverlay.TabIndex = 10;
+            this.cbKeepExpiredTimersInOverlay.Text = "Keep expired timers in overlay";
+            this.cbKeepExpiredTimersInOverlay.UseVisualStyleBackColor = true;
+            // 
+            // cbDeleteExpiredTimersOnSaving
+            // 
+            this.cbDeleteExpiredTimersOnSaving.AutoSize = true;
+            this.cbDeleteExpiredTimersOnSaving.Location = new System.Drawing.Point(6, 65);
+            this.cbDeleteExpiredTimersOnSaving.Name = "cbDeleteExpiredTimersOnSaving";
+            this.cbDeleteExpiredTimersOnSaving.Size = new System.Drawing.Size(217, 17);
+            this.cbDeleteExpiredTimersOnSaving.TabIndex = 9;
+            this.cbDeleteExpiredTimersOnSaving.Text = "Delete expired timers when saving library";
+            this.cbDeleteExpiredTimersOnSaving.UseVisualStyleBackColor = true;
+            // 
+            // cbTimersInOverlayAutomatically
+            // 
+            this.cbTimersInOverlayAutomatically.AutoSize = true;
+            this.cbTimersInOverlayAutomatically.Location = new System.Drawing.Point(6, 19);
+            this.cbTimersInOverlayAutomatically.Name = "cbTimersInOverlayAutomatically";
+            this.cbTimersInOverlayAutomatically.Size = new System.Drawing.Size(202, 17);
+            this.cbTimersInOverlayAutomatically.TabIndex = 8;
+            this.cbTimersInOverlayAutomatically.Text = "Display timers in overlay automatically";
+            this.cbTimersInOverlayAutomatically.UseVisualStyleBackColor = true;
+            // 
+            // GbImgCacheLocalAppData
+            // 
+            this.GbImgCacheLocalAppData.Controls.Add(this.CbImgCacheUseLocalAppData);
+            this.GbImgCacheLocalAppData.Location = new System.Drawing.Point(329, 351);
+            this.GbImgCacheLocalAppData.Name = "GbImgCacheLocalAppData";
+            this.GbImgCacheLocalAppData.Size = new System.Drawing.Size(413, 43);
+            this.GbImgCacheLocalAppData.TabIndex = 9;
+            this.GbImgCacheLocalAppData.TabStop = false;
+            this.GbImgCacheLocalAppData.Text = "Image Cache Location";
+            // 
+            // CbImgCacheUseLocalAppData
+            // 
+            this.CbImgCacheUseLocalAppData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CbImgCacheUseLocalAppData.Location = new System.Drawing.Point(3, 16);
+            this.CbImgCacheUseLocalAppData.Name = "CbImgCacheUseLocalAppData";
+            this.CbImgCacheUseLocalAppData.Size = new System.Drawing.Size(407, 24);
+            this.CbImgCacheUseLocalAppData.TabIndex = 0;
+            this.CbImgCacheUseLocalAppData.Text = "Use LocalAppData for Image cache";
+            this.CbImgCacheUseLocalAppData.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -3341,13 +3378,13 @@
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.tabControlSettings.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.tabPageMultipliers.ResumeLayout(false);
+            this.tabPageMultipliers.PerformLayout();
             this.groupBox18.ResumeLayout(false);
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).EndInit();
-            this.tabPage1.ResumeLayout(false);
+            this.tabPageGeneral.ResumeLayout(false);
             this.groupBox28.ResumeLayout(false);
             this.groupBox28.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudInfoGraphicWidth)).EndInit();
@@ -3360,15 +3397,11 @@
             this.groupBox25.ResumeLayout(false);
             this.groupBox25.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudDefaultFontSize)).EndInit();
-            this.groupBox24.ResumeLayout(false);
-            this.groupBox24.PerformLayout();
             this.groupBox20.ResumeLayout(false);
             this.groupBox20.PerformLayout();
             this.groupBox17.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
             this.tabPageImportSavegame.ResumeLayout(false);
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
@@ -3414,6 +3447,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.tabPageTimers.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
+            this.groupBox24.ResumeLayout(false);
+            this.groupBox24.PerformLayout();
+            this.GbImgCacheLocalAppData.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -3466,21 +3505,16 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TabControl tabControlSettings;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.TabPage tabPageGeneral;
+        private System.Windows.Forms.TabPage tabPageMultipliers;
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.CheckBox chkbSpeechRecognition;
         private System.Windows.Forms.Label label3;
         private ARKBreedingStats.uiControls.Nud nudMatingInterval;
         private System.Windows.Forms.Label labelBabyFoodConsumptionSpeed;
         private ARKBreedingStats.uiControls.Nud nudBabyFoodConsumptionSpeed;
-        private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label21;
         private ARKBreedingStats.uiControls.Nud nudOverlayInfoDuration;
-        private customSoundChooser customSCWakeup;
-        private customSoundChooser customSCBirth;
-        private customSoundChooser customSCStarving;
         private ARKBreedingStats.uiControls.Nud nudBabyFoodConsumptionSpeedEvent;
         private ARKBreedingStats.uiControls.Nud nudMatingIntervalEvent;
         private ARKBreedingStats.uiControls.Nud nudBabyCuddleIntervalEvent;
@@ -3494,9 +3528,6 @@
         private uiControls.Nud nudWildLevelStep;
         private System.Windows.Forms.CheckBox cbConsiderWildLevelSteps;
         private System.Windows.Forms.CheckBox cbSingleplayerSettings;
-        private customSoundChooser customSCCustom;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.TextBox tbPlayAlarmsSeconds;
         private System.Windows.Forms.CheckBox cbInventoryCheck;
         private System.Windows.Forms.CheckBox cbAllowMoreThanHundredImprinting;
         private System.Windows.Forms.GroupBox groupBox9;
@@ -3562,9 +3593,6 @@
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label label30;
         private uiControls.Nud nudImportLowerBoundTE;
-        private System.Windows.Forms.CheckBox cbTimersInOverlayAutomatically;
-        private System.Windows.Forms.GroupBox groupBox24;
-        private System.Windows.Forms.CheckBox cbDeleteExpiredTimersOnSaving;
         private System.Windows.Forms.GroupBox groupBox25;
         private uiControls.Nud nudDefaultFontSize;
         private System.Windows.Forms.Label label33;
@@ -3596,7 +3624,6 @@
         private uiControls.Nud nudOverlayTimerPosX;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label41;
-        private System.Windows.Forms.CheckBox cbKeepExpiredTimersInOverlay;
         private System.Windows.Forms.CheckBox cbLibraryHighlightTopCreatures;
         private System.Windows.Forms.CheckBox cbSaveImportCryo;
         private System.Windows.Forms.Panel pCustomOverlayLocation;
@@ -3660,5 +3687,20 @@
         private System.Windows.Forms.CheckBox CbInfoGraphicDomLevels;
         private System.Windows.Forms.CheckBox CbInfoGraphicMutations;
         private System.Windows.Forms.CheckBox CbInfoGraphicGenerations;
+        private System.Windows.Forms.TabPage tabPageTimers;
+        private System.Windows.Forms.GroupBox groupBox24;
+        private System.Windows.Forms.CheckBox cbKeepExpiredTimersInOverlay;
+        private System.Windows.Forms.CheckBox cbDeleteExpiredTimersOnSaving;
+        private System.Windows.Forms.CheckBox cbTimersInOverlayAutomatically;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox tbPlayAlarmsSeconds;
+        private customSoundChooser customSCCustom;
+        private customSoundChooser customSCWakeup;
+        private customSoundChooser customSCBirth;
+        private customSoundChooser customSCStarving;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.GroupBox GbImgCacheLocalAppData;
+        private System.Windows.Forms.CheckBox CbImgCacheUseLocalAppData;
     }
 }

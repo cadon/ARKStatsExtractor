@@ -1577,5 +1577,17 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicDisplayGeneration"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ImgCacheUseLocalAppData {
+            get {
+                return ((bool)(this["ImgCacheUseLocalAppData"]));
+            }
+            set {
+                this["ImgCacheUseLocalAppData"] = value;
+            }
+        }
     }
 }

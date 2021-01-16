@@ -1870,15 +1870,16 @@ namespace ARKBreedingStats
         {
             if (page == SettingsTabPages.Unknown)
                 page = _settingsLastTabPage;
-            using (Settings settingsfrm = new Settings(_creatureCollection, page))
+            using (Settings settingsForm = new Settings(_creatureCollection, page))
             {
                 bool libraryTopCreatureColorHighlight = Properties.Settings.Default.LibraryHighlightTopCreatures;
-                if (settingsfrm.ShowDialog() == DialogResult.OK)
+                if (settingsForm.ShowDialog() == DialogResult.OK)
                 {
                     ApplySettingsToValues();
-                    if (settingsfrm.LanguageChanged) setLocalizations();
+                    if (settingsForm.LanguageChanged) setLocalizations();
+                    CreatureColored.UpdateImgCacheLocation();
                     creatureBoxListView.CreatureCollection = _creatureCollection;
-                    _fileSync.ChangeFile(_currentFileName); // only to trigger the update, filename is not changed
+                    _fileSync.ChangeFile(_currentFileName); // only to enable / disable the FileWatcher, filename is not changed
 
                     bool enableExportWatcher = Utils.GetFirstImportExportFolder(out string exportFolderDefault)
                         && Properties.Settings.Default.AutoImportExportedCreatures;
@@ -1896,7 +1897,7 @@ namespace ARKBreedingStats
 
                     SetCollectionChanged(true);
                 }
-                _settingsLastTabPage = settingsfrm.LastTabPageIndex;
+                _settingsLastTabPage = settingsForm.LastTabPageIndex;
             }
         }
 

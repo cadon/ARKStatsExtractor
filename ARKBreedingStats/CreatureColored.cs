@@ -14,7 +14,7 @@ namespace ARKBreedingStats
     {
         private const string Extension = ".png";
         private static readonly string ImgFolder = FileService.GetPath(FileService.ImageFolderName);
-        private static readonly string CacheFolder = FileService.GetPath(FileService.ImageFolderName, FileService.CacheFolderName);
+        private static string ImgCacheFolderPath = GetImgCacheFolderPath();
         private const int TemplateSize = 256;
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace ARKBreedingStats
         /// Returns the image file path to the image with the according colorization.
         /// </summary>
         private static string ColoredCreatureCacheFilePath(string speciesName, int[] colorIds, bool listView = false)
-            => Path.Combine(CacheFolder, speciesName.Substring(0, Math.Min(speciesName.Length, 5)) + "_" + (speciesName + string.Join(".", colorIds.Select(i => i.ToString()))).GetHashCode().ToString("X8") + (listView ? "_lv" : string.Empty) + Extension);
+            => Path.Combine(ImgCacheFolderPath, speciesName.Substring(0, Math.Min(speciesName.Length, 5)) + "_" + (speciesName + string.Join(".", colorIds.Select(i => i.ToString()))).GetHashCode().ToString("X8") + (listView ? "_lv" : string.Empty) + Extension);
 
         /// <summary>
         /// Checks if an according species image exists in the cache folder, if not it tries to creates one. Returns false if there's no image.
@@ -204,8 +204,8 @@ namespace ARKBreedingStats
         private static bool CreateAndSaveCacheSpeciesFile(int[] colorIds, bool[] enabledColorRegions,
             string speciesBackgroundFilePath, string speciesColorMaskFilePath, string cacheFilePath, int outputSize = 256)
         {
-            if (!File.Exists(speciesBackgroundFilePath)
-                || string.IsNullOrEmpty(cacheFilePath))
+            if (string.IsNullOrEmpty(cacheFilePath)
+                || !File.Exists(speciesBackgroundFilePath))
                 return false;
 
             using (Bitmap bmpBackground = new Bitmap(speciesBackgroundFilePath))
@@ -445,15 +445,28 @@ namespace ARKBreedingStats
         /// </summary>
         internal static void CleanupCache()
         {
-            string imgCachePath = FileService.GetPath(FileService.ImageFolderName, FileService.CacheFolderName);
-            if (!Directory.Exists(imgCachePath)) return;
+            if (!Directory.Exists(ImgCacheFolderPath)) return;
 
-            DirectoryInfo directory = new DirectoryInfo(imgCachePath);
-            var oldCacheFiles = directory.GetFiles().Where(f => f.LastAccessTime < DateTime.Now.AddDays(-5)).ToArray();
+            DirectoryInfo directory = new DirectoryInfo(ImgCacheFolderPath);
+            var oldCacheFiles = directory.GetFiles().Where(f => f.LastAccessTime < DateTime.Now.AddDays(-7)).ToArray();
             foreach (FileInfo f in oldCacheFiles)
             {
                 FileService.TryDeleteFile(f);
             }
         }
+
+        /// <summary>
+        /// If the setting ImgCacheUseLocalAppData is true, the image cache files are saved in the %localAppData% folder instead of the app folder.
+        /// This is always true if the app is installed.
+        /// Call this method after the setting was changed.
+        /// The reason to use the appData folder is that this folder is used to save files, the portable version can be shared and be write protected.
+        /// </summary>
+        internal static void UpdateImgCacheLocation()
+        {
+            ImgCacheFolderPath = GetImgCacheFolderPath();
+        }
+
+        private static string GetImgCacheFolderPath() => FileService.GetPath(FileService.ImageFolderName, FileService.CacheFolderName,
+            useAppData: Updater.IsProgramInstalled || Properties.Settings.Default.ImgCacheUseLocalAppData);
     }
 }

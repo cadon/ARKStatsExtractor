@@ -44,9 +44,9 @@ namespace ARKBreedingStats
         /// Gets the full path for the given filename or the path to the application data folder.
         /// If fileName2 is given, fileName is considered to be the containing folder.
         /// </summary>
-        /// <returns></returns>
-        public static string GetPath(string fileName = null, string fileName2 = null, string fileName3 = null)
-            => Path.Combine(Updater.IsProgramInstalled ? GetLocalApplicationDataPath() : ExeLocation, fileName ?? string.Empty, fileName2 ?? string.Empty, fileName3 ?? string.Empty);
+        /// <param name="useAppData">If true, the %localAppData%-folder is used regardless of installed or portable version.</param>
+        public static string GetPath(string fileName = null, string fileName2 = null, string fileName3 = null, bool useAppData = false)
+            => Path.Combine(useAppData || Updater.IsProgramInstalled ? GetLocalApplicationDataPath() : ExeLocation, fileName ?? string.Empty, fileName2 ?? string.Empty, fileName3 ?? string.Empty);
 
 
         /// <summary>
