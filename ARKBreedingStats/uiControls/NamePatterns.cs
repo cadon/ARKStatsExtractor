@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using ARKBreedingStats.local;
 using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.uiControls
@@ -82,11 +81,11 @@ namespace ARKBreedingStats.uiControls
 
             if (showDuplicateNameWarning && creatureNames.Contains(name, StringComparer.OrdinalIgnoreCase))
             {
-                MessageBox.Show("WARNING: The generated name for the creature already exists in the database.");
+                MessageBox.Show($"The generated name for the creature\n{name}\nalready exists in the library.\n\nConsider adding {{n}} or {{sn}} in the pattern to generate unique names.", "Name already exists", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else if (showTooLongWarning && name.Length > 24)
             {
-                MessageBox.Show("WARNING: The generated name is longer than 24 characters, ingame-preview:\n" + name.Substring(0, 24), "Name too long for game", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("The generated name is longer than 24 characters, the name will look like this in game:\n" + name.Substring(0, 24), "Name too long for game", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             return name;
@@ -368,7 +367,7 @@ namespace ARKBreedingStats.uiControls
             while (number > 0)
             {
                 number--;
-                r = ((char)(number % 26 + 'A')).ToString() + r;
+                r = (char)(number % 26 + 'A') + r;
                 number /= 26;
             }
             return r;
