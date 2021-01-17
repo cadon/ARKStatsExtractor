@@ -18,7 +18,7 @@ namespace ARKBreedingStats
         /// Latest release url.
         /// </summary>
         public const string ReleasesUrl = "https://github.com/cadon/ARKStatsExtractor/releases/latest";
-        private const string ReleasesFeedUrl = "https://api.github.com/repos/cadon/ARKStatsExtractor/releases";
+        private const string ReleasesFeedUrl = "https://api.github.com/repos/cadon/ARKStatsExtractor/releases/latest";
         internal const string UpdaterExe = "asb-updater.exe";
         private const string ObeliskUrl = "https://raw.githubusercontent.com/arkutils/Obelisk/master/data/asb/";
         private const string MasterRawUrl = "https://github.com/cadon/ARKStatsExtractor/raw/master";
@@ -26,7 +26,7 @@ namespace ARKBreedingStats
 
         #region main program
 
-        private static bool? isProgramInstalled;
+        private static bool? _isProgramInstalled;
 
         /// <summary>
         /// Determines if running .exe is installed or at least running in Program Files folder
@@ -35,11 +35,11 @@ namespace ARKBreedingStats
         {
             get
             {
-                if (isProgramInstalled == null)
+                if (_isProgramInstalled == null)
                 {
-                    isProgramInstalled = IsInstalled();
+                    _isProgramInstalled = IsInstalled();
                 }
-                return isProgramInstalled.Value;
+                return _isProgramInstalled.Value;
             }
         }
 
@@ -135,7 +135,7 @@ namespace ARKBreedingStats
         private static async Task<bool?> CheckAndAskForUpdate(bool collectionDirty)
         {
             string releaseTag = await FetchReleaseFeed();
-            (bool? updateAvailable, string localVersion, string remoteVersion) = Updater.UpdateAvailable(releaseTag);
+            (bool? updateAvailable, string localVersion, string remoteVersion) = UpdateAvailable(releaseTag);
 
             if (updateAvailable == null)
             {
@@ -217,10 +217,9 @@ namespace ARKBreedingStats
         /// <returns>Tuple containing tag of the release version and list of urls</returns>
         private static string ParseReleaseInfo(string releaseFeed)
         {
-            JArray releaseInfoNode = JArray.Parse(releaseFeed);
-            JObject latest = (JObject)releaseInfoNode[0];
-
-            string tag = latest.Value<string>("tag_name");
+            var latestRelease = JObject.Parse(releaseFeed);
+            
+            string tag = latestRelease.Value<string>("tag_name");
 
             Debug.WriteLine("Tag: " + tag);
 
