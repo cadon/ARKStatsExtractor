@@ -60,6 +60,7 @@ namespace ARKBreedingStats.ocr
 
         public OCRTemplate()
         {
+            Version = new Version(CurrentVersion);
             InitializeOcrTemplate();
         }
 

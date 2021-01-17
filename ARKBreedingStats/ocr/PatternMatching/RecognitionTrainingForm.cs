@@ -87,6 +87,9 @@ namespace ARKBreedingStats.ocr.PatternMatching
         {
             ShowDialog();
 
+            if (_selectedText == null)
+                throw new OperationCanceledException("User canceled ocr");
+
             return _selectedText;
         }
 
@@ -108,6 +111,16 @@ namespace ARKBreedingStats.ocr.PatternMatching
         {
             _selectedText = null;
             Close();
+        }
+
+        private void BtFemaleSign_Click(object sender, EventArgs e)
+        {
+            textBox1.Text += "♀";
+        }
+
+        private void BtMale_Click(object sender, EventArgs e)
+        {
+            textBox1.Text += "♂";
         }
     }
 }

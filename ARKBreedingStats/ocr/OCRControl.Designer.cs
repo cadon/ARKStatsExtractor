@@ -55,8 +55,6 @@ namespace ARKBreedingStats.ocr
             this.BtRemovePattern = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.nudFontSize = new ARKBreedingStats.uiControls.Nud();
-            this.ocrLetterEditTemplate = new ARKBreedingStats.ocr.OCRLetterEdit();
             this.btnSaveTemplate = new System.Windows.Forms.Button();
             this.textBoxTemplate = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -64,7 +62,6 @@ namespace ARKBreedingStats.ocr
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.buttonSaveAsTemplate = new System.Windows.Forms.Button();
             this.labelMatching = new System.Windows.Forms.Label();
-            this.ocrLetterEditRecognized = new ARKBreedingStats.ocr.OCRLetterEdit();
             this.button2 = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
@@ -75,66 +72,69 @@ namespace ARKBreedingStats.ocr
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.lbResizeResult = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.nudResizing = new ARKBreedingStats.uiControls.Nud();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.nudFontSizeCalibration = new ARKBreedingStats.uiControls.Nud();
             this.buttonLoadCalibrationImage = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.textBoxCalibrationText = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.buttonGetResFromScreenshot = new System.Windows.Forms.Button();
-            this.nudResolutionHeight = new ARKBreedingStats.uiControls.Nud();
             this.label16 = new System.Windows.Forms.Label();
-            this.nudResolutionWidth = new ARKBreedingStats.uiControls.Nud();
             this.label15 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.chkbSetAllStatLabels = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.nudHeightT = new ARKBreedingStats.uiControls.Nud();
             this.label10 = new System.Windows.Forms.Label();
-            this.nudWidthL = new ARKBreedingStats.uiControls.Nud();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.nudHeight = new ARKBreedingStats.uiControls.Nud();
             this.label6 = new System.Windows.Forms.Label();
-            this.nudWidth = new ARKBreedingStats.uiControls.Nud();
             this.label5 = new System.Windows.Forms.Label();
-            this.nudY = new ARKBreedingStats.uiControls.Nud();
             this.label4 = new System.Windows.Forms.Label();
-            this.nudX = new ARKBreedingStats.uiControls.Nud();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.listBoxLabelRectangles = new System.Windows.Forms.ListBox();
+            this.nudFontSize = new ARKBreedingStats.uiControls.Nud();
+            this.ocrLetterEditTemplate = new ARKBreedingStats.ocr.OCRLetterEdit();
+            this.ocrLetterEditRecognized = new ARKBreedingStats.ocr.OCRLetterEdit();
+            this.nudResizing = new ARKBreedingStats.uiControls.Nud();
+            this.nudFontSizeCalibration = new ARKBreedingStats.uiControls.Nud();
+            this.nudResolutionHeight = new ARKBreedingStats.uiControls.Nud();
+            this.nudResolutionWidth = new ARKBreedingStats.uiControls.Nud();
+            this.nudHeightT = new ARKBreedingStats.uiControls.Nud();
+            this.nudWidthL = new ARKBreedingStats.uiControls.Nud();
+            this.nudHeight = new ARKBreedingStats.uiControls.Nud();
+            this.nudWidth = new ARKBreedingStats.uiControls.Nud();
+            this.nudY = new ARKBreedingStats.uiControls.Nud();
+            this.nudX = new ARKBreedingStats.uiControls.Nud();
             this.tableLayoutPanel4.SuspendLayout();
             this.tabControlManage.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudFontSize)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditTemplate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteTreshold)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditRecognized)).BeginInit();
             this.tabPage4.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.groupBox9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudResizing)).BeginInit();
             this.groupBox8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudFontSizeCalibration)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudFontSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditTemplate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditRecognized)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudResizing)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudFontSizeCalibration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudResolutionHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudResolutionWidth)).BeginInit();
-            this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudHeightT)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWidthL)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudX)).BeginInit();
-            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel4
@@ -405,47 +405,6 @@ namespace ARKBreedingStats.ocr
             this.label1.TabIndex = 14;
             this.label1.Text = "font size";
             // 
-            // nudFontSize
-            // 
-            this.nudFontSize.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.nudFontSize.Location = new System.Drawing.Point(58, 100);
-            this.nudFontSize.Maximum = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            this.nudFontSize.Minimum = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
-            this.nudFontSize.Name = "nudFontSize";
-            this.nudFontSize.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudFontSize.Size = new System.Drawing.Size(59, 20);
-            this.nudFontSize.TabIndex = 13;
-            this.nudFontSize.Value = new decimal(new int[] {
-            18,
-            0,
-            0,
-            0});
-            this.nudFontSize.ValueChanged += new System.EventHandler(this.nudFontSize_ValueChanged);
-            // 
-            // ocrLetterEditTemplate
-            // 
-            this.ocrLetterEditTemplate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ocrLetterEditTemplate.LetterArray = new uint[] {
-        ((uint)(0u))};
-            this.ocrLetterEditTemplate.Location = new System.Drawing.Point(136, 19);
-            this.ocrLetterEditTemplate.Name = "ocrLetterEditTemplate";
-            this.ocrLetterEditTemplate.PatternDisplay = null;
-            this.ocrLetterEditTemplate.Size = new System.Drawing.Size(100, 100);
-            this.ocrLetterEditTemplate.TabIndex = 12;
-            this.ocrLetterEditTemplate.TabStop = false;
-            // 
             // btnSaveTemplate
             // 
             this.btnSaveTemplate.Location = new System.Drawing.Point(71, 45);
@@ -525,18 +484,6 @@ namespace ARKBreedingStats.ocr
             this.labelMatching.TabIndex = 14;
             this.labelMatching.Text = "match";
             // 
-            // ocrLetterEditRecognized
-            // 
-            this.ocrLetterEditRecognized.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ocrLetterEditRecognized.LetterArray = new uint[] {
-        ((uint)(0u))};
-            this.ocrLetterEditRecognized.Location = new System.Drawing.Point(136, 16);
-            this.ocrLetterEditRecognized.Name = "ocrLetterEditRecognized";
-            this.ocrLetterEditRecognized.PatternDisplay = null;
-            this.ocrLetterEditRecognized.Size = new System.Drawing.Size(100, 100);
-            this.ocrLetterEditRecognized.TabIndex = 13;
-            this.ocrLetterEditRecognized.TabStop = false;
-            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(71, 58);
@@ -567,7 +514,7 @@ namespace ARKBreedingStats.ocr
             this.groupBox10.Controls.Add(this.CbSkipTribeRecognition);
             this.groupBox10.Controls.Add(this.CbSkipOwnerRecognition);
             this.groupBox10.Controls.Add(this.CbTrainRecognition);
-            this.groupBox10.Location = new System.Drawing.Point(6, 298);
+            this.groupBox10.Location = new System.Drawing.Point(6, 6);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(334, 139);
             this.groupBox10.TabIndex = 31;
@@ -623,7 +570,7 @@ namespace ARKBreedingStats.ocr
             this.groupBox9.Controls.Add(this.lbResizeResult);
             this.groupBox9.Controls.Add(this.label19);
             this.groupBox9.Controls.Add(this.nudResizing);
-            this.groupBox9.Location = new System.Drawing.Point(6, 198);
+            this.groupBox9.Location = new System.Drawing.Point(6, 151);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(334, 94);
             this.groupBox9.TabIndex = 30;
@@ -647,31 +594,6 @@ namespace ARKBreedingStats.ocr
             this.label19.TabIndex = 30;
             this.label19.Text = "If the font-sizes are too large (>31) you can set a resize-factor.";
             // 
-            // nudResizing
-            // 
-            this.nudResizing.DecimalPlaces = 6;
-            this.nudResizing.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudResizing.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nudResizing.Location = new System.Drawing.Point(0, 32);
-            this.nudResizing.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.nudResizing.Name = "nudResizing";
-            this.nudResizing.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudResizing.Size = new System.Drawing.Size(101, 20);
-            this.nudResizing.TabIndex = 29;
-            this.nudResizing.ValueChanged += new System.EventHandler(this.nudResizing_ValueChanged);
-            // 
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.label17);
@@ -679,12 +601,13 @@ namespace ARKBreedingStats.ocr
             this.groupBox8.Controls.Add(this.buttonLoadCalibrationImage);
             this.groupBox8.Controls.Add(this.label14);
             this.groupBox8.Controls.Add(this.textBoxCalibrationText);
-            this.groupBox8.Location = new System.Drawing.Point(6, 6);
+            this.groupBox8.Location = new System.Drawing.Point(6, 251);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(334, 186);
             this.groupBox8.TabIndex = 28;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Add font-size";
+            this.groupBox8.Visible = false;
             // 
             // label17
             // 
@@ -693,34 +616,6 @@ namespace ARKBreedingStats.ocr
             this.label17.Size = new System.Drawing.Size(322, 72);
             this.label17.TabIndex = 25;
             this.label17.Text = resources.GetString("label17.Text");
-            // 
-            // nudFontSizeCalibration
-            // 
-            this.nudFontSizeCalibration.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.nudFontSizeCalibration.Location = new System.Drawing.Point(77, 140);
-            this.nudFontSizeCalibration.Maximum = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            this.nudFontSizeCalibration.Minimum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.nudFontSizeCalibration.Name = "nudFontSizeCalibration";
-            this.nudFontSizeCalibration.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudFontSizeCalibration.Size = new System.Drawing.Size(59, 20);
-            this.nudFontSizeCalibration.TabIndex = 21;
-            this.nudFontSizeCalibration.Value = new decimal(new int[] {
-            18,
-            0,
-            0,
-            0});
             // 
             // buttonLoadCalibrationImage
             // 
@@ -788,25 +683,6 @@ namespace ARKBreedingStats.ocr
             this.buttonGetResFromScreenshot.UseVisualStyleBackColor = true;
             this.buttonGetResFromScreenshot.Click += new System.EventHandler(this.buttonGetResFromScreenshot_Click);
             // 
-            // nudResolutionHeight
-            // 
-            this.nudResolutionHeight.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudResolutionHeight.Location = new System.Drawing.Point(47, 45);
-            this.nudResolutionHeight.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nudResolutionHeight.Name = "nudResolutionHeight";
-            this.nudResolutionHeight.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudResolutionHeight.Size = new System.Drawing.Size(77, 20);
-            this.nudResolutionHeight.TabIndex = 12;
-            this.nudResolutionHeight.ValueChanged += new System.EventHandler(this.nudResolutionHeight_ValueChanged);
-            // 
             // label16
             // 
             this.label16.AutoSize = true;
@@ -815,25 +691,6 @@ namespace ARKBreedingStats.ocr
             this.label16.Size = new System.Drawing.Size(38, 13);
             this.label16.TabIndex = 11;
             this.label16.Text = "Height";
-            // 
-            // nudResolutionWidth
-            // 
-            this.nudResolutionWidth.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudResolutionWidth.Location = new System.Drawing.Point(47, 19);
-            this.nudResolutionWidth.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nudResolutionWidth.Name = "nudResolutionWidth";
-            this.nudResolutionWidth.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudResolutionWidth.Size = new System.Drawing.Size(77, 20);
-            this.nudResolutionWidth.TabIndex = 10;
-            this.nudResolutionWidth.ValueChanged += new System.EventHandler(this.nudResolutionWidth_ValueChanged);
             // 
             // label15
             // 
@@ -886,25 +743,6 @@ namespace ARKBreedingStats.ocr
             this.label9.TabIndex = 12;
             this.label9.Text = "Height-T";
             // 
-            // nudHeightT
-            // 
-            this.nudHeightT.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudHeightT.Location = new System.Drawing.Point(193, 117);
-            this.nudHeightT.Maximum = new decimal(new int[] {
-            4000,
-            0,
-            0,
-            0});
-            this.nudHeightT.Name = "nudHeightT";
-            this.nudHeightT.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudHeightT.Size = new System.Drawing.Size(77, 20);
-            this.nudHeightT.TabIndex = 11;
-            this.nudHeightT.ValueChanged += new System.EventHandler(this.nudHeightT_ValueChanged);
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -913,25 +751,6 @@ namespace ARKBreedingStats.ocr
             this.label10.Size = new System.Drawing.Size(44, 13);
             this.label10.TabIndex = 10;
             this.label10.Text = "Width-L";
-            // 
-            // nudWidthL
-            // 
-            this.nudWidthL.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudWidthL.Location = new System.Drawing.Point(56, 117);
-            this.nudWidthL.Maximum = new decimal(new int[] {
-            4000,
-            0,
-            0,
-            0});
-            this.nudWidthL.Name = "nudWidthL";
-            this.nudWidthL.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudWidthL.Size = new System.Drawing.Size(77, 20);
-            this.nudWidthL.TabIndex = 9;
-            this.nudWidthL.ValueChanged += new System.EventHandler(this.nudWidthL_ValueChanged);
             // 
             // label8
             // 
@@ -951,25 +770,6 @@ namespace ARKBreedingStats.ocr
             this.label7.TabIndex = 7;
             this.label7.Text = "Height";
             // 
-            // nudHeight
-            // 
-            this.nudHeight.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudHeight.Location = new System.Drawing.Point(193, 91);
-            this.nudHeight.Maximum = new decimal(new int[] {
-            4000,
-            0,
-            0,
-            0});
-            this.nudHeight.Name = "nudHeight";
-            this.nudHeight.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudHeight.Size = new System.Drawing.Size(77, 20);
-            this.nudHeight.TabIndex = 6;
-            this.nudHeight.ValueChanged += new System.EventHandler(this.nudHeight_ValueChanged);
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -978,25 +778,6 @@ namespace ARKBreedingStats.ocr
             this.label6.Size = new System.Drawing.Size(35, 13);
             this.label6.TabIndex = 5;
             this.label6.Text = "Width";
-            // 
-            // nudWidth
-            // 
-            this.nudWidth.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudWidth.Location = new System.Drawing.Point(56, 91);
-            this.nudWidth.Maximum = new decimal(new int[] {
-            4000,
-            0,
-            0,
-            0});
-            this.nudWidth.Name = "nudWidth";
-            this.nudWidth.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudWidth.Size = new System.Drawing.Size(77, 20);
-            this.nudWidth.TabIndex = 4;
-            this.nudWidth.ValueChanged += new System.EventHandler(this.nudWidth_ValueChanged);
             // 
             // label5
             // 
@@ -1007,25 +788,6 @@ namespace ARKBreedingStats.ocr
             this.label5.TabIndex = 3;
             this.label5.Text = "Y";
             // 
-            // nudY
-            // 
-            this.nudY.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudY.Location = new System.Drawing.Point(193, 65);
-            this.nudY.Maximum = new decimal(new int[] {
-            4000,
-            0,
-            0,
-            0});
-            this.nudY.Name = "nudY";
-            this.nudY.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudY.Size = new System.Drawing.Size(77, 20);
-            this.nudY.TabIndex = 2;
-            this.nudY.ValueChanged += new System.EventHandler(this.nudY_ValueChanged);
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -1034,25 +796,6 @@ namespace ARKBreedingStats.ocr
             this.label4.Size = new System.Drawing.Size(14, 13);
             this.label4.TabIndex = 1;
             this.label4.Text = "X";
-            // 
-            // nudX
-            // 
-            this.nudX.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudX.Location = new System.Drawing.Point(56, 65);
-            this.nudX.Maximum = new decimal(new int[] {
-            4000,
-            0,
-            0,
-            0});
-            this.nudX.Name = "nudX";
-            this.nudX.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudX.Size = new System.Drawing.Size(77, 20);
-            this.nudX.TabIndex = 0;
-            this.nudX.ValueChanged += new System.EventHandler(this.nudX_ValueChanged);
             // 
             // groupBox3
             // 
@@ -1073,6 +816,264 @@ namespace ARKBreedingStats.ocr
             this.listBoxLabelRectangles.TabIndex = 0;
             this.listBoxLabelRectangles.SelectedIndexChanged += new System.EventHandler(this.listBoxLabelRectangles_SelectedIndexChanged);
             // 
+            // nudFontSize
+            // 
+            this.nudFontSize.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.nudFontSize.Location = new System.Drawing.Point(58, 100);
+            this.nudFontSize.Maximum = new decimal(new int[] {
+            31,
+            0,
+            0,
+            0});
+            this.nudFontSize.Minimum = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.nudFontSize.Name = "nudFontSize";
+            this.nudFontSize.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudFontSize.Size = new System.Drawing.Size(59, 20);
+            this.nudFontSize.TabIndex = 13;
+            this.nudFontSize.Value = new decimal(new int[] {
+            18,
+            0,
+            0,
+            0});
+            this.nudFontSize.ValueChanged += new System.EventHandler(this.nudFontSize_ValueChanged);
+            // 
+            // ocrLetterEditTemplate
+            // 
+            this.ocrLetterEditTemplate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ocrLetterEditTemplate.LetterArray = new uint[] {
+        ((uint)(0u))};
+            this.ocrLetterEditTemplate.Location = new System.Drawing.Point(136, 19);
+            this.ocrLetterEditTemplate.Name = "ocrLetterEditTemplate";
+            this.ocrLetterEditTemplate.PatternDisplay = null;
+            this.ocrLetterEditTemplate.Size = new System.Drawing.Size(100, 100);
+            this.ocrLetterEditTemplate.TabIndex = 12;
+            this.ocrLetterEditTemplate.TabStop = false;
+            // 
+            // ocrLetterEditRecognized
+            // 
+            this.ocrLetterEditRecognized.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ocrLetterEditRecognized.LetterArray = new uint[] {
+        ((uint)(0u))};
+            this.ocrLetterEditRecognized.Location = new System.Drawing.Point(136, 16);
+            this.ocrLetterEditRecognized.Name = "ocrLetterEditRecognized";
+            this.ocrLetterEditRecognized.PatternDisplay = null;
+            this.ocrLetterEditRecognized.Size = new System.Drawing.Size(100, 100);
+            this.ocrLetterEditRecognized.TabIndex = 13;
+            this.ocrLetterEditRecognized.TabStop = false;
+            // 
+            // nudResizing
+            // 
+            this.nudResizing.DecimalPlaces = 6;
+            this.nudResizing.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudResizing.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nudResizing.Location = new System.Drawing.Point(0, 32);
+            this.nudResizing.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nudResizing.Name = "nudResizing";
+            this.nudResizing.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudResizing.Size = new System.Drawing.Size(101, 20);
+            this.nudResizing.TabIndex = 29;
+            this.nudResizing.ValueChanged += new System.EventHandler(this.nudResizing_ValueChanged);
+            // 
+            // nudFontSizeCalibration
+            // 
+            this.nudFontSizeCalibration.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.nudFontSizeCalibration.Location = new System.Drawing.Point(77, 140);
+            this.nudFontSizeCalibration.Maximum = new decimal(new int[] {
+            31,
+            0,
+            0,
+            0});
+            this.nudFontSizeCalibration.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.nudFontSizeCalibration.Name = "nudFontSizeCalibration";
+            this.nudFontSizeCalibration.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudFontSizeCalibration.Size = new System.Drawing.Size(59, 20);
+            this.nudFontSizeCalibration.TabIndex = 21;
+            this.nudFontSizeCalibration.Value = new decimal(new int[] {
+            18,
+            0,
+            0,
+            0});
+            // 
+            // nudResolutionHeight
+            // 
+            this.nudResolutionHeight.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudResolutionHeight.Location = new System.Drawing.Point(47, 45);
+            this.nudResolutionHeight.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudResolutionHeight.Name = "nudResolutionHeight";
+            this.nudResolutionHeight.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudResolutionHeight.Size = new System.Drawing.Size(77, 20);
+            this.nudResolutionHeight.TabIndex = 12;
+            this.nudResolutionHeight.ValueChanged += new System.EventHandler(this.nudResolutionHeight_ValueChanged);
+            // 
+            // nudResolutionWidth
+            // 
+            this.nudResolutionWidth.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudResolutionWidth.Location = new System.Drawing.Point(47, 19);
+            this.nudResolutionWidth.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudResolutionWidth.Name = "nudResolutionWidth";
+            this.nudResolutionWidth.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudResolutionWidth.Size = new System.Drawing.Size(77, 20);
+            this.nudResolutionWidth.TabIndex = 10;
+            this.nudResolutionWidth.ValueChanged += new System.EventHandler(this.nudResolutionWidth_ValueChanged);
+            // 
+            // nudHeightT
+            // 
+            this.nudHeightT.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudHeightT.Location = new System.Drawing.Point(193, 117);
+            this.nudHeightT.Maximum = new decimal(new int[] {
+            4000,
+            0,
+            0,
+            0});
+            this.nudHeightT.Name = "nudHeightT";
+            this.nudHeightT.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudHeightT.Size = new System.Drawing.Size(77, 20);
+            this.nudHeightT.TabIndex = 11;
+            this.nudHeightT.ValueChanged += new System.EventHandler(this.nudHeightT_ValueChanged);
+            // 
+            // nudWidthL
+            // 
+            this.nudWidthL.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudWidthL.Location = new System.Drawing.Point(56, 117);
+            this.nudWidthL.Maximum = new decimal(new int[] {
+            4000,
+            0,
+            0,
+            0});
+            this.nudWidthL.Name = "nudWidthL";
+            this.nudWidthL.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudWidthL.Size = new System.Drawing.Size(77, 20);
+            this.nudWidthL.TabIndex = 9;
+            this.nudWidthL.ValueChanged += new System.EventHandler(this.nudWidthL_ValueChanged);
+            // 
+            // nudHeight
+            // 
+            this.nudHeight.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudHeight.Location = new System.Drawing.Point(193, 91);
+            this.nudHeight.Maximum = new decimal(new int[] {
+            4000,
+            0,
+            0,
+            0});
+            this.nudHeight.Name = "nudHeight";
+            this.nudHeight.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudHeight.Size = new System.Drawing.Size(77, 20);
+            this.nudHeight.TabIndex = 6;
+            this.nudHeight.ValueChanged += new System.EventHandler(this.nudHeight_ValueChanged);
+            // 
+            // nudWidth
+            // 
+            this.nudWidth.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudWidth.Location = new System.Drawing.Point(56, 91);
+            this.nudWidth.Maximum = new decimal(new int[] {
+            4000,
+            0,
+            0,
+            0});
+            this.nudWidth.Name = "nudWidth";
+            this.nudWidth.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudWidth.Size = new System.Drawing.Size(77, 20);
+            this.nudWidth.TabIndex = 4;
+            this.nudWidth.ValueChanged += new System.EventHandler(this.nudWidth_ValueChanged);
+            // 
+            // nudY
+            // 
+            this.nudY.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudY.Location = new System.Drawing.Point(193, 65);
+            this.nudY.Maximum = new decimal(new int[] {
+            4000,
+            0,
+            0,
+            0});
+            this.nudY.Name = "nudY";
+            this.nudY.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudY.Size = new System.Drawing.Size(77, 20);
+            this.nudY.TabIndex = 2;
+            this.nudY.ValueChanged += new System.EventHandler(this.nudY_ValueChanged);
+            // 
+            // nudX
+            // 
+            this.nudX.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudX.Location = new System.Drawing.Point(56, 65);
+            this.nudX.Maximum = new decimal(new int[] {
+            4000,
+            0,
+            0,
+            0});
+            this.nudX.Name = "nudX";
+            this.nudX.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudX.Size = new System.Drawing.Size(77, 20);
+            this.nudX.TabIndex = 0;
+            this.nudX.ValueChanged += new System.EventHandler(this.nudX_ValueChanged);
+            // 
             // OCRControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1088,34 +1089,34 @@ namespace ARKBreedingStats.ocr
             this.tabPage2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudFontSize)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteTreshold)).EndInit();
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditRecognized)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudResizing)).EndInit();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudFontSizeCalibration)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudResolutionHeight)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudResolutionWidth)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nudFontSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditTemplate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditRecognized)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudResizing)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudFontSizeCalibration)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudResolutionHeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudResolutionWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHeightT)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWidthL)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHeight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudX)).EndInit();
-            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

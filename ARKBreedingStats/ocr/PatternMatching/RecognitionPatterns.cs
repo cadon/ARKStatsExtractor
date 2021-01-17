@@ -114,13 +114,7 @@ namespace ARKBreedingStats.ocr.PatternMatching
 
             var manualChar = new RecognitionTrainingForm(sym, originalImg).Prompt();
 
-            if (manualChar == null)
-            {
-                // abort manual training
-                return null;
-            }
-
-            if (manualChar == string.Empty)
+            if (string.IsNullOrEmpty(manualChar))
                 return manualChar;
 
             return AddNewPattern(sym, manualChar, curPattern);

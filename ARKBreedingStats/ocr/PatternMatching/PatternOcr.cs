@@ -28,7 +28,7 @@ namespace ARKBreedingStats.ocr.PatternMatching
                 foreach (var sym in charSymbols)
                 {
                     // read spaces
-                    if (!onlyNumbers && sym.Coords.X - xPos > 7)
+                    if (!onlyNumbers && sym.Coords.X - xPos > 3)
                         ret += " ";
                     xPos = sym.Coords.X + sym.Pattern.GetLength(0);
 

@@ -35,6 +35,8 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.BtAbort = new System.Windows.Forms.Button();
+            this.BtFemaleSign = new System.Windows.Forms.Button();
+            this.BtMale = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -106,11 +108,33 @@
             this.BtAbort.UseVisualStyleBackColor = true;
             this.BtAbort.Click += new System.EventHandler(this.BtAbort_Click);
             // 
+            // BtFemaleSign
+            // 
+            this.BtFemaleSign.Location = new System.Drawing.Point(335, 123);
+            this.BtFemaleSign.Name = "BtFemaleSign";
+            this.BtFemaleSign.Size = new System.Drawing.Size(23, 23);
+            this.BtFemaleSign.TabIndex = 7;
+            this.BtFemaleSign.Text = "♀";
+            this.BtFemaleSign.UseVisualStyleBackColor = true;
+            this.BtFemaleSign.Click += new System.EventHandler(this.BtFemaleSign_Click);
+            // 
+            // BtMale
+            // 
+            this.BtMale.Location = new System.Drawing.Point(364, 123);
+            this.BtMale.Name = "BtMale";
+            this.BtMale.Size = new System.Drawing.Size(23, 23);
+            this.BtMale.TabIndex = 8;
+            this.BtMale.Text = "♂";
+            this.BtMale.UseVisualStyleBackColor = true;
+            this.BtMale.Click += new System.EventHandler(this.BtMale_Click);
+            // 
             // RecognitionTrainingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(648, 175);
+            this.Controls.Add(this.BtMale);
+            this.Controls.Add(this.BtFemaleSign);
             this.Controls.Add(this.BtAbort);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox2);
@@ -138,5 +162,7 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button BtAbort;
+        private System.Windows.Forms.Button BtFemaleSign;
+        private System.Windows.Forms.Button BtMale;
     }
 }

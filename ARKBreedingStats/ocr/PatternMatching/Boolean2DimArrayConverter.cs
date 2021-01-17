@@ -15,7 +15,7 @@ namespace ARKBreedingStats.ocr.PatternMatching
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             var arr = (bool[,])value;
-            ToDebugLog(arr);
+            //ToDebugLog(arr);
             var xSize = arr.GetLength(0);
             var ySize = arr.GetLength(1);
             var res = new JArray();
@@ -78,7 +78,7 @@ namespace ARKBreedingStats.ocr.PatternMatching
                  var bitValue = bArray[cnt++];
              */
 
-            ToDebugLog(ret);
+            //ToDebugLog(ret);
 
             return ret;
         }
