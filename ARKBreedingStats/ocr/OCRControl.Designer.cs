@@ -82,10 +82,6 @@ namespace ARKBreedingStats.ocr
             this.buttonLoadCalibrationImage = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.textBoxCalibrationText = new System.Windows.Forms.TextBox();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.btnDeleteFontSize = new System.Windows.Forms.Button();
-            this.label18 = new System.Windows.Forms.Label();
-            this.cbbFontSizeDelete = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.buttonGetResFromScreenshot = new System.Windows.Forms.Button();
@@ -127,7 +123,6 @@ namespace ARKBreedingStats.ocr
             ((System.ComponentModel.ISupportInitialize)(this.nudResizing)).BeginInit();
             this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudFontSizeCalibration)).BeginInit();
-            this.groupBox7.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudResolutionHeight)).BeginInit();
@@ -558,7 +553,6 @@ namespace ARKBreedingStats.ocr
             this.tabPage4.Controls.Add(this.groupBox10);
             this.tabPage4.Controls.Add(this.groupBox9);
             this.tabPage4.Controls.Add(this.groupBox8);
-            this.tabPage4.Controls.Add(this.groupBox7);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
@@ -573,7 +567,7 @@ namespace ARKBreedingStats.ocr
             this.groupBox10.Controls.Add(this.CbSkipTribeRecognition);
             this.groupBox10.Controls.Add(this.CbSkipOwnerRecognition);
             this.groupBox10.Controls.Add(this.CbTrainRecognition);
-            this.groupBox10.Location = new System.Drawing.Point(6, 425);
+            this.groupBox10.Location = new System.Drawing.Point(6, 298);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(334, 139);
             this.groupBox10.TabIndex = 31;
@@ -629,7 +623,7 @@ namespace ARKBreedingStats.ocr
             this.groupBox9.Controls.Add(this.lbResizeResult);
             this.groupBox9.Controls.Add(this.label19);
             this.groupBox9.Controls.Add(this.nudResizing);
-            this.groupBox9.Location = new System.Drawing.Point(6, 325);
+            this.groupBox9.Location = new System.Drawing.Point(6, 198);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(334, 94);
             this.groupBox9.TabIndex = 30;
@@ -755,44 +749,6 @@ namespace ARKBreedingStats.ocr
             this.textBoxCalibrationText.TabIndex = 24;
             this.textBoxCalibrationText.Text = "!#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqr" +
     "stuvwxyz{|}~";
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.btnDeleteFontSize);
-            this.groupBox7.Controls.Add(this.label18);
-            this.groupBox7.Controls.Add(this.cbbFontSizeDelete);
-            this.groupBox7.Location = new System.Drawing.Point(6, 198);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(334, 121);
-            this.groupBox7.TabIndex = 27;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Delete font-size";
-            // 
-            // btnDeleteFontSize
-            // 
-            this.btnDeleteFontSize.Location = new System.Drawing.Point(84, 53);
-            this.btnDeleteFontSize.Name = "btnDeleteFontSize";
-            this.btnDeleteFontSize.Size = new System.Drawing.Size(93, 23);
-            this.btnDeleteFontSize.TabIndex = 28;
-            this.btnDeleteFontSize.Text = "Delete Font Size";
-            this.btnDeleteFontSize.UseVisualStyleBackColor = true;
-            this.btnDeleteFontSize.Click += new System.EventHandler(this.btnDeleteFontSize_Click);
-            // 
-            // label18
-            // 
-            this.label18.Location = new System.Drawing.Point(6, 16);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(322, 36);
-            this.label18.TabIndex = 27;
-            this.label18.Text = "Delete all character-templates for a font-size if they are not needed.";
-            // 
-            // cbbFontSizeDelete
-            // 
-            this.cbbFontSizeDelete.FormattingEnabled = true;
-            this.cbbFontSizeDelete.Location = new System.Drawing.Point(6, 55);
-            this.cbbFontSizeDelete.Name = "cbbFontSizeDelete";
-            this.cbbFontSizeDelete.Size = new System.Drawing.Size(72, 21);
-            this.cbbFontSizeDelete.TabIndex = 26;
             // 
             // tabPage3
             // 
@@ -1146,7 +1102,6 @@ namespace ARKBreedingStats.ocr
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudFontSizeCalibration)).EndInit();
-            this.groupBox7.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
@@ -1228,10 +1183,6 @@ namespace ARKBreedingStats.ocr
         private System.Windows.Forms.Button buttonLoadCalibrationImage;
         private uiControls.Nud nudFontSizeCalibration;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.Button btnDeleteFontSize;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.ComboBox cbbFontSizeDelete;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.Label lbResizeResult;

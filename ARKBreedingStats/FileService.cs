@@ -67,7 +67,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// Saves an object to a json-file.
         /// </summary>
-        public static bool SaveJsonFile(string filePath, object data, out string errorMessage)
+        public static bool SaveJsonFile(string filePath, object data, out string errorMessage, Newtonsoft.Json.JsonConverter converter = null)
         {
             if (string.IsNullOrEmpty(filePath))
             {
@@ -81,6 +81,8 @@ namespace ARKBreedingStats
                 using (StreamWriter sw = File.CreateText(filePath))
                 {
                     var ser = new Newtonsoft.Json.JsonSerializer();
+                    if (converter != null)
+                        ser.Converters.Add(converter);
                     ser.Serialize(sw, data);
                 }
                 return true;
@@ -95,7 +97,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// Loads a serialized object from a json-file.
         /// </summary>
-        public static bool LoadJsonFile<T>(string filePath, out T data, out string errorMessage) where T : class
+        public static bool LoadJsonFile<T>(string filePath, out T data, out string errorMessage, Newtonsoft.Json.JsonConverter converter = null) where T : class
         {
             errorMessage = null;
             data = null;
@@ -106,6 +108,8 @@ namespace ARKBreedingStats
                 using (StreamReader sr = File.OpenText(filePath))
                 {
                     var ser = new Newtonsoft.Json.JsonSerializer();
+                    if (converter != null)
+                        ser.Converters.Add(converter);
                     data = (T)ser.Deserialize(sr, typeof(T));
                     if (data != null)
                         return true;

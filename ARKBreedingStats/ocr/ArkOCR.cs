@@ -643,10 +643,10 @@ namespace ARKBreedingStats.ocr
             */
         }
 
-        private string readImageAtCoords(Bitmap source, int x, int y, int width, int height, bool onlyMaximalMatches, bool onlyNumbers, bool writingInWhite = true)
-        {
-            return readImage(SubImage(source, x, y, width, height), onlyMaximalMatches, onlyNumbers, writingInWhite);
-        }
+        //private string readImageAtCoords(Bitmap source, int x, int y, int width, int height, bool onlyMaximalMatches, bool onlyNumbers, bool writingInWhite = true)
+        //{
+        //    return readImage(SubImage(source, x, y, width, height), onlyMaximalMatches, onlyNumbers, writingInWhite);
+        //}
 
         //// for debugging. reads a small image
         //public void debugReadImage(Bitmap source)
@@ -654,253 +654,253 @@ namespace ARKBreedingStats.ocr
         //    string result = readImage(source, true, false);
         //}
 
-        private string readImage(Bitmap source, bool onlyMaximalMatches, bool onlyNumbers, bool writingInWhite = true)
-        {
-            string result = string.Empty;
-            int fontSize = source.Height;
-            int ocrIndex = 15;//ocrConfig.fontSizeIndex(fontSize);
-            if (ocrIndex == -1)
-                return "error: font-size is " + fontSize + ", no calibration-data found for that.";
+        //private string readImage(Bitmap source, bool onlyMaximalMatches, bool onlyNumbers, bool writingInWhite = true)
+        //{
+        //    string result = string.Empty;
+        //    int fontSize = source.Height;
+        //    int ocrIndex = 15;//ocrConfig.fontSizeIndex(fontSize);
+        //    if (ocrIndex == -1)
+        //        return "error: font-size is " + fontSize + ", no calibration-data found for that.";
 
-            //Bitmap[] theAlphabet = alphabets[fontSize]; // todo remove
-            //uint[][] theAlphabetI = alphabetsI[fontSize];
-            List<uint[]> letterArrays = ocrConfig.letterArrays[ocrIndex];
-            List<char> letters = ocrConfig.letters[ocrIndex];
-            List<int> reducedIndices = ocrConfig.reducedIndices[ocrIndex];
+        //    //Bitmap[] theAlphabet = alphabets[fontSize]; // todo remove
+        //    //uint[][] theAlphabetI = alphabetsI[fontSize];
+        //    List<uint[]> letterArrays = ocrConfig.letterArrays[ocrIndex];
+        //    List<char> letters = ocrConfig.letters[ocrIndex];
+        //    List<int> reducedIndices = ocrConfig.reducedIndices[ocrIndex];
 
-            Bitmap cleanedImage = removePixelsUnderThreshold(GetGreyScale(source, !writingInWhite), whiteThreshold);
-            //AddBitmapToDebug(cleanedImage); // todo comment out
-            //source.Save(@"D:\Temp\debug.png"); // TODO comment out
-            //cleanedImage.Save(@"D:\Temp\debug_cleaned.png"); // save cleaned part of the image that will be read. TODO comment out
+        //    Bitmap cleanedImage = removePixelsUnderThreshold(GetGreyScale(source, !writingInWhite), whiteThreshold);
+        //    //AddBitmapToDebug(cleanedImage); // todo comment out
+        //    //source.Save(@"D:\Temp\debug.png"); // TODO comment out
+        //    //cleanedImage.Save(@"D:\Temp\debug_cleaned.png"); // save cleaned part of the image that will be read. TODO comment out
 
 
-            for (int x = 0; x < cleanedImage.Width; x++)
-            {
-                bool foundLetter = false;
-                int letterStart = 0;
-                int letterEnd = 0;
+        //    for (int x = 0; x < cleanedImage.Width; x++)
+        //    {
+        //        bool foundLetter = false;
+        //        int letterStart = 0;
+        //        int letterEnd = 0;
 
-                // look for the start pixel of the letter
-                while (!(foundLetter || x >= cleanedImage.Width))
-                {
-                    foundLetter = HasWhiteInVerticalLine(cleanedImage, x, false);
-                    x++;
-                }
+        //        // look for the start pixel of the letter
+        //        while (!(foundLetter || x >= cleanedImage.Width))
+        //        {
+        //            foundLetter = HasWhiteInVerticalLine(cleanedImage, x, false);
+        //            x++;
+        //        }
 
-                if (foundLetter)
-                {
-                    letterStart = x - 1;
-                    // look for the end of the letter
-                    do
-                    {
-                        x++;
-                    } while (HasWhiteInVerticalLine(cleanedImage, x, true) && x < cleanedImage.Width - 1);
-                    letterEnd = x;
-                }
-                if (letterEnd > cleanedImage.Width)
-                    letterEnd = cleanedImage.Width;
+        //        if (foundLetter)
+        //        {
+        //            letterStart = x - 1;
+        //            // look for the end of the letter
+        //            do
+        //            {
+        //                x++;
+        //            } while (HasWhiteInVerticalLine(cleanedImage, x, true) && x < cleanedImage.Width - 1);
+        //            letterEnd = x;
+        //        }
+        //        if (letterEnd > cleanedImage.Width)
+        //            letterEnd = cleanedImage.Width;
 
-                if (letterStart != letterEnd)
-                {
-                    // found a letter, see if a match can be found
-                    Rectangle letterR = new Rectangle(letterStart, 0, letterEnd - letterStart, fontSize);
+        //        if (letterStart != letterEnd)
+        //        {
+        //            // found a letter, see if a match can be found
+        //            Rectangle letterR = new Rectangle(letterStart, 0, letterEnd - letterStart, fontSize);
 
-                    while (letterR.Width > 0 && letterR.Height > 0)
-                    {
-                        Bitmap testImage = SubImage(cleanedImage, letterR.Left, letterR.Top, letterR.Width, letterR.Height);
-                        //testImage.Save(@"D:\Temp\debug_letterfound.png");// TODO comment out
-                        Dictionary<int, float> matches = new Dictionary<int, float>();
-                        Dictionary<int, int> offsets = new Dictionary<int, int>();
-                        float bestMatch = 0;
-                        uint[] HWs = letterArray(testImage);
+        //            while (letterR.Width > 0 && letterR.Height > 0)
+        //            {
+        //                Bitmap testImage = SubImage(cleanedImage, letterR.Left, letterR.Top, letterR.Width, letterR.Height);
+        //                //testImage.Save(@"D:\Temp\debug_letterfound.png");// TODO comment out
+        //                Dictionary<int, float> matches = new Dictionary<int, float>();
+        //                Dictionary<int, int> offsets = new Dictionary<int, int>();
+        //                float bestMatch = 0;
+        //                uint[] HWs = letterArray(testImage);
 
-                        int maxLetters = onlyNumbers ? reducedIndices.Count : letterArrays.Count;
-                        for (int lI = 0; lI < maxLetters; lI++)
-                        {
-                            int l = lI;
-                            if (onlyNumbers) l = reducedIndices[lI];
+        //                int maxLetters = onlyNumbers ? reducedIndices.Count : letterArrays.Count;
+        //                for (int lI = 0; lI < maxLetters; lI++)
+        //                {
+        //                    int l = lI;
+        //                    if (onlyNumbers) l = reducedIndices[lI];
 
-                            letterMatch(HWs, letterArrays[l], out float match, out int offset);
+        //                    letterMatch(HWs, letterArrays[l], out float match, out int offset);
 
-                            if (match > 0.5)
-                            {
-                                // string letter = ocrConfig.letters[ocrIndex][l].ToString(); // TODO comment out debugging
-                                matches[l] = match;
-                                offsets[l] = offset;
-                                if (bestMatch < match)
-                                    bestMatch = match;
-                                if (match == 1)
-                                    break;
-                            }
-                        }
+        //                    if (match > 0.5)
+        //                    {
+        //                        // string letter = ocrConfig.letters[ocrIndex][l].ToString(); // TODO comment out debugging
+        //                        matches[l] = match;
+        //                        offsets[l] = offset;
+        //                        if (bestMatch < match)
+        //                            bestMatch = match;
+        //                        if (match == 1)
+        //                            break;
+        //                    }
+        //                }
 
-                        if (matches.Count == 0)
-                        {
-                            // if no matches were found, try again, but cut off the first two pixel-columns
-                            letterStart += 2;
-                            if (letterEnd - letterStart > 1)
-                                letterR = new Rectangle(letterStart, 0, letterEnd - letterStart, fontSize);
-                            else letterR = new Rectangle(0, 0, 0, 0);
-                            continue;
-                        }
+        //                if (matches.Count == 0)
+        //                {
+        //                    // if no matches were found, try again, but cut off the first two pixel-columns
+        //                    letterStart += 2;
+        //                    if (letterEnd - letterStart > 1)
+        //                        letterR = new Rectangle(letterStart, 0, letterEnd - letterStart, fontSize);
+        //                    else letterR = new Rectangle(0, 0, 0, 0);
+        //                    continue;
+        //                }
 
-                        Dictionary<int, float> goodMatches = new Dictionary<int, float>();
+        //                Dictionary<int, float> goodMatches = new Dictionary<int, float>();
 
-                        if (matches.Count == 1)
-                            goodMatches = matches;
-                        else
-                        {
-                            foreach (KeyValuePair<int, float> kv in matches)
-                                if (kv.Value > 0.95 * bestMatch)
-                                    goodMatches[kv.Key] = kv.Value; // discard matches that are not at least 95% as good as the best match
-                        }
+        //                if (matches.Count == 1)
+        //                    goodMatches = matches;
+        //                else
+        //                {
+        //                    foreach (KeyValuePair<int, float> kv in matches)
+        //                        if (kv.Value > 0.95 * bestMatch)
+        //                            goodMatches[kv.Key] = kv.Value; // discard matches that are not at least 95% as good as the best match
+        //                }
 
-                        //// debugging / TODO
-                        //// save recognized image and two best matches with percentage
-                        //goodMatches = goodMatches.OrderByDescending(pair => pair.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
+        //                //// debugging / TODO
+        //                //// save recognized image and two best matches with percentage
+        //                //goodMatches = goodMatches.OrderByDescending(pair => pair.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
 
-                        //Bitmap debugImg = new Bitmap(75, 36);
-                        //using (Graphics g = Graphics.FromImage(debugImg))
-                        //using (Font font = new Font("Arial", 8))
-                        //{
-                        //    g.FillRectangle(Brushes.DarkGray, 0, 0, debugImg.Width, debugImg.Height);
-                        //    g.DrawImage(testImage, 1, 1, testImage.Width, testImage.Height);
-                        //    int i = testImage.Width + 3;
+        //                //Bitmap debugImg = new Bitmap(75, 36);
+        //                //using (Graphics g = Graphics.FromImage(debugImg))
+        //                //using (Font font = new Font("Arial", 8))
+        //                //{
+        //                //    g.FillRectangle(Brushes.DarkGray, 0, 0, debugImg.Width, debugImg.Height);
+        //                //    g.DrawImage(testImage, 1, 1, testImage.Width, testImage.Height);
+        //                //    int i = testImage.Width + 3;
 
-                        //    foreach (int l in goodMatches.Keys)
-                        //    {
-                        //        string letter = ocrConfig.letters[ocrIndex][l].ToString();
-                        //        for (int y = 0; y < ocrConfig.letterArrays[ocrIndex][l].Length - 1; y++)
-                        //        {
-                        //            uint row = ocrConfig.letterArrays[ocrIndex][l][y + 1];
-                        //            int lx = 0;
-                        //            while (row > 0)
-                        //            {
-                        //                if ((row & 1) == 1)
-                        //                    g.FillRectangle(Brushes.White, i + lx, y, 1, 1);
-                        //                row = row >> 1;
-                        //                lx++;
-                        //            }
-                        //        }
+        //                //    foreach (int l in goodMatches.Keys)
+        //                //    {
+        //                //        string letter = ocrConfig.letters[ocrIndex][l].ToString();
+        //                //        for (int y = 0; y < ocrConfig.letterArrays[ocrIndex][l].Length - 1; y++)
+        //                //        {
+        //                //            uint row = ocrConfig.letterArrays[ocrIndex][l][y + 1];
+        //                //            int lx = 0;
+        //                //            while (row > 0)
+        //                //            {
+        //                //                if ((row & 1) == 1)
+        //                //                    g.FillRectangle(Brushes.White, i + lx, y, 1, 1);
+        //                //                row = row >> 1;
+        //                //                lx++;
+        //                //            }
+        //                //        }
 
-                        //        g.DrawString(Math.Round(goodMatches[l] * 100).ToString(), font, (bestMatch == goodMatches[l] ? Brushes.Green : Brushes.Red), i, 25);
-                        //        i += 22;
-                        //    }
-                        //    debugImg.Save(@"D:\Temp\debug_letter" + DateTime.Now.ToString("HHmmss\\-fffffff\\-") + x + ".png");
-                        //}
-                        //// end debugging
+        //                //        g.DrawString(Math.Round(goodMatches[l] * 100).ToString(), font, (bestMatch == goodMatches[l] ? Brushes.Green : Brushes.Red), i, 25);
+        //                //        i += 22;
+        //                //    }
+        //                //    debugImg.Save(@"D:\Temp\debug_letter" + DateTime.Now.ToString("HHmmss\\-fffffff\\-") + x + ".png");
+        //                //}
+        //                //// end debugging
 
-                        if (goodMatches.Count == 1)
-                        {
-                            int l = goodMatches.Keys.ToArray()[0];
-                            char c = ocrConfig.letters[ocrIndex][l];
-                            result += c;
+        //                if (goodMatches.Count == 1)
+        //                {
+        //                    int l = goodMatches.Keys.ToArray()[0];
+        //                    char c = ocrConfig.letters[ocrIndex][l];
+        //                    result += c;
 
-                            if ((int)letterArrays[l][0] - offsets[l] > 0)
-                                letterStart += (int)letterArrays[l][0] - offsets[l];
-                            else letterStart += 1;
+        //                    if ((int)letterArrays[l][0] - offsets[l] > 0)
+        //                        letterStart += (int)letterArrays[l][0] - offsets[l];
+        //                    else letterStart += 1;
 
-                            // add letter to list of recognized
-                            //if (enableOutput)
-                            //    _ocrControl.AddLetterToRecognized(HWs, c.ToString(), fontSize);
-                        }
-                        else
-                        {
-                            if (onlyMaximalMatches)
-                            {
-                                //var letterChars = goodMatches.Select(p => letters[p.Key]).ToList();
-                                foreach (int l in goodMatches.Keys)
-                                {
-                                    if (goodMatches[l] == bestMatch)
-                                    {
-                                        result += ocrConfig.letters[ocrIndex][l];
+        //                    // add letter to list of recognized
+        //                    //if (enableOutput)
+        //                    //    _ocrControl.AddLetterToRecognized(HWs, c.ToString(), fontSize);
+        //                }
+        //                else
+        //                {
+        //                    if (onlyMaximalMatches)
+        //                    {
+        //                        //var letterChars = goodMatches.Select(p => letters[p.Key]).ToList();
+        //                        foreach (int l in goodMatches.Keys)
+        //                        {
+        //                            if (goodMatches[l] == bestMatch)
+        //                            {
+        //                                result += ocrConfig.letters[ocrIndex][l];
 
-                                        // add letter to config
-                                        //if (enableOutput)
-                                        //    _ocrControl.AddLetterToRecognized(HWs, ocrConfig.letters[ocrIndex][l].ToString(), fontSize);
+        //                                // add letter to config
+        //                                //if (enableOutput)
+        //                                //    _ocrControl.AddLetterToRecognized(HWs, ocrConfig.letters[ocrIndex][l].ToString(), fontSize);
 
-                                        if ((int)letterArrays[l][0] - offsets[l] > 0)
-                                            letterStart += (int)letterArrays[l][0] - offsets[l];
-                                        else letterStart += 1;
+        //                                if ((int)letterArrays[l][0] - offsets[l] > 0)
+        //                                    letterStart += (int)letterArrays[l][0] - offsets[l];
+        //                                else letterStart += 1;
 
-                                        break; // if there are multiple best matches take only the first
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                bool bestMatchLetterForwareded = false;
-                                result += "[";
-                                foreach (int l in goodMatches.Keys)
-                                {
-                                    result += (char)l + goodMatches[l].ToString("{0.00}") + " ";
-                                    if (!bestMatchLetterForwareded && goodMatches[l] == bestMatch)
-                                    {
-                                        if ((int)letterArrays[l][0] - offsets[l] > 0)
-                                            letterStart += (int)letterArrays[l][0] - offsets[l];
-                                        else letterStart += 1;
-                                        bestMatchLetterForwareded = true;
-                                    }
-                                }
-                                result += "]";
-                            }
-                        }
-                        // check if the image contained another letter that couldn't be separated (kerning)
-                        letterR = letterEnd - letterStart > 1 ?
-                                new Rectangle(letterStart, 0, letterEnd - letterStart, fontSize) :
-                                new Rectangle(0, 0, 0, 0);
-                    }
-                }
-            }
-            
-            return result;
-        }
+        //                                break; // if there are multiple best matches take only the first
+        //                            }
+        //                        }
+        //                    }
+        //                    else
+        //                    {
+        //                        bool bestMatchLetterForwareded = false;
+        //                        result += "[";
+        //                        foreach (int l in goodMatches.Keys)
+        //                        {
+        //                            result += (char)l + goodMatches[l].ToString("{0.00}") + " ";
+        //                            if (!bestMatchLetterForwareded && goodMatches[l] == bestMatch)
+        //                            {
+        //                                if ((int)letterArrays[l][0] - offsets[l] > 0)
+        //                                    letterStart += (int)letterArrays[l][0] - offsets[l];
+        //                                else letterStart += 1;
+        //                                bestMatchLetterForwareded = true;
+        //                            }
+        //                        }
+        //                        result += "]";
+        //                    }
+        //                }
+        //                // check if the image contained another letter that couldn't be separated (kerning)
+        //                letterR = letterEnd - letterStart > 1 ?
+        //                        new Rectangle(letterStart, 0, letterEnd - letterStart, fontSize) :
+        //                        new Rectangle(0, 0, 0, 0);
+        //            }
+        //        }
+        //    }
 
-        /// <summary>
-        /// Calculates the match between the test-array and the templateArray, represented in a float from 0 to 1.
-        /// </summary>
-        /// <param name="test">The array to test</param>
-        /// <param name="templateArray">The existing template to which the test will be compared.</param>
-        /// <param name="match">match, 0 no equal pixels, 1 all pixels are identical.</param>
-        /// <param name="offset">0 no shift. 1 the test is shifted one pixel to the right. -1 the test is shifted one pixel to the left.</param>
-        public static void letterMatch(uint[] test, uint[] templateArray, out float match, out int offset)
-        {
-            match = 0;
-            offset = 0;
-            // test letter and also shifted by one pixel (offset)
-            for (int currentOffset = -1; currentOffset < 2; currentOffset++)
-            {
-                int testOffset = currentOffset > 0 ? currentOffset : 0;
-                int templateOffset = currentOffset < 0 ? -currentOffset : 0;
+        //    return result;
+        //}
 
-                uint HammingDiff = 0;
-                int maxTestRange = Math.Min(test.Length, templateArray.Length);
-                for (int y = 1; y < maxTestRange; y++)
-                    HammingDiff += HammingWeight.HWeight((test[y] << testOffset) ^ templateArray[y] << templateOffset);
-                if (test.Length > templateArray.Length)
-                {
-                    for (int y = maxTestRange; y < test.Length; y++)
-                        HammingDiff += HammingWeight.HWeight((test[y] << testOffset));
-                }
-                else if (test.Length < templateArray.Length)
-                {
-                    for (int y = maxTestRange; y < templateArray.Length; y++)
-                        HammingDiff += HammingWeight.HWeight(templateArray[y] << templateOffset);
-                }
-                long total = (Math.Max(test.Length, templateArray.Length) - 1) * Math.Max(test[0], templateArray[0]);
-                float newMatch;
-                if (total > 10)
-                    newMatch = (float)(total - HammingDiff) / total;
-                else
-                    newMatch = 1 - HammingDiff / 10f;
+        ///// <summary>
+        ///// Calculates the match between the test-array and the templateArray, represented in a float from 0 to 1.
+        ///// </summary>
+        ///// <param name="test">The array to test</param>
+        ///// <param name="templateArray">The existing template to which the test will be compared.</param>
+        ///// <param name="match">match, 0 no equal pixels, 1 all pixels are identical.</param>
+        ///// <param name="offset">0 no shift. 1 the test is shifted one pixel to the right. -1 the test is shifted one pixel to the left.</param>
+        //public static void letterMatch(uint[] test, uint[] templateArray, out float match, out int offset)
+        //{
+        //    match = 0;
+        //    offset = 0;
+        //    // test letter and also shifted by one pixel (offset)
+        //    for (int currentOffset = -1; currentOffset < 2; currentOffset++)
+        //    {
+        //        int testOffset = currentOffset > 0 ? currentOffset : 0;
+        //        int templateOffset = currentOffset < 0 ? -currentOffset : 0;
 
-                if (newMatch > match)
-                {
-                    match = newMatch;
-                    offset = currentOffset;
-                }
-            }
-        }
+        //        uint HammingDiff = 0;
+        //        int maxTestRange = Math.Min(test.Length, templateArray.Length);
+        //        for (int y = 1; y < maxTestRange; y++)
+        //            HammingDiff += HammingWeight.HWeight((test[y] << testOffset) ^ templateArray[y] << templateOffset);
+        //        if (test.Length > templateArray.Length)
+        //        {
+        //            for (int y = maxTestRange; y < test.Length; y++)
+        //                HammingDiff += HammingWeight.HWeight((test[y] << testOffset));
+        //        }
+        //        else if (test.Length < templateArray.Length)
+        //        {
+        //            for (int y = maxTestRange; y < templateArray.Length; y++)
+        //                HammingDiff += HammingWeight.HWeight(templateArray[y] << templateOffset);
+        //        }
+        //        long total = (Math.Max(test.Length, templateArray.Length) - 1) * Math.Max(test[0], templateArray[0]);
+        //        float newMatch;
+        //        if (total > 10)
+        //            newMatch = (float)(total - HammingDiff) / total;
+        //        else
+        //            newMatch = 1 - HammingDiff / 10f;
+
+        //        if (newMatch > match)
+        //        {
+        //            match = newMatch;
+        //            offset = currentOffset;
+        //        }
+        //    }
+        //}
 
         /*
         private void addCalibrationImageToDebug(string text, int fontSize)
@@ -954,33 +954,34 @@ namespace ARKBreedingStats.ocr
 
         public bool isDinoInventoryVisible()
         {
-            if (_screenCaptureProcess == null)
-            {
-                Process[] p = Process.GetProcessesByName(screenCaptureApplicationName);
-                if (p.Length > 0)
-                    _screenCaptureProcess = p[0];
-                else return false;
-            }
+            return false;
+            //// TODO
+            //if (_screenCaptureProcess == null)
+            //{
+            //    Process[] p = Process.GetProcessesByName(screenCaptureApplicationName);
+            //    if (p.Length > 0)
+            //        _screenCaptureProcess = p[0];
+            //    else return false;
+            //}
 
-            if (Win32API.GetForegroundWindow() != _screenCaptureProcess.MainWindowHandle)
-                return false;
+            //if (Win32API.GetForegroundWindow() != _screenCaptureProcess.MainWindowHandle)
+            //    return false;
 
-            Bitmap screenshotbmp = Win32API.GetScreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture);
+            //Bitmap screenshotBmp = Win32API.GetScreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture);
 
-            if (screenshotbmp == null)
-                return false;
-            if (!CheckResolutionSupportedByOcr(screenshotbmp))
-                return false;
+            //if (screenshotBmp == null
+            //    || !CheckResolutionSupportedByOcr(screenshotBmp))
+            //    return false;
 
-            const string statName = "Level";
-            Rectangle rec = ocrConfig.labelRectangles[ocrConfig.labelNameIndices[statName]];
-            Bitmap testbmp = SubImage(screenshotbmp, rec.X, rec.Y, rec.Width, rec.Height);
-            string statOCR = readImage(testbmp, true, true);
+            //const string statName = "Level";
+            //Rectangle rec = ocrConfig.labelRectangles[ocrConfig.labelNameIndices[statName]];
+            //Bitmap testbmp = SubImage(screenshotBmp, rec.X, rec.Y, rec.Width, rec.Height);
+            //string statOCR = readImage(testbmp, true, true);
 
-            Regex r = new Regex(@":\d+$");
-            MatchCollection mc = r.Matches(statOCR);
+            //Regex r = new Regex(@":\d+$");
+            //MatchCollection mc = r.Matches(statOCR);
 
-            return mc.Count != 0;
+            //return mc.Count != 0;
         }
 
         /// <summary>

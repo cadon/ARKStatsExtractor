@@ -75,7 +75,7 @@
       <Value Profile="(Default)">160</Value>
     </Setting>
     <Setting Name="ocrFile" Type="System.String" Scope="User">
-      <Value Profile="(Default)">json/ocr_1920x1080_100.json</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="waitBeforeScreenCapture" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">500</Value>

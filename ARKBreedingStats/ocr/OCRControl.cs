@@ -122,19 +122,19 @@ namespace ARKBreedingStats.ocr
 
             return;
 
-            //ocrLetterEditTemplate.Clear();
-            if (textBoxTemplate.Text.Length > 0)
-            {
-                char c = textBoxTemplate.Text[0];
-                int ocrIndex = 1; // TODO ArkOCR.OCR.ocrConfig.fontSizeIndex((int)nudFontSize.Value);
-                if (ocrIndex != -1)
-                {
-                    int lI = ArkOCR.OCR.ocrConfig.letters[ocrIndex].IndexOf(c);
-                    if (lI != -1)
-                        ocrLetterEditTemplate.LetterArray = ArkOCR.OCR.ocrConfig.letterArrays[ocrIndex][lI];
-                }
-            }
-            ShowMatch();
+            ////ocrLetterEditTemplate.Clear();
+            //if (textBoxTemplate.Text.Length > 0)
+            //{
+            //    char c = textBoxTemplate.Text[0];
+            //    int ocrIndex = 1; // TODO ArkOCR.OCR.ocrConfig.fontSizeIndex((int)nudFontSize.Value);
+            //    if (ocrIndex != -1)
+            //    {
+            //        int lI = ArkOCR.OCR.ocrConfig.letters[ocrIndex].IndexOf(c);
+            //        if (lI != -1)
+            //            ocrLetterEditTemplate.LetterArray = ArkOCR.OCR.ocrConfig.letterArrays[ocrIndex][lI];
+            //    }
+            //}
+            //ShowMatch();
         }
 
         private void btnSaveTemplate_Click(object sender, EventArgs e)
@@ -510,23 +510,6 @@ namespace ARKBreedingStats.ocr
             {
                 nudResolutionWidth.Value = _screenshot.Width;
                 nudResolutionHeight.Value = _screenshot.Height;
-            }
-        }
-
-        private void btnDeleteFontSize_Click(object sender, EventArgs e)
-        {
-            if (int.TryParse(cbbFontSizeDelete.SelectedItem.ToString(), out int fontSize)
-                    && MessageBox.Show($"Delete all character-templates for the font-size {fontSize}?", "Delete?",
-                            MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-            {
-                int ocrIndex = 15; // TODO ArkOCR.OCR.ocrConfig.fontSizes.IndexOf(fontSize);
-                if (ocrIndex >= 0)
-                {
-                    //ArkOCR.OCR.ocrConfig.fontSizes.RemoveAt(ocrIndex);
-                    ArkOCR.OCR.ocrConfig.letterArrays.RemoveAt(ocrIndex);
-                    ArkOCR.OCR.ocrConfig.letters.RemoveAt(ocrIndex);
-                    UpdateOcrFontSizes();
-                }
             }
         }
 
