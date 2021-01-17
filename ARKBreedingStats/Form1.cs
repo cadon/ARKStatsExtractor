@@ -396,7 +396,10 @@ namespace ARKBreedingStats
             }
 
             if (createNewCollection)
+            {
                 NewCollection();
+                UpdateRecentlyUsedFileMenu();
+            }
 
             _updateExtractorVisualData = true;
             _timerGlobal.Start();
