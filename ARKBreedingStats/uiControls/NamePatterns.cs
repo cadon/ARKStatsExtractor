@@ -61,13 +61,12 @@ namespace ARKBreedingStats.uiControls
                 tokenDictionary = CreateTokenDictionary(creature, sameSpecies, speciesTopLevels, speciesLowestLevels);
             // first resolve keys, then functions
             string name = ResolveFunctions(
-                ResolveKeysToValues(tokenDictionary, pattern.Replace("\r", string.Empty).Replace("\n", string.Empty), 0),
+                ResolveKeysToValues(tokenDictionary, pattern.Replace("\r", string.Empty).Replace("\n", string.Empty)),
                 creature, customReplacings, displayError, false);
 
             if (name.Contains("{n}"))
             {
-                // replace the unique number key with the lowest possible positive number > 1 to get a unique name.
-                // if the name is already unique without that number, leave it like that
+                // replace the unique number key with the lowest possible positive number >= 1 to get a unique name.
                 string numberedUniqueName;
                 int n = 1;
                 do
@@ -378,17 +377,14 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         /// <param name="tokenDictionary">a collection of token and their replacements</param>
         /// <returns>The patterned name</returns>
-        private static string ResolveKeysToValues(Dictionary<string, string> tokenDictionary, string pattern, int uniqueNumber)
+        private static string ResolveKeysToValues(Dictionary<string, string> tokenDictionary, string pattern, int uniqueNumber = 0)
         {
             string regularExpression = "\\{(?<key>" + string.Join("|", tokenDictionary.Keys.Select(x => Regex.Escape(x))) + ")\\}";
             const RegexOptions regularExpressionOptions = RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.ExplicitCapture;
             Regex r = new Regex(regularExpression, regularExpressionOptions);
             if (uniqueNumber != 0)
             {
-                if (uniqueNumber == 1)
-                    pattern = pattern.Replace("{n}", string.Empty);
-                else
-                    pattern = pattern.Replace("{n}", uniqueNumber.ToString());
+                pattern = pattern.Replace("{n}", uniqueNumber.ToString());
             }
 
             return r.Replace(pattern, m => tokenDictionary.TryGetValue(m.Groups["key"].Value, out string replacement) ? replacement : m.Value);
