@@ -106,6 +106,7 @@ namespace ARKBreedingStats
 * EmkioA (Cryopod import, listView tweaks)
 * dunger (fixes)
 * Myrmecoleon (extra species images)
+* Lunat1q (improved OCR)
 
 Translations:
 * French by Vykan and Yanuut
