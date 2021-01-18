@@ -46,7 +46,7 @@ namespace ASB_Updater
         };
 
         // Release feed URL
-        private const string ReleasesUrl = "https://api.github.com/repos/cadon/ARKStatsExtractor/releases";
+        private const string ReleasesUrl = "https://api.github.com/repos/cadon/ARKStatsExtractor/releases/latest";
         // Temporary download file name
         private const string TempZipName = "ASB_Update.temp.zip";
         private readonly string _tempZipNamePath;
@@ -131,8 +131,7 @@ namespace ASB_Updater
             try
             {
                 string json = File.ReadAllText(_tempReleasesPath);
-                dynamic stuff = JArray.Parse(json);
-                dynamic latest = stuff[0];
+                dynamic latest = JObject.Parse(json);
                 dynamic assets = latest.assets[0];
 
                 _downloadUrl = assets.browser_download_url;
