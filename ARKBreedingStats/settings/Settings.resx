@@ -127,8 +127,8 @@
     <value>17, 17</value>
   </metadata>
   <data name="label24.Text" xml:space="preserve">
-    <value>The creature data can be imported from the save-game, if it is available. 
-If you set the according files below, you can start the process automatically from the file-menu. Make sure the folders are correct.</value>
+    <value>The creature data can be directly imported from the save-game, if you have access to that. This is also possible via an ftp-adress. 
+If you set the according files below, you can start the process automatically from the file-menu.</value>
   </data>
   <metadata name="dgvExportFolderChange.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

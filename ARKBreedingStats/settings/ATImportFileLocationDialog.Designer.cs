@@ -72,9 +72,9 @@
             this.label_FileLocation.AutoSize = true;
             this.label_FileLocation.Location = new System.Drawing.Point(12, 48);
             this.label_FileLocation.Name = "label_FileLocation";
-            this.label_FileLocation.Size = new System.Drawing.Size(110, 13);
+            this.label_FileLocation.Size = new System.Drawing.Size(223, 13);
             this.label_FileLocation.TabIndex = 4;
-            this.label_FileLocation.Text = "File location (required)";
+            this.label_FileLocation.Text = "File location, local path or ftp-adress (required)";
             // 
             // textBox_FileLocation
             // 
