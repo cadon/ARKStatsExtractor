@@ -34,7 +34,8 @@ namespace ARKBreedingStats.ocr
         public void Initialize()
         {
             SetWhiteThreshold(Properties.Settings.Default.OCRWhiteThreshold);
-            LoadAndInitializeOcrTemplate(Properties.Settings.Default.ocrFile);
+            if (!LoadAndInitializeOcrTemplate(Properties.Settings.Default.ocrFile))
+                Properties.Settings.Default.ocrFile = null;
         }
 
         private void InitLabelEntries()
@@ -449,8 +450,16 @@ namespace ARKBreedingStats.ocr
                 return false;
             }
 
-            ArkOCR.OCR.ocrConfig = OCRTemplate.LoadFile(filePath) ?? new OCRTemplate();
+            var loadedOcrConfig = OCRTemplate.LoadFile(filePath);
+            if (loadedOcrConfig == null)
+            {
+                filePath = null;
+            }
+
+            ArkOCR.OCR.ocrConfig = loadedOcrConfig;
             UpdateOCRLabel(filePath);
+            if (loadedOcrConfig == null) return false;
+
             UpdateOcrFontSizes();
             InitLabelEntries();
             nudResizing.Value = ArkOCR.OCR.ocrConfig.resize == 0 ? 1 : (decimal)ArkOCR.OCR.ocrConfig.resize;
