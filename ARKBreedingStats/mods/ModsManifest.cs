@@ -14,6 +14,12 @@ namespace ARKBreedingStats.mods
     public class ModsManifest
     {
         /// <summary>
+        /// Default format version, is valid for all entries that have no specific format version.
+        /// </summary>
+        [JsonProperty("format")]
+        public string DefaultFormatVersion;
+
+        /// <summary>
         /// Dictionary of ModInfos. The key is the mod-filename.
         /// </summary>
         [JsonProperty("files")]
@@ -46,11 +52,19 @@ namespace ARKBreedingStats.mods
         {
             while (true)
             {
-                string modsManifestPath = Path.Combine(FileService.ValuesFolder, FileService.ModsManifest);
-                if (forceDownload || !File.Exists(FileService.GetJsonPath(modsManifestPath))) await TryDownloadFileAsync();
+                string modsManifestFilePath = FileService.GetJsonPath(FileService.ValuesFolder, FileService.ModsManifest);
+                if (forceDownload || !File.Exists(modsManifestFilePath)) await TryDownloadFileAsync();
 
-                if (FileService.LoadJsonFile(FileService.GetJsonPath(modsManifestPath), out ModsManifest tmpV, out string errorMessage))
+                if (FileService.LoadJsonFile(modsManifestFilePath, out ModsManifest tmpV, out string errorMessage))
                 {
+                    // set format versions
+                    // if an entry has no specific format version, it is the general format version of the manifest file
+                    foreach (var mi in tmpV.modsByFiles)
+                    {
+                        if (string.IsNullOrEmpty(mi.Value.format))
+                            mi.Value.format = tmpV.DefaultFormatVersion;
+                    }
+
                     return tmpV;
                 }
 
@@ -78,6 +92,14 @@ namespace ARKBreedingStats.mods
 
             if (FileService.LoadJsonFile(filePath, out ModsManifest tmpV, out string errorMessage))
             {
+                // set format versions
+                // if an entry has no specific format version, it is the general format version of the manifest file
+                foreach (var mi in tmpV.modsByFiles)
+                {
+                    if (string.IsNullOrEmpty(mi.Value.format))
+                        mi.Value.format = tmpV.DefaultFormatVersion;
+                }
+
                 customModsManifest = tmpV;
                 return true;
             }
@@ -154,8 +176,8 @@ namespace ARKBreedingStats.mods
         internal static ModsManifest MergeModsManifest(ModsManifest manifest1, ModsManifest manifest2)
         => new ModsManifest()
         {
+            DefaultFormatVersion = manifest1.DefaultFormatVersion,
             modsByFiles = manifest2.modsByFiles.Concat(manifest1.modsByFiles.Where(m1 => !manifest2.modsByFiles.ContainsKey(m1.Key))).ToDictionary(m => m.Key, m => m.Value)
         };
-
     }
 }

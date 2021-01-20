@@ -417,7 +417,7 @@ namespace ARKBreedingStats
                                || !Version.TryParse(CreatureCollection.CurrentLibraryFormatVersion, out Version currentVersion)
                                || ccVersion > currentVersion)
                             {
-                                throw new FormatException($"Unhandled format version: {(readCollection.FormatVersion ?? "null")}");
+                                throw new FormatException($"Unsupported format version: {(readCollection.FormatVersion ?? "null")}");
                             }
                             _creatureCollection = readCollection;
                         }

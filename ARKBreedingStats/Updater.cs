@@ -218,7 +218,7 @@ namespace ARKBreedingStats
         private static string ParseReleaseInfo(string releaseFeed)
         {
             var latestRelease = JObject.Parse(releaseFeed);
-            
+
             string tag = latestRelease.Value<string>("tag_name");
 
             Debug.WriteLine("Tag: " + tag);
@@ -368,8 +368,7 @@ namespace ARKBreedingStats
 
             try
             {
-                if ((await DownloadAsync(ObeliskUrl + FileService.ModsManifest,
-                    tempFilePath)).Item1)
+                if ((await DownloadAsync(ObeliskUrl + FileService.ModsManifest, tempFilePath)).Item1)
                 {
                     // if successful downloaded, move tempFile
                     try

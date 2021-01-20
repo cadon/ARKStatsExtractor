@@ -183,7 +183,7 @@ namespace ARKBreedingStats.values
         {
             if (FileService.LoadJsonFile(filePath, out Values readData, out string errorMessage))
             {
-                if (!IsValidFormatVersion(readData.format)) throw new FormatException("Unhandled format version");
+                if (!IsValidFormatVersion(readData.format)) throw new FormatException($"Unsupported values format version: {(readData.format ?? "null")}");
                 return readData;
             }
             throw new FileLoadException(errorMessage);
@@ -277,7 +277,7 @@ namespace ARKBreedingStats.values
                         sp.Mod = modValues.mod;
                         speciesAdded++;
 
-                         if (!blueprintToSpecies.ContainsKey(sp.blueprintPath))
+                        if (!blueprintToSpecies.ContainsKey(sp.blueprintPath))
                             blueprintToSpecies.Add(sp.blueprintPath, sp);
                     }
                 }
@@ -323,19 +323,24 @@ namespace ARKBreedingStats.values
             foreach (string mf in modValueFileNames)
             {
                 string modFilePath = Path.Combine(valuesFolder, mf);
+
+                modsManifest.modsByFiles.TryGetValue(mf, out var modInfo);
+
                 if (!File.Exists(modFilePath))
                 {
-                    if (modsManifest.modsByFiles.ContainsKey(mf)
-                        && modsManifest.modsByFiles[mf].OnlineAvailable)
+                    if (modInfo != null
+                        && modInfo.OnlineAvailable
+                        && IsValidFormatVersion(modInfo.format))
                         missingModValueFilesOnlineAvailable.Add(mf);
                     else
                         missingModValueFilesOnlineNotAvailable.Add(mf);
                 }
-                else if (modsManifest.modsByFiles.ContainsKey(mf))
+                else if (modInfo != null)
                 {
                     // check if an update is available
-                    if (modsManifest.modsByFiles[mf].OnlineAvailable
-                        && modsManifest.modsByFiles[mf].Version != null
+                    if (modInfo.OnlineAvailable
+                        && IsValidFormatVersion(modInfo.format)
+                        && modInfo.Version != null
                         && TryLoadValuesFile(modFilePath, setModFileName: false, throwExceptionOnFail: false,
                             out Values modValues, errorMessage: out _)
                         && modValues.Version < modsManifest.modsByFiles[mf].Version)
