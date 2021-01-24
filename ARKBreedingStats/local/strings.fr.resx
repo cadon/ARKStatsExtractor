@@ -629,7 +629,7 @@ Activez-le si l'OCR ne reconnaît pas correctement le nom de tribu et si vous so
     <value>indisponible</value>
   </data>
   <data name="Note" xml:space="preserve">
-    <value>Note</value>
+    <value>Remarque</value>
   </data>
   <data name="notEnoughFoodToTame" xml:space="preserve">
     <value>Pas assez de nourriture pour apprivoiser la créature !</value>
@@ -820,7 +820,7 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
     <value>Temps jusqu'à épuisement de la torpeur maximale</value>
   </data>
   <data name="toolStripButtonAddNote" xml:space="preserve">
-    <value>Ajouter une note</value>
+    <value>Ajouter une remarque</value>
   </data>
   <data name="toolStripButtonClear" xml:space="preserve">
     <value>Nettoyer</value>
@@ -841,7 +841,7 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
     <value>Supprimer les données actuellement sélectionnées de la créature temporaire</value>
   </data>
   <data name="toolStripButtonRemoveNote" xml:space="preserve">
-    <value>Enlever la note</value>
+    <value>Enlever la remarque</value>
   </data>
   <data name="toolStripButtonSaveCreatureValuesTemp" xml:space="preserve">
     <value>Enregistrer les valeurs</value>
@@ -1278,5 +1278,24 @@ Le préréglage peut être appliqué par le bouton Appliquer le préréglage</va
   </data>
   <data name="Discard changes and new" xml:space="preserve">
     <value>Annuler les modifications et créer une nouvelle bibliothèque</value>
+  </data>
+  <data name="ToolStripLabelFilter" xml:space="preserve">
+    <value>Filtrer</value>
+  </data>
+  <data name="ToolStripLabelFilterTT" xml:space="preserve">
+    <value>Filtrer la bibliothèque. Les mots de recherche multiples sont séparés par des virgules. Les éléments considérés des créatures sont
+Nom
+Propriétaire
+Tribu
+Remarque
+Ark id dans le jeu
+Serveur
+Tags</value>
+  </data>
+  <data name="ClickDisplayFile" xml:space="preserve">
+    <value>Cliquer pour afficher le fichier dans l'explorateur</value>
+  </data>
+  <data name="ImportingSavegame" xml:space="preserve">
+    <value>Importation d'une sauvegarde</value>
   </data>
 </root>
