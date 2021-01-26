@@ -90,6 +90,7 @@ checkForUpdatedStatsToolStripMenuItem	Check for Updates
 clear  Clear
 clearColors  clear colors
 clearColorsFilters  Clear Color Filters
+ClickDisplayFile  Click to show file in explorer
 Club	Club
 cnBPIncludeCooldowneds	Include Creatures with Cooldown
 Collection changed discard and load?  Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes and load the file without saving first?
@@ -176,6 +177,7 @@ importExportedCreaturesToolStripMenuItem	Import exported Creatures
 importingFromARKToolsToolStripMenuItem	Importing from ARK-Tools
 importingFromSavegameEmptyToolStripMenuItem	At first configure "Import Savegame"
 importingFromSavegameToolStripMenuItem	Importing from savegame
+ImportingSavegame  Importing savegame
 importValuesFromClipboardToolStripMenuItem	Import Values from Clipboard
 imprintingBonus	Imprinting Bonus
 incubation  incubation
@@ -370,6 +372,15 @@ toolStripButtonDeleteTempCreatureTT	Delete currently selected data of the tempor
 toolStripButtonRemoveNote	Remove Note
 toolStripButtonSaveCreatureValuesTemp	Save values
 toolStripButtonSaveCreatureValuesTempTT	Save entered values until extraction-issue is resolved. This creature cannot be used in other parts of this application until it is properly extracted.
+ToolStripLabelFilter  Filter
+ToolStripLabelFilterTT  "Filters the library. Multiple search words are separated by commas. Considered are the creature's
+Name
+Owner
+Tribe
+Note
+Ark id in game
+Server
+Tags"
 Top	Top
 topLevel  top level
 topPercentage	Tp%
