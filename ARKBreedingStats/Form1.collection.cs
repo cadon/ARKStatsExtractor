@@ -637,7 +637,7 @@ namespace ARKBreedingStats
             Clipboard.SetFileDropList(new StringCollection { tempZipFilePath });
 
             // display info that debug file is in clipboard
-            SetMessageLabelText("File with the current library and the values in the extractor has been copied to the clipboard. You can add this file to an issue report.", MessageBoxIcon.Information, tempZipFilePath);
+            SetMessageLabelText("A File with the current library and the values in the extractor has been created and copied to the clipboard. You can paste this file to a folder to add it to an issue report.", MessageBoxIcon.Information, tempZipFilePath);
         }
 
         private bool OpenZippedLibrary(string filePath)
