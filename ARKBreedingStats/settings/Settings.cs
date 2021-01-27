@@ -141,7 +141,7 @@ namespace ARKBreedingStats.settings
             // localizations / translations
             // for a new translation
             // * a file local/strings.[languageCode].resx needs to exist.
-            // * that file needs to be added to the installer files, for that edit the file setup.iss and setup-debug.iss in the repository base folder.
+            // * the compiler created dll-file needs to be added to the installer files, for that edit the file setup.iss and setup-debug.iss in the repository base folder.
             // * the entry in the next dictionary needs to be added
             _languages = new Dictionary<string, string>
             {
@@ -151,7 +151,8 @@ namespace ARKBreedingStats.settings
                 { "Español", "es"},
                 { "Français", "fr"},
                 { "Italiano", "it"},
-                { "中文", "zh"},
+                { "русский", "ru"},
+                { "中文", "zh"}
             };
             foreach (string l in _languages.Keys)
                 cbbLanguage.Items.Add(l);

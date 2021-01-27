@@ -113,6 +113,7 @@ Translations:
 * Italian by Zaffira and Spit-Biago
 * German by cadon
 * Spanish by KRIPT4
-* Chinese by MicheaBoab";
+* Chinese by MicheaBoab
+* Russian by SoulSuspect";
     }
 }

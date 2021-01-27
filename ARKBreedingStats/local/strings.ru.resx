@@ -1,0 +1,1200 @@
+﻿<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="aboutToolStripMenuItem" xml:space="preserve">
+    <value>Обо мне…</value>
+  </data>
+  <data name="added" xml:space="preserve">
+    <value>Добавлено</value>
+  </data>
+  <data name="ApproxOneNarcoberryEvery" xml:space="preserve">
+    <value>Приблизительно один наркобери на каждые</value>
+  </data>
+  <data name="Body" xml:space="preserve">
+    <value>Тела</value>
+  </data>
+  <data name="BonusLevel" xml:space="preserve">
+    <value>Бонусный уровень</value>
+  </data>
+  <data name="Bow" xml:space="preserve">
+    <value>Лук</value>
+  </data>
+  <data name="bred" xml:space="preserve">
+    <value>Выращенный</value>
+  </data>
+  <data name="BreedingPlanHelpToolStripMenuItem" xml:space="preserve">
+    <value>План разведения…</value>
+  </data>
+  <data name="breedingValue" xml:space="preserve">
+    <value>Значение при рождении</value>
+  </data>
+  <data name="btAdd2Library" xml:space="preserve">
+    <value>Добавить в библиотеку</value>
+  </data>
+  <data name="btAddWakeUpTimer" xml:space="preserve">
+    <value>добавить таймер пробуждения</value>
+  </data>
+  <data name="btClearColorsTT" xml:space="preserve">
+    <value>Щелкните, чтобы очистить все цветовые области.</value>
+  </data>
+  <data name="btExtractLevels" xml:space="preserve">
+    <value>Распределение извлеченных уровней</value>
+  </data>
+  <data name="btImportLastExported" xml:space="preserve">
+    <value>Последний экспорт</value>
+  </data>
+  <data name="btImportLastExportedTT" xml:space="preserve">
+    <value>Импортируйте файл существа, который был экспортирован последним (в игре с функцией "Экспорт данных"</value>
+  </data>
+  <data name="btnAddStarvingTimer" xml:space="preserve">
+    <value>добавить Таймер Голодания</value>
+  </data>
+  <data name="btnGenerateUniqueNameTT" xml:space="preserve">
+    <value>Создать автоматическое имя
+Щелкните правой кнопкой мыши, чтобы отредактировать шаблон.</value>
+  </data>
+  <data name="btReadValuesFromArk" xml:space="preserve">
+    <value>Читать значения из окна ARK</value>
+  </data>
+  <data name="btReadValuesFromArkTT" xml:space="preserve">
+    <value>Выполните OCR в открытом инвентаре существа в игре.
+Чтобы использовать эту функцию, вы должны включить OCR в настройках и загрузить файл ocr-config, созданный для вашего разрешения экрана, на вкладке OCR.</value>
+  </data>
+  <data name="btSaveChanges" xml:space="preserve">
+    <value>Сохранить изменения</value>
+  </data>
+  <data name="C0" xml:space="preserve">
+    <value>C0</value>
+  </data>
+  <data name="C1" xml:space="preserve">
+    <value>C1</value>
+  </data>
+  <data name="C2" xml:space="preserve">
+    <value>C2</value>
+  </data>
+  <data name="C3" xml:space="preserve">
+    <value>C3</value>
+  </data>
+  <data name="C4" xml:space="preserve">
+    <value>C4</value>
+  </data>
+  <data name="C5" xml:space="preserve">
+    <value>C5</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Отменить</value>
+  </data>
+  <data name="cbExactlyImprinting" xml:space="preserve">
+    <value>Точно, не корректируйте</value>
+  </data>
+  <data name="cbExactlyImprintingTT" xml:space="preserve">
+    <value>Проверьте это, если у вас ровно 100% привязанности. Обычно включение этого параметра не требуется и предотвращает любое извлечение.</value>
+  </data>
+  <data name="cbGuessSpecies" xml:space="preserve">
+    <value>Угадай виды</value>
+  </data>
+  <data name="cbGuessSpeciesTT" xml:space="preserve">
+    <value>Если этот флажок установлен, инструмент попытается угадать вид после считывания значений из ARK с помощью OCR.
+Если инструмент распознает название вида, он его примет, в противном случае он проверит, соответствуют ли значения характеристик определенному виду.
+
+Снимите этот флажок, если инструмент неоднократно выбирает неправильный вид после OCR (тогда вам придется выбирать его вручную).</value>
+  </data>
+  <data name="cbQuickWildCheck" xml:space="preserve">
+    <value>Быстрая проверка дикого существа</value>
+  </data>
+  <data name="cbQuickWildCheckTT" xml:space="preserve">
+    <value>Отметьте это, если вы просто хотите быстро проверить уровни дикого (неприрученного) существа.
+Затем уровни отображаются без процесса извлечения (и без проверки).</value>
+  </data>
+  <data name="cbToggleOverlay" xml:space="preserve">
+    <value>Оверлей</value>
+  </data>
+  <data name="Charge Capacity_Abb" xml:space="preserve">
+    <value>Емк</value>
+  </data>
+  <data name="Chart" xml:space="preserve">
+    <value>Диаграмма</value>
+  </data>
+  <data name="Charge Capacity" xml:space="preserve">
+    <value>Емкость заряда</value>
+  </data>
+  <data name="checkForUpdatedStatsToolStripMenuItem" xml:space="preserve">
+    <value>Проверить наличие обновлений</value>
+  </data>
+  <data name="Charge Emission Range" xml:space="preserve">
+    <value>Диапазон выбросов заряда</value>
+  </data>
+  <data name="Charge Regen" xml:space="preserve">
+    <value>Регенерация заряда</value>
+  </data>
+  <data name="Club" xml:space="preserve">
+    <value>Дубинка</value>
+  </data>
+  <data name="Colors" xml:space="preserve">
+    <value>Цвета</value>
+  </data>
+  <data name="cooldown" xml:space="preserve">
+    <value>Перезарядка</value>
+  </data>
+  <data name="cooldownGrowing" xml:space="preserve">
+    <value>Перезарядка/Выращивание</value>
+  </data>
+  <data name="copyCreatureToolStripMenuItem" xml:space="preserve">
+    <value>Копировать существо</value>
+  </data>
+  <data name="copyToMultiplierTesterToolStripButton" xml:space="preserve">
+    <value>Копировать в тестер множителей</value>
+  </data>
+  <data name="copyToMultiplierTesterToolStripButtonTT" xml:space="preserve">
+    <value>Все уровни TE и IB из Тестера, а также значения статистики из Экстрактора будут скопированы в Тестер множителя статов.</value>
+  </data>
+  <data name="Charge Emission Range_Abb" xml:space="preserve">
+    <value>Диап</value>
+  </data>
+  <data name="Charge Regen_Abb" xml:space="preserve">
+    <value>Реген</value>
+  </data>
+  <data name="Creature" xml:space="preserve">
+    <value>Существо</value>
+  </data>
+  <data name="Crossbow" xml:space="preserve">
+    <value>Арбалет</value>
+  </data>
+  <data name="currentStatValue" xml:space="preserve">
+    <value>Текущее значение</value>
+  </data>
+  <data name="currentValue" xml:space="preserve">
+    <value>Текущее значение</value>
+  </data>
+  <data name="Damage" xml:space="preserve">
+    <value>Урон</value>
+  </data>
+  <data name="deadCreaturesToolStripMenuItem" xml:space="preserve">
+    <value>Мертвые существа</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>По умолчанию</value>
+  </data>
+  <data name="deleteSelectedToolStripMenuItem" xml:space="preserve">
+    <value>Удалить…</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Детали</value>
+  </data>
+  <data name="Damage_Abb" xml:space="preserve">
+    <value>Урон</value>
+  </data>
+  <data name="domesticatedAt" xml:space="preserve">
+    <value>Приручен в</value>
+  </data>
+  <data name="domLevelExplanation" xml:space="preserve">
+    <value>Уровни, присвоенные этому стату вручную после приручения существа</value>
+  </data>
+  <data name="domLvl" xml:space="preserve">
+    <value>Ручной</value>
+  </data>
+  <data name="editToolStripMenuItem" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="Egg" xml:space="preserve">
+    <value>Яйцо</value>
+  </data>
+  <data name="ElectricProd" xml:space="preserve">
+    <value>Электрошокер</value>
+  </data>
+  <data name="ElectricProdHits" xml:space="preserve">
+    <value>Удары электрошокером</value>
+  </data>
+  <data name="Event" xml:space="preserve">
+    <value>Эвент</value>
+  </data>
+  <data name="exportValuesToClipboardToolStripMenuItem" xml:space="preserve">
+    <value>Экспорт в буфер обмена</value>
+  </data>
+  <data name="extractionIssuesToolStripMenuItem" xml:space="preserve">
+    <value>Проблемы с извлечением…</value>
+  </data>
+  <data name="extractor" xml:space="preserve">
+    <value>Экстрактор</value>
+  </data>
+  <data name="Father" xml:space="preserve">
+    <value>Отец</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>Самка</value>
+  </data>
+  <data name="femalesToolStripMenuItem" xml:space="preserve">
+    <value>Самки</value>
+  </data>
+  <data name="fileToolStripMenuItem" xml:space="preserve">
+    <value>Файл</value>
+  </data>
+  <data name="findDuplicatesToolStripMenuItem" xml:space="preserve">
+    <value>Найти дубликаты…</value>
+  </data>
+  <data name="Food_Abb" xml:space="preserve">
+    <value>Еда</value>
+  </data>
+  <data name="Food" xml:space="preserve">
+    <value>Еда</value>
+  </data>
+  <data name="FoodHasToDropUnits" xml:space="preserve">
+    <value>Еда должна снизиться на {0} единиц.</value>
+  </data>
+  <data name="gbCreatureInfo" xml:space="preserve">
+    <value>Информация о существе</value>
+  </data>
+  <data name="gbKOInfo" xml:space="preserve">
+    <value>Информация об оглушении</value>
+  </data>
+  <data name="gbWeaponDamage" xml:space="preserve">
+    <value>Урон от оружия [%]</value>
+  </data>
+  <data name="Generation_Abb" xml:space="preserve">
+    <value>Поколение</value>
+  </data>
+  <data name="gpPreviewEdit" xml:space="preserve">
+    <value>Предварительный просмотр</value>
+  </data>
+  <data name="gpStarvingTime" xml:space="preserve">
+    <value>Время голодания</value>
+  </data>
+  <data name="gpTorporTime" xml:space="preserve">
+    <value>Время оглушения</value>
+  </data>
+  <data name="grownIn" xml:space="preserve">
+    <value>Вырос в</value>
+  </data>
+  <data name="Head" xml:space="preserve">
+    <value>Голова</value>
+  </data>
+  <data name="Health" xml:space="preserve">
+    <value>Здоровье</value>
+  </data>
+  <data name="helpToolStripMenuItem" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="Health_Abb" xml:space="preserve">
+    <value>Здор</value>
+  </data>
+  <data name="ImmobilizedBy" xml:space="preserve">
+    <value>Обездвижен</value>
+  </data>
+  <data name="importCreatedJsonfileToolStripMenuItem" xml:space="preserve">
+    <value>Импортировать созданный json-файл…</value>
+  </data>
+  <data name="importExportedCreaturesToolStripMenuItem" xml:space="preserve">
+    <value>Импорт экспортированных существ</value>
+  </data>
+  <data name="importingFromARKToolsToolStripMenuItem" xml:space="preserve">
+    <value>Импорт из ARK-Tools</value>
+  </data>
+  <data name="importValuesFromClipboardToolStripMenuItem" xml:space="preserve">
+    <value>Импортировать значения из буфера обмена</value>
+  </data>
+  <data name="imprintingBonus" xml:space="preserve">
+    <value>Бонус за привязанность</value>
+  </data>
+  <data name="issueMaxWildLevelTooLow" xml:space="preserve">
+    <value>Извлечение потенциально возможно, но кажется, что максимальный дикий уровень установлен слишком низким для правильного извлечения. Проверьте, правильно ли вы выставили значение в настройках.
+Текущее значение - {0}, и похоже, что у этого существа более высокий дикий уровень, чем этот.
+
+Информацию о других причинах сбоя извлечения смотрите в списке справа после закрытия этого сообщения.</value>
+  </data>
+  <data name="lbCurrentTorpor" xml:space="preserve">
+    <value>Текущее оглушение</value>
+  </data>
+  <data name="lbImprintedCountTT" xml:space="preserve">
+    <value>Количество уделений внимания, даваемых для получения этого бонуса за импринтинг.
+Щелкните влево, чтобы установить ближайшее допустимое целое число.
+Щелкните правой кнопкой мыши, чтобы установить привязанность на значение, чтобы для оглушения уровни в тестере и значение в экстракторе совпадали.</value>
+  </data>
+  <data name="lbImprintingCuddleCountExtractorTT" xml:space="preserve">
+    <value>Количество уделений внимания, даваемых для получения этого бонуса за привязанность.</value>
+  </data>
+  <data name="lbListeningTT" xml:space="preserve">
+    <value>красный: прослушивание, серый: отключено, зеленый: распознано, оранжевый: не распознано
+Скажите «[вид] [уровень]», например «Рекс 30 уровня» или «Бронтозавр 50»
+получить информацию о приручении в оверлее</value>
+  </data>
+  <data name="lbMax" xml:space="preserve">
+    <value>Максимум</value>
+  </data>
+  <data name="lbNameTT" xml:space="preserve">
+    <value>Щелкните, чтобы скопировать имя в буфер обмена, например для вставки в игру.</value>
+  </data>
+  <data name="lbNotYetTamed" xml:space="preserve">
+    <value>*Существо еще не приручено. После приручения оно может получить лучшие значения.</value>
+  </data>
+  <data name="lbOwnerTT" xml:space="preserve">
+    <value>Щелкните, чтобы переключить, если OCR может изменить поле владельца.
+Включите его, если OCR неправильно распознает имя владельца и вы хотите добавить несколько существ с одним владельцем.</value>
+  </data>
+  <data name="lbPedigreeEmpty" xml:space="preserve">
+    <value>Выберите существо в Библиотеке, чтобы увидеть здесь его родословную.</value>
+  </data>
+  <data name="lbShouldBe" xml:space="preserve">
+    <value>Должно быть</value>
+  </data>
+  <data name="lbSum" xml:space="preserve">
+    <value>Сумма</value>
+  </data>
+  <data name="lbSumDomSBTT" xml:space="preserve">
+    <value>Это число, которому должна быть равна сумма всех ручных уровней.</value>
+  </data>
+  <data name="lbSumDomTT" xml:space="preserve">
+    <value>Это сумма всех ручных уровней этого существа, она должна точно совпадать с числом ниже.
+Если он не совпадает, нажмите на желтую статистику и выберите другое возможное распределение уровней.</value>
+  </data>
+  <data name="lbSumWildTT" xml:space="preserve">
+    <value>Это индикатор того, действительна ли сумма диких уровней.
+Если отображается число со знаком плюс, сумма слишком велика, и вам нужно выбрать другой вариант из списков желтых характеристик.</value>
+  </data>
+  <data name="lbTamingTime" xml:space="preserve">
+    <value>время приручения</value>
+  </data>
+  <data name="lbTestingInfo" xml:space="preserve">
+    <value>Предварительный просмотр или изменение уровней существа.</value>
+  </data>
+  <data name="lbTimeUntilWakingUp" xml:space="preserve">
+    <value>Время до пробуждения: {0}</value>
+  </data>
+  <data name="lbTribeTT" xml:space="preserve">
+    <value>Щелкните для переключения, если OCR может изменять поле племени.
+Включите его, если OCR неправильно распознает название племени и вы хотите добавить несколько существ из одного племени.</value>
+  </data>
+  <data name="lbUsed" xml:space="preserve">
+    <value>используемый</value>
+  </data>
+  <data name="Level" xml:space="preserve">
+    <value>Уровень</value>
+  </data>
+  <data name="library" xml:space="preserve">
+    <value>Библиотека</value>
+  </data>
+  <data name="modValueManagerToolStripMenuItem" xml:space="preserve">
+    <value>Диспетчер значений мода…</value>
+  </data>
+  <data name="loadAndAddToolStripMenuItem" xml:space="preserve">
+    <value>Загрузить и до&amp;бавить ...</value>
+  </data>
+  <data name="loadToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Загрузить ...</value>
+  </data>
+  <data name="Longneck" xml:space="preserve">
+    <value>Длинная шея</value>
+  </data>
+  <data name="Level_Abb" xml:space="preserve">
+    <value>Lvl</value>
+  </data>
+  <data name="LevelWild_Abb" xml:space="preserve">
+    <value>Lvl дикого</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Самец</value>
+  </data>
+  <data name="malesToolStripMenuItem" xml:space="preserve">
+    <value>Самцы</value>
+  </data>
+  <data name="Maturation" xml:space="preserve">
+    <value>Созревание</value>
+  </data>
+  <data name="Mother" xml:space="preserve">
+    <value>Мать</value>
+  </data>
+  <data name="Mutations_Abb" xml:space="preserve">
+    <value>Му</value>
+  </data>
+  <data name="multiSetterToolStripMenuItem" xml:space="preserve">
+    <value>Мультисеттер…</value>
+  </data>
+  <data name="mutatedCreaturesToolStripMenuItem" xml:space="preserve">
+    <value>Мутировавшие существа</value>
+  </data>
+  <data name="mutationCounter" xml:space="preserve">
+    <value>Счетчик мутаций</value>
+  </data>
+  <data name="Mutations" xml:space="preserve">
+    <value>Мутации</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Narcotics" xml:space="preserve">
+    <value>Наркотики</value>
+  </data>
+  <data name="Neck" xml:space="preserve">
+    <value>Шея</value>
+  </data>
+  <data name="Neutered" xml:space="preserve">
+    <value>Кастрированный</value>
+  </data>
+  <data name="neuteredCreaturesToolStripMenuItem" xml:space="preserve">
+    <value>Стерилизованные существа</value>
+  </data>
+  <data name="newToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Новая библиотека</value>
+  </data>
+  <data name="noTamingData" xml:space="preserve">
+    <value>нет данных о приручении</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Запись</value>
+  </data>
+  <data name="notEnoughFoodToTame" xml:space="preserve">
+    <value>Недостаточно еды, чтобы приручить существо!</value>
+  </data>
+  <data name="notYetTamed" xml:space="preserve">
+    <value>еще не приручен</value>
+  </data>
+  <data name="obeliskCreaturesToolStripMenuItem" xml:space="preserve">
+    <value>Обелиск Существ</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>ОК</value>
+  </data>
+  <data name="onlinehelpToolStripMenuItem" xml:space="preserve">
+    <value>Онлайн-руководство…</value>
+  </data>
+  <data name="OrOneBioToxinEvery" xml:space="preserve">
+    <value>или один биотоксин каждые</value>
+  </data>
+  <data name="OrOneNarcoticEvery" xml:space="preserve">
+    <value>или один наркотик каждые</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Владелец</value>
+  </data>
+  <data name="Oxygen_Abb" xml:space="preserve">
+    <value>Кисл</value>
+  </data>
+  <data name="Oxygen" xml:space="preserve">
+    <value>Кислород</value>
+  </data>
+  <data name="pasteCreatureToolStripMenuItem" xml:space="preserve">
+    <value>Вставить существо</value>
+  </data>
+  <data name="pedigree" xml:space="preserve">
+    <value>Родословная</value>
+  </data>
+  <data name="quitToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Выйти</value>
+  </data>
+  <data name="runDefaultExtractionAndImportFileToolStripMenuItem" xml:space="preserve">
+    <value>Запустить извлечение по умолчанию и импортировать файл</value>
+  </data>
+  <data name="runDefaultExtractionToolStripMenuItem" xml:space="preserve">
+    <value>Запустить извлечение по умолчанию</value>
+  </data>
+  <data name="saveAsToolStripMenuItem" xml:space="preserve">
+    <value>Сохранить &amp;как...</value>
+  </data>
+  <data name="saveToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Сохранить</value>
+  </data>
+  <data name="Server" xml:space="preserve">
+    <value>Сервер</value>
+  </data>
+  <data name="setStatusToolStripMenuItem" xml:space="preserve">
+    <value>Установить статус</value>
+  </data>
+  <data name="openSettingsToolStripMenuItem" xml:space="preserve">
+    <value>На&amp;стройки…</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>Пол</value>
+  </data>
+  <data name="ShockingTranqDarts" xml:space="preserve">
+    <value>Шокирующие транквилизирующие дротики</value>
+  </data>
+  <data name="Slingshot" xml:space="preserve">
+    <value>Рогатка</value>
+  </data>
+  <data name="SlingshotHits" xml:space="preserve">
+    <value>Удары рогаткой</value>
+  </data>
+  <data name="Speed_Abb" xml:space="preserve">
+    <value>Скор</value>
+  </data>
+  <data name="Spayed" xml:space="preserve">
+    <value>Стерилизованный</value>
+  </data>
+  <data name="Species" xml:space="preserve">
+    <value>Виды</value>
+  </data>
+  <data name="Speed" xml:space="preserve">
+    <value>Скорость</value>
+  </data>
+  <data name="Stamina_Abb" xml:space="preserve">
+    <value>Вын</value>
+  </data>
+  <data name="Stamina" xml:space="preserve">
+    <value>Выносливость</value>
+  </data>
+  <data name="statChart" xml:space="preserve">
+    <value>Диаграмма статов</value>
+  </data>
+  <data name="Stats" xml:space="preserve">
+    <value>Статы</value>
+  </data>
+  <data name="statTesting" xml:space="preserve">
+    <value>Тестирование статов</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Tail" xml:space="preserve">
+    <value>Хвост</value>
+  </data>
+  <data name="tamed" xml:space="preserve">
+    <value>Прирученный</value>
+  </data>
+  <data name="Taming" xml:space="preserve">
+    <value>Приручение</value>
+  </data>
+  <data name="tamingCalculator" xml:space="preserve">
+    <value>Калькулятор приручения</value>
+  </data>
+  <data name="tamingEffectiveness" xml:space="preserve">
+    <value>Эффективность приручения</value>
+  </data>
+  <data name="tamingInfo" xml:space="preserve">
+    <value>Информация о приручении</value>
+  </data>
+  <data name="TamingEffectiveness_Abb" xml:space="preserve">
+    <value>Эффект</value>
+  </data>
+  <data name="timerFeedAll" xml:space="preserve">
+    <value>Приручение-кормление всех для</value>
+  </data>
+  <data name="timerWakeupOf" xml:space="preserve">
+    <value>Пробуждение</value>
+  </data>
+  <data name="TimeUntilFeedingAllFood" xml:space="preserve">
+    <value>Время, пока вы не сможете скормить всю необходимую еду за один раз</value>
+  </data>
+  <data name="timeUntilStarving" xml:space="preserve">
+    <value>Время до голода:</value>
+  </data>
+  <data name="TimeUntilTorporDepleted" xml:space="preserve">
+    <value>Время до истощения максимального оглушения</value>
+  </data>
+  <data name="Torpidity_Abb" xml:space="preserve">
+    <value>Оглуш</value>
+  </data>
+  <data name="toolStripButtonAddNote" xml:space="preserve">
+    <value>Добавить заметку</value>
+  </data>
+  <data name="toolStripButtonClear" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
+  <data name="toolStripButtonCopy2Extractor" xml:space="preserve">
+    <value>Копировать в экстрактор</value>
+  </data>
+  <data name="toolStripButtonCopy2Tester" xml:space="preserve">
+    <value>Копировать в тестер</value>
+  </data>
+  <data name="toolStripButtonDeleteExpiredIncubationTimers" xml:space="preserve">
+    <value>Удалить всех с истекшим сроком</value>
+  </data>
+  <data name="toolStripButtonDeleteTempCreature" xml:space="preserve">
+    <value>Удалить временное существо</value>
+  </data>
+  <data name="toolStripButtonDeleteTempCreatureTT" xml:space="preserve">
+    <value>Удалить текущие выбранные данные временного существа</value>
+  </data>
+  <data name="toolStripButtonRemoveNote" xml:space="preserve">
+    <value>Удалить заметку</value>
+  </data>
+  <data name="toolStripButtonSaveCreatureValuesTemp" xml:space="preserve">
+    <value>Сохранить значения</value>
+  </data>
+  <data name="toolStripButtonSaveCreatureValuesTempTT" xml:space="preserve">
+    <value>Сохраните введенные значения, пока проблема с извлечением не будет решена. Это существо нельзя использовать в других частях этого приложения, пока оно не будет должным образом извлечено.</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Топ</value>
+  </data>
+  <data name="topPercentage" xml:space="preserve">
+    <value>Top%</value>
+  </data>
+  <data name="topPercentileLevel" xml:space="preserve">
+    <value>Этот уровень входит в топ {0}% из того, что вы можете найти.</value>
+  </data>
+  <data name="Torpidity" xml:space="preserve">
+    <value>Оглушение</value>
+  </data>
+  <data name="TorporDepletion" xml:space="preserve">
+    <value>Исчерпывание оглушения</value>
+  </data>
+  <data name="TranqArrowsBow" xml:space="preserve">
+    <value>Транквилизирующие стрелы (Лук)</value>
+  </data>
+  <data name="TranqArrowsCrossBow" xml:space="preserve">
+    <value>Транквилизирующие стрелы (Арбалет)</value>
+  </data>
+  <data name="TranqDarts" xml:space="preserve">
+    <value>Транквилизирующие дротики</value>
+  </data>
+  <data name="Tribe" xml:space="preserve">
+    <value>Племя</value>
+  </data>
+  <data name="tsBtAddAsExtractionTest" xml:space="preserve">
+    <value>Добавить как тест</value>
+  </data>
+  <data name="unavailableCreaturesToolStripMenuItem" xml:space="preserve">
+    <value>Недоступные существа</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Неизвестно</value>
+  </data>
+  <data name="viewToolStripMenuItem" xml:space="preserve">
+    <value>Вид</value>
+  </data>
+  <data name="waitingAfterFirstFeeding" xml:space="preserve">
+    <value>Время ожидания после первого кормления: ~ {0}</value>
+  </data>
+  <data name="WarningMoreStarvingThanFood" xml:space="preserve">
+    <value>Осторожно: этому существу может не хватить еды, поэтому вам, возможно, придется накормить его до этого времени, чтобы оно не умерло от голода (проверьте его инвентарь)!</value>
+  </data>
+  <data name="Weight_Abb" xml:space="preserve">
+    <value>Вес</value>
+  </data>
+  <data name="Weight" xml:space="preserve">
+    <value>Вес</value>
+  </data>
+  <data name="wild" xml:space="preserve">
+    <value>Дикий</value>
+  </data>
+  <data name="wildLevelExplanation" xml:space="preserve">
+    <value>Дикие уровни, которые рассматриваются для разведения</value>
+  </data>
+  <data name="wildLvl" xml:space="preserve">
+    <value>Дикий</value>
+  </data>
+  <data name="WithXFoodTamingTakesTime" xml:space="preserve">
+    <value>С {0} × {1} приручение занимает {2}</value>
+  </data>
+  <data name="WoodenClubHits" xml:space="preserve">
+    <value>Удары деревянной дубинкой</value>
+  </data>
+  <data name="AlreadyCreatureWithTopStats" xml:space="preserve">
+    <value>В вашей библиотеке уже есть существо, у которого есть все доступные топ-характеристики с текущими установленными фильтрами ({0} {1}).
+Выбранный в настоящее время консервативный режим разведения может показывать некоторые предложения, которые могут показаться неоптимальными.
+Измените режим разведения на «Лучшее следующего поколения» для получения лучших предложений.</value>
+  </data>
+  <data name="Baby" xml:space="preserve">
+    <value>Детеныш</value>
+  </data>
+  <data name="BestPossible" xml:space="preserve">
+    <value>Наилучшее возможное</value>
+  </data>
+  <data name="BPorMutations" xml:space="preserve">
+    <value>или мутации</value>
+  </data>
+  <data name="BPsomePairingsAreFilteredOutMutations" xml:space="preserve">
+    <value>Некоторые пары могут быть отфильтрованы по их мутациям.</value>
+  </data>
+  <data name="BPsomeCreaturesAreFilteredOutTags" xml:space="preserve">
+    <value>Некоторые существа отфильтровываются по их тегам.</value>
+  </data>
+  <data name="BPTopStatsShownMightNotTotalTopStats" xml:space="preserve">
+    <value>Показанная здесь статистика может быть не самой высокой статистикой для всей вашей библиотеки.</value>
+  </data>
+  <data name="BreedingNotPossible" xml:space="preserve">
+    <value>Разведение невозможно</value>
+  </data>
+  <data name="BreedingPlan" xml:space="preserve">
+    <value>План разведения</value>
+  </data>
+  <data name="btBPApplyNewWeights" xml:space="preserve">
+    <value>Применить новые веса</value>
+  </data>
+  <data name="btBPJustMated" xml:space="preserve">
+    <value>Эти родители только что спарились</value>
+  </data>
+  <data name="btBPJustMatedTT" xml:space="preserve">
+    <value>Щелкните, чтобы создать инкубационную запись на вкладке «Рост».</value>
+  </data>
+  <data name="cbBPTagExcludeDefaultTT" xml:space="preserve">
+    <value>Проверьте, все ли существа должны быть исключены и должны быть включены только в том случае, если на их теге есть знак включения.
+Если этот флажок снят, все существа будут включены по умолчанию и исключены только в том случае, если один из их тегов имеет отметку исключения, а ни один из них не имеет отметки включения.</value>
+  </data>
+  <data name="cbBPIncludeCooldowneds" xml:space="preserve">
+    <value>Включить существ с перезарядкой</value>
+  </data>
+  <data name="FinishedAt" xml:space="preserve">
+    <value>Завершено в</value>
+  </data>
+  <data name="gbBPBreedingMode" xml:space="preserve">
+    <value>Режим разведения</value>
+  </data>
+  <data name="gbBPOffspring" xml:space="preserve">
+    <value>Потомство</value>
+  </data>
+  <data name="lbBPBreedingScore" xml:space="preserve">
+    <value>Оценка разведения</value>
+  </data>
+  <data name="lbBPBreedingScoreTT" xml:space="preserve">
+    <value>Счетчик разведения не сопоставим с баллом разведения другого режима разведения.
+Номера в разных режимах генерируются несовместимыми способами.</value>
+  </data>
+  <data name="lbBPBreedingTimes" xml:space="preserve">
+    <value>Время размножения</value>
+  </data>
+  <data name="naYet" xml:space="preserve">
+    <value>n/a пока</value>
+  </data>
+  <data name="NoPossiblePairingForSpeciesFound" xml:space="preserve">
+    <value>Не найдено возможных пар для {0}. Убедитесь, что в вашей библиотеке есть хотя бы один мужчина и женщина, и что вы не исключили все возможные существа с помощью селектора тегов.</value>
+  </data>
+  <data name="notAvailable" xml:space="preserve">
+    <value>недоступен</value>
+  </data>
+  <data name="nudBPMutationLimitTT" xml:space="preserve">
+    <value>Рассматривайте только существа с максимальным количеством мутаций.
+Установите -1 для любого количества мутаций.</value>
+  </data>
+  <data name="onlyPairingsWith" xml:space="preserve">
+    <value>только пары с "{0}"</value>
+  </data>
+  <data name="Player" xml:space="preserve">
+    <value>Игрок</value>
+  </data>
+  <data name="ProbabilityForBest" xml:space="preserve">
+    <value>Вероятность этого наилучшего возможного исхода</value>
+  </data>
+  <data name="Raising" xml:space="preserve">
+    <value>Выращивание</value>
+  </data>
+  <data name="rbBPHighStats" xml:space="preserve">
+    <value>Лучшее следующее поколение</value>
+  </data>
+  <data name="rbBPHighStatsTT" xml:space="preserve">
+    <value>Проверьте лучшие результаты следующего поколения.
+Шанс получить в целом хорошее существо больше.
+Проверьте, не важно ли иметь потомство с лучшими статами.</value>
+  </data>
+  <data name="rbBPTopStats" xml:space="preserve">
+    <value>Комбинируйте лучшие характеристики, удачи</value>
+  </data>
+  <data name="rbBPTopStatsCn" xml:space="preserve">
+    <value>Устойчивая комбинация лучших показателей</value>
+  </data>
+  <data name="rbBPTopStatsCnTT" xml:space="preserve">
+    <value>Устойчивая комбинация лучших показателей
+Следите за лучшими долгосрочными результатами и хотите ли вы обезопасить себя.
+Этот режим позволит стабильно и уверенно добраться до самого лучшего потомства.
+Некоторые потомки могут быть хуже, чем в режиме с высокими характеристиками, но это тот режим, в который вы идете, если хотите иметь это идеальное существо в нескольких поколениях.</value>
+  </data>
+  <data name="rbBPTopStatsTT" xml:space="preserve">
+    <value>Комбинируйте лучшие характеристики, удачи
+Проверьте, насколько хороши долгосрочные результаты, и если вам повезет. Если повезет, получить идеальное существо может быть быстрее, чем в консервативном режиме с максимальным показателем.
+Некоторые потомки могут быть хуже, чем в режиме высокой статистики, но у вас также есть шанс на лучшее потомство.</value>
+  </data>
+  <data name="SelectSpeciesBreedingPlanner" xml:space="preserve">
+    <value>Выберите вид, чтобы увидеть предложения для выбранного режима разведения.</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Время</value>
+  </data>
+  <data name="TimeBetweenMating" xml:space="preserve">
+    <value>Время между спариваниями</value>
+  </data>
+  <data name="TotalTime" xml:space="preserve">
+    <value>Общее время</value>
+  </data>
+  <data name="WorstPossible" xml:space="preserve">
+    <value>Наихудший возможный</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Доступный</value>
+  </data>
+  <data name="HarpoonLauncher" xml:space="preserve">
+    <value>Гарпунное ружье</value>
+  </data>
+  <data name="TranqSpearBolts" xml:space="preserve">
+    <value>Транквилизирующие гарпуны</value>
+  </data>
+  <data name="importingFromSavegameToolStripMenuItem" xml:space="preserve">
+    <value>Импорт из сохраненной игры</value>
+  </data>
+  <data name="importingFromSavegameEmptyToolStripMenuItem" xml:space="preserve">
+    <value>Сначала настройте «Импортировать сохранение игры»</value>
+  </data>
+  <data name="until" xml:space="preserve">
+    <value>до того как</value>
+  </data>
+  <data name="lbImprintingFailInfo" xml:space="preserve">
+    <value>Если существо получило привязанность, извлечение может завершиться неудачей, потому что игра иногда «забывает» увеличить некоторые значения характеристик во время процесса импринтинга. Обычно это срабатывает после того, как вы помещаете существо в криопод и из него, загружаете и загружаете его в обелиск / терминал, выходите из зоны рендеринга или ждете перезапуска сервера.</value>
+  </data>
+  <data name="Crafting Speed" xml:space="preserve">
+    <value>Скорость изготовления</value>
+  </data>
+  <data name="Crafting Speed_Abb" xml:space="preserve">
+    <value>Крафт</value>
+  </data>
+  <data name="Fortitude" xml:space="preserve">
+    <value>Стойкость</value>
+  </data>
+  <data name="Fortitude_Abb" xml:space="preserve">
+    <value>Стойкость</value>
+  </data>
+  <data name="Temperature" xml:space="preserve">
+    <value>Температура</value>
+  </data>
+  <data name="Temperature_Abb" xml:space="preserve">
+    <value>Темпер</value>
+  </data>
+  <data name="Water" xml:space="preserve">
+    <value>Вода</value>
+  </data>
+  <data name="Water_Abb" xml:space="preserve">
+    <value>Вода</value>
+  </data>
+  <data name="btUpdateLibraryCreature" xml:space="preserve">
+    <value>Обновить существо в библиотеке</value>
+  </data>
+  <data name="CurrentCreature" xml:space="preserve">
+    <value>Текущее существо</value>
+  </data>
+  <data name="settingsToolStripMenuItem" xml:space="preserve">
+    <value>На&amp;стройки</value>
+  </data>
+  <data name="OrOneAscerbicMushroom" xml:space="preserve">
+    <value>или один едкий гриб каждые</value>
+  </data>
+  <data name="speciesNotTameable" xml:space="preserve">
+    <value>Выбранный вид не приручен. Может быть, вы выбрали неприрученный вариант прирученного вида?</value>
+  </data>
+  <data name="cbBPMutationLimitOnlyOnePartner" xml:space="preserve">
+    <value>У одного партнера может быть больше мутаций</value>
+  </data>
+  <data name="cbBPOnlyOneSuggestionForFemales" xml:space="preserve">
+    <value>Единственное лучшее предложение для самок</value>
+  </data>
+  <data name="Descendants" xml:space="preserve">
+    <value>Потомки</value>
+  </data>
+  <data name="ProbabilityForOneMutation" xml:space="preserve">
+    <value>Вероятность одной мутации</value>
+  </data>
+  <data name="matingTime" xml:space="preserve">
+    <value>Время спаривания</value>
+  </data>
+  <data name="addedAt" xml:space="preserve">
+    <value>Добавлено в</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="na" xml:space="preserve">
+    <value>n/a</value>
+  </data>
+  <data name="showOnlyNaturalOccuring" xml:space="preserve">
+    <value>Показывать только естественные цвета</value>
+  </data>
+  <data name="apply" xml:space="preserve">
+    <value>Применить</value>
+  </data>
+  <data name="libraryFilter" xml:space="preserve">
+    <value>Фильтр библиотеки</value>
+  </data>
+  <data name="owners" xml:space="preserve">
+    <value>владельцы</value>
+  </data>
+  <data name="servers" xml:space="preserve">
+    <value>серверы</value>
+  </data>
+  <data name="tags" xml:space="preserve">
+    <value>теги</value>
+  </data>
+  <data name="tribes" xml:space="preserve">
+    <value>племена</value>
+  </data>
+  <data name="useFilterInTopStatCalculation" xml:space="preserve">
+    <value>Использовать фильтр при расчете максимальной статистики</value>
+  </data>
+  <data name="clearColorsFilters" xml:space="preserve">
+    <value>Очистить цветные фильтры</value>
+  </data>
+  <data name="groupLibraryBySpecies" xml:space="preserve">
+    <value>Сгруппировать библиотеку по видам</value>
+  </data>
+  <data name="libraryFilterToolStripMenuItem" xml:space="preserve">
+    <value>Библиотека фильтров…</value>
+  </data>
+  <data name="onlyCreaturesWithThisColor" xml:space="preserve">
+    <value>Только существа этого цвета</value>
+  </data>
+  <data name="ownerFilterFromLibrary" xml:space="preserve">
+    <value>Фильтр владельца из библиотеки</value>
+  </data>
+  <data name="possibleLevelRange" xml:space="preserve">
+    <value>Возможный диапазон уровней: {0} - {1}</value>
+  </data>
+  <data name="serverFilterFromLibrary" xml:space="preserve">
+    <value>Фильтр серверов из библиотеки</value>
+  </data>
+  <data name="tribeFilterFromLibrary" xml:space="preserve">
+    <value>Фильтр племени из библиотеки</value>
+  </data>
+  <data name="clear" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
+  <data name="filterAllNeededInfo" xml:space="preserve">
+    <value>Будут отображаться только существа со всеми этими флагами.</value>
+  </data>
+  <data name="filterByName" xml:space="preserve">
+    <value>Фильтр по имени</value>
+  </data>
+  <data name="filterExcludeInfo" xml:space="preserve">
+    <value>Существа с этим флагом не будут показаны</value>
+  </data>
+  <data name="filterOneNeededInfo" xml:space="preserve">
+    <value>Будут отображаться только существа с одним из этих флагов.</value>
+  </data>
+  <data name="issueCauseTypo" xml:space="preserve">
+    <value>Дважды проверьте, правильно ли введены все значения статистики.</value>
+  </data>
+  <data name="issueCauseWildTamedBred" xml:space="preserve">
+    <value>Убедитесь, что для существа выбрано правильное состояние (дикий, прирученный, разводимый).</value>
+  </data>
+  <data name="issueCauseTamingEffectivenessRange" xml:space="preserve">
+    <value>Диапазон эффективности приручения слишком узкий, увеличьте верхнюю и / или уменьшите нижнюю границу.</value>
+  </data>
+  <data name="issueCauseLockedDomLevel" xml:space="preserve">
+    <value>Снимите отметку со всех кнопок Lock-to-Zero в статах (все замки-символы должны быть зелеными и открытыми).</value>
+  </data>
+  <data name="issueCauseImprintingLocked" xml:space="preserve">
+    <value>Вы заблокировали значение привязанности, установив флажок «Точно, не настраивать», и инструмент не будет его настраивать, это может привести к сбою извлечения.</value>
+  </data>
+  <data name="issueCauseImprintingNotUpdated" xml:space="preserve">
+    <value>Иногда игра не обновляет значение статистики после привязки. Попытайтесь извлечь после того, как существо снова заморозили.</value>
+  </data>
+  <data name="issueCauseImprintingNotPossible" xml:space="preserve">
+    <value>Указанный процент впечатывания невозможен с текущими множителями и может привести к неверным значениям в процессе экстракции.
+Убедитесь, что BabyCuddleIntervallMultiplier и BabyMatureSpeedMultiplier установлены правильно.
+Возможно, им придется установить значение на момент вылупления / рождения существа, даже если они были изменены.</value>
+  </data>
+  <data name="issueCauseSingleplayer" xml:space="preserve">
+    <value>Если вы включили в игре настройки одиночной игры, убедитесь, что соответствующий флажок также установлен в настройках этого приложения.</value>
+  </data>
+  <data name="issueCauseWildLevelSteps" xml:space="preserve">
+    <value>Отрегулируйте или отключите «Учитывать шаги уровня Диких» в настройках.</value>
+  </data>
+  <data name="issueCauseMaxWildLevel" xml:space="preserve">
+    <value>Установлен слишком низкий максимальный уровень диких динозавров, перейдите в настройки и настройте его.</value>
+  </data>
+  <data name="issueCauseStatMultipliers" xml:space="preserve">
+    <value>Множители характеристик в Настройках не соответствуют множителям сервера. Спросите у администратора правильные множители и настройте их в настройках.</value>
+  </data>
+  <data name="issueCauseOutdatedIngameValues" xml:space="preserve">
+    <value>Характеристики существа были недавно изменены, и игра отображает старые значения. Выровняйте статистику, которая должна вызвать пересчет значений.</value>
+  </data>
+  <data name="issueCauseCreatureLevel" xml:space="preserve">
+    <value>Проверьте, правильно ли указан общий уровень существа.
+Если существо разводится, также проверьте, правильно ли установлен BabyImprintingStatScaleMultiplier.</value>
+  </data>
+  <data name="issueCauseArkStatIssue" xml:space="preserve">
+    <value>Известно, что этот вид показывает неправильные значения характеристик в игре, это может помешать успешному извлечению.</value>
+  </data>
+  <data name="BtApplyOTSPreset" xml:space="preserve">
+    <value>Применить предустановку OTS</value>
+  </data>
+  <data name="BtSaveOTSPreset" xml:space="preserve">
+    <value>Сохранить OTS</value>
+  </data>
+  <data name="BtSaveOTSPresetTT" xml:space="preserve">
+    <value>Сохраните владельца, племя и сервер как предустановки.
+Предустановку можно применить, нажав кнопку Применить предустановку.</value>
+  </data>
+  <data name="BtApplyOTSPresetTT" xml:space="preserve">
+    <value>Установите значения для владельца, племени и сервера из сохраненной предустановки</value>
+  </data>
+  <data name="noColor" xml:space="preserve">
+    <value>нет цвета</value>
+  </data>
+  <data name="topLevel" xml:space="preserve">
+    <value>топ уровень</value>
+  </data>
+  <data name="newTopLevel" xml:space="preserve">
+    <value>новый топ уровень</value>
+  </data>
+  <data name="clearColors" xml:space="preserve">
+    <value>очистить цвета</value>
+  </data>
+  <data name="holdCtrlForRandomColors" xml:space="preserve">
+    <value>Удерживайте Ctrl для случайных цветов</value>
+  </data>
+  <data name="BtBeepFailure" xml:space="preserve">
+    <value>импорт не удался</value>
+  </data>
+  <data name="BtBeepSuccess" xml:space="preserve">
+    <value>импорт прошел успешно.</value>
+  </data>
+  <data name="BtBeepTop" xml:space="preserve">
+    <value>Топовые статы</value>
+  </data>
+  <data name="BtBeepNewTop" xml:space="preserve">
+    <value>Новые топовые статы</value>
+  </data>
+  <data name="BtBeepFailureTT" xml:space="preserve">
+    <value>Этот звук воспроизводится, когда автоматический импорт не удался, может потребоваться ручной выбор уровней.</value>
+  </data>
+  <data name="BtBeepSuccessTT" xml:space="preserve">
+    <value>Этот звук воспроизводится при успешном автоматическом импорте.</value>
+  </data>
+  <data name="BtBeepTopTT" xml:space="preserve">
+    <value>Этот звук воспроизводится, когда уровень импортированного существа является наивысшим показателем, то есть равен текущему наивысшему уровню в библиотеке.</value>
+  </data>
+  <data name="BtBeepNewTopTT" xml:space="preserve">
+    <value>Этот звук воспроизводится, когда автоматически импортированное существо имеет более высокий уровень характеристики, чем все другие существа этого вида в библиотеке.</value>
+  </data>
+  <data name="creatureOfFile" xml:space="preserve">
+    <value>Создание файла экспорта</value>
+  </data>
+  <data name="downloadingValuesSuccess" xml:space="preserve">
+    <value>Скачивание и обновление новых статов видов прошло успешно.</value>
+  </data>
+  <data name="updateSuccessTitle" xml:space="preserve">
+    <value>Обновление прошло успешно</value>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="valuesFileLoadingError" xml:space="preserve">
+    <value>Не удалось загрузить файл значений видов, без него приложение не работает. Попробуйте повторно загрузить инструмент.</value>
+  </data>
+  <data name="preTameLevel" xml:space="preserve">
+    <value>Уровень перед приручением</value>
+  </data>
+  <data name="noValidData" xml:space="preserve">
+    <value>Нет достоверных данных</value>
+  </data>
+  <data name="noValidExtractedCreatureToExport" xml:space="preserve">
+    <value>Нет действительного извлеченного существа для экспорта.</value>
+  </data>
+  <data name="noCreatureSelectedInLibrary" xml:space="preserve">
+    <value>В библиотеке, выбранной для копирования в буфер обмена, нет существ.</value>
+  </data>
+  <data name="unknownSpecies" xml:space="preserve">
+    <value>Неизвестный вид</value>
+  </data>
+  <data name="BestPossibleSpeciesLibrary" xml:space="preserve">
+    <value>Наилучший вариант {0} для этой библиотеки</value>
+  </data>
+  <data name="VariantSelector" xml:space="preserve">
+    <value>Переключатель вариантов</value>
+  </data>
+  <data name="VariantSelectorInfo" xml:space="preserve">
+    <value>Виды, содержащие один вариант, который не отмечен, будут скрыты.</value>
+  </data>
+  <data name="BPCancelRestrictionOn" xml:space="preserve">
+    <value>Отменить ограничение на {0}</value>
+  </data>
+  <data name="BtGetExportFolderAutomatically" xml:space="preserve">
+    <value>Установить папку экспорта автоматически</value>
+  </data>
+  <data name="ExportFolderDetectionFailed" xml:space="preserve">
+    <value>Папка экспорта Steam не может быть обнаружена автоматически.</value>
+  </data>
+  <data name="incubation" xml:space="preserve">
+    <value>инкубация</value>
+  </data>
+  <data name="noTimerSelected" xml:space="preserve">
+    <value>таймер не выбран</value>
+  </data>
+  <data name="paused" xml:space="preserve">
+    <value>приостановлено</value>
+  </data>
+  <data name="expired" xml:space="preserve">
+    <value>истекший</value>
+  </data>
+  <data name="mature" xml:space="preserve">
+    <value>зрелый</value>
+  </data>
+  <data name="notABabyAnymore" xml:space="preserve">
+    <value>больше не ребенок</value>
+  </data>
+  <data name="issueCauseModValues" xml:space="preserve">
+    <value>Если существо из мода, вам может потребоваться включить соответствующие значения мода в Настройки - Диспетчер значений мода.</value>
+  </data>
+  <data name="extractionFailedHeader" xml:space="preserve">
+    <value>Извлечение не удалось. Смотрите следующий список возможных причин.</value>
+  </data>
+  <data name="Parents" xml:space="preserve">
+    <value>Родители</value>
+  </data>
+  <data name="SystemLanguage" xml:space="preserve">
+    <value>Язык системы</value>
+  </data>
+  <data name="max wild level" xml:space="preserve">
+    <value>максимальный дикий уровень</value>
+  </data>
+  <data name="Values" xml:space="preserve">
+    <value>Значения</value>
+  </data>
+  <data name="Levels" xml:space="preserve">
+    <value>Уровни</value>
+  </data>
+  <data name="generation" xml:space="preserve">
+    <value>поколение</value>
+  </data>
+  <data name="BestPossibleSpeciesLibraryFiltered" xml:space="preserve">
+    <value>Наилучший вариант {0} для этого фильтра</value>
+  </data>
+  <data name="Discard changes?" xml:space="preserve">
+    <value>Отменить изменения?</value>
+  </data>
+  <data name="Collection changed discard and load?" xml:space="preserve">
+    <value>Ваша Коллекция существ была изменена с момента последнего сохранения. Вы уверены, что хотите отменить изменения и загрузить файл без предварительного сохранения?</value>
+  </data>
+  <data name="Discard changes and load file" xml:space="preserve">
+    <value>Отменить изменения и загрузить новую библиотеку</value>
+  </data>
+  <data name="Discard changes and quit" xml:space="preserve">
+    <value>Отменить изменения и выйти</value>
+  </data>
+  <data name="Cancel quitting" xml:space="preserve">
+    <value>Отменить выход</value>
+  </data>
+  <data name="Collection changed discard and quit?" xml:space="preserve">
+    <value>Ваша Коллекция существ была изменена с момента последнего сохранения. Вы уверены, что хотите отменить изменения и выйти без сохранения?</value>
+  </data>
+  <data name="Collection changed discard and new?" xml:space="preserve">
+    <value>Ваша Коллекция существ была изменена с момента последнего сохранения. Вы уверены, что хотите отменить изменения и создать новую библиотеку без сохранения?</value>
+  </data>
+  <data name="Discard changes and new" xml:space="preserve">
+    <value>Отменить изменения и создать новую библиотеку</value>
+  </data>
+  <data name="ToolStripLabelFilter" xml:space="preserve">
+    <value>Фильтр</value>
+  </data>
+  <data name="ToolStripLabelFilterTT" xml:space="preserve">
+    <value>Фильтры в библиотеке. Несколько слов для поиска разделяются запятыми. Считается, что существа имеют
+Имя
+Владелец
+Племя
+Запись
+Ark id в игре
+Сервер
+Теги</value>
+  </data>
+  <data name="ClickDisplayFile" xml:space="preserve">
+    <value>Нажмите, чтобы показать файл в проводнике</value>
+  </data>
+  <data name="ImportingSavegame" xml:space="preserve">
+    <value>Импорт сохраненной игры</value>
+  </data>
+</root>
