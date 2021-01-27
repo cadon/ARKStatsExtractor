@@ -55,6 +55,7 @@
             this.speciesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ownerNameToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.importStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
@@ -68,7 +69,8 @@
             this.loadServerSettingsOfFolderToolStripMenuItem,
             this.bulkImportToolStripMenuItem,
             this.setUserSuffixToolStripMenuItem,
-            this.filterToolStripMenuItem});
+            this.filterToolStripMenuItem,
+            this.refreshListToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1160, 24);
@@ -277,6 +279,13 @@
             this.importStatusToolStripMenuItem.Text = "Import status";
             this.importStatusToolStripMenuItem.Click += new System.EventHandler(this.importStatusToolStripMenuItem_Click);
             // 
+            // refreshListToolStripMenuItem
+            // 
+            this.refreshListToolStripMenuItem.Name = "refreshListToolStripMenuItem";
+            this.refreshListToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
+            this.refreshListToolStripMenuItem.Text = "Refresh List";
+            this.refreshListToolStripMenuItem.Click += new System.EventHandler(this.refreshListToolStripMenuItem_Click);
+            // 
             // ExportedCreatureList
             // 
             this.AllowDrop = true;
@@ -334,5 +343,6 @@
         private System.Windows.Forms.ToolStripMenuItem speciesToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem ownerNameToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem importStatusToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem refreshListToolStripMenuItem;
     }
 }

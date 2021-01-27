@@ -509,6 +509,11 @@ namespace ARKBreedingStats.importExported
         {
             UpdateOrderLists(OrderProperties.ImportStatus);
         }
+
+        private void refreshListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadFilesInFolder();
+        }
     }
 
     internal class EccComparer : Comparer<ExportedCreatureControl>
