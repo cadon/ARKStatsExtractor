@@ -114,6 +114,7 @@ Translations:
 * German by cadon
 * Spanish by KRIPT4
 * Chinese by MicheaBoab
-* Russian by SoulSuspect";
+* Russian by SoulSuspect
+* Polish by alex4401";
     }
 }
