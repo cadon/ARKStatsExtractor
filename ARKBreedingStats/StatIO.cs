@@ -144,6 +144,7 @@ namespace ARKBreedingStats
                 _status = value;
                 ForeColor = SystemColors.ControlText;
                 numericUpDownInput.BackColor = SystemColors.Window;
+                Cursor = null;
                 switch (_status)
                 {
                     case StatIOStatus.Unique:
@@ -154,6 +155,7 @@ namespace ARKBreedingStats
                         break;
                     case StatIOStatus.NonUnique:
                         BackColor = ColorModeColors.NonUnique;
+                        Cursor = Cursors.Hand;
                         break;
                     case StatIOStatus.Error:
                         numericUpDownInput.BackColor = Color.FromArgb(255, 200, 200);
