@@ -1,11 +1,11 @@
 ﻿using ARKBreedingStats.Library;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
@@ -17,7 +17,6 @@ namespace ARKBreedingStats.ocr
     public class ArkOCR
     {
         // Class initially created by Nakram
-        public int whiteThreshold = 155;
         public OCRTemplate ocrConfig;
         private static ArkOCR _OCR;
         private static OCRControl _ocrControl;
@@ -241,52 +240,61 @@ namespace ARKBreedingStats.ocr
         }
 
         // function currently unused. ARK seems to be scaling down larger fonts rather than using entire pixel heights
-        public bool calibrateFromFontFile(int pixelSize, string calibrationText)
+        public bool CreateOcrTemplatesFromFontFile(int fontPxSize, string calibrationText, string lastUsedFontFile, ref string fontFile)
         {
-            // TODO rework for new ocr
-            if (MessageBox.Show("All characters of the following set will replace any existing ocr-templates for the font size " + pixelSize + "px.\n\n"
-                + calibrationText + "\n\nAre you sure?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
-                return false;
+            var patterns = OCR.ocrConfig?.RecognitionPatterns;
+            if (patterns == null) return false;
 
-            bool success = false;
-            using (OpenFileDialog dlg = new OpenFileDialog
+            if (string.IsNullOrEmpty(fontFile))
             {
-                Filter = "Font File (*.ttf)|*.ttf"
-            })
-            {
-                if (dlg.ShowDialog() == DialogResult.OK)
+                using (OpenFileDialog dlg = new OpenFileDialog
                 {
-                    using (PrivateFontCollection pfcoll = new PrivateFontCollection())
+                    Filter = "Font File (*.ttf)|*.ttf"
+                })
+                {
+                    if (!string.IsNullOrEmpty(lastUsedFontFile) && File.Exists(lastUsedFontFile))
+                        dlg.FileName = lastUsedFontFile;
+
+                    if (dlg.ShowDialog() == DialogResult.OK)
                     {
-                        pfcoll.AddFontFile(dlg.FileName);
-                        FontFamily ff = pfcoll.Families[0];
-
-                        using (Bitmap bitmap = new Bitmap(31, pixelSize))
-                        using (Graphics graphics = Graphics.FromImage(bitmap))
-                        using (Font f = new Font(ff, 72f / 96 * pixelSize, FontStyle.Regular))
-                        {
-                            foreach (char c in calibrationText)
-                            {
-                                graphics.FillRectangle(Brushes.Black, 0, 0, 31, pixelSize);
-                                graphics.DrawString(c.ToString(), f, Brushes.White, 0, -2);
-
-                                bool foundLetter;
-                                int letterStart = -1;
-                                // look for the start pixel of the letter
-                                do
-                                {
-                                    letterStart++;
-                                    foundLetter = HasWhiteInVerticalLine(bitmap, letterStart, false);
-                                }
-                                while (!(foundLetter || letterStart >= bitmap.Width));
-                                // StoreImageInAlphabet(c, bitmap, letterStart, 31); // TODO
-                            }
-                        }
+                        fontFile = dlg.FileName;
                     }
-                    success = true;
                 }
             }
-            return success;
+
+            if (string.IsNullOrEmpty(fontFile) || !File.Exists(fontFile)) return false;
+
+            using (PrivateFontCollection pfcoll = new PrivateFontCollection())
+            {
+                pfcoll.AddFontFile(fontFile);
+                FontFamily ff = pfcoll.Families[0];
+                float fontEmSize = fontPxSize * 100f / 95; // specific ratio for the used font
+                int moveUpPx = -fontPxSize * 28 / 100; // specific ratio for the used font
+
+                //// TODO REMOVE DEBUG
+                //using (Bitmap bitmap = new Bitmap(500, 150))
+                //using (Graphics graphics = Graphics.FromImage(bitmap))
+                //using (Font f = new Font(ff, fontEmSize, FontStyle.Regular))
+                //{
+                //    graphics.FillRectangle(Brushes.Black, 0, 0, 500, 50);
+                //    graphics.DrawString(calibrationText, f, Brushes.White, 0, moveUpPx);
+                //    bitmap.Save(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "debugTest.png"));
+                //}
+
+                using (Bitmap bitmap = new Bitmap(fontPxSize, fontPxSize))
+                using (Graphics graphics = Graphics.FromImage(bitmap))
+                using (Font f = new Font(ff, fontEmSize, FontStyle.Regular))
+                {
+                    foreach (char c in calibrationText)
+                    {
+                        graphics.FillRectangle(Brushes.Black, 0, 0, fontPxSize, fontPxSize);
+                        graphics.DrawString(c.ToString(), f, Brushes.White, 0, moveUpPx);
+
+                        patterns.AddPattern(c.ToString(), bitmap);
+                    }
+                }
+            }
+            return true;
         }
 
         public int lastLetterPosition(Bitmap source)

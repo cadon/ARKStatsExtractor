@@ -2634,7 +2634,6 @@ namespace ARKBreedingStats
         private static void OcrUpdateWhiteThreshold(int value)
         {
             Properties.Settings.Default.OCRWhiteThreshold = value;
-            ArkOCR.OCR.whiteThreshold = value;
         }
 
         private void toolStripCBTempCreatures_SelectedIndexChanged(object sender, EventArgs e)

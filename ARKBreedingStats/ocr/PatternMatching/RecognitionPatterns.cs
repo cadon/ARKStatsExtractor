@@ -23,7 +23,7 @@ namespace ARKBreedingStats.ocr.PatternMatching
         /// </summary>
         public event Action Save;
 
-        public string FindMatchingChar(RecognizedCharData sym, Image originalImg, float tolerance = 0.1f, bool onlyNumbers = false)
+        public string FindMatchingChar(RecognizedCharData sym, Image originalImg, float tolerance = 0.15f, bool onlyNumbers = false)
         {
             var curPattern = sym.Pattern;
             var xSizeFound = curPattern.GetLength(0);
@@ -43,7 +43,7 @@ namespace ARKBreedingStats.ocr.PatternMatching
                     var possibleDif = ((pattern.Length + sym.Pattern.Length) / 2) * tolerance;
                     if (Math.Abs(pattern.Length - curPattern.Length) > possibleDif) continue;
 
-                    possibleDif = pattern.CountBlacks() * (1.5f * tolerance);
+                    possibleDif = pattern.SetPixels * 2 * tolerance;
 
 
                     // Attempted to do offset shifting here but got too many false recognitions here, might need some tweaking.
@@ -109,7 +109,7 @@ namespace ARKBreedingStats.ocr.PatternMatching
 
             if (!TrainingSettings.IsTrainingEnabled)
             {
-                return "?";
+                return "?"; //string.Empty;
             }
 
             var manualChar = new RecognitionTrainingForm(sym, originalImg).Prompt();
@@ -126,14 +126,35 @@ namespace ARKBreedingStats.ocr.PatternMatching
         internal static void PatternMatch(bool[,] template, bool[,] recognized, out float match, out int offset)
         {
             offset = 0;
-            float difference = 0;
+            if (template == null || recognized == null)
+            {
+                match = 0;
+                return;
+            }
 
             int templateWidth = template.GetLength(0);
             int templateHeight = template.GetLength(1);
 
-            int width = Math.Min(templateWidth, recognized.GetLength(0));
-            int height = Math.Min(templateHeight, recognized.GetLength(1));
+            int recognizedWidth = recognized.GetLength(0);
+            int recognizedHeight = recognized.GetLength(1);
 
+            int width = Math.Min(templateWidth, recognizedWidth);
+            int height = Math.Min(templateHeight, recognizedHeight);
+
+            int maxWidth = Math.Max(templateWidth, recognizedWidth);
+            int maxHeight = Math.Max(templateHeight, recognizedHeight);
+
+            int testArea = width * height;
+            int maxArea = maxWidth * maxHeight;
+
+            if (maxArea / testArea >= 2)
+            {
+                // match is less than 0.5
+                match = 0.5f;
+                return;
+            }
+
+            float equalPixels = 0;
             for (var x = 0; x < width; x++)
             {
                 for (var y = 0; y < height; y++)
@@ -148,13 +169,16 @@ namespace ARKBreedingStats.ocr.PatternMatching
                     if (cHave != pHave)
                     {
                         // tolerance of difference if a nearby bit is equal
-                        difference += IsNearby(cHave ? template : recognized, x, y) ? 0.33f : 1f;
+                        equalPixels += IsNearby(cHave ? template : recognized, x, y) ? 0.6f : 0;
+                    }
+                    else
+                    {
+                        equalPixels += 1;
                     }
                 }
             }
 
-            match = 1 - difference / (templateWidth * templateHeight);
-
+            match = equalPixels * 2 / (maxArea + testArea);
         }
 
         /// <summary>
@@ -203,6 +227,35 @@ namespace ARKBreedingStats.ocr.PatternMatching
             Save?.Invoke();
 
             return manualChar;
+        }
+
+        public void AddPattern(string text, Bitmap bmp)
+        {
+            var newPattern = Pattern.FromBmp(bmp);
+            if (newPattern == null) return;
+
+            var textData = Texts.FirstOrDefault(x => x.Text == text);
+
+            if (textData != null)
+            {
+                // check if pattern is already added
+                bool alreadyAdded = false;
+                foreach (var p in textData.Patterns)
+                {
+                    if (p.Equals(newPattern))
+                    {
+                        alreadyAdded = true;
+                        break;
+                    }
+                }
+
+                if (!alreadyAdded)
+                    textData.Patterns.Add(newPattern);
+            }
+            else
+            {
+                Texts.Add(new TextData { Patterns = new List<Pattern> { newPattern }, Text = text });
+            }
         }
     }
 }

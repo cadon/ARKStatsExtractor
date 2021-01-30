@@ -123,6 +123,7 @@
 On the next two tabs the OCR can be adjusted, this can be done if you don't have an ocr-config-file for your used resolution, or if a letter is often misrecognized.</value>
   </data>
   <data name="label17.Text" xml:space="preserve">
-    <value>Add multiple character-templates based on a font-file. Enter all the characters you want to use in the text-field, set the font-size in px and click Calibrate from Font. Keep in mind that all character-templates that already exist for this font-size will be overwritten.</value>
+    <value>Add multiple custom character OCR patterns based on a font-file. Enter all the characters you want to use in the text-field, set the font-size in px and click Calibrate from Font.
+ARK currently uses the font Sansation Bold for its UI.</value>
   </data>
 </root>

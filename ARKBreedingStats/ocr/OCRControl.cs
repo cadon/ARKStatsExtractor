@@ -22,6 +22,7 @@ namespace ARKBreedingStats.ocr
         private bool _updateDrawing = true;
         private bool _ignoreValueChange;
         private readonly Debouncer _redrawingDebouncer = new Debouncer();
+        private string _fontFilePath;
 
         public OCRControl()
         {
@@ -96,15 +97,10 @@ namespace ARKBreedingStats.ocr
                     SetScreenshot(bmp);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // ignore
             }
-        }
-
-        private void nudFontSize_ValueChanged(object sender, EventArgs e)
-        {
-            LoadTemplateLetter();
         }
 
         private void LoadTemplateLetter()
@@ -120,22 +116,6 @@ namespace ARKBreedingStats.ocr
             ListBoxPatternsOfString.Items.AddRange(Enumerable.Range(1, patternCount).Select(ii => ii.ToString()).ToArray());
             if (patternCount > 0)
                 ListBoxPatternsOfString.SelectedIndex = 0;
-
-            return;
-
-            ////ocrLetterEditTemplate.Clear();
-            //if (textBoxTemplate.Text.Length > 0)
-            //{
-            //    char c = textBoxTemplate.Text[0];
-            //    int ocrIndex = 1; // TODO ArkOCR.OCR.ocrConfig.fontSizeIndex((int)nudFontSize.Value);
-            //    if (ocrIndex != -1)
-            //    {
-            //        int lI = ArkOCR.OCR.ocrConfig.letters[ocrIndex].IndexOf(c);
-            //        if (lI != -1)
-            //            ocrLetterEditTemplate.LetterArray = ArkOCR.OCR.ocrConfig.letterArrays[ocrIndex][lI];
-            //    }
-            //}
-            //ShowMatch();
         }
 
         private void btnSaveTemplate_Click(object sender, EventArgs e)
@@ -460,7 +440,6 @@ namespace ARKBreedingStats.ocr
             UpdateOCRLabel(filePath);
             if (loadedOcrConfig == null) return false;
 
-            UpdateOcrFontSizes();
             InitLabelEntries();
             nudResizing.Value = ArkOCR.OCR.ocrConfig.resize == 0 ? 1 : (decimal)ArkOCR.OCR.ocrConfig.resize;
             CbTrainRecognition.Checked = ArkOCR.OCR.ocrConfig.RecognitionPatterns.TrainingSettings.IsTrainingEnabled;
@@ -480,15 +459,59 @@ namespace ARKBreedingStats.ocr
                 $"UI-Scaling: {ArkOCR.OCR.ocrConfig.guiZoom}\n" +
                 $"Screenshot-Resizing-Factor: {ArkOCR.OCR.ocrConfig.resize}";
 
+            UpdateResizeResultLabel();
+
+            labelOCRFile.Cursor = ocrAvailable ? Cursors.Hand : null;
+
             BtSaveOCRConfigAs.Enabled = ocrAvailable;
             BtSaveOCRconfig.Enabled = ocrAvailable;
             BtUnloadOCR.Enabled = ocrAvailable;
         }
 
+        private void BtCreateOcrPatternsFromManualChars_Click(object sender, EventArgs e)
+        {
+            string characters = textBoxCalibrationText.Text;
+            int fontSize = (int)nudFontSizeCalibration.Value;
+            if (fontSize < 5)
+            {
+                MessageBoxes.ShowMessageBox($"Fontsize {fontSize} is too small", "Error");
+                return;
+            }
+
+            string fontFilePath = null;
+            if (ArkOCR.OCR.CreateOcrTemplatesFromFontFile(fontSize, characters, _fontFilePath, ref fontFilePath))
+            {
+                _fontFilePath = fontFilePath;
+                MessageBoxes.ShowMessageBox($"OCR patterns created for\n{characters}\nin font size {fontSize}", "OCR patterns created", MessageBoxIcon.Information);
+            }
+            else
+                MessageBoxes.ShowMessageBox($"Unknown error while creating OCR patterns for\n{characters}\nin font size {fontSize}");
+        }
+
         private void buttonLoadCalibrationImage_Click(object sender, EventArgs e)
         {
-            if (ArkOCR.OCR.calibrateFromFontFile((int)nudFontSizeCalibration.Value, textBoxCalibrationText.Text))
-                UpdateOcrFontSizes();
+            const string statValueChars = "0123456789.,%/";
+            const string levelChars = "0123456789:LEVEL";
+            const string textChars = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+            // get font sizes from label heights
+            var fontSizesChars = new Dictionary<int, string>(4)
+            {
+                {ArkOCR.OCR.ocrConfig.labelRectangles[10].Height, textChars} // name, species
+            };
+
+            if (!fontSizesChars.ContainsKey(ArkOCR.OCR.ocrConfig.labelRectangles[0].Height))
+                fontSizesChars.Add(ArkOCR.OCR.ocrConfig.labelRectangles[0].Height, statValueChars); // stats
+            if (!fontSizesChars.ContainsKey(ArkOCR.OCR.ocrConfig.labelRectangles[9].Height))
+                fontSizesChars.Add(ArkOCR.OCR.ocrConfig.labelRectangles[9].Height, levelChars); // level
+            if (!fontSizesChars.ContainsKey(ArkOCR.OCR.ocrConfig.labelRectangles[11].Height))
+                fontSizesChars.Add(ArkOCR.OCR.ocrConfig.labelRectangles[11].Height, textChars); // owner
+
+            string fontFilePath = null;
+            foreach (var c in fontSizesChars)
+                ArkOCR.OCR.CreateOcrTemplatesFromFontFile(c.Key, c.Value, _fontFilePath, ref fontFilePath);
+            _fontFilePath = fontFilePath;
+
+            MessageBoxes.ShowMessageBox($"OCR patterns created for the set labels", "OCR patterns created", MessageBoxIcon.Information);
         }
 
         internal void SetScreenshot(Bitmap screenshotbmp)
@@ -525,25 +548,23 @@ namespace ARKBreedingStats.ocr
         private void nudResizing_ValueChanged(object sender, EventArgs e)
         {
             ArkOCR.OCR.ocrConfig.resize = (double)nudResizing.Value;
+            UpdateResizeResultLabel();
+        }
+
+        private void UpdateResizeResultLabel()
+        {
+            if (ArkOCR.OCR.ocrConfig == null)
+            {
+                lbResizeResult.Text = string.Empty;
+                return;
+            }
+
             int resizedHeight = (int)(ArkOCR.OCR.ocrConfig.resize * ArkOCR.OCR.ocrConfig.resolutionHeight);
             lbResizeResult.Text = $"{ArkOCR.OCR.ocrConfig.resolutionWidth} × {ArkOCR.OCR.ocrConfig.resolutionHeight} -> " +
                     $"{(int)(ArkOCR.OCR.ocrConfig.resize * ArkOCR.OCR.ocrConfig.resolutionWidth)} × {resizedHeight}";
             string infoText = "\nKeep in mind, any change of the resizing needs new character templates to be made";
             if (resizedHeight < 1080)
                 lbResizeResult.Text += "\nThe size is probably too small for good results, you can try to increse the factor." + infoText;
-            if (resizedHeight > 1800) // TODO correct value?
-                lbResizeResult.Text += "\nThe size is probably too large for the character-templates (max-size is 31px), " +
-                        "you can try to decrese the factor." + infoText;
-        }
-
-        private void UpdateOcrFontSizes()
-        {
-            // TODO remove?
-            //cbbFontSizeDelete.Items.Clear();
-            //foreach (int s in ArkOCR.OCR.ocrConfig.fontSizes)
-            //{
-            //    cbbFontSizeDelete.Items.Add(s.ToString());
-            //}
         }
 
         private void CbTrainRecognition_CheckedChanged(object sender, EventArgs e)
@@ -586,6 +607,10 @@ namespace ARKBreedingStats.ocr
             var coords = (MouseEventArgs)e;
             nudX.ValueSave = coords.X;
             nudY.ValueSave = coords.Y;
+            if (nudHeight.Value == 0)
+                nudHeight.ValueSave = 18;
+            if (nudWidth.Value == 0)
+                nudWidth.ValueSave = 150;
         }
 
         #region Pattern editing
@@ -655,6 +680,10 @@ namespace ARKBreedingStats.ocr
                 textBoxTemplate.SelectAll();
                 LoadTemplateLetter();
             }
+            else
+            {
+                ListBoxPatternsOfString.Items.Clear();
+            }
         }
 
         private void BtRemovePattern_Click(object sender, EventArgs e)
@@ -686,6 +715,52 @@ namespace ARKBreedingStats.ocr
             if (string.IsNullOrEmpty(ocrFile) || !File.Exists(ocrFile)) return;
 
             Process.Start("explorer.exe", $"/select,\"{ocrFile}\"");
+        }
+
+        private void BtSetStatPositionBasedOnFirstTwo_Click(object sender, EventArgs e)
+        {
+            var rectangles = ArkOCR.OCR.ocrConfig.labelRectangles;
+            int y = rectangles[0].Y;
+            int yDiff = rectangles[1].Y - y;
+            if (yDiff < 0) return;
+
+            int width = rectangles[0].Width;
+            int height = rectangles[0].Height;
+            int x = rectangles[0].X;
+
+            for (int i = 2; i < 9; i++)
+            {
+                rectangles[i] = new Rectangle(x, y + yDiff * i, width, height);
+            }
+
+            RedrawScreenshot(0);
+        }
+
+        private void BtRemoveSelectedPatterns_Click(object sender, EventArgs e)
+        {
+            RemovePatterns(TbRemovePatterns.Text);
+        }
+
+        private void BtRemoveAllPatterns_Click(object sender, EventArgs e)
+        {
+            RemovePatterns(null);
+        }
+
+        private void RemovePatterns(string patternText)
+        {
+
+            if (ArkOCR.OCR.ocrConfig == null || patternText == string.Empty) return;
+
+            if (MessageBox.Show(patternText != null ? $"Remove all the OCR patterns for the text\n\n{patternText}" : "WARNING\nRemove all patterns in this config file?", "Remove patterns?",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+                return;
+
+            if (patternText == null)
+                ArkOCR.OCR.ocrConfig.RecognitionPatterns.Texts.Clear();
+            else
+                ArkOCR.OCR.ocrConfig.RecognitionPatterns.Texts.RemoveAll(t => t.Text == patternText);
+
+            LoadTemplateLetter();
         }
     }
 }

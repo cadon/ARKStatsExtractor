@@ -22,9 +22,6 @@ namespace ARKBreedingStats.ocr.PatternMatching
             };
         }
 
-        public override string ToString()
-        {
-            return OcrUtils.BoolArrayToString(Pattern);
-        }
+        public override string ToString() => OcrUtils.BoolArrayToString(Pattern);
     }
 }

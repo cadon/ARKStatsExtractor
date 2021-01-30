@@ -210,10 +210,10 @@ namespace ARKBreedingStats.ocr
 
             Point p = e.Location;
             int x = p.X / pxSize + (offset < 0 ? offset : 0);
-            // if toggled pixel is outside the borders due to a shifted display, ignore click
-            if (x < 0) return;
-
             int y = p.Y / pxSize;
+            // if toggled pixel is outside the borders due to a shifted display, ignore click
+            if (x < 0 || x >= _patternDisplay.Width || y >= _patternDisplay.Height) return;
+
             // toggle pixel
             _patternDisplay[x, y] = !_patternDisplay[x, y];
             Invalidate();
