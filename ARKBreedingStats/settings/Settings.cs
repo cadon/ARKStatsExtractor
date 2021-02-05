@@ -153,8 +153,7 @@ namespace ARKBreedingStats.settings
                 { "Italiano", "it"},
                 { "Polski", "pl"},
                 { "русский", "ru"},
-                { "中文", "zh"},
-                { "日本語", "ja"}
+                { "中文", "zh"}
             };
             foreach (string l in _languages.Keys)
                 cbbLanguage.Items.Add(l);
