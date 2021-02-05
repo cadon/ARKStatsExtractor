@@ -99,7 +99,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>strings.es.resx</DependentUpon>
     </Compile>
-    <Compile Include="local\strings.ja.Designer.cs" />
     <Compile Include="mods\CustomStatOverridesEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -607,9 +606,6 @@
     <Compile Include="values\ServerMultipliers.cs" />
     <Compile Include="values\Values.cs" />
     <Compile Include="Win32API.cs" />
-    <EmbeddedResource Include="local\strings.ja.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="local\strings.ru.resx" />
     <EmbeddedResource Include="local\strings.pl.resx" />
     <EmbeddedResource Include="ocr\PatternMatching\RecognitionTrainingForm.resx">
