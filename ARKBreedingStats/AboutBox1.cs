@@ -115,6 +115,7 @@ Translations:
 * Spanish by KRIPT4
 * Chinese by MicheaBoab
 * Russian by SoulSuspect
-* Polish by alex4401";
+* Polish by alex4401
+* Japanese by maririyuzu";
     }
 }

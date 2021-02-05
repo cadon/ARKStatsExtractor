@@ -38,39 +38,39 @@ UninstallDisplayIcon={app}\{#AppExeName}
 
 [Messages]
 WelcomeLabel2=This will install [name/ver] on your computer.%n%nIf you plan to run [name] as a portable version in a shared location (i.e. not in the system's Program Files folder), we recommend to use the zip file version instead of this installer.
-de.WelcomeLabel2=Dieser Assistent wird jetzt [name/ver] auf Ihrem Computer installieren.%n%nWenn Sie planen [name] als portable Version in einem gemeinsam genutzten Verzeichnis (das heißt, außerhalb des Verzeichnisses für Programme) auszuführen, empfehlen wir anstelle dieses Installationsprogramms die Zip-Datei-Version zu nutzen.
+de.WelcomeLabel2=Dieser Assistent wird jetzt [name/ver] auf Ihrem Computer installieren.%n%nWenn Sie planen [name] als portable Version in einem gemeinsam genutzten Verzeichnis (das heiÃŸt, auÃŸerhalb des Verzeichnisses fÃ¼r Programme) auszufÃ¼hren, empfehlen wir anstelle dieses Installationsprogramms die Zip-Datei-Version zu nutzen.
 
 [CustomMessages]
 DotNetFrameworkNeededCaption=.NET Framework 4.8 required
-de.DotNetFrameworkNeededCaption=.NET Framework 4.8 benötigt
+de.DotNetFrameworkNeededCaption=.NET Framework 4.8 benÃ¶tigt
 DotNetFrameworkNeededDescription=To run {#AppName} the .NET Framework 4.8 is required.
-de.DotNetFrameworkNeededDescription=Um {#AppName} auszuführen wird .NET Framework 4.8 benötigt.
+de.DotNetFrameworkNeededDescription=Um {#AppName} auszufÃ¼hren wird .NET Framework 4.8 benÃ¶tigt.
 DotNetFrameworkNeededSubCaption=Check the box below to download and install .NET Framework 4.8.
-de.DotNetFrameworkNeededSubCaption=Markieren Sie das folgende Kästchen, um .NET Framework 4.8 herunterzuladen und zu installieren.
+de.DotNetFrameworkNeededSubCaption=Markieren Sie das folgende KÃ¤stchen, um .NET Framework 4.8 herunterzuladen und zu installieren.
 DotNetFrameworkInstall=Download and install .NET Framework 4.8
 de.DotNetFrameworkInstall=Herunterladen und Installation von .NET Framework 4.8
 IDP_DownloadFailed=Download of .NET Framework 4.8 failed. .NET Framework 4.8 is required to run {#AppName}.
-de.IDP_DownloadFailed=Herunterladen von .NET Framework 4.8 fehlgeschlagen. .NET Framework 4.8 wird benötigt um {#AppName} auszuführen.
+de.IDP_DownloadFailed=Herunterladen von .NET Framework 4.8 fehlgeschlagen. .NET Framework 4.8 wird benÃ¶tigt um {#AppName} auszufÃ¼hren.
 IDP_RetryCancel=Click 'Retry' to try downloading the files again, or click 'Cancel' to terminate setup.
 de.IDP_RetryCancel=Klicken Sie 'Wiederholen', um das Herunterladen der Dateien erneut zu versuchen, oder klicken Sie auf "Abbrechen", um die Installation abzubrechen.
 InstallingDotNetFramework=Installing .NET Framework 4.8. This might take a few minutes...
 de.InstallingDotNetFramework=Installiere .NET Framework 4.8. Das wird eine Weile dauern ...
 DotNetFrameworkFailedToLaunch=Failed to launch .NET Framework Installer with error "%1". Please fix the error then run this installer again.
-de.DotNetFrameworkFailedToLaunch=Starten des .NET Framework Installer fehlgeschlagen mit Fehler "%1". Bitte den Fehler beheben und dieses Installationsprogramm erneut ausführen.
+de.DotNetFrameworkFailedToLaunch=Starten des .NET Framework Installer fehlgeschlagen mit Fehler "%1". Bitte den Fehler beheben und dieses Installationsprogramm erneut ausfÃ¼hren.
 DotNetFrameworkFailed1602=.NET Framework installation was cancelled. This installation can continue, but be aware that this application may not run unless the .NET Framework installation is completed successfully.
-de.DotNetFrameworkFailed1602=Die .NET Framework Installation wurde abgebrochen. Diese Installation kann fortgesetzt werden. Beachten Sie jedoch, dass diese Anwendung möglicherweise nicht ausgeführt wird, bis die .NET Framework-Installation erfolgreich abgeschlossen wurde.
+de.DotNetFrameworkFailed1602=Die .NET Framework Installation wurde abgebrochen. Diese Installation kann fortgesetzt werden. Beachten Sie jedoch, dass diese Anwendung mÃ¶glicherweise nicht ausgefÃ¼hrt wird, bis die .NET Framework-Installation erfolgreich abgeschlossen wurde.
 DotNetFrameworkFailed1603=A fatal error occurred while installing the .NET Framework. Please fix the error, then run the installer again.
-de.DotNetFrameworkFailed1603=Ein schwerwiegender Fehler trat während der Installiion des .NET Frameworks auf. Bitte den Fehler beheben und dieses Installationsprogramm erneut ausführen.
+de.DotNetFrameworkFailed1603=Ein schwerwiegender Fehler trat wÃ¤hrend der Installiion des .NET Frameworks auf. Bitte den Fehler beheben und dieses Installationsprogramm erneut ausfÃ¼hren.
 DotNetFrameworkFailed5100=Your computer does not meet the requirements of the .NET Framework.
-de.DotNetFrameworkFailed5100=Ihr Computer erfüllt nicht die Voraussetzungen für das .NET Framework.
+de.DotNetFrameworkFailed5100=Ihr Computer erfÃ¼llt nicht die Voraussetzungen fÃ¼r das .NET Framework.
 DotNetFrameworkFailedOther=The .NET Framework installer exited with an unexpected status code "%1". Please review any other messages shown by the installer to determine whether the installation completed successfully, and abort this installation and fix the problem if it did not.
-de.DotNetFrameworkFailedOther=Die .NET Framework Installation endete mit dem nicht erwarteten Statuscode "%1". Überprüfen Sie alle anderen vom Installationsprogramm angezeigten Meldungen, um festzustellen, ob die Installation erfolgreich abgeschlossen wurde, und falls nicht, brechen Sie die Installation ab und beheben Sie das Problem.
+de.DotNetFrameworkFailedOther=Die .NET Framework Installation endete mit dem nicht erwarteten Statuscode "%1". ÃœberprÃ¼fen Sie alle anderen vom Installationsprogramm angezeigten Meldungen, um festzustellen, ob die Installation erfolgreich abgeschlossen wurde, und falls nicht, brechen Sie die Installation ab und beheben Sie das Problem.
 DownloadImages=Download images for some of the creatures.
-de.DownloadImages=Bilder für einige der Dinos herunterladen.
+de.DownloadImages=Bilder fÃ¼r einige der Dinos herunterladen.
 CreatureImages=Additional creature images
-de.CreatureImages=Zusätzliche Dino-Bilder
+de.CreatureImages=ZusÃ¤tzliche Dino-Bilder
 InstallImages=Installing additionally creature images
-de.InstallImages=Installiere zusätzliche Dino-Bilder
+de.InstallImages=Installiere zusÃ¤tzliche Dino-Bilder
 
 [Languages]
 Name: "en"; MessagesFile: "compiler:Default.isl"
@@ -88,6 +88,7 @@ Source: "{#ReleaseDir}\de\*"; DestDir: "{app}\de\"; Flags: ignoreversion; Exclud
 Source: "{#ReleaseDir}\es\*"; DestDir: "{app}\es\"; Flags: ignoreversion; Excludes: "*.pdb,*.xml"
 Source: "{#ReleaseDir}\fr\*"; DestDir: "{app}\fr\"; Flags: ignoreversion; Excludes: "*.pdb,*.xml"
 Source: "{#ReleaseDir}\it\*"; DestDir: "{app}\it\"; Flags: ignoreversion; Excludes: "*.pdb,*.xml"
+Source: "{#ReleaseDir}\ja\*"; DestDir: "{app}\ja\"; Flags: ignoreversion; Excludes: "*.pdb,*.xml"
 Source: "{#ReleaseDir}\pl\*"; DestDir: "{app}\pl\"; Flags: ignoreversion; Excludes: "*.pdb,*.xml"
 Source: "{#ReleaseDir}\ru\*"; DestDir: "{app}\ru\"; Flags: ignoreversion; Excludes: "*.pdb,*.xml"
 Source: "{#ReleaseDir}\zh\*"; DestDir: "{app}\zh\"; Flags: ignoreversion; Excludes: "*.pdb,*.xml"

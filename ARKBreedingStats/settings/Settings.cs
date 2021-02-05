@@ -151,10 +151,10 @@ namespace ARKBreedingStats.settings
                 { "Español", "es"},
                 { "Français", "fr"},
                 { "Italiano", "it"},
+                { "日本語", "ja"},
                 { "Polski", "pl"},
                 { "русский", "ru"},
-                { "中文", "zh"},
-                { "日本語", "ja"}
+                { "中文", "zh"}
             };
             foreach (string l in _languages.Keys)
                 cbbLanguage.Items.Add(l);
