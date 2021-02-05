@@ -271,15 +271,17 @@ namespace ARKBreedingStats.ocr
                 float fontEmSize = fontPxSize * 100f / 95; // specific ratio for the used font
                 int moveUpPx = -fontPxSize * 28 / 100; // specific ratio for the used font
 
-                //// TODO REMOVE DEBUG
+
+                //// TODO debug
                 //using (Bitmap bitmap = new Bitmap(500, 150))
                 //using (Graphics graphics = Graphics.FromImage(bitmap))
                 //using (Font f = new Font(ff, fontEmSize, FontStyle.Regular))
                 //{
-                //    graphics.FillRectangle(Brushes.Black, 0, 0, 500, 50);
+                //    graphics.FillRectangle(Brushes.Black, 0, 0, bitmap.Width, bitmap.Height);
                 //    graphics.DrawString(calibrationText, f, Brushes.White, 0, moveUpPx);
                 //    bitmap.Save(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "debugTest.png"));
                 //}
+
 
                 using (Bitmap bitmap = new Bitmap(fontPxSize, fontPxSize))
                 using (Graphics graphics = Graphics.FromImage(bitmap))
@@ -442,8 +444,7 @@ namespace ARKBreedingStats.ocr
 
             if (enableOutput && _ocrControl != null)
             {
-                _ocrControl.AddBitmapToDebug(screenshotbmp);
-                _ocrControl.SetScreenshot(screenshotbmp);
+                _ocrControl.DisplayBmpInOcrControl(screenshotbmp);
             }
 
             finalValues = new double[ocrConfig.labelRectangles.Length];

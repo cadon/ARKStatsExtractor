@@ -30,6 +30,7 @@ namespace ARKBreedingStats.ocr
             debugPanel = OCRDebugLayoutPanel;
             output = txtOCROutput;
             ocrLetterEditTemplate.drawingEnabled = true;
+            ocrLetterEditTemplate.PatternChanged += OcrLetterEditTemplate_PatternChanged;
         }
 
         public void Initialize()
@@ -93,8 +94,7 @@ namespace ARKBreedingStats.ocr
                 }
                 else
                 {
-                    AddBitmapToDebug(bmp);
-                    SetScreenshot(bmp);
+                    DisplayBmpInOcrControl(bmp);
                 }
             }
             catch (Exception)
@@ -155,10 +155,13 @@ namespace ARKBreedingStats.ocr
             textBoxTemplate.SelectAll();
         }
 
+        /// <summary>
+        /// Calculates and displays the match between the recognized and template pattern.
+        /// </summary>
         private void ShowMatch()
         {
             RecognitionPatterns.PatternMatch(ocrLetterEditTemplate.PatternDisplay.Data, ocrLetterEditRecognized.PatternDisplay?.Data, out float match, out int offset);
-            ocrLetterEditTemplate.recognizedOffset = offset;
+            ocrLetterEditTemplate.RecognizedOffset = offset;
 
             labelMatching.Text = $"matching: {Math.Round(match * 100, 1)} %";
         }
@@ -194,12 +197,22 @@ namespace ARKBreedingStats.ocr
             }
         }
 
-        internal void AddBitmapToDebug(Bitmap bmp)
+        /// <summary>
+        /// Displays screen shot in OCR control.
+        /// </summary>
+        /// <param name="bmp"></param>
+        internal void DisplayBmpInOcrControl(Bitmap bmp)
         {
             PictureBox b = new PictureBox { SizeMode = PictureBoxSizeMode.AutoSize, Image = bmp };
             OCRDebugLayoutPanel.Controls.Add(b);
             OCRDebugLayoutPanel.Controls.SetChildIndex(b, 0);
+            int scrollHorizontal = bmp.Width - OCRDebugLayoutPanel.Width;
+            if (scrollHorizontal > 0)
+                OCRDebugLayoutPanel.AutoScrollPosition = new Point(scrollHorizontal / 2, 0);
             b.Click += PictureBoxClicked;
+
+            _screenshot?.Dispose();
+            _screenshot = bmp;
         }
 
         private void RedrawScreenshot(object ob)
@@ -209,51 +222,51 @@ namespace ARKBreedingStats.ocr
         }
 
         /// <summary>
-        /// Redraws the screenshot
+        /// Redraws the screen shot
         /// </summary>
         /// <param name="hightlightIndex">which of the labels should be highlighted</param>
         /// <param name="showLabels">show labels</param>
         /// <param name="whiteThreshold">preview of white-Threshold. -1 to disable</param>
         private void RedrawScreenshot(int hightlightIndex, bool showLabels = true, int whiteThreshold = -1)
         {
-            if (OCRDebugLayoutPanel.Controls.Count <= 0 ||
-                !(OCRDebugLayoutPanel.Controls[OCRDebugLayoutPanel.Controls.Count - 1] is PictureBox) ||
-                _screenshot == null) return;
+            if (_screenshot == null
+                || OCRDebugLayoutPanel.Controls.Count == 0
+                || !(OCRDebugLayoutPanel.Controls[OCRDebugLayoutPanel.Controls.Count - 1] is PictureBox p)
+                ) return;
 
-            PictureBox p = (PictureBox)OCRDebugLayoutPanel.Controls[OCRDebugLayoutPanel.Controls.Count - 1];
             Bitmap b = new Bitmap((whiteThreshold >= 0 ? ArkOCR.removePixelsUnderThreshold(ArkOCR.GetGreyScale(_screenshot), whiteThreshold, true) : _screenshot));
-            using (Graphics g = Graphics.FromImage(b))
+
+            if (showLabels)
             {
-                if (showLabels)
+                using (Graphics g = Graphics.FromImage(b))
+                using (Pen penW = new Pen(Color.White, 2))
+                using (Pen penY = new Pen(Color.Yellow, 2))
+                using (Pen penB = new Pen(Color.Black, 2))
                 {
-                    using (Pen penW = new Pen(Color.White, 2))
-                    using (Pen penY = new Pen(Color.Yellow, 2))
-                    using (Pen penB = new Pen(Color.Black, 2))
+                    penW.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
+                    penY.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
+                    penB.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
+                    for (int r = 0; r < ArkOCR.OCR.ocrConfig.labelRectangles.Length; r++)
                     {
-                        penW.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
-                        penY.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
-                        penB.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
-                        for (int r = 0; r < ArkOCR.OCR.ocrConfig.labelRectangles.Length; r++)
+                        Rectangle rec = ArkOCR.OCR.ocrConfig.labelRectangles[r];
+                        if (r == hightlightIndex)
                         {
-                            Rectangle rec = ArkOCR.OCR.ocrConfig.labelRectangles[r];
-                            if (r == hightlightIndex)
-                            {
-                                rec.Inflate(2, 2);
-                                g.DrawRectangle(penY, rec);
-                                rec.Inflate(2, 2);
-                                g.DrawRectangle(penB, rec);
-                            }
-                            else
-                            {
-                                rec.Inflate(2, 2);
-                                g.DrawRectangle(penW, rec);
-                                rec.Inflate(2, 2);
-                                g.DrawRectangle(penB, rec);
-                            }
+                            rec.Inflate(2, 2);
+                            g.DrawRectangle(penY, rec);
+                            rec.Inflate(2, 2);
+                            g.DrawRectangle(penB, rec);
+                        }
+                        else
+                        {
+                            rec.Inflate(2, 2);
+                            g.DrawRectangle(penW, rec);
+                            rec.Inflate(2, 2);
+                            g.DrawRectangle(penB, rec);
                         }
                     }
                 }
             }
+
             Bitmap disp = (Bitmap)p.Image; // take pointer to old image to dispose it soon
             p.Image = b;
             if (disp != null && disp != _screenshot)
@@ -453,7 +466,7 @@ namespace ARKBreedingStats.ocr
         {
             var ocrAvailable = !string.IsNullOrEmpty(fileName) && ArkOCR.OCR.ocrConfig != null;
             labelOCRFile.Text = !ocrAvailable
-                ? "no ocr-File loaded (OCR won't work)"
+                ? "no OCR file loaded (OCR won't work)"
                 : $"{fileName}\n\n" +
                 $"Resolution: {ArkOCR.OCR.ocrConfig.resolutionWidth} × {ArkOCR.OCR.ocrConfig.resolutionHeight}\n" +
                 $"UI-Scaling: {ArkOCR.OCR.ocrConfig.guiZoom}\n" +
@@ -512,13 +525,6 @@ namespace ARKBreedingStats.ocr
             _fontFilePath = fontFilePath;
 
             MessageBoxes.ShowMessageBox($"OCR patterns created for the set labels", "OCR patterns created", MessageBoxIcon.Information);
-        }
-
-        internal void SetScreenshot(Bitmap screenshotbmp)
-        {
-            _screenshot?.Dispose();
-            _screenshot = screenshotbmp;
-            OCRDebugLayoutPanel.AutoScrollPosition = new Point(_screenshot.Width / 3, _screenshot.Height / 4);
         }
 
         private void cbEnableOutput_CheckedChanged(object sender, EventArgs e)
@@ -650,9 +656,10 @@ namespace ARKBreedingStats.ocr
             textBoxTemplate.SelectAll();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void BtCopyPatternRecognizedToTemplateClick(object sender, EventArgs e)
         {
-            ocrLetterEditTemplate.LetterArray = ocrLetterEditRecognized.LetterArray;
+            ocrLetterEditTemplate.PatternDisplay = ocrLetterEditRecognized.PatternDisplay;
+            ShowMatch();
         }
 
         /// <summary>
@@ -761,6 +768,11 @@ namespace ARKBreedingStats.ocr
                 ArkOCR.OCR.ocrConfig.RecognitionPatterns.Texts.RemoveAll(t => t.Text == patternText);
 
             LoadTemplateLetter();
+        }
+
+        private void OcrLetterEditTemplate_PatternChanged()
+        {
+            ShowMatch();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 namespace ARKBreedingStats.ocr.PatternMatching
@@ -15,6 +16,8 @@ namespace ARKBreedingStats.ocr.PatternMatching
                 UpdateProperties();
         }
 
+        [OnDeserialized]
+        private void UpdateProperties(StreamingContext _) => UpdateProperties();
         private void UpdateProperties()
         {
             Width = (byte)Data.GetLength(0);
@@ -65,47 +68,40 @@ namespace ARKBreedingStats.ocr.PatternMatching
             var xEnd = -1;
             bool inChar = false;
 
-            try
+            unsafe
             {
-                unsafe
+                byte* scan0Bg = (byte*)bmpData.Scan0.ToPointer();
+
+                for (int i = 0; i < bmpData.Width; i++)
                 {
-                    byte* scan0Bg = (byte*)bmpData.Scan0.ToPointer();
-
-                    for (int i = 0; i < bmpData.Width; i++)
+                    if (!inChar)
                     {
-                        if (!inChar)
-                        {
-                            // check if char starts in this column
-                            for (int j = 0; j < bmpData.Height; j++)
-                            {
-                                byte* dBg = scan0Bg + j * bmpData.Stride + i * bmpBytes;
-                                // check if pixel is white by checking the red channel
-                                if (dBg[2] > 200)
-                                {
-                                    inChar = true;
-                                    xStart = i;
-                                    break;
-                                }
-                            }
-                        }
-
-                        if (!inChar) continue;
-
+                        // check if char starts in this column
                         for (int j = 0; j < bmpData.Height; j++)
                         {
                             byte* dBg = scan0Bg + j * bmpData.Stride + i * bmpBytes;
+                            // check if pixel is white by checking the red channel
                             if (dBg[2] > 200)
                             {
-                                allBits[i, j] = true;
-                                xEnd = i;
+                                inChar = true;
+                                xStart = i;
+                                break;
                             }
                         }
                     }
+
+                    if (!inChar) continue;
+
+                    for (int j = 0; j < bmpData.Height; j++)
+                    {
+                        byte* dBg = scan0Bg + j * bmpData.Stride + i * bmpBytes;
+                        if (dBg[2] > 200)
+                        {
+                            allBits[i, j] = true;
+                            xEnd = i;
+                        }
+                    }
                 }
-            }
-            catch
-            {
-                // error during drawing, maybe mask is smaller than image
             }
             bmp.UnlockBits(bmpData);
 

@@ -109,7 +109,7 @@ namespace ARKBreedingStats.ocr.PatternMatching
 
             if (!TrainingSettings.IsTrainingEnabled)
             {
-                return "?"; //string.Empty;
+                return "�"; //string.Empty;
             }
 
             var manualChar = new RecognitionTrainingForm(sym, originalImg).Prompt();
@@ -166,14 +166,14 @@ namespace ARKBreedingStats.ocr.PatternMatching
                     var pHave = template[x, y];
 
                     // if the bits are different, check if the total number of different bits is too large for a match and if to ignore this pattern
-                    if (cHave != pHave)
+                    if (cHave == pHave)
                     {
-                        // tolerance of difference if a nearby bit is equal
-                        equalPixels += IsNearby(cHave ? template : recognized, x, y) ? 0.6f : 0;
+                        equalPixels += 1;
                     }
                     else
                     {
-                        equalPixels += 1;
+                        // tolerance of difference if a nearby bit is equal
+                        equalPixels += IsNearby(cHave ? template : recognized, x, y) ? 0.6f : 0;
                     }
                 }
             }
@@ -203,7 +203,7 @@ namespace ARKBreedingStats.ocr.PatternMatching
                     continue;
                 }
 
-                if (pattern[x, y])
+                if (pattern[nextX, nextY])
                 {
                     return true;
                 }
