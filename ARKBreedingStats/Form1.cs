@@ -318,6 +318,11 @@ namespace ARKBreedingStats
 
             // UI loaded
 
+            // set theme colors
+            //this.InitializeTabControls();
+            //this.SetColors(Color.FromArgb(20, 20, 20), Color.LightGray);
+
+
             //// initialize controls
             radarChart1.InitializeVariables(_creatureCollection.maxChartLevel);
             radarChartExtractor.InitializeVariables(_creatureCollection.maxChartLevel);

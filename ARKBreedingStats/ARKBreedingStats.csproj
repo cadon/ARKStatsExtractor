@@ -601,6 +601,7 @@
     <Compile Include="utils\MessageBoxes.cs" />
     <Compile Include="utils\NamePatternFunctions.cs" />
     <Compile Include="utils\SoundFeedback.cs" />
+    <Compile Include="utils\Themes.cs" />
     <Compile Include="values\TamingFoodData.cs" />
     <Compile Include="values\ServerMultipliersPresets.cs" />
     <Compile Include="values\ServerMultipliers.cs" />
