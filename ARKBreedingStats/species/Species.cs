@@ -68,6 +68,12 @@ namespace ARKBreedingStats.species
         /// Indicates if a species uses a stat represented by bit-flags
         /// </summary>
         private int usedStats;
+
+        /// <summary>
+        /// Indicates if the species is affected by the setting AllowFlyerSpeedLeveling
+        /// </summary>
+        [JsonProperty] public bool isFlyer;
+
         [JsonProperty]
         public float? TamedBaseHealthMultiplier;
         /// <summary>

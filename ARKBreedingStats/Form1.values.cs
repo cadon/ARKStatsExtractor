@@ -227,9 +227,9 @@ namespace ARKBreedingStats
                         $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                     System.Diagnostics.Process.Start(Updater.ReleasesUrl);
             }
-            catch (FormatException)
+            catch (FormatException ex)
             {
-                FormatExceptionMessageBox(FileService.ValuesJson);
+                FormatExceptionMessageBox(FileService.ValuesJson, ex.Message);
                 if ((DateTime.Now - Properties.Settings.Default.lastUpdateCheck).TotalMinutes < 10)
                     CheckForUpdates();
             }
@@ -241,8 +241,8 @@ namespace ARKBreedingStats
             return success;
         }
 
-        private static void FormatExceptionMessageBox(string filePath) =>
-            MessageBoxes.ShowMessageBox($"File {filePath} is a format that is unsupported in this version of ARK Smart Breeding." +
-                                         "\n\nTry updating to a newer version of this application, either by using the updater or downloading it again.");
+        private static void FormatExceptionMessageBox(string filePath, string customMessage = null) =>
+            MessageBoxes.ShowMessageBox($"The file {filePath} is in a format that is not supported in this version of ARK Smart Breeding." + (string.IsNullOrEmpty(customMessage) ? string.Empty : $"\n{customMessage}")
+                                         + "\n\nTry updating to a newer version of this application, either by using the updater or downloading it again.");
     }
 }

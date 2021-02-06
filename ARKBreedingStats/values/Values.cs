@@ -21,13 +21,7 @@ namespace ARKBreedingStats.values
         /// <summary>
         /// Checks if the version string is a format version that is supported by the version of this application.
         /// </summary>
-        /// <param name="version"></param>
-        /// <returns></returns>
-        public static bool IsValidFormatVersion(string version)
-        => !string.IsNullOrEmpty(version) && (
-               version == "1.12"
-            || version == "1.13"
-            );
+        private static bool IsValidFormatVersion(string version) => version == "1.14-flyerspeed";
 
         private static Values _V;
 
@@ -210,17 +204,17 @@ namespace ARKBreedingStats.values
                 if (setModFileName) values.mod.FileName = Path.GetFileName(filePath);
                 return true;
             }
-            catch (FileNotFoundException e)
+            catch (FileNotFoundException ex)
             {
                 errorMessage = "Values-File '" + filePath + "' not found. "
                              + "This collection seems to have modified stat values that are saved in a separate file, "
                              + "which couldn't be found at the saved location.";
                 if (throwExceptionOnFail)
-                    throw new FileNotFoundException(errorMessage, e);
+                    throw new FileNotFoundException(errorMessage, ex);
             }
-            catch (FormatException)
+            catch (FormatException ex)
             {
-                errorMessage = "Values-File '" + filePath + "' has an invalid version. Try updating ARK Smart Breeding.";
+                errorMessage = "Values-File '" + filePath + $"' has an invalid version.\n{ex.Message}\nTry updating ARK Smart Breeding.";
                 if (throwExceptionOnFail)
                     throw new FormatException(errorMessage);
             }
@@ -498,6 +492,7 @@ namespace ARKBreedingStats.values
                 {
                     bool customOverrideExists = cc.CustomSpeciesStats?.ContainsKey(sp.blueprintPath) ?? false;
                     double?[][] customFullStatsRaw = customOverrideExists ? cc.CustomSpeciesStats[sp.blueprintPath] : null;
+                    bool useSpeedLevelup = currentServerMultipliers.AllowFlyerSpeedLeveling || !sp.isFlyer;
 
                     // stat-multiplier
                     for (int s = 0; s < STATS_COUNT; s++)
@@ -516,7 +511,15 @@ namespace ARKBreedingStats.values
                         double multAffinity = GetRawStatValue(s, 4, customOverrideForThisStatExists);
                         sp.stats[s].MultAffinity = multAffinity * (multAffinity > 0 ? statMultipliers[1] : 1);
 
-                        sp.stats[s].IncPerTamedLevel = GetRawStatValue(s, 2, customOverrideForThisStatExists) * statMultipliers[2];
+                        if (useSpeedLevelup || s != (int)StatNames.SpeedMultiplier)
+                        {
+                            sp.stats[s].IncPerTamedLevel = GetRawStatValue(s, 2, customOverrideForThisStatExists) * statMultipliers[2];
+                        }
+                        else
+                        {
+                            sp.stats[s].IncPerTamedLevel = 0;
+                        }
+
                         sp.stats[s].IncPerWildLevel = GetRawStatValue(s, 1, customOverrideForThisStatExists) * statMultipliers[3];
 
                         // set troodonism values

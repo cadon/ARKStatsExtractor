@@ -152,7 +152,7 @@ namespace ARKBreedingStats.multiplierTesting
             }
         }
 
-        public void SetStatValues(double[] statValues, double?[] customOverrides, double altStatFactor)
+        public void SetStatValues(double[] statValues, double?[] customOverrides, double altStatFactor, bool ignoreIncreaseDom)
         {
             if (statValues != null && statValues.Length == 5)
             {
@@ -162,7 +162,7 @@ namespace ARKBreedingStats.multiplierTesting
                 updateValues = false;
                 nudB.Value = (decimal)(_statValues[0] = customOverrides?[0] ?? statValues[0]);
                 nudIw.Value = (decimal)(_statValues[1] = customOverrides?[1] ?? statValues[1]);
-                nudId.Value = (decimal)(_statValues[2] = customOverrides?[2] ?? statValues[2]);
+                nudId.Value = (decimal)(ignoreIncreaseDom ? 0 : _statValues[2] = customOverrides?[2] ?? statValues[2]);
                 nudTa.Value = (decimal)(_statValues[3] = customOverrides?[3] ?? statValues[3]);
                 nudTm.Value = (decimal)(_statValues[4] = customOverrides?[4] ?? statValues[4]);
 

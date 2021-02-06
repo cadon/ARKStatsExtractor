@@ -37,6 +37,8 @@ namespace ARKBreedingStats.values
         public double BabyImprintingStatScaleMultiplier { get; set; }
         [JsonProperty]
         public double BabyImprintAmountMultiplier { get; set; }
+        [JsonProperty]
+        public bool AllowFlyerSpeedLeveling { get; set; }
 
         [OnDeserializing]
         internal void SetDefaultValues(StreamingContext context)
@@ -86,7 +88,8 @@ namespace ARKBreedingStats.values
                 BabyFoodConsumptionSpeedMultiplier = BabyFoodConsumptionSpeedMultiplier,
                 BabyCuddleIntervalMultiplier = BabyCuddleIntervalMultiplier,
                 BabyImprintingStatScaleMultiplier = BabyImprintingStatScaleMultiplier,
-                BabyImprintAmountMultiplier = BabyImprintAmountMultiplier
+                BabyImprintAmountMultiplier = BabyImprintAmountMultiplier,
+                AllowFlyerSpeedLeveling = AllowFlyerSpeedLeveling
             };
 
             if (withStatMultipliers && statMultipliers != null)

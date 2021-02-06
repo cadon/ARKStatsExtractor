@@ -273,6 +273,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.groupBox29 = new System.Windows.Forms.GroupBox();
+            this.CbAllowFlyerSpeedLeveling = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmountEvent)).BeginInit();
@@ -359,6 +361,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).BeginInit();
             this.panel1.SuspendLayout();
+            this.groupBox29.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -1450,6 +1453,7 @@
             // 
             this.tabPageMultipliers.AllowDrop = true;
             this.tabPageMultipliers.AutoScroll = true;
+            this.tabPageMultipliers.Controls.Add(this.groupBox29);
             this.tabPageMultipliers.Controls.Add(this.label34);
             this.tabPageMultipliers.Controls.Add(this.btExportMultipliers);
             this.tabPageMultipliers.Controls.Add(this.groupBox18);
@@ -1496,7 +1500,7 @@
             // 
             this.groupBox18.Controls.Add(this.btApplyPreset);
             this.groupBox18.Controls.Add(this.cbbStatMultiplierPresets);
-            this.groupBox18.Location = new System.Drawing.Point(6, 488);
+            this.groupBox18.Location = new System.Drawing.Point(6, 619);
             this.groupBox18.Name = "groupBox18";
             this.groupBox18.Size = new System.Drawing.Size(382, 51);
             this.groupBox18.TabIndex = 16;
@@ -1548,7 +1552,7 @@
             this.groupBox11.Controls.Add(this.cbAllowMoreThanHundredImprinting);
             this.groupBox11.Controls.Add(this.nudWildLevelStep);
             this.groupBox11.Controls.Add(this.cbConsiderWildLevelSteps);
-            this.groupBox11.Location = new System.Drawing.Point(6, 545);
+            this.groupBox11.Location = new System.Drawing.Point(6, 544);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Size = new System.Drawing.Size(382, 69);
             this.groupBox11.TabIndex = 1;
@@ -2806,7 +2810,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -2814,7 +2818,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -2822,7 +2826,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -2830,7 +2834,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -3322,6 +3326,26 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
+            // groupBox29
+            // 
+            this.groupBox29.Controls.Add(this.CbAllowFlyerSpeedLeveling);
+            this.groupBox29.Location = new System.Drawing.Point(6, 488);
+            this.groupBox29.Name = "groupBox29";
+            this.groupBox29.Size = new System.Drawing.Size(382, 50);
+            this.groupBox29.TabIndex = 19;
+            this.groupBox29.TabStop = false;
+            this.groupBox29.Text = "AllowFlyerSpeedLeveling";
+            // 
+            // CbAllowFlyerSpeedLeveling
+            // 
+            this.CbAllowFlyerSpeedLeveling.AutoSize = true;
+            this.CbAllowFlyerSpeedLeveling.Location = new System.Drawing.Point(6, 19);
+            this.CbAllowFlyerSpeedLeveling.Name = "CbAllowFlyerSpeedLeveling";
+            this.CbAllowFlyerSpeedLeveling.Size = new System.Drawing.Size(144, 17);
+            this.CbAllowFlyerSpeedLeveling.TabIndex = 0;
+            this.CbAllowFlyerSpeedLeveling.Text = "AllowFlyerSpeedLeveling";
+            this.CbAllowFlyerSpeedLeveling.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -3453,6 +3477,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.groupBox29.ResumeLayout(false);
+            this.groupBox29.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3702,5 +3728,7 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.GroupBox GbImgCacheLocalAppData;
         private System.Windows.Forms.CheckBox CbImgCacheUseLocalAppData;
+        private System.Windows.Forms.GroupBox groupBox29;
+        private System.Windows.Forms.CheckBox CbAllowFlyerSpeedLeveling;
     }
 }

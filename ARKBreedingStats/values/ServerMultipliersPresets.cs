@@ -1,10 +1,7 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
 
@@ -14,13 +11,15 @@ namespace ARKBreedingStats.values
     public class ServerMultipliersPresets
     {
         [JsonProperty]
-        private string format = string.Empty; // must be present and a supported value
+        private string format; // must be present and a supported value
         [JsonProperty]
         public Dictionary<string, ServerMultipliers> serverMultiplierDictionary;
         public List<string> PresetNameList;
 
         public const string OFFICIAL = "official";
         public const string SINGLEPLAYER = "singleplayer";
+
+        private static bool IsValidFormat(string formatVersion) => formatVersion == "1.13";
 
         public ServerMultipliersPresets()
         {
@@ -38,12 +37,12 @@ namespace ARKBreedingStats.values
             serverMultipliersPresets = new ServerMultipliersPresets();
             if (FileService.LoadJsonFile(FileService.GetJsonPath(FileService.ValuesServerMultipliers), out ServerMultipliersPresets readData, out string errorMessage))
             {
-                if (Values.IsValidFormatVersion(readData.format))
+                if (IsValidFormat(readData.format))
                 {
                     serverMultipliersPresets = readData;
                     return true;
                 }
-                MessageBoxes.ShowMessageBox($"File {FileService.ValuesServerMultipliers} is a format that is unsupported in this version of ARK Smart Breeding." +
+                MessageBoxes.ShowMessageBox($"The file {FileService.ValuesServerMultipliers} is in the format\n{readData.format}\nwhich is unsupported in this version of ARK Smart Breeding." +
                                              "\n\nTry updating to a newer version.");
 
             }
