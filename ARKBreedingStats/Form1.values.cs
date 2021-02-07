@@ -39,12 +39,12 @@ namespace ARKBreedingStats
 
             if (modFilesLoaded)
             {
-                if (showResult && !string.IsNullOrEmpty(resultsMessage))
-                    MessageBox.Show(resultsMessage, "Mod Values loaded", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (applySettings)
                     ApplySettingsToValues();
                 speciesSelector1.SetSpeciesLists(Values.V.species, Values.V.aliases);
             }
+            if (showResult && !string.IsNullOrEmpty(resultsMessage))
+                MessageBox.Show(resultsMessage, "Loading Mod Values", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             _creatureCollection.ModList = mods;
             UpdateStatusBar();

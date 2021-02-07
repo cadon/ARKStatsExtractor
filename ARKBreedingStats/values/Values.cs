@@ -21,7 +21,10 @@ namespace ARKBreedingStats.values
         /// <summary>
         /// Checks if the version string is a format version that is supported by the version of this application.
         /// </summary>
-        private static bool IsValidFormatVersion(string version) => version == "1.14-flyerspeed";
+        private static bool IsValidFormatVersion(string version) =>
+            version == "1.12" // format with 12 stats (minimum required format)
+            || version == "1.13" // introduced remaps for blueprintPaths
+            || version == "1.14-flyerspeed"; // introduced isFlyer property for AllowFlyerSpeedLeveling
 
         private static Values _V;
 
@@ -41,7 +44,7 @@ namespace ARKBreedingStats.values
         [JsonProperty]
         public List<List<object>> dyeDefinitions;
         /// <summary>
-        /// If a species for a blueprintpath is requested, the blueprintPath will be remapped if an according key is present.
+        /// If a species for a blueprintPath is requested, the blueprintPath will be remapped if an according key is present.
         /// This is needed if species are remapped ingame, e.g. if a variant is removed.
         /// </summary>
         [JsonProperty("remaps")]
@@ -282,7 +285,11 @@ namespace ARKBreedingStats.values
             loadedModsHash = CreatureCollection.CalculateModListHash(mods);
 
             if (speciesAdded == 0)
-                return true; // nothing changed
+            {
+                resultsMessage = resultsMessageSB.ToString();
+                // nothing changed
+                return false;
+            }
 
             // sort new species
             OrderSpeciesAndApplyCustomVariants();
