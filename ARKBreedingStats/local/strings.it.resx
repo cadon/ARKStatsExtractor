@@ -932,7 +932,7 @@ Questa modalità arriverà alla miglior prole possibile, ferma e sicura.Alcune p
     <value>Imposta automaticamente la cartella di esportazione</value>
   </data>
   <data name="ExportFolderDetectionFailed" xml:space="preserve">
-    <value>La cartella di esportazione di Steam non è stata rilevata automaticamente.</value>
+    <value>La cartella di esportazione non è stata rilevata automaticamente.</value>
   </data>
   <data name="incubation" xml:space="preserve">
     <value>incubazione</value>

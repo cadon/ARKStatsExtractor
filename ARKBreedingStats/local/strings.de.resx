@@ -1204,7 +1204,7 @@ Diese kann mit BSS Preset angewandt werden.</value>
     <value>Automatisches Einstellen des Export Ordners</value>
   </data>
   <data name="ExportFolderDetectionFailed" xml:space="preserve">
-    <value>Der Export-Ordner von Steam konnte nicht automatisch ermittelt werden.</value>
+    <value>Der Export-Ordner für exportierte Kreaturen konnte nicht automatisch ermittelt werden.</value>
   </data>
   <data name="incubation" xml:space="preserve">
     <value>Inkubation</value>

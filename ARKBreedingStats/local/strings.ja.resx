@@ -1213,7 +1213,7 @@ BabyCuddleIntervallMultiplierとBabyMatureSpeedMultiplierが正しいか確認�
     <value>エクスポートフォルダを自動的に設定</value>
   </data>
   <data name="ExportFolderDetectionFailed" xml:space="preserve">
-    <value>Steamのエクスポートフォルダが見つかりませんでした。</value>
+    <value>のエクスポートフォルダが見つかりませんでした。</value>
   </data>
   <data name="incubation" xml:space="preserve">
     <value>孵化</value>

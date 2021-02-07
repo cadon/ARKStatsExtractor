@@ -1107,7 +1107,7 @@
     <value>Установить папку экспорта автоматически</value>
   </data>
   <data name="ExportFolderDetectionFailed" xml:space="preserve">
-    <value>Папка экспорта Steam не может быть обнаружена автоматически.</value>
+    <value>Папка экспорта не может быть обнаружена автоматически.</value>
   </data>
   <data name="incubation" xml:space="preserve">
     <value>инкубация</value>

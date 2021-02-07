@@ -819,9 +819,9 @@ Prawoklik, by zmodyfikować wzór.</value>
     <data name="downloadingValuesSuccess" xml:space="preserve">
         <value>Aktualizacja danych o statystykach zwierząt się powiodła.</value>
     </data>
-    <data name="ExportFolderDetectionFailed" xml:space="preserve">
-        <value>Katalog eksportów nie został odnaleziony automatycznie w instalacji Steam.</value>
-    </data>
+  <data name="ExportFolderDetectionFailed" xml:space="preserve">
+    <value>Katalog eksportów nie został odnaleziony automatycznie w instalacji.</value>
+  </data>
     <data name="issueCauseArkStatIssue" xml:space="preserve">
         <value>Niektóre statystyki tego gatunku są błędnie przedstawiane w grze. Może to uniemożliwić pomyślną ekstrakcję.</value>
     </data>

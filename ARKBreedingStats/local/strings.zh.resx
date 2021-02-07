@@ -1007,7 +1007,7 @@
     <value>自动设置导出文件夹</value>
   </data>
   <data name="ExportFolderDetectionFailed" xml:space="preserve">
-    <value>无法自动检测Steam的导出文件夹。</value>
+    <value>无法自动检测的导出文件夹。</value>
   </data>
   <data name="incubation" xml:space="preserve">
     <value>孵化</value>

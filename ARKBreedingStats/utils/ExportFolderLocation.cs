@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using Microsoft.Win32;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ARKBreedingStats.utils
 {
@@ -12,58 +15,113 @@ namespace ARKBreedingStats.utils
     /// </summary>
     internal static class ExportFolderLocation
     {
-        internal static bool GetListOfExportFolders(out (string path, string steamPlayerName)[] exportFolders, out string error)
+        /// <summary>
+        /// Extracts possible creature export directories of a Steam or Epic installation of ARK.
+        /// </summary>
+        internal static bool GetListOfExportFolders(out (string path, string launcherPlayerName)[] exportFolders, out string error)
+        {
+            if (ExtractSteamExportLocations(out exportFolders, out error)) return true;
+
+            var steamError = error;
+
+            // steam path couldn't be localized. Try Epic
+            if (ExtractEpicExportLocations(out exportFolders, out error)) return true;
+
+            error = $"Steam: {steamError}\n\nEpic: {error}";
+
+            exportFolders = null;
+            return false;
+        }
+
+        /// <summary>
+        /// Extracts possible creature export directories of a Steam installation of ARK.
+        /// </summary>
+        private static bool ExtractSteamExportLocations(out (string path, string launcherPlayerName)[] exportFolders,
+            out string error)
         {
             exportFolders = null;
-            error = null;
-            string configFilePath;
 
-            if (GetSteamInstallationPath(out var steamPath))
-            {
-                configFilePath = Path.Combine(steamPath, "config", "config.vdf");
-                if (!File.Exists(configFilePath))
-                {
-                    error = $"Steam config file {configFilePath} not found.";
-                    return false;
-                }
-            }
-            else
+            if (!GetSteamInstallationPath(out var steamPath))
             {
                 error = "Steam installation couldn't be found, is it installed?";
                 return false;
             }
 
-            if (ReadSteamPlayerIdsAndArkInstallPaths(configFilePath,
-                    out (string steamPlayerName, string steamPlayerId)[] steamNamesIds, out string[] arkInstallFolders, out error))
+            var configFilePath = Path.Combine(steamPath, "config", "config.vdf");
+            if (!File.Exists(configFilePath))
             {
-                var relativeArkPath = Path.Combine("steamapps", "common", "ARK");
-                var possibleArkPaths = new List<string> { Path.Combine(steamPath, relativeArkPath) };
-                possibleArkPaths.AddRange(arkInstallFolders.Select(f => Path.Combine(f, relativeArkPath)));
-
-                var existingArkPaths = possibleArkPaths.Where(Directory.Exists).ToArray();
-
-                if (!existingArkPaths.Any())
-                {
-                    error = "No installation folders with ARK found.";
-                    return false;
-                }
-
-                var relativeExportFolder = Path.Combine("ShooterGame", "Saved", "DinoExports");
-
-                // there can be multiple steam users, so list the possible export folder for each user
-                exportFolders = new (string, string)[existingArkPaths.Length * steamNamesIds.Length];
-                int i = 0;
-                foreach (var arkPath in existingArkPaths)
-                {
-                    foreach (var steamNameId in steamNamesIds)
-                        exportFolders[i++] = (Path.Combine(arkPath, relativeExportFolder, steamNameId.steamPlayerId), steamNameId.steamPlayerName);
-                }
-
-                return true;
+                error = $"Steam config file {configFilePath} not found.";
+                return false;
             }
 
-            return false;
+            if (!ReadSteamPlayerIdsAndArkInstallPaths(configFilePath,
+                out (string steamPlayerName, string steamPlayerId)[] steamNamesIds, out string[] arkInstallFolders,
+                out error)) return false;
+
+            var relativeArkPath = Path.Combine("steamapps", "common", "ARK");
+            var possibleArkPaths = new List<string> { Path.Combine(steamPath, relativeArkPath) };
+            possibleArkPaths.AddRange(arkInstallFolders.Select(f => Path.Combine(f, relativeArkPath)));
+
+            var existingArkPaths = possibleArkPaths.Where(Directory.Exists).ToArray();
+
+            if (!existingArkPaths.Any())
+            {
+                error = "No installation folders with ARK found.";
+                return false;
+            }
+
+            var relativeExportFolder = RelativeExportFolder();
+
+            // there can be multiple steam users, so list the possible export folder for each user
+            exportFolders = new (string, string)[existingArkPaths.Length * steamNamesIds.Length];
+            int i = 0;
+            foreach (var arkPath in existingArkPaths)
+            {
+                foreach (var steamNameId in steamNamesIds)
+                    exportFolders[i++] = (Path.Combine(arkPath, relativeExportFolder, steamNameId.steamPlayerId),
+                        steamNameId.steamPlayerName);
+            }
+
+            return true;
         }
+
+        /// <summary>
+        /// Extracts possible creature export directories of an Epic installation of ARK.
+        /// </summary>
+        private static bool ExtractEpicExportLocations(out (string path, string launcherPlayerName)[] exportFolders,
+            out string error)
+        {
+            exportFolders = null;
+
+            var configFilePath = Environment.ExpandEnvironmentVariables(@"%ProgramData%\Epic\UnrealEngineLauncher\LauncherInstalled.dat");
+
+            if (!File.Exists(configFilePath))
+            {
+                error = $"Epic config file {configFilePath} not found.";
+                return false;
+            }
+
+            if (!ReadEpicArkInstallPaths(configFilePath, out string[] arkInstallFolders, out error)) return false;
+
+            var existingArkPaths = arkInstallFolders.Where(Directory.Exists).ToArray();
+
+            if (!existingArkPaths.Any())
+            {
+                error = "No installation folders with ARK found.";
+                return false;
+            }
+
+            string playerId = string.Empty; // TODO what is the exact folder name of Epic export folders, maybe a player id like for steam?
+
+            exportFolders = new[]
+            {
+                (Path.Combine(existingArkPaths[0], RelativeExportFolder(), playerId), string.Empty)
+            };
+
+            return true;
+        }
+
+        private static string RelativeExportFolder() => Path.Combine("ShooterGame", "Saved", "DinoExports");
 
         private static bool GetSteamInstallationPath(out string steamPath)
         {
@@ -84,10 +142,6 @@ namespace ARKBreedingStats.utils
         /// <summary>
         /// Reads the steam config file (config.vdf) and returns a list of player ids and Ark install locations.
         /// </summary>
-        /// <param name="steamConfigFilePath"></param>
-        /// <param name="steamPlayerIds"></param>
-        /// <param name="arkInstallPaths"></param>
-        /// <returns></returns>
         private static bool ReadSteamPlayerIdsAndArkInstallPaths(string steamConfigFilePath, out (string steamPlayerName, string steamPlayerId)[] steamPlayerIds,
             out string[] arkInstallPaths, out string error)
         {
@@ -132,6 +186,54 @@ namespace ARKBreedingStats.utils
                 error = "No steam accounts in the steam config file found.";
 
             return anyPlayerIds;
+        }
+
+        /// <summary>
+        /// Reads the epic config file (LauncherInstalled.dat) and returns a list of Ark install locations.
+        /// </summary>
+        private static bool ReadEpicArkInstallPaths(string configFilePath, out string[] arkInstallPaths, out string error)
+        {
+            arkInstallPaths = null;
+            error = null;
+
+            if (!File.Exists(configFilePath))
+            {
+                error = $"Epic config file not found\n{configFilePath}";
+                return false;
+            }
+
+            JArray installationList;
+            using (StreamReader file = File.OpenText(configFilePath))
+            using (JsonTextReader reader = new JsonTextReader(file))
+            {
+                installationList = (JArray)JToken.ReadFrom(reader)["InstallationList"];
+            }
+
+            if (installationList == null)
+            {
+                error = "InstallationList node not found in Epic config file";
+                return false;
+            }
+
+            string arkPath = null;
+
+            foreach (JObject o in installationList)
+            {
+                if ((string)o["AppName"] == "aafc587fbf654758802c8e41e4fb3255")
+                {
+                    arkPath = (string)o["InstallLocation"];
+                    break;
+                }
+            }
+
+            if (string.IsNullOrEmpty(arkPath))
+            {
+                error = "No Ark installation path in the Epic config file found";
+                return false;
+            }
+
+            arkInstallPaths = new[] { arkPath };
+            return true;
         }
     }
 }

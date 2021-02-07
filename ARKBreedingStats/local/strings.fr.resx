@@ -1211,7 +1211,7 @@ Le préréglage peut être appliqué par le bouton Appliquer le préréglage</va
     <value>Définir automatiquement le dossier d'exportation</value>
   </data>
   <data name="ExportFolderDetectionFailed" xml:space="preserve">
-    <value>Le dossier d'exportation de Steam n'a pas pu être détecté automatiquement.</value>
+    <value>Le dossier d'exportation n'a pas pu être détecté automatiquement.</value>
   </data>
   <data name="incubation" xml:space="preserve">
     <value>incubation</value>

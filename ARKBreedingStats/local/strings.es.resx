@@ -999,7 +999,7 @@ Algunas crías pueden ser peores que en el modo de estadísticas altas, pero tam
     <value>Establecer carpeta de exportación automáticamente</value>
   </data>
   <data name="ExportFolderDetectionFailed" xml:space="preserve">
-    <value>La carpeta de exportación de Steam no se pudo detectar automáticamente.</value>
+    <value>La carpeta de exportación no se pudo detectar automáticamente.</value>
   </data>
   <data name="incubation" xml:space="preserve">
     <value>incubación</value>

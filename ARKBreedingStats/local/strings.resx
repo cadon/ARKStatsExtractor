@@ -1213,7 +1213,7 @@ The preset can be applied by the Apply Preset button</value>
     <value>Set export folder automatically</value>
   </data>
   <data name="ExportFolderDetectionFailed" xml:space="preserve">
-    <value>The export folder of Steam couldn't be detected automatically.</value>
+    <value>The export folder for exported creatures couldn't be detected automatically.</value>
   </data>
   <data name="incubation" xml:space="preserve">
     <value>incubation</value>
