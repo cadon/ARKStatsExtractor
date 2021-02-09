@@ -13,12 +13,13 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// Displays a modal dialog with up to three buttons with custom texts that can return Yes, No or Cancel.
         /// </summary>
-        internal static DialogResult Show(string message, string title, string buttonYes, string buttonNo = null, string buttonCancel = null, MessageBoxIcon icon = MessageBoxIcon.None)
+        internal static DialogResult Show(string message, string title, string buttonYes, string buttonNo = null,
+            string buttonCancel = null, MessageBoxIcon icon = MessageBoxIcon.None, bool showCopyToClipboard = false)
         {
             using (var f = new CustomMessageBox())
             {
                 f.LabelMessage.Text = message;
-                f.Text = title;
+                f.Text = $"{title} - {Utils.ApplicationNameVersion}";
                 if (string.IsNullOrEmpty(buttonYes))
                     f.ButtonYes.Visible = false;
                 else
@@ -59,8 +60,18 @@ namespace ARKBreedingStats.uiControls
                         break;
                 }
 
+                f.BtCopyToClipboard.Visible = showCopyToClipboard;
+
                 return f.ShowDialog();
             }
+        }
+
+        private void BtCopyToClipboard_Click(object sender, System.EventArgs e)
+        {
+            var message = LabelMessage.Text;
+            if (string.IsNullOrEmpty(message)) return;
+
+            Clipboard.SetText(message);
         }
     }
 }
