@@ -886,7 +886,7 @@ Setze auf -1 um Kreaturen unabhängig der Mutationen anzuzeigen.</value>
     <value>Aktivieren um die besten Vorschläge für die nächste Generation zu bekommen, wenn Top-Stats nicht wichtig sind.</value>
   </data>
   <data name="rbBPTopStats" xml:space="preserve">
-    <value>Kombiniere Top Stats lucky</value>
+    <value>Kombiniere Top Stats mit Glück</value>
   </data>
   <data name="rbBPTopStatsCn" xml:space="preserve">
     <value>Kombiniere Top Stats sicher</value>
@@ -897,7 +897,7 @@ Wählen, um alle Top stats in einer Kreatur zu vereinen.
 Einige Nachkommen werden teilweise ein niedrigeres Gesamtlevel als im High-Stats-Mode haben, aber die Top-Stats werden hier nacheinander zusammengeführt.</value>
   </data>
   <data name="rbBPTopStatsTT" xml:space="preserve">
-    <value>Kombiniere Top Stats lucky
+    <value>Kombiniere Top Stats mit Glück
 Wählen, um die Top stats in einer Kreature zu vereinen. Dieser Modus geht ein Risiko ein und versucht mehrere Top-Stats auf einmal zu vereinen. Wenn es klappt, geht es schneller, aber die Wahrscheinlichkeit ist geringer als im konservativen Modus.</value>
   </data>
   <data name="SelectSpeciesBreedingPlanner" xml:space="preserve">

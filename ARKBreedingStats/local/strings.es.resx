@@ -892,10 +892,10 @@ La posibilidad de una buena criatura en general es mejor.
 Compruebe si no es importante tener un Top-Stats-Offspring.</value>
   </data>
   <data name="rbBPTopStats" xml:space="preserve">
-    <value>Top Stats Lc</value>
+    <value>Estadísticas superiores, sentirse afortunado</value>
   </data>
   <data name="rbBPTopStatsCn" xml:space="preserve">
-    <value>Top Stats Cn</value>
+    <value>Estadísticas superiores, conservador</value>
   </data>
   <data name="rbBPTopStatsCnTT" xml:space="preserve">
     <value>Estadísticas superiores, conservador.

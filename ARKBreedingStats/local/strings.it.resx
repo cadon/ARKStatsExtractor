@@ -679,17 +679,19 @@ Se viene visualizzato un numero con un segno più, la somma è troppo alta e dev
 La possibilità di avere una buona creatura generale è migliore.Verifica se non è importante avere stat al top della prole.</value>
   </data>
   <data name="rbBPTopStats" xml:space="preserve">
-    <value>Stat top Lc</value>
+    <value>Stat al top, Mi sento fortunato</value>
   </data>
   <data name="rbBPTopStatsCn" xml:space="preserve">
-    <value>Stat top Cn</value>
+    <value>Stat al top, Prudente</value>
   </data>
   <data name="rbBPTopStatsCnTT" xml:space="preserve">
-    <value>Stat al top, Prudente.Controlla i migliori risultati a lungo termine e se vuoi andare sul sicuro.
+    <value>Stat al top, Prudente.
+Controlla i migliori risultati a lungo termine e se vuoi andare sul sicuro.
 Questa modalità arriverà alla miglior prole possibile, ferma e sicura.Alcune progenie potrebbero essere peggiori di quelle in Modalità alta qualità, ma questa è la modalità che usi se vuoi avere quella creatura perfetta in alcune generazioni.</value>
   </data>
   <data name="rbBPTopStatsTT" xml:space="preserve">
-    <value>Stat al top, Mi sento fortunato.Controlla i migliori risultati a lungo termine e se ti senti fortunato. Può essere più veloce per ottenere la creatura perfetta rispetto nella modalità Stat al top coservatore se sei fortunato.Alcune progenie potrebbero essere peggiori di quelle in Modalità alta qualità, ma hai anche una possibilità per la migliore prole possibile.</value>
+    <value>Stat al top, Mi sento fortunato.
+Controlla i migliori risultati a lungo termine e se ti senti fortunato. Può essere più veloce per ottenere la creatura perfetta rispetto nella modalità Stat al top coservatore se sei fortunato.Alcune progenie potrebbero essere peggiori di quelle in Modalità alta qualità, ma hai anche una possibilità per la migliore prole possibile.</value>
   </data>
   <data name="runDefaultExtractionAndImportFileToolStripMenuItem" xml:space="preserve">
     <value>Esegui l'estrazione di default e importare il file</value>
