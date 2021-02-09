@@ -109,13 +109,38 @@ namespace ARKBreedingStats.ocr
             if (string.IsNullOrEmpty(text)) return;
 
             _selectedTextData = ArkOCR.OCR.ocrConfig.RecognitionPatterns.Texts.FirstOrDefault(t => t.Text == text);
+
+            ListPatternsOfText();
+        }
+
+        /// <summary>
+        /// Displays all patterns of the selected text. If selectedIndex is -1, the best match will be selected.
+        /// </summary>
+        /// <param name="selectedIndex"></param>
+        private void ListPatternsOfText(int selectedIndex = -1)
+        {
             ListBoxPatternsOfString.Items.Clear();
 
             if (_selectedTextData == null) return;
             int patternCount = _selectedTextData.Patterns.Count;
-            ListBoxPatternsOfString.Items.AddRange(Enumerable.Range(1, patternCount).Select(ii => ii.ToString()).ToArray());
-            if (patternCount > 0)
-                ListBoxPatternsOfString.SelectedIndex = 0;
+            if (patternCount == 0) return;
+
+            var matches = new string[patternCount];
+            int bestMatchIndex = 0;
+            float bestMatchValue = 0;
+            for (int i = 0; i < patternCount; i++)
+            {
+                RecognitionPatterns.PatternMatch(_selectedTextData.Patterns[i].Data, ocrLetterEditRecognized.PatternDisplay?.Data, out float match, out _);
+                matches[i] = $"{Math.Round(match * 100, 1)}";
+                if (match > bestMatchValue)
+                {
+                    bestMatchValue = match;
+                    bestMatchIndex = i;
+                }
+            }
+            ListBoxPatternsOfString.Items.AddRange(matches);
+
+            ListBoxPatternsOfString.SelectedIndex = selectedIndex == -1 ? bestMatchIndex : selectedIndex;
         }
 
         private void btnSaveTemplate_Click(object sender, EventArgs e)
@@ -487,7 +512,7 @@ namespace ARKBreedingStats.ocr
             int fontSize = (int)nudFontSizeCalibration.Value;
             if (fontSize < 5)
             {
-                MessageBoxes.ShowMessageBox($"Fontsize {fontSize} is too small", "Error");
+                MessageBoxes.ShowMessageBox($"Font size {fontSize} is too small", "Error");
                 return;
             }
 
@@ -505,7 +530,7 @@ namespace ARKBreedingStats.ocr
         {
             const string statValueChars = "0123456789.,%/";
             const string levelChars = "0123456789:LEVEL";
-            const string textChars = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+            const string textChars = "♂♀!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
             // get font sizes from label heights
             var fontSizesChars = new Dictionary<int, string>(4)
             {
@@ -703,14 +728,10 @@ namespace ARKBreedingStats.ocr
 
             var selectedIndex = ListBoxPatternsOfString.SelectedIndex;
             _selectedTextData.Patterns.RemoveAt(selectedIndex);
-
-            ListBoxPatternsOfString.Items.Clear();
-
             int patternCount = _selectedTextData.Patterns.Count;
             if (selectedIndex >= patternCount) selectedIndex = patternCount - 1;
-            ListBoxPatternsOfString.Items.AddRange(Enumerable.Range(1, patternCount).Select(ii => ii.ToString()).ToArray());
-            if (patternCount > 0)
-                ListBoxPatternsOfString.SelectedIndex = selectedIndex;
+
+            ListPatternsOfText(selectedIndex);
         }
 
         #endregion

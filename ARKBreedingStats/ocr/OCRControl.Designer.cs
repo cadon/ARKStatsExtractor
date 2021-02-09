@@ -519,9 +519,9 @@ namespace ARKBreedingStats.ocr
             this.BtRemoveSelectedPatterns.ForeColor = System.Drawing.Color.Black;
             this.BtRemoveSelectedPatterns.Location = new System.Drawing.Point(94, 17);
             this.BtRemoveSelectedPatterns.Name = "BtRemoveSelectedPatterns";
-            this.BtRemoveSelectedPatterns.Size = new System.Drawing.Size(192, 23);
+            this.BtRemoveSelectedPatterns.Size = new System.Drawing.Size(234, 23);
             this.BtRemoveSelectedPatterns.TabIndex = 1;
-            this.BtRemoveSelectedPatterns.Text = "Remove Patterns of these texts";
+            this.BtRemoveSelectedPatterns.Text = "Remove Patterns of these characters";
             this.BtRemoveSelectedPatterns.UseVisualStyleBackColor = false;
             this.BtRemoveSelectedPatterns.Click += new System.EventHandler(this.BtRemoveSelectedPatterns_Click);
             // 
@@ -536,7 +536,7 @@ namespace ARKBreedingStats.ocr
             // 
             this.BtRemoveAllPatterns.BackColor = System.Drawing.Color.LightSalmon;
             this.BtRemoveAllPatterns.ForeColor = System.Drawing.Color.Black;
-            this.BtRemoveAllPatterns.Location = new System.Drawing.Point(152, 71);
+            this.BtRemoveAllPatterns.Location = new System.Drawing.Point(94, 71);
             this.BtRemoveAllPatterns.Name = "BtRemoveAllPatterns";
             this.BtRemoveAllPatterns.Size = new System.Drawing.Size(134, 23);
             this.BtRemoveAllPatterns.TabIndex = 2;

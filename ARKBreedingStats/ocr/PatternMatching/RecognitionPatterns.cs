@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using Newtonsoft.Json;
@@ -40,11 +41,14 @@ namespace ARKBreedingStats.ocr.PatternMatching
 
                 foreach (var pattern in c.Patterns)
                 {
+                    int minWidth = Math.Min(pattern.Width, ySizeFound);
+                    int maxWidth = Math.Max(pattern.Width, ySizeFound);
+                    if (maxWidth - minWidth > 3 && (maxWidth >> 1) > minWidth) continue; // if width is too different ignore pattern
+
                     var possibleDif = ((pattern.Length + sym.Pattern.Length) / 2) * tolerance;
                     if (Math.Abs(pattern.Length - curPattern.Length) > possibleDif) continue;
 
-                    possibleDif = pattern.SetPixels * 2 * tolerance;
-
+                    possibleDif = pattern.SetPixels * 4 * tolerance;
 
                     // Attempted to do offset shifting here but got too many false recognitions here, might need some tweaking.
                     //var minOffsetX = xSizeFound > 2 ? -1 : 0;
@@ -63,7 +67,7 @@ namespace ARKBreedingStats.ocr.PatternMatching
 
                     for (var x = 0; !fail && x < xSizeFound && x < pattern.Width; x++)
                     {
-                        for (var y = 0; !fail && y < ySizeFound && y < pattern.Height; y++)
+                        for (var y = 0; y < ySizeFound && y < pattern.Height; y++)
                         {
                             var curPatternX = x;// + offSetX;
                             var curPatternY = y;// + offSetY;
@@ -76,10 +80,11 @@ namespace ARKBreedingStats.ocr.PatternMatching
                                 if (cHave != pHave)
                                 {
                                     // tolerance of difference if a nearby bit is equal
-                                    dif += IsNearby(cHave ? pattern.Data : curPattern, x, y) ? 0.33f : 1f;
+                                    dif += IsNearby(cHave ? pattern.Data : curPattern, x, y) ? 0.4f : 1f;
                                     if (dif > possibleDif)
                                     {
                                         fail = true;
+                                        break;
                                     }
                                 }
                             }
@@ -233,6 +238,10 @@ namespace ARKBreedingStats.ocr.PatternMatching
         {
             var newPattern = Pattern.FromBmp(bmp);
             if (newPattern == null) return;
+
+            //// DEBUG
+            //Debug.WriteLine(text);
+            //Boolean2DimArrayConverter.ToDebugLog(newPattern.Data);
 
             var textData = Texts.FirstOrDefault(x => x.Text == text);
 

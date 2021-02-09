@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Diagnostics;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -29,9 +30,21 @@ namespace ARKBreedingStats.ocr.PatternMatching
         [JsonProperty, JsonConverter(typeof(Boolean2DimArrayConverter))]
         public bool[,] Data { get; set; }
 
+        /// <summary>
+        /// Total count of pixels.
+        /// </summary>
         public short Length;
+        /// <summary>
+        /// Width of character.
+        /// </summary>
         public byte Width;
+        /// <summary>
+        /// Height of character.
+        /// </summary>
         public byte Height;
+        /// <summary>
+        /// Count of character pixels.
+        /// </summary>
         public short SetPixels;
 
         public bool this[int x, int y]

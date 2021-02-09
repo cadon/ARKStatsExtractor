@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using System.Web.ModelBinding;
 using System.Windows.Forms;
 using ARKBreedingStats.ocr.PatternMatching;
 
@@ -270,7 +271,7 @@ namespace ARKBreedingStats.ocr
                 FontFamily ff = pfcoll.Families[0];
                 float fontEmSize = fontPxSize * 100f / 95; // specific ratio for the used font
                 int moveUpPx = -fontPxSize * 28 / 100; // specific ratio for the used font
-
+                int maxCharWidth = 2 * fontPxSize;
 
                 //// TODO debug
                 //using (Bitmap bitmap = new Bitmap(500, 150))
@@ -283,13 +284,13 @@ namespace ARKBreedingStats.ocr
                 //}
 
 
-                using (Bitmap bitmap = new Bitmap(fontPxSize, fontPxSize))
+                using (Bitmap bitmap = new Bitmap(maxCharWidth, fontPxSize))
                 using (Graphics graphics = Graphics.FromImage(bitmap))
                 using (Font f = new Font(ff, fontEmSize, FontStyle.Regular))
                 {
                     foreach (char c in calibrationText)
                     {
-                        graphics.FillRectangle(Brushes.Black, 0, 0, fontPxSize, fontPxSize);
+                        graphics.FillRectangle(Brushes.Black, 0, 0, maxCharWidth, fontPxSize);
                         graphics.DrawString(c.ToString(), f, Brushes.White, 0, moveUpPx);
 
                         patterns.AddPattern(c.ToString(), bitmap);
