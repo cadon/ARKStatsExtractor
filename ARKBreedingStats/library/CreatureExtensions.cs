@@ -163,44 +163,48 @@ namespace ARKBreedingStats.library
                     }
                 }
 
-                g.DrawString(Loc.S("Colors"), font, fontBrush, xColor, currentYPosition);
-                int colorRow = 0;
-                for (int ci = 0; ci < Species.ColorRegionCount; ci++)
+                if (creature.colors != null)
                 {
-                    if (!enabledColorRegions[ci])
-                        continue;
-
-                    int y = currentYPosition + (height / 9) + (colorRow++) * colorRowHeight;
-
-                    Color c = CreatureColors.CreatureColor(creature.colors[ci]);
-                    //Color fc = Utils.ForeColor(c);
-
-                    using (var b = new SolidBrush(c))
-                        g.FillEllipse(b, xColor, y, circleDiameter, circleDiameter);
-                    g.DrawEllipse(borderAroundColors, xColor, y, circleDiameter, circleDiameter);
-
-                    string colorRegionName = null;
-                    //string colorName = CreatureColors.CreatureColorName(creature.colors[ci]);
-
-                    if (!creatureImageShown)
+                    g.DrawString(Loc.S("Colors"), font, fontBrush, xColor, currentYPosition);
+                    int colorRow = 0;
+                    for (int ci = 0; ci < Species.ColorRegionCount; ci++)
                     {
-                        colorRegionName = creature.Species.colors[ci].name;
-                        int totalColorLength = colorRegionName.Length + 11;
-                        if (totalColorLength > maxColorNameLength)
+                        if (!enabledColorRegions[ci])
+                            continue;
+
+                        int y = currentYPosition + (height / 9) + (colorRow++) * colorRowHeight;
+
+                        Color c = CreatureColors.CreatureColor(creature.colors[ci]);
+                        //Color fc = Utils.ForeColor(c);
+
+                        using (var b = new SolidBrush(c))
+                            g.FillEllipse(b, xColor, y, circleDiameter, circleDiameter);
+                        g.DrawEllipse(borderAroundColors, xColor, y, circleDiameter, circleDiameter);
+
+                        string colorRegionName = null;
+                        //string colorName = CreatureColors.CreatureColorName(creature.colors[ci]);
+
+                        if (!creatureImageShown)
                         {
-                            // shorten color region name
-                            int lengthForRegionName = colorRegionName.Length - (totalColorLength - maxColorNameLength);
-                            colorRegionName = lengthForRegionName < 2
-                                ? string.Empty
-                                : colorRegionName.Substring(0, lengthForRegionName - 1) + "…";
+                            colorRegionName = creature.Species.colors[ci].name;
+                            int totalColorLength = colorRegionName.Length + 11;
+                            if (totalColorLength > maxColorNameLength)
+                            {
+                                // shorten color region name
+                                int lengthForRegionName =
+                                    colorRegionName.Length - (totalColorLength - maxColorNameLength);
+                                colorRegionName = lengthForRegionName < 2
+                                    ? string.Empty
+                                    : colorRegionName.Substring(0, lengthForRegionName - 1) + "…";
+                            }
+
+                            if (!string.IsNullOrEmpty(colorRegionName))
+                                colorRegionName = " (" + colorRegionName + ")";
                         }
 
-                        if (!string.IsNullOrEmpty(colorRegionName))
-                            colorRegionName = " (" + colorRegionName + ")";
+                        g.DrawString($"{creature.colors[ci]} - [{ci}]{colorRegionName}",
+                            fontSmall, fontBrush, xColor + circleDiameter + 4, y);
                     }
-
-                    g.DrawString($"{creature.colors[ci]} - [{ci}]{colorRegionName}",
-                        fontSmall, fontBrush, xColor + circleDiameter + 4, y);
                 }
 
                 // imprinting

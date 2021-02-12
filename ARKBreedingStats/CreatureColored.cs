@@ -71,7 +71,7 @@ namespace ARKBreedingStats
         /// <returns></returns>
         public static Bitmap GetColoredCreature(int[] colorIds, Species species, bool[] enabledColorRegions, int size = 128, int pieSize = 64, bool onlyColors = false, bool onlyImage = false, Sex creatureSex = Sex.Unknown)
         {
-            if (colorIds == null) return null;
+            if (colorIds == null) colorIds = new int[Species.ColorRegionCount];
 
             string speciesName = SpeciesImageName(species?.name);
 
