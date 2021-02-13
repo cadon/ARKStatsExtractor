@@ -1161,9 +1161,6 @@
   <data name="&gt;&gt;gbWeaponDamage.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="panel1.AutoScroll" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
