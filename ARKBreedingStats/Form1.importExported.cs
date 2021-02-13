@@ -158,7 +158,7 @@ namespace ARKBreedingStats
             if (_extractor.UniqueResults
                 || (alreadyExists && _extractor.ValidResults))
             {
-                creature = AddCreatureToCollection(true, goToLibraryTab: false);
+                creature = AddCreatureToCollection(true, goToLibraryTab: Properties.Settings.Default.AutoImportGotoLibraryAfterSuccess);
                 SetMessageLabelText($"Successful {(alreadyExists ? "updated" : "added")} {creature.name} ({species.name}) of the exported file\n" + filePath, MessageBoxIcon.Information, filePath);
                 added = true;
             }

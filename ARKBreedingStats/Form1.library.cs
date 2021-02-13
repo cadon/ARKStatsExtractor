@@ -150,6 +150,21 @@ namespace ARKBreedingStats
             if (goToLibraryTab)
             {
                 tabControlMain.SelectedTab = tabPageLibrary;
+
+                // select new creature and ensure visibility
+                _reactOnCreatureSelectionChange = false;
+                listViewLibrary.SelectedItems.Clear();
+                _reactOnCreatureSelectionChange = true;
+                for (int i = 0; i < listViewLibrary.Items.Count; i++)
+                {
+                    if (creature == (Creature)listViewLibrary.Items[i].Tag)
+                    {
+                        listViewLibrary.Items[i].Focused = true;
+                        listViewLibrary.Items[i].Selected = true;
+                        listViewLibrary.EnsureVisible(i);
+                        break;
+                    }
+                }
             }
 
             creatureInfoInputExtractor.parentListValid = false;

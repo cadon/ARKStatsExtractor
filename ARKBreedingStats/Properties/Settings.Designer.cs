@@ -1625,5 +1625,17 @@ namespace ARKBreedingStats.Properties {
                 this["BreedingPlannerConsiderOnlyEvenForHighStats"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoImportGotoLibraryAfterSuccess {
+            get {
+                return ((bool)(this["AutoImportGotoLibraryAfterSuccess"]));
+            }
+            set {
+                this["AutoImportGotoLibraryAfterSuccess"] = value;
+            }
+        }
     }
 }
