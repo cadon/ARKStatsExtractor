@@ -748,6 +748,15 @@ namespace ARKBreedingStats.settings
             {
                 aTExportFolderLocationsBindingSource.RemoveAt(e.RowIndex);
             }
+            else if (e.ColumnIndex == dgvExportMakeDefault.Index)
+            {
+                if (e.RowIndex != 0)
+                {
+                    var r = aTExportFolderLocationsBindingSource[e.RowIndex];
+                    aTExportFolderLocationsBindingSource.RemoveAt(e.RowIndex);
+                    aTExportFolderLocationsBindingSource.Insert(0, r);
+                }
+            }
         }
 
         private static ATImportFileLocation EditFileLocation(ATImportFileLocation atImportFileLocation)
