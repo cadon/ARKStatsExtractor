@@ -276,6 +276,8 @@
             this.dgvExportFolderChange = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dgvExportFolderDelete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dgvExportMakeDefault = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.CbExportFileRenameAfterImport = new System.Windows.Forms.CheckBox();
+            this.TbExportFileRename = new System.Windows.Forms.TextBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1651,7 +1653,7 @@
             this.groupBox27.Controls.Add(this.label46);
             this.groupBox27.Controls.Add(this.RbTamerStringForTribe);
             this.groupBox27.Controls.Add(this.RbTamerStringForOwner);
-            this.groupBox27.Location = new System.Drawing.Point(330, 549);
+            this.groupBox27.Location = new System.Drawing.Point(330, 575);
             this.groupBox27.Name = "groupBox27";
             this.groupBox27.Size = new System.Drawing.Size(412, 95);
             this.groupBox27.TabIndex = 11;
@@ -1721,6 +1723,8 @@
             // 
             // groupBox22
             // 
+            this.groupBox22.Controls.Add(this.TbExportFileRename);
+            this.groupBox22.Controls.Add(this.CbExportFileRenameAfterImport);
             this.groupBox22.Controls.Add(this.BtImportArchiveFolder);
             this.groupBox22.Controls.Add(this.panel2);
             this.groupBox22.Controls.Add(this.cbPlaySoundOnAutomaticImport);
@@ -1731,16 +1735,16 @@
             this.groupBox22.Controls.Add(this.cbAutoImportExported);
             this.groupBox22.Location = new System.Drawing.Point(330, 395);
             this.groupBox22.Name = "groupBox22";
-            this.groupBox22.Size = new System.Drawing.Size(412, 148);
+            this.groupBox22.Size = new System.Drawing.Size(412, 174);
             this.groupBox22.TabIndex = 9;
             this.groupBox22.TabStop = false;
             this.groupBox22.Text = "Auto import";
             // 
             // BtImportArchiveFolder
             // 
-            this.BtImportArchiveFolder.Location = new System.Drawing.Point(152, 91);
+            this.BtImportArchiveFolder.Location = new System.Drawing.Point(155, 139);
             this.BtImportArchiveFolder.Name = "BtImportArchiveFolder";
-            this.BtImportArchiveFolder.Size = new System.Drawing.Size(127, 21);
+            this.BtImportArchiveFolder.Size = new System.Drawing.Size(124, 21);
             this.BtImportArchiveFolder.TabIndex = 8;
             this.BtImportArchiveFolder.Text = "…";
             this.BtImportArchiveFolder.UseVisualStyleBackColor = true;
@@ -1829,7 +1833,7 @@
             // cbDeleteAutoImportedFile
             // 
             this.cbDeleteAutoImportedFile.AutoSize = true;
-            this.cbDeleteAutoImportedFile.Location = new System.Drawing.Point(23, 117);
+            this.cbDeleteAutoImportedFile.Location = new System.Drawing.Point(26, 96);
             this.cbDeleteAutoImportedFile.Name = "cbDeleteAutoImportedFile";
             this.cbDeleteAutoImportedFile.Size = new System.Drawing.Size(114, 17);
             this.cbDeleteAutoImportedFile.TabIndex = 3;
@@ -1840,7 +1844,7 @@
             // cbMoveImportedFileToSubFolder
             // 
             this.cbMoveImportedFileToSubFolder.AutoSize = true;
-            this.cbMoveImportedFileToSubFolder.Location = new System.Drawing.Point(23, 94);
+            this.cbMoveImportedFileToSubFolder.Location = new System.Drawing.Point(26, 142);
             this.cbMoveImportedFileToSubFolder.Name = "cbMoveImportedFileToSubFolder";
             this.cbMoveImportedFileToSubFolder.Size = new System.Drawing.Size(123, 17);
             this.cbMoveImportedFileToSubFolder.TabIndex = 2;
@@ -3354,6 +3358,23 @@
             this.dgvExportMakeDefault.Text = "Make default";
             this.dgvExportMakeDefault.UseColumnTextForButtonValue = true;
             // 
+            // CbExportFileRenameAfterImport
+            // 
+            this.CbExportFileRenameAfterImport.AutoSize = true;
+            this.CbExportFileRenameAfterImport.Location = new System.Drawing.Point(26, 119);
+            this.CbExportFileRenameAfterImport.Name = "CbExportFileRenameAfterImport";
+            this.CbExportFileRenameAfterImport.Size = new System.Drawing.Size(119, 17);
+            this.CbExportFileRenameAfterImport.TabIndex = 9;
+            this.CbExportFileRenameAfterImport.Text = "rename file (pattern)";
+            this.CbExportFileRenameAfterImport.UseVisualStyleBackColor = true;
+            // 
+            // TbExportFileRename
+            // 
+            this.TbExportFileRename.Location = new System.Drawing.Point(155, 113);
+            this.TbExportFileRename.Name = "TbExportFileRename";
+            this.TbExportFileRename.Size = new System.Drawing.Size(124, 20);
+            this.TbExportFileRename.TabIndex = 10;
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -3739,5 +3760,7 @@
         private System.Windows.Forms.DataGridViewButtonColumn dgvExportFolderChange;
         private System.Windows.Forms.DataGridViewButtonColumn dgvExportFolderDelete;
         private System.Windows.Forms.DataGridViewButtonColumn dgvExportMakeDefault;
+        private System.Windows.Forms.CheckBox CbExportFileRenameAfterImport;
+        private System.Windows.Forms.TextBox TbExportFileRename;
     }
 }

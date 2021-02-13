@@ -398,5 +398,11 @@
     <Setting Name="ImgCacheUseLocalAppData" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="AutoImportedExportFileRenamePattern" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DinoExport_{arkid}_{species}.ini</Value>
+    </Setting>
+    <Setting Name="AutoImportedExportFileRename" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

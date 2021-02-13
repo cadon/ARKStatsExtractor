@@ -1589,5 +1589,29 @@ namespace ARKBreedingStats.Properties {
                 this["ImgCacheUseLocalAppData"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("DinoExport_{arkid}_{species}.ini")]
+        public string AutoImportedExportFileRenamePattern {
+            get {
+                return ((string)(this["AutoImportedExportFileRenamePattern"]));
+            }
+            set {
+                this["AutoImportedExportFileRenamePattern"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoImportedExportFileRename {
+            get {
+                return ((bool)(this["AutoImportedExportFileRename"]));
+            }
+            set {
+                this["AutoImportedExportFileRename"] = value;
+            }
+        }
     }
 }
