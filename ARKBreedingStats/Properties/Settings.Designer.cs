@@ -1613,5 +1613,17 @@ namespace ARKBreedingStats.Properties {
                 this["AutoImportedExportFileRename"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BreedingPlannerConsiderOnlyEvenForHighStats {
+            get {
+                return ((bool)(this["BreedingPlannerConsiderOnlyEvenForHighStats"]));
+            }
+            set {
+                this["BreedingPlannerConsiderOnlyEvenForHighStats"] = value;
+            }
+        }
     }
 }

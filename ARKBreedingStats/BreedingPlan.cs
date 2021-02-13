@@ -118,6 +118,7 @@ namespace ARKBreedingStats
             cbBPIncludeCryoCreatures.Checked = Settings.Default.IncludeCryoedInBreedingPlan;
             cbBPOnlyOneSuggestionForFemales.Checked = Settings.Default.BreedingPlanOnlyBestSuggestionForEachFemale;
             cbBPMutationLimitOnlyOnePartner.Checked = Settings.Default.BreedingPlanOnePartnerMoreMutationsThanLimit;
+            CbConsiderOnlyEvenForHighStats.Checked = Settings.Default.BreedingPlannerConsiderOnlyEvenForHighStats;
 
             tagSelectorList1.OnTagChanged += TagSelectorList1_OnTagChanged;
             _updateBreedingPlanAllowed = true;
@@ -320,6 +321,17 @@ namespace ARKBreedingStats
             {
                 selectFemales = selectFemales.Where(c => !Settings.Default.FilterHideTribes.Contains(c.tribe));
                 selectMales = selectMales.Where(c => !Settings.Default.FilterHideTribes.Contains(c.tribe));
+            }
+
+            if (Settings.Default.BreedingPlannerConsiderOnlyEvenForHighStats)
+            {
+                for (int s = 0; s < Values.STATS_COUNT; s++)
+                {
+                    if (s == (int)StatNames.Torpidity || _statWeights[s] <= 0 || !_currentSpecies.UsesStat(s)) continue;
+                    int closureS = s;
+                    selectFemales = selectFemales.Where(c => c.levelsWild[closureS] % 2 == 0);
+                    selectMales = selectMales.Where(c => c.levelsWild[closureS] % 2 == 0);
+                }
             }
 
             Creature[] selectedFemales = selectFemales.ToArray();
@@ -1214,6 +1226,12 @@ namespace ARKBreedingStats
         private void cbMutationLimitOnlyOnePartner_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.BreedingPlanOnePartnerMoreMutationsThanLimit = cbBPMutationLimitOnlyOnePartner.Checked;
+            CalculateBreedingScoresAndDisplayPairs();
+        }
+
+        private void CbConsiderOnlyEvenForHighStats_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.BreedingPlannerConsiderOnlyEvenForHighStats = CbConsiderOnlyEvenForHighStats.Checked;
             CalculateBreedingScoresAndDisplayPairs();
         }
     }

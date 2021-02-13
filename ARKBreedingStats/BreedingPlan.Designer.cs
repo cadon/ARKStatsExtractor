@@ -86,6 +86,7 @@ namespace ARKBreedingStats
             this.rbBPHighStats = new System.Windows.Forms.RadioButton();
             this.rbBPTopStats = new System.Windows.Forms.RadioButton();
             this.statWeighting1 = new ARKBreedingStats.uiControls.StatWeighting();
+            this.CbConsiderOnlyEvenForHighStats = new System.Windows.Forms.CheckBox();
             this.tableLayoutMain.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageBreedableSpecies.SuspendLayout();
@@ -116,8 +117,8 @@ namespace ARKBreedingStats
             this.tableLayoutMain.Name = "tableLayoutMain";
             this.tableLayoutMain.RowCount = 3;
             this.tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 210F));
-            this.tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 260F));
+            this.tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutMain.Size = new System.Drawing.Size(1732, 1023);
             this.tableLayoutMain.TabIndex = 5;
             // 
@@ -129,7 +130,7 @@ namespace ARKBreedingStats
             this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(244, 547);
+            this.tabControl1.Size = new System.Drawing.Size(244, 520);
             this.tabControl1.TabIndex = 8;
             // 
             // tabPageBreedableSpecies
@@ -138,7 +139,7 @@ namespace ARKBreedingStats
             this.tabPageBreedableSpecies.Location = new System.Drawing.Point(4, 22);
             this.tabPageBreedableSpecies.Name = "tabPageBreedableSpecies";
             this.tabPageBreedableSpecies.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBreedableSpecies.Size = new System.Drawing.Size(236, 521);
+            this.tabPageBreedableSpecies.Size = new System.Drawing.Size(236, 494);
             this.tabPageBreedableSpecies.TabIndex = 0;
             this.tabPageBreedableSpecies.Text = "Breedable Species";
             this.tabPageBreedableSpecies.UseVisualStyleBackColor = true;
@@ -154,7 +155,7 @@ namespace ARKBreedingStats
             this.listViewSpeciesBP.Location = new System.Drawing.Point(3, 3);
             this.listViewSpeciesBP.MultiSelect = false;
             this.listViewSpeciesBP.Name = "listViewSpeciesBP";
-            this.listViewSpeciesBP.Size = new System.Drawing.Size(230, 515);
+            this.listViewSpeciesBP.Size = new System.Drawing.Size(230, 488);
             this.listViewSpeciesBP.TabIndex = 3;
             this.listViewSpeciesBP.UseCompatibleStateImageBehavior = false;
             this.listViewSpeciesBP.View = System.Windows.Forms.View.Details;
@@ -583,6 +584,7 @@ namespace ARKBreedingStats
             // 
             // gbBPBreedingMode
             // 
+            this.gbBPBreedingMode.Controls.Add(this.CbConsiderOnlyEvenForHighStats);
             this.gbBPBreedingMode.Controls.Add(this.cbBPMutationLimitOnlyOnePartner);
             this.gbBPBreedingMode.Controls.Add(this.cbBPOnlyOneSuggestionForFemales);
             this.gbBPBreedingMode.Controls.Add(this.cbBPIncludeCryoCreatures);
@@ -592,10 +594,9 @@ namespace ARKBreedingStats
             this.gbBPBreedingMode.Controls.Add(this.rbBPTopStatsCn);
             this.gbBPBreedingMode.Controls.Add(this.rbBPHighStats);
             this.gbBPBreedingMode.Controls.Add(this.rbBPTopStats);
-            this.gbBPBreedingMode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbBPBreedingMode.Location = new System.Drawing.Point(3, 556);
+            this.gbBPBreedingMode.Location = new System.Drawing.Point(3, 529);
             this.gbBPBreedingMode.Name = "gbBPBreedingMode";
-            this.gbBPBreedingMode.Size = new System.Drawing.Size(244, 204);
+            this.gbBPBreedingMode.Size = new System.Drawing.Size(244, 231);
             this.gbBPBreedingMode.TabIndex = 6;
             this.gbBPBreedingMode.TabStop = false;
             this.gbBPBreedingMode.Text = "Breeding-Mode";
@@ -734,6 +735,17 @@ namespace ARKBreedingStats
         1D,
         1D};
             // 
+            // CbConsiderOnlyEvenForHighStats
+            // 
+            this.CbConsiderOnlyEvenForHighStats.AutoSize = true;
+            this.CbConsiderOnlyEvenForHighStats.Location = new System.Drawing.Point(6, 206);
+            this.CbConsiderOnlyEvenForHighStats.Name = "CbConsiderOnlyEvenForHighStats";
+            this.CbConsiderOnlyEvenForHighStats.Size = new System.Drawing.Size(164, 17);
+            this.CbConsiderOnlyEvenForHighStats.TabIndex = 9;
+            this.CbConsiderOnlyEvenForHighStats.Text = "Consider only even high stats";
+            this.CbConsiderOnlyEvenForHighStats.UseVisualStyleBackColor = true;
+            this.CbConsiderOnlyEvenForHighStats.CheckedChanged += new System.EventHandler(this.CbConsiderOnlyEvenForHighStats_CheckedChanged);
+            // 
             // BreedingPlan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -819,5 +831,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.CheckBox cbTribeFilterLibrary;
         private PedigreeCreature pedigreeCreatureBestPossibleInSpeciesFiltered;
+        private System.Windows.Forms.CheckBox CbConsiderOnlyEvenForHighStats;
     }
 }
