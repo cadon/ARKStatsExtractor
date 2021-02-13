@@ -323,17 +323,6 @@ namespace ARKBreedingStats
                 selectMales = selectMales.Where(c => !Settings.Default.FilterHideTribes.Contains(c.tribe));
             }
 
-            if (Settings.Default.BreedingPlannerConsiderOnlyEvenForHighStats)
-            {
-                for (int s = 0; s < Values.STATS_COUNT; s++)
-                {
-                    if (s == (int)StatNames.Torpidity || _statWeights[s] <= 0 || !_currentSpecies.UsesStat(s)) continue;
-                    int closureS = s;
-                    selectFemales = selectFemales.Where(c => c.levelsWild[closureS] % 2 == 0);
-                    selectMales = selectMales.Where(c => c.levelsWild[closureS] % 2 == 0);
-                }
-            }
-
             Creature[] selectedFemales = selectFemales.ToArray();
             Creature[] selectedMales = selectMales.ToArray();
 
@@ -418,12 +407,16 @@ namespace ARKBreedingStats
 
                         for (int s = 0; s < Values.STATS_COUNT; s++)
                         {
-                            if (s == (int)StatNames.Torpidity) continue;
+                            if (s == (int)StatNames.Torpidity || !_currentSpecies.UsesStat(s)) continue;
                             bestPossLevels[s] = 0;
                             int higherLevel = Math.Max(female.levelsWild[s], male.levelsWild[s]);
                             int lowerLevel = Math.Min(female.levelsWild[s], male.levelsWild[s]);
                             if (higherLevel < 0) higherLevel = 0;
                             if (lowerLevel < 0) lowerLevel = 0;
+
+                            bool ignoreTopStats = Settings.Default.BreedingPlannerConsiderOnlyEvenForHighStats
+                                                  && higherLevel % 2 != 0
+                                                  && _statWeights[s] > 0;
 
                             bool higherIsBetter = _statWeights[s] >= 0;
 
@@ -432,7 +425,7 @@ namespace ARKBreedingStats
                             {
                                 if (_breedingMode == BreedingMode.TopStatsLucky)
                                 {
-                                    if (female.levelsWild[s] == _bestLevels[s] || male.levelsWild[s] == _bestLevels[s])
+                                    if (!ignoreTopStats && (female.levelsWild[s] == _bestLevels[s] || male.levelsWild[s] == _bestLevels[s]))
                                     {
                                         if (female.levelsWild[s] == _bestLevels[s] && male.levelsWild[s] == _bestLevels[s])
                                             tt *= 1.142;
@@ -444,7 +437,7 @@ namespace ARKBreedingStats
                                 {
                                     bestPossLevels[s] = (short)(higherIsBetter ? Math.Max(female.levelsWild[s], male.levelsWild[s]) : Math.Min(female.levelsWild[s], male.levelsWild[s]));
                                     tt *= .01;
-                                    if (female.levelsWild[s] == _bestLevels[s] || male.levelsWild[s] == _bestLevels[s])
+                                    if (!ignoreTopStats && (female.levelsWild[s] == _bestLevels[s] || male.levelsWild[s] == _bestLevels[s]))
                                     {
                                         nrTS++;
                                         eTS += female.levelsWild[s] == _bestLevels[s] && male.levelsWild[s] == _bestLevels[s] ? 1 : ProbabilityHigherLevel;
