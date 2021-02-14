@@ -457,7 +457,7 @@ namespace ARKBreedingStats
                                 t += eTS;
                             else
                                 t += .1 * eTS;
-                            // check if the best possible stat outcome already exists in a male
+                            // check if the best possible stat outcome regarding topLevels already exists in a male
                             bool maleExists = false;
 
                             foreach (Creature cr in selectedMales)
@@ -467,7 +467,8 @@ namespace ARKBreedingStats
                                 {
                                     if (s == (int)StatNames.Torpidity
                                         || !cr.Species.UsesStat(s)
-                                        || cr.levelsWild[s] == bestPossLevels[s])
+                                        || cr.levelsWild[s] == bestPossLevels[s]
+                                        || bestPossLevels[s] != _bestLevels[s])
                                         continue;
 
                                     maleExists = false;
@@ -489,7 +490,8 @@ namespace ARKBreedingStats
                                     {
                                         if (s == (int)StatNames.Torpidity
                                             || !cr.Species.UsesStat(s)
-                                            || cr.levelsWild[s] == bestPossLevels[s])
+                                            || cr.levelsWild[s] == bestPossLevels[s]
+                                            || bestPossLevels[s] != _bestLevels[s])
                                             continue;
 
                                         femaleExists = false;
@@ -928,6 +930,7 @@ namespace ARKBreedingStats
             crW.Father = father;
             double probabilityBest = 1;
             bool totalLevelUnknown = false; // if stats are unknown, total level is as well (==> oxygen, speed)
+            bool topStatBreedingMode = _breedingMode == BreedingMode.TopStatsConservative || _breedingMode == BreedingMode.TopStatsLucky;
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (s == (int)StatNames.Torpidity) continue;
@@ -939,9 +942,12 @@ namespace ARKBreedingStats
                 crW.topBreedingStats[s] = (_currentSpecies.stats[s].IncPerTamedLevel != 0 && crW.levelsWild[s] == _bestLevels[s]);
                 if (crB.levelsWild[s] == -1 || crW.levelsWild[s] == -1)
                     totalLevelUnknown = true;
-                if (crB.levelsWild[s] > crW.levelsWild[s])
+                // in top stats breeding mode consider only probability of top stats
+                if (crB.levelsWild[s] > crW.levelsWild[s]
+                    && (!topStatBreedingMode || crB.topBreedingStats[s]))
                     probabilityBest *= ProbabilityHigherLevel;
-                else if (crB.levelsWild[s] < crW.levelsWild[s])
+                else if (crB.levelsWild[s] < crW.levelsWild[s]
+                         && (!topStatBreedingMode || crB.topBreedingStats[s]))
                     probabilityBest *= ProbabilityLowerLevel;
             }
             crB.levelsWild[(int)StatNames.Torpidity] = crB.levelsWild.Sum();
