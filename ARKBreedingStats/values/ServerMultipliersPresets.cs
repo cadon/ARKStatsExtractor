@@ -16,8 +16,8 @@ namespace ARKBreedingStats.values
         public Dictionary<string, ServerMultipliers> serverMultiplierDictionary;
         public List<string> PresetNameList;
 
-        public const string OFFICIAL = "official";
-        public const string SINGLEPLAYER = "singleplayer";
+        public const string Official = "official";
+        public const string Singleplayer = "singleplayer";
 
         private static bool IsValidFormat(string formatVersion) => formatVersion == "1.13";
 

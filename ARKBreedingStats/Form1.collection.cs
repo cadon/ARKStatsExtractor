@@ -47,7 +47,7 @@ namespace ARKBreedingStats
             }
 
             if (_creatureCollection.serverMultipliers == null)
-                _creatureCollection.serverMultipliers = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.OFFICIAL);
+                _creatureCollection.serverMultipliers = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official);
             // use previously used multipliers again in the new file
             ServerMultipliers oldMultipliers = _creatureCollection.serverMultipliers;
 
@@ -473,7 +473,7 @@ namespace ARKBreedingStats
 
             if (_creatureCollection.serverMultipliers == null)
             {
-                _creatureCollection.serverMultipliers = previouslyLoadedCreatureCollection.serverMultipliers ?? Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.OFFICIAL);
+                _creatureCollection.serverMultipliers = previouslyLoadedCreatureCollection.serverMultipliers ?? Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official);
             }
 
             if (speciesSelector1.LastSpecies != null && speciesSelector1.LastSpecies.Length > 0)

@@ -80,7 +80,7 @@ namespace ARKBreedingStats.settings
             }
 
             // set neutral numbers for stat-multipliers to the default values to easier see what is non-default
-            ServerMultipliers officialMultipliers = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.OFFICIAL);
+            ServerMultipliers officialMultipliers = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official);
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (s < officialMultipliers.statMultipliers.Length)
@@ -595,7 +595,7 @@ namespace ARKBreedingStats.settings
             // get stat-multipliers
             // if there are stat-multipliers, set all to the official-values first
             if (text.Contains("PerLevelStatsMultiplier_Dino"))
-                ApplyMultiplierPreset(Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.OFFICIAL), onlyStatMultipliers: true);
+                ApplyMultiplierPreset(Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official), onlyStatMultipliers: true);
 
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
@@ -676,23 +676,6 @@ namespace ARKBreedingStats.settings
         {
             _tt.RemoveAll();
             _tt.Dispose();
-        }
-
-        private void buttonAllTBMultipliersOne_Click(object sender, EventArgs e)
-        {
-            SetBreedingTamingToOne();
-        }
-
-        private void SetBreedingTamingToOne()
-        {
-            nudTamingSpeed.ValueSave = 1;
-            nudDinoCharacterFoodDrain.ValueSave = 1;
-            nudMatingInterval.ValueSave = 1;
-            nudEggHatchSpeed.ValueSave = 1;
-            nudBabyMatureSpeed.ValueSave = 1;
-            nudBabyImprintingStatScale.ValueSave = 1;
-            nudBabyCuddleInterval.ValueSave = 1;
-            nudBabyFoodConsumptionSpeed.ValueSave = 1;
         }
 
         private void buttonEventToDefault_Click(object sender, EventArgs e)
@@ -798,7 +781,7 @@ namespace ARKBreedingStats.settings
             cbbStatMultiplierPresets.Items.Clear();
             foreach (var sm in Values.V.serverMultipliersPresets.PresetNameList)
             {
-                if (!string.IsNullOrWhiteSpace(sm) && sm != "singleplayer")
+                if (!string.IsNullOrWhiteSpace(sm) && sm != ServerMultipliersPresets.Singleplayer)
                     cbbStatMultiplierPresets.Items.Add(sm);
             }
             if (cbbStatMultiplierPresets.Items.Count > 0)
@@ -811,7 +794,7 @@ namespace ARKBreedingStats.settings
             if (multiplierPreset == null) return;
 
             // first set multipliers to default/official values, then set different values of preset
-            ApplyMultiplierPreset(Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.OFFICIAL));
+            ApplyMultiplierPreset(Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official));
             ApplyMultiplierPreset(multiplierPreset);
         }
 

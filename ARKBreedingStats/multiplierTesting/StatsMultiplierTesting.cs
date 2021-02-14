@@ -393,7 +393,7 @@ namespace ARKBreedingStats.multiplierTesting
 
         private void useDefaultStatMultipliersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ServerMultipliers officialSM = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.OFFICIAL);
+            ServerMultipliers officialSM = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official);
             if (officialSM == null) return;
             for (int s = 0; s < Values.STATS_COUNT; s++)
                 _statControls[s].StatMultipliers = officialSM.statMultipliers[s];
@@ -432,7 +432,7 @@ namespace ARKBreedingStats.multiplierTesting
         {
             if (cbSingleplayerSettings.Checked)
             {
-                ServerMultipliers spM = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.SINGLEPLAYER);
+                ServerMultipliers spM = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Singleplayer);
                 if (spM != null)
                 {
                     for (int s = 0; s < Values.STATS_COUNT; s++)

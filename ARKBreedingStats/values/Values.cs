@@ -463,7 +463,7 @@ namespace ARKBreedingStats.values
         public void ApplyMultipliers(CreatureCollection cc, bool eventMultipliers = false, bool applyStatMultipliers = true)
         {
             currentServerMultipliers = (eventMultipliers ? cc.serverMultipliersEvents : cc.serverMultipliers)?.Copy(false);
-            if (currentServerMultipliers == null) currentServerMultipliers = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.OFFICIAL);
+            if (currentServerMultipliers == null) currentServerMultipliers = V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official);
             if (currentServerMultipliers == null)
             {
                 throw new FileNotFoundException("No default server multiplier values found.\nIt's recommend to redownload ARK Smart Breeding.");
@@ -476,7 +476,7 @@ namespace ARKBreedingStats.values
                 // The singleplayer multipliers are saved as a regular multiplierpreset, but they work differently
                 // in the way they are multiplied on existing multipliers and won't work on their own.
                 // The preset name "singleplayer" should only be used for this purpose.
-                singlePlayerServerMultipliers = serverMultipliersPresets.GetPreset(ServerMultipliersPresets.SINGLEPLAYER);
+                singlePlayerServerMultipliers = serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Singleplayer);
                 if (singlePlayerServerMultipliers == null)
                     throw new FileNotFoundException("No server multiplier values for singleplayer settings found.\nIt's recommend to redownload ARK Smart Breeding.");
             }
