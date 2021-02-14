@@ -33,7 +33,10 @@ namespace ARKBreedingStats.settings
             }
         }
 
-        public void setNeutralValues(double[] nv)
+        /// <summary>
+        /// Set the values that are considered default and are a bit lowlighted.
+        /// </summary>
+        public void SetNeutralValues(double[] nv)
         {
             if (nv?.Length == 4)
             {
@@ -49,6 +52,14 @@ namespace ARKBreedingStats.settings
                 nudDomLevel.NeutralNumber = 1;
                 nudWildLevel.NeutralNumber = 1;
             }
+        }
+
+        public void SetHighlighted(bool highlighted)
+        {
+            nudTameAdd.SetExtraHighlightNonDefault(highlighted);
+            nudTameMult.SetExtraHighlightNonDefault(highlighted);
+            nudDomLevel.SetExtraHighlightNonDefault(highlighted);
+            nudWildLevel.SetExtraHighlightNonDefault(highlighted);
         }
     }
 }

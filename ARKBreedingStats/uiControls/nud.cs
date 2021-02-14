@@ -6,7 +6,7 @@ namespace ARKBreedingStats.uiControls
 {
     class Nud : NumericUpDown
     {
-        private bool brightForeColor;
+        private bool _brightForeColor;
         private decimal _NeutralNumber;
 
         protected override void OnEnter(EventArgs e)
@@ -31,14 +31,8 @@ namespace ARKBreedingStats.uiControls
         protected override void OnValueChanged(EventArgs e)
         {
             base.OnValueChanged(e);
-            if (brightForeColor)
-            {
-                ForeColor = Value == NeutralNumber ? Color.LightGray : Color.White;
-            }
-            else
-            {
-                ForeColor = Value == NeutralNumber ? SystemColors.GrayText : SystemColors.WindowText;
-            }
+
+            UpdateForeColor();
         }
 
         public override Color BackColor
@@ -47,8 +41,8 @@ namespace ARKBreedingStats.uiControls
             set
             {
                 base.BackColor = value;
-                brightForeColor = Utils.ForeColor(BackColor).GetBrightness() == 1;
-                updateColors();
+                _brightForeColor = Utils.ForeColor(BackColor).GetBrightness() == 1;
+                UpdateForeColor();
             }
         }
 
@@ -58,20 +52,26 @@ namespace ARKBreedingStats.uiControls
             set
             {
                 _NeutralNumber = value;
-                updateColors();
+                UpdateForeColor();
             }
         }
 
-        private void updateColors()
+        private void UpdateForeColor()
         {
-            if (brightForeColor)
+            if (Value == NeutralNumber)
             {
-                ForeColor = Value == NeutralNumber ? Color.LightGray : Color.White;
+                ForeColor = _brightForeColor ? Color.LightGray : SystemColors.GrayText;
             }
             else
             {
-                ForeColor = Value == NeutralNumber ? SystemColors.GrayText : SystemColors.WindowText;
+                ForeColor = _brightForeColor ? Color.White : SystemColors.WindowText;
             }
+        }
+
+        public void SetExtraHighlightNonDefault(bool highlight)
+        {
+            BackColor = highlight && Value != NeutralNumber ? Color.DarkOrange : SystemColors.Window;
+            UpdateForeColor();
         }
     }
 }

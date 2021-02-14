@@ -279,6 +279,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.CbHighlightAdjustedMultipliers = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmountEvent)).BeginInit();
@@ -370,6 +371,7 @@
             // 
             // groupBoxMultiplier
             // 
+            this.groupBoxMultiplier.Controls.Add(this.CbHighlightAdjustedMultipliers);
             this.groupBoxMultiplier.Controls.Add(this.flowLayoutPanelStatMultipliers);
             this.groupBoxMultiplier.Controls.Add(this.labelInfo);
             this.groupBoxMultiplier.Controls.Add(this.labelTameLevel);
@@ -2871,7 +2873,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -2879,7 +2881,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -2887,7 +2889,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -2895,7 +2897,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -3387,6 +3389,18 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
+            // CbHighlightAdjustedMultipliers
+            // 
+            this.CbHighlightAdjustedMultipliers.Appearance = System.Windows.Forms.Appearance.Button;
+            this.CbHighlightAdjustedMultipliers.AutoSize = true;
+            this.CbHighlightAdjustedMultipliers.Location = new System.Drawing.Point(320, 19);
+            this.CbHighlightAdjustedMultipliers.Name = "CbHighlightAdjustedMultipliers";
+            this.CbHighlightAdjustedMultipliers.Size = new System.Drawing.Size(56, 23);
+            this.CbHighlightAdjustedMultipliers.TabIndex = 5;
+            this.CbHighlightAdjustedMultipliers.Text = "highlight";
+            this.CbHighlightAdjustedMultipliers.UseVisualStyleBackColor = true;
+            this.CbHighlightAdjustedMultipliers.CheckedChanged += new System.EventHandler(this.CbHighlightAdjustedMultipliers_CheckedChanged);
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -3775,5 +3789,6 @@
         private System.Windows.Forms.CheckBox CbExportFileRenameAfterImport;
         private System.Windows.Forms.TextBox TbExportFileRename;
         private System.Windows.Forms.CheckBox CbAutoImportSuccessGotoLibrary;
+        private System.Windows.Forms.CheckBox CbHighlightAdjustedMultipliers;
     }
 }

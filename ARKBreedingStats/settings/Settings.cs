@@ -84,8 +84,8 @@ namespace ARKBreedingStats.settings
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (s < officialMultipliers.statMultipliers.Length)
-                    _multSetter[s].setNeutralValues(officialMultipliers.statMultipliers[s]);
-                else _multSetter[s].setNeutralValues(null);
+                    _multSetter[s].SetNeutralValues(officialMultipliers.statMultipliers[s]);
+                else _multSetter[s].SetNeutralValues(null);
             }
             nudTamingSpeed.NeutralNumber = 1;
             nudDinoCharacterFoodDrain.NeutralNumber = 1;
@@ -138,6 +138,7 @@ namespace ARKBreedingStats.settings
             _tt.SetToolTip(nudMaxServerLevel, "The max level allowed on the server. Currently creatures with more than 450 levels will be deleted on official servers.\nA creature that can be potentially have a higher level than this (if maximally leveled up) will be marked with a orange-red text in the library.\nSet to 0 to disable a warning in the loaded library.");
             _tt.SetToolTip(lbMaxTotalLevel, "The max level allowed on the server. Currently creatures with more than 450 levels will be deleted on official servers.\nThis limit can be enabled on unoffical servers with the setting DestroyTamesOverLevelClamp.\nA creature in this library that can be potentially have a higher level than this (if maximally leveled up) will be marked with a orange-red text in the library.\nSet to 0 to disable a warning in the loaded library.");
             _tt.SetToolTip(CbExportFileRenameAfterImport, "Use a pattern to create the new file name, a subset of the keywords and functions from the naming pattern work.");
+            _tt.SetToolTip(CbHighlightAdjustedMultipliers, "Highlight multipliers that are set to non-official values.\nDoes not update on multiplier change, this button needs to be rechecked then.\nCan be used to share screenshots of these settings.");
 
             // localizations / translations
             // for a new translation
@@ -1073,6 +1074,13 @@ namespace ARKBreedingStats.settings
         private void BtClearBackupFolder_Click(object sender, EventArgs e)
         {
             SetFolderSelectionButton(BtBackupFolder);
+        }
+
+        private void CbHighlightAdjustedMultipliers_CheckedChanged(object sender, EventArgs e)
+        {
+            bool highlight = CbHighlightAdjustedMultipliers.Checked;
+            for (int s = 0; s < Values.STATS_COUNT; s++)
+                _multSetter[s].SetHighlighted(highlight);
         }
     }
 }
