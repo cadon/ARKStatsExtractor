@@ -452,7 +452,7 @@ namespace ARKBreedingStats.multiplierTesting
         private void CbAllowFlyerSpeedLeveling_CheckedChanged(object sender, EventArgs e)
         {
             // non flyers are not affected
-            if (!_selectedSpecies.isFlyer) return;
+            if (!(_selectedSpecies?.isFlyer ?? false)) return;
 
             int speedIndex = (int)StatNames.SpeedMultiplier;
 
