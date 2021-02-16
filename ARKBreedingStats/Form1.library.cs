@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.utils;
 using System.IO;
+using System.Text.RegularExpressions;
 using ARKBreedingStats.library;
 
 namespace ARKBreedingStats
@@ -935,9 +936,9 @@ namespace ARKBreedingStats
         /// <param name="backcolor"></param>
         private void CooldownColors(Creature c, out Color forecolor, out Color backcolor)
         {
-            DateTime? cldGr = c.cooldownUntil.HasValue && c.growingUntil.HasValue ?
-                (c.cooldownUntil.Value > c.growingUntil.Value ? c.cooldownUntil.Value : c.growingUntil.Value)
-                : c.cooldownUntil ?? (c.growingUntil ?? default(DateTime?));
+            DateTime? cldGr = c.cooldownUntil.HasValue && c.growingUntil.HasValue
+                ? (c.cooldownUntil.Value > c.growingUntil.Value ? c.cooldownUntil.Value : c.growingUntil.Value)
+                : c.cooldownUntil ?? c.growingUntil;
 
             forecolor = SystemColors.ControlText;
             backcolor = SystemColors.Window;
@@ -1085,7 +1086,42 @@ namespace ARKBreedingStats
             {
                 // filter parameter are separated by commas and all parameter must be found on an item to have it included
                 var filterStrings = filterString.Split(',').Select(f => f.Trim())
-                    .Where(f => !string.IsNullOrEmpty(f)).ToArray();
+                    .Where(f => !string.IsNullOrEmpty(f)).ToList();
+
+                // extract stat level filter
+                var statGreaterThan = new Dictionary<int, int>();
+                var statLessThan = new Dictionary<int, int>();
+                var statEqualTo = new Dictionary<int, int>();
+                var statFilterRegex = new Regex(@"(\w{2}) ?(<|>|==) ?(\d+)");
+                var removeFilterIndex = new List<int>();
+                for (var i = filterStrings.Count - 1; i >= 0; i--)
+                {
+                    var f = filterStrings[i];
+                    var m = statFilterRegex.Match(f);
+                    if (!m.Success
+                        || !CreatureStat.StatAbbreviationToIndex.TryGetValue(m.Groups[1].Value, out var statIndex))
+                        continue;
+
+                    switch (m.Groups[2].Value)
+                    {
+                        case ">":
+                            statGreaterThan.Add(statIndex, int.Parse(m.Groups[3].Value));
+                            break;
+                        case "<":
+                            statLessThan.Add(statIndex, int.Parse(m.Groups[3].Value));
+                            break;
+                        case "==":
+                            statEqualTo.Add(statIndex, int.Parse(m.Groups[3].Value));
+                            break;
+                    }
+                    removeFilterIndex.Add(i);
+                }
+
+                if (!statGreaterThan.Any()) statGreaterThan = null;
+                if (!statLessThan.Any()) statLessThan = null;
+                if (!statEqualTo.Any()) statEqualTo = null;
+                foreach (var i in removeFilterIndex)
+                    filterStrings.RemoveAt(i);
 
                 filteredList = filteredList.Where(c => filterStrings.All(f =>
                     c.name.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) != -1
@@ -1096,7 +1132,11 @@ namespace ARKBreedingStats
                     || (c.ArkIdInGame?.StartsWith(f) ?? false)
                     || (c.server?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
                     || (c.tags?.Any(t => string.Equals(t, f, StringComparison.InvariantCultureIgnoreCase)) ?? false)
-                ));
+                )
+                && (statGreaterThan?.All(si => c.levelsWild[si.Key] > si.Value) ?? true)
+                && (statLessThan?.All(si => c.levelsWild[si.Key] < si.Value) ?? true)
+                && (statEqualTo?.All(si => c.levelsWild[si.Key] == si.Value) ?? true)
+                );
             }
 
             // display new results
