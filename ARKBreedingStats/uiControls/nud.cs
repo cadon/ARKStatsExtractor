@@ -68,9 +68,13 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
+        /// <summary>
+        /// Highlights the control if the value is not the neutral value.
+        /// </summary>
+        /// <param name="highlight"></param>
         public void SetExtraHighlightNonDefault(bool highlight)
         {
-            BackColor = highlight && Value != NeutralNumber ? Color.DarkOrange : SystemColors.Window;
+            BackColor = highlight && Value != NeutralNumber ? Color.FromArgb(190, 40, 20) : SystemColors.Window;
             UpdateForeColor();
         }
     }

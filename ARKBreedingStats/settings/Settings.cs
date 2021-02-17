@@ -1081,6 +1081,18 @@ namespace ARKBreedingStats.settings
             bool highlight = CbHighlightAdjustedMultipliers.Checked;
             for (int s = 0; s < Values.STATS_COUNT; s++)
                 _multSetter[s].SetHighlighted(highlight);
+            nudTamingSpeed.SetExtraHighlightNonDefault(highlight);
+            nudDinoCharacterFoodDrain.SetExtraHighlightNonDefault(highlight);
+            nudMatingSpeed.SetExtraHighlightNonDefault(highlight);
+            nudMatingInterval.SetExtraHighlightNonDefault(highlight);
+            nudEggHatchSpeed.SetExtraHighlightNonDefault(highlight);
+            nudBabyMatureSpeed.SetExtraHighlightNonDefault(highlight);
+            nudBabyCuddleInterval.SetExtraHighlightNonDefault(highlight);
+            nudBabyImprintAmount.SetExtraHighlightNonDefault(highlight);
+            nudBabyImprintingStatScale.SetExtraHighlightNonDefault(highlight);
+            nudBabyFoodConsumptionSpeed.SetExtraHighlightNonDefault(highlight);
+            cbSingleplayerSettings.BackColor = highlight && cbSingleplayerSettings.Checked ? Color.FromArgb(190, 40, 20) : Color.Transparent;
+            cbSingleplayerSettings.ForeColor = Utils.ForeColor(cbSingleplayerSettings.BackColor);
         }
     }
 }
