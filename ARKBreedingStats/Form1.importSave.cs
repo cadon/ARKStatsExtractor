@@ -112,8 +112,7 @@ namespace ARKBreedingStats
                                      ? "\n\nInner Exception:\n" + ex.InnerException.Message
                                      : string.Empty)
                     ;
-                MessageBox.Show($"An error occured while importing. Message: \n\n{message}",
-                    "Import Error", MessageBoxButtons.OK);
+                MessageBoxes.ShowMessageBox($"An error occurred while importing. Message:\n\n{message}", "Save file import error");
             }
             finally
             {
@@ -294,9 +293,17 @@ namespace ARKBreedingStats
         {
             if (string.IsNullOrEmpty(Properties.Settings.Default.LastImportedSaveGame))
             {
-                MessageBox.Show(
-                    "First import a savegame via the menu, after that you can import the last imported file with this button.",
-                    "First import manual.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBoxes.ShowMessageBox(
+                "First import a savegame via the menu. After that you can import the last imported file with this button.",
+                    "First import a save file manually", MessageBoxIcon.Information);
+                return;
+            }
+
+            if (!File.Exists(Properties.Settings.Default.LastImportedSaveGame))
+            {
+                MessageBoxes.ShowMessageBox(
+                    $"The file that was imported last time is not existing anymore:\n{Properties.Settings.Default.LastImportedSaveGame}\nImport the file you want to import at least once via the menu. After that you can import the last imported file with this button.",
+                    "File not existing");
                 return;
             }
 
