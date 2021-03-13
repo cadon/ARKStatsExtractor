@@ -289,10 +289,13 @@ namespace ARKBreedingStats.settings
             #endregion
 
             #region library
+
+            CbPauseGrowingTimerAfterAdding.Checked = Properties.Settings.Default.PauseGrowingTimerAfterAddingBaby;
             cbCreatureColorsLibrary.Checked = Properties.Settings.Default.showColorsInLibrary;
             cbApplyGlobalSpeciesToLibrary.Checked = Properties.Settings.Default.ApplyGlobalSpeciesToLibrary;
             CbLibrarySelectSelectedSpeciesOnLoad.Checked = Properties.Settings.Default.LibrarySelectSelectedSpeciesOnLoad;
             cbLibraryHighlightTopCreatures.Checked = Properties.Settings.Default.LibraryHighlightTopCreatures;
+
             #endregion
 
             #region import exported
@@ -481,10 +484,13 @@ namespace ARKBreedingStats.settings
             #endregion
 
             #region library
+
+            Properties.Settings.Default.PauseGrowingTimerAfterAddingBaby = CbPauseGrowingTimerAfterAdding.Checked;
             Properties.Settings.Default.showColorsInLibrary = cbCreatureColorsLibrary.Checked;
             Properties.Settings.Default.ApplyGlobalSpeciesToLibrary = cbApplyGlobalSpeciesToLibrary.Checked;
             Properties.Settings.Default.LibrarySelectSelectedSpeciesOnLoad = CbLibrarySelectSelectedSpeciesOnLoad.Checked;
             Properties.Settings.Default.LibraryHighlightTopCreatures = cbLibraryHighlightTopCreatures.Checked;
+
             #endregion
 
             #region import exported

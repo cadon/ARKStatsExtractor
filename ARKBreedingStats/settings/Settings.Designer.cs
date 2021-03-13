@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             this.groupBoxMultiplier = new System.Windows.Forms.GroupBox();
+            this.CbHighlightAdjustedMultipliers = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanelStatMultipliers = new System.Windows.Forms.FlowLayoutPanel();
             this.labelInfo = new System.Windows.Forms.Label();
             this.labelTameLevel = new System.Windows.Forms.Label();
@@ -279,7 +280,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.CbHighlightAdjustedMultipliers = new System.Windows.Forms.CheckBox();
+            this.CbPauseGrowingTimerAfterAdding = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmountEvent)).BeginInit();
@@ -384,6 +385,18 @@
             this.groupBoxMultiplier.TabIndex = 1;
             this.groupBoxMultiplier.TabStop = false;
             this.groupBoxMultiplier.Text = "Stat-Multipliers";
+            // 
+            // CbHighlightAdjustedMultipliers
+            // 
+            this.CbHighlightAdjustedMultipliers.Appearance = System.Windows.Forms.Appearance.Button;
+            this.CbHighlightAdjustedMultipliers.AutoSize = true;
+            this.CbHighlightAdjustedMultipliers.Location = new System.Drawing.Point(320, 19);
+            this.CbHighlightAdjustedMultipliers.Name = "CbHighlightAdjustedMultipliers";
+            this.CbHighlightAdjustedMultipliers.Size = new System.Drawing.Size(56, 23);
+            this.CbHighlightAdjustedMultipliers.TabIndex = 5;
+            this.CbHighlightAdjustedMultipliers.Text = "highlight";
+            this.CbHighlightAdjustedMultipliers.UseVisualStyleBackColor = true;
+            this.CbHighlightAdjustedMultipliers.CheckedChanged += new System.EventHandler(this.CbHighlightAdjustedMultipliers_CheckedChanged);
             // 
             // flowLayoutPanelStatMultipliers
             // 
@@ -2016,7 +2029,7 @@
             // groupBox17
             // 
             this.groupBox17.Controls.Add(this.cbbLanguage);
-            this.groupBox17.Location = new System.Drawing.Point(6, 591);
+            this.groupBox17.Location = new System.Drawing.Point(6, 619);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(317, 51);
             this.groupBox17.TabIndex = 5;
@@ -2034,13 +2047,14 @@
             // 
             // groupBox9
             // 
+            this.groupBox9.Controls.Add(this.CbPauseGrowingTimerAfterAdding);
             this.groupBox9.Controls.Add(this.CbLibrarySelectSelectedSpeciesOnLoad);
             this.groupBox9.Controls.Add(this.cbLibraryHighlightTopCreatures);
             this.groupBox9.Controls.Add(this.cbApplyGlobalSpeciesToLibrary);
             this.groupBox9.Controls.Add(this.cbCreatureColorsLibrary);
             this.groupBox9.Location = new System.Drawing.Point(6, 475);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(317, 110);
+            this.groupBox9.Size = new System.Drawing.Size(317, 138);
             this.groupBox9.TabIndex = 4;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Library";
@@ -2048,7 +2062,7 @@
             // CbLibrarySelectSelectedSpeciesOnLoad
             // 
             this.CbLibrarySelectSelectedSpeciesOnLoad.AutoSize = true;
-            this.CbLibrarySelectSelectedSpeciesOnLoad.Location = new System.Drawing.Point(6, 65);
+            this.CbLibrarySelectSelectedSpeciesOnLoad.Location = new System.Drawing.Point(6, 88);
             this.CbLibrarySelectSelectedSpeciesOnLoad.Name = "CbLibrarySelectSelectedSpeciesOnLoad";
             this.CbLibrarySelectSelectedSpeciesOnLoad.Size = new System.Drawing.Size(202, 17);
             this.CbLibrarySelectSelectedSpeciesOnLoad.TabIndex = 2;
@@ -2058,7 +2072,7 @@
             // cbLibraryHighlightTopCreatures
             // 
             this.cbLibraryHighlightTopCreatures.AutoSize = true;
-            this.cbLibraryHighlightTopCreatures.Location = new System.Drawing.Point(6, 88);
+            this.cbLibraryHighlightTopCreatures.Location = new System.Drawing.Point(6, 111);
             this.cbLibraryHighlightTopCreatures.Name = "cbLibraryHighlightTopCreatures";
             this.cbLibraryHighlightTopCreatures.Size = new System.Drawing.Size(136, 17);
             this.cbLibraryHighlightTopCreatures.TabIndex = 3;
@@ -2068,7 +2082,7 @@
             // cbApplyGlobalSpeciesToLibrary
             // 
             this.cbApplyGlobalSpeciesToLibrary.AutoSize = true;
-            this.cbApplyGlobalSpeciesToLibrary.Location = new System.Drawing.Point(6, 42);
+            this.cbApplyGlobalSpeciesToLibrary.Location = new System.Drawing.Point(6, 65);
             this.cbApplyGlobalSpeciesToLibrary.Name = "cbApplyGlobalSpeciesToLibrary";
             this.cbApplyGlobalSpeciesToLibrary.Size = new System.Drawing.Size(201, 17);
             this.cbApplyGlobalSpeciesToLibrary.TabIndex = 1;
@@ -2078,7 +2092,7 @@
             // cbCreatureColorsLibrary
             // 
             this.cbCreatureColorsLibrary.AutoSize = true;
-            this.cbCreatureColorsLibrary.Location = new System.Drawing.Point(6, 19);
+            this.cbCreatureColorsLibrary.Location = new System.Drawing.Point(6, 42);
             this.cbCreatureColorsLibrary.Name = "cbCreatureColorsLibrary";
             this.cbCreatureColorsLibrary.Size = new System.Drawing.Size(211, 17);
             this.cbCreatureColorsLibrary.TabIndex = 0;
@@ -2873,7 +2887,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -2881,7 +2895,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -2889,7 +2903,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -2897,7 +2911,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -3389,17 +3403,15 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // CbHighlightAdjustedMultipliers
+            // CbPauseGrowingTimerAfterAdding
             // 
-            this.CbHighlightAdjustedMultipliers.Appearance = System.Windows.Forms.Appearance.Button;
-            this.CbHighlightAdjustedMultipliers.AutoSize = true;
-            this.CbHighlightAdjustedMultipliers.Location = new System.Drawing.Point(320, 19);
-            this.CbHighlightAdjustedMultipliers.Name = "CbHighlightAdjustedMultipliers";
-            this.CbHighlightAdjustedMultipliers.Size = new System.Drawing.Size(56, 23);
-            this.CbHighlightAdjustedMultipliers.TabIndex = 5;
-            this.CbHighlightAdjustedMultipliers.Text = "highlight";
-            this.CbHighlightAdjustedMultipliers.UseVisualStyleBackColor = true;
-            this.CbHighlightAdjustedMultipliers.CheckedChanged += new System.EventHandler(this.CbHighlightAdjustedMultipliers_CheckedChanged);
+            this.CbPauseGrowingTimerAfterAdding.AutoSize = true;
+            this.CbPauseGrowingTimerAfterAdding.Location = new System.Drawing.Point(6, 19);
+            this.CbPauseGrowingTimerAfterAdding.Name = "CbPauseGrowingTimerAfterAdding";
+            this.CbPauseGrowingTimerAfterAdding.Size = new System.Drawing.Size(236, 17);
+            this.CbPauseGrowingTimerAfterAdding.TabIndex = 4;
+            this.CbPauseGrowingTimerAfterAdding.Text = "Pause growing timer when adding a creature";
+            this.CbPauseGrowingTimerAfterAdding.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -3790,5 +3802,6 @@
         private System.Windows.Forms.TextBox TbExportFileRename;
         private System.Windows.Forms.CheckBox CbAutoImportSuccessGotoLibrary;
         private System.Windows.Forms.CheckBox CbHighlightAdjustedMultipliers;
+        private System.Windows.Forms.CheckBox CbPauseGrowingTimerAfterAdding;
     }
 }

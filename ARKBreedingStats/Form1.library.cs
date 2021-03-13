@@ -140,6 +140,9 @@ namespace ARKBreedingStats
             if (creature.Mother == null || creature.Father == null)
                 UpdateParents(new List<Creature> { creature });
 
+            if (Properties.Settings.Default.PauseGrowingTimerAfterAddingBaby)
+                creature.StartStopMatureTimer(false);
+
             _filterListAllowed = false;
             UpdateCreatureListings(species, false);
 

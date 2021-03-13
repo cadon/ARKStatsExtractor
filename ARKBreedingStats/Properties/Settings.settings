@@ -410,5 +410,8 @@
     <Setting Name="AutoImportGotoLibraryAfterSuccess" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="PauseGrowingTimerAfterAddingBaby" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

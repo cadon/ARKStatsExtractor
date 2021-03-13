@@ -1637,5 +1637,17 @@ namespace ARKBreedingStats.Properties {
                 this["AutoImportGotoLibraryAfterSuccess"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool PauseGrowingTimerAfterAddingBaby {
+            get {
+                return ((bool)(this["PauseGrowingTimerAfterAddingBaby"]));
+            }
+            set {
+                this["PauseGrowingTimerAfterAddingBaby"] = value;
+            }
+        }
     }
 }
