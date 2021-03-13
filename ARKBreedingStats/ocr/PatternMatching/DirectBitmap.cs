@@ -54,9 +54,9 @@ namespace ARKBreedingStats.ocr.PatternMatching
         public void Dispose()
         {
             if (Disposed) return;
-            Disposed = true;
             Bitmap.Dispose();
             BitsHandle.Free();
+            Disposed = true;
         }
 
         public Color GetDominantColor()
@@ -74,9 +74,10 @@ namespace ARKBreedingStats.ocr.PatternMatching
                 }
             }
 
-            total[0] /= Width * Height;
-            total[1] /= Width * Height;
-            total[2] /= Width * Height;
+            var area = Width * Height;
+            total[0] /= area;
+            total[1] /= area;
+            total[2] /= area;
             return Color.FromArgb((int)total[0], (int)total[1], (int)total[2]);
         }
 

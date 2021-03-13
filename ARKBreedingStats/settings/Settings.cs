@@ -446,7 +446,7 @@ namespace ARKBreedingStats.settings
             #region OCR
             Properties.Settings.Default.showOCRButton = cbShowOCRButton.Checked;
             Properties.Settings.Default.waitBeforeScreenCapture = (int)nudWaitBeforeScreenCapture.Value;
-            Properties.Settings.Default.OCRWhiteThreshold = (int)nudWhiteThreshold.Value;
+            Properties.Settings.Default.OCRWhiteThreshold = (byte)nudWhiteThreshold.Value;
             Properties.Settings.Default.OCRApp = tbOCRCaptureApp.Text;
 
             Properties.Settings.Default.OCRIgnoresImprintValue = cbOCRIgnoreImprintValue.Checked;

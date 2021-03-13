@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using ARKBreedingStats.Library;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
 {
@@ -33,6 +34,7 @@ namespace ARKBreedingStats
             ShowInTaskbar = false;
             TopMost = true;
             parentInheritance1.ForeColor = Color.FromArgb(1, 1, 1); // so it's not transparent (black == TransparencyKey)
+            Win32API.SetHitTestVisibility(this.Handle, false);
 
             _infoShownAt = DateTime.Now.AddMinutes(-10);
             _labels = new[] { lblHealth, lblStamina, lblOxygen, lblFood, lblWeight, lblMeleeDamage, lblMovementSpeed, lblLevel };
@@ -43,7 +45,7 @@ namespace ARKBreedingStats
             labelTimer.Text = string.Empty;
             labelInfo.Text = string.Empty;
 
-            Size = ArkOCR.OCR.GetScreenshotOfProcess()?.Size ?? default;
+            Size = ArkOcr.Ocr.GetScreenshotOfProcess()?.Size ?? default;
             if (Size == default)
                 Size = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
 
@@ -52,7 +54,7 @@ namespace ARKBreedingStats
             theOverlay = this;
             _currentlyInInventory = false;
 
-            _ocrPossible = ArkOCR.OCR.ocrConfig != null && ArkOCR.OCR.CheckResolutionSupportedByOcr();
+            _ocrPossible = ArkOcr.Ocr.ocrConfig != null && ArkOcr.Ocr.CheckResolutionSupportedByOcr();
 
             SetInfoPositions();
             _notes = string.Empty;
@@ -76,8 +78,8 @@ namespace ARKBreedingStats
 
             for (int statIndex = 0; statIndex < _labels.Length; statIndex++)
             {
-                Rectangle r = ArkOCR.OCR.ocrConfig.labelRectangles[statIndex];
-                _labels[statIndex].Location = new Point(r.Left + r.Width + 6, r.Top - 10); //this.PointToClient(new Point(r.Left + r.Width + 6, r.Top - 10));
+                Rectangle r = ArkOcr.Ocr.ocrConfig.labelRectangles[statIndex];
+                _labels[statIndex].Location = new Point(r.Left + r.Width + 30, r.Top - 10);
             }
             lblStatus.Location = new Point(50, 10);
         }
@@ -95,7 +97,7 @@ namespace ARKBreedingStats
             SetTimerAndNotesText();
 
             // info
-            if (labelInfo.Text != "" && _infoShownAt.AddSeconds(InfoDuration) < DateTime.Now)
+            if (!string.IsNullOrEmpty(labelInfo.Text) && _infoShownAt.AddSeconds(InfoDuration) < DateTime.Now)
             {
                 labelInfo.Text = string.Empty;
                 parentInheritance1.Visible = false;
@@ -104,38 +106,36 @@ namespace ARKBreedingStats
             if (!_ocrPossible) return;
 
             _toggleInventoryCheck = !_toggleInventoryCheck;
-            if (checkInventoryStats && _toggleInventoryCheck)
+            if (!checkInventoryStats || !_toggleInventoryCheck) return;
+            if (_OCRing)
+                return;
+            lblStatus.Text = "…";
+            Application.DoEvents();
+            _OCRing = true;
+            if (!ArkOcr.Ocr.IsDinoInventoryVisible())
             {
-                if (_OCRing)
-                    return;
-                lblStatus.Text = "…";
-                Application.DoEvents();
-                _OCRing = true;
-                if (!ArkOCR.OCR.isDinoInventoryVisible())
+                if (_currentlyInInventory)
                 {
-                    if (_currentlyInInventory)
-                    {
-                        for (int i = 0; i < _labels.Length; i++)
-                            if (_labels[i] != null)
-                                _labels[i].Text = string.Empty;
-                        _currentlyInInventory = false;
-                    }
+                    for (int i = 0; i < _labels.Length; i++)
+                        if (_labels[i] != null)
+                            _labels[i].Text = string.Empty;
+                    _currentlyInInventory = false;
                 }
-                else if (_currentlyInInventory)
-                {
-                    // assuming it's still the same inventory, don't do anything, assuming nothing changed
-                }
-                else
-                {
-                    _currentlyInInventory = true;
-                    lblStatus.Text = "Reading Values";
-                    Application.DoEvents();
-                    ExtractorForm?.DoOcr("", false);
-                }
-                _OCRing = false;
-                lblStatus.Text = string.Empty;
-                Application.DoEvents();
             }
+            else if (_currentlyInInventory)
+            {
+                // assuming it's still the same inventory, don't do anything, assuming nothing changed
+            }
+            else
+            {
+                _currentlyInInventory = true;
+                lblStatus.Text = "Reading Values";
+                Application.DoEvents();
+                ExtractorForm?.DoOcr("", false);
+            }
+            _OCRing = false;
+            lblStatus.Text = string.Empty;
+            Application.DoEvents();
         }
 
         public void SetStatLevels(int[] wildValues, int[] tamedValues, int levelWild, int levelDom, Color[] colors = null)
@@ -145,19 +145,17 @@ namespace ARKBreedingStats
             for (int s = 0; s < 7; s++)
             {
                 int di = displayIndices[s];
-                _labels[s].Text = "[w" + wildValues[di];
-                if (tamedValues[di] != 0)
-                    _labels[s].Text += "+d" + tamedValues[di];
-                _labels[s].Text += "]";
+                _labels[s].Text = wildValues[di] == -1 ? "?" : wildValues[di].ToString();
+                if (tamedValues[di] > 0)
+                    _labels[s].Text += $" +{tamedValues[di]}";
                 if (colors != null && di < colors.Length)
                     _labels[s].ForeColor = colors[di];
             }
 
             // total level
-            _labels[7].Text = "[w" + levelWild;
+            _labels[7].Text = "w" + levelWild;
             if (levelDom != 0)
                 _labels[7].Text += "+d" + levelDom;
-            _labels[7].Text += "]";
         }
 
         /// <summary>

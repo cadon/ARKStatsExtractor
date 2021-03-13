@@ -8,45 +8,47 @@ namespace ARKBreedingStats.ocr.PatternMatching
     {
         private string _selectedText;
 
-        public RecognitionTrainingForm(RecognizedCharData charData, Image originalImg)
+        public RecognitionTrainingForm(RecognizedCharData charData, bool[,] image)
         {
             InitializeComponent();
 
             DrawPattern(charData.Pattern);
 
-            Image adjustedOriginalPicture = DrawFoundCharOnPicture(originalImg, charData);
+            Image adjustedOriginalPicture = DrawFoundCharOnPicture(image, charData);
 
             pictureBox2.Image = adjustedOriginalPicture;
             _selectedText = string.Empty;
         }
 
-        private Image DrawFoundCharOnPicture(Image img, RecognizedCharData charData)
+        private Image DrawFoundCharOnPicture(bool[,] image, RecognizedCharData charData)
         {
-            using (var db = new DirectBitmap(img.Width, img.Height))
+            var w = image.GetLength(0);
+            var h = image.GetLength(1);
+
+            var charWidth = charData.Pattern.GetLength(0);
+            var charYMax = charData.Coords.Y + charData.Pattern.GetLength(1);
+
+            using (var db = new DirectBitmap(w, h))
             {
-
-                using (var graphics = Graphics.FromImage(db.Bitmap))
+                for (int y = 0; y < h; y++)
                 {
-                    graphics.DrawImage(img, Point.Empty);
-                }
-
-                using (var graphics = Graphics.FromImage(db.Bitmap))
-                {
-                    graphics.DrawImage(img, Point.Empty);
-                }
-
-                var xMax = charData.Coords.X + charData.Pattern.GetLength(0);
-                var yMax = charData.Coords.Y + charData.Pattern.GetLength(1);
-
-                var x = 0;
-                for (var i = charData.Coords.X; i < xMax; i++, x++)
-                {
-                    var y = 0;
-                    for (var j = charData.Coords.Y; j < yMax; j++, y++)
+                    for (int x = 0; x < w; x++)
                     {
-                        if (charData.Pattern[x, y])
+                        if (image[x, y])
+                            db.Bits[y * w + x] = -1; // white
+                        else
+                            db.Bits[y * w + x] = -16777216; // black
+                    }
+
+                    if (y >= charData.Coords.Y && y < charYMax)
+                    {
+                        var charY = y - charData.Coords.Y;
+                        for (int x = 0; x < charWidth; x++)
                         {
-                            db.SetPixel(i, j, Color.Red);
+                            if (charData.Pattern[x, charY])
+                            {
+                                db.Bits[y * w + x + charData.Coords.X] = -65536; // red
+                            }
                         }
                     }
                 }

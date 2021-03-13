@@ -2,6 +2,7 @@
 
 namespace ARKBreedingStats.ocr.PatternMatching
 {
+    // TODO class needed? or remove?
     public static class OcrUtils
     {
         public static string BoolArrayToString(bool[,] arr)

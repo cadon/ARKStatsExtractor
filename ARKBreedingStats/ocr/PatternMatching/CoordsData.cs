@@ -37,10 +37,10 @@ namespace ARKBreedingStats.ocr.PatternMatching
             Coords.Add(new Coords(x, y));
         }
 
-        public int MaxX { get; private set; }
         public int MinX { get; private set; }
-        public int MaxY { get; private set; }
-        public int MinY { get; private set; }
+        public int MaxX { get; private set; }
+        private int MinY { get; set; }
+        private int MaxY { get; set; }
 
         public RecognizedCharData ToRecognizedCharData()
         {
@@ -55,10 +55,26 @@ namespace ARKBreedingStats.ocr.PatternMatching
                 boolArr[x, y] = true;
             }
 
-            return new RecognizedCharData(MinX, MinY)
+            return new RecognizedCharData(MinX, MinY, (byte)MinY)
             {
                 Pattern = boolArr
             };
+        }
+
+        public void ToDebugConsole()
+        {
+            var xSize = MaxX - MinX + 1;
+            var ySize = MaxY - MinY + 1;
+            var boolArr = new bool[xSize, ySize];
+
+            foreach (var c in Coords)
+            {
+                var x = c.X - MinX;
+                var y = c.Y - MinY;
+                boolArr[x, y] = true;
+            }
+
+            Boolean2DimArrayConverter.ToDebugLog(boolArr);
         }
     }
 }

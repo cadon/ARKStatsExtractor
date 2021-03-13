@@ -71,5 +71,13 @@ namespace ARKBreedingStats.utils
             };
             _timer.Start();
         }
+
+        /// <summary>
+        /// Cancels the debouncing, the action won't be executed.
+        /// </summary>
+        public void Cancel()
+        {
+            _timer?.Stop();
+        }
     }
 }

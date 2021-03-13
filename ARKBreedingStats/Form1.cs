@@ -158,7 +158,7 @@ namespace ARKBreedingStats
 
             speciesSelector1.SetTextBox(tbSpeciesGlobal);
 
-            ArkOCR.OCR.setOCRControl(ocrControl1);
+            ArkOcr.Ocr.SetOcrControl(ocrControl1);
             ocrControl1.UpdateWhiteThreshold += OcrUpdateWhiteThreshold;
             ocrControl1.DoOcr += DoOcr;
 
@@ -694,7 +694,7 @@ namespace ARKBreedingStats
                 _overlay.checkInventoryStats = Properties.Settings.Default.inventoryCheckTimer;
             }
 
-            ArkOCR.OCR.screenCaptureApplicationName = Properties.Settings.Default.OCRApp;
+            ArkOcr.Ocr.screenCaptureApplicationName = Properties.Settings.Default.OCRApp;
 
             if (Properties.Settings.Default.showOCRButton)
             {
@@ -705,7 +705,7 @@ namespace ARKBreedingStats
                 btReadValuesFromArk.Text = "Import Exported Data";
                 _tt.SetToolTip(btReadValuesFromArk, "Displays all exported creatures in the default-folder (needs to be set in the settings).");
             }
-            ArkOCR.OCR.waitBeforeScreenCapture = Properties.Settings.Default.waitBeforeScreenCapture;
+            ArkOcr.Ocr.waitBeforeScreenCapture = Properties.Settings.Default.waitBeforeScreenCapture;
             ocrControl1.SetWhiteThreshold(Properties.Settings.Default.OCRWhiteThreshold);
 
             int maxImprintingPercentage = _creatureCollection.allowMoreThanHundredImprinting ? 100000 : 100;
@@ -1991,16 +1991,16 @@ namespace ARKBreedingStats
         {
             cbQuickWildCheck.Checked = false;
 
-            double[] OCRvalues = ArkOCR.OCR.DoOcr(out string debugText, out string dinoName, out string speciesName, out string ownerName, out string tribeName, out Sex sex, imageFilePath, manuallyTriggered);
+            double[] OcrValues = ArkOcr.Ocr.DoOcr(out string debugText, out string dinoName, out string speciesName, out string ownerName, out string tribeName, out Sex sex, imageFilePath, manuallyTriggered);
 
             ocrControl1.output.Text = debugText;
-            if (OCRvalues.Length <= 1)
+            if (OcrValues.Length <= 1)
             {
                 if (manuallyTriggered) MessageBoxes.ShowMessageBox(debugText, "OCR " + Loc.S("error"));
                 return;
             }
 
-            numericUpDownLevel.ValueSave = (decimal)OCRvalues[9];
+            numericUpDownLevel.ValueSave = (decimal)OcrValues[9];
 
             creatureInfoInputExtractor.CreatureName = dinoName;
             if (!creatureInfoInputExtractor.OwnerLock)
@@ -2025,16 +2025,16 @@ namespace ARKBreedingStats
             for (int i = 0; i < displayedStatIndices.Length; i++)
             {
                 _statIOs[displayedStatIndices[i]].Input = _statIOs[displayedStatIndices[i]].percent
-                    ? OCRvalues[i] / 100.0
-                    : OCRvalues[i];
+                    ? OcrValues[i] / 100
+                    : OcrValues[i];
             }
 
             // use imprinting if existing
-            if (OCRvalues.Length > 8 && OCRvalues[8] >= 0 && (OCRvalues[8] <= 100 || _creatureCollection.allowMoreThanHundredImprinting))
+            if (OcrValues.Length > 8 && OcrValues[8] >= 0 && (OcrValues[8] <= 100 || _creatureCollection.allowMoreThanHundredImprinting))
             {
                 rbBredExtractor.Checked = true;
                 if (!Properties.Settings.Default.OCRIgnoresImprintValue)
-                    numericUpDownImprintingBonusExtractor.ValueSave = (decimal)OCRvalues[8];
+                    numericUpDownImprintingBonusExtractor.ValueSave = (decimal)OcrValues[8];
             }
             else
             {
@@ -2051,7 +2051,7 @@ namespace ARKBreedingStats
                 double[] statValues = new double[Values.STATS_COUNT];
                 for (int s = 0; s < displayedStatIndices.Length; s++)
                 {
-                    statValues[displayedStatIndices[s]] = OCRvalues[s];
+                    statValues[displayedStatIndices[s]] = OcrValues[s];
                 }
 
                 List<Species> possibleSpecies = DetermineSpeciesFromStats(statValues, speciesName);
@@ -2068,7 +2068,7 @@ namespace ARKBreedingStats
 
                     if (_lastOcrValues != null)
                         for (int i = 0; i < 10; i++)
-                            if (OCRvalues[i] != _lastOcrValues[i])
+                            if (OcrValues[i] != _lastOcrValues[i])
                             {
                                 sameValues = false;
                                 break;
@@ -2081,20 +2081,20 @@ namespace ARKBreedingStats
                         int newIndex = (possibleSpecies.IndexOf(_lastOcrSpecies) + 1) % possibleSpecies.Count;
                         speciesSelector1.SetSpecies(possibleSpecies[newIndex]);
                         _lastOcrSpecies = possibleSpecies[newIndex];
-                        _lastOcrValues = OCRvalues;
+                        _lastOcrValues = OcrValues;
                         ExtractLevels(true);
                     }
                     else
                     {
                         // automated, or first manual attempt at new values
                         bool foundPossiblyGood = false;
-                        for (int dinooption = 0; dinooption < possibleSpecies.Count() && foundPossiblyGood == false; dinooption++)
+                        for (int speciesOption = 0; speciesOption < possibleSpecies.Count && !foundPossiblyGood; speciesOption++)
                         {
                             // if the last OCR'ed values are the same as this one, the user may not be happy with the dino species selection and want another one
                             // so we'll cycle to the next one, but only if the OCR is manually triggered, on autotrigger (ie, overlay), don't change
-                            speciesSelector1.SetSpecies(possibleSpecies[dinooption]);
-                            _lastOcrSpecies = possibleSpecies[dinooption];
-                            _lastOcrValues = OCRvalues;
+                            speciesSelector1.SetSpecies(possibleSpecies[speciesOption]);
+                            _lastOcrSpecies = possibleSpecies[speciesOption];
+                            _lastOcrValues = OcrValues;
                             foundPossiblyGood = ExtractLevels(showLevelsInOverlay: !manuallyTriggered);
                         }
                     }
@@ -2111,7 +2111,7 @@ namespace ARKBreedingStats
                 ExtractLevels();
             }
 
-            _lastOcrValues = OCRvalues;
+            _lastOcrValues = OcrValues;
             if (tabControlMain.SelectedTab != TabPageOCR)
                 tabControlMain.SelectedTab = tabPageExtractor;
         }
@@ -2272,16 +2272,16 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    Process[] p = Process.GetProcessesByName(Properties.Settings.Default.OCRApp);
+                    var p = Process.GetProcessesByName(Properties.Settings.Default.OCRApp).FirstOrDefault();
 
-                    if (!p.Any())
+                    if (p == null)
                     {
                         MessageBoxes.ShowMessageBox("Process for capturing screenshots and for overlay (e.g. the game, or a stream of the game) not found.\n" +
                                                      "Start the game or change the process in the settings.", "Game started?", MessageBoxIcon.Warning);
                         cbToggleOverlay.Checked = false;
                         return false;
                     }
-                    IntPtr mwhd = p[0].MainWindowHandle;
+                    IntPtr mwhd = p.MainWindowHandle;
                     Screen scr = Screen.FromHandle(mwhd);
                     _overlay.Location = scr.WorkingArea.Location;
                 }
@@ -2390,37 +2390,34 @@ namespace ARKBreedingStats
         /// </summary>
         private void ShowLevelsInOverlay()
         {
-            if (_overlay != null && _overlay.checkInventoryStats)
+            if (_overlay == null || !_overlay.checkInventoryStats) return;
+
+            var wildLevels = GetCurrentWildLevels();
+            var tamedLevels = GetCurrentDomLevels();
+            Color[] colors = new Color[Values.STATS_COUNT];
+
+
+            for (int i = 0; i < Values.STATS_COUNT; i++)
             {
-                var wildLevels = GetCurrentWildLevels();
-                var tamedLevels = GetCurrentDomLevels();
-                Color[] colors = new Color[Values.STATS_COUNT];
-
-
-                for (int i = 0; i < Values.STATS_COUNT; i++)
-                {
-                    wildLevels[i] = wildLevels[i] > 0 ? wildLevels[i] : 0;
-                    tamedLevels[i] = tamedLevels[i] > 0 ? tamedLevels[i] : 0;
-                    colors[i] = _statIOs[i].BackColor;
-                }
-                int levelWild = wildLevels[(int)StatNames.Torpidity] + 1;
-                int levelDom = tamedLevels.Sum();
-
-                string extraText = speciesSelector1.SelectedSpecies.name;
-                if (!_extractor.PostTamed)
-                {
-                    string foodName = speciesSelector1.SelectedSpecies.taming.eats[0];
-                    int foodNeeded = Taming.FoodAmountNeeded(speciesSelector1.SelectedSpecies, levelWild, Values.V.currentServerMultipliers.TamingSpeedMultiplier, foodName, speciesSelector1.SelectedSpecies.taming.nonViolent);
-                    Taming.TamingTimes(speciesSelector1.SelectedSpecies, levelWild, Values.V.currentServerMultipliers.TamingSpeedMultiplier, Values.V.currentServerMultipliers.DinoCharacterFoodDrainMultiplier, foodName, foodNeeded, out _, out TimeSpan duration, out int narcoBerries, out int ascerbicMushrooms, out int narcotics, out int bioToxines, out double te, out _, out int bonusLevel, out _);
-                    string foodNameDisplay = foodName == "Kibble" ? speciesSelector1.SelectedSpecies.taming.favoriteKibble + " Egg Kibble" : foodName;
-                    extraText += "\nTaming takes " + duration.ToString(@"hh\:mm\:ss") + " with " + foodNeeded + "×" + foodNameDisplay
-                            + "\n" + narcoBerries + " Narcoberries or " + ascerbicMushrooms + " Ascerbic Mushrooms or " + narcotics + " Narcotics or " + bioToxines + " Bio Toxines are needed"
-                            + "\nTaming Effectiveness: " + Math.Round(100 * te, 1) + " % (+" + bonusLevel + " lvl)";
-                }
-
-                _overlay.SetStatLevels(wildLevels, tamedLevels, levelWild, levelDom, colors);
-                _overlay.SetInfoText(extraText);
+                colors[i] = _statIOs[i].BackColor;
             }
+            int levelWild = wildLevels[(int)StatNames.Torpidity] + 1;
+            int levelDom = tamedLevels.Sum();
+
+            string extraText = speciesSelector1.SelectedSpecies.name;
+            if (!_extractor.PostTamed)
+            {
+                string foodName = speciesSelector1.SelectedSpecies.taming.eats[0];
+                int foodNeeded = Taming.FoodAmountNeeded(speciesSelector1.SelectedSpecies, levelWild, Values.V.currentServerMultipliers.TamingSpeedMultiplier, foodName, speciesSelector1.SelectedSpecies.taming.nonViolent);
+                Taming.TamingTimes(speciesSelector1.SelectedSpecies, levelWild, Values.V.currentServerMultipliers.TamingSpeedMultiplier, Values.V.currentServerMultipliers.DinoCharacterFoodDrainMultiplier, foodName, foodNeeded, out _, out TimeSpan duration, out int narcoBerries, out int ascerbicMushrooms, out int narcotics, out int bioToxines, out double te, out _, out int bonusLevel, out _);
+                string foodNameDisplay = foodName == "Kibble" ? speciesSelector1.SelectedSpecies.taming.favoriteKibble + " Egg Kibble" : foodName;
+                extraText += "\nTaming takes " + duration.ToString(@"hh\:mm\:ss") + " with " + foodNeeded + "×" + foodNameDisplay
+                             + "\n" + narcoBerries + " Narcoberries or " + ascerbicMushrooms + " Ascerbic Mushrooms or " + narcotics + " Narcotics or " + bioToxines + " Bio Toxines are needed"
+                             + "\nTaming Effectiveness: " + Math.Round(100 * te, 1) + " % (+" + bonusLevel + " lvl)";
+            }
+
+            _overlay.SetStatLevels(wildLevels, tamedLevels, levelWild, levelDom, colors);
+            _overlay.SetInfoText(extraText);
         }
 
         private void findDuplicatesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2636,7 +2633,7 @@ namespace ARKBreedingStats
                 timerList1.DeleteAllExpiredTimers();
         }
 
-        private static void OcrUpdateWhiteThreshold(int value)
+        private static void OcrUpdateWhiteThreshold(byte value)
         {
             Properties.Settings.Default.OCRWhiteThreshold = value;
         }

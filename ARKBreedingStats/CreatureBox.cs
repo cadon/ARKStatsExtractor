@@ -3,6 +3,7 @@ using ARKBreedingStats.Library;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats

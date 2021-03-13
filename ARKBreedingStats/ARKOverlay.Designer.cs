@@ -45,7 +45,7 @@
             // lblHealth
             // 
             this.lblHealth.AutoSize = true;
-            this.lblHealth.BackColor = System.Drawing.Color.Black;
+            this.lblHealth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
             this.lblHealth.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHealth.ForeColor = System.Drawing.Color.Red;
             this.lblHealth.Location = new System.Drawing.Point(87, 49);
@@ -57,7 +57,7 @@
             // lblLevel
             // 
             this.lblLevel.AutoSize = true;
-            this.lblLevel.BackColor = System.Drawing.Color.Black;
+            this.lblLevel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
             this.lblLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLevel.ForeColor = System.Drawing.Color.RoyalBlue;
             this.lblLevel.Location = new System.Drawing.Point(87, 20);
@@ -102,7 +102,7 @@
             // lblStamina
             // 
             this.lblStamina.AutoSize = true;
-            this.lblStamina.BackColor = System.Drawing.Color.Black;
+            this.lblStamina.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
             this.lblStamina.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStamina.ForeColor = System.Drawing.Color.Red;
             this.lblStamina.Location = new System.Drawing.Point(87, 74);
@@ -114,7 +114,7 @@
             // lblOxygen
             // 
             this.lblOxygen.AutoSize = true;
-            this.lblOxygen.BackColor = System.Drawing.Color.Black;
+            this.lblOxygen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
             this.lblOxygen.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOxygen.ForeColor = System.Drawing.Color.Red;
             this.lblOxygen.Location = new System.Drawing.Point(87, 103);
@@ -126,7 +126,7 @@
             // lblFood
             // 
             this.lblFood.AutoSize = true;
-            this.lblFood.BackColor = System.Drawing.Color.Black;
+            this.lblFood.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
             this.lblFood.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFood.ForeColor = System.Drawing.Color.Red;
             this.lblFood.Location = new System.Drawing.Point(87, 132);
@@ -138,7 +138,7 @@
             // lblWeight
             // 
             this.lblWeight.AutoSize = true;
-            this.lblWeight.BackColor = System.Drawing.Color.Black;
+            this.lblWeight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
             this.lblWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWeight.ForeColor = System.Drawing.Color.Red;
             this.lblWeight.Location = new System.Drawing.Point(87, 161);
@@ -150,7 +150,7 @@
             // lblMeleeDamage
             // 
             this.lblMeleeDamage.AutoSize = true;
-            this.lblMeleeDamage.BackColor = System.Drawing.Color.Black;
+            this.lblMeleeDamage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
             this.lblMeleeDamage.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMeleeDamage.ForeColor = System.Drawing.Color.Red;
             this.lblMeleeDamage.Location = new System.Drawing.Point(87, 190);
@@ -162,7 +162,7 @@
             // lblMovementSpeed
             // 
             this.lblMovementSpeed.AutoSize = true;
-            this.lblMovementSpeed.BackColor = System.Drawing.Color.Black;
+            this.lblMovementSpeed.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
             this.lblMovementSpeed.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMovementSpeed.ForeColor = System.Drawing.Color.Red;
             this.lblMovementSpeed.Location = new System.Drawing.Point(87, 219);

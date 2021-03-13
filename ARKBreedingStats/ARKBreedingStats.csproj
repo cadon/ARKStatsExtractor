@@ -217,7 +217,7 @@
     <Compile Include="mods\Mod.cs" />
     <Compile Include="species\SpeciesListBoxEntry.cs" />
     <Compile Include="testCases\ExtractionTestCase.cs" />
-    <Compile Include="ocr\ArkOCR.cs" />
+    <Compile Include="ocr\ArkOcr.cs" />
     <Compile Include="ARKOverlay.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -308,7 +308,7 @@
       <DependentUpon>CreatureBox.cs</DependentUpon>
     </Compile>
     <Compile Include="library\CreatureCollection.cs" />
-    <Compile Include="CreatureColored.cs" />
+    <Compile Include="species\CreatureColored.cs" />
     <Compile Include="CreatureInfoInput.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -607,7 +607,7 @@
     <Compile Include="values\ServerMultipliersPresets.cs" />
     <Compile Include="values\ServerMultipliers.cs" />
     <Compile Include="values\Values.cs" />
-    <Compile Include="Win32API.cs" />
+    <Compile Include="utils\Win32API.cs" />
     <EmbeddedResource Include="local\strings.ja.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -626,6 +626,12 @@
       <DependentUpon>VariantSelector.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="json\ignoreSpeciesClasses.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="json\ocr\ocr_1920x1080_100.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="json\ocr\ocr_2560x1440_100.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="json\tamingFoodData.json">

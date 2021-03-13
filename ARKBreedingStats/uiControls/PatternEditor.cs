@@ -1,12 +1,12 @@
-﻿using ARKBreedingStats.Library;
-using ARKBreedingStats.species;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using System.Windows.Threading;
+using ARKBreedingStats.Library;
+using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.uiControls

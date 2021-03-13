@@ -14,7 +14,7 @@ namespace ARKBreedingStats.oldLibraryFormat
         [XmlIgnore]
         private Species _species;
         public string species; // speciesName
-        public string name = string.Empty;
+        public string name;
         public Sex sex;
         public CreatureStatus status;
         public CreatureFlags flags;
@@ -22,10 +22,10 @@ namespace ARKBreedingStats.oldLibraryFormat
         public int[] levelsDom;
         public double tamingEff;
         public double imprintingBonus;
-        public string owner = "";
-        public string imprinterName = ""; // todo implement in creatureInfoInbox
-        public string tribe = "";
-        public string server = "";
+        public string owner;
+        public string imprinterName;
+        public string tribe;
+        public string server;
         public string note; // user defined note about that creature
         public Guid guid; // the id used in ASB for parent-linking. The user cannot change it
         public long ArkId; // the creature's id in ARK. This id is shown to the user ingame, but it's not always unique. (It's build from two int, which are concatenated as strings).
@@ -34,14 +34,14 @@ namespace ARKBreedingStats.oldLibraryFormat
         public Guid fatherGuid;
         public Guid motherGuid;
         public int generation; // number of generations from the oldest wild creature
-        public int[] colors = new int[6] { 0, 0, 0, 0, 0, 0 }; // id of colors
-        public DateTime growingUntil = new DateTime(0);
+        public int[] colors = { 0, 0, 0, 0, 0, 0 }; // id of colors
+        public DateTime growingUntil;
         [XmlIgnore]
-        public TimeSpan growingLeft = new TimeSpan();
+        public TimeSpan growingLeft;
         public bool growingPaused;
-        public DateTime cooldownUntil = new DateTime(0);
-        public DateTime domesticatedAt = new DateTime(0);
-        public DateTime addedToLibrary = new DateTime(0);
+        public DateTime cooldownUntil;
+        public DateTime domesticatedAt;
+        public DateTime addedToLibrary;
         public bool neutered = false;
         public int mutationsMaternal;
         public int mutationsPaternal;
@@ -50,7 +50,7 @@ namespace ARKBreedingStats.oldLibraryFormat
 
         public CreatureOld()
         {
-            levelsWild = new int[] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 }; // unknown wild levels
+            levelsWild = new[] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 }; // unknown wild levels
         }
 
         public bool Equals(CreatureOld other)

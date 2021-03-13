@@ -6,38 +6,46 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.utils
 {
     public static class Win32API
     {
-        public const int LVM_FIRST = 0x1000;
-        public const int LVM_GETHEADER = LVM_FIRST + 31;
+        private const int LVM_FIRST = 0x1000;
+        private const int LVM_GETHEADER = LVM_FIRST + 31;
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
+        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
 
         [DllImport("user32.dll")]
-        public static extern bool GetWindowRect(IntPtr hWnd, out Rect lpRect);
+        private static extern bool GetWindowRect(IntPtr hWnd, out Rect lpRect);
 
         [DllImport("user32.dll")]
-        public static extern bool GetClientRect(IntPtr hWnd, out Rect lpRect);
+        private static extern bool GetClientRect(IntPtr hWnd, out Rect lpRect);
 
         [DllImport("user32.dll")]
-        public static extern bool ClientToScreen(IntPtr hWnd, out Point lpPoint);
+        private static extern bool ClientToScreen(IntPtr hWnd, out Point lpPoint);
 
         [DllImport("user32.dll")]
-        public static extern bool PrintWindow(IntPtr hWnd, IntPtr hdcBlt, int nFlags);
+        private static extern bool PrintWindow(IntPtr hWnd, IntPtr hdcBlt, int nFlags);
 
         [DllImport("user32.dll")]
         public static extern int SetForegroundWindow(IntPtr hWnd);
 
-        public const int SW_RESTORE = 9;
+        private const int SW_RESTORE = 9;
 
         [DllImport("user32.dll")]
-        public static extern IntPtr ShowWindow(IntPtr hWnd, int nCmdShow);
+        private static extern IntPtr ShowWindow(IntPtr hWnd, int nCmdShow);
 
         [DllImport("user32.dll")]
         public static extern IntPtr GetForegroundWindow();
+
+
+        [DllImport("user32.dll", EntryPoint = "GetWindowLong")]
+        private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll", EntryPoint = "SetWindowLong")]
+        private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
 
         public struct Rect
         {
@@ -177,6 +185,26 @@ namespace ARKBreedingStats
             IntPtr headerHandle = Win32API.SendMessage(listViewHandle, Win32API.LVM_GETHEADER, 0, 0);
             return Win32API.GetWindowRect(headerHandle, out Rect rc)
                 && (mouseY >= rc.top) && (mouseY < rc.bottom);
+        }
+
+        private const int ExStyle = -20;
+        private const int Transparent = 0x20;
+        private const int Layered = 0x80000;
+
+        /// <summary>
+        /// If hitTestVisible is false, mouse actions are ignored and applied on the window below.
+        /// </summary>
+        /// <param name="wHnd"></param>
+        /// <param name="hitTestVisible"></param>
+        public static void SetHitTestVisibility(IntPtr wHnd, bool hitTestVisible)
+        {
+            if (wHnd == IntPtr.Zero) return;
+            int wl = GetWindowLong(wHnd, ExStyle);
+            if (hitTestVisible)
+                wl = wl & ~Transparent & ~Layered;
+            else
+                wl = wl | Transparent | Layered;
+            SetWindowLong(wHnd, ExStyle, wl);
         }
     }
 }

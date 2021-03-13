@@ -4,24 +4,27 @@ namespace ARKBreedingStats.ocr.PatternMatching
 {
     public class RecognizedCharData
     {
-        public RecognizedCharData(int x, int y)
+        public RecognizedCharData(int x, int y, byte yOffset)
         {
             Coords = new Coords(x, y);
+            YOffset = yOffset;
         }
 
+        /// <summary>
+        /// Coordinates of the pattern in the containing bitmap.
+        /// </summary>
         public Coords Coords { get; }
+
+        /// <summary>
+        /// Y offset if the pattern doesn't start at the top.
+        /// </summary>
+        public byte YOffset;
 
         public bool[,] Pattern { get; set; }
 
-        public TextData ToCharData(string s)
-        {
-            return new TextData
-            {
-                Text = s,
-                Patterns = new List<Pattern> { Pattern }
-            };
-        }
+        public string Text;
 
-        public override string ToString() => OcrUtils.BoolArrayToString(Pattern);
+        public override string ToString() => Text;
+        //public override string ToString() => OcrUtils.BoolArrayToString(Pattern);
     }
 }

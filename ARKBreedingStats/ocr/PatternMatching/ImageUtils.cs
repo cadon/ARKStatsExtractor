@@ -1,37 +1,40 @@
 ﻿using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace ARKBreedingStats.ocr.PatternMatching
 {
     public static class ImageUtils
     {
-        public static DirectBitmap GetAdjustedDirectBitmapOfImage(Image img, float brightnessAdj)
+        /// <summary>
+        /// Creates a boolean 2 dim array representing the passed image depending on the threshold.
+        /// </summary>
+        public static bool[,] GetBooleanArrayOfImage(Image img, byte whiteThreshold)
         {
-            var db = new DirectBitmap(img.Width, img.Height);
+            var w = img.Width;
+            var h = img.Height;
 
-            using (var graphics = Graphics.FromImage(db.Bitmap))
-            {
-                graphics.DrawImage(img, Point.Empty);
-            }
+            var arr = new bool[w, h];
 
-            for (var i = 0; i < img.Width; i++)
+            var bmpData = ((Bitmap)img).LockBits(new Rectangle(0, 0, img.Width, img.Height), ImageLockMode.ReadOnly, img.PixelFormat);
+            var bBytes = img.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
+            unsafe
             {
-                for (var j = 0; j < img.Height; j++)
+                byte* scan0 = (byte*)bmpData.Scan0.ToPointer();
+
+                for (var x = 0; x < w; x++)
                 {
-                    var currentPixel = db.GetPixel(i, j);
-                    var brightness = currentPixel.GetBrightness();
-                    if (brightness < 0.55f * brightnessAdj)
+                    for (var y = 0; y < h; y++)
                     {
-                        db.SetPixel(i, j, Color.White);
-                    }
-                    else
-                    {
-                        db.SetPixel(i, j, Color.Black);
-                        db.PixelsWithData++;
+                        byte* b = scan0 + y * bmpData.Stride + x * bBytes;
+
+                        if (ArkOcr.HslLightness(b[0], b[1], b[2]) >= whiteThreshold)
+                            arr[x, y] = true;
                     }
                 }
             }
+            ((Bitmap)img).UnlockBits(bmpData);
 
-            return db;
+            return arr;
         }
     }
 }
