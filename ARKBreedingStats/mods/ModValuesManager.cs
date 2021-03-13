@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -207,7 +208,12 @@ namespace ARKBreedingStats.uiControls
 
         private void linkLabelCustomModManual_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki/Mod-Values");
+            RepositoryInfo.OpenWikiPage("Mod-Values");
+        }
+
+        private void LlUnofficialModFiles_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            RepositoryInfo.OpenWikiPage("Unsupported-Mod-Values");
         }
     }
 }

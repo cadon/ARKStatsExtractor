@@ -45,6 +45,7 @@
             this.lbModTag = new System.Windows.Forms.Label();
             this.lbModName = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.linkLabelCustomModManual = new System.Windows.Forms.LinkLabel();
             this.btOpenValuesFolder = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btMoveDown = new System.Windows.Forms.Button();
@@ -53,7 +54,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btAddMod = new System.Windows.Forms.Button();
             this.BtRemoveAllMods = new System.Windows.Forms.Button();
-            this.linkLabelCustomModManual = new System.Windows.Forms.LinkLabel();
+            this.LlUnofficialModFiles = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -258,6 +259,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.LlUnofficialModFiles);
             this.panel1.Controls.Add(this.linkLabelCustomModManual);
             this.panel1.Controls.Add(this.btOpenValuesFolder);
             this.panel1.Controls.Add(this.label1);
@@ -268,6 +270,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(396, 231);
             this.panel1.TabIndex = 4;
+            // 
+            // linkLabelCustomModManual
+            // 
+            this.linkLabelCustomModManual.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabelCustomModManual.AutoSize = true;
+            this.linkLabelCustomModManual.Location = new System.Drawing.Point(188, 213);
+            this.linkLabelCustomModManual.Name = "linkLabelCustomModManual";
+            this.linkLabelCustomModManual.Size = new System.Drawing.Size(166, 13);
+            this.linkLabelCustomModManual.TabIndex = 5;
+            this.linkLabelCustomModManual.TabStop = true;
+            this.linkLabelCustomModManual.Text = "How to manually create a mod file";
+            this.linkLabelCustomModManual.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelCustomModManual_LinkClicked);
             // 
             // btOpenValuesFolder
             // 
@@ -352,17 +366,17 @@
             this.BtRemoveAllMods.UseVisualStyleBackColor = true;
             this.BtRemoveAllMods.Click += new System.EventHandler(this.BtRemoveAllMods_Click);
             // 
-            // linkLabelCustomModManual
+            // LlUnofficialModFiles
             // 
-            this.linkLabelCustomModManual.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLabelCustomModManual.AutoSize = true;
-            this.linkLabelCustomModManual.Location = new System.Drawing.Point(188, 213);
-            this.linkLabelCustomModManual.Name = "linkLabelCustomModManual";
-            this.linkLabelCustomModManual.Size = new System.Drawing.Size(202, 13);
-            this.linkLabelCustomModManual.TabIndex = 5;
-            this.linkLabelCustomModManual.TabStop = true;
-            this.linkLabelCustomModManual.Text = "Manual how to manually create a mod file";
-            this.linkLabelCustomModManual.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelCustomModManual_LinkClicked);
+            this.LlUnofficialModFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.LlUnofficialModFiles.AutoSize = true;
+            this.LlUnofficialModFiles.Location = new System.Drawing.Point(188, 187);
+            this.LlUnofficialModFiles.Name = "LlUnofficialModFiles";
+            this.LlUnofficialModFiles.Size = new System.Drawing.Size(104, 13);
+            this.LlUnofficialModFiles.TabIndex = 6;
+            this.LlUnofficialModFiles.TabStop = true;
+            this.LlUnofficialModFiles.Text = "More mod value files";
+            this.LlUnofficialModFiles.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LlUnofficialModFiles_LinkClicked);
             // 
             // ModValuesManager
             // 
@@ -414,5 +428,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label LbModVersion;
         private System.Windows.Forms.LinkLabel linkLabelCustomModManual;
+        private System.Windows.Forms.LinkLabel LlUnofficialModFiles;
     }
 }

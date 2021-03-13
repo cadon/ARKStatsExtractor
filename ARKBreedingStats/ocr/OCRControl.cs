@@ -936,5 +936,10 @@ namespace ARKBreedingStats.ocr
         {
             ShowMatch();
         }
+
+        private void LlOcrManual_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            RepositoryInfo.OpenWikiPage("OCR");
+        }
     }
 }

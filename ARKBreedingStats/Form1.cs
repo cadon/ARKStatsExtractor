@@ -1500,17 +1500,17 @@ namespace ARKBreedingStats
 
         private void onlinehelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki/Manual");
+            RepositoryInfo.OpenWikiPage("Manual");
         }
 
         private void breedingPlanToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki/Breeding-Plan");
+            RepositoryInfo.OpenWikiPage("Breeding-Plan");
         }
 
         private void extractionIssuesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki/Extraction-issues");
+            RepositoryInfo.OpenWikiPage("Extraction-issues");
         }
 
         private void ExportSelectedCreatureToClipboard(bool breeding = true, bool ARKml = false)

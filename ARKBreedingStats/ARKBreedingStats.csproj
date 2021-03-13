@@ -580,6 +580,7 @@
     <Compile Include="utils\ExtensionMethods.cs" />
     <Compile Include="utils\MessageBoxes.cs" />
     <Compile Include="utils\NamePatternFunctions.cs" />
+    <Compile Include="utils\RepositoryInfo.cs" />
     <Compile Include="utils\SoundFeedback.cs" />
     <Compile Include="utils\Themes.cs" />
     <Compile Include="values\TamingFoodData.cs" />

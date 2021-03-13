@@ -110,6 +110,7 @@ namespace ARKBreedingStats.ocr
             this.nudX = new ARKBreedingStats.uiControls.Nud();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.listBoxLabelRectangles = new System.Windows.Forms.ListBox();
+            this.LlOcrManual = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel4.SuspendLayout();
             this.tabControlManage.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -185,6 +186,7 @@ namespace ARKBreedingStats.ocr
             // tabPage1
             // 
             this.tabPage1.AutoScroll = true;
+            this.tabPage1.Controls.Add(this.LlOcrManual);
             this.tabPage1.Controls.Add(this.groupBox6);
             this.tabPage1.Controls.Add(this.label12);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -1095,6 +1097,17 @@ namespace ARKBreedingStats.ocr
             this.listBoxLabelRectangles.TabIndex = 0;
             this.listBoxLabelRectangles.SelectedIndexChanged += new System.EventHandler(this.listBoxLabelRectangles_SelectedIndexChanged);
             // 
+            // LlOcrManual
+            // 
+            this.LlOcrManual.AutoSize = true;
+            this.LlOcrManual.Location = new System.Drawing.Point(6, 152);
+            this.LlOcrManual.Name = "LlOcrManual";
+            this.LlOcrManual.Size = new System.Drawing.Size(67, 13);
+            this.LlOcrManual.TabIndex = 2;
+            this.LlOcrManual.TabStop = true;
+            this.LlOcrManual.Text = "OCR manual";
+            this.LlOcrManual.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LlOcrManual_LinkClicked);
+            // 
             // OCRControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1105,6 +1118,7 @@ namespace ARKBreedingStats.ocr
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tabControlManage.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
@@ -1223,5 +1237,6 @@ namespace ARKBreedingStats.ocr
         private System.Windows.Forms.TextBox TbRemovePatterns;
         private System.Windows.Forms.Button BtRemoveAllPatterns;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.LinkLabel LlOcrManual;
     }
 }

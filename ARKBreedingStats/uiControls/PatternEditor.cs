@@ -335,7 +335,7 @@ namespace ARKBreedingStats.uiControls
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki/Name-Generator");
+            RepositoryInfo.OpenWikiPage("Name-Generator");
         }
 
         public int SplitterDistance

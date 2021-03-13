@@ -291,7 +291,7 @@ namespace ARKBreedingStats
 
         private void llOnlineHelpExtractionIssues_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki/Extraction-issues");
+            RepositoryInfo.OpenWikiPage("Extraction-issues");
         }
 
         /// <summary>

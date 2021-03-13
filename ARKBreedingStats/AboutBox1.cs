@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
 {
@@ -86,7 +87,7 @@ namespace ARKBreedingStats
 
         private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor");
+            System.Diagnostics.Process.Start(RepositoryInfo.RepositoryUrl);
         }
 
         private string Contributors => @"Thanks for contributions, help and support to
