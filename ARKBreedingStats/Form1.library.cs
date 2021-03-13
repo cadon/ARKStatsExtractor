@@ -765,14 +765,15 @@ namespace ARKBreedingStats
         /// Returns the dateTime when the countdown of a creature is ready. Either the maturingTime, the matingCooldownTime or null if no countdown is set.
         /// </summary>
         /// <returns></returns>
-        private DateTime? DisplayedCreatureCountdown(DateTime? matingCooldownUntil, DateTime? growingUntil)
+        private string DisplayedCreatureCountdown(Creature cr)
         {
-            var countdown = matingCooldownUntil.HasValue && growingUntil.HasValue
-                    ? (matingCooldownUntil.Value > growingUntil.Value ? matingCooldownUntil.Value : growingUntil.Value)
-                    : matingCooldownUntil ?? growingUntil;
-            if (countdown == null) return null;
+            DateTime dt;
+            if (cr.cooldownUntil.HasValue) dt = cr.cooldownUntil.Value;
+            else if (!cr.growingUntil.HasValue) return "-";
+            else if (cr.growingPaused) return Utils.Duration(cr.growingLeft);
+            else dt = cr.growingUntil.Value;
 
-            return DateTime.Now.CompareTo(countdown) < 0 ? countdown : null;
+            return DateTime.Now > dt ? "-" : dt.ToString();
         }
 
         private ListViewItem CreateCreatureLVItem(Creature cr, ListViewGroup g)
@@ -795,7 +796,7 @@ namespace ARKBreedingStats
                             cr.generation.ToString(),
                             cr.levelFound.ToString(),
                             cr.Mutations.ToString(),
-                            DisplayedCreatureCountdown(cr.cooldownUntil,cr.growingUntil)?.ToString() ?? "-"
+                            DisplayedCreatureCountdown(cr)
                     }
                     .Concat(cr.levelsWild.Select(x => x.ToString()).ToArray())
                     .ToArray();

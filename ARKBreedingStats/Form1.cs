@@ -1739,7 +1739,7 @@ namespace ARKBreedingStats
                     c.cooldownUntil = DateTime.Now.AddSeconds(c.Species.breeding?.matingCooldownMinAdjusted ?? 0);
 
                 i.SubItems[11].Text =
-                    DisplayedCreatureCountdown(c.cooldownUntil, c.growingUntil)?.ToString() ?? "-";
+                    DisplayedCreatureCountdown(c)?.ToString() ?? "-";
 
                 CooldownColors(c, out Color foreColor, out Color backColor);
                 i.SubItems[11].ForeColor = foreColor;

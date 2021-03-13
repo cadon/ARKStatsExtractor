@@ -417,7 +417,9 @@ namespace ARKBreedingStats.Library
             else PauseTimer();
         }
 
-        // XmlSerializer does not support TimeSpan, so use this property for serialization instead.
+        /// <summary>
+        /// XmlSerializer does not support TimeSpan, so use this property for serialization instead.
+        /// </summary>
         [System.ComponentModel.Browsable(false)]
         [JsonProperty("growingLeft")]
         public string GrowingLeftString
