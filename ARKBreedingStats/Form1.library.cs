@@ -1463,12 +1463,27 @@ namespace ARKBreedingStats
 
             Properties.Settings.Default.InfoGraphicExportFolder = folderPath;
 
+            // test if files can be written to the folder
+            var testFileName = "testFile.txt";
+            try
+            {
+                var testFilePath = Path.Combine(folderPath, testFileName);
+                File.WriteAllText(testFilePath, string.Empty);
+                FileService.TryDeleteFile(testFilePath);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                MessageBoxes.ExceptionMessageBox(ex, $"The selected folder\n{folderPath}\nis protected, the files cannot be saved there. Select a different folder.");
+                return;
+            }
+
             int imagesCreated = 0;
+            string firstImageFilePath = null;
 
             foreach (ListViewItem li in si)
             {
                 var c = (Creature)li.Tag;
-                var filePath = Path.Combine(folderPath, $"info_{c.Species.name}_{c.name}.png");
+                var filePath = Path.Combine(folderPath, $"ARK_info_{c.Species.name}_{c.name}.png");
                 if (File.Exists(filePath))
                 {
                     switch (MessageBox.Show($"The file\n{filePath}\nalready exists.\nOverwrite the file?", "File exists already", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning))
@@ -1479,13 +1494,15 @@ namespace ARKBreedingStats
                     }
                 }
                 c.InfoGraphic(_creatureCollection).Save(filePath);
+                if (firstImageFilePath == null) firstImageFilePath = filePath;
+
                 imagesCreated++;
             }
 
             if (imagesCreated == 0) return;
 
             var pluralS = (imagesCreated != 1 ? "s" : string.Empty);
-            SetMessageLabelText($"Infographic{pluralS} for {imagesCreated} creature{pluralS} created at\n{folderPath}", MessageBoxIcon.Information, folderPath);
+            SetMessageLabelText($"Infographic{pluralS} for {imagesCreated} creature{pluralS} created at\n{(imagesCreated == 1 ? firstImageFilePath : folderPath)}", MessageBoxIcon.Information, firstImageFilePath);
         }
 
         /// <summary>

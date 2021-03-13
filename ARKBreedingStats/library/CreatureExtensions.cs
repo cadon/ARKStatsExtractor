@@ -4,7 +4,6 @@ using ARKBreedingStats.values;
 using System;
 using System.Drawing;
 using System.Linq;
-using System.Security.Policy;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.library
@@ -243,7 +242,7 @@ namespace ARKBreedingStats.library
         }
 
         /// <summary>
-        /// Creates infographic and copies it to the clipboard.
+        /// Creates infoGraphic and copies it to the clipboard.
         /// </summary>
         /// <param name="creature"></param>
         /// <param name="cc">CreatureCollection for server settings.</param>
