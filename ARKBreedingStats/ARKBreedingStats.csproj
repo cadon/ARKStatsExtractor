@@ -94,12 +94,6 @@
     </Compile>
     <Compile Include="importExported\FileWatcherExports.cs" />
     <Compile Include="library\CreatureExtensions.cs" />
-    <Compile Include="local\strings.es.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>strings.es.resx</DependentUpon>
-    </Compile>
-    <Compile Include="local\strings.ja.Designer.cs" />
     <Compile Include="mods\CustomStatOverridesEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,21 +134,6 @@
     <Compile Include="FileService.cs" />
     <Compile Include="ImportSavegame.cs" />
     <Compile Include="importExported\ImportExported.cs" />
-    <Compile Include="local\strings.it.Designer.cs">
-      <DependentUpon>strings.it.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="local\strings.fr.Designer.cs">
-      <DependentUpon>strings.fr.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="local\strings.de.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>strings.de.resx</DependentUpon>
-    </Compile>
     <Compile Include="local\strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
