@@ -1295,7 +1295,9 @@ BabyCuddleIntervallMultiplierとBabyMatureSpeedMultiplierが正しいか確認�
 メモ
 ゲーム内Ark id
 サーバ
-タグ</value>
+タグ
+Filter for a stats with {statAbb} [==|&lt;|&gt;] {value}, e.g. hp &gt; 20, st == 35
+Filter for colors with c{region}: {colorValue}, e.g. c0: 20, c5: 3</value>
   </data>
   <data name="ClickDisplayFile" xml:space="preserve">
     <value>クリックでファイルをエクスプローラーで表示</value>

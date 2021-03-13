@@ -1007,16 +1007,18 @@ by wyświetlić informacje o oswajaniu w nakładce.</value>
     <data name="ToolStripLabelFilter" xml:space="preserve">
         <value>Filtr</value>
     </data>
-    <data name="ToolStripLabelFilterTT" xml:space="preserve">
-        <value>Filtruje bibliotekę. Przecinki dzielą słowa kluczowe wyszukiwania.  Uwzględnione są:
+  <data name="ToolStripLabelFilterTT" xml:space="preserve">
+    <value>Filtruje bibliotekę. Przecinki dzielą słowa kluczowe wyszukiwania.  Uwzględnione są:
 Nazwa
 Właściciel
 Plemię
 Notatka
 Identyfikator w grze
 Serwer
-Tagi</value>
-    </data>
+Tagi
+Filter for a stats with {statAbb} [==|&lt;|&gt;] {value}, e.g. hp &gt; 20, st == 35
+Filter for colors with c{region}: {colorValue} {colorValue2}, e.g. c0: 20, c5: 3 4 5 6, c1: 13 14</value>
+  </data>
     <data name="WarningMoreStarvingThanFood" xml:space="preserve">
         <value>Uwaga: temu zwierzu może zabraknąć jedzenia. Możliwe, że będziesz musiał je nakarmić przed tym czasem, by go nie zagłodzić (sprawdź ekwipunek)!</value>
     </data>

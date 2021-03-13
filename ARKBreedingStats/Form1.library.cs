@@ -1093,11 +1093,33 @@ namespace ARKBreedingStats
                 var statLessThan = new Dictionary<int, int>();
                 var statEqualTo = new Dictionary<int, int>();
                 var statFilterRegex = new Regex(@"(\w{2}) ?(<|>|==) ?(\d+)");
+
+                // color filter
+                var colorFilter = new Dictionary<int, int[]>();
+                var colorFilterRegex = new Regex(@"c([0-5]): ?([\d ]+)");
+
                 var removeFilterIndex = new List<int>();
                 for (var i = filterStrings.Count - 1; i >= 0; i--)
                 {
                     var f = filterStrings[i];
-                    var m = statFilterRegex.Match(f);
+
+                    // color region filter
+                    var m = colorFilterRegex.Match(f);
+                    if (m.Success)
+                    {
+                        var colorRegion = int.Parse(m.Groups[1].Value);
+                        if (colorFilter.ContainsKey(colorRegion)) continue;
+
+                        var colorIds = m.Groups[2].Value.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(cId => int.Parse(cId)).Distinct().ToArray();
+                        if (!colorIds.Any()) continue;
+
+                        colorFilter.Add(colorRegion, colorIds);
+                        removeFilterIndex.Add(i);
+                        continue;
+                    }
+
+                    // stat filter
+                    m = statFilterRegex.Match(f);
                     if (!m.Success
                         || !CreatureStat.StatAbbreviationToIndex.TryGetValue(m.Groups[1].Value, out var statIndex))
                         continue;
@@ -1120,6 +1142,7 @@ namespace ARKBreedingStats
                 if (!statGreaterThan.Any()) statGreaterThan = null;
                 if (!statLessThan.Any()) statLessThan = null;
                 if (!statEqualTo.Any()) statEqualTo = null;
+                if (!colorFilter.Any()) colorFilter = null;
                 foreach (var i in removeFilterIndex)
                     filterStrings.RemoveAt(i);
 
@@ -1136,6 +1159,7 @@ namespace ARKBreedingStats
                 && (statGreaterThan?.All(si => c.levelsWild[si.Key] > si.Value) ?? true)
                 && (statLessThan?.All(si => c.levelsWild[si.Key] < si.Value) ?? true)
                 && (statEqualTo?.All(si => c.levelsWild[si.Key] == si.Value) ?? true)
+                && (colorFilter?.All(cr => cr.Value.Contains(c.colors[cr.Key])) ?? true)
                 );
             }
 
