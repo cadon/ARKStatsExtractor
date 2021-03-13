@@ -501,10 +501,10 @@
     <Compile Include="uiControls\StatDisplay.Designer.cs">
       <DependentUpon>StatDisplay.cs</DependentUpon>
     </Compile>
-    <Compile Include="StatIO.cs">
+    <Compile Include="uiControls\StatIO.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="StatIO.Designer.cs">
+    <Compile Include="uiControls\StatIO.Designer.cs">
       <DependentUpon>StatIO.cs</DependentUpon>
     </Compile>
     <Compile Include="StatResult.cs" />
@@ -824,7 +824,7 @@
     <EmbeddedResource Include="uiControls\StatDisplay.resx">
       <DependentUpon>StatDisplay.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StatIO.resx">
+    <EmbeddedResource Include="uiControls\StatIO.resx">
       <DependentUpon>StatIO.cs</DependentUpon>
     </EmbeddedResource>
     <Content Include="Resources\pen.png" />

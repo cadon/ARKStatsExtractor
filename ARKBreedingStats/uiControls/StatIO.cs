@@ -89,6 +89,7 @@ namespace ARKBreedingStats
             set
             {
                 labelDomLevel.Text = value.ToString();
+                labelDomLevel.ForeColor = value == 0 ? Color.Gray : Color.Black;
                 numLvD.Value = value;
             }
         }
