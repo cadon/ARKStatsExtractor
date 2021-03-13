@@ -117,7 +117,7 @@
         <value>Je</value>
     </data>
     <data name="Health_Abb" xml:space="preserve">
-        <value>HP</value>
+        <value>PŻ</value>
     </data>
     <data name="helpToolStripMenuItem" xml:space="preserve">
         <value>?</value>
@@ -225,7 +225,7 @@
         <value>Właściciel</value>
     </data>
     <data name="paused" xml:space="preserve">
-        <value>zatrzymane</value>
+        <value>pauza</value>
     </data>
     <data name="pasteCreatureToolStripMenuItem" xml:space="preserve">
         <value>Wklej zwierzę</value>
@@ -237,7 +237,7 @@
         <value>Gracz</value>
     </data>
     <data name="quitToolStripMenuItem" xml:space="preserve">
-        <value>&amp;Zamknij</value>
+        <value>Zamknij</value>
     </data>
     <data name="ProbabilityForOneMutation" xml:space="preserve">
         <value>Szansa na jedną mutację</value>
@@ -273,7 +273,7 @@
         <value>Proca</value>
     </data>
     <data name="Species" xml:space="preserve">
-        <value>Zwierzęta</value>
+        <value>Gatunki</value>
     </data>
     <data name="Speed" xml:space="preserve">
         <value>Prędkość</value>
@@ -414,7 +414,7 @@
         <value>Serwer</value>
     </data>
     <data name="statChart" xml:space="preserve">
-        <value>Graf statystyk</value>
+        <value>Diagram statystyk</value>
     </data>
     <data name="Tribe" xml:space="preserve">
         <value>Plemię</value>
@@ -621,7 +621,7 @@
         <value>Usuń ograniczenie z {0}</value>
     </data>
     <data name="BonusLevel" xml:space="preserve">
-        <value>Poziom-bonus</value>
+        <value>Poziom bonusowy</value>
     </data>
     <data name="BestPossibleSpeciesLibrary" xml:space="preserve">
         <value>Najlepsze możliwe {0} dla tej biblioteki</value>
@@ -711,7 +711,7 @@
         <value>Rodzice</value>
     </data>
     <data name="timerWakeupOf" xml:space="preserve">
-        <value>Pobudka {0}</value>
+        <value>Pobudka</value>
     </data>
     <data name="onlinehelpToolStripMenuItem" xml:space="preserve">
         <value>Instrukcja online…</value>
@@ -796,16 +796,22 @@ Prawoklik, by zmodyfikować wzór.</value>
         <value>Tylko najlepsze sugestie dla samic</value>
     </data>
     <data name="cbBPTagExcludeDefaultTT" xml:space="preserve">
-        <value>Zaznacz, jeśli chcesz pominąć zwierzęta bez odpowiedniej etykiety. Jeśli niezaznaczone, wszystkie zostaną uwzględnione chyba, że mają etykietę wykluczającą.</value>
+        <value>Zaznacz, jeśli chcesz pominąć zwierzęta bez odpowiedniej etykiety.
+
+Jeśli niezaznaczone, wszystkie zostaną uwzględnione chyba, że mają etykietę wykluczającą.</value>
     </data>
     <data name="cbExactlyImprintingTT" xml:space="preserve">
         <value>Zaznacz  jeśli wskaźnik opieki wynosi 100%. Zazwyczaj to ustawienie nie jest potrzebne i może uniemożliwić ekstrakcję.</value>
     </data>
     <data name="cbGuessSpeciesTT" xml:space="preserve">
-        <value>Jeśli zaznaczone, narzędzie spróbuje odgadnąć gatunek po odczytaniu wartości z ARK z użyciem OCR. Użyje nazwę gatunku jeśli takowa zostanie rozpoznana, albo znajdzie gatunek po statystykach. Odznacz, jeśli narzędzie zbyt często wybiera błędny gatunek po użyciu OCR (będziesz wtedy musial dokonać ręcznego wyboru).</value>
+        <value>Jeśli zaznaczone, narzędzie spróbuje odgadnąć gatunek po odczytaniu wartości z ARK z użyciem OCR.
+Użyje nazwę gatunku jeśli takowa zostanie rozpoznana, albo znajdzie gatunek po statystykach.
+
+Odznacz, jeśli narzędzie zbyt często wybiera błędny gatunek po użyciu OCR (będziesz wtedy musial dokonać ręcznego wyboru).</value>
     </data>
     <data name="cbQuickWildCheckTT" xml:space="preserve">
-        <value>Zaznacz, jeśli chcesz szybko sprawdzić poziomy dzikiego (nieoswojonego) zwierzęcia. Wartość zostanie wyświetlona bez procesu ekstrakcji i weryfikacji.</value>
+        <value>Zaznacz, jeśli chcesz szybko sprawdzić poziomy dzikiego (nieoswojonego) zwierzęcia.
+Wartość zostanie wyświetlona bez procesu ekstrakcji i weryfikacji.</value>
     </data>
     <data name="cbQuickWildCheck" xml:space="preserve">
         <value>Szybko sprawdź dzikie zwierzę</value>
@@ -819,17 +825,21 @@ Prawoklik, by zmodyfikować wzór.</value>
     <data name="downloadingValuesSuccess" xml:space="preserve">
         <value>Aktualizacja danych o statystykach zwierząt się powiodła.</value>
     </data>
-  <data name="ExportFolderDetectionFailed" xml:space="preserve">
-    <value>Katalog eksportów nie został odnaleziony automatycznie w instalacji.</value>
-  </data>
+    <data name="ExportFolderDetectionFailed" xml:space="preserve">
+        <value>Katalog eksportów nie został odnaleziony automatycznie.</value>
+    </data>
     <data name="issueCauseArkStatIssue" xml:space="preserve">
         <value>Niektóre statystyki tego gatunku są błędnie przedstawiane w grze. Może to uniemożliwić pomyślną ekstrakcję.</value>
     </data>
     <data name="issueCauseCreatureLevel" xml:space="preserve">
-        <value>Sprawdź czy łączny poziom zwierzęcia jest wpisany poprawnie. Jeśli jest to zwierzę z hodowli, sprawdź także wartość mnożnika BabyImprintingStatScaleMultiplier.</value>
+        <value>Sprawdź czy łączny poziom zwierzęcia jest wpisany poprawnie.
+Jeśli jest to zwierzę z hodowli, sprawdź także wartość mnożnika BabyImprintingStatScaleMultiplier.</value>
     </data>
     <data name="issueMaxWildLevelTooLow" xml:space="preserve">
-        <value>Ustawiony maksymalny dziki poziom jest zbyt niski dla prawidlowej ekstrakcji. Sprawdź, czy wartości w ustawieniach są prawidlowe. Obecna wartość wynosi {0} i wydaje się, że to zwierze ma wyższy poziom niż ten limit. Inne możliwe powody niepowodzenia ekstrakcji zostaną podane na liście po prawej po zamknięciu tego komunikatu.</value>
+        <value>Ustawiony maksymalny dziki poziom jest zbyt niski dla prawidlowej ekstrakcji. Sprawdź, czy wartości w ustawieniach są prawidlowe.
+Obecna wartość wynosi {0} i wydaje się, że to zwierze ma wyższy poziom niż ten limit.
+
+Inne możliwe powody niepowodzenia ekstrakcji zostaną podane na liście po prawej po zamknięciu tego komunikatu.</value>
     </data>
     <data name="issueCauseWildTamedBred" xml:space="preserve">
         <value>Upewnij się, że wybrany został prawidłowy stan zwierzęcia (dzikie, oswojone, hodowlane).</value>
@@ -838,7 +848,8 @@ Prawoklik, by zmodyfikować wzór.</value>
         <value>Suma wszystkich ręcznie przyznanych punktów. Powinna być równa dokładnie tyle co liczba podana poniżej, a jeśli nie jest, kliknij na statystykę wyświetlaną na żółto i wybierz inną możliwą dystrybucję.</value>
     </data>
     <data name="lbTribeTT" xml:space="preserve">
-        <value>Kliknij, by zmienić, czy OCR może zmienić pole plemienia. Zaznacz jeśli odczytywana nazwa nie jest poprawna, albo gdy chcesz dodać wiele zwierząt tego samego plemienia.</value>
+        <value>Kliknij, by zmienić, czy OCR może zmienić pole plemienia.
+Zaznacz jeśli odczytywana nazwa nie jest poprawna, albo gdy chcesz dodać wiele zwierząt tego samego plemienia.</value>
     </data>
     <data name="max wild level" xml:space="preserve">
         <value>maks. dziki poziom</value>
@@ -883,7 +894,8 @@ Prawoklik, by zmodyfikować wzór.</value>
         <value>Aktualizacja pomyślna</value>
     </data>
     <data name="BtSaveOTSPresetTT" xml:space="preserve">
-        <value>Zapisz właściciela, plemię i serwer jako szablon, który będzie można zastosować odpowiednim przyciskiem</value>
+        <value>Zapisz właściciela, plemię i serwer jako szablon,
+który będzie można zastosować odpowiednim przyciskiem</value>
     </data>
     <data name="BtSaveOTSPreset" xml:space="preserve">
         <value>Zapisz WPS</value>
@@ -892,7 +904,9 @@ Prawoklik, by zmodyfikować wzór.</value>
         <value>Zastosuj szablon WPS</value>
     </data>
     <data name="AlreadyCreatureWithTopStats" xml:space="preserve">
-        <value>W twojej bibliotece istnieje już zwierzę, którego statystyki są najwyższe z dostępnych ({0} {1}). W obecnie wybranym zachowawczym planie hodowli mogą być wyświetlane nieoptymalne sugestie. Wybierz tryb "Wysokie statystyki", by otrzymać lepsze sugestie.</value>
+        <value>W twojej bibliotece istnieje już zwierzę, którego statystyki są najwyższe z dostępnych ({0} {1}).
+W obecnie wybranym zachowawczym planie hodowli mogą być wyświetlane nieoptymalne sugestie.
+Wybierz tryb "Wysokie statystyki", by otrzymać lepsze sugestie.</value>
     </data>
     <data name="ElectricProd" xml:space="preserve">
         <value>Paralizator</value>
@@ -952,8 +966,10 @@ Prawoklik, by zmodyfikować wzór.</value>
         <value>Kliknij, by skopiować imię do schowka, np. do wklejenia do gry.</value>
     </data>
     <data name="lbListeningTT" xml:space="preserve">
-        <value>czerwony: nasłuch, szary: dezaktywowane, zielone: rozpoznane, pomarańczowy: nierozpoznano.
-Powiedz "[gatunek] [poziom]", np. "Reks poziom 30" lub "Brontozaur 50" by wyświetlić informacje o oswajaniu w nakładce.</value>
+        <value>czerwony: nasłuch, szary: dezaktywowane, zielone: rozpoznane, pomarańczowy: nie rozpoznano
+
+Powiedz "[gatunek] [poziom]", np. "Reks poziom 30" lub "Brontozaur 50"
+by wyświetlić informacje o oswajaniu w nakładce.</value>
     </data>
     <data name="lbNotYetTamed" xml:space="preserve">
         <value>*Zwierzę nie zostało jeszcze oswojone i może jeszcze otrzymać lepsze wartości.</value>
@@ -992,7 +1008,14 @@ Powiedz "[gatunek] [poziom]", np. "Reks poziom 30" lub "Brontozaur 50" by wyświ
         <value>Filtr</value>
     </data>
     <data name="ToolStripLabelFilterTT" xml:space="preserve">
-        <value>Filtruje bibliotekę. Przecinki dzielą słowa kluczowe wyszukiwania. </value>
+        <value>Filtruje bibliotekę. Przecinki dzielą słowa kluczowe wyszukiwania.  Uwzględnione są:
+Nazwa
+Właściciel
+Plemię
+Notatka
+Identyfikator w grze
+Serwer
+Tagi</value>
     </data>
     <data name="WarningMoreStarvingThanFood" xml:space="preserve">
         <value>Uwaga: temu zwierzu może zabraknąć jedzenia. Możliwe, że będziesz musiał je nakarmić przed tym czasem, by go nie zagłodzić (sprawdź ekwipunek)!</value>
@@ -1010,9 +1033,113 @@ Powiedz "[gatunek] [poziom]", np. "Reks poziom 30" lub "Brontozaur 50" by wyświ
         <value>Użyj filtr obliczając najwyższe statystyki</value>
     </data>
     <data name="serverFilterFromLibrary" xml:space="preserve">
-        <value />
+        <value>Filtruj serwer z biblioteki</value>
     </data>
     <data name="ImportingSavegame" xml:space="preserve">
         <value>Importowanie zapisu gry</value>
+    </data>
+    <data name="btReadValuesFromArkTT" xml:space="preserve">
+        <value>Wykonaj OCR na otwartym w grze ekwipunku zwierzęcia.
+Przed użyciem tej funkcji musisz włączyć OCR w ustawieniach i załadować plik ocr-config przygotowany pod Twoją rozdzielczość ekranu.</value>
+    </data>
+    <data name="cbBPIncludeCooldowneds" xml:space="preserve">
+        <value>Uwzględnij stworzenia z czasem oczekiwania</value>
+    </data>
+    <data name="Collection changed discard and load?" xml:space="preserve">
+        <value>Twoja kolekcja zwierząt została zmodyfikowana od czasu ostatniego zapisu. Czy na pewno chcesz odrzucić zmiany i załadować plik bez uprzedniego zapisu?</value>
+    </data>
+    <data name="Collection changed discard and new?" xml:space="preserve">
+        <value>Twoja kolekcja zwierząt została zmodyfikowana od czasu ostatniego zapisu. Czy na pewno chcesz odrzucić zmiany i utworzyć nową bibliotekę bez zapisywania?</value>
+    </data>
+    <data name="copyToMultiplierTesterToolStripButtonTT" xml:space="preserve">
+        <value>Wszystkie poziomy, TE i IB z Testera, oraz wartości statystyk z Ekstraktora zostaną skopiowane do Testera Mnożników.</value>
+    </data>
+    <data name="nudBPMutationLimitTT" xml:space="preserve">
+        <value>Uwzględniaj tylko i wyłącznie zwierzęta z co najwyżej tyloma mutacjami.U
+Ustaw -1 by zezwolić na dowolną liczbę mutacji.</value>
+    </data>
+    <data name="ownerFilterFromLibrary" xml:space="preserve">
+        <value>Filtruj właściciela z biblioteki</value>
+    </data>
+    <data name="ProbabilityForBest" xml:space="preserve">
+        <value>Prawdopodobieństwo na najlepszy możliwy rezultat</value>
+    </data>
+    <data name="Raising" xml:space="preserve">
+        <value>Rozwój</value>
+    </data>
+    <data name="timeUntilStarving" xml:space="preserve">
+        <value>Czas do zagłodzenia:</value>
+    </data>
+    <data name="tribeFilterFromLibrary" xml:space="preserve">
+        <value>Filtruj plemię z biblioteki</value>
+    </data>
+    <data name="issueCauseOutdatedIngameValues" xml:space="preserve">
+        <value>Statystyki tego gatunku się niedawno zmieniły i gra nadal wyświetla stare wartości. Podbij dowolną statystykę lub umieść w kapsule kryogenicznej by wymusić ponowne obliczenie wartości.</value>
+    </data>
+    <data name="issueCauseImprintingNotUpdated" xml:space="preserve">
+        <value>Czasem gra nie aktualizuje wartości statystyk po opiece nad zwierzęciem. Spróbuj dokonać ponownej ekstrakcji po odmrożeniu go z kriokapsuły.</value>
+    </data>
+    <data name="issueCauseLockedDomLevel" xml:space="preserve">
+        <value>Odznacz wszystkie blokady statystyk do zera (wszystkie kłódki powinny być zielone i niezamknięte).</value>
+    </data>
+    <data name="issueCauseImprintingLocked" xml:space="preserve">
+        <value>Zablokowałeś wartość opieki zaznaczając "Dokładnie, nie dostosowuj". Ekstraktor nie zmieni tej wartości i może spowodować to błąd ekstrakcji.</value>
+    </data>
+    <data name="lbImprintedCountTT" xml:space="preserve">
+        <value>Liczba tuleń wymaganych by osiągnąć bonus tej wysokości.
+Kliknij lewy przycisk, by ustawić najbliższą prawidłową wartość.
+Kliknij prawy przycisk, by ustawić opiekę na dokładnie tę wartość, by poziomy odurzenia w testerze i wartość w ekstraktorze się zgadzały.</value>
+    </data>
+    <data name="lbImprintingCuddleCountExtractorTT" xml:space="preserve">
+        <value>Liczba tuleń wymaganych by osiągnąć bonus opieki tej wysokości.</value>
+    </data>
+    <data name="lbSumDomSBTT" xml:space="preserve">
+        <value>Jest to liczba, której suma ręcznie przyznanych poziomów powinna być równa. </value>
+    </data>
+    <data name="lbTestingInfo" xml:space="preserve">
+        <value>Podejrzyj lub edytuj poziomy zwierzęcia.</value>
+    </data>
+    <data name="lbSumWildTT" xml:space="preserve">
+        <value>Wskaźnik czy suma dzikich poziomów jest prawidłowa.
+Jeśli wyświetlona jest liczba z plusem, suma jest za wysoka i musisz wybrać inną możliwą wartość z listy żółtych statystyk.</value>
+    </data>
+    <data name="toolStripButtonDeleteTempCreatureTT" xml:space="preserve">
+        <value>Usuń obecnie zaznaczone dane tymczasowego zwierzęcia</value>
+    </data>
+    <data name="TranqSpearBolts" xml:space="preserve">
+        <value>Pociski uspokajające</value>
+    </data>
+    <data name="TranqDarts" xml:space="preserve">
+        <value>Lotki usypiające</value>
+    </data>
+    <data name="TranqArrowsBow" xml:space="preserve">
+        <value>Strzały usypiające (Łuk)</value>
+    </data>
+    <data name="TranqArrowsCrossBow" xml:space="preserve">
+        <value>Strzały usypiające (Kusza)</value>
+    </data>
+    <data name="valuesFileLoadingError" xml:space="preserve">
+        <value>Wymagany do działania aplikacji plik z danymi o gatunkach nie został załadowany pomyślnie. Spróbuj ponownie pobrać narzędzie.</value>
+    </data>
+    <data name="VariantSelectorInfo" xml:space="preserve">
+        <value>Gatunki nieopisane jednym z wybranych wariantów zostaną ukryte.</value>
+    </data>
+    <data name="wildLevelExplanation" xml:space="preserve">
+        <value>Dzikie poziomy, brane pod uwagę do hodowli.</value>
+    </data>
+    <data name="toolStripButtonSaveCreatureValuesTempTT" xml:space="preserve">
+        <value>Zapisz wprowadzone wartości aż błąd ekstrakcji zostanie rozwiązany. To stworzenie nie może być wprowadzone do pozostałych sekcji aplikacji aż do pomyślnej ekstrakcji.</value>
+    </data>
+    <data name="TimeUntilTorporDepleted" xml:space="preserve">
+        <value>Czas do kompletnego zejścia odurzenia</value>
+    </data>
+    <data name="TimeUntilFeedingAllFood" xml:space="preserve">
+        <value>Czas do momentu, w którym możesz nakarmić całym jedzeniem</value>
+    </data>
+    <data name="Collection changed discard and quit?" xml:space="preserve">
+        <value>Twoja kolekcja zwierząt została zmodyfikowana od czasu ostatniego zapisu. Czy na pewno chcesz odrzucić zmiany i wyjść bez zapisu?</value>
+    </data>
+    <data name="toolStripButtonDeleteTempCreature" xml:space="preserve">
+        <value>Usuń tymczasowe zw.</value>
     </data>
 </root>

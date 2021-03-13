@@ -852,7 +852,7 @@ If this checkbox is unchecked, all creatures will be included by default, and on
     <value>Breeding Score</value>
   </data>
   <data name="lbBPBreedingScoreTT" xml:space="preserve">
-    <value>The Breeding-Score of a paring is not comparable to the Breeding-Score of another breeding-mode.
+    <value>The Breeding-Score of a pairing is not comparable to the Breeding-Score of another breeding-mode.
 The numbers in the different modes are generated in incompatible ways.</value>
   </data>
   <data name="lbBPBreedingTimes" xml:space="preserve">
@@ -1077,7 +1077,7 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
     <value>Make sure the correct state (wild, tamed, bred) for the creature is chosen.</value>
   </data>
   <data name="issueCauseTamingEffectivenessRange" xml:space="preserve">
-    <value>Taming-Effectiveness-Range too narrow, increase the upper and / or decrase the lower bound.</value>
+    <value>Taming-Effectiveness-Range too narrow, increase the upper and / or decrease the lower bound.</value>
   </data>
   <data name="issueCauseLockedDomLevel" xml:space="preserve">
     <value>Uncheck all Lock-to-Zero-buttons in the stats (all lock-symbols should be green and opened).</value>
