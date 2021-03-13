@@ -873,16 +873,16 @@ namespace ARKBreedingStats
         }
 
 
-
         /// <summary>
         /// Sets the values of a creature to the extractor and extracts its levels.
         /// It returns if the creature is already present in the library.
         /// </summary>
         /// <param name="cv"></param>
-        /// <param name="filePath"></param>
+        /// <param name="filePath">If given, the file path will be displayed as info.</param>
         /// <param name="autoExtraction"></param>
+        /// <param name="highPrecisionValues"></param>
         /// <returns></returns>
-        private bool ExtractValuesInExtractor(CreatureValues cv, string filePath, bool autoExtraction)
+        private bool ExtractValuesInExtractor(CreatureValues cv, string filePath, bool autoExtraction, bool highPrecisionValues = true)
         {
             SetCreatureValuesToExtractor(cv, false);
 
@@ -891,11 +891,12 @@ namespace ARKBreedingStats
 
             bool creatureExists = IsCreatureAlreadyInLibrary(cv.guid, cv.ARKID, out Creature existingCreature);
 
-            ExtractLevels(autoExtraction: autoExtraction, statInputsHighPrecision: true, existingCreature: existingCreature);
+            ExtractLevels(autoExtraction, highPrecisionValues, existingCreature: existingCreature);
             SetCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
             UpdateParentListInput(creatureInfoInputExtractor); // this function is only used for single-creature extractions, e.g. LastExport
             creatureInfoInputExtractor.UpdateExistingCreature = creatureExists;
-            SetMessageLabelText(Loc.S("creatureOfFile") + "\n" + filePath, path: filePath);
+            if (!string.IsNullOrEmpty(filePath))
+                SetMessageLabelText(Loc.S("creatureOfFile") + "\n" + filePath, path: filePath);
             return creatureExists;
         }
 

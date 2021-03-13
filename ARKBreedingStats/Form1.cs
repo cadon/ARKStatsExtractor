@@ -2642,7 +2642,7 @@ namespace ARKBreedingStats
         {
             if (toolStripCBTempCreatures.SelectedIndex >= 0 && toolStripCBTempCreatures.SelectedIndex < _creatureCollection.creaturesValues.Count)
             {
-                SetCreatureValuesToExtractor(_creatureCollection.creaturesValues[toolStripCBTempCreatures.SelectedIndex]);
+                ExtractValuesInExtractor(_creatureCollection.creaturesValues[toolStripCBTempCreatures.SelectedIndex], null, false, false);
                 toolStripButtonDeleteTempCreature.Visible = true;
             }
             else
