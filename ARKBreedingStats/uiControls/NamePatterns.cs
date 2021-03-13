@@ -13,6 +13,12 @@ namespace ARKBreedingStats.uiControls
     public static class NamePatterns
     {
         /// <summary>
+        /// Used to mark a name that a unique number was added.
+        /// This is needed because all if branches are evaluated first and it's not clear if a {n} actually is considered in the final name.
+        /// </summary>
+        private const string UniqueNumberWasAddedControlChar = "\r";
+
+        /// <summary>
         /// Generate a creature name with the naming pattern.
         /// </summary>
         public static string GenerateCreatureName(Creature creature, Creature[] sameSpecies, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, int namingPatternIndex, bool showTooLongWarning = true, string pattern = null, bool displayError = true, Dictionary<string, string> tokenDictionary = null)
@@ -68,12 +74,15 @@ namespace ARKBreedingStats.uiControls
             {
                 // replace the unique number key with the lowest possible positive number >= 1 to get a unique name.
                 string numberedUniqueName;
+
                 int n = 1;
                 do
                 {
                     numberedUniqueName = ResolveFunctions(
                         ResolveKeysToValues(tokenDictionary, name, n++),
                         creature, customReplacings, displayError, true);
+                    if (!numberedUniqueName.Contains(UniqueNumberWasAddedControlChar)) break; // number was not added, e.g. {n} was in an unreached if-branch
+                    numberedUniqueName = numberedUniqueName.Replace(UniqueNumberWasAddedControlChar, string.Empty);
                 } while (creatureNames.Contains(numberedUniqueName, StringComparer.OrdinalIgnoreCase));
                 name = numberedUniqueName;
             }
@@ -384,7 +393,7 @@ namespace ARKBreedingStats.uiControls
             Regex r = new Regex(regularExpression, regularExpressionOptions);
             if (uniqueNumber != 0)
             {
-                pattern = pattern.Replace("{n}", uniqueNumber.ToString());
+                pattern = pattern.Replace("{n}", uniqueNumber + UniqueNumberWasAddedControlChar);
             }
 
             return r.Replace(pattern, m => tokenDictionary.TryGetValue(m.Groups["key"].Value, out string replacement) ? replacement : m.Value);
