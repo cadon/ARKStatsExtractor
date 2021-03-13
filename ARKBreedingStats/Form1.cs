@@ -2079,7 +2079,7 @@ namespace ARKBreedingStats
                     if (manuallyTriggered && sameValues)
                     {
                         int newIndex = (possibleSpecies.IndexOf(_lastOcrSpecies) + 1) % possibleSpecies.Count;
-                        speciesSelector1.SetSpecies(possibleSpecies[newIndex]);
+                        speciesSelector1.SetSpecies(possibleSpecies[newIndex], ignoreInRecent: true);
                         _lastOcrSpecies = possibleSpecies[newIndex];
                         _lastOcrValues = OcrValues;
                         ExtractLevels(true);
@@ -2088,11 +2088,11 @@ namespace ARKBreedingStats
                     {
                         // automated, or first manual attempt at new values
                         bool foundPossiblyGood = false;
-                        for (int speciesOption = 0; speciesOption < possibleSpecies.Count && !foundPossiblyGood; speciesOption++)
+                        for (int speciesOption = 0; !foundPossiblyGood && speciesOption < possibleSpecies.Count; speciesOption++)
                         {
                             // if the last OCR'ed values are the same as this one, the user may not be happy with the dino species selection and want another one
-                            // so we'll cycle to the next one, but only if the OCR is manually triggered, on autotrigger (ie, overlay), don't change
-                            speciesSelector1.SetSpecies(possibleSpecies[speciesOption]);
+                            // so we'll cycle to the next one, but only if the OCR is manually triggered, on auto trigger (i.e. overlay), don't change
+                            speciesSelector1.SetSpecies(possibleSpecies[speciesOption], ignoreInRecent: true);
                             _lastOcrSpecies = possibleSpecies[speciesOption];
                             _lastOcrValues = OcrValues;
                             foundPossiblyGood = ExtractLevels(showLevelsInOverlay: !manuallyTriggered);

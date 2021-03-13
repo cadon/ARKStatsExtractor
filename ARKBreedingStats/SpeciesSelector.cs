@@ -255,7 +255,7 @@ namespace ARKBreedingStats
             }
         }
 
-        public void SetSpecies(Species species, bool alsoTriggerOnSameSpecies = false)
+        public void SetSpecies(Species species, bool alsoTriggerOnSameSpecies = false, bool ignoreInRecent = false)
         {
             if (species == null) return;
             if (SelectedSpecies == species)
@@ -265,11 +265,17 @@ namespace ARKBreedingStats
                 return;
             }
 
-            _lastSpeciesBPs.Remove(species.blueprintPath);
-            _lastSpeciesBPs.Insert(0, species.blueprintPath);
-            if (_lastSpeciesBPs.Count > Properties.Settings.Default.SpeciesSelectorCountLastSpecies) // only keep keepNrLastSpecies of the last species in this list
-                _lastSpeciesBPs.RemoveRange(Properties.Settings.Default.SpeciesSelectorCountLastSpecies, _lastSpeciesBPs.Count - Properties.Settings.Default.SpeciesSelectorCountLastSpecies);
-            UpdateLastSpecies();
+            if (!ignoreInRecent)
+            {
+                _lastSpeciesBPs.Remove(species.blueprintPath);
+                _lastSpeciesBPs.Insert(0, species.blueprintPath);
+                if (_lastSpeciesBPs.Count > Properties.Settings.Default.SpeciesSelectorCountLastSpecies
+                ) // only keep keepNrLastSpecies of the last species in this list
+                    _lastSpeciesBPs.RemoveRange(Properties.Settings.Default.SpeciesSelectorCountLastSpecies,
+                        _lastSpeciesBPs.Count - Properties.Settings.Default.SpeciesSelectorCountLastSpecies);
+                UpdateLastSpecies();
+            }
+
             SelectedSpecies = species;
 
             OnSpeciesSelected?.Invoke(true);
