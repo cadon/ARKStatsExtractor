@@ -342,9 +342,9 @@ namespace ARKBreedingStats.values
                     if (modInfo.OnlineAvailable
                         && IsValidFormatVersion(modInfo.format)
                         && modInfo.Version != null
-                        && TryLoadValuesFile(modFilePath, setModFileName: false, throwExceptionOnFail: false,
+                        && (!TryLoadValuesFile(modFilePath, setModFileName: false, throwExceptionOnFail: false,
                             out Values modValues, errorMessage: out _)
-                        && modValues.Version < modsManifest.modsByFiles[mf].Version)
+                            || modValues.Version < modsManifest.modsByFiles[mf].Version))
                     {
                         modValueFilesWithAvailableUpdate.Add(mf);
                     }
