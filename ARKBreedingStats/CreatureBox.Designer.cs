@@ -31,6 +31,7 @@ namespace ARKBreedingStats
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelSpecies = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonStatus = new System.Windows.Forms.Button();
             this.checkBoxIsBred = new System.Windows.Forms.CheckBox();
@@ -46,12 +47,11 @@ namespace ARKBreedingStats
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxOwner = new System.Windows.Forms.TextBox();
-            this.labelSpecies = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelNotes = new System.Windows.Forms.Label();
             this.LbMotherAndWildInfo = new System.Windows.Forms.Label();
             this.LbFather = new System.Windows.Forms.Label();
             this.buttonEdit = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.parentComboBoxFather = new ARKBreedingStats.uiControls.ParentComboBox();
             this.parentComboBoxMother = new ARKBreedingStats.uiControls.ParentComboBox();
             this.statsDisplay1 = new ARKBreedingStats.uiControls.StatsDisplay();
@@ -65,14 +65,14 @@ namespace ARKBreedingStats
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.labelSpecies);
+            this.groupBox1.Controls.Add(this.labelNotes);
+            this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Controls.Add(this.panel1);
             this.groupBox1.Controls.Add(this.statsDisplay1);
             this.groupBox1.Controls.Add(this.regionColorChooser1);
-            this.groupBox1.Controls.Add(this.labelNotes);
             this.groupBox1.Controls.Add(this.LbMotherAndWildInfo);
             this.groupBox1.Controls.Add(this.LbFather);
             this.groupBox1.Controls.Add(this.buttonEdit);
-            this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
@@ -80,6 +80,14 @@ namespace ARKBreedingStats
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Creature";
+            // 
+            // labelSpecies
+            // 
+            this.labelSpecies.AutoSize = true;
+            this.labelSpecies.Location = new System.Drawing.Point(6, 390);
+            this.labelSpecies.Name = "labelSpecies";
+            this.labelSpecies.Size = new System.Drawing.Size(0, 13);
+            this.labelSpecies.TabIndex = 26;
             // 
             // panel1
             // 
@@ -231,29 +239,11 @@ namespace ARKBreedingStats
             this.textBoxOwner.Size = new System.Drawing.Size(136, 20);
             this.textBoxOwner.TabIndex = 14;
             // 
-            // labelSpecies
-            // 
-            this.labelSpecies.AutoSize = true;
-            this.labelSpecies.Location = new System.Drawing.Point(6, 390);
-            this.labelSpecies.Name = "labelSpecies";
-            this.labelSpecies.Size = new System.Drawing.Size(0, 13);
-            this.labelSpecies.TabIndex = 26;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBox1.Location = new System.Drawing.Point(3, 272);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(128, 128);
-            this.pictureBox1.TabIndex = 19;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            // 
             // labelNotes
             // 
             this.labelNotes.Location = new System.Drawing.Point(6, 252);
             this.labelNotes.Name = "labelNotes";
-            this.labelNotes.Size = new System.Drawing.Size(183, 30);
+            this.labelNotes.Size = new System.Drawing.Size(183, 22);
             this.labelNotes.TabIndex = 18;
             this.labelNotes.Text = "Notes";
             // 
@@ -285,6 +275,16 @@ namespace ARKBreedingStats
             this.buttonEdit.TabIndex = 0;
             this.buttonEdit.UseVisualStyleBackColor = true;
             this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pictureBox1.Location = new System.Drawing.Point(3, 272);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(128, 128);
+            this.pictureBox1.TabIndex = 19;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // parentComboBoxFather
             // 
