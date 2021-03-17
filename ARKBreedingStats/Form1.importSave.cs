@@ -299,15 +299,17 @@ namespace ARKBreedingStats
                 return;
             }
 
-            if (!File.Exists(Properties.Settings.Default.LastImportedSaveGame))
+            var importFile = ATImportFileLocation.CreateFromString(Properties.Settings.Default.LastImportedSaveGame);
+
+            if (string.IsNullOrEmpty(importFile.FileLocation) || !File.Exists(importFile.FileLocation))
             {
                 MessageBoxes.ShowMessageBox(
-                    $"The file that was imported last time is not existing anymore:\n{Properties.Settings.Default.LastImportedSaveGame}\nImport the file you want to import at least once via the menu. After that you can import the last imported file with this button.",
+                    $"The file that was imported last time is not existing anymore:\n{importFile.FileLocation}\nImport the file you want to import at least once via the menu. After that you can import the last imported file with this button.",
                     "File not existing");
                 return;
             }
 
-            RunSavegameImport(ATImportFileLocation.CreateFromString(Properties.Settings.Default.LastImportedSaveGame));
+            RunSavegameImport(importFile);
         }
     }
 }
