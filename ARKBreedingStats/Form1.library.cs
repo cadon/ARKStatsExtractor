@@ -761,21 +761,6 @@ namespace ARKBreedingStats
             _reactOnCreatureSelectionChange = true;
         }
 
-        /// <summary>
-        /// Returns the dateTime when the countdown of a creature is ready. Either the maturingTime, the matingCooldownTime or null if no countdown is set.
-        /// </summary>
-        /// <returns></returns>
-        private string DisplayedCreatureCountdown(Creature cr)
-        {
-            DateTime dt;
-            if (cr.cooldownUntil.HasValue) dt = cr.cooldownUntil.Value;
-            else if (!cr.growingUntil.HasValue) return "-";
-            else if (cr.growingPaused) return Utils.Duration(cr.growingLeft);
-            else dt = cr.growingUntil.Value;
-
-            return DateTime.Now > dt ? "-" : dt.ToString();
-        }
-
         private ListViewItem CreateCreatureLVItem(Creature cr, ListViewGroup g)
         {
             double colorFactor = 100d / _creatureCollection.maxChartLevel;
@@ -796,7 +781,7 @@ namespace ARKBreedingStats
                             cr.generation.ToString(),
                             cr.levelFound.ToString(),
                             cr.Mutations.ToString(),
-                            DisplayedCreatureCountdown(cr)
+                            DisplayedCreatureCountdown(cr, out var cooldownForeColor, out var cooldownBackColor)
                     }
                     .Concat(cr.levelsWild.Select(x => x.ToString()).ToArray())
                     .ToArray();
@@ -907,9 +892,8 @@ namespace ARKBreedingStats
                 lvi.SubItems[10].ForeColor = Color.LightGray;
 
             // color for cooldown
-            CooldownColors(cr, out Color forecolor, out Color backcolor);
-            lvi.SubItems[11].ForeColor = forecolor;
-            lvi.SubItems[11].BackColor = backcolor;
+            lvi.SubItems[11].ForeColor = cooldownForeColor;
+            lvi.SubItems[11].BackColor = cooldownBackColor;
 
             if (Properties.Settings.Default.showColorsInLibrary)
             {
@@ -933,48 +917,68 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Sets the cooldown colors depending if the cooldown is maturing or post-mating.
+        /// Returns the dateTime when the countdown of a creature is ready. Either the maturingTime, the matingCooldownTime or null if no countdown is set.
         /// </summary>
-        /// <param name="c"></param>
-        /// <param name="forecolor"></param>
-        /// <param name="backcolor"></param>
-        private void CooldownColors(Creature c, out Color forecolor, out Color backcolor)
+        /// <returns></returns>
+        private string DisplayedCreatureCountdown(Creature cr, out Color foreColor, out Color backColor)
         {
-            DateTime? cldGr = c.cooldownUntil.HasValue && c.growingUntil.HasValue
-                ? (c.cooldownUntil.Value > c.growingUntil.Value ? c.cooldownUntil.Value : c.growingUntil.Value)
-                : c.cooldownUntil ?? c.growingUntil;
-
-            forecolor = SystemColors.ControlText;
-            backcolor = SystemColors.Window;
-
-            double minCld = cldGr?.Subtract(DateTime.Now).TotalMinutes ?? 0;
-            if (minCld <= 0)
+            foreColor = SystemColors.ControlText;
+            backColor = SystemColors.Window;
+            DateTime dt;
+            var isGrowing = true;
+            var useGrowingLeft = false;
+            if (cr.cooldownUntil.HasValue)
             {
-                forecolor = Color.LightGray;
-                return;
+                isGrowing = false;
+                dt = cr.cooldownUntil.Value;
             }
-
-            if ((c.cooldownUntil.HasValue && c.growingUntil.HasValue && c.cooldownUntil > c.growingUntil)
-                || !c.growingUntil.HasValue)
+            else if (!cr.growingUntil.HasValue)
             {
-                // mating-cooldown
-                if (minCld < 1)
-                    backcolor = Color.FromArgb(235, 255, 109); // green-yellow
-                else if (minCld < 10)
-                    backcolor = Color.FromArgb(255, 250, 109); // yellow
-                else
-                    backcolor = Color.FromArgb(255, 179, 109); // yellow-orange
+                foreColor = Color.LightGray;
+                return "-";
             }
+            else if (!cr.growingPaused)
+                dt = cr.growingUntil.Value;
             else
+            {
+                useGrowingLeft = true;
+                dt = new DateTime();
+            }
+
+            if (!useGrowingLeft && DateTime.Now > dt)
+            {
+                foreColor = Color.LightGray;
+                return "-";
+            }
+
+            double minCld;
+            if (useGrowingLeft)
+                minCld = cr.growingLeft.TotalMinutes;
+            else
+                minCld = dt.Subtract(DateTime.Now).TotalMinutes;
+
+            if (isGrowing)
             {
                 // growing
                 if (minCld < 1)
-                    backcolor = Color.FromArgb(168, 187, 255); // light blue
+                    backColor = Color.FromArgb(168, 187, 255); // light blue
                 else if (minCld < 10)
-                    backcolor = Color.FromArgb(197, 168, 255); // light blue/pink
+                    backColor = Color.FromArgb(197, 168, 255); // light blue/pink
                 else
-                    backcolor = Color.FromArgb(236, 168, 255); // light pink
+                    backColor = Color.FromArgb(236, 168, 255); // light pink
             }
+            else
+            {
+                // mating-cooldown
+                if (minCld < 1)
+                    backColor = Color.FromArgb(235, 255, 109); // green-yellow
+                else if (minCld < 10)
+                    backColor = Color.FromArgb(255, 250, 109); // yellow
+                else
+                    backColor = Color.FromArgb(255, 179, 109); // yellow-orange
+            }
+
+            return useGrowingLeft ? Utils.Duration(cr.growingLeft) : dt.ToString();
         }
 
         private void listView_ColumnClick(object sender, ColumnClickEventArgs e)
