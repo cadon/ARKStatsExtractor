@@ -468,7 +468,7 @@ namespace ARKBreedingStats
 
         private void SpeechCommand(SpeechRecognition.Commands command)
         {
-            // currently this command is not existing, accidental execution occured too often
+            // currently this command does not exist, accidental execution occurred too often
             if (command == SpeechRecognition.Commands.Extract)
                 DoOcr();
         }

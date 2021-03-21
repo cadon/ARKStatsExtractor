@@ -502,7 +502,7 @@ namespace ARKBreedingStats.Library
             /// </summary>
             ColorExistingInOtherRegion,
             /// <summary>
-            /// The color is not existing on any region on any creature of that species.
+            /// The color does not exist on any region on any creature of that species.
             /// </summary>
             ColorIsNew
         }
