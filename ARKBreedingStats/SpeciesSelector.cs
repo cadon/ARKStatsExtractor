@@ -120,7 +120,15 @@ namespace ARKBreedingStats
                             ss.name.Contains("Polar") ? creatureColorsPolar : creatureColors);
                         if (imgExists)
                         {
-                            lImgList.Images.Add(Image.FromFile(imagePath));
+                            try
+                            {
+                                lImgList.Images.Add(Image.FromFile(imagePath));
+                            }
+                            catch
+                            {
+                                // ignore image if it failed a second time
+                            }
+
                             iconIndices.Add(speciesListName);
                         }
                     }

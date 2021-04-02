@@ -214,7 +214,7 @@ namespace ARKBreedingStats.species
                 bool imageFine = true;
                 graph.SmoothingMode = SmoothingMode.AntiAlias;
 
-                //// ellipse shadow
+                //// ellipse background shadow
                 const int scx = TemplateSize / 2;
                 const int scy = (int)(scx * 1.6);
                 const double perspectiveFactor = 0.3;
@@ -227,12 +227,13 @@ namespace ARKBreedingStats.species
                     Colors = new[] { Color.FromArgb(0), Color.FromArgb(40, 0, 0, 0), Color.FromArgb(80, 0, 0, 0) },
                     Positions = new[] { 0, 0.6f, 1 }
                 };
-                PathGradientBrush pthGrBrush = new PathGradientBrush(pathShadow)
+
+                using (var pthGrBrush = new PathGradientBrush(pathShadow)
                 {
                     InterpolationColors = colorBlend
-                };
-                graph.FillEllipse(pthGrBrush, 0, yStart, TemplateSize, yEnd);
-                // shadow done
+                })
+                    graph.FillEllipse(pthGrBrush, 0, yStart, TemplateSize, yEnd);
+                // background shadow done
 
                 // shaded base image
                 graph.DrawImage(bmpBackground, 0, 0, TemplateSize, TemplateSize);
