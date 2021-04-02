@@ -100,18 +100,33 @@ namespace ARKBreedingStats
                 if (!speciesNameToSpecies.ContainsKey(ss.DescriptiveNameAndMod))
                     speciesNameToSpecies.Add(ss.DescriptiveNameAndMod, ss);
 
-                if (imageFolderExist)
-                {
-                    var (imgExists, imagePath, speciesListName) = CreatureColored.SpeciesImageExists(ss,
-                        ss.name.Contains("Polar") ? creatureColorsPolar : creatureColors);
-                    if (imgExists && !iconIndices.Contains(speciesListName))
-                    {
-                        lImgList.Images.Add(Image.FromFile(imagePath));
-                        iconIndices.Add(speciesListName);
-                    }
+                if (!imageFolderExist) continue;
 
-                    //if (!imgExists && !speciesWOImage.Contains(ss.name)) speciesWOImage.Add(ss.name);
+                var (imgExists, imagePath, speciesListName) = CreatureColored.SpeciesImageExists(ss,
+                    ss.name.Contains("Polar") ? creatureColorsPolar : creatureColors);
+                if (!imgExists || iconIndices.Contains(speciesListName)) continue;
+
+                try
+                {
+                    lImgList.Images.Add(Image.FromFile(imagePath));
+                    iconIndices.Add(speciesListName);
                 }
+                catch (OutOfMemoryException)
+                {
+                    // usually this exception occurs if the image file is corrupted
+                    if (FileService.TryDeleteFile(imagePath))
+                    {
+                        (imgExists, imagePath, speciesListName) = CreatureColored.SpeciesImageExists(ss,
+                            ss.name.Contains("Polar") ? creatureColorsPolar : creatureColors);
+                        if (imgExists)
+                        {
+                            lImgList.Images.Add(Image.FromFile(imagePath));
+                            iconIndices.Add(speciesListName);
+                        }
+                    }
+                }
+
+                //if (!imgExists && !speciesWOImage.Contains(ss.name)) speciesWOImage.Add(ss.name);
             }
             //Clipboard.SetText(string.Join("\n", speciesWOImage));
 
