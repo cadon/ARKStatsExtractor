@@ -64,6 +64,12 @@ namespace ARKBreedingStats
                 SelectedSpecies = Values.V.SpeciesByBlueprint(SelectedSpecies.blueprintPath);
             }
 
+            if (SelectedSpecies == null)
+            {
+                // if after loading a new file the previously selected species is not available (e.g. previous species is from a now not loaded mod), select first available species
+                SetSpecies(species.FirstOrDefault(), ignoreInRecent: true);
+            }
+
             ImageList imageList;
             (_entryList, imageList, _iconIndices) = LoadSpeciesImagesAndCreateSpeciesList(species, aliases);
 
