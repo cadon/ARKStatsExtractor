@@ -2350,7 +2350,10 @@ namespace ARKBreedingStats
             ClearAll();
             // copy values from tester over to extractor
             for (int s = 0; s < Values.STATS_COUNT; s++)
+            {
                 _statIOs[s].Input = _testingIOs[s].Input;
+                if (_testingIOs[s].LevelDom > 0) _statIOs[s].DomLevelLockedZero = false;
+            }
             if (rbBredTester.Checked)
                 rbBredExtractor.Checked = true;
             else if (rbTamedTester.Checked)

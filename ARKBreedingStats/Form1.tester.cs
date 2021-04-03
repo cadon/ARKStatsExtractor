@@ -291,7 +291,10 @@ namespace ARKBreedingStats
                     ClearAll();
                     // copy values over to extractor
                     for (int s = 0; s < Values.STATS_COUNT; s++)
+                    {
                         _statIOs[s].Input = onlyWild ? StatValueCalculation.CalculateValue(species, s, c.levelsWild[s], 0, true, c.tamingEff, c.imprintingBonus) : c.valuesDom[s];
+                        if (c.levelsDom[s] > 0) _statIOs[s].DomLevelLockedZero = false;
+                    }
                     speciesSelector1.SetSpecies(species);
 
                     if (c.isBred)
