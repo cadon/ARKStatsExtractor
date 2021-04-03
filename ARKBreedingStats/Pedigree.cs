@@ -19,7 +19,6 @@ namespace ARKBreedingStats
 
         public event EditCreatureEventHandler EditCreature;
         public event Action<Creature> BestBreedingPartners;
-        public event PedigreeCreature.ExportToClipboardEventHandler ExportToClipboard;
 
         /// <summary>
         /// All creatures of the current collection.
@@ -47,7 +46,7 @@ namespace ARKBreedingStats
             listViewCreatures.ListViewItemSorter = new ListViewColumnSorter();
             splitContainer1.Panel2.Paint += Panel2_Paint;
             var tt = new ToolTip();
-            tt.SetToolTip(pictureBox,"Click with the left mouse button to copy InfoGraphic to Clipboard.");
+            tt.SetToolTip(pictureBox, "Click with the left mouse button to copy InfoGraphic to Clipboard.");
         }
 
         private void Panel2_Paint(object sender, PaintEventArgs e)
@@ -207,7 +206,6 @@ namespace ARKBreedingStats
                 pc.CreatureClicked += CreatureClicked;
                 pc.CreatureEdit += CreatureEdit;
                 pc.BestBreedingPartners += BestBreedingPartners;
-                pc.ExportToClipboard += ExportToClipboard;
                 splitContainer1.Panel2.Controls.Add(pc);
                 _pcs.Add(pc);
                 row++;
@@ -245,7 +243,6 @@ namespace ARKBreedingStats
                 pc.CreatureClicked += CreatureClicked;
                 pc.CreatureEdit += CreatureEdit;
                 pc.BestBreedingPartners += BestBreedingPartners;
-                pc.ExportToClipboard += ExportToClipboard;
                 _pcs.Add(pc);
             }
 

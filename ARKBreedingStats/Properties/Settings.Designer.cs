@@ -1649,5 +1649,16 @@ namespace ARKBreedingStats.Properties {
                 this["PauseGrowingTimerAfterAddingBaby"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public int[] CreatureTableExportFields {
+            get {
+                return ((int[])(this["CreatureTableExportFields"]));
+            }
+            set {
+                this["CreatureTableExportFields"] = value;
+            }
+        }
     }
 }

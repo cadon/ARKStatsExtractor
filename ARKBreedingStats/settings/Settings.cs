@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using ARKBreedingStats.library;
 using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.settings
@@ -342,6 +343,23 @@ namespace ARKBreedingStats.settings
             cbSaveImportCryo.Checked = Properties.Settings.Default.SaveImportCryo;
             #endregion
 
+            #region Export for spreadsheet
+
+            var exportFields = Properties.Settings.Default.CreatureTableExportFields;
+            if (exportFields != null)
+            {
+                foreach (ExportCreatures.TableExportFields f in exportFields)
+                    ClbExportSpreadsheetFields.Items.Add(f, true);
+            }
+
+            foreach (ExportCreatures.TableExportFields f in Enum.GetValues(typeof(ExportCreatures.TableExportFields)))
+            {
+                if (exportFields?.Contains((int)f) ?? false) continue;
+                ClbExportSpreadsheetFields.Items.Add(f, false);
+            }
+
+            #endregion
+
             NudSpeciesSelectorCountLastUsed.ValueSave = Properties.Settings.Default.SpeciesSelectorCountLastSpecies;
 
             cbDevTools.Checked = Properties.Settings.Default.DevTools;
@@ -526,6 +544,19 @@ namespace ARKBreedingStats.settings
 
             Properties.Settings.Default.IgnoreUnknownBlueprintsOnSaveImport = cbIgnoreUnknownBPOnSaveImport.Checked;
             Properties.Settings.Default.SaveImportCryo = cbSaveImportCryo.Checked;
+            #endregion
+
+            #region Export for spreadsheet
+
+            var exportFields = new List<int>();
+            var exportFieldCount = ClbExportSpreadsheetFields.Items.Count;
+            for (int i = 0; i < exportFieldCount; i++)
+            {
+                if (ClbExportSpreadsheetFields.GetItemChecked(i))
+                    exportFields.Add((int)Enum.Parse(typeof(ExportCreatures.TableExportFields), ClbExportSpreadsheetFields.Items[i].ToString()));
+            }
+            Properties.Settings.Default.CreatureTableExportFields = exportFields.ToArray();
+
             #endregion
 
             Properties.Settings.Default.SpeciesSelectorCountLastSpecies = (int)NudSpeciesSelectorCountLastUsed.Value;
@@ -1099,6 +1130,56 @@ namespace ARKBreedingStats.settings
             nudBabyFoodConsumptionSpeed.SetExtraHighlightNonDefault(highlight);
             cbSingleplayerSettings.BackColor = highlight && cbSingleplayerSettings.Checked ? Color.FromArgb(190, 40, 20) : Color.Transparent;
             cbSingleplayerSettings.ForeColor = Utils.ForeColor(cbSingleplayerSettings.BackColor);
+        }
+
+        private void BExportSpreadsheetMoveUp_Click(object sender, EventArgs e)
+        {
+            ExportSpreadSheetMoveItem(-1);
+        }
+
+        private void BExportSpreadsheetMoveDown_Click(object sender, EventArgs e)
+        {
+            ExportSpreadSheetMoveItem(1);
+        }
+
+        private void ExportSpreadSheetMoveItem(int moveDifference)
+        {
+            if (ClbExportSpreadsheetFields.SelectedIndex < 0)
+                return;
+
+            // Calculate new index using moveDifference
+            var oldIndex = ClbExportSpreadsheetFields.SelectedIndex;
+            var newIndex = oldIndex + moveDifference;
+
+            // Checking bounds of the range
+            if (newIndex < 0) newIndex = 0;
+            if (newIndex >= ClbExportSpreadsheetFields.Items.Count)
+                newIndex = ClbExportSpreadsheetFields.Items.Count - 1;
+
+            if (newIndex == oldIndex)
+                return;
+
+            var selected = ClbExportSpreadsheetFields.SelectedItem;
+            var isChecked = ClbExportSpreadsheetFields.GetItemChecked(oldIndex);
+
+            // Removing removable element
+            ClbExportSpreadsheetFields.Items.Remove(selected);
+            // Insert it in new position
+            ClbExportSpreadsheetFields.Items.Insert(newIndex, selected);
+            // Restore selection
+            ClbExportSpreadsheetFields.SetSelected(newIndex, true);
+            // Restore checked state
+            ClbExportSpreadsheetFields.SetItemChecked(newIndex, isChecked);
+        }
+
+        private void CbExportTableFieldsAll_CheckedChanged(object sender, EventArgs e)
+        {
+            var setTo = CbExportTableFieldsAll.Checked;
+            var count = ClbExportSpreadsheetFields.Items.Count;
+            for (int i = 0; i < count; i++)
+            {
+                ClbExportSpreadsheetFields.SetItemChecked(i, setTo);
+            }
         }
     }
 }

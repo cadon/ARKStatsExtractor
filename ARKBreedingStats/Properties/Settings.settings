@@ -413,5 +413,8 @@
     <Setting Name="PauseGrowingTimerAfterAddingBaby" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="CreatureTableExportFields" Type="System.Int32[]" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

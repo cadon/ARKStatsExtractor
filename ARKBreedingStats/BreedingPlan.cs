@@ -20,7 +20,6 @@ namespace ARKBreedingStats
         public event Action<Creature, bool> EditCreature;
         public event Action<Creature> BestBreedingPartners;
         public event Action<Creature> DisplayInPedigree;
-        public event PedigreeCreature.ExportToClipboardEventHandler ExportToClipboard;
         public event Raising.createIncubationEventHandler CreateIncubationTimer;
         public event Form1.SetMessageLabelTextEventHandler SetMessageLabelText;
         public event Action<Species> SetGlobalSpecies;
@@ -155,10 +154,6 @@ namespace ARKBreedingStats
             pedigreeCreatureWorst.CreatureEdit += EditCreature;
             pedigreeCreatureBestPossibleInSpecies.CreatureEdit += EditCreature;
             pedigreeCreatureBestPossibleInSpeciesFiltered.CreatureEdit += EditCreature;
-            pedigreeCreatureBest.ExportToClipboard += ExportToClipboard;
-            pedigreeCreatureWorst.ExportToClipboard += ExportToClipboard;
-            pedigreeCreatureBestPossibleInSpecies.ExportToClipboard += ExportToClipboard;
-            pedigreeCreatureBestPossibleInSpeciesFiltered.ExportToClipboard += ExportToClipboard;
             pedigreeCreatureBest.CreatureClicked += CreatureClicked;
             pedigreeCreatureWorst.CreatureClicked += CreatureClicked;
         }
@@ -553,7 +548,6 @@ namespace ARKBreedingStats
                         pc.RecalculateBreedingPlan += RecalculateBreedingPlan;
                         pc.BestBreedingPartners += BestBreedingPartners;
                         pc.DisplayInPedigree += DisplayInPedigree;
-                        pc.ExportToClipboard += ExportToClipboard;
                         flowLayoutPanelPairs.Controls.Add(pc);
                         _pcs.Add(pc);
                     }
@@ -590,7 +584,6 @@ namespace ARKBreedingStats
                         pc.RecalculateBreedingPlan += RecalculateBreedingPlan;
                         pc.BestBreedingPartners += BestBreedingPartners;
                         pc.DisplayInPedigree += DisplayInPedigree;
-                        pc.ExportToClipboard += ExportToClipboard;
                         flowLayoutPanelPairs.Controls.Add(pc);
                         flowLayoutPanelPairs.SetFlowBreak(pc, true);
                         _pcs.Add(pc);

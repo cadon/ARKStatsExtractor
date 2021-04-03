@@ -36,9 +36,6 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         public event Action RecalculateBreedingPlan;
 
-        public delegate void ExportToClipboardEventHandler(Creature c, bool breedingValues, bool arkMl);
-
-        public event ExportToClipboardEventHandler ExportToClipboard;
         private readonly List<Label> _labels;
         private readonly ToolTip _tt;
         public int comboId;
@@ -328,12 +325,12 @@ namespace ARKBreedingStats.uiControls
 
         private void plainTextbreedingValuesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ExportToClipboard?.Invoke(_creature, true, false);
+            ExportCreatures.ExportAsTextToClipboard(_creature, true, false);
         }
 
         private void plainTextcurrentValuesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ExportToClipboard?.Invoke(_creature, false, false);
+            ExportCreatures.ExportAsTextToClipboard(_creature, false, false);
         }
 
         private void OpenWikipageInBrowserToolStripMenuItem_Click(object sender, EventArgs e)

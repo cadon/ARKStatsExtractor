@@ -132,12 +132,10 @@ namespace ARKBreedingStats
             // delegates
             pedigree1.EditCreature += EditCreatureInTester;
             pedigree1.BestBreedingPartners += ShowBestBreedingPartner;
-            pedigree1.ExportToClipboard += ExportAsTextToClipboard;
             breedingPlan1.EditCreature += EditCreatureInTester;
             breedingPlan1.DisplayInPedigree += DisplayCreatureInPedigree;
             breedingPlan1.CreateIncubationTimer += CreateIncubationTimer;
             breedingPlan1.BestBreedingPartners += ShowBestBreedingPartner;
-            breedingPlan1.ExportToClipboard += ExportAsTextToClipboard;
             breedingPlan1.SetMessageLabelText += SetMessageLabelText;
             breedingPlan1.SetGlobalSpecies += SetSpecies;
             timerList1.OnTimerChange += SetCollectionChanged;
@@ -1546,7 +1544,7 @@ namespace ARKBreedingStats
                         ArkId = input.ArkId
                     };
                     creature.RecalculateCreatureValues(levelStep);
-                    ExportAsTextToClipboard(creature, breeding, ARKml);
+                    ExportCreatures.ExportAsTextToClipboard(creature, breeding, ARKml);
                 }
                 else
                     MessageBox.Show(Loc.S("noValidExtractedCreatureToExport"), Loc.S("NoValidData"), MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1593,7 +1591,7 @@ namespace ARKBreedingStats
         private void CopySelectedCreatureFromLibraryToClipboard(bool breedingValues = true, bool ARKml = false)
         {
             if (listViewLibrary.SelectedItems.Count > 0)
-                ExportAsTextToClipboard((Creature)listViewLibrary.SelectedItems[0].Tag, breedingValues, ARKml);
+                ExportCreatures.ExportAsTextToClipboard((Creature)listViewLibrary.SelectedItems[0].Tag, breedingValues, ARKml);
             else
                 MessageBox.Show(Loc.S("noCreatureSelectedInLibrary"), Loc.S("error"),
                     MessageBoxButtons.OK, MessageBoxIcon.Error);

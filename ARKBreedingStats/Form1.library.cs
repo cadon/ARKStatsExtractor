@@ -1292,46 +1292,7 @@ namespace ARKBreedingStats
             {
                 if (listViewLibrary.SelectedItems.Count > 0)
                 {
-                    // header
-                    var output = new StringBuilder("Species\tName\tSex\tOwner\tId ingame\t");
-
-                    var suffixe = new List<string> { "w", "d", "b", "v" }; // wild, dom, bred-values, dom-values
-                    foreach (var suffix in suffixe)
-                    {
-                        for (int s = 0; s < Values.STATS_COUNT; s++)
-                        {
-                            output.Append(Utils.StatName(Values.statsDisplayOrder[s], true) + suffix + "\t");
-                        }
-                    }
-                    output.Append("mother\tfather\tMut\tNotes\tColor0\tColor1\tColor2\tColor3\tColor4\tColor5");
-
-                    foreach (ListViewItem l in listViewLibrary.SelectedItems)
-                    {
-                        Creature c = (Creature)l.Tag;
-                        output.Append($"\n{c.Species.name}\t{c.name}\t{c.sex}\t{c.owner}\t{c.ArkIdInGame}");
-                        for (int s = 0; s < Values.STATS_COUNT; s++)
-                        {
-                            output.Append("\t" + c.levelsWild[Values.statsDisplayOrder[s]]);
-                        }
-                        for (int s = 0; s < Values.STATS_COUNT; s++)
-                        {
-                            output.Append("\t" + c.levelsDom[Values.statsDisplayOrder[s]]);
-                        }
-                        for (int s = 0; s < Values.STATS_COUNT; s++)
-                        {
-                            output.Append($"\t{c.valuesBreeding[Values.statsDisplayOrder[s]] * (Utils.Precision(Values.statsDisplayOrder[s]) == 3 ? 100 : 1)}{(Utils.Precision(Values.statsDisplayOrder[s]) == 3 ? "%" : string.Empty)}");
-                        }
-                        for (int s = 0; s < Values.STATS_COUNT; s++)
-                        {
-                            output.Append($"\t{c.valuesDom[Values.statsDisplayOrder[s]] * (Utils.Precision(Values.statsDisplayOrder[s]) == 3 ? 100 : 1)}{(Utils.Precision(Values.statsDisplayOrder[s]) == 3 ? "%" : string.Empty)}");
-                        }
-                        output.Append($"\t{(c.Mother?.name ?? string.Empty)}\t{(c.Father?.name ?? string.Empty)}\t{c.Mutations}\t{(string.IsNullOrEmpty(c.note) ? string.Empty : c.note.Replace("\r", string.Empty).Replace("\n", " "))}");
-                        for (int cl = 0; cl < 6; cl++)
-                        {
-                            output.Append("\t" + c.colors[cl]);
-                        }
-                    }
-                    Clipboard.SetText(output.ToString());
+                    ExportCreatures.ExportTable(listViewLibrary.SelectedItems.Cast<ListViewItem>().Select(lvi => (Creature)lvi.Tag));
                 }
                 else
                     MessageBox.Show("No creatures in the library selected to copy to the clipboard", "No Creatures Selected",
@@ -1339,44 +1300,6 @@ namespace ARKBreedingStats
             }
             else if (tabControlMain.SelectedTab == tabPageExtractor)
                 CopyExtractionToClipboard();
-        }
-
-        /// <summary>
-        /// Export the data of a creature to the clipboard in plain text.
-        /// </summary>
-        /// <param name="c">Creature to export</param>
-        /// <param name="breeding">Stat values that are inherited</param>
-        /// <param name="ARKml">True if ARKml markup for coloring should be used. That feature was disabled in the ARK-chat.</param>
-        private void ExportAsTextToClipboard(Creature c, bool breeding = true, bool ARKml = false)
-        {
-            if (c != null)
-            {
-                double colorFactor = 100d / _creatureCollection.maxChartLevel;
-                bool wild = c.tamingEff == -2;
-                string modifierText = string.Empty;
-                if (!breeding)
-                {
-                    if (wild)
-                        modifierText = ", wild";
-                    else if (c.tamingEff < 1)
-                        modifierText = ", TE: " + Math.Round(100 * c.tamingEff, 1) + "%";
-                    else if (c.imprintingBonus > 0)
-                        modifierText = ", Impr: " + Math.Round(100 * c.imprintingBonus, 2) + "%";
-                }
-
-                var output = new StringBuilder((string.IsNullOrEmpty(c.name) ? "noName" : c.name) + " (" + (ARKml ? Utils.GetARKml(c.Species.name, 50, 172, 255) : c.Species.name)
-                        + ", Lvl " + (breeding ? c.LevelHatched : c.Level) + modifierText + (c.sex != Sex.Unknown ? ", " + c.sex : string.Empty) + "): ");
-                for (int s = 0; s < Values.STATS_COUNT; s++)
-                {
-                    int si = Values.statsDisplayOrder[s];
-                    if (c.levelsWild[si] >= 0 && c.valuesBreeding[si] > 0) // ignore unknown levels (e.g. oxygen, speed for some species)
-                        output.Append(Utils.StatName(si, true) + ": " + (breeding ? c.valuesBreeding[si] : c.valuesDom[si]) * (Utils.Precision(si) == 3 ? 100 : 1) + (Utils.Precision(si) == 3 ? "%" : string.Empty) +
-                                " (" + (ARKml ? Utils.GetARKmlFromPercent(c.levelsWild[si].ToString(), (int)(c.levelsWild[si] * (si == (int)StatNames.Torpidity ? colorFactor / 7 : colorFactor))) : c.levelsWild[si].ToString()) +
-                                (ARKml ? breeding || si == (int)StatNames.Torpidity ? string.Empty : ", " + Utils.GetARKmlFromPercent(c.levelsDom[si].ToString(), (int)(c.levelsDom[si] * colorFactor)) : breeding || si == (int)StatNames.Torpidity ? string.Empty : ", " + c.levelsDom[si]) + "); ");
-                }
-                var outputString = output.ToString();
-                Clipboard.SetText(outputString.Substring(0, outputString.Length - 1));
-            }
         }
 
         /// <summary>
