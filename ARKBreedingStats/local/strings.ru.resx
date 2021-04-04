@@ -592,7 +592,7 @@
   <data name="Torpidity_Abb" xml:space="preserve">
     <value>Оглуш</value>
   </data>
-  <data name="toolStripButtonAddNote" xml:space="preserve">
+  <data name="Add Note" xml:space="preserve">
     <value>Добавить заметку</value>
   </data>
   <data name="toolStripButtonClear" xml:space="preserve">
@@ -613,7 +613,7 @@
   <data name="toolStripButtonDeleteTempCreatureTT" xml:space="preserve">
     <value>Удалить текущие выбранные данные временного существа</value>
   </data>
-  <data name="toolStripButtonRemoveNote" xml:space="preserve">
+  <data name="Remove Note" xml:space="preserve">
     <value>Удалить заметку</value>
   </data>
   <data name="toolStripButtonSaveCreatureValuesTemp" xml:space="preserve">

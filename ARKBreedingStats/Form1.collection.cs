@@ -28,7 +28,7 @@ namespace ARKBreedingStats
         private void NewCollection(bool resetCollection = false)
         {
             if (!resetCollection
-                && _collectionDirty
+                && UnsavedChanges()
                 && CustomMessageBox.Show(Loc.S("Collection changed discard and new?"),
                     Loc.S("Discard changes?"), Loc.S("Discard changes and new"), buttonCancel: Loc.S("Cancel"), icon: MessageBoxIcon.Warning) != DialogResult.Yes
             )
@@ -95,7 +95,7 @@ namespace ARKBreedingStats
         private void RecalculateAllCreaturesValues()
         {
             toolStripProgressBar1.Value = 0;
-            toolStripProgressBar1.Maximum = _creatureCollection.creatures.Count();
+            toolStripProgressBar1.Maximum = _creatureCollection.creatures.Count;
             toolStripProgressBar1.Visible = true;
             int? levelStep = _creatureCollection.getWildLevelStep();
             foreach (Creature c in _creatureCollection.creatures)
@@ -137,7 +137,7 @@ namespace ARKBreedingStats
         /// </summary>
         private bool DiscardChangesAndLoadNewLibrary()
         {
-            return !_collectionDirty
+            return !UnsavedChanges()
                     || CustomMessageBox.Show(Loc.S("Collection changed discard and load?"),
                     Loc.S("Discard changes?"), Loc.S("Discard changes and load file"), buttonCancel: Loc.S("Cancel"), icon: MessageBoxIcon.Warning) == DialogResult.Yes;
         }
@@ -192,6 +192,8 @@ namespace ARKBreedingStats
             // remove expired timers if setting is set
             if (Properties.Settings.Default.DeleteExpiredTimersOnSaving)
                 timerList1.DeleteAllExpiredTimers(false, false);
+
+            notesControl1.CheckForUnsavedChanges();
 
             // Wait until the file is writable
             const int numberOfRetries = 5;
@@ -558,6 +560,15 @@ namespace ARKBreedingStats
             _lastAutoSaveBackup = DateTime.Now.AddMinutes(-10);
 
             return true;
+        }
+
+        /// <summary>
+        /// Returns true if there are unsaved changes.
+        /// </summary>
+        private bool UnsavedChanges()
+        {
+            notesControl1.CheckForUnsavedChanges();
+            return _collectionDirty;
         }
 
         /// <summary>

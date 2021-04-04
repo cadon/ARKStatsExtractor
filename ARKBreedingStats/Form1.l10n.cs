@@ -55,8 +55,6 @@ namespace ARKBreedingStats
             Loc.ControlText(toolStripButtonCopy2Tester);
             Loc.ControlText(toolStripButtonCopy2Extractor);
             Loc.ControlText(toolStripButtonClear);
-            Loc.ControlText(toolStripButtonAddNote);
-            Loc.ControlText(toolStripButtonRemoveNote);
             Loc.ControlText(toolStripButtonDeleteExpiredIncubationTimers);
             Loc.ControlText(toolStripButtonSaveCreatureValuesTemp);
             Loc.ControlText(toolStripButtonDeleteTempCreature);
@@ -166,6 +164,7 @@ namespace ARKBreedingStats
             breedingPlan1.SetLocalizations();
             raisingControl1.SetLocalizations();
             creatureBoxListView.SetLocalizations();
+            notesControl1.SetLocalizations();
             _overlay?.SetLocatlizations();
         }
     }

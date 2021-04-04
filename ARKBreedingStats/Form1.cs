@@ -978,7 +978,7 @@ namespace ARKBreedingStats
 
         private async void CheckForUpdates(bool silentCheck = false)
         {
-            bool? updaterRunning = await Updater.CheckForPortableUpdate(silentCheck, _collectionDirty);
+            bool? updaterRunning = await Updater.CheckForPortableUpdate(silentCheck, UnsavedChanges());
             if (!updaterRunning.HasValue) return; // error
             if (updaterRunning.Value)
             {
@@ -1078,7 +1078,7 @@ namespace ARKBreedingStats
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (_collectionDirty && CustomMessageBox.Show(Loc.S("Collection changed discard and quit?"),
+            if (UnsavedChanges() && CustomMessageBox.Show(Loc.S("Collection changed discard and quit?"),
                 Loc.S("Discard changes?"), Loc.S("Discard changes and quit"), buttonCancel: Loc.S("Cancel quitting"), icon: MessageBoxIcon.Warning) != DialogResult.Yes)
                 e.Cancel = true;
         }
@@ -1386,8 +1386,6 @@ namespace ARKBreedingStats
             ToolStripButtonLibraryFilterClear.Visible = libraryShown;
             SetMessageLabelText();
             copyCreatureToolStripMenuItem.Visible = tabControlMain.SelectedTab == tabPageLibrary;
-            toolStripButtonAddNote.Visible = tabControlMain.SelectedTab == tabPageNotes;
-            toolStripButtonRemoveNote.Visible = tabControlMain.SelectedTab == tabPageNotes;
             raisingControl1.updateListView = tabControlMain.SelectedTab == tabPageRaising;
             toolStripButtonDeleteExpiredIncubationTimers.Visible = tabControlMain.SelectedTab == tabPageRaising || tabControlMain.SelectedTab == tabPageTimer;
             tsBtAddAsExtractionTest.Visible = Properties.Settings.Default.DevTools && tabControlMain.SelectedTab == tabPageStatTesting;
@@ -2581,16 +2579,6 @@ namespace ARKBreedingStats
                 //+ "-BETA" // TODO BETA indicator
                 + " / values: " + Values.V.Version +
                     (modsLoaded ? ", additional values from " + _creatureCollection.ModList.Count + " mods (" + string.Join(", ", _creatureCollection.ModList.Select(m => m.title).ToArray()) + ")" : string.Empty);
-        }
-
-        private void toolStripButtonAddNote_Click(object sender, EventArgs e)
-        {
-            notesControl1.AddNote();
-        }
-
-        private void toolStripButtonRemoveNote_Click(object sender, EventArgs e)
-        {
-            notesControl1.RemoveSelectedNote();
         }
 
         private void labelListening_Click(object sender, EventArgs e)

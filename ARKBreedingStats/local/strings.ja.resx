@@ -698,7 +698,7 @@ OCRで種族の推測が頻繁に間違える場合は、この設定を無効�
   <data name="Torpidity_Abb" xml:space="preserve">
     <value>気絶</value>
   </data>
-  <data name="toolStripButtonAddNote" xml:space="preserve">
+  <data name="Add Note" xml:space="preserve">
     <value>メモを追加</value>
   </data>
   <data name="toolStripButtonClear" xml:space="preserve">
@@ -719,7 +719,7 @@ OCRで種族の推測が頻繁に間違える場合は、この設定を無効�
   <data name="toolStripButtonDeleteTempCreatureTT" xml:space="preserve">
     <value>選択されいているデータを一時生物から削除</value>
   </data>
-  <data name="toolStripButtonRemoveNote" xml:space="preserve">
+  <data name="Remove Note" xml:space="preserve">
     <value>メモを削除</value>
   </data>
   <data name="toolStripButtonSaveCreatureValuesTemp" xml:space="preserve">

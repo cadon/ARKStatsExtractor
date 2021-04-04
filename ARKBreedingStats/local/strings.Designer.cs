@@ -70,6 +70,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Note.
+        /// </summary>
+        internal static string Add_Note {
+            get {
+                return ResourceManager.GetString("Add Note", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Added.
         /// </summary>
         internal static string added {
@@ -1187,7 +1196,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The export folder of Steam couldn&apos;t be detected automatically..
+        ///   Looks up a localized string similar to The export folder for exported creatures couldn&apos;t be detected automatically..
         /// </summary>
         internal static string ExportFolderDetectionFailed {
             get {
@@ -1721,7 +1730,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Taming-Effectiveness-Range too narrow, increase the upper and / or decrase the lower bound..
+        ///   Looks up a localized string similar to Taming-Effectiveness-Range too narrow, increase the upper and / or decrease the lower bound..
         /// </summary>
         internal static string issueCauseTamingEffectivenessRange {
             get {
@@ -1778,7 +1787,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Breeding-Score of a paring is not comparable to the Breeding-Score of another breeding-mode.
+        ///   Looks up a localized string similar to The Breeding-Score of a pairing is not comparable to the Breeding-Score of another breeding-mode.
         ///The numbers in the different modes are generated in incompatible ways..
         /// </summary>
         internal static string lbBPBreedingScoreTT {
@@ -2677,6 +2686,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove Note.
+        /// </summary>
+        internal static string Remove_Note {
+            get {
+                return ResourceManager.GetString("Remove Note", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Run default Extraction and import file.
         /// </summary>
         internal static string runDefaultExtractionAndImportFileToolStripMenuItem {
@@ -3073,15 +3091,6 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add Note.
-        /// </summary>
-        internal static string toolStripButtonAddNote {
-            get {
-                return ResourceManager.GetString("toolStripButtonAddNote", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Clear.
         /// </summary>
         internal static string toolStripButtonClear {
@@ -3136,15 +3145,6 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove Note.
-        /// </summary>
-        internal static string toolStripButtonRemoveNote {
-            get {
-                return ResourceManager.GetString("toolStripButtonRemoveNote", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Save values.
         /// </summary>
         internal static string toolStripButtonSaveCreatureValuesTemp {
@@ -3179,7 +3179,9 @@ namespace ARKBreedingStats.local {
         ///Note
         ///Ark id in game
         ///Server
-        ///Tags.
+        ///Tags
+        ///Filter for a stats with {statAbb} [==|&lt;|&gt;] {value}, e.g. hp &gt; 20, st == 35
+        ///Filter for colors with c{region}: {colorValue} {colorValue2}, e.g. c0: 20, c5: 3 4 5 6, c1: 13 14.
         /// </summary>
         internal static string ToolStripLabelFilterTT {
             get {

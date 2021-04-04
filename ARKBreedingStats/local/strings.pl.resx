@@ -488,10 +488,10 @@
     <data name="WithXFoodTamingTakesTime" xml:space="preserve">
         <value>Z {0} × {1} oswajanie zajmie {2}</value>
     </data>
-    <data name="toolStripButtonRemoveNote" xml:space="preserve">
+    <data name="Remove Note" xml:space="preserve">
         <value>Usuń notatkę</value>
     </data>
-    <data name="toolStripButtonAddNote" xml:space="preserve">
+    <data name="Add Note" xml:space="preserve">
         <value>Dodaj notatkę</value>
     </data>
     <data name="toolStripButtonCopy2Tester" xml:space="preserve">

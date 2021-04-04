@@ -41,12 +41,11 @@ namespace ARKBreedingStats
 
         private void listViewNoteTitles_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listViewNoteTitles.SelectedIndices.Count > 0)
-            {
-                selectedNote = (Note)listViewNoteTitles.SelectedItems[0].Tag;
-                tbNoteTitle.Text = selectedNote.Title;
-                richTextBoxNote.Text = selectedNote.Text;
-            }
+            if (listViewNoteTitles.SelectedIndices.Count == 0) return;
+
+            selectedNote = (Note)listViewNoteTitles.SelectedItems[0].Tag;
+            tbNoteTitle.Text = selectedNote.Title;
+            richTextBoxNote.Text = selectedNote.Text;
         }
 
         public void AddNote()
@@ -66,7 +65,7 @@ namespace ARKBreedingStats
         public void RemoveSelectedNote()
         {
             if (listViewNoteTitles.SelectedItems.Count > 0
-                    && MessageBox.Show($"Delete note with the title \"{((Note)(listViewNoteTitles.SelectedItems[0].Tag)).Title}\"?",
+                    && MessageBox.Show($"Delete note with the title \"{((Note)listViewNoteTitles.SelectedItems[0].Tag).Title}\"?",
                             "Delete Note?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 Note n = (Note)listViewNoteTitles.SelectedItems[0].Tag;
@@ -78,6 +77,7 @@ namespace ARKBreedingStats
                 {
                     richTextBoxNote.Text = string.Empty;
                     tbNoteTitle.Text = string.Empty;
+                    selectedNote = null;
                 }
                 changed?.Invoke();
             }
@@ -120,6 +120,52 @@ namespace ARKBreedingStats
                 sb.Append("\n\n" + note.Title + ": " + note.Text);
             }
             ARKOverlay.theOverlay.SetNotes(sb.ToString());
+        }
+
+        private void BAddNote_Click(object sender, EventArgs e)
+        {
+            AddNote();
+        }
+
+        private void BDeleteNote_Click(object sender, EventArgs e)
+        {
+            RemoveSelectedNote();
+        }
+
+        public void SetLocalizations()
+        {
+            Loc.ControlText(BAddNote, "Add Note");
+            Loc.ControlText(BDeleteNote, "Remove Note");
+        }
+
+        private void richTextBoxNote_Enter(object sender, EventArgs e)
+        {
+            // if a user clicks on this input to enter a note and no note is selected, create a new note
+            if (selectedNote != null) return;
+
+            AddNote();
+            richTextBoxNote.Focus();
+        }
+
+        private void tbNoteTitle_Enter(object sender, EventArgs e)
+        {
+            // if a user clicks on this input to enter a note and no note is selected, create a new note
+            if (selectedNote == null)
+                AddNote();
+        }
+
+        /// <summary>
+        /// If there are unsaved changes, this will trigger the changed event.
+        /// If a menu control is clicked before leaving the text input, the focus leave event is not triggered and thus changes could be lost.
+        /// </summary>
+        /// <returns></returns>
+        public void CheckForUnsavedChanges()
+        {
+            if (selectedNote == null
+                || selectedNote.Text == richTextBoxNote.Text) return;
+
+            selectedNote.Text = richTextBoxNote.Text;
+            changed?.Invoke();
         }
     }
 }

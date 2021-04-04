@@ -698,9 +698,6 @@ Habilítelo si el OCR no reconoce el nombre de la tribu correctamente y desea ag
   <data name="Torpidity_Abb" xml:space="preserve">
     <value>A</value>
   </data>
-  <data name="toolStripButtonAddNote" xml:space="preserve">
-    <value>Añadir la nota</value>
-  </data>
   <data name="toolStripButtonClear" xml:space="preserve">
     <value>Limpiar</value>
   </data>
@@ -719,7 +716,7 @@ Habilítelo si el OCR no reconoce el nombre de la tribu correctamente y desea ag
   <data name="toolStripButtonDeleteTempCreatureTT" xml:space="preserve">
     <value>Eliminar los datos seleccionados actualmente de la criatura temporal</value>
   </data>
-  <data name="toolStripButtonRemoveNote" xml:space="preserve">
+  <data name="Remove Note" xml:space="preserve">
     <value>Eliminar nota</value>
   </data>
   <data name="toolStripButtonSaveCreatureValuesTemp" xml:space="preserve">
@@ -1036,5 +1033,8 @@ Algunas crías pueden ser peores que en el modo de estadísticas altas, pero tam
   </data>
   <data name="generation" xml:space="preserve">
     <value>Generacion</value>
+  </data>
+  <data name="Add Note" xml:space="preserve">
+    <value>Añadir la nota</value>
   </data>
 </root>

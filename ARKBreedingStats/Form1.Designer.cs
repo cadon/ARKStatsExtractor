@@ -300,8 +300,6 @@ namespace ARKBreedingStats
             this.toolStripButtonClear = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAddPlayer = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAddTribe = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonAddNote = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonRemoveNote = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonDeleteExpiredIncubationTimers = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonSaveCreatureValuesTemp = new System.Windows.Forms.ToolStripButton();
@@ -2807,8 +2805,6 @@ namespace ARKBreedingStats
             this.toolStripButtonClear,
             this.toolStripButtonAddPlayer,
             this.toolStripButtonAddTribe,
-            this.toolStripButtonAddNote,
-            this.toolStripButtonRemoveNote,
             this.toolStripButtonDeleteExpiredIncubationTimers,
             this.toolStripSeparator8,
             this.toolStripButtonSaveCreatureValuesTemp,
@@ -2944,28 +2940,6 @@ namespace ARKBreedingStats
             this.toolStripButtonAddTribe.Visible = false;
             this.toolStripButtonAddTribe.Click += new System.EventHandler(this.toolStripButtonAddTribe_Click);
             // 
-            // toolStripButtonAddNote
-            // 
-            this.toolStripButtonAddNote.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButtonAddNote.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonAddNote.Image")));
-            this.toolStripButtonAddNote.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonAddNote.Name = "toolStripButtonAddNote";
-            this.toolStripButtonAddNote.Size = new System.Drawing.Size(62, 22);
-            this.toolStripButtonAddNote.Text = "Add Note";
-            this.toolStripButtonAddNote.Visible = false;
-            this.toolStripButtonAddNote.Click += new System.EventHandler(this.toolStripButtonAddNote_Click);
-            // 
-            // toolStripButtonRemoveNote
-            // 
-            this.toolStripButtonRemoveNote.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButtonRemoveNote.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonRemoveNote.Image")));
-            this.toolStripButtonRemoveNote.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonRemoveNote.Name = "toolStripButtonRemoveNote";
-            this.toolStripButtonRemoveNote.Size = new System.Drawing.Size(83, 22);
-            this.toolStripButtonRemoveNote.Text = "Remove Note";
-            this.toolStripButtonRemoveNote.Visible = false;
-            this.toolStripButtonRemoveNote.Click += new System.EventHandler(this.toolStripButtonRemoveNote_Click);
-            // 
             // toolStripButtonDeleteExpiredIncubationTimers
             // 
             this.toolStripButtonDeleteExpiredIncubationTimers.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -3037,13 +3011,13 @@ namespace ARKBreedingStats
             // ToolStripLabelFilter
             // 
             this.ToolStripLabelFilter.Name = "ToolStripLabelFilter";
-            this.ToolStripLabelFilter.Size = new System.Drawing.Size(36, 22);
+            this.ToolStripLabelFilter.Size = new System.Drawing.Size(36, 15);
             this.ToolStripLabelFilter.Text = "Filter:";
             // 
             // ToolStripTextBoxLibraryFilter
             // 
             this.ToolStripTextBoxLibraryFilter.Name = "ToolStripTextBoxLibraryFilter";
-            this.ToolStripTextBoxLibraryFilter.Size = new System.Drawing.Size(200, 25);
+            this.ToolStripTextBoxLibraryFilter.Size = new System.Drawing.Size(200, 23);
             this.ToolStripTextBoxLibraryFilter.TextChanged += new System.EventHandler(this.ToolStripTextBoxLibraryFilter_TextChanged);
             // 
             // ToolStripButtonLibraryFilterClear
@@ -3051,7 +3025,7 @@ namespace ARKBreedingStats
             this.ToolStripButtonLibraryFilterClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.ToolStripButtonLibraryFilterClear.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ToolStripButtonLibraryFilterClear.Name = "ToolStripButtonLibraryFilterClear";
-            this.ToolStripButtonLibraryFilterClear.Size = new System.Drawing.Size(23, 22);
+            this.ToolStripButtonLibraryFilterClear.Size = new System.Drawing.Size(23, 19);
             this.ToolStripButtonLibraryFilterClear.Text = "×";
             this.ToolStripButtonLibraryFilterClear.Click += new System.EventHandler(this.ToolStripButtonLibraryFilterClear_Click);
             // 
@@ -3469,8 +3443,6 @@ namespace ARKBreedingStats
         private RaisingControl raisingControl1;
         private System.Windows.Forms.TabPage tabPageNotes;
         private NotesControl notesControl1;
-        private System.Windows.Forms.ToolStripButton toolStripButtonAddNote;
-        private System.Windows.Forms.ToolStripButton toolStripButtonRemoveNote;
         private System.Windows.Forms.ToolStripMenuItem removeCooldownGrowingToolStripMenuItem;
         private System.Windows.Forms.Panel panelToolBar;
         private System.Windows.Forms.Label lbSpecies;

@@ -698,9 +698,6 @@ Enable it if the OCR doesn't recognize the tribe-name correctly and you want to 
   <data name="Torpidity_Abb" xml:space="preserve">
     <value>To</value>
   </data>
-  <data name="toolStripButtonAddNote" xml:space="preserve">
-    <value>Add Note</value>
-  </data>
   <data name="toolStripButtonClear" xml:space="preserve">
     <value>Clear</value>
   </data>
@@ -719,7 +716,7 @@ Enable it if the OCR doesn't recognize the tribe-name correctly and you want to 
   <data name="toolStripButtonDeleteTempCreatureTT" xml:space="preserve">
     <value>Delete currently selected data of the temporary creature</value>
   </data>
-  <data name="toolStripButtonRemoveNote" xml:space="preserve">
+  <data name="Remove Note" xml:space="preserve">
     <value>Remove Note</value>
   </data>
   <data name="toolStripButtonSaveCreatureValuesTemp" xml:space="preserve">
@@ -1304,5 +1301,8 @@ Filter for colors with c{region}: {colorValue} {colorValue2}, e.g. c0: 20, c5: 3
   </data>
   <data name="ImportingSavegame" xml:space="preserve">
     <value>Importing savegame</value>
+  </data>
+  <data name="Add Note" xml:space="preserve">
+    <value>Add Note</value>
   </data>
 </root>

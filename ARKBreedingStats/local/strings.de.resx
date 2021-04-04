@@ -696,9 +696,6 @@ Wenn eine Nummer mit Plus-Zeichen angezeigt wird, ist die Summe zu hoch, und ein
   <data name="Torpidity_Abb" xml:space="preserve">
     <value>Be</value>
   </data>
-  <data name="toolStripButtonAddNote" xml:space="preserve">
-    <value>Neue Notiz</value>
-  </data>
   <data name="toolStripButtonClear" xml:space="preserve">
     <value>Zurücksetzen</value>
   </data>
@@ -717,7 +714,7 @@ Wenn eine Nummer mit Plus-Zeichen angezeigt wird, ist die Summe zu hoch, und ein
   <data name="toolStripButtonDeleteTempCreatureTT" xml:space="preserve">
     <value>Lösche die gerade ausgewählten Kreaturen-Werte</value>
   </data>
-  <data name="toolStripButtonRemoveNote" xml:space="preserve">
+  <data name="Remove Note" xml:space="preserve">
     <value>Notiz löschen</value>
   </data>
   <data name="toolStripButtonSaveCreatureValuesTemp" xml:space="preserve">
@@ -1295,5 +1292,8 @@ Filter nach Farben mit c{Region}: {FarbCode} {FarbCode2}, z.B. c0: 20, c5: 3 4 5
   </data>
   <data name="ImportingSavegame" xml:space="preserve">
     <value>Importiere Spielstand</value>
+  </data>
+  <data name="Add Note" xml:space="preserve">
+    <value>Neue Notiz</value>
   </data>
 </root>

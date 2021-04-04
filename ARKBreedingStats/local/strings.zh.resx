@@ -822,7 +822,7 @@
   <data name="TimeUntilTorporDepleted" xml:space="preserve">
     <value>距离最大眩晕耗尽时间</value>
   </data>
-  <data name="toolStripButtonAddNote" xml:space="preserve">
+  <data name="Add Note" xml:space="preserve">
     <value>添加注释</value>
   </data>
   <data name="toolStripButtonClear" xml:space="preserve">
@@ -843,7 +843,7 @@
   <data name="toolStripButtonDeleteTempCreatureTT" xml:space="preserve">
     <value>删除临时生物的所有选定数据</value>
   </data>
-  <data name="toolStripButtonRemoveNote" xml:space="preserve">
+  <data name="Remove Note" xml:space="preserve">
     <value>移除注释</value>
   </data>
   <data name="toolStripButtonSaveCreatureValuesTemp" xml:space="preserve">

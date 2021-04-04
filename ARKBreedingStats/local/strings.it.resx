@@ -801,9 +801,6 @@ Controlla i migliori risultati a lungo termine e se ti senti fortunato. Può ess
   <data name="TimeUntilTorporDepleted" xml:space="preserve">
     <value>Tempo fino al massimo torpore esaurito</value>
   </data>
-  <data name="toolStripButtonAddNote" xml:space="preserve">
-    <value>Aggiungi nota</value>
-  </data>
   <data name="toolStripButtonClear" xml:space="preserve">
     <value>Pulisci</value>
   </data>
@@ -822,7 +819,7 @@ Controlla i migliori risultati a lungo termine e se ti senti fortunato. Può ess
   <data name="toolStripButtonDeleteTempCreatureTT" xml:space="preserve">
     <value>Elimina i dati attualmente selezionati della creatura temporanea</value>
   </data>
-  <data name="toolStripButtonRemoveNote" xml:space="preserve">
+  <data name="Remove Note" xml:space="preserve">
     <value>Rimuovi nota</value>
   </data>
   <data name="toolStripButtonSaveCreatureValuesTemp" xml:space="preserve">
@@ -971,5 +968,8 @@ Controlla i migliori risultati a lungo termine e se ti senti fortunato. Può ess
   </data>
   <data name="generation" xml:space="preserve">
     <value>generazione</value>
+  </data>
+  <data name="Add Note" xml:space="preserve">
+    <value>Aggiungi nota</value>
   </data>
 </root>

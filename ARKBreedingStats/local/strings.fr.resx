@@ -819,9 +819,6 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
   <data name="TimeUntilTorporDepleted" xml:space="preserve">
     <value>Temps jusqu'à épuisement de la torpeur maximale</value>
   </data>
-  <data name="toolStripButtonAddNote" xml:space="preserve">
-    <value>Ajouter une remarque</value>
-  </data>
   <data name="toolStripButtonClear" xml:space="preserve">
     <value>Nettoyer</value>
   </data>
@@ -840,7 +837,7 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
   <data name="toolStripButtonDeleteTempCreatureTT" xml:space="preserve">
     <value>Supprimer les données actuellement sélectionnées de la créature temporaire</value>
   </data>
-  <data name="toolStripButtonRemoveNote" xml:space="preserve">
+  <data name="Remove Note" xml:space="preserve">
     <value>Enlever la remarque</value>
   </data>
   <data name="toolStripButtonSaveCreatureValuesTemp" xml:space="preserve">
@@ -1299,5 +1296,8 @@ Filter for colors with c{region}: {colorValue} {colorValue2}, e.g. c0: 20, c5: 3
   </data>
   <data name="ImportingSavegame" xml:space="preserve">
     <value>Importation d'une sauvegarde</value>
+  </data>
+  <data name="Add Note" xml:space="preserve">
+    <value>Ajouter une remarque</value>
   </data>
 </root>
