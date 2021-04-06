@@ -1288,8 +1288,8 @@ Remarque
 Ark id dans le jeu
 Serveur
 Tags
-Filter for a stats with {statAbb} [==|&lt;|&gt;] {value}, e.g. hp &gt; 20, st == 35
-Filter for colors with c{region}: {colorValue} {colorValue2}, e.g. c0: 20, c5: 3 4 5 6, c1: 13 14</value>
+Filtre pour les stats avec {statAbb} [==|&lt;|&gt;] {value}, par exemple pv &gt; 20, en == 35
+Filtre pour les couleurs avec c{region}: {colorValue} {colorValue2}, par exemple c0: 20, c5: 3 4 5 6, c1: 13 14</value>
   </data>
   <data name="ClickDisplayFile" xml:space="preserve">
     <value>Cliquer pour afficher le fichier dans l'explorateur</value>
