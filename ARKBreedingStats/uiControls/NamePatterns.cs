@@ -18,6 +18,8 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         private const string UniqueNumberWasAddedControlChar = "\r";
 
+        private const string PipeEscapeSequence = @"\pipe";
+
         /// <summary>
         /// Generate a creature name with the naming pattern.
         /// </summary>
@@ -86,6 +88,9 @@ namespace ARKBreedingStats.uiControls
                 } while (creatureNames.Contains(numberedUniqueName, StringComparer.OrdinalIgnoreCase));
                 name = numberedUniqueName;
             }
+
+            // evaluate escaped characters
+            name = name.Replace(PipeEscapeSequence, "|");
 
             if (showDuplicateNameWarning && creatureNames.Contains(name, StringComparer.OrdinalIgnoreCase))
             {
@@ -246,6 +251,8 @@ namespace ARKBreedingStats.uiControls
                     oldName = speciesCreatures.FirstOrDefault(c => c.ArkId == creature.ArkId)?.name ?? creature.name;
                 }
             }
+            // escape special characters
+            oldName = oldName.Replace("|", PipeEscapeSequence);
 
             string spcsNm = creature.Species.name;
             char[] vowels = new char[] { 'a', 'e', 'i', 'o', 'u' };
