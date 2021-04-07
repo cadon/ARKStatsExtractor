@@ -306,7 +306,9 @@ namespace ARKBreedingStats.settings
                 {
                     aTExportFolderLocationsBindingSource.Add(ATImportExportedFolderLocation.CreateFromString(path));
                 }
+
             }
+            dataGridViewExportFolders.DataBindingComplete += (s, e) => HighlightDefaultImportExportFolderEntry();
             nudWarnImportMoreThan.Value = Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan;
             CbApplyNamingPatternOnImportAlways.Checked = Properties.Settings.Default.applyNamePatternOnAutoImportAlways;
             cbApplyNamePatternOnImportOnEmptyNames.Checked = Properties.Settings.Default.applyNamePatternOnImportIfEmptyName;
@@ -1180,6 +1182,18 @@ namespace ARKBreedingStats.settings
             {
                 ClbExportSpreadsheetFields.SetItemChecked(i, setTo);
             }
+        }
+
+        private readonly DataGridViewCellStyle _styleDefaultEntry = new DataGridViewCellStyle { BackColor = Color.FromArgb(211, 247, 211) };
+
+        private void HighlightDefaultImportExportFolderEntry()
+        {
+            var rowCount = dataGridViewExportFolders.RowCount;
+            if (rowCount == 0) return;
+
+            dataGridViewExportFolders.Rows[0].DefaultCellStyle = _styleDefaultEntry;
+            for (int i = 1; i < rowCount; i++)
+                dataGridViewExportFolders.Rows[i].DefaultCellStyle = null;
         }
     }
 }
