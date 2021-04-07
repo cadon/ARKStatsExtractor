@@ -5,16 +5,20 @@ namespace ARKBreedingStats
 {
     public partial class Form1
     {
-        private void initLocalization()
+        private void InitLocalization()
         {
             Loc.LoadResourceFile();
             Utils.InitializeLocalizations();
         }
 
-        private void setLocalizations(bool init = true)
+        /// <summary>
+        /// Sets the localizations, i.e. translated texts in the application.
+        /// </summary>
+        /// <param name="init">If true</param>
+        private void SetLocalizations(bool init = true)
         {
             if (init)
-                initLocalization();
+                InitLocalization();
 
             // menu
             Loc.ControlText(fileToolStripMenuItem);

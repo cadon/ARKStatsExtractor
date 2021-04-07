@@ -114,7 +114,7 @@ namespace ARKBreedingStats
             }
 
             _tt = new ToolTip();
-            initLocalization();
+            InitLocalization();
             InitializeComponent();
 
             columnHeaderTo.DisplayIndex = 16; // workaround for designer issue with displayIndices.
@@ -172,7 +172,7 @@ namespace ARKBreedingStats
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            setLocalizations(false);
+            SetLocalizations(false);
 
             // load window-position and size
             Utils.SetWindowRectangle(this, Properties.Settings.Default.MainWindowRect, Properties.Settings.Default.MainWindowMaximized);
@@ -1879,7 +1879,7 @@ namespace ARKBreedingStats
                 if (settingsForm.ShowDialog() == DialogResult.OK)
                 {
                     ApplySettingsToValues();
-                    if (settingsForm.LanguageChanged) setLocalizations();
+                    if (settingsForm.LanguageChanged) SetLocalizations();
                     CreatureColored.UpdateImgCacheLocation();
                     creatureBoxListView.CreatureCollection = _creatureCollection;
                     _fileSync.ChangeFile(_currentFileName); // only to enable / disable the FileWatcher, filename is not changed

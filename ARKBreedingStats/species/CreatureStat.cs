@@ -10,24 +10,7 @@ namespace ARKBreedingStats.species
         public double IncPerWildLevel;
         public double IncPerTamedLevel;
         public double AddWhenTamed;
-        public double MultAffinity; // used with taming effectiveness
-
-        [JsonIgnore]
-        public static readonly Dictionary<string, int> StatAbbreviationToIndex = new Dictionary<string, int>()
-        {
-            {"hp",(int)StatNames.Health},
-            {"st",(int)StatNames.Stamina},
-            {"to",(int)StatNames.Torpidity},
-            {"ox",(int)StatNames.Oxygen},
-            {"fo",(int)StatNames.Food},
-            {"wa",(int)StatNames.Water},
-            {"te",(int)StatNames.Temperature},
-            {"we",(int)StatNames.Weight},
-            {"dm",(int)StatNames.MeleeDamageMultiplier},
-            {"sp",(int)StatNames.SpeedMultiplier},
-            {"fr",(int)StatNames.TemperatureFortitude},
-            {"cr",(int)StatNames.CraftingSpeedMultiplier}
-        };
+        public double MultAffinity;
     }
 
     public enum StatNames

@@ -1129,7 +1129,7 @@ namespace ARKBreedingStats
                     // stat filter
                     m = statFilterRegex.Match(f);
                     if (!m.Success
-                        || !CreatureStat.StatAbbreviationToIndex.TryGetValue(m.Groups[1].Value, out var statIndex))
+                        || !Utils.StatAbbreviationToIndex.TryGetValue(m.Groups[1].Value, out var statIndex))
                         continue;
 
                     switch (m.Groups[2].Value)

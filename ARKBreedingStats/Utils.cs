@@ -3,7 +3,11 @@ using ARKBreedingStats.species;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
+using System.Reflection;
+using System.Resources;
 using System.Threading.Tasks;
+using System.Web.ModelBinding;
 using System.Windows.Forms;
 using ARKBreedingStats.values;
 
@@ -323,11 +327,39 @@ namespace ARKBreedingStats
         /// </summary>
         private static string[] _statNamesAbb;
 
+        /// <summary>
+        /// Stat index for a given stat name abbreviation. Localized abbreviations are used, English abbreviations work as well if the localized abbreviations don't have an equal abbreviation already. Case insensitive.
+        /// </summary>
+        public static Dictionary<string, int> StatAbbreviationToIndex;
+
         public static void InitializeLocalizations()
         {
-            _statNames = new[] { Loc.S("Health"), Loc.S("Stamina"), Loc.S("Torpidity"), Loc.S("Oxygen"), Loc.S("Food"), Loc.S("Water"), Loc.S("Temperature"), Loc.S("Weight"), Loc.S("Damage"), Loc.S("Speed"), Loc.S("Fortitude"), Loc.S("Crafting Speed") };
-            _statNamesAbb = new[] { Loc.S("Health_Abb"), Loc.S("Stamina_Abb"), Loc.S("Torpidity_Abb"), Loc.S("Oxygen_Abb"), Loc.S("Food_Abb"), Loc.S("Water_Abb"), Loc.S("Temperature_Abb"), Loc.S("Weight_Abb"), Loc.S("Damage_Abb"), Loc.S("Speed_Abb"), Loc.S("Fortitude_Abb"), Loc.S("Crafting Speed_Abb") };
+            if (_statNames == null) _statNames = new string[Values.STATS_COUNT];
+            if (_statNamesAbb == null) _statNamesAbb = new string[Values.STATS_COUNT];
+            if (StatAbbreviationToIndex == null) StatAbbreviationToIndex = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+            else StatAbbreviationToIndex.Clear();
+
+            for (int si = 0; si < Values.STATS_COUNT; si++)
+            {
+                _statNames[si] = Loc.S(StatNameKeys[si]);
+                _statNamesAbb[si] = Loc.S(StatNameKeys[si] + "_Abb");
+                StatAbbreviationToIndex.Add(_statNamesAbb[si], si);
+            }
+
+            // load abbreviations of invariant culture (here English) as a fallback
+            var defaultCulture = CultureInfo.InvariantCulture;
+            for (int si = 0; si < Values.STATS_COUNT; si++)
+            {
+                var key = Loc.S(StatNameKeys[si] + "_Abb", defaultCulture);
+                if (StatAbbreviationToIndex.ContainsKey(key)) continue;
+                StatAbbreviationToIndex.Add(key, si);
+            }
         }
+
+        /// <summary>
+        /// Key names of stats like they're used in the localization files.
+        /// </summary>
+        private static readonly string[] StatNameKeys = { "Health", "Stamina", "Torpidity", "Oxygen", "Food", "Water", "Temperature", "Weight", "Damage", "Speed", "Fortitude", "Crafting Speed" };
 
         /// <summary>
         /// Returns a string that represents the localized stat name.

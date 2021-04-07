@@ -1,4 +1,5 @@
-﻿using System.Resources;
+﻿using System.Globalization;
+using System.Resources;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -27,6 +28,17 @@ namespace ARKBreedingStats
         {
             if (rm == null) return null;
             string s = rm.GetString(key);
+            //if (string.IsNullOrEmpty(s) && !key.EndsWith("TT")) System.Console.WriteLine("missing: " + key); // for debugging
+            return s ?? (returnKeyIfValueNa ? key : null);
+        }
+
+        /// <summary>
+        /// Returns the localized string of the given culture.
+        /// </summary>
+        public static string S(string key, CultureInfo culture, bool returnKeyIfValueNa = true)
+        {
+            if (rm == null) return null;
+            string s = rm.GetString(key, culture);
             //if (string.IsNullOrEmpty(s) && !key.EndsWith("TT")) System.Console.WriteLine("missing: " + key); // for debugging
             return s ?? (returnKeyIfValueNa ? key : null);
         }
