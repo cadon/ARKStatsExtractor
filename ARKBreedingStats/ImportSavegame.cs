@@ -129,7 +129,7 @@ namespace ARKBreedingStats
                 creature.server = serverName;
             });
 
-            creatureCollection.MergeCreatureList(newCreatures, addPreviouslylDeletedCreatures: true);
+            creatureCollection.MergeCreatureList(newCreatures, true);
         }
 
         private Creature ConvertGameObject(GameObject creatureObject, int? levelStep)

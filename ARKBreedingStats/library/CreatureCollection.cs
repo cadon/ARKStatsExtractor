@@ -176,9 +176,9 @@ namespace ARKBreedingStats.Library
         /// Adds creatures to the current library.
         /// </summary>
         /// <param name="creaturesToMerge">List of creatures to add</param>
-        /// <param name="addPreviouslylDeletedCreatures">If true creatures will be added even if they were just deleted.</param>
+        /// <param name="addPreviouslyDeletedCreatures">If true creatures will be added even if they were just deleted.</param>
         /// <returns></returns>
-        public bool MergeCreatureList(List<Creature> creaturesToMerge, bool addPreviouslylDeletedCreatures = false)
+        public bool MergeCreatureList(List<Creature> creaturesToMerge, bool addPreviouslyDeletedCreatures = false)
         {
             bool creaturesWereAddedOrUpdated = false;
             Species onlyThisSpeciesAdded = null;
@@ -186,7 +186,7 @@ namespace ARKBreedingStats.Library
 
             foreach (Creature creatureNew in creaturesToMerge)
             {
-                if (!addPreviouslylDeletedCreatures && DeletedCreatureGuids != null && DeletedCreatureGuids.Contains(creatureNew.guid)) continue;
+                if (!addPreviouslyDeletedCreatures && DeletedCreatureGuids != null && DeletedCreatureGuids.Contains(creatureNew.guid)) continue;
 
                 if (onlyOneSpeciesAdded)
                 {
@@ -196,18 +196,21 @@ namespace ARKBreedingStats.Library
                         onlyOneSpeciesAdded = false;
                 }
 
-                if (!creatures.Contains(creatureNew))
+                var creatureExisting = creatures.FirstOrDefault(c => c.guid == creatureNew.guid);
+                if (creatureExisting == null)
                 {
                     creatures.Add(creatureNew);
                     creaturesWereAddedOrUpdated = true;
                     continue;
                 }
 
-                // creature is already in the library. Update it's properties.
-                var creatureExisting = creatures.Single(c => c.guid == creatureNew.guid);
-                if (creatureExisting.Species == null)
+                // creature is already in the library. Update its properties.
+                if (creatureExisting.Species == null
+                    || creatureExisting.speciesBlueprint != creatureNew.speciesBlueprint)
+                {
                     creatureExisting.Species = creatureNew.Species;
-                else if (creatureExisting.speciesBlueprint != creatureNew.speciesBlueprint) continue;
+                    creaturesWereAddedOrUpdated = true;
+                }
 
                 if (creatureNew.Mother != null)
                     creatureExisting.Mother = creatureNew.Mother;
