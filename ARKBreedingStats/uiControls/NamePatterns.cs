@@ -13,11 +13,8 @@ namespace ARKBreedingStats.uiControls
     public static class NamePatterns
     {
         /// <summary>
-        /// Used to mark a name that a unique number was added.
-        /// This is needed because all if branches are evaluated first and it's not clear if a {n} actually is considered in the final name.
+        /// The pipe character is used as separator in functions, so it needs to be escaped when used literally.
         /// </summary>
-        private const string UniqueNumberWasAddedControlChar = "\r";
-
         private const string PipeEscapeSequence = @"\pipe";
 
         /// <summary>
@@ -76,6 +73,7 @@ namespace ARKBreedingStats.uiControls
             {
                 // replace the unique number key with the lowest possible positive number >= 1 to get a unique name.
                 string numberedUniqueName;
+                string lastNumberedUniqueName = null;
 
                 int n = 1;
                 do
@@ -83,8 +81,11 @@ namespace ARKBreedingStats.uiControls
                     numberedUniqueName = ResolveFunctions(
                         ResolveKeysToValues(tokenDictionary, name, n++),
                         creature, customReplacings, displayError, true);
-                    if (!numberedUniqueName.Contains(UniqueNumberWasAddedControlChar)) break; // number was not added, e.g. {n} was in an unreached if-branch
-                    numberedUniqueName = numberedUniqueName.Replace(UniqueNumberWasAddedControlChar, string.Empty);
+
+                    // check if numberedUniqueName actually is different, else break the potentially infinite loop. E.g. it is not different if {n} is an unreached if branch or was altered with other functions
+                    if (numberedUniqueName == lastNumberedUniqueName) break;
+
+                    lastNumberedUniqueName = numberedUniqueName;
                 } while (creatureNames.Contains(numberedUniqueName, StringComparer.OrdinalIgnoreCase));
                 name = numberedUniqueName;
             }
@@ -400,7 +401,7 @@ namespace ARKBreedingStats.uiControls
             Regex r = new Regex(regularExpression, regularExpressionOptions);
             if (uniqueNumber != 0)
             {
-                pattern = pattern.Replace("{n}", uniqueNumber + UniqueNumberWasAddedControlChar);
+                pattern = pattern.Replace("{n}", uniqueNumber.ToString());
             }
 
             return r.Replace(pattern, m => tokenDictionary.TryGetValue(m.Groups["key"].Value, out string replacement) ? replacement : m.Value);
