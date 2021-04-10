@@ -22,7 +22,7 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         public static string GenerateCreatureName(Creature creature, Creature[] sameSpecies, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, int namingPatternIndex, bool showTooLongWarning = true, string pattern = null, bool displayError = true, Dictionary<string, string> tokenDictionary = null)
         {
-            var creatureNames = sameSpecies?.Select(x => x.name).ToArray() ?? new string[0];
+            var creatureNames = sameSpecies?.Where(c => c.guid != creature.guid).Select(x => x.name).ToArray() ?? new string[0];
             if (pattern == null)
             {
                 if (namingPatternIndex == -1)
