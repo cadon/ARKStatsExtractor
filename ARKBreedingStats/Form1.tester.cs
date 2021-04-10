@@ -222,7 +222,7 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Set the values in the creatureInfoInput control to the values of the creature.
+        /// Set the values in the creatureInfoInput control to the values of the creature or clears the inputs.
         /// </summary>
         /// <param name="c"></param>
         /// <param name="virtualCreature"></param>

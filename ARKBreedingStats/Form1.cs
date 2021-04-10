@@ -2340,6 +2340,7 @@ namespace ARKBreedingStats
                     _testingIOs[s].LevelWild = 0;
                 }
                 creatureInfoInputTester.Clear();
+                SetTesterInfoInputCreature();
             }
         }
 
