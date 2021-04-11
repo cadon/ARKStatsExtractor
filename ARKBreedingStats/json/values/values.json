@@ -1,6 +1,6 @@
 {
-	"version": "322.9.6227102",
-	"format": "1.13",
+	"version": "324.22.6362827",
+	"format": "1.14-flyerspeed",
 	"species": [
 		{
 			"name": "Rockwell",
@@ -31,8 +31,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -64,8 +62,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -97,8 +93,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -130,8 +124,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -163,8 +155,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -196,8 +186,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -328,8 +316,6 @@
 				"r_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 0.5,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -458,8 +444,6 @@
 				"r_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 0.5,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -497,8 +481,6 @@
 				"r_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 0.5,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -589,8 +571,6 @@
 				"c_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -674,8 +654,6 @@
 				"foodConsumptionMult": 352.0631
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -759,8 +737,6 @@
 				"foodConsumptionMult": 352.0631
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -844,8 +820,6 @@
 				"foodConsumptionMult": 352.0631
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -932,8 +906,6 @@
 				"foodConsumptionMult": 181
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -1019,8 +991,6 @@
 				"foodConsumptionMult": 181
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -1052,14 +1022,13 @@
 				"foodConsumptionMult": 864.0553
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Featherlight",
 			"blueprintPath": "/Game/Aberration/Dinos/LanternBird/LanternBird_Character_BP.LanternBird_Character_BP",
 			"variants": [ "Aberration" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 115, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -1166,8 +1135,6 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927,
 			"statNames": {
 				"1": "Charge Capacity",
@@ -1320,8 +1287,6 @@
 				"c_neck": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927,
 			"statNames": {
 				"1": "Charge Capacity",
@@ -1459,8 +1424,6 @@
 				"c_neck": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927,
 			"statNames": {
 				"1": "Charge Capacity",
@@ -1606,8 +1569,6 @@
 				"c_neck": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927,
 			"statNames": {
 				"1": "Charge Capacity",
@@ -1755,8 +1716,6 @@
 				"c_neck": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927,
 			"statNames": {
 				"1": "Charge Capacity",
@@ -1768,6 +1727,7 @@
 			"name": "Glowbug",
 			"blueprintPath": "/Game/Aberration/Dinos/Lightbug/Lightbug_Character_BaseBP.Lightbug_Character_BaseBP",
 			"variants": [ "Aberration" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 75, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -1849,8 +1809,6 @@
 				"foodConsumptionMult": 864.0553
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -1948,8 +1906,6 @@
 				"foodConsumptionMult": 176.0315
 			},
 			"TamedBaseHealthMultiplier": 0.9,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -2025,8 +1981,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -2070,8 +2024,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -2147,8 +2099,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -2224,8 +2174,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -2301,8 +2249,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -2378,8 +2324,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -2455,8 +2399,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -2559,14 +2501,13 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Seeker",
 			"blueprintPath": "/Game/Aberration/Dinos/Pteroteuthis/Pteroteuthis_Char_BP.Pteroteuthis_Char_BP",
 			"variants": [ "Aberration" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 250, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -2653,14 +2594,13 @@
 				"foodConsumptionMult": 192.0344
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Seeker",
 			"blueprintPath": "/Game/Aberration/Dinos/Pteroteuthis/Pteroteuthis_Char_BP_Surface.Pteroteuthis_Char_BP_Surface",
 			"variants": [ "Aberration", "Surface" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 250, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -2747,8 +2687,6 @@
 				"foodConsumptionMult": 192.0344
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -2903,14 +2841,13 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Attack Drone",
 			"blueprintPath": "/Game/EndGame/Dinos/Drone/EndDrone_Character_BP.EndDrone_Character_BP",
 			"variants": [ "Boss", "Gamma" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 145.800003, 0.2, 0.27, 0.5, 0 ],
 				[ 250, 0.05, 0.06, 0, 0 ],
@@ -2921,7 +2858,7 @@
 				null,
 				[ 280, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0.365, 0 ],
+				[ 1, 0, 0.01, 0.365, 0 ],
 				null,
 				null
 			],
@@ -2949,14 +2886,13 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Attack Drone",
 			"blueprintPath": "/Game/EndGame/Dinos/Drone/EndDrone_Character_BP_Hard.EndDrone_Character_BP_Hard",
 			"variants": [ "Alpha", "Boss" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 877.500061, 0.2, 0.27, 0.5, 0 ],
 				[ 250, 0.05, 0.06, 0, 0 ],
@@ -2967,7 +2903,7 @@
 				null,
 				[ 280, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0.365, 0 ],
+				[ 1, 0, 0.01, 0.365, 0 ],
 				null,
 				null
 			],
@@ -2995,14 +2931,13 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Attack Drone",
 			"blueprintPath": "/Game/EndGame/Dinos/Drone/EndDrone_Character_BP_Med.EndDrone_Character_BP_Med",
 			"variants": [ "Beta", "Boss" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 585, 0.2, 0.27, 0.5, 0 ],
 				[ 250, 0.05, 0.06, 0, 0 ],
@@ -3013,7 +2948,7 @@
 				null,
 				[ 280, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0.365, 0 ],
+				[ 1, 0, 0.01, 0.365, 0 ],
 				null,
 				null
 			],
@@ -3041,14 +2976,13 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Attack Drone",
 			"blueprintPath": "/Game/EndGame/Dinos/Drone/EndDrone_Lunar_Character_BP.EndDrone_Lunar_Character_BP",
 			"variants": [ "Boss", "Lunar" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 145.800003, 0.2, 0.27, 0.5, 0 ],
 				[ 250, 0.05, 0.06, 0, 0 ],
@@ -3059,7 +2993,7 @@
 				null,
 				[ 280, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0.365, 0 ],
+				[ 1, 0, 0.01, 0.365, 0 ],
 				null,
 				null
 			],
@@ -3087,8 +3021,6 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -3128,8 +3060,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -3169,8 +3099,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -3210,14 +3138,13 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Dragon",
 			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndbossDragon/EndBossDragon_Character_BP_Easy.EndBossDragon_Character_BP_Easy",
 			"variants": [ "Boss", "Gamma" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 161280, 0.2, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -3244,14 +3171,13 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Dragon",
 			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndbossDragon/EndBossDragon_Character_BP_Hard.EndBossDragon_Character_BP_Hard",
 			"variants": [ "Alpha", "Boss" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 241920, 0.2, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -3278,14 +3204,13 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Dragon",
 			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndbossDragon/EndBossDragon_Character_BP_Medium.EndBossDragon_Character_BP_Medium",
 			"variants": [ "Beta", "Boss" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 186480, 0.2, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -3312,8 +3237,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -3345,8 +3268,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -3378,8 +3299,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -3411,8 +3330,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -3445,8 +3362,6 @@
 				"foodConsumptionMult": 432.0028
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -3479,8 +3394,6 @@
 				"foodConsumptionMult": 432.0028
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -3513,8 +3426,6 @@
 				"foodConsumptionMult": 432.0028
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -3547,8 +3458,6 @@
 				"foodConsumptionMult": 176.0315
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -3581,8 +3490,6 @@
 				"foodConsumptionMult": 176.0315
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -3615,8 +3522,6 @@
 				"foodConsumptionMult": 176.0315
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -3649,8 +3554,6 @@
 				"foodConsumptionMult": 176.0315
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -3698,8 +3601,6 @@
 				"r_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -3737,8 +3638,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -3771,8 +3670,6 @@
 				"foodConsumptionMult": 352.0631
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -3805,8 +3702,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -3844,14 +3739,13 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Corrupted Dimorphodon",
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Dimorphodon/Dimorph_Character_BP_Corrupt.Dimorph_Character_BP_Corrupt",
 			"variants": [ "Corrupted", "Extinction" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 125, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -3879,8 +3773,6 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -3914,8 +3806,6 @@
 				"foodConsumptionMult": 160.0563
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -3953,8 +3843,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -3987,14 +3875,13 @@
 				"foodConsumptionMult": 327.6474
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Corrupted Pteranodon",
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Ptero/Ptero_Character_BP_Corrupt.Ptero_Character_BP_Corrupt",
 			"variants": [ "Corrupted", "Extinction" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 210, 0.2, 0.15, 0.5, 0 ],
 				[ 150, 0.05, 0.04, 0, 0 ],
@@ -4005,7 +3892,7 @@
 				null,
 				[ 120, 0.02, 0.03, 0, 0 ],
 				[ 1, 0.05, 0.075, 0.65, 0.4 ],
-				[ 1, 0, 0, 0.35, 0 ],
+				[ 1, 0, 0.02, 0.35, 0 ],
 				null,
 				null
 			],
@@ -4029,8 +3916,6 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 0.9,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -4068,8 +3953,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -4102,8 +3985,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -4136,8 +4017,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -4171,8 +4050,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -4205,8 +4082,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -4249,8 +4124,6 @@
 				"Cnt_Tail_000_JNT_SKL": 0.7
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -4287,8 +4160,6 @@
 				"c_jaw": 0.15
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -4325,14 +4196,13 @@
 				"c_jaw": 0.15
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Corrupted Wyvern",
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Wyvern/Wyvern_Character_BP_Fire_Corrupt.Wyvern_Character_BP_Fire_Corrupt",
 			"variants": [ "Corrupted", "Extinction" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 1295, 0.15, 0.2025, -785, 0 ],
 				[ 315, 0.05, 0.05, 0, 0 ],
@@ -4343,7 +4213,7 @@
 				null,
 				[ 400, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, -0.25, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -4360,14 +4230,13 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Desert Titan",
 			"blueprintPath": "/Game/Extinction/Dinos/DesertKaiju/DesertKaiju_Character_BP.DesertKaiju_Character_BP",
 			"variants": [ "Boss", "Extinction" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 250000, 0, 0, 0, 0 ],
 				[ 5000, 0, 0, 0, 0 ],
@@ -4397,14 +4266,13 @@
 				"foodConsumptionMult": 13
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Desert Titan Flock",
 			"blueprintPath": "/Game/Extinction/Dinos/DesertKaiju/DesertKaiju_FirstFlockChar_BP.DesertKaiju_FirstFlockChar_BP",
 			"variants": [ "Extinction", "Minion" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 4000, 0.2, 0.27, 0.5, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -4508,8 +4376,6 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -4587,8 +4453,6 @@
 				"foodConsumptionMult": 288.0392
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 919
 		},
 		{
@@ -4621,14 +4485,13 @@
 				"foodConsumptionMult": 13
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Forest Wyvern",
 			"blueprintPath": "/Game/Extinction/Dinos/ForestKaiju/Minion/Wyvern_Character_BP_Fire_Minion.Wyvern_Character_BP_Fire_Minion",
 			"variants": [ "Extinction", "Minion" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 1295, 0.15, 0.2025, -785, 0 ],
 				[ 315, 0.05, 0.05, 0, 0 ],
@@ -4639,7 +4502,7 @@
 				null,
 				[ 400, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, -0.25, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -4664,8 +4527,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -4793,8 +4654,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 2975
 		},
 		{
@@ -4979,8 +4838,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 2975
 		},
 		{
@@ -5101,8 +4958,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -5241,8 +5096,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -5277,8 +5130,6 @@
 				"foodConsumptionMult": 13
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -5311,8 +5162,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -5345,8 +5194,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -5379,8 +5226,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -5413,8 +5258,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -5447,8 +5290,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -5533,8 +5374,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 899
 		},
 		{
@@ -5619,14 +5458,13 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 899
 		},
 		{
 			"name": "Snow Owl Ghost",
 			"blueprintPath": "/Game/Extinction/Dinos/Owl/Ghost_Owl_Character_BP.Ghost_Owl_Character_BP",
 			"variants": [ "Extinction" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 325, 0.2, 0.27, 0.5, 0 ],
 				[ 350, 0.1, 0.1, 0, 0 ],
@@ -5637,7 +5475,7 @@
 				null,
 				[ 375, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -5716,14 +5554,13 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Snow Owl",
 			"blueprintPath": "/Game/Extinction/Dinos/Owl/Owl_Character_BP.Owl_Character_BP",
 			"variants": [ "Extinction" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 325, 0.2, 0.27, 0.5, 0 ],
 				[ 350, 0.1, 0.1, 0, 0 ],
@@ -5734,7 +5571,7 @@
 				null,
 				[ 375, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -5814,14 +5651,13 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Scout",
 			"blueprintPath": "/Game/Extinction/Dinos/Scout/Scout_Character_BP.Scout_Character_BP",
 			"variants": [ "Extinction" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 3, 0.075, 0, 0.5, 0 ],
 				[ 90, 2, 0, 0, 0 ],
@@ -5934,8 +5770,6 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -6083,8 +5917,6 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -6117,8 +5949,6 @@
 				"foodConsumptionMult": 176.0315
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -6289,8 +6119,6 @@
 				"c_head": 2
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -6430,8 +6258,6 @@
 				"foodConsumptionMult": 327.6474
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -6599,8 +6425,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -6767,14 +6591,13 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "X-Tapejara",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Bog_Tapejara/Bog_Tapejara_Character_BP.Bog_Tapejara_Character_BP",
 			"variants": [ "Bog", "Genesis" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 325, 0.2, 0.27, 0.5, 0 ],
 				[ 250, 0.05, 0.06, 0, 0 ],
@@ -6785,7 +6608,7 @@
 				null,
 				[ 280, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0.365, 0 ],
+				[ 1, 0, 0.01, 0.365, 0 ],
 				null,
 				null
 			],
@@ -6971,8 +6794,6 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -7181,8 +7002,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -7337,8 +7156,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -7493,8 +7310,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -7627,8 +7442,6 @@
 				"foodConsumptionMult": 420
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -7793,8 +7606,6 @@
 				"foodConsumptionMult": 420
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -7968,8 +7779,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -8133,8 +7942,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -8300,14 +8107,13 @@
 				"foodConsumptionMult": 180.0011
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "X-Argentavis",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Snow_Argentavis/Snow_Argent_Character_BP.Snow_Argent_Character_BP",
 			"variants": [ "Genesis", "Snow" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 365, 0.2, 0.30375, 0.5, 0 ],
 				[ 400, 0.05, 0.075, 0, 0 ],
@@ -8318,7 +8124,7 @@
 				null,
 				[ 400, 0.02, 0.055, 0, 0 ],
 				[ 1, 0.05, 0.15, 0.5, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -8429,8 +8235,6 @@
 			},
 			"boneDamageAdjusters": { "c_neck4": 3 },
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -8574,8 +8378,6 @@
 				"foodConsumptionMult": 160.0563
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -8703,8 +8505,6 @@
 				"c_jaw": 3
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -8866,8 +8666,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -9012,8 +8810,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -9107,14 +8903,13 @@
 				"c_jaw": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Attack Drone",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VREndDrone_Character_BP.VREndDrone_Character_BP",
 			"variants": [ "Boss", "Genesis", "Minion", "VR" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 100, 0.05, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -9150,8 +8945,6 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -9194,8 +8987,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -9242,8 +9033,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -9285,8 +9074,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -9332,8 +9119,6 @@
 				"c_jaw": 0.15
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -9377,8 +9162,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -9486,8 +9269,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -9608,8 +9389,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -9827,14 +9606,13 @@
 				"foodConsumptionMult": 176.0315
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "X-Dragon",
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Volcano_Dragon/Volcanic_Dragon_Character_BP.Volcanic_Dragon_Character_BP",
 			"variants": [ "Boss", "Genesis", "Volcano" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 240000, 0.2, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -9860,8 +9638,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -9999,8 +9775,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -10222,8 +9996,6 @@
 				"c_jaw": 0.15
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -10368,8 +10140,6 @@
 				"c_head": 2
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -10401,8 +10171,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -10434,8 +10202,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -10467,8 +10233,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -10500,8 +10264,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -10533,8 +10295,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -10657,8 +10417,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -10690,8 +10448,6 @@
 				"foodConsumptionMult": 432.0028
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -10723,8 +10479,6 @@
 				"foodConsumptionMult": 432.0028
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -10756,8 +10510,6 @@
 				"foodConsumptionMult": 432.0028
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -10789,8 +10541,6 @@
 				"foodConsumptionMult": 432.0028
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -10822,8 +10572,6 @@
 				"foodConsumptionMult": 432.0028
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -10855,8 +10603,6 @@
 				"foodConsumptionMult": 432.0028
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -10962,8 +10708,6 @@
 			},
 			"boneDamageAdjusters": { "Pelvis": 0.5 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -11056,8 +10800,6 @@
 				"c_jaw": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -11119,8 +10861,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -11216,8 +10956,6 @@
 				"c_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -11360,8 +11098,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -11488,8 +11224,6 @@
 				"c_jaw": 3
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -11588,8 +11322,6 @@
 				"foodConsumptionMult": 648.0881
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -11733,8 +11465,6 @@
 				"r_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -11926,8 +11656,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -12077,8 +11805,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -12218,8 +11944,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -12367,8 +12091,6 @@
 				"c_neck": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919,
 			"statNames": {
 				"1": "Charge Capacity",
@@ -12516,8 +12238,6 @@
 				"c_neck": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919,
 			"statNames": {
 				"1": "Charge Capacity",
@@ -12529,6 +12249,7 @@
 			"name": "Seeker",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Lunar/Pteroteuthis_Char_BP_Escort.Pteroteuthis_Char_BP_Escort",
 			"variants": [ "Escort", "Genesis", "Lunar", "Mission" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 250, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -12615,8 +12336,6 @@
 				"foodConsumptionMult": 192.0344
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -12728,8 +12447,6 @@
 				"foodConsumptionMult": 149.988
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -12845,8 +12562,6 @@
 				"foodConsumptionMult": 420
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -12952,8 +12667,6 @@
 			},
 			"boneDamageAdjusters": { "Pelvis": 0.5 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -13032,8 +12745,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -13161,8 +12872,6 @@
 				"foodConsumptionMult": 420
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -13270,8 +12979,6 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -13436,8 +13143,6 @@
 				"foodConsumptionMult": 420
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -13610,8 +13315,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -13774,8 +13477,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -13889,14 +13590,13 @@
 				"foodConsumptionMult": 180.0011
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Pteranodon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Escort/Ocean/Ptero_Character_BP_Escort.Ptero_Character_BP_Escort",
 			"variants": [ "Escort", "Genesis", "Mission", "Ocean" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 2000, 0.005, 0, -495, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -13907,7 +13607,7 @@
 				null,
 				[ 1000, 0, 0, 0, 0 ],
 				[ 1, 0, 0, 0.5, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -14042,8 +13742,6 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -14131,8 +13829,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -14241,8 +13937,6 @@
 				"c_tail3": 0.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -14356,8 +14050,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -14505,8 +14197,6 @@
 				"c_head": 2
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -14628,8 +14318,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -14800,8 +14488,6 @@
 				"foodConsumptionMult": 432.0028
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -14971,8 +14657,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -15137,8 +14821,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -15281,8 +14963,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -15342,8 +15022,6 @@
 				"c_head": 3.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -15426,8 +15104,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -15520,8 +15196,6 @@
 				"c_jaw": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -15583,8 +15257,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -15702,8 +15374,6 @@
 				"c_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -15839,8 +15509,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -15872,8 +15540,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -16011,8 +15677,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -16152,8 +15816,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -16244,14 +15906,13 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Snow Owl",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Arctic/Owl_Character_BP_Gauntlet.Owl_Character_BP_Gauntlet",
 			"variants": [ "Gauntlet", "Genesis", "Mission", "Snow" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -16262,7 +15923,7 @@
 				null,
 				[ 100, 0, 0, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -16341,8 +16002,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -16470,14 +16129,13 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "X-Argentavis",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Arctic/Snow_Argent_Character_BP_Gauntlet.Snow_Argent_Character_BP_Gauntlet",
 			"variants": [ "Gauntlet", "Genesis", "Mission", "Snow" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -16488,7 +16146,7 @@
 				null,
 				[ 100, 0, 0, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -16597,8 +16255,6 @@
 			},
 			"boneDamageAdjusters": { "c_neck4": 3 },
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -16759,8 +16415,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -16887,8 +16541,6 @@
 				"c_jaw": 3
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -17051,8 +16703,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -17160,8 +16810,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -17260,14 +16908,13 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Giant Queen Bee",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Bee_Queen_Character_BP_Gauntlet.Bee_Queen_Character_BP_Gauntlet",
 			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -17278,7 +16925,7 @@
 				null,
 				[ 100, 0, 0, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -17356,8 +17003,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -17500,8 +17145,6 @@
 				"r_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -17644,8 +17287,6 @@
 				"c_head": 2
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -17784,8 +17425,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -17977,8 +17616,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -18145,14 +17782,13 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "X-Tapejara",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Bog_Tapejara_Character_BP_Gauntlet.Bog_Tapejara_Character_BP_Gauntlet",
 			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -18163,7 +17799,7 @@
 				null,
 				[ 100, 0, 0, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -18347,8 +17983,6 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -18488,8 +18122,6 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -18779,8 +18411,6 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -19070,8 +18700,6 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -19171,8 +18799,6 @@
 				"c_head": 2
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -19273,8 +18899,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -19440,14 +19064,13 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Lymantria",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Moth_Character_BP_Gauntlet.Moth_Character_BP_Gauntlet",
 			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -19458,7 +19081,7 @@
 				null,
 				[ 100, 0, 0, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -19562,8 +19185,6 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -19672,8 +19293,6 @@
 				"c_jaw": 0.75
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -19787,8 +19406,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -19827,8 +19444,6 @@
 				"foodConsumptionMult": 432.0028
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -20074,8 +19689,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -20366,8 +19979,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -20507,14 +20118,13 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Poison Wyvern",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Bog/Wyvern_Character_BP_Poison_Gauntlet.Wyvern_Character_BP_Poison_Gauntlet",
 			"variants": [ "Bog", "Gauntlet", "Genesis", "Mission" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -20525,7 +20135,7 @@
 				null,
 				[ 100, 0, 0, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -20626,8 +20236,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -20694,8 +20302,6 @@
 				"foodConsumptionMult": 160.0563
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -20766,14 +20372,13 @@
 				"c_head": 2
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Malfunctioned Tek Quetzal",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Lunar/BionicQuetz_Character_BP_Malfunctioned_Gauntlet.BionicQuetz_Character_BP_Malfunctioned_Gauntlet",
 			"variants": [ "Gauntlet", "Genesis", "Lunar", "Mission" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -20784,7 +20389,7 @@
 				null,
 				[ 100, 0, 0, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -20835,8 +20440,6 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -20908,8 +20511,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -20976,8 +20577,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -21054,8 +20653,6 @@
 				"Cnt_Tail_000_JNT_SKL": 0.7
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -21126,8 +20723,6 @@
 				"c_jaw": 0.75
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -21335,8 +20930,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -21349,6 +20942,7 @@
 				"Lunar",
 				"Mission"
 			],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -21359,7 +20953,7 @@
 				null,
 				[ 100, 0, 0, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -21384,8 +20978,6 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -21423,8 +21015,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -21565,14 +21155,13 @@
 				"c_neck": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Seeker",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Lunar/Pteroteuthis_Char_BP_Gauntlet.Pteroteuthis_Char_BP_Gauntlet",
 			"variants": [ "Gauntlet", "Genesis", "Lunar", "Mission" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -21583,7 +21172,7 @@
 				null,
 				[ 100, 0, 0, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -21659,8 +21248,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -21814,14 +21401,13 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Lightning Wyvern",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Lunar/Wyvern_Character_BP_Lightning_Gauntlet.Wyvern_Character_BP_Lightning_Gauntlet",
 			"variants": [ "Gauntlet", "Genesis", "Lunar", "Mission" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -21832,7 +21418,7 @@
 				null,
 				[ 100, 0, 0, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -21926,8 +21512,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -22219,14 +21803,13 @@
 				"r_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Onyc",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Volcanic/Bat_Character_BP_Gauntlet.Bat_Character_BP_Gauntlet",
 			"variants": [ "Gauntlet", "Genesis", "Mission", "Volcano" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -22237,7 +21820,7 @@
 				null,
 				[ 100, 0, 0, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -22324,8 +21907,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -22439,8 +22020,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -22530,8 +22109,6 @@
 				"c_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -22654,8 +22231,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -22788,8 +22363,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -22900,8 +22473,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -23000,14 +22571,13 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Phoenix",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Volcanic/Phoenix_Character_BP_Gauntlet.Phoenix_Character_BP_Gauntlet",
 			"variants": [ "Gauntlet", "Genesis", "Mission", "Volcano" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -23018,7 +22588,7 @@
 				null,
 				[ 100, 0, 0, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -23087,8 +22657,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -23171,8 +22739,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -23458,8 +23024,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -23592,8 +23156,6 @@
 				"d_jaw_jnt": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -23763,8 +23325,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -23981,8 +23541,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -24190,8 +23748,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -24356,8 +23912,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -24578,14 +24132,13 @@
 				"c_jaw": 0.75
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Fire Wyvern",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Volcanic/Wyvern_Character_BP_Fire_Gauntlet.Wyvern_Character_BP_Fire_Gauntlet",
 			"variants": [ "Gauntlet", "Genesis", "Mission", "Volcano" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -24596,7 +24149,7 @@
 				null,
 				[ 100, 0, 0, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -24686,14 +24239,13 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Brute Fire Wyvern",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Gauntlet/Volcanic/Wyvern_Character_BP_Fire_GauntletBoss.Wyvern_Character_BP_Fire_GauntletBoss",
 			"variants": [ "Gauntlet", "Genesis", "Mission", "Volcano" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 150000, 0.01, 0.2, 0.3, 0 ],
 				[ 10000, 0, 0, 0, 0 ],
@@ -24764,8 +24316,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -24879,8 +24429,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -24999,8 +24547,6 @@
 				"c_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -25160,8 +24706,6 @@
 				"foodConsumptionMult": 192.0278
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -25321,8 +24865,6 @@
 				"foodConsumptionMult": 192.0278
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -25450,8 +24992,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -25579,8 +25119,6 @@
 				"c_jaw": 3
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -25743,8 +25281,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -25907,8 +25443,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -26027,8 +25561,6 @@
 				"c_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -26147,8 +25679,6 @@
 				"c_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -26247,8 +25777,6 @@
 				"foodConsumptionMult": 648.0881
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -26391,8 +25919,6 @@
 				"c_head": 2
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -26584,8 +26110,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -26777,8 +26301,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -26944,8 +26466,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -27097,8 +26617,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -27344,8 +26862,6 @@
 				"foodConsumptionMult": 211.2379
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -27591,8 +27107,6 @@
 				"foodConsumptionMult": 211.2379
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -27720,8 +27234,6 @@
 				"foodConsumptionMult": 864.0553
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -27788,8 +27300,6 @@
 				"foodConsumptionMult": 160.0563
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -27856,8 +27366,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -27924,14 +27432,13 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Brute Seeker",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Lunar/Pteroteuthis_Char_BP_HuntFollower.Pteroteuthis_Char_BP_HuntFollower",
 			"variants": [ "Genesis", "Hunt", "Lunar", "Mission" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 680, 0.3, 0.27, 0.5, 0 ],
 				[ 250, 0.1, 0.1, 0, 0 ],
@@ -28018,14 +27525,13 @@
 				"foodConsumptionMult": 648.0881
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Brute Astrocetus",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Hunt/Lunar/SpaceWhale_Character_BP_Brute.SpaceWhale_Character_BP_Brute",
 			"variants": [ "Genesis", "Hunt", "Lunar", "Mission" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 10000, 0.009, 0.108, 0.5, 0 ],
 				[ 900, 0.05, 0.05, 0, 0 ],
@@ -28072,8 +27578,6 @@
 				"foodConsumptionMult": 175
 			},
 			"TamedBaseHealthMultiplier": 0.85,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -28145,8 +27649,6 @@
 				"foodConsumptionMult": 420
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -28262,8 +27764,6 @@
 				"foodConsumptionMult": 420
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -28312,8 +27812,6 @@
 				"foodConsumptionMult": 180.0011
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -28392,8 +27890,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -28556,8 +28052,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -28722,8 +28216,6 @@
 				"foodConsumptionMult": 180.0011
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -28919,8 +28411,6 @@
 				"foodConsumptionMult": 180.0011
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -29089,8 +28579,6 @@
 				"lower_beak": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -29219,8 +28707,6 @@
 				"r_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -29334,8 +28820,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -29458,8 +28942,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -29581,8 +29063,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -29752,8 +29232,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -29923,8 +29401,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -30132,8 +29608,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -30298,8 +29772,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -30444,8 +29916,6 @@
 				"c_head": 2
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -30554,8 +30024,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -30682,8 +30150,6 @@
 				"c_head": 2
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -30776,8 +30242,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -30900,8 +30364,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -30989,8 +30451,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -31111,8 +30571,6 @@
 				"c_jaw": 3
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -31274,8 +30732,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -31389,8 +30845,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -31483,8 +30937,6 @@
 				"c_jaw": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -31546,8 +30998,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -31643,8 +31093,6 @@
 				"c_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -31676,14 +31124,13 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Microraptor",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Arctic/Microraptor_Character_BP_Retrieve.Microraptor_Character_BP_Retrieve",
 			"variants": [ "Genesis", "Mission", "Retrieve", "Snow" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 130, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -31827,8 +31274,6 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -31890,14 +31335,13 @@
 				"foodConsumptionMult": 288.0392
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "X-Argentavis",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Arctic/Snow_Argent_Character_BP_Retrieve.Snow_Argent_Character_BP_Retrieve",
 			"variants": [ "Genesis", "Mission", "Retrieve", "Snow" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 365, 0.2, 0.30375, 0.5, 0 ],
 				[ 400, 0.05, 0.075, 0, 0 ],
@@ -31908,7 +31352,7 @@
 				null,
 				[ 400, 0.02, 0.055, 0, 0 ],
 				[ 1, 0.05, 0.15, 0.5, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -32018,8 +31462,6 @@
 			},
 			"boneDamageAdjusters": { "c_neck4": 3 },
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -32146,8 +31588,6 @@
 				"c_jaw": 3
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -32310,8 +31750,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -32455,8 +31893,6 @@
 				"r_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -32648,8 +32084,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -32815,8 +32249,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -32956,8 +32388,6 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -33058,8 +32488,6 @@
 				"foodConsumptionMult": 648.0881
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -33173,8 +32601,6 @@
 				"foodConsumptionMult": 211.2379
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -33302,8 +32728,6 @@
 				"foodConsumptionMult": 864.0553
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -33374,14 +32798,13 @@
 				"c_head": 2
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Malfunctioned Tek Quetzal",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Lunar/BionicQuetz_Character_BP_Malfunctioned_Retrieve.BionicQuetz_Character_BP_Malfunctioned_Retrieve",
 			"variants": [ "Genesis", "Lunar", "Mission", "Retrieve" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 160, 1, 0, 0, 0 ],
 				[ 1000, 0, 0, 0, 0 ],
@@ -33392,7 +32815,7 @@
 				null,
 				[ 100, 0, 0, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -33443,8 +32866,6 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -33516,8 +32937,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -33584,8 +33003,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -33662,8 +33079,6 @@
 				"Cnt_Tail_000_JNT_SKL": 0.7
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -33734,14 +33149,13 @@
 				"c_jaw": 0.15
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Seeker",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Lunar/Pteroteuthis_Char_BP_Retrieve.Pteroteuthis_Char_BP_Retrieve",
 			"variants": [ "Genesis", "Lunar", "Mission", "Retrieve" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 250, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -33828,8 +33242,6 @@
 				"foodConsumptionMult": 192.0344
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -33861,8 +33273,6 @@
 				"foodConsumptionMult": 216.0294
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -33978,8 +33388,6 @@
 				"foodConsumptionMult": 420
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -34058,8 +33466,6 @@
 				"foodConsumptionMult": 180.0011
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -34138,8 +33544,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -34267,8 +33671,6 @@
 				"foodConsumptionMult": 420
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -34333,8 +33735,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -34497,8 +33897,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -34563,8 +33961,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -34729,8 +34125,6 @@
 				"foodConsumptionMult": 180.0011
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -34844,8 +34238,6 @@
 				"foodConsumptionMult": 180.0011
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -34951,14 +34343,13 @@
 				"lower_beak": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Argentavis",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Volcanic/Argent_Character_BP_Retrieve.Argent_Character_BP_Retrieve",
 			"variants": [ "Genesis", "Mission", "Retrieve", "Volcano" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 365, 0.2, 0.30375, 0.5, 0 ],
 				[ 400, 0.05, 0.075, 0, 0 ],
@@ -34969,7 +34360,7 @@
 				null,
 				[ 400, 0.02, 0.055, 0, 0 ],
 				[ 1, 0.05, 0.15, 0.5, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -35066,8 +34457,6 @@
 			},
 			"boneDamageAdjusters": { "c_neck4": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -35213,8 +34602,6 @@
 				"r_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -35343,14 +34730,13 @@
 				"r_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 0.5,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Onyc",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Volcanic/Bat_Character_BP_Retrieve.Bat_Character_BP_Retrieve",
 			"variants": [ "Genesis", "Mission", "Retrieve", "Volcano" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 250, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -35448,8 +34834,6 @@
 				"foodConsumptionMult": 192.0344
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -35572,14 +34956,13 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Dimorphodon",
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Retrieve/Volcanic/Dimorph_Character_BP_Aggressive_Retrieve.Dimorph_Character_BP_Aggressive_Retrieve",
 			"variants": [ "Genesis", "Mission", "Retrieve", "Volcano" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 264, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -35690,8 +35073,6 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -35824,8 +35205,6 @@
 				"foodConsumptionMult": 208.0343
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -35908,8 +35287,6 @@
 				"foodConsumptionMult": 288.0392
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -36031,8 +35408,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -36203,8 +35578,6 @@
 				"foodConsumptionMult": 432.0028
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -36337,8 +35710,6 @@
 				"d_jaw_jnt": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -36508,8 +35879,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -36674,8 +36043,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -36896,8 +36263,6 @@
 				"c_jaw": 0.15
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -36948,8 +36313,6 @@
 				"c_jaw": 0.125
 			},
 			"TamedBaseHealthMultiplier": 0.97,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -37104,8 +36467,6 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -37248,8 +36609,6 @@
 				"c_neck": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927,
 			"statNames": {
 				"1": "Charge Capacity",
@@ -37376,8 +36735,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -37505,14 +36862,13 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Astrocetus",
 			"blueprintPath": "/Game/Genesis/Dinos/SpaceWhale/SpaceWhale_Character_BP.SpaceWhale_Character_BP",
 			"variants": [ "Genesis" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 2800, 0.14, 0.108, 0.5, 0 ],
 				[ 600, 0.05, 0.05, 0, 0 ],
@@ -37650,14 +37006,13 @@
 				"foodConsumptionMult": 175
 			},
 			"TamedBaseHealthMultiplier": 0.85,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Insect Swarm",
 			"blueprintPath": "/Game/Genesis/Dinos/Swarms/InsectSwarmChar_BP.InsectSwarmChar_BP",
 			"variants": [ "Genesis" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 500, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -37756,8 +37111,6 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 919
 		},
 		{
@@ -37865,8 +37218,6 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -37905,8 +37256,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -37945,8 +37294,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -37985,14 +37332,13 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Dragon",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Bosses/Dragon_Character_BP_Boss_Easy_Ragnarok.Dragon_Character_BP_Boss_Easy_Ragnarok",
 			"variants": [ "Boss", "Gamma", "Ragnarok" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 432000, 0.2, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -38019,14 +37365,13 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Dragon",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Bosses/Dragon_Character_BP_Boss_Hard_Ragnarok.Dragon_Character_BP_Boss_Hard_Ragnarok",
 			"variants": [ "Alpha", "Boss", "Ragnarok" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 972000, 0.25, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -38053,14 +37398,13 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Dragon",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Bosses/Dragon_Character_BP_Boss_Medium_Ragnarok.Dragon_Character_BP_Boss_Medium_Ragnarok",
 			"variants": [ "Beta", "Boss", "Ragnarok" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 864000.062, 0.2, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -38087,14 +37431,13 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Griffin",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Bosses/Griffin_Character_Minion_BP.Griffin_Character_Minion_BP",
 			"variants": [ "Minion", "Ragnarok" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 950, 0.15, 0.216, -900, 0 ],
 				[ 225, 0.05, 0.06, 0, 0 ],
@@ -38105,7 +37448,7 @@
 				null,
 				[ 280, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, -0.5, 0.4 ],
-				[ 1, 0, 0, 0.365, 0 ],
+				[ 1, 0, 0.01, 0.365, 0 ],
 				null,
 				null
 			],
@@ -38181,8 +37524,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -38310,8 +37651,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -38412,8 +37751,6 @@
 				"c_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -38510,14 +37847,13 @@
 				"c_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Manticore",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Bosses/Manticore_Character_BP_Easy_Ragnarok.Manticore_Character_BP_Easy_Ragnarok",
 			"variants": [ "Boss", "Gamma", "Ragnarok" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 100000, 0.2, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -38544,14 +37880,13 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Manticore",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Bosses/Manticore_Character_BP_Hard_Ragnarok.Manticore_Character_BP_Hard_Ragnarok",
 			"variants": [ "Alpha", "Boss", "Ragnarok" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 160000, 0.3, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -38578,14 +37913,13 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Manticore",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Bosses/Manticore_Character_BP_Medium_Ragnarok.Manticore_Character_BP_Medium_Ragnarok",
 			"variants": [ "Beta", "Boss", "Ragnarok" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 130000, 0.25, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -38612,8 +37946,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -38653,14 +37985,13 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Ice Wyvern",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Dinos/Wyvern/Ice_Wyvern/Ragnarok_Wyvern_Override_Ice.Ragnarok_Wyvern_Override_Ice",
 			"variants": [ "Ragnarok" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 1295, 0.15, 0.2025, -785, 0 ],
 				[ 315, 0.05, 0.05, 0, 0 ],
@@ -38671,7 +38002,7 @@
 				null,
 				[ 400, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, -0.25, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -38751,14 +38082,13 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Fire Wyvern",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Dinos/Wyvern/Ragnarok_Wyvern_Override.Ragnarok_Wyvern_Override",
 			"variants": [ "Ragnarok" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 1295, 0.15, 0.2025, -785, 0 ],
 				[ 315, 0.05, 0.05, 0, 0 ],
@@ -38769,7 +38099,7 @@
 				null,
 				[ 400, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, -0.25, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -38794,8 +38124,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -38828,8 +38156,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -38861,8 +38187,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -38915,14 +38239,13 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Dragon",
 			"blueprintPath": "/Game/Mods/Valguero/Assets/CoreBlueprints/Boss/Dragon_Character_BP_Boss_Easy.Dragon_Character_BP_Boss_Easy",
 			"variants": [ "Boss", "Gamma", "Valguero" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 432000, 0.2, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -38949,14 +38272,13 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Dragon",
 			"blueprintPath": "/Game/Mods/Valguero/Assets/CoreBlueprints/Boss/Dragon_Character_BP_Boss_Hard.Dragon_Character_BP_Boss_Hard",
 			"variants": [ "Alpha", "Boss", "Valguero" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 972000, 0.25, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -38983,14 +38305,13 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Dragon",
 			"blueprintPath": "/Game/Mods/Valguero/Assets/CoreBlueprints/Boss/Dragon_Character_BP_Boss_Medium.Dragon_Character_BP_Boss_Medium",
 			"variants": [ "Beta", "Boss", "Valguero" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 864000.062, 0.2, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -39017,8 +38338,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -39050,8 +38369,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -39084,8 +38401,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -39118,14 +38433,13 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Manticore",
 			"blueprintPath": "/Game/Mods/Valguero/Assets/CoreBlueprints/Boss/Manticore_Character_BP_Easy.Manticore_Character_BP_Easy",
 			"variants": [ "Boss", "Gamma", "Valguero" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 100000, 0.2, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -39152,14 +38466,13 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Manticore",
 			"blueprintPath": "/Game/Mods/Valguero/Assets/CoreBlueprints/Boss/Manticore_Character_BP_Hard.Manticore_Character_BP_Hard",
 			"variants": [ "Alpha", "Boss", "Valguero" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 160000, 0.3, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -39186,14 +38499,13 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Manticore",
 			"blueprintPath": "/Game/Mods/Valguero/Assets/CoreBlueprints/Boss/Manticore_Character_BP_Medium.Manticore_Character_BP_Medium",
 			"variants": [ "Beta", "Boss", "Valguero" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 130000, 0.25, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -39220,8 +38532,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -39254,8 +38564,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -39308,8 +38616,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -39342,8 +38648,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -39375,8 +38679,6 @@
 				"foodConsumptionMult": 432.0028
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -39486,8 +38788,6 @@
 				"joint17": 0.1
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -39598,8 +38898,6 @@
 				"joint17": 0.1
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -39729,8 +39027,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -39861,8 +39157,6 @@
 			},
 			"boneDamageAdjusters": { "c_body": 0.2 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -39974,8 +39268,6 @@
 				"foodConsumptionMult": 149.988
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -40088,8 +39380,6 @@
 				"foodConsumptionMult": 149.988
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -40194,8 +39484,6 @@
 				"foodConsumptionMult": 176.0315
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -40301,8 +39589,6 @@
 				"foodConsumptionMult": 176.0315
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -40396,13 +39682,12 @@
 				"foodConsumptionMult": 864.0553
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Titanomyrma Soldier",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Ant/FlyingAnt_Character_BP.FlyingAnt_Character_BP",
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 50, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -40491,8 +39776,6 @@
 				"foodConsumptionMult": 864.0553
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -40623,13 +39906,12 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Argentavis",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Argentavis/Argent_Character_BP.Argent_Character_BP",
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 365, 0.2, 0.30375, 0.5, 0 ],
 				[ 400, 0.05, 0.075, 0, 0 ],
@@ -40640,7 +39922,7 @@
 				null,
 				[ 400, 0.02, 0.055, 0, 0 ],
 				[ 1, 0.05, 0.15, 0.5, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -40738,8 +40020,6 @@
 			},
 			"boneDamageAdjusters": { "c_neck4": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -40886,8 +40166,6 @@
 				"r_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -41035,8 +40313,6 @@
 				"r_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -41135,8 +40411,6 @@
 				"foodConsumptionMult": 648.0881
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -41236,8 +40510,6 @@
 				"foodConsumptionMult": 648.0881
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -41310,13 +40582,12 @@
 				"foodConsumptionMult": 420
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Onyc",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Bat/Bat_Character_BP.Bat_Character_BP",
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 250, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -41416,8 +40687,6 @@
 				"foodConsumptionMult": 192.0344
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -41528,13 +40797,12 @@
 				"foodConsumptionMult": 160.0563
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Giant Bee",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Bee/Bee_Character_BP.Bee_Character_BP",
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 80, 0.2, 0.27, 0.5, 0 ],
 				[ 200, 0.1, 0.1, 0, 0 ],
@@ -41611,13 +40879,12 @@
 				"foodConsumptionMult": 864.0553
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Giant Queen Bee",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Bee/Bee_Queen_Character_BP.Bee_Queen_Character_BP",
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 80, 0, 0, 0.5, 0 ],
 				[ 200, 0, 0, 0, 0 ],
@@ -41628,7 +40895,7 @@
 				null,
 				[ 150, 0, 0, 0, 0 ],
 				[ 1, 0, 0, 0, 0 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -41708,8 +40975,6 @@
 				"foodConsumptionMult": 420
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -41809,8 +41074,6 @@
 				"c_head": 3.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -41911,8 +41174,6 @@
 				"c_head": 3.5
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -42013,8 +41274,6 @@
 				"c_head": 3.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -42116,8 +41375,6 @@
 				"c_head": 3.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -42219,8 +41476,6 @@
 				"c_head": 3.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -42279,8 +41534,6 @@
 				"c_head": 3.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -42425,8 +41678,6 @@
 				"r_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -42572,8 +41823,6 @@
 				"r_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -42633,8 +41882,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -42748,8 +41995,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -42864,8 +42109,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -42926,8 +42169,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -43011,8 +42252,6 @@
 				"foodConsumptionMult": 352.0631
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -43043,8 +42282,6 @@
 				"foodConsumptionMult": 216.0294
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -43076,8 +42313,6 @@
 				"foodConsumptionMult": 216.0294
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -43179,8 +42414,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -43283,8 +42516,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -43387,8 +42618,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -43491,8 +42720,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -43576,8 +42803,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -43662,8 +42887,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -43748,8 +42971,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -43875,14 +43096,13 @@
 				"foodConsumptionMult": 1728.111
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Blood Crystal Wyvern",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/CrystalWyvern/CrystalWyvern_Character_BP_Blood.CrystalWyvern_Character_BP_Blood",
 			"variants": [ "CrystalIsles" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 1295, 0.15, 0.2025, -785, 0 ],
 				[ 325, 0.05, 0.05, 0, 0 ],
@@ -43893,7 +43113,7 @@
 				null,
 				[ 300, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, -0.25, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -43967,14 +43187,13 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Ember Crystal Wyvern",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/CrystalWyvern/CrystalWyvern_Character_BP_Ember.CrystalWyvern_Character_BP_Ember",
 			"variants": [ "CrystalIsles" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 1295, 0.15, 0.2025, -785, 0 ],
 				[ 325, 0.05, 0.05, 0, 0 ],
@@ -43985,7 +43204,7 @@
 				null,
 				[ 300, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, -0.25, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -44060,14 +43279,13 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Alpha Blood Crystal Wyvern",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/CrystalWyvern/CrystalWyvern_Character_BP_Mega.CrystalWyvern_Character_BP_Mega",
 			"variants": [ "CrystalIsles", "Mega" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 5920, 0.15, 0.2025, -785, 0 ],
 				[ 710, 0.05, 0.05, 0, 0 ],
@@ -44078,7 +43296,7 @@
 				null,
 				[ 300, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, -0.25, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -44121,14 +43339,13 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Tropical Crystal Wyvern",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/CrystalWyvern/CrystalWyvern_Character_BP_WS.CrystalWyvern_Character_BP_WS",
 			"variants": [ "CrystalIsles" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 1295, 0.15, 0.2025, -785, 0 ],
 				[ 325, 0.05, 0.05, 0, 0 ],
@@ -44139,7 +43356,7 @@
 				null,
 				[ 300, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, -0.25, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -44238,8 +43455,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -44332,8 +43547,6 @@
 				"c_jaw": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -44473,8 +43686,6 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -44626,8 +43837,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -44780,13 +43989,12 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Dimorphodon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP.Dimorph_Character_BP",
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 125, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -44898,14 +44106,13 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Aberrant Dimorphodon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP_Aberrant.Dimorph_Character_BP_Aberrant",
 			"variants": [ "Aberrant" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 125, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -45017,14 +44224,13 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Dimorphodon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP_Aggressive_DragonBoss.Dimorph_Character_BP_Aggressive_DragonBoss",
 			"variants": [ "Boss", "Gamma", "Minion" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 264, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -45136,14 +44342,13 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Dimorphodon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP_Aggressive_DragonBoss_Hard.Dimorph_Character_BP_Aggressive_DragonBoss_Hard",
 			"variants": [ "Alpha", "Boss", "Minion" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 792, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -45256,14 +44461,13 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Dimorphodon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP_Aggressive_DragonBoss_Med.Dimorph_Character_BP_Aggressive_DragonBoss_Med",
 			"variants": [ "Beta", "Boss", "Minion" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 528, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -45376,8 +44580,6 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -45489,8 +44691,6 @@
 				"foodConsumptionMult": 225
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -45603,8 +44803,6 @@
 				"foodConsumptionMult": 225
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -45709,8 +44907,6 @@
 				"foodConsumptionMult": 180.0011
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -45844,8 +45040,6 @@
 				"foodConsumptionMult": 180.0011
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -45924,8 +45118,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -46053,8 +45245,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -46116,8 +45306,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -46213,8 +45401,6 @@
 				"c_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -46309,8 +45495,6 @@
 				"c_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -46465,8 +45649,6 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -46622,8 +45804,6 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -46777,8 +45957,6 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -46932,8 +46110,6 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -47072,8 +46248,6 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -47218,8 +46392,6 @@
 				"c_neck3": 2
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -47250,8 +46422,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -47282,8 +46452,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -47314,8 +46482,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -47430,8 +46596,6 @@
 				"foodConsumptionMult": 176.0315
 			},
 			"TamedBaseHealthMultiplier": 0.9,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -47547,8 +46711,6 @@
 				"foodConsumptionMult": 176.0315
 			},
 			"TamedBaseHealthMultiplier": 0.864,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -47635,14 +46797,13 @@
 				"foodConsumptionMult": 420
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Dragon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dragon/Dragon_Character_BP_Boss_Easy.Dragon_Character_BP_Boss_Easy",
 			"variants": [ "Boss", "Gamma" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 432000, 0.2, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -47669,14 +46830,13 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Dragon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dragon/Dragon_Character_BP_Boss_Hard.Dragon_Character_BP_Boss_Hard",
 			"variants": [ "Alpha", "Boss" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 972000, 0.25, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -47703,14 +46863,13 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Dragon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dragon/Dragon_Character_BP_Boss_Medium.Dragon_Character_BP_Boss_Medium",
 			"variants": [ "Beta", "Boss" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 864000.062, 0.2, 0.2, 0.3, 0 ],
 				[ 10000, 0.1, 0.1, 0, 0 ],
@@ -47737,13 +46896,12 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Meganeura",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dragonfly/Dragonfly_Character_BP.Dragonfly_Character_BP",
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 45, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -47850,14 +47008,13 @@
 				"foodConsumptionMult": 864.0553
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Aberrant Meganeura",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dragonfly/Dragonfly_Character_BP_Aberrant.Dragonfly_Character_BP_Aberrant",
 			"variants": [ "Aberrant" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 45, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -47964,8 +47121,6 @@
 				"foodConsumptionMult": 864.0553
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -48077,8 +47232,6 @@
 				"foodConsumptionMult": 336.0215
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -48191,8 +47344,6 @@
 				"foodConsumptionMult": 336.0215
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -48278,8 +47429,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -48396,8 +47545,6 @@
 				"foodConsumptionMult": 420
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -48515,8 +47662,6 @@
 				"foodConsumptionMult": 420
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -48618,8 +47763,6 @@
 				"c_head": 2
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -48722,8 +47865,6 @@
 				"c_head": 2
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -48767,8 +47908,6 @@
 				"c_head": 2
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -48886,8 +48025,6 @@
 				"foodConsumptionMult": 864.0553
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -49022,8 +48159,6 @@
 				"c_head": 2
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -49183,8 +48318,6 @@
 				"foodConsumptionMult": 160.0563
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -49250,8 +48383,6 @@
 				"foodConsumptionMult": 160.0563
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -49340,8 +48471,6 @@
 				"foodConsumptionMult": 160.0563
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -49431,8 +48560,6 @@
 				"foodConsumptionMult": 160.0563
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -49522,8 +48649,6 @@
 				"foodConsumptionMult": 160.0563
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -49555,8 +48680,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -49589,8 +48712,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -49623,8 +48744,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -49657,8 +48776,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -49691,8 +48808,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -49725,14 +48840,13 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Griffin",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Griffin/Griffin_Character_BP.Griffin_Character_BP",
 			"variants": [ "Ragnarok" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 950, 0.15, 0.216, -900, 0 ],
 				[ 225, 0.05, 0.06, 0, 0 ],
@@ -49743,7 +48857,7 @@
 				null,
 				[ 280, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, -0.5, 0.4 ],
-				[ 1, 0, 0, 0.365, 0 ],
+				[ 1, 0, 0.01, 0.365, 0 ],
 				null,
 				null
 			],
@@ -49820,8 +48934,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -49932,8 +49044,6 @@
 				"c_head": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -50033,8 +49143,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -50066,13 +49174,12 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Ichthyornis",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Ichthyornis/Ichthyornis_Character_BP.Ichthyornis_Character_BP",
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 50, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -50160,8 +49267,6 @@
 				"c_jaw": 3
 			},
 			"TamedBaseHealthMultiplier": 2,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -50261,8 +49366,6 @@
 				"c_head": 2
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -50363,8 +49466,6 @@
 				"c_head": 2
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -50470,8 +49571,6 @@
 				"c_head": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -50572,8 +49671,6 @@
 				"foodConsumptionMult": 648.0881
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -50706,8 +49803,6 @@
 				"foodConsumptionMult": 208.0343
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -50738,8 +49833,6 @@
 				"foodConsumptionMult": 864.0553
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -50770,8 +49863,6 @@
 				"foodConsumptionMult": 864.0553
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -50820,8 +49911,6 @@
 				"foodConsumptionMult": 180.0011
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -50899,8 +49988,6 @@
 				"foodConsumptionMult": 180.0011
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -50980,8 +50067,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -51077,8 +50162,6 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -51219,8 +50302,6 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -51360,8 +50441,6 @@
 				"foodConsumptionMult": 192.0278
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -51450,8 +50529,6 @@
 				"foodConsumptionMult": 420
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -51581,8 +50658,6 @@
 				"foodConsumptionMult": 420
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -51693,8 +50768,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -51806,8 +50879,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -51863,8 +50934,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -51950,8 +51019,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -52050,8 +51117,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -52151,8 +51216,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -52252,8 +51315,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -52331,13 +51392,12 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Microraptor",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Microraptor/Microraptor_Character_BP.Microraptor_Character_BP",
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 130, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -52482,8 +51542,6 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -52601,8 +51659,6 @@
 				"c_neck": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -52721,8 +51777,6 @@
 				"c_neck": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -52842,8 +51896,6 @@
 				"c_neck": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -52963,8 +52015,6 @@
 				"c_neck": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -53092,8 +52142,6 @@
 				"foodConsumptionMult": 180.0011
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -53215,8 +52263,6 @@
 				"foodConsumptionMult": 180.0011
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -53281,8 +52327,6 @@
 				"foodConsumptionMult": 180.0011
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -53347,8 +52391,6 @@
 				"foodConsumptionMult": 180.0011
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -53464,8 +52506,6 @@
 				"foodConsumptionMult": 176.0315
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -53582,8 +52622,6 @@
 				"foodConsumptionMult": 176.0315
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -53672,8 +52710,6 @@
 				"foodConsumptionMult": 160.0563
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -53763,8 +52799,6 @@
 				"foodConsumptionMult": 160.0563
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -53912,8 +52946,6 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -54062,8 +53094,6 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -54174,8 +53204,6 @@
 				"c_neck3": 0.125
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -54284,8 +53312,6 @@
 				"c_jaw": 0.25
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -54459,8 +53485,6 @@
 				"c_head": 2
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -54530,8 +53554,6 @@
 				"c_head": 2
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -54679,8 +53701,6 @@
 				"c_head": 2
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -54829,8 +53849,6 @@
 				"c_head": 2
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -54925,8 +53943,6 @@
 				"foodConsumptionMult": 327.6474
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -55022,8 +54038,6 @@
 				"foodConsumptionMult": 327.6474
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -55142,13 +54156,12 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Pelagornis",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Pelagornis/Pela_Character_BP.Pela_Character_BP",
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 240, 0.2, 0.27, 0.5, 0 ],
 				[ 180, 0.05, 0.04, 0, 0 ],
@@ -55159,7 +54172,7 @@
 				null,
 				[ 150, 0.02, 0.03, 0, 0 ],
 				[ 1, 0.05, 0.075, 0.65, 0.4 ],
-				[ 1, 0, 0, 0.365, 0 ],
+				[ 1, 0, 0.01, 0.365, 0 ],
 				null,
 				null
 			],
@@ -55232,8 +54245,6 @@
 				"c_jaw": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -55347,8 +54358,6 @@
 				"c_jaw": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -55460,8 +54469,6 @@
 				"foodConsumptionMult": 216.0294
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -55574,8 +54581,6 @@
 				"foodConsumptionMult": 216.0294
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -55688,8 +54693,6 @@
 				"foodConsumptionMult": 216.0294
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -55802,8 +54805,6 @@
 				"foodConsumptionMult": 216.0294
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -55917,8 +54918,6 @@
 				"foodConsumptionMult": 180.0011
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -56013,13 +55012,12 @@
 				"foodConsumptionMult": 648.0041
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Pteranodon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Ptero/Ptero_Character_BP.Ptero_Character_BP",
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 210, 0.2, 0.15, 0.5, 0 ],
 				[ 150, 0.05, 0.04, 0, 0 ],
@@ -56030,7 +55028,7 @@
 				null,
 				[ 120, 0.02, 0.03, 0, 0 ],
 				[ 1, 0.05, 0.075, 0.65, 0.4 ],
-				[ 1, 0, 0, 0.35, 0 ],
+				[ 1, 0, 0.02, 0.35, 0 ],
 				null,
 				null
 			],
@@ -56167,14 +55165,13 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 0.9,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Pteranodon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Ptero/Ptero_Minion_Character_BP.Ptero_Minion_Character_BP",
 			"variants": [ "Boss", "Gamma", "Minion" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 520, 0.2, 0.15, 0.5, 0 ],
 				[ 150, 0.05, 0.04, 0, 0 ],
@@ -56185,7 +55182,7 @@
 				null,
 				[ 120, 0.02, 0.03, 0, 0 ],
 				[ 1, 0.05, 0.075, 0.65, 0.4 ],
-				[ 1, 0, 0, 0.35, 0 ],
+				[ 1, 0, 0.02, 0.35, 0 ],
 				null,
 				null
 			],
@@ -56317,14 +55314,13 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 0.9,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Pteranodon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Ptero/Ptero_Minion_Character_Hard.Ptero_Minion_Character_Hard",
 			"variants": [ "Alpha", "Boss", "Minion" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 1560, 0.2, 0.15, 0.5, 0 ],
 				[ 150, 0.05, 0.04, 0, 0 ],
@@ -56335,7 +55331,7 @@
 				null,
 				[ 120, 0.02, 0.03, 0, 0 ],
 				[ 1, 0.05, 0.075, 0.65, 0.4 ],
-				[ 1, 0, 0, 0.35, 0 ],
+				[ 1, 0, 0.02, 0.35, 0 ],
 				null,
 				null
 			],
@@ -56467,14 +55463,13 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 0.9,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Pteranodon",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Ptero/Ptero_Minion_Character_Med.Ptero_Minion_Character_Med",
 			"variants": [ "Beta", "Boss", "Minion" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 1040, 0.2, 0.15, 0.5, 0 ],
 				[ 150, 0.05, 0.04, 0, 0 ],
@@ -56485,7 +55480,7 @@
 				null,
 				[ 120, 0.02, 0.03, 0, 0 ],
 				[ 1, 0.05, 0.075, 0.65, 0.4 ],
-				[ 1, 0, 0, 0.35, 0 ],
+				[ 1, 0, 0.02, 0.35, 0 ],
 				null,
 				null
 			],
@@ -56617,8 +55612,6 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 0.9,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -56701,8 +55694,6 @@
 				"foodConsumptionMult": 288.0392
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -56786,8 +55777,6 @@
 				"foodConsumptionMult": 288.0392
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -56849,13 +55838,12 @@
 				"foodConsumptionMult": 288.0392
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Tek Quetzal",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Quetzalcoatlus/BionicQuetz_Character_BP.BionicQuetz_Character_BP",
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 1200, 0.2, 0.108, 0.5, 0 ],
 				[ 800, 0.05, 0.05, 0, 0 ],
@@ -56866,7 +55854,7 @@
 				null,
 				[ 800, 0.02, 0.05, 0, 0 ],
 				[ 1, 0.04, 0.1, 0.4, 0.4 ],
-				[ 1, 0, 0, 0.365, 0 ],
+				[ 1, 0, 0.01, 0.365, 0 ],
 				null,
 				null
 			],
@@ -57018,13 +56006,12 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 0.85,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Malfunctioned Tek Quetzal",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Quetzalcoatlus/BionicQuetz_Character_BP_Malfunctioned.BionicQuetz_Character_BP_Malfunctioned",
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 1200, 0.2, 0.108, 0.5, 0 ],
 				[ 800, 0.05, 0.05, 0, 0 ],
@@ -57035,7 +56022,7 @@
 				null,
 				[ 800, 0.02, 0.05, 0, 0 ],
 				[ 1, 0.04, 0.1, 0.4, 0.4 ],
-				[ 1, 0, 0, 0.365, 0 ],
+				[ 1, 0, 0.01, 0.365, 0 ],
 				null,
 				null
 			],
@@ -57087,13 +56074,12 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 0.85,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Skeletal Quetzal",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Quetzalcoatlus/Bone_Quetz_Character_BP.Bone_Quetz_Character_BP",
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 18000, 0.2, 0.27, 0.5, 0 ],
 				[ 750, 0.1, 0.1, 0, 0 ],
@@ -57230,13 +56216,12 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Quetzal",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Quetzalcoatlus/Quetz_Character_BP.Quetz_Character_BP",
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 1200, 0.2, 0.108, 0.5, 0 ],
 				[ 800, 0.05, 0.05, 0, 0 ],
@@ -57247,7 +56232,7 @@
 				null,
 				[ 800, 0.02, 0.05, 0, 0 ],
 				[ 1, 0.04, 0.1, 0.4, 0.4 ],
-				[ 1, 0, 0, 0.365, 0 ],
+				[ 1, 0, 0.01, 0.365, 0 ],
 				null,
 				null
 			],
@@ -57375,8 +56360,6 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 0.85,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -57536,8 +56519,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -57608,8 +56589,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -57672,8 +56651,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -57737,8 +56714,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -57860,8 +56835,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -57984,8 +56957,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -58133,8 +57104,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -58273,8 +57242,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -58340,8 +57307,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -58407,8 +57372,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -58474,8 +57437,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -58593,8 +57554,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -58661,8 +57620,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -58767,8 +57724,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -58865,8 +57820,6 @@
 				"c_jaw": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -58954,8 +57907,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -59042,8 +57993,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -59131,8 +58080,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -59220,8 +58167,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -59335,8 +58280,6 @@
 				"foodConsumptionMult": 211.2379
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -59451,8 +58394,6 @@
 				"foodConsumptionMult": 211.2379
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -59552,8 +58493,6 @@
 				"foodConsumptionMult": 180.0011
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -59656,8 +58595,6 @@
 				"foodConsumptionMult": 180.0011
 			},
 			"TamedBaseHealthMultiplier": 0.9,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -59828,8 +58765,6 @@
 				"foodConsumptionMult": 432.0028
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -60001,8 +58936,6 @@
 				"foodConsumptionMult": 432.0028
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -60146,8 +59079,6 @@
 				"foodConsumptionMult": 1584.284
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -60292,8 +59223,6 @@
 				"foodConsumptionMult": 1584.284
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -60325,8 +59254,6 @@
 				"foodConsumptionMult": 432.0028
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -60359,8 +59286,6 @@
 				"foodConsumptionMult": 432.0028
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -60393,8 +59318,6 @@
 				"foodConsumptionMult": 432.0028
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -60427,8 +59350,6 @@
 				"foodConsumptionMult": 432.0028
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -60461,8 +59382,6 @@
 				"foodConsumptionMult": 432.0028
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -60495,8 +59414,6 @@
 				"foodConsumptionMult": 432.0028
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -60625,8 +59542,6 @@
 				"foodConsumptionMult": 864.0553
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -60756,8 +59671,6 @@
 				"foodConsumptionMult": 864.0553
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -60887,8 +59800,6 @@
 				"foodConsumptionMult": 864.0553
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -61019,8 +59930,6 @@
 				"foodConsumptionMult": 864.0553
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -61151,8 +60060,6 @@
 				"foodConsumptionMult": 864.0553
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -61291,8 +60198,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -61432,8 +60337,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -61533,8 +60436,6 @@
 				"c_jaw": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -61714,8 +60615,6 @@
 				"Cnt_Tail_000_JNT_SKL": 0.7
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -61791,8 +60690,6 @@
 				"Cnt_Tail_000_JNT_SKL": 0.7
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -61935,8 +60832,6 @@
 				"Cnt_Tail_000_JNT_SKL": 0.7
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -62082,8 +60977,6 @@
 				"Cnt_Tail_000_JNT_SKL": 0.7
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -62230,13 +61123,12 @@
 				"Cnt_Tail_000_JNT_SKL": 0.7
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Tapejara",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Tapejara/Tapejara_Character_BP.Tapejara_Character_BP",
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 325, 0.2, 0.27, 0.5, 0 ],
 				[ 250, 0.05, 0.06, 0, 0 ],
@@ -62247,7 +61139,7 @@
 				null,
 				[ 280, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0.365, 0 ],
+				[ 1, 0, 0.01, 0.365, 0 ],
 				null,
 				null
 			],
@@ -62368,8 +61260,6 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -62519,8 +61409,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -62628,8 +61516,6 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -62723,8 +61609,6 @@
 				"Jaw": 1.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -62802,8 +61686,6 @@
 				"foodConsumptionMult": 13
 			},
 			"TamedBaseHealthMultiplier": 1.8,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -62943,8 +61825,6 @@
 				"foodConsumptionMult": 648.0041
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -63085,8 +61965,6 @@
 				"foodConsumptionMult": 648.0041
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -63255,8 +62133,6 @@
 				"c_jaw": 0.15
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -63326,8 +62202,6 @@
 				"c_jaw": 0.15
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -63449,8 +62323,6 @@
 				"c_jaw": 0.15
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -63575,8 +62447,6 @@
 				"c_jaw": 0.15
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -63702,8 +62572,6 @@
 				"c_jaw": 0.15
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -63734,8 +62602,6 @@
 				"foodConsumptionMult": 864.0553
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -63767,8 +62633,6 @@
 				"foodConsumptionMult": 864.0553
 			},
 			"TamedBaseHealthMultiplier": 0.96,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -63864,14 +62728,13 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Tropeognathus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Tropeognathus/Tropeognathus_Character_BP.Tropeognathus_Character_BP",
 			"variants": [ "CrystalIsles" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 360, 0.2, 0.243, 0.5, 0 ],
 				[ 250, 0.05, 0.05, 0, 0 ],
@@ -63882,7 +62745,7 @@
 				null,
 				[ 340, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0.365, 0 ],
+				[ 1, 0, 0.01, 0.365, 0 ],
 				null,
 				null
 			],
@@ -64084,8 +62947,6 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -64194,8 +63055,6 @@
 				"c_tail3": 0.5
 			},
 			"TamedBaseHealthMultiplier": 0.9,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -64305,8 +63164,6 @@
 				"c_tail3": 0.5
 			},
 			"TamedBaseHealthMultiplier": 0.864,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -64412,8 +63269,6 @@
 				"lower_beak": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -64520,8 +63375,6 @@
 				"lower_beak": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -64618,8 +63471,6 @@
 				"lower_beak": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -64730,8 +63581,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -64838,8 +63687,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -64975,8 +63822,6 @@
 				"d_tail7_jnt": 0.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -65076,8 +63921,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -65177,14 +64020,13 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
 			"name": "Dodo Wyvern",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/DodoWyvern/DodoWyvern_Character_BP.DodoWyvern_Character_BP",
 			"variants": [ "ScorchedEarth" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 666666, 0.2, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -65285,8 +64127,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -65385,8 +64225,6 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -65486,14 +64324,13 @@
 				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Oil Jug Bug",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/JugBug/Jugbug_Oil_Character_BP.Jugbug_Oil_Character_BP",
 			"variants": [ "ScorchedEarth" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 75, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -65519,14 +64356,13 @@
 				"foodConsumptionMult": 864.0553
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Water Jug Bug",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/JugBug/Jugbug_Water_Character_BP.Jugbug_Water_Character_BP",
 			"variants": [ "ScorchedEarth" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 75, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -65552,14 +64388,13 @@
 				"foodConsumptionMult": 864.0553
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Manticore",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Manticore/Manticore_Character_BP_Easy.Manticore_Character_BP_Easy",
 			"variants": [ "Boss", "Gamma", "ScorchedEarth" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 100000, 0.2, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -65586,14 +64421,13 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Manticore",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Manticore/Manticore_Character_BP_Hard.Manticore_Character_BP_Hard",
 			"variants": [ "Alpha", "Boss", "ScorchedEarth" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 160000, 0.3, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -65620,14 +64454,13 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Manticore",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Manticore/Manticore_Character_BP_Medium.Manticore_Character_BP_Medium",
 			"variants": [ "Beta", "Boss", "ScorchedEarth" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 130000, 0.25, 0.2, 0.3, 0 ],
 				[ 400, 0.1, 0.1, 0, 0 ],
@@ -65654,8 +64487,6 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -65755,8 +64586,6 @@
 				"foodConsumptionMult": 0.05
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -65808,8 +64637,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -65897,8 +64724,6 @@
 				"foodConsumptionMult": 360
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -65988,14 +64813,13 @@
 				"foodConsumptionMult": 360
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Lymantria",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Moth/Moth_Character_BP.Moth_Character_BP",
 			"variants": [ "ScorchedEarth" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 260, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.05, 0.06, 0, 0 ],
@@ -66006,7 +64830,7 @@
 				null,
 				[ 175, 0.02, 0.03, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -66112,14 +64936,13 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Phoenix",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Phoenix/Phoenix_Character_BP.Phoenix_Character_BP",
 			"variants": [ "ScorchedEarth" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 640, 0.2, 0.27, 0.5, 0 ],
 				[ 352, 0.1, 0.1, 0, 0 ],
@@ -66130,7 +64953,7 @@
 				null,
 				[ 324, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -66201,8 +65024,6 @@
 				"foodConsumptionMult": 192.0344
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
@@ -66255,8 +65076,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -66308,8 +65127,6 @@
 				"foodConsumptionMult": 180.0634
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
 			"displayedStats": 919
 		},
 		{
@@ -66443,14 +65260,13 @@
 				"d_jaw_jnt": 2.5
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Vulture",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Vulture/Vulture_Character_BP.Vulture_Character_BP",
 			"variants": [ "ScorchedEarth" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 125, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -66548,14 +65364,13 @@
 			},
 			"boneDamageAdjusters": { "c_head": 3 },
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Bone Fire Wyvern",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Bone_MegaWyvern_Character_BP_Fire.Bone_MegaWyvern_Character_BP_Fire",
 			"variants": [ "ScorchedEarth" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 8000, 0.15, 0.2025, -785, 0 ],
 				[ 600, 0.05, 0.05, 0, 0 ],
@@ -66566,7 +65381,7 @@
 				null,
 				[ 400, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, -0.25, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -66627,14 +65442,13 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Alpha Fire Wyvern",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/MegaWyvern_Character_BP_Fire.MegaWyvern_Character_BP_Fire",
 			"variants": [ "Mega", "ScorchedEarth" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 8000, 0.15, 0.2025, -785, 0 ],
 				[ 600, 0.05, 0.05, 0, 0 ],
@@ -66645,7 +65459,7 @@
 				null,
 				[ 400, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, -0.25, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -66706,14 +65520,13 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Fire Wyvern",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_Fire.Wyvern_Character_BP_Fire",
 			"variants": [ "ScorchedEarth" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 1295, 0.15, 0.2025, -785, 0 ],
 				[ 315, 0.05, 0.05, 0, 0 ],
@@ -66724,7 +65537,7 @@
 				null,
 				[ 400, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, -0.25, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -66802,14 +65615,13 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Lightning Wyvern",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_Lightning.Wyvern_Character_BP_Lightning",
 			"variants": [ "ScorchedEarth" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 1295, 0.15, 0.2025, -785, 0 ],
 				[ 315, 0.05, 0.05, 0, 0 ],
@@ -66820,7 +65632,7 @@
 				null,
 				[ 400, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, -0.25, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -66915,14 +65727,13 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Poison Wyvern",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_Poison.Wyvern_Character_BP_Poison",
 			"variants": [ "ScorchedEarth" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 1295, 0.15, 0.2025, -785, 0 ],
 				[ 315, 0.05, 0.05, 0, 0 ],
@@ -66933,7 +65744,7 @@
 				null,
 				[ 400, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, -0.25, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -67035,14 +65846,13 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Zombie Fire Wyvern",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_ZombieFire.Wyvern_Character_BP_ZombieFire",
 			"variants": [ "ScorchedEarth" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 1295, 0.15, 0.2025, -785, 0 ],
 				[ 315, 0.05, 0.05, 0, 0 ],
@@ -67053,7 +65863,7 @@
 				null,
 				[ 400, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, -0.25, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -67084,14 +65894,13 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Zombie Lightning Wyvern",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_ZombieLightning.Wyvern_Character_BP_ZombieLightning",
 			"variants": [ "ScorchedEarth" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 1295, 0.15, 0.2025, -785, 0 ],
 				[ 315, 0.05, 0.05, 0, 0 ],
@@ -67102,7 +65911,7 @@
 				null,
 				[ 400, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, -0.25, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -67133,14 +65942,13 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		},
 		{
 			"name": "Zombie Poison Wyvern",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_ZombiePoison.Wyvern_Character_BP_ZombiePoison",
 			"variants": [ "ScorchedEarth" ],
+			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 1295, 0.15, 0.2025, -785, 0 ],
 				[ 315, 0.05, 0.05, 0, 0 ],
@@ -67151,7 +65959,7 @@
 				null,
 				[ 400, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, -0.25, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
 			],
@@ -67182,8 +65990,6 @@
 				"foodConsumptionMult": 199.984
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": true,
-			"doesNotUseOxygen": false,
 			"displayedStats": 927
 		}
 	],
