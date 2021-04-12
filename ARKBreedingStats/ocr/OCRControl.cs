@@ -88,20 +88,33 @@ namespace ARKBreedingStats.ocr
             {
                 var bmp = new Bitmap(files[0]);
 
+                if (nudResolutionWidth.Value == 0
+                    && nudResolutionHeight.Value == 0)
+                {
+                    nudResolutionWidth.Value = bmp.Width;
+                    nudResolutionHeight.Value = bmp.Height;
+                }
+
                 if (bmp.Width == nudResolutionWidth.Value
                     && bmp.Height == nudResolutionHeight.Value)
                 {
                     bmp.Dispose();
+                    if (!ArkOcr.Ocr.ocrConfig.RecognitionPatterns.Texts.Any())
+                        ArkOcr.Ocr.ocrConfig.RecognitionPatterns.TrainingSettings.IsTrainingEnabled = true;
+
                     DoOcr?.Invoke(files[0], true);
                 }
                 else
                 {
                     DisplayBmpInOcrControl(bmp);
+                    txtOCROutput.Text =
+                        $"Error: the current ocr configuration is set to an image size of{Environment.NewLine}{nudResolutionWidth.Value} × {nudResolutionHeight.Value} px,{Environment.NewLine}the image has a size of{Environment.NewLine}{bmp.Width} × {bmp.Height} px.";
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // ignore
+                txtOCROutput.Text =
+                    $"Error during the OCR:{Environment.NewLine}{ex.Message}";
             }
         }
 
@@ -160,10 +173,10 @@ namespace ARKBreedingStats.ocr
         /// <summary>
         /// Saves the pattern.
         /// </summary>
-        /// <param name="c"></param>
-        /// <param name="letterArray"></param>
         private void SaveTemplate(string text, Pattern pattern)
         {
+            if (string.IsNullOrEmpty(text) || pattern == null) return;
+
             var existingTemplate = ArkOcr.Ocr.ocrConfig.RecognitionPatterns.Texts.FirstOrDefault(t => t.Text == text);
             if (existingTemplate == null)
             {
@@ -171,6 +184,11 @@ namespace ARKBreedingStats.ocr
             }
             else
             {
+                foreach (var p in existingTemplate.Patterns)
+                {
+                    if (p.Equals(pattern)) return;
+                }
+
                 existingTemplate.Patterns.Add(pattern);
             }
 

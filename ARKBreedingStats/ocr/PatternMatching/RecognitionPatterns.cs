@@ -302,6 +302,8 @@ namespace ARKBreedingStats.ocr.PatternMatching
 
         private string AddNewPattern(Pattern newPattern, string text)
         {
+            if (string.IsNullOrEmpty(text) || newPattern == null) return text;
+
             var pat = Texts.FirstOrDefault(x => x.Text == text);
             if (pat != null)
             {
@@ -319,6 +321,8 @@ namespace ARKBreedingStats.ocr.PatternMatching
 
         public void AddPattern(string text, Bitmap bmp)
         {
+            if (string.IsNullOrEmpty(text)) return;
+
             var newPattern = Pattern.FromBmp(bmp);
             if (newPattern == null) return;
 
