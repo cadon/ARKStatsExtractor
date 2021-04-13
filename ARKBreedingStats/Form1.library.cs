@@ -927,7 +927,8 @@ namespace ARKBreedingStats
             DateTime dt;
             var isGrowing = true;
             var useGrowingLeft = false;
-            if (cr.cooldownUntil.HasValue)
+            var now = DateTime.Now;
+            if (cr.cooldownUntil.HasValue && cr.cooldownUntil.Value > now)
             {
                 isGrowing = false;
                 dt = cr.cooldownUntil.Value;
@@ -938,14 +939,16 @@ namespace ARKBreedingStats
                 return "-";
             }
             else if (!cr.growingPaused)
+            {
                 dt = cr.growingUntil.Value;
+            }
             else
             {
                 useGrowingLeft = true;
                 dt = new DateTime();
             }
 
-            if (!useGrowingLeft && DateTime.Now > dt)
+            if (!useGrowingLeft && now > dt)
             {
                 foreColor = Color.LightGray;
                 return "-";
@@ -955,7 +958,7 @@ namespace ARKBreedingStats
             if (useGrowingLeft)
                 minCld = cr.growingLeft.TotalMinutes;
             else
-                minCld = dt.Subtract(DateTime.Now).TotalMinutes;
+                minCld = dt.Subtract(now).TotalMinutes;
 
             if (isGrowing)
             {
