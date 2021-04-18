@@ -72,7 +72,14 @@ namespace ARKBreedingStats.species
         {
             if (colorIds == null) colorIds = new int[Species.ColorRegionCount];
 
-            string speciesName = SpeciesImageName(species?.name);
+            string speciesName = null;
+            if (string.IsNullOrEmpty(species?.name))
+                onlyColors = true;
+            else
+                speciesName = SpeciesImageName(species?.name);
+
+            if (onlyColors)
+                return DrawPieChart(colorIds, enabledColorRegions, size, pieSize);
 
             // check if there are sex specific images
             if (creatureSex != Sex.Unknown)
@@ -93,11 +100,29 @@ namespace ARKBreedingStats.species
                 }
             }
 
+            // if species image not found, check if sex specific files are available
+            if (!File.Exists(Path.Combine(ImgFolder, speciesName + Extension)))
+            {
+                string speciesNameWithSex = speciesName + "M";
+                if (File.Exists(Path.Combine(ImgFolder, speciesNameWithSex + Extension)))
+                {
+                    speciesName = speciesNameWithSex;
+                }
+                else
+                {
+                    speciesNameWithSex = speciesName + "F";
+                    if (File.Exists(Path.Combine(ImgFolder, speciesNameWithSex + Extension)))
+                    {
+                        speciesName = speciesNameWithSex;
+                    }
+                }
+            }
+
             string speciesBackgroundFilePath = Path.Combine(ImgFolder, speciesName + Extension);
             string speciesColorMaskFilePath = Path.Combine(ImgFolder, speciesName + "_m" + Extension);
             string cacheFilePath = ColoredCreatureCacheFilePath(speciesName, colorIds);
             bool cacheFileExists = File.Exists(cacheFilePath);
-            if (!onlyColors && !cacheFileExists)
+            if (!cacheFileExists)
             {
                 cacheFileExists = CreateAndSaveCacheSpeciesFile(colorIds, enabledColorRegions, speciesBackgroundFilePath, speciesColorMaskFilePath, cacheFilePath);
             }
@@ -129,68 +154,79 @@ namespace ARKBreedingStats.species
                 return null;
             }
 
+            if (!cacheFileExists)
+            {
+                // cache file doesn't exist and couldn't be created. Return pie chart
+                return DrawPieChart(colorIds, enabledColorRegions, size, pieSize);
+            }
+
             Bitmap bm = new Bitmap(size, size);
             using (Graphics graph = Graphics.FromImage(bm))
             {
                 graph.SmoothingMode = SmoothingMode.AntiAlias;
-                if (cacheFileExists)
+                graph.CompositingMode = CompositingMode.SourceCopy;
+                graph.CompositingQuality = CompositingQuality.HighQuality;
+                graph.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graph.SmoothingMode = SmoothingMode.HighQuality;
+                graph.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                try
                 {
-                    graph.CompositingMode = CompositingMode.SourceCopy;
-                    graph.CompositingQuality = CompositingQuality.HighQuality;
-                    graph.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                    graph.SmoothingMode = SmoothingMode.HighQuality;
-                    graph.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                    try
+                    using (var cachedImgBmp = new Bitmap(cacheFilePath))
+                        graph.DrawImage(cachedImgBmp, 0, 0, size, size);
+                }
+                catch
+                {
+                    // cached file invalid, recreate
+                    if (CreateAndSaveCacheSpeciesFile(colorIds, enabledColorRegions, speciesBackgroundFilePath,
+                        speciesColorMaskFilePath, cacheFilePath))
                     {
-                        using (var cachedImgBmp = new Bitmap(cacheFilePath))
-                            graph.DrawImage(cachedImgBmp, 0, 0, size, size);
-                    }
-                    catch
-                    {
-                        // cached file invalid, recreate
-                        if (CreateAndSaveCacheSpeciesFile(colorIds, enabledColorRegions, speciesBackgroundFilePath,
-                            speciesColorMaskFilePath, cacheFilePath))
+                        try
                         {
-                            try
-                            {
-                                using (var cachedImgBmp = new Bitmap(cacheFilePath))
-                                    graph.DrawImage(cachedImgBmp, 0, 0, size, size);
-                            }
-                            catch
-                            {
-                                // file is still invalid after recreation, ignore file
-                                bm.Dispose();
-                                return null;
-                            }
+                            using (var cachedImgBmp = new Bitmap(cacheFilePath))
+                                graph.DrawImage(cachedImgBmp, 0, 0, size, size);
+                        }
+                        catch
+                        {
+                            // file is still invalid after recreation, ignore file
+                            bm.Dispose();
+                            return null;
                         }
                     }
                 }
-                else
+            }
+
+            return bm;
+        }
+
+        private static Bitmap DrawPieChart(int[] colorIds, bool[] enabledColorRegions, int size, int pieSize)
+        {
+            int pieAngle = enabledColorRegions?.Count(c => c) ?? Species.ColorRegionCount;
+            pieAngle = 360 / (pieAngle > 0 ? pieAngle : 1);
+            int pieNr = 0;
+
+            Bitmap bm = new Bitmap(size, size);
+            using (Graphics graph = Graphics.FromImage(bm))
+            {
+                graph.SmoothingMode = SmoothingMode.AntiAlias;
+                for (int c = 0; c < Species.ColorRegionCount; c++)
                 {
-                    // draw pieChart
-                    int pieAngle = enabledColorRegions?.Count(c => c) ?? Species.ColorRegionCount;
-                    pieAngle = 360 / (pieAngle > 0 ? pieAngle : 1);
-                    int pieNr = 0;
-                    for (int c = 0; c < Species.ColorRegionCount; c++)
+                    if (enabledColorRegions?[c] ?? true)
                     {
-                        if (enabledColorRegions?[c] ?? true)
+                        if (colorIds[c] > 0)
                         {
-                            if (colorIds[c] > 0)
+                            using (var b = new SolidBrush(CreatureColors.CreatureColor(colorIds[c])))
                             {
-                                using (var b = new SolidBrush(CreatureColors.CreatureColor(colorIds[c])))
-                                {
-                                    graph.FillPie(b, (size - pieSize) / 2, (size - pieSize) / 2, pieSize, pieSize,
-                                        pieNr * pieAngle + 270, pieAngle);
-                                }
+                                graph.FillPie(b, (size - pieSize) / 2, (size - pieSize) / 2, pieSize, pieSize,
+                                    pieNr * pieAngle + 270, pieAngle);
                             }
-
-                            pieNr++;
                         }
-                    }
 
-                    using (var pen = new Pen(Color.Gray))
-                        graph.DrawEllipse(pen, (size - pieSize) / 2, (size - pieSize) / 2, pieSize, pieSize);
+                        pieNr++;
+                    }
                 }
+
+                using (var pen = new Pen(Color.Gray))
+                    graph.DrawEllipse(pen, (size - pieSize) / 2, (size - pieSize) / 2, pieSize, pieSize);
             }
 
             return bm;
