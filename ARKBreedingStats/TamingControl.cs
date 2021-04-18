@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
 
 namespace ARKBreedingStats
@@ -458,9 +459,7 @@ namespace ARKBreedingStats
 
         private void LinkLabelWikiPage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            string speciesName = linkLabelWikiPage.Tag as string;
-            if (!string.IsNullOrEmpty(speciesName))
-                System.Diagnostics.Process.Start("https://ark.gamepedia.com/" + speciesName);
+            ArkWiki.OpenPage(linkLabelWikiPage.Tag as string);
         }
 
         private void checkBoxAugmented_CheckedChanged(object sender, EventArgs e)

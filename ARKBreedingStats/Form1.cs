@@ -3180,12 +3180,9 @@ namespace ARKBreedingStats
 
         private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)
         {
-            if (listViewLibrary.SelectedItems.Count > 0)
-            {
-                string speciesName = ((Creature)listViewLibrary.SelectedItems[0].Tag).Species.name;
-                if (!string.IsNullOrEmpty(speciesName))
-                    Process.Start("https://ark.gamepedia.com/" + speciesName);
-            }
+            if (listViewLibrary.SelectedItems.Count == 0) return;
+
+            ArkWiki.OpenPage(((Creature)listViewLibrary.SelectedItems[0].Tag)?.Species?.name);
         }
 
         private void libraryFilterToolStripMenuItem_Click(object sender, EventArgs e)

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.multiplierTesting
 {
@@ -330,7 +331,7 @@ namespace ARKBreedingStats.multiplierTesting
 
         private void llStatCalculation_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://ark.gamepedia.com/Creature_Stats_Calculation");
+            ArkWiki.OpenPage("Creature_Stats_Calculation");
         }
 
         public CreatureCollection CreatureCollection

@@ -10,8 +10,8 @@ namespace ARKBreedingStats
     {
         /// <summary>
         /// *2 in accordance with the hardcoded 2x taming-bonus that was introduced in the game in patch 253.0 on 2016-12-23
-        /// https://ark.gamepedia.com/253.0
-        /// and again *2 in patch https://ark.gamepedia.com/313.5
+        /// https://ark.fandom.com/253.0
+        /// and again *2 in patch https://ark.fandom.com/313.5
         /// </summary>
         private const int _hardCodedTamingMultiplier = 4;
 

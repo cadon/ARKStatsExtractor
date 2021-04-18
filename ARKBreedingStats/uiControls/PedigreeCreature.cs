@@ -335,8 +335,7 @@ namespace ARKBreedingStats.uiControls
 
         private void OpenWikipageInBrowserToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (_creature?.Species != null)
-                System.Diagnostics.Process.Start("https://ark.gamepedia.com/" + _creature.Species.name);
+            ArkWiki.OpenPage(_creature?.Species?.name);
         }
 
         private void TsMiViewInPedigree_Click(object sender, EventArgs e)
