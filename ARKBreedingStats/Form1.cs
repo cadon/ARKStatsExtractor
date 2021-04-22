@@ -1016,7 +1016,7 @@ namespace ARKBreedingStats
             }
             else if (!silentCheck)
             {
-                MessageBox.Show("You already have the newest version of both the program and values file.\n\n" +
+                MessageBox.Show($"You already have the newest version of both the program ({Application.ProductVersion}) and values file ({Values.V.Version}).\n\n" +
                         "If your stats are outdated and no new version is available, we probably don\'t have the new ones either.",
                         "No new Version available", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
