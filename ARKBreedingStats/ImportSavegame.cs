@@ -188,12 +188,20 @@ namespace ARKBreedingStats
             };
 
             // If it's a baby and still growing, work out growingUntil
-            if (creatureObject.GetPropertyValue<bool>("bIsBaby") || !creatureObject.GetPropertyValue<bool>("bIsBaby") && !string.IsNullOrWhiteSpace(imprinterName))
+            if (creatureObject.GetPropertyValue<bool>("bIsBaby") || !string.IsNullOrWhiteSpace(imprinterName))
             {
                 double maturationTime = species.breeding?.maturationTimeAdjusted ?? 0;
                 float tamedTime = _gameTime - (float)creatureObject.GetPropertyValue<double>("TamedAtTime");
                 if (tamedTime < maturationTime - 120) // there seems to be a slight offset of one of these saved values, so don't display a creature as being in cooldown if it is about to leave it in the next 2 minutes
-                    creature.growingUntil = DateTime.Now + TimeSpan.FromSeconds(maturationTime - tamedTime);
+                    creature.growingUntil = DateTime.Now.Add(TimeSpan.FromSeconds(maturationTime - tamedTime));
+            }
+            else
+            {
+                double nextMatingPossible = creatureObject.GetPropertyValue<double>("NextAllowedMatingTime");
+                if (_gameTime < nextMatingPossible)
+                {
+                    creature.cooldownUntil = DateTime.Now.Add(TimeSpan.FromSeconds(nextMatingPossible - _gameTime));
+                }
             }
 
             // Ancestor linking is done later after entire collection is formed - here we just set the guids
