@@ -72,13 +72,15 @@
             this.label_FileLocation.AutoSize = true;
             this.label_FileLocation.Location = new System.Drawing.Point(12, 48);
             this.label_FileLocation.Name = "label_FileLocation";
-            this.label_FileLocation.Size = new System.Drawing.Size(223, 13);
+            this.label_FileLocation.Size = new System.Drawing.Size(361, 39);
             this.label_FileLocation.TabIndex = 4;
-            this.label_FileLocation.Text = "File location, local path or ftp-adress (required)";
+            this.label_FileLocation.Text = "File location, local path or ftp-adress (required). Examples are\r\nD:\\…\\ARK\\Shoote" +
+    "rGame\\Saved\\SavedArksLocal\\TheIsland.ark\r\nftp://203.0.113.12:27015/ShooterGame/S" +
+    "aved/SavedArks/TheIsland.ark";
             // 
             // textBox_FileLocation
             // 
-            this.textBox_FileLocation.Location = new System.Drawing.Point(12, 64);
+            this.textBox_FileLocation.Location = new System.Drawing.Point(12, 96);
             this.textBox_FileLocation.Name = "textBox_FileLocation";
             this.textBox_FileLocation.Size = new System.Drawing.Size(395, 20);
             this.textBox_FileLocation.TabIndex = 5;
@@ -86,7 +88,7 @@
             // button_FileSelect
             // 
             this.button_FileSelect.Image = ((System.Drawing.Image)(resources.GetObject("button_FileSelect.Image")));
-            this.button_FileSelect.Location = new System.Drawing.Point(413, 62);
+            this.button_FileSelect.Location = new System.Drawing.Point(413, 94);
             this.button_FileSelect.Name = "button_FileSelect";
             this.button_FileSelect.Size = new System.Drawing.Size(23, 23);
             this.button_FileSelect.TabIndex = 6;
@@ -97,7 +99,7 @@
             // 
             this.button_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button_Cancel.Location = new System.Drawing.Point(280, 98);
+            this.button_Cancel.Location = new System.Drawing.Point(280, 123);
             this.button_Cancel.Name = "button_Cancel";
             this.button_Cancel.Size = new System.Drawing.Size(75, 23);
             this.button_Cancel.TabIndex = 7;
@@ -108,7 +110,7 @@
             // 
             this.button_Ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button_Ok.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button_Ok.Location = new System.Drawing.Point(361, 98);
+            this.button_Ok.Location = new System.Drawing.Point(361, 123);
             this.button_Ok.Name = "button_Ok";
             this.button_Ok.Size = new System.Drawing.Size(75, 23);
             this.button_Ok.TabIndex = 8;
@@ -121,7 +123,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.button_Cancel;
-            this.ClientSize = new System.Drawing.Size(448, 133);
+            this.ClientSize = new System.Drawing.Size(448, 158);
             this.Controls.Add(this.button_Ok);
             this.Controls.Add(this.button_Cancel);
             this.Controls.Add(this.button_FileSelect);
