@@ -1259,12 +1259,12 @@ namespace ARKBreedingStats.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AlreadyAskedToDownloadSpeciesImageFiles20210102 {
+        public bool AlreadyAskedToDownloadSpeciesImageFiles {
             get {
-                return ((bool)(this["AlreadyAskedToDownloadSpeciesImageFiles20210102"]));
+                return ((bool)(this["AlreadyAskedToDownloadSpeciesImageFiles"]));
             }
             set {
-                this["AlreadyAskedToDownloadSpeciesImageFiles20210102"] = value;
+                this["AlreadyAskedToDownloadSpeciesImageFiles"] = value;
             }
         }
         
@@ -1658,6 +1658,18 @@ namespace ARKBreedingStats.Properties {
             }
             set {
                 this["CreatureTableExportFields"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SpeciesImagesFolder {
+            get {
+                return ((string)(this["SpeciesImagesFolder"]));
+            }
+            set {
+                this["SpeciesImagesFolder"] = value;
             }
         }
     }

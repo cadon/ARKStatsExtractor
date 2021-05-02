@@ -47,7 +47,6 @@ namespace ARKBreedingStats
         {
             InitializeComponent();
             _lastSpeciesBPs = new List<string>();
-            _iconIndices = new List<string>();
             SplitterDistance = Properties.Settings.Default.SpeciesSelectorVerticalSplitterDistance;
             VariantSelector = new VariantSelector();
         }
@@ -70,12 +69,9 @@ namespace ARKBreedingStats
                 SetSpecies(species.FirstOrDefault(), ignoreInRecent: true);
             }
 
-            ImageList imageList;
-            (_entryList, imageList, _iconIndices) = LoadSpeciesImagesAndCreateSpeciesList(species, aliases);
+            InitializeSpeciesImages(species);
 
-            imageList.ImageSize = new Size(64, 64);
-            lvLastSpecies.LargeImageList = imageList;
-            lvSpeciesInLibrary.LargeImageList = imageList;
+            _entryList = CreateSpeciesList(species, aliases);
 
             // autocomplete for species-input
             var al = new AutoCompleteStringCollection();
@@ -88,66 +84,17 @@ namespace ARKBreedingStats
             Textbox_TextChanged(null, null);
         }
 
-        private static (List<SpeciesListEntry>, ImageList, List<string>) LoadSpeciesImagesAndCreateSpeciesList(List<Species> species, Dictionary<string, string> aliases)
+        private static List<SpeciesListEntry> CreateSpeciesList(List<Species> species, Dictionary<string, string> aliases)
         {
             Dictionary<string, Species> speciesNameToSpecies = new Dictionary<string, Species>();
-
-            var creatureColors = new int[]
-                {44, 42, 57, 10, 26, 78}; // uniform color pattern that is used for all species in the selector
-            var creatureColorsPolar = new int[]
-                {18, 18, 18, 18, 18, 18}; // uniform color pattern that is used for all polar species in the selector
-            ImageList lImgList = new ImageList();
-            var iconIndices = new List<string>();
-            bool imageFolderExist = Directory.Exists(FileService.GetPath(FileService.ImageFolderName));
-
-            //var speciesWOImage = new List<string>();// to determine which species have no image yet
-            foreach (Species ss in species)
-            {
-                if (!speciesNameToSpecies.ContainsKey(ss.DescriptiveNameAndMod))
-                    speciesNameToSpecies.Add(ss.DescriptiveNameAndMod, ss);
-
-                if (!imageFolderExist) continue;
-
-                var (imgExists, imagePath, speciesListName) = CreatureColored.SpeciesImageExists(ss,
-                    ss.name.Contains("Polar") ? creatureColorsPolar : creatureColors);
-                if (!imgExists || iconIndices.Contains(speciesListName)) continue;
-
-                try
-                {
-                    lImgList.Images.Add(Image.FromFile(imagePath));
-                    iconIndices.Add(speciesListName);
-                }
-                catch (OutOfMemoryException)
-                {
-                    // usually this exception occurs if the image file is corrupted
-                    if (FileService.TryDeleteFile(imagePath))
-                    {
-                        (imgExists, imagePath, speciesListName) = CreatureColored.SpeciesImageExists(ss,
-                            ss.name.Contains("Polar") ? creatureColorsPolar : creatureColors);
-                        if (imgExists)
-                        {
-                            try
-                            {
-                                lImgList.Images.Add(Image.FromFile(imagePath));
-                            }
-                            catch
-                            {
-                                // ignore image if it failed a second time
-                            }
-
-                            iconIndices.Add(speciesListName);
-                        }
-                    }
-                }
-
-                //if (!imgExists && !speciesWOImage.Contains(ss.name)) speciesWOImage.Add(ss.name);
-            }
-            //Clipboard.SetText(string.Join("\n", speciesWOImage));
 
             var entryList = new List<SpeciesListEntry>();
 
             foreach (var s in species)
             {
+                if (!speciesNameToSpecies.ContainsKey(s.DescriptiveNameAndMod))
+                    speciesNameToSpecies.Add(s.DescriptiveNameAndMod, s);
+
                 entryList.Add(new SpeciesListEntry
                 {
                     DisplayName = s.name,
@@ -172,7 +119,63 @@ namespace ARKBreedingStats
             }
 
             entryList = entryList.OrderBy(s => s.DisplayName).ToList();
-            return (entryList, lImgList, iconIndices);
+            return entryList;
+        }
+
+        public void InitializeSpeciesImages(List<Species> species)
+        {
+            var creatureColors = new int[] { 44, 42, 57, 10, 26, 78 }; // uniform color pattern that is used for all species in the selector
+            var creatureColorsPolar = new int[] { 18, 18, 18, 18, 18, 18 }; // uniform color pattern that is used for all polar species in the selector
+            var lImgList = new ImageList();
+            _iconIndices = new List<string>();
+            bool imageFolderExist = !string.IsNullOrEmpty(CreatureColored.ImageFolder) && Directory.Exists(CreatureColored.ImageFolder);
+
+            //var speciesWOImage = new List<string>();// to determine which species have no image yet
+            foreach (Species s in species)
+            {
+
+                if (!imageFolderExist) continue;
+
+                var (imgExists, imagePath, speciesListName) = CreatureColored.SpeciesImageExists(s,
+                    s.name.Contains("Polar") ? creatureColorsPolar : creatureColors);
+                if (!imgExists || _iconIndices.Contains(speciesListName)) continue;
+
+                try
+                {
+                    lImgList.Images.Add(Image.FromFile(imagePath));
+                    _iconIndices.Add(speciesListName);
+                }
+                catch (OutOfMemoryException)
+                {
+                    // usually this exception occurs if the image file is corrupted
+                    if (FileService.TryDeleteFile(imagePath))
+                    {
+                        (imgExists, imagePath, speciesListName) = CreatureColored.SpeciesImageExists(s,
+                            s.name.Contains("Polar") ? creatureColorsPolar : creatureColors);
+                        if (imgExists)
+                        {
+                            try
+                            {
+                                lImgList.Images.Add(Image.FromFile(imagePath));
+                                _iconIndices.Add(speciesListName);
+                            }
+                            catch
+                            {
+                                // ignore image if it failed a second time
+                            }
+                        }
+                    }
+                }
+
+                //if (!imgExists && !speciesWOImage.Contains(ss.name)) speciesWOImage.Add(ss.name);
+            }
+            //Clipboard.SetText(string.Join("\n", speciesWOImage));
+
+            lImgList.ImageSize = new Size(64, 64);
+            lvLastSpecies.LargeImageList = lImgList;
+            lvSpeciesInLibrary.LargeImageList = lImgList;
+            UpdateLastSpecies();
+            UpdateLibraryList();
         }
 
         /// <summary>
@@ -193,6 +196,16 @@ namespace ARKBreedingStats
                 if (ii != -1)
                     lvi.ImageIndex = ii;
                 lvSpeciesInLibrary.Items.Add(lvi);
+            }
+        }
+
+        private void UpdateLibraryList()
+        {
+            foreach (ListViewItem lvi in lvSpeciesInLibrary.Items)
+            {
+                int ii = SpeciesImageIndex((lvi.Tag as Species)?.name);
+                if (ii != -1)
+                    lvi.ImageIndex = ii;
             }
         }
 
@@ -338,6 +351,8 @@ namespace ARKBreedingStats
 
         private int SpeciesImageIndex(string speciesName = null)
         {
+            if (_iconIndices == null) return -1;
+
             if (string.IsNullOrWhiteSpace(speciesName))
                 speciesName = SelectedSpecies.name;
             else speciesName = Values.V.SpeciesName(speciesName);

@@ -1,0 +1,21 @@
+﻿{
+  "format": "1.0",
+  "modules":{
+    "ARK Smart Breeding": {
+      "Id": "ARK Smart Breeding",
+      "Category": "main",
+      "version": "0.45.1.0"
+    },
+    "SpeciesColorImages": {
+      "Id": "SpeciesColorImages",
+      "Category": "Species Images",
+      "Name": "Species Images",
+      "Author": "cadaei",
+      "Description": "Images for species for visualizing the colors of creatures",
+      "Url": "https://github.com/cadon/ARKStatsExtractor/raw/master/speciesImages/speciesImages.zip",
+      "LocalPath": "images/speciesImages",
+      "IsFolder": true,
+      "version": "2021.1.2"
+    }
+  }
+}

@@ -13,14 +13,15 @@ namespace ARKBreedingStats
         public const string ValuesJson = "values.json";
         public const string ValuesServerMultipliers = "serverMultipliers.json";
         public const string TamingFoodData = "tamingFoodData.json";
-        public const string ModsManifest = "_manifest.json";
+        public const string ManifestFileName = "_manifest.json";
         public const string ModsManifestCustom = "_manifestCustom.json";
         public const string KibblesJson = "kibbles.json";
         public const string AliasesJson = "aliases.json";
         public const string IgnoreSpeciesClasses = "ignoreSpeciesClasses.json";
         public const string CustomReplacingsNamePattern = "customReplacings.json";
         public const string CustomSpeciesVariants = "customSpeciesVariants.json";
-        public const string ImageFolderName = "img";
+        public const string DataFolderName = "data";
+
         /// <summary>
         /// Where the colored species images are cached.
         /// </summary>
@@ -46,7 +47,7 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="useAppData">If true, the %localAppData%-folder is used regardless of installed or portable version.</param>
         public static string GetPath(string fileName = null, string fileName2 = null, string fileName3 = null, bool useAppData = false)
-            => Path.Combine(useAppData || Updater.IsProgramInstalled ? GetLocalApplicationDataPath() : ExeLocation, fileName ?? string.Empty, fileName2 ?? string.Empty, fileName3 ?? string.Empty);
+            => Path.Combine(useAppData || Updater.Updater.IsProgramInstalled ? GetLocalApplicationDataPath() : ExeLocation, fileName ?? string.Empty, fileName2 ?? string.Empty, fileName3 ?? string.Empty);
 
 
         /// <summary>
@@ -152,9 +153,10 @@ namespace ARKBreedingStats
         /// <summary>
         /// Tries to delete a file, doesn't throw an exception when failing.
         /// </summary>
+        /// <returns>True if the file is not existing after this method ends.</returns>
         public static bool TryDeleteFile(string filePath)
         {
-            if (!File.Exists(filePath)) return false;
+            if (!File.Exists(filePath)) return true;
             try
             {
                 File.Delete(filePath);

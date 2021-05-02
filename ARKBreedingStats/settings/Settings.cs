@@ -231,8 +231,8 @@ namespace ARKBreedingStats.settings
             tbDefaultFontName.Text = Properties.Settings.Default.DefaultFontName;
             nudDefaultFontSize.Value = (decimal)Properties.Settings.Default.DefaultFontSize;
 
-            GbImgCacheLocalAppData.Visible = !Updater.IsProgramInstalled; // setting is only relevant for portable app
-            CbImgCacheUseLocalAppData.Checked = Properties.Settings.Default.ImgCacheUseLocalAppData || Updater.IsProgramInstalled;
+            GbImgCacheLocalAppData.Visible = !Updater.Updater.IsProgramInstalled; // setting is only relevant for portable app
+            CbImgCacheUseLocalAppData.Checked = Properties.Settings.Default.ImgCacheUseLocalAppData || Updater.Updater.IsProgramInstalled;
 
             #region overlay
             nudOverlayInfoDuration.ValueSave = Properties.Settings.Default.OverlayInfoDuration;

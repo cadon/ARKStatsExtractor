@@ -12,8 +12,8 @@ namespace ARKBreedingStats.species
     internal static class CreatureColored
     {
         private const string Extension = ".png";
-        private static readonly string ImgFolder = FileService.GetPath(FileService.ImageFolderName);
-        private static string ImgCacheFolderPath = GetImgCacheFolderPath();
+        internal static string ImageFolder;
+        private static string _imgCacheFolderPath;
         private const int TemplateSize = 256;
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace ARKBreedingStats.species
         /// Returns the image file path to the image with the according colorization.
         /// </summary>
         private static string ColoredCreatureCacheFilePath(string speciesName, int[] colorIds, bool listView = false)
-            => Path.Combine(ImgCacheFolderPath, speciesName.Substring(0, Math.Min(speciesName.Length, 5)) + "_" + (speciesName + string.Join(".", colorIds.Select(i => i.ToString()))).GetHashCode().ToString("X8") + (listView ? "_lv" : string.Empty) + Extension);
+            => Path.Combine(_imgCacheFolderPath, speciesName.Substring(0, Math.Min(speciesName.Length, 5)) + "_" + (speciesName + string.Join(".", colorIds.Select(i => i.ToString()))).GetHashCode().ToString("X8") + (listView ? "_lv" : string.Empty) + Extension);
 
         /// <summary>
         /// Checks if an according species image exists in the cache folder, if not it tries to creates one. Returns false if there's no image.
@@ -45,8 +45,8 @@ namespace ARKBreedingStats.species
             if (File.Exists(cacheFileName))
                 return (true, cacheFileName, speciesNameForList);
 
-            string speciesBackgroundFilePath = Path.Combine(ImgFolder, speciesImageName + Extension);
-            string speciesColorMaskFilePath = Path.Combine(ImgFolder, speciesImageName + "_m" + Extension);
+            string speciesBackgroundFilePath = Path.Combine(ImageFolder, speciesImageName + Extension);
+            string speciesColorMaskFilePath = Path.Combine(ImageFolder, speciesImageName + "_m" + Extension);
 
             if (CreateAndSaveCacheSpeciesFile(colorIds,
                     species?.EnabledColorRegions,
@@ -78,7 +78,7 @@ namespace ARKBreedingStats.species
             else
                 speciesName = SpeciesImageName(species?.name);
 
-            if (onlyColors)
+            if (onlyColors || string.IsNullOrEmpty(ImageFolder))
                 return DrawPieChart(colorIds, enabledColorRegions, size, pieSize);
 
             // check if there are sex specific images
@@ -89,37 +89,37 @@ namespace ARKBreedingStats.species
                 {
                     case Sex.Female:
                         speciesNameWithSex = speciesName + "F";
-                        if (File.Exists(Path.Combine(ImgFolder, speciesNameWithSex + Extension)))
+                        if (File.Exists(Path.Combine(ImageFolder, speciesNameWithSex + Extension)))
                             speciesName = speciesNameWithSex;
                         break;
                     case Sex.Male:
                         speciesNameWithSex = speciesName + "M";
-                        if (File.Exists(Path.Combine(ImgFolder, speciesNameWithSex + Extension)))
+                        if (File.Exists(Path.Combine(ImageFolder, speciesNameWithSex + Extension)))
                             speciesName = speciesNameWithSex;
                         break;
                 }
             }
 
             // if species image not found, check if sex specific files are available
-            if (!File.Exists(Path.Combine(ImgFolder, speciesName + Extension)))
+            if (!File.Exists(Path.Combine(ImageFolder, speciesName + Extension)))
             {
                 string speciesNameWithSex = speciesName + "M";
-                if (File.Exists(Path.Combine(ImgFolder, speciesNameWithSex + Extension)))
+                if (File.Exists(Path.Combine(ImageFolder, speciesNameWithSex + Extension)))
                 {
                     speciesName = speciesNameWithSex;
                 }
                 else
                 {
                     speciesNameWithSex = speciesName + "F";
-                    if (File.Exists(Path.Combine(ImgFolder, speciesNameWithSex + Extension)))
+                    if (File.Exists(Path.Combine(ImageFolder, speciesNameWithSex + Extension)))
                     {
                         speciesName = speciesNameWithSex;
                     }
                 }
             }
 
-            string speciesBackgroundFilePath = Path.Combine(ImgFolder, speciesName + Extension);
-            string speciesColorMaskFilePath = Path.Combine(ImgFolder, speciesName + "_m" + Extension);
+            string speciesBackgroundFilePath = Path.Combine(ImageFolder, speciesName + Extension);
+            string speciesColorMaskFilePath = Path.Combine(ImageFolder, speciesName + "_m" + Extension);
             string cacheFilePath = ColoredCreatureCacheFilePath(speciesName, colorIds);
             bool cacheFileExists = File.Exists(cacheFilePath);
             if (!cacheFileExists)
@@ -481,9 +481,9 @@ namespace ARKBreedingStats.species
         /// </summary>
         internal static void CleanupCache()
         {
-            if (!Directory.Exists(ImgCacheFolderPath)) return;
+            if (!Directory.Exists(_imgCacheFolderPath)) return;
 
-            DirectoryInfo directory = new DirectoryInfo(ImgCacheFolderPath);
+            DirectoryInfo directory = new DirectoryInfo(_imgCacheFolderPath);
             var oldCacheFiles = directory.GetFiles().Where(f => f.LastAccessTime < DateTime.Now.AddDays(-7)).ToArray();
             foreach (FileInfo f in oldCacheFiles)
             {
@@ -494,15 +494,23 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// If the setting ImgCacheUseLocalAppData is true, the image cache files are saved in the %localAppData% folder instead of the app folder.
         /// This is always true if the app is installed.
-        /// Call this method after the setting was changed.
+        /// Call this method after that setting or the speciesImageFolder where the images are stored are changed.
         /// The reason to use the appData folder is that this folder is used to save files, the portable version can be shared and be write protected.
         /// </summary>
-        internal static void UpdateImgCacheLocation()
+        internal static void InitializeSpeciesImageLocation()
         {
-            ImgCacheFolderPath = GetImgCacheFolderPath();
+            if (string.IsNullOrEmpty(Properties.Settings.Default.SpeciesImagesFolder))
+            {
+                ImageFolder = null;
+                _imgCacheFolderPath = null;
+                return;
+            }
+
+            ImageFolder = FileService.GetPath(Properties.Settings.Default.SpeciesImagesFolder);
+            _imgCacheFolderPath = GetImgCacheFolderPath();
         }
 
-        private static string GetImgCacheFolderPath() => FileService.GetPath(FileService.ImageFolderName, FileService.CacheFolderName,
-            useAppData: Updater.IsProgramInstalled || Properties.Settings.Default.ImgCacheUseLocalAppData);
+        private static string GetImgCacheFolderPath() => FileService.GetPath(Properties.Settings.Default.SpeciesImagesFolder, FileService.CacheFolderName,
+            useAppData: Updater.Updater.IsProgramInstalled || Properties.Settings.Default.ImgCacheUseLocalAppData);
     }
 }

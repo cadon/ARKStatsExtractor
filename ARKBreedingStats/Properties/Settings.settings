@@ -314,7 +314,7 @@
     <Setting Name="applyNamePatternOnAutoImportForNewCreatures" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="AlreadyAskedToDownloadSpeciesImageFiles20210102" Type="System.Boolean" Scope="User">
+    <Setting Name="AlreadyAskedToDownloadSpeciesImageFiles" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="LibrarySelectSelectedSpeciesOnLoad" Type="System.Boolean" Scope="User">
@@ -414,6 +414,9 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="CreatureTableExportFields" Type="System.Int32[]" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SpeciesImagesFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

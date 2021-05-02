@@ -157,13 +157,13 @@ namespace ARKBreedingStats
                 }
                 catch (FileNotFoundException ex)
                 {
-                    MessageBoxes.ExceptionMessageBox(ex, $"Mods manifest file {Path.Combine(FileService.ValuesFolder, FileService.ModsManifest)} not found " +
+                    MessageBoxes.ExceptionMessageBox(ex, $"Mods manifest file {Path.Combine(FileService.ValuesFolder, FileService.ManifestFileName)} not found " +
                                                         "and downloading it failed. You can try it later or try to update your application.");
                     return false;
                 }
                 catch (FormatException)
                 {
-                    FormatExceptionMessageBox(Path.Combine(FileService.ValuesFolder, FileService.ModsManifest));
+                    FormatExceptionMessageBox(Path.Combine(FileService.ValuesFolder, FileService.ManifestFileName));
                     return false;
                 }
 
@@ -217,7 +217,7 @@ namespace ARKBreedingStats
                         "ARK Smart Breeding will not work properly without that file.\n\n" +
                         "Do you want to visit the releases page to redownload it?",
                         $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                    System.Diagnostics.Process.Start(Updater.ReleasesUrl);
+                    System.Diagnostics.Process.Start(Updater.Updater.ReleasesUrl);
             }
             catch (FileNotFoundException)
             {
@@ -225,7 +225,7 @@ namespace ARKBreedingStats
                         "ARK Smart Breeding will not work properly without that file.\n\n" +
                         "Do you want to visit the releases page to redownload it?",
                         $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                    System.Diagnostics.Process.Start(Updater.ReleasesUrl);
+                    System.Diagnostics.Process.Start(Updater.Updater.ReleasesUrl);
             }
             catch (FormatException ex)
             {

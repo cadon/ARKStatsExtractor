@@ -52,7 +52,7 @@ namespace ARKBreedingStats.mods
         {
             while (true)
             {
-                string modsManifestFilePath = FileService.GetJsonPath(FileService.ValuesFolder, FileService.ModsManifest);
+                string modsManifestFilePath = FileService.GetJsonPath(FileService.ValuesFolder, FileService.ManifestFileName);
                 if (forceDownload || !File.Exists(modsManifestFilePath)) await TryDownloadFileAsync();
 
                 if (FileService.LoadJsonFile(modsManifestFilePath, out ModsManifest tmpV, out string errorMessage))
@@ -113,7 +113,7 @@ namespace ARKBreedingStats.mods
         /// <returns></returns>
         private static async Task<bool> TryDownloadFileAsync()
         {
-            return await Updater.DownloadModsManifest();
+            return await Updater.Updater.DownloadModsManifest();
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace ARKBreedingStats.mods
             bool filesDownloaded = false;
             foreach (var mf in modValueFiles)
             {
-                if (Updater.DownloadModValuesFile(mf)
+                if (Updater.Updater.DownloadModValuesFile(mf)
                     && modsByFiles.ContainsKey(mf))
                 {
                     modsByFiles[mf].LocallyAvailable = true;

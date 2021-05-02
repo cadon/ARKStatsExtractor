@@ -78,7 +78,8 @@
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
-    <Compile Include="ASBManifest.cs" />
+    <Compile Include="Updater\AsbManifest.cs" />
+    <Compile Include="Updater\AsbModule.cs" />
     <Compile Include="duplicates\MergingDuplicates.cs" />
     <Compile Include="duplicates\MergingDuplicatesUI.cs">
       <SubType>UserControl</SubType>
@@ -135,11 +136,6 @@
     <Compile Include="FileService.cs" />
     <Compile Include="ImportSavegame.cs" />
     <Compile Include="importExported\ImportExported.cs" />
-    <Compile Include="local\strings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>strings.resx</DependentUpon>
-    </Compile>
     <Compile Include="miscClasses\Encryption.cs" />
     <Compile Include="miscClasses\FtpCredentials.cs" />
     <Compile Include="miscClasses\IssueNotes.cs" />
@@ -572,7 +568,13 @@
     <Compile Include="uiControls\VariantSelector.Designer.cs">
       <DependentUpon>VariantSelector.cs</DependentUpon>
     </Compile>
-    <Compile Include="Updater.cs" />
+    <Compile Include="Updater\UpdateModules.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Updater\UpdateModules.Designer.cs">
+      <DependentUpon>UpdateModules.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Updater\Updater.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="miscClasses\ValueMinMax.cs" />
     <Compile Include="utils\ArkWiki.cs" />
@@ -590,8 +592,13 @@
     <Compile Include="values\ServerMultipliers.cs" />
     <Compile Include="values\Values.cs" />
     <Compile Include="utils\Win32API.cs" />
+    <Content Include="_manifest.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>_manifest.json</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="local\strings.ja.resx">
       <SubType>Designer</SubType>
+      <LastGenOutput>strings.ja.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="local\strings.ru.resx" />
     <EmbeddedResource Include="local\strings.pl.resx" />
@@ -606,6 +613,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\VariantSelector.resx">
       <DependentUpon>VariantSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Updater\UpdateModules.resx">
+      <DependentUpon>UpdateModules.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="json\ignoreSpeciesClasses.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -637,27 +647,21 @@
       <DependentUpon>ExportedCreatureList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="local\strings.es.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>strings.es.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="local\strings.it.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>strings.it.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="local\strings.fr.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>strings.fr.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="local\strings.de.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>strings.de.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="local\strings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>strings.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="local\strings.zh.resx" />
@@ -832,6 +836,12 @@
     </EmbeddedResource>
     <Content Include="Resources\pen.png" />
     <None Include="json\values\values.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="_manifest.json">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_manifest.tt</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

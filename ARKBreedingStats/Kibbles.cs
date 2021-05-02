@@ -32,7 +32,7 @@ namespace ARKBreedingStats
                         "This tool will not show kibble recipes without this file.\n\n" +
                         "Do you want to visit the homepage of the tool to redownload it?",
                         $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                    System.Diagnostics.Process.Start(Updater.ReleasesUrl);
+                    System.Diagnostics.Process.Start(Updater.Updater.ReleasesUrl);
             }
             else if (FileService.LoadJsonFile(filePath, out Kibbles tempK, out string errorMessage))
             {

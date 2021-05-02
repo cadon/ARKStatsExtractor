@@ -1,6 +1,4 @@
-﻿using Microsoft.Win32;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
@@ -9,8 +7,10 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
+using Microsoft.Win32;
+using Newtonsoft.Json.Linq;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.Updater
 {
     public static class Updater
     {
@@ -18,11 +18,12 @@ namespace ARKBreedingStats
         /// Latest release url.
         /// </summary>
         public const string ReleasesUrl = RepositoryInfo.RepositoryUrl + "releases/latest";
+        private const string MasterRawUrl = RepositoryInfo.RepositoryUrl + "raw/master/";
         private const string ReleasesFeedUrl = "https://api.github.com/repos/cadon/ARKStatsExtractor/releases/latest";
+        private const string ManifestUrl = MasterRawUrl + "_manifest.json";
         internal const string UpdaterExe = "asb-updater.exe";
         private const string ObeliskUrl = "https://raw.githubusercontent.com/arkutils/Obelisk/master/data/asb/";
-        private const string MasterRawUrl = RepositoryInfo.RepositoryUrl + "raw/master";
-        private const string SpeciesColorRegionZipFileName = "img.zip";
+        private const string SpeciesColorRegionsUrl = MasterRawUrl + "img.zip";
 
         #region main program
 
@@ -109,7 +110,7 @@ namespace ARKBreedingStats
             ProcessStartInfo startInfo = new ProcessStartInfo(newLocation);
 
             // backslashes and quotes in command line arguments are strange. https://stackoverflow.com/questions/9287812/backslash-and-quote-in-command-line-arguments
-            var args = new System.Text.StringBuilder("\"" + AppDomain.CurrentDomain.BaseDirectory.Trim(new char[] { '\\' }) + "\"");
+            var args = new System.Text.StringBuilder("\"" + AppDomain.CurrentDomain.BaseDirectory.Trim('\\') + "\"");
             // the updater doesn't need to check again if an update is available
             args.Append(" doupdate");
             // use the %localAppData%\ARK Smart Breeding folder for the values files
@@ -171,23 +172,56 @@ namespace ARKBreedingStats
         /// <summary>
         /// Compares release version with local file version.
         /// </summary>
-        /// <param name="releaseTag"></param>
+        /// <param name="latestVersionString"></param>
         /// <returns>comparison result and parsed release version, or in case of an error: null and unreadable version numbers</returns>
-        private static (bool? updateAvailable, string localVersion, string remoteVersion) UpdateAvailable(string releaseTag)
+        private static (bool? updateAvailable, string localVersion, string remoteVersion) UpdateAvailable(string latestVersionString)
         {
-            string releaseVersion = releaseTag.ToLowerInvariant().Trim().Trim('v', '.');
+            if (Version.TryParse(latestVersionString, out Version tagVersion)
+                && Version.TryParse(Application.ProductVersion, out Version productVersion))
+            {
+                return (tagVersion.CompareTo(productVersion) > 0, productVersion.ToString(), tagVersion.ToString());
+            }
 
-            Version.TryParse(releaseVersion, out Version tagVersion);
-            Version.TryParse(Application.ProductVersion, out Version productVersion);
-
-            if (tagVersion == null || productVersion == null)
-                return (null, Application.ProductVersion, releaseVersion);
-
-            return (tagVersion.CompareTo(productVersion) > 0, productVersion.ToString(), tagVersion.ToString());
+            return (null, Application.ProductVersion, latestVersionString);
         }
 
-        public static async Task<string> FetchReleaseFeed()
+        /// <summary>
+        /// Downloads the application manifest file with the latest available versions.
+        /// </summary>
+        /// <returns></returns>
+        internal static async Task<bool> DownloadManifest()
         {
+            return await DownloadManifestFile(ManifestUrl, Path.Combine(FileService.GetJsonPath(FileService.ValuesFolder), FileService.ManifestFileName));
+        }
+
+        /// <summary>
+        /// Downloads the current manifest file with the latest version info. If that fails, it will use the github api and parse the version from there.
+        /// </summary>
+        /// <returns>The latest version in string format.</returns>
+        private static async Task<string> FetchReleaseFeed()
+        {
+            // download the manifest file
+            try
+            {
+                var manifestFilePath = FileService.GetPath(FileService.ManifestFileName);
+                if (await DownloadManifestFile(ManifestUrl, manifestFilePath, false))
+                {
+                    try
+                    {
+                        return ParseVersionFromManifest(manifestFilePath);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine("Parsing release from manifest failed: " + e.Message);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Fetching manifest info failed: " + e.Message);
+            }
+
+            // manifest download failed, try the github api
             string releaseFeed;
             try
             {
@@ -208,6 +242,20 @@ namespace ARKBreedingStats
                 Debug.WriteLine("Parsing release info failed: " + e.Message);
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Parses the manifest for the latest version info
+        /// </summary>
+        /// <returns>Latest release version</returns>
+        private static string ParseVersionFromManifest(string manifestFilePath)
+        {
+            var manifest = AsbManifest.FromJsonFile(manifestFilePath);
+
+            if (manifest.modules.TryGetValue("ARK Smart Breeding", out var app))
+                return app.version;
+
+            throw new FormatException("version of main app not found in manifest");
         }
 
         /// <summary>
@@ -234,7 +282,7 @@ namespace ARKBreedingStats
         /// <param name="url">The URL to download from</param>
         /// <param name="outFileName">File to output contents to</param>
         /// <returns>content or null</returns>
-        private static async Task<(bool, string)> DownloadAsync(string url, string outFileName = null)
+        internal static async Task<(bool, string)> DownloadAsync(string url, string outFileName = null, bool showExceptionMessageBox = true)
         {
             using (WebClient client = new WebClient())
             {
@@ -259,7 +307,8 @@ namespace ARKBreedingStats
                 catch (Exception ex)
                 {
                     successfulDownloaded = false;
-                    MessageBoxes.ExceptionMessageBox(ex, $"Error while trying to download the file\n{url}", "Download error");
+                    if (showExceptionMessageBox)
+                        MessageBoxes.ExceptionMessageBox(ex, $"Error while trying to download the file\n{url}", "Download error");
                 }
 
                 if (!File.Exists(outFileName))
@@ -307,85 +356,41 @@ namespace ARKBreedingStats
             }
         }
 
-        /// <summary>
-        /// Downloads the species color region images and saves them in the data folder.
-        /// </summary>
-        internal static async Task<(bool, string)> DownloadSpeciesImages(bool overwrite)
-        {
-            string imagesFolderPath = FileService.GetPath(FileService.ImageFolderName);
-            string url = MasterRawUrl + "/" + SpeciesColorRegionZipFileName;
-            string tempFilePath = Path.GetTempFileName();
-            var (downloaded, _) = await DownloadAsync(url, tempFilePath);
-            if (!downloaded)
-                return (false, $"File {url} couldn't be downloaded");
-
-            int fileCountExtracted = 0;
-            int fileCountSkipped = 0;
-
-            try
-            {
-                Directory.CreateDirectory(imagesFolderPath);
-                using (var archive = ZipFile.OpenRead(tempFilePath))
-                {
-                    foreach (ZipArchiveEntry file in archive.Entries)
-                    {
-                        if (string.IsNullOrEmpty(file.Name)) continue;
-
-                        var filePathUnzipped = Path.Combine(imagesFolderPath, file.Name);
-                        if (File.Exists(filePathUnzipped) &&
-                            (!overwrite || !FileService.TryDeleteFile(filePathUnzipped)))
-                        {
-                            fileCountSkipped++;
-                            continue;
-                        }
-
-                        file.ExtractToFile(filePathUnzipped);
-                        fileCountExtracted++;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                return (false, $"Error while extracting the files in {imagesFolderPath}\n\n{ex.Message}");
-            }
-            finally
-            {
-                FileService.TryDeleteFile(tempFilePath);
-            }
-
-            return (true, $"Image files were downloaded successfully.\n{fileCountExtracted} images extracted\n{fileCountSkipped} already existing images skipped");
-        }
-
         #region mod values
 
         internal static async Task<bool> DownloadModsManifest()
         {
+            return await DownloadManifestFile(ObeliskUrl + FileService.ManifestFileName,
+                Path.Combine(FileService.GetJsonPath(FileService.ValuesFolder), FileService.ManifestFileName));
+        }
+
+        private static async Task<bool> DownloadManifestFile(string url, string destinationPath, bool showDownloadExceptionMessageBox = true)
+        {
             string tempFilePath = Path.GetTempFileName();
-            string valuesFolder = FileService.GetJsonPath(FileService.ValuesFolder);
-            string destFilePath = Path.Combine(valuesFolder, FileService.ModsManifest);
+            string valuesFolder = Path.GetDirectoryName(destinationPath);
             if (!Directory.Exists(valuesFolder))
                 Directory.CreateDirectory(valuesFolder);
 
             try
             {
-                if ((await DownloadAsync(ObeliskUrl + FileService.ModsManifest, tempFilePath)).Item1)
+                if ((await DownloadAsync(url, tempFilePath, showDownloadExceptionMessageBox)).Item1)
                 {
                     // if successful downloaded, move tempFile
                     try
                     {
-                        if (File.Exists(destFilePath)) File.Delete(destFilePath);
-                        File.Move(tempFilePath, destFilePath);
+                        if (File.Exists(destinationPath)) File.Delete(destinationPath);
+                        File.Move(tempFilePath, destinationPath);
                         return true;
                     }
                     catch (Exception ex)
                     {
-                        MessageBoxes.ExceptionMessageBox(ex, "Error while moving mod-manifest file");
+                        MessageBoxes.ExceptionMessageBox(ex, "Error while moving manifest file");
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBoxes.ExceptionMessageBox(ex, "Error while downloading mod-manifest");
+                MessageBoxes.ExceptionMessageBox(ex, "Error while downloading manifest");
             }
             finally
             {
@@ -399,29 +404,34 @@ namespace ARKBreedingStats
         /// Tries to delete the given file without throwing an error on failing
         /// </summary>
         /// <param name="filePath"></param>
-        private static void TryDeleteFile(string filePath)
+        private static bool TryDeleteFile(string filePath)
         {
             try
             {
-                if (File.Exists(filePath)) File.Delete(filePath);
-            }
-            catch { }
-        }
-
-        internal static async Task<bool> DownloadModValuesFileAsync(string modValuesFileName)
-        {
-            try
-            {
-                await DownloadAsync(ObeliskUrl + modValuesFileName,
-                    FileService.GetJsonPath(Path.Combine(FileService.ValuesFolder, modValuesFileName)));
+                if (File.Exists(filePath))
+                    File.Delete(filePath);
                 return true;
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBoxes.ExceptionMessageBox(ex, "Error while downloading values file");
+                return false;
             }
-            return false;
         }
+
+        //internal static async Task<bool> DownloadModValuesFileAsync(string modValuesFileName)
+        //{
+        //    try
+        //    {
+        //        await DownloadAsync(ObeliskUrl + modValuesFileName,
+        //            FileService.GetJsonPath(Path.Combine(FileService.ValuesFolder, modValuesFileName)));
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBoxes.ExceptionMessageBox(ex, "Error while downloading values file");
+        //    }
+        //    return false;
+        //}
 
         internal static bool DownloadModValuesFile(string modValuesFileName)
         {
