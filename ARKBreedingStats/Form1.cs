@@ -13,7 +13,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net.Configuration;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
@@ -257,12 +256,11 @@ namespace ARKBreedingStats
             // add controls in the order they are shown in-game
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                flowLayoutPanelStatIOsExtractor.Controls.Add(_statIOs[Values.statsDisplayOrder[s]]);
-                flowLayoutPanelStatIOsExtractor.SetFlowBreak(_statIOs[Values.statsDisplayOrder[s]], true);
-                flowLayoutPanelStatIOsTester.Controls.Add(_testingIOs[Values.statsDisplayOrder[s]]);
-                flowLayoutPanelStatIOsTester.SetFlowBreak(_testingIOs[Values.statsDisplayOrder[s]], true);
-                checkedListBoxConsiderStatTop.Items.Add(Utils.StatName(Values.statsDisplayOrder[s]),
-                    _considerStatHighlight[Values.statsDisplayOrder[s]]);
+                var displayIndex = Values.statsDisplayOrder[s];
+                flowLayoutPanelStatIOsExtractor.Controls.Add(_statIOs[displayIndex]);
+                flowLayoutPanelStatIOsTester.Controls.Add(_testingIOs[displayIndex]);
+                checkedListBoxConsiderStatTop.Items.Add(Utils.StatName(displayIndex),
+                    _considerStatHighlight[displayIndex]);
             }
 
             // torpor should not show bar, it get's too wide and is not interesting for breeding

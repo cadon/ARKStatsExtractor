@@ -385,7 +385,7 @@ namespace ARKBreedingStats
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.aboutToolStripMenuItem.Text = "about…";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -1176,38 +1176,38 @@ namespace ARKBreedingStats
             // toolStripSeparator11
             // 
             this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator11.Size = new System.Drawing.Size(168, 6);
             // 
             // onlinehelpToolStripMenuItem
             // 
             this.onlinehelpToolStripMenuItem.Name = "onlinehelpToolStripMenuItem";
-            this.onlinehelpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.onlinehelpToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.onlinehelpToolStripMenuItem.Text = "Online Manual…";
             this.onlinehelpToolStripMenuItem.Click += new System.EventHandler(this.onlinehelpToolStripMenuItem_Click);
             // 
             // BreedingPlanHelpToolStripMenuItem
             // 
             this.BreedingPlanHelpToolStripMenuItem.Name = "BreedingPlanHelpToolStripMenuItem";
-            this.BreedingPlanHelpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.BreedingPlanHelpToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.BreedingPlanHelpToolStripMenuItem.Text = "Breeding Plan…";
             this.BreedingPlanHelpToolStripMenuItem.Click += new System.EventHandler(this.breedingPlanToolStripMenuItem_Click);
             // 
             // extractionIssuesToolStripMenuItem
             // 
             this.extractionIssuesToolStripMenuItem.Name = "extractionIssuesToolStripMenuItem";
-            this.extractionIssuesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.extractionIssuesToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.extractionIssuesToolStripMenuItem.Text = "Extraction Issues…";
             this.extractionIssuesToolStripMenuItem.Click += new System.EventHandler(this.extractionIssuesToolStripMenuItem_Click);
             // 
             // toolStripSeparator12
             // 
             this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator12.Size = new System.Drawing.Size(168, 6);
             // 
             // checkForUpdatedStatsToolStripMenuItem
             // 
             this.checkForUpdatedStatsToolStripMenuItem.Name = "checkForUpdatedStatsToolStripMenuItem";
-            this.checkForUpdatedStatsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.checkForUpdatedStatsToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.checkForUpdatedStatsToolStripMenuItem.Text = "Check for Updates";
             this.checkForUpdatedStatsToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatedStatsToolStripMenuItem_Click);
             // 
@@ -1423,11 +1423,13 @@ namespace ARKBreedingStats
             this.flowLayoutPanelStatIOsTester.AutoScroll = true;
             this.flowLayoutPanelStatIOsTester.Controls.Add(this.panel2);
             this.flowLayoutPanelStatIOsTester.Controls.Add(this.panelStatTesterFootnote);
+            this.flowLayoutPanelStatIOsTester.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanelStatIOsTester.Location = new System.Drawing.Point(6, 19);
             this.flowLayoutPanelStatIOsTester.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanelStatIOsTester.Name = "flowLayoutPanelStatIOsTester";
             this.flowLayoutPanelStatIOsTester.Size = new System.Drawing.Size(301, 617);
             this.flowLayoutPanelStatIOsTester.TabIndex = 53;
+            this.flowLayoutPanelStatIOsTester.WrapContents = false;
             // 
             // panel2
             // 
@@ -1722,11 +1724,13 @@ namespace ARKBreedingStats
             this.flowLayoutPanelStatIOsExtractor.Controls.Add(this.panel1);
             this.flowLayoutPanelStatIOsExtractor.Controls.Add(this.panelSums);
             this.flowLayoutPanelStatIOsExtractor.Controls.Add(this.labelFootnote);
+            this.flowLayoutPanelStatIOsExtractor.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanelStatIOsExtractor.Location = new System.Drawing.Point(6, 19);
             this.flowLayoutPanelStatIOsExtractor.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanelStatIOsExtractor.Name = "flowLayoutPanelStatIOsExtractor";
             this.flowLayoutPanelStatIOsExtractor.Size = new System.Drawing.Size(301, 617);
             this.flowLayoutPanelStatIOsExtractor.TabIndex = 52;
+            this.flowLayoutPanelStatIOsExtractor.WrapContents = false;
             // 
             // panel1
             // 
