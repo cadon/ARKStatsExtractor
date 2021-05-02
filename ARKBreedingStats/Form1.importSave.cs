@@ -311,7 +311,10 @@ namespace ARKBreedingStats
 
             var importFile = ATImportFileLocation.CreateFromString(Properties.Settings.Default.LastImportedSaveGame);
 
-            if (string.IsNullOrEmpty(importFile.FileLocation) || !File.Exists(importFile.FileLocation))
+            if (string.IsNullOrEmpty(importFile.FileLocation)
+                || (!(Uri.TryCreate(importFile.FileLocation, UriKind.Absolute, out var uri) && uri.Scheme == "ftp")
+                    && !File.Exists(importFile.FileLocation)
+                ))
             {
                 MessageBoxes.ShowMessageBox(
                     $"The file that was imported last time does not exist anymore:\n{importFile.FileLocation}\nImport the file you want to import at least once via the menu. After that you can import the last imported file with this button.",
