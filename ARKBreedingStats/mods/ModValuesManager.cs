@@ -4,9 +4,11 @@ using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Threading;
 using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.uiControls
@@ -76,7 +78,6 @@ namespace ARKBreedingStats.uiControls
             var selectedMiAvMod = lbAvailableModFiles.SelectedItem as ModInfo;
 
             lbModList.Items.Clear();
-            lbAvailableModFiles.Items.Clear();
 
             if (cc?.ModList == null) return;
 
@@ -93,13 +94,7 @@ namespace ARKBreedingStats.uiControls
                 }
             }
 
-            foreach (ModInfo mi in modInfos)
-            {
-                if (!mi.CurrentlyInLibrary)
-                {
-                    lbAvailableModFiles.Items.Add(mi);
-                }
-            }
+            FilterMods();
 
             lbModList.SelectedItem = selectedMiLib;
             lbAvailableModFiles.SelectedItem = selectedMiAvMod;
@@ -213,6 +208,36 @@ namespace ARKBreedingStats.uiControls
         private void LlUnofficialModFiles_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             RepositoryInfo.OpenWikiPage("Unsupported-Mod-Values");
+        }
+
+        private readonly Debouncer _modFilterDebouncer = new Debouncer();
+        private void TbModFilter_TextChanged(object sender, EventArgs e)
+        {
+            _modFilterDebouncer.Debounce(300, FilterMods, Dispatcher.CurrentDispatcher);
+        }
+
+        private void BtClearFilter_Click(object sender, EventArgs e)
+        {
+            TbModFilter.Text = string.Empty;
+        }
+
+        private void FilterMods()
+        {
+            var filter = string.IsNullOrWhiteSpace(TbModFilter.Text) ? null : TbModFilter.Text.Trim();
+
+            lbAvailableModFiles.Items.Clear();
+
+            foreach (ModInfo mi in modInfos)
+            {
+                if (!mi.CurrentlyInLibrary
+                    && (filter == null || mi.mod.title.IndexOf(filter, StringComparison.OrdinalIgnoreCase) != -1)
+                )
+                {
+                    lbAvailableModFiles.Items.Add(mi);
+                }
+            }
+
+            TbModFilter.BackColor = filter == null ? SystemColors.Window : Color.LightYellow;
         }
     }
 }

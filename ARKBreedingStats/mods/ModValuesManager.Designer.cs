@@ -45,6 +45,7 @@
             this.lbModTag = new System.Windows.Forms.Label();
             this.lbModName = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.LlUnofficialModFiles = new System.Windows.Forms.LinkLabel();
             this.linkLabelCustomModManual = new System.Windows.Forms.LinkLabel();
             this.btOpenValuesFolder = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -54,12 +55,15 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btAddMod = new System.Windows.Forms.Button();
             this.BtRemoveAllMods = new System.Windows.Forms.Button();
-            this.LlUnofficialModFiles = new System.Windows.Forms.LinkLabel();
+            this.TbModFilter = new System.Windows.Forms.TextBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.BtClearFilter = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbModList
@@ -113,6 +117,7 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.lbAvailableModFiles);
+            this.groupBox3.Controls.Add(this.panel2);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(3, 3);
             this.groupBox3.Name = "groupBox3";
@@ -126,10 +131,10 @@
             // 
             this.lbAvailableModFiles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbAvailableModFiles.FormattingEnabled = true;
-            this.lbAvailableModFiles.Location = new System.Drawing.Point(3, 16);
+            this.lbAvailableModFiles.Location = new System.Drawing.Point(3, 43);
             this.lbAvailableModFiles.Margin = new System.Windows.Forms.Padding(6);
             this.lbAvailableModFiles.Name = "lbAvailableModFiles";
-            this.lbAvailableModFiles.Size = new System.Drawing.Size(221, 485);
+            this.lbAvailableModFiles.Size = new System.Drawing.Size(221, 458);
             this.lbAvailableModFiles.TabIndex = 0;
             this.lbAvailableModFiles.SelectedIndexChanged += new System.EventHandler(this.LbAvailableModFiles_SelectedIndexChanged);
             this.lbAvailableModFiles.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.LbAvailableModFiles_MouseDoubleClick);
@@ -271,6 +276,18 @@
             this.panel1.Size = new System.Drawing.Size(396, 231);
             this.panel1.TabIndex = 4;
             // 
+            // LlUnofficialModFiles
+            // 
+            this.LlUnofficialModFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.LlUnofficialModFiles.AutoSize = true;
+            this.LlUnofficialModFiles.Location = new System.Drawing.Point(188, 187);
+            this.LlUnofficialModFiles.Name = "LlUnofficialModFiles";
+            this.LlUnofficialModFiles.Size = new System.Drawing.Size(104, 13);
+            this.LlUnofficialModFiles.TabIndex = 6;
+            this.LlUnofficialModFiles.TabStop = true;
+            this.LlUnofficialModFiles.Text = "More mod value files";
+            this.LlUnofficialModFiles.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LlUnofficialModFiles_LinkClicked);
+            // 
             // linkLabelCustomModManual
             // 
             this.linkLabelCustomModManual.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -366,17 +383,36 @@
             this.BtRemoveAllMods.UseVisualStyleBackColor = true;
             this.BtRemoveAllMods.Click += new System.EventHandler(this.BtRemoveAllMods_Click);
             // 
-            // LlUnofficialModFiles
+            // TbModFilter
             // 
-            this.LlUnofficialModFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.LlUnofficialModFiles.AutoSize = true;
-            this.LlUnofficialModFiles.Location = new System.Drawing.Point(188, 187);
-            this.LlUnofficialModFiles.Name = "LlUnofficialModFiles";
-            this.LlUnofficialModFiles.Size = new System.Drawing.Size(104, 13);
-            this.LlUnofficialModFiles.TabIndex = 6;
-            this.LlUnofficialModFiles.TabStop = true;
-            this.LlUnofficialModFiles.Text = "More mod value files";
-            this.LlUnofficialModFiles.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LlUnofficialModFiles_LinkClicked);
+            this.TbModFilter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TbModFilter.Location = new System.Drawing.Point(3, 3);
+            this.TbModFilter.Name = "TbModFilter";
+            this.TbModFilter.Size = new System.Drawing.Size(193, 20);
+            this.TbModFilter.TabIndex = 10;
+            this.TbModFilter.TextChanged += new System.EventHandler(this.TbModFilter_TextChanged);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.TbModFilter);
+            this.panel2.Controls.Add(this.BtClearFilter);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(3, 16);
+            this.panel2.Name = "panel2";
+            this.panel2.Padding = new System.Windows.Forms.Padding(3);
+            this.panel2.Size = new System.Drawing.Size(221, 27);
+            this.panel2.TabIndex = 10;
+            // 
+            // BtClearFilter
+            // 
+            this.BtClearFilter.Dock = System.Windows.Forms.DockStyle.Right;
+            this.BtClearFilter.Location = new System.Drawing.Point(196, 3);
+            this.BtClearFilter.Name = "BtClearFilter";
+            this.BtClearFilter.Size = new System.Drawing.Size(22, 21);
+            this.BtClearFilter.TabIndex = 11;
+            this.BtClearFilter.Text = "×";
+            this.BtClearFilter.UseVisualStyleBackColor = true;
+            this.BtClearFilter.Click += new System.EventHandler(this.BtClearFilter_Click);
             // 
             // ModValuesManager
             // 
@@ -396,6 +432,8 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -429,5 +467,8 @@
         private System.Windows.Forms.Label LbModVersion;
         private System.Windows.Forms.LinkLabel linkLabelCustomModManual;
         private System.Windows.Forms.LinkLabel LlUnofficialModFiles;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TextBox TbModFilter;
+        private System.Windows.Forms.Button BtClearFilter;
     }
 }
