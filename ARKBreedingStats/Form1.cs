@@ -355,9 +355,7 @@ namespace ARKBreedingStats
 
             if (!string.IsNullOrEmpty(Properties.Settings.Default.LastImportedSaveGame))
             {
-                var atImportFileLocation =
-                    ATImportFileLocation.CreateFromString(Properties.Settings.Default.LastImportedSaveGame);
-                TsbImportLastSaveGame.ToolTipText = $"Import savegame {atImportFileLocation.ConvenientName}";
+                SetLastSaveFileImportTooltip(ATImportFileLocation.CreateFromString(Properties.Settings.Default.LastImportedSaveGame));
             }
 
             // dev tabs
@@ -835,7 +833,8 @@ namespace ARKBreedingStats
                     ATImportFileLocation atImportFileLocation = ATImportFileLocation.CreateFromString(f);
                     ToolStripMenuItem tsmi = new ToolStripMenuItem(atImportFileLocation.ConvenientName)
                     {
-                        Tag = atImportFileLocation
+                        Tag = atImportFileLocation,
+                        ToolTipText = atImportFileLocation.FileLocation
                     };
                     tsmi.Click += SavegameImportClick;
                     importingFromSavegameToolStripMenuItem.DropDownItems.Add(tsmi);
