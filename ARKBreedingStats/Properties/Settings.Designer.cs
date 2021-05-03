@@ -1672,5 +1672,17 @@ namespace ARKBreedingStats.Properties {
                 this["SpeciesImagesFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ConsiderWastedStatsForTopCreatures {
+            get {
+                return ((bool)(this["ConsiderWastedStatsForTopCreatures"]));
+            }
+            set {
+                this["ConsiderWastedStatsForTopCreatures"] = value;
+            }
+        }
     }
 }

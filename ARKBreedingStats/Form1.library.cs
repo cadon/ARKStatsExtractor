@@ -4,6 +4,7 @@ using ARKBreedingStats.uiControls;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -367,14 +368,18 @@ namespace ARKBreedingStats
                 int usedStatsCount = usedStatIndices.Count;
                 int usedAndConsideredStatsCount = usedAndConsideredStatIndices.Count;
 
-                bool noCreaturesInThisSpecies = true;
-                foreach (Creature c in creatures)
+                // loop is 12 % faster than LINQ Where
+                var speciesCreatures = new List<Creature>();
+                foreach (var c in creatures)
                 {
-                    if (c.Species != species
-                        || c.flags.HasFlag(CreatureFlags.Placeholder))
-                        continue;
+                    if (c.Species == species && !c.flags.HasFlag(CreatureFlags.Placeholder))
+                        speciesCreatures.Add(c);
+                }
 
-                    noCreaturesInThisSpecies = false;
+                if (!speciesCreatures.Any()) continue;
+
+                foreach (var c in speciesCreatures)
+                {
                     // reset topBreeding stats for this creature
                     c.topBreedingStats = new bool[Values.STATS_COUNT];
                     c.topBreedingCreature = false;
@@ -413,10 +418,6 @@ namespace ARKBreedingStats
                         }
                     }
                 }
-                if (noCreaturesInThisSpecies)
-                {
-                    continue;
-                }
 
                 if (!_topLevels.ContainsKey(species))
                 {
@@ -436,9 +437,9 @@ namespace ARKBreedingStats
                     _lowestLevels[species] = lowestStat;
                 }
 
-                // beststat and bestcreatures now contain the best stats and creatures for each stat.
+                // bestStat and bestCreatures now contain the best stats and creatures for each stat.
 
-                // set topness of each creature (== mean wildlevels/mean top wildlevels in permille)
+                // set topness of each creature (== mean wildLevels/mean top wildLevels in permille)
                 int sumTopLevels = 0;
                 for (int s = 0; s < usedAndConsideredStatsCount; s++)
                 {
@@ -448,11 +449,8 @@ namespace ARKBreedingStats
                 }
                 if (sumTopLevels > 0)
                 {
-                    foreach (Creature c in creatures)
+                    foreach (var c in speciesCreatures)
                     {
-                        if (c.Species != species
-                            || c.flags.HasFlag(CreatureFlags.Placeholder))
-                            continue;
                         int sumCreatureLevels = 0;
                         for (int s = 0; s < usedAndConsideredStatsCount; s++)
                         {
@@ -471,13 +469,14 @@ namespace ARKBreedingStats
                         continue; // no creature has levelups in this stat or the stat is not used for this species
                     }
 
-                    if (bestCreatures[s].Count == 1)
+                    var crCount = bestCreatures[s].Count;
+                    if (crCount == 1)
                     {
                         bestCreatures[s][0].topBreedingCreature = true;
                         continue;
                     }
 
-                    for (int c = 0; c < bestCreatures[s].Count; c++)
+                    for (int c = 0; c < crCount; c++)
                     {
                         bestCreatures[s][c].topBreedingCreature = true;
                         if (bestCreatures[s][c].sex != Sex.Male)
@@ -495,7 +494,7 @@ namespace ARKBreedingStats
                         if (maxval > 1)
                         {
                             // check now if the other males have only 1.
-                            for (int oc = 0; oc < bestCreatures[s].Count; oc++)
+                            for (int oc = 0; oc < crCount; oc++)
                             {
                                 if (bestCreatures[s][oc].sex != Sex.Male)
                                     continue;
@@ -517,10 +516,6 @@ namespace ARKBreedingStats
                         }
                     }
                 }
-                if (noCreaturesInThisSpecies)
-                {
-                    continue;
-                }
 
                 // now we have a list of all candidates for breeding. Iterate on stats.
                 for (int s = 0; s < Values.STATS_COUNT; s++)
@@ -529,14 +524,17 @@ namespace ARKBreedingStats
                     {
                         for (int c = 0; c < bestCreatures[s].Count; c++)
                         {
-                            // flag topstats in creatures
+                            // flag topStats in creatures
                             bestCreatures[s][c].topBreedingStats[s] = true;
                         }
                     }
                 }
-                foreach (Creature c in creatures)
-                    c.SetTopStatCount(_considerStatHighlight);
             }
+
+            bool considerWastedStatsForTopCreatures = Properties.Settings.Default.ConsiderWastedStatsForTopCreatures;
+            foreach (Creature c in creatures)
+                c.SetTopStatCount(_considerStatHighlight, considerWastedStatsForTopCreatures);
+
             toolStripProgressBar1.Visible = false;
         }
 

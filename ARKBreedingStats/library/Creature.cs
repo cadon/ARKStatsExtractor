@@ -316,7 +316,12 @@ namespace ARKBreedingStats.Library
             }
         }
 
-        public void SetTopStatCount(bool[] considerStatHighlight)
+        /// <summary>
+        /// Sets the count of top stats according to the considered stat indices.
+        /// </summary>
+        /// <param name="considerStatHighlight"></param>
+        /// <param name="considerWastedStats">If false, stats that don't increase its wild value with levels don't make a creature non-top.</param>
+        public void SetTopStatCount(bool[] considerStatHighlight, bool considerWastedStats)
         {
             if (Species == null
                 || flags.HasFlag(CreatureFlags.Placeholder))
@@ -335,7 +340,7 @@ namespace ARKBreedingStats.Library
                     if (considerStatHighlight[s])
                         c++;
                 }
-                else if (onlyTopConsideredStats && considerStatHighlight[s] && Species.UsesStat(s) && Species.stats[s].IncPerWildLevel > 0)
+                else if (onlyTopConsideredStats && considerStatHighlight[s] && Species.UsesStat(s) && (considerWastedStats || Species.stats[s].IncPerWildLevel > 0))
                 {
                     onlyTopConsideredStats = false;
                 }

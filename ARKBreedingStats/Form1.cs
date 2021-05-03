@@ -2002,14 +2002,14 @@ namespace ARKBreedingStats
             using (Settings settingsForm = new Settings(_creatureCollection, page))
             {
                 bool libraryTopCreatureColorHighlight = Properties.Settings.Default.LibraryHighlightTopCreatures;
+                bool consdierWastedStatsForTopCreatures = Properties.Settings.Default.ConsiderWastedStatsForTopCreatures;
                 if (settingsForm.ShowDialog() == DialogResult.OK)
                 {
                     ApplySettingsToValues();
                     if (settingsForm.LanguageChanged) SetLocalizations();
                     CreatureColored.InitializeSpeciesImageLocation();
                     creatureBoxListView.CreatureCollection = _creatureCollection;
-                    _fileSync.ChangeFile(
-                        _currentFileName); // only to enable / disable the FileWatcher, filename is not changed
+                    _fileSync.ChangeFile(_currentFileName); // only to enable / disable the FileWatcher, filename is not changed
 
                     bool enableExportWatcher = Utils.GetFirstImportExportFolder(out string exportFolderDefault)
                                                && Properties.Settings.Default.AutoImportExportedCreatures;
@@ -2020,7 +2020,12 @@ namespace ARKBreedingStats
                     if (Properties.Settings.Default.DevTools)
                         statsMultiplierTesting1.CheckIfMultipliersAreEqualToSettings();
 
-                    if (libraryTopCreatureColorHighlight != Properties.Settings.Default.LibraryHighlightTopCreatures)
+                    bool recalculateTopStats = consdierWastedStatsForTopCreatures != Properties.Settings.Default.ConsiderWastedStatsForTopCreatures;
+                    if (recalculateTopStats)
+                        CalculateTopStats(_creatureCollection.creatures);
+
+                    if (recalculateTopStats
+                        || libraryTopCreatureColorHighlight != Properties.Settings.Default.LibraryHighlightTopCreatures)
                         FilterLibRecalculate();
 
                     SetOverlayLocation();
