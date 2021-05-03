@@ -422,5 +422,8 @@
     <Setting Name="ConsiderWastedStatsForTopCreatures" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="SaveFileImportUnclaimedBabies" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

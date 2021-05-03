@@ -1684,5 +1684,17 @@ namespace ARKBreedingStats.Properties {
                 this["ConsiderWastedStatsForTopCreatures"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SaveFileImportUnclaimedBabies {
+            get {
+                return ((bool)(this["SaveFileImportUnclaimedBabies"]));
+            }
+            set {
+                this["SaveFileImportUnclaimedBabies"] = value;
+            }
+        }
     }
 }

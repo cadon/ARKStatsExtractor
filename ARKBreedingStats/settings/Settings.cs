@@ -344,6 +344,7 @@ namespace ARKBreedingStats.settings
             textBoxImportTribeNameFilter.Text = Properties.Settings.Default.ImportTribeNameFilter;
             cbIgnoreUnknownBPOnSaveImport.Checked = Properties.Settings.Default.IgnoreUnknownBlueprintsOnSaveImport;
             cbSaveImportCryo.Checked = Properties.Settings.Default.SaveImportCryo;
+            CbImportUnclaimedBabies.Checked = Properties.Settings.Default.SaveFileImportUnclaimedBabies;
             #endregion
 
             #region Export for spreadsheet
@@ -548,6 +549,7 @@ namespace ARKBreedingStats.settings
 
             Properties.Settings.Default.IgnoreUnknownBlueprintsOnSaveImport = cbIgnoreUnknownBPOnSaveImport.Checked;
             Properties.Settings.Default.SaveImportCryo = cbSaveImportCryo.Checked;
+            Properties.Settings.Default.SaveFileImportUnclaimedBabies = CbImportUnclaimedBabies.Checked;
             #endregion
 
             #region Export for spreadsheet
