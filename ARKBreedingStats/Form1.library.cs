@@ -341,14 +341,17 @@ namespace ARKBreedingStats
         /// <param name="creatures">creatures to consider</param>
         private void CalculateTopStats(List<Creature> creatures)
         {
-            toolStripProgressBar1.Value = 0;
-            toolStripProgressBar1.Maximum = Values.V.speciesNames.Count;
-            toolStripProgressBar1.Visible = true;
+            var filteredCreaturesHash = Properties.Settings.Default.useFiltersInTopStatCalculation ? new HashSet<Creature>(ApplyLibraryFilterSettings(creatures)) : null;
 
-            var filteredCreatures = Properties.Settings.Default.useFiltersInTopStatCalculation ? ApplyLibraryFilterSettings(creatures).ToArray() : null;
-            foreach (Species species in Values.V.species)
+            var speciesCreaturesGroups = creatures.GroupBy(c => c.Species);
+
+            foreach (var g in speciesCreaturesGroups)
             {
-                toolStripProgressBar1.Value++;
+                var species = g.Key;
+                if (species == null)
+                    continue;
+                var speciesCreatures = g.ToArray();
+
                 List<int> usedStatIndices = new List<int>(Values.STATS_COUNT);
                 List<int> usedAndConsideredStatIndices = new List<int>(Values.STATS_COUNT);
                 int[] bestStat = new int[Values.STATS_COUNT];
@@ -368,16 +371,6 @@ namespace ARKBreedingStats
                 int usedStatsCount = usedStatIndices.Count;
                 int usedAndConsideredStatsCount = usedAndConsideredStatIndices.Count;
 
-                // loop is 12 % faster than LINQ Where
-                var speciesCreatures = new List<Creature>();
-                foreach (var c in creatures)
-                {
-                    if (c.Species == species && !c.flags.HasFlag(CreatureFlags.Placeholder))
-                        speciesCreatures.Add(c);
-                }
-
-                if (!speciesCreatures.Any()) continue;
-
                 foreach (var c in speciesCreatures)
                 {
                     // reset topBreeding stats for this creature
@@ -386,7 +379,7 @@ namespace ARKBreedingStats
 
                     if (
                         //if not in the filtered collection (using library filter settings), continue
-                        (filteredCreatures != null && !filteredCreatures.Contains(c))
+                        (filteredCreaturesHash != null && !filteredCreaturesHash.Contains(c))
                         // only consider creature if it's available for breeding
                         || !(c.Status == CreatureStatus.Available
                             || c.Status == CreatureStatus.Cryopod
@@ -534,8 +527,6 @@ namespace ARKBreedingStats
             bool considerWastedStatsForTopCreatures = Properties.Settings.Default.ConsiderWastedStatsForTopCreatures;
             foreach (Creature c in creatures)
                 c.SetTopStatCount(_considerStatHighlight, considerWastedStatsForTopCreatures);
-
-            toolStripProgressBar1.Visible = false;
         }
 
         /// <summary>
@@ -546,36 +537,24 @@ namespace ARKBreedingStats
         {
             List<Creature> placeholderAncestors = new List<Creature>();
 
+            var creatureGuids = _creatureCollection.creatures.ToDictionary(c => c.guid);
+
             foreach (Creature c in creatures)
             {
-                if (c.motherGuid != Guid.Empty || c.fatherGuid != Guid.Empty)
-                {
-                    Creature mother = null;
-                    Creature father = null;
-                    foreach (Creature p in _creatureCollection.creatures)
-                    {
-                        if (c.motherGuid != Guid.Empty && c.motherGuid == p.guid)
-                        {
-                            mother = p;
-                            if (father != null || c.fatherGuid == Guid.Empty)
-                                break;
-                        }
-                        else if (c.fatherGuid != Guid.Empty && c.fatherGuid == p.guid)
-                        {
-                            father = p;
-                            if (mother != null || c.motherGuid == Guid.Empty)
-                                break;
-                        }
-                    }
+                if (c.motherGuid == Guid.Empty && c.fatherGuid == Guid.Empty) continue;
 
-                    if (mother == null)
-                        mother = EnsurePlaceholderCreature(placeholderAncestors, c, c.motherArkId, c.motherGuid, c.motherName, Sex.Female);
-                    if (father == null)
-                        father = EnsurePlaceholderCreature(placeholderAncestors, c, c.fatherArkId, c.fatherGuid, c.fatherName, Sex.Male);
+                Creature mother = null;
+                if (c.motherGuid == Guid.Empty
+                    || !creatureGuids.TryGetValue(c.motherGuid, out mother))
+                    mother = EnsurePlaceholderCreature(placeholderAncestors, c, c.motherArkId, c.motherGuid, c.motherName, Sex.Female);
 
-                    c.Mother = mother;
-                    c.Father = father;
-                }
+                Creature father = null;
+                if (c.fatherGuid == Guid.Empty
+                    || !creatureGuids.TryGetValue(c.fatherGuid, out father))
+                    father = EnsurePlaceholderCreature(placeholderAncestors, c, c.fatherArkId, c.fatherGuid, c.fatherName, Sex.Male);
+
+                c.Mother = mother;
+                c.Father = father;
             }
 
             _creatureCollection.creatures.AddRange(placeholderAncestors);
