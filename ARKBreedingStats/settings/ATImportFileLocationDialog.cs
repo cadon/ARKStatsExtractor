@@ -10,7 +10,7 @@ namespace ARKBreedingStats.settings
         public ATImportFileLocation AtImportFileLocation
         {
             get => new ATImportFileLocation(textBox_ConvenientName.Text,
-                    textBox_ServerName.Text, textBox_FileLocation.Text);
+                    textBox_ServerName.Text, textBox_FileLocation.Text.Trim());
             set
             {
                 textBox_ConvenientName.Text = value.ConvenientName;
