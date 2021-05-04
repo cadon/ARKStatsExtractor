@@ -4,10 +4,8 @@ using ARKBreedingStats.uiControls;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.utils;
@@ -21,7 +19,7 @@ namespace ARKBreedingStats
     {
         /// <summary>
         /// Creatures filtered according to the library-filter.
-        /// Used so the live filter doesn't need to do the base filtering everytime.
+        /// Used so the live filter doesn't need to do the base filtering every time.
         /// </summary>
         private Creature[] _creaturesPreFiltered;
 
@@ -627,13 +625,9 @@ namespace ARKBreedingStats
             listViewLibrary.Items.Clear();
             listViewLibrary.Groups.Clear();
 
-            // add groups for each species (so they are sorted alphabetically)
-            foreach (Species s in Values.V.species)
-            {
-                listViewLibrary.Groups.Add(new ListViewGroup(s.name));
-            }
-
+            Dictionary<string, ListViewGroup> speciesGroups = new Dictionary<string, ListViewGroup>();
             List<ListViewItem> items = new List<ListViewItem>();
+
             foreach (Creature cr in creatures)
             {
                 // if species is unknown, don't display the creature
@@ -641,22 +635,17 @@ namespace ARKBreedingStats
                     continue;
 
                 // check if group of species exists
-                ListViewGroup g = null;
-                foreach (ListViewGroup lvg in listViewLibrary.Groups)
+                var spDesc = cr.Species.DescriptiveNameAndMod;
+                if (!speciesGroups.TryGetValue(spDesc, out var group))
                 {
-                    if (lvg.Header == cr.Species.DescriptiveNameAndMod)
-                    {
-                        g = lvg;
-                        break;
-                    }
+                    group = new ListViewGroup(spDesc);
+                    speciesGroups.Add(spDesc, group);
                 }
-                if (g == null)
-                {
-                    g = new ListViewGroup(cr.Species.DescriptiveNameAndMod);
-                    listViewLibrary.Groups.Add(g);
-                }
-                items.Add(CreateCreatureLVItem(cr, g));
+
+                items.Add(CreateCreatureLVItem(cr, group));
             }
+            // use species list as initial source to get the sorted order set by the user
+            listViewLibrary.Groups.AddRange(Values.V.species.Select(sp => sp.DescriptiveNameAndMod).Where(sp => speciesGroups.ContainsKey(sp)).Select(sp => speciesGroups[sp]).ToArray());
             listViewLibrary.Items.AddRange(items.ToArray());
             listViewLibrary.EndUpdate();
 
