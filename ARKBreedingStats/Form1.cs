@@ -790,7 +790,7 @@ namespace ARKBreedingStats
 
             // import exported menu
             importExportedCreaturesToolStripMenuItem.DropDownItems.Clear();
-            if (!(Properties.Settings.Default.ExportCreatureFolders?.Any() != true))
+            if (Properties.Settings.Default.ExportCreatureFolders?.Any() == true)
             {
                 foreach (string f in Properties.Settings.Default.ExportCreatureFolders)
                 {
@@ -803,8 +803,7 @@ namespace ARKBreedingStats
                                                                    + (string.IsNullOrEmpty(
                                                                        aTImportExportedFolderLocation.OwnerSuffix)
                                                                        ? string.Empty
-                                                                       : " - " + aTImportExportedFolderLocation
-                                                                           .OwnerSuffix))
+                                                                       : " - " + aTImportExportedFolderLocation.OwnerSuffix))
                     {
                         Tag = aTImportExportedFolderLocation
                     };
@@ -831,7 +830,11 @@ namespace ARKBreedingStats
                 foreach (string f in Properties.Settings.Default.arkSavegamePaths)
                 {
                     ATImportFileLocation atImportFileLocation = ATImportFileLocation.CreateFromString(f);
-                    ToolStripMenuItem tsmi = new ToolStripMenuItem(atImportFileLocation.ConvenientName)
+
+                    string menuItemHeader = string.IsNullOrEmpty(atImportFileLocation.ConvenientName)
+                        ? "<unnamed>"
+                        : atImportFileLocation.ConvenientName;
+                    ToolStripMenuItem tsmi = new ToolStripMenuItem(menuItemHeader)
                     {
                         Tag = atImportFileLocation,
                         ToolTipText = atImportFileLocation.FileLocation
