@@ -313,7 +313,7 @@ namespace ARKBreedingStats.ocr
             double[] finalValues = { 0 };
             if (ocrConfig == null)
             {
-                OcrText = "Error: OCR not configured";
+                OcrText = "Error: OCR not configured.\nYou can configure the OCR in the OCR-tab by loading or creating an OCR config-file.\nFor more details see the online manual.";
                 return finalValues;
             }
 
