@@ -630,7 +630,7 @@ namespace ARKBreedingStats.settings
             if (string.IsNullOrWhiteSpace(text)) return;
 
             // ignore lines that start with a semicolon (comments)
-            text = Regex.Replace(text, @"(?:\A|[\r\n]+);[^\r\n]*", "");
+            text = Regex.Replace(text, @"(?:\A|[\r\n]+);[^\r\n]*", string.Empty);
 
             double d;
             Match m;
@@ -640,6 +640,9 @@ namespace ARKBreedingStats.settings
             // if there are stat-multipliers, set all to the official-values first
             if (text.Contains("PerLevelStatsMultiplier_Dino"))
                 ApplyMultiplierPreset(Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official), onlyStatMultipliers: true);
+
+            // if an ini file is imported the server is most likely unofficial wit no level cap, if the server has a max level, it will be parsed.
+            nudMaxServerLevel.ValueSave = 0;
 
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
@@ -714,6 +717,12 @@ namespace ARKBreedingStats.settings
                     cb.Checked = m.Groups[1].Value.ToLower() == "true";
                 }
             }
+
+            // parse max dino levels. First occurrence is for the player, second for the creatures
+            var regexMaxLevelup = new Regex(@"LevelExperienceRampOverrides.*LevelExperienceRampOverrides ?= ?\(([^\)]+)", RegexOptions.Singleline);
+            m = regexMaxLevelup.Match(text);
+            if (!m.Success) return;
+            nudMaxDomLevels.ValueSave = Regex.Matches(m.Groups[1].Value, "ExperiencePointsForLevel").Count + 1;
         }
 
         private void Settings_Disposed(object sender, EventArgs e)
