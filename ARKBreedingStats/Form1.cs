@@ -2278,19 +2278,27 @@ namespace ARKBreedingStats
                 return possibleSpecies;
             }
 
+            // only consider species that can be domesticated and
+            // that only have an oxygen value if they display it
+            var speciesToCheck = Values.V.species
+                .Where(sp => sp.IsDomesticable && !(stats[(int)StatNames.Oxygen] != 0 ^ sp.DisplaysStat((int)StatNames.Oxygen)))
+                .OrderByDescending(sp => sp.variants?.Length ?? 0)
+                .ToArray();
             // if dice-coefficient is promising, just take that
-            var scores = Values.V.species.Where(sp => sp.IsDomesticable)
-                .Select(sp => new
-                {
-                    Score = DiceCoefficient.diceCoefficient(sp.name.Replace(" ", ""), speciesName.Replace(" ", "")),
-                    Species = sp
-                }).OrderByDescending(o => o.Score).ToArray();
             const double minimumScore = 0.5;
-            if (scores.First().Score > minimumScore)
+            var speciesWithoutSpaces = speciesName.Replace(" ", string.Empty);
+            var scores = speciesToCheck.Select(sp => (
+                Score: DiceCoefficient.diceCoefficient(sp.name.Replace(" ", string.Empty), speciesWithoutSpaces),
+                Species: sp
+                ))
+                .Where(s => s.Score > minimumScore)
+                .OrderByDescending(o => o.Score)
+                .ThenBy(o => o.Species.variants?.Length ?? 0)
+                .ToArray();
+
+            if (scores.Any() && scores.First().Score > minimumScore)
             {
-                possibleSpecies.AddRange(scores.Where(s => s.Score > minimumScore).Select(s => s.Species)
-                    .Where(sp => !(stats[(int)StatNames.Oxygen] != 0 ^ sp.DisplaysStat((int)StatNames.Oxygen)))
-                );
+                possibleSpecies.AddRange(scores.Select(s => s.Species));
                 return possibleSpecies;
             }
 
@@ -2301,14 +2309,10 @@ namespace ARKBreedingStats
                 return possibleSpecies;
             }
 
-            foreach (var species in Values.V.species.Where(sp => sp.IsDomesticable))
+            foreach (var species in speciesToCheck)
             {
                 if (species == speciesSelector1.SelectedSpecies)
                     continue; // the currently selected species is ignored here and set as top priority at the end
-
-                // if value for oxygen is given but current species doesn't display it, skip
-                if (stats[(int)StatNames.Oxygen] != 0 ^ species.DisplaysStat((int)StatNames.Oxygen))
-                    continue;
 
                 bool possible = true;
                 // check that all stats are possible (no negative levels)
@@ -2322,7 +2326,7 @@ namespace ARKBreedingStats
                     if (incWild > 0)
                     {
                         //possibleLevel = ((statIOs[s].Input - species.stats[s].AddWhenTamed) - baseValue) / (baseValue * incWild); // this fails if creature is wild
-                        possibleLevel = (_statIOs[s].Input - baseValue) / (baseValue * incWild);
+                        possibleLevel = (_statIOs[s].Input * (s == 0 && (species.TamedBaseHealthMultiplier ?? 1) < 1 ? 1 / species.TamedBaseHealthMultiplier.Value : 1) - baseValue) / (baseValue * incWild);
 
                         if (possibleLevel < 0)
                         {
@@ -2340,10 +2344,10 @@ namespace ARKBreedingStats
                 incWild = species.stats[(int)StatNames.Torpidity].IncPerWildLevel;
 
                 possibleLevel =
-                    (_statIOs[(int)StatNames.Torpidity].Input - species.stats[(int)StatNames.Torpidity].AddWhenTamed -
+                    (stats[(int)StatNames.Torpidity] - species.stats[(int)StatNames.Torpidity].AddWhenTamed -
                      baseValue) / (baseValue * incWild);
                 double possibleLevelWild =
-                    (_statIOs[(int)StatNames.Torpidity].Input - baseValue) / (baseValue * incWild);
+                    (stats[(int)StatNames.Torpidity] - baseValue) / (baseValue * incWild);
 
                 if (possibleLevelWild < 0 || Math.Round(possibleLevel, 3) > (double)numericUpDownLevel.Value - 1 ||
                     Math.Round(possibleLevel, 3) % 1 > 0.001 && Math.Round(possibleLevelWild, 3) % 1 > 0.001)
@@ -2365,21 +2369,21 @@ namespace ARKBreedingStats
                 */
 
                 // now oxygen
-                baseValue = species.stats[(int)StatNames.Oxygen].BaseValue;
-                incWild = species.stats[(int)StatNames.Oxygen].IncPerWildLevel;
-                possibleLevel =
-                    (_statIOs[(int)StatNames.Oxygen].Input - species.stats[(int)StatNames.Oxygen].AddWhenTamed -
-                     baseValue) / (baseValue * incWild);
+                if (species.UsesStat((int)StatNames.Oxygen))
+                {
+                    baseValue = species.stats[(int)StatNames.Oxygen].BaseValue;
+                    incWild = species.stats[(int)StatNames.Oxygen].IncPerWildLevel;
+                    possibleLevel =
+                        (stats[(int)StatNames.Oxygen] - species.stats[(int)StatNames.Oxygen].AddWhenTamed -
+                         baseValue) / (baseValue * incWild);
 
-                if (possibleLevel < 0 || possibleLevel > (double)numericUpDownLevel.Value - 1)
-                    continue;
+                    if (possibleLevel < 0 || possibleLevel > (double)numericUpDownLevel.Value - 1)
+                        continue;
 
-                if (Math.Round(possibleLevel, 3) != (int)possibleLevel ||
-                    possibleLevel > (double)numericUpDownLevel.Value / 2)
-                    likely = false;
-
-                if (_statIOs[(int)StatNames.Oxygen].Input != 0 && baseValue == 0)
-                    likely = false; // having an oxygen value for non-oxygen dino is a disqualifier
+                    if (Math.Round(possibleLevel, 3) != (int)possibleLevel ||
+                        possibleLevel > (double)numericUpDownLevel.Value / 2)
+                        likely = false;
+                }
 
                 if (likely)
                     possibleSpecies.Insert(0, species); // insert species at top
