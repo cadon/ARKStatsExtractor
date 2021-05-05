@@ -15,7 +15,7 @@ namespace ARKBreedingStats.multiplierTesting
     {
         public event Action OnApplyMultipliers;
 
-        private readonly List<StatMultiplierTestingControl> _statControls;
+        private readonly StatMultiplierTestingControl[] _statControls;
         private CreatureCollection _cc;
         private Species _selectedSpecies;
         private Nud _fineAdjustmentsNud;
@@ -26,20 +26,17 @@ namespace ARKBreedingStats.multiplierTesting
         {
             InitializeComponent();
 
-            _statControls = new List<StatMultiplierTestingControl>();
+            _statControls = new StatMultiplierTestingControl[Values.STATS_COUNT];
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                var sc = new StatMultiplierTestingControl
-                {
-                    StatName = $"[{s}]{Utils.StatName(s, true)}"
-                };
+                var sc = new StatMultiplierTestingControl();
                 if (Utils.Precision(s) == 3)
                     sc.Percent = true;
                 sc.OnLevelChanged += Sc_OnLevelChanged;
                 sc.OnTECalculated += SetTE;
                 sc.OnIBCalculated += SetIB;
                 sc.OnIBMCalculated += SetIBM;
-                _statControls.Add(sc);
+                _statControls[s] = sc;
             }
             // add controls in order like in-game
             for (int s = 0; s < Values.STATS_COUNT; s++)
@@ -216,29 +213,26 @@ namespace ARKBreedingStats.multiplierTesting
 
         public void SetSpecies(Species species, bool forceUpdate = false)
         {
-            if (species != null
-                && (forceUpdate
-                    || (_selectedSpecies != species && cbUpdateOnSpeciesChange.Checked)
-                    )
-                )
+            if (species == null ||
+                (!forceUpdate && (_selectedSpecies == species || !cbUpdateOnSpeciesChange.Checked))) return;
+
+            _selectedSpecies = species;
+            LbBlueprintPath.Text = $"BlueprintPath: {species.blueprintPath}";
+
+            double?[][] customStatOverrides = null;
+            bool customStatsAvailable =
+                _cc?.CustomSpeciesStats?.TryGetValue(species.blueprintPath, out customStatOverrides) ?? false;
+
+            for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                _selectedSpecies = species;
-                LbBlueprintPath.Text = $"BlueprintPath: {species.blueprintPath}";
-
-                double?[][] customStatOverrides = null;
-                bool customStatsAvailable =
-                    _cc?.CustomSpeciesStats?.TryGetValue(species.blueprintPath, out customStatOverrides) ?? false;
-
-                for (int s = 0; s < Values.STATS_COUNT; s++)
-                {
-                    _statControls[s].SetStatValues(_selectedSpecies.fullStatsRaw[s], customStatsAvailable ? customStatOverrides?[s] : null,
-                        _selectedSpecies.altBaseStatsRaw != null && _selectedSpecies.altBaseStatsRaw.TryGetValue(s, out var altV) ? altV / _selectedSpecies.fullStatsRaw[s][0] : 1,
-                         !CbAllowFlyerSpeedLeveling.Checked && species.isFlyer && s == (int)StatNames.SpeedMultiplier);
-                    _statControls[s].StatImprintingBonusMultiplier = customStatsAvailable ? customStatOverrides?[Values.STATS_COUNT]?[s] ?? _selectedSpecies.StatImprintMultipliers[s] : _selectedSpecies.StatImprintMultipliers[s];
-                    _statControls[s].Visible = species.UsesStat(s);
-                }
-                _statControls[(int)StatNames.Health].TBHM = _selectedSpecies.TamedBaseHealthMultiplier;
+                _statControls[s].SetStatValues(_selectedSpecies.fullStatsRaw[s], customStatsAvailable ? customStatOverrides?[s] : null,
+                    _selectedSpecies.altBaseStatsRaw != null && _selectedSpecies.altBaseStatsRaw.TryGetValue(s, out var altV) ? altV / _selectedSpecies.fullStatsRaw[s][0] : 1,
+                    !CbAllowFlyerSpeedLeveling.Checked && species.isFlyer && s == (int)StatNames.SpeedMultiplier);
+                _statControls[s].StatImprintingBonusMultiplier = customStatsAvailable ? customStatOverrides?[Values.STATS_COUNT]?[s] ?? _selectedSpecies.StatImprintMultipliers[s] : _selectedSpecies.StatImprintMultipliers[s];
+                _statControls[s].Visible = species.UsesStat(s);
+                _statControls[s].StatName = $"[{s}]{Utils.StatName(s, true, species.statNames)}";
             }
+            _statControls[(int)StatNames.Health].TBHM = _selectedSpecies.TamedBaseHealthMultiplier;
         }
 
         private void btUpdateSpecies_Click(object sender, EventArgs e)

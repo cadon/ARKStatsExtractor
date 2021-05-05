@@ -885,7 +885,6 @@
             this.Controls.Add(this.btCalculateIwM);
             this.Controls.Add(this.btCalculateWildLevel);
             this.Controls.Add(this.lPercent);
-            this.Controls.Add(this.lStatName);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.tbV);
             this.Controls.Add(this.label2);
@@ -905,6 +904,7 @@
             this.Controls.Add(this.tbVw);
             this.Controls.Add(this.nudLd);
             this.Controls.Add(this.nudLw);
+            this.Controls.Add(this.lStatName);
             this.Name = "StatMultiplierTestingControl";
             this.Size = new System.Drawing.Size(1053, 75);
             this.contextMenuStrip1.ResumeLayout(false);
