@@ -2282,7 +2282,6 @@ namespace ARKBreedingStats
             // that only have an oxygen value if they display it
             var speciesToCheck = Values.V.species
                 .Where(sp => sp.IsDomesticable && !(stats[(int)StatNames.Oxygen] != 0 ^ sp.DisplaysStat((int)StatNames.Oxygen)))
-                .OrderByDescending(sp => sp.variants?.Length ?? 0)
                 .ToArray();
             // if dice-coefficient is promising, just take that
             const double minimumScore = 0.5;
@@ -2293,6 +2292,7 @@ namespace ARKBreedingStats
                 ))
                 .Where(s => s.Score > minimumScore)
                 .OrderByDescending(o => o.Score)
+                .ThenBy(o => o.Species.Mod == null) // prefer mod species
                 .ThenBy(o => o.Species.variants?.Length ?? 0)
                 .ToArray();
 
@@ -2308,6 +2308,12 @@ namespace ARKBreedingStats
                 possibleSpecies.Add(speciesSelector1.SelectedSpecies);
                 return possibleSpecies;
             }
+
+            // later species are higher in the final order, so put unlikely variants first
+            speciesToCheck = speciesToCheck
+                .OrderBy(sp => sp.Mod != null) // prefer the mod variant, i.e. put them at the end
+                .ThenByDescending(sp => sp.variants?.Length ?? 0)
+                .ToArray();
 
             foreach (var species in speciesToCheck)
             {
