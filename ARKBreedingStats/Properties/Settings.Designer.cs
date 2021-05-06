@@ -1696,5 +1696,17 @@ namespace ARKBreedingStats.Properties {
                 this["SaveFileImportUnclaimedBabies"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool OcrGuessSpecies {
+            get {
+                return ((bool)(this["OcrGuessSpecies"]));
+            }
+            set {
+                this["OcrGuessSpecies"] = value;
+            }
+        }
     }
 }

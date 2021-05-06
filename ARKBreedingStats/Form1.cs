@@ -328,6 +328,7 @@ namespace ARKBreedingStats
 
             // OCR
             ocrControl1.Initialize();
+            cbGuessSpecies.Checked = Properties.Settings.Default.OcrGuessSpecies;
 
             // initialize speech recognition if enabled
             InitializeSpeechRecognition();
@@ -1247,6 +1248,8 @@ namespace ARKBreedingStats
             // Save column-widths, display-indices and sort-order of the listViewLibrary
             SaveListViewSettings(listViewLibrary, "columnWidths", "libraryColumnDisplayIndices", "listViewSortCol",
                 "listViewSortAsc");
+
+            Properties.Settings.Default.OcrGuessSpecies = cbGuessSpecies.Checked;
 
             // save custom statweights
             List<string> custWs = new List<string>();
