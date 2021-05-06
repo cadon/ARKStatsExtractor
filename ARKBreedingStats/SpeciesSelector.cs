@@ -20,6 +20,11 @@ namespace ARKBreedingStats
         public event Action<bool> OnSpeciesSelected;
 
         /// <summary>
+        /// Toggles the visibility of this control.
+        /// </summary>
+        public event Action<bool> ToggleVisibility;
+
+        /// <summary>
         /// The currently selected species
         /// </summary>
         public Species SelectedSpecies { get; private set; }
@@ -33,6 +38,8 @@ namespace ARKBreedingStats
         /// The TextBox control for the species searching which is outside of this control.
         /// </summary>
         private TextBoxSuggest _textBox;
+
+        private bool _ignoreTextBoxChange;
 
         /// <summary>
         /// List of species-blueprintPaths last used by the user
@@ -265,6 +272,9 @@ namespace ARKBreedingStats
                 }
             }
             lvSpeciesList.EndUpdate();
+
+            if (!Visible && !inputIsEmpty)
+                ToggleVisibility?.Invoke(true);
         }
 
         private void lvSpeciesList_SelectedIndexChanged(object sender, EventArgs e)
@@ -289,22 +299,36 @@ namespace ARKBreedingStats
         /// Sets the species with the speciesName. This may not be unique.
         /// </summary>
         /// <param name="speciesName"></param>
-        public void SetSpeciesByName(string speciesName)
+        /// <returns>True if the species was recognized and was already or is set.</returns>
+        public bool SetSpeciesByName(string speciesName)
         {
             if (Values.V.TryGetSpeciesByName(speciesName, out Species species))
             {
-                SetSpecies(species);
+                var speciesWasSet = SetSpecies(species);
+                if (speciesWasSet)
+                {
+                    _ignoreTextBoxChange = true;
+                    _textBox.Text = species.name;
+                    _ignoreTextBoxChange = false;
+                }
+                return speciesWasSet;
             }
+
+            return false;
         }
 
-        public void SetSpecies(Species species, bool alsoTriggerOnSameSpecies = false, bool ignoreInRecent = false)
+        /// <summary>
+        /// Set the current species.
+        /// </summary>
+        /// <returns>True if the species was recognized and was or is set.</returns>
+        public bool SetSpecies(Species species, bool alsoTriggerOnSameSpecies = false, bool ignoreInRecent = false)
         {
-            if (species == null) return;
+            if (species == null) return false;
             if (SelectedSpecies == species)
             {
                 if (alsoTriggerOnSameSpecies)
                     OnSpeciesSelected?.Invoke(false);
-                return;
+                return true;
             }
 
             if (!ignoreInRecent)
@@ -321,6 +345,7 @@ namespace ARKBreedingStats
             SelectedSpecies = species;
 
             OnSpeciesSelected?.Invoke(true);
+            return true;
         }
 
         public void SetTextBox(TextBoxSuggest textbox)
@@ -331,7 +356,8 @@ namespace ARKBreedingStats
 
         private void Textbox_TextChanged(object sender, EventArgs e)
         {
-            _speciesChangeDebouncer.Debounce(300, FilterListWithUnselectedText, Dispatcher.CurrentDispatcher);
+            if (!_ignoreTextBoxChange)
+                _speciesChangeDebouncer.Debounce(300, FilterListWithUnselectedText, Dispatcher.CurrentDispatcher);
         }
 
         public string[] LastSpecies
@@ -386,7 +412,7 @@ namespace ARKBreedingStats
             set => splitContainer2.SplitterDistance = value;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void BtVariantFilter_Click(object sender, EventArgs e)
         {
             VariantSelector.InitializeCheckStates();
             if (VariantSelector.ShowDialog() == DialogResult.OK)

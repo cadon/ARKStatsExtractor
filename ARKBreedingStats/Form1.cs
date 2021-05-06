@@ -166,6 +166,7 @@ namespace ARKBreedingStats
             creatureInfoInputExtractor.ColorsChanged += CreatureInfoInputExtractor_ColorsChanged;
             creatureInfoInputTester.ColorsChanged += CreatureInfoInputExtractor_ColorsChanged;
             speciesSelector1.OnSpeciesSelected += SpeciesSelector1OnSpeciesSelected;
+            speciesSelector1.ToggleVisibility += ToggleViewSpeciesSelector;
             statsMultiplierTesting1.OnApplyMultipliers += StatsMultiplierTesting1_OnApplyMultipliers;
             raisingControl1.AdjustTimersByOffset += timerList1.AdjustAllTimersByOffset;
 
@@ -582,10 +583,9 @@ namespace ARKBreedingStats
 
         private void TbSpeciesGlobal_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Tab)
-            {
-                speciesSelector1.SetSpeciesByName(tbSpeciesGlobal.Text);
-            }
+            if (e.KeyCode != Keys.Enter && e.KeyCode != Keys.Tab) return;
+            if (speciesSelector1.SetSpeciesByName(tbSpeciesGlobal.Text))
+                ToggleViewSpeciesSelector(false);
         }
 
         // global species changed / globalspecieschanged

@@ -659,8 +659,8 @@ namespace ARKBreedingStats.values
                         nameToSpecies.Add(name, s);
                     else if (
                         (!existingSpecies.IsDomesticable && s.IsDomesticable) // prefer species that are domesticable
-                        || (existingSpecies.variants != null && existingSpecies.variants.Any() && (s.variants == null || !s.variants.Any())) // prefer species that are not variants
                         || (existingSpecies.Mod == null && s.Mod != null) // prefer species from mods with the same name
+                        || ((existingSpecies.variants?.Length ?? 0) > (s.variants?.Length ?? 0)) // prefer species that are not variants
                         )
                     {
                         nameToSpecies[name] = s;
