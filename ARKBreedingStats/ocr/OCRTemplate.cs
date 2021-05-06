@@ -119,7 +119,7 @@ namespace ARKBreedingStats.ocr
         /// </summary>
         public enum OcrLabels
         {
-            Health, Stamina, Oxygen, Food, Weight, MeleeDamage, MovementSpeed, Torpor, Imprinting, Level, NameSpecies, Tribe, Owner
+            Health, Stamina, Oxygen, Food, Weight, MeleeDamage, MovementSpeed, Torpidity, Imprinting, Level, NameSpecies, Tribe, Owner
         }
     }
 }
