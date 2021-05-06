@@ -1305,7 +1305,7 @@ namespace ARKBreedingStats
             this.tabControlMain.Location = new System.Drawing.Point(0, 103);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 1;
-            this.tabControlMain.Size = new System.Drawing.Size(1134, 756);
+            this.tabControlMain.Size = new System.Drawing.Size(1134, 775);
             this.tabControlMain.TabIndex = 3;
             this.tabControlMain.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -1323,14 +1323,14 @@ namespace ARKBreedingStats
             this.tabPageStatTesting.Location = new System.Drawing.Point(4, 22);
             this.tabPageStatTesting.Name = "tabPageStatTesting";
             this.tabPageStatTesting.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageStatTesting.Size = new System.Drawing.Size(1126, 730);
+            this.tabPageStatTesting.Size = new System.Drawing.Size(1126, 749);
             this.tabPageStatTesting.TabIndex = 1;
             this.tabPageStatTesting.Text = "Stat Testing";
             this.tabPageStatTesting.UseVisualStyleBackColor = true;
             // 
             // pictureBoxColorRegionsTester
             // 
-            this.pictureBoxColorRegionsTester.Location = new System.Drawing.Point(589, 470);
+            this.pictureBoxColorRegionsTester.Location = new System.Drawing.Point(589, 489);
             this.pictureBoxColorRegionsTester.Name = "pictureBoxColorRegionsTester";
             this.pictureBoxColorRegionsTester.Size = new System.Drawing.Size(256, 256);
             this.pictureBoxColorRegionsTester.TabIndex = 13;
@@ -1565,7 +1565,7 @@ namespace ARKBreedingStats
         0,
         0,
         0};
-            this.creatureInfoInputTester.Size = new System.Drawing.Size(262, 542);
+            this.creatureInfoInputTester.Size = new System.Drawing.Size(262, 561);
             this.creatureInfoInputTester.TabIndex = 4;
             this.creatureInfoInputTester.TribeLock = false;
             this.creatureInfoInputTester.Add2LibraryClicked += new System.Action<ARKBreedingStats.CreatureInfoInput>(this.creatureInfoInputTester_Add2Library_Clicked);
@@ -1638,7 +1638,7 @@ namespace ARKBreedingStats
             // 
             // PbCreatureColorsExtractor
             // 
-            this.PbCreatureColorsExtractor.Location = new System.Drawing.Point(589, 470);
+            this.PbCreatureColorsExtractor.Location = new System.Drawing.Point(589, 489);
             this.PbCreatureColorsExtractor.Name = "PbCreatureColorsExtractor";
             this.PbCreatureColorsExtractor.Size = new System.Drawing.Size(256, 256);
             this.PbCreatureColorsExtractor.TabIndex = 51;
@@ -1839,7 +1839,7 @@ namespace ARKBreedingStats
         0,
         0,
         0};
-            this.creatureInfoInputExtractor.Size = new System.Drawing.Size(262, 542);
+            this.creatureInfoInputExtractor.Size = new System.Drawing.Size(262, 561);
             this.creatureInfoInputExtractor.TabIndex = 7;
             this.creatureInfoInputExtractor.TribeLock = false;
             this.creatureInfoInputExtractor.Add2LibraryClicked += new System.Action<ARKBreedingStats.CreatureInfoInput>(this.creatureInfoInputExtractor_Add2Library_Clicked);
@@ -2773,7 +2773,7 @@ namespace ARKBreedingStats
             this.toolStripProgressBar1,
             this.toolStripStatusLabel,
             this.ToolStripStatusLabelImport});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 859);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 878);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1134, 22);
             this.statusStrip1.TabIndex = 44;
@@ -3164,7 +3164,7 @@ namespace ARKBreedingStats
             this.speciesSelector1.LastSpecies = new string[0];
             this.speciesSelector1.Location = new System.Drawing.Point(0, 103);
             this.speciesSelector1.Name = "speciesSelector1";
-            this.speciesSelector1.Size = new System.Drawing.Size(1134, 756);
+            this.speciesSelector1.Size = new System.Drawing.Size(1134, 775);
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
@@ -3174,7 +3174,7 @@ namespace ARKBreedingStats
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1134, 881);
+            this.ClientSize = new System.Drawing.Size(1134, 900);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.speciesSelector1);
             this.Controls.Add(this.panelToolBar);

@@ -81,6 +81,8 @@ namespace ARKBreedingStats
             this.lbOwner = new System.Windows.Forms.Label();
             this.lbName = new System.Windows.Forms.Label();
             this.btAdd2Library = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.gbCreatureInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsFather)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsMother)).BeginInit();
@@ -89,6 +91,8 @@ namespace ARKBreedingStats
             // 
             // gbCreatureInfo
             // 
+            this.gbCreatureInfo.Controls.Add(this.label2);
+            this.gbCreatureInfo.Controls.Add(this.label1);
             this.gbCreatureInfo.Controls.Add(this.BtApplyOTSPreset);
             this.gbCreatureInfo.Controls.Add(this.BtSaveOTSPreset);
             this.gbCreatureInfo.Controls.Add(this.btNamingPattern6);
@@ -142,7 +146,7 @@ namespace ARKBreedingStats
             this.gbCreatureInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbCreatureInfo.Location = new System.Drawing.Point(0, 0);
             this.gbCreatureInfo.Name = "gbCreatureInfo";
-            this.gbCreatureInfo.Size = new System.Drawing.Size(262, 542);
+            this.gbCreatureInfo.Size = new System.Drawing.Size(262, 561);
             this.gbCreatureInfo.TabIndex = 0;
             this.gbCreatureInfo.TabStop = false;
             this.gbCreatureInfo.Text = "Creature-info";
@@ -596,7 +600,7 @@ namespace ARKBreedingStats
             // btSaveChanges
             // 
             this.btSaveChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btSaveChanges.Location = new System.Drawing.Point(6, 499);
+            this.btSaveChanges.Location = new System.Drawing.Point(6, 518);
             this.btSaveChanges.Name = "btSaveChanges";
             this.btSaveChanges.Size = new System.Drawing.Size(124, 37);
             this.btSaveChanges.TabIndex = 20;
@@ -657,7 +661,7 @@ namespace ARKBreedingStats
             // btAdd2Library
             // 
             this.btAdd2Library.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btAdd2Library.Location = new System.Drawing.Point(6, 499);
+            this.btAdd2Library.Location = new System.Drawing.Point(6, 518);
             this.btAdd2Library.Name = "btAdd2Library";
             this.btAdd2Library.Size = new System.Drawing.Size(250, 37);
             this.btAdd2Library.TabIndex = 21;
@@ -665,13 +669,34 @@ namespace ARKBreedingStats
             this.btAdd2Library.UseVisualStyleBackColor = true;
             this.btAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Gold;
+            this.label1.Location = new System.Drawing.Point(160, 499);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(96, 13);
+            this.label1.TabIndex = 51;
+            this.label1.Text = "new in this species";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.DarkGreen;
+            this.label2.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label2.Location = new System.Drawing.Point(65, 499);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(89, 13);
+            this.label2.TabIndex = 52;
+            this.label2.Text = "new in this region";
+            // 
             // CreatureInfoInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.gbCreatureInfo);
             this.Name = "CreatureInfoInput";
-            this.Size = new System.Drawing.Size(262, 542);
+            this.Size = new System.Drawing.Size(262, 561);
             this.gbCreatureInfo.ResumeLayout(false);
             this.gbCreatureInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsFather)).EndInit();
@@ -734,5 +759,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.Button btNamingPattern2;
         private System.Windows.Forms.Button BtApplyOTSPreset;
         private System.Windows.Forms.Button BtSaveOTSPreset;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }
