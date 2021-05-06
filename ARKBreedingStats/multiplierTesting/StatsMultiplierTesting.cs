@@ -4,7 +4,6 @@ using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.values;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
@@ -474,7 +473,7 @@ namespace ARKBreedingStats.multiplierTesting
             if (Utils.ShowTextInput("Dom Level", out string nr, "", "0") && int.TryParse(nr, out int lv))
             {
                 for (int s = 0; s < Values.STATS_COUNT; s++)
-                    if (_selectedSpecies.UsesStat(s)) _statControls[s].LevelDom = lv;
+                    if (_selectedSpecies.UsesStat(s) && s != (int)StatNames.Torpidity) _statControls[s].LevelDom = lv;
             }
         }
 
