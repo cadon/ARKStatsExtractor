@@ -381,11 +381,7 @@ namespace ARKBreedingStats.ocr
                 Win32API.SetForegroundWindow(Application.OpenForms[0].Handle);
 
             HammingWeight.InitializeBitCounts();
-
-            // TODO OCR performance measurement
-            //var sw = new Stopwatch();
-            //sw.Start();
-
+            
             var whiteThreshold = Properties.Settings.Default.OCRWhiteThreshold;
 
             bool wild = false; // todo: set to true and find out if the creature is wild in the first loop
@@ -570,11 +566,7 @@ namespace ARKBreedingStats.ocr
             }
 
             OcrText = finishedText;
-
-            // TODO OCR performance output
-            //sw.Stop();
-            //Debug.WriteLine($"OCR took {sw.ElapsedMilliseconds} ms.");
-
+            
             // TODO reorder stats to match 12-stats-order
 
             return finalValues;
