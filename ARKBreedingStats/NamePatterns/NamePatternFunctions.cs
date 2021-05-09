@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
+using ARKBreedingStats.utils;
 
-namespace ARKBreedingStats.utils
+namespace ARKBreedingStats.NamePatterns
 {
     /// <summary>
     /// Functions used in name patterns to name creatures.

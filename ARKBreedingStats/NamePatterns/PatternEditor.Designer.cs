@@ -1,4 +1,4 @@
-﻿namespace ARKBreedingStats.uiControls
+﻿namespace ARKBreedingStats.NamePatterns
 {
     partial class PatternEditor
     {
@@ -35,14 +35,22 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.TbFilterFunctions = new System.Windows.Forms.TextBox();
+            this.BtClearFilterFunctions = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbPreview = new System.Windows.Forms.CheckBox();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.TbFilterKeys = new System.Windows.Forms.TextBox();
+            this.BtClearFilterKey = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -111,9 +119,11 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.panel3, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.linkLabel1, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.linkLabel1, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -121,22 +131,40 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(702, 630);
             this.tableLayoutPanel1.TabIndex = 7;
             // 
-            // linkLabel1
+            // panel3
             // 
-            this.linkLabel1.AutoSize = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.linkLabel1, 2);
-            this.linkLabel1.Location = new System.Drawing.Point(3, 78);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(185, 13);
-            this.linkLabel1.TabIndex = 10;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "More infos about the Name-Generator";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.panel3.Controls.Add(this.TbFilterFunctions);
+            this.panel3.Controls.Add(this.BtClearFilterFunctions);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(354, 101);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(345, 20);
+            this.panel3.TabIndex = 14;
+            // 
+            // TbFilterFunctions
+            // 
+            this.TbFilterFunctions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TbFilterFunctions.Location = new System.Drawing.Point(0, 0);
+            this.TbFilterFunctions.Name = "TbFilterFunctions";
+            this.TbFilterFunctions.Size = new System.Drawing.Size(325, 20);
+            this.TbFilterFunctions.TabIndex = 11;
+            this.TbFilterFunctions.TextChanged += new System.EventHandler(this.TbFilterFunctions_TextChanged);
+            // 
+            // BtClearFilterFunctions
+            // 
+            this.BtClearFilterFunctions.Dock = System.Windows.Forms.DockStyle.Right;
+            this.BtClearFilterFunctions.Location = new System.Drawing.Point(325, 0);
+            this.BtClearFilterFunctions.Name = "BtClearFilterFunctions";
+            this.BtClearFilterFunctions.Size = new System.Drawing.Size(20, 20);
+            this.BtClearFilterFunctions.TabIndex = 12;
+            this.BtClearFilterFunctions.Text = "×";
+            this.BtClearFilterFunctions.UseVisualStyleBackColor = true;
+            this.BtClearFilterFunctions.Click += new System.EventHandler(this.BtClearFilterFunctions_Click);
             // 
             // panel1
             // 
@@ -172,6 +200,48 @@
             this.cbPreview.TabIndex = 11;
             this.cbPreview.UseVisualStyleBackColor = true;
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.linkLabel1, 2);
+            this.linkLabel1.Location = new System.Drawing.Point(3, 78);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(185, 13);
+            this.linkLabel1.TabIndex = 10;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "More infos about the Name-Generator";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.TbFilterKeys);
+            this.panel2.Controls.Add(this.BtClearFilterKey);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(3, 101);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(345, 20);
+            this.panel2.TabIndex = 13;
+            // 
+            // TbFilterKeys
+            // 
+            this.TbFilterKeys.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TbFilterKeys.Location = new System.Drawing.Point(0, 0);
+            this.TbFilterKeys.Name = "TbFilterKeys";
+            this.TbFilterKeys.Size = new System.Drawing.Size(325, 20);
+            this.TbFilterKeys.TabIndex = 11;
+            this.TbFilterKeys.TextChanged += new System.EventHandler(this.TbFilterKeys_TextChanged);
+            // 
+            // BtClearFilterKey
+            // 
+            this.BtClearFilterKey.Dock = System.Windows.Forms.DockStyle.Right;
+            this.BtClearFilterKey.Location = new System.Drawing.Point(325, 0);
+            this.BtClearFilterKey.Name = "BtClearFilterKey";
+            this.BtClearFilterKey.Size = new System.Drawing.Size(20, 20);
+            this.BtClearFilterKey.TabIndex = 12;
+            this.BtClearFilterKey.Text = "×";
+            this.BtClearFilterKey.UseVisualStyleBackColor = true;
+            this.BtClearFilterKey.Click += new System.EventHandler(this.BtClearFilterKey_Click);
+            // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -206,9 +276,13 @@
             this.TopMost = true;
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -231,5 +305,11 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox cbPreview;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.TextBox TbFilterFunctions;
+        private System.Windows.Forms.Button BtClearFilterFunctions;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TextBox TbFilterKeys;
+        private System.Windows.Forms.Button BtClearFilterKey;
     }
 }

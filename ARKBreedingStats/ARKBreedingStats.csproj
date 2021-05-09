@@ -78,6 +78,9 @@
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
+    <Compile Include="NamePatterns\NamePatternEntry.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Updater\AsbManifest.cs" />
     <Compile Include="Updater\AsbModule.cs" />
     <Compile Include="duplicates\MergingDuplicates.cs" />
@@ -361,7 +364,7 @@
     <Compile Include="uiControls\MultiSetterTag.Designer.cs">
       <DependentUpon>MultiSetterTag.cs</DependentUpon>
     </Compile>
-    <Compile Include="uiControls\NamePatterns.cs" />
+    <Compile Include="NamePatterns\NamePattern.cs" />
     <Compile Include="uiControls\Nud.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -371,10 +374,10 @@
     <Compile Include="uiControls\ParentInheritance.Designer.cs">
       <DependentUpon>ParentInheritance.cs</DependentUpon>
     </Compile>
-    <Compile Include="uiControls\PatternEditor.cs">
+    <Compile Include="NamePatterns\PatternEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="uiControls\PatternEditor.Designer.cs">
+    <Compile Include="NamePatterns\PatternEditor.Designer.cs">
       <DependentUpon>PatternEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="uiControls\RegionColorChooser.cs">
@@ -583,7 +586,7 @@
     <Compile Include="utils\ExportFolderLocation.cs" />
     <Compile Include="utils\ExtensionMethods.cs" />
     <Compile Include="utils\MessageBoxes.cs" />
-    <Compile Include="utils\NamePatternFunctions.cs" />
+    <Compile Include="NamePatterns\NamePatternFunctions.cs" />
     <Compile Include="utils\RepositoryInfo.cs" />
     <Compile Include="utils\SoundFeedback.cs" />
     <Compile Include="utils\Themes.cs" />
@@ -740,7 +743,7 @@
     <EmbeddedResource Include="uiControls\MultiSetterTag.resx">
       <DependentUpon>MultiSetterTag.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="uiControls\PatternEditor.resx">
+    <EmbeddedResource Include="NamePatterns\PatternEditor.resx">
       <DependentUpon>PatternEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\RegionColorChooser.resx">

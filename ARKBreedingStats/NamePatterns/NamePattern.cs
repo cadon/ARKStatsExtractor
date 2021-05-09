@@ -1,16 +1,16 @@
-﻿using ARKBreedingStats.Library;
-using ARKBreedingStats.species;
-using ARKBreedingStats.values;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using ARKBreedingStats.Library;
+using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
+using ARKBreedingStats.values;
 
-namespace ARKBreedingStats.uiControls
+namespace ARKBreedingStats.NamePatterns
 {
-    public static class NamePatterns
+    public static class NamePattern
     {
         /// <summary>
         /// The pipe character is used as separator in functions, so it needs to be escaped when used literally.

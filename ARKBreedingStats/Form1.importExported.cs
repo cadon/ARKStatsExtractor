@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
@@ -236,7 +237,7 @@ namespace ARKBreedingStats
                     string namePattern = Properties.Settings.Default.AutoImportedExportFileRenamePattern;
 
                     string newFileName = Properties.Settings.Default.AutoImportedExportFileRename && !string.IsNullOrWhiteSpace(namePattern)
-                        ? NamePatterns.GenerateCreatureName(creature,
+                        ? NamePattern.GenerateCreatureName(creature,
                             _creatureCollection.creatures.Where(c => c.Species == speciesSelector1.SelectedSpecies).ToArray(), null, null,
                             _customReplacingNamingPattern, false, -1, false, namePattern)
                         : Path.GetFileName(filePath);

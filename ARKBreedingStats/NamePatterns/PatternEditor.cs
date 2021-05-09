@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.Library;
+using ARKBreedingStats.Properties;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 
-namespace ARKBreedingStats.uiControls
+namespace ARKBreedingStats.NamePatterns
 {
     public partial class PatternEditor : Form
     {
@@ -21,6 +22,12 @@ namespace ARKBreedingStats.uiControls
         private readonly Dictionary<string, string> _tokenDictionary;
         private readonly Debouncer _updateNameDebouncer = new Debouncer();
         private Action<PatternEditor> _reloadCallback;
+        private TableLayoutPanel _tableLayoutPanelKeys;
+        private TableLayoutPanel _tableLayoutPanelFunctions;
+        private List<NamePatternEntry> _listKeys;
+        private List<NamePatternEntry> _listFunctions;
+        private Debouncer _keyDebouncer;
+        private Debouncer _functionDebouncer;
 
         public PatternEditor()
         {
@@ -29,6 +36,10 @@ namespace ARKBreedingStats.uiControls
 
         public PatternEditor(Creature creature, Creature[] creaturesOfSameSpecies, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback) : this()
         {
+            Utils.SetWindowRectangle(this, Settings.Default.PatternEditorFormRectangle);
+            if (Settings.Default.PatternEditorSplitterDistance > 0)
+                SplitterDistance = Settings.Default.PatternEditorSplitterDistance;
+
             _creature = creature;
             _creaturesOfSameSpecies = creaturesOfSameSpecies;
             _speciesTopLevels = speciesTopLevels;
@@ -40,98 +51,136 @@ namespace ARKBreedingStats.uiControls
 
             Text = $"Naming Pattern Editor: pattern {(namingPatternIndex + 1)}";
 
-            _tokenDictionary = NamePatterns.CreateTokenDictionary(creature, _creaturesOfSameSpecies, _speciesTopLevels, _speciesLowestLevels);
+            _tokenDictionary = NamePatterns.NamePattern.CreateTokenDictionary(creature, _creaturesOfSameSpecies, _speciesTopLevels, _speciesLowestLevels);
+            _keyDebouncer = new Debouncer();
+            _functionDebouncer = new Debouncer();
 
-            TableLayoutPanel tlpKeys = new TableLayoutPanel();
-            tableLayoutPanel1.Controls.Add(tlpKeys);
-            SetControlsToTable(tlpKeys, PatternExplanations(creature.Species.statNames));
+            _tableLayoutPanelKeys = createTableLayoutPanel();
+            tableLayoutPanel1.Controls.Add(_tableLayoutPanelKeys);
+            _listKeys = new List<NamePatternEntry>();
+            SetControlsToTable(_tableLayoutPanelKeys, PatternExplanations(creature.Species.statNames), _listKeys);
 
-            TableLayoutPanel tlpFunctions = new TableLayoutPanel();
-            tableLayoutPanel1.Controls.Add(tlpFunctions);
-            tableLayoutPanel1.SetColumn(tlpFunctions, 1);
-            SetControlsToTable(tlpFunctions, FunctionExplanations(), false, true, 306);
+            _tableLayoutPanelFunctions = createTableLayoutPanel();
+            tableLayoutPanel1.Controls.Add(_tableLayoutPanelFunctions);
+            _listFunctions = new List<NamePatternEntry>();
+            SetControlsToTable(_tableLayoutPanelFunctions, FunctionExplanations(), _listFunctions, false, true, 306);
 
-            void SetControlsToTable(TableLayoutPanel tlp, Dictionary<string, string> nameExamples, bool columns = true, bool useExampleAsInput = false, int buttonWidth = 120)
+            TableLayoutPanel createTableLayoutPanel()
             {
-                tlp.Dock = DockStyle.Fill;
+                var newTlp = new TableLayoutPanel
+                {
+                    Dock = DockStyle.Fill,
+                    //FlowDirection = FlowDirection.TopDown,
+                    //WrapContents = false
+                };
 
                 // to deactivate the horizontal scrolling but keep the vertical scrolling,
                 // apparently that is the way to go ¯\_(ツ)_/¯
-                tlp.HorizontalScroll.Maximum = 0;
-                tlp.AutoScroll = false;
-                tlp.VerticalScroll.Visible = false;
-                tlp.AutoScroll = true;
+                newTlp.HorizontalScroll.Maximum = 0;
+                newTlp.AutoScroll = false;
+                newTlp.VerticalScroll.Visible = false;
+                newTlp.AutoScroll = true;
+                return newTlp;
+            }
 
-                tlp.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
-                tlp.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
-                tlp.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+            void SetControlsToTable(TableLayoutPanel tlp, Dictionary<string, string> nameExamples, List<NamePatternEntry> entries, bool columns = true, bool useExampleAsInput = false, int buttonWidth = 120)
+            {
+                var tableWidth = tlp.Width - 25; // used for max label width
                 int i = 0;
                 foreach (KeyValuePair<string, string> p in nameExamples)
                 {
-                    tlp.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-                    if (!columns)
-                        tlp.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                    var entry = new NamePatternEntry { FilterString = p.Key };
+                    entries.Add(entry);
+
                     Button btn = new Button
                     {
                         Size = new Size(buttonWidth, 23),
-                        Text = useExampleAsInput ? p.Key : $"{{{p.Key}}}"
+                        Text = p.Key,
+                        Dock = DockStyle.Left
                     };
                     int substringUntil = p.Value.LastIndexOf("\n");
                     btn.Tag = useExampleAsInput ? p.Value.Substring(substringUntil + 1) : $"{{{p.Key}}}";
-                    tlp.Controls.Add(btn);
-                    tlp.SetCellPosition(btn, new TableLayoutPanelCellPosition(0, i));
+
                     if (!columns)
-                        tlp.SetColumnSpan(btn, 3);
+                        btn.Dock = DockStyle.Top;
                     btn.Click += Btn_Click;
 
                     Label lbl = new Label
                     {
                         Dock = DockStyle.Fill,
-                        MinimumSize = new Size(50, 40),
+                        //Anchor = AnchorStyles.Top | AnchorStyles.Bottom,
+                        //MinimumSize = new Size(50, 40),
+                        AutoSize = true,
                         Text = useExampleAsInput ? p.Value.Substring(0, substringUntil) : p.Value + (_tokenDictionary.ContainsKey(p.Key) ? ". E.g. \"" + _tokenDictionary[p.Key] + "\"" : ""),
-                        Margin = new Padding(3, 3, 3, 5)
+                        Padding = new Padding(3, 3, 3, 5)
                     };
-                    tlp.Controls.Add(lbl);
-                    tlp.SetCellPosition(lbl, new TableLayoutPanelCellPosition(columns ? 1 : 0, columns ? i : ++i));
-                    if (!columns)
-                        tlp.SetColumnSpan(lbl, 3);
+                    entry.Controls.Add(lbl);
+
+                    var extraHeight = 0;
 
                     if (!columns && p.Value.Contains("#customreplace"))
                     {
                         // button to open custom replacings file
-                        tlp.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-                        i++;
+                        var panel = new Panel { Dock = DockStyle.Bottom, AutoSize = true, MinimumSize = new Size(0, 27) };
 
                         const int buttonCustomReplacingWidth = 100;
-                        var btCustomReplacings = new Button() { Text = "Open file", Width = buttonCustomReplacingWidth };
-                        btCustomReplacings.Click += BtCustomReplacings_Click;
-                        tlp.Controls.Add(btCustomReplacings);
-                        tlp.SetCellPosition(btCustomReplacings, new TableLayoutPanelCellPosition(0, i));
-                        var btCustomReplacingsReload = new Button() { Text = "Reload file", Width = buttonCustomReplacingWidth };
-                        btCustomReplacingsReload.Click += (s, e) => _reloadCallback?.Invoke(this);
-                        tlp.Controls.Add(btCustomReplacingsReload);
-                        tlp.SetCellPosition(btCustomReplacingsReload, new TableLayoutPanelCellPosition(1, i));
-                        var btCustomReplacingsFilePath = new Button() { Text = "Select file", Width = buttonCustomReplacingWidth };
-                        btCustomReplacingsFilePath.Click += ChangeCustomReplacingsFilePath;
-                        tlp.Controls.Add(btCustomReplacingsFilePath);
-                        tlp.SetCellPosition(btCustomReplacingsFilePath, new TableLayoutPanelCellPosition(2, i));
-                    }
-
-                    // separator
-                    if (!columns)
-                    {
-                        tlp.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-                        var separator = new Label
+                        var btCustomReplacings = new Button
                         {
-                            BorderStyle = BorderStyle.Fixed3D,
-                            Height = 2,
-                            Dock = DockStyle.Bottom,
-                            Margin = new Padding(0, 0, 0, 5)
+                            Text = "Open file",
+                            Height = 23,
+                            Width = buttonCustomReplacingWidth,
+                            Dock = DockStyle.Left
                         };
-                        tlp.Controls.Add(separator);
-                        tlp.SetRow(separator, ++i);
-                        tlp.SetColumnSpan(separator, 3);
+                        btCustomReplacings.Click += BtCustomReplacings_Click;
+                        panel.Controls.Add(btCustomReplacings);
+
+                        var btCustomReplacingsReload = new Button
+                        {
+                            Text = "Reload file",
+                            Width = buttonCustomReplacingWidth,
+                            Dock = DockStyle.Left
+                        };
+                        btCustomReplacingsReload.Click += (s, e) => _reloadCallback?.Invoke(this);
+                        panel.Controls.Add(btCustomReplacingsReload);
+
+                        var btCustomReplacingsFilePath = new Button
+                        {
+                            Text = "Select file",
+                            Width = buttonCustomReplacingWidth,
+                            Dock = DockStyle.Left
+                        };
+                        btCustomReplacingsFilePath.Click += ChangeCustomReplacingsFilePath;
+                        panel.Controls.Add(btCustomReplacingsFilePath);
+                        entry.Controls.Add(panel);
+                        extraHeight = panel.Height;
                     }
+                    entry.Controls.Add(btn);
+
+                    tlp.RowCount++;
+                    tlp.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                    tlp.Controls.Add(entry);
+
+                    // manually setting the height of the panel because WinForms cannot do it apparently
+                    if (lbl.Right > tableWidth)
+                        lbl.MaximumSize = new Size(tableWidth - lbl.Left, 0);
+
+                    int maxbottom = 0;
+                    foreach (Control ctl in entry.Controls)
+                    {
+                        if (ctl.Bottom + extraHeight > maxbottom)
+                            maxbottom = ctl.Bottom + extraHeight + 8; // + margin
+                    }
+                    if (entry.Height < maxbottom) entry.Height = maxbottom;
+
+                    //// separator
+                    var separator = new Label
+                    {
+                        BorderStyle = BorderStyle.Fixed3D,
+                        Height = 2,
+                        Dock = DockStyle.Bottom,
+                        Margin = new Padding(0, 3, 0, 5)
+                    };
+                    entry.Controls.Add(separator);
 
                     i++;
                 }
@@ -352,7 +401,47 @@ namespace ARKBreedingStats.uiControls
 
         private void DisplayPreview()
         {
-            cbPreview.Text = NamePatterns.GenerateCreatureName(_creature, _creaturesOfSameSpecies, _speciesTopLevels, _speciesLowestLevels, _customReplacings, false, -1, false, txtboxPattern.Text, false, _tokenDictionary);
+            cbPreview.Text = NamePatterns.NamePattern.GenerateCreatureName(_creature, _creaturesOfSameSpecies, _speciesTopLevels, _speciesLowestLevels, _customReplacings, false, -1, false, txtboxPattern.Text, false, _tokenDictionary);
+        }
+
+        private void TbFilterKeys_TextChanged(object sender, EventArgs e)
+        {
+            _keyDebouncer.Debounce(300, FilterKeys, Dispatcher.CurrentDispatcher);
+        }
+
+        private void FilterKeys()
+        {
+            var filter = string.IsNullOrEmpty(TbFilterKeys.Text) ? null : TbFilterKeys.Text;
+            _tableLayoutPanelKeys.SuspendLayout();
+            foreach (NamePatternEntry npe in _listKeys)
+                npe.Visible = filter == null
+                              || npe.FilterString.IndexOf(filter, StringComparison.OrdinalIgnoreCase) != -1;
+            _tableLayoutPanelKeys.ResumeLayout();
+        }
+
+        private void TbFilterFunctions_TextChanged(object sender, EventArgs e)
+        {
+            _functionDebouncer.Debounce(300, FilterFunctions, Dispatcher.CurrentDispatcher);
+        }
+
+        private void FilterFunctions()
+        {
+            var filter = string.IsNullOrEmpty(TbFilterFunctions.Text) ? null : TbFilterFunctions.Text;
+            _tableLayoutPanelFunctions.SuspendLayout();
+            foreach (NamePatternEntry npe in _listFunctions)
+                npe.Visible = filter == null
+                              || npe.FilterString.IndexOf(filter, StringComparison.OrdinalIgnoreCase) != -1;
+            _tableLayoutPanelFunctions.ResumeLayout();
+        }
+
+        private void BtClearFilterKey_Click(object sender, EventArgs e)
+        {
+            TbFilterKeys.Text = string.Empty;
+        }
+
+        private void BtClearFilterFunctions_Click(object sender, EventArgs e)
+        {
+            TbFilterFunctions.Text = string.Empty;
         }
     }
 }

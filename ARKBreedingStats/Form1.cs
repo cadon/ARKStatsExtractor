@@ -15,6 +15,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.utils;
 using static ARKBreedingStats.settings.Settings;
 
@@ -3351,7 +3352,7 @@ namespace ARKBreedingStats
                     sameSpecies = _creatureCollection.creatures.Where(c => c.Species == cr.Species).ToArray();
 
                 // set new name
-                cr.name = NamePatterns.GenerateCreatureName(cr, sameSpecies,
+                cr.name = NamePattern.GenerateCreatureName(cr, sameSpecies,
                     _topLevels.ContainsKey(cr.Species) ? _topLevels[cr.Species] : null,
                     _lowestLevels.ContainsKey(cr.Species) ? _lowestLevels[cr.Species] : null,
                     _customReplacingNamingPattern, false, 0);
