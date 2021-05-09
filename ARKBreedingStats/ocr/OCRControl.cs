@@ -99,7 +99,7 @@ namespace ARKBreedingStats.ocr
                     && bmp.Height == nudResolutionHeight.Value)
                 {
                     bmp.Dispose();
-                    if (!ArkOcr.Ocr.ocrConfig.RecognitionPatterns.Texts.Any())
+                    if (!ArkOcr.Ocr.ocrConfig?.RecognitionPatterns?.Texts?.Any() ?? false)
                         ArkOcr.Ocr.ocrConfig.RecognitionPatterns.TrainingSettings.IsTrainingEnabled = true;
 
                     DoOcr?.Invoke(files[0], true);
@@ -695,12 +695,14 @@ namespace ARKBreedingStats.ocr
 
         private void nudResolutionWidth_ValueChanged(object sender, EventArgs e)
         {
-            ArkOcr.Ocr.ocrConfig.resolutionWidth = (int)nudResolutionWidth.Value;
+            if (ArkOcr.Ocr.ocrConfig != null)
+                ArkOcr.Ocr.ocrConfig.resolutionWidth = (int)nudResolutionWidth.Value;
         }
 
         private void nudResolutionHeight_ValueChanged(object sender, EventArgs e)
         {
-            ArkOcr.Ocr.ocrConfig.resolutionHeight = (int)nudResolutionHeight.Value;
+            if (ArkOcr.Ocr.ocrConfig != null)
+                ArkOcr.Ocr.ocrConfig.resolutionHeight = (int)nudResolutionHeight.Value;
         }
 
         private void buttonGetResFromScreenshot_Click(object sender, EventArgs e)

@@ -2126,7 +2126,7 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="imageFilePath">If specified, this image is taken instead of a screenShot.</param>
         /// <param name="manuallyTriggered">If false, the method is called by a timer based event when the user looks at a creature-inventory.</param>
-        public void DoOcr(string imageFilePath = "", bool manuallyTriggered = true)
+        public void DoOcr(string imageFilePath = null, bool manuallyTriggered = true)
         {
             cbQuickWildCheck.Checked = false;
 

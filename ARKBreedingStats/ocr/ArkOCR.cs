@@ -302,7 +302,7 @@ namespace ARKBreedingStats.ocr
             return true;
         }
 
-        public double[] DoOcr(out string OcrText, out string dinoName, out string species, out string ownerName, out string tribeName, out Sex sex, string useImageFilePath = "", bool changeForegroundWindow = true)
+        public double[] DoOcr(out string OcrText, out string dinoName, out string species, out string ownerName, out string tribeName, out Sex sex, string useImageFilePath = null, bool changeForegroundWindow = true)
         {
             string finishedText = string.Empty;
             dinoName = string.Empty;
@@ -311,67 +311,104 @@ namespace ARKBreedingStats.ocr
             tribeName = string.Empty;
             sex = Sex.Unknown;
             double[] finalValues = { 0 };
-            if (ocrConfig == null)
+            if (ocrConfig?.labelRectangles == null)
             {
                 OcrText = "Error: OCR not configured.\nYou can configure the OCR in the OCR-tab by loading or creating an OCR config-file.\nFor more details see the online manual.";
+                ProcessScreenshot(out _);
                 return finalValues;
             }
 
-            Bitmap screenShotBmp;
-
-            _ocrControl.debugPanel.Controls.Clear();
-            _ocrControl.ClearLists();
-
-            if (File.Exists(useImageFilePath))
+            bool labelsValid = true;
+            foreach (var rect in ocrConfig.labelRectangles)
             {
-                screenShotBmp = (Bitmap)Image.FromFile(useImageFilePath);
-            }
-            else
-            {
-                // grab screen shot from ark
-                screenShotBmp = Win32API.GetScreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture, true);
-            }
-            if (screenShotBmp == null)
-            {
-                OcrText = "Error: no image for OCR. Is ARK running?";
-                return finalValues;
-            }
-
-            if (!CheckResolutionSupportedByOcr(screenShotBmp))
-            {
-                OcrText = "Error while calibrating: The game-resolution is not supported by the currently loaded OCR-configuration.\n"
-                    + $"The tested image has a resolution of {screenShotBmp.Width} × {screenShotBmp.Height} px,\n"
-                    + $"the resolution of the loaded ocr-config is {ocrConfig.resolutionWidth} × {ocrConfig.resolutionHeight} px.\n\n"
-                    + "Load or create a ocr-config file with the resolution of the game to make it work.";
-                return finalValues;
-            }
-
-            // TODO resize image according to resize-factor. used for large screenshots
-            if (ocrConfig.resize != 1 && ocrConfig.resize > 0)
-            {
-                Bitmap resized = new Bitmap((int)(ocrConfig.resize * ocrConfig.resolutionWidth), (int)(ocrConfig.resize * ocrConfig.resolutionHeight));
-                using (var graphics = Graphics.FromImage(resized))
+                if (rect.IsEmpty)
                 {
-                    graphics.CompositingMode = CompositingMode.SourceCopy;
-                    graphics.CompositingQuality = CompositingQuality.HighQuality;
-                    graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                    graphics.SmoothingMode = SmoothingMode.HighQuality;
-                    graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-
-                    using (var wrapMode = new ImageAttributes())
-                    {
-                        wrapMode.SetWrapMode(WrapMode.TileFlipXY);
-                        graphics.DrawImage(screenShotBmp, new Rectangle(0, 0, resized.Width, resized.Height), 0, 0, screenShotBmp.Width, screenShotBmp.Height, GraphicsUnit.Pixel, wrapMode);
-                    }
-
-                    screenShotBmp.Dispose();
-                    screenShotBmp = resized;
+                    labelsValid = false;
+                    break;
                 }
             }
 
-            if (enableOutput)
+            if (!labelsValid)
             {
-                _ocrControl?.DisplayBmpInOcrControl(screenShotBmp);
+                OcrText = "Error: The rectangles where to read the text in the image with OCR are not configured.\nYou can configure them by navigating to the OCR-tab then to the Labels tab.\nFor more details see the online manual.";
+                ProcessScreenshot(out _);
+                return finalValues;
+            }
+
+            Bitmap screenShotBmp = ProcessScreenshot(out string outText);
+            if (!string.IsNullOrEmpty(outText))
+            {
+                OcrText = outText;
+                return finalValues;
+            }
+
+            Bitmap ProcessScreenshot(out string errorText)
+            {
+                errorText = null;
+                _ocrControl.debugPanel.Controls.Clear();
+                _ocrControl.ClearLists();
+
+                Bitmap bmp;
+                if (!string.IsNullOrEmpty(useImageFilePath) && File.Exists(useImageFilePath))
+                {
+                    bmp = (Bitmap)Image.FromFile(useImageFilePath);
+                }
+                else
+                {
+                    // grab screen shot from ark
+                    bmp = Win32API.GetScreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture, true);
+                }
+
+                if (bmp == null)
+                {
+                    errorText = "Error: no image for OCR. Is ARK running?";
+                    return null;
+                }
+
+                if (ocrConfig != null)
+                {
+                    if (!CheckResolutionSupportedByOcr(bmp))
+                    {
+                        errorText =
+                            "Error while calibrating: The game-resolution is not supported by the currently loaded OCR-configuration.\n"
+                            + $"The tested image has a resolution of {bmp.Width} × {bmp.Height} px,\n"
+                            + $"the resolution of the loaded ocr-config is {ocrConfig.resolutionWidth} × {ocrConfig.resolutionHeight} px.\n\n"
+                            + "Load or create a ocr-config file with the resolution of the game to make it work.";
+                        return bmp;
+                    }
+
+                    // TODO resize image according to resize-factor. used for large screenshots
+                    if (ocrConfig.resize != 1 && ocrConfig.resize > 0)
+                    {
+                        Bitmap resized = new Bitmap((int)(ocrConfig.resize * ocrConfig.resolutionWidth),
+                            (int)(ocrConfig.resize * ocrConfig.resolutionHeight));
+                        using (var graphics = Graphics.FromImage(resized))
+                        {
+                            graphics.CompositingMode = CompositingMode.SourceCopy;
+                            graphics.CompositingQuality = CompositingQuality.HighQuality;
+                            graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                            graphics.SmoothingMode = SmoothingMode.HighQuality;
+                            graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                            using (var wrapMode = new ImageAttributes())
+                            {
+                                wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                                graphics.DrawImage(bmp, new Rectangle(0, 0, resized.Width, resized.Height), 0, 0,
+                                    bmp.Width, bmp.Height, GraphicsUnit.Pixel, wrapMode);
+                            }
+
+                            bmp.Dispose();
+                            bmp = resized;
+                        }
+                    }
+                }
+
+                if (enableOutput)
+                {
+                    _ocrControl?.DisplayBmpInOcrControl(bmp);
+                }
+
+                return bmp;
             }
 
             finalValues = new double[ocrConfig.labelRectangles.Length];
@@ -381,7 +418,7 @@ namespace ARKBreedingStats.ocr
                 Win32API.SetForegroundWindow(Application.OpenForms[0].Handle);
 
             HammingWeight.InitializeBitCounts();
-            
+
             var whiteThreshold = Properties.Settings.Default.OCRWhiteThreshold;
 
             bool wild = false; // todo: set to true and find out if the creature is wild in the first loop
@@ -566,7 +603,7 @@ namespace ARKBreedingStats.ocr
             }
 
             OcrText = finishedText;
-            
+
             // TODO reorder stats to match 12-stats-order
 
             return finalValues;
