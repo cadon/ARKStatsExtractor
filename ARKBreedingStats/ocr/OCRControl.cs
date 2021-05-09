@@ -24,12 +24,14 @@ namespace ARKBreedingStats.ocr
         private bool _ignoreValueChange;
         private readonly Debouncer _redrawingDebouncer = new Debouncer();
         private string _fontFilePath;
+        private readonly ToolTip _tt;
 
         public OCRControl()
         {
             InitializeComponent();
             debugPanel = OCRDebugLayoutPanel;
             output = txtOCROutput;
+            _tt = new ToolTip();
             ocrLetterEditTemplate.drawingEnabled = true;
             ocrLetterEditTemplate.PatternChanged += OcrLetterEditTemplate_PatternChanged;
         }
@@ -362,27 +364,33 @@ namespace ARKBreedingStats.ocr
         /// </summary>
         private static void DrawMagnifiedRectangle(Bitmap bmp, Rectangle labelRectangle, byte whiteThreshold, int magnifiedYMarginTop, int magnifiedYMarginBottom)
         {
-            const int pixelSize = 6;
             const int margin = 5;
+            var bmpWidth = bmp.Width;
+            var bmpHeight = bmp.Height;
+            int pixelSize = Math.Min(10, bmpWidth / (labelRectangle.Width + 2 * margin)); // cap magnifying
 
             labelRectangle.Inflate(margin, margin);
             var magnifiedWidth = labelRectangle.Width * pixelSize;
             var magnifiedHeight = labelRectangle.Height * pixelSize;
-            var magnifiedRectangle = new Rectangle(labelRectangle.X + (labelRectangle.Width - magnifiedWidth) / 2, magnifiedYMarginTop == -1 ? bmp.Height - magnifiedHeight - magnifiedYMarginBottom : magnifiedYMarginTop, magnifiedWidth, magnifiedHeight);
+            var magnifiedRectangle = new Rectangle((bmpWidth - magnifiedWidth) / 2, magnifiedYMarginTop == -1 ? bmpHeight - magnifiedHeight - magnifiedYMarginBottom : magnifiedYMarginTop, magnifiedWidth, magnifiedHeight);
 
-            var bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadWrite, bmp.PixelFormat);
+            var bmpData = bmp.LockBits(new Rectangle(0, 0, bmpWidth, bmpHeight), ImageLockMode.ReadWrite, bmp.PixelFormat);
             var bytes = bmp.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
             unsafe
             {
                 var scan0Bmp = (byte*)bmpData.Scan0.ToPointer();
-                for (int x = 0; x < labelRectangle.Width; x++)
+                for (int x = Math.Max(0, -labelRectangle.X); x < labelRectangle.Width; x++)
                 {
-                    bool inXBorder = x < margin || x >= labelRectangle.Width - margin;
                     var xBmp = x + labelRectangle.X;
-                    for (int y = 0; y < labelRectangle.Height; y++)
+                    if (xBmp >= bmpWidth)
+                        break;
+                    bool inXBorder = x < margin || x >= labelRectangle.Width - margin;
+                    for (int y = Math.Max(0, -labelRectangle.Y); y < labelRectangle.Height; y++)
                     {
-                        bool inBorder = inXBorder || y < margin || y >= labelRectangle.Height - margin;
                         var yBmp = y + labelRectangle.Y;
+                        if (yBmp >= bmpHeight)
+                            break; // it gets only bigger
+                        bool inBorder = inXBorder || y < margin || y >= labelRectangle.Height - margin;
                         byte* px = scan0Bmp + yBmp * bmpData.Stride + xBmp * bytes;
                         var b = px[0];
                         var g = px[1];
@@ -629,7 +637,16 @@ namespace ARKBreedingStats.ocr
 
             UpdateResizeResultLabel();
 
-            labelOCRFile.Cursor = ocrAvailable ? Cursors.Hand : null;
+            if (ocrAvailable)
+            {
+                labelOCRFile.Cursor = Cursors.Hand;
+                _tt.SetToolTip(labelOCRFile, "Click to open file in explorer");
+            }
+            else
+            {
+                labelOCRFile.Cursor = null;
+                _tt.SetToolTip(labelOCRFile, null);
+            }
 
             BtSaveOCRConfigAs.Enabled = ocrAvailable;
             BtSaveOCRconfig.Enabled = ocrAvailable;
