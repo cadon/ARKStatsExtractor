@@ -31,6 +31,8 @@ namespace ARKBreedingStats
         private void InitializeComponent()
         {
             this.gbCreatureInfo = new System.Windows.Forms.GroupBox();
+            this.LbColorNewInRegion = new System.Windows.Forms.Label();
+            this.LbColorNewInSpecies = new System.Windows.Forms.Label();
             this.BtApplyOTSPreset = new System.Windows.Forms.Button();
             this.BtSaveOTSPreset = new System.Windows.Forms.Button();
             this.btNamingPattern6 = new System.Windows.Forms.Button();
@@ -81,8 +83,6 @@ namespace ARKBreedingStats
             this.lbOwner = new System.Windows.Forms.Label();
             this.lbName = new System.Windows.Forms.Label();
             this.btAdd2Library = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.gbCreatureInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsFather)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsMother)).BeginInit();
@@ -91,8 +91,8 @@ namespace ARKBreedingStats
             // 
             // gbCreatureInfo
             // 
-            this.gbCreatureInfo.Controls.Add(this.label2);
-            this.gbCreatureInfo.Controls.Add(this.label1);
+            this.gbCreatureInfo.Controls.Add(this.LbColorNewInRegion);
+            this.gbCreatureInfo.Controls.Add(this.LbColorNewInSpecies);
             this.gbCreatureInfo.Controls.Add(this.BtApplyOTSPreset);
             this.gbCreatureInfo.Controls.Add(this.BtSaveOTSPreset);
             this.gbCreatureInfo.Controls.Add(this.btNamingPattern6);
@@ -151,6 +151,27 @@ namespace ARKBreedingStats
             this.gbCreatureInfo.TabStop = false;
             this.gbCreatureInfo.Text = "Creature-info";
             this.gbCreatureInfo.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // LbColorNewInRegion
+            // 
+            this.LbColorNewInRegion.AutoSize = true;
+            this.LbColorNewInRegion.BackColor = System.Drawing.Color.DarkGreen;
+            this.LbColorNewInRegion.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.LbColorNewInRegion.Location = new System.Drawing.Point(65, 499);
+            this.LbColorNewInRegion.Name = "LbColorNewInRegion";
+            this.LbColorNewInRegion.Size = new System.Drawing.Size(89, 13);
+            this.LbColorNewInRegion.TabIndex = 52;
+            this.LbColorNewInRegion.Text = "new in this region";
+            // 
+            // LbColorNewInSpecies
+            // 
+            this.LbColorNewInSpecies.AutoSize = true;
+            this.LbColorNewInSpecies.BackColor = System.Drawing.Color.Gold;
+            this.LbColorNewInSpecies.Location = new System.Drawing.Point(160, 499);
+            this.LbColorNewInSpecies.Name = "LbColorNewInSpecies";
+            this.LbColorNewInSpecies.Size = new System.Drawing.Size(96, 13);
+            this.LbColorNewInSpecies.TabIndex = 51;
+            this.LbColorNewInSpecies.Text = "new in this species";
             // 
             // BtApplyOTSPreset
             // 
@@ -669,27 +690,6 @@ namespace ARKBreedingStats
             this.btAdd2Library.UseVisualStyleBackColor = true;
             this.btAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Gold;
-            this.label1.Location = new System.Drawing.Point(160, 499);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 13);
-            this.label1.TabIndex = 51;
-            this.label1.Text = "new in this species";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.DarkGreen;
-            this.label2.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label2.Location = new System.Drawing.Point(65, 499);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 13);
-            this.label2.TabIndex = 52;
-            this.label2.Text = "new in this region";
-            // 
             // CreatureInfoInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -759,7 +759,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.Button btNamingPattern2;
         private System.Windows.Forms.Button BtApplyOTSPreset;
         private System.Windows.Forms.Button BtSaveOTSPreset;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label LbColorNewInRegion;
+        private System.Windows.Forms.Label LbColorNewInSpecies;
     }
 }

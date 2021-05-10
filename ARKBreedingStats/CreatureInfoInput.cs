@@ -773,6 +773,11 @@ namespace ARKBreedingStats
                 _tt.SetToolTip(namingPatternButtons[bi], Loc.S("btnGenerateUniqueNameTT", false));
         }
 
-        internal void SetRegionColorsExisting(CreatureCollection.ColorExisting[] colorAlreadyAvailable = null) => regionColorChooser1.SetRegionColorsExisting(colorAlreadyAvailable);
+        internal void SetRegionColorsExisting(CreatureCollection.ColorExisting[] colorAlreadyAvailable = null)
+        {
+            regionColorChooser1.SetRegionColorsExisting(colorAlreadyAvailable);
+            LbColorNewInRegion.Visible = regionColorChooser1.ColorNewInRegion;
+            LbColorNewInSpecies.Visible = regionColorChooser1.ColorNewInSpecies;
+        }
     }
 }
