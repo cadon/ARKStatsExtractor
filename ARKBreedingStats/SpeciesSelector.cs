@@ -145,6 +145,7 @@ namespace ARKBreedingStats
 
                 var (imgExists, imagePath, speciesListName) = CreatureColored.SpeciesImageExists(s,
                     s.name.Contains("Polar") ? creatureColorsPolar : creatureColors);
+                //if (!imgExists && !speciesWOImage.Contains(s.name)) speciesWOImage.Add(s.name);
                 if (!imgExists || _iconIndices.Contains(speciesListName)) continue;
 
                 try
@@ -173,10 +174,8 @@ namespace ARKBreedingStats
                         }
                     }
                 }
-
-                //if (!imgExists && !speciesWOImage.Contains(ss.name)) speciesWOImage.Add(ss.name);
             }
-            //Clipboard.SetText(string.Join("\n", speciesWOImage));
+            //Clipboard.SetText(speciesWOImage.Any() ? string.Join("\n", speciesWOImage) : string.Empty);
 
             lImgList.ImageSize = new Size(64, 64);
             lvLastSpecies.LargeImageList = lImgList;
