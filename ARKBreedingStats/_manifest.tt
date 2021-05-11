@@ -21,12 +21,12 @@ string appVersion = Regex.Match(File.ReadAllText(Host.ResolvePath("Properties/As
       "Id": "SpeciesColorImages",
       "Category": "Species Images",
       "Name": "Species Images",
-      "Author": "cadaei",
+      "Author": "cadaei and Myrmecoleon",
       "Description": "Images for species for visualizing the colors of creatures",
       "Url": "https://github.com/cadon/ARKStatsExtractor/raw/master/speciesImages/speciesImages.zip",
       "LocalPath": "images/speciesImages",
       "IsFolder": true,
-      "version": "2021.1.2"
+      "version": "2021.5.11"
     }
   }
 }
