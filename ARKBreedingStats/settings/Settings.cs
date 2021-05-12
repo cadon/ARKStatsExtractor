@@ -648,7 +648,8 @@ namespace ARKBreedingStats.settings
             // get stat-multipliers
             // if there are stat-multipliers, set all to the official-values first
             if (text.Contains("PerLevelStatsMultiplier_Dino"))
-                ApplyMultiplierPreset(Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official), onlyStatMultipliers: true);
+                ApplyMultiplierPreset(Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official),
+                    onlyStatMultipliers: true);
 
             // if an ini file is imported the server is most likely unofficial wit no level cap, if the server has a max level, it will be parsed.
             nudMaxServerLevel.ValueSave = 0;
@@ -656,14 +657,16 @@ namespace ARKBreedingStats.settings
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 ParseAndSetStatMultiplier(0, @"PerLevelStatsMultiplier_DinoTamed_Add\[" + s + @"\] ?= ?(\d*\.?\d+)");
-                ParseAndSetStatMultiplier(1, @"PerLevelStatsMultiplier_DinoTamed_Affinity\[" + s + @"\] ?= ?(\d*\.?\d+)");
+                ParseAndSetStatMultiplier(1,
+                    @"PerLevelStatsMultiplier_DinoTamed_Affinity\[" + s + @"\] ?= ?(\d*\.?\d+)");
                 ParseAndSetStatMultiplier(2, @"PerLevelStatsMultiplier_DinoTamed\[" + s + @"\] ?= ?(\d*\.?\d+)");
                 ParseAndSetStatMultiplier(3, @"PerLevelStatsMultiplier_DinoWild\[" + s + @"\] ?= ?(\d*\.?\d+)");
 
                 void ParseAndSetStatMultiplier(int multiplierIndex, string regexPattern)
                 {
                     m = Regex.Match(text, regexPattern);
-                    if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, cultureForStrings, out d))
+                    if (m.Success && double.TryParse(m.Groups[1].Value,
+                        System.Globalization.NumberStyles.AllowDecimalPoint, cultureForStrings, out d))
                     {
                         var multipliers = _multSetter[s].Multipliers;
                         multipliers[multiplierIndex] = d == 0 ? 1 : d;
@@ -688,7 +691,7 @@ namespace ARKBreedingStats.settings
             ParseAndSetValue(nudTamingSpeed, @"TamingSpeedMultiplier ?= ?(\d*\.?\d+)");
             ParseAndSetValue(nudDinoCharacterFoodDrain, @"DinoCharacterFoodDrainMultiplier ?= ?(\d*\.?\d+)");
 
-            //// the settings below are not settings that appear in ARK server config files and are used only in ASB
+            //// the settings below don't appear in ARK server config files directly or not at all and are used only in ASB
             // max levels
             ParseAndSetValue(nudMaxWildLevels, @"ASBMaxWildLevels_Dinos ?= ?(\d+)");
             ParseAndSetValue(nudMaxDomLevels, @"ASBMaxDomLevels_Dinos ?= ?(\d+)");
@@ -703,21 +706,26 @@ namespace ARKBreedingStats.settings
             ParseAndSetValue(nudEggHatchSpeedEvent, @"ASBEvent_EggHatchSpeedMultiplier ?= ?(\d*\.?\d+)");
             ParseAndSetValue(nudBabyMatureSpeedEvent, @"ASBEvent_BabyMatureSpeedMultiplier ?= ?(\d*\.?\d+)");
             ParseAndSetValue(nudBabyCuddleIntervalEvent, @"ASBEvent_BabyCuddleIntervalMultiplier ?= ?(\d*\.?\d+)");
-            ParseAndSetValue(nudBabyFoodConsumptionSpeedEvent, @"ASBEvent_BabyFoodConsumptionSpeedMultiplier ?= ?(\d*\.?\d+)");
+            ParseAndSetValue(nudBabyFoodConsumptionSpeedEvent,
+                @"ASBEvent_BabyFoodConsumptionSpeedMultiplier ?= ?(\d*\.?\d+)");
             // event multipliers taming
             ParseAndSetValue(nudTamingSpeedEvent, @"ASBEvent_TamingSpeedMultiplier ?= ?(\d*\.?\d+)");
-            ParseAndSetValue(nudDinoCharacterFoodDrainEvent, @"ASBEvent_DinoCharacterFoodDrainMultiplier ?= ?(\d*\.?\d+)");
+            ParseAndSetValue(nudDinoCharacterFoodDrainEvent,
+                @"ASBEvent_DinoCharacterFoodDrainMultiplier ?= ?(\d*\.?\d+)");
 
             bool ParseAndSetValue(uiControls.Nud nud, string regexPattern)
             {
                 m = Regex.Match(text, regexPattern);
-                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, cultureForStrings, out d))
+                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint,
+                    cultureForStrings, out d))
                 {
                     nud.ValueSave = (decimal)d;
                     return true;
                 }
+
                 return false;
             }
+
             void ParseAndSetCheckbox(CheckBox cb, string regexPattern)
             {
                 m = Regex.Match(text, regexPattern, RegexOptions.IgnoreCase);
@@ -728,10 +736,38 @@ namespace ARKBreedingStats.settings
             }
 
             // parse max dino levels. First occurrence is for the player, second for the creatures
-            var regexMaxLevelup = new Regex(@"LevelExperienceRampOverrides.*LevelExperienceRampOverrides ?= ?\(([^\)]+)", RegexOptions.Singleline);
+            var regexMaxLevelup =
+                new Regex(@"LevelExperienceRampOverrides.*LevelExperienceRampOverrides ?= ?\(([^\)]+)",
+                    RegexOptions.Singleline);
             m = regexMaxLevelup.Match(text);
-            if (!m.Success) return;
-            nudMaxDomLevels.ValueSave = Regex.Matches(m.Groups[1].Value, "ExperiencePointsForLevel").Count + 1;
+            if (m.Success)
+                nudMaxDomLevels.ValueSave = Regex.Matches(m.Groups[1].Value, "ExperiencePointsForLevel").Count + 1;
+
+            // parse max wild dino levels
+            if (text.Contains("DifficultyOffset") || text.Contains("OverrideOfficialDifficulty"))
+            {
+                // default values
+                var difficultyOffset = 0.2;
+                var officialDifficulty = 5d;
+
+                m = Regex.Match(text, @"DifficultyOffset ?= ?(\d*\.?\d+)");
+                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint,
+                    cultureForStrings, out d))
+                    difficultyOffset = d;
+
+                m = Regex.Match(text, @"OverrideOfficialDifficulty ?= ?(\d*\.?\d+)");
+                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint,
+                    cultureForStrings, out d))
+                    officialDifficulty = d;
+
+                var difficultyValue = 1d;
+                if (difficultyOffset > 0)
+                {
+                    difficultyValue = difficultyOffset * (officialDifficulty - 0.5) + 0.5;
+                }
+
+                nudMaxWildLevels.ValueSave = (int)(difficultyValue * 30);
+            }
         }
 
         private void Settings_Disposed(object sender, EventArgs e)
