@@ -49,7 +49,7 @@ namespace ARKBreedingStats.Updater
 
         private Control CreateModuleControl(AsbModule module)
         {
-            var c = new TableLayoutPanel { AutoSize = true, BorderStyle = BorderStyle.FixedSingle, MinimumSize = new Size(500, 150) };
+            var c = new TableLayoutPanel { AutoSize = true, BorderStyle = BorderStyle.FixedSingle, MinimumSize = new Size(500, 100) };
             c.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             c.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
             c.RowStyles.Add(new RowStyle(SizeType.AutoSize));
@@ -67,18 +67,20 @@ namespace ARKBreedingStats.Updater
             c.Controls.Add(header);
             c.SetColumnSpan(header, 2);
 
-            var desc = new Label { Text = $"Author: {module.Author}\n{module.Description}", Width = 300, Height = 50, Margin = new Padding(3) };
-            c.Controls.Add(desc);
-            c.SetRow(desc, 1);
-            c.SetColumn(desc, 0);
+            var desc = new Label
+            {
+                Text = (string.IsNullOrEmpty(module.Author) ? string.Empty : $"Author: {module.Author}\n") + $"{module.Description}",
+                AutoSize = true,
+                MaximumSize = new Size(300, 0),
+                Margin = new Padding(3)
+            };
+            c.Controls.Add(desc, 0, 1);
             c.SetRowSpan(desc, 2);
 
             // versions
             var l = new Label
-            { Text = $"Version\nLocal: {(module.LocallyAvailable ? module.VersionLocal.ToString() : "not downloaded")}\n\nOnline: {module.VersionOnline}", AutoSize = true, Margin = new Padding(3) };
-            c.Controls.Add(l);
-            c.SetColumn(l, 1);
-            c.SetRow(l, 1);
+            { Text = $"Version\nLocal: {(module.LocallyAvailable ? module.VersionLocal.ToString() : "not downloaded")}\nOnline: {module.VersionOnline}", AutoSize = true, Margin = new Padding(3) };
+            c.Controls.Add(l, 1, 1);
 
             string checkBoxText = null;
             if (!module.LocallyAvailable)
@@ -105,7 +107,7 @@ namespace ARKBreedingStats.Updater
                 _checkboxesUpdateModule.Add(cb);
             }
 
-            if (true)
+            if (module.Selectable)
             {
                 var cb = new CheckBox { Text = "Select", Tag = module, Padding = new Padding(3) };
                 cb.CheckedChanged += (s, e) => cb.BackColor = cb.Checked ? Color.LightGreen : SystemColors.Control;
@@ -159,7 +161,7 @@ namespace ARKBreedingStats.Updater
             if (!(_checkboxesSelectModule?.Any() ?? false)) return null;
 
             return _checkboxesSelectModule.Where(cb => cb.Checked).Select(cb => cb.Tag as AsbModule)
-                .FirstOrDefault(m => m.Category == "Species Images").LocalPath;
+                .FirstOrDefault(m => m?.Category == "Species Images")?.LocalPath;
         }
     }
 }

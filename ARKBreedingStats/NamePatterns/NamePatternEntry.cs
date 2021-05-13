@@ -14,7 +14,7 @@ namespace ARKBreedingStats.NamePatterns
         {
             //BorderStyle = BorderStyle.FixedSingle;
             Height = 30;
-            Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
         }
     }
 }

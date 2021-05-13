@@ -81,6 +81,8 @@
     <Compile Include="NamePatterns\NamePatternEntry.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="NamePatterns\PatternTemplate.cs" />
+    <Compile Include="NamePatterns\PatternTemplates.cs" />
     <Compile Include="Updater\AsbManifest.cs" />
     <Compile Include="Updater\AsbModule.cs" />
     <Compile Include="duplicates\MergingDuplicates.cs" />
@@ -578,6 +580,7 @@
       <DependentUpon>UpdateModules.cs</DependentUpon>
     </Compile>
     <Compile Include="Updater\Updater.cs" />
+    <Compile Include="Updater\ValueModule.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="miscClasses\ValueMinMax.cs" />
     <Compile Include="utils\ArkWiki.cs" />
@@ -621,6 +624,9 @@
       <DependentUpon>UpdateModules.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="json\ignoreSpeciesClasses.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="json\namePatternTemplates.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="json\ocr\ocr_1920x1080_100.json">

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.Properties;
 using ARKBreedingStats.species;
+using ARKBreedingStats.Updater;
 using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.NamePatterns
@@ -24,8 +26,10 @@ namespace ARKBreedingStats.NamePatterns
         private Action<PatternEditor> _reloadCallback;
         private TableLayoutPanel _tableLayoutPanelKeys;
         private TableLayoutPanel _tableLayoutPanelFunctions;
-        private List<NamePatternEntry> _listKeys;
-        private List<NamePatternEntry> _listFunctions;
+        private TableLayoutPanel _tableLayoutPanelTemplates;
+        private List<Panel> _listKeys;
+        private List<Panel> _listFunctions;
+        private List<Panel> _listTemplates;
         private Debouncer _keyDebouncer;
         private Debouncer _functionDebouncer;
 
@@ -39,6 +43,8 @@ namespace ARKBreedingStats.NamePatterns
             Utils.SetWindowRectangle(this, Settings.Default.PatternEditorFormRectangle);
             if (Settings.Default.PatternEditorSplitterDistance > 0)
                 SplitterDistance = Settings.Default.PatternEditorSplitterDistance;
+
+            InitializeLocalization();
 
             _creature = creature;
             _creaturesOfSameSpecies = creaturesOfSameSpecies;
@@ -55,37 +61,18 @@ namespace ARKBreedingStats.NamePatterns
             _keyDebouncer = new Debouncer();
             _functionDebouncer = new Debouncer();
 
-            _tableLayoutPanelKeys = createTableLayoutPanel();
-            tableLayoutPanel1.Controls.Add(_tableLayoutPanelKeys);
-            _listKeys = new List<NamePatternEntry>();
+            _tableLayoutPanelKeys = CreateTableLayoutPanel();
+            TlpKeysFunctions.Controls.Add(_tableLayoutPanelKeys);
+            _listKeys = new List<Panel>();
             SetControlsToTable(_tableLayoutPanelKeys, PatternExplanations(creature.Species.statNames), _listKeys);
 
-            _tableLayoutPanelFunctions = createTableLayoutPanel();
-            tableLayoutPanel1.Controls.Add(_tableLayoutPanelFunctions);
-            _listFunctions = new List<NamePatternEntry>();
+            _tableLayoutPanelFunctions = CreateTableLayoutPanel();
+            TlpKeysFunctions.Controls.Add(_tableLayoutPanelFunctions);
+            _listFunctions = new List<Panel>();
             SetControlsToTable(_tableLayoutPanelFunctions, FunctionExplanations(), _listFunctions, false, true, 306);
 
-            TableLayoutPanel createTableLayoutPanel()
+            void SetControlsToTable(TableLayoutPanel tlp, Dictionary<string, string> nameExamples, List<Panel> entries, bool columns = true, bool useExampleAsInput = false, int buttonWidth = 120)
             {
-                var newTlp = new TableLayoutPanel
-                {
-                    Dock = DockStyle.Fill,
-                    //FlowDirection = FlowDirection.TopDown,
-                    //WrapContents = false
-                };
-
-                // to deactivate the horizontal scrolling but keep the vertical scrolling,
-                // apparently that is the way to go ¯\_(ツ)_/¯
-                newTlp.HorizontalScroll.Maximum = 0;
-                newTlp.AutoScroll = false;
-                newTlp.VerticalScroll.Visible = false;
-                newTlp.AutoScroll = true;
-                return newTlp;
-            }
-
-            void SetControlsToTable(TableLayoutPanel tlp, Dictionary<string, string> nameExamples, List<NamePatternEntry> entries, bool columns = true, bool useExampleAsInput = false, int buttonWidth = 120)
-            {
-                var tableWidth = tlp.Width - 25; // used for max label width
                 int i = 0;
                 foreach (KeyValuePair<string, string> p in nameExamples)
                 {
@@ -115,8 +102,6 @@ namespace ARKBreedingStats.NamePatterns
                         Padding = new Padding(3, 3, 3, 5)
                     };
                     entry.Controls.Add(lbl);
-
-                    var extraHeight = 0;
 
                     if (!columns && p.Value.Contains("#customreplace"))
                     {
@@ -152,7 +137,6 @@ namespace ARKBreedingStats.NamePatterns
                         btCustomReplacingsFilePath.Click += ChangeCustomReplacingsFilePath;
                         panel.Controls.Add(btCustomReplacingsFilePath);
                         entry.Controls.Add(panel);
-                        extraHeight = panel.Height;
                     }
                     entry.Controls.Add(btn);
 
@@ -160,31 +144,182 @@ namespace ARKBreedingStats.NamePatterns
                     tlp.RowStyles.Add(new RowStyle(SizeType.AutoSize));
                     tlp.Controls.Add(entry);
 
-                    // manually setting the height of the panel because WinForms cannot do it apparently
-                    if (lbl.Right > tableWidth)
-                        lbl.MaximumSize = new Size(tableWidth - lbl.Left, 0);
-
-                    int maxbottom = 0;
-                    foreach (Control ctl in entry.Controls)
-                    {
-                        if (ctl.Bottom + extraHeight > maxbottom)
-                            maxbottom = ctl.Bottom + extraHeight + 8; // + margin
-                    }
-                    if (entry.Height < maxbottom) entry.Height = maxbottom;
-
                     //// separator
-                    var separator = new Label
+                    entry.Controls.Add(new Panel
                     {
-                        BorderStyle = BorderStyle.Fixed3D,
+                        BorderStyle = BorderStyle.FixedSingle,
                         Height = 2,
                         Dock = DockStyle.Bottom,
-                        Margin = new Padding(0, 3, 0, 5)
-                    };
-                    entry.Controls.Add(separator);
+                        Margin = new Padding(0, 3, 0, 5),
+                    });
 
                     i++;
                 }
             }
+
+            InitializeTemplates();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            PatternEditorRecalculateControlSizes();
+            base.OnLoad(e);
+        }
+
+        protected override void OnResizeBegin(EventArgs e)
+        {
+            SuspendLayout();
+            base.OnResizeBegin(e);
+        }
+
+        protected override void OnResizeEnd(EventArgs e)
+        {
+            ResumeLayout();
+            PatternEditorRecalculateControlSizes();
+            base.OnResizeEnd(e);
+        }
+
+        TableLayoutPanel CreateTableLayoutPanel()
+        {
+            var newTlp = new TableLayoutPanel
+            {
+                Dock = DockStyle.Fill
+            };
+
+            // to deactivate the horizontal scrolling but keep the vertical scrolling,
+            // apparently that is the way to go ¯\_(ツ)_/¯
+            newTlp.HorizontalScroll.Maximum = 0;
+            newTlp.AutoScroll = false;
+            newTlp.VerticalScroll.Visible = false;
+            newTlp.AutoScroll = true;
+            return newTlp;
+        }
+
+        private void InitializeTemplates()
+        {
+            var manifestFilePath = FileService.GetPath(FileService.ManifestFileName);
+            if (!File.Exists(manifestFilePath)) return;
+            var asbManifest = AsbManifest.FromJsonFile(manifestFilePath);
+            var templateFileRelativePath = asbManifest?.modules?.Values.FirstOrDefault(m => m.Category == "Name Pattern Templates")?.LocalPath;
+            if (templateFileRelativePath == null) return;
+            var templateFilePath = FileService.GetPath(templateFileRelativePath);
+            if (!File.Exists(templateFilePath)) return;
+            if (!FileService.LoadJsonFile(templateFilePath, out ValueModule<PatternTemplate[]> module, out _)) return;
+            var templates = module.Data?.Where(t => !string.IsNullOrEmpty(t.Pattern)).ToArray();
+            if (templates == null || !templates.Any()) return;
+
+            _tableLayoutPanelTemplates = CreateTableLayoutPanel();
+            TabPagePatternTemplates.Controls.Add(_tableLayoutPanelTemplates);
+            _listTemplates = new List<Panel>();
+
+            foreach (var t in templates)
+            {
+                var panel = new Panel
+                {
+                    Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top,
+                    Padding = new Padding(3)
+                };
+                _listTemplates.Add(panel);
+
+                var btn = new Button
+                {
+                    Size = new Size(50, 23),
+                    Text = t.Title,
+                    Dock = DockStyle.Top,
+                    Tag = t.Pattern
+                };
+
+                var tbPattern = new TextBox
+                {
+                    ReadOnly = true,
+                    Text = t.Pattern,
+                    Dock = DockStyle.Top,
+                    Padding = new Padding(3)
+                };
+
+                btn.Click += Btn_Click;
+
+                Label lbl = new Label
+                {
+                    Dock = DockStyle.Fill,
+                    AutoSize = true,
+                    Text = t.Description,
+                    Padding = new Padding(3, 3, 3, 5)
+                };
+                panel.Controls.Add(lbl);
+
+                panel.Controls.Add(tbPattern);
+                panel.Controls.Add(btn);
+
+                _tableLayoutPanelTemplates.RowCount++;
+                _tableLayoutPanelTemplates.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                _tableLayoutPanelTemplates.Controls.Add(panel);
+
+                //// separator
+                panel.Controls.Add(new Panel
+                {
+                    BorderStyle = BorderStyle.FixedSingle,
+                    Height = 2,
+                    Dock = DockStyle.Bottom,
+                    Margin = new Padding(0, 3, 0, 5)
+                });
+            }
+        }
+
+        private void PatternEditorRecalculateControlSizes()
+        {
+            ManuallySetControlSizes(_tableLayoutPanelKeys, _listKeys);
+            ManuallySetControlSizes(_tableLayoutPanelFunctions, _listFunctions);
+            ManuallySetControlSizes(_tableLayoutPanelTemplates, _listTemplates);
+        }
+
+        /// <summary>
+        /// It doesn't work automatically.
+        /// </summary>
+        private static void ManuallySetControlSizes(TableLayoutPanel tlp, List<Panel> entries)
+        {
+            if (tlp == null || entries == null) return;
+
+            tlp.SuspendLayout();
+            var tableWidth = tlp.Width - 25;
+
+            foreach (var entry in entries)
+            {
+                var extraHeight = 0;
+                foreach (Control c in entry.Controls)
+                {
+                    switch (c)
+                    {
+                        case Label lbl:
+                            lbl.MaximumSize = new Size(tableWidth - lbl.Left, 0);
+                            break;
+                        case Button bt:
+                            if (bt.Right > tableWidth)
+                                bt.Width = tableWidth - bt.Left;
+                            break;
+                        case Panel p:
+                            extraHeight += p.Height;
+                            break;
+                    }
+                }
+
+                entry.Height = 30; // min
+                int maxBottom = 0;
+                foreach (Control ctl in entry.Controls)
+                {
+                    if (ctl.Bottom + extraHeight > maxBottom)
+                        maxBottom = ctl.Bottom + extraHeight + 8; // + margin
+                }
+
+                if (entry.Height < maxBottom) entry.Height = maxBottom;
+            }
+            tlp.ResumeLayout();
+        }
+
+        private void InitializeLocalization()
+        {
+            Loc.ControlText(buttonOK, "OK");
+            Loc.ControlText(buttonCancel, "Cancel");
         }
 
         private void ChangeCustomReplacingsFilePath(object sender, EventArgs e)
@@ -411,12 +546,7 @@ namespace ARKBreedingStats.NamePatterns
 
         private void FilterKeys()
         {
-            var filter = string.IsNullOrEmpty(TbFilterKeys.Text) ? null : TbFilterKeys.Text;
-            _tableLayoutPanelKeys.SuspendLayout();
-            foreach (NamePatternEntry npe in _listKeys)
-                npe.Visible = filter == null
-                              || npe.FilterString.IndexOf(filter, StringComparison.OrdinalIgnoreCase) != -1;
-            _tableLayoutPanelKeys.ResumeLayout();
+            FilterEntries(_tableLayoutPanelKeys, _listKeys, TbFilterKeys.Text);
         }
 
         private void TbFilterFunctions_TextChanged(object sender, EventArgs e)
@@ -426,12 +556,20 @@ namespace ARKBreedingStats.NamePatterns
 
         private void FilterFunctions()
         {
-            var filter = string.IsNullOrEmpty(TbFilterFunctions.Text) ? null : TbFilterFunctions.Text;
-            _tableLayoutPanelFunctions.SuspendLayout();
-            foreach (NamePatternEntry npe in _listFunctions)
+            FilterEntries(_tableLayoutPanelFunctions, _listFunctions, TbFilterFunctions.Text);
+        }
+
+        private static void FilterEntries(TableLayoutPanel tlp, List<Panel> namePatternEntries, string filter)
+        {
+            filter = string.IsNullOrEmpty(filter) ? null : filter;
+            tlp.SuspendLayout();
+            foreach (NamePatternEntry npe in namePatternEntries)
                 npe.Visible = filter == null
                               || npe.FilterString.IndexOf(filter, StringComparison.OrdinalIgnoreCase) != -1;
-            _tableLayoutPanelFunctions.ResumeLayout();
+            tlp.ResumeLayout();
+            // needed to reevaluate the need of the scrollbar
+            tlp.AutoScroll = false;
+            tlp.AutoScroll = true;
         }
 
         private void BtClearFilterKey_Click(object sender, EventArgs e)

@@ -26,6 +26,16 @@ string appVersion = Regex.Match(File.ReadAllText(Host.ResolvePath("Properties/As
       "Url": "https://github.com/cadon/ARKStatsExtractor/raw/master/speciesImages/speciesImages.zip",
       "LocalPath": "images/speciesImages",
       "IsFolder": true,
+      "Selectable": true,
+      "version": "2021.5.11"
+    },
+    "NamePatternTemplates": {
+      "Id": "NamePatternTemplates",
+      "Category": "Name Pattern Templates",
+      "Name": "Name Pattern Templates",
+      "Description": "Templates for naming patterns",
+      "Url": "https://github.com/cadon/ARKStatsExtractor/raw/master/json/namePatternTemplates.json",
+      "LocalPath": "json/namePatternTemplates.json",
       "version": "2021.5.11"
     }
   }

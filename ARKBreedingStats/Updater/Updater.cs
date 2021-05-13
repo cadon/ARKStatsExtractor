@@ -135,8 +135,8 @@ namespace ARKBreedingStats.Updater
         /// <returns>true if new release should be installed, null if it was canceled; download urls or null</returns>
         private static async Task<bool?> CheckAndAskForUpdate(bool collectionDirty)
         {
-            string releaseTag = await FetchReleaseFeed();
-            (bool? updateAvailable, string localVersion, string remoteVersion) = UpdateAvailable(releaseTag);
+            string latestVersionString = await FetchReleaseFeed();
+            (bool? updateAvailable, string localVersion, string remoteVersion) = UpdateAvailable(latestVersionString);
 
             if (updateAvailable == null)
             {
@@ -271,7 +271,7 @@ namespace ARKBreedingStats.Updater
 
             Debug.WriteLine("Tag: " + tag);
 
-            return tag;
+            return tag.Trim('v');
         }
 
         #endregion

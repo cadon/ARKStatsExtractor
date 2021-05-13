@@ -4,6 +4,7 @@ using System.IO.Compression;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ARKBreedingStats.Updater
 {
@@ -49,10 +50,15 @@ namespace ARKBreedingStats.Updater
         [JsonProperty]
         public string Url;
         /// <summary>
-        /// If true, the resource is a folder with multiple files.
+        /// If true, the resource is a folder with multiple files. The Folder should contain a file "_ver.txt" with a version string.
         /// </summary>
         [JsonProperty]
         public bool IsFolder;
+        /// <summary>
+        /// If only one module of a category can be selected.
+        /// </summary>
+        [JsonProperty]
+        public bool Selectable;
         /// <summary>
         /// Relative path of the resource where it should be saved to.
         /// </summary>
@@ -70,11 +76,37 @@ namespace ARKBreedingStats.Updater
             Version.TryParse(version, out VersionOnline);
 
             // local version
-            if (!IsFolder || string.IsNullOrEmpty(LocalPath)) return;
+            if (string.IsNullOrEmpty(LocalPath)) return;
 
-            var filePath = FileService.GetPath(LocalPath, "_ver.txt");
-            LocallyAvailable = File.Exists(filePath) && Version.TryParse(File.ReadAllText(filePath), out VersionLocal);
-            UpdateAvailable = VersionOnline > VersionLocal;
+            if (IsFolder)
+            {
+                var filePath = FileService.GetPath(LocalPath, "_ver.txt");
+                LocallyAvailable = File.Exists(filePath) &&
+                                   Version.TryParse(File.ReadAllText(filePath), out VersionLocal);
+                UpdateAvailable = VersionOnline > VersionLocal;
+            }
+            else
+            {
+                var filePath = FileService.GetPath(LocalPath);
+                if (File.Exists(filePath))
+                {
+                    try
+                    {
+                        var json = JObject.Parse(File.ReadAllText(filePath));
+                        var ver = json.Value<string>("Version");
+                        if (!string.IsNullOrEmpty(ver) && Version.TryParse(ver, out VersionLocal))
+                        {
+                            LocallyAvailable = true;
+                            UpdateAvailable = VersionOnline > VersionLocal;
+                        }
+                    }
+                    catch (JsonReaderException ex)
+                    {
+                        Description = $"ERROR: Couldn't load json file of this module\n{ex.Message}"
+                                      + (string.IsNullOrEmpty(Description) ? string.Empty : "\n\n" + Description);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -92,7 +124,7 @@ namespace ARKBreedingStats.Updater
             string tempFilePath = Path.GetTempFileName();
             var (success, _) = await Updater.DownloadAsync(Url, tempFilePath);
             if (!success)
-                return (false, $"File {Url} couldn't be downloaded");
+                return (false, $"File\n{Url}\ncouldn't be downloaded");
 
             int fileCountExtracted = 0;
             int fileCountSkipped = 0;

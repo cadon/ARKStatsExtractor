@@ -1,0 +1,21 @@
+{
+  "Format": "1.0",
+  "Version": "2021.5.11",
+  "Data": [
+    {
+      "Pattern": "{{#substring: {{#format_int: {{#substring: {arkid} | -9 }} | X9 }} | -4 }}",
+      "Title": "Short identifier",
+      "Description": "Mostly unique identifier with a length of 4 hexadecimal characters for a creature based on its id. With a length of 4 there are 16^4 = 65536 different ids.\nExample: 7D2E"
+    },
+    {
+      "Pattern": "{species} [{{#ifexpr: {muta} > 0 | D | C }}] {sex_short}-{{#padleft: {n} | 3 | 0 }}",
+      "Title": "Species name with mutation indicator",
+      "Description": "Species name followed by an indicator for Clean or Dirty if there was a mutation. Creature's sex as well as an incremental counter.\nExample: Argentavis [D] M-005"
+    },
+    {
+      "Pattern": "{{#ifexpr: {n} > 1 | _{n} }}",
+      "Title": "Unique identifier",
+      "Description": "Adds a unique identifier only if the name is not unique without it."
+    }
+  ]
+}
