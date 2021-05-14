@@ -1708,5 +1708,17 @@ namespace ARKBreedingStats.Properties {
                 this["OcrGuessSpecies"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int WaitBeforeAutoLoadMs {
+            get {
+                return ((int)(this["WaitBeforeAutoLoadMs"]));
+            }
+            set {
+                this["WaitBeforeAutoLoadMs"] = value;
+            }
+        }
     }
 }

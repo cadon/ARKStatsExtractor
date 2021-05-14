@@ -50,6 +50,11 @@ namespace ARKBreedingStats
             }
             lastChangeType = e.ChangeType;
 
+            // first wait for the time the user has set
+            var waitMs = Properties.Settings.Default.WaitBeforeAutoLoadMs;
+            if (waitMs > 0)
+                Thread.Sleep(waitMs);
+
             // Wait until the file is writeable
             int numberOfRetries = 5;
             int delayOnRetry = 1000;
@@ -58,10 +63,10 @@ namespace ARKBreedingStats
             {
                 try
                 {
-                    using (Stream stream = File.Open(currentFile, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
+                    using (Stream unused = File.Open(currentFile, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
                     {
-                        if (stream != null)
-                            break;
+                        // stream isn't used, if there's no exception, continue with loading the file.
+                        break;
                     }
                 }
                 catch (FileNotFoundException)
@@ -76,16 +81,18 @@ namespace ARKBreedingStats
 
             // Notify the form that the collection has been changed, but only if it's been
             // at least two seconds since last update
-            if ((lastUpdated == null || (DateTime.Now - lastUpdated).TotalSeconds > 2) && Properties.Settings.Default.syncCollection)
+            if ((DateTime.Now - lastUpdated).TotalSeconds > 2)
             {
                 callbackFunction(); // load collection
                 lastUpdated = DateTime.Now;
             }
         }
 
+        /// <summary>
+        /// Call this function just before the tool saves the file, so the fileWatcher ignores the change.
+        /// </summary>
         public void JustSaving()
         {
-            // call this function just before the tool saves the file, so the fileWatcher ignores the change
             lastUpdated = DateTime.Now;
         }
 

@@ -170,6 +170,7 @@
             this.cbCreatureColorsLibrary = new System.Windows.Forms.CheckBox();
             this.tabPageImportSavegame = new System.Windows.Forms.TabPage();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.CbImportUnclaimedBabies = new System.Windows.Forms.CheckBox();
             this.cbSaveImportCryo = new System.Windows.Forms.CheckBox();
             this.cbIgnoreUnknownBPOnSaveImport = new System.Windows.Forms.CheckBox();
             this.textBoxImportTribeNameFilter = new System.Windows.Forms.TextBox();
@@ -287,7 +288,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.CbImportUnclaimedBabies = new System.Windows.Forms.CheckBox();
+            this.NudWaitBeforeAutoLoad = new ARKBreedingStats.uiControls.Nud();
+            this.label55 = new System.Windows.Forms.Label();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmountEvent)).BeginInit();
@@ -376,6 +378,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NudWaitBeforeAutoLoad)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -496,9 +499,9 @@
             this.chkCollectionSync.AutoSize = true;
             this.chkCollectionSync.Location = new System.Drawing.Point(6, 42);
             this.chkCollectionSync.Name = "chkCollectionSync";
-            this.chkCollectionSync.Size = new System.Drawing.Size(135, 17);
+            this.chkCollectionSync.Size = new System.Drawing.Size(189, 17);
             this.chkCollectionSync.TabIndex = 1;
-            this.chkCollectionSync.Text = "Auto load collection file";
+            this.chkCollectionSync.Text = "Auto load collection file on change";
             this.chkCollectionSync.UseVisualStyleBackColor = true;
             // 
             // label6
@@ -1337,6 +1340,8 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.label55);
+            this.groupBox6.Controls.Add(this.NudWaitBeforeAutoLoad);
             this.groupBox6.Controls.Add(this.label54);
             this.groupBox6.Controls.Add(this.NudKeepBackupFilesCount);
             this.groupBox6.Controls.Add(this.label53);
@@ -2212,6 +2217,16 @@
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Import Data from Save-File";
             // 
+            // CbImportUnclaimedBabies
+            // 
+            this.CbImportUnclaimedBabies.AutoSize = true;
+            this.CbImportUnclaimedBabies.Location = new System.Drawing.Point(9, 160);
+            this.CbImportUnclaimedBabies.Name = "CbImportUnclaimedBabies";
+            this.CbImportUnclaimedBabies.Size = new System.Drawing.Size(140, 17);
+            this.CbImportUnclaimedBabies.TabIndex = 8;
+            this.CbImportUnclaimedBabies.Text = "Import unclaimed babies";
+            this.CbImportUnclaimedBabies.UseVisualStyleBackColor = true;
+            // 
             // cbSaveImportCryo
             // 
             this.cbSaveImportCryo.AutoSize = true;
@@ -2973,7 +2988,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -2981,7 +2996,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -2989,7 +3004,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -2997,7 +3012,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -3489,15 +3504,31 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // CbImportUnclaimedBabies
+            // NudWaitBeforeAutoLoad
             // 
-            this.CbImportUnclaimedBabies.AutoSize = true;
-            this.CbImportUnclaimedBabies.Location = new System.Drawing.Point(9, 160);
-            this.CbImportUnclaimedBabies.Name = "CbImportUnclaimedBabies";
-            this.CbImportUnclaimedBabies.Size = new System.Drawing.Size(140, 17);
-            this.CbImportUnclaimedBabies.TabIndex = 8;
-            this.CbImportUnclaimedBabies.Text = "Import unclaimed babies";
-            this.CbImportUnclaimedBabies.UseVisualStyleBackColor = true;
+            this.NudWaitBeforeAutoLoad.Location = new System.Drawing.Point(255, 41);
+            this.NudWaitBeforeAutoLoad.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.NudWaitBeforeAutoLoad.Name = "NudWaitBeforeAutoLoad";
+            this.NudWaitBeforeAutoLoad.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.NudWaitBeforeAutoLoad.Size = new System.Drawing.Size(56, 20);
+            this.NudWaitBeforeAutoLoad.TabIndex = 12;
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Location = new System.Drawing.Point(193, 20);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(118, 13);
+            this.label55.TabIndex = 13;
+            this.label55.Text = "wait before loading [ms]";
             // 
             // Settings
             // 
@@ -3634,6 +3665,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.NudWaitBeforeAutoLoad)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3898,5 +3930,7 @@
         private System.Windows.Forms.CheckBox CbExportTableFieldsAll;
         private System.Windows.Forms.CheckBox CbConsiderWastedStatsForTopCreatures;
         private System.Windows.Forms.CheckBox CbImportUnclaimedBabies;
+        private System.Windows.Forms.Label label55;
+        private uiControls.Nud NudWaitBeforeAutoLoad;
     }
 }

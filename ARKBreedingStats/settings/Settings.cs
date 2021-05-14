@@ -219,6 +219,7 @@ namespace ARKBreedingStats.settings
 
             checkBoxAutoSave.Checked = Properties.Settings.Default.autosave;
             chkCollectionSync.Checked = Properties.Settings.Default.syncCollection;
+            NudWaitBeforeAutoLoad.ValueSave = Properties.Settings.Default.WaitBeforeAutoLoadMs;
             NudBackupEveryMinutes.ValueSave = Properties.Settings.Default.BackupEveryMinutes;
             NudKeepBackupFilesCount.ValueSave = Properties.Settings.Default.BackupFileCount;
             SetFolderSelectionButton(BtBackupFolder, Properties.Settings.Default.BackupFolder, true);
@@ -441,6 +442,7 @@ namespace ARKBreedingStats.settings
 
             Properties.Settings.Default.autosave = checkBoxAutoSave.Checked;
             Properties.Settings.Default.syncCollection = chkCollectionSync.Checked;
+            Properties.Settings.Default.WaitBeforeAutoLoadMs = (int)NudWaitBeforeAutoLoad.Value;
             Properties.Settings.Default.BackupEveryMinutes = (int)NudBackupEveryMinutes.Value;
             Properties.Settings.Default.BackupFileCount = (int)NudKeepBackupFilesCount.Value;
             Properties.Settings.Default.BackupFolder = BtBackupFolder.Tag as string;
