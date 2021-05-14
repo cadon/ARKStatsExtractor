@@ -91,9 +91,18 @@ namespace ARKBreedingStats
         /// <summary>
         /// Call this function just before the tool saves the file, so the fileWatcher ignores the change.
         /// </summary>
-        public void JustSaving()
+        public void SavingStarts()
+        {
+            file_watcher.EnableRaisingEvents = false;
+        }
+
+        /// <summary>
+        /// Call when the saving has finished, and the file should be watched again for changes.
+        /// </summary>
+        public void SavingEnds()
         {
             lastUpdated = DateTime.Now;
+            file_watcher.EnableRaisingEvents = true;
         }
 
         private void UpdateProperties()

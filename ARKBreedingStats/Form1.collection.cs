@@ -202,11 +202,11 @@ namespace ARKBreedingStats
 
             var tempSavePath = filePath + ".tmp";
 
+            _fileSync.SavingStarts();
             for (int i = 0; i < numberOfRetries; ++i)
             {
                 try
                 {
-                    _fileSync.JustSaving();
                     using (StreamWriter file = File.CreateText(tempSavePath))
                     {
                         JsonSerializer serializer = new JsonSerializer
@@ -258,6 +258,7 @@ namespace ARKBreedingStats
                     break;
                 }
             }
+            _fileSync.SavingEnds();
 
             if (fileSaved)
                 SetCollectionChanged(false);
