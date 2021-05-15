@@ -1096,7 +1096,7 @@ namespace ARKBreedingStats
                     "No new Version available", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
-            if (!silentCheck)
+            if (!silentCheck || displayModuleWindowAlways)
                 DisplayUpdateModules(!displayModuleWindowAlways);
         }
 
