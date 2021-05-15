@@ -1380,10 +1380,18 @@ namespace ARKBreedingStats
             int imagesCreated = 0;
             string firstImageFilePath = null;
 
+            var invalidCharacters = Path.GetInvalidFileNameChars();
+
             foreach (ListViewItem li in si)
             {
                 var c = (Creature)li.Tag;
-                var filePath = Path.Combine(folderPath, $"ARK_info_{c.Species.name}_{c.name}.png");
+
+                var fileName = $"{c.Species.name}_{c.name}";
+                foreach (var invalidChar in invalidCharacters)
+                    fileName = fileName.Replace(invalidChar, '_');
+
+                var filePath = Path.Combine(folderPath, $"ARK_info_{fileName}.png");
+
                 if (File.Exists(filePath))
                 {
                     switch (MessageBox.Show($"The file\n{filePath}\nalready exists.\nOverwrite the file?", "File exists already", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning))
