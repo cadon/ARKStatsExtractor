@@ -1,5 +1,5 @@
 {
-	"version": "324.22.6362827",
+	"version": "326.3.6518171.1",
 	"format": "1.14-flyerspeed",
 	"species": [
 		{
@@ -53235,7 +53235,7 @@
 			},
 			"colors": [
 				{
-					"name": "Unknown",
+					"name": "Body",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -53251,7 +53251,7 @@
 				},
 				null,
 				{
-					"name": "Unknown",
+					"name": "Spikes and Horns",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -53267,7 +53267,7 @@
 				},
 				null,
 				{
-					"name": "Unknown",
+					"name": "Back",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -53284,7 +53284,7 @@
 					]
 				},
 				{
-					"name": "Unknown",
+					"name": "Face, Legs, and Underside",
 					"colors": [
 						"Black",
 						"Dino Light Brown",
@@ -58981,57 +58981,9 @@
 						"Light Grey"
 					]
 				},
-				{
-					"name": "Unknown",
-					"colors": [
-						"BigFoot0",
-						"BigFoot4",
-						"BigFoot5",
-						"Black",
-						"Dark Grey",
-						"Dino Dark Brown",
-						"Dino Dark Orange",
-						"Dino Darker Grey",
-						"Dino Light Brown",
-						"Dino Light Orange",
-						"Dino Medium Brown",
-						"Light Grey"
-					]
-				},
-				{
-					"name": "Unknown",
-					"colors": [
-						"BigFoot0",
-						"BigFoot4",
-						"BigFoot5",
-						"Black",
-						"Dark Grey",
-						"Dino Dark Brown",
-						"Dino Dark Orange",
-						"Dino Darker Grey",
-						"Dino Light Brown",
-						"Dino Light Orange",
-						"Dino Medium Brown",
-						"Light Grey"
-					]
-				},
-				{
-					"name": "Unknown",
-					"colors": [
-						"BigFoot0",
-						"BigFoot4",
-						"BigFoot5",
-						"Black",
-						"Dark Grey",
-						"Dino Dark Brown",
-						"Dino Dark Orange",
-						"Dino Darker Grey",
-						"Dino Light Brown",
-						"Dino Light Orange",
-						"Dino Medium Brown",
-						"Light Grey"
-					]
-				},
+				null,
+				null,
+				null,
 				{
 					"name": "Horns",
 					"colors": [

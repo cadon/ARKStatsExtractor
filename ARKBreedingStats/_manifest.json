@@ -4,14 +4,14 @@
     "ARK Smart Breeding": {
       "Id": "ARK Smart Breeding",
       "Category": "main",
-      "version": "0.45.1.0"
+      "version": "0.46.0.0"
     },
     "SpeciesColorImages": {
       "Id": "SpeciesColorImages",
       "Category": "Species Images",
       "Name": "Species Images",
       "Author": "cadaei and Myrmecoleon",
-      "Description": "Images for species for visualizing the colors of creatures",
+      "Description": "Download this to have a visualization for the colors of creatures (~17 MB).",
       "Url": "https://github.com/cadon/ARKStatsExtractor/raw/master/speciesImages/speciesImages.zip",
       "LocalPath": "images/speciesImages",
       "IsFolder": true,

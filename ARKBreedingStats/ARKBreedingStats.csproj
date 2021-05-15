@@ -791,6 +791,9 @@
     <None Include="json\kibbles.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="json\values\_manifest.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\kofi.png" />
     <Content Include="Resources\ARKExtractor.ico" />
     <Content Include="Resources\lock.png" />
