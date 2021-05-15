@@ -151,6 +151,14 @@ namespace ARKBreedingStats.Updater
                 var (success, message) = await module.DownloadAsync(true);
                 sb.AppendLine();
                 sb.AppendLine((success ? "Success: " : "Failed: ") + message);
+
+                // if downloaded successfully, also select the module
+                if (success)
+                {
+                    var checkBox = _checkboxesSelectModule.FirstOrDefault(cb => (cb.Tag as AsbModule) == module);
+                    if (checkBox != null)
+                        checkBox.Checked = true;
+                }
             }
 
             return sb.ToString();
