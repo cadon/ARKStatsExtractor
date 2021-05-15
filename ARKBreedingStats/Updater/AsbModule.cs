@@ -123,7 +123,7 @@ namespace ARKBreedingStats.Updater
             if (string.IsNullOrEmpty(Url))
                 return (false, "Url is empty, couldn't download anything.");
 
-            string moduleFolderPath = FileService.GetPath(FileService.DataFolderName, LocalPath);
+            string moduleFolderPath = FileService.GetPath(LocalPath);
             string tempFilePath = Path.GetTempFileName();
             var (success, _) = await Updater.DownloadAsync(Url, tempFilePath);
             if (!success)
