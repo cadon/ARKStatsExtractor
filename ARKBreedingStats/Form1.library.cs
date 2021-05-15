@@ -1384,9 +1384,9 @@ namespace ARKBreedingStats
 
             foreach (ListViewItem li in si)
             {
-                var c = (Creature)li.Tag;
+                if (!(li.Tag is Creature c)) continue;
 
-                var fileName = $"{c.Species.name}_{c.name}";
+                var fileName = $"{c.Species.name}_{(string.IsNullOrEmpty(c.name) ? c.guid.ToString() : c.name)}";
                 foreach (var invalidChar in invalidCharacters)
                     fileName = fileName.Replace(invalidChar, '_');
 
