@@ -3010,7 +3010,7 @@ namespace ARKBreedingStats
                 cr.tamingEff = _extractor.UniqueTE();
                 cr.isBred = rbBredExtractor.Checked;
                 cr.topBreedingStats = _statIOs.Select(s =>
-                    s.TopLevel == StatIOStatus.TopLevel || s.TopLevel == StatIOStatus.NewTopLevel).ToArray();
+                    s.TopLevel.HasFlag(LevelStatus.TopLevel) || s.TopLevel.HasFlag(LevelStatus.NewTopLevel)).ToArray();
             }
             else
             {

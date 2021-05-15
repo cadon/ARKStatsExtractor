@@ -64,7 +64,7 @@ namespace ARKBreedingStats
                     valid = false;
                     break;
                 }
-                _statIOs[s].TopLevel = StatIOStatus.Neutral;
+                _statIOs[s].TopLevel = LevelStatus.Neutral;
             }
             if (valid)
             {
@@ -115,20 +115,33 @@ namespace ARKBreedingStats
                 radarChartExtractor.SetLevels(_statIOs.Select(s => s.LevelWild).ToArray());
                 toolStripButtonSaveCreatureValuesTemp.Visible = false;
                 cbExactlyImprinting.BackColor = Color.Transparent;
-                if (_topLevels.TryGetValue(speciesSelector1.SelectedSpecies, out int[] topSpeciesLevels))
+                var checkTopLevels = _topLevels.TryGetValue(speciesSelector1.SelectedSpecies, out int[] topSpeciesLevels);
+
+                for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
-                    for (int s = 0; s < Values.STATS_COUNT; s++)
+                    if (s == (int)StatNames.Torpidity
+                        || _statIOs[s].LevelWild <= 0)
+                        continue;
+
+                    var levelStatus = LevelStatus.Neutral;
+
+                    if (checkTopLevels)
                     {
-                        if (s == (int)StatNames.Torpidity)
-                            continue;
-                        if (_statIOs[s].LevelWild > 0)
-                        {
-                            if (_statIOs[s].LevelWild == topSpeciesLevels[s])
-                                _statIOs[s].TopLevel = StatIOStatus.TopLevel;
-                            else if (topSpeciesLevels[s] != -1 && _statIOs[s].LevelWild > topSpeciesLevels[s])
-                                _statIOs[s].TopLevel = StatIOStatus.NewTopLevel;
-                        }
+                        if (_statIOs[s].LevelWild == topSpeciesLevels[s])
+                            levelStatus = LevelStatus.TopLevel;
+                        else if (topSpeciesLevels[s] != -1 && _statIOs[s].LevelWild > topSpeciesLevels[s])
+                            levelStatus = LevelStatus.NewTopLevel;
                     }
+
+                    if (_statIOs[s].LevelWild > 255)
+                        levelStatus |= LevelStatus.UltraMaxLevel;
+                    else if (_statIOs[s].LevelWild == 255)
+                        levelStatus |= LevelStatus.MaxLevel;
+                    else if (_statIOs[s].LevelWild == 254)
+                        levelStatus |= LevelStatus.MaxLevelForLevelUp;
+
+                    if (levelStatus != LevelStatus.Neutral)
+                        _statIOs[s].TopLevel = levelStatus;
                 }
             }
             creatureInfoInputExtractor.ButtonEnabled = allValid;

@@ -1305,4 +1305,13 @@ Filter for colors with c{region}: {colorValue} {colorValue2}, e.g. c0: 20, c5: 3
   <data name="Add Note" xml:space="preserve">
     <value>Add Note</value>
   </data>
+  <data name="maxLevelForLevelUp" xml:space="preserve">
+    <value>max level that allows domestic levelups</value>
+  </data>
+  <data name="maxLevelSaved" xml:space="preserve">
+    <value>max wild level that will be saved</value>
+  </data>
+  <data name="ultraMaxLevel" xml:space="preserve">
+    <value>Warning: The level is higher than the possible max value and will not be saved.</value>
+  </data>
 </root>

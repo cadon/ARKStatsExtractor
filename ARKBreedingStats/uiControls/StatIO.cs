@@ -26,7 +26,7 @@ namespace ARKBreedingStats
             InitializeComponent();
             numLvW.Value = 0;
             numLvD.Value = 0;
-            labelBValue.Text = "";
+            labelBValue.Text = string.Empty;
             postTame = true;
             percent = false;
             _breedingValue = 0;
@@ -61,7 +61,7 @@ namespace ARKBreedingStats
             set
             {
                 _statName = value;
-                groupBox1.Text = value + (Percent ? " [%]" : "");
+                groupBox1.Text = value + (Percent ? " [%]" : string.Empty);
             }
         }
 
@@ -101,7 +101,7 @@ namespace ARKBreedingStats
             {
                 if (value >= 0)
                 {
-                    labelBValue.Text = Math.Round((percent ? 100 : 1) * value, 1).ToString("N1") + (postTame ? "" : " +*");
+                    labelBValue.Text = Math.Round((percent ? 100 : 1) * value, 1).ToString("N1") + (postTame ? string.Empty : " +*");
                     _breedingValue = value;
                 }
                 else
@@ -166,28 +166,46 @@ namespace ARKBreedingStats
             }
         }
 
-        private StatIOStatus _topLevel;
-        public StatIOStatus TopLevel
+        private LevelStatus _topLevel;
+        public LevelStatus TopLevel
         {
             get => _topLevel;
             set
             {
                 _topLevel = value;
-                switch (_topLevel)
+
+                if (_topLevel == LevelStatus.Neutral)
                 {
-                    case StatIOStatus.TopLevel:
-                        labelWildLevel.BackColor = Color.LightGreen;
-                        _tt.SetToolTip(labelWildLevel, Loc.S("topLevel"));
-                        break;
-                    case StatIOStatus.NewTopLevel:
-                        labelWildLevel.BackColor = Color.Gold;
-                        _tt.SetToolTip(labelWildLevel, Loc.S("newTopLevel"));
-                        break;
-                    default:
-                        labelWildLevel.BackColor = Color.Transparent;
-                        _tt.SetToolTip(labelWildLevel, null);
-                        _topLevel = StatIOStatus.Neutral;
-                        break;
+                    labelWildLevel.BackColor = Color.Transparent;
+                    _tt.SetToolTip(labelWildLevel, null);
+                    return;
+                }
+
+                if (_topLevel.HasFlag(LevelStatus.TopLevel))
+                {
+                    labelWildLevel.BackColor = Color.LightGreen;
+                    _tt.SetToolTip(labelWildLevel, Loc.S("topLevel"));
+                }
+                else if (_topLevel.HasFlag(LevelStatus.NewTopLevel))
+                {
+                    labelWildLevel.BackColor = Color.Gold;
+                    _tt.SetToolTip(labelWildLevel, Loc.S("newTopLevel"));
+                }
+
+                if (_topLevel.HasFlag(LevelStatus.MaxLevelForLevelUp))
+                {
+                    labelWildLevel.BackColor = Color.DeepSkyBlue;
+                    _tt.SetToolTip(labelWildLevel, Loc.S("maxLevelForLevelUp"));
+                }
+                else if (_topLevel.HasFlag(LevelStatus.MaxLevel))
+                {
+                    labelWildLevel.BackColor = Color.Orange;
+                    _tt.SetToolTip(labelWildLevel, Loc.S("maxLevelSaved"));
+                }
+                else if (_topLevel.HasFlag(LevelStatus.UltraMaxLevel))
+                {
+                    labelWildLevel.BackColor = Color.LightCoral;
+                    _tt.SetToolTip(labelWildLevel, Loc.S("ultraMaxLevel"));
                 }
             }
         }
@@ -226,13 +244,13 @@ namespace ARKBreedingStats
         public void Clear()
         {
             Status = StatIOStatus.Neutral;
-            TopLevel = StatIOStatus.Neutral;
+            TopLevel = LevelStatus.Neutral;
             numLvW.Value = 0;
             numLvD.Value = 0;
             labelDomLevel.Text = "0";
             labelWildLevel.Text = "0";
             labelFinalValue.Text = "0";
-            labelBValue.Text = "";
+            labelBValue.Text = string.Empty;
         }
 
         private void numLvW_ValueChanged(object sender, EventArgs e)
@@ -340,15 +358,36 @@ namespace ARKBreedingStats
         Neutral,
         Unique,
         NonUnique,
-        Error,
+        Error
+    }
+
+    /// <summary>
+    /// Status of wild levels, e.g. top level, max level.
+    /// </summary>
+    [Flags]
+    public enum LevelStatus
+    {
+        Neutral = 0,
         /// <summary>
         /// wild level is equal to the current top-level
         /// </summary>
-        TopLevel,
+        TopLevel = 1,
         /// <summary>
         /// wild level is higher than the current top-level
         /// </summary>
-        NewTopLevel
+        NewTopLevel = 2,
+        /// <summary>
+        /// Max level to apply domesticated levels.
+        /// </summary>
+        MaxLevelForLevelUp = 4,
+        /// <summary>
+        /// Max level that can be saved.
+        /// </summary>
+        MaxLevel = 8,
+        /// <summary>
+        /// Level too high to be saved, rollover will happen.
+        /// </summary>
+        UltraMaxLevel = 16
     }
 
     public enum StatIOInputType

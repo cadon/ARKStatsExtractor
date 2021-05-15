@@ -184,12 +184,12 @@ namespace ARKBreedingStats
                     if (!species.UsesStat(statIndex)) continue;
 
                     sb.Append($"{Utils.StatName(statIndex, true, species.statNames)}: { _statIOs[statIndex].LevelWild} ({_statIOs[statIndex].BreedingValue})");
-                    if (_statIOs[statIndex].TopLevel == StatIOStatus.NewTopLevel)
+                    if (_statIOs[statIndex].TopLevel.HasFlag(LevelStatus.NewTopLevel))
                     {
                         sb.Append($" {Loc.S("newTopLevel")}");
                         newTopLevels = true;
                     }
-                    else if (_statIOs[statIndex].TopLevel == StatIOStatus.TopLevel)
+                    else if (_statIOs[statIndex].TopLevel.HasFlag(LevelStatus.TopLevel))
                     {
                         sb.Append($" {Loc.S("topLevel")}");
                         topLevels = true;

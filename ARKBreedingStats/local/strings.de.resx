@@ -1296,4 +1296,13 @@ Filter nach Farben mit c{Region}: {FarbCode} {FarbCode2}, z.B. c0: 20, c5: 3 4 5
   <data name="Add Note" xml:space="preserve">
     <value>Neue Notiz</value>
   </data>
+  <data name="maxLevelForLevelUp" xml:space="preserve">
+    <value>max wild Level welches ein manuelles Aufleveln erlaubt</value>
+  </data>
+  <data name="maxLevelSaved" xml:space="preserve">
+    <value>max wild Level welches gespeichert wird</value>
+  </data>
+  <data name="ultraMaxLevel" xml:space="preserve">
+    <value>Achtung: Das Level ist höher als der mögliche Maximalwert und wird nicht gespeichert.</value>
+  </data>
 </root>
