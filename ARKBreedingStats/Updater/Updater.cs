@@ -189,7 +189,7 @@ namespace ARKBreedingStats.Updater
         /// <returns></returns>
         internal static async Task<bool> DownloadManifest()
         {
-            return await DownloadManifestFile(ManifestUrl, Path.Combine(FileService.GetJsonPath(FileService.ValuesFolder), FileService.ManifestFileName));
+            return await DownloadManifestFile(ManifestUrl, FileService.GetPath(FileService.ManifestFileName));
         }
 
         /// <summary>

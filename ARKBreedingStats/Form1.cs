@@ -3500,6 +3500,12 @@ namespace ARKBreedingStats
 
         private async void DisplayUpdateModules(bool onlyDisplayIfUpdatesAreAvailable = false, bool selectDefaultImages = false)
         {
+
+            var manifestFilePath = FileService.GetPath(FileService.ManifestFileName);
+            if (!File.Exists(manifestFilePath))
+                if (!await Updater.Updater.DownloadManifest())
+                    return;
+
             using (var modules = new Updater.UpdateModules())
             {
                 if (!modules.UpdateAvailable && onlyDisplayIfUpdatesAreAvailable)

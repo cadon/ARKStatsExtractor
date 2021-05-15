@@ -18,7 +18,7 @@ namespace ARKBreedingStats.Updater
 
             var manifestFilePath = FileService.GetPath(FileService.ManifestFileName);
             if (!File.Exists(manifestFilePath))
-                Task.Run(async () => await Updater.DownloadManifest());
+                return;
 
             _asbManifest = AsbManifest.FromJsonFile(manifestFilePath);
             if (_asbManifest?.modules == null) return;
