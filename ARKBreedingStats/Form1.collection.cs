@@ -67,7 +67,7 @@ namespace ARKBreedingStats
             creatureBoxListView.Clear();
             Properties.Settings.Default.LastSaveFile = null;
             _currentFileName = null;
-            _fileSync.ChangeFile(_currentFileName);
+            _fileSync?.ChangeFile(_currentFileName);
             SetCollectionChanged(false);
         }
 
@@ -85,7 +85,7 @@ namespace ARKBreedingStats
             }
             else
             {
-                LoadCollectionFile(_currentFileName, true, true);
+                LoadCollectionFile(_currentFileName, true, true, true);
             }
         }
 
@@ -182,7 +182,7 @@ namespace ARKBreedingStats
                 {
                     _currentFileName = dlg.FileName;
                     SaveCollectionToFileName(_currentFileName);
-                    _fileSync.ChangeFile(_currentFileName);
+                    _fileSync?.ChangeFile(_currentFileName);
                 }
             }
         }
@@ -202,7 +202,7 @@ namespace ARKBreedingStats
 
             var tempSavePath = filePath + ".tmp";
 
-            _fileSync.SavingStarts();
+            _fileSync?.SavingStarts();
             for (int i = 0; i < numberOfRetries; ++i)
             {
                 try
@@ -258,7 +258,7 @@ namespace ARKBreedingStats
                     break;
                 }
             }
-            _fileSync.SavingEnds();
+            _fileSync?.SavingEnds();
 
             if (fileSaved)
                 SetCollectionChanged(false);
@@ -319,7 +319,7 @@ namespace ARKBreedingStats
         /// <param name="keepCurrentCreatures">add the creatures of the loaded file to the current ones</param>
         /// <param name="keepCurrentSelections">don't change the species selection or tab, use if a synchronized library is loaded</param>
         /// <returns></returns>
-        private bool LoadCollectionFile(string filePath, bool keepCurrentCreatures = false, bool keepCurrentSelections = false)
+        private bool LoadCollectionFile(string filePath, bool keepCurrentCreatures = false, bool keepCurrentSelections = false, bool triggeredByFileWatcher = false)
         {
             Species selectedSpecies = speciesSelector1.SelectedSpecies;
             Species selectedLibrarySpecies = listBoxSpeciesLib.SelectedItem as Species;
@@ -498,7 +498,7 @@ namespace ARKBreedingStats
             else
             {
                 _currentFileName = filePath;
-                _fileSync.ChangeFile(_currentFileName);
+                _fileSync?.ChangeFile(_currentFileName);
                 creatureBoxListView.Clear();
             }
 
@@ -512,7 +512,7 @@ namespace ARKBreedingStats
 
             _filterListAllowed = false;
 
-            SetCollectionChanged(creatureWasAdded); // setCollectionChanged only if there really were creatures added from the old library to the just opened one
+            SetCollectionChanged(creatureWasAdded, triggeredByFileWatcher: triggeredByFileWatcher); // setCollectionChanged only if there really were creatures added from the old library to the just opened one
 
             ///// creatures loaded.
 
@@ -577,7 +577,8 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="changed">is the collection changed?</param>
         /// <param name="species">set to a specific species if only this species needs updates in the pedigree / breeding-planner. Set to null if no species needs updates</param>
-        private void SetCollectionChanged(bool changed, Species species = null)
+        /// <param name="triggeredByFileWatcher">If true, the call was invoked by the fileWatcher, a file save should not performed then.</param>
+        private void SetCollectionChanged(bool changed, Species species = null, bool triggeredByFileWatcher = false)
         {
             if (changed)
             {
@@ -587,7 +588,7 @@ namespace ARKBreedingStats
                     breedingPlan1.BreedingPlanNeedsUpdate = true;
             }
 
-            var currentFileNotEmpty = !string.IsNullOrEmpty(_currentFileName);
+            if (triggeredByFileWatcher) return;
 
             if (changed && Properties.Settings.Default.autosave)
             {
@@ -597,6 +598,7 @@ namespace ARKBreedingStats
                 return;
             }
 
+            var currentFileNotEmpty = !string.IsNullOrEmpty(_currentFileName);
             _collectionDirty = changed;
             string fileName = currentFileNotEmpty ? Path.GetFileName(_currentFileName) : null;
             Text = $"{Utils.ApplicationNameVersion}{(currentFileNotEmpty ? " - " + fileName : string.Empty)}{(changed ? " *" : string.Empty)}";

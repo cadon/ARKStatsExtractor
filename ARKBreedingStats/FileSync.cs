@@ -4,26 +4,26 @@ using System.Threading;
 
 namespace ARKBreedingStats
 {
-    class FileSync
+    internal class FileSync : IDisposable
     {
-        string currentFile;
-        readonly FileSystemWatcher file_watcher;
-        DateTime lastUpdated;
-        WatcherChangeTypes lastChangeType;
-        readonly Action callbackFunction;
+        private string _currentFile;
+        private readonly FileSystemWatcher _fileWatcher;
+        private DateTime _lastUpdated;
+        private WatcherChangeTypes _lastChangeType;
+        private readonly Action _callbackFunction;
 
         public FileSync(string fileName, Action callback)
         {
-            currentFile = fileName;
-            callbackFunction = callback;
+            _currentFile = fileName;
+            _callbackFunction = callback;
 
-            file_watcher = new FileSystemWatcher();
+            _fileWatcher = new FileSystemWatcher();
 
             // Add the handler for file changes
-            file_watcher.Changed += OnChanged;
-            file_watcher.Created += OnChanged;
-            file_watcher.Renamed += OnChanged;
-            file_watcher.Deleted += OnChanged;
+            _fileWatcher.Changed += OnChanged;
+            _fileWatcher.Created += OnChanged;
+            _fileWatcher.Renamed += OnChanged;
+            _fileWatcher.Deleted += OnChanged;
 
             // Update the file watcher's properties
             UpdateProperties();
@@ -31,7 +31,7 @@ namespace ARKBreedingStats
 
         public void ChangeFile(string newFileName)
         {
-            currentFile = newFileName;
+            _currentFile = newFileName;
 
             // Update the FileSystemWatcher properties
             UpdateProperties();
@@ -39,16 +39,16 @@ namespace ARKBreedingStats
 
         private void OnChanged(object source, FileSystemEventArgs e)
         {
-            if (string.IsNullOrEmpty(currentFile)) return;
+            if (string.IsNullOrEmpty(_currentFile)) return;
 
             if (e.ChangeType != WatcherChangeTypes.Changed &&                                                    // default || DropBox
-                !(e.ChangeType == WatcherChangeTypes.Renamed && lastChangeType == WatcherChangeTypes.Deleted) && // NextCloud
-                !(e.ChangeType == WatcherChangeTypes.Created && lastChangeType == WatcherChangeTypes.Deleted))   // CloudStation
+                !(e.ChangeType == WatcherChangeTypes.Renamed && _lastChangeType == WatcherChangeTypes.Deleted) && // NextCloud
+                !(e.ChangeType == WatcherChangeTypes.Created && _lastChangeType == WatcherChangeTypes.Deleted))   // CloudStation
             {
-                lastChangeType = e.ChangeType;
+                _lastChangeType = e.ChangeType;
                 return;
             }
-            lastChangeType = e.ChangeType;
+            _lastChangeType = e.ChangeType;
 
             // first wait for the time the user has set
             var waitMs = Properties.Settings.Default.WaitBeforeAutoLoadMs;
@@ -56,14 +56,14 @@ namespace ARKBreedingStats
                 Thread.Sleep(waitMs);
 
             // Wait until the file is writeable
-            int numberOfRetries = 5;
-            int delayOnRetry = 1000;
+            const int numberOfRetries = 5;
+            const int delayOnRetry = 1000;
 
             for (int i = 1; i <= numberOfRetries; ++i)
             {
                 try
                 {
-                    using (Stream unused = File.Open(currentFile, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
+                    using (Stream unused = File.Open(_currentFile, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
                     {
                         // stream isn't used, if there's no exception, continue with loading the file.
                         break;
@@ -81,10 +81,10 @@ namespace ARKBreedingStats
 
             // Notify the form that the collection has been changed, but only if it's been
             // at least two seconds since last update
-            if ((DateTime.Now - lastUpdated).TotalSeconds > 2)
+            if ((DateTime.Now - _lastUpdated).TotalSeconds > 2)
             {
-                callbackFunction(); // load collection
-                lastUpdated = DateTime.Now;
+                _callbackFunction(); // load collection
+                _lastUpdated = DateTime.Now;
             }
         }
 
@@ -93,7 +93,7 @@ namespace ARKBreedingStats
         /// </summary>
         public void SavingStarts()
         {
-            file_watcher.EnableRaisingEvents = false;
+            _fileWatcher.EnableRaisingEvents = false;
         }
 
         /// <summary>
@@ -101,25 +101,29 @@ namespace ARKBreedingStats
         /// </summary>
         public void SavingEnds()
         {
-            lastUpdated = DateTime.Now;
-            file_watcher.EnableRaisingEvents = true;
+            _lastUpdated = DateTime.Now;
+            _fileWatcher.EnableRaisingEvents = true;
         }
 
         private void UpdateProperties()
         {
-            if (!string.IsNullOrEmpty(currentFile) && Properties.Settings.Default.syncCollection)
+            if (!string.IsNullOrEmpty(_currentFile) && Properties.Settings.Default.syncCollection)
             {
                 // Update the path notify filter and filter of the watcher
-                file_watcher.Path = Directory.GetParent(currentFile).ToString();
-                file_watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size | NotifyFilters.FileName;
-                file_watcher.Filter = Path.GetFileName(currentFile);
-                file_watcher.EnableRaisingEvents = true;
+                _fileWatcher.Path = Path.GetDirectoryName(_currentFile);
+                _fileWatcher.Filter = Path.GetFileName(_currentFile);
+                _fileWatcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size | NotifyFilters.FileName;
+                _fileWatcher.EnableRaisingEvents = true;
             }
             else
             {
-                file_watcher.EnableRaisingEvents = false;
+                _fileWatcher.EnableRaisingEvents = false;
             }
         }
+
+        #region Disposing
+
+        private bool _disposed;
 
         public void Dispose()
         {
@@ -129,10 +133,16 @@ namespace ARKBreedingStats
 
         protected virtual void Dispose(bool disposing)
         {
+            if (_disposed) return;
+
             if (disposing)
             {
-                file_watcher.Dispose();
+                _fileWatcher.Dispose();
             }
+
+            _disposed = true;
         }
+
+        #endregion
     }
 }

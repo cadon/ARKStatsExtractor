@@ -47,7 +47,8 @@ namespace ARKBreedingStats
 
         public delegate void
             CollectionChangedEventHandler(bool changed = true,
-                Species species = null); // if null is passed for species, breeding-related controls are not updated
+                Species species = null, // if null is passed for species, breeding-related controls are not updated
+                bool triggeredByFileWatcher = false);
 
         public delegate void SetMessageLabelTextEventHandler(string text = null,
             MessageBoxIcon icon = MessageBoxIcon.None, string actionInfo = null);
@@ -292,7 +293,9 @@ namespace ARKBreedingStats
             CreatureColored.InitializeSpeciesImageLocation();
 
             // Set up the file watcher
-            _fileSync = new FileSync(_currentFileName, CollectionChanged);
+            if (Properties.Settings.Default.syncCollection)
+                _fileSync = new FileSync(_currentFileName, CollectionChanged);
+
             // exports file watcher
             bool enableExportWatcher = Utils.GetFirstImportExportFolder(out string exportFolderDefault)
                                        && Properties.Settings.Default.AutoImportExportedCreatures;
@@ -2017,7 +2020,20 @@ namespace ARKBreedingStats
                     if (settingsForm.LanguageChanged) SetLocalizations();
                     CreatureColored.InitializeSpeciesImageLocation();
                     creatureBoxListView.CreatureCollection = _creatureCollection;
-                    _fileSync.ChangeFile(_currentFileName); // only to enable / disable the FileWatcher, filename is not changed
+
+                    if (Properties.Settings.Default.syncCollection)
+                    {
+                        if (_fileSync == null)
+                            _fileSync = new FileSync(_currentFileName, CollectionChanged);
+                    }
+                    else
+                    {
+                        if (_fileSync != null)
+                        {
+                            _fileSync.Dispose();
+                            _fileSync = null;
+                        }
+                    }
 
                     bool enableExportWatcher = Utils.GetFirstImportExportFolder(out string exportFolderDefault)
                                                && Properties.Settings.Default.AutoImportExportedCreatures;
