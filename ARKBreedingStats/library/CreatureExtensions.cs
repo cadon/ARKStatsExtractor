@@ -54,8 +54,18 @@ namespace ARKBreedingStats.library
                 using (var backgroundBrush = new SolidBrush(Properties.Settings.Default.InfoGraphicBackColor))
                     g.FillRectangle(backgroundBrush, 0, 0, width, height);
 
-                g.DrawString(creature.Species.DescriptiveNameAndMod + (Properties.Settings.Default.InfoGraphicDisplayName ? $" - {creature.name}" : string.Empty),
-                    fontHeader, fontBrush, 3, currentYPosition);
+                var headerText = creature.Species.DescriptiveNameAndMod + (Properties.Settings.Default.InfoGraphicDisplayName ? $" - {creature.name}" : string.Empty);
+
+                var fontSizeHeaderCalculated = CalculateFontSize(g, headerText, fontHeader, width);
+                if (fontSizeHeaderCalculated < fontSizeHeader)
+                {
+                    using (var fontHeaderScaled = new Font(fontName, (int)fontSizeHeaderCalculated, FontStyle.Bold))
+                        g.DrawString(headerText, fontHeaderScaled, fontBrush, 3, currentYPosition);
+
+                }
+                else
+                    g.DrawString(headerText, fontHeader, fontBrush, 3, currentYPosition);
+
                 currentYPosition += height * 19 / 180; //19
                 string creatureInfos = $"{Loc.S("Level")} {creature.LevelHatched} | {Utils.SexSymbol(creature.sex) + (creature.flags.HasFlag(CreatureFlags.Neutered) ? $" ({Loc.S(creature.sex == Sex.Female ? "Spayed" : "Neutered")})" : string.Empty)}";
                 if (Properties.Settings.Default.InfoGraphicDisplayMutations)
@@ -226,6 +236,17 @@ namespace ARKBreedingStats.library
             }
 
             return bmp;
+        }
+
+        /// <summary>
+        /// If the text is too long, the smaller font size is returned to fit the available width.
+        /// </summary>
+        private static float CalculateFontSize(Graphics g, string text, Font font, int availableWidth)
+        {
+            var size = g.MeasureString(text, font);
+            if (availableWidth < size.Width)
+                return font.Size * availableWidth / size.Width;
+            return font.Size;
         }
 
         /// <summary>
