@@ -105,14 +105,14 @@ Name: "{group}\{cm:UninstallProgram,{#AppName}}"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\{#AppName}"; Filename: "{app}\{#AppExeName}"; Tasks: desktopicon
 
 [Run]
-Filename: "powershell.exe"; Parameters: "-nologo -noprofile -command ""& {{ Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('{tmp}\img.zip', '{localappdata}\{#AppName}\img\'); }"""; Flags: runminimized; StatusMsg: "{cm:InstallImages}"; Tasks: images
+Filename: "powershell.exe"; Parameters: "-nologo -noprofile -command ""& {{ Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('{tmp}\speciesImages.zip', '{localappdata}\{#AppName}\images\speciesImages\'); }"""; Flags: runminimized; StatusMsg: "{cm:InstallImages}"; Tasks: images
 Filename: "{app}\{#AppExeName}"; Flags: nowait postinstall skipifsilent unchecked; Description: "{cm:LaunchProgram,{#StringChange(AppName, '&', '&&')}}"
 
 [UninstallRun]
 Filename: "taskkill"; Parameters: "/im ""{#AppExeName}"""; Flags: runhidden
 
 [UninstallDelete]
-Type: filesandordirs; Name: "{app}\img"
+Type: filesandordirs; Name: "{app}\images"
 
 [Code]
 var
@@ -163,7 +163,7 @@ begin
   end;
   if (CurPageID = wpSelectTasks) then begin
     if IsTaskSelected('images') then
-      idpAddFile('https://github.com/cadon/ARKStatsExtractor/raw/master/img.zip', ExpandConstant('{tmp}\img.zip'));
+      idpAddFile('https://github.com/cadon/ARKStatsExtractor/raw/master/speciesImages/speciesImages.zip', ExpandConstant('{tmp}\speciesImages.zip'));
       idpDownloadAfter(wpReady);
   end;
   Result := True;

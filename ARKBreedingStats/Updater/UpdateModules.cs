@@ -164,11 +164,11 @@ namespace ARKBreedingStats.Updater
             return sb.ToString();
         }
 
-        public string GetSpeciesImagesFolder()
+        public string GetSpeciesImagesFolder(bool useDefaultImages)
         {
             if (!(_checkboxesSelectModule?.Any() ?? false)) return null;
 
-            return _checkboxesSelectModule.Where(cb => cb.Checked).Select(cb => cb.Tag as AsbModule)
+            return _checkboxesSelectModule.Where(cb => useDefaultImages || cb.Checked).Select(cb => cb.Tag as AsbModule)
                 .FirstOrDefault(m => m?.Category == "Species Images")?.LocalPath;
         }
     }

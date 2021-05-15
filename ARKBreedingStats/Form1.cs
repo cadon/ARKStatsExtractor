@@ -382,14 +382,16 @@ namespace ARKBreedingStats
             if (DateTime.Now.AddHours(-20) > Properties.Settings.Default.lastUpdateCheck)
             {
                 bool displayModuleWindow = false;
+                bool selectDefaultImages = false;
                 if (!Properties.Settings.Default.AlreadyAskedToDownloadSpeciesImageFiles)
                 {
                     Properties.Settings.Default.AlreadyAskedToDownloadSpeciesImageFiles = true;
 
                     if (!Updater.Updater.IsProgramInstalled)
                         displayModuleWindow = true;
+                    else selectDefaultImages = true;
                 }
-                CheckForUpdates(true, displayModuleWindow);
+                CheckForUpdates(true, displayModuleWindow, selectDefaultImages);
             }
 
             _filterListAllowed = true;
@@ -1048,7 +1050,8 @@ namespace ARKBreedingStats
             CheckForUpdates();
         }
 
-        private async void CheckForUpdates(bool silentCheck = false, bool displayModuleWindowAlways = false)
+        private async void CheckForUpdates(bool silentCheck = false, bool displayModuleWindowAlways = false,
+            bool selectDefaultImages = false)
         {
             bool? updaterRunning = await Updater.Updater.CheckForPortableUpdate(silentCheck, UnsavedChanges());
             if (!updaterRunning.HasValue) return; // error
@@ -1096,8 +1099,8 @@ namespace ARKBreedingStats
                     "No new Version available", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
-            if (!silentCheck || displayModuleWindowAlways)
-                DisplayUpdateModules(!displayModuleWindowAlways);
+            if (!silentCheck || displayModuleWindowAlways || selectDefaultImages)
+                DisplayUpdateModules(!displayModuleWindowAlways, selectDefaultImages);
         }
 
         /// <summary>
@@ -3495,12 +3498,15 @@ namespace ARKBreedingStats
             DisplayUpdateModules();
         }
 
-        private async void DisplayUpdateModules(bool onlyDisplayIfUpdatesAreAvailable = false)
+        private async void DisplayUpdateModules(bool onlyDisplayIfUpdatesAreAvailable = false, bool selectDefaultImages = false)
         {
             using (var modules = new Updater.UpdateModules())
             {
-                if (onlyDisplayIfUpdatesAreAvailable && !modules.UpdateAvailable)
+                if (!modules.UpdateAvailable && onlyDisplayIfUpdatesAreAvailable)
+                {
+                    if (selectDefaultImages) InitializeImages(true);
                     return;
+                }
 
                 modules.ShowDialog();
                 if (modules.DialogResult != DialogResult.OK)
@@ -3512,10 +3518,15 @@ namespace ARKBreedingStats
                     MessageBox.Show(result, $"Data downloaded - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
 
-                Properties.Settings.Default.SpeciesImagesFolder = modules.GetSpeciesImagesFolder();
-                CreatureColored.InitializeSpeciesImageLocation();
+                InitializeImages();
 
-                speciesSelector1.InitializeSpeciesImages(Values.V.species);
+                void InitializeImages(bool useDefaultImages = false)
+                {
+                    Properties.Settings.Default.SpeciesImagesFolder = modules.GetSpeciesImagesFolder(useDefaultImages);
+                    CreatureColored.InitializeSpeciesImageLocation();
+
+                    speciesSelector1.InitializeSpeciesImages(Values.V.species);
+                }
             }
         }
     }
