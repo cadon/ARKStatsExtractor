@@ -81,9 +81,12 @@ namespace ARKBreedingStats.Updater
             if (IsFolder)
             {
                 var filePath = FileService.GetPath(LocalPath, "_ver.txt");
-                LocallyAvailable = File.Exists(filePath) &&
-                                   Version.TryParse(File.ReadAllText(filePath), out VersionLocal);
-                UpdateAvailable = VersionOnline > VersionLocal;
+                if (File.Exists(filePath) &&
+                    Version.TryParse(File.ReadAllText(filePath), out VersionLocal))
+                {
+                    LocallyAvailable = true;
+                    UpdateAvailable = VersionOnline > VersionLocal;
+                }
             }
             else
             {
