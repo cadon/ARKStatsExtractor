@@ -3,6 +3,7 @@ using ARKBreedingStats.species;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
 
@@ -307,7 +308,13 @@ namespace ARKBreedingStats.uiControls
 
         private void bAddTag_Click(object sender, EventArgs e)
         {
-            MultiSetterTag mst = new MultiSetterTag(tbNewTag.Text);
+            var tagName = tbNewTag.Text.Trim();
+            if (string.IsNullOrEmpty(tagName)) return;
+
+            if (tagControls.Any(t => t.TagName == tagName))
+                return;
+
+            MultiSetterTag mst = new MultiSetterTag(tagName);
             flowLayoutPanelTags.SetFlowBreak(mst, true);
             flowLayoutPanelTags.Controls.Add(mst);
             tagControls.Add(mst);

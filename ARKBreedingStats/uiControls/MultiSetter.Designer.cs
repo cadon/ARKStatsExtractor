@@ -363,9 +363,9 @@
             this.lbTagSettingInfo.Dock = System.Windows.Forms.DockStyle.Top;
             this.lbTagSettingInfo.Location = new System.Drawing.Point(3, 16);
             this.lbTagSettingInfo.Name = "lbTagSettingInfo";
-            this.lbTagSettingInfo.Size = new System.Drawing.Size(149, 13);
+            this.lbTagSettingInfo.Size = new System.Drawing.Size(136, 13);
             this.lbTagSettingInfo.TabIndex = 1;
-            this.lbTagSettingInfo.Text = "Apply Tag Setting   |   Set Tag";
+            this.lbTagSettingInfo.Text = "Assign tag   |   Apply setting";
             // 
             // tbNewTag
             // 
