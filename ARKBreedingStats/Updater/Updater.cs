@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.IO.Compression;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -20,10 +19,9 @@ namespace ARKBreedingStats.Updater
         public const string ReleasesUrl = RepositoryInfo.RepositoryUrl + "releases/latest";
         private const string MasterRawUrl = RepositoryInfo.RepositoryUrl + "raw/master/";
         private const string ReleasesFeedUrl = "https://api.github.com/repos/cadon/ARKStatsExtractor/releases/latest";
-        private const string ManifestUrl = MasterRawUrl + "_manifest.json";
+        private const string ManifestUrl = MasterRawUrl + "ARKBreedingStats/_manifest.json";
         internal const string UpdaterExe = "asb-updater.exe";
         private const string ObeliskUrl = "https://raw.githubusercontent.com/arkutils/Obelisk/master/data/asb/";
-        private const string SpeciesColorRegionsUrl = MasterRawUrl + "img.zip";
 
         #region main program
 
