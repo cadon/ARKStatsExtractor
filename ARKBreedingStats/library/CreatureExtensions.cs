@@ -54,7 +54,8 @@ namespace ARKBreedingStats.library
                 using (var backgroundBrush = new SolidBrush(Properties.Settings.Default.InfoGraphicBackColor))
                     g.FillRectangle(backgroundBrush, 0, 0, width, height);
 
-                g.DrawString(creature.Species.DescriptiveNameAndMod, fontHeader, fontBrush, 3, currentYPosition);
+                g.DrawString(creature.Species.DescriptiveNameAndMod + (Properties.Settings.Default.InfoGraphicDisplayName ? $" - {creature.name}" : string.Empty),
+                    fontHeader, fontBrush, 3, currentYPosition);
                 currentYPosition += height * 19 / 180; //19
                 string creatureInfos = $"{Loc.S("Level")} {creature.LevelHatched} | {Utils.SexSymbol(creature.sex) + (creature.flags.HasFlag(CreatureFlags.Neutered) ? $" ({Loc.S(creature.sex == Sex.Female ? "Spayed" : "Neutered")})" : string.Empty)}";
                 if (Properties.Settings.Default.InfoGraphicDisplayMutations)

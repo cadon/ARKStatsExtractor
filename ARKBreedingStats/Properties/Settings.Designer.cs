@@ -1720,5 +1720,17 @@ namespace ARKBreedingStats.Properties {
                 this["WaitBeforeAutoLoadMs"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool InfoGraphicDisplayName {
+            get {
+                return ((bool)(this["InfoGraphicDisplayName"]));
+            }
+            set {
+                this["InfoGraphicDisplayName"] = value;
+            }
+        }
     }
 }

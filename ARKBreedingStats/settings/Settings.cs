@@ -284,6 +284,7 @@ namespace ARKBreedingStats.settings
             TbInfoGraphicFontName.Text = Properties.Settings.Default.InfoGraphicFontName;
             CbInfoGraphicMutations.Checked = Properties.Settings.Default.InfoGraphicDisplayMutations;
             CbInfoGraphicGenerations.Checked = Properties.Settings.Default.InfoGraphicDisplayGeneration;
+            CbInfoGraphicCreatureName.Checked = Properties.Settings.Default.InfoGraphicDisplayName;
             BtInfoGraphicBackColor.SetBackColorAndAccordingForeColor(Properties.Settings.Default.InfoGraphicBackColor);
             BtInfoGraphicForeColor.SetBackColorAndAccordingForeColor(Properties.Settings.Default.InfoGraphicForeColor);
             BtInfoGraphicBorderColor.SetBackColorAndAccordingForeColor(Properties.Settings.Default.InfoGraphicBorderColor);
@@ -501,6 +502,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.InfoGraphicFontName = TbInfoGraphicFontName.Text;
             Properties.Settings.Default.InfoGraphicDisplayMutations = CbInfoGraphicMutations.Checked;
             Properties.Settings.Default.InfoGraphicDisplayGeneration = CbInfoGraphicGenerations.Checked;
+            Properties.Settings.Default.InfoGraphicDisplayName = CbInfoGraphicCreatureName.Checked;
             Properties.Settings.Default.InfoGraphicBackColor = BtInfoGraphicBackColor.BackColor;
             Properties.Settings.Default.InfoGraphicForeColor = BtInfoGraphicForeColor.BackColor;
             Properties.Settings.Default.InfoGraphicBorderColor = BtInfoGraphicBorderColor.BackColor;
