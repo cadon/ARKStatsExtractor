@@ -276,18 +276,28 @@ namespace ARKBreedingStats
             string backupFileName = $"{fileNameWoExt}_backup_{new FileInfo(currentSaveFilePath).LastWriteTime:yyyy-MM-dd_HH-mm-ss}{CollectionFileExtension}";
 
             var backupFolderPath = Properties.Settings.Default.BackupFolder;
-            if (string.IsNullOrEmpty(backupFolderPath))
-                backupFolderPath = Path.GetDirectoryName(currentSaveFilePath);
-            else
-                Directory.CreateDirectory(backupFolderPath);
 
-            string backupFilePath = Path.Combine(backupFolderPath, backupFileName);
-            if (File.Exists(backupFilePath))
+            try
             {
-                return false; // backup file of that timestamp already exists, no extra backup needed.
+                if (string.IsNullOrEmpty(backupFolderPath))
+                    backupFolderPath = Path.GetDirectoryName(currentSaveFilePath);
+                else
+                    Directory.CreateDirectory(backupFolderPath);
+
+                string backupFilePath = Path.Combine(backupFolderPath, backupFileName);
+                if (File.Exists(backupFilePath))
+                {
+                    return false; // backup file of that timestamp already exists, no extra backup needed.
+                }
+
+                File.Move(currentSaveFilePath, backupFilePath);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                MessageBoxes.ExceptionMessageBox(ex, "Error while creating backup files of the save file.\nMaybe the backup folder is protected or an antivirus application blocks the file moving.");
+                return false;
             }
 
-            File.Move(currentSaveFilePath, backupFilePath);
             _lastAutoSaveBackup = DateTime.Now;
 
             // delete oldest backup file if more than a certain number

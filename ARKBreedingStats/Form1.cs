@@ -3502,9 +3502,9 @@ namespace ARKBreedingStats
         {
 
             var manifestFilePath = FileService.GetPath(FileService.ManifestFileName);
-            if (!File.Exists(manifestFilePath))
-                if (!await Updater.Updater.DownloadManifest())
-                    return;
+            if (!File.Exists(manifestFilePath)
+                && !await Updater.Updater.DownloadManifest())
+                return;
 
             using (var modules = new Updater.UpdateModules())
             {
