@@ -3510,7 +3510,7 @@ namespace ARKBreedingStats
             {
                 if (!modules.UpdateAvailable && onlyDisplayIfUpdatesAreAvailable)
                 {
-                    if (selectDefaultImages) InitializeImages(true);
+                    if (selectDefaultImages) InitializeImages();
                     return;
                 }
 
@@ -3526,12 +3526,13 @@ namespace ARKBreedingStats
 
                 InitializeImages();
 
-                void InitializeImages(bool useDefaultImages = false)
+                void InitializeImages()
                 {
-                    Properties.Settings.Default.SpeciesImagesFolder = modules.GetSpeciesImagesFolder(useDefaultImages);
+                    Properties.Settings.Default.SpeciesImagesFolder = modules.GetSpeciesImagesFolder();
                     CreatureColored.InitializeSpeciesImageLocation();
 
-                    speciesSelector1.InitializeSpeciesImages(Values.V.species);
+                    if (Properties.Settings.Default.SpeciesImagesFolder != null)
+                        speciesSelector1.InitializeSpeciesImages(Values.V.species);
                 }
             }
         }
