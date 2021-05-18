@@ -292,16 +292,6 @@ namespace ARKBreedingStats
 
             CreatureColored.InitializeSpeciesImageLocation();
 
-            // Set up the file watcher
-            if (Properties.Settings.Default.syncCollection)
-                _fileSync = new FileSync(_currentFileName, CollectionChanged);
-
-            // exports file watcher
-            bool enableExportWatcher = Utils.GetFirstImportExportFolder(out string exportFolderDefault)
-                                       && Properties.Settings.Default.AutoImportExportedCreatures;
-            _fileWatcherExports = new FileWatcherExports(exportFolderDefault, ImportExportedAddIfPossible_WatcherThread,
-                enableExportWatcher);
-
             if (!LoadStatAndKibbleValues(applySettings: false).statValuesLoaded || !Values.V.species.Any())
             {
                 MessageBoxes.ShowMessageBox(Loc.S("valuesFileLoadingError"),
@@ -381,6 +371,8 @@ namespace ARKBreedingStats
             // check for updates
             if (DateTime.Now.AddHours(-20) > Properties.Settings.Default.lastUpdateCheck)
             {
+                MoveSpeciesImagesToNewFolder();
+
                 bool displayModuleWindow = false;
                 bool selectDefaultImages = false;
                 if (!Properties.Settings.Default.AlreadyAskedToDownloadSpeciesImageFiles)
@@ -443,6 +435,17 @@ namespace ARKBreedingStats
             }
 
             _updateExtractorVisualData = true;
+
+            // Set up the file watcher
+            if (Properties.Settings.Default.syncCollection)
+                _fileSync = new FileSync(_currentFileName, CollectionChanged);
+
+            // exports file watcher
+            bool enableExportWatcher = Utils.GetFirstImportExportFolder(out string exportFolderDefault)
+                                       && Properties.Settings.Default.AutoImportExportedCreatures;
+            _fileWatcherExports = new FileWatcherExports(exportFolderDefault, ImportExportedAddIfPossible_WatcherThread,
+                enableExportWatcher);
+
             _timerGlobal.Start();
         }
 
@@ -3534,6 +3537,32 @@ namespace ARKBreedingStats
                     if (Properties.Settings.Default.SpeciesImagesFolder != null)
                         speciesSelector1.InitializeSpeciesImages(Values.V.species);
                 }
+            }
+        }
+
+        /// <summary>
+        /// If the user has downloaded the species images already but not in the new folder, move them.
+        /// This method can probably be removed at 07-2021.
+        /// </summary>
+        private void MoveSpeciesImagesToNewFolder()
+        {
+            var oldImagesFolder = FileService.GetPath("img");
+            var newImagesFolder = FileService.GetPath("images/speciesImages");
+            if (!Directory.Exists(oldImagesFolder)
+                || Directory.Exists(newImagesFolder))
+                return;
+
+            try
+            {
+                Directory.Move(oldImagesFolder, newImagesFolder);
+
+                Properties.Settings.Default.SpeciesImagesFolder = "images/speciesImages";
+                CreatureColored.InitializeSpeciesImageLocation();
+                speciesSelector1.InitializeSpeciesImages(Values.V.species);
+            }
+            catch
+            {
+                // ignore
             }
         }
     }
