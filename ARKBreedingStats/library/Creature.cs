@@ -98,14 +98,6 @@ namespace ARKBreedingStats.Library
         [JsonProperty]
         public Guid motherGuid;
         /// <summary>
-        /// Only set if the id is imported.
-        /// </summary>
-        public long motherArkId;
-        /// <summary>
-        /// Only set if the id is imported.
-        /// </summary>
-        public long fatherArkId;
-        /// <summary>
         /// Only used during import to create placeholder ancestors.
         /// </summary>
         public string fatherName;

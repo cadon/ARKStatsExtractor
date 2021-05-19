@@ -988,8 +988,7 @@ namespace ARKBreedingStats
         {
             existingCreature = null;
             bool creatureAlreadyExistsInLibrary = false;
-            if (creatureGuid != Guid.Empty
-                                                  && Utils.IsArkIdImported(arkId, creatureGuid))
+            if (creatureGuid != Guid.Empty && Utils.IsArkIdImported(arkId, creatureGuid))
             {
                 existingCreature = _creatureCollection.creatures.FirstOrDefault(c => c.guid == creatureGuid
                                                            && !c.flags.HasFlag(CreatureFlags.Placeholder)

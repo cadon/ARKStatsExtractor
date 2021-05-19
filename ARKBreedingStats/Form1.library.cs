@@ -535,21 +535,64 @@ namespace ARKBreedingStats
         {
             List<Creature> placeholderAncestors = new List<Creature>();
 
-            var creatureGuids = _creatureCollection.creatures.ToDictionary(c => c.guid);
+
+            Dictionary<Guid, Creature> creatureGuids;
+
+            try
+            {
+                creatureGuids = _creatureCollection.creatures.ToDictionary(c => c.guid);
+            }
+            catch (ArgumentException)
+            {
+                // assuming there are somehow multiple creatures with the same guid
+                // if it's only placeholders, remove the duplicates
+                var guidGroups = _creatureCollection.creatures.GroupBy(c => c.guid);
+                var uniqueList = new List<Creature>();
+
+                foreach (var g in guidGroups)
+                {
+                    if (g.Count() == 1)
+                    {
+                        uniqueList.Add(g.First());
+                        continue;
+                    }
+                    // if only one creature is not a placeholder, use that
+                    var nonPlaceholders = g.Where(c => !c.flags.HasFlag(CreatureFlags.Placeholder)).ToArray();
+                    if (nonPlaceholders.Length == 1)
+                    {
+                        uniqueList.Add(nonPlaceholders.First());
+                        continue;
+                    }
+
+                    if (nonPlaceholders.Length == 0)
+                    {
+                        // just take the first placeholder
+                        uniqueList.Add(g.First());
+                        continue;
+                    }
+
+                    // there are more than 1 non-placeholder with the same guid. That's bad.
+                    throw;
+                }
+
+                _creatureCollection.creatures = uniqueList;
+
+                creatureGuids = _creatureCollection.creatures.ToDictionary(c => c.guid);
+            }
 
             foreach (Creature c in creatures)
             {
                 if (c.motherGuid == Guid.Empty && c.fatherGuid == Guid.Empty) continue;
 
                 Creature mother = null;
-                if (c.motherGuid == Guid.Empty
-                    || !creatureGuids.TryGetValue(c.motherGuid, out mother))
-                    mother = EnsurePlaceholderCreature(placeholderAncestors, c, c.motherArkId, c.motherGuid, c.motherName, Sex.Female);
+                if (c.motherGuid != Guid.Empty
+                    && !creatureGuids.TryGetValue(c.motherGuid, out mother))
+                    mother = EnsurePlaceholderCreature(placeholderAncestors, c, c.motherGuid, c.motherName, Sex.Female);
 
                 Creature father = null;
-                if (c.fatherGuid == Guid.Empty
-                    || !creatureGuids.TryGetValue(c.fatherGuid, out father))
-                    father = EnsurePlaceholderCreature(placeholderAncestors, c, c.fatherArkId, c.fatherGuid, c.fatherName, Sex.Male);
+                if (c.fatherGuid != Guid.Empty
+                    && !creatureGuids.TryGetValue(c.fatherGuid, out father))
+                    father = EnsurePlaceholderCreature(placeholderAncestors, c, c.fatherGuid, c.fatherName, Sex.Male);
 
                 c.Mother = mother;
                 c.Father = father;
@@ -564,14 +607,13 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="placeholders">List of placeholders to amend</param>
         /// <param name="tmpl">Descendant creature to use as a template</param>
-        /// <param name="arkId">ArkId of creature to create. Only pass this if it's from an import</param>
         /// <param name="guid">GUID of creature to create</param>
         /// <param name="name">Name of the creature to create</param>
         /// <param name="sex">Sex of the creature to create</param>
         /// <returns></returns>
-        private Creature EnsurePlaceholderCreature(List<Creature> placeholders, Creature tmpl, long arkId, Guid guid, string name, Sex sex)
+        private Creature EnsurePlaceholderCreature(List<Creature> placeholders, Creature tmpl, Guid guid, string name, Sex sex)
         {
-            if (guid == Guid.Empty && arkId == 0)
+            if (guid == Guid.Empty)
                 return null;
             var existing = placeholders.SingleOrDefault(ph => ph.guid == guid);
             if (existing != null)
@@ -580,15 +622,12 @@ namespace ARKBreedingStats
             if (string.IsNullOrEmpty(name))
                 name = (sex == Sex.Female ? "Mother" : "Father") + " of " + tmpl.name;
 
-            Guid creatureGuid = arkId != 0 ? Utils.ConvertArkIdToGuid(arkId) : guid;
             var creature = new Creature(tmpl.Species, name, tmpl.owner, tmpl.tribe, sex, new[] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
                     levelStep: _creatureCollection.getWildLevelStep())
             {
-                guid = creatureGuid,
+                guid = guid,
                 Status = CreatureStatus.Unavailable,
-                flags = CreatureFlags.Placeholder,
-                ArkId = arkId,
-                ArkIdImported = Utils.IsArkIdImported(arkId, creatureGuid)
+                flags = CreatureFlags.Placeholder
             };
 
             placeholders.Add(creature);
