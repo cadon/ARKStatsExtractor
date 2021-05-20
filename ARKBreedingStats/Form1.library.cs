@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.utils;
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using ARKBreedingStats.library;
 
@@ -530,11 +531,9 @@ namespace ARKBreedingStats
         /// <summary>
         /// Sets the parents according to the guids. Call after a file is loaded.
         /// </summary>
-        /// <param name="creatures"></param>
         private void UpdateParents(IEnumerable<Creature> creatures)
         {
             List<Creature> placeholderAncestors = new List<Creature>();
-
 
             Dictionary<Guid, Creature> creatureGuids;
 
@@ -551,28 +550,93 @@ namespace ARKBreedingStats
 
                 foreach (var g in guidGroups)
                 {
-                    if (g.Count() == 1)
+                    var count = g.Count();
+                    var firstCreature = g.First();
+                    if (count == 1)
                     {
-                        uniqueList.Add(g.First());
+                        uniqueList.Add(firstCreature);
                         continue;
                     }
                     // if only one creature is not a placeholder, use that
                     var nonPlaceholders = g.Where(c => !c.flags.HasFlag(CreatureFlags.Placeholder)).ToArray();
-                    if (nonPlaceholders.Length == 1)
+                    count = nonPlaceholders.Length;
+                    if (count == 1)
                     {
                         uniqueList.Add(nonPlaceholders.First());
                         continue;
                     }
 
-                    if (nonPlaceholders.Length == 0)
+
+                    if (count == 0)
                     {
                         // just take the first placeholder
-                        uniqueList.Add(g.First());
+                        uniqueList.Add(firstCreature);
                         continue;
                     }
 
-                    // there are more than 1 non-placeholder with the same guid. That's bad.
-                    throw;
+                    // there are more than 1 non-placeholder with the same guid. Check if the objects represent the same.
+                    bool sameCreature = true;
+                    for (int i = 1; i < count; i++)
+                    {
+                        var duplicateCreature = nonPlaceholders[i];
+                        if (firstCreature.name.Trim() != duplicateCreature.name.Trim()
+                            || !AreArraysEqual(firstCreature.levelsWild, duplicateCreature.levelsWild)
+                            || !AreArraysEqual(firstCreature.colors, duplicateCreature.colors)
+                            )
+                        {
+                            sameCreature = false;
+                            break;
+                        }
+                    }
+
+                    bool AreArraysEqual(int[] firstArray, int[] secondArray)
+                    {
+                        if (firstArray == null && secondArray == null) return true;
+                        if (firstArray == null || secondArray == null) return false;
+                        var firstCount = firstArray.Length;
+                        var secondCount = secondArray.Length;
+                        if (firstCount != secondCount) return false;
+
+                        for (int i = 0; i < firstCount; i++)
+                        {
+                            if (firstArray[i] != secondArray[i])
+                                return false;
+                        }
+
+                        return true;
+                    }
+
+                    if (sameCreature)
+                    {
+                        uniqueList.Add(firstCreature);
+                        continue;
+                    }
+
+                    // duplicate creatures differ
+                    var text = new StringBuilder();
+                    text.AppendLine($"There is an issue with some creatures of this library.\nEach creature must have a unique id (guid),\nbut all the following creatures share the same guid {firstCreature.guid}");
+                    text.AppendLine();
+                    for (int i = 0; i < count; i++)
+                    {
+                        var c = nonPlaceholders[i];
+                        var species = Values.V.SpeciesByBlueprint(c.speciesBlueprint)?.DescriptiveNameAndMod ?? c.speciesBlueprint;
+                        text.AppendLine($"{(i + 1)}: {species} - {c.name}");
+                    }
+
+                    text.AppendLine();
+                    text.AppendLine("You have the option to only keep the first creature in this list. This will delete all the other listed creatures.");
+                    text.AppendLine($"It is strongly advised to make a backup of this library file\n{_currentFileName}\nif you haven't done yet.");
+                    text.AppendLine("If you click on Yes, all the creatures, except the first one, will be removed.");
+                    text.AppendLine("If you click on No, the application will quit and you can create a backup of this library.");
+
+                    if (MessageBox.Show(text.ToString(), $"Duplicate creatures - {Utils.ApplicationNameVersion}",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                    {
+                        uniqueList.Add(firstCreature);
+                        continue;
+                    }
+
+                    Environment.Exit(0);
                 }
 
                 _creatureCollection.creatures = uniqueList;
