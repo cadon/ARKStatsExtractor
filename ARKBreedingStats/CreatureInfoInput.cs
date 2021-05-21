@@ -161,6 +161,16 @@ namespace ARKBreedingStats
                 buttonSex.BackColor = Utils.SexColor(_sex);
                 _tt.SetToolTip(buttonSex, $"{Loc.S("Sex")}: {Loc.S(_sex.ToString())}");
                 cbNeutered.Text = Loc.S(_sex == Sex.Female ? "Spayed" : "Neutered");
+                if (value == Sex.Female)
+                {
+                    _creatureFlags |= CreatureFlags.Female;
+                    _creatureFlags &= ~CreatureFlags.Male;
+                }
+                else if (value == Sex.Male)
+                {
+                    _creatureFlags |= CreatureFlags.Male;
+                    _creatureFlags &= ~CreatureFlags.Female;
+                }
             }
         }
 
