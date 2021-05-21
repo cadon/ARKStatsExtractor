@@ -9,6 +9,7 @@ using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using ARKBreedingStats.library;
+using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.settings
@@ -649,12 +650,35 @@ namespace ARKBreedingStats.settings
             Match m;
             var cultureForStrings = System.Globalization.CultureInfo.GetCultureInfo("en-US");
 
-            // get stat-multipliers
-            // if there are stat-multipliers, set all to the official-values first
-            if (text.Contains("PerLevelStatsMultiplier_Dino"))
-                ApplyMultiplierPreset(Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official),
-                    onlyStatMultipliers: true);
+            // reset values to the default
 
+            if (text.Contains("ASBMaxGraphLevels"))
+            {
+                // the file is exported by this application and contains all needed values
+            }
+            else
+            {
+                var result = CustomMessageBox.Show(
+                    "Do you wish to reset all multipliers to their defaults before importing this file, or merge with the current ones?",
+                    "Importing settings", "Reset then import", "Merge with current", Loc.S("Cancel"),
+                    MessageBoxIcon.Information);
+
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        ApplyMultiplierPreset(Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official));
+                        break;
+                    case DialogResult.Cancel: return;
+                }
+
+                if (result != DialogResult.Yes && text.Contains("PerLevelStatsMultiplier_Dino"))
+                {
+                    // the file contains stat multipliers, reset all non-existing to the default first
+                    ApplyMultiplierPreset(Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official), true);
+                }
+            }
+
+            // get stat-multipliers
             // if an ini file is imported the server is most likely unofficial wit no level cap, if the server has a max level, it will be parsed.
             nudMaxServerLevel.ValueSave = 0;
 
@@ -685,6 +709,7 @@ namespace ARKBreedingStats.settings
             ParseAndSetValue(nudMatingSpeed, @"MatingSpeedMultiplier ?= ?(\d*\.?\d+)");
             ParseAndSetValue(nudBabyMatureSpeed, @"BabyMatureSpeedMultiplier ?= ?(\d*\.?\d+)");
             ParseAndSetValue(nudBabyImprintingStatScale, @"BabyImprintingStatScaleMultiplier ?= ?(\d*\.?\d+)");
+            ParseAndSetValue(nudBabyImprintAmount, @"BabyImprintAmountMultiplier ?= ?(\d*\.?\d+)");
             ParseAndSetValue(nudBabyCuddleInterval, @"BabyCuddleIntervalMultiplier ?= ?(\d*\.?\d+)");
             ParseAndSetValue(nudBabyFoodConsumptionSpeed, @"BabyFoodConsumptionSpeedMultiplier ?= ?(\d*\.?\d+)");
 
@@ -992,6 +1017,7 @@ namespace ARKBreedingStats.settings
             sb.AppendLine($"MatingSpeedMultiplier = {nudMatingSpeed.Value.ToString(cultureForStrings)}");
             sb.AppendLine($"BabyMatureSpeedMultiplier = {nudBabyMatureSpeed.Value.ToString(cultureForStrings)}");
             sb.AppendLine($"BabyImprintingStatScaleMultiplier = {nudBabyImprintingStatScale.Value.ToString(cultureForStrings)}");
+            sb.AppendLine($"BabyImprintAmountMultiplier = {nudBabyImprintAmount.Value.ToString(cultureForStrings)}");
             sb.AppendLine($"BabyCuddleIntervalMultiplier = {nudBabyCuddleInterval.Value.ToString(cultureForStrings)}");
             sb.AppendLine($"BabyFoodConsumptionSpeedMultiplier = {nudBabyFoodConsumptionSpeed.Value.ToString(cultureForStrings)}");
 
