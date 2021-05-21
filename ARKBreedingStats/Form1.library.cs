@@ -624,10 +624,9 @@ namespace ARKBreedingStats
                     }
 
                     text.AppendLine();
-                    text.AppendLine("You have the option to only keep the first creature in this list. This will delete all the other listed creatures.");
-                    text.AppendLine($"It is strongly advised to make a backup of this library file\n{_currentFileName}\nif you haven't done yet.");
-                    text.AppendLine("If you click on Yes, all the creatures, except the first one, will be removed.");
-                    text.AppendLine("If you click on No, the application will quit and you can create a backup of this library.");
+                    text.AppendLine("If you click on Yes, the first listed creature will be kept, all the other creatures will be removed. A backup file of the following library file will be created:");
+                    text.AppendLine(_currentFileName);
+                    text.AppendLine("If you click on No, the application will quit.");
 
                     if (MessageBox.Show(text.ToString(), $"Duplicate creatures - {Utils.ApplicationNameVersion}",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
@@ -642,6 +641,12 @@ namespace ARKBreedingStats
                 _creatureCollection.creatures = uniqueList;
 
                 creatureGuids = _creatureCollection.creatures.ToDictionary(c => c.guid);
+                // create backup file
+                if (!string.IsNullOrEmpty(_currentFileName)
+                    && File.Exists(_currentFileName))
+                {
+                    File.Copy(_currentFileName, Path.Combine(Path.GetDirectoryName(_currentFileName), $"{Path.GetFileNameWithoutExtension(_currentFileName)}_BackupBeforeRemovingDuplicates_{DateTime.Now:yyyy-MM-dd_HH-mm-ss-ffff}.asb"));
+                }
             }
 
             foreach (Creature c in creatures)
