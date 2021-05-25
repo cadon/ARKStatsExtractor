@@ -37,11 +37,11 @@ namespace ARKBreedingStats.multiplierTesting
         /// </summary>
         private bool _percent;
         /// <summary>
-        /// Value of wild and taming boni, without dom levels
+        /// Value of wild and taming bonus, without dom levels
         /// </summary>
         private double Vd;
         /// <summary>
-        /// Final value with all levels and boni
+        /// Final value with all levels and bonus
         /// </summary>
         private double V;
         /// <summary>
@@ -303,10 +303,10 @@ namespace ARKBreedingStats.multiplierTesting
 
         public void SetSinglePlayerSettings(double? spIw = 1, double? spId = 1, double? spTa = 1, double? spTm = 1)
         {
-            this._spIw = spIw ?? 1;
-            this._spId = spId ?? 1;
-            this._spTa = spTa ?? 1;
-            this._spTm = spTm ?? 1;
+            _spIw = spIw ?? 1;
+            _spId = spId ?? 1;
+            _spTa = spTa ?? 1;
+            _spTm = spTm ?? 1;
             UpdateCalculations();
         }
 
@@ -333,16 +333,18 @@ namespace ARKBreedingStats.multiplierTesting
             }
         }
 
-        // calculate values according to the stat-formula
-        // (double)nudStatValue.Value = ((double)nudB.Value * (1 + (double)nudLw.Value * (double)nudIw.Value * (double)nudIwM.Value) * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * _sIBM : 1) + ((double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value : 1))) * (1 + (_bred ? 1 : _TE) * (double)nudTm.Value * (nudTmM.Value > 0 ? (double)nudTmM.Value*spTm : 1)) * (1 + (double)nudLd.Value * (double)nudId.Value * spId * (double)nudIdM.Value);
-
+        /// <summary>
+        /// Set IwM to the value that solves the equation, assuming all other values are correct
+        /// </summary>
         public bool CalculateIwM(bool silent = true)
         {
-            // set IwM to the value that solves the equation, assuming all other values are correct
             if (nudLw.Value != 0 && nudIw.Value != 0)
             {
-                decimal IwM = (decimal)((((double)nudStatValue.Value * (_percent ? 0.01 : 1) / (_tamed || _bred ? (1 + (_bred ? 1 : _TE) * (double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * _spTm : 1)) * (1 + (double)nudLd.Value * (double)nudId.Value * _spId * (double)nudIdM.Value) : 1) - (_tamed || _bred ? (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * _spTa : 1) : 0)) / ((double)nudB.Value * (_tamed || _bred ? (double)nudTBHM.Value : 1) * (!_NoIB && _bred ? 1 + _IB * _IBM * _sIBM : 1)) - 1) / ((double)nudLw.Value * (double)nudIw.Value * _spIw));
-                nudIwM.ValueSave = Math.Round(IwM, 5);
+                var iwM = CalculateMultipliers.IwM((double)nudStatValue.Value * (_percent ? 0.01 : 1), (double)nudB.Value, (int)nudLw.Value, (double)nudIw.Value,
+                    (double)nudIwM.Value, _spIw, (double)nudTBHM.Value, (double)nudTa.Value, (double)nudTaM.Value, _spTa,
+                    (double)nudTm.Value, (double)nudTmM.Value, _spTm, _tamed, _bred, _NoIB, _TE, (int)nudLd.Value, (double)nudId.Value, (double)nudIdM.Value,
+                    _spId, _IB, _IBM, _sIBM) ?? 0;
+                nudIwM.ValueSaveDouble = Math.Round(iwM, 5);
                 return true;
             }
             if (!silent) MessageBox.Show("Divide by Zero-error, e.g. Lw or Iw needs to be at least 1.");
@@ -351,24 +353,28 @@ namespace ARKBreedingStats.multiplierTesting
 
         public bool CalculateIdM(bool silent = true)
         {
-            // set IdM to the value that solves the equation, assuming all other values are correct
-            if (Vd != 0 && nudLd.Value != 0 && nudId.Value != 0)
+            var idM = CalculateMultipliers.IdM((double)nudStatValue.Value * (_percent ? 0.01 : 1), Vd, (int)nudLd.Value, (double)nudId.Value, _spId);
+            if (idM != null)
             {
-                decimal IdM = (nudStatValue.Value / (decimal)(Vd * (_percent ? 100 : 1)) - 1) / (nudLd.Value * nudId.Value * (decimal)_spId);
-                nudIdM.ValueSave = Math.Round(IdM, 5);
+                nudIdM.ValueSaveDouble = Math.Round(idM.Value, 5);
                 return true;
             }
+
             if (!silent) MessageBox.Show("Divide by Zero-error, e.g. Ld needs to be at least 1.");
             return false;
         }
 
         public bool CalculateTaM(bool silent = true)
         {
-            // set TaM to the value that solves the equation, assuming all other values are correct
-            if (nudTa.Value > 0)
+            var taM = CalculateMultipliers.TaM((double)nudStatValue.Value * (_percent ? 0.01 : 1), (double)nudB.Value, (int)nudLw.Value, (double)nudIw.Value,
+                (double)nudIwM.Value, _spIw, (double)nudTBHM.Value, (double)nudTa.Value, (double)nudTaM.Value, _spTa,
+                (double)nudTm.Value, (double)nudTmM.Value, _spTm, _tamed, _bred, _NoIB, _TE, (int)nudLd.Value, (double)nudId.Value, (double)nudIdM.Value,
+                _spId, _IB, _IBM, _sIBM);
+
+
+            if (taM.HasValue)
             {
-                decimal TaM = (decimal)(((double)nudStatValue.Value * Vd / ((_percent ? 100 : 1) * V * (1 + (_bred ? 1 : _TE) * (double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * _spTm : 1))) - (double)nudB.Value * (1 + (double)nudLw.Value * (double)nudIw.Value * _spIw * (double)nudIwM.Value) * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * _sIBM : 1)) / ((double)nudTa.Value * _spTa));
-                nudTaM.ValueSave = Math.Round(TaM, 5);
+                nudTaM.ValueSaveDouble = Math.Round(taM.Value, 5);
                 return true;
             }
             if (!silent) MessageBox.Show("Divide by Zero-error, e.g. Ta needs to be > 0.");
@@ -377,12 +383,13 @@ namespace ARKBreedingStats.multiplierTesting
 
         public bool CalculateTmM(bool silent = true)
         {
-            // set TmM to the value that solves the equation, assuming all other values are correct
             if ((_bred || _TE > 0) && nudTm.Value > 0)
             {
-                // TODO formula wrong?
-                decimal TmM = (decimal)(((double)nudStatValue.Value * Vd / ((_percent ? 100 : 1) * V * ((double)nudB.Value * (1 + (double)nudLw.Value * (double)nudIw.Value * _spIw * (double)nudIwM.Value) * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * _sIBM : 1) + (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * _spTa : 1))) - 1) / ((_bred ? 1 : _TE) * (double)nudTm.Value * _spTm));
-                nudTmM.ValueSave = Math.Round(TmM, 5);
+                var tmM = CalculateMultipliers.TmM((double)nudStatValue.Value * (_percent ? 0.01 : 1), (double)nudB.Value, (int)nudLw.Value, (double)nudIw.Value,
+                    (double)nudIwM.Value, _spIw, (double)nudTBHM.Value, (double)nudTa.Value, (double)nudTaM.Value, _spTa,
+                    (double)nudTm.Value, (double)nudTmM.Value, _spTm, _tamed, _bred, _NoIB, _TE, (int)nudLd.Value, (double)nudId.Value, (double)nudIdM.Value,
+                    _spId, _IB, _IBM, _sIBM) ?? 0;
+                nudTmM.ValueSaveDouble = Math.Round(tmM, 5);
                 return true;
             }
             if (!silent) MessageBox.Show("Divide by Zero-error, e.g. Tm and TE needs to be > 0.");

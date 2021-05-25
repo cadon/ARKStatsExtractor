@@ -315,5 +315,19 @@ namespace ARKBreedingStats
                     MessageBoxes.ShowMessageBox("Unknown Species. Try to update the species-stats, or redownload the tool.");
             }
         }
+
+        private void SetRandomWildLevels(object sender, EventArgs e)
+        {
+            var species = speciesSelector1.SelectedSpecies;
+            if (species == null) return;
+
+            var maxLevel = CreatureCollection.CurrentCreatureCollection?.maxChartLevel ?? 50;
+            var r = new Random();
+            for (int si = 0; si < Values.STATS_COUNT; si++)
+            {
+                if (species.UsesStat(si))
+                    _testingIOs[si].LevelWild = r.Next(maxLevel);
+            }
+        }
     }
 }

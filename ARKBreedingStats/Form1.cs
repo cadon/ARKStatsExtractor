@@ -186,6 +186,8 @@ namespace ARKBreedingStats
 
             ReloadNamePatternCustomReplacings();
 
+            lbTesterWildLevel.ContextMenu = new ContextMenu(new[] { new MenuItem("Set random wild levels", SetRandomWildLevels) });
+
             _reactOnCreatureSelectionChange = true;
         }
 

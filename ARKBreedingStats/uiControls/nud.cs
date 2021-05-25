@@ -16,7 +16,7 @@ namespace ARKBreedingStats.uiControls
         }
 
         /// <summary>
-        /// Sets the value after checking it's &lt; Maximum and > Minimum. If it's out of range, the closes possible value is set
+        /// Sets the value after checking it's &lt; Maximum and > Minimum. If it's out of range, the closest valid value is set
         /// </summary>
         public decimal ValueSave
         {
@@ -26,6 +26,14 @@ namespace ARKBreedingStats.uiControls
                 if (value < Minimum) value = Minimum;
                 Value = value;
             }
+        }
+
+        /// <summary>
+        /// Sets the value after checking it's &lt; Maximum and > Minimum. If it's out of range, the closest valid value is set
+        /// </summary>
+        public double ValueSaveDouble
+        {
+            set => ValueSave = (decimal)value;
         }
 
         protected override void OnValueChanged(EventArgs e)
