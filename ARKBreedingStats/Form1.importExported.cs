@@ -242,6 +242,11 @@ namespace ARKBreedingStats
                             _customReplacingNamingPattern, false, -1, false, namePattern)
                         : Path.GetFileName(filePath);
 
+                    // remove invalid characters
+                    var invalidCharacters = Path.GetInvalidFileNameChars();
+                    foreach (var invalidChar in invalidCharacters)
+                        newFileName = newFileName.Replace(invalidChar, '_');
+
                     string newFileNameWithoutExtension = Path.GetFileNameWithoutExtension(newFileName);
                     string newFileNameExtension = Path.GetExtension(newFileName);
                     string newFilePath = Path.Combine(newPath, newFileName);
