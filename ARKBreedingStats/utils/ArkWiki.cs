@@ -9,13 +9,11 @@ namespace ARKBreedingStats.utils
     {
         private const string WikiBaseUrl = "https://ark.fandom.com/wiki/";
 
+        public static string WikiUrl(string pageName) => $"{WikiBaseUrl}{pageName}";
+
         /// <summary>
-        /// Opens the page in the repository wiki with the default browser.
+        /// Opens the page in the Ark wiki with the default browser.
         /// </summary>
-        public static void OpenPage(string pageName)
-        {
-            if (string.IsNullOrEmpty(pageName)) return;
-            Process.Start($"{WikiBaseUrl}{pageName}");
-        }
+        public static void OpenPage(string pageName) => Process.Start(WikiUrl(pageName));
     }
 }

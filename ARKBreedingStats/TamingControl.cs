@@ -70,6 +70,7 @@ namespace ARKBreedingStats
             string speciesName = species.name;
             linkLabelWikiPage.Text = "Wiki: " + speciesName;
             linkLabelWikiPage.Tag = speciesName;
+            _tt.SetToolTip(linkLabelWikiPage, ArkWiki.WikiUrl(speciesName));
 
             // bone damage adjusters
             boneDamageAdjustersImmobilization = Taming.BoneDamageAdjustersImmobilization(selectedSpecies,
