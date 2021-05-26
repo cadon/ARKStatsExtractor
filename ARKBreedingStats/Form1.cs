@@ -3567,5 +3567,60 @@ namespace ARKBreedingStats
                 // ignore
             }
         }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.ControlKey
+                || tabControlMain.TabPages[0].Tag != null) return;
+
+            for (int i = 0; i < 10; i++)
+            {
+                var header = tabControlMain.TabPages[i].Text;
+                tabControlMain.TabPages[i].Tag = header;
+                tabControlMain.TabPages[i].Text = $"{(i == 9 ? 0 : i + 1)}: {header}";
+            }
+        }
+
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.ControlKey)
+            {
+                if (tabControlMain.TabPages[0].Tag == null) return;
+                for (int i = 0; i < 10; i++)
+                {
+                    if (tabControlMain.TabPages[i].Tag is string header)
+                    {
+                        tabControlMain.TabPages[i].Text = header;
+                        tabControlMain.TabPages[i].Tag = null;
+                    }
+                }
+                return;
+            }
+
+
+            if (!e.Control) return;
+
+            int index;
+
+            switch (e.KeyCode)
+            {
+                case Keys.D1: index = 0; break;
+                case Keys.D2: index = 1; break;
+                case Keys.D3: index = 2; break;
+                case Keys.D4: index = 3; break;
+                case Keys.D5: index = 4; break;
+                case Keys.D6: index = 5; break;
+                case Keys.D7: index = 6; break;
+                case Keys.D8: index = 7; break;
+                case Keys.D9: index = 8; break;
+                case Keys.D0: index = 9; break;
+                default: return;
+            }
+
+            if (index < tabControlMain.TabCount)
+                tabControlMain.SelectedIndex = index;
+
+            e.Handled = true;
+        }
     }
 }

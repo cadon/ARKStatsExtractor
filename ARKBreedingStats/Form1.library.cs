@@ -1333,40 +1333,40 @@ namespace ARKBreedingStats
 
         private void listViewLibrary_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Delete)
+            switch (e.KeyCode)
             {
-                DeleteSelectedCreatures();
+                case Keys.Delete:
+                    DeleteSelectedCreatures();
+                    break;
+                case Keys.F2:
+                    if (listViewLibrary.SelectedIndices.Count > 0)
+                        EditCreatureInTester((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
+                    break;
+                case Keys.F3:
+                    if (listViewLibrary.SelectedIndices.Count > 0)
+                        ShowMultiSetter();
+                    break;
+                case Keys.F5:
+                    if (listViewLibrary.SelectedIndices.Count > 0)
+                        AdminCommandToSetColors();
+                    break;
+                case Keys.A when e.Control:
+                    // select all list-entries
+                    _reactOnCreatureSelectionChange = false;
+                    listViewLibrary.BeginUpdate();
+                    foreach (ListViewItem i in listViewLibrary.Items)
+                        i.Selected = true;
+                    listViewLibrary.EndUpdate();
+                    _reactOnCreatureSelectionChange = true;
+                    listViewLibrary_SelectedIndexChanged(null, null);
+                    break;
+                case Keys.B when e.Control:
+                    CopySelectedCreatureName();
+                    break;
+                default: return;
             }
-            else if (e.KeyCode == Keys.F2)
-            {
-                if (listViewLibrary.SelectedIndices.Count > 0)
-                    EditCreatureInTester((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
-            }
-            else if (e.KeyCode == Keys.F3)
-            {
-                if (listViewLibrary.SelectedIndices.Count > 0)
-                    ShowMultiSetter();
-            }
-            else if (e.KeyCode == Keys.F5)
-            {
-                if (listViewLibrary.SelectedIndices.Count > 0)
-                    AdminCommandToSetColors();
-            }
-            else if (e.KeyCode == Keys.A && e.Control)
-            {
-                // select all list-entries
-                _reactOnCreatureSelectionChange = false;
-                listViewLibrary.BeginUpdate();
-                foreach (ListViewItem i in listViewLibrary.Items)
-                    i.Selected = true;
-                listViewLibrary.EndUpdate();
-                _reactOnCreatureSelectionChange = true;
-                listViewLibrary_SelectedIndexChanged(null, null);
-            }
-            else if (e.KeyCode == Keys.B && e.Control)
-            {
-                CopySelectedCreatureName();
-            }
+
+            e.Handled = true;
         }
 
         /// <summary>
