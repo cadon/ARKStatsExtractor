@@ -6,7 +6,7 @@
 			"mod": { "id": "1083349027", "tag": "SpeedyFlyers", "title": "Najs Speedy Flyers" }
 		},
 		"1090809604-Pyria.json": {
-			"version": "327.19.1621026364",
+			"version": "327.21.1621640700",
 			"mod": { "id": "1090809604", "tag": "Pyria", "title": "Pyria: Mythos Evolved" }
 		},
 		"1092784125-Gryphons.json": {
@@ -242,7 +242,7 @@
 			"mod": { "id": "839162288", "tag": "Primal_Fear", "title": "Primal Fear" }
 		},
 		"893735676-AE.json": {
-			"version": "324.22.1613284347",
+			"version": "327.21.1621968903",
 			"mod": { "id": "893735676", "tag": "AE", "title": "ARK: Eternal" }
 		},
 		"895711211-ClassicFlyers.json": {
@@ -262,11 +262,11 @@
 			"mod": { "id": "919470289", "tag": "SSFlyer", "title": "SSFlyer" }
 		},
 		"CrystalIsles-CrystalIsles.json": {
-			"version": "324.22.6362827",
+			"version": "327.21.6721559",
 			"mod": { "id": "CrystalIsles", "tag": "CrystalIsles", "title": "CrystalIsles" }
 		},
 		"values.json": {
-			"version": "326.3.6518171.1"
+			"version": "327.19.6653924"
 		}
 	}
 }

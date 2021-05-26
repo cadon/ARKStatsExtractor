@@ -1,5 +1,5 @@
 {
-	"version": "326.3.6518171.1",
+	"version": "327.19.6653924",
 	"format": "1.14-flyerspeed",
 	"species": [
 		{
@@ -42806,7 +42806,7 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Abberant Coelacanth",
+			"name": "Aberrant Coelacanth",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP_VDay_Aberrant.Coel_Character_BP_VDay_Aberrant",
 			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
