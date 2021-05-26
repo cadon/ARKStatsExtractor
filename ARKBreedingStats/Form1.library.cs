@@ -282,7 +282,7 @@ namespace ARKBreedingStats
         /// Call after the creatureCollection-object was created anew (e.g. after loading a file)
         /// </summary>
         /// <param name="keepCurrentSelection">True if synchronized library file is loaded.</param>
-        private void InitializeCollection(bool keepCurrentSelection = false)
+        private bool InitializeCollection(bool keepCurrentSelection = false)
         {
             // set pointer to current collection
             CreatureCollection.CurrentCreatureCollection = _creatureCollection;
@@ -295,7 +295,7 @@ namespace ARKBreedingStats
             raisingControl1.CreatureCollection = _creatureCollection;
             statsMultiplierTesting1.CreatureCollection = _creatureCollection;
 
-            UpdateParents(_creatureCollection.creatures);
+            var duplicatesWereRemoved = UpdateParents(_creatureCollection.creatures);
             UpdateIncubationParents(_creatureCollection);
 
             CreateCreatureTagList();
@@ -316,6 +316,8 @@ namespace ARKBreedingStats
             ApplySpeciesObjectsToCollection(_creatureCollection);
 
             UpdateTempCreatureDropDown();
+
+            return duplicatesWereRemoved;
         }
 
         /// <summary>
@@ -529,13 +531,15 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Sets the parents according to the guids. Call after a file is loaded.
+        /// Sets the parents according to the guids. Call after a file is loaded. Returns true if duplicates were removed.
         /// </summary>
-        private void UpdateParents(IEnumerable<Creature> creatures)
+        private bool UpdateParents(IEnumerable<Creature> creatures)
         {
             List<Creature> placeholderAncestors = new List<Creature>();
 
             Dictionary<Guid, Creature> creatureGuids;
+
+            bool duplicatesWereRemoved = false;
 
             try
             {
@@ -627,6 +631,7 @@ namespace ARKBreedingStats
                     text.AppendLine("If you click on Yes, the first listed creature will be kept, all the other creatures will be removed. A backup file of the following library file will be created:");
                     text.AppendLine(_currentFileName);
                     text.AppendLine("If you click on No, the application will quit.");
+                    text.AppendLine("Remove duplicates?");
 
                     if (MessageBox.Show(text.ToString(), $"Duplicate creatures - {Utils.ApplicationNameVersion}",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
@@ -641,12 +646,14 @@ namespace ARKBreedingStats
                 _creatureCollection.creatures = uniqueList;
 
                 creatureGuids = _creatureCollection.creatures.ToDictionary(c => c.guid);
-                // create backup file
+                // create backup file of file before duplicates were removed
                 if (!string.IsNullOrEmpty(_currentFileName)
                     && File.Exists(_currentFileName))
                 {
                     File.Copy(_currentFileName, Path.Combine(Path.GetDirectoryName(_currentFileName), $"{Path.GetFileNameWithoutExtension(_currentFileName)}_BackupBeforeRemovingDuplicates_{DateTime.Now:yyyy-MM-dd_HH-mm-ss-ffff}.asb"));
                 }
+
+                duplicatesWereRemoved = true;
             }
 
             foreach (Creature c in creatures)
@@ -668,6 +675,8 @@ namespace ARKBreedingStats
             }
 
             _creatureCollection.creatures.AddRange(placeholderAncestors);
+
+            return duplicatesWereRemoved;
         }
 
         /// <summary>

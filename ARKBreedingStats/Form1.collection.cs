@@ -518,11 +518,11 @@ namespace ARKBreedingStats
             _creatureCollection.creatures = _creatureCollection.creatures
                 .Where(c => !string.IsNullOrEmpty(c.speciesBlueprint)).ToList();
 
-            InitializeCollection(keepCurrentSelections);
+            var duplicatesWereRemoved = InitializeCollection(keepCurrentSelections);
 
             _filterListAllowed = false;
 
-            SetCollectionChanged(creatureWasAdded, triggeredByFileWatcher: triggeredByFileWatcher); // setCollectionChanged only if there really were creatures added from the old library to the just opened one
+            SetCollectionChanged(creatureWasAdded || duplicatesWereRemoved, triggeredByFileWatcher: triggeredByFileWatcher); // setCollectionChanged only if there really were creatures added from the old library to the just opened one
 
             ///// creatures loaded.
 
