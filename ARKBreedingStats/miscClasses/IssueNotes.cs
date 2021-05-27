@@ -46,6 +46,7 @@ namespace ARKBreedingStats.miscClasses
                 case Issue.ArkStatIssue: return Loc.S("issueCauseArkStatIssue");
                 case Issue.CreatureLevel: return Loc.S("issueCauseCreatureLevel");
                 case Issue.OutdatedIngameValues: return Loc.S("issueCauseOutdatedIngameValues");
+                case Issue.ImpossibleTe: return Loc.S("issueCauseImpossibleTe");
             }
             return string.Empty;
         }
@@ -69,7 +70,8 @@ namespace ARKBreedingStats.miscClasses
             ModValues = 2048,
             WildLevelSteps = 4096,
             ArkStatIssue = 8192,
-            OutdatedIngameValues = 16384
+            OutdatedIngameValues = 16384,
+            ImpossibleTe = 32768
         }
     }
 }

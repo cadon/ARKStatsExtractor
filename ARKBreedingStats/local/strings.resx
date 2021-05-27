@@ -1314,4 +1314,7 @@ Filter for colors with c{region}: {colorValue} {colorValue2}, e.g. c0: 20, c5: 3
   <data name="ultraMaxLevel" xml:space="preserve">
     <value>Warning: The level is higher than the possible max value and will not be saved.</value>
   </data>
+  <data name="issueCauseImpossibleTe" xml:space="preserve">
+    <value>The level results in an impossible taming effectiveness. Did you enter the levels arbitrarily? It might work if you set the creature to bred.</value>
+  </data>
 </root>

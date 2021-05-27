@@ -496,6 +496,9 @@ namespace ARKBreedingStats
                 if (rbTamedExtractor.Checked && _creatureCollection.considerWildLevelSteps)
                     issues |= IssueNotes.Issue.WildLevelSteps;
 
+                if (_extractor.ResultWasSortedOutBecauseOfImpossibleTe)
+                    issues |= IssueNotes.Issue.ImpossibleTe;
+
                 labelErrorHelp.Text = $"{Loc.S("extractionFailedHeader")}:\n\n{IssueNotes.getHelpTexts(issues)}";
                 labelErrorHelp.Visible = true;
                 llOnlineHelpExtractionIssues.Visible = true;

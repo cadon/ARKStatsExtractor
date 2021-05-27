@@ -35,6 +35,7 @@ namespace ARKBreedingStats
         public int LevelWildSum;
         public int LevelDomSum;
         private MinMaxDouble _imprintingBonusRange;
+        public bool ResultWasSortedOutBecauseOfImpossibleTe { private set; get; }
 
         public Extraction()
         {
@@ -64,6 +65,7 @@ namespace ARKBreedingStats
             }
             ValidResults = false;
             UniqueResults = false;
+            ResultWasSortedOutBecauseOfImpossibleTe = false;
             StatsWithTE.Clear();
             _imprintingBonusRange = new MinMaxDouble(0);
             ImprintingBonus = 0;
@@ -265,6 +267,7 @@ namespace ARKBreedingStats
                         continue;
                     }
 
+                    bool resultWasSortedOutBecauseOfImpossibleTe = false;
                     for (int lw = minLW; lw < maxLW + 1; lw++)
                     {
                         // imprinting bonus is applied to all stats except stamina (s==1) and oxygen (s==2) and speed (s==6)
@@ -325,7 +328,12 @@ namespace ARKBreedingStats
                                             break;
                                         }
                                     }
-                                    if (impossibleTE) continue;
+
+                                    if (impossibleTE)
+                                    {
+                                        resultWasSortedOutBecauseOfImpossibleTe = true;
+                                        continue;
+                                    }
 
                                     // test if TE with torpor-level of tamed-creatures results in a valid wild-level according to the possible levelSteps
                                     if (considerWildLevelSteps)
@@ -362,6 +370,10 @@ namespace ARKBreedingStats
                             }
                         }
                     }
+
+                    if (resultWasSortedOutBecauseOfImpossibleTe && !Results[s].Any())
+                        ResultWasSortedOutBecauseOfImpossibleTe = true;
+
                 }
                 if (bred)
                 {

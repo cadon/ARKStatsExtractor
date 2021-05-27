@@ -1305,4 +1305,7 @@ Filter nach Farben mit c{Region}: {FarbCode} {FarbCode2}, z.B. c0: 20, c5: 3 4 5
   <data name="ultraMaxLevel" xml:space="preserve">
     <value>Achtung: Das Level ist höher als der mögliche Maximalwert und wird nicht gespeichert.</value>
   </data>
+  <data name="issueCauseImpossibleTe" xml:space="preserve">
+    <value>Die Level-Kombination setzt eine ungültige Zähm-Effektivität vorraus. Wurden die Level willkürlich eingegeben? Möglicherweise funktioniert es, wenn der Status auf gezüchtet gestzt wird.</value>
+  </data>
 </root>
