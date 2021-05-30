@@ -187,7 +187,7 @@
     <value>NoControl</value>
   </data>
   <data name="lbMax.Location" type="System.Drawing.Point, System.Drawing">
-    <value>105, 2</value>
+    <value>136, 2</value>
   </data>
   <data name="lbMax.Size" type="System.Drawing.Size, System.Drawing">
     <value>26, 13</value>
@@ -217,7 +217,7 @@
     <value>NoControl</value>
   </data>
   <data name="lbUsed.Location" type="System.Drawing.Point, System.Drawing">
-    <value>168, 2</value>
+    <value>204, 2</value>
   </data>
   <data name="lbUsed.Size" type="System.Drawing.Size, System.Drawing">
     <value>30, 13</value>
@@ -379,7 +379,7 @@
     <value>NoControl</value>
   </data>
   <data name="lbTamingTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>220, 2</value>
+    <value>240, 2</value>
   </data>
   <data name="lbTamingTime.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 13</value>
