@@ -371,10 +371,9 @@ namespace ARKBreedingStats
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
 
             // check for updates
+            MoveSpeciesImagesToNewFolder();
             if (DateTime.Now.AddHours(-20) > Properties.Settings.Default.lastUpdateCheck)
             {
-                MoveSpeciesImagesToNewFolder();
-
                 bool displayModuleWindow = false;
                 bool selectDefaultImages = false;
                 if (!Properties.Settings.Default.AlreadyAskedToDownloadSpeciesImageFiles)
