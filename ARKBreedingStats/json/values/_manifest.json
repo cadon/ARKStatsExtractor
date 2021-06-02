@@ -51,7 +51,7 @@
 			"mod": { "id": "1356703358", "tag": "Primal_Fear_Noxious_Creatures", "title": "Primal Fear Noxious Creatures" }
 		},
 		"1373744537-AC2.json": {
-			"version": "327.19.1620716487",
+			"version": "327.21.1622587129",
 			"mod": { "id": "1373744537", "tag": "AC2", "title": "Additional Creatures 2: Wild Ark" }
 		},
 		"1405944717-Project_Evolution.json": {
@@ -194,7 +194,7 @@
 			"mod": { "id": "1934081600", "tag": "SoloFarmAnky", "title": "Solo Farm Mod" }
 		},
 		"1984129536-MTSMod.json": {
-			"version": "324.22.1615486309",
+			"version": "327.21.1618587036",
 			"mod": { "id": "1984129536", "tag": "MTSMod", "title": "MTS.co.uk Community Mod" }
 		},
 		"1984936918-MarniiModsWildlife.json": {
@@ -238,11 +238,11 @@
 			"mod": { "id": "814833973", "tag": "Wyvern_Mating", "title": "Wyvern Mating" }
 		},
 		"839162288-Primal_Fear.json": {
-			"version": "327.19.1620875739",
+			"version": "327.21.1622154176.1",
 			"mod": { "id": "839162288", "tag": "Primal_Fear", "title": "Primal Fear" }
 		},
 		"893735676-AE.json": {
-			"version": "327.21.1621968903",
+			"version": "327.21.1621968903.1",
 			"mod": { "id": "893735676", "tag": "AE", "title": "ARK: Eternal" }
 		},
 		"895711211-ClassicFlyers.json": {
@@ -250,7 +250,7 @@
 			"mod": { "id": "895711211", "tag": "ClassicFlyers", "title": "Classic Flyers" }
 		},
 		"899987403-Primal_Fear_Bosses.json": {
-			"version": "327.19.1620940152",
+			"version": "327.21.1622154238",
 			"mod": { "id": "899987403", "tag": "Primal_Fear_Bosses", "title": "Primal Fear Bosses" }
 		},
 		"909297874-NorwegianVikings.json": {
