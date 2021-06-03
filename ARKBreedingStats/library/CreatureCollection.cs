@@ -18,7 +18,7 @@ namespace ARKBreedingStats.Library
             FormatVersion = CurrentLibraryFormatVersion;
         }
 
-        public const int MaxDomLevelDefault = 73;
+        public const int MaxDomLevelDefault = 88;
         public const int MaxDomLevelSinglePlayerDefault = 88;
 
         /// <summary>
