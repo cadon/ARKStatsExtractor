@@ -351,7 +351,15 @@ namespace ARKBreedingStats.ocr
                 Bitmap bmp;
                 if (!string.IsNullOrEmpty(useImageFilePath) && File.Exists(useImageFilePath))
                 {
-                    bmp = (Bitmap)Image.FromFile(useImageFilePath);
+                    try
+                    {
+                        bmp = (Bitmap)Image.FromFile(useImageFilePath);
+                    }
+                    catch (Exception ex)
+                    {
+                        errorText = $"Error when trying to load the file\n{useImageFilePath}\nfor the OCR.\n\n" + ex.Message + (ex.InnerException != null ? $" - InnerException: {ex.InnerException.Message}" : null);
+                        return null;
+                    }
                 }
                 else
                 {

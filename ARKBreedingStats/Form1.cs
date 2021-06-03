@@ -3308,7 +3308,7 @@ namespace ARKBreedingStats
             {
                 ExtractExportedFileInExtractor(filePath);
             }
-            else if (ext == ".asb")
+            else if (ext == ".asb" || ext == ".xml")
             {
                 if (DiscardChangesAndLoadNewLibrary())
                 {

@@ -403,7 +403,7 @@ namespace ARKBreedingStats
                             }
 
                             _creatureCollection = oldLibraryFormat.FormatConverter.ConvertXml2Asb(creatureCollectionOld, filePath);
-                            _creatureCollection.ModList = mods;
+                            _creatureCollection.ModList = mods ?? new List<Mod>(0);
 
                             if (_creatureCollection == null) throw new Exception("Conversion failed");
 
@@ -451,7 +451,7 @@ namespace ARKBreedingStats
                 catch (FormatException ex)
                 {
                     // This FormatVersion is not understood, abort
-                    MessageBoxes.ShowMessageBox($"This library format is unsupported in this version of ARK Smart Breeding." +
+                    MessageBoxes.ShowMessageBox("This library format is unsupported in this version of ARK Smart Breeding." +
                                                  $"\n\n{ex.Message}\n\nTry updating to a newer version.");
                     if ((DateTime.Now - Properties.Settings.Default.lastUpdateCheck).TotalMinutes < 10)
                         CheckForUpdates();
@@ -480,6 +480,7 @@ namespace ARKBreedingStats
             if (_creatureCollection.ModValueReloadNeeded
                 && !LoadModValuesOfCollection(_creatureCollection, false, false))
             {
+                MessageBoxes.ShowMessageBox("Mod values of the library file couldn't be loaded.", icon: MessageBoxIcon.Error);
                 NewCollection(true);
                 return false;
             }
