@@ -744,6 +744,7 @@ namespace ARKBreedingStats
 
             Dictionary<string, ListViewGroup> speciesGroups = new Dictionary<string, ListViewGroup>();
             List<ListViewItem> items = new List<ListViewItem>();
+            bool useSpeciesGroups = Properties.Settings.Default.LibraryGroupBySpecies;
 
             foreach (Creature cr in creatures)
             {
@@ -751,18 +752,26 @@ namespace ARKBreedingStats
                 if (cr.Species == null)
                     continue;
 
-                // check if group of species exists
-                var spDesc = cr.Species.DescriptiveNameAndMod;
-                if (!speciesGroups.TryGetValue(spDesc, out var group))
+                if (!useSpeciesGroups)
                 {
-                    group = new ListViewGroup(spDesc);
-                    speciesGroups.Add(spDesc, group);
+                    items.Add(CreateCreatureLvItem(cr));
                 }
-
-                items.Add(CreateCreatureLVItem(cr, group));
+                else
+                {
+                    // check if group of species exists
+                    var spDesc = cr.Species.DescriptiveNameAndMod;
+                    if (!speciesGroups.TryGetValue(spDesc, out var group))
+                    {
+                        group = new ListViewGroup(spDesc);
+                        speciesGroups.Add(spDesc, group);
+                    }
+                    items.Add(CreateCreatureLvItem(cr, group));
+                }
             }
             // use species list as initial source to get the sorted order set by the user
-            listViewLibrary.Groups.AddRange(Values.V.species.Select(sp => sp.DescriptiveNameAndMod).Where(sp => speciesGroups.ContainsKey(sp)).Select(sp => speciesGroups[sp]).ToArray());
+            listViewLibrary.ShowGroups = useSpeciesGroups;
+            if (useSpeciesGroups)
+                listViewLibrary.Groups.AddRange(Values.V.species.Select(sp => sp.DescriptiveNameAndMod).Where(sp => speciesGroups.ContainsKey(sp)).Select(sp => speciesGroups[sp]).ToArray());
             listViewLibrary.Items.AddRange(items.ToArray());
             listViewLibrary.EndUpdate();
 
@@ -815,7 +824,7 @@ namespace ARKBreedingStats
                     }
                 }
                 if (ci >= 0)
-                    listViewLibrary.Items[ci] = CreateCreatureLVItem(cr, listViewLibrary.Items[ci].Group);
+                    listViewLibrary.Items[ci] = CreateCreatureLvItem(cr, listViewLibrary.Items[ci].Group);
             }
 
             // recreate ownerList
@@ -844,7 +853,7 @@ namespace ARKBreedingStats
             _reactOnCreatureSelectionChange = true;
         }
 
-        private ListViewItem CreateCreatureLVItem(Creature cr, ListViewGroup g)
+        private ListViewItem CreateCreatureLvItem(Creature cr, ListViewGroup g = null)
         {
             double colorFactor = 100d / _creatureCollection.maxChartLevel;
             DateTime? cldGr = cr.cooldownUntil.HasValue && cr.growingUntil.HasValue ?
@@ -883,7 +892,7 @@ namespace ARKBreedingStats
             }).ToArray();
 
             // check if we display group for species or not.
-            ListViewItem lvi = Properties.Settings.Default.LibraryGroupBySpecies ? new ListViewItem(subItems, g) : new ListViewItem(subItems);
+            ListViewItem lvi = g != null && Properties.Settings.Default.LibraryGroupBySpecies ? new ListViewItem(subItems, g) : new ListViewItem(subItems);
 
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
