@@ -2736,6 +2736,14 @@ namespace ARKBreedingStats
         private bool LoadModValuesOfCollection(CreatureCollection cc, bool showResult, bool applySettings)
         {
             if (cc == null) return false;
+
+            if (!applySettings && cc.modIDs == null || !cc.modIDs.Any())
+            {
+                // nothing to do, and no error, the modHash seems to be wrong.
+                cc.UpdateModList();
+                return true;
+            }
+
             if (cc.modIDs == null) cc.modIDs = new List<string>();
             cc.modIDs = cc.modIDs.Distinct().ToList();
 
