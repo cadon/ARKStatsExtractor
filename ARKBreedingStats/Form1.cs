@@ -3536,7 +3536,8 @@ namespace ARKBreedingStats
                     MessageBox.Show(result, $"Data downloaded - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
 
-                InitializeImages();
+                if (modules.ImagesWereChanged)
+                    InitializeImages();
 
                 void InitializeImages()
                 {

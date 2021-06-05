@@ -46,6 +46,9 @@ namespace ARKBreedingStats.Updater
                     FlpModules.Controls.Add(moduleDisplay);
                 }
             }
+
+            InitiallySelectedSpeciesImageCollectionId = _checkboxesSelectModule.Where(cb => cb.Checked).Select(cb => cb.Tag as AsbModule)
+                .FirstOrDefault(m => (m?.LocallyAvailable ?? false) && m?.Category == "Species Images")?.Id;
         }
 
         private Control CreateModuleControl(AsbModule module, bool onlyOneEntry)
@@ -140,6 +143,14 @@ namespace ARKBreedingStats.Updater
         /// Is only true if for an already downloaded module an update is available.
         /// </summary>
         internal bool UpdateAvailable { get; private set; }
+
+        private string InitiallySelectedSpeciesImageCollectionId;
+
+        /// <summary>
+        /// The species images were changed and need to be initialized again.
+        /// </summary>
+        public bool ImagesWereChanged => InitiallySelectedSpeciesImageCollectionId != _checkboxesSelectModule.Where(cb => cb.Checked).Select(cb => cb.Tag as AsbModule)
+            .FirstOrDefault(m => m?.Category == "Species Images")?.Id;
 
         private AsbManifest _asbManifest;
         private readonly List<CheckBox> _checkboxesUpdateModule;
