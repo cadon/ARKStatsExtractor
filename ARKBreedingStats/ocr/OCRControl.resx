@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label18.Text" xml:space="preserve">
+    <value>Here you can set manual corrections if the OCR keeps making errors you cannot fix else.
+In the file one line represents a replacement in the format &lt;search&gt;@&lt;replace&gt;, the text is interpreted as regular expression, e.g.
+Tnbe@Tribe
+If you edited the file, click on "Load replacings" to update the used data.</value>
+  </data>
   <data name="label12.Text" xml:space="preserve">
     <value>The text-recognition (OCR) can read the values from the ARK-window. This process works by creating a screenshot and reading the numbers from that, it does not interfere with the game itself and is safe to use with Battleye.
 
