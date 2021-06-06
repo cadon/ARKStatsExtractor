@@ -96,7 +96,6 @@ namespace ARKBreedingStats.uiControls
                         }
                     }
                 }
-                mst.Considered = false;
             }
 
             foreach (var s in speciesList)
@@ -123,9 +122,6 @@ namespace ARKBreedingStats.uiControls
             foreach (string s in serverList)
                 cbbServer.Items.Add(s);
 
-            _tt.SetToolTip(lbTagSettingInfo, "The left checkbox indicates if the setting of that tag is applied, " +
-                    "the right checkbox indicates if the tag is added or removed from the selected creatures.");
-
             SetLocalizations();
             ResumeLayout();
         }
@@ -151,6 +147,8 @@ namespace ARKBreedingStats.uiControls
             ParentsChanged = checkBoxMother.Checked || checkBoxFather.Checked;
             SpeciesChanged = checkBoxSpecies.Checked;
 
+            var tagsToUpdate = _tagControls.Where(t => t.TagCheckState != CheckState.Indeterminate).ToArray();
+
             // set all variables
             foreach (Creature c in _creatureList)
             {
@@ -175,16 +173,14 @@ namespace ARKBreedingStats.uiControls
                 if (checkBoxColor6.Checked) c.colors[5] = _colors[5];
 
                 // tags
-                foreach (MultiSetterTag mst in _tagControls)
+                foreach (MultiSetterTag mst in tagsToUpdate)
                 {
-                    if (mst.Considered && mst.TagCheckState != CheckState.Indeterminate)
-                    {
-                        if (mst.TagCheckState == CheckState.Checked && c.tags.IndexOf(mst.TagName) == -1)
-                            c.tags.Add(mst.TagName);
-                        else if (mst.TagCheckState == CheckState.Unchecked && c.tags.IndexOf(mst.TagName) != -1)
-                            while (c.tags.Remove(mst.TagName)) ;
-                        TagsChanged = true;
-                    }
+                    if (mst.TagCheckState == CheckState.Checked && c.tags.IndexOf(mst.TagName) == -1)
+                        c.tags.Add(mst.TagName);
+                    else if (mst.TagCheckState == CheckState.Unchecked && c.tags.IndexOf(mst.TagName) != -1)
+                        while (c.tags.Remove(mst.TagName)) { }
+
+                    TagsChanged = true;
                 }
             }
         }

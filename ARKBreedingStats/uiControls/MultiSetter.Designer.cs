@@ -57,7 +57,6 @@
             this.checkBoxColor6 = new System.Windows.Forms.CheckBox();
             this.groupBoxTags = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanelTags = new System.Windows.Forms.FlowLayoutPanel();
-            this.lbTagSettingInfo = new System.Windows.Forms.Label();
             this.tbNewTag = new System.Windows.Forms.TextBox();
             this.bAddTag = new System.Windows.Forms.Button();
             this.cbServer = new System.Windows.Forms.CheckBox();
@@ -340,7 +339,6 @@
             // groupBoxTags
             // 
             this.groupBoxTags.Controls.Add(this.flowLayoutPanelTags);
-            this.groupBoxTags.Controls.Add(this.lbTagSettingInfo);
             this.groupBoxTags.Location = new System.Drawing.Point(614, 11);
             this.groupBoxTags.Name = "groupBoxTags";
             this.groupBoxTags.Size = new System.Drawing.Size(236, 331);
@@ -352,20 +350,10 @@
             // 
             this.flowLayoutPanelTags.AutoScroll = true;
             this.flowLayoutPanelTags.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanelTags.Location = new System.Drawing.Point(3, 29);
+            this.flowLayoutPanelTags.Location = new System.Drawing.Point(3, 16);
             this.flowLayoutPanelTags.Name = "flowLayoutPanelTags";
-            this.flowLayoutPanelTags.Size = new System.Drawing.Size(230, 299);
+            this.flowLayoutPanelTags.Size = new System.Drawing.Size(230, 312);
             this.flowLayoutPanelTags.TabIndex = 37;
-            // 
-            // lbTagSettingInfo
-            // 
-            this.lbTagSettingInfo.AutoSize = true;
-            this.lbTagSettingInfo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lbTagSettingInfo.Location = new System.Drawing.Point(3, 16);
-            this.lbTagSettingInfo.Name = "lbTagSettingInfo";
-            this.lbTagSettingInfo.Size = new System.Drawing.Size(136, 13);
-            this.lbTagSettingInfo.TabIndex = 1;
-            this.lbTagSettingInfo.Text = "Assign tag   |   Apply setting";
             // 
             // tbNewTag
             // 
@@ -536,7 +524,6 @@
             this.Text = "MultiSetter";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBoxTags.ResumeLayout(false);
-            this.groupBoxTags.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -577,7 +564,6 @@
         private System.Windows.Forms.TextBox tbNewTag;
         private System.Windows.Forms.Button bAddTag;
         private System.Windows.Forms.CheckBox cbServer;
-        private System.Windows.Forms.Label lbTagSettingInfo;
         private System.Windows.Forms.ComboBox cbbSpecies;
         private System.Windows.Forms.CheckBox checkBoxSpecies;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelTags;
