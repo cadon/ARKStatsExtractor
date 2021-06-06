@@ -1004,7 +1004,7 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   <data name="na" xml:space="preserve">
     <value>n/a</value>
   </data>
-  <data name="showOnlyNaturalOccuring" xml:space="preserve">
+  <data name="showOnlyNaturalOccurring" xml:space="preserve">
     <value>Show only natural occuring colors</value>
   </data>
   <data name="apply" xml:space="preserve">

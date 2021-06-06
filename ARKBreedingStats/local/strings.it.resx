@@ -921,7 +921,7 @@ Controlla i migliori risultati a lungo termine e se ti senti fortunato. Può ess
   <data name="servers" xml:space="preserve">
     <value>server</value>
   </data>
-  <data name="showOnlyNaturalOccuring" xml:space="preserve">
+  <data name="showOnlyNaturalOccurring" xml:space="preserve">
     <value>mostra solo i colori naturali</value>
   </data>
   <data name="BPCancelRestrictionOn" xml:space="preserve">

@@ -45,7 +45,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 483);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(3);
-            this.panel1.Size = new System.Drawing.Size(245, 31);
+            this.panel1.Size = new System.Drawing.Size(280, 31);
             this.panel1.TabIndex = 2;
             // 
             // ButtonCancel
@@ -62,7 +62,7 @@
             // ButtonOk
             // 
             this.ButtonOk.Dock = System.Windows.Forms.DockStyle.Right;
-            this.ButtonOk.Location = new System.Drawing.Point(142, 3);
+            this.ButtonOk.Location = new System.Drawing.Point(177, 3);
             this.ButtonOk.Name = "ButtonOk";
             this.ButtonOk.Size = new System.Drawing.Size(100, 25);
             this.ButtonOk.TabIndex = 0;
@@ -77,7 +77,7 @@
             this.ClbVariants.FormattingEnabled = true;
             this.ClbVariants.Location = new System.Drawing.Point(0, 40);
             this.ClbVariants.Name = "ClbVariants";
-            this.ClbVariants.Size = new System.Drawing.Size(245, 443);
+            this.ClbVariants.Size = new System.Drawing.Size(280, 443);
             this.ClbVariants.TabIndex = 0;
             // 
             // CheckBoxAll
@@ -87,7 +87,7 @@
             this.CheckBoxAll.Dock = System.Windows.Forms.DockStyle.Top;
             this.CheckBoxAll.Location = new System.Drawing.Point(0, 23);
             this.CheckBoxAll.Name = "CheckBoxAll";
-            this.CheckBoxAll.Size = new System.Drawing.Size(245, 17);
+            this.CheckBoxAll.Size = new System.Drawing.Size(280, 17);
             this.CheckBoxAll.TabIndex = 1;
             this.CheckBoxAll.Text = "All";
             this.CheckBoxAll.UseVisualStyleBackColor = false;
@@ -110,7 +110,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.ButtonCancel;
-            this.ClientSize = new System.Drawing.Size(245, 514);
+            this.ClientSize = new System.Drawing.Size(280, 514);
             this.Controls.Add(this.ClbVariants);
             this.Controls.Add(this.CheckBoxAll);
             this.Controls.Add(this.label1);

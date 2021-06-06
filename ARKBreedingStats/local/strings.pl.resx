@@ -917,7 +917,7 @@ Wybierz tryb "Wysokie statystyki", by otrzymać lepsze sugestie.</value>
     <data name="ShockingTranqDarts" xml:space="preserve">
         <value>Porażające lotki usypiające</value>
     </data>
-    <data name="showOnlyNaturalOccuring" xml:space="preserve">
+    <data name="showOnlyNaturalOccurring" xml:space="preserve">
         <value>tylko naturalnie występujące kolory</value>
     </data>
     <data name="VariantSelector" xml:space="preserve">

@@ -1569,5 +1569,58 @@ namespace ARKBreedingStats
             lviCreature.Selected = true;
             listViewLibrary.EnsureVisible(lviCreature.Index);
         }
+
+        #region LibraryFilterPresets
+
+        private LibraryFilterTemplates _libraryFilterTemplates;
+
+        private void ToolStripButtonSaveFilterPresetClick(object sender, EventArgs e)
+        {
+            var text = ToolStripTextBoxLibraryFilter.Text.Trim();
+            if (string.IsNullOrEmpty(text)) return;
+
+            var presets = Properties.Settings.Default.LibraryFilterPresets;
+            if (presets != null && presets.Contains(text)) return;
+
+            int oldLength = presets?.Length ?? 0;
+            var newPresets = new string[oldLength + 1];
+            if (presets != null)
+                Array.Copy(presets, newPresets, oldLength);
+            newPresets[oldLength] = text;
+
+            Properties.Settings.Default.LibraryFilterPresets = newPresets;
+            _libraryFilterTemplates?.AddPreset(text);
+        }
+
+        private void ToolStripTextBoxLibraryFilter_Click(object sender, EventArgs e)
+        {
+            ToggleLibraryFilterPresets();
+            ToolStripTextBoxLibraryFilter.Focus();
+        }
+
+        private void ToggleLibraryFilterPresets()
+        {
+            if (_libraryFilterTemplates == null || _libraryFilterTemplates.IsDisposed)
+            {
+                _libraryFilterTemplates = new LibraryFilterTemplates
+                {
+                    Presets = Properties.Settings.Default.LibraryFilterPresets
+                };
+                _libraryFilterTemplates.StringSelected += _libraryFilterTemplates_StringSelected;
+                _libraryFilterTemplates.Location = new Point(Location.X + ToolStripTextBoxLibraryFilter.Bounds.X, Location.Y + ToolStripTextBoxLibraryFilter.Bounds.Bottom + 60);
+                _libraryFilterTemplates.Show(this);
+                return;
+            }
+
+            _libraryFilterTemplates.ControlVisibility = !_libraryFilterTemplates.Visible;
+        }
+
+        private void _libraryFilterTemplates_StringSelected(string filterPreset)
+        {
+            ToolStripTextBoxLibraryFilter.Text = filterPreset;
+            _libraryFilterTemplates.ControlVisibility = false;
+        }
+
+        #endregion
     }
 }

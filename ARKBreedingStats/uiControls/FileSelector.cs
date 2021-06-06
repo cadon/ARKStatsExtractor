@@ -7,20 +7,20 @@ namespace ARKBreedingStats.uiControls
     public partial class FileSelector : UserControl
     {
         public string fileFilter;
-        private bool isFile;
-        private string linkPath;
-        private readonly ToolTip tt;
+        private bool _isFile;
+        private string _linkPath;
+        private readonly ToolTip _tt;
 
         public FileSelector()
         {
             InitializeComponent();
-            tt = new ToolTip();
-            Disposed += OnDispose;
+            _tt = new ToolTip();
+            Disposed += OnDisposed;
         }
 
         private void btChooseFile_Click(object sender, EventArgs e)
         {
-            if (isFile)
+            if (_isFile)
             {
                 using (OpenFileDialog dlg = new OpenFileDialog())
                 {
@@ -54,23 +54,23 @@ namespace ARKBreedingStats.uiControls
 
         private void btDeleteLink_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Delete the selection of this " + (isFile ? "file" : "folder"), "Remove?",
+            if (MessageBox.Show("Delete the selection of this " + (_isFile ? "file" : "folder"), "Remove?",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 Link = "";
         }
 
         public string Link
         {
-            get => linkPath;
+            get => _linkPath;
             set
             {
-                linkPath = value;
-                if (linkPath.Length > 90)
+                _linkPath = value;
+                if (_linkPath.Length > 90)
                 {
-                    lbLink.Text = linkPath.Substring(0, 30) + "…" + linkPath.Substring(linkPath.Length - 59);
-                    tt.SetToolTip(lbLink, linkPath);
+                    lbLink.Text = _linkPath.Substring(0, 30) + "…" + _linkPath.Substring(_linkPath.Length - 59);
+                    _tt.SetToolTip(lbLink, _linkPath);
                 }
-                else lbLink.Text = linkPath;
+                else lbLink.Text = _linkPath;
             }
         }
 
@@ -79,14 +79,15 @@ namespace ARKBreedingStats.uiControls
             // file or folder
             set
             {
-                isFile = value;
-                btChooseFile.Text = isFile ? "Choose File…" : "Choose Folder…";
+                _isFile = value;
+                btChooseFile.Text = _isFile ? "Choose File…" : "Choose Folder…";
             }
         }
 
-        private void OnDispose(object sender, EventArgs e)
+        private void OnDisposed(object sender, EventArgs e)
         {
-            tt.RemoveAll();
+            _tt.RemoveAll();
+            _tt.Dispose();
         }
     }
 }

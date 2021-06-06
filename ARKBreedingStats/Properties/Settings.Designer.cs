@@ -1732,5 +1732,16 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicDisplayName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public string[] LibraryFilterPresets {
+            get {
+                return ((string[])(this["LibraryFilterPresets"]));
+            }
+            set {
+                this["LibraryFilterPresets"] = value;
+            }
+        }
     }
 }

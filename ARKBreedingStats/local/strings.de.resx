@@ -987,7 +987,7 @@ Wählen, um die Top stats in einer Kreature zu vereinen. Dieser Modus geht ein R
   <data name="na" xml:space="preserve">
     <value>n. a.</value>
   </data>
-  <data name="showOnlyNaturalOccuring" xml:space="preserve">
+  <data name="showOnlyNaturalOccurring" xml:space="preserve">
     <value>nur natürlich vorkommende Farben</value>
   </data>
   <data name="apply" xml:space="preserve">

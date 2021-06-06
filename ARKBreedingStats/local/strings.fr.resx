@@ -1002,7 +1002,7 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
   <data name="na" xml:space="preserve">
     <value>n/a</value>
   </data>
-  <data name="showOnlyNaturalOccuring" xml:space="preserve">
+  <data name="showOnlyNaturalOccurring" xml:space="preserve">
     <value>N'afficher que les couleurs naturelles</value>
   </data>
   <data name="apply" xml:space="preserve">

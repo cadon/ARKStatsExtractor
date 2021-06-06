@@ -54,6 +54,7 @@ namespace ARKBreedingStats.importExported
         private void ExportedCreatureControl_Disposed(object sender, EventArgs e)
         {
             _tt.RemoveAll();
+            _tt.Dispose();
         }
 
         private void btLoadValues_Click(object sender, EventArgs e)

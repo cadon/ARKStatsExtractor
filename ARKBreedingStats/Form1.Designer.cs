@@ -311,6 +311,7 @@ namespace ARKBreedingStats
             this.ToolStripLabelFilter = new System.Windows.Forms.ToolStripLabel();
             this.ToolStripTextBoxLibraryFilter = new System.Windows.Forms.ToolStripTextBox();
             this.ToolStripButtonLibraryFilterClear = new System.Windows.Forms.ToolStripButton();
+            this.ToolStripButtonSaveFilterPreset = new System.Windows.Forms.ToolStripButton();
             this.panelToolBar = new System.Windows.Forms.Panel();
             this.btImportLastExported = new System.Windows.Forms.Button();
             this.pbSpecies = new System.Windows.Forms.PictureBox();
@@ -2825,7 +2826,8 @@ namespace ARKBreedingStats
             this.copyToMultiplierTesterToolStripButton,
             this.ToolStripLabelFilter,
             this.ToolStripTextBoxLibraryFilter,
-            this.ToolStripButtonLibraryFilterClear});
+            this.ToolStripButtonLibraryFilterClear,
+            this.ToolStripButtonSaveFilterPreset});
             this.toolStrip2.Location = new System.Drawing.Point(0, 24);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(1134, 25);
@@ -3022,13 +3024,16 @@ namespace ARKBreedingStats
             // ToolStripLabelFilter
             // 
             this.ToolStripLabelFilter.Name = "ToolStripLabelFilter";
-            this.ToolStripLabelFilter.Size = new System.Drawing.Size(36, 22);
-            this.ToolStripLabelFilter.Text = "Filter:";
+            this.ToolStripLabelFilter.Size = new System.Drawing.Size(33, 15);
+            this.ToolStripLabelFilter.Text = "Filter";
             // 
             // ToolStripTextBoxLibraryFilter
             // 
+            this.ToolStripTextBoxLibraryFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.ToolStripTextBoxLibraryFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.ToolStripTextBoxLibraryFilter.Name = "ToolStripTextBoxLibraryFilter";
-            this.ToolStripTextBoxLibraryFilter.Size = new System.Drawing.Size(200, 25);
+            this.ToolStripTextBoxLibraryFilter.Size = new System.Drawing.Size(200, 23);
+            this.ToolStripTextBoxLibraryFilter.Click += new System.EventHandler(this.ToolStripTextBoxLibraryFilter_Click);
             this.ToolStripTextBoxLibraryFilter.TextChanged += new System.EventHandler(this.ToolStripTextBoxLibraryFilter_TextChanged);
             // 
             // ToolStripButtonLibraryFilterClear
@@ -3036,9 +3041,20 @@ namespace ARKBreedingStats
             this.ToolStripButtonLibraryFilterClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.ToolStripButtonLibraryFilterClear.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ToolStripButtonLibraryFilterClear.Name = "ToolStripButtonLibraryFilterClear";
-            this.ToolStripButtonLibraryFilterClear.Size = new System.Drawing.Size(23, 22);
+            this.ToolStripButtonLibraryFilterClear.Size = new System.Drawing.Size(23, 19);
             this.ToolStripButtonLibraryFilterClear.Text = "×";
             this.ToolStripButtonLibraryFilterClear.Click += new System.EventHandler(this.ToolStripButtonLibraryFilterClear_Click);
+            // 
+            // ToolStripButtonSaveFilterPreset
+            // 
+            this.ToolStripButtonSaveFilterPreset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.ToolStripButtonSaveFilterPreset.Image = ((System.Drawing.Image)(resources.GetObject("ToolStripButtonSaveFilterPreset.Image")));
+            this.ToolStripButtonSaveFilterPreset.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ToolStripButtonSaveFilterPreset.Name = "ToolStripButtonSaveFilterPreset";
+            this.ToolStripButtonSaveFilterPreset.Size = new System.Drawing.Size(23, 19);
+            this.ToolStripButtonSaveFilterPreset.Text = "▼";
+            this.ToolStripButtonSaveFilterPreset.ToolTipText = "Save filter as preset";
+            this.ToolStripButtonSaveFilterPreset.Click += new System.EventHandler(this.ToolStripButtonSaveFilterPresetClick);
             // 
             // panelToolBar
             // 
@@ -3562,5 +3578,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator22;
         private System.Windows.Forms.ToolStripMenuItem extraDataToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator23;
+        private System.Windows.Forms.ToolStripButton ToolStripButtonSaveFilterPreset;
     }
 }

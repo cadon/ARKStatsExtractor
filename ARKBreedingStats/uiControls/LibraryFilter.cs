@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
@@ -16,10 +11,10 @@ namespace ARKBreedingStats.uiControls
 {
     public partial class LibraryFilter : Form
     {
-        private CreatureCollection _cc;
+        private readonly CreatureCollection _cc;
         private List<Button> _statusButtons;
         private int _selectedColorFilter;
-        private MyColorPicker _colorPicker;
+        private readonly MyColorPicker _colorPicker;
 
         public LibraryFilter()
         {
@@ -71,7 +66,7 @@ namespace ARKBreedingStats.uiControls
                 else if ((Properties.Settings.Default.FilterFlagsExclude & (int)s) != 0)
                     buttonState = ButtonState.Exclude;
 
-                var b = new Button()
+                var b = new Button
                 {
                     Text = s.ToString(),
                     Tag = (s, buttonState),
@@ -104,22 +99,22 @@ namespace ARKBreedingStats.uiControls
                 SetListValue(c.tribe, tribesList);
                 SetListValue(c.server, serversList);
 
-                void SetListValue(string _value, Dictionary<string, int> _list)
+                void SetListValue(string stringValue, Dictionary<string, int> list)
                 {
-                    if (string.IsNullOrEmpty(_value))
+                    if (string.IsNullOrEmpty(stringValue))
                     {
-                        if (!_list.ContainsKey(string.Empty))
-                            _list.Add(string.Empty, 1);
+                        if (!list.ContainsKey(string.Empty))
+                            list.Add(string.Empty, 1);
                         else
-                            _list[string.Empty]++;
+                            list[string.Empty]++;
                     }
-                    else if (!_list.ContainsKey(_value))
+                    else if (!list.ContainsKey(stringValue))
                     {
-                        _list.Add(_value, 1);
+                        list.Add(stringValue, 1);
                     }
                     else
                     {
-                        _list[_value]++;
+                        list[stringValue]++;
                     }
                 }
 
@@ -316,9 +311,9 @@ namespace ARKBreedingStats.uiControls
             CbServersAll.Text = allString;
             CbTagsAll.Text = allString;
 
-            FlpStatus.Controls.Add(new Label() { Text = Loc.S("filterOneNeededInfo"), BackColor = ColorButtonState(ButtonState.OneNeeded), AutoSize = true, Padding = new Padding(5), Margin = new Padding(3) });
-            FlpStatus.Controls.Add(new Label() { Text = Loc.S("filterAllNeededInfo"), BackColor = ColorButtonState(ButtonState.AllNeeded), AutoSize = true, Padding = new Padding(5), Margin = new Padding(3) });
-            FlpStatus.Controls.Add(new Label() { Text = Loc.S("filterExcludeInfo"), BackColor = ColorButtonState(ButtonState.Exclude), AutoSize = true, Padding = new Padding(5), Margin = new Padding(3) });
+            FlpStatus.Controls.Add(new Label { Text = Loc.S("filterOneNeededInfo"), BackColor = ColorButtonState(ButtonState.OneNeeded), AutoSize = true, Padding = new Padding(5), Margin = new Padding(3) });
+            FlpStatus.Controls.Add(new Label { Text = Loc.S("filterAllNeededInfo"), BackColor = ColorButtonState(ButtonState.AllNeeded), AutoSize = true, Padding = new Padding(5), Margin = new Padding(3) });
+            FlpStatus.Controls.Add(new Label { Text = Loc.S("filterExcludeInfo"), BackColor = ColorButtonState(ButtonState.Exclude), AutoSize = true, Padding = new Padding(5), Margin = new Padding(3) });
         }
 
         private enum ButtonState

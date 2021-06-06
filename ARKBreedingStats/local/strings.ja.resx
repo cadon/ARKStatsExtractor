@@ -1007,7 +1007,7 @@ OCRで種族の推測が頻繁に間違える場合は、この設定を無効�
   <data name="na" xml:space="preserve">
     <value>n/a</value>
   </data>
-  <data name="showOnlyNaturalOccuring" xml:space="preserve">
+  <data name="showOnlyNaturalOccurring" xml:space="preserve">
     <value>自然色のみ表示</value>
   </data>
   <data name="apply" xml:space="preserve">

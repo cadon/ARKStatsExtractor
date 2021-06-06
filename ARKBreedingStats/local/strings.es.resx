@@ -986,7 +986,7 @@ Algunas crías pueden ser peores que en el modo de estadísticas altas, pero tam
   <data name="servers" xml:space="preserve">
     <value>servidores</value>
   </data>
-  <data name="showOnlyNaturalOccuring" xml:space="preserve">
+  <data name="showOnlyNaturalOccurring" xml:space="preserve">
     <value>mostrar solo colores naturales</value>
   </data>
   <data name="BPCancelRestrictionOn" xml:space="preserve">

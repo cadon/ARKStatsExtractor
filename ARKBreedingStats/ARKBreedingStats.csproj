@@ -84,6 +84,12 @@
     </Compile>
     <Compile Include="NamePatterns\PatternTemplate.cs" />
     <Compile Include="NamePatterns\PatternTemplates.cs" />
+    <Compile Include="uiControls\LibraryFilterTemplates.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="uiControls\LibraryFilterTemplates.Designer.cs">
+      <DependentUpon>LibraryFilterTemplates.cs</DependentUpon>
+    </Compile>
     <Compile Include="Updater\AsbManifest.cs" />
     <Compile Include="Updater\AsbModule.cs" />
     <Compile Include="duplicates\MergingDuplicates.cs" />
@@ -614,6 +620,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\CustomMessageBox.resx">
       <DependentUpon>CustomMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\LibraryFilterTemplates.resx">
+      <DependentUpon>LibraryFilterTemplates.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\ParentInheritance.resx">
       <DependentUpon>ParentInheritance.cs</DependentUpon>

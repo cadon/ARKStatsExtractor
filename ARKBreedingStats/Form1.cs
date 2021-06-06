@@ -435,6 +435,10 @@ namespace ARKBreedingStats
                 UpdateRecentlyUsedFileMenu();
             }
 
+            var filterPresets = Properties.Settings.Default.LibraryFilterPresets;
+            if (filterPresets != null)
+                ToolStripTextBoxLibraryFilter.AutoCompleteCustomSource.AddRange(filterPresets);
+
             _updateExtractorVisualData = true;
 
             // Set up the file watcher
@@ -1261,9 +1265,12 @@ namespace ARKBreedingStats
             SaveListViewSettings(listViewLibrary, "columnWidths", "libraryColumnDisplayIndices", "listViewSortCol",
                 "listViewSortAsc");
 
+            if (_libraryFilterTemplates != null)
+                Properties.Settings.Default.LibraryFilterPresets = _libraryFilterTemplates.Presets;
+
             Properties.Settings.Default.OcrGuessSpecies = cbGuessSpecies.Checked;
 
-            // save custom statweights
+            // save custom statWeights
             List<string> custWs = new List<string>();
             List<double[]> custWd = new List<double[]>();
             foreach (KeyValuePair<string, double[]> w in breedingPlan1.StatWeighting.CustomWeightings)

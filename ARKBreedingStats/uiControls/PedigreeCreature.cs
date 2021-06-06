@@ -103,6 +103,7 @@ namespace ARKBreedingStats.uiControls
         private void PedigreeCreature_Disposed(object sender, EventArgs e)
         {
             _tt.RemoveAll();
+            _tt.Dispose();
         }
 
         private Creature _creature;

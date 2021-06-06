@@ -1,7 +1,6 @@
 ﻿using ARKBreedingStats.species;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -12,12 +11,12 @@ namespace ARKBreedingStats.uiControls
         public int SelectedColorId;
         private List<int> _naturalColorIDs;
         public bool isShown;
-        private readonly ToolTip tt;
+        private readonly ToolTip _tt;
 
         public MyColorPicker()
         {
             InitializeComponent();
-            tt = new ToolTip { AutomaticDelay = 200 };
+            _tt = new ToolTip { AutomaticDelay = 200 };
 
             BtNoColor.Tag = 0; // id of no color
             BtNoColor.Text = Loc.S("noColor");
@@ -26,14 +25,15 @@ namespace ARKBreedingStats.uiControls
 
             Disposed += MyColorPicker_Disposed;
 
-            checkBoxOnlyNatural.Text = Loc.S("showOnlyNaturalOccuring");
+            checkBoxOnlyNatural.Text = Loc.S("showOnlyNaturalOccurring");
 
             TopMost = true;
         }
 
         private void MyColorPicker_Disposed(object sender, EventArgs e)
         {
-            tt.RemoveAll();
+            _tt.RemoveAll();
+            _tt.Dispose();
         }
 
         public void SetColors(int selectedColorId, string regionName, List<ArkColor> naturalColors = null)
@@ -67,7 +67,7 @@ namespace ARKBreedingStats.uiControls
                 p.Tag = colors[colorIndex].Id;
                 p.BorderStyle = SelectedColorId == colors[colorIndex].Id ? BorderStyle.Fixed3D : BorderStyle.None;
                 p.Visible = ColorVisible(colors[colorIndex].Id);
-                tt.SetToolTip(p, colors[colorIndex].Id + ": " + colors[colorIndex].Name);
+                _tt.SetToolTip(p, colors[colorIndex].Id + ": " + colors[colorIndex].Name);
             }
 
             flowLayoutPanel1.ResumeLayout();
