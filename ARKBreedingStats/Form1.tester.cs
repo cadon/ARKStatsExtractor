@@ -283,37 +283,42 @@ namespace ARKBreedingStats
 
         private void SetCreatureValuesToExtractor(Creature c, bool onlyWild = false)
         {
-            if (c != null)
+            if (c == null) return;
+            Species species = c.Species;
+            if (species == null)
             {
-                Species species = c.Species;
-                if (species != null)
-                {
-                    ClearAll();
-                    // copy values over to extractor
-                    for (int s = 0; s < Values.STATS_COUNT; s++)
-                    {
-                        _statIOs[s].Input = onlyWild ? StatValueCalculation.CalculateValue(species, s, c.levelsWild[s], 0, true, c.tamingEff, c.imprintingBonus) : c.valuesDom[s];
-                        if (c.levelsDom[s] > 0) _statIOs[s].DomLevelLockedZero = false;
-                    }
-                    speciesSelector1.SetSpecies(species);
-
-                    if (c.isBred)
-                        rbBredExtractor.Checked = true;
-                    else if (c.tamingEff >= 0)
-                        rbTamedExtractor.Checked = true;
-                    else
-                        rbWildExtractor.Checked = true;
-
-                    numericUpDownImprintingBonusExtractor.ValueSave = (decimal)c.imprintingBonus * 100;
-                    // set total level
-                    int level = onlyWild ? c.levelsWild[(int)StatNames.Torpidity] : c.Level;
-                    numericUpDownLevel.ValueSave = level;
-
-                    tabControlMain.SelectedTab = tabPageExtractor;
-                }
-                else
-                    MessageBoxes.ShowMessageBox("Unknown Species. Try to update the species-stats, or redownload the tool.");
+                MessageBoxes.ShowMessageBox($"Unknown species\n{c.speciesBlueprint}\nTry to update the species-stats, or redownload the tool.");
+                return;
             }
+
+            ClearAll();
+            speciesSelector1.SetSpecies(species);
+            // copy values over to extractor
+            for (int s = 0; s < Values.STATS_COUNT; s++)
+            {
+                _statIOs[s].Input = onlyWild
+                    ? StatValueCalculation.CalculateValue(species, s, c.levelsWild[s], 0, true, c.tamingEff,
+                        c.imprintingBonus)
+                    : c.valuesDom[s];
+                if (c.levelsDom[s] > 0) _statIOs[s].DomLevelLockedZero = false;
+            }
+
+            if (c.isBred)
+                rbBredExtractor.Checked = true;
+            else if (c.tamingEff >= 0)
+                rbTamedExtractor.Checked = true;
+            else
+                rbWildExtractor.Checked = true;
+
+            numericUpDownImprintingBonusExtractor.ValueSave = (decimal)c.imprintingBonus * 100;
+            // set total level
+            int level = onlyWild ? c.levelsWild[(int)StatNames.Torpidity] : c.Level;
+            numericUpDownLevel.ValueSave = level;
+
+            // set colors
+            creatureInfoInputExtractor.RegionColors = c.colors;
+
+            tabControlMain.SelectedTab = tabPageExtractor;
         }
 
         private void SetRandomWildLevels(object sender, EventArgs e)
