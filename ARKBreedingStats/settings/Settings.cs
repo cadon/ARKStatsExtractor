@@ -598,6 +598,9 @@ namespace ARKBreedingStats.settings
             }
         }
 
+        /// <summary>
+        /// Checks if the set path to a savegame is actually an ark save file and warns if not.
+        /// </summary>
         private void CheckSaveImportPath(string filePath)
         {
             if (!filePath.EndsWith(".ark"))
@@ -1274,15 +1277,19 @@ namespace ARKBreedingStats.settings
         }
 
         private readonly DataGridViewCellStyle _styleDefaultEntry = new DataGridViewCellStyle { BackColor = Color.FromArgb(211, 247, 211) };
+        private readonly DataGridViewCellStyle _styleFolderNotFound = new DataGridViewCellStyle { BackColor = Color.FromArgb(247, 215, 211) };
 
         private void HighlightDefaultImportExportFolderEntry()
         {
             var rowCount = dataGridViewExportFolders.RowCount;
             if (rowCount == 0) return;
 
-            dataGridViewExportFolders.Rows[0].DefaultCellStyle = _styleDefaultEntry;
+            dataGridViewExportFolders.Rows[0].DefaultCellStyle = DirectoryExists(0) ? _styleDefaultEntry : _styleFolderNotFound;
             for (int i = 1; i < rowCount; i++)
-                dataGridViewExportFolders.Rows[i].DefaultCellStyle = null;
+                dataGridViewExportFolders.Rows[i].DefaultCellStyle = DirectoryExists(i) ? null : _styleFolderNotFound;
+
+            bool DirectoryExists(int r) => dataGridViewExportFolders.Rows[r].Cells[2].Value is string path &&
+                                           Directory.Exists(path);
         }
     }
 }

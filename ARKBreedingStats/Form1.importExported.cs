@@ -87,7 +87,7 @@ namespace ARKBreedingStats
                 return;
             }
 
-            if (MessageBox.Show("There is no folder set where the exported creatures are located. Set this folder in the settings. " +
+            if (MessageBox.Show("There is no folder set where the exported creatures are located, or the set folder does not exist. Set this folder in the settings. " +
                                 "Usually the folder is\n" + @"…\Steam\steamapps\common\ARK\ShooterGame\Saved\DinoExports\<ID>" + "\n\nOpen the settings-page?",
                                 $"No default export-folder set - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
