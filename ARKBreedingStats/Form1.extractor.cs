@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
@@ -115,7 +116,16 @@ namespace ARKBreedingStats
                 radarChartExtractor.SetLevels(_statIOs.Select(s => s.LevelWild).ToArray());
                 toolStripButtonSaveCreatureValuesTemp.Visible = false;
                 cbExactlyImprinting.BackColor = Color.Transparent;
-                var checkTopLevels = _topLevels.TryGetValue(speciesSelector1.SelectedSpecies, out int[] topSpeciesLevels);
+                var species = speciesSelector1.SelectedSpecies;
+                var checkTopLevels = _topLevels.TryGetValue(species, out int[] topSpeciesLevels);
+                var checkLowLevels = _lowestLevels.TryGetValue(species, out int[] lowSpeciesLevels);
+
+                var customStatNames = species.statNames;
+                var statWeights = breedingPlan1.StatWeighting.GetWeightingByPresetName(species.name);
+                if (statWeights == null) checkLowLevels = false;
+                var analysisState = LevelStatus.Neutral;
+                var newTopStatsText = new List<string>();
+                var topStatsText = new List<string>();
 
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
@@ -125,12 +135,39 @@ namespace ARKBreedingStats
 
                     var levelStatus = LevelStatus.Neutral;
 
-                    if (checkTopLevels)
+                    if (checkTopLevels && (statWeights?[s] ?? 0) >= 0)
                     {
+                        // higher stats are considered to be good. If no custom weightings are available, consider higher levels to be better.
                         if (_statIOs[s].LevelWild == topSpeciesLevels[s])
+                        {
                             levelStatus = LevelStatus.TopLevel;
+                            topStatsText.Add(Utils.StatName(s, false, customStatNames));
+                            if (analysisState != LevelStatus.NewTopLevel)
+                                analysisState = LevelStatus.TopLevel;
+                        }
                         else if (topSpeciesLevels[s] != -1 && _statIOs[s].LevelWild > topSpeciesLevels[s])
+                        {
                             levelStatus = LevelStatus.NewTopLevel;
+                            newTopStatsText.Add(Utils.StatName(s, false, customStatNames));
+                            analysisState = LevelStatus.NewTopLevel;
+                        }
+                    }
+                    else if (checkLowLevels && statWeights[s] < 0)
+                    {
+                        // lower stats are considered to be good
+                        if (_statIOs[s].LevelWild == lowSpeciesLevels[s])
+                        {
+                            levelStatus = LevelStatus.TopLevel;
+                            topStatsText.Add(Utils.StatName(s, false, customStatNames));
+                            if (analysisState != LevelStatus.NewTopLevel)
+                                analysisState = LevelStatus.TopLevel;
+                        }
+                        else if (_statIOs[s].LevelWild < lowSpeciesLevels[s])
+                        {
+                            levelStatus = LevelStatus.NewTopLevel;
+                            newTopStatsText.Add(Utils.StatName(s, false, customStatNames));
+                            analysisState = LevelStatus.NewTopLevel;
+                        }
                     }
 
                     if (_statIOs[s].LevelWild > 255)
@@ -143,9 +180,24 @@ namespace ARKBreedingStats
                     if (levelStatus != LevelStatus.Neutral)
                         _statIOs[s].TopLevel = levelStatus;
                 }
+
+                string infoText = null;
+                if (newTopStatsText.Any())
+                {
+                    infoText = $"New top stats: {string.Join(", ", newTopStatsText)}";
+                }
+                if (topStatsText.Any())
+                {
+                    infoText += $"{(infoText == null ? null : "\n")}Existing top stats: {string.Join(", ", topStatsText)}";
+                }
+
+                if (infoText == null) infoText = "No top stats";
+
+                creatureAnalysis1.SetStatsAnalysis(analysisState, infoText);
             }
             creatureInfoInputExtractor.ButtonEnabled = allValid;
             groupBoxRadarChartExtractor.Visible = allValid;
+            creatureAnalysis1.Visible = allValid;
             CreatureInfoInput_CreatureDataRequested(creatureInfoInputExtractor, false, true, false, 0);
         }
 
@@ -173,6 +225,8 @@ namespace ARKBreedingStats
             creatureInfoInputExtractor.ButtonEnabled = false;
             groupBoxPossibilities.Visible = false;
             groupBoxRadarChartExtractor.Visible = false;
+            creatureAnalysis1.Visible = false;
+            creatureAnalysis1.Clear();
             lbInfoYellowStats.Visible = false;
             button2TamingCalc.Visible = cbQuickWildCheck.Checked;
             groupBoxTamingInfo.Visible = cbQuickWildCheck.Checked;
@@ -504,6 +558,7 @@ namespace ARKBreedingStats
                 llOnlineHelpExtractionIssues.Visible = true;
                 groupBoxPossibilities.Visible = false;
                 groupBoxRadarChartExtractor.Visible = false;
+                creatureAnalysis1.Visible = false;
                 lbInfoYellowStats.Visible = false;
                 BtCopyIssueDumpToClipboard.Visible = true;
                 string redInfoText = null;
@@ -1007,10 +1062,13 @@ namespace ARKBreedingStats
             AddCreatureToCollection();
         }
 
-        private void CreatureInfoInputExtractor_ColorsChanged(CreatureInfoInput input)
+        private void CreatureInfoInputColorsChanged(CreatureInfoInput input)
         {
-            if (_updateExtractorVisualData)
-                input.SetRegionColorsExisting(_creatureCollection.ColorAlreadyAvailable(speciesSelector1.SelectedSpecies, input.RegionColors));
+            if (!_updateExtractorVisualData) return;
+            var newColorStatus = input.SetRegionColorsExisting(_creatureCollection.ColorAlreadyAvailable(speciesSelector1.SelectedSpecies, input.RegionColors, out string infoText));
+
+            if (input == creatureInfoInputExtractor)
+                creatureAnalysis1.SetColorAnalysis(newColorStatus.newInSpecies ? LevelStatus.NewTopLevel : newColorStatus.newInRegion ? LevelStatus.TopLevel : LevelStatus.Neutral, infoText);
         }
 
         private void copyLibrarydumpToClipboardToolStripMenuItem_Click(object sender, EventArgs e)

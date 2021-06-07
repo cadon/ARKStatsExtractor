@@ -61,11 +61,11 @@ namespace ARKBreedingStats.species
             colorsById = colorsList.ToDictionary(c => c.Id, c => c);
         }
 
-        public ArkColor ById(int id) => colorsById.ContainsKey(id) ? colorsById[id] : new ArkColor();
+        public ArkColor ById(int id) => colorsById.TryGetValue(id, out var color) ? color : new ArkColor();
 
-        public ArkColor ByName(string name) => colorsByName.ContainsKey(name) ? colorsByName[name] : new ArkColor();
+        public ArkColor ByName(string name) => colorsByName.TryGetValue(name, out var color) ? color : new ArkColor();
 
-        public ArkColor ByHash(int hash) => colorsByHash.ContainsKey(hash) ? colorsByHash[hash] : new ArkColor();
+        public ArkColor ByHash(int hash) => colorsByHash.TryGetValue(hash, out var color) ? color : new ArkColor();
 
         /// <summary>
         /// Returns the ARK-id of the color that is closest to the sRGB values.

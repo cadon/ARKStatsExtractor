@@ -84,6 +84,12 @@
     </Compile>
     <Compile Include="NamePatterns\PatternTemplate.cs" />
     <Compile Include="NamePatterns\PatternTemplates.cs" />
+    <Compile Include="uiControls\CreatureAnalysis.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uiControls\CreatureAnalysis.Designer.cs">
+      <DependentUpon>CreatureAnalysis.cs</DependentUpon>
+    </Compile>
     <Compile Include="uiControls\LibraryFilterTemplates.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -617,6 +623,9 @@
     <EmbeddedResource Include="local\strings.pl.resx" />
     <EmbeddedResource Include="ocr\PatternMatching\RecognitionTrainingForm.resx">
       <DependentUpon>RecognitionTrainingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\CreatureAnalysis.resx">
+      <DependentUpon>CreatureAnalysis.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\CustomMessageBox.resx">
       <DependentUpon>CustomMessageBox.cs</DependentUpon>

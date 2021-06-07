@@ -158,6 +158,7 @@ namespace ARKBreedingStats
             this.lbTestingInfo = new System.Windows.Forms.Label();
             this.creatureInfoInputTester = new ARKBreedingStats.CreatureInfoInput();
             this.tabPageExtractor = new System.Windows.Forms.TabPage();
+            this.creatureAnalysis1 = new ARKBreedingStats.uiControls.CreatureAnalysis();
             this.LbBlueprintPath = new System.Windows.Forms.Label();
             this.BtCopyIssueDumpToClipboard = new System.Windows.Forms.Button();
             this.llOnlineHelpExtractionIssues = new System.Windows.Forms.LinkLabel();
@@ -1576,6 +1577,7 @@ namespace ARKBreedingStats
             // tabPageExtractor
             // 
             this.tabPageExtractor.AutoScroll = true;
+            this.tabPageExtractor.Controls.Add(this.creatureAnalysis1);
             this.tabPageExtractor.Controls.Add(this.LbBlueprintPath);
             this.tabPageExtractor.Controls.Add(this.BtCopyIssueDumpToClipboard);
             this.tabPageExtractor.Controls.Add(this.llOnlineHelpExtractionIssues);
@@ -1603,6 +1605,13 @@ namespace ARKBreedingStats
             this.tabPageExtractor.TabIndex = 0;
             this.tabPageExtractor.Text = "Extractor";
             this.tabPageExtractor.UseVisualStyleBackColor = true;
+            // 
+            // creatureAnalysis1
+            // 
+            this.creatureAnalysis1.Location = new System.Drawing.Point(589, 263);
+            this.creatureAnalysis1.Name = "creatureAnalysis1";
+            this.creatureAnalysis1.Size = new System.Drawing.Size(346, 199);
+            this.creatureAnalysis1.TabIndex = 55;
             // 
             // LbBlueprintPath
             // 
@@ -3024,7 +3033,7 @@ namespace ARKBreedingStats
             // ToolStripLabelFilter
             // 
             this.ToolStripLabelFilter.Name = "ToolStripLabelFilter";
-            this.ToolStripLabelFilter.Size = new System.Drawing.Size(33, 15);
+            this.ToolStripLabelFilter.Size = new System.Drawing.Size(33, 22);
             this.ToolStripLabelFilter.Text = "Filter";
             // 
             // ToolStripTextBoxLibraryFilter
@@ -3032,7 +3041,7 @@ namespace ARKBreedingStats
             this.ToolStripTextBoxLibraryFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.ToolStripTextBoxLibraryFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.ToolStripTextBoxLibraryFilter.Name = "ToolStripTextBoxLibraryFilter";
-            this.ToolStripTextBoxLibraryFilter.Size = new System.Drawing.Size(200, 23);
+            this.ToolStripTextBoxLibraryFilter.Size = new System.Drawing.Size(200, 25);
             this.ToolStripTextBoxLibraryFilter.Click += new System.EventHandler(this.ToolStripTextBoxLibraryFilter_Click);
             this.ToolStripTextBoxLibraryFilter.TextChanged += new System.EventHandler(this.ToolStripTextBoxLibraryFilter_TextChanged);
             // 
@@ -3041,7 +3050,7 @@ namespace ARKBreedingStats
             this.ToolStripButtonLibraryFilterClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.ToolStripButtonLibraryFilterClear.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ToolStripButtonLibraryFilterClear.Name = "ToolStripButtonLibraryFilterClear";
-            this.ToolStripButtonLibraryFilterClear.Size = new System.Drawing.Size(23, 19);
+            this.ToolStripButtonLibraryFilterClear.Size = new System.Drawing.Size(23, 22);
             this.ToolStripButtonLibraryFilterClear.Text = "×";
             this.ToolStripButtonLibraryFilterClear.Click += new System.EventHandler(this.ToolStripButtonLibraryFilterClear_Click);
             // 
@@ -3051,7 +3060,7 @@ namespace ARKBreedingStats
             this.ToolStripButtonSaveFilterPreset.Image = ((System.Drawing.Image)(resources.GetObject("ToolStripButtonSaveFilterPreset.Image")));
             this.ToolStripButtonSaveFilterPreset.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ToolStripButtonSaveFilterPreset.Name = "ToolStripButtonSaveFilterPreset";
-            this.ToolStripButtonSaveFilterPreset.Size = new System.Drawing.Size(23, 19);
+            this.ToolStripButtonSaveFilterPreset.Size = new System.Drawing.Size(23, 22);
             this.ToolStripButtonSaveFilterPreset.Text = "▼";
             this.ToolStripButtonSaveFilterPreset.ToolTipText = "Save filter as preset";
             this.ToolStripButtonSaveFilterPreset.Click += new System.EventHandler(this.ToolStripButtonSaveFilterPresetClick);
@@ -3579,5 +3588,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem extraDataToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator23;
         private System.Windows.Forms.ToolStripButton ToolStripButtonSaveFilterPreset;
+        private uiControls.CreatureAnalysis creatureAnalysis1;
     }
 }

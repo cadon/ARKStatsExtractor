@@ -1030,7 +1030,7 @@ namespace ARKBreedingStats
 
             DetermineBestBreeding(setSpecies: species);
 
-            //// update listviewSpeciesBP
+            // update listViewSpeciesBP
             // deselect currently selected species
             if (listViewSpeciesBP.SelectedItems.Count > 0)
                 listViewSpeciesBP.SelectedItems[0].Selected = false;

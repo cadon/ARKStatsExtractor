@@ -165,8 +165,8 @@ namespace ARKBreedingStats
             notesControl1.changed += SetCollectionChanged;
             creatureInfoInputExtractor.CreatureDataRequested += CreatureInfoInput_CreatureDataRequested;
             creatureInfoInputTester.CreatureDataRequested += CreatureInfoInput_CreatureDataRequested;
-            creatureInfoInputExtractor.ColorsChanged += CreatureInfoInputExtractor_ColorsChanged;
-            creatureInfoInputTester.ColorsChanged += CreatureInfoInputExtractor_ColorsChanged;
+            creatureInfoInputExtractor.ColorsChanged += CreatureInfoInputColorsChanged;
+            creatureInfoInputTester.ColorsChanged += CreatureInfoInputColorsChanged;
             speciesSelector1.OnSpeciesSelected += SpeciesSelector1OnSpeciesSelected;
             speciesSelector1.ToggleVisibility += ToggleViewSpeciesSelector;
             statsMultiplierTesting1.OnApplyMultipliers += StatsMultiplierTesting1_OnApplyMultipliers;

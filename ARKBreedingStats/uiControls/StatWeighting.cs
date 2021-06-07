@@ -150,19 +150,18 @@ namespace ARKBreedingStats.uiControls
         }
 
         /// <summary>
-        /// Sets the statweighting to the preset with the given name, if that is available. If not available, nothing happens.
+        /// Sets the statWeighting to the preset with the given name, if that is available. If not available, nothing happens.
         /// </summary>
         /// <param name="presetName">Name of the preset</param>
         /// <returns>True if the preset was set, false if there is no preset with the given name</returns>
         private bool SelectPresetByName(string presetName)
         {
-            if (_customWeightings.ContainsKey(presetName))
-            {
-                WeightValues = _customWeightings[presetName];
-                return true;
-            }
-            return false;
+            if (!_customWeightings.TryGetValue(presetName, out var weightings)) return false;
+            WeightValues = weightings;
+            return true;
         }
+
+        public double[] GetWeightingByPresetName(string presetName) => _customWeightings.TryGetValue(presetName, out var weightings) ? weightings : null;
 
         private void btDelete_Click(object sender, EventArgs e)
         {

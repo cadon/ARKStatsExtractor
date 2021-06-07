@@ -464,12 +464,10 @@ namespace ARKBreedingStats
             get => regionColorChooser1.ColorIDs;
             set
             {
-                if (_selectedSpecies != null)
-                {
-                    _regionColorIDs = (int[])value?.Clone() ?? new int[6];
-                    regionColorChooser1.SetSpecies(_selectedSpecies, _regionColorIDs);
-                    UpdateRegionColorImage();
-                }
+                if (_selectedSpecies == null) return;
+                _regionColorIDs = (int[])value?.Clone() ?? new int[6];
+                regionColorChooser1.SetSpecies(_selectedSpecies, _regionColorIDs);
+                UpdateRegionColorImage();
             }
         }
 
@@ -783,11 +781,12 @@ namespace ARKBreedingStats
                 _tt.SetToolTip(namingPatternButtons[bi], Loc.S("btnGenerateUniqueNameTT", false));
         }
 
-        internal void SetRegionColorsExisting(CreatureCollection.ColorExisting[] colorAlreadyAvailable = null)
+        internal (bool newInRegion, bool newInSpecies) SetRegionColorsExisting(CreatureCollection.ColorExisting[] colorAlreadyAvailable = null)
         {
             regionColorChooser1.SetRegionColorsExisting(colorAlreadyAvailable);
             LbColorNewInRegion.Visible = regionColorChooser1.ColorNewInRegion;
             LbColorNewInSpecies.Visible = regionColorChooser1.ColorNewInSpecies;
+            return (regionColorChooser1.ColorNewInRegion, regionColorChooser1.ColorNewInSpecies);
         }
     }
 }
