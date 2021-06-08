@@ -1502,6 +1502,7 @@ namespace ARKBreedingStats
             ToolStripLabelFilter.Visible = libraryShown;
             ToolStripTextBoxLibraryFilter.Visible = libraryShown;
             ToolStripButtonLibraryFilterClear.Visible = libraryShown;
+            ToolStripButtonSaveFilterPreset.Visible = libraryShown;
             SetMessageLabelText();
             copyCreatureToolStripMenuItem.Visible = tabControlMain.SelectedTab == tabPageLibrary;
             raisingControl1.updateListView = tabControlMain.SelectedTab == tabPageRaising;
