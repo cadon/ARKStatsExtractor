@@ -359,7 +359,7 @@ namespace ARKBreedingStats.Library
         }
 
         /// <summary>
-        /// Recalculates the new occured mutations.
+        /// Recalculates the new occurred mutations.
         /// </summary>
         public void RecalculateNewMutations()
         {

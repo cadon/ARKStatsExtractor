@@ -1,7 +1,6 @@
 ﻿using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
-
 using System;
 using System.Drawing;
 using System.Linq;
@@ -208,6 +207,8 @@ namespace ARKBreedingStats
 
             if (parentsChanged)
                 _creatureTesterEdit.RecalculateAncestorGenerations();
+
+            _creatureTesterEdit.RecalculateNewMutations();
 
             // if maturation was changed, update raising-timers
             if (_creatureTesterEdit.growingUntil != creatureInfoInputTester.GrowingUntil)

@@ -1743,5 +1743,29 @@ namespace ARKBreedingStats.Properties {
                 this["LibraryFilterPresets"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool PedigreeCompactView {
+            get {
+                return ((bool)(this["PedigreeCompactView"]));
+            }
+            set {
+                this["PedigreeCompactView"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public int PedigreeCompactViewGenerations {
+            get {
+                return ((int)(this["PedigreeCompactViewGenerations"]));
+            }
+            set {
+                this["PedigreeCompactViewGenerations"] = value;
+            }
+        }
     }
 }

@@ -57,7 +57,7 @@ namespace ARKBreedingStats
         /// </summary>
         private bool _updateBreedingPlanAllowed;
         public CreatureCollection CreatureCollection;
-        private readonly ToolTip _tt = new ToolTip() { AutoPopDelay = 10000 };
+        private readonly ToolTip _tt = new ToolTip { AutoPopDelay = 10000 };
 
         #region inheritance probabilities
         public const double ProbabilityHigherLevel = 0.55; // probability of inheriting the higher level-stat
@@ -67,7 +67,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// A mutation is possible if the Mutations are less than this number.
         /// </summary>
-        private const int MutationPossibleWithLessThan = 20;
+        public const int MutationPossibleWithLessThan = 20;
         /// <summary>
         /// The probability that at least one mutation happens if both parents have a mutation counter of less than 20.
         /// </summary>

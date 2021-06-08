@@ -96,6 +96,9 @@
     <Compile Include="uiControls\LibraryFilterTemplates.Designer.cs">
       <DependentUpon>LibraryFilterTemplates.cs</DependentUpon>
     </Compile>
+    <Compile Include="uiControls\PedigreeCreatureCompact.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Updater\AsbManifest.cs" />
     <Compile Include="Updater\AsbModule.cs" />
     <Compile Include="duplicates\MergingDuplicates.cs" />

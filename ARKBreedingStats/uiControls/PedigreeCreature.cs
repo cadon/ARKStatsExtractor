@@ -181,7 +181,9 @@ namespace ARKBreedingStats.uiControls
                         _labels[s].ForeColor = Parent?.ForeColor ?? Color.Black; // needed so text is not transparent on overlay
                         _tt.SetToolTip(_labels[s], Utils.StatName(si, false, _creature.Species?.statNames) + ": " + _creature.valuesBreeding[si] * (Utils.Precision(si) == 3 ? 100 : 1) + (Utils.Precision(si) == 3 ? "%" : string.Empty));
                     }
-                    _labels[s].Font = new Font("Microsoft Sans Serif", 8.25F, _creature.topBreedingStats[si] ? FontStyle.Bold : FontStyle.Regular, GraphicsUnit.Point, 0);
+                    // fonts are strange, and this seems to work. The assigned font-object is probably only used to read out the properties and then not used anymore.
+                    using (var font = new Font("Microsoft Sans Serif", 8.25F, _creature.topBreedingStats[si] ? FontStyle.Bold : FontStyle.Regular, GraphicsUnit.Point, 0))
+                        _labels[s].Font = font;
                 }
                 if (OnlyLevels)
                 {
@@ -204,11 +206,9 @@ namespace ARKBreedingStats.uiControls
                 if (totalMutations > 0)
                 {
                     labelMutations.Text = totalMutations > 9999 ? totalMutations.ToString().Substring(0, 4) + "…" : totalMutations.ToString();
-                    if (totalMutations > 19)
-                        labelMutations.BackColor = Utils.MutationColorOverLimit;
-                    else
-                        labelMutations.BackColor = Utils.MutationColor;
-                    _tt.SetToolTip(labelMutations, "Mutation-Counter: " + totalMutations.ToString("N0") + "\nMaternal: " + _creature.mutationsMaternal.ToString("N0") + "\nPaternal: " + _creature.mutationsPaternal.ToString("N0"));
+                    labelMutations.BackColor = totalMutations < BreedingPlan.MutationPossibleWithLessThan ? Utils.MutationColor : Utils.MutationColorOverLimit;
+                    _tt.SetToolTip(labelMutations,
+                        $"Mutation-Counter: {totalMutations}\nMaternal: {_creature.mutationsMaternal}\nPaternal: {_creature.mutationsPaternal}");
                 }
                 labelMutations.Visible = totalMutations > 0;
                 _contextMenuAvailable = true;

@@ -437,5 +437,11 @@
     <Setting Name="LibraryFilterPresets" Type="System.String[]" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="PedigreeCompactView" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="PedigreeCompactViewGenerations" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">4</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

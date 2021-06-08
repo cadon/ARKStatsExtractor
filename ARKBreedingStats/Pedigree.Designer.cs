@@ -40,6 +40,9 @@ namespace ARKBreedingStats
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.TextBoxFilter = new System.Windows.Forms.TextBox();
             this.ButtonClearFilter = new System.Windows.Forms.Button();
+            this.CbCompactView = new System.Windows.Forms.CheckBox();
+            this.LbCreatureName = new System.Windows.Forms.Label();
+            this.nudGenerations = new ARKBreedingStats.uiControls.Nud();
             this.pedigreeCreatureHeaders = new ARKBreedingStats.uiControls.PedigreeCreature();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -47,6 +50,7 @@ namespace ARKBreedingStats
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudGenerations)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox
@@ -78,10 +82,10 @@ namespace ARKBreedingStats
             this.listViewCreatures.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewCreatures.FullRowSelect = true;
             this.listViewCreatures.HideSelection = false;
-            this.listViewCreatures.Location = new System.Drawing.Point(3, 29);
+            this.listViewCreatures.Location = new System.Drawing.Point(3, 58);
             this.listViewCreatures.MultiSelect = false;
             this.listViewCreatures.Name = "listViewCreatures";
-            this.listViewCreatures.Size = new System.Drawing.Size(152, 488);
+            this.listViewCreatures.Size = new System.Drawing.Size(152, 459);
             this.listViewCreatures.TabIndex = 3;
             this.listViewCreatures.UseCompatibleStateImageBehavior = false;
             this.listViewCreatures.View = System.Windows.Forms.View.Details;
@@ -111,6 +115,8 @@ namespace ARKBreedingStats
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.AutoScroll = true;
+            this.splitContainer1.Panel2.Controls.Add(this.LbCreatureName);
+            this.splitContainer1.Panel2.Controls.Add(this.nudGenerations);
             this.splitContainer1.Panel2.Controls.Add(this.pedigreeCreatureHeaders);
             this.splitContainer1.Panel2.Controls.Add(this.pictureBox);
             this.splitContainer1.Panel2.Controls.Add(this.lbPedigreeEmpty);
@@ -123,13 +129,15 @@ namespace ARKBreedingStats
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 23F));
-            this.tableLayoutPanel1.Controls.Add(this.listViewCreatures, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.TextBoxFilter, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.ButtonClearFilter, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.listViewCreatures, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.TextBoxFilter, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.ButtonClearFilter, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.CbCompactView, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(158, 520);
@@ -138,7 +146,7 @@ namespace ARKBreedingStats
             // TextBoxFilter
             // 
             this.TextBoxFilter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TextBoxFilter.Location = new System.Drawing.Point(3, 3);
+            this.TextBoxFilter.Location = new System.Drawing.Point(3, 32);
             this.TextBoxFilter.Name = "TextBoxFilter";
             this.TextBoxFilter.Size = new System.Drawing.Size(129, 20);
             this.TextBoxFilter.TabIndex = 4;
@@ -147,7 +155,7 @@ namespace ARKBreedingStats
             // ButtonClearFilter
             // 
             this.ButtonClearFilter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ButtonClearFilter.Location = new System.Drawing.Point(136, 1);
+            this.ButtonClearFilter.Location = new System.Drawing.Point(136, 30);
             this.ButtonClearFilter.Margin = new System.Windows.Forms.Padding(1);
             this.ButtonClearFilter.Name = "ButtonClearFilter";
             this.ButtonClearFilter.Size = new System.Drawing.Size(21, 24);
@@ -155,6 +163,57 @@ namespace ARKBreedingStats
             this.ButtonClearFilter.Text = "×";
             this.ButtonClearFilter.UseVisualStyleBackColor = true;
             this.ButtonClearFilter.Click += new System.EventHandler(this.ButtonClearFilter_Click);
+            // 
+            // CbCompactView
+            // 
+            this.CbCompactView.Appearance = System.Windows.Forms.Appearance.Button;
+            this.CbCompactView.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.CbCompactView, 2);
+            this.CbCompactView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CbCompactView.Location = new System.Drawing.Point(3, 3);
+            this.CbCompactView.Name = "CbCompactView";
+            this.CbCompactView.Size = new System.Drawing.Size(152, 23);
+            this.CbCompactView.TabIndex = 6;
+            this.CbCompactView.Text = "Compact";
+            this.CbCompactView.UseVisualStyleBackColor = true;
+            this.CbCompactView.CheckedChanged += new System.EventHandler(this.CbCompactView_CheckedChanged);
+            // 
+            // LbCreatureName
+            // 
+            this.LbCreatureName.AutoSize = true;
+            this.LbCreatureName.Location = new System.Drawing.Point(391, 164);
+            this.LbCreatureName.Name = "LbCreatureName";
+            this.LbCreatureName.Size = new System.Drawing.Size(0, 13);
+            this.LbCreatureName.TabIndex = 4;
+            // 
+            // nudGenerations
+            // 
+            this.nudGenerations.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.nudGenerations.Location = new System.Drawing.Point(3, 6);
+            this.nudGenerations.Maximum = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            this.nudGenerations.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.nudGenerations.Name = "nudGenerations";
+            this.nudGenerations.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudGenerations.Size = new System.Drawing.Size(37, 20);
+            this.nudGenerations.TabIndex = 3;
+            this.nudGenerations.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.nudGenerations.ValueChanged += new System.EventHandler(this.nudGenerations_ValueChanged);
             // 
             // pedigreeCreatureHeaders
             // 
@@ -177,10 +236,12 @@ namespace ARKBreedingStats
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudGenerations)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -197,5 +258,8 @@ namespace ARKBreedingStats
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TextBox TextBoxFilter;
         private System.Windows.Forms.Button ButtonClearFilter;
+        private System.Windows.Forms.CheckBox CbCompactView;
+        private Nud nudGenerations;
+        private System.Windows.Forms.Label LbCreatureName;
     }
 }

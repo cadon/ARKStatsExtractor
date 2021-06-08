@@ -2,6 +2,9 @@
 
 namespace ARKBreedingStats.species
 {
+    /// <summary>
+    /// Static helper class to get ArkColor properties.
+    /// </summary>
     public static class CreatureColors
     {
         /// <summary>
