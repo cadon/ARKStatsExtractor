@@ -1025,7 +1025,7 @@ namespace ARKBreedingStats
                 isGrowing = false;
                 dt = cr.cooldownUntil.Value;
             }
-            else if (!cr.growingUntil.HasValue)
+            else if (!cr.growingUntil.HasValue || cr.growingUntil.Value < now)
             {
                 foreColor = Color.LightGray;
                 return "-";
