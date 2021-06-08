@@ -15,6 +15,10 @@ namespace ARKBreedingStats.importExported
         public event ExportedCreatureControl.CheckArkIdInLibraryEventHandler CheckArkIdInLibrary;
         public delegate void CheckForUnknownModsEventHandler(List<string> unknownSpeciesBlueprintPaths);
         public event CheckForUnknownModsEventHandler CheckForUnknownMods;
+        /// <summary>
+        /// Call this after a bulk import to update the visuals to the last imported creature.
+        /// </summary>
+        public event Action UpdateVisualData;
 
         private List<ExportedCreatureControl> eccs;
         private string selectedFolder;
@@ -216,12 +220,12 @@ namespace ARKBreedingStats.importExported
                 }
             }
 
-            toolStripStatusLabel1.Text = totalFiles.ToString() + " total files"
-                + (hiddenCreatures > 0 ? " (" + hiddenCreatures.ToString() + " of them hidden)" : "") + ". "
-                + (notImported + issuesWhileImporting).ToString() + " not imported, "
-                + issuesWhileImporting.ToString() + " of these need manual level selection. "
-                + justImported.ToString() + " just imported. "
-                + oldImported.ToString() + " old imported.";
+            toolStripStatusLabel1.Text = totalFiles + " total files"
+                + (hiddenCreatures > 0 ? " (" + hiddenCreatures + " of them hidden)" : "") + ". "
+                + (notImported + issuesWhileImporting) + " not imported, "
+                + issuesWhileImporting + " of these need manual level selection. "
+                + justImported + " just imported. "
+                + oldImported + " old imported.";
 
         }
 
@@ -255,9 +259,10 @@ namespace ARKBreedingStats.importExported
             {
                 if (ecc.Visible
                     && (!onlyUnimported || ecc.Status == ExportedCreatureControl.ImportStatus.NotImported))
-                    ecc.extractAndAddToLibrary(goToLibrary: false);
+                    ecc.extractAndAddToLibrary(false);
             }
             UpdateStatusBarLabelAndControls();
+            UpdateVisualData?.Invoke();
         }
 
         private void deleteAllImportedFilesToolStripMenuItem_Click(object sender, EventArgs e)

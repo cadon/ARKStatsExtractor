@@ -2,7 +2,6 @@
 using ARKBreedingStats.settings;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -10,7 +9,6 @@ using System.Text;
 using System.Windows.Forms;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.species;
-using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
@@ -100,13 +98,20 @@ namespace ARKBreedingStats
             tabControlMain.SelectedTab = tabPageExtractor;
 
             bool updateExtractorVisualKeeper = _updateExtractorVisualData;
+            var updateVisualsInfoInputKeeper = creatureInfoInputExtractor.DontUpdateVisuals;
             if (addToLibraryIfUnique)
+            {
                 _updateExtractorVisualData = false;
+                creatureInfoInputExtractor.DontUpdateVisuals = true;
+            }
 
             ExtractExportedFileInExtractor(exportedCreatureControl, updateParentVisuals: !addToLibraryIfUnique);
 
             if (addToLibraryIfUnique)
+            {
                 _updateExtractorVisualData = updateExtractorVisualKeeper;
+                creatureInfoInputExtractor.DontUpdateVisuals = updateVisualsInfoInputKeeper;
+            }
 
             // add to library automatically if batch-extracting exportedImported values and uniqueLevels
             if (addToLibraryIfUnique)
@@ -310,12 +315,18 @@ namespace ARKBreedingStats
                 _exportedCreatureList = new importExported.ExportedCreatureList();
                 _exportedCreatureList.CopyValuesToExtractor += ExportedCreatureList_CopyValuesToExtractor;
                 _exportedCreatureList.CheckArkIdInLibrary += ExportedCreatureList_CheckGuidInLibrary;
+                _exportedCreatureList.UpdateVisualData += UpdateVisualDataInExtractor;
                 Utils.SetWindowRectangle(_exportedCreatureList, Properties.Settings.Default.ImportExportedFormRectangle);
                 _exportedCreatureList.CheckForUnknownMods += ExportedCreatureList_CheckForUnknownMods;
             }
             _exportedCreatureList.ownerSuffix = "";
             _exportedCreatureList.Show();
             _exportedCreatureList.BringToFront();
+        }
+
+        private void UpdateVisualDataInExtractor()
+        {
+            creatureInfoInputExtractor.RegionColors = creatureInfoInputExtractor.RegionColors;
         }
 
         private void ExportedCreatureList_CheckForUnknownMods(List<string> unknownSpeciesBlueprintPaths)

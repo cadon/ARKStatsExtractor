@@ -51,6 +51,11 @@ namespace ARKBreedingStats
         public PictureBox PbColorRegion;
 
         /// <summary>
+        /// If false, the visualization of the colors and the image are not updated.
+        /// </summary>
+        public bool DontUpdateVisuals;
+
+        /// <summary>
         /// Displays the parents and inherited stats.
         /// </summary>
         public ParentInheritance ParentInheritance;
@@ -466,6 +471,7 @@ namespace ARKBreedingStats
             {
                 if (_selectedSpecies == null) return;
                 _regionColorIDs = (int[])value?.Clone() ?? new int[6];
+                if (DontUpdateVisuals) return;
                 regionColorChooser1.SetSpecies(_selectedSpecies, _regionColorIDs);
                 UpdateRegionColorImage();
             }
