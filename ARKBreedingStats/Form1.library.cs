@@ -189,8 +189,8 @@ namespace ARKBreedingStats
                 {
                     if (MessageBox.Show("Do you really want to delete the entry and all data for " +
                             $"\"{((Creature)listViewLibrary.SelectedItems[0].Tag).name}\"" +
-                            $"{(listViewLibrary.SelectedItems.Count > 1 ? " and " + (listViewLibrary.SelectedItems.Count - 1) + " other creatures" : string.Empty)}?",
-                            "Delete Creature?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                            $"{(listViewLibrary.SelectedItems.Count > 1 ? " and " + (listViewLibrary.SelectedItems.Count - 1) + " other creatures" : null)}?",
+                            "Delete Creature?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     {
                         bool onlyOneSpecies = true;
                         Species species = ((Creature)listViewLibrary.SelectedItems[0].Tag).Species;
@@ -445,6 +445,7 @@ namespace ARKBreedingStats
                 {
                     foreach (var c in speciesCreatures)
                     {
+                        if (c.levelsWild == null || c.flags.HasFlag(CreatureFlags.Placeholder)) continue;
                         int sumCreatureLevels = 0;
                         for (int s = 0; s < usedAndConsideredStatsCount; s++)
                         {
@@ -700,8 +701,7 @@ namespace ARKBreedingStats
             if (string.IsNullOrEmpty(name))
                 name = (sex == Sex.Female ? "Mother" : "Father") + " of " + tmpl.name;
 
-            var creature = new Creature(tmpl.Species, name, tmpl.owner, tmpl.tribe, sex, new[] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
-                    levelStep: _creatureCollection.getWildLevelStep())
+            var creature = new Creature(tmpl.Species, name, tmpl.owner, tmpl.tribe, sex, levelStep: _creatureCollection.getWildLevelStep())
             {
                 guid = guid,
                 Status = CreatureStatus.Unavailable,

@@ -870,7 +870,7 @@ namespace ARKBreedingStats
             int? levelStep = CreatureCollection.getWildLevelStep();
             Creature crB = new Creature(_currentSpecies,
                 string.Format(Loc.S(bestInSpecies ? "BestPossibleSpeciesLibrary" : "BestPossibleSpeciesLibraryFiltered"), _currentSpecies.name),
-                string.Empty, string.Empty, 0, new int[Values.STATS_COUNT], null, 100, true, levelStep: levelStep);
+                null, null, 0, new int[Values.STATS_COUNT], null, 1, true, levelStep: levelStep);
             bool totalLevelUnknown = false;
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
@@ -913,8 +913,8 @@ namespace ARKBreedingStats
             }
 
             int? levelStep = CreatureCollection.getWildLevelStep();
-            Creature crB = new Creature(_currentSpecies, string.Empty, string.Empty, string.Empty, 0, new int[Values.STATS_COUNT], null, 100, true, levelStep: levelStep);
-            Creature crW = new Creature(_currentSpecies, string.Empty, string.Empty, string.Empty, 0, new int[Values.STATS_COUNT], null, 100, true, levelStep: levelStep);
+            Creature crB = new Creature(_currentSpecies, string.Empty, levelsWild: new int[Values.STATS_COUNT], isBred: true, levelStep: levelStep);
+            Creature crW = new Creature(_currentSpecies, string.Empty, levelsWild: new int[Values.STATS_COUNT], isBred: true, levelStep: levelStep);
             Creature mother = _breedingPairs[comboIndex].Female;
             Creature father = _breedingPairs[comboIndex].Male;
             crB.Mother = mother;

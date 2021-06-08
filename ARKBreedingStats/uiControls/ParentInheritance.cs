@@ -13,7 +13,7 @@ namespace ARKBreedingStats.uiControls
         public ParentInheritance()
         {
             InitializeComponent();
-            _lines = new[] { new List<int[]>(), null };
+            _lines = new[] { new List<int[]>(), null, null };
             GbParents.Paint += ParentStats_Paint;
         }
 

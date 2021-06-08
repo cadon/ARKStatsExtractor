@@ -66,11 +66,6 @@ namespace ARKBreedingStats.uiControls
             DrawData(creature);
         }
 
-        public void SetCreature(int[] levelsWild, int[] colors, Species species, int mutations)
-        {
-            DrawData(new Creature(species, null, null, null, Sex.Female, levelsWild) { colors = colors, mutationsMaternal = mutations });
-        }
-
         private void DrawData(Creature creature)
         {
             if (creature?.Species == null) return;
@@ -95,31 +90,34 @@ namespace ARKBreedingStats.uiControls
                 const int centerCoord = StatSize / 2 - 1;
 
                 var i = 0;
-                foreach (var si in displayedStats)
+                if (creature.levelsWild != null)
                 {
-                    var level = creature.levelsWild[si];
-
-                    var statSize = Math.Min((double)level / chartMax, 1);
-                    var pieRadius = (int)(radiusInnerCircle + (centerCoord - radiusInnerCircle) * statSize);
-                    var leftTop = centerCoord - pieRadius;
-                    var angle = AngleOffset + anglePerStat * i++;
-                    using (var statBrush = new SolidBrush(Utils.GetColorFromPercent((int)(100 * statSize))))
-                        g.FillPie(statBrush, leftTop, leftTop, 2 * pieRadius, 2 * pieRadius, angle, anglePerStat);
-                    using (var pen = new Pen(Color.Black))
-                        g.DrawPie(pen, leftTop, leftTop, 2 * pieRadius, 2 * pieRadius, angle, anglePerStat);
-
-
-                    var possibleMutation = mutationHappened && (level == (creature.Mother?.levelsWild[si] ?? 0) + 2
-                                                                || level == (creature.Father?.levelsWild[si] ?? 0) + 2);
-                    if (possibleMutation)
+                    foreach (var si in displayedStats)
                     {
-                        const int radius = 3;
-                        var radiusPosition = centerCoord - radius - 1;
-                        var anglePosition = Math.PI * 2 / 360 * (angle + anglePerStat / 2);
-                        var x = (int)(radiusPosition * Math.Cos(anglePosition) + radiusPosition);
-                        var y = (int)(radiusPosition * Math.Sin(anglePosition) + radiusPosition);
-                        DrawFilledCircle(Color.Yellow, x, y, 2 * radius);
-                        possibleMutationInStat[si] = true;
+                        var level = creature.levelsWild[si];
+
+                        var statSize = Math.Min((double)level / chartMax, 1);
+                        var pieRadius = (int)(radiusInnerCircle + (centerCoord - radiusInnerCircle) * statSize);
+                        var leftTop = centerCoord - pieRadius;
+                        var angle = AngleOffset + anglePerStat * i++;
+                        using (var statBrush = new SolidBrush(Utils.GetColorFromPercent((int)(100 * statSize))))
+                            g.FillPie(statBrush, leftTop, leftTop, 2 * pieRadius, 2 * pieRadius, angle, anglePerStat);
+                        using (var pen = new Pen(Color.Black))
+                            g.DrawPie(pen, leftTop, leftTop, 2 * pieRadius, 2 * pieRadius, angle, anglePerStat);
+
+
+                        var possibleMutation = mutationHappened && (level == (creature.Mother?.levelsWild[si] ?? 0) + 2
+                                                                    || level == (creature.Father?.levelsWild[si] ?? 0) + 2);
+                        if (possibleMutation)
+                        {
+                            const int radius = 3;
+                            var radiusPosition = centerCoord - radius - 1;
+                            var anglePosition = Math.PI * 2 / 360 * (angle + anglePerStat / 2);
+                            var x = (int)(radiusPosition * Math.Cos(anglePosition) + radiusPosition);
+                            var y = (int)(radiusPosition * Math.Sin(anglePosition) + radiusPosition);
+                            DrawFilledCircle(Color.Yellow, x, y, 2 * radius);
+                            possibleMutationInStat[si] = true;
+                        }
                     }
                 }
 
@@ -183,10 +181,25 @@ namespace ARKBreedingStats.uiControls
             Image = bmp;
 
             var statNames = creature.Species?.statNames;
-            _tt.SetToolTip(this, $"{creature.name} ({Utils.SexSymbol(creature.sex)})"
-                                 + $"\n{string.Join("\n", displayedStats.Select(si => $"{Utils.StatName(si, true, statNames)}:\t{creature.levelsWild[si],3}{((possibleMutationInStat?[si] ?? false) ? " (possible mutation)" : null)}"))}"
-                                 + $"\n{Loc.S("Mutations")}: {creature.mutationsMaternal} (♀) + {creature.mutationsPaternal} (♂) = {creature.Mutations}"
-                                 + $"\n{Loc.S("Colors")}\n{string.Join("\n", colors.Select((c, i) => c == null ? null : $"[{i}]:\t{c.Id} ({c.Name})").Where(s => s != null))}");
+
+            var toolTipText = $"{creature.name} ({Utils.SexSymbol(creature.sex)})";
+            if (creature.flags.HasFlag(CreatureFlags.Placeholder))
+            {
+                toolTipText += "\nThis creature is not yet imported. This entry is a placeholder and contains no more info";
+            }
+            else
+            {
+                if (creature.levelsWild != null)
+                    toolTipText +=
+                        $"\n{string.Join("\n", displayedStats.Select(si => $"{Utils.StatName(si, true, statNames)}:\t{creature.levelsWild[si],3}{((possibleMutationInStat?[si] ?? false) ? " (possible mutation)" : null)}"))}";
+                toolTipText +=
+                    $"\n{Loc.S("Mutations")}: {creature.mutationsMaternal} (♀) + {creature.mutationsPaternal} (♂) = {creature.Mutations}";
+                if (creature.colors != null)
+                    toolTipText +=
+                        $"\n{Loc.S("Colors")}\n{string.Join("\n", colors.Select((c, i) => c == null ? null : $"[{i}]:\t{c.Id} ({c.Name})").Where(s => s != null))}";
+            }
+
+            _tt.SetToolTip(this, toolTipText);
         }
         public bool Highlight
         {

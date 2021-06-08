@@ -20,26 +20,26 @@ namespace ARKBreedingStats.Library
         public Sex sex;
         [JsonProperty("status")]
         private CreatureStatus _status;
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public CreatureFlags flags;
-        [JsonProperty]
-        public int[] levelsWild = new int[Values.STATS_COUNT];
-        [JsonProperty]
-        public int[] levelsDom = new int[Values.STATS_COUNT];
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public int[] levelsWild;
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public int[] levelsDom;
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public double tamingEff;
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public double imprintingBonus;
 
-        public double[] valuesBreeding = new double[Values.STATS_COUNT];
-        public double[] valuesDom = new double[Values.STATS_COUNT];
+        public double[] valuesBreeding;
+        public double[] valuesDom;
         /// <summary>
-        /// Indices of stats that are top for that species in the creaturecollection
+        /// Indices of stats that are top for that species in the creatureCollection
         /// </summary>
-        public bool[] topBreedingStats = new bool[Values.STATS_COUNT];
+        public bool[] topBreedingStats;
         public short topStatsCount;
         /// <summary>
-        /// topstatcount with all stats (regardless of considerStatHighlight[]) and without torpor (for breedingplanner)
+        /// topStatCount with all stats (regardless of considerStatHighlight[]) and without torpor (for breedingPlanner)
         /// </summary>
         public short topStatsCountBP;
         /// <summary>
@@ -51,21 +51,21 @@ namespace ARKBreedingStats.Library
         /// </summary>
         public bool onlyTopConsideredStats;
         /// <summary>
-        /// Permille of mean of wildlevels compared to toplevels.
+        /// Permille of mean of wildLevels compared to topLevels.
         /// </summary>
         public short topness;
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string owner;
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string imprinterName; // todo implement in creatureInfoInbox
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string tribe;
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string server;
         /// <summary>
         /// User defined note about that creature.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string note;
         /// <summary>
         /// The guid used in ASB for parent-linking. The user cannot change it.
@@ -79,23 +79,23 @@ namespace ARKBreedingStats.Library
         /// If ArkIdImported is false, this field can contain any user input value, intended is the creature's id in ARK like it is shown to the user in game.
         /// The shown id is not always unique. It's build from two 32 bit integers which are converted to strings and then concatenated.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public long ArkId;
         /// <summary>
         /// If true it's assumed the ArkId is correct (in game visualization can be wrong). This field should only be true if the ArkId was imported.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool ArkIdImported;
         /// <summary>
         /// Ark id how it is shown in game.
         /// </summary>
         [JsonIgnore]
         public string ArkIdInGame;
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool isBred;
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Guid fatherGuid;
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Guid motherGuid;
         /// <summary>
         /// Only used during import to create placeholder ancestors.
@@ -117,47 +117,44 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Number of generations from the oldest wild creature.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int generation;
         /// <summary>
         /// Color ids.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int[] colors;
         [JsonProperty]
         public DateTime? growingUntil;
         public TimeSpan growingLeft;
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool growingPaused;
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public DateTime? cooldownUntil;
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public DateTime? domesticatedAt;
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public DateTime? addedToLibrary;
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int mutationsMaternal;
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int mutationsPaternal;
         /// <summary>
-        /// Number of new occured maternal mutations
+        /// Number of new occurred maternal mutations
         /// </summary>
-        [JsonProperty("mutMatNew")]
+        [JsonProperty("mutMatNew", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int mutationsMaternalNew;
         /// <summary>
-        /// Number of new occured paternal mutations
+        /// Number of new occurred paternal mutations
         /// </summary>
-        [JsonProperty("mutPatNew")]
+        [JsonProperty("mutPatNew", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int mutationsPaternalNew;
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public List<string> tags = new List<string>();
 
-        public Creature()
-        {
-            levelsWild = new int[] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 }; // unknown wild levels
-        }
+        public Creature() { }
 
-        public Creature(Species species, string name, string owner, string tribe, Sex sex, int[] levelsWild, int[] levelsDom = null, double tamingEff = 0, bool isBred = false, double imprinting = 0, int? levelStep = null)
+        public Creature(Species species, string name, string owner = null, string tribe = null, Sex sex = Sex.Unknown, int[] levelsWild = null, int[] levelsDom = null, double tamingEff = 0, bool isBred = false, double imprinting = 0, int? levelStep = null)
         {
             Species = species;
             this.name = name ?? string.Empty;
@@ -173,6 +170,9 @@ namespace ARKBreedingStats.Library
             this.isBred = isBred;
             imprintingBonus = imprinting;
             Status = CreatureStatus.Available;
+            if (levelsWild == null) return;
+
+            InitializeArrays();
             CalculateLevelFound(levelStep);
         }
 
@@ -196,7 +196,6 @@ namespace ARKBreedingStats.Library
             ArkId = arkId;
             ArkIdImported = true;
             guid = Utils.ConvertArkIdToGuid(arkId);
-            levelsWild = new[] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 }; // unknown wild levels
             flags = CreatureFlags.Placeholder;
         }
 
@@ -223,19 +222,18 @@ namespace ARKBreedingStats.Library
         public void CalculateLevelFound(int? levelStep)
         {
             levelFound = 0;
-            if (!isBred && tamingEff >= 0)
-            {
-                if (levelStep.HasValue)
-                    levelFound = (int)Math.Round(LevelHatched / (1 + tamingEff / 2) / levelStep.Value) * levelStep.Value;
-                else
-                    levelFound = (int)Math.Ceiling(Math.Round(LevelHatched / (1 + tamingEff / 2), 6));
-            }
+            if (isBred || tamingEff < 0) return;
+
+            if (levelStep.HasValue)
+                levelFound = (int)Math.Round(LevelHatched / (1 + tamingEff / 2) / levelStep.Value) * levelStep.Value;
+            else
+                levelFound = (int)Math.Ceiling(Math.Round(LevelHatched / (1 + tamingEff / 2), 6));
         }
 
         /// <summary>
         /// The total level without domesticate levels.
         /// </summary>
-        public int LevelHatched => levelsWild[(int)StatNames.Torpidity] + 1;
+        public int LevelHatched => (levelsWild?[(int)StatNames.Torpidity] ?? 0) + 1;
 
         /// <summary>
         /// The total current level inclusive domesticate levels.
@@ -346,16 +344,15 @@ namespace ARKBreedingStats.Library
         /// </summary>
         public void RecalculateCreatureValues(int? levelStep)
         {
-            if (Species != null)
-            {
-                InitializeArrays();
-                for (int s = 0; s < Values.STATS_COUNT; s++)
-                {
-                    valuesBreeding[s] = StatValueCalculation.CalculateValue(Species, s, levelsWild[s], 0, true, 1, 0);
-                    valuesDom[s] = StatValueCalculation.CalculateValue(Species, s, levelsWild[s], levelsDom[s], true, tamingEff, imprintingBonus);
-                }
-            }
             CalculateLevelFound(levelStep);
+            if (Species == null || levelsWild == null) return;
+
+            InitializeArrays();
+            for (int s = 0; s < Values.STATS_COUNT; s++)
+            {
+                valuesBreeding[s] = StatValueCalculation.CalculateValue(Species, s, levelsWild[s], 0, true, 1, 0);
+                valuesDom[s] = StatValueCalculation.CalculateValue(Species, s, levelsWild[s], levelsDom[s], true, tamingEff, imprintingBonus);
+            }
         }
 
         /// <summary>
@@ -418,7 +415,7 @@ namespace ARKBreedingStats.Library
         /// XmlSerializer does not support TimeSpan, so use this property for serialization instead.
         /// </summary>
         [System.ComponentModel.Browsable(false)]
-        [JsonProperty("growingLeft")]
+        [JsonProperty("growingLeft", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string GrowingLeftString
         {
             get => System.Xml.XmlConvert.ToString(growingLeft);
@@ -432,8 +429,9 @@ namespace ARKBreedingStats.Library
         [OnDeserialized]
         private void Initialize(StreamingContext ct)
         {
-            InitializeArrays();
             InitializeArkInGame();
+            if (flags.HasFlag(CreatureFlags.Placeholder)) return;
+            InitializeArrays();
         }
 
         /// <summary>
@@ -443,6 +441,7 @@ namespace ARKBreedingStats.Library
 
         private void InitializeArrays()
         {
+            if (levelsDom == null) levelsDom = new int[Values.STATS_COUNT];
             if (valuesBreeding == null) valuesBreeding = new double[Values.STATS_COUNT];
             if (valuesDom == null) valuesDom = new double[Values.STATS_COUNT];
             if (topBreedingStats == null) topBreedingStats = new bool[Values.STATS_COUNT];

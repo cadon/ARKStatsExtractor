@@ -146,14 +146,14 @@ namespace ARKBreedingStats.uiControls
                 for (int s = 0; s < DisplayedStatsCount; s++)
                 {
                     int si = DisplayedStats[s];
-                    if (_creature.valuesBreeding[si] == 0)
+                    if (_creature.valuesBreeding != null && _creature.valuesBreeding[si] == 0)
                     {
                         // stat not used // TODO hide label?
                         _labels[s].Text = "-";
                         _labels[s].BackColor = Color.WhiteSmoke;
                         _labels[s].ForeColor = Color.LightGray;
                     }
-                    else if (_creature.levelsWild[si] < 0)
+                    else if (_creature.levelsWild == null || _creature.levelsWild[si] < 0)
                     {
                         _labels[s].Text = "?";
                         _labels[s].BackColor = Color.WhiteSmoke;

@@ -1149,8 +1149,7 @@ namespace ARKBreedingStats
         {
             // set possible parents
             bool fromExtractor = input == creatureInfoInputExtractor;
-            Creature creature = new Creature(speciesSelector1.SelectedSpecies, "", "", "", 0,
-                GetCurrentWildLevels(fromExtractor), levelStep: _creatureCollection.getWildLevelStep())
+            Creature creature = new Creature(speciesSelector1.SelectedSpecies, null, levelsWild: GetCurrentWildLevels(fromExtractor), levelStep: _creatureCollection.getWildLevelStep())
             {
                 guid = input.CreatureGuid
             };
@@ -3076,7 +3075,7 @@ namespace ARKBreedingStats
             if (species != null)
             {
                 EditCreatureInTester(
-                    new Creature(species, String.Empty, String.Empty, String.Empty, Sex.Unknown, wildLevels, domLevels,
+                    new Creature(species, null, null, null, Sex.Unknown, wildLevels, domLevels,
                         te, bred, imprintingBonus), true);
                 if (gotoTester) tabControlMain.SelectedTab = tabPageStatTesting;
             }

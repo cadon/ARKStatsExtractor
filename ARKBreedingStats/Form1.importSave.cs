@@ -263,7 +263,7 @@ namespace ARKBreedingStats
             }
             catch (Exception ex)
             {
-                MessageBoxes.ExceptionMessageBox(ex, $"An error occured while loading saved ftp credentials.");
+                MessageBoxes.ExceptionMessageBox(ex, $"An error occurred while loading saved ftp credentials.");
             }
 
             return new Dictionary<string, FtpCredentials>(StringComparer.OrdinalIgnoreCase);

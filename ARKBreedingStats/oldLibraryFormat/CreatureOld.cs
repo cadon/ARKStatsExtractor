@@ -48,11 +48,6 @@ namespace ARKBreedingStats.oldLibraryFormat
         public List<string> tags = new List<string>();
         public bool IsPlaceholder; // if a creature has unknown parents, they are placeholders until they are imported. placeholders are not shown in the library
 
-        public CreatureOld()
-        {
-            levelsWild = new[] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 }; // unknown wild levels
-        }
-
         public bool Equals(CreatureOld other)
         {
             return other.guid == guid;

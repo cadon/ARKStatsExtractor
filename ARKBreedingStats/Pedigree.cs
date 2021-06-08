@@ -280,16 +280,19 @@ namespace ARKBreedingStats
                 {
                     Location = new Point(leftBorder + xS, yDescendants + 35 * row + yS)
                 };
-                for (int s = 0; s < PedigreeCreature.DisplayedStatsCount; s++)
+                if (c.levelsWild != null && _selectedCreature.levelsWild != null)
                 {
-                    int si = PedigreeCreature.DisplayedStats[s];
-                    if (_selectedCreature.valuesDom[si] > 0 && _selectedCreature.levelsWild[si] >= 0 &&
-                        _selectedCreature.levelsWild[si] == c.levelsWild[si])
-                        _lines[0].Add(new[]
-                        {
+                    for (int s = 0; s < PedigreeCreature.DisplayedStatsCount; s++)
+                    {
+                        int si = PedigreeCreature.DisplayedStats[s];
+                        if (_selectedCreature.valuesDom[si] > 0 && _selectedCreature.levelsWild[si] >= 0 &&
+                            _selectedCreature.levelsWild[si] == c.levelsWild[si])
+                            _lines[0].Add(new[]
+                            {
                             leftBorder + XOffsetFirstStat + HorizontalStatDistance * s, yDescendants + 35 * row + 6,
                             leftBorder + XOffsetFirstStat + HorizontalStatDistance * s, yDescendants + 35 * row + 15, 0, 0
                         });
+                    }
                 }
 
                 pc.CreatureClicked += CreatureClicked;
@@ -361,26 +364,44 @@ namespace ARKBreedingStats
 
         internal static void CreateGeneInheritanceLines(Creature offspring, Creature mother, Creature father, List<int[]>[] lines, int x, int y)
         {
+            if (offspring.levelsWild == null || offspring.valuesDom == null) return;
+
             for (int s = 0; s < PedigreeCreature.DisplayedStatsCount; s++)
             {
                 int si = PedigreeCreature.DisplayedStats[s];
                 if (offspring.valuesDom[si] <= 0) continue; // don't display arrows for non used stats
                 int better = 0; // if father < mother: 1, if mother < father: -1
-                if (mother != null && father != null)
+                if (mother?.levelsWild != null && father?.levelsWild != null)
                 {
                     if (mother.levelsWild[si] < father.levelsWild[si])
                         better = -1;
                     else if (mother.levelsWild[si] > father.levelsWild[si])
                         better = 1;
                 }
+
                 // offspring can have stats that are up to 2 levels higher due to mutations. currently there are no decreasing levels due to mutations
-                if (mother != null && offspring.levelsWild[si] >= 0 && (offspring.levelsWild[si] == mother.levelsWild[si] || offspring.levelsWild[si] == mother.levelsWild[si] + 2))
+                if (mother?.levelsWild != null && offspring.levelsWild[si] >= 0 &&
+                    (offspring.levelsWild[si] == mother.levelsWild[si] ||
+                     offspring.levelsWild[si] == mother.levelsWild[si] + 2))
                 {
-                    lines[0].Add(new[] { XOffsetFirstStat + x + HorizontalStatDistance * s, y + 33, XOffsetFirstStat + x + HorizontalStatDistance * s, y + 42, (better == -1 ? 1 : 2), (offspring.levelsWild[si] > mother.levelsWild[si] ? 1 : 0) });
+                    lines[0].Add(new[]
+                    {
+                            XOffsetFirstStat + x + HorizontalStatDistance * s, y + 33,
+                            XOffsetFirstStat + x + HorizontalStatDistance * s, y + 42, (better == -1 ? 1 : 2),
+                            (offspring.levelsWild[si] > mother.levelsWild[si] ? 1 : 0)
+                        });
                 }
-                if (father != null && offspring.levelsWild[si] >= 0 && (offspring.levelsWild[si] == father.levelsWild[si] || offspring.levelsWild[si] == father.levelsWild[si] + 2))
+
+                if (father?.levelsWild != null && offspring.levelsWild[si] >= 0 &&
+                    (offspring.levelsWild[si] == father.levelsWild[si] ||
+                     offspring.levelsWild[si] == father.levelsWild[si] + 2))
                 {
-                    lines[0].Add(new[] { XOffsetFirstStat + x + HorizontalStatDistance * s, y + 83, XOffsetFirstStat + x + HorizontalStatDistance * s, y + 74, (better == 1 ? 1 : 2), (offspring.levelsWild[si] > father.levelsWild[si] ? 1 : 0) });
+                    lines[0].Add(new[]
+                    {
+                            XOffsetFirstStat + x + HorizontalStatDistance * s, y + 83,
+                            XOffsetFirstStat + x + HorizontalStatDistance * s, y + 74, (better == 1 ? 1 : 2),
+                            (offspring.levelsWild[si] > father.levelsWild[si] ? 1 : 0)
+                        });
                 }
             }
         }
