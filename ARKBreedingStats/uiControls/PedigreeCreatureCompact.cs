@@ -90,10 +90,9 @@ namespace ARKBreedingStats.uiControls
             {
                 var borderColor = Color.FromArgb(219, 219, 219);
                 if (highlight)
-                {
-                    Highlight = true;
                     borderColor = Color.CornflowerBlue;
-                }
+                else
+                    Cursor = Cursors.Hand;
 
                 pen.Color = borderColor;
                 pen.Width = borderWidth;
@@ -233,11 +232,6 @@ namespace ARKBreedingStats.uiControls
             }
 
             _tt.SetToolTip(this, toolTipText);
-        }
-
-        private bool Highlight
-        {
-            set => Cursor = !value ? Cursors.Hand : Cursors.Default;
         }
 
         private void PedigreeCreatureCompact_Click(object sender, EventArgs e)
