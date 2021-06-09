@@ -64,6 +64,7 @@ namespace ARKBreedingStats
             Loc.ControlText(toolStripButtonDeleteTempCreature);
             Loc.ControlText(tsBtAddAsExtractionTest);
             Loc.ControlText(copyToMultiplierTesterToolStripButton);
+            Loc.ControlText(copyInfographicToClipboardToolStripMenuItem, "copyInfoGraphicToClipboard");
 
             // top bar
             Loc.ControlText(cbEventMultipliers, "Event");

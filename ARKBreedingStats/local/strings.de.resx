@@ -1308,4 +1308,10 @@ Filter nach Farben mit c{Region}: {FarbCode} {FarbCode2}, z.B. c0: 20, c5: 3 4 5
   <data name="issueCauseImpossibleTe" xml:space="preserve">
     <value>Die Level-Kombination setzt eine ungültige Zähm-Effektivität vorraus. Wurden die Level willkürlich eingegeben? Möglicherweise funktioniert es, wenn der Status auf gezüchtet gestzt wird.</value>
   </data>
+  <data name="generations" xml:space="preserve">
+    <value>Generationen</value>
+  </data>
+  <data name="copyInfoGraphicToClipboard" xml:space="preserve">
+    <value>Infografik in Zwischenablage kopieren</value>
+  </data>
 </root>

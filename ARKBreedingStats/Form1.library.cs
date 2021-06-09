@@ -117,17 +117,23 @@ namespace ARKBreedingStats
             creature = _creatureCollection.creatures.SingleOrDefault(c => c.guid == creature.guid) ?? creature;
 
             // if new creature is parent of existing creatures, update link
-            var motherOf = _creatureCollection.creatures.Where(c => c.motherGuid == creature.guid).ToList();
+            var motherOf = _creatureCollection.creatures.Where(c => c.motherGuid == creature.guid).ToArray();
             foreach (Creature c in motherOf)
+            {
                 c.Mother = creature;
-            var fatherOf = _creatureCollection.creatures.Where(c => c.fatherGuid == creature.guid).ToList();
+                c.RecalculateNewMutations();
+            }
+            var fatherOf = _creatureCollection.creatures.Where(c => c.fatherGuid == creature.guid).ToArray();
             foreach (Creature c in fatherOf)
+            {
                 c.Father = creature;
+                c.RecalculateNewMutations();
+            }
 
             // if the new creature is the ancestor of any other creatures, update the generation count of all creatures
             if (motherOf.Any() || fatherOf.Any())
             {
-                var creaturesOfSpecies = _creatureCollection.creatures.Where(c => c.Species == c.Species).ToList();
+                var creaturesOfSpecies = _creatureCollection.creatures.Where(c => c.Species == creature.Species).ToArray();
                 foreach (var cr in creaturesOfSpecies) cr.generation = -1;
                 foreach (var cr in creaturesOfSpecies) cr.RecalculateAncestorGenerations();
             }

@@ -1317,4 +1317,10 @@ Filter for colors with c{region}: {colorValue} {colorValue2}, e.g. c0: 20, c5: 3
   <data name="issueCauseImpossibleTe" xml:space="preserve">
     <value>The level results in an impossible taming effectiveness. Did you enter the levels arbitrarily? It might work if you set the creature to bred.</value>
   </data>
+  <data name="generations" xml:space="preserve">
+    <value>generations</value>
+  </data>
+  <data name="copyInfoGraphicToClipboard" xml:space="preserve">
+    <value>Copy info graphic to clipboard</value>
+  </data>
 </root>

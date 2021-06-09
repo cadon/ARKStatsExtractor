@@ -972,4 +972,7 @@ Controlla i migliori risultati a lungo termine e se ti senti fortunato. Può ess
   <data name="Add Note" xml:space="preserve">
     <value>Aggiungi nota</value>
   </data>
+  <data name="generations" xml:space="preserve">
+    <value>generazioni</value>
+  </data>
 </root>

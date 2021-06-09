@@ -32,7 +32,7 @@ namespace ARKBreedingStats
 
         /// <summary>
         /// Array of arrow coordinates. lines[0] contains stat inheritance arrows, lines[1] parent-offspring arrows, lines[2] plain lines.
-        /// In the inner arrays the elements represent x0, y0, x1, y1, color-code.
+        /// In the inner arrays the elements represent x0, y0, x1, y1, extra info. The extra info can contain info about the color or line width.
         /// </summary>
         private readonly List<int[]>[] _lines;
 
@@ -41,8 +41,10 @@ namespace ARKBreedingStats
         private bool[] _enabledColorRegions = { true, true, true, true, true, true };
         internal bool PedigreeNeedsUpdate;
         private readonly Debouncer _filterDebouncer = new Debouncer();
+        private readonly ToolTip _tt;
         private bool _useCompactDisplay;
-        private int _compactGenerations = 0;
+        private int _compactGenerations;
+        private int _highlightInheritanceStatIndex = -1;
 
         private const int HorizontalStatDistance = 29;
         private const int XOffsetFirstStat = 38;
@@ -56,11 +58,16 @@ namespace ARKBreedingStats
             NoCreatureSelected();
             listViewCreatures.ListViewItemSorter = new ListViewColumnSorter();
             splitContainer1.Panel2.Paint += Panel2_Paint;
-            var tt = new ToolTip();
-            tt.SetToolTip(pictureBox, "Click with the left mouse button to copy InfoGraphic to Clipboard.");
-            tt.SetToolTip(nudGenerations, Loc.S("Generations"));
+            _tt = new ToolTip();
             CbCompactView.Checked = Properties.Settings.Default.PedigreeCompactView;
             nudGenerations.ValueSave = Properties.Settings.Default.PedigreeCompactViewGenerations;
+            statSelector1.StatIndexSelected += StatSelector1_StatIndexSelected;
+        }
+
+        private void StatSelector1_StatIndexSelected(int statIndex)
+        {
+            _highlightInheritanceStatIndex = statIndex;
+            CreatePedigree();
         }
 
         private void Panel2_Paint(object sender, PaintEventArgs e)
@@ -89,6 +96,7 @@ namespace ARKBreedingStats
                 myPen.EndCap = LineCap.ArrowAnchor;
                 g.SmoothingMode = SmoothingMode.AntiAlias;
 
+                // stat inheritance lines. index 4 contains info about the color.
                 if (lines[0] != null)
                 {
                     foreach (int[] line in lines[0])
@@ -119,22 +127,43 @@ namespace ARKBreedingStats
 
                 }
 
-                myPen.Color = Color.DarkGray;
-                myPen.Width = 1;
+                // simple arrow lines. index 4 contains info about the width: 0: default, 1: bold.
                 if (lines[1] != null)
                 {
                     foreach (int[] line in lines[1])
                     {
+                        SetPenProperty(myPen, line[4]);
                         g.DrawLine(myPen, line[0], line[1], line[2], line[3]);
                     }
                 }
 
+                // simple lines (generation lines for the compact mode). index 4 contains info about the width: 0: default, 1: bold.
                 if (lines[2] != null)
                 {
                     myPen.EndCap = LineCap.Flat;
                     foreach (int[] line in lines[2])
                     {
+                        SetPenProperty(myPen, line[4]);
                         g.DrawLine(myPen, line[0], line[1], line[2], line[3]);
+                    }
+                }
+
+                void SetPenProperty(Pen p, int style)
+                {
+                    switch (style)
+                    {
+                        case 1:
+                            p.Color = Color.Black;
+                            p.Width = 3;
+                            break;
+                        case 2:
+                            p.Color = Utils.MutationColor;
+                            p.Width = 3;
+                            break;
+                        default:
+                            p.Color = Color.DarkGray;
+                            p.Width = 1;
+                            break;
                     }
                 }
             }
@@ -190,6 +219,7 @@ namespace ARKBreedingStats
             pedigreeCreatureHeaders.Visible = !compact;
             nudGenerations.Visible = compact;
             LbCreatureName.Visible = compact;
+            statSelector1.Visible = compact;
 
             _useCompactDisplay = compact;
             Properties.Settings.Default.PedigreeCompactView = compact;
@@ -224,7 +254,8 @@ namespace ARKBreedingStats
 
             SuspendLayout();
 
-            pedigreeCreatureHeaders.SetCustomStatNames(_selectedCreature?.Species?.statNames);
+            pedigreeCreatureHeaders.SetCustomStatNames(_selectedCreature.Species?.statNames);
+            statSelector1.SetStatNames(_selectedCreature.Species);
 
             const int leftBorder = 40;
             const int pedigreeElementWidth = 325;
@@ -237,11 +268,11 @@ namespace ARKBreedingStats
             if (_useCompactDisplay)
             {
                 // each extra generation adds one control width
-                var xOffsetStart = 4 * margin + (_compactGenerations < 2 ? 0 : PedigreeCreatureCompact.ControlWidth * (1 << (_compactGenerations - 2)));
+                var xOffsetStart = 4 * margin + (_compactGenerations < 2 ? 0 : (PedigreeCreatureCompact.ControlWidth + 3) * (1 << (_compactGenerations - 2)));
                 if (xOffsetStart < minXPosCreature) xOffsetStart = minXPosCreature;
-                var yOffsetStart = 4 * margin + (PedigreeCreatureCompact.ControlHeight + YMarginCreatureCompact) * (_compactGenerations - 1);
+                var yOffsetStart = 6 * margin + (PedigreeCreatureCompact.ControlHeight + YMarginCreatureCompact) * (_compactGenerations - 1);
                 var leftMargin = 2 * margin;
-                var xLowest = CreateOffspringParentsCompact(_selectedCreature, xOffsetStart, yOffsetStart, false, _compactGenerations, xOffsetStart / 2, int.MaxValue, true);
+                var xLowest = CreateOffspringParentsCompact(_selectedCreature, xOffsetStart, yOffsetStart, false, _compactGenerations, xOffsetStart / 2, int.MaxValue, true, _highlightInheritanceStatIndex);
                 var moveToLeft = xLowest - leftMargin;
                 var maxMoveToLeft = Math.Max(0, xOffsetStart - minXPosCreature);
                 if (moveToLeft > maxMoveToLeft) moveToLeft = maxMoveToLeft;
@@ -431,20 +462,21 @@ namespace ARKBreedingStats
         private const int YMarginCreatureCompact = 5;
         private const int YOffsetLineCompact = 30;
 
-        private int CreateOffspringParentsCompact(Creature creature, int x, int y, bool onlyDrawParents, int generations, int xOffsetParent, int xLowest, bool highlightCreature)
+        private int CreateOffspringParentsCompact(Creature creature, int x, int y, bool onlyDrawParents, int generations, int xOffsetParent, int xLowest, bool highlightCreature, int highlightStatIndex, int highlightMotherLine = 0, int highlightFatherLine = 0)
         {
-            CreateParentsChildCompact(creature, x, y, xOffsetParent, onlyDrawParents, highlightCreature);
+            var (motherInheritance, fatherInheritance) = CreateParentsChildCompact(creature, x, y, xOffsetParent, onlyDrawParents, highlightCreature, highlightStatIndex, highlightMotherLine, highlightFatherLine);
 
-            if (x < xLowest) xLowest = x;
+            var newXLowest = creature.Mother != null ? x - xOffsetParent : x;
+            if (newXLowest < xLowest) xLowest = newXLowest;
 
             if (--generations < 2) return xLowest;
             var yParents = y - PedigreeCreatureCompact.ControlHeight - YMarginCreatureCompact;
             if (creature.Mother != null)
                 xLowest = CreateOffspringParentsCompact(creature.Mother, x - xOffsetParent, yParents,
-                    true, generations, xOffsetParent / 2, xLowest, false);
+                    true, generations, xOffsetParent / 2, xLowest, false, highlightStatIndex, motherInheritance.maternalInheritance, motherInheritance.paternalInheritance);
             if (creature.Father != null)
                 CreateOffspringParentsCompact(creature.Father, x + xOffsetParent, yParents,
-                    true, generations, xOffsetParent / 2, xLowest, false);
+                    true, generations, xOffsetParent / 2, xLowest, false, highlightStatIndex, fatherInheritance.maternalInheritance, fatherInheritance.paternalInheritance);
 
             return xLowest;
         }
@@ -452,10 +484,12 @@ namespace ARKBreedingStats
         /// <summary>
         /// Creates the controls that display a creature and its parents.
         /// </summary>
-        /// <returns></returns>
-        private bool CreateParentsChildCompact(Creature creature, int x, int y, int xOffsetParents, bool onlyDrawParents = false, bool highlightCreature = false)
+        /// <returns>True if stat inheritance line is continued (maternal, paternal).</returns>
+        private ((int maternalInheritance, int paternalInheritance) motherInheritance,
+            (int maternalInheritance, int paternalInheritance) fatherInheritance)
+            CreateParentsChildCompact(Creature creature, int x, int y, int xOffsetParents, bool onlyDrawParents, bool highlightCreature, int highlightStatIndex, int highlightMotherLine = 0, int highlightFatherLine = 0)
         {
-            if (creature == null) return false;
+            if (creature == null) return ((0, 0), (0, 0));
 
             // scroll offset for control-locations (not for lines)
             var xLine = x;
@@ -466,33 +500,42 @@ namespace ARKBreedingStats
             if (!onlyDrawParents)
             {
                 // creature
-                AddCreatureControl(new PedigreeCreatureCompact(creature)
+                var c = new PedigreeCreatureCompact(creature, highlightCreature, highlightStatIndex)
                 {
-                    Location = new Point(x, y),
-                    Highlight = highlightCreature
-                });
+                    Location = new Point(x, y)
+                };
+                AddCreatureControl(c);
+                if (highlightStatIndex != -1)
+                    (highlightMotherLine, highlightFatherLine) = c.PossibleStatInheritance(highlightStatIndex);
             }
 
-            if (creature.Mother == null && creature.Father == null) return true;
+            if (creature.Mother == null && creature.Father == null) return ((0, 0), (0, 0));
+
+            var statInheritanceMother = (0, 0);
+            var statInheritanceFather = (0, 0);
 
             var yParents = y - PedigreeCreatureCompact.ControlHeight - YMarginCreatureCompact;
             // mother
             if (creature.Mother != null)
             {
-                AddCreatureControl(new PedigreeCreatureCompact(creature.Mother)
+                var c = new PedigreeCreatureCompact(creature.Mother, highlightStatIndex: highlightMotherLine != 0 ? highlightStatIndex : -1)
                 {
-                    Location = new Point(x - xOffsetParents, yParents),
-                    Highlight = false
-                });
+                    Location = new Point(x - xOffsetParents, yParents)
+                };
+                AddCreatureControl(c);
+                if (highlightMotherLine != 0 && highlightStatIndex != -1)
+                    statInheritanceMother = c.PossibleStatInheritance(highlightStatIndex);
             }
             // father
             if (creature.Father != null)
             {
-                AddCreatureControl(new PedigreeCreatureCompact(creature.Father)
+                var c = new PedigreeCreatureCompact(creature.Father, highlightStatIndex: highlightFatherLine != 0 ? highlightStatIndex : -1)
                 {
-                    Location = new Point(x + xOffsetParents, yParents),
-                    Highlight = false
-                });
+                    Location = new Point(x + xOffsetParents, yParents)
+                };
+                AddCreatureControl(c);
+                if (highlightFatherLine != 0 && highlightStatIndex != -1)
+                    statInheritanceFather = c.PossibleStatInheritance(highlightStatIndex);
             }
 
             void AddCreatureControl(PedigreeCreatureCompact pc)
@@ -509,10 +552,14 @@ namespace ARKBreedingStats
             //     O
             var yLineHorizontal = yLine - YOffsetLineCompact;
             var xCenterOffspring = xLine + PedigreeCreatureCompact.ControlWidth / 2;
-            _lines[2].Add(new[] { xLine - xOffsetParents + PedigreeCreatureCompact.ControlWidth, yLineHorizontal, xLine + xOffsetParents, yLineHorizontal });
-            _lines[1].Add(new[] { xCenterOffspring, yLineHorizontal, xCenterOffspring, yLine });
+            _lines[2].Add(new[] { xLine - xOffsetParents + PedigreeCreatureCompact.ControlWidth, yLineHorizontal, xCenterOffspring, yLineHorizontal, highlightMotherLine });
+            _lines[2].Add(new[] { xLine + xOffsetParents, yLineHorizontal, xCenterOffspring, yLineHorizontal, highlightFatherLine });
+            var combinedStyle = highlightMotherLine == 2 || highlightFatherLine == 2 ? 2
+                : highlightMotherLine == 1 ? 1
+                : highlightFatherLine;
+            _lines[1].Add(new[] { xCenterOffspring, yLineHorizontal, xCenterOffspring, yLine, combinedStyle });
 
-            return true;
+            return (statInheritanceMother, statInheritanceFather);
         }
 
         private void CreatureClicked(Creature c, int comboIndex, MouseEventArgs e)
@@ -700,6 +747,8 @@ namespace ARKBreedingStats
         public void SetLocalizations()
         {
             Loc.ControlText(lbPedigreeEmpty);
+            _tt.SetToolTip(pictureBox, Loc.S("copyInfoGraphicToClipboard"));
+            _tt.SetToolTip(nudGenerations, Loc.S("generations"));
         }
 
         public Species SelectedSpecies => _selectedCreature?.Species;

@@ -16,8 +16,9 @@ namespace ARKBreedingStats.uiControls
     {
         private const int StatSize = 50;
         private const int ColorSize = 10;
+        private const int BottomTextHeight = 9;
         public const int ControlWidth = StatSize + ColorSize;
-        public const int ControlHeight = StatSize;
+        public const int ControlHeight = StatSize + BottomTextHeight;
         private const int AngleOffset = -90; // start at 12 o'clock
         private readonly ToolTip _tt;
         private Creature _creature;
@@ -42,11 +43,16 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         public event Action RecalculateBreedingPlan;
 
+        /// <summary>
+        /// If not null, a possible mutation occurred in the stat index where true;
+        /// </summary>
+        private bool[] _possibleMutationInStat;
+
 
         public PedigreeCreatureCompact()
         {
-            Width = StatSize + ColorSize;
-            Height = StatSize;
+            Width = ControlWidth;
+            Height = ControlHeight;
             _tt = new ToolTip
             {
                 AutoPopDelay = 10000
@@ -55,59 +61,71 @@ namespace ARKBreedingStats.uiControls
             Click += PedigreeCreatureCompact_Click;
         }
 
-        public PedigreeCreatureCompact(Creature creature) : this()
-        {
-            SetCreature(creature);
-        }
-
-        public void SetCreature(Creature creature)
+        public PedigreeCreatureCompact(Creature creature, bool highlight = false, int highlightStatIndex = -1) : this()
         {
             _creature = creature;
-            DrawData(creature);
+            DrawData(creature, highlight, highlightStatIndex);
         }
 
-        private void DrawData(Creature creature)
+        private void DrawData(Creature creature, bool highlight, int highlightStatIndex)
         {
             if (creature?.Species == null) return;
 
             var displayedStats = Enumerable.Range(0, Values.STATS_COUNT).Where(si => si != (int)StatNames.Torpidity && creature.Species.UsesStat(si)).ToArray();
             var anglePerStat = 360 / displayedStats.Length;
 
+            const int borderWidth = 1;
+
             // used for the tooltip text
             var colors = new ArkColor[Species.ColorRegionCount];
 
             bool mutationHappened = creature.mutationsMaternalNew != 0 || creature.mutationsPaternalNew != 0;
-            bool[] possibleMutationInStat = mutationHappened ? new bool[Values.STATS_COUNT] : null;
+            _possibleMutationInStat = mutationHappened ? new bool[Values.STATS_COUNT] : null;
 
             Bitmap bmp = new Bitmap(Width, Height);
             using (Graphics g = Graphics.FromImage(bmp))
-            using (var font = new Font("Microsoft Sans Serif", 8f))
+            using (var font = new Font("Microsoft Sans Serif", 7f))
+            using (var pen = new Pen(Color.Black))
+            using (var brush = new SolidBrush(Color.Black))
             {
+                var borderColor = Color.FromArgb(219, 219, 219);
+                if (highlight)
+                {
+                    Highlight = true;
+                    borderColor = Color.CornflowerBlue;
+                }
+
+                pen.Color = borderColor;
+                pen.Width = borderWidth;
+                g.DrawRectangle(pen, 0, 0, Width - borderWidth, Height - borderWidth);
+
                 // stats
                 g.SmoothingMode = SmoothingMode.AntiAlias;
                 var chartMax = CreatureCollection.CurrentCreatureCollection?.maxChartLevel ?? 50;
-                const int radiusInnerCircle = StatSize / 7;
+                const int radiusInnerCircle = (StatSize - 2 * borderWidth) / 7;
                 const int centerCoord = StatSize / 2 - 1;
 
                 var i = 0;
                 if (creature.levelsWild != null)
                 {
+                    pen.Color = Color.Black;
                     foreach (var si in displayedStats)
                     {
                         var level = creature.levelsWild[si];
 
                         var statSize = Math.Min((double)level / chartMax, 1);
-                        var pieRadius = (int)(radiusInnerCircle + (centerCoord - radiusInnerCircle) * statSize);
+                        var pieRadius = (int)(radiusInnerCircle + (centerCoord - radiusInnerCircle - borderWidth) * statSize);
                         var leftTop = centerCoord - pieRadius;
                         var angle = AngleOffset + anglePerStat * i++;
-                        using (var statBrush = new SolidBrush(Utils.GetColorFromPercent((int)(100 * statSize))))
-                            g.FillPie(statBrush, leftTop, leftTop, 2 * pieRadius, 2 * pieRadius, angle, anglePerStat);
-                        using (var pen = new Pen(Color.Black))
-                            g.DrawPie(pen, leftTop, leftTop, 2 * pieRadius, 2 * pieRadius, angle, anglePerStat);
+                        brush.Color = Utils.GetColorFromPercent((int)(100 * statSize), creature.topBreedingStats[si] ? 0 : 0.7);
+                        g.FillPie(brush, leftTop, leftTop, 2 * pieRadius, 2 * pieRadius, angle, anglePerStat);
+
+                        pen.Width = highlightStatIndex == si ? 2 : 1;
+                        g.DrawPie(pen, leftTop, leftTop, 2 * pieRadius, 2 * pieRadius, angle, anglePerStat);
 
 
-                        var possibleMutation = mutationHappened && (level == (creature.Mother?.levelsWild[si] ?? 0) + 2
-                                                                    || level == (creature.Father?.levelsWild[si] ?? 0) + 2);
+                        var possibleMutation = mutationHappened && (level == (creature.Mother?.levelsWild[si] ?? 0) + Creature.LevelsAddedPerMutation
+                                                                    || level == (creature.Father?.levelsWild[si] ?? 0) + Creature.LevelsAddedPerMutation);
                         if (possibleMutation)
                         {
                             const int radius = 3;
@@ -116,26 +134,37 @@ namespace ARKBreedingStats.uiControls
                             var x = (int)(radiusPosition * Math.Cos(anglePosition) + radiusPosition);
                             var y = (int)(radiusPosition * Math.Sin(anglePosition) + radiusPosition);
                             DrawFilledCircle(Color.Yellow, x, y, 2 * radius);
-                            possibleMutationInStat[si] = true;
+                            _possibleMutationInStat[si] = true;
                         }
                     }
                 }
 
-                // draw sex in the center
-                using (var brush = new SolidBrush(Utils.AdjustColorLight(Utils.SexColor(creature.sex), 0.2)))
-                    g.FillEllipse(brush, centerCoord - radiusInnerCircle, centerCoord - radiusInnerCircle, 2 * radiusInnerCircle, 2 * radiusInnerCircle);
-                using (var pen = new Pen(Color.Black))
-                    g.DrawEllipse(pen, centerCoord - radiusInnerCircle, centerCoord - radiusInnerCircle, 2 * radiusInnerCircle, 2 * radiusInnerCircle);
+                if (_possibleMutationInStat != null && !_possibleMutationInStat.Any(m => m))
+                {
+                    _possibleMutationInStat = null; // not needed, no possible mutations
+                }
 
+                // draw sex in the center
+                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+                brush.Color = Utils.AdjustColorLight(Utils.SexColor(creature.sex), 0.2);
+                g.FillEllipse(brush, centerCoord - radiusInnerCircle, centerCoord - radiusInnerCircle, 2 * radiusInnerCircle, 2 * radiusInnerCircle);
+                pen.Width = 1;
+                g.DrawEllipse(pen, centerCoord - radiusInnerCircle, centerCoord - radiusInnerCircle, 2 * radiusInnerCircle, 2 * radiusInnerCircle);
+
+                brush.Color = Color.Black;
                 using (var format = new StringFormat
                 {
                     Alignment = StringAlignment.Center,
                     LineAlignment = StringAlignment.Center
                 })
-                using (var brush = new SolidBrush(Color.Black))
+                {
                     g.DrawString(Utils.SexSymbol(creature.sex), font, brush,
                         new RectangleF(centerCoord - radiusInnerCircle + 1, centerCoord - radiusInnerCircle + 2, 2 * radiusInnerCircle, 2 * radiusInnerCircle),
                         format);
+                    g.DrawString(creature.name, font, brush,
+                        new RectangleF(borderWidth, StatSize + borderWidth, ControlWidth - borderWidth, BottomTextHeight),
+                        format);
+                }
 
                 // colors
                 if (creature.colors != null)
@@ -143,37 +172,41 @@ namespace ARKBreedingStats.uiControls
                     var displayedColorRegions = Enumerable.Range(0, Species.ColorRegionCount)
                         .Where(ci => creature.Species.EnabledColorRegions[ci]).ToArray();
                     const int margin = 1;
-                    var colorSize = new Size(ColorSize - 3 * margin,
-                        StatSize / displayedColorRegions.Length - 2 * margin);
+                    var colorSize = new Size(ColorSize - 3 * margin - borderWidth,
+                        (StatSize - 2 * borderWidth) / displayedColorRegions.Length - 2 * margin);
                     i = 0;
                     var left = StatSize + 2 * margin;
                     foreach (var ci in displayedColorRegions)
                     {
                         var color = CreatureColors.CreatureArkColor(creature.colors[ci]);
                         colors[ci] = color;
-                        using (var brush = new SolidBrush(color.Color))
-                            g.FillRectangle(brush, left, i * (colorSize.Height + 2 * margin), colorSize.Width,
-                                colorSize.Height);
-                        using (var pen = new Pen(Color.Black))
-                            g.DrawRectangle(pen, left, i++ * (colorSize.Height + 2 * margin), colorSize.Width,
-                                colorSize.Height);
+                        brush.Color = color.Color;
+                        g.FillRectangle(brush, left, borderWidth + i * (colorSize.Height + 2 * margin), colorSize.Width,
+                            colorSize.Height);
+                        g.DrawRectangle(pen, left, borderWidth + i++ * (colorSize.Height + 2 * margin), colorSize.Width,
+                            colorSize.Height);
                     }
                 }
 
                 // mutation indicator
-                if (creature.Mutations < BreedingPlan.MutationPossibleWithLessThan)
+                if (!creature.flags.HasFlag(CreatureFlags.Placeholder))
                 {
                     const int mutationIndicatorSize = 6;
-                    const int topLeft = StatSize - mutationIndicatorSize - 1;
-                    DrawFilledCircle(creature.Mutations == 0 ? Color.GreenYellow : Color.Orange, topLeft, topLeft, mutationIndicatorSize);
+                    const int topLeft = StatSize - mutationIndicatorSize - 1 - borderWidth;
+                    Color mutationColor = creature.Mutations == 0 ? Color.GreenYellow
+                        : creature.Mutations < BreedingPlan.MutationPossibleWithLessThan ? Color.Magenta
+                        : Color.DarkRed;
+
+                    DrawFilledCircle(mutationColor, topLeft, topLeft, mutationIndicatorSize);
                 }
 
                 void DrawFilledCircle(Color color, int x, int y, int size)
                 {
-                    using (var brush = new SolidBrush(color))
-                        g.FillEllipse(brush, x, y, size, size);
-                    using (var pen = new Pen(Color.Black))
-                        g.DrawEllipse(pen, x, y, size, size);
+                    brush.Color = color;
+                    g.FillEllipse(brush, x, y, size, size);
+                    pen.Width = 1;
+                    pen.Color = Utils.AdjustColorLight(color, -.7);
+                    g.DrawEllipse(pen, x, y, size, size);
                 }
             }
 
@@ -191,9 +224,9 @@ namespace ARKBreedingStats.uiControls
             {
                 if (creature.levelsWild != null)
                     toolTipText +=
-                        $"\n{string.Join("\n", displayedStats.Select(si => $"{Utils.StatName(si, true, statNames)}:\t{creature.levelsWild[si],3}{((possibleMutationInStat?[si] ?? false) ? " (possible mutation)" : null)}"))}";
+                        $"\n{string.Join("\n", displayedStats.Select(si => $"{Utils.StatName(si, true, statNames)}:\t{creature.levelsWild[si],3}{((_possibleMutationInStat?[si] ?? false) ? " (possible mutation)" : null)}"))}";
                 toolTipText +=
-                    $"\n{Loc.S("Mutations")}: {creature.mutationsMaternal} (♀) + {creature.mutationsPaternal} (♂) = {creature.Mutations}";
+                    $"\n{Loc.S("Mutations")}: {creature.Mutations} = {creature.mutationsMaternal} (♀) + {creature.mutationsPaternal} (♂)";
                 if (creature.colors != null)
                     toolTipText +=
                         $"\n{Loc.S("Colors")}\n{string.Join("\n", colors.Select((c, i) => c == null ? null : $"[{i}]:\t{c.Id} ({c.Name})").Where(s => s != null))}";
@@ -201,24 +234,35 @@ namespace ARKBreedingStats.uiControls
 
             _tt.SetToolTip(this, toolTipText);
         }
-        public bool Highlight
-        {
-            set
-            {
-                // TODO
-                //panelHighlight.Visible = value;
-                HandCursor = !value;
-            }
-        }
 
-        public bool HandCursor
+        private bool Highlight
         {
-            set => Cursor = value ? Cursors.Hand : Cursors.Default;
+            set => Cursor = !value ? Cursors.Hand : Cursors.Default;
         }
 
         private void PedigreeCreatureCompact_Click(object sender, EventArgs e)
         {
             CreatureClicked?.Invoke(_creature);
+        }
+
+        /// <summary>
+        /// Returns 1 if stat was possibly inherited from (mother,father), 2 if it was a possible mutation.
+        /// </summary>
+        public (int maternalInheritance, int paternalInheritance) PossibleStatInheritance(int statIndex)
+        {
+            if (statIndex == -1) return (0, 0);
+
+            bool mutationHappened = _possibleMutationInStat?[statIndex] ?? false;
+
+            int levelMother = _creature.Mother?.levelsWild?[statIndex] ?? -1;
+            var motherInheritance = _creature.levelsWild[statIndex] == levelMother ? 1
+                : (mutationHappened && _creature.levelsWild[statIndex] == levelMother + Creature.LevelsAddedPerMutation) ? 2
+                : 0;
+            int levelFather = _creature.Father?.levelsWild?[statIndex] ?? -1;
+            var fatherInheritance = _creature.levelsWild[statIndex] == levelFather ? 1
+                : (mutationHappened && _creature.levelsWild[statIndex] == levelFather + Creature.LevelsAddedPerMutation) ? 2
+                : 0;
+            return (motherInheritance, fatherInheritance);
         }
     }
 }

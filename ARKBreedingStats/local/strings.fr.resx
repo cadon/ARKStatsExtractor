@@ -1300,4 +1300,7 @@ Filtre pour les couleurs avec c{region}: {colorValue} {colorValue2}, par exemple
   <data name="Add Note" xml:space="preserve">
     <value>Ajouter une remarque</value>
   </data>
+  <data name="generations" xml:space="preserve">
+    <value>générations</value>
+  </data>
 </root>

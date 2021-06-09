@@ -42,6 +42,7 @@ namespace ARKBreedingStats
             this.ButtonClearFilter = new System.Windows.Forms.Button();
             this.CbCompactView = new System.Windows.Forms.CheckBox();
             this.LbCreatureName = new System.Windows.Forms.Label();
+            this.statSelector1 = new ARKBreedingStats.uiControls.StatSelector();
             this.nudGenerations = new ARKBreedingStats.uiControls.Nud();
             this.pedigreeCreatureHeaders = new ARKBreedingStats.uiControls.PedigreeCreature();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
@@ -115,6 +116,7 @@ namespace ARKBreedingStats
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.AutoScroll = true;
+            this.splitContainer1.Panel2.Controls.Add(this.statSelector1);
             this.splitContainer1.Panel2.Controls.Add(this.LbCreatureName);
             this.splitContainer1.Panel2.Controls.Add(this.nudGenerations);
             this.splitContainer1.Panel2.Controls.Add(this.pedigreeCreatureHeaders);
@@ -186,10 +188,18 @@ namespace ARKBreedingStats
             this.LbCreatureName.Size = new System.Drawing.Size(0, 13);
             this.LbCreatureName.TabIndex = 4;
             // 
+            // statSelector1
+            // 
+            this.statSelector1.AutoSize = true;
+            this.statSelector1.Location = new System.Drawing.Point(46, 6);
+            this.statSelector1.Name = "statSelector1";
+            this.statSelector1.Size = new System.Drawing.Size(173, 29);
+            this.statSelector1.TabIndex = 5;
+            // 
             // nudGenerations
             // 
             this.nudGenerations.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.nudGenerations.Location = new System.Drawing.Point(3, 6);
+            this.nudGenerations.Location = new System.Drawing.Point(3, 11);
             this.nudGenerations.Maximum = new decimal(new int[] {
             12,
             0,
@@ -261,5 +271,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.CheckBox CbCompactView;
         private Nud nudGenerations;
         private System.Windows.Forms.Label LbCreatureName;
+        private StatSelector statSelector1;
     }
 }

@@ -174,7 +174,7 @@ namespace ARKBreedingStats.uiControls
                             _labels[s].BackColor = Utils.AdjustColorLight(_creature.levelsWild[si] == 254 ? Utils.Level254 : Utils.Level255, _creature.topBreedingStats[si] ? 0.2 : 0.7);
                         else if (Properties.Settings.Default.HighlightEvenOdd)
                         {
-                            _labels[s].BackColor = Utils.ColorFromHue((_creature.levelsWild[si] % 2 == 0 ? 120 : 240) + Math.Min((int)(_creature.levelsWild[si]), 48), _creature.topBreedingStats[si] ? 0.4 : 0.7);
+                            _labels[s].BackColor = Utils.ColorFromHue((_creature.levelsWild[si] % 2 == 0 ? 120 : 240) + Math.Min(_creature.levelsWild[si], 48), _creature.topBreedingStats[si] ? 0.4 : 0.7);
                         }
                         else
                             _labels[s].BackColor = Utils.GetColorFromPercent((int)(_creature.levelsWild[si] * 2.5), _creature.topBreedingStats[si] ? 0.2 : 0.7);

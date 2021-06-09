@@ -965,8 +965,7 @@ namespace ARKBreedingStats
             // add node to show all
             listBoxSpeciesLib.BeginUpdate();
             listBoxSpeciesLib.Items.Add(Loc.S("All"));
-            foreach (Species s in availableSpecies)
-                listBoxSpeciesLib.Items.Add(s);
+            listBoxSpeciesLib.Items.AddRange(availableSpecies.ToArray());
             listBoxSpeciesLib.EndUpdate();
 
             if (selectedSpeciesLibrary != null)

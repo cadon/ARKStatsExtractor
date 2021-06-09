@@ -83,10 +83,18 @@ namespace ARKBreedingStats
             c.Text = S(key);
             tt.SetToolTip(c, S(c.Name + "TT", false));
         }
+
         public static void ControlText(ToolStripItem i)
         {
             i.Text = S(i.Name);
             string tt = S(i.Name + "TT", false);
+            if (!string.IsNullOrEmpty(tt))
+                i.ToolTipText = tt;
+        }
+        public static void ControlText(ToolStripItem i, string key)
+        {
+            i.Text = S(key);
+            string tt = S(key + "TT", false);
             if (!string.IsNullOrEmpty(tt))
                 i.ToolTipText = tt;
         }
