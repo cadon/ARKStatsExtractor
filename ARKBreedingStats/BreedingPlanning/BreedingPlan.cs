@@ -371,10 +371,9 @@ namespace ARKBreedingStats.BreedingPlanning
                 pedigreeCreature2.Show();
                 lbBPBreedingScore.Show();
 
-                _breedingPairs.Clear();
                 short[] bestPossLevels = new short[Values.STATS_COUNT]; // best possible levels
 
-                BreedingScore.CalculateBreedingScores(_breedingPairs, selectedFemales, selectedMales, _currentSpecies,
+                _breedingPairs = BreedingScore.CalculateBreedingScores(selectedFemales, selectedMales, _currentSpecies,
                     bestPossLevels, _statWeights, _bestLevels, _breedingMode,
                     considerChosenCreature, considerMutationLimit, (int)nudBPMutationLimit.Value,
                     ref creaturesMutationsFilteredOut);

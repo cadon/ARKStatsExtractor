@@ -13,11 +13,12 @@ namespace ARKBreedingStats.BreedingPlanning
     /// </summary>
     public static class BreedingScore
     {
-        public static void CalculateBreedingScores(List<BreedingPair> breedingPairs, Creature[] females, Creature[] males, Species species,
+        public static List<BreedingPair> CalculateBreedingScores(Creature[] females, Creature[] males, Species species,
             short[] bestPossLevels, double[] statWeights, int[] bestLevels, BreedingPlan.BreedingMode breedingMode,
             bool considerChosenCreature, bool considerMutationLimit, int mutationLimit,
             ref bool creaturesMutationsFilteredOut)
         {
+            var breedingPairs = new List<BreedingPair>();
             for (int fi = 0; fi < females.Length; fi++)
             {
                 var female = females[fi];
@@ -159,7 +160,7 @@ namespace ARKBreedingStats.BreedingPlanning
                 }
             }
 
-            breedingPairs = breedingPairs.OrderByDescending(p => p.BreedingScore).ToList();
+            return breedingPairs.OrderByDescending(p => p.BreedingScore).ToList();
         }
     }
 }
