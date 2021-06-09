@@ -225,17 +225,14 @@ namespace ARKBreedingStats.uiControls
         {
             var filter = string.IsNullOrWhiteSpace(TbModFilter.Text) ? null : TbModFilter.Text.Trim();
 
+            lbAvailableModFiles.BeginUpdate();
             lbAvailableModFiles.Items.Clear();
 
-            foreach (ModInfo mi in modInfos)
-            {
-                if (!mi.CurrentlyInLibrary
-                    && (filter == null || mi.mod.title.IndexOf(filter, StringComparison.OrdinalIgnoreCase) != -1)
-                )
-                {
-                    lbAvailableModFiles.Items.Add(mi);
-                }
-            }
+            lbAvailableModFiles.Items.AddRange(
+                modInfos.Where(mi => !mi.CurrentlyInLibrary && (filter == null || mi.mod.title.IndexOf(filter, StringComparison.OrdinalIgnoreCase) != -1)
+                ).ToArray());
+
+            lbAvailableModFiles.EndUpdate();
 
             TbModFilter.BackColor = filter == null ? SystemColors.Window : Color.LightYellow;
         }

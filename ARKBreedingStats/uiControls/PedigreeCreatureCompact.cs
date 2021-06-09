@@ -131,8 +131,8 @@ namespace ARKBreedingStats.uiControls
                             const int radius = 3;
                             var radiusPosition = centerCoord - radius - 1;
                             var anglePosition = Math.PI * 2 / 360 * (angle + anglePerStat / 2);
-                            var x = (int)(radiusPosition * Math.Cos(anglePosition) + radiusPosition);
-                            var y = (int)(radiusPosition * Math.Sin(anglePosition) + radiusPosition);
+                            var x = (int)Math.Round(radiusPosition * Math.Cos(anglePosition) + radiusPosition);
+                            var y = (int)Math.Round(radiusPosition * Math.Sin(anglePosition) + radiusPosition);
                             DrawFilledCircle(Color.Yellow, x, y, 2 * radius);
                             _possibleMutationInStat[si] = true;
                         }
@@ -162,7 +162,7 @@ namespace ARKBreedingStats.uiControls
                         new RectangleF(centerCoord - radiusInnerCircle + 1, centerCoord - radiusInnerCircle + 2, 2 * radiusInnerCircle, 2 * radiusInnerCircle),
                         format);
                     g.DrawString(creature.name, font, brush,
-                        new RectangleF(borderWidth, StatSize + borderWidth, ControlWidth - borderWidth, BottomTextHeight),
+                        new RectangleF(borderWidth, StatSize + borderWidth - 1, ControlWidth - borderWidth, BottomTextHeight),
                         format);
                 }
 
@@ -194,7 +194,7 @@ namespace ARKBreedingStats.uiControls
                     const int mutationIndicatorSize = 6;
                     const int topLeft = StatSize - mutationIndicatorSize - 1 - borderWidth;
                     Color mutationColor = creature.Mutations == 0 ? Color.GreenYellow
-                        : creature.Mutations < BreedingPlan.MutationPossibleWithLessThan ? Color.Magenta
+                        : creature.Mutations < BreedingPlan.MutationPossibleWithLessThan ? Utils.MutationColor
                         : Color.DarkRed;
 
                     DrawFilledCircle(mutationColor, topLeft, topLeft, mutationIndicatorSize);
@@ -205,7 +205,7 @@ namespace ARKBreedingStats.uiControls
                     brush.Color = color;
                     g.FillEllipse(brush, x, y, size, size);
                     pen.Width = 1;
-                    pen.Color = Utils.AdjustColorLight(color, -.7);
+                    pen.Color = Utils.AdjustColorLight(color, -.6);
                     g.DrawEllipse(pen, x, y, size, size);
                 }
             }

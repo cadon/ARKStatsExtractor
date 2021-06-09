@@ -672,6 +672,10 @@ namespace ARKBreedingStats
                 if (Properties.Settings.Default.ApplyGlobalSpeciesToLibrary)
                     listBoxSpeciesLib.SelectedItem = species;
             }
+            else if (tabControlMain.SelectedTab == tabPagePedigree)
+            {
+                pedigree1.SetSpecies(species);
+            }
             else if (tabControlMain.SelectedTab == tabPageTaming)
             {
                 tamingControl1.SetSpecies(species);
@@ -933,7 +937,7 @@ namespace ARKBreedingStats
             FilterLibRecalculate();
             UpdateStatusBar();
             breedingPlan1.BreedingPlanNeedsUpdate = true;
-            pedigree1.UpdateListView();
+            pedigree1.SetSpecies(forceUpdate: true);
             raisingControl1.RecreateList();
         }
 
@@ -1531,6 +1535,7 @@ namespace ARKBreedingStats
             }
             else if (tabControlMain.SelectedTab == tabPagePedigree)
             {
+                pedigree1.SetSpeciesIfNotSet(speciesSelector1.SelectedSpecies);
                 if (pedigree1.PedigreeNeedsUpdate)
                 {
                     Creature c = null;

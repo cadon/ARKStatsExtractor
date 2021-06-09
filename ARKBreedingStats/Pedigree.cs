@@ -1,6 +1,5 @@
 ﻿using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
-using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -26,9 +25,11 @@ namespace ARKBreedingStats
         /// </summary>
         private List<Creature> _creatures;
 
+        private Species _selectedSpecies;
+
         private Creature[] _prefilteredCreatures;
         private Creature _selectedCreature;
-        private List<Creature> _creatureChildren = new List<Creature>();
+        private Creature[] _creatureChildren;
 
         /// <summary>
         /// Array of arrow coordinates. lines[0] contains stat inheritance arrows, lines[1] parent-offspring arrows, lines[2] plain lines.
@@ -157,7 +158,7 @@ namespace ARKBreedingStats
                             p.Width = 3;
                             break;
                         case 2:
-                            p.Color = Utils.MutationColor;
+                            p.Color = Color.Fuchsia;
                             p.Width = 3;
                             break;
                         default:
@@ -611,7 +612,7 @@ namespace ARKBreedingStats
             // set children
             _creatureChildren = _creatures.Where(cr => cr.motherGuid == _selectedCreature.guid || cr.fatherGuid == _selectedCreature.guid)
                 .OrderBy(cr => cr.name)
-                .ToList();
+                .ToArray();
 
             // select creature in listView
             if (listViewCreatures.SelectedItems.Count == 0 || (Creature)listViewCreatures.SelectedItems[0].Tag != centralCreature)
@@ -666,25 +667,26 @@ namespace ARKBreedingStats
             }
         }
 
-        /// <summary>
-        /// Updates the list of available creatures in the pedigree list.
-        /// </summary>
-        public void UpdateListView()
+        public void SetSpeciesIfNotSet(Species species)
         {
-            listViewCreatures.BeginUpdate();
+            if (_selectedSpecies == null)
+                SetSpecies(species);
+        }
 
-            // clear ListView
-            listViewCreatures.Groups.Clear();
+        /// <summary>
+        /// Updates the list of available creatures in the pedigree list and sets the species.
+        /// </summary>
+        public void SetSpecies(Species species = null, bool forceUpdate = false)
+        {
+            if (!forceUpdate && (species == null || species == _selectedSpecies))
+                return;
 
-            // add groups for each species (so they are sorted alphabetically)
-            foreach (Species s in Values.V.species)
-            {
-                listViewCreatures.Groups.Add(new ListViewGroup(s.DescriptiveNameAndMod));
-            }
+            if (species != null)
+                _selectedSpecies = species;
+            else if (_selectedCreature == null)
+                return;
 
-            _prefilteredCreatures = _creatures.Where(c => c.Species != null).ToArray();
-            listViewCreatures.EndUpdate();
-
+            _prefilteredCreatures = _creatures.Where(c => c.Species == _selectedSpecies).ToArray();
             DisplayFilteredCreatureList();
         }
 
@@ -711,18 +713,8 @@ namespace ARKBreedingStats
                    ))
                     continue;
 
-                // species group of creature
-                ListViewGroup g = null;
-                foreach (ListViewGroup lvg in listViewCreatures.Groups)
-                {
-                    if (lvg.Header == cr.Species.DescriptiveNameAndMod)
-                    {
-                        g = lvg;
-                        break;
-                    }
-                }
                 string crLevel = cr.LevelHatched > 0 ? cr.LevelHatched.ToString() : "?";
-                ListViewItem lvi = new ListViewItem(new[] { cr.name, crLevel }, g)
+                ListViewItem lvi = new ListViewItem(new[] { cr.name, crLevel })
                 {
                     Tag = cr,
                     UseItemStyleForSubItems = false

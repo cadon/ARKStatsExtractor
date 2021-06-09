@@ -190,7 +190,9 @@ namespace ARKBreedingStats
         /// <param name="librarySpeciesList"></param>
         public void SetLibrarySpecies(List<Species> librarySpeciesList)
         {
+            lvSpeciesInLibrary.BeginUpdate();
             lvSpeciesInLibrary.Items.Clear();
+            var newItems = new List<ListViewItem>();
             foreach (Species s in librarySpeciesList)
             {
                 ListViewItem lvi = new ListViewItem
@@ -201,8 +203,10 @@ namespace ARKBreedingStats
                 int ii = SpeciesImageIndex(s.name);
                 if (ii != -1)
                     lvi.ImageIndex = ii;
-                lvSpeciesInLibrary.Items.Add(lvi);
+                newItems.Add(lvi);
             }
+            lvSpeciesInLibrary.Items.AddRange(newItems.ToArray());
+            lvSpeciesInLibrary.EndUpdate();
         }
 
         private void UpdateLibraryList()
@@ -220,7 +224,9 @@ namespace ARKBreedingStats
         /// </summary>
         private void UpdateLastSpecies()
         {
+            lvLastSpecies.BeginUpdate();
             lvLastSpecies.Items.Clear();
+            var newItems = new List<ListViewItem>();
             foreach (string s in _lastSpeciesBPs)
             {
                 var species = Values.V.SpeciesByBlueprint(s);
@@ -234,9 +240,11 @@ namespace ARKBreedingStats
                     int ii = SpeciesImageIndex(species.name);
                     if (ii != -1)
                         lvi.ImageIndex = ii;
-                    lvLastSpecies.Items.Add(lvi);
+                    newItems.Add(lvi);
                 }
             }
+            lvLastSpecies.Items.AddRange(newItems.ToArray());
+            lvLastSpecies.EndUpdate();
         }
 
         private void FilterListWithUnselectedText() => FilterList(_textBox.Text.Substring(0, _textBox.SelectionStart));
@@ -248,6 +256,7 @@ namespace ARKBreedingStats
             bool noVariantFiltering = VariantSelector.DisabledVariants == null || !VariantSelector.DisabledVariants.Any();
             lvSpeciesList.BeginUpdate();
             lvSpeciesList.Items.Clear();
+            var newItems = new List<ListViewItem>();
             bool inputIsEmpty = string.IsNullOrWhiteSpace(part);
             foreach (var s in _entryList)
             {
@@ -260,7 +269,7 @@ namespace ARKBreedingStats
                         : !VariantSelector.DisabledVariants.Intersect(s.Species.variants).Any()))
                    )
                 {
-                    lvSpeciesList.Items.Add(new ListViewItem(new[] { s.DisplayName, s.Species.VariantInfo, s.Species.IsDomesticable ? "✓" : string.Empty, s.ModName })
+                    newItems.Add(new ListViewItem(new[] { s.DisplayName, s.Species.VariantInfo, s.Species.IsDomesticable ? "✓" : string.Empty, s.ModName })
                     {
                         Tag = s.Species,
                         BackColor = !s.Species.IsDomesticable ? Color.FromArgb(255, 245, 230)
@@ -270,6 +279,7 @@ namespace ARKBreedingStats
                     });
                 }
             }
+            lvSpeciesList.Items.AddRange(newItems.ToArray());
             lvSpeciesList.EndUpdate();
 
             if (!Visible && !inputIsEmpty)
