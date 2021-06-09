@@ -1608,7 +1608,7 @@ namespace ARKBreedingStats
             // 
             // creatureAnalysis1
             // 
-            this.creatureAnalysis1.Location = new System.Drawing.Point(589, 263);
+            this.creatureAnalysis1.Location = new System.Drawing.Point(851, 265);
             this.creatureAnalysis1.Name = "creatureAnalysis1";
             this.creatureAnalysis1.Size = new System.Drawing.Size(346, 199);
             this.creatureAnalysis1.TabIndex = 55;
