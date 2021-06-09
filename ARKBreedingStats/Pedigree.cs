@@ -230,17 +230,23 @@ namespace ARKBreedingStats
             const int pedigreeElementWidth = 325;
             const int margin = 10;
             const int yCenterOfCreatureParent = 79;
-            const int minYPosCreature = 300;
+            const int minXPosCreature = 300;
 
             lbPedigreeEmpty.Visible = false;
 
             if (_useCompactDisplay)
             {
                 // each extra generation adds one control width
-                var xOffsetStart = 20 + (_compactGenerations < 2 ? 0 : PedigreeCreatureCompact.ControlWidth * (1 << (_compactGenerations - 2)));
-                if (xOffsetStart < minYPosCreature) xOffsetStart = minYPosCreature;
+                var xOffsetStart = 4 * margin + (_compactGenerations < 2 ? 0 : PedigreeCreatureCompact.ControlWidth * (1 << (_compactGenerations - 2)));
+                if (xOffsetStart < minXPosCreature) xOffsetStart = minXPosCreature;
                 var yOffsetStart = 4 * margin + (PedigreeCreatureCompact.ControlHeight + YMarginCreatureCompact) * (_compactGenerations - 1);
-                CreateOffspringParentsCompact(_selectedCreature, 2 * margin + xOffsetStart, yOffsetStart, false, _compactGenerations, xOffsetStart / 2, true);
+                var leftMargin = 2 * margin;
+                var xLowest = CreateOffspringParentsCompact(_selectedCreature, xOffsetStart, yOffsetStart, false, _compactGenerations, xOffsetStart / 2, int.MaxValue, true);
+                var moveToLeft = xLowest - leftMargin;
+                var maxMoveToLeft = Math.Max(0, xOffsetStart - minXPosCreature);
+                if (moveToLeft > maxMoveToLeft) moveToLeft = maxMoveToLeft;
+                if (moveToLeft > 0)
+                    CompactViewLeftAlign(_pccs, _lines, moveToLeft);
             }
             else
             {
@@ -309,6 +315,22 @@ namespace ARKBreedingStats
 
             Invalidate();
             ResumeLayout();
+        }
+
+        /// <summary>
+        /// Some pedigrees don't use all the controls at the left, so move the existing controls to the left.
+        /// </summary>
+        /// <param name="controls"></param>
+        /// <param name="lines"></param>
+        private void CompactViewLeftAlign(List<PedigreeCreatureCompact> controls, List<int[]>[] lines, int moveToLeft)
+        {
+            foreach (var c in controls) c.Left -= moveToLeft;
+            foreach (var ls in lines)
+                foreach (var l in ls)
+                {
+                    l[0] -= moveToLeft;
+                    l[2] -= moveToLeft;
+                }
         }
 
         /// <summary>
@@ -409,20 +431,22 @@ namespace ARKBreedingStats
         private const int YMarginCreatureCompact = 5;
         private const int YOffsetLineCompact = 30;
 
-        private bool CreateOffspringParentsCompact(Creature creature, int x, int y, bool onlyDrawParents, int generations, int xOffsetParent, bool highlightCreature)
+        private int CreateOffspringParentsCompact(Creature creature, int x, int y, bool onlyDrawParents, int generations, int xOffsetParent, int xLowest, bool highlightCreature)
         {
             CreateParentsChildCompact(creature, x, y, xOffsetParent, onlyDrawParents, highlightCreature);
 
-            if (--generations < 2) return true;
+            if (x < xLowest) xLowest = x;
+
+            if (--generations < 2) return xLowest;
             var yParents = y - PedigreeCreatureCompact.ControlHeight - YMarginCreatureCompact;
             if (creature.Mother != null)
-                CreateOffspringParentsCompact(creature.Mother, x - xOffsetParent, yParents,
-                    true, generations, xOffsetParent / 2, false);
+                xLowest = CreateOffspringParentsCompact(creature.Mother, x - xOffsetParent, yParents,
+                    true, generations, xOffsetParent / 2, xLowest, false);
             if (creature.Father != null)
                 CreateOffspringParentsCompact(creature.Father, x + xOffsetParent, yParents,
-                    true, generations, xOffsetParent / 2, false);
+                    true, generations, xOffsetParent / 2, xLowest, false);
 
-            return true;
+            return xLowest;
         }
 
         /// <summary>
