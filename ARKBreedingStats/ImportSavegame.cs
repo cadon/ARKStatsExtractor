@@ -185,7 +185,8 @@ namespace ARKBreedingStats
                 addedToLibrary = DateTime.Now,
                 mutationsMaternal = creatureObject.GetPropertyValue<int>("RandomMutationsFemale"),
                 mutationsPaternal = creatureObject.GetPropertyValue<int>("RandomMutationsMale"),
-                flags = creatureObject.GetPropertyValue<bool>("bNeutered") ? CreatureFlags.Neutered : CreatureFlags.None
+                flags = (creatureObject.GetPropertyValue<bool>("bNeutered") ? CreatureFlags.Neutered : CreatureFlags.None)
+                      | (creatureObject.GetPropertyValue<bool>("MutagenApplied") ? CreatureFlags.MutagenApplied : CreatureFlags.None)
             };
 
             // If it's a baby and still growing, work out growingUntil
