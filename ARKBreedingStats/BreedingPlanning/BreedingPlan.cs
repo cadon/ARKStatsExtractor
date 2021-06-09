@@ -120,6 +120,8 @@ namespace ARKBreedingStats.BreedingPlanning
             CbConsiderOnlyEvenForHighStats.Checked = Settings.Default.BreedingPlannerConsiderOnlyEvenForHighStats;
 
             tagSelectorList1.OnTagChanged += TagSelectorList1_OnTagChanged;
+
+            nudBPMutationLimit.NeutralNumber = -1;
             _updateBreedingPlanAllowed = true;
         }
 
@@ -359,7 +361,11 @@ namespace ARKBreedingStats.BreedingPlanning
                     selectedMales = new[] { _chosenCreature };
             }
 
-            if (selectedFemales.Any() && selectedMales.Any())
+            if (!selectedFemales.Any() || !selectedMales.Any())
+            {
+                NoPossiblePairingsFound(creaturesMutationsFilteredOut);
+            }
+            else
             {
                 pedigreeCreature1.Show();
                 pedigreeCreature2.Show();
@@ -368,8 +374,10 @@ namespace ARKBreedingStats.BreedingPlanning
                 _breedingPairs.Clear();
                 short[] bestPossLevels = new short[Values.STATS_COUNT]; // best possible levels
 
-                BreedingScore.CalculateBreedingScores(_breedingPairs, selectedFemales, selectedMales, _currentSpecies, bestPossLevels, _statWeights, _bestLevels, _breedingMode,
-                    considerChosenCreature, considerMutationLimit, (int)nudBPMutationLimit.Value, ref creaturesMutationsFilteredOut);
+                BreedingScore.CalculateBreedingScores(_breedingPairs, selectedFemales, selectedMales, _currentSpecies,
+                    bestPossLevels, _statWeights, _bestLevels, _breedingMode,
+                    considerChosenCreature, considerMutationLimit, (int)nudBPMutationLimit.Value,
+                    ref creaturesMutationsFilteredOut);
 
                 if (cbBPOnlyOneSuggestionForFemales.Checked)
                 {
@@ -379,6 +387,7 @@ namespace ARKBreedingStats.BreedingPlanning
                         if (!onlyOneSuggestionPerFemale.Any(p => p.Female == bp.Female))
                             onlyOneSuggestionPerFemale.Add(bp);
                     }
+
                     _breedingPairs = onlyOneSuggestionPerFemale;
                 }
 
@@ -458,19 +467,23 @@ namespace ARKBreedingStats.BreedingPlanning
                             if (_breedingPairs[i].Male.Mutations < MutationPossibleWithLessThan)
                                 g.FillRectangle(brush, 77, 5, 10, 10);
                             // outline
-                            brush.Color = Utils.GetColorFromPercent((int)(_breedingPairs[i].BreedingScore * 12.5), -.2);
+                            brush.Color =
+                                Utils.GetColorFromPercent((int)(_breedingPairs[i].BreedingScore * 12.5), -.2);
                             g.FillRectangle(brush, 0, 15, 87, 5);
                             g.FillRectangle(brush, 20, 10, 47, 15);
                             // fill
-                            brush.Color = Utils.GetColorFromPercent((int)(_breedingPairs[i].BreedingScore * 12.5), 0.5);
+                            brush.Color =
+                                Utils.GetColorFromPercent((int)(_breedingPairs[i].BreedingScore * 12.5), 0.5);
                             g.FillRectangle(brush, 1, 16, 85, 3);
                             g.FillRectangle(brush, 21, 11, 45, 13);
                             brush.Color = Color.Black;
-                            g.DrawString(_breedingPairs[i].BreedingScore.ToString("N4"), new Font("Microsoft Sans Serif", 8.25f), brush, 24, 12);
+                            g.DrawString(_breedingPairs[i].BreedingScore.ToString("N4"),
+                                new Font("Microsoft Sans Serif", 8.25f), brush, 24, 12);
                             pb.Image = bm;
                         }
                     }
                 }
+
                 // hide unused controls
                 for (int i = CreatureCollection.maxBreedingSuggestions; 2 * i + 1 < _pcs.Count && i < _pbs.Count; i++)
                 {
@@ -502,6 +515,7 @@ namespace ARKBreedingStats.BreedingPlanning
                                     break;
                                 }
                             }
+
                             if (bestCreatureAlreadyAvailable)
                             {
                                 bestCreature = cr;
@@ -512,27 +526,14 @@ namespace ARKBreedingStats.BreedingPlanning
                         if (bestCreatureAlreadyAvailable)
                         {
                             displayFilterWarning = false;
-                            SetMessageLabelText(string.Format(Loc.S("AlreadyCreatureWithTopStats"), bestCreature.name, Utils.SexSymbol(bestCreature.sex)), MessageBoxIcon.Warning);
+                            SetMessageLabelText(
+                                string.Format(Loc.S("AlreadyCreatureWithTopStats"), bestCreature.name,
+                                    Utils.SexSymbol(bestCreature.sex)), MessageBoxIcon.Warning);
                         }
                     }
                 }
                 else
                     SetParents(-1);
-            }
-            else
-            {
-                // hide unused controls
-                pedigreeCreature1.Hide();
-                pedigreeCreature2.Hide();
-                lbBPBreedingScore.Hide();
-                for (int i = 0; i < CreatureCollection.maxBreedingSuggestions && 2 * i + 1 < _pcs.Count && i < _pbs.Count; i++)
-                {
-                    _pcs[2 * i].Hide();
-                    _pcs[2 * i + 1].Hide();
-                    _pbs[i].Hide();
-                }
-                lbBreedingPlanInfo.Text = string.Format(Loc.S("NoPossiblePairingForSpeciesFound"), _currentSpecies);
-                lbBreedingPlanInfo.Visible = true;
             }
 
             if (_speciesInfoNeedsUpdate)
@@ -552,6 +553,29 @@ namespace ARKBreedingStats.BreedingPlanning
             if (considerChosenCreature) btShowAllCreatures.Text = string.Format(Loc.S("BPCancelRestrictionOn"), _chosenCreature.name);
             btShowAllCreatures.Visible = considerChosenCreature;
             ResumeLayout();
+        }
+
+        /// <summary>
+        /// Hide unused controls and display info.
+        /// </summary>
+        private void NoPossiblePairingsFound(bool creaturesMutationsFilteredOut)
+        {
+            // hide unused controls
+            pedigreeCreature1.Hide();
+            pedigreeCreature2.Hide();
+            lbBPBreedingScore.Hide();
+            for (int i = 0; i < CreatureCollection.maxBreedingSuggestions && 2 * i + 1 < _pcs.Count && i < _pbs.Count; i++)
+            {
+                _pcs[2 * i].Hide();
+                _pcs[2 * i + 1].Hide();
+                _pbs[i].Hide();
+            }
+            lbBreedingPlanInfo.Text = string.Format(Loc.S("NoPossiblePairingForSpeciesFound"), _currentSpecies);
+            lbBreedingPlanInfo.Visible = true;
+            if (!cbBPIncludeCryoCreatures.Checked)
+                cbBPIncludeCryoCreatures.BackColor = Color.LightSalmon;
+            if (creaturesMutationsFilteredOut)
+                nudBPMutationLimit.BackColor = Color.LightSalmon;
         }
 
         /// <summary>
@@ -615,6 +639,8 @@ namespace ARKBreedingStats.BreedingPlanning
             lbMutationProbability.Text = string.Empty;
             offspringPossibilities1.Clear();
             SetMessageLabelText?.Invoke();
+            cbBPIncludeCryoCreatures.BackColor = Color.Transparent;
+            nudBPMutationLimit.BackColor = SystemColors.Window;
         }
 
         public void Clear()

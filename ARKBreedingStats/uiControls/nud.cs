@@ -54,6 +54,9 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
+        /// <summary>
+        /// If the control displays this number, it will be dimmed. That way controls with changed numbers will be more visible.
+        /// </summary>
         public decimal NeutralNumber
         {
             get => _NeutralNumber;
