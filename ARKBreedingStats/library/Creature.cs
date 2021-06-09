@@ -509,9 +509,10 @@ namespace ARKBreedingStats.Library
         Placeholder = 256,
         Female = 512,
         Male = 1024,
+        MutagenApplied = 2048,
         /// <summary>
         /// If applied to the flags with &, the status is removed.
         /// </summary>
-        StatusMask = Mutated | Neutered | Placeholder | Female | Male
+        StatusMask = Mutated | Neutered | Placeholder | Female | Male | MutagenApplied
     }
 }

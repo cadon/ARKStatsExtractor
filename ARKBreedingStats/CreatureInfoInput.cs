@@ -415,12 +415,16 @@ namespace ARKBreedingStats
                 if (cbNeutered.Checked)
                     _creatureFlags |= CreatureFlags.Neutered;
                 else _creatureFlags &= ~CreatureFlags.Neutered;
+                if (CbMutagen.Checked)
+                    _creatureFlags |= CreatureFlags.MutagenApplied;
+                else _creatureFlags &= ~CreatureFlags.MutagenApplied;
                 return _creatureFlags;
             }
             set
             {
                 _creatureFlags = value;
                 cbNeutered.Checked = _creatureFlags.HasFlag(CreatureFlags.Neutered);
+                CbMutagen.Checked = _creatureFlags.HasFlag(CreatureFlags.MutagenApplied);
             }
         }
 

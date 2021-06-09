@@ -1567,7 +1567,7 @@ namespace ARKBreedingStats
         0,
         0,
         0};
-            this.creatureInfoInputTester.Size = new System.Drawing.Size(262, 561);
+            this.creatureInfoInputTester.Size = new System.Drawing.Size(262, 590);
             this.creatureInfoInputTester.TabIndex = 4;
             this.creatureInfoInputTester.TribeLock = false;
             this.creatureInfoInputTester.Add2LibraryClicked += new System.Action<ARKBreedingStats.CreatureInfoInput>(this.creatureInfoInputTester_Add2Library_Clicked);
@@ -1849,7 +1849,7 @@ namespace ARKBreedingStats
         0,
         0,
         0};
-            this.creatureInfoInputExtractor.Size = new System.Drawing.Size(262, 561);
+            this.creatureInfoInputExtractor.Size = new System.Drawing.Size(262, 590);
             this.creatureInfoInputExtractor.TabIndex = 7;
             this.creatureInfoInputExtractor.TribeLock = false;
             this.creatureInfoInputExtractor.Add2LibraryClicked += new System.Action<ARKBreedingStats.CreatureInfoInput>(this.creatureInfoInputExtractor_Add2Library_Clicked);
