@@ -78,6 +78,7 @@
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
+    <Compile Include="BreedingPlanning\BreedingScore.cs" />
     <Compile Include="multiplierTesting\CalculateMultipliers.cs" />
     <Compile Include="NamePatterns\NamePatternEntry.cs">
       <SubType>Component</SubType>
@@ -266,10 +267,10 @@
     <Compile Include="BreedingInfo.Designer.cs">
       <DependentUpon>BreedingInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="BreedingPlan.cs">
+    <Compile Include="BreedingPlanning\BreedingPlan.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="BreedingPlan.Designer.cs">
+    <Compile Include="BreedingPlanning\BreedingPlan.Designer.cs">
       <DependentUpon>BreedingPlan.cs</DependentUpon>
     </Compile>
     <Compile Include="FileSync.cs" />
@@ -836,7 +837,7 @@
     <EmbeddedResource Include="AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BreedingPlan.resx">
+    <EmbeddedResource Include="BreedingPlanning\BreedingPlan.resx">
       <DependentUpon>BreedingPlan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreatureBox.resx">

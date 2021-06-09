@@ -1,6 +1,6 @@
 ﻿using ARKBreedingStats.uiControls;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.BreedingPlanning
 {
     partial class BreedingPlan
     {

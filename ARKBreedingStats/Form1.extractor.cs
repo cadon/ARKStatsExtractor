@@ -634,31 +634,29 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// When clicking on a stat show the possibilites in the listbox.
+        /// When clicking on a stat show the possibilities in the listbox.
         /// </summary>
         /// <param name="statIndex"></param>
         private void SetActiveStat(int statIndex)
         {
-            if (statIndex != _activeStatIndex)
+            if (statIndex == _activeStatIndex) return;
+            _activeStatIndex = -1;
+            listViewPossibilities.BeginUpdate();
+            listViewPossibilities.Items.Clear();
+            for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                _activeStatIndex = -1;
-                listViewPossibilities.BeginUpdate();
-                listViewPossibilities.Items.Clear();
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                if (s == statIndex && _statIOs[s].Status == StatIOStatus.NonUnique)
                 {
-                    if (s == statIndex && _statIOs[s].Status == StatIOStatus.NonUnique)
-                    {
-                        _statIOs[s].Selected = true;
-                        SetPossibilitiesListview(s);
-                        _activeStatIndex = statIndex;
-                    }
-                    else
-                    {
-                        _statIOs[s].Selected = false;
-                    }
+                    _statIOs[s].Selected = true;
+                    SetPossibilitiesListview(s);
+                    _activeStatIndex = statIndex;
                 }
-                listViewPossibilities.EndUpdate();
+                else
+                {
+                    _statIOs[s].Selected = false;
+                }
             }
+            listViewPossibilities.EndUpdate();
         }
 
         /// <summary>

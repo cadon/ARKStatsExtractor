@@ -2,6 +2,7 @@
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -262,6 +263,7 @@ namespace ARKBreedingStats.raising
             updateListView = false;
             listViewBabies.BeginUpdate();
             listViewBabies.Items.Clear();
+            var items = new List<ListViewItem>();
 
             // if both parents of an incubation entry were deleted, remove that entry as well.
             _cc.incubationListEntries =
@@ -287,11 +289,14 @@ namespace ARKBreedingStats.raising
                     ListViewItem lvi = new ListViewItem(cols, g);
                     t.expired = (t.incubationEnd.Subtract(DateTime.Now).TotalSeconds < 0);
                     lvi.Tag = t;
-                    listViewBabies.Items.Add(lvi);
+                    items.Add(lvi);
                 }
             }
+            if (items.Any())
+                listViewBabies.Items.AddRange(items.ToArray());
 
             // add babies / growing
+            items.Clear();
             DateTime now = DateTime.Now;
             foreach (Creature c in _cc.creatures)
             {
@@ -300,47 +305,48 @@ namespace ARKBreedingStats.raising
                         || (c.growingPaused && c.growingLeft.TotalHours > 0)))
                 {
                     Species species = c.Species;
-                    if (species?.breeding != null)
-                    {
-                        DateTime babyUntil = c.growingPaused
-                            ? now.Add(c.growingLeft).AddSeconds(-0.9 * species.breeding.maturationTimeAdjusted)
-                            : c.growingUntil.Value.AddSeconds(-0.9 * species.breeding.maturationTimeAdjusted);
-                        string[] cols;
-                        if (babyUntil > now)
-                        {
-                            g = listViewBabies.Groups[1];
-                            cols = new[]
-                            {
-                                c.name,
-                                c.Species.name,
-                                "-",
-                                string.Empty,
-                                string.Empty,
-                                string.Empty
-                            };
-                        }
-                        else
-                        {
-                            g = listViewBabies.Groups[2];
-                            cols = new[]
-                            {
-                                c.name,
-                                c.Species.name,
-                                "-",
-                                "-",
-                                string.Empty,
-                                string.Empty
-                            };
-                        }
+                    if (species?.breeding == null) continue;
 
-                        ListViewItem lvi = new ListViewItem(cols, g)
+                    DateTime babyUntil = c.growingPaused
+                        ? now.Add(c.growingLeft).AddSeconds(-0.9 * species.breeding.maturationTimeAdjusted)
+                        : c.growingUntil.Value.AddSeconds(-0.9 * species.breeding.maturationTimeAdjusted);
+                    string[] cols;
+                    if (babyUntil > now)
+                    {
+                        g = listViewBabies.Groups[1];
+                        cols = new[]
                         {
-                            Tag = c
+                            c.name,
+                            c.Species.name,
+                            "-",
+                            string.Empty,
+                            string.Empty,
+                            string.Empty
                         };
-                        listViewBabies.Items.Add(lvi);
                     }
+                    else
+                    {
+                        g = listViewBabies.Groups[2];
+                        cols = new[]
+                        {
+                            c.name,
+                            c.Species.name,
+                            "-",
+                            "-",
+                            string.Empty,
+                            string.Empty
+                        };
+                    }
+
+                    ListViewItem lvi = new ListViewItem(cols, g)
+                    {
+                        Tag = c
+                    };
+                    items.Add(lvi);
                 }
             }
+            if (items.Any())
+                listViewBabies.Items.AddRange(items.ToArray());
 
             listViewBabies.EndUpdate();
             updateListView = true;

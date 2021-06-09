@@ -98,8 +98,7 @@ namespace ARKBreedingStats.uiControls
                 }
             }
 
-            foreach (var s in speciesList)
-                cbbSpecies.Items.Add(s);
+            cbbSpecies.Items.AddRange(speciesList.ToArray());
 
             // owner combobox
             var l = new AutoCompleteStringCollection();

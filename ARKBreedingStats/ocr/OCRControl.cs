@@ -46,8 +46,7 @@ namespace ARKBreedingStats.ocr
         private void InitLabelEntries()
         {
             listBoxLabelRectangles.Items.Clear();
-            foreach (var l in Enum.GetNames(typeof(OcrTemplate.OcrLabels)))
-                listBoxLabelRectangles.Items.Add(l);
+            listBoxLabelRectangles.Items.AddRange(Enum.GetNames(typeof(OcrTemplate.OcrLabels)).ToArray());
 
             // resolution
             nudResolutionWidth.Value = ArkOcr.Ocr.ocrConfig.resolutionWidth;

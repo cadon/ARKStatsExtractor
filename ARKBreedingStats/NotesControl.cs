@@ -1,6 +1,7 @@
 ﻿using ARKBreedingStats.Library;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -25,17 +26,8 @@ namespace ARKBreedingStats
                 listViewNoteTitles.Items.Clear();
                 richTextBoxNote.Text = string.Empty;
                 noteList = value;
-                if (value != null)
-                {
-                    foreach (Note n in value)
-                    {
-                        ListViewItem lvi = new ListViewItem(n.Title)
-                        {
-                            Tag = n
-                        };
-                        listViewNoteTitles.Items.Add(lvi);
-                    }
-                }
+                if (noteList == null || !noteList.Any()) return;
+                listViewNoteTitles.Items.AddRange(noteList.Select(n => new ListViewItem(n.Title) { Tag = n }).ToArray());
             }
         }
 

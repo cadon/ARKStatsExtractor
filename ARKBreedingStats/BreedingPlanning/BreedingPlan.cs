@@ -13,7 +13,7 @@ using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.BreedingPlanning
 {
     public partial class BreedingPlan : UserControl
     {
@@ -71,13 +71,13 @@ namespace ARKBreedingStats
         /// <summary>
         /// The probability that at least one mutation happens if both parents have a mutation counter of less than 20.
         /// </summary>
-        private const double ProbabilityOfOneMutation = 1 - (1 - ProbabilityOfMutation) * (1 - ProbabilityOfMutation) * (1 - ProbabilityOfMutation);
+        public const double ProbabilityOfOneMutation = 1 - (1 - ProbabilityOfMutation) * (1 - ProbabilityOfMutation) * (1 - ProbabilityOfMutation);
         /// <summary>
         /// The approximate probability of at least one mutation if one parent has less and one parent has larger or equal 20 mutation.
         /// It's assumed that the stats of the mutated stat are the same for the parents.
         /// If they differ, the probability for a mutation from the parent with the higher stat is probabilityHigherLevel * probabilityOfMutation etc.
         /// </summary>
-        private const double ProbabilityOfOneMutationFromOneParent = 1 - (1 - ProbabilityOfMutation / 2) * (1 - ProbabilityOfMutation / 2) * (1 - ProbabilityOfMutation / 2);
+        public const double ProbabilityOfOneMutationFromOneParent = 1 - (1 - ProbabilityOfMutation / 2) * (1 - ProbabilityOfMutation / 2) * (1 - ProbabilityOfMutation / 2);
         #endregion
 
         public BreedingPlan()
@@ -368,148 +368,8 @@ namespace ARKBreedingStats
                 _breedingPairs.Clear();
                 short[] bestPossLevels = new short[Values.STATS_COUNT]; // best possible levels
 
-                for (int fi = 0; fi < selectedFemales.Length; fi++)
-                {
-                    var female = selectedFemales[fi];
-                    for (int mi = 0; mi < selectedMales.Length; mi++)
-                    {
-                        var male = selectedMales[mi];
-                        // if Properties.Settings.Default.IgnoreSexInBreedingPlan (useful when using S+ mutator), skip pair if
-                        // creatures are the same, or pair has already been added
-                        if (Settings.Default.IgnoreSexInBreedingPlan)
-                        {
-                            if (considerChosenCreature)
-                            {
-                                if (male == female)
-                                    continue;
-                            }
-                            else if (fi == mi)
-                                break;
-                        }
-                        // if mutation limit is set, only skip pairs where both parents exceed that limit. One parent is enough to trigger a mutation.
-                        if (considerMutationLimit && female.Mutations > nudBPMutationLimit.Value && male.Mutations > nudBPMutationLimit.Value)
-                        {
-                            creaturesMutationsFilteredOut = true;
-                            continue;
-                        }
-
-                        double t = 0;
-                        int nrTS = 0;
-                        double eTS = 0;
-
-                        int topFemale = 0;
-                        int topMale = 0;
-
-                        for (int s = 0; s < Values.STATS_COUNT; s++)
-                        {
-                            if (s == (int)StatNames.Torpidity || !_currentSpecies.UsesStat(s)) continue;
-                            bestPossLevels[s] = 0;
-                            int higherLevel = Math.Max(female.levelsWild[s], male.levelsWild[s]);
-                            int lowerLevel = Math.Min(female.levelsWild[s], male.levelsWild[s]);
-                            if (higherLevel < 0) higherLevel = 0;
-                            if (lowerLevel < 0) lowerLevel = 0;
-
-                            bool ignoreTopStats = Settings.Default.BreedingPlannerConsiderOnlyEvenForHighStats
-                                                  && higherLevel % 2 != 0
-                                                  && _statWeights[s] > 0;
-
-                            bool higherIsBetter = _statWeights[s] >= 0;
-
-                            double tt = _statWeights[s] * (ProbabilityHigherLevel * higherLevel + ProbabilityLowerLevel * lowerLevel) / 40;
-                            if (tt != 0)
-                            {
-                                if (_breedingMode == BreedingMode.TopStatsLucky)
-                                {
-                                    if (!ignoreTopStats && (female.levelsWild[s] == _bestLevels[s] || male.levelsWild[s] == _bestLevels[s]))
-                                    {
-                                        if (female.levelsWild[s] == _bestLevels[s] && male.levelsWild[s] == _bestLevels[s])
-                                            tt *= 1.142;
-                                    }
-                                    else if (_bestLevels[s] > 0)
-                                        tt *= .01;
-                                }
-                                else if (_breedingMode == BreedingMode.TopStatsConservative && _bestLevels[s] > 0)
-                                {
-                                    bestPossLevels[s] = (short)(higherIsBetter ? Math.Max(female.levelsWild[s], male.levelsWild[s]) : Math.Min(female.levelsWild[s], male.levelsWild[s]));
-                                    tt *= .01;
-                                    if (!ignoreTopStats && (female.levelsWild[s] == _bestLevels[s] || male.levelsWild[s] == _bestLevels[s]))
-                                    {
-                                        nrTS++;
-                                        eTS += female.levelsWild[s] == _bestLevels[s] && male.levelsWild[s] == _bestLevels[s] ? 1 : ProbabilityHigherLevel;
-                                        if (female.levelsWild[s] == _bestLevels[s])
-                                            topFemale++;
-                                        if (male.levelsWild[s] == _bestLevels[s])
-                                            topMale++;
-                                    }
-                                }
-                            }
-                            t += tt;
-                        }
-
-                        if (_breedingMode == BreedingMode.TopStatsConservative)
-                        {
-                            if (topFemale < nrTS && topMale < nrTS)
-                                t += eTS;
-                            else
-                                t += .1 * eTS;
-                            // check if the best possible stat outcome regarding topLevels already exists in a male
-                            bool maleExists = false;
-
-                            foreach (Creature cr in selectedMales)
-                            {
-                                maleExists = true;
-                                for (int s = 0; s < Values.STATS_COUNT; s++)
-                                {
-                                    if (s == (int)StatNames.Torpidity
-                                        || !cr.Species.UsesStat(s)
-                                        || cr.levelsWild[s] == bestPossLevels[s]
-                                        || bestPossLevels[s] != _bestLevels[s])
-                                        continue;
-
-                                    maleExists = false;
-                                    break;
-                                }
-                                if (maleExists)
-                                    break;
-                            }
-                            if (maleExists)
-                                t *= .4; // another male with the same stats is not worth much, the mating-cooldown of males is short.
-                            else
-                            {
-                                // check if the best possible stat outcome already exists in a female
-                                bool femaleExists = false;
-                                foreach (Creature cr in selectedFemales)
-                                {
-                                    femaleExists = true;
-                                    for (int s = 0; s < Values.STATS_COUNT; s++)
-                                    {
-                                        if (s == (int)StatNames.Torpidity
-                                            || !cr.Species.UsesStat(s)
-                                            || cr.levelsWild[s] == bestPossLevels[s]
-                                            || bestPossLevels[s] != _bestLevels[s])
-                                            continue;
-
-                                        femaleExists = false;
-                                        break;
-                                    }
-                                    if (femaleExists)
-                                        break;
-                                }
-                                if (femaleExists)
-                                    t *= .8; // another female with the same stats may be useful, but not so much in conservative breeding
-                            }
-                            //t *= 2; // scale conservative mode as it rather displays improvement, but only scarcely
-                        }
-
-
-                        int mutationPossibleFrom = female.Mutations < MutationPossibleWithLessThan && male.Mutations < MutationPossibleWithLessThan ? 2
-                            : female.Mutations < MutationPossibleWithLessThan || male.Mutations < MutationPossibleWithLessThan ? 1 : 0;
-
-                        _breedingPairs.Add(new BreedingPair(female, male, t * 1.25, (mutationPossibleFrom == 2 ? ProbabilityOfOneMutation : mutationPossibleFrom == 1 ? ProbabilityOfOneMutationFromOneParent : 0)));
-                    }
-                }
-
-                _breedingPairs = _breedingPairs.OrderByDescending(p => p.BreedingScore).ToList();
+                BreedingScore.CalculateBreedingScores(_breedingPairs, selectedFemales, selectedMales, _currentSpecies, bestPossLevels, _statWeights, _bestLevels, _breedingMode,
+                    considerChosenCreature, considerMutationLimit, (int)nudBPMutationLimit.Value, ref creaturesMutationsFilteredOut);
 
                 if (cbBPOnlyOneSuggestionForFemales.Checked)
                 {
@@ -530,85 +390,85 @@ namespace ARKBreedingStats
                 }
 
                 // draw best parents
-                for (int i = 0; i < _breedingPairs.Count && i < CreatureCollection.maxBreedingSuggestions; i++)
+                using (var brush = new SolidBrush(Color.Black))
                 {
-                    PedigreeCreature pc;
-                    if (2 * i < _pcs.Count)
+                    for (int i = 0; i < _breedingPairs.Count && i < CreatureCollection.maxBreedingSuggestions; i++)
                     {
-                        _pcs[2 * i].Creature = _breedingPairs[i].Female;
-                        _pcs[2 * i].enabledColorRegions = _enabledColorRegions;
-                        _pcs[2 * i].comboId = i;
-                        _pcs[2 * i].Show();
-                    }
-                    else
-                    {
-                        pc = new PedigreeCreature(_breedingPairs[i].Female, _enabledColorRegions, i, true);
-                        pc.CreatureClicked += CreatureClicked;
-                        pc.CreatureEdit += CreatureEdit;
-                        pc.RecalculateBreedingPlan += RecalculateBreedingPlan;
-                        pc.BestBreedingPartners += BestBreedingPartners;
-                        pc.DisplayInPedigree += DisplayInPedigree;
-                        flowLayoutPanelPairs.Controls.Add(pc);
-                        _pcs.Add(pc);
-                    }
-
-                    // draw score
-                    PictureBox pb;
-                    if (i < _pbs.Count)
-                    {
-                        pb = _pbs[i];
-                        _pbs[i].Show();
-                    }
-                    else
-                    {
-                        pb = new PictureBox
+                        PedigreeCreature pc;
+                        if (2 * i < _pcs.Count)
                         {
-                            Size = new Size(87, 35)
-                        };
-                        _pbs.Add(pb);
-                        flowLayoutPanelPairs.Controls.Add(pb);
-                    }
-
-                    if (2 * i + 1 < _pcs.Count)
-                    {
-                        _pcs[2 * i + 1].Creature = _breedingPairs[i].Male;
-                        _pcs[2 * i + 1].enabledColorRegions = _enabledColorRegions;
-                        _pcs[2 * i + 1].comboId = i;
-                        _pcs[2 * i + 1].Show();
-                    }
-                    else
-                    {
-                        pc = new PedigreeCreature(_breedingPairs[i].Male, _enabledColorRegions, i, true);
-                        pc.CreatureClicked += CreatureClicked;
-                        pc.CreatureEdit += CreatureEdit;
-                        pc.RecalculateBreedingPlan += RecalculateBreedingPlan;
-                        pc.BestBreedingPartners += BestBreedingPartners;
-                        pc.DisplayInPedigree += DisplayInPedigree;
-                        flowLayoutPanelPairs.Controls.Add(pc);
-                        flowLayoutPanelPairs.SetFlowBreak(pc, true);
-                        _pcs.Add(pc);
-                    }
-
-                    Bitmap bm = new Bitmap(pb.Width, pb.Height);
-                    using (Graphics g = Graphics.FromImage(bm))
-                    {
-                        g.TextRenderingHint = TextRenderingHint.AntiAlias;
-                        using (Brush br = new SolidBrush(Utils.GetColorFromPercent((int)(_breedingPairs[i].BreedingScore * 12.5), 0.5)))
-                        using (Brush brOutline = new SolidBrush(Utils.GetColorFromPercent((int)(_breedingPairs[i].BreedingScore * 12.5), -.2)))
-                        using (Brush bb = new SolidBrush(Color.Black))
-                        using (Brush bMut = new SolidBrush(Utils.MutationColor))
-                        {
-                            if (_breedingPairs[i].Female.Mutations < MutationPossibleWithLessThan)
-                                g.FillRectangle(bMut, 0, 5, 10, 10);
-                            if (_breedingPairs[i].Male.Mutations < MutationPossibleWithLessThan)
-                                g.FillRectangle(bMut, 77, 5, 10, 10);
-                            g.FillRectangle(brOutline, 0, 15, 87, 5);
-                            g.FillRectangle(brOutline, 20, 10, 47, 15);
-                            g.FillRectangle(br, 1, 16, 85, 3);
-                            g.FillRectangle(br, 21, 11, 45, 13);
-                            g.DrawString(_breedingPairs[i].BreedingScore.ToString("N4"), new Font("Microsoft Sans Serif", 8.25f), bb, 24, 12);
+                            _pcs[2 * i].Creature = _breedingPairs[i].Female;
+                            _pcs[2 * i].enabledColorRegions = _enabledColorRegions;
+                            _pcs[2 * i].comboId = i;
+                            _pcs[2 * i].Show();
                         }
-                        pb.Image = bm;
+                        else
+                        {
+                            pc = new PedigreeCreature(_breedingPairs[i].Female, _enabledColorRegions, i, true);
+                            pc.CreatureClicked += CreatureClicked;
+                            pc.CreatureEdit += CreatureEdit;
+                            pc.RecalculateBreedingPlan += RecalculateBreedingPlan;
+                            pc.BestBreedingPartners += BestBreedingPartners;
+                            pc.DisplayInPedigree += DisplayInPedigree;
+                            flowLayoutPanelPairs.Controls.Add(pc);
+                            _pcs.Add(pc);
+                        }
+
+                        // draw score
+                        PictureBox pb;
+                        if (i < _pbs.Count)
+                        {
+                            pb = _pbs[i];
+                            _pbs[i].Show();
+                        }
+                        else
+                        {
+                            pb = new PictureBox { Size = new Size(87, 35) };
+                            _pbs.Add(pb);
+                            flowLayoutPanelPairs.Controls.Add(pb);
+                        }
+
+                        if (2 * i + 1 < _pcs.Count)
+                        {
+                            _pcs[2 * i + 1].Creature = _breedingPairs[i].Male;
+                            _pcs[2 * i + 1].enabledColorRegions = _enabledColorRegions;
+                            _pcs[2 * i + 1].comboId = i;
+                            _pcs[2 * i + 1].Show();
+                        }
+                        else
+                        {
+                            pc = new PedigreeCreature(_breedingPairs[i].Male, _enabledColorRegions, i, true);
+                            pc.CreatureClicked += CreatureClicked;
+                            pc.CreatureEdit += CreatureEdit;
+                            pc.RecalculateBreedingPlan += RecalculateBreedingPlan;
+                            pc.BestBreedingPartners += BestBreedingPartners;
+                            pc.DisplayInPedigree += DisplayInPedigree;
+                            flowLayoutPanelPairs.Controls.Add(pc);
+                            flowLayoutPanelPairs.SetFlowBreak(pc, true);
+                            _pcs.Add(pc);
+                        }
+
+                        Bitmap bm = new Bitmap(pb.Width, pb.Height);
+                        using (Graphics g = Graphics.FromImage(bm))
+                        {
+                            g.TextRenderingHint = TextRenderingHint.AntiAlias;
+                            brush.Color = Utils.MutationColor;
+                            if (_breedingPairs[i].Female.Mutations < MutationPossibleWithLessThan)
+                                g.FillRectangle(brush, 0, 5, 10, 10);
+                            if (_breedingPairs[i].Male.Mutations < MutationPossibleWithLessThan)
+                                g.FillRectangle(brush, 77, 5, 10, 10);
+                            // outline
+                            brush.Color = Utils.GetColorFromPercent((int)(_breedingPairs[i].BreedingScore * 12.5), -.2);
+                            g.FillRectangle(brush, 0, 15, 87, 5);
+                            g.FillRectangle(brush, 20, 10, 47, 15);
+                            // fill
+                            brush.Color = Utils.GetColorFromPercent((int)(_breedingPairs[i].BreedingScore * 12.5), 0.5);
+                            g.FillRectangle(brush, 1, 16, 85, 3);
+                            g.FillRectangle(brush, 21, 11, 45, 13);
+                            brush.Color = Color.Black;
+                            g.DrawString(_breedingPairs[i].BreedingScore.ToString("N4"), new Font("Microsoft Sans Serif", 8.25f), brush, 24, 12);
+                            pb.Image = bm;
+                        }
                     }
                 }
                 // hide unused controls
@@ -1096,14 +956,33 @@ namespace ARKBreedingStats
             listViewSpeciesBP.BeginUpdate();
             listViewSpeciesBP.Items.Clear();
 
+            var breedableSpecies = new List<ListViewItem>();
+            var unbreedableSpecies = new List<ListViewItem>();
+
+            var availableCreaturesBySpecies = creatures
+                .Where(c => c.Status == CreatureStatus.Available || c.Status == CreatureStatus.Cryopod)
+                .GroupBy(c => c.Species).ToDictionary(g => g.Key, g => g.ToArray());
+
             foreach (Species s in species)
             {
                 ListViewItem lvi = new ListViewItem { Text = s.DescriptiveNameAndMod, Tag = s };
+
                 // check if species has both available males and females
-                if (s.breeding == null || !creatures.Any(c => c.Species == s && c.Status == CreatureStatus.Available && c.sex == Sex.Female) || !creatures.Any(c => c.Species == s && c.Status == CreatureStatus.Available && c.sex == Sex.Male))
+                if (availableCreaturesBySpecies.TryGetValue(s, out var cs)
+                    && cs.Any(c => c.sex == Sex.Female) && cs.Any(c => c.sex == Sex.Male))
+                {
+                    breedableSpecies.Add(lvi);
+                }
+                else
+                {
                     lvi.ForeColor = Color.LightGray;
-                listViewSpeciesBP.Items.Add(lvi);
+                    unbreedableSpecies.Add(lvi);
+                }
             }
+            if (breedableSpecies.Any())
+                listViewSpeciesBP.Items.AddRange(breedableSpecies.ToArray());
+            if (unbreedableSpecies.Any())
+                listViewSpeciesBP.Items.AddRange(unbreedableSpecies.ToArray());
 
             // select previous selected species again
             if (previouslySelectedSpecies != null)
@@ -1150,7 +1029,7 @@ namespace ARKBreedingStats
             set => nudBPMutationLimit.Value = value;
         }
 
-        private enum BreedingMode
+        public enum BreedingMode
         {
             BestNextGen,
             TopStatsLucky,

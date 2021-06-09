@@ -211,19 +211,13 @@ namespace ARKBreedingStats.uiControls
             get => _customWeightings;
             set
             {
-                if (value != null)
-                {
-                    _customWeightings = value;
-                    // clear custom presets
-                    cbbPresets.Items.Clear();
-                    cbbPresets.Items.Add("-");
-
-                    foreach (KeyValuePair<string, double[]> e in _customWeightings)
-                    {
-                        cbbPresets.Items.Add(e.Key);
-                    }
-                    cbbPresets.SelectedIndex = 0;
-                }
+                if (value == null) return;
+                _customWeightings = value;
+                // clear custom presets
+                cbbPresets.Items.Clear();
+                cbbPresets.Items.Add("-");
+                cbbPresets.Items.AddRange(_customWeightings.Keys.ToArray());
+                cbbPresets.SelectedIndex = 0;
             }
         }
     }

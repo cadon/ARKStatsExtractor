@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.multiplierTesting;
+﻿using ARKBreedingStats.BreedingPlanning;
+using ARKBreedingStats.multiplierTesting;
 using ARKBreedingStats.raising;
 
 namespace ARKBreedingStats
@@ -267,7 +268,7 @@ namespace ARKBreedingStats
             this.tabPageTaming = new System.Windows.Forms.TabPage();
             this.tamingControl1 = new ARKBreedingStats.TamingControl();
             this.tabPageBreedingPlan = new System.Windows.Forms.TabPage();
-            this.breedingPlan1 = new ARKBreedingStats.BreedingPlan();
+            this.breedingPlan1 = new BreedingPlan();
             this.tabPageRaising = new System.Windows.Forms.TabPage();
             this.raisingControl1 = new ARKBreedingStats.raising.RaisingControl();
             this.tabPageTimer = new System.Windows.Forms.TabPage();
