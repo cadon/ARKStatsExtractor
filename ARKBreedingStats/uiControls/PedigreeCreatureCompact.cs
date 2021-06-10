@@ -22,7 +22,7 @@ namespace ARKBreedingStats.uiControls
         public const int ControlHeight = StatSize + BottomTextHeight;
         private const int AngleOffset = -90; // start at 12 o'clock
         private readonly ToolTip _tt;
-        private Creature _creature;
+        private readonly Creature _creature;
 
         /// <summary>
         /// Edit the creature. Boolean parameter determines if the creature is virtual.
@@ -48,6 +48,11 @@ namespace ARKBreedingStats.uiControls
         /// If not null, a possible mutation occurred in the stat index where true;
         /// </summary>
         private bool[] _possibleMutationInStat;
+
+        /// <summary>
+        /// If not null, a possible mutation occurred in the color region index where true;
+        /// </summary>
+        private bool[] _mutationInColor;
 
 
         public PedigreeCreatureCompact()
@@ -82,6 +87,7 @@ namespace ARKBreedingStats.uiControls
 
             bool mutationHappened = creature.mutationsMaternalNew != 0 || creature.mutationsPaternalNew != 0;
             _possibleMutationInStat = mutationHappened ? new bool[Values.STATS_COUNT] : null;
+            _mutationInColor = mutationHappened ? new bool[Species.ColorRegionCount] : null;
 
             Bitmap bmp = new Bitmap(Width, Height);
             using (Graphics g = Graphics.FromImage(bmp))
@@ -89,15 +95,23 @@ namespace ARKBreedingStats.uiControls
             using (var pen = new Pen(Color.Black))
             using (var brush = new SolidBrush(Color.Black))
             {
+                g.SmoothingMode = SmoothingMode.AntiAlias;
+
                 var borderColor = Color.FromArgb(219, 219, 219);
+                float drawnBorderWidth = borderWidth;
                 if (highlight)
                     borderColor = Color.CornflowerBlue;
                 else
                     Cursor = Cursors.Hand;
+                if (mutationHappened)
+                {
+                    borderColor = Color.Magenta;
+                    drawnBorderWidth = 1.5f;
+                }
 
                 pen.Color = borderColor;
-                pen.Width = borderWidth;
-                g.DrawRectangle(pen, 0, 0, Width - borderWidth, Height - borderWidth);
+                pen.Width = drawnBorderWidth;
+                g.DrawRectangle(pen, drawnBorderWidth, drawnBorderWidth, Width - 2 * drawnBorderWidth, Height - 2 * drawnBorderWidth);
 
                 // stats
                 g.SmoothingMode = SmoothingMode.AntiAlias;
@@ -139,9 +153,12 @@ namespace ARKBreedingStats.uiControls
                     }
                 }
 
-                if (_possibleMutationInStat != null && !_possibleMutationInStat.Any(m => m))
+                ClearArrayIfOnlyFalse(ref _possibleMutationInStat);
+
+                void ClearArrayIfOnlyFalse(ref bool[] arr)
                 {
-                    _possibleMutationInStat = null; // not needed, no possible mutations
+                    if (arr != null && !arr.Any(m => m))
+                        arr = null; // not needed, no possible mutations
                 }
 
                 // draw sex in the center
@@ -174,6 +191,10 @@ namespace ARKBreedingStats.uiControls
                     const int margin = 1;
                     var colorSize = new Size(ColorSize - 3 * margin - borderWidth,
                         (StatSize - 2 * borderWidth) / displayedColorRegions.Length - 2 * margin);
+
+                    // only check for color mutations if the colors of both parents are available
+                    mutationHappened = mutationHappened && creature.Mother?.colors != null && creature.Father?.colors != null;
+
                     i = 0;
                     var left = StatSize + 2 * margin;
                     foreach (var ci in displayedColorRegions)
@@ -181,12 +202,26 @@ namespace ARKBreedingStats.uiControls
                         var color = CreatureColors.CreatureArkColor(creature.colors[ci]);
                         colors[ci] = color;
                         brush.Color = color.Color;
-                        g.FillRectangle(brush, left, borderWidth + i * (colorSize.Height + 2 * margin), colorSize.Width,
+                        var y = borderWidth + i++ * (colorSize.Height + 2 * margin);
+                        g.FillRectangle(brush, left, y, colorSize.Width,
                             colorSize.Height);
-                        g.DrawRectangle(pen, left, borderWidth + i++ * (colorSize.Height + 2 * margin), colorSize.Width,
+                        g.DrawRectangle(pen, left, y, colorSize.Width,
                             colorSize.Height);
+
+                        var colorMutationOccurred = mutationHappened && creature.colors[ci] != creature.Mother.colors[ci]
+                                                                         && creature.colors[ci] != creature.Father.colors[ci];
+                        if (colorMutationOccurred)
+                        {
+                            const int radius = 3;
+                            var x = left - radius - 2;
+                            y = y + colorSize.Height / 2 - radius;
+                            DrawFilledCircle(Color.Yellow, x, y, 2 * radius);
+                            _mutationInColor[ci] = true;
+                        }
                     }
                 }
+
+                ClearArrayIfOnlyFalse(ref _mutationInColor);
 
                 // mutation indicator
                 if (!creature.flags.HasFlag(CreatureFlags.Placeholder))
@@ -229,7 +264,7 @@ namespace ARKBreedingStats.uiControls
                     $"\n{Loc.S("Mutations")}: {creature.Mutations} = {creature.mutationsMaternal} (♀) + {creature.mutationsPaternal} (♂)";
                 if (creature.colors != null)
                     toolTipText +=
-                        $"\n{Loc.S("Colors")}\n{string.Join("\n", colors.Select((c, i) => c == null ? null : $"[{i}]:\t{c.Id} ({c.Name})").Where(s => s != null))}";
+                        $"\n{Loc.S("Colors")}\n{string.Join("\n", colors.Select((c, i) => c == null ? null : $"[{i}]:\t{c.Id} ({c.Name}){((_mutationInColor?[i] ?? false) ? " (mutated color)" : null)}").Where(s => s != null))}";
             }
 
             _tt.SetToolTip(this, toolTipText);

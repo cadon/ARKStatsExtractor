@@ -26,9 +26,8 @@ namespace ARKBreedingStats
         private List<Creature> _creatures;
 
         private Species _selectedSpecies;
-
-        private Creature[] _prefilteredCreatures;
         private Creature _selectedCreature;
+        private Creature[] _prefilteredCreatures;
         private Creature[] _creatureChildren;
 
         /// <summary>
@@ -604,8 +603,10 @@ namespace ARKBreedingStats
 
             if (_creatures == null || (centralCreature == _selectedCreature && !forceUpdate)) return;
 
-            if (centralCreature.Species != _selectedCreature?.Species)
-                EnabledColorRegions = centralCreature.Species?.EnabledColorRegions;
+            if (centralCreature.Species != _selectedSpecies)
+            {
+                SetSpecies(centralCreature.Species);
+            }
             _selectedCreature = centralCreature;
             LbCreatureName.Text = _selectedCreature.name;
 
@@ -686,6 +687,7 @@ namespace ARKBreedingStats
             else if (_selectedCreature == null)
                 return;
 
+            EnabledColorRegions = _selectedSpecies.EnabledColorRegions;
             _prefilteredCreatures = _creatures.Where(c => c.Species == _selectedSpecies).ToArray();
             DisplayFilteredCreatureList();
         }
