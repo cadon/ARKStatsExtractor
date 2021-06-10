@@ -985,7 +985,7 @@ namespace ARKBreedingStats.BreedingPlanning
             var unbreedableSpecies = new List<ListViewItem>();
 
             var availableCreaturesBySpecies = creatures
-                .Where(c => c.Status == CreatureStatus.Available || c.Status == CreatureStatus.Cryopod)
+                .Where(c => c.Species != null && (c.Status == CreatureStatus.Available || c.Status == CreatureStatus.Cryopod))
                 .GroupBy(c => c.Species).ToDictionary(g => g.Key, g => g.ToArray());
 
             foreach (Species s in species)
