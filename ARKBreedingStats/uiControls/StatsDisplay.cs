@@ -52,7 +52,7 @@ namespace ARKBreedingStats.uiControls
             for (int s = 0; s < displayedStatsCount; s++)
             {
                 int si = displayedStats[s];
-                stats[s].SetCustomStatNames(creature.Species.statNames);
+                stats[s].SetCustomStatNames(creature.Species?.statNames);
                 stats[s].SetNumbers(creature.levelsWild[si], creature.levelsDom[si], creature.valuesBreeding[si], creature.valuesDom[si]);
             }
 

@@ -361,6 +361,7 @@ namespace ARKBreedingStats
             {
                 tabControlMain.TabPages.Remove(tabPageExtractionTests);
                 tabControlMain.TabPages.Remove(tabPageMultiplierTesting);
+                devToolStripMenuItem.Visible = false;
             }
             else
             {
@@ -2061,6 +2062,7 @@ namespace ARKBreedingStats
                     _overlay?.SetInfoPositions();
                     if (Properties.Settings.Default.DevTools)
                         statsMultiplierTesting1.CheckIfMultipliersAreEqualToSettings();
+                    devToolStripMenuItem.Visible = Properties.Settings.Default.DevTools;
 
                     bool recalculateTopStats = consdierWastedStatsForTopCreatures != Properties.Settings.Default.ConsiderWastedStatsForTopCreatures;
                     if (recalculateTopStats)
@@ -3640,6 +3642,27 @@ namespace ARKBreedingStats
                 tabControlMain.SelectedIndex = index;
 
             e.Handled = true;
+        }
+
+        private void addRandomCreaturesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var addRandomCreaturesDialog = new AddDummyCreaturesSettings())
+            {
+                if (addRandomCreaturesDialog.ShowDialog() != DialogResult.OK) return;
+
+                _creatureCollection.MergeCreatureList(DummyCreatures.CreateArray(addRandomCreaturesDialog.CreatureCount, addRandomCreaturesDialog.OnlySelectedSpecies ? speciesSelector1.SelectedSpecies : null, addRandomCreaturesDialog.SpeciesCount));
+            }
+
+            _filterListAllowed = false;
+            UpdateCreatureListings();
+            _filterListAllowed = true;
+            _libraryNeedsUpdate = true;
+            creatureInfoInputExtractor.parentListValid = false;
+            creatureInfoInputTester.parentListValid = false;
+
+            SetCollectionChanged(true);
+            tabControlMain.SelectedTab = tabPageLibrary;
+            listBoxSpeciesLib.SelectedIndex = 0;
         }
     }
 }

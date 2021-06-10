@@ -127,6 +127,8 @@ namespace ARKBreedingStats
             this.extractionIssuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.checkForUpdatedStatsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.devToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addRandomCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelSums = new System.Windows.Forms.Panel();
             this.lbShouldBe = new System.Windows.Forms.Label();
             this.lbSumDomSB = new System.Windows.Forms.Label();
@@ -268,7 +270,7 @@ namespace ARKBreedingStats
             this.tabPageTaming = new System.Windows.Forms.TabPage();
             this.tamingControl1 = new ARKBreedingStats.TamingControl();
             this.tabPageBreedingPlan = new System.Windows.Forms.TabPage();
-            this.breedingPlan1 = new BreedingPlan();
+            this.breedingPlan1 = new ARKBreedingStats.BreedingPlanning.BreedingPlan();
             this.tabPageRaising = new System.Windows.Forms.TabPage();
             this.raisingControl1 = new ARKBreedingStats.raising.RaisingControl();
             this.tabPageTimer = new System.Windows.Forms.TabPage();
@@ -936,7 +938,8 @@ namespace ARKBreedingStats
             this.editToolStripMenuItem,
             this.libraryFilterToolStripMenuItem,
             this.settingsToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.helpToolStripMenuItem,
+            this.devToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1134, 24);
@@ -1213,6 +1216,21 @@ namespace ARKBreedingStats
             this.checkForUpdatedStatsToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.checkForUpdatedStatsToolStripMenuItem.Text = "Check for Updates";
             this.checkForUpdatedStatsToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatedStatsToolStripMenuItem_Click);
+            // 
+            // devToolStripMenuItem
+            // 
+            this.devToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addRandomCreaturesToolStripMenuItem});
+            this.devToolStripMenuItem.Name = "devToolStripMenuItem";
+            this.devToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.devToolStripMenuItem.Text = "Dev";
+            // 
+            // addRandomCreaturesToolStripMenuItem
+            // 
+            this.addRandomCreaturesToolStripMenuItem.Name = "addRandomCreaturesToolStripMenuItem";
+            this.addRandomCreaturesToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.addRandomCreaturesToolStripMenuItem.Text = "Add random creatures…";
+            this.addRandomCreaturesToolStripMenuItem.Click += new System.EventHandler(this.addRandomCreaturesToolStripMenuItem_Click);
             // 
             // panelSums
             // 
@@ -3590,5 +3608,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator23;
         private System.Windows.Forms.ToolStripButton ToolStripButtonSaveFilterPreset;
         private uiControls.CreatureAnalysis creatureAnalysis1;
+        private System.Windows.Forms.ToolStripMenuItem devToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addRandomCreaturesToolStripMenuItem;
     }
 }

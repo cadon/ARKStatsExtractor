@@ -79,6 +79,13 @@
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
     <Compile Include="BreedingPlanning\BreedingScore.cs" />
+    <Compile Include="library\AddDummyCreaturesSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="library\AddDummyCreaturesSettings.Designer.cs">
+      <DependentUpon>AddDummyCreaturesSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="library\DummyCreatures.cs" />
     <Compile Include="multiplierTesting\CalculateMultipliers.cs" />
     <Compile Include="NamePatterns\NamePatternEntry.cs">
       <SubType>Component</SubType>
@@ -625,6 +632,9 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>_manifest.json</LastGenOutput>
     </Content>
+    <EmbeddedResource Include="library\AddDummyCreaturesSettings.resx">
+      <DependentUpon>AddDummyCreaturesSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="local\strings.ja.resx">
       <SubType>Designer</SubType>
       <LastGenOutput>strings.ja.Designer.cs</LastGenOutput>

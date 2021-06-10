@@ -181,7 +181,7 @@ namespace ARKBreedingStats.Library
         /// <param name="creaturesToMerge">List of creatures to add</param>
         /// <param name="addPreviouslyDeletedCreatures">If true creatures will be added even if they were just deleted.</param>
         /// <returns></returns>
-        public bool MergeCreatureList(List<Creature> creaturesToMerge, bool addPreviouslyDeletedCreatures = false)
+        public bool MergeCreatureList(IEnumerable<Creature> creaturesToMerge, bool addPreviouslyDeletedCreatures = false)
         {
             bool creaturesWereAddedOrUpdated = false;
             Species onlyThisSpeciesAdded = null;
