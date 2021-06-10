@@ -1767,5 +1767,17 @@ namespace ARKBreedingStats.Properties {
                 this["PedigreeCompactViewGenerations"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool InfoGraphicExtraRegionNames {
+            get {
+                return ((bool)(this["InfoGraphicExtraRegionNames"]));
+            }
+            set {
+                this["InfoGraphicExtraRegionNames"] = value;
+            }
+        }
     }
 }

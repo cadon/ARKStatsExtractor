@@ -24,6 +24,8 @@ namespace ARKBreedingStats.library
 
             int width = Properties.Settings.Default.InfoGraphicWidth; // 330
             int height = width * 6 / 11; //180
+            if (Properties.Settings.Default.InfoGraphicExtraRegionNames)
+                width += height / 2;
 
             int fontSize = Math.Max(1, height / 18); // 10
             int fontSizeSmall = Math.Max(1, height * 2 / 45); // 8
@@ -150,8 +152,6 @@ namespace ARKBreedingStats.library
                 int xColor = (int)(xRightBrValue + meanLetterWidth * 3.5);
                 int circleDiameter = height * 4 / 45;
                 int colorRowHeight = circleDiameter + 2;
-                int maxColorNameLength = (int)((width - xColor - circleDiameter) / meanLetterWidth); // max char length for the color region name
-                if (maxColorNameLength < 0) maxColorNameLength = 0;
 
                 bool creatureImageShown = false;
                 bool displayMaxWild = Properties.Settings.Default.InfoGraphicShowMaxWildLevel;
@@ -172,6 +172,9 @@ namespace ARKBreedingStats.library
                         }
                     }
                 }
+
+                int maxColorNameLength = (int)((width - xColor - circleDiameter - (creatureImageShown ? imageSize : 0)) * 1.5 / meanLetterWidth); // max char length for the color region name
+                if (maxColorNameLength < 0) maxColorNameLength = 0;
 
                 if (creature.colors != null)
                 {
@@ -194,7 +197,7 @@ namespace ARKBreedingStats.library
                         string colorRegionName = null;
                         //string colorName = CreatureColors.CreatureColorName(creature.colors[ci]);
 
-                        if (!creatureImageShown)
+                        if (!creatureImageShown || Properties.Settings.Default.InfoGraphicExtraRegionNames)
                         {
                             colorRegionName = creature.Species.colors[ci].name;
                             int totalColorLength = colorRegionName.Length + 11;

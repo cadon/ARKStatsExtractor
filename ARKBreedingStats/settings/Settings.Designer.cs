@@ -133,6 +133,7 @@
             this.GbImgCacheLocalAppData = new System.Windows.Forms.GroupBox();
             this.CbImgCacheUseLocalAppData = new System.Windows.Forms.CheckBox();
             this.groupBox28 = new System.Windows.Forms.GroupBox();
+            this.CbInfoGraphicCreatureName = new System.Windows.Forms.CheckBox();
             this.CbInfoGraphicMutations = new System.Windows.Forms.CheckBox();
             this.CbInfoGraphicGenerations = new System.Windows.Forms.CheckBox();
             this.CbInfoGraphicDomLevels = new System.Windows.Forms.CheckBox();
@@ -290,7 +291,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.CbInfoGraphicCreatureName = new System.Windows.Forms.CheckBox();
+            this.CbInfoGraphicAddRegionNames = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmountEvent)).BeginInit();
@@ -1804,6 +1805,7 @@
             // 
             // groupBox28
             // 
+            this.groupBox28.Controls.Add(this.CbInfoGraphicAddRegionNames);
             this.groupBox28.Controls.Add(this.CbInfoGraphicCreatureName);
             this.groupBox28.Controls.Add(this.CbInfoGraphicMutations);
             this.groupBox28.Controls.Add(this.CbInfoGraphicGenerations);
@@ -1823,6 +1825,16 @@
             this.groupBox28.TabIndex = 7;
             this.groupBox28.TabStop = false;
             this.groupBox28.Text = "Infographic";
+            // 
+            // CbInfoGraphicCreatureName
+            // 
+            this.CbInfoGraphicCreatureName.AutoSize = true;
+            this.CbInfoGraphicCreatureName.Location = new System.Drawing.Point(266, 33);
+            this.CbInfoGraphicCreatureName.Name = "CbInfoGraphicCreatureName";
+            this.CbInfoGraphicCreatureName.Size = new System.Drawing.Size(52, 17);
+            this.CbInfoGraphicCreatureName.TabIndex = 12;
+            this.CbInfoGraphicCreatureName.Text = "name";
+            this.CbInfoGraphicCreatureName.UseVisualStyleBackColor = true;
             // 
             // CbInfoGraphicMutations
             // 
@@ -3017,7 +3029,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3025,7 +3037,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3033,7 +3045,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3041,7 +3053,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -3533,15 +3545,15 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // CbInfoGraphicCreatureName
+            // CbInfoGraphicAddRegionNames
             // 
-            this.CbInfoGraphicCreatureName.AutoSize = true;
-            this.CbInfoGraphicCreatureName.Location = new System.Drawing.Point(266, 33);
-            this.CbInfoGraphicCreatureName.Name = "CbInfoGraphicCreatureName";
-            this.CbInfoGraphicCreatureName.Size = new System.Drawing.Size(52, 17);
-            this.CbInfoGraphicCreatureName.TabIndex = 12;
-            this.CbInfoGraphicCreatureName.Text = "name";
-            this.CbInfoGraphicCreatureName.UseVisualStyleBackColor = true;
+            this.CbInfoGraphicAddRegionNames.AutoSize = true;
+            this.CbInfoGraphicAddRegionNames.Location = new System.Drawing.Point(200, 33);
+            this.CbInfoGraphicAddRegionNames.Name = "CbInfoGraphicAddRegionNames";
+            this.CbInfoGraphicAddRegionNames.Size = new System.Drawing.Size(60, 17);
+            this.CbInfoGraphicAddRegionNames.TabIndex = 13;
+            this.CbInfoGraphicAddRegionNames.Text = "regions";
+            this.CbInfoGraphicAddRegionNames.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -3946,5 +3958,6 @@
         private System.Windows.Forms.Label label55;
         private uiControls.Nud NudWaitBeforeAutoLoad;
         private System.Windows.Forms.CheckBox CbInfoGraphicCreatureName;
+        private System.Windows.Forms.CheckBox CbInfoGraphicAddRegionNames;
     }
 }

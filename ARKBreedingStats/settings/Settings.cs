@@ -289,6 +289,7 @@ namespace ARKBreedingStats.settings
             BtInfoGraphicBackColor.SetBackColorAndAccordingForeColor(Properties.Settings.Default.InfoGraphicBackColor);
             BtInfoGraphicForeColor.SetBackColorAndAccordingForeColor(Properties.Settings.Default.InfoGraphicForeColor);
             BtInfoGraphicBorderColor.SetBackColorAndAccordingForeColor(Properties.Settings.Default.InfoGraphicBorderColor);
+            CbInfoGraphicAddRegionNames.Checked = Properties.Settings.Default.InfoGraphicExtraRegionNames;
 
             #endregion
 
@@ -507,6 +508,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.InfoGraphicBackColor = BtInfoGraphicBackColor.BackColor;
             Properties.Settings.Default.InfoGraphicForeColor = BtInfoGraphicForeColor.BackColor;
             Properties.Settings.Default.InfoGraphicBorderColor = BtInfoGraphicBorderColor.BackColor;
+            Properties.Settings.Default.InfoGraphicExtraRegionNames = CbInfoGraphicAddRegionNames.Checked;
 
             #endregion
 
