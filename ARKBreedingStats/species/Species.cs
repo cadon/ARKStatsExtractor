@@ -272,7 +272,7 @@ namespace ARKBreedingStats.species
         public bool UsesStat(int statIndex) => (usedStats & 1 << statIndex) != 0;
 
         /// <summary>
-        /// Returns if the species displays a stat ingame, e.g. can be leveled.
+        /// Returns if the species displays a stat ingame in the inventory.
         /// </summary>
         /// <param name="statIndex"></param>
         /// <returns></returns>

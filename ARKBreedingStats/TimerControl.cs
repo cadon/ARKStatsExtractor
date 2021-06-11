@@ -519,5 +519,7 @@ namespace ARKBreedingStats
                 }
             }
         }
+
+        public ListView ListViewTimers => listViewTimer;
     }
 }

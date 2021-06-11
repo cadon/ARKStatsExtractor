@@ -151,12 +151,7 @@ namespace ARKBreedingStats.Library
         public int mutationsPaternalNew;
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public List<string> tags = new List<string>();
-
-        /// <summary>
-        /// Number of levels that are added to a stat if a mutation occurred.
-        /// </summary>
-        public const int LevelsAddedPerMutation = 2;
-
+        
         public Creature() { }
 
         public Creature(Species species, string name, string owner = null, string tribe = null, Sex sex = Sex.Unknown, int[] levelsWild = null, int[] levelsDom = null, double tamingEff = 0, bool isBred = false, double imprinting = 0, int? levelStep = null)

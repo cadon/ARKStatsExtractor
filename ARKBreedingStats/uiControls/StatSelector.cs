@@ -33,6 +33,7 @@ namespace ARKBreedingStats.uiControls
             for (int si = 0; si < Values.STATS_COUNT; si++)
             {
                 var statIndex = Values.statsDisplayOrder[si];
+                if (statIndex == (int)StatNames.Torpidity) continue;
                 r = new RadioButton
                 {
                     Tag = statIndex,

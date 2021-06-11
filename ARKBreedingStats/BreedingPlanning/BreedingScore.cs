@@ -162,5 +162,22 @@ namespace ARKBreedingStats.BreedingPlanning
 
             return breedingPairs.OrderByDescending(p => p.BreedingScore).ToList();
         }
+
+        public static void SetBestLevels(IEnumerable<Creature> creatures, int[] bestLevels, double[] statWeights)
+        {
+            for (int s = 0; s < Values.STATS_COUNT; s++)
+                bestLevels[s] = -1;
+
+            foreach (Creature c in creatures)
+            {
+                for (int s = 0; s < Values.STATS_COUNT; s++)
+                {
+                    if ((s == (int)StatNames.Torpidity || statWeights[s] >= 0) && c.levelsWild[s] > bestLevels[s])
+                        bestLevels[s] = c.levelsWild[s];
+                    else if (s != (int)StatNames.Torpidity && statWeights[s] < 0 && c.levelsWild[s] >= 0 && (c.levelsWild[s] < bestLevels[s] || bestLevels[s] < 0))
+                        bestLevels[s] = c.levelsWild[s];
+                }
+            }
+        }
     }
 }

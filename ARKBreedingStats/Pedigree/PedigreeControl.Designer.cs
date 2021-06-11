@@ -1,8 +1,8 @@
 ﻿using ARKBreedingStats.uiControls;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.Pedigree
 {
-    partial class Pedigree
+    partial class PedigreeControl
     {
         /// <summary> 
         /// Erforderliche Designervariable.
@@ -41,8 +41,8 @@ namespace ARKBreedingStats
             this.TextBoxFilter = new System.Windows.Forms.TextBox();
             this.ButtonClearFilter = new System.Windows.Forms.Button();
             this.CbCompactView = new System.Windows.Forms.CheckBox();
-            this.LbCreatureName = new System.Windows.Forms.Label();
             this.statSelector1 = new ARKBreedingStats.uiControls.StatSelector();
+            this.LbCreatureName = new System.Windows.Forms.Label();
             this.nudGenerations = new ARKBreedingStats.uiControls.Nud();
             this.pedigreeCreatureHeaders = new ARKBreedingStats.uiControls.PedigreeCreature();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
@@ -106,6 +106,7 @@ namespace ARKBreedingStats
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
@@ -180,14 +181,6 @@ namespace ARKBreedingStats
             this.CbCompactView.UseVisualStyleBackColor = true;
             this.CbCompactView.CheckedChanged += new System.EventHandler(this.CbCompactView_CheckedChanged);
             // 
-            // LbCreatureName
-            // 
-            this.LbCreatureName.AutoSize = true;
-            this.LbCreatureName.Location = new System.Drawing.Point(391, 164);
-            this.LbCreatureName.Name = "LbCreatureName";
-            this.LbCreatureName.Size = new System.Drawing.Size(0, 13);
-            this.LbCreatureName.TabIndex = 4;
-            // 
             // statSelector1
             // 
             this.statSelector1.AutoSize = true;
@@ -195,6 +188,14 @@ namespace ARKBreedingStats
             this.statSelector1.Name = "statSelector1";
             this.statSelector1.Size = new System.Drawing.Size(173, 29);
             this.statSelector1.TabIndex = 5;
+            // 
+            // LbCreatureName
+            // 
+            this.LbCreatureName.AutoSize = true;
+            this.LbCreatureName.Location = new System.Drawing.Point(391, 164);
+            this.LbCreatureName.Name = "LbCreatureName";
+            this.LbCreatureName.Size = new System.Drawing.Size(0, 13);
+            this.LbCreatureName.TabIndex = 4;
             // 
             // nudGenerations
             // 
@@ -235,13 +236,13 @@ namespace ARKBreedingStats
             this.pedigreeCreatureHeaders.TabIndex = 2;
             this.pedigreeCreatureHeaders.TotalLevelUnknown = false;
             // 
-            // Pedigree
+            // PedigreeControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.Controls.Add(this.splitContainer1);
-            this.Name = "Pedigree";
+            this.Name = "PedigreeControl";
             this.Size = new System.Drawing.Size(1043, 520);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.BreedingPlanning;
 using ARKBreedingStats.Library;
+using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 
@@ -13,7 +14,7 @@ namespace ARKBreedingStats.uiControls
     /// <summary>
     /// Compact representation of a creature with its stats, used for compact display in a pedigree.
     /// </summary>
-    public class PedigreeCreatureCompact : PictureBox
+    public class PedigreeCreatureCompact : PictureBox, IPedigreeCreature
     {
         private const int StatSize = 50;
         private const int ColorSize = 10;
@@ -23,6 +24,8 @@ namespace ARKBreedingStats.uiControls
         private const int AngleOffset = -90; // start at 12 o'clock
         private readonly ToolTip _tt;
         private readonly Creature _creature;
+
+        public event PedigreeCreature.CreatureChangedEventHandler CreatureClicked;
 
         /// <summary>
         /// Edit the creature. Boolean parameter determines if the creature is virtual.
@@ -37,7 +40,7 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// Display the creature in the pedigree.
         /// </summary>
-        public event Action<Creature> CreatureClicked;
+        public event Action<Creature> DisplayInPedigree;
 
         /// <summary>
         /// Recalculate the breeding plan, e.g. if the cooldown was reset.
@@ -64,7 +67,7 @@ namespace ARKBreedingStats.uiControls
                 AutoPopDelay = 10000
             };
             Disposed += (sender, args) => _tt.RemoveAll();
-            Click += PedigreeCreatureCompact_Click;
+            MouseClick += PedigreeCreatureCompact_MouseClick;
         }
 
         public PedigreeCreatureCompact(Creature creature, bool highlight = false, int highlightStatIndex = -1) : this()
@@ -85,9 +88,10 @@ namespace ARKBreedingStats.uiControls
             // used for the tooltip text
             var colors = new ArkColor[Species.ColorRegionCount];
 
-            bool mutationHappened = creature.mutationsMaternalNew != 0 || creature.mutationsPaternalNew != 0;
-            _possibleMutationInStat = mutationHappened ? new bool[Values.STATS_COUNT] : null;
-            _mutationInColor = mutationHappened ? new bool[Species.ColorRegionCount] : null;
+            var mutationsOccurredCount = creature.mutationsMaternalNew + creature.mutationsPaternalNew;
+            var mutationOccured = mutationsOccurredCount != 0;
+            _possibleMutationInStat = mutationOccured ? new bool[Values.STATS_COUNT] : null;
+            _mutationInColor = mutationOccured ? new bool[Species.ColorRegionCount] : null;
 
             Bitmap bmp = new Bitmap(Width, Height);
             using (Graphics g = Graphics.FromImage(bmp))
@@ -103,9 +107,9 @@ namespace ARKBreedingStats.uiControls
                     borderColor = Color.CornflowerBlue;
                 else
                     Cursor = Cursors.Hand;
-                if (mutationHappened)
+                if (mutationOccured)
                 {
-                    borderColor = Color.Magenta;
+                    borderColor = Utils.MutationMarkerColor;
                     drawnBorderWidth = 1.5f;
                 }
 
@@ -138,16 +142,29 @@ namespace ARKBreedingStats.uiControls
                         g.DrawPie(pen, leftTop, leftTop, 2 * pieRadius, 2 * pieRadius, angle, anglePerStat);
 
 
-                        var possibleMutation = mutationHappened && (level == (creature.Mother?.levelsWild[si] ?? 0) + Creature.LevelsAddedPerMutation
-                                                                    || level == (creature.Father?.levelsWild[si] ?? 0) + Creature.LevelsAddedPerMutation);
-                        if (possibleMutation)
+                        if (!mutationOccured) continue;
+
+                        var possibleMutationInThisStat = false;
+                        var levelMother = (creature.Mother?.levelsWild[si] ?? -1);
+                        var levelFather = (creature.Father?.levelsWild[si] ?? -1);
+                        for (int m = 1; m <= mutationsOccurredCount; m++)
+                        {
+                            if (levelMother != -1 && level == levelMother + m * BreedingPlan.LevelsAddedPerMutation
+                                || levelFather != -1 && level == levelFather + m * BreedingPlan.LevelsAddedPerMutation)
+                            {
+                                possibleMutationInThisStat = true;
+                                break;
+                            }
+                        }
+
+                        if (possibleMutationInThisStat)
                         {
                             const int radius = 3;
                             var radiusPosition = centerCoord - radius - 1;
                             var anglePosition = Math.PI * 2 / 360 * (angle + anglePerStat / 2);
                             var x = (int)Math.Round(radiusPosition * Math.Cos(anglePosition) + radiusPosition);
                             var y = (int)Math.Round(radiusPosition * Math.Sin(anglePosition) + radiusPosition);
-                            DrawFilledCircle(Color.Yellow, x, y, 2 * radius);
+                            DrawFilledCircle(Utils.MutationMarkerColor, x, y, 2 * radius);
                             _possibleMutationInStat[si] = true;
                         }
                     }
@@ -188,35 +205,42 @@ namespace ARKBreedingStats.uiControls
                 {
                     var displayedColorRegions = Enumerable.Range(0, Species.ColorRegionCount)
                         .Where(ci => creature.Species.EnabledColorRegions[ci]).ToArray();
-                    const int margin = 1;
-                    var colorSize = new Size(ColorSize - 3 * margin - borderWidth,
-                        (StatSize - 2 * borderWidth) / displayedColorRegions.Length - 2 * margin);
 
-                    // only check for color mutations if the colors of both parents are available
-                    mutationHappened = mutationHappened && creature.Mother?.colors != null && creature.Father?.colors != null;
-
-                    i = 0;
-                    var left = StatSize + 2 * margin;
-                    foreach (var ci in displayedColorRegions)
+                    var usedColorRegionCount = displayedColorRegions.Length;
+                    if (usedColorRegionCount != 0)
                     {
-                        var color = CreatureColors.CreatureArkColor(creature.colors[ci]);
-                        colors[ci] = color;
-                        brush.Color = color.Color;
-                        var y = borderWidth + i++ * (colorSize.Height + 2 * margin);
-                        g.FillRectangle(brush, left, y, colorSize.Width,
-                            colorSize.Height);
-                        g.DrawRectangle(pen, left, y, colorSize.Width,
-                            colorSize.Height);
+                        const int margin = 1;
+                        var colorSize = new Size(ColorSize - 3 * margin - borderWidth,
+                            (StatSize - 2 * borderWidth) / usedColorRegionCount - 2 * margin);
 
-                        var colorMutationOccurred = mutationHappened && creature.colors[ci] != creature.Mother.colors[ci]
-                                                                         && creature.colors[ci] != creature.Father.colors[ci];
-                        if (colorMutationOccurred)
+                        // only check for color mutations if the colors of both parents are available
+                        mutationOccured = mutationOccured && creature.Mother?.colors != null &&
+                                          creature.Father?.colors != null;
+
+                        i = 0;
+                        var left = StatSize + 2 * margin;
+                        foreach (var ci in displayedColorRegions)
                         {
-                            const int radius = 3;
-                            var x = left - radius - 2;
-                            y = y + colorSize.Height / 2 - radius;
-                            DrawFilledCircle(Color.Yellow, x, y, 2 * radius);
-                            _mutationInColor[ci] = true;
+                            var color = CreatureColors.CreatureArkColor(creature.colors[ci]);
+                            colors[ci] = color;
+                            brush.Color = color.Color;
+                            var y = borderWidth + i++ * (colorSize.Height + 2 * margin);
+                            g.FillRectangle(brush, left, y, colorSize.Width,
+                                colorSize.Height);
+                            g.DrawRectangle(pen, left, y, colorSize.Width,
+                                colorSize.Height);
+
+                            var colorMutationOccurred =
+                                mutationOccured && creature.colors[ci] != creature.Mother.colors[ci]
+                                                && creature.colors[ci] != creature.Father.colors[ci];
+                            if (colorMutationOccurred)
+                            {
+                                const int radius = 2;
+                                var x = left - radius - 2;
+                                y = y + colorSize.Height / 2 - radius;
+                                DrawFilledCircle(Color.Yellow, x, y, 2 * radius);
+                                _mutationInColor[ci] = true;
+                            }
                         }
                     }
                 }
@@ -227,12 +251,12 @@ namespace ARKBreedingStats.uiControls
                 if (!creature.flags.HasFlag(CreatureFlags.Placeholder))
                 {
                     const int mutationIndicatorSize = 6;
-                    const int topLeft = StatSize - mutationIndicatorSize - 1 - borderWidth;
+                    const int yMarker = StatSize - mutationIndicatorSize - 1 - borderWidth;
                     Color mutationColor = creature.Mutations == 0 ? Color.GreenYellow
                         : creature.Mutations < BreedingPlan.MutationPossibleWithLessThan ? Utils.MutationColor
                         : Color.DarkRed;
 
-                    DrawFilledCircle(mutationColor, topLeft, topLeft, mutationIndicatorSize);
+                    DrawFilledCircle(mutationColor, borderWidth + 1, yMarker, mutationIndicatorSize);
                 }
 
                 void DrawFilledCircle(Color color, int x, int y, int size)
@@ -270,9 +294,11 @@ namespace ARKBreedingStats.uiControls
             _tt.SetToolTip(this, toolTipText);
         }
 
-        private void PedigreeCreatureCompact_Click(object sender, EventArgs e)
+
+        private void PedigreeCreatureCompact_MouseClick(object sender, MouseEventArgs e)
         {
-            CreatureClicked?.Invoke(_creature);
+            if (e.Button == MouseButtons.Left)
+                DisplayInPedigree?.Invoke(_creature);
         }
 
         /// <summary>
@@ -284,15 +310,27 @@ namespace ARKBreedingStats.uiControls
 
             bool mutationHappened = _possibleMutationInStat?[statIndex] ?? false;
 
-            int levelMother = _creature.Mother?.levelsWild?[statIndex] ?? -1;
-            var motherInheritance = _creature.levelsWild[statIndex] == levelMother ? 1
-                : (mutationHappened && _creature.levelsWild[statIndex] == levelMother + Creature.LevelsAddedPerMutation) ? 2
-                : 0;
-            int levelFather = _creature.Father?.levelsWild?[statIndex] ?? -1;
-            var fatherInheritance = _creature.levelsWild[statIndex] == levelFather ? 1
-                : (mutationHappened && _creature.levelsWild[statIndex] == levelFather + Creature.LevelsAddedPerMutation) ? 2
-                : 0;
+            var motherInheritance = PossibleInheritance(_creature.levelsWild[statIndex], _creature.Mother?.levelsWild?[statIndex] ?? -1);
+            var fatherInheritance = PossibleInheritance(_creature.levelsWild[statIndex], _creature.Father?.levelsWild?[statIndex] ?? -1);
+
             return (motherInheritance, fatherInheritance);
+
+            int PossibleInheritance(int creatureLevel, int parentLevel)
+            {
+                if (parentLevel == -1 || parentLevel > creatureLevel) return 0;
+                if (creatureLevel == parentLevel) return 1;
+                if (!mutationHappened) return 0;
+                var possibleMutations = _creature.mutationsMaternalNew + _creature.mutationsPaternalNew;
+                for (int m = 1; m <= possibleMutations; m++)
+                {
+                    if (creatureLevel == parentLevel + m * BreedingPlan.LevelsAddedPerMutation)
+                    {
+                        return 2;
+                    }
+                }
+
+                return 0;
+            }
         }
     }
 }

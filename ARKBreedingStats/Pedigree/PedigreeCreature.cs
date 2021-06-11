@@ -6,13 +6,17 @@ using System.Windows.Forms;
 using ARKBreedingStats.BreedingPlanning;
 using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
+using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.uiControls
 {
-    public partial class PedigreeCreature : UserControl
+    public partial class PedigreeCreature : UserControl, IPedigreeCreature
     {
+        public const int HorizontalStatDistance = 29;
+        public const int XOffsetFirstStat = 38;
+
         public delegate void CreatureChangedEventHandler(Creature creature, int comboId, MouseEventArgs e);
 
         public event CreatureChangedEventHandler CreatureClicked;

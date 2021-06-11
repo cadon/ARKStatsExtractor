@@ -59,11 +59,15 @@ namespace ARKBreedingStats.BreedingPlanning
         public CreatureCollection CreatureCollection;
         private readonly ToolTip _tt = new ToolTip { AutoPopDelay = 10000 };
 
-        #region inheritance probabilities
+        #region inheritance probabilities and breeding constants
         public const double ProbabilityHigherLevel = 0.55; // probability of inheriting the higher level-stat
         public const double ProbabilityLowerLevel = 1 - ProbabilityHigherLevel; // probability of inheriting the lower level-stat
-        private const double ProbabilityOfMutation = 0.025;
-        //private const int maxMutationRolls = 3;
+        public const double ProbabilityOfMutation = 0.025;
+        public const int MutationRolls = 3;
+        /// <summary>
+        /// Number of levels that are added to a stat if a mutation occurred.
+        /// </summary>
+        public const int LevelsAddedPerMutation = 2;
         /// <summary>
         /// A mutation is possible if the Mutations are less than this number.
         /// </summary>
@@ -737,19 +741,7 @@ namespace ARKBreedingStats.BreedingPlanning
         /// <param name="bestInSpecies">If true, the display of the best species library will be updated, if false the best filtered species will be updated.</param>
         private void SetBestLevels(int[] bestLevels, IEnumerable<Creature> creatures, bool bestInSpecies)
         {
-            for (int s = 0; s < Values.STATS_COUNT; s++)
-                bestLevels[s] = -1;
-
-            foreach (Creature c in creatures)
-            {
-                for (int s = 0; s < Values.STATS_COUNT; s++)
-                {
-                    if ((s == (int)StatNames.Torpidity || _statWeights[s] >= 0) && c.levelsWild[s] > bestLevels[s])
-                        bestLevels[s] = c.levelsWild[s];
-                    else if (s != (int)StatNames.Torpidity && _statWeights[s] < 0 && c.levelsWild[s] >= 0 && (c.levelsWild[s] < bestLevels[s] || bestLevels[s] < 0))
-                        bestLevels[s] = c.levelsWild[s];
-                }
-            }
+            BreedingScore.SetBestLevels(creatures, bestLevels, _statWeights);
 
             // display top levels in species
             int? levelStep = CreatureCollection.getWildLevelStep();

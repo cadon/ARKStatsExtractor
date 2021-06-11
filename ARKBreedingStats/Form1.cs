@@ -134,8 +134,6 @@ namespace ARKBreedingStats
             InitLocalization();
             InitializeComponent();
 
-            columnHeaderTo.DisplayIndex = 16; // workaround for designer issue with displayIndices.
-
             // Create an instance of a ListView column sorter and assign it
             // to the ListView controls
             listViewLibrary.ListViewItemSorter = new ListViewColumnSorter();
@@ -200,9 +198,10 @@ namespace ARKBreedingStats
                 Properties.Settings.Default.MainWindowMaximized);
 
             // Load column-widths, display-indices and sort-order of the TimerControlListView
-            ListView lv = (ListView)timerList1.Controls["tableLayoutPanel1"].Controls["listViewTimer"];
-            LoadListViewSettings(lv, "TCLVColumnWidths", "TCLVColumnDisplayIndices", "TCLVSortCol", "TCLVSortAsc");
-
+            LoadListViewSettings(timerList1.ListViewTimers, "TCLVColumnWidths", "TCLVColumnDisplayIndices", "TCLVSortCol", "TCLVSortAsc");
+            if (Properties.Settings.Default.PedigreeWidthLeftColum > 20)
+                pedigree1.LeftColumnWidth = Properties.Settings.Default.PedigreeWidthLeftColum;
+            LoadListViewSettings(pedigree1.ListViewCreatures, "PedigreeListViewColumnWidths");
             // Load column-widths, display-indices and sort-order  of the listViewLibrary
             LoadListViewSettings(listViewLibrary, "columnWidths", "libraryColumnDisplayIndices", "listViewSortCol",
                 "listViewSortAsc");
@@ -1180,12 +1179,11 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Save the properties of a listview: column width, column order and sorting.
+        /// Save the properties of a listView: column width, column order and sorting.
         /// </summary>
-        private void SaveListViewSettings(ListView lv, string widthName, string indicesName, string sortColName,
-            string sortAscName)
+        private static void SaveListViewSettings(ListView lv, string widthName, string indicesName = null, string sortColName = null, string sortAscName = null)
         {
-            if (lv == null) return;
+            if (lv == null || string.IsNullOrEmpty(widthName)) return;
 
             int[] cw = new int[lv.Columns.Count];
             int[] colIndices = new int[lv.Columns.Count];
@@ -1196,7 +1194,10 @@ namespace ARKBreedingStats
             }
 
             Properties.Settings.Default[widthName] = cw;
-            Properties.Settings.Default[indicesName] = colIndices;
+            if (!string.IsNullOrEmpty(indicesName))
+                Properties.Settings.Default[indicesName] = colIndices;
+
+            if (string.IsNullOrEmpty(sortColName) || string.IsNullOrEmpty(sortAscName)) return;
 
             // save listViewSorting of the listViewLibrary
             ListViewColumnSorter lvcs = (ListViewColumnSorter)lv.ListViewItemSorter;
@@ -1211,13 +1212,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// Loads settings for a listView: column widths, column order and sorting.
         /// </summary>
-        /// <param name="lv"></param>
-        /// <param name="widthName"></param>
-        /// <param name="indicesName"></param>
-        /// <param name="sortColName"></param>
-        /// <param name="sortAscName"></param>
-        private void LoadListViewSettings(ListView lv, string widthName, string indicesName, string sortColName,
-            string sortAscName)
+        private static void LoadListViewSettings(ListView lv, string widthName, string indicesName = null, string sortColName = null, string sortAscName = null)
         {
             if (lv == null) return;
 
@@ -1229,7 +1224,7 @@ namespace ARKBreedingStats
             }
 
             // load column display indices
-            if (Properties.Settings.Default[indicesName] is int[] colIndices)
+            if (!string.IsNullOrEmpty(indicesName) && Properties.Settings.Default[indicesName] is int[] colIndices)
             {
                 // indices have to be set increasingly, or they will "push" other values up
                 var colIndicesOrdered = colIndices.Select((i, c) => (columnIndex: c, displayIndex: i))
@@ -1239,7 +1234,7 @@ namespace ARKBreedingStats
             }
 
             // load listViewLibSorting
-            if (lv.ListViewItemSorter is ListViewColumnSorter lvcs)
+            if (!string.IsNullOrEmpty(sortColName) && !string.IsNullOrEmpty(sortAscName) && lv.ListViewItemSorter is ListViewColumnSorter lvcs)
             {
                 lvcs.SortColumn = (int)Properties.Settings.Default[sortColName];
                 lvcs.Order = (bool)Properties.Settings.Default[sortAscName]
@@ -1261,8 +1256,9 @@ namespace ARKBreedingStats
             }
 
             // Save column-widths, display-indices and sort-order of the TimerControlListView
-            ListView lv = (ListView)timerList1.Controls["tableLayoutPanel1"].Controls["listViewTimer"];
-            SaveListViewSettings(lv, "TCLVColumnWidths", "TCLVColumnDisplayIndices", "TCLVSortCol", "TCLVSortAsc");
+            SaveListViewSettings(timerList1.ListViewTimers, "TCLVColumnWidths", "TCLVColumnDisplayIndices", "TCLVSortCol", "TCLVSortAsc");
+            SaveListViewSettings(pedigree1.ListViewCreatures, "PedigreeListViewColumnWidths");
+            Properties.Settings.Default.PedigreeWidthLeftColum = pedigree1.LeftColumnWidth;
 
             // Save column-widths, display-indices and sort-order of the listViewLibrary
             SaveListViewSettings(listViewLibrary, "columnWidths", "libraryColumnDisplayIndices", "listViewSortCol",
@@ -3646,22 +3642,31 @@ namespace ARKBreedingStats
 
         private void addRandomCreaturesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var addRandomCreaturesDialog = new AddDummyCreaturesSettings())
+            Species selectedSpecies;
+            using (var addRandomCreatureDialog = new AddDummyCreaturesSettings())
             {
-                if (addRandomCreaturesDialog.ShowDialog() != DialogResult.OK) return;
+                if (addRandomCreatureDialog.ShowDialog() != DialogResult.OK) return;
 
-                _creatureCollection.MergeCreatureList(DummyCreatures.CreateArray(addRandomCreaturesDialog.CreatureCount, addRandomCreaturesDialog.OnlySelectedSpecies ? speciesSelector1.SelectedSpecies : null, addRandomCreaturesDialog.SpeciesCount));
+                var s = addRandomCreatureDialog.Settings;
+                selectedSpecies = s.OnlySelectedSpecies ? speciesSelector1.SelectedSpecies : null;
+                _creatureCollection.MergeCreatureList(DummyCreatures.CreateCreatures(s.CreatureCount,
+                   selectedSpecies, s.SpeciesCount,
+                    s.Generations, s.PairsPerGeneration, s.ProbabilityHigherStat, s.RandomMutationChance));
             }
 
             _filterListAllowed = false;
             UpdateCreatureListings();
             _filterListAllowed = true;
             _libraryNeedsUpdate = true;
+            pedigree1.PedigreeNeedsUpdate = true;
             creatureInfoInputExtractor.parentListValid = false;
             creatureInfoInputTester.parentListValid = false;
 
-            SetCollectionChanged(true);
-            tabControlMain.SelectedTab = tabPageLibrary;
+            SetCollectionChanged(true, selectedSpecies);
+            if (tabControlMain.SelectedTab == tabPagePedigree)
+                pedigree1.SetSpecies(selectedSpecies, true);
+            else
+                tabControlMain.SelectedTab = tabPageLibrary;
             listBoxSpeciesLib.SelectedIndex = 0;
         }
     }

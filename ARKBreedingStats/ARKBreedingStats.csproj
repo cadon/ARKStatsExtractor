@@ -92,6 +92,8 @@
     </Compile>
     <Compile Include="NamePatterns\PatternTemplate.cs" />
     <Compile Include="NamePatterns\PatternTemplates.cs" />
+    <Compile Include="Pedigree\PedigreeCreation.cs" />
+    <Compile Include="Pedigree\IPedigreeCreature.cs" />
     <Compile Include="uiControls\CreatureAnalysis.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -104,7 +106,7 @@
     <Compile Include="uiControls\LibraryFilterTemplates.Designer.cs">
       <DependentUpon>LibraryFilterTemplates.cs</DependentUpon>
     </Compile>
-    <Compile Include="uiControls\PedigreeCreatureCompact.cs">
+    <Compile Include="Pedigree\PedigreeCreatureCompact.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="uiControls\StatSelector.cs">
@@ -235,7 +237,7 @@
     <Compile Include="ARKOverlay.Designer.cs">
       <DependentUpon>ARKOverlay.cs</DependentUpon>
     </Compile>
-    <Compile Include="ControlExtensions.cs" />
+    <Compile Include="utils\ControlExtensions.cs" />
     <Compile Include="IncubationTimerEntry.cs" />
     <Compile Include="library\Note.cs" />
     <Compile Include="NotesControl.cs">
@@ -501,16 +503,16 @@
     <Compile Include="uiControls\ParentComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Pedigree.cs">
+    <Compile Include="Pedigree\PedigreeControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Pedigree.Designer.cs">
-      <DependentUpon>Pedigree.cs</DependentUpon>
+    <Compile Include="Pedigree\PedigreeControl.Designer.cs">
+      <DependentUpon>PedigreeControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="uiControls\PedigreeCreature.cs">
+    <Compile Include="Pedigree\PedigreeCreature.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="uiControls\PedigreeCreature.Designer.cs">
+    <Compile Include="Pedigree\PedigreeCreature.Designer.cs">
       <DependentUpon>PedigreeCreature.cs</DependentUpon>
     </Compile>
     <Compile Include="library\Player.cs" />
@@ -868,10 +870,10 @@
     <EmbeddedResource Include="uiControls\MyColorPicker.resx">
       <DependentUpon>MyColorPicker.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pedigree.resx">
-      <DependentUpon>Pedigree.cs</DependentUpon>
+    <EmbeddedResource Include="Pedigree\PedigreeControl.resx">
+      <DependentUpon>PedigreeControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="uiControls\PedigreeCreature.resx">
+    <EmbeddedResource Include="Pedigree\PedigreeCreature.resx">
       <DependentUpon>PedigreeCreature.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

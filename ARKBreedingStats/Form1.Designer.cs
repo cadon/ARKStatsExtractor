@@ -1,5 +1,6 @@
 ﻿using ARKBreedingStats.BreedingPlanning;
 using ARKBreedingStats.multiplierTesting;
+using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.raising;
 
 namespace ARKBreedingStats
@@ -317,7 +318,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputExtractor = new ARKBreedingStats.CreatureInfoInput();
             this.radarChartLibrary = new ARKBreedingStats.RadarChart();
             this.creatureBoxListView = new ARKBreedingStats.CreatureBox();
-            this.pedigree1 = new ARKBreedingStats.Pedigree();
+            this.pedigree1 = new PedigreeControl();
             this.tamingControl1 = new ARKBreedingStats.TamingControl();
             this.breedingPlan1 = new ARKBreedingStats.BreedingPlanning.BreedingPlan();
             this.raisingControl1 = new ARKBreedingStats.raising.RaisingControl();
@@ -3398,7 +3399,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.Label lbCurrentValue;
         private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
         private System.Windows.Forms.TabPage tabPagePedigree;
-        private Pedigree pedigree1;
+        private PedigreeControl pedigree1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelLibrary;
         private System.Windows.Forms.Label lbTestingInfo;
         private System.Windows.Forms.ColumnHeader columnHeaderGen;

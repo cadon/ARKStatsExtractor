@@ -200,6 +200,10 @@ namespace ARKBreedingStats
         /// Color that represents a mutation number over the limit.
         /// </summary>
         public static Color MutationColorOverLimit => Color.FromArgb(255, 200, 200);
+        /// <summary>
+        /// Color that represents a mutation marker or line, is more vibrant than the MutationColor.
+        /// </summary>
+        public static Color MutationMarkerColor => Color.Magenta;
 
         /// <summary>
         /// String icon that represents a sex.

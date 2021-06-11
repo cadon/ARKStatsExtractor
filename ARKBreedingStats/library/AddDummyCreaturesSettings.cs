@@ -8,6 +8,19 @@ namespace ARKBreedingStats.library
         public AddDummyCreaturesSettings()
         {
             InitializeComponent();
+
+            var settings = DummyCreatures.LastSettings != null
+                ? DummyCreatures.LastSettings
+                : new DummyCreatureCreationSettings();
+            NudAmount.ValueSave = settings.CreatureCount;
+            if (settings.OnlySelectedSpecies)
+                RbOnlySelectedSpecies.Checked = true;
+            else RbMultipleRandomSpecies.Checked = true;
+            NudSpeciesAmount.ValueSave = settings.SpeciesCount;
+            NudBreedForGenerations.ValueSave = settings.Generations;
+            NudUsePairsPerGeneration.ValueSave = settings.PairsPerGeneration;
+            NudProbabilityInheritingHigherStat.ValueSaveDouble = settings.ProbabilityHigherStat * 100;
+            NudMutationChance.ValueSaveDouble = settings.RandomMutationChance * 100;
         }
 
         private void BtCancel_Click(object sender, EventArgs e)
@@ -17,13 +30,23 @@ namespace ARKBreedingStats.library
 
         private void BtOk_Click(object sender, EventArgs e)
         {
-            if (CreatureCount > 0)
+            if (NudAmount.Value > 0)
+            {
                 DialogResult = DialogResult.OK;
+                Settings = new DummyCreatureCreationSettings
+                {
+                    CreatureCount = (int)NudAmount.Value,
+                    OnlySelectedSpecies = RbOnlySelectedSpecies.Checked,
+                    SpeciesCount = (int)NudSpeciesAmount.Value,
+                    Generations = (int)NudBreedForGenerations.Value,
+                    PairsPerGeneration = (int)NudUsePairsPerGeneration.Value,
+                    ProbabilityHigherStat = (double)NudProbabilityInheritingHigherStat.Value / 100,
+                    RandomMutationChance = (double)NudMutationChance.Value / 100
+                };
+            }
             Close();
         }
 
-        public bool OnlySelectedSpecies => CbOnlySelectedSpecies.Checked;
-        public int CreatureCount => (int)NudAmount.Value;
-        public int SpeciesCount => (int)NudSpeciesAmount.Value;
+        public DummyCreatureCreationSettings Settings;
     }
 }

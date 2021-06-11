@@ -1758,7 +1758,7 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
         public int PedigreeCompactViewGenerations {
             get {
                 return ((int)(this["PedigreeCompactViewGenerations"]));
@@ -1777,6 +1777,29 @@ namespace ARKBreedingStats.Properties {
             }
             set {
                 this["InfoGraphicExtraRegionNames"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int PedigreeWidthLeftColum {
+            get {
+                return ((int)(this["PedigreeWidthLeftColum"]));
+            }
+            set {
+                this["PedigreeWidthLeftColum"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public int[] PedigreeListViewColumnWidths {
+            get {
+                return ((int[])(this["PedigreeListViewColumnWidths"]));
+            }
+            set {
+                this["PedigreeListViewColumnWidths"] = value;
             }
         }
     }

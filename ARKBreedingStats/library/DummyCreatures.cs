@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Emit;
+using ARKBreedingStats.BreedingPlanning;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
@@ -13,14 +13,27 @@ namespace ARKBreedingStats.library
     /// </summary>
     public static class DummyCreatures
     {
-        public static Creature[] CreateArray(int count = 10, Species species = null, int numberSpecies = 10, bool breedThem = false, double mutationProbability = 0.05)
+        public static DummyCreatureCreationSettings LastSettings;
+
+        public static List<Creature> CreateCreatures(int count, Species species, int numberSpecies, int breedGenerations, int usePairsPerGeneration, double probabilityHigherStat = 0.55, double randomMutationChance = 0.025)
         {
             if (count < 1) return null;
+
+            LastSettings = new DummyCreatureCreationSettings
+            {
+                CreatureCount = count,
+                OnlySelectedSpecies = species != null,
+                SpeciesCount = numberSpecies,
+                Generations = breedGenerations,
+                PairsPerGeneration = usePairsPerGeneration,
+                ProbabilityHigherStat = probabilityHigherStat,
+                RandomMutationChance = randomMutationChance
+            };
 
             if (_levelInverseCumulativeFunction == null)
                 InitializeLevelFunction();
 
-            var creatures = new Creature[count];
+            var creatures = new List<Creature>(count);
 
             var rand = new Random();
 
@@ -30,7 +43,7 @@ namespace ARKBreedingStats.library
 
             if (randomSpecies)
             {
-                speciesSelection = values.Values.V.species.Where(s => s.IsDomesticable && !s.name.Contains("Tek") && !s.name.Contains("Alpha") && (s.variants?.Length ?? 0) < 2).ToArray();
+                speciesSelection = Values.V.species.Where(s => s.IsDomesticable && !s.name.Contains("Tek") && !s.name.Contains("Alpha") && (s.variants?.Length ?? 0) < 2).ToArray();
                 speciesCount = speciesSelection.Length;
                 if (speciesCount > numberSpecies)
                 {
@@ -78,7 +91,6 @@ namespace ARKBreedingStats.library
                     torpidityLevel += level;
                     levelsWild[si] = level;
                 }
-
                 levelsWild[(int)StatNames.Torpidity] = torpidityLevel;
 
                 var sex = rand.Next(2) == 0 ? Sex.Female : Sex.Male;
@@ -107,34 +119,182 @@ namespace ARKBreedingStats.library
                     if (!species.EnabledColorRegions[ci]) continue;
                     var colorCount = species.colors[ci]?.naturalColors?.Count ?? 0;
                     if (colorCount == 0)
-                        colors[ci] = rand.Next(50);
+                        colors[ci] = 6 + rand.Next(50);
                     else colors[ci] = species.colors[ci].naturalColors[rand.Next(colorCount)].Id;
                 }
 
                 creature.colors = colors;
 
-                creatures[i] = creature;
+                creatures.Add(creature);
             }
 
-            if (breedThem) return BreedCreatures(creatures, mutationProbability);
+            if (breedGenerations > 0)
+            {
+                var creaturesBySpecies = creatures.GroupBy(c => c.Species).ToDictionary(g => g.Key, g => g.ToArray());
+
+                foreach (var s in creaturesBySpecies)
+                {
+                    var newCreatures = BreedCreatures(s.Value, s.Key, breedGenerations,
+                        usePairsPerGeneration, probabilityHigherStat, randomMutationChance);
+                    if (newCreatures != null)
+                    {
+                        creatures.AddRange(newCreatures);
+                    }
+                }
+            }
 
             return creatures;
         }
 
         /// <summary>
-        /// Combine pairs according to their breeding score and create probable offspring.
+        /// Combine pairs according to their breeding score and create probable offspring. Only the new creatures are returned.
         /// </summary>
-        /// <param name="creatures"></param>
-        /// <param name="mutationProbability"></param>
-        /// <returns></returns>
-        private static Creature[] BreedCreatures(Creature[] creatures, double mutationProbability)
+        private static List<Creature> BreedCreatures(Creature[] creatures, Species species, int generations, int usePairsPerGeneration, double probabilityHigherStat = 0.55, double randomMutationChance = 0.025)
         {
-            // TODO
-            return creatures;
+            var femalesMales = creatures.GroupBy(c => c.sex).ToDictionary(g => g.Key, g => g.ToList());
+            if (!femalesMales.ContainsKey(Sex.Female)
+                || !femalesMales.ContainsKey(Sex.Male))
+            {
+                return null;
+            }
 
+            var newCreatures = new List<Creature>();
+            var rand = new Random();
+            var levelStep = CreatureCollection.CurrentCreatureCollection?.wildLevelStep ?? 5;
+            var bestLevels = new int[Values.STATS_COUNT];
+            var statWeights = new double[Values.STATS_COUNT];
+            for (int si = 0; si < Values.STATS_COUNT; si++) statWeights[si] = 1;
 
-            //creature.RecalculateNewMutations();
-            //creature.RecalculateAncestorGenerations();
+            // these variables are not used but needed for the method
+            var filteredOutByMutationLimit = false;
+            var bestPossibleLevels = new short[Values.STATS_COUNT];
+
+            for (int gen = 0; gen < generations; gen++)
+            {
+                var allCreatures = femalesMales[Sex.Female].ToList();
+                allCreatures.AddRange(femalesMales[Sex.Male]);
+                BreedingScore.SetBestLevels(allCreatures, bestLevels, statWeights);
+
+                var pairs = BreedingPlanning.BreedingScore.CalculateBreedingScores(femalesMales[Sex.Female].ToArray(),
+                    femalesMales[Sex.Male].ToArray(), species, bestPossibleLevels, statWeights, bestLevels,
+                    BreedingPlan.BreedingMode.TopStatsConservative, false, false, 0, ref filteredOutByMutationLimit);
+
+                var pairsCount = Math.Min(usePairsPerGeneration, pairs.Count);
+                for (int i = 0; i < pairsCount; i++)
+                {
+                    var mother = pairs[i].Female;
+                    var father = pairs[i].Male;
+
+                    var mutationsMaternal = mother.Mutations;
+                    var mutationsPaternal = father.Mutations;
+                    var mutationPossible = mutationsMaternal < BreedingPlan.MutationPossibleWithLessThan || mutationsPaternal < BreedingPlan.MutationPossibleWithLessThan;
+
+                    var name = $"F{gen + 1}.{i + 1}";
+                    var sex = rand.Next(2) == 0 ? Sex.Female : Sex.Male;
+
+                    // stats
+                    var levelsWild = new int[Values.STATS_COUNT];
+                    var torpidityLevel = 0;
+                    var statIndicesForPossibleMutation = mutationPossible ? new List<int>(Values.STATS_COUNT) : null;
+                    for (int si = 0; si < Values.STATS_COUNT; si++)
+                    {
+                        if (!species.UsesStat(si) || si == (int)StatNames.Torpidity) continue;
+
+                        var level = rand.NextDouble() < probabilityHigherStat
+                            ? Math.Max(mother.levelsWild[si], father.levelsWild[si])
+                            : Math.Min(mother.levelsWild[si], father.levelsWild[si]);
+                        torpidityLevel += level;
+                        levelsWild[si] = level;
+                        if (mutationPossible && species.stats[si].AddWhenTamed != 0)
+                            statIndicesForPossibleMutation.Add(si);
+                    }
+
+                    levelsWild[(int)StatNames.Torpidity] = torpidityLevel;
+
+                    // colors
+                    var colorRegionsForPossibleMutation = mutationPossible ? new List<int>() : null;
+                    var colors = new int[Species.ColorRegionCount];
+                    for (int ci = 0; ci < Species.ColorRegionCount; ci++)
+                    {
+                        if (!species.EnabledColorRegions[ci]) continue;
+                        colors[ci] = rand.Next(2) == 0 ? mother.colors[ci] : father.colors[ci];
+                        if (mutationPossible)
+                            colorRegionsForPossibleMutation.Add(ci);
+                    }
+
+                    // mutations
+                    var mutationHappened = false;
+                    var statForPossibleMutationCount = mutationPossible ? statIndicesForPossibleMutation.Count : 0;
+                    if (statForPossibleMutationCount != 0)
+                    {
+                        for (int m = 0; m < BreedingPlan.MutationRolls; m++)
+                        {
+                            // first select a stat
+                            var statIndexForMutation = statIndicesForPossibleMutation[rand.Next(statForPossibleMutationCount)];
+
+                            // mutation is tied to parent, the one with the higher level has a higher chance
+                            var mutationFromParentWithHigherStat = rand.NextDouble() < probabilityHigherStat;
+                            var mutationFromMother = mutationFromParentWithHigherStat == (mother.levelsWild[statIndexForMutation] >
+                                                    father.levelsWild[statIndexForMutation]);
+
+                            if ((mutationFromMother && mother.Mutations >= BreedingPlan.MutationPossibleWithLessThan)
+                                || (!mutationFromMother && father.Mutations >= BreedingPlan.MutationPossibleWithLessThan)
+                            ) continue;
+
+                            // check if mutation occurs
+                            if (rand.NextDouble() >= randomMutationChance) continue;
+
+                            var newLevel = levelsWild[statIndexForMutation] + BreedingPlan.LevelsAddedPerMutation;
+                            if (newLevel > 255) continue;
+
+                            mutationHappened = true;
+                            levelsWild[statIndexForMutation] = newLevel;
+                            if (mutationFromMother) mutationsMaternal++;
+                            else mutationsPaternal++;
+
+                            var colorRegionsForMutationsCount = colorRegionsForPossibleMutation.Count;
+                            if (colorRegionsForMutationsCount != 0)
+                            {
+                                var mutatedRegion = colorRegionsForPossibleMutation[rand.Next(colorRegionsForMutationsCount)];
+                                colors[mutatedRegion] = rand.Next(100); // for now considering all color ids up to 99
+                            }
+
+                        }
+                    }
+
+                    if (statIndicesForPossibleMutation != null)
+                    {
+                        var mutatedStat = statIndicesForPossibleMutation[rand.Next(statIndicesForPossibleMutation.Count)];
+                        levelsWild[mutatedStat] += 2;
+                    }
+
+                    var creature = new Creature(species, name, sex: sex, levelsWild: levelsWild, isBred: true)
+                    {
+                        guid = Guid.NewGuid(),
+                        mutationsMaternal = mutationsMaternal,
+                        mutationsPaternal = mutationsPaternal,
+                        Mother = mother,
+                        Father = father,
+                        colors = colors
+                    };
+                    creature.RecalculateCreatureValues(levelStep);
+
+                    if (mutationHappened)
+                        creature.RecalculateNewMutations();
+
+                    creature.RecalculateAncestorGenerations();
+
+                    if (creature.sex == Sex.Female)
+                        femalesMales[Sex.Female].Add(creature);
+                    else
+                        femalesMales[Sex.Male].Add(creature);
+
+                    newCreatures.Add(creature);
+                }
+            }
+
+            return newCreatures;
+
         }
 
         private static readonly string[] _namesFemale = { "Aurora", "Bess", "Bones", "Breeze", "Casey", "Casia", "Catlin", "Chromy", "Chuckles", "Cosmo", "Cupcake", "Danele", "Daphne", "Durva", "Electra", "Ellie", "Elora", "Flare", "Ginger", "Hope", "Indigo", "Jackie", "Layka", "Myst", "Nectar", "Oracle", "Pandora", "Peachy", "Peanuts", "Princess", "Raye", "Sabre", "Shellbie", "Shine", "Tia", "Vanity", "Wilde", "Zara" };
@@ -201,5 +361,19 @@ namespace ARKBreedingStats.library
         }
 
         #endregion
+    }
+
+    /// <summary>
+    /// Settings that were used the last time.
+    /// </summary>
+    public class DummyCreatureCreationSettings
+    {
+        public int CreatureCount = 20;
+        public bool OnlySelectedSpecies = true;
+        public int SpeciesCount = 10;
+        public int Generations = 4;
+        public int PairsPerGeneration = 2;
+        public double ProbabilityHigherStat = BreedingPlan.ProbabilityHigherLevel;
+        public double RandomMutationChance = BreedingPlan.ProbabilityOfMutation;
     }
 }
