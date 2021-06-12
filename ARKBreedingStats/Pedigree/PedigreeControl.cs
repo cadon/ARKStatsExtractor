@@ -300,7 +300,7 @@ namespace ARKBreedingStats.Pedigree
                 _displayedGenerations = Math.Min(_compactGenerations, _selectedCreature.generation + 1);
                 _yBottomOfPedigree = PedigreeCreation.CreateCompactView(_selectedCreature, _lines, _pedigreeControls, _tt, _displayedGenerations, autoScrollPositionX, autoScrollPositionY, _highlightInheritanceStatIndex, _pedigreeViewMode == PedigreeViewMode.HView);
 
-                var creatureColorsTop = _yBottomOfPedigree + LbCreatureName.Height;
+                var creatureColorsTop = _yBottomOfPedigree + LbCreatureName.Height + autoScrollPositionY;
                 PbRegionColors.Top = creatureColorsTop;
                 PbKeyExplanations.Top = creatureColorsTop;
                 LbCreatureName.Top = creatureColorsTop - LbCreatureName.Height;
@@ -363,7 +363,6 @@ namespace ARKBreedingStats.Pedigree
 
         private static void DrawKey(PictureBox pb, Species species)
         {
-            // TODO only redraw if species changes
             if (species == null) return;
 
             var w = pb.Width;
