@@ -308,6 +308,12 @@ namespace ARKBreedingStats.Pedigree
 
                 if (PbKeyExplanations.Image == null)
                     DrawKey(PbKeyExplanations, _selectedSpecies);
+
+                _pedigreeControls.Add(new PedigreeCreature(_selectedCreature, _enabledColorRegions)
+                {
+                    Location = new Point(PedigreeCreation.LeftBorder + autoScrollPositionX, _yBottomOfPedigree + PedigreeCreation.Margin + autoScrollPositionY)
+                });
+                _yBottomOfPedigree += 50;
             }
 
             // create descendants
