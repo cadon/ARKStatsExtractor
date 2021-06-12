@@ -468,7 +468,7 @@ Les niveaux sont ensuite affichés sans le processus d'extraction (et sans valid
     <value>Bonus d'élevage</value>
   </data>
   <data name="issueMaxWildLevelTooLow" xml:space="preserve">
-    <value>L'extraction est potentiellement possible, mais il semble que le niveau sauvage max soit trop bas pour une extraction valide. Vérifiez si vous avez défini la valeur correcte dans les paramètres.
+    <value>L'extraction est potentiellement possible, mais il semble que le niveau sauvage maximum soit trop bas pour une extraction valide. Vérifiez si vous avez défini la valeur correcte dans les paramètres.
 La valeur actuelle est {0} et cette créature semble avoir un niveau sauvage supérieur à celui-ci.
 Pour d'autres raisons de l'échec de l'extraction, voir la liste sur la droite après avoir fermé cette boîte de message.</value>
   </data>
@@ -1240,6 +1240,9 @@ Le préréglage peut être appliqué par le bouton Appliquer le préréglage</va
   <data name="SystemLanguage" xml:space="preserve">
     <value>Langue du système</value>
   </data>
+  <data name="max wild level" xml:space="preserve">
+    <value>niveau sauvage maximum</value>
+  </data>
   <data name="Levels" xml:space="preserve">
     <value>Niveaux</value>
   </data>
@@ -1300,7 +1303,22 @@ Filtre pour les couleurs avec c{region}: {colorValue} {colorValue2}, par exemple
   <data name="Add Note" xml:space="preserve">
     <value>Ajouter une remarque</value>
   </data>
+  <data name="maxLevelForLevelUp" xml:space="preserve">
+    <value>niveau maximum qui permet des augmentations de niveau d'apprivoisement</value>
+  </data>
+  <data name="maxLevelSaved" xml:space="preserve">
+    <value>niveau sauvage maximum qui sera sauvegardé</value>
+  </data>
+  <data name="ultraMaxLevel" xml:space="preserve">
+    <value>Attention : Le niveau est supérieur à la valeur maximale possible et ne sera pas sauvegardé.</value>
+  </data>
+  <data name="issueCauseImpossibleTe" xml:space="preserve">
+    <value>Le niveau se traduit par une efficacité d'apprivoisement impossible. Avez-vous saisi les niveaux arbitrairement ? Cela pourrait fonctionner si vous configurez la créature pour se reproduire.</value>
+  </data>
   <data name="generations" xml:space="preserve">
     <value>générations</value>
+  </data>
+  <data name="copyInfoGraphicToClipboard" xml:space="preserve">
+    <value>Copier le graphique d'informations dans le presse-papiers</value>
   </data>
 </root>
