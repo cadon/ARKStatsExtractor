@@ -101,6 +101,7 @@ Colors	Colors
 cooldown	Cooldown
 cooldownGrowing	Cooldown/Growing
 copyCreatureToolStripMenuItem	Copy Creature
+copyInfoGraphicToClipboard  Copy info graphic to clipboard
 copyToMultiplierTesterToolStripButton	Copy to MultiplierTester
 copyToMultiplierTesterToolStripButtonTT	All the levels, TE and IB from the Tester, and the stat-values from the Extractor will be copied to the Stat-Multiplier-Tester
 Crafting Speed	Crafting Speed
@@ -159,6 +160,7 @@ gbCreatureInfo	Creature-info
 gbKOInfo	Knockout Info
 gbWeaponDamage	Weapon Damage [%]
 generation  generation
+generations  generations
 Generation_Abb	Gen
 gpPreviewEdit	Preview / Edit
 gpStarvingTime	Starving-Time
@@ -185,6 +187,7 @@ incubation  incubation
 issueCauseArkStatIssue  This species is known to show wrong stat values ingame, this can prevent a successful extraction.
 issueCauseCreatureLevel  "Check if the total level of the creature is entered correctly.
 If the creature is bred, also check if the BabyImprintingStatScaleMultiplier is set correctly."
+issueCauseImpossibleTe  The level results in an impossible taming effectiveness. Did you enter the levels arbitrarily? It might work if you set the creature to bred.
 issueCauseImprintingLocked  You locked the imprinting-value by checking "Exactly, don't adjust" and the tool won't adjust it, this may cause the extraction to fail.
 issueCauseImprintingNotPossible  "The imprinting-percentage given is not possible with the current multipliers and may cause wrong values during the extraction-process.
 Make sure the BabyCuddleIntervallMultiplier and the BabyMatureSpeedMultiplier are set correctly.
@@ -252,6 +255,8 @@ matingTime  Mating Time
 Maturation	Maturation
 mature  mature
 max wild level  max wild level
+maxLevelForLevelUp  max level that allows domestic levelups
+maxLevelSaved  max wild level that will be saved
 modValueManagerToolStripMenuItem	Load additional values…
 Mother	Mother
 multiSetterToolStripMenuItem	MultiSetter…
@@ -332,7 +337,7 @@ servers  servers
 setStatusToolStripMenuItem	Set Status
 Sex	Sex
 ShockingTranqDarts	Shocking Tranq Darts
-showOnlyNaturalOccuring  Show only natural occuring colors
+showOnlyNaturalOccurring  Show only natural occuring colors
 Slingshot	Slingshot
 SlingshotHits	Slingshot Hits
 Spayed	Spayed
@@ -399,6 +404,7 @@ Tribe	Tribe
 tribeFilterFromLibrary  Tribe filter from library
 tribes  tribes
 tsBtAddAsExtractionTest	Add as Test
+ultraMaxLevel  Warning: The level is higher than the possible max value and will not be saved.
 unavailableCreaturesToolStripMenuItem	Unavailable Creatures
 Unknown	Unknown
 unknownSpecies  unknown species
