@@ -22,7 +22,7 @@ namespace ARKBreedingStats.uiControls
         public const int ControlWidth = StatSize + ColorSize;
         public const int ControlHeight = StatSize + BottomTextHeight;
         public const int AngleOffset = -90; // start at 12 o'clock
-        private readonly ToolTip _tt;
+        private ToolTip _tt;
         private readonly Creature _creature;
 
         public event PedigreeCreature.CreatureChangedEventHandler CreatureClicked;
@@ -64,13 +64,11 @@ namespace ARKBreedingStats.uiControls
         {
             Width = ControlWidth;
             Height = ControlHeight;
-            _tt = new ToolTip
-            {
-                AutoPopDelay = 10000
-            };
-            Disposed += (sender, args) => _tt.RemoveAll();
+            Disposed += PedigreeCreatureCompact_Disposed;
             MouseClick += PedigreeCreatureCompact_MouseClick;
         }
+
+        private void PedigreeCreatureCompact_Disposed(object sender, EventArgs e) => _tt?.SetToolTip(this, null);
 
         public PedigreeCreatureCompact(Creature creature, bool highlight = false, int highlightStatIndex = -1, ToolTip tt = null) : this()
         {
@@ -249,15 +247,16 @@ namespace ARKBreedingStats.uiControls
                 }
             }
 
-            Image?.Dispose();
+            var oldImage = Image;
             Image = bmp;
+            oldImage?.Dispose();
 
             var statNames = creature.Species?.statNames;
 
             var toolTipText = $"{creature.name} ({Utils.SexSymbol(creature.sex)})";
             if (creature.flags.HasFlag(CreatureFlags.Placeholder))
             {
-                toolTipText += "\nThis creature is not yet imported. This entry is a placeholder and contains no more info";
+                toolTipText += "\nThis creature is not yet in this library. This entry is a placeholder and contains no more info";
             }
             else
             {
@@ -269,7 +268,7 @@ namespace ARKBreedingStats.uiControls
                     var resultFather = Mutation(false);
                     if (resultMother == null && resultFather == null) return null;
 
-                    return $" ({resultMother}{(resultMother != null && resultFather != null ? ", " : null)}{resultFather})";
+                    return $" ({resultMother}{(resultMother != null && resultFather != null ? " or " : null)}{resultFather})";
 
                     string Mutation(bool mother)
                     {
@@ -296,7 +295,9 @@ namespace ARKBreedingStats.uiControls
                         $"\n{Loc.S("Colors")}\n{string.Join("\n", colors.Select((c, i) => c == null ? null : $"[{i}]:\t{c.Id} ({c.Name}){((_mutationInColor?[i] ?? false) ? " (mutated color)" : null)}").Where(s => s != null))}";
             }
 
-            _tt.SetToolTip(this, toolTipText);
+            _tt?.SetToolTip(this, null);
+            _tt = tt;
+            _tt?.SetToolTip(this, toolTipText);
         }
 
         public static void DrawFilledCircle(Graphics g, SolidBrush brush, Pen pen, Color color, int x, int y, int size)

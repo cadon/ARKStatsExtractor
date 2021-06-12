@@ -59,7 +59,7 @@ namespace ARKBreedingStats.Pedigree
             NoCreatureSelected();
             listViewCreatures.ListViewItemSorter = new ListViewColumnSorter();
             splitContainer1.Panel2.Paint += Panel2_Paint;
-            _tt = new ToolTip();
+            _tt = new ToolTip { AutoPopDelay = 10000 };
             _compactGenerations = Properties.Settings.Default.PedigreeCompactViewGenerations;
             switch ((PedigreeViewMode)Properties.Settings.Default.PedigreeViewMode)
             {
@@ -298,7 +298,7 @@ namespace ARKBreedingStats.Pedigree
             else
             {
                 _displayedGenerations = Math.Min(_compactGenerations, _selectedCreature.generation + 1);
-                _yBottomOfPedigree = PedigreeCreation.CreateCompactView(_selectedCreature, _lines, _pedigreeControls, _displayedGenerations, autoScrollPositionX, autoScrollPositionY, _highlightInheritanceStatIndex, _pedigreeViewMode == PedigreeViewMode.HView);
+                _yBottomOfPedigree = PedigreeCreation.CreateCompactView(_selectedCreature, _lines, _pedigreeControls, _tt, _displayedGenerations, autoScrollPositionX, autoScrollPositionY, _highlightInheritanceStatIndex, _pedigreeViewMode == PedigreeViewMode.HView);
 
                 var creatureColorsTop = _yBottomOfPedigree + LbCreatureName.Height;
                 PbRegionColors.Top = creatureColorsTop;
