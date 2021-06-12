@@ -19,15 +19,16 @@ namespace ARKBreedingStats.BreedingPlanning
             ref bool creaturesMutationsFilteredOut)
         {
             var breedingPairs = new List<BreedingPair>();
+            var ignoreSex = Properties.Settings.Default.IgnoreSexInBreedingPlan || species.noGender;
             for (int fi = 0; fi < females.Length; fi++)
             {
                 var female = females[fi];
                 for (int mi = 0; mi < males.Length; mi++)
                 {
                     var male = males[mi];
-                    // if Properties.Settings.Default.IgnoreSexInBreedingPlan (useful when using S+ mutator), skip pair if
+                    // if ignoreSex (useful when using S+ mutator), skip pair if
                     // creatures are the same, or pair has already been added
-                    if (Settings.Default.IgnoreSexInBreedingPlan)
+                    if (ignoreSex)
                     {
                         if (considerChosenCreature)
                         {

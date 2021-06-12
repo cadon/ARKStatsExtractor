@@ -339,7 +339,7 @@ namespace ARKBreedingStats.BreedingPlanning
             var combinedCreatures = new List<Creature>(selectedFemales);
             combinedCreatures.AddRange(selectedMales);
 
-            if (Settings.Default.IgnoreSexInBreedingPlan)
+            if (Settings.Default.IgnoreSexInBreedingPlan || _currentSpecies.noGender)
             {
                 selectedFemales = combinedCreatures.ToArray();
                 selectedMales = combinedCreatures.ToArray();

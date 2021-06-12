@@ -91,6 +91,11 @@ namespace ARKBreedingStats.species
         public TamingData taming;
         [JsonProperty]
         public BreedingData breeding;
+        /// <summary>
+        /// If the species uses no gender, ignore the sex in the breeding planner.
+        /// </summary>
+        [JsonProperty]
+        public bool noGender;
         [JsonProperty]
         public Dictionary<string, double> boneDamageAdjusters;
         [JsonProperty]
