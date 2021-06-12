@@ -160,8 +160,8 @@ namespace ARKBreedingStats.uiControls
                         const int radius = 3;
                         //const int radiusPosition = centerCoord - radius - 1;
                         var anglePosition = Math.PI * 2 / 360 * (angle + anglePerStat / 2);
-                        var x = (int)Math.Round(pieRadius * Math.Cos(anglePosition) + centerCoord- radius - 1);
-                        var y = (int)Math.Round(pieRadius * Math.Sin(anglePosition) + centerCoord- radius - 1);
+                        var x = (int)Math.Round(pieRadius * Math.Cos(anglePosition) + centerCoord - radius - 1);
+                        var y = (int)Math.Round(pieRadius * Math.Sin(anglePosition) + centerCoord - radius - 1);
                         DrawFilledCircle(g, brush, pen, guaranteedMutation ? Utils.MutationMarkerColor : Utils.MutationMarkerPossibleColor, x, y, 2 * radius);
                     }
                 }
@@ -199,7 +199,7 @@ namespace ARKBreedingStats.uiControls
                     {
                         const int margin = 1;
                         var colorSize = new Size(ColorSize - 3 * margin - borderWidth,
-                            (StatSize - 2 * borderWidth) / usedColorRegionCount - 2 * margin);
+                            (StatSize - 2 * borderWidth) / usedColorRegionCount - 3 * margin);
 
                         // only check for color mutations if the colors of both parents are available
                         mutationOccurred = mutationOccurred && creature.Mother?.colors != null &&
@@ -212,7 +212,7 @@ namespace ARKBreedingStats.uiControls
                             var color = CreatureColors.CreatureArkColor(creature.colors[ci]);
                             colors[ci] = color;
                             brush.Color = color.Color;
-                            var y = borderWidth + i++ * (colorSize.Height + 2 * margin);
+                            var y = borderWidth + margin + i++ * (colorSize.Height + 2 * margin);
                             g.FillRectangle(brush, left, y, colorSize.Width,
                                 colorSize.Height);
                             g.DrawRectangle(pen, left, y, colorSize.Width,
