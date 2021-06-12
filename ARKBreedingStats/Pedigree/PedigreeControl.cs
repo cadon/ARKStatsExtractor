@@ -10,6 +10,7 @@ using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
+using ARKBreedingStats.values;
 
 namespace ARKBreedingStats.Pedigree
 {
@@ -220,8 +221,9 @@ namespace ARKBreedingStats.Pedigree
             _lines[0].Clear();
             _lines[1].Clear();
             _lines[2].Clear();
-            pictureBox.Image = null;
-            pictureBox.Visible = false;
+            if (PbRegionColors.Image != null)
+                PbRegionColors.SetImageAndDisposeOld(null);
+            PbRegionColors.Visible = false;
             LbCreatureName.Text = null;
             if (suspendDrawingAndLayout)
             {
@@ -241,6 +243,7 @@ namespace ARKBreedingStats.Pedigree
             nudGenerations.Visible = !classicViewMode;
             LbCreatureName.Visible = !classicViewMode;
             statSelector1.Visible = !classicViewMode;
+            PbKeyExplanations.Visible = !classicViewMode;
 
             Properties.Settings.Default.PedigreeViewMode = (int)viewMode;
             SetCompactGenerationDisplay(classicViewMode ? 0 : _compactGenerations);
@@ -254,7 +257,9 @@ namespace ARKBreedingStats.Pedigree
                 Properties.Settings.Default.PedigreeCompactViewGenerations = _compactGenerations;
             }
             else
-                pictureBox.Top = 300;
+            {
+                PbRegionColors.Top = 300;
+            }
 
             CreatePedigree();
         }
@@ -295,9 +300,14 @@ namespace ARKBreedingStats.Pedigree
                 _displayedGenerations = Math.Min(_compactGenerations, _selectedCreature.generation + 1);
                 _yBottomOfPedigree = PedigreeCreation.CreateCompactView(_selectedCreature, _lines, _pedigreeControls, _displayedGenerations, autoScrollPositionX, autoScrollPositionY, _highlightInheritanceStatIndex, _pedigreeViewMode == PedigreeViewMode.HView);
 
-                pictureBox.Top = _yBottomOfPedigree + LbCreatureName.Height;
-                LbCreatureName.Top = pictureBox.Top - LbCreatureName.Height;
+                var creatureColorsTop = _yBottomOfPedigree + LbCreatureName.Height;
+                PbRegionColors.Top = creatureColorsTop;
+                PbKeyExplanations.Top = creatureColorsTop;
+                LbCreatureName.Top = creatureColorsTop - LbCreatureName.Height;
                 LbCreatureName.Text = _selectedCreature.name;
+
+                if (PbKeyExplanations.Image == null)
+                    DrawKey(PbKeyExplanations, _selectedSpecies);
             }
 
             // create descendants
@@ -337,12 +347,125 @@ namespace ARKBreedingStats.Pedigree
                 ipc.BestBreedingPartners += BestBreedingPartners;
             }
 
-            pictureBox.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(_selectedCreature.colors,
+            PbRegionColors.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(_selectedCreature.colors,
                 _selectedCreature.Species, _enabledColorRegions, 256, creatureSex: _selectedCreature.sex));
-            pictureBox.Visible = true;
+            PbRegionColors.Visible = true;
 
             ResumeLayout();
             splitContainer1.Panel2.ResumeDrawing();
+        }
+
+        private static void DrawKey(PictureBox pb, Species species)
+        {
+            // TODO only redraw if species changes
+            if (species == null) return;
+
+            var w = pb.Width;
+            var h = pb.Height;
+
+            Bitmap bmp = new Bitmap(w, h);
+            using (Graphics g = Graphics.FromImage(bmp))
+            using (var font = new Font("Microsoft Sans Serif", 8.25f))
+            using (var format = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
+            using (var pen = new Pen(Color.Black))
+            using (var brush = new SolidBrush(Color.Black))
+            {
+                g.SmoothingMode = SmoothingMode.AntiAlias;
+                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+
+                // border
+                g.DrawRectangle(pen, 0, 0, w - 1, h - 1);
+
+                // stats
+                const int padding = 4;
+                const int statCircleSize = PedigreeCreatureCompact.StatSize * 3 / 2;
+                const int statRadius = statCircleSize / 2;
+                const int radiusInnerCircle = statRadius / 7;
+                var statLeftTopCoords = new Point(padding, padding);
+                var center = new Point(statLeftTopCoords.X + statRadius, statLeftTopCoords.Y + statRadius);
+                brush.Color = Color.White;
+                g.FillEllipse(brush, statLeftTopCoords.X, statLeftTopCoords.Y, statRadius * 2, statRadius * 2);
+                brush.Color = Color.Black;
+
+                var usedStats = Enumerable.Range(0, Values.STATS_COUNT).Where(si => si != (int)StatNames.Torpidity && species.UsesStat(si)).ToArray();
+                var anglePerStat = 360f / usedStats.Length;
+                var i = 0;
+                foreach (var si in usedStats)
+                {
+                    var angle = PedigreeCreatureCompact.AngleOffset + anglePerStat * i++;
+                    g.DrawPie(pen, statLeftTopCoords.X, statLeftTopCoords.Y, statCircleSize, statCircleSize, angle, anglePerStat);
+
+                    // text
+                    const int radiusPosition = statRadius * 7 / 10;
+                    var anglePosition = Math.PI * 2 / 360 * (angle + anglePerStat / 2);
+                    const int statTexSizeHalf = 15;
+                    var x = (int)Math.Round(radiusPosition * Math.Cos(anglePosition) + center.X - statTexSizeHalf);
+                    var y = (int)Math.Round(radiusPosition * Math.Sin(anglePosition) + center.Y - statTexSizeHalf);
+                    g.DrawString(Utils.StatName(si, true, species.statNames), font, brush,
+                            new RectangleF(x, y, statTexSizeHalf * 2, statTexSizeHalf * 2),
+                            format);
+                }
+                brush.Color = Color.Gray;
+                g.FillEllipse(brush, center.X - radiusInnerCircle, center.Y - radiusInnerCircle, 2 * radiusInnerCircle, 2 * radiusInnerCircle);
+
+                // circles
+                const int textX = 3 * padding + 6;
+                const int lineHeight = 15;
+                void CircleExplanation(Color circleColor, string text, int y, int circleSize, int circleOffset = 0)
+                {
+                    PedigreeCreatureCompact.DrawFilledCircle(g, brush, pen, circleColor, padding + circleOffset, y + lineHeight / 4 + circleOffset, circleSize);
+                    brush.Color = Color.Black;
+                    g.DrawString(text, font, brush, textX, y);
+                }
+
+                void RectangleExplanation(Color rectangleColor, string text, int y, int size)
+                {
+                    pen.Color = rectangleColor;
+                    pen.Width = 2;
+                    g.DrawRectangle(pen, padding, y, size, size);
+                    brush.Color = Color.Black;
+                    g.DrawString(text, font, brush, textX, y);
+                }
+
+                void ArrowExplanation(List<int[]> linesList, int lineStyle, string text, int y, int size)
+                {
+                    var yLine = y + lineHeight / 2;
+                    linesList.Add(new[] { padding, yLine, padding + size, yLine, lineStyle });
+                    brush.Color = Color.Black;
+                    g.DrawString(text, font, brush, textX, y);
+                }
+
+                int yText = statRadius * 2 + 4 * padding;
+                CircleExplanation(Utils.MutationMarkerColor, "mutation in stat", yText, 6);
+                yText += lineHeight;
+                CircleExplanation(Utils.MutationMarkerPossibleColor, "possible mutation in stat", yText, 6);
+                yText += lineHeight;
+                CircleExplanation(Color.Yellow, "mutation in color", yText, 4, 1);
+                yText += lineHeight;
+                CircleExplanation(Color.GreenYellow, "creature without mutations", yText, 6);
+                yText += lineHeight;
+                CircleExplanation(Utils.MutationColor, "creature mutations < limit", yText, 6);
+                yText += lineHeight;
+                CircleExplanation(Color.DarkRed, "creature mutations ≥ limit", yText, 6);
+                yText += lineHeight;
+                // rectangles
+                RectangleExplanation(Color.DodgerBlue, "selected creature", yText, 10);
+                yText += lineHeight;
+                RectangleExplanation(Utils.MutationMarkerColor, "creature with mutation", yText, 10);
+                yText += lineHeight;
+                // arrows
+                var lines = new[] { null, new List<int[]>(), null };
+                ArrowExplanation(lines[1], 1, "offspring", yText, 10);
+                yText += lineHeight;
+                ArrowExplanation(lines[1], 2, "stat inheritance", yText, 10);
+                yText += lineHeight;
+                ArrowExplanation(lines[1], 3, "stat inheritance with", yText, 10);
+                g.DrawString("possible mutation", font, brush, textX, yText + lineHeight);
+
+                DrawLines(g, lines);
+            }
+
+            pb.SetImageAndDisposeOld(bmp);
         }
 
         private void CreatureClicked(Creature c, int comboIndex, MouseEventArgs e)
@@ -459,6 +582,9 @@ namespace ARKBreedingStats.Pedigree
             if (!forceUpdate && (species == null || species == _selectedSpecies))
                 return;
 
+            if (PbKeyExplanations.Image != null)
+                PbKeyExplanations.SetImageAndDisposeOld(null);
+
             if (species != null)
                 _selectedSpecies = species;
             else if (_selectedCreature == null)
@@ -467,6 +593,8 @@ namespace ARKBreedingStats.Pedigree
             EnabledColorRegions = _selectedSpecies.EnabledColorRegions;
             _creaturesOfSpecies = _creatures.Where(c => c.Species == _selectedSpecies).ToArray();
             DisplayFilteredCreatureList();
+            _selectedCreature = null;
+            ClearControls();
         }
 
         private void DisplayFilteredCreatureList()
@@ -518,7 +646,7 @@ namespace ARKBreedingStats.Pedigree
         public void SetLocalizations()
         {
             Loc.ControlText(lbPedigreeEmpty);
-            _tt.SetToolTip(pictureBox, Loc.S("copyInfoGraphicToClipboard"));
+            _tt.SetToolTip(PbRegionColors, Loc.S("copyInfoGraphicToClipboard"));
             _tt.SetToolTip(nudGenerations, Loc.S("generations"));
         }
 

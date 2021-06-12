@@ -31,7 +31,7 @@ namespace ARKBreedingStats.Pedigree
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.PbRegionColors = new System.Windows.Forms.PictureBox();
             this.lbPedigreeEmpty = new System.Windows.Forms.Label();
             this.listViewCreatures = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -44,28 +44,30 @@ namespace ARKBreedingStats.Pedigree
             this.RbViewClassic = new System.Windows.Forms.RadioButton();
             this.TextBoxFilter = new System.Windows.Forms.TextBox();
             this.ButtonClearFilter = new System.Windows.Forms.Button();
-            this.statSelector1 = new ARKBreedingStats.uiControls.StatSelector();
             this.LbCreatureName = new System.Windows.Forms.Label();
+            this.PbKeyExplanations = new System.Windows.Forms.PictureBox();
+            this.statSelector1 = new ARKBreedingStats.uiControls.StatSelector();
             this.nudGenerations = new ARKBreedingStats.uiControls.Nud();
             this.pedigreeCreatureHeaders = new ARKBreedingStats.uiControls.PedigreeCreature();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PbRegionColors)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PbKeyExplanations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGenerations)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox
+            // PbRegionColors
             // 
-            this.pictureBox.Location = new System.Drawing.Point(394, 180);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(256, 256);
-            this.pictureBox.TabIndex = 0;
-            this.pictureBox.TabStop = false;
-            this.pictureBox.Click += new System.EventHandler(this.pictureBox_Click);
+            this.PbRegionColors.Location = new System.Drawing.Point(394, 180);
+            this.PbRegionColors.Name = "PbRegionColors";
+            this.PbRegionColors.Size = new System.Drawing.Size(256, 256);
+            this.PbRegionColors.TabIndex = 0;
+            this.PbRegionColors.TabStop = false;
+            this.PbRegionColors.Click += new System.EventHandler(this.pictureBox_Click);
             // 
             // lbPedigreeEmpty
             // 
@@ -121,11 +123,12 @@ namespace ARKBreedingStats.Pedigree
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.AutoScroll = true;
+            this.splitContainer1.Panel2.Controls.Add(this.PbKeyExplanations);
             this.splitContainer1.Panel2.Controls.Add(this.statSelector1);
             this.splitContainer1.Panel2.Controls.Add(this.LbCreatureName);
             this.splitContainer1.Panel2.Controls.Add(this.nudGenerations);
             this.splitContainer1.Panel2.Controls.Add(this.pedigreeCreatureHeaders);
-            this.splitContainer1.Panel2.Controls.Add(this.pictureBox);
+            this.splitContainer1.Panel2.Controls.Add(this.PbRegionColors);
             this.splitContainer1.Panel2.Controls.Add(this.lbPedigreeEmpty);
             this.splitContainer1.Size = new System.Drawing.Size(1043, 520);
             this.splitContainer1.SplitterDistance = 203;
@@ -219,6 +222,22 @@ namespace ARKBreedingStats.Pedigree
             this.ButtonClearFilter.UseVisualStyleBackColor = true;
             this.ButtonClearFilter.Click += new System.EventHandler(this.ButtonClearFilter_Click);
             // 
+            // LbCreatureName
+            // 
+            this.LbCreatureName.Location = new System.Drawing.Point(394, 164);
+            this.LbCreatureName.Name = "LbCreatureName";
+            this.LbCreatureName.Size = new System.Drawing.Size(256, 13);
+            this.LbCreatureName.TabIndex = 4;
+            this.LbCreatureName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // PbKeyExplanations
+            // 
+            this.PbKeyExplanations.Location = new System.Drawing.Point(659, 180);
+            this.PbKeyExplanations.Name = "PbKeyExplanations";
+            this.PbKeyExplanations.Size = new System.Drawing.Size(161, 275);
+            this.PbKeyExplanations.TabIndex = 6;
+            this.PbKeyExplanations.TabStop = false;
+            // 
             // statSelector1
             // 
             this.statSelector1.AutoSize = true;
@@ -226,14 +245,6 @@ namespace ARKBreedingStats.Pedigree
             this.statSelector1.Name = "statSelector1";
             this.statSelector1.Size = new System.Drawing.Size(173, 29);
             this.statSelector1.TabIndex = 5;
-            // 
-            // LbCreatureName
-            // 
-            this.LbCreatureName.AutoSize = true;
-            this.LbCreatureName.Location = new System.Drawing.Point(391, 164);
-            this.LbCreatureName.Name = "LbCreatureName";
-            this.LbCreatureName.Size = new System.Drawing.Size(0, 13);
-            this.LbCreatureName.TabIndex = 4;
             // 
             // nudGenerations
             // 
@@ -282,7 +293,7 @@ namespace ARKBreedingStats.Pedigree
             this.Controls.Add(this.splitContainer1);
             this.Name = "PedigreeControl";
             this.Size = new System.Drawing.Size(1043, 520);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PbRegionColors)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
@@ -292,6 +303,7 @@ namespace ARKBreedingStats.Pedigree
             this.tableLayoutPanel1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PbKeyExplanations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGenerations)).EndInit();
             this.ResumeLayout(false);
 
@@ -299,7 +311,7 @@ namespace ARKBreedingStats.Pedigree
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox;
+        private System.Windows.Forms.PictureBox PbRegionColors;
         private System.Windows.Forms.Label lbPedigreeEmpty;
         private PedigreeCreature pedigreeCreatureHeaders;
         private System.Windows.Forms.ListView listViewCreatures;
@@ -316,5 +328,6 @@ namespace ARKBreedingStats.Pedigree
         private System.Windows.Forms.RadioButton RbViewH;
         private System.Windows.Forms.RadioButton RbViewCompact;
         private System.Windows.Forms.RadioButton RbViewClassic;
+        private System.Windows.Forms.PictureBox PbKeyExplanations;
     }
 }

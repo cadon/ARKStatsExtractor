@@ -16,12 +16,12 @@ namespace ARKBreedingStats.uiControls
     /// </summary>
     public class PedigreeCreatureCompact : PictureBox, IPedigreeCreature
     {
-        private const int StatSize = 50;
+        public const int StatSize = 50;
         private const int ColorSize = 10;
         private const int BottomTextHeight = 9;
         public const int ControlWidth = StatSize + ColorSize;
         public const int ControlHeight = StatSize + BottomTextHeight;
-        private const int AngleOffset = -90; // start at 12 o'clock
+        public const int AngleOffset = -90; // start at 12 o'clock
         private readonly ToolTip _tt;
         private readonly Creature _creature;
 
@@ -83,7 +83,7 @@ namespace ARKBreedingStats.uiControls
             if (creature?.Species == null) return;
 
             var usedStats = Enumerable.Range(0, Values.STATS_COUNT).Where(si => si != (int)StatNames.Torpidity && creature.Species.UsesStat(si)).ToArray();
-            var anglePerStat = 360 / usedStats.Length;
+            var anglePerStat = 360f / usedStats.Length;
 
             const int borderWidth = 1;
 
@@ -128,7 +128,6 @@ namespace ARKBreedingStats.uiControls
                 g.DrawRectangle(pen, drawnBorderWidth, drawnBorderWidth, Width - 2 * drawnBorderWidth, Height - 2 * drawnBorderWidth);
 
                 // stats
-                g.SmoothingMode = SmoothingMode.AntiAlias;
                 var chartMax = CreatureCollection.CurrentCreatureCollection?.maxChartLevel ?? 50;
                 const int radiusInnerCircle = (StatSize - 2 * borderWidth) / 7;
                 const int centerCoord = StatSize / 2 - 1;
@@ -159,18 +158,12 @@ namespace ARKBreedingStats.uiControls
                         var guaranteedMutation = (mutationStatus & mutationIsNotGuaranteedMask) == 0;
 
                         const int radius = 3;
-                        const int radiusPosition = centerCoord - radius - 1;
+                        //const int radiusPosition = centerCoord - radius - 1;
                         var anglePosition = Math.PI * 2 / 360 * (angle + anglePerStat / 2);
-                        var x = (int)Math.Round(radiusPosition * Math.Cos(anglePosition) + radiusPosition);
-                        var y = (int)Math.Round(radiusPosition * Math.Sin(anglePosition) + radiusPosition);
-                        DrawFilledCircle(guaranteedMutation ? Utils.MutationMarkerColor : Utils.MutationMarkerPossibleColor, x, y, 2 * radius);
+                        var x = (int)Math.Round(pieRadius * Math.Cos(anglePosition) + centerCoord- radius - 1);
+                        var y = (int)Math.Round(pieRadius * Math.Sin(anglePosition) + centerCoord- radius - 1);
+                        DrawFilledCircle(g, brush, pen, guaranteedMutation ? Utils.MutationMarkerColor : Utils.MutationMarkerPossibleColor, x, y, 2 * radius);
                     }
-                }
-
-                void ClearArrayIfOnlyFalse(ref bool[] arr)
-                {
-                    if (arr != null && !arr.Any(m => m))
-                        arr = null; // not needed, no possible mutations
                 }
 
                 // draw sex in the center
@@ -233,14 +226,15 @@ namespace ARKBreedingStats.uiControls
                                 const int radius = 2;
                                 var x = left - radius - 2;
                                 y = y + colorSize.Height / 2 - radius;
-                                DrawFilledCircle(Color.Yellow, x, y, 2 * radius);
+                                DrawFilledCircle(g, brush, pen, Color.Yellow, x, y, 2 * radius);
                                 _mutationInColor[ci] = true;
                             }
                         }
                     }
                 }
 
-                ClearArrayIfOnlyFalse(ref _mutationInColor);
+                if (_mutationInColor != null && !_mutationInColor.Any(m => m))
+                    _mutationInColor = null; // not needed, no possible mutations
 
                 // mutation indicator
                 if (!creature.flags.HasFlag(CreatureFlags.Placeholder))
@@ -251,16 +245,7 @@ namespace ARKBreedingStats.uiControls
                         : creature.Mutations < BreedingPlan.MutationPossibleWithLessThan ? Utils.MutationColor
                         : Color.DarkRed;
 
-                    DrawFilledCircle(mutationColor, borderWidth + 1, yMarker, mutationIndicatorSize);
-                }
-
-                void DrawFilledCircle(Color color, int x, int y, int size)
-                {
-                    brush.Color = color;
-                    g.FillEllipse(brush, x, y, size, size);
-                    pen.Width = 1;
-                    pen.Color = Utils.AdjustColorLight(color, -.6);
-                    g.DrawEllipse(pen, x, y, size, size);
+                    DrawFilledCircle(g, brush, pen, mutationColor, borderWidth + 1, yMarker, mutationIndicatorSize);
                 }
             }
 
@@ -312,6 +297,15 @@ namespace ARKBreedingStats.uiControls
             }
 
             _tt.SetToolTip(this, toolTipText);
+        }
+
+        public static void DrawFilledCircle(Graphics g, SolidBrush brush, Pen pen, Color color, int x, int y, int size)
+        {
+            brush.Color = color;
+            g.FillEllipse(brush, x, y, size, size);
+            pen.Width = 1;
+            pen.Color = Utils.AdjustColorLight(color, -.6);
+            g.DrawEllipse(pen, x, y, size, size);
         }
 
         private static (byte[] statInheritances, bool[] mutationInColor) DetermineInheritanceAndMutations(Creature creature, int[] usedStats)
