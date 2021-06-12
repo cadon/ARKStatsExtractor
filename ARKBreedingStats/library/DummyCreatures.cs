@@ -75,10 +75,9 @@ namespace ARKBreedingStats.library
                     species = speciesSelection[rand.Next(speciesCount)];
 
                 // only "tame" higher creatures
-                //var creatureLevel = (1 + rand.Next(30)) * difficulty;
                 var creatureLevel = (21 + rand.Next(10)) * difficulty;
                 var tamingEffectiveness = 0.5 + rand.NextDouble() / 2; // assume at least 50 % te
-                creatureLevel *= (1 + 0.5 * tamingEffectiveness);
+                creatureLevel *= 1 + 0.5 * tamingEffectiveness;
 
                 var levelFactor = creatureLevel / _totalLevels;
                 var levelsWild = new int[Values.STATS_COUNT];
@@ -260,12 +259,6 @@ namespace ARKBreedingStats.library
                             }
 
                         }
-                    }
-
-                    if (statIndicesForPossibleMutation != null)
-                    {
-                        var mutatedStat = statIndicesForPossibleMutation[rand.Next(statIndicesForPossibleMutation.Count)];
-                        levelsWild[mutatedStat] += 2;
                     }
 
                     var creature = new Creature(species, name, sex: sex, levelsWild: levelsWild, isBred: true)
