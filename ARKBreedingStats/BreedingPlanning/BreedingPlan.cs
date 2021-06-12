@@ -160,8 +160,8 @@ namespace ARKBreedingStats.BreedingPlanning
             pedigreeCreatureWorst.CreatureEdit += EditCreature;
             pedigreeCreatureBestPossibleInSpecies.CreatureEdit += EditCreature;
             pedigreeCreatureBestPossibleInSpeciesFiltered.CreatureEdit += EditCreature;
-            pedigreeCreatureBest.CreatureClicked += CreatureClicked;
-            pedigreeCreatureWorst.CreatureClicked += CreatureClicked;
+            pedigreeCreatureBest.CreatureClicked += SetBreedingPair;
+            pedigreeCreatureWorst.CreatureClicked += SetBreedingPair;
         }
 
         /// <summary>
@@ -417,7 +417,7 @@ namespace ARKBreedingStats.BreedingPlanning
                         else
                         {
                             pc = new PedigreeCreature(_breedingPairs[i].Female, _enabledColorRegions, i, true);
-                            pc.CreatureClicked += CreatureClicked;
+                            pc.CreatureClicked += SetBreedingPair;
                             pc.CreatureEdit += CreatureEdit;
                             pc.RecalculateBreedingPlan += RecalculateBreedingPlan;
                             pc.BestBreedingPartners += BestBreedingPartners;
@@ -450,7 +450,7 @@ namespace ARKBreedingStats.BreedingPlanning
                         else
                         {
                             pc = new PedigreeCreature(_breedingPairs[i].Male, _enabledColorRegions, i, true);
-                            pc.CreatureClicked += CreatureClicked;
+                            pc.CreatureClicked += SetBreedingPair;
                             pc.CreatureEdit += CreatureEdit;
                             pc.RecalculateBreedingPlan += RecalculateBreedingPlan;
                             pc.BestBreedingPartners += BestBreedingPartners;
@@ -766,7 +766,7 @@ namespace ARKBreedingStats.BreedingPlanning
             pc.Creature = crB;
         }
 
-        private void CreatureClicked(Creature c, int comboIndex, MouseEventArgs e)
+        private void SetBreedingPair(Creature c, int comboIndex, MouseEventArgs e)
         {
             if (comboIndex >= 0)
                 SetParents(comboIndex);

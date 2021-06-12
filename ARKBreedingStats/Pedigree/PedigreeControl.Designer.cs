@@ -38,9 +38,12 @@ namespace ARKBreedingStats.Pedigree
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.RbViewH = new System.Windows.Forms.RadioButton();
+            this.RbViewCompact = new System.Windows.Forms.RadioButton();
+            this.RbViewClassic = new System.Windows.Forms.RadioButton();
             this.TextBoxFilter = new System.Windows.Forms.TextBox();
             this.ButtonClearFilter = new System.Windows.Forms.Button();
-            this.CbCompactView = new System.Windows.Forms.CheckBox();
             this.statSelector1 = new ARKBreedingStats.uiControls.StatSelector();
             this.LbCreatureName = new System.Windows.Forms.Label();
             this.nudGenerations = new ARKBreedingStats.uiControls.Nud();
@@ -51,6 +54,7 @@ namespace ARKBreedingStats.Pedigree
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudGenerations)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,7 +73,7 @@ namespace ARKBreedingStats.Pedigree
             this.lbPedigreeEmpty.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbPedigreeEmpty.Location = new System.Drawing.Point(0, 0);
             this.lbPedigreeEmpty.Name = "lbPedigreeEmpty";
-            this.lbPedigreeEmpty.Size = new System.Drawing.Size(881, 520);
+            this.lbPedigreeEmpty.Size = new System.Drawing.Size(836, 520);
             this.lbPedigreeEmpty.TabIndex = 1;
             this.lbPedigreeEmpty.Text = "Select a creature in the Library to see its pedigree here.";
             this.lbPedigreeEmpty.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -83,10 +87,10 @@ namespace ARKBreedingStats.Pedigree
             this.listViewCreatures.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewCreatures.FullRowSelect = true;
             this.listViewCreatures.HideSelection = false;
-            this.listViewCreatures.Location = new System.Drawing.Point(3, 58);
+            this.listViewCreatures.Location = new System.Drawing.Point(3, 60);
             this.listViewCreatures.MultiSelect = false;
             this.listViewCreatures.Name = "listViewCreatures";
-            this.listViewCreatures.Size = new System.Drawing.Size(152, 459);
+            this.listViewCreatures.Size = new System.Drawing.Size(197, 457);
             this.listViewCreatures.TabIndex = 3;
             this.listViewCreatures.UseCompatibleStateImageBehavior = false;
             this.listViewCreatures.View = System.Windows.Forms.View.Details;
@@ -124,7 +128,7 @@ namespace ARKBreedingStats.Pedigree
             this.splitContainer1.Panel2.Controls.Add(this.pictureBox);
             this.splitContainer1.Panel2.Controls.Add(this.lbPedigreeEmpty);
             this.splitContainer1.Size = new System.Drawing.Size(1043, 520);
-            this.splitContainer1.SplitterDistance = 158;
+            this.splitContainer1.SplitterDistance = 203;
             this.splitContainer1.TabIndex = 4;
             // 
             // tableLayoutPanel1
@@ -132,10 +136,10 @@ namespace ARKBreedingStats.Pedigree
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 23F));
+            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.listViewCreatures, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.TextBoxFilter, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.ButtonClearFilter, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.CbCompactView, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -143,22 +147,70 @@ namespace ARKBreedingStats.Pedigree
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(158, 520);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(203, 520);
             this.tableLayoutPanel1.TabIndex = 3;
+            // 
+            // panel1
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.panel1, 2);
+            this.panel1.Controls.Add(this.RbViewH);
+            this.panel1.Controls.Add(this.RbViewCompact);
+            this.panel1.Controls.Add(this.RbViewClassic);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(197, 25);
+            this.panel1.TabIndex = 6;
+            // 
+            // RbViewH
+            // 
+            this.RbViewH.AutoSize = true;
+            this.RbViewH.Location = new System.Drawing.Point(140, 3);
+            this.RbViewH.Name = "RbViewH";
+            this.RbViewH.Size = new System.Drawing.Size(33, 17);
+            this.RbViewH.TabIndex = 2;
+            this.RbViewH.TabStop = true;
+            this.RbViewH.Text = "H";
+            this.RbViewH.UseVisualStyleBackColor = true;
+            this.RbViewH.CheckedChanged += new System.EventHandler(this.RbViewH_CheckedChanged);
+            // 
+            // RbViewCompact
+            // 
+            this.RbViewCompact.AutoSize = true;
+            this.RbViewCompact.Location = new System.Drawing.Point(67, 3);
+            this.RbViewCompact.Name = "RbViewCompact";
+            this.RbViewCompact.Size = new System.Drawing.Size(67, 17);
+            this.RbViewCompact.TabIndex = 1;
+            this.RbViewCompact.TabStop = true;
+            this.RbViewCompact.Text = "Compact";
+            this.RbViewCompact.UseVisualStyleBackColor = true;
+            this.RbViewCompact.CheckedChanged += new System.EventHandler(this.RbViewCompact_CheckedChanged);
+            // 
+            // RbViewClassic
+            // 
+            this.RbViewClassic.AutoSize = true;
+            this.RbViewClassic.Location = new System.Drawing.Point(3, 3);
+            this.RbViewClassic.Name = "RbViewClassic";
+            this.RbViewClassic.Size = new System.Drawing.Size(58, 17);
+            this.RbViewClassic.TabIndex = 0;
+            this.RbViewClassic.TabStop = true;
+            this.RbViewClassic.Text = "Classic";
+            this.RbViewClassic.UseVisualStyleBackColor = true;
+            this.RbViewClassic.CheckedChanged += new System.EventHandler(this.RbViewClassic_CheckedChanged);
             // 
             // TextBoxFilter
             // 
             this.TextBoxFilter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TextBoxFilter.Location = new System.Drawing.Point(3, 32);
+            this.TextBoxFilter.Location = new System.Drawing.Point(3, 34);
             this.TextBoxFilter.Name = "TextBoxFilter";
-            this.TextBoxFilter.Size = new System.Drawing.Size(129, 20);
+            this.TextBoxFilter.Size = new System.Drawing.Size(174, 20);
             this.TextBoxFilter.TabIndex = 4;
             this.TextBoxFilter.TextChanged += new System.EventHandler(this.TextBoxFilterTextChanged);
             // 
             // ButtonClearFilter
             // 
             this.ButtonClearFilter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ButtonClearFilter.Location = new System.Drawing.Point(136, 30);
+            this.ButtonClearFilter.Location = new System.Drawing.Point(181, 32);
             this.ButtonClearFilter.Margin = new System.Windows.Forms.Padding(1);
             this.ButtonClearFilter.Name = "ButtonClearFilter";
             this.ButtonClearFilter.Size = new System.Drawing.Size(21, 24);
@@ -166,20 +218,6 @@ namespace ARKBreedingStats.Pedigree
             this.ButtonClearFilter.Text = "×";
             this.ButtonClearFilter.UseVisualStyleBackColor = true;
             this.ButtonClearFilter.Click += new System.EventHandler(this.ButtonClearFilter_Click);
-            // 
-            // CbCompactView
-            // 
-            this.CbCompactView.Appearance = System.Windows.Forms.Appearance.Button;
-            this.CbCompactView.AutoSize = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.CbCompactView, 2);
-            this.CbCompactView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CbCompactView.Location = new System.Drawing.Point(3, 3);
-            this.CbCompactView.Name = "CbCompactView";
-            this.CbCompactView.Size = new System.Drawing.Size(152, 23);
-            this.CbCompactView.TabIndex = 6;
-            this.CbCompactView.Text = "Compact";
-            this.CbCompactView.UseVisualStyleBackColor = true;
-            this.CbCompactView.CheckedChanged += new System.EventHandler(this.CbCompactView_CheckedChanged);
             // 
             // statSelector1
             // 
@@ -252,6 +290,8 @@ namespace ARKBreedingStats.Pedigree
             this.splitContainer1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudGenerations)).EndInit();
             this.ResumeLayout(false);
 
@@ -269,9 +309,12 @@ namespace ARKBreedingStats.Pedigree
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TextBox TextBoxFilter;
         private System.Windows.Forms.Button ButtonClearFilter;
-        private System.Windows.Forms.CheckBox CbCompactView;
         private Nud nudGenerations;
         private System.Windows.Forms.Label LbCreatureName;
         private StatSelector statSelector1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.RadioButton RbViewH;
+        private System.Windows.Forms.RadioButton RbViewCompact;
+        private System.Windows.Forms.RadioButton RbViewClassic;
     }
 }

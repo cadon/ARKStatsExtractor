@@ -15,48 +15,73 @@ namespace ARKBreedingStats.Pedigree
         private const int YOffsetLineCompact = 30;
         internal const int YMarginCreatureCompact = 5;
         internal const int Margin = 10;
-        private const int MinXPosCreature = 400;
+        private const int MinXPosCreature = 440;
 
         #region Compact View
 
-        internal static int CreateCompactView(Creature creature, List<int[]>[] lines, List<Control> pedigreeControls, int displayedGenerations, int autoScrollPosX, int autoScrollPosY, int highlightInheritanceStatIndex)
+        internal static int CreateCompactView(Creature creature, List<int[]>[] lines, List<Control> pedigreeControls, int displayedGenerations, int autoScrollPosX, int autoScrollPosY, int highlightInheritanceStatIndex, bool hView)
         {
-            // each extra generation adds one control width
-            var xOffsetStart = 4 * Margin + (displayedGenerations < 2 ? 0 : (PedigreeCreatureCompact.ControlWidth + 3) * (1 << (displayedGenerations - 2)));
+            const int pedigreeControlHorizontalMargin = 3;
+            const int distanceInHView = 5;
+
+            // y
+            var controlHeightWithMargin = hView ? PedigreeCreatureCompact.ControlWidth + distanceInHView : PedigreeCreatureCompact.ControlHeight + YMarginCreatureCompact;
+            var yOffsetOriginCreature = 6 * Margin;
+            int yOffsetPedigreeBottom;
+            // x
+            var xOffsetStart = 4 * Margin;
+            if (hView)
+            {
+                var pedigreeWidth = controlHeightWithMargin * ((1 << (displayedGenerations / 2 + 1)) - 1);
+                xOffsetStart += pedigreeWidth / 2;
+                var pedigreeHeightInCreatures = displayedGenerations < 5 ? 3 : (1 << ((displayedGenerations - 1) / 2 + 1)) - 1;
+                yOffsetPedigreeBottom = yOffsetOriginCreature + pedigreeHeightInCreatures * controlHeightWithMargin;
+                yOffsetOriginCreature += controlHeightWithMargin * (pedigreeHeightInCreatures / 2);
+            }
+            else
+            {
+                xOffsetStart += displayedGenerations < 2 ? 0 : (PedigreeCreatureCompact.ControlWidth + pedigreeControlHorizontalMargin) * (1 << (displayedGenerations - 2));
+                yOffsetOriginCreature += controlHeightWithMargin * Math.Max(2, displayedGenerations - 1); // don't shift few generations to the top
+                yOffsetPedigreeBottom = yOffsetOriginCreature + controlHeightWithMargin;
+            }
+
             var xOffsetParents = xOffsetStart / 2;
             if (xOffsetStart < MinXPosCreature) xOffsetStart = MinXPosCreature;
-            var yOffsetGenerations = Math.Max(displayedGenerations - 1, 2); // don't shift few generations to the top
-            var yOffsetStart = 6 * Margin + (PedigreeCreatureCompact.ControlHeight + PedigreeCreation.YMarginCreatureCompact) * yOffsetGenerations;
-            var leftMargin = 2 * Margin;
-            var xLowest = PedigreeCreation.CreateOffspringParentsCompact(creature, xOffsetStart, yOffsetStart, autoScrollPosX, autoScrollPosY,
-                false, displayedGenerations, xOffsetParents, lines, pedigreeControls, int.MaxValue, true, highlightInheritanceStatIndex);
-            var moveToLeft = xLowest - leftMargin;
+            var xLowest = CreateOffspringParentsCompact(creature, xOffsetStart, yOffsetOriginCreature, autoScrollPosX, autoScrollPosY,
+                false, displayedGenerations, xOffsetParents, lines, pedigreeControls, int.MaxValue, true, highlightInheritanceStatIndex, hView);
+            var moveToLeft = xLowest - 2 * Margin;
             var maxMoveToLeft = Math.Max(0, xOffsetStart - MinXPosCreature);
             if (moveToLeft > maxMoveToLeft) moveToLeft = maxMoveToLeft;
             if (moveToLeft > 0)
                 CompactViewLeftAlign(pedigreeControls, lines, moveToLeft);
 
-            return yOffsetStart;
+            return yOffsetPedigreeBottom + 2 * Margin;
         }
 
         private static int CreateOffspringParentsCompact(Creature creature, int x, int y, int autoScrollPosX, int autoScrollPosY, bool onlyDrawParents, int generations, int xOffsetParent,
-                    List<int[]>[] lines, List<Control> pcs, int xLowest, bool highlightCreature, int highlightStatIndex, int highlightMotherLine = 0, int highlightFatherLine = 0)
+                    List<int[]>[] lines, List<Control> pcs, int xLowest, bool highlightCreature, int highlightStatIndex, bool hView, int hViewRotation = 0, int highlightMotherLine = 0, int highlightFatherLine = 0)
         {
             var (motherInheritance, fatherInheritance) =
                 CreateParentsChildCompact(creature, x, y, autoScrollPosX, autoScrollPosY, xOffsetParent,
-                    lines, pcs, onlyDrawParents, highlightCreature, highlightStatIndex, highlightMotherLine, highlightFatherLine);
+                    lines, pcs, onlyDrawParents, highlightCreature, highlightStatIndex, hView, hViewRotation, out Point locationMother, out Point locationFather, highlightMotherLine, highlightFatherLine);
 
-            var newXLowest = creature.Mother != null ? x - xOffsetParent : x;
-            if (newXLowest < xLowest) xLowest = newXLowest;
+            if (creature.Mother != null && xLowest > locationMother.X) xLowest = locationMother.X;
+            if (creature.Father != null && xLowest > locationFather.X) xLowest = locationFather.X;
 
             if (--generations < 2) return xLowest;
-            var yParents = y - PedigreeCreatureCompact.ControlHeight - YMarginCreatureCompact;
+            bool halfXOffset = !hView || (generations % 2) == 1;
             if (creature.Mother != null)
-                xLowest = CreateOffspringParentsCompact(creature.Mother, x - xOffsetParent, yParents, autoScrollPosX, autoScrollPosY,
-                    true, generations, xOffsetParent / 2, lines, pcs, xLowest, false, highlightStatIndex, motherInheritance.maternalInheritance, motherInheritance.paternalInheritance);
+            {
+                var xLowestNew = CreateOffspringParentsCompact(creature.Mother, locationMother.X, locationMother.Y, autoScrollPosX, autoScrollPosY,
+                    true, generations, halfXOffset ? xOffsetParent / 2 : xOffsetParent, lines, pcs, xLowest, false, highlightStatIndex, hView, (hViewRotation + 3) % 4, motherInheritance.maternalInheritance, motherInheritance.paternalInheritance);
+                if (xLowest > xLowestNew) xLowest = xLowestNew;
+            }
             if (creature.Father != null)
-                CreateOffspringParentsCompact(creature.Father, x + xOffsetParent, yParents, autoScrollPosX, autoScrollPosY,
-                    true, generations, xOffsetParent / 2, lines, pcs, xLowest, false, highlightStatIndex, fatherInheritance.maternalInheritance, fatherInheritance.paternalInheritance);
+            {
+                var xLowestNew = CreateOffspringParentsCompact(creature.Father, locationFather.X, locationFather.Y, autoScrollPosX, autoScrollPosY,
+                    true, generations, halfXOffset ? xOffsetParent / 2 : xOffsetParent, lines, pcs, xLowest, false, highlightStatIndex, hView, (hViewRotation + 1) % 4, fatherInheritance.maternalInheritance, fatherInheritance.paternalInheritance);
+                if (xLowest > xLowestNew) xLowest = xLowestNew;
+            }
 
             return xLowest;
         }
@@ -68,8 +93,10 @@ namespace ARKBreedingStats.Pedigree
         private static ((int maternalInheritance, int paternalInheritance) motherInheritance,
             (int maternalInheritance, int paternalInheritance) fatherInheritance)
             CreateParentsChildCompact(Creature creature, int x, int y, int autoScrollX, int autoScrollY, int xOffsetParents,
-                List<int[]>[] lines, List<Control> pcs, bool onlyDrawParents, bool highlightCreature, int highlightStatIndex, int highlightMotherLine = 0, int highlightFatherLine = 0)
+                List<int[]>[] lines, List<Control> pcs, bool onlyDrawParents, bool highlightCreature, int highlightStatIndex, bool hView, int hViewRotation, out Point locationMother, out Point locationFather, int highlightMotherLine = 0, int highlightFatherLine = 0)
         {
+            locationMother = Point.Empty;
+            locationFather = Point.Empty;
             if (creature == null) return ((0, 0), (0, 0));
 
             // scroll offset for control-locations (not for lines)
@@ -99,10 +126,12 @@ namespace ARKBreedingStats.Pedigree
             // mother
             if (creature.Mother != null)
             {
+                locationMother = hView ? RotateOffset(x, y, -xOffsetParents, 0, hViewRotation) : new Point(x - xOffsetParents, yParents);
                 var c = new PedigreeCreatureCompact(creature.Mother, highlightStatIndex: highlightMotherLine != 0 ? highlightStatIndex : -1)
                 {
-                    Location = new Point(x - xOffsetParents, yParents)
+                    Location = locationMother
                 };
+                locationMother.Offset(-autoScrollX, -autoScrollY);
                 pcs.Add(c);
                 if (highlightMotherLine != 0 && highlightStatIndex != -1)
                     statInheritanceMother = c.PossibleStatInheritance(highlightStatIndex);
@@ -110,28 +139,76 @@ namespace ARKBreedingStats.Pedigree
             // father
             if (creature.Father != null)
             {
+                locationFather = hView ? RotateOffset(x, y, xOffsetParents, 0, hViewRotation) : new Point(x + xOffsetParents, yParents);
                 var c = new PedigreeCreatureCompact(creature.Father, highlightStatIndex: highlightFatherLine != 0 ? highlightStatIndex : -1)
                 {
-                    Location = new Point(x + xOffsetParents, yParents)
+                    Location = locationFather
                 };
+                locationFather.Offset(-autoScrollX, -autoScrollY);
                 pcs.Add(c);
                 if (highlightFatherLine != 0 && highlightStatIndex != -1)
                     statInheritanceFather = c.PossibleStatInheritance(highlightStatIndex);
             }
 
             // lines
-            //  M──┬──F
-            //     O
-            var yLineHorizontal = yLine - YOffsetLineCompact;
-            var xCenterOffspring = xLine + PedigreeCreatureCompact.ControlWidth / 2;
-            lines[2].Add(new[] { xLine - xOffsetParents + PedigreeCreatureCompact.ControlWidth, yLineHorizontal, xCenterOffspring, yLineHorizontal, highlightMotherLine });
-            lines[2].Add(new[] { xLine + xOffsetParents, yLineHorizontal, xCenterOffspring, yLineHorizontal, highlightFatherLine });
-            var combinedStyle = highlightMotherLine == 2 || highlightFatherLine == 2 ? 2
-                : highlightMotherLine == 1 ? 1
-                : highlightFatherLine;
-            lines[1].Add(new[] { xCenterOffspring, yLineHorizontal, xCenterOffspring, yLine, combinedStyle });
+            if (hView)
+            {
+                //  M──O──F
+
+                // keep normal lines black to make them more visible in this mode
+                if (highlightMotherLine == 0) highlightMotherLine = 1;
+                if (highlightFatherLine == 0) highlightFatherLine = 1;
+
+                var halfControlWidth = PedigreeCreatureCompact.ControlWidth / 2 - 1;
+                var xCenter = xLine + halfControlWidth;
+                var yCenter = yLine + PedigreeCreatureCompact.ControlHeight / 2;
+
+                var start = RotateOffset(xCenter, yCenter, -xOffsetParents + halfControlWidth, 0, hViewRotation);
+                var end = RotateOffset(xCenter, yCenter, -halfControlWidth, 0, hViewRotation);
+                lines[1].Add(new[] { start.X, start.Y, end.X, end.Y, highlightMotherLine });
+
+                start = RotateOffset(xCenter, yCenter, xOffsetParents - halfControlWidth, 0, hViewRotation);
+                end = RotateOffset(xCenter, yCenter, halfControlWidth, 0, hViewRotation);
+                lines[1].Add(new[] { start.X, start.Y, end.X, end.Y, highlightFatherLine });
+            }
+            else
+            {
+                //  M──┬──F
+                //     O
+                var yLineHorizontal = yLine - YOffsetLineCompact;
+                var xCenterOffspring = xLine + PedigreeCreatureCompact.ControlWidth / 2;
+                lines[2].Add(new[]
+                {
+                    xLine - xOffsetParents + PedigreeCreatureCompact.ControlWidth, yLineHorizontal, xCenterOffspring,
+                    yLineHorizontal, highlightMotherLine
+                });
+                lines[2].Add(new[]
+                    {xLine + xOffsetParents, yLineHorizontal, xCenterOffspring, yLineHorizontal, highlightFatherLine });
+                lines[1].Add(new[] { xCenterOffspring, yLineHorizontal, xCenterOffspring, yLine, Math.Max(highlightMotherLine, highlightFatherLine) });
+            }
 
             return (statInheritanceMother, statInheritanceFather);
+        }
+
+        /// <summary>
+        /// Returns rotated offset coordinates.
+        /// </summary>
+        /// <param name="xOrigin"></param>
+        /// <param name="yOrigin"></param>
+        /// <param name="xOffset"></param>
+        /// <param name="yOffset"></param>
+        /// <param name="rotation">0: no, 1: 90 deg clockwise, 2: 180 deg, 3: 270 deg clockwise.</param>
+        private static Point RotateOffset(int xOrigin, int yOrigin, int xOffset, int yOffset, int rotation = 0)
+        {
+            switch (rotation)
+            {
+                case 0: return new Point(xOrigin + xOffset, yOrigin + yOffset);
+                case 1: return new Point(xOrigin - yOffset, yOrigin + xOffset);
+                case 2: return new Point(xOrigin - xOffset, yOrigin - yOffset);
+                case 3: return new Point(xOrigin + yOffset, yOrigin - xOffset);
+            }
+
+            throw new ArgumentException();
         }
 
         /// <summary>
@@ -160,7 +237,7 @@ namespace ARKBreedingStats.Pedigree
             const int yCenterOfCreatureParent = 79;
 
             // draw creature
-            CreateParentsChild(creature, lines, pedigreeControls, LeftBorder + pedigreeElementWidth + PedigreeCreation.Margin, 60, autoScrollPosX, autoScrollPosY, enabledColorRegions, true, true);
+            CreateParentsChild(creature, lines, pedigreeControls, LeftBorder + pedigreeElementWidth + Margin, 60, autoScrollPosX, autoScrollPosY, enabledColorRegions, true, true);
 
             // create ancestors
             if (creature.Mother != null
@@ -169,16 +246,16 @@ namespace ARKBreedingStats.Pedigree
                 lines[1].Add(new[]
                 {
                     LeftBorder + pedigreeElementWidth, yCenterOfCreatureParent,
-                    LeftBorder + pedigreeElementWidth + PedigreeCreation.Margin, yCenterOfCreatureParent, 0
+                    LeftBorder + pedigreeElementWidth + Margin, yCenterOfCreatureParent, 0
                 });
             }
             if (creature.Father != null
-                && CreateParentsChild(creature.Father, lines, pedigreeControls, LeftBorder + 2 * (pedigreeElementWidth + PedigreeCreation.Margin), 20, autoScrollPosX, autoScrollPosY, enabledColorRegions))
+                && CreateParentsChild(creature.Father, lines, pedigreeControls, LeftBorder + 2 * (pedigreeElementWidth + Margin), 20, autoScrollPosX, autoScrollPosY, enabledColorRegions))
             {
                 lines[1].Add(new[]
                 {
-                    LeftBorder + 2 * pedigreeElementWidth + 2 * PedigreeCreation.Margin, yCenterOfCreatureParent,
-                    LeftBorder + 2 * pedigreeElementWidth + PedigreeCreation.Margin, yCenterOfCreatureParent + 80, 0
+                    LeftBorder + 2 * pedigreeElementWidth + 2 * Margin, yCenterOfCreatureParent,
+                    LeftBorder + 2 * pedigreeElementWidth + Margin, yCenterOfCreatureParent + 80, 0
                 });
             }
         }

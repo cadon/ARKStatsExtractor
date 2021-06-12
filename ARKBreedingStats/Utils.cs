@@ -204,6 +204,10 @@ namespace ARKBreedingStats
         /// Color that represents a mutation marker or line, is more vibrant than the MutationColor.
         /// </summary>
         public static Color MutationMarkerColor => Color.Magenta;
+        /// <summary>
+        /// Color that represents a possible (not guaranteed) mutation marker or line.
+        /// </summary>
+        public static Color MutationMarkerPossibleColor => Color.FromArgb(204, 123, 255);
 
         /// <summary>
         /// String icon that represents a sex.

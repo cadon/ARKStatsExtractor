@@ -44,10 +44,11 @@ namespace ARKBreedingStats.Pedigree
         internal bool PedigreeNeedsUpdate;
         private readonly Debouncer _filterDebouncer = new Debouncer();
         private readonly ToolTip _tt;
-        private bool _useCompactDisplay;
+        private PedigreeViewMode _pedigreeViewMode;
         private int _compactGenerations;
         private int _displayedGenerations;
         private int _highlightInheritanceStatIndex = -1;
+        private int _yBottomOfPedigree; // used for descendents
 
         public PedigreeControl()
         {
@@ -59,8 +60,13 @@ namespace ARKBreedingStats.Pedigree
             splitContainer1.Panel2.Paint += Panel2_Paint;
             _tt = new ToolTip();
             _compactGenerations = Properties.Settings.Default.PedigreeCompactViewGenerations;
+            switch ((PedigreeViewMode)Properties.Settings.Default.PedigreeViewMode)
+            {
+                case PedigreeViewMode.Compact: RbViewCompact.Checked = true; break;
+                case PedigreeViewMode.HView: RbViewH.Checked = true; break;
+                default: RbViewClassic.Checked = true; break;
+            }
             nudGenerations.ValueSave = _compactGenerations;
-            CbCompactView.Checked = Properties.Settings.Default.PedigreeCompactView;
             statSelector1.StatIndexSelected += StatSelector1_StatIndexSelected;
         }
 
@@ -78,8 +84,7 @@ namespace ARKBreedingStats.Pedigree
             {
                 DrawLines(e.Graphics, _lines);
                 if (_creatureChildren.Any())
-                    e.Graphics.DrawString(Loc.S("Descendants"), new Font("Arial", 14), new SolidBrush(Color.Black), 50,
-                        _useCompactDisplay ? (_displayedGenerations + 2) * PedigreeCreatureCompact.ControlHeight : 170);
+                    e.Graphics.DrawString(Loc.S("Descendants"), new Font("Arial", 14), new SolidBrush(Color.Black), 50, _yBottomOfPedigree);
             }
         }
 
@@ -154,9 +159,13 @@ namespace ARKBreedingStats.Pedigree
                     {
                         case 1:
                             p.Color = Color.Black;
-                            p.Width = 3;
+                            p.Width = 1;
                             break;
                         case 2:
+                            p.Color = Color.Black;
+                            p.Width = 3;
+                            break;
+                        case 3:
                             p.Color = Utils.MutationMarkerColor;
                             p.Width = 3;
                             break;
@@ -196,11 +205,15 @@ namespace ARKBreedingStats.Pedigree
             else PedigreeNeedsUpdate = true;
         }
 
-        private void ClearControls(bool suspendLayout = true)
+        private void ClearControls(bool suspendDrawingAndLayout = true)
         {
-            // clear pedigree   
-            if (suspendLayout)
+            // clear pedigree
+            if (suspendDrawingAndLayout)
+            {
+                splitContainer1.Panel2.SuspendDrawing();
                 SuspendLayout();
+            }
+
             foreach (var pc in _pedigreeControls)
                 pc.Dispose();
             _pedigreeControls.Clear();
@@ -210,32 +223,38 @@ namespace ARKBreedingStats.Pedigree
             pictureBox.Image = null;
             pictureBox.Visible = false;
             LbCreatureName.Text = null;
-            if (suspendLayout)
+            if (suspendDrawingAndLayout)
+            {
                 ResumeLayout();
+                splitContainer1.Panel2.ResumeDrawing();
+            }
         }
 
-        private void SetViewMode(bool compact)
+        private void SetViewMode(PedigreeViewMode viewMode)
         {
-            if (_useCompactDisplay == compact) return;
+            if (_pedigreeViewMode == viewMode) return;
+            _pedigreeViewMode = viewMode;
 
-            pedigreeCreatureHeaders.Visible = !compact;
-            nudGenerations.Visible = compact;
-            LbCreatureName.Visible = compact;
-            statSelector1.Visible = compact;
+            var classicViewMode = viewMode == PedigreeViewMode.Classic;
 
-            _useCompactDisplay = compact;
-            Properties.Settings.Default.PedigreeCompactView = compact;
-            SetCompactGenerationDisplay(compact ? _compactGenerations : 0);
+            pedigreeCreatureHeaders.Visible = classicViewMode;
+            nudGenerations.Visible = !classicViewMode;
+            LbCreatureName.Visible = !classicViewMode;
+            statSelector1.Visible = !classicViewMode;
+
+            Properties.Settings.Default.PedigreeViewMode = (int)viewMode;
+            SetCompactGenerationDisplay(classicViewMode ? 0 : _compactGenerations);
         }
 
         private void SetCompactGenerationDisplay(int generations)
         {
-            pictureBox.Top = 300;
             if (generations != 0)
             {
                 _compactGenerations = generations;
                 Properties.Settings.Default.PedigreeCompactViewGenerations = _compactGenerations;
             }
+            else
+                pictureBox.Top = 300;
 
             CreatePedigree();
         }
@@ -245,47 +264,50 @@ namespace ARKBreedingStats.Pedigree
         /// </summary>
         private void CreatePedigree()
         {
-            this.SuspendDrawing();
+            splitContainer1.Panel2.SuspendDrawing();
+            SuspendLayout();
             // clear old pedigreeCreatures
-            ClearControls();
+            ClearControls(false);
             if (_selectedCreature == null)
             {
                 NoCreatureSelected();
-                this.ResumeDrawing();
+                ResumeLayout();
+                splitContainer1.Panel2.ResumeDrawing();
                 return;
             }
-            SuspendLayout();
 
             pedigreeCreatureHeaders.SetCustomStatNames(_selectedCreature.Species?.statNames);
             statSelector1.SetStatNames(_selectedCreature.Species);
 
             lbPedigreeEmpty.Visible = false;
 
-            if (_useCompactDisplay)
-            {
-                _displayedGenerations = Math.Min(_compactGenerations, _selectedCreature.generation + 1);
-                var yOffsetStart = PedigreeCreation.CreateCompactView(_selectedCreature, _lines, _pedigreeControls, _displayedGenerations, AutoScrollPosition.X, AutoScrollPosition.Y, _highlightInheritanceStatIndex);
+            // scroll offsets
+            int autoScrollPositionX = splitContainer1.Panel2.AutoScrollPosition.X;
+            int autoScrollPositionY = splitContainer1.Panel2.AutoScrollPosition.Y;
 
-                pictureBox.Top = yOffsetStart + PedigreeCreatureCompact.ControlHeight + PedigreeCreation.YMarginCreatureCompact + LbCreatureName.Height + 3 * PedigreeCreation.Margin;
-                LbCreatureName.Top = pictureBox.Top - LbCreatureName.Height;
-                LbCreatureName.Text = _selectedCreature.name;
+            if (_pedigreeViewMode == PedigreeViewMode.Classic)
+            {
+                PedigreeCreation.CreateDetailedView(_selectedCreature, _lines, _pedigreeControls, AutoScrollPosition.X, AutoScrollPosition.Y, _enabledColorRegions);
+                _yBottomOfPedigree = 170;
             }
             else
             {
-                PedigreeCreation.CreateDetailedView(_selectedCreature, _lines, _pedigreeControls, AutoScrollPosition.X, AutoScrollPosition.Y, _enabledColorRegions);
+                _displayedGenerations = Math.Min(_compactGenerations, _selectedCreature.generation + 1);
+                _yBottomOfPedigree = PedigreeCreation.CreateCompactView(_selectedCreature, _lines, _pedigreeControls, _displayedGenerations, autoScrollPositionX, autoScrollPositionY, _highlightInheritanceStatIndex, _pedigreeViewMode == PedigreeViewMode.HView);
+
+                pictureBox.Top = _yBottomOfPedigree + LbCreatureName.Height;
+                LbCreatureName.Top = pictureBox.Top - LbCreatureName.Height;
+                LbCreatureName.Text = _selectedCreature.name;
             }
 
             // create descendants
             int row = 0;
-            // scroll offsets
-            int xS = AutoScrollPosition.X;
-            int yS = AutoScrollPosition.Y;
-            var yDescendants = _useCompactDisplay ? (_displayedGenerations + 3) * PedigreeCreatureCompact.ControlHeight : 200;
+            var yDescendants = _yBottomOfPedigree + 3 * PedigreeCreation.Margin;
             foreach (Creature c in _creatureChildren)
             {
                 PedigreeCreature pc = new PedigreeCreature(c, _enabledColorRegions)
                 {
-                    Location = new Point(PedigreeCreation.LeftBorder + xS, yDescendants + 35 * row + yS)
+                    Location = new Point(PedigreeCreation.LeftBorder + autoScrollPositionX, yDescendants + 35 * row + autoScrollPositionY)
                 };
                 if (c.levelsWild != null && _selectedCreature.levelsWild != null)
                 {
@@ -320,15 +342,10 @@ namespace ARKBreedingStats.Pedigree
             pictureBox.Visible = true;
 
             ResumeLayout();
-            this.ResumeDrawing();
+            splitContainer1.Panel2.ResumeDrawing();
         }
 
         private void CreatureClicked(Creature c, int comboIndex, MouseEventArgs e)
-        {
-            SetCreature(c);
-        }
-
-        private void CreatureClicked(Creature c)
         {
             SetCreature(c);
         }
@@ -523,11 +540,6 @@ namespace ARKBreedingStats.Pedigree
             _selectedCreature?.ExportInfoGraphicToClipboard(CreatureCollection.CurrentCreatureCollection);
         }
 
-        private void CbCompactView_CheckedChanged(object sender, EventArgs e)
-        {
-            SetViewMode(CbCompactView.Checked);
-        }
-
         private void nudGenerations_ValueChanged(object sender, EventArgs e)
         {
             _filterDebouncer.Debounce(300, () => SetCompactGenerationDisplay((int)nudGenerations.Value), Dispatcher.CurrentDispatcher);
@@ -540,5 +552,34 @@ namespace ARKBreedingStats.Pedigree
             set => splitContainer1.SplitterDistance = value;
             get => splitContainer1.SplitterDistance;
         }
+
+        private void RbViewClassic_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RbViewClassic.Checked)
+                SetViewMode(PedigreeViewMode.Classic);
+        }
+
+        private void RbViewCompact_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RbViewCompact.Checked)
+                SetViewMode(PedigreeViewMode.Compact);
+        }
+
+        private void RbViewH_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RbViewH.Checked)
+                SetViewMode(PedigreeViewMode.HView);
+        }
+
+        private enum PedigreeViewMode
+        {
+            Unknown,
+            Classic,
+            Compact,
+            /// <summary>
+            /// H-shaped fractal arrangement, most compact.
+            /// </summary>
+            HView
+        };
     }
 }

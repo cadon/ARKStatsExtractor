@@ -1746,13 +1746,13 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool PedigreeCompactView {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int PedigreeViewMode {
             get {
-                return ((bool)(this["PedigreeCompactView"]));
+                return ((int)(this["PedigreeViewMode"]));
             }
             set {
-                this["PedigreeCompactView"] = value;
+                this["PedigreeViewMode"] = value;
             }
         }
         

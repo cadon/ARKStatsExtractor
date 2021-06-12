@@ -48,9 +48,11 @@ namespace ARKBreedingStats.uiControls
         public event Action RecalculateBreedingPlan;
 
         /// <summary>
-        /// If not null, a possible mutation occurred in the stat index where true;
+        /// Each byte is used as 8 bit flags.
+        /// The 4 least significant bits for mutations from the mother, the 4 most significant bits for mutations from the father.
+        /// 0: no inheritance. 1-7: number of certain mutations. 8: inheritance without mutation; 9-15: inheritance with possible mutations, get mutation count by  & 7.
         /// </summary>
-        private bool[] _possibleMutationInStat;
+        private byte[] _statInheritances;
 
         /// <summary>
         /// If not null, a possible mutation occurred in the color region index where true;
@@ -70,28 +72,27 @@ namespace ARKBreedingStats.uiControls
             MouseClick += PedigreeCreatureCompact_MouseClick;
         }
 
-        public PedigreeCreatureCompact(Creature creature, bool highlight = false, int highlightStatIndex = -1) : this()
+        public PedigreeCreatureCompact(Creature creature, bool highlight = false, int highlightStatIndex = -1, ToolTip tt = null) : this()
         {
             _creature = creature;
-            DrawData(creature, highlight, highlightStatIndex);
+            DrawData(creature, highlight, highlightStatIndex, tt);
         }
 
-        private void DrawData(Creature creature, bool highlight, int highlightStatIndex)
+        private void DrawData(Creature creature, bool highlight, int highlightStatIndex, ToolTip tt)
         {
             if (creature?.Species == null) return;
 
-            var displayedStats = Enumerable.Range(0, Values.STATS_COUNT).Where(si => si != (int)StatNames.Torpidity && creature.Species.UsesStat(si)).ToArray();
-            var anglePerStat = 360 / displayedStats.Length;
+            var usedStats = Enumerable.Range(0, Values.STATS_COUNT).Where(si => si != (int)StatNames.Torpidity && creature.Species.UsesStat(si)).ToArray();
+            var anglePerStat = 360 / usedStats.Length;
 
             const int borderWidth = 1;
 
             // used for the tooltip text
             var colors = new ArkColor[Species.ColorRegionCount];
 
-            var mutationsOccurredCount = creature.mutationsMaternalNew + creature.mutationsPaternalNew;
-            var mutationOccured = mutationsOccurredCount != 0;
-            _possibleMutationInStat = mutationOccured ? new bool[Values.STATS_COUNT] : null;
-            _mutationInColor = mutationOccured ? new bool[Species.ColorRegionCount] : null;
+            (_statInheritances, _mutationInColor) = DetermineInheritanceAndMutations(creature, usedStats);
+
+            var mutationOccurred = _mutationInColor != null;
 
             Bitmap bmp = new Bitmap(Width, Height);
             using (Graphics g = Graphics.FromImage(bmp))
@@ -104,10 +105,19 @@ namespace ARKBreedingStats.uiControls
                 var borderColor = Color.FromArgb(219, 219, 219);
                 float drawnBorderWidth = borderWidth;
                 if (highlight)
-                    borderColor = Color.CornflowerBlue;
+                {
+                    borderColor = Color.DodgerBlue;
+                    drawnBorderWidth = 1.5f;
+                }
                 else
                     Cursor = Cursors.Hand;
-                if (mutationOccured)
+
+                if (highlightStatIndex != -1)
+                {
+                    borderColor = Color.Black;
+                }
+
+                if (mutationOccurred)
                 {
                     borderColor = Utils.MutationMarkerColor;
                     drawnBorderWidth = 1.5f;
@@ -127,7 +137,7 @@ namespace ARKBreedingStats.uiControls
                 if (creature.levelsWild != null)
                 {
                     pen.Color = Color.Black;
-                    foreach (var si in displayedStats)
+                    foreach (var si in usedStats)
                     {
                         var level = creature.levelsWild[si];
 
@@ -141,36 +151,21 @@ namespace ARKBreedingStats.uiControls
                         pen.Width = highlightStatIndex == si ? 2 : 1;
                         g.DrawPie(pen, leftTop, leftTop, 2 * pieRadius, 2 * pieRadius, angle, anglePerStat);
 
+                        var mutationStatus = _statInheritances[si];
+                        const int anyMutationMask = 0b01110111;
+                        if ((mutationStatus & anyMutationMask) == 0) continue;
 
-                        if (!mutationOccured) continue;
+                        const int mutationIsNotGuaranteedMask = 0b10001000;
+                        var guaranteedMutation = (mutationStatus & mutationIsNotGuaranteedMask) == 0;
 
-                        var possibleMutationInThisStat = false;
-                        var levelMother = (creature.Mother?.levelsWild[si] ?? -1);
-                        var levelFather = (creature.Father?.levelsWild[si] ?? -1);
-                        for (int m = 1; m <= mutationsOccurredCount; m++)
-                        {
-                            if (levelMother != -1 && level == levelMother + m * BreedingPlan.LevelsAddedPerMutation
-                                || levelFather != -1 && level == levelFather + m * BreedingPlan.LevelsAddedPerMutation)
-                            {
-                                possibleMutationInThisStat = true;
-                                break;
-                            }
-                        }
-
-                        if (possibleMutationInThisStat)
-                        {
-                            const int radius = 3;
-                            var radiusPosition = centerCoord - radius - 1;
-                            var anglePosition = Math.PI * 2 / 360 * (angle + anglePerStat / 2);
-                            var x = (int)Math.Round(radiusPosition * Math.Cos(anglePosition) + radiusPosition);
-                            var y = (int)Math.Round(radiusPosition * Math.Sin(anglePosition) + radiusPosition);
-                            DrawFilledCircle(Utils.MutationMarkerColor, x, y, 2 * radius);
-                            _possibleMutationInStat[si] = true;
-                        }
+                        const int radius = 3;
+                        const int radiusPosition = centerCoord - radius - 1;
+                        var anglePosition = Math.PI * 2 / 360 * (angle + anglePerStat / 2);
+                        var x = (int)Math.Round(radiusPosition * Math.Cos(anglePosition) + radiusPosition);
+                        var y = (int)Math.Round(radiusPosition * Math.Sin(anglePosition) + radiusPosition);
+                        DrawFilledCircle(guaranteedMutation ? Utils.MutationMarkerColor : Utils.MutationMarkerPossibleColor, x, y, 2 * radius);
                     }
                 }
-
-                ClearArrayIfOnlyFalse(ref _possibleMutationInStat);
 
                 void ClearArrayIfOnlyFalse(ref bool[] arr)
                 {
@@ -196,7 +191,7 @@ namespace ARKBreedingStats.uiControls
                         new RectangleF(centerCoord - radiusInnerCircle + 1, centerCoord - radiusInnerCircle + 2, 2 * radiusInnerCircle, 2 * radiusInnerCircle),
                         format);
                     g.DrawString(creature.name, font, brush,
-                        new RectangleF(borderWidth, StatSize + borderWidth - 1, ControlWidth - borderWidth, BottomTextHeight),
+                        new RectangleF(borderWidth, StatSize + borderWidth - 2, ControlWidth - borderWidth, BottomTextHeight),
                         format);
                 }
 
@@ -214,7 +209,7 @@ namespace ARKBreedingStats.uiControls
                             (StatSize - 2 * borderWidth) / usedColorRegionCount - 2 * margin);
 
                         // only check for color mutations if the colors of both parents are available
-                        mutationOccured = mutationOccured && creature.Mother?.colors != null &&
+                        mutationOccurred = mutationOccurred && creature.Mother?.colors != null &&
                                           creature.Father?.colors != null;
 
                         i = 0;
@@ -231,7 +226,7 @@ namespace ARKBreedingStats.uiControls
                                 colorSize.Height);
 
                             var colorMutationOccurred =
-                                mutationOccured && creature.colors[ci] != creature.Mother.colors[ci]
+                                mutationOccurred && creature.colors[ci] != creature.Mother.colors[ci]
                                                 && creature.colors[ci] != creature.Father.colors[ci];
                             if (colorMutationOccurred)
                             {
@@ -281,9 +276,34 @@ namespace ARKBreedingStats.uiControls
             }
             else
             {
+                string InheritanceExplanation(int statIndex)
+                {
+                    var mutationStatus = _statInheritances[statIndex];
+                    if (mutationStatus == 0) return null;
+                    var resultMother = Mutation(true);
+                    var resultFather = Mutation(false);
+                    if (resultMother == null && resultFather == null) return null;
+
+                    return $" ({resultMother}{(resultMother != null && resultFather != null ? ", " : null)}{resultFather})";
+
+                    string Mutation(bool mother)
+                    {
+                        var status = (mutationStatus >> (!mother ? 4 : 0)) & 0xf;
+                        if (status == 0) return null;
+                        var sex = mother ? "♀" : "♂";
+                        if (status == 8) return sex;
+                        if (status > 8)
+                        {
+                            var mutationCount = status & 7;
+                            return $"{sex} with possible {mutationCount} mutation{(mutationCount > 1 ? "s" : null)}";
+                        }
+                        return $"{sex} with {status} mutation{(status > 1 ? "s" : null)}";
+                    }
+                }
+
                 if (creature.levelsWild != null)
                     toolTipText +=
-                        $"\n{string.Join("\n", displayedStats.Select(si => $"{Utils.StatName(si, true, statNames)}:\t{creature.levelsWild[si],3}{((_possibleMutationInStat?[si] ?? false) ? " (possible mutation)" : null)}"))}";
+                        $"\n{string.Join("\n", usedStats.Select(si => $"{Utils.StatName(si, true, statNames)}:\t{creature.levelsWild[si],3}{InheritanceExplanation(si)}"))}";
                 toolTipText +=
                     $"\n{Loc.S("Mutations")}: {creature.Mutations} = {creature.mutationsMaternal} (♀) + {creature.mutationsPaternal} (♂)";
                 if (creature.colors != null)
@@ -294,43 +314,147 @@ namespace ARKBreedingStats.uiControls
             _tt.SetToolTip(this, toolTipText);
         }
 
+        private static (byte[] statInheritances, bool[] mutationInColor) DetermineInheritanceAndMutations(Creature creature, int[] usedStats)
+        {
+            var mutationsOccurredCount = creature.mutationsMaternalNew + creature.mutationsPaternalNew;
+            var mutationOccurred = mutationsOccurredCount != 0;
+
+            var statInheritances = new byte[Values.STATS_COUNT];
+            var mutationInColor = mutationOccurred ? new bool[Species.ColorRegionCount] : null;
+
+            bool levelsKnownMother = creature.Mother?.levelsWild != null;
+            bool levelsKnownFather = creature.Father?.levelsWild != null;
+            if (!levelsKnownMother && !levelsKnownFather)
+                return (statInheritances, mutationInColor);
+
+            var leftMutations = mutationsOccurredCount;
+            var statIndicesWithPossibleMutations = usedStats.ToArray();
+            var statIndicesWithPossibleMutationsCount = statIndicesWithPossibleMutations.Length;
+
+            // check if some mutations are guaranteed in a specific stat
+            // this can only be done if levels of both parents are known
+            if (levelsKnownMother && levelsKnownFather)
+            {
+                bool loopAgain = true;
+                while (loopAgain)
+                {
+                    loopAgain = false;
+                    for (int i = 0; i < statIndicesWithPossibleMutationsCount; i++)
+                    {
+                        var si = statIndicesWithPossibleMutations[i];
+                        if (si == -1) continue;
+
+                        var levelMother = creature.Mother.levelsWild[si];
+                        var levelFather = creature.Father.levelsWild[si];
+
+                        var possibleMutationsMother = -1;
+                        var possibleMutationsFather = -1;
+                        for (int m = 0; m <= leftMutations; m++)
+                        {
+                            if (possibleMutationsMother == -1 && creature.levelsWild[si] == levelMother + m * BreedingPlan.LevelsAddedPerMutation)
+                                possibleMutationsMother = m;
+
+                            if (possibleMutationsFather == -1 && creature.levelsWild[si] == levelFather + m * BreedingPlan.LevelsAddedPerMutation)
+                                possibleMutationsFather = m;
+                        }
+
+                        // if only one parent can be the stat donor, a possible mutation is guaranteed
+                        if (possibleMutationsMother == -1 && possibleMutationsFather == -1)
+                        {
+                            // the level are not valid
+                            break;
+                        }
+
+                        if (possibleMutationsMother != -1 && possibleMutationsFather != -1)
+                        {
+                            // both parents are possible stat donors
+                            statInheritances[si] = (byte)(InheritanceFlag(possibleMutationsMother, true)
+                                                              | InheritanceFlag(possibleMutationsFather, false));
+                            continue;
+                        }
+
+                        if (possibleMutationsFather == -1)
+                        {
+                            // stat was inherited from mother
+                            loopAgain = possibleMutationsMother != 0;
+                            leftMutations -= possibleMutationsMother;
+                            statInheritances[si] = InheritanceFlag(possibleMutationsMother, true);
+                        }
+                        else if (possibleMutationsMother == -1)
+                        {
+                            // stat was inherited from father
+                            loopAgain = possibleMutationsFather != 0;
+                            leftMutations -= possibleMutationsFather;
+                            statInheritances[si] = InheritanceFlag(possibleMutationsFather, false);
+                        }
+                        // this stat now has a known inheritance and doesn't need to be checked again
+                        statIndicesWithPossibleMutations[i] = -1;
+                        // start loop again if possible mutation count was changed
+                        if (loopAgain) break;
+                    }
+                }
+            }
+            else
+            {
+                // one parent is not known, set flags for possible (not guaranteed) inheritance / mutations
+                for (int i = 0; i < statIndicesWithPossibleMutationsCount; i++)
+                {
+                    var si = statIndicesWithPossibleMutations[i];
+                    if (si == -1) continue;
+
+                    var levelMother = creature.Mother?.levelsWild?[si] ?? -1;
+                    var levelFather = creature.Father?.levelsWild?[si] ?? -1;
+                    var possibleMutationsMother = -1;
+                    var possibleMutationsFather = -1;
+                    for (int m = 0; m <= leftMutations; m++)
+                    {
+                        if (possibleMutationsMother == -1 && levelMother != -1 && creature.levelsWild[si] ==
+                            levelMother + m * BreedingPlan.LevelsAddedPerMutation)
+                            possibleMutationsMother = m;
+                        if (possibleMutationsFather == -1 && levelFather != -1 && creature.levelsWild[si] ==
+                            levelFather + m * BreedingPlan.LevelsAddedPerMutation)
+                            possibleMutationsFather = m;
+                    }
+                    statInheritances[si] = (byte)((possibleMutationsMother == -1 ? 0 : InheritanceFlag(possibleMutationsMother + 8, true))
+                                                | (possibleMutationsFather == -1 ? 0 : InheritanceFlag(possibleMutationsFather + 8, false)));
+                }
+            }
+
+            byte InheritanceFlag(int mutationCount, bool fromMother)
+            {
+                // 8 means no mutation but possible inheritance
+                return (byte)((mutationCount == 0 ? 8 : mutationCount) << (fromMother ? 0 : 4));
+            }
+
+            return (statInheritances, mutationInColor);
+        }
+
 
         private void PedigreeCreatureCompact_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
-                DisplayInPedigree?.Invoke(_creature);
+                CreatureClicked?.Invoke(_creature, -1, e);
         }
 
         /// <summary>
-        /// Returns 1 if stat was possibly inherited from (mother,father), 2 if it was a possible mutation.
+        /// Returns 2 if stat was possibly inherited from (mother,father), 3 if it was a possible mutation.
         /// </summary>
         public (int maternalInheritance, int paternalInheritance) PossibleStatInheritance(int statIndex)
         {
             if (statIndex == -1) return (0, 0);
 
-            bool mutationHappened = _possibleMutationInStat?[statIndex] ?? false;
+            var inheritance = _statInheritances[statIndex];
+            var motherInheritance = inheritance & 0xf;
+            var fatherInheritance = inheritance >> 4;
 
-            var motherInheritance = PossibleInheritance(_creature.levelsWild[statIndex], _creature.Mother?.levelsWild?[statIndex] ?? -1);
-            var fatherInheritance = PossibleInheritance(_creature.levelsWild[statIndex], _creature.Father?.levelsWild?[statIndex] ?? -1);
-
-            return (motherInheritance, fatherInheritance);
-
-            int PossibleInheritance(int creatureLevel, int parentLevel)
+            int InheritanceStatus(int status)
             {
-                if (parentLevel == -1 || parentLevel > creatureLevel) return 0;
-                if (creatureLevel == parentLevel) return 1;
-                if (!mutationHappened) return 0;
-                var possibleMutations = _creature.mutationsMaternalNew + _creature.mutationsPaternalNew;
-                for (int m = 1; m <= possibleMutations; m++)
-                {
-                    if (creatureLevel == parentLevel + m * BreedingPlan.LevelsAddedPerMutation)
-                    {
-                        return 2;
-                    }
-                }
-
-                return 0;
+                if (status == 0) return 0;
+                if (status == 8) return 2;
+                return 3;
             }
+
+            return (InheritanceStatus(motherInheritance), InheritanceStatus(fatherInheritance));
         }
     }
 }
