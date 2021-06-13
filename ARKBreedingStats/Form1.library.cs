@@ -419,7 +419,7 @@ namespace ARKBreedingStats
                     }
                 }
 
-                if (_topLevels.ContainsKey(species))
+                if (!_topLevels.ContainsKey(species))
                 {
                     _topLevels.Add(species, bestStat);
                 }
