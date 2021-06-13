@@ -51,6 +51,10 @@ namespace ARKBreedingStats.BreedingPlanning
         public bool BreedingPlanNeedsUpdate;
         private bool _speciesInfoNeedsUpdate;
         private readonly Debouncer _breedingPlanDebouncer = new Debouncer();
+        /// <summary>
+        /// If that is true, not all creatures of a species are considered, just a manually selected subset.
+        /// </summary>
+        private bool _onlyShowingASubset;
 
         /// <summary>
         /// Set to false if settings are changed and update should only performed after that.
@@ -171,10 +175,10 @@ namespace ARKBreedingStats.BreedingPlanning
         {
             if (CreatureCollection == null) return;
 
-            var considerSpecificSetOfCreatures = onlyConsiderTheseCreatures != null && onlyConsiderTheseCreatures.Count > 1;
+            _onlyShowingASubset = onlyConsiderTheseCreatures != null && onlyConsiderTheseCreatures.Count > 1;
 
             Species selectedSpecies = null;
-            if (considerSpecificSetOfCreatures)
+            if (_onlyShowingASubset)
                 selectedSpecies = onlyConsiderTheseCreatures[0].Species;
             if (chosenCreature != null)
                 selectedSpecies = chosenCreature.Species;
@@ -193,9 +197,9 @@ namespace ARKBreedingStats.BreedingPlanning
 
             _statWeights = StatWeighting.Weightings;
 
-            if (forceUpdate || BreedingPlanNeedsUpdate || considerSpecificSetOfCreatures)
+            if (forceUpdate || BreedingPlanNeedsUpdate || _onlyShowingASubset)
             {
-                if (considerSpecificSetOfCreatures)
+                if (_onlyShowingASubset)
                 {
                     Creatures = onlyConsiderTheseCreatures.Where(c => c.speciesBlueprint == _currentSpecies.blueprintPath
                                                                       && !c.flags.HasFlag(CreatureFlags.Neutered)
@@ -354,7 +358,9 @@ namespace ARKBreedingStats.BreedingPlanning
 
             bool displayFilterWarning = true;
 
-            lbBreedingPlanHeader.Text = _currentSpecies.DescriptiveNameAndMod + (considerChosenCreature ? " (" + string.Format(Loc.S("onlyPairingsWith"), _chosenCreature.name) + ")" : string.Empty);
+            lbBreedingPlanHeader.Text = _currentSpecies.DescriptiveNameAndMod
+                                        + (considerChosenCreature ? " (" + string.Format(Loc.S("onlyPairingsWith"), _chosenCreature.name) + ")" : string.Empty)
+                                        + (_onlyShowingASubset ? " (only subset)" : string.Empty);
             if (considerChosenCreature && (_chosenCreature.flags.HasFlag(CreatureFlags.Neutered) || _chosenCreature.Status != CreatureStatus.Available))
                 lbBreedingPlanHeader.Text += $"{Loc.S("BreedingNotPossible")} ! ({(_chosenCreature.flags.HasFlag(CreatureFlags.Neutered) ? Loc.S("Neutered") : Loc.S("notAvailable"))})";
 
@@ -577,7 +583,8 @@ namespace ARKBreedingStats.BreedingPlanning
             this.ResumeDrawing();
 
             if (considerChosenCreature) btShowAllCreatures.Text = string.Format(Loc.S("BPCancelRestrictionOn"), _chosenCreature.name);
-            btShowAllCreatures.Visible = considerChosenCreature;
+            if (_onlyShowingASubset) btShowAllCreatures.Text = string.Format(Loc.S("BPCancelRestrictionOn"), "subset");
+            btShowAllCreatures.Visible = considerChosenCreature || _onlyShowingASubset;
             ResumeLayout();
         }
 
@@ -778,8 +785,11 @@ namespace ARKBreedingStats.BreedingPlanning
 
             // display top levels in species
             int? levelStep = CreatureCollection.getWildLevelStep();
-            Creature crB = new Creature(_currentSpecies,
-                string.Format(Loc.S(bestInSpecies ? "BestPossibleSpeciesLibrary" : "BestPossibleSpeciesLibraryFiltered"), _currentSpecies.name),
+
+            var bestLevelsOfWhat = _onlyShowingASubset ? "Best of manual selection"
+                : string.Format(Loc.S(bestInSpecies ? "BestPossibleSpeciesLibrary" : "BestPossibleSpeciesLibraryFiltered"), _currentSpecies.name);
+            
+            Creature crB = new Creature(_currentSpecies, bestLevelsOfWhat,
                 null, null, 0, new int[Values.STATS_COUNT], null, 1, true, levelStep: levelStep);
             bool totalLevelUnknown = false;
             for (int s = 0; s < Values.STATS_COUNT; s++)
@@ -1131,9 +1141,15 @@ namespace ARKBreedingStats.BreedingPlanning
 
         private void btShowAllCreatures_Click(object sender, EventArgs e)
         {
-            // remove restriction on one creature
+            // remove restriction on manually selected creatures
             _chosenCreature = null;
-            CalculateBreedingScoresAndDisplayPairs();
+            if (_onlyShowingASubset)
+            {
+                BreedingPlanNeedsUpdate = true;
+                DetermineBestBreeding();
+            }
+            else
+                CalculateBreedingScoresAndDisplayPairs();
         }
 
         private void cbOwnerFilterLibrary_CheckedChanged(object sender, EventArgs e)
