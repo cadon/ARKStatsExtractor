@@ -242,6 +242,7 @@ namespace ARKBreedingStats
             this.clearMatingCooldownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.justMatedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bestBreedingPartnersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.breedingPlanForSelectedCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemStatus = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
@@ -273,6 +274,7 @@ namespace ARKBreedingStats
             this.tamingControl1 = new ARKBreedingStats.TamingControl();
             this.tabPageBreedingPlan = new System.Windows.Forms.TabPage();
             this.breedingPlan1 = new ARKBreedingStats.BreedingPlanning.BreedingPlan();
+            this.tabPageHatching = new System.Windows.Forms.TabPage();
             this.tabPageRaising = new System.Windows.Forms.TabPage();
             this.raisingControl1 = new ARKBreedingStats.raising.RaisingControl();
             this.tabPageTimer = new System.Windows.Forms.TabPage();
@@ -330,7 +332,7 @@ namespace ARKBreedingStats
             this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetLibraryColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
-            this.breedingPlanForSelectedCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hatching1 = new ARKBreedingStats.uiControls.Hatching();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -377,6 +379,7 @@ namespace ARKBreedingStats
             this.tabPagePedigree.SuspendLayout();
             this.tabPageTaming.SuspendLayout();
             this.tabPageBreedingPlan.SuspendLayout();
+            this.tabPageHatching.SuspendLayout();
             this.tabPageRaising.SuspendLayout();
             this.tabPageTimer.SuspendLayout();
             this.tabPagePlayerTribes.SuspendLayout();
@@ -1319,6 +1322,7 @@ namespace ARKBreedingStats
             this.tabControlMain.Controls.Add(this.tabPagePedigree);
             this.tabControlMain.Controls.Add(this.tabPageTaming);
             this.tabControlMain.Controls.Add(this.tabPageBreedingPlan);
+            this.tabControlMain.Controls.Add(this.tabPageHatching);
             this.tabControlMain.Controls.Add(this.tabPageRaising);
             this.tabControlMain.Controls.Add(this.tabPageTimer);
             this.tabControlMain.Controls.Add(this.tabPagePlayerTribes);
@@ -2197,7 +2201,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator14,
             this.toolStripMenuItemRemove});
             this.contextMenuStripLibrary.Name = "contextMenuStripLibrary";
-            this.contextMenuStripLibrary.Size = new System.Drawing.Size(274, 414);
+            this.contextMenuStripLibrary.Size = new System.Drawing.Size(274, 392);
             this.contextMenuStripLibrary.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripLibrary_Opening);
             // 
             // toolStripMenuItemEdit
@@ -2353,6 +2357,13 @@ namespace ARKBreedingStats
             this.bestBreedingPartnersToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
             this.bestBreedingPartnersToolStripMenuItem.Text = "Best Breeding Partners...";
             this.bestBreedingPartnersToolStripMenuItem.Click += new System.EventHandler(this.bestBreedingPartnersToolStripMenuItem_Click);
+            // 
+            // breedingPlanForSelectedCreaturesToolStripMenuItem
+            // 
+            this.breedingPlanForSelectedCreaturesToolStripMenuItem.Name = "breedingPlanForSelectedCreaturesToolStripMenuItem";
+            this.breedingPlanForSelectedCreaturesToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
+            this.breedingPlanForSelectedCreaturesToolStripMenuItem.Text = "Breeding Plan for selected Creatures…";
+            this.breedingPlanForSelectedCreaturesToolStripMenuItem.Click += new System.EventHandler(this.breedingPlanForSelectedCreaturesToolStripMenuItem_Click);
             // 
             // toolStripMenuItemStatus
             // 
@@ -2657,6 +2668,17 @@ namespace ARKBreedingStats
             this.breedingPlan1.Name = "breedingPlan1";
             this.breedingPlan1.Size = new System.Drawing.Size(1120, 743);
             this.breedingPlan1.TabIndex = 0;
+            // 
+            // tabPageHatching
+            // 
+            this.tabPageHatching.Controls.Add(this.hatching1);
+            this.tabPageHatching.Location = new System.Drawing.Point(4, 22);
+            this.tabPageHatching.Name = "tabPageHatching";
+            this.tabPageHatching.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageHatching.Size = new System.Drawing.Size(1126, 749);
+            this.tabPageHatching.TabIndex = 13;
+            this.tabPageHatching.Text = "Hatching";
+            this.tabPageHatching.UseVisualStyleBackColor = true;
             // 
             // tabPageRaising
             // 
@@ -3234,12 +3256,13 @@ namespace ARKBreedingStats
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
-            // breedingPlanForSelectedCreaturesToolStripMenuItem
+            // hatching1
             // 
-            this.breedingPlanForSelectedCreaturesToolStripMenuItem.Name = "breedingPlanForSelectedCreaturesToolStripMenuItem";
-            this.breedingPlanForSelectedCreaturesToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
-            this.breedingPlanForSelectedCreaturesToolStripMenuItem.Text = "Breeding Plan for selected Creatures…";
-            this.breedingPlanForSelectedCreaturesToolStripMenuItem.Click += new System.EventHandler(this.breedingPlanForSelectedCreaturesToolStripMenuItem_Click);
+            this.hatching1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.hatching1.Location = new System.Drawing.Point(3, 3);
+            this.hatching1.Name = "hatching1";
+            this.hatching1.Size = new System.Drawing.Size(1120, 743);
+            this.hatching1.TabIndex = 0;
             // 
             // Form1
             // 
@@ -3325,6 +3348,7 @@ namespace ARKBreedingStats
             this.tabPagePedigree.ResumeLayout(false);
             this.tabPageTaming.ResumeLayout(false);
             this.tabPageBreedingPlan.ResumeLayout(false);
+            this.tabPageHatching.ResumeLayout(false);
             this.tabPageRaising.ResumeLayout(false);
             this.tabPageTimer.ResumeLayout(false);
             this.tabPagePlayerTribes.ResumeLayout(false);
@@ -3642,5 +3666,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem addRandomCreaturesToolStripMenuItem;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.ToolStripMenuItem breedingPlanForSelectedCreaturesToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPageHatching;
+        private uiControls.Hatching hatching1;
     }
 }

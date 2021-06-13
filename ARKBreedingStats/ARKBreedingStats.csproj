@@ -100,6 +100,12 @@
     <Compile Include="uiControls\CreatureAnalysis.Designer.cs">
       <DependentUpon>CreatureAnalysis.cs</DependentUpon>
     </Compile>
+    <Compile Include="uiControls\Hatching.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uiControls\Hatching.Designer.cs">
+      <DependentUpon>Hatching.cs</DependentUpon>
+    </Compile>
     <Compile Include="uiControls\LibraryFilterTemplates.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -651,6 +657,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\CustomMessageBox.resx">
       <DependentUpon>CustomMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\Hatching.resx">
+      <DependentUpon>Hatching.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\LibraryFilterTemplates.resx">
       <DependentUpon>LibraryFilterTemplates.cs</DependentUpon>

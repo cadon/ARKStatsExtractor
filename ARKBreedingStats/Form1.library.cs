@@ -419,7 +419,7 @@ namespace ARKBreedingStats
                     }
                 }
 
-                if (!_topLevels.ContainsKey(species))
+                if (_topLevels.ContainsKey(species))
                 {
                     _topLevels.Add(species, bestStat);
                 }
@@ -535,6 +535,10 @@ namespace ARKBreedingStats
             bool considerWastedStatsForTopCreatures = Properties.Settings.Default.ConsiderWastedStatsForTopCreatures;
             foreach (Creature c in creatures)
                 c.SetTopStatCount(_considerStatHighlight, considerWastedStatsForTopCreatures);
+
+            var selectedSpecies = speciesSelector1.SelectedSpecies;
+            if (selectedSpecies != null)
+                hatching1.SetSpecies(selectedSpecies, _topLevels.TryGetValue(selectedSpecies, out var tl) ? tl : null);
         }
 
         /// <summary>
