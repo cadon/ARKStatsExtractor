@@ -2007,6 +2007,27 @@ namespace ARKBreedingStats
             tabControlMain.SelectedTab = tabPageBreedingPlan;
         }
 
+        private void breedingPlanForSelectedCreaturesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listViewLibrary.SelectedIndices.Count < 2)
+            {
+                MessageBoxes.ShowMessageBox("For a breeding plan you need to select at least 2 creatures.", "Too few creatures selected", MessageBoxIcon.Error);
+                return;
+            }
+
+            var creatures = new List<Creature>();
+            foreach (ListViewItem lvi in listViewLibrary.SelectedItems)
+            {
+                if (lvi.Tag is Creature c) creatures.Add(c);
+            }
+
+            if (!creatures.Any()) return;
+
+            speciesSelector1.SetSpecies(creatures[0].Species);
+            breedingPlan1.DetermineBestBreeding(onlyConsiderTheseCreatures: creatures);
+            tabControlMain.SelectedTab = tabPageBreedingPlan;
+        }
+
         private void toolStripButtonSettings_Click(object sender, EventArgs e)
         {
             OpenSettingsDialog();

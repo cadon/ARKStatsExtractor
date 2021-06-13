@@ -167,14 +167,17 @@ namespace ARKBreedingStats.BreedingPlanning
         /// <summary>
         /// Set species or specific creature and calculate the breeding pairs.
         /// </summary>
-        /// <param name="chosenCreature"></param>
-        /// <param name="forceUpdate"></param>
-        /// <param name="setSpecies"></param>
-        public void DetermineBestBreeding(Creature chosenCreature = null, bool forceUpdate = false, Species setSpecies = null)
+        public void DetermineBestBreeding(Creature chosenCreature = null, bool forceUpdate = false, Species setSpecies = null, List<Creature> onlyConsiderTheseCreatures = null)
         {
             if (CreatureCollection == null) return;
 
-            Species selectedSpecies = chosenCreature?.Species;
+            var considerSpecificSetOfCreatures = onlyConsiderTheseCreatures != null && onlyConsiderTheseCreatures.Count > 1;
+
+            Species selectedSpecies = null;
+            if (considerSpecificSetOfCreatures)
+                selectedSpecies = onlyConsiderTheseCreatures[0].Species;
+            if (chosenCreature != null)
+                selectedSpecies = chosenCreature.Species;
             _speciesInfoNeedsUpdate = false;
             if (selectedSpecies == null)
                 selectedSpecies = setSpecies ?? _currentSpecies;
@@ -190,20 +193,33 @@ namespace ARKBreedingStats.BreedingPlanning
 
             _statWeights = StatWeighting.Weightings;
 
-            if (forceUpdate || BreedingPlanNeedsUpdate)
-                Creatures = CreatureCollection.creatures
-                        .Where(c => c.speciesBlueprint == _currentSpecies.blueprintPath
-                                && !c.flags.HasFlag(CreatureFlags.Neutered)
-                                && !c.flags.HasFlag(CreatureFlags.Placeholder)
-                                && (c.Status == CreatureStatus.Available
-                                    || (c.Status == CreatureStatus.Cryopod && cbBPIncludeCryoCreatures.Checked))
-                                && (cbBPIncludeCooldowneds.Checked
-                                    || !(c.cooldownUntil > DateTime.Now
-                                       || c.growingUntil > DateTime.Now
-                                       )
-                                   )
-                               )
+            if (forceUpdate || BreedingPlanNeedsUpdate || considerSpecificSetOfCreatures)
+            {
+                if (considerSpecificSetOfCreatures)
+                {
+                    Creatures = onlyConsiderTheseCreatures.Where(c => c.speciesBlueprint == _currentSpecies.blueprintPath
+                                                                      && !c.flags.HasFlag(CreatureFlags.Neutered)
+                                                                      && !c.flags.HasFlag(CreatureFlags.Placeholder)
+                        )
                         .ToList();
+                }
+                else
+                {
+                    Creatures = CreatureCollection.creatures
+                        .Where(c => c.speciesBlueprint == _currentSpecies.blueprintPath
+                                    && !c.flags.HasFlag(CreatureFlags.Neutered)
+                                    && !c.flags.HasFlag(CreatureFlags.Placeholder)
+                                    && (c.Status == CreatureStatus.Available
+                                        || (c.Status == CreatureStatus.Cryopod && cbBPIncludeCryoCreatures.Checked))
+                                    && (cbBPIncludeCooldowneds.Checked
+                                        || !(c.cooldownUntil > DateTime.Now
+                                             || c.growingUntil > DateTime.Now
+                                            )
+                                    )
+                        )
+                        .ToList();
+                }
+            }
 
             _chosenCreature = chosenCreature;
             CalculateBreedingScoresAndDisplayPairs();
@@ -865,7 +881,7 @@ namespace ARKBreedingStats.BreedingPlanning
                 _pcs[i].Highlight = (i == hiliId || i == hiliId + 1);
         }
 
-        public bool[] EnabledColorRegions
+        private bool[] EnabledColorRegions
         {
             set
             {
