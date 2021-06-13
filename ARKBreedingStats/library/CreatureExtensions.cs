@@ -127,7 +127,7 @@ namespace ARKBreedingStats.library
                     g.DrawString($"{Utils.StatName(statIndex, true, creature.Species.statNames)}",
                         font, fontBrush, xStatName, y);
                     // stat level number
-                    g.DrawString($"{creature.levelsWild[statIndex]}{(showDomLevel ? " +" : string.Empty)}",
+                    g.DrawString($"{(creature.levelsWild[statIndex] < 0 ? "?" : creature.levelsWild[statIndex].ToString())}{(showDomLevel ? " +" : null)}",
                         font, fontBrush, xRightLevelValue, y, stringFormatRight);
                     // dom level number
                     if (showDomLevel)
@@ -136,13 +136,21 @@ namespace ARKBreedingStats.library
                     // stat breeding value
                     double displayedValue = showDomLevel ? creature.valuesDom[statIndex] : creature.valuesBreeding[statIndex];
                     string statValueRepresentation;
-                    if (Utils.Precision(statIndex) == 3)
+                    if (displayedValue < 0)
                     {
-                        statValueRepresentation = (100 * displayedValue).ToString("0.0");
-                        g.DrawString("%", font, fontBrush, xRightBrValue, y);
+                        statValueRepresentation = "?";
                     }
                     else
-                        statValueRepresentation = displayedValue.ToString("0.0");
+                    {
+                        if (Utils.Precision(statIndex) == 3)
+                        {
+                            statValueRepresentation = (100 * displayedValue).ToString("0.0");
+                            g.DrawString("%", font, fontBrush, xRightBrValue, y);
+                        }
+                        else
+                            statValueRepresentation = displayedValue.ToString("0.0");
+                    }
+
                     g.DrawString(statValueRepresentation, font, fontBrush, xRightBrValue, y, stringFormatRight);
                 }
 
