@@ -48,8 +48,10 @@ namespace ARKBreedingStats.Pedigree
 
             var xOffsetParents = xOffsetStart / 2;
             if (xOffsetStart < MinXPosCreature) xOffsetStart = MinXPosCreature;
+
             var xLowest = CreateOffspringParentsCompact(creature, xOffsetStart, yOffsetOriginCreature, autoScrollPosX, autoScrollPosY,
                 false, displayedGenerations, xOffsetParents, lines, pedigreeControls, tt, int.MaxValue, true, highlightInheritanceStatIndex, hView);
+
             var moveToLeft = xLowest - 2 * Margin;
             var maxMoveToLeft = Math.Max(0, xOffsetStart - MinXPosCreature);
             if (moveToLeft > maxMoveToLeft) moveToLeft = maxMoveToLeft;
@@ -62,6 +64,7 @@ namespace ARKBreedingStats.Pedigree
         private static int CreateOffspringParentsCompact(Creature creature, int x, int y, int autoScrollPosX, int autoScrollPosY, bool onlyDrawParents, int generations, int xOffsetParent,
                     List<int[]>[] lines, List<Control> pcs, ToolTip tt, int xLowest, bool highlightCreature, int highlightStatIndex, bool hView, int hViewRotation = 0, int highlightMotherLine = 0, int highlightFatherLine = 0)
         {
+            // non recursive loop with Stack object takes longer. For 7 generations and almost complete pedigree: non-recursive: ~81 ms, recursive: ~55 ms.
             var (motherInheritance, fatherInheritance) =
                 CreateParentsChildCompact(creature, x, y, autoScrollPosX, autoScrollPosY, xOffsetParent,
                     lines, pcs, tt, onlyDrawParents, highlightCreature, highlightStatIndex, hView, hViewRotation, out Point locationMother, out Point locationFather,
@@ -72,17 +75,18 @@ namespace ARKBreedingStats.Pedigree
 
             if (--generations < 2) return xLowest;
             bool halfXOffset = !hView || (generations % 2) == 1;
+            var newXOffset = halfXOffset ? xOffsetParent / 2 : xOffsetParent;
             if (creature.Mother != null)
             {
                 var xLowestNew = CreateOffspringParentsCompact(creature.Mother, locationMother.X, locationMother.Y, autoScrollPosX, autoScrollPosY,
-                    true, generations, halfXOffset ? xOffsetParent / 2 : xOffsetParent, lines, pcs, tt, xLowest, false, highlightStatIndex, hView, (hViewRotation + 3) % 4, motherInheritance.maternalInheritance, motherInheritance.paternalInheritance);
-                if (xLowest > xLowestNew) xLowest = xLowestNew;
+                    true, generations, newXOffset, lines, pcs, tt, xLowest, false, highlightStatIndex, hView, (hViewRotation + 3) % 4, motherInheritance.maternalInheritance, motherInheritance.paternalInheritance);
+                if (xLowestNew < xLowest) xLowest = xLowestNew;
             }
             if (creature.Father != null)
             {
                 var xLowestNew = CreateOffspringParentsCompact(creature.Father, locationFather.X, locationFather.Y, autoScrollPosX, autoScrollPosY,
-                    true, generations, halfXOffset ? xOffsetParent / 2 : xOffsetParent, lines, pcs, tt, xLowest, false, highlightStatIndex, hView, (hViewRotation + 1) % 4, fatherInheritance.maternalInheritance, fatherInheritance.paternalInheritance);
-                if (xLowest > xLowestNew) xLowest = xLowestNew;
+                    true, generations, newXOffset, lines, pcs, tt, xLowest, false, highlightStatIndex, hView, (hViewRotation + 1) % 4, fatherInheritance.maternalInheritance, fatherInheritance.paternalInheritance);
+                if (xLowestNew < xLowest) xLowest = xLowestNew;
             }
 
             return xLowest;
