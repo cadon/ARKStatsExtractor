@@ -92,7 +92,7 @@ namespace ARKBreedingStats.library
                 }
                 levelsWild[(int)StatNames.Torpidity] = torpidityLevel;
 
-                var sex = rand.Next(2) == 0 ? Sex.Female : Sex.Male;
+                var sex = species.noGender ? Sex.Unknown : rand.Next(2) == 0 ? Sex.Female : Sex.Male;
                 var names = sex == Sex.Female ? _namesFemale : _namesMale;
                 var name = names[rand.Next(names.Length)];
                 if (nameCounter.TryGetValue(name, out var nameCount))
@@ -150,9 +150,13 @@ namespace ARKBreedingStats.library
         /// </summary>
         private static List<Creature> BreedCreatures(Creature[] creatures, Species species, int generations, int usePairsPerGeneration, double probabilityHigherStat = 0.55, double randomMutationChance = 0.025)
         {
+            var noGender = species.noGender;
+
             var femalesMales = creatures.GroupBy(c => c.sex).ToDictionary(g => g.Key, g => g.ToList());
-            if (!femalesMales.ContainsKey(Sex.Female)
-                || !femalesMales.ContainsKey(Sex.Male))
+            if ((noGender && creatures.Length < 2)
+                || (!noGender && (
+                    !femalesMales.ContainsKey(Sex.Female)
+                    || !femalesMales.ContainsKey(Sex.Male))))
             {
                 return null;
             }
@@ -167,15 +171,25 @@ namespace ARKBreedingStats.library
             // these variables are not used but needed for the method
             var filteredOutByMutationLimit = false;
             var bestPossibleLevels = new short[Values.STATS_COUNT];
-
+            List<Creature> allCreatures = null;
             for (int gen = 0; gen < generations; gen++)
             {
-                var allCreatures = femalesMales[Sex.Female].ToList();
-                allCreatures.AddRange(femalesMales[Sex.Male]);
+                if (noGender)
+                {
+                    if (allCreatures == null)
+                        allCreatures = creatures.ToList();
+                }
+                else
+                {
+                    allCreatures = femalesMales[Sex.Female].ToList();
+                    allCreatures.AddRange(femalesMales[Sex.Male]);
+                }
+
                 BreedingScore.SetBestLevels(allCreatures, bestLevels, statWeights);
 
-                var pairs = BreedingPlanning.BreedingScore.CalculateBreedingScores(femalesMales[Sex.Female].ToArray(),
-                    femalesMales[Sex.Male].ToArray(), species, bestPossibleLevels, statWeights, bestLevels,
+                var allCreaturesArray = noGender ? allCreatures.ToArray() : null;
+                var pairs = BreedingScore.CalculateBreedingScores(noGender ? allCreaturesArray : femalesMales[Sex.Female].ToArray(),
+                    noGender ? allCreaturesArray : femalesMales[Sex.Male].ToArray(), species, bestPossibleLevels, statWeights, bestLevels,
                     BreedingPlan.BreedingMode.TopStatsConservative, false, false, 0, ref filteredOutByMutationLimit);
 
                 var pairsCount = Math.Min(usePairsPerGeneration, pairs.Count);
@@ -189,7 +203,7 @@ namespace ARKBreedingStats.library
                     var mutationPossible = mutationsMaternal < BreedingPlan.MutationPossibleWithLessThan || mutationsPaternal < BreedingPlan.MutationPossibleWithLessThan;
 
                     var name = $"F{gen + 1}.{i + 1}";
-                    var sex = rand.Next(2) == 0 ? Sex.Female : Sex.Male;
+                    var sex = noGender ? Sex.Unknown : rand.Next(2) == 0 ? Sex.Female : Sex.Male;
 
                     // stats
                     var levelsWild = new int[Values.STATS_COUNT];
@@ -277,10 +291,15 @@ namespace ARKBreedingStats.library
 
                     creature.RecalculateAncestorGenerations();
 
-                    if (creature.sex == Sex.Female)
-                        femalesMales[Sex.Female].Add(creature);
+                    if (noGender)
+                        allCreatures.Add(creature);
                     else
-                        femalesMales[Sex.Male].Add(creature);
+                    {
+                        if (creature.sex == Sex.Female)
+                            femalesMales[Sex.Female].Add(creature);
+                        else
+                            femalesMales[Sex.Male].Add(creature);
+                    }
 
                     newCreatures.Add(creature);
                 }

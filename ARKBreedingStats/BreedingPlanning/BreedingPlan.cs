@@ -193,9 +193,10 @@ namespace ARKBreedingStats.BreedingPlanning
             if (forceUpdate || BreedingPlanNeedsUpdate)
                 Creatures = CreatureCollection.creatures
                         .Where(c => c.speciesBlueprint == _currentSpecies.blueprintPath
+                                && !c.flags.HasFlag(CreatureFlags.Neutered)
+                                && !c.flags.HasFlag(CreatureFlags.Placeholder)
                                 && (c.Status == CreatureStatus.Available
                                     || (c.Status == CreatureStatus.Cryopod && cbBPIncludeCryoCreatures.Checked))
-                                && !c.flags.HasFlag(CreatureFlags.Neutered)
                                 && (cbBPIncludeCooldowneds.Checked
                                     || !(c.cooldownUntil > DateTime.Now
                                        || c.growingUntil > DateTime.Now
@@ -211,6 +212,8 @@ namespace ARKBreedingStats.BreedingPlanning
 
         private IEnumerable<Creature> FilterByTags(IEnumerable<Creature> cl)
         {
+            if (cl == null) return null;
+
             List<string> excludingTagList = tagSelectorList1.excludingTags;
             List<string> includingTagList = tagSelectorList1.includingTags;
 
@@ -264,7 +267,6 @@ namespace ARKBreedingStats.BreedingPlanning
         {
             if (_currentSpecies == null
                 || _females == null
-                || _males == null
                 )
                 return;
 
@@ -280,10 +282,10 @@ namespace ARKBreedingStats.BreedingPlanning
             bool creaturesMutationsFilteredOut = false;
             // filter by tags
             int crCountF = _females.Length;
-            int crCountM = _males.Length;
+            int crCountM = _males?.Length ?? 0;
             IEnumerable<Creature> selectFemales;
-            IEnumerable<Creature> selectMales;
-            if (considerChosenCreature && _chosenCreature.sex == Sex.Female)
+            IEnumerable<Creature> selectMales = null;
+            if (considerChosenCreature && (_chosenCreature.sex == Sex.Female || _currentSpecies.noGender))
             {
                 selectFemales = new List<Creature>(); // the specific creature is added after the filtering
             }
@@ -294,14 +296,18 @@ namespace ARKBreedingStats.BreedingPlanning
             }
             else selectFemales = FilterByTags(_females);
 
-            if (considerChosenCreature && _chosenCreature.sex == Sex.Male)
+            if (considerChosenCreature && !_currentSpecies.noGender && _chosenCreature.sex == Sex.Male)
             {
                 selectMales = new List<Creature>(); // the specific creature is added after the filtering
             }
             else if (!cbBPMutationLimitOnlyOnePartner.Checked && considerMutationLimit)
             {
-                selectMales = FilterByTags(_males.Where(c => c.Mutations <= nudBPMutationLimit.Value));
-                creaturesMutationsFilteredOut = creaturesMutationsFilteredOut || _males.Any(c => c.Mutations > nudBPMutationLimit.Value);
+                if (_males != null)
+                {
+                    selectMales = FilterByTags(_males.Where(c => c.Mutations <= nudBPMutationLimit.Value));
+                    creaturesMutationsFilteredOut = creaturesMutationsFilteredOut ||
+                                                    _males.Any(c => c.Mutations > nudBPMutationLimit.Value);
+                }
             }
             else selectMales = FilterByTags(_males);
 
@@ -309,26 +315,26 @@ namespace ARKBreedingStats.BreedingPlanning
             if (cbServerFilterLibrary.Checked && (Settings.Default.FilterHideServers?.Any() ?? false))
             {
                 selectFemales = selectFemales.Where(c => !Settings.Default.FilterHideServers.Contains(c.server));
-                selectMales = selectMales.Where(c => !Settings.Default.FilterHideServers.Contains(c.server));
+                selectMales = selectMales?.Where(c => !Settings.Default.FilterHideServers.Contains(c.server));
             }
             // filter by owner
             if (cbOwnerFilterLibrary.Checked && (Settings.Default.FilterHideOwners?.Any() ?? false))
             {
                 selectFemales = selectFemales.Where(c => !Settings.Default.FilterHideOwners.Contains(c.owner));
-                selectMales = selectMales.Where(c => !Settings.Default.FilterHideOwners.Contains(c.owner));
+                selectMales = selectMales?.Where(c => !Settings.Default.FilterHideOwners.Contains(c.owner));
             }
             // filter by tribe
             if (cbTribeFilterLibrary.Checked && (Settings.Default.FilterHideTribes?.Any() ?? false))
             {
                 selectFemales = selectFemales.Where(c => !Settings.Default.FilterHideTribes.Contains(c.tribe));
-                selectMales = selectMales.Where(c => !Settings.Default.FilterHideTribes.Contains(c.tribe));
+                selectMales = selectMales?.Where(c => !Settings.Default.FilterHideTribes.Contains(c.tribe));
             }
 
             Creature[] selectedFemales = selectFemales.ToArray();
-            Creature[] selectedMales = selectMales.ToArray();
+            Creature[] selectedMales = selectMales?.ToArray();
 
             bool creaturesTagFilteredOut = (crCountF != selectedFemales.Length)
-                                              || (crCountM != selectedMales.Length);
+                                              || (crCountM != (selectedMales?.Length ?? 0));
 
             bool displayFilterWarning = true;
 
@@ -337,7 +343,8 @@ namespace ARKBreedingStats.BreedingPlanning
                 lbBreedingPlanHeader.Text += $"{Loc.S("BreedingNotPossible")} ! ({(_chosenCreature.flags.HasFlag(CreatureFlags.Neutered) ? Loc.S("Neutered") : Loc.S("notAvailable"))})";
 
             var combinedCreatures = new List<Creature>(selectedFemales);
-            combinedCreatures.AddRange(selectedMales);
+            if (selectedMales != null)
+                combinedCreatures.AddRange(selectedMales);
 
             if (Settings.Default.IgnoreSexInBreedingPlan || _currentSpecies.noGender)
             {
@@ -713,8 +720,17 @@ namespace ARKBreedingStats.BreedingPlanning
             set
             {
                 if (value == null) return;
-                _females = value.Where(c => c.sex == Sex.Female).ToArray();
-                _males = value.Where(c => c.sex == Sex.Male).ToArray();
+
+                if (_currentSpecies.noGender)
+                {
+                    _females = value.ToArray();
+                    _males = null;
+                }
+                else
+                {
+                    _females = value.Where(c => c.sex == Sex.Female).ToArray();
+                    _males = value.Where(c => c.sex == Sex.Male).ToArray();
+                }
 
                 DetermineBestLevels(value);
             }
@@ -725,9 +741,10 @@ namespace ARKBreedingStats.BreedingPlanning
             pedigreeCreatureBestPossibleInSpecies.Clear();
             if (creatures == null)
             {
-                if (_females == null || _males == null) return;
+                if (_females == null) return;
                 creatures = _females.ToList();
-                creatures.AddRange(_males);
+                if (_males != null)
+                    creatures.AddRange(_males);
             }
 
             SetBestLevels(_bestLevels, creatures, true);
@@ -980,13 +997,17 @@ namespace ARKBreedingStats.BreedingPlanning
                 .Where(c => c.Species != null && (c.Status == CreatureStatus.Available || c.Status == CreatureStatus.Cryopod))
                 .GroupBy(c => c.Species).ToDictionary(g => g.Key, g => g.ToArray());
 
+            var ignoreSex = Properties.Settings.Default.IgnoreSexInBreedingPlan;
+
             foreach (Species s in species)
             {
                 ListViewItem lvi = new ListViewItem { Text = s.DescriptiveNameAndMod, Tag = s };
+                var ignoreSexInSpecies = ignoreSex || s.noGender;
 
                 // check if species has both available males and females
                 if (availableCreaturesBySpecies.TryGetValue(s, out var cs)
-                    && cs.Any(c => c.sex == Sex.Female) && cs.Any(c => c.sex == Sex.Male))
+                    && ((ignoreSexInSpecies && cs.Length > 1)
+                        || (cs.Any(c => c.sex == Sex.Female) && cs.Any(c => c.sex == Sex.Male))))
                 {
                     breedableSpecies.Add(lvi);
                 }
