@@ -137,19 +137,28 @@ namespace ARKBreedingStats.multiplierTesting
             get => new[] { (double)nudTaM.Value, (double)nudTmM.Value, (double)nudIdM.Value, (double)nudIwM.Value };
             set
             {
-                if (value != null && value.Length == 4)
-                {
-                    _multipliersOfSettings = value;
-                    var updateValuesKeeper = updateValues;
-                    updateValues = false;
-                    // 0:tamingadd, 1:tamingmult, 2:levelupdom, 3:levelupwild
-                    nudTaM.Value = (decimal)value[0];
-                    nudTmM.Value = (decimal)value[1];
-                    nudIdM.Value = (decimal)value[2];
-                    nudIwM.Value = (decimal)value[3];
-                    UpdateCalculations(updateValuesKeeper);
-                }
+                if (value == null || value.Length != 4) return;
+                _multipliersOfSettings = value;
+                var updateValuesKeeper = updateValues;
+                updateValues = false;
+                // 0:tamingAdd, 1:tamingMult, 2:levelupDom, 3:levelupWild
+                nudTaM.Value = (decimal)value[0];
+                nudTmM.Value = (decimal)value[1];
+                nudIdM.Value = (decimal)value[2];
+                nudIwM.Value = (decimal)value[3];
+                UpdateCalculations(updateValuesKeeper);
             }
+        }
+
+        public void SetStatMultiplierWithoutChangingInputs(double[] multipliersOfSettings)
+        {
+            if (multipliersOfSettings == null || multipliersOfSettings.Length != 4) return;
+            _multipliersOfSettings = multipliersOfSettings;
+            // 0:tamingAdd, 1:tamingMult, 2:levelupDom, 3:levelupWild
+            SetResetButtonColor(nudTaM, _multipliersOfSettings[0], btResetTaM);
+            SetResetButtonColor(nudTmM, _multipliersOfSettings[1], btResetTmM);
+            SetResetButtonColor(nudIdM, _multipliersOfSettings[2], btResetIdM);
+            SetResetButtonColor(nudIwM, _multipliersOfSettings[3], btResetIwM);
         }
 
         public void SetStatValues(double[] statValues, double?[] customOverrides, double altStatFactor, bool ignoreIncreaseDom)
@@ -613,9 +622,6 @@ namespace ARKBreedingStats.multiplierTesting
         /// <summary>
         /// If the value of the Nud is not the default value, highlight the reset button.
         /// </summary>
-        /// <param name="nud"></param>
-        /// <param name="defaultValue"></param>
-        /// <param name="resetIwM"></param>
         private void SetResetButtonColor(Nud nud, double defaultValue, Button resetButton)
         {
             resetButton.BackColor = (double)nud.Value == defaultValue ? SystemColors.Control : Color.LightSalmon;

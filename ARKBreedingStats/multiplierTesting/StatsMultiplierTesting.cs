@@ -398,7 +398,10 @@ namespace ARKBreedingStats.multiplierTesting
             if (_cc?.serverMultipliers?.statMultipliers == null) return;
 
             for (int s = 0; s < Values.STATS_COUNT; s++)
+            {
                 _cc.serverMultipliers.statMultipliers[s] = _statControls[s].StatMultipliers;
+                _statControls[s].SetStatMultiplierWithoutChangingInputs(_statControls[s].StatMultipliers);
+            }
             _cc.serverMultipliers.BabyImprintingStatScaleMultiplier = (double)nudIBM.Value;
             _cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
             _cc.serverMultipliers.AllowFlyerSpeedLeveling = CbAllowFlyerSpeedLeveling.Checked;
