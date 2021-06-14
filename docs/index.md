@@ -64,6 +64,8 @@ The following species may show wrong stat-values ingame that prevents a correct 
 ![Breeding Plan](img/breedingplan.png)
 ##### Pedigree
 ![Pedigree](img/pedigree.png)
+##### H-pedigree for inheritance tracking
+![H-Pedigree](img/H-Pedigree.png)
 ##### Taming Infos
 ![Taming Infos](img/taming.png)
 ##### Raising List
