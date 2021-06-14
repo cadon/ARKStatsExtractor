@@ -697,7 +697,7 @@ namespace ARKBreedingStats
                     breedingPlan1.SetSpecies(species);
                 }
             }
-            hatching1.SetSpecies(species, _topLevels.TryGetValue(species, out var bl) ? bl : null);
+            hatching1.SetSpecies(species, _topLevels.TryGetValue(species, out var bl) ? bl : null, _lowestLevels.TryGetValue(species, out var ll) ? ll : null);
 
             _hiddenLevelsCreatureTester = 0;
 

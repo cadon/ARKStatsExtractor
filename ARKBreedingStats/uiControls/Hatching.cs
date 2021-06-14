@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 using System.Windows.Forms;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
@@ -16,40 +17,54 @@ namespace ARKBreedingStats.uiControls
         /// Set a species to display the stats of the current top levels. This can help in determine if a new creature is good.
         /// </summary>
         /// <param name="species"></param>
-        /// <param name="topLevels"></param>
-        public void SetSpecies(Species species, int[] topLevels)
+        /// <param name="highLevels"></param>
+        public void SetSpecies(Species species, int[] highLevels, int[] lowLevels)
         {
             if (species == null)
             {
                 LbHeader.Text = "no species selected";
-                LbStatNames.Text = "";
-                LbStatValues.Text = "";
-                LbStatLevels.Text = "";
+                LbStatNames.Text = string.Empty;
+                LbStatValues.Text = string.Empty;
+                LbStatLevels.Text = string.Empty;
+                LbLowestValues.Text = string.Empty;
+                LbLowestLevels.Text = string.Empty;
                 return;
             }
 
-            if (topLevels == null) topLevels = new int[Values.STATS_COUNT];
+            if (highLevels == null) highLevels = new int[Values.STATS_COUNT];
+            if (lowLevels == null) lowLevels = new int[Values.STATS_COUNT];
 
             LbHeader.Text = $"Best stat values for bred creatures without imprinting of the species {species.DescriptiveNameAndMod} in this library.";
-            var sbNames = new StringBuilder();
-            var sbValues = new StringBuilder();
-            var sbLevels = new StringBuilder();
+            string sbNames = null;
+            string sbValues = null;
+            string sbLevels = null;
+            string sbLowestValues = null;
+            string sbLowestLevels = null;
 
             foreach (var si in Values.statsDisplayOrder)
             {
                 if (!species.UsesStat(si)) continue;
 
-                var statValue = StatValueCalculation.CalculateValue(species, si, topLevels[si], 0, true, 1, 0);
-                var statRepresentation = Utils.Precision(si) == 3 ? $"{statValue * 100:0.0} %" : $"{statValue:0.0}    ";
+                var precision = Utils.Precision(si);
+                var statValue = StatValueCalculation.CalculateValue(species, si, highLevels[si], 0, true, 1, 0);
+                var statRepresentation = precision == 3 ? $"{statValue * 100:0.0} %" : $"{statValue:0.0}    ";
 
-                sbNames.AppendLine($"{Utils.StatName(si, customStatNames: species.statNames)}:");
-                sbValues.AppendLine(statRepresentation);
-                sbLevels.AppendLine(topLevels[si].ToString());
+                sbNames += $"{Utils.StatName(si, customStatNames: species.statNames)}\n";
+                sbValues += statRepresentation + "\n";
+                sbLevels += highLevels[si] + "\n";
+
+                statValue = StatValueCalculation.CalculateValue(species, si, lowLevels[si], 0, true, 1, 0);
+                statRepresentation = precision == 3 ? $"{statValue * 100:0.0} %" : $"{statValue:0.0}    ";
+
+                sbLowestValues += statRepresentation + "\n";
+                sbLowestLevels += lowLevels[si] + "\n";
             }
 
-            LbStatNames.Text = sbNames.ToString();
-            LbStatValues.Text = sbValues.ToString();
-            LbStatLevels.Text = sbLevels.ToString();
+            LbStatNames.Text = sbNames;
+            LbStatValues.Text = sbValues;
+            LbStatLevels.Text = sbLevels;
+            LbLowestValues.Text = sbLowestValues;
+            LbLowestLevels.Text = sbLowestLevels;
         }
     }
 }
