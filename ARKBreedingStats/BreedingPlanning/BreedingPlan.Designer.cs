@@ -483,8 +483,9 @@ namespace ARKBreedingStats.BreedingPlanning
             this.flowLayoutPanel1.SetFlowBreak(this.lbBreedingPlanHeader, true);
             this.lbBreedingPlanHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbBreedingPlanHeader.Location = new System.Drawing.Point(3, 0);
+            this.lbBreedingPlanHeader.MinimumSize = new System.Drawing.Size(700, 0);
             this.lbBreedingPlanHeader.Name = "lbBreedingPlanHeader";
-            this.lbBreedingPlanHeader.Size = new System.Drawing.Size(545, 20);
+            this.lbBreedingPlanHeader.Size = new System.Drawing.Size(700, 20);
             this.lbBreedingPlanHeader.TabIndex = 1;
             this.lbBreedingPlanHeader.Text = "Select a species and click on \"Determine Best Breeding\" to see suggestions";
             this.lbBreedingPlanHeader.TextAlign = System.Drawing.ContentAlignment.TopCenter;
