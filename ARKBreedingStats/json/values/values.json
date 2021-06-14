@@ -1,5 +1,5 @@
 {
-	"version": "329.25.6842681",
+	"version": "329.45.6858852",
 	"format": "1.14-flyerspeed",
 	"species": [
 		{
@@ -21,6 +21,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -52,6 +53,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -83,6 +85,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -464,6 +467,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
@@ -547,6 +551,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
@@ -630,6 +635,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
@@ -884,6 +890,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -1470,6 +1477,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Body Main",
@@ -1654,6 +1662,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 0,
@@ -1697,6 +1706,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 0,
@@ -1772,6 +1782,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 0,
@@ -1847,6 +1858,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 0,
@@ -1922,6 +1934,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 0,
@@ -1997,6 +2010,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 0,
@@ -2072,6 +2086,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 0,
@@ -2175,6 +2190,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Body Main",
@@ -2268,6 +2284,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Body Main",
@@ -2740,6 +2757,7 @@
 			],
 			"altBaseStats": { "0": 24000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 0,
@@ -2779,6 +2797,7 @@
 			],
 			"altBaseStats": { "0": 45000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 0,
@@ -2818,6 +2837,7 @@
 			],
 			"altBaseStats": { "0": 32000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 0,
@@ -2858,6 +2878,7 @@
 			],
 			"altBaseStats": { "0": 89600 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -2891,6 +2912,7 @@
 			],
 			"altBaseStats": { "0": 134400 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -2924,6 +2946,7 @@
 			],
 			"altBaseStats": { "0": 103600 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -2955,6 +2978,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -2986,6 +3010,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -3017,6 +3042,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -3145,6 +3171,7 @@
 			],
 			"altBaseStats": { "0": 770 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -3177,6 +3204,7 @@
 			],
 			"altBaseStats": { "0": 770 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -3209,6 +3237,7 @@
 			],
 			"altBaseStats": { "0": 770 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -3241,6 +3270,7 @@
 			],
 			"altBaseStats": { "0": 770 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -3273,6 +3303,7 @@
 			],
 			"altBaseStats": { "0": 770 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -3420,6 +3451,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [],
 			"taming": {
 				"nonViolent": false,
@@ -3556,6 +3588,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"colors": [],
 			"taming": {
 				"nonViolent": false,
@@ -3983,6 +4016,7 @@
 			"altBaseStats": { "0": 200000 },
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0, 0.2, 0, 0 ],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": true,
 				"violent": false,
@@ -4126,6 +4160,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Body",
@@ -4203,6 +4238,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Head Main",
@@ -4249,6 +4285,7 @@
 			],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0, 0.2, 0, 0 ],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -4708,6 +4745,7 @@
 			],
 			"altBaseStats": { "0": 230000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": true,
 				"violent": false,
@@ -4742,6 +4780,7 @@
 			],
 			"altBaseStats": { "0": 20000 },
 			"immobilizedBy": [ "Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -4774,6 +4813,7 @@
 			],
 			"altBaseStats": { "1": 100000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -4806,6 +4846,7 @@
 			],
 			"altBaseStats": { "1": 100000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -4838,6 +4879,7 @@
 			],
 			"altBaseStats": { "1": 100000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -4870,6 +4912,7 @@
 			],
 			"altBaseStats": { "0": 100 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -4901,6 +4944,7 @@
 				null
 			],
 			"immobilizedBy": [ "Large Bear Trap" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -4985,6 +5029,7 @@
 				null
 			],
 			"immobilizedBy": [ "Large Bear Trap" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -5168,6 +5213,7 @@
 			],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
 			"immobilizedBy": [ "Bola", "Chain Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -5433,6 +5479,7 @@
 			],
 			"altBaseStats": { "0": 770 },
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -6309,6 +6356,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Main",
@@ -6517,6 +6565,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Side stars",
@@ -6671,6 +6720,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Side stars",
@@ -8634,6 +8684,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 0,
@@ -9122,6 +9173,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -9655,6 +9707,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -9686,6 +9739,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -9717,6 +9771,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -9748,6 +9803,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -9779,6 +9835,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -10838,6 +10895,7 @@
 			],
 			"altBaseStats": { "0": 300 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -11759,6 +11817,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Body Main",
@@ -12387,6 +12446,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -13257,6 +13317,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -14895,6 +14956,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -15024,6 +15086,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -16424,6 +16487,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -16518,6 +16582,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -20238,6 +20303,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Main",
@@ -20499,6 +20565,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -20671,6 +20738,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Body Main",
@@ -22087,6 +22155,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Body Main",
@@ -23056,6 +23125,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Main",
@@ -23755,6 +23825,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 17998.5601,
@@ -26948,6 +27019,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Body Main",
@@ -28916,6 +28988,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Main",
@@ -30608,6 +30681,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -31266,6 +31340,7 @@
 			],
 			"altBaseStats": { "0": 300 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -32665,6 +32740,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Body Main",
@@ -32757,6 +32833,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -36522,6 +36599,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Lower Body",
@@ -36626,6 +36704,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -40616,6 +40695,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 0,
@@ -40659,6 +40739,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 0,
@@ -40837,6 +40918,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 0,
@@ -41218,6 +41300,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -41249,6 +41332,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -41280,6 +41364,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -41311,6 +41396,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -41342,6 +41428,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -41373,6 +41460,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -41755,6 +41843,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Lower Body",
@@ -41860,6 +41949,7 @@
 			],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 16.6666667,
@@ -43065,6 +43155,7 @@
 			],
 			"altBaseStats": { "0": 300 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -46502,6 +46593,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				null,
 				{
@@ -48497,6 +48589,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 0,
@@ -48782,6 +48875,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Accents",
@@ -48982,6 +49076,7 @@
 				null
 			],
 			"immobilizedBy": [ "Large Bear Trap" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Main rubber",
@@ -50414,6 +50509,7 @@
 			],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 16.6666667,
@@ -52132,6 +52228,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -52163,6 +52260,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -52195,6 +52293,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -52321,6 +52420,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -52352,6 +52452,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -52384,6 +52485,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -52510,6 +52612,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -52541,6 +52644,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -52573,6 +52677,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -52625,6 +52730,7 @@
 			],
 			"altBaseStats": { "0": 2000 },
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -52719,6 +52825,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Accents",
@@ -52866,6 +52973,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -53246,6 +53354,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -54225,6 +54334,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "BodyHighlights",
@@ -54308,6 +54418,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -54500,6 +54611,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -56027,6 +56139,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Body",
@@ -57153,6 +57266,7 @@
 				null
 			],
 			"immobilizedBy": [ "Large Bear Trap" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -57453,6 +57567,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -57565,6 +57680,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -57717,6 +57833,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -57748,6 +57865,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Body",
@@ -57926,6 +58044,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -58657,6 +58776,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola" ],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 0,
@@ -59285,6 +59405,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Lower Body",
@@ -59488,6 +59609,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -59520,6 +59642,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -60427,6 +60550,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -60459,6 +60583,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Body Main",
@@ -60858,6 +60983,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Lower Body",
@@ -61551,6 +61677,7 @@
 				null
 			],
 			"immobilizedBy": [ "Large Bear Trap" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -61785,6 +61912,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 16.6666667,
@@ -63564,6 +63692,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Body Main",
@@ -63944,6 +64073,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Body Main",
@@ -64985,6 +65115,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				null,
 				{
@@ -65517,6 +65648,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Chain Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -67094,6 +67226,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Accents",
@@ -67446,6 +67579,7 @@
 				null
 			],
 			"immobilizedBy": [ "Large Bear Trap" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Main rubber",
@@ -68601,6 +68735,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -69634,6 +69769,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -69779,6 +69915,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -69924,6 +70061,7 @@
 				null
 			],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -70069,6 +70207,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -70967,6 +71106,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -70998,6 +71138,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Body",
@@ -71075,6 +71216,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -71973,6 +72115,7 @@
 			],
 			"altBaseStats": { "0": 100000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -72898,6 +73041,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -72929,6 +73073,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Head Main",
@@ -72975,6 +73120,7 @@
 			],
 			"altBaseStats": { "0": 50000 },
 			"immobilizedBy": [ "Large Bear Trap" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Head Main",
@@ -73447,6 +73593,7 @@
 			],
 			"altBaseStats": { "0": 50000 },
 			"immobilizedBy": [ "Large Bear Trap" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Head Main",
@@ -74788,6 +74935,7 @@
 			],
 			"altBaseStats": { "0": 770 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -74819,6 +74967,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 179985.601,
@@ -78041,6 +78190,7 @@
 			],
 			"altBaseStats": { "0": 300 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -79208,6 +79358,7 @@
 			],
 			"altBaseStats": { "0": 14000 },
 			"immobilizedBy": [ "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -79333,6 +79484,7 @@
 			],
 			"altBaseStats": { "0": 14000 },
 			"immobilizedBy": [ "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Accents",
@@ -79615,6 +79767,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -80269,6 +80422,7 @@
 			],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
 			"immobilizedBy": [ "Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Body",
@@ -80348,6 +80502,7 @@
 			],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 16.6666667,
@@ -80682,6 +80837,7 @@
 			],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
 			"immobilizedBy": [ "Bola", "Chain Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -80801,6 +80957,7 @@
 			],
 			"altBaseStats": { "0": 180000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -80834,6 +80991,7 @@
 			],
 			"altBaseStats": { "0": 240000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -80867,6 +81025,7 @@
 			],
 			"altBaseStats": { "0": 195000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -80900,6 +81059,7 @@
 			],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
 			"immobilizedBy": [ "Chain Bola" ],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 0,
@@ -81316,6 +81476,7 @@
 			],
 			"altBaseStats": { "0": 85000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -81349,6 +81510,7 @@
 			],
 			"altBaseStats": { "0": 120000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -81382,6 +81544,7 @@
 			],
 			"altBaseStats": { "0": 100000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -81592,6 +81755,7 @@
 			],
 			"altBaseStats": { "0": 8000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -81623,6 +81787,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -81655,6 +81820,7 @@
 			],
 			"altBaseStats": { "0": 25000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				null,
 				{
@@ -81708,6 +81874,7 @@
 			],
 			"altBaseStats": { "0": 180000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -81741,6 +81908,7 @@
 			],
 			"altBaseStats": { "0": 240000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -81774,6 +81942,7 @@
 			],
 			"altBaseStats": { "0": 195000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -81805,6 +81974,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -81837,6 +82007,7 @@
 			],
 			"altBaseStats": { "0": 280000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -81869,6 +82040,7 @@
 			],
 			"altBaseStats": { "0": 200000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -81902,6 +82074,7 @@
 			],
 			"altBaseStats": { "0": 85000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -81935,6 +82108,7 @@
 			],
 			"altBaseStats": { "0": 120000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -81968,6 +82142,7 @@
 			],
 			"altBaseStats": { "0": 100000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -82000,6 +82175,7 @@
 			],
 			"altBaseStats": { "0": 8000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -82031,6 +82207,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				null,
 				{
@@ -82083,6 +82260,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": true,
@@ -82145,6 +82323,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Body",
@@ -82255,6 +82434,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -82493,6 +82673,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Shell",
@@ -83055,6 +83236,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -83149,6 +83331,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -84264,6 +84447,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "BodyHighlights",
@@ -84346,6 +84530,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -85001,6 +85186,7 @@
 			],
 			"altBaseStats": { "0": 300 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Body",
@@ -85146,6 +85332,7 @@
 			],
 			"altBaseStats": { "0": 300 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -85659,6 +85846,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -85690,6 +85878,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -85720,6 +85909,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -85822,6 +86012,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -85924,6 +86115,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -86026,6 +86218,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -88866,6 +89059,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 2999.76002,
@@ -89019,6 +89213,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Body",
@@ -89163,6 +89358,7 @@
 				null
 			],
 			"immobilizedBy": [ "Large Bear Trap" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -89511,6 +89707,7 @@
 			],
 			"altBaseStats": { "0": 180000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -89544,6 +89741,7 @@
 			],
 			"altBaseStats": { "0": 240000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -89577,6 +89775,7 @@
 			],
 			"altBaseStats": { "0": 195000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -89608,6 +89807,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -89721,6 +89921,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -89832,6 +90033,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Shell",
@@ -89944,6 +90146,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -90619,6 +90822,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -91273,6 +91477,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -91305,6 +91510,7 @@
 			],
 			"altBaseStats": { "0": 280000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -91337,6 +91543,7 @@
 			],
 			"altBaseStats": { "0": 200000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -91369,6 +91576,7 @@
 			],
 			"altBaseStats": { "0": 180000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -91401,6 +91609,7 @@
 			],
 			"altBaseStats": { "0": 280000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -91433,6 +91642,7 @@
 			],
 			"altBaseStats": { "0": 200000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -91466,6 +91676,7 @@
 			],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
 			"immobilizedBy": [ "Chain Bola" ],
+			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 0,
@@ -91766,6 +91977,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": true,
@@ -92426,6 +92638,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -92456,6 +92669,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -96834,6 +97048,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -96946,6 +97161,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -97058,6 +97274,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -97170,6 +97387,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -99911,6 +100129,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -99997,6 +100216,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -100084,6 +100304,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -100171,6 +100392,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Unknown",
@@ -104252,6 +104474,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -104283,6 +104506,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -105503,6 +105727,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Body",
@@ -105602,6 +105827,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Body",
@@ -105801,6 +106027,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -105833,6 +106060,7 @@
 				null
 			],
 			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -105866,6 +106094,7 @@
 			],
 			"altBaseStats": { "0": 85000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -105899,6 +106128,7 @@
 			],
 			"altBaseStats": { "0": 120000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -105932,6 +106162,7 @@
 			],
 			"altBaseStats": { "0": 100000 },
 			"immobilizedBy": [],
+			"noGender": true,
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
@@ -105963,6 +106194,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Body",
@@ -106062,6 +106294,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				null,
 				{
@@ -106326,6 +106559,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				{
 					"name": "Body Main",
@@ -106413,6 +106647,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				null,
 				{
@@ -106465,6 +106700,7 @@
 				null
 			],
 			"immobilizedBy": [],
+			"noGender": true,
 			"colors": [
 				null,
 				{
