@@ -109,7 +109,7 @@ namespace ARKBreedingStats.values
         /// <summary>
         /// Returns the stat-index for the given order index (like it is ordered ingame).
         /// </summary>
-        public static int[] statsDisplayOrder = new int[] {
+        public static readonly int[] statsDisplayOrder = {
             (int)StatNames.Health,
             (int)StatNames.Stamina,
             (int)StatNames.Oxygen,
@@ -123,8 +123,6 @@ namespace ARKBreedingStats.values
             (int)StatNames.CraftingSpeedMultiplier,
             (int)StatNames.Torpidity
             };
-
-        public Values() { }
 
         public static Values V => _V ?? (_V = new Values());
 

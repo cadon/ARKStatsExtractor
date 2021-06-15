@@ -1323,4 +1323,10 @@ Filter for colors with c{region}: {colorValue} {colorValue2}, e.g. c0: 20, c5: 3
   <data name="copyInfoGraphicToClipboard" xml:space="preserve">
     <value>Copy info graphic to clipboard</value>
   </data>
+  <data name="Nursing Effectiveness" xml:space="preserve">
+    <value>Nursing Effectiveness</value>
+  </data>
+  <data name="Nursing Effectiveness_Abb" xml:space="preserve">
+    <value>NE</value>
+  </data>
 </root>

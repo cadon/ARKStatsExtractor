@@ -16,7 +16,6 @@ namespace ARKBreedingStats
     /// <summary>
     /// Methods for handling values files. Mainly contains methods that display MessageBoxes.
     /// </summary>
-
     public partial class Form1
     {
         /// <summary>
@@ -34,7 +33,7 @@ namespace ARKBreedingStats
             // first ensure that all mod-files are available
             CheckAvailabilityAndUpdateModFiles(modValueFileNames, Values.V);
 
-            bool modFilesLoaded = Values.V.LoadModValues(modValueFileNames, throwExceptionOnFail: true, out mods, out string resultsMessage);
+            bool modFilesLoaded = Values.V.LoadModValues(modValueFileNames, true, out mods, out string resultsMessage);
 
             if (modFilesLoaded)
             {
@@ -54,7 +53,7 @@ namespace ARKBreedingStats
         /// Check if mod files for the missing species are available.
         /// </summary>
         /// <param name="unknownSpeciesBlueprints"></param>
-        public static void CheckForMissingModFiles(CreatureCollection creatureCollection, List<string> unknownSpeciesBlueprints)
+        private static void CheckForMissingModFiles(CreatureCollection creatureCollection, List<string> unknownSpeciesBlueprints)
         {
             var (locallyAvailableModFiles, onlineAvailableModFiles, unavailableModFiles, alreadyLoadedModFilesWithoutNeededClass) = HandleUnknownMods.CheckForMissingModFiles(unknownSpeciesBlueprints, creatureCollection.ModList);
 
@@ -110,7 +109,7 @@ namespace ARKBreedingStats
             bool filesDownloaded = false;
 
             if (modValueFilesWithAvailableUpdate.Any()
-                && MessageBox.Show("For " + modValueFilesWithAvailableUpdate.Count.ToString() + " value files there is an update available. It is strongly recommended to use the updated versions.\n"
+                && MessageBox.Show("For " + modValueFilesWithAvailableUpdate.Count + " value files there is an update available. It is strongly recommended to use the updated versions.\n"
                 + "The updated files can be downloaded automatically if you want.\n"
                 + "The following files can be downloaded\n\n"
                 + string.Join("\n", modValueFilesWithAvailableUpdate)
@@ -122,7 +121,7 @@ namespace ARKBreedingStats
             }
 
             if (missingModValueFilesOnlineAvailable.Any()
-                && MessageBox.Show(missingModValueFilesOnlineAvailable.Count.ToString() + " mod-value files are not available locally. Without these files the library will not display all creatures.\n"
+                && MessageBox.Show(missingModValueFilesOnlineAvailable.Count + " mod-value files are not available locally. Without these files the library will not display all creatures.\n"
                 + "The missing files can be downloaded automatically if you want.\n"
                 + "The following files can be downloaded\n\n"
                 + string.Join("\n", missingModValueFilesOnlineAvailable)
@@ -207,7 +206,7 @@ namespace ARKBreedingStats
                     _ = Task.Run(async () => await LoadModsManifestAsync(values));
                 if (values.serverMultipliersPresets == null)
                     LoadServerMultiplierPresets(values);
-                
+
                 success = true;
             }
             catch (DirectoryNotFoundException)

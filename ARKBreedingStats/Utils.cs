@@ -4,10 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
-using System.Reflection;
-using System.Resources;
 using System.Threading.Tasks;
-using System.Web.ModelBinding;
 using System.Windows.Forms;
 using ARKBreedingStats.values;
 

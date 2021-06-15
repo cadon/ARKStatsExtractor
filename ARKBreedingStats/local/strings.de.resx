@@ -1314,4 +1314,10 @@ Filter nach Farben mit c{Region}: {FarbCode} {FarbCode2}, z.B. c0: 20, c5: 3 4 5
   <data name="copyInfoGraphicToClipboard" xml:space="preserve">
     <value>Infografik in Zwischenablage kopieren</value>
   </data>
+  <data name="Nursing Effectiveness" xml:space="preserve">
+    <value>Hege Effektivität</value>
+  </data>
+  <data name="Nursing Effectiveness_Abb" xml:space="preserve">
+    <value>HE</value>
+  </data>
 </root>
