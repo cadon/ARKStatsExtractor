@@ -44,11 +44,12 @@ namespace ARKBreedingStats.Pedigree
             this.RbViewClassic = new System.Windows.Forms.RadioButton();
             this.TextBoxFilter = new System.Windows.Forms.TextBox();
             this.ButtonClearFilter = new System.Windows.Forms.Button();
-            this.LbCreatureName = new System.Windows.Forms.Label();
             this.PbKeyExplanations = new System.Windows.Forms.PictureBox();
             this.statSelector1 = new ARKBreedingStats.uiControls.StatSelector();
+            this.LbCreatureName = new System.Windows.Forms.Label();
             this.nudGenerations = new ARKBreedingStats.uiControls.Nud();
             this.pedigreeCreatureHeaders = new ARKBreedingStats.uiControls.PedigreeCreature();
+            this.TbZoom = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.PbRegionColors)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -58,6 +59,7 @@ namespace ARKBreedingStats.Pedigree
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PbKeyExplanations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGenerations)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TbZoom)).BeginInit();
             this.SuspendLayout();
             // 
             // PbRegionColors
@@ -123,6 +125,7 @@ namespace ARKBreedingStats.Pedigree
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.AutoScroll = true;
+            this.splitContainer1.Panel2.Controls.Add(this.TbZoom);
             this.splitContainer1.Panel2.Controls.Add(this.PbKeyExplanations);
             this.splitContainer1.Panel2.Controls.Add(this.statSelector1);
             this.splitContainer1.Panel2.Controls.Add(this.LbCreatureName);
@@ -222,14 +225,6 @@ namespace ARKBreedingStats.Pedigree
             this.ButtonClearFilter.UseVisualStyleBackColor = true;
             this.ButtonClearFilter.Click += new System.EventHandler(this.ButtonClearFilter_Click);
             // 
-            // LbCreatureName
-            // 
-            this.LbCreatureName.Location = new System.Drawing.Point(394, 164);
-            this.LbCreatureName.Name = "LbCreatureName";
-            this.LbCreatureName.Size = new System.Drawing.Size(256, 13);
-            this.LbCreatureName.TabIndex = 4;
-            this.LbCreatureName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // PbKeyExplanations
             // 
             this.PbKeyExplanations.Location = new System.Drawing.Point(659, 180);
@@ -245,6 +240,14 @@ namespace ARKBreedingStats.Pedigree
             this.statSelector1.Name = "statSelector1";
             this.statSelector1.Size = new System.Drawing.Size(173, 29);
             this.statSelector1.TabIndex = 5;
+            // 
+            // LbCreatureName
+            // 
+            this.LbCreatureName.Location = new System.Drawing.Point(394, 164);
+            this.LbCreatureName.Name = "LbCreatureName";
+            this.LbCreatureName.Size = new System.Drawing.Size(256, 13);
+            this.LbCreatureName.TabIndex = 4;
+            this.LbCreatureName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // nudGenerations
             // 
@@ -285,6 +288,20 @@ namespace ARKBreedingStats.Pedigree
             this.pedigreeCreatureHeaders.TabIndex = 2;
             this.pedigreeCreatureHeaders.TotalLevelUnknown = false;
             // 
+            // TbZoom
+            // 
+            this.TbZoom.AutoSize = false;
+            this.TbZoom.Location = new System.Drawing.Point(388, 3);
+            this.TbZoom.Maximum = 30;
+            this.TbZoom.Minimum = 5;
+            this.TbZoom.Name = "TbZoom";
+            this.TbZoom.Size = new System.Drawing.Size(222, 28);
+            this.TbZoom.TabIndex = 7;
+            this.TbZoom.TickFrequency = 5;
+            this.TbZoom.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            this.TbZoom.Value = 10;
+            this.TbZoom.Scroll += new System.EventHandler(this.TbZoom_Scroll);
+            // 
             // PedigreeControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -305,6 +322,7 @@ namespace ARKBreedingStats.Pedigree
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PbKeyExplanations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGenerations)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TbZoom)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -329,5 +347,6 @@ namespace ARKBreedingStats.Pedigree
         private System.Windows.Forms.RadioButton RbViewCompact;
         private System.Windows.Forms.RadioButton RbViewClassic;
         private System.Windows.Forms.PictureBox PbKeyExplanations;
+        private System.Windows.Forms.TrackBar TbZoom;
     }
 }

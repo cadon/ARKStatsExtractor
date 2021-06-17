@@ -1802,5 +1802,17 @@ namespace ARKBreedingStats.Properties {
                 this["PedigreeListViewColumnWidths"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public float PedigreeZoomFactor {
+            get {
+                return ((float)(this["PedigreeZoomFactor"]));
+            }
+            set {
+                this["PedigreeZoomFactor"] = value;
+            }
+        }
     }
 }

@@ -67,6 +67,8 @@ namespace ARKBreedingStats.Pedigree
                 case PedigreeViewMode.HView: RbViewH.Checked = true; break;
                 default: RbViewClassic.Checked = true; break;
             }
+            TbZoom.Value = (int)(10 * Properties.Settings.Default.PedigreeZoomFactor);
+            PedigreeCreatureCompact.SetSizeFactor(Properties.Settings.Default.PedigreeZoomFactor);
             nudGenerations.ValueSave = _compactGenerations;
             statSelector1.StatIndexSelected += StatSelector1_StatIndexSelected;
         }
@@ -83,7 +85,7 @@ namespace ARKBreedingStats.Pedigree
                 splitContainer1.Panel2.AutoScrollPosition.Y);
             if (_selectedCreature != null)
             {
-                DrawLines(e.Graphics, _lines);
+                DrawLines(e.Graphics, _lines, _pedigreeViewMode == PedigreeViewMode.Classic ? 1 : PedigreeCreatureCompact.PedigreeLineWidthFactor);
                 if (_creatureChildren.Any())
                     e.Graphics.DrawString(Loc.S("Descendants"), new Font("Arial", 14), new SolidBrush(Color.Black), 50, _yBottomOfPedigree);
             }
@@ -92,9 +94,8 @@ namespace ARKBreedingStats.Pedigree
         /// <summary>
         /// Draws the lines that connect ancestors.
         /// </summary>
-        /// <param name="g"></param>
         /// <param name="lines">Array of arrow coordinates. lines[0] contains stat inheritance arrows, lines[1] parent-offspring-connections.</param>
-        internal static void DrawLines(Graphics g, List<int[]>[] lines)
+        internal static void DrawLines(Graphics g, List<int[]>[] lines, float lineWidthFactor = 1)
         {
             // lines contains all the coordinates the arrows should be drawn: x1,y1,x2,y2,red/green,mutated/equal
             using (Pen myPen = new Pen(Color.Green, 3))
@@ -133,6 +134,9 @@ namespace ARKBreedingStats.Pedigree
 
                 }
 
+                var fineLineWidth = lineWidthFactor;
+                var boldLineWidth = lineWidthFactor * 3;
+
                 // simple arrow lines. index 4 contains info about the width: 0: default, 1: bold.
                 if (lines[1] != null)
                 {
@@ -160,19 +164,19 @@ namespace ARKBreedingStats.Pedigree
                     {
                         case 1:
                             p.Color = Color.Black;
-                            p.Width = 1;
+                            p.Width = fineLineWidth;
                             break;
                         case 2:
                             p.Color = Color.Black;
-                            p.Width = 3;
+                            p.Width = boldLineWidth;
                             break;
                         case 3:
                             p.Color = Utils.MutationMarkerColor;
-                            p.Width = 3;
+                            p.Width = boldLineWidth;
                             break;
                         default:
                             p.Color = Color.DarkGray;
-                            p.Width = 1;
+                            p.Width = fineLineWidth;
                             break;
                     }
                 }
@@ -241,6 +245,7 @@ namespace ARKBreedingStats.Pedigree
 
             pedigreeCreatureHeaders.Visible = classicViewMode;
             nudGenerations.Visible = !classicViewMode;
+            TbZoom.Visible = !classicViewMode;
             LbCreatureName.Visible = !classicViewMode;
             statSelector1.Visible = !classicViewMode;
             PbKeyExplanations.Visible = !classicViewMode;
@@ -248,6 +253,8 @@ namespace ARKBreedingStats.Pedigree
             Properties.Settings.Default.PedigreeViewMode = (int)viewMode;
             SetCompactGenerationDisplay(classicViewMode ? 0 : _compactGenerations);
         }
+
+        private void SetCompactGenerationDisplayWithInput() => SetCompactGenerationDisplay((int)nudGenerations.Value);
 
         private void SetCompactGenerationDisplay(int generations)
         {
@@ -383,7 +390,7 @@ namespace ARKBreedingStats.Pedigree
 
                 // stats
                 const int padding = 4;
-                const int statCircleSize = PedigreeCreatureCompact.StatSize * 3 / 2;
+                const int statCircleSize = PedigreeCreatureCompact.DefaultStatSize * 3 / 2;
                 const int statRadius = statCircleSize / 2;
                 const int radiusInnerCircle = statRadius / 7;
                 var statLeftTopCoords = new Point(padding, padding);
@@ -714,5 +721,12 @@ namespace ARKBreedingStats.Pedigree
             /// </summary>
             HView
         };
+
+        private void TbZoom_Scroll(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.PedigreeZoomFactor = TbZoom.Value * 0.1f;
+            PedigreeCreatureCompact.SetSizeFactor(TbZoom.Value * 0.1);
+            _filterDebouncer.Debounce(300, SetCompactGenerationDisplayWithInput, Dispatcher.CurrentDispatcher);
+        }
     }
 }

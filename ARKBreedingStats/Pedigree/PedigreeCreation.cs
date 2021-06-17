@@ -12,8 +12,6 @@ namespace ARKBreedingStats.Pedigree
     /// </summary>
     public static class PedigreeCreation
     {
-        private const int YOffsetLineCompact = 30;
-        private const int YMarginCreatureCompact = 5;
         internal const int Margin = 10;
         private const int MinXPosCreature = 440;
 
@@ -22,31 +20,32 @@ namespace ARKBreedingStats.Pedigree
         internal static int CreateCompactView(Creature creature, List<int[]>[] lines, List<Control> pedigreeControls, ToolTip tt,
             int displayedGenerations, int autoScrollPosX, int autoScrollPosY, int highlightInheritanceStatIndex, bool hView)
         {
-            const int pedigreeControlHorizontalMargin = 3;
-            const int distanceInHView = 5;
-
             // y
-            var controlHeightWithMargin = hView ? PedigreeCreatureCompact.ControlWidth + distanceInHView : PedigreeCreatureCompact.ControlHeight + YMarginCreatureCompact;
+            var marginBetweenControls = PedigreeCreatureCompact.ControlWidth / 12;
+            var controlHeightWithMargin = PedigreeCreatureCompact.ControlWidth + marginBetweenControls;
             var yOffsetOriginCreature = 6 * Margin;
             int yOffsetPedigreeBottom;
             // x
             var xOffsetStart = 4 * Margin;
+            int xOffsetParents;
             if (hView)
             {
-                var pedigreeWidth = controlHeightWithMargin * ((1 << (displayedGenerations / 2 + 1)) - 1);
-                xOffsetStart += pedigreeWidth / 2;
+                var pedigreeWidthInCreatures = ((1 << (displayedGenerations / 2 + 1)) - 1);
                 var pedigreeHeightInCreatures = displayedGenerations < 5 ? 3 : (1 << ((displayedGenerations - 1) / 2 + 1)) - 1;
+                //var pedigreeWidth = PedigreeCreatureCompact.ControlWidth * pedigreeWidthInCreatures + (pedigreeWidthInCreatures - 1) * marginBetweenControls;
+                xOffsetStart += pedigreeWidthInCreatures / 2 * controlHeightWithMargin;
+                xOffsetParents = ((pedigreeWidthInCreatures + 1) / 4) * controlHeightWithMargin;
                 yOffsetPedigreeBottom = yOffsetOriginCreature + pedigreeHeightInCreatures * controlHeightWithMargin;
                 yOffsetOriginCreature += controlHeightWithMargin * (pedigreeHeightInCreatures / 2);
             }
             else
             {
-                xOffsetStart += displayedGenerations < 2 ? 0 : (PedigreeCreatureCompact.ControlWidth + pedigreeControlHorizontalMargin) * (1 << (displayedGenerations - 2));
+                xOffsetStart += displayedGenerations < 2 ? 0 : controlHeightWithMargin * (1 << (displayedGenerations - 2));
+                xOffsetParents = xOffsetStart / 2;
                 yOffsetOriginCreature += controlHeightWithMargin * Math.Max(2, displayedGenerations - 1); // don't shift few generations to the top
                 yOffsetPedigreeBottom = yOffsetOriginCreature + controlHeightWithMargin;
             }
 
-            var xOffsetParents = xOffsetStart / 2;
             if (xOffsetStart < MinXPosCreature) xOffsetStart = MinXPosCreature;
 
             var xLowest = CreateOffspringParentsCompact(creature, xOffsetStart, yOffsetOriginCreature, autoScrollPosX, autoScrollPosY,
@@ -129,7 +128,7 @@ namespace ARKBreedingStats.Pedigree
             var statInheritanceMother = (0, 0);
             var statInheritanceFather = (0, 0);
 
-            var yParents = y - PedigreeCreatureCompact.ControlHeight - YMarginCreatureCompact;
+            var yParents = y - PedigreeCreatureCompact.ControlHeight * 13 / 12;
             // mother
             if (creature.Mother != null)
             {
@@ -182,7 +181,7 @@ namespace ARKBreedingStats.Pedigree
             {
                 //  M──┬──F
                 //     O
-                var yLineHorizontal = yLine - YOffsetLineCompact;
+                var yLineHorizontal = yLine - PedigreeCreatureCompact.ControlHeight / 2;
                 var xCenterOffspring = xLine + PedigreeCreatureCompact.ControlWidth / 2;
                 lines[2].Add(new[]
                 {
