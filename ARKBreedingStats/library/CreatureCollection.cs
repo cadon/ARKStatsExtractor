@@ -234,6 +234,7 @@ namespace ARKBreedingStats.Library
                 {
                     creatureExisting.ArkId = creatureNew.ArkId;
                     creatureExisting.ArkIdImported = true;
+                    creatureExisting.ArkIdInGame = Utils.ConvertImportedArkIdToIngameVisualization(creatureNew.ArkId);
                 }
 
                 creatureExisting.colors = creatureNew.colors;

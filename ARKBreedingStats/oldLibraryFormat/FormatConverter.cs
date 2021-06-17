@@ -114,6 +114,7 @@ namespace ARKBreedingStats.oldLibraryFormat
                     tamingEff = c.tamingEff,
                     tribe = c.tribe
                 };
+                newC.InitializeArkInGame();
                 ccNew.creatures.Add(newC);
 
                 if (c.IsPlaceholder) newC.flags |= CreatureFlags.Placeholder;

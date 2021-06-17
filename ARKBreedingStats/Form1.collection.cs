@@ -535,6 +535,8 @@ namespace ARKBreedingStats
             {
                 c.InitializeFlags();
                 c.RecalculateNewMutations();
+                if (c.ArkIdImported && c.ArkIdInGame == null)
+                    c.ArkIdInGame = Utils.ConvertImportedArkIdToIngameVisualization(c.ArkId);
             }
 
             if (!keepCurrentSelections && _creatureCollection.creatures.Any())

@@ -168,6 +168,7 @@ namespace ARKBreedingStats
             float ti = statusObject.GetPropertyValue<float>("TamedIneffectivenessModifier", defaultValue: float.NaN);
             double te = 1f / (1 + (!float.IsNaN(ti) ? ti : creatureObject.GetPropertyValue<float>("TameIneffectivenessModifier")));
 
+            var arkId = creatureObject.GetDinoId();
             Creature creature = new Creature(species,
                     creatureObject.GetPropertyValue<string>("TamedName"), owner, creatureObject.GetPropertyValue<string>("TribeName"),
                     creatureObject.IsFemale() ? Sex.Female : Sex.Male,
@@ -178,9 +179,10 @@ namespace ARKBreedingStats
             )
             {
                 imprinterName = creatureObject.GetPropertyValue<string>("ImprinterName"),
-                guid = Utils.ConvertArkIdToGuid(creatureObject.GetDinoId()),
-                ArkId = creatureObject.GetDinoId(),
+                guid = Utils.ConvertArkIdToGuid(arkId),
+                ArkId = arkId,
                 ArkIdImported = true,
+                ArkIdInGame = Utils.ConvertImportedArkIdToIngameVisualization(arkId),
                 domesticatedAt = DateTime.Now, // TODO: possible to convert ingame-time to realtime?
                 addedToLibrary = DateTime.Now,
                 mutationsMaternal = creatureObject.GetPropertyValue<int>("RandomMutationsFemale"),
