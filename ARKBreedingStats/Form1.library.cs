@@ -1467,6 +1467,8 @@ namespace ARKBreedingStats
 
         private void ToolStripButtonLibraryFilterClear_Click(object sender, EventArgs e)
         {
+            if (_libraryFilterTemplates != null && !_libraryFilterTemplates.IsDisposed)
+                _libraryFilterTemplates.ControlVisibility = false;
             ToolStripTextBoxLibraryFilter.Clear();
             ToolStripTextBoxLibraryFilter.Focus();
         }
@@ -1612,6 +1614,9 @@ namespace ARKBreedingStats
         {
             if (_libraryFilterTemplates == null || _libraryFilterTemplates.IsDisposed)
             {
+                if (Properties.Settings.Default.LibraryFilterPresets == null)
+                    return;
+
                 _libraryFilterTemplates = new LibraryFilterTemplates
                 {
                     Presets = Properties.Settings.Default.LibraryFilterPresets
