@@ -31,8 +31,8 @@ namespace ARKBreedingStats
         /// <param name="atImportFileLocation"></param>
         private async Task<string> RunSavegameImport(ATImportFileLocation atImportFileLocation)
         {
-            TsbImportLastSaveGame.Enabled = false;
-            TsbImportLastSaveGame.BackColor = Color.Yellow;
+            TsbQuickSaveGameImport.Enabled = false;
+            TsbQuickSaveGameImport.BackColor = Color.Yellow;
             ToolStripStatusLabelImport.Text = $"{Loc.S("ImportingSavegame")} {atImportFileLocation.ConvenientName}";
             ToolStripStatusLabelImport.Visible = true;
 
@@ -103,9 +103,6 @@ namespace ARKBreedingStats
                 if (_creatureCollection.ModValueReloadNeeded
                     && LoadModValuesOfCollection(_creatureCollection, true, true))
                     SetCollectionChanged(true);
-
-                Properties.Settings.Default.LastImportedSaveGame = atImportFileLocation.ToString();
-                SetLastSaveFileImportTooltip(atImportFileLocation);
             }
             catch (Exception ex)
             {
@@ -122,15 +119,13 @@ namespace ARKBreedingStats
             }
             finally
             {
-                TsbImportLastSaveGame.Enabled = true;
-                TsbImportLastSaveGame.BackColor = SystemColors.Control;
+                TsbQuickSaveGameImport.Enabled = true;
+                TsbQuickSaveGameImport.BackColor = SystemColors.Control;
                 ToolStripStatusLabelImport.Visible = false;
             }
 
             return null; // no error
         }
-
-        private void SetLastSaveFileImportTooltip(ATImportFileLocation importInfo) => TsbImportLastSaveGame.ToolTipText = $"Import savegame {importInfo.ConvenientName}\n{importInfo.FileLocation}";
 
         private async Task<string> CopyFtpFileAsync(Uri ftpUri, string serverName, string workingCopyFolder)
         {
@@ -297,34 +292,54 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Import the last imported save game.
+        /// Quick import of selected save games.
         /// </summary>
-        private async void TsbImportLastSaveGame_Click(object sender, EventArgs e)
+        private async void TsbQuickSaveGameImport_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(Properties.Settings.Default.LastImportedSaveGame))
+            var saveImports = Properties.Settings.Default.arkSavegamePaths;
+            if (saveImports?.Any() != true)
             {
-                MessageBoxes.ShowMessageBox(
-                "First import a savegame via the menu. After that you can import the last imported file with this button.",
-                    "First import a save file manually", MessageBoxIcon.Information);
+                if (MessageBox.Show(
+                    "No save game files are configured for importing.\nYou can do this in the settings. Do you want to open the according settings-page?",
+                    $"Save import not configured - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                    OpenSettingsDialog(Settings.SettingsTabPages.SaveImport);
                 return;
             }
 
-            var importFile = ATImportFileLocation.CreateFromString(Properties.Settings.Default.LastImportedSaveGame);
+            var importLocations = Properties.Settings.Default.arkSavegamePaths
+                .Select(ATImportFileLocation.CreateFromString).Where(i => i.ImportWithQuickImport).ToArray();
 
-            if (string.IsNullOrEmpty(importFile.FileLocation)
-                || (!(Uri.TryCreate(importFile.FileLocation, UriKind.Absolute, out var uri) && uri.Scheme == "ftp")
-                    && !File.Exists(importFile.FileLocation)
-                ))
+            if (!importLocations.Any())
             {
-                MessageBoxes.ShowMessageBox(
-                    $"The file that was imported last time does not exist anymore:\n{importFile.FileLocation}\nImport the file you want to import at least once via the menu. After that you can import the last imported file with this button.",
-                    "File not existing");
+                if (MessageBox.Show(
+                    "No save game files for the quick import are selected.\nYou can do this in the settings. Do you want to open the according settings-page?",
+                    $"Quick import not configured - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                    OpenSettingsDialog(Settings.SettingsTabPages.SaveImport);
                 return;
             }
 
-            var error = await RunSavegameImport(importFile);
-            if (error == null) return;
-            MessageBoxes.ShowMessageBox(error, "Savegame import error");
+            var results = new List<string>();
+
+            foreach (var importFile in importLocations)
+            {
+                if (string.IsNullOrEmpty(importFile.FileLocation)
+                    || (!(Uri.TryCreate(importFile.FileLocation, UriKind.Absolute, out var uri) && uri.Scheme == "ftp")
+                        && !File.Exists(importFile.FileLocation)
+                    ))
+                {
+                    results.Add($"{importFile.ConvenientName}: Error: the file does not exist:\n{importFile.FileLocation}");
+                    continue;
+                }
+
+                var error = await RunSavegameImport(importFile);
+
+                results.Add(error == null
+                        ? $"{importFile.ConvenientName}: Successfully imported."
+                        : $"{importFile.ConvenientName}: Error during import:\n{error}"
+                    );
+            }
+
+            MessageBoxes.ShowMessageBox(string.Join("\n\n--------\n\n", results), "Save game import done", MessageBoxIcon.Information);
         }
     }
 }

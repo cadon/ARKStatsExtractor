@@ -350,11 +350,6 @@ namespace ARKBreedingStats
             extractionTestControl1.CopyToExtractor += ExtractionTestControl1_CopyToExtractor;
             extractionTestControl1.CopyToTester += ExtractionTestControl1_CopyToTester;
 
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.LastImportedSaveGame))
-            {
-                SetLastSaveFileImportTooltip(ATImportFileLocation.CreateFromString(Properties.Settings.Default.LastImportedSaveGame));
-            }
-
             // dev tabs
             if (!Properties.Settings.Default.DevTools)
             {
@@ -839,14 +834,16 @@ namespace ARKBreedingStats
             tsmif.Click += ImportAllCreaturesInSelectedFolder;
             importExportedCreaturesToolStripMenuItem.DropDownItems.Add(tsmif);
 
-            // savegame importer menu
+            // save game importer menu
             importingFromSavegameToolStripMenuItem.DropDownItems.Clear();
             if (Properties.Settings.Default.arkSavegamePaths?.Any() != true)
             {
                 importingFromSavegameToolStripMenuItem.DropDownItems.Add(importingFromSavegameEmptyToolStripMenuItem);
+                TsbQuickSaveGameImport.ToolTipText = "No quick import save files configured,\nyou can do this in the settings.";
             }
             else
             {
+                var quickImportInfo = new List<string>();
                 foreach (string f in Properties.Settings.Default.arkSavegamePaths)
                 {
                     ATImportFileLocation atImportFileLocation = ATImportFileLocation.CreateFromString(f);
@@ -861,7 +858,13 @@ namespace ARKBreedingStats
                     };
                     tsmi.Click += SavegameImportClick;
                     importingFromSavegameToolStripMenuItem.DropDownItems.Add(tsmi);
+                    if (atImportFileLocation.ImportWithQuickImport)
+                        quickImportInfo.Add($"{atImportFileLocation.ConvenientName} ({atImportFileLocation.FileLocation})");
                 }
+
+                TsbQuickSaveGameImport.ToolTipText = quickImportInfo.Any()
+                    ? "Quick save game import. The following save files will be imported:\n\n" + string.Join("\n", quickImportInfo)
+                    : "No quick import save files configured,\nyou can do this in the settings.";
             }
         }
 

@@ -133,6 +133,7 @@
             this.GbImgCacheLocalAppData = new System.Windows.Forms.GroupBox();
             this.CbImgCacheUseLocalAppData = new System.Windows.Forms.CheckBox();
             this.groupBox28 = new System.Windows.Forms.GroupBox();
+            this.CbInfoGraphicAddRegionNames = new System.Windows.Forms.CheckBox();
             this.CbInfoGraphicCreatureName = new System.Windows.Forms.CheckBox();
             this.CbInfoGraphicMutations = new System.Windows.Forms.CheckBox();
             this.CbInfoGraphicGenerations = new System.Windows.Forms.CheckBox();
@@ -180,15 +181,10 @@
             this.label_Filter = new System.Windows.Forms.Label();
             this.cbImportUpdateCreatureStatus = new System.Windows.Forms.CheckBox();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
-            this.labelSavegameFileLocationHint = new System.Windows.Forms.Label();
             this.dataGridView_FileLocations = new System.Windows.Forms.DataGridView();
-            this.convenientNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.serverNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fileLocationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvFileLocation_Change = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.dgvFileLocation_Delete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.aTImportFileLocationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btAddSavegameFileLocation = new System.Windows.Forms.Button();
+            this.labelSavegameFileLocationHint = new System.Windows.Forms.Label();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.fileSelectorExtractedSaveFolder = new ARKBreedingStats.uiControls.FileSelector();
             this.label24 = new System.Windows.Forms.Label();
@@ -291,7 +287,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.CbInfoGraphicAddRegionNames = new System.Windows.Forms.CheckBox();
+            this.convenientNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.serverNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fileLocationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvFileLocation_Change = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.ImportWithQuickImport = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dgvFileLocation_Delete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmountEvent)).BeginInit();
@@ -1826,6 +1827,16 @@
             this.groupBox28.TabStop = false;
             this.groupBox28.Text = "Infographic";
             // 
+            // CbInfoGraphicAddRegionNames
+            // 
+            this.CbInfoGraphicAddRegionNames.AutoSize = true;
+            this.CbInfoGraphicAddRegionNames.Location = new System.Drawing.Point(200, 33);
+            this.CbInfoGraphicAddRegionNames.Name = "CbInfoGraphicAddRegionNames";
+            this.CbInfoGraphicAddRegionNames.Size = new System.Drawing.Size(60, 17);
+            this.CbInfoGraphicAddRegionNames.TabIndex = 13;
+            this.CbInfoGraphicAddRegionNames.Text = "regions";
+            this.CbInfoGraphicAddRegionNames.UseVisualStyleBackColor = true;
+            // 
             // CbInfoGraphicCreatureName
             // 
             this.CbInfoGraphicCreatureName.AutoSize = true;
@@ -2318,9 +2329,9 @@
             // 
             // groupBox15
             // 
-            this.groupBox15.Controls.Add(this.labelSavegameFileLocationHint);
             this.groupBox15.Controls.Add(this.dataGridView_FileLocations);
             this.groupBox15.Controls.Add(this.btAddSavegameFileLocation);
+            this.groupBox15.Controls.Add(this.labelSavegameFileLocationHint);
             this.groupBox15.Location = new System.Drawing.Point(6, 278);
             this.groupBox15.Name = "groupBox15";
             this.groupBox15.Size = new System.Drawing.Size(730, 386);
@@ -2328,18 +2339,10 @@
             this.groupBox15.TabStop = false;
             this.groupBox15.Text = "ARK save-game files";
             // 
-            // labelSavegameFileLocationHint
-            // 
-            this.labelSavegameFileLocationHint.AutoSize = true;
-            this.labelSavegameFileLocationHint.Location = new System.Drawing.Point(6, 16);
-            this.labelSavegameFileLocationHint.Name = "labelSavegameFileLocationHint";
-            this.labelSavegameFileLocationHint.Size = new System.Drawing.Size(595, 13);
-            this.labelSavegameFileLocationHint.TabIndex = 0;
-            this.labelSavegameFileLocationHint.Text = "Location example for The Island: ...\\Steam\\steamapps\\common\\ARK\\ShooterGame\\Saved" +
-    "\\SavedArksLocal\\TheIsland.ark";
-            // 
             // dataGridView_FileLocations
             // 
+            this.dataGridView_FileLocations.AllowUserToAddRows = false;
+            this.dataGridView_FileLocations.AllowUserToDeleteRows = false;
             this.dataGridView_FileLocations.AutoGenerateColumns = false;
             this.dataGridView_FileLocations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_FileLocations.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -2347,60 +2350,17 @@
             this.serverNameDataGridViewTextBoxColumn,
             this.fileLocationDataGridViewTextBoxColumn,
             this.dgvFileLocation_Change,
+            this.ImportWithQuickImport,
             this.dgvFileLocation_Delete});
             this.dataGridView_FileLocations.DataSource = this.aTImportFileLocationBindingSource;
-            this.dataGridView_FileLocations.Location = new System.Drawing.Point(3, 61);
+            this.dataGridView_FileLocations.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView_FileLocations.Location = new System.Drawing.Point(3, 62);
+            this.dataGridView_FileLocations.MultiSelect = false;
             this.dataGridView_FileLocations.Name = "dataGridView_FileLocations";
             this.dataGridView_FileLocations.RowHeadersVisible = false;
-            this.dataGridView_FileLocations.Size = new System.Drawing.Size(718, 319);
+            this.dataGridView_FileLocations.Size = new System.Drawing.Size(724, 321);
             this.dataGridView_FileLocations.TabIndex = 2;
             this.dataGridView_FileLocations.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_FileLocations_CellClick);
-            // 
-            // convenientNameDataGridViewTextBoxColumn
-            // 
-            this.convenientNameDataGridViewTextBoxColumn.DataPropertyName = "ConvenientName";
-            this.convenientNameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.convenientNameDataGridViewTextBoxColumn.Name = "convenientNameDataGridViewTextBoxColumn";
-            this.convenientNameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // serverNameDataGridViewTextBoxColumn
-            // 
-            this.serverNameDataGridViewTextBoxColumn.DataPropertyName = "ServerName";
-            this.serverNameDataGridViewTextBoxColumn.HeaderText = "Server name";
-            this.serverNameDataGridViewTextBoxColumn.Name = "serverNameDataGridViewTextBoxColumn";
-            this.serverNameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // fileLocationDataGridViewTextBoxColumn
-            // 
-            this.fileLocationDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.fileLocationDataGridViewTextBoxColumn.DataPropertyName = "FileLocation";
-            this.fileLocationDataGridViewTextBoxColumn.HeaderText = "File location";
-            this.fileLocationDataGridViewTextBoxColumn.Name = "fileLocationDataGridViewTextBoxColumn";
-            this.fileLocationDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dgvFileLocation_Change
-            // 
-            this.dgvFileLocation_Change.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dgvFileLocation_Change.HeaderText = "Change";
-            this.dgvFileLocation_Change.MinimumWidth = 50;
-            this.dgvFileLocation_Change.Name = "dgvFileLocation_Change";
-            this.dgvFileLocation_Change.ReadOnly = true;
-            this.dgvFileLocation_Change.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvFileLocation_Change.Text = "Change";
-            this.dgvFileLocation_Change.UseColumnTextForButtonValue = true;
-            this.dgvFileLocation_Change.Width = 50;
-            // 
-            // dgvFileLocation_Delete
-            // 
-            this.dgvFileLocation_Delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dgvFileLocation_Delete.HeaderText = "Delete";
-            this.dgvFileLocation_Delete.MinimumWidth = 50;
-            this.dgvFileLocation_Delete.Name = "dgvFileLocation_Delete";
-            this.dgvFileLocation_Delete.ReadOnly = true;
-            this.dgvFileLocation_Delete.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvFileLocation_Delete.Text = "Delete";
-            this.dgvFileLocation_Delete.UseColumnTextForButtonValue = true;
-            this.dgvFileLocation_Delete.Width = 50;
             // 
             // aTImportFileLocationBindingSource
             // 
@@ -2409,13 +2369,26 @@
             // 
             // btAddSavegameFileLocation
             // 
-            this.btAddSavegameFileLocation.Location = new System.Drawing.Point(3, 32);
+            this.btAddSavegameFileLocation.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btAddSavegameFileLocation.Location = new System.Drawing.Point(3, 39);
             this.btAddSavegameFileLocation.Name = "btAddSavegameFileLocation";
-            this.btAddSavegameFileLocation.Size = new System.Drawing.Size(718, 23);
+            this.btAddSavegameFileLocation.Size = new System.Drawing.Size(724, 23);
             this.btAddSavegameFileLocation.TabIndex = 1;
             this.btAddSavegameFileLocation.Text = "Add Savegame File Location";
             this.btAddSavegameFileLocation.UseVisualStyleBackColor = true;
             this.btAddSavegameFileLocation.Click += new System.EventHandler(this.btAddSavegameFileLocation_Click);
+            // 
+            // labelSavegameFileLocationHint
+            // 
+            this.labelSavegameFileLocationHint.AutoSize = true;
+            this.labelSavegameFileLocationHint.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelSavegameFileLocationHint.Location = new System.Drawing.Point(3, 16);
+            this.labelSavegameFileLocationHint.Name = "labelSavegameFileLocationHint";
+            this.labelSavegameFileLocationHint.Padding = new System.Windows.Forms.Padding(5);
+            this.labelSavegameFileLocationHint.Size = new System.Drawing.Size(605, 23);
+            this.labelSavegameFileLocationHint.TabIndex = 0;
+            this.labelSavegameFileLocationHint.Text = "Location example for The Island: ...\\Steam\\steamapps\\common\\ARK\\ShooterGame\\Saved" +
+    "\\SavedArksLocal\\TheIsland.ark";
             // 
             // groupBox14
             // 
@@ -3029,7 +3002,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3037,7 +3010,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3045,7 +3018,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3053,7 +3026,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -3545,15 +3518,61 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // CbInfoGraphicAddRegionNames
+            // convenientNameDataGridViewTextBoxColumn
             // 
-            this.CbInfoGraphicAddRegionNames.AutoSize = true;
-            this.CbInfoGraphicAddRegionNames.Location = new System.Drawing.Point(200, 33);
-            this.CbInfoGraphicAddRegionNames.Name = "CbInfoGraphicAddRegionNames";
-            this.CbInfoGraphicAddRegionNames.Size = new System.Drawing.Size(60, 17);
-            this.CbInfoGraphicAddRegionNames.TabIndex = 13;
-            this.CbInfoGraphicAddRegionNames.Text = "regions";
-            this.CbInfoGraphicAddRegionNames.UseVisualStyleBackColor = true;
+            this.convenientNameDataGridViewTextBoxColumn.DataPropertyName = "ConvenientName";
+            this.convenientNameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.convenientNameDataGridViewTextBoxColumn.Name = "convenientNameDataGridViewTextBoxColumn";
+            this.convenientNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // serverNameDataGridViewTextBoxColumn
+            // 
+            this.serverNameDataGridViewTextBoxColumn.DataPropertyName = "ServerName";
+            this.serverNameDataGridViewTextBoxColumn.HeaderText = "Server name";
+            this.serverNameDataGridViewTextBoxColumn.Name = "serverNameDataGridViewTextBoxColumn";
+            this.serverNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // fileLocationDataGridViewTextBoxColumn
+            // 
+            this.fileLocationDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.fileLocationDataGridViewTextBoxColumn.DataPropertyName = "FileLocation";
+            this.fileLocationDataGridViewTextBoxColumn.HeaderText = "File location";
+            this.fileLocationDataGridViewTextBoxColumn.Name = "fileLocationDataGridViewTextBoxColumn";
+            this.fileLocationDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dgvFileLocation_Change
+            // 
+            this.dgvFileLocation_Change.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dgvFileLocation_Change.HeaderText = "Change";
+            this.dgvFileLocation_Change.MinimumWidth = 50;
+            this.dgvFileLocation_Change.Name = "dgvFileLocation_Change";
+            this.dgvFileLocation_Change.ReadOnly = true;
+            this.dgvFileLocation_Change.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvFileLocation_Change.Text = "Change";
+            this.dgvFileLocation_Change.UseColumnTextForButtonValue = true;
+            this.dgvFileLocation_Change.Width = 50;
+            // 
+            // ImportWithQuickImport
+            // 
+            this.ImportWithQuickImport.DataPropertyName = "ImportWithQuickImport";
+            this.ImportWithQuickImport.HeaderText = "QuickImport";
+            this.ImportWithQuickImport.Name = "ImportWithQuickImport";
+            this.ImportWithQuickImport.ReadOnly = true;
+            this.ImportWithQuickImport.ToolTipText = "If checked the savegame will be imported with the quick import button in the menu" +
+    " bar.";
+            this.ImportWithQuickImport.Width = 70;
+            // 
+            // dgvFileLocation_Delete
+            // 
+            this.dgvFileLocation_Delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dgvFileLocation_Delete.HeaderText = "Delete";
+            this.dgvFileLocation_Delete.MinimumWidth = 50;
+            this.dgvFileLocation_Delete.Name = "dgvFileLocation_Delete";
+            this.dgvFileLocation_Delete.ReadOnly = true;
+            this.dgvFileLocation_Delete.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvFileLocation_Delete.Text = "Delete";
+            this.dgvFileLocation_Delete.UseColumnTextForButtonValue = true;
+            this.dgvFileLocation_Delete.Width = 50;
             // 
             // Settings
             // 
@@ -3797,11 +3816,6 @@
         private System.Windows.Forms.DataGridView dataGridViewExportFolders;
         private System.Windows.Forms.Button btAddExportFolder;
         private System.Windows.Forms.BindingSource aTExportFolderLocationsBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn convenientNameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn serverNameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fileLocationDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewButtonColumn dgvFileLocation_Change;
-        private System.Windows.Forms.DataGridViewButtonColumn dgvFileLocation_Delete;
         private System.Windows.Forms.CheckBox cbApplyGlobalSpeciesToLibrary;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelStatMultipliers;
         private System.Windows.Forms.ComboBox cbbStatMultiplierPresets;
@@ -3959,5 +3973,11 @@
         private uiControls.Nud NudWaitBeforeAutoLoad;
         private System.Windows.Forms.CheckBox CbInfoGraphicCreatureName;
         private System.Windows.Forms.CheckBox CbInfoGraphicAddRegionNames;
+        private System.Windows.Forms.DataGridViewTextBoxColumn convenientNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn serverNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fileLocationDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewButtonColumn dgvFileLocation_Change;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ImportWithQuickImport;
+        private System.Windows.Forms.DataGridViewButtonColumn dgvFileLocation_Delete;
     }
 }

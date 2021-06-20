@@ -314,6 +314,7 @@ namespace ARKBreedingStats.settings
 
             }
             dataGridViewExportFolders.DataBindingComplete += (s, e) => HighlightDefaultImportExportFolderEntry();
+            dataGridView_FileLocations.DataBindingComplete += (s, e) => HighlightMissingFilesInImportSaveFileView();
             nudWarnImportMoreThan.Value = Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan;
             CbApplyNamingPatternOnImportAlways.Checked = Properties.Settings.Default.applyNamePatternOnAutoImportAlways;
             cbApplyNamePatternOnImportOnEmptyNames.Checked = Properties.Settings.Default.applyNamePatternOnImportIfEmptyName;
@@ -850,6 +851,12 @@ namespace ARKBreedingStats.settings
             {
                 aTImportFileLocationBindingSource.RemoveAt(e.RowIndex);
             }
+            else if (e.ColumnIndex == ImportWithQuickImport.Index)
+            {
+                // the control itself locks the checkbox to readonly, it seems only possible like this
+                if (aTImportFileLocationBindingSource[e.RowIndex] is ATImportFileLocation il)
+                    il.ImportWithQuickImport = !il.ImportWithQuickImport;
+            }
         }
 
         private void dataGridViewExportFolders_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -1292,6 +1299,18 @@ namespace ARKBreedingStats.settings
 
             bool DirectoryExists(int r) => dataGridViewExportFolders.Rows[r].Cells[2].Value is string path &&
                                            Directory.Exists(path);
+        }
+
+        private void HighlightMissingFilesInImportSaveFileView()
+        {
+            var rowCount = dataGridView_FileLocations.RowCount;
+            for (int i = 0; i < rowCount; i++)
+            {
+                dataGridView_FileLocations.Rows[i].DefaultCellStyle = dataGridView_FileLocations.Rows[i].Cells[2].Value is string filePath
+                    && !filePath.StartsWith("ftp") && !File.Exists(filePath)
+                    ? _styleFolderNotFound
+                    : null;
+            }
         }
     }
 }

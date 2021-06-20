@@ -347,9 +347,6 @@
     <Setting Name="applyNamePatternOnAutoImportAlways" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="LastImportedSaveGame" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="Highlight255Level" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>

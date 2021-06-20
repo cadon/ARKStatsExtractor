@@ -275,6 +275,7 @@ namespace ARKBreedingStats
             this.tabPageBreedingPlan = new System.Windows.Forms.TabPage();
             this.breedingPlan1 = new ARKBreedingStats.BreedingPlanning.BreedingPlan();
             this.tabPageHatching = new System.Windows.Forms.TabPage();
+            this.hatching1 = new ARKBreedingStats.uiControls.Hatching();
             this.tabPageRaising = new System.Windows.Forms.TabPage();
             this.raisingControl1 = new ARKBreedingStats.raising.RaisingControl();
             this.tabPageTimer = new System.Windows.Forms.TabPage();
@@ -300,7 +301,7 @@ namespace ARKBreedingStats
             this.openToolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.saveToolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
-            this.TsbImportLastSaveGame = new System.Windows.Forms.ToolStripButton();
+            this.TsbQuickSaveGameImport = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonSettings = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -332,7 +333,6 @@ namespace ARKBreedingStats
             this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetLibraryColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
-            this.hatching1 = new ARKBreedingStats.uiControls.Hatching();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -2680,6 +2680,14 @@ namespace ARKBreedingStats
             this.tabPageHatching.Text = "Hatching";
             this.tabPageHatching.UseVisualStyleBackColor = true;
             // 
+            // hatching1
+            // 
+            this.hatching1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.hatching1.Location = new System.Drawing.Point(3, 3);
+            this.hatching1.Name = "hatching1";
+            this.hatching1.Size = new System.Drawing.Size(1120, 743);
+            this.hatching1.TabIndex = 0;
+            // 
             // tabPageRaising
             // 
             this.tabPageRaising.Controls.Add(this.raisingControl1);
@@ -2876,7 +2884,7 @@ namespace ARKBreedingStats
             this.openToolStripButton1,
             this.saveToolStripButton1,
             this.toolStripSeparator20,
-            this.TsbImportLastSaveGame,
+            this.TsbQuickSaveGameImport,
             this.toolStripSeparator3,
             this.toolStripButtonSettings,
             this.toolStripSeparator4,
@@ -2937,16 +2945,16 @@ namespace ARKBreedingStats
             this.toolStripSeparator20.Name = "toolStripSeparator20";
             this.toolStripSeparator20.Size = new System.Drawing.Size(6, 25);
             // 
-            // TsbImportLastSaveGame
+            // TsbQuickSaveGameImport
             // 
-            this.TsbImportLastSaveGame.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.TsbImportLastSaveGame.Image = ((System.Drawing.Image)(resources.GetObject("TsbImportLastSaveGame.Image")));
-            this.TsbImportLastSaveGame.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TsbImportLastSaveGame.Name = "TsbImportLastSaveGame";
-            this.TsbImportLastSaveGame.Size = new System.Drawing.Size(45, 22);
-            this.TsbImportLastSaveGame.Text = "ImpSg";
-            this.TsbImportLastSaveGame.ToolTipText = "Import Savegame";
-            this.TsbImportLastSaveGame.Click += new System.EventHandler(this.TsbImportLastSaveGame_Click);
+            this.TsbQuickSaveGameImport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.TsbQuickSaveGameImport.Image = ((System.Drawing.Image)(resources.GetObject("TsbQuickSaveGameImport.Image")));
+            this.TsbQuickSaveGameImport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsbQuickSaveGameImport.Name = "TsbQuickSaveGameImport";
+            this.TsbQuickSaveGameImport.Size = new System.Drawing.Size(45, 22);
+            this.TsbQuickSaveGameImport.Text = "ImpSg";
+            this.TsbQuickSaveGameImport.ToolTipText = "Import Savegame";
+            this.TsbQuickSaveGameImport.Click += new System.EventHandler(this.TsbQuickSaveGameImport_Click);
             // 
             // toolStripSeparator3
             // 
@@ -3092,7 +3100,7 @@ namespace ARKBreedingStats
             // ToolStripLabelFilter
             // 
             this.ToolStripLabelFilter.Name = "ToolStripLabelFilter";
-            this.ToolStripLabelFilter.Size = new System.Drawing.Size(33, 22);
+            this.ToolStripLabelFilter.Size = new System.Drawing.Size(33, 15);
             this.ToolStripLabelFilter.Text = "Filter";
             this.ToolStripLabelFilter.Visible = false;
             // 
@@ -3101,7 +3109,7 @@ namespace ARKBreedingStats
             this.ToolStripTextBoxLibraryFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.ToolStripTextBoxLibraryFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.ToolStripTextBoxLibraryFilter.Name = "ToolStripTextBoxLibraryFilter";
-            this.ToolStripTextBoxLibraryFilter.Size = new System.Drawing.Size(200, 25);
+            this.ToolStripTextBoxLibraryFilter.Size = new System.Drawing.Size(200, 23);
             this.ToolStripTextBoxLibraryFilter.Visible = false;
             this.ToolStripTextBoxLibraryFilter.Click += new System.EventHandler(this.ToolStripTextBoxLibraryFilter_Click);
             this.ToolStripTextBoxLibraryFilter.TextChanged += new System.EventHandler(this.ToolStripTextBoxLibraryFilter_TextChanged);
@@ -3111,7 +3119,7 @@ namespace ARKBreedingStats
             this.ToolStripButtonLibraryFilterClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.ToolStripButtonLibraryFilterClear.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ToolStripButtonLibraryFilterClear.Name = "ToolStripButtonLibraryFilterClear";
-            this.ToolStripButtonLibraryFilterClear.Size = new System.Drawing.Size(23, 22);
+            this.ToolStripButtonLibraryFilterClear.Size = new System.Drawing.Size(23, 19);
             this.ToolStripButtonLibraryFilterClear.Text = "×";
             this.ToolStripButtonLibraryFilterClear.Visible = false;
             this.ToolStripButtonLibraryFilterClear.Click += new System.EventHandler(this.ToolStripButtonLibraryFilterClear_Click);
@@ -3122,7 +3130,7 @@ namespace ARKBreedingStats
             this.ToolStripButtonSaveFilterPreset.Image = ((System.Drawing.Image)(resources.GetObject("ToolStripButtonSaveFilterPreset.Image")));
             this.ToolStripButtonSaveFilterPreset.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ToolStripButtonSaveFilterPreset.Name = "ToolStripButtonSaveFilterPreset";
-            this.ToolStripButtonSaveFilterPreset.Size = new System.Drawing.Size(23, 22);
+            this.ToolStripButtonSaveFilterPreset.Size = new System.Drawing.Size(23, 19);
             this.ToolStripButtonSaveFilterPreset.Text = "▼";
             this.ToolStripButtonSaveFilterPreset.ToolTipText = "Save filter as preset";
             this.ToolStripButtonSaveFilterPreset.Visible = false;
@@ -3255,14 +3263,6 @@ namespace ARKBreedingStats
             this.speciesSelector1.Size = new System.Drawing.Size(1134, 775);
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
-            // 
-            // hatching1
-            // 
-            this.hatching1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.hatching1.Location = new System.Drawing.Point(3, 3);
-            this.hatching1.Name = "hatching1";
-            this.hatching1.Size = new System.Drawing.Size(1120, 743);
-            this.hatching1.TabIndex = 0;
             // 
             // Form1
             // 
@@ -3651,7 +3651,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem copyLibrarydumpToClipboardToolStripMenuItem;
         private System.Windows.Forms.Button BtCopyIssueDumpToClipboard;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator20;
-        private System.Windows.Forms.ToolStripButton TsbImportLastSaveGame;
+        private System.Windows.Forms.ToolStripButton TsbQuickSaveGameImport;
         private System.Windows.Forms.Label LbBlueprintPath;
         private System.Windows.Forms.ToolStripMenuItem recentlyUsedToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator21;
