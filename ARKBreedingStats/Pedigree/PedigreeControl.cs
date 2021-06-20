@@ -294,12 +294,13 @@ namespace ARKBreedingStats.Pedigree
             lbPedigreeEmpty.Visible = false;
 
             // scroll offsets
+            splitContainer1.Panel2.AutoScrollPosition = Point.Empty; // if not reset there are still offset issues sometimes. Maybe just remove all the offset handling when resetting anyway?
             int autoScrollPositionX = splitContainer1.Panel2.AutoScrollPosition.X;
             int autoScrollPositionY = splitContainer1.Panel2.AutoScrollPosition.Y;
 
             if (_pedigreeViewMode == PedigreeViewMode.Classic)
             {
-                PedigreeCreation.CreateDetailedView(_selectedCreature, _lines, _pedigreeControls, AutoScrollPosition.X, AutoScrollPosition.Y, _enabledColorRegions);
+                PedigreeCreation.CreateDetailedView(_selectedCreature, _lines, _pedigreeControls, autoScrollPositionX, autoScrollPositionY, _enabledColorRegions);
                 _yBottomOfPedigree = 170;
             }
             else
