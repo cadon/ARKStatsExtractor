@@ -293,7 +293,7 @@ namespace ARKBreedingStats
 
             CreatureColored.InitializeSpeciesImageLocation();
 
-            if (!LoadStatAndKibbleValues(applySettings: false).statValuesLoaded || !Values.V.species.Any())
+            if (!LoadStatAndKibbleValues(false).statValuesLoaded || !Values.V.species.Any())
             {
                 MessageBoxes.ShowMessageBox(Loc.S("valuesFileLoadingError"),
                     $"{Loc.S("error")}: Values-file not found");
@@ -3583,21 +3583,33 @@ namespace ARKBreedingStats
 
         /// <summary>
         /// If the user has downloaded the species images already but not in the new folder, move them.
-        /// This method can probably be removed at 07-2021.
+        /// This method can probably be removed at 08-2021.
         /// </summary>
         private void MoveSpeciesImagesToNewFolder()
         {
+            const string relativeImageFolder = "images/speciesImages";
             var oldImagesFolder = FileService.GetPath("img");
-            var newImagesFolder = FileService.GetPath("images/speciesImages");
-            if (!Directory.Exists(oldImagesFolder)
-                || Directory.Exists(newImagesFolder))
+            var newImagesFolder = FileService.GetPath(relativeImageFolder);
+
+            if (Directory.Exists(newImagesFolder))
+            {
+                // images are already moved
+                // check if the images folder is set correctly (currently there's only one option)
+                if (Properties.Settings.Default.SpeciesImagesFolder == relativeImageFolder) return;
+
+                Properties.Settings.Default.SpeciesImagesFolder = relativeImageFolder;
+                CreatureColored.InitializeSpeciesImageLocation();
+                speciesSelector1.InitializeSpeciesImages(Values.V.species);
                 return;
+            }
+
+            if (!Directory.Exists(oldImagesFolder)) return;
 
             try
             {
                 Directory.Move(oldImagesFolder, newImagesFolder);
 
-                Properties.Settings.Default.SpeciesImagesFolder = "images/speciesImages";
+                Properties.Settings.Default.SpeciesImagesFolder = relativeImageFolder;
                 CreatureColored.InitializeSpeciesImageLocation();
                 speciesSelector1.InitializeSpeciesImages(Values.V.species);
             }
