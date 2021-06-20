@@ -1,5 +1,5 @@
 {
-	"version": "329.45.6858852",
+	"version": "330.8.6895110",
 	"format": "1.14-flyerspeed",
 	"species": [
 		{
@@ -41348,7 +41348,7 @@
 		{
 			"name": "Corrupted Survivor",
 			"blueprintPath": "/Game/Genesis2/Dinos/CorruptHumans/RockwellSpawn/RockwellSpawn_Character_BP.RockwellSpawn_Character_BP",
-			"variants": [ "Genesis2" ],
+			"variants": [ "Boss", "Genesis2" ],
 			"fullStatsRaw": [
 				[ 2500, 0.5, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -41363,7 +41363,7 @@
 				null,
 				null
 			],
-			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"immobilizedBy": [],
 			"noGender": true,
 			"taming": {
 				"nonViolent": false,
@@ -41380,7 +41380,7 @@
 		{
 			"name": "Corrupted Survivor",
 			"blueprintPath": "/Game/Genesis2/Dinos/CorruptHumans/RockwellSpawn/RockwellSpawn_Character_BP_AltAnim.RockwellSpawn_Character_BP_AltAnim",
-			"variants": [ "Genesis2" ],
+			"variants": [ "Boss", "Genesis2" ],
 			"fullStatsRaw": [
 				[ 2500, 0.5, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -41395,7 +41395,7 @@
 				null,
 				null
 			],
-			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"immobilizedBy": [],
 			"noGender": true,
 			"taming": {
 				"nonViolent": false,
@@ -41952,7 +41952,7 @@
 			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
-				"incubationTime": 16.6666667,
+				"incubationTime": 5142.44575,
 				"eggTempMin": 22,
 				"eggTempMax": 26,
 				"maturationTime": 166666.667,
@@ -49433,7 +49433,7 @@
 			"taming": {
 				"nonViolent": true,
 				"violent": false,
-				"tamingIneffectiveness": 200,
+				"tamingIneffectiveness": 2,
 				"affinityNeeded0": 5000,
 				"affinityIncreasePL": 750,
 				"wakeAffinityMult": 1.6,
@@ -50512,7 +50512,7 @@
 			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
-				"incubationTime": 16.6666667,
+				"incubationTime": 5142.44575,
 				"eggTempMin": 22,
 				"eggTempMax": 26,
 				"maturationTime": 166666.667,
@@ -52212,7 +52212,13 @@
 		{
 			"name": "Corrupted Survivor",
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/FinalBattleAlt/Difficulties/Alpha/RockwellSpawn_Character_BP_Alpha.RockwellSpawn_Character_BP_Alpha",
-			"variants": [ "Alpha", "FinalBattle", "Genesis2", "Mission" ],
+			"variants": [
+				"Alpha",
+				"Boss",
+				"FinalBattle",
+				"Genesis2",
+				"Mission"
+			],
 			"fullStatsRaw": [
 				[ 10000, 0.5, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -52227,7 +52233,7 @@
 				null,
 				null
 			],
-			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"immobilizedBy": [],
 			"noGender": true,
 			"taming": {
 				"nonViolent": false,
@@ -52244,7 +52250,13 @@
 		{
 			"name": "Corrupted Survivor",
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/FinalBattleAlt/Difficulties/Alpha/RockwellSpawn_Character_BP_AltAnim_Alpha.RockwellSpawn_Character_BP_AltAnim_Alpha",
-			"variants": [ "Alpha", "FinalBattle", "Genesis2", "Mission" ],
+			"variants": [
+				"Alpha",
+				"Boss",
+				"FinalBattle",
+				"Genesis2",
+				"Mission"
+			],
 			"fullStatsRaw": [
 				[ 10000, 0.5, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -52259,7 +52271,7 @@
 				null,
 				null
 			],
-			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"immobilizedBy": [],
 			"noGender": true,
 			"taming": {
 				"nonViolent": false,
@@ -52404,7 +52416,13 @@
 		{
 			"name": "Corrupted Survivor",
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/FinalBattleAlt/Difficulties/Beta/RockwellSpawn_Character_BP_AltAnim_Beta.RockwellSpawn_Character_BP_AltAnim_Beta",
-			"variants": [ "Beta", "FinalBattle", "Genesis2", "Mission" ],
+			"variants": [
+				"Beta",
+				"Boss",
+				"FinalBattle",
+				"Genesis2",
+				"Mission"
+			],
 			"fullStatsRaw": [
 				[ 5000, 0.5, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -52419,7 +52437,7 @@
 				null,
 				null
 			],
-			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"immobilizedBy": [],
 			"noGender": true,
 			"taming": {
 				"nonViolent": false,
@@ -52436,7 +52454,13 @@
 		{
 			"name": "Corrupted Survivor",
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/FinalBattleAlt/Difficulties/Beta/RockwellSpawn_Character_BP_Beta.RockwellSpawn_Character_BP_Beta",
-			"variants": [ "Beta", "FinalBattle", "Genesis2", "Mission" ],
+			"variants": [
+				"Beta",
+				"Boss",
+				"FinalBattle",
+				"Genesis2",
+				"Mission"
+			],
 			"fullStatsRaw": [
 				[ 5000, 0.5, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -52451,7 +52475,7 @@
 				null,
 				null
 			],
-			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"immobilizedBy": [],
 			"noGender": true,
 			"taming": {
 				"nonViolent": false,
@@ -52596,7 +52620,13 @@
 		{
 			"name": "Corrupted Survivor",
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/FinalBattleAlt/Difficulties/Gamma/RockwellSpawn_Character_BP_AltAnim_Gamma.RockwellSpawn_Character_BP_AltAnim_Gamma",
-			"variants": [ "FinalBattle", "Gamma", "Genesis2", "Mission" ],
+			"variants": [
+				"Boss",
+				"FinalBattle",
+				"Gamma",
+				"Genesis2",
+				"Mission"
+			],
 			"fullStatsRaw": [
 				[ 2500, 0.5, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -52611,7 +52641,7 @@
 				null,
 				null
 			],
-			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"immobilizedBy": [],
 			"noGender": true,
 			"taming": {
 				"nonViolent": false,
@@ -52628,7 +52658,13 @@
 		{
 			"name": "Corrupted Survivor",
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/FinalBattleAlt/Difficulties/Gamma/RockwellSpawn_Character_BP_Gamma.RockwellSpawn_Character_BP_Gamma",
-			"variants": [ "FinalBattle", "Gamma", "Genesis2", "Mission" ],
+			"variants": [
+				"Boss",
+				"FinalBattle",
+				"Gamma",
+				"Genesis2",
+				"Mission"
+			],
 			"fullStatsRaw": [
 				[ 2500, 0.5, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -52643,7 +52679,7 @@
 				null,
 				null
 			],
-			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"immobilizedBy": [],
 			"noGender": true,
 			"taming": {
 				"nonViolent": false,
@@ -61915,7 +61951,7 @@
 			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
-				"incubationTime": 16.6666667,
+				"incubationTime": 5142.44575,
 				"eggTempMin": 22,
 				"eggTempMax": 26,
 				"maturationTime": 166666.667,
@@ -67931,7 +67967,7 @@
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
-				"tamingIneffectiveness": 200,
+				"tamingIneffectiveness": 2,
 				"affinityNeeded0": 5000,
 				"affinityIncreasePL": 750,
 				"foodConsumptionBase": 0.01,
@@ -80505,7 +80541,7 @@
 			"noGender": true,
 			"breeding": {
 				"gestationTime": 0,
-				"incubationTime": 16.6666667,
+				"incubationTime": 5142.44575,
 				"eggTempMin": 22,
 				"eggTempMax": 26,
 				"maturationTime": 166666.667,

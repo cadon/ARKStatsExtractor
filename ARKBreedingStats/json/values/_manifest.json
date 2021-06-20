@@ -51,7 +51,7 @@
 			"mod": { "id": "1356703358", "tag": "Primal_Fear_Noxious_Creatures", "title": "Primal Fear Noxious Creatures" }
 		},
 		"1373744537-AC2.json": {
-			"version": "329.33.1623274780",
+			"version": "330.8.1624081273",
 			"mod": { "id": "1373744537", "tag": "AC2", "title": "Additional Creatures 2: Wild Ark" }
 		},
 		"1405944717-Project_Evolution.json": {
@@ -120,7 +120,7 @@
 			"mod": { "id": "1662691167", "tag": "Senior", "title": "Additional Creatures: Senior Class" }
 		},
 		"1675895024-NoUntameables.json": {
-			"version": "329.45.1623581392",
+			"version": "330.8.1624063501",
 			"mod": { "id": "1675895024", "tag": "NoUntameables", "title": "No Untameables" }
 		},
 		"1676159020-Aquaria.json": {
@@ -198,7 +198,7 @@
 			"mod": { "id": "1984129536", "tag": "MTSMod", "title": "MTS.co.uk Community Mod" }
 		},
 		"1984936918-MarniiModsWildlife.json": {
-			"version": "324.22.1615930199",
+			"version": "330.8.1624112669",
 			"mod": { "id": "1984936918", "tag": "MarniiModsWildlife", "title": "MarniiMods:Wildlife" }
 		},
 		"2000326197-ExtraResources.json": {
@@ -226,7 +226,7 @@
 			"mod": { "id": "2117881804", "tag": "FiresFixes", "title": "Fire's Fixes" }
 		},
 		"2135314513-CI_Dinos.json": {
-			"version": "329.33.1623359165",
+			"version": "329.49.1623804315",
 			"mod": { "id": "2135314513", "tag": "CI_Dinos", "title": "Crystal Isles Dino Addition" }
 		},
 		"729352919-IndomRex.json": {
@@ -250,7 +250,7 @@
 			"mod": { "id": "895711211", "tag": "ClassicFlyers", "title": "Classic Flyers" }
 		},
 		"899987403-Primal_Fear_Bosses.json": {
-			"version": "329.33.1622397659",
+			"version": "329.49.1623880652",
 			"mod": { "id": "899987403", "tag": "Primal_Fear_Bosses", "title": "Primal Fear Bosses" }
 		},
 		"909297874-NorwegianVikings.json": {
@@ -266,7 +266,7 @@
 			"mod": { "id": "CrystalIsles", "tag": "CrystalIsles", "title": "CrystalIsles" }
 		},
 		"values.json": {
-			"version": "329.45.6858852"
+			"version": "330.8.6895110"
 		}
 	}
 }
