@@ -2985,7 +2985,6 @@ namespace ARKBreedingStats
             CreatureValues cv = new CreatureValues();
             for (int s = 0; s < Values.STATS_COUNT; s++)
                 cv.statValues[s] = _statIOs[s].Input;
-            cv.speciesName = speciesSelector1.SelectedSpecies.name;
             cv.speciesBlueprint = speciesSelector1.SelectedSpecies.blueprintPath;
             cv.name = creatureInfoInputExtractor.CreatureName;
             cv.owner = creatureInfoInputExtractor.CreatureOwner;

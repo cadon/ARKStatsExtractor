@@ -563,7 +563,7 @@ namespace ARKBreedingStats.importExported
                 case OrderProperties.CreatureName:
                     result = string.Compare(a.creatureValues.name, b.creatureValues.name); break;
                 case OrderProperties.Species:
-                    result = string.Compare(a.creatureValues.speciesName, b.creatureValues.speciesName); break;
+                    result = string.Compare(a.creatureValues.Species?.name, b.creatureValues.Species?.name); break;
                 case OrderProperties.OwnerName:
                     result = string.Compare(a.creatureValues.owner, b.creatureValues.owner); break;
                 case OrderProperties.ImportStatus:

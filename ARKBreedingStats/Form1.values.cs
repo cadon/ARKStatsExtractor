@@ -52,8 +52,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// Check if mod files for the missing species are available.
         /// </summary>
-        /// <param name="unknownSpeciesBlueprints"></param>
-        private static void CheckForMissingModFiles(CreatureCollection creatureCollection, List<string> unknownSpeciesBlueprints)
+        private static void CheckForMissingModFiles(CreatureCollection creatureCollection, List<string> unknownSpeciesBlueprints, string exportFilePath = null, string creatureName = null)
         {
             var (locallyAvailableModFiles, onlineAvailableModFiles, unavailableModFiles, alreadyLoadedModFilesWithoutNeededClass) = HandleUnknownMods.CheckForMissingModFiles(unknownSpeciesBlueprints, creatureCollection.ModList);
 
@@ -80,7 +79,10 @@ namespace ARKBreedingStats
                     "\n\nThe values for species for the following mods are unknown even though an according mod file was already loaded, i.e. the species blueprint path is not in the mod file. If it is a manual mod file, make sure the blueprint path is correct.\n\n- "
                     + string.Join("\n- ", alreadyLoadedModFilesWithoutNeededClass) + "\n\nThe following blueprint paths were not found in the mod file:\n\n"
                     + string.Join("\n", unknownSpeciesBlueprints.Where(bp => alreadyLoadedModFilesWithoutNeededClass.Any(m => bp.StartsWith($"/Game/Mods/{m}/"))))
-                    : string.Empty),
+                    : string.Empty)
+                + (string.IsNullOrEmpty(exportFilePath) ? null : $"\n\nThe according export file is located at\n{exportFilePath}")
+                + (string.IsNullOrEmpty(creatureName) ? null : $"\n\nThe creature is named\n{creatureName}")
+                ,
                 "Unknown species", MessageBoxIcon.Information);
 
             if ((locallyAvailableModsExist || onlineAvailableModsExist)

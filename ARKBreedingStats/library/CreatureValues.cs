@@ -16,11 +16,6 @@ namespace ARKBreedingStats.Library
         /// </summary>
         [JsonProperty]
         internal string speciesBlueprint;
-        /// <summary>
-        /// Used for displaying the speciesName
-        /// </summary>
-        [JsonProperty]
-        internal string speciesName;
         private Species _species;
         [JsonProperty]
         public Guid guid;
@@ -136,7 +131,6 @@ namespace ARKBreedingStats.Library
                 if (value != null)
                 {
                     speciesBlueprint = value.blueprintPath;
-                    speciesName = value.name;
                 }
             }
             get

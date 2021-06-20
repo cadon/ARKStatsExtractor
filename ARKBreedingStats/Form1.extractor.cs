@@ -869,14 +869,16 @@ namespace ARKBreedingStats
             // check if last exported file is a species that should be ignored, e.g. a raft
             if (Values.V.IgnoreSpeciesBlueprint(cv.speciesBlueprint))
             {
-                MessageBox.Show("Species of last exported creature is ignored" + (cv.speciesBlueprint.Contains("Raft") ? " because it's a raft" : string.Empty) + ":\n" + cv.speciesBlueprint, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxes.ShowMessageBox(
+                    $"Species of last exported creature is ignored{(cv.speciesBlueprint.Contains("Raft") ? " because it's a raft" : null)}:\n{cv.speciesBlueprint}\n\nMaybe the export folder is not configured correctly in this application.\nThe file is located in\n{exportFilePath}",
+                    "Species is ignored");
                 return false;
             }
 
             // check if species is supported.
             if (cv.Species == null)
             {
-                CheckForMissingModFiles(_creatureCollection, new List<string> { cv.speciesBlueprint });
+                CheckForMissingModFiles(_creatureCollection, new List<string> { cv.speciesBlueprint }, exportFilePath, cv.name);
 
                 int oldModHash = _creatureCollection.modListHash;
                 // if mods were added, try to import the creature values again

@@ -164,7 +164,6 @@ namespace ARKBreedingStats.oldLibraryFormat
                     owner = cvOld.owner,
                     server = cvOld.server,
                     sex = cvOld.sex,
-                    speciesName = cvOld.species,
                     statValues = cvOld.statValues,
                     tamingEffMax = cvOld.tamingEffMax,
                     tamingEffMin = cvOld.tamingEffMin,
