@@ -420,8 +420,10 @@ namespace ARKBreedingStats
                 && ExportFolderLocation.GetListOfExportFolders(
                     out (string path, string steamPlayerName)[] arkInstallFolders, out _))
             {
-                Properties.Settings.Default.ExportCreatureFolders = arkInstallFolders
-                    .Select(f => $"default ({f.steamPlayerName})||{f.path}").ToArray();
+                var orderedList = ExportFolderLocation.OrderByNewestFileInFolders(arkInstallFolders.Select(l => (l.path, l)));
+
+                Properties.Settings.Default.ExportCreatureFolders = orderedList
+                    .Select(f => $"{f.steamPlayerName}||{f.path}").ToArray();
             }
 
             if (createNewCollection)

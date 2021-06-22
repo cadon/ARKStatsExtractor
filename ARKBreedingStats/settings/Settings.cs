@@ -1176,12 +1176,26 @@ namespace ARKBreedingStats.settings
 
         private void BtGetExportFolderAutomatically_Click(object sender, EventArgs e)
         {
-            if (ExportFolderLocation.GetListOfExportFolders(out (string path, string steamPlayerName)[] arkInstallFolders, out string error))
+            if (ExportFolderLocation.GetListOfExportFolders(out (string path, string steamPlayerName)[] arkExportFolders, out string error))
             {
-                int i = 0;
-                foreach (var p in arkInstallFolders)
-                    aTExportFolderLocationsBindingSource.Insert(i++, ATImportExportedFolderLocation.CreateFromString(
-                        $"default ({p.steamPlayerName})||{p.path}"));
+                // only add folders if they exist and are not yet in the list
+                var exportFolderLocations = aTExportFolderLocationsBindingSource.OfType<ATImportExportedFolderLocation>().ToList();
+                foreach (var location in arkExportFolders)
+                {
+                    if (Directory.Exists(location.path) && exportFolderLocations.All(f => f.FolderPath != location.path))
+                        exportFolderLocations.Add(ATImportExportedFolderLocation.CreateFromString(
+                            $"{location.steamPlayerName}||{location.path}"));
+                }
+
+                if (!exportFolderLocations.Any()) return;
+
+                // order the entries so that the folder with the newest file is the default
+                var orderedList = ExportFolderLocation.OrderByNewestFileInFolders(exportFolderLocations.Select(l => (l.FolderPath, l)));
+
+                aTExportFolderLocationsBindingSource.Clear();
+
+                foreach (var iel in orderedList)
+                    aTExportFolderLocationsBindingSource.Add(iel);
             }
             else
             {

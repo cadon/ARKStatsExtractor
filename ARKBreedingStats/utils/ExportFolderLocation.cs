@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -234,6 +233,21 @@ namespace ARKBreedingStats.utils
 
             arkInstallPaths = new[] { arkPath };
             return true;
+        }
+
+        /// <summary>
+        /// Uses the first element as folder path and orders the elements by the newest file created descending.
+        /// </summary>
+        public static T[] OrderByNewestFileInFolders<T>(IEnumerable<(string Path, T)> folders)
+        {
+            return folders?.Select(l => (l, LastWriteOfNewestFileInFolder(l.Path)))
+                .OrderByDescending(l => l.Item2).Select(l => l.l.Item2).ToArray();
+
+            DateTime LastWriteOfNewestFileInFolder(string folderPath)
+            {
+                if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath)) return new DateTime();
+                return new DirectoryInfo(folderPath).GetFiles("*.ini").Select(fi => fi.LastWriteTime).DefaultIfEmpty(new DateTime()).Max();
+            }
         }
     }
 }
