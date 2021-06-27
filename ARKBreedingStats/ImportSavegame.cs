@@ -94,6 +94,7 @@ namespace ARKBreedingStats
                         .WithEmbeddedData(false)
                         .WithDataFilesObjectMap(false)
                         .WithObjectFilter(Properties.Settings.Default.SaveImportCryo ? new Predicate<GameObject>(PredicateCreaturesAndCryopods) : new Predicate<GameObject>(PredicateCreatures))
+                        .WithCryopodCreatures(Properties.Settings.Default.SaveImportCryo)
                         .WithBuildComponentTree(true));
             }
 
@@ -138,7 +139,7 @@ namespace ARKBreedingStats
             if (!Values.V.TryGetSpeciesByClassName(creatureObject.ClassString, out Species species))
             {
                 // species is unknown, creature cannot be imported.
-                // use name-field to temporarily save the unknown classString to display in a messagebox
+                // use name-field to temporarily save the unknown classString to display in a messageBox
                 return new Creature { name = creatureObject.ClassString };
             }
 
