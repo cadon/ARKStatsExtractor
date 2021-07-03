@@ -42,6 +42,8 @@
             this.removeAllExpiredTimersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxAddTimer = new System.Windows.Forms.GroupBox();
+            this.BtRemovePreset = new System.Windows.Forms.Button();
+            this.BtAddPreset = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.btPlaySelectedSound = new System.Windows.Forms.Button();
             this.btOpenSoundFolder = new System.Windows.Forms.Button();
@@ -49,7 +51,6 @@
             this.SoundLabel = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.bSetTimerNow = new System.Windows.Forms.Button();
-            this.dhmsInputTimer = new ARKBreedingStats.uiControls.dhmsInput();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -57,13 +58,19 @@
             this.textBoxTimerName = new System.Windows.Forms.TextBox();
             this.buttonAddTimer = new System.Windows.Forms.Button();
             this.BtStartPauseTimers = new System.Windows.Forms.Button();
+            this.LbTimerPresets = new System.Windows.Forms.ListBox();
             this.contextMenuStripTimerHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetTimerColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
+            this.dhmsInputTimer = new ARKBreedingStats.uiControls.dhmsInput();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.contextMenuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBoxAddTimer.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.contextMenuStripTimerHeader.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // listViewTimer
@@ -81,7 +88,7 @@
             this.listViewTimer.Location = new System.Drawing.Point(243, 3);
             this.listViewTimer.Name = "listViewTimer";
             this.tableLayoutPanel1.SetRowSpan(this.listViewTimer, 3);
-            this.listViewTimer.Size = new System.Drawing.Size(402, 488);
+            this.listViewTimer.Size = new System.Drawing.Size(402, 584);
             this.listViewTimer.TabIndex = 0;
             this.listViewTimer.UseCompatibleStateImageBehavior = false;
             this.listViewTimer.View = System.Windows.Forms.View.Details;
@@ -162,6 +169,7 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 240F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.groupBox2, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.listViewTimer, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.groupBoxAddTimer, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.BtStartPauseTimers, 0, 1);
@@ -172,7 +180,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(648, 494);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(648, 590);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // groupBoxAddTimer
@@ -190,10 +198,30 @@
             this.groupBoxAddTimer.Controls.Add(this.buttonAddTimer);
             this.groupBoxAddTimer.Location = new System.Drawing.Point(3, 3);
             this.groupBoxAddTimer.Name = "groupBoxAddTimer";
-            this.groupBoxAddTimer.Size = new System.Drawing.Size(234, 374);
+            this.groupBoxAddTimer.Size = new System.Drawing.Size(234, 399);
             this.groupBoxAddTimer.TabIndex = 1;
             this.groupBoxAddTimer.TabStop = false;
             this.groupBoxAddTimer.Text = "Add Manual Timer";
+            // 
+            // BtRemovePreset
+            // 
+            this.BtRemovePreset.Location = new System.Drawing.Point(105, 3);
+            this.BtRemovePreset.Name = "BtRemovePreset";
+            this.BtRemovePreset.Size = new System.Drawing.Size(120, 23);
+            this.BtRemovePreset.TabIndex = 19;
+            this.BtRemovePreset.Text = "Remove Preset";
+            this.BtRemovePreset.UseVisualStyleBackColor = true;
+            this.BtRemovePreset.Click += new System.EventHandler(this.BtRemovePreset_Click);
+            // 
+            // BtAddPreset
+            // 
+            this.BtAddPreset.Location = new System.Drawing.Point(3, 3);
+            this.BtAddPreset.Name = "BtAddPreset";
+            this.BtAddPreset.Size = new System.Drawing.Size(96, 23);
+            this.BtAddPreset.TabIndex = 18;
+            this.BtAddPreset.Text = "Add Preset";
+            this.BtAddPreset.UseVisualStyleBackColor = true;
+            this.BtAddPreset.Click += new System.EventHandler(this.BtAddPreset_Click);
             // 
             // label4
             // 
@@ -262,15 +290,6 @@
             this.bSetTimerNow.UseVisualStyleBackColor = true;
             this.bSetTimerNow.Click += new System.EventHandler(this.bSetTimerNow_Click);
             // 
-            // dhmsInputTimer
-            // 
-            this.dhmsInputTimer.Location = new System.Drawing.Point(53, 111);
-            this.dhmsInputTimer.Name = "dhmsInputTimer";
-            this.dhmsInputTimer.Size = new System.Drawing.Size(136, 26);
-            this.dhmsInputTimer.TabIndex = 13;
-            this.dhmsInputTimer.Timespan = System.TimeSpan.Parse("00:00:00");
-            this.dhmsInputTimer.ValueChanged += new ARKBreedingStats.uiControls.dhmsInput.ValueChangedEventHandler(this.dhmsInputTimer_ValueChanged);
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -328,13 +347,24 @@
             // 
             this.BtStartPauseTimers.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BtStartPauseTimers.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F);
-            this.BtStartPauseTimers.Location = new System.Drawing.Point(3, 383);
+            this.BtStartPauseTimers.Location = new System.Drawing.Point(3, 408);
             this.BtStartPauseTimers.Name = "BtStartPauseTimers";
             this.BtStartPauseTimers.Size = new System.Drawing.Size(234, 34);
             this.BtStartPauseTimers.TabIndex = 2;
             this.BtStartPauseTimers.Text = "⏯";
             this.BtStartPauseTimers.UseVisualStyleBackColor = true;
             this.BtStartPauseTimers.Click += new System.EventHandler(this.BtStartPauseTimers_Click);
+            // 
+            // LbTimerPresets
+            // 
+            this.LbTimerPresets.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LbTimerPresets.FormattingEnabled = true;
+            this.LbTimerPresets.Location = new System.Drawing.Point(3, 46);
+            this.LbTimerPresets.Name = "LbTimerPresets";
+            this.LbTimerPresets.Size = new System.Drawing.Size(228, 90);
+            this.LbTimerPresets.TabIndex = 3;
+            this.LbTimerPresets.SelectedIndexChanged += new System.EventHandler(this.LbTimerPresets_SelectedIndexChanged);
+            this.LbTimerPresets.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.LbTimerPresets_MouseDoubleClick);
             // 
             // contextMenuStripTimerHeader
             // 
@@ -350,13 +380,44 @@
             this.toolStripMenuItemResetTimerColumnWidths.Text = "Reset Column Widths";
             this.toolStripMenuItemResetTimerColumnWidths.Click += new System.EventHandler(this.toolStripMenuItemResetLibraryColumnWidths_Click);
             // 
+            // dhmsInputTimer
+            // 
+            this.dhmsInputTimer.Location = new System.Drawing.Point(53, 111);
+            this.dhmsInputTimer.Name = "dhmsInputTimer";
+            this.dhmsInputTimer.Size = new System.Drawing.Size(136, 26);
+            this.dhmsInputTimer.TabIndex = 13;
+            this.dhmsInputTimer.Timespan = System.TimeSpan.Parse("00:00:00");
+            this.dhmsInputTimer.ValueChanged += new ARKBreedingStats.uiControls.dhmsInput.ValueChangedEventHandler(this.dhmsInputTimer_ValueChanged);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.LbTimerPresets);
+            this.groupBox2.Controls.Add(this.panel1);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(3, 448);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(234, 139);
+            this.groupBox2.TabIndex = 15;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Presets";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.BtRemovePreset);
+            this.panel1.Controls.Add(this.BtAddPreset);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(3, 16);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(228, 30);
+            this.panel1.TabIndex = 15;
+            // 
             // TimerControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "TimerControl";
-            this.Size = new System.Drawing.Size(648, 494);
+            this.Size = new System.Drawing.Size(648, 590);
             this.contextMenuStrip1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.groupBoxAddTimer.ResumeLayout(false);
@@ -364,6 +425,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.contextMenuStripTimerHeader.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -400,5 +463,10 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripTimerHeader;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemResetTimerColumnWidths;
         private System.Windows.Forms.Button BtStartPauseTimers;
+        private System.Windows.Forms.Button BtRemovePreset;
+        private System.Windows.Forms.Button BtAddPreset;
+        private System.Windows.Forms.ListBox LbTimerPresets;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Panel panel1;
     }
 }

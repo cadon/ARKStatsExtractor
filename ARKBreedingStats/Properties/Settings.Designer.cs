@@ -1802,5 +1802,16 @@ namespace ARKBreedingStats.Properties {
                 this["PedigreeZoomFactor"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public string[] TimerPresets {
+            get {
+                return ((string[])(this["TimerPresets"]));
+            }
+            set {
+                this["TimerPresets"] = value;
+            }
+        }
     }
 }

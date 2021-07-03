@@ -448,6 +448,8 @@ namespace ARKBreedingStats
             _fileWatcherExports = new FileWatcherExports(exportFolderDefault, ImportExportedAddIfPossible_WatcherThread,
                 enableExportWatcher);
 
+            timerList1.SetTimerPresets(Properties.Settings.Default.TimerPresets);
+
             _timerGlobal.Start();
         }
 
@@ -1274,6 +1276,8 @@ namespace ARKBreedingStats
                 Properties.Settings.Default.LibraryFilterPresets = _libraryFilterTemplates.Presets;
 
             Properties.Settings.Default.OcrGuessSpecies = cbGuessSpecies.Checked;
+
+            Properties.Settings.Default.TimerPresets = timerList1.GetTimerPresets();
 
             // save custom statWeights
             List<string> custWs = new List<string>();
