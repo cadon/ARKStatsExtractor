@@ -299,9 +299,6 @@
   <data name="importingFromARKToolsToolStripMenuItem" xml:space="preserve">
     <value>Импорт из ARK-Tools</value>
   </data>
-  <data name="importValuesFromClipboardToolStripMenuItem" xml:space="preserve">
-    <value>Импортировать значения из буфера обмена</value>
-  </data>
   <data name="imprintingBonus" xml:space="preserve">
     <value>Бонус за привязанность</value>
   </data>

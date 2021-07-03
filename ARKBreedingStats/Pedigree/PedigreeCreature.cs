@@ -331,12 +331,12 @@ namespace ARKBreedingStats.uiControls
 
         private void plainTextbreedingValuesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ExportCreatures.ExportAsTextToClipboard(_creature, true, false);
+            ExportImportCreatures.ExportToClipboard(_creature, true, false);
         }
 
         private void plainTextcurrentValuesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ExportCreatures.ExportAsTextToClipboard(_creature, false, false);
+            ExportImportCreatures.ExportToClipboard(_creature, false, false);
         }
 
         private void OpenWikipageInBrowserToolStripMenuItem_Click(object sender, EventArgs e)

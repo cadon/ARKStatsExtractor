@@ -138,7 +138,7 @@
     </Compile>
     <Compile Include="importExported\FileWatcherExports.cs" />
     <Compile Include="library\CreatureExtensions.cs" />
-    <Compile Include="library\ExportCreatures.cs" />
+    <Compile Include="library\ExportImportCreatures.cs" />
     <Compile Include="mods\CustomStatOverridesEditor.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -97,7 +97,6 @@ namespace ARKBreedingStats
             this.plainTextcurrentValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.plainTextbreedingValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.forSpreadsheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importValuesFromClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.setStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aliveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -957,7 +956,6 @@ namespace ARKBreedingStats
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exportValuesToClipboardToolStripMenuItem,
-            this.importValuesFromClipboardToolStripMenuItem,
             this.toolStripSeparator13,
             this.setStatusToolStripMenuItem,
             this.multiSetterToolStripMenuItem,
@@ -978,7 +976,7 @@ namespace ARKBreedingStats
             this.plainTextbreedingValuesToolStripMenuItem,
             this.forSpreadsheetToolStripMenuItem});
             this.exportValuesToClipboardToolStripMenuItem.Name = "exportValuesToClipboardToolStripMenuItem";
-            this.exportValuesToClipboardToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.exportValuesToClipboardToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.exportValuesToClipboardToolStripMenuItem.Text = "Export to Clipboard";
             // 
             // plainTextcurrentValuesToolStripMenuItem
@@ -1002,17 +1000,10 @@ namespace ARKBreedingStats
             this.forSpreadsheetToolStripMenuItem.Text = "for Spreadsheet";
             this.forSpreadsheetToolStripMenuItem.Click += new System.EventHandler(this.forSpreadsheetToolStripMenuItem_Click);
             // 
-            // importValuesFromClipboardToolStripMenuItem
-            // 
-            this.importValuesFromClipboardToolStripMenuItem.Name = "importValuesFromClipboardToolStripMenuItem";
-            this.importValuesFromClipboardToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
-            this.importValuesFromClipboardToolStripMenuItem.Text = "Import Values from Clipboard";
-            this.importValuesFromClipboardToolStripMenuItem.Click += new System.EventHandler(this.importValuesFromClipboardToolStripMenuItem_Click);
-            // 
             // toolStripSeparator13
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
-            this.toolStripSeparator13.Size = new System.Drawing.Size(227, 6);
+            this.toolStripSeparator13.Size = new System.Drawing.Size(174, 6);
             // 
             // setStatusToolStripMenuItem
             // 
@@ -1022,7 +1013,7 @@ namespace ARKBreedingStats
             this.unavailableToolStripMenuItem,
             this.obeliskToolStripMenuItem1});
             this.setStatusToolStripMenuItem.Name = "setStatusToolStripMenuItem";
-            this.setStatusToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.setStatusToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.setStatusToolStripMenuItem.Text = "Set Status";
             // 
             // aliveToolStripMenuItem
@@ -1056,26 +1047,26 @@ namespace ARKBreedingStats
             // multiSetterToolStripMenuItem
             // 
             this.multiSetterToolStripMenuItem.Name = "multiSetterToolStripMenuItem";
-            this.multiSetterToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.multiSetterToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.multiSetterToolStripMenuItem.Text = "MultiSetter…";
             this.multiSetterToolStripMenuItem.Click += new System.EventHandler(this.multiSetterToolStripMenuItem_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(227, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(174, 6);
             // 
             // deleteSelectedToolStripMenuItem
             // 
             this.deleteSelectedToolStripMenuItem.Name = "deleteSelectedToolStripMenuItem";
-            this.deleteSelectedToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.deleteSelectedToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.deleteSelectedToolStripMenuItem.Text = "Remove…";
             this.deleteSelectedToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedToolStripMenuItem_Click);
             // 
             // findDuplicatesToolStripMenuItem
             // 
             this.findDuplicatesToolStripMenuItem.Name = "findDuplicatesToolStripMenuItem";
-            this.findDuplicatesToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.findDuplicatesToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.findDuplicatesToolStripMenuItem.Text = "Find Duplicates…";
             this.findDuplicatesToolStripMenuItem.Visible = false;
             this.findDuplicatesToolStripMenuItem.Click += new System.EventHandler(this.findDuplicatesToolStripMenuItem_Click);
@@ -1083,19 +1074,19 @@ namespace ARKBreedingStats
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(227, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(174, 6);
             // 
             // copyCreatureToolStripMenuItem
             // 
             this.copyCreatureToolStripMenuItem.Name = "copyCreatureToolStripMenuItem";
-            this.copyCreatureToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.copyCreatureToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.copyCreatureToolStripMenuItem.Text = "Copy Creature";
             this.copyCreatureToolStripMenuItem.Click += new System.EventHandler(this.copyCreatureToolStripMenuItem_Click);
             // 
             // pasteCreatureToolStripMenuItem
             // 
             this.pasteCreatureToolStripMenuItem.Name = "pasteCreatureToolStripMenuItem";
-            this.pasteCreatureToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.pasteCreatureToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.pasteCreatureToolStripMenuItem.Text = "Paste Creature";
             this.pasteCreatureToolStripMenuItem.Click += new System.EventHandler(this.pasteCreatureToolStripMenuItem_Click);
             // 
@@ -3100,7 +3091,7 @@ namespace ARKBreedingStats
             // ToolStripLabelFilter
             // 
             this.ToolStripLabelFilter.Name = "ToolStripLabelFilter";
-            this.ToolStripLabelFilter.Size = new System.Drawing.Size(33, 15);
+            this.ToolStripLabelFilter.Size = new System.Drawing.Size(33, 22);
             this.ToolStripLabelFilter.Text = "Filter";
             this.ToolStripLabelFilter.Visible = false;
             // 
@@ -3109,7 +3100,7 @@ namespace ARKBreedingStats
             this.ToolStripTextBoxLibraryFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.ToolStripTextBoxLibraryFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.ToolStripTextBoxLibraryFilter.Name = "ToolStripTextBoxLibraryFilter";
-            this.ToolStripTextBoxLibraryFilter.Size = new System.Drawing.Size(200, 23);
+            this.ToolStripTextBoxLibraryFilter.Size = new System.Drawing.Size(200, 25);
             this.ToolStripTextBoxLibraryFilter.Visible = false;
             this.ToolStripTextBoxLibraryFilter.Click += new System.EventHandler(this.ToolStripTextBoxLibraryFilter_Click);
             this.ToolStripTextBoxLibraryFilter.TextChanged += new System.EventHandler(this.ToolStripTextBoxLibraryFilter_TextChanged);
@@ -3119,7 +3110,7 @@ namespace ARKBreedingStats
             this.ToolStripButtonLibraryFilterClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.ToolStripButtonLibraryFilterClear.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ToolStripButtonLibraryFilterClear.Name = "ToolStripButtonLibraryFilterClear";
-            this.ToolStripButtonLibraryFilterClear.Size = new System.Drawing.Size(23, 19);
+            this.ToolStripButtonLibraryFilterClear.Size = new System.Drawing.Size(23, 22);
             this.ToolStripButtonLibraryFilterClear.Text = "×";
             this.ToolStripButtonLibraryFilterClear.Visible = false;
             this.ToolStripButtonLibraryFilterClear.Click += new System.EventHandler(this.ToolStripButtonLibraryFilterClear_Click);
@@ -3130,7 +3121,7 @@ namespace ARKBreedingStats
             this.ToolStripButtonSaveFilterPreset.Image = ((System.Drawing.Image)(resources.GetObject("ToolStripButtonSaveFilterPreset.Image")));
             this.ToolStripButtonSaveFilterPreset.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ToolStripButtonSaveFilterPreset.Name = "ToolStripButtonSaveFilterPreset";
-            this.ToolStripButtonSaveFilterPreset.Size = new System.Drawing.Size(23, 19);
+            this.ToolStripButtonSaveFilterPreset.Size = new System.Drawing.Size(23, 22);
             this.ToolStripButtonSaveFilterPreset.Text = "▼";
             this.ToolStripButtonSaveFilterPreset.ToolTipText = "Save filter as preset";
             this.ToolStripButtonSaveFilterPreset.Visible = false;
@@ -3602,7 +3593,6 @@ namespace ARKBreedingStats
         private StatsMultiplierTesting statsMultiplierTesting1;
         private System.Windows.Forms.ToolStripButton copyToMultiplierTesterToolStripButton;
         private System.Windows.Forms.Label lbWildLevelTester;
-        private System.Windows.Forms.ToolStripMenuItem importValuesFromClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
         private System.Windows.Forms.ToolStripMenuItem importingFromSavegameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importingFromSavegameEmptyToolStripMenuItem;

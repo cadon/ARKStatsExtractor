@@ -405,9 +405,6 @@ Los niveles se muestran sin el proceso de extracción (y sin validación).</valu
   <data name="importingFromARKToolsToolStripMenuItem" xml:space="preserve">
     <value>Importar desde ARK-Tools</value>
   </data>
-  <data name="importValuesFromClipboardToolStripMenuItem" xml:space="preserve">
-    <value>Importar valores desde el portapapeles</value>
-  </data>
   <data name="imprintingBonus" xml:space="preserve">
     <value>Bono de impresión</value>
   </data>

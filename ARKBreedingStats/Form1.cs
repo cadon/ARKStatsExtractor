@@ -364,7 +364,7 @@ namespace ARKBreedingStats
 
             // set TLS-protocol (github needs at least TLS 1.2) for update-check
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
-            
+
             // check for updates
             MoveSpeciesImagesToNewFolder();
             if (DateTime.Now.AddHours(-20) > Properties.Settings.Default.lastUpdateCheck)
@@ -1686,7 +1686,7 @@ namespace ARKBreedingStats
                         ArkId = input.ArkId
                     };
                     creature.RecalculateCreatureValues(levelStep);
-                    ExportCreatures.ExportAsTextToClipboard(creature, breeding, ARKml);
+                    ExportImportCreatures.ExportToClipboard(creature, breeding, ARKml);
                 }
                 else
                     MessageBox.Show(Loc.S("noValidExtractedCreatureToExport"), Loc.S("NoValidData"),
@@ -1734,121 +1734,30 @@ namespace ARKBreedingStats
         private void CopySelectedCreatureFromLibraryToClipboard(bool breedingValues = true, bool ARKml = false)
         {
             if (listViewLibrary.SelectedItems.Count > 0)
-                ExportCreatures.ExportAsTextToClipboard((Creature)listViewLibrary.SelectedItems[0].Tag, breedingValues,
-                    ARKml);
+                ExportImportCreatures.ExportToClipboard(listViewLibrary.SelectedItems[0].Tag as Creature, breedingValues, ARKml);
             else
-                MessageBox.Show(Loc.S("noCreatureSelectedInLibrary"), Loc.S("error"),
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
-        private void importValuesFromClipboardToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            PasteCreatureValuesFromClipboard();
+                MessageBoxes.ShowMessageBox(Loc.S("noCreatureSelectedInLibrary"));
         }
 
         private void pasteCreatureToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PasteCreatureFromClipboardToTester();
-        }
-
-        /// <summary>
-        /// Export creature data to clipboard serialized in json-format.
-        /// </summary>
-        /// <param name="c"></param>
-        private void CopyCreatureToClipboard(Creature c)
-        {
-            if (c != null)
-            {
-                string clpb = Newtonsoft.Json.JsonConvert.SerializeObject(c);
-                if (!string.IsNullOrEmpty(clpb))
-                    Clipboard.SetText(clpb);
-            }
+            PasteCreatureFromClipboard();
         }
 
         /// <summary>
         /// Import creature-data from the clipboard.
         /// </summary>
-        private void PasteCreatureFromClipboardToTester()
+        private void PasteCreatureFromClipboard()
         {
-            string clpb = Clipboard.GetText();
-            if (!string.IsNullOrEmpty(clpb))
-            {
-                Creature c;
-                try
-                {
-                    c = Newtonsoft.Json.JsonConvert.DeserializeObject<Creature>(clpb);
-                }
-                catch (Exception ex)
-                {
-                    MessageBoxes.ExceptionMessageBox(ex, "Invalid Data in clipboard. Couldn\'t paste creature-data.");
-                    return;
-                }
+            var importedCreature = ExportImportCreatures.ImportFromClipboard();
+            if (importedCreature == null) return;
 
-                UpdateParents(new List<Creature> { c });
-                EditCreatureInTester(c, true);
-            }
-        }
+            UpdateParents(new List<Creature> { importedCreature });
 
-        /// <summary>
-        /// import creature values from plain text
-        /// </summary>
-        private void PasteCreatureValuesFromClipboard()
-        {
-            string clpb = Clipboard.GetText();
-            if (clpb.Length > 0)
-            {
-                Regex r = new Regex(
-                    @"(.*?) \(([^,]+), Lvl (\d+), (?:wild|TE: ([\d.]+)%|Impr: ([\d.]+)%)?(?:, (Female|Male))?\): \w\w: ([\d.]+) \((\d+)(?:, (\d+))?\); \w\w: ([\d.]+) \((\d+)(?:, (\d+))?\); \w\w: ([\d.]+) \((\d+)(?:, (\d+))?\); \w\w: ([\d.]+) \((\d+)(?:, (\d+))?\); \w\w: ([\d.]+) \((\d+)(?:, (\d+))?\); \w\w: ([\d.]+)% \((\d+)(?:, (\d+))?\); \w\w: ([\d.]+)% \((\d+)(?:, (\d+))?\); \w\w: ([\d.]+) \((\d+)\);");
-                Match m = r.Match(clpb);
-                if (m.Success)
-                {
-                    Sex sex = Sex.Unknown;
-                    switch (m.Groups[6].Value)
-                    {
-                        case "Female":
-                            sex = Sex.Female;
-                            break;
-                        case "Male":
-                            sex = Sex.Male;
-                            break;
-                    }
-
-                    double[] sv = new double[Values.STATS_COUNT];
-                    int[] wl = new int[Values.STATS_COUNT];
-                    int[] dl = new int[Values.STATS_COUNT];
-                    for (int s = 0; s < Values.STATS_COUNT; s++)
-                    {
-                        double.TryParse(m.Groups[7 + 3 * s].Value, out sv[s]); // TODO adjust to new stat-indices
-                        int.TryParse(m.Groups[8 + 3 * s].Value, out wl[s]);
-                        if (s != (int)StatNames.Torpidity)
-                            int.TryParse(m.Groups[9 + 3 * s].Value, out dl[s]);
-                        if (Utils.Precision(s) == 3) // percentage values
-                            sv[s] *= 0.01;
-                    }
-
-                    int.TryParse(m.Groups[3].Value, out int totalLevel);
-                    double.TryParse(m.Groups[4].Value, out double te);
-                    te *= .01;
-                    double.TryParse(m.Groups[5].Value, out double ib);
-                    ib *= .01;
-
-                    if (Values.V.TryGetSpeciesByName(m.Groups[2].Value, out Species species))
-                    {
-                        var cv = new CreatureValues(species, m.Groups[1].Value, string.Empty, string.Empty, sex, sv,
-                            totalLevel, te, te, te > 0 || ib > 0, ib > 0, ib, CreatureFlags.None, null, null)
-                        {
-                            levelsWild = wl,
-                            levelsDom = dl
-                        };
-                        if (tabControlMain.SelectedTab == tabPageStatTesting)
-                            SetCreatureValuesToTester(cv);
-                        else
-                            SetCreatureValuesToExtractor(cv);
-                    }
-                    else
-                        MessageBoxes.ShowMessageBox($"{Loc.S("unknownSpecies")}:\n" + m.Groups[2].Value);
-                }
-            }
+            if (tabControlMain.SelectedTab == tabPageExtractor)
+                SetCreatureValuesToExtractor(importedCreature);
+            else
+                EditCreatureInTester(importedCreature, true);
         }
 
         private void buttonRecalculateTops_Click(object sender, EventArgs e)

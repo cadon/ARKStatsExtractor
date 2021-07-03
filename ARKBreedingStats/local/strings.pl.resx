@@ -602,10 +602,7 @@
     <data name="gbWeaponDamage" xml:space="preserve">
         <value>Obrażenia broni [%]</value>
     </data>
-    <data name="importValuesFromClipboardToolStripMenuItem" xml:space="preserve">
-        <value>Zaimportuj wartości ze schowka</value>
-    </data>
-    <data name="importingFromSavegameToolStripMenuItem" xml:space="preserve">
+  <data name="importingFromSavegameToolStripMenuItem" xml:space="preserve">
         <value>Zaimportuj z zapisu gry</value>
     </data>
     <data name="importingFromSavegameEmptyToolStripMenuItem" xml:space="preserve">

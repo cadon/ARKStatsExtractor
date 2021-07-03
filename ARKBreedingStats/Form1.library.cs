@@ -1397,7 +1397,7 @@ namespace ARKBreedingStats
             {
                 if (listViewLibrary.SelectedItems.Count > 0)
                 {
-                    ExportCreatures.ExportTable(listViewLibrary.SelectedItems.Cast<ListViewItem>().Select(lvi => (Creature)lvi.Tag));
+                    ExportImportCreatures.ExportTable(listViewLibrary.SelectedItems.Cast<ListViewItem>().Select(lvi => (Creature)lvi.Tag));
                 }
                 else
                     MessageBox.Show("No creatures in the library selected to copy to the clipboard", "No Creatures Selected",

@@ -405,9 +405,6 @@ OCRで種族の推測が頻繁に間違える場合は、この設定を無効�
   <data name="importingFromARKToolsToolStripMenuItem" xml:space="preserve">
     <value>ARK-Toolsからインポート中</value>
   </data>
-  <data name="importValuesFromClipboardToolStripMenuItem" xml:space="preserve">
-    <value>クリップボードから値をインポート</value>
-  </data>
   <data name="imprintingBonus" xml:space="preserve">
     <value>インプリントボーナス</value>
   </data>

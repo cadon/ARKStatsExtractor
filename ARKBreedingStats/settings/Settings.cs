@@ -357,11 +357,11 @@ namespace ARKBreedingStats.settings
             var exportFields = Properties.Settings.Default.CreatureTableExportFields;
             if (exportFields != null)
             {
-                foreach (ExportCreatures.TableExportFields f in exportFields)
+                foreach (ExportImportCreatures.TableExportFields f in exportFields)
                     ClbExportSpreadsheetFields.Items.Add(f, true);
             }
 
-            foreach (ExportCreatures.TableExportFields f in Enum.GetValues(typeof(ExportCreatures.TableExportFields)))
+            foreach (ExportImportCreatures.TableExportFields f in Enum.GetValues(typeof(ExportImportCreatures.TableExportFields)))
             {
                 if (exportFields?.Contains((int)f) ?? false) continue;
                 ClbExportSpreadsheetFields.Items.Add(f, false);
@@ -567,7 +567,7 @@ namespace ARKBreedingStats.settings
             for (int i = 0; i < exportFieldCount; i++)
             {
                 if (ClbExportSpreadsheetFields.GetItemChecked(i))
-                    exportFields.Add((int)Enum.Parse(typeof(ExportCreatures.TableExportFields), ClbExportSpreadsheetFields.Items[i].ToString()));
+                    exportFields.Add((int)Enum.Parse(typeof(ExportImportCreatures.TableExportFields), ClbExportSpreadsheetFields.Items[i].ToString()));
             }
             Properties.Settings.Default.CreatureTableExportFields = exportFields.ToArray();
 

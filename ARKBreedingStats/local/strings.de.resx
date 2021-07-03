@@ -405,9 +405,6 @@ Die angezeigten Level werden ohne Validierung angezeigt und gelten nur für wild
   <data name="importingFromARKToolsToolStripMenuItem" xml:space="preserve">
     <value>Von ARK-Tools importieren</value>
   </data>
-  <data name="importValuesFromClipboardToolStripMenuItem" xml:space="preserve">
-    <value>Werte von Zwischenablage importieren</value>
-  </data>
   <data name="imprintingBonus" xml:space="preserve">
     <value>Prägungsbonus</value>
   </data>

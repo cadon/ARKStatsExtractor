@@ -405,9 +405,6 @@ The levels are then shown without the extraction-process (and without validation
   <data name="importingFromARKToolsToolStripMenuItem" xml:space="preserve">
     <value>Importing from ARK-Tools</value>
   </data>
-  <data name="importValuesFromClipboardToolStripMenuItem" xml:space="preserve">
-    <value>Import Values from Clipboard</value>
-  </data>
   <data name="imprintingBonus" xml:space="preserve">
     <value>Imprinting Bonus</value>
   </data>

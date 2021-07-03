@@ -461,9 +461,6 @@ Les niveaux sont ensuite affichés sans le processus d'extraction (et sans valid
   <data name="importingFromARKToolsToolStripMenuItem" xml:space="preserve">
     <value>Importer à partir d'ARK-Tools</value>
   </data>
-  <data name="importValuesFromClipboardToolStripMenuItem" xml:space="preserve">
-    <value>Importer les valeurs du pressse-papier</value>
-  </data>
   <data name="imprintingBonus" xml:space="preserve">
     <value>Bonus d'élevage</value>
   </data>

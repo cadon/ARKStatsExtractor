@@ -452,9 +452,6 @@ Se lo strumento riconosce il nome della specie, lo prenderà, altrimenti control
   <data name="importingFromARKToolsToolStripMenuItem" xml:space="preserve">
     <value>Importazione da ARK-Tools</value>
   </data>
-  <data name="importValuesFromClipboardToolStripMenuItem" xml:space="preserve">
-    <value>Importa valori dagli appunti</value>
-  </data>
   <data name="imprintingBonus" xml:space="preserve">
     <value>Bonus impriting</value>
   </data>
