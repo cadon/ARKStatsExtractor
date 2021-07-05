@@ -163,7 +163,7 @@ namespace ARKBreedingStats.Updater
                 FileService.TryDeleteFile(tempFilePath);
             }
 
-            return (true, $"Files of {Name} were downloaded successfully.\n{fileCountExtracted} files extracted\n{fileCountSkipped} already existing files skipped");
+            return (true, $"Files of {Name} were downloaded successfully.\n{fileCountExtracted} files extracted{(fileCountSkipped != 0 ? $"\n{fileCountSkipped} already existing files skipped" : string.Empty)}.");
         }
     }
 }

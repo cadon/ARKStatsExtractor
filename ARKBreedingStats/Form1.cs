@@ -13,7 +13,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.utils;
@@ -369,17 +368,18 @@ namespace ARKBreedingStats
             MoveSpeciesImagesToNewFolder();
             if (DateTime.Now.AddHours(-20) > Properties.Settings.Default.lastUpdateCheck)
             {
-                bool displayModuleWindow = false;
-                bool selectDefaultImages = false;
+                bool selectDefaultImagesIfNotYet = false;
+                bool initializeImages = false;
                 if (!Properties.Settings.Default.AlreadyAskedToDownloadSpeciesImageFiles)
                 {
                     Properties.Settings.Default.AlreadyAskedToDownloadSpeciesImageFiles = true;
 
-                    if (!Updater.Updater.IsProgramInstalled)
-                        displayModuleWindow = true;
-                    else selectDefaultImages = true;
+                    if (Updater.Updater.IsProgramInstalled)
+                        initializeImages = true;
+                    else
+                        selectDefaultImagesIfNotYet = true;
                 }
-                CheckForUpdates(true, displayModuleWindow, selectDefaultImages);
+                CheckForUpdates(true, selectDefaultImagesIfNotYet, initializeImages);
             }
 
             _filterListAllowed = true;
@@ -1069,8 +1069,8 @@ namespace ARKBreedingStats
             CheckForUpdates();
         }
 
-        private async void CheckForUpdates(bool silentCheck = false, bool displayModuleWindowAlways = false,
-            bool selectDefaultImages = false)
+        private async void CheckForUpdates(bool silentCheck = false, bool selectDefaultImagesIfNotYet = false,
+            bool initializeImages = false)
         {
             bool? updaterRunning = await Updater.Updater.CheckForPortableUpdate(silentCheck, UnsavedChanges());
             if (!updaterRunning.HasValue) return; // error
@@ -1082,7 +1082,7 @@ namespace ARKBreedingStats
             }
 
             // download mod-manifest file to check for value updates
-            if (!await LoadModsManifestAsync(Values.V, forceUpdate: true))
+            if (!await LoadModsManifestAsync(Values.V, true))
                 return;
 
             // check if values-files can be updated
@@ -1118,8 +1118,8 @@ namespace ARKBreedingStats
                     "No new Version available", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
-            if (!silentCheck || displayModuleWindowAlways || selectDefaultImages)
-                DisplayUpdateModules(!displayModuleWindowAlways, selectDefaultImages);
+            if (!silentCheck || selectDefaultImagesIfNotYet || initializeImages)
+                DisplayUpdateModules(!silentCheck, selectDefaultImagesIfNotYet, initializeImages);
         }
 
         /// <summary>
@@ -1292,7 +1292,7 @@ namespace ARKBreedingStats
             Properties.Settings.Default.customStatWeights = custWd.ToArray();
             Properties.Settings.Default.customStatWeightNames = custWs.ToArray();
 
-            // save weapondamages for ko-calculation
+            // save weaponDamages for KO calculation
             Properties.Settings.Default.weaponDamages = tamingControl1.WeaponDamages;
             Properties.Settings.Default.weaponDamagesEnabled = tamingControl1.WeaponDamagesEnabled;
 
@@ -3458,9 +3458,8 @@ namespace ARKBreedingStats
             DisplayUpdateModules();
         }
 
-        private async void DisplayUpdateModules(bool onlyDisplayIfUpdatesAreAvailable = false, bool selectDefaultImages = false)
+        private async void DisplayUpdateModules(bool onlyShowDialogIfUpdatesAreAvailable = false, bool selectDefaultImagesIfNotYet = false, bool initializeImages = false)
         {
-
             var manifestFilePath = FileService.GetPath(FileService.ManifestFileName);
             if (!File.Exists(manifestFilePath)
                 && !await Updater.Updater.DownloadManifest())
@@ -3468,11 +3467,14 @@ namespace ARKBreedingStats
 
             using (var modules = new Updater.UpdateModules())
             {
-                if (!modules.UpdateAvailable && onlyDisplayIfUpdatesAreAvailable)
+                if (!modules.UpdateAvailable && !selectDefaultImagesIfNotYet && onlyShowDialogIfUpdatesAreAvailable)
                 {
-                    if (selectDefaultImages) InitializeImages();
+                    if (initializeImages) InitializeImages();
                     return;
                 }
+
+                if (selectDefaultImagesIfNotYet)
+                    modules.SelectDefaultImages();
 
                 modules.ShowDialog();
                 if (modules.DialogResult != DialogResult.OK)

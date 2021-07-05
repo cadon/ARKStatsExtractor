@@ -139,6 +139,16 @@ namespace ARKBreedingStats.Updater
 
         private void ClickCheckBox(CheckBox cb) => cb.Checked = !cb.Checked;
 
+        internal void SelectDefaultImages()
+        {
+            var cbImages = _checkboxesUpdateModule.FirstOrDefault(cb => cb.Tag is AsbModule mod && mod.Category == "Species Images");
+            if (cbImages == null) return;
+            var moduleImages = cbImages.Tag as AsbModule;
+            if (moduleImages == null) return;
+            if (!moduleImages.LocallyAvailable)
+                cbImages.Checked = true;
+        }
+
         /// <summary>
         /// Is only true if for an already downloaded module an update is available.
         /// </summary>

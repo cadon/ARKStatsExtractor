@@ -11,7 +11,7 @@
       "Category": "Species Images",
       "Name": "Species Images",
       "Author": "cadaei and Myrmecoleon",
-      "Description": "Download this to have a visualization for the colors of creatures (~19 MB).",
+      "Description": "Download this package to have a visualization for the colors of creatures (~20 MB), uncheck if you don't want to download these files.",
       "Url": "https://github.com/cadon/ARKStatsExtractor/raw/master/speciesImages/speciesImages.zip",
       "LocalPath": "images/speciesImages",
       "IsFolder": true,
