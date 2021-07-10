@@ -88,7 +88,7 @@ namespace ARKBreedingStats
             VariantSelector.SetVariants(species);
             cbDisplayUntameable.Checked = Properties.Settings.Default.DisplayNonDomesticableSpecies;
 
-            Textbox_TextChanged(null, null);
+            TextBoxTextChanged(null, null);
         }
 
         private static List<SpeciesListEntry> CreateSpeciesList(List<Species> species, Dictionary<string, string> aliases)
@@ -357,13 +357,13 @@ namespace ARKBreedingStats
             return true;
         }
 
-        public void SetTextBox(TextBoxSuggest textbox)
+        public void SetTextBox(TextBoxSuggest textBox)
         {
-            _textBox = textbox;
-            textbox.TextChanged += Textbox_TextChanged;
+            _textBox = textBox;
+            textBox.TextChanged += TextBoxTextChanged;
         }
 
-        private void Textbox_TextChanged(object sender, EventArgs e)
+        private void TextBoxTextChanged(object sender, EventArgs e)
         {
             if (!_ignoreTextBoxChange)
                 _speciesChangeDebouncer.Debounce(300, FilterListWithUnselectedText, Dispatcher.CurrentDispatcher);
@@ -412,7 +412,7 @@ namespace ARKBreedingStats
         private void cbDisplayUntameable_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.DisplayNonDomesticableSpecies = ((CheckBox)sender).Checked;
-            Textbox_TextChanged(null, null);
+            TextBoxTextChanged(null, null);
         }
 
         public int SplitterDistance
@@ -425,7 +425,7 @@ namespace ARKBreedingStats
         {
             VariantSelector.InitializeCheckStates();
             if (VariantSelector.ShowDialog() == DialogResult.OK)
-                Textbox_TextChanged(null, null);
+                TextBoxTextChanged(null, null);
         }
     }
 

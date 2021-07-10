@@ -112,17 +112,7 @@ namespace ARKBreedingStats.library
                 };
                 creature.RecalculateCreatureValues(levelStep);
 
-                var colors = new int[Species.ColorRegionCount];
-                for (int ci = 0; ci < Species.ColorRegionCount; ci++)
-                {
-                    if (!species.EnabledColorRegions[ci]) continue;
-                    var colorCount = species.colors[ci]?.naturalColors?.Count ?? 0;
-                    if (colorCount == 0)
-                        colors[ci] = 6 + rand.Next(50);
-                    else colors[ci] = species.colors[ci].naturalColors[rand.Next(colorCount)].Id;
-                }
-
-                creature.colors = colors;
+                creature.colors = species.RandomSpeciesColors(rand);
 
                 creatures.Add(creature);
             }
