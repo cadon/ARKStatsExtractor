@@ -31,6 +31,7 @@ namespace ARKBreedingStats.settings
             LoadSettings(cc);
             Localization();
             tabControlSettings.SelectTab((int)page);
+            DialogResult = DialogResult.Ignore;
         }
 
         private const string DefaultOcrProcessName = "ShooterGame";
@@ -974,6 +975,21 @@ namespace ARKBreedingStats.settings
 
         private void Settings_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (e.CloseReason == CloseReason.UserClosing
+                && ActiveControl != buttonOK
+                && ActiveControl != buttonCancel)
+            {
+                switch (MessageBox.Show("Save settings?", "Save settings?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning))
+                {
+                    case DialogResult.Yes:
+                        SaveSettings();
+                        break;
+                    case DialogResult.No: break;
+                    default:
+                        e.Cancel = true;
+                        return;
+                }
+            }
             LastTabPageIndex = (SettingsTabPages)tabControlSettings.SelectedIndex;
         }
 
