@@ -435,7 +435,7 @@ namespace ARKBreedingStats
             var filterPresets = Properties.Settings.Default.LibraryFilterPresets;
             if (filterPresets != null)
                 ToolStripTextBoxLibraryFilter.AutoCompleteCustomSource.AddRange(filterPresets);
-            
+
             // Set up the file watcher
             if (Properties.Settings.Default.syncCollection)
                 _fileSync = new FileSync(_currentFileName, CollectionChanged);
@@ -1725,6 +1725,9 @@ namespace ARKBreedingStats
             var importedCreature = ExportImportCreatures.ImportFromClipboard();
             if (importedCreature == null) return;
 
+            importedCreature.Species = Values.V.SpeciesByBlueprint(importedCreature.speciesBlueprint);
+            importedCreature.RecalculateCreatureValues(_creatureCollection?.getWildLevelStep());
+            importedCreature.RecalculateNewMutations();
             UpdateParents(new List<Creature> { importedCreature });
 
             if (tabControlMain.SelectedTab == tabPageExtractor)

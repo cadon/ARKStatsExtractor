@@ -976,7 +976,7 @@ namespace ARKBreedingStats
             this.plainTextbreedingValuesToolStripMenuItem,
             this.forSpreadsheetToolStripMenuItem});
             this.exportValuesToClipboardToolStripMenuItem.Name = "exportValuesToClipboardToolStripMenuItem";
-            this.exportValuesToClipboardToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.exportValuesToClipboardToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exportValuesToClipboardToolStripMenuItem.Text = "Export to Clipboard";
             // 
             // plainTextcurrentValuesToolStripMenuItem
@@ -1003,7 +1003,7 @@ namespace ARKBreedingStats
             // toolStripSeparator13
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
-            this.toolStripSeparator13.Size = new System.Drawing.Size(174, 6);
+            this.toolStripSeparator13.Size = new System.Drawing.Size(177, 6);
             // 
             // setStatusToolStripMenuItem
             // 
@@ -1013,7 +1013,7 @@ namespace ARKBreedingStats
             this.unavailableToolStripMenuItem,
             this.obeliskToolStripMenuItem1});
             this.setStatusToolStripMenuItem.Name = "setStatusToolStripMenuItem";
-            this.setStatusToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.setStatusToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.setStatusToolStripMenuItem.Text = "Set Status";
             // 
             // aliveToolStripMenuItem
@@ -1047,26 +1047,26 @@ namespace ARKBreedingStats
             // multiSetterToolStripMenuItem
             // 
             this.multiSetterToolStripMenuItem.Name = "multiSetterToolStripMenuItem";
-            this.multiSetterToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.multiSetterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.multiSetterToolStripMenuItem.Text = "MultiSetter…";
             this.multiSetterToolStripMenuItem.Click += new System.EventHandler(this.multiSetterToolStripMenuItem_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(174, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(177, 6);
             // 
             // deleteSelectedToolStripMenuItem
             // 
             this.deleteSelectedToolStripMenuItem.Name = "deleteSelectedToolStripMenuItem";
-            this.deleteSelectedToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.deleteSelectedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deleteSelectedToolStripMenuItem.Text = "Remove…";
             this.deleteSelectedToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedToolStripMenuItem_Click);
             // 
             // findDuplicatesToolStripMenuItem
             // 
             this.findDuplicatesToolStripMenuItem.Name = "findDuplicatesToolStripMenuItem";
-            this.findDuplicatesToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.findDuplicatesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.findDuplicatesToolStripMenuItem.Text = "Find Duplicates…";
             this.findDuplicatesToolStripMenuItem.Visible = false;
             this.findDuplicatesToolStripMenuItem.Click += new System.EventHandler(this.findDuplicatesToolStripMenuItem_Click);
@@ -1074,19 +1074,19 @@ namespace ARKBreedingStats
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(174, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(177, 6);
             // 
             // copyCreatureToolStripMenuItem
             // 
             this.copyCreatureToolStripMenuItem.Name = "copyCreatureToolStripMenuItem";
-            this.copyCreatureToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.copyCreatureToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.copyCreatureToolStripMenuItem.Text = "Copy Creature";
             this.copyCreatureToolStripMenuItem.Click += new System.EventHandler(this.copyCreatureToolStripMenuItem_Click);
             // 
             // pasteCreatureToolStripMenuItem
             // 
             this.pasteCreatureToolStripMenuItem.Name = "pasteCreatureToolStripMenuItem";
-            this.pasteCreatureToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.pasteCreatureToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.pasteCreatureToolStripMenuItem.Text = "Paste Creature";
             this.pasteCreatureToolStripMenuItem.Click += new System.EventHandler(this.pasteCreatureToolStripMenuItem_Click);
             // 
