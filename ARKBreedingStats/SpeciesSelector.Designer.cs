@@ -45,6 +45,7 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -59,12 +60,12 @@
             // 
             // lvLastSpecies
             // 
-            this.tableLayoutPanel2.SetColumnSpan(this.lvLastSpecies, 2);
+            this.tableLayoutPanel2.SetColumnSpan(this.lvLastSpecies, 3);
             this.lvLastSpecies.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvLastSpecies.HideSelection = false;
             this.lvLastSpecies.Location = new System.Drawing.Point(3, 74);
             this.lvLastSpecies.Name = "lvLastSpecies";
-            this.lvLastSpecies.Size = new System.Drawing.Size(510, 209);
+            this.lvLastSpecies.Size = new System.Drawing.Size(510, 158);
             this.lvLastSpecies.TabIndex = 1;
             this.lvLastSpecies.UseCompatibleStateImageBehavior = false;
             this.lvLastSpecies.SelectedIndexChanged += new System.EventHandler(this.lvOftenUsed_SelectedIndexChanged);
@@ -89,14 +90,16 @@
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Controls.Add(this.lvLastSpecies, 0, 3);
-            this.tableLayoutPanel2.Controls.Add(this.btCancel, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btCancel, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.cbDisplayUntameable, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.label1, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.BtVariantFilter, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.button1, 1, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -110,7 +113,7 @@
             // 
             // btCancel
             // 
-            this.btCancel.Location = new System.Drawing.Point(192, 3);
+            this.btCancel.Location = new System.Drawing.Point(198, 3);
             this.btCancel.Name = "btCancel";
             this.tableLayoutPanel2.SetRowSpan(this.btCancel, 2);
             this.btCancel.Size = new System.Drawing.Size(82, 23);
@@ -122,6 +125,7 @@
             // cbDisplayUntameable
             // 
             this.cbDisplayUntameable.AutoSize = true;
+            this.tableLayoutPanel2.SetColumnSpan(this.cbDisplayUntameable, 2);
             this.cbDisplayUntameable.Location = new System.Drawing.Point(3, 3);
             this.cbDisplayUntameable.Name = "cbDisplayUntameable";
             this.cbDisplayUntameable.Size = new System.Drawing.Size(183, 15);
@@ -133,7 +137,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.tableLayoutPanel2.SetColumnSpan(this.label1, 2);
+            this.tableLayoutPanel2.SetColumnSpan(this.label1, 3);
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(3, 51);
             this.label1.Name = "label1";
@@ -253,6 +257,16 @@
             this.columnHeader1.Text = "";
             this.columnHeader1.Width = 204;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(84, 24);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(108, 23);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "Variants to default";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // SpeciesSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -294,5 +308,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.Button BtVariantFilter;
+        private System.Windows.Forms.Button button1;
     }
 }

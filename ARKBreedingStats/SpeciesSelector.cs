@@ -427,6 +427,12 @@ namespace ARKBreedingStats
             if (VariantSelector.ShowDialog() == DialogResult.OK)
                 TextBoxTextChanged(null, null);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            VariantSelector.FilterToDefault();
+            TextBoxTextChanged(null, null);
+        }
     }
 
     class SpeciesListEntry

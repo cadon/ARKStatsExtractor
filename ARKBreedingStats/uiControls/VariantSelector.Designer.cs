@@ -42,10 +42,10 @@
             this.panel1.Controls.Add(this.ButtonCancel);
             this.panel1.Controls.Add(this.ButtonOk);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 483);
+            this.panel1.Location = new System.Drawing.Point(0, 524);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(3);
-            this.panel1.Size = new System.Drawing.Size(280, 31);
+            this.panel1.Size = new System.Drawing.Size(230, 31);
             this.panel1.TabIndex = 2;
             // 
             // ButtonCancel
@@ -62,7 +62,7 @@
             // ButtonOk
             // 
             this.ButtonOk.Dock = System.Windows.Forms.DockStyle.Right;
-            this.ButtonOk.Location = new System.Drawing.Point(177, 3);
+            this.ButtonOk.Location = new System.Drawing.Point(127, 3);
             this.ButtonOk.Name = "ButtonOk";
             this.ButtonOk.Size = new System.Drawing.Size(100, 25);
             this.ButtonOk.TabIndex = 0;
@@ -75,9 +75,9 @@
             this.ClbVariants.CheckOnClick = true;
             this.ClbVariants.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClbVariants.FormattingEnabled = true;
-            this.ClbVariants.Location = new System.Drawing.Point(0, 40);
+            this.ClbVariants.Location = new System.Drawing.Point(0, 57);
             this.ClbVariants.Name = "ClbVariants";
-            this.ClbVariants.Size = new System.Drawing.Size(280, 443);
+            this.ClbVariants.Size = new System.Drawing.Size(230, 467);
             this.ClbVariants.TabIndex = 0;
             // 
             // CheckBoxAll
@@ -85,9 +85,9 @@
             this.CheckBoxAll.AutoSize = true;
             this.CheckBoxAll.BackColor = System.Drawing.SystemColors.Window;
             this.CheckBoxAll.Dock = System.Windows.Forms.DockStyle.Top;
-            this.CheckBoxAll.Location = new System.Drawing.Point(0, 23);
+            this.CheckBoxAll.Location = new System.Drawing.Point(0, 40);
             this.CheckBoxAll.Name = "CheckBoxAll";
-            this.CheckBoxAll.Size = new System.Drawing.Size(280, 17);
+            this.CheckBoxAll.Size = new System.Drawing.Size(230, 17);
             this.CheckBoxAll.TabIndex = 1;
             this.CheckBoxAll.Text = "All";
             this.CheckBoxAll.UseVisualStyleBackColor = false;
@@ -95,12 +95,11 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
             this.label1.Padding = new System.Windows.Forms.Padding(5);
-            this.label1.Size = new System.Drawing.Size(183, 23);
+            this.label1.Size = new System.Drawing.Size(230, 40);
             this.label1.TabIndex = 3;
             this.label1.Text = "Unchecked variants will be hidden.";
             // 
@@ -110,11 +109,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.ButtonCancel;
-            this.ClientSize = new System.Drawing.Size(280, 514);
+            this.ClientSize = new System.Drawing.Size(230, 555);
             this.Controls.Add(this.ClbVariants);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.CheckBoxAll);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "VariantSelector";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;

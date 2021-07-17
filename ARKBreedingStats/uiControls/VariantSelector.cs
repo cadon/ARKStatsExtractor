@@ -47,7 +47,7 @@ namespace ARKBreedingStats.uiControls
             var variantCount = ClbVariants.Items.Count;
             if (variantCount == 0)
             {
-                DisabledVariants = Properties.Settings.Default.DisabledVariants?.ToList() ?? new List<string>();
+                DisabledVariants = Properties.Settings.Default.DisabledVariants?.ToList() ?? DefaultVariantDeselection;
             }
             else
             {
@@ -70,6 +70,11 @@ namespace ARKBreedingStats.uiControls
                 ClbVariants.Items.Add(v, checkAll || !DisabledVariants.Contains(v));
         }
 
+        internal void FilterToDefault()
+        {
+            DisabledVariants = DefaultVariantDeselection;
+        }
+
         private void ButtonOk_Click(object sender, EventArgs e)
         {
             DisabledVariants.Clear();
@@ -81,5 +86,29 @@ namespace ARKBreedingStats.uiControls
             DialogResult = DialogResult.OK;
             Close();
         }
+
+        private List<string> DefaultVariantDeselection => new List<string>
+        {
+            "Alpha",
+            "Beta",
+            "Boss",
+            "Corrupted",
+            "Escort",
+            "FinalBattle",
+            "Gamma",
+            "Gauntlet",
+            "Gauntlet2",
+            "Hunt",
+            "Mega",
+            "Minion",
+            "Mission",
+            "Race",
+            "Race2",
+            "Retrieve",
+            "Rockwell",
+            "Sport",
+            "Summoned",
+            "TekCave"
+        };
     }
 }
