@@ -97,21 +97,7 @@ namespace ARKBreedingStats
         {
             tabControlMain.SelectedTab = tabPageExtractor;
 
-            bool updateExtractorVisualKeeper = _updateExtractorVisualData;
-            var updateVisualsInfoInputKeeper = creatureInfoInputExtractor.DontUpdateVisuals;
-            if (addToLibraryIfUnique)
-            {
-                _updateExtractorVisualData = false;
-                creatureInfoInputExtractor.DontUpdateVisuals = true;
-            }
-
             ExtractExportedFileInExtractor(exportedCreatureControl, updateParentVisuals: !addToLibraryIfUnique);
-
-            if (addToLibraryIfUnique)
-            {
-                _updateExtractorVisualData = updateExtractorVisualKeeper;
-                creatureInfoInputExtractor.DontUpdateVisuals = updateVisualsInfoInputKeeper;
-            }
 
             // add to library automatically if batch-extracting exportedImported values and uniqueLevels
             if (addToLibraryIfUnique)
@@ -316,17 +302,51 @@ namespace ARKBreedingStats
                 _exportedCreatureList.CopyValuesToExtractor += ExportedCreatureList_CopyValuesToExtractor;
                 _exportedCreatureList.CheckArkIdInLibrary += ExportedCreatureList_CheckGuidInLibrary;
                 _exportedCreatureList.UpdateVisualData += UpdateVisualDataInExtractor;
+                _exportedCreatureList.AddFolderToPresets += AddExportFolderToMenu;
                 Utils.SetWindowRectangle(_exportedCreatureList, Properties.Settings.Default.ImportExportedFormRectangle);
                 _exportedCreatureList.CheckForUnknownMods += ExportedCreatureList_CheckForUnknownMods;
             }
-            _exportedCreatureList.ownerSuffix = "";
+            _exportedCreatureList.ownerSuffix = string.Empty;
             _exportedCreatureList.Show();
             _exportedCreatureList.BringToFront();
         }
 
-        private void UpdateVisualDataInExtractor()
+        private void AddExportFolderToMenu(string folderPath)
         {
-            creatureInfoInputExtractor.RegionColors = creatureInfoInputExtractor.RegionColors;
+            var folders = Properties.Settings.Default.ExportCreatureFolders?.ToList() ?? new List<string>();
+            bool alreadyExists = false;
+            foreach (var f in folders)
+            {
+                var impExpFolder = ATImportExportedFolderLocation.CreateFromString(f);
+                if (impExpFolder.FolderPath == folderPath)
+                {
+                    alreadyExists = true;
+                    break;
+                }
+            }
+
+            if (alreadyExists) return;
+
+            folders.Add(new ATImportExportedFolderLocation(Path.GetFileName(folderPath), null, folderPath).ToString());
+            Properties.Settings.Default.ExportCreatureFolders = folders.ToArray();
+            CreateImportExportedMenu();
+        }
+
+        private void UpdateVisualDataInExtractor(bool updateData)
+        {
+            if (!updateData)
+            {
+                creatureInfoInputExtractor.DontUpdateVisuals = true;
+                _dontUpdateExtractorVisualData = true;
+            }
+            else
+            {
+                creatureInfoInputExtractor.DontUpdateVisuals = true;
+                var colors = creatureInfoInputExtractor.RegionColors;
+                creatureInfoInputExtractor.DontUpdateVisuals = false;
+                _dontUpdateExtractorVisualData = false;
+                creatureInfoInputExtractor.RegionColors = colors;
+            }
         }
 
         private void ExportedCreatureList_CheckForUnknownMods(List<string> unknownSpeciesBlueprintPaths)
@@ -336,6 +356,42 @@ namespace ARKBreedingStats
             if (_creatureCollection.ModValueReloadNeeded
                 && LoadModValuesOfCollection(_creatureCollection, true, true))
                 _exportedCreatureList.LoadFilesInFolder();
+        }
+
+        /// <summary>
+        /// Recreates the menu entries to import exported creatures.
+        /// </summary>
+        private void CreateImportExportedMenu()
+        {
+            importExportedCreaturesToolStripMenuItem.DropDownItems.Clear();
+            if (Properties.Settings.Default.ExportCreatureFolders?.Any() == true)
+            {
+                foreach (string f in Properties.Settings.Default.ExportCreatureFolders)
+                {
+                    ATImportExportedFolderLocation aTImportExportedFolderLocation =
+                        ATImportExportedFolderLocation.CreateFromString(f);
+                    string menuItemHeader = string.IsNullOrEmpty(aTImportExportedFolderLocation.ConvenientName)
+                        ? "<unnamed>"
+                        : aTImportExportedFolderLocation.ConvenientName;
+                    ToolStripMenuItem tsmi = new ToolStripMenuItem(menuItemHeader
+                                                                   + (string.IsNullOrEmpty(
+                                                                       aTImportExportedFolderLocation.OwnerSuffix)
+                                                                       ? string.Empty
+                                                                       : " - " + aTImportExportedFolderLocation.OwnerSuffix))
+                    {
+                        Tag = aTImportExportedFolderLocation
+                    };
+                    tsmi.Click += OpenImportExportForm;
+                    importExportedCreaturesToolStripMenuItem.DropDownItems.Add(tsmi);
+                }
+
+                importExportedCreaturesToolStripMenuItem.DropDownItems.Add(new ToolStripSeparator());
+            }
+
+            // open folder for importExport
+            ToolStripMenuItem tsmif = new ToolStripMenuItem("Open folder for importing exported files");
+            tsmif.Click += ImportAllCreaturesInSelectedFolder;
+            importExportedCreaturesToolStripMenuItem.DropDownItems.Add(tsmif);
         }
     }
 }

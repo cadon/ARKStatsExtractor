@@ -435,9 +435,7 @@ namespace ARKBreedingStats
             var filterPresets = Properties.Settings.Default.LibraryFilterPresets;
             if (filterPresets != null)
                 ToolStripTextBoxLibraryFilter.AutoCompleteCustomSource.AddRange(filterPresets);
-
-            _updateExtractorVisualData = true;
-
+            
             // Set up the file watcher
             if (Properties.Settings.Default.syncCollection)
                 _fileSync = new FileSync(_currentFileName, CollectionChanged);
@@ -807,36 +805,7 @@ namespace ARKBreedingStats
                 UpdateAllTesterValues();
             }
 
-            // import exported menu
-            importExportedCreaturesToolStripMenuItem.DropDownItems.Clear();
-            if (Properties.Settings.Default.ExportCreatureFolders?.Any() == true)
-            {
-                foreach (string f in Properties.Settings.Default.ExportCreatureFolders)
-                {
-                    ATImportExportedFolderLocation aTImportExportedFolderLocation =
-                        ATImportExportedFolderLocation.CreateFromString(f);
-                    string menuItemHeader = string.IsNullOrEmpty(aTImportExportedFolderLocation.ConvenientName)
-                        ? "<unnamed>"
-                        : aTImportExportedFolderLocation.ConvenientName;
-                    ToolStripMenuItem tsmi = new ToolStripMenuItem(menuItemHeader
-                                                                   + (string.IsNullOrEmpty(
-                                                                       aTImportExportedFolderLocation.OwnerSuffix)
-                                                                       ? string.Empty
-                                                                       : " - " + aTImportExportedFolderLocation.OwnerSuffix))
-                    {
-                        Tag = aTImportExportedFolderLocation
-                    };
-                    tsmi.Click += OpenImportExportForm;
-                    importExportedCreaturesToolStripMenuItem.DropDownItems.Add(tsmi);
-                }
-
-                importExportedCreaturesToolStripMenuItem.DropDownItems.Add(new ToolStripSeparator());
-            }
-
-            // open folder for importExport
-            ToolStripMenuItem tsmif = new ToolStripMenuItem("Open folder for importing exported files");
-            tsmif.Click += ImportAllCreaturesInSelectedFolder;
-            importExportedCreaturesToolStripMenuItem.DropDownItems.Add(tsmif);
+            CreateImportExportedMenu();
 
             // save game importer menu
             importingFromSavegameToolStripMenuItem.DropDownItems.Clear();
@@ -2995,7 +2964,7 @@ namespace ARKBreedingStats
             }
             else if (updateInheritance)
             {
-                if (_extractor.ValidResults && _updateExtractorVisualData)
+                if (_extractor.ValidResults && !_dontUpdateExtractorVisualData)
                     input.UpdateParentInheritances(cr);
             }
             else

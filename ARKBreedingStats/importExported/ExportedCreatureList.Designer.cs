@@ -32,6 +32,7 @@
             this.foldersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chooseFolderToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openSelectedFolderInExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveCurrentFolderInMainMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.moveAllImportedFilesToimportedSubfolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteAllImportedFilesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,6 +47,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.filterAllSpeciestoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.refreshListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -55,7 +57,6 @@
             this.speciesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ownerNameToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.importStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.refreshListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
@@ -81,7 +82,8 @@
             // 
             this.foldersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.chooseFolderToolStripMenuItem1,
-            this.openSelectedFolderInExplorerToolStripMenuItem});
+            this.openSelectedFolderInExplorerToolStripMenuItem,
+            this.saveCurrentFolderInMainMenuToolStripMenuItem});
             this.foldersToolStripMenuItem.Name = "foldersToolStripMenuItem";
             this.foldersToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.foldersToolStripMenuItem.Text = "Folders";
@@ -89,16 +91,23 @@
             // chooseFolderToolStripMenuItem1
             // 
             this.chooseFolderToolStripMenuItem1.Name = "chooseFolderToolStripMenuItem1";
-            this.chooseFolderToolStripMenuItem1.Size = new System.Drawing.Size(242, 22);
+            this.chooseFolderToolStripMenuItem1.Size = new System.Drawing.Size(299, 22);
             this.chooseFolderToolStripMenuItem1.Text = "Choose Folder…";
             this.chooseFolderToolStripMenuItem1.Click += new System.EventHandler(this.chooseFolderToolStripMenuItem_Click);
             // 
             // openSelectedFolderInExplorerToolStripMenuItem
             // 
             this.openSelectedFolderInExplorerToolStripMenuItem.Name = "openSelectedFolderInExplorerToolStripMenuItem";
-            this.openSelectedFolderInExplorerToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.openSelectedFolderInExplorerToolStripMenuItem.Size = new System.Drawing.Size(299, 22);
             this.openSelectedFolderInExplorerToolStripMenuItem.Text = "Open selected folder in explorer";
             this.openSelectedFolderInExplorerToolStripMenuItem.Click += new System.EventHandler(this.openFolderToolStripMenuItem_Click);
+            // 
+            // saveCurrentFolderInMainMenuToolStripMenuItem
+            // 
+            this.saveCurrentFolderInMainMenuToolStripMenuItem.Name = "saveCurrentFolderInMainMenuToolStripMenuItem";
+            this.saveCurrentFolderInMainMenuToolStripMenuItem.Size = new System.Drawing.Size(299, 22);
+            this.saveCurrentFolderInMainMenuToolStripMenuItem.Text = "Save current folder as preset in main menu";
+            this.saveCurrentFolderInMainMenuToolStripMenuItem.Click += new System.EventHandler(this.saveCurrentFolderInMainMenuToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -205,6 +214,13 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(171, 6);
             // 
+            // refreshListToolStripMenuItem
+            // 
+            this.refreshListToolStripMenuItem.Name = "refreshListToolStripMenuItem";
+            this.refreshListToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
+            this.refreshListToolStripMenuItem.Text = "Refresh List";
+            this.refreshListToolStripMenuItem.Click += new System.EventHandler(this.refreshListToolStripMenuItem_Click);
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -279,13 +295,6 @@
             this.importStatusToolStripMenuItem.Text = "Import status";
             this.importStatusToolStripMenuItem.Click += new System.EventHandler(this.importStatusToolStripMenuItem_Click);
             // 
-            // refreshListToolStripMenuItem
-            // 
-            this.refreshListToolStripMenuItem.Name = "refreshListToolStripMenuItem";
-            this.refreshListToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
-            this.refreshListToolStripMenuItem.Text = "Refresh List";
-            this.refreshListToolStripMenuItem.Click += new System.EventHandler(this.refreshListToolStripMenuItem_Click);
-            // 
             // ExportedCreatureList
             // 
             this.AllowDrop = true;
@@ -344,5 +353,6 @@
         private System.Windows.Forms.ToolStripMenuItem ownerNameToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem importStatusToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem refreshListToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveCurrentFolderInMainMenuToolStripMenuItem;
     }
 }

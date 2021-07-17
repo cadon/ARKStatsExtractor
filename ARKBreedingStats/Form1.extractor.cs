@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
@@ -17,10 +16,10 @@ namespace ARKBreedingStats
     public partial class Form1
     {
         /// <summary>
-        /// Set to false if many creatures are processed automatically, e.g. a bulk import.
+        /// Set to true if many creatures are processed automatically, e.g. a bulk import.
         /// It will prevent visual feedback updates.
         /// </summary>
-        private bool _updateExtractorVisualData;
+        private bool _dontUpdateExtractorVisualData;
 
         private void UpdateExtractorDetails()
         {
@@ -1064,7 +1063,7 @@ namespace ARKBreedingStats
 
         private void CreatureInfoInputColorsChanged(CreatureInfoInput input)
         {
-            if (!_updateExtractorVisualData) return;
+            if (_dontUpdateExtractorVisualData) return;
             var newColorStatus = input.SetRegionColorsExisting(_creatureCollection.ColorAlreadyAvailable(speciesSelector1.SelectedSpecies, input.RegionColors, out string infoText));
 
             if (input == creatureInfoInputExtractor)

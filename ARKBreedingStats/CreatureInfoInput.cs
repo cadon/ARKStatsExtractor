@@ -470,7 +470,7 @@ namespace ARKBreedingStats
 
         public int[] RegionColors
         {
-            get => regionColorChooser1.ColorIDs;
+            get => DontUpdateVisuals ? _regionColorIDs : regionColorChooser1.ColorIDs;
             set
             {
                 if (_selectedSpecies == null) return;
@@ -486,6 +486,7 @@ namespace ARKBreedingStats
             set
             {
                 _selectedSpecies = value;
+                if (DontUpdateVisuals) return;
                 bool breedingPossible = _selectedSpecies.breeding != null;
 
                 dhmsInputCooldown.Visible = breedingPossible;

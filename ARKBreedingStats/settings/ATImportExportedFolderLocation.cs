@@ -25,5 +25,7 @@
                     new ATImportExportedFolderLocation(pathParts[0], pathParts[1], pathParts[2]) :
                     new ATImportExportedFolderLocation(path, string.Empty, path);
         }
+
+        public override string ToString() => $"{ConvenientName}|{OwnerSuffix}|{FolderPath}";
     }
 }
