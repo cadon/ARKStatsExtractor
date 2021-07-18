@@ -105,7 +105,6 @@ namespace ARKBreedingStats.uiControls
             "Race",
             "Race2",
             "Retrieve",
-            "Rockwell",
             "Sport",
             "Summoned",
             "TekCave"
