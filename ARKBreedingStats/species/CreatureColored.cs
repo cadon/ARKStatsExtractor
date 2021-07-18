@@ -45,12 +45,12 @@ namespace ARKBreedingStats.species
             if (File.Exists(cacheFileName))
                 return (true, cacheFileName, speciesNameForList);
 
-            string speciesBackgroundFilePath = Path.Combine(ImageFolder, speciesImageName + Extension);
+            string speciesBaseImageFilePath = Path.Combine(ImageFolder, speciesImageName + Extension);
             string speciesColorMaskFilePath = Path.Combine(ImageFolder, speciesImageName + "_m" + Extension);
 
             if (CreateAndSaveCacheSpeciesFile(colorIds,
                     species?.EnabledColorRegions,
-                    speciesBackgroundFilePath, speciesColorMaskFilePath, cacheFileName, 64))
+                    speciesBaseImageFilePath, speciesColorMaskFilePath, cacheFileName, 64))
                 return (true, cacheFileName, speciesNameForList);
 
             return (false, null, null);
@@ -118,13 +118,13 @@ namespace ARKBreedingStats.species
                 }
             }
 
-            string speciesBackgroundFilePath = Path.Combine(ImageFolder, speciesName + Extension);
+            string speciesBaseImageFilePath = Path.Combine(ImageFolder, speciesName + Extension);
             string speciesColorMaskFilePath = Path.Combine(ImageFolder, speciesName + "_m" + Extension);
             string cacheFilePath = ColoredCreatureCacheFilePath(speciesName, colorIds);
             bool cacheFileExists = File.Exists(cacheFilePath);
             if (!cacheFileExists)
             {
-                cacheFileExists = CreateAndSaveCacheSpeciesFile(colorIds, enabledColorRegions, speciesBackgroundFilePath, speciesColorMaskFilePath, cacheFilePath);
+                cacheFileExists = CreateAndSaveCacheSpeciesFile(colorIds, enabledColorRegions, speciesBaseImageFilePath, speciesColorMaskFilePath, cacheFilePath);
             }
 
             if (onlyImage && !cacheFileExists) return null; // creating the species file failed
@@ -138,7 +138,7 @@ namespace ARKBreedingStats.species
                 catch
                 {
                     // cached file corrupted, recreate
-                    if (CreateAndSaveCacheSpeciesFile(colorIds, enabledColorRegions, speciesBackgroundFilePath,
+                    if (CreateAndSaveCacheSpeciesFile(colorIds, enabledColorRegions, speciesBaseImageFilePath,
                         speciesColorMaskFilePath, cacheFilePath))
                     {
                         try
@@ -177,7 +177,7 @@ namespace ARKBreedingStats.species
                 catch
                 {
                     // cached file invalid, recreate
-                    if (CreateAndSaveCacheSpeciesFile(colorIds, enabledColorRegions, speciesBackgroundFilePath,
+                    if (CreateAndSaveCacheSpeciesFile(colorIds, enabledColorRegions, speciesBaseImageFilePath,
                         speciesColorMaskFilePath, cacheFilePath))
                     {
                         try
@@ -237,14 +237,14 @@ namespace ARKBreedingStats.species
         /// </summary>
         /// <returns></returns>
         private static bool CreateAndSaveCacheSpeciesFile(int[] colorIds, bool[] enabledColorRegions,
-            string speciesBackgroundFilePath, string speciesColorMaskFilePath, string cacheFilePath, int outputSize = 256)
+            string speciesBaseImageFilePath, string speciesColorMaskFilePath, string cacheFilePath, int outputSize = 256)
         {
             if (string.IsNullOrEmpty(cacheFilePath)
-                || !File.Exists(speciesBackgroundFilePath))
+                || !File.Exists(speciesBaseImageFilePath))
                 return false;
 
-            using (Bitmap bmpBackground = new Bitmap(speciesBackgroundFilePath))
-            using (Bitmap bmpColoredCreature = new Bitmap(bmpBackground.Width, bmpBackground.Height, PixelFormat.Format32bppArgb))
+            using (Bitmap bmpBaseImage = new Bitmap(speciesBaseImageFilePath))
+            using (Bitmap bmpColoredCreature = new Bitmap(bmpBaseImage.Width, bmpBaseImage.Height, PixelFormat.Format32bppArgb))
             using (Graphics graph = Graphics.FromImage(bmpColoredCreature))
             {
                 bool imageFine = true;
@@ -271,9 +271,6 @@ namespace ARKBreedingStats.species
                     graph.FillEllipse(pthGrBrush, 0, yStart, TemplateSize, yEnd);
                 // background shadow done
 
-                // shaded base image
-                graph.DrawImage(bmpBackground, 0, 0, TemplateSize, TemplateSize);
-
                 // if species has color regions, apply colors
                 if (File.Exists(speciesColorMaskFilePath))
                 {
@@ -288,11 +285,14 @@ namespace ARKBreedingStats.species
                             rgb[c] = new[] { cl.R, cl.G, cl.B };
                         }
                     }
-                    imageFine = ApplyColorsUnsafe(rgb, useColorRegions, speciesColorMaskFilePath, TemplateSize, bmpBackground, bmpColoredCreature);
+                    imageFine = ApplyColorsUnsafe(rgb, useColorRegions, speciesColorMaskFilePath, TemplateSize, bmpBaseImage);
                 }
 
                 if (imageFine)
                 {
+                    // draw species image on background
+                    graph.DrawImage(bmpBaseImage, 0, 0, TemplateSize, TemplateSize);
+
                     string cacheFolder = Path.GetDirectoryName(cacheFilePath);
                     if (string.IsNullOrEmpty(cacheFolder)) return false;
                     if (!Directory.Exists(cacheFolder))
@@ -335,7 +335,7 @@ namespace ARKBreedingStats.species
         /// Applies the colors to the base image.
         /// </summary>
         private static bool ApplyColorsUnsafe(byte[][] rgb, bool[] enabledColorRegions, string speciesColorMaskFilePath,
-            int templateSize, Bitmap bmpBackground, Bitmap bmpColoredCreature)
+            int templateSize, Bitmap bmpBaseImage)
         {
             var imageFine = false;
             using (Bitmap bmpMask = new Bitmap(templateSize, templateSize))
@@ -350,41 +350,39 @@ namespace ARKBreedingStats.species
                         templateSize, templateSize);
                 }
 
-                BitmapData bmpDataBackground = bmpBackground.LockBits(
-                    new Rectangle(0, 0, bmpBackground.Width, bmpBackground.Height), ImageLockMode.ReadOnly,
-                    bmpBackground.PixelFormat);
+                BitmapData bmpDataBaseImage = bmpBaseImage.LockBits(
+                    new Rectangle(0, 0, bmpBaseImage.Width, bmpBaseImage.Height), ImageLockMode.ReadOnly,
+                    bmpBaseImage.PixelFormat);
                 BitmapData bmpDataMask = bmpMask.LockBits(
                     new Rectangle(0, 0, bmpMask.Width, bmpMask.Height), ImageLockMode.ReadOnly,
                     bmpMask.PixelFormat);
-                BitmapData bmpDataColoredCreature = bmpColoredCreature.LockBits(
-                    new Rectangle(0, 0, bmpColoredCreature.Width, bmpColoredCreature.Height),
-                    ImageLockMode.WriteOnly,
-                    bmpColoredCreature.PixelFormat);
 
-                int bgBytes = bmpBackground.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
+                int bgBytes = bmpBaseImage.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
                 int msBytes = bmpDataMask.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
-                int ccBytes = bmpColoredCreature.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
 
                 float o = 0;
                 try
                 {
                     unsafe
                     {
-                        byte* scan0Bg = (byte*)bmpDataBackground.Scan0.ToPointer();
+                        byte* scan0Bg = (byte*)bmpDataBaseImage.Scan0.ToPointer();
                         byte* scan0Ms = (byte*)bmpDataMask.Scan0.ToPointer();
-                        byte* scan0Cc = (byte*)bmpDataColoredCreature.Scan0.ToPointer();
 
-                        for (int i = 0; i < bmpDataBackground.Width; i++)
+                        var width = bmpDataBaseImage.Width;
+                        var height = bmpDataBaseImage.Height;
+                        var strideBaseImage = bmpDataBaseImage.Stride;
+                        var strideMask = bmpDataMask.Stride;
+
+                        for (int i = 0; i < width; i++)
                         {
-                            for (int j = 0; j < bmpDataBackground.Height; j++)
+                            for (int j = 0; j < height; j++)
                             {
-                                byte* dBg = scan0Bg + j * bmpDataBackground.Stride + i * bgBytes;
+                                byte* dBg = scan0Bg + j * strideBaseImage + i * bgBytes;
                                 // continue if the pixel is transparent
                                 if (dBg[3] == 0)
                                     continue;
 
-                                byte* dMs = scan0Ms + j * bmpDataMask.Stride + i * msBytes;
-                                byte* dCc = scan0Cc + j * bmpDataColoredCreature.Stride + i * ccBytes;
+                                byte* dMs = scan0Ms + j * strideMask + i * msBytes;
 
                                 int r = dMs[2];
                                 int g = dMs[1];
@@ -438,10 +436,9 @@ namespace ARKBreedingStats.species
                                 }
 
                                 // set final color
-                                dCc[0] = finalB;
-                                dCc[1] = finalG;
-                                dCc[2] = finalR;
-                                dCc[3] = dBg[3]; // same alpha as base image
+                                dBg[0] = finalB;
+                                dBg[1] = finalG;
+                                dBg[2] = finalR;
                             }
                         }
                         imageFine = true;
@@ -452,9 +449,8 @@ namespace ARKBreedingStats.species
                     // error during drawing, maybe mask is smaller than image
                 }
 
-                bmpBackground.UnlockBits(bmpDataBackground);
+                bmpBaseImage.UnlockBits(bmpDataBaseImage);
                 bmpMask.UnlockBits(bmpDataMask);
-                bmpColoredCreature.UnlockBits(bmpDataColoredCreature);
             }
 
             return imageFine;
