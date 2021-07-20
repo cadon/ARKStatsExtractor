@@ -1,7 +1,6 @@
 ﻿using ARKBreedingStats.Library;
 using ARKBreedingStats.miscClasses;
 using ARKBreedingStats.species;
-using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
@@ -94,13 +93,14 @@ namespace ARKBreedingStats
         /// <param name="imprintingChanged"></param>
         public void ExtractLevels(Species species, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound,
             bool tamed, bool bred, double imprintingBonusRounded, bool adjustImprinting, bool allowMoreThanHundredImprinting, double imprintingBonusMultiplier,
-            bool considerWildLevelSteps, int wildLevelSteps, bool highPrecisionInputs, out bool imprintingChanged)
+            bool considerWildLevelSteps, int wildLevelSteps, bool highPrecisionInputs, bool mutagenApplied, out bool imprintingChanged)
         {
             var stats = species.stats;
             ValidResults = true;
             imprintingChanged = false;
             considerWildLevelSteps = considerWildLevelSteps
                 && !bred
+                && !mutagenApplied
                 && species.name.Substring(0, 3) != "Tek"
                 && species.name != "Jerboa"
                 ;

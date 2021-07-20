@@ -2149,7 +2149,7 @@ namespace ARKBreedingStats
                     if (possibleSpecies[0] != null)
                         speciesSelector1.SetSpecies(possibleSpecies[0]);
                     ExtractLevels(true,
-                        showLevelsInOverlay: !manuallyTriggered); // only one possible dino, use that one
+                        showLevelsInOverlay: !manuallyTriggered, possiblyMutagenApplied: true); // only one possible dino, use that one
                 }
                 else
                 {
@@ -2171,7 +2171,7 @@ namespace ARKBreedingStats
                         speciesSelector1.SetSpecies(possibleSpecies[newIndex], ignoreInRecent: true);
                         _lastOcrSpecies = possibleSpecies[newIndex];
                         _lastOcrValues = OcrValues;
-                        ExtractLevels(true);
+                        ExtractLevels(true, possiblyMutagenApplied: true);
                     }
                     else
                     {
@@ -2186,7 +2186,7 @@ namespace ARKBreedingStats
                             speciesSelector1.SetSpecies(possibleSpecies[speciesOption], ignoreInRecent: true);
                             _lastOcrSpecies = possibleSpecies[speciesOption];
                             _lastOcrValues = OcrValues;
-                            foundPossiblyGood = ExtractLevels(showLevelsInOverlay: !manuallyTriggered);
+                            foundPossiblyGood = ExtractLevels(showLevelsInOverlay: !manuallyTriggered, possiblyMutagenApplied: true);
                         }
                     }
                 }
@@ -2201,7 +2201,7 @@ namespace ARKBreedingStats
                     speciesSelector1.SetSpecies(speciesByName);
                 }
 
-                ExtractLevels();
+                ExtractLevels(possiblyMutagenApplied: true);
             }
 
             _lastOcrValues = OcrValues;

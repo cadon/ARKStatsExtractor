@@ -256,18 +256,22 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="autoExtraction"></param>
         /// <param name="statInputsHighPrecision">Set to true if the data is from an export file which has a higher precision for stat-values so the tolerance of calculations can be smaller.</param>
+        /// <param name="possiblyMutagenApplied">Set to true if the creature may have Mutagen applied.
+        /// This needs to be set true if the creature is imported from an exported file, because there's no way to know if there is Mutagen applied, and if set falsely to false it can sort out level combinations during the extraction.</param>
         /// <returns></returns>
-        private bool ExtractLevels(bool autoExtraction = false, bool statInputsHighPrecision = false, bool showLevelsInOverlay = false, Creature existingCreature = null)
+        private bool ExtractLevels(bool autoExtraction = false, bool statInputsHighPrecision = false, bool showLevelsInOverlay = false, Creature existingCreature = null, bool possiblyMutagenApplied = false)
         {
             int activeStatKeeper = _activeStatIndex;
             ClearAll(_clearExtractionCreatureData);
+            var mutagenApplied = possiblyMutagenApplied || creatureInfoInputExtractor.CreatureFlags.HasFlag(CreatureFlags.MutagenApplied);
+            var bred = rbBredExtractor.Checked;
 
             _extractor.ExtractLevels(speciesSelector1.SelectedSpecies, (int)numericUpDownLevel.Value, _statIOs,
                     (double)numericUpDownLowerTEffBound.Value / 100, (double)numericUpDownUpperTEffBound.Value / 100,
-                    rbTamedExtractor.Checked, rbBredExtractor.Checked,
+                    rbTamedExtractor.Checked, bred,
                     (double)numericUpDownImprintingBonusExtractor.Value / 100, !cbExactlyImprinting.Checked,
                     _creatureCollection.allowMoreThanHundredImprinting, _creatureCollection.serverMultipliers.BabyImprintingStatScaleMultiplier,
-                    _creatureCollection.considerWildLevelSteps, _creatureCollection.wildLevelStep, statInputsHighPrecision, out bool imprintingBonusChanged);
+                    _creatureCollection.considerWildLevelSteps, _creatureCollection.wildLevelStep, statInputsHighPrecision, mutagenApplied, out bool imprintingBonusChanged);
 
             numericUpDownImprintingBonusExtractor.ValueSave = (decimal)_extractor.ImprintingBonus * 100;
             numericUpDownImprintingBonusExtractor_ValueChanged(null, null);
@@ -287,7 +291,8 @@ namespace ARKBreedingStats
 
             // remove all results that require a total wild-level higher than the max
             // Tek-variants have 20% higher levels
-            _extractor.RemoveImpossibleTEsAccordingToMaxWildLevel((int)Math.Ceiling(_creatureCollection.maxWildLevel * (speciesSelector1.SelectedSpecies.name.StartsWith("Tek ") ? 1.2 : 1)));
+            var additionalWildLevelsDueToMutagen = mutagenApplied ? (bred ? 5 : 20) : 0;
+            _extractor.RemoveImpossibleTEsAccordingToMaxWildLevel((int)Math.Ceiling((_creatureCollection.maxWildLevel + additionalWildLevelsDueToMutagen) * (speciesSelector1.SelectedSpecies.name.StartsWith("Tek ") ? 1.2 : 1)));
 
             if (everyStatHasAtLeastOneResult && !_extractor.EveryStatHasAtLeastOneResult)
             {
@@ -961,7 +966,7 @@ namespace ARKBreedingStats
 
             bool creatureExists = IsCreatureAlreadyInLibrary(cv.guid, cv.ARKID, out Creature existingCreature);
 
-            ExtractLevels(autoExtraction, highPrecisionValues, existingCreature: existingCreature);
+            ExtractLevels(autoExtraction, highPrecisionValues, existingCreature: existingCreature, possiblyMutagenApplied: cv.flags.HasFlag(CreatureFlags.MutagenApplied));
             SetCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
             UpdateParentListInput(creatureInfoInputExtractor); // this function is only used for single-creature extractions, e.g. LastExport
             creatureInfoInputExtractor.UpdateExistingCreature = creatureExists;
