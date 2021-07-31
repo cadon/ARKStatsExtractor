@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Threading;
+using ARKBreedingStats.BreedingPlanning;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.Properties;
@@ -698,15 +699,17 @@ namespace ARKBreedingStats
         private void CalculateNewMutations()
         {
             int newMutations = 0;
-            if (parentComboBoxMother.SelectedParent != null
-                && nudMutationsMother.Value > parentComboBoxMother.SelectedParent.Mutations)
+            if (parentComboBoxMother.SelectedParent != null)
+                newMutations += NewMutations(parentComboBoxMother.SelectedParent.Mutations, (int)nudMutationsMother.Value);
+            if (parentComboBoxFather.SelectedParent != null)
+                newMutations += NewMutations(parentComboBoxFather.SelectedParent.Mutations, (int)nudMutationsFather.Value);
+
+            int NewMutations(int mutationCountParent, int mutationCountChild)
             {
-                newMutations += (int)nudMutationsMother.Value - parentComboBoxMother.SelectedParent.Mutations;
-            }
-            if (parentComboBoxFather.SelectedParent != null
-                && nudMutationsFather.Value > parentComboBoxFather.SelectedParent.Mutations)
-            {
-                newMutations += (int)nudMutationsFather.Value - parentComboBoxFather.SelectedParent.Mutations;
+                var newMutationsFromParent = mutationCountChild - mutationCountParent;
+                if (newMutationsFromParent > 0 && newMutationsFromParent <= BreedingPlan.MutationRolls)
+                    return mutationCountChild - mutationCountParent;
+                return 0;
             }
 
             lbNewMutations.Text = $"+{newMutations} mut";

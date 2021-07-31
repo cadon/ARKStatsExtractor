@@ -67,6 +67,9 @@ namespace ARKBreedingStats.BreedingPlanning
         public const double ProbabilityHigherLevel = 0.55; // probability of inheriting the higher level-stat
         public const double ProbabilityLowerLevel = 1 - ProbabilityHigherLevel; // probability of inheriting the lower level-stat
         public const double ProbabilityOfMutation = 0.025;
+        /// <summary>
+        /// The max possible new mutations for a bred creature.
+        /// </summary>
         public const int MutationRolls = 3;
         /// <summary>
         /// Number of levels that are added to a stat if a mutation occurred.
@@ -788,7 +791,7 @@ namespace ARKBreedingStats.BreedingPlanning
 
             var bestLevelsOfWhat = _onlyShowingASubset ? "Best of manual selection"
                 : string.Format(Loc.S(bestInSpecies ? "BestPossibleSpeciesLibrary" : "BestPossibleSpeciesLibraryFiltered"), _currentSpecies.name);
-            
+
             Creature crB = new Creature(_currentSpecies, bestLevelsOfWhat,
                 null, null, 0, new int[Values.STATS_COUNT], null, 1, true, levelStep: levelStep);
             bool totalLevelUnknown = false;
