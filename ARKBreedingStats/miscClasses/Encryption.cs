@@ -4,9 +4,9 @@ using System.Text;
 
 namespace ARKBreedingStats.miscClasses
 {
-    class Encryption
+    static class Encryption
     {
-        private static byte[] additionalEntropy = Encoding.UTF8.GetBytes("Additional Entropy");
+        private static readonly byte[] AdditionalEntropy = Encoding.UTF8.GetBytes("Additional Entropy");
 
         /// <summary>
         /// Converts a string into a base64 encoded ProdectedData encrypted byte array
@@ -20,7 +20,7 @@ namespace ARKBreedingStats.miscClasses
 
                 // Encrypt the data using DataProtectionScope.CurrentUser. The result can be decrypted
                 //  only by the same current user.
-                var encryptedBytes = ProtectedData.Protect(decryptedBytes, additionalEntropy, DataProtectionScope.CurrentUser);
+                var encryptedBytes = ProtectedData.Protect(decryptedBytes, AdditionalEntropy, DataProtectionScope.CurrentUser);
 
                 return Convert.ToBase64String(encryptedBytes);
             }
@@ -33,7 +33,7 @@ namespace ARKBreedingStats.miscClasses
         }
 
         /// <summary>
-        /// Converts base64 encoded ProdectedData encrypted byte array into a string
+        /// Converts base64 encoded ProtectedData encrypted byte array into a string
         /// </summary>
         /// <param name="value">The string to decrypt</param>
         public static string Unprotect(string value)
@@ -48,7 +48,7 @@ namespace ARKBreedingStats.miscClasses
                 var encryptedBytes = Convert.FromBase64String(value);
 
                 //Decrypt the data using DataProtectionScope.CurrentUser.
-                var decryptedBytes = ProtectedData.Unprotect(encryptedBytes, additionalEntropy, DataProtectionScope.CurrentUser);
+                var decryptedBytes = ProtectedData.Unprotect(encryptedBytes, AdditionalEntropy, DataProtectionScope.CurrentUser);
 
                 return Encoding.UTF8.GetString(decryptedBytes);
             }
