@@ -62,13 +62,14 @@ namespace ARKBreedingStats
             {
                 if (System.Diagnostics.Debugger.IsAttached) throw e;
                 string message = e.Message
+                    + "\n\nException type: " + e.GetType()
                     + "\n\nException in " + e.Source
                     + "\n\nMethod throwing the error: " + e.TargetSite.DeclaringType.FullName + "." + e.TargetSite.Name
                     + "\n\nStackTrace:\n" + e.StackTrace
                     + (e.InnerException != null ? "\n\nInner Exception:\n" + e.InnerException.Message : string.Empty)
                     ;
 
-                CustomMessageBox.Show(message, "Unhandled Exception", "OK", icon: MessageBoxIcon.Error,
+                CustomMessageBox.Show(message, "Unhandled Exception in ARK Smart Breeding", "OK", icon: MessageBoxIcon.Error,
                     showCopyToClipboard: true);
             }
         }
