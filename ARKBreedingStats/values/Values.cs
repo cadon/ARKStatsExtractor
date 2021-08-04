@@ -447,6 +447,13 @@ namespace ARKBreedingStats.values
                         s.SortName = s.DescriptiveNameAndMod;
                 }
             }
+            else
+            {
+                foreach (Species s in _V.species)
+                {
+                    s.SortName = s.DescriptiveNameAndMod;
+                }
+            }
 
             _V.species = _V.species.OrderBy(s => s.SortName).ToList();
         }
