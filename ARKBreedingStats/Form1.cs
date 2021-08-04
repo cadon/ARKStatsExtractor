@@ -3594,5 +3594,25 @@ namespace ARKBreedingStats
                 tabControlMain.SelectedTab = tabPageLibrary;
             listBoxSpeciesLib.SelectedIndex = 0;
         }
+
+        private void resetSortingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Values.V.ResetDefaultSpeciesNameSorting();
+        }
+
+        private void editSortingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Values.V.OpenSpeciesNameSortingFile();
+        }
+
+        private void helpAboutSpeciesSortingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RepositoryInfo.OpenWikiPage("Library#order-of-the-species-in-the-library");
+        }
+
+        private void resetSortingToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Values.V.ResetSpeciesNameSorting();
+        }
     }
 }

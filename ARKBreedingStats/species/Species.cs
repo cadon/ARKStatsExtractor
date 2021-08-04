@@ -204,9 +204,9 @@ namespace ARKBreedingStats.species
             }
 
             DescriptiveName = name + (string.IsNullOrEmpty(VariantInfo) ? string.Empty : " (" + VariantInfo + ")");
-            SortName = DescriptiveName;
             string modSuffix = string.IsNullOrEmpty(_mod?.title) ? string.Empty : _mod.title;
-            DescriptiveNameAndMod = DescriptiveName + (string.IsNullOrEmpty(modSuffix) ? "" : " (" + modSuffix + ")");
+            DescriptiveNameAndMod = DescriptiveName + (string.IsNullOrEmpty(modSuffix) ? string.Empty : " (" + modSuffix + ")");
+            SortName = DescriptiveNameAndMod;
         }
 
         public void InitializeColors(ARKColors arkColors)

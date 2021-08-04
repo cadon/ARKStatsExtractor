@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -377,28 +378,49 @@ namespace ARKBreedingStats.values
             //    Clipboard.SetText(duplicateSpeciesNames);
         }
 
-        private void OrderSpeciesAndApplyCustomVariants()
+        private string SpeciesNameSortFilePath => FileService.GetJsonPath("sortNames.txt");
+
+        public void ResetDefaultSpeciesNameSorting()
         {
-            string fileName = FileService.GetJsonPath("sortNames.txt");
+            string filePath = SpeciesNameSortFilePath;
 
-            if (!File.Exists(fileName))
+            try
             {
-                // default sorting for aberrant variants.
-                try
-                {
-                    File.WriteAllText(fileName, "^Aberrant (.*)$@$1a\n");
-                }
-                catch
-                {
-                }
+                File.WriteAllText(filePath, "^(Aberrant |Tek |R\\-|X\\-)(.*)$@$2$1\n");
+                ApplySpeciesOrdering();
             }
+            catch
+            {
+                // ignored
+            }
+        }
 
-            if (File.Exists(fileName))
+        public void ResetSpeciesNameSorting()
+        {
+            string filePath = SpeciesNameSortFilePath;
+            if (FileService.TryDeleteFile(filePath))
+                ApplySpeciesOrdering();
+        }
+
+        public void OpenSpeciesNameSortingFile()
+        {
+            string filePath = SpeciesNameSortFilePath;
+            if (!File.Exists(filePath))
+                File.WriteAllText(filePath, string.Empty);
+            if (File.Exists(filePath))
+                Process.Start(filePath);
+        }
+
+        private void ApplySpeciesOrdering()
+        {
+            string filePath = SpeciesNameSortFilePath;
+
+            if (File.Exists(filePath))
             {
                 foreach (Species s in _V.species)
                     s.SortName = string.Empty;
 
-                string[] lines = File.ReadAllLines(fileName);
+                string[] lines = File.ReadAllLines(filePath);
                 foreach (string l in lines)
                 {
                     if (l.IndexOf("@", StringComparison.Ordinal) <= 0 ||
@@ -418,15 +440,20 @@ namespace ARKBreedingStats.values
                     }
                 }
 
-                // set each sortname of species without manual sortname to its speciesname
+                // set each sortName of species without manual sortName to its speciesName
                 foreach (Species s in _V.species)
                 {
                     if (string.IsNullOrEmpty(s.SortName))
-                        s.SortName = s.name;
+                        s.SortName = s.DescriptiveNameAndMod;
                 }
             }
 
             _V.species = _V.species.OrderBy(s => s.SortName).ToList();
+        }
+
+        private void OrderSpeciesAndApplyCustomVariants()
+        {
+            ApplySpeciesOrdering();
             _V.speciesNames = _V.species.Select(s => s.name).ToList();
 
             // apply custom species variants
