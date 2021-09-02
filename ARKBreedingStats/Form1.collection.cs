@@ -182,6 +182,7 @@ namespace ARKBreedingStats
                 {
                     _currentFileName = dlg.FileName;
                     SaveCollectionToFileName(_currentFileName);
+                    AddPathToRecentlyUsed(_currentFileName);
                     _fileSync?.ChangeFile(_currentFileName);
                 }
             }
