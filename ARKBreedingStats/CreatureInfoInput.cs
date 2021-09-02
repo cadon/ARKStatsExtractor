@@ -61,6 +61,8 @@ namespace ARKBreedingStats
         /// </summary>
         public ParentInheritance ParentInheritance;
 
+        private Button[] ButtonsNamingPattern => new[] { btnGenerateUniqueName, btNamingPattern2, btNamingPattern3, btNamingPattern4, btNamingPattern5, btNamingPattern6 };
+
         public CreatureInfoInput()
         {
             InitializeComponent();
@@ -78,8 +80,8 @@ namespace ARKBreedingStats
             GrowingUntil = new DateTime(2000, 1, 1);
             NamesOfAllCreatures = new List<string>();
 
-            var namingPatternButtons = new List<Button> { btnGenerateUniqueName, btNamingPattern2, btNamingPattern3, btNamingPattern4, btNamingPattern5, btNamingPattern6 };
-            for (int bi = 0; bi < namingPatternButtons.Count; bi++)
+            var namingPatternButtons = ButtonsNamingPattern;
+            for (int bi = 0; bi < namingPatternButtons.Length; bi++)
             {
                 int localIndex = bi;
                 // apply naming pattern
@@ -733,6 +735,21 @@ namespace ARKBreedingStats
             CreatureOwner = Settings.Default.DefaultOwnerName;
             CreatureTribe = Settings.Default.DefaultTribeName;
             CreatureServer = Settings.Default.DefaultServerName;
+        }
+
+        /// <summary>
+        /// Sets the background of the naming pattern buttons to indicate if they contain a pattern or are empty.
+        /// </summary>
+        internal void SetNamePatternButtons(string[] patterns)
+        {
+            var namingPatternButtons = ButtonsNamingPattern;
+            var l = Math.Min(namingPatternButtons.Length, patterns.Length);
+            for (int i = 0; i < namingPatternButtons.Length; i++)
+            {
+                namingPatternButtons[i].BackColor = (patterns?.Length ?? 0) > i && !string.IsNullOrWhiteSpace(patterns[i])
+                    ? Color.FromArgb(150, 110, 255, 104)
+                    : Color.Transparent;
+            }
         }
 
         internal void Clear(bool keepGeneralInfo = false)

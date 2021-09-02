@@ -436,6 +436,8 @@ namespace ARKBreedingStats
             if (filterPresets != null)
                 ToolStripTextBoxLibraryFilter.AutoCompleteCustomSource.AddRange(filterPresets);
 
+            UpdatePatternButtons();
+
             // Set up the file watcher
             if (Properties.Settings.Default.syncCollection)
                 _fileSync = new FileSync(_currentFileName, CollectionChanged);
@@ -2964,6 +2966,8 @@ namespace ARKBreedingStats
                 input.OpenNamePatternEditor(cr, _topLevels.ContainsKey(cr.Species) ? _topLevels[species] : null,
                     _lowestLevels.ContainsKey(cr.Species) ? _lowestLevels[species] : null,
                     _customReplacingNamingPattern, namingPatternIndex, ReloadNamePatternCustomReplacings);
+
+                UpdatePatternButtons();
             }
             else if (updateInheritance)
             {
@@ -2976,6 +2980,15 @@ namespace ARKBreedingStats
                     _lowestLevels.ContainsKey(cr.Species) ? _lowestLevels[species] : null,
                     _customReplacingNamingPattern, showDuplicateNameWarning, namingPatternIndex);
             }
+        }
+
+        /// <summary>
+        /// Updates the background of the pattern buttons to indicate which are not empty.
+        /// </summary>
+        private void UpdatePatternButtons()
+        {
+            creatureInfoInputExtractor.SetNamePatternButtons(Properties.Settings.Default.NamingPatterns);
+            creatureInfoInputTester.SetNamePatternButtons(Properties.Settings.Default.NamingPatterns);
         }
 
         private void ExtractionTestControl1_CopyToTester(string speciesBP, int[] wildLevels, int[] domLevels,
