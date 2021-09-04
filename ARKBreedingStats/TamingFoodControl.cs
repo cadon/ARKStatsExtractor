@@ -76,8 +76,14 @@ namespace ARKBreedingStats
 
         public TimeSpan tamingDuration
         {
-            set => labelDuration.Text = value.ToString("d':'hh':'mm':'ss");
+            set
+            {
+                labelDuration.Text = value.ToString("d':'hh':'mm':'ss");
+                TamingSeconds = (int)value.TotalSeconds;
+            }
         }
+
+        public int TamingSeconds;
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
