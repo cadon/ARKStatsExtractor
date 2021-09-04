@@ -742,6 +742,7 @@ namespace ARKBreedingStats
         /// </summary>
         internal void SetNamePatternButtons(string[] patterns)
         {
+            if (patterns == null) return;
             var namingPatternButtons = ButtonsNamingPattern;
             var l = Math.Min(namingPatternButtons.Length, patterns.Length);
             for (int i = 0; i < namingPatternButtons.Length; i++)
