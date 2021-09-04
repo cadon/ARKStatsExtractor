@@ -1813,5 +1813,17 @@ namespace ARKBreedingStats.Properties {
                 this["TimerPresets"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TamingFoodOrderByTime {
+            get {
+                return ((bool)(this["TamingFoodOrderByTime"]));
+            }
+            set {
+                this["TamingFoodOrderByTime"] = value;
+            }
+        }
     }
 }

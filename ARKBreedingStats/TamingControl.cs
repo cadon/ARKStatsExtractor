@@ -17,8 +17,8 @@ namespace ARKBreedingStats
         public event TimerControl.CreateTimerEventHandler CreateTimer;
         private DateTime _wakeUpTime;
         private DateTime _starvingTime;
-        private double _tamingSpeedMultiplier;
-        private double _tamingFoodRateMultiplier;
+        private double _tamingSpeedMultiplier = 1;
+        private double _tamingFoodRateMultiplier = 1;
         private string _koNumbers;
         private string _boneDamageAdjustersImmobilization;
         public string quickTamingInfos;
@@ -30,7 +30,6 @@ namespace ARKBreedingStats
         private double _currentBoneDamageAdjuster;
         private double _neededHunger;
         private readonly ToolTip _tt;
-        private bool _orderTamingFoodByAmount;
 
         public TamingControl()
         {
@@ -126,8 +125,8 @@ namespace ARKBreedingStats
             _updateCalculation = true;
             UpdateFirstFeedingWaiting();
             UpdateTamingData();
-            if (!_orderTamingFoodByAmount)
-                SetOrderOfTamingFood(false);
+            if (Properties.Settings.Default.TamingFoodOrderByTime)
+                SetOrderOfTamingFood(true, true);
 
             ResumeLayout();
             this.ResumeDrawing();
@@ -184,6 +183,7 @@ namespace ARKBreedingStats
 
             for (int fci = _foodControls.Count - 1; fci >= i; fci--)
             {
+                _foodControls[fci].FoodName = null;
                 _foodControls[fci].Hide();
             }
 
@@ -194,15 +194,32 @@ namespace ARKBreedingStats
         /// <summary>
         ///  If orderByFoodAmount is false, order by taming time.
         /// </summary>
-        private void SetOrderOfTamingFood(bool orderByFoodAmount)
+        private void SetOrderOfTamingFood(bool orderByTamingTime, bool forceDo = false)
         {
-            var order = _foodControls.Where(c => c.Visible)
-                .Select(c => (c, orderByFoodAmount ? c.maxFood : c.TamingSeconds)).OrderBy(ct => ct.Item2).ToArray();
+            if (Properties.Settings.Default.TamingFoodOrderByTime == orderByTamingTime && !forceDo)
+                return;
+
+            Properties.Settings.Default.TamingFoodOrderByTime = orderByTamingTime;
+
+            var order = _foodControls.Where(c => c.FoodName != null)
+                .Select(c => (c, orderByTamingTime ? c.TamingSeconds : c.maxFood)).OrderBy(ct => ct.Item2).ToArray();
 
             this.SuspendDrawing();
             for (int i = 0; i < order.Length; i++)
                 flpTamingFood.Controls.SetChildIndex(order[i].c, i);
+
+            SetTamingFoodSortAdorner(orderByTamingTime);
             this.ResumeDrawing();
+        }
+
+        private void SetTamingFoodSortAdorner(bool orderByTamingTime)
+        {
+            Loc.ControlText(lbMax);
+            Loc.ControlText(lbTamingTime);
+            if (orderByTamingTime)
+                lbTamingTime.Text += "▲";
+            else
+                lbMax.Text += "▲";
         }
 
         private void nudLevel_ValueChanged(object sender, EventArgs e)
@@ -290,7 +307,7 @@ namespace ARKBreedingStats
             nudCurrentFood.Value = nudTotalFood.Value;
             UpdateTimeToFeedAll(enoughFood);
 
-            //// quicktame infos
+            //// quickTame infos
             if (foodAmountUsed.Any())
             {
                 quickTamingInfos = Taming.QuickInfoOneFood(_selectedSpecies, level, _tamingSpeedMultiplier, _tamingFoodRateMultiplier, _foodControls[0].FoodName, _foodControls[0].maxFood, _foodControls[0].foodNameDisplay);
@@ -459,8 +476,8 @@ namespace ARKBreedingStats
 
         public void SetTamingMultipliers(double tamingSpeedMultiplier, double tamingFoodRateMultiplier)
         {
-            this._tamingSpeedMultiplier = tamingSpeedMultiplier;
-            this._tamingFoodRateMultiplier = tamingFoodRateMultiplier;
+            _tamingSpeedMultiplier = tamingSpeedMultiplier;
+            _tamingFoodRateMultiplier = tamingFoodRateMultiplier;
             UpdateTamingData();
         }
 
@@ -501,9 +518,8 @@ namespace ARKBreedingStats
 
         public void SetLocalizations()
         {
-            Loc.ControlText(lbMax);
+            SetTamingFoodSortAdorner(Properties.Settings.Default.TamingFoodOrderByTime);
             Loc.ControlText(lbUsed);
-            Loc.ControlText(lbTamingTime);
             Loc.ControlText(gpTorporTime);
             Loc.ControlText(lbCurrentTorpor);
             Loc.ControlText(lbTimeUntilWakingUp);
@@ -524,15 +540,13 @@ namespace ARKBreedingStats
         private void lbTamingTime_Click(object sender, EventArgs e)
         {
             // order by time
-            _orderTamingFoodByAmount = false;
-            SetOrderOfTamingFood(false);
+            SetOrderOfTamingFood(true);
         }
 
         private void lbMax_Click(object sender, EventArgs e)
         {
             // order by food amount
-            _orderTamingFoodByAmount = true;
-            SetOrderOfTamingFood(true);
+            SetOrderOfTamingFood(false);
         }
     }
 }
