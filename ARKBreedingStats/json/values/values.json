@@ -1,5 +1,5 @@
 {
-	"version": "332.13.7037899",
+	"version": "335.8.7175189",
 	"format": "1.14-flyerspeed",
 	"species": [
 		{
@@ -5151,7 +5151,7 @@
 						"White"
 					]
 				},
-				null,
+				{ "name": "Face patterns" },
 				{
 					"name": "Body Lower",
 					"colors": [
@@ -36420,11 +36420,13 @@
 				}
 			],
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 1.333333,
 				"affinityNeeded0": 1,
 				"affinityIncreasePL": 0,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.000868,
 				"foodConsumptionMult": 2880.184
 			},
@@ -39437,57 +39439,8 @@
 						"WolfFur"
 					]
 				},
-				{
-					"name": "Stripes",
-					"colors": [
-						"BigFoot0",
-						"BigFoot4",
-						"BigFoot5",
-						"BlackSands",
-						"Dark Grey",
-						"DarkWarmGray",
-						"DarkWolfFur",
-						"Dino Albino",
-						"Dino Dark Brown",
-						"Dino Dark Orange",
-						"Dino Darker Grey",
-						"Dino Light Brown",
-						"Dino Medium Brown",
-						"DragonBase0",
-						"DragonBase1",
-						"Light Grey",
-						"LightWarmGray",
-						"MediumWarmGray",
-						"NearBlack",
-						"NearWhite",
-						"WolfFur"
-					]
-				},
-				{
-					"name": "Accent",
-					"colors": [
-						"BigFoot0",
-						"BigFoot4",
-						"BigFoot5",
-						"Dark Grey",
-						"DarkWarmGray",
-						"DarkWolfFur",
-						"Dino Albino",
-						"Dino Dark Orange",
-						"Dino Light Brown",
-						"Dino Light Orange",
-						"Dino Medium Brown",
-						"DragonBase1",
-						"Light Grey",
-						"LightAutumn",
-						"LightWarmGray",
-						"MediumWarmGray",
-						"NearBlack",
-						"NearWhite",
-						"Peach",
-						"WolfFur"
-					]
-				},
+				null,
+				null,
 				{
 					"name": "Belly",
 					"colors": [
@@ -42256,11 +42209,13 @@
 				}
 			],
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 3.125,
 				"affinityNeeded0": 1000,
 				"affinityIncreasePL": 393,
+				"wakeAffinityMult": 0,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.001543,
 				"foodConsumptionMult": 216.0294
 			},
@@ -44584,6 +44539,132 @@
 				"foodConsumptionMult": 150
 			},
 			"TamedBaseHealthMultiplier": 0.97,
+			"displayedStats": 927
+		},
+		{
+			"name": "Dire Bear",
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Direbear_Character_BP_Summoned.Direbear_Character_BP_Summoned",
+			"variants": [ "Genesis2", "Summoned" ],
+			"fullStatsRaw": [
+				[ 400, 0.2, 0.27, 0.5, 0 ],
+				[ 500, 0.1, 0.1, 0, 0 ],
+				[ 1000, 0.06, 0, 0.5, 0 ],
+				[ 270, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 650, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 1.226, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"breeding": {
+				"gestationTime": 14285.7143,
+				"incubationTime": 0,
+				"maturationTime": 166666.667,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Black",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Light Orange",
+						"Dino Medium Brown",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Black",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Light Orange",
+						"Dino Medium Brown",
+						"Light Grey"
+					]
+				},
+				null,
+				{
+					"name": "Unknown",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Black",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Light Orange",
+						"Dino Medium Brown",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Black",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Light Orange",
+						"Dino Medium Brown",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Black",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Light Orange",
+						"Dino Medium Brown",
+						"Light Grey"
+					]
+				}
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.25,
+				"affinityNeeded0": 4000,
+				"affinityIncreasePL": 125,
+				"foodConsumptionBase": 0.003156,
+				"foodConsumptionMult": 150
+			},
+			"TamedBaseHealthMultiplier": 1,
 			"displayedStats": 927
 		},
 		{
@@ -49238,11 +49319,13 @@
 				}
 			],
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 30,
 				"affinityNeeded0": 10000,
 				"affinityIncreasePL": 5,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.01,
 				"foodConsumptionMult": 0.05
 			},
@@ -49608,7 +49691,7 @@
 				null,
 				null
 			],
-			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"immobilizedBy": [ "Chain Bola", "Bear Trap", "Plant Species Y" ],
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 4090.58184,
@@ -49808,7 +49891,7 @@
 				null,
 				null
 			],
-			"immobilizedBy": [ "Bola", "Bear Trap", "Large Bear Trap", "Plant Species Y" ],
+			"immobilizedBy": [ "Chain Bola", "Bear Trap", "Large Bear Trap", "Plant Species Y" ],
 			"breeding": {
 				"gestationTime": 15037.594,
 				"incubationTime": 0,
@@ -50396,19 +50479,20 @@
 			"blueprintPath": "/Game/Genesis2/Missions/Hunt/Dinos/Megalosaurus_Character_BP_Hunt_Enemy.Megalosaurus_Character_BP_Hunt_Enemy",
 			"variants": [ "Genesis2", "Hunt", "Mission" ],
 			"fullStatsRaw": [
-				[ 160, 1, 0, 0, 0 ],
-				[ 1000, 0, 0, 0, 0 ],
-				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 325, 0.12, 0.27, 0.66, 0 ],
+				[ 400, 0, 0, 0, 0 ],
+				[ 450, 0.06, 0, 0.5, 0 ],
 				[ 150, 0, 0, 0, 0 ],
-				[ 100, 0, 0, 0, 0 ],
+				[ 1200, 0, 0, 0, 0.15 ],
 				null,
 				null,
-				[ 100, 0, 0, 0, 0 ],
-				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0, 0, 0 ],
+				[ 300, 0, 0, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.4, 0.35 ],
+				[ 1, 0, 0, 0.3, 0 ],
 				null,
 				null
 			],
+			"altBaseStats": { "0": 225 },
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap", "Plant Species Y" ],
 			"breeding": {
 				"gestationTime": 0,
@@ -50478,8 +50562,8 @@
 				"tamingIneffectiveness": 1.875,
 				"affinityNeeded0": 3450,
 				"affinityIncreasePL": 150,
-				"foodConsumptionBase": 0.01,
-				"foodConsumptionMult": 0.05
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 288.0392
 			},
 			"boneDamageAdjusters": {
 				"Cnt_Head_JNT_SKL": 3,
@@ -50487,7 +50571,7 @@
 				"Cnt_Neck_000_JNT_SKL": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
-			"displayedStats": 919
+			"displayedStats": 927
 		},
 		{
 			"name": "Maewing",
@@ -50799,7 +50883,7 @@
 				null,
 				null
 			],
-			"immobilizedBy": [ "Bola", "Bear Trap", "Large Bear Trap", "Plant Species Y" ],
+			"immobilizedBy": [ "Chain Bola", "Bear Trap", "Large Bear Trap", "Plant Species Y" ],
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 7199.42405,
@@ -50990,7 +51074,7 @@
 				null,
 				null
 			],
-			"immobilizedBy": [],
+			"immobilizedBy": [ "Chain Bola" ],
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 17998.5601,
@@ -51952,16 +52036,16 @@
 			"blueprintPath": "/Game/Genesis2/Missions/Hunt/Dinos/Thylacoleo_Character_BP_Eden_Hunt_Enemy.Thylacoleo_Character_BP_Eden_Hunt_Enemy",
 			"variants": [ "Genesis2", "Hunt", "Mission" ],
 			"fullStatsRaw": [
-				[ 700, 0.2, 0.189, 0.5, 0 ],
-				[ 400, 0.1, 0.1, 0, 0 ],
-				[ 700, 0.06, 0, 0.5, 0 ],
-				[ 200, 0.1, 0.1, 0, 0 ],
-				[ 1500, 0.1, 0.1, 0, 0.15 ],
+				[ 425, 0.1, 0.27, 0.66, 0 ],
+				[ 400, 0, 0, 0, 0 ],
+				[ 450, 0.06, 0, 0.5, 0 ],
+				[ 150, 0, 0, 0, 0 ],
+				[ 1200, 0, 0, 0, 0.15 ],
 				null,
 				null,
-				[ 400, 0.02, 0.04, 0, 0 ],
+				[ 300, 0, 0, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.4, 0.35 ],
-				[ 1, 0, 0.01, 0.3, 0 ],
+				[ 1, 0, 0, 0.3, 0 ],
 				null,
 				null
 			],
@@ -80539,15 +80623,6 @@
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
 			"noGender": true,
-			"breeding": {
-				"gestationTime": 0,
-				"incubationTime": 5142.44575,
-				"eggTempMin": 22,
-				"eggTempMax": 26,
-				"maturationTime": 166666.667,
-				"matingCooldownMin": 129600,
-				"matingCooldownMax": 345600
-			},
 			"colors": [
 				{
 					"name": "Main body",
@@ -80723,15 +80798,15 @@
 			"variants": [ "Genesis2", "Mission", "Race2" ],
 			"isFlyer": true,
 			"fullStatsRaw": [
-				[ 1000, 0.085, 0.2025, -1050, 0 ],
-				[ 1000, 0.05, 0.05, 0, 0 ],
+				[ 180, 0.085, 0.2025, 0, 0 ],
+				[ 1000, 0, 0, 0, 0 ],
 				[ 100, 0.06, 0, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 2000, 0.1, 0.1, 0, 0 ],
+				[ 150, 0, 0, 0, 0 ],
+				[ 2000, 0, 0, 0, 0 ],
 				null,
 				null,
-				[ 10000, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, -0.25, 0.4 ],
+				[ 10000, 0, 0, 0, 0 ],
+				[ 1, 0, 0, -0.25, 0.4 ],
 				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
