@@ -338,8 +338,8 @@
     <Setting Name="ColorMode" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="InfoGraphicWidth" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">330</Value>
+    <Setting Name="InfoGraphicHeight" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">180</Value>
     </Setting>
     <Setting Name="CustomReplacingFilePath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -456,6 +456,12 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="TamingFoodOrderByTime" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="InfoGraphicShowStatValues" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="InfoGraphicShowRegionNamesIfNoImage" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>

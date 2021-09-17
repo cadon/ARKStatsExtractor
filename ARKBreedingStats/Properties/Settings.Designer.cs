@@ -1353,13 +1353,13 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("330")]
-        public int InfoGraphicWidth {
+        [global::System.Configuration.DefaultSettingValueAttribute("180")]
+        public int InfoGraphicHeight {
             get {
-                return ((int)(this["InfoGraphicWidth"]));
+                return ((int)(this["InfoGraphicHeight"]));
             }
             set {
-                this["InfoGraphicWidth"] = value;
+                this["InfoGraphicHeight"] = value;
             }
         }
         
@@ -1823,6 +1823,30 @@ namespace ARKBreedingStats.Properties {
             }
             set {
                 this["TamingFoodOrderByTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool InfoGraphicShowStatValues {
+            get {
+                return ((bool)(this["InfoGraphicShowStatValues"]));
+            }
+            set {
+                this["InfoGraphicShowStatValues"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool InfoGraphicShowRegionNamesIfNoImage {
+            get {
+                return ((bool)(this["InfoGraphicShowRegionNamesIfNoImage"]));
+            }
+            set {
+                this["InfoGraphicShowRegionNamesIfNoImage"] = value;
             }
         }
     }

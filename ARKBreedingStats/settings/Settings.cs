@@ -280,7 +280,7 @@ namespace ARKBreedingStats.settings
 
             #region InfoGraphic
 
-            nudInfoGraphicWidth.ValueSave = Properties.Settings.Default.InfoGraphicWidth;
+            nudInfoGraphicWidth.ValueSave = Properties.Settings.Default.InfoGraphicHeight;
             CbInfoGraphicDisplayMaxWildLevel.Checked = Properties.Settings.Default.InfoGraphicShowMaxWildLevel;
             CbInfoGraphicDomLevels.Checked = Properties.Settings.Default.InfoGraphicWithDomLevels;
             TbInfoGraphicFontName.Text = Properties.Settings.Default.InfoGraphicFontName;
@@ -291,6 +291,8 @@ namespace ARKBreedingStats.settings
             BtInfoGraphicForeColor.SetBackColorAndAccordingForeColor(Properties.Settings.Default.InfoGraphicForeColor);
             BtInfoGraphicBorderColor.SetBackColorAndAccordingForeColor(Properties.Settings.Default.InfoGraphicBorderColor);
             CbInfoGraphicAddRegionNames.Checked = Properties.Settings.Default.InfoGraphicExtraRegionNames;
+            CbInfoGraphicColorRegionNamesIfNoImage.Checked = Properties.Settings.Default.InfoGraphicShowRegionNamesIfNoImage;
+            CbInfoGraphicStatValues.Checked = Properties.Settings.Default.InfoGraphicShowStatValues;
 
             #endregion
 
@@ -500,7 +502,7 @@ namespace ARKBreedingStats.settings
 
             #region InfoGraphic
 
-            Properties.Settings.Default.InfoGraphicWidth = (int)nudInfoGraphicWidth.Value;
+            Properties.Settings.Default.InfoGraphicHeight = (int)nudInfoGraphicWidth.Value;
             Properties.Settings.Default.InfoGraphicShowMaxWildLevel = CbInfoGraphicDisplayMaxWildLevel.Checked;
             Properties.Settings.Default.InfoGraphicWithDomLevels = CbInfoGraphicDomLevels.Checked;
             Properties.Settings.Default.InfoGraphicFontName = TbInfoGraphicFontName.Text;
@@ -511,6 +513,8 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.InfoGraphicForeColor = BtInfoGraphicForeColor.BackColor;
             Properties.Settings.Default.InfoGraphicBorderColor = BtInfoGraphicBorderColor.BackColor;
             Properties.Settings.Default.InfoGraphicExtraRegionNames = CbInfoGraphicAddRegionNames.Checked;
+            Properties.Settings.Default.InfoGraphicShowRegionNamesIfNoImage = CbInfoGraphicColorRegionNamesIfNoImage.Checked;
+            Properties.Settings.Default.InfoGraphicShowStatValues = CbInfoGraphicStatValues.Checked;
 
             #endregion
 
