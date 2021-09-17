@@ -18,7 +18,7 @@ namespace ARKBreedingStats.library
         /// <returns></returns>
         public static Bitmap InfoGraphic(this Creature creature, CreatureCollection cc)
         {
-            if (creature == null) return null;
+            if (creature?.Species == null) return null;
             int maxGraphLevel = cc?.maxChartLevel ?? 0;
             if (maxGraphLevel < 1) maxGraphLevel = 50;
 
@@ -141,7 +141,7 @@ namespace ARKBreedingStats.library
                         g.DrawString($"{creature.levelsDom[statIndex]}",
                             font, fontBrush, xRightLevelDomValue, y, stringFormatRight);
                     // stat breeding value
-                    if (Properties.Settings.Default.InfoGraphicShowStatValues)
+                    if (Properties.Settings.Default.InfoGraphicShowStatValues && creature.valuesBreeding != null)
                     {
                         double displayedValue =
                             showDomLevel ? creature.valuesDom[statIndex] : creature.valuesBreeding[statIndex];

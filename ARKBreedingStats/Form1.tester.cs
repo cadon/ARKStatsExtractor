@@ -5,6 +5,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using ARKBreedingStats.library;
 using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
@@ -182,24 +183,7 @@ namespace ARKBreedingStats
             _creatureTesterEdit.isBred = rbBredTester.Checked;
             _creatureTesterEdit.imprintingBonus = (double)numericUpDownImprintingBonusTester.Value / 100;
 
-            _creatureTesterEdit.name = creatureInfoInputTester.CreatureName;
-            _creatureTesterEdit.sex = creatureInfoInputTester.CreatureSex;
-            _creatureTesterEdit.owner = creatureInfoInputTester.CreatureOwner;
-            _creatureTesterEdit.tribe = creatureInfoInputTester.CreatureTribe;
-            _creatureTesterEdit.server = creatureInfoInputTester.CreatureServer;
-            _creatureTesterEdit.Mother = creatureInfoInputTester.Mother;
-            _creatureTesterEdit.Father = creatureInfoInputTester.Father;
-            _creatureTesterEdit.note = creatureInfoInputTester.CreatureNote;
-            _creatureTesterEdit.Status = creatureInfoInputTester.CreatureStatus;
-            _creatureTesterEdit.cooldownUntil = creatureInfoInputTester.CooldownUntil;
-            _creatureTesterEdit.growingUntil = creatureInfoInputTester.GrowingUntil;
-            _creatureTesterEdit.domesticatedAt = creatureInfoInputTester.DomesticatedAt;
-            _creatureTesterEdit.flags = creatureInfoInputTester.CreatureFlags;
-            _creatureTesterEdit.mutationsMaternal = creatureInfoInputTester.MutationCounterMother;
-            _creatureTesterEdit.mutationsPaternal = creatureInfoInputTester.MutationCounterFather;
-            _creatureTesterEdit.colors = creatureInfoInputTester.RegionColors;
-            _creatureTesterEdit.ArkId = creatureInfoInputTester.ArkId;
-            _creatureTesterEdit.InitializeArkInGame();
+            creatureInfoInputTester.SetCreatureData(_creatureTesterEdit);
 
             if (wildChanged)
                 CalculateTopStats(_creatureCollection.creatures.Where(c => c.Species == _creatureTesterEdit.Species).ToList());
@@ -225,8 +209,6 @@ namespace ARKBreedingStats
         /// <summary>
         /// Set the values in the creatureInfoInput control to the values of the creature or clears the inputs.
         /// </summary>
-        /// <param name="c"></param>
-        /// <param name="virtualCreature"></param>
         private void SetTesterInfoInputCreature(Creature c = null, bool virtualCreature = false)
         {
             bool enable = c != null; // set to a creature, or clear
@@ -334,6 +316,46 @@ namespace ARKBreedingStats
                 if (species.UsesStat(si))
                     _testingIOs[si].LevelWild = r.Next(maxLevel);
             }
+        }
+
+        private void pictureBoxColorRegionsTester_Click(object sender, EventArgs e)
+        {
+            var creature = new Creature
+            {
+                Species = speciesSelector1.SelectedSpecies,
+                levelsWild = GetCurrentWildLevels(false),
+                levelsDom = GetCurrentDomLevels(false)
+            };
+
+            creature.tamingEff = (double)NumericUpDownTestingTE.Value / 100;
+            creature.isBred = rbBredTester.Checked;
+            creature.imprintingBonus = (double)numericUpDownImprintingBonusTester.Value / 100;
+            creatureInfoInputTester.SetCreatureData(creature);
+            creature.RecalculateAncestorGenerations();
+            creature.RecalculateNewMutations();
+            creature.RecalculateCreatureValues(CreatureCollection.CurrentCreatureCollection.wildLevelStep);
+
+            creature.ExportInfoGraphicToClipboard(CreatureCollection.CurrentCreatureCollection);
+        }
+
+        private void PbCreatureColorsExtractor_Click(object sender, EventArgs e)
+        {
+            var creature = new Creature
+            {
+                Species = speciesSelector1.SelectedSpecies,
+                levelsWild = GetCurrentWildLevels(true),
+                levelsDom = GetCurrentDomLevels(true)
+            };
+
+            creature.tamingEff = _extractor.UniqueTE();
+            creature.isBred = rbBredExtractor.Checked;
+            creature.imprintingBonus = _extractor.ImprintingBonus;
+            creatureInfoInputExtractor.SetCreatureData(creature);
+            creature.RecalculateAncestorGenerations();
+            creature.RecalculateNewMutations();
+            creature.RecalculateCreatureValues(CreatureCollection.CurrentCreatureCollection.wildLevelStep);
+
+            creature.ExportInfoGraphicToClipboard(CreatureCollection.CurrentCreatureCollection);
         }
     }
 }

@@ -121,9 +121,10 @@ namespace ARKBreedingStats
             this.toolStripSeparator23 = new System.Windows.Forms.ToolStripSeparator();
             this.openJsonDataFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSortingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resetSortingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editSortingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpAboutSpeciesSortingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetSortingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetSortingToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.onlinehelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -336,7 +337,6 @@ namespace ARKBreedingStats
             this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetLibraryColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
-            this.resetSortingToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -1180,13 +1180,6 @@ namespace ARKBreedingStats
             this.speciesSortingToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.speciesSortingToolStripMenuItem.Text = "Species sorting";
             // 
-            // resetSortingToolStripMenuItem
-            // 
-            this.resetSortingToolStripMenuItem.Name = "resetSortingToolStripMenuItem";
-            this.resetSortingToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
-            this.resetSortingToolStripMenuItem.Text = "Reset sorting to default";
-            this.resetSortingToolStripMenuItem.Click += new System.EventHandler(this.resetSortingToolStripMenuItem_Click);
-            // 
             // editSortingToolStripMenuItem
             // 
             this.editSortingToolStripMenuItem.Name = "editSortingToolStripMenuItem";
@@ -1200,6 +1193,20 @@ namespace ARKBreedingStats
             this.helpAboutSpeciesSortingToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
             this.helpAboutSpeciesSortingToolStripMenuItem.Text = "Help about species sorting";
             this.helpAboutSpeciesSortingToolStripMenuItem.Click += new System.EventHandler(this.helpAboutSpeciesSortingToolStripMenuItem_Click);
+            // 
+            // resetSortingToolStripMenuItem
+            // 
+            this.resetSortingToolStripMenuItem.Name = "resetSortingToolStripMenuItem";
+            this.resetSortingToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.resetSortingToolStripMenuItem.Text = "Reset sorting to default";
+            this.resetSortingToolStripMenuItem.Click += new System.EventHandler(this.resetSortingToolStripMenuItem_Click);
+            // 
+            // resetSortingToolStripMenuItem1
+            // 
+            this.resetSortingToolStripMenuItem1.Name = "resetSortingToolStripMenuItem1";
+            this.resetSortingToolStripMenuItem1.Size = new System.Drawing.Size(214, 22);
+            this.resetSortingToolStripMenuItem1.Text = "Reset sorting";
+            this.resetSortingToolStripMenuItem1.Click += new System.EventHandler(this.resetSortingToolStripMenuItem1_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -1393,6 +1400,7 @@ namespace ARKBreedingStats
             this.pictureBoxColorRegionsTester.Size = new System.Drawing.Size(256, 256);
             this.pictureBoxColorRegionsTester.TabIndex = 13;
             this.pictureBoxColorRegionsTester.TabStop = false;
+            this.pictureBoxColorRegionsTester.Click += new System.EventHandler(this.pictureBoxColorRegionsTester_Click);
             // 
             // statPotentials1
             // 
@@ -1709,6 +1717,7 @@ namespace ARKBreedingStats
             this.PbCreatureColorsExtractor.Size = new System.Drawing.Size(256, 256);
             this.PbCreatureColorsExtractor.TabIndex = 51;
             this.PbCreatureColorsExtractor.TabStop = false;
+            this.PbCreatureColorsExtractor.Click += new System.EventHandler(this.PbCreatureColorsExtractor_Click);
             // 
             // groupBoxRadarChartExtractor
             // 
@@ -3292,13 +3301,6 @@ namespace ARKBreedingStats
             this.speciesSelector1.Size = new System.Drawing.Size(1134, 775);
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
-            // 
-            // resetSortingToolStripMenuItem1
-            // 
-            this.resetSortingToolStripMenuItem1.Name = "resetSortingToolStripMenuItem1";
-            this.resetSortingToolStripMenuItem1.Size = new System.Drawing.Size(214, 22);
-            this.resetSortingToolStripMenuItem1.Text = "Reset sorting";
-            this.resetSortingToolStripMenuItem1.Click += new System.EventHandler(this.resetSortingToolStripMenuItem1_Click);
             // 
             // Form1
             // 

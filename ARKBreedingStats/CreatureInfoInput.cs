@@ -573,19 +573,26 @@ namespace ARKBreedingStats
         /// <summary>
         /// Sets the data of the given creature to the values of the controls.
         /// </summary>
-        /// <param name="cr"></param>
-        private void SetCreatureData(Creature cr)
+        public void SetCreatureData(Creature cr)
         {
-            cr.Mother = Mother;
-            cr.Father = Father;
+            cr.name = CreatureName;
             cr.sex = _sex;
-            cr.mutationsMaternal = MutationCounterMother;
-            cr.mutationsPaternal = MutationCounterFather;
             cr.owner = CreatureOwner;
             cr.tribe = CreatureTribe;
             cr.server = CreatureServer;
+            cr.note = CreatureNote;
             cr.flags = CreatureFlags;
+            cr.Status = CreatureStatus;
+            cr.Mother = Mother;
+            cr.Father = Father;
+            cr.mutationsMaternal = MutationCounterMother;
+            cr.mutationsPaternal = MutationCounterFather;
             cr.colors = RegionColors;
+            cr.cooldownUntil = CooldownUntil;
+            cr.growingUntil = GrowingUntil;
+            cr.domesticatedAt = DomesticatedAt;
+            cr.ArkId = ArkId;
+            cr.InitializeArkInGame();
         }
 
         private void textBoxOwner_Leave(object sender, EventArgs e)
