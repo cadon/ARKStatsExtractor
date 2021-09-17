@@ -803,6 +803,7 @@ namespace ARKBreedingStats
             lbMaturationPerc.Text = $"{Loc.S("Maturation")} [%]";
             Loc.ControlText(lbMutations, "Mutations");
             Loc.ControlText(lbSex, "Sex");
+            Loc.ControlText(cbNeutered, _sex == Sex.Female ? "Spayed" : "Neutered");
             Loc.ControlText(lbStatus, "Status");
             Loc.ControlText(btClearColors, "clearColors");
             _tt.SetToolTip(btClearColors, Loc.S("clearColors") + "\n" + Loc.S("holdCtrlForRandomColors"));
