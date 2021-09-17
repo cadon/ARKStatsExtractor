@@ -669,8 +669,10 @@ namespace ARKBreedingStats
 
         private void btClearColors_Click(object sender, EventArgs e)
         {
-            if ((ModifierKeys & Keys.Control) != 0)
+            if (ModifierKeys == (Keys.Control | Keys.Shift))
                 regionColorChooser1.RandomColors();
+            else if ((ModifierKeys & Keys.Control) != 0)
+                regionColorChooser1.RandomNaturalColors(_selectedSpecies);
             else
                 ClearColors();
         }

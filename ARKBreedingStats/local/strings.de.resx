@@ -1123,7 +1123,8 @@ Diese kann mit BSS Preset angewandt werden.</value>
     <value>neues top Level</value>
   </data>
   <data name="holdCtrlForRandomColors" xml:space="preserve">
-    <value>Halte Strg für zufällige Farben</value>
+    <value>Halte Strg für zufällige natürliche Farben
+Halte Strg + Shift für zufällige Farben</value>
   </data>
   <data name="clearColors" xml:space="preserve">
     <value>Lösche Farben</value>

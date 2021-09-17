@@ -86,20 +86,42 @@ namespace ARKBreedingStats.uiControls
 
         public void Clear()
         {
-            for (int r = 0; r < _buttonColors.Length; r++)
-            {
-                _selectedRegionColorIds[r] = 0;
-                SetColorButton(_buttonColors[r], r);
-            }
-            RegionColorChosen?.Invoke();
+            SetColorIds(new int[_buttonColors.Length]);
         }
 
+        /// <summary>
+        /// Set colors to random values in the range (0 .. 99).
+        /// </summary>
         internal void RandomColors()
         {
+            var colorIds = new int[_buttonColors.Length];
             var rand = new Random();
-            for (int r = 0; r < _buttonColors.Length; r++)
+            for (int r = 0; r < colorIds.Length; r++)
+                colorIds[r] = rand.Next(99) + 1;
+
+            SetColorIds(colorIds);
+        }
+
+        /// <summary>
+        /// Set colors to random values in the set of natural occurring colors of the species.
+        /// </summary>
+        internal void RandomNaturalColors(Species species)
+        {
+            SetColorIds(species?.RandomSpeciesColors());
+        }
+
+        public void SetColorIds(int[] colorIds)
+        {
+            if (colorIds == null)
             {
-                _selectedRegionColorIds[r] = rand.Next(99) + 1;
+                Clear();
+                return;
+            }
+
+            var l = Math.Min(_buttonColors.Length, colorIds.Length);
+            for (int r = 0; r < l; r++)
+            {
+                _selectedRegionColorIds[r] = colorIds[r];
                 SetColorButton(_buttonColors[r], r);
             }
             RegionColorChosen?.Invoke();

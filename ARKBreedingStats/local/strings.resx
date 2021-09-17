@@ -1135,7 +1135,8 @@ The preset can be applied by the Apply Preset button</value>
     <value>clear colors</value>
   </data>
   <data name="holdCtrlForRandomColors" xml:space="preserve">
-    <value>Hold Ctrl for random colors</value>
+    <value>Hold Ctrl for random natural colors
+Hold Ctrl + Shift for random colors</value>
   </data>
   <data name="BtBeepFailure" xml:space="preserve">
     <value>import failed</value>
