@@ -1,5 +1,5 @@
 {
-	"version": "335.8.7175189",
+	"version": "678.46.7361663",
 	"format": "1.14-flyerspeed",
 	"species": [
 		{
@@ -103421,57 +103421,9 @@
 						"Light Grey"
 					]
 				},
-				{
-					"name": "Unknown",
-					"colors": [
-						"BigFoot0",
-						"BigFoot4",
-						"BigFoot5",
-						"Black",
-						"Dark Grey",
-						"Dino Dark Brown",
-						"Dino Dark Orange",
-						"Dino Darker Grey",
-						"Dino Light Brown",
-						"Dino Light Orange",
-						"Dino Medium Brown",
-						"Light Grey"
-					]
-				},
-				{
-					"name": "Unknown",
-					"colors": [
-						"BigFoot0",
-						"BigFoot4",
-						"BigFoot5",
-						"Black",
-						"Dark Grey",
-						"Dino Dark Brown",
-						"Dino Dark Orange",
-						"Dino Darker Grey",
-						"Dino Light Brown",
-						"Dino Light Orange",
-						"Dino Medium Brown",
-						"Light Grey"
-					]
-				},
-				{
-					"name": "Unknown",
-					"colors": [
-						"BigFoot0",
-						"BigFoot4",
-						"BigFoot5",
-						"Black",
-						"Dark Grey",
-						"Dino Dark Brown",
-						"Dino Dark Orange",
-						"Dino Darker Grey",
-						"Dino Light Brown",
-						"Dino Light Orange",
-						"Dino Medium Brown",
-						"Light Grey"
-					]
-				},
+				null,
+				null,
+				null,
 				{
 					"name": "Belly/Wings Accent",
 					"colors": [

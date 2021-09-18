@@ -6,7 +6,7 @@
 			"mod": { "id": "1083349027", "tag": "SpeedyFlyers", "title": "Najs Speedy Flyers" }
 		},
 		"1090809604-Pyria.json": {
-			"version": "336.23.1630375480",
+			"version": "678.46.1631784808",
 			"mod": { "id": "1090809604", "tag": "Pyria", "title": "Pyria: Mythos Evolved" }
 		},
 		"1092784125-Gryphons.json": {
@@ -124,7 +124,7 @@
 			"mod": { "id": "1675895024", "tag": "NoUntameables", "title": "No Untameables" }
 		},
 		"1676159020-Aquaria.json": {
-			"version": "336.23.1630375257",
+			"version": "678.37.1631476118",
 			"mod": { "id": "1676159020", "tag": "Aquaria", "title": "Additional Creatures: Aquaria" }
 		},
 		"1681125667-Primal_Fear_EX.json": {
@@ -145,7 +145,7 @@
 			"mod": { "id": "1729512589", "tag": "Brachiosaurus", "title": "ARK Additions: Brachiosaurus!" }
 		},
 		"1734595558-Pyria2.json": {
-			"version": "336.23.1630375326",
+			"version": "678.46.1630831521",
 			"mod": { "id": "1734595558", "tag": "Pyria2", "title": "Pyria: The Second Chapter" }
 		},
 		"1768499278-BalancedJPE.json": {
@@ -194,7 +194,7 @@
 			"mod": { "id": "1934081600", "tag": "SoloFarmAnky", "title": "Solo Farm Mod" }
 		},
 		"1984129536-MTSMod.json": {
-			"version": "332.8.1625778226",
+			"version": "678.13.1630865698",
 			"mod": { "id": "1984129536", "tag": "MTSMod", "title": "MTS.co.uk Community Mod" }
 		},
 		"1984936918-MarniiModsWildlife.json": {
@@ -242,7 +242,7 @@
 			"mod": { "id": "839162288", "tag": "Primal_Fear", "title": "Primal Fear" }
 		},
 		"893735676-AE.json": {
-			"version": "336.12.1630044081",
+			"version": "678.37.1631239171",
 			"mod": { "id": "893735676", "tag": "AE", "title": "ARK: Eternal" }
 		},
 		"895711211-ClassicFlyers.json": {
@@ -266,7 +266,7 @@
 			"mod": { "id": "CrystalIsles", "tag": "CrystalIsles", "title": "CrystalIsles" }
 		},
 		"values.json": {
-			"version": "335.8.7175189"
+			"version": "678.46.7361663"
 		}
 	}
 }
