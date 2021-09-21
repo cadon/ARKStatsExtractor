@@ -620,7 +620,11 @@ namespace ARKBreedingStats
             {
                 labelTE.Text = $"Extracted: {Math.Round(100 * te, 2)} %";
                 if (rbTamedExtractor.Checked && _extractor.PostTamed)
-                    labelTE.Text += $" (wildlevel: {Creature.CalculatePreTameWildLevel(_statIOs[(int)StatNames.Torpidity].LevelWild + 1, te)})";
+                {
+                    var postTameLevelWithoutMutagen = _statIOs[(int)StatNames.Torpidity].LevelWild + 1
+                                                      - (creatureInfoInputExtractor.CreatureFlags.HasFlag(CreatureFlags.MutagenApplied) ? ArkConstants.MutagenLevelsAppliedTamedCreature : 0);
+                    labelTE.Text += $" (wildlevel: {Creature.CalculatePreTameWildLevel(postTameLevelWithoutMutagen, te)})";
+                }
                 labelTE.BackColor = Color.Transparent;
             }
             else

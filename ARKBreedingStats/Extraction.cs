@@ -312,16 +312,21 @@ namespace ARKBreedingStats
 
                                 if (!bred)
                                 {
-                                    // check if the totalLevel and the TE is possible by using the TE-levelbonus (credits for this check which sorts out more impossible results: https://github.com/VolatilePulse , thanks!)
-                                    int levelPostTame = LevelWildSum + 1;
-                                    MinMaxInt levelPreTameRange = new MinMaxInt(Creature.CalculatePreTameWildLevel(levelPostTame, tamingEffectiveness.Max),
-                                                                           Creature.CalculatePreTameWildLevel(levelPostTame, tamingEffectiveness.Min));
+                                    // check if the total level and the TE is possible by using the TE-level bonus (credits for this check which sorts out more impossible results: https://github.com/VolatilePulse , thanks!)
+                                    // if mutagen is applied, a fixed number of wild levels is added to specific stats
+                                    int levelPostTame = LevelWildSum + 1 - (mutagenApplied ? ArkConstants.MutagenLevelsAppliedTamedCreature : 0);
+                                    MinMaxInt levelPreTameRange = new MinMaxInt(
+                                        Creature.CalculatePreTameWildLevel(levelPostTame, tamingEffectiveness.Max),
+                                        Creature.CalculatePreTameWildLevel(levelPostTame, tamingEffectiveness.Min));
 
                                     bool impossibleTE = true;
-                                    for (int wildLevel = levelPreTameRange.Min; wildLevel <= levelPreTameRange.Max; wildLevel++)
+                                    for (int wildLevel = levelPreTameRange.Min;
+                                        wildLevel <= levelPreTameRange.Max;
+                                        wildLevel++)
                                     {
-                                        MinMaxInt levelPostTameRange = new MinMaxInt((int)Math.Floor(wildLevel * (1 + tamingEffectiveness.Min / 2)),
-                                                                                (int)Math.Floor(wildLevel * (1 + tamingEffectiveness.Max / 2)));
+                                        MinMaxInt levelPostTameRange = new MinMaxInt(
+                                            (int)Math.Floor(wildLevel * (1 + tamingEffectiveness.Min / 2)),
+                                            (int)Math.Floor(wildLevel * (1 + tamingEffectiveness.Max / 2)));
                                         if (levelPostTameRange.Includes(levelPostTame))
                                         {
                                             impossibleTE = false;
@@ -339,7 +344,9 @@ namespace ARKBreedingStats
                                     if (considerWildLevelSteps)
                                     {
                                         bool validWildLevel = false;
-                                        for (int wildLevel = levelPreTameRange.Min; wildLevel <= levelPreTameRange.Max; wildLevel++)
+                                        for (int wildLevel = levelPreTameRange.Min;
+                                            wildLevel <= levelPreTameRange.Max;
+                                            wildLevel++)
                                         {
                                             if (wildLevel % wildLevelSteps == 0)
                                             {
@@ -347,6 +354,7 @@ namespace ARKBreedingStats
                                                 break;
                                             }
                                         }
+
                                         if (!validWildLevel) continue;
                                     }
 
