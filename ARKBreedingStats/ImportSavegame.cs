@@ -193,11 +193,11 @@ namespace ARKBreedingStats
             };
 
             // If it's a baby and still growing, work out growingUntil
-            if (creatureObject.GetPropertyValue<bool>("bIsBaby") || !string.IsNullOrWhiteSpace(imprinterName))
+            float babyAge = creatureObject.GetPropertyValue<float>("BabyAge", defaultValue: 1);
+            if (babyAge < 1)
             {
                 double maturationDuration = species.breeding?.maturationTimeAdjusted ?? 0;
-                float babyAge = creatureObject.GetPropertyValue<float>("BabyAge");
-                float bornSecondsAgo = (float)maturationDuration * (1.0f - babyAge);
+                float bornSecondsAgo = (float)maturationDuration * (1f - babyAge);
                 if (bornSecondsAgo < maturationDuration - 120) // there seems to be a slight offset of one of these saved values, so don't display a creature as being in cooldown if it is about to leave it in the next 2 minutes
                     creature.growingUntil = DateTime.Now.Add(TimeSpan.FromSeconds(maturationDuration - bornSecondsAgo));
             }
