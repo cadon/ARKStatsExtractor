@@ -197,7 +197,7 @@ namespace ARKBreedingStats
             if (babyAge < 1)
             {
                 double maturationDuration = species.breeding?.maturationTimeAdjusted ?? 0;
-                float bornSecondsAgo = (float)maturationDuration * (1f - babyAge);
+                float bornSecondsAgo = (float)maturationDuration * babyAge;
                 if (bornSecondsAgo < maturationDuration - 120) // there seems to be a slight offset of one of these saved values, so don't display a creature as being in cooldown if it is about to leave it in the next 2 minutes
                     creature.growingUntil = DateTime.Now.Add(TimeSpan.FromSeconds(maturationDuration - bornSecondsAgo));
             }
