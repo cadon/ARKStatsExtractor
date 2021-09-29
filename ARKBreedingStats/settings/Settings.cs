@@ -166,6 +166,10 @@ namespace ARKBreedingStats.settings
 
             foreach (var cm in Enum.GetNames(typeof(ColorModeColors.AsbColorMode)))
                 CbbColorMode.Items.Add(cm);
+
+            var availableFonts = FontFamily.Families.Select(f => f.Name).ToArray();
+            CbbInfoGraphicFontName.Items.AddRange(availableFonts);
+            CbbAppDefaultFontName.Items.AddRange(availableFonts);
         }
 
         private void LoadSettings(CreatureCollection cc)
@@ -231,7 +235,7 @@ namespace ARKBreedingStats.settings
             else radioButtonFahrenheit.Checked = true;
             cbIgnoreSexInBreedingPlan.Checked = Properties.Settings.Default.IgnoreSexInBreedingPlan;
             checkBoxDisplayHiddenStats.Checked = Properties.Settings.Default.DisplayHiddenStats;
-            tbDefaultFontName.Text = Properties.Settings.Default.DefaultFontName;
+            CbbAppDefaultFontName.Text = Properties.Settings.Default.DefaultFontName;
             nudDefaultFontSize.Value = (decimal)Properties.Settings.Default.DefaultFontSize;
 
             GbImgCacheLocalAppData.Visible = !Updater.Updater.IsProgramInstalled; // setting is only relevant for portable app
@@ -283,7 +287,7 @@ namespace ARKBreedingStats.settings
             nudInfoGraphicWidth.ValueSave = Properties.Settings.Default.InfoGraphicHeight;
             CbInfoGraphicDisplayMaxWildLevel.Checked = Properties.Settings.Default.InfoGraphicShowMaxWildLevel;
             CbInfoGraphicDomLevels.Checked = Properties.Settings.Default.InfoGraphicWithDomLevels;
-            TbInfoGraphicFontName.Text = Properties.Settings.Default.InfoGraphicFontName;
+            CbbInfoGraphicFontName.Text = Properties.Settings.Default.InfoGraphicFontName;
             CbInfoGraphicMutations.Checked = Properties.Settings.Default.InfoGraphicDisplayMutations;
             CbInfoGraphicGenerations.Checked = Properties.Settings.Default.InfoGraphicDisplayGeneration;
             CbInfoGraphicCreatureName.Checked = Properties.Settings.Default.InfoGraphicDisplayName;
@@ -457,7 +461,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.SpeechRecognition = chkbSpeechRecognition.Checked;
             Properties.Settings.Default.celsius = radioButtonCelsius.Checked;
             Properties.Settings.Default.DisplayHiddenStats = checkBoxDisplayHiddenStats.Checked;
-            Properties.Settings.Default.DefaultFontName = tbDefaultFontName.Text;
+            Properties.Settings.Default.DefaultFontName = CbbAppDefaultFontName.Text;
             Properties.Settings.Default.DefaultFontSize = (float)nudDefaultFontSize.Value;
 
             Properties.Settings.Default.ImgCacheUseLocalAppData = CbImgCacheUseLocalAppData.Checked;
@@ -505,7 +509,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.InfoGraphicHeight = (int)nudInfoGraphicWidth.Value;
             Properties.Settings.Default.InfoGraphicShowMaxWildLevel = CbInfoGraphicDisplayMaxWildLevel.Checked;
             Properties.Settings.Default.InfoGraphicWithDomLevels = CbInfoGraphicDomLevels.Checked;
-            Properties.Settings.Default.InfoGraphicFontName = TbInfoGraphicFontName.Text;
+            Properties.Settings.Default.InfoGraphicFontName = CbbInfoGraphicFontName.Text;
             Properties.Settings.Default.InfoGraphicDisplayMutations = CbInfoGraphicMutations.Checked;
             Properties.Settings.Default.InfoGraphicDisplayGeneration = CbInfoGraphicGenerations.Checked;
             Properties.Settings.Default.InfoGraphicDisplayName = CbInfoGraphicCreatureName.Checked;
@@ -1265,8 +1269,7 @@ namespace ARKBreedingStats.settings
             nudBabyImprintAmount.SetExtraHighlightNonDefault(highlight);
             nudBabyImprintingStatScale.SetExtraHighlightNonDefault(highlight);
             nudBabyFoodConsumptionSpeed.SetExtraHighlightNonDefault(highlight);
-            cbSingleplayerSettings.BackColor = highlight && cbSingleplayerSettings.Checked ? Color.FromArgb(190, 40, 20) : Color.Transparent;
-            cbSingleplayerSettings.ForeColor = Utils.ForeColor(cbSingleplayerSettings.BackColor);
+            cbSingleplayerSettings.SetBackColorAndAccordingForeColor(highlight && cbSingleplayerSettings.Checked ? Color.FromArgb(190, 40, 20) : Color.Transparent);
         }
 
         private void BExportSpreadsheetMoveUp_Click(object sender, EventArgs e)

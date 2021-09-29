@@ -474,15 +474,6 @@ namespace ARKBreedingStats
             return backColor.R * .3f + backColor.G * .59f + backColor.B * .11f < 110 ? Color.White : Color.Black;
         }
 
-        /// <summary>
-        /// Sets the BackColor of a control and then the ForeColor to black or white, depending on the lightness of the backColor.
-        /// </summary>
-        public static void SetBackColorAndDependingForeColor(Control c, Color backColor)
-        {
-            c.BackColor = backColor;
-            c.ForeColor = ForeColor(backColor);
-        }
-
         public static bool ShowTextInput(string text, out string input, string title = "", string preInput = "")
         {
             Form inputForm = new Form

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -67,12 +68,11 @@ namespace ARKBreedingStats.uiControls
 
                 if (flowLayoutPanel1.Controls[controlIndex] is NoPaddingButton bt)
                 {
+                    bt.Visible = ColorVisible(colors[colorIndex].Id);
                     bt.Selected = SelectedColorId == colors[colorIndex].Id;
-                    Utils.SetBackColorAndDependingForeColor(bt, colors[colorIndex].Color);
+                    bt.SetBackColorAndAccordingForeColor(colors[colorIndex].Color);
                     bt.Tag = colors[colorIndex].Id;
                     bt.Text = colors[colorIndex].Id.ToString();
-                    //bt.BorderStyle = SelectedColorId == colors[colorIndex].Id ? BorderStyle.Fixed3D : BorderStyle.None;
-                    bt.Visible = ColorVisible(colors[colorIndex].Id);
                     _tt.SetToolTip(bt, colors[colorIndex].Id + ": " + colors[colorIndex].Name);
                 }
             }
