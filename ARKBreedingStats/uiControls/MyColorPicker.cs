@@ -1,6 +1,7 @@
 ﻿using ARKBreedingStats.species;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -20,6 +21,7 @@ namespace ARKBreedingStats.uiControls
 
             BtNoColor.Tag = 0; // id of no color
             BtNoColor.Text = Loc.S("noColor");
+            _tt.SetToolTip(BtNoColor, "0: no color");
 
             buttonCancel.Text = Loc.S("Cancel");
 
@@ -54,7 +56,7 @@ namespace ARKBreedingStats.uiControls
                 int controlIndex = colorIndex - 1;
                 if (flowLayoutPanel1.Controls.Count <= controlIndex)
                 {
-                    Panel np = new Panel
+                    var np = new NoPaddingButton
                     {
                         Width = 40,
                         Height = 20
@@ -62,12 +64,17 @@ namespace ARKBreedingStats.uiControls
                     np.Click += ColorChosen;
                     flowLayoutPanel1.Controls.Add(np);
                 }
-                Panel p = flowLayoutPanel1.Controls[controlIndex] as Panel;
-                p.BackColor = colors[colorIndex].Color;
-                p.Tag = colors[colorIndex].Id;
-                p.BorderStyle = SelectedColorId == colors[colorIndex].Id ? BorderStyle.Fixed3D : BorderStyle.None;
-                p.Visible = ColorVisible(colors[colorIndex].Id);
-                _tt.SetToolTip(p, colors[colorIndex].Id + ": " + colors[colorIndex].Name);
+
+                if (flowLayoutPanel1.Controls[controlIndex] is NoPaddingButton bt)
+                {
+                    bt.Selected = SelectedColorId == colors[colorIndex].Id;
+                    Utils.SetBackColorAndDependingForeColor(bt, colors[colorIndex].Color);
+                    bt.Tag = colors[colorIndex].Id;
+                    bt.Text = colors[colorIndex].Id.ToString();
+                    //bt.BorderStyle = SelectedColorId == colors[colorIndex].Id ? BorderStyle.Fixed3D : BorderStyle.None;
+                    bt.Visible = ColorVisible(colors[colorIndex].Id);
+                    _tt.SetToolTip(bt, colors[colorIndex].Id + ": " + colors[colorIndex].Name);
+                }
             }
 
             flowLayoutPanel1.ResumeLayout();
@@ -125,6 +132,37 @@ namespace ARKBreedingStats.uiControls
             for (int c = 0; c < flowLayoutPanel1.Controls.Count; c++)
                 flowLayoutPanel1.Controls[c].Visible = ColorVisible((int)flowLayoutPanel1.Controls[c].Tag);
             flowLayoutPanel1.ResumeLayout();
+        }
+
+        private class NoPaddingButton : Button
+        {
+            public bool Selected { get; set; }
+
+            protected override void OnPaint(PaintEventArgs pe)
+            {
+                using (var b = new SolidBrush(BackColor))
+                    pe.Graphics.FillRectangle(b, ClientRectangle);
+
+                if (Selected)
+                {
+                    using (var p = new Pen(Color.Black, 2))
+                    {
+                        var rec = new Rectangle(ClientRectangle.Location, ClientRectangle.Size);
+                        rec.Inflate(-1, -1);
+                        pe.Graphics.DrawRectangle(p, rec);
+                        p.Color = Color.White;
+                        rec.Inflate(-2, -2);
+                        pe.Graphics.DrawRectangle(p, rec);
+                    }
+                }
+
+                if (string.IsNullOrEmpty(Text)) return;
+                StringFormat stringFormat = new StringFormat();
+                stringFormat.Alignment = StringAlignment.Center;
+                stringFormat.LineAlignment = StringAlignment.Center;
+                using (var b = new SolidBrush(ForeColor))
+                    pe.Graphics.DrawString(Text, Font, b, ClientRectangle, stringFormat);
+            }
         }
     }
 }
