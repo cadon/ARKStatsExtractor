@@ -187,7 +187,7 @@ namespace ARKBreedingStats.uiControls
                         _tt.SetToolTip(_labels[s], Utils.StatName(si, false, _creature.Species?.statNames) + ": " + _creature.valuesBreeding[si] * (Utils.Precision(si) == 3 ? 100 : 1) + (Utils.Precision(si) == 3 ? "%" : string.Empty));
                     }
                     // fonts are strange, and this seems to work. The assigned font-object is probably only used to read out the properties and then not used anymore.
-                    using (var font = new Font("Microsoft Sans Serif", 8.25F, _creature.topBreedingStats[si] ? FontStyle.Bold : FontStyle.Regular, GraphicsUnit.Point, 0))
+                    using (var font = new Font("Microsoft Sans Serif", 8.25F, (_creature.topBreedingStats?[si]).GetValueOrDefault() ? FontStyle.Bold : FontStyle.Regular, GraphicsUnit.Point, 0))
                         _labels[s].Font = font;
                 }
                 if (OnlyLevels)
