@@ -149,6 +149,9 @@ namespace ARKBreedingStats.library
                         case TableExportFields.AddedToLibrary:
                             output.Append((c.addedToLibrary?.ToString() ?? string.Empty) + "\t");
                             break;
+                        case TableExportFields.CreatureStatus:
+                            output.Append(c.Status + "\t");
+                            break;
                     }
                 }
                 output.Length--; // remove last tab
@@ -170,7 +173,7 @@ namespace ARKBreedingStats.library
         /// </summary>
         public enum TableExportFields
         {
-            Species, SpeciesLongName, Name, Sex, Owner, Tribe, WildLevels, DomLevels, BreedingValues, CurrentValues, IdInGame, ParentIds, ParentNames, MutationCount, Fertility, Notes, ColorIds, ColorNames, ServerName, AddedToLibrary
+            Species, SpeciesLongName, Name, Sex, Owner, Tribe, WildLevels, DomLevels, BreedingValues, CurrentValues, IdInGame, ParentIds, ParentNames, MutationCount, Fertility, Notes, ColorIds, ColorNames, ServerName, AddedToLibrary, CreatureStatus
         }
 
         /// <summary>
