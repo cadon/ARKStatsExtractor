@@ -1418,6 +1418,11 @@ namespace ARKBreedingStats
                 CopyExtractionToClipboard();
         }
 
+        private void editSpreadsheetExportFieldsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenSettingsDialog(Settings.SettingsTabPages.General);
+        }
+
         /// <summary>
         /// Display a window to edit multiple creatures at once. Also used to set tags.
         /// </summary>
