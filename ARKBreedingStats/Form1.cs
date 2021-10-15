@@ -3101,36 +3101,6 @@ namespace ARKBreedingStats
             }
         }
 
-        private void adminCommandToSetColorsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AdminCommandToSetColors();
-        }
-
-        private void AdminCommandToSetColors()
-        {
-            if (listViewLibrary.SelectedItems.Count > 0
-                && listViewLibrary.SelectedItems[0].Tag is Creature cr)
-            {
-                int[] cl = cr.colors;
-                if (cl == null) return;
-                var colorCommands = new List<string>(6);
-                var enabledColorRegions = cr.Species.EnabledColorRegions;
-                for (int ci = 0; ci < 6; ci++)
-                {
-                    if (enabledColorRegions[ci])
-                        colorCommands.Add($"setTargetDinoColor {ci} {cl[ci]}");
-                }
-
-                if (colorCommands.Any())
-                {
-                    var cheatPrefix = Properties.Settings.Default.AdminConsoleCommandWithCheat
-                        ? "cheat "
-                        : string.Empty;
-                    Clipboard.SetText(cheatPrefix + string.Join(" | " + cheatPrefix, colorCommands));
-                }
-            }
-        }
-
         private void Form1_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;

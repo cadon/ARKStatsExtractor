@@ -246,7 +246,7 @@ namespace ARKBreedingStats.Library
         }
 
         /// <summary>
-        /// The total level without domesticate levels.
+        /// The total level without domesticate levels, i.e. the torpidity level + 1.
         /// </summary>
         public int LevelHatched => (levelsWild?[(int)StatNames.Torpidity] ?? 0) + 1;
 

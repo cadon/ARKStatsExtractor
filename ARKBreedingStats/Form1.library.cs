@@ -1742,6 +1742,64 @@ namespace ARKBreedingStats
                 affectedSpeciesBlueprints.Count == 1 ? Values.V.SpeciesByBlueprint(affectedSpeciesBlueprints.First()) : null);
         }
 
+        private void adminCommandToSetColorsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AdminCommandToSetColors();
+        }
+
+        private void AdminCommandToSetColors()
+        {
+            if (!(listViewLibrary.SelectedItems.Count > 0
+                  && listViewLibrary.SelectedItems[0].Tag is Creature cr)) return;
+
+            int[] cl = cr.colors;
+            if (cl == null) return;
+            var colorCommands = new List<string>(6);
+            var enabledColorRegions = cr.Species.EnabledColorRegions;
+            for (int ci = 0; ci < 6; ci++)
+            {
+                if (enabledColorRegions[ci])
+                    colorCommands.Add($"setTargetDinoColor {ci} {cl[ci]}");
+            }
+
+            if (colorCommands.Any())
+            {
+                var cheatPrefix = Properties.Settings.Default.AdminConsoleCommandWithCheat
+                    ? "cheat "
+                    : string.Empty;
+                Clipboard.SetText(cheatPrefix + string.Join(" | " + cheatPrefix, colorCommands));
+            }
+        }
+
+        private void adminCommandToSpawnExactDinoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!(listViewLibrary.SelectedItems.Count > 0
+                  && listViewLibrary.SelectedItems[0].Tag is Creature cr)) return;
+
+            // see https://ark.fandom.com/wiki/Console_commands#SpawnExactDino for this command in ARK. It's unstable and can crash the game if the format or data is not correct.
+            var xp = 0; // TODO
+            long arkIdInGame = cr.ArkIdImported ? cr.ArkId : 0;
+
+            var spawnCommand = $"SpawnExactDino \"Blueprint'{cr.speciesBlueprint}'\" \"\" 1 {cr.LevelHatched} {cr.levelsDom.Sum()} "
+                               + $"\"{GetLevelStringForExactSpawningCommand(cr.levelsWild)}\" \"{GetLevelStringForExactSpawningCommand(cr.levelsDom)}\" \"{cr.name}\" "
+                               + $"0 {(cr.flags.HasFlag(CreatureFlags.Neutered) ? "1" : "0")} \"\" \"\" \"{cr.imprinterName}\" 0 {cr.imprintingBonus} "
+                               + $"\"{(cr.colors == null ? string.Empty : string.Join(",", cr.colors))}\" {arkIdInGame} {xp} 0 20 20";
+
+            string GetLevelStringForExactSpawningCommand(int[] levels)
+            {
+                // stat order for this command is health, stamina, oxygen, food, weight, melee damage, movement speed, crafting skill
+                return $"{levels[(int)StatNames.Health]},{levels[(int)StatNames.Stamina]},{levels[(int)StatNames.Oxygen]},{levels[(int)StatNames.Food]},{levels[(int)StatNames.Weight]},{levels[(int)StatNames.MeleeDamageMultiplier]},{levels[(int)StatNames.SpeedMultiplier]},{levels[(int)StatNames.CraftingSpeedMultiplier]}";
+            }
+
+            var cheatPrefix = Properties.Settings.Default.AdminConsoleCommandWithCheat
+                ? "cheat "
+                : string.Empty;
+            Clipboard.SetText(cheatPrefix + spawnCommand);
+
+            SetMessageLabelText($"The SpawnExactDino admin console command for the creature {cr.name} ({cr.Species?.name}) was copied to the clipboard. The command doesn't include the XP and the imprinterName, thus the imprinting is probably not set."
+                                + "WARNING: this console command is unstable and can crash your game. Use with caution! The colors and stats will only be correct after putting the creature in a cryopod.", MessageBoxIcon.Warning);
+        }
+
         #endregion
 
         #region LibraryFilterPresets
