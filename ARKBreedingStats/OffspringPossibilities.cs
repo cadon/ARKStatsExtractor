@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using ARKBreedingStats.BreedingPlanning;
+using ARKBreedingStats.Ark;
 
 namespace ARKBreedingStats
 {
@@ -73,13 +73,13 @@ namespace ARKBreedingStats
                     {
                         // use the stat level of creature 1
                         totalLevel += wildLevels1[usedStatIndices[s]];
-                        probability *= wildLevels1[usedStatIndices[s]] > wildLevels2[usedStatIndices[s]] ? BreedingPlan.ProbabilityHigherLevel : BreedingPlan.ProbabilityLowerLevel;
+                        probability *= wildLevels1[usedStatIndices[s]] > wildLevels2[usedStatIndices[s]] ? GameConstants.ProbabilityHigherLevel : GameConstants.ProbabilityLowerLevel;
                     }
                     else
                     {
                         // use the stat level of creature 2
                         totalLevel += wildLevels2[usedStatIndices[s]];
-                        probability *= wildLevels1[usedStatIndices[s]] < wildLevels2[usedStatIndices[s]] ? BreedingPlan.ProbabilityHigherLevel : BreedingPlan.ProbabilityLowerLevel;
+                        probability *= wildLevels1[usedStatIndices[s]] < wildLevels2[usedStatIndices[s]] ? GameConstants.ProbabilityHigherLevel : GameConstants.ProbabilityLowerLevel;
                     }
                 }
                 if (!levelProbabilities.ContainsKey(totalLevel))

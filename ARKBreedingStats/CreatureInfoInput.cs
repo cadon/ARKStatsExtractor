@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Threading;
-using ARKBreedingStats.BreedingPlanning;
+using ARKBreedingStats.Ark;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.Properties;
@@ -718,7 +718,7 @@ namespace ARKBreedingStats
             int NewMutations(int mutationCountParent, int mutationCountChild)
             {
                 var newMutationsFromParent = mutationCountChild - mutationCountParent;
-                if (newMutationsFromParent > 0 && newMutationsFromParent <= BreedingPlan.MutationRolls)
+                if (newMutationsFromParent > 0 && newMutationsFromParent <= GameConstants.MutationRolls)
                     return mutationCountChild - mutationCountParent;
                 return 0;
             }

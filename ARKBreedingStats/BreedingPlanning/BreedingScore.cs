@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ARKBreedingStats.Ark;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.Properties;
 using ARKBreedingStats.species;
@@ -67,7 +68,7 @@ namespace ARKBreedingStats.BreedingPlanning
 
                         bool higherIsBetter = statWeights[s] >= 0;
 
-                        double tt = statWeights[s] * (BreedingPlan.ProbabilityHigherLevel * higherLevel + BreedingPlan.ProbabilityLowerLevel * lowerLevel) / 40;
+                        double tt = statWeights[s] * (GameConstants.ProbabilityHigherLevel * higherLevel + GameConstants.ProbabilityLowerLevel * lowerLevel) / 40;
                         if (tt != 0)
                         {
                             if (breedingMode == BreedingPlan.BreedingMode.TopStatsLucky)
@@ -87,7 +88,7 @@ namespace ARKBreedingStats.BreedingPlanning
                                 if (!ignoreTopStats && (female.levelsWild[s] == bestLevels[s] || male.levelsWild[s] == bestLevels[s]))
                                 {
                                     nrTS++;
-                                    eTS += female.levelsWild[s] == bestLevels[s] && male.levelsWild[s] == bestLevels[s] ? 1 : BreedingPlan.ProbabilityHigherLevel;
+                                    eTS += female.levelsWild[s] == bestLevels[s] && male.levelsWild[s] == bestLevels[s] ? 1 : GameConstants.ProbabilityHigherLevel;
                                     if (female.levelsWild[s] == bestLevels[s])
                                         topFemale++;
                                     if (male.levelsWild[s] == bestLevels[s])
@@ -154,10 +155,10 @@ namespace ARKBreedingStats.BreedingPlanning
                     }
 
 
-                    int mutationPossibleFrom = female.Mutations < BreedingPlan.MutationPossibleWithLessThan && male.Mutations < BreedingPlan.MutationPossibleWithLessThan ? 2
-                        : female.Mutations < BreedingPlan.MutationPossibleWithLessThan || male.Mutations < BreedingPlan.MutationPossibleWithLessThan ? 1 : 0;
+                    int mutationPossibleFrom = female.Mutations < GameConstants.MutationPossibleWithLessThan && male.Mutations < GameConstants.MutationPossibleWithLessThan ? 2
+                        : female.Mutations < GameConstants.MutationPossibleWithLessThan || male.Mutations < GameConstants.MutationPossibleWithLessThan ? 1 : 0;
 
-                    breedingPairs.Add(new BreedingPair(female, male, t * 1.25, (mutationPossibleFrom == 2 ? BreedingPlan.ProbabilityOfOneMutation : mutationPossibleFrom == 1 ? BreedingPlan.ProbabilityOfOneMutationFromOneParent : 0)));
+                    breedingPairs.Add(new BreedingPair(female, male, t * 1.25, (mutationPossibleFrom == 2 ? GameConstants.ProbabilityOfOneMutation : mutationPossibleFrom == 1 ? GameConstants.ProbabilityOfOneMutationFromOneParent : 0)));
                 }
             }
 

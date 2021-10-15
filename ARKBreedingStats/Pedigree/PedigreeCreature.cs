@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using ARKBreedingStats.BreedingPlanning;
+using ARKBreedingStats.Ark;
 using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.Pedigree;
@@ -211,7 +211,7 @@ namespace ARKBreedingStats.uiControls
                 if (totalMutations > 0)
                 {
                     labelMutations.Text = totalMutations > 9999 ? totalMutations.ToString().Substring(0, 4) + "…" : totalMutations.ToString();
-                    labelMutations.BackColor = totalMutations < BreedingPlan.MutationPossibleWithLessThan ? Utils.MutationColor : Utils.MutationColorOverLimit;
+                    labelMutations.BackColor = totalMutations < GameConstants.MutationPossibleWithLessThan ? Utils.MutationColor : Utils.MutationColorOverLimit;
                     _tt.SetToolTip(labelMutations,
                         $"Mutation-Counter: {totalMutations}\nMaternal: {_creature.mutationsMaternal}\nPaternal: {_creature.mutationsPaternal}");
                 }

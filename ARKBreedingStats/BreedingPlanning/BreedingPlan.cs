@@ -5,6 +5,7 @@ using System.Drawing.Text;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Threading;
+using ARKBreedingStats.Ark;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.Properties;
 using ARKBreedingStats.raising;
@@ -63,33 +64,7 @@ namespace ARKBreedingStats.BreedingPlanning
         public CreatureCollection CreatureCollection;
         private readonly ToolTip _tt = new ToolTip { AutoPopDelay = 10000 };
 
-        #region inheritance probabilities and breeding constants
-        public const double ProbabilityHigherLevel = 0.55; // probability of inheriting the higher level-stat
-        public const double ProbabilityLowerLevel = 1 - ProbabilityHigherLevel; // probability of inheriting the lower level-stat
-        public const double ProbabilityOfMutation = 0.025;
-        /// <summary>
-        /// The max possible new mutations for a bred creature.
-        /// </summary>
-        public const int MutationRolls = 3;
-        /// <summary>
-        /// Number of levels that are added to a stat if a mutation occurred.
-        /// </summary>
-        public const int LevelsAddedPerMutation = 2;
-        /// <summary>
-        /// A mutation is possible if the Mutations are less than this number.
-        /// </summary>
-        public const int MutationPossibleWithLessThan = 20;
-        /// <summary>
-        /// The probability that at least one mutation happens if both parents have a mutation counter of less than 20.
-        /// </summary>
-        public const double ProbabilityOfOneMutation = 1 - (1 - ProbabilityOfMutation) * (1 - ProbabilityOfMutation) * (1 - ProbabilityOfMutation);
-        /// <summary>
-        /// The approximate probability of at least one mutation if one parent has less and one parent has larger or equal 20 mutation.
-        /// It's assumed that the stats of the mutated stat are the same for the parents.
-        /// If they differ, the probability for a mutation from the parent with the higher stat is probabilityHigherLevel * probabilityOfMutation etc.
-        /// </summary>
-        public const double ProbabilityOfOneMutationFromOneParent = 1 - (1 - ProbabilityOfMutation / 2) * (1 - ProbabilityOfMutation / 2) * (1 - ProbabilityOfMutation / 2);
-        #endregion
+
 
         public BreedingPlan()
         {
@@ -497,9 +472,9 @@ namespace ARKBreedingStats.BreedingPlanning
                         {
                             g.TextRenderingHint = TextRenderingHint.AntiAlias;
                             brush.Color = Utils.MutationColor;
-                            if (_breedingPairs[i].Female.Mutations < MutationPossibleWithLessThan)
+                            if (_breedingPairs[i].Female.Mutations < GameConstants.MutationPossibleWithLessThan)
                                 g.FillRectangle(brush, 0, 5, 10, 10);
-                            if (_breedingPairs[i].Male.Mutations < MutationPossibleWithLessThan)
+                            if (_breedingPairs[i].Male.Mutations < GameConstants.MutationPossibleWithLessThan)
                                 g.FillRectangle(brush, 77, 5, 10, 10);
                             // outline
                             brush.Color =
@@ -861,10 +836,10 @@ namespace ARKBreedingStats.BreedingPlanning
                 // in top stats breeding mode consider only probability of top stats
                 if (crB.levelsWild[s] > crW.levelsWild[s]
                     && (!topStatBreedingMode || crB.topBreedingStats[s]))
-                    probabilityBest *= ProbabilityHigherLevel;
+                    probabilityBest *= GameConstants.ProbabilityHigherLevel;
                 else if (crB.levelsWild[s] < crW.levelsWild[s]
                          && (!topStatBreedingMode || crB.topBreedingStats[s]))
-                    probabilityBest *= ProbabilityLowerLevel;
+                    probabilityBest *= GameConstants.ProbabilityLowerLevel;
             }
             crB.levelsWild[(int)StatNames.Torpidity] = crB.levelsWild.Sum();
             crW.levelsWild[(int)StatNames.Torpidity] = crW.levelsWild.Sum();

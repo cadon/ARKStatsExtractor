@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ARKBreedingStats.Ark;
 using ARKBreedingStats.BreedingPlanning;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
@@ -190,7 +191,7 @@ namespace ARKBreedingStats.library
 
                     var mutationsMaternal = mother.Mutations;
                     var mutationsPaternal = father.Mutations;
-                    var mutationPossible = mutationsMaternal < BreedingPlan.MutationPossibleWithLessThan || mutationsPaternal < BreedingPlan.MutationPossibleWithLessThan;
+                    var mutationPossible = mutationsMaternal < GameConstants.MutationPossibleWithLessThan || mutationsPaternal < GameConstants.MutationPossibleWithLessThan;
 
                     var name = $"F{gen + 1}.{i + 1}";
                     var sex = noGender ? Sex.Unknown : rand.Next(2) == 0 ? Sex.Female : Sex.Male;
@@ -230,7 +231,7 @@ namespace ARKBreedingStats.library
                     var statForPossibleMutationCount = mutationPossible ? statIndicesForPossibleMutation.Count : 0;
                     if (statForPossibleMutationCount != 0)
                     {
-                        for (int m = 0; m < BreedingPlan.MutationRolls; m++)
+                        for (int m = 0; m < GameConstants.MutationRolls; m++)
                         {
                             // first select a stat
                             var statIndexForMutation = statIndicesForPossibleMutation[rand.Next(statForPossibleMutationCount)];
@@ -240,14 +241,14 @@ namespace ARKBreedingStats.library
                             var mutationFromMother = mutationFromParentWithHigherStat == (mother.levelsWild[statIndexForMutation] >
                                                     father.levelsWild[statIndexForMutation]);
 
-                            if ((mutationFromMother && mother.Mutations >= BreedingPlan.MutationPossibleWithLessThan)
-                                || (!mutationFromMother && father.Mutations >= BreedingPlan.MutationPossibleWithLessThan)
+                            if ((mutationFromMother && mother.Mutations >= GameConstants.MutationPossibleWithLessThan)
+                                || (!mutationFromMother && father.Mutations >= GameConstants.MutationPossibleWithLessThan)
                             ) continue;
 
                             // check if mutation occurs
                             if (rand.NextDouble() >= randomMutationChance) continue;
 
-                            var newLevel = levelsWild[statIndexForMutation] + BreedingPlan.LevelsAddedPerMutation;
+                            var newLevel = levelsWild[statIndexForMutation] + GameConstants.LevelsAddedPerMutation;
                             if (newLevel > 255) continue;
 
                             mutationHappened = true;
@@ -375,7 +376,7 @@ namespace ARKBreedingStats.library
         public int SpeciesCount = 10;
         public int Generations = 4;
         public int PairsPerGeneration = 2;
-        public double ProbabilityHigherStat = BreedingPlan.ProbabilityHigherLevel;
-        public double RandomMutationChance = BreedingPlan.ProbabilityOfMutation;
+        public double ProbabilityHigherStat = GameConstants.ProbabilityHigherLevel;
+        public double RandomMutationChance = GameConstants.ProbabilityOfMutation;
     }
 }

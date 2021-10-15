@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
-using ARKBreedingStats.BreedingPlanning;
+using ARKBreedingStats.Ark;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.species;
@@ -257,7 +257,7 @@ namespace ARKBreedingStats.uiControls
                 {
                     int yMarker = _statSize - _mutationIndicatorSize - 1 - borderWidth;
                     Color mutationColor = creature.Mutations == 0 ? Color.GreenYellow
-                        : creature.Mutations < BreedingPlan.MutationPossibleWithLessThan ? Utils.MutationColor
+                        : creature.Mutations < GameConstants.MutationPossibleWithLessThan ? Utils.MutationColor
                         : Color.DarkRed;
 
                     DrawFilledCircle(g, brush, pen, mutationColor, borderWidth + 1, yMarker, _mutationIndicatorSize);
@@ -363,10 +363,10 @@ namespace ARKBreedingStats.uiControls
                         var possibleMutationsFather = -1;
                         for (int m = 0; m <= leftMutations; m++)
                         {
-                            if (possibleMutationsMother == -1 && creature.levelsWild[si] == levelMother + m * BreedingPlan.LevelsAddedPerMutation)
+                            if (possibleMutationsMother == -1 && creature.levelsWild[si] == levelMother + m * GameConstants.LevelsAddedPerMutation)
                                 possibleMutationsMother = m;
 
-                            if (possibleMutationsFather == -1 && creature.levelsWild[si] == levelFather + m * BreedingPlan.LevelsAddedPerMutation)
+                            if (possibleMutationsFather == -1 && creature.levelsWild[si] == levelFather + m * GameConstants.LevelsAddedPerMutation)
                                 possibleMutationsFather = m;
                         }
 
@@ -421,10 +421,10 @@ namespace ARKBreedingStats.uiControls
                     for (int m = 0; m <= leftMutations; m++)
                     {
                         if (possibleMutationsMother == -1 && levelMother != -1 && creature.levelsWild[si] ==
-                            levelMother + m * BreedingPlan.LevelsAddedPerMutation)
+                            levelMother + m * GameConstants.LevelsAddedPerMutation)
                             possibleMutationsMother = m;
                         if (possibleMutationsFather == -1 && levelFather != -1 && creature.levelsWild[si] ==
-                            levelFather + m * BreedingPlan.LevelsAddedPerMutation)
+                            levelFather + m * GameConstants.LevelsAddedPerMutation)
                             possibleMutationsFather = m;
                     }
                     statInheritances[si] = (byte)((possibleMutationsMother == -1 ? 0 : InheritanceFlag(possibleMutationsMother + 8, true))

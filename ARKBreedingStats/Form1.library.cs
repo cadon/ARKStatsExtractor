@@ -1699,7 +1699,9 @@ namespace ARKBreedingStats
             bool libraryChanged = false;
             var affectedSpeciesBlueprints = new List<string>();
 
-            List<Creature> cs = new List<Creature>();
+            var statIndicesAffectedByMutagen = GameConstants.StatIndicesAffectedByMutagen;
+            var statCountAffectedByMutagen = statIndicesAffectedByMutagen.Length;
+
             foreach (ListViewItem i in listViewLibrary.SelectedItems)
             {
                 if (!(i.Tag is Creature c)) continue;
@@ -1707,22 +1709,11 @@ namespace ARKBreedingStats
                 if (!c.isDomesticated
                     || c.flags.HasFlag(CreatureFlags.MutagenApplied)) continue;
 
-                if (c.isBred)
-                {
-                    c.levelsWild[(int)StatNames.Health] += GameConstants.MutagenLevelUpsBred;
-                    c.levelsWild[(int)StatNames.Stamina] += GameConstants.MutagenLevelUpsBred;
-                    c.levelsWild[(int)StatNames.Weight] += GameConstants.MutagenLevelUpsBred;
-                    c.levelsWild[(int)StatNames.MeleeDamageMultiplier] += GameConstants.MutagenLevelUpsBred;
-                    c.levelsWild[(int)StatNames.Torpidity] += 4 * GameConstants.MutagenLevelUpsBred;
-                }
-                else
-                {
-                    c.levelsWild[(int)StatNames.Health] += GameConstants.MutagenLevelUpsNonBred;
-                    c.levelsWild[(int)StatNames.Stamina] += GameConstants.MutagenLevelUpsNonBred;
-                    c.levelsWild[(int)StatNames.Weight] += GameConstants.MutagenLevelUpsNonBred;
-                    c.levelsWild[(int)StatNames.MeleeDamageMultiplier] += GameConstants.MutagenLevelUpsNonBred;
-                    c.levelsWild[(int)StatNames.Torpidity] += 4 * GameConstants.MutagenLevelUpsNonBred;
-                }
+                var levelIncrease = c.isBred ? GameConstants.MutagenLevelUpsBred : GameConstants.MutagenLevelUpsNonBred;
+
+                foreach (var si in statIndicesAffectedByMutagen)
+                    c.levelsWild[si] += levelIncrease;
+                c.levelsWild[(int)StatNames.Torpidity] += statCountAffectedByMutagen * levelIncrease;
 
                 c.flags |= CreatureFlags.MutagenApplied;
 
