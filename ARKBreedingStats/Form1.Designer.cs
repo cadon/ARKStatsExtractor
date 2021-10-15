@@ -1759,7 +1759,7 @@ namespace ARKBreedingStats
             this.groupBoxTamingInfo.Controls.Add(this.labelTamingInfo);
             this.groupBoxTamingInfo.Location = new System.Drawing.Point(590, 60);
             this.groupBoxTamingInfo.Name = "groupBoxTamingInfo";
-            this.groupBoxTamingInfo.Size = new System.Drawing.Size(174, 532);
+            this.groupBoxTamingInfo.Size = new System.Drawing.Size(174, 423);
             this.groupBoxTamingInfo.TabIndex = 48;
             this.groupBoxTamingInfo.TabStop = false;
             this.groupBoxTamingInfo.Text = "Taming Info";
@@ -1769,7 +1769,7 @@ namespace ARKBreedingStats
             this.labelTamingInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelTamingInfo.Location = new System.Drawing.Point(3, 16);
             this.labelTamingInfo.Name = "labelTamingInfo";
-            this.labelTamingInfo.Size = new System.Drawing.Size(168, 513);
+            this.labelTamingInfo.Size = new System.Drawing.Size(168, 404);
             this.labelTamingInfo.TabIndex = 0;
             // 
             // button2TamingCalc

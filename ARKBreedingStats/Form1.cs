@@ -1609,6 +1609,8 @@ namespace ARKBreedingStats
         private void checkBoxQuickWildCheck_CheckedChanged(object sender, EventArgs e)
         {
             UpdateQuickTamingInfo();
+            if (cbQuickWildCheck.Checked)
+                ExtractionFailed();
         }
 
         private void onlinehelpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1999,18 +2001,16 @@ namespace ARKBreedingStats
         {
             _clearExtractionCreatureData =
                 true; // as soon as the user changes stat-values, it's assumed it's not an exported creature anymore
-            if (cbQuickWildCheck.Checked)
+            if (!cbQuickWildCheck.Checked) return;
+            int lvlWild = (int)Math.Round(
+                (sIo.Input - speciesSelector1.SelectedSpecies.stats[sIo.statIndex].BaseValue) /
+                (speciesSelector1.SelectedSpecies.stats[sIo.statIndex].BaseValue *
+                 speciesSelector1.SelectedSpecies.stats[sIo.statIndex].IncPerWildLevel));
+            sIo.LevelWild = lvlWild < 0 ? 0 : lvlWild;
+            sIo.LevelDom = 0;
+            if (sIo.statIndex == (int)StatNames.Torpidity)
             {
-                int lvlWild = (int)Math.Round(
-                    (sIo.Input - speciesSelector1.SelectedSpecies.stats[sIo.statIndex].BaseValue) /
-                    (speciesSelector1.SelectedSpecies.stats[sIo.statIndex].BaseValue *
-                     speciesSelector1.SelectedSpecies.stats[sIo.statIndex].IncPerWildLevel));
-                sIo.LevelWild = lvlWild < 0 ? 0 : lvlWild;
-                sIo.LevelDom = 0;
-                if (sIo.statIndex == (int)StatNames.Torpidity)
-                {
-                    SetQuickTamingInfo(_statIOs[(int)StatNames.Torpidity].LevelWild + 1);
-                }
+                SetQuickTamingInfo(_statIOs[(int)StatNames.Torpidity].LevelWild + 1);
             }
         }
 
