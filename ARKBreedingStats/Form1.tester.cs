@@ -42,7 +42,7 @@ namespace ARKBreedingStats
             numericUpDownImprintingBonusTester.ValueSave = (decimal)c.imprintingBonus * 100;
             if (c.isBred)
                 rbBredTester.Checked = true;
-            else if (c.tamingEff > 0 || c.tamingEff == -2) // -2 is unknown (e.g. Giganotosaurus)
+            else if (c.isDomesticated)
                 rbTamedTester.Checked = true;
             else
                 rbWildTester.Checked = true;
@@ -179,7 +179,7 @@ namespace ARKBreedingStats
             bool parentsChanged = _creatureTesterEdit.Mother != creatureInfoInputTester.Mother || _creatureTesterEdit.Father != creatureInfoInputTester.Father;
             _creatureTesterEdit.levelsWild = GetCurrentWildLevels(false);
             _creatureTesterEdit.levelsDom = GetCurrentDomLevels(false);
-            _creatureTesterEdit.tamingEff = (double)NumericUpDownTestingTE.Value / 100;
+            _creatureTesterEdit.tamingEff = TamingEffectivenessTester;
             _creatureTesterEdit.isBred = rbBredTester.Checked;
             _creatureTesterEdit.imprintingBonus = (double)numericUpDownImprintingBonusTester.Value / 100;
 
@@ -288,7 +288,7 @@ namespace ARKBreedingStats
 
             if (c.isBred)
                 rbBredExtractor.Checked = true;
-            else if (c.tamingEff >= 0)
+            else if (c.isDomesticated)
                 rbTamedExtractor.Checked = true;
             else
                 rbWildExtractor.Checked = true;
@@ -324,12 +324,12 @@ namespace ARKBreedingStats
             {
                 Species = speciesSelector1.SelectedSpecies,
                 levelsWild = GetCurrentWildLevels(false),
-                levelsDom = GetCurrentDomLevels(false)
+                levelsDom = GetCurrentDomLevels(false),
+                tamingEff = TamingEffectivenessTester,
+                isBred = rbBredTester.Checked,
+                imprintingBonus = (double)numericUpDownImprintingBonusTester.Value / 100
             };
 
-            creature.tamingEff = (double)NumericUpDownTestingTE.Value / 100;
-            creature.isBred = rbBredTester.Checked;
-            creature.imprintingBonus = (double)numericUpDownImprintingBonusTester.Value / 100;
             creatureInfoInputTester.SetCreatureData(creature);
             creature.RecalculateAncestorGenerations();
             creature.RecalculateNewMutations();
@@ -347,7 +347,7 @@ namespace ARKBreedingStats
                 levelsDom = GetCurrentDomLevels(true)
             };
 
-            creature.tamingEff = _extractor.UniqueTE();
+            creature.tamingEff = _extractor.UniqueTamingEffectiveness();
             creature.isBred = rbBredExtractor.Checked;
             creature.imprintingBonus = _extractor.ImprintingBonus;
             creatureInfoInputExtractor.SetCreatureData(creature);
@@ -357,5 +357,10 @@ namespace ARKBreedingStats
 
             creature.ExportInfoGraphicToClipboard(CreatureCollection.CurrentCreatureCollection);
         }
+
+        /// <summary>
+        /// Returns the taming effectiveness for the creature in the Tester. -3 indicates a wild creature.
+        /// </summary>
+        private double TamingEffectivenessTester => rbWildTester.Checked ? -3 : (double)NumericUpDownTestingTE.Value / 100;
     }
 }

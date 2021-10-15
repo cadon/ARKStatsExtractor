@@ -782,9 +782,16 @@ namespace ARKBreedingStats
             }
         }
 
-        public double UniqueTE()
+        /// <summary>
+        /// Returns the taming effectiveness for the selected stat levels.
+        /// A value =&gt;0 is a valid value.
+        /// -1 indicates the TE cannot be determined.
+        /// -2 indicates the TE of the stats that use it is different, i.e. there's an issue with the stat values.
+        /// </summary>
+        /// <returns></returns>
+        public double UniqueTamingEffectiveness()
         {
-            double eff = -2;
+            double eff = -1;
             if (StatsWithTE.Any() && Results[StatsWithTE[0]].Count > ChosenResults[StatsWithTE[0]])
             {
                 for (int s = 0; s < StatsWithTE.Count; s++)
@@ -796,7 +803,7 @@ namespace ARKBreedingStats
                             || !MinMaxDouble.Overlaps(Results[StatsWithTE[s]][ChosenResults[StatsWithTE[s]]].TE,
                                                       Results[StatsWithTE[ss]][ChosenResults[StatsWithTE[ss]]].TE))
                         {
-                            return -1; // no unique TE
+                            return -2; // no unique TE
                         }
                     }
                 }

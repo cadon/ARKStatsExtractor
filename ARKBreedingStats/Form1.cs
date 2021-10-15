@@ -1643,14 +1643,14 @@ namespace ARKBreedingStats
                     {
                         input = creatureInfoInputExtractor;
                         bred = rbBredExtractor.Checked;
-                        te = _extractor.UniqueTE();
+                        te = rbWildExtractor.Checked ? -3 : _extractor.UniqueTamingEffectiveness();
                         imprinting = _extractor.ImprintingBonus;
                     }
                     else
                     {
                         input = creatureInfoInputTester;
                         bred = rbBredTester.Checked;
-                        te = (double)NumericUpDownTestingTE.Value / 100;
+                        te = TamingEffectivenessTester;
                         imprinting = (double)numericUpDownImprintingBonusTester.Value / 100;
                     }
 
@@ -1757,48 +1757,6 @@ namespace ARKBreedingStats
             // recalculate topstats
             CalculateTopStats(_creatureCollection.creatures);
             FilterLibRecalculate();
-        }
-
-        private void SetMatureBreedingStateOfSelectedCreatures(bool setMature = false, bool clearMatingCooldown = false,
-            bool justMated = false)
-        {
-            listViewLibrary.BeginUpdate();
-            foreach (ListViewItem i in listViewLibrary.SelectedItems)
-            {
-                Creature c = (Creature)i.Tag;
-                if (setMature && c.growingUntil > DateTime.Now)
-                    c.growingUntil = null;
-
-                if (clearMatingCooldown && c.cooldownUntil > DateTime.Now)
-                    c.cooldownUntil = null;
-
-                if (justMated)
-                    c.cooldownUntil = DateTime.Now.AddSeconds(c.Species.breeding?.matingCooldownMinAdjusted ?? 0);
-
-                i.SubItems[11].Text =
-                    DisplayedCreatureCountdown(c, out var cooldownForeColor, out var cooldownBackColor);
-
-                i.SubItems[11].ForeColor = cooldownForeColor;
-                i.SubItems[11].BackColor = cooldownBackColor;
-            }
-
-            breedingPlan1.BreedingPlanNeedsUpdate = true;
-            listViewLibrary.EndUpdate();
-        }
-
-        private void setToMatureToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SetMatureBreedingStateOfSelectedCreatures(setMature: true);
-        }
-
-        private void clearMatingCooldownToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SetMatureBreedingStateOfSelectedCreatures(clearMatingCooldown: true);
-        }
-
-        private void justMatedToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SetMatureBreedingStateOfSelectedCreatures(justMated: true);
         }
 
         private void aliveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2012,56 +1970,6 @@ namespace ARKBreedingStats
             {
                 SetQuickTamingInfo(_statIOs[(int)StatNames.Torpidity].LevelWild + 1);
             }
-        }
-
-        // context-menu for library
-        private void toolStripMenuItemEdit_Click(object sender, EventArgs e)
-        {
-            if (listViewLibrary.SelectedIndices.Count > 0)
-                EditCreatureInTester((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
-        }
-
-        private void toolStripMenuItemRemove_Click(object sender, EventArgs e)
-        {
-            DeleteSelectedCreatures();
-        }
-
-        private void toolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            SetStatusOfSelected(CreatureStatus.Available);
-        }
-
-        private void toolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-            SetStatusOfSelected(CreatureStatus.Unavailable);
-        }
-
-        private void toolStripMenuItem4_Click(object sender, EventArgs e)
-        {
-            SetStatusOfSelected(CreatureStatus.Dead);
-        }
-
-        private void obeliskToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SetStatusOfSelected(CreatureStatus.Obelisk);
-        }
-
-        private void cryopodToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SetStatusOfSelected(CreatureStatus.Cryopod);
-        }
-
-        private void currentValuesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (listViewLibrary.SelectedIndices.Count > 0)
-                SetCreatureValuesToExtractor((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
-        }
-
-        private void wildValuesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (listViewLibrary.SelectedIndices.Count > 0)
-                SetCreatureValuesToExtractor((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag,
-                    true);
         }
 
         private void CreateTimer(string name, DateTime time, Creature c, string group)
@@ -2416,7 +2324,7 @@ namespace ARKBreedingStats
 
         private void toolStripButtonCopy2Tester_Click(object sender, EventArgs e)
         {
-            double te = _extractor.UniqueTE();
+            double te = _extractor.UniqueTamingEffectiveness();
             NumericUpDownTestingTE.ValueSave = (decimal)(te >= 0 ? te * 100 : 80);
             numericUpDownImprintingBonusTester.Value = numericUpDownImprintingBonusExtractor.Value;
             if (rbBredExtractor.Checked)
@@ -2944,7 +2852,7 @@ namespace ARKBreedingStats
             {
                 cr.levelsWild = _statIOs.Select(s => s.LevelWild).ToArray();
                 cr.imprintingBonus = _extractor.ImprintingBonus;
-                cr.tamingEff = _extractor.UniqueTE();
+                cr.tamingEff = _extractor.UniqueTamingEffectiveness();
                 cr.isBred = rbBredExtractor.Checked;
                 cr.topBreedingStats = _statIOs.Select(s =>
                     s.TopLevel.HasFlag(LevelStatus.TopLevel) || s.TopLevel.HasFlag(LevelStatus.NewTopLevel)).ToArray();
@@ -2953,7 +2861,7 @@ namespace ARKBreedingStats
             {
                 cr.levelsWild = _testingIOs.Select(s => s.LevelWild).ToArray();
                 cr.imprintingBonus = (double)numericUpDownImprintingBonusTester.Value / 100;
-                cr.tamingEff = (double)NumericUpDownTestingTE.Value / 100;
+                cr.tamingEff = TamingEffectivenessTester;
                 cr.isBred = rbBredTester.Checked;
             }
 

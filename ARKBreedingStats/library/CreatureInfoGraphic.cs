@@ -239,6 +239,11 @@ namespace ARKBreedingStats.library
                     }
                 }
 
+                // mutagen
+                if (creature.flags.HasFlag(CreatureFlags.MutagenApplied))
+                    g.DrawString("Mutagen applied",
+                        fontSmall, fontBrush, xColor, height - fontSizeSmall - 5 * frameThickness);
+
                 // imprinting
                 if (showDomLevel)
                 {

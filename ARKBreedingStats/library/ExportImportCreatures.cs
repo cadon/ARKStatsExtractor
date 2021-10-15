@@ -212,15 +212,14 @@ namespace ARKBreedingStats.library
         {
             var maxChartLevel = CreatureCollection.CurrentCreatureCollection?.maxChartLevel ?? 0;
             double colorFactor = maxChartLevel > 0 ? 100d / maxChartLevel : 1;
-            bool wild = c.tamingEff == -2;
             string modifierText = string.Empty;
             if (!breeding)
             {
-                if (wild)
+                if (!c.isDomesticated)
                     modifierText = ", wild";
-                else if (c.tamingEff < 1)
-                    modifierText = ", TE: " + Math.Round(100 * c.tamingEff, 1) + " %";
-                else if (c.imprintingBonus > 0)
+                else if (!c.isBred)
+                    modifierText = ", TE: " + (c.tamingEff >= 0 ? Math.Round(100 * c.tamingEff, 1) + " %" : "unknown");
+                else if (c.imprintingBonus >= 0)
                     modifierText = ", Impr: " + Math.Round(100 * c.imprintingBonus, 2) + " %";
             }
 

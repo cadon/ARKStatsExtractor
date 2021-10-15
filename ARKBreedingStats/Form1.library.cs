@@ -12,6 +12,7 @@ using ARKBreedingStats.utils;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using ARKBreedingStats.Ark;
 using ARKBreedingStats.library;
 
 namespace ARKBreedingStats
@@ -41,14 +42,14 @@ namespace ARKBreedingStats
             {
                 input = creatureInfoInputExtractor;
                 bred = rbBredExtractor.Checked;
-                te = _extractor.UniqueTE();
+                te = _extractor.UniqueTamingEffectiveness();
                 imprinting = _extractor.ImprintingBonus;
             }
             else
             {
                 input = creatureInfoInputTester;
                 bred = rbBredTester.Checked;
-                te = (double)NumericUpDownTestingTE.Value / 100;
+                te = TamingEffectivenessTester;
                 imprinting = (double)numericUpDownImprintingBonusTester.Value / 100;
             }
 
@@ -1581,6 +1582,152 @@ namespace ARKBreedingStats
             lviCreature.Selected = true;
             listViewLibrary.EnsureVisible(lviCreature.Index);
         }
+
+        #region Library ContextMenu
+
+        private void toolStripMenuItemEdit_Click(object sender, EventArgs e)
+        {
+            if (listViewLibrary.SelectedIndices.Count > 0)
+                EditCreatureInTester((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
+        }
+
+        private void toolStripMenuItemRemove_Click(object sender, EventArgs e)
+        {
+            DeleteSelectedCreatures();
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            SetStatusOfSelected(CreatureStatus.Available);
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            SetStatusOfSelected(CreatureStatus.Unavailable);
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            SetStatusOfSelected(CreatureStatus.Dead);
+        }
+
+        private void obeliskToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetStatusOfSelected(CreatureStatus.Obelisk);
+        }
+
+        private void cryopodToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetStatusOfSelected(CreatureStatus.Cryopod);
+        }
+
+        private void currentValuesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listViewLibrary.SelectedIndices.Count > 0)
+                SetCreatureValuesToExtractor((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
+        }
+
+        private void wildValuesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listViewLibrary.SelectedIndices.Count > 0)
+                SetCreatureValuesToExtractor((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag,
+                    true);
+        }
+
+        private void SetMatureBreedingStateOfSelectedCreatures(bool setMature = false, bool clearMatingCooldown = false,
+            bool justMated = false)
+        {
+            listViewLibrary.BeginUpdate();
+            foreach (ListViewItem i in listViewLibrary.SelectedItems)
+            {
+                Creature c = (Creature)i.Tag;
+                if (setMature && c.growingUntil > DateTime.Now)
+                    c.growingUntil = null;
+
+                if (clearMatingCooldown && c.cooldownUntil > DateTime.Now)
+                    c.cooldownUntil = null;
+
+                if (justMated)
+                    c.cooldownUntil = DateTime.Now.AddSeconds(c.Species.breeding?.matingCooldownMinAdjusted ?? 0);
+
+                i.SubItems[11].Text =
+                    DisplayedCreatureCountdown(c, out var cooldownForeColor, out var cooldownBackColor);
+
+                i.SubItems[11].ForeColor = cooldownForeColor;
+                i.SubItems[11].BackColor = cooldownBackColor;
+            }
+
+            breedingPlan1.BreedingPlanNeedsUpdate = true;
+            listViewLibrary.EndUpdate();
+        }
+
+        private void setToMatureToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetMatureBreedingStateOfSelectedCreatures(setMature: true);
+        }
+
+        private void clearMatingCooldownToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetMatureBreedingStateOfSelectedCreatures(clearMatingCooldown: true);
+        }
+
+        private void justMatedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetMatureBreedingStateOfSelectedCreatures(justMated: true);
+        }
+
+        private void applyMutagenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // a tamed creature receives 5 level in hp, st, we, dm (i.e. a total of 20 levels)
+            // a bred creature receives 1 level in hp, st, we, dm (i.e. a total of 4 levels)
+
+            bool libraryChanged = false;
+            var affectedSpeciesBlueprints = new List<string>();
+
+            List<Creature> cs = new List<Creature>();
+            foreach (ListViewItem i in listViewLibrary.SelectedItems)
+            {
+                if (!(i.Tag is Creature c)) continue;
+
+                if (!c.isDomesticated
+                    || c.flags.HasFlag(CreatureFlags.MutagenApplied)) continue;
+
+                if (c.isBred)
+                {
+                    c.levelsWild[(int)StatNames.Health] += GameConstants.MutagenLevelUpsBred;
+                    c.levelsWild[(int)StatNames.Stamina] += GameConstants.MutagenLevelUpsBred;
+                    c.levelsWild[(int)StatNames.Weight] += GameConstants.MutagenLevelUpsBred;
+                    c.levelsWild[(int)StatNames.MeleeDamageMultiplier] += GameConstants.MutagenLevelUpsBred;
+                    c.levelsWild[(int)StatNames.Torpidity] += 4 * GameConstants.MutagenLevelUpsBred;
+                }
+                else
+                {
+                    c.levelsWild[(int)StatNames.Health] += GameConstants.MutagenLevelUpsNonBred;
+                    c.levelsWild[(int)StatNames.Stamina] += GameConstants.MutagenLevelUpsNonBred;
+                    c.levelsWild[(int)StatNames.Weight] += GameConstants.MutagenLevelUpsNonBred;
+                    c.levelsWild[(int)StatNames.MeleeDamageMultiplier] += GameConstants.MutagenLevelUpsNonBred;
+                    c.levelsWild[(int)StatNames.Torpidity] += 4 * GameConstants.MutagenLevelUpsNonBred;
+                }
+
+                c.flags |= CreatureFlags.MutagenApplied;
+
+                libraryChanged = true;
+                if (!affectedSpeciesBlueprints.Contains(c.speciesBlueprint))
+                    affectedSpeciesBlueprints.Add(c.speciesBlueprint);
+            }
+
+            if (!libraryChanged) return;
+
+            // update list / recalculate topStats
+            CalculateTopStats(_creatureCollection.creatures
+                .Where(c => affectedSpeciesBlueprints.Contains(c.speciesBlueprint)).ToList());
+            FilterLibRecalculate();
+            UpdateStatusBar();
+            SetCollectionChanged(true,
+                affectedSpeciesBlueprints.Count == 1 ? Values.V.SpeciesByBlueprint(affectedSpeciesBlueprints.First()) : null);
+        }
+
+        #endregion
 
         #region LibraryFilterPresets
 

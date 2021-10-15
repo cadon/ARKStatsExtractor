@@ -26,6 +26,14 @@ namespace ARKBreedingStats.Library
         public int[] levelsWild;
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int[] levelsDom;
+
+        /// <summary>
+        /// The taming effectiveness (0: 0, 1: 100 %).
+        /// Special values are:
+        /// -1: TE is unknown (e.g. cannot be determined exactly for the giganotosaurus)
+        /// -2: invalid TE (used in the extraction if different stats rely on a different TE).
+        /// -3: creature is not yet domesticated, i.e. wild.
+        /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public double tamingEff;
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -91,6 +99,13 @@ namespace ARKBreedingStats.Library
         /// </summary>
         [JsonIgnore]
         public string ArkIdInGame;
+
+        /// <summary>
+        /// True if the creature is tamed or bred, false if it's wild.
+        /// That property depends on the taming effectiveness.
+        /// </summary>
+        public bool isDomesticated => tamingEff > -3;
+
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool isBred;
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]

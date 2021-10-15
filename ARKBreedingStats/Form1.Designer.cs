@@ -253,6 +253,7 @@ namespace ARKBreedingStats
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.obeliskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cryopodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.applyMutagenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
             this.adminCommandToSetColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fixColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -2231,6 +2232,7 @@ namespace ARKBreedingStats
             this.bestBreedingPartnersToolStripMenuItem,
             this.breedingPlanForSelectedCreaturesToolStripMenuItem,
             this.toolStripMenuItemStatus,
+            this.applyMutagenToolStripMenuItem,
             this.toolStripSeparator16,
             this.adminCommandToSetColorsToolStripMenuItem,
             this.fixColorsToolStripMenuItem,
@@ -2239,7 +2241,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator14,
             this.toolStripMenuItemRemove});
             this.contextMenuStripLibrary.Name = "contextMenuStripLibrary";
-            this.contextMenuStripLibrary.Size = new System.Drawing.Size(274, 392);
+            this.contextMenuStripLibrary.Size = new System.Drawing.Size(274, 414);
             this.contextMenuStripLibrary.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripLibrary_Opening);
             // 
             // toolStripMenuItemEdit
@@ -2418,37 +2420,44 @@ namespace ARKBreedingStats
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(135, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem2.Text = "Available";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(135, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem3.Text = "Unavailable";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(135, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem4.Text = "Dead";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
             // 
             // obeliskToolStripMenuItem
             // 
             this.obeliskToolStripMenuItem.Name = "obeliskToolStripMenuItem";
-            this.obeliskToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.obeliskToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.obeliskToolStripMenuItem.Text = "Obelisk";
             this.obeliskToolStripMenuItem.Click += new System.EventHandler(this.obeliskToolStripMenuItem_Click);
             // 
             // cryopodToolStripMenuItem
             // 
             this.cryopodToolStripMenuItem.Name = "cryopodToolStripMenuItem";
-            this.cryopodToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.cryopodToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cryopodToolStripMenuItem.Text = "Cryopod";
             this.cryopodToolStripMenuItem.Click += new System.EventHandler(this.cryopodToolStripMenuItem_Click);
+            // 
+            // applyMutagenToolStripMenuItem
+            // 
+            this.applyMutagenToolStripMenuItem.Name = "applyMutagenToolStripMenuItem";
+            this.applyMutagenToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
+            this.applyMutagenToolStripMenuItem.Text = "Apply Mutagen";
+            this.applyMutagenToolStripMenuItem.Click += new System.EventHandler(this.applyMutagenToolStripMenuItem_Click);
             // 
             // toolStripSeparator16
             // 
@@ -3710,5 +3719,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem editSortingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpAboutSpeciesSortingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resetSortingToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem applyMutagenToolStripMenuItem;
     }
 }

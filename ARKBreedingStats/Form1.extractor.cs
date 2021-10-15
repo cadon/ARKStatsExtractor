@@ -615,7 +615,7 @@ namespace ARKBreedingStats
         /// </summary>
         private void SetUniqueTE()
         {
-            double te = Math.Round(_extractor.UniqueTE(), 5);
+            double te = Math.Round(_extractor.UniqueTamingEffectiveness(), 5);
             if (te >= 0)
             {
                 labelTE.Text = $"Extracted: {Math.Round(100 * te, 2)} %";
@@ -629,7 +629,7 @@ namespace ARKBreedingStats
             }
             else
             {
-                if (te == -1)
+                if (te == -2)
                 {
                     labelTE.Text = "TE differs in chosen possibilities";
                     labelTE.BackColor = Color.LightSalmon;
@@ -789,7 +789,7 @@ namespace ARKBreedingStats
                 string rowValues = string.Empty;
                 // if taming effectiveness is unique, display it, too
                 string effString = string.Empty;
-                double eff = _extractor.UniqueTE();
+                double eff = _extractor.UniqueTamingEffectiveness();
                 if (eff >= 0)
                 {
                     effString = "\tTamingEff:\t" + (100 * eff) + "%";
