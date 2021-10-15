@@ -14,6 +14,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using ARKBreedingStats.Ark;
 using ARKBreedingStats.library;
+using ARKBreedingStats.settings;
 
 namespace ARKBreedingStats
 {
@@ -1396,15 +1397,24 @@ namespace ARKBreedingStats
         {
             if (tabControlMain.SelectedTab == tabPageLibrary)
             {
+                if (Properties.Settings.Default.CreatureTableExportFields?.Any() == false)
+                {
+                    if (MessageBox.Show("No fields for the table export selected.\nDo you want to go to the options to edit the export fields?", "No Export Fields set",
+                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                        OpenSettingsDialog(Settings.SettingsTabPages.General);
+                    return;
+                }
                 if (listViewLibrary.SelectedItems.Count > 0)
                 {
                     ExportImportCreatures.ExportTable(listViewLibrary.SelectedItems.Cast<ListViewItem>().Select(lvi => (Creature)lvi.Tag));
+                    return;
                 }
-                else
-                    MessageBox.Show("No creatures in the library selected to copy to the clipboard", "No Creatures Selected",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No creatures in the library selected to copy to the clipboard", "No Creatures Selected",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            else if (tabControlMain.SelectedTab == tabPageExtractor)
+
+            if (tabControlMain.SelectedTab == tabPageExtractor)
                 CopyExtractionToClipboard();
         }
 
