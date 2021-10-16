@@ -27,9 +27,9 @@ namespace ARKBreedingStats.library
             if (Properties.Settings.Default.InfoGraphicExtraRegionNames)
                 width += height / 2;
 
-            int fontSize = Math.Max(1, height / 18); // 10
-            int fontSizeSmall = Math.Max(1, height * 2 / 45); // 8
-            int fontSizeHeader = Math.Max(1, height / 15); // 12
+            int fontSize = Math.Max(5, height / 18); // 10
+            int fontSizeSmall = Math.Max(5, height * 2 / 45); // 8
+            int fontSizeHeader = Math.Max(5, height / 15); // 12
             int frameThickness = Math.Max(1, height / 180);
 
             int statLineHeight = height * 5 / 59; // 15
@@ -62,11 +62,11 @@ namespace ARKBreedingStats.library
                 if (fontSizeHeaderCalculated < fontSizeHeader)
                 {
                     using (var fontHeaderScaled = new Font(fontName, (int)fontSizeHeaderCalculated, FontStyle.Bold))
-                        g.DrawString(headerText, fontHeaderScaled, fontBrush, 3, currentYPosition);
+                        g.DrawString(headerText, fontHeaderScaled, fontBrush, 3 * frameThickness, currentYPosition);
 
                 }
                 else
-                    g.DrawString(headerText, fontHeader, fontBrush, 3, currentYPosition);
+                    g.DrawString(headerText, fontHeader, fontBrush, 3 * frameThickness, currentYPosition);
 
                 currentYPosition += height * 19 / 180; //19
                 string creatureLevel;
@@ -80,7 +80,18 @@ namespace ARKBreedingStats.library
                     creatureInfos += $" | {creature.Mutations} {Loc.S("Mutations")}";
                 if (Properties.Settings.Default.InfoGraphicDisplayGeneration)
                     creatureInfos += $" | {Loc.S("generation")} {creature.generation}";
-                g.DrawString(creatureInfos, font, fontBrush, width * 4 / 165, currentYPosition);
+
+                var availableWidth = width - 9 * frameThickness;
+                var textWidth = g.MeasureString(creatureInfos, font).Width;
+                Font resizedFont = null;
+                if (textWidth > availableWidth)
+                {
+                    var adjustedSize = Math.Max(5, fontSize * availableWidth / textWidth);
+                    resizedFont = new Font(font.FontFamily, adjustedSize);
+                }
+
+                g.DrawString(creatureInfos, resizedFont ?? font, fontBrush, 5 * frameThickness, currentYPosition);
+                resizedFont?.Dispose();
                 currentYPosition += height * 17 / 180; //17
 
                 using (var p = new Pen(Color.FromArgb(50, Properties.Settings.Default.InfoGraphicForeColor), 1))
