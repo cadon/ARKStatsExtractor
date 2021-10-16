@@ -2,6 +2,7 @@
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using System;
+using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -38,7 +39,7 @@ namespace ARKBreedingStats.importExported
                 "Crafting Skill"
             };
 
-            var numberStyle = System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign;
+            const NumberStyles numberStyle = System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign;
             var dotSeparatorCulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
 
             bool inStatSection = false;

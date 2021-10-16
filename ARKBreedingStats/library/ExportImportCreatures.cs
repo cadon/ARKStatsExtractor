@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -324,5 +326,146 @@ namespace ARKBreedingStats.library
                 tamingEff: te, isBred: ib > 0, imprinting: ib);
         }
 
+        public static bool ImportCreaturesFromTsvFile(string filePath, out List<Creature> importedCreatures, out string result)
+        {
+            importedCreatures = null;
+
+            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
+            {
+                result = $"The import file \"{filePath}\" was not found";
+                return false;
+            }
+
+            var lines = File.ReadAllLines(filePath);
+
+            // the field order is fixed
+            // speciesName, speciesBlueprintPath, name, owner, imprinter, tribe, server, note, sex [m/w], status, isBred [bool], neutered [bool], mutagen [bool],
+            // taming effectiveness [double], imprinting bonus [double], mutations maternal [int], mutations paternal [int], 12 stat levels wild [int], 12 stat levels dom [int], 6 color ids [int]
+            // in total: 10 string fields, 3 bool fields, 2 double fields (each two regex groups), 32 int fields
+            var displayNeededFormat = false;
+
+            var regex = new Regex(
+                string.Join(string.Empty, Enumerable.Repeat(@"([^\t]*)\t", 13))
+                + string.Join(string.Empty, Enumerable.Repeat(@" ?([\d,.]*) ?(%)? ?\t", 2))
+                + string.Join(@"\t", Enumerable.Repeat(@" ?(\d*) ?", 32))
+                );
+            importedCreatures = new List<Creature>();
+            var lineCount = lines.Length;
+            var resultSb = new StringBuilder($"Import result\n{lineCount} lines read from\n{filePath}\n");
+
+            for (var i = 0; i < lineCount; i++)
+            {
+                var line = lines[i];
+                var m = regex.Match(line);
+                if (!m.Success)
+                {
+                    resultSb.AppendLine($"couldn't read line {i + 1}, format couldn't be recognized.");
+                    displayNeededFormat = true;
+                    continue;
+                }
+
+                var blueprintPath = m.Groups[2].Value.Trim();
+                var species = Values.V.SpeciesByBlueprint(blueprintPath);
+                if (species == null && Values.V.TryGetSpeciesByName(m.Groups[1].Value.Trim(), out var sp))
+                    species = sp;
+                if (species == null)
+                {
+                    resultSb.AppendLine($"Species for creature in line {i + 1} couldn't be recognized, skipping this line");
+                    continue;
+                }
+
+                var sex = Sex.Unknown;
+                switch (m.Groups[9].Value.Trim().ToLowerInvariant())
+                {
+                    case "w": sex = Sex.Female; break;
+                    case "♀": sex = Sex.Female; break;
+                    case "m": sex = Sex.Male; break;
+                    case "♂": sex = Sex.Male; break;
+                }
+
+                var status = Enum.TryParse(m.Groups[10].Value.Trim(), true, out CreatureStatus statusParsed) ? statusParsed : CreatureStatus.Available;
+
+                const NumberStyles numberStyle = NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign;
+                var dotSeparatorCulture = CultureInfo.GetCultureInfo("en-US");
+                double ParseDouble(int regExGroup)
+                {
+                    var val = double.TryParse(m.Groups[regExGroup].Value.Trim().Replace(',', '.'), numberStyle, dotSeparatorCulture, out var valParsed) ? valParsed : 0;
+                    if (m.Groups[regExGroup + 1].Value.Trim() == "%") val /= 100;
+                    return val;
+                }
+
+                bool ParseBool(int regExGroup)
+                {
+                    var trimmedString = m.Groups[regExGroup].Value.Trim();
+                    return !(string.IsNullOrEmpty(trimmedString) || trimmedString.ToLowerInvariant() == "false" || trimmedString == "0");
+                }
+
+                var isBred = ParseBool(11);
+                var isNeutered = ParseBool(12);
+                var isMutagenApplied = ParseBool(13);
+                var te = isBred ? 1 : ParseDouble(14);
+                var imprintingBonus = isBred ? ParseDouble(16) : 0;
+                var mutationsCountM = int.TryParse(m.Groups[18].Value.Trim(), out var mutationsParsed) ? mutationsParsed : 0;
+                var mutationsCountP = int.TryParse(m.Groups[19].Value.Trim(), out mutationsParsed) ? mutationsParsed : 0;
+
+                const int groupIndexOfFirstWildLevel = 20;
+
+                var levelsWild = new int[Values.STATS_COUNT];
+                var levelsDom = new int[Values.STATS_COUNT];
+                for (int si = 0; si < Values.STATS_COUNT; si++)
+                {
+                    levelsWild[si] = int.Parse(m.Groups[groupIndexOfFirstWildLevel + si].Value.Trim());
+                    levelsDom[si] = int.Parse(m.Groups[groupIndexOfFirstWildLevel + Values.STATS_COUNT + si].Value.Trim());
+                }
+
+                var colorIds = new int[Species.ColorRegionCount];
+                for (int ci = 0; ci < Species.ColorRegionCount; ci++)
+                {
+                    colorIds[ci] = int.Parse(m.Groups[groupIndexOfFirstWildLevel + 2 * Values.STATS_COUNT + ci].Value.Trim());
+                }
+
+                var creature = new Creature(species, m.Groups[3].Value.Trim(), m.Groups[4].Value.Trim(), m.Groups[6].Value.Trim(), sex,
+                    levelsWild, levelsDom, te, isBred, imprintingBonus)
+                {
+                    imprinterName = m.Groups[5].Value.Trim(),
+                    server = m.Groups[7].Value.Trim(),
+                    note = m.Groups[8].Value.Trim(),
+                    Status = status,
+                    flags = (isNeutered ? CreatureFlags.Neutered : CreatureFlags.None)
+                            | (isMutagenApplied ? CreatureFlags.MutagenApplied : CreatureFlags.None),
+                    mutationsMaternal = mutationsCountM,
+                    mutationsPaternal = mutationsCountP,
+                    colors = colorIds
+                };
+                creature.RecalculateCreatureValues(null);
+
+                importedCreatures.Add(creature);
+            }
+
+            var creaturesWereImported = true;
+            var importedCreaturesCount = importedCreatures.Count;
+            if (importedCreaturesCount == 0)
+            {
+                resultSb.AppendLine("No creatures imported.");
+                creaturesWereImported = false;
+            }
+            else
+            {
+                resultSb.AppendLine($"{importedCreaturesCount} creatures imported.");
+            }
+
+            if (displayNeededFormat)
+            {
+                resultSb.AppendLine(@"The expected format is one creature per line, the values separated by a tabulator (\t), in the following order (tab instead of commas):");
+                resultSb.AppendLine("speciesName, speciesBlueprintPath, name, owner, imprinter, tribe, server, note, sex [m/w], status, isBred [bool], neutered [bool], mutagen [bool], "
+                                    + "taming effectiveness [double], imprinting bonus [double], mutations maternal [int], mutations paternal [int], 12 stat levels wild [int], 12 stat levels dom [int], 6 color ids [int]");
+                resultSb.AppendLine("The stat order is: Health, Stamina, Torpidity, Oxygen, Food, Water, Temperature, Weight, MeleeDamageMultiplier, SpeedMultiplier, TemperatureFortitude, CraftingSpeedMultiplier");
+                resultSb.AppendLine("If speciesBlueprintPath is given, this is used to determine the species. If that's empty, speciesName is used to determine the species, for some species that may result in the wrong species.");
+                resultSb.AppendLine("Boolean values are interpreted as false if empty, whitespace, 0 or false, and true else");
+            }
+
+            result = resultSb.ToString();
+            return creaturesWereImported;
+        }
     }
 }

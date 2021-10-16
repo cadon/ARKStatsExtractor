@@ -1848,5 +1848,41 @@ namespace ARKBreedingStats
         }
 
         #endregion
+
+        private void importFromTabSeparatedFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string filePath = null;
+            using (var ofd = new OpenFileDialog
+            {
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                CheckFileExists = true
+            })
+            {
+                if (ofd.ShowDialog(this) == DialogResult.OK)
+                    filePath = ofd.FileName;
+            }
+
+            if (string.IsNullOrEmpty(filePath)) return;
+
+            if (!ExportImportCreatures.ImportCreaturesFromTsvFile(filePath, out var creatures, out var result))
+            {
+                MessageBoxes.ShowMessageBox(result, "Error while importing from tsv file");
+                return;
+            }
+
+            _creatureCollection.MergeCreatureList(creatures);
+
+            // update UI
+            UpdateCreatureListings();
+            SetCollectionChanged(true);
+
+            if (_creatureCollection.creatures.Any())
+                tabControlMain.SelectedTab = tabPageLibrary;
+
+            // reapply last sorting
+            listViewLibrary.Sort();
+
+            MessageBoxes.ShowMessageBox(result, "Creatures imported from tsv file", MessageBoxIcon.Information);
+        }
     }
 }
