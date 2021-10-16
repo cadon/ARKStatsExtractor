@@ -16,7 +16,7 @@
       "LocalPath": "images/speciesImages",
       "IsFolder": true,
       "Selectable": true,
-      "version": "2021.6.5"
+      "version": "2021.10.16"
     },
     "NamePatternTemplates": {
       "Id": "NamePatternTemplates",
