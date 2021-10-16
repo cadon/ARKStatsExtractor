@@ -475,12 +475,12 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Deletes all cached species color images with a specific pattern that weren't used for some time.
         /// </summary>
-        internal static void CleanupCache()
+        internal static void CleanupCache(bool clearAllCacheFiles = false)
         {
             if (!Directory.Exists(_imgCacheFolderPath)) return;
 
             DirectoryInfo directory = new DirectoryInfo(_imgCacheFolderPath);
-            var oldCacheFiles = directory.GetFiles().Where(f => f.LastAccessTime < DateTime.Now.AddDays(-7)).ToArray();
+            var oldCacheFiles = clearAllCacheFiles ? directory.GetFiles() : directory.GetFiles().Where(f => f.LastAccessTime < DateTime.Now.AddDays(-7)).ToArray();
             foreach (FileInfo f in oldCacheFiles)
             {
                 FileService.TryDeleteFile(f);

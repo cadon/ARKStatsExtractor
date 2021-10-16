@@ -3350,7 +3350,11 @@ namespace ARKBreedingStats
                         MessageBoxIcon.Information);
 
                 if (modules.ImagesWereChanged)
+                {
+                    // clear outdated image cache
+                    CreatureColored.CleanupCache(true);
                     InitializeImages();
+                }
 
                 void InitializeImages()
                 {
