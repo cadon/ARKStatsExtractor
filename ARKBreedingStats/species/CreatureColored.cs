@@ -32,7 +32,7 @@ namespace ARKBreedingStats.species
         /// Returns the image file path to the image with the according colorization.
         /// </summary>
         private static string ColoredCreatureCacheFilePath(string speciesName, int[] colorIds, bool listView = false)
-            => Path.Combine(_imgCacheFolderPath, speciesName.Substring(0, Math.Min(speciesName.Length, 5)) + "_" + (speciesName + string.Join(".", colorIds.Select(i => i.ToString()))).GetHashCode().ToString("X8") + (listView ? "_lv" : string.Empty) + Extension);
+            => Path.Combine(_imgCacheFolderPath, speciesName.Substring(0, Math.Min(speciesName.Length, 5)) + "_" + Convert.ToBase64String(colorIds.Select(ci => (byte)ci).Concat(Encoding.UTF8.GetBytes(speciesName)).ToArray()).Replace('/', '-') + (listView ? "_lv" : string.Empty) + Extension);
 
         /// <summary>
         /// Checks if an according species image exists in the cache folder, if not it tries to creates one. Returns false if there's no image.
