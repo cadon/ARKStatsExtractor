@@ -278,7 +278,7 @@ namespace ARKBreedingStats.Library
             }
 
             // to detect loop (if a creature is falsely listed as its own ancestor)
-            if (g > 99)
+            if (g > 299)
             {
                 return -1;
             }
