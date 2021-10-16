@@ -132,6 +132,10 @@ namespace ARKBreedingStats
                 c.RecalculateNewMutations();
             }
 
+            // link new creature to its parents if they're available, or creature placeholders
+            if (creature.Mother == null || creature.Father == null)
+                UpdateParents(new List<Creature> { creature });
+
             // if the new creature is the ancestor of any other creatures, update the generation count of all creatures
             if (motherOf.Any() || fatherOf.Any())
             {
@@ -143,10 +147,6 @@ namespace ARKBreedingStats
             {
                 creature.RecalculateAncestorGenerations();
             }
-
-            // link new creature to its parents if they're available, or creature placeholders
-            if (creature.Mother == null || creature.Father == null)
-                UpdateParents(new List<Creature> { creature });
 
             if (Properties.Settings.Default.PauseGrowingTimerAfterAddingBaby)
                 creature.StartStopMatureTimer(false);
