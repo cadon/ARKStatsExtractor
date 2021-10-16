@@ -294,21 +294,19 @@ namespace ARKBreedingStats.Pedigree
             lbPedigreeEmpty.Visible = false;
 
             // scroll offsets
-            splitContainer1.Panel2.AutoScrollPosition = Point.Empty; // if not reset there are still offset issues sometimes. Maybe just remove all the offset handling when resetting anyway?
-            int autoScrollPositionX = splitContainer1.Panel2.AutoScrollPosition.X;
-            int autoScrollPositionY = splitContainer1.Panel2.AutoScrollPosition.Y;
+            splitContainer1.Panel2.AutoScrollPosition = Point.Empty; // if not reset there are still offset issues sometimes, just reset the scrolling when creating a pedigree
 
             if (_pedigreeViewMode == PedigreeViewMode.Classic)
             {
-                PedigreeCreation.CreateDetailedView(_selectedCreature, _lines, _pedigreeControls, autoScrollPositionX, autoScrollPositionY, _enabledColorRegions);
+                PedigreeCreation.CreateDetailedView(_selectedCreature, _lines, _pedigreeControls, _enabledColorRegions);
                 _yBottomOfPedigree = 170;
             }
             else
             {
                 _displayedGenerations = Math.Min(_compactGenerations, _selectedCreature.generation + 1);
-                _yBottomOfPedigree = PedigreeCreation.CreateCompactView(_selectedCreature, _lines, _pedigreeControls, _tt, _displayedGenerations, autoScrollPositionX, autoScrollPositionY, _highlightInheritanceStatIndex, _pedigreeViewMode == PedigreeViewMode.HView);
+                _yBottomOfPedigree = PedigreeCreation.CreateCompactView(_selectedCreature, _lines, _pedigreeControls, _tt, _displayedGenerations, _highlightInheritanceStatIndex, _pedigreeViewMode == PedigreeViewMode.HView);
 
-                var creatureColorsTop = _yBottomOfPedigree + LbCreatureName.Height + autoScrollPositionY;
+                var creatureColorsTop = _yBottomOfPedigree + LbCreatureName.Height;
                 PbRegionColors.Top = creatureColorsTop;
                 PbKeyExplanations.Top = creatureColorsTop;
                 LbCreatureName.Top = creatureColorsTop - LbCreatureName.Height;
@@ -319,7 +317,7 @@ namespace ARKBreedingStats.Pedigree
 
                 _pedigreeControls.Add(new PedigreeCreature(_selectedCreature, _enabledColorRegions)
                 {
-                    Location = new Point(PedigreeCreation.LeftBorder + autoScrollPositionX, _yBottomOfPedigree + PedigreeCreation.Margin + autoScrollPositionY)
+                    Location = new Point(PedigreeCreation.LeftBorder, _yBottomOfPedigree + PedigreeCreation.Margin)
                 });
                 _yBottomOfPedigree += 50;
             }
@@ -331,7 +329,7 @@ namespace ARKBreedingStats.Pedigree
             {
                 PedigreeCreature pc = new PedigreeCreature(c, _enabledColorRegions)
                 {
-                    Location = new Point(PedigreeCreation.LeftBorder + autoScrollPositionX, yDescendants + 35 * row + autoScrollPositionY)
+                    Location = new Point(PedigreeCreation.LeftBorder, yDescendants + 35 * row)
                 };
                 if (c.levelsWild != null && _selectedCreature.levelsWild != null)
                 {
