@@ -464,5 +464,23 @@
     <Setting Name="InfoGraphicShowRegionNamesIfNoImage" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="ChartHueMin" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ChartHueMax" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">120</Value>
+    </Setting>
+    <Setting Name="ChartHueEvenMin" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">120</Value>
+    </Setting>
+    <Setting Name="ChartHueEvenMax" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">200</Value>
+    </Setting>
+    <Setting Name="ChartHueOddMin" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">240</Value>
+    </Setting>
+    <Setting Name="ChartHueOddMax" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">320</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -44,6 +44,8 @@ namespace ARKBreedingStats.Library
         [JsonProperty]
         public int maxWildLevel = 150;
         [JsonProperty]
+        public int minChartLevel;
+        [JsonProperty]
         public int maxChartLevel = 50;
         [JsonProperty]
         public int maxBreedingSuggestions = 10;

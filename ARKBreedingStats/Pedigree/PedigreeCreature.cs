@@ -148,6 +148,11 @@ namespace ARKBreedingStats.uiControls
                 }
 
                 _tt.SetToolTip(labelSex, "Sex: " + Loc.S(_creature.sex.ToString()));
+                var minChartLevel = CreatureCollection.CurrentCreatureCollection?.minChartLevel ?? 0;
+                var maxChartLevel = CreatureCollection.CurrentCreatureCollection?.maxChartLevel ?? 50;
+                var chartLevelRange = maxChartLevel - minChartLevel;
+                var hueRangeEven = Properties.Settings.Default.ChartHueEvenMax - Properties.Settings.Default.ChartHueEvenMin;
+                var hueRangeOdd = Properties.Settings.Default.ChartHueOddMax - Properties.Settings.Default.ChartHueOddMin;
                 for (int s = 0; s < DisplayedStatsCount; s++)
                 {
                     int si = DisplayedStats[s];
@@ -179,7 +184,17 @@ namespace ARKBreedingStats.uiControls
                             _labels[s].BackColor = Utils.AdjustColorLight(_creature.levelsWild[si] == 254 ? Utils.Level254 : Utils.Level255, _creature.topBreedingStats[si] ? 0.2 : 0.7);
                         else if (Properties.Settings.Default.HighlightEvenOdd)
                         {
-                            _labels[s].BackColor = Utils.ColorFromHue((_creature.levelsWild[si] % 2 == 0 ? 120 : 240) + Math.Min(_creature.levelsWild[si], 48), _creature.topBreedingStats[si] ? 0.4 : 0.7);
+                            var levelForColor = Math.Min(maxChartLevel, Math.Max(minChartLevel, _creature.levelsWild[si]));
+                            int hue;
+                            if (_creature.levelsWild[si] % 2 == 0)
+                            {
+                                hue = Properties.Settings.Default.ChartHueEvenMin + levelForColor * hueRangeEven / chartLevelRange;
+                            }
+                            else
+                            {
+                                hue = Properties.Settings.Default.ChartHueOddMin + levelForColor * hueRangeOdd / chartLevelRange;
+                            }
+                            _labels[s].BackColor = Utils.ColorFromHue(hue, _creature.topBreedingStats[si] ? 0.4 : 0.7);
                         }
                         else
                             _labels[s].BackColor = Utils.GetColorFromPercent((int)(_creature.levelsWild[si] * 2.5), _creature.topBreedingStats[si] ? 0.2 : 0.7);

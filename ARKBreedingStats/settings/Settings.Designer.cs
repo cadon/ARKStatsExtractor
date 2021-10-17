@@ -106,6 +106,7 @@
             this.GbImgCacheLocalAppData = new System.Windows.Forms.GroupBox();
             this.CbImgCacheUseLocalAppData = new System.Windows.Forms.CheckBox();
             this.groupBox28 = new System.Windows.Forms.GroupBox();
+            this.CbbInfoGraphicFontName = new System.Windows.Forms.ComboBox();
             this.CbInfoGraphicColorRegionNamesIfNoImage = new System.Windows.Forms.CheckBox();
             this.CbInfoGraphicStatValues = new System.Windows.Forms.CheckBox();
             this.CbInfoGraphicAddRegionNames = new System.Windows.Forms.CheckBox();
@@ -127,6 +128,7 @@
             this.groupBox26 = new System.Windows.Forms.GroupBox();
             this.cbAdminConsoleCommandWithCheat = new System.Windows.Forms.CheckBox();
             this.groupBox25 = new System.Windows.Forms.GroupBox();
+            this.CbbAppDefaultFontName = new System.Windows.Forms.ComboBox();
             this.label48 = new System.Windows.Forms.Label();
             this.CbbColorMode = new System.Windows.Forms.ComboBox();
             this.label33 = new System.Windows.Forms.Label();
@@ -240,8 +242,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.CbbInfoGraphicFontName = new System.Windows.Forms.ComboBox();
-            this.CbbAppDefaultFontName = new System.Windows.Forms.ComboBox();
+            this.pbChartEvenRange = new System.Windows.Forms.PictureBox();
+            this.pbChartOddRange = new System.Windows.Forms.PictureBox();
             this.nudWildLevelStep = new ARKBreedingStats.uiControls.Nud();
             this.nudBabyImprintAmountEvent = new ARKBreedingStats.uiControls.Nud();
             this.nudBabyImprintAmount = new ARKBreedingStats.uiControls.Nud();
@@ -268,6 +270,10 @@
             this.nudInfoGraphicWidth = new ARKBreedingStats.uiControls.Nud();
             this.NudSpeciesSelectorCountLastUsed = new ARKBreedingStats.uiControls.Nud();
             this.nudDefaultFontSize = new ARKBreedingStats.uiControls.Nud();
+            this.nudChartLevelOddMax = new ARKBreedingStats.uiControls.Nud();
+            this.nudChartLevelOddMin = new ARKBreedingStats.uiControls.Nud();
+            this.nudChartLevelEvenMax = new ARKBreedingStats.uiControls.Nud();
+            this.nudChartLevelEvenMin = new ARKBreedingStats.uiControls.Nud();
             this.numericUpDownMaxBreedingSug = new ARKBreedingStats.uiControls.Nud();
             this.NudWaitBeforeAutoLoad = new ARKBreedingStats.uiControls.Nud();
             this.NudKeepBackupFilesCount = new ARKBreedingStats.uiControls.Nud();
@@ -295,6 +301,8 @@
             this.nudOverlayInfoDuration = new ARKBreedingStats.uiControls.Nud();
             this.nudWaitBeforeScreenCapture = new ARKBreedingStats.uiControls.Nud();
             this.nudWhiteThreshold = new ARKBreedingStats.uiControls.Nud();
+            this.label56 = new System.Windows.Forms.Label();
+            this.label57 = new System.Windows.Forms.Label();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -342,6 +350,8 @@
             this.tabPageOCR.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbChartEvenRange)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbChartOddRange)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmountEvent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmount)).BeginInit();
@@ -368,6 +378,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudInfoGraphicWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudSpeciesSelectorCountLastUsed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDefaultFontSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudChartLevelOddMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudChartLevelOddMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudChartLevelEvenMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudChartLevelEvenMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxBreedingSug)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudWaitBeforeAutoLoad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudKeepBackupFilesCount)).BeginInit();
@@ -694,6 +708,14 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.label57);
+            this.groupBox4.Controls.Add(this.label56);
+            this.groupBox4.Controls.Add(this.pbChartOddRange);
+            this.groupBox4.Controls.Add(this.pbChartEvenRange);
+            this.groupBox4.Controls.Add(this.nudChartLevelOddMax);
+            this.groupBox4.Controls.Add(this.nudChartLevelOddMin);
+            this.groupBox4.Controls.Add(this.nudChartLevelEvenMax);
+            this.groupBox4.Controls.Add(this.nudChartLevelEvenMin);
             this.groupBox4.Controls.Add(this.CbHighlightLevelEvenOdd);
             this.groupBox4.Controls.Add(this.CbHighlightLevel255);
             this.groupBox4.Controls.Add(this.cbIgnoreSexInBreedingPlan);
@@ -704,7 +726,7 @@
             this.groupBox4.Controls.Add(this.numericUpDownMaxBreedingSug);
             this.groupBox4.Location = new System.Drawing.Point(6, 233);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(317, 138);
+            this.groupBox4.Size = new System.Drawing.Size(317, 172);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Breeding Planner";
@@ -913,7 +935,7 @@
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.checkBoxDisplayHiddenStats);
-            this.groupBox7.Location = new System.Drawing.Point(6, 377);
+            this.groupBox7.Location = new System.Drawing.Point(6, 411);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(317, 43);
             this.groupBox7.TabIndex = 2;
@@ -1236,6 +1258,16 @@
             this.groupBox28.TabStop = false;
             this.groupBox28.Text = "Infographic";
             // 
+            // CbbInfoGraphicFontName
+            // 
+            this.CbbInfoGraphicFontName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.CbbInfoGraphicFontName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CbbInfoGraphicFontName.FormattingEnabled = true;
+            this.CbbInfoGraphicFontName.Location = new System.Drawing.Point(67, 108);
+            this.CbbInfoGraphicFontName.Name = "CbbInfoGraphicFontName";
+            this.CbbInfoGraphicFontName.Size = new System.Drawing.Size(237, 21);
+            this.CbbInfoGraphicFontName.TabIndex = 16;
+            // 
             // CbInfoGraphicColorRegionNamesIfNoImage
             // 
             this.CbInfoGraphicColorRegionNamesIfNoImage.AutoSize = true;
@@ -1397,7 +1429,7 @@
             // 
             this.GbSpecies.Controls.Add(this.LbSpeciesSelectorCountLastUsed);
             this.GbSpecies.Controls.Add(this.NudSpeciesSelectorCountLastUsed);
-            this.GbSpecies.Location = new System.Drawing.Point(6, 426);
+            this.GbSpecies.Location = new System.Drawing.Point(6, 460);
             this.GbSpecies.Name = "GbSpecies";
             this.GbSpecies.Size = new System.Drawing.Size(317, 43);
             this.GbSpecies.TabIndex = 3;
@@ -1447,6 +1479,16 @@
             this.groupBox25.TabIndex = 6;
             this.groupBox25.TabStop = false;
             this.groupBox25.Text = "Visuals (needs application restart)";
+            // 
+            // CbbAppDefaultFontName
+            // 
+            this.CbbAppDefaultFontName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.CbbAppDefaultFontName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CbbAppDefaultFontName.FormattingEnabled = true;
+            this.CbbAppDefaultFontName.Location = new System.Drawing.Point(74, 17);
+            this.CbbAppDefaultFontName.Name = "CbbAppDefaultFontName";
+            this.CbbAppDefaultFontName.Size = new System.Drawing.Size(222, 21);
+            this.CbbAppDefaultFontName.TabIndex = 17;
             // 
             // label48
             // 
@@ -1532,9 +1574,9 @@
             this.groupBox9.Controls.Add(this.cbLibraryHighlightTopCreatures);
             this.groupBox9.Controls.Add(this.cbApplyGlobalSpeciesToLibrary);
             this.groupBox9.Controls.Add(this.cbCreatureColorsLibrary);
-            this.groupBox9.Location = new System.Drawing.Point(6, 475);
+            this.groupBox9.Location = new System.Drawing.Point(6, 509);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(317, 195);
+            this.groupBox9.Size = new System.Drawing.Size(317, 161);
             this.groupBox9.TabIndex = 4;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Library";
@@ -2649,25 +2691,21 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // CbbInfoGraphicFontName
+            // pbChartEvenRange
             // 
-            this.CbbInfoGraphicFontName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.CbbInfoGraphicFontName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.CbbInfoGraphicFontName.FormattingEnabled = true;
-            this.CbbInfoGraphicFontName.Location = new System.Drawing.Point(67, 108);
-            this.CbbInfoGraphicFontName.Name = "CbbInfoGraphicFontName";
-            this.CbbInfoGraphicFontName.Size = new System.Drawing.Size(237, 21);
-            this.CbbInfoGraphicFontName.TabIndex = 16;
+            this.pbChartEvenRange.Location = new System.Drawing.Point(43, 158);
+            this.pbChartEvenRange.Name = "pbChartEvenRange";
+            this.pbChartEvenRange.Size = new System.Drawing.Size(100, 10);
+            this.pbChartEvenRange.TabIndex = 12;
+            this.pbChartEvenRange.TabStop = false;
             // 
-            // CbbAppDefaultFontName
+            // pbChartOddRange
             // 
-            this.CbbAppDefaultFontName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.CbbAppDefaultFontName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.CbbAppDefaultFontName.FormattingEnabled = true;
-            this.CbbAppDefaultFontName.Location = new System.Drawing.Point(74, 17);
-            this.CbbAppDefaultFontName.Name = "CbbAppDefaultFontName";
-            this.CbbAppDefaultFontName.Size = new System.Drawing.Size(222, 21);
-            this.CbbAppDefaultFontName.TabIndex = 17;
+            this.pbChartOddRange.Location = new System.Drawing.Point(209, 158);
+            this.pbChartOddRange.Name = "pbChartOddRange";
+            this.pbChartOddRange.Size = new System.Drawing.Size(100, 10);
+            this.pbChartOddRange.TabIndex = 13;
+            this.pbChartOddRange.TabStop = false;
             // 
             // nudWildLevelStep
             // 
@@ -3256,6 +3294,82 @@
             this.nudDefaultFontSize.Size = new System.Drawing.Size(72, 20);
             this.nudDefaultFontSize.TabIndex = 3;
             // 
+            // nudChartLevelOddMax
+            // 
+            this.nudChartLevelOddMax.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudChartLevelOddMax.Location = new System.Drawing.Point(268, 137);
+            this.nudChartLevelOddMax.Maximum = new decimal(new int[] {
+            359,
+            0,
+            0,
+            0});
+            this.nudChartLevelOddMax.Name = "nudChartLevelOddMax";
+            this.nudChartLevelOddMax.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudChartLevelOddMax.Size = new System.Drawing.Size(41, 20);
+            this.nudChartLevelOddMax.TabIndex = 11;
+            this.nudChartLevelOddMax.ValueChanged += new System.EventHandler(this.nudChartLevelOddMax_ValueChanged);
+            // 
+            // nudChartLevelOddMin
+            // 
+            this.nudChartLevelOddMin.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudChartLevelOddMin.Location = new System.Drawing.Point(209, 137);
+            this.nudChartLevelOddMin.Maximum = new decimal(new int[] {
+            359,
+            0,
+            0,
+            0});
+            this.nudChartLevelOddMin.Name = "nudChartLevelOddMin";
+            this.nudChartLevelOddMin.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudChartLevelOddMin.Size = new System.Drawing.Size(41, 20);
+            this.nudChartLevelOddMin.TabIndex = 10;
+            this.nudChartLevelOddMin.ValueChanged += new System.EventHandler(this.nudChartLevelOddMin_ValueChanged);
+            // 
+            // nudChartLevelEvenMax
+            // 
+            this.nudChartLevelEvenMax.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudChartLevelEvenMax.Location = new System.Drawing.Point(102, 137);
+            this.nudChartLevelEvenMax.Maximum = new decimal(new int[] {
+            359,
+            0,
+            0,
+            0});
+            this.nudChartLevelEvenMax.Name = "nudChartLevelEvenMax";
+            this.nudChartLevelEvenMax.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudChartLevelEvenMax.Size = new System.Drawing.Size(41, 20);
+            this.nudChartLevelEvenMax.TabIndex = 9;
+            this.nudChartLevelEvenMax.ValueChanged += new System.EventHandler(this.nudChartLevelEvenMax_ValueChanged);
+            // 
+            // nudChartLevelEvenMin
+            // 
+            this.nudChartLevelEvenMin.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudChartLevelEvenMin.Location = new System.Drawing.Point(43, 137);
+            this.nudChartLevelEvenMin.Maximum = new decimal(new int[] {
+            359,
+            0,
+            0,
+            0});
+            this.nudChartLevelEvenMin.Name = "nudChartLevelEvenMin";
+            this.nudChartLevelEvenMin.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudChartLevelEvenMin.Size = new System.Drawing.Size(41, 20);
+            this.nudChartLevelEvenMin.TabIndex = 8;
+            this.nudChartLevelEvenMin.ValueChanged += new System.EventHandler(this.nudChartLevelEvenMin_ValueChanged);
+            // 
             // numericUpDownMaxBreedingSug
             // 
             this.numericUpDownMaxBreedingSug.ForeColor = System.Drawing.SystemColors.GrayText;
@@ -3398,7 +3512,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3406,7 +3520,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3414,7 +3528,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3422,7 +3536,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 1;
             // 
             // nudCustomOverlayLocX
@@ -3603,6 +3717,24 @@
             this.nudWhiteThreshold.Size = new System.Drawing.Size(72, 20);
             this.nudWhiteThreshold.TabIndex = 3;
             // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Location = new System.Drawing.Point(178, 139);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(25, 26);
+            this.label56.TabIndex = 14;
+            this.label56.Text = "hue\r\nodd";
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(6, 139);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(31, 26);
+            this.label57.TabIndex = 15;
+            this.label57.Text = "hue\r\neven";
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -3697,6 +3829,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbChartEvenRange)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbChartOddRange)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmountEvent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmount)).EndInit();
@@ -3723,6 +3857,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudInfoGraphicWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudSpeciesSelectorCountLastUsed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDefaultFontSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudChartLevelOddMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudChartLevelOddMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudChartLevelEvenMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudChartLevelEvenMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxBreedingSug)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudWaitBeforeAutoLoad)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudKeepBackupFilesCount)).EndInit();
@@ -4010,5 +4148,13 @@
         private System.Windows.Forms.CheckBox CbInfoGraphicColorRegionNamesIfNoImage;
         private System.Windows.Forms.ComboBox CbbInfoGraphicFontName;
         private System.Windows.Forms.ComboBox CbbAppDefaultFontName;
+        private System.Windows.Forms.PictureBox pbChartEvenRange;
+        private uiControls.Nud nudChartLevelOddMax;
+        private uiControls.Nud nudChartLevelOddMin;
+        private uiControls.Nud nudChartLevelEvenMax;
+        private uiControls.Nud nudChartLevelEvenMin;
+        private System.Windows.Forms.PictureBox pbChartOddRange;
+        private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.Label label56;
     }
 }

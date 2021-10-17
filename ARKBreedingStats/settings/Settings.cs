@@ -3,6 +3,7 @@ using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -281,6 +282,10 @@ namespace ARKBreedingStats.settings
             cbAllowMoreThanHundredImprinting.Checked = cc.allowMoreThanHundredImprinting;
             CbHighlightLevel255.Checked = Properties.Settings.Default.Highlight255Level;
             CbHighlightLevelEvenOdd.Checked = Properties.Settings.Default.HighlightEvenOdd;
+            nudChartLevelEvenMin.ValueSave = Properties.Settings.Default.ChartHueEvenMin;
+            nudChartLevelEvenMax.ValueSave = Properties.Settings.Default.ChartHueEvenMax;
+            nudChartLevelOddMin.ValueSave = Properties.Settings.Default.ChartHueOddMin;
+            nudChartLevelOddMax.ValueSave = Properties.Settings.Default.ChartHueOddMax;
 
             #region InfoGraphic
 
@@ -503,6 +508,10 @@ namespace ARKBreedingStats.settings
             _cc.allowMoreThanHundredImprinting = cbAllowMoreThanHundredImprinting.Checked;
             Properties.Settings.Default.Highlight255Level = CbHighlightLevel255.Checked;
             Properties.Settings.Default.HighlightEvenOdd = CbHighlightLevelEvenOdd.Checked;
+            Properties.Settings.Default.ChartHueEvenMin = (int)nudChartLevelEvenMin.Value;
+            Properties.Settings.Default.ChartHueEvenMax = (int)nudChartLevelEvenMax.Value;
+            Properties.Settings.Default.ChartHueOddMin = (int)nudChartLevelOddMin.Value;
+            Properties.Settings.Default.ChartHueOddMax = (int)nudChartLevelOddMax.Value;
 
             #region InfoGraphic
 
@@ -1348,6 +1357,43 @@ namespace ARKBreedingStats.settings
                     ? _styleFolderNotFound
                     : null;
             }
+        }
+
+        private void nudChartLevelEvenMin_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateChartLevelColors(pbChartEvenRange, (int)nudChartLevelEvenMin.Value, (int)nudChartLevelEvenMax.Value);
+        }
+
+        private void nudChartLevelEvenMax_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateChartLevelColors(pbChartEvenRange, (int)nudChartLevelEvenMin.Value, (int)nudChartLevelEvenMax.Value);
+        }
+
+        private void nudChartLevelOddMin_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateChartLevelColors(pbChartOddRange, (int)nudChartLevelOddMin.Value, (int)nudChartLevelOddMax.Value);
+        }
+
+        private void nudChartLevelOddMax_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateChartLevelColors(pbChartOddRange, (int)nudChartLevelOddMin.Value, (int)nudChartLevelOddMax.Value);
+        }
+
+        private void UpdateChartLevelColors(PictureBox pb, int minHue, int maxHue)
+        {
+            var img = new Bitmap(pb.Width, pb.Height);
+            using (var g = Graphics.FromImage(img))
+            using (var brush = new SolidBrush(Color.Black))
+            {
+                var hueRange = maxHue - minHue;
+                const int Segments = 5;
+                for (int i = 0; i < Segments; i++)
+                {
+                    brush.Color = Utils.ColorFromHue(minHue + hueRange * i / Segments);
+                    g.FillRectangle(brush, i * 20, 0, 20, img.Height);
+                }
+            }
+            pb.SetImageAndDisposeOld(img);
         }
     }
 }
