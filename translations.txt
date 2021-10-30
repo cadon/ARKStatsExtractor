@@ -173,7 +173,8 @@ Health	Health
 Health_Abb	HP
 helpToolStripMenuItem	?
 hideStatus  hide status
-holdCtrlForRandomColors  Hold Ctrl for random colors
+holdCtrlForRandomColors  "Hold Ctrl for random natural colors
+Hold Ctrl + Shift for random colors"
 ImmobilizedBy	Immobilized by
 importCreatedJsonfileToolStripMenuItem	Import created json-file…
 importExportedCreaturesToolStripMenuItem	Import exported Creatures
@@ -181,7 +182,6 @@ importingFromARKToolsToolStripMenuItem	Importing from ARK-Tools
 importingFromSavegameEmptyToolStripMenuItem	At first configure "Import Savegame"
 importingFromSavegameToolStripMenuItem	Importing from savegame
 ImportingSavegame  Importing savegame
-importValuesFromClipboardToolStripMenuItem	Import Values from Clipboard
 imprintingBonus	Imprinting Bonus
 incubation  incubation
 issueCauseArkStatIssue  This species is known to show wrong stat values ingame, this can prevent a successful extraction.
@@ -287,6 +287,8 @@ noValidData  No valid data
 noValidExtractedCreatureToExport  There is no valid extracted creature to export.
 nudBPMutationLimitTT	"Consider only creatures with at most this many mutations.
 Set to -1 for any number of mutation."
+Nursing Effectiveness  Nursing Effectiveness
+Nursing Effectiveness_Abb NE
 obeliskCreaturesToolStripMenuItem	Obelisk Creatures
 OK	OK
 onlinehelpToolStripMenuItem	Online Manual…
