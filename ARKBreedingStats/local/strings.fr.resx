@@ -1133,7 +1133,8 @@ Le préréglage peut être appliqué par le bouton Appliquer le préréglage</va
     <value>effacer les couleurs</value>
   </data>
   <data name="holdCtrlForRandomColors" xml:space="preserve">
-    <value>Maintenez Ctrl pour des couleurs aléatoires</value>
+    <value>Maintenez Ctrl pour des couleurs naturelles aléatoires
+Maintenez Ctrl + Shift pour des couleurs aléatoires</value>
   </data>
   <data name="BtBeepFailure" xml:space="preserve">
     <value>échec de l'importation</value>
@@ -1317,5 +1318,11 @@ Filtre pour les couleurs avec c{region}: {colorValue} {colorValue2}, par exemple
   </data>
   <data name="copyInfoGraphicToClipboard" xml:space="preserve">
     <value>Copier le graphique d'informations dans le presse-papiers</value>
+  </data>
+  <data name="Nursing Effectiveness" xml:space="preserve">
+    <value>Efficacité de l'allaitement</value>
+  </data>
+  <data name="Nursing Effectiveness_Abb" xml:space="preserve">
+    <value>EA</value>
   </data>
 </root>
