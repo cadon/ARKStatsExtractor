@@ -42,6 +42,7 @@ namespace ARKBreedingStats.uiControls
         public event Action RecalculateBreedingPlan;
 
         private readonly List<Label> _labels;
+        private readonly ToolTip _ttMonospaced;
         private readonly ToolTip _tt;
         public int comboId;
         /// <summary>
@@ -70,16 +71,44 @@ namespace ARKBreedingStats.uiControls
         public PedigreeCreature()
         {
             InitializeComponent();
+
             _tt = new ToolTip
             {
-                InitialDelay = 100
+                InitialDelay = 100,
+                AutoPopDelay = 15000
             };
+            _ttMonospaced = new ToolTip
+            {
+                InitialDelay = 100,
+                AutoPopDelay = 15000
+            };
+            _ttMonospaced.OwnerDraw = true;
+            // set to monospaced font for better digit alignment
+            _tooltipFont = new Font("Consolas", 12);
+            _ttMonospaced.Draw += TtMonospacedDraw;
+            _ttMonospaced.Popup += TtMonospacedPopup;
             _tt.SetToolTip(labelSex, "Sex");
-            _tt.SetToolTip(labelMutations, "Mutation-Counter");
+            _ttMonospaced.SetToolTip(labelMutations, "Mutation-Counter");
             _labels = new List<Label> { labelHP, labelSt, labelOx, labelFo, labelWe, labelDm, labelSp, labelCr };
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
             Disposed += PedigreeCreature_Disposed;
             comboId = -1;
+        }
+
+        #region Tooltip font
+
+        private readonly Font _tooltipFont;
+
+        private void TtMonospacedPopup(object sender, PopupEventArgs e)
+        {
+            e.ToolTipSize = TextRenderer.MeasureText(_ttMonospaced.GetToolTip(e.AssociatedControl), _tooltipFont);
+        }
+
+        private void TtMonospacedDraw(object sender, DrawToolTipEventArgs e)
+        {
+            e.DrawBackground();
+            e.DrawBorder();
+            e.Graphics.DrawString(e.ToolTipText, _tooltipFont, Brushes.Black, 0, 0);
         }
 
         public PedigreeCreature(Creature creature, bool[] enabledColorRegions, int comboId = -1, bool displayPedigreeLink = false) : this()
@@ -91,6 +120,8 @@ namespace ARKBreedingStats.uiControls
             TsMiViewInPedigree.Visible = displayPedigreeLink;
         }
 
+        #endregion
+
         /// <summary>
         /// Set text of labels for stats. Only used for header control.
         /// </summary>
@@ -99,7 +130,7 @@ namespace ARKBreedingStats.uiControls
             for (int s = 0; s < DisplayedStatsCount; s++)
             {
                 _labels[s].Text = Utils.StatName(DisplayedStats[s], true, customStatNames);
-                _tt.SetToolTip(_labels[s], Utils.StatName(DisplayedStats[s], customStatNames: customStatNames));
+                _ttMonospaced.SetToolTip(_labels[s], Utils.StatName(DisplayedStats[s], customStatNames: customStatNames));
             }
 
             labelMutations.Visible = true;
@@ -107,6 +138,8 @@ namespace ARKBreedingStats.uiControls
 
         private void PedigreeCreature_Disposed(object sender, EventArgs e)
         {
+            _ttMonospaced.RemoveAll();
+            _ttMonospaced.Dispose();
             _tt.RemoveAll();
             _tt.Dispose();
         }
@@ -175,7 +208,9 @@ namespace ARKBreedingStats.uiControls
                         _labels[s].Text = "0";
                         _labels[s].BackColor = Color.WhiteSmoke;
                         _labels[s].ForeColor = Color.LightGray;
-                        _tt.SetToolTip(_labels[s], Utils.StatName(si, false, _creature.Species?.statNames) + ": " + _creature.valuesBreeding[si] * (Utils.Precision(si) == 3 ? 100 : 1) + (Utils.Precision(si) == 3 ? "%" : string.Empty));
+                        _ttMonospaced.SetToolTip(_labels[s], Utils.StatName(si, false, _creature.Species?.statNames) + ": "
+                            + $"{_creature.valuesBreeding[si] * (Utils.Precision(si) == 3 ? 100 : 1),7:#,0.0}"
+                            + (Utils.Precision(si) == 3 ? "%" : string.Empty));
                     }
                     else
                     {
@@ -199,7 +234,9 @@ namespace ARKBreedingStats.uiControls
                         else
                             _labels[s].BackColor = Utils.GetColorFromPercent((int)(_creature.levelsWild[si] * 2.5), _creature.topBreedingStats[si] ? 0.2 : 0.7);
                         _labels[s].ForeColor = Parent?.ForeColor ?? Color.Black; // needed so text is not transparent on overlay
-                        _tt.SetToolTip(_labels[s], Utils.StatName(si, false, _creature.Species?.statNames) + ": " + _creature.valuesBreeding[si] * (Utils.Precision(si) == 3 ? 100 : 1) + (Utils.Precision(si) == 3 ? "%" : string.Empty));
+                        _ttMonospaced.SetToolTip(_labels[s], Utils.StatName(si, false, _creature.Species?.statNames) + ": "
+                            + $"{_creature.valuesBreeding[si] * (Utils.Precision(si) == 3 ? 100 : 1),7:#,0.0}"
+                            + (Utils.Precision(si) == 3 ? "%" : string.Empty));
                     }
                     // fonts are strange, and this seems to work. The assigned font-object is probably only used to read out the properties and then not used anymore.
                     using (var font = new Font("Microsoft Sans Serif", 8.25F, (_creature.topBreedingStats?[si]).GetValueOrDefault() ? FontStyle.Bold : FontStyle.Regular, GraphicsUnit.Point, 0))
@@ -225,10 +262,11 @@ namespace ARKBreedingStats.uiControls
                 int totalMutations = _creature.Mutations;
                 if (totalMutations > 0)
                 {
-                    labelMutations.Text = totalMutations > 9999 ? totalMutations.ToString().Substring(0, 4) + "…" : totalMutations.ToString();
+                    var totalMutationsString = totalMutations.ToString();
+                    labelMutations.Text = totalMutationsString.Length > 4 ? totalMutationsString.Substring(0, 4) + "…" : totalMutationsString;
                     labelMutations.BackColor = totalMutations < GameConstants.MutationPossibleWithLessThan ? Utils.MutationColor : Utils.MutationColorOverLimit;
-                    _tt.SetToolTip(labelMutations,
-                        $"Mutation-Counter: {totalMutations}\nMaternal: {_creature.mutationsMaternal}\nPaternal: {_creature.mutationsPaternal}");
+                    _ttMonospaced.SetToolTip(labelMutations,
+                        $"Mutation-Counter: {totalMutations,13:#,0}\nMaternal: {_creature.mutationsMaternal,21:#,0}\nPaternal: {_creature.mutationsPaternal,21:#,0}");
                 }
                 labelMutations.Visible = totalMutations > 0;
                 _contextMenuAvailable = true;
