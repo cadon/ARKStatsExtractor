@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Web.UI;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
@@ -16,7 +17,7 @@ namespace ARKBreedingStats.NamePatterns
         {
             var functionName = match.Groups[1].Value.ToLower();
 
-            if (!string.IsNullOrEmpty(functionName) && _functions.TryGetValue(functionName, out var func))
+            if (!string.IsNullOrEmpty(functionName) && Functions.TryGetValue(functionName, out var func))
             {
                 return func(match, parameters);
             }
@@ -34,7 +35,7 @@ namespace ARKBreedingStats.NamePatterns
         }
 
 
-        private static Dictionary<string, Func<Match, NamePatternParameters, string>> _functions =
+        private static readonly Dictionary<string, Func<Match, NamePatternParameters, string>> Functions =
             new Dictionary<string, Func<Match, NamePatternParameters, string>>
             {
                 {"if", FunctionIf},
@@ -138,21 +139,23 @@ namespace ARKBreedingStats.NamePatterns
             if (!int.TryParse(m.Groups[3].Value, out var pos))
                 return m.Groups[2].Value;
 
-            bool fromEnd = pos < 0;
-            pos = Math.Min(Math.Abs(pos), m.Groups[2].Value.Length);
+            var text = m.Groups[2].Value;
+            var textLength = text.Length;
+
+            if (pos < 0) pos += textLength;
+            if (pos < 0) pos = 0;
+            if (pos >= textLength) return string.Empty;
+
             if (string.IsNullOrEmpty(m.Groups[4].Value))
-            {
-                if (fromEnd)
-                    return m.Groups[2].Value.Substring(m.Groups[2].Value.Length - pos);
-                return m.Groups[2].Value.Substring(pos);
-            }
-            else
-            {
-                int length = Math.Min(Convert.ToInt32(Convert.ToInt32(m.Groups[4].Value)), fromEnd ? pos : m.Groups[2].Value.Length - pos);
-                if (fromEnd)
-                    return m.Groups[2].Value.Substring(m.Groups[2].Value.Length - pos, length);
-                return m.Groups[2].Value.Substring(pos, length);
-            }
+                return text.Substring(pos);
+
+            var substringLength = int.TryParse(m.Groups[4].Value, out var v) ? v : 0;
+            if (substringLength < 0)
+                substringLength += textLength - pos;
+
+            if (substringLength <= 0) return string.Empty;
+
+            return text.Substring(pos, substringLength);
         }
 
         private static string FunctionFormat(Match m, NamePatternParameters p)
