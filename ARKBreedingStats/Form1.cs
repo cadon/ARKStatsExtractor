@@ -150,8 +150,10 @@ namespace ARKBreedingStats
             breedingPlan1.DisplayInPedigree += DisplayCreatureInPedigree;
             breedingPlan1.CreateIncubationTimer += CreateIncubationTimer;
             breedingPlan1.BestBreedingPartners += ShowBestBreedingPartner;
-            breedingPlan1.SetMessageLabelText += SetMessageLabelText;
             breedingPlan1.SetGlobalSpecies += SetSpecies;
+            breedingPlan1.SetMessageLabelText += SetMessageLabelText;
+            creatureInfoInputExtractor.SetMessageLabelText += SetMessageLabelText;
+            creatureInfoInputTester.SetMessageLabelText += SetMessageLabelText;
             timerList1.OnTimerChange += SetCollectionChanged;
             breedingPlan1.BindChildrenControlEvents();
             raisingControl1.onChange += SetCollectionChanged;
@@ -1320,6 +1322,9 @@ namespace ARKBreedingStats
                     lbLibrarySelectionInfo.BackColor = Color.LightGreen;
                     break;
                 case MessageBoxIcon.Warning:
+                    lbLibrarySelectionInfo.BackColor = Color.Yellow;
+                    break;
+                case MessageBoxIcon.Error:
                     lbLibrarySelectionInfo.BackColor = Color.LightSalmon;
                     break;
                 default:

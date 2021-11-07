@@ -18,6 +18,8 @@ namespace ARKBreedingStats
         public event Action<CreatureInfoInput> Add2LibraryClicked;
         public event Action<CreatureInfoInput> Save2LibraryClicked;
         public event Action<CreatureInfoInput> ParentListRequested;
+        public event Form1.SetMessageLabelTextEventHandler SetMessageLabelText;
+
         /// <summary>
         /// Check for existing color id of the given region is requested. if the region is -1, all regions are requested.
         /// </summary>
@@ -548,7 +550,9 @@ namespace ARKBreedingStats
         public void GenerateCreatureName(Creature creature, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, int namingPatternIndex)
         {
             SetCreatureData(creature);
-            CreatureName = NamePattern.GenerateCreatureName(creature, _sameSpecies, speciesTopLevels, speciesLowestLevels, customReplacings, showDuplicateNameWarning, namingPatternIndex);
+            CreatureName = NamePattern.GenerateCreatureName(creature, _sameSpecies, speciesTopLevels, speciesLowestLevels, customReplacings, showDuplicateNameWarning, namingPatternIndex, false);
+            if (CreatureName.Length > 24)
+                SetMessageLabelText?.Invoke("The generated name is longer than 24 characters, the name will look like this in game:\n" + CreatureName.Substring(0, 24), MessageBoxIcon.Error);
         }
 
         public void OpenNamePatternEditor(Creature creature, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback)
