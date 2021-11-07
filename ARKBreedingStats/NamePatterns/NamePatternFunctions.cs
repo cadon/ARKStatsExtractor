@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Web.UI;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
@@ -51,6 +50,7 @@ namespace ARKBreedingStats.NamePatterns
                 {"div", FunctionDiv},
                 {"casing", FunctionCasing},
                 {"replace", FunctionReplace},
+                {"regexreplace", FunctionRegExReplace},
                 {"customreplace", FunctionCustomReplace},
                 {"time", FunctionTime},
                 {"color", FunctionColor},
@@ -249,6 +249,25 @@ namespace ARKBreedingStats.NamePatterns
                 return m.Groups[2].Value;
             return m.Groups[2].Value.Replace(m.Groups[3].Value.Replace("&nbsp;", " "), m.Groups[4].Value.Replace("&nbsp;", " "));
         }
+
+        private static string FunctionRegExReplace(Match m, NamePatternParameters p)
+        {
+            // parameter: 1: replace, 2: text, 3: regEx pattern, 4: replace
+
+            try
+            {
+                return Regex.Replace(UnEscapeSpecialCharacters(m.Groups[2].Value), UnEscapeSpecialCharacters(m.Groups[3].Value), UnEscapeSpecialCharacters(m.Groups[4].Value));
+            }
+            catch (Exception ex)
+            {
+                return ParametersInvalid($"The regex \"{m.Groups[3].Value}\" caused the exception: {ex.Message}", m.Groups[0].Value, p.DisplayError);
+            }
+        }
+
+        /// <summary>
+        /// Functions cannot process the characters {|} directly, they have to be replaced to be used.
+        /// </summary>
+        private static string UnEscapeSpecialCharacters(string text) => text?.Replace("&lcub;", "{").Replace("&vline;", "|").Replace("&rcub;", "}");
 
         private static string FunctionCustomReplace(Match m, NamePatternParameters p)
         {
