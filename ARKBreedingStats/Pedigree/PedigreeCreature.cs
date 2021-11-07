@@ -84,7 +84,8 @@ namespace ARKBreedingStats.uiControls
             };
             _ttMonospaced.OwnerDraw = true;
             // set to monospaced font for better digit alignment
-            _tooltipFont = new Font("Consolas", 12);
+            if (TooltipFont == null)
+                TooltipFont = new Font("Consolas", 12);
             _ttMonospaced.Draw += TtMonospacedDraw;
             _ttMonospaced.Popup += TtMonospacedPopup;
             _tt.SetToolTip(labelSex, "Sex");
@@ -97,18 +98,18 @@ namespace ARKBreedingStats.uiControls
 
         #region Tooltip font
 
-        private readonly Font _tooltipFont;
+        private static Font TooltipFont;
 
         private void TtMonospacedPopup(object sender, PopupEventArgs e)
         {
-            e.ToolTipSize = TextRenderer.MeasureText(_ttMonospaced.GetToolTip(e.AssociatedControl), _tooltipFont);
+            e.ToolTipSize = TextRenderer.MeasureText(_ttMonospaced.GetToolTip(e.AssociatedControl), TooltipFont);
         }
 
         private void TtMonospacedDraw(object sender, DrawToolTipEventArgs e)
         {
             e.DrawBackground();
             e.DrawBorder();
-            e.Graphics.DrawString(e.ToolTipText, _tooltipFont, Brushes.Black, 0, 0);
+            e.Graphics.DrawString(e.ToolTipText, TooltipFont, Brushes.Black, 0, 0);
         }
 
         public PedigreeCreature(Creature creature, bool[] enabledColorRegions, int comboId = -1, bool displayPedigreeLink = false) : this()
