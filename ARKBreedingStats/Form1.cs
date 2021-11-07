@@ -1473,16 +1473,16 @@ namespace ARKBreedingStats
             timerList1.updateTimer = tabControlMain.SelectedTab == tabPageTimer;
             toolStripButtonCopy2Extractor.Visible = tabControlMain.SelectedTab == tabPageStatTesting;
 
-            bool extrTab = tabControlMain.SelectedTab == tabPageExtractor;
-            toolStripButtonCopy2Tester.Visible = extrTab;
-            toolStripButtonDeleteTempCreature.Visible = extrTab;
-            toolStripButtonSaveCreatureValuesTemp.Visible = extrTab;
-            toolStripCBTempCreatures.Visible = extrTab;
+            bool extractorTab = tabControlMain.SelectedTab == tabPageExtractor;
+            bool extractorOrTesterTab = extractorTab || tabControlMain.SelectedTab == tabPageStatTesting;
+            toolStripButtonCopy2Tester.Visible = extractorTab;
+            toolStripButtonDeleteTempCreature.Visible = extractorTab;
+            toolStripButtonSaveCreatureValuesTemp.Visible = extractorTab;
+            toolStripCBTempCreatures.Visible = extractorTab;
 
             toolStripButtonAddPlayer.Visible = tabControlMain.SelectedTab == tabPagePlayerTribes;
             toolStripButtonAddTribe.Visible = tabControlMain.SelectedTab == tabPagePlayerTribes;
-            toolStripButtonClear.Visible = tabControlMain.SelectedTab == tabPageExtractor ||
-                                           tabControlMain.SelectedTab == tabPageStatTesting;
+            toolStripButtonClear.Visible = extractorOrTesterTab;
             var libraryShown = tabControlMain.SelectedTab == tabPageLibrary;
             ToolStripLabelFilter.Visible = libraryShown;
             ToolStripTextBoxLibraryFilter.Visible = libraryShown;
@@ -1495,9 +1495,10 @@ namespace ARKBreedingStats
                                                                    tabControlMain.SelectedTab == tabPageTimer;
             tsBtAddAsExtractionTest.Visible = Properties.Settings.Default.DevTools &&
                                               tabControlMain.SelectedTab == tabPageStatTesting;
-            copyToMultiplierTesterToolStripButton.Visible = Properties.Settings.Default.DevTools &&
-                                                            (extrTab || tabControlMain.SelectedTab ==
-                                                                tabPageStatTesting);
+            copyToMultiplierTesterToolStripButton.Visible = Properties.Settings.Default.DevTools && extractorOrTesterTab;
+            exactSpawnCommandToolStripMenuItem.Visible = extractorOrTesterTab;
+            exactSpawnCommandDS2ToolStripMenuItem.Visible = extractorOrTesterTab;
+            toolStripSeparator25.Visible = extractorOrTesterTab;
 
             if (tabControlMain.SelectedTab == tabPageStatTesting)
             {
@@ -2841,10 +2842,33 @@ namespace ARKBreedingStats
         /// <summary>
         /// Collects the data needed for the name pattern editor.
         /// </summary>
-        /// <param name="input"></param>
-        /// <param name="openPatternEditor"></param>
         private void CreatureInfoInput_CreatureDataRequested(CreatureInfoInput input, bool openPatternEditor,
             bool updateInheritance, bool showDuplicateNameWarning, int namingPatternIndex)
+        {
+            var cr = CreateCreatureFromExtractorOrTester(input);
+
+            if (openPatternEditor)
+            {
+                input.OpenNamePatternEditor(cr, _topLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
+                    _lowestLevels.TryGetValue(cr.Species, out var ll) ? ll : null,
+                    _customReplacingNamingPattern, namingPatternIndex, ReloadNamePatternCustomReplacings);
+
+                UpdatePatternButtons();
+            }
+            else if (updateInheritance)
+            {
+                if (_extractor.ValidResults && !_dontUpdateExtractorVisualData)
+                    input.UpdateParentInheritances(cr);
+            }
+            else
+            {
+                input.GenerateCreatureName(cr, _topLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
+                    _lowestLevels.TryGetValue(cr.Species, out var ll) ? ll : null,
+                    _customReplacingNamingPattern, showDuplicateNameWarning, namingPatternIndex);
+            }
+        }
+
+        private Creature CreateCreatureFromExtractorOrTester(CreatureInfoInput input)
         {
             Creature cr = new Creature
             {
@@ -2873,26 +2897,8 @@ namespace ARKBreedingStats
             Species species = speciesSelector1.SelectedSpecies;
             cr.Species = species;
             cr.RecalculateCreatureValues(_creatureCollection.getWildLevelStep());
-
-            if (openPatternEditor)
-            {
-                input.OpenNamePatternEditor(cr, _topLevels.ContainsKey(cr.Species) ? _topLevels[species] : null,
-                    _lowestLevels.ContainsKey(cr.Species) ? _lowestLevels[species] : null,
-                    _customReplacingNamingPattern, namingPatternIndex, ReloadNamePatternCustomReplacings);
-
-                UpdatePatternButtons();
-            }
-            else if (updateInheritance)
-            {
-                if (_extractor.ValidResults && !_dontUpdateExtractorVisualData)
-                    input.UpdateParentInheritances(cr);
-            }
-            else
-            {
-                input.GenerateCreatureName(cr, _topLevels.ContainsKey(cr.Species) ? _topLevels[species] : null,
-                    _lowestLevels.ContainsKey(cr.Species) ? _lowestLevels[species] : null,
-                    _customReplacingNamingPattern, showDuplicateNameWarning, namingPatternIndex);
-            }
+            input.SetCreatureData(cr);
+            return cr;
         }
 
         /// <summary>

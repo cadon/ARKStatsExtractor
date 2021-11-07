@@ -1764,31 +1764,52 @@ namespace ARKBreedingStats
 
         private void adminCommandToSpawnExactDinoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!(listViewLibrary.SelectedItems.Count > 0
-                  && listViewLibrary.SelectedItems[0].Tag is Creature cr)) return;
+            if (listViewLibrary.SelectedItems.Count > 0
+                && listViewLibrary.SelectedItems[0].Tag is Creature cr)
+                CreateExactSpawnCommand(cr);
+        }
 
-            // see https://ark.fandom.com/wiki/Console_commands#SpawnExactDino for this command in ARK. It's unstable and can crash the game if the format or data is not correct.
-            var xp = 0; // TODO
-            long arkIdInGame = cr.ArkIdImported ? cr.ArkId : 0;
+        private void adminCommandToSpawnExactDinoDS2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listViewLibrary.SelectedItems.Count > 0
+                && listViewLibrary.SelectedItems[0].Tag is Creature cr)
+                CreateExactSpawnDS2Command(cr);
+        }
 
-            var spawnCommand = $"SpawnExactDino \"Blueprint'{cr.speciesBlueprint}'\" \"\" 1 {cr.LevelHatched} {cr.levelsDom.Sum()} "
-                               + $"\"{GetLevelStringForExactSpawningCommand(cr.levelsWild)}\" \"{GetLevelStringForExactSpawningCommand(cr.levelsDom)}\" \"{cr.name}\" "
-                               + $"0 {(cr.flags.HasFlag(CreatureFlags.Neutered) ? "1" : "0")} \"\" \"\" \"{cr.imprinterName}\" 0 {cr.imprintingBonus} "
-                               + $"\"{(cr.colors == null ? string.Empty : string.Join(",", cr.colors))}\" {arkIdInGame} {xp} 0 20 20";
+        private void exactSpawnCommandToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Creature cr = null;
+            if (tabControlMain.SelectedTab == tabPageExtractor)
+                cr = CreateCreatureFromExtractorOrTester(creatureInfoInputExtractor);
+            else if (tabControlMain.SelectedTab == tabPageStatTesting)
+                cr = CreateCreatureFromExtractorOrTester(creatureInfoInputTester);
+            if (cr == null) return;
+            CreateExactSpawnCommand(cr);
+        }
 
-            string GetLevelStringForExactSpawningCommand(int[] levels)
-            {
-                // stat order for this command is health, stamina, oxygen, food, weight, melee damage, movement speed, crafting skill
-                return $"{levels[(int)StatNames.Health]},{levels[(int)StatNames.Stamina]},{levels[(int)StatNames.Oxygen]},{levels[(int)StatNames.Food]},{levels[(int)StatNames.Weight]},{levels[(int)StatNames.MeleeDamageMultiplier]},{levels[(int)StatNames.SpeedMultiplier]},{levels[(int)StatNames.CraftingSpeedMultiplier]}";
-            }
+        private void exactSpawnCommandDS2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Creature cr = null;
+            if (tabControlMain.SelectedTab == tabPageExtractor)
+                cr = CreateCreatureFromExtractorOrTester(creatureInfoInputExtractor);
+            else if (tabControlMain.SelectedTab == tabPageStatTesting)
+                cr = CreateCreatureFromExtractorOrTester(creatureInfoInputTester);
+            if (cr == null) return;
+            CreateExactSpawnDS2Command(cr);
+        }
 
-            var cheatPrefix = Properties.Settings.Default.AdminConsoleCommandWithCheat
-                ? "cheat "
-                : string.Empty;
-            Clipboard.SetText(cheatPrefix + spawnCommand);
-
+        private void CreateExactSpawnCommand(Creature cr)
+        {
+            CreatureSpawnCommand.InstableCommandToClipboard(cr);
             SetMessageLabelText($"The SpawnExactDino admin console command for the creature {cr.name} ({cr.Species?.name}) was copied to the clipboard. The command doesn't include the XP and the imprinterName, thus the imprinting is probably not set."
                                 + "WARNING: this console command is unstable and can crash your game. Use with caution! The colors and stats will only be correct after putting the creature in a cryopod.", MessageBoxIcon.Warning);
+        }
+
+        private void CreateExactSpawnDS2Command(Creature cr)
+        {
+            CreatureSpawnCommand.DinoStorageV2CommandToClipboard(cr);
+            SetMessageLabelText($"The SpawnExactDino admin console command for the creature {cr.name} ({cr.Species?.name}) was copied to the clipboard. The command needs the mod DinoStorage V2 installed on the server to work."
+                                , MessageBoxIcon.Warning);
         }
 
         #endregion

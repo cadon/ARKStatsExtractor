@@ -87,6 +87,7 @@
     <Compile Include="library\AddDummyCreaturesSettings.Designer.cs">
       <DependentUpon>AddDummyCreaturesSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="library\CreatureSpawnCommand.cs" />
     <Compile Include="library\DummyCreatures.cs" />
     <Compile Include="multiplierTesting\CalculateMultipliers.cs" />
     <Compile Include="NamePatterns\NamePatternEntry.cs">

@@ -559,7 +559,6 @@ namespace ARKBreedingStats
         {
             if (!parentListValid)
                 ParentListRequested?.Invoke(this);
-            SetCreatureData(creature);
             using (var pe = new PatternEditor(creature, _sameSpecies, speciesTopLevels, speciesLowestLevels, customReplacings, namingPatternIndex, reloadCallback))
             {
                 if (pe.ShowDialog() == DialogResult.OK)
