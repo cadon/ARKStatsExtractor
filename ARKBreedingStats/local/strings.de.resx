@@ -1318,4 +1318,7 @@ Filter nach Farben mit c{Region}: {FarbCode} {FarbCode2}, z.B. c0: 20, c5: 3 4 5
   <data name="Nursing Effectiveness_Abb" xml:space="preserve">
     <value>HE</value>
   </data>
+  <data name="lbServerTT" xml:space="preserve">
+    <value>Klicken um das Feld zu fixieren. Wenn das Feld fixiert ist, hat es einen grauen Hintergrund und wird beim Importieren einer Kreatur nicht verändert.</value>
+  </data>
 </root>

@@ -1327,4 +1327,7 @@ Filter for colors with c{region}: {colorValue} {colorValue2}, e.g. c0: 20, c5: 3
   <data name="Nursing Effectiveness_Abb" xml:space="preserve">
     <value>NE</value>
   </data>
+  <data name="lbServerTT" xml:space="preserve">
+    <value>Click to toggle freezing this field. If the field is frozen its background is grey and importing a creature won't update this field.</value>
+  </data>
 </root>

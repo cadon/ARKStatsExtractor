@@ -811,7 +811,7 @@ namespace ARKBreedingStats
             Loc.ControlText(lbName, "Name", _tt);
             Loc.ControlText(lbOwner, "Owner", _tt);
             Loc.ControlText(lbTribe, "Tribe", _tt);
-            Loc.ControlText(lbServer, "Server");
+            Loc.ControlText(lbServer, "Server", _tt);
             Loc.ControlText(lbMother, "Mother");
             Loc.ControlText(lbFather, "Father");
             Loc.ControlText(lbNote, "Note");
