@@ -954,7 +954,7 @@ namespace ARKBreedingStats
 
         /// <summary>
         /// Sets the values of a creature to the extractor and extracts its levels.
-        /// It returns if the creature is already present in the library.
+        /// It returns true if the creature is already present in the library.
         /// </summary>
         /// <param name="cv"></param>
         /// <param name="filePath">If given, the file path will be displayed as info.</param>
@@ -963,12 +963,15 @@ namespace ARKBreedingStats
         /// <returns></returns>
         private bool ExtractValuesInExtractor(CreatureValues cv, string filePath, bool autoExtraction, bool highPrecisionValues = true)
         {
+            bool creatureExists = IsCreatureAlreadyInLibrary(cv.guid, cv.ARKID, out Creature existingCreature);
+
+            if (creatureExists && string.IsNullOrEmpty(cv.server) && !string.IsNullOrEmpty(existingCreature.server))
+                cv.server = existingCreature.server;
+
             SetCreatureValuesToExtractor(cv, false);
 
             // exported stat-files have values for all stats, so activate all stats the species uses
             SetStatsActiveAccordingToUsage(cv.Species);
-
-            bool creatureExists = IsCreatureAlreadyInLibrary(cv.guid, cv.ARKID, out Creature existingCreature);
 
             ExtractLevels(autoExtraction, highPrecisionValues, existingCreature: existingCreature, possiblyMutagenApplied: cv.flags.HasFlag(CreatureFlags.MutagenApplied));
             SetCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);

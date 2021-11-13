@@ -48,13 +48,13 @@ namespace ARKBreedingStats.Library
         [JsonProperty]
         public bool isTamed, isBred;
         [JsonProperty]
-        public string owner = "";
+        public string owner;
         [JsonProperty]
-        public string imprinterName = "";
+        public string imprinterName;
         [JsonProperty]
-        public string tribe = "";
+        public string tribe;
         [JsonProperty]
-        public string server = "";
+        public string server;
         [JsonProperty]
         public long fatherArkId; // used when importing creatures, parents are indicated by this id
         [JsonProperty]
