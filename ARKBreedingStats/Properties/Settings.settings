@@ -488,5 +488,8 @@
     <Setting Name="PatternNameToClipboardAfterManualApplication" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="OnAutoImportAddToLibrary" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

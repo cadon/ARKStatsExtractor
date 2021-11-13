@@ -1945,5 +1945,17 @@ namespace ARKBreedingStats.Properties {
                 this["PatternNameToClipboardAfterManualApplication"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool OnAutoImportAddToLibrary {
+            get {
+                return ((bool)(this["OnAutoImportAddToLibrary"]));
+            }
+            set {
+                this["OnAutoImportAddToLibrary"] = value;
+            }
+        }
     }
 }

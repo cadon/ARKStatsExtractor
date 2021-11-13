@@ -3220,7 +3220,7 @@ namespace ARKBreedingStats
             // ToolStripLabelFilter
             // 
             this.ToolStripLabelFilter.Name = "ToolStripLabelFilter";
-            this.ToolStripLabelFilter.Size = new System.Drawing.Size(33, 15);
+            this.ToolStripLabelFilter.Size = new System.Drawing.Size(33, 22);
             this.ToolStripLabelFilter.Text = "Filter";
             this.ToolStripLabelFilter.Visible = false;
             // 
@@ -3229,7 +3229,7 @@ namespace ARKBreedingStats
             this.ToolStripTextBoxLibraryFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.ToolStripTextBoxLibraryFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.ToolStripTextBoxLibraryFilter.Name = "ToolStripTextBoxLibraryFilter";
-            this.ToolStripTextBoxLibraryFilter.Size = new System.Drawing.Size(200, 23);
+            this.ToolStripTextBoxLibraryFilter.Size = new System.Drawing.Size(200, 25);
             this.ToolStripTextBoxLibraryFilter.Visible = false;
             this.ToolStripTextBoxLibraryFilter.Click += new System.EventHandler(this.ToolStripTextBoxLibraryFilter_Click);
             this.ToolStripTextBoxLibraryFilter.TextChanged += new System.EventHandler(this.ToolStripTextBoxLibraryFilter_TextChanged);
@@ -3239,7 +3239,7 @@ namespace ARKBreedingStats
             this.ToolStripButtonLibraryFilterClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.ToolStripButtonLibraryFilterClear.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ToolStripButtonLibraryFilterClear.Name = "ToolStripButtonLibraryFilterClear";
-            this.ToolStripButtonLibraryFilterClear.Size = new System.Drawing.Size(23, 19);
+            this.ToolStripButtonLibraryFilterClear.Size = new System.Drawing.Size(23, 22);
             this.ToolStripButtonLibraryFilterClear.Text = "×";
             this.ToolStripButtonLibraryFilterClear.Visible = false;
             this.ToolStripButtonLibraryFilterClear.Click += new System.EventHandler(this.ToolStripButtonLibraryFilterClear_Click);
@@ -3250,7 +3250,7 @@ namespace ARKBreedingStats
             this.ToolStripButtonSaveFilterPreset.Image = ((System.Drawing.Image)(resources.GetObject("ToolStripButtonSaveFilterPreset.Image")));
             this.ToolStripButtonSaveFilterPreset.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ToolStripButtonSaveFilterPreset.Name = "ToolStripButtonSaveFilterPreset";
-            this.ToolStripButtonSaveFilterPreset.Size = new System.Drawing.Size(23, 19);
+            this.ToolStripButtonSaveFilterPreset.Size = new System.Drawing.Size(23, 22);
             this.ToolStripButtonSaveFilterPreset.Text = "▼";
             this.ToolStripButtonSaveFilterPreset.ToolTipText = "Save filter as preset";
             this.ToolStripButtonSaveFilterPreset.Visible = false;

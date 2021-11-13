@@ -3,7 +3,6 @@ using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -333,6 +332,7 @@ namespace ARKBreedingStats.settings
             cbApplyNamePatternOnImportOnNewCreatures.Checked = Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures;
             cbCopyPatternNameToClipboard.Checked = Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied;
             cbAutoImportExported.Checked = Properties.Settings.Default.AutoImportExportedCreatures;
+            CbAutoExtractAddToLibrary.Checked = Properties.Settings.Default.OnAutoImportAddToLibrary;
             cbPlaySoundOnAutomaticImport.Checked = Properties.Settings.Default.PlaySoundOnAutoImport;
             cbMoveImportedFileToSubFolder.Checked = Properties.Settings.Default.MoveAutoImportedFileToSubFolder;
             SetFolderSelectionButton(BtImportArchiveFolder, Properties.Settings.Default.ImportExportedArchiveFolder);
@@ -553,6 +553,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures = cbApplyNamePatternOnImportOnNewCreatures.Checked;
             Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied = cbCopyPatternNameToClipboard.Checked;
             Properties.Settings.Default.AutoImportExportedCreatures = cbAutoImportExported.Checked;
+            Properties.Settings.Default.OnAutoImportAddToLibrary = CbAutoExtractAddToLibrary.Checked;
             Properties.Settings.Default.PlaySoundOnAutoImport = cbPlaySoundOnAutomaticImport.Checked;
             Properties.Settings.Default.MoveAutoImportedFileToSubFolder = cbMoveImportedFileToSubFolder.Checked;
             Properties.Settings.Default.ImportExportedArchiveFolder = BtImportArchiveFolder.Tag as string;

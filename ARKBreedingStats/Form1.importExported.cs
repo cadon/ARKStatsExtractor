@@ -138,7 +138,9 @@ namespace ARKBreedingStats
             if (!loadResult.HasValue) return;
 
             bool alreadyExists = loadResult.Value;
-            bool added = false;
+            bool addedToLibrary = false;
+            bool uniqueExtraction = _extractor.UniqueResults
+                                    || (alreadyExists && _extractor.ValidResults);
             bool copyNameToClipboard = Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied
                 && (Properties.Settings.Default.applyNamePatternOnAutoImportAlways
                     || Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
@@ -147,12 +149,12 @@ namespace ARKBreedingStats
             Species species = speciesSelector1.SelectedSpecies;
             Creature creature = null;
 
-            if (_extractor.UniqueResults
-                || (alreadyExists && _extractor.ValidResults))
+            if (Properties.Settings.Default.OnAutoImportAddToLibrary
+                && uniqueExtraction)
             {
                 creature = AddCreatureToCollection(true, goToLibraryTab: Properties.Settings.Default.AutoImportGotoLibraryAfterSuccess);
                 SetMessageLabelText($"Successful {(alreadyExists ? "updated" : "added")} {creature.name} ({species.name}) of the exported file\n" + filePath, MessageBoxIcon.Information, filePath);
-                added = true;
+                addedToLibrary = true;
             }
 
             bool topLevels = false;
@@ -162,11 +164,11 @@ namespace ARKBreedingStats
             string infoText;
             Color textColor;
             const int colorSaturation = 200;
-            if (added)
+            if (uniqueExtraction)
             {
                 var sb = new StringBuilder();
-                sb.AppendLine($"{species.name} \"{creature.name}\" {(alreadyExists ? "updated in " : "added to")} the library.");
-                if (copyNameToClipboard)
+                sb.AppendLine($"{species.name} \"{creatureInfoInputExtractor.CreatureName}\" {(alreadyExists ? "updated in " : "added to")} the library.");
+                if (addedToLibrary && copyNameToClipboard)
                     sb.AppendLine("Name copied to clipboard.");
 
                 for (int s = 0; s < values.Values.STATS_COUNT; s++)
@@ -204,7 +206,7 @@ namespace ARKBreedingStats
                     _overlay.SetInheritanceCreatures(creature, creature.Mother, creature.Father);
             }
 
-            if (added)
+            if (addedToLibrary)
             {
                 if (Properties.Settings.Default.DeleteAutoImportedFile)
                 {
@@ -251,7 +253,7 @@ namespace ARKBreedingStats
                         _librarySelectionInfoClickPath = newFilePath;
                 }
             }
-            else if (copyNameToClipboard)
+            else if (!uniqueExtraction && copyNameToClipboard)
             {
                 // extraction failed, user might expect the name of the new creature in the clipboard
                 Clipboard.SetText("Automatic extraction was not possible");
@@ -259,7 +261,7 @@ namespace ARKBreedingStats
 
             if (Properties.Settings.Default.PlaySoundOnAutoImport)
             {
-                if (added)
+                if (uniqueExtraction)
                 {
                     if (alreadyExists)
                         SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Indifferent);
