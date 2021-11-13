@@ -15,7 +15,7 @@ namespace ARKBreedingStats.ocr
     public partial class OCRControl : UserControl
     {
         public event Action<byte> UpdateWhiteThreshold;
-        public event Action<string, bool> DoOcr;
+        public event Action<string, bool, bool> DoOcr;
         public readonly FlowLayoutPanel debugPanel;
         public readonly TextBox output;
         private readonly List<Pattern> _recognizedPatterns = new List<Pattern>();
@@ -103,7 +103,7 @@ namespace ARKBreedingStats.ocr
                     if (!ArkOcr.Ocr.ocrConfig?.RecognitionPatterns?.Texts?.Any() ?? false)
                         ArkOcr.Ocr.ocrConfig.RecognitionPatterns.TrainingSettings.IsTrainingEnabled = true;
 
-                    DoOcr?.Invoke(files[0], true);
+                    DoOcr?.Invoke(files[0], true, false);
                 }
                 else
                 {

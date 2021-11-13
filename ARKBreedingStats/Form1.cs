@@ -1990,12 +1990,13 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="imageFilePath">If specified, this image is taken instead of a screenShot.</param>
         /// <param name="manuallyTriggered">If false, the method is called by a timer based event when the user looks at a creature-inventory.</param>
-        public void DoOcr(string imageFilePath = null, bool manuallyTriggered = true)
+        /// <param name="screenShotFromClipboard">If true, use the image in the clipboard for OCR.</param>
+        public void DoOcr(string imageFilePath = null, bool manuallyTriggered = true, bool screenShotFromClipboard = false)
         {
             cbQuickWildCheck.Checked = false;
 
             double[] OcrValues = ArkOcr.Ocr.DoOcr(out string debugText, out string dinoName, out string speciesName,
-                out string ownerName, out string tribeName, out Sex sex, imageFilePath, manuallyTriggered);
+                out string ownerName, out string tribeName, out Sex sex, imageFilePath, manuallyTriggered, screenShotFromClipboard);
 
             ocrControl1.output.Text = debugText;
             if (OcrValues.Length <= 1)
@@ -2503,7 +2504,7 @@ namespace ARKBreedingStats
         private void btnReadValuesFromArk_Click(object sender, EventArgs e)
         {
             if (Properties.Settings.Default.showOCRButton)
-                DoOcr();
+                DoOcr(screenShotFromClipboard: Properties.Settings.Default.OCRFromClipboard);
             else
                 ImportExportedCreaturesDefaultFolder();
         }

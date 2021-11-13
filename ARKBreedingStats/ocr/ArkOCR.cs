@@ -305,7 +305,7 @@ namespace ARKBreedingStats.ocr
             return true;
         }
 
-        public double[] DoOcr(out string OcrText, out string dinoName, out string species, out string ownerName, out string tribeName, out Sex sex, string useImageFilePath = null, bool changeForegroundWindow = true)
+        public double[] DoOcr(out string OcrText, out string dinoName, out string species, out string ownerName, out string tribeName, out Sex sex, string useImageFilePath = null, bool changeForegroundWindow = true, bool screenShotFromClipboard = false)
         {
             string finishedText = string.Empty;
             dinoName = string.Empty;
@@ -352,7 +352,32 @@ namespace ARKBreedingStats.ocr
                 _ocrControl.ClearLists();
 
                 Bitmap bmp;
-                if (!string.IsNullOrEmpty(useImageFilePath) && File.Exists(useImageFilePath))
+                if (screenShotFromClipboard)
+                {
+                    var im = Clipboard.GetImage();
+                    if (im == null)
+                    {
+                        errorText = "No image in the clipboard, OCR cannot be performed. Press the Print-key to create a screenshot and copy it to the clipboard";
+                        return null;
+                    }
+                    try
+                    {
+                        bmp = (Bitmap)im;
+                        var rec = Properties.Settings.Default.OCRFromRectangle;
+                        if (!rec.IsEmpty)
+                        {
+                            var croppedBmp = bmp.Clone(rec, bmp.PixelFormat);
+                            bmp.Dispose();
+                            bmp = croppedBmp;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        errorText = $"Error when trying to load the screenshot from the clipboard for the OCR.\n\n" + ex.Message + (ex.InnerException != null ? $" - InnerException: {ex.InnerException.Message}" : null);
+                        return null;
+                    }
+                }
+                else if (!string.IsNullOrEmpty(useImageFilePath) && File.Exists(useImageFilePath))
                 {
                     try
                     {

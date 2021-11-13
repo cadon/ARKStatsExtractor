@@ -215,6 +215,7 @@
             this.label30 = new System.Windows.Forms.Label();
             this.nudImportLowerBoundTE = new ARKBreedingStats.uiControls.Nud();
             this.groupBox22 = new System.Windows.Forms.GroupBox();
+            this.CbAutoExtractAddToLibrary = new System.Windows.Forms.CheckBox();
             this.CbAutoImportSuccessGotoLibrary = new System.Windows.Forms.CheckBox();
             this.TbExportFileRename = new System.Windows.Forms.TextBox();
             this.CbExportFileRenameAfterImport = new System.Windows.Forms.CheckBox();
@@ -303,7 +304,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.CbAutoExtractAddToLibrary = new System.Windows.Forms.CheckBox();
+            this.CbOCRFromClipboard = new System.Windows.Forms.CheckBox();
+            this.NudOCRClipboardCropLeft = new ARKBreedingStats.uiControls.Nud();
+            this.NudOCRClipboardCropTop = new ARKBreedingStats.uiControls.Nud();
+            this.NudOCRClipboardCropWidth = new ARKBreedingStats.uiControls.Nud();
+            this.NudOCRClipboardCropHeight = new ARKBreedingStats.uiControls.Nud();
+            this.label58 = new System.Windows.Forms.Label();
+            this.label59 = new System.Windows.Forms.Label();
+            this.label60 = new System.Windows.Forms.Label();
+            this.label61 = new System.Windows.Forms.Label();
+            this.label62 = new System.Windows.Forms.Label();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmountEvent)).BeginInit();
@@ -399,6 +409,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NudOCRClipboardCropLeft)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NudOCRClipboardCropTop)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NudOCRClipboardCropWidth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NudOCRClipboardCropHeight)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -2772,6 +2786,16 @@
             this.groupBox22.TabStop = false;
             this.groupBox22.Text = "Auto import";
             // 
+            // CbAutoExtractAddToLibrary
+            // 
+            this.CbAutoExtractAddToLibrary.AutoSize = true;
+            this.CbAutoExtractAddToLibrary.Location = new System.Drawing.Point(189, 19);
+            this.CbAutoExtractAddToLibrary.Name = "CbAutoExtractAddToLibrary";
+            this.CbAutoExtractAddToLibrary.Size = new System.Drawing.Size(87, 17);
+            this.CbAutoExtractAddToLibrary.TabIndex = 10;
+            this.CbAutoExtractAddToLibrary.Text = "Add to library";
+            this.CbAutoExtractAddToLibrary.UseVisualStyleBackColor = true;
+            // 
             // CbAutoImportSuccessGotoLibrary
             // 
             this.CbAutoImportSuccessGotoLibrary.AutoSize = true;
@@ -3221,7 +3245,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3229,7 +3253,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3237,7 +3261,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3245,7 +3269,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -3593,6 +3617,16 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label62);
+            this.groupBox1.Controls.Add(this.label61);
+            this.groupBox1.Controls.Add(this.label60);
+            this.groupBox1.Controls.Add(this.label59);
+            this.groupBox1.Controls.Add(this.label58);
+            this.groupBox1.Controls.Add(this.NudOCRClipboardCropHeight);
+            this.groupBox1.Controls.Add(this.NudOCRClipboardCropWidth);
+            this.groupBox1.Controls.Add(this.NudOCRClipboardCropTop);
+            this.groupBox1.Controls.Add(this.NudOCRClipboardCropLeft);
+            this.groupBox1.Controls.Add(this.CbOCRFromClipboard);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.cbOCRIgnoreImprintValue);
             this.groupBox1.Controls.Add(this.cbShowOCRButton);
@@ -3606,14 +3640,14 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(734, 310);
+            this.groupBox1.Size = new System.Drawing.Size(734, 352);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "OCR";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(6, 217);
+            this.button1.Location = new System.Drawing.Point(6, 292);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(139, 23);
             this.button1.TabIndex = 8;
@@ -3624,7 +3658,7 @@
             // cbOCRIgnoreImprintValue
             // 
             this.cbOCRIgnoreImprintValue.AutoSize = true;
-            this.cbOCRIgnoreImprintValue.Location = new System.Drawing.Point(9, 168);
+            this.cbOCRIgnoreImprintValue.Location = new System.Drawing.Point(6, 168);
             this.cbOCRIgnoreImprintValue.Name = "cbOCRIgnoreImprintValue";
             this.cbOCRIgnoreImprintValue.Size = new System.Drawing.Size(287, 17);
             this.cbOCRIgnoreImprintValue.TabIndex = 6;
@@ -3634,7 +3668,7 @@
             // cbShowOCRButton
             // 
             this.cbShowOCRButton.AutoSize = true;
-            this.cbShowOCRButton.Location = new System.Drawing.Point(9, 96);
+            this.cbShowOCRButton.Location = new System.Drawing.Point(6, 96);
             this.cbShowOCRButton.Name = "cbShowOCRButton";
             this.cbShowOCRButton.Size = new System.Drawing.Size(228, 17);
             this.cbShowOCRButton.TabIndex = 1;
@@ -3695,7 +3729,7 @@
             // 
             // tbOCRCaptureApp
             // 
-            this.tbOCRCaptureApp.Location = new System.Drawing.Point(151, 219);
+            this.tbOCRCaptureApp.Location = new System.Drawing.Point(151, 294);
             this.tbOCRCaptureApp.Name = "tbOCRCaptureApp";
             this.tbOCRCaptureApp.Size = new System.Drawing.Size(577, 20);
             this.tbOCRCaptureApp.TabIndex = 9;
@@ -3703,7 +3737,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 201);
+            this.label4.Location = new System.Drawing.Point(6, 276);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(289, 13);
             this.label4.TabIndex = 7;
@@ -3713,7 +3747,7 @@
             // 
             this.cbbOCRApp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbOCRApp.FormattingEnabled = true;
-            this.cbbOCRApp.Location = new System.Drawing.Point(6, 246);
+            this.cbbOCRApp.Location = new System.Drawing.Point(6, 321);
             this.cbbOCRApp.Name = "cbbOCRApp";
             this.cbbOCRApp.Size = new System.Drawing.Size(722, 21);
             this.cbbOCRApp.TabIndex = 10;
@@ -3737,15 +3771,130 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // CbAutoExtractAddToLibrary
+            // CbOCRFromClipboard
             // 
-            this.CbAutoExtractAddToLibrary.AutoSize = true;
-            this.CbAutoExtractAddToLibrary.Location = new System.Drawing.Point(189, 19);
-            this.CbAutoExtractAddToLibrary.Name = "CbAutoExtractAddToLibrary";
-            this.CbAutoExtractAddToLibrary.Size = new System.Drawing.Size(87, 17);
-            this.CbAutoExtractAddToLibrary.TabIndex = 10;
-            this.CbAutoExtractAddToLibrary.Text = "Add to library";
-            this.CbAutoExtractAddToLibrary.UseVisualStyleBackColor = true;
+            this.CbOCRFromClipboard.AutoSize = true;
+            this.CbOCRFromClipboard.Location = new System.Drawing.Point(6, 191);
+            this.CbOCRFromClipboard.Name = "CbOCRFromClipboard";
+            this.CbOCRFromClipboard.Size = new System.Drawing.Size(506, 17);
+            this.CbOCRFromClipboard.TabIndex = 11;
+            this.CbOCRFromClipboard.Text = "Use image in clipboard for the OCR. You can press the Print-key to copy a screens" +
+    "hot to the cliphoard";
+            this.CbOCRFromClipboard.UseVisualStyleBackColor = true;
+            // 
+            // NudOCRClipboardCropLeft
+            // 
+            this.NudOCRClipboardCropLeft.Location = new System.Drawing.Point(76, 227);
+            this.NudOCRClipboardCropLeft.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.NudOCRClipboardCropLeft.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
+            this.NudOCRClipboardCropLeft.Name = "NudOCRClipboardCropLeft";
+            this.NudOCRClipboardCropLeft.Size = new System.Drawing.Size(69, 20);
+            this.NudOCRClipboardCropLeft.TabIndex = 12;
+            // 
+            // NudOCRClipboardCropTop
+            // 
+            this.NudOCRClipboardCropTop.Location = new System.Drawing.Point(183, 227);
+            this.NudOCRClipboardCropTop.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.NudOCRClipboardCropTop.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
+            this.NudOCRClipboardCropTop.Name = "NudOCRClipboardCropTop";
+            this.NudOCRClipboardCropTop.Size = new System.Drawing.Size(69, 20);
+            this.NudOCRClipboardCropTop.TabIndex = 13;
+            // 
+            // NudOCRClipboardCropWidth
+            // 
+            this.NudOCRClipboardCropWidth.Location = new System.Drawing.Point(299, 227);
+            this.NudOCRClipboardCropWidth.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.NudOCRClipboardCropWidth.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
+            this.NudOCRClipboardCropWidth.Name = "NudOCRClipboardCropWidth";
+            this.NudOCRClipboardCropWidth.Size = new System.Drawing.Size(69, 20);
+            this.NudOCRClipboardCropWidth.TabIndex = 14;
+            // 
+            // NudOCRClipboardCropHeight
+            // 
+            this.NudOCRClipboardCropHeight.Location = new System.Drawing.Point(418, 227);
+            this.NudOCRClipboardCropHeight.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.NudOCRClipboardCropHeight.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
+            this.NudOCRClipboardCropHeight.Name = "NudOCRClipboardCropHeight";
+            this.NudOCRClipboardCropHeight.Size = new System.Drawing.Size(69, 20);
+            this.NudOCRClipboardCropHeight.TabIndex = 15;
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(45, 229);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(25, 13);
+            this.label58.TabIndex = 16;
+            this.label58.Text = "Left";
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(374, 229);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(38, 13);
+            this.label59.TabIndex = 17;
+            this.label59.Text = "Height";
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Location = new System.Drawing.Point(258, 229);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(35, 13);
+            this.label60.TabIndex = 18;
+            this.label60.Text = "Width";
+            // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.Location = new System.Drawing.Point(151, 229);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(26, 13);
+            this.label61.TabIndex = 19;
+            this.label61.Text = "Top";
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Location = new System.Drawing.Point(34, 211);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(616, 13);
+            this.label62.TabIndex = 20;
+            this.label62.Text = "Set an area of the clipboard screenshot to be used for the actual OCR. Set all fi" +
+    "elds to 0 to disable and use the whole screenshot.";
             // 
             // Settings
             // 
@@ -3889,6 +4038,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.NudOCRClipboardCropLeft)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NudOCRClipboardCropTop)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NudOCRClipboardCropWidth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NudOCRClipboardCropHeight)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -4169,5 +4322,15 @@
         private System.Windows.Forms.Label label57;
         private System.Windows.Forms.Label label56;
         private System.Windows.Forms.CheckBox CbAutoExtractAddToLibrary;
+        private System.Windows.Forms.Label label62;
+        private System.Windows.Forms.Label label61;
+        private System.Windows.Forms.Label label60;
+        private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.Label label58;
+        private uiControls.Nud NudOCRClipboardCropHeight;
+        private uiControls.Nud NudOCRClipboardCropWidth;
+        private uiControls.Nud NudOCRClipboardCropTop;
+        private uiControls.Nud NudOCRClipboardCropLeft;
+        private System.Windows.Forms.CheckBox CbOCRFromClipboard;
     }
 }

@@ -1957,5 +1957,29 @@ namespace ARKBreedingStats.Properties {
                 this["OnAutoImportAddToLibrary"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool OCRFromClipboard {
+            get {
+                return ((bool)(this["OCRFromClipboard"]));
+            }
+            set {
+                this["OCRFromClipboard"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0, 0, 0")]
+        public global::System.Drawing.Rectangle OCRFromRectangle {
+            get {
+                return ((global::System.Drawing.Rectangle)(this["OCRFromRectangle"]));
+            }
+            set {
+                this["OCRFromRectangle"] = value;
+            }
+        }
     }
 }

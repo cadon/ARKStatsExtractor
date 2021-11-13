@@ -264,7 +264,12 @@ namespace ARKBreedingStats.settings
             nudWaitBeforeScreenCapture.ValueSave = Properties.Settings.Default.waitBeforeScreenCapture;
             nudWhiteThreshold.ValueSave = Properties.Settings.Default.OCRWhiteThreshold;
             tbOCRCaptureApp.Text = Properties.Settings.Default.OCRApp;
-
+            CbOCRFromClipboard.Checked = Properties.Settings.Default.OCRFromClipboard;
+            var rec = Properties.Settings.Default.OCRFromRectangle;
+            NudOCRClipboardCropLeft.ValueSave = rec.Left;
+            NudOCRClipboardCropTop.ValueSave = rec.Top;
+            NudOCRClipboardCropWidth.ValueSave = rec.Width;
+            NudOCRClipboardCropHeight.ValueSave = rec.Height;
             cbOCRIgnoreImprintValue.Checked = Properties.Settings.Default.OCRIgnoresImprintValue;
             #endregion
 
@@ -491,7 +496,8 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.waitBeforeScreenCapture = (int)nudWaitBeforeScreenCapture.Value;
             Properties.Settings.Default.OCRWhiteThreshold = (byte)nudWhiteThreshold.Value;
             Properties.Settings.Default.OCRApp = tbOCRCaptureApp.Text;
-
+            Properties.Settings.Default.OCRFromClipboard = CbOCRFromClipboard.Checked;
+            Properties.Settings.Default.OCRFromRectangle = new Rectangle((int)NudOCRClipboardCropLeft.Value, (int)NudOCRClipboardCropTop.Value, (int)NudOCRClipboardCropWidth.Value, (int)NudOCRClipboardCropHeight.Value);
             Properties.Settings.Default.OCRIgnoresImprintValue = cbOCRIgnoreImprintValue.Checked;
             #endregion
 
