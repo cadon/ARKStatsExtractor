@@ -624,6 +624,20 @@ namespace ARKBreedingStats
             }
         }
 
+        private bool _lockServer;
+        /// <summary>
+        /// If true the importing will not change the server field.
+        /// </summary>
+        public bool LockServer
+        {
+            get => _lockServer;
+            set
+            {
+                _lockServer = value;
+                cbServer.BackColor = value ? Color.LightGray : SystemColors.Window;
+            }
+        }
+
         /// <summary>
         /// If true the OCR and import exported methods will not change the tribe field.
         /// </summary>
@@ -666,10 +680,9 @@ namespace ARKBreedingStats
                 : Color.LightSkyBlue;
         }
 
-        private void lblOwner_Click(object sender, EventArgs e)
-        {
-            OwnerLock = !OwnerLock;
-        }
+        private void lblOwner_Click(object sender, EventArgs e) => OwnerLock = !OwnerLock;
+
+        private void lbServer_Click(object sender, EventArgs e) => LockServer = !LockServer;
 
         private void lblName_Click(object sender, EventArgs e)
         {

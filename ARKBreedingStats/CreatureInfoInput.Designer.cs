@@ -31,6 +31,7 @@ namespace ARKBreedingStats
         private void InitializeComponent()
         {
             this.gbCreatureInfo = new System.Windows.Forms.GroupBox();
+            this.CbMutagen = new System.Windows.Forms.CheckBox();
             this.LbColorNewInRegion = new System.Windows.Forms.Label();
             this.LbColorNewInSpecies = new System.Windows.Forms.Label();
             this.BtApplyOTSPreset = new System.Windows.Forms.Button();
@@ -83,7 +84,6 @@ namespace ARKBreedingStats
             this.lbOwner = new System.Windows.Forms.Label();
             this.lbName = new System.Windows.Forms.Label();
             this.btAdd2Library = new System.Windows.Forms.Button();
-            this.CbMutagen = new System.Windows.Forms.CheckBox();
             this.gbCreatureInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsFather)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsMother)).BeginInit();
@@ -153,6 +153,17 @@ namespace ARKBreedingStats
             this.gbCreatureInfo.TabStop = false;
             this.gbCreatureInfo.Text = "Creature-info";
             this.gbCreatureInfo.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // CbMutagen
+            // 
+            this.CbMutagen.Appearance = System.Windows.Forms.Appearance.Button;
+            this.CbMutagen.AutoSize = true;
+            this.CbMutagen.Location = new System.Drawing.Point(68, 412);
+            this.CbMutagen.Name = "CbMutagen";
+            this.CbMutagen.Size = new System.Drawing.Size(59, 23);
+            this.CbMutagen.TabIndex = 53;
+            this.CbMutagen.Text = "Mutagen";
+            this.CbMutagen.UseVisualStyleBackColor = true;
             // 
             // LbColorNewInRegion
             // 
@@ -540,11 +551,13 @@ namespace ARKBreedingStats
             // lbServer
             // 
             this.lbServer.AutoSize = true;
+            this.lbServer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbServer.Location = new System.Drawing.Point(6, 151);
             this.lbServer.Name = "lbServer";
             this.lbServer.Size = new System.Drawing.Size(38, 13);
             this.lbServer.TabIndex = 30;
             this.lbServer.Text = "Server";
+            this.lbServer.Click += new System.EventHandler(this.lbServer_Click);
             // 
             // lbTribe
             // 
@@ -691,17 +704,6 @@ namespace ARKBreedingStats
             this.btAdd2Library.Text = "Add new to Library";
             this.btAdd2Library.UseVisualStyleBackColor = true;
             this.btAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
-            // 
-            // CbMutagen
-            // 
-            this.CbMutagen.Appearance = System.Windows.Forms.Appearance.Button;
-            this.CbMutagen.AutoSize = true;
-            this.CbMutagen.Location = new System.Drawing.Point(68, 412);
-            this.CbMutagen.Name = "CbMutagen";
-            this.CbMutagen.Size = new System.Drawing.Size(59, 23);
-            this.CbMutagen.TabIndex = 53;
-            this.CbMutagen.Text = "Mutagen";
-            this.CbMutagen.UseVisualStyleBackColor = true;
             // 
             // CreatureInfoInput
             // 

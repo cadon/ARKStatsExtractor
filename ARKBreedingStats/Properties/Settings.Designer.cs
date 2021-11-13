@@ -1921,5 +1921,7 @@ namespace ARKBreedingStats.Properties {
                 this["ChartHueOddMax"] = value;
             }
         }
+
+        public bool ServerNameLocked { get; set; }
     }
 }

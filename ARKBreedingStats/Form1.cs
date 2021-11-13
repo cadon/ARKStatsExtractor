@@ -336,6 +336,7 @@ namespace ARKBreedingStats
             creatureInfoInputExtractor.CreatureServer = Properties.Settings.Default.DefaultServerName;
             creatureInfoInputExtractor.OwnerLock = Properties.Settings.Default.OwnerNameLocked;
             creatureInfoInputExtractor.TribeLock = Properties.Settings.Default.TribeNameLocked;
+            creatureInfoInputExtractor.LockServer = Properties.Settings.Default.ServerNameLocked;
 
             // UI loaded
 
@@ -1275,9 +1276,10 @@ namespace ARKBreedingStats
             // save onlyNonMutatedInBreedingPlanner
             Properties.Settings.Default.MutationLimitBreedingPlanner = breedingPlan1.MutationLimit;
 
-            // save locked state of owner and tribe name
+            // save locked state of owner, tribe and server
             Properties.Settings.Default.OwnerNameLocked = creatureInfoInputExtractor.OwnerLock;
             Properties.Settings.Default.TribeNameLocked = creatureInfoInputExtractor.TribeLock;
+            Properties.Settings.Default.ServerNameLocked = creatureInfoInputExtractor.LockServer;
 
             // save splitter distance of speciesSelector
             Properties.Settings.Default.SpeciesSelectorVerticalSplitterDistance = speciesSelector1.SplitterDistance;
@@ -2757,7 +2759,8 @@ namespace ARKBreedingStats
                 input.CreatureOwner = cv.owner;
             if (!creatureInfoInputExtractor.TribeLock)
                 input.CreatureTribe = cv.tribe;
-            input.CreatureServer = cv.server;
+            if (!creatureInfoInputExtractor.LockServer)
+                input.CreatureServer = cv.server;
             input.CreatureSex = cv.sex;
             input.CreatureGuid = cv.guid;
             input.CreatureFlags = cv.flags;
