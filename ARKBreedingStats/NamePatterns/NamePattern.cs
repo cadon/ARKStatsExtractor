@@ -229,9 +229,6 @@ namespace ARKBreedingStats.NamePatterns
                     creature.Father?.generation + 1 ?? 0
                 );
 
-            int mutasn = creature.Mutations;
-            string mutas = mutasn > 99 ? "99" : mutasn.ToString();
-
             string oldName = creature.name;
 
             string firstWordOfOldest = string.Empty;
@@ -328,7 +325,9 @@ namespace ARKBreedingStats.NamePatterns
                 { "topPercent" , (creature.topness / 10f).ToString() },
                 { "baselvl" , creature.LevelHatched.ToString() },
                 { "effImp" , effImp },
-                { "muta", mutas},
+                { "muta", creature.Mutations.ToString()},
+                { "mutam", creature.mutationsMaternal.ToString()},
+                { "mutap", creature.mutationsPaternal.ToString()},
                 { "gen", generation.ToString()},
                 { "gena", Dec2Hexvig(generation)},
                 { "genn", (speciesCreatures?.Count(c=>c.generation==generation) ?? 0 + 1).ToString()},

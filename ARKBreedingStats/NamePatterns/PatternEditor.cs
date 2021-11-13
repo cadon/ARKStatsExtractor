@@ -469,7 +469,9 @@ namespace ARKBreedingStats.NamePatterns
 
                 { "topPercent", "Percentage of the considered stat levels compared to the top levels of the species in the library" },
                 { "baselvl", "Base-level (level without manually added ones), i.e. level right after taming / hatching" },
-                { "muta", "Mutations. Numbers larger than 99 will be displayed as 99" },
+                { "muta", "Mutations" },
+                { "mutam", "maternal mutations" },
+                { "mutap", "paternal mutations" },
                 { "gen", "Generation" },
                 { "gena", "Generation in letters (0=A, 1=B, 26=AA, 27=AB)" },
                 { "genn", "The number of creatures with the same species and the same generation plus one" },
