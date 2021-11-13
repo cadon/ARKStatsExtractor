@@ -2868,6 +2868,12 @@ namespace ARKBreedingStats
                 input.GenerateCreatureName(cr, _topLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
                     _lowestLevels.TryGetValue(cr.Species, out var ll) ? ll : null,
                     _customReplacingNamingPattern, showDuplicateNameWarning, namingPatternIndex);
+                if (Properties.Settings.Default.PatternNameToClipboardAfterManualApplication)
+                {
+                    if (string.IsNullOrEmpty(input.CreatureName))
+                        Clipboard.Clear();
+                    else Clipboard.SetText(input.CreatureName);
+                }
             }
         }
 

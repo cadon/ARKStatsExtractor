@@ -53,6 +53,7 @@ namespace ARKBreedingStats.NamePatterns
             _customReplacings = customReplacings;
             _reloadCallback = reloadCallback;
             txtboxPattern.Text = Properties.Settings.Default.NamingPatterns?[namingPatternIndex] ?? string.Empty;
+            CbPatternNameToClipboardAfterManualApplication.Checked = Properties.Settings.Default.PatternNameToClipboardAfterManualApplication;
             txtboxPattern.SelectionStart = txtboxPattern.Text.Length;
 
             Text = $"Naming Pattern Editor: pattern {(namingPatternIndex + 1)}";
@@ -408,6 +409,8 @@ namespace ARKBreedingStats.NamePatterns
         }
 
         public string NamePattern => txtboxPattern.Text;
+
+        public bool PatternNameToClipboardAfterManualApplication => CbPatternNameToClipboardAfterManualApplication.Checked;
 
         private static Dictionary<string, string> PatternExplanations(Dictionary<string, string> customStatNames) => new Dictionary<string, string>()
             {

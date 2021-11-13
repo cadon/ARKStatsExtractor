@@ -485,5 +485,8 @@
     <Setting Name="ChartHueOddMax" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">320</Value>
     </Setting>
+    <Setting Name="PatternNameToClipboardAfterManualApplication" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

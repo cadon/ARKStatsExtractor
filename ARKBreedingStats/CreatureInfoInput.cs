@@ -566,6 +566,7 @@ namespace ARKBreedingStats
                     var namingPatterns = Settings.Default.NamingPatterns ?? new string[6];
                     namingPatterns[namingPatternIndex] = pe.NamePattern;
                     Settings.Default.NamingPatterns = namingPatterns;
+                    Settings.Default.PatternNameToClipboardAfterManualApplication = pe.PatternNameToClipboardAfterManualApplication;
                 }
 
                 (Settings.Default.PatternEditorFormRectangle, _) = Utils.GetWindowRectangle(pe);

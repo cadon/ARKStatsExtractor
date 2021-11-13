@@ -522,6 +522,18 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ServerNameLocked {
+            get {
+                return ((bool)(this["ServerNameLocked"]));
+            }
+            set {
+                this["ServerNameLocked"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string DefaultServerName {
             get {
@@ -1921,7 +1933,17 @@ namespace ARKBreedingStats.Properties {
                 this["ChartHueOddMax"] = value;
             }
         }
-
-        public bool ServerNameLocked { get; set; }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool PatternNameToClipboardAfterManualApplication {
+            get {
+                return ((bool)(this["PatternNameToClipboardAfterManualApplication"]));
+            }
+            set {
+                this["PatternNameToClipboardAfterManualApplication"] = value;
+            }
+        }
     }
 }
