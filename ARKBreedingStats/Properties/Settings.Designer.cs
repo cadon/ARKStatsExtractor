@@ -1981,5 +1981,17 @@ namespace ARKBreedingStats.Properties {
                 this["OCRFromRectangle"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RaisingFoodLastSelected {
+            get {
+                return ((string)(this["RaisingFoodLastSelected"]));
+            }
+            set {
+                this["RaisingFoodLastSelected"] = value;
+            }
+        }
     }
 }

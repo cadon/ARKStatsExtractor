@@ -183,8 +183,7 @@ namespace ARKBreedingStats
 
                 TamingFood food = specialFood ? species.taming.specialFoodValues[foodName] : Values.V.defaultFoodData[foodName];
 
-                double foodAffinity;
-                foodAffinity = food.affinity;
+                var foodAffinity = food.affinity;
 
                 if (nonViolent)
                     foodAffinity *= species.taming.wakeAffinityMult;

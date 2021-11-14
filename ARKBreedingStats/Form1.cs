@@ -504,9 +504,7 @@ namespace ARKBreedingStats
         private void TellTamingData(string speciesName, int level)
         {
             speciesSelector1.SetSpeciesByName(speciesName);
-            if (speciesSelector1.SelectedSpecies != null && speciesSelector1.SelectedSpecies.taming != null &&
-                speciesSelector1.SelectedSpecies.taming.eats != null &&
-                speciesSelector1.SelectedSpecies.taming.eats.Any())
+            if (speciesSelector1.SelectedSpecies?.taming?.eats?.Any() == true)
             {
                 tamingControl1.SetLevel(level, false);
                 tamingControl1.SetSpecies(speciesSelector1.SelectedSpecies);
@@ -1284,6 +1282,8 @@ namespace ARKBreedingStats
             // save splitter distance of speciesSelector
             Properties.Settings.Default.SpeciesSelectorVerticalSplitterDistance = speciesSelector1.SplitterDistance;
             Properties.Settings.Default.DisabledVariants = speciesSelector1.VariantSelector.DisabledVariants.ToArray();
+
+            Properties.Settings.Default.RaisingFoodLastSelected = raisingControl1.LastSelectedFood;
 
             /////// save settings for next session
             Properties.Settings.Default.Save();
@@ -2443,12 +2443,11 @@ namespace ARKBreedingStats
 
             var wildLevels = GetCurrentWildLevels();
             var tamedLevels = GetCurrentDomLevels();
-            Color[] colors = new Color[Values.STATS_COUNT];
-
+            Color[] statColors = new Color[Values.STATS_COUNT];
 
             for (int i = 0; i < Values.STATS_COUNT; i++)
             {
-                colors[i] = _statIOs[i].BackColor;
+                statColors[i] = _statIOs[i].BackColor;
             }
 
             int levelWild = wildLevels[(int)StatNames.Torpidity] + 1;
@@ -2466,18 +2465,14 @@ namespace ARKBreedingStats
                     Values.V.currentServerMultipliers.DinoCharacterFoodDrainMultiplier, foodName, foodNeeded, out _,
                     out TimeSpan duration, out int narcoBerries, out int ascerbicMushrooms, out int narcotics,
                     out int bioToxines, out double te, out _, out int bonusLevel, out _);
-                string foodNameDisplay = foodName == "Kibble"
-                    ? speciesSelector1.SelectedSpecies.taming.favoriteKibble + " Egg Kibble"
-                    : foodName;
-                extraText += "\nTaming takes " + duration.ToString(@"hh\:mm\:ss") + " with " + foodNeeded + "×" +
-                             foodNameDisplay
+                extraText += $"\nTaming takes {(int)duration.TotalHours}:{duration:mm':'ss} with {foodNeeded} × {foodName}"
                              + "\n" + narcoBerries + " Narcoberries or " + ascerbicMushrooms +
                              " Ascerbic Mushrooms or " + narcotics + " Narcotics or " + bioToxines +
                              " Bio Toxines are needed"
                              + "\nTaming Effectiveness: " + Math.Round(100 * te, 1) + " % (+" + bonusLevel + " lvl)";
             }
 
-            _overlay.SetStatLevels(wildLevels, tamedLevels, levelWild, levelDom, colors);
+            _overlay.SetStatLevels(wildLevels, tamedLevels, levelWild, levelDom, statColors);
             _overlay.SetInfoText(extraText);
         }
 

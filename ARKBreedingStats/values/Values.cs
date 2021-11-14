@@ -160,6 +160,7 @@ namespace ARKBreedingStats.values
                 if (setTamingFood && specialFoodData.ContainsKey(sp.name))
                 {
                     sp.taming.eats = specialFoodData[sp.name].eats;
+                    sp.taming.eatsAlsoPostTame = specialFoodData[sp.name].eatsAlsoPostTame;
                     sp.taming.specialFoodValues = specialFoodData[sp.name].specialFoodValues;
                 }
             }
