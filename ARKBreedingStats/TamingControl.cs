@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Threading;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
 
@@ -29,7 +30,8 @@ namespace ARKBreedingStats
         private readonly List<double> _rbBoneDamageAdjusterValues;
         private double _currentBoneDamageAdjuster;
         private double _neededHunger;
-        private readonly ToolTip _tt;
+        private readonly ToolTip _tt = new ToolTip();
+        private readonly Debouncer _debouncer = new Debouncer();
 
         public TamingControl()
         {
@@ -40,7 +42,6 @@ namespace ARKBreedingStats
             _rbBoneDamageAdjusters = new List<RadioButton> { rbBoneDamageDefault };
             flcBodyDamageMultipliers.SetFlowBreak(rbBoneDamageDefault, true);
             _rbBoneDamageAdjusterValues = new List<double> { 1 };
-            _tt = new ToolTip();
         }
 
         public void SetLevel(int level, bool updateTamingData = true)
@@ -224,8 +225,13 @@ namespace ARKBreedingStats
 
         private void nudLevel_ValueChanged(object sender, EventArgs e)
         {
-            UpdateFirstFeedingWaiting();
-            UpdateTamingData();
+            _debouncer.Debounce(300,
+                () =>
+                {
+                    UpdateFirstFeedingWaiting();
+                    UpdateTamingData();
+                },
+                Dispatcher.CurrentDispatcher);
         }
 
         private void UpdateTamingData()
