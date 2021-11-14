@@ -16,17 +16,14 @@ namespace ARKBreedingStats.importExported
         public event EventHandler DisposeThis;
         public readonly CreatureValues creatureValues;
         public ImportStatus Status { get; private set; }
-        public DateTime? AddedToLibrary;
         public readonly string exportedFile;
-        private readonly ToolTip _tt;
+        private readonly ToolTip _tt = new ToolTip();
         public bool validValues;
         public string speciesBlueprintPath;
 
         public ExportedCreatureControl()
         {
             InitializeComponent();
-            if (_tt == null)
-                _tt = new ToolTip();
             validValues = true;
         }
 
@@ -70,7 +67,6 @@ namespace ARKBreedingStats.importExported
         public void setStatus(ImportStatus status, DateTime? addedToLibrary)
         {
             Status = status;
-            AddedToLibrary = addedToLibrary;
             switch (status)
             {
                 case ImportStatus.NotImported:

@@ -372,10 +372,12 @@ namespace ARKBreedingStats.Library
             return exists;
         }
 
-        public bool CreatureById(Guid guid, long arkId, Species species, Sex sex, out Creature foundCreature)
+        public bool CreatureById(Guid guid, long arkId, Species species, out Creature foundCreature)
         {
             foundCreature = null;
-            var creaturesToCheck = creatures.Where(c => c.Species == species && c.sex == sex).ToList();
+            if (guid == Guid.Empty && arkId == 0) return false;
+
+            var creaturesToCheck = creatures.Where(c => c.Species == species).ToArray();
 
             if (guid != Guid.Empty)
             {
@@ -389,12 +391,11 @@ namespace ARKBreedingStats.Library
                 }
             }
 
-            // TODO. not always unique, prompt message?
             if (arkId != 0)
             {
                 foreach (var c in creaturesToCheck)
                 {
-                    if (c.ArkId == arkId)
+                    if (c.ArkIdImported && c.ArkId == arkId)
                     {
                         foundCreature = c;
                         return true;

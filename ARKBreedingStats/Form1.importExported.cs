@@ -149,8 +149,8 @@ namespace ARKBreedingStats
             Species species = speciesSelector1.SelectedSpecies;
             Creature creature = null;
 
-            if (Properties.Settings.Default.OnAutoImportAddToLibrary
-                && uniqueExtraction)
+            if (uniqueExtraction
+                && Properties.Settings.Default.OnAutoImportAddToLibrary)
             {
                 creature = AddCreatureToCollection(true, goToLibraryTab: Properties.Settings.Default.AutoImportGotoLibraryAfterSuccess);
                 SetMessageLabelText($"Successful {(alreadyExists ? "updated" : "added")} {creature.name} ({species.name}) of the exported file\n" + filePath, MessageBoxIcon.Information, filePath);

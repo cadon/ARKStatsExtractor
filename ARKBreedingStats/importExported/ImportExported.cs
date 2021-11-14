@@ -224,22 +224,6 @@ namespace ARKBreedingStats.importExported
                 }
             }
 
-            // if parent ArkIds are set, create creature placeholder
-            if (cv.motherArkId != 0)
-            {
-                cv.Mother = new Creature(cv.motherArkId)
-                {
-                    Species = cv.Species
-                };
-            }
-            if (cv.fatherArkId != 0)
-            {
-                cv.Father = new Creature(cv.fatherArkId)
-                {
-                    Species = cv.Species
-                };
-            }
-
             // if file was not recognized, return null
             if (string.IsNullOrEmpty(cv.speciesBlueprint)) return null;
 

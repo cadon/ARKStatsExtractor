@@ -959,14 +959,30 @@ namespace ARKBreedingStats
         /// <param name="cv"></param>
         /// <param name="filePath">If given, the file path will be displayed as info.</param>
         /// <param name="autoExtraction"></param>
-        /// <param name="highPrecisionValues"></param>
+        /// <param name="highPrecisionValues">If values from an export file with increased precision are given, extraction can be improved by using that.</param>
         /// <returns></returns>
         private bool ExtractValuesInExtractor(CreatureValues cv, string filePath, bool autoExtraction, bool highPrecisionValues = true)
         {
             bool creatureExists = IsCreatureAlreadyInLibrary(cv.guid, cv.ARKID, out Creature existingCreature);
 
-            if (creatureExists && string.IsNullOrEmpty(cv.server) && !string.IsNullOrEmpty(existingCreature.server))
-                cv.server = existingCreature.server;
+            if (creatureExists)
+            {
+                if (string.IsNullOrEmpty(cv.server) && !string.IsNullOrEmpty(existingCreature.server))
+                    cv.server = existingCreature.server;
+
+                // ARK doesn't export parent and mutation info always
+                // if export file doesn't contain parent info, use the existing ones
+                if (cv.Mother == null && cv.motherArkId == 0 && existingCreature.Mother != null)
+                    cv.Mother = existingCreature.Mother;
+                if (cv.Father == null && cv.fatherArkId == 0 && existingCreature.Father != null)
+                    cv.Father = existingCreature.Father;
+
+                // if export file doesn't contain mutation info and existing creature does, use that
+                if (cv.mutationCounterMother == 0 && existingCreature.mutationsMaternal != 0)
+                    cv.mutationCounterMother = existingCreature.mutationsMaternal;
+                if (cv.mutationCounterFather == 0 && existingCreature.mutationsPaternal != 0)
+                    cv.mutationCounterFather = existingCreature.mutationsPaternal;
+            }
 
             SetCreatureValuesToExtractor(cv, false);
 
@@ -1005,7 +1021,7 @@ namespace ARKBreedingStats
             // at this point, if the creatureValues has parent-ArkIds, make sure these parent-creatures exist
             if (cv.Mother == null)
             {
-                if (_creatureCollection.CreatureById(cv.motherGuid, cv.motherArkId, cv.Species, cv.sex, out Creature mother))
+                if (_creatureCollection.CreatureById(cv.motherGuid, cv.motherArkId, cv.Species, out Creature mother))
                 {
                     cv.Mother = mother;
                 }
@@ -1017,7 +1033,7 @@ namespace ARKBreedingStats
             }
             if (cv.Father == null)
             {
-                if (_creatureCollection.CreatureById(cv.fatherGuid, cv.fatherArkId, cv.Species, cv.sex, out Creature father))
+                if (_creatureCollection.CreatureById(cv.fatherGuid, cv.fatherArkId, cv.Species, out Creature father))
                 {
                     cv.Father = father;
                 }
