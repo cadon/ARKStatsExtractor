@@ -276,14 +276,6 @@ namespace ARKBreedingStats
             flowLayoutPanelStatIOsExtractor.Controls.Add(labelFootnote);
             flowLayoutPanelStatIOsTester.Controls.Add(panelStatTesterFootnote);
 
-            // some stats are not used for any species, hide them permanently (until needed in a later release)
-            _statIOs[(int)StatNames.Water].Hide();
-            _statIOs[(int)StatNames.Temperature].Hide();
-            _statIOs[(int)StatNames.TemperatureFortitude].Hide();
-            _testingIOs[(int)StatNames.Water].Hide();
-            _testingIOs[(int)StatNames.Temperature].Hide();
-            _testingIOs[(int)StatNames.TemperatureFortitude].Hide();
-
             breedingPlan1.MutationLimit = Properties.Settings.Default.MutationLimitBreedingPlanner;
 
             // enable 0-lock for dom-levels of oxygen, food (most often they are not leveled up)
@@ -624,13 +616,13 @@ namespace ARKBreedingStats
                     ? species.UsesStat(s)
                     : species.DisplaysStat(s);
 
-
                 _statIOs[s].IsActive = _activeStats[s];
+                _statIOs[s].Visible = species.UsesStat(s);
                 _testingIOs[s].IsActive = species.UsesStat(s);
                 if (!_activeStats[s]) _statIOs[s].Input = 0;
                 _statIOs[s].Title = Utils.StatName(s, false, statNames);
                 _testingIOs[s].Title = Utils.StatName(s, false, statNames);
-                // don't lock special stats of glowspecies
+                // don't lock special stats of glow species
                 if ((statNames != null &&
                      (s == (int)StatNames.Stamina
                       || s == (int)StatNames.Oxygen
