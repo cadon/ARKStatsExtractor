@@ -967,8 +967,19 @@ namespace ARKBreedingStats
 
             if (creatureExists)
             {
-                if (string.IsNullOrEmpty(cv.server) && !string.IsNullOrEmpty(existingCreature.server))
-                    cv.server = existingCreature.server;
+                // don't clear existing info of the creature
+                //if (string.IsNullOrEmpty(cv.server) && !string.IsNullOrEmpty(existingCreature.server))
+                //    cv.server = existingCreature.server;
+
+                SetExistingValueIfNewValueIsEmpty(ref cv.server, ref existingCreature.server);
+                SetExistingValueIfNewValueIsEmpty(ref cv.tribe, ref existingCreature.tribe);
+                SetExistingValueIfNewValueIsEmpty(ref cv.note, ref existingCreature.note);
+
+                void SetExistingValueIfNewValueIsEmpty(ref string newValue, ref string oldValue)
+                {
+                    if (string.IsNullOrEmpty(newValue) && !string.IsNullOrEmpty(oldValue))
+                        newValue = oldValue;
+                }
 
                 // ARK doesn't export parent and mutation info always
                 // if export file doesn't contain parent info, use the existing ones

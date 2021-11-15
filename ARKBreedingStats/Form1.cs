@@ -2757,6 +2757,7 @@ namespace ARKBreedingStats
                 input.CreatureTribe = cv.tribe;
             if (!creatureInfoInputExtractor.LockServer)
                 input.CreatureServer = cv.server;
+            input.CreatureNote = cv.note;
             input.CreatureSex = cv.sex;
             input.CreatureGuid = cv.guid;
             input.CreatureFlags = cv.flags;
@@ -2770,7 +2771,6 @@ namespace ARKBreedingStats
             input.CooldownUntil = cv.cooldownUntil;
             input.MotherArkId = cv.motherArkId;
             input.FatherArkId = cv.fatherArkId;
-            input.CreatureNote = string.Empty;
             input.CreatureStatus = CreatureStatus.Available;
             input.SetTimersToChanged();
         }
@@ -2795,6 +2795,7 @@ namespace ARKBreedingStats
             cv.owner = creatureInfoInputExtractor.CreatureOwner;
             cv.tribe = creatureInfoInputExtractor.CreatureTribe;
             cv.server = creatureInfoInputExtractor.CreatureServer;
+            cv.note = creatureInfoInputExtractor.CreatureNote;
             cv.sex = creatureInfoInputExtractor.CreatureSex;
             cv.flags = creatureInfoInputExtractor.CreatureFlags;
             cv.Mother = creatureInfoInputExtractor.Mother;

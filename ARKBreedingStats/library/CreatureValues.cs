@@ -56,6 +56,8 @@ namespace ARKBreedingStats.Library
         [JsonProperty]
         public string server;
         [JsonProperty]
+        public string note;
+        [JsonProperty]
         public long fatherArkId; // used when importing creatures, parents are indicated by this id
         [JsonProperty]
         public long motherArkId;
