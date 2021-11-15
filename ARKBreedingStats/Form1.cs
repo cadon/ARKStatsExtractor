@@ -618,7 +618,7 @@ namespace ARKBreedingStats
 
                 _statIOs[s].IsActive = _activeStats[s];
                 _statIOs[s].Visible = species.UsesStat(s);
-                _testingIOs[s].IsActive = species.UsesStat(s);
+                _testingIOs[s].Visible = species.UsesStat(s);
                 if (!_activeStats[s]) _statIOs[s].Input = 0;
                 _statIOs[s].Title = Utils.StatName(s, false, statNames);
                 _testingIOs[s].Title = Utils.StatName(s, false, statNames);
