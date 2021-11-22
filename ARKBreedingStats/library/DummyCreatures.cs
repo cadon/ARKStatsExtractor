@@ -16,7 +16,7 @@ namespace ARKBreedingStats.library
     {
         public static DummyCreatureCreationSettings LastSettings;
 
-        public static List<Creature> CreateCreatures(int count, Species species, int numberSpecies, int breedGenerations, int usePairsPerGeneration, double probabilityHigherStat = 0.55, double randomMutationChance = 0.025)
+        public static List<Creature> CreateCreatures(int count, Species species, int numberSpecies, int breedGenerations, int usePairsPerGeneration, double probabilityHigherStat = 0.55, double randomMutationChance = 0.025, int maxWildLevel = 150)
         {
             if (count < 1) return null;
 
@@ -28,7 +28,8 @@ namespace ARKBreedingStats.library
                 Generations = breedGenerations,
                 PairsPerGeneration = usePairsPerGeneration,
                 ProbabilityHigherStat = probabilityHigherStat,
-                RandomMutationChance = randomMutationChance
+                RandomMutationChance = randomMutationChance,
+                MaxWildLevel = maxWildLevel
             };
 
             if (_levelInverseCumulativeFunction == null)
@@ -64,9 +65,10 @@ namespace ARKBreedingStats.library
                 }
             }
 
-            var levelStep = CreatureCollection.CurrentCreatureCollection?.wildLevelStep ?? 5;
-            var maxWildLevel = CreatureCollection.CurrentCreatureCollection?.maxWildLevel ?? 150;
+            if (maxWildLevel < 1)
+                maxWildLevel = CreatureCollection.CurrentCreatureCollection?.maxWildLevel ?? 150;
             var difficulty = maxWildLevel / 30d;
+            var levelStep = (int)difficulty;
 
             var nameCounter = new Dictionary<string, int>();
 
@@ -75,8 +77,8 @@ namespace ARKBreedingStats.library
                 if (randomSpecies)
                     species = speciesSelection[rand.Next(speciesCount)];
 
-                // only "tame" higher creatures
-                var creatureLevel = (21 + rand.Next(10)) * difficulty;
+                // rather "tame" higher creatures
+                var creatureLevel = (rand.Next(5) == 0 ? rand.Next(21) + 1 : 21 + rand.Next(10)) * difficulty;
                 var tamingEffectiveness = 0.5 + rand.NextDouble() / 2; // assume at least 50 % te
                 creatureLevel *= 1 + 0.5 * tamingEffectiveness;
 
@@ -378,5 +380,6 @@ namespace ARKBreedingStats.library
         public int PairsPerGeneration = 2;
         public double ProbabilityHigherStat = GameConstants.ProbabilityHigherLevel;
         public double RandomMutationChance = GameConstants.ProbabilityOfMutation;
+        public int MaxWildLevel = 150;
     }
 }

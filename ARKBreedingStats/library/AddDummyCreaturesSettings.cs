@@ -21,6 +21,7 @@ namespace ARKBreedingStats.library
             NudUsePairsPerGeneration.ValueSave = settings.PairsPerGeneration;
             NudProbabilityInheritingHigherStat.ValueSaveDouble = settings.ProbabilityHigherStat * 100;
             NudMutationChance.ValueSaveDouble = settings.RandomMutationChance * 100;
+            nudMaxWildLevel.ValueSave = settings.MaxWildLevel;
         }
 
         private void BtCancel_Click(object sender, EventArgs e)

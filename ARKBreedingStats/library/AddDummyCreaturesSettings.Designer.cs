@@ -34,29 +34,32 @@ namespace ARKBreedingStats.library
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.NudAmount = new ARKBreedingStats.uiControls.Nud();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.RbMultipleRandomSpecies = new System.Windows.Forms.RadioButton();
+            this.RbOnlySelectedSpecies = new System.Windows.Forms.RadioButton();
+            this.NudSpeciesAmount = new ARKBreedingStats.uiControls.Nud();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.RbOnlySelectedSpecies = new System.Windows.Forms.RadioButton();
-            this.RbMultipleRandomSpecies = new System.Windows.Forms.RadioButton();
             this.NudMutationChance = new ARKBreedingStats.uiControls.Nud();
+            this.label6 = new System.Windows.Forms.Label();
             this.NudProbabilityInheritingHigherStat = new ARKBreedingStats.uiControls.Nud();
+            this.label5 = new System.Windows.Forms.Label();
             this.NudUsePairsPerGeneration = new ARKBreedingStats.uiControls.Nud();
+            this.label4 = new System.Windows.Forms.Label();
             this.NudBreedForGenerations = new ARKBreedingStats.uiControls.Nud();
-            this.NudSpeciesAmount = new ARKBreedingStats.uiControls.Nud();
-            this.NudAmount = new ARKBreedingStats.uiControls.Nud();
+            this.nudMaxWildLevel = new ARKBreedingStats.uiControls.Nud();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NudAmount)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NudSpeciesAmount)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NudMutationChance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudProbabilityInheritingHigherStat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudUsePairsPerGeneration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudBreedForGenerations)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NudSpeciesAmount)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NudAmount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxWildLevel)).BeginInit();
             this.SuspendLayout();
             // 
             // BtOk
@@ -102,6 +105,8 @@ namespace ARKBreedingStats.library
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.nudMaxWildLevel);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.NudAmount);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
@@ -110,6 +115,24 @@ namespace ARKBreedingStats.library
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tamed Creatures";
+            // 
+            // NudAmount
+            // 
+            this.NudAmount.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.NudAmount.Location = new System.Drawing.Point(114, 19);
+            this.NudAmount.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.NudAmount.Name = "NudAmount";
+            this.NudAmount.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.NudAmount.Size = new System.Drawing.Size(67, 20);
+            this.NudAmount.TabIndex = 3;
             // 
             // groupBox2
             // 
@@ -123,60 +146,6 @@ namespace ARKBreedingStats.library
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Species";
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.NudMutationChance);
-            this.groupBox3.Controls.Add(this.label6);
-            this.groupBox3.Controls.Add(this.NudProbabilityInheritingHigherStat);
-            this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.NudUsePairsPerGeneration);
-            this.groupBox3.Controls.Add(this.label4);
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.NudBreedForGenerations);
-            this.groupBox3.Location = new System.Drawing.Point(12, 144);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(347, 127);
-            this.groupBox3.TabIndex = 11;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Breed the tamed creatures";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 99);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(204, 13);
-            this.label6.TabIndex = 16;
-            this.label6.Text = "Probability in % of mutation (ingame 2.5 %)";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 73);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(258, 13);
-            this.label5.TabIndex = 14;
-            this.label5.Text = "Probability in % of inheriting better stats (ingame 55 %)";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 47);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(184, 13);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "Use the best pairs of each generation";
-            // 
-            // RbOnlySelectedSpecies
-            // 
-            this.RbOnlySelectedSpecies.AutoSize = true;
-            this.RbOnlySelectedSpecies.Location = new System.Drawing.Point(6, 19);
-            this.RbOnlySelectedSpecies.Name = "RbOnlySelectedSpecies";
-            this.RbOnlySelectedSpecies.Size = new System.Drawing.Size(128, 17);
-            this.RbOnlySelectedSpecies.TabIndex = 7;
-            this.RbOnlySelectedSpecies.Text = "Only selected species";
-            this.RbOnlySelectedSpecies.UseVisualStyleBackColor = true;
-            // 
             // RbMultipleRandomSpecies
             // 
             this.RbMultipleRandomSpecies.AutoSize = true;
@@ -187,59 +156,15 @@ namespace ARKBreedingStats.library
             this.RbMultipleRandomSpecies.Text = "Multiple random species";
             this.RbMultipleRandomSpecies.UseVisualStyleBackColor = true;
             // 
-            // NudMutationChance
+            // RbOnlySelectedSpecies
             // 
-            this.NudMutationChance.DecimalPlaces = 2;
-            this.NudMutationChance.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.NudMutationChance.Location = new System.Drawing.Point(270, 97);
-            this.NudMutationChance.Name = "NudMutationChance";
-            this.NudMutationChance.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.NudMutationChance.Size = new System.Drawing.Size(67, 20);
-            this.NudMutationChance.TabIndex = 17;
-            // 
-            // NudProbabilityInheritingHigherStat
-            // 
-            this.NudProbabilityInheritingHigherStat.DecimalPlaces = 2;
-            this.NudProbabilityInheritingHigherStat.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.NudProbabilityInheritingHigherStat.Location = new System.Drawing.Point(270, 71);
-            this.NudProbabilityInheritingHigherStat.Name = "NudProbabilityInheritingHigherStat";
-            this.NudProbabilityInheritingHigherStat.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.NudProbabilityInheritingHigherStat.Size = new System.Drawing.Size(67, 20);
-            this.NudProbabilityInheritingHigherStat.TabIndex = 15;
-            // 
-            // NudUsePairsPerGeneration
-            // 
-            this.NudUsePairsPerGeneration.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.NudUsePairsPerGeneration.Location = new System.Drawing.Point(270, 45);
-            this.NudUsePairsPerGeneration.Name = "NudUsePairsPerGeneration";
-            this.NudUsePairsPerGeneration.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.NudUsePairsPerGeneration.Size = new System.Drawing.Size(67, 20);
-            this.NudUsePairsPerGeneration.TabIndex = 13;
-            // 
-            // NudBreedForGenerations
-            // 
-            this.NudBreedForGenerations.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.NudBreedForGenerations.Location = new System.Drawing.Point(270, 19);
-            this.NudBreedForGenerations.Name = "NudBreedForGenerations";
-            this.NudBreedForGenerations.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.NudBreedForGenerations.Size = new System.Drawing.Size(67, 20);
-            this.NudBreedForGenerations.TabIndex = 8;
+            this.RbOnlySelectedSpecies.AutoSize = true;
+            this.RbOnlySelectedSpecies.Location = new System.Drawing.Point(6, 19);
+            this.RbOnlySelectedSpecies.Name = "RbOnlySelectedSpecies";
+            this.RbOnlySelectedSpecies.Size = new System.Drawing.Size(128, 17);
+            this.RbOnlySelectedSpecies.TabIndex = 7;
+            this.RbOnlySelectedSpecies.Text = "Only selected species";
+            this.RbOnlySelectedSpecies.UseVisualStyleBackColor = true;
             // 
             // NudSpeciesAmount
             // 
@@ -259,23 +184,130 @@ namespace ARKBreedingStats.library
             this.NudSpeciesAmount.Size = new System.Drawing.Size(67, 20);
             this.NudSpeciesAmount.TabIndex = 6;
             // 
-            // NudAmount
+            // groupBox3
             // 
-            this.NudAmount.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.NudAmount.Location = new System.Drawing.Point(114, 19);
-            this.NudAmount.Maximum = new decimal(new int[] {
+            this.groupBox3.Controls.Add(this.NudMutationChance);
+            this.groupBox3.Controls.Add(this.label6);
+            this.groupBox3.Controls.Add(this.NudProbabilityInheritingHigherStat);
+            this.groupBox3.Controls.Add(this.label5);
+            this.groupBox3.Controls.Add(this.NudUsePairsPerGeneration);
+            this.groupBox3.Controls.Add(this.label4);
+            this.groupBox3.Controls.Add(this.label3);
+            this.groupBox3.Controls.Add(this.NudBreedForGenerations);
+            this.groupBox3.Location = new System.Drawing.Point(12, 144);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(347, 127);
+            this.groupBox3.TabIndex = 11;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Breed the tamed creatures";
+            // 
+            // NudMutationChance
+            // 
+            this.NudMutationChance.DecimalPlaces = 2;
+            this.NudMutationChance.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.NudMutationChance.Location = new System.Drawing.Point(270, 97);
+            this.NudMutationChance.Name = "NudMutationChance";
+            this.NudMutationChance.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.NudMutationChance.Size = new System.Drawing.Size(67, 20);
+            this.NudMutationChance.TabIndex = 17;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 99);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(204, 13);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Probability in % of mutation (ingame 2.5 %)";
+            // 
+            // NudProbabilityInheritingHigherStat
+            // 
+            this.NudProbabilityInheritingHigherStat.DecimalPlaces = 2;
+            this.NudProbabilityInheritingHigherStat.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.NudProbabilityInheritingHigherStat.Location = new System.Drawing.Point(270, 71);
+            this.NudProbabilityInheritingHigherStat.Name = "NudProbabilityInheritingHigherStat";
+            this.NudProbabilityInheritingHigherStat.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.NudProbabilityInheritingHigherStat.Size = new System.Drawing.Size(67, 20);
+            this.NudProbabilityInheritingHigherStat.TabIndex = 15;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 73);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(258, 13);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "Probability in % of inheriting better stats (ingame 55 %)";
+            // 
+            // NudUsePairsPerGeneration
+            // 
+            this.NudUsePairsPerGeneration.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.NudUsePairsPerGeneration.Location = new System.Drawing.Point(270, 45);
+            this.NudUsePairsPerGeneration.Name = "NudUsePairsPerGeneration";
+            this.NudUsePairsPerGeneration.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.NudUsePairsPerGeneration.Size = new System.Drawing.Size(67, 20);
+            this.NudUsePairsPerGeneration.TabIndex = 13;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 47);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(184, 13);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Use the best pairs of each generation";
+            // 
+            // NudBreedForGenerations
+            // 
+            this.NudBreedForGenerations.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.NudBreedForGenerations.Location = new System.Drawing.Point(270, 19);
+            this.NudBreedForGenerations.Name = "NudBreedForGenerations";
+            this.NudBreedForGenerations.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.NudBreedForGenerations.Size = new System.Drawing.Size(67, 20);
+            this.NudBreedForGenerations.TabIndex = 8;
+            // 
+            // nudMaxWildLevel
+            // 
+            this.nudMaxWildLevel.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudMaxWildLevel.Location = new System.Drawing.Point(274, 19);
+            this.nudMaxWildLevel.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
-            this.NudAmount.Name = "NudAmount";
-            this.NudAmount.NeutralNumber = new decimal(new int[] {
+            this.nudMaxWildLevel.Name = "nudMaxWildLevel";
+            this.nudMaxWildLevel.NeutralNumber = new decimal(new int[] {
             0,
             0,
             0,
             0});
-            this.NudAmount.Size = new System.Drawing.Size(67, 20);
-            this.NudAmount.TabIndex = 3;
+            this.nudMaxWildLevel.Size = new System.Drawing.Size(67, 20);
+            this.nudMaxWildLevel.TabIndex = 5;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(196, 21);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(72, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "max wild level";
             // 
             // AddDummyCreaturesSettings
             // 
@@ -297,16 +329,17 @@ namespace ARKBreedingStats.library
             this.Text = "Add random creatures";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NudAmount)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NudSpeciesAmount)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NudMutationChance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudProbabilityInheritingHigherStat)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudUsePairsPerGeneration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudBreedForGenerations)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NudSpeciesAmount)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NudAmount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxWildLevel)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -332,5 +365,7 @@ namespace ARKBreedingStats.library
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RadioButton RbMultipleRandomSpecies;
         private System.Windows.Forms.RadioButton RbOnlySelectedSpecies;
+        private System.Windows.Forms.Label label2;
+        private uiControls.Nud nudMaxWildLevel;
     }
 }
