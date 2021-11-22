@@ -1393,11 +1393,12 @@ namespace ARKBreedingStats.settings
             using (var brush = new SolidBrush(Color.Black))
             {
                 var hueRange = maxHue - minHue;
-                const int Segments = 5;
-                for (int i = 0; i < Segments; i++)
+                const int segments = 10;
+                var segmentWidth = img.Width / segments;
+                for (int i = 0; i < segments; i++)
                 {
-                    brush.Color = Utils.ColorFromHue(minHue + hueRange * i / Segments);
-                    g.FillRectangle(brush, i * 20, 0, 20, img.Height);
+                    brush.Color = Utils.ColorFromHue(minHue + hueRange * i / segments);
+                    g.FillRectangle(brush, i * segmentWidth, 0, segmentWidth, img.Height);
                 }
             }
             pb.SetImageAndDisposeOld(img);
