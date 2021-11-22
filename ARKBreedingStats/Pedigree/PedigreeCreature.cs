@@ -346,6 +346,7 @@ namespace ARKBreedingStats.uiControls
             setCooldownToolStripMenuItem.Visible = !isVirtual;
             removeCooldownGrowingToolStripMenuItem.Visible = !isVirtual;
             bestBreedingPartnersToolStripMenuItem.Visible = !isVirtual;
+            TsMiViewInPedigree.Visible = !isVirtual;
             editToolStripMenuItem.Text = isVirtual ? "Copy values to Tester" : "Edit";
         }
 
