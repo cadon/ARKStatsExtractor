@@ -684,7 +684,7 @@ Habilítelo si el OCR no reconoce el nombre de la tribu correctamente y desea ag
     <value>Despertar de</value>
   </data>
   <data name="TimeUntilFeedingAllFood" xml:space="preserve">
-    <value>Tiempo hasta que pueda comer todo de gole</value>
+    <value>Tiempo hasta que pueda comer todo de golpe</value>
   </data>
   <data name="timeUntilStarving" xml:space="preserve">
     <value>Tiempo hasta morir de hambre:</value>
