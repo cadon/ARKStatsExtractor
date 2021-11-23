@@ -1609,8 +1609,11 @@ namespace ARKBreedingStats
         private void checkBoxQuickWildCheck_CheckedChanged(object sender, EventArgs e)
         {
             UpdateQuickTamingInfo();
-            if (cbQuickWildCheck.Checked)
+            var quickCheckMode = cbQuickWildCheck.Checked;
+            if (quickCheckMode)
                 ExtractionFailed();
+            btExtractLevels.Enabled = !quickCheckMode;
+            cbQuickWildCheck.BackColor = quickCheckMode ? Color.Orange : Color.Transparent;
         }
 
         private void onlinehelpToolStripMenuItem_Click(object sender, EventArgs e)
