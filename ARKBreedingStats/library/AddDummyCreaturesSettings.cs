@@ -42,7 +42,8 @@ namespace ARKBreedingStats.library
                     Generations = (int)NudBreedForGenerations.Value,
                     PairsPerGeneration = (int)NudUsePairsPerGeneration.Value,
                     ProbabilityHigherStat = (double)NudProbabilityInheritingHigherStat.Value / 100,
-                    RandomMutationChance = (double)NudMutationChance.Value / 100
+                    RandomMutationChance = (double)NudMutationChance.Value / 100,
+                    MaxWildLevel = (int)nudMaxWildLevel.Value
                 };
             }
             Close();
