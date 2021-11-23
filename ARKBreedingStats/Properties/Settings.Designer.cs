@@ -1993,5 +1993,17 @@ namespace ARKBreedingStats.Properties {
                 this["RaisingFoodLastSelected"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BreedingPlanDontSuggestOverLimitOffspring {
+            get {
+                return ((bool)(this["BreedingPlanDontSuggestOverLimitOffspring"]));
+            }
+            set {
+                this["BreedingPlanDontSuggestOverLimitOffspring"] = value;
+            }
+        }
     }
 }

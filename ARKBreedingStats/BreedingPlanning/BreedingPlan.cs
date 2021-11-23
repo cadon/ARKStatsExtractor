@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.Ark;
@@ -104,6 +105,7 @@ namespace ARKBreedingStats.BreedingPlanning
             cbBPOnlyOneSuggestionForFemales.Checked = Settings.Default.BreedingPlanOnlyBestSuggestionForEachFemale;
             cbBPMutationLimitOnlyOnePartner.Checked = Settings.Default.BreedingPlanOnePartnerMoreMutationsThanLimit;
             CbConsiderOnlyEvenForHighStats.Checked = Settings.Default.BreedingPlannerConsiderOnlyEvenForHighStats;
+            CbDontSuggestOverLimitOffspring.Checked = Settings.Default.BreedingPlanDontSuggestOverLimitOffspring;
 
             tagSelectorList1.OnTagChanged += TagSelectorList1_OnTagChanged;
 
@@ -384,10 +386,13 @@ namespace ARKBreedingStats.BreedingPlanning
 
                 short[] bestPossLevels = new short[Values.STATS_COUNT]; // best possible levels
 
+                var levelLimitWithOutDomLevels = (CreatureCollection.CurrentCreatureCollection?.maxServerLevel ?? 0) - (CreatureCollection.CurrentCreatureCollection?.maxDomLevel ?? 0);
+                if (levelLimitWithOutDomLevels < 0) levelLimitWithOutDomLevels = 0;
+
                 _breedingPairs = BreedingScore.CalculateBreedingScores(selectedFemales, selectedMales, _currentSpecies,
                     bestPossLevels, _statWeights, _bestLevels, _breedingMode,
                     considerChosenCreature, considerMutationLimit, (int)nudBPMutationLimit.Value,
-                    ref creaturesMutationsFilteredOut);
+                    ref creaturesMutationsFilteredOut, levelLimitWithOutDomLevels, CbDontSuggestOverLimitOffspring.Checked);
 
                 if (cbBPOnlyOneSuggestionForFemales.Checked)
                 {
@@ -408,6 +413,7 @@ namespace ARKBreedingStats.BreedingPlanning
                         bp.BreedingScore -= minScore;
                 }
 
+                var sb = new StringBuilder();
                 // draw best parents
                 using (var brush = new SolidBrush(Color.Black))
                 {
@@ -467,18 +473,25 @@ namespace ARKBreedingStats.BreedingPlanning
                             _pcs.Add(pc);
                         }
 
+                        sb.Clear();
+
                         Bitmap bm = new Bitmap(pb.Width, pb.Height);
                         using (Graphics g = Graphics.FromImage(bm))
                         {
                             g.TextRenderingHint = TextRenderingHint.AntiAlias;
                             brush.Color = Utils.MutationColor;
                             if (_breedingPairs[i].Female.Mutations < GameConstants.MutationPossibleWithLessThan)
+                            {
                                 g.FillRectangle(brush, 0, 5, 10, 10);
+                                sb.AppendLine(_breedingPairs[i].Female + " can produce a mutation.");
+                            }
                             if (_breedingPairs[i].Male.Mutations < GameConstants.MutationPossibleWithLessThan)
+                            {
                                 g.FillRectangle(brush, 77, 5, 10, 10);
+                                sb.AppendLine(_breedingPairs[i].Male + " can produce a mutation.");
+                            }
                             // outline
-                            brush.Color =
-                                Utils.GetColorFromPercent((int)(_breedingPairs[i].BreedingScore * 12.5), -.2);
+                            brush.Color = Utils.GetColorFromPercent((int)(_breedingPairs[i].BreedingScore * 12.5), -.2);
                             g.FillRectangle(brush, 0, 15, 87, 5);
                             g.FillRectangle(brush, 20, 10, 47, 15);
                             // fill
@@ -486,11 +499,20 @@ namespace ARKBreedingStats.BreedingPlanning
                                 Utils.GetColorFromPercent((int)(_breedingPairs[i].BreedingScore * 12.5), 0.5);
                             g.FillRectangle(brush, 1, 16, 85, 3);
                             g.FillRectangle(brush, 21, 11, 45, 13);
+                            if (_breedingPairs[i].HighestOffspringOverLevelLimit)
+                            {
+                                brush.Color = Color.Red;
+                                g.FillRectangle(brush, 15, 26, 55, 3);
+                                sb.AppendLine("The highest possible and fully leveled offspring is over the level limit!");
+                            }
+                            // breeding score text
                             brush.Color = Color.Black;
                             g.DrawString(_breedingPairs[i].BreedingScore.ToString("N4"),
                                 new Font("Microsoft Sans Serif", 8.25f), brush, 24, 12);
                             pb.Image = bm;
                         }
+
+                        _tt.SetToolTip(pb, sb.Length > 0 ? sb.ToString() : null);
                     }
                 }
 
@@ -1151,6 +1173,12 @@ namespace ARKBreedingStats.BreedingPlanning
         private void CbConsiderOnlyEvenForHighStats_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.BreedingPlannerConsiderOnlyEvenForHighStats = CbConsiderOnlyEvenForHighStats.Checked;
+            CalculateBreedingScoresAndDisplayPairs();
+        }
+
+        private void CbDontSuggestOverLimitOffspring_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.BreedingPlanDontSuggestOverLimitOffspring = CbDontSuggestOverLimitOffspring.Checked;
             CalculateBreedingScoresAndDisplayPairs();
         }
     }

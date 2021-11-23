@@ -14,10 +14,27 @@ namespace ARKBreedingStats.BreedingPlanning
     /// </summary>
     public static class BreedingScore
     {
+        /// <summary>
+        /// Calculates the breeding score of all possible pairs.
+        /// </summary>
+        /// <param name="females"></param>
+        /// <param name="males"></param>
+        /// <param name="species"></param>
+        /// <param name="bestPossLevels"></param>
+        /// <param name="statWeights"></param>
+        /// <param name="bestLevels"></param>
+        /// <param name="breedingMode"></param>
+        /// <param name="considerChosenCreature"></param>
+        /// <param name="considerMutationLimit"></param>
+        /// <param name="mutationLimit"></param>
+        /// <param name="creaturesMutationsFilteredOut"></param>
+        /// <param name="offspringLevelLimit">If &gt; 0, pairs that can result in a creature with a level higher than that, are highlighted. This can be used if there's a level cap.</param>
+        /// <param name="downGradeOffspringWithLevelHigherThanLimit">Downgrade score if level is higher than limit.</param>
+        /// <returns></returns>
         public static List<BreedingPair> CalculateBreedingScores(Creature[] females, Creature[] males, Species species,
             short[] bestPossLevels, double[] statWeights, int[] bestLevels, BreedingPlan.BreedingMode breedingMode,
             bool considerChosenCreature, bool considerMutationLimit, int mutationLimit,
-            ref bool creaturesMutationsFilteredOut)
+            ref bool creaturesMutationsFilteredOut, int offspringLevelLimit = 0, bool downGradeOffspringWithLevelHigherThanLimit = false)
         {
             var breedingPairs = new List<BreedingPair>();
             var ignoreSex = Properties.Settings.Default.IgnoreSexInBreedingPlan || species.noGender;
@@ -53,6 +70,8 @@ namespace ARKBreedingStats.BreedingPlanning
                     int topFemale = 0;
                     int topMale = 0;
 
+                    int maxPossibleOffspringLevel = 1;
+
                     for (int s = 0; s < Values.STATS_COUNT; s++)
                     {
                         if (s == (int)StatNames.Torpidity || !species.UsesStat(s)) continue;
@@ -61,6 +80,7 @@ namespace ARKBreedingStats.BreedingPlanning
                         int lowerLevel = Math.Min(female.levelsWild[s], male.levelsWild[s]);
                         if (higherLevel < 0) higherLevel = 0;
                         if (lowerLevel < 0) lowerLevel = 0;
+                        maxPossibleOffspringLevel += higherLevel;
 
                         bool ignoreTopStats = Settings.Default.BreedingPlannerConsiderOnlyEvenForHighStats
                                               && higherLevel % 2 != 0
@@ -154,11 +174,18 @@ namespace ARKBreedingStats.BreedingPlanning
                         //t *= 2; // scale conservative mode as it rather displays improvement, but only scarcely
                     }
 
+                    var highestOffspringOverLevelLimit =
+                        offspringLevelLimit > 0 && offspringLevelLimit < maxPossibleOffspringLevel;
+                    if (highestOffspringOverLevelLimit && downGradeOffspringWithLevelHigherThanLimit)
+                        t *= 0.01;
 
                     int mutationPossibleFrom = female.Mutations < GameConstants.MutationPossibleWithLessThan && male.Mutations < GameConstants.MutationPossibleWithLessThan ? 2
                         : female.Mutations < GameConstants.MutationPossibleWithLessThan || male.Mutations < GameConstants.MutationPossibleWithLessThan ? 1 : 0;
 
-                    breedingPairs.Add(new BreedingPair(female, male, t * 1.25, (mutationPossibleFrom == 2 ? GameConstants.ProbabilityOfOneMutation : mutationPossibleFrom == 1 ? GameConstants.ProbabilityOfOneMutationFromOneParent : 0)));
+                    breedingPairs.Add(new BreedingPair(female, male,
+                        t * 1.25,
+                        (mutationPossibleFrom == 2 ? GameConstants.ProbabilityOfOneMutation : mutationPossibleFrom == 1 ? GameConstants.ProbabilityOfOneMutationFromOneParent : 0),
+                        highestOffspringOverLevelLimit));
                 }
             }
 

@@ -88,6 +88,7 @@ namespace ARKBreedingStats.BreedingPlanning
             this.panelCombinations = new System.Windows.Forms.Panel();
             this.lbBreedingPlanInfo = new System.Windows.Forms.Label();
             this.flowLayoutPanelPairs = new System.Windows.Forms.FlowLayoutPanel();
+            this.CbDontSuggestOverLimitOffspring = new System.Windows.Forms.CheckBox();
             this.tableLayoutMain.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.gbBPBreedingMode.SuspendLayout();
@@ -141,6 +142,7 @@ namespace ARKBreedingStats.BreedingPlanning
             // 
             // gbBPBreedingMode
             // 
+            this.gbBPBreedingMode.Controls.Add(this.CbDontSuggestOverLimitOffspring);
             this.gbBPBreedingMode.Controls.Add(this.CbConsiderOnlyEvenForHighStats);
             this.gbBPBreedingMode.Controls.Add(this.cbBPMutationLimitOnlyOnePartner);
             this.gbBPBreedingMode.Controls.Add(this.cbBPOnlyOneSuggestionForFemales);
@@ -152,9 +154,9 @@ namespace ARKBreedingStats.BreedingPlanning
             this.gbBPBreedingMode.Controls.Add(this.rbBPHighStats);
             this.gbBPBreedingMode.Controls.Add(this.rbBPTopStats);
             this.gbBPBreedingMode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbBPBreedingMode.Location = new System.Drawing.Point(3, 524);
+            this.gbBPBreedingMode.Location = new System.Drawing.Point(3, 502);
             this.gbBPBreedingMode.Name = "gbBPBreedingMode";
-            this.gbBPBreedingMode.Size = new System.Drawing.Size(238, 231);
+            this.gbBPBreedingMode.Size = new System.Drawing.Size(238, 253);
             this.gbBPBreedingMode.TabIndex = 6;
             this.gbBPBreedingMode.TabStop = false;
             this.gbBPBreedingMode.Text = "Breeding-Mode";
@@ -291,7 +293,7 @@ namespace ARKBreedingStats.BreedingPlanning
             this.tabControl1.MinimumSize = new System.Drawing.Size(0, 200);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(238, 515);
+            this.tabControl1.Size = new System.Drawing.Size(238, 493);
             this.tabControl1.TabIndex = 8;
             // 
             // tabPageBreedableSpecies
@@ -300,7 +302,7 @@ namespace ARKBreedingStats.BreedingPlanning
             this.tabPageBreedableSpecies.Location = new System.Drawing.Point(4, 22);
             this.tabPageBreedableSpecies.Name = "tabPageBreedableSpecies";
             this.tabPageBreedableSpecies.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBreedableSpecies.Size = new System.Drawing.Size(230, 489);
+            this.tabPageBreedableSpecies.Size = new System.Drawing.Size(230, 467);
             this.tabPageBreedableSpecies.TabIndex = 0;
             this.tabPageBreedableSpecies.Text = "Breedable Species";
             this.tabPageBreedableSpecies.UseVisualStyleBackColor = true;
@@ -316,7 +318,7 @@ namespace ARKBreedingStats.BreedingPlanning
             this.listViewSpeciesBP.Location = new System.Drawing.Point(3, 3);
             this.listViewSpeciesBP.MultiSelect = false;
             this.listViewSpeciesBP.Name = "listViewSpeciesBP";
-            this.listViewSpeciesBP.Size = new System.Drawing.Size(224, 483);
+            this.listViewSpeciesBP.Size = new System.Drawing.Size(224, 461);
             this.listViewSpeciesBP.TabIndex = 3;
             this.listViewSpeciesBP.UseCompatibleStateImageBehavior = false;
             this.listViewSpeciesBP.View = System.Windows.Forms.View.Details;
@@ -766,6 +768,17 @@ namespace ARKBreedingStats.BreedingPlanning
             this.flowLayoutPanelPairs.Size = new System.Drawing.Size(1470, 662);
             this.flowLayoutPanelPairs.TabIndex = 1;
             // 
+            // CbDontSuggestOverLimitOffspring
+            // 
+            this.CbDontSuggestOverLimitOffspring.AutoSize = true;
+            this.CbDontSuggestOverLimitOffspring.Location = new System.Drawing.Point(6, 229);
+            this.CbDontSuggestOverLimitOffspring.Name = "CbDontSuggestOverLimitOffspring";
+            this.CbDontSuggestOverLimitOffspring.Size = new System.Drawing.Size(178, 17);
+            this.CbDontSuggestOverLimitOffspring.TabIndex = 10;
+            this.CbDontSuggestOverLimitOffspring.Text = "Don\'t suggest over limit offspring";
+            this.CbDontSuggestOverLimitOffspring.UseVisualStyleBackColor = true;
+            this.CbDontSuggestOverLimitOffspring.CheckedChanged += new System.EventHandler(this.CbDontSuggestOverLimitOffspring_CheckedChanged);
+            // 
             // BreedingPlan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -855,5 +868,6 @@ namespace ARKBreedingStats.BreedingPlanning
         private PedigreeCreature pedigreeCreatureBestPossibleInSpeciesFiltered;
         private System.Windows.Forms.CheckBox CbConsiderOnlyEvenForHighStats;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
+        private System.Windows.Forms.CheckBox CbDontSuggestOverLimitOffspring;
     }
 }
