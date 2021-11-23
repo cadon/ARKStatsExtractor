@@ -373,13 +373,24 @@ namespace ARKBreedingStats.library
     /// </summary>
     public class DummyCreatureCreationSettings
     {
-        public int CreatureCount = 20;
-        public bool OnlySelectedSpecies = true;
-        public int SpeciesCount = 10;
-        public int Generations = 4;
-        public int PairsPerGeneration = 2;
-        public double ProbabilityHigherStat = GameConstants.ProbabilityHigherLevel;
-        public double RandomMutationChance = GameConstants.ProbabilityOfMutation;
-        public int MaxWildLevel = 150;
+        public DummyCreatureCreationSettings()
+        {
+            CreatureCount = 20;
+            OnlySelectedSpecies = true;
+            SpeciesCount = 10;
+            Generations = 4;
+            PairsPerGeneration = 2;
+            ProbabilityHigherStat = GameConstants.ProbabilityHigherLevel;
+            RandomMutationChance = GameConstants.ProbabilityOfMutation;
+            MaxWildLevel = CreatureCollection.CurrentCreatureCollection?.maxWildLevel ?? 150;
+        }
+        public int CreatureCount;
+        public bool OnlySelectedSpecies;
+        public int SpeciesCount;
+        public int Generations;
+        public int PairsPerGeneration;
+        public double ProbabilityHigherStat;
+        public double RandomMutationChance;
+        public int MaxWildLevel;
     }
 }
