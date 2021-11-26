@@ -639,6 +639,11 @@
     <Compile Include="values\ServerMultipliers.cs" />
     <Compile Include="values\Values.cs" />
     <Compile Include="utils\Win32API.cs" />
+    <None Include="Resources\success.wav" />
+    <None Include="Resources\topstat.wav" />
+    <None Include="Resources\failure.wav" />
+    <None Include="Resources\newtopstat.wav" />
+    <None Include="Resources\indifferent.wav" />
     <Content Include="_manifest.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>_manifest.json</LastGenOutput>

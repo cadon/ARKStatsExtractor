@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Media;
 
 namespace ARKBreedingStats.utils
 {
@@ -16,6 +16,8 @@ namespace ARKBreedingStats.utils
             Indifferent
         }
 
+        private static readonly SoundPlayer _sp = new SoundPlayer();
+
         /// <summary>
         /// Beeps.
         /// </summary>
@@ -24,32 +26,25 @@ namespace ARKBreedingStats.utils
             switch (kind)
             {
                 case FeedbackSounds.Indifferent:
-                    Console.Beep(300, 50);
-                    Console.Beep(300, 50);
-                    Console.Beep(300, 100);
-                    break;
+                    _sp.Stream = Properties.Resources.indifferent;
+                    _sp.Play();
+                    return;
                 case FeedbackSounds.Failure:
-                    Console.Beep(300, 50);
-                    Console.Beep(200, 100);
-                    break;
+                    _sp.Stream = Properties.Resources.failure;
+                    _sp.Play();
+                    return;
                 case FeedbackSounds.Success:
-                    Console.Beep(300, 50);
-                    Console.Beep(400, 100);
-                    break;
+                    _sp.Stream = Properties.Resources.success;
+                    _sp.Play();
+                    return;
                 case FeedbackSounds.Good:
-                    Console.Beep(300, 50);
-                    Console.Beep(400, 50);
-                    Console.Beep(500, 50);
-                    Console.Beep(400, 100);
-                    break;
+                    _sp.Stream = Properties.Resources.topstat;
+                    _sp.Play();
+                    return;
                 case FeedbackSounds.Great:
-                    Console.Beep(300, 50);
-                    Console.Beep(400, 50);
-                    Console.Beep(500, 50);
-                    Console.Beep(600, 50);
-                    Console.Beep(675, 50);
-                    Console.Beep(600, 100);
-                    break;
+                    _sp.Stream = Properties.Resources.newtopstat;
+                    _sp.Play();
+                    return;
             }
         }
     }
