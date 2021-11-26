@@ -851,7 +851,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\kofi.png" />
-    <Content Include="Resources\ARKExtractor.ico" />
     <Content Include="Resources\lock.png" />
     <Content Include="Resources\newPlayer.png" />
     <Content Include="Resources\newTribe.png" />
