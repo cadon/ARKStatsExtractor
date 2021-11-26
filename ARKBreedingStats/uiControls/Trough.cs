@@ -29,7 +29,6 @@ namespace ARKBreedingStats.uiControls
 
         /// <summary>
         /// Calculates the needed food from a specific maturation to a specific maturation.
-        /// The returned value adds 10 % to compensate for spoiling.
         /// </summary>
         public static bool FoodAmountFromUntil(Species species, double babyFoodConsumptionSpeedMultiplier, double currentMaturation, double untilMaturation, out double totalFood)
         {
@@ -52,9 +51,7 @@ namespace ARKBreedingStats.uiControls
             // calculate area of rectangle and triangle on top to get the total food needed
             // assuming foodRateStart > foodRateEnd
             totalFood = species.breeding.maturationTimeAdjusted * ((untilMaturation - currentMaturation) * (foodRateEnd + 0.5 * (foodRateStart - foodRateEnd)));
-
-            totalFood *= 1.1; // rough estimation of spoiling
-
+            
             return true;
         }
     }

@@ -79,7 +79,8 @@ namespace ARKBreedingStats.raising
             _ignoreChangedFood = false;
             var selectIndex = string.IsNullOrEmpty(_lastSelectedFood) ? 0 : eats.IndexOf(_lastSelectedFood);
             if (selectIndex == -1) selectIndex = 0;
-            CbGrowingFood.SelectedIndex = selectIndex;
+            if (CbGrowingFood.Items.Count > 0)
+                CbGrowingFood.SelectedIndex = selectIndex;
 
             if (Raising.GetRaisingTimes(_selectedSpecies, out TimeSpan matingTime, out string incubationMode,
                 out TimeSpan incubationTime, out _babyTime, out _maturationTime, out TimeSpan nextMatingMin,
@@ -177,7 +178,7 @@ namespace ARKBreedingStats.raising
                            + $"\nTotal Food for maturation: ~{Math.Ceiling(totalFood / foodValue)} {_foodName}";
                 }
 
-                foodAmount += "\n - Loss by spoiling is only a rough estimate and may vary.";
+                foodAmount += "\n - Loss by spoiling is not considered!";
             }
 
             LbFoodInfoGeneral.Text = foodAmount;
