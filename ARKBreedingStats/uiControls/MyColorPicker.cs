@@ -59,8 +59,9 @@ namespace ARKBreedingStats.uiControls
                 {
                     var np = new NoPaddingButton
                     {
-                        Width = 40,
-                        Height = 20
+                        Width = 44,
+                        Height = 24,
+                        Margin = new Padding(0)
                     };
                     np.Click += ColorChosen;
                     flowLayoutPanel1.Controls.Add(np);
@@ -140,19 +141,22 @@ namespace ARKBreedingStats.uiControls
 
             protected override void OnPaint(PaintEventArgs pe)
             {
+                pe.Graphics.Clear(SystemColors.Control);
+
+                var defaultVisibleRectangle = ClientRectangle;
+                defaultVisibleRectangle.Inflate(-3, -3);
                 using (var b = new SolidBrush(BackColor))
-                    pe.Graphics.FillRectangle(b, ClientRectangle);
+                    pe.Graphics.FillRectangle(b, defaultVisibleRectangle);
 
                 if (Selected)
                 {
                     using (var p = new Pen(Color.Black, 2))
                     {
-                        var rec = new Rectangle(ClientRectangle.Location, ClientRectangle.Size);
-                        rec.Inflate(-1, -1);
-                        pe.Graphics.DrawRectangle(p, rec);
+                        defaultVisibleRectangle.Inflate(2, 2);
+                        pe.Graphics.DrawRectangle(p, defaultVisibleRectangle);
                         p.Color = Color.White;
-                        rec.Inflate(-2, -2);
-                        pe.Graphics.DrawRectangle(p, rec);
+                        defaultVisibleRectangle.Inflate(-2, -2);
+                        pe.Graphics.DrawRectangle(p, defaultVisibleRectangle);
                     }
                 }
 
