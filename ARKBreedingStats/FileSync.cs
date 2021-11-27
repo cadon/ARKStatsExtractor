@@ -137,6 +137,10 @@ namespace ARKBreedingStats
 
             if (disposing)
             {
+                _fileWatcher.Changed -= OnChanged;
+                _fileWatcher.Created -= OnChanged;
+                _fileWatcher.Renamed -= OnChanged;
+                _fileWatcher.Deleted -= OnChanged;
                 _fileWatcher.Dispose();
             }
 
