@@ -1175,9 +1175,9 @@ namespace ARKBreedingStats.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int FilterOnlyIfColorId {
+        public byte FilterOnlyIfColorId {
             get {
-                return ((int)(this["FilterOnlyIfColorId"]));
+                return ((byte)(this["FilterOnlyIfColorId"]));
             }
             set {
                 this["FilterOnlyIfColorId"] = value;

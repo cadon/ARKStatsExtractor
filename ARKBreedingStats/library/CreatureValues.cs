@@ -78,7 +78,7 @@ namespace ARKBreedingStats.Library
         [JsonProperty]
         public int mutationCounter, mutationCounterMother, mutationCounterFather;
         [JsonProperty]
-        public int[] colorIDs = new int[6];
+        public byte[] colorIDs = new byte[Species.ColorRegionCount];
 
         public CreatureValues() { }
 

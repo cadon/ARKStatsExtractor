@@ -10,8 +10,8 @@ namespace ARKBreedingStats.uiControls
 {
     public partial class MyColorPicker : Form
     {
-        public int SelectedColorId;
-        private List<int> _naturalColorIDs;
+        public byte SelectedColorId;
+        private byte[] _naturalColorIDs;
         public bool isShown;
         private readonly ToolTip _tt;
 
@@ -39,13 +39,13 @@ namespace ARKBreedingStats.uiControls
             _tt.Dispose();
         }
 
-        public void SetColors(int selectedColorId, string regionName, List<ArkColor> naturalColors = null)
+        public void SetColors(byte selectedColorId, string regionName, List<ArkColor> naturalColors = null)
         {
             label1.Text = regionName;
             var colors = values.Values.V.Colors.colorsList;
 
             SelectedColorId = selectedColorId;
-            _naturalColorIDs = naturalColors?.Select(ac => ac.Id).ToList();
+            _naturalColorIDs = naturalColors?.Select(ac => ac.Id).ToArray();
             checkBoxOnlyNatural.Visible = _naturalColorIDs != null;
             if (_naturalColorIDs == null)
                 checkBoxOnlyNatural.Checked = true;
@@ -81,7 +81,7 @@ namespace ARKBreedingStats.uiControls
             isShown = true;
         }
 
-        private bool ColorVisible(int id) => !checkBoxOnlyNatural.Checked || (_naturalColorIDs?.Contains(id) ?? true);
+        private bool ColorVisible(byte id) => !checkBoxOnlyNatural.Checked || (_naturalColorIDs?.Contains(id) ?? true);
 
         /// <summary>
         /// Color was chosen and saved in the property SelectedColorId. Window then will be hidden.
@@ -90,7 +90,7 @@ namespace ARKBreedingStats.uiControls
         /// <param name="e"></param>
         private void ColorChosen(object sender, EventArgs e)
         {
-            SelectedColorId = (int)((Control)sender).Tag;
+            SelectedColorId = (byte)((Control)sender).Tag;
             HideWindow(true);
         }
 
@@ -130,7 +130,7 @@ namespace ARKBreedingStats.uiControls
         {
             flowLayoutPanel1.SuspendLayout();
             for (int c = 0; c < flowLayoutPanel1.Controls.Count; c++)
-                flowLayoutPanel1.Controls[c].Visible = ColorVisible((int)flowLayoutPanel1.Controls[c].Tag);
+                flowLayoutPanel1.Controls[c].Visible = ColorVisible((byte)flowLayoutPanel1.Controls[c].Tag);
             flowLayoutPanel1.ResumeLayout();
         }
 

@@ -232,7 +232,7 @@ namespace ARKBreedingStats
                 creature.isBred = true;
             }
 
-            creature.colors = new int[6];
+            creature.colors = new byte[Species.ColorRegionCount];
             for (int i = 0; i < 6; i++)
             {
                 creature.colors[i] = creatureObject.GetPropertyValue<ArkByteValue>("ColorSetIndices", i)?.ByteValue ?? 0;

@@ -131,8 +131,8 @@ namespace ARKBreedingStats
 
         public void InitializeSpeciesImages(List<Species> species)
         {
-            var creatureColors = new int[] { 44, 42, 57, 10, 26, 78 }; // uniform color pattern that is used for all species in the selector
-            var creatureColorsPolar = new int[] { 18, 18, 18, 18, 18, 18 }; // uniform color pattern that is used for all polar species in the selector
+            var creatureColors = new byte[] { 44, 42, 57, 10, 26, 78 }; // uniform color pattern that is used for all species in the selector
+            var creatureColorsPolar = new byte[] { 18, 18, 18, 18, 18, 18 }; // uniform color pattern that is used for all polar species in the selector
             var lImgList = new ImageList();
             _iconIndices = new List<string>();
             bool imageFolderExist = !string.IsNullOrEmpty(CreatureColored.ImageFolder) && Directory.Exists(CreatureColored.ImageFolder);

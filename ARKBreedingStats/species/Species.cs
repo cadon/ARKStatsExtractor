@@ -321,18 +321,18 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Returns an array of colors for a creature of this species with the naturally occurring colors.
         /// </summary>
-        public int[] RandomSpeciesColors(Random rand = null)
+        public byte[] RandomSpeciesColors(Random rand = null)
         {
             if (rand == null) rand = new Random();
 
-            var randomColors = new int[ColorRegionCount];
+            var randomColors = new byte[ColorRegionCount];
             for (int ci = 0; ci < ColorRegionCount; ci++)
             {
                 if (!EnabledColorRegions[ci]) continue;
                 var colorCount = colors[ci]?.naturalColors?.Count ?? 0;
                 if (colorCount == 0)
-                    randomColors[ci] = 6 + rand.Next(50);
-                else randomColors[ci] = colors[ci].naturalColors[rand.Next(colorCount)].Id;
+                    randomColors[ci] = (byte)(6 + rand.Next(50));
+                else randomColors[ci] = (byte)colors[ci].naturalColors[rand.Next(colorCount)].Id;
             }
 
             return randomColors;

@@ -38,7 +38,7 @@ namespace ARKBreedingStats
         private Creature[] _sameSpecies;
         public List<string> NamesOfAllCreatures;
         private string[] _ownersTribes;
-        private int[] _regionColorIDs;
+        private byte[] _regionColorIDs;
         private bool _tribeLock, _ownerLock;
         public long MotherArkId, FatherArkId; // is only used when importing creatures with set parents. these ids are set externally after the creature data is set in the info input
         /// <summary>
@@ -77,7 +77,7 @@ namespace ARKBreedingStats
             parentComboBoxMother.SelectedIndex = 0;
             parentComboBoxFather.SelectedIndex = 0;
             _updateMaturation = true;
-            _regionColorIDs = new int[6];
+            _regionColorIDs = new byte[Species.ColorRegionCount];
             CooldownUntil = new DateTime(2000, 1, 1);
             GrowingUntil = new DateTime(2000, 1, 1);
             NamesOfAllCreatures = new List<string>();
@@ -473,13 +473,13 @@ namespace ARKBreedingStats
             }
         }
 
-        public int[] RegionColors
+        public byte[] RegionColors
         {
             get => DontUpdateVisuals ? _regionColorIDs : regionColorChooser1.ColorIDs;
             set
             {
                 if (_selectedSpecies == null) return;
-                _regionColorIDs = (int[])value?.Clone() ?? new int[6];
+                _regionColorIDs = (byte[])value?.Clone() ?? new byte[6];
                 if (DontUpdateVisuals) return;
                 regionColorChooser1.SetSpecies(_selectedSpecies, _regionColorIDs);
                 UpdateRegionColorImage();

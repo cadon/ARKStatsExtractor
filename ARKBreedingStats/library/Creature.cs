@@ -138,7 +138,7 @@ namespace ARKBreedingStats.Library
         /// Color ids.
         /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public int[] colors;
+        public byte[] colors;
         [JsonProperty]
         public DateTime? growingUntil;
         public TimeSpan growingLeft;

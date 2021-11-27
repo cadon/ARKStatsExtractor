@@ -9,15 +9,13 @@ namespace ARKBreedingStats.species
         private readonly Dictionary<int, ArkColor> colorsByHash;
         private readonly Dictionary<string, ArkColor> colorsByName;
         public readonly List<ArkColor> colorsList;
-        private readonly Dictionary<int, ArkColor> colorsById;
+        private readonly Dictionary<byte, ArkColor> colorsById;
 
         public ARKColors(List<List<object>> colorDefinitions, List<List<object>> colorDefinitions2 = null)
         {
             colorsByHash = new Dictionary<int, ArkColor>();
             colorsByName = new Dictionary<string, ArkColor>();
-            colorsList = new List<ArkColor>() {
-                new ArkColor()
-            };
+            colorsList = new List<ArkColor> { new ArkColor() };
 
             if (colorDefinitions == null) return;
 
@@ -25,7 +23,7 @@ namespace ARKBreedingStats.species
             if (colorDefinitions2 != null)
                 ParseColors(colorDefinitions2, 201); // dye colors can appear as color mutation, they start with id 201
 
-            void ParseColors(List<List<object>> colorDefs, int idStart)
+            void ParseColors(List<List<object>> colorDefs, byte idStart)
             {
                 foreach (List<object> cd in colorDefs)
                 {
@@ -61,7 +59,7 @@ namespace ARKBreedingStats.species
             colorsById = colorsList.ToDictionary(c => c.Id, c => c);
         }
 
-        public ArkColor ById(int id) => colorsById.TryGetValue(id, out var color) ? color : new ArkColor();
+        public ArkColor ById(byte id) => colorsById.TryGetValue(id, out var color) ? color : new ArkColor();
 
         public ArkColor ByName(string name) => colorsByName.TryGetValue(name, out var color) ? color : new ArkColor();
 
@@ -70,7 +68,7 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Returns the ARK-id of the color that is closest to the sRGB values.
         /// </summary>
-        public int ClosestColorId(double r, double g, double b, double a)
+        public byte ClosestColorId(double r, double g, double b, double a)
             => ClosestColor(r, g, b, a).Id;
 
         /// <summary>

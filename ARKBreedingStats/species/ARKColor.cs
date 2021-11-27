@@ -22,7 +22,7 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Color Id in Ark.
         /// </summary>
-        public int Id;
+        public byte Id;
 
         public ArkColor()
         {

@@ -219,7 +219,7 @@ namespace ARKBreedingStats.library
 
                     // colors
                     var colorRegionsForPossibleMutation = mutationPossible ? new List<int>() : null;
-                    var colors = new int[Species.ColorRegionCount];
+                    var colors = new byte[Species.ColorRegionCount];
                     for (int ci = 0; ci < Species.ColorRegionCount; ci++)
                     {
                         if (!species.EnabledColorRegions[ci]) continue;
@@ -262,7 +262,7 @@ namespace ARKBreedingStats.library
                             if (colorRegionsForMutationsCount != 0)
                             {
                                 var mutatedRegion = colorRegionsForPossibleMutation[rand.Next(colorRegionsForMutationsCount)];
-                                colors[mutatedRegion] = rand.Next(100); // for now considering all color ids up to 99
+                                colors[mutatedRegion] = (byte)rand.Next(100); // for now considering all color ids up to 99
                             }
 
                         }

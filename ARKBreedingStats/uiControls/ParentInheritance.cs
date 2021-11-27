@@ -71,6 +71,6 @@ namespace ARKBreedingStats.uiControls
 
         private void SetSpecies(Species species) => pedigreeCreatureHeaders.SetCustomStatNames(species?.statNames);
 
-        internal void UpdateColors(int[] colorIds) => ControlOffspring.UpdateColors(colorIds);
+        internal void UpdateColors(byte[] colorIds) => ControlOffspring.UpdateColors(colorIds);
     }
 }

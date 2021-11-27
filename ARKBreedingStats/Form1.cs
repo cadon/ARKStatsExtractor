@@ -2008,7 +2008,7 @@ namespace ARKBreedingStats
             if (!creatureInfoInputExtractor.TribeLock)
                 creatureInfoInputExtractor.CreatureTribe = tribeName;
             creatureInfoInputExtractor.CreatureSex = sex;
-            creatureInfoInputExtractor.RegionColors = new int[6];
+            creatureInfoInputExtractor.RegionColors = new byte[Species.ColorRegionCount];
             creatureInfoInputTester.SetArkId(0, false);
 
             int[] displayedStatIndices = new[]
@@ -3237,7 +3237,7 @@ namespace ARKBreedingStats
 
                 for (int c = 0; c < 6; c++)
                     if (cr.colors[c] < 201)
-                        cr.colors[c] = (cr.colors[c] - 1) % 56 + 1;
+                        cr.colors[c] = (byte)((cr.colors[c] - 1) % 56 + 1);
                 UpdateDisplayedCreatureValues(cr, false, false);
             }
 

@@ -418,10 +418,10 @@ namespace ARKBreedingStats.library
                     levelsDom[si] = int.Parse(m.Groups[groupIndexOfFirstWildLevel + Values.STATS_COUNT + si].Value.Trim());
                 }
 
-                var colorIds = new int[Species.ColorRegionCount];
+                var colorIds = new byte[Species.ColorRegionCount];
                 for (int ci = 0; ci < Species.ColorRegionCount; ci++)
                 {
-                    colorIds[ci] = int.Parse(m.Groups[groupIndexOfFirstWildLevel + 2 * Values.STATS_COUNT + ci].Value.Trim());
+                    colorIds[ci] = (byte)int.Parse(m.Groups[groupIndexOfFirstWildLevel + 2 * Values.STATS_COUNT + ci].Value.Trim());
                 }
 
                 var creature = new Creature(species, m.Groups[3].Value.Trim(), m.Groups[4].Value.Trim(), m.Groups[6].Value.Trim(), sex,

@@ -293,7 +293,7 @@
     <Setting Name="useFiltersInTopStatCalculation" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="FilterOnlyIfColorId" Type="System.Int32" Scope="User">
+    <Setting Name="FilterOnlyIfColorId" Type="System.Byte" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="LibraryGroupBySpecies" Type="System.Boolean" Scope="User">

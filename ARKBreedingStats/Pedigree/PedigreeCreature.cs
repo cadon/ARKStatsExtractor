@@ -277,7 +277,7 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// Update the colors displayed in the wheel.
         /// </summary>
-        internal void UpdateColors(int[] colorIds)
+        internal void UpdateColors(byte[] colorIds)
             => pictureBox1.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(colorIds, null, enabledColorRegions, 24, 22, true));
 
         /// <summary>

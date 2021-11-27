@@ -14,7 +14,7 @@ namespace ARKBreedingStats.uiControls
     {
         private readonly CreatureCollection _cc;
         private List<Button> _statusButtons;
-        private int _selectedColorFilter;
+        private byte _selectedColorFilter;
         private readonly MyColorPicker _colorPicker;
 
         public LibraryFilter()
@@ -279,7 +279,7 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
-        private void SetColorFilter(int colorId)
+        private void SetColorFilter(byte colorId)
         {
             _selectedColorFilter = colorId;
             CreatureColors.CreatureColorName(colorId);

@@ -18,7 +18,7 @@ namespace ARKBreedingStats.uiControls
         public bool ParentsChanged, TagsChanged, SpeciesChanged;
         private CreatureStatus _creatureStatus;
         private Sex _creatureSex;
-        private readonly int[] _colors;
+        private readonly byte[] _colors;
         private readonly List<MultiSetterTag> _tagControls;
 
         public MultiSetter()
@@ -32,7 +32,7 @@ namespace ARKBreedingStats.uiControls
             Disposed += MultiSetter_Disposed;
 
             SuspendLayout();
-            _colors = new int[6];
+            _colors = new byte[Species.ColorRegionCount];
             _tagControls = new List<MultiSetterTag>();
 
             this._creatureList = creatureList;

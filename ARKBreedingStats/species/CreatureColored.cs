@@ -31,13 +31,13 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Returns the image file path to the image with the according colorization.
         /// </summary>
-        private static string ColoredCreatureCacheFilePath(string speciesName, int[] colorIds, bool listView = false)
+        private static string ColoredCreatureCacheFilePath(string speciesName, byte[] colorIds, bool listView = false)
             => Path.Combine(_imgCacheFolderPath, speciesName.Substring(0, Math.Min(speciesName.Length, 5)) + "_" + Convert.ToBase64String(colorIds.Select(ci => (byte)ci).Concat(Encoding.UTF8.GetBytes(speciesName)).ToArray()).Replace('/', '-') + (listView ? "_lv" : string.Empty) + Extension);
 
         /// <summary>
         /// Checks if an according species image exists in the cache folder, if not it tries to creates one. Returns false if there's no image.
         /// </summary>
-        internal static (bool imageExists, string imagePath, string speciesListName) SpeciesImageExists(Species species, int[] colorIds)
+        internal static (bool imageExists, string imagePath, string speciesListName) SpeciesImageExists(Species species, byte[] colorIds)
         {
             string speciesImageName = SpeciesImageName(species?.name);
             string speciesNameForList = SpeciesImageName(species?.name, false);
@@ -68,9 +68,9 @@ namespace ARKBreedingStats.species
         /// <param name="onlyImage">Only return an image of the colored creature. If that's not possible, return null.</param>
         /// <param name="creatureSex">If given, it's tried for find a sex-specific image.</param>
         /// <returns></returns>
-        public static Bitmap GetColoredCreature(int[] colorIds, Species species, bool[] enabledColorRegions, int size = 128, int pieSize = 64, bool onlyColors = false, bool onlyImage = false, Sex creatureSex = Sex.Unknown)
+        public static Bitmap GetColoredCreature(byte[] colorIds, Species species, bool[] enabledColorRegions, int size = 128, int pieSize = 64, bool onlyColors = false, bool onlyImage = false, Sex creatureSex = Sex.Unknown)
         {
-            if (colorIds == null) colorIds = new int[Species.ColorRegionCount];
+            if (colorIds == null) colorIds = new byte[Species.ColorRegionCount];
 
             string speciesName = null;
             if (string.IsNullOrEmpty(species?.name))
@@ -198,7 +198,7 @@ namespace ARKBreedingStats.species
             return bm;
         }
 
-        private static Bitmap DrawPieChart(int[] colorIds, bool[] enabledColorRegions, int size, int pieSize)
+        private static Bitmap DrawPieChart(byte[] colorIds, bool[] enabledColorRegions, int size, int pieSize)
         {
             int pieAngle = enabledColorRegions?.Count(c => c) ?? Species.ColorRegionCount;
             pieAngle = 360 / (pieAngle > 0 ? pieAngle : 1);
@@ -236,7 +236,7 @@ namespace ARKBreedingStats.species
         /// Creates a colored species image and saves it as cache file. Returns true when created successful.
         /// </summary>
         /// <returns></returns>
-        private static bool CreateAndSaveCacheSpeciesFile(int[] colorIds, bool[] enabledColorRegions,
+        private static bool CreateAndSaveCacheSpeciesFile(byte[] colorIds, bool[] enabledColorRegions,
             string speciesBaseImageFilePath, string speciesColorMaskFilePath, string cacheFilePath, int outputSize = 256)
         {
             if (string.IsNullOrEmpty(cacheFilePath)
@@ -456,7 +456,7 @@ namespace ARKBreedingStats.species
             return imageFine;
         }
 
-        public static string RegionColorInfo(Species species, int[] colorIds)
+        public static string RegionColorInfo(Species species, byte[] colorIds)
         {
             if (species == null || colorIds == null) return null;
 

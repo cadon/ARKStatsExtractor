@@ -88,7 +88,7 @@ namespace ARKBreedingStats.oldLibraryFormat
                     addedToLibrary = c.addedToLibrary.Year < 2000 ? default(DateTime?) : c.addedToLibrary,
                     ArkId = c.ArkId,
                     ArkIdImported = c.ArkIdImported,
-                    colors = c.colors,
+                    colors = c.colors.Select(ci => (byte)ci).ToArray(),
                     cooldownUntil = c.cooldownUntil.Year < 2000 ? default(DateTime?) : c.cooldownUntil,
                     domesticatedAt = c.domesticatedAt.Year < 2000 ? default(DateTime?) : c.domesticatedAt,
                     fatherGuid = c.fatherGuid,
@@ -142,7 +142,7 @@ namespace ARKBreedingStats.oldLibraryFormat
                 var cv = new CreatureValues
                 {
                     ARKID = cvOld.ARKID,
-                    colorIDs = cvOld.colorIDs,
+                    colorIDs = cvOld.colorIDs.Select(ci => (byte)ci).ToArray(),
                     cooldownUntil = cvOld.cooldownUntil.Year < 2000 ? default(DateTime?) : cvOld.cooldownUntil,
                     domesticatedAt = cvOld.domesticatedAt.Year < 2000 ? default(DateTime?) : cvOld.domesticatedAt,
                     fatherArkId = cvOld.fatherArkId,

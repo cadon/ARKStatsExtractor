@@ -14,7 +14,7 @@ namespace ARKBreedingStats.uiControls
         public event Action RegionColorChosen;
         private readonly Panel[] _panels;
         private readonly Button[] _buttonColors;
-        private int[] _selectedRegionColorIds;
+        private byte[] _selectedRegionColorIds;
         public readonly bool[] ColorRegionsUseds;
         private readonly MyColorPicker _colorPicker;
         private List<ColorRegion> _colorRegions;
@@ -42,7 +42,7 @@ namespace ARKBreedingStats.uiControls
                 flowLayoutPanel1.Controls.Add(p);
             }
 
-            _selectedRegionColorIds = new int[Species.ColorRegionCount];
+            _selectedRegionColorIds = new byte[Species.ColorRegionCount];
             ColorRegionsUseds = new bool[Species.ColorRegionCount];
             _colorPicker = new MyColorPicker();
             _tt.AutoPopDelay = 7000;
@@ -55,7 +55,7 @@ namespace ARKBreedingStats.uiControls
                 flowLayoutPanel1.SetFlowBreak(b, onePerRow);
         }
 
-        public void SetSpecies(Species species, int[] colorIDs)
+        public void SetSpecies(Species species, byte[] colorIDs)
         {
             _selectedRegionColorIds = colorIDs.ToArray();
 
@@ -82,11 +82,11 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
-        public int[] ColorIDs => _selectedRegionColorIds.ToArray();
+        public byte[] ColorIDs => _selectedRegionColorIds.ToArray();
 
         public void Clear()
         {
-            SetColorIds(new int[_buttonColors.Length]);
+            SetColorIds(new byte[_buttonColors.Length]);
         }
 
         /// <summary>
@@ -94,10 +94,10 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         internal void RandomColors()
         {
-            var colorIds = new int[_buttonColors.Length];
+            var colorIds = new byte[_buttonColors.Length];
             var rand = new Random();
             for (int r = 0; r < colorIds.Length; r++)
-                colorIds[r] = rand.Next(99) + 1;
+                colorIds[r] = (byte)(rand.Next(99) + 1);
 
             SetColorIds(colorIds);
         }
@@ -110,7 +110,7 @@ namespace ARKBreedingStats.uiControls
             SetColorIds(species?.RandomSpeciesColors());
         }
 
-        public void SetColorIds(int[] colorIds)
+        public void SetColorIds(byte[] colorIds)
         {
             if (colorIds == null)
             {
@@ -144,7 +144,7 @@ namespace ARKBreedingStats.uiControls
 
         private void SetColorButton(Button bt, int region)
         {
-            int colorId = _selectedRegionColorIds[region];
+            byte colorId = _selectedRegionColorIds[region];
             bt.SetBackColorAndAccordingForeColor(CreatureColors.CreatureColor(colorId));
             if (VerboseButtonTexts)
                 bt.Text = $"[{region}]: {colorId}";

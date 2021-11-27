@@ -255,7 +255,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.DomesticatedAt = null;
                 creatureInfoInputTester.AddedToLibraryAt = null;
                 creatureInfoInputTester.CreatureFlags = CreatureFlags.None;
-                creatureInfoInputTester.RegionColors = new int[6];
+                creatureInfoInputTester.RegionColors = new byte[Species.ColorRegionCount];
                 creatureInfoInputTester.CreatureGuid = Guid.Empty;
                 creatureInfoInputTester.SetArkId(0, false);
                 creatureInfoInputTester.MutationCounterMother = 0;

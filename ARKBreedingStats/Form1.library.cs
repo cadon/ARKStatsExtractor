@@ -597,8 +597,8 @@ namespace ARKBreedingStats
                     {
                         var duplicateCreature = nonPlaceholders[i];
                         if (firstCreature.name.Trim() != duplicateCreature.name.Trim()
-                            || !AreArraysEqual(firstCreature.levelsWild, duplicateCreature.levelsWild)
-                            || !AreArraysEqual(firstCreature.colors, duplicateCreature.colors)
+                            || !AreIntArraysEqual(firstCreature.levelsWild, duplicateCreature.levelsWild)
+                            || !AreByteArraysEqual(firstCreature.colors, duplicateCreature.colors)
                             )
                         {
                             sameCreature = false;
@@ -606,7 +606,24 @@ namespace ARKBreedingStats
                         }
                     }
 
-                    bool AreArraysEqual(int[] firstArray, int[] secondArray)
+                    bool AreIntArraysEqual(int[] firstArray, int[] secondArray)
+                    {
+                        if (firstArray == null && secondArray == null) return true;
+                        if (firstArray == null || secondArray == null) return false;
+                        var firstCount = firstArray.Length;
+                        var secondCount = secondArray.Length;
+                        if (firstCount != secondCount) return false;
+
+                        for (int i = 0; i < firstCount; i++)
+                        {
+                            if (firstArray[i] != secondArray[i])
+                                return false;
+                        }
+
+                        return true;
+                    }
+
+                    bool AreByteArraysEqual(byte[] firstArray, byte[] secondArray)
                     {
                         if (firstArray == null && secondArray == null) return true;
                         if (firstArray == null || secondArray == null) return false;
@@ -1743,7 +1760,7 @@ namespace ARKBreedingStats
             if (!(listViewLibrary.SelectedItems.Count > 0
                   && listViewLibrary.SelectedItems[0].Tag is Creature cr)) return;
 
-            int[] cl = cr.colors;
+            byte[] cl = cr.colors;
             if (cl == null) return;
             var colorCommands = new List<string>(6);
             var enabledColorRegions = cr.Species.EnabledColorRegions;

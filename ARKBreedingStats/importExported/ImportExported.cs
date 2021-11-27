@@ -158,22 +158,22 @@ namespace ARKBreedingStats.importExported
                         break;
                     // Colorization
                     case "ColorSet[0]":
-                        cv.colorIDs[0] = ParseColor(text);
+                        cv.colorIDs[0] = ParseColorId(text);
                         break;
                     case "ColorSet[1]":
-                        cv.colorIDs[1] = ParseColor(text);
+                        cv.colorIDs[1] = ParseColorId(text);
                         break;
                     case "ColorSet[2]":
-                        cv.colorIDs[2] = ParseColor(text);
+                        cv.colorIDs[2] = ParseColorId(text);
                         break;
                     case "ColorSet[3]":
-                        cv.colorIDs[3] = ParseColor(text);
+                        cv.colorIDs[3] = ParseColorId(text);
                         break;
                     case "ColorSet[4]":
-                        cv.colorIDs[4] = ParseColor(text);
+                        cv.colorIDs[4] = ParseColorId(text);
                         break;
                     case "ColorSet[5]":
-                        cv.colorIDs[5] = ParseColor(text);
+                        cv.colorIDs[5] = ParseColorId(text);
                         break;
                     case "Health":
                         cv.statValues[(int)StatNames.Health] = value;
@@ -234,7 +234,7 @@ namespace ARKBreedingStats.importExported
         /// Determines the ARK color id represented by the given text in the format
         /// (R=0.000000,G=0.000000,B=0.000000,A=1.000000)
         /// </summary>
-        private static int ParseColor(string text)
+        private static byte ParseColorId(string text)
         {
             if (text.Length < 33) return 0;
 

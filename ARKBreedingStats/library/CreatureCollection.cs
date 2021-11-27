@@ -466,7 +466,7 @@ namespace ARKBreedingStats.Library
         /// (inTheRegion, inAnyRegion).
         /// </summary>
         /// <returns></returns>
-        internal ColorExisting[] ColorAlreadyAvailable(Species species, int[] colorIds, out string infoText)
+        internal ColorExisting[] ColorAlreadyAvailable(Species species, byte[] colorIds, out string infoText)
         {
             infoText = null;
             if (string.IsNullOrEmpty(species?.blueprintPath)) return null;
@@ -522,7 +522,7 @@ namespace ARKBreedingStats.Library
                         break;
                 }
 
-                string ColorDescription(int colorId)
+                string ColorDescription(byte colorId)
                 {
                     var color = CreatureColors.CreatureArkColor(colorId);
                     return $"{color.Name} ({color.Id})";
