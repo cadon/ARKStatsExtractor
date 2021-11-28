@@ -104,6 +104,7 @@ namespace ARKBreedingStats.BreedingPlanning
             cbBPIncludeCryoCreatures.Checked = Settings.Default.IncludeCryoedInBreedingPlan;
             cbBPOnlyOneSuggestionForFemales.Checked = Settings.Default.BreedingPlanOnlyBestSuggestionForEachFemale;
             cbBPMutationLimitOnlyOnePartner.Checked = Settings.Default.BreedingPlanOnePartnerMoreMutationsThanLimit;
+            CbIgnoreSexInPlanning.Checked = Settings.Default.IgnoreSexInBreedingPlan;
             CbConsiderOnlyEvenForHighStats.Checked = Settings.Default.BreedingPlannerConsiderOnlyEvenForHighStats;
             CbDontSuggestOverLimitOffspring.Checked = Settings.Default.BreedingPlanDontSuggestOverLimitOffspring;
 
@@ -1093,6 +1094,11 @@ namespace ARKBreedingStats.BreedingPlanning
             set => nudBPMutationLimit.Value = value;
         }
 
+        public bool IgnoreSexInBreedingPlan
+        {
+            set => CbIgnoreSexInPlanning.Checked = value;
+        }
+
         public enum BreedingMode
         {
             BestNextGen,
@@ -1167,6 +1173,12 @@ namespace ARKBreedingStats.BreedingPlanning
         private void cbMutationLimitOnlyOnePartner_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.BreedingPlanOnePartnerMoreMutationsThanLimit = cbBPMutationLimitOnlyOnePartner.Checked;
+            CalculateBreedingScoresAndDisplayPairs();
+        }
+
+        private void CbIgnoreSexInPlanning_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.IgnoreSexInBreedingPlan = CbIgnoreSexInPlanning.Checked;
             CalculateBreedingScoresAndDisplayPairs();
         }
 

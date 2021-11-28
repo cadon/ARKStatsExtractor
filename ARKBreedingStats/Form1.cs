@@ -1902,56 +1902,63 @@ namespace ARKBreedingStats
         {
             if (page == SettingsTabPages.Unknown)
                 page = _settingsLastTabPage;
+
+            bool libraryTopCreatureColorHighlight = Properties.Settings.Default.LibraryHighlightTopCreatures;
+            bool considerWastedStatsForTopCreatures = Properties.Settings.Default.ConsiderWastedStatsForTopCreatures;
+
             using (Settings settingsForm = new Settings(_creatureCollection, page))
             {
-                bool libraryTopCreatureColorHighlight = Properties.Settings.Default.LibraryHighlightTopCreatures;
-                bool consdierWastedStatsForTopCreatures = Properties.Settings.Default.ConsiderWastedStatsForTopCreatures;
-                if (settingsForm.ShowDialog() == DialogResult.OK)
-                {
-                    ApplySettingsToValues();
-                    if (settingsForm.LanguageChanged) SetLocalizations();
-                    CreatureColored.InitializeSpeciesImageLocation();
-                    creatureBoxListView.CreatureCollection = _creatureCollection;
-
-                    if (Properties.Settings.Default.syncCollection)
-                    {
-                        if (_fileSync == null)
-                            _fileSync = new FileSync(_currentFileName, CollectionChanged);
-                    }
-                    else
-                    {
-                        if (_fileSync != null)
-                        {
-                            _fileSync.Dispose();
-                            _fileSync = null;
-                        }
-                    }
-
-                    bool enableExportWatcher = Utils.GetFirstImportExportFolder(out string exportFolderDefault)
-                                               && Properties.Settings.Default.AutoImportExportedCreatures;
-                    _fileWatcherExports.SetWatchFolder(exportFolderDefault, enableExportWatcher);
-
-                    InitializeSpeechRecognition();
-                    _overlay?.SetInfoPositions();
-                    if (Properties.Settings.Default.DevTools)
-                        statsMultiplierTesting1.CheckIfMultipliersAreEqualToSettings();
-                    devToolStripMenuItem.Visible = Properties.Settings.Default.DevTools;
-
-                    bool recalculateTopStats = consdierWastedStatsForTopCreatures != Properties.Settings.Default.ConsiderWastedStatsForTopCreatures;
-                    if (recalculateTopStats)
-                        CalculateTopStats(_creatureCollection.creatures);
-
-                    if (recalculateTopStats
-                        || libraryTopCreatureColorHighlight != Properties.Settings.Default.LibraryHighlightTopCreatures)
-                        FilterLibRecalculate();
-
-                    SetOverlayLocation();
-
-                    SetCollectionChanged(true);
-                }
-
+                var settingsSaved = settingsForm.ShowDialog() == DialogResult.OK;
                 _settingsLastTabPage = settingsForm.LastTabPageIndex;
+
+                if (!settingsSaved)
+                    return;
+
+                if (settingsForm.LanguageChanged) SetLocalizations();
             }
+
+            ApplySettingsToValues();
+            CreatureColored.InitializeSpeciesImageLocation();
+            creatureBoxListView.CreatureCollection = _creatureCollection;
+
+            if (Properties.Settings.Default.syncCollection)
+            {
+                if (_fileSync == null)
+                    _fileSync = new FileSync(_currentFileName, CollectionChanged);
+            }
+            else
+            {
+                if (_fileSync != null)
+                {
+                    _fileSync.Dispose();
+                    _fileSync = null;
+                }
+            }
+
+            bool enableExportWatcher = Utils.GetFirstImportExportFolder(out string exportFolderDefault)
+                                       && Properties.Settings.Default.AutoImportExportedCreatures;
+            _fileWatcherExports.SetWatchFolder(exportFolderDefault, enableExportWatcher);
+
+            InitializeSpeechRecognition();
+            _overlay?.SetInfoPositions();
+            if (Properties.Settings.Default.DevTools)
+                statsMultiplierTesting1.CheckIfMultipliersAreEqualToSettings();
+            devToolStripMenuItem.Visible = Properties.Settings.Default.DevTools;
+
+            bool recalculateTopStats = considerWastedStatsForTopCreatures != Properties.Settings.Default.ConsiderWastedStatsForTopCreatures;
+            if (recalculateTopStats)
+                CalculateTopStats(_creatureCollection.creatures);
+
+            breedingPlan1.IgnoreSexInBreedingPlan = Properties.Settings.Default.IgnoreSexInBreedingPlan;
+
+            if (recalculateTopStats
+                || libraryTopCreatureColorHighlight != Properties.Settings.Default.LibraryHighlightTopCreatures)
+                FilterLibRecalculate();
+
+            SetOverlayLocation();
+
+            SetCollectionChanged(true);
+
         }
 
         /// <summary>
