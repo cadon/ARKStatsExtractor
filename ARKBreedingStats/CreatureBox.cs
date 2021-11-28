@@ -48,6 +48,7 @@ namespace ARKBreedingStats
             Clear();
             _creature = creature;
             regionColorChooser1.SetSpecies(creature.Species, creature.colors);
+            regionColorChooser1.ColorIdsAlsoPossible = creature.ColorIdsAlsoPossible;
             _colorRegionUseds = regionColorChooser1.ColorRegionsUseds;
 
             UpdateLabel();
@@ -240,7 +241,7 @@ namespace ARKBreedingStats
         {
             if (_creature == null) return;
 
-            _creature.colors = regionColorChooser1.ColorIDs;
+            _creature.colors = regionColorChooser1.ColorIds;
             pictureBox1.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(_creature.colors, _creature.Species, _colorRegionUseds, creatureSex: _creature.sex));
             Changed?.Invoke(_creature, false, false);
         }

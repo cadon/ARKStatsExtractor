@@ -2362,6 +2362,7 @@ namespace ARKBreedingStats
             creatureInfoInputTester.CreatureFlags = creatureInfoInputExtractor.CreatureFlags;
             creatureInfoInputTester.CreatureStatus = creatureInfoInputExtractor.CreatureStatus;
             creatureInfoInputTester.RegionColors = creatureInfoInputExtractor.RegionColors;
+            creatureInfoInputTester.ColorIdsAlsoPossible = creatureInfoInputExtractor.ColorIdsAlsoPossible;
 
             tabControlMain.SelectedTab = tabPageStatTesting;
         }
@@ -2410,6 +2411,7 @@ namespace ARKBreedingStats
 
             creatureInfoInputExtractor.CreatureSex = creatureInfoInputTester.CreatureSex;
             creatureInfoInputExtractor.RegionColors = creatureInfoInputTester.RegionColors;
+            creatureInfoInputExtractor.ColorIdsAlsoPossible = creatureInfoInputTester.ColorIdsAlsoPossible;
 
             tabControlMain.SelectedTab = tabPageExtractor;
         }
@@ -2759,6 +2761,7 @@ namespace ARKBreedingStats
             input.Mother = cv.Mother;
             input.Father = cv.Father;
             input.RegionColors = cv.colorIDs;
+            input.ColorIdsAlsoPossible = cv.ColorIdsAlsoPossible;
             input.SetArkId(cv.ARKID, cv.guid == Utils.ConvertArkIdToGuid(cv.ARKID));
             input.MutationCounterMother = cv.mutationCounterMother;
             input.MutationCounterFather = cv.mutationCounterFather;
@@ -2796,6 +2799,7 @@ namespace ARKBreedingStats
             cv.Mother = creatureInfoInputExtractor.Mother;
             cv.Father = creatureInfoInputExtractor.Father;
             cv.colorIDs = creatureInfoInputExtractor.RegionColors;
+            cv.ColorIdsAlsoPossible = creatureInfoInputExtractor.ColorIdsAlsoPossible;
 
             cv.level = (int)numericUpDownLevel.Value;
             cv.tamingEffMin = (double)numericUpDownLowerTEffBound.Value * 0.01;

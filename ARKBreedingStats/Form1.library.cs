@@ -75,6 +75,7 @@ namespace ARKBreedingStats
                 mutationsPaternal = input.MutationCounterFather,
                 Status = input.CreatureStatus,
                 colors = input.RegionColors,
+                ColorIdsAlsoPossible = input.ColorIdsAlsoPossible,
                 guid = fromExtractor && input.CreatureGuid != Guid.Empty ? input.CreatureGuid : Guid.NewGuid(),
                 ArkId = input.ArkId
             };

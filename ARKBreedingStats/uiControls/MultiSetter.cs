@@ -278,7 +278,7 @@ namespace ARKBreedingStats.uiControls
         {
             if (_creatureList[0] != null && !_cp.isShown)
             {
-                _cp.SetColors(_colors[region], "Region " + region);
+                _cp.PickColor(_colors[region], "Region " + region);
                 if (_cp.ShowDialog() == DialogResult.OK)
                 {
                     // color was chosen

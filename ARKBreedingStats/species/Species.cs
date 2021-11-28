@@ -209,7 +209,7 @@ namespace ARKBreedingStats.species
             SortName = DescriptiveNameAndMod;
         }
 
-        public void InitializeColors(ARKColors arkColors)
+        public void InitializeColors(ArkColors arkColors)
         {
             for (int i = 0; i < ColorRegionCount; i++)
                 colors[i]?.Initialize(arkColors);

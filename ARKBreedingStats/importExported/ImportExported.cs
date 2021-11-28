@@ -227,6 +227,8 @@ namespace ARKBreedingStats.importExported
             // if file was not recognized, return null
             if (string.IsNullOrEmpty(cv.speciesBlueprint)) return null;
 
+            cv.ColorIdsAlsoPossible = ArkColors.GetAlternativeColorIds(cv.colorIDs);
+
             return cv;
         }
 

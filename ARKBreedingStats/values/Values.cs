@@ -51,8 +51,8 @@ namespace ARKBreedingStats.values
         [JsonProperty("remaps")]
         private Dictionary<string, string> blueprintRemapping;
 
-        public ARKColors Colors;
-        public ARKColors Dyes;
+        public ArkColors Colors;
+        public ArkColors Dyes;
 
         public List<string> speciesNames = new List<string>();
         internal Dictionary<string, string> aliases;
@@ -362,8 +362,8 @@ namespace ARKBreedingStats.values
             if (!Version.TryParse(version, out Version))
                 Version = new Version(0, 0);
 
-            Colors = new ARKColors(colorDefinitions, dyeDefinitions);
-            Dyes = new ARKColors(dyeDefinitions);
+            Colors = new ArkColors(colorDefinitions, dyeDefinitions);
+            Dyes = new ArkColors(dyeDefinitions);
 
             foreach (var s in species)
                 s.InitializeColors(Colors);

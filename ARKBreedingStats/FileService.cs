@@ -22,6 +22,7 @@ namespace ARKBreedingStats
         public const string CustomSpeciesVariants = "customSpeciesVariants.json";
         public const string DataFolderName = "data";
         public const string OcrReplacingsFile = "ocrReplacings.txt";
+        public const string EqualColorIdsFile = "equalColorIds.json";
 
         /// <summary>
         /// Where the colored species images are cached.

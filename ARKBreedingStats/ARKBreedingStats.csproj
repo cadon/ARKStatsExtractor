@@ -221,8 +221,8 @@
     <Compile Include="settings\FtpProgress.Designer.cs">
       <DependentUpon>FtpProgress.cs</DependentUpon>
     </Compile>
-    <Compile Include="species\ARKColor.cs" />
-    <Compile Include="species\ARKColors.cs" />
+    <Compile Include="species\ArkColor.cs" />
+    <Compile Include="species\ArkColors.cs" />
     <Compile Include="settings\FtpCredentials.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -639,6 +639,9 @@
     <Compile Include="values\ServerMultipliers.cs" />
     <Compile Include="values\Values.cs" />
     <Compile Include="utils\Win32API.cs" />
+    <None Include="json\equalColorIds.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\success.wav" />
     <None Include="Resources\topstat.wav" />
     <None Include="Resources\failure.wav" />

@@ -272,7 +272,7 @@ namespace ARKBreedingStats.uiControls
 
         private void BtColorFilter_Click(object sender, EventArgs e)
         {
-            _colorPicker.SetColors(_selectedColorFilter, Loc.S("onlyCreaturesWithThisColor"));
+            _colorPicker.PickColor(_selectedColorFilter, Loc.S("onlyCreaturesWithThisColor"));
             if (_colorPicker.ShowDialog() == DialogResult.OK)
             {
                 SetColorFilter(_colorPicker.SelectedColorId);

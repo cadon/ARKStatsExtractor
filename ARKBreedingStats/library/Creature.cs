@@ -134,11 +134,32 @@ namespace ARKBreedingStats.Library
         /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int generation;
+
         /// <summary>
         /// Color ids.
         /// </summary>
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonIgnore]
         public byte[] colors;
+        [JsonProperty("colors", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        private int[] colorsSerialization
+        {
+            set => colors = value?.Select(i => (byte)i).ToArray();
+            get => colors?.Select(i => (int)i).ToArray();
+        }
+
+        /// <summary>
+        /// Some color ids cannot be determined uniquely because of equal color values.
+        /// If this property is set it contains the other possible color ids.
+        /// </summary>
+        [JsonIgnore]
+        public byte[] ColorIdsAlsoPossible;
+        [JsonProperty("altCol", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        private int[] ColorIdsAlsoPossibleSerialization
+        {
+            set => ColorIdsAlsoPossible = value?.Select(i => (byte)i).ToArray();
+            get => ColorIdsAlsoPossible?.Select(i => (int)i).ToArray();
+        }
+
         [JsonProperty]
         public DateTime? growingUntil;
         public TimeSpan growingLeft;

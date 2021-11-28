@@ -2,6 +2,7 @@
 using ARKBreedingStats.values;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
 
 namespace ARKBreedingStats.Library
 {
@@ -40,7 +41,7 @@ namespace ARKBreedingStats.Library
         [JsonProperty]
         public int[] levelsDom = new int[Values.STATS_COUNT];
         [JsonProperty]
-        public int level = 0;
+        public int level;
         [JsonProperty]
         public double tamingEffMin, tamingEffMax;
         [JsonProperty]
@@ -77,8 +78,26 @@ namespace ARKBreedingStats.Library
         public CreatureFlags flags;
         [JsonProperty]
         public int mutationCounter, mutationCounterMother, mutationCounterFather;
-        [JsonProperty]
-        public byte[] colorIDs = new byte[Species.ColorRegionCount];
+        [JsonIgnore]
+        public byte[] colorIDs = new byte[species.Species.ColorRegionCount];
+        [JsonProperty("colorIDs", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        private int[] colorIDsSerialization
+        {
+            set => colorIDs = value?.Select(i => (byte)i).ToArray();
+            get => colorIDs?.Select(i => (int)i).ToArray();
+        }
+        /// <summary>
+        /// Some color ids cannot be determined uniquely because of equal color values.
+        /// If this property is set it contains the other possible color ids.
+        /// </summary>
+        [JsonIgnore]
+        public byte[] ColorIdsAlsoPossible;
+        [JsonProperty("altCol", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        private int[] ColorIdsAlsoPossibleSerialization
+        {
+            set => ColorIdsAlsoPossible = value?.Select(i => (byte)i).ToArray();
+            get => ColorIdsAlsoPossible?.Select(i => (int)i).ToArray();
+        }
 
         public CreatureValues() { }
 

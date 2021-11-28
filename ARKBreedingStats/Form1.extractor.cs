@@ -993,6 +993,18 @@ namespace ARKBreedingStats
                     cv.mutationCounterMother = existingCreature.mutationsMaternal;
                 if (cv.mutationCounterFather == 0 && existingCreature.mutationsPaternal != 0)
                     cv.mutationCounterFather = existingCreature.mutationsPaternal;
+
+                // if existing creature has no altColorIds, don't add them again
+                if (existingCreature.ColorIdsAlsoPossible == null)
+                    cv.ColorIdsAlsoPossible = null;
+                else if (cv.ColorIdsAlsoPossible != null)
+                {
+                    var l = Math.Min(cv.ColorIdsAlsoPossible.Length, existingCreature.ColorIdsAlsoPossible.Length);
+                    for (int i = 0; i < l; i++)
+                    {
+                        cv.ColorIdsAlsoPossible[i] = existingCreature.ColorIdsAlsoPossible[i];
+                    }
+                }
             }
 
             SetCreatureValuesToExtractor(cv, false);

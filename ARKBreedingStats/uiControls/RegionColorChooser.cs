@@ -12,9 +12,9 @@ namespace ARKBreedingStats.uiControls
     public partial class RegionColorChooser : UserControl
     {
         public event Action RegionColorChosen;
-        private readonly Panel[] _panels;
-        private readonly Button[] _buttonColors;
+        private readonly NoPaddingButton[] _buttonColors;
         private byte[] _selectedRegionColorIds;
+        private byte[] _selectedColorIdsAlternative;
         public readonly bool[] ColorRegionsUseds;
         private readonly MyColorPicker _colorPicker;
         private List<ColorRegion> _colorRegions;
@@ -28,21 +28,19 @@ namespace ARKBreedingStats.uiControls
         {
             InitializeComponent();
 
-            _buttonColors = new Button[Species.ColorRegionCount];
-            _panels = new Panel[Species.ColorRegionCount];
+            _buttonColors = new NoPaddingButton[Species.ColorRegionCount];
             for (int i = 0; i < Species.ColorRegionCount; i++)
             {
-                var p = new Panel { Width = 27, Height = 27, Margin = new Padding(1) };
-                _panels[i] = p;
-                var b = new Button { Width = 23, Height = 23, Left = 2, Top = 2, Text = i.ToString() };
+                var b = new NoPaddingButton { Width = 27, Height = 27, Margin = new Padding(1), Text = i.ToString() };
                 var ii = i;
                 b.Click += (s, e) => ChooseColor(ii, b);
                 _buttonColors[i] = b;
-                p.Controls.Add(b);
-                flowLayoutPanel1.Controls.Add(p);
+                flowLayoutPanel1.Controls.Add(b);
             }
 
             _selectedRegionColorIds = new byte[Species.ColorRegionCount];
+            _selectedColorIdsAlternative = new byte[Species.ColorRegionCount];
+
             ColorRegionsUseds = new bool[Species.ColorRegionCount];
             _colorPicker = new MyColorPicker();
             _tt.AutoPopDelay = 7000;
@@ -58,6 +56,7 @@ namespace ARKBreedingStats.uiControls
         public void SetSpecies(Species species, byte[] colorIDs)
         {
             _selectedRegionColorIds = colorIDs.ToArray();
+            _selectedColorIdsAlternative = null;
 
             if (species?.colors != null)
                 _colorRegions = species.colors;
@@ -73,16 +72,28 @@ namespace ARKBreedingStats.uiControls
             for (int r = 0; r < _buttonColors.Length; r++)
             {
                 ColorRegionsUseds[r] = !string.IsNullOrEmpty(_colorRegions[r]?.name);
-                _panels[r].Visible = ColorRegionsUseds[r];
+                _buttonColors[r].Visible = ColorRegionsUseds[r];
 
                 if (ColorRegionsUseds[r])
                 {
+                    _buttonColors[r].AlternativeColorPossible = false;
                     SetColorButton(_buttonColors[r], r);
                 }
             }
         }
 
-        public byte[] ColorIDs => _selectedRegionColorIds.ToArray();
+        public byte[] ColorIds => _selectedRegionColorIds.ToArray();
+        public byte[] ColorIdsAlsoPossible
+        {
+            get => _selectedColorIdsAlternative?.ToArray();
+            set
+            {
+                _selectedColorIdsAlternative = value;
+                if (_selectedColorIdsAlternative == null) return;
+                for (int i = 0; i < _selectedColorIdsAlternative.Length; i++)
+                    _buttonColors[i].AlternativeColorPossible = _selectedColorIdsAlternative[i] != 0;
+            }
+        }
 
         public void Clear()
         {
@@ -110,7 +121,7 @@ namespace ARKBreedingStats.uiControls
             SetColorIds(species?.RandomSpeciesColors());
         }
 
-        public void SetColorIds(byte[] colorIds)
+        private void SetColorIds(byte[] colorIds)
         {
             if (colorIds == null)
             {
@@ -122,6 +133,7 @@ namespace ARKBreedingStats.uiControls
             for (int r = 0; r < l; r++)
             {
                 _selectedRegionColorIds[r] = colorIds[r];
+                _buttonColors[r].AlternativeColorPossible = false;
                 SetColorButton(_buttonColors[r], r);
             }
             RegionColorChosen?.Invoke();
@@ -131,11 +143,24 @@ namespace ARKBreedingStats.uiControls
         {
             if (!_colorPicker.isShown && _colorRegions != null && region < Species.ColorRegionCount)
             {
-                _colorPicker.SetColors(_selectedRegionColorIds[region], _colorRegions[region].name, _colorRegions[region]?.naturalColors);
+                _colorPicker.PickColor(_selectedRegionColorIds[region], _colorRegions[region].name, _colorRegions[region]?.naturalColors, _selectedColorIdsAlternative?[region] ?? 0);
                 if (_colorPicker.ShowDialog() == DialogResult.OK)
                 {
                     // color was chosen
                     _selectedRegionColorIds[region] = _colorPicker.SelectedColorId;
+                    if (_colorPicker.SelectedColorIdAlternative != 0)
+                    {
+                        if (_selectedColorIdsAlternative == null)
+                            _selectedColorIdsAlternative = new byte[Species.ColorRegionCount];
+                        _selectedColorIdsAlternative[region] = _colorPicker.SelectedColorIdAlternative;
+                        _buttonColors[region].AlternativeColorPossible = true;
+                    }
+                    else
+                    {
+                        _buttonColors[region].AlternativeColorPossible = false;
+                        if (_selectedColorIdsAlternative != null)
+                            _selectedColorIdsAlternative[region] = 0;
+                    }
                     SetColorButton(sender, region);
                     RegionColorChosen?.Invoke();
                 }
@@ -150,12 +175,13 @@ namespace ARKBreedingStats.uiControls
                 bt.Text = $"[{region}]: {colorId}";
             // tooltip
             if (_colorRegions?[region] != null)
-                _tt.SetToolTip(bt, $"{_colorRegions[region].name} ({region}):\n{CreatureColors.CreatureColorName(colorId)} ({colorId})");
+                _tt.SetToolTip(bt, $"[{region}] {_colorRegions[region].name}:\n{colorId}: {CreatureColors.CreatureColorName(colorId)}");
         }
 
         private void RegionColorChooser_Disposed(object sender, EventArgs e)
         {
             _tt.RemoveAll();
+            _tt.Dispose();
         }
 
         /// <summary>
@@ -180,17 +206,72 @@ namespace ARKBreedingStats.uiControls
                 switch (parameter)
                 {
                     case CreatureCollection.ColorExisting.ColorIsNew:
-                        _panels[ci].BackColor = Color.Gold;
+                        _buttonColors[ci].ColorStatus = CreatureCollection.ColorExisting.ColorIsNew;
                         ColorNewInSpecies = true;
                         break;
                     case CreatureCollection.ColorExisting.ColorExistingInOtherRegion:
-                        _panels[ci].BackColor = Color.DarkGreen;
+                        _buttonColors[ci].ColorStatus = CreatureCollection.ColorExisting.ColorExistingInOtherRegion;
                         ColorNewInRegion = true;
                         break;
                     default:
-                        _panels[ci].BackColor = Color.Transparent; break;
+                        _buttonColors[ci].ColorStatus = CreatureCollection.ColorExisting.ColorExistingInRegion;
+                        break;
                 }
+                _buttonColors[ci].Invalidate();
             }
         }
+
+        private class NoPaddingButton : Button
+        {
+            public CreatureCollection.ColorExisting ColorStatus { get; set; }
+            public bool AlternativeColorPossible { get; set; }
+
+            protected override void OnPaint(PaintEventArgs pe)
+            {
+                Color statusColor;
+                switch (ColorStatus)
+                {
+                    case CreatureCollection.ColorExisting.ColorIsNew:
+                        statusColor = Color.Gold;
+                        break;
+                    case CreatureCollection.ColorExisting.ColorExistingInOtherRegion:
+                        statusColor = Color.DarkGreen;
+                        break;
+                    default:
+                        statusColor = SystemColors.Control;
+                        break;
+                }
+
+                using (var b = new SolidBrush(statusColor))
+                {
+                    var defaultVisibleRectangle = ClientRectangle;
+                    var shrinkStatus = -4;
+                    if (AlternativeColorPossible)
+                    {
+                        b.Color = Color.Red;
+                        pe.Graphics.FillRectangle(b, defaultVisibleRectangle);
+                        defaultVisibleRectangle.Inflate(-1, -1);
+                        shrinkStatus = -3;
+                    }
+                    b.Color = statusColor;
+                    pe.Graphics.FillRectangle(b, defaultVisibleRectangle);
+
+                    b.Color = Color.Gray;
+                    defaultVisibleRectangle.Inflate(shrinkStatus, shrinkStatus);
+                    pe.Graphics.FillRectangle(b, defaultVisibleRectangle);
+                    defaultVisibleRectangle.Inflate(-1, -1);
+                    b.Color = BackColor;
+                    pe.Graphics.FillRectangle(b, defaultVisibleRectangle);
+                }
+
+                if (string.IsNullOrEmpty(Text)) return;
+                StringFormat stringFormat = new StringFormat();
+                stringFormat.Alignment = StringAlignment.Center;
+                stringFormat.LineAlignment = StringAlignment.Center;
+                using (var b = new SolidBrush(ForeColor))
+                    pe.Graphics.DrawString(Text, Font, b, ClientRectangle, stringFormat);
+            }
+        }
+
     }
 }

@@ -39,6 +39,7 @@ namespace ARKBreedingStats
         public List<string> NamesOfAllCreatures;
         private string[] _ownersTribes;
         private byte[] _regionColorIDs;
+        private byte[] _colorIdsAlsoPossible;
         private bool _tribeLock, _ownerLock;
         public long MotherArkId, FatherArkId; // is only used when importing creatures with set parents. these ids are set externally after the creature data is set in the info input
         /// <summary>
@@ -475,14 +476,43 @@ namespace ARKBreedingStats
 
         public byte[] RegionColors
         {
-            get => DontUpdateVisuals ? _regionColorIDs : regionColorChooser1.ColorIDs;
+            get => DontUpdateVisuals ? _regionColorIDs : regionColorChooser1.ColorIds;
             set
             {
                 if (_selectedSpecies == null) return;
-                _regionColorIDs = (byte[])value?.Clone() ?? new byte[6];
+                _regionColorIDs = (byte[])value?.Clone() ?? new byte[Species.ColorRegionCount];
                 if (DontUpdateVisuals) return;
                 regionColorChooser1.SetSpecies(_selectedSpecies, _regionColorIDs);
                 UpdateRegionColorImage();
+            }
+        }
+
+        public byte[] ColorIdsAlsoPossible
+        {
+            get
+            {
+                var arr = DontUpdateVisuals ? _colorIdsAlsoPossible : regionColorChooser1.ColorIdsAlsoPossible;
+                if (arr == null) return null;
+
+                // if array is empty, return null
+                var isEmpty = true;
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    if (arr[i] != 0)
+                    {
+                        isEmpty = false;
+                        break;
+                    }
+                }
+
+                return isEmpty ? null : arr;
+            }
+            set
+            {
+                if (_selectedSpecies == null) return;
+                _colorIdsAlsoPossible = (byte[])value?.Clone() ?? new byte[Species.ColorRegionCount];
+                if (DontUpdateVisuals) return;
+                regionColorChooser1.ColorIdsAlsoPossible = _colorIdsAlsoPossible;
             }
         }
 
@@ -592,6 +622,7 @@ namespace ARKBreedingStats
             cr.mutationsMaternal = MutationCounterMother;
             cr.mutationsPaternal = MutationCounterFather;
             cr.colors = RegionColors;
+            cr.ColorIdsAlsoPossible = ColorIdsAlsoPossible;
             cr.cooldownUntil = CooldownUntil;
             cr.growingUntil = GrowingUntil;
             cr.domesticatedAt = DomesticatedAt;

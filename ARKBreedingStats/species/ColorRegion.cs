@@ -26,7 +26,7 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Sets the ARKColor objects
         /// </summary>
-        internal void Initialize(ARKColors arkColors)
+        internal void Initialize(ArkColors arkColors)
         {
             if (colors == null) return;
             naturalColors = new List<ArkColor>();
