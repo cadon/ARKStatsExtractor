@@ -393,19 +393,8 @@ namespace ARKBreedingStats.BreedingPlanning
                 _breedingPairs = BreedingScore.CalculateBreedingScores(selectedFemales, selectedMales, _currentSpecies,
                     bestPossLevels, _statWeights, _bestLevels, _breedingMode,
                     considerChosenCreature, considerMutationLimit, (int)nudBPMutationLimit.Value,
-                    ref creaturesMutationsFilteredOut, levelLimitWithOutDomLevels, CbDontSuggestOverLimitOffspring.Checked);
-
-                if (cbBPOnlyOneSuggestionForFemales.Checked)
-                {
-                    var onlyOneSuggestionPerFemale = new List<BreedingPair>();
-                    foreach (var bp in _breedingPairs)
-                    {
-                        if (!onlyOneSuggestionPerFemale.Any(p => p.Female == bp.Female))
-                            onlyOneSuggestionPerFemale.Add(bp);
-                    }
-
-                    _breedingPairs = onlyOneSuggestionPerFemale;
-                }
+                    ref creaturesMutationsFilteredOut, levelLimitWithOutDomLevels, CbDontSuggestOverLimitOffspring.Checked,
+                    cbBPOnlyOneSuggestionForFemales.Checked);
 
                 double minScore = _breedingPairs.LastOrDefault()?.BreedingScore ?? 0;
                 if (minScore < 0)
@@ -423,14 +412,14 @@ namespace ARKBreedingStats.BreedingPlanning
                         PedigreeCreature pc;
                         if (2 * i < _pcs.Count)
                         {
-                            _pcs[2 * i].Creature = _breedingPairs[i].Female;
+                            _pcs[2 * i].Creature = _breedingPairs[i].Mother;
                             _pcs[2 * i].enabledColorRegions = _enabledColorRegions;
                             _pcs[2 * i].comboId = i;
                             _pcs[2 * i].Show();
                         }
                         else
                         {
-                            pc = new PedigreeCreature(_breedingPairs[i].Female, _enabledColorRegions, i, true);
+                            pc = new PedigreeCreature(_breedingPairs[i].Mother, _enabledColorRegions, i, true);
                             pc.CreatureClicked += SetBreedingPair;
                             pc.CreatureEdit += CreatureEdit;
                             pc.RecalculateBreedingPlan += RecalculateBreedingPlan;
@@ -456,14 +445,14 @@ namespace ARKBreedingStats.BreedingPlanning
 
                         if (2 * i + 1 < _pcs.Count)
                         {
-                            _pcs[2 * i + 1].Creature = _breedingPairs[i].Male;
+                            _pcs[2 * i + 1].Creature = _breedingPairs[i].Father;
                             _pcs[2 * i + 1].enabledColorRegions = _enabledColorRegions;
                             _pcs[2 * i + 1].comboId = i;
                             _pcs[2 * i + 1].Show();
                         }
                         else
                         {
-                            pc = new PedigreeCreature(_breedingPairs[i].Male, _enabledColorRegions, i, true);
+                            pc = new PedigreeCreature(_breedingPairs[i].Father, _enabledColorRegions, i, true);
                             pc.CreatureClicked += SetBreedingPair;
                             pc.CreatureEdit += CreatureEdit;
                             pc.RecalculateBreedingPlan += RecalculateBreedingPlan;
@@ -481,15 +470,15 @@ namespace ARKBreedingStats.BreedingPlanning
                         {
                             g.TextRenderingHint = TextRenderingHint.AntiAlias;
                             brush.Color = Utils.MutationColor;
-                            if (_breedingPairs[i].Female.Mutations < GameConstants.MutationPossibleWithLessThan)
+                            if (_breedingPairs[i].Mother.Mutations < GameConstants.MutationPossibleWithLessThan)
                             {
                                 g.FillRectangle(brush, 0, 5, 10, 10);
-                                sb.AppendLine(_breedingPairs[i].Female + " can produce a mutation.");
+                                sb.AppendLine(_breedingPairs[i].Mother + " can produce a mutation.");
                             }
-                            if (_breedingPairs[i].Male.Mutations < GameConstants.MutationPossibleWithLessThan)
+                            if (_breedingPairs[i].Father.Mutations < GameConstants.MutationPossibleWithLessThan)
                             {
                                 g.FillRectangle(brush, 77, 5, 10, 10);
-                                sb.AppendLine(_breedingPairs[i].Male + " can produce a mutation.");
+                                sb.AppendLine(_breedingPairs[i].Father + " can produce a mutation.");
                             }
                             // outline
                             brush.Color = Utils.GetColorFromPercent((int)(_breedingPairs[i].BreedingScore * 12.5), -.2);
@@ -836,8 +825,8 @@ namespace ARKBreedingStats.BreedingPlanning
             int? levelStep = CreatureCollection.getWildLevelStep();
             Creature crB = new Creature(_currentSpecies, string.Empty, levelsWild: new int[Values.STATS_COUNT], isBred: true, levelStep: levelStep);
             Creature crW = new Creature(_currentSpecies, string.Empty, levelsWild: new int[Values.STATS_COUNT], isBred: true, levelStep: levelStep);
-            Creature mother = _breedingPairs[comboIndex].Female;
-            Creature father = _breedingPairs[comboIndex].Male;
+            Creature mother = _breedingPairs[comboIndex].Mother;
+            Creature father = _breedingPairs[comboIndex].Father;
             crB.Mother = mother;
             crB.Father = father;
             crW.Mother = mother;

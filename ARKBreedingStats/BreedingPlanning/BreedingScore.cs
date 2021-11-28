@@ -30,11 +30,13 @@ namespace ARKBreedingStats.BreedingPlanning
         /// <param name="creaturesMutationsFilteredOut"></param>
         /// <param name="offspringLevelLimit">If &gt; 0, pairs that can result in a creature with a level higher than that, are highlighted. This can be used if there's a level cap.</param>
         /// <param name="downGradeOffspringWithLevelHigherThanLimit">Downgrade score if level is higher than limit.</param>
+        /// <param name="onlyBestSuggestionForFemale">Only the pairing with the highest score is kept for each female. Is not used if species has no sex or sex is ignored in breeding planner.</param>
         /// <returns></returns>
         public static List<BreedingPair> CalculateBreedingScores(Creature[] females, Creature[] males, Species species,
             short[] bestPossLevels, double[] statWeights, int[] bestLevels, BreedingPlan.BreedingMode breedingMode,
             bool considerChosenCreature, bool considerMutationLimit, int mutationLimit,
-            ref bool creaturesMutationsFilteredOut, int offspringLevelLimit = 0, bool downGradeOffspringWithLevelHigherThanLimit = false)
+            ref bool creaturesMutationsFilteredOut, int offspringLevelLimit = 0, bool downGradeOffspringWithLevelHigherThanLimit = false,
+            bool onlyBestSuggestionForFemale = false)
         {
             var breedingPairs = new List<BreedingPair>();
             var ignoreSex = Properties.Settings.Default.IgnoreSexInBreedingPlan || species.noGender;
@@ -189,7 +191,21 @@ namespace ARKBreedingStats.BreedingPlanning
                 }
             }
 
-            return breedingPairs.OrderByDescending(p => p.BreedingScore).ToList();
+            breedingPairs = breedingPairs.OrderByDescending(p => p.BreedingScore).ToList();
+
+            if (onlyBestSuggestionForFemale && !ignoreSex)
+            {
+                var onlyOneSuggestionPerFemale = new List<BreedingPair>();
+                foreach (var bp in breedingPairs)
+                {
+                    if (!onlyOneSuggestionPerFemale.Any(p => p.Mother == bp.Mother))
+                        onlyOneSuggestionPerFemale.Add(bp);
+                }
+
+                breedingPairs = onlyOneSuggestionPerFemale;
+            }
+
+            return breedingPairs;
         }
 
         public static void SetBestLevels(IEnumerable<Creature> creatures, int[] bestLevels, double[] statWeights)

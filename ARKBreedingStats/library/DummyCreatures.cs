@@ -188,8 +188,8 @@ namespace ARKBreedingStats.library
                 var pairsCount = Math.Min(usePairsPerGeneration, pairs.Count);
                 for (int i = 0; i < pairsCount; i++)
                 {
-                    var mother = pairs[i].Female;
-                    var father = pairs[i].Male;
+                    var mother = pairs[i].Mother;
+                    var father = pairs[i].Father;
 
                     var mutationsMaternal = mother.Mutations;
                     var mutationsPaternal = father.Mutations;
