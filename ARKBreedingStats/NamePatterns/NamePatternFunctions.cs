@@ -267,7 +267,7 @@ namespace ARKBreedingStats.NamePatterns
         /// <summary>
         /// Functions cannot process the characters {|} directly, they have to be replaced to be used.
         /// </summary>
-        private static string UnEscapeSpecialCharacters(string text) => text?.Replace("&lcub;", "{").Replace("&vline;", "|").Replace("&rcub;", "}");
+        public static string UnEscapeSpecialCharacters(string text) => text?.Replace("&lcub;", "{").Replace("&vline;", "|").Replace("&rcub;", "}");
 
         private static string FunctionCustomReplace(Match m, NamePatternParameters p)
         {

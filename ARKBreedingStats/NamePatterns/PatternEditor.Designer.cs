@@ -49,8 +49,8 @@
             this.TbFilterKeys = new System.Windows.Forms.TextBox();
             this.BtClearFilterKey = new System.Windows.Forms.Button();
             this.TabPagePatternTemplates = new System.Windows.Forms.TabPage();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.CbPatternNameToClipboardAfterManualApplication = new System.Windows.Forms.CheckBox();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -173,6 +173,7 @@
             this.cbPreview.Name = "cbPreview";
             this.cbPreview.Size = new System.Drawing.Size(15, 14);
             this.cbPreview.TabIndex = 11;
+            this.cbPreview.UseMnemonic = false;
             this.cbPreview.UseVisualStyleBackColor = true;
             // 
             // linkLabel1
@@ -289,10 +290,20 @@
             this.TabPagePatternTemplates.Location = new System.Drawing.Point(4, 22);
             this.TabPagePatternTemplates.Name = "TabPagePatternTemplates";
             this.TabPagePatternTemplates.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPagePatternTemplates.Size = new System.Drawing.Size(688, 500);
+            this.TabPagePatternTemplates.Size = new System.Drawing.Size(688, 472);
             this.TabPagePatternTemplates.TabIndex = 1;
             this.TabPagePatternTemplates.Text = "Templates";
             this.TabPagePatternTemplates.UseVisualStyleBackColor = true;
+            // 
+            // CbPatternNameToClipboardAfterManualApplication
+            // 
+            this.CbPatternNameToClipboardAfterManualApplication.AutoSize = true;
+            this.CbPatternNameToClipboardAfterManualApplication.Location = new System.Drawing.Point(3, 81);
+            this.CbPatternNameToClipboardAfterManualApplication.Name = "CbPatternNameToClipboardAfterManualApplication";
+            this.CbPatternNameToClipboardAfterManualApplication.Size = new System.Drawing.Size(339, 17);
+            this.CbPatternNameToClipboardAfterManualApplication.TabIndex = 17;
+            this.CbPatternNameToClipboardAfterManualApplication.Text = "Copy generated name to clipboard after pattern is applied manually";
+            this.CbPatternNameToClipboardAfterManualApplication.UseVisualStyleBackColor = true;
             // 
             // splitContainer1
             // 
@@ -312,16 +323,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(702, 674);
             this.splitContainer1.SplitterDistance = 40;
             this.splitContainer1.TabIndex = 8;
-            // 
-            // CbPatternNameToClipboardAfterManualApplication
-            // 
-            this.CbPatternNameToClipboardAfterManualApplication.AutoSize = true;
-            this.CbPatternNameToClipboardAfterManualApplication.Location = new System.Drawing.Point(3, 81);
-            this.CbPatternNameToClipboardAfterManualApplication.Name = "CbPatternNameToClipboardAfterManualApplication";
-            this.CbPatternNameToClipboardAfterManualApplication.Size = new System.Drawing.Size(339, 17);
-            this.CbPatternNameToClipboardAfterManualApplication.TabIndex = 17;
-            this.CbPatternNameToClipboardAfterManualApplication.Text = "Copy generated name to clipboard after pattern is applied manually";
-            this.CbPatternNameToClipboardAfterManualApplication.UseVisualStyleBackColor = true;
             // 
             // PatternEditor
             // 

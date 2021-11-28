@@ -91,7 +91,7 @@ namespace ARKBreedingStats.NamePatterns
             }
 
             // evaluate escaped characters
-            name = name.Replace(PipeEscapeSequence, "|");
+            name = NamePatternFunctions.UnEscapeSpecialCharacters(name.Replace(PipeEscapeSequence, "|"));
 
             if (showDuplicateNameWarning && creatureNames.Contains(name, StringComparer.OrdinalIgnoreCase))
             {
