@@ -188,7 +188,8 @@ namespace ARKBreedingStats.species
                 boneDamageAdjusters = boneDamageAdjustersCleanedUp;
             }
 
-            IsDomesticable = (taming != null && (taming.nonViolent || taming.violent)) || breeding != null;
+            IsDomesticable = (taming != null && (taming.nonViolent || taming.violent))
+                             || (breeding != null && (breeding.incubationTime > 0 || breeding.gestationTime > 0));
 
             if (statImprintMult == null) statImprintMult = new double[] { 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 }; // default values for the stat imprint multipliers
         }
