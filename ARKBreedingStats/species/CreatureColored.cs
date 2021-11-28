@@ -9,6 +9,9 @@ using ARKBreedingStats.Library;
 
 namespace ARKBreedingStats.species
 {
+    /// <summary>
+    /// Creates an image of a species with given colors for the regions.
+    /// </summary>
     internal static class CreatureColored
     {
         private const string Extension = ".png";
