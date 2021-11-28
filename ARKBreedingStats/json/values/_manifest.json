@@ -2,31 +2,31 @@
 	"format": "1.14-flyerspeed",
 	"files": {
 		"1083349027-SpeedyFlyers.json": {
-			"version": "338.23.1629746163",
+			"version": "340.3.1636376737",
 			"mod": { "id": "1083349027", "tag": "SpeedyFlyers", "title": "Najs Speedy Flyers" }
 		},
 		"1090809604-Pyria.json": {
-			"version": "337.15.1633711436",
+			"version": "340.3.1637922401",
 			"mod": { "id": "1090809604", "tag": "Pyria", "title": "Pyria: Mythos Evolved" }
 		},
 		"1092784125-Gryphons.json": {
-			"version": "329.16.1623157051",
+			"version": "340.3.1623157051",
 			"mod": { "id": "1092784125", "tag": "Gryphons", "title": "Gryphons" }
 		},
 		"111111111-PrimitivePlus.json": {
-			"version": "329.33.6857071",
+			"version": "340.3.7761957",
 			"mod": { "id": "111111111", "tag": "PrimitivePlus", "title": "PrimitivePlus" }
 		},
 		"1125442531-Gaia.json": {
-			"version": "338.23.1630493486",
+			"version": "340.3.1630493486",
 			"mod": { "id": "1125442531", "tag": "Gaia", "title": "Gaia" }
 		},
 		"1136390783-PhoenixBreeding.json": {
-			"version": "324.22.1505566966",
+			"version": "340.3.1505566966",
 			"mod": { "id": "1136390783", "tag": "PhoenixBreeding", "title": "Phoenix Breeding" }
 		},
 		"1206835819-AncientEarthModCollection.json": {
-			"version": "324.22.1513532145",
+			"version": "340.3.1513532145",
 			"mod": { "id": "1206835819", "tag": "AncientEarthModCollection", "title": "Ancient Dragons and Wyverns" }
 		},
 		"1268749723-ShadCore.json": {
@@ -35,63 +35,63 @@
 			"mod": { "id": "1268749723", "tag": "ShadCore", "title": "Origin Manticore" }
 		},
 		"1270132511-GiantGlowpets.json": {
-			"version": "324.22.1519946967",
+			"version": "340.3.1519946967",
 			"mod": { "id": "1270132511", "tag": "GiantGlowpets", "title": "Rideable Glowpets" }
 		},
 		"1270181453-AdditionalAberrantDinos.json": {
-			"version": "338.23.1630328296",
+			"version": "340.3.1630328296",
 			"mod": { "id": "1270181453", "tag": "AdditionalAberrantDinos", "title": "Additional Aberrant Dinos" }
 		},
 		"1300713111-RareSightings.json": {
-			"version": "338.23.1555557079",
+			"version": "340.3.1555557079",
 			"mod": { "id": "1300713111", "tag": "RareSightings", "title": "Rare Sightings" }
 		},
 		"1356703358-Primal_Fear_Noxious_Creatures.json": {
-			"version": "332.13.1598470602",
+			"version": "340.3.1598470602",
 			"mod": { "id": "1356703358", "tag": "Primal_Fear_Noxious_Creatures", "title": "Primal Fear Noxious Creatures" }
 		},
 		"1373744537-AC2.json": {
-			"version": "333.13.1627706492",
+			"version": "340.3.1627870513",
 			"mod": { "id": "1373744537", "tag": "AC2", "title": "Additional Creatures 2: Wild Ark" }
 		},
 		"1405944717-Project_Evolution.json": {
-			"version": "338.23.1597323120",
+			"version": "340.3.1597323120",
 			"mod": { "id": "1405944717", "tag": "Project_Evolution", "title": "JP's Server Tweaks" }
 		},
 		"1420423699-ARKaeologyDinos.json": {
-			"version": "324.22.1529794293",
+			"version": "340.3.1529794293",
 			"mod": { "id": "1420423699", "tag": "ARKaeologyDinos", "title": "ARKaeology Dinos" }
 		},
 		"1445395055-Indominus.json": {
-			"version": "336.12.1630202090",
+			"version": "340.3.1630714121",
 			"mod": { "id": "1445395055", "tag": "Indominus", "title": "ARK Additions: Indominus Rex!" }
 		},
 		"1449927867-Phoenix.json": {
-			"version": "338.23.1604247442",
+			"version": "340.3.1604247442",
 			"mod": { "id": "1449927867", "tag": "Phoenix", "title": "Phoenix: Reborn From the Ashes" }
 		},
 		"1498206270-SmallDragon.json": {
-			"version": "324.22.1563727344",
+			"version": "340.3.1563727344",
 			"mod": { "id": "1498206270", "tag": "SmallDragon", "title": "Small Dragons!" }
 		},
 		"1522327484-Additions_Pack.json": {
-			"version": "324.22.1611298465",
+			"version": "340.3.1635887922",
 			"mod": { "id": "1522327484", "tag": "Additions_Pack", "title": "ARK Additions!" }
 		},
 		"1523045986-Paranoia.json": {
-			"version": "331.7.1624551411",
+			"version": "340.3.1630831208",
 			"mod": { "id": "1523045986", "tag": "Paranoia", "title": "Additional Creatures 2: Paranoia!" }
 		},
 		"1565015734-BetterDinosTest.json": {
-			"version": "338.23.1629793077",
+			"version": "340.3.1635604601",
 			"mod": { "id": "1565015734", "tag": "BetterDinosTest", "title": "Better Dinos" }
 		},
 		"1576299694-ElementalDinos.json": {
-			"version": "338.23.1626695175",
+			"version": "340.3.1636977089",
 			"mod": { "id": "1576299694", "tag": "ElementalDinos", "title": "Elemental Ark" }
 		},
 		"1587391872-FasterFlyers.json": {
-			"version": "329.33.1610061006",
+			"version": "340.3.1635796213",
 			"mod": { "id": "1587391872", "tag": "FasterFlyers", "title": "Faster Flyers By EddyChomps" }
 		},
 		"1590726079-AutoHarvestAnky.json": {
@@ -104,39 +104,39 @@
 			"mod": { "id": "1606708617", "tag": "MysteriousMysteries", "title": "Mysterious Mysteries" }
 		},
 		"1633860796-DE_Breedable_RockDrakes.json": {
-			"version": "324.22.1548344384",
+			"version": "340.3.1548344384",
 			"mod": { "id": "1633860796", "tag": "DE_Breedable_RockDrakes", "title": "Dark Edges Breedable Rock Drakes" }
 		},
 		"1652120435-AtlasPort.json": {
-			"version": "337.15.1633711307",
+			"version": "340.3.1637193449",
 			"mod": { "id": "1652120435", "tag": "AtlasPort", "title": "Shad's Atlas Imports" }
 		},
 		"1654255131-AtlasImports.json": {
-			"version": "336.12.1630328445",
+			"version": "340.3.1630328445",
 			"mod": { "id": "1654255131", "tag": "AtlasImports", "title": "Animals of Atlas" }
 		},
 		"1662691167-Senior.json": {
-			"version": "324.22.1573149003",
+			"version": "340.3.1573149003",
 			"mod": { "id": "1662691167", "tag": "Senior", "title": "Additional Creatures: Senior Class" }
 		},
 		"1675895024-NoUntameables.json": {
-			"version": "337.15.1633670276",
+			"version": "340.3.1635215511",
 			"mod": { "id": "1675895024", "tag": "NoUntameables", "title": "No Untameables" }
 		},
 		"1676159020-Aquaria.json": {
-			"version": "678.37.1631476118",
+			"version": "340.3.1637623516",
 			"mod": { "id": "1676159020", "tag": "Aquaria", "title": "Additional Creatures: Aquaria" }
 		},
 		"1681125667-Primal_Fear_EX.json": {
-			"version": "338.23.1561175829",
+			"version": "340.3.1561175829",
 			"mod": { "id": "1681125667", "tag": "Primal_Fear_EX", "title": "Primal Fear Extinction Expansion" }
 		},
 		"1696957410-MarniimodsTest.json": {
-			"version": "324.22.1564743392",
+			"version": "340.3.1564743392",
 			"mod": { "id": "1696957410", "tag": "MarniimodsTest", "title": "Marnii's Equines" }
 		},
 		"1729386191-BonusDinoMod.json": {
-			"version": "333.13.1627650191",
+			"version": "340.3.1627820363",
 			"mod": { "id": "1729386191", "tag": "BonusDinoMod", "title": "Additional Creatures: Bonus Content" }
 		},
 		"1729512589-Brachiosaurus.json": {
@@ -145,7 +145,7 @@
 			"mod": { "id": "1729512589", "tag": "Brachiosaurus", "title": "ARK Additions: Brachiosaurus!" }
 		},
 		"1734595558-Pyria2.json": {
-			"version": "337.15.1633292449",
+			"version": "340.3.1636588007",
 			"mod": { "id": "1734595558", "tag": "Pyria2", "title": "Pyria: The Second Chapter" }
 		},
 		"1768499278-BalancedJPE.json": {
@@ -153,15 +153,15 @@
 			"mod": { "id": "1768499278", "tag": "BalancedJPE", "title": "AC2: Balanced JPE" }
 		},
 		"1783616332-IceWyvernMating.json": {
-			"version": "338.23.1561791527",
+			"version": "340.3.1561791527",
 			"mod": { "id": "1783616332", "tag": "IceWyvernMating", "title": "Ice Wyvern Mating" }
 		},
 		"1785800853-Behavorial-Expansion.json": {
-			"version": "324.22.1590247291",
+			"version": "340.3.1590247291",
 			"mod": { "id": "1785800853", "tag": "Behavorial-Expansion", "title": "ArkTranscendence" }
 		},
 		"1787443195-ChasmAdditionalDinos.json": {
-			"version": "329.33.1591695224",
+			"version": "340.3.1591695224",
 			"mod": { "id": "1787443195", "tag": "ChasmAdditionalDinos", "title": "The Chasm - Additional Creatures" }
 		},
 		"1821112850-Iguana.json": {
@@ -170,103 +170,103 @@
 			"mod": { "id": "1821112850", "tag": "Iguana", "title": "Iguana - Mysterious Mysteries" }
 		},
 		"1821554891-PurloviaTEST.json": {
-			"version": "324.22.1594494540",
+			"version": "340.3.1594494540",
 			"mod": { "id": "1821554891", "tag": "PurloviaTEST", "title": "PurloviaTEST" }
 		},
 		"1850728241-RoyalPhoenix.json": {
-			"version": "324.22.1567289771",
+			"version": "340.3.1567289771",
 			"mod": { "id": "1850728241", "tag": "RoyalPhoenix", "title": "Royal Phoenix Remastered" }
 		},
 		"1850732334-ForestWyvern.json": {
-			"version": "324.22.1567287477",
+			"version": "340.3.1567287477",
 			"mod": { "id": "1850732334", "tag": "ForestWyvern", "title": "Forest Wyvern Remastered" }
 		},
 		"1908568783-BarbaryLion.json": {
-			"version": "324.22.1588570866",
+			"version": "340.3.1588570866",
 			"mod": { "id": "1908568783", "tag": "BarbaryLion", "title": "AC: Bonus Content" }
 		},
 		"1912640902-MagicShinehorn.json": {
-			"version": "324.22.1579371796",
+			"version": "340.3.1632808421",
 			"mod": { "id": "1912640902", "tag": "MagicShinehorn", "title": "Magic Shinehorn" }
 		},
 		"1934081600-SoloFarmAnky.json": {
-			"version": "324.22.1581239136",
+			"version": "340.3.1581239136",
 			"mod": { "id": "1934081600", "tag": "SoloFarmAnky", "title": "Solo Farm Mod" }
 		},
 		"1984129536-MTSMod.json": {
-			"version": "338.23.1632876340",
+			"version": "340.3.1636664445",
 			"mod": { "id": "1984129536", "tag": "MTSMod", "title": "MTS.co.uk Community Mod" }
 		},
 		"1984936918-MarniiModsWildlife.json": {
-			"version": "333.13.1624466309",
+			"version": "340.3.1624466309",
 			"mod": { "id": "1984936918", "tag": "MarniiModsWildlife", "title": "MarniiMods:Wildlife" }
 		},
 		"2000326197-ExtraResources.json": {
-			"version": "338.23.1589585703",
+			"version": "340.3.1589585703",
 			"mod": { "id": "2000326197", "tag": "ExtraResources", "title": "Event Assets" }
 		},
 		"2019846325-ApexMod.json": {
-			"version": "329.33.1587687698",
+			"version": "340.3.1587687698",
 			"mod": { "id": "2019846325", "tag": "ApexMod", "title": "ApexMod" }
 		},
 		"2034355411-Roya.json": {
-			"version": "324.22.1590781656",
+			"version": "340.3.1590781656",
 			"mod": { "id": "2034355411", "tag": "Roya", "title": "Additional Creatures: Roya Creations" }
 		},
 		"2110243671-GrandHunt.json": {
-			"version": "324.22.1609198698",
+			"version": "340.3.1626838820",
 			"mod": { "id": "2110243671", "tag": "GrandHunt", "title": "Additional Creatures: Grand Hunt" }
 		},
 		"2112724006-DarkArk.json": {
-			"version": "338.23.1624371883",
+			"version": "340.3.1624371883",
 			"mod": { "id": "2112724006", "tag": "DarkArk", "title": "The Hunted" }
 		},
 		"2117881804-FiresFixes.json": {
-			"version": "324.22.1594833400",
+			"version": "340.3.1594833400",
 			"mod": { "id": "2117881804", "tag": "FiresFixes", "title": "Fire's Fixes" }
 		},
 		"2135314513-CI_Dinos.json": {
-			"version": "338.23.1623948861",
+			"version": "340.3.1623948861",
 			"mod": { "id": "2135314513", "tag": "CI_Dinos", "title": "Crystal Isles Dino Addition" }
 		},
 		"729352919-IndomRex.json": {
-			"version": "324.22.1488771984",
+			"version": "340.3.1488771984",
 			"mod": { "id": "729352919", "tag": "IndomRex", "title": "Indom Rex Nemesis" }
 		},
 		"814833973-Wyvern_Mating.json": {
-			"version": "338.23.1482240799",
+			"version": "340.3.1482240799",
 			"mod": { "id": "814833973", "tag": "Wyvern_Mating", "title": "Wyvern Mating" }
 		},
 		"839162288-Primal_Fear.json": {
-			"version": "338.23.1624738849",
+			"version": "340.3.1624738849",
 			"mod": { "id": "839162288", "tag": "Primal_Fear", "title": "Primal Fear" }
 		},
 		"893735676-AE.json": {
-			"version": "338.23.1633154293",
+			"version": "340.3.1635395904",
 			"mod": { "id": "893735676", "tag": "AE", "title": "ARK: Eternal" }
 		},
 		"895711211-ClassicFlyers.json": {
-			"version": "324.22.1582853323",
+			"version": "340.3.1582853323",
 			"mod": { "id": "895711211", "tag": "ClassicFlyers", "title": "Classic Flyers" }
 		},
 		"899987403-Primal_Fear_Bosses.json": {
-			"version": "331.19.1624921595",
+			"version": "340.3.1624921595",
 			"mod": { "id": "899987403", "tag": "Primal_Fear_Bosses", "title": "Primal Fear Bosses" }
 		},
 		"909297874-NorwegianVikings.json": {
-			"version": "338.23.1582885862",
+			"version": "340.3.1582885862",
 			"mod": { "id": "909297874", "tag": "NorwegianVikings", "title": "Norwegian Vikings" }
 		},
 		"919470289-SSFlyer.json": {
-			"version": "324.22.1532328552",
+			"version": "340.3.1532328552",
 			"mod": { "id": "919470289", "tag": "SSFlyer", "title": "SSFlyer" }
 		},
 		"CrystalIsles-CrystalIsles.json": {
-			"version": "338.23.7535952",
+			"version": "340.3.7761957",
 			"mod": { "id": "CrystalIsles", "tag": "CrystalIsles", "title": "CrystalIsles" }
 		},
 		"values.json": {
-			"version": "338.23.7535952"
+			"version": "340.3.7761957.1"
 		}
 	}
 }
