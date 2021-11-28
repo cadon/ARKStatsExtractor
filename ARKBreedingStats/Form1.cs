@@ -433,15 +433,8 @@ namespace ARKBreedingStats
 
             UpdatePatternButtons();
 
-            // Set up the file watcher
-            if (Properties.Settings.Default.syncCollection)
-                _fileSync = new FileSync(_currentFileName, CollectionChanged);
-
-            // exports file watcher
-            bool enableExportWatcher = Utils.GetFirstImportExportFolder(out string exportFolderDefault)
-                                       && Properties.Settings.Default.AutoImportExportedCreatures;
-            _fileWatcherExports = new FileWatcherExports(exportFolderDefault, ImportExportedAddIfPossible_WatcherThread,
-                enableExportWatcher);
+            SetupAutoLoadFileWatcher();
+            SetupExportFileWatcher();
 
             timerList1.SetTimerPresets(Properties.Settings.Default.TimerPresets);
 
@@ -1921,23 +1914,8 @@ namespace ARKBreedingStats
             CreatureColored.InitializeSpeciesImageLocation();
             creatureBoxListView.CreatureCollection = _creatureCollection;
 
-            if (Properties.Settings.Default.syncCollection)
-            {
-                if (_fileSync == null)
-                    _fileSync = new FileSync(_currentFileName, CollectionChanged);
-            }
-            else
-            {
-                if (_fileSync != null)
-                {
-                    _fileSync.Dispose();
-                    _fileSync = null;
-                }
-            }
-
-            bool enableExportWatcher = Utils.GetFirstImportExportFolder(out string exportFolderDefault)
-                                       && Properties.Settings.Default.AutoImportExportedCreatures;
-            _fileWatcherExports.SetWatchFolder(exportFolderDefault, enableExportWatcher);
+            SetupAutoLoadFileWatcher();
+            SetupExportFileWatcher();
 
             InitializeSpeechRecognition();
             _overlay?.SetInfoPositions();
@@ -1958,7 +1936,48 @@ namespace ARKBreedingStats
             SetOverlayLocation();
 
             SetCollectionChanged(true);
+        }
 
+        /// <summary>
+        /// Initializes or disposes the fileWatcher for the collection file, e.g. used in file syncing.
+        /// </summary>
+        private void SetupAutoLoadFileWatcher()
+        {
+            if (Properties.Settings.Default.syncCollection)
+            {
+                if (_fileSync == null)
+                    _fileSync = new FileSync(_currentFileName, CollectionChanged);
+            }
+            else if (_fileSync != null)
+            {
+                _fileSync.Dispose();
+                _fileSync = null;
+            }
+        }
+
+        /// <summary>
+        /// Initializes or disposes the fileWatcher for the export files, used in auto importing.
+        /// </summary>
+        private void SetupExportFileWatcher()
+        {
+            if (Properties.Settings.Default.AutoImportExportedCreatures
+                && Utils.GetFirstImportExportFolder(out string exportFolderDefault))
+            {
+                if (_fileWatcherExports == null)
+                {
+                    _fileWatcherExports =
+                           new FileWatcherExports(exportFolderDefault, ImportExportedAddIfPossible_WatcherThread);
+                }
+                else
+                {
+                    _fileWatcherExports.SetWatchFolder(exportFolderDefault);
+                }
+            }
+            else if (_fileWatcherExports != null)
+            {
+                _fileWatcherExports.Dispose();
+                _fileWatcherExports = null;
+            }
         }
 
         /// <summary>

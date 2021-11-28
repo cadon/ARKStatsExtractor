@@ -1,40 +1,72 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ARKBreedingStats.importExported
 {
-    class FileWatcherExports
+    public class FileWatcherExports : IDisposable
     {
-        private FileSystemWatcher fileWatcherExport;
-        public FileWatcherExports(string folderToWatch, Action<string, FileWatcherExports> callbackNewFile, bool watching)
+        private readonly FileSystemWatcher _fileWatcherExport;
+        private readonly Action<string, FileWatcherExports> _callbackNewFile;
+
+        public FileWatcherExports(string folderToWatch, Action<string, FileWatcherExports> callbackNewFile)
         {
-            fileWatcherExport = new FileSystemWatcher()
+            _callbackNewFile = callbackNewFile;
+
+            _fileWatcherExport = new FileSystemWatcher
             {
                 Filter = "*.ini",
                 NotifyFilter = NotifyFilters.LastWrite
             };
-            fileWatcherExport.Created += (sender, e) => callbackNewFile(e.FullPath, this);
-            fileWatcherExport.Changed += (sender, e) => callbackNewFile(e.FullPath, this);
-            SetWatchFolder(folderToWatch, watching);
+            _fileWatcherExport.Created += OnChanged;
+            _fileWatcherExport.Changed += OnChanged;
+            SetWatchFolder(folderToWatch);
         }
 
-        public void SetWatchFolder(string folderToWatch, bool watching = true)
+        public void SetWatchFolder(string folderToWatch)
         {
             if (Directory.Exists(folderToWatch))
             {
-                fileWatcherExport.Path = folderToWatch;
-                Watching = watching;
+                _fileWatcherExport.Path = folderToWatch;
+                Watching = true;
             }
             else { Watching = false; }
         }
 
         public bool Watching
         {
-            set => fileWatcherExport.EnableRaisingEvents = value;
+            set => _fileWatcherExport.EnableRaisingEvents = value;
         }
+
+
+        private void OnChanged(object source, FileSystemEventArgs e)
+        {
+            _callbackNewFile?.Invoke(e.FullPath, this);
+        }
+
+        #region Disposing
+
+        private bool _disposed;
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed) return;
+
+            if (disposing)
+            {
+                _fileWatcherExport.Created -= OnChanged;
+                _fileWatcherExport.Changed -= OnChanged;
+                _fileWatcherExport.Dispose();
+            }
+
+            _disposed = true;
+        }
+
+        #endregion
     }
 }
