@@ -1,6 +1,5 @@
 ﻿using ARKBreedingStats.species;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
@@ -16,7 +15,7 @@ namespace ARKBreedingStats.values
         [JsonProperty]
         private string format; // must be present and a supported value
         [JsonProperty]
-        private string version; // must be present and a supported value
+        private string version;
 
         private static bool IsValidFormat(string formatVersion) => formatVersion == "1.13";
 

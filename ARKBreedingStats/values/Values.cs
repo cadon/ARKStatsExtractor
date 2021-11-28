@@ -153,6 +153,7 @@ namespace ARKBreedingStats.values
                 _V.defaultFoodData = new Dictionary<string, TamingFood>();
             }
 
+            //var speciesWoFoodData = new List<string>(); // to determine which species has no food data yet
             _V.speciesNames = new List<string>();
             foreach (Species sp in _V.species)
             {
@@ -163,7 +164,9 @@ namespace ARKBreedingStats.values
                     sp.taming.eatsAlsoPostTame = specialFoodData[sp.name].eatsAlsoPostTame;
                     sp.taming.specialFoodValues = specialFoodData[sp.name].specialFoodValues;
                 }
+                //if (sp.IsDomesticable && !specialFoodData.ContainsKey(sp.name)) speciesWoFoodData.Add(sp.name);
             }
+            //System.Windows.Forms.Clipboard.SetText(speciesWoFoodData.Any() ? string.Join("\n", speciesWoFoodData) : string.Empty);
 
             OrderSpeciesAndApplyCustomVariants();
 
