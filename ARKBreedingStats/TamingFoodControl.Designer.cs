@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.PanelColorIndicator = new System.Windows.Forms.Panel();
             this.labelDuration = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.labelFoodUsed = new System.Windows.Forms.Label();
             this.numericUpDown1 = new ARKBreedingStats.uiControls.Nud();
-            this.PanelColorIndicator = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -48,10 +48,17 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(299, 45);
+            this.groupBox1.Size = new System.Drawing.Size(307, 45);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
+            // 
+            // PanelColorIndicator
+            // 
+            this.PanelColorIndicator.Location = new System.Drawing.Point(6, 19);
+            this.PanelColorIndicator.Name = "PanelColorIndicator";
+            this.PanelColorIndicator.Size = new System.Drawing.Size(20, 20);
+            this.PanelColorIndicator.TabIndex = 4;
             // 
             // labelDuration
             // 
@@ -101,20 +108,13 @@
             this.numericUpDown1.TabIndex = 0;
             this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
-            // PanelColorIndicator
-            // 
-            this.PanelColorIndicator.Location = new System.Drawing.Point(6, 19);
-            this.PanelColorIndicator.Name = "PanelColorIndicator";
-            this.PanelColorIndicator.Size = new System.Drawing.Size(20, 20);
-            this.PanelColorIndicator.TabIndex = 4;
-            // 
             // TamingFoodControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.Name = "TamingFoodControl";
-            this.Size = new System.Drawing.Size(299, 45);
+            this.Size = new System.Drawing.Size(307, 45);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
