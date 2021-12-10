@@ -21,14 +21,14 @@ namespace ARKBreedingStats
         private async void SavegameImportClick(object sender, EventArgs e)
         {
             var error = await RunSavegameImport((ATImportFileLocation)((ToolStripMenuItem)sender).Tag);
-            if (error == null) return;
+            if (string.IsNullOrEmpty(error)) return;
             MessageBoxes.ShowMessageBox(error, "Savegame import error");
         }
 
         /// <summary>
-        /// Imports the creatures from the given savegame. ftp is possible.
+        /// Imports the creatures from the given saveGame. ftp is possible.
         /// </summary>
-        /// <param name="atImportFileLocation"></param>
+        /// <returns>null on success, else an error message to show, or an empty string if the error was already displayed.</returns>
         private async Task<string> RunSavegameImport(ATImportFileLocation atImportFileLocation)
         {
             TsbQuickSaveGameImport.Enabled = false;
@@ -38,14 +38,15 @@ namespace ARKBreedingStats
 
             try
             {
-                string workingCopyfilename = Properties.Settings.Default.savegameExtractionPath;
+                string workingCopyFolderPath = Properties.Settings.Default.savegameExtractionPath;
+                string workingCopyFilePath;
 
                 // working dir not configured? use temp dir
                 // luser configured savegame folder as working dir? use temp dir instead
-                if (string.IsNullOrWhiteSpace(workingCopyfilename) ||
-                    Path.GetDirectoryName(atImportFileLocation.FileLocation) == workingCopyfilename)
+                if (string.IsNullOrWhiteSpace(workingCopyFolderPath) ||
+                    Path.GetDirectoryName(atImportFileLocation.FileLocation) == workingCopyFolderPath)
                 {
-                    workingCopyfilename = Path.GetTempPath();
+                    workingCopyFolderPath = Path.GetTempPath();
                 }
 
 
@@ -55,9 +56,9 @@ namespace ARKBreedingStats
                     switch (uri.Scheme)
                     {
                         case "ftp":
-                            workingCopyfilename = await CopyFtpFileAsync(uri, atImportFileLocation.ConvenientName,
-                                workingCopyfilename);
-                            if (workingCopyfilename == null)
+                            workingCopyFilePath = await CopyFtpFileAsync(uri, atImportFileLocation.ConvenientName,
+                               workingCopyFolderPath);
+                            if (workingCopyFilePath == null)
                                 // the user didn't enter credentials
                                 return "no credentials";
                             break;
@@ -70,12 +71,20 @@ namespace ARKBreedingStats
                     if (!File.Exists(atImportFileLocation.FileLocation))
                         return $"File not found: {atImportFileLocation.FileLocation}";
 
-                    workingCopyfilename = Path.Combine(workingCopyfilename,
-                        Path.GetFileName(atImportFileLocation.FileLocation));
-                    File.Copy(atImportFileLocation.FileLocation, workingCopyfilename, true);
+                    workingCopyFilePath = Path.Combine(workingCopyFolderPath,
+                         Path.GetFileName(atImportFileLocation.FileLocation));
+                    try
+                    {
+                        File.Copy(atImportFileLocation.FileLocation, workingCopyFilePath, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBoxes.ExceptionMessageBox(ex, $"Error while copying the save game file to the working directory\n{workingCopyFolderPath}\nIt's recommended to leave the setting for the working folder empty.");
+                        return string.Empty;
+                    }
                 }
 
-                await ImportSavegame.ImportCollectionFromSavegame(_creatureCollection, workingCopyfilename,
+                await ImportSavegame.ImportCollectionFromSavegame(_creatureCollection, workingCopyFilePath,
                     atImportFileLocation.ServerName);
 
                 UpdateParents(_creatureCollection.creatures);
@@ -106,16 +115,8 @@ namespace ARKBreedingStats
             }
             catch (Exception ex)
             {
-                string message = ex.Message
-                                 + "\n\nException in " + ex.Source
-                                 + "\n\nMethod throwing the error: " + ex.TargetSite.DeclaringType.FullName + "." +
-                                 ex.TargetSite.Name
-                                 + "\n\nStackTrace:\n" + ex.StackTrace
-                                 + (ex.InnerException != null
-                                     ? "\n\nInner Exception:\n" + ex.InnerException.Message
-                                     : string.Empty)
-                    ;
-                MessageBoxes.ShowMessageBox($"An error occurred while importing. Message:\n\n{message}", "Save file import error");
+                MessageBoxes.ExceptionMessageBox(ex, "An error occurred while importing.", "Save file import error");
+                return string.Empty;
             }
             finally
             {
@@ -335,7 +336,7 @@ namespace ARKBreedingStats
 
                 results.Add(error == null
                         ? $"{importFile.ConvenientName}: Successfully imported."
-                        : $"{importFile.ConvenientName}: Error during import:\n{error}"
+                        : $"{importFile.ConvenientName}: Error during import:" + (string.IsNullOrEmpty(error) ? string.Empty : $"\n{error}")
                     );
             }
 
