@@ -111,9 +111,10 @@ namespace ARKBreedingStats
             foreach (var k in Kibbles.K.kibble)
             {
                 var kibbleName = $"{k.Key} Kibble";
-                if (((td.specialFoodValues != null && td.specialFoodValues.TryGetValue(kibbleName, out var kFood))
-                    || Values.V.defaultFoodData.TryGetValue(kibbleName, out kFood))
-                    && kFood.affinity >= 100)
+                var kibbleFood = Values.V.GetTamingFood(species, kibbleName);
+
+                if (kibbleFood != null
+                    && kibbleFood.affinity >= 100)
                 {
                     _kibbleRecipe += $"\n\n{k.Key} Kibble:{k.Value.RecipeAsText()}";
                 }
@@ -177,8 +178,9 @@ namespace ARKBreedingStats
                     }
 
                     // special cases where a creature eats multiple food items of one kind at once
-                    if (td.specialFoodValues != null && td.specialFoodValues.ContainsKey(f) && td.specialFoodValues[f].quantity > 1)
-                        tf.foodNameDisplay = td.specialFoodValues[f].quantity + "× " + tf.foodNameDisplay;
+                    var food = Values.V.GetTamingFood(species, f);
+                    if (food != null && food.quantity > 1)
+                        tf.foodNameDisplay = food.quantity + "× " + tf.foodNameDisplay;
                 }
             }
 

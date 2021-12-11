@@ -144,9 +144,10 @@ namespace ARKBreedingStats.values
             if (specialFoodData == null) specialFoodData = new Dictionary<string, TamingData>();
             _V.specialFoodData = specialFoodData;
 
-            if (setTamingFood && specialFoodData.ContainsKey("default"))
+            const string defaultFoodNameKey = "default";
+            if (setTamingFood && specialFoodData.ContainsKey(defaultFoodNameKey))
             {
-                _V.defaultFoodData = specialFoodData["default"].specialFoodValues;
+                _V.defaultFoodData = specialFoodData[defaultFoodNameKey].specialFoodValues;
             }
             else
             {
@@ -844,6 +845,22 @@ namespace ARKBreedingStats.values
             string speciesClassString = m.Groups[1].Value;
             if (!speciesClassString.EndsWith("_C")) speciesClassString += "_C";
             return IgnoreSpeciesClassesOnImport.Contains(speciesClassString);
+        }
+
+        /// <summary>
+        /// Returns the taming food data for a species.
+        /// Returns null if no data is found.
+        /// </summary>
+        internal TamingFood GetTamingFood(Species species, string foodName)
+        {
+            if (species?.taming?.specialFoodValues != null
+                && species.taming.specialFoodValues.TryGetValue(foodName, out var food))
+                return food;
+
+            if (defaultFoodData != null
+                && defaultFoodData.TryGetValue(foodName, out food))
+                return food;
+            return null;
         }
     }
 }

@@ -160,22 +160,21 @@ namespace ARKBreedingStats.raising
                 if (string.IsNullOrEmpty(foodAmount))
                     foodAmount = FoodAmountString(_selectedSpecies.taming.eats[0]);
 
-                string FoodAmountString(string _foodName)
+                string FoodAmountString(string foodName)
                 {
-                    if (Array.IndexOf(_selectedSpecies.taming.eats, _foodName) == -1
+                    if (Array.IndexOf(_selectedSpecies.taming.eats, foodName) == -1
                         && (_selectedSpecies.taming.eatsAlsoPostTame == null
-                            || Array.IndexOf(_selectedSpecies.taming.eatsAlsoPostTame, _foodName) == -1)) return null;
+                            || Array.IndexOf(_selectedSpecies.taming.eatsAlsoPostTame, foodName) == -1)) return null;
 
-                    double foodValue;
-                    if (_selectedSpecies.taming.specialFoodValues.TryGetValue(_foodName, out TamingFood tf))
-                        foodValue = tf.foodValue;
-                    else if (Values.V.defaultFoodData.TryGetValue(_foodName, out tf))
-                        foodValue = tf.foodValue;
-                    else return null;
+                    var food = Values.V.GetTamingFood(_selectedSpecies, foodName);
+
+                    if (food == null) return null;
+
+                    var foodValue = food.foodValue;
                     if (foodValue == 0) return null;
 
-                    return (babyPhaseFoodValid ? $"\n\nFood for Baby-Phase: ~{Math.Ceiling(babyPhaseFood / foodValue)} {_foodName}" : string.Empty)
-                           + $"\nTotal Food for maturation: ~{Math.Ceiling(totalFood / foodValue)} {_foodName}";
+                    return (babyPhaseFoodValid ? $"\n\nFood for Baby-Phase: ~{Math.Ceiling(babyPhaseFood / foodValue)} {foodName}" : string.Empty)
+                           + $"\nTotal Food for maturation: ~{Math.Ceiling(totalFood / foodValue)} {foodName}";
                 }
 
                 foodAmount += "\n - Loss by spoiling is not considered!";
@@ -235,11 +234,11 @@ namespace ARKBreedingStats.raising
 
             if (_lastSelectedFood == null) return;
 
-            double foodValue = 0;
-            if (_selectedSpecies.taming.specialFoodValues.TryGetValue(_lastSelectedFood, out TamingFood tf))
-                foodValue = tf.foodValue;
-            else if (Values.V.defaultFoodData.TryGetValue(_lastSelectedFood, out tf))
-                foodValue = tf.foodValue;
+
+            var food = Values.V.GetTamingFood(_selectedSpecies, _lastSelectedFood);
+            if (food == null) return;
+
+            var foodValue = food.foodValue;
             if (foodValue == 0) return;
 
             if (uiControls.Trough.FoodAmountFromUntil(_selectedSpecies,

@@ -13,13 +13,15 @@ namespace ARKBreedingStats
         /// https://ark.fandom.com/253.0
         /// and again *2 in patch https://ark.fandom.com/313.5
         /// </summary>
-        private const int _hardCodedTamingMultiplier = 4;
+        private const int HardCodedTamingMultiplier = 4;
 
         public static void TamingTimes(Species species, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier,
                 List<string> usedFood, List<int> foodAmount, out List<int> foodAmountUsed, out TimeSpan duration,
-                out int neededNarcoberries, out int neededAscerbicMushrooms, out int neededNarcotics, out int neededBioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
+                out int neededNarcoberries, out int neededAscerbicMushrooms, out int neededNarcotics, out int neededBioToxins, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
         {
-            double totalTorpor = 0, torporDeplPS = 0, torporNeeded = 0;
+            double totalTorpor = 0;
+            double torporDepletionPerSecond = 0;
+            double torporNeeded = 0;
             int totalSeconds = 0;
 
             bonusLevel = 0;
@@ -28,7 +30,7 @@ namespace ARKBreedingStats
             neededNarcoberries = 0;
             neededAscerbicMushrooms = 0;
             neededNarcotics = 0;
-            neededBioToxines = 0;
+            neededBioToxins = 0;
             hunger = 0;
             enoughFood = false;
 
@@ -47,7 +49,7 @@ namespace ARKBreedingStats
                     //total torpor for level
                     totalTorpor = species.stats[(int)StatNames.Torpidity].BaseValue * (1 + species.stats[(int)StatNames.Torpidity].IncPerWildLevel * (level - 1));
                     // torpor depletion per second for level
-                    torporDeplPS = TorporDepletionPS(species.taming.torporDepletionPS0, level);
+                    torporDepletionPerSecond = TorporDepletionPS(species.taming.torporDepletionPS0, level);
                 }
 
                 double foodByAffinity = 0; // needed for the effectiveness calculation
@@ -55,71 +57,55 @@ namespace ARKBreedingStats
                 // how much food / resources of the different kinds that this creature eats is needed
                 for (int f = 0; f < usedFood.Count; f++)
                 {
-                    if (foodAmount[f] > 0)
+                    if (foodAmount[f] <= 0) continue;
+                    string foodName = usedFood[f];
+                    var food = Values.V.GetTamingFood(species, foodName);
+                    if (food == null) continue;
+
+
+                    double foodAffinity = food.affinity * food.quantity;
+                    double foodValue = food.foodValue; // TODO is the food value also affected by the quantity?
+
+                    if (species.taming.nonViolent)
                     {
-                        string food = usedFood[f];
-                        bool specialFood = species.taming.specialFoodValues != null && species.taming.specialFoodValues.ContainsKey(food);
-                        if (specialFood || Values.V.defaultFoodData.ContainsKey(food))
-                        {
-                            double foodAffinity;
-                            double foodValue;
-
-                            // check if (creature handles this food in a special way (e.g. scorpions not liking raw meat as much)
-                            if (specialFood)
-                            {
-                                foodAffinity = species.taming.specialFoodValues[food].affinity;
-                                foodValue = species.taming.specialFoodValues[food].foodValue;
-                            }
-                            else
-                            {
-                                foodAffinity = Values.V.defaultFoodData[food].affinity;
-                                foodValue = Values.V.defaultFoodData[food].foodValue;
-                            }
-
-                            foodAffinity *= specialFood ? species.taming.specialFoodValues[food].quantity : 1;
-
-                            if (species.taming.nonViolent)
-                            {
-                                // consider wake taming multiplicators (non - violent taming)
-                                foodAffinity *= species.taming.wakeAffinityMult;
-                                foodValue = foodValue * species.taming.wakeFoodDeplMult;
-                            }
-
-                            foodAffinity *= tamingSpeedMultiplier * _hardCodedTamingMultiplier;
-
-                            if (foodAffinity > 0 && foodValue > 0)
-                            {
-                                // amount of food needed for the left affinity.
-                                int foodPiecesNeeded = (int)Math.Ceiling(affinityNeeded / foodAffinity);
-
-                                if (foodPiecesNeeded > foodAmount[f])
-                                    foodPiecesNeeded = foodAmount[f];
-
-                                foodAmountUsed[f] = foodPiecesNeeded;
-
-                                // time to eat needed food
-                                // mantis eats every 3 minutes, regardless of level
-                                int seconds;
-                                if (species.name == "Mantis")
-                                    seconds = foodPiecesNeeded * 180;
-                                else
-                                    seconds = (int)Math.Ceiling(foodPiecesNeeded * foodValue / (species.taming.foodConsumptionBase * species.taming.foodConsumptionMult * tamingFoodRateMultiplier));
-                                affinityNeeded -= foodPiecesNeeded * foodAffinity;
-
-                                // new approach with 1/(1 + IM*IA*N/AO + ID*D) from https://forums.unrealengine.com/development-discussion/modding/ark-survival-evolved/56959-tutorial-dinosaur-taming-parameters?85457-Tutorial-Dinosaur-Taming-Parameters=
-                                foodByAffinity += foodPiecesNeeded / foodAffinity;
-
-                                if (!species.taming.nonViolent)
-                                {
-                                    //extra needed torpor to eat needed food
-                                    torporNeeded += torporDeplPS * seconds;
-                                }
-                                totalSeconds += seconds;
-                            }
-                            if (affinityNeeded <= 0)
-                                break;
-                        }
+                        // consider wake taming multiplicators (non - violent taming)
+                        foodAffinity *= species.taming.wakeAffinityMult;
+                        foodValue = foodValue * species.taming.wakeFoodDeplMult;
                     }
+
+                    foodAffinity *= tamingSpeedMultiplier * HardCodedTamingMultiplier;
+
+                    if (foodAffinity > 0 && foodValue > 0)
+                    {
+                        // amount of food needed for the left affinity.
+                        int foodPiecesNeeded = (int)Math.Ceiling(affinityNeeded / foodAffinity);
+
+                        if (foodPiecesNeeded > foodAmount[f])
+                            foodPiecesNeeded = foodAmount[f];
+
+                        foodAmountUsed[f] = foodPiecesNeeded;
+
+                        // time to eat needed food
+                        // mantis eats every 3 minutes, regardless of level
+                        int seconds;
+                        if (species.name == "Mantis")
+                            seconds = foodPiecesNeeded * 180;
+                        else
+                            seconds = (int)Math.Ceiling(foodPiecesNeeded * foodValue / (species.taming.foodConsumptionBase * species.taming.foodConsumptionMult * tamingFoodRateMultiplier));
+                        affinityNeeded -= foodPiecesNeeded * foodAffinity;
+
+                        // new approach with 1/(1 + IM*IA*N/AO + ID*D) from https://forums.unrealengine.com/development-discussion/modding/ark-survival-evolved/56959-tutorial-dinosaur-taming-parameters?85457-Tutorial-Dinosaur-Taming-Parameters=
+                        foodByAffinity += foodPiecesNeeded / foodAffinity;
+
+                        if (!species.taming.nonViolent)
+                        {
+                            //extra needed torpor to eat needed food
+                            torporNeeded += torporDepletionPerSecond * seconds;
+                        }
+                        totalSeconds += seconds;
+                    }
+                    if (affinityNeeded <= 0)
+                        break;
                 }
                 // add tamingIneffectivenessMultiplier? Needs settings?
                 te = 1 / (1 + species.taming.tamingIneffectiveness * foodByAffinity); // ignores damage, which has no input
@@ -131,13 +117,13 @@ namespace ARKBreedingStats
                 if (torporNeeded < 0)
                     torporNeeded = 0;
                 // amount of Narcoberries(give 7.5 torpor each over 3s)
-                neededNarcoberries = (int)Math.Ceiling(torporNeeded / (7.5 + 3 * torporDeplPS));
+                neededNarcoberries = (int)Math.Ceiling(torporNeeded / (7.5 + 3 * torporDepletionPerSecond));
                 // amount of Ascerbic Mushrooms (give 25 torpor each over 3s)
-                neededAscerbicMushrooms = (int)Math.Ceiling(torporNeeded / (25 + 3 * torporDeplPS));
+                neededAscerbicMushrooms = (int)Math.Ceiling(torporNeeded / (25 + 3 * torporDepletionPerSecond));
                 // amount of Narcotics(give 40 each over 8s)
-                neededNarcotics = (int)Math.Ceiling(torporNeeded / (40 + 8 * torporDeplPS));
+                neededNarcotics = (int)Math.Ceiling(torporNeeded / (40 + 8 * torporDepletionPerSecond));
                 // amount of BioToxines (give 80 each over 16s)
-                neededBioToxines = (int)Math.Ceiling(torporNeeded / (80 + 16 * torporDeplPS));
+                neededBioToxins = (int)Math.Ceiling(torporNeeded / (80 + 16 * torporDepletionPerSecond));
 
                 enoughFood = affinityNeeded <= 0;
 
@@ -148,10 +134,9 @@ namespace ARKBreedingStats
 
                 for (int i = 0; i < usedFood.Count; i++)
                 {
-                    if (species.taming.specialFoodValues != null && species.taming.specialFoodValues.ContainsKey(usedFood[i]))
-                        hunger += foodAmountUsed[i] * species.taming.specialFoodValues[usedFood[i]].foodValue;
-                    else if (Values.V.defaultFoodData.ContainsKey(usedFood[i]))
-                        hunger += foodAmountUsed[i] * Values.V.defaultFoodData[usedFood[i]].foodValue;
+                    var food = Values.V.GetTamingFood(species, usedFood[i]);
+                    if (food != null)
+                        hunger += foodAmountUsed[i] * food.foodValue;
                 }
             }
         }
@@ -162,11 +147,11 @@ namespace ARKBreedingStats
         public static void TamingTimes(Species species, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier,
                 string usedFood, int foodAmount,
                 out List<int> foodAmountUsed, out TimeSpan duration, out int neededNarcoberries, out int neededAscerbicMushrooms, out int neededNarcotics,
-                out int neededBioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
+                out int neededBioToxins, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
         {
             TamingTimes(species, level, tamingSpeedMultiplier, tamingFoodRateMultiplier,
                     new List<string> { usedFood }, new List<int> { foodAmount },
-                    out foodAmountUsed, out duration, out neededNarcoberries, out neededAscerbicMushrooms, out neededNarcotics, out neededBioToxines,
+                    out foodAmountUsed, out duration, out neededNarcoberries, out neededAscerbicMushrooms, out neededNarcotics, out neededBioToxins,
                     out te, out hunger, out bonusLevel, out enoughFood);
         }
 
@@ -176,19 +161,15 @@ namespace ARKBreedingStats
             {
                 double affinityNeeded = species.taming.affinityNeeded0 + species.taming.affinityIncreasePL * level;
 
-                bool specialFood = species.taming.specialFoodValues != null && species.taming.specialFoodValues.ContainsKey(foodName);
-
-                if (!specialFood && !Values.V.defaultFoodData.ContainsKey(foodName))
-                    return 0;
-
-                TamingFood food = specialFood ? species.taming.specialFoodValues[foodName] : Values.V.defaultFoodData[foodName];
+                var food = Values.V.GetTamingFood(species, foodName);
+                if (food == null) return 0;
 
                 var foodAffinity = food.affinity;
 
                 if (nonViolent)
                     foodAffinity *= species.taming.wakeAffinityMult;
 
-                foodAffinity *= tamingSpeedMultiplier * _hardCodedTamingMultiplier;
+                foodAffinity *= tamingSpeedMultiplier * HardCodedTamingMultiplier;
 
                 if (foodAffinity > 0)
                 {
@@ -226,30 +207,26 @@ namespace ARKBreedingStats
             return 0;
         }
 
-        public static TimeSpan TamingDuration(Species species, int foodQuantity, string food, double tamingFoodRateMultiplier, bool nonViolent = false)
+        public static TimeSpan TamingDuration(Species species, int foodQuantity, string foodName, double tamingFoodRateMultiplier, bool nonViolent = false)
         {
-            // time to eat needed food
-            int seconds = 0;
-            if (species != null && species.taming != null)
-            {
-                // check if (creature handles this food in a special way (e.g. scorpions don't like raw meat as much as most others)
-                bool specialFood = species.taming.specialFoodValues != null && species.taming.specialFoodValues.ContainsKey(food);
+            if (species?.taming == null) return TimeSpan.Zero;
 
-                // if no info for the food exists, return 0
-                if (!specialFood && !Values.V.defaultFoodData.ContainsKey(food))
-                    return new TimeSpan();
+            // calculate time to eat needed food
+            var food = Values.V.GetTamingFood(species, foodName);
+            if (food == null) return TimeSpan.Zero;
 
-                double foodValue = specialFood ? species.taming.specialFoodValues[food].foodValue : Values.V.defaultFoodData[food].foodValue;
+            double foodValue = food.foodValue;
 
-                if (nonViolent)
-                    foodValue = foodValue * species.taming.wakeFoodDeplMult;
+            if (nonViolent)
+                foodValue *= species.taming.wakeFoodDeplMult;
 
-                // mantis eats every 3 minutes, regardless of level
-                if (species.name == "Mantis")
-                    seconds = foodQuantity * 180;
-                else
-                    seconds = (int)Math.Ceiling(foodQuantity * foodValue / (species.taming.foodConsumptionBase * species.taming.foodConsumptionMult * tamingFoodRateMultiplier));
-            }
+            int seconds;
+            // mantis eats every 3 minutes, regardless of level
+            if (species.name == "Mantis")
+                seconds = foodQuantity * 180;
+            else
+                seconds = (int)Math.Ceiling(foodQuantity * foodValue / (species.taming.foodConsumptionBase * species.taming.foodConsumptionMult * tamingFoodRateMultiplier));
+
             return new TimeSpan(0, 0, seconds);
         }
 
