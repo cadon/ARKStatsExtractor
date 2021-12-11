@@ -11,20 +11,51 @@ namespace ARKBreedingStats.library
     public static class CreatureInfoGraphic
     {
         /// <summary>
+        /// Creates an image with infos about the creature, using the user settings.
+        /// </summary>
+        /// <param name="cc">CreatureCollection for server settings.</param>
+        public static Bitmap InfoGraphic(this Creature creature, CreatureCollection cc)
+        {
+            var fontName = Properties.Settings.Default.InfoGraphicFontName;
+            if (string.IsNullOrWhiteSpace(fontName))
+            {
+                fontName = "Arial";
+                Properties.Settings.Default.InfoGraphicFontName = fontName;
+            }
+
+            return InfoGraphic(creature, cc,
+                Properties.Settings.Default.InfoGraphicHeight,
+                fontName,
+                Properties.Settings.Default.InfoGraphicForeColor,
+                Properties.Settings.Default.InfoGraphicBackColor,
+                Properties.Settings.Default.InfoGraphicBorderColor,
+                Properties.Settings.Default.InfoGraphicDisplayName,
+                Properties.Settings.Default.InfoGraphicWithDomLevels,
+                Properties.Settings.Default.InfoGraphicDisplayMutations,
+                Properties.Settings.Default.InfoGraphicDisplayGeneration,
+                Properties.Settings.Default.InfoGraphicShowStatValues,
+                Properties.Settings.Default.InfoGraphicShowMaxWildLevel,
+                Properties.Settings.Default.InfoGraphicExtraRegionNames,
+                Properties.Settings.Default.InfoGraphicShowRegionNamesIfNoImage);
+        }
+
+
+        /// <summary>
         /// Creates an image with infos about the creature.
         /// </summary>
-        /// <param name="creature"></param>
         /// <param name="cc">CreatureCollection for server settings.</param>
-        /// <returns></returns>
-        public static Bitmap InfoGraphic(this Creature creature, CreatureCollection cc)
+        public static Bitmap InfoGraphic(this Creature creature, CreatureCollection cc,
+            int infoGraphicHeight, string fontName, Color foreColor, Color backColor, Color borderColor,
+            bool displayCreatureName, bool displayWithDomLevels, bool displayMutations, bool displayGenerations, bool displayStatValues, bool displayMaxWildLevel,
+            bool displayExtraRegionNames, bool displayRegionNamesIfNoImage)
         {
             if (creature?.Species == null) return null;
             int maxGraphLevel = cc?.maxChartLevel ?? 0;
             if (maxGraphLevel < 1) maxGraphLevel = 50;
 
-            int height = Properties.Settings.Default.InfoGraphicHeight; // 180
+            int height = infoGraphicHeight < 1 ? 180 : infoGraphicHeight; // 180
             int width = height * 11 / 6; // 330
-            if (Properties.Settings.Default.InfoGraphicExtraRegionNames)
+            if (displayExtraRegionNames)
                 width += height / 2;
 
             int fontSize = Math.Max(5, height / 18); // 10
@@ -34,29 +65,22 @@ namespace ARKBreedingStats.library
 
             int statLineHeight = height * 5 / 59; // 15
 
-            var fontName = Properties.Settings.Default.InfoGraphicFontName;
-            if (string.IsNullOrWhiteSpace(fontName))
-            {
-                fontName = "Arial";
-                Properties.Settings.Default.InfoGraphicFontName = fontName;
-            }
-
             var bmp = new Bitmap(width, height);
             using (var g = Graphics.FromImage(bmp))
             using (var font = new Font(fontName, fontSize))
             using (var fontSmall = new Font(fontName, fontSizeSmall))
             using (var fontHeader = new Font(fontName, fontSizeHeader, FontStyle.Bold))
-            using (var fontBrush = new SolidBrush(Properties.Settings.Default.InfoGraphicForeColor))
-            using (var borderAroundColors = new Pen(Utils.ForeColor(Properties.Settings.Default.InfoGraphicBackColor), 1))
+            using (var fontBrush = new SolidBrush(foreColor))
+            using (var borderAroundColors = new Pen(Utils.ForeColor(backColor), 1))
             using (var stringFormatRight = new StringFormat { Alignment = StringAlignment.Far })
             {
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 int currentYPosition = frameThickness * 3;
 
-                using (var backgroundBrush = new SolidBrush(Properties.Settings.Default.InfoGraphicBackColor))
+                using (var backgroundBrush = new SolidBrush(backColor))
                     g.FillRectangle(backgroundBrush, 0, 0, width, height);
 
-                var headerText = creature.Species.DescriptiveNameAndMod + (Properties.Settings.Default.InfoGraphicDisplayName ? $" - {creature.name}" : string.Empty);
+                var headerText = creature.Species.DescriptiveNameAndMod + (displayCreatureName ? $" - {creature.name}" : string.Empty);
 
                 var fontSizeHeaderCalculated = CalculateFontSize(g, headerText, fontHeader, width);
                 if (fontSizeHeaderCalculated < fontSizeHeader)
@@ -70,15 +94,15 @@ namespace ARKBreedingStats.library
 
                 currentYPosition += height * 19 / 180; //19
                 string creatureLevel;
-                if (Properties.Settings.Default.InfoGraphicWithDomLevels)
+                if (displayWithDomLevels)
                     creatureLevel = $"{creature.Level}/{creature.LevelHatched + cc?.maxDomLevel ?? 0}";
                 else
                     creatureLevel = creature.LevelHatched.ToString();
 
                 string creatureInfos = $"{Loc.S("Level")} {creatureLevel} | {Utils.SexSymbol(creature.sex) + (creature.flags.HasFlag(CreatureFlags.Neutered) ? $" ({Loc.S(creature.sex == Sex.Female ? "Spayed" : "Neutered")})" : string.Empty)}";
-                if (Properties.Settings.Default.InfoGraphicDisplayMutations)
+                if (displayMutations)
                     creatureInfos += $" | {creature.Mutations} {Loc.S("Mutations")}";
-                if (Properties.Settings.Default.InfoGraphicDisplayGeneration)
+                if (displayGenerations)
                     creatureInfos += $" | {Loc.S("generation")} {creature.generation}";
 
                 var availableWidth = width - 9 * frameThickness;
@@ -94,7 +118,7 @@ namespace ARKBreedingStats.library
                 resizedFont?.Dispose();
                 currentYPosition += height * 17 / 180; //17
 
-                using (var p = new Pen(Color.FromArgb(50, Properties.Settings.Default.InfoGraphicForeColor), 1))
+                using (var p = new Pen(Color.FromArgb(50, foreColor), 1))
                     g.DrawLine(p, 0, currentYPosition, width, currentYPosition);
                 currentYPosition += 2;
 
@@ -102,16 +126,15 @@ namespace ARKBreedingStats.library
                 double meanLetterWidth = fontSize * 7d / 10;
                 int xStatName = (int)meanLetterWidth;
                 // x position of level number. torpor is the largest level number.
-                bool showDomLevel = Properties.Settings.Default.InfoGraphicWithDomLevels;
-                int xRightLevelValue = (int)(xStatName + ((showDomLevel ? 6 : 5) + creature.levelsWild[2].ToString().Length) * meanLetterWidth);
+                int xRightLevelValue = (int)(xStatName + ((displayWithDomLevels ? 6 : 5) + creature.levelsWild[2].ToString().Length) * meanLetterWidth);
                 int xRightLevelDomValue = xRightLevelValue;
-                if (showDomLevel)
+                if (displayWithDomLevels)
                     xRightLevelDomValue += (int)((creature.levelsDom.Max().ToString().Length) * meanLetterWidth);
                 int xRightBrValue = (int)(xRightLevelDomValue + (2 + MaxCharLength(creature.valuesBreeding)) * meanLetterWidth);
                 int maxBoxLength = xRightBrValue - xStatName;
                 int statBoxHeight = Math.Max(2, height / 90);
                 g.DrawString(Loc.S("Levels"), font, fontBrush, xRightLevelDomValue, currentYPosition, stringFormatRight);
-                if (Properties.Settings.Default.InfoGraphicShowStatValues)
+                if (displayStatValues)
                     g.DrawString(Loc.S("Values"), font, fontBrush, xRightBrValue, currentYPosition, stringFormatRight);
                 int statDisplayIndex = 0;
                 for (int si = 0; si < Values.STATS_COUNT; si++)
@@ -145,17 +168,17 @@ namespace ARKBreedingStats.library
                     g.DrawString($"{Utils.StatName(statIndex, true, creature.Species.statNames)}",
                         font, fontBrush, xStatName, y);
                     // stat level number
-                    g.DrawString($"{(creature.levelsWild[statIndex] < 0 ? "?" : creature.levelsWild[statIndex].ToString())}{(showDomLevel ? " +" : null)}",
+                    g.DrawString($"{(creature.levelsWild[statIndex] < 0 ? "?" : creature.levelsWild[statIndex].ToString())}{(displayWithDomLevels ? " +" : null)}",
                         font, fontBrush, xRightLevelValue, y, stringFormatRight);
                     // dom level number
-                    if (showDomLevel)
+                    if (displayWithDomLevels)
                         g.DrawString($"{creature.levelsDom[statIndex]}",
                             font, fontBrush, xRightLevelDomValue, y, stringFormatRight);
                     // stat breeding value
-                    if (Properties.Settings.Default.InfoGraphicShowStatValues && creature.valuesBreeding != null)
+                    if (displayStatValues && creature.valuesBreeding != null)
                     {
                         double displayedValue =
-                            showDomLevel ? creature.valuesDom[statIndex] : creature.valuesBreeding[statIndex];
+                            displayWithDomLevels ? creature.valuesDom[statIndex] : creature.valuesBreeding[statIndex];
                         string statValueRepresentation;
                         if (displayedValue < 0)
                         {
@@ -184,8 +207,7 @@ namespace ARKBreedingStats.library
                 int colorRowHeight = circleDiameter + 2;
 
                 bool creatureImageShown = false;
-                bool displayMaxWild = Properties.Settings.Default.InfoGraphicShowMaxWildLevel;
-                int extraMarginBottom = displayMaxWild ? fontSizeSmall : 0;
+                int extraMarginBottom = displayMaxWildLevel ? fontSizeSmall : 0;
                 int imageSize = (int)Math.Min(width - xColor - circleDiameter - 8 * meanLetterWidth - frameThickness * 4,
                                               height - currentYPosition - frameThickness * 4 - extraMarginBottom);
                 if (imageSize > 5)
@@ -227,7 +249,7 @@ namespace ARKBreedingStats.library
                         string colorRegionName = null;
                         //string colorName = CreatureColors.CreatureColorName(creature.colors[ci]);
 
-                        if (Properties.Settings.Default.InfoGraphicExtraRegionNames || (!creatureImageShown && Properties.Settings.Default.InfoGraphicShowRegionNamesIfNoImage))
+                        if (displayExtraRegionNames || (!creatureImageShown && displayRegionNamesIfNoImage))
                         {
                             colorRegionName = creature.Species.colors[ci].name;
                             int totalColorLength = colorRegionName.Length + 11;
@@ -256,7 +278,7 @@ namespace ARKBreedingStats.library
                         fontSmall, fontBrush, xColor, height - fontSizeSmall - 5 * frameThickness);
 
                 // imprinting
-                if (showDomLevel)
+                if (displayWithDomLevels)
                 {
                     if (creature.isBred || creature.imprintingBonus > 0)
                         g.DrawString($"Imp: {creature.imprintingBonus * 100:0.0} %", font, fontBrush, xColor + (int)((Loc.S("Colors").Length + 3) * meanLetterWidth), currentYPosition);
@@ -265,14 +287,14 @@ namespace ARKBreedingStats.library
                 }
 
                 // max wild level on server
-                if (cc != null && displayMaxWild)
+                if (cc != null && displayMaxWildLevel)
                 {
                     g.DrawString($"{Loc.S("max wild level")}: {cc.maxWildLevel}",
                         fontSmall, fontBrush, width - 2 * frameThickness, height - fontSizeSmall - 4 * frameThickness, stringFormatRight);
                 }
 
                 // frame
-                using (var p = new Pen(Properties.Settings.Default.InfoGraphicBorderColor, frameThickness))
+                using (var p = new Pen(borderColor, frameThickness))
                     g.DrawRectangle(p, 0, 0, width - frameThickness, height - frameThickness);
             }
 

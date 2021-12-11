@@ -16,7 +16,19 @@ namespace ARKBreedingStats.library
     {
         public static DummyCreatureCreationSettings LastSettings;
 
-        public static List<Creature> CreateCreatures(int count, Species species, int numberSpecies, int breedGenerations, int usePairsPerGeneration, double probabilityHigherStat = 0.55, double randomMutationChance = 0.025, int maxWildLevel = 150)
+        /// <summary>
+        /// Creates a list of random creatures.
+        /// </summary>
+        /// <param name="count">Number of creatures</param>
+        /// <param name="species">If null, species will be selected randomly (domesticable preferred)</param>
+        /// <param name="numberSpecies">If species are randomly selected, this is the number of different species</param>
+        /// <param name="breedGenerations">If &gt; 0, the creatures will be bred according to the breeding planner, the offspring will also be returned.</param>
+        /// <param name="usePairsPerGeneration">If bred, this indicates how many of the top breeding pairs will be used to breed</param>
+        /// <param name="probabilityHigherStat"></param>
+        /// <param name="randomMutationChance"></param>
+        /// <param name="maxWildLevel"></param>
+        /// <returns></returns>
+        public static List<Creature> CreateCreatures(int count, Species species = null, int numberSpecies = 1, int breedGenerations = 0, int usePairsPerGeneration = 2, double probabilityHigherStat = 0.55, double randomMutationChance = 0.025, int maxWildLevel = 150)
         {
             if (count < 1) return null;
 
@@ -45,6 +57,7 @@ namespace ARKBreedingStats.library
 
             if (randomSpecies)
             {
+                if (numberSpecies < 1) numberSpecies = 1;
                 speciesSelection = Values.V.species.Where(s => s.IsDomesticable && !s.name.Contains("Tek") && !s.name.Contains("Alpha") && (s.variants?.Length ?? 0) < 2).ToArray();
                 speciesCount = speciesSelection.Length;
                 if (speciesCount > numberSpecies)

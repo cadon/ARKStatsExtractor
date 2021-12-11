@@ -8,7 +8,9 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Windows.Threading;
 using ARKBreedingStats.library;
+using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 
@@ -293,7 +295,7 @@ namespace ARKBreedingStats.settings
 
             #region InfoGraphic
 
-            nudInfoGraphicWidth.ValueSave = Properties.Settings.Default.InfoGraphicHeight;
+            nudInfoGraphicHeight.ValueSave = Properties.Settings.Default.InfoGraphicHeight;
             CbInfoGraphicDisplayMaxWildLevel.Checked = Properties.Settings.Default.InfoGraphicShowMaxWildLevel;
             CbInfoGraphicDomLevels.Checked = Properties.Settings.Default.InfoGraphicWithDomLevels;
             CbbInfoGraphicFontName.Text = Properties.Settings.Default.InfoGraphicFontName;
@@ -521,7 +523,7 @@ namespace ARKBreedingStats.settings
 
             #region InfoGraphic
 
-            Properties.Settings.Default.InfoGraphicHeight = (int)nudInfoGraphicWidth.Value;
+            Properties.Settings.Default.InfoGraphicHeight = (int)nudInfoGraphicHeight.Value;
             Properties.Settings.Default.InfoGraphicShowMaxWildLevel = CbInfoGraphicDisplayMaxWildLevel.Checked;
             Properties.Settings.Default.InfoGraphicWithDomLevels = CbInfoGraphicDomLevels.Checked;
             Properties.Settings.Default.InfoGraphicFontName = CbbInfoGraphicFontName.Text;
@@ -1114,11 +1116,12 @@ namespace ARKBreedingStats.settings
             Unknown = -1,
             Multipliers = 0,
             General = 1,
-            SaveImport = 2,
-            ExportedImport = 3,
-            Timers = 4,
-            Overlay = 5,
-            Ocr = 6,
+            InfoGraphicPreview = 2,
+            SaveImport = 3,
+            ExportedImport = 4,
+            Timers = 5,
+            Overlay = 6,
+            Ocr = 7
         }
 
         private void cbCustomOverlayLocation_CheckedChanged(object sender, EventArgs e)
@@ -1258,6 +1261,7 @@ namespace ARKBreedingStats.settings
             if (colorDialog1.ShowDialog() != DialogResult.OK) return;
 
             bt.SetBackColorAndAccordingForeColor(colorDialog1.Color);
+            ShowInfoGraphicPreview();
         }
 
         private void BtBackupFolder_Click(object sender, EventArgs e)
@@ -1402,6 +1406,68 @@ namespace ARKBreedingStats.settings
                 }
             }
             pb.SetImageAndDisposeOld(img);
+        }
+
+        #region InfoGraphic Preview
+
+        private Creature _infoGraphicPreviewCreature;
+        private readonly Debouncer _infoGraphicPreviewDebouncer = new Debouncer();
+
+        private void CbInfoGraphicCheckBoxChanged(object sender, EventArgs e)
+        {
+            _infoGraphicPreviewDebouncer.Debounce(300, ShowInfoGraphicPreview, Dispatcher.CurrentDispatcher);
+        }
+
+        private void ShowInfoGraphicPreview()
+        {
+            if (_infoGraphicPreviewCreature == null)
+            {
+                _infoGraphicPreviewCreature = DummyCreatures.CreateCreatures(1)?.FirstOrDefault();
+                if (_infoGraphicPreviewCreature == null) return;
+                // add some dom levels
+                _infoGraphicPreviewCreature.levelsDom[(int)StatNames.Health] = 5;
+                _infoGraphicPreviewCreature.levelsDom[(int)StatNames.Weight] = 15;
+                _infoGraphicPreviewCreature.levelsDom[(int)StatNames.MeleeDamageMultiplier] = 8;
+                _infoGraphicPreviewCreature.RecalculateCreatureValues(_cc.wildLevelStep);
+            }
+
+            var speciesImage = _infoGraphicPreviewCreature.InfoGraphic(_cc,
+                (int)nudInfoGraphicHeight.Value,
+                CbbInfoGraphicFontName.Text,
+                BtInfoGraphicForeColor.BackColor,
+                BtInfoGraphicBackColor.BackColor,
+                BtInfoGraphicBorderColor.BackColor,
+                CbInfoGraphicCreatureName.Checked,
+                CbInfoGraphicDomLevels.Checked,
+                CbInfoGraphicMutations.Checked,
+                CbInfoGraphicGenerations.Checked,
+                CbInfoGraphicStatValues.Checked,
+                CbInfoGraphicDisplayMaxWildLevel.Checked,
+                CbInfoGraphicAddRegionNames.Checked,
+                CbInfoGraphicColorRegionNamesIfNoImage.Checked
+            );
+
+            if (speciesImage == null) return;
+
+            PbInfoGraphicPreview.Size = speciesImage.Size;
+            PbInfoGraphicPreview.SetImageAndDisposeOld(speciesImage);
+        }
+
+        private void nudInfoGraphicHeight_ValueChanged(object sender, EventArgs e)
+        {
+            _infoGraphicPreviewDebouncer.Debounce(500, ShowInfoGraphicPreview, Dispatcher.CurrentDispatcher);
+        }
+
+        private void CbbInfoGraphicFontName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _infoGraphicPreviewDebouncer.Debounce(300, ShowInfoGraphicPreview, Dispatcher.CurrentDispatcher);
+        }
+
+        #endregion
+
+        private void nudInfoGraphicWidth_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
