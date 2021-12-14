@@ -27,7 +27,7 @@ string appVersion = Regex.Match(File.ReadAllText(Host.ResolvePath("Properties/As
       "LocalPath": "images/speciesImages",
       "IsFolder": true,
       "Selectable": true,
-      "version": "2021.11.28"
+      "version": "2021.12.14"
     },
     "NamePatternTemplates": {
       "Id": "NamePatternTemplates",
