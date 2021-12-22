@@ -21,7 +21,7 @@ namespace ARKBreedingStats.raising
             for (int s = 0; s < values.Values.STATS_COUNT; s++)
             {
                 ParentStatValues psv = new ParentStatValues();
-                psv.StatName = Utils.StatName(s, true) + (Utils.Precision(s) == 1 ? "" : " %");
+                psv.StatName = Utils.StatName(s, true) + (Utils.Precision(s) == 1 ? string.Empty : " %");
                 _parentStatValues.Add(psv);
                 flowLayoutPanel1.SetFlowBreak(psv, true);
             }
@@ -42,12 +42,12 @@ namespace ARKBreedingStats.raising
         {
             for (int s = 0; s < values.Values.STATS_COUNT; s++)
                 _parentStatValues[s].setValues();
-            _lbLevel.Text = "";
+            _lbLevel.Text = string.Empty;
         }
 
         public void SetParentValues(Creature mother, Creature father)
         {
-            if (mother == null && father == null)
+            if (mother?.Species == null && father?.Species == null)
             {
                 labelMother.Text = Loc.S("Unknown");
                 labelFather.Text = Loc.S("Unknown");
@@ -87,7 +87,7 @@ namespace ARKBreedingStats.raising
                     );
             }
             labelMother.Text = mother == null ? Loc.S("Unknown") : mother.name;
-            labelFather.Text = father == null ? Loc.S("Unknown") : (labelMother.Width > 78 ? "\n" : "") + father.name;
+            labelFather.Text = father == null ? Loc.S("Unknown") : (labelMother.Width > 78 ? "\n" : string.Empty) + father.name;
             if (mother != null && father != null)
             {
                 int minLv = 1, maxLv = 1;
@@ -107,7 +107,7 @@ namespace ARKBreedingStats.raising
                 _lbLevel.Text = string.Format(Loc.S("possibleLevelRange"), minLv, maxLv);
             }
             else
-                _lbLevel.Text = "";
+                _lbLevel.Text = string.Empty;
         }
 
         public void SetLocalizations()
