@@ -1327,16 +1327,7 @@ namespace ARKBreedingStats
 
         private void lbLibrarySelectionInfo_Click(object sender, EventArgs e)
         {
-            bool isFile = false;
-            if (string.IsNullOrEmpty(_librarySelectionInfoClickPath)) return;
-
-            if (File.Exists(_librarySelectionInfoClickPath))
-                isFile = true;
-            else if (!Directory.Exists(_librarySelectionInfoClickPath))
-                return;
-
-            Process.Start("explorer.exe",
-                $"{(isFile ? "/select, " : string.Empty)}\"{_librarySelectionInfoClickPath}\"");
+            OpenFolderInExplorer(_librarySelectionInfoClickPath);
         }
 
         private void listBoxSpeciesLib_SelectedIndexChanged(object sender, EventArgs e)
@@ -3116,10 +3107,24 @@ namespace ARKBreedingStats
 
         private void openFolderOfCurrentFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(_currentFileName)) return;
-            string path = Path.GetDirectoryName(_currentFileName);
+            OpenFolderInExplorer(_currentFileName);
+        }
+
+        /// <summary>
+        /// Opens the folder in the explorer. If it's a file, it will be selected.
+        /// </summary>
+        private static void OpenFolderInExplorer(string path)
+        {
             if (string.IsNullOrEmpty(path)) return;
-            Process.Start(path);
+            bool isFile = false;
+
+            if (File.Exists(path))
+                isFile = true;
+            else if (!Directory.Exists(path))
+                return;
+
+            Process.Start("explorer.exe",
+                $"{(isFile ? "/select, " : string.Empty)}\"{path}\"");
         }
 
         private void customStatOverridesToolStripMenuItem_Click(object sender, EventArgs e)
