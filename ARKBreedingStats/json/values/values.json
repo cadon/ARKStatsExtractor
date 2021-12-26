@@ -1,5 +1,5 @@
 {
-	"version": "340.3.7761957.1",
+	"version": "341.22.7885939",
 	"format": "1.14-flyerspeed",
 	"species": [
 		{
@@ -1035,11 +1035,13 @@
 			"immobilizedBy": [],
 			"noGender": true,
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 1.333333,
 				"affinityNeeded0": 450,
 				"affinityIncreasePL": 22.5,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.001736,
 				"foodConsumptionMult": 864.0553,
 				"babyFoodConsumptionMult": 510
@@ -4899,6 +4901,191 @@
 			"displayedStats": 2975
 		},
 		{
+			"name": "GachaClaus",
+			"blueprintPath": "/Game/Extinction/Dinos/Gacha/Gacha_Claus_Character_BP.Gacha_Claus_Character_BP",
+			"variants": [ "Extinction" ],
+			"fullStatsRaw": [
+				[ 750, 0.2, 0.27, 0.5, 0 ],
+				[ 325, 0.1, 0.1, 0, 0 ],
+				[ 600, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 550, 0.04, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				[ 1, 0.01, 0.01, 0, 0 ]
+			],
+			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"breeding": {
+				"gestationTime": 28571.4286,
+				"incubationTime": 0,
+				"maturationTime": 416666.667,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Red",
+						"DarkMagenta",
+						"DarkViolet",
+						"Dino Albino",
+						"Dino Light Green",
+						"Dino Light Red",
+						"Dino Medium Green",
+						"Glacial",
+						"Green",
+						"Jade",
+						"Light Grey",
+						"Light Red",
+						"NearWhite",
+						"PineGreen",
+						"PowderBlue",
+						"Red",
+						"SpruceGreen",
+						"Teal",
+						"Yellow"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Red",
+						"DarkMagenta",
+						"DarkViolet",
+						"Dino Albino",
+						"Dino Light Green",
+						"Dino Light Red",
+						"Dino Medium Green",
+						"Glacial",
+						"Green",
+						"Jade",
+						"Light Grey",
+						"Light Red",
+						"NearWhite",
+						"PineGreen",
+						"PowderBlue",
+						"Red",
+						"SpruceGreen",
+						"Teal",
+						"Yellow"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Red",
+						"DarkMagenta",
+						"DarkViolet",
+						"Dino Albino",
+						"Dino Light Green",
+						"Dino Light Red",
+						"Dino Medium Green",
+						"Glacial",
+						"Green",
+						"Jade",
+						"Light Grey",
+						"Light Red",
+						"NearWhite",
+						"PineGreen",
+						"PowderBlue",
+						"Red",
+						"SpruceGreen",
+						"Teal",
+						"Yellow"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Red",
+						"DarkMagenta",
+						"DarkViolet",
+						"Dino Albino",
+						"Dino Light Green",
+						"Dino Light Red",
+						"Dino Medium Green",
+						"Glacial",
+						"Green",
+						"Jade",
+						"Light Grey",
+						"Light Red",
+						"NearWhite",
+						"PineGreen",
+						"PowderBlue",
+						"Red",
+						"SpruceGreen",
+						"Teal",
+						"Yellow"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Red",
+						"DarkMagenta",
+						"DarkViolet",
+						"Dino Albino",
+						"Dino Light Green",
+						"Dino Light Red",
+						"Dino Medium Green",
+						"Glacial",
+						"Green",
+						"Jade",
+						"Light Grey",
+						"Light Red",
+						"NearWhite",
+						"PineGreen",
+						"PowderBlue",
+						"Red",
+						"SpruceGreen",
+						"Teal",
+						"Yellow"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Red",
+						"DarkMagenta",
+						"DarkViolet",
+						"Dino Albino",
+						"Dino Light Green",
+						"Dino Light Red",
+						"Dino Medium Green",
+						"Glacial",
+						"Green",
+						"Jade",
+						"Light Grey",
+						"Light Red",
+						"NearWhite",
+						"PineGreen",
+						"PowderBlue",
+						"Red",
+						"SpruceGreen",
+						"Teal",
+						"Yellow"
+					]
+				}
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.25,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 120,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 2975
+		},
+		{
 			"name": "Gasbags",
 			"blueprintPath": "/Game/Extinction/Dinos/GasBag/GasBags_Character_BP.GasBags_Character_BP",
 			"variants": [ "Extinction" ],
@@ -7238,11 +7425,13 @@
 				}
 			],
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 2000,
 				"affinityNeeded0": 10000,
 				"affinityIncreasePL": 5,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.01,
 				"foodConsumptionMult": 0.05,
 				"babyFoodConsumptionMult": 510
@@ -7394,11 +7583,13 @@
 				}
 			],
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 2000,
 				"affinityNeeded0": 10000,
 				"affinityIncreasePL": 5,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.01,
 				"foodConsumptionMult": 0.05,
 				"babyFoodConsumptionMult": 510
@@ -53196,45 +53387,6 @@
 		},
 		{
 			"name": "Corrupted Survivor",
-			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/FinalBattleAlt/Difficulties/Alpha/RockwellSpawn_Character_BP_Alpha.RockwellSpawn_Character_BP_Alpha",
-			"variants": [
-				"Alpha",
-				"Boss",
-				"FinalBattle",
-				"Genesis2",
-				"Mission"
-			],
-			"fullStatsRaw": [
-				[ 10000, 0.5, 0.27, 0.5, 0 ],
-				[ 100, 0.1, 0.1, 0, 0 ],
-				[ 100, 0.06, 0, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 100, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 100, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0.01, 0, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [],
-			"noGender": true,
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 20,
-				"affinityNeeded0": 100,
-				"affinityIncreasePL": 5,
-				"foodConsumptionBase": 0.01,
-				"foodConsumptionMult": 0.05,
-				"babyFoodConsumptionMult": 510
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"displayedStats": 927
-		},
-		{
-			"name": "Corrupted Survivor",
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/FinalBattleAlt/Difficulties/Alpha/RockwellSpawn_Character_BP_AltAnim_Alpha.RockwellSpawn_Character_BP_AltAnim_Alpha",
 			"variants": [
 				"Alpha",
@@ -53443,45 +53595,6 @@
 			"displayedStats": 927
 		},
 		{
-			"name": "Corrupted Survivor",
-			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/FinalBattleAlt/Difficulties/Beta/RockwellSpawn_Character_BP_Beta.RockwellSpawn_Character_BP_Beta",
-			"variants": [
-				"Beta",
-				"Boss",
-				"FinalBattle",
-				"Genesis2",
-				"Mission"
-			],
-			"fullStatsRaw": [
-				[ 5000, 0.5, 0.27, 0.5, 0 ],
-				[ 100, 0.1, 0.1, 0, 0 ],
-				[ 100, 0.06, 0, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 100, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 100, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0.01, 0, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [],
-			"noGender": true,
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 20,
-				"affinityNeeded0": 100,
-				"affinityIncreasePL": 5,
-				"foodConsumptionBase": 0.01,
-				"foodConsumptionMult": 0.05,
-				"babyFoodConsumptionMult": 510
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"displayedStats": 927
-		},
-		{
 			"name": "Summoner",
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/FinalBattleAlt/Difficulties/Beta/Summoner_Character_BP_FinalFight_Beta.Summoner_Character_BP_FinalFight_Beta",
 			"variants": [ "Beta", "FinalBattle", "Genesis2", "Mission" ],
@@ -53615,45 +53728,6 @@
 		{
 			"name": "Corrupted Survivor",
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/FinalBattleAlt/Difficulties/Gamma/RockwellSpawn_Character_BP_AltAnim_Gamma.RockwellSpawn_Character_BP_AltAnim_Gamma",
-			"variants": [
-				"Boss",
-				"FinalBattle",
-				"Gamma",
-				"Genesis2",
-				"Mission"
-			],
-			"fullStatsRaw": [
-				[ 2500, 0.5, 0.27, 0.5, 0 ],
-				[ 100, 0.1, 0.1, 0, 0 ],
-				[ 100, 0.06, 0, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 100, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 100, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0.01, 0, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [],
-			"noGender": true,
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 20,
-				"affinityNeeded0": 100,
-				"affinityIncreasePL": 5,
-				"foodConsumptionBase": 0.01,
-				"foodConsumptionMult": 0.05,
-				"babyFoodConsumptionMult": 510
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"displayedStats": 927
-		},
-		{
-			"name": "Corrupted Survivor",
-			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/FinalBattleAlt/Difficulties/Gamma/RockwellSpawn_Character_BP_Gamma.RockwellSpawn_Character_BP_Gamma",
 			"variants": [
 				"Boss",
 				"FinalBattle",
@@ -61666,11 +61740,13 @@
 			"immobilizedBy": [],
 			"noGender": true,
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 1.333333,
 				"affinityNeeded0": 450,
 				"affinityIncreasePL": 22.5,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.01,
 				"foodConsumptionMult": 0.05,
 				"babyFoodConsumptionMult": 510
@@ -69919,11 +69995,13 @@
 			"immobilizedBy": [],
 			"noGender": true,
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 1.333333,
 				"affinityNeeded0": 450,
 				"affinityIncreasePL": 22.5,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.01,
 				"foodConsumptionMult": 0.05,
 				"babyFoodConsumptionMult": 510
@@ -70938,6 +71016,594 @@
 				"foodConsumptionBase": 0.01,
 				"foodConsumptionMult": 0.05,
 				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Zomdodo",
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/ZombieDodo_Character_BP_STA.ZombieDodo_Character_BP_STA",
+			"variants": [ "Gauntlet2", "Genesis2", "Mission" ],
+			"fullStatsRaw": [
+				[ 160, 1, 0, 0, 0 ],
+				[ 1000, 0, 0, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0, 0, 0, 0 ],
+				[ 100, 0, 0, 0, 0 ],
+				null,
+				null,
+				[ 100, 0, 0, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Dark Blue",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Purple",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dino Light Brown",
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Medium Brown",
+						"Dino Medium Green"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Medium Brown",
+						"Dino Medium Green"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Albino",
+						"Dino Dark Blue",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Purple",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				}
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.333333,
+				"affinityNeeded0": 450,
+				"affinityIncreasePL": 22.5,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 2,
+				"c_neck3": 2
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Zomdodo",
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/ZombieDodo_Character_BP_STA_Huge.ZombieDodo_Character_BP_STA_Huge",
+			"variants": [ "Gauntlet2", "Genesis2", "Mission" ],
+			"fullStatsRaw": [
+				[ 160, 1, 0, 0, 0 ],
+				[ 1000, 0, 0, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0, 0, 0, 0 ],
+				[ 100, 0, 0, 0, 0 ],
+				null,
+				null,
+				[ 100, 0, 0, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"noGender": true,
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Dark Blue",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Purple",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dino Light Brown",
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Medium Brown",
+						"Dino Medium Green"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Medium Brown",
+						"Dino Medium Green"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Albino",
+						"Dino Dark Blue",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Purple",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				}
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.333333,
+				"affinityNeeded0": 450,
+				"affinityIncreasePL": 22.5,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 2,
+				"c_neck3": 2
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Zomdodo",
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/ZombieDodo_Character_BP_STA_Large.ZombieDodo_Character_BP_STA_Large",
+			"variants": [ "Gauntlet2", "Genesis2", "Mission" ],
+			"fullStatsRaw": [
+				[ 160, 1, 0, 0, 0 ],
+				[ 1000, 0, 0, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0, 0, 0, 0 ],
+				[ 100, 0, 0, 0, 0 ],
+				null,
+				null,
+				[ 100, 0, 0, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [ "Chain Bola", "Large Bear Trap", "Plant Species Y" ],
+			"noGender": true,
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Dark Blue",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Purple",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dino Light Brown",
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Medium Brown",
+						"Dino Medium Green"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Medium Brown",
+						"Dino Medium Green"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Albino",
+						"Dino Dark Blue",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Purple",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				}
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.333333,
+				"affinityNeeded0": 450,
+				"affinityIncreasePL": 22.5,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 2,
+				"c_neck3": 2
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Zomdodo",
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/ZombieDodo_Character_BP_STA_Medium.ZombieDodo_Character_BP_STA_Medium",
+			"variants": [ "Beta", "Gauntlet2", "Genesis2", "Mission" ],
+			"fullStatsRaw": [
+				[ 160, 1, 0, 0, 0 ],
+				[ 1000, 0, 0, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0, 0, 0, 0 ],
+				[ 100, 0, 0, 0, 0 ],
+				null,
+				null,
+				[ 100, 0, 0, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Dark Blue",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Purple",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dino Light Brown",
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Medium Brown",
+						"Dino Medium Green"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Medium Brown",
+						"Dino Medium Green"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Albino",
+						"Dino Dark Blue",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Purple",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				}
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.333333,
+				"affinityNeeded0": 450,
+				"affinityIncreasePL": 22.5,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 2,
+				"c_neck3": 2
 			},
 			"TamedBaseHealthMultiplier": 1,
 			"displayedStats": 919
@@ -75421,147 +76087,6 @@
 				"foodConsumptionBase": 0.003156,
 				"foodConsumptionMult": 352.0631,
 				"babyFoodConsumptionMult": 510
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"displayedStats": 927
-		},
-		{
-			"name": "Dilophosaur",
-			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Mashup/ExperimentG/DinosAndStructures/Dilo_Character_BP_ExpG.Dilo_Character_BP_ExpG",
-			"variants": [ "Genesis2", "Mashup", "Mission" ],
-			"fullStatsRaw": [
-				[ 130, 0.2, 0.27, 0.5, 0 ],
-				[ 100, 0.1, 0.1, 0, 0 ],
-				[ 75, 0.06, 0, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 450, 0.1, 0.1, 0, 0.15 ],
-				null,
-				null,
-				[ 45, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, 1, 0.4 ],
-				[ 1, 0, 0.01, 2, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
-			"breeding": {
-				"gestationTime": 0,
-				"incubationTime": 4090.58184,
-				"eggTempMin": 28,
-				"eggTempMax": 32,
-				"maturationTime": 75757.5758,
-				"matingCooldownMin": 64800,
-				"matingCooldownMax": 172800
-			},
-			"colors": [
-				{
-					"name": "Unknown",
-					"colors": [
-						"Black",
-						"Dark Grey",
-						"Dino Dark Brown",
-						"Dino Dark Green",
-						"Dino Dark Orange",
-						"Dino Dark Red",
-						"Dino Dark Yellow",
-						"Dino Darker Grey",
-						"Dino Medium Brown",
-						"Dino Medium Green"
-					]
-				},
-				{
-					"name": "Unknown",
-					"colors": [
-						"Black",
-						"Dark Grey",
-						"Dino Dark Brown",
-						"Dino Dark Green",
-						"Dino Dark Orange",
-						"Dino Dark Red",
-						"Dino Dark Yellow",
-						"Dino Darker Grey",
-						"Dino Medium Brown",
-						"Dino Medium Green"
-					]
-				},
-				{
-					"name": "Unknown",
-					"colors": [
-						"Black",
-						"Dino Albino",
-						"Dino Light Blue",
-						"Dino Light Brown",
-						"Dino Light Green",
-						"Dino Light Orange",
-						"Dino Light Purple",
-						"Dino Light Red",
-						"Dino Light Yellow",
-						"Dino Medium Brown",
-						"Dino Medium Green",
-						"Light Grey"
-					]
-				},
-				{
-					"name": "Unknown",
-					"colors": [
-						"Black",
-						"Dino Albino",
-						"Dino Light Blue",
-						"Dino Light Brown",
-						"Dino Light Green",
-						"Dino Light Orange",
-						"Dino Light Purple",
-						"Dino Light Red",
-						"Dino Light Yellow",
-						"Dino Medium Brown",
-						"Dino Medium Green",
-						"Light Grey"
-					]
-				},
-				{
-					"name": "Unknown",
-					"colors": [
-						"Black",
-						"Dino Light Blue",
-						"Dino Light Brown",
-						"Dino Light Green",
-						"Dino Light Orange",
-						"Dino Light Yellow",
-						"Dino Medium Brown",
-						"Dino Medium Green",
-						"Light Grey"
-					]
-				},
-				{
-					"name": "Unknown",
-					"colors": [
-						"Black",
-						"Dino Light Blue",
-						"Dino Light Brown",
-						"Dino Light Green",
-						"Dino Light Orange",
-						"Dino Light Yellow",
-						"Dino Medium Brown",
-						"Dino Medium Green",
-						"Light Grey"
-					]
-				}
-			],
-			"taming": {
-				"nonViolent": false,
-				"violent": true,
-				"tamingIneffectiveness": 8.333333,
-				"affinityNeeded0": 450,
-				"affinityIncreasePL": 22.5,
-				"torporDepletionPS0": 0.3,
-				"foodConsumptionBase": 0.000868,
-				"foodConsumptionMult": 1728.111,
-				"babyFoodConsumptionMult": 510
-			},
-			"boneDamageAdjusters": {
-				"c_head": 3,
-				"c_jaw": 3,
-				"c_neck3": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
 			"displayedStats": 927
@@ -81633,6 +82158,1054 @@
 			"displayedStats": 927
 		},
 		{
+			"name": "Dinopithecus King",
+			"blueprintPath": "/Game/LostIsland/Boss/BossDinopithecus_Character_BP.BossDinopithecus_Character_BP",
+			"variants": [ "Boss" ],
+			"fullStatsRaw": [
+				[ 100000, 0.2, 0.27, 0.5, 0 ],
+				[ 2000, 0, 0, 0, 0 ],
+				[ 1000, 0.06, 0, 0.5, 0 ],
+				[ 2000, 0, 0, 0, 0 ],
+				[ 2500, 0, 0, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0, 0, 0, 0 ],
+				[ 1, 0.075, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"noGender": true,
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.005,
+				"foodConsumptionMult": 150,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Dinopithecus King",
+			"blueprintPath": "/Game/LostIsland/Boss/BossDinopithecus_Character_BP_Easy.BossDinopithecus_Character_BP_Easy",
+			"variants": [ "Boss", "Gamma" ],
+			"fullStatsRaw": [
+				[ 375000, 0.2, 0.27, 0.5, 0 ],
+				[ 2000, 0, 0, 0, 0 ],
+				[ 1000, 0.06, 0, 0.5, 0 ],
+				[ 2000, 0, 0, 0, 0 ],
+				[ 2500, 0, 0, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0, 0, 0, 0 ],
+				[ 1, 0.075, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"noGender": true,
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.005,
+				"foodConsumptionMult": 150,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Dinopithecus King",
+			"blueprintPath": "/Game/LostIsland/Boss/BossDinopithecus_Character_BP_Hard.BossDinopithecus_Character_BP_Hard",
+			"variants": [ "Alpha", "Boss" ],
+			"fullStatsRaw": [
+				[ 825000, 0.25, 0.27, 0.5, 0 ],
+				[ 2000, 0, 0, 0, 0 ],
+				[ 1000, 0.06, 0, 0.5, 0 ],
+				[ 2000, 0, 0, 0, 0 ],
+				[ 2500, 0, 0, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0, 0, 0, 0 ],
+				[ 1, 0.1, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"noGender": true,
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.005,
+				"foodConsumptionMult": 150,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Dinopithecus King",
+			"blueprintPath": "/Game/LostIsland/Boss/BossDinopithecus_Character_BP_Medium.BossDinopithecus_Character_BP_Medium",
+			"variants": [ "Beta", "Boss" ],
+			"fullStatsRaw": [
+				[ 600000, 0.225, 0.27, 0.5, 0 ],
+				[ 2000, 0, 0, 0, 0 ],
+				[ 1000, 0.06, 0, 0.5, 0 ],
+				[ 2000, 0, 0, 0, 0 ],
+				[ 2500, 0, 0, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0, 0, 0, 0 ],
+				[ 1, 0.0875, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"noGender": true,
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.005,
+				"foodConsumptionMult": 150,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Amargasaurus",
+			"blueprintPath": "/Game/LostIsland/Boss/Minions/Amargasaurus_Character_BP_Minion.Amargasaurus_Character_BP_Minion",
+			"variants": [ "Boss", "Minion" ],
+			"fullStatsRaw": [
+				[ 1250, 0.2, 0.27, 0.5, 0 ],
+				[ 425, 0.1, 0.1, 0, 0 ],
+				[ 2250, 0.06, 0, 0.5, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 6300, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 475, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 17998.5601,
+				"eggTempMin": 26,
+				"eggTempMax": 29,
+				"maturationTime": 333333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Base Skin",
+					"colors": [
+						"ActualBlack",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"DragonFire",
+						"Light Brown",
+						"Light Green",
+						"Light Grey",
+						"Light Orange",
+						"Light Red",
+						"White"
+					]
+				},
+				{
+					"name": "Spine Pattern",
+					"colors": [
+						"ActualBlack",
+						"Cream",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Glacial",
+						"Light Orange",
+						"Mint",
+						"Turquoise"
+					]
+				},
+				null,
+				null,
+				{
+					"name": "Ridge Color",
+					"colors": [
+						"Coral",
+						"Glacial",
+						"Light Orange",
+						"Light Red",
+						"Light Yellow",
+						"LightPink",
+						"Orange",
+						"PowderBlue",
+						"Teal",
+						"Turquoise"
+					]
+				},
+				{
+					"name": "Side Stripes",
+					"colors": [
+						"Black",
+						"Glacial",
+						"Lavender",
+						"LeafGreen",
+						"Light Yellow",
+						"LightCement",
+						"LightPink",
+						"Mint",
+						"NearWhite",
+						"Teal",
+						"Turquoise"
+					]
+				}
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 0.831,
+				"affinityNeeded0": 7500,
+				"affinityIncreasePL": 750,
+				"foodConsumptionBase": 0.00625,
+				"foodConsumptionMult": 320,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 927
+		},
+		{
+			"name": "Dinopithecus",
+			"blueprintPath": "/Game/LostIsland/Boss/Minions/Dinopithecus_Character_BP_Minion.Dinopithecus_Character_BP_Minion",
+			"variants": [ "Minion" ],
+			"fullStatsRaw": [
+				[ 775, 0.2, 0.243, 0.5, 0 ],
+				[ 800, 0.1, 0.1, 0, 0 ],
+				[ 600, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 350, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 35714.2857,
+				"incubationTime": 0,
+				"maturationTime": 333333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Base Skin",
+					"colors": [
+						"ActualBlack",
+						"BigFoot4",
+						"Black",
+						"Brown",
+						"DarkCement",
+						"Dino Light Red",
+						"Dino Medium Brown",
+						"Light Brown",
+						"Light Grey",
+						"Light Orange",
+						"White",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Iris",
+					"colors": [
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"Dino Light Blue",
+						"Dino Medium Blue",
+						"DragonGreen3",
+						"Light Orange",
+						"Light Red",
+						"Light Yellow",
+						"Turquoise"
+					]
+				},
+				{
+					"name": "Blue nose",
+					"colors": [
+						"Coral",
+						"DeepPink",
+						"Dino Deep Blue",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"DragonFire",
+						"Lavender",
+						"Light Orange",
+						"Light Red",
+						"NearBlack"
+					]
+				},
+				{
+					"name": "Belly",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Dino Albino",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Light Brown",
+						"White"
+					]
+				},
+				{
+					"name": "Red nose",
+					"colors": [
+						"BigFoot4",
+						"BigFoot5",
+						"Dino Light Orange",
+						"Dino Light Red",
+						"DragonBase1",
+						"Light Orange",
+						"Light Red",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Fur",
+					"colors": [
+						"Cream",
+						"DarkCement",
+						"Dino Albino",
+						"Dino Light Brown",
+						"Light Grey",
+						"Light Orange",
+						"NearBlack",
+						"WolfFur"
+					]
+				}
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 3.125,
+				"affinityNeeded0": 1600,
+				"affinityIncreasePL": 150,
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 648.0881,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"Cnt_Head_JNT_SKL": 3,
+				"Cnt_Neck_002_JNT_SKL": 3,
+				"Cnt_Neck_000_JNT_SKL": 3
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 927
+		},
+		{
+			"name": "Sinomacrops",
+			"blueprintPath": "/Game/LostIsland/Boss/Minions/Sinomacrops_Character_BP_Minion.Sinomacrops_Character_BP_Minion",
+			"variants": [ "Minion" ],
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 110, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 900, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 80, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
+			"immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 9472.92638,
+				"eggTempMin": 38,
+				"eggTempMax": 40,
+				"maturationTime": 133333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Main body",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
+						"BurntSienna",
+						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				},
+				null,
+				null,
+				null,
+				{
+					"name": "Wing spots",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"BurntSienna",
+						"Coral",
+						"Cream",
+						"Dino Albino",
+						"Dino Dark Orange",
+						"Dino Light Purple",
+						"Dino Medium Brown",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen3",
+						"LeafGreen",
+						"LightAutumn",
+						"LightPink",
+						"LightWarmGray",
+						"MediumTurquoise",
+						"NearWhite",
+						"Peach",
+						"WolfFur",
+						"WyvernBlue0",
+						"WyvernPurple0",
+						"WyvernPurple1"
+					]
+				},
+				{
+					"name": "Back",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
+						"BurntSienna",
+						"Cream",
+						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				}
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 0.045,
+				"affinityNeeded0": 500,
+				"affinityIncreasePL": 35.5,
+				"foodConsumptionBase": 0.001302,
+				"foodConsumptionMult": 1152.074,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": { "head": 3 },
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 927
+		},
+		{
+			"name": "Amargasaurus",
+			"blueprintPath": "/Game/LostIsland/Dinos/Amargasaurus/Amargasaurus_Character_BP.Amargasaurus_Character_BP",
+			"fullStatsRaw": [
+				[ 1250, 0.2, 0.27, 0.5, 0 ],
+				[ 425, 0.1, 0.1, 0, 0 ],
+				[ 2250, 0.06, 0, 0.5, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 6300, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 475, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 17998.5601,
+				"eggTempMin": 26,
+				"eggTempMax": 29,
+				"maturationTime": 333333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Base Skin",
+					"colors": [
+						"ActualBlack",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"DragonFire",
+						"Light Brown",
+						"Light Green",
+						"Light Grey",
+						"Light Orange",
+						"Light Red",
+						"White"
+					]
+				},
+				{
+					"name": "Spine Pattern",
+					"colors": [
+						"ActualBlack",
+						"Cream",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Glacial",
+						"Light Orange",
+						"Mint",
+						"Turquoise"
+					]
+				},
+				null,
+				null,
+				{
+					"name": "Ridge Color",
+					"colors": [
+						"Coral",
+						"Glacial",
+						"Light Orange",
+						"Light Red",
+						"Light Yellow",
+						"LightPink",
+						"Orange",
+						"PowderBlue",
+						"Teal",
+						"Turquoise"
+					]
+				},
+				{
+					"name": "Side Stripes",
+					"colors": [
+						"Black",
+						"Glacial",
+						"Lavender",
+						"LeafGreen",
+						"Light Yellow",
+						"LightCement",
+						"LightPink",
+						"Mint",
+						"NearWhite",
+						"Teal",
+						"Turquoise"
+					]
+				}
+			],
+			"taming": {
+				"nonViolent": true,
+				"violent": false,
+				"tamingIneffectiveness": 0.831,
+				"affinityNeeded0": 7500,
+				"affinityIncreasePL": 750,
+				"wakeAffinityMult": 1,
+				"wakeFoodDeplMult": 5e-05,
+				"foodConsumptionBase": 0.00625,
+				"foodConsumptionMult": 320,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 927
+		},
+		{
+			"name": "Dinopithecus",
+			"blueprintPath": "/Game/LostIsland/Dinos/Dinopithecus/Dinopithecus_Character_BP.Dinopithecus_Character_BP",
+			"fullStatsRaw": [
+				[ 775, 0.2, 0.243, 0.5, 0 ],
+				[ 800, 0.1, 0.1, 0, 0 ],
+				[ 600, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 350, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"breeding": {
+				"gestationTime": 35714.2857,
+				"incubationTime": 0,
+				"maturationTime": 333333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Base Skin",
+					"colors": [
+						"ActualBlack",
+						"BigFoot4",
+						"Black",
+						"Brown",
+						"DarkCement",
+						"Dino Light Red",
+						"Dino Medium Brown",
+						"Light Brown",
+						"Light Grey",
+						"Light Orange",
+						"White",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Iris",
+					"colors": [
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"Dino Light Blue",
+						"Dino Medium Blue",
+						"DragonGreen3",
+						"Light Orange",
+						"Light Red",
+						"Light Yellow",
+						"Turquoise"
+					]
+				},
+				{
+					"name": "Blue nose",
+					"colors": [
+						"Coral",
+						"DeepPink",
+						"Dino Deep Blue",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"DragonFire",
+						"Lavender",
+						"Light Orange",
+						"Light Red",
+						"NearBlack"
+					]
+				},
+				{
+					"name": "Belly",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Dino Albino",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Light Brown",
+						"White"
+					]
+				},
+				{
+					"name": "Red nose",
+					"colors": [
+						"BigFoot4",
+						"BigFoot5",
+						"Dino Light Orange",
+						"Dino Light Red",
+						"DragonBase1",
+						"Light Orange",
+						"Light Red",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Fur",
+					"colors": [
+						"Cream",
+						"DarkCement",
+						"Dino Albino",
+						"Dino Light Brown",
+						"Light Grey",
+						"Light Orange",
+						"NearBlack",
+						"WolfFur"
+					]
+				}
+			],
+			"taming": {
+				"nonViolent": true,
+				"violent": false,
+				"tamingIneffectiveness": 3.125,
+				"affinityNeeded0": 1600,
+				"affinityIncreasePL": 150,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 648.0881,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"Cnt_Head_JNT_SKL": 3,
+				"Cnt_Neck_002_JNT_SKL": 3,
+				"Cnt_Neck_000_JNT_SKL": 3
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 927
+		},
+		{
+			"name": "Sinomacrops",
+			"blueprintPath": "/Game/LostIsland/Dinos/Sinomacrops/Sinomacrops_Character_BP.Sinomacrops_Character_BP",
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 110, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 900, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 80, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
+			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 9472.92638,
+				"eggTempMin": 38,
+				"eggTempMax": 40,
+				"maturationTime": 133333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Main body",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
+						"BurntSienna",
+						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Wings bottom",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"BurntSienna",
+						"Cream",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"DragonBase0",
+						"DragonBase1",
+						"LightAutumn",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearWhite",
+						"Peach",
+						"WolfFur"
+					]
+				},
+				null,
+				{
+					"name": "Belly",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"BlackSands",
+						"Cream",
+						"Dark Grey",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Orange",
+						"Dino Medium Brown",
+						"DragonBase1",
+						"Light Red",
+						"LightAutumn",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur",
+						"WyvernPurple1"
+					]
+				},
+				{
+					"name": "Wing spots",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"BurntSienna",
+						"Coral",
+						"Cream",
+						"Dino Albino",
+						"Dino Dark Orange",
+						"Dino Light Purple",
+						"Dino Medium Brown",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen3",
+						"LeafGreen",
+						"LightAutumn",
+						"LightPink",
+						"LightWarmGray",
+						"MediumTurquoise",
+						"NearWhite",
+						"Peach",
+						"WolfFur",
+						"WyvernBlue0",
+						"WyvernPurple0",
+						"WyvernPurple1"
+					]
+				},
+				{
+					"name": "Back",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
+						"BurntSienna",
+						"Cream",
+						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				}
+			],
+			"taming": {
+				"nonViolent": true,
+				"violent": false,
+				"tamingIneffectiveness": 0.045,
+				"affinityNeeded0": 500,
+				"affinityIncreasePL": 35.5,
+				"wakeAffinityMult": 1,
+				"wakeFoodDeplMult": 2,
+				"foodConsumptionBase": 0.001302,
+				"foodConsumptionMult": 1152.074,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": { "head": 3 },
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 927
+		},
+		{
+			"name": "Ice Wyvern",
+			"blueprintPath": "/Game/Mods/LostIsland/Assets/Dinos/IceWyvern/Ragnarok_Wyvern_Override_Ice.Ragnarok_Wyvern_Override_Ice",
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 1295, 0.15, 0.162, -785, 0 ],
+				[ 315, 0.05, 0.05, 0, 0 ],
+				[ 725, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1800, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 400, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, -0.25, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
+			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 17998.5601,
+				"eggTempMin": 80,
+				"eggTempMax": 90,
+				"maturationTime": 333333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Body Main",
+					"colors": [
+						"BigFoot4",
+						"Dino Albino",
+						"Dino Light Blue",
+						"Dino Light Green",
+						"Dino Light Purple",
+						"DragonBlue0",
+						"DragonGreen3",
+						"Light Grey",
+						"NearBlack",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"WyvernPurple1"
+					]
+				},
+				{
+					"name": "Fins",
+					"colors": [
+						"Black",
+						"Dino Light Blue",
+						"DragonBlue0",
+						"Light Grey",
+						"WyvernBlue0",
+						"WyvernBlue1"
+					]
+				},
+				{
+					"name": "Wings",
+					"colors": [
+						"Dino Dark Purple",
+						"Dino Darker Grey",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DragonBlue0",
+						"Light Grey",
+						"WyvernBlue0",
+						"WyvernPurple0",
+						"WyvernPurple1"
+					]
+				},
+				null,
+				{
+					"name": "Scales Belly",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"Dino Albino",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Purple",
+						"DragonBlue0",
+						"DragonGreen3",
+						"Light Grey",
+						"NearBlack",
+						"WolfFur",
+						"WyvernBlue0",
+						"WyvernBlue1"
+					]
+				},
+				{
+					"name": "Scales Top and Fins",
+					"colors": [
+						"Dino Albino",
+						"Dino Light Blue",
+						"Dino Light Green",
+						"Dino Light Purple",
+						"DragonGreen3",
+						"Light Grey",
+						"NearBlack",
+						"WyvernBlue0",
+						"WyvernPurple1"
+					]
+				}
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.5,
+				"affinityNeeded0": 8500,
+				"affinityIncreasePL": 150,
+				"foodConsumptionBase": 0.000185,
+				"foodConsumptionMult": 199.984,
+				"babyFoodConsumptionMult": 450
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 927
+		},
+		{
 			"name": "Dragon",
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Bosses/Dragon_Character_BP_Boss_Easy_Ragnarok.Dragon_Character_BP_Boss_Easy_Ragnarok",
 			"variants": [ "Boss", "Gamma", "Ragnarok" ],
@@ -86816,11 +88389,13 @@
 				}
 			],
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 2000,
 				"affinityNeeded0": 10000,
 				"affinityIncreasePL": 5,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.01,
 				"foodConsumptionMult": 0.05,
 				"babyFoodConsumptionMult": 510
@@ -86920,11 +88495,13 @@
 				}
 			],
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 2000,
 				"affinityNeeded0": 10000,
 				"affinityIncreasePL": 5,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.01,
 				"foodConsumptionMult": 0.05,
 				"babyFoodConsumptionMult": 510
@@ -87024,11 +88601,13 @@
 				}
 			],
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 2000,
 				"affinityNeeded0": 10000,
 				"affinityIncreasePL": 5,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.01,
 				"foodConsumptionMult": 0.05,
 				"babyFoodConsumptionMult": 510
@@ -87128,11 +88707,13 @@
 				}
 			],
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 2000,
 				"affinityNeeded0": 10000,
 				"affinityIncreasePL": 5,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.01,
 				"foodConsumptionMult": 0.05,
 				"babyFoodConsumptionMult": 510
@@ -93932,11 +95513,13 @@
 			"immobilizedBy": [],
 			"noGender": true,
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 1.333333,
 				"affinityNeeded0": 450,
 				"affinityIncreasePL": 22.5,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.001736,
 				"foodConsumptionMult": 864.0553,
 				"babyFoodConsumptionMult": 510
@@ -93964,11 +95547,13 @@
 			"immobilizedBy": [],
 			"noGender": true,
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 1.333333,
 				"affinityNeeded0": 450,
 				"affinityIncreasePL": 22.5,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.001736,
 				"foodConsumptionMult": 864.0553,
 				"babyFoodConsumptionMult": 510
@@ -96278,7 +97863,7 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Mosasaur",
+			"name": "Mosasaurus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Mosasaurus/Mosa_Character_BP_Cave.Mosa_Character_BP_Cave",
 			"variants": [ "Cave" ],
 			"fullStatsRaw": [
@@ -98466,11 +100051,13 @@
 				}
 			],
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 8.333333,
 				"affinityNeeded0": 450,
 				"affinityIncreasePL": 22.5,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.001543,
 				"foodConsumptionMult": 216.0294,
 				"babyFoodConsumptionMult": 510
@@ -98580,11 +100167,13 @@
 				}
 			],
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 8.333333,
 				"affinityNeeded0": 450,
 				"affinityIncreasePL": 22.5,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.001543,
 				"foodConsumptionMult": 216.0294,
 				"babyFoodConsumptionMult": 510
@@ -98694,11 +100283,13 @@
 				}
 			],
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 8.333333,
 				"affinityNeeded0": 450,
 				"affinityIncreasePL": 22.5,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.001543,
 				"foodConsumptionMult": 216.0294,
 				"babyFoodConsumptionMult": 510
@@ -98808,11 +100399,13 @@
 				}
 			],
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 8.333333,
 				"affinityNeeded0": 450,
 				"affinityIncreasePL": 22.5,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.001543,
 				"foodConsumptionMult": 216.0294,
 				"babyFoodConsumptionMult": 510
@@ -101941,11 +103534,13 @@
 				}
 			],
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 2000,
 				"affinityNeeded0": 10000,
 				"affinityIncreasePL": 5,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.01,
 				"foodConsumptionMult": 0.05,
 				"babyFoodConsumptionMult": 510
@@ -102029,11 +103624,13 @@
 				}
 			],
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 2000,
 				"affinityNeeded0": 10000,
 				"affinityIncreasePL": 5,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.01,
 				"foodConsumptionMult": 0.05,
 				"babyFoodConsumptionMult": 510
@@ -102118,11 +103715,13 @@
 				}
 			],
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 2000,
 				"affinityNeeded0": 10000,
 				"affinityIncreasePL": 5,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.01,
 				"foodConsumptionMult": 0.05,
 				"babyFoodConsumptionMult": 510
@@ -102207,11 +103806,13 @@
 				}
 			],
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 2000,
 				"affinityNeeded0": 10000,
 				"affinityIncreasePL": 5,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.01,
 				"foodConsumptionMult": 0.05,
 				"babyFoodConsumptionMult": 510
@@ -106587,11 +108188,13 @@
 			"immobilizedBy": [],
 			"noGender": true,
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 1.333333,
 				"affinityNeeded0": 450,
 				"affinityIncreasePL": 22.5,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.001736,
 				"foodConsumptionMult": 864.0553,
 				"babyFoodConsumptionMult": 510
@@ -106620,11 +108223,13 @@
 			"immobilizedBy": [],
 			"noGender": true,
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 1.333333,
 				"affinityNeeded0": 450,
 				"affinityIncreasePL": 22.5,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.001736,
 				"foodConsumptionMult": 864.0553,
 				"babyFoodConsumptionMult": 510
