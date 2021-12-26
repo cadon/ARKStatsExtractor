@@ -647,6 +647,9 @@
     <None Include="Resources\failure.wav" />
     <None Include="Resources\newtopstat.wav" />
     <None Include="Resources\indifferent.wav" />
+    <None Include="json\variantsDefaultUnselected.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="_manifest.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>_manifest.json</LastGenOutput>

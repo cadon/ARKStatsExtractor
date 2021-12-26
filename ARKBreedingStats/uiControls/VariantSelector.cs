@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.species;
@@ -47,7 +48,7 @@ namespace ARKBreedingStats.uiControls
             var variantCount = ClbVariants.Items.Count;
             if (variantCount == 0)
             {
-                DisabledVariants = Properties.Settings.Default.DisabledVariants?.ToList() ?? DefaultVariantDeselection;
+                DisabledVariants = Properties.Settings.Default.DisabledVariants?.ToList() ?? DefaultVariantDeselection();
             }
             else
             {
@@ -72,12 +73,14 @@ namespace ARKBreedingStats.uiControls
 
         internal void FilterToDefault()
         {
-            DisabledVariants = DefaultVariantDeselection;
+            DisabledVariants = DefaultVariantDeselection();
         }
 
         private void ButtonOk_Click(object sender, EventArgs e)
         {
-            DisabledVariants.Clear();
+            if (DisabledVariants == null)
+                DisabledVariants = new List<string>();
+            else DisabledVariants.Clear();
             int c = ClbVariants.Items.Count;
             for (int i = 0; i < c; i++)
                 if (!ClbVariants.GetItemChecked(i))
@@ -87,27 +90,12 @@ namespace ARKBreedingStats.uiControls
             Close();
         }
 
-        private List<string> DefaultVariantDeselection => new List<string>
+        private static List<string> DefaultVariantDeselection()
         {
-            "Alpha",
-            "Beta",
-            "Boss",
-            "Corrupted",
-            "Escort",
-            "FinalBattle",
-            "Gamma",
-            "Gauntlet",
-            "Gauntlet2",
-            "Hunt",
-            "Mega",
-            "Minion",
-            "Mission",
-            "Race",
-            "Race2",
-            "Retrieve",
-            "Sport",
-            "Summoned",
-            "TekCave"
-        };
+            var filePath = FileService.GetJsonPath("variantsDefaultUnselected.txt");
+            if (!File.Exists(filePath)) return null;
+
+            return File.ReadAllLines(filePath).Where(l => !string.IsNullOrEmpty(l)).ToList();
+        }
     }
 }
