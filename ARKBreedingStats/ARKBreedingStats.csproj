@@ -985,6 +985,9 @@
 if $(ConfigurationName) == Release (
   del "$(TargetDir)*.pdb" 2&gt;nul
   del "$(TargetDir)*.xml" 2&gt;nul
+
+  if not exist "$(SolutionDir)_publish" mkdir "$(SolutionDir)_publish"
+
   powershell -nologo -noprofile -command "$version = (Get-Item '$(TargetPath)').VersionInfo.FileVersion; Compress-Archive -Force -Path '$(TargetDir)*' -DestinationPath """$(SolutionDir)_publish\ARK.Smart.Breeding_$version.zip""" "
 
   if exist "%25ProgramFiles(x86)%25\Inno Setup 5\ISCC.exe" (
