@@ -383,6 +383,9 @@ namespace ARKBreedingStats
 
                 foreach (var c in speciesCreatures)
                 {
+                    if (c.flags.HasFlag(CreatureFlags.Placeholder))
+                        continue;
+
                     // reset topBreeding stats for this creature
                     c.topBreedingStats = new bool[Values.STATS_COUNT];
                     c.topBreedingCreature = false;
