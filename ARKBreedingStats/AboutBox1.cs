@@ -117,6 +117,7 @@ Translations:
 * Chinese by MicheaBoab
 * Russian by SoulSuspect
 * Polish by alex4401
-* Japanese by maririyuzu";
+* Japanese by maririyuzu
+* Portuguese Brazilian by llbranco";
     }
 }

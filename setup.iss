@@ -90,6 +90,7 @@ Source: "{#ReleaseDir}\fr\*"; DestDir: "{app}\fr\"; Flags: ignoreversion; Exclud
 Source: "{#ReleaseDir}\it\*"; DestDir: "{app}\it\"; Flags: ignoreversion; Excludes: "*.pdb,*.xml"
 Source: "{#ReleaseDir}\ja\*"; DestDir: "{app}\ja\"; Flags: ignoreversion; Excludes: "*.pdb,*.xml"
 Source: "{#ReleaseDir}\pl\*"; DestDir: "{app}\pl\"; Flags: ignoreversion; Excludes: "*.pdb,*.xml"
+Source: "{#ReleaseDir}\pt-BR\*"; DestDir: "{app}\pt-BR\"; Flags: ignoreversion; Excludes: "*.pdb,*.xml"
 Source: "{#ReleaseDir}\ru\*"; DestDir: "{app}\ru\"; Flags: ignoreversion; Excludes: "*.pdb,*.xml"
 Source: "{#ReleaseDir}\zh\*"; DestDir: "{app}\zh\"; Flags: ignoreversion; Excludes: "*.pdb,*.xml"
 Source: "{#ReleaseDir}\_manifest.json"; DestDir: "{localappdata}\{#AppName}\"; Flags: ignoreversion

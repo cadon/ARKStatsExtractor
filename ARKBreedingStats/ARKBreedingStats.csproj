@@ -661,6 +661,7 @@
       <SubType>Designer</SubType>
       <LastGenOutput>strings.ja.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="local\strings.pt-br.resx" />
     <EmbeddedResource Include="local\strings.ru.resx" />
     <EmbeddedResource Include="local\strings.pl.resx" />
     <EmbeddedResource Include="ocr\PatternMatching\RecognitionTrainingForm.resx">

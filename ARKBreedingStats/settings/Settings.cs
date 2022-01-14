@@ -160,6 +160,7 @@ namespace ARKBreedingStats.settings
                 { "Italiano", "it"},
                 { "日本語", "ja"},
                 { "Polski", "pl"},
+                { "Português do Brasil", "pt-BR"},
                 { "русский", "ru"},
                 { "中文", "zh"}
             };
