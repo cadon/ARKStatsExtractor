@@ -32,7 +32,10 @@ namespace ARKBreedingStats
             var importUnclaimedBabies = Properties.Settings.Default.SaveFileImportUnclaimedBabies;
 
             IEnumerable<GameObject> tamedCreatureObjects = gameObjectContainer
-                    .Where(o => o.IsCreature() && o.IsTamed() && (importUnclaimedBabies || !o.IsUnclaimedBaby()) && !ignoreClasses.Contains(o.ClassString));
+                    .Where(o => o.IsCreature()
+                    && o.IsTamed()
+                    && (importUnclaimedBabies || (o.IsCryo && Properties.Settings.Default.SaveImportCryo) || !o.IsUnclaimedBaby())
+                    && !ignoreClasses.Contains(o.ClassString));
 
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.ImportTribeNameFilter))
             {
