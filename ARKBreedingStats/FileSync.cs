@@ -102,7 +102,8 @@ namespace ARKBreedingStats
         public void SavingEnds()
         {
             _lastUpdated = DateTime.Now;
-            _fileWatcher.EnableRaisingEvents = true;
+            if (!string.IsNullOrEmpty(_currentFile))
+                _fileWatcher.EnableRaisingEvents = true;
         }
 
         private void UpdateProperties()
