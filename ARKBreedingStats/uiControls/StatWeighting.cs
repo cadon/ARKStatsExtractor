@@ -17,12 +17,12 @@ namespace ARKBreedingStats.uiControls
         private readonly Nud[] _weightNuds;
         public event Action WeightingsChanged;
         private readonly Debouncer _valueChangedDebouncer = new Debouncer();
+        private readonly ToolTip _tt = new ToolTip();
 
         public StatWeighting()
         {
             InitializeComponent();
-            ToolTip tt = new ToolTip();
-            tt.SetToolTip(groupBox1, "Increase the weights for stats that are more important to you to be high in the offspring.\nRight click for Presets.");
+            _tt.SetToolTip(groupBox1, "Increase the weights for stats that are more important to you to be high in the offspring.\nRight click for Presets.");
             _currentSpecies = null;
             _weightNuds = new Nud[Values.STATS_COUNT];
             _statLabels = new Label[Values.STATS_COUNT];
@@ -68,7 +68,10 @@ namespace ARKBreedingStats.uiControls
             _currentSpecies = species;
             for (int s = 0; s < Values.STATS_COUNT; s++)
                 if (_statLabels[s] != null)
+                {
                     _statLabels[s].Text = Utils.StatName(s, true, species.statNames);
+                    _tt.SetToolTip(_statLabels[s], Utils.StatName(s, false, species.statNames));
+                }
         }
 
         private void Input_ValueChanged(object sender, EventArgs e)
