@@ -4,7 +4,7 @@ classDiagram
     string Name
     Species Species
     Server Server
-    List~ColorRegion~ Colors
+    List~ColorRegion~ ColorRegions
     CreatureStat[] Stats
   }
 
@@ -12,38 +12,68 @@ classDiagram
     string Name
     string BlueprintPath
 
-    SpeciesFood Food
-    SpeciesBreeding Food
-    
-    SpeciesStat[] Stats
+    List~SpeciesStat~ Stats
+
+    List~SpeciesFood~ Food
+
+    SpeciesTaming Taming
+    SpeciesBreeding Breeding
+    double FoodConsumptionRate
 
     bool IsFlyer
     bool IsGenderless
     bool IsDomesticable
-    
-    string[] ImmobilizedBy
 
-    CreatureStat[] GetEffectiveStats(ServerMultipliers serverMultipliers)
+    string[] ImmobilizedBy
   }
 
   class ColorRegion {
+    string Name
     Color Color
   }
 
   class Color {
-    int Id
-    int Red
-    int Green
-    int Blue
+    string Name
+    byte Id
+
+    byte Red
+    byte Green
+    byte Blue
   }
 
   class SpeciesFood {
+    double FoodValue
+    double TamingAffinity
+    int TamingMinimumQuantity
+    bool EatsWhileTaming
+    bool EatsAfterTaming
   }
 
-  class SpeciesStats {
+  class SpeciesStat {
+  }
+
+  class SpeciesTaming {
+    bool Violent
+    bool NonViolent
+    double TamingIneffectiveness
+    double BaseAffinityNeeded
+    double AffinityIncreasePerLevel
+    double TorporDepletionPerSecond
+    double WakeAffinityMultiplier
+    double FoodConsumptionMultiplierViolent
+    double FoodConsumptionMultiplierNonViolent
   }
 
   class SpeciesBreeding {
+    double BabyFoodConsumptionMultiplier
+    double GestationTime
+    double IncubationTime
+    double MaturationTime
+    double MatingTime
+    double MatingCooldownMin
+    double MatingCooldownMax
+    double EggTempMin
+    double EggTempMax
   }
 
   class Server {
@@ -58,8 +88,9 @@ classDiagram
   Creature -- Server
   Creature -- ColorRegion
   ColorRegion -- Color
-  Species -- SpeciesStats
+  Species -- SpeciesStat
   Species -- SpeciesFood
+  Species -- SpeciesTaming
   Species -- SpeciesBreeding
   Server -- ServerMultipliers
 ```
