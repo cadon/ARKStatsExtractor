@@ -22,6 +22,7 @@ namespace ARKBreedingStats
 
             listViewPlayer.ListViewItemSorter = new ListViewColumnSorter();
             listViewTribes.ListViewItemSorter = new ListViewColumnSorter();
+            ListViewColumnSorter.DoSort(listViewPlayer, Properties.Settings.Default.PlayerListSortColumn);
         }
 
         private void listView_ColumnClick(object sender, ColumnClickEventArgs e)
@@ -46,6 +47,8 @@ namespace ARKBreedingStats
                 UpdateTribeList();
             }
         }
+
+        public ListView ListViewPlayers => listViewPlayer;
 
         /// <summary>
         /// Checks if a player with the given name exists.
@@ -93,7 +96,7 @@ namespace ARKBreedingStats
                     g = new ListViewGroup(p.Tribe);
                     listViewPlayer.Groups.Add(g);
                 }
-                if (!tribeRelColors.ContainsKey(p.Tribe))
+                if (p.Tribe != null && !tribeRelColors.ContainsKey(p.Tribe))
                 {
                     Color c = Color.White;
                     foreach (Tribe t in tribes)
@@ -106,7 +109,7 @@ namespace ARKBreedingStats
                     }
                     tribeRelColors.Add(p.Tribe, c);
                 }
-                int notesL = p.Note.Length;
+                int notesL = p.Note?.Length ?? 0;
                 if (notesL > 40) notesL = 40;
                 string rel = "n/a";
                 foreach (Tribe t in tribes)
@@ -117,12 +120,13 @@ namespace ARKBreedingStats
                         break;
                     }
                 }
-                ListViewItem lvi = new ListViewItem(new[] { p.PlayerName, p.Level.ToString(), p.Tribe, rel, p.Note.Substring(0, notesL) }, g)
+                ListViewItem lvi = new ListViewItem(new[] { p.Rank.ToString(), p.PlayerName, p.Level.ToString(), p.Tribe, rel, p.Note?.Substring(0, notesL) }, g)
                 {
                     UseItemStyleForSubItems = false,
                     Tag = p
                 };
-                lvi.SubItems[3].BackColor = tribeRelColors[p.Tribe];
+                if (!string.IsNullOrEmpty(p.Tribe))
+                    lvi.SubItems[3].BackColor = tribeRelColors[p.Tribe];
                 listViewPlayer.Items.Add(lvi);
             }
         }
@@ -155,9 +159,10 @@ namespace ARKBreedingStats
                 panelTribeSettings.Visible = false;
                 selectedPlayer = (Player)listViewPlayer.SelectedItems[0].Tag;
                 selectedRow = listViewPlayer.SelectedItems[0];
+                nudPlayerRank.Value = selectedPlayer.Rank;
                 textBoxPlayerName.Text = selectedPlayer.PlayerName;
                 textBoxPlayerNotes.Text = selectedPlayer.Note;
-                numericUpDownLevel.Value = selectedPlayer.Level;
+                nudPlayerLevel.Value = selectedPlayer.Level;
                 textBoxPlayerTribe.Text = selectedPlayer.Tribe;
             }
             panelPlayerSettings.Enabled = playerSelected;
@@ -200,21 +205,30 @@ namespace ARKBreedingStats
             textBoxPlayerTribe.AutoCompleteCustomSource = l;
         }
 
+        private void nudPlayerRank_ValueChanged(object sender, EventArgs e)
+        {
+            if (selectedPlayer != null)
+            {
+                selectedPlayer.Rank = (int)nudPlayerRank.Value;
+                selectedRow.SubItems[0].Text = nudPlayerRank.Value.ToString();
+            }
+        }
+
         private void textBoxPlayerName_TextChanged(object sender, EventArgs e)
         {
             if (selectedPlayer != null)
             {
                 selectedPlayer.PlayerName = textBoxPlayerName.Text;
-                selectedRow.SubItems[0].Text = textBoxPlayerName.Text;
+                selectedRow.SubItems[1].Text = textBoxPlayerName.Text;
             }
         }
 
-        private void numericUpDownLevel_ValueChanged(object sender, EventArgs e)
+        private void nudPlayerLevel_ValueChanged(object sender, EventArgs e)
         {
             if (selectedPlayer != null)
             {
-                selectedPlayer.Level = (int)numericUpDownLevel.Value;
-                selectedRow.SubItems[1].Text = numericUpDownLevel.Value.ToString();
+                selectedPlayer.Level = (int)nudPlayerLevel.Value;
+                selectedRow.SubItems[2].Text = nudPlayerLevel.Value.ToString();
             }
         }
 
@@ -223,7 +237,7 @@ namespace ARKBreedingStats
             if (selectedPlayer != null)
             {
                 selectedPlayer.Tribe = textBoxPlayerTribe.Text;
-                selectedRow.SubItems[2].Text = textBoxPlayerTribe.Text;
+                selectedRow.SubItems[3].Text = textBoxPlayerTribe.Text;
             }
         }
 

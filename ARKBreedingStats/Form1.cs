@@ -206,6 +206,7 @@ namespace ARKBreedingStats
             // Load column-widths, display-indices and sort-order  of the listViewLibrary
             LoadListViewSettings(listViewLibrary, "columnWidths", "libraryColumnDisplayIndices", "listViewSortCol",
                 "listViewSortAsc");
+            LoadListViewSettings(tribesControl1.ListViewPlayers, "PlayerListColumnWidths", "PlayerListColumnDisplayIndices", "PlayerListSortColumn", "PlayerListSortAsc");
 
             // load stat weights
             double[][] custWd = Properties.Settings.Default.customStatWeights;
@@ -1198,7 +1199,7 @@ namespace ARKBreedingStats
                     lv.Columns[colIndicesOrdered[c].columnIndex].DisplayIndex = colIndicesOrdered[c].displayIndex;
             }
 
-            // load listViewLibSorting
+            // load listViewSorting
             if (!string.IsNullOrEmpty(sortColName) && !string.IsNullOrEmpty(sortAscName) && lv.ListViewItemSorter is ListViewColumnSorter lvcs)
             {
                 lvcs.SortColumn = (int)Properties.Settings.Default[sortColName];
@@ -1224,6 +1225,7 @@ namespace ARKBreedingStats
             SaveListViewSettings(timerList1.ListViewTimers, "TCLVColumnWidths", "TCLVColumnDisplayIndices", "TCLVSortCol", "TCLVSortAsc");
             SaveListViewSettings(pedigree1.ListViewCreatures, "PedigreeListViewColumnWidths");
             Properties.Settings.Default.PedigreeWidthLeftColum = pedigree1.LeftColumnWidth;
+            SaveListViewSettings(tribesControl1.ListViewPlayers, "PlayerListColumnWidths", "PlayerListColumnDisplayIndices", "PlayerListSortColumn", "PlayerListSortAsc");
 
             // Save column-widths, display-indices and sort-order of the listViewLibrary
             SaveListViewSettings(listViewLibrary, "columnWidths", "libraryColumnDisplayIndices", "listViewSortCol",

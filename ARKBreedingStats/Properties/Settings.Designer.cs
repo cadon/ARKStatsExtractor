@@ -2005,5 +2005,51 @@ namespace ARKBreedingStats.Properties {
                 this["BreedingPlanDontSuggestOverLimitOffspring"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int PlayerListSortColumn {
+            get {
+                return ((int)(this["PlayerListSortColumn"]));
+            }
+            set {
+                this["PlayerListSortColumn"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool PlayerListSortAsc {
+            get {
+                return ((bool)(this["PlayerListSortAsc"]));
+            }
+            set {
+                this["PlayerListSortAsc"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public int[] PlayerListColumnWidths {
+            get {
+                return ((int[])(this["PlayerListColumnWidths"]));
+            }
+            set {
+                this["PlayerListColumnWidths"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public int[] PlayerListColumnDisplayIndices {
+            get {
+                return ((int[])(this["PlayerListColumnDisplayIndices"]));
+            }
+            set {
+                this["PlayerListColumnDisplayIndices"] = value;
+            }
+        }
     }
 }
