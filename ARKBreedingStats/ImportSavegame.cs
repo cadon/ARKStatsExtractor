@@ -93,12 +93,14 @@ namespace ARKBreedingStats
             using (ArkArchive archive = new ArkArchive(stream))
             {
                 arkSavegame.ReadBinary(archive, ReadingOptions.Create()
-                        .WithDataFiles(false)
-                        .WithEmbeddedData(false)
-                        .WithDataFilesObjectMap(false)
-                        .WithObjectFilter(Properties.Settings.Default.SaveImportCryo ? new Predicate<GameObject>(PredicateCreaturesAndCryopods) : new Predicate<GameObject>(PredicateCreatures))
-                        .WithCryopodCreatures(Properties.Settings.Default.SaveImportCryo)
-                        .WithBuildComponentTree(true));
+                    .WithDataFiles(false)
+                    .WithEmbeddedData(false)
+                    .WithDataFilesObjectMap(false)
+                    .WithObjectFilter(Properties.Settings.Default.SaveImportCryo
+                        ? new Predicate<GameObject>(PredicateCreaturesAndCryopods)
+                        : new Predicate<GameObject>(PredicateCreatures))
+                    .WithCryopodCreatures(Properties.Settings.Default.SaveImportCryo)
+                    .WithBuildComponentTree(true));
             }
 
             if (!arkSavegame.HibernationEntries.Any())

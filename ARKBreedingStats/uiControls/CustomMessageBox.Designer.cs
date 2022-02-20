@@ -142,6 +142,7 @@ namespace ARKBreedingStats.uiControls
             this.Name = "CustomMessageBox";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "CustomMessageBox";
+            this.SizeChanged += new System.EventHandler(this.CustomMessageBox_SizeChanged);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PbIcon)).EndInit();
