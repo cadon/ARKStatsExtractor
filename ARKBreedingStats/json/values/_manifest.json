@@ -6,7 +6,7 @@
 			"mod": { "id": "1083349027", "tag": "SpeedyFlyers", "title": "Najs Speedy Flyers" }
 		},
 		"1090809604-Pyria.json": {
-			"version": "341.56.1640371266",
+			"version": "343.7.1644884110",
 			"mod": { "id": "1090809604", "tag": "Pyria", "title": "Pyria: Mythos Evolved" }
 		},
 		"1092784125-Gryphons.json": {
@@ -24,6 +24,22 @@
 		"1136390783-PhoenixBreeding.json": {
 			"version": "340.3.1505566966",
 			"mod": { "id": "1136390783", "tag": "PhoenixBreeding", "title": "Phoenix Breeding" }
+		},
+		"1139775728-Confuciusornis.json": {
+			"version": "342.13.1623021555",
+			"mod": { "id": "1139775728", "tag": "Confuciusornis", "title": "Confuciusornis" }
+		},
+		"1169020368-Trex.json": {
+			"version": "342.20.1643471252",
+			"mod": { "id": "1169020368", "tag": "Trex", "title": "Ark Creature Rebalance (AG Reborn)" }
+		},
+		"1178308359-ShadDragon.json": {
+			"version": "343.7.1644884420",
+			"mod": { "id": "1178308359", "tag": "ShadDragon", "title": "Shad's Tameable Bosses" }
+		},
+		"1188224480-OgAlphas.json": {
+			"version": "342.13.1623206057",
+			"mod": { "id": "1188224480", "tag": "OgAlphas", "title": "OgAlphas" }
 		},
 		"1206835819-AncientEarthModCollection.json": {
 			"version": "340.3.1513532145",
@@ -51,7 +67,7 @@
 			"mod": { "id": "1356703358", "tag": "Primal_Fear_Noxious_Creatures", "title": "Primal Fear Noxious Creatures" }
 		},
 		"1373744537-AC2.json": {
-			"version": "340.3.1639467821",
+			"version": "342.22.1643520911",
 			"mod": { "id": "1373744537", "tag": "AC2", "title": "Additional Creatures 2: Wild Ark" }
 		},
 		"1405944717-Project_Evolution.json": {
@@ -83,7 +99,7 @@
 			"mod": { "id": "1523045986", "tag": "Paranoia", "title": "Additional Creatures 2: Paranoia!" }
 		},
 		"1565015734-BetterDinosTest.json": {
-			"version": "340.3.1635604601.1",
+			"version": "343.7.1644786320",
 			"mod": { "id": "1565015734", "tag": "BetterDinosTest", "title": "Better Dinos" }
 		},
 		"1576299694-ElementalDinos.json": {
@@ -108,7 +124,7 @@
 			"mod": { "id": "1633860796", "tag": "DE_Breedable_RockDrakes", "title": "Dark Edges Breedable Rock Drakes" }
 		},
 		"1652120435-AtlasPort.json": {
-			"version": "341.22.1639498418",
+			"version": "342.22.1643521530",
 			"mod": { "id": "1652120435", "tag": "AtlasPort", "title": "Shad's Atlas Imports" }
 		},
 		"1654255131-AtlasImports.json": {
@@ -124,7 +140,7 @@
 			"mod": { "id": "1675895024", "tag": "NoUntameables", "title": "No Untameables" }
 		},
 		"1676159020-Aquaria.json": {
-			"version": "341.33.1639976335",
+			"version": "342.22.1644356573",
 			"mod": { "id": "1676159020", "tag": "Aquaria", "title": "Additional Creatures: Aquaria" }
 		},
 		"1681125667-Primal_Fear_EX.json": {
@@ -152,6 +168,10 @@
 			"version": "327.19.1620277012",
 			"mod": { "id": "1768499278", "tag": "BalancedJPE", "title": "AC2: Balanced JPE" }
 		},
+		"1783308979-AdditionalDinos_Valguero.json": {
+			"version": "342.13.1594751777",
+			"mod": { "id": "1783308979", "tag": "AdditionalDinos_Valguero", "title": "AdditionalDinos_Valguero" }
+		},
 		"1783616332-IceWyvernMating.json": {
 			"version": "340.3.1561791527",
 			"mod": { "id": "1783616332", "tag": "IceWyvernMating", "title": "Ice Wyvern Mating" }
@@ -161,7 +181,7 @@
 			"mod": { "id": "1785800853", "tag": "Behavorial-Expansion", "title": "ArkTranscendence" }
 		},
 		"1787443195-ChasmAdditionalDinos.json": {
-			"version": "340.3.1591695224",
+			"version": "342.22.1644235952",
 			"mod": { "id": "1787443195", "tag": "ChasmAdditionalDinos", "title": "The Chasm - Additional Creatures" }
 		},
 		"1821112850-Iguana.json": {
@@ -172,6 +192,10 @@
 		"1821554891-PurloviaTEST.json": {
 			"version": "340.3.1594494540",
 			"mod": { "id": "1821554891", "tag": "PurloviaTEST", "title": "PurloviaTEST" }
+		},
+		"1824174926-CarnoTLC.json": {
+			"version": "342.13.1583711963",
+			"mod": { "id": "1824174926", "tag": "CarnoTLC", "title": "Carnotaurus TLC " }
 		},
 		"1850728241-RoyalPhoenix.json": {
 			"version": "340.3.1567289771",
@@ -194,16 +218,20 @@
 			"mod": { "id": "1934081600", "tag": "SoloFarmAnky", "title": "Solo Farm Mod" }
 		},
 		"1984129536-MTSMod.json": {
-			"version": "340.3.1636664445",
+			"version": "341.56.1641263675",
 			"mod": { "id": "1984129536", "tag": "MTSMod", "title": "MTS.co.uk Community Mod" }
 		},
 		"1984936918-MarniiModsWildlife.json": {
-			"version": "340.3.1624466309",
+			"version": "342.22.1624466309",
 			"mod": { "id": "1984936918", "tag": "MarniiModsWildlife", "title": "MarniiMods:Wildlife" }
 		},
 		"2000326197-ExtraResources.json": {
 			"version": "340.3.1589585703.1",
 			"mod": { "id": "2000326197", "tag": "ExtraResources", "title": "Event Assets" }
+		},
+		"2003934830-Beasts.json": {
+			"version": "342.13.1642190732",
+			"mod": { "id": "2003934830", "tag": "Beasts", "title": "Prehistoric Beasts" }
 		},
 		"2019846325-ApexMod.json": {
 			"version": "340.3.1587687698",
@@ -229,6 +257,10 @@
 			"version": "340.3.1623948861",
 			"mod": { "id": "2135314513", "tag": "CI_Dinos", "title": "Crystal Isles Dino Addition" }
 		},
+		"2447186973-ArkOmega.json": {
+			"version": "342.22.1643491977",
+			"mod": { "id": "2447186973", "tag": "ArkOmega", "title": "Ark Omega" }
+		},
 		"729352919-IndomRex.json": {
 			"version": "340.3.1488771984",
 			"mod": { "id": "729352919", "tag": "IndomRex", "title": "Indom Rex Nemesis" }
@@ -238,8 +270,12 @@
 			"mod": { "id": "814833973", "tag": "Wyvern_Mating", "title": "Wyvern Mating" }
 		},
 		"839162288-Primal_Fear.json": {
-			"version": "341.22.1624738849",
+			"version": "342.22.1644352937",
 			"mod": { "id": "839162288", "tag": "Primal_Fear", "title": "Primal Fear" }
+		},
+		"883957187-WyvernWorld.json": {
+			"version": "342.13.1638248815",
+			"mod": { "id": "883957187", "tag": "WyvernWorld", "title": "Wyvern World" }
 		},
 		"893735676-AE.json": {
 			"version": "341.22.1635395904",
@@ -266,7 +302,7 @@
 			"mod": { "id": "CrystalIsles", "tag": "CrystalIsles", "title": "CrystalIsles" }
 		},
 		"values.json": {
-			"version": "341.22.7885939"
+			"version": "342.20.8106520"
 		}
 	}
 }

@@ -199,12 +199,17 @@ namespace ARKBreedingStats.Library
             this.sex = sex;
             this.levelsWild = levelsWild;
             this.levelsDom = levelsDom ?? new int[Values.STATS_COUNT];
-            if (isBred)
-                this.tamingEff = 1;
-            else
-                this.tamingEff = tamingEff;
             this.isBred = isBred;
-            imprintingBonus = imprinting;
+            if (isBred)
+            {
+                this.tamingEff = 1;
+                imprintingBonus = imprinting;
+            }
+            else
+            {
+                this.tamingEff = tamingEff;
+                imprintingBonus = 0;
+            }
             Status = CreatureStatus.Available;
             if (levelsWild == null) return;
 

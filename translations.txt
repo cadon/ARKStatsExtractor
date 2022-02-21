@@ -207,6 +207,7 @@ issueMaxWildLevelTooLow	"The extraction is potentially possible, but it seems th
 The current value is {0} and this creature seems to have a higher wild level than this.
 
 For other reasons of the failing of the extraction, see the list on the right after closing this messagebox."
+LbAlternativeColor  Hold Ctrl to select an alternative color id (red border). Hold Ctrl and click on No Color to unset it.
 lbBPBreedingScore	Breeding Score
 lbBPBreedingScoreTT	"The Breeding-Score of a pairing is not comparable to the Breeding-Score of another breeding-mode.
 The numbers in the different modes are generated in incompatible ways."
@@ -226,6 +227,7 @@ lbNotYetTamed	*Creature is not yet tamed and may get better values then.
 lbOwnerTT	"Click to toggle if the OCR can change the owner-field.
 Enable it if the OCR doesn't recognize the owner-name correctly and you want to add multiple creatures with the same owner."
 lbPedigreeEmpty	Select a creature in the Library to see its pedigree here.
+lbServerTT  Click to toggle freezing this field. If the field is frozen its background is grey and importing a creature won't update this field.
 lbShouldBe	Should be
 lbSum	Sum
 lbSumDomSBTT	This is the number that the sum of all manual levelups should be equal to.

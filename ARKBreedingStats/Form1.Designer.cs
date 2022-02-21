@@ -944,20 +944,22 @@ namespace ARKBreedingStats
             // lbSumDom
             // 
             this.lbSumDom.AutoSize = true;
-            this.lbSumDom.Location = new System.Drawing.Point(163, 2);
+            this.lbSumDom.Location = new System.Drawing.Point(189, 2);
             this.lbSumDom.Name = "lbSumDom";
             this.lbSumDom.Size = new System.Drawing.Size(25, 13);
             this.lbSumDom.TabIndex = 31;
             this.lbSumDom.Text = "100";
+            this.lbSumDom.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lbSumWild
             // 
             this.lbSumWild.AutoSize = true;
-            this.lbSumWild.Location = new System.Drawing.Point(121, 2);
+            this.lbSumWild.Location = new System.Drawing.Point(144, 2);
             this.lbSumWild.Name = "lbSumWild";
             this.lbSumWild.Size = new System.Drawing.Size(25, 13);
             this.lbSumWild.TabIndex = 30;
             this.lbSumWild.Text = "100";
+            this.lbSumWild.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // menuStrip1
             // 
@@ -1356,11 +1358,12 @@ namespace ARKBreedingStats
             // lbSumDomSB
             // 
             this.lbSumDomSB.AutoSize = true;
-            this.lbSumDomSB.Location = new System.Drawing.Point(163, 15);
+            this.lbSumDomSB.Location = new System.Drawing.Point(189, 15);
             this.lbSumDomSB.Name = "lbSumDomSB";
             this.lbSumDomSB.Size = new System.Drawing.Size(25, 13);
             this.lbSumDomSB.TabIndex = 51;
             this.lbSumDomSB.Text = "100";
+            this.lbSumDomSB.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // panelWildTamedBred
             // 
@@ -1663,6 +1666,7 @@ namespace ARKBreedingStats
             // 
             // creatureInfoInputTester
             // 
+            this.creatureInfoInputTester.ColorIdsAlsoPossible = null;
             this.creatureInfoInputTester.CooldownUntil = null;
             this.creatureInfoInputTester.CreatureFlags = ARKBreedingStats.Library.CreatureFlags.None;
             this.creatureInfoInputTester.CreatureName = "";
@@ -1683,12 +1687,12 @@ namespace ARKBreedingStats
             this.creatureInfoInputTester.Name = "creatureInfoInputTester";
             this.creatureInfoInputTester.OwnerLock = false;
             this.creatureInfoInputTester.RegionColors = new byte[] {
-        0,
-        0,
-        0,
-        0,
-        0,
-        0};
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0))};
             this.creatureInfoInputTester.Size = new System.Drawing.Size(262, 590);
             this.creatureInfoInputTester.TabIndex = 4;
             this.creatureInfoInputTester.TribeLock = false;
@@ -1947,6 +1951,7 @@ namespace ARKBreedingStats
             // 
             // creatureInfoInputExtractor
             // 
+            this.creatureInfoInputExtractor.ColorIdsAlsoPossible = null;
             this.creatureInfoInputExtractor.CooldownUntil = null;
             this.creatureInfoInputExtractor.CreatureFlags = ARKBreedingStats.Library.CreatureFlags.None;
             this.creatureInfoInputExtractor.CreatureName = "";
@@ -1967,12 +1972,12 @@ namespace ARKBreedingStats
             this.creatureInfoInputExtractor.Name = "creatureInfoInputExtractor";
             this.creatureInfoInputExtractor.OwnerLock = false;
             this.creatureInfoInputExtractor.RegionColors = new byte[] {
-        0,
-        0,
-        0,
-        0,
-        0,
-        0};
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0))};
             this.creatureInfoInputExtractor.Size = new System.Drawing.Size(262, 590);
             this.creatureInfoInputExtractor.TabIndex = 7;
             this.creatureInfoInputExtractor.TribeLock = false;

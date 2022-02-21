@@ -1121,7 +1121,7 @@ Le préréglage peut être appliqué par le bouton Appliquer le préréglage</va
     <value>Définir les valeurs pour le Propriétaire, la Tribu et le Serveur à partir du préréglage enregistré</value>
   </data>
   <data name="noColor" xml:space="preserve">
-    <value>sans couleur</value>
+    <value>aucune couleur</value>
   </data>
   <data name="topLevel" xml:space="preserve">
     <value>meilleur niveau</value>
@@ -1324,5 +1324,11 @@ Filtre pour les couleurs avec c{region}: {colorValue} {colorValue2}, par exemple
   </data>
   <data name="Nursing Effectiveness_Abb" xml:space="preserve">
     <value>EA</value>
+  </data>
+  <data name="lbServerTT" xml:space="preserve">
+    <value>Cliquer pour basculer le gel de ce champ. Si le champ est gelé, son arrière-plan est gris et l'importation d'une créature ne mettra pas ce champ à jour.</value>
+  </data>
+  <data name="LbAlternativeColor" xml:space="preserve">
+    <value>Maintenir la touche Ctrl enfoncée pour sélectionner un autre identifiant de couleur (bordure rouge). Maintenir Ctrl et cliquer sur aucune couleur pour le désactiver.</value>
   </data>
 </root>

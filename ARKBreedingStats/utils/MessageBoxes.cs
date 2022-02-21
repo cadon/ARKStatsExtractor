@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using ARKBreedingStats.uiControls;
 
 namespace ARKBreedingStats.utils
 {
@@ -11,7 +12,7 @@ namespace ARKBreedingStats.utils
         /// <param name="message"></param>
         /// <param name="title">If empty, a word depending on the MessageBoxIcon will be used.</param>
         /// <param name="icon"></param>
-        internal static void ShowMessageBox(string message, string title = null, MessageBoxIcon icon = MessageBoxIcon.Error)
+        internal static void ShowMessageBox(string message, string title = null, MessageBoxIcon icon = MessageBoxIcon.Error, bool displayCopyMessageButton = false)
         {
             if (string.IsNullOrEmpty(title))
             {
@@ -28,7 +29,11 @@ namespace ARKBreedingStats.utils
                         break;
                 }
             }
-            MessageBox.Show(message, $"{title} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, icon);
+
+            if (displayCopyMessageButton)
+                CustomMessageBox.Show(message, title, "OK", icon: icon, showCopyToClipboard: true);
+            else
+                MessageBox.Show(message, $"{title} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, icon);
         }
 
         /// <summary>
@@ -45,10 +50,7 @@ namespace ARKBreedingStats.utils
                                  ? "\n\nInner Exception:\n" + ex.InnerException.Message
                                  : string.Empty);
 
-            ShowMessageBox(
-                (string.IsNullOrEmpty(messageBeforeException) ? string.Empty : messageBeforeException + "\n\n")
-                + message,
-                title);
+            ShowMessageBox((string.IsNullOrEmpty(messageBeforeException) ? string.Empty : messageBeforeException + "\n\n") + message, title, displayCopyMessageButton: true);
         }
     }
 }

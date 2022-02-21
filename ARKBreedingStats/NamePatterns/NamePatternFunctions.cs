@@ -154,6 +154,8 @@ namespace ARKBreedingStats.NamePatterns
                 substringLength += textLength - pos;
 
             if (substringLength <= 0) return string.Empty;
+            if (pos + substringLength > textLength)
+                substringLength = textLength - pos;
 
             return text.Substring(pos, substringLength);
         }

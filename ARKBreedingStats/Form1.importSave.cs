@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
@@ -87,6 +88,8 @@ namespace ARKBreedingStats
                 await ImportSavegame.ImportCollectionFromSavegame(_creatureCollection, workingCopyFilePath,
                     atImportFileLocation.ServerName);
 
+                FileService.TryDeleteFile(workingCopyFilePath);
+
                 UpdateParents(_creatureCollection.creatures);
 
                 foreach (var creature in _creatureCollection.creatures)
@@ -115,7 +118,7 @@ namespace ARKBreedingStats
             }
             catch (Exception ex)
             {
-                MessageBoxes.ExceptionMessageBox(ex, "An error occurred while importing.", "Save file import error");
+                MessageBoxes.ExceptionMessageBox(ex, $"An error occurred while importing the file {atImportFileLocation.FileLocation}.", "Save file import error");
                 return string.Empty;
             }
             finally
@@ -164,7 +167,7 @@ namespace ARKBreedingStats
 
                     try
                     {
-                        progressDialog.StatusText = $"Authenticating";
+                        progressDialog.StatusText = $"Authenticating on server {serverName}";
                         if (!progressDialog.Visible)
                             progressDialog.Show(this);
 
@@ -175,7 +178,7 @@ namespace ARKBreedingStats
                         // Cannot access a disposed object. Object name: 'System.Net.Sockets.Socket'.
                         await client.ConnectAsync(token: cancellationTokenSource.Token);
 
-                        progressDialog.StatusText = $"Finding most recent file";
+                        progressDialog.StatusText = "Finding most recent file";
                         await Task.Yield();
 
                         var ftpPath = ftpUri.AbsolutePath;
@@ -220,21 +223,21 @@ namespace ARKBreedingStats
                     }
                     catch (OperationCanceledException)
                     {
-                        client?.Dispose();
+                        client.Dispose();
                         return null;
                     }
                     catch (Exception ex)
                     {
                         if (progressDialog.IsDisposed)
                         {
-                            client?.Dispose();
+                            client.Dispose();
                             return null;
                         }
                         progressDialog.StatusText = $"Unexpected error: {ex.Message}";
                     }
                     finally
                     {
-                        client?.Dispose();
+                        client.Dispose();
                     }
                 }
             }

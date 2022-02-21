@@ -68,7 +68,7 @@ namespace ARKBreedingStats
                     + (e.InnerException != null ? "\n\nInner Exception:\n" + e.InnerException.Message : string.Empty)
                     ;
 
-                CustomMessageBox.Show(message, "Unhandled Exception in ARK Smart Breeding", "OK", icon: MessageBoxIcon.Error,
+                CustomMessageBox.Show(message, "Unhandled Exception", "OK", icon: MessageBoxIcon.Error,
                     showCopyToClipboard: true);
             }
         }

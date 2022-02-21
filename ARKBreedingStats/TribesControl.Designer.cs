@@ -30,13 +30,14 @@
         {
             this.listViewPlayer = new System.Windows.Forms.ListView();
             this.columnHeaderPlayer = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderLvl = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTribe = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderRel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderNotes = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panelSettings = new System.Windows.Forms.Panel();
             this.panelPlayerSettings = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxPlayerTribe = new System.Windows.Forms.TextBox();
@@ -45,7 +46,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.numericUpDownLevel = new System.Windows.Forms.NumericUpDown();
             this.panelTribeSettings = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -61,20 +61,26 @@
             this.listViewTribes = new System.Windows.Forms.ListView();
             this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderRelation = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderRank = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.nudPlayerRank = new ARKBreedingStats.uiControls.Nud();
+            this.nudPlayerLevel = new ARKBreedingStats.uiControls.Nud();
             this.tableLayoutPanel1.SuspendLayout();
             this.panelSettings.SuspendLayout();
             this.panelPlayerSettings.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLevel)).BeginInit();
             this.panelTribeSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPlayerRank)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPlayerLevel)).BeginInit();
             this.SuspendLayout();
             // 
             // listViewPlayer
             // 
+            this.listViewPlayer.AllowColumnReorder = true;
             this.listViewPlayer.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderRank,
             this.columnHeaderPlayer,
-            this.columnHeaderLvl,
+            this.columnHeaderLevel,
             this.columnHeaderTribe,
             this.columnHeaderRel,
             this.columnHeaderNotes});
@@ -95,13 +101,13 @@
             // 
             // columnHeaderPlayer
             // 
-            this.columnHeaderPlayer.Text = "Player";
+            this.columnHeaderPlayer.Text = "Name";
             this.columnHeaderPlayer.Width = 85;
             // 
-            // columnHeaderLvl
+            // columnHeaderLevel
             // 
-            this.columnHeaderLvl.Text = "Level";
-            this.columnHeaderLvl.Width = 38;
+            this.columnHeaderLevel.Text = "Level";
+            this.columnHeaderLevel.Width = 38;
             // 
             // columnHeaderTribe
             // 
@@ -148,6 +154,8 @@
             // 
             // panelPlayerSettings
             // 
+            this.panelPlayerSettings.Controls.Add(this.nudPlayerRank);
+            this.panelPlayerSettings.Controls.Add(this.label9);
             this.panelPlayerSettings.Controls.Add(this.label8);
             this.panelPlayerSettings.Controls.Add(this.label1);
             this.panelPlayerSettings.Controls.Add(this.textBoxPlayerTribe);
@@ -156,13 +164,22 @@
             this.panelPlayerSettings.Controls.Add(this.label2);
             this.panelPlayerSettings.Controls.Add(this.label4);
             this.panelPlayerSettings.Controls.Add(this.label3);
-            this.panelPlayerSettings.Controls.Add(this.numericUpDownLevel);
+            this.panelPlayerSettings.Controls.Add(this.nudPlayerLevel);
             this.panelPlayerSettings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelPlayerSettings.Enabled = false;
             this.panelPlayerSettings.Location = new System.Drawing.Point(0, 0);
             this.panelPlayerSettings.Name = "panelPlayerSettings";
             this.panelPlayerSettings.Size = new System.Drawing.Size(271, 208);
             this.panelPlayerSettings.TabIndex = 8;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(157, 59);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(33, 13);
+            this.label9.TabIndex = 13;
+            this.label9.Text = "Rank";
             // 
             // label8
             // 
@@ -236,19 +253,6 @@
             this.label3.Size = new System.Drawing.Size(33, 13);
             this.label3.TabIndex = 2;
             this.label3.Text = "Level";
-            // 
-            // numericUpDownLevel
-            // 
-            this.numericUpDownLevel.Location = new System.Drawing.Point(66, 56);
-            this.numericUpDownLevel.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numericUpDownLevel.Name = "numericUpDownLevel";
-            this.numericUpDownLevel.Size = new System.Drawing.Size(77, 20);
-            this.numericUpDownLevel.TabIndex = 3;
-            this.numericUpDownLevel.ValueChanged += new System.EventHandler(this.numericUpDownLevel_ValueChanged);
             // 
             // panelTribeSettings
             // 
@@ -412,6 +416,44 @@
             this.columnHeaderRelation.Text = "Relation";
             this.columnHeaderRelation.Width = 54;
             // 
+            // columnHeaderRank
+            // 
+            this.columnHeaderRank.Text = "Rank";
+            this.columnHeaderRank.Width = 38;
+            // 
+            // nudPlayerRank
+            // 
+            this.nudPlayerRank.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudPlayerRank.Location = new System.Drawing.Point(196, 56);
+            this.nudPlayerRank.Name = "nudPlayerRank";
+            this.nudPlayerRank.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudPlayerRank.Size = new System.Drawing.Size(63, 20);
+            this.nudPlayerRank.TabIndex = 14;
+            this.nudPlayerRank.ValueChanged += new System.EventHandler(this.nudPlayerRank_ValueChanged);
+            // 
+            // nudPlayerLevel
+            // 
+            this.nudPlayerLevel.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudPlayerLevel.Location = new System.Drawing.Point(66, 56);
+            this.nudPlayerLevel.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudPlayerLevel.Name = "nudPlayerLevel";
+            this.nudPlayerLevel.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudPlayerLevel.Size = new System.Drawing.Size(77, 20);
+            this.nudPlayerLevel.TabIndex = 3;
+            this.nudPlayerLevel.ValueChanged += new System.EventHandler(this.nudPlayerLevel_ValueChanged);
+            // 
             // TribesControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -423,12 +465,13 @@
             this.panelSettings.ResumeLayout(false);
             this.panelPlayerSettings.ResumeLayout(false);
             this.panelPlayerSettings.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLevel)).EndInit();
             this.panelTribeSettings.ResumeLayout(false);
             this.panelTribeSettings.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nudPlayerRank)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPlayerLevel)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -438,7 +481,7 @@
         private System.Windows.Forms.ListView listViewPlayer;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.ColumnHeader columnHeaderPlayer;
-        private System.Windows.Forms.ColumnHeader columnHeaderLvl;
+        private System.Windows.Forms.ColumnHeader columnHeaderLevel;
         private System.Windows.Forms.ColumnHeader columnHeaderTribe;
         private System.Windows.Forms.ColumnHeader columnHeaderRel;
         private System.Windows.Forms.ColumnHeader columnHeaderNotes;
@@ -456,7 +499,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.NumericUpDown numericUpDownLevel;
+        private uiControls.Nud nudPlayerLevel;
         private System.Windows.Forms.Panel panelTribeSettings;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -468,5 +511,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBoxTribeName;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label9;
+        private uiControls.Nud nudPlayerRank;
+        private System.Windows.Forms.ColumnHeader columnHeaderRank;
     }
 }

@@ -160,6 +160,7 @@ namespace ARKBreedingStats.settings
                 { "Italiano", "it"},
                 { "日本語", "ja"},
                 { "Polski", "pl"},
+                { "Português do Brasil", "pt-BR"},
                 { "русский", "ru"},
                 { "中文", "zh"}
             };
@@ -1221,14 +1222,21 @@ namespace ARKBreedingStats.settings
         {
             if (ExportFolderLocation.GetListOfExportFolders(out (string path, string steamPlayerName)[] arkExportFolders, out string error))
             {
+                var anyFolderExists = false;
                 // only add folders if they exist and are not yet in the list
                 var exportFolderLocations = aTExportFolderLocationsBindingSource.OfType<ATImportExportedFolderLocation>().ToList();
                 foreach (var location in arkExportFolders)
                 {
-                    if (Directory.Exists(location.path) && exportFolderLocations.All(f => f.FolderPath != location.path))
-                        exportFolderLocations.Add(ATImportExportedFolderLocation.CreateFromString(
-                            $"{location.steamPlayerName}||{location.path}"));
+                    if (Directory.Exists(location.path))
+                    {
+                        anyFolderExists = true;
+                        if (exportFolderLocations.All(f => f.FolderPath != location.path))
+                            exportFolderLocations.Add(ATImportExportedFolderLocation.CreateFromString(
+                                   $"{location.steamPlayerName}||{location.path}"));
+                    }
                 }
+
+                if (!anyFolderExists) MessageBoxes.ShowMessageBox("No export folders found. Did you already export a creature in game?\nTo do that, walk to a creature, hold the E key and select Options - Export Data.\nThis works only on the Steam and the Epic version of the game.");
 
                 if (!exportFolderLocations.Any()) return;
 

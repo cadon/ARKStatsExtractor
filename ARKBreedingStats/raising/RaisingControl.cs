@@ -177,7 +177,7 @@ namespace ARKBreedingStats.raising
                            + $"\nTotal Food for maturation: ~{Math.Ceiling(totalFood / foodValue)} {foodName}";
                 }
 
-                foodAmount += "\n - Loss by spoiling is not considered!";
+                foodAmount += "\n- Loss by spoiling is not considered!";
             }
 
             LbFoodInfoGeneral.Text = foodAmount;
@@ -244,12 +244,12 @@ namespace ARKBreedingStats.raising
             if (uiControls.Trough.FoodAmountFromUntil(_selectedSpecies,
                 Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier, maturation, 0.1,
                 out var foodAmount))
-                labelAmountFoodBaby.Text = $"{Math.Ceiling(foodAmount / foodValue)} {_lastSelectedFood}";
+                labelAmountFoodBaby.Text = $"{Math.Ceiling(foodAmount / foodValue)} {_lastSelectedFood} ({foodAmount:0.#} food units)";
 
             if (uiControls.Trough.FoodAmountFromUntil(_selectedSpecies,
                 Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier, maturation, 1,
                 out foodAmount))
-                labelAmountFoodAdult.Text = $"{Math.Ceiling(foodAmount / foodValue)} {_lastSelectedFood}";
+                labelAmountFoodAdult.Text = $"{Math.Ceiling(foodAmount / foodValue)} {_lastSelectedFood} ({foodAmount:0.#} food units)";
         }
 
         public void AddIncubationTimer(Creature mother, Creature father, TimeSpan incubationDuration,

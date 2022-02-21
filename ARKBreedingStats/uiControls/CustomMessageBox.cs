@@ -18,6 +18,9 @@ namespace ARKBreedingStats.uiControls
         {
             using (var f = new CustomMessageBox())
             {
+                if (message.Length > 500)
+                    f.Size = new Size(600, message.Length > 1000 ? 700 : 500);
+
                 f.LabelMessage.Text = message;
                 f.Text = $"{title} - {Utils.ApplicationNameVersion}";
                 if (string.IsNullOrEmpty(buttonYes))
@@ -68,10 +71,15 @@ namespace ARKBreedingStats.uiControls
 
         private void BtCopyToClipboard_Click(object sender, System.EventArgs e)
         {
-            var message = LabelMessage.Text;
+            var message = Text + "\n\n" + LabelMessage.Text;
             if (string.IsNullOrEmpty(message)) return;
 
             Clipboard.SetText(message);
+        }
+
+        private void CustomMessageBox_SizeChanged(object sender, System.EventArgs e)
+        {
+            LabelMessage.MaximumSize = new Size(Width - 34, 0);
         }
     }
 }
