@@ -335,7 +335,7 @@ namespace ARKBreedingStats
                         {
                             if (_extractor.Results[s][b].levelWild == existingCreature.levelsWild[s]
                                 && _extractor.Results[s][b].levelDom >= existingCreature.levelsDom[s]
-                                && _extractor.Results[s][b].TE.Includes(existingCreature.tamingEff))
+                                && (_extractor.Results[s][b].TE.Mean < 0 || _extractor.Results[s][b].TE.Includes(existingCreature.tamingEff)))
                             {
                                 r = b;
                                 break;
