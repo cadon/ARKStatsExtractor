@@ -143,7 +143,7 @@ namespace ARKBreedingStats.uiControls
         {
             if (!_colorPicker.isShown && _colorRegions != null && region < Species.ColorRegionCount)
             {
-                _colorPicker.PickColor(_selectedRegionColorIds[region], _colorRegions[region].name, _colorRegions[region]?.naturalColors, _selectedColorIdsAlternative?[region] ?? 0);
+                _colorPicker.PickColor(_selectedRegionColorIds[region], _colorRegions[region].name + " (region " + region + ")", _colorRegions[region]?.naturalColors, _selectedColorIdsAlternative?[region] ?? 0);
                 if (_colorPicker.ShowDialog() == DialogResult.OK)
                 {
                     // color was chosen
