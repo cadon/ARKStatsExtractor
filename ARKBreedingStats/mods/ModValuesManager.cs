@@ -17,11 +17,14 @@ namespace ARKBreedingStats.uiControls
     {
         private CreatureCollection cc;
         private List<ModInfo> modInfos;
+        private readonly ToolTip _tt = new ToolTip();
 
         public ModValuesManager()
         {
             InitializeComponent();
             lbAvailableModFiles.Sorted = true;
+            llbSteamPage.Visible = false;
+            Disposed += (s, a) => _tt?.Dispose();
         }
 
         public CreatureCollection CreatureCollection
@@ -124,6 +127,8 @@ namespace ARKBreedingStats.uiControls
             lbModTag.Text = modInfo.mod.tag;
             lbModId.Text = modInfo.mod.id;
             llbSteamPage.Visible = modInfo.OnlineAvailable; // it's assumed that the officially supported mods all have a steam page
+            if (!string.IsNullOrEmpty(modInfo.mod.id))
+                _tt.SetToolTip(llbSteamPage, $"Open this page in your browser:\n{GetSteamModPageUrlById(lbModId.Text)}");
         }
 
         private void BtClose_Click(object sender, EventArgs e)
@@ -131,10 +136,12 @@ namespace ARKBreedingStats.uiControls
             Close();
         }
 
+        private string GetSteamModPageUrlById(string modId) => "https://steamcommunity.com/sharedfiles/filedetails/?id=" + modId;
+
         private void LlbSteamPage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (string.IsNullOrEmpty(lbModId.Text)) return;
-            System.Diagnostics.Process.Start("https://steamcommunity.com/sharedfiles/filedetails/?id=" + lbModId.Text);
+            System.Diagnostics.Process.Start(GetSteamModPageUrlById(lbModId.Text));
         }
 
         private void BtAddMod_Click(object sender, EventArgs e)
