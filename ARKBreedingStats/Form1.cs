@@ -1268,7 +1268,7 @@ namespace ARKBreedingStats
 
             // save splitter distance of speciesSelector
             Properties.Settings.Default.SpeciesSelectorVerticalSplitterDistance = speciesSelector1.SplitterDistance;
-            Properties.Settings.Default.DisabledVariants = speciesSelector1.VariantSelector.DisabledVariants.ToArray();
+            Properties.Settings.Default.DisabledVariants = speciesSelector1.VariantSelector?.DisabledVariants?.ToArray();
 
             Properties.Settings.Default.RaisingFoodLastSelected = raisingControl1.LastSelectedFood;
 
@@ -1278,8 +1278,8 @@ namespace ARKBreedingStats
             // remove old cache-files
             CreatureColored.CleanupCache();
 
-            _tt.Dispose();
-            _timerGlobal.Dispose();
+            _tt?.Dispose();
+            _timerGlobal?.Dispose();
         }
 
         /// <summary>
