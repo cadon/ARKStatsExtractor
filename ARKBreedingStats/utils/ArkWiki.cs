@@ -7,7 +7,7 @@ namespace ARKBreedingStats.utils
     /// </summary>
     public static class ArkWiki
     {
-        private const string WikiBaseUrl = "https://ark.fandom.com/wiki/";
+        private const string WikiBaseUrl = "https://ark.wiki.gg/wiki/";
 
         public static string WikiUrl(string pageName) => $"{WikiBaseUrl}{pageName}";
 
