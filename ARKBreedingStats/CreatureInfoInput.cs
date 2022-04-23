@@ -745,7 +745,7 @@ namespace ARKBreedingStats
         private void textBoxName_TextChanged(object sender, EventArgs e)
         {
             // feedback if name already exists
-            if (NamesOfAllCreatures != null && NamesOfAllCreatures.Contains(textBoxName.Text))
+            if (!string.IsNullOrEmpty(textBoxName.Text) && NamesOfAllCreatures != null && NamesOfAllCreatures.Contains(textBoxName.Text))
             {
                 textBoxName.BackColor = Color.Khaki;
             }
