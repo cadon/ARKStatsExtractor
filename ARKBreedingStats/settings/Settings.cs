@@ -1,4 +1,8 @@
-﻿using ARKBreedingStats.Library;
+﻿using ARKBreedingStats.library;
+using ARKBreedingStats.Library;
+using ARKBreedingStats.species;
+using ARKBreedingStats.uiControls;
+using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
@@ -9,10 +13,6 @@ using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Threading;
-using ARKBreedingStats.library;
-using ARKBreedingStats.species;
-using ARKBreedingStats.uiControls;
-using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.settings
 {
@@ -403,6 +403,11 @@ namespace ARKBreedingStats.settings
             cbbLanguage.SelectedIndex = langI == -1 ? 0 : langI;
 
             CbbColorMode.SelectedIndex = Math.Min(CbbColorMode.Items.Count, Math.Max(0, Properties.Settings.Default.ColorMode));
+
+            //Discord
+
+            textDiscordBotToken.Text = Properties.Settings.Default.DiscordBotToken;
+            textDiscordChannelId.Text = Properties.Settings.Default.DiscordChannelId.ToString();
         }
 
         private void SaveSettings()
@@ -617,6 +622,12 @@ namespace ARKBreedingStats.settings
 
             Properties.Settings.Default.ColorMode = Math.Max(0, CbbColorMode.SelectedIndex);
 
+            //Discord
+            Properties.Settings.Default.DiscordBotToken = textDiscordBotToken.Text;
+            ulong.TryParse(textDiscordChannelId.Text, out var channelId);
+            Properties.Settings.Default.DiscordChannelId = channelId;
+
+            //Save all properties
             Properties.Settings.Default.Save();
         }
 

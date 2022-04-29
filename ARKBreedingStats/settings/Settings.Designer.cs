@@ -318,6 +318,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.tabPageDiscord = new System.Windows.Forms.TabPage();
+            this.groupBox31 = new System.Windows.Forms.GroupBox();
+            this.label64 = new System.Windows.Forms.Label();
+            this.textDiscordBotToken = new System.Windows.Forms.TextBox();
+            this.label65 = new System.Windows.Forms.Label();
+            this.textDiscordChannelId = new System.Windows.Forms.TextBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmountEvent)).BeginInit();
@@ -420,6 +426,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).BeginInit();
             this.panel1.SuspendLayout();
+            this.tabPageDiscord.SuspendLayout();
+            this.groupBox31.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -1685,6 +1693,7 @@
             this.tabControlSettings.Controls.Add(this.tabPageTimers);
             this.tabControlSettings.Controls.Add(this.tabPageOverlay);
             this.tabControlSettings.Controls.Add(this.tabPageOCR);
+            this.tabControlSettings.Controls.Add(this.tabPageDiscord);
             this.tabControlSettings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlSettings.Location = new System.Drawing.Point(0, 0);
             this.tabControlSettings.Name = "tabControlSettings";
@@ -1795,7 +1804,7 @@
             this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label27.Location = new System.Drawing.Point(417, 527);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(30, 26);
+            this.label27.Size = new System.Drawing.Size(37, 26);
             this.label27.TabIndex = 12;
             this.label27.Text = "💡";
             // 
@@ -3328,7 +3337,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3336,7 +3345,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3344,7 +3353,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3352,7 +3361,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -4003,6 +4012,61 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
+            // tabPageDiscord
+            // 
+            this.tabPageDiscord.Controls.Add(this.groupBox31);
+            this.tabPageDiscord.Location = new System.Drawing.Point(4, 22);
+            this.tabPageDiscord.Name = "tabPageDiscord";
+            this.tabPageDiscord.Size = new System.Drawing.Size(750, 676);
+            this.tabPageDiscord.TabIndex = 8;
+            this.tabPageDiscord.Text = "Discord";
+            this.tabPageDiscord.UseVisualStyleBackColor = true;
+            // 
+            // groupBox31
+            // 
+            this.groupBox31.Controls.Add(this.textDiscordChannelId);
+            this.groupBox31.Controls.Add(this.label65);
+            this.groupBox31.Controls.Add(this.textDiscordBotToken);
+            this.groupBox31.Controls.Add(this.label64);
+            this.groupBox31.Location = new System.Drawing.Point(9, 4);
+            this.groupBox31.Name = "groupBox31";
+            this.groupBox31.Size = new System.Drawing.Size(601, 215);
+            this.groupBox31.TabIndex = 0;
+            this.groupBox31.TabStop = false;
+            this.groupBox31.Text = "Discord Bot Settings";
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Location = new System.Drawing.Point(6, 30);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(96, 13);
+            this.label64.TabIndex = 0;
+            this.label64.Text = "Discord Bot Token";
+            // 
+            // textDiscordBotToken
+            // 
+            this.textDiscordBotToken.Location = new System.Drawing.Point(108, 27);
+            this.textDiscordBotToken.Name = "textDiscordBotToken";
+            this.textDiscordBotToken.Size = new System.Drawing.Size(475, 20);
+            this.textDiscordBotToken.TabIndex = 6;
+            // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Location = new System.Drawing.Point(6, 68);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(97, 13);
+            this.label65.TabIndex = 7;
+            this.label65.Text = "Discord Channel Id";
+            // 
+            // textDiscordChannelId
+            // 
+            this.textDiscordChannelId.Location = new System.Drawing.Point(109, 65);
+            this.textDiscordChannelId.Name = "textDiscordChannelId";
+            this.textDiscordChannelId.Size = new System.Drawing.Size(475, 20);
+            this.textDiscordChannelId.TabIndex = 8;
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -4154,6 +4218,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.tabPageDiscord.ResumeLayout(false);
+            this.groupBox31.ResumeLayout(false);
+            this.groupBox31.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -4448,5 +4515,11 @@
         private System.Windows.Forms.GroupBox groupBox32;
         private System.Windows.Forms.PictureBox PbInfoGraphicPreview;
         private System.Windows.Forms.Label label63;
+        private System.Windows.Forms.TabPage tabPageDiscord;
+        private System.Windows.Forms.GroupBox groupBox31;
+        private System.Windows.Forms.TextBox textDiscordChannelId;
+        private System.Windows.Forms.Label label65;
+        private System.Windows.Forms.TextBox textDiscordBotToken;
+        private System.Windows.Forms.Label label64;
     }
 }
