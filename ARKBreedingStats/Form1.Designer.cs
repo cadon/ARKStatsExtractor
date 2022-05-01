@@ -1,4 +1,4 @@
-﻿using ARKBreedingStats.BreedingPlanning;
+using ARKBreedingStats.BreedingPlanning;
 using ARKBreedingStats.multiplierTesting;
 using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.raising;
@@ -149,6 +149,7 @@ namespace ARKBreedingStats
             this.rbWildExtractor = new System.Windows.Forms.RadioButton();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageStatTesting = new System.Windows.Forms.TabPage();
+            this.buttonSendImageToDiscord = new System.Windows.Forms.Button();
             this.pictureBoxColorRegionsTester = new System.Windows.Forms.PictureBox();
             this.statPotentials1 = new ARKBreedingStats.uiControls.StatPotentials();
             this.gbStatChart = new System.Windows.Forms.GroupBox();
@@ -245,6 +246,7 @@ namespace ARKBreedingStats
             this.plainTextbreedingValuesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.forSpreadsheetToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.copyInfographicToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripCopyInfographicsToDiscordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveInfographicsToFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator22 = new System.Windows.Forms.ToolStripSeparator();
             this.removeCooldownGrowingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1437,6 +1439,7 @@ namespace ARKBreedingStats
             // tabPageStatTesting
             // 
             this.tabPageStatTesting.AutoScroll = true;
+            this.tabPageStatTesting.Controls.Add(this.buttonSendImageToDiscord);
             this.tabPageStatTesting.Controls.Add(this.pictureBoxColorRegionsTester);
             this.tabPageStatTesting.Controls.Add(this.statPotentials1);
             this.tabPageStatTesting.Controls.Add(this.gbStatChart);
@@ -1452,6 +1455,17 @@ namespace ARKBreedingStats
             this.tabPageStatTesting.TabIndex = 1;
             this.tabPageStatTesting.Text = "Stat Testing";
             this.tabPageStatTesting.UseVisualStyleBackColor = true;
+            // 
+            // buttonSendImageToDiscord
+            // 
+            this.buttonSendImageToDiscord.Location = new System.Drawing.Point(863, 489);
+            this.buttonSendImageToDiscord.Name = "buttonSendImageToDiscord";
+            this.buttonSendImageToDiscord.Size = new System.Drawing.Size(132, 23);
+            this.buttonSendImageToDiscord.TabIndex = 14;
+            this.buttonSendImageToDiscord.Text = "Send Image to Discord";
+            this.buttonSendImageToDiscord.UseVisualStyleBackColor = true;
+            this.buttonSendImageToDiscord.Visible = false;
+            this.buttonSendImageToDiscord.Click += new System.EventHandler(this.buttonSendImageToDiscord_Click);
             // 
             // pictureBoxColorRegionsTester
             // 
@@ -2289,6 +2303,7 @@ namespace ARKBreedingStats
             this.copyValuesToExtractorToolStripMenuItem,
             this.exportToClipboardToolStripMenuItem1,
             this.copyInfographicToClipboardToolStripMenuItem,
+            this.toolStripCopyInfographicsToDiscordToolStripMenuItem,
             this.saveInfographicsToFolderToolStripMenuItem,
             this.toolStripSeparator22,
             this.removeCooldownGrowingToolStripMenuItem,
@@ -2412,6 +2427,14 @@ namespace ARKBreedingStats
             this.copyInfographicToClipboardToolStripMenuItem.Size = new System.Drawing.Size(302, 22);
             this.copyInfographicToClipboardToolStripMenuItem.Text = "Copy Infographic to Clipboard";
             this.copyInfographicToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyInfographicToClipboardToolStripMenuItem_Click);
+            // 
+            // toolStripCopyInfographicsToDiscordToolStripMenuItem
+            // 
+            this.toolStripCopyInfographicsToDiscordToolStripMenuItem.Name = "toolStripCopyInfographicsToDiscordToolStripMenuItem";
+            this.toolStripCopyInfographicsToDiscordToolStripMenuItem.Size = new System.Drawing.Size(302, 22);
+            this.toolStripCopyInfographicsToDiscordToolStripMenuItem.Text = "Copy Infographic to Discord";
+            this.toolStripCopyInfographicsToDiscordToolStripMenuItem.Visible = false;
+            this.toolStripCopyInfographicsToDiscordToolStripMenuItem.Click += new System.EventHandler(this.toolStripCopyInfographicsToDiscordToolStripMenuItem_Click);
             // 
             // saveInfographicsToFolderToolStripMenuItem
             // 
@@ -3806,5 +3829,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem exactSpawnCommandDS2ToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator25;
         private System.Windows.Forms.ToolStripMenuItem adminCommandToSpawnExactDinoDS2ToolStripMenuItem;
+        private System.Windows.Forms.Button buttonSendImageToDiscord;
+        private System.Windows.Forms.ToolStripMenuItem toolStripCopyInfographicsToDiscordToolStripMenuItem;
     }
 }

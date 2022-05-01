@@ -1,10 +1,12 @@
 ﻿using ARKBreedingStats.importExported;
 using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
+using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.ocr;
 using ARKBreedingStats.settings;
 using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
+using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
@@ -14,9 +16,8 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using ARKBreedingStats.NamePatterns;
-using ARKBreedingStats.utils;
 using static ARKBreedingStats.settings.Settings;
+using Color = System.Drawing.Color;
 
 namespace ARKBreedingStats
 {
@@ -35,6 +36,9 @@ namespace ARKBreedingStats
         private readonly List<StatIO> _statIOs = new List<StatIO>();
         private readonly List<StatIO> _testingIOs = new List<StatIO>();
         private int _activeStatIndex = -1;
+
+        // Non-static readonly fields can only be assigned in a constructor.
+        // If you want to assign it elsewhere, consider removing the readonly keyword.        
 
         private readonly bool[]
             _activeStats =
@@ -188,6 +192,11 @@ namespace ARKBreedingStats
             lbTesterWildLevel.ContextMenu = new ContextMenu(new[] { new MenuItem("Set random wild levels", SetRandomWildLevels) });
 
             _reactOnCreatureSelectionChange = true;
+
+            //Discord
+            // It is recommended to Dispose of a client when you are finished
+            // using it, at the end of your app's lifetime.
+            _discordClient = new Discord.HelenaWalkerDiscordClient();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -440,6 +449,9 @@ namespace ARKBreedingStats
             timerList1.SetTimerPresets(Properties.Settings.Default.TimerPresets);
 
             _timerGlobal.Start();
+
+            //Discord
+            LoadDiscordClient().Wait();
         }
 
         /// <summary>
@@ -1280,6 +1292,7 @@ namespace ARKBreedingStats
 
             _tt?.Dispose();
             _timerGlobal?.Dispose();
+            _discordClient?.Dispose();
         }
 
         /// <summary>
@@ -1929,6 +1942,8 @@ namespace ARKBreedingStats
             SetOverlayLocation();
 
             SetCollectionChanged(true);
+
+            LoadDiscordClient().Wait();
         }
 
         /// <summary>
@@ -3557,6 +3572,23 @@ namespace ARKBreedingStats
         private void resetSortingToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Values.V.ResetSpeciesNameSorting();
+        }
+
+        private void buttonSendImageToDiscord_Click(object sender, EventArgs e)
+        {
+            SendImageToDiscord(pictureBoxColorRegionsTester.Image);
+        }
+
+        private void toolStripCopyInfographicsToDiscordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listViewLibrary.SelectedItems.Count == 0) return;
+
+            var creature = (Creature)listViewLibrary.SelectedItems[0].Tag;
+
+            var image = creature.InfoGraphic(null);
+
+
+            SendImageToDiscord(image);
         }
     }
 }
