@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.settings
 {
@@ -33,7 +34,21 @@ namespace ARKBreedingStats.settings
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
                 if (!string.IsNullOrWhiteSpace(textBox_FileLocation.Text))
+                {
                     dlg.InitialDirectory = Path.GetDirectoryName(textBox_FileLocation.Text);
+                }
+                else if (ExportFolderLocation.GetListOfExportFolders(out var folders, out _))
+                {
+                    foreach (var f in folders)
+                    {
+                        var savesFolderPath = Directory.GetParent(f.path)?.Parent?.FullName;
+                        if (savesFolderPath != null && Directory.Exists(savesFolderPath))
+                        {
+                            dlg.InitialDirectory = savesFolderPath;
+                            break;
+                        }
+                    }
+                }
 
                 dlg.FileName = Path.GetFileName(textBox_FileLocation.Text);
                 dlg.Filter = "ARK savegame (*.ark)|*.ark|All files (*.*)|*.*";
