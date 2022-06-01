@@ -1234,6 +1234,11 @@ namespace ARKBreedingStats
                 var colorFilter = new Dictionary<int, int[]>();
                 var colorFilterRegex = new Regex(@"c([0-5]): ?([\d ]+)");
 
+                // mutation filter
+                var mutationFilterEqualTo = -1;
+                var mutationFilterGreaterThan = -1;
+                var mutationFilterLessThan = -1;
+
                 var removeFilterIndex = new List<int>();
                 for (var i = filterStrings.Count - 1; i >= 0; i--)
                 {
@@ -1249,27 +1254,46 @@ namespace ARKBreedingStats
                         var colorIds = m.Groups[2].Value.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(cId => int.Parse(cId)).Distinct().ToArray();
                         if (!colorIds.Any()) continue;
 
-                        colorFilter.Add(colorRegion, colorIds);
+                        colorFilter[colorRegion] = colorIds;
                         removeFilterIndex.Add(i);
                         continue;
                     }
 
                     // stat filter
                     m = statFilterRegex.Match(f);
-                    if (!m.Success
-                        || !Utils.StatAbbreviationToIndex.TryGetValue(m.Groups[1].Value, out var statIndex))
+                    if (!m.Success) continue;
+                    if (!Utils.StatAbbreviationToIndex.TryGetValue(m.Groups[1].Value, out var statIndex))
+                    {
+                        // mutations
+                        if (m.Groups[1].Value == "mu")
+                        {
+                            switch (m.Groups[2].Value)
+                            {
+                                case ">":
+                                    mutationFilterGreaterThan = int.Parse(m.Groups[3].Value);
+                                    break;
+                                case "<":
+                                    mutationFilterLessThan = int.Parse(m.Groups[3].Value);
+                                    break;
+                                case "==":
+                                    mutationFilterEqualTo = int.Parse(m.Groups[3].Value);
+                                    break;
+                            }
+                            removeFilterIndex.Add(i);
+                        }
                         continue;
+                    }
 
                     switch (m.Groups[2].Value)
                     {
                         case ">":
-                            statGreaterThan.Add(statIndex, int.Parse(m.Groups[3].Value));
+                            statGreaterThan[statIndex] = int.Parse(m.Groups[3].Value);
                             break;
                         case "<":
-                            statLessThan.Add(statIndex, int.Parse(m.Groups[3].Value));
+                            statLessThan[statIndex] = int.Parse(m.Groups[3].Value);
                             break;
                         case "==":
-                            statEqualTo.Add(statIndex, int.Parse(m.Groups[3].Value));
+                            statEqualTo[statIndex] = int.Parse(m.Groups[3].Value);
                             break;
                     }
                     removeFilterIndex.Add(i);
@@ -1296,6 +1320,9 @@ namespace ARKBreedingStats
                 && (statLessThan?.All(si => c.levelsWild[si.Key] < si.Value) ?? true)
                 && (statEqualTo?.All(si => c.levelsWild[si.Key] == si.Value) ?? true)
                 && (colorFilter?.All(cr => cr.Value.Contains(c.colors[cr.Key])) ?? true)
+                && (mutationFilterGreaterThan == -1 || mutationFilterGreaterThan < c.Mutations)
+                && (mutationFilterLessThan == -1 || mutationFilterLessThan > c.Mutations)
+                && (mutationFilterEqualTo == -1 || mutationFilterEqualTo == c.Mutations)
                 );
             }
 
