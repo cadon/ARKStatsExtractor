@@ -3558,5 +3558,11 @@ namespace ARKBreedingStats
         {
             Values.V.ResetSpeciesNameSorting();
         }
+
+        private void colorDefinitionsToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // copy currently loaded color definitions to the clipboard
+            Clipboard.SetText(string.Join("\n", Values.V.Colors.ColorsList.Select(c => $"{c.Id,3}: {c}")));
+        }
     }
 }

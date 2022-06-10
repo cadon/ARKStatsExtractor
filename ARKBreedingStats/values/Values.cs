@@ -23,43 +23,49 @@ namespace ARKBreedingStats.values
         /// Checks if the version string is a format version that is supported by the version of this application.
         /// </summary>
         private static bool IsValidFormatVersion(string version) =>
-            version == "1.12" // format with 12 stats (minimum required format)
-            || version == "1.13" // introduced remaps for blueprintPaths
-            || version == "1.14-flyerspeed"; // introduced isFlyer property for AllowFlyerSpeedLeveling
+            version != null
+            && (
+                   version == "1.12" // format with 12 stats (minimum required format)
+                || version == "1.13" // introduced remaps for blueprintPaths
+                || version == "1.14-flyerspeed" // introduced isFlyer property for AllowFlyerSpeedLeveling
+               );
 
         private static Values _V;
 
         [JsonProperty]
-        private string version = "0.0";
+        private string version;
         /// <summary>
         /// Must be present and a supported value. Defaults to an invalid value
         /// </summary>
         [JsonProperty]
-        private string format = string.Empty;
-        public Version Version = new Version(0, 0);
-        public Version modVersion = new Version(0, 0);
+        private string format;
+        public Version Version;
         [JsonProperty]
-        public List<Species> species = new List<Species>();
-        [JsonProperty]
-        public List<List<object>> colorDefinitions;
-        [JsonProperty]
-        public List<List<object>> dyeDefinitions;
+        public List<Species> species;
+        [JsonProperty("colorDefinitions")]
+        private object[][] _colorDefinitions;
+        [JsonProperty("dyeDefinitions")]
+        private object[][] _dyeDefinitions;
+        private List<ArkColor> _arkColorsDyesParsed;
+
+        /// <summary>
+        /// Colors used by the loaded library, ordered according to the mod order.
+        /// </summary>
+        public ArkColors Colors;
+
+        public List<string> speciesNames = new List<string>();
+        internal Dictionary<string, string> aliases;
+        public List<string> speciesWithAliasesList;
+        private Dictionary<string, Species> _blueprintToSpecies;
+        private Dictionary<string, Species> _nameToSpecies;
+        private Dictionary<string, Species> _classNameToSpecies;
+
         /// <summary>
         /// If a species for a blueprintPath is requested, the blueprintPath will be remapped if an according key is present.
         /// This is needed if species are remapped ingame, e.g. if a variant is removed.
         /// </summary>
         [JsonProperty("remaps")]
-        private Dictionary<string, string> blueprintRemapping;
-
-        public ArkColors Colors;
-        public ArkColors Dyes;
-
-        public List<string> speciesNames = new List<string>();
-        internal Dictionary<string, string> aliases;
-        public List<string> speciesWithAliasesList;
-        private Dictionary<string, Species> blueprintToSpecies;
-        private Dictionary<string, Species> nameToSpecies;
-        private Dictionary<string, Species> classNameToSpecies;
+        private Dictionary<string, string> _blueprintRemapping;
 
         /// <summary>
         /// Representing the current server multipliers except statMultipliers. Also considers event-changes.
@@ -178,6 +184,10 @@ namespace ARKBreedingStats.values
             // transfer extra loaded objects from the old object to the new one
             _V.modsManifest = modsManifest;
             _V.serverMultipliersPresets = serverMultipliersPresets;
+
+            _V.Colors = new ArkColors(_V._arkColorsDyesParsed);
+
+            InitializeArkColors();
         }
 
         private static Values LoadValuesFile(string filePath)
@@ -278,15 +288,17 @@ namespace ARKBreedingStats.values
                         sp.Mod = modValues.mod;
                         speciesAdded++;
 
-                        if (!blueprintToSpecies.ContainsKey(sp.blueprintPath))
-                            blueprintToSpecies.Add(sp.blueprintPath, sp);
+                        if (!_blueprintToSpecies.ContainsKey(sp.blueprintPath))
+                            _blueprintToSpecies.Add(sp.blueprintPath, sp);
                     }
                 }
 
-                // TODO support for mod colors
+                Colors.AddModArkColors(modValues._arkColorsDyesParsed);
             }
 
             loadedModsHash = CreatureCollection.CalculateModListHash(mods);
+
+            InitializeArkColors();
 
             if (speciesAdded == 0)
             {
@@ -310,8 +322,15 @@ namespace ARKBreedingStats.values
             return true;
         }
 
+        private void InitializeArkColors()
+        {
+            _V.Colors.InitializeArkColors();
+            foreach (var s in _V.species)
+                s.InitializeColors(_V.Colors);
+        }
+
         /// <summary>
-        /// Check if all mod files are available and uptodate, and download the ones not available locally.
+        /// Check if all mod files are available and up to date, and download the ones not available locally.
         /// </summary>
         /// <param name="modValueFileNames"></param>
         internal (List<string> missingModValueFilesOnlineAvailable, List<string> missingModValueFilesOnlineNotAvailable, List<string> modValueFilesWithAvailableUpdate)
@@ -361,16 +380,13 @@ namespace ARKBreedingStats.values
         }
 
         [OnDeserialized]
-        private void ParseVersion(StreamingContext ct)
+        private void ParseVersionAndColors(StreamingContext ct)
         {
             if (!Version.TryParse(version, out Version))
                 Version = new Version(0, 0);
 
-            Colors = new ArkColors(colorDefinitions, dyeDefinitions);
-            Dyes = new ArkColors(dyeDefinitions);
-
-            foreach (var s in species)
-                s.InitializeColors(Colors);
+            _arkColorsDyesParsed = ArkColors.ParseColorDefinitions(_colorDefinitions, _arkColorsDyesParsed);
+            _arkColorsDyesParsed = ArkColors.ParseColorDefinitions(_dyeDefinitions, _arkColorsDyesParsed, true);
 
             //// for debugging, test if there are duplicates in the species-names
             //var duplicateSpeciesNames = string.Join("\n", species
@@ -675,9 +691,9 @@ namespace ARKBreedingStats.values
         /// </summary>
         private void UpdateSpeciesBlueprintDictionaries()
         {
-            blueprintToSpecies = new Dictionary<string, Species>();
-            nameToSpecies = new Dictionary<string, Species>(StringComparer.OrdinalIgnoreCase);
-            classNameToSpecies = new Dictionary<string, Species>(StringComparer.OrdinalIgnoreCase);
+            _blueprintToSpecies = new Dictionary<string, Species>();
+            _nameToSpecies = new Dictionary<string, Species>(StringComparer.OrdinalIgnoreCase);
+            _classNameToSpecies = new Dictionary<string, Species>(StringComparer.OrdinalIgnoreCase);
 
             Regex rClassName = new Regex(@"(?<=\.)[^\/\.]+$");
 
@@ -685,30 +701,30 @@ namespace ARKBreedingStats.values
             {
                 if (!string.IsNullOrEmpty(s.blueprintPath))
                 {
-                    if (!blueprintToSpecies.ContainsKey(s.blueprintPath))
-                        blueprintToSpecies.Add(s.blueprintPath, s);
+                    if (!_blueprintToSpecies.ContainsKey(s.blueprintPath))
+                        _blueprintToSpecies.Add(s.blueprintPath, s);
 
                     string name = s.name;
-                    if (nameToSpecies.TryGetValue(name, out var existingSpecies))
+                    if (_nameToSpecies.TryGetValue(name, out var existingSpecies))
                     {
                         if (
                             (!existingSpecies.IsDomesticable && s.IsDomesticable) // prefer species that are domesticable
                             || (existingSpecies.Mod == null && s.Mod != null) // prefer species from mods with the same name
                             || ((existingSpecies.variants?.Length ?? 0) > (s.variants?.Length ?? 0)) // prefer species that are not variants
                         )
-                            nameToSpecies[name] = s;
+                            _nameToSpecies[name] = s;
                     }
                     else
-                        nameToSpecies.Add(name, s);
+                        _nameToSpecies.Add(name, s);
 
                     Match classNameMatch = rClassName.Match(s.blueprintPath);
                     if (classNameMatch.Success)
                     {
                         string className = classNameMatch.Value + "_C";
-                        if (classNameToSpecies.ContainsKey(className))
-                            classNameToSpecies[className] = s;
+                        if (_classNameToSpecies.ContainsKey(className))
+                            _classNameToSpecies[className] = s;
                         else
-                            classNameToSpecies.Add(className, s);
+                            _classNameToSpecies.Add(className, s);
                     }
                 }
             }
@@ -740,7 +756,7 @@ namespace ARKBreedingStats.values
 
             if (aliases.TryGetValue(speciesName, out var realSpeciesName))
                 speciesName = realSpeciesName;
-            if (nameToSpecies.TryGetValue(speciesName, out var s))
+            if (_nameToSpecies.TryGetValue(speciesName, out var s))
             {
                 recognizedSpecies = s;
                 return true;
@@ -761,7 +777,7 @@ namespace ARKBreedingStats.values
             recognizedSpecies = null;
             if (string.IsNullOrEmpty(speciesClassName)) return false;
 
-            if (classNameToSpecies.TryGetValue(speciesClassName, out var s))
+            if (_classNameToSpecies.TryGetValue(speciesClassName, out var s))
             {
                 recognizedSpecies = s;
                 return true;
@@ -778,11 +794,11 @@ namespace ARKBreedingStats.values
         public Species SpeciesByBlueprint(string blueprintPath)
         {
             if (string.IsNullOrEmpty(blueprintPath)) return null;
-            if (blueprintRemapping != null && blueprintRemapping.TryGetValue(blueprintPath, out var realBlueprintPath))
+            if (_blueprintRemapping != null && _blueprintRemapping.TryGetValue(blueprintPath, out var realBlueprintPath))
             {
                 blueprintPath = realBlueprintPath;
             }
-            return blueprintToSpecies.TryGetValue(blueprintPath, out var s) ? s : null;
+            return _blueprintToSpecies.TryGetValue(blueprintPath, out var s) ? s : null;
         }
 
         /// <summary>

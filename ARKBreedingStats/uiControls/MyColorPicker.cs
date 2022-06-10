@@ -15,6 +15,10 @@ namespace ARKBreedingStats.uiControls
         private byte[] _naturalColorIDs;
         public bool isShown;
         private readonly ToolTip _tt;
+        /// <summary>
+        /// Used to determine if new mods were loaded that could contain new color definitions.
+        /// </summary>
+        private int modListHash;
 
         public MyColorPicker()
         {
@@ -41,10 +45,29 @@ namespace ARKBreedingStats.uiControls
             _tt.Dispose();
         }
 
+        /// <summary>
+        /// Clears color buttons. Call if color definitions changed, e.g. when a mod with colors is loaded or unloaded.
+        /// </summary>
+        private void ResetColors()
+        {
+            if (flowLayoutPanel1.Controls.Count == 0) return;
+            foreach (Control c in flowLayoutPanel1.Controls)
+            {
+                _tt.SetToolTip(c, null);
+                c.Dispose();
+            }
+            flowLayoutPanel1.Controls.Clear();
+        }
+
         public void PickColor(byte selectedColorId, string headerText, List<ArkColor> naturalColors = null, byte selectedColorIdAlternative = 0)
         {
             label1.Text = headerText;
-            var colors = values.Values.V.Colors.colorsList;
+
+            if (modListHash != values.Values.V.loadedModsHash)
+                ResetColors();
+            modListHash = values.Values.V.loadedModsHash;
+
+            var colors = values.Values.V.Colors.ColorsList;
 
             SelectedColorId = selectedColorId;
             SelectedColorIdAlternative = selectedColorIdAlternative;
@@ -55,7 +78,7 @@ namespace ARKBreedingStats.uiControls
 
             flowLayoutPanel1.SuspendLayout();
 
-            for (int colorIndex = 1; colorIndex < colors.Count; colorIndex++)
+            for (int colorIndex = 1; colorIndex < colors.Length; colorIndex++)
             {
                 int controlIndex = colorIndex - 1;
                 if (flowLayoutPanel1.Controls.Count <= controlIndex)
@@ -82,6 +105,7 @@ namespace ARKBreedingStats.uiControls
                 }
             }
 
+            Height = (int)Math.Ceiling(colors.Length / 10d) * 24 + 99;
             flowLayoutPanel1.ResumeLayout();
             isShown = true;
         }

@@ -98,6 +98,7 @@
     <Compile Include="NamePatterns\PatternTemplates.cs" />
     <Compile Include="Pedigree\PedigreeCreation.cs" />
     <Compile Include="Pedigree\IPedigreeCreature.cs" />
+    <Compile Include="species\ArkColors.cs" />
     <Compile Include="uiControls\CreatureAnalysis.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -223,7 +224,6 @@
       <DependentUpon>FtpProgress.cs</DependentUpon>
     </Compile>
     <Compile Include="species\ArkColor.cs" />
-    <Compile Include="species\ArkColors.cs" />
     <Compile Include="settings\FtpCredentials.cs">
       <SubType>Form</SubType>
     </Compile>

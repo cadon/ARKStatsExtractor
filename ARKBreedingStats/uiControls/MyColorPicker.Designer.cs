@@ -44,7 +44,7 @@
             this.checkBoxOnlyNatural.AutoSize = true;
             this.checkBoxOnlyNatural.Checked = true;
             this.checkBoxOnlyNatural.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxOnlyNatural.Location = new System.Drawing.Point(4, 399);
+            this.checkBoxOnlyNatural.Location = new System.Drawing.Point(4, 391);
             this.checkBoxOnlyNatural.Name = "checkBoxOnlyNatural";
             this.checkBoxOnlyNatural.Size = new System.Drawing.Size(154, 17);
             this.checkBoxOnlyNatural.TabIndex = 2;
@@ -68,7 +68,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(369, 393);
+            this.buttonCancel.Location = new System.Drawing.Point(369, 385);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 0;
@@ -84,7 +84,7 @@
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(3);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(446, 342);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(446, 334);
             this.flowLayoutPanel1.TabIndex = 3;
             // 
             // tableLayoutPanel1
@@ -109,13 +109,13 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(448, 420);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(448, 412);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // BtNoColor
             // 
             this.BtNoColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtNoColor.Location = new System.Drawing.Point(287, 393);
+            this.BtNoColor.Location = new System.Drawing.Point(287, 385);
             this.BtNoColor.Name = "BtNoColor";
             this.BtNoColor.Size = new System.Drawing.Size(75, 23);
             this.BtNoColor.TabIndex = 4;
@@ -127,7 +127,7 @@
             // 
             this.LbAlternativeColor.AutoSize = true;
             this.tableLayoutPanel1.SetColumnSpan(this.LbAlternativeColor, 3);
-            this.LbAlternativeColor.Location = new System.Drawing.Point(4, 375);
+            this.LbAlternativeColor.Location = new System.Drawing.Point(4, 367);
             this.LbAlternativeColor.Name = "LbAlternativeColor";
             this.LbAlternativeColor.Size = new System.Drawing.Size(397, 13);
             this.LbAlternativeColor.TabIndex = 5;
@@ -139,7 +139,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(450, 422);
+            this.ClientSize = new System.Drawing.Size(450, 414);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "MyColorPicker";

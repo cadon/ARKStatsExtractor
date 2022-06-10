@@ -210,6 +210,10 @@ namespace ARKBreedingStats.species
             SortName = DescriptiveNameAndMod;
         }
 
+
+        /// <summary>
+        /// Sets the ArkColor objects for the natural occurring colors. Call after colors are loaded or changed by loading mods.
+        /// </summary>
         public void InitializeColors(ArkColors arkColors)
         {
             for (int i = 0; i < ColorRegionCount; i++)

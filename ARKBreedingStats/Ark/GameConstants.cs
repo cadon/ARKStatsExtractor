@@ -59,5 +59,14 @@ namespace ARKBreedingStats.Ark
             { (int)StatNames.Health, (int)StatNames.Stamina, (int)StatNames.Weight, (int)StatNames.MeleeDamageMultiplier };
 
         #endregion
+
+        #region Colors
+
+        public const byte ColorFirstId = 1;
+        public const byte ColorMaxId = 200;
+        public const byte DyeFirstId = 201;
+        public const byte DyeMaxId = 255;
+
+        #endregion
     }
 }
