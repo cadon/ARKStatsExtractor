@@ -3,7 +3,6 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
-using ARKBreedingStats.Ark;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.species;
@@ -102,13 +101,13 @@ namespace ARKBreedingStats.uiControls
         {
             if (creature?.Species == null) return;
 
-            var usedStats = Enumerable.Range(0, Values.STATS_COUNT).Where(si => si != (int)StatNames.Torpidity && creature.Species.UsesStat(si)).ToArray();
+            var usedStats = Enumerable.Range(0, Stats.StatsCount).Where(si => si != Stats.Torpidity && creature.Species.UsesStat(si)).ToArray();
             var anglePerStat = 360f / usedStats.Length;
 
             const int borderWidth = 1;
 
             // used for the tooltip text
-            var colors = new ArkColor[Species.ColorRegionCount];
+            var colors = new ArkColor[Ark.ColorRegionCount];
 
             (_statInheritances, _mutationInColor) = DetermineInheritanceAndMutations(creature, usedStats);
 
@@ -208,7 +207,7 @@ namespace ARKBreedingStats.uiControls
                 // colors
                 if (creature.colors != null)
                 {
-                    var displayedColorRegions = Enumerable.Range(0, Species.ColorRegionCount)
+                    var displayedColorRegions = Enumerable.Range(0, Ark.ColorRegionCount)
                         .Where(ci => creature.Species.EnabledColorRegions[ci]).ToArray();
 
                     var usedColorRegionCount = displayedColorRegions.Length;
@@ -257,7 +256,7 @@ namespace ARKBreedingStats.uiControls
                 {
                     int yMarker = _statSize - _mutationIndicatorSize - 1 - borderWidth;
                     Color mutationColor = creature.Mutations == 0 ? Color.GreenYellow
-                        : creature.Mutations < GameConstants.MutationPossibleWithLessThan ? Utils.MutationColor
+                        : creature.Mutations < Ark.MutationPossibleWithLessThan ? Utils.MutationColor
                         : Color.DarkRed;
 
                     DrawFilledCircle(g, brush, pen, mutationColor, borderWidth + 1, yMarker, _mutationIndicatorSize);
@@ -331,8 +330,8 @@ namespace ARKBreedingStats.uiControls
             var mutationsOccurredCount = creature.mutationsMaternalNew + creature.mutationsPaternalNew;
             var mutationOccurred = mutationsOccurredCount != 0;
 
-            var statInheritances = new byte[Values.STATS_COUNT];
-            var mutationInColor = mutationOccurred ? new bool[Species.ColorRegionCount] : null;
+            var statInheritances = new byte[Stats.StatsCount];
+            var mutationInColor = mutationOccurred ? new bool[Ark.ColorRegionCount] : null;
 
             bool levelsKnownMother = creature.Mother?.levelsWild != null;
             bool levelsKnownFather = creature.Father?.levelsWild != null;
@@ -363,10 +362,10 @@ namespace ARKBreedingStats.uiControls
                         var possibleMutationsFather = -1;
                         for (int m = 0; m <= leftMutations; m++)
                         {
-                            if (possibleMutationsMother == -1 && creature.levelsWild[si] == levelMother + m * GameConstants.LevelsAddedPerMutation)
+                            if (possibleMutationsMother == -1 && creature.levelsWild[si] == levelMother + m * Ark.LevelsAddedPerMutation)
                                 possibleMutationsMother = m;
 
-                            if (possibleMutationsFather == -1 && creature.levelsWild[si] == levelFather + m * GameConstants.LevelsAddedPerMutation)
+                            if (possibleMutationsFather == -1 && creature.levelsWild[si] == levelFather + m * Ark.LevelsAddedPerMutation)
                                 possibleMutationsFather = m;
                         }
 
@@ -421,10 +420,10 @@ namespace ARKBreedingStats.uiControls
                     for (int m = 0; m <= leftMutations; m++)
                     {
                         if (possibleMutationsMother == -1 && levelMother != -1 && creature.levelsWild[si] ==
-                            levelMother + m * GameConstants.LevelsAddedPerMutation)
+                            levelMother + m * Ark.LevelsAddedPerMutation)
                             possibleMutationsMother = m;
                         if (possibleMutationsFather == -1 && levelFather != -1 && creature.levelsWild[si] ==
-                            levelFather + m * GameConstants.LevelsAddedPerMutation)
+                            levelFather + m * Ark.LevelsAddedPerMutation)
                             possibleMutationsFather = m;
                     }
                     statInheritances[si] = (byte)((possibleMutationsMother == -1 ? 0 : InheritanceFlag(possibleMutationsMother + 8, true))

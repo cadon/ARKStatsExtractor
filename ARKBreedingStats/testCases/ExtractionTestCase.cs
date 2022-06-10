@@ -28,7 +28,7 @@ namespace ARKBreedingStats.testCases
         private List<string> modIDs;
         public int modListHash;
         [XmlIgnore]
-        public int totalLevel => levelsWild[(int)StatNames.Torpidity] + 1 + levelsDom.Sum();
+        public int totalLevel => levelsWild[Stats.Torpidity] + 1 + levelsDom.Sum();
 
         public Species Species
         {

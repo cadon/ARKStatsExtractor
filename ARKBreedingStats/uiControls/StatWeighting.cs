@@ -24,18 +24,18 @@ namespace ARKBreedingStats.uiControls
             InitializeComponent();
             _tt.SetToolTip(groupBox1, "Increase the weights for stats that are more important to you to be high in the offspring.\nRight click for Presets.");
             _currentSpecies = null;
-            _weightNuds = new Nud[Values.STATS_COUNT];
-            _statLabels = new Label[Values.STATS_COUNT];
+            _weightNuds = new Nud[Stats.StatsCount];
+            _statLabels = new Label[Stats.StatsCount];
 
             var displayedStats = new int[]{
-                (int)StatNames.Health,
-                (int)StatNames.Stamina,
-                (int)StatNames.Oxygen,
-                (int)StatNames.Food,
-                (int)StatNames.Weight,
-                (int)StatNames.MeleeDamageMultiplier,
-                (int)StatNames.SpeedMultiplier,
-                (int)StatNames.CraftingSpeedMultiplier
+                Stats.Health,
+                Stats.Stamina,
+                Stats.Oxygen,
+                Stats.Food,
+                Stats.Weight,
+                Stats.MeleeDamageMultiplier,
+                Stats.SpeedMultiplier,
+                Stats.CraftingSpeedMultiplier
             };
 
             for (int ds = 0; ds < displayedStats.Length; ds++)
@@ -66,7 +66,7 @@ namespace ARKBreedingStats.uiControls
             if (species == null) return;
 
             _currentSpecies = species;
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
                 if (_statLabels[s] != null)
                 {
                     _statLabels[s].Text = Utils.StatName(s, true, species.statNames);
@@ -85,10 +85,10 @@ namespace ARKBreedingStats.uiControls
             get
             {
                 double[] w = WeightValues;
-                double s = w.Sum() / Values.STATS_COUNT;
+                double s = w.Sum() / Stats.StatsCount;
                 if (s > 0)
                 {
-                    for (int i = 0; i < Values.STATS_COUNT; i++)
+                    for (int i = 0; i < Stats.StatsCount; i++)
                         w[i] /= s;
                 }
                 return w;
@@ -102,7 +102,7 @@ namespace ARKBreedingStats.uiControls
                 if (value == null)
                     return;
 
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     if (_weightNuds[s] != null)
                         _weightNuds[s].ValueSave = (decimal)value[s];
@@ -110,9 +110,9 @@ namespace ARKBreedingStats.uiControls
             }
             get
             {
-                double[] weights = new double[Values.STATS_COUNT];
+                double[] weights = new double[Stats.StatsCount];
 
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     if (_weightNuds[s] != null)
                         weights[s] = (double)_weightNuds[s].Value;
@@ -127,8 +127,8 @@ namespace ARKBreedingStats.uiControls
         private void btAllToOne_Click(object sender, EventArgs e)
         {
             cbbPresets.SelectedIndex = 0;
-            double[] values = new double[Values.STATS_COUNT];
-            for (int s = 0; s < Values.STATS_COUNT; s++) values[s] = 1;
+            double[] values = new double[Stats.StatsCount];
+            for (int s = 0; s < Stats.StatsCount; s++) values[s] = 1;
             WeightValues = values;
         }
 

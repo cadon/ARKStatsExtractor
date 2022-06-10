@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ARKBreedingStats.Ark;
 
 namespace ARKBreedingStats.species
 {
@@ -56,8 +55,8 @@ namespace ARKBreedingStats.species
 
             _colorsByName = new Dictionary<string, ArkColor>();
             _colorsById = new Dictionary<byte, ArkColor> { { 0, new ArkColor() } };
-            var nextFreeColorId = GameConstants.ColorFirstId;
-            var nextFreeDyeId = GameConstants.DyeFirstId;
+            var nextFreeColorId = Ark.ColorFirstId;
+            var nextFreeDyeId = Ark.DyeFirstId;
             var noMoreAvailableColorId = false;
             var noMoreAvailableDyeId = false;
 
@@ -106,7 +105,7 @@ namespace ARKBreedingStats.species
                         if (noMoreAvailableDyeId) continue;
 
                         c.Id = nextFreeDyeId;
-                        if (nextFreeDyeId == GameConstants.DyeMaxId)
+                        if (nextFreeDyeId == Ark.DyeMaxId)
                             noMoreAvailableDyeId = true;
                         else nextFreeDyeId++;
                     }
@@ -115,7 +114,7 @@ namespace ARKBreedingStats.species
                         if (noMoreAvailableColorId) continue;
 
                         c.Id = nextFreeColorId;
-                        if (nextFreeColorId == GameConstants.ColorMaxId)
+                        if (nextFreeColorId == Ark.ColorMaxId)
                             noMoreAvailableColorId = true;
                         else nextFreeColorId++;
                     }

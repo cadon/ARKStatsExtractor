@@ -47,16 +47,16 @@ namespace ARKBreedingStats
             else
                 rbWildTester.Checked = true;
 
-            _hiddenLevelsCreatureTester = c.levelsWild[(int)StatNames.Torpidity];
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            _hiddenLevelsCreatureTester = c.levelsWild[Stats.Torpidity];
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (s != (int)StatNames.Torpidity && c.levelsWild[s] > 0)
+                if (s != Stats.Torpidity && c.levelsWild[s] > 0)
                     _hiddenLevelsCreatureTester -= c.levelsWild[s];
             }
 
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (s == (int)StatNames.Torpidity)
+                if (s == Stats.Torpidity)
                     continue;
                 _testingIOs[s].LevelWild = c.levelsWild[s];
                 _testingIOs[s].LevelDom = c.levelsDom[s];
@@ -68,20 +68,20 @@ namespace ARKBreedingStats
         private void UpdateAllTesterValues()
         {
             _updateTorporInTester = false;
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (s == (int)StatNames.Torpidity)
+                if (s == Stats.Torpidity)
                     continue;
-                if (s == Values.STATS_COUNT - 2) // update torpor after last stat-update
+                if (s == Stats.StatsCount - 2) // update torpor after last stat-update
                     _updateTorporInTester = true;
                 testingStatIOsRecalculateValue(_testingIOs[s]);
             }
-            testingStatIOsRecalculateValue(_testingIOs[(int)StatNames.Torpidity]);
+            testingStatIOsRecalculateValue(_testingIOs[Stats.Torpidity]);
         }
 
         private void setTesterInputsTamed(bool tamed)
         {
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
                 _testingIOs[s].postTame = tamed;
             lbNotYetTamed.Visible = !tamed;
         }
@@ -95,25 +95,25 @@ namespace ARKBreedingStats
             testingStatIOsRecalculateValue(sIo);
 
             // update Torpor-level if changed value is not from torpor-StatIO
-            if (_updateTorporInTester && sIo.statIndex != (int)StatNames.Torpidity)
+            if (_updateTorporInTester && sIo.statIndex != Stats.Torpidity)
             {
                 int torporLvl = 0;
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
-                    if (s != (int)StatNames.Torpidity)
+                    if (s != Stats.Torpidity)
                         torporLvl += _testingIOs[s].LevelWild > 0 ? _testingIOs[s].LevelWild : 0;
                 }
-                _testingIOs[(int)StatNames.Torpidity].LevelWild = torporLvl + _hiddenLevelsCreatureTester;
+                _testingIOs[Stats.Torpidity].LevelWild = torporLvl + _hiddenLevelsCreatureTester;
             }
 
             int domLevels = 0;
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 domLevels += _testingIOs[s].LevelDom;
             }
             labelDomLevelSum.Text = $"Dom Levels: {domLevels}/{_creatureCollection.maxDomLevel}";
             labelDomLevelSum.BackColor = domLevels > _creatureCollection.maxDomLevel ? Color.LightSalmon : Color.Transparent;
-            labelTesterTotalLevel.Text = $"Total Levels: {_testingIOs[(int)StatNames.Torpidity].LevelWild + domLevels + 1}/{_testingIOs[(int)StatNames.Torpidity].LevelWild + 1 + _creatureCollection.maxDomLevel}";
+            labelTesterTotalLevel.Text = $"Total Levels: {_testingIOs[Stats.Torpidity].LevelWild + domLevels + 1}/{_testingIOs[Stats.Torpidity].LevelWild + 1 + _creatureCollection.maxDomLevel}";
             creatureInfoInputTester.parentListValid = false;
 
             int[] levelsWild = _testingIOs.Select(s => s.LevelWild).ToArray();
@@ -123,8 +123,8 @@ namespace ARKBreedingStats
             statPotentials1.SetLevels(levelsWild, false);
             //statGraphs1.setGraph(sE, 0, testingIOs[0].LevelWild, testingIOs[0].LevelDom, !radioButtonTesterWild.Checked, (double)NumericUpDownTestingTE.Value / 100, (double)numericUpDownImprintingBonusTester.Value / 100);
 
-            if (sIo.statIndex == (int)StatNames.Torpidity)
-                lbWildLevelTester.Text = "PreTame Level: " + Math.Ceiling(Math.Round((_testingIOs[(int)StatNames.Torpidity].LevelWild + 1) / (1 + NumericUpDownTestingTE.Value / 200), 6));
+            if (sIo.statIndex == Stats.Torpidity)
+                lbWildLevelTester.Text = "PreTame Level: " + Math.Ceiling(Math.Round((_testingIOs[Stats.Torpidity].LevelWild + 1) / (1 + NumericUpDownTestingTE.Value / 200), 6));
         }
 
         private void testingStatIOsRecalculateValue(StatIO sIo)
@@ -150,7 +150,7 @@ namespace ARKBreedingStats
             if (!wildChanged)
             {
                 int[] wildLevels = GetCurrentWildLevels(false);
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     if (wildLevels[s] != _creatureTesterEdit.levelsWild[s])
                     {
@@ -255,7 +255,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.DomesticatedAt = null;
                 creatureInfoInputTester.AddedToLibraryAt = null;
                 creatureInfoInputTester.CreatureFlags = CreatureFlags.None;
-                creatureInfoInputTester.RegionColors = new byte[Species.ColorRegionCount];
+                creatureInfoInputTester.RegionColors = new byte[Ark.ColorRegionCount];
                 creatureInfoInputTester.CreatureGuid = Guid.Empty;
                 creatureInfoInputTester.SetArkId(0, false);
                 creatureInfoInputTester.MutationCounterMother = 0;
@@ -277,7 +277,7 @@ namespace ARKBreedingStats
             ClearAll();
             speciesSelector1.SetSpecies(species);
             // copy values over to extractor
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 _statIOs[s].Input = onlyWild
                     ? StatValueCalculation.CalculateValue(species, s, c.levelsWild[s], 0, true, c.tamingEff,
@@ -295,7 +295,7 @@ namespace ARKBreedingStats
 
             numericUpDownImprintingBonusExtractor.ValueSave = (decimal)c.imprintingBonus * 100;
             // set total level
-            int level = onlyWild ? c.levelsWild[(int)StatNames.Torpidity] : c.Level;
+            int level = onlyWild ? c.levelsWild[Stats.Torpidity] : c.Level;
             numericUpDownLevel.ValueSave = level;
 
             // set colors
@@ -311,7 +311,7 @@ namespace ARKBreedingStats
 
             var maxLevel = CreatureCollection.CurrentCreatureCollection?.maxChartLevel ?? 50;
             var r = new Random();
-            for (int si = 0; si < Values.STATS_COUNT; si++)
+            for (int si = 0; si < Stats.StatsCount; si++)
             {
                 if (species.UsesStat(si))
                     _testingIOs[si].LevelWild = r.Next(maxLevel);

@@ -31,8 +31,8 @@ namespace ARKBreedingStats.uiControls
                 return;
             }
 
-            if (highLevels == null) highLevels = new int[Values.STATS_COUNT];
-            if (lowLevels == null) lowLevels = new int[Values.STATS_COUNT];
+            if (highLevels == null) highLevels = new int[Stats.StatsCount];
+            if (lowLevels == null) lowLevels = new int[Stats.StatsCount];
 
             LbHeader.Text = $"Best stat values for bred creatures without imprinting of the species {species.DescriptiveNameAndMod} in this library.";
             string sbNames = null;

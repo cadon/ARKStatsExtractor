@@ -15,19 +15,19 @@ namespace ARKBreedingStats.uiControls
         {
             InitializeComponent();
 
-            stats = new StatPotential[values.Values.STATS_COUNT];
-            for (int s = 0; s < values.Values.STATS_COUNT; s++)
+            stats = new StatPotential[Stats.StatsCount];
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 StatPotential stat = new StatPotential(s, Utils.Precision(s) == 3);
                 stats[s] = stat;
             }
-            for (int s = 0; s < values.Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 int si = values.Values.statsDisplayOrder[s];
                 flpStats.Controls.Add(stats[si]);
                 flpStats.SetFlowBreak(stats[si], true);
             }
-            oldLevels = new int[values.Values.STATS_COUNT];
+            oldLevels = new int[Stats.StatsCount];
         }
 
         public Species Species
@@ -36,7 +36,7 @@ namespace ARKBreedingStats.uiControls
             {
                 if (value == null || value == selectedSpecies) return;
                 selectedSpecies = value;
-                for (int s = 0; s < values.Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     stats[s].Visible = selectedSpecies.UsesStat(s);
                 }
@@ -46,7 +46,7 @@ namespace ARKBreedingStats.uiControls
         public void SetLevels(int[] levelsWild, bool forceUpdate)
         {
             SuspendLayout();
-            for (int s = 0; s < values.Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (forceUpdate || oldLevels[s] != levelsWild[s])
                 {
@@ -61,7 +61,7 @@ namespace ARKBreedingStats.uiControls
         {
             set
             {
-                for (int s = 0; s < values.Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                     stats[s].maxDomLevel = value;
             }
         }
@@ -70,7 +70,7 @@ namespace ARKBreedingStats.uiControls
         {
             set
             {
-                for (int s = 0; s < values.Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                     stats[s].levelGraphMax = value;
             }
         }

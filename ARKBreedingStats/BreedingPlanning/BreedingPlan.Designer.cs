@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.uiControls;
+﻿using ARKBreedingStats.Pedigree;
+using ARKBreedingStats.uiControls;
 
 namespace ARKBreedingStats.BreedingPlanning
 {
@@ -83,12 +84,12 @@ namespace ARKBreedingStats.BreedingPlanning
             this.nudBPMutationLimit = new ARKBreedingStats.uiControls.Nud();
             this.tagSelectorList1 = new ARKBreedingStats.uiControls.TagSelectorList();
             this.statWeighting1 = new ARKBreedingStats.uiControls.StatWeighting();
-            this.pedigreeCreatureBestPossibleInSpecies = new ARKBreedingStats.uiControls.PedigreeCreature();
-            this.pedigreeCreatureBestPossibleInSpeciesFiltered = new ARKBreedingStats.uiControls.PedigreeCreature();
-            this.pedigreeCreature1 = new ARKBreedingStats.uiControls.PedigreeCreature();
-            this.pedigreeCreature2 = new ARKBreedingStats.uiControls.PedigreeCreature();
-            this.pedigreeCreatureBest = new ARKBreedingStats.uiControls.PedigreeCreature();
-            this.pedigreeCreatureWorst = new ARKBreedingStats.uiControls.PedigreeCreature();
+            this.pedigreeCreatureBestPossibleInSpecies = new PedigreeCreature();
+            this.pedigreeCreatureBestPossibleInSpeciesFiltered = new PedigreeCreature();
+            this.pedigreeCreature1 = new PedigreeCreature();
+            this.pedigreeCreature2 = new PedigreeCreature();
+            this.pedigreeCreatureBest = new PedigreeCreature();
+            this.pedigreeCreatureWorst = new PedigreeCreature();
             this.offspringPossibilities1 = new ARKBreedingStats.OffspringPossibilities();
             this.tableLayoutMain.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();

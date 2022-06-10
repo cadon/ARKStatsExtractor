@@ -17,8 +17,6 @@ namespace ARKBreedingStats.values
     [JsonObject(MemberSerialization.OptIn)]
     public class Values
     {
-        public const int STATS_COUNT = 12;
-
         /// <summary>
         /// Checks if the version string is a format version that is supported by the version of this application.
         /// </summary>
@@ -117,18 +115,18 @@ namespace ARKBreedingStats.values
         /// Returns the stat-index for the given order index (like it is ordered ingame).
         /// </summary>
         public static readonly int[] statsDisplayOrder = {
-            (int)StatNames.Health,
-            (int)StatNames.Stamina,
-            (int)StatNames.Oxygen,
-            (int)StatNames.Food,
-            (int)StatNames.Water,
-            (int)StatNames.Temperature,
-            (int)StatNames.Weight,
-            (int)StatNames.MeleeDamageMultiplier,
-            (int)StatNames.SpeedMultiplier,
-            (int)StatNames.TemperatureFortitude,
-            (int)StatNames.CraftingSpeedMultiplier,
-            (int)StatNames.Torpidity
+            Stats.Health,
+            Stats.Stamina,
+            Stats.Oxygen,
+            Stats.Food,
+            Stats.Water,
+            Stats.Temperature,
+            Stats.Weight,
+            Stats.MeleeDamageMultiplier,
+            Stats.SpeedMultiplier,
+            Stats.TemperatureFortitude,
+            Stats.CraftingSpeedMultiplier,
+            Stats.Torpidity
             };
 
         public static Values V => _V ?? (_V = new Values());
@@ -555,7 +553,7 @@ namespace ARKBreedingStats.values
                     bool useSpeedLevelup = currentServerMultipliers.AllowFlyerSpeedLeveling || !sp.isFlyer;
 
                     // stat-multiplier
-                    for (int s = 0; s < STATS_COUNT; s++)
+                    for (int s = 0; s < Stats.StatsCount; s++)
                     {
                         double[] statMultipliers = cc.serverMultipliers?.statMultipliers?[s] ?? defaultMultipliers;
 
@@ -571,7 +569,7 @@ namespace ARKBreedingStats.values
                         double multAffinity = GetRawStatValue(s, 4, customOverrideForThisStatExists);
                         sp.stats[s].MultAffinity = multAffinity * (multAffinity > 0 ? statMultipliers[1] : 1);
 
-                        if (useSpeedLevelup || s != (int)StatNames.SpeedMultiplier)
+                        if (useSpeedLevelup || s != Stats.SpeedMultiplier)
                         {
                             sp.stats[s].IncPerTamedLevel = GetRawStatValue(s, 2, customOverrideForThisStatExists) * statMultipliers[2];
                         }
@@ -626,7 +624,7 @@ namespace ARKBreedingStats.values
                     }
 
                     // imprinting multiplier override
-                    sp.SetCustomImprintingMultipliers(customOverrideExists && cc.CustomSpeciesStats[sp.blueprintPath].Length > Values.STATS_COUNT ? cc.CustomSpeciesStats[sp.blueprintPath][Values.STATS_COUNT] : null);
+                    sp.SetCustomImprintingMultipliers(customOverrideExists && cc.CustomSpeciesStats[sp.blueprintPath].Length > Stats.StatsCount ? cc.CustomSpeciesStats[sp.blueprintPath][Stats.StatsCount] : null);
                 }
 
                 // breeding multiplier

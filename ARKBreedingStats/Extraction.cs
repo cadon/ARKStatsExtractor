@@ -10,7 +10,7 @@ namespace ARKBreedingStats
 {
     public class Extraction
     {
-        public readonly List<StatResult>[] Results = new List<StatResult>[Values.STATS_COUNT]; // stores the possible results of all stats as array (wildlevel, domlevel, tamingEff)
+        public readonly List<StatResult>[] Results = new List<StatResult>[Stats.StatsCount]; // stores the possible results of all stats as array (wildlevel, domlevel, tamingEff)
         public readonly int[] ChosenResults;
         public readonly bool[] FixedResults;
         public readonly List<int> StatsWithTE;
@@ -38,14 +38,14 @@ namespace ARKBreedingStats
 
         public Extraction()
         {
-            FixedResults = new bool[Values.STATS_COUNT];
-            ChosenResults = new int[Values.STATS_COUNT];
+            FixedResults = new bool[Stats.StatsCount];
+            ChosenResults = new int[Stats.StatsCount];
             StatsWithTE = new List<int>();
-            _lowerBoundWilds = new int[Values.STATS_COUNT];
-            _lowerBoundDoms = new int[Values.STATS_COUNT];
-            _upperBoundDoms = new int[Values.STATS_COUNT];
+            _lowerBoundWilds = new int[Stats.StatsCount];
+            _lowerBoundDoms = new int[Stats.StatsCount];
+            _upperBoundDoms = new int[Stats.StatsCount];
 
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 Results[s] = new List<StatResult>();
             }
@@ -53,7 +53,7 @@ namespace ARKBreedingStats
 
         public void Clear()
         {
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 ChosenResults[s] = 0;
                 FixedResults[s] = false;
@@ -117,7 +117,7 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    imprintingBonusList = CalculateImprintingBonus(species, imprintingBonusRounded, imprintingBonusMultiplier, statIOs[(int)StatNames.Torpidity].Input, statIOs[(int)StatNames.Food].Input);
+                    imprintingBonusList = CalculateImprintingBonus(species, imprintingBonusRounded, imprintingBonusMultiplier, statIOs[Stats.Torpidity].Input, statIOs[Stats.Food].Input);
                 }
             }
             if (imprintingBonusList == null)
@@ -130,8 +130,8 @@ namespace ARKBreedingStats
                 _imprintingBonusRange.SetToIntersectionWith(-.01, allowMoreThanHundredImprinting ? 5 : 1.01); // it's assumed that a valid IB will not be larger than 500%
                 ImprintingBonus = Math.Max(0, Math.Min(allowMoreThanHundredImprinting ? 5 : 1, _imprintingBonusRange.Mean));
 
-                var imprintingMultiplierRanges = new MinMaxDouble[Values.STATS_COUNT];
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                var imprintingMultiplierRanges = new MinMaxDouble[Stats.StatsCount];
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     double statImprintingMultiplier = species.StatImprintMultipliers[s];
                     imprintingMultiplierRanges[s] = statImprintingMultiplier != 0
@@ -140,8 +140,8 @@ namespace ARKBreedingStats
                         : new MinMaxDouble(1);
                 }
 
-                var levelWildSumRange = new MinMaxInt((int)Math.Round((statIOs[(int)StatNames.Torpidity].Input / imprintingMultiplierRanges[(int)StatNames.Torpidity].Max - (PostTamed ? stats[(int)StatNames.Torpidity].AddWhenTamed : 0) - stats[(int)StatNames.Torpidity].BaseValue) / (stats[(int)StatNames.Torpidity].BaseValue * stats[(int)StatNames.Torpidity].IncPerWildLevel)),
-                                                      (int)Math.Round((statIOs[(int)StatNames.Torpidity].Input / imprintingMultiplierRanges[(int)StatNames.Torpidity].Min - (PostTamed ? stats[(int)StatNames.Torpidity].AddWhenTamed : 0) - stats[(int)StatNames.Torpidity].BaseValue) / (stats[(int)StatNames.Torpidity].BaseValue * stats[(int)StatNames.Torpidity].IncPerWildLevel)));
+                var levelWildSumRange = new MinMaxInt((int)Math.Round((statIOs[Stats.Torpidity].Input / imprintingMultiplierRanges[Stats.Torpidity].Max - (PostTamed ? stats[Stats.Torpidity].AddWhenTamed : 0) - stats[Stats.Torpidity].BaseValue) / (stats[Stats.Torpidity].BaseValue * stats[Stats.Torpidity].IncPerWildLevel)),
+                                                      (int)Math.Round((statIOs[Stats.Torpidity].Input / imprintingMultiplierRanges[Stats.Torpidity].Min - (PostTamed ? stats[Stats.Torpidity].AddWhenTamed : 0) - stats[Stats.Torpidity].BaseValue) / (stats[Stats.Torpidity].BaseValue * stats[Stats.Torpidity].IncPerWildLevel)));
                 var levelDomSumRange = new MinMaxInt(Math.Max(0, level - 1 - levelWildSumRange.Max),
                                                      Math.Max(0, level - 1 - levelWildSumRange.Min));
 
@@ -168,7 +168,7 @@ namespace ARKBreedingStats
                 }
 
                 // check all possible level-combinations
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     if (!species.UsesStat(s))
                     {
@@ -189,7 +189,7 @@ namespace ARKBreedingStats
 
                     MinMaxDouble inputValue = new MinMaxDouble(statIOs[s].Input - toleranceForThisStat, statIOs[s].Input + toleranceForThisStat);
                     double statBaseValue = stats[s].BaseValue;
-                    if (PostTamed && s == (int)StatNames.Health) statBaseValue *= (double)species.TamedBaseHealthMultiplier;// + 0.00000000001; // todo double-precision handling
+                    if (PostTamed && s == Stats.Health) statBaseValue *= (double)species.TamedBaseHealthMultiplier;// + 0.00000000001; // todo double-precision handling
 
                     bool withTEff = (PostTamed && stats[s].MultAffinity > 0);
                     if (withTEff) { StatsWithTE.Add(s); }
@@ -405,7 +405,7 @@ namespace ARKBreedingStats
         private List<MinMaxDouble> CalculateImprintingBonus(Species species, double imprintingBonusRounded, double imprintingBonusMultiplier, double torpor, double food)
         {
             List<MinMaxDouble> imprintingBonusList = new List<MinMaxDouble>();
-            if (species.stats[(int)StatNames.Torpidity].BaseValue == 0 || species.stats[(int)StatNames.Torpidity].IncPerWildLevel == 0) return imprintingBonusList; // invalid species-data
+            if (species.stats[Stats.Torpidity].BaseValue == 0 || species.stats[Stats.Torpidity].IncPerWildLevel == 0) return imprintingBonusList; // invalid species-data
 
             // classic way to calculate the ImprintingBonus, this is the most exact value, but will not work if the imprinting-gain was different (e.g. events, mods (S+Nanny))
             double imprintingBonusFromGainPerCuddle = 0;
@@ -418,32 +418,32 @@ namespace ARKBreedingStats
             double[] statImprintMultipliers = species.StatImprintMultipliers;
 
             MinMaxInt wildLevelsFromImprintedTorpor = new MinMaxInt(
-                (int)Math.Round(((((torpor / (1 + species.stats[(int)StatNames.Torpidity].MultAffinity)) - species.stats[(int)StatNames.Torpidity].AddWhenTamed) / ((1 + (imprintingBonusRounded + 0.005) * statImprintMultipliers[(int)StatNames.Torpidity] * imprintingBonusMultiplier) * species.stats[(int)StatNames.Torpidity].BaseValue)) - 1) / species.stats[(int)StatNames.Torpidity].IncPerWildLevel),
-                (int)Math.Round(((((torpor / (1 + species.stats[(int)StatNames.Torpidity].MultAffinity)) - species.stats[(int)StatNames.Torpidity].AddWhenTamed) / ((1 + (imprintingBonusRounded - 0.005) * statImprintMultipliers[(int)StatNames.Torpidity] * imprintingBonusMultiplier) * species.stats[(int)StatNames.Torpidity].BaseValue)) - 1) / species.stats[(int)StatNames.Torpidity].IncPerWildLevel));
+                (int)Math.Round(((((torpor / (1 + species.stats[Stats.Torpidity].MultAffinity)) - species.stats[Stats.Torpidity].AddWhenTamed) / ((1 + (imprintingBonusRounded + 0.005) * statImprintMultipliers[Stats.Torpidity] * imprintingBonusMultiplier) * species.stats[Stats.Torpidity].BaseValue)) - 1) / species.stats[Stats.Torpidity].IncPerWildLevel),
+                (int)Math.Round(((((torpor / (1 + species.stats[Stats.Torpidity].MultAffinity)) - species.stats[Stats.Torpidity].AddWhenTamed) / ((1 + (imprintingBonusRounded - 0.005) * statImprintMultipliers[Stats.Torpidity] * imprintingBonusMultiplier) * species.stats[Stats.Torpidity].BaseValue)) - 1) / species.stats[Stats.Torpidity].IncPerWildLevel));
 
             // assuming food has no dom-levels, extract the exact imprinting from this stat. If the range is in the range of the torpor-dependent IB, take this more precise value for the imprinting. (food has higher values and yields more precise results)
             MinMaxInt wildLevelsFromImprintedFood = new MinMaxInt(
-                (int)Math.Round(((((food / (1 + species.stats[(int)StatNames.Food].MultAffinity)) - species.stats[(int)StatNames.Food].AddWhenTamed) / ((1 + (imprintingBonusRounded + 0.005) * statImprintMultipliers[(int)StatNames.Food] * imprintingBonusMultiplier) * species.stats[(int)StatNames.Food].BaseValue)) - 1) / species.stats[(int)StatNames.Food].IncPerWildLevel),
-                (int)Math.Round(((((food / (1 + species.stats[(int)StatNames.Food].MultAffinity)) - species.stats[(int)StatNames.Food].AddWhenTamed) / ((1 + (imprintingBonusRounded - 0.005) * statImprintMultipliers[(int)StatNames.Food] * imprintingBonusMultiplier) * species.stats[(int)StatNames.Food].BaseValue)) - 1) / species.stats[(int)StatNames.Food].IncPerWildLevel));
+                (int)Math.Round(((((food / (1 + species.stats[Stats.Food].MultAffinity)) - species.stats[Stats.Food].AddWhenTamed) / ((1 + (imprintingBonusRounded + 0.005) * statImprintMultipliers[Stats.Food] * imprintingBonusMultiplier) * species.stats[Stats.Food].BaseValue)) - 1) / species.stats[Stats.Food].IncPerWildLevel),
+                (int)Math.Round(((((food / (1 + species.stats[Stats.Food].MultAffinity)) - species.stats[Stats.Food].AddWhenTamed) / ((1 + (imprintingBonusRounded - 0.005) * statImprintMultipliers[Stats.Food] * imprintingBonusMultiplier) * species.stats[Stats.Food].BaseValue)) - 1) / species.stats[Stats.Food].IncPerWildLevel));
 
             List<int> otherStatsSupportIB = new List<int>(); // the number of other stats that support this IB-range
                                                              // for high-level creatures the bonus from imprinting is so high, that a displayed and rounded value of the imprinting bonus can be possible with multiple torpor-levels, i.e. 1 %point IB results in a larger change than a level in torpor.
             for (int torporLevel = wildLevelsFromImprintedTorpor.Min; torporLevel <= wildLevelsFromImprintedTorpor.Max; torporLevel++)
             {
                 int support = 0;
-                double imprintingProductTorpor = statImprintMultipliers[(int)StatNames.Torpidity] * imprintingBonusMultiplier;
-                double imprintingProductFood = statImprintMultipliers[(int)StatNames.Food] * imprintingBonusMultiplier;
+                double imprintingProductTorpor = statImprintMultipliers[Stats.Torpidity] * imprintingBonusMultiplier;
+                double imprintingProductFood = statImprintMultipliers[Stats.Food] * imprintingBonusMultiplier;
                 if (imprintingProductTorpor == 0 || imprintingProductFood == 0) break;
                 MinMaxDouble imprintingBonusRange = new MinMaxDouble(
-                    (((torpor - 0.05) / (1 + species.stats[(int)StatNames.Torpidity].MultAffinity) - species.stats[(int)StatNames.Torpidity].AddWhenTamed) / StatValueCalculation.CalculateValue(species, (int)StatNames.Torpidity, torporLevel, 0, false, 0, 0) - 1) / imprintingProductTorpor,
-                    (((torpor + 0.05) / (1 + species.stats[(int)StatNames.Torpidity].MultAffinity) - species.stats[(int)StatNames.Torpidity].AddWhenTamed) / StatValueCalculation.CalculateValue(species, (int)StatNames.Torpidity, torporLevel, 0, false, 0, 0) - 1) / imprintingProductTorpor);
+                    (((torpor - 0.05) / (1 + species.stats[Stats.Torpidity].MultAffinity) - species.stats[Stats.Torpidity].AddWhenTamed) / StatValueCalculation.CalculateValue(species, Stats.Torpidity, torporLevel, 0, false, 0, 0) - 1) / imprintingProductTorpor,
+                    (((torpor + 0.05) / (1 + species.stats[Stats.Torpidity].MultAffinity) - species.stats[Stats.Torpidity].AddWhenTamed) / StatValueCalculation.CalculateValue(species, Stats.Torpidity, torporLevel, 0, false, 0, 0) - 1) / imprintingProductTorpor);
 
                 // check for each possible food-level the IB-range and if it can narrow down the range derived from the torpor (deriving from food is more precise, due to the higher values)
                 for (int foodLevel = wildLevelsFromImprintedFood.Min; foodLevel <= wildLevelsFromImprintedFood.Max; foodLevel++)
                 {
                     MinMaxDouble imprintingBonusFromFood = new MinMaxDouble(
-                        (((food - 0.05) / (1 + species.stats[(int)StatNames.Food].MultAffinity) - species.stats[(int)StatNames.Food].AddWhenTamed) / StatValueCalculation.CalculateValue(species, (int)StatNames.Food, foodLevel, 0, false, 0, 0) - 1) / imprintingProductFood,
-                        (((food + 0.05) / (1 + species.stats[(int)StatNames.Food].MultAffinity) - species.stats[(int)StatNames.Food].AddWhenTamed) / StatValueCalculation.CalculateValue(species, (int)StatNames.Food, foodLevel, 0, false, 0, 0) - 1) / imprintingProductFood);
+                        (((food - 0.05) / (1 + species.stats[Stats.Food].MultAffinity) - species.stats[Stats.Food].AddWhenTamed) / StatValueCalculation.CalculateValue(species, Stats.Food, foodLevel, 0, false, 0, 0) - 1) / imprintingProductFood,
+                        (((food + 0.05) / (1 + species.stats[Stats.Food].MultAffinity) - species.stats[Stats.Food].AddWhenTamed) / StatValueCalculation.CalculateValue(species, Stats.Food, foodLevel, 0, false, 0, 0) - 1) / imprintingProductFood);
 
 
                     // NOTE: it's assumed if the IB-food is in the range of IB-torpor, the values are correct. This doesn't have to be true, but is very probable. If extraction-issues appear, this assumption could be the reason.
@@ -452,8 +452,8 @@ namespace ARKBreedingStats
                     {
                         MinMaxDouble intersectionIB = new MinMaxDouble(imprintingBonusRange);
                         intersectionIB.SetToIntersectionWith(imprintingBonusFromFood);
-                        if (StatValueCalculation.CalculateValue(species, (int)StatNames.Torpidity, torporLevel, 0, true, 1, intersectionIB.Min) <= torpor
-                            && StatValueCalculation.CalculateValue(species, (int)StatNames.Torpidity, torporLevel, 0, true, 1, intersectionIB.Max) >= torpor)
+                        if (StatValueCalculation.CalculateValue(species, Stats.Torpidity, torporLevel, 0, true, 1, intersectionIB.Min) <= torpor
+                            && StatValueCalculation.CalculateValue(species, Stats.Torpidity, torporLevel, 0, true, 1, intersectionIB.Max) >= torpor)
                         {
                             //imprintingBonusFromTorpor = imprintingBonusFromFood;
                             imprintingBonusRange.SetToIntersectionWith(imprintingBonusFromFood);
@@ -464,7 +464,7 @@ namespace ARKBreedingStats
 
                 // if classic method results in value in the possible range, take this, probably most exact value
                 if (imprintingBonusRange.Includes(imprintingBonusFromGainPerCuddle)
-                    && StatValueCalculation.CalculateValue(species, (int)StatNames.Torpidity, torporLevel, 0, true, 1, imprintingBonusFromGainPerCuddle) == torpor)
+                    && StatValueCalculation.CalculateValue(species, Stats.Torpidity, torporLevel, 0, true, 1, imprintingBonusFromGainPerCuddle) == torpor)
                 {
                     imprintingBonusRange.MinMax = imprintingBonusFromGainPerCuddle;
                     support++;
@@ -490,7 +490,7 @@ namespace ARKBreedingStats
                 // if min TE is equal or greater than 1, that indicates it can't possibly be anything but bred, and there cannot be any results that should be sorted out
                 if (minTECheck < 1)
                 {
-                    for (int s = 0; s < Values.STATS_COUNT; s++)
+                    for (int s = 0; s < Stats.StatsCount; s++)
                     {
                         if (Results[s].Count == 0 || Results[s][0].TE.Max < 0)
                             continue;
@@ -516,9 +516,9 @@ namespace ARKBreedingStats
             _levelsUndeterminedWild = LevelWildSum;
             _levelsUndeterminedDom = LevelDomSum;
             // subtract all uniquely solved stat-levels from possible max and min of sum
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (s == (int)StatNames.Torpidity) continue;
+                if (s == Stats.Torpidity) continue;
                 AdjustBoundsToStatResults(s);
             }
             if (_levelsUndeterminedWild < _lowerBoundWilds.Sum() || _levelsUndeterminedDom < _lowerBoundDoms.Sum())
@@ -537,9 +537,9 @@ namespace ARKBreedingStats
                 do
                 {
                     filterBoundsAgain = false;
-                    for (int s = 0; s < Values.STATS_COUNT; s++)
+                    for (int s = 0; s < Stats.StatsCount; s++)
                     {
-                        if (s == (int)StatNames.Torpidity) continue;
+                        if (s == Stats.Torpidity) continue;
                         for (int r = 0; r < Results[s].Count; r++)
                         {
                             if (Results[s].Count > 1
@@ -693,9 +693,9 @@ namespace ARKBreedingStats
             int wildMax = _levelsUndeterminedWild, dom = _levelsUndeterminedDom;
 
             // set all results to non-valid that are in a fixed stat and not the chosen one
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (s == (int)StatNames.Torpidity) continue;
+                if (s == Stats.Torpidity) continue;
                 for (int r = 0; r < Results[s].Count; r++)
                 {
                     Results[s][r].currentlyNotValid = (FixedResults[s] && dontFix != s && r != ChosenResults[s]);
@@ -717,9 +717,9 @@ namespace ARKBreedingStats
             while (loopAgain)
             {
                 loopAgain = false;
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
-                    if (s == (int)StatNames.Torpidity) continue;
+                    if (s == Stats.Torpidity) continue;
                     int validResultsNr = 0;
                     int uniqueR = -1;
                     for (int r = 0; r < Results[s].Count; r++)
@@ -771,7 +771,7 @@ namespace ARKBreedingStats
         {
             get
             {
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     if (Results[s].Count == 0)
                     {

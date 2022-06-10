@@ -12,7 +12,6 @@ using ARKBreedingStats.utils;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
-using ARKBreedingStats.Ark;
 using ARKBreedingStats.library;
 using ARKBreedingStats.settings;
 
@@ -264,8 +263,8 @@ namespace ARKBreedingStats
         /// <returns></returns>
         private int[] GetCurrentWildLevels(bool fromExtractor = true)
         {
-            int[] levelsWild = new int[Values.STATS_COUNT];
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            int[] levelsWild = new int[Stats.StatsCount];
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 levelsWild[s] = fromExtractor ? _statIOs[s].LevelWild : _testingIOs[s].LevelWild;
             }
@@ -279,8 +278,8 @@ namespace ARKBreedingStats
         /// <returns></returns>
         private int[] GetCurrentDomLevels(bool fromExtractor = true)
         {
-            int[] levelsDom = new int[Values.STATS_COUNT];
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            int[] levelsDom = new int[Stats.StatsCount];
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 levelsDom[s] = fromExtractor ? _statIOs[s].LevelDom : _testingIOs[s].LevelDom;
             }
@@ -362,11 +361,11 @@ namespace ARKBreedingStats
                     continue;
                 var speciesCreatures = g.ToArray();
 
-                List<int> usedStatIndices = new List<int>(Values.STATS_COUNT);
-                List<int> usedAndConsideredStatIndices = new List<int>(Values.STATS_COUNT);
-                int[] bestStat = new int[Values.STATS_COUNT];
-                int[] lowestStat = new int[Values.STATS_COUNT];
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                List<int> usedStatIndices = new List<int>(Stats.StatsCount);
+                List<int> usedAndConsideredStatIndices = new List<int>(Stats.StatsCount);
+                int[] bestStat = new int[Stats.StatsCount];
+                int[] lowestStat = new int[Stats.StatsCount];
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     bestStat[s] = -1;
                     lowestStat[s] = -1;
@@ -377,7 +376,7 @@ namespace ARKBreedingStats
                             usedAndConsideredStatIndices.Add(s);
                     }
                 }
-                List<Creature>[] bestCreatures = new List<Creature>[Values.STATS_COUNT];
+                List<Creature>[] bestCreatures = new List<Creature>[Stats.StatsCount];
                 int usedStatsCount = usedStatIndices.Count;
                 int usedAndConsideredStatsCount = usedAndConsideredStatIndices.Count;
 
@@ -387,7 +386,7 @@ namespace ARKBreedingStats
                         continue;
 
                     // reset topBreeding stats for this creature
-                    c.topBreedingStats = new bool[Values.STATS_COUNT];
+                    c.topBreedingStats = new bool[Stats.StatsCount];
                     c.topBreedingCreature = false;
 
                     if (
@@ -469,7 +468,7 @@ namespace ARKBreedingStats
                 }
 
                 // if any male is in more than 1 category, remove any male from the topBreedingCreatures that is not top in at least 2 categories himself
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     if (bestCreatures[s] == null || bestCreatures[s].Count == 0)
                     {
@@ -492,7 +491,7 @@ namespace ARKBreedingStats
                         Creature currentCreature = bestCreatures[s][c];
                         // check how many best stat the male has
                         int maxval = 0;
-                        for (int cs = 0; cs < Values.STATS_COUNT; cs++)
+                        for (int cs = 0; cs < Stats.StatsCount; cs++)
                         {
                             if (currentCreature.levelsWild[cs] == bestStat[cs])
                                 maxval++;
@@ -512,7 +511,7 @@ namespace ARKBreedingStats
                                 Creature otherMale = bestCreatures[s][oc];
 
                                 int othermaxval = 0;
-                                for (int ocs = 0; ocs < Values.STATS_COUNT; ocs++)
+                                for (int ocs = 0; ocs < Stats.StatsCount; ocs++)
                                 {
                                     if (otherMale.levelsWild[ocs] == bestStat[ocs])
                                         othermaxval++;
@@ -525,7 +524,7 @@ namespace ARKBreedingStats
                 }
 
                 // now we have a list of all candidates for breeding. Iterate on stats.
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     if (bestCreatures[s] != null)
                     {
@@ -927,7 +926,7 @@ namespace ARKBreedingStats
             // check if we display group for species or not.
             ListViewItem lvi = g != null && Properties.Settings.Default.LibraryGroupBySpecies ? new ListViewItem(subItems, g) : new ListViewItem(subItems);
 
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (cr.valuesDom[s] == 0)
                 {
@@ -942,7 +941,7 @@ namespace ARKBreedingStats
                     lvi.SubItems[s + 12].BackColor = Color.White;
                 }
                 else
-                    lvi.SubItems[s + 12].BackColor = Utils.GetColorFromPercent((int)(cr.levelsWild[s] * (s == (int)StatNames.Torpidity ? colorFactor / 7 : colorFactor)), // TODO set factor to number of other stats (flyers have 6, Gacha has 8?)
+                    lvi.SubItems[s + 12].BackColor = Utils.GetColorFromPercent((int)(cr.levelsWild[s] * (s == Stats.Torpidity ? colorFactor / 7 : colorFactor)), // TODO set factor to number of other stats (flyers have 6, Gacha has 8?)
                             _considerStatHighlight[s] ? cr.topBreedingStats[s] ? 0.2 : 0.7 : 0.93);
             }
             lvi.SubItems[4].BackColor = cr.flags.HasFlag(CreatureFlags.Neutered) ? Color.FromArgb(220, 220, 220) :
@@ -963,7 +962,7 @@ namespace ARKBreedingStats
                 lvi.SubItems[0].ForeColor = Color.DarkBlue;
             }
             else if (_creatureCollection.maxServerLevel > 0
-                    && cr.levelsWild[(int)StatNames.Torpidity] + 1 + _creatureCollection.maxDomLevel > _creatureCollection.maxServerLevel + (cr.Species.name.StartsWith("X-") || cr.Species.name.StartsWith("R-") ? 50 : 0))
+                    && cr.levelsWild[Stats.Torpidity] + 1 + _creatureCollection.maxDomLevel > _creatureCollection.maxServerLevel + (cr.Species.name.StartsWith("X-") || cr.Species.name.StartsWith("R-") ? 50 : 0))
             {
                 lvi.SubItems[0].ForeColor = Color.OrangeRed; // this creature may pass the max server level and could be deleted by the game
             }
@@ -1209,7 +1208,7 @@ namespace ARKBreedingStats
                     customStatNames = selectedSpecies.statNames;
                 }
 
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                     listViewLibrary.Columns[12 + s].Text = Utils.StatName(s, true, customStatNames);
 
                 _creaturesPreFiltered = ApplyLibraryFilterSettings(filteredList).ToArray();
@@ -1747,7 +1746,7 @@ namespace ARKBreedingStats
             bool libraryChanged = false;
             var affectedSpeciesBlueprints = new List<string>();
 
-            var statIndicesAffectedByMutagen = GameConstants.StatIndicesAffectedByMutagen;
+            var statIndicesAffectedByMutagen = Ark.StatIndicesAffectedByMutagen;
             var statCountAffectedByMutagen = statIndicesAffectedByMutagen.Length;
 
             foreach (ListViewItem i in listViewLibrary.SelectedItems)
@@ -1757,11 +1756,11 @@ namespace ARKBreedingStats
                 if (!c.isDomesticated
                     || c.flags.HasFlag(CreatureFlags.MutagenApplied)) continue;
 
-                var levelIncrease = c.isBred ? GameConstants.MutagenLevelUpsBred : GameConstants.MutagenLevelUpsNonBred;
+                var levelIncrease = c.isBred ? Ark.MutagenLevelUpsBred : Ark.MutagenLevelUpsNonBred;
 
                 foreach (var si in statIndicesAffectedByMutagen)
                     c.levelsWild[si] += levelIncrease;
-                c.levelsWild[(int)StatNames.Torpidity] += statCountAffectedByMutagen * levelIncrease;
+                c.levelsWild[Stats.Torpidity] += statCountAffectedByMutagen * levelIncrease;
 
                 c.flags |= CreatureFlags.MutagenApplied;
 

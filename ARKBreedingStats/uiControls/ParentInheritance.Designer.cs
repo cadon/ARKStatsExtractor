@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats.uiControls
+﻿using ARKBreedingStats.Pedigree;
+
+namespace ARKBreedingStats.uiControls
 {
     partial class ParentInheritance
     {

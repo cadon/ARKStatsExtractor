@@ -73,7 +73,7 @@ namespace ARKBreedingStats.species
         /// <returns></returns>
         public static Bitmap GetColoredCreature(byte[] colorIds, Species species, bool[] enabledColorRegions, int size = 128, int pieSize = 64, bool onlyColors = false, bool onlyImage = false, Sex creatureSex = Sex.Unknown)
         {
-            if (colorIds == null) colorIds = new byte[Species.ColorRegionCount];
+            if (colorIds == null) colorIds = new byte[Ark.ColorRegionCount];
 
             string speciesName = null;
             if (string.IsNullOrEmpty(species?.name))
@@ -203,7 +203,7 @@ namespace ARKBreedingStats.species
 
         private static Bitmap DrawPieChart(byte[] colorIds, bool[] enabledColorRegions, int size, int pieSize)
         {
-            int pieAngle = enabledColorRegions?.Count(c => c) ?? Species.ColorRegionCount;
+            int pieAngle = enabledColorRegions?.Count(c => c) ?? Ark.ColorRegionCount;
             pieAngle = 360 / (pieAngle > 0 ? pieAngle : 1);
             int pieNr = 0;
 
@@ -211,7 +211,7 @@ namespace ARKBreedingStats.species
             using (Graphics graph = Graphics.FromImage(bm))
             {
                 graph.SmoothingMode = SmoothingMode.AntiAlias;
-                for (int c = 0; c < Species.ColorRegionCount; c++)
+                for (int c = 0; c < Ark.ColorRegionCount; c++)
                 {
                     if (enabledColorRegions?[c] ?? true)
                     {
@@ -277,9 +277,9 @@ namespace ARKBreedingStats.species
                 // if species has color regions, apply colors
                 if (File.Exists(speciesColorMaskFilePath))
                 {
-                    var rgb = new byte[Species.ColorRegionCount][];
-                    var useColorRegions = new bool[Species.ColorRegionCount];
-                    for (int c = 0; c < Species.ColorRegionCount; c++)
+                    var rgb = new byte[Ark.ColorRegionCount][];
+                    var useColorRegions = new bool[Ark.ColorRegionCount];
+                    for (int c = 0; c < Ark.ColorRegionCount; c++)
                     {
                         useColorRegions[c] = enabledColorRegions[c] && colorIds[c] != 0;
                         if (useColorRegions[c])
@@ -394,7 +394,7 @@ namespace ARKBreedingStats.species
                                 byte finalG = dBg[1];
                                 byte finalB = dBg[0];
 
-                                for (int m = 0; m < Species.ColorRegionCount; m++)
+                                for (int m = 0; m < Ark.ColorRegionCount; m++)
                                 {
                                     if (!enabledColorRegions[m])
                                         continue;
@@ -465,7 +465,7 @@ namespace ARKBreedingStats.species
 
             var creatureRegionColors = new StringBuilder("Colors:");
             var cs = species.colors;
-            for (int r = 0; r < Species.ColorRegionCount; r++)
+            for (int r = 0; r < Ark.ColorRegionCount; r++)
             {
                 if (!string.IsNullOrEmpty(cs[r]?.name))
                 {

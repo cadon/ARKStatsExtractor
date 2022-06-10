@@ -76,7 +76,7 @@ namespace ARKBreedingStats.duplicates
             if (isAscendant(c2, c1)) return false;
 
             // check wild levels
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (c1.levelsWild[s] != c2.levelsWild[s])
                 {

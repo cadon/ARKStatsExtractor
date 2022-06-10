@@ -125,7 +125,7 @@ namespace ARKBreedingStats.Library
 
         /// <summary>
         /// Some mods allow to change stat values of species in an extra ini file. These overrides are stored here.
-        /// The last item (i.e. index Values.STATS_COUNT) is an array of possible imprintingMultiplier overrides.
+        /// The last item (i.e. index StatNames.StatsCount) is an array of possible imprintingMultiplier overrides.
         /// </summary>
         [JsonProperty]
         public Dictionary<string, double?[][]> CustomSpeciesStats;
@@ -471,7 +471,7 @@ namespace ARKBreedingStats.Library
             infoText = null;
             if (string.IsNullOrEmpty(species?.blueprintPath)) return null;
 
-            var usedColorIndices = Enumerable.Range(0, Species.ColorRegionCount).Where(i => species.EnabledColorRegions[i]).ToArray();
+            var usedColorIndices = Enumerable.Range(0, Ark.ColorRegionCount).Where(i => species.EnabledColorRegions[i]).ToArray();
             var usedColorCount = usedColorIndices.Length;
 
             // create data if not available in the cache
@@ -502,7 +502,7 @@ namespace ARKBreedingStats.Library
             var newSpeciesColors = new List<string>(usedColorCount);
             var newRegionColors = new List<string>(usedColorCount);
 
-            var results = new ColorExisting[Species.ColorRegionCount];
+            var results = new ColorExisting[Ark.ColorRegionCount];
             for (int i = 0; i < usedColorCount; i++)
             {
                 var colorRegionId = usedColorIndices[i];

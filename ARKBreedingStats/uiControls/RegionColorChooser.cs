@@ -28,8 +28,8 @@ namespace ARKBreedingStats.uiControls
         {
             InitializeComponent();
 
-            _buttonColors = new NoPaddingButton[Species.ColorRegionCount];
-            for (int i = 0; i < Species.ColorRegionCount; i++)
+            _buttonColors = new NoPaddingButton[Ark.ColorRegionCount];
+            for (int i = 0; i < Ark.ColorRegionCount; i++)
             {
                 var b = new NoPaddingButton { Width = 27, Height = 27, Margin = new Padding(1), Text = i.ToString() };
                 var ii = i;
@@ -38,10 +38,10 @@ namespace ARKBreedingStats.uiControls
                 flowLayoutPanel1.Controls.Add(b);
             }
 
-            _selectedRegionColorIds = new byte[Species.ColorRegionCount];
-            _selectedColorIdsAlternative = new byte[Species.ColorRegionCount];
+            _selectedRegionColorIds = new byte[Ark.ColorRegionCount];
+            _selectedColorIdsAlternative = new byte[Ark.ColorRegionCount];
 
-            ColorRegionsUseds = new bool[Species.ColorRegionCount];
+            ColorRegionsUseds = new bool[Ark.ColorRegionCount];
             _colorPicker = new MyColorPicker();
             _tt.AutoPopDelay = 7000;
             Disposed += RegionColorChooser_Disposed;
@@ -64,7 +64,7 @@ namespace ARKBreedingStats.uiControls
             {
                 // species-info is not available, show all region-buttons
                 _colorRegions = new List<ColorRegion>();
-                for (int i = 0; i < Species.ColorRegionCount; i++)
+                for (int i = 0; i < Ark.ColorRegionCount; i++)
                 {
                     _colorRegions.Add(new ColorRegion());
                 }
@@ -141,7 +141,7 @@ namespace ARKBreedingStats.uiControls
 
         private void ChooseColor(int region, Button sender)
         {
-            if (!_colorPicker.isShown && _colorRegions != null && region < Species.ColorRegionCount)
+            if (!_colorPicker.isShown && _colorRegions != null && region < Ark.ColorRegionCount)
             {
                 _colorPicker.PickColor(_selectedRegionColorIds[region], _colorRegions[region].name + " (region " + region + ")", _colorRegions[region]?.naturalColors, _selectedColorIdsAlternative?[region] ?? 0);
                 if (_colorPicker.ShowDialog() == DialogResult.OK)
@@ -151,7 +151,7 @@ namespace ARKBreedingStats.uiControls
                     if (_colorPicker.SelectedColorIdAlternative != 0)
                     {
                         if (_selectedColorIdsAlternative == null)
-                            _selectedColorIdsAlternative = new byte[Species.ColorRegionCount];
+                            _selectedColorIdsAlternative = new byte[Ark.ColorRegionCount];
                         _selectedColorIdsAlternative[region] = _colorPicker.SelectedColorIdAlternative;
                         _buttonColors[region].AlternativeColorPossible = true;
                     }
@@ -199,7 +199,7 @@ namespace ARKBreedingStats.uiControls
             ColorNewInSpecies = false;
 
             var parameter = CreatureCollection.ColorExisting.Unknown;
-            for (int ci = 0; ci < Species.ColorRegionCount; ci++)
+            for (int ci = 0; ci < Ark.ColorRegionCount; ci++)
             {
                 if (colorAlreadyAvailable != null)
                     parameter = colorAlreadyAvailable[ci];

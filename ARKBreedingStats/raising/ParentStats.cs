@@ -18,14 +18,14 @@ namespace ARKBreedingStats.raising
             InitializeComponent();
 
             _parentStatValues = new List<ParentStatValues>();
-            for (int s = 0; s < values.Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 ParentStatValues psv = new ParentStatValues();
                 psv.StatName = Utils.StatName(s, true) + (Utils.Precision(s) == 1 ? string.Empty : " %");
                 _parentStatValues.Add(psv);
                 flowLayoutPanel1.SetFlowBreak(psv, true);
             }
-            for (int s = 0; s < values.Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
                 flowLayoutPanel1.Controls.Add(_parentStatValues[values.Values.statsDisplayOrder[s]]);
 
             _lbLevel = new Label
@@ -40,7 +40,7 @@ namespace ARKBreedingStats.raising
 
         public void Clear()
         {
-            for (int s = 0; s < values.Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
                 _parentStatValues[s].setValues();
             _lbLevel.Text = string.Empty;
         }
@@ -51,7 +51,7 @@ namespace ARKBreedingStats.raising
             {
                 labelMother.Text = Loc.S("Unknown");
                 labelFather.Text = Loc.S("Unknown");
-                for (int s = 0; s < values.Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     _parentStatValues[s].setValues();
                 }
@@ -60,10 +60,10 @@ namespace ARKBreedingStats.raising
 
             Species species = mother?.Species ?? father.Species;
 
-            for (int s = 0; s < values.Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 // only display used stats and don't display torpidity
-                bool statDisplayed = s != (int)StatNames.Torpidity
+                bool statDisplayed = s != Stats.Torpidity
                                      && species.UsesStat(s);
 
                 _parentStatValues[s].Visible = statDisplayed;

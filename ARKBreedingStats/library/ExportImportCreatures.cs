@@ -64,10 +64,10 @@ namespace ARKBreedingStats.library
                         output.Append("MotherName\tFatherName\t");
                         break;
                     case TableExportFields.ColorIds:
-                        output.Append(string.Join("\t", Enumerable.Range(0, Species.ColorRegionCount).Select(i => $"c{i}")) + "\t");
+                        output.Append(string.Join("\t", Enumerable.Range(0, Ark.ColorRegionCount).Select(i => $"c{i}")) + "\t");
                         break;
                     case TableExportFields.ColorNames:
-                        output.Append(string.Join("\t", Enumerable.Range(0, Species.ColorRegionCount).Select(i => $"c{i}_Name")) + "\t");
+                        output.Append(string.Join("\t", Enumerable.Range(0, Ark.ColorRegionCount).Select(i => $"c{i}_Name")) + "\t");
                         break;
                     default:
                         output.Append($"{f}\t");
@@ -138,11 +138,11 @@ namespace ARKBreedingStats.library
                             output.Append(c.note + "\t");
                             break;
                         case TableExportFields.ColorIds:
-                            for (int ci = 0; ci < Species.ColorRegionCount; ci++)
+                            for (int ci = 0; ci < Ark.ColorRegionCount; ci++)
                                 output.Append($"{c.colors[ci]}\t");
                             break;
                         case TableExportFields.ColorNames:
-                            for (int ci = 0; ci < Species.ColorRegionCount; ci++)
+                            for (int ci = 0; ci < Ark.ColorRegionCount; ci++)
                                 output.Append($"{CreatureColors.CreatureColorName(c.colors[ci])}\t");
                             break;
                         case TableExportFields.ServerName:
@@ -229,7 +229,7 @@ namespace ARKBreedingStats.library
                                            (ARKml ? Utils.GetARKml(c.Species.name, 50, 172, 255) : c.Species.name)
                                            + ", Lvl " + (breeding ? c.LevelHatched : c.Level) + modifierText +
                                            (c.sex != Sex.Unknown ? ", " + c.sex : string.Empty) + "): ");
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 int si = Values.statsDisplayOrder[s];
                 if (c.levelsWild[si] >= 0 &&
@@ -240,12 +240,12 @@ namespace ARKBreedingStats.library
                                   " (" + (ARKml
                                       ? Utils.GetARKmlFromPercent(c.levelsWild[si].ToString(),
                                           (int)(c.levelsWild[si] *
-                                                 (si == (int)StatNames.Torpidity ? colorFactor / 7 : colorFactor)))
+                                                 (si == Stats.Torpidity ? colorFactor / 7 : colorFactor)))
                                       : c.levelsWild[si].ToString()) +
-                                  (ARKml ? breeding || si == (int)StatNames.Torpidity ? string.Empty :
+                                  (ARKml ? breeding || si == Stats.Torpidity ? string.Empty :
                                       ", " + Utils.GetARKmlFromPercent(c.levelsDom[si].ToString(),
                                           (int)(c.levelsDom[si] * colorFactor)) :
-                                      breeding || si == (int)StatNames.Torpidity ? string.Empty : ", " + c.levelsDom[si]) +
+                                      breeding || si == Stats.Torpidity ? string.Empty : ", " + c.levelsDom[si]) +
                                   "); ");
             }
 
@@ -281,7 +281,7 @@ namespace ARKBreedingStats.library
             const string statRegex = @"(?: (\w+): [\d.]+(?: ?%)? \((\d+)(?:, (\d+))?\);)?";
 
             Regex r = new Regex(
-                @"(.*?) \(([^,]+), Lvl \d+(?:, (?:wild|TE: ([\d.]+) ?%|Impr: ([\d.]+) ?%))?(?:, (Female|Male))?\):" + string.Concat(Enumerable.Repeat(statRegex, Values.STATS_COUNT)));
+                @"(.*?) \(([^,]+), Lvl \d+(?:, (?:wild|TE: ([\d.]+) ?%|Impr: ([\d.]+) ?%))?(?:, (Female|Male))?\):" + string.Concat(Enumerable.Repeat(statRegex, Stats.StatsCount)));
             Match m = r.Match(creatureValues);
             if (!m.Success) return null;
 
@@ -308,17 +308,17 @@ namespace ARKBreedingStats.library
             }
 
             // stat levels start in the match group 6, each stat has 3 groups: 0: stat abbreviation, 1: wild level, 2: dom level
-            int[] wl = new int[Values.STATS_COUNT];
-            int[] dl = new int[Values.STATS_COUNT];
-            var statAbToIndex = Enumerable.Range(0, Values.STATS_COUNT)
+            int[] wl = new int[Stats.StatsCount];
+            int[] dl = new int[Stats.StatsCount];
+            var statAbToIndex = Enumerable.Range(0, Stats.StatsCount)
                 .ToDictionary(si => Utils.StatName(si, true, species.statNames), si => si);
 
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (!statAbToIndex.TryGetValue(m.Groups[6 + 3 * s].Value, out var si)) continue;
 
                 int.TryParse(m.Groups[7 + 3 * s].Value, out wl[si]);
-                if (si != (int)StatNames.Torpidity)
+                if (si != Stats.Torpidity)
                     int.TryParse(m.Groups[8 + 3 * s].Value, out dl[si]);
             }
 
@@ -410,18 +410,18 @@ namespace ARKBreedingStats.library
 
                 const int groupIndexOfFirstWildLevel = 20;
 
-                var levelsWild = new int[Values.STATS_COUNT];
-                var levelsDom = new int[Values.STATS_COUNT];
-                for (int si = 0; si < Values.STATS_COUNT; si++)
+                var levelsWild = new int[Stats.StatsCount];
+                var levelsDom = new int[Stats.StatsCount];
+                for (int si = 0; si < Stats.StatsCount; si++)
                 {
                     levelsWild[si] = int.Parse(m.Groups[groupIndexOfFirstWildLevel + si].Value.Trim());
-                    levelsDom[si] = int.Parse(m.Groups[groupIndexOfFirstWildLevel + Values.STATS_COUNT + si].Value.Trim());
+                    levelsDom[si] = int.Parse(m.Groups[groupIndexOfFirstWildLevel + Stats.StatsCount + si].Value.Trim());
                 }
 
-                var colorIds = new byte[Species.ColorRegionCount];
-                for (int ci = 0; ci < Species.ColorRegionCount; ci++)
+                var colorIds = new byte[Ark.ColorRegionCount];
+                for (int ci = 0; ci < Ark.ColorRegionCount; ci++)
                 {
-                    colorIds[ci] = (byte)int.Parse(m.Groups[groupIndexOfFirstWildLevel + 2 * Values.STATS_COUNT + ci].Value.Trim());
+                    colorIds[ci] = (byte)int.Parse(m.Groups[groupIndexOfFirstWildLevel + 2 * Stats.StatsCount + ci].Value.Trim());
                 }
 
                 var creature = new Creature(species, m.Groups[3].Value.Trim(), m.Groups[4].Value.Trim(), m.Groups[6].Value.Trim(), sex,

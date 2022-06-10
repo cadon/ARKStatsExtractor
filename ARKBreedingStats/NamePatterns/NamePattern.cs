@@ -41,9 +41,9 @@ namespace ARKBreedingStats.NamePatterns
                 {
                     int topLevelSum = 0;
                     int creatureLevelSum = 0;
-                    for (int s = 0; s < Values.STATS_COUNT; s++)
+                    for (int s = 0; s < Stats.StatsCount; s++)
                     {
-                        if (s != (int)StatNames.Torpidity
+                        if (s != Stats.Torpidity
                             && creature.Species.UsesStat(s)
                             && (Properties.Settings.Default.consideredStats & (1 << s)) != 0
                             )
@@ -166,18 +166,18 @@ namespace ARKBreedingStats.NamePatterns
         }
 
         private static readonly string[] StatAbbreviationFromIndex = {
-            "hp", // (int)StatNames.Health;
-            "st", // (int)StatNames.Stamina;
-            "to", // (int)StatNames.Torpidity;
-            "ox", // (int)StatNames.Oxygen;
-            "fo", // (int)StatNames.Food;
-            "wa", // (int)StatNames.Water;
-            "te", // (int)StatNames.Temperature;
-            "we", // (int)StatNames.Weight;
-            "dm", // (int)StatNames.MeleeDamageMultiplier;
-            "sp", // (int)StatNames.SpeedMultiplier;
-            "fr", // (int)StatNames.TemperatureFortitude;
-            "cr"  // (int)StatNames.CraftingSpeedMultiplier;
+            "hp", // StatNames.Health;
+            "st", // StatNames.Stamina;
+            "to", // StatNames.Torpidity;
+            "ox", // StatNames.Oxygen;
+            "fo", // StatNames.Food;
+            "wa", // StatNames.Water;
+            "te", // StatNames.Temperature;
+            "we", // StatNames.Weight;
+            "dm", // StatNames.MeleeDamageMultiplier;
+            "sp", // StatNames.SpeedMultiplier;
+            "fr", // StatNames.TemperatureFortitude;
+            "cr"  // StatNames.CraftingSpeedMultiplier;
         };
 
 
@@ -292,10 +292,10 @@ namespace ARKBreedingStats.NamePatterns
             }
 
             // stat index and according level
-            var levelOrder = new List<Tuple<int, int>>(Values.STATS_COUNT);
-            for (int si = 0; si < Values.STATS_COUNT; si++)
+            var levelOrder = new List<Tuple<int, int>>(Stats.StatsCount);
+            for (int si = 0; si < Stats.StatsCount; si++)
             {
-                if (si != (int)StatNames.Torpidity && creature.Species.UsesStat(si))
+                if (si != Stats.Torpidity && creature.Species.UsesStat(si))
                     levelOrder.Add(new Tuple<int, int>(si, creature.levelsWild[si]));
             }
             levelOrder = levelOrder.OrderByDescending(l => l.Item2).ToList();
@@ -353,7 +353,7 @@ namespace ARKBreedingStats.NamePatterns
                 { "highest6s", Utils.StatName(levelOrder[5].Item1, true, creature.Species.statNames) },
             };
 
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 dict.Add(StatAbbreviationFromIndex[s], creature.levelsWild[s].ToString());
                 dict.Add($"{StatAbbreviationFromIndex[s]}_vb", (creature.valuesBreeding[s] * (Utils.Precision(s) == 3 ? 100 : 1)).ToString());

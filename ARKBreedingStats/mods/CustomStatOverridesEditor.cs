@@ -22,8 +22,8 @@ namespace ARKBreedingStats.mods
         public CustomStatOverridesEditor(List<Species> species, CreatureCollection cc)
         {
             InitializeComponent();
-            overrideEdits = new StatBaseValuesEdit[Values.STATS_COUNT];
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            overrideEdits = new StatBaseValuesEdit[Stats.StatsCount];
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 var se = new StatBaseValuesEdit();
                 se.SetStatNameByIndex(s);
@@ -72,11 +72,11 @@ namespace ARKBreedingStats.mods
             double?[][] overrides = cc?.CustomSpeciesStats?.ContainsKey(selectedSpecies.blueprintPath) ?? false ? cc.CustomSpeciesStats[selectedSpecies.blueprintPath] : null;
 
             // set control values to overridden values or to default values.
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 overrideEdits[s].SetStatNameByIndex(s, species.statNames);
                 overrideEdits[s].SetStatOverrides(selectedSpecies.fullStatsRaw[s], overrides?[s]);
-                overrideEdits[s].SetImprintingMultiplierOverride(selectedSpecies.StatImprintingMultipliersDefault[s], overrides != null && overrides.Length > Values.STATS_COUNT ? overrides[Values.STATS_COUNT]?[s] : null);
+                overrideEdits[s].SetImprintingMultiplierOverride(selectedSpecies.StatImprintingMultipliersDefault[s], overrides != null && overrides.Length > Stats.StatsCount ? overrides[Stats.StatsCount]?[s] : null);
             }
             ResumeLayout();
         }
@@ -98,20 +98,20 @@ namespace ARKBreedingStats.mods
             if (cc == null) return;
             if (cc.CustomSpeciesStats == null) cc.CustomSpeciesStats = new Dictionary<string, double?[][]>();
             if (!cc.CustomSpeciesStats.ContainsKey(selectedSpecies.blueprintPath))
-                cc.CustomSpeciesStats.Add(selectedSpecies.blueprintPath, new double?[Values.STATS_COUNT + 1][]);
+                cc.CustomSpeciesStats.Add(selectedSpecies.blueprintPath, new double?[Stats.StatsCount + 1][]);
 
             // if current array doesn't consider statImprintingMultipliers, add an element
-            if (cc.CustomSpeciesStats[selectedSpecies.blueprintPath].Length == Values.STATS_COUNT)
+            if (cc.CustomSpeciesStats[selectedSpecies.blueprintPath].Length == Stats.StatsCount)
             {
                 cc.CustomSpeciesStats[selectedSpecies.blueprintPath] = cc.CustomSpeciesStats[selectedSpecies.blueprintPath].Append(null).ToArray();
             }
 
             var overrides = cc.CustomSpeciesStats[selectedSpecies.blueprintPath];
-            double?[] imprintingOverrides = new double?[Values.STATS_COUNT];
+            double?[] imprintingOverrides = new double?[Stats.StatsCount];
 
             bool hasOverride = false;
             bool hasImprintingOverride = false;
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 overrides[s] = overrideEdits[s].StatOverrides;
                 if (overrides[s] != null) hasOverride = true;
@@ -121,7 +121,7 @@ namespace ARKBreedingStats.mods
                 if (imprintingOverrides[s] != null) hasImprintingOverride = true;
             }
 
-            cc.CustomSpeciesStats[selectedSpecies.blueprintPath][Values.STATS_COUNT] = hasImprintingOverride ? imprintingOverrides : null;
+            cc.CustomSpeciesStats[selectedSpecies.blueprintPath][Stats.StatsCount] = hasImprintingOverride ? imprintingOverrides : null;
 
             if (lvSpecies.SelectedItems.Count != 0)
                 lvSpecies.SelectedItems[0].BackColor = RowBackColor(hasOverride || hasImprintingOverride);

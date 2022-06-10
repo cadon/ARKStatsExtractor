@@ -15,14 +15,14 @@ namespace ARKBreedingStats.uiControls
         public StatsDisplay()
         {
             InitializeComponent();
-            displayedStats = new int[] {(int)StatNames.Health,
-                                        (int)StatNames.Stamina,
-                                        (int)StatNames.Oxygen,
-                                        (int)StatNames.Food,
-                                        (int)StatNames.Weight,
-                                        (int)StatNames.MeleeDamageMultiplier,
-                                        (int)StatNames.SpeedMultiplier,
-                                        (int)StatNames.CraftingSpeedMultiplier
+            displayedStats = new int[] {Stats.Health,
+                                        Stats.Stamina,
+                                        Stats.Oxygen,
+                                        Stats.Food,
+                                        Stats.Weight,
+                                        Stats.MeleeDamageMultiplier,
+                                        Stats.SpeedMultiplier,
+                                        Stats.CraftingSpeedMultiplier
                                         };
 
             displayedStatsCount = displayedStats.Length;

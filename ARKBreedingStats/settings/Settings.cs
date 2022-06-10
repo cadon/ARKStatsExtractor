@@ -74,8 +74,8 @@ namespace ARKBreedingStats.settings
         {
             InitializeComponent();
             DisplayServerMultiplierPresets();
-            _multSetter = new MultiplierSetting[Values.STATS_COUNT];
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            _multSetter = new MultiplierSetting[Stats.StatsCount];
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 _multSetter[s] = new MultiplierSetting
                 {
@@ -86,7 +86,7 @@ namespace ARKBreedingStats.settings
 
             // set neutral numbers for stat-multipliers to the default values to easier see what is non-default
             ServerMultipliers officialMultipliers = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official);
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (s < officialMultipliers.statMultipliers.Length)
                     _multSetter[s].SetNeutralValues(officialMultipliers.statMultipliers[s]);
@@ -180,7 +180,7 @@ namespace ARKBreedingStats.settings
         {
             if (cc.serverMultipliers?.statMultipliers != null)
             {
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     if (s < cc.serverMultipliers.statMultipliers.Length && cc.serverMultipliers.statMultipliers[s].Length > 3)
                     {
@@ -413,11 +413,11 @@ namespace ARKBreedingStats.settings
             }
             if (_cc.serverMultipliers.statMultipliers == null)
             {
-                _cc.serverMultipliers.statMultipliers = new double[Values.STATS_COUNT][];
+                _cc.serverMultipliers.statMultipliers = new double[Stats.StatsCount][];
             }
             if (_cc.serverMultipliers?.statMultipliers != null)
             {
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     if (_cc.serverMultipliers.statMultipliers[s] == null)
                         _cc.serverMultipliers.statMultipliers[s] = new double[4];
@@ -428,7 +428,7 @@ namespace ARKBreedingStats.settings
 
             // Torpidity is handled differently by the game, IwM has no effect. Set IwM to 1.
             // Also see https://github.com/cadon/ARKStatsExtractor/issues/942 for more infos about this.
-            _cc.serverMultipliers.statMultipliers[(int)species.StatNames.Torpidity][3] = 1;
+            _cc.serverMultipliers.statMultipliers[Stats.Torpidity][3] = 1;
 
             _cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
             _cc.maxDomLevel = (int)nudMaxDomLevels.Value;
@@ -717,7 +717,7 @@ namespace ARKBreedingStats.settings
             // if an ini file is imported the server is most likely unofficial wit no level cap, if the server has a max level, it will be parsed.
             nudMaxServerLevel.ValueSave = 0;
 
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 ParseAndSetStatMultiplier(0, @"PerLevelStatsMultiplier_DinoTamed_Add\[" + s + @"\] ?= ?(\d*\.?\d+)");
                 ParseAndSetStatMultiplier(1,
@@ -994,7 +994,7 @@ namespace ARKBreedingStats.settings
             }
 
             if (sm.statMultipliers == null) return;
-            int loopTo = Math.Min(Values.STATS_COUNT, sm.statMultipliers.Length);
+            int loopTo = Math.Min(Stats.StatsCount, sm.statMultipliers.Length);
             for (int s = 0; s < loopTo; s++)
             {
                 _multSetter[s].Multipliers = sm.statMultipliers[s];
@@ -1059,7 +1059,7 @@ namespace ARKBreedingStats.settings
             var cultureForStrings = System.Globalization.CultureInfo.GetCultureInfo("en-US");
 
             // stat multipliers
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 sb.AppendLine($"PerLevelStatsMultiplier_DinoTamed_Add[{s}] = {_multSetter[s].Multipliers[0].ToString(cultureForStrings)}");
                 sb.AppendLine($"PerLevelStatsMultiplier_DinoTamed_Affinity[{s}] = {_multSetter[s].Multipliers[1].ToString(cultureForStrings)}");
@@ -1286,7 +1286,7 @@ namespace ARKBreedingStats.settings
         private void CbHighlightAdjustedMultipliers_CheckedChanged(object sender, EventArgs e)
         {
             bool highlight = CbHighlightAdjustedMultipliers.Checked;
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
                 _multSetter[s].SetHighlighted(highlight);
             nudTamingSpeed.SetExtraHighlightNonDefault(highlight);
             nudDinoCharacterFoodDrain.SetExtraHighlightNonDefault(highlight);
@@ -1434,9 +1434,9 @@ namespace ARKBreedingStats.settings
                 _infoGraphicPreviewCreature = DummyCreatures.CreateCreatures(1)?.FirstOrDefault();
                 if (_infoGraphicPreviewCreature == null) return;
                 // add some dom levels
-                _infoGraphicPreviewCreature.levelsDom[(int)StatNames.Health] = 5;
-                _infoGraphicPreviewCreature.levelsDom[(int)StatNames.Weight] = 15;
-                _infoGraphicPreviewCreature.levelsDom[(int)StatNames.MeleeDamageMultiplier] = 8;
+                _infoGraphicPreviewCreature.levelsDom[Stats.Health] = 5;
+                _infoGraphicPreviewCreature.levelsDom[Stats.Weight] = 15;
+                _infoGraphicPreviewCreature.levelsDom[Stats.MeleeDamageMultiplier] = 8;
                 _infoGraphicPreviewCreature.RecalculateCreatureValues(_cc.wildLevelStep);
             }
 

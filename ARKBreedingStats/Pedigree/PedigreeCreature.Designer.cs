@@ -1,4 +1,4 @@
-﻿namespace ARKBreedingStats.uiControls
+﻿namespace ARKBreedingStats.Pedigree
 {
     partial class PedigreeCreature
     {

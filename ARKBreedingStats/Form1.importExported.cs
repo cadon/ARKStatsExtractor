@@ -171,7 +171,7 @@ namespace ARKBreedingStats
                 if (addedToLibrary && copyNameToClipboard)
                     sb.AppendLine("Name copied to clipboard.");
 
-                for (int s = 0; s < values.Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     int statIndex = values.Values.statsDisplayOrder[s];
                     if (!species.UsesStat(statIndex)) continue;

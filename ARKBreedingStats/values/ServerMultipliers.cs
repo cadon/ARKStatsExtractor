@@ -94,8 +94,8 @@ namespace ARKBreedingStats.values
 
             if (withStatMultipliers && statMultipliers != null)
             {
-                sm.statMultipliers = new double[Values.STATS_COUNT][];
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                sm.statMultipliers = new double[Stats.StatsCount][];
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     sm.statMultipliers[s] = new double[4];
                     for (int si = 0; si < 4; si++)

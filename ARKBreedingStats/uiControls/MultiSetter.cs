@@ -32,7 +32,7 @@ namespace ARKBreedingStats.uiControls
             Disposed += MultiSetter_Disposed;
 
             SuspendLayout();
-            _colors = new byte[Species.ColorRegionCount];
+            _colors = new byte[Ark.ColorRegionCount];
             _tagControls = new List<MultiSetterTag>();
 
             this._creatureList = creatureList;

@@ -49,7 +49,7 @@ namespace ARKBreedingStats.Pedigree
             this.statSelector1 = new ARKBreedingStats.uiControls.StatSelector();
             this.LbCreatureName = new System.Windows.Forms.Label();
             this.nudGenerations = new ARKBreedingStats.uiControls.Nud();
-            this.pedigreeCreatureHeaders = new ARKBreedingStats.uiControls.PedigreeCreature();
+            this.pedigreeCreatureHeaders = new PedigreeCreature();
             ((System.ComponentModel.ISupportInitialize)(this.PbRegionColors)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();

@@ -1,16 +1,27 @@
 ﻿using ARKBreedingStats.species;
 
-namespace ARKBreedingStats.Ark
+namespace ARKBreedingStats
 {
     /// <summary>
     /// Constants of the game Ark.
     /// </summary>
-    public static class GameConstants
+    public static class Ark
     {
         #region Breeding
 
-        public const double ProbabilityHigherLevel = 0.55; // probability of inheriting the higher level-stat
-        public const double ProbabilityLowerLevel = 1 - ProbabilityHigherLevel; // probability of inheriting the lower level-stat
+        /// <summary>
+        /// Probability of an offspring to inherit the higher level-stat
+        /// </summary>
+        public const double ProbabilityHigherLevel = 0.55;
+
+        /// <summary>
+        /// Probability of an offspring to inherit the lower level-stat
+        /// </summary>
+        public const double ProbabilityLowerLevel = 1 - ProbabilityHigherLevel;
+
+        /// <summary>
+        /// Probability of a mutation in an offspring
+        /// </summary>
         public const double ProbabilityOfMutation = 0.025;
 
         /// <summary>
@@ -56,7 +67,7 @@ namespace ARKBreedingStats.Ark
         /// Indices of the stats that are affected by a mutagen application (HP, St, We, Dm).
         /// </summary>
         public static int[] StatIndicesAffectedByMutagen => new[]
-            { (int)StatNames.Health, (int)StatNames.Stamina, (int)StatNames.Weight, (int)StatNames.MeleeDamageMultiplier };
+            { Stats.Health, Stats.Stamina, Stats.Weight, Stats.MeleeDamageMultiplier };
 
         #endregion
 
@@ -67,6 +78,34 @@ namespace ARKBreedingStats.Ark
         public const byte DyeFirstId = 201;
         public const byte DyeMaxId = 255;
 
+        /// <summary>
+        /// Number of possible color regions for all species.
+        /// </summary>
+        public const int ColorRegionCount = 6;
+
         #endregion
+    }
+
+    /// <summary>
+    /// Stat count and stat indices.
+    /// </summary>
+    public static class Stats
+    {
+        /// <summary>
+        /// Total count of all stats.
+        /// </summary>
+        public const int StatsCount = 12;
+        public const int Health = 0;
+        public const int Stamina = 1;
+        public const int Torpidity = 2;
+        public const int Oxygen = 3;
+        public const int Food = 4;
+        public const int Water = 5;
+        public const int Temperature = 6;
+        public const int Weight = 7;
+        public const int MeleeDamageMultiplier = 8;
+        public const int SpeedMultiplier = 9;
+        public const int TemperatureFortitude = 10;
+        public const int CraftingSpeedMultiplier = 11;
     }
 }

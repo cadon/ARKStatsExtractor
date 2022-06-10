@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Threading;
-using ARKBreedingStats.Ark;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.Properties;
@@ -78,7 +77,7 @@ namespace ARKBreedingStats
             parentComboBoxMother.SelectedIndex = 0;
             parentComboBoxFather.SelectedIndex = 0;
             _updateMaturation = true;
-            _regionColorIDs = new byte[Species.ColorRegionCount];
+            _regionColorIDs = new byte[Ark.ColorRegionCount];
             CooldownUntil = new DateTime(2000, 1, 1);
             GrowingUntil = new DateTime(2000, 1, 1);
             NamesOfAllCreatures = new List<string>();
@@ -480,7 +479,7 @@ namespace ARKBreedingStats
             set
             {
                 if (_selectedSpecies == null) return;
-                _regionColorIDs = (byte[])value?.Clone() ?? new byte[Species.ColorRegionCount];
+                _regionColorIDs = (byte[])value?.Clone() ?? new byte[Ark.ColorRegionCount];
                 if (DontUpdateVisuals) return;
                 regionColorChooser1.SetSpecies(_selectedSpecies, _regionColorIDs);
                 UpdateRegionColorImage();
@@ -510,7 +509,7 @@ namespace ARKBreedingStats
             set
             {
                 if (_selectedSpecies == null) return;
-                _colorIdsAlsoPossible = (byte[])value?.Clone() ?? new byte[Species.ColorRegionCount];
+                _colorIdsAlsoPossible = (byte[])value?.Clone() ?? new byte[Ark.ColorRegionCount];
                 if (DontUpdateVisuals) return;
                 regionColorChooser1.ColorIdsAlsoPossible = _colorIdsAlsoPossible;
             }
@@ -766,7 +765,7 @@ namespace ARKBreedingStats
             int NewMutations(int mutationCountParent, int mutationCountChild)
             {
                 var newMutationsFromParent = mutationCountChild - mutationCountParent;
-                if (newMutationsFromParent > 0 && newMutationsFromParent <= GameConstants.MutationRolls)
+                if (newMutationsFromParent > 0 && newMutationsFromParent <= Ark.MutationRolls)
                     return mutationCountChild - mutationCountParent;
                 return 0;
             }

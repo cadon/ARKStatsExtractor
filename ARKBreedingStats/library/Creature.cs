@@ -198,7 +198,7 @@ namespace ARKBreedingStats.Library
             this.tribe = tribe;
             this.sex = sex;
             this.levelsWild = levelsWild;
-            this.levelsDom = levelsDom ?? new int[Values.STATS_COUNT];
+            this.levelsDom = levelsDom ?? new int[Stats.StatsCount];
             this.isBred = isBred;
             if (isBred)
             {
@@ -274,7 +274,7 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// The total level without domesticate levels, i.e. the torpidity level + 1.
         /// </summary>
-        public int LevelHatched => (levelsWild?[(int)StatNames.Torpidity] ?? 0) + 1;
+        public int LevelHatched => (levelsWild?[Stats.Torpidity] ?? 0) + 1;
 
         /// <summary>
         /// The total current level inclusive domesticate levels.
@@ -358,15 +358,15 @@ namespace ARKBreedingStats.Library
                 || flags.HasFlag(CreatureFlags.Placeholder))
                 return;
 
-            if (topBreedingStats == null) topBreedingStats = new bool[Values.STATS_COUNT];
+            if (topBreedingStats == null) topBreedingStats = new bool[Stats.StatsCount];
 
             short c = 0, cBP = 0;
             onlyTopConsideredStats = true;
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (topBreedingStats[s])
                 {
-                    if (s != (int)StatNames.Torpidity)
+                    if (s != Stats.Torpidity)
                         cBP++;
                     if (considerStatHighlight[s])
                         c++;
@@ -389,7 +389,7 @@ namespace ARKBreedingStats.Library
             if (Species == null || levelsWild == null) return;
 
             InitializeArrays();
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 valuesBreeding[s] = StatValueCalculation.CalculateValue(Species, s, levelsWild[s], 0, true, 1, 0);
                 valuesDom[s] = StatValueCalculation.CalculateValue(Species, s, levelsWild[s], levelsDom[s], true, tamingEff, imprintingBonus);
@@ -487,10 +487,10 @@ namespace ARKBreedingStats.Library
 
         private void InitializeArrays()
         {
-            if (levelsDom == null) levelsDom = new int[Values.STATS_COUNT];
-            if (valuesBreeding == null) valuesBreeding = new double[Values.STATS_COUNT];
-            if (valuesDom == null) valuesDom = new double[Values.STATS_COUNT];
-            if (topBreedingStats == null) topBreedingStats = new bool[Values.STATS_COUNT];
+            if (levelsDom == null) levelsDom = new int[Stats.StatsCount];
+            if (valuesBreeding == null) valuesBreeding = new double[Stats.StatsCount];
+            if (valuesDom == null) valuesDom = new double[Stats.StatsCount];
+            if (topBreedingStats == null) topBreedingStats = new bool[Stats.StatsCount];
         }
 
         /// <summary>
