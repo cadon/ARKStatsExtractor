@@ -262,7 +262,7 @@ namespace ARKBreedingStats
             // add controls in the order they are shown in-game
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                var displayIndex = Values.statsDisplayOrder[s];
+                var displayIndex = Stats.DisplayOrder[s];
                 flowLayoutPanelStatIOsExtractor.Controls.Add(_statIOs[displayIndex]);
                 flowLayoutPanelStatIOsTester.Controls.Add(_testingIOs[displayIndex]);
                 checkedListBoxConsiderStatTop.Items.Add(Utils.StatName(displayIndex),
@@ -635,10 +635,9 @@ namespace ARKBreedingStats
             {
                 ClearAll();
                 // warn if a species selected that has a possible mod variant
-                if (Values.V.loadedModsHash != Values.NoModsHash
-                    && species.Mod == null
+                if ((species.Mod == null || species.Mod.expansion)
                     && Values.V.TryGetSpeciesByName(species.name, out var modSpecies)
-                    && modSpecies.Mod != null
+                    && modSpecies.Mod?.expansion == false
                 )
                 {
                     SetMessageLabelText(
@@ -1055,7 +1054,7 @@ namespace ARKBreedingStats
 
             if (valuesUpdated)
             {
-                var statsLoaded = LoadStatAndKibbleValues();
+                var statsLoaded = LoadStatAndKibbleValues(forceReload: true);
                 if (statsLoaded.statValuesLoaded)
                 {
                     MessageBox.Show(Loc.S("downloadingValuesSuccess"),
@@ -1083,10 +1082,10 @@ namespace ARKBreedingStats
         /// <summary>
         /// Load stat- and kibble-values.
         /// </summary>
-        private (bool statValuesLoaded, bool kibbleValuesLoaded) LoadStatAndKibbleValues(bool applySettings = true)
+        private (bool statValuesLoaded, bool kibbleValuesLoaded) LoadStatAndKibbleValues(bool applySettings = true, bool forceReload = false)
         {
             (bool statValuesLoaded, bool kibbleValuesLoaded) success = (false, false);
-            if (LoadStatValues(Values.V))
+            if (LoadStatValues(Values.V, forceReload))
             {
                 if (applySettings)
                     ApplySettingsToValues();
@@ -1095,13 +1094,17 @@ namespace ARKBreedingStats
                 success.statValuesLoaded = true;
             }
 
-            success.kibbleValuesLoaded = Kibbles.K.LoadValues();
-            if (!success.kibbleValuesLoaded)
+            if (Kibbles.K.kibble == null
+                && !Kibbles.K.LoadValues(out var errorMessageKibbleLoading))
             {
-                MessageBoxes.ShowMessageBox(
-                    "The kibbles-file couldn't be loaded, the kibble-recipes will not be available. " +
-                    "You can redownload this application to get this file.",
-                    $"{Loc.S("error")}: Kibble-recipe-file not loaded");
+                if (MessageBox.Show(errorMessageKibbleLoading +
+                                    "\n\nDo you want to visit the homepage of the tool to redownload it?",
+                        $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                    Process.Start(Updater.Updater.ReleasesUrl);
+            }
+            else
+            {
+                success.kibbleValuesLoaded = true;
             }
 
             return success;
@@ -1734,7 +1737,7 @@ namespace ARKBreedingStats
             int consideredStats = 0;
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                _considerStatHighlight[Values.statsDisplayOrder[s]] = checkedListBoxConsiderStatTop.GetItemChecked(s);
+                _considerStatHighlight[Stats.DisplayOrder[s]] = checkedListBoxConsiderStatTop.GetItemChecked(s);
 
                 // save consideredStats
                 if (_considerStatHighlight[s])
@@ -2588,7 +2591,7 @@ namespace ARKBreedingStats
         {
             if (cc == null) return false;
 
-            if (!applySettings && cc.modIDs == null || !cc.modIDs.Any())
+            if (!applySettings && (cc.modIDs == null || !cc.modIDs.Any()))
             {
                 // nothing to do, and no error, the modHash seems to be wrong.
                 cc.UpdateModList();
@@ -2637,10 +2640,17 @@ namespace ARKBreedingStats
 
             // if the mods for the library changed,
             // first check if all mod value files are available and load missing files if possible,
-            // then reload all values and modvalues
-            if (_creatureCollection.ModValueReloadNeeded
-                && LoadModValuesOfCollection(_creatureCollection, true, true))
+            // then reload all values and mod values
+            if (_creatureCollection.ModValueReloadNeeded)
+            {
+                var modValuesNeedToBeLoaded = _creatureCollection.ModList?.Any() == true;
+                // first reset values to default
+                LoadStatAndKibbleValues(!modValuesNeedToBeLoaded);
+                // then load mod values if any
+                if (modValuesNeedToBeLoaded)
+                    LoadModValuesOfCollection(_creatureCollection, true, true);
                 SetCollectionChanged(true);
+            }
         }
 
         private void toolStripButtonAddPlayer_Click(object sender, EventArgs e)
@@ -2656,7 +2666,7 @@ namespace ARKBreedingStats
             int obelisk = creatureCount.Count(c => c.Status == CreatureStatus.Obelisk);
             int cryopod = creatureCount.Count(c => c.Status == CreatureStatus.Cryopod);
 
-            bool modsLoaded = _creatureCollection.ModList?.Any() ?? false;
+            var loadedMods = _creatureCollection.ModList?.Where(m => !m.expansion).ToArray();
 
             toolStripStatusLabel.Text = total + " creatures in Library"
                                               + (total > 0
@@ -2674,10 +2684,10 @@ namespace ARKBreedingStats
                                               + ". v" + Application.ProductVersion
                                               //+ "-BETA" // TODO BETA indicator
                                               + " / values: " + Values.V.Version +
-                                              (modsLoaded
+                                              (loadedMods?.Any() == true
                                                   ? ", additional values from " + _creatureCollection.ModList.Count +
-                                                    " mods (" + string.Join(", ",
-                                                        _creatureCollection.ModList.Select(m => m.title).ToArray()) +
+                                                    " mod" + (loadedMods.Length == 1 ? string.Empty : "s") + " (" + string.Join(", ",
+                                                        loadedMods.Select(m => m.title)) +
                                                     ")"
                                                   : string.Empty);
         }

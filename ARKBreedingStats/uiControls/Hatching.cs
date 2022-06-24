@@ -41,7 +41,7 @@ namespace ARKBreedingStats.uiControls
             string sbLowestValues = null;
             string sbLowestLevels = null;
 
-            foreach (var si in Values.statsDisplayOrder)
+            foreach (var si in Stats.DisplayOrder)
             {
                 if (!species.UsesStat(si)) continue;
 

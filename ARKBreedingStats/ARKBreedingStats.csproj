@@ -640,6 +640,7 @@
     <Compile Include="values\ServerMultipliers.cs" />
     <Compile Include="values\Values.cs" />
     <Compile Include="utils\Win32API.cs" />
+    <Compile Include="values\ValuesFile.cs" />
     <None Include="json\equalColorIds.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

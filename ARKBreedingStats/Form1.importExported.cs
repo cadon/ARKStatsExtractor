@@ -173,7 +173,7 @@ namespace ARKBreedingStats
 
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
-                    int statIndex = values.Values.statsDisplayOrder[s];
+                    int statIndex = Stats.DisplayOrder[s];
                     if (!species.UsesStat(statIndex)) continue;
 
                     sb.Append($"{Utils.StatName(statIndex, true, species.statNames)}: { _statIOs[statIndex].LevelWild} ({_statIOs[statIndex].BreedingValue})");

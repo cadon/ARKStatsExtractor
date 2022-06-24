@@ -139,7 +139,7 @@ namespace ARKBreedingStats.library
                 int statDisplayIndex = 0;
                 for (int si = 0; si < Stats.StatsCount; si++)
                 {
-                    int statIndex = Values.statsDisplayOrder[si];
+                    int statIndex = Stats.DisplayOrder[si];
                     if (statIndex == Stats.Torpidity || !creature.Species.UsesStat(statIndex))
                         continue;
 

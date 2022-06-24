@@ -133,17 +133,17 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Calculates a hashcode for a list of mods and their order. Can be used to check for changes.
         /// </summary>
-        public static int CalculateModListHash(List<Mod> modList)
+        public static int CalculateModListHash(IEnumerable<Mod> modList)
         {
             if (modList == null) { return 0; }
 
-            return CalculateModListHash(modList.Select(m => m.id).ToList());
+            return CalculateModListHash(modList.Select(m => m.id));
         }
 
         /// <summary>
         /// Calculates a hashcode for a list of mods and their order. Can be used to check for changes.
         /// </summary>
-        public static int CalculateModListHash(List<string> modIdList)
+        public static int CalculateModListHash(IEnumerable<string> modIdList)
         {
             if (modIdList == null) { return 0; }
             return string.Join(",", modIdList).GetHashCode();

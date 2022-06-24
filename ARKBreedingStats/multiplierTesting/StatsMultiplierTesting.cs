@@ -40,8 +40,8 @@ namespace ARKBreedingStats.multiplierTesting
             // add controls in order like in-game
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                flowLayoutPanel1.Controls.Add(_statControls[Values.statsDisplayOrder[s]]);
-                flowLayoutPanel1.SetFlowBreak(_statControls[Values.statsDisplayOrder[s]], true);
+                flowLayoutPanel1.Controls.Add(_statControls[Stats.DisplayOrder[s]]);
+                flowLayoutPanel1.SetFlowBreak(_statControls[Stats.DisplayOrder[s]], true);
             }
 
             // set bottom controls to bottom

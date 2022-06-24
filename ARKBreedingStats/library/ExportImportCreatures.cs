@@ -42,19 +42,19 @@ namespace ARKBreedingStats.library
                 switch (f)
                 {
                     case TableExportFields.WildLevels:
-                        foreach (var si in Values.statsDisplayOrder)
+                        foreach (var si in Stats.DisplayOrder)
                             output.Append(Utils.StatName(si, true) + "_w\t");
                         break;
                     case TableExportFields.DomLevels:
-                        foreach (var si in Values.statsDisplayOrder)
+                        foreach (var si in Stats.DisplayOrder)
                             output.Append(Utils.StatName(si, true) + "_d\t");
                         break;
                     case TableExportFields.BreedingValues:
-                        foreach (var si in Values.statsDisplayOrder)
+                        foreach (var si in Stats.DisplayOrder)
                             output.Append(Utils.StatName(si, true) + "_b\t");
                         break;
                     case TableExportFields.CurrentValues:
-                        foreach (var si in Values.statsDisplayOrder)
+                        foreach (var si in Stats.DisplayOrder)
                             output.Append(Utils.StatName(si, true) + "_v\t");
                         break;
                     case TableExportFields.ParentIds:
@@ -104,19 +104,19 @@ namespace ARKBreedingStats.library
                             output.Append(c.tribe + "\t");
                             break;
                         case TableExportFields.WildLevels:
-                            foreach (var si in Values.statsDisplayOrder)
+                            foreach (var si in Stats.DisplayOrder)
                                 output.Append($"{c.levelsWild[si]}\t");
                             break;
                         case TableExportFields.DomLevels:
-                            foreach (var si in Values.statsDisplayOrder)
+                            foreach (var si in Stats.DisplayOrder)
                                 output.Append($"{c.levelsDom[si]}\t");
                             break;
                         case TableExportFields.BreedingValues:
-                            foreach (var si in Values.statsDisplayOrder)
+                            foreach (var si in Stats.DisplayOrder)
                                 output.Append($"{c.valuesBreeding[si]}\t");
                             break;
                         case TableExportFields.CurrentValues:
-                            foreach (var si in Values.statsDisplayOrder)
+                            foreach (var si in Stats.DisplayOrder)
                                 output.Append($"{c.valuesDom[si]}\t");
                             break;
                         case TableExportFields.IdInGame:
@@ -231,7 +231,7 @@ namespace ARKBreedingStats.library
                                            (c.sex != Sex.Unknown ? ", " + c.sex : string.Empty) + "): ");
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                int si = Values.statsDisplayOrder[s];
+                int si = Stats.DisplayOrder[s];
                 if (c.levelsWild[si] >= 0 &&
                     c.valuesBreeding[si] > 0) // ignore unknown levels (e.g. oxygen, speed for some species)
                     output.Append(Utils.StatName(si, true) + ": " +

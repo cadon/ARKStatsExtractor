@@ -23,7 +23,7 @@ namespace ARKBreedingStats.uiControls
             }
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                int si = values.Values.statsDisplayOrder[s];
+                int si = Stats.DisplayOrder[s];
                 flpStats.Controls.Add(stats[si]);
                 flpStats.SetFlowBreak(stats[si], true);
             }

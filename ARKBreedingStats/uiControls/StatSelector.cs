@@ -32,7 +32,7 @@ namespace ARKBreedingStats.uiControls
 
             for (int si = 0; si < Stats.StatsCount; si++)
             {
-                var statIndex = Values.statsDisplayOrder[si];
+                var statIndex = Stats.DisplayOrder[si];
                 if (statIndex == Stats.Torpidity) continue;
                 r = new RadioButton
                 {

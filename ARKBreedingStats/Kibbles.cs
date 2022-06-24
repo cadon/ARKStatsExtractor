@@ -3,8 +3,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows.Forms;
-using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
 {
@@ -21,28 +19,25 @@ namespace ARKBreedingStats
         private static Kibbles _K;
         public static Kibbles K => _K ?? (_K = new Kibbles());
 
-        public bool LoadValues()
+        public bool LoadValues(out string errorMessage)
         {
             _K.version = new Version(0, 0);
 
             string filePath = FileService.GetJsonPath(FileService.KibblesJson);
             if (!File.Exists(filePath))
             {
-                if (MessageBox.Show($"Kibble-File {FileService.KibblesJson} not found. " +
-                        "This tool will not show kibble recipes without this file.\n\n" +
-                        "Do you want to visit the homepage of the tool to redownload it?",
-                        $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                    System.Diagnostics.Process.Start(Updater.Updater.ReleasesUrl);
+                errorMessage = $"Kibble file {FileService.KibblesJson} not found. This tool will not show kibble recipes without this file.";
             }
-            else if (FileService.LoadJsonFile(filePath, out Kibbles tempK, out string errorMessage))
+            else if (FileService.LoadJsonFile(filePath, out Kibbles tempK, out string errorMessageFileLoading))
             {
                 _K = tempK;
                 _K.version = new Version(_K.ver);
+                errorMessage = null;
                 return true;
             }
             else
             {
-                MessageBoxes.ShowMessageBox($"File {FileService.KibblesJson} couldn\'t be opened or read.\nErrormessage:\n\n{errorMessage}");
+                errorMessage = $"File {FileService.KibblesJson} couldn\'t be opened or read.\nErrormessage:\n\n{errorMessageFileLoading}";
             }
             return false;
         }

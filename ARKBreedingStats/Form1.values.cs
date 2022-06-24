@@ -102,8 +102,6 @@ namespace ARKBreedingStats
         /// <summary>
         /// Returns true if files were downloaded.
         /// </summary>
-        /// <param name="modValueFileNames"></param>
-        /// <returns></returns>
         private static bool CheckAvailabilityAndUpdateModFiles(List<string> modValueFileNames, Values values)
         {
             var (missingModValueFilesOnlineAvailable, missingModValueFilesOnlineNotAvailable, modValueFilesWithAvailableUpdate) = values.CheckAvailabilityAndUpdateModFiles(modValueFileNames);
@@ -147,6 +145,7 @@ namespace ARKBreedingStats
         private static async Task<bool> LoadModsManifestAsync(Values values, bool forceUpdate = false)
         {
             ModsManifest modsManifest = null;
+
             try
             {
                 try
@@ -183,31 +182,22 @@ namespace ARKBreedingStats
             return true;
         }
 
-        private static void LoadServerMultiplierPresets(Values values)
-        {
-            if (!ServerMultipliersPresets.TryLoadServerMultipliersPresets(out values.serverMultipliersPresets))
-            {
-                MessageBoxes.ShowMessageBox("The file with the server multipliers couldn't be loaded. Changed settings, e.g. for the singleplayer will be not available.\nIt's recommended to download the application again.",
-                    $"Server multiplier file not loaded");
-            }
-        }
-
         /// <summary>
         /// Loads the default stat values. Returns true if successful.
         /// </summary>
         /// <returns></returns>
-        private bool LoadStatValues(Values values)
+        private bool LoadStatValues(Values values, bool forceReload)
         {
             bool success = false;
 
             try
             {
-                values = values.LoadValues();
-
                 if (values.modsManifest == null)
-                    _ = Task.Run(async () => await LoadModsManifestAsync(values));
-                if (values.serverMultipliersPresets == null)
-                    LoadServerMultiplierPresets(values);
+                    LoadModsManifestAsync(values).Wait();
+
+                values.LoadValues(forceReload, out var errorMessage, out var errorMessageTitle);
+                if (!string.IsNullOrEmpty(errorMessage))
+                    MessageBoxes.ShowMessageBox(errorMessage, errorMessageTitle);
 
                 success = true;
             }

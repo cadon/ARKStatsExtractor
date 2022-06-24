@@ -113,14 +113,14 @@ namespace ARKBreedingStats
 
             foreach (var a in aliases)
             {
-                if (speciesNameToSpecies.ContainsKey(a.Value))
+                if (speciesNameToSpecies.TryGetValue(a.Value, out var aliasSpecies))
                 {
                     entryList.Add(new SpeciesListEntry
                     {
-                        DisplayName = a.Key + " (→" + speciesNameToSpecies[a.Value].name + ")",
+                        DisplayName = a.Key + " (→" + aliasSpecies.name + ")",
                         SearchName = a.Key,
-                        Species = speciesNameToSpecies[a.Value],
-                        ModName = speciesNameToSpecies[a.Value].Mod?.title ?? string.Empty,
+                        Species = aliasSpecies,
+                        ModName = aliasSpecies.Mod?.title ?? string.Empty,
                     });
                 }
             }

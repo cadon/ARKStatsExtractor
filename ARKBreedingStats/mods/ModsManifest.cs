@@ -150,9 +150,7 @@ namespace ARKBreedingStats.mods
         /// <summary>
         /// Downloads the modFiles. Returns true if a file was downloaded.
         /// </summary>
-        /// <param name="modValueFiles"></param>
-        /// <returns></returns>
-        public bool DownloadModFiles(List<string> modValueFiles)
+        public bool DownloadModFiles(IEnumerable<string> modValueFiles)
         {
             bool filesDownloaded = false;
             foreach (var mf in modValueFiles)
