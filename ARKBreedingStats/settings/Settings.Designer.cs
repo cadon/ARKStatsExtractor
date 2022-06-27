@@ -318,6 +318,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.CbBringToFrontOnImportExportIssue = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmountEvent)).BeginInit();
@@ -2850,6 +2851,7 @@
             // 
             // groupBox22
             // 
+            this.groupBox22.Controls.Add(this.CbBringToFrontOnImportExportIssue);
             this.groupBox22.Controls.Add(this.CbAutoExtractAddToLibrary);
             this.groupBox22.Controls.Add(this.CbAutoImportSuccessGotoLibrary);
             this.groupBox22.Controls.Add(this.TbExportFileRename);
@@ -3328,7 +3330,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3336,7 +3338,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3344,7 +3346,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3352,7 +3354,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -4003,6 +4005,16 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
+            // CbBringToFrontOnImportExportIssue
+            // 
+            this.CbBringToFrontOnImportExportIssue.AutoSize = true;
+            this.CbBringToFrontOnImportExportIssue.Location = new System.Drawing.Point(155, 165);
+            this.CbBringToFrontOnImportExportIssue.Name = "CbBringToFrontOnImportExportIssue";
+            this.CbBringToFrontOnImportExportIssue.Size = new System.Drawing.Size(198, 17);
+            this.CbBringToFrontOnImportExportIssue.TabIndex = 11;
+            this.CbBringToFrontOnImportExportIssue.Text = "Bring window to front on import issue";
+            this.CbBringToFrontOnImportExportIssue.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -4448,5 +4460,6 @@
         private System.Windows.Forms.GroupBox groupBox32;
         private System.Windows.Forms.PictureBox PbInfoGraphicPreview;
         private System.Windows.Forms.Label label63;
+        private System.Windows.Forms.CheckBox CbBringToFrontOnImportExportIssue;
     }
 }

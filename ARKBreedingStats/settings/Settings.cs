@@ -349,6 +349,7 @@ namespace ARKBreedingStats.settings
             CbExportFileRenameAfterImport.Checked = Properties.Settings.Default.AutoImportedExportFileRename;
             TbExportFileRename.Text = Properties.Settings.Default.AutoImportedExportFileRenamePattern;
             CbAutoImportSuccessGotoLibrary.Checked = Properties.Settings.Default.AutoImportGotoLibraryAfterSuccess;
+            CbBringToFrontOnImportExportIssue.Checked = Properties.Settings.Default.ImportExportedBringToFrontOnIssue;
             nudImportLowerBoundTE.ValueSave = (decimal)Properties.Settings.Default.ImportLowerBoundTE * 100;
             if (Properties.Settings.Default.ImportExportUseTamerStringForOwner)
                 RbTamerStringForOwner.Checked = true;
@@ -571,6 +572,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.AutoImportedExportFileRename = CbExportFileRenameAfterImport.Checked;
             Properties.Settings.Default.AutoImportedExportFileRenamePattern = TbExportFileRename.Text;
             Properties.Settings.Default.AutoImportGotoLibraryAfterSuccess = CbAutoImportSuccessGotoLibrary.Checked;
+            Properties.Settings.Default.ImportExportedBringToFrontOnIssue = CbBringToFrontOnImportExportIssue.Checked;
             Properties.Settings.Default.ImportLowerBoundTE = (double)nudImportLowerBoundTE.Value / 100;
 
             _cc.changeCreatureStatusOnSavegameImport = cbImportUpdateCreatureStatus.Checked;

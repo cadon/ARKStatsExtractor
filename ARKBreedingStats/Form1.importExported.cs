@@ -277,6 +277,12 @@ namespace ARKBreedingStats
                     SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Failure);
                 }
             }
+
+            if (!uniqueExtraction && Properties.Settings.Default.ImportExportedBringToFrontOnIssue)
+            {
+                TopMost = true;
+                TopMost = false;
+            }
         }
 
         private void ExportedCreatureList_CheckGuidInLibrary(importExported.ExportedCreatureControl exportedCreatureControl)
