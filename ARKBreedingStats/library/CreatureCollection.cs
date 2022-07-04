@@ -3,11 +3,8 @@ using ARKBreedingStats.values;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.Library
 {
@@ -182,7 +179,7 @@ namespace ARKBreedingStats.Library
         /// </summary>
         /// <param name="creaturesToMerge">List of creatures to add</param>
         /// <param name="addPreviouslyDeletedCreatures">If true creatures will be added even if they were just deleted.</param>
-        /// <returns></returns>
+        /// <returns>True if creatures were added or updated</returns>
         public bool MergeCreatureList(IEnumerable<Creature> creaturesToMerge, bool addPreviouslyDeletedCreatures = false)
         {
             bool creaturesWereAddedOrUpdated = false;
