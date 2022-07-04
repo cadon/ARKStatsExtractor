@@ -378,6 +378,8 @@ namespace ARKBreedingStats
                 CheckForUpdates(true, selectDefaultImagesIfNotYet, initializeImages);
             }
 
+            RemoveNonExistingFilesInRecentlyUsedFiles();
+
             _filterListAllowed = true;
             // load last loaded file
             bool createNewCollection = string.IsNullOrEmpty(Properties.Settings.Default.LastSaveFile);
