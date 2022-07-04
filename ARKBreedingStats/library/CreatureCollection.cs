@@ -208,6 +208,8 @@ namespace ARKBreedingStats.Library
                     creaturesWereAddedOrUpdated = true;
                     continue;
                 }
+                // creature already exists, a placeholder doesn't add more info
+                if (creatureNew.flags.HasFlag(CreatureFlags.Placeholder)) continue;
 
                 // creature is already in the library. Update its properties.
                 if (creatureExisting.Species == null
