@@ -759,7 +759,7 @@ namespace ARKBreedingStats
             var files = Properties.Settings.Default.LastUsedLibraryFiles;
             if (files?.Any() != true) return;
 
-            Properties.Settings.Default.LastUsedLibraryFiles = files.Where(f => File.Exists(f)).ToArray();
+            Properties.Settings.Default.LastUsedLibraryFiles = files.Where(File.Exists).ToArray();
         }
 
         private void OpenRecentlyUsedFile(object sender, EventArgs e)
