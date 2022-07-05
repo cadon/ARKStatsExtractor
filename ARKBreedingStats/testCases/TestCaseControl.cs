@@ -43,7 +43,7 @@ namespace ARKBreedingStats.testCases
 
         private void bt2Ex_Click(object sender, EventArgs e)
         {
-            CopyToExtractor?.Invoke(TestCase.speciesBlueprintPath, TestCase.levelsWild[(int)StatNames.Torpidity] + 1 + TestCase.levelsDom.Sum(), TestCase.statValues, TestCase.postTamed, TestCase.bred, TestCase.imprintingBonus, true, this);
+            CopyToExtractor?.Invoke(TestCase.speciesBlueprintPath, TestCase.levelsWild[Stats.Torpidity] + 1 + TestCase.levelsDom.Sum(), TestCase.statValues, TestCase.postTamed, TestCase.bred, TestCase.imprintingBonus, true, this);
         }
 
         private void bt2Te_Click(object sender, EventArgs e)
@@ -59,7 +59,7 @@ namespace ARKBreedingStats.testCases
         public void RunTest()
         {
             ClearTestResult();
-            CopyToExtractor?.Invoke(TestCase.speciesBlueprintPath, TestCase.levelsWild[(int)StatNames.Torpidity] + 1 + TestCase.levelsDom.Sum(), TestCase.statValues, TestCase.postTamed, TestCase.bred, TestCase.imprintingBonus, false, this);
+            CopyToExtractor?.Invoke(TestCase.speciesBlueprintPath, TestCase.levelsWild[Stats.Torpidity] + 1 + TestCase.levelsDom.Sum(), TestCase.statValues, TestCase.postTamed, TestCase.bred, TestCase.imprintingBonus, false, this);
         }
 
         public void SetTestResult(bool success, int time, int additionalResults = 0, string info = null)

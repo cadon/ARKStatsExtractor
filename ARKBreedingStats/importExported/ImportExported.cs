@@ -176,40 +176,40 @@ namespace ARKBreedingStats.importExported
                         cv.colorIDs[5] = ParseColorId(text);
                         break;
                     case "Health":
-                        cv.statValues[(int)StatNames.Health] = value;
+                        cv.statValues[Stats.Health] = value;
                         break;
                     case "Stamina":
-                        cv.statValues[(int)StatNames.Stamina] = value;
+                        cv.statValues[Stats.Stamina] = value;
                         break;
                     case "Torpidity":
-                        cv.statValues[(int)StatNames.Torpidity] = value;
+                        cv.statValues[Stats.Torpidity] = value;
                         break;
                     case "Oxygen":
-                        cv.statValues[(int)StatNames.Oxygen] = value;
+                        cv.statValues[Stats.Oxygen] = value;
                         break;
                     case "Food":
-                        cv.statValues[(int)StatNames.Food] = value;
+                        cv.statValues[Stats.Food] = value;
                         break;
                     case "Water":
-                        cv.statValues[(int)StatNames.Water] = value;
+                        cv.statValues[Stats.Water] = value;
                         break;
                     case "Temperature":
-                        cv.statValues[(int)StatNames.Temperature] = value;
+                        cv.statValues[Stats.Temperature] = value;
                         break;
                     case "Weight":
-                        cv.statValues[(int)StatNames.Weight] = value;
+                        cv.statValues[Stats.Weight] = value;
                         break;
                     case "Melee Damage":
-                        cv.statValues[(int)StatNames.MeleeDamageMultiplier] = 1 + value;
+                        cv.statValues[Stats.MeleeDamageMultiplier] = 1 + value;
                         break;
                     case "Movement Speed":
-                        cv.statValues[(int)StatNames.SpeedMultiplier] = 1 + value;
+                        cv.statValues[Stats.SpeedMultiplier] = 1 + value;
                         break;
                     case "Fortitude":
-                        cv.statValues[(int)StatNames.TemperatureFortitude] = 1 + value;
+                        cv.statValues[Stats.TemperatureFortitude] = 1 + value;
                         break;
                     case "Crafting Skill":
-                        cv.statValues[(int)StatNames.CraftingSpeedMultiplier] = 1 + value;
+                        cv.statValues[Stats.CraftingSpeedMultiplier] = 1 + value;
                         break;
                     case "DinoAncestorsMale":
                         Regex r = new Regex(@"MaleName=([^;]+);MaleDinoID1=([^;]+);MaleDinoID2=([^;]+);FemaleName=([^;]+);FemaleDinoID1=([^;]+);FemaleDinoID2=([^;]+)");

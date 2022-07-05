@@ -171,9 +171,9 @@ namespace ARKBreedingStats
                 if (addedToLibrary && copyNameToClipboard)
                     sb.AppendLine("Name copied to clipboard.");
 
-                for (int s = 0; s < values.Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
-                    int statIndex = values.Values.statsDisplayOrder[s];
+                    int statIndex = Stats.DisplayOrder[s];
                     if (!species.UsesStat(statIndex)) continue;
 
                     sb.Append($"{Utils.StatName(statIndex, true, species.statNames)}: { _statIOs[statIndex].LevelWild} ({_statIOs[statIndex].BreedingValue})");
@@ -276,6 +276,12 @@ namespace ARKBreedingStats
                 {
                     SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Failure);
                 }
+            }
+
+            if (!uniqueExtraction && Properties.Settings.Default.ImportExportedBringToFrontOnIssue)
+            {
+                TopMost = true;
+                TopMost = false;
             }
         }
 

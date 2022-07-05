@@ -61,8 +61,8 @@ namespace ARKBreedingStats.oldLibraryFormat
                 // i.e. stats without imprinting are by default: St, Ox, Te, TF, Cr
 
                 // create new multiplierArray
-                var newMultipliers = new double[Values.STATS_COUNT][];
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                var newMultipliers = new double[Stats.StatsCount][];
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     newMultipliers[s] = new double[4];
                     if (newToOldIndices[s] >= 0)
@@ -187,14 +187,14 @@ namespace ARKBreedingStats.oldLibraryFormat
         private static int[] Convert8To12(int[] a)
         {
             var newToOldIndices = new int[] { 0, 1, 7, 2, 3, -1, -1, 4, 5, 6, -1, -1 };
-            var newA = new int[Values.STATS_COUNT];
+            var newA = new int[Stats.StatsCount];
             if (a.Length == 12)
             {
                 return a;
             }
             else
             {
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     if (newToOldIndices[s] >= 0)
                         newA[s] = a[newToOldIndices[s]];
@@ -206,14 +206,14 @@ namespace ARKBreedingStats.oldLibraryFormat
         private static double[] Convert8To12(double[] a)
         {
             var newToOldIndices = new int[] { 0, 1, 7, 2, 3, -1, -1, 4, 5, 6, -1, -1 };
-            var newA = new double[Values.STATS_COUNT];
+            var newA = new double[Stats.StatsCount];
             if (a.Length == 12)
             {
                 return a;
             }
             else
             {
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     if (newToOldIndices[s] >= 0)
                         newA[s] = a[newToOldIndices[s]];

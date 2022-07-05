@@ -47,7 +47,7 @@ namespace ARKBreedingStats
                 if (!species.taming.nonViolent)
                 {
                     //total torpor for level
-                    totalTorpor = species.stats[(int)StatNames.Torpidity].BaseValue * (1 + species.stats[(int)StatNames.Torpidity].IncPerWildLevel * (level - 1));
+                    totalTorpor = species.stats[Stats.Torpidity].BaseValue * (1 + species.stats[Stats.Torpidity].IncPerWildLevel * (level - 1));
                     // torpor depletion per second for level
                     torporDepletionPerSecond = TorporDepletionPS(species.taming.torporDepletionPS0, level);
                 }
@@ -238,7 +238,7 @@ namespace ARKBreedingStats
             if (species?.taming != null)
             {
                 //total torpor for level
-                double totalTorpor = species.stats[(int)StatNames.Torpidity].BaseValue * (1 + species.stats[(int)StatNames.Torpidity].IncPerWildLevel * (level - 1));
+                double totalTorpor = species.stats[Stats.Torpidity].BaseValue * (1 + species.stats[Stats.Torpidity].IncPerWildLevel * (level - 1));
                 // torpor depletion per second for level
                 double torporDeplPS = TorporDepletionPS(species.taming.torporDepletionPS0, level);
 
@@ -321,7 +321,7 @@ namespace ARKBreedingStats
                 species.taming != null &&
                 species.taming.nonViolent)
             {
-                s = (int)(0.1 * StatValueCalculation.CalculateValue(species, (int)StatNames.Food, (int)Math.Ceiling(level / 7d), 0, false, 0, 0) / foodDepletion);
+                s = (int)(0.1 * StatValueCalculation.CalculateValue(species, Stats.Food, (int)Math.Ceiling(level / 7d), 0, false, 0, 0) / foodDepletion);
             }
             return s;
         }

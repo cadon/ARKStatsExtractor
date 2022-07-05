@@ -2051,5 +2051,17 @@ namespace ARKBreedingStats.Properties {
                 this["PlayerListColumnDisplayIndices"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ImportExportedBringToFrontOnIssue {
+            get {
+                return ((bool)(this["ImportExportedBringToFrontOnIssue"]));
+            }
+            set {
+                this["ImportExportedBringToFrontOnIssue"] = value;
+            }
+        }
     }
 }

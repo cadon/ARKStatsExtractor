@@ -25,8 +25,8 @@ namespace ARKBreedingStats.multiplierTesting
         {
             InitializeComponent();
 
-            _statControls = new StatMultiplierTestingControl[Values.STATS_COUNT];
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            _statControls = new StatMultiplierTestingControl[Stats.StatsCount];
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 var sc = new StatMultiplierTestingControl();
                 if (Utils.Precision(s) == 3)
@@ -38,10 +38,10 @@ namespace ARKBreedingStats.multiplierTesting
                 _statControls[s] = sc;
             }
             // add controls in order like in-game
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
-                flowLayoutPanel1.Controls.Add(_statControls[Values.statsDisplayOrder[s]]);
-                flowLayoutPanel1.SetFlowBreak(_statControls[Values.statsDisplayOrder[s]], true);
+                flowLayoutPanel1.Controls.Add(_statControls[Stats.DisplayOrder[s]]);
+                flowLayoutPanel1.SetFlowBreak(_statControls[Stats.DisplayOrder[s]], true);
             }
 
             // set bottom controls to bottom
@@ -100,20 +100,20 @@ namespace ARKBreedingStats.multiplierTesting
         private void UpdateLevelSums()
         {
             int sumW = 0, sumD = 0;
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (s == (int)StatNames.Torpidity) continue;
+                if (s == Stats.Torpidity) continue;
                 sumW += _statControls[s].LevelWild;
                 sumD += _statControls[s].LevelDom;
             }
             lbLevelSumWild.Text = "Sum LevelWild = " + sumW;
             bool positive;
-            int diff = sumW - _statControls[(int)StatNames.Torpidity].LevelWild;
+            int diff = sumW - _statControls[Stats.Torpidity].LevelWild;
             if (diff != 0)
             {
                 positive = diff > 0;
                 if (!positive) diff = -diff;
-                lbLevelSumWild.Text += $" ({(positive ? "+" : "")}{(sumW - _statControls[(int)StatNames.Torpidity].LevelWild)})";
+                lbLevelSumWild.Text += $" ({(positive ? "+" : "")}{(sumW - _statControls[Stats.Torpidity].LevelWild)})";
 
                 if (diff > 50) diff = 50;
                 lbLevelSumWild.BackColor = Utils.GetColorFromPercent(50 - diff, 0.6, !positive);
@@ -136,19 +136,19 @@ namespace ARKBreedingStats.multiplierTesting
 
         private void nudTE_ValueChanged(object sender, EventArgs e)
         {
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
                 _statControls[s].TE = (double)nudTE.Value / 100;
         }
 
         private void nudIB_ValueChanged(object sender, EventArgs e)
         {
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
                 _statControls[s].IB = (double)nudIB.Value / 100;
         }
 
         private void nudIBM_ValueChanged(object sender, EventArgs e)
         {
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
                 _statControls[s].IBM = (double)nudIBM.Value;
         }
 
@@ -156,7 +156,7 @@ namespace ARKBreedingStats.multiplierTesting
         {
             if (rbWild.Checked)
             {
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                     _statControls[s].Wild = rbWild.Checked;
                 nudTE.BackColor = SystemColors.Window;
                 nudIB.BackColor = SystemColors.Window;
@@ -168,7 +168,7 @@ namespace ARKBreedingStats.multiplierTesting
         {
             if (rbTamed.Checked)
             {
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                     _statControls[s].Tamed = rbTamed.Checked;
                 nudTE.BackColor = Color.FromArgb(215, 186, 255);
                 nudIB.BackColor = SystemColors.Window;
@@ -180,7 +180,7 @@ namespace ARKBreedingStats.multiplierTesting
         {
             if (rbBred.Checked)
             {
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                     _statControls[s].Bred = rbBred.Checked;
                 nudTE.BackColor = SystemColors.Window;
                 nudIB.BackColor = Color.FromArgb(255, 186, 242);
@@ -195,7 +195,7 @@ namespace ARKBreedingStats.multiplierTesting
         {
             if (_cc?.serverMultipliers?.statMultipliers == null) return;
 
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 var m = new double[4];
                 for (int i = 0; i < 4; i++)
@@ -222,16 +222,16 @@ namespace ARKBreedingStats.multiplierTesting
             bool customStatsAvailable =
                 _cc?.CustomSpeciesStats?.TryGetValue(species.blueprintPath, out customStatOverrides) ?? false;
 
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 _statControls[s].SetStatValues(_selectedSpecies.fullStatsRaw[s], customStatsAvailable ? customStatOverrides?[s] : null,
                     _selectedSpecies.altBaseStatsRaw != null && _selectedSpecies.altBaseStatsRaw.TryGetValue(s, out var altV) ? altV / _selectedSpecies.fullStatsRaw[s][0] : 1,
-                    !CbAllowFlyerSpeedLeveling.Checked && species.isFlyer && s == (int)StatNames.SpeedMultiplier);
-                _statControls[s].StatImprintingBonusMultiplier = customStatsAvailable ? customStatOverrides?[Values.STATS_COUNT]?[s] ?? _selectedSpecies.StatImprintMultipliers[s] : _selectedSpecies.StatImprintMultipliers[s];
+                    !CbAllowFlyerSpeedLeveling.Checked && species.isFlyer && s == Stats.SpeedMultiplier);
+                _statControls[s].StatImprintingBonusMultiplier = customStatsAvailable ? customStatOverrides?[Stats.StatsCount]?[s] ?? _selectedSpecies.StatImprintMultipliers[s] : _selectedSpecies.StatImprintMultipliers[s];
                 _statControls[s].Visible = species.UsesStat(s);
                 _statControls[s].StatName = $"[{s}]{Utils.StatName(s, true, species.statNames)}";
             }
-            _statControls[(int)StatNames.Health].TBHM = _selectedSpecies.TamedBaseHealthMultiplier;
+            _statControls[Stats.Health].TBHM = _selectedSpecies.TamedBaseHealthMultiplier;
         }
 
         private void btUpdateSpecies_Click(object sender, EventArgs e)
@@ -254,25 +254,25 @@ namespace ARKBreedingStats.multiplierTesting
         {
             int level = 1;
 
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
                 _statControls[s].BeginUpdate();
 
             SetSpecies(species);
 
             if (statValues != null)
             {
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                     _statControls[s].StatValue = statValues[s];
             }
             if (levelsWild != null)
             {
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                     _statControls[s].LevelWild = levelsWild[s];
-                level += levelsWild[(int)StatNames.Torpidity];
+                level += levelsWild[Stats.Torpidity];
             }
             if (levelsDom != null)
             {
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     _statControls[s].LevelDom = levelsDom[s];
                     level += levelsDom[s];
@@ -287,7 +287,7 @@ namespace ARKBreedingStats.multiplierTesting
                 rbBred.Checked = true;
             else rbWild.Checked = true;
 
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
                 _statControls[s].EndUpdate(true);
 
             nudCreatureLevel.Value = level > totalLevel ? level : totalLevel;
@@ -308,7 +308,7 @@ namespace ARKBreedingStats.multiplierTesting
                                 || _cc.serverMultipliers.AllowFlyerSpeedLeveling != CbAllowFlyerSpeedLeveling.Checked;
                 if (!showWarning)
                 {
-                    for (int s = 0; s < Values.STATS_COUNT; s++)
+                    for (int s = 0; s < Stats.StatsCount; s++)
                     {
                         for (int si = 0; si < 4; si++)
                         {
@@ -339,9 +339,9 @@ namespace ARKBreedingStats.multiplierTesting
         private void iwMToolStripMenuItem_Click(object sender, EventArgs e)
         {
             bool error = false;
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (s != (int)StatNames.Torpidity)
+                if (s != Stats.Torpidity)
                     error = !_statControls[s].CalculateIwM() || error;
             }
             if (error) MessageBox.Show("For some stats the IwM couldn't be calculated, because of a Divide by Zero-error, e.g. Lw and Iw needs to be >0.");
@@ -350,9 +350,9 @@ namespace ARKBreedingStats.multiplierTesting
         private void idMToolStripMenuItem_Click(object sender, EventArgs e)
         {
             bool error = false;
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (s != (int)StatNames.Torpidity)
+                if (s != Stats.Torpidity)
                     error = !_statControls[s].CalculateIdM() || error;
             }
             if (error) MessageBox.Show("For some stats the IdM couldn't be calculated, because of a Divide by Zero-error, e.g. Ld needs to be at least 1.");
@@ -361,9 +361,9 @@ namespace ARKBreedingStats.multiplierTesting
         private void taMToolStripMenuItem_Click(object sender, EventArgs e)
         {
             bool error = false;
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (s != (int)StatNames.Torpidity)
+                if (s != Stats.Torpidity)
                     error = !_statControls[s].CalculateTaM() || error;
             }
             if (error) MessageBox.Show("For some stats the TaM couldn't be calculated, because of a Divide by Zero-error, e.g. Ta needs to be at least 1.");
@@ -372,9 +372,9 @@ namespace ARKBreedingStats.multiplierTesting
         private void tmMToolStripMenuItem_Click(object sender, EventArgs e)
         {
             bool error = false;
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (s != (int)StatNames.Torpidity)
+                if (s != Stats.Torpidity)
                     error = !_statControls[s].CalculateTmM() || error;
             }
             if (error) MessageBox.Show("For some stats the TmM couldn't be calculated, because of a Divide by Zero-error, e.g. Tm needs to be at least 1.");
@@ -389,7 +389,7 @@ namespace ARKBreedingStats.multiplierTesting
         {
             ServerMultipliers officialSM = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official);
             if (officialSM == null) return;
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
                 _statControls[s].StatMultipliers = officialSM.statMultipliers[s];
         }
 
@@ -397,7 +397,7 @@ namespace ARKBreedingStats.multiplierTesting
         {
             if (_cc?.serverMultipliers?.statMultipliers == null) return;
 
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 _cc.serverMultipliers.statMultipliers[s] = _statControls[s].StatMultipliers;
                 _statControls[s].SetStatMultiplierWithoutChangingInputs(_statControls[s].StatMultipliers);
@@ -432,7 +432,7 @@ namespace ARKBreedingStats.multiplierTesting
                 ServerMultipliers spM = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Singleplayer);
                 if (spM != null)
                 {
-                    for (int s = 0; s < Values.STATS_COUNT; s++)
+                    for (int s = 0; s < Stats.StatsCount; s++)
                     {
                         if (spM.statMultipliers[s] == null)
                             _statControls[s].SetSinglePlayerSettings();
@@ -442,7 +442,7 @@ namespace ARKBreedingStats.multiplierTesting
                     return;
                 }
             }
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
                 _statControls[s].SetSinglePlayerSettings();
         }
 
@@ -451,7 +451,7 @@ namespace ARKBreedingStats.multiplierTesting
             // non flyers are not affected
             if (!(_selectedSpecies?.isFlyer ?? false)) return;
 
-            int speedIndex = (int)StatNames.SpeedMultiplier;
+            int speedIndex = Stats.SpeedMultiplier;
 
             double?[][] customStatOverrides = null;
             bool customStatsAvailable =
@@ -466,7 +466,7 @@ namespace ARKBreedingStats.multiplierTesting
         {
             if (Utils.ShowTextInput("Wild Level", out string nr, "", "0") && int.TryParse(nr, out int lv))
             {
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                     if (_selectedSpecies.UsesStat(s)) _statControls[s].LevelWild = lv;
             }
         }
@@ -475,20 +475,20 @@ namespace ARKBreedingStats.multiplierTesting
         {
             if (Utils.ShowTextInput("Dom Level", out string nr, "", "0") && int.TryParse(nr, out int lv))
             {
-                for (int s = 0; s < Values.STATS_COUNT; s++)
-                    if (_selectedSpecies.UsesStat(s) && s != (int)StatNames.Torpidity) _statControls[s].LevelDom = lv;
+                for (int s = 0; s < Stats.StatsCount; s++)
+                    if (_selectedSpecies.UsesStat(s) && s != Stats.Torpidity) _statControls[s].LevelDom = lv;
             }
         }
 
         private void setAllWildLevelsToTheClosestValueToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
                 if (_selectedSpecies.UsesStat(s)) _statControls[s].SetClosestWildLevel();
         }
 
         private void setAllDomLevelsToTheClosestValueToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
                 if (_selectedSpecies.UsesStat(s)) _statControls[s].SetClosestDomLevel();
         }
 

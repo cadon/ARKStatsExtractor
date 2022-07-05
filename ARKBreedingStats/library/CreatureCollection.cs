@@ -3,11 +3,8 @@ using ARKBreedingStats.values;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.Library
 {
@@ -125,7 +122,7 @@ namespace ARKBreedingStats.Library
 
         /// <summary>
         /// Some mods allow to change stat values of species in an extra ini file. These overrides are stored here.
-        /// The last item (i.e. index Values.STATS_COUNT) is an array of possible imprintingMultiplier overrides.
+        /// The last item (i.e. index StatNames.StatsCount) is an array of possible imprintingMultiplier overrides.
         /// </summary>
         [JsonProperty]
         public Dictionary<string, double?[][]> CustomSpeciesStats;
@@ -133,17 +130,17 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Calculates a hashcode for a list of mods and their order. Can be used to check for changes.
         /// </summary>
-        public static int CalculateModListHash(List<Mod> modList)
+        public static int CalculateModListHash(IEnumerable<Mod> modList)
         {
             if (modList == null) { return 0; }
 
-            return CalculateModListHash(modList.Select(m => m.id).ToList());
+            return CalculateModListHash(modList.Select(m => m.id));
         }
 
         /// <summary>
         /// Calculates a hashcode for a list of mods and their order. Can be used to check for changes.
         /// </summary>
-        public static int CalculateModListHash(List<string> modIdList)
+        public static int CalculateModListHash(IEnumerable<string> modIdList)
         {
             if (modIdList == null) { return 0; }
             return string.Join(",", modIdList).GetHashCode();
@@ -182,7 +179,7 @@ namespace ARKBreedingStats.Library
         /// </summary>
         /// <param name="creaturesToMerge">List of creatures to add</param>
         /// <param name="addPreviouslyDeletedCreatures">If true creatures will be added even if they were just deleted.</param>
-        /// <returns></returns>
+        /// <returns>True if creatures were added or updated</returns>
         public bool MergeCreatureList(IEnumerable<Creature> creaturesToMerge, bool addPreviouslyDeletedCreatures = false)
         {
             bool creaturesWereAddedOrUpdated = false;
@@ -208,6 +205,8 @@ namespace ARKBreedingStats.Library
                     creaturesWereAddedOrUpdated = true;
                     continue;
                 }
+                // creature already exists, a placeholder doesn't add more info
+                if (creatureNew.flags.HasFlag(CreatureFlags.Placeholder)) continue;
 
                 // creature is already in the library. Update its properties.
                 if (creatureExisting.Species == null
@@ -471,7 +470,7 @@ namespace ARKBreedingStats.Library
             infoText = null;
             if (string.IsNullOrEmpty(species?.blueprintPath)) return null;
 
-            var usedColorIndices = Enumerable.Range(0, Species.ColorRegionCount).Where(i => species.EnabledColorRegions[i]).ToArray();
+            var usedColorIndices = Enumerable.Range(0, Ark.ColorRegionCount).Where(i => species.EnabledColorRegions[i]).ToArray();
             var usedColorCount = usedColorIndices.Length;
 
             // create data if not available in the cache
@@ -502,7 +501,7 @@ namespace ARKBreedingStats.Library
             var newSpeciesColors = new List<string>(usedColorCount);
             var newRegionColors = new List<string>(usedColorCount);
 
-            var results = new ColorExisting[Species.ColorRegionCount];
+            var results = new ColorExisting[Ark.ColorRegionCount];
             for (int i = 0; i < usedColorCount; i++)
             {
                 var colorRegionId = usedColorIndices[i];

@@ -39,6 +39,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -79,7 +80,7 @@
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
     <Compile Include="ArkConstants.cs" />
-    <Compile Include="Ark\GameConstants.cs" />
+    <Compile Include="Ark.cs" />
     <Compile Include="BreedingPlanning\BreedingScore.cs" />
     <Compile Include="library\AddDummyCreaturesSettings.cs">
       <SubType>Form</SubType>
@@ -97,6 +98,7 @@
     <Compile Include="NamePatterns\PatternTemplates.cs" />
     <Compile Include="Pedigree\PedigreeCreation.cs" />
     <Compile Include="Pedigree\IPedigreeCreature.cs" />
+    <Compile Include="species\ArkColors.cs" />
     <Compile Include="uiControls\CreatureAnalysis.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -222,7 +224,6 @@
       <DependentUpon>FtpProgress.cs</DependentUpon>
     </Compile>
     <Compile Include="species\ArkColor.cs" />
-    <Compile Include="species\ArkColors.cs" />
     <Compile Include="settings\FtpCredentials.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -639,6 +640,7 @@
     <Compile Include="values\ServerMultipliers.cs" />
     <Compile Include="values\Values.cs" />
     <Compile Include="utils\Win32API.cs" />
+    <Compile Include="values\ValuesFile.cs" />
     <None Include="json\equalColorIds.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -664,6 +666,7 @@
     <EmbeddedResource Include="local\strings.pt-br.resx" />
     <EmbeddedResource Include="local\strings.ru.resx" />
     <EmbeddedResource Include="local\strings.pl.resx" />
+    <EmbeddedResource Include="local\strings.zh-tw.resx" />
     <EmbeddedResource Include="ocr\PatternMatching\RecognitionTrainingForm.resx">
       <DependentUpon>RecognitionTrainingForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -946,15 +949,15 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentFTP">
-      <Version>27.1.3</Version>
+      <Version>37.0.3</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers">
-      <Version>2.9.6</Version>
+      <Version>3.3.3</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.2</Version>
+      <Version>13.0.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

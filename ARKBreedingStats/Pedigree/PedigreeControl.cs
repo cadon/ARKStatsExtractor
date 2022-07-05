@@ -398,7 +398,7 @@ namespace ARKBreedingStats.Pedigree
                 g.FillEllipse(brush, statLeftTopCoords.X, statLeftTopCoords.Y, statRadius * 2, statRadius * 2);
                 brush.Color = Color.Black;
 
-                var usedStats = Enumerable.Range(0, Values.STATS_COUNT).Where(si => si != (int)StatNames.Torpidity && species.UsesStat(si)).ToArray();
+                var usedStats = Enumerable.Range(0, Stats.StatsCount).Where(si => si != Stats.Torpidity && species.UsesStat(si)).ToArray();
                 var anglePerStat = 360f / usedStats.Length;
                 var i = 0;
                 foreach (var si in usedStats)

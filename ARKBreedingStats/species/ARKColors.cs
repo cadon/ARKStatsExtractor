@@ -5,66 +5,131 @@ using System.Linq;
 
 namespace ARKBreedingStats.species
 {
+    /// <summary>
+    /// Loaded color definitions used by the library.
+    /// </summary>
     public class ArkColors
     {
-        private readonly Dictionary<int, ArkColor> colorsByHash;
-        private readonly Dictionary<string, ArkColor> colorsByName;
-        public readonly List<ArkColor> colorsList;
-        private readonly Dictionary<byte, ArkColor> colorsById;
+        public ArkColor[] ColorsList;
+        private Dictionary<string, ArkColor> _colorsByName;
+        private Dictionary<byte, ArkColor> _colorsById;
 
-        public ArkColors(List<List<object>> colorDefinitions, List<List<object>> colorDefinitions2 = null)
+        /// <summary>
+        /// Color definitions of the base game.
+        /// </summary>
+        private readonly List<ArkColor> _baseColors;
+
+        /// <summary>
+        /// If mods are loaded, each mod has its colors (or null if no color definitions are given) in the according order.
+        /// </summary>
+        private List<List<ArkColor>> _modColors;
+
+        public ArkColors(List<ArkColor> baseColorList)
         {
-            colorsByHash = new Dictionary<int, ArkColor>();
-            colorsByName = new Dictionary<string, ArkColor>();
-            colorsList = new List<ArkColor> { new ArkColor() };
-
-            if (colorDefinitions == null) return;
-
-            ParseColors(colorDefinitions, 1);
-            if (colorDefinitions2 != null)
-                ParseColors(colorDefinitions2, 201); // dye colors can appear as color mutation, they start with id 201
-
-            void ParseColors(List<List<object>> colorDefs, byte idStart)
-            {
-                foreach (List<object> cd in colorDefs)
-                {
-                    var t = cd[0].GetType();
-                    var tt = cd[1].GetType();
-
-                    if (cd.Count == 2
-                        && cd[0] is string colorName
-                        && cd[1] is Newtonsoft.Json.Linq.JArray colorValues)
-                    {
-                        ArkColor ac = new ArkColor(colorName,
-                            new double[] {
-                            (double)colorValues[0],
-                            (double)colorValues[1],
-                            (double)colorValues[2],
-                            (double)colorValues[3],
-                            })
-                        { Id = idStart };
-
-                        // add color to lists if it is valid
-                        if (ac.LinearRgba != null)
-                        {
-                            if (!colorsByHash.ContainsKey(ac.Hash))
-                                colorsByHash.Add(ac.Hash, ac);
-                            if (!colorsByName.ContainsKey(ac.Name))
-                                colorsByName.Add(ac.Name, ac);
-                            colorsList.Add(ac);
-                        }
-                    }
-                    idStart++;
-                }
-            }
-            colorsById = colorsList.ToDictionary(c => c.Id, c => c);
+            _baseColors = baseColorList;
         }
 
-        public ArkColor ById(byte id) => colorsById.TryGetValue(id, out var color) ? color : new ArkColor();
+        /// <summary>
+        /// Adds Ark colors of a mod value file to the base values. Should be called even if the mod has no color definitions (ARK can then add missing colors that where left out before due to mod-overwriting).
+        /// </summary>
+        internal void AddModArkColors(List<ArkColor> modColors)
+        {
+            if (_modColors == null) _modColors = new List<List<ArkColor>>();
+            _modColors.Add(modColors);
+        }
 
-        public ArkColor ByName(string name) => colorsByName.TryGetValue(name, out var color) ? color : new ArkColor();
+        /// <summary>
+        /// Creates the color id table according to the mod order and the lookup tables to find colors by their name or id.
+        /// Call this function after the values file is loaded and after mod values are loaded that contain colors.
+        /// </summary>
+        public void InitializeArkColors()
+        {
+            if (_baseColors == null) return;
 
-        public ArkColor ByHash(int hash) => colorsByHash.TryGetValue(hash, out var color) ? color : new ArkColor();
+            // if no mods are loaded, use the color definitions of the base game
+            // mods can overwrite the color definitions, if no colors are defined in a mod, the base color definitions are used
+            // if mods are loaded, the color definitions of the first mod are used first (i.e. base colors if no mod color definitions)
+            // mod colors are appended then in the according order if their name is not already used
+            // example 1: only 1 mod loaded that defines colors up until id 100: 100 colors are used, if the base game has more colors, these are not used
+            // example 2: 2 mods are loaded, the first defines colors up until id 100, the second has no color definitions: 100 mod colors are used, then the base colors not appearing yet are appended (from the second mod that inherits the base colors)
+
+            _colorsByName = new Dictionary<string, ArkColor>();
+            _colorsById = new Dictionary<byte, ArkColor> { { 0, new ArkColor() } };
+            var nextFreeColorId = Ark.ColorFirstId;
+            var nextFreeDyeId = Ark.DyeFirstId;
+            var noMoreAvailableColorId = false;
+            var noMoreAvailableDyeId = false;
+
+            // no mods are loaded or first mod has no color overrides, use base colors first
+            if (_modColors?.Any() != true)
+            {
+                AddColorDefinitions(_baseColors);
+            }
+            else
+            {
+                // add mod color definitions, these are appended if the color name doesn't exist yet
+                var baseColorsAdded = false;
+                foreach (var modColors in _modColors)
+                {
+                    if (modColors == null)
+                    {
+                        // if the mod has no color definitions, it uses the base color definitions; add them if not yet added
+                        if (!baseColorsAdded)
+                        {
+                            AddColorDefinitions(_baseColors);
+                            baseColorsAdded = true;
+                        }
+                        continue;
+                    }
+
+                    AddColorDefinitions(modColors);
+                }
+
+                // dye colors are apparently added independently from the colors, even if base colors are not added. This might need more testing, so far no mods are found that add dye colors.
+                if (!baseColorsAdded)
+                {
+                    AddColorDefinitions(_baseColors.Where(c => c.IsDye));
+                }
+            }
+
+            void AddColorDefinitions(IEnumerable<ArkColor> colorDefinitions)
+            {
+                if (colorDefinitions == null) return;
+                foreach (var c in colorDefinitions)
+                {
+                    var colorNameExists = _colorsByName.ContainsKey(c.Name);
+                    if (colorNameExists && !c.IsDye) continue; // dyes can have duplicate names, e.g. "Purple Coloring" with id 207, 211
+
+                    if (c.IsDye)
+                    {
+                        if (noMoreAvailableDyeId) continue;
+
+                        c.Id = nextFreeDyeId;
+                        if (nextFreeDyeId == Ark.DyeMaxId)
+                            noMoreAvailableDyeId = true;
+                        else nextFreeDyeId++;
+                    }
+                    else
+                    {
+                        if (noMoreAvailableColorId) continue;
+
+                        c.Id = nextFreeColorId;
+                        if (nextFreeColorId == Ark.ColorMaxId)
+                            noMoreAvailableColorId = true;
+                        else nextFreeColorId++;
+                    }
+                    if (!colorNameExists)
+                        _colorsByName.Add(c.Name, c);
+                    _colorsById.Add(c.Id, c);
+                }
+            }
+
+            ColorsList = _colorsById.Values.OrderBy(c => c.Id).ToArray();
+        }
+
+        public ArkColor ById(byte id) => _colorsById.TryGetValue(id, out var color) ? color : _colorsById[0];
+
+        public ArkColor ByName(string name) => _colorsByName.TryGetValue(name, out var color) ? color : _colorsById[0];
 
         /// <summary>
         /// Returns the ARK-id of the color that is closest to the sRGB values.
@@ -75,16 +140,10 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Returns the ARKColor that is closest to the given argb (sRGB) values.
         /// </summary>
-        /// <param name="r"></param>
-        /// <param name="g"></param>
-        /// <param name="b"></param>
-        /// <param name="a"></param>
-        /// <returns></returns>
         private ArkColor ClosestColor(double r, double g, double b, double a)
         {
-            int hash = ArkColor.ColorHashCode(r, g, b, a);
-            ArkColor ac = ByHash(hash);
-            if (ac.Id != 0) return ac;
+            var acc = ColorsList.FirstOrDefault(c => c.LinearRgba != null && c.LinearRgba[0] == r && c.LinearRgba[1] == g && c.LinearRgba[2] == b && c.LinearRgba[3] == a);
+            if (acc != null && acc.Id != 0) return acc;
 
             return ClosestColorFromRgb(r, g, b, a);
         }
@@ -92,17 +151,12 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Returns the ARKColor that is closest to the given sRGB-values.
         /// </summary>
-        /// <param name="r"></param>
-        /// <param name="g"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
         private ArkColor ClosestColorFromRgb(double r, double g, double b, double a)
-            => colorsList.OrderBy(n => ColorDifference(n.LinearRgba, r, g, b, a)).First();
+            => ColorsList.OrderBy(n => ColorDifference(n.LinearRgba, r, g, b, a)).First();
 
         /// <summary>
         /// Distance in sRGB space
         /// </summary>
-        /// <returns></returns>
         private static double ColorDifference(double[] srgb, double r, double g, double b, double a)
             => srgb == null ? int.MaxValue
             : Math.Sqrt((srgb[0] - r) * (srgb[0] - r)
@@ -156,6 +210,34 @@ namespace ARKBreedingStats.species
             }
 
             return altColorIdExists ? altColorIds : null;
+        }
+
+        public static List<ArkColor> ParseColorDefinitions(object[][] colorDefinitions, List<ArkColor> parsedColors, bool isDye = false)
+        {
+            if (colorDefinitions == null) return parsedColors;
+
+            if (parsedColors == null) parsedColors = new List<ArkColor>();
+
+            foreach (object[] cd in colorDefinitions)
+            {
+                if (cd.Length == 2
+                    && cd[0] is string colorName
+                    && cd[1] is Newtonsoft.Json.Linq.JArray colorValues)
+                {
+                    ArkColor ac = new ArkColor(colorName,
+                        new[] {
+                            (double)colorValues[0],
+                            (double)colorValues[1],
+                            (double)colorValues[2],
+                            (double)colorValues[3]
+                        },
+                        isDye);
+                    if (ac.LinearRgba != null)
+                        parsedColors.Add(ac);
+                }
+            }
+
+            return parsedColors.Any() ? parsedColors : null;
         }
     }
 }

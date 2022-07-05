@@ -1,5 +1,4 @@
-﻿using ARKBreedingStats.values;
-using System;
+﻿using System;
 using System.Xml.Serialization;
 
 namespace ARKBreedingStats.oldLibraryFormat
@@ -17,9 +16,9 @@ namespace ARKBreedingStats.oldLibraryFormat
         public long ARKID;
         public string name;
         public Library.Sex sex;
-        public double[] statValues = new double[Values.STATS_COUNT];
-        public int[] levelsWild = new int[Values.STATS_COUNT];
-        public int[] levelsDom = new int[Values.STATS_COUNT];
+        public double[] statValues = new double[Stats.StatsCount];
+        public int[] levelsWild = new int[Stats.StatsCount];
+        public int[] levelsDom = new int[Stats.StatsCount];
         public int level = 0;
         public double tamingEffMin, tamingEffMax;
         public double imprintingBonus;

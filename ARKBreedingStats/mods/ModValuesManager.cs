@@ -3,7 +3,6 @@ using ARKBreedingStats.mods;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -16,12 +15,15 @@ namespace ARKBreedingStats.uiControls
     public partial class ModValuesManager : Form
     {
         private CreatureCollection cc;
-        private List<ModInfo> modInfos;
+        private ModInfo[] _modInfos;
+        private readonly ToolTip _tt = new ToolTip();
 
         public ModValuesManager()
         {
             InitializeComponent();
             lbAvailableModFiles.Sorted = true;
+            llbSteamPage.Visible = false;
+            Disposed += (s, a) => _tt?.Dispose();
         }
 
         public CreatureCollection CreatureCollection
@@ -32,15 +34,10 @@ namespace ARKBreedingStats.uiControls
 
                 if (Values.V.modsManifest?.modsByFiles != null)
                 {
-                    modInfos = Values.V.modsManifest.modsByFiles.Select(smi => smi.Value).Where(mi => mi.mod != null).ToList();
+                    _modInfos = Values.V.modsManifest.modsByFiles.Select(smi => smi.Value).Where(mi => mi.mod != null && !mi.mod.expansion).ToArray();
                 }
                 UpdateModListBoxes();
             }
-        }
-
-        private void BtRemoveModFile_Click(object sender, EventArgs e)
-        {
-            RemoveSelectedMod();
         }
 
         private void BtMoveUp_Click(object sender, EventArgs e)
@@ -64,6 +61,8 @@ namespace ARKBreedingStats.uiControls
             if (newPos < 0) newPos = 0;
             if (newPos >= cc.ModList.Count) newPos = cc.ModList.Count - 1;
 
+            if (newPos == i) return;
+
             cc.ModList.Remove(selectedLoadedMod.mod);
             cc.ModList.Insert(newPos, selectedLoadedMod.mod);
             UpdateModListBoxes();
@@ -81,9 +80,9 @@ namespace ARKBreedingStats.uiControls
 
             if (cc?.ModList == null) return;
 
-            var modToModInfo = modInfos.ToDictionary(mi => mi.mod, mi => mi);
+            var modToModInfo = _modInfos.ToDictionary(mi => mi.mod, mi => mi);
 
-            foreach (ModInfo mi in modInfos) mi.CurrentlyInLibrary = false;
+            foreach (ModInfo mi in _modInfos) mi.CurrentlyInLibrary = false;
 
             foreach (Mod m in cc.ModList)
             {
@@ -124,6 +123,8 @@ namespace ARKBreedingStats.uiControls
             lbModTag.Text = modInfo.mod.tag;
             lbModId.Text = modInfo.mod.id;
             llbSteamPage.Visible = modInfo.OnlineAvailable; // it's assumed that the officially supported mods all have a steam page
+            if (!string.IsNullOrEmpty(modInfo.mod.id))
+                _tt.SetToolTip(llbSteamPage, $"Open this page in your browser:\n{GetSteamModPageUrlById(lbModId.Text)}");
         }
 
         private void BtClose_Click(object sender, EventArgs e)
@@ -131,10 +132,12 @@ namespace ARKBreedingStats.uiControls
             Close();
         }
 
+        private string GetSteamModPageUrlById(string modId) => "https://steamcommunity.com/sharedfiles/filedetails/?id=" + modId;
+
         private void LlbSteamPage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (string.IsNullOrEmpty(lbModId.Text)) return;
-            System.Diagnostics.Process.Start("https://steamcommunity.com/sharedfiles/filedetails/?id=" + lbModId.Text);
+            System.Diagnostics.Process.Start(GetSteamModPageUrlById(lbModId.Text));
         }
 
         private void BtAddMod_Click(object sender, EventArgs e)
@@ -190,9 +193,6 @@ namespace ARKBreedingStats.uiControls
 
         private void BtRemoveAllMods_Click(object sender, EventArgs e)
         {
-            ModInfo mi = (ModInfo)lbModList.SelectedItem;
-            if (mi?.mod == null || cc?.ModList == null) return;
-
             cc.ModList.Clear();
 
             UpdateModListBoxes();
@@ -229,7 +229,7 @@ namespace ARKBreedingStats.uiControls
             lbAvailableModFiles.Items.Clear();
 
             lbAvailableModFiles.Items.AddRange(
-                modInfos.Where(mi => !mi.CurrentlyInLibrary && (filter == null || mi.mod.title.IndexOf(filter, StringComparison.OrdinalIgnoreCase) != -1)
+                _modInfos.Where(mi => !mi.CurrentlyInLibrary && (filter == null || mi.mod.title.IndexOf(filter, StringComparison.OrdinalIgnoreCase) != -1)
                 ).ToArray());
 
             lbAvailableModFiles.EndUpdate();

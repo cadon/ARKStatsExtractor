@@ -157,16 +157,16 @@ namespace ARKBreedingStats
             string imprinterName = creatureObject.GetPropertyValue<string>("ImprinterName");
             string owner = string.IsNullOrWhiteSpace(imprinterName) ? creatureObject.GetPropertyValue<string>("TamerString") : imprinterName;
 
-            int[] wildLevels = Enumerable.Repeat(-1, Values.STATS_COUNT).ToArray(); // -1 is unknown
-            int[] tamedLevels = new int[Values.STATS_COUNT];
+            int[] wildLevels = Enumerable.Repeat(-1, Stats.StatsCount).ToArray(); // -1 is unknown
+            int[] tamedLevels = new int[Stats.StatsCount];
 
-            for (int i = 0; i < Values.STATS_COUNT; i++)
+            for (int i = 0; i < Stats.StatsCount; i++)
             {
                 wildLevels[i] = statusObject.GetPropertyValue<ArkByteValue>("NumberOfLevelUpPointsApplied", i)?.ByteValue ?? 0;
             }
-            wildLevels[(int)StatNames.Torpidity] = statusObject.GetPropertyValue<int>("BaseCharacterLevel", defaultValue: 1) - 1; // torpor
+            wildLevels[Stats.Torpidity] = statusObject.GetPropertyValue<int>("BaseCharacterLevel", defaultValue: 1) - 1; // torpor
 
-            for (int i = 0; i < Values.STATS_COUNT; i++)
+            for (int i = 0; i < Stats.StatsCount; i++)
             {
                 tamedLevels[i] = statusObject.GetPropertyValue<ArkByteValue>("NumberOfLevelUpPointsAppliedTamed", i)?.ByteValue ?? 0;
             }
@@ -237,7 +237,7 @@ namespace ARKBreedingStats
                 creature.isBred = true;
             }
 
-            creature.colors = new byte[Species.ColorRegionCount];
+            creature.colors = new byte[Ark.ColorRegionCount];
             for (int i = 0; i < 6; i++)
             {
                 creature.colors[i] = creatureObject.GetPropertyValue<ArkByteValue>("ColorSetIndices", i)?.ByteValue ?? 0;

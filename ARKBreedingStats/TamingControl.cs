@@ -309,9 +309,9 @@ namespace ARKBreedingStats
             else
                 labelResult.Text = Loc.S("notEnoughFoodToTame");
 
-            numericUpDownCurrentTorpor.ValueSave = (decimal)(_selectedSpecies.stats[(int)StatNames.Torpidity].BaseValue * (1 + _selectedSpecies.stats[(int)StatNames.Torpidity].IncPerWildLevel * (level - 1)));
+            numericUpDownCurrentTorpor.ValueSave = (decimal)(_selectedSpecies.stats[Stats.Torpidity].BaseValue * (1 + _selectedSpecies.stats[Stats.Torpidity].IncPerWildLevel * (level - 1)));
 
-            nudTotalFood.Value = (decimal)(_selectedSpecies.stats[(int)StatNames.Food].BaseValue * (1 + _selectedSpecies.stats[(int)StatNames.Food].IncPerWildLevel * (level / 7))); // approximating the food level
+            nudTotalFood.Value = (decimal)(_selectedSpecies.stats[Stats.Food].BaseValue * (1 + _selectedSpecies.stats[Stats.Food].IncPerWildLevel * (level / 7))); // approximating the food level
             nudCurrentFood.Value = nudTotalFood.Value;
             UpdateTimeToFeedAll(enoughFood);
 

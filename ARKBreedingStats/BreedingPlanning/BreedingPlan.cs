@@ -6,8 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Threading;
-using ARKBreedingStats.Ark;
 using ARKBreedingStats.Library;
+using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.Properties;
 using ARKBreedingStats.raising;
 using ARKBreedingStats.species;
@@ -32,17 +32,17 @@ namespace ARKBreedingStats.BreedingPlanning
         /// <summary>
         /// how much are the stats weighted when looking for the best
         /// </summary>
-        private double[] _statWeights = new double[Values.STATS_COUNT];
+        private double[] _statWeights = new double[Stats.StatsCount];
         /// <summary>
         /// The best possible levels of the selected species for each stat.
         /// If the weighting is negative, a low level is considered better.
         /// </summary>
-        private readonly int[] _bestLevels = new int[Values.STATS_COUNT];
+        private readonly int[] _bestLevels = new int[Stats.StatsCount];
         /// <summary>
         /// The best possible levels of the selected species for each stat, after the filters are applied.
         /// If the weighting is negative, a low level is considered better.
         /// </summary>
-        private readonly int[] _bestLevelsFiltered = new int[Values.STATS_COUNT];
+        private readonly int[] _bestLevelsFiltered = new int[Stats.StatsCount];
         private readonly List<PedigreeCreature> _pcs = new List<PedigreeCreature>();
         private readonly List<PictureBox> _pbs = new List<PictureBox>();
         private bool[] _enabledColorRegions;
@@ -71,7 +71,7 @@ namespace ARKBreedingStats.BreedingPlanning
         {
             InitializeComponent();
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
-            for (int i = 0; i < Values.STATS_COUNT; i++)
+            for (int i = 0; i < Stats.StatsCount; i++)
                 _statWeights[i] = 1;
 
             _breedingMode = BreedingMode.TopStatsConservative;
@@ -119,7 +119,7 @@ namespace ARKBreedingStats.BreedingPlanning
             // check if sign of a weighting changed (then the best levels change)
             bool signChanged = false;
             var newWeightings = StatWeighting.Weightings;
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (Math.Sign(_statWeights[s]) != Math.Sign(newWeightings[s]))
                 {
@@ -385,7 +385,7 @@ namespace ARKBreedingStats.BreedingPlanning
                 pedigreeCreature2.Show();
                 lbBPBreedingScore.Show();
 
-                short[] bestPossLevels = new short[Values.STATS_COUNT]; // best possible levels
+                short[] bestPossLevels = new short[Stats.StatsCount]; // best possible levels
 
                 var levelLimitWithOutDomLevels = (CreatureCollection.CurrentCreatureCollection?.maxServerLevel ?? 0) - (CreatureCollection.CurrentCreatureCollection?.maxDomLevel ?? 0);
                 if (levelLimitWithOutDomLevels < 0) levelLimitWithOutDomLevels = 0;
@@ -470,12 +470,12 @@ namespace ARKBreedingStats.BreedingPlanning
                         {
                             g.TextRenderingHint = TextRenderingHint.AntiAlias;
                             brush.Color = Utils.MutationColor;
-                            if (_breedingPairs[i].Mother.Mutations < GameConstants.MutationPossibleWithLessThan)
+                            if (_breedingPairs[i].Mother.Mutations < Ark.MutationPossibleWithLessThan)
                             {
                                 g.FillRectangle(brush, 0, 5, 10, 10);
                                 sb.AppendLine(_breedingPairs[i].Mother + " can produce a mutation.");
                             }
-                            if (_breedingPairs[i].Father.Mutations < GameConstants.MutationPossibleWithLessThan)
+                            if (_breedingPairs[i].Father.Mutations < Ark.MutationPossibleWithLessThan)
                             {
                                 g.FillRectangle(brush, 77, 5, 10, 10);
                                 sb.AppendLine(_breedingPairs[i].Father + " can produce a mutation.");
@@ -528,7 +528,7 @@ namespace ARKBreedingStats.BreedingPlanning
                         foreach (Creature cr in chosenFemalesAndMales)
                         {
                             bestCreatureAlreadyAvailable = true;
-                            for (int s = 0; s < Values.STATS_COUNT; s++)
+                            for (int s = 0; s < Stats.StatsCount; s++)
                             {
                                 // if the stat is not a top stat and the stat is leveled in wild creatures
                                 if (cr.Species.UsesStat(s) && cr.levelsWild[s] != usedBestStats[s])
@@ -780,17 +780,17 @@ namespace ARKBreedingStats.BreedingPlanning
                 : string.Format(Loc.S(bestInSpecies ? "BestPossibleSpeciesLibrary" : "BestPossibleSpeciesLibraryFiltered"), _currentSpecies.name);
 
             Creature crB = new Creature(_currentSpecies, bestLevelsOfWhat,
-                null, null, 0, new int[Values.STATS_COUNT], null, 1, true, levelStep: levelStep);
+                null, null, 0, new int[Stats.StatsCount], null, 1, true, levelStep: levelStep);
             bool totalLevelUnknown = false;
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (s == (int)StatNames.Torpidity) continue;
+                if (s == Stats.Torpidity) continue;
                 crB.levelsWild[s] = bestLevels[s];
                 if (crB.levelsWild[s] == -1)
                     totalLevelUnknown = true;
                 crB.topBreedingStats[s] = crB.levelsWild[s] > 0 && crB.levelsWild[s] == _bestLevels[s];
             }
-            crB.levelsWild[(int)StatNames.Torpidity] = crB.levelsWild.Sum();
+            crB.levelsWild[Stats.Torpidity] = crB.levelsWild.Sum();
             crB.RecalculateCreatureValues(levelStep);
             var pc = bestInSpecies
                 ? pedigreeCreatureBestPossibleInSpecies
@@ -823,8 +823,8 @@ namespace ARKBreedingStats.BreedingPlanning
             }
 
             int? levelStep = CreatureCollection.getWildLevelStep();
-            Creature crB = new Creature(_currentSpecies, string.Empty, levelsWild: new int[Values.STATS_COUNT], isBred: true, levelStep: levelStep);
-            Creature crW = new Creature(_currentSpecies, string.Empty, levelsWild: new int[Values.STATS_COUNT], isBred: true, levelStep: levelStep);
+            Creature crB = new Creature(_currentSpecies, string.Empty, levelsWild: new int[Stats.StatsCount], isBred: true, levelStep: levelStep);
+            Creature crW = new Creature(_currentSpecies, string.Empty, levelsWild: new int[Stats.StatsCount], isBred: true, levelStep: levelStep);
             Creature mother = _breedingPairs[comboIndex].Mother;
             Creature father = _breedingPairs[comboIndex].Father;
             crB.Mother = mother;
@@ -834,9 +834,9 @@ namespace ARKBreedingStats.BreedingPlanning
             double probabilityBest = 1;
             bool totalLevelUnknown = false; // if stats are unknown, total level is as well (==> oxygen, speed)
             bool topStatBreedingMode = _breedingMode == BreedingMode.TopStatsConservative || _breedingMode == BreedingMode.TopStatsLucky;
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (s == (int)StatNames.Torpidity) continue;
+                if (s == Stats.Torpidity) continue;
                 crB.levelsWild[s] = _statWeights[s] < 0 ? Math.Min(mother.levelsWild[s], father.levelsWild[s]) : Math.Max(mother.levelsWild[s], father.levelsWild[s]);
                 crB.valuesBreeding[s] = StatValueCalculation.CalculateValue(_currentSpecies, s, crB.levelsWild[s], 0, true, 1, 0);
                 crB.topBreedingStats[s] = (_currentSpecies.stats[s].IncPerTamedLevel != 0 && crB.levelsWild[s] == _bestLevels[s]);
@@ -848,13 +848,13 @@ namespace ARKBreedingStats.BreedingPlanning
                 // in top stats breeding mode consider only probability of top stats
                 if (crB.levelsWild[s] > crW.levelsWild[s]
                     && (!topStatBreedingMode || crB.topBreedingStats[s]))
-                    probabilityBest *= GameConstants.ProbabilityHigherLevel;
+                    probabilityBest *= Ark.ProbabilityHigherLevel;
                 else if (crB.levelsWild[s] < crW.levelsWild[s]
                          && (!topStatBreedingMode || crB.topBreedingStats[s]))
-                    probabilityBest *= GameConstants.ProbabilityLowerLevel;
+                    probabilityBest *= Ark.ProbabilityLowerLevel;
             }
-            crB.levelsWild[(int)StatNames.Torpidity] = crB.levelsWild.Sum();
-            crW.levelsWild[(int)StatNames.Torpidity] = crW.levelsWild.Sum();
+            crB.levelsWild[Stats.Torpidity] = crB.levelsWild.Sum();
+            crW.levelsWild[Stats.Torpidity] = crW.levelsWild.Sum();
             crB.name = Loc.S("BestPossible");
             crW.name = Loc.S("WorstPossible");
             crB.RecalculateCreatureValues(levelStep);

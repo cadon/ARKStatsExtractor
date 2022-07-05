@@ -30,10 +30,10 @@ namespace ARKBreedingStats.uiControls
             r.CheckedChanged += RadioButtonCheckedChanged;
             flowLayoutPanel1.Controls.Add(r);
 
-            for (int si = 0; si < Values.STATS_COUNT; si++)
+            for (int si = 0; si < Stats.StatsCount; si++)
             {
-                var statIndex = Values.statsDisplayOrder[si];
-                if (statIndex == (int)StatNames.Torpidity) continue;
+                var statIndex = Stats.DisplayOrder[si];
+                if (statIndex == Stats.Torpidity) continue;
                 r = new RadioButton
                 {
                     Tag = statIndex,

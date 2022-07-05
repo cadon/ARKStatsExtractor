@@ -1,5 +1,5 @@
 {
-	"version": "342.20.8106520",
+	"version": "346.16.8991126",
 	"format": "1.14-flyerspeed",
 	"species": [
 		{
@@ -4649,53 +4649,6 @@
 			"displayedStats": 919
 		},
 		{
-			"name": "Malfunctioned Enforcer",
-			"blueprintPath": "/Game/Extinction/Dinos/Enforcer/Enforcer_Character_BP_Malfunctioned.Enforcer_Character_BP_Malfunctioned",
-			"variants": [ "Extinction" ],
-			"fullStatsRaw": [
-				[ 375, 0.2, 0.27, 0.5, 0 ],
-				[ 450, 0.1, 0.1, 0, 0 ],
-				[ 5000, 0.06, 0, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 1500, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 800, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0.01, 0, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [ "Bola", "Large Bear Trap" ],
-			"noGender": true,
-			"colors": [
-				{
-					"name": "Head Main",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				null,
-				null,
-				null,
-				{
-					"name": "Internals",
-					"colors": [ "Red" ]
-				},
-				null
-			],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 2000,
-				"affinityNeeded0": 10000,
-				"affinityIncreasePL": 5,
-				"foodConsumptionBase": 0.001543,
-				"foodConsumptionMult": 288.0392,
-				"babyFoodConsumptionMult": 510
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"displayedStats": 919
-		},
-		{
 			"name": "Forest Titan",
 			"blueprintPath": "/Game/Extinction/Dinos/ForestKaiju/ForestKaiju_Character_BP.ForestKaiju_Character_BP",
 			"variants": [ "Boss", "Extinction" ],
@@ -6220,6 +6173,1561 @@
 			},
 			"TamedBaseHealthMultiplier": 1,
 			"displayedStats": 927
+		},
+		{
+			"name": "Fenrisúlfr",
+			"blueprintPath": "/Game/Fjordur/Boss/Fenrir_Character_BP_Boss.Fenrir_Character_BP_Boss",
+			"variants": [ "Boss", "Fjordur" ],
+			"fullStatsRaw": [
+				[ 200000, 0.2, 0.27, 0.6, 0 ],
+				[ 1320, 0, 0, 0, 0 ],
+				[ 2500, 0.06, 0, 0.5, 0 ],
+				[ 600, 0, 0, 0, 0 ],
+				[ 5000, 0, 0, 0, 0.1 ],
+				null,
+				null,
+				[ 1200, 0, 0, 0, 0 ],
+				[ 1, 0.075, 0.1, 0.45, 0.4 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"noGender": true,
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 175438.596,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 3.125,
+				"affinityNeeded0": 1200,
+				"affinityIncreasePL": 60,
+				"foodConsumptionBase": 0.005,
+				"foodConsumptionMult": 150,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Fenrisúlfr",
+			"blueprintPath": "/Game/Fjordur/Boss/Fenrir_Character_BP_Boss_Easy.Fenrir_Character_BP_Boss_Easy",
+			"variants": [ "Boss", "Fjordur", "Gamma" ],
+			"fullStatsRaw": [
+				[ 385000, 0.2, 0.27, 0.6, 0 ],
+				[ 1320, 0, 0, 0, 0 ],
+				[ 2500, 0.06, 0, 0.5, 0 ],
+				[ 600, 0, 0, 0, 0 ],
+				[ 5000, 0, 0, 0, 0.1 ],
+				null,
+				null,
+				[ 1200, 0, 0, 0, 0 ],
+				[ 1, 0.075, 0.1, 0.45, 0.4 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"noGender": true,
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 175438.596,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 3.125,
+				"affinityNeeded0": 1200,
+				"affinityIncreasePL": 60,
+				"foodConsumptionBase": 0.005,
+				"foodConsumptionMult": 150,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Fenrisúlfr",
+			"blueprintPath": "/Game/Fjordur/Boss/Fenrir_Character_BP_Boss_Hard.Fenrir_Character_BP_Boss_Hard",
+			"variants": [ "Alpha", "Boss", "Fjordur" ],
+			"fullStatsRaw": [
+				[ 1200000, 0.2, 0.27, 0.6, 0 ],
+				[ 1320, 0, 0, 0, 0 ],
+				[ 2500, 0.06, 0, 0.5, 0 ],
+				[ 600, 0, 0, 0, 0 ],
+				[ 5000, 0, 0, 0, 0.1 ],
+				null,
+				null,
+				[ 1200, 0, 0, 0, 0 ],
+				[ 1, 0.1, 0.1, 0.45, 0.4 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"noGender": true,
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 175438.596,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 3.125,
+				"affinityNeeded0": 1200,
+				"affinityIncreasePL": 60,
+				"foodConsumptionBase": 0.005,
+				"foodConsumptionMult": 150,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Fenrisúlfr",
+			"blueprintPath": "/Game/Fjordur/Boss/Fenrir_Character_BP_Boss_Medium.Fenrir_Character_BP_Boss_Medium",
+			"variants": [ "Beta", "Boss", "Fjordur" ],
+			"fullStatsRaw": [
+				[ 750000, 0.2, 0.27, 0.6, 0 ],
+				[ 1320, 0, 0, 0, 0 ],
+				[ 2500, 0.06, 0, 0.5, 0 ],
+				[ 600, 0, 0, 0, 0 ],
+				[ 5000, 0, 0, 0, 0.1 ],
+				null,
+				null,
+				[ 1200, 0, 0, 0, 0 ],
+				[ 1, 0.075, 0.1, 0.45, 0.4 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"noGender": true,
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 175438.596,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 3.125,
+				"affinityNeeded0": 1200,
+				"affinityIncreasePL": 60,
+				"foodConsumptionBase": 0.005,
+				"foodConsumptionMult": 150,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Fenrir",
+			"blueprintPath": "/Game/Fjordur/Boss/Fenrir_Character_BP_Minion.Fenrir_Character_BP_Minion",
+			"variants": [ "Boss", "Fjordur", "Minion" ],
+			"fullStatsRaw": [
+				[ 750, 0.2, 0.27, 0.6, 0 ],
+				[ 330, 0.1, 0.1, 0, 0 ],
+				[ 1225, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0.1 ],
+				null,
+				null,
+				[ 600, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.45, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 175438.596,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Under",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Black",
+						"Brown",
+						"Dark Grey",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Spines",
+					"colors": [
+						"Dino Deep Blue",
+						"Dino Light Purple",
+						"Dino Medium Blue",
+						"Light Grey",
+						"Teal",
+						"WyvernBlue0",
+						"WyvernPurple0"
+					]
+				},
+				null,
+				{
+					"name": "Eyes",
+					"colors": [
+						"Dino Light Blue",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow"
+					]
+				},
+				{
+					"name": "Stripes",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Black",
+						"Brown",
+						"Dark Grey",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Under",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Black",
+						"Brown",
+						"Dark Grey",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				}
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 3.125,
+				"affinityNeeded0": 1200,
+				"affinityIncreasePL": 60,
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 288.0392,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 2.5,
+				"c_jaw": 2.5
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 927
+		},
+		{
+			"name": "Andrewsarchus",
+			"blueprintPath": "/Game/Fjordur/Dinos/Andrewsarchus/Andrewsarchus_Character_BP.Andrewsarchus_Character_BP",
+			"variants": [ "Fjordur" ],
+			"fullStatsRaw": [
+				[ 800, 0.2, 0.27, 0.5, 0 ],
+				[ 400, 0.1, 0.1, 0, 0 ],
+				[ 800, 0.06, 0, 0.5, 0 ],
+				[ 650, 0.1, 0.1, 0, 0 ],
+				[ 2174, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 500, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.4, 0.35 ],
+				[ 1, 0, 0.005, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"breeding": {
+				"gestationTime": 17857.1429,
+				"incubationTime": 0,
+				"maturationTime": 208333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Main",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
+						"BurntSienna",
+						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				},
+				null,
+				{
+					"name": "Stripes",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
+						"BurntSienna",
+						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Back",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
+						"BurntSienna",
+						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Spots",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
+						"BurntSienna",
+						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Secondary",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
+						"BurntSienna",
+						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				}
+			],
+			"taming": {
+				"nonViolent": true,
+				"violent": false,
+				"tamingIneffectiveness": 0.0625,
+				"affinityNeeded0": 5000,
+				"affinityIncreasePL": 250,
+				"wakeAffinityMult": 1,
+				"wakeFoodDeplMult": 2,
+				"foodConsumptionBase": 0.003156,
+				"foodConsumptionMult": 208,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 927
+		},
+		{
+			"name": "Beyla Spawn",
+			"blueprintPath": "/Game/Fjordur/Dinos/Beyla/BeylaMinion_Character_BP.BeylaMinion_Character_BP",
+			"variants": [ "Fjordur", "Minion" ],
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 150, 0.1, 0.27, 0.5, 0 ],
+				[ 200, 0, 0, 0, 0 ],
+				[ 400, 0.06, 0, 0.5, 0 ],
+				[ 150, 0, 0, 0, 0 ],
+				[ 450, 0, 0, 0, 0 ],
+				null,
+				null,
+				[ 150, 0, 0, 0, 0 ],
+				[ 1, 0.025, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"noGender": true,
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 8.333333,
+				"affinityNeeded0": 450,
+				"affinityIncreasePL": 22.5,
+				"foodConsumptionBase": 0.001736,
+				"foodConsumptionMult": 864.0553,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Beyla",
+			"blueprintPath": "/Game/Fjordur/Dinos/Beyla/Beyla_Character_BP.Beyla_Character_BP",
+			"variants": [ "Boss", "Fjordur" ],
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 175000, 0.2, 0.27, 0.5, 0 ],
+				[ 1250, 0, 0, 0, 0 ],
+				[ 1500, 0.06, 0, 0.5, 0 ],
+				[ 300, 0, 0, 0, 0 ],
+				[ 1500, 0, 0, 0, 0 ],
+				null,
+				null,
+				[ 400, 0, 0, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"noGender": true,
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.001156,
+				"foodConsumptionMult": 75,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Desmodus",
+			"blueprintPath": "/Game/Fjordur/Dinos/Desmodus/Desmodus_Character_BP.Desmodus_Character_BP",
+			"variants": [ "Fjordur" ],
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 325, 0.17, 0.27, 0.5, 0 ],
+				[ 500, 0.05, 0.06, 0, 0 ],
+				[ 450, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1600, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 350, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.365, 0 ],
+				null,
+				null
+			],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
+			"immobilizedBy": [
+				"Bola",
+				"Chain Bola",
+				"Bear Trap",
+				"Large Bear Trap",
+				"Plant Species Y"
+			],
+			"breeding": {
+				"gestationTime": 28571.4286,
+				"incubationTime": 0,
+				"maturationTime": 256410.256,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Base",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
+						"BurntSienna",
+						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Stripe",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
+						"BurntSienna",
+						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Dark Red",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonFire",
+						"LightAutumn",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Wing veins",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
+						"BurntSienna",
+						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Dark Red",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"DragonFire",
+						"LightWarmGray",
+						"MediumAutumn",
+						"MediumWarmGray",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
+						"BurntSienna",
+						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Back",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
+						"BurntSienna",
+						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Wings",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
+						"BurntSienna",
+						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Light Orange",
+						"Dino Light Red",
+						"Dino Medium Brown",
+						"DragonBase0",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				}
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 0,
+				"affinityNeeded0": 2200,
+				"affinityIncreasePL": 125,
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 216.0294,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": { "c_head": 3 },
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 927
+		},
+		{
+			"name": "Fenrir",
+			"blueprintPath": "/Game/Fjordur/Dinos/Fenrir/Fenrir_Character_BP.Fenrir_Character_BP",
+			"variants": [ "Fjordur" ],
+			"fullStatsRaw": [
+				[ 750, 0.2, 0.27, 0.6, 0 ],
+				[ 330, 0.1, 0.1, 0, 0 ],
+				[ 1225, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0.1 ],
+				null,
+				null,
+				[ 600, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.45, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [ "Chain Bola", "Bear Trap", "Large Bear Trap", "Plant Species Y" ],
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 175438.596,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Under",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Black",
+						"Brown",
+						"Dark Grey",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Spines",
+					"colors": [
+						"Dino Deep Blue",
+						"Dino Light Purple",
+						"Dino Medium Blue",
+						"Light Grey",
+						"Teal",
+						"WyvernBlue0",
+						"WyvernPurple0"
+					]
+				},
+				null,
+				{
+					"name": "Eyes",
+					"colors": [
+						"Dino Light Blue",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow"
+					]
+				},
+				{
+					"name": "Stripes",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Black",
+						"Brown",
+						"Dark Grey",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Under",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Black",
+						"Brown",
+						"Dark Grey",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				}
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": true,
+				"tamingIneffectiveness": 3.125,
+				"affinityNeeded0": 1200,
+				"affinityIncreasePL": 60,
+				"torporDepletionPS0": 0.6,
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 288.0392,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 2.5,
+				"c_jaw": 2.5
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 927
+		},
+		{
+			"name": "Fjordhawk",
+			"blueprintPath": "/Game/Fjordur/Dinos/Fjordhawk/Fjordhawk_Character_BP.Fjordhawk_Character_BP",
+			"variants": [ "Fjordur" ],
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 150, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 120, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1000, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 65, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.65, 0.4 ],
+				[ 1, 0, 0.01, 0.365, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5999.52004,
+				"eggTempMin": 29,
+				"eggTempMax": 32,
+				"maturationTime": 166666.667,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Main",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
+						"BurntSienna",
+						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Feet",
+					"colors": [
+						"BigFoot0",
+						"BigFoot5",
+						"Dino Dark Orange",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Orange",
+						"DragonBase0",
+						"DragonBase1",
+						"Glacial",
+						"Light Orange",
+						"Light Yellow",
+						"LightAutumn",
+						"Peach"
+					]
+				},
+				{
+					"name": "Stripes",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
+						"BurntSienna",
+						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
+						"BurntSienna",
+						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Belly",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
+						"BurntSienna",
+						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				},
+				{
+					"name": "Back",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Brown",
+						"BurntSienna",
+						"Dark Grey",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Albino",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur"
+					]
+				}
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 0,
+				"affinityNeeded0": 1750,
+				"affinityIncreasePL": 85,
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 216.0294,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_neck4": 3,
+				"c_jaw": 3
+			},
+			"TamedBaseHealthMultiplier": 2,
+			"displayedStats": 927
+		},
+		{
+			"name": "Fenrir",
+			"blueprintPath": "/Game/Fjordur/Dinos/HatiSkoll/Fenrir_Character_BP_MiniBoss.Fenrir_Character_BP_MiniBoss",
+			"variants": [ "Boss", "Fjordur" ],
+			"fullStatsRaw": [
+				[ 125000, 0.2, 0.27, 0.6, 0 ],
+				[ 1320, 0, 0, 0, 0 ],
+				[ 2500, 0.06, 0, 0.5, 0 ],
+				[ 300, 0, 0, 0, 0 ],
+				[ 5000, 0, 0, 0, 0.1 ],
+				null,
+				null,
+				[ 600, 0, 0, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.45, 0.4 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"noGender": true,
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 175438.596,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 3.125,
+				"affinityNeeded0": 1200,
+				"affinityIncreasePL": 60,
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 288.0392,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Hati",
+			"blueprintPath": "/Game/Fjordur/Dinos/HatiSkoll/Fenrir_Character_BP_MiniBoss_Hati.Fenrir_Character_BP_MiniBoss_Hati",
+			"variants": [ "Boss", "Fjordur" ],
+			"fullStatsRaw": [
+				[ 250000, 0.2, 0.27, 0.6, 0 ],
+				[ 1320, 0, 0, 0, 0 ],
+				[ 2500, 0.06, 0, 0.5, 0 ],
+				[ 300, 0, 0, 0, 0 ],
+				[ 5000, 0, 0, 0, 0.1 ],
+				null,
+				null,
+				[ 600, 0, 0, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.45, 0.4 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"noGender": true,
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 175438.596,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 3.125,
+				"affinityNeeded0": 1200,
+				"affinityIncreasePL": 60,
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 288.0392,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Sköll",
+			"blueprintPath": "/Game/Fjordur/Dinos/HatiSkoll/Fenrir_Character_BP_MiniBoss_Skoll.Fenrir_Character_BP_MiniBoss_Skoll",
+			"variants": [ "Boss", "Fjordur" ],
+			"fullStatsRaw": [
+				[ 125000, 0.2, 0.27, 0.6, 0 ],
+				[ 1320, 0, 0, 0, 0 ],
+				[ 2500, 0.06, 0, 0.5, 0 ],
+				[ 300, 0, 0, 0, 0 ],
+				[ 5000, 0, 0, 0, 0.1 ],
+				null,
+				null,
+				[ 600, 0, 0, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.45, 0.4 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"noGender": true,
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 175438.596,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 3.125,
+				"affinityNeeded0": 1200,
+				"affinityIncreasePL": 60,
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 288.0392,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Dragon",
+			"blueprintPath": "/Game/Fjordur/Dinos/IslandBosses/Dragon_Character_BP_Boss_Easy_FJ.Dragon_Character_BP_Boss_Easy_FJ",
+			"variants": [ "Boss", "Fjordur", "Gamma" ],
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 432000, 0.2, 0.2, 0.3, 0 ],
+				[ 10000, 0.1, 0.1, 0, 0 ],
+				[ 350, 0.06, 0, 0.5, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0 ],
+				[ 2600, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0.02, 0.02, 0, 0 ],
+				[ 1, 0.05, 0.04, 0.3, 0.3 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"altBaseStats": { "0": 180000 },
+			"immobilizedBy": [],
+			"noGender": true,
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.5,
+				"affinityNeeded0": 8500,
+				"affinityIncreasePL": 150,
+				"foodConsumptionBase": 0.002066,
+				"foodConsumptionMult": 150,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Dragon",
+			"blueprintPath": "/Game/Fjordur/Dinos/IslandBosses/Dragon_Character_BP_Boss_Hard_FJ.Dragon_Character_BP_Boss_Hard_FJ",
+			"variants": [ "Alpha", "Boss", "Fjordur" ],
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 972000, 0.25, 0.2, 0.3, 0 ],
+				[ 10000, 0.1, 0.1, 0, 0 ],
+				[ 350, 0.06, 0, 0.5, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0 ],
+				[ 2600, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0.02, 0.02, 0, 0 ],
+				[ 1, 0.075, 0.04, 0.3, 0.3 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"altBaseStats": { "0": 240000 },
+			"immobilizedBy": [],
+			"noGender": true,
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.5,
+				"affinityNeeded0": 8500,
+				"affinityIncreasePL": 150,
+				"foodConsumptionBase": 0.002066,
+				"foodConsumptionMult": 150,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Dragon",
+			"blueprintPath": "/Game/Fjordur/Dinos/IslandBosses/Dragon_Character_BP_Boss_Medium_FJ.Dragon_Character_BP_Boss_Medium_FJ",
+			"variants": [ "Beta", "Boss", "Fjordur" ],
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 864000.062, 0.2, 0.2, 0.3, 0 ],
+				[ 10000, 0.1, 0.1, 0, 0 ],
+				[ 350, 0.06, 0, 0.5, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0 ],
+				[ 2600, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0.02, 0.02, 0, 0 ],
+				[ 1, 0.05, 0.04, 0.3, 0.3 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"altBaseStats": { "0": 195000 },
+			"immobilizedBy": [],
+			"noGender": true,
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.5,
+				"affinityNeeded0": 8500,
+				"affinityIncreasePL": 150,
+				"foodConsumptionBase": 0.002066,
+				"foodConsumptionMult": 150,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Megapithecus",
+			"blueprintPath": "/Game/Fjordur/Dinos/IslandBosses/Gorilla_Character_BP_Easy_FJ.Gorilla_Character_BP_Easy_FJ",
+			"variants": [ "Boss", "Fjordur", "Gamma" ],
+			"fullStatsRaw": [
+				[ 180000, 0, 0, 0.3, 0 ],
+				[ 650, 0, 0, 0, 0 ],
+				[ 350, 0.06, 0, 0.5, 0 ],
+				[ 2000, 0, 0, 0, 0 ],
+				[ 2600, 0, 0, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0.02, 0.02, 0, 0 ],
+				[ 1, 0, 0, 0.3, 0.3 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"noGender": true,
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.5,
+				"affinityNeeded0": 8500,
+				"affinityIncreasePL": 150,
+				"foodConsumptionBase": 0.002066,
+				"foodConsumptionMult": 150,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Megapithecus",
+			"blueprintPath": "/Game/Fjordur/Dinos/IslandBosses/Gorilla_Character_BP_Hard_FJ.Gorilla_Character_BP_Hard_FJ",
+			"variants": [ "Alpha", "Boss", "Fjordur" ],
+			"fullStatsRaw": [
+				[ 540000, 0, 0, 0.3, 0 ],
+				[ 650, 0, 0, 0, 0 ],
+				[ 350, 0.06, 0, 0.5, 0 ],
+				[ 2000, 0, 0, 0, 0 ],
+				[ 2600, 0, 0, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0.02, 0.02, 0, 0 ],
+				[ 1, 0, 0, 0.3, 0.3 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"altBaseStats": { "0": 280000 },
+			"immobilizedBy": [],
+			"noGender": true,
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.5,
+				"affinityNeeded0": 8500,
+				"affinityIncreasePL": 150,
+				"foodConsumptionBase": 0.002066,
+				"foodConsumptionMult": 150,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Megapithecus",
+			"blueprintPath": "/Game/Fjordur/Dinos/IslandBosses/Gorilla_Character_BP_Medium_FJ.Gorilla_Character_BP_Medium_FJ",
+			"variants": [ "Beta", "Boss", "Fjordur" ],
+			"fullStatsRaw": [
+				[ 396000, 0, 0, 0.3, 0 ],
+				[ 650, 0, 0, 0, 0 ],
+				[ 350, 0.06, 0, 0.5, 0 ],
+				[ 2000, 0, 0, 0, 0 ],
+				[ 2600, 0, 0, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0.02, 0.02, 0, 0 ],
+				[ 1, 0, 0, 0.3, 0.3 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"altBaseStats": { "0": 200000 },
+			"immobilizedBy": [],
+			"noGender": true,
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.5,
+				"affinityNeeded0": 8500,
+				"affinityIncreasePL": 150,
+				"foodConsumptionBase": 0.002066,
+				"foodConsumptionMult": 150,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Broodmother Lysrix",
+			"blueprintPath": "/Game/Fjordur/Dinos/IslandBosses/SpiderL_Character_BP_Easy_FJ.SpiderL_Character_BP_Easy_FJ",
+			"variants": [ "Boss", "Fjordur", "Gamma" ],
+			"fullStatsRaw": [
+				[ 324000, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100000, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.151, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2.5,
+				"affinityNeeded0": 1500,
+				"affinityIncreasePL": 75,
+				"foodConsumptionBase": 0.001929,
+				"foodConsumptionMult": 432.0028,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Broodmother Lysrix",
+			"blueprintPath": "/Game/Fjordur/Dinos/IslandBosses/SpiderL_Character_BP_Hard_FJ.SpiderL_Character_BP_Hard_FJ",
+			"variants": [ "Alpha", "Boss", "Fjordur" ],
+			"fullStatsRaw": [
+				[ 972000.062, 0.25, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100000, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.075, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.151, 0 ],
+				null,
+				null
+			],
+			"altBaseStats": { "0": 470000 },
+			"immobilizedBy": [],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2.5,
+				"affinityNeeded0": 1500,
+				"affinityIncreasePL": 75,
+				"foodConsumptionBase": 0.001929,
+				"foodConsumptionMult": 432.0028,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Broodmother Lysrix",
+			"blueprintPath": "/Game/Fjordur/Dinos/IslandBosses/SpiderL_Character_BP_Medium_FJ.SpiderL_Character_BP_Medium_FJ",
+			"variants": [ "Beta", "Boss", "Fjordur" ],
+			"fullStatsRaw": [
+				[ 648000, 0.15, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100000, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.035, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.151, 0 ],
+				null,
+				null
+			],
+			"altBaseStats": { "0": 280000 },
+			"immobilizedBy": [],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2.5,
+				"affinityNeeded0": 1500,
+				"affinityIncreasePL": 75,
+				"foodConsumptionBase": 0.001929,
+				"foodConsumptionMult": 432.0028,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
+		},
+		{
+			"name": "Rubble Bear",
+			"blueprintPath": "/Game/Fjordur/Dinos/Steinbjorn/Direbear_Character_BP_SteinbjornMinion.Direbear_Character_BP_SteinbjornMinion",
+			"variants": [ "Boss", "Fjordur", "Minion" ],
+			"fullStatsRaw": [
+				[ 400, 0.2, 0.27, 0.5, 0 ],
+				[ 500, 0.1, 0.1, 0, 0 ],
+				[ 1000, 0.06, 0, 0.5, 0 ],
+				[ 270, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 650, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"noGender": true,
+			"breeding": {
+				"gestationTime": 14285.7143,
+				"incubationTime": 0,
+				"maturationTime": 166666.667,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.25,
+				"affinityNeeded0": 4000,
+				"affinityIncreasePL": 125,
+				"foodConsumptionBase": 0.003156,
+				"foodConsumptionMult": 150,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 927
+		},
+		{
+			"name": "Steinbjörn",
+			"blueprintPath": "/Game/Fjordur/Dinos/Steinbjorn/Steinbjorn_Character_BP.Steinbjorn_Character_BP",
+			"variants": [ "Boss", "Fjordur" ],
+			"fullStatsRaw": [
+				[ 300000, 0.2, 0.27, 0.5, 0 ],
+				[ 750, 0, 0, 0, 0 ],
+				[ 3000, 0.06, 0, 0.5, 0 ],
+				[ 300, 0, 0, 0, 0 ],
+				[ 6000, 0, 0, 0, 0 ],
+				null,
+				null,
+				[ 800, 0, 0, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"noGender": true,
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.25,
+				"affinityNeeded0": 4000,
+				"affinityIncreasePL": 125,
+				"foodConsumptionBase": 0.003156,
+				"foodConsumptionMult": 150,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 919
 		},
 		{
 			"name": "X-Parasaur",
@@ -10489,7 +11997,7 @@
 		{
 			"name": "Corrupted Avatar",
 			"blueprintPath": "/Game/Genesis/Dinos/Bots/Bot_WithBow_BP.Bot_WithBow_BP",
-			"variants": [ "Genesis" ],
+			"variants": [ "Genesis", "Minion" ],
 			"fullStatsRaw": [
 				[ 100, 0.5, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -10522,7 +12030,7 @@
 		{
 			"name": "Corrupted Avatar",
 			"blueprintPath": "/Game/Genesis/Dinos/Bots/Bot_WithSpear_BP.Bot_WithSpear_BP",
-			"variants": [ "Genesis" ],
+			"variants": [ "Genesis", "Minion" ],
 			"fullStatsRaw": [
 				[ 100, 0.5, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -10555,7 +12063,7 @@
 		{
 			"name": "Corrupted Avatar",
 			"blueprintPath": "/Game/Genesis/Dinos/Bots/Bot_WithTekGrenades_BP.Bot_WithTekGrenades_BP",
-			"variants": [ "Genesis" ],
+			"variants": [ "Genesis", "Minion" ],
 			"fullStatsRaw": [
 				[ 100, 0.5, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -10588,7 +12096,7 @@
 		{
 			"name": "Corrupted Avatar",
 			"blueprintPath": "/Game/Genesis/Dinos/Bots/Bot_WithTekRifle_BP.Bot_WithTekRifle_BP",
-			"variants": [ "Genesis" ],
+			"variants": [ "Genesis", "Minion" ],
 			"fullStatsRaw": [
 				[ 100, 0.5, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -84455,6 +85963,46 @@
 			"displayedStats": 919
 		},
 		{
+			"name": "Dire Polar Bear",
+			"blueprintPath": "/Game/Mods/Valguero/Assets/Dinos/PolarBear/Polar_Bear.Polar_Bear",
+			"variants": [ "Valguero" ],
+			"fullStatsRaw": [
+				[ 400, 0.2, 0.27, 0.5, 0 ],
+				[ 500, 0.1, 0.1, 0, 0 ],
+				[ 1000, 0.06, 0, 0.5, 0 ],
+				[ 270, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 650, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 1.226, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
+			"breeding": {
+				"gestationTime": 14285.7143,
+				"incubationTime": 0,
+				"maturationTime": 166666.667,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": true,
+				"tamingIneffectiveness": 1.25,
+				"affinityNeeded0": 4000,
+				"affinityIncreasePL": 125,
+				"torporDepletionPS0": 0.9,
+				"foodConsumptionBase": 0.003156,
+				"foodConsumptionMult": 150,
+				"babyFoodConsumptionMult": 510
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 927
+		},
+		{
 			"name": "Chalk Golem",
 			"blueprintPath": "/Game/Mods/Valguero/Assets/Dinos/RockGolem/ChalkGolem/ChalkGolem_Character_BP.ChalkGolem_Character_BP",
 			"variants": [ "Valguero" ],
@@ -84545,7 +86093,7 @@
 		{
 			"name": "Broodmother Lysrix",
 			"blueprintPath": "/Game/Mods/Valguero/Assets/Dinos/SpiderL/SpiderL_VAL_Character_BP.SpiderL_VAL_Character_BP",
-			"variants": [ "Valguero" ],
+			"variants": [ "Boss", "Valguero" ],
 			"fullStatsRaw": [
 				[ 324000, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -87773,6 +89321,7 @@
 		{
 			"name": "Skeletal Carnotaurus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Carno/Bone_MegaCarno_Character_BP.Bone_MegaCarno_Character_BP",
+			"variants": [ "Skeletal" ],
 			"fullStatsRaw": [
 				[ 6400, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -88695,6 +90244,7 @@
 		{
 			"name": "Coelacanth",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP_VDay.Coel_Character_BP_VDay",
+			"variants": [ "VDay" ],
 			"fullStatsRaw": [
 				[ 30, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -88782,7 +90332,7 @@
 		{
 			"name": "Aberrant Coelacanth",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP_VDay_Aberrant.Coel_Character_BP_VDay_Aberrant",
-			"variants": [ "Aberrant" ],
+			"variants": [ "Aberrant", "VDay" ],
 			"fullStatsRaw": [
 				[ 30, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -88870,7 +90420,7 @@
 		{
 			"name": "Coelacanth",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP_VDay_Ocean.Coel_Character_BP_VDay_Ocean",
-			"variants": [ "Ocean" ],
+			"variants": [ "Ocean", "VDay" ],
 			"fullStatsRaw": [
 				[ 30, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -91970,6 +93520,161 @@
 			"displayedStats": 927
 		},
 		{
+			"name": "Bunny Dodo",
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Dodo/Dodo_Character_BP_Bunny.Dodo_Character_BP_Bunny",
+			"fullStatsRaw": [
+				[ 40, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 30, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 50, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.01, 2, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 2999.76002,
+				"eggTempMin": 22,
+				"eggTempMax": 30,
+				"maturationTime": 55555.5556,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Dark Blue",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Purple",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dino Light Brown",
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Medium Brown",
+						"Dino Medium Green"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Medium Brown",
+						"Dino Medium Green"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Albino",
+						"Dino Dark Blue",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Purple",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				}
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.333333,
+				"affinityNeeded0": 450,
+				"affinityIncreasePL": 22.5,
+				"foodConsumptionBase": 0.000868,
+				"foodConsumptionMult": 2880.184,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_neck3": 3
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 927
+		},
+		{
 			"name": "Super Turkey",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dodo/Turkey_Character_BP.Turkey_Character_BP",
 			"fullStatsRaw": [
@@ -92258,6 +93963,7 @@
 		{
 			"name": "DodoRex",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/DodoRex/DodoRex_Character_BP.DodoRex_Character_BP",
+			"variants": [ "Boss" ],
 			"fullStatsRaw": [
 				[ 666666, 0.2, 0.27, 0, 0 ],
 				[ 1666, 0.1, 0.1, 0, 0 ],
@@ -92290,6 +93996,7 @@
 		{
 			"name": "DodoRex",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/DodoRex/DodoRex_Character_BP_FearEvolved.DodoRex_Character_BP_FearEvolved",
+			"variants": [ "Boss" ],
 			"fullStatsRaw": [
 				[ 666666, 0.2, 0.27, 0, 0 ],
 				[ 1666, 0.1, 0.1, 0, 0 ],
@@ -92322,6 +94029,7 @@
 		{
 			"name": "DodoRex",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/DodoRex/DodoRex_Character_BP_TurkeyTrials.DodoRex_Character_BP_TurkeyTrials",
+			"variants": [ "Boss" ],
 			"fullStatsRaw": [
 				[ 666666, 0.2, 0.27, 0, 0 ],
 				[ 1666, 0.1, 0.1, 0, 0 ],
@@ -94215,74 +95923,9 @@
 			"displayedStats": 927
 		},
 		{
-			"name": "Malfunctioned Tek Giganotosaurus",
-			"blueprintPath": "/Game/PrimalEarth/Dinos/Giganotosaurus/BionicGigant_Character_BP_Malfunctioned.BionicGigant_Character_BP_Malfunctioned",
-			"fullStatsRaw": [
-				[ 80000, 0.0005, 0.002, -63000, 0 ],
-				[ 400, 0.0005, 0.01, 0, 0 ],
-				[ 10000, 0.06, 0, 0, 0 ],
-				[ 150, 0.0025, 0.025, 0, 0 ],
-				[ 4000, 0.0025, 0.025, 0, 0 ],
-				null,
-				null,
-				[ 700, 0.01, 0.01, 0, 0 ],
-				[ 1, 0.05, 0.05, -0.8, 0 ],
-				[ 1, 0, 0.0031, 0, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [ "Large Bear Trap" ],
-			"breeding": {
-				"gestationTime": 0,
-				"incubationTime": 8999.28006,
-				"eggTempMin": 24,
-				"eggTempMax": 28,
-				"maturationTime": 878348.704,
-				"matingCooldownMin": 64800,
-				"matingCooldownMax": 172800
-			},
-			"colors": [
-				{
-					"name": "Head Main",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Spine",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Body Main",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Body Highlights",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Internals",
-					"colors": [ "Red" ]
-				},
-				{
-					"name": "Emissives",
-					"colors": [ "Red" ]
-				}
-			],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 1.25,
-				"affinityNeeded0": 5000,
-				"affinityIncreasePL": 160,
-				"foodConsumptionBase": 0.002314,
-				"foodConsumptionMult": 160.0563,
-				"babyFoodConsumptionMult": 900
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"displayedStats": 927
-		},
-		{
 			"name": "Skeletal Giganotosaurus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Giganotosaurus/Bone_Gigant_Character_BP.Bone_Gigant_Character_BP",
+			"variants": [ "Skeletal" ],
 			"fullStatsRaw": [
 				[ 80000, 0.0005, 0.002, -63000, 0 ],
 				[ 400, 0.0005, 0.01, 0, 0 ],
@@ -98761,6 +100404,155 @@
 			"displayedStats": 927
 		},
 		{
+			"name": "Bunny Oviraptor",
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Oviraptor/BunnyOviraptor_Character_BP.BunnyOviraptor_Character_BP",
+			"fullStatsRaw": [
+				[ 140, 0.2, 0.27, 0.5, 0 ],
+				[ 120, 0.1, 0.1, 0, 0 ],
+				[ 125, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 900, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.01, 1, 0.15 ],
+				null,
+				null
+			],
+			"immobilizedBy": [ "Bola", "Bear Trap", "Plant Species Y" ],
+			"noGender": true,
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 4090.58184,
+				"eggTempMin": 26,
+				"eggTempMax": 30,
+				"maturationTime": 75757.5758,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Albino",
+						"Dino Dark Blue",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Purple",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Dark Blue",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Purple",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				},
+				null,
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dark Grey",
+						"Dino Dark Brown",
+						"Dino Dark Green",
+						"Dino Dark Orange",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Medium Brown",
+						"Dino Medium Green"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Black",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"Dino Medium Green",
+						"Light Grey"
+					]
+				}
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 16.66667,
+				"affinityNeeded0": 960,
+				"affinityIncreasePL": 42,
+				"foodConsumptionBase": 0.001302,
+				"foodConsumptionMult": 768.0491,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3,
+				"c_neck3": 3
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 927
+		},
+		{
 			"name": "Oviraptor",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Oviraptor/Oviraptor_Character_BP.Oviraptor_Character_BP",
 			"fullStatsRaw": [
@@ -99292,76 +101084,6 @@
 				"affinityNeeded0": 1500,
 				"affinityIncreasePL": 75,
 				"torporDepletionPS0": 0.3,
-				"foodConsumptionBase": 0.001929,
-				"foodConsumptionMult": 864.0056,
-				"babyFoodConsumptionMult": 510
-			},
-			"boneDamageAdjusters": {
-				"c_jaw": 2,
-				"c_head": 2
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"displayedStats": 927
-		},
-		{
-			"name": "Malfunctioned Tek Parasaur",
-			"blueprintPath": "/Game/PrimalEarth/Dinos/Para/BionicPara_Character_BP_Malfunctioned.BionicPara_Character_BP_Malfunctioned",
-			"fullStatsRaw": [
-				[ 200, 0.2, 0.27, 0.5, 0 ],
-				[ 450, 0.1, 0.1, 0, 0 ],
-				[ 150, 0.06, 0, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 1500, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 480, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0.01, 0.67, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [ "Bola", "Bear Trap", "Large Bear Trap", "Plant Species Y" ],
-			"breeding": {
-				"gestationTime": 0,
-				"incubationTime": 5142.44575,
-				"eggTempMin": 24,
-				"eggTempMax": 28,
-				"maturationTime": 95238.0952,
-				"matingCooldownMin": 64800,
-				"matingCooldownMax": 172800
-			},
-			"colors": [
-				{
-					"name": "Head Main",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Spine",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Body Main",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Body Highlights",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Internals",
-					"colors": [ "Red" ]
-				},
-				{
-					"name": "Emissives",
-					"colors": [ "Red" ]
-				}
-			],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 0.4,
-				"affinityNeeded0": 1500,
-				"affinityIncreasePL": 75,
 				"foodConsumptionBase": 0.001929,
 				"foodConsumptionMult": 864.0056,
 				"babyFoodConsumptionMult": 510
@@ -100418,7 +102140,7 @@
 		{
 			"name": "Piranha",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Piranha/Piranha_Character_BP_BreakNet.Piranha_Character_BP_BreakNet",
-			"variants": [ "BreakNet" ],
+			"variants": [ "BreakNet", "Mission" ],
 			"fullStatsRaw": [
 				[ 150, 0.2, 0.27, 0.5, 0 ],
 				[ 120, 0.1, 0.1, 0, 0 ],
@@ -100534,7 +102256,7 @@
 		{
 			"name": "Piranha",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Piranha/Piranha_Character_BP_IceFishMission.Piranha_Character_BP_IceFishMission",
-			"variants": [ "IceFishing" ],
+			"variants": [ "IceFishing", "Mission" ],
 			"fullStatsRaw": [
 				[ 150, 0.2, 0.27, 0.5, 0 ],
 				[ 120, 0.1, 0.1, 0, 0 ],
@@ -101859,77 +103581,9 @@
 			"displayedStats": 927
 		},
 		{
-			"name": "Malfunctioned Tek Quetzal",
-			"blueprintPath": "/Game/PrimalEarth/Dinos/Quetzalcoatlus/BionicQuetz_Character_BP_Malfunctioned.BionicQuetz_Character_BP_Malfunctioned",
-			"isFlyer": true,
-			"fullStatsRaw": [
-				[ 1200, 0.2, 0.108, 0.5, 0 ],
-				[ 800, 0.05, 0.05, 0, 0 ],
-				[ 1850, 0.06, 0, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 1200, 0.1, 0.1, 0, 0.15 ],
-				null,
-				null,
-				[ 800, 0.02, 0.05, 0, 0 ],
-				[ 1, 0.04, 0.1, 0.4, 0.4 ],
-				[ 1, 0, 0.01, 0.365, 0 ],
-				null,
-				null
-			],
-			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
-			"immobilizedBy": [ "Chain Bola", "Bear Trap", "Large Bear Trap", "Plant Species Y" ],
-			"breeding": {
-				"gestationTime": 0,
-				"incubationTime": 59995.2004,
-				"eggTempMin": 5,
-				"eggTempMax": 6,
-				"maturationTime": 476190.476,
-				"matingCooldownMin": 64800,
-				"matingCooldownMax": 172800
-			},
-			"colors": [
-				{
-					"name": "Head Main",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Spine",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Body Main",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Body Highlights",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Internals",
-					"colors": [ "Red" ]
-				},
-				{
-					"name": "Emissives",
-					"colors": [ "Red" ]
-				}
-			],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 0.9375,
-				"affinityNeeded0": 6850,
-				"affinityIncreasePL": 300,
-				"foodConsumptionBase": 0.0035,
-				"foodConsumptionMult": 140,
-				"babyFoodConsumptionMult": 510
-			},
-			"boneDamageAdjusters": { "c_head": 3 },
-			"TamedBaseHealthMultiplier": 0.85,
-			"displayedStats": 927
-		},
-		{
 			"name": "Skeletal Quetzal",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Quetzalcoatlus/Bone_Quetz_Character_BP.Bone_Quetz_Character_BP",
+			"variants": [ "Skeletal" ],
 			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 18000, 0.2, 0.27, 0.5, 0 ],
@@ -102376,79 +104030,9 @@
 			"displayedStats": 927
 		},
 		{
-			"name": "Malfunctioned Tek Raptor",
-			"blueprintPath": "/Game/PrimalEarth/Dinos/Raptor/BionicRaptor_Character_BP_Malfunctioned.BionicRaptor_Character_BP_Malfunctioned",
-			"fullStatsRaw": [
-				[ 200, 0.2, 0.27, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 180, 0.06, 0, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 1200, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 140, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0.015, 0.2, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [ "Bola", "Bear Trap", "Large Bear Trap", "Plant Species Y" ],
-			"breeding": {
-				"gestationTime": 0,
-				"incubationTime": 7199.42405,
-				"eggTempMin": 20,
-				"eggTempMax": 28,
-				"maturationTime": 133333.333,
-				"matingCooldownMin": 64800,
-				"matingCooldownMax": 172800
-			},
-			"colors": [
-				{
-					"name": "Head Main",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Spine",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Body Main",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Body Highlights",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Internals",
-					"colors": [ "Red" ]
-				},
-				{
-					"name": "Emissives",
-					"colors": [ "Red" ]
-				}
-			],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 3.125,
-				"affinityNeeded0": 1200,
-				"affinityIncreasePL": 60,
-				"foodConsumptionBase": 0.001543,
-				"foodConsumptionMult": 648.0881,
-				"babyFoodConsumptionMult": 510
-			},
-			"boneDamageAdjusters": {
-				"Cnt_Head_JNT_SKL": 3,
-				"Cnt_Neck_002_JNT_SKL": 3,
-				"Cnt_Neck_000_JNT_SKL": 3
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"displayedStats": 927
-		},
-		{
 			"name": "Skeletal Raptor",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Raptor/Bone_MegaRaptor_Character_BP.Bone_MegaRaptor_Character_BP",
+			"variants": [ "Skeletal" ],
 			"fullStatsRaw": [
 				[ 3600, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -103106,140 +104690,9 @@
 			"displayedStats": 927
 		},
 		{
-			"name": "Malfunctioned Tek Rex",
-			"blueprintPath": "/Game/PrimalEarth/Dinos/Rex/BionicRex_Character_BP_Malfunctioned.BionicRex_Character_BP_Malfunctioned",
-			"fullStatsRaw": [
-				[ 1100, 0.2, 0.27, 0.5, 0 ],
-				[ 420, 0.1, 0.1, 0, 0 ],
-				[ 1550, 0.06, 0, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 3000, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 500, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0.01, 0, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
-			"breeding": {
-				"gestationTime": 0,
-				"incubationTime": 17998.5601,
-				"eggTempMin": 32,
-				"eggTempMax": 34,
-				"maturationTime": 333333.333,
-				"matingCooldownMin": 64800,
-				"matingCooldownMax": 172800
-			},
-			"colors": [
-				{
-					"name": "Head Main",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Spine",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Body Main",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Body Highlights",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Internals",
-					"colors": [ "Red" ]
-				},
-				{
-					"name": "Emissives",
-					"colors": [ "Red" ]
-				}
-			],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 1.25,
-				"affinityNeeded0": 3450,
-				"affinityIncreasePL": 150,
-				"foodConsumptionBase": 0.002314,
-				"foodConsumptionMult": 180.0634,
-				"babyFoodConsumptionMult": 510
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"displayedStats": 927
-		},
-		{
-			"name": "Malfunctioned Tek Rex",
-			"blueprintPath": "/Game/PrimalEarth/Dinos/Rex/BionicRex_Character_BP_Malfunctioned_Adolescent.BionicRex_Character_BP_Malfunctioned_Adolescent",
-			"fullStatsRaw": [
-				[ 1100, 0.2, 0.27, 0.5, 0 ],
-				[ 420, 0.1, 0.1, 0, 0 ],
-				[ 1550, 0.06, 0, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 3000, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 500, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0.01, 0, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
-			"breeding": {
-				"gestationTime": 0,
-				"incubationTime": 17998.5601,
-				"eggTempMin": 32,
-				"eggTempMax": 34,
-				"maturationTime": 333333.333,
-				"matingCooldownMin": 64800,
-				"matingCooldownMax": 172800
-			},
-			"colors": [
-				{
-					"name": "Head Main",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Spine",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Body Main",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Body Highlights",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Internals",
-					"colors": [ "Red" ]
-				},
-				{
-					"name": "Emissives",
-					"colors": [ "Red" ]
-				}
-			],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 1.25,
-				"affinityNeeded0": 3450,
-				"affinityIncreasePL": 150,
-				"foodConsumptionBase": 0.002314,
-				"foodConsumptionMult": 180.0634,
-				"babyFoodConsumptionMult": 510
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"displayedStats": 927
-		},
-		{
 			"name": "Skeletal Rex",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Rex/Bone_MegaRex_Character_BP.Bone_MegaRex_Character_BP",
+			"variants": [ "Skeletal" ],
 			"fullStatsRaw": [
 				[ 17500, 0.2, 0.27, 0.5, 0 ],
 				[ 420, 0.1, 0.1, 0, 0 ],
@@ -104286,6 +105739,7 @@
 		{
 			"name": "Skeletal Bronto",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Sauropod/Bone_Sauropod_Character_BP.Bone_Sauropod_Character_BP",
+			"variants": [ "Skeletal" ],
 			"fullStatsRaw": [
 				[ 34500, 0.2, 0.27, 0.5, 0 ],
 				[ 240, 0.1, 0.1, 0, 0 ],
@@ -106478,84 +107932,9 @@
 			"displayedStats": 927
 		},
 		{
-			"name": "Malfunctioned Tek Stegosaurus",
-			"blueprintPath": "/Game/PrimalEarth/Dinos/Stego/BionicStego_Character_BP_Malfunctioned.BionicStego_Character_BP_Malfunctioned",
-			"fullStatsRaw": [
-				[ 650, 0.2, 0.27, 0.5, 0 ],
-				[ 300, 0.1, 0.1, 0, 0 ],
-				[ 500, 0.06, 0, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 6000, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 500, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0.02, 0.964, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [ "Chain Bola", "Large Bear Trap", "Plant Species Y" ],
-			"breeding": {
-				"gestationTime": 0,
-				"incubationTime": 9999.20006,
-				"eggTempMin": 22,
-				"eggTempMax": 28,
-				"maturationTime": 185185.185,
-				"matingCooldownMin": 64800,
-				"matingCooldownMax": 172800
-			},
-			"colors": [
-				{
-					"name": "Head Main",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Spine",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Body Main",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Body Highlights",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Internals",
-					"colors": [ "Red" ]
-				},
-				{
-					"name": "Emissives",
-					"colors": [ "Red" ]
-				}
-			],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 0.1,
-				"affinityNeeded0": 6000,
-				"affinityIncreasePL": 300,
-				"foodConsumptionBase": 0.005341,
-				"foodConsumptionMult": 208.0343,
-				"babyFoodConsumptionMult": 510
-			},
-			"boneDamageAdjusters": {
-				"Cnt_Head_JNT_SKL": 1.67,
-				"Cnt_Jaw_JNT_SKL": 1.67,
-				"Cnt_Neck_004_JNT_SKL": 1.67,
-				"Cnt_Spine_002_JNT_SKL": 0.7,
-				"Cnt_Spine_001_JNT_SKL": 0.7,
-				"Cnt_Spine_000_JNT_SKL": 0.7,
-				"Cnt_Spine_003_JNT_SKL": 0.7,
-				"Cnt_Tail_000_JNT_SKL": 0.7
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"displayedStats": 927
-		},
-		{
 			"name": "Skeletal Stego",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Stego/Bone_Stego_Character_BP.Bone_Stego_Character_BP",
+			"variants": [ "Skeletal" ],
 			"fullStatsRaw": [
 				[ 8550, 0.2, 0.27, 0.5, 0 ],
 				[ 300, 0.1, 0.1, 0, 0 ],
@@ -107960,78 +109339,9 @@
 			"displayedStats": 927
 		},
 		{
-			"name": "Malfunctioned Tek Triceratops",
-			"blueprintPath": "/Game/PrimalEarth/Dinos/Trike/BionicTrike_Character_BP_Malfunctioned.BionicTrike_Character_BP_Malfunctioned",
-			"fullStatsRaw": [
-				[ 375, 0.2, 0.27, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 250, 0.06, 0, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 3000, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 365, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, 0.5, 0.4 ],
-				[ 1, 0, 0.015, 1.2, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [ "Chain Bola", "Large Bear Trap", "Plant Species Y" ],
-			"breeding": {
-				"gestationTime": 0,
-				"incubationTime": 8999.28006,
-				"eggTempMin": 22,
-				"eggTempMax": 28,
-				"maturationTime": 166666.667,
-				"matingCooldownMin": 64800,
-				"matingCooldownMax": 172800
-			},
-			"colors": [
-				{
-					"name": "Head Main",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Spine",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Body Main",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Body Highlights",
-					"colors": [ "Black", "Dark Grey", "Dino Darker Grey", "Light Grey" ]
-				},
-				{
-					"name": "Internals",
-					"colors": [ "Red" ]
-				},
-				{
-					"name": "Emissives",
-					"colors": [ "Red" ]
-				}
-			],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 0.2,
-				"affinityNeeded0": 3000,
-				"affinityIncreasePL": 150,
-				"foodConsumptionBase": 0.003156,
-				"foodConsumptionMult": 352.0631,
-				"babyFoodConsumptionMult": 510
-			},
-			"boneDamageAdjusters": {
-				"c_head": 0.15,
-				"c_jaw": 0.15
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"displayedStats": 927
-		},
-		{
 			"name": "Skeletal Trike",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Trike/Bone_Trike_Character_BP.Bone_Trike_Character_BP",
+			"variants": [ "Skeletal" ],
 			"fullStatsRaw": [
 				[ 5625, 0.2, 0.27, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -109875,7 +111185,7 @@
 		{
 			"name": "Dodo Wyvern",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/DodoWyvern/DodoWyvern_Character_BP.DodoWyvern_Character_BP",
-			"variants": [ "ScorchedEarth" ],
+			"variants": [ "Boss", "ScorchedEarth" ],
 			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 666666, 0.2, 0.2, 0.3, 0 ],
@@ -109981,9 +111291,9 @@
 			"displayedStats": 927
 		},
 		{
-			"name": "Jerboa",
+			"name": "Skeletal Jerboa",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Jerboa/Bone_Jerboa_Character_BP.Bone_Jerboa_Character_BP",
-			"variants": [ "ScorchedEarth" ],
+			"variants": [ "ScorchedEarth", "Skeletal" ],
 			"fullStatsRaw": [
 				[ 825, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.1, 0, 0 ],
@@ -111247,7 +112557,7 @@
 		{
 			"name": "Bone Fire Wyvern",
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Bone_MegaWyvern_Character_BP_Fire.Bone_MegaWyvern_Character_BP_Fire",
-			"variants": [ "ScorchedEarth" ],
+			"variants": [ "ScorchedEarth", "Skeletal" ],
 			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 8000, 0.15, 0.162, -785, 0 ],

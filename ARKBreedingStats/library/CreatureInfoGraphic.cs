@@ -137,10 +137,10 @@ namespace ARKBreedingStats.library
                 if (displayStatValues)
                     g.DrawString(Loc.S("Values"), font, fontBrush, xRightBrValue, currentYPosition, stringFormatRight);
                 int statDisplayIndex = 0;
-                for (int si = 0; si < Values.STATS_COUNT; si++)
+                for (int si = 0; si < Stats.StatsCount; si++)
                 {
-                    int statIndex = Values.statsDisplayOrder[si];
-                    if (statIndex == (int)StatNames.Torpidity || !creature.Species.UsesStat(statIndex))
+                    int statIndex = Stats.DisplayOrder[si];
+                    if (statIndex == Stats.Torpidity || !creature.Species.UsesStat(statIndex))
                         continue;
 
                     int y = currentYPosition + (height / 9) + (statDisplayIndex++) * statLineHeight;
@@ -232,7 +232,7 @@ namespace ARKBreedingStats.library
                 {
                     g.DrawString(Loc.S("Colors"), font, fontBrush, xColor, currentYPosition);
                     int colorRow = 0;
-                    for (int ci = 0; ci < Species.ColorRegionCount; ci++)
+                    for (int ci = 0; ci < Ark.ColorRegionCount; ci++)
                     {
                         if (!enabledColorRegions[ci])
                             continue;
@@ -318,7 +318,7 @@ namespace ARKBreedingStats.library
         private static int MaxCharLength(double[] values)
         {
             int max = 0;
-            for (int si = 0; si < Values.STATS_COUNT; si++)
+            for (int si = 0; si < Stats.StatsCount; si++)
             {
                 int l = values[si].ToString("0").Length + Utils.Precision(si);
                 if (l > max) max = l;

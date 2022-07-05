@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using ARKBreedingStats.Ark;
 
 namespace ARKBreedingStats
 {
@@ -30,16 +29,16 @@ namespace ARKBreedingStats
             var levelProbabilities = new Dictionary<int, double>();
             double maxProbability = 0;
 
-            if (wildLevels1 == null || wildLevels2 == null || wildLevels1.Length != Values.STATS_COUNT || wildLevels2.Length != Values.STATS_COUNT)
+            if (wildLevels1 == null || wildLevels2 == null || wildLevels1.Length != Stats.StatsCount || wildLevels2.Length != Stats.StatsCount)
             {
                 Clear(true);
                 return;
             }
 
-            List<int> usedStatIndicesTest = new List<int>(Values.STATS_COUNT);
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            List<int> usedStatIndicesTest = new List<int>(Stats.StatsCount);
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (species.UsesStat(s) && s != (int)StatNames.Torpidity)
+                if (species.UsesStat(s) && s != Stats.Torpidity)
                     usedStatIndicesTest.Add(s);
             }
             int usedStatsCount = usedStatIndicesTest.Count;
@@ -73,13 +72,13 @@ namespace ARKBreedingStats
                     {
                         // use the stat level of creature 1
                         totalLevel += wildLevels1[usedStatIndices[s]];
-                        probability *= wildLevels1[usedStatIndices[s]] > wildLevels2[usedStatIndices[s]] ? GameConstants.ProbabilityHigherLevel : GameConstants.ProbabilityLowerLevel;
+                        probability *= wildLevels1[usedStatIndices[s]] > wildLevels2[usedStatIndices[s]] ? Ark.ProbabilityHigherLevel : Ark.ProbabilityLowerLevel;
                     }
                     else
                     {
                         // use the stat level of creature 2
                         totalLevel += wildLevels2[usedStatIndices[s]];
-                        probability *= wildLevels1[usedStatIndices[s]] < wildLevels2[usedStatIndices[s]] ? GameConstants.ProbabilityHigherLevel : GameConstants.ProbabilityLowerLevel;
+                        probability *= wildLevels1[usedStatIndices[s]] < wildLevels2[usedStatIndices[s]] ? Ark.ProbabilityHigherLevel : Ark.ProbabilityLowerLevel;
                     }
                 }
                 if (!levelProbabilities.ContainsKey(totalLevel))

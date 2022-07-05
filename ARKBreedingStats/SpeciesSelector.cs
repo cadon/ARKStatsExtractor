@@ -113,14 +113,14 @@ namespace ARKBreedingStats
 
             foreach (var a in aliases)
             {
-                if (speciesNameToSpecies.ContainsKey(a.Value))
+                if (speciesNameToSpecies.TryGetValue(a.Value, out var aliasSpecies))
                 {
                     entryList.Add(new SpeciesListEntry
                     {
-                        DisplayName = a.Key + " (→" + speciesNameToSpecies[a.Value].name + ")",
+                        DisplayName = a.Key + " (→" + aliasSpecies.name + ")",
                         SearchName = a.Key,
-                        Species = speciesNameToSpecies[a.Value],
-                        ModName = speciesNameToSpecies[a.Value].Mod?.title ?? string.Empty,
+                        Species = aliasSpecies,
+                        ModName = aliasSpecies.Mod?.title ?? string.Empty,
                     });
                 }
             }
@@ -136,40 +136,45 @@ namespace ARKBreedingStats
             var lImgList = new ImageList();
             _iconIndices = new List<string>();
             bool imageFolderExist = !string.IsNullOrEmpty(CreatureColored.ImageFolder) && Directory.Exists(CreatureColored.ImageFolder);
+            //var rand = new Random();
 
             //var speciesWOImage = new List<string>();// to determine which species have no image yet
-            foreach (Species s in species)
+            if (imageFolderExist)
             {
-
-                if (!imageFolderExist) continue;
-
-                var (imgExists, imagePath, speciesListName) = CreatureColored.SpeciesImageExists(s,
-                    s.name.Contains("Polar") ? creatureColorsPolar : creatureColors);
-                //if (!imgExists && !speciesWOImage.Contains(s.name)) speciesWOImage.Add(s.name);
-                if (!imgExists || _iconIndices.Contains(speciesListName)) continue;
-
-                try
+                foreach (Species s in species)
                 {
-                    lImgList.Images.Add(Image.FromFile(imagePath));
-                    _iconIndices.Add(speciesListName);
-                }
-                catch (OutOfMemoryException)
-                {
-                    // usually this exception occurs if the image file is corrupted
-                    if (FileService.TryDeleteFile(imagePath))
+                    //var colors = s.RandomSpeciesColors(rand);
+
+                    var (imgExists, imagePath, speciesListName) = CreatureColored.SpeciesImageExists(s,
+                        s.name.Contains("Polar") ? creatureColorsPolar : creatureColors
+                        //colors
+                        );
+                    //if (!imgExists && !speciesWOImage.Contains(s.name)) speciesWOImage.Add(s.name);
+                    if (!imgExists || _iconIndices.Contains(speciesListName)) continue;
+
+                    try
                     {
-                        (imgExists, imagePath, speciesListName) = CreatureColored.SpeciesImageExists(s,
-                            s.name.Contains("Polar") ? creatureColorsPolar : creatureColors);
-                        if (imgExists)
+                        lImgList.Images.Add(Image.FromFile(imagePath));
+                        _iconIndices.Add(speciesListName);
+                    }
+                    catch (OutOfMemoryException)
+                    {
+                        // usually this exception occurs if the image file is corrupted
+                        if (FileService.TryDeleteFile(imagePath))
                         {
-                            try
+                            (imgExists, imagePath, speciesListName) = CreatureColored.SpeciesImageExists(s,
+                                s.name.Contains("Polar") ? creatureColorsPolar : creatureColors);
+                            if (imgExists)
                             {
-                                lImgList.Images.Add(Image.FromFile(imagePath));
-                                _iconIndices.Add(speciesListName);
-                            }
-                            catch
-                            {
-                                // ignore image if it failed a second time
+                                try
+                                {
+                                    lImgList.Images.Add(Image.FromFile(imagePath));
+                                    _iconIndices.Add(speciesListName);
+                                }
+                                catch
+                                {
+                                    // ignore image if it failed a second time
+                                }
                             }
                         }
                     }
@@ -181,7 +186,7 @@ namespace ARKBreedingStats
             lvLastSpecies.LargeImageList = lImgList;
             lvSpeciesInLibrary.LargeImageList = lImgList;
             UpdateLastSpecies();
-            UpdateLibraryList();
+            UpdateImagesLibraryList();
         }
 
         /// <summary>
@@ -209,7 +214,10 @@ namespace ARKBreedingStats
             lvSpeciesInLibrary.EndUpdate();
         }
 
-        private void UpdateLibraryList()
+        /// <summary>
+        /// Updates the images of the list that displays species of the library.
+        /// </summary>
+        private void UpdateImagesLibraryList()
         {
             foreach (ListViewItem lvi in lvSpeciesInLibrary.Items)
             {
@@ -220,7 +228,7 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Updates the list displaying the last selected species.
+        /// Updates the list displaying the last selected species. Also sets the images.
         /// </summary>
         private void UpdateLastSpecies()
         {

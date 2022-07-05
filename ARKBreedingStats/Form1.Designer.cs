@@ -346,6 +346,7 @@ namespace ARKBreedingStats
             this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetLibraryColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
+            this.colorDefinitionsToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -1322,7 +1323,8 @@ namespace ARKBreedingStats
             // devToolStripMenuItem
             // 
             this.devToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addRandomCreaturesToolStripMenuItem});
+            this.addRandomCreaturesToolStripMenuItem,
+            this.colorDefinitionsToClipboardToolStripMenuItem});
             this.devToolStripMenuItem.Name = "devToolStripMenuItem";
             this.devToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.devToolStripMenuItem.Text = "Dev";
@@ -1330,7 +1332,7 @@ namespace ARKBreedingStats
             // addRandomCreaturesToolStripMenuItem
             // 
             this.addRandomCreaturesToolStripMenuItem.Name = "addRandomCreaturesToolStripMenuItem";
-            this.addRandomCreaturesToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.addRandomCreaturesToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.addRandomCreaturesToolStripMenuItem.Text = "Add random creatures…";
             this.addRandomCreaturesToolStripMenuItem.Click += new System.EventHandler(this.addRandomCreaturesToolStripMenuItem_Click);
             // 
@@ -3389,6 +3391,13 @@ namespace ARKBreedingStats
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
+            // colorDefinitionsToClipboardToolStripMenuItem
+            // 
+            this.colorDefinitionsToClipboardToolStripMenuItem.Name = "colorDefinitionsToClipboardToolStripMenuItem";
+            this.colorDefinitionsToClipboardToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.colorDefinitionsToClipboardToolStripMenuItem.Text = "Color definitions to clipboard";
+            this.colorDefinitionsToClipboardToolStripMenuItem.Click += new System.EventHandler(this.colorDefinitionsToClipboardToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -3806,5 +3815,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem exactSpawnCommandDS2ToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator25;
         private System.Windows.Forms.ToolStripMenuItem adminCommandToSpawnExactDinoDS2ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem colorDefinitionsToClipboardToolStripMenuItem;
     }
 }

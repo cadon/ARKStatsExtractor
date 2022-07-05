@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ARKBreedingStats.Ark;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.Properties;
 using ARKBreedingStats.species;
@@ -74,9 +73,9 @@ namespace ARKBreedingStats.BreedingPlanning
 
                     int maxPossibleOffspringLevel = 1;
 
-                    for (int s = 0; s < Values.STATS_COUNT; s++)
+                    for (int s = 0; s < Stats.StatsCount; s++)
                     {
-                        if (s == (int)StatNames.Torpidity || !species.UsesStat(s)) continue;
+                        if (s == Stats.Torpidity || !species.UsesStat(s)) continue;
                         bestPossLevels[s] = 0;
                         int higherLevel = Math.Max(female.levelsWild[s], male.levelsWild[s]);
                         int lowerLevel = Math.Min(female.levelsWild[s], male.levelsWild[s]);
@@ -90,7 +89,7 @@ namespace ARKBreedingStats.BreedingPlanning
 
                         bool higherIsBetter = statWeights[s] >= 0;
 
-                        double tt = statWeights[s] * (GameConstants.ProbabilityHigherLevel * higherLevel + GameConstants.ProbabilityLowerLevel * lowerLevel) / 40;
+                        double tt = statWeights[s] * (Ark.ProbabilityHigherLevel * higherLevel + Ark.ProbabilityLowerLevel * lowerLevel) / 40;
                         if (tt != 0)
                         {
                             if (breedingMode == BreedingPlan.BreedingMode.TopStatsLucky)
@@ -110,7 +109,7 @@ namespace ARKBreedingStats.BreedingPlanning
                                 if (!ignoreTopStats && (female.levelsWild[s] == bestLevels[s] || male.levelsWild[s] == bestLevels[s]))
                                 {
                                     nrTS++;
-                                    eTS += female.levelsWild[s] == bestLevels[s] && male.levelsWild[s] == bestLevels[s] ? 1 : GameConstants.ProbabilityHigherLevel;
+                                    eTS += female.levelsWild[s] == bestLevels[s] && male.levelsWild[s] == bestLevels[s] ? 1 : Ark.ProbabilityHigherLevel;
                                     if (female.levelsWild[s] == bestLevels[s])
                                         topFemale++;
                                     if (male.levelsWild[s] == bestLevels[s])
@@ -133,9 +132,9 @@ namespace ARKBreedingStats.BreedingPlanning
                         foreach (Creature cr in males)
                         {
                             maleExists = true;
-                            for (int s = 0; s < Values.STATS_COUNT; s++)
+                            for (int s = 0; s < Stats.StatsCount; s++)
                             {
-                                if (s == (int)StatNames.Torpidity
+                                if (s == Stats.Torpidity
                                     || !cr.Species.UsesStat(s)
                                     || cr.levelsWild[s] == bestPossLevels[s]
                                     || bestPossLevels[s] != bestLevels[s])
@@ -156,9 +155,9 @@ namespace ARKBreedingStats.BreedingPlanning
                             foreach (Creature cr in females)
                             {
                                 femaleExists = true;
-                                for (int s = 0; s < Values.STATS_COUNT; s++)
+                                for (int s = 0; s < Stats.StatsCount; s++)
                                 {
-                                    if (s == (int)StatNames.Torpidity
+                                    if (s == Stats.Torpidity
                                         || !cr.Species.UsesStat(s)
                                         || cr.levelsWild[s] == bestPossLevels[s]
                                         || bestPossLevels[s] != bestLevels[s])
@@ -181,12 +180,12 @@ namespace ARKBreedingStats.BreedingPlanning
                     if (highestOffspringOverLevelLimit && downGradeOffspringWithLevelHigherThanLimit)
                         t *= 0.01;
 
-                    int mutationPossibleFrom = female.Mutations < GameConstants.MutationPossibleWithLessThan && male.Mutations < GameConstants.MutationPossibleWithLessThan ? 2
-                        : female.Mutations < GameConstants.MutationPossibleWithLessThan || male.Mutations < GameConstants.MutationPossibleWithLessThan ? 1 : 0;
+                    int mutationPossibleFrom = female.Mutations < Ark.MutationPossibleWithLessThan && male.Mutations < Ark.MutationPossibleWithLessThan ? 2
+                        : female.Mutations < Ark.MutationPossibleWithLessThan || male.Mutations < Ark.MutationPossibleWithLessThan ? 1 : 0;
 
                     breedingPairs.Add(new BreedingPair(female, male,
                         t * 1.25,
-                        (mutationPossibleFrom == 2 ? GameConstants.ProbabilityOfOneMutation : mutationPossibleFrom == 1 ? GameConstants.ProbabilityOfOneMutationFromOneParent : 0),
+                        (mutationPossibleFrom == 2 ? Ark.ProbabilityOfOneMutation : mutationPossibleFrom == 1 ? Ark.ProbabilityOfOneMutationFromOneParent : 0),
                         highestOffspringOverLevelLimit));
                 }
             }
@@ -210,16 +209,16 @@ namespace ARKBreedingStats.BreedingPlanning
 
         public static void SetBestLevels(IEnumerable<Creature> creatures, int[] bestLevels, double[] statWeights)
         {
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
                 bestLevels[s] = -1;
 
             foreach (Creature c in creatures)
             {
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
-                    if ((s == (int)StatNames.Torpidity || statWeights[s] >= 0) && c.levelsWild[s] > bestLevels[s])
+                    if ((s == Stats.Torpidity || statWeights[s] >= 0) && c.levelsWild[s] > bestLevels[s])
                         bestLevels[s] = c.levelsWild[s];
-                    else if (s != (int)StatNames.Torpidity && statWeights[s] < 0 && c.levelsWild[s] >= 0 && (c.levelsWild[s] < bestLevels[s] || bestLevels[s] < 0))
+                    else if (s != Stats.Torpidity && statWeights[s] < 0 && c.levelsWild[s] >= 0 && (c.levelsWild[s] < bestLevels[s] || bestLevels[s] < 0))
                         bestLevels[s] = c.levelsWild[s];
                 }
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using SavegameToolkit.Types;
 
 namespace ARKBreedingStats.species
 {
@@ -12,10 +13,6 @@ namespace ARKBreedingStats.species
         public readonly string Name;
         public Color Color;
         /// <summary>
-        /// Depends on the linear rgb-values
-        /// </summary>
-        public readonly int Hash;
-        /// <summary>
         /// Linear color values.
         /// </summary>
         public readonly double[] LinearRgba;
@@ -24,30 +21,25 @@ namespace ARKBreedingStats.species
         /// </summary>
         public byte Id;
 
+        public bool IsDye;
+
         public ArkColor()
         {
             Id = 0;
             Name = Loc.S("noColor");
             Color = Color.LightGray;
             LinearRgba = null;
-            Hash = 0;
         }
 
-        public ArkColor(string name, double[] linearColorValues)
+        public ArkColor(string name, double[] linearColorValues, bool isDye)
         {
             Name = name;
+            IsDye = isDye;
             if (linearColorValues.Length > 3)
             {
                 Color = Color.FromArgb(LinearColorComponentToColorComponentClamped(linearColorValues[0]),
                                        LinearColorComponentToColorComponentClamped(linearColorValues[1]),
                                        LinearColorComponentToColorComponentClamped(linearColorValues[2]));
-
-                Hash = ColorHashCode(
-                    linearColorValues[0],
-                    linearColorValues[1],
-                    linearColorValues[2],
-                    linearColorValues[3]
-                    );
 
                 LinearRgba = new double[] {
                     linearColorValues[0],
@@ -78,17 +70,6 @@ namespace ARKBreedingStats.species
             return v;
         }
 
-        /// <summary>
-        /// Returns a hashcode for the given sRGBA values.
-        /// The creature export files contain the color definitions with 6 decimal places;
-        /// round to 5 decimal places to get consistent matches.
-        /// </summary>
-        /// <param name="r"></param>
-        /// <param name="g"></param>
-        /// <param name="b"></param>
-        /// <param name="a"></param>
-        /// <returns></returns>
-        public static int ColorHashCode(double r, double g, double b, double a)
-            => $"{Math.Round(r, 5)},{Math.Round(g, 5)},{Math.Round(b, 5)},{Math.Round(a, 5)}".GetHashCode();
+        public override string ToString() => $"{Name}{(IsDye ? " (Dye)" : string.Empty)} ({Color})";
     }
 }

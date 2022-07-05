@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using ARKBreedingStats.Ark;
 using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
-using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 
-namespace ARKBreedingStats.uiControls
+namespace ARKBreedingStats.Pedigree
 {
     public partial class PedigreeCreature : UserControl, IPedigreeCreature
     {
@@ -57,14 +55,14 @@ namespace ARKBreedingStats.uiControls
         public bool TotalLevelUnknown { get; set; }
 
         public static readonly int[] DisplayedStats = {
-                                                        (int)StatNames.Health,
-                                                        (int)StatNames.Stamina,
-                                                        (int)StatNames.Oxygen,
-                                                        (int)StatNames.Food,
-                                                        (int)StatNames.Weight,
-                                                        (int)StatNames.MeleeDamageMultiplier,
-                                                        (int)StatNames.SpeedMultiplier,
-                                                        (int)StatNames.CraftingSpeedMultiplier
+                                                        Stats.Health,
+                                                        Stats.Stamina,
+                                                        Stats.Oxygen,
+                                                        Stats.Food,
+                                                        Stats.Weight,
+                                                        Stats.MeleeDamageMultiplier,
+                                                        Stats.SpeedMultiplier,
+                                                        Stats.CraftingSpeedMultiplier
                                                         };
         public static readonly int DisplayedStatsCount = DisplayedStats.Length;
 
@@ -265,7 +263,7 @@ namespace ARKBreedingStats.uiControls
                 {
                     var totalMutationsString = totalMutations.ToString();
                     labelMutations.Text = totalMutationsString.Length > 4 ? totalMutationsString.Substring(0, 4) + "…" : totalMutationsString;
-                    labelMutations.BackColor = totalMutations < GameConstants.MutationPossibleWithLessThan ? Utils.MutationColor : Utils.MutationColorOverLimit;
+                    labelMutations.BackColor = totalMutations < Ark.MutationPossibleWithLessThan ? Utils.MutationColor : Utils.MutationColorOverLimit;
                     _ttMonospaced.SetToolTip(labelMutations,
                         $"Mutation-Counter: {totalMutations,13:#,0}\nMaternal: {_creature.mutationsMaternal,21:#,0}\nPaternal: {_creature.mutationsPaternal,21:#,0}");
                 }

@@ -119,11 +119,6 @@ namespace ARKBreedingStats.species
         public bool IsDomesticable;
 
         /// <summary>
-        /// Number of possible color regions for all species.
-        /// </summary>
-        public const int ColorRegionCount = 6;
-
-        /// <summary>
         /// creates properties that are not created during deserialization. They are set later with the raw-values with the multipliers applied.
         /// </summary>
         [OnDeserialized]
@@ -133,13 +128,13 @@ namespace ARKBreedingStats.species
 
             InitializeNames();
 
-            stats = new CreatureStat[Values.STATS_COUNT];
+            stats = new CreatureStat[Stats.StatsCount];
             if (altBaseStatsRaw != null)
-                altStats = new CreatureStat[Values.STATS_COUNT];
+                altStats = new CreatureStat[Stats.StatsCount];
 
             usedStats = 0;
-            double[][] completeRaws = new double[Values.STATS_COUNT][];
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            double[][] completeRaws = new double[Stats.StatsCount][];
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 stats[s] = new CreatureStat();
                 if (altBaseStatsRaw?.ContainsKey(s) ?? false)
@@ -166,8 +161,8 @@ namespace ARKBreedingStats.species
                 TamedBaseHealthMultiplier = 1;
 
             if (colors == null)
-                colors = new List<ColorRegion>(ColorRegionCount);
-            for (int ci = colors.Count; ci < ColorRegionCount; ci++)
+                colors = new List<ColorRegion>(Ark.ColorRegionCount);
+            for (int ci = colors.Count; ci < Ark.ColorRegionCount; ci++)
                 colors.Add(null);
             if (string.IsNullOrEmpty(blueprintPath))
                 blueprintPath = string.Empty;
@@ -210,9 +205,13 @@ namespace ARKBreedingStats.species
             SortName = DescriptiveNameAndMod;
         }
 
+
+        /// <summary>
+        /// Sets the ArkColor objects for the natural occurring colors. Call after colors are loaded or changed by loading mods.
+        /// </summary>
         public void InitializeColors(ArkColors arkColors)
         {
-            for (int i = 0; i < ColorRegionCount; i++)
+            for (int i = 0; i < Ark.ColorRegionCount; i++)
                 colors[i]?.Initialize(arkColors);
         }
 
@@ -249,11 +248,11 @@ namespace ARKBreedingStats.species
             }
 
             // if a value if null, use the default value
-            double[] overrideValues = new double[Values.STATS_COUNT];
+            double[] overrideValues = new double[Stats.StatsCount];
 
             // if value is equal to default, set override to null
             bool isEqual = true;
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (overrides[s] == null)
                 {
@@ -326,14 +325,14 @@ namespace ARKBreedingStats.species
         {
             if (rand == null) rand = new Random();
 
-            var randomColors = new byte[ColorRegionCount];
-            for (int ci = 0; ci < ColorRegionCount; ci++)
+            var randomColors = new byte[Ark.ColorRegionCount];
+            for (int ci = 0; ci < Ark.ColorRegionCount; ci++)
             {
                 if (!EnabledColorRegions[ci]) continue;
                 var colorCount = colors[ci]?.naturalColors?.Count ?? 0;
                 if (colorCount == 0)
                     randomColors[ci] = (byte)(6 + rand.Next(50));
-                else randomColors[ci] = (byte)colors[ci].naturalColors[rand.Next(colorCount)].Id;
+                else randomColors[ci] = colors[ci].naturalColors[rand.Next(colorCount)].Id;
             }
 
             return randomColors;

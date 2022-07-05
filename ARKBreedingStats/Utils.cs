@@ -339,12 +339,12 @@ namespace ARKBreedingStats
 
         public static void InitializeLocalizations()
         {
-            if (_statNames == null) _statNames = new string[Values.STATS_COUNT];
-            if (_statNamesAbb == null) _statNamesAbb = new string[Values.STATS_COUNT];
+            if (_statNames == null) _statNames = new string[Stats.StatsCount];
+            if (_statNamesAbb == null) _statNamesAbb = new string[Stats.StatsCount];
             if (StatAbbreviationToIndex == null) StatAbbreviationToIndex = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
             else StatAbbreviationToIndex.Clear();
 
-            for (int si = 0; si < Values.STATS_COUNT; si++)
+            for (int si = 0; si < Stats.StatsCount; si++)
             {
                 _statNames[si] = Loc.S(StatNameKeys[si]);
                 _statNamesAbb[si] = Loc.S(StatNameKeys[si] + "_Abb");
@@ -353,7 +353,7 @@ namespace ARKBreedingStats
 
             // load abbreviations of invariant culture (here English) as a fallback
             var defaultCulture = CultureInfo.InvariantCulture;
-            for (int si = 0; si < Values.STATS_COUNT; si++)
+            for (int si = 0; si < Stats.StatsCount; si++)
             {
                 var key = Loc.S(StatNameKeys[si] + "_Abb", defaultCulture);
                 if (StatAbbreviationToIndex.ContainsKey(key)) continue;
@@ -386,18 +386,13 @@ namespace ARKBreedingStats
             return abbreviation ? _statNamesAbb[statIndex] : _statNames[statIndex];
         }
 
-        public static string StatName(StatNames sn, bool abbreviation = false, Dictionary<string, string> customStatNames = null)
-        {
-            return StatName((int)sn, abbreviation, customStatNames);
-        }
-
         /// <summary>
         /// Returns the displayed decimal values of the stat with the given index
         /// </summary>
         public static int Precision(int statIndex)
         {
             // damage and speed are percentage values, need more precision
-            return (statIndex == (int)StatNames.SpeedMultiplier || statIndex == (int)StatNames.MeleeDamageMultiplier || statIndex == (int)StatNames.CraftingSpeedMultiplier) ? 3 : 1;
+            return (statIndex == Stats.SpeedMultiplier || statIndex == Stats.MeleeDamageMultiplier || statIndex == Stats.CraftingSpeedMultiplier) ? 3 : 1;
         }
 
         /// <summary>

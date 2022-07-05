@@ -36,16 +36,16 @@ namespace ARKBreedingStats.library
         private static string GetLevelStringForExactSpawningCommand(int[] levels)
         {
             // stat order for this command is health, stamina, oxygen, food, weight, melee damage, movement speed, crafting skill
-            return $"{levels[(int)StatNames.Health]},{levels[(int)StatNames.Stamina]},{levels[(int)StatNames.Oxygen]},{levels[(int)StatNames.Food]},{levels[(int)StatNames.Weight]},{levels[(int)StatNames.MeleeDamageMultiplier]},{levels[(int)StatNames.SpeedMultiplier]},{levels[(int)StatNames.CraftingSpeedMultiplier]}";
+            return $"{levels[Stats.Health]},{levels[Stats.Stamina]},{levels[Stats.Oxygen]},{levels[Stats.Food]},{levels[Stats.Weight]},{levels[Stats.MeleeDamageMultiplier]},{levels[Stats.SpeedMultiplier]},{levels[Stats.CraftingSpeedMultiplier]}";
         }
 
         private static string GetLevelStringForExactSpawningCommandDS2(int[] wildlvl, int[] domlvl)
         {
             var statIndices = new[]
             {
-                (int)StatNames.Health, (int)StatNames.Stamina, (int)StatNames.Oxygen, (int)StatNames.Food,
-                (int)StatNames.Water, (int)StatNames.Weight, (int)StatNames.MeleeDamageMultiplier,
-                (int)StatNames.SpeedMultiplier, (int)StatNames.CraftingSpeedMultiplier
+                Stats.Health, Stats.Stamina, Stats.Oxygen, Stats.Food,
+                Stats.Water, Stats.Weight, Stats.MeleeDamageMultiplier,
+                Stats.SpeedMultiplier, Stats.CraftingSpeedMultiplier
             };
             string levelString = string.Empty;
             foreach (var si in statIndices)

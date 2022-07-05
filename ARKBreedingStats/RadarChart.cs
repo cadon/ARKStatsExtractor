@@ -120,8 +120,8 @@ namespace ARKBreedingStats
                 // the indices of the displayed stats
                 var levelIndices = new[]
                 {
-                    (int) StatNames.Health, (int) StatNames.Stamina, (int) StatNames.Oxygen, (int) StatNames.Food,
-                    (int) StatNames.Weight, (int) StatNames.MeleeDamageMultiplier, (int) StatNames.SpeedMultiplier
+                    (int) Stats.Health, (int) Stats.Stamina, (int) Stats.Oxygen, (int) Stats.Food,
+                    (int) Stats.Weight, (int) Stats.MeleeDamageMultiplier, (int) Stats.SpeedMultiplier
                 };
 
                 for (int s = 0; s < levelIndices.Length; s++)

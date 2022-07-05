@@ -35,11 +35,11 @@ namespace ARKBreedingStats.Library
         [JsonProperty]
         public Sex sex;
         [JsonProperty]
-        public double[] statValues = new double[Values.STATS_COUNT];
+        public double[] statValues = new double[Stats.StatsCount];
         [JsonProperty]
-        public int[] levelsWild = new int[Values.STATS_COUNT];
+        public int[] levelsWild = new int[Stats.StatsCount];
         [JsonProperty]
-        public int[] levelsDom = new int[Values.STATS_COUNT];
+        public int[] levelsDom = new int[Stats.StatsCount];
         [JsonProperty]
         public int level;
         [JsonProperty]
@@ -79,7 +79,7 @@ namespace ARKBreedingStats.Library
         [JsonProperty]
         public int mutationCounter, mutationCounterMother, mutationCounterFather;
         [JsonIgnore]
-        public byte[] colorIDs = new byte[species.Species.ColorRegionCount];
+        public byte[] colorIDs = new byte[Ark.ColorRegionCount];
         [JsonProperty("colorIDs", DefaultValueHandling = DefaultValueHandling.Ignore)]
         private int[] colorIDsSerialization
         {
