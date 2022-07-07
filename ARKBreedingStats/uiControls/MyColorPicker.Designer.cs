@@ -35,6 +35,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.BtNoColor = new System.Windows.Forms.Button();
             this.LbAlternativeColor = new System.Windows.Forms.Label();
+            this.BtUndefinedColor = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,7 +55,7 @@
             // 
             // label1
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.label1, 3);
+            this.tableLayoutPanel1.SetColumnSpan(this.label1, 4);
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(4, 1);
@@ -78,7 +79,7 @@
             // 
             // flowLayoutPanel1
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.flowLayoutPanel1, 30);
+            this.tableLayoutPanel1.SetColumnSpan(this.flowLayoutPanel1, 31);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(1, 32);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
@@ -90,16 +91,18 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnCount = 4;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxOnlyNatural, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.BtNoColor, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.buttonCancel, 2, 3);
+            this.tableLayoutPanel1.Controls.Add(this.BtNoColor, 2, 3);
+            this.tableLayoutPanel1.Controls.Add(this.buttonCancel, 3, 3);
             this.tableLayoutPanel1.Controls.Add(this.LbAlternativeColor, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.BtUndefinedColor, 1, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(1, 1);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
@@ -126,13 +129,23 @@
             // LbAlternativeColor
             // 
             this.LbAlternativeColor.AutoSize = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.LbAlternativeColor, 3);
+            this.tableLayoutPanel1.SetColumnSpan(this.LbAlternativeColor, 4);
             this.LbAlternativeColor.Location = new System.Drawing.Point(4, 367);
             this.LbAlternativeColor.Name = "LbAlternativeColor";
             this.LbAlternativeColor.Size = new System.Drawing.Size(397, 13);
             this.LbAlternativeColor.TabIndex = 5;
             this.LbAlternativeColor.Text = "Hold Ctrl to select an alternative color id. Hold Ctrl and click on No Color to u" +
     "nset it.";
+            // 
+            // BtUndefinedColor
+            // 
+            this.BtUndefinedColor.Location = new System.Drawing.Point(205, 384);
+            this.BtUndefinedColor.Name = "BtUndefinedColor";
+            this.BtUndefinedColor.Size = new System.Drawing.Size(75, 23);
+            this.BtUndefinedColor.TabIndex = 6;
+            this.BtUndefinedColor.Text = "undefined";
+            this.BtUndefinedColor.UseVisualStyleBackColor = true;
+            this.BtUndefinedColor.Click += new System.EventHandler(this.ColorChosen);
             // 
             // MyColorPicker
             // 
@@ -162,5 +175,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button BtNoColor;
         private System.Windows.Forms.Label LbAlternativeColor;
+        private System.Windows.Forms.Button BtUndefinedColor;
     }
 }
