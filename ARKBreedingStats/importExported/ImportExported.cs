@@ -246,10 +246,15 @@ namespace ARKBreedingStats.importExported
                 && double.TryParse(text.Substring(14, 8), numberStyle, dotSeparatorCulture, out double g)
                 && double.TryParse(text.Substring(25, 8), numberStyle, dotSeparatorCulture, out double b)
                 && double.TryParse(text.Substring(36, 8), numberStyle, dotSeparatorCulture, out double a)
-                && !(r == 0 && g == 0 && b == 0 && a == 1) // no color
-                && !(r == 1 && g == 1 && b == 1 && a == 1) // no color
-                )
+               )
+            {
+                if (r == 0 && g == 0 && b == 0 && a == 1) // no color
+                    return 0;
+                if (r == 1 && g == 1 && b == 1 && a == 1) // undefined color
+                    return Ark.UndefinedColorId;
+
                 return Values.V.Colors.ClosestColorId(r, g, b, a);
+            }
 
             // color is invisible or parsing failed
             return 0;

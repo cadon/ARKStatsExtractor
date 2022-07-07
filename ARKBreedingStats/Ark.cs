@@ -77,6 +77,10 @@ namespace ARKBreedingStats
         public const byte ColorMaxId = 200;
         public const byte DyeFirstId = 201;
         public const byte DyeMaxId = 255;
+        /// <summary>
+        /// When choosing a random color for a mutation, ARK can erroneously select an undefined color. Usually this is color id 227 (one too high to be defined).
+        /// </summary>
+        public const byte UndefinedColorId = 227;
 
         /// <summary>
         /// Number of possible color regions for all species.
