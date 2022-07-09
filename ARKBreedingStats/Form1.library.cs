@@ -1793,10 +1793,9 @@ namespace ARKBreedingStats
             byte[] cl = cr.colors;
             if (cl == null) return;
             var colorCommands = new List<string>(6);
-            var enabledColorRegions = cr.Species.EnabledColorRegions;
             for (int ci = 0; ci < 6; ci++)
             {
-                if (enabledColorRegions[ci])
+                if (cr.Species.EnabledColorRegions[ci])
                     colorCommands.Add($"setTargetDinoColor {ci} {cl[ci]}");
             }
 

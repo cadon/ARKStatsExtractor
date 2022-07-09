@@ -1906,6 +1906,14 @@ namespace ARKBreedingStats
                     return;
 
                 if (settingsForm.LanguageChanged) SetLocalizations();
+                if (settingsForm.ColorRegionDisplayChanged)
+                {
+                    foreach (var sp in Values.V.species)
+                        sp.InitializeColorRegions();
+                    // update visible color region buttons
+                    creatureInfoInputExtractor.RegionColors = creatureInfoInputExtractor.RegionColors;
+                    creatureInfoInputTester.RegionColors = creatureInfoInputTester.RegionColors;
+                }
             }
 
             ApplySettingsToValues();

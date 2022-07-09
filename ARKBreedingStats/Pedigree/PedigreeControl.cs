@@ -10,7 +10,6 @@ using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
-using ARKBreedingStats.values;
 
 namespace ARKBreedingStats.Pedigree
 {
@@ -560,7 +559,7 @@ namespace ARKBreedingStats.Pedigree
         {
             set
             {
-                if (value != null && value.Length == 6)
+                if (value?.Length == Ark.ColorRegionCount)
                 {
                     _enabledColorRegions = value;
                 }

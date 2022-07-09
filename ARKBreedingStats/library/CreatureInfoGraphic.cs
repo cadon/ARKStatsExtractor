@@ -200,8 +200,6 @@ namespace ARKBreedingStats.library
                 }
 
                 // colors
-                var enabledColorRegions = creature.Species.EnabledColorRegions;
-
                 int xColor = (int)(xRightBrValue + meanLetterWidth * 3.5);
                 int circleDiameter = height * 4 / 45;
                 int colorRowHeight = circleDiameter + 2;
@@ -213,7 +211,7 @@ namespace ARKBreedingStats.library
                 if (imageSize > 5)
                 {
                     using (var crBmp =
-                        CreatureColored.GetColoredCreature(creature.colors, creature.Species, enabledColorRegions,
+                        CreatureColored.GetColoredCreature(creature.colors, creature.Species, creature.Species.EnabledColorRegions,
                             imageSize, onlyImage: true, creatureSex: creature.sex))
                     {
                         if (crBmp != null)
@@ -234,7 +232,7 @@ namespace ARKBreedingStats.library
                     int colorRow = 0;
                     for (int ci = 0; ci < Ark.ColorRegionCount; ci++)
                     {
-                        if (!enabledColorRegions[ci])
+                        if (!creature.Species.EnabledColorRegions[ci])
                             continue;
 
                         int y = currentYPosition + (height / 9) + (colorRow++) * colorRowHeight;

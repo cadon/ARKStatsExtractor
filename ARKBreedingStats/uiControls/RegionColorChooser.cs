@@ -1,6 +1,5 @@
 ﻿using ARKBreedingStats.species;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -15,9 +14,9 @@ namespace ARKBreedingStats.uiControls
         private readonly NoPaddingButton[] _buttonColors;
         private byte[] _selectedRegionColorIds;
         private byte[] _selectedColorIdsAlternative;
-        public readonly bool[] ColorRegionsUseds;
+        public bool[] ColorRegionsUseds;
         private readonly MyColorPicker _colorPicker;
-        private List<ColorRegion> _colorRegions;
+        private ColorRegion[] _colorRegions;
         private readonly ToolTip _tt = new ToolTip();
         /// <summary>
         /// If true, the button text will display the region and color id.
@@ -41,7 +40,6 @@ namespace ARKBreedingStats.uiControls
             _selectedRegionColorIds = new byte[Ark.ColorRegionCount];
             _selectedColorIdsAlternative = new byte[Ark.ColorRegionCount];
 
-            ColorRegionsUseds = new bool[Ark.ColorRegionCount];
             _colorPicker = new MyColorPicker();
             _tt.AutoPopDelay = 7000;
             Disposed += RegionColorChooser_Disposed;
@@ -59,19 +57,24 @@ namespace ARKBreedingStats.uiControls
             _selectedColorIdsAlternative = null;
 
             if (species?.colors != null)
+            {
                 _colorRegions = species.colors;
+                ColorRegionsUseds = species.EnabledColorRegions;
+            }
             else
             {
                 // species-info is not available, show all region-buttons
-                _colorRegions = new List<ColorRegion>();
+                ColorRegionsUseds = new bool[Ark.ColorRegionCount];
+                _colorRegions = new ColorRegion[Ark.ColorRegionCount];
                 for (int i = 0; i < Ark.ColorRegionCount; i++)
                 {
-                    _colorRegions.Add(new ColorRegion());
+                    _colorRegions[i] = new ColorRegion();
+                    ColorRegionsUseds[i] = true;
                 }
             }
+
             for (int r = 0; r < _buttonColors.Length; r++)
             {
-                ColorRegionsUseds[r] = !string.IsNullOrEmpty(_colorRegions[r]?.name);
                 _buttonColors[r].Visible = ColorRegionsUseds[r];
 
                 if (ColorRegionsUseds[r])

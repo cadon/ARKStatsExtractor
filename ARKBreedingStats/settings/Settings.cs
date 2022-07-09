@@ -10,7 +10,6 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.library;
-using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 
@@ -24,6 +23,7 @@ namespace ARKBreedingStats.settings
         private Dictionary<string, string> _languages;
         public SettingsTabPages LastTabPageIndex;
         public bool LanguageChanged;
+        public bool ColorRegionDisplayChanged;
 
         public Settings(CreatureCollection cc, SettingsTabPages page)
         {
@@ -403,6 +403,8 @@ namespace ARKBreedingStats.settings
             int langI = cbbLanguage.Items.IndexOf(langKey);
             cbbLanguage.SelectedIndex = langI == -1 ? 0 : langI;
 
+            CbHideInvisibleColorRegions.Checked = Properties.Settings.Default.HideInvisibleColorRegions;
+
             CbbColorMode.SelectedIndex = Math.Min(CbbColorMode.Items.Count, Math.Max(0, Properties.Settings.Default.ColorMode));
         }
 
@@ -616,6 +618,10 @@ namespace ARKBreedingStats.settings
             string lang = cbbLanguage.SelectedItem.ToString();
             Properties.Settings.Default.language = _languages.ContainsKey(lang) ? _languages[lang] : string.Empty;
             LanguageChanged = oldLanguageSetting != Properties.Settings.Default.language;
+
+            var oldColorRegionSetting = Properties.Settings.Default.HideInvisibleColorRegions;
+            Properties.Settings.Default.HideInvisibleColorRegions = CbHideInvisibleColorRegions.Checked;
+            ColorRegionDisplayChanged = oldColorRegionSetting != Properties.Settings.Default.HideInvisibleColorRegions;
 
             Properties.Settings.Default.ColorMode = Math.Max(0, CbbColorMode.SelectedIndex);
 

@@ -2063,5 +2063,17 @@ namespace ARKBreedingStats.Properties {
                 this["ImportExportedBringToFrontOnIssue"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool HideInvisibleColorRegions {
+            get {
+                return ((bool)(this["HideInvisibleColorRegions"]));
+            }
+            set {
+                this["HideInvisibleColorRegions"] = value;
+            }
+        }
     }
 }
