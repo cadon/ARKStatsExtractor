@@ -1,4 +1,4 @@
-﻿namespace ARKBreedingStats.uiControls
+﻿namespace ARKBreedingStats.mods
 {
     partial class ModValuesManager
     {
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModValuesManager));
             this.lbModList = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btRemoveMod = new System.Windows.Forms.Button();
@@ -48,6 +49,7 @@
             this.lbModTag = new System.Windows.Forms.Label();
             this.lbModName = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
             this.LlUnofficialModFiles = new System.Windows.Forms.LinkLabel();
             this.linkLabelCustomModManual = new System.Windows.Forms.LinkLabel();
             this.btOpenValuesFolder = new System.Windows.Forms.Button();
@@ -295,6 +297,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.LlUnofficialModFiles);
             this.panel1.Controls.Add(this.linkLabelCustomModManual);
             this.panel1.Controls.Add(this.btOpenValuesFolder);
@@ -306,6 +309,14 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(396, 231);
             this.panel1.TabIndex = 4;
+            // 
+            // label6
+            // 
+            this.label6.Location = new System.Drawing.Point(59, 101);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(328, 59);
+            this.label6.TabIndex = 7;
+            this.label6.Text = resources.GetString("label6.Text");
             // 
             // LlUnofficialModFiles
             // 
@@ -343,9 +354,9 @@
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(59, 67);
+            this.label1.Location = new System.Drawing.Point(59, 50);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(226, 52);
+            this.label1.Size = new System.Drawing.Size(328, 40);
             this.label1.TabIndex = 4;
             this.label1.Text = "Mod values are loaded from top to bottom. If multiple mods change the same value," +
     " the value of the mod lower in the list will be used.";
@@ -470,5 +481,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox TbModFilter;
         private System.Windows.Forms.Button BtClearFilter;
+        private System.Windows.Forms.Label label6;
     }
 }

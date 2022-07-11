@@ -14,6 +14,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using ARKBreedingStats.mods;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.utils;
 using static ARKBreedingStats.settings.Settings;
@@ -2618,9 +2619,9 @@ namespace ARKBreedingStats
             // determine file-names of mod-value files
             foreach (var modId in cc.modIDs)
             {
-                if (Values.V.modsManifest.modsByID.ContainsKey(modId)
-                    && !string.IsNullOrEmpty(Values.V.modsManifest.modsByID[modId].mod?.FileName))
-                    filePaths.Add(Values.V.modsManifest.modsByID[modId].mod.FileName);
+                if (Values.V.modsManifest.modsByID.TryGetValue(modId, out var modInfo)
+                    && modInfo.mod?.FileName != null)
+                    filePaths.Add(modInfo.mod.FileName);
                 else
                     unknownModIDs.Add(modId);
             }
