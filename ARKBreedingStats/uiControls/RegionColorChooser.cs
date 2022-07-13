@@ -92,14 +92,21 @@ namespace ARKBreedingStats.uiControls
             set
             {
                 _selectedColorIdsAlternative = value;
-                if (_selectedColorIdsAlternative == null) return;
-                for (int i = 0; i < _selectedColorIdsAlternative.Length; i++)
-                    _buttonColors[i].AlternativeColorPossible = _selectedColorIdsAlternative[i] != 0;
+                if (_selectedColorIdsAlternative == null)
+                {
+                    foreach (var bt in _buttonColors)
+                        bt.AlternativeColorPossible = false;
+
+                    return;
+                }
+                for (int i = 0; i < _buttonColors.Length; i++)
+                    _buttonColors[i].AlternativeColorPossible = _selectedColorIdsAlternative.Length < i && _selectedColorIdsAlternative[i] != 0;
             }
         }
 
         public void Clear()
         {
+            _selectedColorIdsAlternative = null;
             SetColorIds(new byte[_buttonColors.Length]);
         }
 
@@ -113,6 +120,7 @@ namespace ARKBreedingStats.uiControls
             for (int r = 0; r < colorIds.Length; r++)
                 colorIds[r] = (byte)(rand.Next(99) + 1);
 
+            _selectedColorIdsAlternative = null;
             SetColorIds(colorIds);
         }
 
@@ -121,6 +129,7 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         internal void RandomNaturalColors(Species species)
         {
+            _selectedColorIdsAlternative = null;
             SetColorIds(species?.RandomSpeciesColors());
         }
 
