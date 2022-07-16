@@ -2075,5 +2075,17 @@ namespace ARKBreedingStats.Properties {
                 this["HideInvisibleColorRegions"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseTribeFilterForBreedingPlan {
+            get {
+                return ((bool)(this["UseTribeFilterForBreedingPlan"]));
+            }
+            set {
+                this["UseTribeFilterForBreedingPlan"] = value;
+            }
+        }
     }
 }
