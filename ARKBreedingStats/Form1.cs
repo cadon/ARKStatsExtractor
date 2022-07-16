@@ -3541,7 +3541,8 @@ namespace ARKBreedingStats
                 selectedSpecies = s.OnlySelectedSpecies ? speciesSelector1.SelectedSpecies : null;
                 _creatureCollection.MergeCreatureList(DummyCreatures.CreateCreatures(s.CreatureCount,
                    selectedSpecies, s.SpeciesCount,
-                    s.Generations, s.PairsPerGeneration, s.ProbabilityHigherStat, s.RandomMutationChance, s.MaxWildLevel));
+                    s.Generations, s.PairsPerGeneration, s.ProbabilityHigherStat, s.RandomMutationChance, s.MaxWildLevel,
+                   s.SetOwner, s.SetTribe, s.SetServer));
             }
 
             _filterListAllowed = false;

@@ -27,7 +27,9 @@ namespace ARKBreedingStats.library
         /// <param name="randomMutationChance"></param>
         /// <param name="maxWildLevel"></param>
         /// <returns></returns>
-        public static List<Creature> CreateCreatures(int count, Species species = null, int numberSpecies = 1, int breedGenerations = 0, int usePairsPerGeneration = 2, double probabilityHigherStat = 0.55, double randomMutationChance = 0.025, int maxWildLevel = 150)
+        public static List<Creature> CreateCreatures(int count, Species species = null, int numberSpecies = 1,
+            int breedGenerations = 0, int usePairsPerGeneration = 2, double probabilityHigherStat = 0.55, double randomMutationChance = 0.025, int maxWildLevel = 150,
+            bool setOwner = true, bool setTribe = true, bool setServer = true)
         {
             if (count < 1) return null;
 
@@ -40,7 +42,10 @@ namespace ARKBreedingStats.library
                 PairsPerGeneration = usePairsPerGeneration,
                 ProbabilityHigherStat = probabilityHigherStat,
                 RandomMutationChance = randomMutationChance,
-                MaxWildLevel = maxWildLevel
+                MaxWildLevel = maxWildLevel,
+                SetOwner = setOwner,
+                SetTribe = setTribe,
+                SetServer = setServer
             };
 
             if (_levelInverseCumulativeFunction == null)
@@ -128,6 +133,13 @@ namespace ARKBreedingStats.library
                 creature.RecalculateCreatureValues(levelStep);
 
                 creature.colors = species.RandomSpeciesColors(rand);
+
+                if (setOwner)
+                    creature.owner = $"Player {rand.Next(5) + 1}";
+                if (setTribe)
+                    creature.tribe = $"Tribe {rand.Next(5) + 1}";
+                if (setServer)
+                    creature.server = $"Server {rand.Next(5) + 1}";
 
                 creatures.Add(creature);
             }
@@ -287,7 +299,9 @@ namespace ARKBreedingStats.library
                         mutationsPaternal = mutationsPaternal,
                         Mother = mother,
                         Father = father,
-                        colors = colors
+                        colors = colors,
+                        owner = mother.owner ?? father.owner,
+                        server = mother.server ?? father.server
                     };
                     creature.RecalculateCreatureValues(levelStep);
 
@@ -319,6 +333,9 @@ namespace ARKBreedingStats.library
 
         #region Binomial distributed levels
 
+        /// <summary>
+        /// Used to get binomial distributed levels.
+        /// </summary>
         private static int GetBinomialLevel(Random rand)
         {
             return _levelInverseCumulativeFunction[rand.Next(MaxSteps)];
@@ -395,6 +412,9 @@ namespace ARKBreedingStats.library
             ProbabilityHigherStat = Ark.ProbabilityHigherLevel;
             RandomMutationChance = Ark.ProbabilityOfMutation;
             MaxWildLevel = CreatureCollection.CurrentCreatureCollection?.maxWildLevel ?? 150;
+            SetOwner = true;
+            SetTribe = true;
+            SetServer = true;
         }
         public int CreatureCount;
         public bool OnlySelectedSpecies;
@@ -404,5 +424,8 @@ namespace ARKBreedingStats.library
         public double ProbabilityHigherStat;
         public double RandomMutationChance;
         public int MaxWildLevel;
+        public bool SetOwner;
+        public bool SetTribe;
+        public bool SetServer;
     }
 }
