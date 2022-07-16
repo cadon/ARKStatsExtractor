@@ -771,11 +771,12 @@ namespace ARKBreedingStats
             listViewLibrary.BeginUpdate();
 
             // clear ListView
+            // TODO Items.Clear() takes very long on large lists, e.g. 70 s for 140k entries.
             listViewLibrary.Items.Clear();
             listViewLibrary.Groups.Clear();
 
             Dictionary<string, ListViewGroup> speciesGroups = new Dictionary<string, ListViewGroup>();
-            List<ListViewItem> items = new List<ListViewItem>();
+            var items = new List<ListViewItem>();
             bool useSpeciesGroups = Properties.Settings.Default.LibraryGroupBySpecies;
 
             foreach (Creature cr in creatures)
@@ -830,7 +831,7 @@ namespace ARKBreedingStats
         {
             _reactOnCreatureSelectionChange = false;
             // if row is selected, save and reselect later
-            List<Creature> selectedCreatures = new List<Creature>();
+            var selectedCreatures = new HashSet<Creature>();
             foreach (ListViewItem i in listViewLibrary.SelectedItems)
                 selectedCreatures.Add((Creature)i.Tag);
 
@@ -868,12 +869,14 @@ namespace ARKBreedingStats
             int selectedCount = selectedCreatures.Count;
             if (selectedCount > 0)
             {
+                // for loop is faster than foreach loop for small selected item amount, which is usually the case
                 for (int i = 0; i < listViewLibrary.Items.Count; i++)
                 {
-                    if (selectedCreatures.Contains((Creature)listViewLibrary.Items[i].Tag))
+                    var item = listViewLibrary.Items[i];
+                    if (selectedCreatures.Contains((Creature)item.Tag))
                     {
-                        listViewLibrary.Items[i].Focused = true;
-                        listViewLibrary.Items[i].Selected = true;
+                        item.Focused = true;
+                        item.Selected = true;
                         if (--selectedCount == 0)
                         {
                             listViewLibrary.EnsureVisible(i);
@@ -882,6 +885,7 @@ namespace ARKBreedingStats
                     }
                 }
             }
+
             _reactOnCreatureSelectionChange = true;
         }
 
@@ -1115,7 +1119,7 @@ namespace ARKBreedingStats
 
         private Debouncer libraryIndexChangedDebouncer = new Debouncer();
 
-        // onlibrarychange
+        // onLibraryChange
         private void listViewLibrary_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_reactOnCreatureSelectionChange)
@@ -1145,9 +1149,10 @@ namespace ARKBreedingStats
             }
 
             // display infos about the selected creatures
-            List<Creature> selCrs = new List<Creature>();
-            for (int i = 0; i < cnt; i++)
-                selCrs.Add((Creature)listViewLibrary.SelectedItems[i].Tag);
+            var selCrs = new List<Creature>(cnt);
+
+            foreach (ListViewItem i in listViewLibrary.SelectedItems)
+                selCrs.Add(i.Tag as Creature);
 
             List<string> tagList = new List<string>();
             foreach (Creature cr in selCrs)
@@ -1335,14 +1340,16 @@ namespace ARKBreedingStats
             int selectedCount = selectedCreatures.Count;
             if (selectedCount > 0)
             {
+                // for loop is faster than foreach loop for small selected item amount, which is usually the case
                 for (int i = 0; i < listViewLibrary.Items.Count; i++)
                 {
-                    if (selectedCreatures.Contains((Creature)listViewLibrary.Items[i].Tag))
+                    var item = listViewLibrary.Items[i];
+                    if (selectedCreatures.Contains((Creature)item.Tag))
                     {
-                        listViewLibrary.Items[i].Selected = true;
+                        item.Selected = true;
                         if (--selectedCount == 0)
                         {
-                            listViewLibrary.Items[i].Focused = true;
+                            item.Focused = true;
                             listViewLibrary.EnsureVisible(i);
                             break;
                         }
@@ -1422,8 +1429,7 @@ namespace ARKBreedingStats
                     // select all list-entries
                     _reactOnCreatureSelectionChange = false;
                     listViewLibrary.BeginUpdate();
-                    foreach (ListViewItem i in listViewLibrary.Items)
-                        i.Selected = true;
+                    listViewLibrary.SelectAllItems();
                     listViewLibrary.EndUpdate();
                     _reactOnCreatureSelectionChange = true;
                     listViewLibrary_SelectedIndexChanged(null, null);
