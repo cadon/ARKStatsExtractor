@@ -111,17 +111,12 @@ namespace ARKBreedingStats.uiControls
         }
 
         /// <summary>
-        /// Set colors to random values in the range (0 .. 99).
+        /// Set colors to random ids of the available colors.
         /// </summary>
         internal void RandomColors()
         {
-            var colorIds = new byte[_buttonColors.Length];
-            var rand = new Random();
-            for (int r = 0; r < colorIds.Length; r++)
-                colorIds[r] = (byte)(rand.Next(99) + 1);
-
             _selectedColorIdsAlternative = null;
-            SetColorIds(colorIds);
+            SetColorIds(values.Values.V.Colors.GetRandomColors());
         }
 
         /// <summary>
@@ -141,10 +136,9 @@ namespace ARKBreedingStats.uiControls
                 return;
             }
 
-            var l = Math.Min(_buttonColors.Length, colorIds.Length);
-            for (int r = 0; r < l; r++)
+            for (int r = 0; r < _buttonColors.Length; r++)
             {
-                _selectedRegionColorIds[r] = colorIds[r];
+                _selectedRegionColorIds[r] = colorIds.Length > r ? colorIds[r] : (byte)0;
                 _buttonColors[r].AlternativeColorPossible = false;
                 SetColorButton(_buttonColors[r], r);
             }

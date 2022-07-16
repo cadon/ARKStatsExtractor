@@ -243,5 +243,23 @@ namespace ARKBreedingStats.species
 
             return parsedColors.Any() ? parsedColors : null;
         }
+
+        /// <summary>
+        /// Returns an array with random color ids.
+        /// </summary>
+        public byte[] GetRandomColors(Random rand = null)
+        {
+            if (ColorsList?.Any() != true)
+                return new byte[Ark.ColorRegionCount];
+            
+            if (rand == null)
+                rand = new Random();
+
+            var colors = new byte[Ark.ColorRegionCount];
+            var colorCount = ColorsList.Length;
+            for (int i = 0; i < Ark.ColorRegionCount; i++)
+                colors[i] = ColorsList[rand.Next(colorCount)].Id;
+            return colors;
+        }
     }
 }
