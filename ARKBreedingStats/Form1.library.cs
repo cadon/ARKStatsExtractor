@@ -1356,8 +1356,9 @@ namespace ARKBreedingStats
 
             // select previous selected creatures again
             listViewLibrary.SelectedIndices.Clear();
+            creatureBoxListView.Clear();
             int selectedCount = selectedCreatures.Count;
-            if (selectedCount > 0)
+            if (selectedCount != 0)
             {
                 // for loop is faster than foreach loop for small selected item amount, which is usually the case
                 for (int i = 0; i < listViewLibrary.Items.Count; i++)

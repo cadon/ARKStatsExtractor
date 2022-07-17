@@ -203,8 +203,11 @@ namespace ARKBreedingStats
             groupBox1.Text = string.Empty;
             _creature = null;
             LbMotherAndWildInfo.Text = string.Empty;
+            LbFather.Text = string.Empty;
             statsDisplay1.Clear();
             pictureBox1.Visible = false;
+            labelSpecies.Text = string.Empty;
+            labelNotes.Text = string.Empty;
             regionColorChooser1.Clear();
         }
 
