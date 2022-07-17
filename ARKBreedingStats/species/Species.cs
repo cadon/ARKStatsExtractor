@@ -346,7 +346,7 @@ namespace ARKBreedingStats.species
             for (int ci = 0; ci < Ark.ColorRegionCount; ci++)
             {
                 if (!EnabledColorRegions[ci]) continue;
-                var colorCount = colors[ci]?.naturalColors?.Count ?? 0;
+                var colorCount = colors?[ci]?.naturalColors?.Count ?? 0;
                 if (colorCount == 0)
                     randomColors[ci] = (byte)(6 + rand.Next(100));
                 else randomColors[ci] = colors[ci].naturalColors[rand.Next(colorCount)].Id;
