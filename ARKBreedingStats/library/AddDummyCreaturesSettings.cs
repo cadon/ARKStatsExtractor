@@ -22,6 +22,9 @@ namespace ARKBreedingStats.library
             NudProbabilityInheritingHigherStat.ValueSaveDouble = settings.ProbabilityHigherStat * 100;
             NudMutationChance.ValueSaveDouble = settings.RandomMutationChance * 100;
             nudMaxWildLevel.ValueSave = settings.MaxWildLevel;
+            CbSetOwner.Checked = settings.SetOwner;
+            CbSetTribe.Checked = settings.SetTribe;
+            CbSetServer.Checked = settings.SetServer;
         }
 
         private void BtCancel_Click(object sender, EventArgs e)
@@ -43,7 +46,10 @@ namespace ARKBreedingStats.library
                     PairsPerGeneration = (int)NudUsePairsPerGeneration.Value,
                     ProbabilityHigherStat = (double)NudProbabilityInheritingHigherStat.Value / 100,
                     RandomMutationChance = (double)NudMutationChance.Value / 100,
-                    MaxWildLevel = (int)nudMaxWildLevel.Value
+                    MaxWildLevel = (int)nudMaxWildLevel.Value,
+                    SetOwner = CbSetOwner.Checked,
+                    SetTribe = CbSetTribe.Checked,
+                    SetServer = CbSetServer.Checked
                 };
             }
             Close();

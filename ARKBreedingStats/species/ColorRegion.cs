@@ -8,11 +8,19 @@ namespace ARKBreedingStats.species
     {
         [JsonProperty]
         public string name;
+
         /// <summary>
         /// List of natural occurring color names.
         /// </summary>
         [JsonProperty]
         public List<string> colors;
+
+        /// <summary>
+        /// This region is not visible in game if true.
+        /// </summary>
+        [JsonProperty]
+        public bool invisible;
+
         /// <summary>
         /// List of natural occurring ARKColors.
         /// </summary>

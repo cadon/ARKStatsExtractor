@@ -33,7 +33,7 @@ namespace ARKBreedingStats.uiControls
             }
             Visible = true;
 
-            var enabledColorRegions = offspring?.Species?.EnabledColorRegions;
+            var enabledColorRegions = offspring.Species?.EnabledColorRegions;
             if (enabledColorRegions != null)
             {
                 ControlOffspring.enabledColorRegions = enabledColorRegions;

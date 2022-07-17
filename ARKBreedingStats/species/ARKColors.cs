@@ -13,6 +13,10 @@ namespace ARKBreedingStats.species
         public ArkColor[] ColorsList;
         private Dictionary<string, ArkColor> _colorsByName;
         private Dictionary<byte, ArkColor> _colorsById;
+        /// <summary>
+        /// Color used if there's no definition for it.
+        /// </summary>
+        private static ArkColor _undefinedColor = new ArkColor("undefined", new double[] { 1, 1, 1, 0 }, false);
 
         /// <summary>
         /// Color definitions of the base game.
@@ -127,9 +131,9 @@ namespace ARKBreedingStats.species
             ColorsList = _colorsById.Values.OrderBy(c => c.Id).ToArray();
         }
 
-        public ArkColor ById(byte id) => _colorsById.TryGetValue(id, out var color) ? color : _colorsById[0];
+        public ArkColor ById(byte id) => _colorsById.TryGetValue(id, out var color) ? color : _undefinedColor;
 
-        public ArkColor ByName(string name) => _colorsByName.TryGetValue(name, out var color) ? color : _colorsById[0];
+        public ArkColor ByName(string name) => _colorsByName.TryGetValue(name, out var color) ? color : _undefinedColor;
 
         /// <summary>
         /// Returns the ARK-id of the color that is closest to the sRGB values.
@@ -238,6 +242,24 @@ namespace ARKBreedingStats.species
             }
 
             return parsedColors.Any() ? parsedColors : null;
+        }
+
+        /// <summary>
+        /// Returns an array with random color ids.
+        /// </summary>
+        public byte[] GetRandomColors(Random rand = null)
+        {
+            if (ColorsList?.Any() != true)
+                return new byte[Ark.ColorRegionCount];
+            
+            if (rand == null)
+                rand = new Random();
+
+            var colors = new byte[Ark.ColorRegionCount];
+            var colorCount = ColorsList.Length;
+            for (int i = 0; i < Ark.ColorRegionCount; i++)
+                colors[i] = ColorsList[rand.Next(colorCount)].Id;
+            return colors;
         }
     }
 }

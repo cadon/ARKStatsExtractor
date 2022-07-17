@@ -296,9 +296,6 @@
     <Setting Name="FilterOnlyIfColorId" Type="System.Byte" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="LibraryGroupBySpecies" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="LibraryFilterWindowRect" Type="System.Drawing.Rectangle" Scope="User">
       <Value Profile="(Default)">50, 50, 800, 600</Value>
     </Setting>
@@ -516,6 +513,12 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ImportExportedBringToFrontOnIssue" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="HideInvisibleColorRegions" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="UseTribeFilterForBreedingPlan" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>

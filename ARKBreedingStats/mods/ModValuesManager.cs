@@ -1,20 +1,18 @@
-﻿using ARKBreedingStats.Library;
-using ARKBreedingStats.mods;
-using ARKBreedingStats.species;
-using ARKBreedingStats.values;
-using System;
+﻿using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Threading;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.utils;
+using ARKBreedingStats.values;
 
-namespace ARKBreedingStats.uiControls
+namespace ARKBreedingStats.mods
 {
     public partial class ModValuesManager : Form
     {
-        private CreatureCollection cc;
+        private CreatureCollection _cc;
         private ModInfo[] _modInfos;
         private readonly ToolTip _tt = new ToolTip();
 
@@ -30,7 +28,7 @@ namespace ARKBreedingStats.uiControls
         {
             set
             {
-                cc = value;
+                _cc = value;
 
                 if (Values.V.modsManifest?.modsByFiles != null)
                 {
@@ -52,19 +50,19 @@ namespace ARKBreedingStats.uiControls
 
         private void MoveSelectedMod(int moveBy)
         {
-            if (!(lbModList.SelectedItem is ModInfo selectedLoadedMod) || cc?.ModList == null) return;
+            if (!(lbModList.SelectedItem is ModInfo selectedLoadedMod) || _cc?.ModList == null) return;
 
-            int i = cc.ModList.IndexOf(selectedLoadedMod.mod);
+            int i = _cc.ModList.IndexOf(selectedLoadedMod.mod);
             if (i == -1) return;
 
             int newPos = i + moveBy;
             if (newPos < 0) newPos = 0;
-            if (newPos >= cc.ModList.Count) newPos = cc.ModList.Count - 1;
+            if (newPos >= _cc.ModList.Count) newPos = _cc.ModList.Count - 1;
 
             if (newPos == i) return;
 
-            cc.ModList.Remove(selectedLoadedMod.mod);
-            cc.ModList.Insert(newPos, selectedLoadedMod.mod);
+            _cc.ModList.Remove(selectedLoadedMod.mod);
+            _cc.ModList.Insert(newPos, selectedLoadedMod.mod);
             UpdateModListBoxes();
         }
 
@@ -78,13 +76,13 @@ namespace ARKBreedingStats.uiControls
 
             lbModList.Items.Clear();
 
-            if (cc?.ModList == null) return;
+            if (_cc?.ModList == null) return;
 
             var modToModInfo = _modInfos.ToDictionary(mi => mi.mod, mi => mi);
 
             foreach (ModInfo mi in _modInfos) mi.CurrentlyInLibrary = false;
 
-            foreach (Mod m in cc.ModList)
+            foreach (Mod m in _cc.ModList)
             {
                 if (modToModInfo.ContainsKey(m))
                 {
@@ -98,7 +96,7 @@ namespace ARKBreedingStats.uiControls
             lbModList.SelectedItem = selectedMiLib;
             lbAvailableModFiles.SelectedItem = selectedMiAvMod;
 
-            cc.UpdateModList();
+            _cc.UpdateModList();
         }
 
         private void LbAvailableModFiles_SelectedIndexChanged(object sender, EventArgs e)
@@ -153,9 +151,9 @@ namespace ARKBreedingStats.uiControls
         private void AddSelectedMod()
         {
             ModInfo mi = (ModInfo)lbAvailableModFiles.SelectedItem;
-            if (mi?.mod == null || cc?.ModList == null) return;
+            if (mi?.mod == null || _cc?.ModList == null) return;
 
-            cc.ModList.Add(mi.mod);
+            _cc.ModList.Add(mi.mod);
             UpdateModListBoxes();
             lbAvailableModFiles.SelectedIndex = -1;
             lbModList.SelectedItem = mi;
@@ -164,9 +162,9 @@ namespace ARKBreedingStats.uiControls
         private void RemoveSelectedMod()
         {
             ModInfo mi = (ModInfo)lbModList.SelectedItem;
-            if (mi?.mod == null || cc?.ModList == null) return;
+            if (mi?.mod == null || _cc?.ModList == null) return;
 
-            if (cc.ModList.Remove(mi.mod))
+            if (_cc.ModList.Remove(mi.mod))
             {
                 UpdateModListBoxes();
                 lbModList.SelectedIndex = -1;
@@ -193,7 +191,7 @@ namespace ARKBreedingStats.uiControls
 
         private void BtRemoveAllMods_Click(object sender, EventArgs e)
         {
-            cc.ModList.Clear();
+            _cc.ModList.Clear();
 
             UpdateModListBoxes();
             lbModList.SelectedIndex = -1;

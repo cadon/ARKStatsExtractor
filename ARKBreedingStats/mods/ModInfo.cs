@@ -1,5 +1,4 @@
-﻿using ARKBreedingStats.species;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Runtime.Serialization;
 
@@ -42,7 +41,7 @@ namespace ARKBreedingStats.mods
             return (mod?.title ?? "unknown mod")
                 + (OnlineAvailable
                     ? (!LocallyAvailable ? " (DL)" : string.Empty)
-                    : " (Custom)");
+                    : string.IsNullOrEmpty(mod?.FileName) ? string.Empty : " (Custom)");
         }
     }
 }

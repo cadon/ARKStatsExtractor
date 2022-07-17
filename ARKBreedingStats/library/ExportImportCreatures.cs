@@ -24,7 +24,7 @@ namespace ARKBreedingStats.library
         /// Export info for a spreadsheet.
         /// </summary>
         /// <param name="creatures"></param>
-        public static void ExportTable(IEnumerable<Creature> creatures)
+        public static int ExportTable(IEnumerable<Creature> creatures)
         {
             var fields = Properties.Settings.Default.CreatureTableExportFields;
             if (fields == null)
@@ -32,7 +32,7 @@ namespace ARKBreedingStats.library
                 fields = new[] { 0, 2, 3, 4, 5, 6, 16 };
             }
 
-            if (!fields.Any()) return;
+            if (!fields.Any()) return 0;
 
             var output = new StringBuilder();
 
@@ -163,11 +163,14 @@ namespace ARKBreedingStats.library
             try
             {
                 Clipboard.SetText(output.ToString());
+                return creatures.Count();
             }
             catch (Exception ex)
             {
                 MessageBoxes.ExceptionMessageBox(ex);
             }
+
+            return 0;
         }
 
         /// <summary>

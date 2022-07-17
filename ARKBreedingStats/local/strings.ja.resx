@@ -1031,9 +1031,6 @@ OCRで種族の推測が頻繁に間違える場合は、この設定を無効�
   <data name="clearColorsFilters" xml:space="preserve">
     <value>色のフィルターを解除</value>
   </data>
-  <data name="groupLibraryBySpecies" xml:space="preserve">
-    <value>種族でライブラリを切り分ける</value>
-  </data>
   <data name="libraryFilterToolStripMenuItem" xml:space="preserve">
     <value>ライブラリをフィルター...</value>
   </data>

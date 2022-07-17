@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
+using System.Diagnostics;
 
 namespace ARKBreedingStats
 {
@@ -531,15 +532,6 @@ namespace ARKBreedingStats
             // calculate creature values
             RecalculateAllCreaturesValues();
 
-            // set flags for all creatures. this is needed for backwards compatibility (added 05/2020) TODO: remove in late 2021.
-            foreach (Creature c in _creatureCollection.creatures)
-            {
-                c.InitializeFlags();
-                c.RecalculateNewMutations();
-                if (c.ArkIdImported && c.ArkIdInGame == null)
-                    c.ArkIdInGame = Utils.ConvertImportedArkIdToIngameVisualization(c.ArkId);
-            }
-
             if (!keepCurrentSelections && _creatureCollection.creatures.Any())
                 tabControlMain.SelectedTab = tabPageLibrary;
 
@@ -568,7 +560,7 @@ namespace ARKBreedingStats
             FilterLibRecalculate();
 
             // apply last sorting
-            listViewLibrary.Sort();
+            //listViewLibrary.Sort(); // TODO
 
             UpdateTempCreatureDropDown();
 

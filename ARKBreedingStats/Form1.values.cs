@@ -1,6 +1,5 @@
 ﻿using ARKBreedingStats.Library;
 using ARKBreedingStats.mods;
-using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
@@ -21,19 +20,19 @@ namespace ARKBreedingStats
         /// <summary>
         /// Loads the mod value files for the creatureCollection. If a file is not available locally, it's tried to download it.
         /// </summary>
-        /// <param name="modValueFileNames"></param>
+        /// <param name="modFilesToLoad"></param>
         /// <param name="showResult"></param>
         /// <param name="applySettings"></param>
         /// <param name="mods"></param>
         /// <returns></returns>
-        private bool LoadModValueFiles(List<string> modValueFileNames, bool showResult, bool applySettings, out List<Mod> mods)
+        private bool LoadModValueFiles(List<string> modFilesToLoad, bool showResult, bool applySettings, out List<Mod> mods)
         {
-            if (modValueFileNames == null) throw new ArgumentNullException();
+            if (modFilesToLoad == null) throw new ArgumentNullException();
 
             // first ensure that all mod-files are available
-            CheckAvailabilityAndUpdateModFiles(modValueFileNames, Values.V);
+            CheckAvailabilityAndUpdateModFiles(modFilesToLoad, Values.V);
 
-            bool modFilesLoaded = Values.V.LoadModValues(modValueFileNames, true, out mods, out string resultsMessage);
+            bool modFilesLoaded = Values.V.LoadModValues(modFilesToLoad, true, out mods, out string resultsMessage);
 
             if (modFilesLoaded)
             {
@@ -102,9 +101,9 @@ namespace ARKBreedingStats
         /// <summary>
         /// Returns true if files were downloaded.
         /// </summary>
-        private static bool CheckAvailabilityAndUpdateModFiles(List<string> modValueFileNames, Values values)
+        private static bool CheckAvailabilityAndUpdateModFiles(List<string> modFilesToCheck, Values values)
         {
-            var (missingModValueFilesOnlineAvailable, missingModValueFilesOnlineNotAvailable, modValueFilesWithAvailableUpdate) = values.CheckAvailabilityAndUpdateModFiles(modValueFileNames);
+            var (missingModValueFilesOnlineAvailable, missingModValueFilesOnlineNotAvailable, modValueFilesWithAvailableUpdate) = values.CheckAvailabilityAndUpdateModFiles(modFilesToCheck);
 
             bool filesDownloaded = false;
 

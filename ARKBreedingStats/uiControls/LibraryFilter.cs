@@ -30,7 +30,6 @@ namespace ARKBreedingStats.uiControls
 
             SetColorFilter(Properties.Settings.Default.FilterOnlyIfColorId);
             CbUseFilterInTopStatCalculation.Checked = Properties.Settings.Default.useFiltersInTopStatCalculation;
-            CbLibraryGroupSpecies.Checked = Properties.Settings.Default.LibraryGroupBySpecies;
 
             UpdateOwnerServerTagLists();
 
@@ -262,7 +261,6 @@ namespace ARKBreedingStats.uiControls
             Properties.Settings.Default.FilterFlagsExclude = (int)flagsExclude;
             Properties.Settings.Default.useFiltersInTopStatCalculation = CbUseFilterInTopStatCalculation.Checked;
             Properties.Settings.Default.FilterOnlyIfColorId = _selectedColorFilter;
-            Properties.Settings.Default.LibraryGroupBySpecies = CbLibraryGroupSpecies.Checked;
         }
 
         private void BtClearColorFilters_Click(object sender, EventArgs e)
@@ -302,7 +300,6 @@ namespace ARKBreedingStats.uiControls
             LbColors.Text = Loc.S("Colors");
             BtClearColorFilters.Text = Loc.S("clearColorsFilters");
             CbUseFilterInTopStatCalculation.Text = Loc.S("useFilterInTopStatCalculation");
-            CbLibraryGroupSpecies.Text = Loc.S("groupLibraryBySpecies");
             BtClearFlagFilter.Text = Loc.S("clear");
 
             string allString = Loc.S("All");

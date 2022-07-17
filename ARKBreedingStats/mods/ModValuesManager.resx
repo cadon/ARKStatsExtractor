@@ -117,4 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Make sure the order of the mods is like ingame.
+If you have mods loaded that are not listed here, add for the first of these the entry "other mod".
+This is important for correctly determining the available colors.</value>
+  </data>
 </root>

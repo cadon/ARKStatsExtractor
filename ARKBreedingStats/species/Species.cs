@@ -1,10 +1,10 @@
-﻿using ARKBreedingStats.values;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
+using ARKBreedingStats.mods;
 
 namespace ARKBreedingStats.species
 {
@@ -86,7 +86,7 @@ namespace ARKBreedingStats.species
         /// </summary>
         private double[] statImprintMultOverride;
         [JsonProperty]
-        public List<ColorRegion> colors; // every species has up to 6 color regions
+        public ColorRegion[] colors; // every species has up to 6 color regions
         [JsonProperty]
         public TamingData taming;
         [JsonProperty]
@@ -160,10 +160,15 @@ namespace ARKBreedingStats.species
             if (TamedBaseHealthMultiplier == null)
                 TamedBaseHealthMultiplier = 1;
 
-            if (colors == null)
-                colors = new List<ColorRegion>(Ark.ColorRegionCount);
-            for (int ci = colors.Count; ci < Ark.ColorRegionCount; ci++)
-                colors.Add(null);
+            if (colors?.Length == 0)
+                colors = null;
+            if (colors != null && colors.Length < Ark.ColorRegionCount)
+            {
+                var allColorRegions = new ColorRegion[Ark.ColorRegionCount];
+                colors.CopyTo(allColorRegions, 0);
+                colors = allColorRegions;
+            }
+
             if (string.IsNullOrEmpty(blueprintPath))
                 blueprintPath = string.Empty;
 
@@ -211,24 +216,36 @@ namespace ARKBreedingStats.species
         /// </summary>
         public void InitializeColors(ArkColors arkColors)
         {
-            for (int i = 0; i < Ark.ColorRegionCount; i++)
-                colors[i]?.Initialize(arkColors);
+            if (colors != null)
+            {
+                for (int i = 0; i < Ark.ColorRegionCount; i++)
+                    colors[i]?.Initialize(arkColors);
+            }
+
+            InitializeColorRegions();
+        }
+
+        /// <summary>
+        /// Sets which color regions are enabled. Call after Properties.Settings.Default.HideInvisibleColorRegions was changed.
+        /// </summary>
+        public void InitializeColorRegions()
+        {
+            EnabledColorRegions = colors?.Select(n =>
+                      !string.IsNullOrEmpty(n?.name) && (!n.invisible || !Properties.Settings.Default.HideInvisibleColorRegions)
+                ).ToArray() ??
+                new[] { true, true, true, true, true, true, };
         }
 
         /// <summary>
         /// Array indicating which color regions are used by this species.
         /// </summary>
-        public bool[] EnabledColorRegions => colors?.Select(n => !string.IsNullOrEmpty(n?.name)).ToArray() ??
-                                             new[] { true, true, true, true, true, true, };
+        public bool[] EnabledColorRegions;
 
         /// <summary>
         /// Indicates the multipliers for each stat applied to the imprinting-bonus.
         /// To override the multipliers, set the value to a custom array.
         /// </summary>
-        public double[] StatImprintMultipliers
-        {
-            get => statImprintMultOverride ?? statImprintMult;
-        }
+        public double[] StatImprintMultipliers => statImprintMultOverride ?? statImprintMult;
 
         /// <summary>
         /// The default stat imprinting multipliers.
@@ -329,9 +346,9 @@ namespace ARKBreedingStats.species
             for (int ci = 0; ci < Ark.ColorRegionCount; ci++)
             {
                 if (!EnabledColorRegions[ci]) continue;
-                var colorCount = colors[ci]?.naturalColors?.Count ?? 0;
+                var colorCount = colors?[ci]?.naturalColors?.Count ?? 0;
                 if (colorCount == 0)
-                    randomColors[ci] = (byte)(6 + rand.Next(50));
+                    randomColors[ci] = (byte)(6 + rand.Next(100));
                 else randomColors[ci] = colors[ci].naturalColors[rand.Next(colorCount)].Id;
             }
 

@@ -659,10 +659,7 @@
     <data name="gpTorporTime" xml:space="preserve">
         <value>Czas odurzenia</value>
     </data>
-    <data name="groupLibraryBySpecies" xml:space="preserve">
-        <value>Pogrupuj bibliotekę po gatunku</value>
-    </data>
-    <data name="HarpoonLauncher" xml:space="preserve">
+  <data name="HarpoonLauncher" xml:space="preserve">
         <value>Wyrzutnia harpunów</value>
     </data>
     <data name="ImmobilizedBy" xml:space="preserve">

@@ -1028,9 +1028,6 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   <data name="clearColorsFilters" xml:space="preserve">
     <value>Clear Color Filters</value>
   </data>
-  <data name="groupLibraryBySpecies" xml:space="preserve">
-    <value>Group library by species</value>
-  </data>
   <data name="libraryFilterToolStripMenuItem" xml:space="preserve">
     <value>Filter library…</value>
   </data>

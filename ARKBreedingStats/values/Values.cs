@@ -104,12 +104,12 @@ namespace ARKBreedingStats.values
             }
 
             // load values from official expansions that are part of the base game but saved in different files
-            var expansionValueFiles = _V.modsManifest.modsByFiles.Values.Where(m => m.mod?.expansion == true)
+            var expansionModValueFiles = _V.modsManifest.modsByFiles.Values.Where(m => m.mod?.expansion == true)
                 .Select(m => m.mod.FileName).ToArray();
 
-            var (missingModValueFilesOnlineAvailable, _, modValueFilesWithAvailableUpdate) = CheckAvailabilityAndUpdateModFiles(expansionValueFiles);
+            var (missingModValueFilesOnlineAvailable, _, modValueFilesWithAvailableUpdate) = CheckAvailabilityAndUpdateModFiles(expansionModValueFiles);
             _V.modsManifest.DownloadModFiles(missingModValueFilesOnlineAvailable.Concat(modValueFilesWithAvailableUpdate));
-            _V.LoadModValues(expansionValueFiles, false, out _, out _);
+            _V.LoadModValues(expansionModValueFiles, false, out _, out _);
 
             if (!_V._speciesAndColorsInitialized)
                 _V.InitializeSpeciesAndColors();
@@ -176,19 +176,25 @@ namespace ARKBreedingStats.values
         /// <summary>
         /// Loads extra values-files that can add species values or modify existing ones. Returns true if species were added.
         /// </summary>
-        public bool LoadModValues(IEnumerable<string> modValueFileNames, bool throwExceptionOnFail, out List<Mod> mods, out string resultsMessage)
+        public bool LoadModValues(IEnumerable<string> modFilesToLoad, bool throwExceptionOnFail, out List<Mod> loadedMods, out string resultsMessage)
         {
             loadedModsHash = 0;
             var modifiedValues = new List<ValuesFile>();
 
-            mods = new List<Mod>();
+            loadedMods = new List<Mod>();
             resultsMessage = null;
-            if (modValueFileNames == null) return false;
+            if (modFilesToLoad == null) return false;
 
             StringBuilder resultsMessageSb = new StringBuilder();
-            foreach (string mf in modValueFileNames)
+            foreach (var modFileToLoad in modFilesToLoad)
             {
-                string filename = FileService.GetJsonPath(Path.Combine(FileService.ValuesFolder, mf));
+                if (string.IsNullOrEmpty(modFileToLoad))
+                {
+                    modifiedValues.Add(new ValuesFile { mod = Mod.OtherMod });
+                    continue;
+                }
+
+                string filename = FileService.GetJsonPath(Path.Combine(FileService.ValuesFolder, modFileToLoad));
 
                 if (TryLoadValuesFile(filename, true, false, out ValuesFile modValues, out string modFileErrorMessage))
                 {
@@ -208,9 +214,10 @@ namespace ARKBreedingStats.values
             // update data if existing
             foreach (var modValues in modifiedValues)
             {
-                // if mods are loaded multiple times, only keep the last
-                mods.Remove(modValues.mod);
-                mods.Add(modValues.mod);
+                // if mods are loaded multiple times, only keep the first
+                if (loadedMods.Contains(modValues.mod)) continue;
+
+                loadedMods.Add(modValues.mod);
 
                 // species
                 if (modValues.species != null)
@@ -239,7 +246,7 @@ namespace ARKBreedingStats.values
                 // mod food data TODO
             }
 
-            loadedModsHash = CreatureCollection.CalculateModListHash(mods.Where(m => !m.expansion));
+            loadedModsHash = CreatureCollection.CalculateModListHash(loadedMods.Where(m => !m.expansion));
 
             resultsMessageSb.AppendLine($"The following mods were loaded:\n\n- {string.Join("\n- ", modifiedValues.Select(m => m.mod.title).ToArray())}\n\n"
                                         + $"Species added: {speciesAddedCount}");
@@ -279,10 +286,11 @@ namespace ARKBreedingStats.values
 
             string valuesFolder = FileService.GetJsonPath(FileService.ValuesFolder);
 
-            foreach (string mf in modValueFileNames)
+            foreach (var mf in modValueFileNames)
             {
-                string modFilePath = Path.Combine(valuesFolder, mf);
+                if (string.IsNullOrEmpty(mf)) continue;
 
+                string modFilePath = Path.Combine(valuesFolder, mf);
                 modsManifest.modsByFiles.TryGetValue(mf, out var modInfo);
 
                 if (!File.Exists(modFilePath))

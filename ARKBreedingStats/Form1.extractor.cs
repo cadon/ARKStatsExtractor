@@ -716,6 +716,11 @@ namespace ARKBreedingStats
                 _extractor.FixedResults[_activeStatIndex] = false;
         }
 
+        private void listView_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            ListViewColumnSorter.DoSort((ListView)sender, e.Column);
+        }
+
         /// <summary>
         /// Set an option for a stat that has multiple possibilities.
         /// </summary>

@@ -30,6 +30,9 @@ namespace ARKBreedingStats.uiControls
             LbAlternativeColor.Text = Loc.S("LbAlternativeColor");
             _tt.SetToolTip(BtNoColor, "0: no color");
 
+            BtUndefinedColor.Tag = Ark.UndefinedColorId; // one possible id of undefined color, currently used by Ark
+            _tt.SetToolTip(BtUndefinedColor, $"{Ark.UndefinedColorId}: undefined color");
+
             buttonCancel.Text = Loc.S("Cancel");
 
             Disposed += MyColorPicker_Disposed;

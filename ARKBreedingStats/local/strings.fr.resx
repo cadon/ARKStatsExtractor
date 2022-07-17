@@ -1026,9 +1026,6 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
   <data name="clearColorsFilters" xml:space="preserve">
     <value>Effacer les filtres de couleur</value>
   </data>
-  <data name="groupLibraryBySpecies" xml:space="preserve">
-    <value>Grouper la bibliothèque par espèces</value>
-  </data>
   <data name="libraryFilterToolStripMenuItem" xml:space="preserve">
     <value>Filtres de la bibliothèque…</value>
   </data>

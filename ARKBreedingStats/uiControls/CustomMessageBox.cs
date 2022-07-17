@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.uiControls
@@ -74,7 +75,9 @@ namespace ARKBreedingStats.uiControls
             var message = Text + "\n\n" + LabelMessage.Text;
             if (string.IsNullOrEmpty(message)) return;
 
-            Clipboard.SetText(message);
+            if (ActiveForm != null)
+                ActiveForm.Invoke(new Action(() => { Clipboard.SetText(message); }));
+            else Clipboard.SetText(message);
         }
 
         private void CustomMessageBox_SizeChanged(object sender, System.EventArgs e)

@@ -116,7 +116,7 @@ namespace ARKBreedingStats
             _exportedCreatureControl?.setStatus(importExported.ExportedCreatureControl.ImportStatus.JustImported, DateTime.Now);
 
             // if creature already exists by guid, use the already existing creature object for the parent assignments
-            creature = _creatureCollection.creatures.SingleOrDefault(c => c.guid == creature.guid) ?? creature;
+            creature = _creatureCollection.creatures.FirstOrDefault(c => c.guid == creature.guid) ?? creature;
 
             // if new creature is parent of existing creatures, update link
             var motherOf = _creatureCollection.creatures.Where(c => c.motherGuid == creature.guid).ToArray();
@@ -165,7 +165,7 @@ namespace ARKBreedingStats
 
                 // select new creature and ensure visibility
                 _reactOnCreatureSelectionChange = false;
-                listViewLibrary.SelectedItems.Clear();
+                listViewLibrary.SelectedIndices.Clear();
                 _reactOnCreatureSelectionChange = true;
                 for (int i = 0; i < listViewLibrary.Items.Count; i++)
                 {
@@ -193,23 +193,24 @@ namespace ARKBreedingStats
         {
             if (tabControlMain.SelectedTab == tabPageLibrary)
             {
-                if (listViewLibrary.SelectedItems.Count > 0)
+                if (listViewLibrary.SelectedIndices.Count > 0)
                 {
                     if (MessageBox.Show("Do you really want to delete the entry and all data for " +
-                            $"\"{((Creature)listViewLibrary.SelectedItems[0].Tag).name}\"" +
-                            $"{(listViewLibrary.SelectedItems.Count > 1 ? " and " + (listViewLibrary.SelectedItems.Count - 1) + " other creatures" : null)}?",
+                            $"\"{_creaturesDisplayed[listViewLibrary.SelectedIndices[0]].name}\"" +
+                            $"{(listViewLibrary.SelectedIndices.Count > 1 ? " and " + (listViewLibrary.SelectedIndices.Count - 1) + " other creatures" : null)}?",
                             "Delete Creature?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     {
                         bool onlyOneSpecies = true;
-                        Species species = ((Creature)listViewLibrary.SelectedItems[0].Tag).Species;
-                        foreach (ListViewItem i in listViewLibrary.SelectedItems)
+                        Species species = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]].Species;
+                        foreach (int i in listViewLibrary.SelectedIndices)
                         {
+                            var cr = _creaturesDisplayed[i];
                             if (onlyOneSpecies)
                             {
-                                if (species != ((Creature)i.Tag).Species)
+                                if (species != cr.Species)
                                     onlyOneSpecies = false;
                             }
-                            _creatureCollection.DeleteCreature((Creature)i.Tag);
+                            _creatureCollection.DeleteCreature(cr);
                         }
                         _creatureCollection.RemoveUnlinkedPlaceholders();
                         UpdateCreatureListings(onlyOneSpecies ? species : null);
@@ -726,7 +727,7 @@ namespace ARKBreedingStats
         {
             if (guid == Guid.Empty)
                 return null;
-            var existing = placeholders.SingleOrDefault(ph => ph.guid == guid);
+            var existing = placeholders.FirstOrDefault(ph => ph.guid == guid);
             if (existing != null)
                 return existing;
 
@@ -769,42 +770,9 @@ namespace ARKBreedingStats
         private void ShowCreaturesInListView(IEnumerable<Creature> creatures)
         {
             listViewLibrary.BeginUpdate();
-
-            // clear ListView
-            listViewLibrary.Items.Clear();
-            listViewLibrary.Groups.Clear();
-
-            Dictionary<string, ListViewGroup> speciesGroups = new Dictionary<string, ListViewGroup>();
-            List<ListViewItem> items = new List<ListViewItem>();
-            bool useSpeciesGroups = Properties.Settings.Default.LibraryGroupBySpecies;
-
-            foreach (Creature cr in creatures)
-            {
-                // if species is unknown, don't display the creature
-                if (cr.Species == null)
-                    continue;
-
-                if (!useSpeciesGroups)
-                {
-                    items.Add(CreateCreatureLvItem(cr));
-                }
-                else
-                {
-                    // check if group of species exists
-                    var spDesc = cr.Species.DescriptiveNameAndMod;
-                    if (!speciesGroups.TryGetValue(spDesc, out var group))
-                    {
-                        group = new ListViewGroup(spDesc);
-                        speciesGroups.Add(spDesc, group);
-                    }
-                    items.Add(CreateCreatureLvItem(cr, group));
-                }
-            }
-            // use species list as initial source to get the sorted order set by the user
-            listViewLibrary.ShowGroups = useSpeciesGroups;
-            if (useSpeciesGroups)
-                listViewLibrary.Groups.AddRange(Values.V.species.Select(sp => sp.DescriptiveNameAndMod).Where(sp => speciesGroups.ContainsKey(sp)).Select(sp => speciesGroups[sp]).ToArray());
-            listViewLibrary.Items.AddRange(items.ToArray());
+            _creaturesDisplayed = _creatureListSorter.DoSort(creatures.Where(cr => cr.Species != null));
+            listViewLibrary.VirtualListSize = _creaturesDisplayed.Length;
+            _libraryListViewItemCache = null;
             listViewLibrary.EndUpdate();
 
             // highlight filter input if something is entered and no results are available
@@ -816,10 +784,56 @@ namespace ARKBreedingStats
             else
             {
                 // if no items are shown, shade red, if something is shown and potentially some are sorted out, shade yellow
-                ToolStripTextBoxLibraryFilter.BackColor = items.Any() ? Color.LightGoldenrodYellow : Color.LightSalmon;
+                ToolStripTextBoxLibraryFilter.BackColor = _creaturesDisplayed.Any() ? Color.LightGoldenrodYellow : Color.LightSalmon;
                 ToolStripButtonLibraryFilterClear.BackColor = Color.Orange;
             }
         }
+
+        #region ListViewLibrary virtual
+
+        private Creature[] _creaturesDisplayed;
+        private ListViewItem[] _libraryListViewItemCache; //array to cache items for the virtual list
+        private int _libraryItemCacheFirstIndex; //stores the index of the first item in the cache
+
+        private void ListViewLibrary_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
+        {
+            // check to see if the requested item is currently in the cache
+            if (_libraryListViewItemCache != null && e.ItemIndex >= _libraryItemCacheFirstIndex && e.ItemIndex < _libraryItemCacheFirstIndex + _libraryListViewItemCache.Length)
+            {
+                // get the ListViewItem from the cache instead of making a new one.
+                e.Item = _libraryListViewItemCache[e.ItemIndex - _libraryItemCacheFirstIndex];
+            }
+            else if (_creaturesDisplayed?.Length > e.ItemIndex)
+            {
+                // create item not available in the cache
+                e.Item = CreateCreatureLvItem(_creaturesDisplayed[e.ItemIndex]);
+            }
+        }
+
+        private void ListViewLibrary_CacheVirtualItems(object sender, CacheVirtualItemsEventArgs e)
+        {
+            if (_libraryListViewItemCache != null && e.StartIndex >= _libraryItemCacheFirstIndex && e.EndIndex <= _libraryItemCacheFirstIndex + _libraryListViewItemCache.Length)
+            {
+                // cache already contains needed items, so do nothing.
+                return;
+            }
+
+            // rebuild the cache.
+            const int cacheMoreRows = 60;
+            var indexStart = Math.Max(0, e.StartIndex - cacheMoreRows);
+            var indexEnd = Math.Min(_creaturesDisplayed.Length - 1, e.EndIndex + cacheMoreRows);
+            _libraryItemCacheFirstIndex = indexStart;
+            var length = indexEnd - indexStart + 1;
+            _libraryListViewItemCache = new ListViewItem[length];
+
+            //Fill the cache with the appropriate ListViewItems.
+            for (int i = 0; i < length; i++)
+            {
+                _libraryListViewItemCache[i] = CreateCreatureLvItem(_creaturesDisplayed[i + _libraryItemCacheFirstIndex]);
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// Call this function to update the displayed values of a creature. Usually called after a creature was edited.
@@ -830,9 +844,9 @@ namespace ARKBreedingStats
         {
             _reactOnCreatureSelectionChange = false;
             // if row is selected, save and reselect later
-            List<Creature> selectedCreatures = new List<Creature>();
-            foreach (ListViewItem i in listViewLibrary.SelectedItems)
-                selectedCreatures.Add((Creature)i.Tag);
+            var selectedCreatures = new HashSet<Creature>();
+            foreach (int i in listViewLibrary.SelectedIndices)
+                selectedCreatures.Add(_creaturesDisplayed[i]);
 
             // data of the selected creature changed, update listview
             cr.RecalculateCreatureValues(_creatureCollection.getWildLevelStep());
@@ -845,18 +859,7 @@ namespace ARKBreedingStats
             }
             else
             {
-                // int listViewLibrary replace old row with new one
-                int ci = -1;
-                for (int i = 0; i < listViewLibrary.Items.Count; i++)
-                {
-                    if ((Creature)listViewLibrary.Items[i].Tag == cr)
-                    {
-                        ci = i;
-                        break;
-                    }
-                }
-                if (ci >= 0)
-                    listViewLibrary.Items[ci] = CreateCreatureLvItem(cr, listViewLibrary.Items[ci].Group);
+                UpdateCreatureListViewItem(cr);
             }
 
             // recreate ownerList
@@ -868,12 +871,14 @@ namespace ARKBreedingStats
             int selectedCount = selectedCreatures.Count;
             if (selectedCount > 0)
             {
+                // for loop is faster than foreach loop for small selected item amount, which is usually the case
                 for (int i = 0; i < listViewLibrary.Items.Count; i++)
                 {
-                    if (selectedCreatures.Contains((Creature)listViewLibrary.Items[i].Tag))
+                    var item = listViewLibrary.Items[i];
+                    if (selectedCreatures.Contains((Creature)item.Tag))
                     {
-                        listViewLibrary.Items[i].Focused = true;
-                        listViewLibrary.Items[i].Selected = true;
+                        item.Focused = true;
+                        item.Selected = true;
                         if (--selectedCount == 0)
                         {
                             listViewLibrary.EnsureVisible(i);
@@ -882,15 +887,25 @@ namespace ARKBreedingStats
                     }
                 }
             }
+
             _reactOnCreatureSelectionChange = true;
         }
 
-        private ListViewItem CreateCreatureLvItem(Creature cr, ListViewGroup g = null)
+        private void UpdateCreatureListViewItem(Creature creature)
+        {
+            // int listViewLibrary replace old row with new one
+            var index = Array.IndexOf(_creaturesDisplayed, creature);
+            if (index == -1) return; // not in cache currently
+            var cacheIndex = index - _libraryItemCacheFirstIndex;
+            if (cacheIndex >= 0 && cacheIndex < _libraryListViewItemCache.Length)
+            {
+                _libraryListViewItemCache[cacheIndex] = CreateCreatureLvItem(creature);
+            }
+        }
+
+        private ListViewItem CreateCreatureLvItem(Creature cr)
         {
             double colorFactor = 100d / _creatureCollection.maxChartLevel;
-            DateTime? cldGr = cr.cooldownUntil.HasValue && cr.growingUntil.HasValue ?
-                (cr.cooldownUntil.Value > cr.growingUntil.Value ? cr.cooldownUntil.Value : cr.growingUntil.Value)
-                : cr.cooldownUntil ?? cr.growingUntil;
 
             string[] subItems = new[]
                     {
@@ -923,8 +938,8 @@ namespace ARKBreedingStats
                 Utils.StatusSymbol(cr.Status, string.Empty)
             }).ToArray();
 
-            // check if we display group for species or not.
-            ListViewItem lvi = g != null && Properties.Settings.Default.LibraryGroupBySpecies ? new ListViewItem(subItems, g) : new ListViewItem(subItems);
+            // check if groups for species are displayed
+            ListViewItem lvi = new ListViewItem(subItems);
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
@@ -1108,18 +1123,23 @@ namespace ARKBreedingStats
             return useGrowingLeft ? Utils.Duration(cr.growingLeft) : dt.ToString();
         }
 
-        private void listView_ColumnClick(object sender, ColumnClickEventArgs e)
+        private readonly CreatureListSorter _creatureListSorter = new CreatureListSorter();
+
+        private void libraryListView_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-            ListViewColumnSorter.DoSort((ListView)sender, e.Column);
+            listViewLibrary.BeginUpdate();
+            _creaturesDisplayed = _creatureListSorter.DoSort(_creaturesDisplayed, e.Column);
+            _libraryListViewItemCache = null;
+            listViewLibrary.EndUpdate();
         }
 
-        private Debouncer libraryIndexChangedDebouncer = new Debouncer();
+        private readonly Debouncer _libraryIndexChangedDebouncer = new Debouncer();
 
-        // onlibrarychange
+        // onLibraryChange
         private void listViewLibrary_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_reactOnCreatureSelectionChange)
-                libraryIndexChangedDebouncer.Debounce(100, LibrarySelectedIndexChanged, Dispatcher.CurrentDispatcher);
+                _libraryIndexChangedDebouncer.Debounce(100, LibrarySelectedIndexChanged, Dispatcher.CurrentDispatcher);
         }
 
         /// <summary>
@@ -1127,7 +1147,7 @@ namespace ARKBreedingStats
         /// </summary>
         private void LibrarySelectedIndexChanged()
         {
-            int cnt = listViewLibrary.SelectedItems.Count;
+            int cnt = listViewLibrary.SelectedIndices.Count;
             if (cnt == 0)
             {
                 SetMessageLabelText();
@@ -1137,7 +1157,7 @@ namespace ARKBreedingStats
 
             if (cnt == 1)
             {
-                Creature c = (Creature)listViewLibrary.SelectedItems[0].Tag;
+                Creature c = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]];
                 creatureBoxListView.SetCreature(c);
                 if (tabControlLibFilter.SelectedTab == tabPageLibRadarChart)
                     radarChartLibrary.SetLevels(c.levelsWild);
@@ -1145,9 +1165,10 @@ namespace ARKBreedingStats
             }
 
             // display infos about the selected creatures
-            List<Creature> selCrs = new List<Creature>();
-            for (int i = 0; i < cnt; i++)
-                selCrs.Add((Creature)listViewLibrary.SelectedItems[i].Tag);
+            var selCrs = new List<Creature>(cnt);
+
+            foreach (int i in listViewLibrary.SelectedIndices)
+                selCrs.Add(_creaturesDisplayed[i]);
 
             List<string> tagList = new List<string>();
             foreach (Creature cr in selCrs)
@@ -1189,8 +1210,10 @@ namespace ARKBreedingStats
 
             // save selected creatures to re-select them after the filtering
             List<Creature> selectedCreatures = new List<Creature>();
-            foreach (ListViewItem i in listViewLibrary.SelectedItems)
-                selectedCreatures.Add((Creature)i.Tag);
+            foreach (int i in listViewLibrary.SelectedIndices)
+            {
+                selectedCreatures.Add(_creaturesDisplayed[i]);
+            }
 
             IEnumerable<Creature> filteredList;
 
@@ -1332,17 +1355,21 @@ namespace ARKBreedingStats
             creatureBoxListView.UpdateLabel();
 
             // select previous selected creatures again
+            listViewLibrary.SelectedIndices.Clear();
+            creatureBoxListView.Clear();
             int selectedCount = selectedCreatures.Count;
-            if (selectedCount > 0)
+            if (selectedCount != 0)
             {
+                // for loop is faster than foreach loop for small selected item amount, which is usually the case
                 for (int i = 0; i < listViewLibrary.Items.Count; i++)
                 {
-                    if (selectedCreatures.Contains((Creature)listViewLibrary.Items[i].Tag))
+                    var item = listViewLibrary.Items[i];
+                    if (selectedCreatures.Contains((Creature)item.Tag))
                     {
-                        listViewLibrary.Items[i].Selected = true;
+                        item.Selected = true;
                         if (--selectedCount == 0)
                         {
-                            listViewLibrary.Items[i].Focused = true;
+                            item.Focused = true;
                             listViewLibrary.EnsureVisible(i);
                             break;
                         }
@@ -1408,7 +1435,7 @@ namespace ARKBreedingStats
                     break;
                 case Keys.F2:
                     if (listViewLibrary.SelectedIndices.Count > 0)
-                        EditCreatureInTester((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
+                        EditCreatureInTester(_creaturesDisplayed[listViewLibrary.SelectedIndices[0]]);
                     break;
                 case Keys.F3:
                     if (listViewLibrary.SelectedIndices.Count > 0)
@@ -1422,8 +1449,7 @@ namespace ARKBreedingStats
                     // select all list-entries
                     _reactOnCreatureSelectionChange = false;
                     listViewLibrary.BeginUpdate();
-                    foreach (ListViewItem i in listViewLibrary.Items)
-                        i.Selected = true;
+                    listViewLibrary.SelectAllItems();
                     listViewLibrary.EndUpdate();
                     _reactOnCreatureSelectionChange = true;
                     listViewLibrary_SelectedIndexChanged(null, null);
@@ -1451,9 +1477,12 @@ namespace ARKBreedingStats
                         OpenSettingsDialog(Settings.SettingsTabPages.General);
                     return;
                 }
-                if (listViewLibrary.SelectedItems.Count > 0)
+                if (listViewLibrary.SelectedIndices.Count > 0)
                 {
-                    ExportImportCreatures.ExportTable(listViewLibrary.SelectedItems.Cast<ListViewItem>().Select(lvi => (Creature)lvi.Tag));
+                    var exportCount = ExportImportCreatures.ExportTable(listViewLibrary.SelectedIndices.Cast<int>().Select(i => _creaturesDisplayed[i]));
+                    if (exportCount != 0)
+                        SetMessageLabelText($"{exportCount} creatures were exported to the clipboard for pasting in a spreadsheet.", MessageBoxIcon.Information);
+
                     return;
                 }
                 MessageBox.Show("No creatures in the library selected to copy to the clipboard", "No Creatures Selected",
@@ -1483,12 +1512,13 @@ namespace ARKBreedingStats
 
             // check if multiple species are selected
             bool multipleSpecies = false;
-            Species sp = ((Creature)listViewLibrary.SelectedItems[0].Tag).Species;
+            Species sp = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]].Species;
             c.Species = sp;
-            foreach (ListViewItem i in listViewLibrary.SelectedItems)
+            foreach (int i in listViewLibrary.SelectedIndices)
             {
-                selectedCreatures.Add((Creature)i.Tag);
-                if (!multipleSpecies && ((Creature)i.Tag).speciesBlueprint != sp.blueprintPath)
+                var cr = _creaturesDisplayed[i];
+                selectedCreatures.Add(cr);
+                if (!multipleSpecies && cr.speciesBlueprint != sp.blueprintPath)
                 {
                     multipleSpecies = true;
                 }
@@ -1543,8 +1573,7 @@ namespace ARKBreedingStats
         /// <param name="e"></param>
         private void saveInfographicsToFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var si = listViewLibrary.SelectedItems;
-            if (si.Count == 0) return;
+            if (listViewLibrary.SelectedIndices.Count == 0) return;
 
             var initialFolder = Properties.Settings.Default.InfoGraphicExportFolder;
             if (string.IsNullOrEmpty(initialFolder) || !Directory.Exists(initialFolder))
@@ -1583,9 +1612,9 @@ namespace ARKBreedingStats
 
             var invalidCharacters = Path.GetInvalidFileNameChars();
 
-            foreach (ListViewItem li in si)
+            foreach (int i in listViewLibrary.SelectedIndices)
             {
-                if (!(li.Tag is Creature c)) continue;
+                var c = _creaturesDisplayed[i];
 
                 var fileName = $"{c.Species.name}_{(string.IsNullOrEmpty(c.name) ? c.guid.ToString() : c.name)}";
                 foreach (var invalidChar in invalidCharacters)
@@ -1622,27 +1651,14 @@ namespace ARKBreedingStats
         {
             if (creature == null) return;
 
-            ListViewItem lviCreature = null;
-            foreach (ListViewItem lvi in listViewLibrary.Items)
-            {
-                if (lvi.Tag is Creature c && c == creature)
-                {
-                    lviCreature = lvi;
-                    break;
-                }
-            }
-
-            if (lviCreature == null) return;
+            var index = Array.IndexOf(_creaturesDisplayed, creature);
+            if (index == -1) return;
 
             _reactOnCreatureSelectionChange = false;
-            // deselect
-            foreach (ListViewItem lvi in listViewLibrary.SelectedItems)
-                lvi.Selected = false;
+            listViewLibrary.SelectedIndices.Clear();
             _reactOnCreatureSelectionChange = true;
-
-            lviCreature.Focused = true;
-            lviCreature.Selected = true;
-            listViewLibrary.EnsureVisible(lviCreature.Index);
+            listViewLibrary.SelectedIndices.Add(index);
+            listViewLibrary.EnsureVisible(index);
         }
 
         #region Library ContextMenu
@@ -1650,7 +1666,7 @@ namespace ARKBreedingStats
         private void toolStripMenuItemEdit_Click(object sender, EventArgs e)
         {
             if (listViewLibrary.SelectedIndices.Count > 0)
-                EditCreatureInTester((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
+                EditCreatureInTester(_creaturesDisplayed[listViewLibrary.SelectedIndices[0]]);
         }
 
         private void toolStripMenuItemRemove_Click(object sender, EventArgs e)
@@ -1686,13 +1702,13 @@ namespace ARKBreedingStats
         private void currentValuesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (listViewLibrary.SelectedIndices.Count > 0)
-                SetCreatureValuesToExtractor((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
+                SetCreatureValuesToExtractor(_creaturesDisplayed[listViewLibrary.SelectedIndices[0]]);
         }
 
         private void wildValuesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (listViewLibrary.SelectedIndices.Count > 0)
-                SetCreatureValuesToExtractor((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag,
+                SetCreatureValuesToExtractor(_creaturesDisplayed[listViewLibrary.SelectedIndices[0]],
                     true);
         }
 
@@ -1700,9 +1716,9 @@ namespace ARKBreedingStats
             bool justMated = false)
         {
             listViewLibrary.BeginUpdate();
-            foreach (ListViewItem i in listViewLibrary.SelectedItems)
+            foreach (int i in listViewLibrary.SelectedIndices)
             {
-                Creature c = (Creature)i.Tag;
+                var c = _creaturesDisplayed[i];
                 if (setMature && c.growingUntil > DateTime.Now)
                     c.growingUntil = null;
 
@@ -1712,11 +1728,7 @@ namespace ARKBreedingStats
                 if (justMated)
                     c.cooldownUntil = DateTime.Now.AddSeconds(c.Species.breeding?.matingCooldownMinAdjusted ?? 0);
 
-                i.SubItems[11].Text =
-                    DisplayedCreatureCountdown(c, out var cooldownForeColor, out var cooldownBackColor);
-
-                i.SubItems[11].ForeColor = cooldownForeColor;
-                i.SubItems[11].BackColor = cooldownBackColor;
+                UpdateCreatureListViewItem(c);
             }
 
             breedingPlan1.BreedingPlanNeedsUpdate = true;
@@ -1749,9 +1761,9 @@ namespace ARKBreedingStats
             var statIndicesAffectedByMutagen = Ark.StatIndicesAffectedByMutagen;
             var statCountAffectedByMutagen = statIndicesAffectedByMutagen.Length;
 
-            foreach (ListViewItem i in listViewLibrary.SelectedItems)
+            foreach (int i in listViewLibrary.SelectedIndices)
             {
-                if (!(i.Tag is Creature c)) continue;
+                var c = _creaturesDisplayed[i];
 
                 if (!c.isDomesticated
                     || c.flags.HasFlag(CreatureFlags.MutagenApplied)) continue;
@@ -1787,16 +1799,15 @@ namespace ARKBreedingStats
 
         private void AdminCommandToSetColors()
         {
-            if (!(listViewLibrary.SelectedItems.Count > 0
-                  && listViewLibrary.SelectedItems[0].Tag is Creature cr)) return;
+            if (listViewLibrary.SelectedIndices.Count == 0) return;
 
+            var cr = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]];
             byte[] cl = cr.colors;
             if (cl == null) return;
             var colorCommands = new List<string>(6);
-            var enabledColorRegions = cr.Species.EnabledColorRegions;
             for (int ci = 0; ci < 6; ci++)
             {
-                if (enabledColorRegions[ci])
+                if (cr.Species.EnabledColorRegions[ci])
                     colorCommands.Add($"setTargetDinoColor {ci} {cl[ci]}");
             }
 
@@ -1811,16 +1822,14 @@ namespace ARKBreedingStats
 
         private void adminCommandToSpawnExactDinoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listViewLibrary.SelectedItems.Count > 0
-                && listViewLibrary.SelectedItems[0].Tag is Creature cr)
-                CreateExactSpawnCommand(cr);
+            if (listViewLibrary.SelectedIndices.Count > 0)
+                CreateExactSpawnCommand(_creaturesDisplayed[listViewLibrary.SelectedIndices[0]]);
         }
 
         private void adminCommandToSpawnExactDinoDS2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listViewLibrary.SelectedItems.Count > 0
-                && listViewLibrary.SelectedItems[0].Tag is Creature cr)
-                CreateExactSpawnDS2Command(cr);
+            if (listViewLibrary.SelectedIndices.Count > 0)
+                CreateExactSpawnDS2Command(_creaturesDisplayed[listViewLibrary.SelectedIndices[0]]);
         }
 
         private void exactSpawnCommandToolStripMenuItem_Click(object sender, EventArgs e)

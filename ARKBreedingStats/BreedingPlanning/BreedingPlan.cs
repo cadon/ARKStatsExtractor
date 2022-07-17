@@ -1128,12 +1128,6 @@ namespace ARKBreedingStats.BreedingPlanning
             Loc.SetToolTip(cbBPTagExcludeDefault, _tt);
         }
 
-        private void cbServerFilterLibrary_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.Default.UseServerFilterForBreedingPlan = cbServerFilterLibrary.Checked;
-            CalculateBreedingScoresAndDisplayPairs();
-        }
-
         private void btShowAllCreatures_Click(object sender, EventArgs e)
         {
             // remove restriction on manually selected creatures
@@ -1147,9 +1141,21 @@ namespace ARKBreedingStats.BreedingPlanning
                 CalculateBreedingScoresAndDisplayPairs();
         }
 
+        private void cbServerFilterLibrary_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.UseServerFilterForBreedingPlan = cbServerFilterLibrary.Checked;
+            CalculateBreedingScoresAndDisplayPairs();
+        }
+
         private void cbOwnerFilterLibrary_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.UseOwnerFilterForBreedingPlan = cbOwnerFilterLibrary.Checked;
+            CalculateBreedingScoresAndDisplayPairs();
+        }
+
+        private void cbTribeFilterLibrary_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.UseTribeFilterForBreedingPlan = cbTribeFilterLibrary.Checked;
             CalculateBreedingScoresAndDisplayPairs();
         }
 

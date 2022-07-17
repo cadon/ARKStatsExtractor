@@ -140,6 +140,7 @@ namespace ARKBreedingStats
             this.checkForUpdatedStatsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.devToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addRandomCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.colorDefinitionsToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelSums = new System.Windows.Forms.Panel();
             this.lbShouldBe = new System.Windows.Forms.Label();
             this.lbSumDomSB = new System.Windows.Forms.Label();
@@ -346,7 +347,6 @@ namespace ARKBreedingStats
             this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetLibraryColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
-            this.colorDefinitionsToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -1336,6 +1336,13 @@ namespace ARKBreedingStats
             this.addRandomCreaturesToolStripMenuItem.Text = "Add random creatures…";
             this.addRandomCreaturesToolStripMenuItem.Click += new System.EventHandler(this.addRandomCreaturesToolStripMenuItem_Click);
             // 
+            // colorDefinitionsToClipboardToolStripMenuItem
+            // 
+            this.colorDefinitionsToClipboardToolStripMenuItem.Name = "colorDefinitionsToClipboardToolStripMenuItem";
+            this.colorDefinitionsToClipboardToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.colorDefinitionsToClipboardToolStripMenuItem.Text = "Color definitions to clipboard";
+            this.colorDefinitionsToClipboardToolStripMenuItem.Click += new System.EventHandler(this.colorDefinitionsToClipboardToolStripMenuItem_Click);
+            // 
             // panelSums
             // 
             this.panelSums.Controls.Add(this.lbShouldBe);
@@ -2061,7 +2068,7 @@ namespace ARKBreedingStats
             this.listViewLibrary.TabIndex = 2;
             this.listViewLibrary.UseCompatibleStateImageBehavior = false;
             this.listViewLibrary.View = System.Windows.Forms.View.Details;
-            this.listViewLibrary.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView_ColumnClick);
+            this.listViewLibrary.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.libraryListView_ColumnClick);
             this.listViewLibrary.SelectedIndexChanged += new System.EventHandler(this.listViewLibrary_SelectedIndexChanged);
             this.listViewLibrary.KeyUp += new System.Windows.Forms.KeyEventHandler(this.listViewLibrary_KeyUp);
             // 
@@ -3390,13 +3397,6 @@ namespace ARKBreedingStats
             this.speciesSelector1.Size = new System.Drawing.Size(1134, 775);
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
-            // 
-            // colorDefinitionsToClipboardToolStripMenuItem
-            // 
-            this.colorDefinitionsToClipboardToolStripMenuItem.Name = "colorDefinitionsToClipboardToolStripMenuItem";
-            this.colorDefinitionsToClipboardToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-            this.colorDefinitionsToClipboardToolStripMenuItem.Text = "Color definitions to clipboard";
-            this.colorDefinitionsToClipboardToolStripMenuItem.Click += new System.EventHandler(this.colorDefinitionsToClipboardToolStripMenuItem_Click);
             // 
             // Form1
             // 
