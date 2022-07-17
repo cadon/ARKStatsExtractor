@@ -1479,7 +1479,10 @@ namespace ARKBreedingStats
                 }
                 if (listViewLibrary.SelectedIndices.Count > 0)
                 {
-                    ExportImportCreatures.ExportTable(listViewLibrary.SelectedIndices.Cast<int>().Select(i => _creaturesDisplayed[i]));
+                    var exportCount = ExportImportCreatures.ExportTable(listViewLibrary.SelectedIndices.Cast<int>().Select(i => _creaturesDisplayed[i]));
+                    if (exportCount != 0)
+                        SetMessageLabelText($"{exportCount} creatures were exported to the clipboard for pasting in a spreadsheet.", MessageBoxIcon.Information);
+
                     return;
                 }
                 MessageBox.Show("No creatures in the library selected to copy to the clipboard", "No Creatures Selected",
