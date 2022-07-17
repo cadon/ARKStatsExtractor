@@ -116,7 +116,7 @@ namespace ARKBreedingStats
             _exportedCreatureControl?.setStatus(importExported.ExportedCreatureControl.ImportStatus.JustImported, DateTime.Now);
 
             // if creature already exists by guid, use the already existing creature object for the parent assignments
-            creature = _creatureCollection.creatures.SingleOrDefault(c => c.guid == creature.guid) ?? creature;
+            creature = _creatureCollection.creatures.FirstOrDefault(c => c.guid == creature.guid) ?? creature;
 
             // if new creature is parent of existing creatures, update link
             var motherOf = _creatureCollection.creatures.Where(c => c.motherGuid == creature.guid).ToArray();
@@ -727,7 +727,7 @@ namespace ARKBreedingStats
         {
             if (guid == Guid.Empty)
                 return null;
-            var existing = placeholders.SingleOrDefault(ph => ph.guid == guid);
+            var existing = placeholders.FirstOrDefault(ph => ph.guid == guid);
             if (existing != null)
                 return existing;
 
