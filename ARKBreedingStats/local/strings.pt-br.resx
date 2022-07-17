@@ -549,9 +549,6 @@ Os níveis são então mostrados sem o processo de extração (e sem validação
   <data name="gpTorporTime" xml:space="preserve">
     <value>Tempo de Torpor</value>
   </data>
-  <data name="groupLibraryBySpecies" xml:space="preserve">
-    <value>Agrupar por Especie</value>
-  </data>
   <data name="grownIn" xml:space="preserve">
     <value>Cresce em</value>
   </data>

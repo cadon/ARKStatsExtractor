@@ -596,9 +596,6 @@
   <data name="gpTorporTime" xml:space="preserve">
     <value>眩暈時間</value>
   </data>
-  <data name="groupLibraryBySpecies" xml:space="preserve">
-    <value>按物種分類</value>
-  </data>
   <data name="grownIn" xml:space="preserve">
     <value>成長與</value>
   </data>

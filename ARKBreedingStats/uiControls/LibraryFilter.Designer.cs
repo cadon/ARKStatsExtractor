@@ -50,7 +50,6 @@
             this.BtClearColorFilters = new System.Windows.Forms.Button();
             this.BtClearFlagFilter = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.CbLibraryGroupSpecies = new System.Windows.Forms.CheckBox();
             this.CbUseFilterInTopStatCalculation = new System.Windows.Forms.CheckBox();
             this.BtApply = new System.Windows.Forms.Button();
             this.BtCancel = new System.Windows.Forms.Button();
@@ -316,7 +315,6 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.CbLibraryGroupSpecies);
             this.panel1.Controls.Add(this.CbUseFilterInTopStatCalculation);
             this.panel1.Controls.Add(this.BtApply);
             this.panel1.Controls.Add(this.BtCancel);
@@ -325,17 +323,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(790, 30);
             this.panel1.TabIndex = 4;
-            // 
-            // CbLibraryGroupSpecies
-            // 
-            this.CbLibraryGroupSpecies.AutoSize = true;
-            this.CbLibraryGroupSpecies.Dock = System.Windows.Forms.DockStyle.Left;
-            this.CbLibraryGroupSpecies.Location = new System.Drawing.Point(170, 0);
-            this.CbLibraryGroupSpecies.Name = "CbLibraryGroupSpecies";
-            this.CbLibraryGroupSpecies.Size = new System.Drawing.Size(138, 30);
-            this.CbLibraryGroupSpecies.TabIndex = 3;
-            this.CbLibraryGroupSpecies.Text = "Group library by species";
-            this.CbLibraryGroupSpecies.UseVisualStyleBackColor = true;
             // 
             // CbUseFilterInTopStatCalculation
             // 
@@ -420,7 +407,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button BtColorFilter;
         private System.Windows.Forms.Button BtClearColorFilters;
-        private System.Windows.Forms.CheckBox CbLibraryGroupSpecies;
         private System.Windows.Forms.Button BtClearFlagFilter;
     }
 }

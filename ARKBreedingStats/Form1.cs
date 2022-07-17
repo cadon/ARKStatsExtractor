@@ -136,7 +136,6 @@ namespace ARKBreedingStats
 
             // Create an instance of a ListView column sorter and assign it
             // to the ListView controls
-            listViewLibrary.ListViewItemSorter = new ListViewColumnSorter();
             listViewPossibilities.ListViewItemSorter = new ListViewColumnSorter();
             timerList1.ColumnSorter = new ListViewColumnSorter();
 
@@ -172,6 +171,10 @@ namespace ARKBreedingStats
             statsMultiplierTesting1.OnApplyMultipliers += StatsMultiplierTesting1_OnApplyMultipliers;
             raisingControl1.AdjustTimersByOffset += timerList1.AdjustAllTimersByOffset;
 
+            listViewLibrary.VirtualMode = true;
+            listViewLibrary.RetrieveVirtualItem += ListViewLibrary_RetrieveVirtualItem;
+            listViewLibrary.CacheVirtualItems += ListViewLibrary_CacheVirtualItems;
+
             speciesSelector1.SetTextBox(tbSpeciesGlobal);
 
             ArkOcr.Ocr.SetOcrControl(ocrControl1);
@@ -203,10 +206,16 @@ namespace ARKBreedingStats
             LoadListViewSettings(timerList1.ListViewTimers, "TCLVColumnWidths", "TCLVColumnDisplayIndices", "TCLVSortCol", "TCLVSortAsc");
             if (Properties.Settings.Default.PedigreeWidthLeftColum > 20)
                 pedigree1.LeftColumnWidth = Properties.Settings.Default.PedigreeWidthLeftColum;
+
             LoadListViewSettings(pedigree1.ListViewCreatures, "PedigreeListViewColumnWidths");
+
             // Load column-widths, display-indices and sort-order  of the listViewLibrary
-            LoadListViewSettings(listViewLibrary, "columnWidths", "libraryColumnDisplayIndices", "listViewSortCol",
-                "listViewSortAsc");
+            LoadListViewSettings(listViewLibrary, "columnWidths", "libraryColumnDisplayIndices");
+            _creatureListSorter.SortColumnIndex = Properties.Settings.Default.listViewSortCol;
+            _creatureListSorter.Order = Properties.Settings.Default.listViewSortAsc
+                ? SortOrder.Ascending
+                : SortOrder.Descending;
+
             LoadListViewSettings(tribesControl1.ListViewPlayers, "PlayerListColumnWidths", "PlayerListColumnDisplayIndices", "PlayerListSortColumn", "PlayerListSortAsc");
 
             // load stat weights
@@ -1234,8 +1243,9 @@ namespace ARKBreedingStats
             SaveListViewSettings(tribesControl1.ListViewPlayers, "PlayerListColumnWidths", "PlayerListColumnDisplayIndices", "PlayerListSortColumn", "PlayerListSortAsc");
 
             // Save column-widths, display-indices and sort-order of the listViewLibrary
-            SaveListViewSettings(listViewLibrary, "columnWidths", "libraryColumnDisplayIndices", "listViewSortCol",
-                "listViewSortAsc");
+            SaveListViewSettings(listViewLibrary, "columnWidths", "libraryColumnDisplayIndices");
+            Properties.Settings.Default.listViewSortCol = _creatureListSorter.SortColumnIndex;
+            Properties.Settings.Default.listViewSortAsc = _creatureListSorter.Order == SortOrder.Ascending;
 
             if (_libraryFilterTemplates != null)
                 Properties.Settings.Default.LibraryFilterPresets = _libraryFilterTemplates.Presets;
@@ -1509,8 +1519,8 @@ namespace ARKBreedingStats
                 if (pedigree1.PedigreeNeedsUpdate)
                 {
                     Creature c = null;
-                    if (listViewLibrary.SelectedItems.Count > 0)
-                        c = (Creature)listViewLibrary.SelectedItems[0].Tag;
+                    if (listViewLibrary.SelectedIndices.Count > 0)
+                        c = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]];
                     pedigree1.SetCreature(c, true);
                 }
             }
@@ -1705,8 +1715,8 @@ namespace ARKBreedingStats
         /// </summary>
         private void CopySelectedCreatureFromLibraryToClipboard(bool breedingValues = true, bool ARKml = false)
         {
-            if (listViewLibrary.SelectedItems.Count > 0)
-                ExportImportCreatures.ExportToClipboard(listViewLibrary.SelectedItems[0].Tag as Creature, breedingValues, ARKml);
+            if (listViewLibrary.SelectedIndices.Count > 0)
+                ExportImportCreatures.ExportToClipboard(_creaturesDisplayed[listViewLibrary.SelectedIndices[0]], breedingValues, ARKml);
             else
                 MessageBoxes.ShowMessageBox(Loc.S("noCreatureSelectedInLibrary"));
         }
@@ -1777,8 +1787,8 @@ namespace ARKBreedingStats
         private void SetStatusOfSelected(CreatureStatus s)
         {
             List<Creature> cs = new List<Creature>();
-            foreach (ListViewItem i in listViewLibrary.SelectedItems)
-                cs.Add((Creature)i.Tag);
+            foreach (int i in listViewLibrary.SelectedIndices)
+                cs.Add(_creaturesDisplayed[i]);
             if (cs.Any())
                 SetStatus(cs, s);
         }
@@ -1864,9 +1874,9 @@ namespace ARKBreedingStats
             }
 
             var creatures = new List<Creature>();
-            foreach (ListViewItem lvi in listViewLibrary.SelectedItems)
+            foreach (int i in listViewLibrary.SelectedIndices)
             {
-                if (lvi.Tag is Creature c) creatures.Add(c);
+                creatures.Add(_creaturesDisplayed[i]);
             }
 
             if (!creatures.Any()) return;
@@ -3232,9 +3242,9 @@ namespace ARKBreedingStats
         /// </summary>
         private void CopySelectedCreatureName()
         {
-            if (listViewLibrary.SelectedItems.Count > 0)
+            if (listViewLibrary.SelectedIndices.Count > 0)
             {
-                string name = ((Creature)listViewLibrary.SelectedItems[0].Tag).name;
+                string name = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]].name;
                 if (string.IsNullOrEmpty(name))
                     Clipboard.Clear();
                 else
@@ -3252,14 +3262,14 @@ namespace ARKBreedingStats
         /// </summary>
         private void GenerateCreatureNames()
         {
-            if (listViewLibrary.SelectedItems.Count == 0) return;
+            if (listViewLibrary.SelectedIndices.Count == 0) return;
 
             var creaturesToUpdate = new List<Creature>();
             Creature[] sameSpecies = null;
 
-            for (int s = 0; s < listViewLibrary.SelectedItems.Count; s++)
+            foreach (int i in listViewLibrary.SelectedIndices)
             {
-                Creature cr = ((Creature)listViewLibrary.SelectedItems[s].Tag);
+                var cr = _creaturesDisplayed[i];
 
                 if (sameSpecies == null || sameSpecies[0].Species != cr.Species)
                     sameSpecies = _creatureCollection.creatures.Where(c => c.Species == cr.Species).ToArray();
@@ -3282,16 +3292,16 @@ namespace ARKBreedingStats
 
         private void fixColorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listViewLibrary.SelectedItems.Count == 0
+            if (listViewLibrary.SelectedIndices.Count == 0
                 || MessageBox.Show(
                     "This color fix will only result in the correct values if no mods are used that add colors to the game.\nA backup of the library file is recommended before this fix is applied.\n\nApply color fix?",
                     "Create a backup first", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) !=
                 DialogResult.Yes) return;
 
             listViewLibrary.BeginUpdate();
-            for (int s = 0; s < listViewLibrary.SelectedItems.Count; s++)
+            foreach (int i in listViewLibrary.SelectedIndices)
             {
-                Creature cr = ((Creature)listViewLibrary.SelectedItems[s].Tag);
+                var cr = _creaturesDisplayed[i];
 
                 for (int c = 0; c < 6; c++)
                     if (cr.colors[c] < 201)
@@ -3342,16 +3352,14 @@ namespace ARKBreedingStats
 
         private void copyInfographicToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listViewLibrary.SelectedItems.Count == 0) return;
-
-            (listViewLibrary.SelectedItems[0].Tag as Creature).ExportInfoGraphicToClipboard(_creatureCollection);
+            if (listViewLibrary.SelectedIndices.Count != 0)
+                _creaturesDisplayed[listViewLibrary.SelectedIndices[0]].ExportInfoGraphicToClipboard(_creatureCollection);
         }
 
         private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)
         {
-            if (listViewLibrary.SelectedItems.Count == 0) return;
-
-            ArkWiki.OpenPage(((Creature)listViewLibrary.SelectedItems[0].Tag)?.Species?.name);
+            if (listViewLibrary.SelectedIndices.Count != 0)
+                ArkWiki.OpenPage(_creaturesDisplayed[listViewLibrary.SelectedIndices[0]]?.Species?.name);
         }
 
         private void libraryFilterToolStripMenuItem_Click(object sender, EventArgs e)

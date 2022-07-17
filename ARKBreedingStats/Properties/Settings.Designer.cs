@@ -1186,18 +1186,6 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool LibraryGroupBySpecies {
-            get {
-                return ((bool)(this["LibraryGroupBySpecies"]));
-            }
-            set {
-                this["LibraryGroupBySpecies"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("50, 50, 800, 600")]
         public global::System.Drawing.Rectangle LibraryFilterWindowRect {
             get {

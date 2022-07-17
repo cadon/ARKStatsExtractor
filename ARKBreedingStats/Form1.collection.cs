@@ -560,7 +560,7 @@ namespace ARKBreedingStats
             FilterLibRecalculate();
 
             // apply last sorting
-            listViewLibrary.Sort();
+            //listViewLibrary.Sort(); // TODO
 
             UpdateTempCreatureDropDown();
 
