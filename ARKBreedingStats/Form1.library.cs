@@ -1127,8 +1127,13 @@ namespace ARKBreedingStats
 
         private void libraryListView_ColumnClick(object sender, ColumnClickEventArgs e)
         {
+            SortLibrary(e.Column);
+        }
+
+        private void SortLibrary(int columnIndex = -1)
+        {
             listViewLibrary.BeginUpdate();
-            _creaturesDisplayed = _creatureListSorter.DoSort(_creaturesDisplayed, e.Column);
+            _creaturesDisplayed = _creatureListSorter.DoSort(_creaturesDisplayed, columnIndex);
             _libraryListViewItemCache = null;
             listViewLibrary.EndUpdate();
         }
@@ -1957,7 +1962,7 @@ namespace ARKBreedingStats
                 tabControlMain.SelectedTab = tabPageLibrary;
 
             // reapply last sorting
-            listViewLibrary.Sort();
+            SortLibrary();
 
             MessageBoxes.ShowMessageBox(result, "Creatures imported from tsv file", MessageBoxIcon.Information);
         }
