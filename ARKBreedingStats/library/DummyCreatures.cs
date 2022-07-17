@@ -301,6 +301,7 @@ namespace ARKBreedingStats.library
                         Father = father,
                         colors = colors,
                         owner = mother.owner ?? father.owner,
+                        tribe = mother.tribe ?? father.tribe,
                         server = mother.server ?? father.server
                     };
                     creature.RecalculateCreatureValues(levelStep);
