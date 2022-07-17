@@ -107,7 +107,7 @@ namespace ARKBreedingStats
                     tabControlMain.SelectedTab = tabPageLibrary;
 
                 // reapply last sorting
-                listViewLibrary.Sort();
+                SortLibrary();
 
                 UpdateTempCreatureDropDown();
 
