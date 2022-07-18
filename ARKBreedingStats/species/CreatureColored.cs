@@ -35,7 +35,7 @@ namespace ARKBreedingStats.species
         /// Returns the image file path to the image with the according colorization.
         /// </summary>
         private static string ColoredCreatureCacheFilePath(string speciesName, byte[] colorIds, bool listView = false)
-            => Path.Combine(_imgCacheFolderPath, speciesName.Substring(0, Math.Min(speciesName.Length, 5)) + "_" + Convert.ToBase64String(colorIds.Select(ci => (byte)ci).Concat(Encoding.UTF8.GetBytes(speciesName)).ToArray()).Replace('/', '-') + (listView ? "_lv" : string.Empty) + Extension);
+            => Path.Combine(_imgCacheFolderPath, speciesName.Substring(0, Math.Min(speciesName.Length, 5)) + "_" + Convert.ToBase64String(colorIds.Select(ci => ci).Concat(Encoding.UTF8.GetBytes(speciesName)).ToArray()).Replace('/', '-') + (listView ? "_lv" : string.Empty) + Extension);
 
         /// <summary>
         /// Checks if an according species image exists in the cache folder, if not it tries to creates one. Returns false if there's no image.
@@ -79,7 +79,7 @@ namespace ARKBreedingStats.species
             if (string.IsNullOrEmpty(species?.name))
                 onlyColors = true;
             else
-                speciesName = SpeciesImageName(species?.name);
+                speciesName = SpeciesImageName(species.name);
 
             if (onlyColors || string.IsNullOrEmpty(ImageFolder))
                 return DrawPieChart(colorIds, enabledColorRegions, size, pieSize);
@@ -461,7 +461,7 @@ namespace ARKBreedingStats.species
 
         public static string RegionColorInfo(Species species, byte[] colorIds)
         {
-            if (species == null || colorIds == null) return null;
+            if (species?.colors == null || colorIds == null) return null;
 
             var creatureRegionColors = new StringBuilder("Colors:");
             var cs = species.colors;
