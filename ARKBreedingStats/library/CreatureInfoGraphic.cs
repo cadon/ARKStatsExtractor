@@ -73,6 +73,7 @@ namespace ARKBreedingStats.library
             using (var fontBrush = new SolidBrush(foreColor))
             using (var borderAroundColors = new Pen(Utils.ForeColor(backColor), 1))
             using (var stringFormatRight = new StringFormat { Alignment = StringAlignment.Far })
+            using (var stringFormatRightUp = new StringFormat { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far })
             {
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 int currentYPosition = frameThickness * 3;
@@ -288,7 +289,7 @@ namespace ARKBreedingStats.library
                 if (cc != null && displayMaxWildLevel)
                 {
                     g.DrawString($"{Loc.S("max wild level")}: {cc.maxWildLevel}",
-                        fontSmall, fontBrush, width - 2 * frameThickness, height - fontSizeSmall - 4 * frameThickness, stringFormatRight);
+                        fontSmall, fontBrush, width - 2 * frameThickness, height - frameThickness, stringFormatRightUp);
                 }
 
                 // frame
