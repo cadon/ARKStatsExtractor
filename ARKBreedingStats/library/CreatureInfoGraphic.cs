@@ -250,20 +250,23 @@ namespace ARKBreedingStats.library
 
                         if (displayExtraRegionNames || (!creatureImageShown && displayRegionNamesIfNoImage))
                         {
-                            colorRegionName = creature.Species.colors[ci].name;
-                            int totalColorLength = colorRegionName.Length + 11;
-                            if (totalColorLength > maxColorNameLength)
+                            colorRegionName = creature.Species.colors?[ci]?.name;
+                            if (colorRegionName != null)
                             {
-                                // shorten color region name
-                                int lengthForRegionName =
-                                    colorRegionName.Length - (totalColorLength - maxColorNameLength);
-                                colorRegionName = lengthForRegionName < 2
-                                    ? string.Empty
-                                    : colorRegionName.Substring(0, lengthForRegionName - 1) + "…";
-                            }
+                                int totalColorLength = colorRegionName.Length + 11;
+                                if (totalColorLength > maxColorNameLength)
+                                {
+                                    // shorten color region name
+                                    int lengthForRegionName =
+                                        colorRegionName.Length - (totalColorLength - maxColorNameLength);
+                                    colorRegionName = lengthForRegionName < 2
+                                        ? string.Empty
+                                        : colorRegionName.Substring(0, lengthForRegionName - 1) + "…";
+                                }
 
-                            if (!string.IsNullOrEmpty(colorRegionName))
-                                colorRegionName = " (" + colorRegionName + ")";
+                                if (!string.IsNullOrEmpty(colorRegionName))
+                                    colorRegionName = " (" + colorRegionName + ")";
+                            }
                         }
 
                         g.DrawString($"{creature.colors[ci]} - [{ci}]{colorRegionName}",
