@@ -1438,17 +1438,9 @@ namespace ARKBreedingStats.settings
         private void ShowInfoGraphicPreview()
         {
             if (_infoGraphicPreviewCreature == null)
-            {
-                _infoGraphicPreviewCreature = DummyCreatures.CreateCreatures(1)?.FirstOrDefault();
-                if (_infoGraphicPreviewCreature == null) return;
-                // add some dom levels
-                _infoGraphicPreviewCreature.levelsDom[Stats.Health] = 5;
-                _infoGraphicPreviewCreature.levelsDom[Stats.Weight] = 15;
-                _infoGraphicPreviewCreature.levelsDom[Stats.MeleeDamageMultiplier] = 8;
-                _infoGraphicPreviewCreature.RecalculateCreatureValues(_cc.wildLevelStep);
-            }
+                CreateInfoGraphicCreature();
 
-            var speciesImage = _infoGraphicPreviewCreature.InfoGraphic(_cc,
+            var speciesImage = _infoGraphicPreviewCreature?.InfoGraphic(_cc,
                 (int)nudInfoGraphicHeight.Value,
                 CbbInfoGraphicFontName.Text,
                 BtInfoGraphicForeColor.BackColor,
@@ -1469,6 +1461,24 @@ namespace ARKBreedingStats.settings
             PbInfoGraphicPreview.Size = speciesImage.Size;
             PbInfoGraphicPreview.SetImageAndDisposeOld(speciesImage);
         }
+        private void BtNewRandomInfoGraphicCreature_Click(object sender, EventArgs e)
+        {
+            _infoGraphicPreviewCreature = null;
+            ShowInfoGraphicPreview();
+        }
+
+        private void CreateInfoGraphicCreature()
+        {
+            _infoGraphicPreviewCreature = DummyCreatures.CreateCreatures(1)?.FirstOrDefault();
+            if (_infoGraphicPreviewCreature == null) return;
+            // add some dom levels
+            var rand = new Random();
+            _infoGraphicPreviewCreature.levelsDom[Stats.Health] = rand.Next(20);
+            _infoGraphicPreviewCreature.levelsDom[Stats.Stamina] = rand.Next(20);
+            _infoGraphicPreviewCreature.levelsDom[Stats.Weight] = rand.Next(20);
+            _infoGraphicPreviewCreature.levelsDom[Stats.MeleeDamageMultiplier] = rand.Next(20);
+            _infoGraphicPreviewCreature.RecalculateCreatureValues(_cc.wildLevelStep);
+        }
 
         private void nudInfoGraphicHeight_ValueChanged(object sender, EventArgs e)
         {
@@ -1481,10 +1491,5 @@ namespace ARKBreedingStats.settings
         }
 
         #endregion
-
-        private void nudInfoGraphicWidth_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
