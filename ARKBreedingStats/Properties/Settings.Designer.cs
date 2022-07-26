@@ -2075,5 +2075,53 @@ namespace ARKBreedingStats.Properties {
                 this["UseTribeFilterForBreedingPlan"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FilterHideAdults {
+            get {
+                return ((bool)(this["FilterHideAdults"]));
+            }
+            set {
+                this["FilterHideAdults"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FilterHideNonAdults {
+            get {
+                return ((bool)(this["FilterHideNonAdults"]));
+            }
+            set {
+                this["FilterHideNonAdults"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FilterHideCooldowns {
+            get {
+                return ((bool)(this["FilterHideCooldowns"]));
+            }
+            set {
+                this["FilterHideCooldowns"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FilterHideNonCooldowns {
+            get {
+                return ((bool)(this["FilterHideNonCooldowns"]));
+            }
+            set {
+                this["FilterHideNonCooldowns"] = value;
+            }
+        }
     }
 }

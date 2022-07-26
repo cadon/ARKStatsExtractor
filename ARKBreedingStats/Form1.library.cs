@@ -1399,6 +1399,15 @@ namespace ARKBreedingStats
             if (Properties.Settings.Default.FilterOnlyIfColorId != 0)
                 creatures = creatures.Where(c => c.colors.Contains(Properties.Settings.Default.FilterOnlyIfColorId));
 
+            if (Properties.Settings.Default.FilterHideAdults)
+                creatures = creatures.Where(c => c.Maturation < 1);
+            if (Properties.Settings.Default.FilterHideNonAdults)
+                creatures = creatures.Where(c => c.Maturation >= 1);
+            if (Properties.Settings.Default.FilterHideCooldowns)
+                creatures = creatures.Where(c => c.cooldownUntil == null || c.cooldownUntil < DateTime.Now);
+            if (Properties.Settings.Default.FilterHideNonCooldowns)
+                creatures = creatures.Where(c => c.cooldownUntil != null && c.cooldownUntil > DateTime.Now);
+
             // tags filter
             if (Properties.Settings.Default.FilterHideTags?.Any() ?? false)
             {
