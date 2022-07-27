@@ -29,7 +29,10 @@ namespace ARKBreedingStats.utils
         /// Gets or sets the order of the last column sorting (for example, 'Ascending' or 'Descending').
         /// </summary>
         private SortOrder _lastOrder;
-        
+
+        /// <summary>
+        /// Sort list by given column index. If the columnIndex is -1, use last sorting.
+        /// </summary>
         public Creature[] DoSort(IEnumerable<Creature> list, int columnIndex = -1)
         {
             if (list == null) return null;

@@ -10,6 +10,7 @@ namespace ARKBreedingStats.utils
     public class Debouncer
     {
         private Timer _timer;
+        private Type _argsType;
 
         /// <summary>
         /// Call to debounce the action with the given interval.
@@ -48,7 +49,7 @@ namespace ARKBreedingStats.utils
         /// <param name="action">Action to perform after interval elapsed without another debounce call</param>
         /// <param name="dispatcher">Dispatcher to use, usually the one of the UI thread</param>
         /// <param name="args">Arguments for the action</param>
-        public void Debounce(int interval, Action<object> action, Dispatcher dispatcher, object args)
+        public void Debounce<T>(int interval, Action<T> action, Dispatcher dispatcher, T args)
         {
             _timer?.Stop();
             if (interval <= 0)
