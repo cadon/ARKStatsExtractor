@@ -756,7 +756,7 @@ namespace ARKBreedingStats
         private void ShowCreaturesInListView(IEnumerable<Creature> creatures)
         {
             listViewLibrary.BeginUpdate();
-            _creaturesDisplayed = _creatureListSorter.DoSort(creatures.Where(cr => cr.Species != null));
+            _creaturesDisplayed = _creatureListSorter.DoSort(creatures);
             listViewLibrary.VirtualListSize = _creaturesDisplayed.Length;
             _libraryListViewItemCache = null;
             listViewLibrary.EndUpdate();
@@ -1276,7 +1276,7 @@ namespace ARKBreedingStats
             if (_creaturesPreFiltered == null)
             {
                 filteredList = from creature in _creatureCollection.creatures
-                               where !creature.flags.HasFlag(CreatureFlags.Placeholder)
+                               where creature.Species != null && !creature.flags.HasFlag(CreatureFlags.Placeholder)
                                select creature;
 
                 // if only one species should be shown adjust headers if the selected species has custom statNames
