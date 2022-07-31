@@ -771,7 +771,7 @@ namespace ARKBreedingStats.BreedingPlanning
         /// <param name="bestInSpecies">If true, the display of the best species library will be updated, if false the best filtered species will be updated.</param>
         private void SetBestLevels(int[] bestLevels, IEnumerable<Creature> creatures, bool bestInSpecies)
         {
-            BreedingScore.SetBestLevels(creatures, bestLevels, _statWeights);
+            BreedingScore.SetBestLevels(creatures, bestLevels, _statWeights, CbConsiderOnlyEvenForHighStats.Checked);
 
             // display top levels in species
             int? levelStep = CreatureCollection.getWildLevelStep();
@@ -1181,6 +1181,7 @@ namespace ARKBreedingStats.BreedingPlanning
         {
             Settings.Default.BreedingPlannerConsiderOnlyEvenForHighStats = CbConsiderOnlyEvenForHighStats.Checked;
             CalculateBreedingScoresAndDisplayPairs();
+            DetermineBestLevels();
         }
 
         private void CbDontSuggestOverLimitOffspring_CheckedChanged(object sender, EventArgs e)

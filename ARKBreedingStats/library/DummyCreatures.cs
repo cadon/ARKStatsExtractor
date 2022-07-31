@@ -202,7 +202,7 @@ namespace ARKBreedingStats.library
                     allCreatures.AddRange(femalesMales[Sex.Male]);
                 }
 
-                BreedingScore.SetBestLevels(allCreatures, bestLevels, statWeights);
+                BreedingScore.SetBestLevels(allCreatures, bestLevels, statWeights, true);
 
                 var allCreaturesArray = noGender ? allCreatures.ToArray() : null;
                 var pairs = BreedingScore.CalculateBreedingScores(noGender ? allCreaturesArray : femalesMales[Sex.Female].ToArray(),
