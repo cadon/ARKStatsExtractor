@@ -16,6 +16,13 @@ namespace ARKBreedingStats.uiControls
         private List<Button> _statusButtons;
         private byte _selectedColorFilter;
         private readonly MyColorPicker _colorPicker;
+        private readonly (string, string)[] _maturationFilter = new (string, string)[]
+        {
+            ("FilterHideAdults", Loc.S("mature")),
+            ("FilterHideNonAdults", Loc.S("non mature")),
+            ("FilterHideCooldowns", Loc.S("cooldown")),
+            ("FilterHideNonCooldowns", Loc.S("non cooldown"))
+        };
 
         public LibraryFilter()
         {
@@ -56,9 +63,11 @@ namespace ARKBreedingStats.uiControls
             };
             _statusButtons = new List<Button>(statusList.Length);
             int statusButtonWidth = FlpStatus.Width - 6;
+            ButtonState buttonState;
+            Button b;
             foreach (var s in statusList)
             {
-                ButtonState buttonState = ButtonState.Neutral;
+                buttonState = ButtonState.Neutral;
                 if ((Properties.Settings.Default.FilterFlagsOneNeeded & (int)s) != 0)
                     buttonState = ButtonState.OneNeeded;
                 else if ((Properties.Settings.Default.FilterFlagsAllNeeded & (int)s) != 0)
@@ -66,7 +75,7 @@ namespace ARKBreedingStats.uiControls
                 else if ((Properties.Settings.Default.FilterFlagsExclude & (int)s) != 0)
                     buttonState = ButtonState.Exclude;
 
-                var b = new Button
+                b = new Button
                 {
                     Text = s.ToString(),
                     Tag = (s, buttonState),
@@ -78,6 +87,17 @@ namespace ARKBreedingStats.uiControls
                 _statusButtons.Add(b);
                 b.Click += BtStatusClicked;
             }
+
+            // maturation filter
+            var maturationCheckBoxAll = true;
+            foreach (var mf in _maturationFilter)
+            {
+                var isChecked = !(Properties.Settings.Default[mf.Item1] as bool? ?? false);
+                if (!isChecked) maturationCheckBoxAll = false;
+                ClbMaturationFilters.Items.Add(mf.Item2, isChecked);
+            }
+
+            CbMaturationAll.Checked = maturationCheckBoxAll;
 
             //// lists with number of according creatures
             var ownerList = new Dictionary<string, int>();
@@ -200,6 +220,11 @@ namespace ARKBreedingStats.uiControls
             SetAllChecked(ClbTags, CbTagsAll.Checked);
         }
 
+        private void CbMaturationAll_CheckedChanged(object sender, EventArgs e)
+        {
+            SetAllChecked(ClbMaturationFilters, CbMaturationAll.Checked);
+        }
+
         private void BtClearFlagFilter_Click(object sender, EventArgs e)
         {
             ButtonState state = ButtonState.Neutral;
@@ -261,6 +286,11 @@ namespace ARKBreedingStats.uiControls
             Properties.Settings.Default.FilterFlagsExclude = (int)flagsExclude;
             Properties.Settings.Default.useFiltersInTopStatCalculation = CbUseFilterInTopStatCalculation.Checked;
             Properties.Settings.Default.FilterOnlyIfColorId = _selectedColorFilter;
+
+            var i = 0;
+            foreach (var mf in _maturationFilter)
+                Properties.Settings.Default[mf.Item1] = !ClbMaturationFilters.GetItemChecked(i++);
+
         }
 
         private void BtClearColorFilters_Click(object sender, EventArgs e)
@@ -298,6 +328,7 @@ namespace ARKBreedingStats.uiControls
             LbTags.Text = Loc.S("tags");
             LbStatus.Text = Loc.S("Status");
             LbColors.Text = Loc.S("Colors");
+            LbMaturation.Text = Loc.S("Maturation");
             BtClearColorFilters.Text = Loc.S("clearColorsFilters");
             CbUseFilterInTopStatCalculation.Text = Loc.S("useFilterInTopStatCalculation");
             BtClearFlagFilter.Text = Loc.S("clear");

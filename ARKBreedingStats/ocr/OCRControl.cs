@@ -269,9 +269,8 @@ namespace ARKBreedingStats.ocr
             _screenshot = bmp;
         }
 
-        private void RedrawScreenshot(object ob)
+        private void RedrawScreenshot((int, bool, int, Rectangle) args)
         {
-            var args = ((int, bool, int, Rectangle))ob;
             RedrawScreenshot(args.Item1, args.Item2, args.Item3, args.Item4);
         }
 

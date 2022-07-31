@@ -1351,7 +1351,7 @@ namespace ARKBreedingStats
         private void listBoxSpeciesLib_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetSpecies(listBoxSpeciesLib.SelectedItem as Species);
-            FilterLibRecalculate();
+            FilterLibRecalculate(true);
         }
 
         /// <summary>

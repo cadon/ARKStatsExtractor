@@ -13,7 +13,9 @@ namespace ARKBreedingStats
         static void Main()
         {
             AppDomain currentDomain = AppDomain.CurrentDomain;
+#if !DEBUG
             currentDomain.UnhandledException += UnhandledExceptionHandler;
+#endif
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

@@ -26,6 +26,9 @@
                     new ATImportExportedFolderLocation(path, string.Empty, path);
         }
 
+        /// <summary>
+        /// String representation of this export folder, used to save it.
+        /// </summary>
         public override string ToString() => $"{ConvenientName}|{OwnerSuffix}|{FolderPath}";
     }
 }

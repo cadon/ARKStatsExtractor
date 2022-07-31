@@ -207,7 +207,10 @@ namespace ARKBreedingStats.BreedingPlanning
             return breedingPairs;
         }
 
-        public static void SetBestLevels(IEnumerable<Creature> creatures, int[] bestLevels, double[] statWeights)
+        /// <summary>
+        /// Sets the best levels in the passed bestLevels array, depending on the statWeights and onlyHighEvenLevels.
+        /// </summary>
+        public static void SetBestLevels(IEnumerable<Creature> creatures, int[] bestLevels, double[] statWeights, bool onlyHighEvenLevels)
         {
             for (int s = 0; s < Stats.StatsCount; s++)
                 bestLevels[s] = -1;
@@ -217,7 +220,10 @@ namespace ARKBreedingStats.BreedingPlanning
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     if ((s == Stats.Torpidity || statWeights[s] >= 0) && c.levelsWild[s] > bestLevels[s])
-                        bestLevels[s] = c.levelsWild[s];
+                    {
+                        if (!onlyHighEvenLevels || c.levelsWild[s] % 2 == 0)
+                            bestLevels[s] = c.levelsWild[s];
+                    }
                     else if (s != Stats.Torpidity && statWeights[s] < 0 && c.levelsWild[s] >= 0 && (c.levelsWild[s] < bestLevels[s] || bestLevels[s] < 0))
                         bestLevels[s] = c.levelsWild[s];
                 }
