@@ -12,8 +12,16 @@ namespace ARKBreedingStats.Pedigree
     /// </summary>
     public static class PedigreeCreation
     {
+        /// <summary>
+        /// Margin between pedigree elements.
+        /// </summary>
         internal const int Margin = 10;
         private const int MinXPosCreature = 440;
+        internal const int PedigreeElementWidth = 325;
+        internal const int PedigreeElementHeight = 40;
+        internal const int LeftMargin = 40;
+        internal const int TopMargin = 20;
+        private const int YCenterOfCreatureParent = TopMargin + 2 * PedigreeElementHeight + PedigreeElementHeight / 2 - 1;
 
         #region Compact View
 
@@ -227,32 +235,29 @@ namespace ARKBreedingStats.Pedigree
 
         #region Detailed View
 
-        internal const int LeftBorder = 40;
         internal static void CreateDetailedView(Creature creature, List<int[]>[] lines, List<Control> pedigreeControls, bool[] enabledColorRegions)
         {
-            const int pedigreeElementWidth = 325;
-            const int yCenterOfCreatureParent = 79;
 
             // draw creature
-            CreateParentsChild(creature, lines, pedigreeControls, LeftBorder + pedigreeElementWidth + Margin, 60, enabledColorRegions, true, true);
+            CreateParentsChild(creature, lines, pedigreeControls, LeftMargin + PedigreeElementWidth + Margin, TopMargin + PedigreeElementHeight, enabledColorRegions, true, true);
 
             // create ancestors
             if (creature.Mother != null
-                && CreateParentsChild(creature.Mother, lines, pedigreeControls, LeftBorder, 20, enabledColorRegions))
+                && CreateParentsChild(creature.Mother, lines, pedigreeControls, LeftMargin, TopMargin + PedigreeElementHeight, enabledColorRegions))
             {
                 lines[1].Add(new[]
                 {
-                    LeftBorder + pedigreeElementWidth, yCenterOfCreatureParent,
-                    LeftBorder + pedigreeElementWidth + Margin, yCenterOfCreatureParent, 0
+                    LeftMargin + PedigreeElementWidth, YCenterOfCreatureParent,
+                    LeftMargin + PedigreeElementWidth + Margin, YCenterOfCreatureParent - PedigreeElementHeight, 0
                 });
             }
             if (creature.Father != null
-                && CreateParentsChild(creature.Father, lines, pedigreeControls, LeftBorder + 2 * (pedigreeElementWidth + Margin), 20, enabledColorRegions))
+                && CreateParentsChild(creature.Father, lines, pedigreeControls, LeftMargin + 2 * (PedigreeElementWidth + Margin), TopMargin + PedigreeElementHeight, enabledColorRegions))
             {
                 lines[1].Add(new[]
                 {
-                    LeftBorder + 2 * pedigreeElementWidth + 2 * Margin, yCenterOfCreatureParent,
-                    LeftBorder + 2 * pedigreeElementWidth + Margin, yCenterOfCreatureParent + 80, 0
+                    LeftMargin + 2 * PedigreeElementWidth + 2 * Margin, YCenterOfCreatureParent,
+                    LeftMargin + 2 * PedigreeElementWidth + Margin, YCenterOfCreatureParent + PedigreeElementHeight, 0
                 });
             }
         }
