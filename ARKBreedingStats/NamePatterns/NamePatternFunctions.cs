@@ -54,6 +54,7 @@ namespace ARKBreedingStats.NamePatterns
                 {"customreplace", FunctionCustomReplace},
                 {"time", FunctionTime},
                 {"color", FunctionColor},
+                {"colornew", FunctionColorNew},
                 {"indexof", FunctionIndexOf}
             };
 
@@ -303,6 +304,28 @@ namespace ARKBreedingStats.NamePatterns
             return CreatureColors.CreatureColorName(p.Creature.colors[regionId]);
         }
 
+        /// <summary>
+        /// Returns new if the color is newInRegion in this region, returns newInSpecies if the color is new in all regions of this species, else returns string.Empty.
+        /// </summary>
+        private static string FunctionColorNew(Match m, NamePatternParameters p)
+        {
+            // parameter 1: region id (0,...,5)
+            if (!int.TryParse(m.Groups[2].Value, out int regionId)
+                || regionId < 0 || regionId > 5) return ParametersInvalid("color region id has to be a number in the range 0 - 5", m.Groups[0].Value, p.DisplayError);
+
+            if (p.ColorsExisting == null) return string.Empty;
+
+            switch (p.ColorsExisting[regionId])
+            {
+                case CreatureCollection.ColorExisting.ColorExistingInOtherRegion:
+                    return "newInRegion";
+                case CreatureCollection.ColorExisting.ColorIsNew:
+                    return "newInSpecies";
+                default:
+                    return string.Empty;
+            }
+        }
+
         private static string FunctionIndexOf(Match m, NamePatternParameters p)
         {
             // parameter: 1: source string, 2: string to find
@@ -322,5 +345,7 @@ namespace ARKBreedingStats.NamePatterns
         /// The number field {n} will add the lowest possible positive integer >1 for the name to be unique. It has to be processed after all other functions.
         /// </summary>
         internal bool ProcessNumberField;
+
+        internal CreatureCollection.ColorExisting[] ColorsExisting;
     }
 }

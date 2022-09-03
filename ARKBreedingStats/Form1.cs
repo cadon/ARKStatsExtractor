@@ -2911,6 +2911,12 @@ namespace ARKBreedingStats
             }
             else
             {
+                CreatureCollection.ColorExisting[] colorAlreadyExistingInformation = null;
+                if (Properties.Settings.Default.NamingPatterns != null
+                    && Properties.Settings.Default.NamingPatterns[namingPatternIndex].IndexOf("#colorNew:", StringComparison.InvariantCultureIgnoreCase) != -1)
+                    colorAlreadyExistingInformation = _creatureCollection.ColorAlreadyAvailable(cr.Species, input.RegionColors, out _);
+                input.ColorAlreadyExistingInformation = colorAlreadyExistingInformation;
+
                 input.GenerateCreatureName(cr, _topLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
                     _lowestLevels.TryGetValue(cr.Species, out var ll) ? ll : null,
                     _customReplacingNamingPattern, showDuplicateNameWarning, namingPatternIndex);

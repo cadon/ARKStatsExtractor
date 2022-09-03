@@ -197,6 +197,7 @@ namespace ARKBreedingStats
             creatureInfoInputExtractor.ButtonEnabled = allValid;
             groupBoxRadarChartExtractor.Visible = allValid;
             creatureAnalysis1.Visible = allValid;
+            // update inheritance info
             CreatureInfoInput_CreatureDataRequested(creatureInfoInputExtractor, false, true, false, 0);
         }
 
@@ -908,7 +909,7 @@ namespace ARKBreedingStats
             tabControlMain.SelectedTab = tabPageExtractor;
 
             bool creatureAlreadyExists = ExtractValuesInExtractor(cv, exportFilePath, true);
-            CopyNameToClipboardIfSet(creatureAlreadyExists);
+            GenerateCreatureNameAndCopyNameToClipboardIfSet(creatureAlreadyExists);
 
             return creatureAlreadyExists;
         }
@@ -917,7 +918,7 @@ namespace ARKBreedingStats
         /// Copies the creature name to the clipboard if the conditions according to the user settings are fulfilled.
         /// </summary>
         /// <param name="creatureAlreadyExists"></param>
-        private void CopyNameToClipboardIfSet(bool creatureAlreadyExists)
+        private void GenerateCreatureNameAndCopyNameToClipboardIfSet(bool creatureAlreadyExists)
         {
             if (Properties.Settings.Default.applyNamePatternOnAutoImportAlways
                 || (Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
@@ -947,7 +948,7 @@ namespace ARKBreedingStats
                 return;
 
             bool creatureAlreadyExists = ExtractValuesInExtractor(ecc.creatureValues, ecc.exportedFile, false);
-            CopyNameToClipboardIfSet(creatureAlreadyExists);
+            GenerateCreatureNameAndCopyNameToClipboardIfSet(creatureAlreadyExists);
 
             // gets deleted in extractLevels()
             _exportedCreatureControl = ecc;
@@ -1119,8 +1120,14 @@ namespace ARKBreedingStats
 
         private void CreatureInfoInputColorsChanged(CreatureInfoInput input)
         {
-            if (_dontUpdateExtractorVisualData) return;
-            var newColorStatus = input.SetRegionColorsExisting(_creatureCollection.ColorAlreadyAvailable(speciesSelector1.SelectedSpecies, input.RegionColors, out string infoText));
+            if (_dontUpdateExtractorVisualData)
+            {
+                input.ColorAlreadyExistingInformation = null;
+                return;
+            }
+            var colorAlreadyExisting = _creatureCollection.ColorAlreadyAvailable(speciesSelector1.SelectedSpecies, input.RegionColors, out string infoText);
+            var newColorStatus = input.SetRegionColorsExisting(colorAlreadyExisting);
+            input.ColorAlreadyExistingInformation = colorAlreadyExisting;
 
             if (input == creatureInfoInputExtractor)
                 creatureAnalysis1.SetColorAnalysis(newColorStatus.newInSpecies ? LevelStatus.NewTopLevel : newColorStatus.newInRegion ? LevelStatus.TopLevel : LevelStatus.Neutral, infoText);

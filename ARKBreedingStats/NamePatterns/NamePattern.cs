@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using ARKBreedingStats.Library;
-using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
-using ARKBreedingStats.values;
+using static ARKBreedingStats.Library.CreatureCollection;
 
 namespace ARKBreedingStats.NamePatterns
 {
@@ -20,9 +19,11 @@ namespace ARKBreedingStats.NamePatterns
         /// <summary>
         /// Generate a creature name with the naming pattern.
         /// </summary>
-        public static string GenerateCreatureName(Creature creature, Creature[] sameSpecies, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, int namingPatternIndex, bool showTooLongWarning = true, string pattern = null, bool displayError = true, Dictionary<string, string> tokenDictionary = null)
+        public static string GenerateCreatureName(Creature creature, Creature[] sameSpecies, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings,
+            bool showDuplicateNameWarning, int namingPatternIndex, bool showTooLongWarning = true, string pattern = null, bool displayError = true, Dictionary<string, string> tokenDictionary = null,
+            CreatureCollection.ColorExisting[] colorsExisting = null)
         {
-            var creatureNames = sameSpecies?.Where(c => c.guid != creature.guid).Select(x => x.name).ToArray() ?? new string[0];
+            var creatureNames = sameSpecies?.Where(c => c.guid != creature.guid).Select(x => x.name).ToArray() ?? Array.Empty<string>();
             if (pattern == null)
             {
                 if (namingPatternIndex == -1)
@@ -67,7 +68,7 @@ namespace ARKBreedingStats.NamePatterns
             // first resolve keys, then functions
             string name = ResolveFunctions(
                 ResolveKeysToValues(tokenDictionary, pattern.Replace("\r", string.Empty).Replace("\n", string.Empty)),
-                creature, customReplacings, displayError, false);
+                creature, customReplacings, displayError, false, colorsExisting);
 
             if (name.Contains("{n}"))
             {
@@ -80,7 +81,7 @@ namespace ARKBreedingStats.NamePatterns
                 {
                     numberedUniqueName = ResolveFunctions(
                         ResolveKeysToValues(tokenDictionary, name, n++),
-                        creature, customReplacings, displayError, true);
+                        creature, customReplacings, displayError, true, colorsExisting);
 
                     // check if numberedUniqueName actually is different, else break the potentially infinite loop. E.g. it is not different if {n} is an unreached if branch or was altered with other functions
                     if (numberedUniqueName == lastNumberedUniqueName) break;
@@ -115,7 +116,7 @@ namespace ARKBreedingStats.NamePatterns
         /// <param name="displayError">If true, a MessageBox with the error will be displayed.</param>
         /// <param name="processNumberField">If true, the {n} will be processed</param>
         /// <returns></returns>
-        private static string ResolveFunctions(string pattern, Creature creature, Dictionary<string, string> customReplacings, bool displayError, bool processNumberField)
+        private static string ResolveFunctions(string pattern, Creature creature, Dictionary<string, string> customReplacings, bool displayError, bool processNumberField, ColorExisting[] colorsExisting = null)
         {
             int nrFunctions = 0;
             int nrFunctionsAfterResolving = NrFunctions(pattern);
@@ -126,7 +127,8 @@ namespace ARKBreedingStats.NamePatterns
                 Creature = creature,
                 CustomReplacings = customReplacings,
                 DisplayError = displayError,
-                ProcessNumberField = processNumberField
+                ProcessNumberField = processNumberField,
+                ColorsExisting = colorsExisting
             };
             // resolve nested functions
             while (nrFunctions != nrFunctionsAfterResolving)

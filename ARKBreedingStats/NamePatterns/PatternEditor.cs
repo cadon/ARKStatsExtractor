@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.Properties;
-using ARKBreedingStats.species;
 using ARKBreedingStats.Updater;
 using ARKBreedingStats.utils;
 
@@ -20,6 +19,7 @@ namespace ARKBreedingStats.NamePatterns
         private readonly Creature[] _creaturesOfSameSpecies;
         private readonly int[] _speciesTopLevels;
         private readonly int[] _speciesLowestLevels;
+        private readonly CreatureCollection.ColorExisting[] _colorExistings;
         private Dictionary<string, string> _customReplacings;
         private readonly Dictionary<string, string> _tokenDictionary;
         private readonly Debouncer _updateNameDebouncer = new Debouncer();
@@ -38,7 +38,7 @@ namespace ARKBreedingStats.NamePatterns
             InitializeComponent();
         }
 
-        public PatternEditor(Creature creature, Creature[] creaturesOfSameSpecies, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback) : this()
+        public PatternEditor(Creature creature, Creature[] creaturesOfSameSpecies, int[] speciesTopLevels, int[] speciesLowestLevels, CreatureCollection.ColorExisting[] colorExistings, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback) : this()
         {
             Utils.SetWindowRectangle(this, Settings.Default.PatternEditorFormRectangle);
             if (Settings.Default.PatternEditorSplitterDistance > 0)
@@ -50,6 +50,7 @@ namespace ARKBreedingStats.NamePatterns
             _creaturesOfSameSpecies = creaturesOfSameSpecies;
             _speciesTopLevels = speciesTopLevels;
             _speciesLowestLevels = speciesLowestLevels;
+            _colorExistings = colorExistings;
             _customReplacings = customReplacings;
             _reloadCallback = reloadCallback;
             txtboxPattern.Text = Properties.Settings.Default.NamingPatterns?[namingPatternIndex] ?? string.Empty;
@@ -515,6 +516,7 @@ namespace ARKBreedingStats.NamePatterns
             {"format","{{#format: number | formatString }}\n{{#format: {hp_vb} | 000000 }}"},
             {"format_int","Like #format, but supports \"x\" in the format for hexadecimal representations. {{#format_int: number | formatString }}\n{{#format_int: {{#color: 0 }} | x2 }}"},
             {"color","{{#color: regionId | return color name | return value even for unused regions }}. Returns the colorId of the region. If the second parameter is not empty, the color name will be returned. Unused regions will only return a value if the third value is not empty.\n{{#color: 0 | true }}"},
+            {"colorNew","{{#colorNew: regionId }}. Returns newInRegion if the region contains a color that is not yet available in that species. Returns newInSpecies if that color is not yet available in any region of that species.\n{{#colorNew: 0 }}"},
             {"indexof","{{#indexof: source string | string to find }}. Returns the index of the second parameter in the first parameter. If the string is not contained, an empty string will be returned.\n{{#indexof: hello | ll }}"},
         };
 
@@ -542,7 +544,8 @@ namespace ARKBreedingStats.NamePatterns
 
         private void DisplayPreview()
         {
-            cbPreview.Text = NamePatterns.NamePattern.GenerateCreatureName(_creature, _creaturesOfSameSpecies, _speciesTopLevels, _speciesLowestLevels, _customReplacings, false, -1, false, txtboxPattern.Text, false, _tokenDictionary);
+            cbPreview.Text = NamePatterns.NamePattern.GenerateCreatureName(_creature, _creaturesOfSameSpecies, _speciesTopLevels, _speciesLowestLevels, _customReplacings,
+                false, -1, false, txtboxPattern.Text, false, _tokenDictionary, _colorExistings);
         }
 
         private void TbFilterKeys_TextChanged(object sender, EventArgs e)
