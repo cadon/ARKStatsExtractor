@@ -1,7 +1,4 @@
-﻿using ARKBreedingStats.species;
-using ARKBreedingStats.values;
-
-namespace ARKBreedingStats
+﻿namespace ARKBreedingStats
 {
     public partial class Form1
     {
@@ -14,10 +11,10 @@ namespace ARKBreedingStats
         /// <summary>
         /// Sets the localizations, i.e. translated texts in the application.
         /// </summary>
-        /// <param name="init">If true</param>
-        private void SetLocalizations(bool init = true)
+        /// <param name="initialize">If the language was changed set to true to load the according strings.</param>
+        private void SetLocalizations(bool initialize = true)
         {
-            if (init)
+            if (initialize)
                 InitLocalization();
 
             // menu
@@ -152,6 +149,9 @@ namespace ARKBreedingStats
             columnHeaderColor4.Text = Loc.S("C4");
             columnHeaderColor5.Text = Loc.S("C5");
             Loc.ControlText(ToolStripLabelFilter);
+
+            _tt.SetToolTip(LbBlueprintPath, "Click to copy blueprint path to clipboard.");
+            _tt.SetToolTip(listBoxSpeciesLib, "Ctrl + Click on a species to select / unselect as favorite.\nFavorites are sorted at the top.");
 
             // other tabs
             Loc.ControlText(tabPagePedigree, "pedigree");

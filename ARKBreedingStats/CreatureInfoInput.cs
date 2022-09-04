@@ -63,6 +63,8 @@ namespace ARKBreedingStats
         /// </summary>
         public ParentInheritance ParentInheritance;
 
+        internal CreatureCollection.ColorExisting[] ColorAlreadyExistingInformation;
+
         private Button[] ButtonsNamingPattern => new[] { btnGenerateUniqueName, btNamingPattern2, btNamingPattern3, btNamingPattern4, btNamingPattern5, btNamingPattern6 };
 
         public CreatureInfoInput()
@@ -579,7 +581,7 @@ namespace ARKBreedingStats
         public void GenerateCreatureName(Creature creature, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, int namingPatternIndex)
         {
             SetCreatureData(creature);
-            CreatureName = NamePattern.GenerateCreatureName(creature, _sameSpecies, speciesTopLevels, speciesLowestLevels, customReplacings, showDuplicateNameWarning, namingPatternIndex, false);
+            CreatureName = NamePattern.GenerateCreatureName(creature, _sameSpecies, speciesTopLevels, speciesLowestLevels, customReplacings, showDuplicateNameWarning, namingPatternIndex, false, colorsExisting: ColorAlreadyExistingInformation);
             if (CreatureName.Length > 24)
                 SetMessageLabelText?.Invoke("The generated name is longer than 24 characters, the name will look like this in game:\n" + CreatureName.Substring(0, 24), MessageBoxIcon.Error);
         }
@@ -588,7 +590,7 @@ namespace ARKBreedingStats
         {
             if (!parentListValid)
                 ParentListRequested?.Invoke(this);
-            using (var pe = new PatternEditor(creature, _sameSpecies, speciesTopLevels, speciesLowestLevels, customReplacings, namingPatternIndex, reloadCallback))
+            using (var pe = new PatternEditor(creature, _sameSpecies, speciesTopLevels, speciesLowestLevels, ColorAlreadyExistingInformation, customReplacings, namingPatternIndex, reloadCallback))
             {
                 if (pe.ShowDialog() == DialogResult.OK)
                 {

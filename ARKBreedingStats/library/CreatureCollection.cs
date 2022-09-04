@@ -469,7 +469,7 @@ namespace ARKBreedingStats.Library
         internal ColorExisting[] ColorAlreadyAvailable(Species species, byte[] colorIds, out string infoText)
         {
             infoText = null;
-            if (string.IsNullOrEmpty(species?.blueprintPath)) return null;
+            if (string.IsNullOrEmpty(species?.blueprintPath) || colorIds == null) return null;
 
             var usedColorIndices = Enumerable.Range(0, Ark.ColorRegionCount).Where(i => species.EnabledColorRegions[i]).ToArray();
             var usedColorCount = usedColorIndices.Length;
@@ -543,7 +543,7 @@ namespace ARKBreedingStats.Library
             return results;
         }
 
-        internal enum ColorExisting
+        public enum ColorExisting
         {
             Unknown,
             /// <summary>

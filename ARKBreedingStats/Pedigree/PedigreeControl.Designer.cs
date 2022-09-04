@@ -30,7 +30,6 @@ namespace ARKBreedingStats.Pedigree
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.PbRegionColors = new System.Windows.Forms.PictureBox();
             this.lbPedigreeEmpty = new System.Windows.Forms.Label();
             this.listViewCreatures = new System.Windows.Forms.ListView();
@@ -49,7 +48,6 @@ namespace ARKBreedingStats.Pedigree
             this.statSelector1 = new ARKBreedingStats.uiControls.StatSelector();
             this.LbCreatureName = new System.Windows.Forms.Label();
             this.nudGenerations = new ARKBreedingStats.uiControls.Nud();
-            this.pedigreeCreatureHeaders = new PedigreeCreature();
             ((System.ComponentModel.ISupportInitialize)(this.PbRegionColors)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -131,7 +129,6 @@ namespace ARKBreedingStats.Pedigree
             this.splitContainer1.Panel2.Controls.Add(this.statSelector1);
             this.splitContainer1.Panel2.Controls.Add(this.LbCreatureName);
             this.splitContainer1.Panel2.Controls.Add(this.nudGenerations);
-            this.splitContainer1.Panel2.Controls.Add(this.pedigreeCreatureHeaders);
             this.splitContainer1.Panel2.Controls.Add(this.PbRegionColors);
             this.splitContainer1.Size = new System.Drawing.Size(1043, 520);
             this.splitContainer1.SplitterDistance = 203;
@@ -292,16 +289,6 @@ namespace ARKBreedingStats.Pedigree
             0});
             this.nudGenerations.ValueChanged += new System.EventHandler(this.nudGenerations_ValueChanged);
             // 
-            // pedigreeCreatureHeaders
-            // 
-            this.pedigreeCreatureHeaders.Creature = null;
-            this.pedigreeCreatureHeaders.Location = new System.Drawing.Point(375, 19);
-            this.pedigreeCreatureHeaders.Name = "pedigreeCreatureHeaders";
-            this.pedigreeCreatureHeaders.OnlyLevels = false;
-            this.pedigreeCreatureHeaders.Size = new System.Drawing.Size(325, 35);
-            this.pedigreeCreatureHeaders.TabIndex = 2;
-            this.pedigreeCreatureHeaders.TotalLevelUnknown = false;
-            // 
             // PedigreeControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -331,7 +318,6 @@ namespace ARKBreedingStats.Pedigree
 
         private System.Windows.Forms.PictureBox PbRegionColors;
         private System.Windows.Forms.Label lbPedigreeEmpty;
-        private PedigreeCreature pedigreeCreatureHeaders;
         private System.Windows.Forms.ListView listViewCreatures;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;

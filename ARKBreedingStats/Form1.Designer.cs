@@ -127,10 +127,12 @@ namespace ARKBreedingStats
             this.toolStripSeparator23 = new System.Windows.Forms.ToolStripSeparator();
             this.openJsonDataFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSortingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editSortingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpAboutSpeciesSortingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetSortingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetSortingToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator26 = new System.Windows.Forms.ToolStripSeparator();
+            this.editSortingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.applyChangedSortingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpAboutSpeciesSortingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.onlinehelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1232,27 +1234,15 @@ namespace ARKBreedingStats
             // speciesSortingToolStripMenuItem
             // 
             this.speciesSortingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.editSortingToolStripMenuItem,
-            this.helpAboutSpeciesSortingToolStripMenuItem,
             this.resetSortingToolStripMenuItem,
-            this.resetSortingToolStripMenuItem1});
+            this.resetSortingToolStripMenuItem1,
+            this.toolStripSeparator26,
+            this.editSortingToolStripMenuItem,
+            this.applyChangedSortingToolStripMenuItem,
+            this.helpAboutSpeciesSortingToolStripMenuItem});
             this.speciesSortingToolStripMenuItem.Name = "speciesSortingToolStripMenuItem";
             this.speciesSortingToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.speciesSortingToolStripMenuItem.Text = "Species sorting";
-            // 
-            // editSortingToolStripMenuItem
-            // 
-            this.editSortingToolStripMenuItem.Name = "editSortingToolStripMenuItem";
-            this.editSortingToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
-            this.editSortingToolStripMenuItem.Text = "Edit sorting";
-            this.editSortingToolStripMenuItem.Click += new System.EventHandler(this.editSortingToolStripMenuItem_Click);
-            // 
-            // helpAboutSpeciesSortingToolStripMenuItem
-            // 
-            this.helpAboutSpeciesSortingToolStripMenuItem.Name = "helpAboutSpeciesSortingToolStripMenuItem";
-            this.helpAboutSpeciesSortingToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
-            this.helpAboutSpeciesSortingToolStripMenuItem.Text = "Help about species sorting";
-            this.helpAboutSpeciesSortingToolStripMenuItem.Click += new System.EventHandler(this.helpAboutSpeciesSortingToolStripMenuItem_Click);
             // 
             // resetSortingToolStripMenuItem
             // 
@@ -1267,6 +1257,32 @@ namespace ARKBreedingStats
             this.resetSortingToolStripMenuItem1.Size = new System.Drawing.Size(214, 22);
             this.resetSortingToolStripMenuItem1.Text = "Reset sorting";
             this.resetSortingToolStripMenuItem1.Click += new System.EventHandler(this.resetSortingToolStripMenuItem1_Click);
+            // 
+            // toolStripSeparator26
+            // 
+            this.toolStripSeparator26.Name = "toolStripSeparator26";
+            this.toolStripSeparator26.Size = new System.Drawing.Size(211, 6);
+            // 
+            // editSortingToolStripMenuItem
+            // 
+            this.editSortingToolStripMenuItem.Name = "editSortingToolStripMenuItem";
+            this.editSortingToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.editSortingToolStripMenuItem.Text = "Edit sorting";
+            this.editSortingToolStripMenuItem.Click += new System.EventHandler(this.editSortingToolStripMenuItem_Click);
+            // 
+            // applyChangedSortingToolStripMenuItem
+            // 
+            this.applyChangedSortingToolStripMenuItem.Name = "applyChangedSortingToolStripMenuItem";
+            this.applyChangedSortingToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.applyChangedSortingToolStripMenuItem.Text = "Apply changed sorting";
+            this.applyChangedSortingToolStripMenuItem.Click += new System.EventHandler(this.applyChangedSortingToolStripMenuItem_Click);
+            // 
+            // helpAboutSpeciesSortingToolStripMenuItem
+            // 
+            this.helpAboutSpeciesSortingToolStripMenuItem.Name = "helpAboutSpeciesSortingToolStripMenuItem";
+            this.helpAboutSpeciesSortingToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.helpAboutSpeciesSortingToolStripMenuItem.Text = "Help about species sorting";
+            this.helpAboutSpeciesSortingToolStripMenuItem.Click += new System.EventHandler(this.helpAboutSpeciesSortingToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -2640,6 +2656,7 @@ namespace ARKBreedingStats
             this.listBoxSpeciesLib.Name = "listBoxSpeciesLib";
             this.listBoxSpeciesLib.Size = new System.Drawing.Size(175, 287);
             this.listBoxSpeciesLib.TabIndex = 0;
+            this.listBoxSpeciesLib.Click += new System.EventHandler(this.listBoxSpeciesLib_Click);
             this.listBoxSpeciesLib.SelectedIndexChanged += new System.EventHandler(this.listBoxSpeciesLib_SelectedIndexChanged);
             // 
             // tabPage3
@@ -3242,6 +3259,7 @@ namespace ARKBreedingStats
             // 
             this.ToolStripTextBoxLibraryFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.ToolStripTextBoxLibraryFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.ToolStripTextBoxLibraryFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.ToolStripTextBoxLibraryFilter.Name = "ToolStripTextBoxLibraryFilter";
             this.ToolStripTextBoxLibraryFilter.Size = new System.Drawing.Size(200, 25);
             this.ToolStripTextBoxLibraryFilter.Visible = false;
@@ -3816,5 +3834,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator25;
         private System.Windows.Forms.ToolStripMenuItem adminCommandToSpawnExactDinoDS2ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem colorDefinitionsToClipboardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator26;
+        private System.Windows.Forms.ToolStripMenuItem applyChangedSortingToolStripMenuItem;
     }
 }

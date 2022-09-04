@@ -355,7 +355,30 @@ namespace ARKBreedingStats.values
                 Process.Start(filePath);
         }
 
-        private void ApplySpeciesOrdering()
+        /// <summary>
+        /// If the passed species is not yet set in the species order file an entry is added, if it's present it's removed.
+        /// </summary>
+        /// <param name="species"></param>
+        /// <returns>If the species is a favorite now.</returns>
+        public void ToggleSpeciesFavorite(Species species)
+        {
+            string filePath = SpeciesNameSortFilePath;
+            List<string> lines;
+            if (!File.Exists(filePath))
+                lines = new List<string>();
+            else lines = File.ReadAllLines(filePath).ToList();
+
+            const string favoritePrefix = "!fav_";
+            // check if species is already a favorite
+            var favoriteOrderEntry = species.name + "@" + favoritePrefix + species.name;
+            var i = lines.IndexOf(favoriteOrderEntry);
+            if (i != -1) lines.RemoveAt(i);
+            else lines.Add(favoriteOrderEntry);
+            File.WriteAllLines(filePath, lines);
+            ApplySpeciesOrdering();
+        }
+
+        internal void ApplySpeciesOrdering()
         {
             string filePath = SpeciesNameSortFilePath;
 
@@ -370,18 +393,15 @@ namespace ARKBreedingStats.values
                     if (l.IndexOf("@", StringComparison.Ordinal) <= 0 ||
                         l.IndexOf("@", StringComparison.Ordinal) + 1 >= l.Length)
                         continue;
-                    string matchName = l.Substring(0, l.IndexOf("@", StringComparison.Ordinal)).Trim();
-                    string replaceName = l.Substring(l.IndexOf("@", StringComparison.Ordinal) + 1).Trim();
+                    string matchName = l.Substring(0, l.IndexOf("@", StringComparison.Ordinal));
+                    string replaceName = l.Substring(l.IndexOf("@", StringComparison.Ordinal) + 1);
 
                     Regex r = new Regex(matchName);
 
-                    List<Species> matchedSpecies =
-                        _V.species.Where(s => string.IsNullOrEmpty(s.SortName) && r.IsMatch(s.name)).ToList();
+                    var matchedSpecies = _V.species.Where(s => r.IsMatch(s.name)).ToArray();
 
                     foreach (Species s in matchedSpecies)
-                    {
                         s.SortName = r.Replace(s.name, replaceName);
-                    }
                 }
 
                 // set each sortName of species without manual sortName to its speciesName
@@ -405,7 +425,7 @@ namespace ARKBreedingStats.values
         private void OrderSpeciesAndApplyCustomVariants()
         {
             ApplySpeciesOrdering();
-            _V.speciesNames = _V.species.Select(s => s.name).ToList(); // ordered like the user configured it
+            _V.speciesNames = _V.species.Select(s => s.name).ToList();
 
             // apply custom species variants
             var customSpeciesVariantsFilePath = FileService.GetJsonPath(FileService.CustomSpeciesVariants);

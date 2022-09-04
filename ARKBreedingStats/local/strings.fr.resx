@@ -1328,4 +1328,7 @@ Filtre pour les couleurs avec c{region}: {colorValue} {colorValue2}, par exemple
   <data name="LbAlternativeColor" xml:space="preserve">
     <value>Maintenir la touche Ctrl enfoncée pour sélectionner un autre identifiant de couleur (bordure rouge). Maintenir Ctrl et cliquer sur aucune couleur pour le désactiver.</value>
   </data>
+  <data name="groupLibraryBySpecies" xml:space="preserve">
+    <value>Grouper la bibliothèque par espèces</value>
+  </data>
 </root>

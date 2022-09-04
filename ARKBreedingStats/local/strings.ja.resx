@@ -1299,4 +1299,7 @@ Filter for colors with c{region}: {colorValue}, e.g. c0: 20, c5: 3</value>
   <data name="ImportingSavegame" xml:space="preserve">
     <value>savegameインポート中</value>
   </data>
+  <data name="groupLibraryBySpecies" xml:space="preserve">
+    <value>種族でライブラリを切り分ける</value>
+  </data>
 </root>

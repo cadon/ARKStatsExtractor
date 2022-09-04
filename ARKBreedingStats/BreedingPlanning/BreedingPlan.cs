@@ -999,7 +999,7 @@ namespace ARKBreedingStats.BreedingPlanning
             }
         }
 
-        public void SetSpeciesList(List<Species> species, List<Creature> creatures)
+        public void SetSpeciesList(IList<Species> species, List<Creature> creatures)
         {
             Species previouslySelectedSpecies = listViewSpeciesBP.SelectedItems.Count > 0 ? listViewSpeciesBP.SelectedItems[0].Tag as Species : null;
 

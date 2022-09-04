@@ -30,6 +30,8 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.CbMaturationAll = new System.Windows.Forms.CheckBox();
+            this.LbMaturation = new System.Windows.Forms.Label();
             this.CbTagsAll = new System.Windows.Forms.CheckBox();
             this.CbServersAll = new System.Windows.Forms.CheckBox();
             this.CbTribesAll = new System.Windows.Forms.CheckBox();
@@ -49,13 +51,12 @@
             this.BtColorFilter = new System.Windows.Forms.Button();
             this.BtClearColorFilters = new System.Windows.Forms.Button();
             this.BtClearFlagFilter = new System.Windows.Forms.Button();
+            this.ClbMaturationFilters = new System.Windows.Forms.CheckedListBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.CbUseFilterInTopStatCalculation = new System.Windows.Forms.CheckBox();
             this.BtApply = new System.Windows.Forms.Button();
             this.BtCancel = new System.Windows.Forms.Button();
-            this.LbMaturation = new System.Windows.Forms.Label();
-            this.ClbMaturationFilters = new System.Windows.Forms.CheckedListBox();
-            this.CbMaturationAll = new System.Windows.Forms.CheckBox();
+            this.CbLibraryGroupSpecies = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -120,6 +121,28 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(870, 408);
             this.tableLayoutPanel2.TabIndex = 3;
+            // 
+            // CbMaturationAll
+            // 
+            this.CbMaturationAll.AutoSize = true;
+            this.CbMaturationAll.Location = new System.Drawing.Point(760, 19);
+            this.CbMaturationAll.Name = "CbMaturationAll";
+            this.CbMaturationAll.Size = new System.Drawing.Size(36, 17);
+            this.CbMaturationAll.TabIndex = 21;
+            this.CbMaturationAll.Text = "all";
+            this.CbMaturationAll.UseVisualStyleBackColor = true;
+            this.CbMaturationAll.CheckedChanged += new System.EventHandler(this.CbMaturationAll_CheckedChanged);
+            // 
+            // LbMaturation
+            // 
+            this.LbMaturation.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.LbMaturation.AutoSize = true;
+            this.LbMaturation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbMaturation.Location = new System.Drawing.Point(778, 3);
+            this.LbMaturation.Name = "LbMaturation";
+            this.LbMaturation.Size = new System.Drawing.Size(67, 13);
+            this.LbMaturation.TabIndex = 19;
+            this.LbMaturation.Text = "Maturation";
             // 
             // CbTagsAll
             // 
@@ -320,8 +343,19 @@
             this.BtClearFlagFilter.UseVisualStyleBackColor = true;
             this.BtClearFlagFilter.Click += new System.EventHandler(this.BtClearFlagFilter_Click);
             // 
+            // ClbMaturationFilters
+            // 
+            this.ClbMaturationFilters.CheckOnClick = true;
+            this.ClbMaturationFilters.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ClbMaturationFilters.FormattingEnabled = true;
+            this.ClbMaturationFilters.Location = new System.Drawing.Point(760, 48);
+            this.ClbMaturationFilters.Name = "ClbMaturationFilters";
+            this.ClbMaturationFilters.Size = new System.Drawing.Size(104, 354);
+            this.ClbMaturationFilters.TabIndex = 20;
+            // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.CbLibraryGroupSpecies);
             this.panel1.Controls.Add(this.CbUseFilterInTopStatCalculation);
             this.panel1.Controls.Add(this.BtApply);
             this.panel1.Controls.Add(this.BtCancel);
@@ -365,37 +399,15 @@
             this.BtCancel.Text = "Cancel";
             this.BtCancel.UseVisualStyleBackColor = true;
             // 
-            // LbMaturation
+            // CbLibraryGroupSpecies
             // 
-            this.LbMaturation.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.LbMaturation.AutoSize = true;
-            this.LbMaturation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbMaturation.Location = new System.Drawing.Point(778, 3);
-            this.LbMaturation.Name = "LbMaturation";
-            this.LbMaturation.Size = new System.Drawing.Size(67, 13);
-            this.LbMaturation.TabIndex = 19;
-            this.LbMaturation.Text = "Maturation";
-            // 
-            // ClbMaturationFilters
-            // 
-            this.ClbMaturationFilters.CheckOnClick = true;
-            this.ClbMaturationFilters.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ClbMaturationFilters.FormattingEnabled = true;
-            this.ClbMaturationFilters.Location = new System.Drawing.Point(760, 48);
-            this.ClbMaturationFilters.Name = "ClbMaturationFilters";
-            this.ClbMaturationFilters.Size = new System.Drawing.Size(104, 354);
-            this.ClbMaturationFilters.TabIndex = 20;
-            // 
-            // CbMaturationAll
-            // 
-            this.CbMaturationAll.AutoSize = true;
-            this.CbMaturationAll.Location = new System.Drawing.Point(760, 19);
-            this.CbMaturationAll.Name = "CbMaturationAll";
-            this.CbMaturationAll.Size = new System.Drawing.Size(36, 17);
-            this.CbMaturationAll.TabIndex = 21;
-            this.CbMaturationAll.Text = "all";
-            this.CbMaturationAll.UseVisualStyleBackColor = true;
-            this.CbMaturationAll.CheckedChanged += new System.EventHandler(this.CbMaturationAll_CheckedChanged);
+            this.CbLibraryGroupSpecies.AutoSize = true;
+            this.CbLibraryGroupSpecies.Location = new System.Drawing.Point(195, 7);
+            this.CbLibraryGroupSpecies.Name = "CbLibraryGroupSpecies";
+            this.CbLibraryGroupSpecies.Size = new System.Drawing.Size(138, 17);
+            this.CbLibraryGroupSpecies.TabIndex = 3;
+            this.CbLibraryGroupSpecies.Text = "Group library by species";
+            this.CbLibraryGroupSpecies.UseVisualStyleBackColor = true;
             // 
             // LibraryFilter
             // 
@@ -450,5 +462,6 @@
         private System.Windows.Forms.Label LbMaturation;
         private System.Windows.Forms.CheckedListBox ClbMaturationFilters;
         private System.Windows.Forms.CheckBox CbMaturationAll;
+        private System.Windows.Forms.CheckBox CbLibraryGroupSpecies;
     }
 }

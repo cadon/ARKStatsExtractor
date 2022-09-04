@@ -37,6 +37,7 @@ namespace ARKBreedingStats.uiControls
 
             SetColorFilter(Properties.Settings.Default.FilterOnlyIfColorId);
             CbUseFilterInTopStatCalculation.Checked = Properties.Settings.Default.useFiltersInTopStatCalculation;
+            CbLibraryGroupSpecies.Checked = Properties.Settings.Default.LibraryGroupBySpecies;
 
             UpdateOwnerServerTagLists();
 
@@ -261,6 +262,7 @@ namespace ARKBreedingStats.uiControls
             Properties.Settings.Default.FilterHideTribes = GetCheckedStrings(ClbTribes);
             Properties.Settings.Default.FilterHideServers = GetCheckedStrings(ClbServers);
             Properties.Settings.Default.FilterHideTags = GetCheckedStrings(ClbTags);
+            Properties.Settings.Default.LibraryGroupBySpecies = CbLibraryGroupSpecies.Checked;
 
             var flagsOneNeeded = CreatureFlags.None;
             var flagsAllNeeded = CreatureFlags.None;
@@ -331,6 +333,7 @@ namespace ARKBreedingStats.uiControls
             LbMaturation.Text = Loc.S("Maturation");
             BtClearColorFilters.Text = Loc.S("clearColorsFilters");
             CbUseFilterInTopStatCalculation.Text = Loc.S("useFilterInTopStatCalculation");
+            CbLibraryGroupSpecies.Text = Loc.S("groupLibraryBySpecies");
             BtClearFlagFilter.Text = Loc.S("clear");
 
             string allString = Loc.S("All");

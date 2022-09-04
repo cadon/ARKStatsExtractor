@@ -888,6 +888,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="settings\MultiplierSetting.resx">
       <DependentUpon>MultiplierSetting.cs</DependentUpon>
@@ -999,8 +1000,8 @@ if $(ConfigurationName) == Release (
 
   powershell -nologo -noprofile -command "$version = (Get-Item '$(TargetPath)').VersionInfo.FileVersion; Compress-Archive -Force -Path '$(TargetDir)*' -DestinationPath """$(SolutionDir)_publish\ARK.Smart.Breeding_$version.zip""" "
 
-  if exist "%25ProgramFiles(x86)%25\Inno Setup 5\ISCC.exe" (
-    "%25ProgramFiles(x86)%25\Inno Setup 5\ISCC.exe" "$(SolutionDir)setup.iss"
+  if exist "%25ProgramFiles(x86)%25\Inno Setup 6\ISCC.exe" (
+    "%25ProgramFiles(x86)%25\Inno Setup 6\ISCC.exe" "$(SolutionDir)setup.iss"
   ) else (
     echo Inno Setup command line compiler not found
   )

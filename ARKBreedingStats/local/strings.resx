@@ -1330,4 +1330,7 @@ Filter for colors with c{region}: {colorValue} {colorValue2}, e.g. c0: 20, c5: 3
   <data name="LbAlternativeColor" xml:space="preserve">
     <value>Hold Ctrl to select an alternative color id (red border). Hold Ctrl and click on No Color to unset it.</value>
   </data>
+  <data name="groupLibraryBySpecies" xml:space="preserve">
+    <value>Group library by species</value>
+  </data>
 </root>

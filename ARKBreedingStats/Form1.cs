@@ -105,10 +105,6 @@ namespace ARKBreedingStats
 
         public Form1()
         {
-            var args = Environment.GetCommandLineArgs();
-            if (args.Contains("cleanupUpdater"))
-                FileService.TryDeleteFile(Path.Combine(Path.GetTempPath(), Updater.Updater.UpdaterExe));
-
             // load settings of older version if possible after an upgrade
             if (Properties.Settings.Default.UpgradeRequired)
             {
@@ -699,7 +695,6 @@ namespace ARKBreedingStats
             _hiddenLevelsCreatureTester = 0;
 
             _tt.SetToolTip(tbSpeciesGlobal, species.DescriptiveNameAndMod + "\n" + species.blueprintPath);
-            _tt.SetToolTip(LbBlueprintPath, "Click to copy blueprint path to clipboard.");
         }
 
         private void numericUpDown_Enter(object sender, EventArgs e)
@@ -921,6 +916,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// This function should be called if the creatureCollection is changed, i.e. after loading a file or adding/removing a creature.
         /// It updates the listed species in the treeList and in the speciesSelector.
+        /// Also call after the sort order of the species was changed.
         /// </summary>
         private void UpdateSpeciesLists(List<Creature> creatures, bool keepCurrentlySelectedSpecies = true)
         {
@@ -941,19 +937,19 @@ namespace ARKBreedingStats
             }
 
             // sort species according to selected order (can be modified by json/sortNames.txt)
-            availableSpecies = Values.V.species.Where(sn => availableSpecies.Contains(sn)).ToList();
+            _speciesInLibraryOrdered = Values.V.species.Where(sn => availableSpecies.Contains(sn)).ToArray();
 
             // add node to show all
             listBoxSpeciesLib.BeginUpdate();
             listBoxSpeciesLib.Items.Add(Loc.S("All"));
-            listBoxSpeciesLib.Items.AddRange(availableSpecies.ToArray());
+            listBoxSpeciesLib.Items.AddRange(_speciesInLibraryOrdered);
             listBoxSpeciesLib.EndUpdate();
 
             if (selectedSpeciesLibrary != null)
                 listBoxSpeciesLib.SelectedItem = selectedSpeciesLibrary;
 
-            breedingPlan1.SetSpeciesList(availableSpecies, creatures);
-            speciesSelector1.SetLibrarySpecies(availableSpecies);
+            breedingPlan1.SetSpeciesList(_speciesInLibraryOrdered, creatures);
+            speciesSelector1.SetLibrarySpecies(_speciesInLibraryOrdered);
         }
 
         /// <summary>
@@ -2911,6 +2907,12 @@ namespace ARKBreedingStats
             }
             else
             {
+                CreatureCollection.ColorExisting[] colorAlreadyExistingInformation = null;
+                if (Properties.Settings.Default.NamingPatterns != null
+                    && Properties.Settings.Default.NamingPatterns[namingPatternIndex].IndexOf("#colorNew:", StringComparison.InvariantCultureIgnoreCase) != -1)
+                    colorAlreadyExistingInformation = _creatureCollection.ColorAlreadyAvailable(cr.Species, input.RegionColors, out _);
+                input.ColorAlreadyExistingInformation = colorAlreadyExistingInformation;
+
                 input.GenerateCreatureName(cr, _topLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
                     _lowestLevels.TryGetValue(cr.Species, out var ll) ? ll : null,
                     _customReplacingNamingPattern, showDuplicateNameWarning, namingPatternIndex);
@@ -3572,6 +3574,19 @@ namespace ARKBreedingStats
         private void resetSortingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Values.V.ResetDefaultSpeciesNameSorting();
+            UpdateSpeciesLists(_creatureCollection.creatures);
+        }
+
+        private void resetSortingToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Values.V.ResetSpeciesNameSorting();
+            UpdateSpeciesLists(_creatureCollection.creatures);
+        }
+
+        private void applyChangedSortingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Values.V.ApplySpeciesOrdering();
+            UpdateSpeciesLists(_creatureCollection.creatures);
         }
 
         private void editSortingToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3582,11 +3597,6 @@ namespace ARKBreedingStats
         private void helpAboutSpeciesSortingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RepositoryInfo.OpenWikiPage("Library#order-of-the-species-in-the-library");
-        }
-
-        private void resetSortingToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            Values.V.ResetSpeciesNameSorting();
         }
 
         private void colorDefinitionsToClipboardToolStripMenuItem_Click(object sender, EventArgs e)

@@ -193,7 +193,7 @@ namespace ARKBreedingStats
         /// Fills the species listed as appearing in the library
         /// </summary>
         /// <param name="librarySpeciesList"></param>
-        public void SetLibrarySpecies(List<Species> librarySpeciesList)
+        public void SetLibrarySpecies(IList<Species> librarySpeciesList)
         {
             lvSpeciesInLibrary.BeginUpdate();
             lvSpeciesInLibrary.Items.Clear();
