@@ -14,9 +14,24 @@ namespace ARKBreedingStats
 
         public static void LoadResourceFile()
         {
-            Thread.CurrentThread.CurrentUICulture = !string.IsNullOrEmpty(Properties.Settings.Default.language) ?
-                    new System.Globalization.CultureInfo(Properties.Settings.Default.language) :
-                    System.Globalization.CultureInfo.CurrentCulture;
+            CultureInfo culture;
+            if (string.IsNullOrEmpty(Properties.Settings.Default.language))
+            {
+                culture = CultureInfo.CurrentCulture;
+            }
+            else
+            {
+                try
+                {
+                    culture = new CultureInfo(Properties.Settings.Default.language);
+                }
+                catch (CultureNotFoundException)
+                {
+                    culture = CultureInfo.CurrentCulture;
+                }
+            }
+
+            Thread.CurrentThread.CurrentUICulture = culture;
 
             rm = new ResourceManager("ARKBreedingStats.local.strings", typeof(Form1).Assembly);
         }

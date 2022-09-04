@@ -105,10 +105,6 @@ namespace ARKBreedingStats
 
         public Form1()
         {
-            var args = Environment.GetCommandLineArgs();
-            if (args.Contains("cleanupUpdater"))
-                FileService.TryDeleteFile(Path.Combine(Path.GetTempPath(), Updater.Updater.UpdaterExe));
-
             // load settings of older version if possible after an upgrade
             if (Properties.Settings.Default.UpgradeRequired)
             {
