@@ -1328,4 +1328,7 @@
   <data name="WorstPossible" xml:space="preserve">
     <value>最差可能</value>
   </data>
+  <data name="groupLibraryBySpecies" xml:space="preserve">
+    <value>按物種分類</value>
+  </data>
 </root>

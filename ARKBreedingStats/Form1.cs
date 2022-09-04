@@ -937,19 +937,19 @@ namespace ARKBreedingStats
             }
 
             // sort species according to selected order (can be modified by json/sortNames.txt)
-            availableSpecies = Values.V.species.Where(sn => availableSpecies.Contains(sn)).ToList();
+            _speciesInLibraryOrdered = Values.V.species.Where(sn => availableSpecies.Contains(sn)).ToArray();
 
             // add node to show all
             listBoxSpeciesLib.BeginUpdate();
             listBoxSpeciesLib.Items.Add(Loc.S("All"));
-            listBoxSpeciesLib.Items.AddRange(availableSpecies.ToArray());
+            listBoxSpeciesLib.Items.AddRange(_speciesInLibraryOrdered);
             listBoxSpeciesLib.EndUpdate();
 
             if (selectedSpeciesLibrary != null)
                 listBoxSpeciesLib.SelectedItem = selectedSpeciesLibrary;
 
-            breedingPlan1.SetSpeciesList(availableSpecies, creatures);
-            speciesSelector1.SetLibrarySpecies(availableSpecies);
+            breedingPlan1.SetSpeciesList(_speciesInLibraryOrdered, creatures);
+            speciesSelector1.SetLibrarySpecies(_speciesInLibraryOrdered);
         }
 
         /// <summary>

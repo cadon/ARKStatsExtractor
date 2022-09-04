@@ -25,6 +25,8 @@ namespace ARKBreedingStats
         /// </summary>
         private Creature[] _creaturesPreFiltered;
 
+        private Species[] _speciesInLibraryOrdered;
+
         /// <summary>
         /// Add a new creature to the library based from the data of the extractor or tester
         /// </summary>
@@ -756,7 +758,7 @@ namespace ARKBreedingStats
         private void ShowCreaturesInListView(IEnumerable<Creature> creatures)
         {
             listViewLibrary.BeginUpdate();
-            _creaturesDisplayed = _creatureListSorter.DoSort(creatures);
+            _creaturesDisplayed = _creatureListSorter.DoSort(creatures, orderBySpecies: Properties.Settings.Default.LibraryGroupBySpecies ? _speciesInLibraryOrdered : null);
             listViewLibrary.VirtualListSize = _creaturesDisplayed.Length;
             _libraryListViewItemCache = null;
             listViewLibrary.EndUpdate();
@@ -1185,7 +1187,7 @@ namespace ARKBreedingStats
             foreach (int i in listViewLibrary.SelectedIndices)
                 selectedCreatures.Add(_creaturesDisplayed[i]);
 
-            _creaturesDisplayed = _creatureListSorter.DoSort(_creaturesDisplayed, columnIndex);
+            _creaturesDisplayed = _creatureListSorter.DoSort(_creaturesDisplayed, columnIndex, Properties.Settings.Default.LibraryGroupBySpecies ? _speciesInLibraryOrdered : null);
             _libraryListViewItemCache = null;
             listViewLibrary.EndUpdate();
             SelectCreaturesInLibrary(selectedCreatures);

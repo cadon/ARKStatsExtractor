@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.Library;
+using ARKBreedingStats.species;
 
 namespace ARKBreedingStats.utils
 {
@@ -32,7 +34,7 @@ namespace ARKBreedingStats.utils
         /// <summary>
         /// Sort list by given column index. If the columnIndex is -1, use last sorting.
         /// </summary>
-        public Creature[] DoSort(IEnumerable<Creature> list, int columnIndex = -1)
+        public Creature[] DoSort(IEnumerable<Creature> list, int columnIndex = -1, Species[] orderBySpecies = null)
         {
             if (list == null) return null;
 
@@ -52,19 +54,35 @@ namespace ARKBreedingStats.utils
             }
 
             // Perform the sort with these new sort options.
-            return OrderList(list).ToArray();
+            return OrderList(list, orderBySpecies).ToArray();
         }
 
-        private IEnumerable<Creature> OrderList(IEnumerable<Creature> list)
+        private IEnumerable<Creature> OrderList(IEnumerable<Creature> list, Species[] orderBySpecies = null)
         {
-            if (SortColumnIndex == -1 || SortColumnIndex >= _keySelectors.Length)
-                return list;
+            IOrderedEnumerable<Creature> listOrdered;
+            if (orderBySpecies != null)
+            {
+                var dict = orderBySpecies.Select((s, i) => (s, i)).ToDictionary(s => s.s, s => s.i);
+                listOrdered = list.OrderBy(c => dict.TryGetValue(c.Species, out var i) ? i : int.MaxValue);
+                if (SortColumnIndex == -1 || SortColumnIndex >= _keySelectors.Length)
+                    return listOrdered;
+                listOrdered = Order == SortOrder.Ascending
+                    ? listOrdered.ThenBy(_keySelectors[SortColumnIndex])
+                    : listOrdered.ThenByDescending(_keySelectors[SortColumnIndex]);
+            }
+            else
+            {
+                if (SortColumnIndex == -1 || SortColumnIndex >= _keySelectors.Length)
+                    return list;
+                listOrdered = Order == SortOrder.Ascending
+                    ? list.OrderBy(_keySelectors[SortColumnIndex])
+                    : list.OrderByDescending(_keySelectors[SortColumnIndex]);
+            }
 
-            var listOrdered = Order == SortOrder.Ascending
-                   ? list.OrderBy(_keySelectors[SortColumnIndex])
-                   : list.OrderByDescending(_keySelectors[SortColumnIndex]);
             if (_lastSortColumnIndex == -1 || _lastSortColumnIndex >= _keySelectors.Length)
                 return listOrdered;
+
+            // sort by second column that was selected previously
             return _lastOrder == SortOrder.Ascending
                 ? listOrdered.ThenBy(_keySelectors[_lastSortColumnIndex])
                 : listOrdered.ThenByDescending(_keySelectors[_lastSortColumnIndex]);

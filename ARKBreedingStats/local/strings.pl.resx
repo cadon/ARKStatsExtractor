@@ -1138,4 +1138,7 @@ Jeśli wyświetlona jest liczba z plusem, suma jest za wysoka i musisz wybrać i
     <data name="toolStripButtonDeleteTempCreature" xml:space="preserve">
         <value>Usuń tymczasowe zw.</value>
     </data>
+  <data name="groupLibraryBySpecies" xml:space="preserve">
+    <value>Pogrupuj bibliotekę po gatunku</value>
+  </data>
 </root>

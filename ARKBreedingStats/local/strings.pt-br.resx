@@ -1331,4 +1331,7 @@ Filtrar por cor com c{region}: {colorValue} {colorValue2}, e.g. c0: 20, c5: 3 4 
   <data name="WorstPossible" xml:space="preserve">
     <value>Pior Possivel</value>
   </data>
+  <data name="groupLibraryBySpecies" xml:space="preserve">
+    <value>Agrupar por Especie</value>
+  </data>
 </root>
