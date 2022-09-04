@@ -1470,6 +1470,14 @@ namespace ARKBreedingStats
             return creatures;
         }
 
+        private void listBoxSpeciesLib_Click(object sender, EventArgs e)
+        {
+            if (!(ModifierKeys == Keys.Control && listBoxSpeciesLib.SelectedItem is Species species)) return;
+
+            Values.V.ToggleSpeciesFavorite(species);
+            UpdateSpeciesLists(_creatureCollection.creatures);
+        }
+
         private void listViewLibrary_KeyUp(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)

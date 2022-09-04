@@ -695,7 +695,6 @@ namespace ARKBreedingStats
             _hiddenLevelsCreatureTester = 0;
 
             _tt.SetToolTip(tbSpeciesGlobal, species.DescriptiveNameAndMod + "\n" + species.blueprintPath);
-            _tt.SetToolTip(LbBlueprintPath, "Click to copy blueprint path to clipboard.");
         }
 
         private void numericUpDown_Enter(object sender, EventArgs e)
@@ -917,6 +916,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// This function should be called if the creatureCollection is changed, i.e. after loading a file or adding/removing a creature.
         /// It updates the listed species in the treeList and in the speciesSelector.
+        /// Also call after the sort order of the species was changed.
         /// </summary>
         private void UpdateSpeciesLists(List<Creature> creatures, bool keepCurrentlySelectedSpecies = true)
         {
@@ -3574,6 +3574,19 @@ namespace ARKBreedingStats
         private void resetSortingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Values.V.ResetDefaultSpeciesNameSorting();
+            UpdateSpeciesLists(_creatureCollection.creatures);
+        }
+
+        private void resetSortingToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Values.V.ResetSpeciesNameSorting();
+            UpdateSpeciesLists(_creatureCollection.creatures);
+        }
+
+        private void applyChangedSortingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Values.V.ApplySpeciesOrdering();
+            UpdateSpeciesLists(_creatureCollection.creatures);
         }
 
         private void editSortingToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3584,11 +3597,6 @@ namespace ARKBreedingStats
         private void helpAboutSpeciesSortingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RepositoryInfo.OpenWikiPage("Library#order-of-the-species-in-the-library");
-        }
-
-        private void resetSortingToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            Values.V.ResetSpeciesNameSorting();
         }
 
         private void colorDefinitionsToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
