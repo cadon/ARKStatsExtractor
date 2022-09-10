@@ -532,6 +532,13 @@ namespace ARKBreedingStats
             // calculate creature values
             RecalculateAllCreaturesValues();
 
+            foreach (var c in _creatureCollection.creatures)
+            {
+                c.InitializeFlags();
+                if (c.ArkIdImported && c.ArkIdInGame == null)
+                    c.ArkIdInGame = Utils.ConvertImportedArkIdToIngameVisualization(c.ArkId);
+            }
+
             if (!keepCurrentSelections && _creatureCollection.creatures.Any())
                 tabControlMain.SelectedTab = tabPageLibrary;
 

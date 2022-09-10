@@ -141,6 +141,8 @@ namespace ARKBreedingStats.library
                 if (setServer)
                     creature.server = $"Server {rand.Next(5) + 1}";
 
+                creature.InitializeFlags();
+
                 creatures.Add(creature);
             }
 
@@ -310,6 +312,7 @@ namespace ARKBreedingStats.library
                         creature.RecalculateNewMutations();
 
                     creature.RecalculateAncestorGenerations();
+                    creature.InitializeFlags();
 
                     if (noGender)
                         allCreatures.Add(creature);
