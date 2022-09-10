@@ -1421,6 +1421,9 @@ namespace ARKBreedingStats
             if (creatures == null)
                 return Enumerable.Empty<Creature>();
 
+            foreach (Creature creature in creatures)
+                creature.InitializeFlags();
+
             if (Properties.Settings.Default.FilterHideOwners?.Any() ?? false)
                 creatures = creatures.Where(c => !Properties.Settings.Default.FilterHideOwners.Contains(c.owner ?? string.Empty));
 
