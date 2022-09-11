@@ -23,7 +23,6 @@ namespace ARKBreedingStats.NamePatterns
             bool showDuplicateNameWarning, int namingPatternIndex, bool showTooLongWarning = true, string pattern = null, bool displayError = true, Dictionary<string, string> tokenDictionary = null,
             CreatureCollection.ColorExisting[] colorsExisting = null)
         {
-            var creatureNames = sameSpecies?.Where(c => c.guid != creature.guid).Select(x => x.name).ToArray() ?? Array.Empty<string>();
             if (pattern == null)
             {
                 if (namingPatternIndex == -1)
@@ -69,6 +68,10 @@ namespace ARKBreedingStats.NamePatterns
             string name = ResolveFunctions(
                 ResolveKeysToValues(tokenDictionary, pattern.Replace("\r", string.Empty).Replace("\n", string.Empty)),
                 creature, customReplacings, displayError, false, colorsExisting);
+
+            string[] creatureNames = null;
+            if (showDuplicateNameWarning || name.Contains("{n}"))
+                creatureNames = sameSpecies?.Where(c => c.guid != creature.guid).Select(x => x.name).ToArray() ?? Array.Empty<string>();
 
             if (name.Contains("{n}"))
             {
@@ -306,8 +309,8 @@ namespace ARKBreedingStats.NamePatterns
             var dict = new Dictionary<string, string>
             {
                 { "species", creature.Species.name },
-                { "spcsNm", spcsNm },
-                { "firstWordOfOldest", firstWordOfOldest },
+                { "spcsnm", spcsNm },
+                { "firstwordofoldest", firstWordOfOldest },
 
                 { "owner", creature.owner },
                 { "tribe", creature.tribe },
@@ -316,7 +319,7 @@ namespace ARKBreedingStats.NamePatterns
                 { "sex", creature.sex.ToString() },
                 { "sex_short", creature.sex.ToString().Substring(0, 1) },
 
-                { "effImp_short", effImpShort},
+                { "effimp_short", effImpShort},
                 { "index", indexStr},
                 { "oldname", oldName },
                 { "sex_lang",   Loc.S(creature.sex.ToString()) },
@@ -324,9 +327,9 @@ namespace ARKBreedingStats.NamePatterns
                 { "sex_lang_gen",   Loc.S(creature.sex.ToString() + "_gen") },
                 { "sex_lang_short_gen", Loc.S(creature.sex.ToString() + "_gen").Substring(0, 1) },
 
-                { "topPercent" , (creature.topness / 10f).ToString() },
+                { "toppercent" , (creature.topness / 10f).ToString() },
                 { "baselvl" , creature.LevelHatched.ToString() },
-                { "effImp" , effImp },
+                { "effimp" , effImp },
                 { "muta", creature.Mutations.ToString()},
                 { "mutam", creature.mutationsMaternal.ToString()},
                 { "mutap", creature.mutationsPaternal.ToString()},
@@ -340,7 +343,7 @@ namespace ARKBreedingStats.NamePatterns
                 { "sn", speciesSexCount.ToString()},
                 { "dom", dom},
                 { "arkid", arkid },
-                { "alreadyExists", speciesCreatures.Contains(creature) ? "1" : string.Empty },
+                { "alreadyexists", speciesCreatures.Contains(creature) ? "1" : string.Empty },
                 { "highest1l", levelOrder[0].Item2.ToString() },
                 { "highest2l", levelOrder[1].Item2.ToString() },
                 { "highest3l", levelOrder[2].Item2.ToString() },
@@ -359,13 +362,13 @@ namespace ARKBreedingStats.NamePatterns
             {
                 dict.Add(StatAbbreviationFromIndex[s], creature.levelsWild[s].ToString());
                 dict.Add($"{StatAbbreviationFromIndex[s]}_vb", (creature.valuesBreeding[s] * (Utils.Precision(s) == 3 ? 100 : 1)).ToString());
-                dict.Add($"isTop{StatAbbreviationFromIndex[s]}", speciesTopLevels == null ? (creature.levelsWild[s] > 0 ? "1" : string.Empty) :
+                dict.Add($"istop{StatAbbreviationFromIndex[s]}", speciesTopLevels == null ? (creature.levelsWild[s] > 0 ? "1" : string.Empty) :
                     creature.levelsWild[s] >= speciesTopLevels[s] ? "1" : string.Empty);
-                dict.Add($"isNewTop{StatAbbreviationFromIndex[s]}", speciesTopLevels == null ? (creature.levelsWild[s] > 0 ? "1" : string.Empty) :
+                dict.Add($"isnewtop{StatAbbreviationFromIndex[s]}", speciesTopLevels == null ? (creature.levelsWild[s] > 0 ? "1" : string.Empty) :
                     creature.levelsWild[s] > speciesTopLevels[s] ? "1" : string.Empty);
-                dict.Add($"isLowest{StatAbbreviationFromIndex[s]}", speciesLowestLevels == null ? (creature.levelsWild[s] == 0 ? "1" : string.Empty) :
+                dict.Add($"islowest{StatAbbreviationFromIndex[s]}", speciesLowestLevels == null ? (creature.levelsWild[s] == 0 ? "1" : string.Empty) :
                     speciesLowestLevels[s] != -1 && creature.levelsWild[s] != -1 && creature.levelsWild[s] <= speciesLowestLevels[s] ? "1" : string.Empty);
-                dict.Add($"isNewLowest{StatAbbreviationFromIndex[s]}", speciesLowestLevels == null ? (creature.levelsWild[s] == 0 ? "1" : string.Empty) :
+                dict.Add($"isnewlowest{StatAbbreviationFromIndex[s]}", speciesLowestLevels == null ? (creature.levelsWild[s] == 0 ? "1" : string.Empty) :
                     speciesLowestLevels[s] != -1 && creature.levelsWild[s] != -1 && creature.levelsWild[s] < speciesLowestLevels[s] ? "1" : string.Empty);
             }
 
@@ -405,7 +408,7 @@ namespace ARKBreedingStats.NamePatterns
                 pattern = pattern.Replace("{n}", uniqueNumber.ToString());
             }
 
-            return r.Replace(pattern, m => tokenDictionary.TryGetValue(m.Groups["key"].Value, out string replacement) ? replacement : m.Value);
+            return r.Replace(pattern, m => tokenDictionary.TryGetValue(m.Groups["key"].Value.ToLowerInvariant(), out string replacement) ? replacement : m.Value);
         }
     }
 }
