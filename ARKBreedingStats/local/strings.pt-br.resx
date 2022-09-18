@@ -150,7 +150,7 @@ Mude o breeding-mode para "Maior Status" para melhores Sugestões.</value>
     <value>Melhor possível</value>
   </data>
   <data name="BestPossibleSpeciesLibrary" xml:space="preserve">
-    <value>{0} Melhor possível para essa biblioteca</value>
+    <value>Melhor possível {0} para essa biblioteca</value>
   </data>
   <data name="Body" xml:space="preserve">
     <value>Corpo</value>
@@ -1043,30 +1043,6 @@ Alguns descendentes podem ser piores do que no modo de status altos, mas você t
   <data name="Status" xml:space="preserve">
     <value>Status</value>
   </data>
-  <data name="String" xml:space="preserve">
-    <value>Add Note  Adicionar Nota</value>
-  </data>
-  <data name="String1" xml:space="preserve">
-    <value>BestPossibleSpeciesLibraryFiltered {0} Melhor possivel para esse filtro</value>
-  </data>
-  <data name="String10" xml:space="preserve">
-    <value>Discard changes?  Discartar alterações?</value>
-  </data>
-  <data name="String11" xml:space="preserve">
-    <value>Discard changes and load file  Descartar as alterações e carregar uma nova biblioteca</value>
-  </data>
-  <data name="String12" xml:space="preserve">
-    <value>Discard changes and new  Descartar as alterações e criar uma nova biblioteca</value>
-  </data>
-  <data name="String13" xml:space="preserve">
-    <value>Discard changes and quit  Descartar alterações e sair</value>
-  </data>
-  <data name="String14" xml:space="preserve">
-    <value>Fortitude Fortitude</value>
-  </data>
-  <data name="String15" xml:space="preserve">
-    <value>Fortitude_Abb Fr</value>
-  </data>
   <data name="String16" xml:space="preserve">
     <value>Certifique-se de que o BabyCuddleIntervallMultiplier e o BabyMatureSpeedMultiplier estão definidos corretamente.</value>
   </data>
@@ -1078,63 +1054,6 @@ Alguns descendentes podem ser piores do que no modo de status altos, mas você t
   </data>
   <data name="String19" xml:space="preserve">
     <value>Se um número com um sinal de mais for mostrado, a soma é muito alta e você precisa escolher outra possibilidade nas listas de status amarelos."</value>
-  </data>
-  <data name="String2" xml:space="preserve">
-    <value>BtBeepTopTT Este som ira tocar quando o level de uma criatura com top stat, ex. igual ao atual maior nivel da sua biblioteca</value>
-  </data>
-  <data name="String20" xml:space="preserve">
-    <value>max wild level  Lvl max Selvagem</value>
-  </data>
-  <data name="String21" xml:space="preserve">
-    <value>noColor sem cor</value>
-  </data>
-  <data name="String22" xml:space="preserve">
-    <value>Nursing Effectiveness  Nursing Effectiveness</value>
-  </data>
-  <data name="String23" xml:space="preserve">
-    <value>Nursing Effectiveness_Abb NE</value>
-  </data>
-  <data name="String24" xml:space="preserve">
-    <value>Remove Note  Remover Nota</value>
-  </data>
-  <data name="String25" xml:space="preserve">
-    <value>Temperature Temperatura</value>
-  </data>
-  <data name="String26" xml:space="preserve">
-    <value>Temperature_Abb Te</value>
-  </data>
-  <data name="String27" xml:space="preserve">
-    <value>tsBtAddAsExtractionTest Adic como Teste</value>
-  </data>
-  <data name="String28" xml:space="preserve">
-    <value>until até</value>
-  </data>
-  <data name="String29" xml:space="preserve">
-    <value>Water Água</value>
-  </data>
-  <data name="String3" xml:space="preserve">
-    <value>btUpdateLibraryCreature Atualizar criatura na biblioteca</value>
-  </data>
-  <data name="String30" xml:space="preserve">
-    <value>Water_Abb Wa</value>
-  </data>
-  <data name="String4" xml:space="preserve">
-    <value>Cancel quitting  Cancelar saida</value>
-  </data>
-  <data name="String5" xml:space="preserve">
-    <value>Collection changed discard and load?  Sua coleção de criaturas foi modificada desde que foi salva pela última vez, tem certeza que deseja descartar as alterações e carregar o arquivo sem salvar primeiro?</value>
-  </data>
-  <data name="String6" xml:space="preserve">
-    <value>Collection changed discard and new?  Sua coleção de criaturas foi modificada desde que foi salva pela última vez, tem certeza de que deseja descartar as alterações e criar uma nova biblioteca sem salvar?</value>
-  </data>
-  <data name="String7" xml:space="preserve">
-    <value>Collection changed discard and quit?  Sua coleção de criaturas foi modificada desde que foi salva pela última vez, tem certeza de que deseja descartar as alterações e sair sem salvar?</value>
-  </data>
-  <data name="String8" xml:space="preserve">
-    <value>Crafting Speed_Abb Cr</value>
-  </data>
-  <data name="String9" xml:space="preserve">
-    <value>CurrentCreature Criatura atual</value>
   </data>
   <data name="SystemLanguage" xml:space="preserve">
     <value>Idioma do Sistema</value>
@@ -1221,7 +1140,8 @@ Ark id no Jogo
 Servidor
 Tags
 Filtrar por status com {statAbb} [==|&amp;lt;|&amp;gt;] {value}, ex. hp &amp;gt; 20, st == 35
-Filtrar por cor com c{region}: {colorValue} {colorValue2}, e.g. c0: 20, c5: 3 4 5 6, c1: 13 14</value>
+Filtrar por cor com c{region}: {colorValue} {colorValue2}, e.g. c0: 20, c5: 3 4 5 6, c1: 13 14
+It's also possible to filter for creatures with a color in one of multiple possible regions. E.g. to display all creatures with the color 10 or 20 in any region use: c0 1 2 3 4 5: 10 20</value>
   </data>
   <data name="Top" xml:space="preserve">
     <value>Top</value>
@@ -1333,5 +1253,71 @@ Filtrar por cor com c{region}: {colorValue} {colorValue2}, e.g. c0: 20, c5: 3 4 
   </data>
   <data name="groupLibraryBySpecies" xml:space="preserve">
     <value>Agrupar por Especie</value>
+  </data>
+  <data name="Add Note" xml:space="preserve">
+    <value>Adicionar Nota</value>
+  </data>
+  <data name="BestPossibleSpeciesLibraryFiltered" xml:space="preserve">
+    <value>Melhor possivel {0} para esse filtro</value>
+  </data>
+  <data name="Discard changes?" xml:space="preserve">
+    <value>Discartar alterações?</value>
+  </data>
+  <data name="Discard changes and load file" xml:space="preserve">
+    <value>Descartar as alterações e carregar uma nova biblioteca</value>
+  </data>
+  <data name="Discard changes and new" xml:space="preserve">
+    <value>Descartar as alterações e criar uma nova biblioteca</value>
+  </data>
+  <data name="Discard changes and quit" xml:space="preserve">
+    <value>Descartar alterações e sair</value>
+  </data>
+  <data name="max wild level" xml:space="preserve">
+    <value>Lvl max Selvagem</value>
+  </data>
+  <data name="noColor" xml:space="preserve">
+    <value>sem cor</value>
+  </data>
+  <data name="until" xml:space="preserve">
+    <value>até</value>
+  </data>
+  <data name="Water" xml:space="preserve">
+    <value>Água</value>
+  </data>
+  <data name="Water_Abb" xml:space="preserve">
+    <value>Wa</value>
+  </data>
+  <data name="Cancel quitting" xml:space="preserve">
+    <value>Cancelar saida</value>
+  </data>
+  <data name="Temperature" xml:space="preserve">
+    <value>Temperatura</value>
+  </data>
+  <data name="Temperature_Abb" xml:space="preserve">
+    <value>Te</value>
+  </data>
+  <data name="Remove Note" xml:space="preserve">
+    <value>Remover Nota</value>
+  </data>
+  <data name="tsBtAddAsExtractionTest" xml:space="preserve">
+    <value>Adic como Teste</value>
+  </data>
+  <data name="btUpdateLibraryCreature" xml:space="preserve">
+    <value>Atualizar criatura na biblioteca</value>
+  </data>
+  <data name="CurrentCreature" xml:space="preserve">
+    <value>Criatura atual</value>
+  </data>
+  <data name="BtBeepTopTT" xml:space="preserve">
+    <value>Este som ira tocar quando o level de uma criatura com top stat, ex. igual ao atual maior nivel da sua biblioteca</value>
+  </data>
+  <data name="Collection changed discard and quit?" xml:space="preserve">
+    <value>Sua coleção de criaturas foi modificada desde que foi salva pela última vez, tem certeza de que deseja descartar as alterações e sair sem salvar?</value>
+  </data>
+  <data name="Collection changed discard and new?" xml:space="preserve">
+    <value>Sua coleção de criaturas foi modificada desde que foi salva pela última vez, tem certeza de que deseja descartar as alterações e criar uma nova biblioteca sem salvar?</value>
+  </data>
+  <data name="Collection changed discard and load?" xml:space="preserve">
+    <value>Sua coleção de criaturas foi modificada desde que foi salva pela última vez, tem certeza que deseja descartar as alterações e carregar o arquivo sem salvar primeiro?</value>
   </data>
 </root>
