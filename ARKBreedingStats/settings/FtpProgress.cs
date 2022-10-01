@@ -1,5 +1,4 @@
-﻿using ARKBreedingStats.miscClasses;
-using FluentFTP;
+﻿using FluentFTP;
 using System;
 using System.Diagnostics;
 using System.Threading;
@@ -17,22 +16,16 @@ namespace ARKBreedingStats.settings
 
         public string StatusText
         {
-            get
-            {
-                return StatusLabel.Text;
-            }
-            set
-            {
-                StatusLabel.Text = value;
-            }
+            get => StatusLabel.Text;
+            set => StatusLabel.Text = value;
         }
 
         public string FileName { get; set; }
-        private Stopwatch stopwatch = new Stopwatch();
+        private readonly Stopwatch _stopwatch = new Stopwatch();
 
         public void Report(FtpProgress value)
         {
-            if (value.Progress < 100 && stopwatch.IsRunning && stopwatch.ElapsedMilliseconds < 250)
+            if (value.Progress < 100 && _stopwatch.IsRunning && _stopwatch.ElapsedMilliseconds < 250)
             {
                 // only update the progress every 250ms unless setting it to 100%
                 return;
@@ -40,12 +33,9 @@ namespace ARKBreedingStats.settings
 
             var statusText = $"Downloading {FileName}\r\n{value.Progress:F0}% complete\r\n{value.TransferSpeedToString()}";
             StatusLabel.Invoke(new Action(() => StatusLabel.Text = statusText));
-            stopwatch.Restart();
+            _stopwatch.Restart();
         }
 
-        private void button_Cancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        private void button_Cancel_Click(object sender, EventArgs e) => Close();
     }
 }

@@ -36,7 +36,7 @@
             // 
             this.button_Cancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.button_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button_Cancel.Location = new System.Drawing.Point(155, 71);
+            this.button_Cancel.Location = new System.Drawing.Point(155, 109);
             this.button_Cancel.Name = "button_Cancel";
             this.button_Cancel.Size = new System.Drawing.Size(75, 23);
             this.button_Cancel.TabIndex = 9;
@@ -46,11 +46,12 @@
             // 
             // StatusLabel
             // 
-            this.StatusLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.StatusLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.StatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StatusLabel.Location = new System.Drawing.Point(12, 9);
+            this.StatusLabel.Location = new System.Drawing.Point(0, 0);
             this.StatusLabel.Name = "StatusLabel";
-            this.StatusLabel.Size = new System.Drawing.Size(360, 59);
+            this.StatusLabel.Padding = new System.Windows.Forms.Padding(0, 0, 0, 30);
+            this.StatusLabel.Size = new System.Drawing.Size(384, 144);
             this.StatusLabel.TabIndex = 10;
             this.StatusLabel.Text = "Status Text";
             this.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -60,10 +61,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.button_Cancel;
-            this.ClientSize = new System.Drawing.Size(384, 106);
-            this.Controls.Add(this.StatusLabel);
+            this.ClientSize = new System.Drawing.Size(384, 144);
             this.Controls.Add(this.button_Cancel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Controls.Add(this.StatusLabel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FtpProgressForm";

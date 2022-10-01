@@ -33,6 +33,7 @@
             this.button_FileSelect = new System.Windows.Forms.Button();
             this.button_Cancel = new System.Windows.Forms.Button();
             this.button_Ok = new System.Windows.Forms.Button();
+            this.LlFtpHelp = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // label_ConvenientName
@@ -117,6 +118,17 @@
             this.button_Ok.Text = "OK";
             this.button_Ok.UseVisualStyleBackColor = true;
             // 
+            // LlFtpHelp
+            // 
+            this.LlFtpHelp.AutoSize = true;
+            this.LlFtpHelp.Location = new System.Drawing.Point(12, 128);
+            this.LlFtpHelp.Name = "LlFtpHelp";
+            this.LlFtpHelp.Size = new System.Drawing.Size(164, 13);
+            this.LlFtpHelp.TabIndex = 9;
+            this.LlFtpHelp.TabStop = true;
+            this.LlFtpHelp.Text = "Manual for configuring ftp access";
+            this.LlFtpHelp.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LlFtpHelp_LinkClicked);
+            // 
             // ATImportFileLocationDialog
             // 
             this.AcceptButton = this.button_Ok;
@@ -124,6 +136,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.button_Cancel;
             this.ClientSize = new System.Drawing.Size(448, 158);
+            this.Controls.Add(this.LlFtpHelp);
             this.Controls.Add(this.button_Ok);
             this.Controls.Add(this.button_Cancel);
             this.Controls.Add(this.button_FileSelect);
@@ -158,5 +171,6 @@
         private System.Windows.Forms.Button button_FileSelect;
         private System.Windows.Forms.Button button_Cancel;
         private System.Windows.Forms.Button button_Ok;
+        private System.Windows.Forms.LinkLabel LlFtpHelp;
     }
 }
