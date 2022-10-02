@@ -151,12 +151,14 @@ namespace ARKBreedingStats
             creatureInfoInputExtractor.SetMessageLabelText += SetMessageLabelText;
             creatureInfoInputTester.SetMessageLabelText += SetMessageLabelText;
             timerList1.OnTimerChange += SetCollectionChanged;
+            timerList1.TimerAddedRemoved += EnableGlobalTimerIfNeeded;
             breedingPlan1.BindChildrenControlEvents();
             raisingControl1.onChange += SetCollectionChanged;
             tamingControl1.CreateTimer += CreateTimer;
             raisingControl1.ExtractBaby += ExtractBaby;
             raisingControl1.SetGlobalSpecies += SetSpecies;
             raisingControl1.timerControl = timerList1;
+            raisingControl1.TimerAddedRemoved += EnableGlobalTimerIfNeeded;
             notesControl1.changed += SetCollectionChanged;
             creatureInfoInputExtractor.CreatureDataRequested += CreatureInfoInput_CreatureDataRequested;
             creatureInfoInputTester.CreatureDataRequested += CreatureInfoInput_CreatureDataRequested;
@@ -449,8 +451,6 @@ namespace ARKBreedingStats
             SetupExportFileWatcher();
 
             timerList1.SetTimerPresets(Properties.Settings.Default.TimerPresets);
-
-            _timerGlobal.Start();
         }
 
         /// <summary>
@@ -2722,6 +2722,12 @@ namespace ARKBreedingStats
         {
             raisingControl1.AddIncubationTimer(mother, father, incubationDuration, incubationStarted);
             _libraryNeedsUpdate = true; // because mating-cooldown of mother was set
+        }
+
+        private void EnableGlobalTimerIfNeeded()
+        {
+            _timerGlobal.Enabled = timerList1.TimerIsNeeded
+                                   || raisingControl1.TimerIsNeeded;
         }
 
         private void TimerGlobal_Tick(object sender, EventArgs e)

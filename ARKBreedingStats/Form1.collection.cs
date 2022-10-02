@@ -14,7 +14,6 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
-using System.Diagnostics;
 
 namespace ARKBreedingStats
 {

@@ -21,6 +21,7 @@ namespace ARKBreedingStats
         public bool updateTimer;
         private List<TimerListEntry> timerListEntries;
         public event Form1.CollectionChangedEventHandler OnTimerChange;
+        public event Action TimerAddedRemoved;
         private List<Creature> creatures;
         public SoundPlayer[] sounds;
         /// <summary>
@@ -31,7 +32,7 @@ namespace ARKBreedingStats
 
         public TimerControl()
         {
-            this.Load += TimerControl_Load;
+            Load += TimerControl_Load;
             InitializeComponent();
             sounds = new SoundPlayer[4];
             timerAlerts = new List<int>();
@@ -63,8 +64,6 @@ namespace ARKBreedingStats
                 groupBox1.Controls.Add(bta);
                 i++;
             }
-
-
         }
 
         private void TimerControl_Load(object sender, EventArgs e)
@@ -107,6 +106,7 @@ namespace ARKBreedingStats
             listViewTimer.Items.Insert(i, tle.lvi);
             timerListEntries.Add(tle);
             OnTimerChange?.Invoke();
+            TimerAddedRemoved?.Invoke();
             RefreshOverlayTimers();
         }
 
@@ -114,8 +114,9 @@ namespace ARKBreedingStats
         {
             timerEntry.lvi.Remove();
             timerListEntries.Remove(timerEntry);
-            if (invokeChange)
-                OnTimerChange?.Invoke();
+            if (!invokeChange) return;
+            OnTimerChange?.Invoke();
+            TimerAddedRemoved?.Invoke();
         }
 
         private ListViewItem CreateLvi(string name, TimerListEntry tle)
@@ -142,6 +143,8 @@ namespace ARKBreedingStats
             };
             return lvi;
         }
+
+        public bool TimerIsNeeded => timerListEntries?.Any() == true;
 
         public void Tick()
         {
@@ -312,6 +315,7 @@ namespace ARKBreedingStats
 
                 RefreshOverlayTimers();
                 OnTimerChange?.Invoke();
+                TimerAddedRemoved?.Invoke();
             }
         }
 
@@ -418,7 +422,10 @@ namespace ARKBreedingStats
                 RefreshOverlayTimers();
 
                 if (triggerLibraryChange && timerRemoved)
+                {
                     OnTimerChange?.Invoke();
+                    TimerAddedRemoved?.Invoke();
+                }
             }
         }
 
