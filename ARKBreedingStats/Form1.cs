@@ -176,6 +176,8 @@ namespace ARKBreedingStats
             ArkOcr.Ocr.SetOcrControl(ocrControl1);
             ocrControl1.UpdateWhiteThreshold += OcrUpdateWhiteThreshold;
             ocrControl1.DoOcr += DoOcr;
+            ocrControl1.OcrLabelSetsChanged += InitializeOcrLabelSets;
+            ocrControl1.OcrLabelSelectedSetChanged += SetCurrentOcrLabelSet;
 
             openSettingsToolStripMenuItem.ShortcutKeyDisplayString = new KeysConverter()
                 .ConvertTo(Keys.Control, typeof(string))?.ToString().Replace("None", ",");
@@ -325,6 +327,7 @@ namespace ARKBreedingStats
             // OCR
             ocrControl1.Initialize();
             cbGuessSpecies.Checked = Properties.Settings.Default.OcrGuessSpecies;
+            InitializeOcrLabelSets();
 
             // initialize speech recognition if enabled
             InitializeSpeechRecognition();

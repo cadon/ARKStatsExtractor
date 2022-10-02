@@ -231,9 +231,9 @@ namespace ARKBreedingStats.ocr
 
         private void SetLabelControls(int rectangleIndex)
         {
-            if (rectangleIndex < 0 || rectangleIndex >= ArkOcr.Ocr.ocrConfig.labelRectangles.Length) return;
+            if (rectangleIndex < 0 || rectangleIndex >= ArkOcr.Ocr.ocrConfig.UsedLabelRectangles.Length) return;
 
-            Rectangle rec = ArkOcr.Ocr.ocrConfig.labelRectangles[rectangleIndex];
+            Rectangle rec = ArkOcr.Ocr.ocrConfig.UsedLabelRectangles[rectangleIndex];
             _ignoreValueChange = true;
             nudX.Value = rec.X;
             nudY.Value = rec.Y;
@@ -313,9 +313,9 @@ namespace ARKBreedingStats.ocr
                     }
                     else
                     {
-                        for (int r = 0; r < ArkOcr.Ocr.ocrConfig.labelRectangles.Length; r++)
+                        for (int r = 0; r < ArkOcr.Ocr.ocrConfig.UsedLabelRectangles.Length; r++)
                         {
-                            var rec = ArkOcr.Ocr.ocrConfig.labelRectangles[r];
+                            var rec = ArkOcr.Ocr.ocrConfig.UsedLabelRectangles[r];
                             rec.Inflate(2, 2);
                             g.DrawRectangle(r == highlightIndex ? penY : penW, rec);
                             rec.Inflate(2, 2);
@@ -325,7 +325,7 @@ namespace ARKBreedingStats.ocr
                 }
 
                 var magnifiedRectangle = highlightIndex != -1
-                    ? ArkOcr.Ocr.ocrConfig.labelRectangles[highlightIndex]
+                    ? ArkOcr.Ocr.ocrConfig.UsedLabelRectangles[highlightIndex]
                     : !manualRectangle.IsEmpty
                         ? manualRectangle
                         : Rectangle.Empty;
@@ -493,16 +493,16 @@ namespace ARKBreedingStats.ocr
         {
             if (!_updateDrawing) return;
             int i = listBoxLabelRectangles.SelectedIndex;
-            if (i >= 0 && i < ArkOcr.Ocr.ocrConfig.labelRectangles.Length)
+            if (i >= 0 && i < ArkOcr.Ocr.ocrConfig.UsedLabelRectangles.Length)
             {
                 // set all stat-labels if wanted
                 if (chkbSetAllStatLabels.Checked && i < 9)
                 {
                     for (int s = 0; s < 9; s++)
                         if (i != s)
-                            ArkOcr.Ocr.ocrConfig.labelRectangles[s] = new Rectangle((int)nudX.Value, ArkOcr.Ocr.ocrConfig.labelRectangles[s].Y, (int)nudWidth.Value, (int)nudHeight.Value);
+                            ArkOcr.Ocr.ocrConfig.UsedLabelRectangles[s] = new Rectangle((int)nudX.Value, ArkOcr.Ocr.ocrConfig.UsedLabelRectangles[s].Y, (int)nudWidth.Value, (int)nudHeight.Value);
                 }
-                ArkOcr.Ocr.ocrConfig.labelRectangles[i] = new Rectangle((int)nudX.Value, (int)nudY.Value, (int)nudWidth.Value, (int)nudHeight.Value);
+                ArkOcr.Ocr.ocrConfig.UsedLabelRectangles[i] = new Rectangle((int)nudX.Value, (int)nudY.Value, (int)nudWidth.Value, (int)nudHeight.Value);
 
                 _redrawingDebouncer.Debounce(100, RedrawScreenshot, Dispatcher.CurrentDispatcher, (i, true, -1, Rectangle.Empty));
             }
@@ -583,6 +583,7 @@ namespace ARKBreedingStats.ocr
         {
             Properties.Settings.Default.ocrFile = null;
             ArkOcr.Ocr.ocrConfig = null;
+            InitializeComboboxLabelSetNames();
             UpdateOcrLabel();
         }
 
@@ -615,6 +616,7 @@ namespace ARKBreedingStats.ocr
             UpdateOcrLabel(filePath);
             if (loadedOcrConfig == null) return false;
 
+            InitializeComboboxLabelSetNames();
             InitLabelEntries();
             nudResizing.Value = ArkOcr.Ocr.ocrConfig.resize == 0 ? 1 : (decimal)ArkOcr.Ocr.ocrConfig.resize;
             CbTrainRecognition.Checked = ArkOcr.Ocr.ocrConfig.RecognitionPatterns.TrainingSettings.IsTrainingEnabled;
@@ -682,15 +684,15 @@ namespace ARKBreedingStats.ocr
             // get font sizes from label heights
             var fontSizesChars = new Dictionary<int, string>(4)
             {
-                {ArkOcr.Ocr.ocrConfig.labelRectangles[10].Height, textChars} // name, species
+                {ArkOcr.Ocr.ocrConfig.UsedLabelRectangles[10].Height, textChars} // name, species
             };
 
-            if (!fontSizesChars.ContainsKey(ArkOcr.Ocr.ocrConfig.labelRectangles[0].Height))
-                fontSizesChars.Add(ArkOcr.Ocr.ocrConfig.labelRectangles[0].Height, statValueChars); // stats
-            if (!fontSizesChars.ContainsKey(ArkOcr.Ocr.ocrConfig.labelRectangles[9].Height))
-                fontSizesChars.Add(ArkOcr.Ocr.ocrConfig.labelRectangles[9].Height, levelChars); // level
-            if (!fontSizesChars.ContainsKey(ArkOcr.Ocr.ocrConfig.labelRectangles[11].Height))
-                fontSizesChars.Add(ArkOcr.Ocr.ocrConfig.labelRectangles[11].Height, textChars); // owner
+            if (!fontSizesChars.ContainsKey(ArkOcr.Ocr.ocrConfig.UsedLabelRectangles[0].Height))
+                fontSizesChars.Add(ArkOcr.Ocr.ocrConfig.UsedLabelRectangles[0].Height, statValueChars); // stats
+            if (!fontSizesChars.ContainsKey(ArkOcr.Ocr.ocrConfig.UsedLabelRectangles[9].Height))
+                fontSizesChars.Add(ArkOcr.Ocr.ocrConfig.UsedLabelRectangles[9].Height, levelChars); // level
+            if (!fontSizesChars.ContainsKey(ArkOcr.Ocr.ocrConfig.UsedLabelRectangles[11].Height))
+                fontSizesChars.Add(ArkOcr.Ocr.ocrConfig.UsedLabelRectangles[11].Height, textChars); // owner
 
             string fontFilePath = null;
             foreach (var c in fontSizesChars)
@@ -926,7 +928,7 @@ namespace ARKBreedingStats.ocr
 
         private void BtSetStatPositionBasedOnFirstTwo_Click(object sender, EventArgs e)
         {
-            var rectangles = ArkOcr.Ocr.ocrConfig.labelRectangles;
+            var rectangles = ArkOcr.Ocr.ocrConfig.UsedLabelRectangles;
             int y = rectangles[0].Y;
             int yDiff = rectangles[1].Y - y;
             if (yDiff < 0) return;
@@ -999,5 +1001,63 @@ namespace ARKBreedingStats.ocr
             ArkOcr.Ocr.LoadReplacingsFile();
             LbReplacingsFileStatus.Text = ArkOcr.Ocr.RegexReplacingsStatus;
         }
+
+        #region OCR label sets
+
+        public event Action OcrLabelSetsChanged;
+        public event Action OcrLabelSelectedSetChanged;
+
+        private void BtNewLabelSet_Click(object sender, EventArgs e)
+        {
+            if (ArkOcr.Ocr.ocrConfig == null) return;
+            ArkOcr.Ocr.ocrConfig.SetLabelSet(ArkOcr.Ocr.ocrConfig.NewLabelSet());
+            InitializeComboboxLabelSetNames();
+        }
+
+        private void BtDeleteLabelSet_Click(object sender, EventArgs e)
+        {
+            if (ArkOcr.Ocr.ocrConfig == null) return;
+            ArkOcr.Ocr.ocrConfig.DeleteCurrentLabelSet();
+            InitializeComboboxLabelSetNames();
+        }
+
+        private void TbLabelSetName_Leave(object sender, EventArgs e)
+        {
+            if (ArkOcr.Ocr.ocrConfig == null) return;
+
+            if (ArkOcr.Ocr.ocrConfig.LabelSetChangeName(TbLabelSetName.Text, out var errorMessage))
+                InitializeComboboxLabelSetNames();
+            if (!string.IsNullOrEmpty(errorMessage))
+                MessageBoxes.ShowMessageBox(errorMessage, "Label set name change error");
+        }
+
+        private void InitializeComboboxLabelSetNames()
+        {
+            CbbLabelSets.Items.Clear();
+            OcrLabelSetsChanged?.Invoke();
+            if (ArkOcr.Ocr.ocrConfig == null)
+            {
+                TbLabelSetName.Text = string.Empty;
+                return;
+            }
+            CbbLabelSets.Items.AddRange(ArkOcr.Ocr.ocrConfig.LabelRectangles.Keys.ToArray());
+            CbbLabelSets.SelectedItem = ArkOcr.Ocr.ocrConfig.SelectedLabelSetName;
+        }
+
+        private void CbbLabelSets_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ArkOcr.Ocr.ocrConfig == null) return;
+            ArkOcr.Ocr.ocrConfig.SetLabelSet(((ComboBox)sender).SelectedItem.ToString());
+            TbLabelSetName.Text = ArkOcr.Ocr.ocrConfig.SelectedLabelSetName;
+            RedrawScreenshot();
+            OcrLabelSelectedSetChanged?.Invoke();
+        }
+
+        public void SetOcrLabelSetToCurrent()
+        {
+            CbbLabelSets.SelectedItem = ArkOcr.Ocr.ocrConfig.SelectedLabelSetName;
+        }
+
+        #endregion
     }
 }

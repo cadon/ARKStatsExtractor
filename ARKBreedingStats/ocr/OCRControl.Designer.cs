@@ -35,6 +35,11 @@ namespace ARKBreedingStats.ocr
             this.OCRDebugLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.tabControlManage = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.LbReplacingsFileStatus = new System.Windows.Forms.Label();
+            this.BtReplacingLoadFile = new System.Windows.Forms.Button();
+            this.BtReplacingOpenFile = new System.Windows.Forms.Button();
+            this.label18 = new System.Windows.Forms.Label();
             this.LlOcrManual = new System.Windows.Forms.LinkLabel();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.BtNewOcrConfig = new System.Windows.Forms.Button();
@@ -99,11 +104,11 @@ namespace ARKBreedingStats.ocr
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.listBoxLabelRectangles = new System.Windows.Forms.ListBox();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.BtReplacingOpenFile = new System.Windows.Forms.Button();
-            this.BtReplacingLoadFile = new System.Windows.Forms.Button();
-            this.LbReplacingsFileStatus = new System.Windows.Forms.Label();
+            this.CbbLabelSets = new System.Windows.Forms.ComboBox();
+            this.BtNewLabelSet = new System.Windows.Forms.Button();
+            this.BtDeleteLabelSet = new System.Windows.Forms.Button();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.TbLabelSetName = new System.Windows.Forms.TextBox();
             this.ocrLetterEditTemplate = new ARKBreedingStats.ocr.OCRLetterEdit();
             this.ocrLetterEditRecognized = new ARKBreedingStats.ocr.OCRLetterEdit();
             this.nudResolutionHeight = new ARKBreedingStats.uiControls.Nud();
@@ -119,6 +124,7 @@ namespace ARKBreedingStats.ocr
             this.tableLayoutPanel4.SuspendLayout();
             this.tabControlManage.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox11.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -133,7 +139,7 @@ namespace ARKBreedingStats.ocr
             this.tabPage3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupBox11.SuspendLayout();
+            this.groupBox12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditTemplate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditRecognized)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudResolutionHeight)).BeginInit();
@@ -203,6 +209,55 @@ namespace ARKBreedingStats.ocr
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "OCR Info";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.LbReplacingsFileStatus);
+            this.groupBox11.Controls.Add(this.BtReplacingLoadFile);
+            this.groupBox11.Controls.Add(this.BtReplacingOpenFile);
+            this.groupBox11.Controls.Add(this.label18);
+            this.groupBox11.Location = new System.Drawing.Point(6, 420);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(337, 185);
+            this.groupBox11.TabIndex = 3;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "Manual corrections";
+            // 
+            // LbReplacingsFileStatus
+            // 
+            this.LbReplacingsFileStatus.AutoSize = true;
+            this.LbReplacingsFileStatus.Location = new System.Drawing.Point(6, 157);
+            this.LbReplacingsFileStatus.Name = "LbReplacingsFileStatus";
+            this.LbReplacingsFileStatus.Size = new System.Drawing.Size(0, 13);
+            this.LbReplacingsFileStatus.TabIndex = 3;
+            // 
+            // BtReplacingLoadFile
+            // 
+            this.BtReplacingLoadFile.Location = new System.Drawing.Point(87, 128);
+            this.BtReplacingLoadFile.Name = "BtReplacingLoadFile";
+            this.BtReplacingLoadFile.Size = new System.Drawing.Size(113, 23);
+            this.BtReplacingLoadFile.TabIndex = 2;
+            this.BtReplacingLoadFile.Text = "Load replacings";
+            this.BtReplacingLoadFile.UseVisualStyleBackColor = true;
+            this.BtReplacingLoadFile.Click += new System.EventHandler(this.BtReplacingLoadFile_Click);
+            // 
+            // BtReplacingOpenFile
+            // 
+            this.BtReplacingOpenFile.Location = new System.Drawing.Point(6, 128);
+            this.BtReplacingOpenFile.Name = "BtReplacingOpenFile";
+            this.BtReplacingOpenFile.Size = new System.Drawing.Size(75, 23);
+            this.BtReplacingOpenFile.TabIndex = 1;
+            this.BtReplacingOpenFile.Text = "Open file";
+            this.BtReplacingOpenFile.UseVisualStyleBackColor = true;
+            this.BtReplacingOpenFile.Click += new System.EventHandler(this.BtReplacingOpenFile_Click);
+            // 
+            // label18
+            // 
+            this.label18.Location = new System.Drawing.Point(6, 16);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(325, 109);
+            this.label18.TabIndex = 0;
+            this.label18.Text = resources.GetString("label18.Text");
             // 
             // LlOcrManual
             // 
@@ -759,6 +814,10 @@ namespace ARKBreedingStats.ocr
             // tabPage3
             // 
             this.tabPage3.AutoScroll = true;
+            this.tabPage3.Controls.Add(this.groupBox12);
+            this.tabPage3.Controls.Add(this.BtDeleteLabelSet);
+            this.tabPage3.Controls.Add(this.BtNewLabelSet);
+            this.tabPage3.Controls.Add(this.CbbLabelSets);
             this.tabPage3.Controls.Add(this.groupBox4);
             this.tabPage3.Controls.Add(this.groupBox3);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
@@ -786,7 +845,7 @@ namespace ARKBreedingStats.ocr
             this.groupBox4.Controls.Add(this.nudY);
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Controls.Add(this.nudX);
-            this.groupBox4.Location = new System.Drawing.Point(6, 275);
+            this.groupBox4.Location = new System.Drawing.Point(6, 355);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(293, 214);
             this.groupBox4.TabIndex = 1;
@@ -879,7 +938,7 @@ namespace ARKBreedingStats.ocr
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.listBoxLabelRectangles);
-            this.groupBox3.Location = new System.Drawing.Point(6, 6);
+            this.groupBox3.Location = new System.Drawing.Point(6, 86);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(221, 263);
             this.groupBox3.TabIndex = 0;
@@ -895,54 +954,52 @@ namespace ARKBreedingStats.ocr
             this.listBoxLabelRectangles.TabIndex = 0;
             this.listBoxLabelRectangles.SelectedIndexChanged += new System.EventHandler(this.listBoxLabelRectangles_SelectedIndexChanged);
             // 
-            // groupBox11
+            // CbbLabelSets
             // 
-            this.groupBox11.Controls.Add(this.LbReplacingsFileStatus);
-            this.groupBox11.Controls.Add(this.BtReplacingLoadFile);
-            this.groupBox11.Controls.Add(this.BtReplacingOpenFile);
-            this.groupBox11.Controls.Add(this.label18);
-            this.groupBox11.Location = new System.Drawing.Point(6, 420);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(337, 185);
-            this.groupBox11.TabIndex = 3;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "Manual corrections";
+            this.CbbLabelSets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CbbLabelSets.Location = new System.Drawing.Point(6, 8);
+            this.CbbLabelSets.Name = "CbbLabelSets";
+            this.CbbLabelSets.Size = new System.Drawing.Size(202, 21);
+            this.CbbLabelSets.TabIndex = 2;
+            this.CbbLabelSets.SelectedIndexChanged += new System.EventHandler(this.CbbLabelSets_SelectedIndexChanged);
             // 
-            // label18
+            // BtNewLabelSet
             // 
-            this.label18.Location = new System.Drawing.Point(6, 16);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(325, 109);
-            this.label18.TabIndex = 0;
-            this.label18.Text = resources.GetString("label18.Text");
+            this.BtNewLabelSet.Location = new System.Drawing.Point(214, 6);
+            this.BtNewLabelSet.Name = "BtNewLabelSet";
+            this.BtNewLabelSet.Size = new System.Drawing.Size(57, 23);
+            this.BtNewLabelSet.TabIndex = 3;
+            this.BtNewLabelSet.Text = "new";
+            this.BtNewLabelSet.UseVisualStyleBackColor = true;
+            this.BtNewLabelSet.Click += new System.EventHandler(this.BtNewLabelSet_Click);
             // 
-            // BtReplacingOpenFile
+            // BtDeleteLabelSet
             // 
-            this.BtReplacingOpenFile.Location = new System.Drawing.Point(6, 128);
-            this.BtReplacingOpenFile.Name = "BtReplacingOpenFile";
-            this.BtReplacingOpenFile.Size = new System.Drawing.Size(75, 23);
-            this.BtReplacingOpenFile.TabIndex = 1;
-            this.BtReplacingOpenFile.Text = "Open file";
-            this.BtReplacingOpenFile.UseVisualStyleBackColor = true;
-            this.BtReplacingOpenFile.Click += new System.EventHandler(this.BtReplacingOpenFile_Click);
+            this.BtDeleteLabelSet.Location = new System.Drawing.Point(277, 6);
+            this.BtDeleteLabelSet.Name = "BtDeleteLabelSet";
+            this.BtDeleteLabelSet.Size = new System.Drawing.Size(63, 23);
+            this.BtDeleteLabelSet.TabIndex = 4;
+            this.BtDeleteLabelSet.Text = "delete";
+            this.BtDeleteLabelSet.UseVisualStyleBackColor = true;
+            this.BtDeleteLabelSet.Click += new System.EventHandler(this.BtDeleteLabelSet_Click);
             // 
-            // BtReplacingLoadFile
+            // groupBox12
             // 
-            this.BtReplacingLoadFile.Location = new System.Drawing.Point(87, 128);
-            this.BtReplacingLoadFile.Name = "BtReplacingLoadFile";
-            this.BtReplacingLoadFile.Size = new System.Drawing.Size(113, 23);
-            this.BtReplacingLoadFile.TabIndex = 2;
-            this.BtReplacingLoadFile.Text = "Load replacings";
-            this.BtReplacingLoadFile.UseVisualStyleBackColor = true;
-            this.BtReplacingLoadFile.Click += new System.EventHandler(this.BtReplacingLoadFile_Click);
+            this.groupBox12.Controls.Add(this.TbLabelSetName);
+            this.groupBox12.Location = new System.Drawing.Point(6, 35);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(334, 45);
+            this.groupBox12.TabIndex = 5;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "Label set name";
             // 
-            // LbReplacingsFileStatus
+            // TbLabelSetName
             // 
-            this.LbReplacingsFileStatus.AutoSize = true;
-            this.LbReplacingsFileStatus.Location = new System.Drawing.Point(6, 157);
-            this.LbReplacingsFileStatus.Name = "LbReplacingsFileStatus";
-            this.LbReplacingsFileStatus.Size = new System.Drawing.Size(0, 13);
-            this.LbReplacingsFileStatus.TabIndex = 3;
+            this.TbLabelSetName.Location = new System.Drawing.Point(6, 19);
+            this.TbLabelSetName.Name = "TbLabelSetName";
+            this.TbLabelSetName.Size = new System.Drawing.Size(322, 20);
+            this.TbLabelSetName.TabIndex = 0;
+            this.TbLabelSetName.Leave += new System.EventHandler(this.TbLabelSetName_Leave);
             // 
             // ocrLetterEditTemplate
             // 
@@ -1175,6 +1232,8 @@ namespace ARKBreedingStats.ocr
             this.tabControlManage.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
@@ -1196,8 +1255,8 @@ namespace ARKBreedingStats.ocr
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox12.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditRecognized)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudResolutionHeight)).EndInit();
@@ -1301,5 +1360,10 @@ namespace ARKBreedingStats.ocr
         private System.Windows.Forms.Button BtReplacingLoadFile;
         private System.Windows.Forms.Button BtReplacingOpenFile;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.GroupBox groupBox12;
+        private System.Windows.Forms.TextBox TbLabelSetName;
+        private System.Windows.Forms.Button BtDeleteLabelSet;
+        private System.Windows.Forms.Button BtNewLabelSet;
+        private System.Windows.Forms.ComboBox CbbLabelSets;
     }
 }

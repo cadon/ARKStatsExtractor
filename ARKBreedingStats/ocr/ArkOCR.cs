@@ -314,24 +314,25 @@ namespace ARKBreedingStats.ocr
             tribeName = string.Empty;
             sex = Sex.Unknown;
             double[] finalValues = { 0 };
-            if (ocrConfig?.labelRectangles == null)
+            if (ocrConfig?.UsedLabelRectangles == null)
             {
                 OcrText = "Error: OCR not configured.\nYou can configure the OCR in the OCR-tab by loading or creating an OCR config-file.\nFor more details see the online manual.";
                 ProcessScreenshot(out _);
                 return finalValues;
             }
 
-            bool labelsValid = true;
-            foreach (var rect in ocrConfig.labelRectangles)
+            // check if there is at least one rectangle not empty
+            bool oneLabelNotEmpty = false;
+            foreach (var rect in ocrConfig.UsedLabelRectangles)
             {
-                if (rect.IsEmpty)
+                if (!rect.IsEmpty)
                 {
-                    labelsValid = false;
+                    oneLabelNotEmpty = true;
                     break;
                 }
             }
 
-            if (!labelsValid)
+            if (!oneLabelNotEmpty)
             {
                 OcrText = "Error: The rectangles where to read the text in the image with OCR are not configured.\nYou can configure them by navigating to the OCR-tab then to the Labels tab.\nFor more details see the online manual.";
                 ProcessScreenshot(out _);
@@ -447,7 +448,7 @@ namespace ARKBreedingStats.ocr
                 return bmp;
             }
 
-            finalValues = new double[ocrConfig.labelRectangles.Length];
+            finalValues = new double[ocrConfig.UsedLabelRectangles.Length];
             finalValues[8] = -1; // set imprinting to -1 to mark it as unknown and to set a difference to a creature with 0% imprinting.
 
             if (changeForegroundWindow)
@@ -494,11 +495,13 @@ namespace ARKBreedingStats.ocr
                         break;
                 }
 
-                Rectangle rec = ocrConfig.labelRectangles[lbI];
+                Rectangle rec = ocrConfig.UsedLabelRectangles[lbI];
+                if (rec.IsEmpty)
+                    continue;
 
                 // wild creatures don't have the xp-bar, all stats are moved one row up
                 if (wild && stI < 9)
-                    rec.Offset(0, ocrConfig.labelRectangles[0].Top - ocrConfig.labelRectangles[1].Top);
+                    rec.Offset(0, ocrConfig.UsedLabelRectangles[0].Top - ocrConfig.UsedLabelRectangles[1].Top);
 
                 Bitmap testbmp = SubImage(screenShotBmp, rec.X, rec.Y, rec.Width, rec.Height);
                 //AddBitmapToDebug(testbmp);
@@ -741,7 +744,7 @@ namespace ARKBreedingStats.ocr
                 return false;
 
             const OcrTemplate.OcrLabels label = OcrTemplate.OcrLabels.Level;
-            Rectangle rec = ocrConfig.labelRectangles[(int)label];
+            Rectangle rec = ocrConfig.UsedLabelRectangles[(int)label];
             Bitmap bmp = SubImage(screenshotBmp, rec.X, rec.Y, rec.Width, rec.Height);
             string statOCR = PatternOcr.ReadImageOcr(bmp, true, Properties.Settings.Default.OCRWhiteThreshold);
 

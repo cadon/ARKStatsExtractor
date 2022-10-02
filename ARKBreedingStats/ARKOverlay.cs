@@ -78,7 +78,7 @@ namespace ARKBreedingStats
 
             for (int statIndex = 0; statIndex < _labels.Length; statIndex++)
             {
-                Rectangle r = ArkOcr.Ocr.ocrConfig.labelRectangles[statIndex];
+                Rectangle r = ArkOcr.Ocr.ocrConfig.UsedLabelRectangles[statIndex];
                 _labels[statIndex].Location = new Point(r.Left + r.Width + 30, r.Top - 10);
             }
             lblStatus.Location = new Point(50, 10);

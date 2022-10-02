@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
+using ARKBreedingStats.ocr;
 
 namespace ARKBreedingStats
 {
@@ -1150,5 +1151,38 @@ namespace ARKBreedingStats
                 && !string.IsNullOrEmpty(bp))
                 Clipboard.SetText(bp);
         }
+
+        #region OCR label sets
+
+        private void InitializeOcrLabelSets()
+        {
+            TsCbbLabelSets.Items.Clear();
+            var labelSetNames = ArkOcr.Ocr.ocrConfig?.LabelRectangles?.Keys.ToArray();
+            var displayControl = (labelSetNames?.Length ?? 0) > 1;
+
+            TsCbbLabelSets.Visible = displayControl;
+            TsLbLabelSet.Visible = displayControl;
+            TsSpOcrLabel.Visible = displayControl;
+
+            if (!displayControl)
+                return;
+
+            TsCbbLabelSets.Items.AddRange(labelSetNames);
+            TsCbbLabelSets.SelectedItem = ArkOcr.Ocr.ocrConfig.SelectedLabelSetName;
+        }
+
+        private void SetCurrentOcrLabelSet()
+        {
+            TsCbbLabelSets.SelectedItem = ArkOcr.Ocr.ocrConfig.SelectedLabelSetName;
+        }
+
+        private void TsCbbLabelSets_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ArkOcr.Ocr.ocrConfig == null) return;
+            ArkOcr.Ocr.ocrConfig.SetLabelSet(((ToolStripComboBox)sender).SelectedItem.ToString());
+            ocrControl1.SetOcrLabelSetToCurrent();
+        }
+
+        #endregion
     }
 }
