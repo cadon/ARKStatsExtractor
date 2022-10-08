@@ -18,6 +18,7 @@ namespace ARKBreedingStats.raising
         public event Form1.CollectionChangedEventHandler onChange;
         public event Action<TimeSpan> AdjustTimersByOffset;
         public event Action<Species> SetGlobalSpecies;
+        public event Action TimerAddedRemoved;
         private Species _selectedSpecies;
         public bool updateListView;
         private TimeSpan _babyTime;
@@ -258,6 +259,7 @@ namespace ARKBreedingStats.raising
             _cc.incubationListEntries.Add(
                 new IncubationTimerEntry(mother, father, incubationDuration, incubationStarted));
             onChange?.Invoke();
+            TimerAddedRemoved?.Invoke();
             RecreateList();
         }
 
@@ -364,7 +366,10 @@ namespace ARKBreedingStats.raising
 
             listViewBabies.EndUpdate();
             updateListView = true;
+            TimerAddedRemoved?.Invoke();
         }
+
+        public bool TimerIsNeeded => listViewBabies.Items.Count != 0;
 
         public void Tick()
         {
@@ -478,6 +483,7 @@ namespace ARKBreedingStats.raising
 
                         RecreateList();
                         onChange?.Invoke();
+                        TimerAddedRemoved?.Invoke();
                     }
                 }
                 else
@@ -508,6 +514,7 @@ namespace ARKBreedingStats.raising
 
                 RecreateList();
                 onChange?.Invoke();
+                TimerAddedRemoved?.Invoke();
             }
         }
 
@@ -696,6 +703,7 @@ namespace ARKBreedingStats.raising
 
             RecreateList();
             onChange?.Invoke();
+            TimerAddedRemoved?.Invoke();
         }
 
         internal void SetLocalizations()

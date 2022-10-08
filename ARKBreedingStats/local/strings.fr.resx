@@ -1286,8 +1286,9 @@ Remarque
 Ark id dans le jeu
 Serveur
 Tags
-Filtre pour les stats avec {statAbb} [==|&lt;|&gt;] {value}, par exemple pv &gt; 20, en == 35
-Filtre pour les couleurs avec c{region}: {colorValue} {colorValue2}, par exemple c0: 20, c5: 3 4 5 6, c1: 13 14</value>
+Filtre pour les stats avec {statAbb} [==|&amp;lt;|&amp;gt;] {value}, par exemple pv &amp;gt; 20, en == 35
+Filtre pour les couleurs avec c{region}: {colorValue} {colorValue2}, par exemple c0: 20, c5: 3 4 5 6, c1: 13 14
+It's also possible to filter for creatures with a color in one of multiple possible regions. E.g. to display all creatures with the color 10 or 20 in any region use: c0 1 2 3 4 5: 10 20</value>
   </data>
   <data name="ClickDisplayFile" xml:space="preserve">
     <value>Cliquer pour afficher le fichier dans l'explorateur</value>

@@ -34,27 +34,32 @@ namespace ARKBreedingStats.ocr
         /// <summary>
         /// Contains all the patterns of all the recognizable strings.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public RecognitionPatterns RecognitionPatterns;
 
+        /// <summary>
+        /// Coordinates of the rectangles to read. Kept for backwards compatibility, now uses LabelRectangles.
+        /// </summary>
         [JsonProperty]
         public Rectangle[] labelRectangles;
 
+        /// <summary>
+        /// Coordinates of the rectangles to read. Multiple sets.
+        /// </summary>
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public Dictionary<string, Rectangle[]> LabelRectangles;
 
-        //public Dictionary<string, int> labelNameIndices; // TODO remove
-        //public List<string> labelNames; // TODO remove
+        /// <summary>
+        /// Currently used label coordinates.
+        /// </summary>
+        public Rectangle[] UsedLabelRectangles;
+
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string SelectedLabelSetName;
+
+        public const string DefaultLabelsName = "default";
 
         public List<List<int>> reducedIndices = new List<List<int>>(); // indices of letters for reduced set (only [0-9\.,/%:])
-
-        //#region Old file format properties, kept for backwards compatibility
-
-        //[JsonProperty]
-        //public List<List<uint[]>> letterArrays;
-        //[JsonProperty]
-        //public List<List<char>> letters;
-
-        //#endregion
-
 
         public OcrTemplate()
         {
@@ -65,7 +70,27 @@ namespace ARKBreedingStats.ocr
         public void InitializeOcrTemplate()
         {
             if (RecognitionPatterns == null) RecognitionPatterns = new RecognitionPatterns();
-            if (labelRectangles == null) labelRectangles = new Rectangle[Enum.GetValues(typeof(OcrLabels)).Length];
+            if (LabelRectangles == null) LabelRectangles = new Dictionary<string, Rectangle[]>();
+
+            if (labelRectangles != null)
+            {
+                if (!LabelRectangles.ContainsKey(DefaultLabelsName))
+                    LabelRectangles[DefaultLabelsName] = labelRectangles;
+                labelRectangles = null;
+            }
+
+            if (string.IsNullOrEmpty(SelectedLabelSetName) ||
+                !LabelRectangles.TryGetValue(SelectedLabelSetName, out var currentRecSet))
+            {
+                if (!LabelRectangles.ContainsKey(DefaultLabelsName))
+                    LabelRectangles[DefaultLabelsName] = EmptyLabelSet;
+                UsedLabelRectangles = LabelRectangles[DefaultLabelsName];
+                SelectedLabelSetName = DefaultLabelsName;
+            }
+            else
+            {
+                UsedLabelRectangles = currentRecSet;
+            }
 
             var currentVersion = new Version(CurrentVersion);
             if (Version == null || Version.Major < currentVersion.Major)
@@ -120,6 +145,85 @@ namespace ARKBreedingStats.ocr
         public enum OcrLabels
         {
             Health, Stamina, Oxygen, Food, Weight, MeleeDamage, MovementSpeed, Torpidity, Imprinting, Level, NameSpecies, Tribe, Owner
+        }
+
+        private Rectangle[] EmptyLabelSet => new Rectangle[Enum.GetValues(typeof(OcrLabels)).Length];
+
+        public void SetLabelSet(string setName)
+        {
+            if (string.IsNullOrEmpty(setName)
+                || SelectedLabelSetName == setName) return;
+
+            SelectedLabelSetName = setName;
+            if (LabelRectangles.TryGetValue(setName, out var set))
+            {
+                UsedLabelRectangles = set;
+            }
+            else
+            {
+                UsedLabelRectangles = EmptyLabelSet;
+                LabelRectangles[setName] = UsedLabelRectangles;
+            }
+        }
+
+        public void DeleteLabelSet(string setName)
+        {
+            if (string.IsNullOrEmpty(setName)) return;
+
+            LabelRectangles.Remove(setName);
+            if (setName == SelectedLabelSetName)
+            {
+                SelectedLabelSetName = DefaultLabelsName;
+                if (LabelRectangles.TryGetValue(SelectedLabelSetName, out var currentRecSet))
+                {
+                    UsedLabelRectangles = currentRecSet;
+                }
+                else
+                {
+                    UsedLabelRectangles = EmptyLabelSet;
+                    LabelRectangles[SelectedLabelSetName] = UsedLabelRectangles;
+                }
+            }
+        }
+
+        public string NewLabelSet()
+        {
+            var newSetNameBase = "new label set";
+            string newSetName = newSetNameBase;
+            int suffix = 1;
+            while (LabelRectangles.ContainsKey(newSetName))
+            {
+                newSetName = newSetNameBase + " " + (++suffix);
+            }
+
+            LabelRectangles[newSetName] = EmptyLabelSet;
+            return newSetName;
+        }
+
+        public void DeleteCurrentLabelSet()
+        {
+            DeleteLabelSet(SelectedLabelSetName);
+        }
+
+        /// <summary>
+        /// Changes the name of the currently selected set. Returns true if the name was changed.
+        /// </summary>
+        public bool LabelSetChangeName(string newName, out string errorMessage)
+        {
+            errorMessage = null;
+            if (string.IsNullOrEmpty(newName)
+                || newName == SelectedLabelSetName) return false;
+
+            if (LabelRectangles.ContainsKey(newName))
+            {
+                errorMessage = "new name is already used by another set";
+                return false;
+            }
+
+            LabelRectangles[newName] = UsedLabelRectangles;
+            LabelRectangles.Remove(SelectedLabelSetName);
+            SelectedLabelSetName = newName;
+            return true;
         }
     }
 }

@@ -12,7 +12,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
@@ -50,18 +49,32 @@ namespace ARKBreedingStats
                     workingCopyFolderPath = Path.GetTempPath();
                 }
 
+                var fileLocation = atImportFileLocation.FileLocation;
+                string uriFileRegex = null;
 
-                if (Uri.TryCreate(atImportFileLocation.FileLocation, UriKind.Absolute, out var uri)
+                var indexLastSlash = fileLocation.LastIndexOf('/');
+                if (indexLastSlash > 0)
+                {
+                    var lastUriSegment = fileLocation.Split('/').Last();
+                    if (lastUriSegment.Contains("*") || lastUriSegment.Contains("(?<"))
+                    {
+                        fileLocation = fileLocation.Substring(0, indexLastSlash);
+                        uriFileRegex = lastUriSegment;
+                    }
+                }
+
+                if (Uri.TryCreate(fileLocation, UriKind.Absolute, out var uri)
                     && uri.Scheme != "file")
                 {
                     switch (uri.Scheme)
                     {
                         case "ftp":
-                            workingCopyFilePath = await CopyFtpFileAsync(uri, atImportFileLocation.ConvenientName,
+                            string errorMessage;
+                            (workingCopyFilePath, errorMessage) = await CopyFtpFileAsync(uri, uriFileRegex, atImportFileLocation.ConvenientName,
                                workingCopyFolderPath);
-                            if (workingCopyFilePath == null)
+                            if (errorMessage != null)
                                 // the user didn't enter credentials
-                                return "no credentials";
+                                return errorMessage;
                             break;
                         default:
                             throw new Exception($"Unsupported uri scheme: {uri.Scheme}");
@@ -131,7 +144,7 @@ namespace ARKBreedingStats
             return null; // no error
         }
 
-        private async Task<string> CopyFtpFileAsync(Uri ftpUri, string serverName, string workingCopyFolder)
+        private async Task<(string filePath, string errorMessage)> CopyFtpFileAsync(Uri ftpUri, string fileRegex, string serverName, string workingCopyFolder)
         {
             var credentialsByServerName = LoadSavedCredentials();
             credentialsByServerName.TryGetValue(serverName, out var credentials);
@@ -150,7 +163,7 @@ namespace ARKBreedingStats
                         {
                             if (dialog.ShowDialog(this) == DialogResult.Cancel)
                             {
-                                return null;
+                                return (null, "no credentials given, aborted by user");
                             }
 
                             credentials = dialog.Credentials;
@@ -164,9 +177,13 @@ namespace ARKBreedingStats
                         }
                     }
                     var client = new FtpClient(ftpUri.Host, ftpUri.Port, credentials.Username, credentials.Password);
+                    string ftpPath = null;
 
                     try
                     {
+                        if (progressDialog.IsDisposed)
+                            return (null, "aborted by user");
+
                         progressDialog.StatusText = $"Authenticating on server {serverName}";
                         if (!progressDialog.Visible)
                             progressDialog.Show(this);
@@ -181,14 +198,15 @@ namespace ARKBreedingStats
                         progressDialog.StatusText = "Finding most recent file";
                         await Task.Yield();
 
-                        var ftpPath = ftpUri.AbsolutePath;
-                        var lastSegment = ftpUri.Segments.Last();
-                        if (lastSegment.Contains("*"))
+                        ftpPath = ftpUri.AbsolutePath;
+
+                        if (fileRegex != null)
                         {
-                            var mostRecentlyModifiedMatch = await GetLastModifiedFileAsync(client, ftpUri, cancellationTokenSource.Token);
+                            var mostRecentlyModifiedMatch =
+                                await GetLastModifiedFileAsync(client, ftpUri, fileRegex, cancellationTokenSource.Token);
                             if (mostRecentlyModifiedMatch == null)
                             {
-                                throw new Exception($"No file found matching pattern '{lastSegment}'");
+                                throw new Exception($"No file found matching pattern '{fileRegex}'");
                             }
 
                             ftpPath = mostRecentlyModifiedMatch.FullName;
@@ -212,7 +230,7 @@ namespace ARKBreedingStats
                             filePath = await DecompressGZippedFileAsync(filePath, cancellationTokenSource.Token);
                         }
 
-                        return filePath;
+                        return (filePath, null);
                     }
                     catch (FtpAuthenticationException ex)
                     {
@@ -224,16 +242,18 @@ namespace ARKBreedingStats
                     catch (OperationCanceledException)
                     {
                         client.Dispose();
-                        return null;
+                        return (null, "aborted by user");
                     }
                     catch (Exception ex)
                     {
+                        var errorMessage = $"Unexpected error while downloading file\n{ftpPath}:\n{ex.Message}{(string.IsNullOrEmpty(ex.InnerException?.Message) ? null : "\n\nInner Exception:\n" + ex.InnerException?.Message)}";
                         if (progressDialog.IsDisposed)
                         {
                             client.Dispose();
-                            return null;
+                            return (null, errorMessage);
                         }
-                        progressDialog.StatusText = $"Unexpected error: {ex.Message}";
+                        progressDialog.StatusText = errorMessage + "\n\nTrying again in some seconds.";
+                        await Task.Delay(3000);
                     }
                     finally
                     {
@@ -282,17 +302,51 @@ namespace ARKBreedingStats
             return newFileName;
         }
 
-        public async Task<FtpListItem> GetLastModifiedFileAsync(FtpClient client, Uri ftpUri, CancellationToken cancellationToken)
+        public async Task<FtpListItem> GetLastModifiedFileAsync(FtpClient client, Uri ftpUri, string fileRegex, CancellationToken cancellationToken)
         {
             var folderUri = new Uri(ftpUri, ".");
             var listItems = await client.GetListingAsync(folderUri.AbsolutePath, cancellationToken);
 
-            //  Turn the wildcard into a regex pattern   "super*.foo" ->  "^super.*?\.foo$"
-            var nameRegex = new Regex("^" + Regex.Escape(ftpUri.Segments.Last()).Replace(@"\*", ".*?") + "$");
+            Regex fileNameRegex;
+            if (!fileRegex.Contains("(?<"))
+            {
+                // assume only simple wildcard
+                //  Turn the wildcard into a regex pattern   "super*.foo" ->  "^super.*?\.foo$"
+                fileNameRegex = new Regex("^" + Regex.Escape(fileRegex).Replace(@"\*", ".*?") + "$");
 
-            return listItems
-                .OrderByDescending(x => x.Modified)
-                .FirstOrDefault(x => nameRegex.IsMatch(x.Name));
+                return listItems
+                    .OrderByDescending(x => x.Modified)
+                    .FirstOrDefault(x => fileNameRegex.IsMatch(x.Name));
+            }
+
+            fileNameRegex = new Regex(fileRegex);
+
+            // order by named groups descending
+            var listWithMatches = listItems.Select(f => (ftpFile: f, match: fileNameRegex.Match(f.Name))).Where(f => f.Item2.Success).ToArray();
+
+            switch (listWithMatches.Length)
+            {
+                case 0: return null;
+                case 1: return listWithMatches[0].ftpFile;
+            }
+
+            var regexGroupNames = fileNameRegex.GetGroupNames().Where(n => n != "0").OrderBy(n => n).ToArray();
+            if (regexGroupNames.Length == 0)
+                return listWithMatches.First().ftpFile;
+
+            var orderedListWithMatches =
+                listWithMatches.OrderByDescending(f => f.match.Groups[regexGroupNames[0]].Value);
+
+            for (int g = 1; g < regexGroupNames.Length; g++)
+            {
+                var groupName = regexGroupNames[g]; // closure
+                orderedListWithMatches =
+                    orderedListWithMatches.ThenByDescending(f => f.match.Groups[groupName].Value);
+            }
+
+            var orderedList = orderedListWithMatches.ToArray();
+
+            return orderedList.First().ftpFile;
         }
 
         /// <summary>

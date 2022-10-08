@@ -425,6 +425,10 @@ namespace ARKBreedingStats
                 if (CbMutagen.Checked)
                     _creatureFlags |= CreatureFlags.MutagenApplied;
                 else _creatureFlags &= ~CreatureFlags.MutagenApplied;
+                if (MutationCounterMother > 0 || MutationCounterFather > 0)
+                    _creatureFlags |= CreatureFlags.Mutated;
+                else _creatureFlags &= ~CreatureFlags.Mutated;
+
                 return _creatureFlags;
             }
             set

@@ -1289,7 +1289,8 @@ Ark id in game
 Server
 Tags
 Filter for a stats with {statAbb} [==|&lt;|&gt;] {value}, e.g. hp &gt; 20, st == 35
-Filter for colors with c{region}: {colorValue} {colorValue2}, e.g. c0: 20, c5: 3 4 5 6, c1: 13 14</value>
+Filter for colors with c{regions}: {colorValue} {colorValue2}, e.g. c0: 20, c5: 3 4 5 6, c1: 13 14
+It's also possible to filter for creatures with a color in one of multiple possible regions. E.g. to display all creatures with the color 10 or 20 in any region use: c0 1 2 3 4 5: 10 20</value>
   </data>
   <data name="ClickDisplayFile" xml:space="preserve">
     <value>Click to show file in explorer</value>

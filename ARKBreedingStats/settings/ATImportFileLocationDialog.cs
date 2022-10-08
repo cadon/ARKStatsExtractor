@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
@@ -57,6 +58,11 @@ namespace ARKBreedingStats.settings
                     textBox_FileLocation.Text = dlg.FileName;
                 }
             }
+        }
+
+        private void LlFtpHelp_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            RepositoryInfo.OpenWikiPage("Ftp-access");
         }
     }
 }

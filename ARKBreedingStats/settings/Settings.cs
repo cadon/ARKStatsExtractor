@@ -643,7 +643,7 @@ namespace ARKBreedingStats.settings
         /// </summary>
         private void CheckSaveImportPath(string filePath)
         {
-            if (!filePath.EndsWith(".ark"))
+            if (!filePath.EndsWith(".ark") && !filePath.EndsWith(".gz") && !filePath.Contains("*") && !filePath.Contains("(?<"))
             {
                 MessageBoxes.ShowMessageBox($"The file location must include the path and the filename of the save file. The set path\n{filePath}\ndoesn't end with \".ark\" and seems to miss the file name.", "Possibly wrong path", MessageBoxIcon.Warning);
             }

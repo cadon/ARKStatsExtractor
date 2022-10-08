@@ -1206,7 +1206,8 @@
 伺服器
 標籤
 使用 {屬性簡稱} [==|&amp;lt;|&amp;gt;] {數值} 過濾屬性，例如： HP &amp;gt; 20, 耐 == 35
-使用 c{region} 過濾顏色：{colorValue} {colorValue2}，例如： c0: 20, c5: 3 4 5 6, c1: 13 14</value>
+使用 c{region} 過濾顏色：{colorValue} {colorValue2}，例如： c0: 20, c5: 3 4 5 6, c1: 13 14
+It's also possible to filter for creatures with a color in one of multiple possible regions. E.g. to display all creatures with the color 10 or 20 in any region use: c0 1 2 3 4 5: 10 20</value>
   </data>
   <data name="Top" xml:space="preserve">
     <value>最大</value>

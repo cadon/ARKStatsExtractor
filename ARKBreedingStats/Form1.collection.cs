@@ -14,7 +14,6 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
-using System.Diagnostics;
 
 namespace ARKBreedingStats
 {
@@ -531,6 +530,13 @@ namespace ARKBreedingStats
 
             // calculate creature values
             RecalculateAllCreaturesValues();
+
+            foreach (var c in _creatureCollection.creatures)
+            {
+                c.InitializeFlags();
+                if (c.ArkIdImported && c.ArkIdInGame == null)
+                    c.ArkIdInGame = Utils.ConvertImportedArkIdToIngameVisualization(c.ArkId);
+            }
 
             if (!keepCurrentSelections && _creatureCollection.creatures.Any())
                 tabControlMain.SelectedTab = tabPageLibrary;

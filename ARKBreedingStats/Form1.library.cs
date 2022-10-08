@@ -14,6 +14,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using ARKBreedingStats.library;
 using ARKBreedingStats.settings;
+using System.Runtime.ConstrainedExecution;
 
 namespace ARKBreedingStats
 {
@@ -1311,30 +1312,31 @@ namespace ARKBreedingStats
                 var statFilterRegex = new Regex(@"(\w{2}) ?(<|>|==) ?(\d+)");
 
                 // color filter
-                var colorFilter = new Dictionary<int, int[]>();
-                var colorFilterRegex = new Regex(@"c([0-5]): ?([\d ]+)");
+                var colorFilterOr = new Dictionary<int[], int[]>(); // includes creatures that have in one of the regions one of the colors
+                var colorFilterRegexOr = new Regex(@"c([0-5 ]+): ?([\d ]+)");
 
                 // mutation filter
                 var mutationFilterEqualTo = -1;
                 var mutationFilterGreaterThan = -1;
                 var mutationFilterLessThan = -1;
 
-                var removeFilterIndex = new List<int>();
+                var removeFilterIndex = new List<int>(); // remove all filter entries that are added to specific filter properties
+                // start at the end, so the removed filter indices are also removed from the end
                 for (var i = filterStrings.Count - 1; i >= 0; i--)
                 {
                     var f = filterStrings[i];
 
                     // color region filter
-                    var m = colorFilterRegex.Match(f);
+                    var m = colorFilterRegexOr.Match(f);
                     if (m.Success)
                     {
-                        var colorRegion = int.Parse(m.Groups[1].Value);
-                        if (colorFilter.ContainsKey(colorRegion)) continue;
-
-                        var colorIds = m.Groups[2].Value.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(cId => int.Parse(cId)).Distinct().ToArray();
+                        var colorIds = m.Groups[2].Value.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                                .Select(int.Parse).Distinct().ToArray();
                         if (!colorIds.Any()) continue;
 
-                        colorFilter[colorRegion] = colorIds;
+                        var colorRegions = m.Groups[1].Value.Where(r => r != ' ').Select(r => int.Parse(r.ToString())).ToArray();
+
+                        colorFilterOr[colorRegions] = colorIds;
                         removeFilterIndex.Add(i);
                         continue;
                     }
@@ -1382,7 +1384,7 @@ namespace ARKBreedingStats
                 if (!statGreaterThan.Any()) statGreaterThan = null;
                 if (!statLessThan.Any()) statLessThan = null;
                 if (!statEqualTo.Any()) statEqualTo = null;
-                if (!colorFilter.Any()) colorFilter = null;
+                if (!colorFilterOr.Any()) colorFilterOr = null;
                 foreach (var i in removeFilterIndex)
                     filterStrings.RemoveAt(i);
 
@@ -1399,7 +1401,7 @@ namespace ARKBreedingStats
                 && (statGreaterThan?.All(si => c.levelsWild[si.Key] > si.Value) ?? true)
                 && (statLessThan?.All(si => c.levelsWild[si.Key] < si.Value) ?? true)
                 && (statEqualTo?.All(si => c.levelsWild[si.Key] == si.Value) ?? true)
-                && (colorFilter?.All(cr => cr.Value.Contains(c.colors[cr.Key])) ?? true)
+                && (colorFilterOr?.All(colorRegions => colorRegions.Key.Any(colorRegion => colorRegions.Value.Contains(c.colors[colorRegion]))) ?? true)
                 && (mutationFilterGreaterThan == -1 || mutationFilterGreaterThan < c.Mutations)
                 && (mutationFilterLessThan == -1 || mutationFilterLessThan > c.Mutations)
                 && (mutationFilterEqualTo == -1 || mutationFilterEqualTo == c.Mutations)
