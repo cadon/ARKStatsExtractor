@@ -6,7 +6,7 @@
 			"mod": { "id": "1083349027", "tag": "SpeedyFlyers", "title": "Najs Speedy Flyers" }
 		},
 		"1090809604-Pyria.json": {
-			"version": "345.39.1654507944",
+			"version": "350.5.1665173924",
 			"mod": { "id": "1090809604", "tag": "Pyria", "title": "Pyria: Mythos Evolved" }
 		},
 		"1092784125-Gryphons.json": {
@@ -35,7 +35,7 @@
 			"mod": { "id": "1139775728", "tag": "Confuciusornis", "title": "Confuciusornis" }
 		},
 		"1169020368-Trex.json": {
-			"version": "349.2.1661969243",
+			"version": "349.27.1663957342",
 			"mod": { "id": "1169020368", "tag": "Trex", "title": "Ark Creature Rebalance (AG Reborn)" }
 		},
 		"1178308359-ShadDragon.json": {
@@ -100,7 +100,7 @@
 			"mod": { "id": "1522327484", "tag": "Additions_Pack", "title": "ARK Additions!" }
 		},
 		"1523045986-Paranoia.json": {
-			"version": "346.16.1655416900",
+			"version": "349.27.1664841143",
 			"mod": { "id": "1523045986", "tag": "Paranoia", "title": "Additional Creatures 2: Paranoia!" }
 		},
 		"1565015734-BetterDinosTest.json": {
@@ -108,7 +108,7 @@
 			"mod": { "id": "1565015734", "tag": "BetterDinosTest", "title": "Better Dinos" }
 		},
 		"1576299694-ElementalDinos.json": {
-			"version": "348.6.1659523193",
+			"version": "349.27.1664277537",
 			"mod": { "id": "1576299694", "tag": "ElementalDinos", "title": "Elemental Ark" }
 		},
 		"1587391872-FasterFlyers.json": {
@@ -141,11 +141,11 @@
 			"mod": { "id": "1662691167", "tag": "Senior", "title": "Additional Creatures: Senior Class" }
 		},
 		"1675895024-NoUntameables.json": {
-			"version": "340.3.1635215511",
+			"version": "349.27.1664641331",
 			"mod": { "id": "1675895024", "tag": "NoUntameables", "title": "No Untameables" }
 		},
 		"1676159020-Aquaria.json": {
-			"version": "345.31.1652950451",
+			"version": "349.27.1664719853",
 			"mod": { "id": "1676159020", "tag": "Aquaria", "title": "Additional Creatures: Aquaria" }
 		},
 		"1681125667-Primal_Fear_EX.json": {
@@ -263,7 +263,7 @@
 			"mod": { "id": "2135314513", "tag": "CI_Dinos", "title": "Crystal Isles Dino Addition" }
 		},
 		"2447186973-ArkOmega.json": {
-			"version": "349.2.1661580009",
+			"version": "350.5.1665202463",
 			"mod": { "id": "2447186973", "tag": "ArkOmega", "title": "Ark Omega" }
 		},
 		"729352919-IndomRex.json": {
@@ -283,7 +283,7 @@
 			"mod": { "id": "883957187", "tag": "WyvernWorld", "title": "Wyvern World" }
 		},
 		"893735676-AE.json": {
-			"version": "349.2.1661548349",
+			"version": "349.22.1662742607",
 			"mod": { "id": "893735676", "tag": "AE", "title": "Ark Eternal" }
 		},
 		"895711211-ClassicFlyers.json": {
