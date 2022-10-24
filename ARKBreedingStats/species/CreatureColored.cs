@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using ARKBreedingStats.Library;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.species
 {
@@ -35,7 +36,7 @@ namespace ARKBreedingStats.species
         /// Returns the image file path to the image with the according colorization.
         /// </summary>
         private static string ColoredCreatureCacheFilePath(string speciesName, byte[] colorIds, bool listView = false)
-            => Path.Combine(_imgCacheFolderPath, speciesName.Substring(0, Math.Min(speciesName.Length, 5)) + "_" + Convert.ToBase64String(colorIds.Select(ci => ci).Concat(Encoding.UTF8.GetBytes(speciesName)).ToArray()).Replace('/', '-') + (listView ? "_lv" : string.Empty) + Extension);
+            => Path.Combine(_imgCacheFolderPath, speciesName.Substring(0, Math.Min(speciesName.Length, 5)) + "_" + Convert32.ToBase32String(colorIds.Select(ci => ci).Concat(Encoding.UTF8.GetBytes(speciesName)).ToArray()).Replace('/', '-') + (listView ? "_lv" : string.Empty) + Extension);
 
         /// <summary>
         /// Checks if an according species image exists in the cache folder, if not it tries to creates one. Returns false if there's no image.
@@ -60,7 +61,7 @@ namespace ARKBreedingStats.species
         }
 
         /// <summary>
-        /// Returns a bitmap image that represents the given colors. If a species color file is available, that is used, else a pic-chart like representation.
+        /// Returns a bitmap image that represents the given colors. If a species color file is available, that is used, else a pie-chart like representation.
         /// </summary>
         /// <param name="colorIds"></param>
         /// <param name="species"></param>
@@ -70,7 +71,7 @@ namespace ARKBreedingStats.species
         /// <param name="onlyColors">Only return a pie-chart like color representation.</param>
         /// <param name="onlyImage">Only return an image of the colored creature. If that's not possible, return null.</param>
         /// <param name="creatureSex">If given, it's tried for find a sex-specific image.</param>
-        /// <returns></returns>
+        /// <returns>Image representing the colors.</returns>
         public static Bitmap GetColoredCreature(byte[] colorIds, Species species, bool[] enabledColorRegions, int size = 128, int pieSize = 64, bool onlyColors = false, bool onlyImage = false, Sex creatureSex = Sex.Unknown)
         {
             if (colorIds == null) colorIds = new byte[Ark.ColorRegionCount];
