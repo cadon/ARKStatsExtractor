@@ -18,6 +18,9 @@ namespace ARKBreedingStats.species
         private const string Extension = ".png";
         internal static string ImageFolder;
         private static string _imgCacheFolderPath;
+        /// <summary>
+        /// Size of the cached images.
+        /// </summary>
         private const int TemplateSize = 256;
 
         /// <summary>
@@ -237,9 +240,9 @@ namespace ARKBreedingStats.species
         }
 
         /// <summary>
-        /// Creates a colored species image and saves it as cache file. Returns true when created successful.
+        /// Creates a colored species image and saves it as cache file.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True if image was created successfully.</returns>
         private static bool CreateAndSaveCacheSpeciesFile(byte[] colorIds, bool[] enabledColorRegions,
             string speciesBaseImageFilePath, string speciesColorMaskFilePath, string cacheFilePath, int outputSize = 256)
         {
@@ -255,13 +258,13 @@ namespace ARKBreedingStats.species
                 graph.SmoothingMode = SmoothingMode.AntiAlias;
 
                 //// ellipse background shadow
-                const int scx = TemplateSize / 2;
-                const int scy = (int)(scx * 1.6);
+                int scx = bmpBaseImage.Width / 2;
+                int scy = (int)(scx * 1.6);
                 const double perspectiveFactor = 0.3;
-                const int yStart = scy - (int)(perspectiveFactor * .7 * scx);
-                const int yEnd = (int)(2 * perspectiveFactor * scx);
+                int yStart = scy - (int)(perspectiveFactor * .7 * scx);
+                int yEnd = (int)(2 * perspectiveFactor * scx);
                 GraphicsPath pathShadow = new GraphicsPath();
-                pathShadow.AddEllipse(0, yStart, TemplateSize, yEnd);
+                pathShadow.AddEllipse(0, yStart, bmpBaseImage.Width, yEnd);
                 var colorBlend = new ColorBlend
                 {
                     Colors = new[] { Color.FromArgb(0), Color.FromArgb(40, 0, 0, 0), Color.FromArgb(80, 0, 0, 0) },
@@ -272,7 +275,7 @@ namespace ARKBreedingStats.species
                 {
                     InterpolationColors = colorBlend
                 })
-                    graph.FillEllipse(pthGrBrush, 0, yStart, TemplateSize, yEnd);
+                    graph.FillEllipse(pthGrBrush, 0, yStart, bmpBaseImage.Width, yEnd);
                 // background shadow done
 
                 // if species has color regions, apply colors
@@ -289,19 +292,20 @@ namespace ARKBreedingStats.species
                             rgb[c] = new[] { cl.R, cl.G, cl.B };
                         }
                     }
-                    imageFine = ApplyColorsUnsafe(rgb, useColorRegions, speciesColorMaskFilePath, TemplateSize, bmpBaseImage);
+                    imageFine = ApplyColorsUnsafe(rgb, useColorRegions, speciesColorMaskFilePath, bmpBaseImage);
                 }
 
                 if (imageFine)
                 {
                     // draw species image on background
-                    graph.DrawImage(bmpBaseImage, 0, 0, TemplateSize, TemplateSize);
+                    graph.DrawImage(bmpBaseImage, 0, 0, bmpColoredCreature.Width, bmpColoredCreature.Height);
 
+                    // save image in cache for later use
                     string cacheFolder = Path.GetDirectoryName(cacheFilePath);
                     if (string.IsNullOrEmpty(cacheFolder)) return false;
                     if (!Directory.Exists(cacheFolder))
                         Directory.CreateDirectory(cacheFolder);
-                    if (outputSize == TemplateSize)
+                    if (outputSize == bmpColoredCreature.Width)
                         return SaveBitmapToFile(bmpColoredCreature, cacheFilePath);
 
                     using (var resized = new Bitmap(outputSize, outputSize))
@@ -338,11 +342,10 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Applies the colors to the base image.
         /// </summary>
-        private static bool ApplyColorsUnsafe(byte[][] rgb, bool[] enabledColorRegions, string speciesColorMaskFilePath,
-            int templateSize, Bitmap bmpBaseImage)
+        private static bool ApplyColorsUnsafe(byte[][] rgb, bool[] enabledColorRegions, string speciesColorMaskFilePath, Bitmap bmpBaseImage)
         {
             var imageFine = false;
-            using (Bitmap bmpMask = new Bitmap(templateSize, templateSize))
+            using (Bitmap bmpMask = new Bitmap(bmpBaseImage.Width, bmpBaseImage.Height))
             {
                 // get mask in correct size
                 using (var g = Graphics.FromImage(bmpMask))
@@ -350,8 +353,7 @@ namespace ARKBreedingStats.species
                 {
                     g.InterpolationMode = InterpolationMode.Bicubic;
                     g.SmoothingMode = SmoothingMode.AntiAlias;
-                    g.DrawImage(bmpMaskOriginal, 0, 0,
-                        templateSize, templateSize);
+                    g.DrawImage(bmpMaskOriginal, 0, 0, bmpBaseImage.Width, bmpBaseImage.Height);
                 }
 
                 BitmapData bmpDataBaseImage = bmpBaseImage.LockBits(
