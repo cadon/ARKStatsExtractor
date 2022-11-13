@@ -4,7 +4,7 @@
     "ARK Smart Breeding": {
       "Id": "ARK Smart Breeding",
       "Category": "main",
-      "version": "0.50.5.0"
+      "version": "0.50.6.0"
     },
     "SpeciesColorImages": {
       "Id": "SpeciesColorImages",
@@ -16,7 +16,7 @@
       "LocalPath": "images/speciesImages",
       "IsFolder": true,
       "Selectable": true,
-      "version": "2022.07.04"
+      "version": "2022.11.13"
     },
     "NamePatternTemplates": {
       "Id": "NamePatternTemplates",

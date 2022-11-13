@@ -1,5 +1,5 @@
 {
-	"version": "346.16.8991126",
+	"version": "352.6.9875140",
 	"format": "1.14-flyerspeed",
 	"species": [
 		{
@@ -1113,7 +1113,7 @@
 					]
 				},
 				null,
-				null,
+				{ "name": "Lantern" },
 				{
 					"name": "Belly",
 					"colors": [
@@ -7052,7 +7052,7 @@
 			"variants": [ "Fjordur" ],
 			"isFlyer": true,
 			"fullStatsRaw": [
-				[ 150, 0.2, 0.27, 0.5, 0 ],
+				[ 125, 0.167, 0.22545, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
 				[ 120, 0.06, 0, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
@@ -44468,7 +44468,7 @@
 					]
 				},
 				{
-					"name": "Membrane accents",
+					"name": "Belly",
 					"colors": [
 						"BigFoot0",
 						"BigFoot4",
@@ -44546,7 +44546,7 @@
 					]
 				},
 				{
-					"name": "Belly",
+					"name": "Membrane accents",
 					"colors": [
 						"BigFoot0",
 						"BigFoot4",
@@ -89319,6 +89319,177 @@
 			"displayedStats": 919
 		},
 		{
+			"name": "Carcharodontosaurus",
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Carcharodontosaurus/Carcha_Character_BP.Carcha_Character_BP",
+			"fullStatsRaw": [
+				[ 70000, 0.0008, 0.004, -54000, 0 ],
+				[ 480, 0.006, 0.025, 0, 0 ],
+				[ 6000, 0.06, 0, 0, 0 ],
+				[ 150, 0.0025, 0.025, 0, 0 ],
+				[ 4000, 0.0025, 0.025, 0, 0 ],
+				null,
+				null,
+				[ 650, 0.02, 0.01, 0, 0 ],
+				[ 1, 0.05, 0.05, -0.8, 0 ],
+				[ 1, 0, 0.0031, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [ "Large Bear Trap" ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 179985.601,
+				"eggTempMin": 37,
+				"eggTempMax": 39,
+				"maturationTime": 878348.704,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Body Main",
+					"colors": [
+						"BigFoot0",
+						"Black",
+						"BlackSands",
+						"BurntSienna",
+						"Cammo",
+						"Dark Grey",
+						"DarkCement",
+						"DarkWarmGray",
+						"Dino Dark Brown",
+						"Dino Dark Orange",
+						"Dino Dark Red",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"Dino Light Brown",
+						"Dino Light Yellow",
+						"Dino Medium Brown",
+						"DragonBase0",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DryMoss",
+						"GreenSlate",
+						"Light Grey",
+						"LightAutumn",
+						"LightWarmGray",
+						"MediumWarmGray",
+						"Mustard",
+						"NearBlack"
+					]
+				},
+				null,
+				{
+					"name": "Spikes",
+					"colors": [
+						"BlackSands",
+						"BurntSienna",
+						"DarkBlue",
+						"DarkCement",
+						"DarkWarmGray",
+						"DarkWolfFur",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"Dino Medium Brown",
+						"MediumWarmGray",
+						"NearBlack",
+						"Sage"
+					]
+				},
+				{
+					"name": "Spike Webbing",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Coral",
+						"Cream",
+						"Dino Dark Orange",
+						"Dino Light Blue",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Yellow",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonFire",
+						"DragonGreen1",
+						"DragonGreen3",
+						"LightAutumn",
+						"MediumAutumn",
+						"WolfFur",
+						"WyvernBlue0",
+						"WyvernPurple1"
+					]
+				},
+				{
+					"name": "Body Underbelly",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Coral",
+						"Cream",
+						"Dino Dark Orange",
+						"Dino Light Blue",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Yellow",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonFire",
+						"DragonGreen1",
+						"DragonGreen3",
+						"LightAutumn",
+						"MediumAutumn",
+						"WolfFur",
+						"WyvernBlue0",
+						"WyvernPurple1"
+					]
+				},
+				{
+					"name": "Spots and Stripes",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Coral",
+						"Cream",
+						"Dino Dark Orange",
+						"Dino Light Blue",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Dino Light Purple",
+						"Dino Light Yellow",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonFire",
+						"DragonGreen1",
+						"DragonGreen3",
+						"LightAutumn",
+						"MediumAutumn",
+						"WolfFur",
+						"WyvernBlue0",
+						"WyvernPurple1"
+					]
+				}
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": true,
+				"tamingIneffectiveness": 0,
+				"affinityNeeded0": 9000,
+				"affinityIncreasePL": 240,
+				"torporDepletionPS0": 0.5,
+				"foodConsumptionBase": 0.002314,
+				"foodConsumptionMult": 150.0634,
+				"babyFoodConsumptionMult": 700
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"displayedStats": 927
+		},
+		{
 			"name": "Skeletal Carnotaurus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Carno/Bone_MegaCarno_Character_BP.Bone_MegaCarno_Character_BP",
 			"variants": [ "Skeletal" ],
@@ -104214,7 +104385,7 @@
 				},
 				null,
 				{
-					"name": "Body",
+					"name": "Body and Feathers",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -104234,7 +104405,7 @@
 					]
 				},
 				{
-					"name": "Feathers",
+					"name": "Spine",
 					"colors": [
 						"Dino Light Blue",
 						"Dino Light Green",

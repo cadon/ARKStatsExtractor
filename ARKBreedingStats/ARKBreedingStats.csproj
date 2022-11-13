@@ -628,6 +628,7 @@
     <Compile Include="miscClasses\ValueMinMax.cs" />
     <Compile Include="utils\ArkWiki.cs" />
     <Compile Include="utils\ColorModeColors.cs" />
+    <Compile Include="utils\Convert32.cs" />
     <Compile Include="utils\Debouncer.cs" />
     <Compile Include="utils\ExportFolderLocation.cs" />
     <Compile Include="utils\ExtensionMethods.cs" />
