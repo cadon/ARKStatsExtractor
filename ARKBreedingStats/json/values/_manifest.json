@@ -6,7 +6,7 @@
 			"mod": { "id": "1083349027", "tag": "SpeedyFlyers", "title": "Najs Speedy Flyers" }
 		},
 		"1090809604-Pyria.json": {
-			"version": "350.5.1665173924",
+			"version": "351.6.1667005010",
 			"mod": { "id": "1090809604", "tag": "Pyria", "title": "Pyria: Mythos Evolved" }
 		},
 		"1092784125-Gryphons.json": {
@@ -35,7 +35,7 @@
 			"mod": { "id": "1139775728", "tag": "Confuciusornis", "title": "Confuciusornis" }
 		},
 		"1169020368-Trex.json": {
-			"version": "349.27.1663957342",
+			"version": "352.6.1667855320",
 			"mod": { "id": "1169020368", "tag": "Trex", "title": "Ark Creature Rebalance (AG Reborn)" }
 		},
 		"1178308359-ShadDragon.json": {
@@ -72,7 +72,7 @@
 			"mod": { "id": "1356703358", "tag": "Primal_Fear_Noxious_Creatures", "title": "Primal Fear Noxious Creatures" }
 		},
 		"1373744537-AC2.json": {
-			"version": "348.7.1660069796",
+			"version": "353.1.1668296598",
 			"mod": { "id": "1373744537", "tag": "AC2", "title": "Additional Creatures 2: Wild Ark" }
 		},
 		"1405944717-Project_Evolution.json": {
@@ -100,7 +100,7 @@
 			"mod": { "id": "1522327484", "tag": "Additions_Pack", "title": "ARK Additions!" }
 		},
 		"1523045986-Paranoia.json": {
-			"version": "349.27.1664841143",
+			"version": "351.5.1666238000",
 			"mod": { "id": "1523045986", "tag": "Paranoia", "title": "Additional Creatures 2: Paranoia!" }
 		},
 		"1565015734-BetterDinosTest.json": {
@@ -108,7 +108,7 @@
 			"mod": { "id": "1565015734", "tag": "BetterDinosTest", "title": "Better Dinos" }
 		},
 		"1576299694-ElementalDinos.json": {
-			"version": "349.27.1664277537",
+			"version": "352.6.1667827331",
 			"mod": { "id": "1576299694", "tag": "ElementalDinos", "title": "Elemental Ark" }
 		},
 		"1587391872-FasterFlyers.json": {
@@ -129,7 +129,7 @@
 			"mod": { "id": "1633860796", "tag": "DE_Breedable_RockDrakes", "title": "Dark Edges Breedable Rock Drakes" }
 		},
 		"1652120435-AtlasPort.json": {
-			"version": "347.1.1657088085",
+			"version": "353.1.1668127679",
 			"mod": { "id": "1652120435", "tag": "AtlasPort", "title": "Shad's Atlas Imports" }
 		},
 		"1654255131-AtlasImports.json": {
@@ -141,7 +141,7 @@
 			"mod": { "id": "1662691167", "tag": "Senior", "title": "Additional Creatures: Senior Class" }
 		},
 		"1675895024-NoUntameables.json": {
-			"version": "349.27.1664641331",
+			"version": "353.1.1668065900",
 			"mod": { "id": "1675895024", "tag": "NoUntameables", "title": "No Untameables" }
 		},
 		"1676159020-Aquaria.json": {
@@ -166,7 +166,7 @@
 			"mod": { "id": "1729512589", "tag": "Brachiosaurus", "title": "ARK Additions: Brachiosaurus!" }
 		},
 		"1734595558-Pyria2.json": {
-			"version": "346.16.1653902498",
+			"version": "352.6.1667780578",
 			"mod": { "id": "1734595558", "tag": "Pyria2", "title": "Pyria: The Second Chapter" }
 		},
 		"1768499278-BalancedJPE.json": {
@@ -235,7 +235,7 @@
 			"mod": { "id": "2000326197", "tag": "ExtraResources", "title": "Event Assets" }
 		},
 		"2003934830-Beasts.json": {
-			"version": "348.10.1660762304",
+			"version": "351.6.1667098123",
 			"mod": { "id": "2003934830", "tag": "Beasts", "title": "Prehistoric Beasts" }
 		},
 		"2019846325-ApexMod.json": {
@@ -263,8 +263,12 @@
 			"mod": { "id": "2135314513", "tag": "CI_Dinos", "title": "Crystal Isles Dino Addition" }
 		},
 		"2447186973-ArkOmega.json": {
-			"version": "350.5.1665202463",
+			"version": "351.6.1667016777",
 			"mod": { "id": "2447186973", "tag": "ArkOmega", "title": "Ark Omega" }
+		},
+		"2869411055-SDinoVariants.json": {
+			"version": "351.6.1666358758",
+			"mod": { "id": "2869411055", "tag": "SDinoVariants", "title": "SDinoVariants" }
 		},
 		"729352919-IndomRex.json": {
 			"version": "340.3.1488771984",
@@ -313,7 +317,7 @@
 			}
 		},
 		"values.json": {
-			"version": "346.16.8991126"
+			"version": "352.6.9875140"
 		}
 	}
 }
