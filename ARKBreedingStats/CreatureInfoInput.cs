@@ -243,13 +243,16 @@ namespace ARKBreedingStats
             set => _sameSpecies = value;
         }
 
+        /// <summary>
+        /// Possible parents of the current creature. Index 0: possible mothers, index 1: possible fathers. If species has no sex all parents are in index 0.
+        /// </summary>
         public List<Creature>[] Parents
         {
             set
             {
                 if (value == null) return;
                 parentComboBoxMother.ParentList = value[0];
-                parentComboBoxFather.ParentList = value[1];
+                parentComboBoxFather.ParentList = value[1] ?? value[0];
             }
         }
 
@@ -259,7 +262,7 @@ namespace ARKBreedingStats
             {
                 if (value == null) return;
                 parentComboBoxMother.parentsSimilarity = value[0];
-                parentComboBoxFather.parentsSimilarity = value[1];
+                parentComboBoxFather.parentsSimilarity = value[1] ?? value[0];
             }
         }
 

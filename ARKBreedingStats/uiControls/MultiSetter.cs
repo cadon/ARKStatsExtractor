@@ -35,7 +35,7 @@ namespace ARKBreedingStats.uiControls
             _colors = new byte[Ark.ColorRegionCount];
             _tagControls = new List<MultiSetterTag>();
 
-            this._creatureList = creatureList;
+            _creatureList = creatureList;
             parentComboBoxMother.naLabel = " - Mother n/a";
             parentComboBoxFather.naLabel = " - Father n/a";
             if (parents == null)
@@ -50,7 +50,7 @@ namespace ARKBreedingStats.uiControls
             else
             {
                 parentComboBoxMother.ParentList = parents[0];
-                parentComboBoxFather.ParentList = parents[1];
+                parentComboBoxFather.ParentList = parents[1] ?? parents[0];
                 _uniqueSpecies = true;
             }
             checkBoxMother.Checked = false;

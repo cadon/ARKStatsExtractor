@@ -1378,83 +1378,84 @@ namespace ARKBreedingStats
         /// <param name="creature"></param>
         private void CreatureBoxListView_FindParents(Creature creature)
         {
-            List<Creature>[] parents = FindPossibleParents(creature);
+            var parents = FindPossibleParents(creature);
             creatureBoxListView.parentListSimilarity = FindParentSimilarities(parents, creature);
             creatureBoxListView.parentList = parents;
         }
 
         /// <summary>
-        /// Returns lists of possible parents.
+        /// Returns lists of possible parents. Index 0: possible mothers, index 1: possible fathers.
         /// </summary>
         private List<Creature>[] FindPossibleParents(Creature creature)
         {
-            var fatherList = _creatureCollection.creatures
+            var parentList = _creatureCollection.creatures
                 .Where(cr =>
-                    cr.Species == creature.Species && cr.sex == Sex.Male && cr.guid != creature.guid &&
-                    !cr.flags.HasFlag(CreatureFlags.Placeholder))
+                    cr.Species == creature.Species && cr.guid != creature.guid && !cr.flags.HasFlag(CreatureFlags.Placeholder))
                 .OrderBy(cr => cr.name).ToList();
-            var motherList = _creatureCollection.creatures
-                .Where(cr =>
-                    cr.Species == creature.Species && cr.sex == Sex.Female && cr.guid != creature.guid &&
-                    !cr.flags.HasFlag(CreatureFlags.Placeholder))
-                .OrderBy(cr => cr.name).ToList();
+
+            if (creature.Species?.noGender == true)
+                return new[] { parentList, null };
+
+            var motherList = parentList.Where(cr => cr.sex == Sex.Female).ToList();
+            var fatherList = parentList.Where(cr => cr.sex == Sex.Male).ToList();
 
             // display new results
             return new[] { motherList, fatherList };
         }
 
+        /// <summary>
+        /// Determines the similar stats (number of equal wildLevels as creature), to find parents easier.
+        /// </summary>
         private List<int>[] FindParentSimilarities(List<Creature>[] parents, Creature creature)
         {
-            // similarities (number of equal wildLevels as creature, to find parents easier)
-            int e; // number of equal wildLevels
+            if (parents.Length != 2 || (parents[0] == null && parents[1] == null)) return new List<int>[] { null, null };
+
+            var parentListCount = parents[1] == null ? 1 : 2;
             List<int> motherListSimilarities = new List<int>();
-            List<int> fatherListSimilarities = new List<int>();
+            List<int> fatherListSimilarities = parentListCount == 2 ? new List<int>() : null;
             List<int>[] parentListSimilarities = { motherListSimilarities, fatherListSimilarities };
-
-            if (parents.Length == 2 && parents[0] != null && parents[1] != null)
+            int e; // number of equal wildLevels
+            for (int ps = 0; ps < parentListCount; ps++)
             {
-                for (int ps = 0; ps < 2; ps++)
+                foreach (Creature c in parents[ps])
                 {
-                    foreach (Creature c in parents[ps])
+                    e = 0;
+                    for (int s = 0; s < Stats.StatsCount; s++)
                     {
-                        e = 0;
-                        for (int s = 0; s < Stats.StatsCount; s++)
-                        {
-                            if (s != Stats.Torpidity && creature.levelsWild[s] >= 0 &&
-                                creature.levelsWild[s] == c.levelsWild[s])
-                                e++;
-                        }
-
-                        parentListSimilarities[ps].Add(e);
+                        if (s != Stats.Torpidity && creature.levelsWild[s] >= 0 &&
+                            creature.levelsWild[s] == c.levelsWild[s])
+                            e++;
                     }
 
-                    // sort parents: put all creatures not available to the end, then the ones with 0 common stats to the end
-                    int moved = 0;
-                    for (int p = 0; p < parents[ps].Count - moved; p++)
-                    {
-                        if (parents[ps][p].Status != CreatureStatus.Available)
-                        {
-                            parentListSimilarities[ps].Add(parentListSimilarities[ps][p]);
-                            parentListSimilarities[ps].RemoveAt(p);
-                            parents[ps].Add(parents[ps][p]);
-                            parents[ps].RemoveAt(p);
-                            moved++;
-                            p--;
-                        }
-                    }
+                    parentListSimilarities[ps].Add(e);
+                }
 
-                    moved = 0;
-                    for (int p = 0; p < parents[ps].Count - moved; p++)
+                // sort parents: put all creatures not available to the end, then the ones with 0 common stats to the end
+                int moved = 0;
+                for (int p = 0; p < parents[ps].Count - moved; p++)
+                {
+                    if (parents[ps][p].Status != CreatureStatus.Available)
                     {
-                        if (parentListSimilarities[ps][p] == 0)
-                        {
-                            parentListSimilarities[ps].Add(parentListSimilarities[ps][p]);
-                            parentListSimilarities[ps].RemoveAt(p);
-                            parents[ps].Add(parents[ps][p]);
-                            parents[ps].RemoveAt(p);
-                            moved++;
-                            p--;
-                        }
+                        parentListSimilarities[ps].Add(parentListSimilarities[ps][p]);
+                        parentListSimilarities[ps].RemoveAt(p);
+                        parents[ps].Add(parents[ps][p]);
+                        parents[ps].RemoveAt(p);
+                        moved++;
+                        p--;
+                    }
+                }
+
+                moved = 0;
+                for (int p = 0; p < parents[ps].Count - moved; p++)
+                {
+                    if (parentListSimilarities[ps][p] == 0)
+                    {
+                        parentListSimilarities[ps].Add(parentListSimilarities[ps][p]);
+                        parentListSimilarities[ps].RemoveAt(p);
+                        parents[ps].Add(parents[ps][p]);
+                        parents[ps].RemoveAt(p);
+                        moved++;
+                        p--;
                     }
                 }
             }
