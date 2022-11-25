@@ -392,7 +392,7 @@ namespace ARKBreedingStats
                         imprintingChanged = (Math.Abs(imprintingBonusRounded - ImprintingBonus) > 0.01);
                         break;
                     }
-                    else if (IBi < imprintingBonusList.Count - 1)
+                    if (IBi < imprintingBonusList.Count - 1)
                     {
                         // not all stats got a result, clear results for the next round
                         Clear();
@@ -402,20 +402,59 @@ namespace ARKBreedingStats
             }
         }
 
+        /// <summary>
+        /// Calculate the exact imprinting bonus, based on the rounded integer value the game displays
+        /// and using the bonus on the Torpidity stat (this cannot be leveled, so the exact bonus is known).
+        /// Due to the high values of the food stat, which is often not leveled, this stat can be used to further improve the precision of the imprinting bonus.
+        /// </summary>
         private List<MinMaxDouble> CalculateImprintingBonus(Species species, double imprintingBonusRounded, double imprintingBonusMultiplier, double torpor, double food)
         {
-            List<MinMaxDouble> imprintingBonusList = new List<MinMaxDouble>();
-            if (species.stats[Stats.Torpidity].BaseValue == 0 || species.stats[Stats.Torpidity].IncPerWildLevel == 0) return imprintingBonusList; // invalid species-data
+            if (imprintingBonusMultiplier == 0)
+            {
+                return new List<MinMaxDouble> { new MinMaxDouble(imprintingBonusRounded) };
+            }
 
-            // classic way to calculate the ImprintingBonus, this is the most exact value, but will not work if the imprinting-gain was different (e.g. events, mods (S+Nanny))
+            if (species.stats[Stats.Torpidity].BaseValue == 0 || species.stats[Stats.Torpidity].IncPerWildLevel == 0)
+            {
+                // invalid species-data
+                return new List<MinMaxDouble> { new MinMaxDouble(imprintingBonusRounded - 0.005, imprintingBonusRounded + 0.005) };
+            }
+
+            double[] statImprintMultipliers = species.StatImprintMultipliers;
+
+            var anyStatAffectedByImprinting = false;
+            for (var si = 0; si < Stats.StatsCount; si++)
+            {
+                if (statImprintMultipliers[si] != 0)
+                {
+                    anyStatAffectedByImprinting = true;
+                    break;
+                }
+            }
+
+            if (!anyStatAffectedByImprinting)
+            {
+                return new List<MinMaxDouble> { new MinMaxDouble(imprintingBonusRounded) };
+            }
+
+
+            if (statImprintMultipliers[Stats.Torpidity] == 0)
+            {
+                // torpidity is not affected by imprinting, the exact value cannot be calculated
+                return new List<MinMaxDouble> { new MinMaxDouble(imprintingBonusRounded - 0.005, imprintingBonusRounded + 0.005) };
+            }
+
+            List<MinMaxDouble> imprintingBonusList = new List<MinMaxDouble>();
+
+            // if the imprinting bonus was only achieved by cuddles etc. without event bonus, it will increase by fixed steps
+            // this is the most exact value, but will not work if the imprinting-gain was different (e.g. events, mods (S+Nanny))
             double imprintingBonusFromGainPerCuddle = 0;
             if (species.breeding != null)
             {
                 double imprintingGainPerCuddle = Utils.ImprintingGainPerCuddle(species.breeding.maturationTimeAdjusted);
-                imprintingBonusFromGainPerCuddle = Math.Round(imprintingBonusRounded / imprintingGainPerCuddle) * imprintingGainPerCuddle;
+                if (imprintingGainPerCuddle > 0)
+                    imprintingBonusFromGainPerCuddle = Math.Round(imprintingBonusRounded / imprintingGainPerCuddle) * imprintingGainPerCuddle;
             }
-
-            double[] statImprintMultipliers = species.StatImprintMultipliers;
 
             MinMaxInt wildLevelsFromImprintedTorpor = new MinMaxInt(
                 (int)Math.Round(((((torpor / (1 + species.stats[Stats.Torpidity].MultAffinity)) - species.stats[Stats.Torpidity].AddWhenTamed) / ((1 + (imprintingBonusRounded + 0.005) * statImprintMultipliers[Stats.Torpidity] * imprintingBonusMultiplier) * species.stats[Stats.Torpidity].BaseValue)) - 1) / species.stats[Stats.Torpidity].IncPerWildLevel),
@@ -428,43 +467,63 @@ namespace ARKBreedingStats
 
             List<int> otherStatsSupportIB = new List<int>(); // the number of other stats that support this IB-range
                                                              // for high-level creatures the bonus from imprinting is so high, that a displayed and rounded value of the imprinting bonus can be possible with multiple torpor-levels, i.e. 1 %point IB results in a larger change than a level in torpor.
+
+            double imprintingBonusTorporFinal = statImprintMultipliers[Stats.Torpidity] * imprintingBonusMultiplier;
+            double imprintingBonusFoodFinal = statImprintMultipliers[Stats.Food] * imprintingBonusMultiplier;
+
             for (int torporLevel = wildLevelsFromImprintedTorpor.Min; torporLevel <= wildLevelsFromImprintedTorpor.Max; torporLevel++)
             {
                 int support = 0;
-                double imprintingProductTorpor = statImprintMultipliers[Stats.Torpidity] * imprintingBonusMultiplier;
-                double imprintingProductFood = statImprintMultipliers[Stats.Food] * imprintingBonusMultiplier;
-                if (imprintingProductTorpor == 0 || imprintingProductFood == 0) break;
                 MinMaxDouble imprintingBonusRange = new MinMaxDouble(
-                    (((torpor - 0.05) / (1 + species.stats[Stats.Torpidity].MultAffinity) - species.stats[Stats.Torpidity].AddWhenTamed) / StatValueCalculation.CalculateValue(species, Stats.Torpidity, torporLevel, 0, false, 0, 0) - 1) / imprintingProductTorpor,
-                    (((torpor + 0.05) / (1 + species.stats[Stats.Torpidity].MultAffinity) - species.stats[Stats.Torpidity].AddWhenTamed) / StatValueCalculation.CalculateValue(species, Stats.Torpidity, torporLevel, 0, false, 0, 0) - 1) / imprintingProductTorpor);
+                    (((torpor - 0.05) / (1 + species.stats[Stats.Torpidity].MultAffinity) - species.stats[Stats.Torpidity].AddWhenTamed) / StatValueCalculation.CalculateValue(species, Stats.Torpidity, torporLevel, 0, false, 0, 0) - 1) / imprintingBonusTorporFinal,
+                    (((torpor + 0.05) / (1 + species.stats[Stats.Torpidity].MultAffinity) - species.stats[Stats.Torpidity].AddWhenTamed) / StatValueCalculation.CalculateValue(species, Stats.Torpidity, torporLevel, 0, false, 0, 0) - 1) / imprintingBonusTorporFinal);
 
                 // check for each possible food-level the IB-range and if it can narrow down the range derived from the torpor (deriving from food is more precise, due to the higher values)
-                for (int foodLevel = wildLevelsFromImprintedFood.Min; foodLevel <= wildLevelsFromImprintedFood.Max; foodLevel++)
+
+                if (imprintingBonusFoodFinal > 0)
                 {
-                    MinMaxDouble imprintingBonusFromFood = new MinMaxDouble(
-                        (((food - 0.05) / (1 + species.stats[Stats.Food].MultAffinity) - species.stats[Stats.Food].AddWhenTamed) / StatValueCalculation.CalculateValue(species, Stats.Food, foodLevel, 0, false, 0, 0) - 1) / imprintingProductFood,
-                        (((food + 0.05) / (1 + species.stats[Stats.Food].MultAffinity) - species.stats[Stats.Food].AddWhenTamed) / StatValueCalculation.CalculateValue(species, Stats.Food, foodLevel, 0, false, 0, 0) - 1) / imprintingProductFood);
-
-
-                    // NOTE: it's assumed if the IB-food is in the range of IB-torpor, the values are correct. This doesn't have to be true, but is very probable. If extraction-issues appear, this assumption could be the reason.
-                    //if (imprintingBonusFromTorpor.Includes(imprintingBonusFromFood)
-                    if (imprintingBonusRange.Overlaps(imprintingBonusFromFood))
+                    for (int foodLevel = wildLevelsFromImprintedFood.Min;
+                         foodLevel <= wildLevelsFromImprintedFood.Max;
+                         foodLevel++)
                     {
-                        MinMaxDouble intersectionIB = new MinMaxDouble(imprintingBonusRange);
-                        intersectionIB.SetToIntersectionWith(imprintingBonusFromFood);
-                        if (StatValueCalculation.CalculateValue(species, Stats.Torpidity, torporLevel, 0, true, 1, intersectionIB.Min) <= torpor
-                            && StatValueCalculation.CalculateValue(species, Stats.Torpidity, torporLevel, 0, true, 1, intersectionIB.Max) >= torpor)
+                        MinMaxDouble imprintingBonusFromFood = new MinMaxDouble(
+                            (((food - 0.05) / (1 + species.stats[Stats.Food].MultAffinity) -
+                              species.stats[Stats.Food].AddWhenTamed) /
+                                StatValueCalculation.CalculateValue(species, Stats.Food, foodLevel, 0, false, 0, 0) -
+                                1) /
+                            imprintingBonusFoodFinal,
+                            (((food + 0.05) / (1 + species.stats[Stats.Food].MultAffinity) -
+                              species.stats[Stats.Food].AddWhenTamed) /
+                                StatValueCalculation.CalculateValue(species, Stats.Food, foodLevel, 0, false, 0, 0) -
+                                1) /
+                            imprintingBonusFoodFinal);
+
+                        // NOTE: it's assumed if the IB-food is in the range of IB-torpor, the values are correct.
+                        // This doesn't have to be true, but is very probable.
+                        // It can be wrong if food was leveled, but happens to result in a value that is also possible with a different amount of wild levels without dom levels and the resulting possible range for the exact IB is in the range of the IB from the torpor
+                        // If extraction-issues appear, this assumption could be the reason.
+
+                        //if (imprintingBonusFromTorpor.Includes(imprintingBonusFromFood)
+                        if (imprintingBonusRange.Overlaps(imprintingBonusFromFood))
                         {
-                            //imprintingBonusFromTorpor = imprintingBonusFromFood;
-                            imprintingBonusRange.SetToIntersectionWith(imprintingBonusFromFood);
-                            support++;
+                            MinMaxDouble intersectionIB = new MinMaxDouble(imprintingBonusRange);
+                            intersectionIB.SetToIntersectionWith(imprintingBonusFromFood);
+                            if (StatValueCalculation.CalculateValue(species, Stats.Torpidity, torporLevel, 0, true, 1,
+                                    intersectionIB.Min) <= torpor
+                                && StatValueCalculation.CalculateValue(species, Stats.Torpidity, torporLevel, 0, true,
+                                    1, intersectionIB.Max) >= torpor)
+                            {
+                                //imprintingBonusFromTorpor = imprintingBonusFromFood;
+                                imprintingBonusRange.SetToIntersectionWith(imprintingBonusFromFood);
+                                support++;
+                            }
                         }
                     }
                 }
 
-                // if classic method results in value in the possible range, take this, probably most exact value
+                // if the imprinting bonus value considering only the fixed imprinting gain by cuddles results in a value in the possible range, take this, probably most exact value
                 if (imprintingBonusRange.Includes(imprintingBonusFromGainPerCuddle)
-                    && StatValueCalculation.CalculateValue(species, Stats.Torpidity, torporLevel, 0, true, 1, imprintingBonusFromGainPerCuddle) == torpor)
+                    && Math.Abs(StatValueCalculation.CalculateValue(species, Stats.Torpidity, torporLevel, 0, true, 1, imprintingBonusFromGainPerCuddle) - torpor) <= 0.5)
                 {
                     imprintingBonusRange.MinMax = imprintingBonusFromGainPerCuddle;
                     support++;
