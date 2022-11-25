@@ -17,7 +17,7 @@ namespace ARKBreedingStats.raising
             set => label1.Text = value;
         }
 
-        internal void setValues(double motherValue = -1, double fatherValue = -1, int highlight = 0, int bestLevel = -1, int bestLevelPercent = 0)
+        internal void SetValues(double motherValue = -1, double fatherValue = -1, int highlight = 0, int bestLevel = -1, int bestLevelPercent = 0)
         {
             labelM.Text = motherValue >= 0 ? motherValue.ToString("N1") : "-";
             labelF.Text = fatherValue >= 0 ? fatherValue.ToString("N1") : "-";

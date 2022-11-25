@@ -734,8 +734,8 @@ namespace ARKBreedingStats
             radarChart1.InitializeVariables(_creatureCollection.maxChartLevel);
             radarChartExtractor.InitializeVariables(_creatureCollection.maxChartLevel);
             radarChartLibrary.InitializeVariables(_creatureCollection.maxChartLevel);
-            statPotentials1.levelDomMax = _creatureCollection.maxDomLevel;
-            statPotentials1.levelGraphMax = _creatureCollection.maxChartLevel;
+            statPotentials1.LevelDomMax = _creatureCollection.maxDomLevel;
+            statPotentials1.LevelGraphMax = _creatureCollection.maxChartLevel;
 
             _speechRecognition?.SetMaxLevelAndSpecies(_creatureCollection.maxWildLevel,
                 _creatureCollection.considerWildLevelSteps ? _creatureCollection.wildLevelStep : 1,

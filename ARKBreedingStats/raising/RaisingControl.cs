@@ -191,7 +191,7 @@ namespace ARKBreedingStats.raising
                 if (value != null)
                 {
                     _cc = value;
-                    parentStats1.maxChartLevel = _cc.maxChartLevel;
+                    parentStats1.MaxChartLevel = _cc.maxChartLevel;
                 }
             }
         }

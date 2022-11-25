@@ -1,44 +1,42 @@
 ﻿using ARKBreedingStats.species;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.uiControls
 {
     public partial class StatPotentials : UserControl
     {
-        private readonly StatPotential[] stats;
-        private Species selectedSpecies;
-        private readonly int[] oldLevels;
+        private readonly StatPotential[] _stats;
+        private Species _selectedSpecies;
+        private readonly int[] _oldLevels;
 
         public StatPotentials()
         {
             InitializeComponent();
 
-            stats = new StatPotential[Stats.StatsCount];
+            _stats = new StatPotential[Stats.StatsCount];
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 StatPotential stat = new StatPotential(s, Utils.Precision(s) == 3);
-                stats[s] = stat;
+                _stats[s] = stat;
             }
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 int si = Stats.DisplayOrder[s];
-                flpStats.Controls.Add(stats[si]);
-                flpStats.SetFlowBreak(stats[si], true);
+                flpStats.Controls.Add(_stats[si]);
+                flpStats.SetFlowBreak(_stats[si], true);
             }
-            oldLevels = new int[Stats.StatsCount];
+            _oldLevels = new int[Stats.StatsCount];
         }
 
         public Species Species
         {
             set
             {
-                if (value == null || value == selectedSpecies) return;
-                selectedSpecies = value;
+                if (value == null || value == _selectedSpecies) return;
+                _selectedSpecies = value;
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
-                    stats[s].Visible = selectedSpecies.UsesStat(s);
+                    _stats[s].Visible = _selectedSpecies.UsesStat(s);
                 }
             }
         }
@@ -48,31 +46,38 @@ namespace ARKBreedingStats.uiControls
             SuspendLayout();
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (forceUpdate || oldLevels[s] != levelsWild[s])
+                if (forceUpdate || _oldLevels[s] != levelsWild[s])
                 {
-                    oldLevels[s] = levelsWild[s];
-                    stats[s].SetLevel(selectedSpecies, levelsWild[s]);
+                    _oldLevels[s] = levelsWild[s];
+                    _stats[s].SetLevel(_selectedSpecies, levelsWild[s]);
                 }
             }
             ResumeLayout();
         }
 
-        public int levelDomMax
+        public int LevelDomMax
         {
             set
             {
                 for (int s = 0; s < Stats.StatsCount; s++)
-                    stats[s].maxDomLevel = value;
+                    _stats[s].maxDomLevel = value;
             }
         }
 
-        public int levelGraphMax
+        public int LevelGraphMax
         {
             set
             {
                 for (int s = 0; s < Stats.StatsCount; s++)
-                    stats[s].levelGraphMax = value;
+                    _stats[s].levelGraphMax = value;
             }
+        }
+
+        public void SetLocalization()
+        {
+            if (_stats == null) return;
+            foreach (var s in _stats)
+                s.SetLocalization();
         }
     }
 }
