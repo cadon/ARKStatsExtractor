@@ -1050,18 +1050,27 @@ namespace ARKBreedingStats.settings
                 FileName = "ASBMultipliers"
             })
             {
-                if (dlg.ShowDialog() == DialogResult.OK)
+                if (dlg.ShowDialog() != DialogResult.OK) return;
+                try
                 {
-                    SaveMultiplierSettingsToFile(dlg.FileName);
+                    File.WriteAllText(dlg.FileName, GetMultiplierSettings());
+                }
+                catch (Exception ex)
+                {
+                    MessageBoxes.ExceptionMessageBox(ex, "Error while writing settings file:", "File writing error");
                 }
             }
         }
 
+        private void BtSettingsToClipboard_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(GetMultiplierSettings());
+        }
+
         /// <summary>
-        /// Saves the multipliers for the stats, taming and breeding to an ini-file.
+        /// Returns the multipliers for the stats, taming and breeding in a string.
         /// </summary>
-        /// <param name="fileName"></param>
-        private void SaveMultiplierSettingsToFile(string fileName)
+        private string GetMultiplierSettings()
         {
             var sb = new System.Text.StringBuilder();
             var cultureForStrings = System.Globalization.CultureInfo.GetCultureInfo("en-US");
@@ -1111,14 +1120,7 @@ namespace ARKBreedingStats.settings
             sb.AppendLine($"ASBEvent_TamingSpeedMultiplier = {nudTamingSpeedEvent.Value.ToString(cultureForStrings)}");
             sb.AppendLine($"ASBEvent_DinoCharacterFoodDrainMultiplier = {nudDinoCharacterFoodDrainEvent.Value.ToString(cultureForStrings)}");
 
-            try
-            {
-                File.WriteAllText(fileName, sb.ToString());
-            }
-            catch (Exception ex)
-            {
-                MessageBoxes.ExceptionMessageBox(ex, "Error while writing settings file:", "File writing error");
-            }
+            return sb.ToString();
         }
 
         public enum SettingsTabPages
