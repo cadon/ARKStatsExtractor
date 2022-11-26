@@ -772,6 +772,7 @@ namespace ARKBreedingStats.settings
             if (ParseAndSetValue(nudWildLevelStep, @"ASBExtractorWildLevelSteps ?= ?(\d+)"))
                 cbConsiderWildLevelSteps.Checked = nudWildLevelStep.Value != 1;
             ParseAndSetCheckbox(cbAllowMoreThanHundredImprinting, @"ASBAllowHyperImprinting ?= ?(true|false)");
+            ParseAndSetCheckbox(CbAllowFlyerSpeedLeveling, @"ASBAllowFlyerSpeedLeveling ?= ?(true|false)");
 
             // event multipliers breeding
             ParseAndSetValue(nudMatingIntervalEvent, @"ASBEvent_MatingIntervalMultiplier ?= ?(\d*\.?\d+)");
@@ -1110,6 +1111,7 @@ namespace ARKBreedingStats.settings
             // extractor
             sb.AppendLine($"ASBExtractorWildLevelSteps = {(cbConsiderWildLevelSteps.Checked ? nudWildLevelStep.Value.ToString(cultureForStrings) : "1")}");
             sb.AppendLine($"ASBAllowHyperImprinting = {(cbAllowMoreThanHundredImprinting.Checked ? "true" : "false")}");
+            sb.AppendLine($"ASBAllowFlyerSpeedLeveling = {(CbAllowFlyerSpeedLeveling.Checked ? "true" : "false")}");
 
             // event multipliers
             sb.AppendLine($"ASBEvent_MatingIntervalMultiplier = {nudMatingIntervalEvent.Value.ToString(cultureForStrings)}");
