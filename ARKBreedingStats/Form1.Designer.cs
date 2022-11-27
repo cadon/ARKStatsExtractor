@@ -165,6 +165,7 @@ namespace ARKBreedingStats
             this.panel2 = new System.Windows.Forms.Panel();
             this.lbCurrentValue = new System.Windows.Forms.Label();
             this.panelStatTesterFootnote = new System.Windows.Forms.Panel();
+            this.LbWarningLevel255 = new System.Windows.Forms.Label();
             this.lbWildLevelTester = new System.Windows.Forms.Label();
             this.labelDomLevelSum = new System.Windows.Forms.Label();
             this.labelTesterTotalLevel = new System.Windows.Forms.Label();
@@ -1608,14 +1609,25 @@ namespace ARKBreedingStats
             // 
             // panelStatTesterFootnote
             // 
+            this.panelStatTesterFootnote.Controls.Add(this.LbWarningLevel255);
             this.panelStatTesterFootnote.Controls.Add(this.lbWildLevelTester);
             this.panelStatTesterFootnote.Controls.Add(this.labelDomLevelSum);
             this.panelStatTesterFootnote.Controls.Add(this.labelTesterTotalLevel);
             this.panelStatTesterFootnote.Controls.Add(this.lbNotYetTamed);
             this.panelStatTesterFootnote.Location = new System.Drawing.Point(3, 26);
             this.panelStatTesterFootnote.Name = "panelStatTesterFootnote";
-            this.panelStatTesterFootnote.Size = new System.Drawing.Size(295, 53);
+            this.panelStatTesterFootnote.Size = new System.Drawing.Size(295, 128);
             this.panelStatTesterFootnote.TabIndex = 54;
+            // 
+            // LbWarningLevel255
+            // 
+            this.LbWarningLevel255.BackColor = System.Drawing.Color.Firebrick;
+            this.LbWarningLevel255.ForeColor = System.Drawing.Color.White;
+            this.LbWarningLevel255.Location = new System.Drawing.Point(8, 52);
+            this.LbWarningLevel255.Name = "LbWarningLevel255";
+            this.LbWarningLevel255.Padding = new System.Windows.Forms.Padding(3);
+            this.LbWarningLevel255.Size = new System.Drawing.Size(283, 70);
+            this.LbWarningLevel255.TabIndex = 50;
             // 
             // lbWildLevelTester
             // 
@@ -2083,7 +2095,7 @@ namespace ARKBreedingStats
             this.listViewLibrary.Location = new System.Drawing.Point(204, 3);
             this.listViewLibrary.Name = "listViewLibrary";
             this.listViewLibrary.ShowItemToolTips = true;
-            this.listViewLibrary.Size = new System.Drawing.Size(913, 737);
+            this.listViewLibrary.Size = new System.Drawing.Size(1657, 737);
             this.listViewLibrary.TabIndex = 2;
             this.listViewLibrary.UseCompatibleStateImageBehavior = false;
             this.listViewLibrary.View = System.Windows.Forms.View.Details;
@@ -3863,5 +3875,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripSeparator TsSpOcrLabel;
         private System.Windows.Forms.ToolStripLabel TsLbLabelSet;
         private System.Windows.Forms.ToolStripComboBox TsCbbLabelSets;
+        private System.Windows.Forms.Label LbWarningLevel255;
     }
 }

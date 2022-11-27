@@ -260,7 +260,7 @@ namespace ARKBreedingStats
                     statIoTesting.Percent = true;
                 }
 
-                statIoTesting.LevelChanged += testingStatIOValueUpdate;
+                statIoTesting.LevelChanged += TestingStatIoValueUpdate;
                 statIO.InputValueChanged += StatIOQuickWildLevelCheck;
                 statIO.Click += StatIO_Click;
                 _considerStatHighlight[s] = (Properties.Settings.Default.consideredStats & (1 << s)) != 0;
@@ -292,6 +292,8 @@ namespace ARKBreedingStats
             // enable 0-lock for dom-levels of oxygen, food (most often they are not leveled up)
             _statIOs[Stats.Oxygen].DomLevelLockedZero = true;
             _statIOs[Stats.Food].DomLevelLockedZero = true;
+
+            LbWarningLevel255.Visible = false;
 
             InitializeCollection();
 
@@ -2384,7 +2386,7 @@ namespace ARKBreedingStats
             {
                 _testingIOs[s].LevelWild = _statIOs[s].LevelWild;
                 _testingIOs[s].LevelDom = _statIOs[s].LevelDom;
-                testingStatIOValueUpdate(_testingIOs[s]);
+                TestingStatIoValueUpdate(_testingIOs[s]);
             }
 
             // set the data in the creatureInfoInput

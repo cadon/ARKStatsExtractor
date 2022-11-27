@@ -1,6 +1,5 @@
 ﻿using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
-using ARKBreedingStats.values;
 using System;
 using System.Drawing;
 using System.Linq;
@@ -17,7 +16,7 @@ namespace ARKBreedingStats
         /// </summary>
         private void UpdateTesterDetails()
         {
-            setTesterInputsTamed(!rbWildTester.Checked);
+            SetTesterInputsTamed(!rbWildTester.Checked);
             NumericUpDownTestingTE.Enabled = rbTamedTester.Checked;
             labelTesterTE.Enabled = rbTamedTester.Checked;
             numericUpDownImprintingBonusTester.Enabled = rbBredTester.Checked;
@@ -74,12 +73,12 @@ namespace ARKBreedingStats
                     continue;
                 if (s == Stats.StatsCount - 2) // update torpor after last stat-update
                     _updateTorporInTester = true;
-                testingStatIOsRecalculateValue(_testingIOs[s]);
+                TestingStatIOsRecalculateValue(_testingIOs[s]);
             }
-            testingStatIOsRecalculateValue(_testingIOs[Stats.Torpidity]);
+            TestingStatIOsRecalculateValue(_testingIOs[Stats.Torpidity]);
         }
 
-        private void setTesterInputsTamed(bool tamed)
+        private void SetTesterInputsTamed(bool tamed)
         {
             for (int s = 0; s < Stats.StatsCount; s++)
                 _testingIOs[s].postTame = tamed;
@@ -90,9 +89,9 @@ namespace ARKBreedingStats
         /// Updates the values in the testing-statIOs
         /// </summary>
         /// <param name="sIo"></param>
-        private void testingStatIOValueUpdate(StatIO sIo)
+        private void TestingStatIoValueUpdate(StatIO sIo)
         {
-            testingStatIOsRecalculateValue(sIo);
+            TestingStatIOsRecalculateValue(sIo);
 
             // update Torpor-level if changed value is not from torpor-StatIO
             if (_updateTorporInTester && sIo.statIndex != Stats.Torpidity)
@@ -106,10 +105,18 @@ namespace ARKBreedingStats
                 _testingIOs[Stats.Torpidity].LevelWild = torporLvl + _hiddenLevelsCreatureTester;
             }
 
+            var wildLevel255 = false;
+            var levelGreaterThan255 = false;
+
             int domLevels = 0;
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 domLevels += _testingIOs[s].LevelDom;
+                if (_testingIOs[s].LevelWild == 255)
+                    wildLevel255 = true;
+                if (_testingIOs[s].LevelWild > 255
+                    || _testingIOs[s].LevelDom > 255)
+                    levelGreaterThan255 = true;
             }
             labelDomLevelSum.Text = $"Dom Levels: {domLevels}/{_creatureCollection.maxDomLevel}";
             labelDomLevelSum.BackColor = domLevels > _creatureCollection.maxDomLevel ? Color.LightSalmon : Color.Transparent;
@@ -125,9 +132,22 @@ namespace ARKBreedingStats
 
             if (sIo.statIndex == Stats.Torpidity)
                 lbWildLevelTester.Text = "PreTame Level: " + Math.Ceiling(Math.Round((_testingIOs[Stats.Torpidity].LevelWild + 1) / (1 + NumericUpDownTestingTE.Value / 200), 6));
+
+            var levelWarning = string.Empty;
+            if (wildLevel255)
+                levelWarning += "A stat with a wild level of 255 cannot be leveled anymore. ";
+            if (levelGreaterThan255)
+                levelWarning += "A level higher than 255 will not be saved correctly in ARK and may be reset to a lower level than 256 after loading.";
+            if (string.IsNullOrEmpty(levelWarning))
+                LbWarningLevel255.Visible = false;
+            else
+            {
+                LbWarningLevel255.Text = levelWarning;
+                LbWarningLevel255.Visible = true;
+            }
         }
 
-        private void testingStatIOsRecalculateValue(StatIO sIo)
+        private void TestingStatIOsRecalculateValue(StatIO sIo)
         {
             sIo.BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, sIo.statIndex, sIo.LevelWild, 0, true, 1, 0);
             sIo.Input = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, sIo.statIndex, sIo.LevelWild, sIo.LevelDom,
