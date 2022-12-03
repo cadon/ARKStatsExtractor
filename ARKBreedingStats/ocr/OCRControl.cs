@@ -696,10 +696,13 @@ namespace ARKBreedingStats.ocr
 
             string fontFilePath = null;
             foreach (var c in fontSizesChars)
-                ArkOcr.Ocr.CreateOcrTemplatesFromFontFile(c.Key, c.Value, _fontFilePath, ref fontFilePath);
+            {
+                if (!ArkOcr.Ocr.CreateOcrTemplatesFromFontFile(c.Key, c.Value, _fontFilePath, ref fontFilePath))
+                    return; // user probably cancelled font selection
+            }
             _fontFilePath = fontFilePath;
 
-            MessageBoxes.ShowMessageBox($"OCR patterns created for the set labels", "OCR patterns created", MessageBoxIcon.Information);
+            MessageBoxes.ShowMessageBox("OCR patterns created for the set labels", "OCR patterns created", MessageBoxIcon.Information);
 
             string filePath = Properties.Settings.Default.ocrFile;
             if (!string.IsNullOrEmpty(filePath))

@@ -92,6 +92,11 @@ namespace ARKBreedingStats.ocr
             this.label14 = new System.Windows.Forms.Label();
             this.textBoxCalibrationText = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.TbLabelSetName = new System.Windows.Forms.TextBox();
+            this.BtDeleteLabelSet = new System.Windows.Forms.Button();
+            this.BtNewLabelSet = new System.Windows.Forms.Button();
+            this.CbbLabelSets = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.BtSetStatPositionBasedOnFirstTwo = new System.Windows.Forms.Button();
             this.chkbSetAllStatLabels = new System.Windows.Forms.CheckBox();
@@ -104,11 +109,6 @@ namespace ARKBreedingStats.ocr
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.listBoxLabelRectangles = new System.Windows.Forms.ListBox();
-            this.CbbLabelSets = new System.Windows.Forms.ComboBox();
-            this.BtNewLabelSet = new System.Windows.Forms.Button();
-            this.BtDeleteLabelSet = new System.Windows.Forms.Button();
-            this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.TbLabelSetName = new System.Windows.Forms.TextBox();
             this.ocrLetterEditTemplate = new ARKBreedingStats.ocr.OCRLetterEdit();
             this.ocrLetterEditRecognized = new ARKBreedingStats.ocr.OCRLetterEdit();
             this.nudResolutionHeight = new ARKBreedingStats.uiControls.Nud();
@@ -137,9 +137,9 @@ namespace ARKBreedingStats.ocr
             this.groupBox9.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.groupBox12.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupBox12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditTemplate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditRecognized)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudResolutionHeight)).BeginInit();
@@ -594,7 +594,7 @@ namespace ARKBreedingStats.ocr
             this.groupBox7.Controls.Add(this.BtRemoveSelectedPatterns);
             this.groupBox7.Controls.Add(this.TbRemovePatterns);
             this.groupBox7.Controls.Add(this.BtRemoveAllPatterns);
-            this.groupBox7.Location = new System.Drawing.Point(6, 526);
+            this.groupBox7.Location = new System.Drawing.Point(6, 538);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(334, 100);
             this.groupBox7.TabIndex = 0;
@@ -760,24 +760,24 @@ namespace ARKBreedingStats.ocr
             this.groupBox8.Controls.Add(this.textBoxCalibrationText);
             this.groupBox8.Location = new System.Drawing.Point(6, 334);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(334, 186);
+            this.groupBox8.Size = new System.Drawing.Size(334, 198);
             this.groupBox8.TabIndex = 4;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Add OCR Patterns";
             // 
             // BtCreateOcrPatternsFromManualChars
             // 
-            this.BtCreateOcrPatternsFromManualChars.Location = new System.Drawing.Point(144, 157);
+            this.BtCreateOcrPatternsFromManualChars.Location = new System.Drawing.Point(144, 168);
             this.BtCreateOcrPatternsFromManualChars.Name = "BtCreateOcrPatternsFromManualChars";
             this.BtCreateOcrPatternsFromManualChars.Size = new System.Drawing.Size(184, 23);
             this.BtCreateOcrPatternsFromManualChars.TabIndex = 5;
-            this.BtCreateOcrPatternsFromManualChars.Text = "Calibrate from Font";
+            this.BtCreateOcrPatternsFromManualChars.Text = "Create custom OCR patterns";
             this.BtCreateOcrPatternsFromManualChars.UseVisualStyleBackColor = true;
             this.BtCreateOcrPatternsFromManualChars.Click += new System.EventHandler(this.BtCreateOcrPatternsFromManualChars_Click);
             // 
             // label17
             // 
-            this.label17.Location = new System.Drawing.Point(6, 72);
+            this.label17.Location = new System.Drawing.Point(6, 83);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(322, 56);
             this.label17.TabIndex = 1;
@@ -787,16 +787,16 @@ namespace ARKBreedingStats.ocr
             // 
             this.BtCreateOcrPatternsForLabels.Location = new System.Drawing.Point(6, 19);
             this.BtCreateOcrPatternsForLabels.Name = "BtCreateOcrPatternsForLabels";
-            this.BtCreateOcrPatternsForLabels.Size = new System.Drawing.Size(322, 23);
+            this.BtCreateOcrPatternsForLabels.Size = new System.Drawing.Size(322, 37);
             this.BtCreateOcrPatternsForLabels.TabIndex = 0;
-            this.BtCreateOcrPatternsForLabels.Text = "Automatic creation of OCR Patterns from font";
+            this.BtCreateOcrPatternsForLabels.Text = "Automatic creation of OCR patterns from a font file considering the label sizes";
             this.BtCreateOcrPatternsForLabels.UseVisualStyleBackColor = true;
             this.BtCreateOcrPatternsForLabels.Click += new System.EventHandler(this.buttonLoadCalibrationImage_Click);
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 162);
+            this.label14.Location = new System.Drawing.Point(6, 173);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(46, 13);
             this.label14.TabIndex = 3;
@@ -804,7 +804,7 @@ namespace ARKBreedingStats.ocr
             // 
             // textBoxCalibrationText
             // 
-            this.textBoxCalibrationText.Location = new System.Drawing.Point(6, 131);
+            this.textBoxCalibrationText.Location = new System.Drawing.Point(6, 142);
             this.textBoxCalibrationText.Name = "textBoxCalibrationText";
             this.textBoxCalibrationText.Size = new System.Drawing.Size(322, 20);
             this.textBoxCalibrationText.TabIndex = 2;
@@ -827,6 +827,53 @@ namespace ARKBreedingStats.ocr
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Labels";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // groupBox12
+            // 
+            this.groupBox12.Controls.Add(this.TbLabelSetName);
+            this.groupBox12.Location = new System.Drawing.Point(6, 35);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(334, 45);
+            this.groupBox12.TabIndex = 5;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "Label set name";
+            // 
+            // TbLabelSetName
+            // 
+            this.TbLabelSetName.Location = new System.Drawing.Point(6, 19);
+            this.TbLabelSetName.Name = "TbLabelSetName";
+            this.TbLabelSetName.Size = new System.Drawing.Size(322, 20);
+            this.TbLabelSetName.TabIndex = 0;
+            this.TbLabelSetName.Leave += new System.EventHandler(this.TbLabelSetName_Leave);
+            // 
+            // BtDeleteLabelSet
+            // 
+            this.BtDeleteLabelSet.Location = new System.Drawing.Point(277, 6);
+            this.BtDeleteLabelSet.Name = "BtDeleteLabelSet";
+            this.BtDeleteLabelSet.Size = new System.Drawing.Size(63, 23);
+            this.BtDeleteLabelSet.TabIndex = 4;
+            this.BtDeleteLabelSet.Text = "delete";
+            this.BtDeleteLabelSet.UseVisualStyleBackColor = true;
+            this.BtDeleteLabelSet.Click += new System.EventHandler(this.BtDeleteLabelSet_Click);
+            // 
+            // BtNewLabelSet
+            // 
+            this.BtNewLabelSet.Location = new System.Drawing.Point(214, 6);
+            this.BtNewLabelSet.Name = "BtNewLabelSet";
+            this.BtNewLabelSet.Size = new System.Drawing.Size(57, 23);
+            this.BtNewLabelSet.TabIndex = 3;
+            this.BtNewLabelSet.Text = "new";
+            this.BtNewLabelSet.UseVisualStyleBackColor = true;
+            this.BtNewLabelSet.Click += new System.EventHandler(this.BtNewLabelSet_Click);
+            // 
+            // CbbLabelSets
+            // 
+            this.CbbLabelSets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CbbLabelSets.Location = new System.Drawing.Point(6, 8);
+            this.CbbLabelSets.Name = "CbbLabelSets";
+            this.CbbLabelSets.Size = new System.Drawing.Size(202, 21);
+            this.CbbLabelSets.TabIndex = 2;
+            this.CbbLabelSets.SelectedIndexChanged += new System.EventHandler(this.CbbLabelSets_SelectedIndexChanged);
             // 
             // groupBox4
             // 
@@ -954,53 +1001,6 @@ namespace ARKBreedingStats.ocr
             this.listBoxLabelRectangles.TabIndex = 0;
             this.listBoxLabelRectangles.SelectedIndexChanged += new System.EventHandler(this.listBoxLabelRectangles_SelectedIndexChanged);
             // 
-            // CbbLabelSets
-            // 
-            this.CbbLabelSets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CbbLabelSets.Location = new System.Drawing.Point(6, 8);
-            this.CbbLabelSets.Name = "CbbLabelSets";
-            this.CbbLabelSets.Size = new System.Drawing.Size(202, 21);
-            this.CbbLabelSets.TabIndex = 2;
-            this.CbbLabelSets.SelectedIndexChanged += new System.EventHandler(this.CbbLabelSets_SelectedIndexChanged);
-            // 
-            // BtNewLabelSet
-            // 
-            this.BtNewLabelSet.Location = new System.Drawing.Point(214, 6);
-            this.BtNewLabelSet.Name = "BtNewLabelSet";
-            this.BtNewLabelSet.Size = new System.Drawing.Size(57, 23);
-            this.BtNewLabelSet.TabIndex = 3;
-            this.BtNewLabelSet.Text = "new";
-            this.BtNewLabelSet.UseVisualStyleBackColor = true;
-            this.BtNewLabelSet.Click += new System.EventHandler(this.BtNewLabelSet_Click);
-            // 
-            // BtDeleteLabelSet
-            // 
-            this.BtDeleteLabelSet.Location = new System.Drawing.Point(277, 6);
-            this.BtDeleteLabelSet.Name = "BtDeleteLabelSet";
-            this.BtDeleteLabelSet.Size = new System.Drawing.Size(63, 23);
-            this.BtDeleteLabelSet.TabIndex = 4;
-            this.BtDeleteLabelSet.Text = "delete";
-            this.BtDeleteLabelSet.UseVisualStyleBackColor = true;
-            this.BtDeleteLabelSet.Click += new System.EventHandler(this.BtDeleteLabelSet_Click);
-            // 
-            // groupBox12
-            // 
-            this.groupBox12.Controls.Add(this.TbLabelSetName);
-            this.groupBox12.Location = new System.Drawing.Point(6, 35);
-            this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(334, 45);
-            this.groupBox12.TabIndex = 5;
-            this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "Label set name";
-            // 
-            // TbLabelSetName
-            // 
-            this.TbLabelSetName.Location = new System.Drawing.Point(6, 19);
-            this.TbLabelSetName.Name = "TbLabelSetName";
-            this.TbLabelSetName.Size = new System.Drawing.Size(322, 20);
-            this.TbLabelSetName.TabIndex = 0;
-            this.TbLabelSetName.Leave += new System.EventHandler(this.TbLabelSetName_Leave);
-            // 
             // ocrLetterEditTemplate
             // 
             this.ocrLetterEditTemplate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -1087,7 +1087,7 @@ namespace ARKBreedingStats.ocr
             // nudFontSizeCalibration
             // 
             this.nudFontSizeCalibration.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.nudFontSizeCalibration.Location = new System.Drawing.Point(58, 160);
+            this.nudFontSizeCalibration.Location = new System.Drawing.Point(58, 171);
             this.nudFontSizeCalibration.Minimum = new decimal(new int[] {
             5,
             0,
@@ -1252,11 +1252,11 @@ namespace ARKBreedingStats.ocr
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             this.tabPage3.ResumeLayout(false);
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox12.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
-            this.groupBox12.ResumeLayout(false);
-            this.groupBox12.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditRecognized)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudResolutionHeight)).EndInit();
