@@ -1768,34 +1768,34 @@ namespace ARKBreedingStats
 
         private void aliveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SetStatusOfSelected(CreatureStatus.Available);
+            SetStatusOfSelectedCreatures(CreatureStatus.Available);
         }
 
         private void deadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SetStatusOfSelected(CreatureStatus.Dead);
+            SetStatusOfSelectedCreatures(CreatureStatus.Dead);
         }
 
         private void unavailableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SetStatusOfSelected(CreatureStatus.Unavailable);
+            SetStatusOfSelectedCreatures(CreatureStatus.Unavailable);
         }
 
         private void obeliskToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            SetStatusOfSelected(CreatureStatus.Obelisk);
+            SetStatusOfSelectedCreatures(CreatureStatus.Obelisk);
         }
 
-        private void SetStatusOfSelected(CreatureStatus s)
+        private void SetStatusOfSelectedCreatures(CreatureStatus s)
         {
             List<Creature> cs = new List<Creature>();
             foreach (int i in listViewLibrary.SelectedIndices)
                 cs.Add(_creaturesDisplayed[i]);
             if (cs.Any())
-                SetStatus(cs, s);
+                SetCreatureStatus(cs, s);
         }
 
-        private void SetStatus(IEnumerable<Creature> cs, CreatureStatus s)
+        private void SetCreatureStatus(IEnumerable<Creature> cs, CreatureStatus s)
         {
             bool changed = false;
             List<string> speciesBlueprints = new List<string>();
@@ -1854,7 +1854,7 @@ namespace ARKBreedingStats
                     "Selected Creature not Available",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                SetStatus(new List<Creature> { c }, CreatureStatus.Available);
+                SetCreatureStatus(new List<Creature> { c }, CreatureStatus.Available);
                 breedingPlan1.BreedingPlanNeedsUpdate = false;
             }
             else
