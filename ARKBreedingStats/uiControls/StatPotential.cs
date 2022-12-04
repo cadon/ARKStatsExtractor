@@ -20,7 +20,7 @@ namespace ARKBreedingStats.uiControls
             InitializeComponent();
             statIndex = stat;
             this.percent = percent;
-            label1.Text = Utils.StatName(stat, true);
+            label1.Text = Utils.StatName(statIndex, true);
         }
 
         public void SetLevel(Species species, int wildLevel)
@@ -38,6 +38,11 @@ namespace ARKBreedingStats.uiControls
                 labelDomLevels.Text = (StatValueCalculation.CalculateValue(species, statIndex, wildLevel, maxDomLevel, true, 1, 1) * (percent ? 100 : 1)).ToString() + (percent ? "%" : "");
                 ResumeLayout();
             }
+        }
+
+        public void SetLocalization()
+        {
+            label1.Text = Utils.StatName(statIndex, true);
         }
     }
 }

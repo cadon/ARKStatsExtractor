@@ -1,7 +1,6 @@
 ﻿using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -9,20 +8,22 @@ namespace ARKBreedingStats.raising
 {
     public partial class ParentStats : UserControl
     {
-        private readonly List<ParentStatValues> _parentStatValues;
+        private readonly ParentStatValues[] _parentStatValues;
         private readonly Label _lbLevel;
-        public int maxChartLevel;
+        public int MaxChartLevel;
 
         public ParentStats()
         {
             InitializeComponent();
 
-            _parentStatValues = new List<ParentStatValues>();
+            _parentStatValues = new ParentStatValues[Stats.StatsCount];
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                ParentStatValues psv = new ParentStatValues();
-                psv.StatName = Utils.StatName(s, true) + (Utils.Precision(s) == 1 ? string.Empty : " %");
-                _parentStatValues.Add(psv);
+                var psv = new ParentStatValues
+                {
+                    StatName = Utils.StatName(s, true) + (Utils.Precision(s) == 1 ? string.Empty : " %")
+                };
+                _parentStatValues[s] = psv;
                 flowLayoutPanel1.SetFlowBreak(psv, true);
             }
             for (int s = 0; s < Stats.StatsCount; s++)
@@ -41,7 +42,7 @@ namespace ARKBreedingStats.raising
         public void Clear()
         {
             for (int s = 0; s < Stats.StatsCount; s++)
-                _parentStatValues[s].setValues();
+                _parentStatValues[s].SetValues();
             _lbLevel.Text = string.Empty;
         }
 
@@ -53,7 +54,7 @@ namespace ARKBreedingStats.raising
                 labelFather.Text = Loc.S("Unknown");
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
-                    _parentStatValues[s].setValues();
+                    _parentStatValues[s].SetValues();
                 }
                 return;
             }
@@ -75,10 +76,10 @@ namespace ARKBreedingStats.raising
                 if (mother != null && father != null)
                 {
                     bestLevel = Math.Max(mother.levelsWild[s], father.levelsWild[s]);
-                    if (maxChartLevel > 0)
-                        bestLevelPercent = (100 * bestLevel) / maxChartLevel;
+                    if (MaxChartLevel > 0)
+                        bestLevelPercent = (100 * bestLevel) / MaxChartLevel;
                 }
-                _parentStatValues[s].setValues(
+                _parentStatValues[s].SetValues(
                     mother == null ? -1 : (mother.valuesBreeding[s] * (Utils.Precision(s) == 1 ? 1 : 100)),
                     father == null ? -1 : (father.valuesBreeding[s] * (Utils.Precision(s) == 1 ? 1 : 100)),
                     mother != null && father != null ? (mother.valuesBreeding[s] > father.valuesBreeding[s] ? 1 : 2) : 0,
@@ -114,6 +115,11 @@ namespace ARKBreedingStats.raising
         {
             Loc.ControlText(label1, "Mother");
             Loc.ControlText(label2, "Father");
+            if (_parentStatValues == null) return;
+
+            for (int s = Math.Min(_parentStatValues.Length, Stats.StatsCount) - 1; s >= 0; s--)
+                _parentStatValues[s].StatName =
+                        Utils.StatName(s, true) + (Utils.Precision(s) == 1 ? string.Empty : " %");
         }
     }
 }

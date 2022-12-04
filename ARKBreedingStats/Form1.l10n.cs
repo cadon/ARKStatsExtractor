@@ -115,6 +115,7 @@
                 _testingIOs[si].Title = Utils.StatName(si, false, statNames);
             }
             parentInheritanceExtractor.SetLocalizations();
+            statPotentials1.SetLocalization();
 
             // library
             Loc.ControlText(tabPageLibrary, "library");

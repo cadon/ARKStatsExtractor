@@ -129,7 +129,7 @@ The TE can differ 0.1% due to ingame-rounding.</value>
   <data name="radarChart1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAGQAAAAyCAYAAACqNX6+AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vQAADr0BR/uQrQAACDpJREFUeF7tWX9slOUdf3AkVocTN/7ossVgYlznjMFNLL01GzFu8Z85M8jSKTka
+        vAAADrwBlbxySQAACDpJREFUeF7tWX9slOUdf3AkVocTN/7ossVgYlznjMFNLL01GzFu8Z85M8jSKTka
         rICWUX5bqNy6gsMB0pq48aMy/3FjIwtmgwsNw9SMLXS4ecgEpVavqUKr5frDg7Z34H32+dzdM98dveu1
         9Mi4vp/mm+f98dz7vO/383x/1rhw4eIq4luUfYnD/8J5TcdIkRcpUygucoBsCHHeFxEiZF78zMW4Y7SE
         CA9RRIqLHGC0hLgWkmNI4akxQuIkJPXeOoqLHGG0FuIix3AJ+T+DS0iOoCBrfXwrpZKSDa6UkLGum9eQ
@@ -170,7 +170,7 @@ The TE can differ 0.1% due to ingame-rounding.</value>
   <data name="radarChartExtractor.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAGQAAAAyCAYAAACqNX6+AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vQAADr0BR/uQrQAACDpJREFUeF7tWX9slOUdf3AkVocTN/7ossVgYlznjMFNLL01GzFu8Z85M8jSKTka
+        vAAADrwBlbxySQAACDpJREFUeF7tWX9slOUdf3AkVocTN/7ossVgYlznjMFNLL01GzFu8Z85M8jSKTka
         rICWUX5bqNy6gsMB0pq48aMy/3FjIwtmgwsNw9SMLXS4ecgEpVavqUKr5frDg7Z34H32+dzdM98dveu1
         9Mi4vp/mm+f98dz7vO/383x/1rhw4eIq4luUfYnD/8J5TcdIkRcpUygucoBsCHHeFxEiZF78zMW4Y7SE
         CA9RRIqLHGC0hLgWkmNI4akxQuIkJPXeOoqLHGG0FuIix3AJ+T+DS0iOoCBrfXwrpZKSDa6UkLGum9eQ
@@ -245,7 +245,7 @@ It's recommended to first create a backup file of you library.</value>
   <data name="radarChartLibrary.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAGQAAAAyCAYAAACqNX6+AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vQAADr0BR/uQrQAACDpJREFUeF7tWX9slOUdf3AkVocTN/7ossVgYlznjMFNLL01GzFu8Z85M8jSKTka
+        vAAADrwBlbxySQAACDpJREFUeF7tWX9slOUdf3AkVocTN/7ossVgYlznjMFNLL01GzFu8Z85M8jSKTka
         rICWUX5bqNy6gsMB0pq48aMy/3FjIwtmgwsNw9SMLXS4ecgEpVavqUKr5frDg7Z34H32+dzdM98dveu1
         9Mi4vp/mm+f98dz7vO/383x/1rhw4eIq4luUfYnD/8J5TcdIkRcpUygucoBsCHHeFxEiZF78zMW4Y7SE
         CA9RRIqLHGC0hLgWkmNI4akxQuIkJPXeOoqLHGG0FuIix3AJ+T+DS0iOoCBrfXwrpZKSDa6UkLGum9eQ

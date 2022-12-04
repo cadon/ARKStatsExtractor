@@ -14,7 +14,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using ARKBreedingStats.library;
 using ARKBreedingStats.settings;
-using System.Runtime.ConstrainedExecution;
 
 namespace ARKBreedingStats
 {
@@ -1712,27 +1711,27 @@ namespace ARKBreedingStats
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            SetStatusOfSelected(CreatureStatus.Available);
+            SetStatusOfSelectedCreatures(CreatureStatus.Available);
         }
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            SetStatusOfSelected(CreatureStatus.Unavailable);
+            SetStatusOfSelectedCreatures(CreatureStatus.Unavailable);
         }
 
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
         {
-            SetStatusOfSelected(CreatureStatus.Dead);
+            SetStatusOfSelectedCreatures(CreatureStatus.Dead);
         }
 
         private void obeliskToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SetStatusOfSelected(CreatureStatus.Obelisk);
+            SetStatusOfSelectedCreatures(CreatureStatus.Obelisk);
         }
 
         private void cryopodToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SetStatusOfSelected(CreatureStatus.Cryopod);
+            SetStatusOfSelectedCreatures(CreatureStatus.Cryopod);
         }
 
         private void currentValuesToolStripMenuItem_Click(object sender, EventArgs e)

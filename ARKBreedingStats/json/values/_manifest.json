@@ -35,7 +35,7 @@
 			"mod": { "id": "1139775728", "tag": "Confuciusornis", "title": "Confuciusornis" }
 		},
 		"1169020368-Trex.json": {
-			"version": "352.6.1667855320",
+			"version": "354.4.1669539497",
 			"mod": { "id": "1169020368", "tag": "Trex", "title": "Ark Creature Rebalance (AG Reborn)" }
 		},
 		"1178308359-ShadDragon.json": {
@@ -72,7 +72,7 @@
 			"mod": { "id": "1356703358", "tag": "Primal_Fear_Noxious_Creatures", "title": "Primal Fear Noxious Creatures" }
 		},
 		"1373744537-AC2.json": {
-			"version": "353.1.1668296598",
+			"version": "354.4.1669849624",
 			"mod": { "id": "1373744537", "tag": "AC2", "title": "Additional Creatures 2: Wild Ark" }
 		},
 		"1405944717-Project_Evolution.json": {
@@ -129,7 +129,7 @@
 			"mod": { "id": "1633860796", "tag": "DE_Breedable_RockDrakes", "title": "Dark Edges Breedable Rock Drakes" }
 		},
 		"1652120435-AtlasPort.json": {
-			"version": "353.1.1668127679",
+			"version": "354.4.1669849853",
 			"mod": { "id": "1652120435", "tag": "AtlasPort", "title": "Shad's Atlas Imports" }
 		},
 		"1654255131-AtlasImports.json": {
@@ -157,7 +157,7 @@
 			"mod": { "id": "1696957410", "tag": "MarniimodsTest", "title": "Marnii's Equines" }
 		},
 		"1729386191-BonusDinoMod.json": {
-			"version": "345.23.1652583952",
+			"version": "354.4.1669849926",
 			"mod": { "id": "1729386191", "tag": "BonusDinoMod", "title": "Additional Creatures: Bonus Content" }
 		},
 		"1729512589-Brachiosaurus.json": {
@@ -166,7 +166,7 @@
 			"mod": { "id": "1729512589", "tag": "Brachiosaurus", "title": "ARK Additions: Brachiosaurus!" }
 		},
 		"1734595558-Pyria2.json": {
-			"version": "352.6.1667780578",
+			"version": "354.4.1669482607",
 			"mod": { "id": "1734595558", "tag": "Pyria2", "title": "Pyria: The Second Chapter" }
 		},
 		"1768499278-BalancedJPE.json": {
@@ -211,7 +211,7 @@
 			"mod": { "id": "1850732334", "tag": "ForestWyvern", "title": "Forest Wyvern Remastered" }
 		},
 		"1908568783-BarbaryLion.json": {
-			"version": "340.3.1588570866",
+			"version": "354.4.1669589908",
 			"mod": { "id": "1908568783", "tag": "BarbaryLion", "title": "AC: Bonus Content" }
 		},
 		"1912640902-MagicShinehorn.json": {
@@ -235,7 +235,7 @@
 			"mod": { "id": "2000326197", "tag": "ExtraResources", "title": "Event Assets" }
 		},
 		"2003934830-Beasts.json": {
-			"version": "351.6.1667098123",
+			"version": "354.4.1669867458",
 			"mod": { "id": "2003934830", "tag": "Beasts", "title": "Prehistoric Beasts" }
 		},
 		"2019846325-ApexMod.json": {

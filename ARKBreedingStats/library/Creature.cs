@@ -249,9 +249,24 @@ namespace ARKBreedingStats.Library
             get => _status;
             set
             {
+                if (_status == value) return;
+
+                if (Maturation < 1)
+                {
+                    if (value == CreatureStatus.Dead)
+                        PauseMaturationTimer();
+                    else if ((_status == CreatureStatus.Cryopod || _status == CreatureStatus.Obelisk)
+                             && (value == CreatureStatus.Available || value == CreatureStatus.Unavailable))
+                        StartMaturationTimer();
+                    else if ((_status == CreatureStatus.Available || _status == CreatureStatus.Unavailable)
+                             && (value == CreatureStatus.Cryopod || value == CreatureStatus.Obelisk))
+                        PauseMaturationTimer();
+                }
+
                 _status = value;
                 // remove other status while keeping the other flags
                 flags = (flags & CreatureFlags.StatusMask) | (CreatureFlags)(1 << (int)value);
+
             }
         }
 
@@ -420,25 +435,32 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Starts the timer for maturation.
         /// </summary>
-        private void StartTimer()
+        private void StartMaturationTimer()
         {
             if (growingPaused)
             {
                 growingPaused = false;
-                growingUntil = DateTime.Now.Add(growingLeft);
+                if (growingLeft.Ticks <= 0)
+                    growingUntil = null;
+                else
+                    growingUntil = DateTime.Now.Add(growingLeft);
             }
         }
 
         /// <summary>
         /// Pauses the timer for maturation.
         /// </summary>
-        private void PauseTimer()
+        private void PauseMaturationTimer()
         {
             if (!growingPaused)
             {
                 growingPaused = true;
-                growingLeft = growingUntil?.Subtract(DateTime.Now) ?? new TimeSpan();
-                if (growingLeft.TotalHours < 0) growingLeft = new TimeSpan();
+                growingLeft = growingUntil?.Subtract(DateTime.Now) ?? TimeSpan.Zero;
+                if (growingLeft.Ticks <= 0)
+                {
+                    growingLeft = TimeSpan.Zero;
+                    growingUntil = null;
+                }
             }
         }
 
@@ -448,8 +470,8 @@ namespace ARKBreedingStats.Library
         public void StartStopMatureTimer(bool start)
         {
             if (start)
-                StartTimer();
-            else PauseTimer();
+                StartMaturationTimer();
+            else PauseMaturationTimer();
         }
 
         /// <summary>
@@ -460,11 +482,8 @@ namespace ARKBreedingStats.Library
         public string GrowingLeftString
         {
             get => System.Xml.XmlConvert.ToString(growingLeft);
-            set
-            {
-                growingLeft = string.IsNullOrEmpty(value) ?
+            set => growingLeft = string.IsNullOrEmpty(value) ?
                     TimeSpan.Zero : System.Xml.XmlConvert.ToTimeSpan(value);
-            }
         }
 
         /// <summary>

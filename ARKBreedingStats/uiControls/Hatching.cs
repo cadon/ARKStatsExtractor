@@ -1,8 +1,5 @@
-﻿using System.Diagnostics;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using ARKBreedingStats.species;
-using ARKBreedingStats.values;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -16,8 +13,6 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// Set a species to display the stats of the current top levels. This can help in determine if a new creature is good.
         /// </summary>
-        /// <param name="species"></param>
-        /// <param name="highLevels"></param>
         public void SetSpecies(Species species, int[] highLevels, int[] lowLevels)
         {
             if (species == null)

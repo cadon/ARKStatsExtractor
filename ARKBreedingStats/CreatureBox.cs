@@ -114,7 +114,7 @@ namespace ARKBreedingStats
 
         public void UpdateLabel()
         {
-            LbMotherAndWildInfo.Text = "";
+            LbMotherAndWildInfo.Text = string.Empty;
             if (_creature != null)
             {
                 groupBox1.Text = $"{_creature.name} (Lvl {_creature.Level}/{_creature.LevelHatched + _cc.maxDomLevel})";
