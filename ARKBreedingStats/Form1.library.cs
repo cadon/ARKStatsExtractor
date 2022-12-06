@@ -758,7 +758,8 @@ namespace ARKBreedingStats
         private void ShowCreaturesInListView(IEnumerable<Creature> creatures)
         {
             listViewLibrary.BeginUpdate();
-            _creaturesDisplayed = _creatureListSorter.DoSort(creatures, orderBySpecies: Properties.Settings.Default.LibraryGroupBySpecies ? _speciesInLibraryOrdered : null);
+            IEnumerable<Creature> sorted = _creatureListSorter.DoSort(creatures, orderBySpecies: Properties.Settings.Default.LibraryGroupBySpecies ? _speciesInLibraryOrdered : null);
+            _creaturesDisplayed = Properties.Settings.Default.LibraryGroupBySpecies ? InsertDividers(sorted) : sorted.ToArray();
             listViewLibrary.VirtualListSize = _creaturesDisplayed.Length;
             _libraryListViewItemCache = null;
             listViewLibrary.EndUpdate();
@@ -775,6 +776,31 @@ namespace ARKBreedingStats
                 ToolStripTextBoxLibraryFilter.BackColor = _creaturesDisplayed.Any() ? Color.LightGoldenrodYellow : Color.LightSalmon;
                 ToolStripButtonLibraryFilterClear.BackColor = Color.Orange;
             }
+        }
+
+        private Creature[] InsertDividers(IEnumerable<Creature> creatures)
+        {
+            var enumerable = creatures.ToList();
+            if (!enumerable.Any())
+            {
+                return Array.Empty<Creature>();
+            }
+            List<Creature> result = new List<Creature>();
+            Creature last = null;
+            foreach (Creature c in enumerable)
+            {
+                if (last == null || c.Species != last.Species)
+                {
+                    result.Add(new Creature(c.Species, "ASB_Dummy123!?")
+                    {
+                        flags = CreatureFlags.Placeholder | CreatureFlags.Divider,
+                        Status = CreatureStatus.Unavailable
+                    });
+                }
+                result.Add(c);
+                last = c;
+            }
+            return result.ToArray();
         }
 
         #region ListViewLibrary virtual
@@ -818,6 +844,41 @@ namespace ARKBreedingStats
             for (int i = 0; i < length; i++)
             {
                 _libraryListViewItemCache[i] = CreateCreatureLvItem(_creaturesDisplayed[i + _libraryItemCacheFirstIndex]);
+            }
+        }
+
+        private void ListViewLibrary_DrawItem(object sender, DrawListViewItemEventArgs e)
+        {
+            e.DrawDefault = true;
+
+            if (!(e.Item.Tag is Creature creature))
+            {
+                return;
+            }
+
+            if (creature.flags.HasFlag(CreatureFlags.Divider))
+            {
+                e.DrawDefault = false;
+                var rect = e.Bounds;
+                float middle = (rect.Top + rect.Bottom) / 2f;
+                e.Graphics.FillRectangle(Brushes.Blue, rect.Left, middle, rect.Width, 1);
+                SizeF strSize = e.Graphics.MeasureString(creature.Species.name, e.Item.Font);
+                e.Graphics.FillRectangle(new SolidBrush(e.Item.BackColor), rect.Left, rect.Top, strSize.Width + 10, rect.Height);
+                e.Graphics.DrawString(creature.Species.name, e.Item.Font, Brushes.Black, rect.Left + 5, rect.Top + ((rect.Height - strSize.Height) / 2f));
+            }
+        }
+
+        private void ListViewLibrary_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
+        {
+            e.DrawDefault = true;
+            if (!(e.Item.Tag is Creature creature))
+            {
+                return;
+            }
+
+            if (creature.flags.HasFlag(CreatureFlags.Divider))
+            {
+                e.DrawDefault = false;
             }
         }
 
@@ -951,6 +1012,13 @@ namespace ARKBreedingStats
 
         private ListViewItem CreateCreatureLvItem(Creature cr)
         {
+            if (cr.flags.HasFlag(CreatureFlags.Divider))
+            {
+                ListViewItem div = new ListViewItem(Enumerable.Repeat("", listViewLibrary.Columns.Count).ToArray());
+                div.Tag = cr;
+                return div;
+            }
+            
             double colorFactor = 100d / _creatureCollection.maxChartLevel;
 
             string[] subItems = new[]
@@ -1187,7 +1255,8 @@ namespace ARKBreedingStats
             foreach (int i in listViewLibrary.SelectedIndices)
                 selectedCreatures.Add(_creaturesDisplayed[i]);
 
-            _creaturesDisplayed = _creatureListSorter.DoSort(_creaturesDisplayed, columnIndex, Properties.Settings.Default.LibraryGroupBySpecies ? _speciesInLibraryOrdered : null);
+            IEnumerable<Creature> sorted = _creatureListSorter.DoSort(_creaturesDisplayed.Where(c => !c.flags.HasFlag(CreatureFlags.Divider)), columnIndex, Properties.Settings.Default.LibraryGroupBySpecies ? _speciesInLibraryOrdered : null);
+            _creaturesDisplayed = Properties.Settings.Default.LibraryGroupBySpecies ? InsertDividers(sorted) : sorted.ToArray();
             _libraryListViewItemCache = null;
             listViewLibrary.EndUpdate();
             SelectCreaturesInLibrary(selectedCreatures);

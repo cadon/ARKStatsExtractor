@@ -172,6 +172,10 @@ namespace ARKBreedingStats
             listViewLibrary.VirtualMode = true;
             listViewLibrary.RetrieveVirtualItem += ListViewLibrary_RetrieveVirtualItem;
             listViewLibrary.CacheVirtualItems += ListViewLibrary_CacheVirtualItems;
+            listViewLibrary.OwnerDraw = true;
+            listViewLibrary.DrawItem += ListViewLibrary_DrawItem;
+            listViewLibrary.DrawColumnHeader += (sender, args) => args.DrawDefault = true;
+            listViewLibrary.DrawSubItem += ListViewLibrary_DrawSubItem;
 
             speciesSelector1.SetTextBox(tbSpeciesGlobal);
 

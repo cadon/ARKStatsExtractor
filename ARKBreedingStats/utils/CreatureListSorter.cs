@@ -34,7 +34,7 @@ namespace ARKBreedingStats.utils
         /// <summary>
         /// Sort list by given column index. If the columnIndex is -1, use last sorting.
         /// </summary>
-        public Creature[] DoSort(IEnumerable<Creature> list, int columnIndex = -1, Species[] orderBySpecies = null)
+        public IEnumerable<Creature> DoSort(IEnumerable<Creature> list, int columnIndex = -1, Species[] orderBySpecies = null)
         {
             if (list == null) return null;
 
@@ -54,7 +54,7 @@ namespace ARKBreedingStats.utils
             }
 
             // Perform the sort with these new sort options.
-            return OrderList(list, orderBySpecies).ToArray();
+            return OrderList(list, orderBySpecies);
         }
 
         private IEnumerable<Creature> OrderList(IEnumerable<Creature> list, Species[] orderBySpecies = null)
