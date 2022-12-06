@@ -786,19 +786,19 @@ namespace ARKBreedingStats
                 return Array.Empty<Creature>();
             }
             List<Creature> result = new List<Creature>();
-            Creature last = null;
+            Species lastSpecies = null;
             foreach (Creature c in enumerable)
             {
-                if (last == null || c.Species != last.Species)
+                if (lastSpecies == null || c.Species != lastSpecies)
                 {
-                    result.Add(new Creature(c.Species, "ASB_Dummy123!?")
+                    result.Add(new Creature(c.Species)
                     {
                         flags = CreatureFlags.Placeholder | CreatureFlags.Divider,
                         Status = CreatureStatus.Unavailable
                     });
                 }
                 result.Add(c);
-                last = c;
+                lastSpecies = c.Species;
             }
             return result.ToArray();
         }
@@ -861,25 +861,17 @@ namespace ARKBreedingStats
                 e.DrawDefault = false;
                 var rect = e.Bounds;
                 float middle = (rect.Top + rect.Bottom) / 2f;
-                e.Graphics.FillRectangle(Brushes.Blue, rect.Left, middle, rect.Width, 1);
-                SizeF strSize = e.Graphics.MeasureString(creature.Species.name, e.Item.Font);
-                e.Graphics.FillRectangle(new SolidBrush(e.Item.BackColor), rect.Left, rect.Top, strSize.Width + 10, rect.Height);
-                e.Graphics.DrawString(creature.Species.name, e.Item.Font, Brushes.Black, rect.Left + 5, rect.Top + ((rect.Height - strSize.Height) / 2f));
+                e.Graphics.FillRectangle(Brushes.Blue, rect.Left, middle, rect.Width - 3, 1);
+                SizeF strSize = e.Graphics.MeasureString(creature.Species.DescriptiveNameAndMod, e.Item.Font);
+                e.Graphics.FillRectangle(new SolidBrush(e.Item.BackColor), rect.Left, rect.Top, strSize.Width + 15, rect.Height);
+                e.Graphics.DrawString(creature.Species.DescriptiveNameAndMod, e.Item.Font, Brushes.Black, rect.Left + 10, rect.Top + ((rect.Height - strSize.Height) / 2f));
             }
         }
 
         private void ListViewLibrary_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
         {
-            e.DrawDefault = true;
-            if (!(e.Item.Tag is Creature creature))
-            {
-                return;
-            }
-
-            if (creature.flags.HasFlag(CreatureFlags.Divider))
-            {
-                e.DrawDefault = false;
-            }
+            var isDivider = e.Item.Tag is Creature creature && creature.flags.HasFlag(CreatureFlags.Divider);
+            e.DrawDefault = !isDivider;
         }
 
         #endregion
@@ -1014,11 +1006,12 @@ namespace ARKBreedingStats
         {
             if (cr.flags.HasFlag(CreatureFlags.Divider))
             {
-                ListViewItem div = new ListViewItem(Enumerable.Repeat("", listViewLibrary.Columns.Count).ToArray());
-                div.Tag = cr;
-                return div;
+                return new ListViewItem(Enumerable.Repeat(string.Empty, listViewLibrary.Columns.Count).ToArray())
+                {
+                    Tag = cr
+                };
             }
-            
+
             double colorFactor = 100d / _creatureCollection.maxChartLevel;
 
             string[] subItems = new[]
@@ -1276,12 +1269,11 @@ namespace ARKBreedingStats
         /// </summary>
         private void LibrarySelectedIndexChanged()
         {
-            for (var index = 0; index < listViewLibrary.SelectedIndices.Count; index++)
+            // remove dividers from selection
+            foreach (int i in listViewLibrary.SelectedIndices)
             {
-                var creatureIdx = listViewLibrary.SelectedIndices[index];
-                Creature c = _creaturesDisplayed[creatureIdx];
-                if (!c.flags.HasFlag(CreatureFlags.Divider)) continue;
-                listViewLibrary.SelectedIndices.Remove(creatureIdx);
+                if (_creaturesDisplayed[i].flags.HasFlag(CreatureFlags.Divider))
+                    listViewLibrary.SelectedIndices.Remove(i);
             }
 
             int cnt = listViewLibrary.SelectedIndices.Count;

@@ -1,5 +1,4 @@
 ﻿using ARKBreedingStats.species;
-using ARKBreedingStats.values;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -237,6 +236,15 @@ namespace ARKBreedingStats.Library
             ArkId = arkId;
             ArkIdImported = true;
             guid = Utils.ConvertArkIdToGuid(arkId);
+            flags = CreatureFlags.Placeholder;
+        }
+
+        /// <summary>
+        /// Creates a placeholder creature with a species and no other info.
+        /// </summary>
+        public Creature(Species species)
+        {
+            _species = species;
             flags = CreatureFlags.Placeholder;
         }
 
@@ -570,6 +578,9 @@ namespace ARKBreedingStats.Library
         Female = 512,
         Male = 1024,
         MutagenApplied = 2048,
+        /// <summary>
+        /// Indicates a dummy creature used as a species separator in the library listView.
+        /// </summary>
         Divider = 4096,
         /// <summary>
         /// If applied to the flags with &, the status is removed.
