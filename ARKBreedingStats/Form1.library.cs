@@ -1276,6 +1276,14 @@ namespace ARKBreedingStats
         /// </summary>
         private void LibrarySelectedIndexChanged()
         {
+            for (var index = 0; index < listViewLibrary.SelectedIndices.Count; index++)
+            {
+                var creatureIdx = listViewLibrary.SelectedIndices[index];
+                Creature c = _creaturesDisplayed[creatureIdx];
+                if (!c.flags.HasFlag(CreatureFlags.Divider)) continue;
+                listViewLibrary.SelectedIndices.Remove(creatureIdx);
+            }
+
             int cnt = listViewLibrary.SelectedIndices.Count;
             if (cnt == 0)
             {
