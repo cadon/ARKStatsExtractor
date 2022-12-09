@@ -257,6 +257,9 @@ namespace ARKBreedingStats.Library
             get => _status;
             set
             {
+                // remove other status while keeping the other flags
+                flags = (flags & CreatureFlags.StatusMask) | (CreatureFlags)(1 << (int)value);
+
                 if (_status == value) return;
 
                 if (Maturation < 1)
@@ -272,9 +275,6 @@ namespace ARKBreedingStats.Library
                 }
 
                 _status = value;
-                // remove other status while keeping the other flags
-                flags = (flags & CreatureFlags.StatusMask) | (CreatureFlags)(1 << (int)value);
-
             }
         }
 
