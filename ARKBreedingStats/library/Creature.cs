@@ -164,7 +164,13 @@ namespace ARKBreedingStats.Library
         [JsonProperty]
         public DateTime? growingUntil
         {
-            set => _growingUntil = value;
+            set
+            {
+                if (growingPaused && value != null)
+                    growingLeft = value.Value.Subtract(DateTime.Now);
+                else
+                    _growingUntil = value;
+            }
             get => growingPaused ? DateTime.Now.Add(growingLeft) : _growingUntil;
         }
 

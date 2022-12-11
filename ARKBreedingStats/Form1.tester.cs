@@ -219,7 +219,6 @@ namespace ARKBreedingStats
             if (newGrownUpAt != null && _creatureTesterEdit.growingUntil != newGrownUpAt)
             {
                 raisingControl1.RecreateList();
-                _creatureTesterEdit.StartStopMatureTimer(true);
             }
 
             SetTesterInfoInputCreature();
