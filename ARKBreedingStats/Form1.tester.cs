@@ -215,7 +215,8 @@ namespace ARKBreedingStats
             _creatureTesterEdit.RecalculateNewMutations();
 
             // if maturation was changed, update raising-timers
-            if (_creatureTesterEdit.growingUntil != creatureInfoInputTester.GrowingUntil)
+            var newGrownUpAt = creatureInfoInputTester.GrowingUntil;
+            if (newGrownUpAt != null && _creatureTesterEdit.growingUntil != newGrownUpAt)
             {
                 raisingControl1.RecreateList();
                 _creatureTesterEdit.StartStopMatureTimer(true);

@@ -159,8 +159,15 @@ namespace ARKBreedingStats.Library
             get => ColorIdsAlsoPossible?.Select(i => (int)i).ToArray();
         }
 
+        private DateTime? _growingUntil;
+
         [JsonProperty]
-        public DateTime? growingUntil;
+        public DateTime? growingUntil
+        {
+            set => _growingUntil = value;
+            get => growingPaused ? DateTime.Now.Add(growingLeft) : _growingUntil;
+        }
+
         public TimeSpan growingLeft;
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool growingPaused;
@@ -462,13 +469,13 @@ namespace ARKBreedingStats.Library
         {
             if (!growingPaused)
             {
-                growingPaused = true;
                 growingLeft = growingUntil?.Subtract(DateTime.Now) ?? TimeSpan.Zero;
                 if (growingLeft.Ticks <= 0)
                 {
                     growingLeft = TimeSpan.Zero;
                     growingUntil = null;
                 }
+                growingPaused = true;
             }
         }
 
