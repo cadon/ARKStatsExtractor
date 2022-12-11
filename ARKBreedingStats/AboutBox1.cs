@@ -108,6 +108,7 @@ namespace ARKBreedingStats
 * dunger (fixes)
 * Myrmecoleon (extra species images)
 * Lunat1q (improved OCR)
+* ThatGamerBlue (species dividers in virtual listview)
 
 Translations:
 * French by Vykan and Yanuut

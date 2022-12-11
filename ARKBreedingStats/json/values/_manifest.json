@@ -35,7 +35,7 @@
 			"mod": { "id": "1139775728", "tag": "Confuciusornis", "title": "Confuciusornis" }
 		},
 		"1169020368-Trex.json": {
-			"version": "354.4.1669539497",
+			"version": "354.6.1670659701",
 			"mod": { "id": "1169020368", "tag": "Trex", "title": "Ark Creature Rebalance (AG Reborn)" }
 		},
 		"1178308359-ShadDragon.json": {
@@ -235,7 +235,7 @@
 			"mod": { "id": "2000326197", "tag": "ExtraResources", "title": "Event Assets" }
 		},
 		"2003934830-Beasts.json": {
-			"version": "354.4.1669867458",
+			"version": "354.4.1670199617",
 			"mod": { "id": "2003934830", "tag": "Beasts", "title": "Prehistoric Beasts" }
 		},
 		"2019846325-ApexMod.json": {
@@ -263,7 +263,7 @@
 			"mod": { "id": "2135314513", "tag": "CI_Dinos", "title": "Crystal Isles Dino Addition" }
 		},
 		"2447186973-ArkOmega.json": {
-			"version": "351.6.1667016777",
+			"version": "354.6.1670707999",
 			"mod": { "id": "2447186973", "tag": "ArkOmega", "title": "Ark Omega" }
 		},
 		"2869411055-SDinoVariants.json": {

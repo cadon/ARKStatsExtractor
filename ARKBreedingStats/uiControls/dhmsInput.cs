@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -13,77 +12,92 @@ namespace ARKBreedingStats.uiControls
 
         public event ValueChangedEventHandler ValueChanged;
         public bool changed;
-        private bool change;
+        private bool _change;
 
         public dhmsInput()
         {
             InitializeComponent();
             ts = TimeSpan.Zero;
             changed = false;
-            change = true;
+            _change = true;
+
+            mTBD.MouseWheel += (s, e) => ChangeValue((TextBox)s, Math.Sign(e.Delta));
+            mTBH.MouseWheel += (s, e) => ChangeValue((TextBox)s, Math.Sign(e.Delta));
+            mTBM.MouseWheel += (s, e) => ChangeValue((TextBox)s, Math.Sign(e.Delta) * 5);
+            mTBS.MouseWheel += (s, e) => ChangeValue((TextBox)s, Math.Sign(e.Delta) * 5);
         }
 
         private void mTB_KeyUp(object sender, KeyEventArgs e)
         {
             TextBox input = (TextBox)sender;
-            if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
+            switch (e.KeyCode)
             {
-                int i = 0;
-                if (input == mTBH)
-                {
-                    i = 1;
-                }
-                else if (input == mTBM)
-                {
-                    i = 2;
-                }
-                else if (input == mTBS)
-                {
-                    i = 3;
-                }
+                case Keys.Left:
+                case Keys.Right:
+                    {
+                        int i = 0;
+                        if (input == mTBH)
+                        {
+                            i = 1;
+                        }
+                        else if (input == mTBM)
+                        {
+                            i = 2;
+                        }
+                        else if (input == mTBS)
+                        {
+                            i = 3;
+                        }
 
-                List<TextBox> inputs = new List<TextBox> { mTBD, mTBH, mTBM, mTBS };
+                        var inputs = new TextBox[] { mTBD, mTBH, mTBM, mTBS };
 
-                if (e.KeyCode == Keys.Left) i--;
-                else i++;
+                        if (e.KeyCode == Keys.Left) i--;
+                        else i++;
 
-                if (i < 0) i = 3;
-                else if (i > 3) i = 0;
+                        if (i < 0) i = 3;
+                        else if (i > 3) i = 0;
 
-                inputs[i].Focus();
+                        inputs[i].Focus();
+                        break;
+                    }
+                case Keys.Up:
+                    {
+                        ChangeValue(input, 1);
+                        break;
+                    }
+                case Keys.Down:
+                    {
+                        ChangeValue(input, -1);
+                        break;
+                    }
+                default:
+                    input.Text = RegexNonNumbers.Replace(input.Text, string.Empty);
+                    break;
             }
-            else if (e.KeyCode == Keys.Up)
-            {
-                int.TryParse(input.Text, out int i);
-                input.Text = (++i).ToString("D2");
+        }
+
+        private static readonly Regex RegexNonNumbers = new Regex(@"\D", RegexOptions.Compiled);
+
+        private void ChangeValue(TextBox input, int valueChange, bool selectAfterChange = true)
+        {
+            int.TryParse(input.Text, out var v);
+            v += valueChange;
+            if (v < 0) v = 0;
+            input.Text = v.ToString("D2");
+            if (selectAfterChange)
                 input.SelectAll();
-            }
-            else if (e.KeyCode == Keys.Down)
-            {
-                int.TryParse(input.Text, out int i);
-                i--;
-                if (i < 0) i = 0;
-                input.Text = i.ToString("D2");
-                input.SelectAll();
-            }
-            else
-            {
-                input.Text = Regex.Replace(input.Text, @"\D", "");
-            }
         }
 
         private void mTB_TextChanged(object sender, EventArgs e)
         {
-            if (change)
-            {
-                int.TryParse(mTBD.Text, out int d);
-                int.TryParse(mTBH.Text, out int h);
-                int.TryParse(mTBM.Text, out int m);
-                int.TryParse(mTBS.Text, out int s);
-                ts = new TimeSpan(d, h, m, s);
-                changed = true;
-                ValueChanged?.Invoke(this, ts);
-            }
+            if (!_change) return;
+            int.TryParse(mTBD.Text, out int d);
+            int.TryParse(mTBH.Text, out int h);
+            int.TryParse(mTBM.Text, out int m);
+            int.TryParse(mTBS.Text, out int s);
+            ts = new TimeSpan(d, h, m, s);
+            changed = true;
+            ValueChanged?.Invoke(this, ts);
         }
 
         public TimeSpan Timespan
@@ -91,14 +105,14 @@ namespace ARKBreedingStats.uiControls
             get => ts;
             set
             {
-                change = false;
+                _change = false;
                 ts = value.TotalSeconds >= 0 ? value : TimeSpan.Zero;
                 mTBD.Text = ((int)Math.Floor(ts.TotalDays)).ToString("D2");
                 mTBH.Text = ts.Hours.ToString("D2");
                 mTBM.Text = ts.Minutes.ToString("D2");
                 mTBS.Text = ts.Seconds.ToString("D2");
                 changed = false;
-                change = true;
+                _change = true;
             }
         }
 

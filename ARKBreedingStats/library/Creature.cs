@@ -1,5 +1,4 @@
 ﻿using ARKBreedingStats.species;
-using ARKBreedingStats.values;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -160,8 +159,21 @@ namespace ARKBreedingStats.Library
             get => ColorIdsAlsoPossible?.Select(i => (int)i).ToArray();
         }
 
+        private DateTime? _growingUntil;
+
         [JsonProperty]
-        public DateTime? growingUntil;
+        public DateTime? growingUntil
+        {
+            set
+            {
+                if (growingPaused && value != null)
+                    growingLeft = value.Value.Subtract(DateTime.Now);
+                else
+                    _growingUntil = value;
+            }
+            get => growingPaused ? DateTime.Now.Add(growingLeft) : _growingUntil;
+        }
+
         public TimeSpan growingLeft;
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool growingPaused;
@@ -240,6 +252,15 @@ namespace ARKBreedingStats.Library
             flags = CreatureFlags.Placeholder;
         }
 
+        /// <summary>
+        /// Creates a placeholder creature with a species and no other info.
+        /// </summary>
+        public Creature(Species species)
+        {
+            _species = species;
+            flags = CreatureFlags.Placeholder;
+        }
+
         public bool Equals(Creature other) => other != null && other.guid == guid;
 
         public override bool Equals(object obj) => obj is Creature creatureObj && creatureObj.guid == guid;
@@ -249,6 +270,9 @@ namespace ARKBreedingStats.Library
             get => _status;
             set
             {
+                // remove other status while keeping the other flags
+                flags = (flags & CreatureFlags.StatusMask) | (CreatureFlags)(1 << (int)value);
+
                 if (_status == value) return;
 
                 if (Maturation < 1)
@@ -264,9 +288,6 @@ namespace ARKBreedingStats.Library
                 }
 
                 _status = value;
-                // remove other status while keeping the other flags
-                flags = (flags & CreatureFlags.StatusMask) | (CreatureFlags)(1 << (int)value);
-
             }
         }
 
@@ -454,13 +475,13 @@ namespace ARKBreedingStats.Library
         {
             if (!growingPaused)
             {
-                growingPaused = true;
                 growingLeft = growingUntil?.Subtract(DateTime.Now) ?? TimeSpan.Zero;
                 if (growingLeft.Ticks <= 0)
                 {
                     growingLeft = TimeSpan.Zero;
                     growingUntil = null;
                 }
+                growingPaused = true;
             }
         }
 
@@ -571,8 +592,12 @@ namespace ARKBreedingStats.Library
         Male = 1024,
         MutagenApplied = 2048,
         /// <summary>
+        /// Indicates a dummy creature used as a species separator in the library listView.
+        /// </summary>
+        Divider = 4096,
+        /// <summary>
         /// If applied to the flags with &, the status is removed.
         /// </summary>
-        StatusMask = Mutated | Neutered | Placeholder | Female | Male | MutagenApplied
+        StatusMask = Mutated | Neutered | Placeholder | Female | Male | MutagenApplied | Divider
     }
 }

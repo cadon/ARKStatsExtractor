@@ -412,7 +412,7 @@ namespace ARKBreedingStats
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(173, 388);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(17, 13);
+            this.label12.Size = new System.Drawing.Size(19, 13);
             this.label12.TabIndex = 34;
             this.label12.Text = "♂";
             // 
@@ -421,7 +421,7 @@ namespace ARKBreedingStats
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(85, 388);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(16, 13);
+            this.label11.Size = new System.Drawing.Size(19, 13);
             this.label11.TabIndex = 33;
             this.label11.Text = "♀";
             // 
@@ -432,6 +432,7 @@ namespace ARKBreedingStats
             this.dhmsInputGrown.Size = new System.Drawing.Size(136, 26);
             this.dhmsInputGrown.TabIndex = 10;
             this.dhmsInputGrown.Timespan = System.TimeSpan.Parse("00:00:00");
+            this.dhmsInputGrown.ValueChanged += new ARKBreedingStats.uiControls.dhmsInput.ValueChangedEventHandler(this.dhmsInputGrown_ValueChanged);
             // 
             // dhmsInputCooldown
             // 
@@ -541,6 +542,13 @@ namespace ARKBreedingStats
             // 
             // regionColorChooser1
             // 
+            this.regionColorChooser1.ColorIdsAlsoPossible = new byte[] {
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0))};
             this.regionColorChooser1.Location = new System.Drawing.Point(82, 496);
             this.regionColorChooser1.Margin = new System.Windows.Forms.Padding(0);
             this.regionColorChooser1.Name = "regionColorChooser1";
