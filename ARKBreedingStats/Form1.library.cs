@@ -1629,13 +1629,11 @@ namespace ARKBreedingStats
             // shows a dialog to set multiple settings to all selected creatures
             if (listViewLibrary.SelectedIndices.Count <= 0)
                 return;
-            Creature c = new Creature();
             List<Creature> selectedCreatures = new List<Creature>();
 
             // check if multiple species are selected
             bool multipleSpecies = false;
             Species sp = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]].Species;
-            c.Species = sp;
             foreach (int i in listViewLibrary.SelectedIndices)
             {
                 var cr = _creaturesDisplayed[i];
@@ -1647,7 +1645,7 @@ namespace ARKBreedingStats
             }
             List<Creature>[] parents = null;
             if (!multipleSpecies)
-                parents = FindPossibleParents(c);
+                parents = FindPossibleParents(new Creature(sp));
 
             using (MultiSetter ms = new MultiSetter(selectedCreatures,
                 parents,
@@ -1664,7 +1662,11 @@ namespace ARKBreedingStats
                     if (ms.TagsChanged)
                         CreateCreatureTagList();
                     if (ms.SpeciesChanged)
+                    {
                         UpdateSpeciesLists(_creatureCollection.creatures);
+                        foreach (var c in selectedCreatures)
+                            c.RecalculateCreatureValues(_creatureCollection.wildLevelStep);
+                    }
                     UpdateOwnerServerTagLists();
                     SetCollectionChanged(true, !multipleSpecies ? sp : null);
                     RecalculateTopStatsIfNeeded();
