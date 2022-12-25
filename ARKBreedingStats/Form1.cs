@@ -3224,7 +3224,15 @@ namespace ARKBreedingStats
             }
             else if (ext == ".ini")
             {
-                ExtractExportedFileInExtractor(filePath);
+                if (files.Length == 1)
+                {
+                    ExtractExportedFileInExtractor(filePath);
+                }
+                else
+                {
+                    ShowExportedCreatureListControl();
+                    _exportedCreatureList.LoadFiles(files);
+                }
             }
             else if (ext == ".asb" || ext == ".xml")
             {
