@@ -67,7 +67,7 @@
             // 
             // nudImprintingOverride
             // 
-            this.nudImprintingOverride.DecimalPlaces = 2;
+            this.nudImprintingOverride.DecimalPlaces = 3;
             this.nudImprintingOverride.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudImprintingOverride.Location = new System.Drawing.Point(687, 3);
             this.nudImprintingOverride.Name = "nudImprintingOverride";
