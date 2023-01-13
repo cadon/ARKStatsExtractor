@@ -58,7 +58,8 @@ namespace ARKBreedingStats.library
         /// </summary>
         public static void DinoStorageV2CommandToClipboard(Creature cr)
         {
-            var spawnCommand = $"admincheat scriptcommand spawndino_ds {cr.speciesBlueprint} 0 0 50 0 {(cr.isDomesticated ? "1" : "0")} {(cr.sex == Sex.Female ? "1" : cr.sex == Sex.Unknown ? "?" : "0")} "
+            var xyzPosition = "0 50 50";
+            var spawnCommand = $"admincheat scriptcommand spawndino_ds {cr.speciesBlueprint} 0 {xyzPosition} {(cr.isDomesticated ? "1" : "0")} {(cr.sex == Sex.Female ? "1" : cr.sex == Sex.Unknown ? "?" : "0")} "
                                + $"{cr.Maturation} {cr.imprintingBonus} {(cr.flags.HasFlag(CreatureFlags.Neutered) ? "1" : "0")} 0 0 "
                                + GetLevelStringForExactSpawningCommandDS2(cr.levelsWild, cr.levelsDom)
                                + $"{(cr.colors == null ? "0 0 0 0 0 0" : string.Join(" ", cr.colors))}";
