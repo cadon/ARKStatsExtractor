@@ -1864,8 +1864,7 @@ namespace ARKBreedingStats
             bool libraryChanged = false;
             var affectedSpeciesBlueprints = new List<string>();
 
-            var statIndicesAffectedByMutagen = Ark.StatIndicesAffectedByMutagen;
-            var statCountAffectedByMutagen = statIndicesAffectedByMutagen.Length;
+            var statCountAffectedByMutagen = Ark.StatIndicesAffectedByMutagen.Length;
 
             foreach (int i in listViewLibrary.SelectedIndices)
             {
@@ -1876,7 +1875,7 @@ namespace ARKBreedingStats
 
                 var levelIncrease = c.isBred ? Ark.MutagenLevelUpsBred : Ark.MutagenLevelUpsNonBred;
 
-                foreach (var si in statIndicesAffectedByMutagen)
+                foreach (var si in Ark.StatIndicesAffectedByMutagen)
                     c.levelsWild[si] += levelIncrease;
                 c.levelsWild[Stats.Torpidity] += statCountAffectedByMutagen * levelIncrease;
 

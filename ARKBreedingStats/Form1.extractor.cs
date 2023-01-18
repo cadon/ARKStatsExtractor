@@ -624,7 +624,7 @@ namespace ARKBreedingStats
                 if (rbTamedExtractor.Checked && _extractor.PostTamed)
                 {
                     var postTameLevelWithoutMutagen = _statIOs[Stats.Torpidity].LevelWild + 1
-                                                      - (creatureInfoInputExtractor.CreatureFlags.HasFlag(CreatureFlags.MutagenApplied) ? ArkConstants.MutagenLevelsAppliedTamedCreature : 0);
+                                                      - (creatureInfoInputExtractor.CreatureFlags.HasFlag(CreatureFlags.MutagenApplied) ? Ark.MutagenTotalLevelUpsNonBred : 0);
                     labelTE.Text += $" (wildlevel: {Creature.CalculatePreTameWildLevel(postTameLevelWithoutMutagen, te)})";
                 }
                 labelTE.BackColor = Color.Transparent;

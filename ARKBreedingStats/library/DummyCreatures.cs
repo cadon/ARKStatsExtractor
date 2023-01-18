@@ -413,7 +413,7 @@ namespace ARKBreedingStats.library
             SpeciesCount = 10;
             Generations = 4;
             PairsPerGeneration = 2;
-            ProbabilityHigherStat = Ark.ProbabilityHigherLevel;
+            ProbabilityHigherStat = Ark.ProbabilityInheritHigherLevel;
             RandomMutationChance = Ark.ProbabilityOfMutation;
             MaxWildLevel = CreatureCollection.CurrentCreatureCollection?.maxWildLevel ?? 150;
             SetOwner = true;

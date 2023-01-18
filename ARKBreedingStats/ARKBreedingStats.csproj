@@ -80,8 +80,8 @@
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
-    <Compile Include="ArkConstants.cs" />
     <Compile Include="Ark.cs" />
+    <Compile Include="BreedingPlanning\Score.cs" />
     <Compile Include="BreedingPlanning\BreedingScore.cs" />
     <Compile Include="library\AddDummyCreaturesSettings.cs">
       <SubType>Form</SubType>

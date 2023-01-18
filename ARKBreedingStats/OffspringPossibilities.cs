@@ -72,13 +72,13 @@ namespace ARKBreedingStats
                     {
                         // use the stat level of creature 1
                         totalLevel += wildLevels1[usedStatIndices[s]];
-                        probability *= wildLevels1[usedStatIndices[s]] > wildLevels2[usedStatIndices[s]] ? Ark.ProbabilityHigherLevel : Ark.ProbabilityLowerLevel;
+                        probability *= wildLevels1[usedStatIndices[s]] > wildLevels2[usedStatIndices[s]] ? Ark.ProbabilityInheritHigherLevel : Ark.ProbabilityInheritLowerLevel;
                     }
                     else
                     {
                         // use the stat level of creature 2
                         totalLevel += wildLevels2[usedStatIndices[s]];
-                        probability *= wildLevels1[usedStatIndices[s]] < wildLevels2[usedStatIndices[s]] ? Ark.ProbabilityHigherLevel : Ark.ProbabilityLowerLevel;
+                        probability *= wildLevels1[usedStatIndices[s]] < wildLevels2[usedStatIndices[s]] ? Ark.ProbabilityInheritHigherLevel : Ark.ProbabilityInheritLowerLevel;
                     }
                 }
                 if (!levelProbabilities.ContainsKey(totalLevel))

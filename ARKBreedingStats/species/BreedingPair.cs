@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+﻿using ARKBreedingStats.BreedingPlanning;
+using ARKBreedingStats.Library;
 
 namespace ARKBreedingStats.species
 {
@@ -6,7 +7,7 @@ namespace ARKBreedingStats.species
     {
         public readonly Creature Mother;
         public readonly Creature Father;
-        public double BreedingScore;
+        public Score BreedingScore;
         /// <summary>
         /// Probability of at least one mutation for the offspring.
         /// </summary>
@@ -16,7 +17,7 @@ namespace ARKBreedingStats.species
         /// </summary>
         public bool HighestOffspringOverLevelLimit;
 
-        public BreedingPair(Creature mother, Creature father, double breedingScore, double mutationProbability, bool highestOffspringOverLevelLimit)
+        public BreedingPair(Creature mother, Creature father, Score breedingScore, double mutationProbability, bool highestOffspringOverLevelLimit)
         {
             Mother = mother;
             Father = father;

@@ -314,7 +314,7 @@ namespace ARKBreedingStats
                                 {
                                     // check if the total level and the TE is possible by using the TE-level bonus (credits for this check which sorts out more impossible results: https://github.com/VolatilePulse , thanks!)
                                     // if mutagen is applied, a fixed number of wild levels is added to specific stats
-                                    int levelPostTame = LevelWildSum + 1 - (mutagenApplied ? ArkConstants.MutagenLevelsAppliedTamedCreature : 0);
+                                    int levelPostTame = LevelWildSum + 1 - (mutagenApplied ? Ark.MutagenTotalLevelUpsNonBred : 0);
                                     MinMaxInt levelPreTameRange = new MinMaxInt(
                                         Creature.CalculatePreTameWildLevel(levelPostTame, tamingEffectiveness.Max),
                                         Creature.CalculatePreTameWildLevel(levelPostTame, tamingEffectiveness.Min));
