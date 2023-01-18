@@ -531,14 +531,15 @@ namespace ARKBreedingStats.raising
                 {
                     Species species = c.Species;
                     SetGlobalSpecies?.Invoke(species);
-                    if (species?.breeding != null && c.growingUntil.HasValue && c.growingUntil.Value > DateTime.Now)
+                    double maturation = c.Maturation;
+                    if (maturation >= 1)
                     {
-                        double maturing = 100 * (1 - c.growingUntil.Value.Subtract(DateTime.Now).TotalSeconds /
-                            species.breeding.maturationTimeAdjusted);
-                        if (maturing > 0 && maturing <= 100)
-                        {
-                            nudMaturationProgress.Value = (decimal)maturing;
-                        }
+                        c.growingUntil = null;
+                        maturation = 1;
+                    }
+                    if (maturation > 0)
+                    {
+                        nudMaturationProgress.Value = (decimal)maturation * 100;
                     }
 
                     parentStats1.SetParentValues(c.Mother, c.Father);

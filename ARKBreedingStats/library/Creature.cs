@@ -171,7 +171,7 @@ namespace ARKBreedingStats.Library
                 else
                     _growingUntil = value == null || value <= DateTime.Now ? null : value;
             }
-            get => growingPaused ? DateTime.Now.Add(growingLeft) : _growingUntil;
+            get => !growingPaused ? _growingUntil : growingLeft.Ticks > 0 ? DateTime.Now.Add(growingLeft) : default(DateTime?);
         }
 
         public TimeSpan growingLeft;
@@ -476,12 +476,13 @@ namespace ARKBreedingStats.Library
             if (!growingPaused)
             {
                 growingLeft = growingUntil?.Subtract(DateTime.Now) ?? TimeSpan.Zero;
-                if (growingLeft.Ticks <= 0)
+                if (growingLeft.Ticks > 0)
                 {
-                    growingLeft = TimeSpan.Zero;
-                    growingUntil = null;
+                    growingPaused = true;
+                    return;
                 }
-                growingPaused = true;
+                growingLeft = TimeSpan.Zero;
+                growingUntil = null;
             }
         }
 
