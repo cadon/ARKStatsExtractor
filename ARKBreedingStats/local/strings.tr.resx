@@ -1,0 +1,504 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+		Microsoft ResX Schema
+
+		Version 1.3
+
+		The primary goals of this format is to allow a simple XML format 
+		that is mostly human readable. The generation and parsing of the 
+		various data types are done through the TypeConverter classes 
+		associated with the data types.
+
+		Example:
+
+		... ado.net/XML headers & schema ...
+		<resheader name="resmimetype">text/microsoft-resx</resheader>
+		<resheader name="version">1.3</resheader>
+		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+		<data name="Name1">this is my long string</data>
+		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+			[base64 mime encoded serialized .NET Framework object]
+		</data>
+		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+			[base64 mime encoded string representing a byte array form of the .NET Framework object]
+		</data>
+
+		There are any number of "resheader" rows that contain simple 
+		name/value pairs.
+
+		Each data row contains a name, and value. The row also contains a 
+		type or mimetype. Type corresponds to a .NET class that support 
+		text/value conversion through the TypeConverter architecture. 
+		Classes that don't support this are serialized and stored with the 
+		mimetype set.
+
+		The mimetype is used for serialized objects, and tells the 
+		ResXResourceReader how to depersist the object. This is currently not 
+		extensible. For a given mimetype the value must be set accordingly:
+
+		Note - application/x-microsoft.net.object.binary.base64 is the format 
+		that the ResXResourceWriter will generate, however the reader can 
+		read any of the formats listed below.
+
+		mimetype: application/x-microsoft.net.object.binary.base64
+		value   : The object must be serialized with 
+			: System.Serialization.Formatters.Binary.BinaryFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.soap.base64
+		value   : The object must be serialized with 
+			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.bytearray.base64
+		value   : The object must be serialized into a byte array 
+			: using a System.ComponentModel.TypeConverter
+			: and then encoded with base64 encoding.
+	-->
+	
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>1.3</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+  <data name="aboutToolStripMenuItem" xml:space="preserve">
+    <value>Hakkında…</value>
+  </data>
+  <data name="Add Note" xml:space="preserve">
+    <value>Not Ekle</value>
+  </data>
+  <data name="added" xml:space="preserve">
+    <value>Eklendi</value>
+  </data>
+  <data name="addedAt" xml:space="preserve">
+    <value>Eklendi</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Hepsine</value>
+  </data>
+  <data name="AlreadyCreatureWithTopStats" xml:space="preserve">
+    <value>Kitaplığınızda mevcut tüm üst istatistiklere sahip bir yaratık zaten var ({0} {1}).
+Şuan Seçili olan conservative-breeding-mode En uygun görünmeyen bazı öneriler gösterebilir..
+Daha iyi öneriler için üreme modunu "Yüksek İstatistikler" olarak değiştirin</value>
+  </data>
+  <data name="apply" xml:space="preserve">
+    <value>uygula</value>
+  </data>
+  <data name="ApproxOneNarcoberryEvery" xml:space="preserve">
+    <value>Her biri için yaklaşık bir NacroBerry</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Mevcut</value>
+  </data>
+  <data name="Baby" xml:space="preserve">
+    <value>Bebek</value>
+  </data>
+  <data name="BestPossible" xml:space="preserve">
+    <value>Mümkün olan en iyi</value>
+  </data>
+  <data name="BestPossibleSpeciesLibrary" xml:space="preserve">
+    <value>Bu kitaplık için mümkün olan en iyi {0}</value>
+  </data>
+  <data name="BestPossibleSpeciesLibraryFiltered" xml:space="preserve">
+    <value>Bu filtre için mümkün olan en iyi {0}</value>
+  </data>
+  <data name="Body" xml:space="preserve">
+    <value>Gövde</value>
+  </data>
+  <data name="BonusLevel" xml:space="preserve">
+    <value>Bonus Seviyesi</value>
+  </data>
+  <data name="Bow" xml:space="preserve">
+    <value>Bow</value>
+  </data>
+  <data name="BPCancelRestrictionOn" xml:space="preserve">
+    <value>üzerindeki kısıtlamayı iptal et {0}</value>
+  </data>
+  <data name="BPorMutations" xml:space="preserve">
+    <value>veya mutasyonlar</value>
+  </data>
+  <data name="BPsomeCreaturesAreFilteredOutTags" xml:space="preserve">
+    <value>Bazı yaratıklar etiketleri nedeniyle filtrelenir.</value>
+  </data>
+  <data name="BPsomePairingsAreFilteredOutMutations" xml:space="preserve">
+    <value>Bazı çiftler, mutasyonları nedeniyle filtrelenir.</value>
+  </data>
+  <data name="BPTopStatsShownMightNotTotalTopStats" xml:space="preserve">
+    <value>Burada gösterilen en iyi istatistikler, tüm kitaplığınızın en iyi istatistikleri olmayabilir.</value>
+  </data>
+  <data name="bred" xml:space="preserve">
+    <value>Üreme</value>
+  </data>
+  <data name="BreedingNotPossible" xml:space="preserve">
+    <value>Üreme mümkün değil</value>
+  </data>
+  <data name="BreedingPlan" xml:space="preserve">
+    <value>Üreme Planı</value>
+  </data>
+  <data name="BreedingPlanHelpToolStripMenuItem" xml:space="preserve">
+    <value>Üreme Planı…</value>
+  </data>
+  <data name="breedingValue" xml:space="preserve">
+    <value>Üreme Değeri</value>
+  </data>
+  <data name="btAdd2Library" xml:space="preserve">
+    <value>Kitaplığa yeni ekle</value>
+  </data>
+  <data name="btAddWakeUpTimer" xml:space="preserve">
+    <value>Uyandırma Zamanlayıcısı ekle</value>
+  </data>
+  <data name="BtApplyOTSPreset" xml:space="preserve">
+    <value>OTS Ön Ayarını Uygula</value>
+  </data>
+  <data name="BtApplyOTSPresetTT" xml:space="preserve">
+    <value>Kaydedilen ön ayardan sahip, kabile ve sunucu için değerleri ayarlayın</value>
+  </data>
+  <data name="BtBeepFailure" xml:space="preserve">
+    <value>içe aktarma başarısız oldu</value>
+  </data>
+  <data name="BtBeepFailureTT" xml:space="preserve">
+    <value>Bu ses, otomatik içe aktarma başarısız olduğunda çalınır, seviyelerin manüel olarak seçilmesi gerekebilir.</value>
+  </data>
+  <data name="BtBeepNewTop" xml:space="preserve">
+    <value>yeni en iyi istatistik</value>
+  </data>
+  <data name="BtBeepNewTopTT" xml:space="preserve">
+    <value>Bu ses, otomatik olarak aktarılan bir yaratık, kütüphanedeki o türün diğer tüm yaratıklarından daha yüksek bir statüye sahip olduğunda çalınır.</value>
+  </data>
+  <data name="BtBeepSuccess" xml:space="preserve">
+    <value>içe aktarma başarılı</value>
+  </data>
+  <data name="BtBeepSuccessTT" xml:space="preserve">
+    <value>Bu ses, otomatik içe aktarma başarılı olduğunda çalınır</value>
+  </data>
+  <data name="BtBeepTop" xml:space="preserve">
+    <value>maksimum istatistik</value>
+  </data>
+  <data name="BtBeepTopTT" xml:space="preserve">
+    <value>Bu ses, içe aktarılan yaratığın bir seviyesi en yüksek stat olduğunda, yani kütüphanedeki mevcut en yüksek seviyeye eşit olduğunda çalınır.</value>
+  </data>
+  <data name="btBPApplyNewWeights" xml:space="preserve">
+    <value>Yeni Ağırlıklar uygula</value>
+  </data>
+  <data name="btBPJustMated" xml:space="preserve">
+    <value>Bu Ebeveynler yeni çiftleşti</value>
+  </data>
+  <data name="btBPJustMatedTT" xml:space="preserve">
+    <value>Yükseltme sekmesinde bir Kuluçka girişi oluşturmak için tıklayın</value>
+  </data>
+  <data name="btClearColorsTT" xml:space="preserve">
+    <value>Tüm renk bölgelerini temizlemek için tıklayın.</value>
+  </data>
+  <data name="BtGetExportFolderAutomatically" xml:space="preserve">
+    <value>Dışa aktarma klasörünü otomatik olarak ayarla</value>
+  </data>
+  <data name="btImportLastExported" xml:space="preserve">
+    <value>Son Aktarılan</value>
+  </data>
+  <data name="btImportLastExportedTT" xml:space="preserve">
+    <value>En Son dışa aktarılan Dino dosyasını içe aktarın (Oyun içinden Dino verilerini  "Dışa Aktar"-function</value>
+  </data>
+  <data name="btnAddStarvingTimer" xml:space="preserve">
+    <value>Açlık zamanlayıcısı ekle</value>
+  </data>
+  <data name="btnGenerateUniqueNameTT" xml:space="preserve">
+    <value>Otomatik ad oluştur
+Deseni düzenlemek için sağ tıklayın.</value>
+  </data>
+  <data name="btReadValuesFromArk" xml:space="preserve">
+    <value>ARK Penceresinden Değerleri Oku</value>
+  </data>
+  <data name="btReadValuesFromArkTT" xml:space="preserve">
+    <value>Oyun içindeki bir yaratığın  envanterini açıp bir OCR gerçekleştirin.
+Bu özelliği kullanmak için ayarlarda OCR'yi etkinleştirmeniz ve OCR sekmesinde ekran çözünürlüğünüz için yapılmış bir ocr-config dosyası yüklemeniz gerekir.</value>
+  </data>
+  <data name="btSaveChanges" xml:space="preserve">
+    <value>Değişiklikleri Kaydet</value>
+  </data>
+  <data name="BtSaveOTSPreset" xml:space="preserve">
+    <value>OTS'yi kaydet</value>
+  </data>
+  <data name="BtSaveOTSPresetTT" xml:space="preserve">
+    <value>Sahip, Kabile ve Sunucuyu önceden ayarlanmış olarak kaydedin.
+Ön ayar, Ön Ayarı Uygula düğmesiyle uygulanabilir</value>
+  </data>
+  <data name="btUpdateLibraryCreature" xml:space="preserve">
+    <value>Kitaplıktaki Dinoları güncelleyin</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="Cancel quitting" xml:space="preserve">
+    <value>Çıkmayı iptal et</value>
+  </data>
+  <data name="cbBPMutationLimitOnlyOnePartner" xml:space="preserve">
+    <value>Bir partnerin daha fazla mutasyonu olabilir</value>
+  </data>
+  <data name="cbBPOnlyOneSuggestionForFemales" xml:space="preserve">
+    <value>Kadınlar için en iyi tek tavsiye</value>
+  </data>
+  <data name="cbBPTagExcludeDefaultTT" xml:space="preserve">
+    <value>Tüm yaratıkların hariç tutulması ve yalnızca etiketlerinde dahil etme işareti olduğunda dahil edilmesi gerekip gerekmediğini kontrol edin.
+Bu onay kutusu işaretli değilse, tüm yaratıklar varsayılan olarak dahil edilecek ve yalnızca etiketlerinden birinde hariç tutma işareti varsa ve hiçbirinde
+ içerme işareti yoksa hariç tutulacaktır.</value>
+  </data>
+  <data name="cbExactlyImprinting" xml:space="preserve">
+    <value>Kesinlikle, ayarlama</value>
+  </data>
+  <data name="cbExactlyImprintingTT" xml:space="preserve">
+    <value>Tam olarak %100 ilgiye sahipseniz bunu kontrol edin.</value>
+  </data>
+  <data name="cbGuessSpecies" xml:space="preserve">
+    <value>Türleri Tahmin Et</value>
+  </data>
+  <data name="cbGuessSpeciesTT" xml:space="preserve">
+    <value>İşaretlenirse, araç ARK'daki değerleri OCR ile okuduktan sonra türü tahmin etmeye çalışacaktır.
+Araç tür adını tanırsa onu alır, aksi takdirde istatistik değerlerinin belirli bir türle eşleşip eşleşmediğini kontrol eder.
+Araç, OCR'den sonra tekrar tekrar yanlış türleri seçerse bu seçeneğin işaretini kaldırın (o zaman manuel olarak seçmeniz gerekir).</value>
+  </data>
+  <data name="cbQuickWildCheck" xml:space="preserve">
+    <value>Hızlı Vahşi Yaratık Kontrolü</value>
+  </data>
+  <data name="cbQuickWildCheckTT" xml:space="preserve">
+    <value>Vahşi (evcilleşmemiş) bir yaratığın seviyelerini hızlı bir şekilde kontrol etmek istiyorsanız bunu kontrol edin.
+Seviyeler daha sonra çıkarma işlemi olmadan (ve doğrulama olmadan) gösterilir.</value>
+  </data>
+  <data name="cbToggleOverlay" xml:space="preserve">
+    <value>Kaplama</value>
+  </data>
+  <data name="Charge Capacity" xml:space="preserve">
+    <value>Ch Şarj Kapasitesi</value>
+  </data>
+  <data name="Charge Emission Range" xml:space="preserve">
+    <value>Ch Yayma Aralığı</value>
+  </data>
+  <data name="Chart" xml:space="preserve">
+    <value>Grafik</value>
+  </data>
+  <data name="checkForUpdatedStatsToolStripMenuItem" xml:space="preserve">
+    <value>Güncellemeleri kontrol et</value>
+  </data>
+  <data name="clear" xml:space="preserve">
+    <value>Temizle</value>
+  </data>
+  <data name="clearColors" xml:space="preserve">
+    <value>Renkleri Temizle</value>
+  </data>
+  <data name="clearColorsFilters" xml:space="preserve">
+    <value>Renk Filitresini Temizle</value>
+  </data>
+  <data name="ClickDisplayFile" xml:space="preserve">
+    <value>Dosyayı gezgininde göstermek için tıklayın</value>
+  </data>
+  <data name="Club" xml:space="preserve">
+    <value>kulüp</value>
+  </data>
+  <data name="cnBPIncludeCooldowneds" xml:space="preserve">
+    <value>Bekleme Süresi Olan Yaratıkları Dahil Et</value>
+  </data>
+  <data name="Collection changed discard and load?" xml:space="preserve">
+    <value>Koleksiyonunuz son kaydedildiğinden beri değiştirildi? Yaratık Koleksiyonunuz son kaydedildiğinden beri değiştirildi, değişikliklerinizi silip dosyayı önce kaydetmeden yüklemek istediğinizden emin misiniz?</value>
+  </data>
+  <data name="Collection changed discard and new?" xml:space="preserve">
+    <value>Koleksiyonunuz son kaydedildiğinden beri değiştirildi? Yaratık Koleksiyonunuz son kaydedildiğinden bu yana değiştirildi, değişikliklerinizi silmek ve kaydetmeden yeni bir Kitaplık oluşturmak istediğinizden emin misiniz?</value>
+  </data>
+  <data name="Collection changed discard and quit?" xml:space="preserve">
+    <value>Koleksiyonunuz son kaydedildiğinden beri değiştirildi? Yaratık Koleksiyonunuz son kaydedildiğinden beri değiştirildi, değişikliklerinizi silmek ve kaydetmeden çıkmak istediğinizden emin misiniz?</value>
+  </data>
+  <data name="Colors" xml:space="preserve">
+    <value>Renkler</value>
+  </data>
+  <data name="cooldown" xml:space="preserve">
+    <value>Bekleme süresi</value>
+  </data>
+  <data name="cooldownGrowing" xml:space="preserve">
+    <value>Soğuma/Büyüme</value>
+  </data>
+  <data name="copyCreatureToolStripMenuItem" xml:space="preserve">
+    <value>Dinoyu Kopyala</value>
+  </data>
+  <data name="copyInfoGraphicToClipboard" xml:space="preserve">
+    <value>Bilgi grafiğini panoya kopyala</value>
+  </data>
+  <data name="copyToMultiplierTesterToolStripButton" xml:space="preserve">
+    <value>MultiplierTester'a Kopyala</value>
+  </data>
+  <data name="copyToMultiplierTesterToolStripButtonTT" xml:space="preserve">
+    <value>Test Cihazından gelen tüm seviyeler, TE ve IB ve Çıkarıcı Dan alınan stat değerleri, Stat-Multiplier-Test Cihazına kopyalanacaktır.</value>
+  </data>
+  <data name="Crafting Speed" xml:space="preserve">
+    <value>Üretim Hızı</value>
+  </data>
+  <data name="Crafting Speed_Abb" xml:space="preserve">
+    <value>Crafting Speed_Abb Cr</value>
+  </data>
+  <data name="Creature" xml:space="preserve">
+    <value>Dino</value>
+  </data>
+  <data name="creatureOfFile" xml:space="preserve">
+    <value>Dino Dosyasını Dışa Aktar</value>
+  </data>
+  <data name="Crossbow" xml:space="preserve">
+    <value>Arbalet</value>
+  </data>
+  <data name="CurrentCreature" xml:space="preserve">
+    <value>CurrentCreature Mevcut Dino</value>
+  </data>
+  <data name="currentStatValue" xml:space="preserve">
+    <value>Geçerli stat değeri</value>
+  </data>
+  <data name="currentValue" xml:space="preserve">
+    <value>Mevcut değer</value>
+  </data>
+  <data name="Damage" xml:space="preserve">
+    <value>Hasar</value>
+  </data>
+  <data name="Damage_Abb" xml:space="preserve">
+    <value>Dm</value>
+  </data>
+  <data name="deadCreaturesToolStripMenuItem" xml:space="preserve">
+    <value>Ölü Dinolar</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Varsayılan</value>
+  </data>
+  <data name="deleteSelectedToolStripMenuItem" xml:space="preserve">
+    <value>Kaldır...</value>
+  </data>
+  <data name="Descendants" xml:space="preserve">
+    <value>Torunları</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Detaylar</value>
+  </data>
+  <data name="Discard changes and load file" xml:space="preserve">
+    <value>Değişiklikleri sil ve yeni kitaplığı yükleyin</value>
+  </data>
+  <data name="Discard changes?" xml:space="preserve">
+    <value>Değişiklikleri gözardı et?</value>
+  </data>
+  <data name="Discard changes and new" xml:space="preserve">
+    <value>Değişiklikleri sil ve yeni kitaplık oluştur</value>
+  </data>
+  <data name="Discard changes and quit" xml:space="preserve">
+    <value>Değişiklikleri sil ve çık</value>
+  </data>
+  <data name="domesticatedAt" xml:space="preserve">
+    <value>Evcilleştirilmiş</value>
+  </data>
+  <data name="domLevelExplanation" xml:space="preserve">
+    <value>Yaratık evcilleştirildikten sonra bu istatistiğe manuel olarak atanan seviyeler</value>
+  </data>
+  <data name="domLvl" xml:space="preserve">
+    <value>Vahşi Seviye</value>
+  </data>
+  <data name="downloadingValuesSuccess" xml:space="preserve">
+    <value>Yeni tür istatistiklerinin indirilmesi ve güncellenmesi başarılı oldu.</value>
+  </data>
+  <data name="editToolStripMenuItem" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="Egg" xml:space="preserve">
+    <value>Yumurta</value>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>Hata</value>
+  </data>
+  <data name="Event" xml:space="preserve">
+    <value>Etkinlik</value>
+  </data>
+  <data name="expired" xml:space="preserve">
+    <value>süresi doldu</value>
+  </data>
+  <data name="ExportFolderDetectionFailed" xml:space="preserve">
+    <value>Dışa aktarılan yaratıklar için dışa aktarma klasörü otomatik olarak algılanamadı.</value>
+  </data>
+  <data name="exportValuesToClipboardToolStripMenuItem" xml:space="preserve">
+    <value>Panoya Aktar</value>
+  </data>
+  <data name="extractionFailedHeader" xml:space="preserve">
+    <value>Aktarma başarısız oldu. Aşağıdaki olası nedenler listesine bakın</value>
+  </data>
+  <data name="extractionIssuesToolStripMenuItem" xml:space="preserve">
+    <value>Aktarım Sorunları…</value>
+  </data>
+  <data name="extractor" xml:space="preserve">
+    <value>Ekstraktör</value>
+  </data>
+  <data name="Father" xml:space="preserve">
+    <value>Baba</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>Kadın</value>
+  </data>
+  <data name="femalesToolStripMenuItem" xml:space="preserve">
+    <value>Kadınlar</value>
+  </data>
+  <data name="fileToolStripMenuItem" xml:space="preserve">
+    <value>Dosya</value>
+  </data>
+  <data name="filterAllNeededInfo" xml:space="preserve">
+    <value>Yalnızca tüm bu bayraklara sahip yaratıklar gösterilecek</value>
+  </data>
+  <data name="filterByName" xml:space="preserve">
+    <value>Ada göre filtrele</value>
+  </data>
+  <data name="filterExcludeInfo" xml:space="preserve">
+    <value>Bu bayrağa sahip yaratıklar gösterilmeyecek</value>
+  </data>
+  <data name="filterOneNeededInfo" xml:space="preserve">
+    <value>Yalnızca bu bayraklardan birine sahip yaratıklar gösterilecek</value>
+  </data>
+  <data name="findDuplicatesToolStripMenuItem" xml:space="preserve">
+    <value>Kopyaları Bul…</value>
+  </data>
+  <data name="FinishedAt" xml:space="preserve">
+    <value>Sonlanan</value>
+  </data>
+  <data name="Food" xml:space="preserve">
+    <value>Yemek</value>
+  </data>
+  <data name="FoodHasToDropUnits" xml:space="preserve">
+    <value>Yiyeceklerin {0} birim düşmesi gerekiyor.</value>
+  </data>
+  <data name="Fortitude" xml:space="preserve">
+    <value>Direnç</value>
+  </data>
+</root>

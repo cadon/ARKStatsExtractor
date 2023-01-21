@@ -120,6 +120,7 @@ Translations:
 * Polish by alex4401
 * Japanese by maririyuzu
 * Portuguese Brazilian by llbranco
-* Chinese (traditional) by abs6808";
+* Chinese (traditional) by abs6808
+* Turkish by Tnc";
     }
 }

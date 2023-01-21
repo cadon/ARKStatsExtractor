@@ -669,6 +669,7 @@
     <EmbeddedResource Include="local\strings.pt-br.resx" />
     <EmbeddedResource Include="local\strings.ru.resx" />
     <EmbeddedResource Include="local\strings.pl.resx" />
+    <EmbeddedResource Include="local\strings.tr.resx" />
     <EmbeddedResource Include="local\strings.zh-tw.resx" />
     <EmbeddedResource Include="ocr\PatternMatching\RecognitionTrainingForm.resx">
       <DependentUpon>RecognitionTrainingForm.cs</DependentUpon>

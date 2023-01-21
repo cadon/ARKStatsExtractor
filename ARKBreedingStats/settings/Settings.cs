@@ -148,8 +148,9 @@ namespace ARKBreedingStats.settings
             // localizations / translations
             // for a new translation
             // * a file local/strings.[languageCode].resx needs to exist.
-            // * the compiler created dll-file needs to be added to the installer files, for that edit the file setup.iss and setup-debug.iss in the repository base folder.
-            // * the entry in the next dictionary needs to be added
+            // * reference translator in aboutBox
+            // * the compiler created dll-file needs to be added to the installer files: edit the file setup.iss in the repository base folder.
+            // * the entry in the dictionary below needs to be added
             _languages = new Dictionary<string, string>
             {
                 { Loc.S("SystemLanguage"), string.Empty},
@@ -162,6 +163,7 @@ namespace ARKBreedingStats.settings
                 { "Polski", "pl"},
                 { "Português do Brasil", "pt-BR"},
                 { "русский", "ru"},
+                { "Türkçe", "tr"},
                 { "简体中文", "zh"},
                 { "繁體中文", "zh-tw"}
             };
