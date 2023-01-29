@@ -146,10 +146,14 @@ namespace ARKBreedingStats.raising
             if (_selectedSpecies.taming.eats?.Any() == true
                 && uiControls.Trough.FoodAmountFromUntil(_selectedSpecies,
                     Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier,
+                    Values.V.currentServerMultipliers.DinoCharacterFoodDrainMultiplier,
+                    Values.V.currentServerMultipliers.TamedDinoCharacterFoodDrainMultiplier,
                     0, 1, out double totalFood))
             {
                 var babyPhaseFoodValid = uiControls.Trough.FoodAmountFromUntil(_selectedSpecies,
                     Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier,
+                    Values.V.currentServerMultipliers.DinoCharacterFoodDrainMultiplier,
+                    Values.V.currentServerMultipliers.TamedDinoCharacterFoodDrainMultiplier,
                     0, .1, out double babyPhaseFood);
 
                 if (!string.IsNullOrEmpty(_lastSelectedFood))
@@ -243,12 +247,18 @@ namespace ARKBreedingStats.raising
             if (foodValue == 0) return;
 
             if (uiControls.Trough.FoodAmountFromUntil(_selectedSpecies,
-                Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier, maturation, 0.1,
+                Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier,
+                Values.V.currentServerMultipliers.DinoCharacterFoodDrainMultiplier,
+                Values.V.currentServerMultipliers.TamedDinoCharacterFoodDrainMultiplier,
+                maturation, 0.1,
                 out var foodAmount))
                 labelAmountFoodBaby.Text = $"{Math.Ceiling(foodAmount / foodValue)} {_lastSelectedFood} ({foodAmount:0.#} food units)";
 
             if (uiControls.Trough.FoodAmountFromUntil(_selectedSpecies,
-                Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier, maturation, 1,
+                Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier,
+                Values.V.currentServerMultipliers.DinoCharacterFoodDrainMultiplier,
+                Values.V.currentServerMultipliers.TamedDinoCharacterFoodDrainMultiplier,
+                maturation, 1,
                 out foodAmount))
                 labelAmountFoodAdult.Text = $"{Math.Ceiling(foodAmount / foodValue)} {_lastSelectedFood} ({foodAmount:0.#} food units)";
         }

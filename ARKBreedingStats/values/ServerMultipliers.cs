@@ -10,7 +10,7 @@ namespace ARKBreedingStats.values
     public class ServerMultipliers
     {
         /// <summary>
-        /// statMultipliers[statIndex][m], m: 0:tamingadd, 1:tamingmult, 2:levelupdom, 3:levelupwild
+        /// statMultipliers[statIndex][m], m: 0:tamingAdd, 1:tamingMult, 2:levelUpDom, 3:levelUpWild
         /// </summary>
         [JsonProperty]
         public double[][] statMultipliers;
@@ -19,6 +19,8 @@ namespace ARKBreedingStats.values
         public double TamingSpeedMultiplier { get; set; }
         [JsonProperty]
         public double DinoCharacterFoodDrainMultiplier { get; set; }
+        [JsonProperty]
+        public double TamedDinoCharacterFoodDrainMultiplier { get; set; }
 
         [JsonProperty]
         public double MatingSpeedMultiplier { get; set; }
@@ -45,6 +47,7 @@ namespace ARKBreedingStats.values
         {
             TamingSpeedMultiplier = 1;
             DinoCharacterFoodDrainMultiplier = 1;
+            TamedDinoCharacterFoodDrainMultiplier = 1;
             MatingIntervalMultiplier = 1;
             EggHatchSpeedMultiplier = 1;
             MatingSpeedMultiplier = 1;
@@ -81,6 +84,7 @@ namespace ARKBreedingStats.values
             {
                 TamingSpeedMultiplier = TamingSpeedMultiplier,
                 DinoCharacterFoodDrainMultiplier = DinoCharacterFoodDrainMultiplier,
+                TamedDinoCharacterFoodDrainMultiplier = TamedDinoCharacterFoodDrainMultiplier,
                 MatingIntervalMultiplier = MatingIntervalMultiplier,
                 EggHatchSpeedMultiplier = EggHatchSpeedMultiplier,
                 MatingSpeedMultiplier = MatingSpeedMultiplier,

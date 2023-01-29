@@ -1,5 +1,5 @@
-﻿using ARKBreedingStats.species;
-using System.Collections.Generic;
+﻿using System;
+using ARKBreedingStats.species;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -30,28 +30,26 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// Calculates the needed food from a specific maturation to a specific maturation.
         /// </summary>
-        public static bool FoodAmountFromUntil(Species species, double babyFoodConsumptionSpeedMultiplier, double currentMaturation, double untilMaturation, out double totalFood)
+        public static bool FoodAmountFromUntil(Species species, double babyFoodConsumptionSpeedMultiplier, double dinoFoodDrainMultiplier, double tamedDinoFoodDrainMultiplier, double fromMaturation, double untilMaturation, out double totalFood)
         {
             totalFood = 0;
-            if (currentMaturation == untilMaturation) return true;
-            if (species?.taming == null || species.breeding == null || currentMaturation > untilMaturation || untilMaturation > 1) return false;
+            if (fromMaturation == untilMaturation) return true;
+            if (species?.taming == null || species.breeding == null || fromMaturation > untilMaturation || untilMaturation > 1) return false;
 
             // food rate in hunger units/s
-            // max food rate at maturation 0 %
-            var maxFoodRate = species.taming.foodConsumptionBase * species.taming.babyFoodConsumptionMult * babyFoodConsumptionSpeedMultiplier;
-            const double baseMinFoodRate = 0.000155; // taken from crumplecorn
             // min food rate at maturation 100 %
-            var minFoodRate = baseMinFoodRate * species.taming.babyFoodConsumptionMult * babyFoodConsumptionSpeedMultiplier;
+            var minFoodRate = species.taming.foodConsumptionBase * dinoFoodDrainMultiplier * tamedDinoFoodDrainMultiplier;
+            // max food rate at maturation 0 %
+            var maxFoodRate = minFoodRate * species.taming.babyFoodConsumptionMult * babyFoodConsumptionSpeedMultiplier;
             var foodRateDecay = minFoodRate - maxFoodRate;
 
             // to get the current food rate for a maturation value: maxFoodRate + maturation * foodRateDecay
-            var foodRateStart = maxFoodRate + currentMaturation * foodRateDecay;
+            var foodRateStart = maxFoodRate + fromMaturation * foodRateDecay;
             var foodRateEnd = maxFoodRate + untilMaturation * foodRateDecay;
 
             // calculate area of rectangle and triangle on top to get the total food needed
-            // assuming foodRateStart > foodRateEnd
-            totalFood = species.breeding.maturationTimeAdjusted * ((untilMaturation - currentMaturation) * (foodRateEnd + 0.5 * (foodRateStart - foodRateEnd)));
-            
+            totalFood = species.breeding.maturationTimeAdjusted * ((untilMaturation - fromMaturation) * (foodRateEnd + 0.5 * Math.Abs(foodRateStart - foodRateEnd)));
+
             return true;
         }
     }

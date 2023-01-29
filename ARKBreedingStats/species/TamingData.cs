@@ -51,6 +51,10 @@ namespace ARKBreedingStats.species
         /// </summary>
         public double babyFoodConsumptionMult;
         /// <summary>
+        /// Extra multiplier for food consumption once a creature is mature. Only few species use this, e.g. Giganotosaurus, Carcharodontosaurus, Titanosaur and Titans.
+        /// </summary>
+        public double adultFoodConsumptionMult = 1;
+        /// <summary>
         /// Factor for affinity if tamed awake.
         /// </summary>
         public double wakeAffinityMult;
