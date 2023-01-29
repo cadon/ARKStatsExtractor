@@ -340,6 +340,7 @@ namespace ARKBreedingStats.Library
                 if (DeletedCreatureGuids == null)
                     DeletedCreatureGuids = new List<Guid>();
                 DeletedCreatureGuids.Add(c.guid);
+                ResetExistingColors(c.Species);
             }
         }
 
