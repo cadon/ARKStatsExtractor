@@ -3629,5 +3629,12 @@ namespace ARKBreedingStats
             // copy currently loaded color definitions to the clipboard
             Clipboard.SetText(string.Join("\n", Values.V.Colors.ColorsList.Select(c => $"{c.Id,3}: {c}")));
         }
+
+        private void copyColorInformationToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var colorInfo = _creatureCollection.GetColorInfo(speciesSelector1.SelectedSpecies);
+            Clipboard.SetText(string.IsNullOrEmpty(colorInfo) ? $"no color info available for species {speciesSelector1.SelectedSpecies}" : colorInfo);
+            SetMessageLabelText($"Color information about {speciesSelector1.SelectedSpecies} has been copied to the clipboard, you can paste it in a text editor to view it.", MessageBoxIcon.Information);
+        }
     }
 }

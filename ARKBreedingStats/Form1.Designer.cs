@@ -353,6 +353,8 @@ namespace ARKBreedingStats
             this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetLibraryColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
+            this.libraryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyColorInformationToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -973,6 +975,7 @@ namespace ARKBreedingStats
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
+            this.libraryToolStripMenuItem,
             this.libraryFilterToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.helpToolStripMenuItem,
@@ -3452,6 +3455,21 @@ namespace ARKBreedingStats
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
+            // libraryToolStripMenuItem
+            // 
+            this.libraryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyColorInformationToClipboardToolStripMenuItem});
+            this.libraryToolStripMenuItem.Name = "libraryToolStripMenuItem";
+            this.libraryToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+            this.libraryToolStripMenuItem.Text = "Library";
+            // 
+            // copyColorInformationToClipboardToolStripMenuItem
+            // 
+            this.copyColorInformationToClipboardToolStripMenuItem.Name = "copyColorInformationToClipboardToolStripMenuItem";
+            this.copyColorInformationToClipboardToolStripMenuItem.Size = new System.Drawing.Size(265, 22);
+            this.copyColorInformationToClipboardToolStripMenuItem.Text = "Copy color information to clipboard";
+            this.copyColorInformationToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyColorInformationToClipboardToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -3876,5 +3894,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripLabel TsLbLabelSet;
         private System.Windows.Forms.ToolStripComboBox TsCbbLabelSets;
         private System.Windows.Forms.Label LbWarningLevel255;
+        private System.Windows.Forms.ToolStripMenuItem libraryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyColorInformationToClipboardToolStripMenuItem;
     }
 }
