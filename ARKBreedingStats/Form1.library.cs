@@ -1179,7 +1179,7 @@ namespace ARKBreedingStats
                 isGrowing = false;
                 dt = cr.cooldownUntil.Value;
             }
-            else if (!cr.growingUntil.HasValue || cr.growingUntil.Value < now)
+            else if (!cr.growingUntil.HasValue || cr.growingUntil.Value <= now)
             {
                 foreColor = Color.LightGray;
                 return "-";
@@ -1629,13 +1629,11 @@ namespace ARKBreedingStats
             // shows a dialog to set multiple settings to all selected creatures
             if (listViewLibrary.SelectedIndices.Count <= 0)
                 return;
-            Creature c = new Creature();
             List<Creature> selectedCreatures = new List<Creature>();
 
             // check if multiple species are selected
             bool multipleSpecies = false;
             Species sp = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]].Species;
-            c.Species = sp;
             foreach (int i in listViewLibrary.SelectedIndices)
             {
                 var cr = _creaturesDisplayed[i];
@@ -1647,7 +1645,7 @@ namespace ARKBreedingStats
             }
             List<Creature>[] parents = null;
             if (!multipleSpecies)
-                parents = FindPossibleParents(c);
+                parents = FindPossibleParents(new Creature(sp));
 
             using (MultiSetter ms = new MultiSetter(selectedCreatures,
                 parents,
@@ -1664,7 +1662,11 @@ namespace ARKBreedingStats
                     if (ms.TagsChanged)
                         CreateCreatureTagList();
                     if (ms.SpeciesChanged)
+                    {
                         UpdateSpeciesLists(_creatureCollection.creatures);
+                        foreach (var c in selectedCreatures)
+                            c.RecalculateCreatureValues(_creatureCollection.wildLevelStep);
+                    }
                     UpdateOwnerServerTagLists();
                     SetCollectionChanged(true, !multipleSpecies ? sp : null);
                     RecalculateTopStatsIfNeeded();
@@ -1862,8 +1864,7 @@ namespace ARKBreedingStats
             bool libraryChanged = false;
             var affectedSpeciesBlueprints = new List<string>();
 
-            var statIndicesAffectedByMutagen = Ark.StatIndicesAffectedByMutagen;
-            var statCountAffectedByMutagen = statIndicesAffectedByMutagen.Length;
+            var statCountAffectedByMutagen = Ark.StatIndicesAffectedByMutagen.Length;
 
             foreach (int i in listViewLibrary.SelectedIndices)
             {
@@ -1874,7 +1875,7 @@ namespace ARKBreedingStats
 
                 var levelIncrease = c.isBred ? Ark.MutagenLevelUpsBred : Ark.MutagenLevelUpsNonBred;
 
-                foreach (var si in statIndicesAffectedByMutagen)
+                foreach (var si in Ark.StatIndicesAffectedByMutagen)
                     c.levelsWild[si] += levelIncrease;
                 c.levelsWild[Stats.Torpidity] += statCountAffectedByMutagen * levelIncrease;
 

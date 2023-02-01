@@ -296,15 +296,6 @@ namespace ARKBreedingStats.NamePatterns
                 }
             }
 
-            // stat index and according level
-            var levelOrder = new List<Tuple<int, int>>(Stats.StatsCount);
-            for (int si = 0; si < Stats.StatsCount; si++)
-            {
-                if (si != Stats.Torpidity && creature.Species.UsesStat(si))
-                    levelOrder.Add(new Tuple<int, int>(si, creature.levelsWild[si]));
-            }
-            levelOrder = levelOrder.OrderByDescending(l => l.Item2).ToList();
-
             // replace tokens in user configured pattern string
             var dict = new Dictionary<string, string>
             {
@@ -343,20 +334,18 @@ namespace ARKBreedingStats.NamePatterns
                 { "sn", speciesSexCount.ToString()},
                 { "dom", dom},
                 { "arkid", arkid },
-                { "alreadyexists", speciesCreatures.Contains(creature) ? "1" : string.Empty },
-                { "highest1l", levelOrder[0].Item2.ToString() },
-                { "highest2l", levelOrder[1].Item2.ToString() },
-                { "highest3l", levelOrder[2].Item2.ToString() },
-                { "highest4l", levelOrder[3].Item2.ToString() },
-                { "highest5l", levelOrder[4].Item2.ToString() },
-                { "highest6l", levelOrder[5].Item2.ToString() },
-                { "highest1s", Utils.StatName(levelOrder[0].Item1, true, creature.Species.statNames) },
-                { "highest2s", Utils.StatName(levelOrder[1].Item1, true, creature.Species.statNames) },
-                { "highest3s", Utils.StatName(levelOrder[2].Item1, true, creature.Species.statNames) },
-                { "highest4s", Utils.StatName(levelOrder[3].Item1, true, creature.Species.statNames) },
-                { "highest5s", Utils.StatName(levelOrder[4].Item1, true, creature.Species.statNames) },
-                { "highest6s", Utils.StatName(levelOrder[5].Item1, true, creature.Species.statNames) },
+                { "alreadyexists", speciesCreatures.Contains(creature) ? "1" : string.Empty }
             };
+
+            // stat index and according level
+            var levelOrder = new List<(int, int)>(Stats.StatsCount);
+            for (int si = 0; si < Stats.StatsCount; si++)
+            {
+                if (si != Stats.Torpidity && creature.Species.UsesStat(si))
+                    levelOrder.Add((si, creature.levelsWild[si]));
+            }
+            levelOrder = levelOrder.OrderByDescending(l => l.Item2).ToList();
+            var usedStatsCount = levelOrder.Count;
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
@@ -370,6 +359,10 @@ namespace ARKBreedingStats.NamePatterns
                     speciesLowestLevels[s] != -1 && creature.levelsWild[s] != -1 && creature.levelsWild[s] <= speciesLowestLevels[s] ? "1" : string.Empty);
                 dict.Add($"isnewlowest{StatAbbreviationFromIndex[s]}", speciesLowestLevels == null ? (creature.levelsWild[s] == 0 ? "1" : string.Empty) :
                     speciesLowestLevels[s] != -1 && creature.levelsWild[s] != -1 && creature.levelsWild[s] < speciesLowestLevels[s] ? "1" : string.Empty);
+
+                // highest stats and according levels
+                dict.Add("highest" + (s + 1) + "l", usedStatsCount > s ? levelOrder[s].Item2.ToString() : string.Empty);
+                dict.Add("highest" + (s + 1) + "s", usedStatsCount > s ? Utils.StatName(levelOrder[s].Item1, true, creature.Species.statNames) : string.Empty);
             }
 
             return dict;

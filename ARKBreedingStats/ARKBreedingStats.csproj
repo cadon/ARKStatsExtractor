@@ -80,8 +80,8 @@
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
-    <Compile Include="ArkConstants.cs" />
     <Compile Include="Ark.cs" />
+    <Compile Include="BreedingPlanning\Score.cs" />
     <Compile Include="BreedingPlanning\BreedingScore.cs" />
     <Compile Include="library\AddDummyCreaturesSettings.cs">
       <SubType>Form</SubType>
@@ -669,6 +669,7 @@
     <EmbeddedResource Include="local\strings.pt-br.resx" />
     <EmbeddedResource Include="local\strings.ru.resx" />
     <EmbeddedResource Include="local\strings.pl.resx" />
+    <EmbeddedResource Include="local\strings.tr.resx" />
     <EmbeddedResource Include="local\strings.zh-tw.resx" />
     <EmbeddedResource Include="ocr\PatternMatching\RecognitionTrainingForm.resx">
       <DependentUpon>RecognitionTrainingForm.cs</DependentUpon>

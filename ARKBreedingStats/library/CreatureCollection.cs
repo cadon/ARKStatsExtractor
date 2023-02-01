@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
 using ARKBreedingStats.mods;
 
 namespace ARKBreedingStats.Library
@@ -340,6 +341,7 @@ namespace ARKBreedingStats.Library
                 if (DeletedCreatureGuids == null)
                     DeletedCreatureGuids = new List<Guid>();
                 DeletedCreatureGuids.Add(c.guid);
+                ResetExistingColors(c.Species);
             }
         }
 
@@ -558,6 +560,100 @@ namespace ARKBreedingStats.Library
             /// The color does not exist on any region on any creature of that species.
             /// </summary>
             ColorIsNew
+        }
+
+        /// <summary>
+        /// Returns information about what color ids exist in which regions of the creatures of a species.
+        /// </summary>
+        internal string GetColorInfo(Species species)
+        {
+            if (species == null) return null;
+
+            var colorsExistPerRegion = new HashSet<byte>[Ark.ColorRegionCount];
+            var colorsDontExistPerRegion = new HashSet<byte>[Ark.ColorRegionCount];
+            var allAvailableColorIds = Values.V.Colors.ColorsList.Select(c => c.Id).ToArray();
+            for (int i = 0; i < Ark.ColorRegionCount; i++)
+            {
+                colorsExistPerRegion[i] = new HashSet<byte>();
+                colorsDontExistPerRegion[i] = new HashSet<byte>(allAvailableColorIds);
+            }
+
+
+            foreach (var cr in creatures)
+            {
+                if (cr.speciesBlueprint != species.blueprintPath
+                   || cr.colors == null)
+                    continue;
+
+                var ci = 0;
+                foreach (var co in cr.colors)
+                {
+                    if (colorsExistPerRegion[ci].Contains(co)) continue;
+                    colorsExistPerRegion[ci].Add(co);
+                    colorsDontExistPerRegion[ci].Remove(co);
+                    ci++;
+                }
+            }
+
+            var sb = new StringBuilder($"Color information about {species.DescriptiveNameAndMod} ({species.blueprintPath})\n\n");
+            for (int i = 0; i < Ark.ColorRegionCount; i++)
+            {
+                if (!species.EnabledColorRegions[i]) continue;
+                sb.AppendLine($"Color region {i}: {species.colors[i].name}");
+                var colorsExist = colorsExistPerRegion[i].Count;
+                sb.AppendLine($"{colorsExist} color id{(colorsExist != 1 ? "s" : "")} available in your library:");
+                CreateNumberRanges(colorsExistPerRegion[i]);
+                sb.AppendLine();
+                var colorsDontExist = colorsDontExistPerRegion[i].Count;
+                sb.AppendLine($"{colorsDontExist} color id{(colorsDontExist != 1 ? "s" : "")} missing in your library:");
+                CreateNumberRanges(colorsDontExistPerRegion[i]);
+                sb.AppendLine();
+                sb.AppendLine();
+            }
+
+            void CreateNumberRanges(HashSet<byte> numbers)
+            {
+                var count = numbers.Count;
+                if (count == 0) return;
+                if (count == 1)
+                {
+                    sb.Append(numbers.First());
+                    return;
+                }
+
+                int lastNumber = -2;
+                bool currentlyInRange = false;
+                foreach (var number in numbers.OrderBy(c => c))
+                {
+                    var lastNumberOfSet = --count == 0;
+                    if (lastNumber + 1 == number)
+                    {
+                        if (lastNumberOfSet)
+                        {
+                            if (currentlyInRange)
+                                sb.Append($"-{number}");
+                            else sb.Append($", {number}");
+                        }
+                        currentlyInRange = true;
+                    }
+                    else if (currentlyInRange)
+                    {
+                        // was a number range that now ends
+                        sb.Append($"-{lastNumber}, {number}");
+                        currentlyInRange = false;
+                    }
+                    else
+                    {
+                        if (lastNumber == -2)
+                            sb.Append($"{number}"); // first number of row
+                        else
+                            sb.Append($", {number}");
+                    }
+                    lastNumber = number;
+                }
+            }
+
+            return sb.ToString();
         }
     }
 }

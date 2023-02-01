@@ -169,9 +169,9 @@ namespace ARKBreedingStats.Library
                 if (growingPaused && value != null)
                     growingLeft = value.Value.Subtract(DateTime.Now);
                 else
-                    _growingUntil = value;
+                    _growingUntil = value == null || value <= DateTime.Now ? null : value;
             }
-            get => growingPaused ? DateTime.Now.Add(growingLeft) : _growingUntil;
+            get => !growingPaused ? _growingUntil : growingLeft.Ticks > 0 ? DateTime.Now.Add(growingLeft) : default(DateTime?);
         }
 
         public TimeSpan growingLeft;
@@ -476,12 +476,13 @@ namespace ARKBreedingStats.Library
             if (!growingPaused)
             {
                 growingLeft = growingUntil?.Subtract(DateTime.Now) ?? TimeSpan.Zero;
-                if (growingLeft.Ticks <= 0)
+                if (growingLeft.Ticks > 0)
                 {
-                    growingLeft = TimeSpan.Zero;
-                    growingUntil = null;
+                    growingPaused = true;
+                    return;
                 }
-                growingPaused = true;
+                growingLeft = TimeSpan.Zero;
+                growingUntil = null;
             }
         }
 
@@ -510,7 +511,7 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Maturation of this creature, 0: baby, 1: adult.
         /// </summary>
-        public double Maturation => Species?.breeding == null || growingUntil == null ? 1 : growingUntil.Value.Subtract(DateTime.Now).TotalSeconds / Species.breeding.maturationTimeAdjusted;
+        public double Maturation => Species?.breeding == null || growingUntil == null ? 1 : 1 - growingUntil.Value.Subtract(DateTime.Now).TotalSeconds / Species.breeding.maturationTimeAdjusted;
 
         [OnDeserialized]
         private void Initialize(StreamingContext ct)

@@ -112,6 +112,7 @@ namespace ARKBreedingStats
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 domLevels += _testingIOs[s].LevelDom;
+                if (s == Stats.Torpidity) continue;
                 if (_testingIOs[s].LevelWild == 255)
                     wildLevel255 = true;
                 if (_testingIOs[s].LevelWild > 255

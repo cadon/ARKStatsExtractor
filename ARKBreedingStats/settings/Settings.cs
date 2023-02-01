@@ -94,6 +94,7 @@ namespace ARKBreedingStats.settings
             }
             nudTamingSpeed.NeutralNumber = 1;
             nudDinoCharacterFoodDrain.NeutralNumber = 1;
+            nudTamedDinoCharacterFoodDrain.NeutralNumber = 1;
             nudMatingInterval.NeutralNumber = 1;
             nudMatingSpeed.NeutralNumber = 1;
             nudEggHatchSpeed.NeutralNumber = 1;
@@ -105,6 +106,7 @@ namespace ARKBreedingStats.settings
             // event
             nudTamingSpeedEvent.NeutralNumber = 1.5M;
             nudDinoCharacterFoodDrainEvent.NeutralNumber = 1;
+            nudTamedDinoCharacterFoodDrainEvent.NeutralNumber = 1;
             nudMatingIntervalEvent.NeutralNumber = 1;
             nudEggHatchSpeedEvent.NeutralNumber = 1;
             nudBabyMatureSpeedEvent.NeutralNumber = 1;
@@ -148,8 +150,9 @@ namespace ARKBreedingStats.settings
             // localizations / translations
             // for a new translation
             // * a file local/strings.[languageCode].resx needs to exist.
-            // * the compiler created dll-file needs to be added to the installer files, for that edit the file setup.iss and setup-debug.iss in the repository base folder.
-            // * the entry in the next dictionary needs to be added
+            // * reference translator in aboutBox
+            // * the compiler created dll-file needs to be added to the installer files: edit the file setup.iss in the repository base folder.
+            // * the entry in the dictionary below needs to be added
             _languages = new Dictionary<string, string>
             {
                 { Loc.S("SystemLanguage"), string.Empty},
@@ -162,6 +165,7 @@ namespace ARKBreedingStats.settings
                 { "Polski", "pl"},
                 { "Português do Brasil", "pt-BR"},
                 { "русский", "ru"},
+                { "Türkçe", "tr"},
                 { "简体中文", "zh"},
                 { "繁體中文", "zh-tw"}
             };
@@ -213,6 +217,7 @@ namespace ARKBreedingStats.settings
             nudBabyImprintAmount.ValueSave = (decimal)multipliers.BabyImprintAmountMultiplier;
             nudTamingSpeed.ValueSave = (decimal)multipliers.TamingSpeedMultiplier;
             nudDinoCharacterFoodDrain.ValueSave = (decimal)multipliers.DinoCharacterFoodDrainMultiplier;
+            nudTamedDinoCharacterFoodDrain.ValueSave = (decimal)multipliers.TamedDinoCharacterFoodDrainMultiplier;
             nudBabyFoodConsumptionSpeed.ValueSave = (decimal)multipliers.BabyFoodConsumptionSpeedMultiplier;
             #endregion
             #region event-multiplier
@@ -221,6 +226,7 @@ namespace ARKBreedingStats.settings
             nudBabyImprintAmountEvent.ValueSave = (decimal)multipliers.BabyImprintAmountMultiplier;
             nudTamingSpeedEvent.ValueSave = (decimal)multipliers.TamingSpeedMultiplier;
             nudDinoCharacterFoodDrainEvent.ValueSave = (decimal)multipliers.DinoCharacterFoodDrainMultiplier;
+            nudTamedDinoCharacterFoodDrainEvent.ValueSave = (decimal)multipliers.TamedDinoCharacterFoodDrainMultiplier;
             nudMatingIntervalEvent.ValueSave = (decimal)multipliers.MatingIntervalMultiplier;
             nudEggHatchSpeedEvent.ValueSave = (decimal)multipliers.EggHatchSpeedMultiplier;
             nudBabyMatureSpeedEvent.ValueSave = (decimal)multipliers.BabyMatureSpeedMultiplier;
@@ -430,7 +436,7 @@ namespace ARKBreedingStats.settings
             }
 
             // Torpidity is handled differently by the game, IwM has no effect. Set IwM to 1.
-            // Also see https://github.com/cadon/ARKStatsExtractor/issues/942 for more infos about this.
+            // See https://github.com/cadon/ARKStatsExtractor/issues/942 for more infos about this.
             _cc.serverMultipliers.statMultipliers[Stats.Torpidity][3] = 1;
 
             _cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
@@ -445,6 +451,7 @@ namespace ARKBreedingStats.settings
             #region non-event-multiplier
             _cc.serverMultipliers.TamingSpeedMultiplier = (double)nudTamingSpeed.Value;
             _cc.serverMultipliers.DinoCharacterFoodDrainMultiplier = (double)nudDinoCharacterFoodDrain.Value;
+            _cc.serverMultipliers.TamedDinoCharacterFoodDrainMultiplier = (double)nudTamedDinoCharacterFoodDrain.Value;
             _cc.serverMultipliers.MatingSpeedMultiplier = (double)nudMatingSpeed.Value;
             _cc.serverMultipliers.MatingIntervalMultiplier = (double)nudMatingInterval.Value;
             _cc.serverMultipliers.EggHatchSpeedMultiplier = (double)nudEggHatchSpeed.Value;
@@ -459,6 +466,7 @@ namespace ARKBreedingStats.settings
             if (_cc.serverMultipliersEvents == null) _cc.serverMultipliersEvents = new ServerMultipliers();
             _cc.serverMultipliersEvents.TamingSpeedMultiplier = (double)nudTamingSpeedEvent.Value;
             _cc.serverMultipliersEvents.DinoCharacterFoodDrainMultiplier = (double)nudDinoCharacterFoodDrainEvent.Value;
+            _cc.serverMultipliersEvents.TamedDinoCharacterFoodDrainMultiplier = (double)nudTamedDinoCharacterFoodDrainEvent.Value;
             _cc.serverMultipliersEvents.MatingIntervalMultiplier = (double)nudMatingIntervalEvent.Value;
             _cc.serverMultipliersEvents.EggHatchSpeedMultiplier = (double)nudEggHatchSpeedEvent.Value;
             _cc.serverMultipliersEvents.BabyCuddleIntervalMultiplier = (double)nudBabyCuddleIntervalEvent.Value;
@@ -755,6 +763,7 @@ namespace ARKBreedingStats.settings
             ParseAndSetValue(nudBabyImprintAmount, @"BabyImprintAmountMultiplier ?= ?(\d*\.?\d+)");
             ParseAndSetValue(nudBabyCuddleInterval, @"BabyCuddleIntervalMultiplier ?= ?(\d*\.?\d+)");
             ParseAndSetValue(nudBabyFoodConsumptionSpeed, @"BabyFoodConsumptionSpeedMultiplier ?= ?(\d*\.?\d+)");
+            ParseAndSetValue(nudTamedDinoCharacterFoodDrain, @"TamedDinoCharacterFoodDrainMultiplier ?= ?(\d*\.?\d+)");
 
             ParseAndSetCheckbox(cbSingleplayerSettings, @"bUseSingleplayerSettings ?= ?(true|false)");
             ParseAndSetValue(nudMaxServerLevel, @"DestroyTamesOverLevelClamp ?= ?(\d+)");
@@ -987,6 +996,7 @@ namespace ARKBreedingStats.settings
             {
                 nudTamingSpeed.ValueSave = (decimal)sm.TamingSpeedMultiplier;
                 nudDinoCharacterFoodDrain.ValueSave = (decimal)sm.DinoCharacterFoodDrainMultiplier;
+                nudTamedDinoCharacterFoodDrain.ValueSave = (decimal)sm.TamedDinoCharacterFoodDrainMultiplier;
                 nudEggHatchSpeed.ValueSave = (decimal)sm.EggHatchSpeedMultiplier;
                 nudBabyMatureSpeed.ValueSave = (decimal)sm.BabyMatureSpeedMultiplier;
                 nudBabyImprintingStatScale.ValueSave = (decimal)sm.BabyImprintingStatScaleMultiplier;

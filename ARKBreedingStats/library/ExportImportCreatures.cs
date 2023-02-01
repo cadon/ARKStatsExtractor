@@ -355,6 +355,7 @@ namespace ARKBreedingStats.library
             importedCreatures = new List<Creature>();
             var lineCount = lines.Length;
             var resultSb = new StringBuilder($"Import result\n{lineCount} lines read from\n{filePath}\n");
+            var linesCouldNotBeReadCounter = 0;
 
             for (var i = 0; i < lineCount; i++)
             {
@@ -362,8 +363,16 @@ namespace ARKBreedingStats.library
                 var m = regex.Match(line);
                 if (!m.Success)
                 {
-                    resultSb.AppendLine($"couldn't read line {i + 1}, format couldn't be recognized.");
-                    displayNeededFormat = true;
+                    if (++linesCouldNotBeReadCounter < 10)
+                    {
+                        resultSb.AppendLine($"couldn't read line {i + 1}, format couldn't be recognized.");
+                        displayNeededFormat = true;
+                    }
+                    else
+                    {
+                        resultSb.AppendLine("couldn't read too many lines, aborting import");
+                        break;
+                    }
                     continue;
                 }
 
@@ -445,12 +454,11 @@ namespace ARKBreedingStats.library
                 importedCreatures.Add(creature);
             }
 
-            var creaturesWereImported = true;
             var importedCreaturesCount = importedCreatures.Count;
-            if (importedCreaturesCount == 0)
+            var creaturesWereImported = importedCreaturesCount > 0;
+            if (!creaturesWereImported)
             {
                 resultSb.AppendLine("No creatures imported.");
-                creaturesWereImported = false;
             }
             else
             {

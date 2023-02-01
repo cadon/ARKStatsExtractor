@@ -591,6 +591,7 @@ namespace ARKBreedingStats
             CreatureName = NamePattern.GenerateCreatureName(creature, _sameSpecies, speciesTopLevels, speciesLowestLevels, customReplacings, showDuplicateNameWarning, namingPatternIndex, false, colorsExisting: ColorAlreadyExistingInformation);
             if (CreatureName.Length > 24)
                 SetMessageLabelText?.Invoke("The generated name is longer than 24 characters, the name will look like this in game:\n" + CreatureName.Substring(0, 24), MessageBoxIcon.Error);
+            else SetMessageLabelText?.Invoke();
         }
 
         public void OpenNamePatternEditor(Creature creature, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback)

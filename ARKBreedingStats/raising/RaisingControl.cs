@@ -146,10 +146,14 @@ namespace ARKBreedingStats.raising
             if (_selectedSpecies.taming.eats?.Any() == true
                 && uiControls.Trough.FoodAmountFromUntil(_selectedSpecies,
                     Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier,
+                    Values.V.currentServerMultipliers.DinoCharacterFoodDrainMultiplier,
+                    Values.V.currentServerMultipliers.TamedDinoCharacterFoodDrainMultiplier,
                     0, 1, out double totalFood))
             {
                 var babyPhaseFoodValid = uiControls.Trough.FoodAmountFromUntil(_selectedSpecies,
                     Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier,
+                    Values.V.currentServerMultipliers.DinoCharacterFoodDrainMultiplier,
+                    Values.V.currentServerMultipliers.TamedDinoCharacterFoodDrainMultiplier,
                     0, .1, out double babyPhaseFood);
 
                 if (!string.IsNullOrEmpty(_lastSelectedFood))
@@ -243,12 +247,18 @@ namespace ARKBreedingStats.raising
             if (foodValue == 0) return;
 
             if (uiControls.Trough.FoodAmountFromUntil(_selectedSpecies,
-                Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier, maturation, 0.1,
+                Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier,
+                Values.V.currentServerMultipliers.DinoCharacterFoodDrainMultiplier,
+                Values.V.currentServerMultipliers.TamedDinoCharacterFoodDrainMultiplier,
+                maturation, 0.1,
                 out var foodAmount))
                 labelAmountFoodBaby.Text = $"{Math.Ceiling(foodAmount / foodValue)} {_lastSelectedFood} ({foodAmount:0.#} food units)";
 
             if (uiControls.Trough.FoodAmountFromUntil(_selectedSpecies,
-                Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier, maturation, 1,
+                Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier,
+                Values.V.currentServerMultipliers.DinoCharacterFoodDrainMultiplier,
+                Values.V.currentServerMultipliers.TamedDinoCharacterFoodDrainMultiplier,
+                maturation, 1,
                 out foodAmount))
                 labelAmountFoodAdult.Text = $"{Math.Ceiling(foodAmount / foodValue)} {_lastSelectedFood} ({foodAmount:0.#} food units)";
         }
@@ -531,14 +541,15 @@ namespace ARKBreedingStats.raising
                 {
                     Species species = c.Species;
                     SetGlobalSpecies?.Invoke(species);
-                    if (species?.breeding != null && c.growingUntil.HasValue && c.growingUntil.Value > DateTime.Now)
+                    double maturation = c.Maturation;
+                    if (maturation >= 1)
                     {
-                        double maturing = 100 * (1 - c.growingUntil.Value.Subtract(DateTime.Now).TotalSeconds /
-                            species.breeding.maturationTimeAdjusted);
-                        if (maturing > 0 && maturing <= 100)
-                        {
-                            nudMaturationProgress.Value = (decimal)maturing;
-                        }
+                        c.growingUntil = null;
+                        maturation = 1;
+                    }
+                    if (maturation > 0)
+                    {
+                        nudMaturationProgress.Value = (decimal)maturation * 100;
                     }
 
                     parentStats1.SetParentValues(c.Mother, c.Father);

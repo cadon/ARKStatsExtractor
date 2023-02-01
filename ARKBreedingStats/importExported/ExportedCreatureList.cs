@@ -79,22 +79,31 @@ namespace ARKBreedingStats.importExported
         /// <summary>
         /// Reads all compatible files in the stated folder. If the folder is nullOrEmpty, the previous used folder is used.
         /// </summary>
-        /// <param name="folderPath"></param>
         public void LoadFilesInFolder(string folderPath = null)
         {
             if (string.IsNullOrEmpty(folderPath)) folderPath = _selectedFolder;
             if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath)) return;
 
-            _selectedFolder = folderPath;
+            string[] files = Directory.GetFiles(folderPath, "*.ini");
+            LoadFiles(files);
+        }
 
-            string[] files = Directory.GetFiles(folderPath, "*dinoexport*.ini");
+        /// <summary>
+        /// Load given files in the import window.
+        /// </summary>
+        public void LoadFiles(string[] files)
+        {
+            if (files == null || files.Length == 0) return;
+
+            _selectedFolder = Path.GetDirectoryName(files[0]);
+
             // check if there are many files to import, then ask because that can take time
             if (Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan > 0
-                && files.Length > Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan
-                && MessageBox.Show($"There are more than {Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan}"
-                            + $" files to import ({files.Length}) which can take some time.\n" +
-                            "Do you really want to read all these files?",
-                            "Many files to import", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+                    && files.Length > Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan
+                    && MessageBox.Show($"There are more than {Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan}"
+                                + $" files to import ({files.Length}) which can take some time.\n" +
+                                "Do you really want to read all these files?",
+                                "Many files to import", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
                 return;
 
             SuspendLayout();
@@ -154,7 +163,7 @@ namespace ARKBreedingStats.importExported
             }
             _hiddenSpecies.Clear();
 
-            Text = "Exported creatures in " + Utils.ShortPath(folderPath, 100);
+            Text = "Exported creatures in " + Utils.ShortPath(_selectedFolder, 100);
             UpdateStatusBarLabelAndControls();
             ResumeLayout();
 

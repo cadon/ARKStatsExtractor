@@ -396,12 +396,12 @@ namespace ARKBreedingStats.BreedingPlanning
                     ref creaturesMutationsFilteredOut, levelLimitWithOutDomLevels, CbDontSuggestOverLimitOffspring.Checked,
                     cbBPOnlyOneSuggestionForFemales.Checked);
 
-                double minScore = _breedingPairs.LastOrDefault()?.BreedingScore ?? 0;
-                if (minScore < 0)
-                {
-                    foreach (BreedingPair bp in _breedingPairs)
-                        bp.BreedingScore -= minScore;
-                }
+                //double minScore = _breedingPairs.LastOrDefault()?.BreedingScore ?? 0;
+                //if (minScore < 0)
+                //{
+                //    foreach (BreedingPair bp in _breedingPairs)
+                //        bp.BreedingScore -= minScore;
+                //}
 
                 var sb = new StringBuilder();
                 // draw best parents
@@ -480,13 +480,15 @@ namespace ARKBreedingStats.BreedingPlanning
                                 g.FillRectangle(brush, 77, 5, 10, 10);
                                 sb.AppendLine(_breedingPairs[i].Father + " can produce a mutation.");
                             }
+
+                            var colorPercent = (int)(_breedingPairs[i].BreedingScore.OneNumber * 12.5);
                             // outline
-                            brush.Color = Utils.GetColorFromPercent((int)(_breedingPairs[i].BreedingScore * 12.5), -.2);
+                            brush.Color = Utils.GetColorFromPercent(colorPercent, -.2);
                             g.FillRectangle(brush, 0, 15, 87, 5);
                             g.FillRectangle(brush, 20, 10, 47, 15);
                             // fill
                             brush.Color =
-                                Utils.GetColorFromPercent((int)(_breedingPairs[i].BreedingScore * 12.5), 0.5);
+                                Utils.GetColorFromPercent(colorPercent, 0.5);
                             g.FillRectangle(brush, 1, 16, 85, 3);
                             g.FillRectangle(brush, 21, 11, 45, 13);
                             if (_breedingPairs[i].HighestOffspringOverLevelLimit)
@@ -848,10 +850,10 @@ namespace ARKBreedingStats.BreedingPlanning
                 // in top stats breeding mode consider only probability of top stats
                 if (crB.levelsWild[s] > crW.levelsWild[s]
                     && (!topStatBreedingMode || crB.topBreedingStats[s]))
-                    probabilityBest *= Ark.ProbabilityHigherLevel;
+                    probabilityBest *= Ark.ProbabilityInheritHigherLevel;
                 else if (crB.levelsWild[s] < crW.levelsWild[s]
                          && (!topStatBreedingMode || crB.topBreedingStats[s]))
-                    probabilityBest *= Ark.ProbabilityLowerLevel;
+                    probabilityBest *= Ark.ProbabilityInheritLowerLevel;
             }
             crB.levelsWild[Stats.Torpidity] = crB.levelsWild.Sum();
             crW.levelsWild[Stats.Torpidity] = crW.levelsWild.Sum();

@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.species;
+﻿using System.Linq;
+using ARKBreedingStats.species;
 
 namespace ARKBreedingStats
 {
@@ -12,12 +13,12 @@ namespace ARKBreedingStats
         /// <summary>
         /// Probability of an offspring to inherit the higher level-stat
         /// </summary>
-        public const double ProbabilityHigherLevel = 0.55;
+        public const double ProbabilityInheritHigherLevel = 0.55;
 
         /// <summary>
         /// Probability of an offspring to inherit the lower level-stat
         /// </summary>
-        public const double ProbabilityLowerLevel = 1 - ProbabilityHigherLevel;
+        public const double ProbabilityInheritLowerLevel = 1 - ProbabilityInheritHigherLevel;
 
         /// <summary>
         /// Probability of a mutation in an offspring
@@ -66,8 +67,25 @@ namespace ARKBreedingStats
         /// <summary>
         /// Indices of the stats that are affected by a mutagen application (HP, St, We, Dm).
         /// </summary>
-        public static int[] StatIndicesAffectedByMutagen => new[]
-            { Stats.Health, Stats.Stamina, Stats.Weight, Stats.MeleeDamageMultiplier };
+        public static readonly int[] StatIndicesAffectedByMutagen =
+        {
+            Stats.Health,
+            Stats.Stamina,
+            Stats.Weight,
+            Stats.MeleeDamageMultiplier
+        };
+
+        private const int StatCountAffectedByMutagen = 4;
+
+        /// <summary>
+        /// Total level ups for bred creatures when mutagen is applied.
+        /// </summary>
+        public const int MutagenTotalLevelUpsBred = MutagenLevelUpsBred * StatCountAffectedByMutagen;
+
+        /// <summary>
+        /// Total level ups for non bred creatures when mutagen is applied.
+        /// </summary>
+        public const int MutagenTotalLevelUpsNonBred = MutagenLevelUpsNonBred * StatCountAffectedByMutagen;
 
         #endregion
 
