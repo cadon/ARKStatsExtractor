@@ -585,13 +585,12 @@ namespace ARKBreedingStats.Library
                    || cr.colors == null)
                     continue;
 
-                var ci = 0;
-                foreach (var co in cr.colors)
+                for (var ci = 0; ci < Ark.ColorRegionCount; ci++)
                 {
+                    var co = cr.colors[ci];
                     if (colorsExistPerRegion[ci].Contains(co)) continue;
                     colorsExistPerRegion[ci].Add(co);
                     colorsDontExistPerRegion[ci].Remove(co);
-                    ci++;
                 }
             }
 
