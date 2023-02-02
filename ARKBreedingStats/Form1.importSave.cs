@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
+using FluentFTP.Exceptions;
 
 namespace ARKBreedingStats
 {
@@ -176,7 +177,7 @@ namespace ARKBreedingStats
                             }
                         }
                     }
-                    var client = new FtpClient(ftpUri.Host, ftpUri.Port, credentials.Username, credentials.Password);
+                    var client = new AsyncFtpClient(ftpUri.Host, credentials.Username, credentials.Password, ftpUri.Port);
                     string ftpPath = null;
 
                     try
@@ -193,7 +194,7 @@ namespace ARKBreedingStats
                         // TaskCanceledException
                         // on cancelling it throws
                         // Cannot access a disposed object. Object name: 'System.Net.Sockets.Socket'.
-                        await client.ConnectAsync(token: cancellationTokenSource.Token);
+                        await client.Connect(token: cancellationTokenSource.Token);
 
                         progressDialog.StatusText = "Finding most recent file";
                         await Task.Yield();
@@ -219,7 +220,7 @@ namespace ARKBreedingStats
                         await Task.Yield();
 
                         var filePath = Path.Combine(workingCopyFolder, Path.GetFileName(ftpPath));
-                        await client.DownloadFileAsync(filePath, ftpPath, FtpLocalExists.Overwrite, FtpVerify.Retry, progressDialog, token: cancellationTokenSource.Token);
+                        await client.DownloadFile(filePath, ftpPath, FtpLocalExists.Overwrite, FtpVerify.Retry, progressDialog, token: cancellationTokenSource.Token);
                         await Task.Delay(500, cancellationTokenSource.Token);
 
                         if (filePath.EndsWith(".gz"))
@@ -302,10 +303,10 @@ namespace ARKBreedingStats
             return newFileName;
         }
 
-        public async Task<FtpListItem> GetLastModifiedFileAsync(FtpClient client, Uri ftpUri, string fileRegex, CancellationToken cancellationToken)
+        public async Task<FtpListItem> GetLastModifiedFileAsync(AsyncFtpClient client, Uri ftpUri, string fileRegex, CancellationToken cancellationToken)
         {
             var folderUri = new Uri(ftpUri, ".");
-            var listItems = await client.GetListingAsync(folderUri.AbsolutePath, cancellationToken);
+            var listItems = await client.GetListing(folderUri.AbsolutePath, cancellationToken);
 
             Regex fileNameRegex;
             if (!fileRegex.Contains("(?<"))
