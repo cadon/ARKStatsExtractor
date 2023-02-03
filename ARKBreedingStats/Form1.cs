@@ -674,6 +674,10 @@ namespace ARKBreedingStats
                 if (Properties.Settings.Default.ApplyGlobalSpeciesToLibrary)
                     listBoxSpeciesLib.SelectedItem = species;
             }
+            else if (tabControlMain.SelectedTab == tabPageLibraryInfo)
+            {
+                LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, _creatureCollection.creatures, tlpLibraryInfo);
+            }
             else if (tabControlMain.SelectedTab == tabPagePedigree)
             {
                 pedigree1.SetSpecies(species);
@@ -1518,6 +1522,10 @@ namespace ARKBreedingStats
                 }
                 else if (_libraryNeedsUpdate)
                     FilterLibRecalculate();
+            }
+            else if (tabControlMain.SelectedTab == tabPageLibraryInfo)
+            {
+                LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, _creatureCollection.creatures, tlpLibraryInfo);
             }
             else if (tabControlMain.SelectedTab == tabPagePedigree)
             {
@@ -3630,9 +3638,10 @@ namespace ARKBreedingStats
             Clipboard.SetText(string.Join("\n", Values.V.Colors.ColorsList.Select(c => $"{c.Id,3}: {c}")));
         }
 
-        private void copyColorInformationToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BtCopyLibraryColorToClipboard_Click(object sender, EventArgs e)
         {
-            var colorInfo = _creatureCollection.GetColorInfo(speciesSelector1.SelectedSpecies);
+            LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, _creatureCollection.creatures);
+            var colorInfo = LibraryInfo.GetSpeciesInfo();
             Clipboard.SetText(string.IsNullOrEmpty(colorInfo) ? $"no color info available for species {speciesSelector1.SelectedSpecies}" : colorInfo);
             SetMessageLabelText($"Color information about {speciesSelector1.SelectedSpecies} has been copied to the clipboard, you can paste it in a text editor to view it.", MessageBoxIcon.Information);
         }

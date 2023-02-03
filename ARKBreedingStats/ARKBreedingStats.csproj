@@ -121,6 +121,7 @@
     <Compile Include="Pedigree\PedigreeCreatureCompact.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="uiControls\LibraryInfo.cs" />
     <Compile Include="uiControls\StatSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
