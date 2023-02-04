@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+﻿using System;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using System.Collections.Generic;
@@ -12,8 +13,12 @@ namespace ARKBreedingStats.uiControls
     internal static class LibraryInfo
     {
         private static Species _infoForSpecies;
+        private static bool _libraryFilterConsidered;
         private static string _speciesInfo;
 
+        /// <summary>
+        /// Clear the cached information.
+        /// </summary>
         internal static void ClearInfo()
         {
             _infoForSpecies = null;
@@ -25,16 +30,20 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// Returns information about what color ids exist in which regions of the creatures of a species.
         /// </summary>
-        internal static bool SetColorInfo(Species species, IList<Creature> creatures, TableLayoutPanel tlp = null)
+        internal static bool SetColorInfo(Species species, IList<Creature> creatures, bool libraryFilterConsidered, TableLayoutPanel tlp = null)
         {
             if (species == null || creatures == null) return false;
-            if (species == _infoForSpecies) return true;
+            if (species == _infoForSpecies
+                && _libraryFilterConsidered == libraryFilterConsidered
+                && _infoForSpecies != null) return true;
 
             _infoForSpecies = species;
+            _libraryFilterConsidered = libraryFilterConsidered;
             if (tlp != null)
             {
-                // remove all controls except copy to clipboard button
-                for (int i = tlp.Controls.Count - 1; i > 0; i--)
+                tlp.SuspendLayout();
+                // remove all controls except copy to clipboard button and filter checkbox
+                for (int i = tlp.Controls.Count - 1; i > 1; i--)
                     tlp.Controls.RemoveAt(i);
             }
 
@@ -47,12 +56,20 @@ namespace ARKBreedingStats.uiControls
                 colorsDontExistPerRegion[i] = new HashSet<byte>(allAvailableColorIds);
             }
 
+            var properties = new Dictionary<CreatureFlags, int>();
+            var flags = ((CreatureFlags[])Enum.GetValues(typeof(CreatureFlags))).Where(f => f != CreatureFlags.None).ToArray();
+            foreach (var flag in flags)
+                properties[flag] = 0;
+            var creatureCount = 0;
+
             foreach (var cr in creatures)
             {
                 if (cr.speciesBlueprint != species.blueprintPath
-                   || cr.colors == null)
+                    || cr.flags.HasFlag(CreatureFlags.Placeholder)
+                    || cr.colors == null)
                     continue;
 
+                creatureCount++;
                 for (var ci = 0; ci < Ark.ColorRegionCount; ci++)
                 {
                     var co = cr.colors[ci];
@@ -60,25 +77,45 @@ namespace ARKBreedingStats.uiControls
                     colorsExistPerRegion[ci].Add(co);
                     colorsDontExistPerRegion[ci].Remove(co);
                 }
+
+                foreach (var flag in flags)
+                {
+                    if (cr.flags.HasFlag(flag))
+                        properties[flag]++;
+                }
             }
 
             var sb = new StringBuilder();
             var tableRow = 1;
 
-            void AddParagraph(string text, string appendToPlainText = null, bool bold = false, float relativeFontSize = 1)
+            void AddParagraph(string text, string suffixForPlainText = null, bool bold = false, float relativeFontSize = 1)
             {
-                tlp?.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-                tlp?.Controls.Add(new Label
+                if (tlp != null)
                 {
-                    Text = text,
-                    Font = bold || relativeFontSize != 1 ? new Font(Control.DefaultFont.FontFamily, Control.DefaultFont.Size * relativeFontSize, bold ? FontStyle.Bold : FontStyle.Regular) : Control.DefaultFont,
-                    Margin = new Padding(3, bold ? 8 : 3, 3, 3),
-                    AutoSize = true
-                }, 0, tableRow++);
-                sb.AppendLine(text + appendToPlainText);
+                    while (tlp.RowStyles.Count <= tableRow)
+                        tlp.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                    var l = new Label
+                    {
+                        Text = text,
+                        Font = bold || relativeFontSize != 1
+                            ? new Font(Control.DefaultFont.FontFamily, Control.DefaultFont.Size * relativeFontSize,
+                                bold ? FontStyle.Bold : FontStyle.Regular)
+                            : Control.DefaultFont,
+                        Margin = new Padding(3, bold ? 8 : 3, 3, 3),
+                        AutoSize = true
+                    };
+                    tlp.Controls.Add(l, 0, tableRow++);
+                    tlp.SetColumnSpan(l, 2);
+                }
+
+                sb.AppendLine(text + suffixForPlainText);
             }
 
-            AddParagraph($"Color information about {species.DescriptiveNameAndMod} ({species.blueprintPath})", "\n", true, 1.5f);
+            AddParagraph($"Information about the {species.DescriptiveNameAndMod} in this library", "\n", true, 1.5f);
+            AddParagraph(
+                $"{creatureCount} creatures. {string.Join(", ", properties.Where(p => p.Value > 0).Select(p => $"{Loc.S(p.Key.ToString())}: {p.Value}"))}",
+                "\n");
+            AddParagraph($"Color information", null, true, 1.3f);
 
             var rangeSb = new StringBuilder();
             for (int i = 0; i < Ark.ColorRegionCount; i++)
@@ -138,6 +175,7 @@ namespace ARKBreedingStats.uiControls
             }
 
             _speciesInfo = sb.ToString();
+            tlp?.ResumeLayout();
             return true;
         }
 
