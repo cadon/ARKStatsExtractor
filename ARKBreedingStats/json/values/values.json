@@ -1,5 +1,5 @@
 {
-	"version": "355.3.10136424",
+	"version": "356.5.10438696",
 	"format": "1.14-flyerspeed",
 	"species": [
 		{
@@ -3978,7 +3978,8 @@
 				"affinityIncreasePL": 160,
 				"foodConsumptionBase": 0.002314,
 				"foodConsumptionMult": 160.0563,
-				"babyFoodConsumptionMult": 900
+				"babyFoodConsumptionMult": 900,
+				"adultFoodConsumptionMult": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
 			"displayedStats": 927
@@ -4453,7 +4454,8 @@
 				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.1,
 				"foodConsumptionMult": 13,
-				"babyFoodConsumptionMult": 510
+				"babyFoodConsumptionMult": 510,
+				"adultFoodConsumptionMult": 0.1
 			},
 			"TamedBaseHealthMultiplier": 1,
 			"displayedStats": 927
@@ -4677,7 +4679,8 @@
 				"affinityIncreasePL": 5,
 				"foodConsumptionBase": 0.1,
 				"foodConsumptionMult": 13,
-				"babyFoodConsumptionMult": 510
+				"babyFoodConsumptionMult": 510,
+				"adultFoodConsumptionMult": 0.1
 			},
 			"TamedBaseHealthMultiplier": 1,
 			"displayedStats": 927
@@ -5383,7 +5386,8 @@
 				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.1,
 				"foodConsumptionMult": 13,
-				"babyFoodConsumptionMult": 510
+				"babyFoodConsumptionMult": 510,
+				"adultFoodConsumptionMult": 0.1
 			},
 			"TamedBaseHealthMultiplier": 1,
 			"displayedStats": 927
@@ -22271,7 +22275,8 @@
 				"affinityIncreasePL": 160,
 				"foodConsumptionBase": 0.002314,
 				"foodConsumptionMult": 160.0563,
-				"babyFoodConsumptionMult": 900
+				"babyFoodConsumptionMult": 900,
+				"adultFoodConsumptionMult": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
 			"displayedStats": 927
@@ -29327,7 +29332,8 @@
 				"affinityIncreasePL": 160,
 				"foodConsumptionBase": 0.002314,
 				"foodConsumptionMult": 160.0563,
-				"babyFoodConsumptionMult": 900
+				"babyFoodConsumptionMult": 900,
+				"adultFoodConsumptionMult": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
 			"displayedStats": 927
@@ -41253,7 +41259,8 @@
 				"torporDepletionPS0": 120,
 				"foodConsumptionBase": 0.002314,
 				"foodConsumptionMult": 160.0563,
-				"babyFoodConsumptionMult": 900
+				"babyFoodConsumptionMult": 900,
+				"adultFoodConsumptionMult": 3
 			},
 			"TamedBaseHealthMultiplier": 0.97,
 			"displayedStats": 927
@@ -77724,7 +77731,8 @@
 				"affinityIncreasePL": 160,
 				"foodConsumptionBase": 0.002314,
 				"foodConsumptionMult": 160.0563,
-				"babyFoodConsumptionMult": 900
+				"babyFoodConsumptionMult": 900,
+				"adultFoodConsumptionMult": 3
 			},
 			"TamedBaseHealthMultiplier": 0.97,
 			"displayedStats": 927
@@ -89538,7 +89546,8 @@
 				"torporDepletionPS0": 0.5,
 				"foodConsumptionBase": 0.002314,
 				"foodConsumptionMult": 150.0634,
-				"babyFoodConsumptionMult": 700
+				"babyFoodConsumptionMult": 700,
+				"adultFoodConsumptionMult": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
 			"displayedStats": 927
@@ -96142,7 +96151,8 @@
 				"torporDepletionPS0": 120,
 				"foodConsumptionBase": 0.002314,
 				"foodConsumptionMult": 160.0563,
-				"babyFoodConsumptionMult": 900
+				"babyFoodConsumptionMult": 900,
+				"adultFoodConsumptionMult": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
 			"displayedStats": 927
@@ -96232,7 +96242,8 @@
 				"affinityIncreasePL": 160,
 				"foodConsumptionBase": 0.002314,
 				"foodConsumptionMult": 160.0563,
-				"babyFoodConsumptionMult": 900
+				"babyFoodConsumptionMult": 900,
+				"adultFoodConsumptionMult": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
 			"displayedStats": 927
@@ -96322,7 +96333,8 @@
 				"torporDepletionPS0": 120,
 				"foodConsumptionBase": 0.002314,
 				"foodConsumptionMult": 160.0563,
-				"babyFoodConsumptionMult": 900
+				"babyFoodConsumptionMult": 900,
+				"adultFoodConsumptionMult": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
 			"displayedStats": 927
@@ -96412,7 +96424,8 @@
 				"affinityIncreasePL": 160,
 				"foodConsumptionBase": 0.002314,
 				"foodConsumptionMult": 160.0563,
-				"babyFoodConsumptionMult": 900
+				"babyFoodConsumptionMult": 900,
+				"adultFoodConsumptionMult": 3
 			},
 			"TamedBaseHealthMultiplier": 1,
 			"displayedStats": 927
@@ -109108,7 +109121,8 @@
 				"torporDepletionPS0": 0,
 				"foodConsumptionBase": 0.1,
 				"foodConsumptionMult": 13,
-				"babyFoodConsumptionMult": 510
+				"babyFoodConsumptionMult": 510,
+				"adultFoodConsumptionMult": 0.1
 			},
 			"TamedBaseHealthMultiplier": 1.8,
 			"displayedStats": 927

@@ -121,6 +121,7 @@
     <Compile Include="Pedigree\PedigreeCreatureCompact.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="uiControls\LibraryInfo.cs" />
     <Compile Include="uiControls\StatSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -954,10 +955,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentFTP">
-      <Version>37.0.3</Version>
+      <Version>44.0.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers">
-      <Version>3.3.3</Version>
+      <Version>3.3.4</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

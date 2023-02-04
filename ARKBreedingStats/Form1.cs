@@ -222,6 +222,8 @@ namespace ARKBreedingStats
 
             LoadListViewSettings(tribesControl1.ListViewPlayers, "PlayerListColumnWidths", "PlayerListColumnDisplayIndices", "PlayerListSortColumn", "PlayerListSortAsc");
 
+            CbLibraryInfoUseFilter.Checked = Properties.Settings.Default.LibraryColorInfoUseFilter;
+
             // load stat weights
             double[][] custWd = Properties.Settings.Default.customStatWeights;
             string[] custWs = Properties.Settings.Default.customStatWeightNames;
@@ -674,6 +676,10 @@ namespace ARKBreedingStats
                 if (Properties.Settings.Default.ApplyGlobalSpeciesToLibrary)
                     listBoxSpeciesLib.SelectedItem = species;
             }
+            else if (tabControlMain.SelectedTab == tabPageLibraryInfo)
+            {
+                LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, CbLibraryInfoUseFilter.Checked ? (IList<Creature>)ApplyLibraryFilterSettings(_creatureCollection.creatures).ToArray() : _creatureCollection.creatures, CbLibraryInfoUseFilter.Checked, tlpLibraryInfo);
+            }
             else if (tabControlMain.SelectedTab == tabPagePedigree)
             {
                 pedigree1.SetSpecies(species);
@@ -920,6 +926,7 @@ namespace ARKBreedingStats
             breedingPlan1.BreedingPlanNeedsUpdate = true;
             pedigree1.SetSpecies(forceUpdate: true);
             raisingControl1.RecreateList();
+            LibraryInfo.ClearInfo();
         }
 
         /// <summary>
@@ -1292,6 +1299,7 @@ namespace ARKBreedingStats
             Properties.Settings.Default.DisabledVariants = speciesSelector1.VariantSelector?.DisabledVariants?.ToArray();
 
             Properties.Settings.Default.RaisingFoodLastSelected = raisingControl1.LastSelectedFood;
+            Properties.Settings.Default.LibraryColorInfoUseFilter = CbLibraryInfoUseFilter.Checked;
 
             /////// save settings for next session
             Properties.Settings.Default.Save();
@@ -1518,6 +1526,10 @@ namespace ARKBreedingStats
                 }
                 else if (_libraryNeedsUpdate)
                     FilterLibRecalculate();
+            }
+            else if (tabControlMain.SelectedTab == tabPageLibraryInfo)
+            {
+                LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, CbLibraryInfoUseFilter.Checked ? (IList<Creature>)ApplyLibraryFilterSettings(_creatureCollection.creatures).ToArray() : _creatureCollection.creatures, CbLibraryInfoUseFilter.Checked, tlpLibraryInfo);
             }
             else if (tabControlMain.SelectedTab == tabPagePedigree)
             {
@@ -3630,11 +3642,17 @@ namespace ARKBreedingStats
             Clipboard.SetText(string.Join("\n", Values.V.Colors.ColorsList.Select(c => $"{c.Id,3}: {c}")));
         }
 
-        private void copyColorInformationToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BtCopyLibraryColorToClipboard_Click(object sender, EventArgs e)
         {
-            var colorInfo = _creatureCollection.GetColorInfo(speciesSelector1.SelectedSpecies);
+            LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, CbLibraryInfoUseFilter.Checked ? (IList<Creature>)ApplyLibraryFilterSettings(_creatureCollection.creatures).ToArray() : _creatureCollection.creatures, CbLibraryInfoUseFilter.Checked);
+            var colorInfo = LibraryInfo.GetSpeciesInfo();
             Clipboard.SetText(string.IsNullOrEmpty(colorInfo) ? $"no color info available for species {speciesSelector1.SelectedSpecies}" : colorInfo);
             SetMessageLabelText($"Color information about {speciesSelector1.SelectedSpecies} has been copied to the clipboard, you can paste it in a text editor to view it.", MessageBoxIcon.Information);
+        }
+
+        private void CbLibraryInfoUseFilter_CheckedChanged(object sender, EventArgs e)
+        {
+            LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, CbLibraryInfoUseFilter.Checked ? (IList<Creature>)ApplyLibraryFilterSettings(_creatureCollection.creatures).ToArray() : _creatureCollection.creatures, CbLibraryInfoUseFilter.Checked, tlpLibraryInfo);
         }
     }
 }
