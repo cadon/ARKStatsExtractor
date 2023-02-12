@@ -100,7 +100,7 @@ namespace ARKBreedingStats.uiControls
                     return;
                 }
                 for (int i = 0; i < _buttonColors.Length; i++)
-                    _buttonColors[i].AlternativeColorPossible = _selectedColorIdsAlternative.Length < i && _selectedColorIdsAlternative[i] != 0;
+                    _buttonColors[i].AlternativeColorPossible = _selectedColorIdsAlternative.Length > i && _selectedColorIdsAlternative[i] != 0;
             }
         }
 
