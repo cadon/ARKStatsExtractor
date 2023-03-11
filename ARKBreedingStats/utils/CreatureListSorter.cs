@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.Library;
@@ -8,7 +7,6 @@ using ARKBreedingStats.species;
 
 namespace ARKBreedingStats.utils
 {
-
     public class CreatureListSorter
     {
         /// <summary>
@@ -32,6 +30,16 @@ namespace ARKBreedingStats.utils
         private SortOrder _lastOrder;
 
         /// <summary>
+        /// Whether to use natural sort. If false, normal lexicographical sort is used.
+        /// </summary>
+        public bool UseNaturalSort { get; set; } = false;
+
+        /// <summary>
+        /// Whether to ignore spaces between words. This option is only relevant when using natural sort.
+        /// </summary>
+        public bool IgnoreSpacesBetweenWords { get; set; } = false;
+
+        /// <summary>
         /// Sort list by given column index. If the columnIndex is -1, use last sorting.
         /// </summary>
         public IEnumerable<Creature> DoSort(IEnumerable<Creature> list, int columnIndex = -1, Species[] orderBySpecies = null)
@@ -53,13 +61,19 @@ namespace ARKBreedingStats.utils
                 Order = columnIndex > 1 ? SortOrder.Descending : SortOrder.Ascending;
             }
 
+            // Select a comparison function
+            IComparer<object> comparer = UseNaturalSort
+                ? new NaturalComparer(skipSpaces: IgnoreSpacesBetweenWords)
+                : (IComparer<object>)Comparer<object>.Default;
+
             // Perform the sort with these new sort options.
-            return OrderList(list, orderBySpecies);
+            return OrderList(list, comparer, orderBySpecies);
         }
 
-        private IEnumerable<Creature> OrderList(IEnumerable<Creature> list, Species[] orderBySpecies = null)
+        private IEnumerable<Creature> OrderList(IEnumerable<Creature> list, IComparer<object> comparer, Species[] orderBySpecies = null)
         {
             IOrderedEnumerable<Creature> listOrdered;
+
             if (orderBySpecies != null)
             {
                 var dict = orderBySpecies.Select((s, i) => (s, i)).ToDictionary(s => s.s, s => s.i);
@@ -67,16 +81,16 @@ namespace ARKBreedingStats.utils
                 if (SortColumnIndex == -1 || SortColumnIndex >= _keySelectors.Length)
                     return listOrdered;
                 listOrdered = Order == SortOrder.Ascending
-                    ? listOrdered.ThenBy(_keySelectors[SortColumnIndex])
-                    : listOrdered.ThenByDescending(_keySelectors[SortColumnIndex]);
+                    ? listOrdered.ThenBy(_keySelectors[SortColumnIndex], comparer)
+                    : listOrdered.ThenByDescending(_keySelectors[SortColumnIndex], comparer);
             }
             else
             {
                 if (SortColumnIndex == -1 || SortColumnIndex >= _keySelectors.Length)
                     return list;
                 listOrdered = Order == SortOrder.Ascending
-                    ? list.OrderBy(_keySelectors[SortColumnIndex])
-                    : list.OrderByDescending(_keySelectors[SortColumnIndex]);
+                    ? list.OrderBy(_keySelectors[SortColumnIndex], comparer)
+                    : list.OrderByDescending(_keySelectors[SortColumnIndex], comparer);
             }
 
             if (_lastSortColumnIndex == -1 || _lastSortColumnIndex >= _keySelectors.Length)
@@ -84,8 +98,8 @@ namespace ARKBreedingStats.utils
 
             // sort by second column that was selected previously
             return _lastOrder == SortOrder.Ascending
-                ? listOrdered.ThenBy(_keySelectors[_lastSortColumnIndex])
-                : listOrdered.ThenByDescending(_keySelectors[_lastSortColumnIndex]);
+                ? listOrdered.ThenBy(_keySelectors[_lastSortColumnIndex], comparer)
+                : listOrdered.ThenByDescending(_keySelectors[_lastSortColumnIndex], comparer);
         }
 
         /// <summary>

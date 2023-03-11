@@ -6,21 +6,23 @@ namespace ARKBreedingStats.uiControls
 {
     public partial class StatPotential : UserControl
     {
-        private readonly int statIndex;
+        private readonly int _statIndex;
         public int maxDomLevel;
         public int levelGraphMax;
-        private readonly bool percent;
+        private readonly bool _percent;
+        private readonly ToolTip _tt = new ToolTip();
 
         public StatPotential()
         {
             InitializeComponent();
+            Disposed += (s, e) => _tt.RemoveAll();
         }
         public StatPotential(int stat, bool percent)
         {
             InitializeComponent();
-            statIndex = stat;
-            this.percent = percent;
-            label1.Text = Utils.StatName(statIndex, true);
+            _statIndex = stat;
+            _percent = percent;
+            label1.Text = Utils.StatName(_statIndex, true);
         }
 
         public void SetLevel(Species species, int wildLevel)
@@ -33,16 +35,19 @@ namespace ARKBreedingStats.uiControls
                 labelDomLevels.Width = 60;
                 labelImprinting.Location = new Point(33 + labelWildLevels.Width, 0);
                 labelDomLevels.Location = new Point(35 + labelWildLevels.Width + labelImprinting.Width, 0);
-                labelWildLevels.Text = (StatValueCalculation.CalculateValue(species, statIndex, wildLevel, 0, true, 1, 0) * (percent ? 100 : 1)).ToString() + (percent ? "%" : "");
-                labelImprinting.Text = (StatValueCalculation.CalculateValue(species, statIndex, wildLevel, 0, true, 1, 1) * (percent ? 100 : 1)).ToString() + (percent ? "%" : "");
-                labelDomLevels.Text = (StatValueCalculation.CalculateValue(species, statIndex, wildLevel, maxDomLevel, true, 1, 1) * (percent ? 100 : 1)).ToString() + (percent ? "%" : "");
+                labelWildLevels.Text = StatValueCalculation.CalculateValue(species, _statIndex, wildLevel, 0, true, 1, 0) * (_percent ? 100 : 1) + (_percent ? "%" : "");
+                labelImprinting.Text = StatValueCalculation.CalculateValue(species, _statIndex, wildLevel, 0, true, 1, 1) * (_percent ? 100 : 1) + (_percent ? "%" : "");
+                labelDomLevels.Text = StatValueCalculation.CalculateValue(species, _statIndex, wildLevel, maxDomLevel, true, 1, 1) * (_percent ? 100 : 1) + (_percent ? "%" : "");
+                _tt.SetToolTip(labelWildLevels, labelWildLevels.Text);
+                _tt.SetToolTip(labelImprinting, labelImprinting.Text);
+                _tt.SetToolTip(labelDomLevels, labelDomLevels.Text);
                 ResumeLayout();
             }
         }
 
         public void SetLocalization()
         {
-            label1.Text = Utils.StatName(statIndex, true);
+            label1.Text = Utils.StatName(_statIndex, true);
         }
     }
 }

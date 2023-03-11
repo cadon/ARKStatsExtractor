@@ -272,8 +272,8 @@ namespace ARKBreedingStats
             this.tabPageLibRadarChart = new System.Windows.Forms.TabPage();
             this.tabPageLibraryInfo = new System.Windows.Forms.TabPage();
             this.tlpLibraryInfo = new System.Windows.Forms.TableLayoutPanel();
-            this.BtCopyLibraryColorToClipboard = new System.Windows.Forms.Button();
             this.CbLibraryInfoUseFilter = new System.Windows.Forms.CheckBox();
+            this.BtCopyLibraryColorToClipboard = new System.Windows.Forms.Button();
             this.tabPagePedigree = new System.Windows.Forms.TabPage();
             this.tabPageTaming = new System.Windows.Forms.TabPage();
             this.tabPageBreedingPlan = new System.Windows.Forms.TabPage();
@@ -2405,7 +2405,7 @@ namespace ARKBreedingStats
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 412F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(195, 737);
             this.tableLayoutPanel1.TabIndex = 6;
@@ -2540,16 +2540,6 @@ namespace ARKBreedingStats
             this.tlpLibraryInfo.Size = new System.Drawing.Size(1864, 743);
             this.tlpLibraryInfo.TabIndex = 0;
             // 
-            // BtCopyLibraryColorToClipboard
-            // 
-            this.BtCopyLibraryColorToClipboard.Location = new System.Drawing.Point(3, 3);
-            this.BtCopyLibraryColorToClipboard.Name = "BtCopyLibraryColorToClipboard";
-            this.BtCopyLibraryColorToClipboard.Size = new System.Drawing.Size(214, 23);
-            this.BtCopyLibraryColorToClipboard.TabIndex = 0;
-            this.BtCopyLibraryColorToClipboard.Text = "Copy this text to the clipboard";
-            this.BtCopyLibraryColorToClipboard.UseVisualStyleBackColor = true;
-            this.BtCopyLibraryColorToClipboard.Click += new System.EventHandler(this.BtCopyLibraryColorToClipboard_Click);
-            // 
             // CbLibraryInfoUseFilter
             // 
             this.CbLibraryInfoUseFilter.AutoSize = true;
@@ -2560,6 +2550,16 @@ namespace ARKBreedingStats
             this.CbLibraryInfoUseFilter.Text = "Use library filter";
             this.CbLibraryInfoUseFilter.UseVisualStyleBackColor = true;
             this.CbLibraryInfoUseFilter.CheckedChanged += new System.EventHandler(this.CbLibraryInfoUseFilter_CheckedChanged);
+            // 
+            // BtCopyLibraryColorToClipboard
+            // 
+            this.BtCopyLibraryColorToClipboard.Location = new System.Drawing.Point(3, 3);
+            this.BtCopyLibraryColorToClipboard.Name = "BtCopyLibraryColorToClipboard";
+            this.BtCopyLibraryColorToClipboard.Size = new System.Drawing.Size(214, 23);
+            this.BtCopyLibraryColorToClipboard.TabIndex = 0;
+            this.BtCopyLibraryColorToClipboard.Text = "Copy this text to the clipboard";
+            this.BtCopyLibraryColorToClipboard.UseVisualStyleBackColor = true;
+            this.BtCopyLibraryColorToClipboard.Click += new System.EventHandler(this.BtCopyLibraryColorToClipboard_Click);
             // 
             // tabPagePedigree
             // 

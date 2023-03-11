@@ -222,6 +222,9 @@ namespace ARKBreedingStats
 
             LoadListViewSettings(tribesControl1.ListViewPlayers, "PlayerListColumnWidths", "PlayerListColumnDisplayIndices", "PlayerListSortColumn", "PlayerListSortAsc");
 
+            _creatureListSorter.UseNaturalSort = Properties.Settings.Default.UseNaturalSort;
+            _creatureListSorter.IgnoreSpacesBetweenWords = Properties.Settings.Default.NaturalSortIgnoreSpaces;
+
             CbLibraryInfoUseFilter.Checked = Properties.Settings.Default.LibraryColorInfoUseFilter;
 
             // load stat weights
@@ -1948,6 +1951,9 @@ namespace ARKBreedingStats
             ApplySettingsToValues();
             CreatureColored.InitializeSpeciesImageLocation();
             creatureBoxListView.CreatureCollection = _creatureCollection;
+
+            _creatureListSorter.UseNaturalSort = Properties.Settings.Default.UseNaturalSort;
+            _creatureListSorter.IgnoreSpacesBetweenWords = Properties.Settings.Default.NaturalSortIgnoreSpaces;
 
             SetupAutoLoadFileWatcher();
             SetupExportFileWatcher();
