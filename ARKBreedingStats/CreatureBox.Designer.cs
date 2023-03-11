@@ -31,9 +31,7 @@ namespace ARKBreedingStats
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.labelSpecies = new System.Windows.Forms.Label();
-            this.labelNotes = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.buttonEdit = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonStatus = new System.Windows.Forms.Button();
             this.checkBoxIsBred = new System.Windows.Forms.CheckBox();
@@ -51,28 +49,29 @@ namespace ARKBreedingStats
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxOwner = new System.Windows.Forms.TextBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.statsDisplay1 = new ARKBreedingStats.uiControls.StatsDisplay();
-            this.regionColorChooser1 = new ARKBreedingStats.uiControls.RegionColorChooser();
-            this.LbMotherAndWildInfo = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.LbFather = new System.Windows.Forms.Label();
-            this.buttonEdit = new System.Windows.Forms.Button();
+            this.LbMotherAndWildInfo = new System.Windows.Forms.Label();
+            this.labelNotes = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.regionColorChooser1 = new ARKBreedingStats.uiControls.RegionColorChooser();
+            this.labelSpecies = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panelParents.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.regionColorChooser1);
-            this.groupBox1.Controls.Add(this.labelSpecies);
-            this.groupBox1.Controls.Add(this.labelNotes);
-            this.groupBox1.Controls.Add(this.pictureBox1);
-            this.groupBox1.Controls.Add(this.panel1);
-            this.groupBox1.Controls.Add(this.statsDisplay1);
-            this.groupBox1.Controls.Add(this.LbMotherAndWildInfo);
-            this.groupBox1.Controls.Add(this.LbFather);
+            this.groupBox1.AutoSize = true;
             this.groupBox1.Controls.Add(this.buttonEdit);
+            this.groupBox1.Controls.Add(this.panel1);
+            this.groupBox1.Controls.Add(this.tableLayoutPanel1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
@@ -81,31 +80,16 @@ namespace ARKBreedingStats
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Creature";
             // 
-            // labelSpecies
+            // buttonEdit
             // 
-            this.labelSpecies.AutoSize = true;
-            this.labelSpecies.Location = new System.Drawing.Point(6, 390);
-            this.labelSpecies.Name = "labelSpecies";
-            this.labelSpecies.Size = new System.Drawing.Size(0, 13);
-            this.labelSpecies.TabIndex = 26;
-            // 
-            // labelNotes
-            // 
-            this.labelNotes.Location = new System.Drawing.Point(6, 252);
-            this.labelNotes.Name = "labelNotes";
-            this.labelNotes.Size = new System.Drawing.Size(183, 22);
-            this.labelNotes.TabIndex = 18;
-            this.labelNotes.Text = "Notes";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBox1.Location = new System.Drawing.Point(3, 272);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(128, 128);
-            this.pictureBox1.TabIndex = 19;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.buttonEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonEdit.Image = global::ARKBreedingStats.Properties.Resources.pen;
+            this.buttonEdit.Location = new System.Drawing.Point(178, 0);
+            this.buttonEdit.Name = "buttonEdit";
+            this.buttonEdit.Size = new System.Drawing.Size(18, 18);
+            this.buttonEdit.TabIndex = 0;
+            this.buttonEdit.UseVisualStyleBackColor = true;
+            this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
             // 
             // panel1
             // 
@@ -120,7 +104,7 @@ namespace ARKBreedingStats
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.textBoxOwner);
-            this.panel1.Location = new System.Drawing.Point(6, 24);
+            this.panel1.Location = new System.Drawing.Point(6, 18);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(183, 229);
             this.panel1.TabIndex = 15;
@@ -279,16 +263,85 @@ namespace ARKBreedingStats
             this.textBoxOwner.Size = new System.Drawing.Size(136, 20);
             this.textBoxOwner.TabIndex = 14;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.statsDisplay1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 16);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(189, 387);
+            this.tableLayoutPanel1.TabIndex = 30;
+            // 
             // statsDisplay1
             // 
-            this.statsDisplay1.Location = new System.Drawing.Point(3, 22);
+            this.statsDisplay1.AutoSize = true;
+            this.statsDisplay1.Location = new System.Drawing.Point(0, 0);
+            this.statsDisplay1.Margin = new System.Windows.Forms.Padding(0);
             this.statsDisplay1.Name = "statsDisplay1";
-            this.statsDisplay1.Size = new System.Drawing.Size(182, 201);
+            this.statsDisplay1.Size = new System.Drawing.Size(189, 203);
             this.statsDisplay1.TabIndex = 28;
+            // 
+            // panel2
+            // 
+            this.panel2.AutoSize = true;
+            this.panel2.Controls.Add(this.labelSpecies);
+            this.panel2.Controls.Add(this.LbFather);
+            this.panel2.Controls.Add(this.LbMotherAndWildInfo);
+            this.panel2.Controls.Add(this.labelNotes);
+            this.panel2.Controls.Add(this.pictureBox1);
+            this.panel2.Controls.Add(this.regionColorChooser1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 203);
+            this.panel2.Margin = new System.Windows.Forms.Padding(0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(189, 187);
+            this.panel2.TabIndex = 29;
+            // 
+            // LbFather
+            // 
+            this.LbFather.AutoSize = true;
+            this.LbFather.Location = new System.Drawing.Point(0, 14);
+            this.LbFather.Name = "LbFather";
+            this.LbFather.Size = new System.Drawing.Size(0, 13);
+            this.LbFather.TabIndex = 29;
+            this.LbFather.Click += new System.EventHandler(this.LbFatherClick);
+            // 
+            // LbMotherAndWildInfo
+            // 
+            this.LbMotherAndWildInfo.AutoSize = true;
+            this.LbMotherAndWildInfo.Location = new System.Drawing.Point(0, 0);
+            this.LbMotherAndWildInfo.Name = "LbMotherAndWildInfo";
+            this.LbMotherAndWildInfo.Size = new System.Drawing.Size(0, 13);
+            this.LbMotherAndWildInfo.TabIndex = 17;
+            this.LbMotherAndWildInfo.Click += new System.EventHandler(this.LbMotherClick);
+            // 
+            // labelNotes
+            // 
+            this.labelNotes.Location = new System.Drawing.Point(0, 26);
+            this.labelNotes.Margin = new System.Windows.Forms.Padding(0);
+            this.labelNotes.Name = "labelNotes";
+            this.labelNotes.Size = new System.Drawing.Size(183, 22);
+            this.labelNotes.TabIndex = 18;
+            this.labelNotes.Text = "Notes";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(0, 56);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(128, 128);
+            this.pictureBox1.TabIndex = 19;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // regionColorChooser1
             // 
-            this.regionColorChooser1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.regionColorChooser1.ColorIdsAlsoPossible = new byte[] {
         ((byte)(0)),
         ((byte)(0)),
@@ -296,41 +349,20 @@ namespace ARKBreedingStats
         ((byte)(0)),
         ((byte)(0)),
         ((byte)(0))};
-            this.regionColorChooser1.Location = new System.Drawing.Point(134, 315);
+            this.regionColorChooser1.Location = new System.Drawing.Point(129, 96);
             this.regionColorChooser1.Margin = new System.Windows.Forms.Padding(0);
             this.regionColorChooser1.Name = "regionColorChooser1";
             this.regionColorChooser1.Size = new System.Drawing.Size(58, 88);
             this.regionColorChooser1.TabIndex = 27;
             this.regionColorChooser1.VerboseButtonTexts = false;
             // 
-            // LbMotherAndWildInfo
+            // labelSpecies
             // 
-            this.LbMotherAndWildInfo.AutoSize = true;
-            this.LbMotherAndWildInfo.Location = new System.Drawing.Point(6, 223);
-            this.LbMotherAndWildInfo.Name = "LbMotherAndWildInfo";
-            this.LbMotherAndWildInfo.Size = new System.Drawing.Size(0, 13);
-            this.LbMotherAndWildInfo.TabIndex = 17;
-            this.LbMotherAndWildInfo.Click += new System.EventHandler(this.LbMotherClick);
-            // 
-            // LbFather
-            // 
-            this.LbFather.AutoSize = true;
-            this.LbFather.Location = new System.Drawing.Point(6, 238);
-            this.LbFather.Name = "LbFather";
-            this.LbFather.Size = new System.Drawing.Size(0, 13);
-            this.LbFather.TabIndex = 29;
-            this.LbFather.Click += new System.EventHandler(this.LbFatherClick);
-            // 
-            // buttonEdit
-            // 
-            this.buttonEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonEdit.Image = global::ARKBreedingStats.Properties.Resources.pen;
-            this.buttonEdit.Location = new System.Drawing.Point(178, 0);
-            this.buttonEdit.Name = "buttonEdit";
-            this.buttonEdit.Size = new System.Drawing.Size(18, 18);
-            this.buttonEdit.TabIndex = 0;
-            this.buttonEdit.UseVisualStyleBackColor = true;
-            this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
+            this.labelSpecies.AutoSize = true;
+            this.labelSpecies.Location = new System.Drawing.Point(3, 174);
+            this.labelSpecies.Name = "labelSpecies";
+            this.labelSpecies.Size = new System.Drawing.Size(0, 13);
+            this.labelSpecies.TabIndex = 26;
             // 
             // CreatureBox
             // 
@@ -340,13 +372,17 @@ namespace ARKBreedingStats
             this.Name = "CreatureBox";
             this.Size = new System.Drawing.Size(195, 406);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panelParents.ResumeLayout(false);
             this.panelParents.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -378,5 +414,7 @@ namespace ARKBreedingStats
         private uiControls.RegionColorChooser regionColorChooser1;
         private uiControls.StatsDisplay statsDisplay1;
         private System.Windows.Forms.Label LbFather;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Panel panel2;
     }
 }

@@ -278,8 +278,8 @@ namespace ARKBreedingStats
             set
             {
                 btSaveChanges.Visible = value;
-                btAdd2Library.Size = new Size((value ? 120 : 250), 37);
-                btAdd2Library.Location = new Point(value ? 136 : 6, btAdd2Library.Location.Y);
+                btAdd2Library.Size = new Size((value ? Width / 2 : Width) - 10, btAdd2Library.Size.Height);
+                btAdd2Library.Location = new Point(value ? Width / 2 + 6 : 6, btAdd2Library.Location.Y);
             }
         }
 

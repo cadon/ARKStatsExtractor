@@ -1,5 +1,4 @@
 ﻿using ARKBreedingStats.Library;
-using ARKBreedingStats.species;
 using System;
 using System.Windows.Forms;
 
@@ -34,7 +33,7 @@ namespace ARKBreedingStats.uiControls
                 StatDisplay sd = new StatDisplay(si, Utils.Precision(si) == 3);
                 stats[s] = sd;
 
-                sd.Location = new System.Drawing.Point(3, 19 + s * 23);
+                sd.Location = new System.Drawing.Point(3, 19 + s * 22);
                 Controls.Add(sd);
             }
 
