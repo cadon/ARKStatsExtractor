@@ -45,9 +45,9 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.nudTamedDinoCharacterFoodDrain = new ARKBreedingStats.uiControls.Nud();
             this.nudTamedDinoCharacterFoodDrainEvent = new ARKBreedingStats.uiControls.Nud();
             this.label64 = new System.Windows.Forms.Label();
-            this.nudTamedDinoCharacterFoodDrain = new ARKBreedingStats.uiControls.Nud();
             this.nudBabyImprintAmountEvent = new ARKBreedingStats.uiControls.Nud();
             this.label49 = new System.Windows.Forms.Label();
             this.nudBabyImprintAmount = new ARKBreedingStats.uiControls.Nud();
@@ -326,10 +326,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.CbNaturalSorting = new System.Windows.Forms.CheckBox();
+            this.CbNaturalSortIgnoreSpaces = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrainEvent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrainEvent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmountEvent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMatingSpeed)).BeginInit();
@@ -608,6 +610,30 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Breeding-Multiplier";
             // 
+            // nudTamedDinoCharacterFoodDrain
+            // 
+            this.nudTamedDinoCharacterFoodDrain.DecimalPlaces = 6;
+            this.nudTamedDinoCharacterFoodDrain.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.nudTamedDinoCharacterFoodDrain.Location = new System.Drawing.Point(183, 227);
+            this.nudTamedDinoCharacterFoodDrain.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudTamedDinoCharacterFoodDrain.Name = "nudTamedDinoCharacterFoodDrain";
+            this.nudTamedDinoCharacterFoodDrain.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudTamedDinoCharacterFoodDrain.Size = new System.Drawing.Size(72, 20);
+            this.nudTamedDinoCharacterFoodDrain.TabIndex = 21;
+            this.nudTamedDinoCharacterFoodDrain.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // nudTamedDinoCharacterFoodDrainEvent
             // 
             this.nudTamedDinoCharacterFoodDrainEvent.DecimalPlaces = 6;
@@ -640,30 +666,6 @@
             this.label64.Size = new System.Drawing.Size(177, 13);
             this.label64.TabIndex = 22;
             this.label64.Text = "TamedDinoCharacterFoodDrainMult";
-            // 
-            // nudTamedDinoCharacterFoodDrain
-            // 
-            this.nudTamedDinoCharacterFoodDrain.DecimalPlaces = 6;
-            this.nudTamedDinoCharacterFoodDrain.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.nudTamedDinoCharacterFoodDrain.Location = new System.Drawing.Point(183, 227);
-            this.nudTamedDinoCharacterFoodDrain.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nudTamedDinoCharacterFoodDrain.Name = "nudTamedDinoCharacterFoodDrain";
-            this.nudTamedDinoCharacterFoodDrain.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudTamedDinoCharacterFoodDrain.Size = new System.Drawing.Size(72, 20);
-            this.nudTamedDinoCharacterFoodDrain.TabIndex = 21;
-            this.nudTamedDinoCharacterFoodDrain.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             // 
             // nudBabyImprintAmountEvent
             // 
@@ -2277,6 +2279,8 @@
             // 
             // groupBox9
             // 
+            this.groupBox9.Controls.Add(this.CbNaturalSortIgnoreSpaces);
+            this.groupBox9.Controls.Add(this.CbNaturalSorting);
             this.groupBox9.Controls.Add(this.CbConsiderWastedStatsForTopCreatures);
             this.groupBox9.Controls.Add(this.CbPauseGrowingTimerAfterAdding);
             this.groupBox9.Controls.Add(this.CbLibrarySelectSelectedSpeciesOnLoad);
@@ -2285,7 +2289,7 @@
             this.groupBox9.Controls.Add(this.cbCreatureColorsLibrary);
             this.groupBox9.Location = new System.Drawing.Point(6, 509);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(317, 161);
+            this.groupBox9.Size = new System.Drawing.Size(317, 184);
             this.groupBox9.TabIndex = 4;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Library";
@@ -3453,7 +3457,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3461,7 +3465,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3469,7 +3473,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3477,7 +3481,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -4128,6 +4132,27 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
+            // CbNaturalSorting
+            // 
+            this.CbNaturalSorting.AutoSize = true;
+            this.CbNaturalSorting.Location = new System.Drawing.Point(6, 157);
+            this.CbNaturalSorting.Name = "CbNaturalSorting";
+            this.CbNaturalSorting.Size = new System.Drawing.Size(155, 17);
+            this.CbNaturalSorting.TabIndex = 6;
+            this.CbNaturalSorting.Text = "Natural sort (e.g. 10 after 2)";
+            this.CbNaturalSorting.UseVisualStyleBackColor = true;
+            this.CbNaturalSorting.CheckedChanged += new System.EventHandler(this.CbNaturalSorting_CheckedChanged);
+            // 
+            // CbNaturalSortIgnoreSpaces
+            // 
+            this.CbNaturalSortIgnoreSpaces.AutoSize = true;
+            this.CbNaturalSortIgnoreSpaces.Location = new System.Drawing.Point(181, 157);
+            this.CbNaturalSortIgnoreSpaces.Name = "CbNaturalSortIgnoreSpaces";
+            this.CbNaturalSortIgnoreSpaces.Size = new System.Drawing.Size(93, 17);
+            this.CbNaturalSortIgnoreSpaces.TabIndex = 7;
+            this.CbNaturalSortIgnoreSpaces.Text = "Ignore spaces";
+            this.CbNaturalSortIgnoreSpaces.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -4148,8 +4173,8 @@
             this.groupBoxMultiplier.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrainEvent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrainEvent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmountEvent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyImprintAmount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMatingSpeed)).EndInit();
@@ -4585,5 +4610,7 @@
         private uiControls.Nud nudTamedDinoCharacterFoodDrainEvent;
         private System.Windows.Forms.Label label64;
         private uiControls.Nud nudTamedDinoCharacterFoodDrain;
+        private System.Windows.Forms.CheckBox CbNaturalSortIgnoreSpaces;
+        private System.Windows.Forms.CheckBox CbNaturalSorting;
     }
 }

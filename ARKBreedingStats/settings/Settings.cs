@@ -327,6 +327,9 @@ namespace ARKBreedingStats.settings
             CbLibrarySelectSelectedSpeciesOnLoad.Checked = Properties.Settings.Default.LibrarySelectSelectedSpeciesOnLoad;
             cbLibraryHighlightTopCreatures.Checked = Properties.Settings.Default.LibraryHighlightTopCreatures;
             CbConsiderWastedStatsForTopCreatures.Checked = Properties.Settings.Default.ConsiderWastedStatsForTopCreatures;
+            CbNaturalSorting.Checked = Properties.Settings.Default.UseNaturalSort;
+            CbNaturalSortIgnoreSpaces.Enabled = Properties.Settings.Default.UseNaturalSort;
+            CbNaturalSortIgnoreSpaces.Checked = Properties.Settings.Default.NaturalSortIgnoreSpaces;
 
             #endregion
 
@@ -560,6 +563,8 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.LibrarySelectSelectedSpeciesOnLoad = CbLibrarySelectSelectedSpeciesOnLoad.Checked;
             Properties.Settings.Default.LibraryHighlightTopCreatures = cbLibraryHighlightTopCreatures.Checked;
             Properties.Settings.Default.ConsiderWastedStatsForTopCreatures = CbConsiderWastedStatsForTopCreatures.Checked;
+            Properties.Settings.Default.UseNaturalSort = CbNaturalSorting.Checked;
+            Properties.Settings.Default.NaturalSortIgnoreSpaces = CbNaturalSortIgnoreSpaces.Checked;
 
             #endregion
 
@@ -1505,5 +1510,13 @@ namespace ARKBreedingStats.settings
         }
 
         #endregion
+
+        private void CbNaturalSorting_CheckedChanged(object sender, EventArgs e)
+        {
+            var isChecked = ((CheckBox)sender).Checked;
+            if (!isChecked)
+                CbNaturalSortIgnoreSpaces.Checked = false;
+            CbNaturalSortIgnoreSpaces.Enabled = isChecked;
+        }
     }
 }

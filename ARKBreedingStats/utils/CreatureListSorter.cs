@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
@@ -35,7 +37,7 @@ namespace ARKBreedingStats.utils
         public bool UseNaturalSort { get; set; } = false;
 
         /// <summary>
-        /// Whether to ignore spaces between words. This option is only relevant whern using natural sort.
+        /// Whether to ignore spaces between words. This option is only relevant when using natural sort.
         /// </summary>
         public bool IgnoreSpacesBetweenWords { get; set; } = false;
 
