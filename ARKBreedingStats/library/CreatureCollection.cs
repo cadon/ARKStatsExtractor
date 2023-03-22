@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
 using ARKBreedingStats.mods;
 
 namespace ARKBreedingStats.Library
@@ -484,7 +483,10 @@ namespace ARKBreedingStats.Library
                 for (int i = 0; i < usedColorCount + 1; i++) speciesExistingColors[i] = new List<int>();
                 foreach (Creature c in creatures)
                 {
-                    if (c.flags.HasFlag(CreatureFlags.Placeholder) || c.Species == null || c.speciesBlueprint != species.blueprintPath)
+                    if (c.flags.HasFlag(CreatureFlags.Placeholder)
+                        || c.flags.HasFlag(CreatureFlags.Dead)
+                        || c.Species == null
+                        || c.speciesBlueprint != species.blueprintPath)
                         continue;
 
                     for (int i = 0; i < usedColorCount; i++)
