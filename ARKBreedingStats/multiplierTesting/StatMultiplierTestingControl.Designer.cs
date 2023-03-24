@@ -703,9 +703,9 @@
             this.nudStatValue.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudStatValue.Location = new System.Drawing.Point(897, 3);
             this.nudStatValue.Maximum = new decimal(new int[] {
-            100000000,
-            0,
-            0,
+            1661992959,
+            1808227885,
+            5,
             0});
             this.nudStatValue.Name = "nudStatValue";
             this.nudStatValue.NeutralNumber = new decimal(new int[] {
