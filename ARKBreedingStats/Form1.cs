@@ -2862,7 +2862,8 @@ namespace ARKBreedingStats
 
         private void toolStripButtonSaveCreatureValuesTemp_Click(object sender, EventArgs e)
         {
-            _creatureCollection.creaturesValues.Add(GetCreatureValuesFromExtractor());
+            _creatureCollection.creaturesValues = _creatureCollection.creaturesValues.Append(GetCreatureValuesFromExtractor())
+                .OrderBy(c => c.Species?.DescriptiveNameAndMod).ThenBy(c => c.name).ToList();
             SetCollectionChanged(true);
             UpdateTempCreatureDropDown();
         }
