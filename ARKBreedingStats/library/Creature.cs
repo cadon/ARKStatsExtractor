@@ -299,6 +299,13 @@ namespace ARKBreedingStats.Library
         public void CalculateLevelFound(int? levelStep)
         {
             levelFound = 0;
+
+            if (!isDomesticated)
+            {
+                levelFound = LevelHatched;
+                return;
+            }
+
             if (isBred || tamingEff < 0) return;
 
             if (levelStep.HasValue)
