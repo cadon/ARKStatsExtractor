@@ -315,6 +315,8 @@ namespace ARKBreedingStats
                 Environment.Exit(1);
             }
 
+            statsMultiplierTesting1.SetGameDefaultMultiplier();
+
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 _statIOs[s].Input = 0;

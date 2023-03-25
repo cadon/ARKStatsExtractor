@@ -53,6 +53,16 @@ namespace ARKBreedingStats.multiplierTesting
             gbFineAdjustment.Hide();
         }
 
+        internal void SetGameDefaultMultiplier()
+        {
+            var officialSm = Values.V.serverMultipliersPresets?.GetPreset(ServerMultipliersPresets.Official);
+            if (officialSm != null)
+            {
+                for (int s = 0; s < Stats.StatsCount; s++)
+                    _statControls[s].StatMultipliersGameDefault = officialSm.statMultipliers[s];
+            }
+        }
+
         private void Sc_OnLevelChanged()
         {
             UpdateLevelSums();

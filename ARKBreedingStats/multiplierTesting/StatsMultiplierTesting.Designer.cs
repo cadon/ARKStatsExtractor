@@ -43,6 +43,7 @@
             this.rbTamed = new System.Windows.Forms.RadioButton();
             this.rbWild = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.LbCalculatedWildLevel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.nudTE = new ARKBreedingStats.uiControls.Nud();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -89,7 +90,6 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.setAllWildLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.LbCalculatedWildLevel = new System.Windows.Forms.Label();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -286,6 +286,15 @@
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "TamingEffectiveness";
+            // 
+            // LbCalculatedWildLevel
+            // 
+            this.LbCalculatedWildLevel.AutoSize = true;
+            this.LbCalculatedWildLevel.Location = new System.Drawing.Point(104, 21);
+            this.LbCalculatedWildLevel.Name = "LbCalculatedWildLevel";
+            this.LbCalculatedWildLevel.Size = new System.Drawing.Size(13, 13);
+            this.LbCalculatedWildLevel.TabIndex = 3;
+            this.LbCalculatedWildLevel.Text = "0";
             // 
             // label1
             // 
@@ -623,10 +632,11 @@
             this.LbAbbreviations.AutoSize = true;
             this.LbAbbreviations.Location = new System.Drawing.Point(209, 188);
             this.LbAbbreviations.Name = "LbAbbreviations";
-            this.LbAbbreviations.Size = new System.Drawing.Size(619, 13);
+            this.LbAbbreviations.Size = new System.Drawing.Size(780, 13);
             this.LbAbbreviations.TabIndex = 13;
-            this.LbAbbreviations.Text = "C: Calculate best value; R: Reset value; TE: Taming Effectivenes; IB: Imprinting " +
-    "Bonus; IBM: ~Multiplier; Trod: Troodonism-variant";
+            this.LbAbbreviations.Text = "C: Calculate best value; R: Reset value (hold Ctrl to reset to game default); TE:" +
+    " Taming Effectivenes; IB: Imprinting Bonus; IBM: ~Multiplier; Trod: Troodonism-v" +
+    "ariant";
             // 
             // menuStrip1
             // 
@@ -760,15 +770,6 @@
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Text = "Set all Dom levels to the closest value";
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Click += new System.EventHandler(this.setAllDomLevelsToTheClosestValueToolStripMenuItem_Click);
-            // 
-            // LbCalculatedWildLevel
-            // 
-            this.LbCalculatedWildLevel.AutoSize = true;
-            this.LbCalculatedWildLevel.Location = new System.Drawing.Point(104, 21);
-            this.LbCalculatedWildLevel.Name = "LbCalculatedWildLevel";
-            this.LbCalculatedWildLevel.Size = new System.Drawing.Size(13, 13);
-            this.LbCalculatedWildLevel.TabIndex = 3;
-            this.LbCalculatedWildLevel.Text = "0";
             // 
             // StatsMultiplierTesting
             // 
