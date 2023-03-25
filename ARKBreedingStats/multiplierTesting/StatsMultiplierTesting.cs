@@ -138,6 +138,8 @@ namespace ARKBreedingStats.multiplierTesting
         {
             for (int s = 0; s < Stats.StatsCount; s++)
                 _statControls[s].TE = (double)nudTE.Value / 100;
+            if (rbTamed.Checked)
+                LbCalculatedWildLevel.Text = $"LW: {Creature.CalculatePreTameWildLevel(_statControls[Stats.Torpidity].LevelWild + 1, (double)nudTE.Value / 100)}";
         }
 
         private void nudIB_ValueChanged(object sender, EventArgs e)
@@ -157,10 +159,11 @@ namespace ARKBreedingStats.multiplierTesting
             if (rbWild.Checked)
             {
                 for (int s = 0; s < Stats.StatsCount; s++)
-                    _statControls[s].Wild = rbWild.Checked;
+                    _statControls[s].Wild = true;
                 nudTE.BackColor = SystemColors.Window;
                 nudIB.BackColor = SystemColors.Window;
                 nudIBM.BackColor = SystemColors.Window;
+                LbCalculatedWildLevel.Visible = false;
             }
         }
 
@@ -169,10 +172,11 @@ namespace ARKBreedingStats.multiplierTesting
             if (rbTamed.Checked)
             {
                 for (int s = 0; s < Stats.StatsCount; s++)
-                    _statControls[s].Tamed = rbTamed.Checked;
+                    _statControls[s].Tamed = true;
                 nudTE.BackColor = Color.FromArgb(215, 186, 255);
                 nudIB.BackColor = SystemColors.Window;
                 nudIBM.BackColor = SystemColors.Window;
+                LbCalculatedWildLevel.Visible = true;
             }
         }
 
@@ -181,10 +185,11 @@ namespace ARKBreedingStats.multiplierTesting
             if (rbBred.Checked)
             {
                 for (int s = 0; s < Stats.StatsCount; s++)
-                    _statControls[s].Bred = rbBred.Checked;
+                    _statControls[s].Bred = true;
                 nudTE.BackColor = SystemColors.Window;
                 nudIB.BackColor = Color.FromArgb(255, 186, 242);
                 nudIBM.BackColor = Color.FromArgb(255, 153, 236);
+                LbCalculatedWildLevel.Visible = false;
             }
         }
 
