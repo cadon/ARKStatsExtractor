@@ -66,6 +66,7 @@ namespace ARKBreedingStats.uiControls
             {
                 if (cr.speciesBlueprint != species.blueprintPath
                     || cr.flags.HasFlag(CreatureFlags.Placeholder)
+                    || cr.flags.HasFlag(CreatureFlags.Dead)
                     || cr.colors == null)
                     continue;
 

@@ -1,9 +1,9 @@
 ﻿using ARKBreedingStats.miscClasses;
 using ARKBreedingStats.uiControls;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace ARKBreedingStats.multiplierTesting
 {
@@ -68,7 +68,14 @@ namespace ARKBreedingStats.multiplierTesting
         /// Singleplayer extra multiplier for taming multiplier.
         /// </summary>
         private double _spTm;
+        /// <summary>
+        /// Values of currently saved settings.
+        /// </summary>
         private double[] _multipliersOfSettings;
+        /// <summary>
+        /// Values of default game values.
+        /// </summary>
+        public double[] StatMultipliersGameDefault;
 
         /// <summary>
         /// The values of this stat. 0: Base, 1: Iw, 2: Id, 3: Ta, 4: Tm
@@ -490,30 +497,57 @@ namespace ARKBreedingStats.multiplierTesting
 
         private void resetIwMToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            nudIwM.Value = (decimal)_multipliersOfSettings[3];
+            ResetMultiplier(3, Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control));
         }
 
         private void resetTaMToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            nudTaM.Value = (decimal)_multipliersOfSettings[0];
+            ResetMultiplier(0, Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control));
         }
 
         private void resetTmMToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            nudTmM.Value = (decimal)_multipliersOfSettings[1];
+            ResetMultiplier(1, Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control));
         }
 
         private void resetIdMToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            nudIdM.Value = (decimal)_multipliersOfSettings[2];
+            ResetMultiplier(2, Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control));
         }
 
         private void resetAllMultiplierOfThisStatToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            nudTaM.Value = (decimal)_multipliersOfSettings[0];
-            nudTmM.Value = (decimal)_multipliersOfSettings[1];
-            nudIdM.Value = (decimal)_multipliersOfSettings[2];
-            nudIwM.Value = (decimal)_multipliersOfSettings[3];
+            ResetMultiplier(-1, Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control));
+        }
+
+        /// <summary>
+        /// Reset multiplier value to the current value in the settings, if gameDefault is true, the game default values are used.
+        /// </summary>
+        private void ResetMultiplier(int index, bool gameDefault = false)
+        {
+            var multipliersToUse = gameDefault ? StatMultipliersGameDefault : _multipliersOfSettings;
+            switch (index)
+            {
+                case 0:
+                    nudTaM.Value = (decimal)multipliersToUse[0];
+                    return;
+                case 1:
+                    nudTmM.Value = (decimal)multipliersToUse[1];
+                    return;
+                case 2:
+                    nudIdM.Value = (decimal)multipliersToUse[2];
+                    return;
+                case 3:
+                    nudIwM.Value = (decimal)multipliersToUse[3];
+                    return;
+                case -1:
+                    // set all
+                    nudTaM.Value = (decimal)multipliersToUse[0];
+                    nudTmM.Value = (decimal)multipliersToUse[1];
+                    nudIdM.Value = (decimal)multipliersToUse[2];
+                    nudIwM.Value = (decimal)multipliersToUse[3];
+                    return;
+            }
         }
 
         private void setWildLevelToClosestValueToolStripMenuItem_Click(object sender, EventArgs e)
@@ -711,7 +745,7 @@ namespace ARKBreedingStats.multiplierTesting
 
         private void btResetIwM_Click(object sender, EventArgs e)
         {
-            nudIwM.Value = (decimal)_multipliersOfSettings[3];
+            ResetMultiplier(3, Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control));
         }
 
         private void btCalculateTaM_Click(object sender, EventArgs e)
@@ -721,7 +755,7 @@ namespace ARKBreedingStats.multiplierTesting
 
         private void btResetTaM_Click(object sender, EventArgs e)
         {
-            nudTaM.Value = (decimal)_multipliersOfSettings[0];
+            ResetMultiplier(0, Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control));
         }
 
         private void btCalculateTmM_Click(object sender, EventArgs e)
@@ -731,7 +765,7 @@ namespace ARKBreedingStats.multiplierTesting
 
         private void btResetTmM_Click(object sender, EventArgs e)
         {
-            nudTmM.Value = (decimal)_multipliersOfSettings[1];
+            ResetMultiplier(1, Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control));
         }
 
         private void btCalculateDomLevel_Click(object sender, EventArgs e)
@@ -746,7 +780,7 @@ namespace ARKBreedingStats.multiplierTesting
 
         private void btResetIdM_Click(object sender, EventArgs e)
         {
-            nudIdM.Value = (decimal)_multipliersOfSettings[2];
+            ResetMultiplier(2, Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control));
         }
 
         private void btCalculateTE_Click(object sender, EventArgs e)

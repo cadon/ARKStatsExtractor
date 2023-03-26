@@ -33,6 +33,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.cbUpdateOnSpeciesChange = new System.Windows.Forms.CheckBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.CbAllowFlyerSpeedLeveling = new System.Windows.Forms.CheckBox();
             this.cbSingleplayerSettings = new System.Windows.Forms.CheckBox();
             this.btUseMultipliersFromSettings = new System.Windows.Forms.Button();
             this.llStatCalculation = new System.Windows.Forms.LinkLabel();
@@ -42,6 +43,7 @@
             this.rbTamed = new System.Windows.Forms.RadioButton();
             this.rbWild = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.LbCalculatedWildLevel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.nudTE = new ARKBreedingStats.uiControls.Nud();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -88,7 +90,6 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.setAllWildLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.CbAllowFlyerSpeedLeveling = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -171,6 +172,17 @@
             this.groupBox5.TabIndex = 10;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Settings";
+            // 
+            // CbAllowFlyerSpeedLeveling
+            // 
+            this.CbAllowFlyerSpeedLeveling.AutoSize = true;
+            this.CbAllowFlyerSpeedLeveling.Location = new System.Drawing.Point(6, 42);
+            this.CbAllowFlyerSpeedLeveling.Name = "CbAllowFlyerSpeedLeveling";
+            this.CbAllowFlyerSpeedLeveling.Size = new System.Drawing.Size(144, 17);
+            this.CbAllowFlyerSpeedLeveling.TabIndex = 1;
+            this.CbAllowFlyerSpeedLeveling.Text = "AllowFlyerSpeedLeveling";
+            this.CbAllowFlyerSpeedLeveling.UseVisualStyleBackColor = true;
+            this.CbAllowFlyerSpeedLeveling.CheckedChanged += new System.EventHandler(this.CbAllowFlyerSpeedLeveling_CheckedChanged);
             // 
             // cbSingleplayerSettings
             // 
@@ -265,14 +277,24 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.LbCalculatedWildLevel);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.nudTE);
             this.groupBox2.Location = new System.Drawing.Point(176, 101);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(121, 49);
+            this.groupBox2.Size = new System.Drawing.Size(163, 49);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "TamingEffectiveness";
+            // 
+            // LbCalculatedWildLevel
+            // 
+            this.LbCalculatedWildLevel.AutoSize = true;
+            this.LbCalculatedWildLevel.Location = new System.Drawing.Point(104, 21);
+            this.LbCalculatedWildLevel.Name = "LbCalculatedWildLevel";
+            this.LbCalculatedWildLevel.Size = new System.Drawing.Size(13, 13);
+            this.LbCalculatedWildLevel.TabIndex = 3;
+            this.LbCalculatedWildLevel.Text = "0";
             // 
             // label1
             // 
@@ -303,7 +325,7 @@
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.nudIBM);
             this.groupBox3.Controls.Add(this.nudIB);
-            this.groupBox3.Location = new System.Drawing.Point(303, 101);
+            this.groupBox3.Location = new System.Drawing.Point(345, 101);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(213, 49);
             this.groupBox3.TabIndex = 6;
@@ -367,7 +389,7 @@
             // gbFineAdjustment
             // 
             this.gbFineAdjustment.Controls.Add(this.tbFineAdjustments);
-            this.gbFineAdjustment.Location = new System.Drawing.Point(522, 101);
+            this.gbFineAdjustment.Location = new System.Drawing.Point(564, 101);
             this.gbFineAdjustment.Name = "gbFineAdjustment";
             this.gbFineAdjustment.Size = new System.Drawing.Size(376, 49);
             this.gbFineAdjustment.TabIndex = 7;
@@ -390,7 +412,7 @@
             // 
             this.lBDummyEmptyFlowBreak.AutoSize = true;
             this.flowLayoutPanel1.SetFlowBreak(this.lBDummyEmptyFlowBreak, true);
-            this.lBDummyEmptyFlowBreak.Location = new System.Drawing.Point(904, 98);
+            this.lBDummyEmptyFlowBreak.Location = new System.Drawing.Point(946, 98);
             this.lBDummyEmptyFlowBreak.Name = "lBDummyEmptyFlowBreak";
             this.lBDummyEmptyFlowBreak.Size = new System.Drawing.Size(0, 13);
             this.lBDummyEmptyFlowBreak.TabIndex = 11;
@@ -610,10 +632,11 @@
             this.LbAbbreviations.AutoSize = true;
             this.LbAbbreviations.Location = new System.Drawing.Point(209, 188);
             this.LbAbbreviations.Name = "LbAbbreviations";
-            this.LbAbbreviations.Size = new System.Drawing.Size(619, 13);
+            this.LbAbbreviations.Size = new System.Drawing.Size(780, 13);
             this.LbAbbreviations.TabIndex = 13;
-            this.LbAbbreviations.Text = "C: Calculate best value; R: Reset value; TE: Taming Effectivenes; IB: Imprinting " +
-    "Bonus; IBM: ~Multiplier; Trod: Troodonism-variant";
+            this.LbAbbreviations.Text = "C: Calculate best value; R: Reset value (hold Ctrl to reset to game default); TE:" +
+    " Taming Effectivenes; IB: Imprinting Bonus; IBM: ~Multiplier; Trod: Troodonism-v" +
+    "ariant";
             // 
             // menuStrip1
             // 
@@ -748,17 +771,6 @@
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Text = "Set all Dom levels to the closest value";
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Click += new System.EventHandler(this.setAllDomLevelsToTheClosestValueToolStripMenuItem_Click);
             // 
-            // CbAllowFlyerSpeedLeveling
-            // 
-            this.CbAllowFlyerSpeedLeveling.AutoSize = true;
-            this.CbAllowFlyerSpeedLeveling.Location = new System.Drawing.Point(6, 42);
-            this.CbAllowFlyerSpeedLeveling.Name = "CbAllowFlyerSpeedLeveling";
-            this.CbAllowFlyerSpeedLeveling.Size = new System.Drawing.Size(144, 17);
-            this.CbAllowFlyerSpeedLeveling.TabIndex = 1;
-            this.CbAllowFlyerSpeedLeveling.Text = "AllowFlyerSpeedLeveling";
-            this.CbAllowFlyerSpeedLeveling.UseVisualStyleBackColor = true;
-            this.CbAllowFlyerSpeedLeveling.CheckedChanged += new System.EventHandler(this.CbAllowFlyerSpeedLeveling_CheckedChanged);
-            // 
             // StatsMultiplierTesting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -858,5 +870,6 @@
         private System.Windows.Forms.Label LbAbbreviations;
         private System.Windows.Forms.Label LbBlueprintPath;
         private System.Windows.Forms.CheckBox CbAllowFlyerSpeedLeveling;
+        private System.Windows.Forms.Label LbCalculatedWildLevel;
     }
 }

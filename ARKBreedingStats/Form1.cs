@@ -315,6 +315,8 @@ namespace ARKBreedingStats
                 Environment.Exit(1);
             }
 
+            statsMultiplierTesting1.SetGameDefaultMultiplier();
+
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 _statIOs[s].Input = 0;
@@ -1816,16 +1818,18 @@ namespace ARKBreedingStats
 
         private void SetCreatureStatus(IEnumerable<Creature> cs, CreatureStatus s)
         {
-            bool changed = false;
-            List<string> speciesBlueprints = new List<string>();
+            var changed = false;
+            var deadStatusWasSet = false;
+            var changedSpecies = new List<Species>();
             foreach (Creature c in cs)
             {
                 if (c.Status != s)
                 {
                     changed = true;
+                    deadStatusWasSet = deadStatusWasSet || c.Status.HasFlag(CreatureStatus.Dead);
                     c.Status = s;
-                    if (!speciesBlueprints.Contains(c.speciesBlueprint))
-                        speciesBlueprints.Add(c.speciesBlueprint);
+                    if (!changedSpecies.Contains(c.Species))
+                        changedSpecies.Add(c.Species);
                 }
             }
 
@@ -1833,11 +1837,16 @@ namespace ARKBreedingStats
             {
                 // update list / recalculate topStats
                 CalculateTopStats(_creatureCollection.creatures
-                    .Where(c => speciesBlueprints.Contains(c.speciesBlueprint)).ToList());
+                    .Where(c => changedSpecies.Contains(c.Species)).ToList());
+                Species speciesIfOnlyOne = changedSpecies.Count == 1 ? changedSpecies[0] : null;
+                if (s.HasFlag(CreatureStatus.Dead) ^ deadStatusWasSet)
+                {
+                    LibraryInfo.ClearInfo();
+                    _creatureCollection.ResetExistingColors(speciesIfOnlyOne);
+                }
                 FilterLibRecalculate();
                 UpdateStatusBar();
-                SetCollectionChanged(true,
-                    speciesBlueprints.Count == 1 ? Values.V.SpeciesByBlueprint(speciesBlueprints[0]) : null);
+                SetCollectionChanged(true, speciesIfOnlyOne);
             }
         }
 
@@ -2855,7 +2864,8 @@ namespace ARKBreedingStats
 
         private void toolStripButtonSaveCreatureValuesTemp_Click(object sender, EventArgs e)
         {
-            _creatureCollection.creaturesValues.Add(GetCreatureValuesFromExtractor());
+            _creatureCollection.creaturesValues = _creatureCollection.creaturesValues.Append(GetCreatureValuesFromExtractor())
+                .OrderBy(c => c.Species?.DescriptiveNameAndMod).ThenBy(c => c.name).ToList();
             SetCollectionChanged(true);
             UpdateTempCreatureDropDown();
         }

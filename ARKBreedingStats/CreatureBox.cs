@@ -126,6 +126,8 @@ namespace ARKBreedingStats
                     _tt.SetToolTip(l, clickable ? lbText : null);
                 }
 
+                SetParentLabel(LbFather);
+
                 if (_creature.Mother != null || _creature.Father != null)
                 {
                     SetParentLabel(LbMotherAndWildInfo, _creature.Mother != null ? $"{Loc.S("Mother")}: {_creature.Mother.name}" : null, _creature.Mother != null);
@@ -134,12 +136,14 @@ namespace ARKBreedingStats
                 else if (_creature.isBred)
                 {
                     SetParentLabel(LbMotherAndWildInfo, "bred, click 'edit' to add parents");
-                    SetParentLabel(LbFather);
+                }
+                else if (_creature.isDomesticated)
+                {
+                    SetParentLabel(LbMotherAndWildInfo, "found wild " + _creature.levelFound + (_creature.tamingEff >= 0 ? ", tamed with TE: " + (_creature.tamingEff * 100).ToString("N1") + "%" : ", TE unknown."));
                 }
                 else
                 {
-                    SetParentLabel(LbMotherAndWildInfo, "found wild " + _creature.levelFound + (_creature.tamingEff >= 0 ? ", tamed with TE: " + (_creature.tamingEff * 100).ToString("N1") + "%" : ", TE unknown."));
-                    SetParentLabel(LbFather);
+                    SetParentLabel(LbMotherAndWildInfo, "found wild " + _creature.levelFound);
                 }
                 statsDisplay1.SetCreatureValues(_creature);
                 labelNotes.Text = _creature.note;

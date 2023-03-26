@@ -114,7 +114,6 @@ namespace ARKBreedingStats
             if (allValid)
             {
                 radarChartExtractor.SetLevels(_statIOs.Select(s => s.LevelWild).ToArray());
-                toolStripButtonSaveCreatureValuesTemp.Visible = false;
                 cbExactlyImprinting.BackColor = Color.Transparent;
                 var species = speciesSelector1.SelectedSpecies;
                 var checkTopLevels = _topLevels.TryGetValue(species, out int[] topSpeciesLevels);

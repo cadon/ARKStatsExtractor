@@ -365,12 +365,12 @@ namespace ARKBreedingStats
             {
                 Species = speciesSelector1.SelectedSpecies,
                 levelsWild = GetCurrentWildLevels(true),
-                levelsDom = GetCurrentDomLevels(true)
+                levelsDom = GetCurrentDomLevels(true),
+                tamingEff = _extractor.UniqueTamingEffectiveness(),
+                isBred = rbBredExtractor.Checked,
+                imprintingBonus = _extractor.ImprintingBonus
             };
 
-            creature.tamingEff = _extractor.UniqueTamingEffectiveness();
-            creature.isBred = rbBredExtractor.Checked;
-            creature.imprintingBonus = _extractor.ImprintingBonus;
             creatureInfoInputExtractor.SetCreatureData(creature);
             creature.RecalculateAncestorGenerations();
             creature.RecalculateNewMutations();

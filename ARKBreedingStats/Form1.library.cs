@@ -44,7 +44,7 @@ namespace ARKBreedingStats
             {
                 input = creatureInfoInputExtractor;
                 bred = rbBredExtractor.Checked;
-                te = _extractor.UniqueTamingEffectiveness();
+                te = rbWildExtractor.Checked ? -3 : _extractor.UniqueTamingEffectiveness();
                 imprinting = _extractor.ImprintingBonus;
             }
             else
