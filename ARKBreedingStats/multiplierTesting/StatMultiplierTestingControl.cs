@@ -525,26 +525,27 @@ namespace ARKBreedingStats.multiplierTesting
         /// </summary>
         private void ResetMultiplier(int index, bool gameDefault = false)
         {
+            var multipliersToUse = gameDefault ? StatMultipliersGameDefault : _multipliersOfSettings;
             switch (index)
             {
                 case 0:
-                    nudTaM.Value = (decimal)(gameDefault ? StatMultipliersGameDefault[0] : _multipliersOfSettings[0]);
+                    nudTaM.Value = (decimal)multipliersToUse[0];
                     return;
                 case 1:
-                    nudTmM.Value = (decimal)(gameDefault ? StatMultipliersGameDefault[1] : _multipliersOfSettings[1]);
+                    nudTmM.Value = (decimal)multipliersToUse[1];
                     return;
                 case 2:
-                    nudIdM.Value = (decimal)(gameDefault ? StatMultipliersGameDefault[2] : _multipliersOfSettings[2]);
+                    nudIdM.Value = (decimal)multipliersToUse[2];
                     return;
                 case 3:
-                    nudIwM.Value = (decimal)(gameDefault ? StatMultipliersGameDefault[3] : _multipliersOfSettings[3]);
+                    nudIwM.Value = (decimal)multipliersToUse[3];
                     return;
                 case -1:
                     // set all
-                    nudTaM.Value = (decimal)(gameDefault ? StatMultipliersGameDefault[0] : _multipliersOfSettings[0]);
-                    nudTmM.Value = (decimal)(gameDefault ? StatMultipliersGameDefault[1] : _multipliersOfSettings[1]);
-                    nudIdM.Value = (decimal)(gameDefault ? StatMultipliersGameDefault[2] : _multipliersOfSettings[2]);
-                    nudIwM.Value = (decimal)(gameDefault ? StatMultipliersGameDefault[3] : _multipliersOfSettings[3]);
+                    nudTaM.Value = (decimal)multipliersToUse[0];
+                    nudTmM.Value = (decimal)multipliersToUse[1];
+                    nudIdM.Value = (decimal)multipliersToUse[2];
+                    nudIwM.Value = (decimal)multipliersToUse[3];
                     return;
             }
         }
