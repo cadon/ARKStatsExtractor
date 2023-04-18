@@ -90,6 +90,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.setAllWildLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CbAtlas = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -164,6 +165,7 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.CbAtlas);
             this.groupBox5.Controls.Add(this.CbAllowFlyerSpeedLeveling);
             this.groupBox5.Controls.Add(this.cbSingleplayerSettings);
             this.groupBox5.Location = new System.Drawing.Point(305, 3);
@@ -771,6 +773,17 @@
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Text = "Set all Dom levels to the closest value";
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Click += new System.EventHandler(this.setAllDomLevelsToTheClosestValueToolStripMenuItem_Click);
             // 
+            // CbAtlas
+            // 
+            this.CbAtlas.AutoSize = true;
+            this.CbAtlas.Location = new System.Drawing.Point(134, 19);
+            this.CbAtlas.Name = "CbAtlas";
+            this.CbAtlas.Size = new System.Drawing.Size(60, 17);
+            this.CbAtlas.TabIndex = 2;
+            this.CbAtlas.Text = "ATLAS";
+            this.CbAtlas.UseVisualStyleBackColor = true;
+            this.CbAtlas.CheckedChanged += new System.EventHandler(this.CbAtlas_CheckedChanged);
+            // 
             // StatsMultiplierTesting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -871,5 +884,6 @@
         private System.Windows.Forms.Label LbBlueprintPath;
         private System.Windows.Forms.CheckBox CbAllowFlyerSpeedLeveling;
         private System.Windows.Forms.Label LbCalculatedWildLevel;
+        private System.Windows.Forms.CheckBox CbAtlas;
     }
 }

@@ -165,6 +165,8 @@
             this.groupBox17 = new System.Windows.Forms.GroupBox();
             this.cbbLanguage = new System.Windows.Forms.ComboBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.CbNaturalSortIgnoreSpaces = new System.Windows.Forms.CheckBox();
+            this.CbNaturalSorting = new System.Windows.Forms.CheckBox();
             this.CbConsiderWastedStatsForTopCreatures = new System.Windows.Forms.CheckBox();
             this.CbPauseGrowingTimerAfterAdding = new System.Windows.Forms.CheckBox();
             this.CbLibrarySelectSelectedSpeciesOnLoad = new System.Windows.Forms.CheckBox();
@@ -326,8 +328,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.CbNaturalSorting = new System.Windows.Forms.CheckBox();
-            this.CbNaturalSortIgnoreSpaces = new System.Windows.Forms.CheckBox();
+            this.CbAtlasSettings = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -1769,6 +1770,7 @@
             // 
             this.tabPageMultipliers.AllowDrop = true;
             this.tabPageMultipliers.AutoScroll = true;
+            this.tabPageMultipliers.Controls.Add(this.CbAtlasSettings);
             this.tabPageMultipliers.Controls.Add(this.BtSettingsToClipboard);
             this.tabPageMultipliers.Controls.Add(this.groupBox29);
             this.tabPageMultipliers.Controls.Add(this.label34);
@@ -1888,9 +1890,9 @@
             this.cbSingleplayerSettings.AutoSize = true;
             this.cbSingleplayerSettings.Location = new System.Drawing.Point(15, 23);
             this.cbSingleplayerSettings.Name = "cbSingleplayerSettings";
-            this.cbSingleplayerSettings.Size = new System.Drawing.Size(124, 17);
+            this.cbSingleplayerSettings.Size = new System.Drawing.Size(122, 17);
             this.cbSingleplayerSettings.TabIndex = 0;
-            this.cbSingleplayerSettings.Text = "Singleplayer Settings";
+            this.cbSingleplayerSettings.Text = "Singleplayer settings";
             this.cbSingleplayerSettings.UseVisualStyleBackColor = true;
             this.cbSingleplayerSettings.CheckedChanged += new System.EventHandler(this.cbSingleplayerSettings_CheckedChanged);
             // 
@@ -2293,6 +2295,27 @@
             this.groupBox9.TabIndex = 4;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Library";
+            // 
+            // CbNaturalSortIgnoreSpaces
+            // 
+            this.CbNaturalSortIgnoreSpaces.AutoSize = true;
+            this.CbNaturalSortIgnoreSpaces.Location = new System.Drawing.Point(181, 157);
+            this.CbNaturalSortIgnoreSpaces.Name = "CbNaturalSortIgnoreSpaces";
+            this.CbNaturalSortIgnoreSpaces.Size = new System.Drawing.Size(93, 17);
+            this.CbNaturalSortIgnoreSpaces.TabIndex = 7;
+            this.CbNaturalSortIgnoreSpaces.Text = "Ignore spaces";
+            this.CbNaturalSortIgnoreSpaces.UseVisualStyleBackColor = true;
+            // 
+            // CbNaturalSorting
+            // 
+            this.CbNaturalSorting.AutoSize = true;
+            this.CbNaturalSorting.Location = new System.Drawing.Point(6, 157);
+            this.CbNaturalSorting.Name = "CbNaturalSorting";
+            this.CbNaturalSorting.Size = new System.Drawing.Size(155, 17);
+            this.CbNaturalSorting.TabIndex = 6;
+            this.CbNaturalSorting.Text = "Natural sort (e.g. 10 after 2)";
+            this.CbNaturalSorting.UseVisualStyleBackColor = true;
+            this.CbNaturalSorting.CheckedChanged += new System.EventHandler(this.CbNaturalSorting_CheckedChanged);
             // 
             // CbConsiderWastedStatsForTopCreatures
             // 
@@ -3457,7 +3480,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3465,7 +3488,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3473,7 +3496,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3481,7 +3504,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -4132,26 +4155,15 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // CbNaturalSorting
+            // CbAtlasSettings
             // 
-            this.CbNaturalSorting.AutoSize = true;
-            this.CbNaturalSorting.Location = new System.Drawing.Point(6, 157);
-            this.CbNaturalSorting.Name = "CbNaturalSorting";
-            this.CbNaturalSorting.Size = new System.Drawing.Size(155, 17);
-            this.CbNaturalSorting.TabIndex = 6;
-            this.CbNaturalSorting.Text = "Natural sort (e.g. 10 after 2)";
-            this.CbNaturalSorting.UseVisualStyleBackColor = true;
-            this.CbNaturalSorting.CheckedChanged += new System.EventHandler(this.CbNaturalSorting_CheckedChanged);
-            // 
-            // CbNaturalSortIgnoreSpaces
-            // 
-            this.CbNaturalSortIgnoreSpaces.AutoSize = true;
-            this.CbNaturalSortIgnoreSpaces.Location = new System.Drawing.Point(181, 157);
-            this.CbNaturalSortIgnoreSpaces.Name = "CbNaturalSortIgnoreSpaces";
-            this.CbNaturalSortIgnoreSpaces.Size = new System.Drawing.Size(93, 17);
-            this.CbNaturalSortIgnoreSpaces.TabIndex = 7;
-            this.CbNaturalSortIgnoreSpaces.Text = "Ignore spaces";
-            this.CbNaturalSortIgnoreSpaces.UseVisualStyleBackColor = true;
+            this.CbAtlasSettings.AutoSize = true;
+            this.CbAtlasSettings.Location = new System.Drawing.Point(264, 23);
+            this.CbAtlasSettings.Name = "CbAtlasSettings";
+            this.CbAtlasSettings.Size = new System.Drawing.Size(99, 17);
+            this.CbAtlasSettings.TabIndex = 14;
+            this.CbAtlasSettings.Text = "ATLAS settings";
+            this.CbAtlasSettings.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -4612,5 +4624,6 @@
         private uiControls.Nud nudTamedDinoCharacterFoodDrain;
         private System.Windows.Forms.CheckBox CbNaturalSortIgnoreSpaces;
         private System.Windows.Forms.CheckBox CbNaturalSorting;
+        private System.Windows.Forms.CheckBox CbAtlasSettings;
     }
 }

@@ -567,6 +567,16 @@ namespace ARKBreedingStats.values
 
                     // imprinting multiplier override
                     sp.SetCustomImprintingMultipliers(customOverrideExists && cc.CustomSpeciesStats[sp.blueprintPath].Length > Stats.StatsCount ? cc.CustomSpeciesStats[sp.blueprintPath][Stats.StatsCount] : null);
+
+                    // ATLAS multipliers
+
+                    if (cc.AtlasSettings)
+                    {
+                        sp.stats[Stats.Health].BaseValue *= 1.25;
+                        sp.stats[Stats.Health].IncPerTamedLevel *= 1.5;
+                        sp.stats[Stats.Weight].IncPerTamedLevel *= 1.5;
+                        sp.stats[Stats.MeleeDamageMultiplier].IncPerTamedLevel *= 1.5;
+                    }
                 }
 
                 // breeding multiplier
