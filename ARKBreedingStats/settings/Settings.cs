@@ -415,6 +415,8 @@ namespace ARKBreedingStats.settings
             cbbLanguage.SelectedIndex = langI == -1 ? 0 : langI;
 
             CbHideInvisibleColorRegions.Checked = Properties.Settings.Default.HideInvisibleColorRegions;
+            CbAlwaysShowAllColorRegions.Checked = Properties.Settings.Default.AlwaysShowAllColorRegions;
+            CbColorIdOnColorRegionButton.Checked = Properties.Settings.Default.ShowColorIdOnRegionButtons;
 
             CbbColorMode.SelectedIndex = Math.Min(CbbColorMode.Items.Count, Math.Max(0, Properties.Settings.Default.ColorMode));
         }
@@ -635,9 +637,11 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.language = _languages.ContainsKey(lang) ? _languages[lang] : string.Empty;
             LanguageChanged = oldLanguageSetting != Properties.Settings.Default.language;
 
-            var oldColorRegionSetting = Properties.Settings.Default.HideInvisibleColorRegions;
+            ColorRegionDisplayChanged = CbHideInvisibleColorRegions.Checked != Properties.Settings.Default.HideInvisibleColorRegions
+                || Properties.Settings.Default.AlwaysShowAllColorRegions != CbAlwaysShowAllColorRegions.Checked;
             Properties.Settings.Default.HideInvisibleColorRegions = CbHideInvisibleColorRegions.Checked;
-            ColorRegionDisplayChanged = oldColorRegionSetting != Properties.Settings.Default.HideInvisibleColorRegions;
+            Properties.Settings.Default.AlwaysShowAllColorRegions = CbAlwaysShowAllColorRegions.Checked;
+            Properties.Settings.Default.ShowColorIdOnRegionButtons = CbColorIdOnColorRegionButton.Checked;
 
             Properties.Settings.Default.ColorMode = Math.Max(0, CbbColorMode.SelectedIndex);
 

@@ -231,10 +231,11 @@ namespace ARKBreedingStats.species
         /// </summary>
         public void InitializeColorRegions()
         {
-            EnabledColorRegions = colors?.Select(n =>
+            EnabledColorRegions = colors != null && !Properties.Settings.Default.AlwaysShowAllColorRegions
+                ? colors.Select(n =>
                       !string.IsNullOrEmpty(n?.name) && (!n.invisible || !Properties.Settings.Default.HideInvisibleColorRegions)
-                ).ToArray() ??
-                new[] { true, true, true, true, true, true, };
+                ).ToArray()
+                : new[] { true, true, true, true, true, true, };
         }
 
         /// <summary>

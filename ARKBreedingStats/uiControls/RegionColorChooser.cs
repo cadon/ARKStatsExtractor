@@ -179,6 +179,9 @@ namespace ARKBreedingStats.uiControls
             bt.SetBackColorAndAccordingForeColor(CreatureColors.CreatureColor(colorId));
             if (VerboseButtonTexts)
                 bt.Text = $"[{region}]: {colorId}";
+            else if (Properties.Settings.Default.ShowColorIdOnRegionButtons)
+                bt.Text = colorId.ToString();
+            else bt.Text = region.ToString();
             // tooltip
             if (_colorRegions?[region] != null)
                 _tt.SetToolTip(bt, $"[{region}] {_colorRegions[region].name}:\n{colorId}: {CreatureColors.CreatureColorName(colorId)}");

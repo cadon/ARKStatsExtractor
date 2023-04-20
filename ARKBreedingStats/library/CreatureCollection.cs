@@ -483,7 +483,7 @@ namespace ARKBreedingStats.Library
             var usedColorCount = usedColorIndices.Length;
 
             // create data if not available in the cache
-            if (!_existingColors.TryGetValue(species.blueprintPath, out var speciesExistingColors))
+            if (!_existingColors.TryGetValue(species.blueprintPath, out var speciesExistingColors) || speciesExistingColors.Length != usedColorCount + 1)
             {
                 // list of color ids in each region. The last index contains the ids of all regions
                 speciesExistingColors = new List<int>[usedColorCount + 1];
@@ -507,7 +507,7 @@ namespace ARKBreedingStats.Library
                     }
                 }
 
-                _existingColors.Add(species.blueprintPath, speciesExistingColors);
+                _existingColors[species.blueprintPath] = speciesExistingColors;
             }
 
             var newSpeciesColors = new List<string>(usedColorCount);
