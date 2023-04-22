@@ -72,7 +72,7 @@ namespace ARKBreedingStats.mods
         private static Mod _otherMod;
 
         /// <summary>
-        /// Generic entry for not available mods. Can be importing for correctly determining the available colors.
+        /// Generic entry for not available mods. Can be important for correctly determining the available colors.
         /// </summary>
         public static Mod OtherMod
         {

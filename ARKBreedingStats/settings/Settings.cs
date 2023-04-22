@@ -84,6 +84,8 @@ namespace ARKBreedingStats.settings
                 flowLayoutPanelStatMultipliers.Controls.Add(_multSetter[s]);
             }
 
+            CbHideInvisibleColorRegions.Visible = Values.V.InvisibleColorRegionsExist;
+
             // set neutral numbers for stat-multipliers to the default values to easier see what is non-default
             ServerMultipliers officialMultipliers = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official);
             for (int s = 0; s < Stats.StatsCount; s++)
@@ -140,6 +142,7 @@ namespace ARKBreedingStats.settings
             _tt.SetToolTip(labelEvent, "These values are used if the Event-Checkbox under the species-selector is selected.");
             _tt.SetToolTip(cbConsiderWildLevelSteps, "Enable to sort out all level-combinations that are not possible for naturally spawned creatures.\nThe step is max-wild-level / 30 by default, e.g. with a max wildlevel of 150, only creatures with levels that are a multiple of 5 are possible (can be different with mods).\nDisable if there are creatures that have other levels, e.g. spawned in by an admin.");
             _tt.SetToolTip(cbSingleplayerSettings, "Check this if you have enabled the \"Singleplayer-Settings\" in your game. This settings adjusts some of the multipliers again.");
+            _tt.SetToolTip(CbAtlasSettings, "Check this if you use this tool with creatures from the game ATLAS. This settings adjusts some of the multipliers to match the ones of ATLAS.");
             _tt.SetToolTip(cbAllowMoreThanHundredImprinting, "Enable this if on your server more than 100% imprinting are possible, e.g. with the mod S+ with a Nanny");
             _tt.SetToolTip(cbDevTools, "Shows extra tabs for multiplier-testing and extraction test-cases.");
             _tt.SetToolTip(nudMaxServerLevel, "The max level allowed on the server. Currently creatures with more than 450 levels will be deleted on official servers.\nA creature that can be potentially have a higher level than this (if maximally leveled up) will be marked with a orange-red text in the library.\nSet to 0 to disable a warning in the loaded library.");
@@ -194,6 +197,7 @@ namespace ARKBreedingStats.settings
                 }
             }
             cbSingleplayerSettings.Checked = cc.singlePlayerSettings;
+            CbAtlasSettings.Checked = _cc.AtlasSettings;
 
             nudMaxDomLevels.ValueSave = cc.maxDomLevel;
             numericUpDownMaxBreedingSug.ValueSave = cc.maxBreedingSuggestions;
@@ -413,6 +417,8 @@ namespace ARKBreedingStats.settings
             cbbLanguage.SelectedIndex = langI == -1 ? 0 : langI;
 
             CbHideInvisibleColorRegions.Checked = Properties.Settings.Default.HideInvisibleColorRegions;
+            CbAlwaysShowAllColorRegions.Checked = Properties.Settings.Default.AlwaysShowAllColorRegions;
+            CbColorIdOnColorRegionButton.Checked = Properties.Settings.Default.ShowColorIdOnRegionButtons;
 
             CbbColorMode.SelectedIndex = Math.Min(CbbColorMode.Items.Count, Math.Max(0, Properties.Settings.Default.ColorMode));
         }
@@ -443,6 +449,7 @@ namespace ARKBreedingStats.settings
             _cc.serverMultipliers.statMultipliers[Stats.Torpidity][3] = 1;
 
             _cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
+            _cc.AtlasSettings = CbAtlasSettings.Checked;
             _cc.maxDomLevel = (int)nudMaxDomLevels.Value;
             _cc.maxWildLevel = (int)nudMaxWildLevels.Value;
             _cc.maxServerLevel = (int)nudMaxServerLevel.Value;
@@ -632,9 +639,11 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.language = _languages.ContainsKey(lang) ? _languages[lang] : string.Empty;
             LanguageChanged = oldLanguageSetting != Properties.Settings.Default.language;
 
-            var oldColorRegionSetting = Properties.Settings.Default.HideInvisibleColorRegions;
+            ColorRegionDisplayChanged = CbHideInvisibleColorRegions.Checked != Properties.Settings.Default.HideInvisibleColorRegions
+                || Properties.Settings.Default.AlwaysShowAllColorRegions != CbAlwaysShowAllColorRegions.Checked;
             Properties.Settings.Default.HideInvisibleColorRegions = CbHideInvisibleColorRegions.Checked;
-            ColorRegionDisplayChanged = oldColorRegionSetting != Properties.Settings.Default.HideInvisibleColorRegions;
+            Properties.Settings.Default.AlwaysShowAllColorRegions = CbAlwaysShowAllColorRegions.Checked;
+            Properties.Settings.Default.ShowColorIdOnRegionButtons = CbColorIdOnColorRegionButton.Checked;
 
             Properties.Settings.Default.ColorMode = Math.Max(0, CbbColorMode.SelectedIndex);
 
@@ -1326,6 +1335,7 @@ namespace ARKBreedingStats.settings
             nudBabyImprintingStatScale.SetExtraHighlightNonDefault(highlight);
             nudBabyFoodConsumptionSpeed.SetExtraHighlightNonDefault(highlight);
             cbSingleplayerSettings.SetBackColorAndAccordingForeColor(highlight && cbSingleplayerSettings.Checked ? Color.FromArgb(190, 40, 20) : Color.Transparent);
+            CbAtlasSettings.SetBackColorAndAccordingForeColor(highlight && CbAtlasSettings.Checked ? Color.FromArgb(190, 40, 20) : Color.Transparent);
         }
 
         private void BExportSpreadsheetMoveUp_Click(object sender, EventArgs e)

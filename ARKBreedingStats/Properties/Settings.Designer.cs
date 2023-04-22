@@ -2171,5 +2171,29 @@ namespace ARKBreedingStats.Properties {
                 this["NaturalSortIgnoreSpaces"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowColorIdOnRegionButtons {
+            get {
+                return ((bool)(this["ShowColorIdOnRegionButtons"]));
+            }
+            set {
+                this["ShowColorIdOnRegionButtons"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AlwaysShowAllColorRegions {
+            get {
+                return ((bool)(this["AlwaysShowAllColorRegions"]));
+            }
+            set {
+                this["AlwaysShowAllColorRegions"] = value;
+            }
+        }
     }
 }

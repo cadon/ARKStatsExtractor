@@ -220,6 +220,7 @@ namespace ARKBreedingStats.multiplierTesting
             SetIBM(_cc.serverMultipliers.BabyImprintingStatScaleMultiplier);
 
             cbSingleplayerSettings.Checked = _cc.singlePlayerSettings;
+            CbAtlas.Checked = _cc.AtlasSettings;
             CbAllowFlyerSpeedLeveling.Checked = _cc.serverMultipliers.AllowFlyerSpeedLeveling;
 
             btUseMultipliersFromSettings.Visible = false;
@@ -320,6 +321,7 @@ namespace ARKBreedingStats.multiplierTesting
             {
                 showWarning = _cc.serverMultipliers.BabyImprintingStatScaleMultiplier != (double)nudIBM.Value
                                 || _cc.singlePlayerSettings != cbSingleplayerSettings.Checked
+                                || _cc.AtlasSettings != CbAtlas.Checked
                                 || _cc.serverMultipliers.AllowFlyerSpeedLeveling != CbAllowFlyerSpeedLeveling.Checked;
                 if (!showWarning)
                 {
@@ -419,6 +421,7 @@ namespace ARKBreedingStats.multiplierTesting
             }
             _cc.serverMultipliers.BabyImprintingStatScaleMultiplier = (double)nudIBM.Value;
             _cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
+            _cc.AtlasSettings = CbAtlas.Checked;
             _cc.serverMultipliers.AllowFlyerSpeedLeveling = CbAllowFlyerSpeedLeveling.Checked;
             OnApplyMultipliers?.Invoke();
             btUseMultipliersFromSettings.Visible = false;
@@ -459,6 +462,15 @@ namespace ARKBreedingStats.multiplierTesting
             }
             for (int s = 0; s < Stats.StatsCount; s++)
                 _statControls[s].SetSinglePlayerSettings();
+        }
+
+        private void CbAtlas_CheckedChanged(object sender, EventArgs e)
+        {
+            var useAtlas = CbAtlas.Checked;
+            _statControls[Stats.Health].AtlasBaseMultiplier = useAtlas ? 1.25 : 1;
+            _statControls[Stats.Health].AtlasIdMultiplier = useAtlas ? 1.5 : 1;
+            _statControls[Stats.Weight].AtlasIdMultiplier = useAtlas ? 1.5 : 1;
+            _statControls[Stats.MeleeDamageMultiplier].AtlasIdMultiplier = useAtlas ? 1.5 : 1;
         }
 
         private void CbAllowFlyerSpeedLeveling_CheckedChanged(object sender, EventArgs e)

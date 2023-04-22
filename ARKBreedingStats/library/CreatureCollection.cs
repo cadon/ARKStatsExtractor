@@ -48,7 +48,7 @@ namespace ARKBreedingStats.Library
         [JsonProperty]
         public int maxBreedingSuggestions = 10;
         [JsonProperty]
-        public bool considerWildLevelSteps = false;
+        public bool considerWildLevelSteps;
         [JsonProperty]
         public int wildLevelStep = 5;
         /// <summary>
@@ -68,12 +68,19 @@ namespace ARKBreedingStats.Library
         public ServerMultipliers serverMultipliersEvents; // this object's statMultipliers are not used
 
         [JsonProperty]
-        public bool singlePlayerSettings = false;
+        public bool singlePlayerSettings;
+
+        /// <summary>
+        /// If true, apply extra multipliers for the game ATLAS.
+        /// </summary>
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool AtlasSettings;
+
         /// <summary>
         /// Allow more than 100% imprinting, can happen with mods, e.g. S+ Nanny
         /// </summary>
         [JsonProperty]
-        public bool allowMoreThanHundredImprinting = false;
+        public bool allowMoreThanHundredImprinting;
 
         [JsonProperty]
         public bool changeCreatureStatusOnSavegameImport = true;
@@ -476,7 +483,7 @@ namespace ARKBreedingStats.Library
             var usedColorCount = usedColorIndices.Length;
 
             // create data if not available in the cache
-            if (!_existingColors.TryGetValue(species.blueprintPath, out var speciesExistingColors))
+            if (!_existingColors.TryGetValue(species.blueprintPath, out var speciesExistingColors) || speciesExistingColors.Length != usedColorCount + 1)
             {
                 // list of color ids in each region. The last index contains the ids of all regions
                 speciesExistingColors = new List<int>[usedColorCount + 1];
@@ -500,7 +507,7 @@ namespace ARKBreedingStats.Library
                     }
                 }
 
-                _existingColors.Add(species.blueprintPath, speciesExistingColors);
+                _existingColors[species.blueprintPath] = speciesExistingColors;
             }
 
             var newSpeciesColors = new List<string>(usedColorCount);

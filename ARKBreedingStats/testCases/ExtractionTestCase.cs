@@ -22,6 +22,7 @@ namespace ARKBreedingStats.testCases
         public double imprintingBonus;
         public ServerMultipliers serverMultipliers;
         public bool singleplayerSettings;
+        public bool AtlasSettings;
         public int maxWildLevel;
         public bool allowMoreThanHundredPercentImprinting;
         [XmlArray]

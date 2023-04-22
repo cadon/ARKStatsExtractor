@@ -149,7 +149,7 @@ namespace ARKBreedingStats.uiControls
         {
             if (!_colorPicker.isShown && _colorRegions != null && region < Ark.ColorRegionCount)
             {
-                _colorPicker.PickColor(_selectedRegionColorIds[region], _colorRegions[region].name + " (region " + region + ")", _colorRegions[region]?.naturalColors, _selectedColorIdsAlternative?[region] ?? 0);
+                _colorPicker.PickColor(_selectedRegionColorIds[region], _colorRegions[region]?.name + " (region " + region + ")", _colorRegions[region]?.naturalColors, _selectedColorIdsAlternative?[region] ?? 0);
                 if (_colorPicker.ShowDialog() == DialogResult.OK)
                 {
                     // color was chosen
@@ -179,9 +179,11 @@ namespace ARKBreedingStats.uiControls
             bt.SetBackColorAndAccordingForeColor(CreatureColors.CreatureColor(colorId));
             if (VerboseButtonTexts)
                 bt.Text = $"[{region}]: {colorId}";
+            else if (Properties.Settings.Default.ShowColorIdOnRegionButtons)
+                bt.Text = colorId.ToString();
+            else bt.Text = region.ToString();
             // tooltip
-            if (_colorRegions?[region] != null)
-                _tt.SetToolTip(bt, $"[{region}] {_colorRegions[region].name}:\n{colorId}: {CreatureColors.CreatureColorName(colorId)}");
+            _tt.SetToolTip(bt, $"[{region}] {_colorRegions?[region]?.name}:\n{colorId}: {CreatureColors.CreatureColorName(colorId)}");
         }
 
         private void RegionColorChooser_Disposed(object sender, EventArgs e)

@@ -2925,7 +2925,7 @@ namespace ARKBreedingStats
         {
             toolStripCBTempCreatures.Items.Clear();
             foreach (CreatureValues cv in _creatureCollection.creaturesValues)
-                toolStripCBTempCreatures.Items.Add($"{cv.name} ({cv.Species?.name ?? "unknown species"})");
+                toolStripCBTempCreatures.Items.Add($"{cv.name} ({cv.Species?.name ?? "unknown species"}, Lv {cv.level})");
         }
 
         /// <summary>
@@ -3106,6 +3106,7 @@ namespace ARKBreedingStats
             // set all stat-multipliers from testCase
             _creatureCollection.serverMultipliers = etc.serverMultipliers.Copy(true);
             _creatureCollection.singlePlayerSettings = etc.singleplayerSettings;
+            _creatureCollection.AtlasSettings = etc.AtlasSettings;
             _creatureCollection.allowMoreThanHundredImprinting = etc.allowMoreThanHundredPercentImprinting;
             _creatureCollection.maxWildLevel = etc.maxWildLevel;
 
@@ -3139,6 +3140,7 @@ namespace ARKBreedingStats
                 etc.serverMultipliers = _creatureCollection.serverMultipliers;
                 etc.Species = speciesSelector1.SelectedSpecies;
                 etc.singleplayerSettings = _creatureCollection.singlePlayerSettings;
+                etc.AtlasSettings = _creatureCollection.AtlasSettings;
                 etc.allowMoreThanHundredPercentImprinting = _creatureCollection.allowMoreThanHundredImprinting;
                 etc.maxWildLevel = _creatureCollection.maxWildLevel;
 

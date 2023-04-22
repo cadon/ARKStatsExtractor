@@ -1808,7 +1808,7 @@ namespace ARKBreedingStats
             // tableLayoutPanelLibrary
             // 
             this.tableLayoutPanelLibrary.ColumnCount = 2;
-            this.tableLayoutPanelLibrary.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 201F));
+            this.tableLayoutPanelLibrary.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanelLibrary.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelLibrary.Controls.Add(this.listViewLibrary, 1, 0);
             this.tableLayoutPanelLibrary.Controls.Add(this.tableLayoutPanel1, 0, 0);

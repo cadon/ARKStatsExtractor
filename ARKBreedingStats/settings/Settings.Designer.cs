@@ -120,6 +120,7 @@
             this.checkBoxDisplayHiddenStats = new System.Windows.Forms.CheckBox();
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabPageMultipliers = new System.Windows.Forms.TabPage();
+            this.CbAtlasSettings = new System.Windows.Forms.CheckBox();
             this.BtSettingsToClipboard = new System.Windows.Forms.Button();
             this.groupBox29 = new System.Windows.Forms.GroupBox();
             this.CbAllowFlyerSpeedLeveling = new System.Windows.Forms.CheckBox();
@@ -138,6 +139,8 @@
             this.labelEvent = new System.Windows.Forms.Label();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
             this.groupBox31 = new System.Windows.Forms.GroupBox();
+            this.CbColorIdOnColorRegionButton = new System.Windows.Forms.CheckBox();
+            this.CbAlwaysShowAllColorRegions = new System.Windows.Forms.CheckBox();
             this.CbHideInvisibleColorRegions = new System.Windows.Forms.CheckBox();
             this.groupBox30 = new System.Windows.Forms.GroupBox();
             this.CbExportTableFieldsAll = new System.Windows.Forms.CheckBox();
@@ -165,6 +168,8 @@
             this.groupBox17 = new System.Windows.Forms.GroupBox();
             this.cbbLanguage = new System.Windows.Forms.ComboBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.CbNaturalSortIgnoreSpaces = new System.Windows.Forms.CheckBox();
+            this.CbNaturalSorting = new System.Windows.Forms.CheckBox();
             this.CbConsiderWastedStatsForTopCreatures = new System.Windows.Forms.CheckBox();
             this.CbPauseGrowingTimerAfterAdding = new System.Windows.Forms.CheckBox();
             this.CbLibrarySelectSelectedSpeciesOnLoad = new System.Windows.Forms.CheckBox();
@@ -326,8 +331,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.CbNaturalSorting = new System.Windows.Forms.CheckBox();
-            this.CbNaturalSortIgnoreSpaces = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -1769,6 +1772,7 @@
             // 
             this.tabPageMultipliers.AllowDrop = true;
             this.tabPageMultipliers.AutoScroll = true;
+            this.tabPageMultipliers.Controls.Add(this.CbAtlasSettings);
             this.tabPageMultipliers.Controls.Add(this.BtSettingsToClipboard);
             this.tabPageMultipliers.Controls.Add(this.groupBox29);
             this.tabPageMultipliers.Controls.Add(this.label34);
@@ -1793,6 +1797,16 @@
             this.tabPageMultipliers.UseVisualStyleBackColor = true;
             this.tabPageMultipliers.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragDrop);
             this.tabPageMultipliers.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragEnter);
+            // 
+            // CbAtlasSettings
+            // 
+            this.CbAtlasSettings.AutoSize = true;
+            this.CbAtlasSettings.Location = new System.Drawing.Point(264, 23);
+            this.CbAtlasSettings.Name = "CbAtlasSettings";
+            this.CbAtlasSettings.Size = new System.Drawing.Size(99, 17);
+            this.CbAtlasSettings.TabIndex = 14;
+            this.CbAtlasSettings.Text = "ATLAS settings";
+            this.CbAtlasSettings.UseVisualStyleBackColor = true;
             // 
             // BtSettingsToClipboard
             // 
@@ -1888,9 +1902,9 @@
             this.cbSingleplayerSettings.AutoSize = true;
             this.cbSingleplayerSettings.Location = new System.Drawing.Point(15, 23);
             this.cbSingleplayerSettings.Name = "cbSingleplayerSettings";
-            this.cbSingleplayerSettings.Size = new System.Drawing.Size(124, 17);
+            this.cbSingleplayerSettings.Size = new System.Drawing.Size(122, 17);
             this.cbSingleplayerSettings.TabIndex = 0;
-            this.cbSingleplayerSettings.Text = "Singleplayer Settings";
+            this.cbSingleplayerSettings.Text = "Singleplayer settings";
             this.cbSingleplayerSettings.UseVisualStyleBackColor = true;
             this.cbSingleplayerSettings.CheckedChanged += new System.EventHandler(this.cbSingleplayerSettings_CheckedChanged);
             // 
@@ -1999,18 +2013,40 @@
             // 
             // groupBox31
             // 
+            this.groupBox31.Controls.Add(this.CbColorIdOnColorRegionButton);
+            this.groupBox31.Controls.Add(this.CbAlwaysShowAllColorRegions);
             this.groupBox31.Controls.Add(this.CbHideInvisibleColorRegions);
             this.groupBox31.Location = new System.Drawing.Point(329, 283);
             this.groupBox31.Name = "groupBox31";
-            this.groupBox31.Size = new System.Drawing.Size(413, 43);
+            this.groupBox31.Size = new System.Drawing.Size(413, 66);
             this.groupBox31.TabIndex = 14;
             this.groupBox31.TabStop = false;
-            this.groupBox31.Text = "ColorRegions";
+            this.groupBox31.Text = "Color Regions";
+            // 
+            // CbColorIdOnColorRegionButton
+            // 
+            this.CbColorIdOnColorRegionButton.AutoSize = true;
+            this.CbColorIdOnColorRegionButton.Location = new System.Drawing.Point(6, 42);
+            this.CbColorIdOnColorRegionButton.Name = "CbColorIdOnColorRegionButton";
+            this.CbColorIdOnColorRegionButton.Size = new System.Drawing.Size(201, 17);
+            this.CbColorIdOnColorRegionButton.TabIndex = 2;
+            this.CbColorIdOnColorRegionButton.Text = "Show color id on color region buttons";
+            this.CbColorIdOnColorRegionButton.UseVisualStyleBackColor = true;
+            // 
+            // CbAlwaysShowAllColorRegions
+            // 
+            this.CbAlwaysShowAllColorRegions.AutoSize = true;
+            this.CbAlwaysShowAllColorRegions.Location = new System.Drawing.Point(6, 19);
+            this.CbAlwaysShowAllColorRegions.Name = "CbAlwaysShowAllColorRegions";
+            this.CbAlwaysShowAllColorRegions.Size = new System.Drawing.Size(163, 17);
+            this.CbAlwaysShowAllColorRegions.TabIndex = 1;
+            this.CbAlwaysShowAllColorRegions.Text = "Always show all color regions";
+            this.CbAlwaysShowAllColorRegions.UseVisualStyleBackColor = true;
             // 
             // CbHideInvisibleColorRegions
             // 
             this.CbHideInvisibleColorRegions.AutoSize = true;
-            this.CbHideInvisibleColorRegions.Location = new System.Drawing.Point(6, 19);
+            this.CbHideInvisibleColorRegions.Location = new System.Drawing.Point(222, 19);
             this.CbHideInvisibleColorRegions.Name = "CbHideInvisibleColorRegions";
             this.CbHideInvisibleColorRegions.Size = new System.Drawing.Size(149, 17);
             this.CbHideInvisibleColorRegions.TabIndex = 0;
@@ -2023,7 +2059,7 @@
             this.groupBox30.Controls.Add(this.BExportSpreadsheetMoveDown);
             this.groupBox30.Controls.Add(this.BExportSpreadsheetMoveUp);
             this.groupBox30.Controls.Add(this.ClbExportSpreadsheetFields);
-            this.groupBox30.Location = new System.Drawing.Point(329, 332);
+            this.groupBox30.Location = new System.Drawing.Point(329, 355);
             this.groupBox30.Name = "groupBox30";
             this.groupBox30.Size = new System.Drawing.Size(413, 281);
             this.groupBox30.TabIndex = 13;
@@ -2260,7 +2296,7 @@
             // groupBox17
             // 
             this.groupBox17.Controls.Add(this.cbbLanguage);
-            this.groupBox17.Location = new System.Drawing.Point(329, 619);
+            this.groupBox17.Location = new System.Drawing.Point(329, 642);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(413, 51);
             this.groupBox17.TabIndex = 5;
@@ -2293,6 +2329,27 @@
             this.groupBox9.TabIndex = 4;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Library";
+            // 
+            // CbNaturalSortIgnoreSpaces
+            // 
+            this.CbNaturalSortIgnoreSpaces.AutoSize = true;
+            this.CbNaturalSortIgnoreSpaces.Location = new System.Drawing.Point(181, 157);
+            this.CbNaturalSortIgnoreSpaces.Name = "CbNaturalSortIgnoreSpaces";
+            this.CbNaturalSortIgnoreSpaces.Size = new System.Drawing.Size(93, 17);
+            this.CbNaturalSortIgnoreSpaces.TabIndex = 7;
+            this.CbNaturalSortIgnoreSpaces.Text = "Ignore spaces";
+            this.CbNaturalSortIgnoreSpaces.UseVisualStyleBackColor = true;
+            // 
+            // CbNaturalSorting
+            // 
+            this.CbNaturalSorting.AutoSize = true;
+            this.CbNaturalSorting.Location = new System.Drawing.Point(6, 157);
+            this.CbNaturalSorting.Name = "CbNaturalSorting";
+            this.CbNaturalSorting.Size = new System.Drawing.Size(155, 17);
+            this.CbNaturalSorting.TabIndex = 6;
+            this.CbNaturalSorting.Text = "Natural sort (e.g. 10 after 2)";
+            this.CbNaturalSorting.UseVisualStyleBackColor = true;
+            this.CbNaturalSorting.CheckedChanged += new System.EventHandler(this.CbNaturalSorting_CheckedChanged);
             // 
             // CbConsiderWastedStatsForTopCreatures
             // 
@@ -3457,7 +3514,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3465,7 +3522,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3473,7 +3530,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3481,7 +3538,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -4132,27 +4189,6 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // CbNaturalSorting
-            // 
-            this.CbNaturalSorting.AutoSize = true;
-            this.CbNaturalSorting.Location = new System.Drawing.Point(6, 157);
-            this.CbNaturalSorting.Name = "CbNaturalSorting";
-            this.CbNaturalSorting.Size = new System.Drawing.Size(155, 17);
-            this.CbNaturalSorting.TabIndex = 6;
-            this.CbNaturalSorting.Text = "Natural sort (e.g. 10 after 2)";
-            this.CbNaturalSorting.UseVisualStyleBackColor = true;
-            this.CbNaturalSorting.CheckedChanged += new System.EventHandler(this.CbNaturalSorting_CheckedChanged);
-            // 
-            // CbNaturalSortIgnoreSpaces
-            // 
-            this.CbNaturalSortIgnoreSpaces.AutoSize = true;
-            this.CbNaturalSortIgnoreSpaces.Location = new System.Drawing.Point(181, 157);
-            this.CbNaturalSortIgnoreSpaces.Name = "CbNaturalSortIgnoreSpaces";
-            this.CbNaturalSortIgnoreSpaces.Size = new System.Drawing.Size(93, 17);
-            this.CbNaturalSortIgnoreSpaces.TabIndex = 7;
-            this.CbNaturalSortIgnoreSpaces.Text = "Ignore spaces";
-            this.CbNaturalSortIgnoreSpaces.UseVisualStyleBackColor = true;
-            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -4612,5 +4648,8 @@
         private uiControls.Nud nudTamedDinoCharacterFoodDrain;
         private System.Windows.Forms.CheckBox CbNaturalSortIgnoreSpaces;
         private System.Windows.Forms.CheckBox CbNaturalSorting;
+        private System.Windows.Forms.CheckBox CbAtlasSettings;
+        private System.Windows.Forms.CheckBox CbAlwaysShowAllColorRegions;
+        private System.Windows.Forms.CheckBox CbColorIdOnColorRegionButton;
     }
 }

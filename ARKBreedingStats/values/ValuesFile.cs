@@ -103,7 +103,14 @@ namespace ARKBreedingStats.values
             try
             {
                 values = LoadValuesFile(filePath);
+                if (string.IsNullOrEmpty(values.mod?.id))
+                {
+                    errorMessage =
+                        $"The mod file\n{filePath}\ndoesn't contains an object \"mod\" or that object doesn't contain a valid entry \"id\". The mod file cannot be loaded until this information is added";
+                    return false;
+                }
                 if (setModFileName) values.mod.FileName = Path.GetFileName(filePath);
+
                 return true;
             }
             catch (FileNotFoundException ex)
