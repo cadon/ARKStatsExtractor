@@ -29,6 +29,10 @@ namespace ARKBreedingStats.values
         private Dictionary<string, Species> _nameToSpecies;
         private Dictionary<string, Species> _classNameToSpecies;
 
+        /// <summary>
+        /// Some color regions are not visible in game. If a species defines a region as invisible, it can be hidden in the UI.
+        /// </summary>
+        public bool InvisibleColorRegionsExist;
 
         /// <summary>
         /// Representing the current server multipliers except statMultipliers. Also considers event-changes.
@@ -127,9 +131,9 @@ namespace ARKBreedingStats.values
             else _V.specialFoodData = specialFoodData;
 
             const string defaultFoodNameKey = "default";
-            if (setTamingFood && specialFoodData.ContainsKey(defaultFoodNameKey))
+            if (setTamingFood && _V.specialFoodData.TryGetValue(defaultFoodNameKey, out var defaultFoodValues))
             {
-                _V.defaultFoodData = specialFoodData[defaultFoodNameKey].specialFoodValues;
+                _V.defaultFoodData = defaultFoodValues.specialFoodValues;
             }
             else
             {
@@ -269,6 +273,7 @@ namespace ARKBreedingStats.values
             _V.Colors.InitializeArkColors();
             foreach (var s in _V.species)
                 s.InitializeColors(_V.Colors);
+            _V.InvisibleColorRegionsExist = _V.species.Any(s => s.colors?.Any(r => r?.invisible == true) == true);
         }
 
         /// <summary>

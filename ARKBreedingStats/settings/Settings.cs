@@ -84,6 +84,8 @@ namespace ARKBreedingStats.settings
                 flowLayoutPanelStatMultipliers.Controls.Add(_multSetter[s]);
             }
 
+            CbHideInvisibleColorRegions.Visible = Values.V.InvisibleColorRegionsExist;
+
             // set neutral numbers for stat-multipliers to the default values to easier see what is non-default
             ServerMultipliers officialMultipliers = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official);
             for (int s = 0; s < Stats.StatsCount; s++)

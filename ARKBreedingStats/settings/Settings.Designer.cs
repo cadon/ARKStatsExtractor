@@ -139,6 +139,8 @@
             this.labelEvent = new System.Windows.Forms.Label();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
             this.groupBox31 = new System.Windows.Forms.GroupBox();
+            this.CbColorIdOnColorRegionButton = new System.Windows.Forms.CheckBox();
+            this.CbAlwaysShowAllColorRegions = new System.Windows.Forms.CheckBox();
             this.CbHideInvisibleColorRegions = new System.Windows.Forms.CheckBox();
             this.groupBox30 = new System.Windows.Forms.GroupBox();
             this.CbExportTableFieldsAll = new System.Windows.Forms.CheckBox();
@@ -329,8 +331,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.CbAlwaysShowAllColorRegions = new System.Windows.Forms.CheckBox();
-            this.CbColorIdOnColorRegionButton = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -2023,10 +2023,30 @@
             this.groupBox31.TabStop = false;
             this.groupBox31.Text = "Color Regions";
             // 
+            // CbColorIdOnColorRegionButton
+            // 
+            this.CbColorIdOnColorRegionButton.AutoSize = true;
+            this.CbColorIdOnColorRegionButton.Location = new System.Drawing.Point(6, 42);
+            this.CbColorIdOnColorRegionButton.Name = "CbColorIdOnColorRegionButton";
+            this.CbColorIdOnColorRegionButton.Size = new System.Drawing.Size(201, 17);
+            this.CbColorIdOnColorRegionButton.TabIndex = 2;
+            this.CbColorIdOnColorRegionButton.Text = "Show color id on color region buttons";
+            this.CbColorIdOnColorRegionButton.UseVisualStyleBackColor = true;
+            // 
+            // CbAlwaysShowAllColorRegions
+            // 
+            this.CbAlwaysShowAllColorRegions.AutoSize = true;
+            this.CbAlwaysShowAllColorRegions.Location = new System.Drawing.Point(6, 19);
+            this.CbAlwaysShowAllColorRegions.Name = "CbAlwaysShowAllColorRegions";
+            this.CbAlwaysShowAllColorRegions.Size = new System.Drawing.Size(163, 17);
+            this.CbAlwaysShowAllColorRegions.TabIndex = 1;
+            this.CbAlwaysShowAllColorRegions.Text = "Always show all color regions";
+            this.CbAlwaysShowAllColorRegions.UseVisualStyleBackColor = true;
+            // 
             // CbHideInvisibleColorRegions
             // 
             this.CbHideInvisibleColorRegions.AutoSize = true;
-            this.CbHideInvisibleColorRegions.Location = new System.Drawing.Point(6, 19);
+            this.CbHideInvisibleColorRegions.Location = new System.Drawing.Point(222, 19);
             this.CbHideInvisibleColorRegions.Name = "CbHideInvisibleColorRegions";
             this.CbHideInvisibleColorRegions.Size = new System.Drawing.Size(149, 17);
             this.CbHideInvisibleColorRegions.TabIndex = 0;
@@ -3494,7 +3514,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3502,7 +3522,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3510,7 +3530,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3518,7 +3538,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -4168,26 +4188,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
-            // 
-            // CbAlwaysShowAllColorRegions
-            // 
-            this.CbAlwaysShowAllColorRegions.AutoSize = true;
-            this.CbAlwaysShowAllColorRegions.Location = new System.Drawing.Point(161, 18);
-            this.CbAlwaysShowAllColorRegions.Name = "CbAlwaysShowAllColorRegions";
-            this.CbAlwaysShowAllColorRegions.Size = new System.Drawing.Size(163, 17);
-            this.CbAlwaysShowAllColorRegions.TabIndex = 1;
-            this.CbAlwaysShowAllColorRegions.Text = "Always show all color regions";
-            this.CbAlwaysShowAllColorRegions.UseVisualStyleBackColor = true;
-            // 
-            // CbColorIdOnColorRegionButton
-            // 
-            this.CbColorIdOnColorRegionButton.AutoSize = true;
-            this.CbColorIdOnColorRegionButton.Location = new System.Drawing.Point(6, 42);
-            this.CbColorIdOnColorRegionButton.Name = "CbColorIdOnColorRegionButton";
-            this.CbColorIdOnColorRegionButton.Size = new System.Drawing.Size(201, 17);
-            this.CbColorIdOnColorRegionButton.TabIndex = 2;
-            this.CbColorIdOnColorRegionButton.Text = "Show color id on color region buttons";
-            this.CbColorIdOnColorRegionButton.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
