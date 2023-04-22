@@ -1,0 +1,14 @@
+{
+    "format": "1.14-flyerspeed",
+    "files": {
+         "ATLAS_values.json": {
+	     "version": "410.11.10518855",
+	     "format": "1.14-flyerspeed",
+            "mod": {
+                "id": "ATLAS",
+                "tag": "ATLAS",
+                "title": "ATLAS"
+            }
+        }
+    }
+}

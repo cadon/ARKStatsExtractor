@@ -1,0 +1,4113 @@
+{
+	"version": "410.11.10518855",
+	"format": "1.14-flyerspeed",
+	"mod": {
+		"id": "ATLAS",
+		"tag": "ATLAS",
+		"title": "ATLAS"
+	},
+	"species": [
+			{
+            "name": "Bear",
+            "blueprintPath": "/Game/Atlas/Creatures/Bear/Bear_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 210, 0.15, 0.108, 0.5, 0 ],
+                [ 500, 0.1, 0.1, 0, 0 ],
+                [ 1000, 0.06, 0, 0.5, 0 ],
+                [ 270, 0.1, 0.1, 0, 0 ],
+                [ 3000, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 950, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"colors": [
+				{
+					"name": "Main",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Creature Ochre",
+						"White"
+					]
+				},
+				null,
+				{
+					"name": "Stripes",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange",
+						"Creature Ochre",
+						"White"
+					]
+				},
+				null,
+				{
+					"name": "Belly",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Creature Ochre",
+						"White"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": false,
+                "violent": true,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 1300,
+                "affinityIncreasePL": 65,
+                "foodConsumptionBase": 0.003858,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Bull",
+            "blueprintPath": "/Game/Atlas/Creatures/Bull/Cow_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 105, 0.15, 0.108, 0.5, 0 ],
+                [ 280, 0.1, 0.1, 0, 0 ],
+                [ 175, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 1200, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 650, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"colors": [
+				{
+					"name": "Body Main",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange"
+					]
+				},
+				null,
+				{
+					"name": "Horns",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"NearBlack",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Albino"
+					]
+				},
+				{
+					"name": "Horn Tips",
+					"colors": [
+						"Dino Dark Brown",
+						"Dino Medium Brown",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"NearBlack",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"NearBlack",
+						"DragonBase0",
+						"Dino Dark Orange"
+					]
+				},
+				{
+					"name": "Body Secondary",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Dark Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange"
+					]
+				},
+				{
+					"name": "Long Hair",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Dark Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": true,
+                "violent": false,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 950,
+                "affinityIncreasePL": 47.5,
+                "foodConsumptionBase": 0.001736,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Cat",
+            "blueprintPath": "/Game/Atlas/Creatures/Cat/Cat_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 60, 0.15, 0.108, 0.5, 0 ],
+                [ 200, 0.1, 0.1, 0, 0 ],
+                [ 175, 0.06, 0, 0.5, 0 ],
+                [ 175, 0.1, 0.1, 0, 0 ],
+                [ 600, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 25, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"colors": [
+				{
+					"name": "Main",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange",
+						"Creature Ochre",
+						"Creature Orange"
+					]
+				},
+				{
+					"name": "Furlength",
+					"colors": [
+						"Light Green",
+						"Light Orange",
+						"Light Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Dark Blue",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonFire",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"Dino Medium Blue",
+						"Dino Deep Blue",
+						"NearWhite",
+						"NearBlack",
+						"Creature Dark Smoke",
+						"Creature Midnight",
+						"Creature Pink",
+						"Creature Orange"
+					]
+				},
+				{
+					"name": "Stripes",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange",
+						"Creature Ochre",
+						"Creature Orange"
+					]
+				},
+				null,
+				{
+					"name": "Belly",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Dark Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange",
+						"Creature Ochre"
+					]
+				},
+				{
+					"name": "Inner Spots",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Dark Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange",
+						"Creature Ochre",
+						"Creature Orange"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": true,
+                "violent": false,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 1900,
+                "affinityIncreasePL": 95,
+                "foodConsumptionBase": 0.001157,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Chicken",
+            "blueprintPath": "/Game/Atlas/Creatures/Chicken/Chicken_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 28, 0.15, 0.108, 0.5, 0 ],
+                [ 100, 0.1, 0.1, 0, 0 ],
+                [ 30, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 600, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 10, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"colors": [
+				{
+					"name": "Middle Body",
+					"colors": [
+						"Light Brown",
+						"Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"BigFoot0",
+						"DarkWolfFur",
+						"Dino Dark Orange",
+						"Dino Albino",
+						"DarkWolfFur",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DragonBase0",
+						"WyvernBlue1",
+						"Creature Dark Smoke",
+						"Creature Ochre"
+					]
+				},
+				{
+					"name": "Neck",
+					"colors": [
+						"Light Brown",
+						"Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"BigFoot0",
+						"DarkWolfFur",
+						"Dino Dark Orange",
+						"Dino Albino",
+						"DarkWolfFur",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DragonBase0",
+						"WyvernBlue1",
+						"Creature Dark Smoke",
+						"Creature Ochre"
+					]
+				},
+				{
+					"name": "Wattel",
+					"colors": [
+						"Light Red",
+						"DragonBase1",
+						"DragonBase0",
+						"Creature Light Smoke",
+						"Creature Orange",
+						"Creature Dark Smoke",
+						"BigFoot5",
+						"Creature Pink",
+						"Dino Medium Brown"
+					]
+				},
+				{
+					"name": "Neck",
+					"colors": [
+						"Light Brown",
+						"Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"BigFoot0",
+						"DarkWolfFur",
+						"Dino Dark Orange",
+						"Dino Albino",
+						"DarkWolfFur",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DragonBase0",
+						"WyvernBlue1",
+						"Creature Dark Smoke",
+						"Creature Ochre"
+					]
+				},
+				{
+					"name": "Belly",
+					"colors": [
+						"Light Brown",
+						"Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"BigFoot0",
+						"DarkWolfFur",
+						"Dino Dark Orange",
+						"Dino Albino",
+						"DarkWolfFur",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DragonBase0",
+						"WyvernBlue1",
+						"Creature Dark Smoke",
+						"Creature Ochre"
+					]
+				},
+				{
+					"name": "Back",
+					"colors": [
+						"Light Brown",
+						"Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"BigFoot0",
+						"DarkWolfFur",
+						"Dino Dark Orange",
+						"Dino Albino",
+						"DarkWolfFur",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DragonBase0",
+						"WyvernBlue1",
+						"Creature Dark Smoke",
+						"Creature Ochre"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": true,
+                "violent": false,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 450,
+                "affinityIncreasePL": 22.5,
+                "foodConsumptionBase": 0.001157,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Cow",
+            "blueprintPath": "/Game/Atlas/Creatures/Cow/Cow_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 105, 0.15, 0.108, 0.5, 0 ],
+                [ 280, 0.1, 0.1, 0, 0 ],
+                [ 175, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 1200, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 650, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"colors": [
+				{
+					"name": "Main",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange"
+					]
+				},
+				null,
+				{
+					"name": "Horns",
+					"colors": [
+						"Dino Medium Brown",
+						"Dino Light Brown",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"Light Grey",
+						"Dino Albino",
+						"NearBlack",
+						"NearWhite",
+						"Dino Light Orange",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dark Grey"
+					]
+				},
+				null,
+				null,
+				{
+					"name": "Spots",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": true,
+                "violent": false,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 950,
+                "affinityIncreasePL": 47.5,
+                "foodConsumptionBase": 0.001736,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Crab",
+            "blueprintPath": "/Game/Atlas/Creatures/Crab/AtlasCrab_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 240, 0.15, 0.108, 0.5, 0 ],
+                [ 300, 0.1, 0.1, 0, 0 ],
+                [ 800, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 2000, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 1400, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"colors": [
+				{
+					"name": "Body",
+					"colors": [
+						"Red",
+						"Light Red",
+						"Light Green",
+						"Light Yellow",
+						"WyvernPurple1",
+						"DragonBase1",
+						"DragonGreen3",
+						"Dino Medium Green",
+						"Green",
+						"Dino Medium Blue",
+						"Dino Dark Purple",
+						"Dino Light Blue",
+						"NearWhite",
+						"NearBlack"
+					]
+				},
+				{
+					"name": "Eyes",
+					"colors": [
+						"Red",
+						"Light Red",
+						"Light Green",
+						"Light Yellow",
+						"Blue",
+						"Magenta",
+						"Cyan",
+						"Yellow",
+						"Green",
+						"Dino Medium Blue",
+						"Red",
+						"Dino Light Blue",
+						"NearWhite",
+						"NearBlack"
+					]
+				},
+				null,
+				null,
+				{
+					"name": "Edges",
+					"colors": [
+						"Dino Light Yellow",
+						"Light Blue",
+						"Dino Medium Green",
+						"Cyan",
+						"Magenta",
+						"Light Green",
+						"Light Red",
+						"Dino Albino",
+						"NearBlack",
+						"NearWhite",
+						"Dino Light Orange",
+						"Dino Light Blue"
+					]
+				},
+				{
+					"name": "Legs",
+					"colors": [
+						"Dark Red",
+						"Dino Dark Orange",
+						"Light Green",
+						"Dino Light Yellow",
+						"WyvernPurple1",
+						"DragonBase1",
+						"DragonGreen3",
+						"Dino Medium Green",
+						"Dino Medium Blue",
+						"Dino Dark Purple",
+						"Dino Light Blue",
+						"NearWhite",
+						"NearBlack"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": false,
+                "violent": true,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 4250,
+                "affinityIncreasePL": 212.5,
+                "foodConsumptionBase": 0.003156,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 919
+        },
+		{
+            "name": "Crocodile",
+            "blueprintPath": "/Game/Atlas/Creatures/Crocodile/Crocodile_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 280, 0.15, 0.108, 0.5, 0 ],
+                [ 450, 0.1, 0.1, 0, 0 ],
+                [ 400, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 1500, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 300, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"colors": [
+				{
+					"name": "Main Body Color",
+					"colors": [
+						"Dino Dark Yellow",
+						"DragonGreen0",
+						"NearBlack",
+						"Dino Albino",
+						"Dino Medium Green",
+						"Creature Ochre",
+						"DragonGreen2",
+						"Dino Dark Brown"
+					]
+				},
+				null,
+				null,
+				null,
+				{
+					"name": "Darker Scales",
+					"colors": [
+						"Dino Dark Yellow",
+						"DragonGreen3",
+						"Dino Dark Brown",
+						"DarkWolfFur",
+						"DragonGreen0",
+						"NearBlack",
+						"Creature Midnight",
+						"Creature Ochre",
+						"DragonGreen2",
+						"DragonGreen0",
+						"Dino Dark Brown"
+					]
+				},
+				{
+					"name": "Belly",
+					"colors": [
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"Dino Medium Green",
+						"Light Grey",
+						"Dino Albino",
+						"NearBlack",
+						"Dino Light Yellow",
+						"Dino Light Blue",
+						"Creature Light Smoke"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": false,
+                "violent": true,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 2500,
+                "affinityIncreasePL": 75,
+                "foodConsumptionBase": 0.001578,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Crow",
+            "blueprintPath": "/Game/Atlas/Creatures/Crow/Crow_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 36, 0.15, 0.108, 0.5, 0 ],
+                [ 100, 0.1, 0.1, 0, 0 ],
+                [ 100, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 900, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 15, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"colors": [
+				{
+					"name": "Main Body",
+					"colors": [
+						"Light Grey",
+						"Black",
+						"Dino Dark Red",
+						"WyvernPurple0",
+						"Dino Dark Purple",
+						"Dino Albino",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"Creature Dark Smoke",
+						"NearBlack",
+						"Creature Midnight"
+					]
+				},
+				null,
+				{
+					"name": "Eye",
+					"colors": [
+						"Creature Orange",
+						"Creature Midnight",
+						"Creature Light Smoke",
+						"Dino Deep Blue",
+						"Dino Medium Blue",
+						"WyvernPurple1",
+						"DragonGreen3",
+						"DragonFire",
+						"DragonBase1",
+						"Dino Light Brown",
+						"Dino Light Blue"
+					]
+				},
+				null,
+				{
+					"name": "Head Feathers",
+					"colors": [
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Dark Purple",
+						"BigFoot0",
+						"BigFoot5",
+						"DragonBase0",
+						"DragonFire",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"Dino Medium Blue",
+						"Dino Deep Blue",
+						"NearWhite",
+						"NearBlack",
+						"Creature Light Smoke",
+						"Creature Orange",
+						"Creature Midnight",
+						"Creature Pink"
+					]
+				},
+				{
+					"name": "Wing Feathers",
+					"colors": [
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Dark Purple",
+						"BigFoot0",
+						"BigFoot5",
+						"DragonBase0",
+						"DragonFire",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"Dino Medium Blue",
+						"Dino Deep Blue",
+						"NearWhite",
+						"NearBlack",
+						"Creature Light Smoke",
+						"Creature Orange",
+						"Creature Midnight",
+						"Creature Pink"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": true,
+                "violent": false,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 525,
+                "affinityIncreasePL": 26.25,
+                "foodConsumptionBase": 0.001488,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Dolphin",
+            "blueprintPath": "/Game/Atlas/Creatures/Dolphin/Dolphin_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 120, 0.15, 0.108, 0.5, 0 ],
+                [ 300, 0.1, 0.1, 0, 0 ],
+                [ 300, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 1000, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 250, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"colors": [
+				{
+					"name": "Medium Skin",
+					"colors": [
+						"Creature Dark Smoke",
+						"Creature Light Smoke",
+						"WyvernBlue1",
+						"WyvernBlue0",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"NearBlack",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Light Blue",
+						"Dino Dark Purple",
+						"Dino Light Orange",
+						"DragonBase1",
+						"DarkWolfFur",
+						"DragonBase0",
+						"BigFoot0",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"Creature Pink"
+					]
+				},
+				null,
+				null,
+				null,
+				{
+					"name": "Light Skin",
+					"colors": [
+						"Creature Light Smoke",
+						"Dino Medium Blue",
+						"Dino Light Blue",
+						"Creature Dark Smoke",
+						"Dino Albino",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Dark Purple",
+						"Dino Darker Grey",
+						"NearBlack",
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"BigFoot0",
+						"BigFoot5",
+						"WolfFur",
+						"Creature Pink"
+					]
+				},
+				{
+					"name": "Dark Skin",
+					"colors": [
+						"Creature Dark Smoke",
+						"WyvernBlue1",
+						"WyvernBlue0",
+						"Creature Light Smoke",
+						"Dino Light Blue",
+						"Dino Darker Grey",
+						"NearBlack",
+						"Creature Midnight",
+						"Dino Light Purple",
+						"Dino Dark Purple",
+						"WyvernPurple0",
+						"DragonGreen3",
+						"DragonBase0",
+						"DarkWolfFur",
+						"BigFoot0"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": true,
+                "violent": false,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 1500,
+                "affinityIncreasePL": 75,
+                "foodConsumptionBase": 0.001929,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": true,
+            "displayedStats": 919
+        },
+		{
+            "name": "Elephant",
+            "blueprintPath": "/Game/Atlas/Creatures/Elephant/Elephant_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 260, 0.15, 0.108, 0.5, 0 ],
+                [ 330, 0.1, 0.1, 0, 0 ],
+                [ 550, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 5000, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 2000, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"colors": [
+				{
+					"name": "Main Body",
+					"colors": [
+						"BigFoot0",
+						"NearBlack",
+						"Dino Medium Brown",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"DarkWolfFur",
+						"Light Grey",
+						"Dino Dark Brown",
+						"Dino Light Brown",
+						"BigFoot4",
+						"BigFoot5"
+					]
+				},
+				null,
+				null,
+				{
+					"name": "Tusks",
+					"colors": [
+						"DarkWolfFur",
+						"WolfFur",
+						"Light Brown",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"BigFoot4"
+					]
+				},
+				{
+					"name": "Body Pattern",
+					"colors": [
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"DarkWolfFur",
+						"Dino Dark Orange",
+						"BigFoot0",
+						"DragonBase0",
+						"Creature Light Smoke",
+						"Creature Dark Smoke",
+						"WyvernPurple0",
+						"Dino Light Yellow",
+						"Dino Light Red"
+					]
+				},
+				{
+					"name": "Fleshy Skin",
+					"colors": [
+						"Dino Medium Brown",
+						"Dino Light Brown",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"NearBlack",
+						"NearWhite",
+						"Dino Light Orange",
+						"Dino Light Blue",
+						"DragonBase0",
+						"Dino Dark Red"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": false,
+                "violent": true,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 2500,
+                "affinityIncreasePL": 93.75,
+                "foodConsumptionBase": 0.004823,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Giraffe",
+            "blueprintPath": "/Game/Atlas/Creatures/Giraffe/Giraffe_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 230, 0.15, 0.108, 0.5, 0 ],
+                [ 440, 0.1, 0.1, 0, 0 ],
+                [ 475, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 3000, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 1540, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"colors": [
+				{
+					"name": "Fur Secondary",
+					"colors": [
+						"Dino Medium Brown",
+						"Dino Light Brown",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"Light Grey",
+						"Dino Albino",
+						"NearBlack",
+						"NearWhite",
+						"Dino Light Orange",
+						"Dino Light Blue"
+					]
+				},
+				{
+					"name": "Stripes",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange"
+					]
+				},
+				null,
+				null,
+				{
+					"name": "Fur Primary",
+					"colors": [
+						"Dino Dark Orange",
+						"BigFoot0",
+						"Dark Grey",
+						"DarkWolfFur",
+						"Dino Medium Brown",
+						"DragonBase1",
+						"DragonBase0",
+						"NearWhite",
+						"NearBlack",
+						"BigFoot5",
+						"Dino Dark Blue",
+						"DragonFire",
+						"Dino Medium Blue"
+					]
+				},
+				{
+					"name": "Horn Tips",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Dark Yellow",
+						"DragonGreen3",
+						"Dino Dark Brown",
+						"Dino Medium Brown",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"WyvernBlue1",
+						"NearBlack",
+						"Creature Midnight"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": false,
+                "violent": true,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 1750,
+                "affinityIncreasePL": 65,
+                "foodConsumptionBase": 0.002894,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Horse",
+            "blueprintPath": "/Game/Atlas/Creatures/Horse/Horse_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 180, 0.15, 0.108, 0.5, 0 ],
+                [ 580, 0.1, 0.1, 0, 0 ],
+                [ 420, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 1500, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 750, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"colors": [
+				{
+					"name": "Body Main",
+					"colors": [
+						"Light Brown",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"DarkWolfFur",
+						"NearBlack",
+						"DragonBase0",
+						"NearWhite"
+					]
+				},
+				null,
+				null,
+				null,
+				{
+					"name": "Stripes",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearWhite"
+					]
+				},
+				{
+					"name": "Underbelly and Highlights",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearWhite"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": true,
+                "violent": false,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 1200,
+                "affinityIncreasePL": 60,
+                "foodConsumptionBase": 0.001929,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Lion",
+            "blueprintPath": "/Game/Atlas/Creatures/Lion/Lion_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 130, 0.15, 0.108, 0.5, 0 ],
+                [ 240, 0.1, 0.1, 0, 0 ],
+                [ 500, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 1200, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 220, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"colors": [
+				{
+					"name": "Main Body",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"NearBlack",
+						"Creature Ochre"
+					]
+				},
+				null,
+				null,
+				null,
+				{
+					"name": "Belly",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"BigFoot0",
+						"DarkWolfFur",
+						"BigFoot4"
+					]
+				},
+				{
+					"name": "Back",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"NearBlack",
+						"Creature Ochre"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": false,
+                "violent": true,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 3000,
+                "affinityIncreasePL": 150,
+                "foodConsumptionBase": 0.001389,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Monkey",
+            "blueprintPath": "/Game/Atlas/Creatures/Monkey/Monkey_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 39, 0.15, 0.108, 0.5, 0 ],
+                [ 100, 0.1, 0.1, 0, 0 ],
+                [ 60, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 600, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 40, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"colors": [
+				{
+					"name": "Shoulders and Legs",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange"
+					]
+				},
+				null,
+				{
+					"name": "Skin",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Medium Brown",
+						"BigFoot0",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"Creature Pink",
+						"Dino Darker Grey"
+					]
+				},
+				null,
+				{
+					"name": "Stripes",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack"
+					]
+				},
+				{
+					"name": "Main Body",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": true,
+                "violent": false,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 550,
+                "affinityIncreasePL": 27.5,
+                "foodConsumptionBase": 0.001157,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Olfend",
+            "blueprintPath": "/Game/Atlas/Creatures/Olfend/Olfend_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 160, 0.15, 0.108, 0.5, 0 ],
+                [ 380, 0.1, 0.1, 0, 0 ],
+                [ 475, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 1500, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 400, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"colors": [
+				{
+					"name": "Main",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack"
+					]
+				},
+				null,
+				{
+					"name": "Horns Main",
+					"colors": [
+						"Dino Medium Brown",
+						"Dino Light Brown",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"Light Grey",
+						"Dino Albino",
+						"NearBlack",
+						"NearWhite",
+						"Dino Light Orange",
+						"Dino Light Blue",
+						"Dino Dark Brown",
+						"Dark Grey"
+					]
+				},
+				{
+					"name": "Spots",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange"
+					]
+				},
+				{
+					"name": "Horn Tips",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Medium Brown",
+						"BigFoot0",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"Creature Pink",
+						"Dino Darker Grey"
+					]
+				},
+				{
+					"name": "Back",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack"
+					]
+				}
+			],
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 175438.596,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+            "taming": {
+                "nonViolent": true,
+                "violent": false,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 1700,
+                "affinityIncreasePL": 85,
+                "foodConsumptionBase": 0.001736,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Ostrich",
+            "blueprintPath": "/Game/Atlas/Creatures/Ostrich/Ostrich_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 85, 0.15, 0.108, 0.5, 0 ],
+                [ 300, 0.1, 0.1, 0, 0 ],
+                [ 420, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 1000, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 430, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 172800,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Main",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange"
+					]
+				},
+				{
+					"name": "Neck",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange"
+					]
+				},
+				{
+					"name": "Back Stripe",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange",
+						"DragonGreen3",
+						"WyvernBlue1",
+						"WyvernPurple0"
+					]
+				},
+				null,
+				{
+					"name": "Neck Stripe",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange",
+						"DragonGreen3",
+						"DragonBase0",
+						"WyvernPurple0"
+					]
+				},
+				{
+					"name": "Back",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange",
+						"DragonGreen3"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": false,
+                "violent": true,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 1650,
+                "affinityIncreasePL": 50,
+                "foodConsumptionBase": 0.001286,
+                "foodConsumptionMult": 1
+            },
+			"boneDamageAdjusters": {
+				"c_head": 2,
+				"c_jaw": 2
+			},
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Parrot",
+            "blueprintPath": "/Game/Atlas/Creatures/Parrot/Parrot_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 32, 0.15, 0.108, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 100, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 900, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 15, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 86400,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Main",
+					"colors": [
+						"Light Green",
+						"Light Orange",
+						"Light Yellow",
+						"Light Red",
+						"Dino Dark Orange",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Dark Blue",
+						"Dino Darker Grey",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonFire",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"Dino Medium Blue",
+						"Dino Deep Blue",
+						"NearWhite",
+						"NearBlack",
+						"Creature Dark Smoke",
+						"Creature Orange",
+						"Creature Midnight",
+						"Creature Pink"
+					]
+				},
+				{
+					"name": "Flight Feathers",
+					"colors": [
+						"Light Green",
+						"Light Orange",
+						"Light Yellow",
+						"Light Red",
+						"Dino Dark Orange",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Dark Blue",
+						"Dino Darker Grey",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonFire",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"Dino Medium Blue",
+						"Dino Deep Blue",
+						"NearWhite",
+						"NearBlack",
+						"Creature Dark Smoke",
+						"Creature Orange",
+						"Creature Midnight",
+						"Creature Pink"
+					]
+				},
+				null,
+				null,
+				{
+					"name": "Wing Stripe",
+					"colors": [
+						"Light Green",
+						"Light Orange",
+						"Light Yellow",
+						"Light Red",
+						"Dino Dark Orange",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Dark Blue",
+						"Dino Darker Grey",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonFire",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"Dino Medium Blue",
+						"Dino Deep Blue",
+						"NearWhite",
+						"NearBlack",
+						"Creature Dark Smoke",
+						"Creature Orange",
+						"Creature Midnight",
+						"Creature Pink"
+					]
+				},
+				{
+					"name": "Throat",
+					"colors": [
+						"Light Green",
+						"Light Orange",
+						"Light Yellow",
+						"Light Red",
+						"Dino Dark Orange",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Dark Blue",
+						"Dino Darker Grey",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonFire",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"Dino Medium Blue",
+						"Dino Deep Blue",
+						"NearWhite",
+						"NearBlack",
+						"Creature Dark Smoke",
+						"Creature Orange",
+						"Creature Midnight",
+						"Creature Pink"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": false,
+                "violent": true,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 500,
+                "affinityIncreasePL": 25,
+                "foodConsumptionBase": 0.001488,
+                "foodConsumptionMult": 1
+            },
+			"boneDamageAdjusters": {
+				"c_head": 3
+			},
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Penguin",
+            "blueprintPath": "/Game/Atlas/Creatures/Penguin/Penguin_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 46, 0.15, 0.108, 0.5, 0 ],
+                [ 100, 0.1, 0.1, 0, 0 ],
+                [ 300, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 900, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 32, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 86400,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Main",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"WyvernPurple1",
+						"Creature Light Smoke"
+					]
+				},
+				{
+					"name": "Eye Ring",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"DragonBase1",
+						"DragonFire",
+						"Dino Dark Blue",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Creature Pink",
+						"Creature Light Smoke",
+						"Creature Orange"
+					]
+				},
+				{
+					"name": "Eyebrow Feathers",
+					"colors": [
+						"WyvernPurple1",
+						"DragonBase1",
+						"Dino Light Purple",
+						"Dino Light Orange",
+						"Creature Pink",
+						"Creature Ochre",
+						"Creature Light Smoke",
+						"Creature Orange"
+					]
+				},
+				null,
+				{
+					"name": "Belly",
+					"colors": [
+						"Dino Light Brown",
+						"Light Grey",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Creature Light Smoke",
+						"Creature Pink"
+					]
+				},
+				{
+					"name": "Back Stripe",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"WyvernBlue1",
+						"WyvernPurple0",
+						"DragonGreen3"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": true,
+                "violent": false,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 1150,
+                "affinityIncreasePL": 57.50,
+                "foodConsumptionBase": 0.001488,
+                "foodConsumptionMult": 1
+            },
+			"boneDamageAdjusters": {
+				"c_neck4": 3,
+				"c_head": 3
+			},
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Pig",
+            "blueprintPath": "/Game/Atlas/Creatures/Pig/Pig_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 88, 0.15, 0.108, 0.5, 0 ],
+                [ 300, 0.1, 0.1, 0, 0 ],
+                [ 240, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 3000, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 190, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 115200,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Skin Base",
+					"colors": [
+						"Dino Medium Brown",
+						"BigFoot0",
+						"BigFoot5",
+						"Creature Pink"
+					]
+				},
+				{
+					"name": "Back Fur",
+					"colors": [
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"Dark WolfFur",
+						"NearBlack",
+						"WolfFur",
+						"NearWhite"
+					]
+				},
+				{
+					"name": "Tusks",
+					"colors": [
+						"DarkWolfFur",
+						"WolfFur",
+						"Dino Medium Brown",
+						"Dino Light Brown"
+					]
+				},
+				null,
+				{
+					"name": "Fur",
+					"colors": [
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearWhite",
+						"NearBlack",
+						"Dino Light Brown"
+					]
+				},
+				{
+					"name": "Skin Lighter Tones",
+					"colors": [
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Dino Medium Brown",
+						"Creature Ochre",
+						"Creature Pink",
+						"Dino Light Red"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": true,
+                "violent": false,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 1450,
+                "affinityIncreasePL": 36.25,
+                "foodConsumptionBase": 0.004340,
+                "foodConsumptionMult": 1
+            },
+			"boneDamageAdjusters": {
+				"c_jaw": 3,
+				"c_head": 3
+			},
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Rabbit",
+            "blueprintPath": "/Game/Atlas/Creatures/Rabbit/Rabbit_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 30, 0.15, 0.108, 0.5, 0 ],
+                [ 120, 0.1, 0.1, 0, 0 ],
+                [ 125, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 600, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 10, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 28800,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Body",
+					"colors": [
+						"Dino Medium Brown",
+						"Light Grey",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearWhite",
+						"Dino Darker Grey",
+						"White"
+					]
+				},
+				null,
+				null,
+				null,
+				{
+					"name": "Ears",
+					"colors": [
+						"Dino Light Red",
+						"Dino Light Orange",
+						"BigFoot5",
+						"White"
+					]
+				},
+				{
+					"name": "Fur Stripes",
+					"colors": [
+						"Dino Albino",
+						"Dino Medium Brown",
+						"Dino Light Brown",
+						"White"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": true,
+                "violent": false,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 475,
+                "affinityIncreasePL": 23.75,
+                "foodConsumptionBase": 0.001157,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Razortooth",
+            "blueprintPath": "/Game/Atlas/Creatures/Razortooth/Razortooth_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 214, 0.15, 0.108, 0.5, 0 ],
+                [ 120, 0.1, 0.1, 0, 0 ],
+                [ 1550, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 2750, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 210, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 259200,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Scales",
+					"colors": [
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"Dino Medium Green",
+						"Dino Medium Brown",
+						"Dino Light Brown",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"Light Grey",
+						"Dino Albino",
+						"NearBlack",
+						"Dino Light Yellow",
+						"Dino Light Orange",
+						"Dino Light Blue",
+						"Creature Pink",
+						"Creature Light Smoke"
+					]
+				},
+				{
+					"name": "Belly Accent",
+					"colors": [
+						"Dino Dark Orange",
+						"BigFoot0",
+						"Dark Grey",
+						"DarkWolfFur",
+						"Dino Medium Brown",
+						"DragonBase1",
+						"DragonBase0",
+						"NearWhite",
+						"NearBlack",
+						"BigFoot5"
+					]
+				},
+				{
+					"name": "Big Feather Tips",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"DragonBase1",
+						"DragonFire",
+						"DragonGreen1",
+						"Dino Medium Green",
+						"Dino Dark Blue",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0"
+					]
+				},
+				{
+					"name": "Arm Feathers",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"DragonBase1",
+						"DragonFire",
+						"DragonGreen1",
+						"Dino Medium Green",
+						"Dino Dark Blue",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0"
+					]
+				},
+				{
+					"name": "Light Belly",
+					"colors": [
+						"Dino Medium Brown",
+						"Dino Light Brown",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"Light Grey",
+						"Dino Albino",
+						"NearBlack",
+						"NearWhite",
+						"Dino Light Orange",
+						"Dino Light Blue"
+					]
+				},
+				{
+					"name": "Scales Accent",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Dark Yellow",
+						"DragonGreen3",
+						"Dino Dark Brown",
+						"Creature Midnight",
+						"Black",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"WyvernBlue1",
+						"NearBlack",
+						"Creature Midnight"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": false,
+                "violent": true,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 5200,
+                "affinityIncreasePL": 250,
+                "foodConsumptionBase": 0.002273,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Rhino",
+            "blueprintPath": "/Game/Atlas/Creatures/Rhino/WildRhino_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 270, 0.15, 0.108, 0.5, 0 ],
+                [ 190, 0.1, 0.1, 0, 0 ],
+                [ 600, 0.06, 0, 0.5, 0 ],
+                [ 100, 0.1, 0.1, 0, 0 ],
+                [ 3000, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 1200, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 230400,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Body",
+					"colors": [
+						"Dino Dark Orange",
+						"BigFoot0",
+						"Dark Grey",
+						"DarkWolfFur",
+						"Dino Medium Brown",
+						"DragonBase1",
+						"DragonBase0",
+						"NearWhite",
+						"NearBlack",
+						"BigFoot5",
+						"Light Brown",
+						"Light Grey",
+						"Brown",
+						"Dino Medium Brown"
+					]
+				},
+				{
+					"name": "Scale Hilights",
+					"colors": [
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"Dino Medium Green",
+						"Dino Medium Brown",
+						"Dino Light Brown",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"Light Grey",
+						"Dino Albino",
+						"NearBlack",
+						"Dino Light Yellow",
+						"Dino Light Orange",
+						"Dino Light Blue",
+						"Creature Pink",
+						"Creature Light Smoke"
+					]
+				},
+				{
+					"name": "Horns",
+					"colors": [
+						"Dino Medium Brown",
+						"Dino Light Brown",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"Light Grey",
+						"Dino Albino",
+						"Dino Dark Blue",
+						"NearBlack",
+						"NearWhite",
+						"Dino Light Orange",
+						"Dino Light Blue"
+					]
+				},
+				null,
+				{
+					"name": "Scales",
+					"colors": [
+						"Dino Medium Brown",
+						"Dino Light Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange"
+					]
+				},
+				{
+					"name": "Red Rock",
+					"colors": [
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"NearBlack",
+						"DarkWolfFur",
+						"Dino Dark Orange",
+						"BigFoot0",
+						"DragonBase0"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": false,
+                "violent": true,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 1900,
+                "affinityIncreasePL": 47.5,
+                "foodConsumptionBase": 0.002894,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Seagull",
+            "blueprintPath": "/Game/Atlas/Creatures/Seagull/Seagull_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 34, 0.15, 0.108, 0.5, 0 ],
+                [ 100, 0.1, 0.1, 0, 0 ],
+                [ 100, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 900, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 15, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 86400,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Main Body",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"White"
+					]
+				},
+				null,
+				null,
+				null,
+				{
+					"name": "Wings",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange"
+					]
+				},
+				{
+					"name": "Head Cap",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": false,
+                "violent": true,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 1575,
+                "affinityIncreasePL": 78.75,
+                "foodConsumptionBase": 0.001488,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Seahorse",
+            "blueprintPath": "/Game/Atlas/Creatures/Seahorse/Seahorse_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 200, 0.15, 0.108, 0.5, 0 ],
+                [ 680, 0.1, 0.1, 0, 0 ],
+                [ 500, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 1750, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 900, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 14400.195,
+				"incubationTime": 0,
+				"maturationTime": 151199.693,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Main Body",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"White"
+					]
+				},
+				null,
+				null,
+				null,
+				{
+					"name": "Wings",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange"
+					]
+				},
+				{
+					"name": "Head Cap",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": false,
+                "violent": true,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 2000,
+                "affinityIncreasePL": 75,
+                "foodConsumptionBase": 0.001929,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": true,
+            "displayedStats": 919
+        },
+		{
+            "name": "Sheep",
+            "blueprintPath": "/Game/Atlas/Creatures/Sheep/Sheep_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 82, 0.15, 0.108, 0.5, 0 ],
+                [ 160, 0.1, 0.1, 0, 0 ],
+                [ 85, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 1200, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 90, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 14400.195,
+				"incubationTime": 0,
+				"maturationTime": 151199.693,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Main Body",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"White",
+						"NearBlack"
+					]
+				},
+				null,
+				{
+					"name": "Horns",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"White",
+						"NearBlack"
+					]
+				},
+				null,
+				{
+					"name": "Belly",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"White",
+						"NearBlack"
+					]
+				},
+				{
+					"name": "Back",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"White",
+						"NearBlack"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": true,
+                "violent": false,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 750,
+                "affinityIncreasePL": 37.5,
+                "foodConsumptionBase": 0.001736,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Shieldhorn",
+            "blueprintPath": "/Game/Atlas/Creatures/Shieldhorn/Shieldhorn_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 270, 0.15, 0.108, 0.5, 0 ],
+                [ 170, 0.1, 0.1, 0, 0 ],
+                [ 250, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 3000, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 390, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 14400.195,
+				"incubationTime": 0,
+				"maturationTime": 151199.693,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Scales",
+					"colors": [
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"Dino Medium Green",
+						"Dino Medium Brown",
+						"Dino Light Brown",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"Light Grey",
+						"Dino Albino",
+						"NearBlack",
+						"Dino Light Yellow",
+						"Dino Light Orange",
+						"Dino Light Blue",
+						"Creature Pink",
+						"Creature Light Smoke"
+					]
+				},
+				{
+					"name": "Belly Accent",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"Light Grey",
+						"Dino Albino",
+						"NearBlack",
+						"NearWhite",
+						"Dino Light Orange",
+						"Dino Light Blue"
+					]
+				},
+				{
+					"name": "Feathers",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"DragonBase1",
+						"DragonFire",
+						"DragonGreen1",
+						"Dino Medium Green",
+						"Dino Dark Blue",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0"
+					]
+				},
+				{
+					"name": "Feathers",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"DragonBase1",
+						"DragonFire",
+						"DragonGreen1",
+						"Dino Medium Green",
+						"Dino Dark Blue",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0"
+					]
+				},
+				{
+					"name": "Back",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"White",
+						"NearBlack"
+					]
+				},
+				{
+					"name": "Belly",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"Dino Albino",
+						"NearBlack"
+					]
+				},
+				{
+					"name": "Scales Detail",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Dark Yellow",
+						"DragonGreen3",
+						"Dino Dark Brown",
+						"Dino Medium Brown",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"WyvernBlue1",
+						"NearBlack",
+						"Creature Midnight"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": true,
+                "violent": false,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 3750,
+                "affinityIncreasePL": 140,
+                "foodConsumptionBase": 0.002480,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Spider",
+            "blueprintPath": "/Game/Atlas/Creatures/Spider/Spider_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 150, 0.15, 0.108, 0.5, 0 ],
+                [ 250, 0.1, 0.1, 0, 0 ],
+                [ 160, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 1000, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 300, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 201600,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Stripes",
+					"colors": [
+						"Light Green",
+						"Light Orange",
+						"Light Yellow",
+						"Light Red",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Darker Grey",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonFire",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"Dino Medium Blue",
+						"NearWhite",
+						"NearBlack",
+						"Creature Dark Smoke",
+						"Creature Orange",
+						"Creature Midnight",
+						"Creature Pink"
+					]
+				},
+				{
+					"name": "Legs",
+					"colors": [
+						"Light Green",
+						"Light Orange",
+						"Light Yellow",
+						"Light Red",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Darker Grey",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonFire",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"Dino Medium Blue",
+						"NearWhite",
+						"NearBlack",
+						"Creature Dark Smoke",
+						"Creature Orange",
+						"Creature Midnight",
+						"Creature Pink"
+					]
+				},
+				{
+					"name": "Spikes",
+					"colors": [
+						"Light Green",
+						"Light Orange",
+						"Light Yellow",
+						"Light Red",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Darker Grey",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonFire",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"Dino Medium Blue",
+						"NearWhite",
+						"NearBlack",
+						"Creature Dark Smoke",
+						"Creature Orange",
+						"Creature Midnight",
+						"Creature Pink"
+					]
+				},
+				null,
+				{
+					"name": "Leg Tips",
+					"colors": [
+						"Light Green",
+						"Light Orange",
+						"Light Yellow",
+						"Light Red",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Darker Grey",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonFire",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"Dino Medium Blue",
+						"NearWhite",
+						"NearBlack",
+						"Creature Dark Smoke",
+						"Creature Orange",
+						"Creature Midnight",
+						"Creature Pink"
+					]
+				},
+				{
+					"name": "Main Body",
+					"colors": [
+						"Light Green",
+						"Light Orange",
+						"Light Yellow",
+						"Light Red",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Darker Grey",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonFire",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"Dino Medium Blue",
+						"NearWhite",
+						"NearBlack",
+						"Creature Dark Smoke",
+						"Creature Orange",
+						"Creature Midnight",
+						"Creature Pink"
+					]
+				}
+				
+			],
+            "taming": {
+                "nonViolent": false,
+                "violent": true,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 4000,
+                "affinityIncreasePL": 120,
+                "foodConsumptionBase": 0.001736,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Tiger",
+            "blueprintPath": "/Game/Atlas/Creatures/Tiger/Tiger_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 160, 0.15, 0.108, 0.5, 0 ],
+                [ 160, 0.1, 0.1, 0, 0 ],
+                [ 500, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 1300, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 240, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 201600,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Base Fur",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange"
+					]
+				},
+				null,
+				null,
+				null,
+				{
+					"name": "Light Fur",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange"
+					]
+				},
+				{
+					"name": "Stripes",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": false,
+                "violent": true,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 3250,
+                "affinityIncreasePL": 162.5,
+                "foodConsumptionBase": 0.001505,
+                "foodConsumptionMult": 1
+            },
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Tortuga",
+            "blueprintPath": "/Game/Atlas/Creatures/CarrierTurtle/CarrierTurtle_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 500, 0.15, 0.108, 0.5, 0 ],
+                [ 200, 0.1, 0.1, 0, 0 ],
+                [ 275, 0.06, 0, 0.5, 0 ],
+                [ 600, 0.1, 0.1, 0, 0 ],
+                [ 3500, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 2250, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 201600,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Shell Main",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Dark Yellow",
+						"DragonGreen3",
+						"Dino Dark Brown",
+						"Dino Medium Brown",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"WyvernBlue1",
+						"NearBlack",
+						"Creature Midnight",
+						"DragonFire",
+						"Dino Medium Blue",
+						"Creature Orange"
+					]
+				},
+				null,
+				{
+					"name": "Leg Scales",
+					"colors": [
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"NearBlack",
+						"DarkWolfFur",
+						"Dino Dark Orange",
+						"BigFoot0",
+						"DragonBase0",
+						"Dark Grey",
+						"DragonBase1",
+						"DragonBase0",
+						"BigFoot5",
+						"Creature Orange"
+					]
+				},
+				{
+					"name": "Emissive",
+					"colors": [
+						"Dino Medium Blue",
+						"Dino Deep Blue",
+						"WyvernPurple1",
+						"DragonFire",
+						"DragonBase1",
+						"Dino Light Purple",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Light Green",
+						"Creature Light Smoke",
+						"Creature Ochre",
+						"Creature Orange",
+						"Creature Pink",
+						"Green",
+						"Red"
+					]
+				},
+				{
+					"name": "Soft Belly",
+					"colors": [
+						"Light Brown",
+						"Light Orange",
+						"Light Yellow",
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Brown",
+						"BigFoot4",
+						"WolfFur",
+						"DragonGreen1",
+						"Creature Pink",
+						"Dino Light Purple",
+						"Creature Orange"
+					]
+				},
+				{
+					"name": "Shell Main",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Brown",
+						"Light Orange",
+						"Dino Dark Yellow",
+						"Dino Medium Green",
+						"Dino Dark Blue",
+						"DragonBase0",
+						"DragonGreen2",
+						"DragonGreen3",
+						"Dino Light Brown",
+						"Dino Light Blue",
+						"Dino Light Green",
+						"Light Green"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": false,
+                "violent": true,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 6250,
+                "affinityIncreasePL": 300,
+                "foodConsumptionBase": 0.003376,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Vulture",
+            "blueprintPath": "/Game/Atlas/Creatures/Vulture/Vulture_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 46, 0.15, 0.108, 0.5, 0 ],
+                [ 100, 0.1, 0.1, 0, 0 ],
+                [ 100, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 900, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 20, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 86400,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Body",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5"
+					]
+				},
+				{
+					"name": "Comb",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"DragonBase1",
+						"DragonFire",
+						"Dino Dark Blue",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Creature Pink",
+						"Creature Orange",
+						"Creature Light Smoke",
+						"NearBlack"
+					]
+				},
+				{
+					"name": "Neck Highlights",
+					"colors": [
+						"Dino Medium Blue",
+						"Creature Orange",
+						"WyvernPurple1",
+						"DragonFire",
+						"DragonBase1",
+						"Dino Light Purple",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Light Green",
+						"Creature Light Smoke",
+						"Creature Pink"
+					]
+				},
+				{
+					"name": "Neck Main",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"DragonBase1",
+						"DragonFire",
+						"DragonGreen1",
+						"Dino Medium Green",
+						"Dino Dark Blue",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"NearBlack"
+					]
+				},
+				{
+					"name": "Wing Feathers",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack"
+					]
+				},
+				{
+					"name": "Feet and Neck",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": true,
+                "violent": false,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 1700,
+                "affinityIncreasePL": 63.75,
+                "foodConsumptionBase": 0.001488,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Wolf",
+            "blueprintPath": "/Game/Atlas/Creatures/Wolf/Wolf_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 90, 0.15, 0.108, 0.5, 0 ],
+                [ 210, 0.1, 0.1, 0, 0 ],
+                [ 450, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 1200, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 200, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 201600,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Main Body",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange"
+					]
+				},
+				{
+					"name": "Tips",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange"
+					]
+				},
+				{
+					"name": "Back Stripe",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange",
+						"Creature Ochre"
+					]
+				},
+				null,
+				{
+					"name": "Belly",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange",
+						"Creature Ochre"
+					]
+				},
+				{
+					"name": "Back",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"NearWhite",
+						"WolfFur",
+						"DarkWolfFur",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"NearBlack",
+						"Dino Dark Orange"
+					]
+				}
+				
+			],
+            "taming": {
+                "nonViolent": false,
+                "violent": true,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 2500,
+                "affinityIncreasePL": 125,
+                "foodConsumptionBase": 0.001543,
+                "foodConsumptionMult": 1
+            },
+			"boneDamageAdjusters": {
+				"c_head": 2.5,
+				"c_jaw": 2.5
+			},
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        },
+		{
+            "name": "Yeti",
+            "blueprintPath": "/Game/Atlas/Creatures/Yeti/Yeti_Character_BP",
+            "variants": ["ATLAS"],
+			"isFlyer": true,
+            "fullStatsRaw": [
+                [ 2000, 0.15, 0.108, 0.5, 0 ],
+                [ 300, 0.1, 0.1, 0, 0 ],
+                [ 1100, 0.06, 0, 0.5, 0 ],
+                [ 150, 0.1, 0.1, 0, 0 ],
+                [ 1500, 0.1, 0.1, 0, 0 ],
+                null,
+                null,
+                [ 220, 0.02, 0.04, 0, 0 ],
+                [ 1, 0.04, 0.025, 0.2, 0.25 ],
+                null,
+                null,
+                null
+            ],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
+            "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 201600,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"colors": [
+				{
+					"name": "Skin Base",
+					"colors": [
+						"Dino Albino",
+						"BigFoot4",
+						"Light Grey"
+					]
+				},
+				null,
+				null,
+				null,
+				{
+					"name": "Skin Highlights",
+					"colors": [
+						"Dino Albino",
+						"BigFoot4",
+						"Light Grey"
+					]
+				},
+				{
+					"name": "Fur",
+					"colors": [
+						"Dino Albino",
+						"BigFoot4",
+						"NearWhite",
+						"Dino Light Blue",
+						"Light Grey"
+					]
+				}
+			],
+            "taming": {
+                "nonViolent": false,
+                "violent": true,
+                "tamingIneffectiveness": 1,
+                "affinityNeeded0": 2500,
+                "affinityIncreasePL": 75,
+                "foodConsumptionBase": 0.004156,
+                "foodConsumptionMult": 1
+            },
+            "TamedBaseHealthMultiplier": 1,
+            "NoImprintingForSpeed": false,
+            "doesNotUseOxygen": false,
+            "displayedStats": 927
+        }
+	],
+	"colorDefinitions": [
+		[ "Red", [ 1, 0, 0, 0 ] ],
+		[ "Blue", [ 0, 0, 1, 0 ] ],
+		[ "Green", [ 0, 1, 0, 0 ] ],
+		[ "Yellow", [ 1, 1, 0, 0 ] ],
+		[ "Cyan", [ 0, 1, 1, 0 ] ],
+		[ "Magenta", [ 1, 0, 1, 0 ] ],
+		[ "Light Green", [ 0.5325, 1, 0.5, 0 ] ],
+		[ "Light Grey", [ 0.581026, 0.6, 0.59417, 0 ] ],
+		[ "Light Brown", [ 0.19, 0.137402, 0.0988, 0 ] ],
+		[ "Light Orange", [ 1, 0.462179, 0.15, 0 ] ],
+		[ "Light Yellow", [ 1, 0.951947, 0.26, 0 ] ],
+		[ "Light Red", [ 1, 0.180907, 0.15, 0 ] ],
+		[ "Dark Grey", [ 0.2, 0.2, 0.2, 0 ] ],
+		[ "Black", [ 0.04, 0.04, 0.04, 0 ] ],
+		[ "Brown", [ 0.1, 0.038777, 0.019477, 0 ] ],
+		[ "Dark Green", [ 0.012339, 0.065, 0, 0 ] ],
+		[ "Dark Red", [ 0.225, 0.011337, 0.005625, 0 ] ],
+		[ "White", [ 1, 1, 1, 0 ] ],
+		[ "Dino Light Red", [ 1, 0.4, 0.4, 0 ] ],
+		[ "Dino Dark Red", [ 0.1, 0.02, 0.02, 0 ] ],
+		[ "Dino Light Orange", [ 1, 0.475, 0.3, 0 ] ],
+		[ "Dino Dark Orange", [ 0.25, 0.084211, 0.025, 0 ] ],
+		[ "Dino Light Yellow", [ 0.6, 0.6, 0.36, 0 ] ],
+		[ "Dino Dark Yellow", [ 0.3, 0.3, 0.15, 0 ] ],
+		[ "Dino Light Green", [ 0.75, 1, 0.75, 0 ] ],
+		[ "Dino Medium Green", [ 0.195, 0.3, 0.195, 0 ] ],
+		[ "Dino Dark Green", [ 0.0125, 0.05, 0.0125, 0 ] ],
+		[ "Dino Light Blue", [ 0.7, 0.749999, 1, 0 ] ],
+		[ "Dino Dark Blue", [ 0.0375, 0.052084, 0.125, 0 ] ],
+		[ "Dino Light Purple", [ 0.78, 0.7, 1, 0 ] ],
+		[ "Dino Dark Purple", [ 0.048667, 0.03, 0.1, 0 ] ],
+		[ "Dino Light Brown", [ 1, 0.75, 0.5, 0 ] ],
+		[ "Dino Medium Brown", [ 0.3, 0.24, 0.18, 0 ] ],
+		[ "Dino Dark Brown", [ 0.1, 0.075, 0.05, 0 ] ],
+		[ "Dino Darker Grey", [ 0.1, 0.1, 0.1, 0 ] ],
+		[ "Dino Albino", [ 1.75, 1.75, 1.75, 0 ] ],
+		[ "BigFoot0", [ 0.48, 0.310437, 0.231047, 1 ] ],
+		[ "BigFoot4", [ 0.825, 0.70492, 0.66825, 1 ] ],
+		[ "BigFoot5", [ 0.635, 0.393327, 0.301625, 1 ] ],
+		[ "WolfFur", [ 0.555, 0.459457, 0.352425, 1 ] ],
+		[ "DarkWolfFur", [ 0.25, 0.185219, 0.13375, 1 ] ],
+		[ "DragonBase0", [ 0.36, 0.133418, 0.06749, 0 ] ],
+		[ "DragonBase1", [ 0.605, 0.193228, 0.09075, 0 ] ],
+		[ "DragonFire", [ 0.51, 0.077267, 0, 0 ] ],
+		[ "DragonGreen0", [ 0.1927, 0.235, 0.1504, 0 ] ],
+		[ "DragonGreen1", [ 0.285735, 0.34, 0.192384, 0 ] ],
+		[ "DragonGreen2", [ 0.385, 0.375473, 0.263252, 0 ] ],
+		[ "DragonGreen3", [ 0.1768, 0.296233, 0.34, 0 ] ],
+		[ "WyvernPurple0", [ 0.190928, 0.175266, 0.31, 1 ] ],
+		[ "WyvernPurple1", [ 0.441761, 0.36915, 0.535, 0 ] ],
+		[ "WyvernBlue0", [ 0.12245, 0.223903, 0.395, 0 ] ],
+		[ "WyvernBlue1", [ 0.063, 0.106552, 0.18, 0 ] ],
+		[ "Dino Medium Blue", [ 0.1155, 0.379603, 0.825, 0 ] ],
+		[ "Dino Deep Blue", [ 0.056525, 0.138854, 0.665, 0 ] ],
+		[ "NearWhite", [ 0.85, 0.85, 0.85, 0 ] ],
+		[ "NearBlack", [ 0.08, 0.08, 0.08, 0 ] ],
+		[ "DarkTurquoise", [ 0.005605, 0.056128, 0.057805, 0 ] ],
+		[ "MediumTurquoise", [ 0, 0.165132, 0.116971, 0 ] ],
+		[ "Turquoise", [ 0, 0.564712, 0.412543, 0 ] ],
+		[ "GreenSlate", [ 0.048172, 0.099899, 0.07036, 0 ] ],
+		[ "Sage", [ 0.045186, 0.076185, 0.048172, 0 ] ],
+		[ "DarkWarmGray", [ 0.040915, 0.036889, 0.035601, 0 ] ],
+		[ "MediumWarmGray", [ 0.097587, 0.088656, 0.0865, 0 ] ],
+		[ "LightWarmGray", [ 0.332452, 0.291771, 0.283149, 0 ] ],
+		[ "DarkCement", [ 0.082283, 0.104616, 0.093059, 0 ] ],
+		[ "LightCement", [ 0.258183, 0.361307, 0.309469, 0 ] ],
+		[ "LightPink", [ 0.806952, 0.439657, 1, 0 ] ],
+		[ "DeepPink", [ 1, 0.002732, 0.327778, 0 ] ],
+		[ "DarkViolet", [ 0.174647, 0, 0.059511, 0 ] ],
+		[ "DarkMagenta", [ 0.47932, 0, 0.051269, 0 ] ],
+		[ "BurntSienna", [ 0.212231, 0.029557, 0.009134, 0 ] ],
+		[ "MediumAutumn", [ 0.401978, 0.026241, 0, 0 ] ],
+		[ "Vermillion", [ 0.863157, 0.027321, 0, 0 ] ],
+		[ "Coral", [ 1, 0.097587, 0.030713, 0 ] ],
+		[ "Orange", [ 1, 0.215861, 0, 0 ] ],
+		[ "Peach", [ 1, 0.391573, 0.039546, 0 ] ],
+		[ "LightAutumn", [ 0.428691, 0.165132, 0, 0 ] ],
+		[ "Mustard", [ 0.300544, 0.300544, 0.016807, 0 ] ],
+		[ "ActualBlack", [ 0.005, 0.005, 0.005, 0 ] ],
+		[ "MidnightBlue", [ 0.006049, 0.008568, 0.033105, 0 ] ],
+		[ "DarkBlue", [ 0.004391, 0.020289, 0.038204, 0 ] ],
+		[ "BlackSands", [ 0.026241, 0.014444, 0.027321, 0 ] ],
+		[ "LemonLime", [ 0.396755, 1, 0.05448, 0 ] ],
+		[ "Mint", [ 0.035601, 0.814847, 0.238398, 0 ] ],
+		[ "Jade", [ 0, 0.250158, 0.048172, 0 ] ],
+		[ "PineGreen", [ 0.002125, 0.088656, 0.023153, 0 ] ],
+		[ "SpruceGreen", [ 0, 0.104616, 0.056128, 0 ] ],
+		[ "LeafGreen", [ 0.104616, 0.313989, 0.014444, 0 ] ],
+		[ "DarkLavender", [ 0.111932, 0.016807, 0.114435, 0 ] ],
+		[ "MediumLavender", [ 0.238398, 0.031896, 0.246201, 0 ] ],
+		[ "Lavender", [ 0.514918, 0.187821, 0.520996, 0 ] ],
+		[ "DarkTeal", [ 0.001821, 0.048172, 0.066626, 0 ] ],
+		[ "MediumTeal", [ 0.002428, 0.088656, 0.124772, 0 ] ],
+		[ "Teal", [ 0.003677, 0.234551, 0.337164, 0 ] ],
+		[ "PowderBlue", [ 0.226966, 0.391573, 1, 0 ] ],
+		[ "Glacial", [ 0.417885, 0.822786, 1, 0 ] ],
+		[ "Cammo", [ 0.078187, 0.08022, 0.005605, 0 ] ],
+		[ "DryMoss", [ 0.184475, 0.158961, 0.046665, 0 ] ],
+		[ "Custard", [ 0.533276, 0.514918, 0.111932, 0 ] ],
+		[ "Cream", [ 0.904661, 1, 0.533276, 0 ] ],
+		[ "Creature Ochre", [ 0.904661, 1, 0.533276, 0 ] ]		
+	],
+	"dyeDefinitions": [
+		[ "Black Coloring", [ 0.01, 0.01, 0.01, 0 ] ],
+		[ "Blue Coloring", [ 0, 0, 1, 0 ] ],
+		[ "Brown Coloring", [ 0.18, 0.12, 0.06, 0 ] ],
+		[ "Cyan Coloring", [ 0, 1, 1, 0 ] ],
+		[ "Forest Coloring", [ 0, 0.15, 0, 0 ] ],
+		[ "Green Coloring", [ 0, 1, 0, 0 ] ],
+		[ "Purple Coloring", [ 0.15, 0, 0.5, 0 ] ],
+		[ "Orange Coloring", [ 1, 0.25, 0, 0 ] ],
+		[ "Parchement Coloring", [ 1, 1, 0.5, 0 ] ],
+		[ "Pink Coloring", [ 1, 0.2, 0.76, 0 ] ],
+		[ "Purple Coloring", [ 0.2, 0, 0.75, 0 ] ],
+		[ "Red Coloring", [ 1, 0, 0, 0 ] ],
+		[ "Royalty Coloring", [ 0.2, 0, 0.4, 0 ] ],
+		[ "Silver Coloring", [ 0.75, 0.75, 0.75, 0 ] ],
+		[ "Sky Coloring", [ 0.5, 0.666667, 1, 0 ] ],
+		[ "Tan Coloring", [ 1, 0.844706, 0.45, 0 ] ],
+		[ "Tangerine Coloring", [ 0.425, 0.129466, 0.02125, 0 ] ],
+		[ "White Coloring", [ 0.99, 0.99, 0.99, 0 ] ],
+		[ "Yellow Coloring", [ 1, 1, 0, 0 ] ],
+		[ "Magenta Coloring", [ 0.8, 0.01, 0.7, 0 ] ],
+		[ "Brick Coloring", [ 0.3, 0.03, 0.01, 0 ] ],
+		[ "Cantaloupe Coloring", [ 1, 0.33, 0, 0 ] ],
+		[ "Mud Coloring", [ 0.06, 0.04, 0.02, 0 ] ],
+		[ "Navy Coloring", [ 0.03, 0.03, 0.15, 0 ] ],
+		[ "Olive Coloring", [ 0.5, 0.5, 0.1, 0 ] ],
+		[ "Slate Coloring", [ 0.1, 0.1, 0.1, 0 ] ]
+	]
+}
