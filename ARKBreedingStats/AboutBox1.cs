@@ -109,6 +109,7 @@ namespace ARKBreedingStats
 * Myrmecoleon (extra species images)
 * Lunat1q (improved OCR)
 * ThatGamerBlue (species dividers in virtual listview)
+* Jaymei (ATLAS species data)
 
 Translations:
 * French by Vykan and Yanuut

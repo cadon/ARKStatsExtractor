@@ -470,9 +470,9 @@ namespace ARKBreedingStats.species
             var cs = species.colors;
             for (int r = 0; r < Ark.ColorRegionCount; r++)
             {
-                if (!string.IsNullOrEmpty(cs[r]?.name))
+                if (species.EnabledColorRegions[r])
                 {
-                    creatureRegionColors.Append($"\n{cs[r].name} ({r}): {CreatureColors.CreatureColorName(colorIds[r])} ({colorIds[r]})");
+                    creatureRegionColors.Append($"\n{cs[r]?.name} ({r}): {CreatureColors.CreatureColorName(colorIds[r])} ({colorIds[r]})");
                 }
             }
             return creatureRegionColors.ToString();
