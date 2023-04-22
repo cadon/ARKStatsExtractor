@@ -96,14 +96,14 @@ namespace ARKBreedingStats.values
         /// If the mod-values will be used, setModFileName should be true.
         /// If the file cannot be found or the format is wrong, the file is ignored and no exception is thrown if throwExceptionOnFail is false.
         /// </summary>
-        protected static bool TryLoadValuesFile(string filePath, bool setModFileName, bool throwExceptionOnFail, out ValuesFile values, out string errorMessage)
+        protected static bool TryLoadValuesFile(string filePath, bool setModFileName, bool throwExceptionOnFail, out ValuesFile values, out string errorMessage, bool checkIfModPropertyIsExisting = false)
         {
             values = null;
             errorMessage = null;
             try
             {
                 values = LoadValuesFile(filePath);
-                if (string.IsNullOrEmpty(values.mod?.id))
+                if (checkIfModPropertyIsExisting && string.IsNullOrEmpty(values.mod?.id))
                 {
                     errorMessage =
                         $"The mod file\n{filePath}\ndoesn't contains an object \"mod\" or that object doesn't contain a valid entry \"id\". The mod file cannot be loaded until this information is added";

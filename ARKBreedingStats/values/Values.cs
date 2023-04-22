@@ -200,7 +200,7 @@ namespace ARKBreedingStats.values
 
                 string filename = FileService.GetJsonPath(Path.Combine(FileService.ValuesFolder, modFileToLoad));
 
-                if (TryLoadValuesFile(filename, true, false, out ValuesFile modValues, out string modFileErrorMessage))
+                if (TryLoadValuesFile(filename, true, false, out var modValues, out var modFileErrorMessage, true))
                 {
                     modifiedValues.Add(modValues);
                 }
