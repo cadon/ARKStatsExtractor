@@ -134,7 +134,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"colors": [
 				{
 					"name": "Body Main",
@@ -267,7 +267,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 12600.4095,
 				"incubationTime": 0,
@@ -426,7 +426,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 17998.5601,
@@ -596,7 +596,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 10800.0108,
 				"incubationTime": 0,
@@ -702,7 +702,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"colors": [
 				{
 					"name": "Body",
@@ -814,7 +814,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 5999.5200,
@@ -907,7 +907,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 3599.7120,
@@ -1037,7 +1037,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 16326.5306,
 				"incubationTime": 0,
@@ -1149,7 +1149,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 24299.5650,
 				"incubationTime": 0,
@@ -1257,7 +1257,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 20699.7338,
 				"incubationTime": 0,
@@ -1375,7 +1375,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 14400.1958,
 				"incubationTime": 0,
@@ -1475,7 +1475,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 17100.4480,
 				"incubationTime": 0,
@@ -1574,7 +1574,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 8099.6253,
 				"incubationTime": 0,
@@ -1691,7 +1691,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 19800.0198,
 				"incubationTime": 0,
@@ -1826,7 +1826,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 5999.5200,
@@ -1984,7 +1984,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 2999.7600,
@@ -2155,7 +2155,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 4499.6400,
@@ -2294,7 +2294,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 9900.0099,
 				"incubationTime": 0,
@@ -2398,7 +2398,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 6300.2047,
 				"incubationTime": 0,
@@ -2475,7 +2475,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 11699.5320,
@@ -2631,7 +2631,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 22499.8453,
 				"incubationTime": 0,
@@ -2772,7 +2772,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 3300.0660,
@@ -2879,7 +2879,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 14400.1958,
 				"incubationTime": 0,
@@ -2984,7 +2984,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 9000.2925,
 				"incubationTime": 0,
@@ -3110,7 +3110,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 9900.1980,
@@ -3289,7 +3289,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 5999.5200,
@@ -3472,7 +3472,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 18000.0180,
 				"incubationTime": 0,
@@ -3583,7 +3583,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 12599.6220,
@@ -3726,7 +3726,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 5100.1870,
@@ -3881,7 +3881,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 12600.4095,
 				"incubationTime": 0,
@@ -4033,7 +4033,7 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
 			"breeding": {
 				"gestationTime": 21978.0219,
 				"incubationTime": 0,
