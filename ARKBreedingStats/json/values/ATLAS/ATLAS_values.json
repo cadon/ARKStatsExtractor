@@ -27,7 +27,14 @@
                 null
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
-            "immobilizedBy": [],
+            "immobilizedBy": ["Bola"],
+			"breeding": {
+				"gestationTime": 14400.1958,
+				"incubationTime": 0,
+				"maturationTime": 151199.6939,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Main",
@@ -261,6 +268,13 @@
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
             "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 12600.4095,
+				"incubationTime": 0,
+				"maturationTime": 147599.7331,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Main",
@@ -413,6 +427,15 @@
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
             "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 7199.42405,
+				"eggTempMin": 20,
+				"eggTempMax": 28,
+				"maturationTime": 166666.667,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Middle Body",
@@ -574,6 +597,13 @@
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
             "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 10800.0108,
+				"incubationTime": 0,
+				"maturationTime": 142199.7736,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Main",
@@ -990,6 +1020,13 @@
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
             "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 16326.5306,
+				"incubationTime": 0,
+				"maturationTime": 158399.7820,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Medium Skin",
@@ -1095,6 +1132,13 @@
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
             "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 24299.5650,
+				"incubationTime": 0,
+				"maturationTime": 243000.3742,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Main Body",
@@ -1196,6 +1240,13 @@
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
             "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 20699.7338,
+				"incubationTime": 0,
+				"maturationTime": 237599.6730,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Fur Secondary",
@@ -1307,6 +1358,13 @@
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
             "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 14400.1958,
+				"incubationTime": 0,
+				"maturationTime": 158399.7820,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Body Main",
@@ -1400,6 +1458,13 @@
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
             "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 17100.4480,
+				"incubationTime": 0,
+				"maturationTime": 208799.2165,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Main Body",
@@ -1492,6 +1557,13 @@
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
             "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 8099.6253,
+				"incubationTime": 0,
+				"maturationTime": 97200.1496,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Shoulders and Legs",
@@ -1602,6 +1674,13 @@
             ],
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
             "immobilizedBy": [],
+			"breeding": {
+				"gestationTime": 19800.0198,
+				"incubationTime": 0,
+				"maturationTime": 219600.1958,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"colors": [
 				{
 					"name": "Main",
@@ -1695,13 +1774,6 @@
 					]
 				}
 			],
-			"breeding": {
-				"gestationTime": 15037.594,
-				"incubationTime": 0,
-				"maturationTime": 175438.596,
-				"matingCooldownMin": 64800,
-				"matingCooldownMax": 172800
-			},
             "taming": {
                 "nonViolent": true,
                 "violent": false,
@@ -1738,7 +1810,7 @@
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
             "immobilizedBy": [],
 			"breeding": {
-				"gestationTime": 15037.594,
+				"gestationTime": 0,
 				"incubationTime": 0,
 				"maturationTime": 172800,
 				"matingCooldownMin": 64800,
@@ -1894,7 +1966,7 @@
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
             "immobilizedBy": [],
 			"breeding": {
-				"gestationTime": 15037.594,
+				"gestationTime": 0,
 				"incubationTime": 0,
 				"maturationTime": 86400,
 				"matingCooldownMin": 64800,
@@ -2063,7 +2135,7 @@
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
             "immobilizedBy": [],
 			"breeding": {
-				"gestationTime": 15037.594,
+				"gestationTime": 0,
 				"incubationTime": 0,
 				"maturationTime": 86400,
 				"matingCooldownMin": 64800,
@@ -2200,9 +2272,9 @@
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
             "immobilizedBy": [],
 			"breeding": {
-				"gestationTime": 15037.594,
+				"gestationTime": 9900.0099,
 				"incubationTime": 0,
-				"maturationTime": 115200,
+				"maturationTime": 136799.8413,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -2304,9 +2376,9 @@
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
             "immobilizedBy": [],
 			"breeding": {
-				"gestationTime": 15037.594,
+				"gestationTime": 6300.2047,
 				"incubationTime": 0,
-				"maturationTime": 28800,
+				"maturationTime": 29699.5886,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -2381,7 +2453,7 @@
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
             "immobilizedBy": [],
 			"breeding": {
-				"gestationTime": 15037.594,
+				"gestationTime": 0,
 				"incubationTime": 0,
 				"maturationTime": 259200,
 				"matingCooldownMin": 64800,
@@ -2535,9 +2607,9 @@
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
             "immobilizedBy": [],
 			"breeding": {
-				"gestationTime": 15037.594,
+				"gestationTime": 22499.8453,
 				"incubationTime": 0,
-				"maturationTime": 230400,
+				"maturationTime": 248400.3020,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -2781,9 +2853,9 @@
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
             "immobilizedBy": [],
 			"breeding": {
-				"gestationTime": 14400.195,
+				"gestationTime": 14400.1958,
 				"incubationTime": 0,
-				"maturationTime": 151199.693,
+				"maturationTime": 151199.6939,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -2886,9 +2958,9 @@
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
             "immobilizedBy": [],
 			"breeding": {
-				"gestationTime": 14400.195,
+				"gestationTime": 9000.2925,
 				"incubationTime": 0,
-				"maturationTime": 151199.693,
+				"maturationTime": 133200.1332,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -3189,9 +3261,9 @@
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
             "immobilizedBy": [],
 			"breeding": {
-				"gestationTime": 15037.594,
+				"gestationTime": 18000.0180,
 				"incubationTime": 0,
-				"maturationTime": 201600,
+				"maturationTime": 214199.7283,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -3370,9 +3442,9 @@
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
             "immobilizedBy": [],
 			"breeding": {
-				"gestationTime": 15037.594,
+				"gestationTime": 18000.0180,
 				"incubationTime": 0,
-				"maturationTime": 201600,
+				"maturationTime": 214199.7283,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -3775,9 +3847,9 @@
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
             "immobilizedBy": [],
 			"breeding": {
-				"gestationTime": 15037.594,
+				"gestationTime": 12600.4095,
 				"incubationTime": 0,
-				"maturationTime": 201600,
+				"maturationTime": 188999.8317,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
@@ -3927,9 +3999,9 @@
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 ],
             "immobilizedBy": [],
 			"breeding": {
-				"gestationTime": 15037.594,
+				"gestationTime": 21978.0219,
 				"incubationTime": 0,
-				"maturationTime": 201600,
+				"maturationTime": 237599.6730,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
