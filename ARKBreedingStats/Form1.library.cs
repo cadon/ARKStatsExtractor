@@ -354,6 +354,7 @@ namespace ARKBreedingStats
                 List<int> usedAndConsideredStatIndices = new List<int>(Stats.StatsCount);
                 int[] bestStat = new int[Stats.StatsCount];
                 int[] lowestStat = new int[Stats.StatsCount];
+                var statWeights = breedingPlan1.StatWeighting.GetWeightingByPresetName(species.name);
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     bestStat[s] = -1;
@@ -407,29 +408,21 @@ namespace ARKBreedingStats
                         }
                         else if (c.levelsWild[si] > bestStat[si])
                         {
-                            bestCreatures[si] = new List<Creature> { c };
-                            bestStat[si] = c.levelsWild[si];
+                            // check if highest stats are only counted if odd or even
+                            if ((statWeights.Item2?[s] ?? 0) == 0 // even/odd doesn't matter
+                                || (statWeights.Item2[s] == 1 && c.levelsWild[si] % 2 == 1)
+                                || (statWeights.Item2[s] == 2 && c.levelsWild[si] % 2 == 0)
+                               )
+                            {
+                                bestCreatures[si] = new List<Creature> { c };
+                                bestStat[si] = c.levelsWild[si];
+                            }
                         }
                     }
                 }
 
-                if (!_topLevels.ContainsKey(species))
-                {
-                    _topLevels.Add(species, bestStat);
-                }
-                else
-                {
-                    _topLevels[species] = bestStat;
-                }
-
-                if (!_lowestLevels.ContainsKey(species))
-                {
-                    _lowestLevels.Add(species, lowestStat);
-                }
-                else
-                {
-                    _lowestLevels[species] = lowestStat;
-                }
+                _topLevels[species] = bestStat;
+                _lowestLevels[species] = lowestStat;
 
                 // bestStat and bestCreatures now contain the best stats and creatures for each stat.
 

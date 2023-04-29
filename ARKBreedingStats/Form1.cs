@@ -229,13 +229,14 @@ namespace ARKBreedingStats
 
             // load stat weights
             double[][] custWd = Properties.Settings.Default.customStatWeights;
+            var customStatWeightOddEven = Properties.Settings.Default.CustomStatWeightOddEven;
             string[] custWs = Properties.Settings.Default.customStatWeightNames;
-            Dictionary<string, double[]> custW = new Dictionary<string, double[]>();
+            var custW = new Dictionary<string, (double[], byte[])>();
             if (custWs != null && custWd != null)
             {
-                for (int i = 0; i < custWs.Length && i < custWd.Length; i++)
+                for (int i = 0; i < custWs.Length && i < custWd.Length && i < customStatWeightOddEven.Length; i++)
                 {
-                    custW.Add(custWs[i], custWd[i]);
+                    custW.Add(custWs[i], (custWd[i], customStatWeightOddEven[i]));
                 }
             }
 
@@ -243,6 +244,8 @@ namespace ARKBreedingStats
             // last set values are saved at the end of the custom weightings
             if (custWs != null && custWd != null && custWd.Length > custWs.Length)
                 breedingPlan1.StatWeighting.WeightValues = custWd[custWs.Length];
+            if (custWs != null && customStatWeightOddEven != null && customStatWeightOddEven.Length > custWs.Length)
+                breedingPlan1.StatWeighting.AnyOddEven = customStatWeightOddEven[custWs.Length];
 
             // load weapon damages
             tamingControl1.WeaponDamages = Properties.Settings.Default.weaponDamages;
@@ -1272,17 +1275,23 @@ namespace ARKBreedingStats
             Properties.Settings.Default.TimerPresets = timerList1.GetTimerPresets();
 
             // save custom statWeights
-            List<string> custWs = new List<string>();
-            List<double[]> custWd = new List<double[]>();
-            foreach (KeyValuePair<string, double[]> w in breedingPlan1.StatWeighting.CustomWeightings)
+            var custWs = new List<string>();
+            var custWd = new List<double[]>();
+            var custOddEven = new List<byte[]>();
+            foreach (KeyValuePair<string, (double[], byte[])> w in breedingPlan1.StatWeighting.CustomWeightings)
             {
                 custWs.Add(w.Key);
-                custWd.Add(w.Value);
+                custWd.Add(w.Value.Item1);
+                custOddEven.Add(w.Value.Item2);
             }
 
-            custWd.Add(breedingPlan1.StatWeighting.WeightValues); // add current values
-            Properties.Settings.Default.customStatWeights = custWd.ToArray();
+            // add current values without name
+            custWd.Add(breedingPlan1.StatWeighting.WeightValues);
+            custOddEven.Add(breedingPlan1.StatWeighting.AnyOddEven);
+
             Properties.Settings.Default.customStatWeightNames = custWs.ToArray();
+            Properties.Settings.Default.customStatWeights = custWd.ToArray();
+            Properties.Settings.Default.CustomStatWeightOddEven = custOddEven.ToArray();
 
             // save weaponDamages for KO calculation
             Properties.Settings.Default.weaponDamages = tamingControl1.WeaponDamages;
