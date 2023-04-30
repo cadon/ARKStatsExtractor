@@ -941,8 +941,7 @@ namespace ARKBreedingStats.BreedingPlanning
 
             // automatically set preset if preset with the species name exists
             _updateBreedingPlanAllowed = false;
-            if (!StatWeighting.TrySetPresetByName(species.name))
-                StatWeighting.TrySetPresetByName("Default");
+            StatWeighting.TrySetPresetBySpecies(species);
             _updateBreedingPlanAllowed = true;
 
             DetermineBestBreeding(setSpecies: species);

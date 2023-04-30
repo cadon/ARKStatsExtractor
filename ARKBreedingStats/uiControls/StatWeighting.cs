@@ -158,29 +158,40 @@ namespace ARKBreedingStats.uiControls
         private void btAllToOne_Click(object sender, EventArgs e)
         {
             cbbPresets.SelectedIndex = 0;
-            double[] values = new double[Stats.StatsCount];
-            for (int s = 0; s < Stats.StatsCount; s++) values[s] = 1;
-            WeightValues = values;
         }
 
-        private void cbbPresets_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Sets weightings to species. First the blueprint path is checked, then the full species name inclusive mod and variant, then only the base name.
+        /// </summary>
+        public bool TrySetPresetBySpecies(Species species, bool useDefaultBackupIfAvailable = true)
         {
-            SelectPresetByName((sender as ComboBox)?.SelectedItem.ToString());
+            if (TrySetPresetByName(species.blueprintPath)) return true;
+            if (TrySetPresetByName(species.DescriptiveNameAndMod)) return true;
+            if (TrySetPresetByName(species.DescriptiveName)) return true;
+            if (TrySetPresetByName(species.name)) return true;
+            return useDefaultBackupIfAvailable
+                   && TrySetPresetByName("Default");
         }
 
         /// <summary>
         /// Sets the according preset. If not available, false is returned.
         /// </summary>
-        /// <param name="presetName"></param>
-        /// <returns></returns>
         public bool TrySetPresetByName(string presetName)
         {
-            int index = presetName == null ? -1 : cbbPresets.Items.IndexOf(presetName);
+            if (presetName == null) return false;
+            if (cbbPresets.SelectedItem as string == presetName) return true;
+
+            int index = cbbPresets.Items.IndexOf(presetName);
             if (index == -1)
                 return false;
 
             cbbPresets.SelectedIndex = index;
             return true;
+        }
+
+        private void cbbPresets_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SelectPresetByName((sender as ComboBox)?.SelectedItem.ToString());
         }
 
         /// <summary>
@@ -190,10 +201,29 @@ namespace ARKBreedingStats.uiControls
         /// <returns>True if the preset was set, false if there is no preset with the given name</returns>
         private bool SelectPresetByName(string presetName)
         {
+            if (presetName == "-")
+            {
+                WeightValues = Enumerable.Repeat(1d, Stats.StatsCount).ToArray();
+                AnyOddEven = Enumerable.Repeat((byte)0, Stats.StatsCount).ToArray();
+                return true;
+            }
             if (!_customWeightings.TryGetValue(presetName, out var weightings)) return false;
             WeightValues = weightings.Item1;
             AnyOddEven = weightings.Item2;
             return true;
+        }
+
+        /// <summary>
+        /// Returns weightings for species. First the blueprint path is checked, then the full species name inclusive mod and variant, then only the base name.
+        /// </summary>
+        public (double[], byte[]) GetWeightingForSpecies(Species species, bool useDefaultBackupIfAvailable = true)
+        {
+            if (_customWeightings.TryGetValue(species.blueprintPath, out var weightings)) return weightings;
+            if (_customWeightings.TryGetValue(species.DescriptiveNameAndMod, out weightings)) return weightings;
+            if (_customWeightings.TryGetValue(species.DescriptiveName, out weightings)) return weightings;
+            if (_customWeightings.TryGetValue(species.name, out weightings)) return weightings;
+            return useDefaultBackupIfAvailable
+                   && _customWeightings.TryGetValue("Default", out weightings) ? weightings : (null, null);
         }
 
         public (double[], byte[]) GetWeightingByPresetName(string presetName, bool useDefaultBackupIfAvailable = true)
@@ -222,12 +252,12 @@ namespace ARKBreedingStats.uiControls
 
         private void btSavePreset_Click(object sender, EventArgs e)
         {
-            SavePreset();
+            SavePreset(_currentSpecies.name);
         }
 
-        private void SavePreset()
+        private void SavePreset(string presetName)
         {
-            if (Utils.ShowTextInput("Preset-Name", out string presetName, "New Preset", _currentSpecies.name) && presetName.Length > 0)
+            if (Utils.ShowTextInput("Preset-Name", out presetName, "New Preset", presetName) && presetName.Length > 0)
             {
                 if (_customWeightings.ContainsKey(presetName))
                 {
