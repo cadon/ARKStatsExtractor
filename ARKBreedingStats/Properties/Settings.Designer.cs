@@ -1605,18 +1605,6 @@ namespace ARKBreedingStats.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool BreedingPlannerConsiderOnlyEvenForHighStats {
-            get {
-                return ((bool)(this["BreedingPlannerConsiderOnlyEvenForHighStats"]));
-            }
-            set {
-                this["BreedingPlannerConsiderOnlyEvenForHighStats"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool AutoImportGotoLibraryAfterSuccess {
             get {
                 return ((bool)(this["AutoImportGotoLibraryAfterSuccess"]));
@@ -2193,6 +2181,17 @@ namespace ARKBreedingStats.Properties {
             }
             set {
                 this["AlwaysShowAllColorRegions"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public byte[][] CustomStatWeightOddEven {
+            get {
+                return ((byte[][])(this["CustomStatWeightOddEven"]));
+            }
+            set {
+                this["CustomStatWeightOddEven"] = value;
             }
         }
     }

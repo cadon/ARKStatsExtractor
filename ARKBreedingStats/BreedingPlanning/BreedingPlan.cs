@@ -30,9 +30,13 @@ namespace ARKBreedingStats.BreedingPlanning
         private List<BreedingPair> _breedingPairs;
         private Species _currentSpecies;
         /// <summary>
-        /// how much are the stats weighted when looking for the best
+        /// How much are the stats weighted when looking for the best
         /// </summary>
         private double[] _statWeights = new double[Stats.StatsCount];
+        /// <summary>
+        /// Indicates if high stats are only considered if any, odd or even.
+        /// </summary>
+        private byte[] _statOddEvens = new byte[Stats.StatsCount];
         /// <summary>
         /// The best possible levels of the selected species for each stat.
         /// If the weighting is negative, a low level is considered better.
@@ -64,8 +68,6 @@ namespace ARKBreedingStats.BreedingPlanning
         private bool _updateBreedingPlanAllowed;
         public CreatureCollection CreatureCollection;
         private readonly ToolTip _tt = new ToolTip { AutoPopDelay = 10000 };
-
-
 
         public BreedingPlan()
         {
@@ -105,7 +107,6 @@ namespace ARKBreedingStats.BreedingPlanning
             cbBPOnlyOneSuggestionForFemales.Checked = Settings.Default.BreedingPlanOnlyBestSuggestionForEachFemale;
             cbBPMutationLimitOnlyOnePartner.Checked = Settings.Default.BreedingPlanOnePartnerMoreMutationsThanLimit;
             CbIgnoreSexInPlanning.Checked = Settings.Default.IgnoreSexInBreedingPlan;
-            CbConsiderOnlyEvenForHighStats.Checked = Settings.Default.BreedingPlannerConsiderOnlyEvenForHighStats;
             CbDontSuggestOverLimitOffspring.Checked = Settings.Default.BreedingPlanDontSuggestOverLimitOffspring;
 
             tagSelectorList1.OnTagChanged += TagSelectorList1_OnTagChanged;
@@ -117,18 +118,21 @@ namespace ARKBreedingStats.BreedingPlanning
         private void StatWeighting_WeightingsChanged()
         {
             // check if sign of a weighting changed (then the best levels change)
-            bool signChanged = false;
+            bool signChangedOrOddEven = false;
             var newWeightings = StatWeighting.Weightings;
+            var newOddEvens = StatWeighting.AnyOddEven;
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (Math.Sign(_statWeights[s]) != Math.Sign(newWeightings[s]))
+                if (_statOddEvens[s] != newOddEvens[s]
+                    || Math.Sign(_statWeights[s]) != Math.Sign(newWeightings[s]))
                 {
-                    signChanged = true;
+                    signChangedOrOddEven = true;
                     break;
                 }
             }
             _statWeights = newWeightings;
-            if (signChanged) DetermineBestLevels();
+            _statOddEvens = newOddEvens;
+            if (signChangedOrOddEven) DetermineBestLevels();
 
             CalculateBreedingScoresAndDisplayPairs();
         }
@@ -177,6 +181,7 @@ namespace ARKBreedingStats.BreedingPlanning
             }
 
             _statWeights = StatWeighting.Weightings;
+            _statOddEvens = StatWeighting.AnyOddEven;
 
             if (forceUpdate || BreedingPlanNeedsUpdate || _onlyShowingASubset)
             {
@@ -394,7 +399,7 @@ namespace ARKBreedingStats.BreedingPlanning
                     bestPossLevels, _statWeights, _bestLevels, _breedingMode,
                     considerChosenCreature, considerMutationLimit, (int)nudBPMutationLimit.Value,
                     ref creaturesMutationsFilteredOut, levelLimitWithOutDomLevels, CbDontSuggestOverLimitOffspring.Checked,
-                    cbBPOnlyOneSuggestionForFemales.Checked);
+                    cbBPOnlyOneSuggestionForFemales.Checked, _statOddEvens);
 
                 //double minScore = _breedingPairs.LastOrDefault()?.BreedingScore ?? 0;
                 //if (minScore < 0)
@@ -773,7 +778,7 @@ namespace ARKBreedingStats.BreedingPlanning
         /// <param name="bestInSpecies">If true, the display of the best species library will be updated, if false the best filtered species will be updated.</param>
         private void SetBestLevels(int[] bestLevels, IEnumerable<Creature> creatures, bool bestInSpecies)
         {
-            BreedingScore.SetBestLevels(creatures, bestLevels, _statWeights, CbConsiderOnlyEvenForHighStats.Checked);
+            BreedingScore.SetBestLevels(creatures, bestLevels, _statWeights, _statOddEvens);
 
             // display top levels in species
             int? levelStep = CreatureCollection.getWildLevelStep();
@@ -839,7 +844,7 @@ namespace ARKBreedingStats.BreedingPlanning
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (s == Stats.Torpidity) continue;
-                crB.levelsWild[s] = _statWeights[s] < 0 ? Math.Min(mother.levelsWild[s], father.levelsWild[s]) : Math.Max(mother.levelsWild[s], father.levelsWild[s]);
+                crB.levelsWild[s] = _statWeights[s] < 0 ? Math.Min(mother.levelsWild[s], father.levelsWild[s]) : BreedingScore.GetHigherBestLevel(mother.levelsWild[s], father.levelsWild[s], _statOddEvens[s]);
                 crB.valuesBreeding[s] = StatValueCalculation.CalculateValue(_currentSpecies, s, crB.levelsWild[s], 0, true, 1, 0);
                 crB.topBreedingStats[s] = (_currentSpecies.stats[s].IncPerTamedLevel != 0 && crB.levelsWild[s] == _bestLevels[s]);
                 crW.levelsWild[s] = _statWeights[s] < 0 ? Math.Max(mother.levelsWild[s], father.levelsWild[s]) : Math.Min(mother.levelsWild[s], father.levelsWild[s]);
@@ -936,8 +941,7 @@ namespace ARKBreedingStats.BreedingPlanning
 
             // automatically set preset if preset with the species name exists
             _updateBreedingPlanAllowed = false;
-            if (!StatWeighting.TrySetPresetByName(species.name))
-                StatWeighting.TrySetPresetByName("Default");
+            StatWeighting.TrySetPresetBySpecies(species);
             _updateBreedingPlanAllowed = true;
 
             DetermineBestBreeding(setSpecies: species);
@@ -1177,13 +1181,6 @@ namespace ARKBreedingStats.BreedingPlanning
         {
             Settings.Default.IgnoreSexInBreedingPlan = CbIgnoreSexInPlanning.Checked;
             CalculateBreedingScoresAndDisplayPairs();
-        }
-
-        private void CbConsiderOnlyEvenForHighStats_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.Default.BreedingPlannerConsiderOnlyEvenForHighStats = CbConsiderOnlyEvenForHighStats.Checked;
-            CalculateBreedingScoresAndDisplayPairs();
-            DetermineBestLevels();
         }
 
         private void CbDontSuggestOverLimitOffspring_CheckedChanged(object sender, EventArgs e)

@@ -1,5 +1,4 @@
 ﻿using ARKBreedingStats.species;
-using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +10,11 @@ namespace ARKBreedingStats.uiControls
 {
     public partial class StatWeighting : UserControl
     {
-        private Dictionary<string, double[]> _customWeightings = new Dictionary<string, double[]>();
+        private Dictionary<string, (double[], byte[])> _customWeightings = new Dictionary<string, (double[], byte[])>();
         private Species _currentSpecies;
-        private readonly Label[] _statLabels;
-        private readonly Nud[] _weightNuds;
+        private readonly Label[] _statLabels = new Label[Stats.StatsCount];
+        private readonly Nud[] _weightNuds = new Nud[Stats.StatsCount];
+        private readonly TriButton[] _statEvenOddButtons = new TriButton[Stats.StatsCount];
         public event Action WeightingsChanged;
         private readonly Debouncer _valueChangedDebouncer = new Debouncer();
         private readonly ToolTip _tt = new ToolTip();
@@ -24,8 +24,6 @@ namespace ARKBreedingStats.uiControls
             InitializeComponent();
             _tt.SetToolTip(groupBox1, "Increase the weights for stats that are more important to you to be high in the offspring.\nRight click for Presets.");
             _currentSpecies = null;
-            _weightNuds = new Nud[Stats.StatsCount];
-            _statLabels = new Label[Stats.StatsCount];
 
             var displayedStats = new int[]{
                 Stats.Health,
@@ -51,13 +49,22 @@ namespace ARKBreedingStats.uiControls
                     Minimum = -1000
                 };
                 n.ValueChanged += Input_ValueChanged;
+                var tBt = new TriButton(_tt)
+                {
+                    Margin = new Padding()
+                };
+                tBt.StateChanged += WeightingsChangedNotifier;
                 tableLayoutPanelMain.Controls.Add(l);
                 tableLayoutPanelMain.Controls.Add(n);
+                tableLayoutPanelMain.Controls.Add(tBt);
                 tableLayoutPanelMain.SetRow(l, ds);
                 tableLayoutPanelMain.SetRow(n, ds);
+                tableLayoutPanelMain.SetRow(tBt, ds);
                 tableLayoutPanelMain.SetColumn(n, 1);
+                tableLayoutPanelMain.SetColumn(tBt, 2);
                 _statLabels[displayedStats[ds]] = l;
                 _weightNuds[displayedStats[ds]] = n;
+                _statEvenOddButtons[displayedStats[ds]] = tBt;
             }
         }
 
@@ -76,8 +83,13 @@ namespace ARKBreedingStats.uiControls
 
         private void Input_ValueChanged(object sender, EventArgs e)
         {
+            WeightingsChangedNotifier();
+        }
+
+        private void WeightingsChangedNotifier()
+        {
             if (WeightingsChanged != null)
-                _valueChangedDebouncer.Debounce(200, WeightingsChanged, Dispatcher.CurrentDispatcher);
+                _valueChangedDebouncer.Debounce(500, WeightingsChanged, Dispatcher.CurrentDispatcher);
         }
 
         public double[] Weightings
@@ -124,32 +136,62 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
+        /// <summary>
+        /// Array that for each stat indicates if the level, if high, should be only considered if odd (1), even (2), or always (0).
+        /// </summary>
+        public byte[] AnyOddEven
+        {
+            set
+            {
+                if (value == null)
+                    return;
+
+                for (int s = 0; s < Stats.StatsCount; s++)
+                {
+                    if (_statEvenOddButtons[s] != null)
+                        _statEvenOddButtons[s].ButtonState = value[s];
+                }
+            }
+            get => _statEvenOddButtons.Select(b => b?.ButtonState ?? 0).ToArray();
+        }
+
         private void btAllToOne_Click(object sender, EventArgs e)
         {
             cbbPresets.SelectedIndex = 0;
-            double[] values = new double[Stats.StatsCount];
-            for (int s = 0; s < Stats.StatsCount; s++) values[s] = 1;
-            WeightValues = values;
         }
 
-        private void cbbPresets_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Sets weightings to species. First the blueprint path is checked, then the full species name inclusive mod and variant, then only the base name.
+        /// </summary>
+        public bool TrySetPresetBySpecies(Species species, bool useDefaultBackupIfAvailable = true)
         {
-            SelectPresetByName((sender as ComboBox)?.SelectedItem.ToString());
+            if (TrySetPresetByName(species.blueprintPath)) return true;
+            if (TrySetPresetByName(species.DescriptiveNameAndMod)) return true;
+            if (TrySetPresetByName(species.DescriptiveName)) return true;
+            if (TrySetPresetByName(species.name)) return true;
+            return useDefaultBackupIfAvailable
+                   && TrySetPresetByName("Default");
         }
 
         /// <summary>
         /// Sets the according preset. If not available, false is returned.
         /// </summary>
-        /// <param name="presetName"></param>
-        /// <returns></returns>
         public bool TrySetPresetByName(string presetName)
         {
-            int index = presetName == null ? -1 : cbbPresets.Items.IndexOf(presetName);
+            if (presetName == null) return false;
+            if (cbbPresets.SelectedItem as string == presetName) return true;
+
+            int index = cbbPresets.Items.IndexOf(presetName);
             if (index == -1)
                 return false;
 
             cbbPresets.SelectedIndex = index;
             return true;
+        }
+
+        private void cbbPresets_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SelectPresetByName((sender as ComboBox)?.SelectedItem.ToString());
         }
 
         /// <summary>
@@ -159,12 +201,37 @@ namespace ARKBreedingStats.uiControls
         /// <returns>True if the preset was set, false if there is no preset with the given name</returns>
         private bool SelectPresetByName(string presetName)
         {
+            if (presetName == "-")
+            {
+                WeightValues = Enumerable.Repeat(1d, Stats.StatsCount).ToArray();
+                AnyOddEven = Enumerable.Repeat((byte)0, Stats.StatsCount).ToArray();
+                return true;
+            }
             if (!_customWeightings.TryGetValue(presetName, out var weightings)) return false;
-            WeightValues = weightings;
+            WeightValues = weightings.Item1;
+            AnyOddEven = weightings.Item2;
             return true;
         }
 
-        public double[] GetWeightingByPresetName(string presetName) => _customWeightings.TryGetValue(presetName, out var weightings) ? weightings : null;
+        /// <summary>
+        /// Returns weightings for species. First the blueprint path is checked, then the full species name inclusive mod and variant, then only the base name.
+        /// </summary>
+        public (double[], byte[]) GetWeightingForSpecies(Species species, bool useDefaultBackupIfAvailable = true)
+        {
+            if (_customWeightings.TryGetValue(species.blueprintPath, out var weightings)) return weightings;
+            if (_customWeightings.TryGetValue(species.DescriptiveNameAndMod, out weightings)) return weightings;
+            if (_customWeightings.TryGetValue(species.DescriptiveName, out weightings)) return weightings;
+            if (_customWeightings.TryGetValue(species.name, out weightings)) return weightings;
+            return useDefaultBackupIfAvailable
+                   && _customWeightings.TryGetValue("Default", out weightings) ? weightings : (null, null);
+        }
+
+        public (double[], byte[]) GetWeightingByPresetName(string presetName, bool useDefaultBackupIfAvailable = true)
+        {
+            if (_customWeightings.TryGetValue(presetName, out var weightings)) return weightings;
+            return useDefaultBackupIfAvailable
+                && _customWeightings.TryGetValue("Default", out weightings) ? weightings : (null, null);
+        }
 
         private void btDelete_Click(object sender, EventArgs e)
         {
@@ -185,31 +252,31 @@ namespace ARKBreedingStats.uiControls
 
         private void btSavePreset_Click(object sender, EventArgs e)
         {
-            SavePreset();
+            SavePreset(_currentSpecies.name);
         }
 
-        private void SavePreset()
+        private void SavePreset(string presetName)
         {
-            if (Utils.ShowTextInput("Preset-Name", out string presetName, "New Preset", _currentSpecies.name) && presetName.Length > 0)
+            if (Utils.ShowTextInput("Preset-Name", out presetName, "New Preset", presetName) && presetName.Length > 0)
             {
                 if (_customWeightings.ContainsKey(presetName))
                 {
                     if (MessageBox.Show("Preset-Name exists already, overwrite?", "Overwrite Preset?",
                             MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        _customWeightings[presetName] = WeightValues;
+                        _customWeightings[presetName] = (WeightValues, AnyOddEven);
                     }
                     else
                         return;
                 }
                 else
-                    _customWeightings.Add(presetName, WeightValues);
+                    _customWeightings.Add(presetName, (WeightValues, AnyOddEven));
                 CustomWeightings = _customWeightings;
                 TrySetPresetByName(presetName);
             }
         }
 
-        public Dictionary<string, double[]> CustomWeightings
+        public Dictionary<string, (double[], byte[])> CustomWeightings
         {
             get => _customWeightings;
             set
@@ -221,6 +288,52 @@ namespace ARKBreedingStats.uiControls
                 cbbPresets.Items.Add("-");
                 cbbPresets.Items.AddRange(_customWeightings.Keys.ToArray());
                 cbbPresets.SelectedIndex = 0;
+            }
+        }
+
+        private class TriButton : Button
+        {
+            private readonly ToolTip _tt;
+            private byte _buttonState;
+            public event Action StateChanged;
+
+            public byte ButtonState
+            {
+                get => _buttonState;
+                set => SetState(value);
+            }
+
+            public TriButton(ToolTip tt)
+            {
+                _tt = tt;
+                Click += BtClicked;
+            }
+
+            private void BtClicked(object sender, EventArgs e)
+            {
+                SetState(++_buttonState);
+                StateChanged?.Invoke();
+            }
+
+            private void SetState(byte state)
+            {
+                _buttonState = state;
+                switch (state)
+                {
+                    case 1:
+                        Text = "1";
+                        _tt.SetToolTip(this, "high level has to be odd to be a top stat");
+                        break;
+                    case 2:
+                        Text = "2";
+                        _tt.SetToolTip(this, "high level has to be even to be a top stat");
+                        break;
+                    default:
+                        _buttonState = 0;
+                        Text = string.Empty;
+                        _tt.SetToolTip(this, "high level can be even or odd");
+                        break;
+                }
             }
         }
     }
