@@ -322,15 +322,16 @@ namespace ARKBreedingStats.uiControls
                 {
                     case 1:
                         Text = "1";
-                        _tt.SetToolTip(this, "high level has to be odd");
+                        _tt.SetToolTip(this, "high level has to be odd to be a top stat");
                         break;
                     case 2:
                         Text = "2";
-                        _tt.SetToolTip(this, "high level has to be even");
+                        _tt.SetToolTip(this, "high level has to be even to be a top stat");
                         break;
                     default:
                         _buttonState = 0;
                         Text = string.Empty;
+                        _tt.SetToolTip(this, "high level can be even or odd");
                         break;
                 }
             }
