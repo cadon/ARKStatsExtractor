@@ -33,8 +33,8 @@ namespace ARKBreedingStats
         private readonly Dictionary<Species, int[]> _topLevels = new Dictionary<Species, int[]>();
 
         private readonly Dictionary<Species, int[]> _lowestLevels = new Dictionary<Species, int[]>();
-        private readonly List<StatIO> _statIOs = new List<StatIO>();
-        private readonly List<StatIO> _testingIOs = new List<StatIO>();
+        private readonly StatIO[] _statIOs = new StatIO[Stats.StatsCount];
+        private readonly StatIO[] _testingIOs = new StatIO[Stats.StatsCount];
         private int _activeStatIndex = -1;
 
         private readonly bool[]
@@ -188,6 +188,46 @@ namespace ARKBreedingStats
             openSettingsToolStripMenuItem.ShortcutKeyDisplayString = new KeysConverter()
                 .ConvertTo(Keys.Control, typeof(string))?.ToString().Replace("None", ",");
 
+            for (int s = 0; s < Stats.StatsCount; s++)
+            {
+                var statIo = new StatIO
+                {
+                    InputType = StatIOInputType.FinalValueInputType,
+                    Title = Utils.StatName(s),
+                    statIndex = s
+                };
+                var statIoTesting = new StatIO
+                {
+                    InputType = StatIOInputType.LevelsInputType,
+                    Title = Utils.StatName(s),
+                    statIndex = s
+                };
+
+                if (Utils.Precision(s) == 3)
+                {
+                    statIo.Percent = true;
+                    statIoTesting.Percent = true;
+                }
+
+                statIoTesting.LevelChanged += TestingStatIoValueUpdate;
+                statIo.InputValueChanged += StatIOQuickWildLevelCheck;
+                statIo.Click += StatIO_Click;
+                _considerStatHighlight[s] = (Properties.Settings.Default.consideredStats & (1 << s)) != 0;
+
+                _statIOs[s] = statIo;
+                _testingIOs[s] = statIoTesting;
+            }
+
+            // add controls in the order they are shown in-game
+            for (int s = 0; s < Stats.StatsCount; s++)
+            {
+                var displayIndex = Stats.DisplayOrder[s];
+                flowLayoutPanelStatIOsExtractor.Controls.Add(_statIOs[displayIndex]);
+                flowLayoutPanelStatIOsTester.Controls.Add(_testingIOs[displayIndex]);
+                checkedListBoxConsiderStatTop.Items.Add(Utils.StatName(displayIndex),
+                    _considerStatHighlight[displayIndex]);
+            }
+
             _timerGlobal.Interval = 1000;
             _timerGlobal.Tick += TimerGlobal_Tick;
 
@@ -250,46 +290,6 @@ namespace ARKBreedingStats
             // load weapon damages
             tamingControl1.WeaponDamages = Properties.Settings.Default.weaponDamages;
             tamingControl1.WeaponDamagesEnabled = Properties.Settings.Default.weaponDamagesEnabled;
-
-            for (int s = 0; s < Stats.StatsCount; s++)
-            {
-                var statIO = new StatIO
-                {
-                    InputType = StatIOInputType.FinalValueInputType,
-                    Title = Utils.StatName(s),
-                    statIndex = s
-                };
-                var statIoTesting = new StatIO
-                {
-                    InputType = StatIOInputType.LevelsInputType,
-                    Title = Utils.StatName(s),
-                    statIndex = s
-                };
-
-                if (Utils.Precision(s) == 3)
-                {
-                    statIO.Percent = true;
-                    statIoTesting.Percent = true;
-                }
-
-                statIoTesting.LevelChanged += TestingStatIoValueUpdate;
-                statIO.InputValueChanged += StatIOQuickWildLevelCheck;
-                statIO.Click += StatIO_Click;
-                _considerStatHighlight[s] = (Properties.Settings.Default.consideredStats & (1 << s)) != 0;
-
-                _statIOs.Add(statIO);
-                _testingIOs.Add(statIoTesting);
-            }
-
-            // add controls in the order they are shown in-game
-            for (int s = 0; s < Stats.StatsCount; s++)
-            {
-                var displayIndex = Stats.DisplayOrder[s];
-                flowLayoutPanelStatIOsExtractor.Controls.Add(_statIOs[displayIndex]);
-                flowLayoutPanelStatIOsTester.Controls.Add(_testingIOs[displayIndex]);
-                checkedListBoxConsiderStatTop.Items.Add(Utils.StatName(displayIndex),
-                    _considerStatHighlight[displayIndex]);
-            }
 
             // torpor should not show bar, it get's too wide and is not interesting for breeding
             _statIOs[Stats.Torpidity].ShowBarAndLock = false;

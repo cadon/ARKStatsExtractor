@@ -91,7 +91,7 @@ namespace ARKBreedingStats
         /// <param name="highPrecisionInputs">If true, the input is expected to be a float value from an export file.
         /// If false, it's assumed to be a displayed value from the game with one decimal digit.</param>
         /// <param name="imprintingChanged"></param>
-        public void ExtractLevels(Species species, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound,
+        public void ExtractLevels(Species species, int level, StatIO[] statIOs, double lowerTEBound, double upperTEBound,
             bool tamed, bool bred, double imprintingBonusRounded, bool adjustImprinting, bool allowMoreThanHundredImprinting, double imprintingBonusMultiplier,
             bool considerWildLevelSteps, int wildLevelSteps, bool highPrecisionInputs, bool mutagenApplied, out bool imprintingChanged)
         {
