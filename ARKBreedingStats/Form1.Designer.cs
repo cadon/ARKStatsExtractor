@@ -1539,12 +1539,12 @@ namespace ARKBreedingStats
             // 
             // labelTesterTotalLevel
             // 
-            this.labelTesterTotalLevel.AutoSize = true;
-            this.labelTesterTotalLevel.Location = new System.Drawing.Point(184, 0);
+            this.labelTesterTotalLevel.Location = new System.Drawing.Point(147, 0);
             this.labelTesterTotalLevel.Name = "labelTesterTotalLevel";
-            this.labelTesterTotalLevel.Size = new System.Drawing.Size(60, 13);
+            this.labelTesterTotalLevel.Size = new System.Drawing.Size(143, 13);
             this.labelTesterTotalLevel.TabIndex = 49;
             this.labelTesterTotalLevel.Text = "Total Level";
+            this.labelTesterTotalLevel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lbNotYetTamed
             // 
