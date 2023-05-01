@@ -109,7 +109,7 @@
             Loc.SetToolTip(lbExtractorDomLevel, "domLevelExplanation", _tt);
             Loc.SetToolTip(lbExtractorWildLevel, "wildLevelExplanation", _tt);
             var statNames = speciesSelector1.SelectedSpecies?.statNames;
-            for (int si = 0; si < _statIOs.Count; si++)
+            for (int si = 0; si < _statIOs.Length; si++)
             {
                 _statIOs[si].Title = Utils.StatName(si, false, statNames);
                 _testingIOs[si].Title = Utils.StatName(si, false, statNames);

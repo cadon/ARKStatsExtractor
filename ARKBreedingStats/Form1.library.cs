@@ -354,7 +354,7 @@ namespace ARKBreedingStats
                 List<int> usedAndConsideredStatIndices = new List<int>(Stats.StatsCount);
                 int[] bestStat = new int[Stats.StatsCount];
                 int[] lowestStat = new int[Stats.StatsCount];
-                var statWeights = breedingPlan1.StatWeighting.GetWeightingByPresetName(species.name);
+                var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     bestStat[s] = -1;

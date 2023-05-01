@@ -18,11 +18,12 @@ namespace ARKBreedingStats.uiControls
         public event Action WeightingsChanged;
         private readonly Debouncer _valueChangedDebouncer = new Debouncer();
         private readonly ToolTip _tt = new ToolTip();
+        private const string NoPreset = "-";
+        private const string DefaultPreset = "Default";
 
         public StatWeighting()
         {
             InitializeComponent();
-            _tt.SetToolTip(groupBox1, "Increase the weights for stats that are more important to you to be high in the offspring.\nRight click for Presets.");
             _currentSpecies = null;
 
             var displayedStats = new int[]{
@@ -97,11 +98,11 @@ namespace ARKBreedingStats.uiControls
             get
             {
                 double[] w = WeightValues;
-                double s = w.Sum() / Stats.StatsCount;
-                if (s > 0)
+                double sum = w.Sum() / Stats.StatsCount;
+                if (sum > 0)
                 {
                     for (int i = 0; i < Stats.StatsCount; i++)
-                        w[i] /= s;
+                        w[i] /= sum;
                 }
                 return w;
             }
@@ -157,7 +158,7 @@ namespace ARKBreedingStats.uiControls
 
         private void btAllToOne_Click(object sender, EventArgs e)
         {
-            cbbPresets.SelectedIndex = 0;
+            ResetValues();
         }
 
         /// <summary>
@@ -170,7 +171,7 @@ namespace ARKBreedingStats.uiControls
             if (TrySetPresetByName(species.DescriptiveName)) return true;
             if (TrySetPresetByName(species.name)) return true;
             return useDefaultBackupIfAvailable
-                   && TrySetPresetByName("Default");
+                   && TrySetPresetByName(DefaultPreset);
         }
 
         /// <summary>
@@ -201,16 +202,23 @@ namespace ARKBreedingStats.uiControls
         /// <returns>True if the preset was set, false if there is no preset with the given name</returns>
         private bool SelectPresetByName(string presetName)
         {
-            if (presetName == "-")
+            if (presetName == NoPreset)
             {
-                WeightValues = Enumerable.Repeat(1d, Stats.StatsCount).ToArray();
-                AnyOddEven = Enumerable.Repeat((byte)0, Stats.StatsCount).ToArray();
                 return true;
             }
             if (!_customWeightings.TryGetValue(presetName, out var weightings)) return false;
             WeightValues = weightings.Item1;
             AnyOddEven = weightings.Item2;
             return true;
+        }
+
+        /// <summary>
+        /// Resets all weightings.
+        /// </summary>
+        private void ResetValues()
+        {
+            WeightValues = Enumerable.Repeat(1d, Stats.StatsCount).ToArray();
+            AnyOddEven = Enumerable.Repeat((byte)0, Stats.StatsCount).ToArray();
         }
 
         /// <summary>
@@ -223,14 +231,14 @@ namespace ARKBreedingStats.uiControls
             if (_customWeightings.TryGetValue(species.DescriptiveName, out weightings)) return weightings;
             if (_customWeightings.TryGetValue(species.name, out weightings)) return weightings;
             return useDefaultBackupIfAvailable
-                   && _customWeightings.TryGetValue("Default", out weightings) ? weightings : (null, null);
+                   && _customWeightings.TryGetValue(DefaultPreset, out weightings) ? weightings : (null, null);
         }
 
         public (double[], byte[]) GetWeightingByPresetName(string presetName, bool useDefaultBackupIfAvailable = true)
         {
             if (_customWeightings.TryGetValue(presetName, out var weightings)) return weightings;
             return useDefaultBackupIfAvailable
-                && _customWeightings.TryGetValue("Default", out weightings) ? weightings : (null, null);
+                && _customWeightings.TryGetValue(DefaultPreset, out weightings) ? weightings : (null, null);
         }
 
         private void btDelete_Click(object sender, EventArgs e)
@@ -250,29 +258,57 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
-        private void btSavePreset_Click(object sender, EventArgs e)
+        private void BtSavePreset_Click(object sender, EventArgs e)
         {
-            SavePreset(_currentSpecies.name);
+            var presetName = cbbPresets.SelectedItem.ToString();
+            if (string.IsNullOrEmpty(presetName) || presetName == NoPreset)
+                SavePresetAs(_currentSpecies?.name);
+            else _customWeightings[presetName] = (WeightValues, AnyOddEven);
         }
 
-        private void SavePreset(string presetName)
+        private void btSavePresetAs_Click(object sender, EventArgs e)
         {
-            if (Utils.ShowTextInput("Preset-Name", out presetName, "New Preset", presetName) && presetName.Length > 0)
+            var presetName = cbbPresets.SelectedItem.ToString();
+            if (string.IsNullOrEmpty(presetName) || presetName == NoPreset || presetName == DefaultPreset)
+                SavePresetAs(_currentSpecies?.name);
+            else SavePresetAs(presetName);
+        }
+
+        private void SavePresetAs(string presetName)
+        {
+            string[] suggestions;
+            if (_currentSpecies != null)
             {
-                if (_customWeightings.ContainsKey(presetName))
+                suggestions = new[]
                 {
-                    if (MessageBox.Show("Preset-Name exists already, overwrite?", "Overwrite Preset?",
+                    DefaultPreset,
+                    _currentSpecies.name,
+                    _currentSpecies.DescriptiveName,
+                    _currentSpecies.DescriptiveNameAndMod,
+                    _currentSpecies.blueprintPath
+                };
+            }
+            else
+                suggestions = new[] { DefaultPreset };
+
+
+            if (Utils.ShowTextInput("Preset Name", out var presetNameUser, "New Preset", presetName, suggestions)
+                && presetNameUser.Length > 0)
+            {
+                if (_customWeightings.ContainsKey(presetNameUser))
+                {
+                    if (MessageBox.Show("Preset name exists already, overwrite?", "Overwrite Preset?",
                             MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        _customWeightings[presetName] = (WeightValues, AnyOddEven);
+                        _customWeightings[presetNameUser] = (WeightValues, AnyOddEven);
                     }
                     else
                         return;
                 }
                 else
-                    _customWeightings.Add(presetName, (WeightValues, AnyOddEven));
+                    _customWeightings.Add(presetNameUser, (WeightValues, AnyOddEven));
                 CustomWeightings = _customWeightings;
-                TrySetPresetByName(presetName);
+                TrySetPresetByName(presetNameUser);
             }
         }
 
@@ -285,10 +321,23 @@ namespace ARKBreedingStats.uiControls
                 _customWeightings = value;
                 // clear custom presets
                 cbbPresets.Items.Clear();
-                cbbPresets.Items.Add("-");
-                cbbPresets.Items.AddRange(_customWeightings.Keys.ToArray());
+                cbbPresets.Items.Add(NoPreset);
+                cbbPresets.Items.AddRange(_customWeightings.Keys.OrderBy(s => s).ToArray());
                 cbbPresets.SelectedIndex = 0;
+                SetComboboxDropdownWidthToMaxItemWidth(cbbPresets);
             }
+        }
+
+        private void SetComboboxDropdownWidthToMaxItemWidth(ComboBox cbb)
+        {
+            var g = cbb.CreateGraphics();
+            var verticalScrollBarWidth = cbb.Items.Count > cbb.MaxDropDownItems
+                    ? SystemInformation.VerticalScrollBarWidth : 0;
+
+            var maxWidth = cbb.Items.Cast<string>().Select(s => (int)g.MeasureString(s, cbb.Font).Width + verticalScrollBarWidth).Max();
+            maxWidth = Math.Min(600, maxWidth);
+            if (maxWidth > cbb.DropDownWidth)
+                cbb.DropDownWidth = maxWidth;
         }
 
         private class TriButton : Button

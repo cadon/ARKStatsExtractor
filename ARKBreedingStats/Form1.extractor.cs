@@ -120,7 +120,7 @@ namespace ARKBreedingStats
                 var checkLowLevels = _lowestLevels.TryGetValue(species, out int[] lowSpeciesLevels);
 
                 var customStatNames = species.statNames;
-                var statWeights = breedingPlan1.StatWeighting.GetWeightingByPresetName(species.name);
+                var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
                 if (statWeights.Item1 == null) checkLowLevels = false;
                 var analysisState = LevelStatus.Neutral;
                 var newTopStatsText = new List<string>();

@@ -31,11 +31,12 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.btAllToOne = new System.Windows.Forms.Button();
-            this.btSavePreset = new System.Windows.Forms.Button();
+            this.BtSavePreset = new System.Windows.Forms.Button();
+            this.btSavePresetAs = new System.Windows.Forms.Button();
             this.cbbPresets = new System.Windows.Forms.ComboBox();
             this.btDelete = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
             this.lbStatWeightInfo = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
@@ -73,11 +74,12 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.btAllToOne);
-            this.groupBox2.Controls.Add(this.btSavePreset);
+            this.groupBox2.Controls.Add(this.BtSavePreset);
+            this.groupBox2.Controls.Add(this.btSavePresetAs);
             this.groupBox2.Controls.Add(this.cbbPresets);
             this.groupBox2.Controls.Add(this.btDelete);
+            this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(108, 21);
             this.groupBox2.Name = "groupBox2";
@@ -86,37 +88,38 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Presets";
             // 
-            // label1
-            // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label1.Location = new System.Drawing.Point(3, 62);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(133, 76);
-            this.label1.TabIndex = 19;
-            this.label1.Text = "If a preset named \"Default\" exists it will be applied if no species specific pres" +
-    "et is available.";
-            // 
             // btAllToOne
             // 
             this.btAllToOne.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btAllToOne.Location = new System.Drawing.Point(3, 138);
+            this.btAllToOne.Location = new System.Drawing.Point(3, 48);
             this.btAllToOne.Name = "btAllToOne";
             this.btAllToOne.Size = new System.Drawing.Size(133, 23);
             this.btAllToOne.TabIndex = 18;
-            this.btAllToOne.Text = "Set all weights to 1";
+            this.btAllToOne.Text = "Reset Weightings";
             this.btAllToOne.UseVisualStyleBackColor = true;
             this.btAllToOne.Click += new System.EventHandler(this.btAllToOne_Click);
             // 
-            // btSavePreset
+            // BtSavePreset
             // 
-            this.btSavePreset.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btSavePreset.Location = new System.Drawing.Point(3, 161);
-            this.btSavePreset.Name = "btSavePreset";
-            this.btSavePreset.Size = new System.Drawing.Size(133, 23);
-            this.btSavePreset.TabIndex = 15;
-            this.btSavePreset.Text = "Save";
-            this.btSavePreset.UseVisualStyleBackColor = true;
-            this.btSavePreset.Click += new System.EventHandler(this.btSavePreset_Click);
+            this.BtSavePreset.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.BtSavePreset.Location = new System.Drawing.Point(3, 71);
+            this.BtSavePreset.Name = "BtSavePreset";
+            this.BtSavePreset.Size = new System.Drawing.Size(133, 23);
+            this.BtSavePreset.TabIndex = 20;
+            this.BtSavePreset.Text = "Save";
+            this.BtSavePreset.UseVisualStyleBackColor = true;
+            this.BtSavePreset.Click += new System.EventHandler(this.BtSavePreset_Click);
+            // 
+            // btSavePresetAs
+            // 
+            this.btSavePresetAs.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btSavePresetAs.Location = new System.Drawing.Point(3, 94);
+            this.btSavePresetAs.Name = "btSavePresetAs";
+            this.btSavePresetAs.Size = new System.Drawing.Size(133, 23);
+            this.btSavePresetAs.TabIndex = 15;
+            this.btSavePresetAs.Text = "Save as";
+            this.btSavePresetAs.UseVisualStyleBackColor = true;
+            this.btSavePresetAs.Click += new System.EventHandler(this.btSavePresetAs_Click);
             // 
             // cbbPresets
             // 
@@ -132,13 +135,24 @@
             // btDelete
             // 
             this.btDelete.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btDelete.Location = new System.Drawing.Point(3, 184);
+            this.btDelete.Location = new System.Drawing.Point(3, 117);
             this.btDelete.Name = "btDelete";
             this.btDelete.Size = new System.Drawing.Size(133, 23);
             this.btDelete.TabIndex = 17;
             this.btDelete.Text = "Remove";
             this.btDelete.UseVisualStyleBackColor = true;
             this.btDelete.Click += new System.EventHandler(this.btDelete_Click);
+            // 
+            // label1
+            // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label1.Location = new System.Drawing.Point(3, 140);
+            this.label1.Margin = new System.Windows.Forms.Padding(3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(133, 67);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "If a preset named \"Default\" exists it will be applied if no species specific pres" +
+    "et is available.";
             // 
             // tableLayoutPanelMain
             // 
@@ -183,12 +197,13 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelMain;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Button btSavePreset;
+        private System.Windows.Forms.Button btSavePresetAs;
         private System.Windows.Forms.ComboBox cbbPresets;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btDelete;
         private System.Windows.Forms.Button btAllToOne;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lbStatWeightInfo;
+        private System.Windows.Forms.Button BtSavePreset;
     }
 }

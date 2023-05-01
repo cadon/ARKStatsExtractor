@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ARKBreedingStats.values;
@@ -469,7 +470,7 @@ namespace ARKBreedingStats
             return backColor.R * .3f + backColor.G * .59f + backColor.B * .11f < 110 ? Color.White : Color.Black;
         }
 
-        public static bool ShowTextInput(string text, out string input, string title = "", string preInput = "")
+        public static bool ShowTextInput(string text, out string input, string title = null, string preInput = null, params string[] autoCompleteStrings)
         {
             Form inputForm = new Form
             {
@@ -493,6 +494,14 @@ namespace ARKBreedingStats
             inputForm.AcceptButton = buttonOk;
             inputForm.CancelButton = buttonCancel;
             textBox.Text = preInput;
+            if (autoCompleteStrings?.Any() == true)
+            {
+                textBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                textBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                var ac = new AutoCompleteStringCollection();
+                ac.AddRange(autoCompleteStrings);
+                textBox.AutoCompleteCustomSource = ac;
+            }
             textBox.SelectAll();
 
             input = string.Empty;
