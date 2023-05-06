@@ -293,13 +293,13 @@ namespace ARKBreedingStats.raising
 
             // if both parents of an incubation entry were deleted, remove that entry as well.
             _cc.incubationListEntries =
-                _cc.incubationListEntries.Where(t => t.mother != null || t.father != null).ToList();
+                _cc.incubationListEntries.Where(t => t.Mother != null || t.Father != null).ToList();
 
             ListViewGroup g = listViewBabies.Groups[0];
             // add eggs / pregnancies
             foreach (IncubationTimerEntry t in _cc.incubationListEntries)
             {
-                Species species = t.mother?.Species ?? t.father?.Species;
+                Species species = t.Mother?.Species ?? t.Father?.Species;
                 if (species?.breeding != null)
                 {
                     t.kind = species.breeding.gestationTimeAdjusted > 0 ? "Gestation" : "Egg";
@@ -392,7 +392,7 @@ namespace ARKBreedingStats.raising
                 {
                     if (lvi.Tag is IncubationTimerEntry ite)
                     {
-                        Species species = ite.mother?.Species ?? ite.father?.Species;
+                        Species species = ite.Mother?.Species ?? ite.Father?.Species;
                         if (species?.breeding != null)
                         {
                             lvi.SubItems[3].Text = Utils.Duration((int)(species.breeding.maturationTimeAdjusted / 10));
@@ -470,7 +470,7 @@ namespace ARKBreedingStats.raising
             if (listViewBabies.SelectedIndices.Count > 0 &&
                 listViewBabies.SelectedItems[0].Tag is IncubationTimerEntry ite)
             {
-                ExtractBaby?.Invoke(ite.mother, ite.father);
+                ExtractBaby?.Invoke(ite.Mother, ite.Father);
             }
         }
 
@@ -480,7 +480,7 @@ namespace ARKBreedingStats.raising
             {
                 if (listViewBabies.SelectedItems[0].Tag is IncubationTimerEntry ite)
                 {
-                    if (MessageBox.Show("Delete this timer?\n" + (ite.mother?.Species?.name ?? "unknown") +
+                    if (MessageBox.Show("Delete this timer?\n" + (ite.Mother?.Species?.name ?? "unknown") +
                                         ", ending in " + Utils.TimeLeft(ite.incubationEnd)
                                         + (listViewBabies.SelectedIndices.Count > 1
                                             ? "\n\nand " + (listViewBabies.SelectedIndices.Count - 1).ToString() +
@@ -562,10 +562,11 @@ namespace ARKBreedingStats.raising
                 }
                 else if (listViewBabies.SelectedItems[0].Tag is IncubationTimerEntry ite)
                 {
-                    Species species = ite.mother.Species;
-                    SetGlobalSpecies?.Invoke(species);
+                    var species = ite.Mother?.Species ?? ite.Father?.Species;
+                    if (species != null)
+                        SetGlobalSpecies?.Invoke(species);
 
-                    parentStats1.SetParentValues(ite.mother, ite.father);
+                    parentStats1.SetParentValues(ite.Mother, ite.Father);
 
                     // edit-box
                     _creatureMaturationEdit = null;
@@ -587,7 +588,7 @@ namespace ARKBreedingStats.raising
             if (_iteEdit != null)
             {
                 lEditTimerName.Text =
-                    $"{Loc.S("incubation")}{(_iteEdit.mother != null ? " (" + (_iteEdit.mother.Species?.name ?? Loc.S("Unknown")) + ")" : string.Empty)}";
+                    $"{Loc.S("incubation")}{(_iteEdit.Mother != null ? " (" + (_iteEdit.Mother.Species?.name ?? Loc.S("Unknown")) + ")" : string.Empty)}";
                 dateTimePickerEditTimerFinish.Value = _iteEdit.incubationEnd;
                 TimeSpan ts = _iteEdit.incubationEnd.Subtract(DateTime.Now);
                 dhmsInputTimerEditTimer.Timespan = (ts.TotalSeconds > 0 ? ts : TimeSpan.Zero);

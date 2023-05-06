@@ -12,8 +12,8 @@ namespace ARKBreedingStats
         public TimeSpan incubationDuration;
         [JsonProperty]
         public DateTime incubationEnd;
-        public Creature _mother;
-        public Creature _father;
+        private Creature _mother;
+        private Creature _father;
         [JsonProperty]
         public Guid motherGuid;
         [JsonProperty]
@@ -21,18 +21,12 @@ namespace ARKBreedingStats
         public string kind; // contains "Egg" or "Gestation", depending on the species
         public bool expired;
 
-        public IncubationTimerEntry()
-        {
-            mother = new Creature();
-            father = new Creature();
-            incubationDuration = new TimeSpan();
-            incubationEnd = new DateTime();
-        }
+        public IncubationTimerEntry() { }
 
         public IncubationTimerEntry(Creature mother, Creature father, TimeSpan incubationDuration, bool incubationStarted)
         {
-            this.mother = mother;
-            this.father = father;
+            Mother = mother;
+            Father = father;
             this.incubationDuration = incubationDuration;
             incubationEnd = new DateTime();
             if (incubationStarted)
@@ -64,7 +58,7 @@ namespace ARKBreedingStats
             else PauseTimer();
         }
 
-        public Creature mother
+        public Creature Mother
         {
             get => _mother;
             set
@@ -74,7 +68,7 @@ namespace ARKBreedingStats
             }
         }
 
-        public Creature father
+        public Creature Father
         {
             get => _father;
             set

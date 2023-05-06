@@ -733,18 +733,16 @@ namespace ARKBreedingStats
         /// <param name="cc"></param>
         private void UpdateIncubationParents(CreatureCollection cc)
         {
-            foreach (Creature c in cc.creatures)
+            if (!cc.incubationListEntries.Any()) return;
+
+            var dict = cc.creatures.ToDictionary(c => c.guid);
+
+            foreach (IncubationTimerEntry it in cc.incubationListEntries)
             {
-                if (c.guid != Guid.Empty)
-                {
-                    foreach (IncubationTimerEntry it in cc.incubationListEntries)
-                    {
-                        if (c.guid == it.motherGuid)
-                            it.mother = c;
-                        else if (c.guid == it.fatherGuid)
-                            it.father = c;
-                    }
-                }
+                if (it.motherGuid != Guid.Empty && dict.TryGetValue(it.motherGuid, out var m))
+                    it.Mother = m;
+                if (it.fatherGuid != Guid.Empty && dict.TryGetValue(it.fatherGuid, out var f))
+                    it.Father = f;
             }
         }
 

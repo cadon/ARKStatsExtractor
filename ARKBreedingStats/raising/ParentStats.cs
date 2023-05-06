@@ -73,23 +73,23 @@ namespace ARKBreedingStats.raising
 
                 int bestLevel = -1;
                 int bestLevelPercent = 0;
-                if (mother != null && father != null)
+                if (mother?.levelsWild != null && father?.levelsWild != null)
                 {
                     bestLevel = Math.Max(mother.levelsWild[s], father.levelsWild[s]);
                     if (MaxChartLevel > 0)
                         bestLevelPercent = (100 * bestLevel) / MaxChartLevel;
                 }
                 _parentStatValues[s].SetValues(
-                    mother == null ? -1 : (mother.valuesBreeding[s] * (Utils.Precision(s) == 1 ? 1 : 100)),
-                    father == null ? -1 : (father.valuesBreeding[s] * (Utils.Precision(s) == 1 ? 1 : 100)),
-                    mother != null && father != null ? (mother.valuesBreeding[s] > father.valuesBreeding[s] ? 1 : 2) : 0,
+                    mother?.valuesBreeding == null ? -1 : (mother.valuesBreeding[s] * (Utils.Precision(s) == 1 ? 1 : 100)),
+                    father?.valuesBreeding == null ? -1 : (father.valuesBreeding[s] * (Utils.Precision(s) == 1 ? 1 : 100)),
+                    mother?.valuesBreeding != null && father?.valuesBreeding != null ? (mother.valuesBreeding[s] > father.valuesBreeding[s] ? 1 : 2) : 0,
                     bestLevel,
                     bestLevelPercent
                     );
             }
             labelMother.Text = mother == null ? Loc.S("Unknown") : mother.name;
             labelFather.Text = father == null ? Loc.S("Unknown") : (labelMother.Width > 78 ? "\n" : string.Empty) + father.name;
-            if (mother != null && father != null)
+            if (mother?.levelsWild != null && father?.levelsWild != null)
             {
                 int minLv = 1, maxLv = 1;
                 for (int s = 0; s < 7; s++)
