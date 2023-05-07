@@ -191,7 +191,7 @@ namespace ARKBreedingStats
             }
 
             if (i > 0)
-                _foodControls[0].amount = Taming.FoodAmountNeeded(species, (int)nudLevel.Value, _tamingSpeedMultiplier, _foodControls[0].FoodName, td.nonViolent);
+                _foodControls[0].amount = Taming.FoodAmountNeeded(species, (int)nudLevel.Value, _tamingSpeedMultiplier, _foodControls[0].FoodName, td.nonViolent, CbSanguineElixir.Checked);
         }
 
         /// <summary>
@@ -274,10 +274,11 @@ namespace ARKBreedingStats
 
                     usedFood.Add(tfc.FoodName);
                     foodAmount.Add(tfc.amount);
-                    tfc.maxFood = Taming.FoodAmountNeeded(_selectedSpecies, level, _tamingSpeedMultiplier, tfc.FoodName, _selectedSpecies.taming.nonViolent);
+                    tfc.maxFood = Taming.FoodAmountNeeded(_selectedSpecies, level, _tamingSpeedMultiplier, tfc.FoodName, _selectedSpecies.taming.nonViolent, CbSanguineElixir.Checked);
                     tfc.tamingDuration = Taming.TamingDuration(_selectedSpecies, tfc.maxFood, tfc.FoodName, _tamingFoodRateMultiplier, _selectedSpecies.taming.nonViolent);
                 }
-                Taming.TamingTimes(_selectedSpecies, level, _tamingSpeedMultiplier, _tamingFoodRateMultiplier, usedFood, foodAmount, out foodAmountUsed, out duration, out narcoBerries, out ascerbicMushrooms, out narcotics, out bioToxines, out te, out _neededHunger, out bonusLevel, out enoughFood);
+                Taming.TamingTimes(_selectedSpecies, level, _tamingSpeedMultiplier, _tamingFoodRateMultiplier, usedFood, foodAmount,
+                    out foodAmountUsed, out duration, out narcoBerries, out ascerbicMushrooms, out narcotics, out bioToxines, out te, out _neededHunger, out bonusLevel, out enoughFood, CbSanguineElixir.Checked);
 
                 for (int f = 0; f < foodAmountUsed.Count; f++)
                 {
@@ -520,6 +521,11 @@ namespace ARKBreedingStats
         }
 
         private void checkBoxAugmented_CheckedChanged(object sender, EventArgs e)
+        {
+            SetSpecies(_selectedSpecies, true);
+        }
+
+        private void CbSanguineElixir_CheckedChanged(object sender, EventArgs e)
         {
             SetSpecies(_selectedSpecies, true);
         }
