@@ -145,7 +145,7 @@
 			"mod": { "id": "1662691167", "tag": "Senior", "title": "Additional Creatures: Senior Class" }
 		},
 		"1675895024-NoUntameables.json": {
-			"version": "357.4.1678903474",
+			"version": "357.18.1683392823",
 			"mod": { "id": "1675895024", "tag": "NoUntameables", "title": "No Untameables" }
 		},
 		"1676159020-Aquaria.json": {
@@ -243,7 +243,7 @@
 			"mod": { "id": "2000326197", "tag": "ExtraResources", "title": "Event Assets" }
 		},
 		"2003934830-Beasts.json": {
-			"version": "357.14.1681745937",
+			"version": "357.15.1682712826",
 			"mod": { "id": "2003934830", "tag": "Beasts", "title": "Prehistoric Beasts" }
 		},
 		"2019846325-ApexMod.json": {
@@ -291,7 +291,7 @@
 			"mod": { "id": "2362246280", "tag": "GigaFullTame", "title": "Giga Full Tame" }
 		},
 		"2447186973-ArkOmega.json": {
-			"version": "357.15.1682658841",
+			"version": "357.18.1683354231",
 			"mod": { "id": "2447186973", "tag": "ArkOmega", "title": "Ark Omega" }
 		},
 		"2493949846-Endemics.json": {
@@ -303,7 +303,7 @@
 			"mod": { "id": "2683373846", "tag": "ZazaCollection_2", "title": "Zaza's Collection" }
 		},
 		"2804332920-PaleoARKlegends.json": {
-			"version": "357.14.1681844066",
+			"version": "357.15.1683080827",
 			"mod": { "id": "2804332920", "tag": "PaleoARKlegends", "title": "Paleo ARK: Legends Expansion!" }
 		},
 		"2869411055-SDinoVariants.json": {
@@ -311,7 +311,7 @@
 			"mod": { "id": "2869411055", "tag": "SDinoVariants", "title": "SDinoVariants" }
 		},
 		"710880648-DinoOverHaulMODX.json": {
-			"version": "357.15.1682737580",
+			"version": "357.15.1682903614",
 			"mod": { "id": "710880648", "tag": "DinoOverHaulMODX", "title": "DinoOverhaul X -- Hardcore PvE Experience" }
 		},
 		"729352919-IndomRex.json": {
