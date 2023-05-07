@@ -149,6 +149,7 @@ namespace ARKBreedingStats.settings
             _tt.SetToolTip(lbMaxTotalLevel, "The max level allowed on the server. Currently creatures with more than 450 levels will be deleted on official servers.\nThis limit can be enabled on unoffical servers with the setting DestroyTamesOverLevelClamp.\nA creature in this library that can be potentially have a higher level than this (if maximally leveled up) will be marked with a orange-red text in the library.\nSet to 0 to disable a warning in the loaded library.");
             _tt.SetToolTip(CbExportFileRenameAfterImport, "Use a pattern to create the new file name, a subset of the keywords and functions from the naming pattern work.");
             _tt.SetToolTip(CbHighlightAdjustedMultipliers, "Highlight multipliers that are set to non-official values.\nDoes not update on multiplier change, this button needs to be rechecked then.\nCan be used to share screenshots of these settings.");
+            _tt.SetToolTip(LbLanguage2, "Here you can specify a different language for exported data, e.g. the info graphics.");
 
             // localizations / translations
             // for a new translation
@@ -158,7 +159,6 @@ namespace ARKBreedingStats.settings
             // * the entry in the dictionary below needs to be added
             _languages = new Dictionary<string, string>
             {
-                { Loc.S("SystemLanguage"), string.Empty},
                 { "Deutsch", "de"},
                 { "English", "en"},
                 { "Español", "es"},
@@ -172,8 +172,17 @@ namespace ARKBreedingStats.settings
                 { "简体中文", "zh"},
                 { "繁體中文", "zh-tw"}
             };
+
+            CbbLanguage.Items.Add(Loc.S("SystemLanguage"));
+            CbbLanguage2.Items.Add("-"); // indicates no secondary language, i.e. the same as primary
+
             foreach (string l in _languages.Keys)
-                cbbLanguage.Items.Add(l);
+            {
+                CbbLanguage.Items.Add(l);
+                CbbLanguage2.Items.Add(l);
+            }
+
+            _languages[Loc.S("SystemLanguage")] = string.Empty;
 
             foreach (var cm in Enum.GetNames(typeof(ColorModeColors.AsbColorMode)))
                 CbbColorMode.Items.Add(cm);
@@ -413,8 +422,12 @@ namespace ARKBreedingStats.settings
             cbAdminConsoleCommandWithCheat.Checked = Properties.Settings.Default.AdminConsoleCommandWithCheat;
 
             string langKey = _languages.FirstOrDefault(x => x.Value == Properties.Settings.Default.language).Key ?? string.Empty;
-            int langI = cbbLanguage.Items.IndexOf(langKey);
-            cbbLanguage.SelectedIndex = langI == -1 ? 0 : langI;
+            int langI = CbbLanguage.Items.IndexOf(langKey);
+            CbbLanguage.SelectedIndex = langI == -1 ? 0 : langI;
+
+            langKey = _languages.FirstOrDefault(x => x.Value == Properties.Settings.Default.language2).Key ?? string.Empty;
+            langI = CbbLanguage2.Items.IndexOf(langKey);
+            CbbLanguage2.SelectedIndex = langI == -1 ? 0 : langI;
 
             CbHideInvisibleColorRegions.Checked = Properties.Settings.Default.HideInvisibleColorRegions;
             CbAlwaysShowAllColorRegions.Checked = Properties.Settings.Default.AlwaysShowAllColorRegions;
@@ -635,9 +648,11 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.AdminConsoleCommandWithCheat = cbAdminConsoleCommandWithCheat.Checked;
 
             string oldLanguageSetting = Properties.Settings.Default.language;
-            string lang = cbbLanguage.SelectedItem.ToString();
-            Properties.Settings.Default.language = _languages.ContainsKey(lang) ? _languages[lang] : string.Empty;
-            LanguageChanged = oldLanguageSetting != Properties.Settings.Default.language;
+            Properties.Settings.Default.language = _languages.TryGetValue(CbbLanguage.SelectedItem.ToString(), out var languageId) ? languageId : string.Empty;
+            string oldLanguage2Setting = Properties.Settings.Default.language2;
+            Properties.Settings.Default.language2 = _languages.TryGetValue(CbbLanguage2.SelectedItem.ToString(), out languageId) ? languageId : string.Empty;
+
+            LanguageChanged = oldLanguageSetting != Properties.Settings.Default.language || oldLanguage2Setting != Properties.Settings.Default.language2;
 
             ColorRegionDisplayChanged = CbHideInvisibleColorRegions.Checked != Properties.Settings.Default.HideInvisibleColorRegions
                 || Properties.Settings.Default.AlwaysShowAllColorRegions != CbAlwaysShowAllColorRegions.Checked;

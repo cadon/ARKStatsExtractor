@@ -24,7 +24,7 @@ namespace ARKBreedingStats.library
         /// Export info for a spreadsheet.
         /// </summary>
         /// <param name="creatures"></param>
-        public static int ExportTable(IEnumerable<Creature> creatures)
+        public static int ExportTable(IList<Creature> creatures)
         {
             var fields = Properties.Settings.Default.CreatureTableExportFields;
             if (fields == null)
@@ -35,6 +35,7 @@ namespace ARKBreedingStats.library
             if (!fields.Any()) return 0;
 
             var output = new StringBuilder();
+            var secondaryLanguage = Loc.UseSecondaryCulture;
 
             // header
             foreach (TableExportFields f in fields)
@@ -43,19 +44,19 @@ namespace ARKBreedingStats.library
                 {
                     case TableExportFields.WildLevels:
                         foreach (var si in Stats.DisplayOrder)
-                            output.Append(Utils.StatName(si, true) + "_w\t");
+                            output.Append(Utils.StatName(si, true, secondaryLanguage: secondaryLanguage) + "_w\t");
                         break;
                     case TableExportFields.DomLevels:
                         foreach (var si in Stats.DisplayOrder)
-                            output.Append(Utils.StatName(si, true) + "_d\t");
+                            output.Append(Utils.StatName(si, true, secondaryLanguage: secondaryLanguage) + "_d\t");
                         break;
                     case TableExportFields.BreedingValues:
                         foreach (var si in Stats.DisplayOrder)
-                            output.Append(Utils.StatName(si, true) + "_b\t");
+                            output.Append(Utils.StatName(si, true, secondaryLanguage: secondaryLanguage) + "_b\t");
                         break;
                     case TableExportFields.CurrentValues:
                         foreach (var si in Stats.DisplayOrder)
-                            output.Append(Utils.StatName(si, true) + "_v\t");
+                            output.Append(Utils.StatName(si, true, secondaryLanguage: secondaryLanguage) + "_v\t");
                         break;
                     case TableExportFields.ParentIds:
                         output.Append("MotherId\tFatherId\t");
@@ -95,7 +96,7 @@ namespace ARKBreedingStats.library
                             output.Append(c.name + "\t");
                             break;
                         case TableExportFields.Sex:
-                            output.Append(c.sex + "\t");
+                            output.Append(Loc.S(c.sex.ToString(), secondaryCulture: secondaryLanguage) + "\t");
                             break;
                         case TableExportFields.Owner:
                             output.Append(c.owner + "\t");
@@ -132,7 +133,7 @@ namespace ARKBreedingStats.library
                             output.Append(c.Mutations + "\t");
                             break;
                         case TableExportFields.Fertility:
-                            output.Append((c.flags.HasFlag(CreatureFlags.Neutered) ? "neutered" : string.Empty) + "\t");
+                            output.Append((c.flags.HasFlag(CreatureFlags.Neutered) ? Loc.S("neutered", secondaryCulture: secondaryLanguage) : string.Empty) + "\t");
                             break;
                         case TableExportFields.Notes:
                             output.Append(c.note + "\t");
@@ -218,6 +219,7 @@ namespace ARKBreedingStats.library
             var maxChartLevel = CreatureCollection.CurrentCreatureCollection?.maxChartLevel ?? 0;
             double colorFactor = maxChartLevel > 0 ? 100d / maxChartLevel : 1;
             string modifierText = string.Empty;
+            var secondaryLanguage = Loc.UseSecondaryCulture;
             if (!breeding)
             {
                 if (!c.isDomesticated)
@@ -231,13 +233,13 @@ namespace ARKBreedingStats.library
             var output = new StringBuilder((string.IsNullOrEmpty(c.name) ? "noName" : c.name) + " (" +
                                            (ARKml ? Utils.GetARKml(c.Species.name, 50, 172, 255) : c.Species.name)
                                            + ", Lvl " + (breeding ? c.LevelHatched : c.Level) + modifierText +
-                                           (c.sex != Sex.Unknown ? ", " + c.sex : string.Empty) + "): ");
+                                           (c.sex != Sex.Unknown ? ", " + Loc.S(c.sex.ToString(), secondaryCulture: secondaryLanguage) : string.Empty) + "): ");
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 int si = Stats.DisplayOrder[s];
                 if (c.levelsWild[si] >= 0 &&
                     c.valuesBreeding[si] > 0) // ignore unknown levels (e.g. oxygen, speed for some species)
-                    output.Append(Utils.StatName(si, true) + ": " +
+                    output.Append(Utils.StatName(si, true, secondaryLanguage: secondaryLanguage) + ": " +
                                   (breeding ? c.valuesBreeding[si] : c.valuesDom[si]) * (Utils.Precision(si) == 3 ? 100 : 1) +
                                   (Utils.Precision(si) == 3 ? " %" : string.Empty) +
                                   " (" + (ARKml
@@ -389,9 +391,9 @@ namespace ARKBreedingStats.library
                 var sex = Sex.Unknown;
                 switch (m.Groups[9].Value.Trim().ToLowerInvariant())
                 {
-                    case "w": sex = Sex.Female; break;
+                    case "w":
                     case "♀": sex = Sex.Female; break;
-                    case "m": sex = Sex.Male; break;
+                    case "m":
                     case "♂": sex = Sex.Male; break;
                 }
 

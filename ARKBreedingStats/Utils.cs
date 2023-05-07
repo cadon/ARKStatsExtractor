@@ -311,7 +311,7 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Probability of the occurence of a stat level, assuming a normal distribution of 180 levels on 7 stats.
+        /// Probability of the occurrence of a stat level, assuming a normal distribution of 180 levels on 7 stats.
         /// </summary>
         /// <param name="level"></param>
         /// <returns></returns>
@@ -374,16 +374,19 @@ namespace ARKBreedingStats
         /// <param name="abbreviation"></param>
         /// <param name="customStatNames">Dictionary with custom stat names</param>
         /// <returns></returns>
-        public static string StatName(int statIndex, bool abbreviation = false, Dictionary<string, string> customStatNames = null)
+        public static string StatName(int statIndex, bool abbreviation = false, Dictionary<string, string> customStatNames = null, bool secondaryLanguage = false)
         {
             if (_statNames == null || statIndex < 0 || statIndex >= _statNames.Length)
                 return string.Empty;
 
             if (customStatNames != null && customStatNames.TryGetValue(statIndex.ToString(), out string statName))
             {
-                return Loc.S(abbreviation ? $"{statName}_Abb" : statName);
+                return Loc.S(abbreviation ? $"{statName}_Abb" : statName, secondaryCulture: secondaryLanguage);
             }
+            if (secondaryLanguage)
+                return Loc.S(abbreviation ? StatNameKeys[statIndex] + "_Abb" : StatNameKeys[statIndex], secondaryCulture: true);
 
+            // use cached names
             return abbreviation ? _statNamesAbb[statIndex] : _statNames[statIndex];
         }
 

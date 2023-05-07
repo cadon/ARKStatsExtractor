@@ -166,7 +166,7 @@
             this.groupBox20 = new System.Windows.Forms.GroupBox();
             this.cbPrettifyJSON = new System.Windows.Forms.CheckBox();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
-            this.cbbLanguage = new System.Windows.Forms.ComboBox();
+            this.CbbLanguage = new System.Windows.Forms.ComboBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.CbNaturalSortIgnoreSpaces = new System.Windows.Forms.CheckBox();
             this.CbNaturalSorting = new System.Windows.Forms.CheckBox();
@@ -331,6 +331,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.CbbLanguage2 = new System.Windows.Forms.ComboBox();
+            this.LbLanguage2 = new System.Windows.Forms.Label();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -2295,7 +2297,9 @@
             // 
             // groupBox17
             // 
-            this.groupBox17.Controls.Add(this.cbbLanguage);
+            this.groupBox17.Controls.Add(this.LbLanguage2);
+            this.groupBox17.Controls.Add(this.CbbLanguage2);
+            this.groupBox17.Controls.Add(this.CbbLanguage);
             this.groupBox17.Location = new System.Drawing.Point(329, 642);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(413, 51);
@@ -2303,15 +2307,14 @@
             this.groupBox17.TabStop = false;
             this.groupBox17.Text = "Language (WIP)";
             // 
-            // cbbLanguage
+            // CbbLanguage
             // 
-            this.cbbLanguage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cbbLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbbLanguage.FormattingEnabled = true;
-            this.cbbLanguage.Location = new System.Drawing.Point(3, 16);
-            this.cbbLanguage.Name = "cbbLanguage";
-            this.cbbLanguage.Size = new System.Drawing.Size(407, 21);
-            this.cbbLanguage.TabIndex = 0;
+            this.CbbLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CbbLanguage.FormattingEnabled = true;
+            this.CbbLanguage.Location = new System.Drawing.Point(3, 16);
+            this.CbbLanguage.Name = "CbbLanguage";
+            this.CbbLanguage.Size = new System.Drawing.Size(176, 21);
+            this.CbbLanguage.TabIndex = 0;
             // 
             // groupBox9
             // 
@@ -3514,7 +3517,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3522,7 +3525,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3530,7 +3533,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3538,7 +3541,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -4189,6 +4192,24 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
+            // CbbLanguage2
+            // 
+            this.CbbLanguage2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CbbLanguage2.FormattingEnabled = true;
+            this.CbbLanguage2.Location = new System.Drawing.Point(241, 16);
+            this.CbbLanguage2.Name = "CbbLanguage2";
+            this.CbbLanguage2.Size = new System.Drawing.Size(166, 21);
+            this.CbbLanguage2.TabIndex = 1;
+            // 
+            // LbLanguage2
+            // 
+            this.LbLanguage2.AutoSize = true;
+            this.LbLanguage2.Location = new System.Drawing.Point(198, 19);
+            this.LbLanguage2.Name = "LbLanguage2";
+            this.LbLanguage2.Size = new System.Drawing.Size(37, 13);
+            this.LbLanguage2.TabIndex = 2;
+            this.LbLanguage2.Text = "Export";
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -4280,6 +4301,7 @@
             this.groupBox20.ResumeLayout(false);
             this.groupBox20.PerformLayout();
             this.groupBox17.ResumeLayout(false);
+            this.groupBox17.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             this.tabPageInfoGraphic.ResumeLayout(false);
@@ -4441,7 +4463,7 @@
         private uiControls.Nud nudMaxServerLevel;
         private System.Windows.Forms.Label lbMaxTotalLevel;
         private System.Windows.Forms.GroupBox groupBox17;
-        private System.Windows.Forms.ComboBox cbbLanguage;
+        private System.Windows.Forms.ComboBox CbbLanguage;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label labelSavegameFileLocationHint;
         private System.Windows.Forms.TextBox textBoxImportTribeNameFilter;
@@ -4651,5 +4673,7 @@
         private System.Windows.Forms.CheckBox CbAtlasSettings;
         private System.Windows.Forms.CheckBox CbAlwaysShowAllColorRegions;
         private System.Windows.Forms.CheckBox CbColorIdOnColorRegionButton;
+        private System.Windows.Forms.Label LbLanguage2;
+        private System.Windows.Forms.ComboBox CbbLanguage2;
     }
 }

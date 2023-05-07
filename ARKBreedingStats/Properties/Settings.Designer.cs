@@ -2194,5 +2194,17 @@ namespace ARKBreedingStats.Properties {
                 this["CustomStatWeightOddEven"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string language2 {
+            get {
+                return ((string)(this["language2"]));
+            }
+            set {
+                this["language2"] = value;
+            }
+        }
     }
 }

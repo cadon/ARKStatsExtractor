@@ -551,5 +551,8 @@
     <Setting Name="CustomStatWeightOddEven" Type="System.Byte[][]" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="language2" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

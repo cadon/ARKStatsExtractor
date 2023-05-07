@@ -1,6 +1,5 @@
 ﻿using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
-using ARKBreedingStats.values;
 using System;
 using System.Drawing;
 using System.Linq;
@@ -50,6 +49,7 @@ namespace ARKBreedingStats.library
             bool displayExtraRegionNames, bool displayRegionNamesIfNoImage)
         {
             if (creature?.Species == null) return null;
+            var secondaryCulture = Loc.UseSecondaryCulture;
             int maxGraphLevel = cc?.maxChartLevel ?? 0;
             if (maxGraphLevel < 1) maxGraphLevel = 50;
 
@@ -100,11 +100,11 @@ namespace ARKBreedingStats.library
                 else
                     creatureLevel = creature.LevelHatched.ToString();
 
-                string creatureInfos = $"{Loc.S("Level")} {creatureLevel} | {Utils.SexSymbol(creature.sex) + (creature.flags.HasFlag(CreatureFlags.Neutered) ? $" ({Loc.S(creature.sex == Sex.Female ? "Spayed" : "Neutered")})" : string.Empty)}";
+                string creatureInfos = $"{Loc.S("Level", secondaryCulture: secondaryCulture)} {creatureLevel} | {Utils.SexSymbol(creature.sex) + (creature.flags.HasFlag(CreatureFlags.Neutered) ? $" ({Loc.S(creature.sex == Sex.Female ? "Spayed" : "Neutered", secondaryCulture: secondaryCulture)})" : string.Empty)}";
                 if (displayMutations)
-                    creatureInfos += $" | {creature.Mutations} {Loc.S("Mutations")}";
+                    creatureInfos += $" | {creature.Mutations} {Loc.S("Mutations", secondaryCulture: secondaryCulture)}";
                 if (displayGenerations)
-                    creatureInfos += $" | {Loc.S("generation")} {creature.generation}";
+                    creatureInfos += $" | {Loc.S("generation", secondaryCulture: secondaryCulture)} {creature.generation}";
 
                 var availableWidth = width - 9 * frameThickness;
                 var textWidth = g.MeasureString(creatureInfos, font).Width;
@@ -134,9 +134,9 @@ namespace ARKBreedingStats.library
                 int xRightBrValue = (int)(xRightLevelDomValue + (2 + MaxCharLength(creature.valuesBreeding)) * meanLetterWidth);
                 int maxBoxLength = xRightBrValue - xStatName;
                 int statBoxHeight = Math.Max(2, height / 90);
-                g.DrawString(Loc.S("Levels"), font, fontBrush, xRightLevelDomValue, currentYPosition, stringFormatRight);
+                g.DrawString(Loc.S("Levels", secondaryCulture: secondaryCulture), font, fontBrush, xRightLevelDomValue, currentYPosition, stringFormatRight);
                 if (displayStatValues)
-                    g.DrawString(Loc.S("Values"), font, fontBrush, xRightBrValue, currentYPosition, stringFormatRight);
+                    g.DrawString(Loc.S("Values", secondaryCulture: secondaryCulture), font, fontBrush, xRightBrValue, currentYPosition, stringFormatRight);
                 int statDisplayIndex = 0;
                 for (int si = 0; si < Stats.StatsCount; si++)
                 {
@@ -166,7 +166,7 @@ namespace ARKBreedingStats.library
                         g.DrawRectangle(p, xStatName, y + statLineHeight - 1, statBoxLength, statBoxHeight);
 
                     // stat name
-                    g.DrawString($"{Utils.StatName(statIndex, true, creature.Species.statNames)}",
+                    g.DrawString($"{Utils.StatName(statIndex, true, creature.Species.statNames, secondaryCulture)}",
                         font, fontBrush, xStatName, y);
                     // stat level number
                     g.DrawString($"{(creature.levelsWild[statIndex] < 0 ? "?" : creature.levelsWild[statIndex].ToString())}{(displayWithDomLevels ? " +" : null)}",
@@ -229,7 +229,7 @@ namespace ARKBreedingStats.library
 
                 if (creature.colors != null)
                 {
-                    g.DrawString(Loc.S("Colors"), font, fontBrush, xColor, currentYPosition);
+                    g.DrawString(Loc.S("Colors", secondaryCulture: secondaryCulture), font, fontBrush, xColor, currentYPosition);
                     int colorRow = 0;
                     for (int ci = 0; ci < Ark.ColorRegionCount; ci++)
                     {
@@ -283,15 +283,15 @@ namespace ARKBreedingStats.library
                 if (displayWithDomLevels)
                 {
                     if (creature.isBred || creature.imprintingBonus > 0)
-                        g.DrawString($"Imp: {creature.imprintingBonus * 100:0.0} %", font, fontBrush, xColor + (int)((Loc.S("Colors").Length + 3) * meanLetterWidth), currentYPosition);
+                        g.DrawString($"Imp: {creature.imprintingBonus * 100:0.0} %", font, fontBrush, xColor + (int)((Loc.S("Colors", secondaryCulture: secondaryCulture).Length + 3) * meanLetterWidth), currentYPosition);
                     else if (creature.tamingEff >= 0)
-                        g.DrawString($"TE: {creature.tamingEff * 100:0.0} %", font, fontBrush, xColor + (int)((Loc.S("Colors").Length + 3) * meanLetterWidth), currentYPosition);
+                        g.DrawString($"TE: {creature.tamingEff * 100:0.0} %", font, fontBrush, xColor + (int)((Loc.S("Colors", secondaryCulture: secondaryCulture).Length + 3) * meanLetterWidth), currentYPosition);
                 }
 
                 // max wild level on server
                 if (cc != null && displayMaxWildLevel)
                 {
-                    g.DrawString($"{Loc.S("max wild level")}: {cc.maxWildLevel}",
+                    g.DrawString($"{Loc.S("max wild level", secondaryCulture: secondaryCulture)}: {cc.maxWildLevel}",
                         fontSmall, fontBrush, width - 2 * frameThickness, height - frameThickness, stringFormatRightUp);
                 }
 

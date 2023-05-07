@@ -4,7 +4,7 @@
     {
         private void InitLocalization()
         {
-            Loc.LoadResourceFile();
+            Loc.LoadResourceFile(Properties.Settings.Default.language, Properties.Settings.Default.language2);
             Utils.InitializeLocalizations();
         }
 

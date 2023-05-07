@@ -733,18 +733,16 @@ namespace ARKBreedingStats
         /// <param name="cc"></param>
         private void UpdateIncubationParents(CreatureCollection cc)
         {
-            foreach (Creature c in cc.creatures)
+            if (!cc.incubationListEntries.Any()) return;
+
+            var dict = cc.creatures.ToDictionary(c => c.guid);
+
+            foreach (IncubationTimerEntry it in cc.incubationListEntries)
             {
-                if (c.guid != Guid.Empty)
-                {
-                    foreach (IncubationTimerEntry it in cc.incubationListEntries)
-                    {
-                        if (c.guid == it.motherGuid)
-                            it.mother = c;
-                        else if (c.guid == it.fatherGuid)
-                            it.father = c;
-                    }
-                }
+                if (it.motherGuid != Guid.Empty && dict.TryGetValue(it.motherGuid, out var m))
+                    it.Mother = m;
+                if (it.fatherGuid != Guid.Empty && dict.TryGetValue(it.fatherGuid, out var f))
+                    it.Father = f;
             }
         }
 
@@ -1594,7 +1592,7 @@ namespace ARKBreedingStats
                 }
                 if (listViewLibrary.SelectedIndices.Count > 0)
                 {
-                    var exportCount = ExportImportCreatures.ExportTable(listViewLibrary.SelectedIndices.Cast<int>().Select(i => _creaturesDisplayed[i]));
+                    var exportCount = ExportImportCreatures.ExportTable(listViewLibrary.SelectedIndices.Cast<int>().Select(i => _creaturesDisplayed[i]).ToArray());
                     if (exportCount != 0)
                         SetMessageLabelText($"{exportCount} creatures were exported to the clipboard for pasting in a spreadsheet.", MessageBoxIcon.Information);
 

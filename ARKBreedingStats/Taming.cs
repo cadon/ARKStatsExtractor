@@ -17,7 +17,7 @@ namespace ARKBreedingStats
 
         public static void TamingTimes(Species species, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier,
                 List<string> usedFood, List<int> foodAmount, out List<int> foodAmountUsed, out TimeSpan duration,
-                out int neededNarcoberries, out int neededAscerbicMushrooms, out int neededNarcotics, out int neededBioToxins, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
+                out int neededNarcoberries, out int neededAscerbicMushrooms, out int neededNarcotics, out int neededBioToxins, out double te, out double hunger, out int bonusLevel, out bool enoughFood, bool useSanguineElixir = false)
         {
             double totalTorpor = 0;
             double torporDepletionPerSecond = 0;
@@ -41,7 +41,7 @@ namespace ARKBreedingStats
             if (species != null && species.taming != null)
             {
 
-                double affinityNeeded = species.taming.affinityNeeded0 + species.taming.affinityIncreasePL * level;
+                double affinityNeeded = (species.taming.affinityNeeded0 + species.taming.affinityIncreasePL * level) * (useSanguineElixir ? 0.7 : 1);
 
                 // test if creature is tamed non-violently, then use wakeTame multipliers
                 if (!species.taming.nonViolent)
@@ -147,19 +147,19 @@ namespace ARKBreedingStats
         public static void TamingTimes(Species species, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier,
                 string usedFood, int foodAmount,
                 out List<int> foodAmountUsed, out TimeSpan duration, out int neededNarcoberries, out int neededAscerbicMushrooms, out int neededNarcotics,
-                out int neededBioToxins, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
+                out int neededBioToxins, out double te, out double hunger, out int bonusLevel, out bool enoughFood, bool useSanguineElixir = false)
         {
             TamingTimes(species, level, tamingSpeedMultiplier, tamingFoodRateMultiplier,
                     new List<string> { usedFood }, new List<int> { foodAmount },
                     out foodAmountUsed, out duration, out neededNarcoberries, out neededAscerbicMushrooms, out neededNarcotics, out neededBioToxins,
-                    out te, out hunger, out bonusLevel, out enoughFood);
+                    out te, out hunger, out bonusLevel, out enoughFood, useSanguineElixir);
         }
 
-        public static int FoodAmountNeeded(Species species, int level, double tamingSpeedMultiplier, string foodName, bool nonViolent = false)
+        public static int FoodAmountNeeded(Species species, int level, double tamingSpeedMultiplier, string foodName, bool nonViolent = false, bool useSanguineElixir = false)
         {
             if (species != null)
             {
-                double affinityNeeded = species.taming.affinityNeeded0 + species.taming.affinityIncreasePL * level;
+                double affinityNeeded = (species.taming.affinityNeeded0 + species.taming.affinityIncreasePL * level) * (useSanguineElixir ? 0.7 : 1);
 
                 var food = Values.V.GetTamingFood(species, foodName);
                 if (food == null) return 0;
