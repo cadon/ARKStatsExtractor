@@ -10,39 +10,52 @@ namespace ARKBreedingStats
     /// </summary>
     internal static class Loc
     {
-        private static ResourceManager rm;
+        private static ResourceManager _rm;
+        /// <summary>
+        /// Second language can be used in parts of the app.
+        /// </summary>
+        private static CultureInfo _secondaryCulture;
 
-        public static void LoadResourceFile()
+        public static void LoadResourceFile(string language, string language2 = null)
         {
-            CultureInfo culture;
-            if (string.IsNullOrEmpty(Properties.Settings.Default.language))
+            CultureInfo LoadCultureInfo(string l)
             {
-                culture = CultureInfo.CurrentCulture;
-            }
-            else
-            {
+                if (string.IsNullOrEmpty(l))
+                {
+                    return null;
+                }
                 try
                 {
-                    culture = new CultureInfo(Properties.Settings.Default.language);
+                    return new CultureInfo(l);
                 }
                 catch (CultureNotFoundException)
                 {
-                    culture = CultureInfo.CurrentCulture;
+                    return null;
                 }
             }
 
-            Thread.CurrentThread.CurrentUICulture = culture;
+            if (!string.IsNullOrEmpty(language2) && language2 != language)
+                _secondaryCulture = LoadCultureInfo(language2);
+            else _secondaryCulture = null;
 
-            rm = new ResourceManager("ARKBreedingStats.local.strings", typeof(Form1).Assembly);
+            var culture = LoadCultureInfo(language) ?? CultureInfo.CurrentCulture;
+            Thread.CurrentThread.CurrentUICulture = culture;
+            if (_rm == null)
+                _rm = new ResourceManager("ARKBreedingStats.local.strings", typeof(Form1).Assembly);
         }
+
+        public static bool UseSecondaryCulture => _secondaryCulture != null;
 
         /// <summary>
         /// Returns the localized string.
         /// </summary>
-        public static string S(string key, bool returnKeyIfValueNa = true)
+        public static string S(string key, bool returnKeyIfValueNa = true, bool secondaryCulture = false)
         {
-            if (rm == null) return null;
-            string s = rm.GetString(key);
+            if (_rm == null) return null;
+            if (secondaryCulture && _secondaryCulture != null)
+                return S(key, _secondaryCulture, returnKeyIfValueNa);
+
+            var s = _rm.GetString(key);
             //if (string.IsNullOrEmpty(s) && !key.EndsWith("TT")) System.Console.WriteLine("missing: " + key); // for debugging
             return s ?? (returnKeyIfValueNa ? key : null);
         }
@@ -52,8 +65,8 @@ namespace ARKBreedingStats
         /// </summary>
         public static string S(string key, CultureInfo culture, bool returnKeyIfValueNa = true)
         {
-            if (rm == null) return null;
-            string s = rm.GetString(key, culture);
+            if (_rm == null) return null;
+            string s = _rm.GetString(key, culture);
             //if (string.IsNullOrEmpty(s) && !key.EndsWith("TT")) System.Console.WriteLine("missing: " + key); // for debugging
             return s ?? (returnKeyIfValueNa ? key : null);
         }
