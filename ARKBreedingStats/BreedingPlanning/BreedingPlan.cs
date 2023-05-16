@@ -572,8 +572,8 @@ namespace ARKBreedingStats.BreedingPlanning
             {
                 // display warning if breeding pairs are filtered out
                 string warningText = null;
-                if (creaturesTagFilteredOut) warningText = Loc.S("BPsomeCreaturesAreFilteredOutTags") + ".\n" + Loc.S("BPTopStatsShownMightNotTotalTopStats");
-                if (creaturesMutationsFilteredOut) warningText = (!string.IsNullOrEmpty(warningText) ? warningText + "\n" : string.Empty) + Loc.S("BPsomePairingsAreFilteredOutMutations");
+                if (creaturesTagFilteredOut) warningText = Loc.S("BPsomeCreaturesAreFilteredOutTags") + ".\r\n" + Loc.S("BPTopStatsShownMightNotTotalTopStats");
+                if (creaturesMutationsFilteredOut) warningText = (!string.IsNullOrEmpty(warningText) ? warningText + "\r\n" : string.Empty) + Loc.S("BPsomePairingsAreFilteredOutMutations");
                 if (!string.IsNullOrEmpty(warningText)) SetMessageLabelText(warningText, MessageBoxIcon.Warning);
             }
 

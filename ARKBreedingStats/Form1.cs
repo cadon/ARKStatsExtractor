@@ -1330,38 +1330,44 @@ namespace ARKBreedingStats
         /// Sets the text at the top to display infos.
         /// </summary>
         /// <param name="text">Text to display</param>
-        /// <param name="icon">Backcolor of the label</param>
-        /// <param name="path">If valid path to file or folder, the user can click on the label to display the path in the explorer</param>
+        /// <param name="icon">Back color of the message</param>
+        /// <param name="path">If valid path to file or folder, the user can click on the message to display the path in the explorer</param>
         private void SetMessageLabelText(string text = null, MessageBoxIcon icon = MessageBoxIcon.None,
             string path = null)
         {
-            lbLibrarySelectionInfo.Text = text;
+            if (_ignoreNextMessageLabel)
+            {
+                _ignoreNextMessageLabel = false;
+                return;
+            }
+            // a TextBox needs \r\n for a new line, only \n will not result in a line break.
+            TbMessageLabel.Text = text;
             _librarySelectionInfoClickPath = path;
 
             if (string.IsNullOrEmpty(path))
             {
-                lbLibrarySelectionInfo.Cursor = null;
-                _tt.SetToolTip(lbLibrarySelectionInfo, null);
+                TbMessageLabel.Cursor = null;
+                _tt.SetToolTip(TbMessageLabel, null);
             }
             else
             {
-                lbLibrarySelectionInfo.Cursor = Cursors.Hand;
-                _tt.SetToolTip(lbLibrarySelectionInfo, Loc.S("ClickDisplayFile"));
+                TbMessageLabel.Cursor = Cursors.Hand;
+                _tt.SetToolTip(TbMessageLabel, Loc.S("ClickDisplayFile"));
             }
 
             switch (icon)
             {
                 case MessageBoxIcon.Information:
-                    lbLibrarySelectionInfo.BackColor = Color.LightGreen;
+                    TbMessageLabel.BackColor = Color.LightGreen;
                     break;
                 case MessageBoxIcon.Warning:
-                    lbLibrarySelectionInfo.BackColor = Color.Yellow;
+                    TbMessageLabel.BackColor = Color.Yellow;
                     break;
                 case MessageBoxIcon.Error:
-                    lbLibrarySelectionInfo.BackColor = Color.LightSalmon;
+                    TbMessageLabel.BackColor = Color.LightSalmon;
                     break;
                 default:
-                    lbLibrarySelectionInfo.BackColor = SystemColors.Control;
+                    TbMessageLabel.BackColor = SystemColors.Control;
                     break;
             }
         }
@@ -1371,7 +1377,12 @@ namespace ARKBreedingStats
         /// </summary>
         private string _librarySelectionInfoClickPath;
 
-        private void lbLibrarySelectionInfo_Click(object sender, EventArgs e)
+        /// <summary>
+        /// If true, the next message is ignored to preserve the previous one. This is used to avoid that the library selection info overwrites the results of the save game import.
+        /// </summary>
+        private bool _ignoreNextMessageLabel;
+
+        private void TbMessageLabel_Click(object sender, EventArgs e)
         {
             OpenFolderInExplorer(_librarySelectionInfoClickPath);
         }

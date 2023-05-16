@@ -346,6 +346,7 @@ namespace ARKBreedingStats
             this.TsLbLabelSet = new System.Windows.Forms.ToolStripLabel();
             this.TsCbbLabelSets = new System.Windows.Forms.ToolStripComboBox();
             this.panelToolBar = new System.Windows.Forms.Panel();
+            this.TbMessageLabel = new System.Windows.Forms.TextBox();
             this.btImportLastExported = new System.Windows.Forms.Button();
             this.pbSpecies = new System.Windows.Forms.PictureBox();
             this.tbSpeciesGlobal = new ARKBreedingStats.uiControls.TextBoxSuggest();
@@ -353,7 +354,6 @@ namespace ARKBreedingStats
             this.cbToggleOverlay = new System.Windows.Forms.CheckBox();
             this.lbListening = new System.Windows.Forms.Label();
             this.lbSpecies = new System.Windows.Forms.Label();
-            this.lbLibrarySelectionInfo = new System.Windows.Forms.Label();
             this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetLibraryColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
@@ -3390,12 +3390,25 @@ namespace ARKBreedingStats
             this.panelToolBar.Controls.Add(this.lbListening);
             this.panelToolBar.Controls.Add(this.cbEventMultipliers);
             this.panelToolBar.Controls.Add(this.lbSpecies);
-            this.panelToolBar.Controls.Add(this.lbLibrarySelectionInfo);
+            this.panelToolBar.Controls.Add(this.TbMessageLabel);
             this.panelToolBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelToolBar.Location = new System.Drawing.Point(0, 49);
             this.panelToolBar.Name = "panelToolBar";
             this.panelToolBar.Size = new System.Drawing.Size(1878, 54);
             this.panelToolBar.TabIndex = 2;
+            // 
+            // TbMessageLabel
+            // 
+            this.TbMessageLabel.AcceptsReturn = true;
+            this.TbMessageLabel.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TbMessageLabel.Location = new System.Drawing.Point(470, 3);
+            this.TbMessageLabel.Multiline = true;
+            this.TbMessageLabel.Name = "TbMessageLabel";
+            this.TbMessageLabel.ReadOnly = true;
+            this.TbMessageLabel.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.TbMessageLabel.Size = new System.Drawing.Size(889, 48);
+            this.TbMessageLabel.TabIndex = 14;
+            this.TbMessageLabel.Click += new System.EventHandler(this.TbMessageLabel_Click);
             // 
             // btImportLastExported
             // 
@@ -3474,14 +3487,6 @@ namespace ARKBreedingStats
             this.lbSpecies.Size = new System.Drawing.Size(45, 13);
             this.lbSpecies.TabIndex = 0;
             this.lbSpecies.Text = "Species";
-            // 
-            // lbLibrarySelectionInfo
-            // 
-            this.lbLibrarySelectionInfo.Location = new System.Drawing.Point(470, 3);
-            this.lbLibrarySelectionInfo.Name = "lbLibrarySelectionInfo";
-            this.lbLibrarySelectionInfo.Size = new System.Drawing.Size(691, 45);
-            this.lbLibrarySelectionInfo.TabIndex = 5;
-            this.lbLibrarySelectionInfo.Click += new System.EventHandler(this.lbLibrarySelectionInfo_Click);
             // 
             // contextMenuStripLibraryHeader
             // 
@@ -3820,7 +3825,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ColumnHeader columnHeaderNote;
         private System.Windows.Forms.ToolStripMenuItem obeliskToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem obeliskToolStripMenuItem1;
-        private System.Windows.Forms.Label lbLibrarySelectionInfo;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.CheckBox cbGuessSpecies;
         private System.Windows.Forms.ColumnHeader columnHeaderColor0;
@@ -3938,5 +3942,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.TableLayoutPanel tlpLibraryInfo;
         private System.Windows.Forms.Button BtCopyLibraryColorToClipboard;
         private System.Windows.Forms.CheckBox CbLibraryInfoUseFilter;
+        private System.Windows.Forms.TextBox TbMessageLabel;
     }
 }

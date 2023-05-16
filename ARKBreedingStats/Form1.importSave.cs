@@ -398,7 +398,10 @@ namespace ARKBreedingStats
                     );
             }
 
-            MessageBoxes.ShowMessageBox(string.Join("\n\n--------\n\n", results), "Save game import done", MessageBoxIcon.Information);
+            SetMessageLabelText("Save game import done\r\n" + string.Join("\r\n--------\r\n", results), MessageBoxIcon.Information);
+            if (listViewLibrary.SelectedIndices.Count > 0)
+                _ignoreNextMessageLabel = true;
+            //MessageBoxes.ShowMessageBox(string.Join("\n\n--------\n\n", results), "Save game import done", MessageBoxIcon.Information);
         }
     }
 }
