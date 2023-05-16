@@ -166,6 +166,8 @@
             this.groupBox20 = new System.Windows.Forms.GroupBox();
             this.cbPrettifyJSON = new System.Windows.Forms.CheckBox();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
+            this.LbLanguage2 = new System.Windows.Forms.Label();
+            this.CbbLanguage2 = new System.Windows.Forms.ComboBox();
             this.CbbLanguage = new System.Windows.Forms.ComboBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.CbNaturalSortIgnoreSpaces = new System.Windows.Forms.CheckBox();
@@ -284,6 +286,8 @@
             this.label20 = new System.Windows.Forms.Label();
             this.tabPageOverlay = new System.Windows.Forms.TabPage();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.NudOverlayRelativeFontSize = new ARKBreedingStats.uiControls.Nud();
+            this.label65 = new System.Windows.Forms.Label();
             this.CbOverlayDisplayInheritance = new System.Windows.Forms.CheckBox();
             this.label45 = new System.Windows.Forms.Label();
             this.pCustomOverlayLocation = new System.Windows.Forms.Panel();
@@ -331,8 +335,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.CbbLanguage2 = new System.Windows.Forms.ComboBox();
-            this.LbLanguage2 = new System.Windows.Forms.Label();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -421,6 +423,7 @@
             this.groupBox8.SuspendLayout();
             this.tabPageOverlay.SuspendLayout();
             this.groupBox10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NudOverlayRelativeFontSize)).BeginInit();
             this.pCustomOverlayLocation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCustomOverlayLocX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCustomOverlayLocY)).BeginInit();
@@ -2307,6 +2310,24 @@
             this.groupBox17.TabStop = false;
             this.groupBox17.Text = "Language (WIP)";
             // 
+            // LbLanguage2
+            // 
+            this.LbLanguage2.AutoSize = true;
+            this.LbLanguage2.Location = new System.Drawing.Point(198, 19);
+            this.LbLanguage2.Name = "LbLanguage2";
+            this.LbLanguage2.Size = new System.Drawing.Size(37, 13);
+            this.LbLanguage2.TabIndex = 2;
+            this.LbLanguage2.Text = "Export";
+            // 
+            // CbbLanguage2
+            // 
+            this.CbbLanguage2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CbbLanguage2.FormattingEnabled = true;
+            this.CbbLanguage2.Location = new System.Drawing.Point(241, 16);
+            this.CbbLanguage2.Name = "CbbLanguage2";
+            this.CbbLanguage2.Size = new System.Drawing.Size(166, 21);
+            this.CbbLanguage2.TabIndex = 1;
+            // 
             // CbbLanguage
             // 
             this.CbbLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -3566,6 +3587,8 @@
             // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.NudOverlayRelativeFontSize);
+            this.groupBox10.Controls.Add(this.label65);
             this.groupBox10.Controls.Add(this.CbOverlayDisplayInheritance);
             this.groupBox10.Controls.Add(this.label45);
             this.groupBox10.Controls.Add(this.pCustomOverlayLocation);
@@ -3586,19 +3609,62 @@
             this.groupBox10.Controls.Add(this.chkbSpeechRecognition);
             this.groupBox10.Location = new System.Drawing.Point(8, 6);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(734, 243);
+            this.groupBox10.Size = new System.Drawing.Size(734, 261);
             this.groupBox10.TabIndex = 0;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Overlay";
             // 
+            // NudOverlayRelativeFontSize
+            // 
+            this.NudOverlayRelativeFontSize.DecimalPlaces = 2;
+            this.NudOverlayRelativeFontSize.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.NudOverlayRelativeFontSize.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.NudOverlayRelativeFontSize.Location = new System.Drawing.Point(219, 212);
+            this.NudOverlayRelativeFontSize.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.NudOverlayRelativeFontSize.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.NudOverlayRelativeFontSize.Name = "NudOverlayRelativeFontSize";
+            this.NudOverlayRelativeFontSize.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.NudOverlayRelativeFontSize.Size = new System.Drawing.Size(57, 20);
+            this.NudOverlayRelativeFontSize.TabIndex = 4;
+            this.NudOverlayRelativeFontSize.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Location = new System.Drawing.Point(6, 214);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(141, 13);
+            this.label65.TabIndex = 18;
+            this.label65.Text = "Relative font size (default: 1)";
+            // 
             // CbOverlayDisplayInheritance
             // 
             this.CbOverlayDisplayInheritance.AutoSize = true;
-            this.CbOverlayDisplayInheritance.Location = new System.Drawing.Point(6, 215);
+            this.CbOverlayDisplayInheritance.Location = new System.Drawing.Point(6, 234);
             this.CbOverlayDisplayInheritance.Name = "CbOverlayDisplayInheritance";
-            this.CbOverlayDisplayInheritance.Size = new System.Drawing.Size(162, 17);
+            this.CbOverlayDisplayInheritance.Size = new System.Drawing.Size(203, 17);
             this.CbOverlayDisplayInheritance.TabIndex = 17;
-            this.CbOverlayDisplayInheritance.Text = "Display Inheritance on import";
+            this.CbOverlayDisplayInheritance.Text = "Display creature inheritance on import";
             this.CbOverlayDisplayInheritance.UseVisualStyleBackColor = true;
             // 
             // label45
@@ -4192,24 +4258,6 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // CbbLanguage2
-            // 
-            this.CbbLanguage2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CbbLanguage2.FormattingEnabled = true;
-            this.CbbLanguage2.Location = new System.Drawing.Point(241, 16);
-            this.CbbLanguage2.Name = "CbbLanguage2";
-            this.CbbLanguage2.Size = new System.Drawing.Size(166, 21);
-            this.CbbLanguage2.TabIndex = 1;
-            // 
-            // LbLanguage2
-            // 
-            this.LbLanguage2.AutoSize = true;
-            this.LbLanguage2.Location = new System.Drawing.Point(198, 19);
-            this.LbLanguage2.Name = "LbLanguage2";
-            this.LbLanguage2.Size = new System.Drawing.Size(37, 13);
-            this.LbLanguage2.TabIndex = 2;
-            this.LbLanguage2.Text = "Export";
-            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -4347,6 +4395,7 @@
             this.tabPageOverlay.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NudOverlayRelativeFontSize)).EndInit();
             this.pCustomOverlayLocation.ResumeLayout(false);
             this.pCustomOverlayLocation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCustomOverlayLocX)).EndInit();
@@ -4675,5 +4724,7 @@
         private System.Windows.Forms.CheckBox CbColorIdOnColorRegionButton;
         private System.Windows.Forms.Label LbLanguage2;
         private System.Windows.Forms.ComboBox CbbLanguage2;
+        private uiControls.Nud NudOverlayRelativeFontSize;
+        private System.Windows.Forms.Label label65;
     }
 }

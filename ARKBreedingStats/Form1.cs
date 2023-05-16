@@ -18,6 +18,7 @@ using ARKBreedingStats.mods;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.utils;
 using static ARKBreedingStats.settings.Settings;
+using Color = System.Drawing.Color;
 
 namespace ARKBreedingStats
 {
@@ -1977,7 +1978,7 @@ namespace ARKBreedingStats
             SetupExportFileWatcher();
 
             InitializeSpeechRecognition();
-            _overlay?.SetInfoPositions();
+            _overlay?.SetInfoPositionsAndFontSize();
             if (Properties.Settings.Default.DevTools)
                 statsMultiplierTesting1.CheckIfMultipliersAreEqualToSettings();
             devToolStripMenuItem.Visible = Properties.Settings.Default.DevTools;
@@ -2354,7 +2355,11 @@ namespace ARKBreedingStats
 
         private void chkbToggleOverlay_CheckedChanged(object sender, EventArgs e)
         {
-            if (_overlay == null)
+            var enableOverlay = cbToggleOverlay.Checked;
+
+            cbToggleOverlay.BackColor = enableOverlay ? Color.LightGreen : SystemColors.ButtonFace;
+
+            if (enableOverlay && (_overlay == null || _overlay.IsDisposed))
             {
                 _overlay = new ARKOverlay
                 {
@@ -2363,15 +2368,16 @@ namespace ARKBreedingStats
                     checkInventoryStats = Properties.Settings.Default.inventoryCheckTimer
                 };
                 _overlay.InitLabelPositions();
+                _overlay.CreatureTimers = _creatureCollection.creatures.Where(c => c.ShowInOverlay).ToList();
             }
 
-            if (!SetOverlayLocation()) return;
+            if (enableOverlay && !SetOverlayLocation()) return;
 
-            _overlay.Visible = cbToggleOverlay.Checked;
-            _overlay.EnableOverlayTimer = cbToggleOverlay.Checked;
+            _overlay.Visible = enableOverlay;
+            _overlay.EnableOverlayTimer = enableOverlay;
 
             // disable speechRecognition if overlay is disabled. (no use if no data can be displayed)
-            if (_speechRecognition != null && !cbToggleOverlay.Checked)
+            if (_speechRecognition != null && !enableOverlay)
                 _speechRecognition.Listen = false;
         }
 
@@ -2382,30 +2388,29 @@ namespace ARKBreedingStats
         /// <returns></returns>
         private bool SetOverlayLocation()
         {
-            if (cbToggleOverlay.Checked)
+            if (!cbToggleOverlay.Checked) return true;
+
+            if (Properties.Settings.Default.UseCustomOverlayLocation)
             {
-                if (Properties.Settings.Default.UseCustomOverlayLocation)
-                {
-                    _overlay.Location = Properties.Settings.Default.CustomOverlayLocation;
-                }
-                else
-                {
-                    var p = Process.GetProcessesByName(Properties.Settings.Default.OCRApp).FirstOrDefault();
+                _overlay.Location = Properties.Settings.Default.CustomOverlayLocation;
+            }
+            else
+            {
+                var p = Process.GetProcessesByName(Properties.Settings.Default.OCRApp).FirstOrDefault();
 
-                    if (p == null)
-                    {
-                        MessageBoxes.ShowMessageBox(
-                            "Process for capturing screenshots and for overlay (e.g. the game, or a stream of the game) not found.\n" +
-                            "Start the game or change the process in the settings.", "Game started?",
-                            MessageBoxIcon.Warning);
-                        cbToggleOverlay.Checked = false;
-                        return false;
-                    }
-
-                    IntPtr mwhd = p.MainWindowHandle;
-                    Screen scr = Screen.FromHandle(mwhd);
-                    _overlay.Location = scr.WorkingArea.Location;
+                if (p == null)
+                {
+                    MessageBoxes.ShowMessageBox(
+                        "Process for capturing screenshots and for overlay (e.g. the game, or a stream of the game) not found.\n" +
+                        "Start the game or change the process in the settings.", "Game started?",
+                        MessageBoxIcon.Warning);
+                    cbToggleOverlay.Checked = false;
+                    return false;
                 }
+
+                IntPtr mwhd = p.MainWindowHandle;
+                Screen scr = Screen.FromHandle(mwhd);
+                _overlay.Location = scr.WorkingArea.Location;
             }
 
             return true;

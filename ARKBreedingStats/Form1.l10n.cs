@@ -170,7 +170,7 @@
             raisingControl1.SetLocalizations();
             creatureBoxListView.SetLocalizations();
             notesControl1.SetLocalizations();
-            _overlay?.SetLocatlizations();
+            _overlay?.SetLocalizations();
         }
     }
 }

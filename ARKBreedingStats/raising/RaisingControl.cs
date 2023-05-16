@@ -735,5 +735,21 @@ namespace ARKBreedingStats.raising
         }
 
         internal string LastSelectedFood => _lastSelectedFood;
+
+        private void listViewBabies_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            var isChecked = e.Item.Checked;
+            if (e.Item.Tag is Creature creature)
+            {
+                if (isChecked) ARKOverlay.AddTimer(creature);
+                else ARKOverlay.RemoveTimer(creature);
+                return;
+            }
+            if (e.Item.Tag is IncubationTimerEntry incubationTimerEntry)
+            {
+                if (isChecked) ARKOverlay.AddTimer(incubationTimerEntry);
+                else ARKOverlay.RemoveTimer(incubationTimerEntry);
+            }
+        }
     }
 }

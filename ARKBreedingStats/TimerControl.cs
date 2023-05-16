@@ -382,7 +382,7 @@ namespace ARKBreedingStats
             if (noOverlayUpdate || ARKOverlay.theOverlay == null)
                 return;
 
-            ARKOverlay.theOverlay.timers = timerListEntries.Where(t => t.showInOverlay).OrderBy(t => t.time).ToList();
+            ARKOverlay.theOverlay.timers = timerListEntries.Where(t => t.showInOverlay).OrderBy(t => t.time).ToArray();
         }
 
         public ListViewColumnSorter ColumnSorter

@@ -1,5 +1,4 @@
 ﻿using ARKBreedingStats.ocr;
-using ARKBreedingStats.species;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -18,7 +17,9 @@ namespace ARKBreedingStats
         public Form1 ExtractorForm;
         private bool _ocrPossible;
         private bool _OCRing;
-        public List<TimerListEntry> timers;
+        public TimerListEntry[] timers;
+        public List<Creature> CreatureTimers;
+        public List<IncubationTimerEntry> IncubationTimers;
         private string _notes;
         public static ARKOverlay theOverlay;
         private DateTime _infoShownAt;
@@ -26,24 +27,36 @@ namespace ARKBreedingStats
         private bool _currentlyInInventory;
         public bool checkInventoryStats;
         private bool _toggleInventoryCheck; // check inventory only every other time
+        private Dictionary<Label, float> _initialFontSizes;
 
         public ARKOverlay()
         {
             InitializeComponent();
             FormBorderStyle = FormBorderStyle.None;
             ShowInTaskbar = false;
+            Win32API.SetHitTestVisibility(this.Handle, false);
             TopMost = true;
             parentInheritance1.ForeColor = Color.FromArgb(1, 1, 1); // so it's not transparent (black == TransparencyKey)
-            Win32API.SetHitTestVisibility(this.Handle, false);
 
             _infoShownAt = DateTime.Now.AddMinutes(-10);
             _labels = new[] { lblHealth, lblStamina, lblOxygen, lblFood, lblWeight, lblMeleeDamage, lblMovementSpeed, lblLevel };
 
+            // save initial font sizes for later adjustment
+            _initialFontSizes = new Dictionary<Label, float>();
+
             foreach (Label l in _labels)
+            {
                 l.Text = string.Empty;
+                _initialFontSizes[l] = l.Font.Size;
+            }
             lblStatus.Text = string.Empty;
             labelTimer.Text = string.Empty;
             labelInfo.Text = string.Empty;
+
+            _initialFontSizes[lblStatus] = lblStatus.Font.Size;
+            _initialFontSizes[labelTimer] = labelTimer.Font.Size;
+            _initialFontSizes[labelInfo] = labelInfo.Font.Size;
+
 
             Size = ArkOcr.Ocr.GetScreenshotOfProcess()?.Size ?? default;
             if (Size == default)
@@ -56,20 +69,19 @@ namespace ARKBreedingStats
 
             _ocrPossible = ArkOcr.Ocr.ocrConfig != null && ArkOcr.Ocr.CheckResolutionSupportedByOcr();
 
-            SetInfoPositions();
+            SetInfoPositionsAndFontSize();
             _notes = string.Empty;
             SetInheritanceCreatures();
-            SetLocatlizations();
+            SetLocalizations();
 
             InfoDuration = 10;
-
-            Location = new Point(0, 0);
         }
 
-        public void SetInfoPositions()
+        public void SetInfoPositionsAndFontSize()
         {
             labelTimer.Location = Properties.Settings.Default.OverlayTimerPosition;
             labelInfo.Location = new Point(Size.Width - labelInfo.Width - Properties.Settings.Default.OverlayInfoPosition.X, Properties.Settings.Default.OverlayInfoPosition.Y);
+            SetLabelFontSize(Properties.Settings.Default.OverlayRelativeFontSize);
         }
 
         public void InitLabelPositions()
@@ -177,14 +189,15 @@ namespace ARKBreedingStats
         /// </summary>
         private void SetTimerAndNotesText()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             if (timers?.Any() ?? false)
             {
-                bool timerListChanged = false;
+                var timerListChanged = false;
                 foreach (TimerListEntry tle in timers)
                 {
-                    int secLeft = (int)tle.time.Subtract(DateTime.Now).TotalSeconds + 1;
+                    var timeLeft = tle.time.Subtract(DateTime.Now);
+                    int secLeft = (int)timeLeft.TotalSeconds + 1;
                     if (secLeft < 10)
                     {
                         if (!Properties.Settings.Default.KeepExpiredTimersInOverlay && secLeft < -20)
@@ -195,10 +208,53 @@ namespace ARKBreedingStats
                         }
                         sb.Append("expired ");
                     }
-                    sb.AppendLine($"{Utils.TimeLeft(tle.time)} : {tle.name}");
+                    sb.AppendLine($"{Utils.Duration(timeLeft)} : {tle.name}");
                 }
                 if (timerListChanged)
-                    timers = timers.Where(t => t.showInOverlay).ToList();
+                    timers = timers.Where(t => t.showInOverlay).ToArray();
+            }
+            if (IncubationTimers?.Any() ?? false)
+            {
+                sb.AppendLine();
+                sb.AppendLine(Loc.S("Incubation"));
+                foreach (var it in IncubationTimers)
+                {
+                    var timeLeft = it.incubationEnd.Subtract(DateTime.Now);
+                    int secLeft = (int)timeLeft.TotalSeconds + 1;
+                    if (secLeft < 10)
+                    {
+                        if (!Properties.Settings.Default.KeepExpiredTimersInOverlay && secLeft < -20)
+                        {
+                            it.ShowInOverlay = false;
+                            RemoveTimer(it);
+                            continue;
+                        }
+                        sb.Append("incubated ");
+                    }
+                    sb.AppendLine($"{Utils.Duration(timeLeft)} : {(it.Mother?.Species ?? it.Father?.Species)?.DescriptiveName ?? "unknown species"}");
+                }
+            }
+            if (CreatureTimers?.Any() ?? false)
+            {
+                sb.AppendLine();
+                sb.AppendLine(Loc.S("Maturation"));
+                foreach (var c in CreatureTimers)
+                {
+                    var timeLeft = c.growingUntil?.Subtract(DateTime.Now);
+                    int secLeft = timeLeft == null ? -100 : (int)timeLeft.Value.TotalSeconds + 1;
+                    if (secLeft < 10)
+                    {
+                        if (!Properties.Settings.Default.KeepExpiredTimersInOverlay && secLeft < -20)
+                        {
+                            c.ShowInOverlay = false;
+                            RemoveTimer(c);
+                            continue;
+                        }
+
+                        timeLeft = null;
+                    }
+                    sb.AppendLine($"{(timeLeft == null ? "grown" : Utils.Duration(timeLeft.Value))} : {c.name} ({c.Species.DescriptiveName})");
+                }
             }
             sb.Append(_notes);
             labelTimer.Text = sb.ToString();
@@ -212,7 +268,55 @@ namespace ARKBreedingStats
 
         internal void SetInheritanceCreatures(Creature creature = null, Creature mother = null, Creature father = null) => parentInheritance1.SetCreatures(creature, mother, father);
 
-        internal void SetLocatlizations()
+        public static void AddTimer(Creature creature)
+        {
+            creature.ShowInOverlay = true;
+
+            if (theOverlay == null)
+                return;
+
+            if (theOverlay.CreatureTimers == null)
+                theOverlay.CreatureTimers = new List<Creature> { creature };
+            else theOverlay.CreatureTimers.Add(creature);
+        }
+
+        public static void RemoveTimer(Creature creature)
+        {
+            creature.ShowInOverlay = false;
+            if (theOverlay?.CreatureTimers == null) return;
+            theOverlay.CreatureTimers.Remove(creature);
+            if (!theOverlay.CreatureTimers.Any())
+                theOverlay.CreatureTimers = null;
+        }
+
+        public static void AddTimer(IncubationTimerEntry incubationTimer)
+        {
+            incubationTimer.ShowInOverlay = true;
+
+            if (theOverlay == null)
+                return;
+
+            if (theOverlay.IncubationTimers == null)
+                theOverlay.IncubationTimers = new List<IncubationTimerEntry> { incubationTimer };
+            else theOverlay.IncubationTimers.Add(incubationTimer);
+        }
+
+        public static void RemoveTimer(IncubationTimerEntry incubationTimer)
+        {
+            incubationTimer.ShowInOverlay = false;
+            if (theOverlay?.IncubationTimers == null) return;
+            theOverlay.IncubationTimers.Remove(incubationTimer);
+            if (!theOverlay.IncubationTimers.Any())
+                theOverlay.IncubationTimers = null;
+        }
+
+        public void SetLabelFontSize(float relativeSize)
+        {
+            foreach (var l in _initialFontSizes)
+                l.Key.Font = new Font(l.Key.Font.FontFamily, l.Value * relativeSize, l.Key.Font.Style);
+        }
+
+        internal void SetLocalizations()
         {
             parentInheritance1.SetLocalizations();
         }
