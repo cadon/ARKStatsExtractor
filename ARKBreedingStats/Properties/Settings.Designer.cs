@@ -2206,5 +2206,17 @@ namespace ARKBreedingStats.Properties {
                 this["language2"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public float OverlayRelativeFontSize {
+            get {
+                return ((float)(this["OverlayRelativeFontSize"]));
+            }
+            set {
+                this["OverlayRelativeFontSize"] = value;
+            }
+        }
     }
 }

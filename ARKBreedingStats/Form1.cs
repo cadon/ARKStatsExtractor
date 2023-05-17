@@ -18,6 +18,7 @@ using ARKBreedingStats.mods;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.utils;
 using static ARKBreedingStats.settings.Settings;
+using Color = System.Drawing.Color;
 
 namespace ARKBreedingStats
 {
@@ -1329,38 +1330,44 @@ namespace ARKBreedingStats
         /// Sets the text at the top to display infos.
         /// </summary>
         /// <param name="text">Text to display</param>
-        /// <param name="icon">Backcolor of the label</param>
-        /// <param name="path">If valid path to file or folder, the user can click on the label to display the path in the explorer</param>
+        /// <param name="icon">Back color of the message</param>
+        /// <param name="path">If valid path to file or folder, the user can click on the message to display the path in the explorer</param>
         private void SetMessageLabelText(string text = null, MessageBoxIcon icon = MessageBoxIcon.None,
             string path = null)
         {
-            lbLibrarySelectionInfo.Text = text;
+            if (_ignoreNextMessageLabel)
+            {
+                _ignoreNextMessageLabel = false;
+                return;
+            }
+            // a TextBox needs \r\n for a new line, only \n will not result in a line break.
+            TbMessageLabel.Text = text;
             _librarySelectionInfoClickPath = path;
 
             if (string.IsNullOrEmpty(path))
             {
-                lbLibrarySelectionInfo.Cursor = null;
-                _tt.SetToolTip(lbLibrarySelectionInfo, null);
+                TbMessageLabel.Cursor = null;
+                _tt.SetToolTip(TbMessageLabel, null);
             }
             else
             {
-                lbLibrarySelectionInfo.Cursor = Cursors.Hand;
-                _tt.SetToolTip(lbLibrarySelectionInfo, Loc.S("ClickDisplayFile"));
+                TbMessageLabel.Cursor = Cursors.Hand;
+                _tt.SetToolTip(TbMessageLabel, Loc.S("ClickDisplayFile"));
             }
 
             switch (icon)
             {
                 case MessageBoxIcon.Information:
-                    lbLibrarySelectionInfo.BackColor = Color.LightGreen;
+                    TbMessageLabel.BackColor = Color.LightGreen;
                     break;
                 case MessageBoxIcon.Warning:
-                    lbLibrarySelectionInfo.BackColor = Color.Yellow;
+                    TbMessageLabel.BackColor = Color.Yellow;
                     break;
                 case MessageBoxIcon.Error:
-                    lbLibrarySelectionInfo.BackColor = Color.LightSalmon;
+                    TbMessageLabel.BackColor = Color.LightSalmon;
                     break;
                 default:
-                    lbLibrarySelectionInfo.BackColor = SystemColors.Control;
+                    TbMessageLabel.BackColor = SystemColors.Control;
                     break;
             }
         }
@@ -1370,7 +1377,12 @@ namespace ARKBreedingStats
         /// </summary>
         private string _librarySelectionInfoClickPath;
 
-        private void lbLibrarySelectionInfo_Click(object sender, EventArgs e)
+        /// <summary>
+        /// If true, the next message is ignored to preserve the previous one. This is used to avoid that the library selection info overwrites the results of the save game import.
+        /// </summary>
+        private bool _ignoreNextMessageLabel;
+
+        private void TbMessageLabel_Click(object sender, EventArgs e)
         {
             OpenFolderInExplorer(_librarySelectionInfoClickPath);
         }
@@ -1977,7 +1989,7 @@ namespace ARKBreedingStats
             SetupExportFileWatcher();
 
             InitializeSpeechRecognition();
-            _overlay?.SetInfoPositions();
+            _overlay?.SetInfoPositionsAndFontSize();
             if (Properties.Settings.Default.DevTools)
                 statsMultiplierTesting1.CheckIfMultipliersAreEqualToSettings();
             devToolStripMenuItem.Visible = Properties.Settings.Default.DevTools;
@@ -2354,7 +2366,11 @@ namespace ARKBreedingStats
 
         private void chkbToggleOverlay_CheckedChanged(object sender, EventArgs e)
         {
-            if (_overlay == null)
+            var enableOverlay = cbToggleOverlay.Checked;
+
+            cbToggleOverlay.BackColor = enableOverlay ? Color.LightGreen : SystemColors.ButtonFace;
+
+            if (enableOverlay && (_overlay == null || _overlay.IsDisposed))
             {
                 _overlay = new ARKOverlay
                 {
@@ -2363,15 +2379,16 @@ namespace ARKBreedingStats
                     checkInventoryStats = Properties.Settings.Default.inventoryCheckTimer
                 };
                 _overlay.InitLabelPositions();
+                _overlay.CreatureTimers = _creatureCollection.creatures.Where(c => c.ShowInOverlay).ToList();
             }
 
-            if (!SetOverlayLocation()) return;
+            if (enableOverlay && !SetOverlayLocation()) return;
 
-            _overlay.Visible = cbToggleOverlay.Checked;
-            _overlay.EnableOverlayTimer = cbToggleOverlay.Checked;
+            _overlay.Visible = enableOverlay;
+            _overlay.EnableOverlayTimer = enableOverlay;
 
             // disable speechRecognition if overlay is disabled. (no use if no data can be displayed)
-            if (_speechRecognition != null && !cbToggleOverlay.Checked)
+            if (_speechRecognition != null && !enableOverlay)
                 _speechRecognition.Listen = false;
         }
 
@@ -2382,30 +2399,29 @@ namespace ARKBreedingStats
         /// <returns></returns>
         private bool SetOverlayLocation()
         {
-            if (cbToggleOverlay.Checked)
+            if (!cbToggleOverlay.Checked) return true;
+
+            if (Properties.Settings.Default.UseCustomOverlayLocation)
             {
-                if (Properties.Settings.Default.UseCustomOverlayLocation)
-                {
-                    _overlay.Location = Properties.Settings.Default.CustomOverlayLocation;
-                }
-                else
-                {
-                    var p = Process.GetProcessesByName(Properties.Settings.Default.OCRApp).FirstOrDefault();
+                _overlay.Location = Properties.Settings.Default.CustomOverlayLocation;
+            }
+            else
+            {
+                var p = Process.GetProcessesByName(Properties.Settings.Default.OCRApp).FirstOrDefault();
 
-                    if (p == null)
-                    {
-                        MessageBoxes.ShowMessageBox(
-                            "Process for capturing screenshots and for overlay (e.g. the game, or a stream of the game) not found.\n" +
-                            "Start the game or change the process in the settings.", "Game started?",
-                            MessageBoxIcon.Warning);
-                        cbToggleOverlay.Checked = false;
-                        return false;
-                    }
-
-                    IntPtr mwhd = p.MainWindowHandle;
-                    Screen scr = Screen.FromHandle(mwhd);
-                    _overlay.Location = scr.WorkingArea.Location;
+                if (p == null)
+                {
+                    MessageBoxes.ShowMessageBox(
+                        "Process for capturing screenshots and for overlay (e.g. the game, or a stream of the game) not found.\n" +
+                        "Start the game or change the process in the settings.", "Game started?",
+                        MessageBoxIcon.Warning);
+                    cbToggleOverlay.Checked = false;
+                    return false;
                 }
+
+                IntPtr mwhd = p.MainWindowHandle;
+                Screen scr = Screen.FromHandle(mwhd);
+                _overlay.Location = scr.WorkingArea.Location;
             }
 
             return true;

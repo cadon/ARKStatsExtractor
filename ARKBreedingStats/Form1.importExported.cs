@@ -189,7 +189,7 @@ namespace ARKBreedingStats
                 && Properties.Settings.Default.OnAutoImportAddToLibrary)
             {
                 creature = AddCreatureToCollection(true, goToLibraryTab: Properties.Settings.Default.AutoImportGotoLibraryAfterSuccess);
-                SetMessageLabelText($"Successful {(alreadyExists ? "updated" : "added")} {creature.name} ({species.name}) of the exported file\n" + filePath, MessageBoxIcon.Information, filePath);
+                SetMessageLabelText($"Successful {(alreadyExists ? "updated" : "added")} {creature.name} ({species.name}) of the exported file\r\n" + filePath, MessageBoxIcon.Information, filePath);
                 addedToLibrary = true;
             }
 

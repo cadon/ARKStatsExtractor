@@ -174,6 +174,8 @@ namespace ARKBreedingStats.Library
             get => !growingPaused ? _growingUntil : growingLeft.Ticks > 0 ? DateTime.Now.Add(growingLeft) : default(DateTime?);
         }
 
+        public bool ShowInOverlay;
+
         public TimeSpan growingLeft;
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool growingPaused;

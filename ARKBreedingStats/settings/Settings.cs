@@ -294,6 +294,7 @@ namespace ARKBreedingStats.settings
             NudOCRClipboardCropWidth.ValueSave = rec.Width;
             NudOCRClipboardCropHeight.ValueSave = rec.Height;
             cbOCRIgnoreImprintValue.Checked = Properties.Settings.Default.OCRIgnoresImprintValue;
+            NudOverlayRelativeFontSize.ValueSave = (decimal)Properties.Settings.Default.OverlayRelativeFontSize;
             #endregion
 
             customSCStarving.SoundFile = Properties.Settings.Default.soundStarving;
@@ -537,6 +538,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.OCRFromClipboard = CbOCRFromClipboard.Checked;
             Properties.Settings.Default.OCRFromRectangle = new Rectangle((int)NudOCRClipboardCropLeft.Value, (int)NudOCRClipboardCropTop.Value, (int)NudOCRClipboardCropWidth.Value, (int)NudOCRClipboardCropHeight.Value);
             Properties.Settings.Default.OCRIgnoresImprintValue = cbOCRIgnoreImprintValue.Checked;
+            Properties.Settings.Default.OverlayRelativeFontSize = (float)NudOverlayRelativeFontSize.Value;
             #endregion
 
             Properties.Settings.Default.soundStarving = customSCStarving.SoundFile;

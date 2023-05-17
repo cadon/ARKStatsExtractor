@@ -20,6 +20,7 @@ namespace ARKBreedingStats
         public Guid fatherGuid;
         public string kind; // contains "Egg" or "Gestation", depending on the species
         public bool expired;
+        public bool ShowInOverlay;
 
         public IncubationTimerEntry() { }
 

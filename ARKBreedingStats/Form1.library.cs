@@ -1301,11 +1301,11 @@ namespace ARKBreedingStats
 
             SetMessageLabelText($"{cnt} creatures selected, " +
                     $"{selCrs.Count(cr => cr.sex == Sex.Female)} females, " +
-                    $"{selCrs.Count(cr => cr.sex == Sex.Male)} males\n" +
+                    $"{selCrs.Count(cr => cr.sex == Sex.Male)} males\r\n" +
                     (cnt == 1
                         ? $"level: {selCrs[0].Level}; Ark-Id (ingame): " + (selCrs[0].ArkIdImported ? Utils.ConvertImportedArkIdToIngameVisualization(selCrs[0].ArkId) : selCrs[0].ArkId.ToString())
                         : $"level-range: {selCrs.Min(cr => cr.Level)} - {selCrs.Max(cr => cr.Level)}"
-                    ) + "\n" +
+                    ) + "\r\n" +
                     $"Tags: {string.Join(", ", tagList)}");
         }
 
@@ -1755,7 +1755,7 @@ namespace ARKBreedingStats
             if (imagesCreated == 0) return;
 
             var pluralS = (imagesCreated != 1 ? "s" : string.Empty);
-            SetMessageLabelText($"Infographic{pluralS} for {imagesCreated} creature{pluralS} created at\n{(imagesCreated == 1 ? firstImageFilePath : folderPath)}", MessageBoxIcon.Information, firstImageFilePath);
+            SetMessageLabelText($"Infographic{pluralS} for {imagesCreated} creature{pluralS} created at\r\n{(imagesCreated == 1 ? firstImageFilePath : folderPath)}", MessageBoxIcon.Information, firstImageFilePath);
         }
 
         #region Library ContextMenu
