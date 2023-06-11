@@ -1351,8 +1351,14 @@ namespace ARKBreedingStats.settings
             nudBabyImprintAmount.SetExtraHighlightNonDefault(highlight);
             nudBabyImprintingStatScale.SetExtraHighlightNonDefault(highlight);
             nudBabyFoodConsumptionSpeed.SetExtraHighlightNonDefault(highlight);
-            cbSingleplayerSettings.SetBackColorAndAccordingForeColor(highlight && cbSingleplayerSettings.Checked ? Color.FromArgb(190, 40, 20) : Color.Transparent);
-            CbAtlasSettings.SetBackColorAndAccordingForeColor(highlight && CbAtlasSettings.Checked ? Color.FromArgb(190, 40, 20) : Color.Transparent);
+            HighlightCheckbox(cbSingleplayerSettings);
+            HighlightCheckbox(CbAllowFlyerSpeedLeveling);
+            HighlightCheckbox(CbAtlasSettings);
+
+            void HighlightCheckbox(CheckBox cb, bool defaultUnchecked = true)
+            {
+                cb.SetBackColorAndAccordingForeColor(highlight && cb.Checked == defaultUnchecked ? Color.FromArgb(190, 40, 20) : Color.Transparent);
+            }
         }
 
         private void BExportSpreadsheetMoveUp_Click(object sender, EventArgs e)
