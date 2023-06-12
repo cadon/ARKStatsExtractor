@@ -1042,4 +1042,7 @@
   <data name="generation" xml:space="preserve">
     <value>代</value>
   </data>
+  <data name="nameAlreadyExistsInLibrary" xml:space="preserve">
+    <value>该名称已存在于库中</value>
+  </data>
 </root>

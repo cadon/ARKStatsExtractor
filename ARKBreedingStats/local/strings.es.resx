@@ -1037,4 +1037,7 @@ Algunas crías pueden ser peores que en el modo de estadísticas altas, pero tam
   <data name="generations" xml:space="preserve">
     <value>generaciones</value>
   </data>
+  <data name="nameAlreadyExistsInLibrary" xml:space="preserve">
+    <value>Este nombre ya existe en la biblioteca.</value>
+  </data>
 </root>

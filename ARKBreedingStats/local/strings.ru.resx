@@ -1197,4 +1197,7 @@ It's also possible to filter for creatures with a color in one of multiple possi
   <data name="groupLibraryBySpecies" xml:space="preserve">
     <value>Сгруппировать библиотеку по видам</value>
   </data>
+  <data name="nameAlreadyExistsInLibrary" xml:space="preserve">
+    <value>Это имя уже существует в библиотеке</value>
+  </data>
 </root>
