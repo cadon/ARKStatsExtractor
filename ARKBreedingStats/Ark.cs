@@ -106,6 +106,11 @@ namespace ARKBreedingStats
         public const int ColorRegionCount = 6;
 
         #endregion
+
+        /// <summary>
+        /// The name is trimmed to this length in game.
+        /// </summary>
+        public const int MaxCreatureNameLength = 24;
     }
 
     /// <summary>

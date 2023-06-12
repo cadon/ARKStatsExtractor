@@ -589,9 +589,8 @@ namespace ARKBreedingStats
         {
             SetCreatureData(creature);
             CreatureName = NamePattern.GenerateCreatureName(creature, _sameSpecies, speciesTopLevels, speciesLowestLevels, customReplacings, showDuplicateNameWarning, namingPatternIndex, false, colorsExisting: ColorAlreadyExistingInformation);
-            const int maxNameLengthInGame = 24;
-            if (CreatureName.Length > maxNameLengthInGame)
-                SetMessageLabelText?.Invoke($"The generated name is longer than {maxNameLengthInGame} characters, the name will look like this in game:\r\n" + CreatureName.Substring(0, maxNameLengthInGame), MessageBoxIcon.Error);
+            if (CreatureName.Length > Ark.MaxCreatureNameLength)
+                SetMessageLabelText?.Invoke($"The generated name is longer than {Ark.MaxCreatureNameLength} characters, the name will look like this in game:\r\n" + CreatureName.Substring(0, Ark.MaxCreatureNameLength), MessageBoxIcon.Error);
             else SetMessageLabelText?.Invoke();
         }
 

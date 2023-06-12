@@ -101,9 +101,9 @@ namespace ARKBreedingStats.NamePatterns
             {
                 MessageBox.Show($"The generated name for the creature\n{name}\nalready exists in the library.\n\nConsider adding {{n}} or {{sn}} in the pattern to generate unique names.", "Name already exists", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            else if (showTooLongWarning && name.Length > 24)
+            else if (showTooLongWarning && name.Length > Ark.MaxCreatureNameLength)
             {
-                MessageBox.Show("The generated name is longer than 24 characters, the name will look like this in game:\n" + name.Substring(0, 24), "Name too long for game", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"The generated name is longer than {Ark.MaxCreatureNameLength} characters, the name will look like this in game:\n" + name.Substring(0, Ark.MaxCreatureNameLength), "Name too long for game", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             return name;
