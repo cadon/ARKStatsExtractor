@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 
@@ -767,6 +768,60 @@ namespace ARKBreedingStats
                 && DiscardChangesAndLoadNewLibrary()
                 )
                 LoadCollectionFile(mi.Text);
+        }
+
+        private void ImportExportGunFiles(string[] filePaths)
+        {
+            var newCreatures = new List<Creature>();
+
+            var importedCounter = 0;
+            var importFailedCounter = 0;
+            foreach (var filePath in filePaths)
+            {
+                var c = ImportExportGun.ImportCreature(filePath, null, out var error);
+                if (c != null)
+                {
+                    newCreatures.Add(c);
+                    importedCounter++;
+                }
+                else if (error != null)
+                {
+                    importFailedCounter++;
+                    MessageBoxes.ShowMessageBox(error);
+                }
+            }
+
+            _creatureCollection.MergeCreatureList(newCreatures, true);
+            UpdateCreatureParentLinkingSort();
+
+            SetMessageLabelText($"Imported {importedCounter} creatures successfully.{(importFailedCounter > 0 ? $"Failed to import {importFailedCounter} files" : string.Empty)}");
+        }
+
+        /// <summary>
+        /// Call after creatures were added (imported) to the library. Updates parent linkings, creature lists, set collection as changed
+        /// </summary>
+        private void UpdateCreatureParentLinkingSort()
+        {
+            UpdateParents(_creatureCollection.creatures);
+
+            foreach (var creature in _creatureCollection.creatures)
+            {
+                creature.RecalculateAncestorGenerations();
+            }
+
+            UpdateIncubationParents(_creatureCollection);
+
+            // update UI
+            SetCollectionChanged(true);
+            UpdateCreatureListings();
+
+            if (_creatureCollection.creatures.Any())
+                tabControlMain.SelectedTab = tabPageLibrary;
+
+            // reapply last sorting
+            SortLibrary();
+
+            UpdateTempCreatureDropDown();
         }
     }
 }

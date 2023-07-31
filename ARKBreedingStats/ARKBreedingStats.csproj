@@ -84,6 +84,8 @@
     <Compile Include="Ark.cs" />
     <Compile Include="BreedingPlanning\Score.cs" />
     <Compile Include="BreedingPlanning\BreedingScore.cs" />
+    <Compile Include="importExportGun\ExportGunFile.cs" />
+    <Compile Include="importExportGun\ImportExportGun.cs" />
     <Compile Include="library\AddDummyCreaturesSettings.cs">
       <SubType>Form</SubType>
     </Compile>

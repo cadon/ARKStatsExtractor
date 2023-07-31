@@ -520,7 +520,16 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Maturation of this creature, 0: baby, 1: adult.
         /// </summary>
-        public double Maturation => Species?.breeding == null || growingUntil == null ? 1 : 1 - growingUntil.Value.Subtract(DateTime.Now).TotalSeconds / Species.breeding.maturationTimeAdjusted;
+        public double Maturation
+        {
+            get => Species?.breeding == null || growingUntil == null
+                    ? 1
+                    : 1 - growingUntil.Value.Subtract(DateTime.Now).TotalSeconds /
+                    Species.breeding.maturationTimeAdjusted;
+            set => growingUntil = Species?.breeding == null
+                ? default(DateTime?)
+                : DateTime.Now.AddSeconds(Species.breeding.maturationTimeAdjusted * (1 - value));
+        }
 
         [OnDeserialized]
         private void Initialize(StreamingContext ct)

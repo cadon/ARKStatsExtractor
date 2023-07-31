@@ -3271,47 +3271,62 @@ namespace ARKBreedingStats
                 return;
 
             string filePath = files[0];
-            string ext = Path.GetExtension(filePath).ToLower();
+            // if first item is folder, only consider all files in first folder
             if (File.GetAttributes(filePath).HasFlag(FileAttributes.Directory))
             {
-                ShowExportedCreatureListControl();
-                _exportedCreatureList.LoadFilesInFolder(filePath);
-            }
-            else if (ext == ".ini")
-            {
-                if (files.Length == 1)
+                // if folder contains .sav files (mod dino export gun)
+                files = Directory.GetFiles(filePath);
+                if (!files.Any())
                 {
-                    ExtractExportedFileInExtractor(filePath);
+                    MessageBoxes.ShowMessageBox("No files to import in first folder");
+                    return;
                 }
-                else
-                {
+                filePath = files[0];
+            }
+
+            switch (Path.GetExtension(filePath).ToLower())
+            {
+                case ".ini" when files.Length == 1:
+                    ExtractExportedFileInExtractor(filePath);
+                    break;
+                case ".ini":
                     ShowExportedCreatureListControl();
                     _exportedCreatureList.LoadFiles(files);
-                }
+                    break;
+                case ".sav":
+                    ImportExportGunFiles(files);
+                    break;
+                case ".asb":
+                case ".xml":
+                    {
+                        if (DiscardChangesAndLoadNewLibrary())
+                        {
+                            LoadCollectionFile(filePath);
+                        }
+
+                        break;
+                    }
+                case ".zip":
+                    {
+                        if (DiscardChangesAndLoadNewLibrary())
+                        {
+                            OpenZippedLibrary(filePath);
+                        }
+
+                        break;
+                    }
+                case ".ark":
+                    {
+                        if (MessageBox.Show(
+                                $"Import all of the creatures in the following ARK save file to the currently opened library?\n{filePath}",
+                                "Import savefile?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                            RunSavegameImport(new ATImportFileLocation(null, null, filePath));
+                        break;
+                    }
+                default:
+                    DoOcr(filePath);
+                    break;
             }
-            else if (ext == ".asb" || ext == ".xml")
-            {
-                if (DiscardChangesAndLoadNewLibrary())
-                {
-                    LoadCollectionFile(filePath);
-                }
-            }
-            else if (ext == ".zip")
-            {
-                if (DiscardChangesAndLoadNewLibrary())
-                {
-                    OpenZippedLibrary(filePath);
-                }
-            }
-            else if (ext == ".ark")
-            {
-                if (MessageBox.Show(
-                    $"Import all of the creatures in the following ARK save file to the currently opened library?\n{filePath}",
-                    "Import savefile?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    RunSavegameImport(new ATImportFileLocation(null, null, filePath));
-            }
-            else
-                DoOcr(files[0]);
         }
 
         private void toolStripMenuItemCopyCreatureName_Click(object sender, EventArgs e)

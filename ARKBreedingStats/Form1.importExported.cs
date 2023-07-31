@@ -170,7 +170,20 @@ namespace ARKBreedingStats
         /// <param name="filePath"></param>
         private void ImportExportedAddIfPossible(string filePath)
         {
-            var loadResult = ExtractExportedFileInExtractor(filePath);
+            bool? loadResult = null;
+
+            switch (Path.GetExtension(filePath))
+            {
+                case ".ini":
+                    loadResult = ExtractExportedFileInExtractor(filePath);
+                    break;
+                case ".sav":
+                    // todo handle import if creature is already in library
+                    //loadResult = ImportExportGunFiles(new[] { filePath });
+                    ImportExportGunFiles(new[] { filePath });
+                    return;
+            }
+
             if (!loadResult.HasValue) return;
 
             bool alreadyExists = loadResult.Value;
@@ -212,7 +225,7 @@ namespace ARKBreedingStats
                     int statIndex = Stats.DisplayOrder[s];
                     if (!species.UsesStat(statIndex)) continue;
 
-                    sb.Append($"{Utils.StatName(statIndex, true, species.statNames)}: { _statIOs[statIndex].LevelWild} ({_statIOs[statIndex].BreedingValue})");
+                    sb.Append($"{Utils.StatName(statIndex, true, species.statNames)}: {_statIOs[statIndex].LevelWild} ({_statIOs[statIndex].BreedingValue})");
                     if (_statIOs[statIndex].TopLevel.HasFlag(LevelStatus.NewTopLevel))
                     {
                         sb.Append($" {Loc.S("newTopLevel")}");

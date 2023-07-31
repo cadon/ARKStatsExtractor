@@ -104,26 +104,7 @@ namespace ARKBreedingStats
 
                 FileService.TryDeleteFile(workingCopyFilePath);
 
-                UpdateParents(_creatureCollection.creatures);
-
-                foreach (var creature in _creatureCollection.creatures)
-                {
-                    creature.RecalculateAncestorGenerations();
-                }
-
-                UpdateIncubationParents(_creatureCollection);
-
-                // update UI
-                SetCollectionChanged(true);
-                UpdateCreatureListings();
-
-                if (_creatureCollection.creatures.Any())
-                    tabControlMain.SelectedTab = tabPageLibrary;
-
-                // reapply last sorting
-                SortLibrary();
-
-                UpdateTempCreatureDropDown();
+                UpdateCreatureParentLinkingSort();
 
                 // if unknown mods are used in the savegame-file and the user wants to load the missing mod-files, do it
                 if (_creatureCollection.ModValueReloadNeeded

@@ -77,6 +77,13 @@ namespace ARKBreedingStats.Library
         public bool AtlasSettings;
 
         /// <summary>
+        /// Used for the exportGun mod.
+        /// The UUID is used to determine if the creature file is from that server, assuming the stat multipliers match.
+        /// </summary>
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string ServerUUID;
+
+        /// <summary>
         /// Allow more than 100% imprinting, can happen with mods, e.g. S+ Nanny
         /// </summary>
         [JsonProperty]

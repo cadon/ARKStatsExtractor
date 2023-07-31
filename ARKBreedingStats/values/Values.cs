@@ -743,8 +743,6 @@ namespace ARKBreedingStats.values
         /// <summary>
         /// Returns the according species to the passed blueprintPath or null if unknown.
         /// </summary>
-        /// <param name="blueprintPath"></param>
-        /// <returns></returns>
         public Species SpeciesByBlueprint(string blueprintPath)
         {
             if (string.IsNullOrEmpty(blueprintPath)) return null;
@@ -753,6 +751,16 @@ namespace ARKBreedingStats.values
                 blueprintPath = realBlueprintPath;
             }
             return _blueprintToSpecies.TryGetValue(blueprintPath, out var s) ? s : null;
+        }
+
+        /// <summary>
+        /// Returns the according species to the passed blueprintPath or null if unknown. Removes trailing _C if there.
+        /// </summary>
+        public Species SpeciesByBlueprint(string blueprintPath, bool removeTrailingC)
+        {
+            if (removeTrailingC && blueprintPath?.EndsWith("_C") == true)
+                return SpeciesByBlueprint(blueprintPath.Substring(0, blueprintPath.Length - 2));
+            return SpeciesByBlueprint(blueprintPath);
         }
 
         /// <summary>

@@ -14,7 +14,6 @@ namespace ARKBreedingStats.importExported
 
             _fileWatcherExport = new FileSystemWatcher
             {
-                Filter = "*.ini",
                 NotifyFilter = NotifyFilters.LastWrite
             };
             _fileWatcherExport.Created += OnChanged;
