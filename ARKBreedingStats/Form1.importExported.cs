@@ -178,10 +178,9 @@ namespace ARKBreedingStats
                     loadResult = ExtractExportedFileInExtractor(filePath);
                     break;
                 case ".sav":
-                    // todo handle import if creature is already in library
-                    //loadResult = ImportExportGunFiles(new[] { filePath });
                     ImportExportGunFiles(new[] { filePath });
                     return;
+                default: return;
             }
 
             if (!loadResult.HasValue) return;

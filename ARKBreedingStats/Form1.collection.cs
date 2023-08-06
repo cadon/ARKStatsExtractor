@@ -776,25 +776,28 @@ namespace ARKBreedingStats
 
             var importedCounter = 0;
             var importFailedCounter = 0;
+            string lastError = null;
+
             foreach (var filePath in filePaths)
             {
-                var c = ImportExportGun.ImportCreature(filePath, null, out var error);
+                var c = ImportExportGun.ImportCreature(filePath, null, out lastError);
                 if (c != null)
                 {
                     newCreatures.Add(c);
                     importedCounter++;
                 }
-                else if (error != null)
+                else if (lastError != null)
                 {
                     importFailedCounter++;
-                    MessageBoxes.ShowMessageBox(error);
+                    MessageBoxes.ShowMessageBox(lastError);
                 }
             }
 
             _creatureCollection.MergeCreatureList(newCreatures, true);
             UpdateCreatureParentLinkingSort();
 
-            SetMessageLabelText($"Imported {importedCounter} creatures successfully.{(importFailedCounter > 0 ? $"Failed to import {importFailedCounter} files" : string.Empty)}");
+            SetMessageLabelText($"Imported {importedCounter} creatures successfully.{(importFailedCounter > 0 ? $"Failed to import {importFailedCounter} files. Last error:{Environment.NewLine}{lastError}" : string.Empty)}",
+                importedCounter > 0 && importFailedCounter == 0 ? MessageBoxIcon.Information : MessageBoxIcon.Error);
         }
 
         /// <summary>

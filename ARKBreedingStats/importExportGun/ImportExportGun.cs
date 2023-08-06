@@ -45,7 +45,7 @@ namespace ARKBreedingStats.importExportGun
             }
             catch (Exception ex)
             {
-                error = ex.Message;
+                error = $"Error when importing file {filePath}: {ex.Message}";
             }
 
             return null;
