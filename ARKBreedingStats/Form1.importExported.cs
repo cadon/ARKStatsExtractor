@@ -175,6 +175,7 @@ namespace ARKBreedingStats
             bool uniqueExtraction = false;
             Creature creature = null;
             bool copiedNameToClipboard = false;
+            Creature[] creaturesOfSpecies = null;
 
             switch (Path.GetExtension(filePath))
             {
@@ -214,8 +215,8 @@ namespace ARKBreedingStats
                             && Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures)
                        )
                     {
-                        creature.name = NamePattern.GenerateCreatureName(creature,
-                            _creatureCollection.creatures.Where(c => c.Species == creature.Species).ToArray(),
+                        creaturesOfSpecies = _creatureCollection.creatures.Where(c => c.Species == creature.Species).ToArray();
+                        creature.name = NamePattern.GenerateCreatureName(creature, creaturesOfSpecies,
                             _topLevels.TryGetValue(creature.Species, out var topLevels) ? topLevels : null,
                             _lowestLevels.TryGetValue(creature.Species, out var lowestLevels) ? lowestLevels : null,
                             _customReplacingNamingPattern, false, 0);
@@ -260,7 +261,8 @@ namespace ARKBreedingStats
 
                     string newFileName = Properties.Settings.Default.AutoImportedExportFileRename && !string.IsNullOrWhiteSpace(namePattern)
                         ? NamePattern.GenerateCreatureName(creature,
-                            _creatureCollection.creatures.Where(c => c.Species == speciesSelector1.SelectedSpecies).ToArray(), null, null,
+                            creaturesOfSpecies ?? _creatureCollection.creatures.Where(c => c.Species == creature.Species).ToArray(),
+                            null, null,
                             _customReplacingNamingPattern, false, -1, false, namePattern)
                         : Path.GetFileName(filePath);
 
