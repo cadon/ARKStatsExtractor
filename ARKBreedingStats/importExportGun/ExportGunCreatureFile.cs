@@ -7,7 +7,7 @@ namespace ARKBreedingStats.importExportGun
     /// Structure of the export file created by the export gun mod.
     /// </summary>
     [JsonObject]
-    internal class ExportGunFile
+    internal class ExportGunCreatureFile
     {
         public string DinoName { get; set; }
         public string SpeciesName { get; set; }
@@ -42,12 +42,12 @@ namespace ARKBreedingStats.importExportGun
     [JsonObject]
     internal class Ancestry
     {
-        public string maleName { get; set; }
-        public int maleDinoId1 { get; set; }
-        public int maleDinoId2 { get; set; }
-        public string femaleName { get; set; }
-        public int femaleDinoId1 { get; set; }
-        public int femaleDinoId2 { get; set; }
+        public string MaleName { get; set; }
+        public int MaleDinoId1 { get; set; }
+        public int MaleDinoId2 { get; set; }
+        public string FemaleName { get; set; }
+        public int FemaleDinoId1 { get; set; }
+        public int FemaleDinoId2 { get; set; }
     }
 
     [JsonObject]

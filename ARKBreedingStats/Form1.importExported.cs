@@ -170,89 +170,70 @@ namespace ARKBreedingStats
         /// <param name="filePath"></param>
         private void ImportExportedAddIfPossible(string filePath)
         {
-            bool? loadResult = null;
+            bool alreadyExists;
+            bool addedToLibrary = false;
+            bool uniqueExtraction = false;
+            Creature creature = null;
+            bool copiedNameToClipboard = false;
 
             switch (Path.GetExtension(filePath))
             {
                 case ".ini":
-                    loadResult = ExtractExportedFileInExtractor(filePath);
+                    var loadResult = ExtractExportedFileInExtractor(filePath);
+                    if (loadResult == null) return;
+                    alreadyExists = loadResult.Value;
+
+                    uniqueExtraction = _extractor.UniqueResults
+                                           || (alreadyExists && _extractor.ValidResults);
+                    Species species = speciesSelector1.SelectedSpecies;
+
+                    if (uniqueExtraction
+                        && Properties.Settings.Default.OnAutoImportAddToLibrary)
+                    {
+                        creature = AddCreatureToCollection(true, goToLibraryTab: Properties.Settings.Default.AutoImportGotoLibraryAfterSuccess);
+                        SetMessageLabelText($"Successful {(alreadyExists ? "updated" : "added")} {creature.name} ({species.name}) of the exported file\r\n" + filePath, MessageBoxIcon.Information, filePath);
+                        addedToLibrary = true;
+                    }
+
+                    copiedNameToClipboard = Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied
+                                                            && (Properties.Settings.Default.applyNamePatternOnAutoImportAlways
+                                                                || Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
+                                                                || (!alreadyExists && Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures)
+                                                            );
+
                     break;
                 case ".sav":
-                    ImportExportGunFiles(new[] { filePath });
-                    return;
+                    alreadyExists = ImportExportGunFiles(new[] { filePath }, out addedToLibrary, out creature);
+                    if (!addedToLibrary || creature == null) return;
+                    uniqueExtraction = true;
+
+                    if (Properties.Settings.Default.applyNamePatternOnAutoImportAlways
+                        || (Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
+                            && string.IsNullOrEmpty(creature.name))
+                        || (!alreadyExists
+                            && Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures)
+                       )
+                    {
+                        creature.name = NamePattern.GenerateCreatureName(creature,
+                            _creatureCollection.creatures.Where(c => c.Species == creature.Species).ToArray(),
+                            _topLevels.TryGetValue(creature.Species, out var topLevels) ? topLevels : null,
+                            _lowestLevels.TryGetValue(creature.Species, out var lowestLevels) ? lowestLevels : null,
+                            _customReplacingNamingPattern, false, 0);
+
+                        if (Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied)
+                        {
+                            Clipboard.SetText(string.IsNullOrEmpty(creature.name)
+                                ? "<no name>"
+                                : creature.name);
+                            copiedNameToClipboard = true;
+                        }
+                    }
+
+                    break;
                 default: return;
             }
-
-            if (!loadResult.HasValue) return;
-
-            bool alreadyExists = loadResult.Value;
-            bool addedToLibrary = false;
-            bool uniqueExtraction = _extractor.UniqueResults
-                                    || (alreadyExists && _extractor.ValidResults);
-            bool copyNameToClipboard = Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied
-                && (Properties.Settings.Default.applyNamePatternOnAutoImportAlways
-                    || Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
-                    || (!alreadyExists && Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures)
-                   );
-            Species species = speciesSelector1.SelectedSpecies;
-            Creature creature = null;
-
-            if (uniqueExtraction
-                && Properties.Settings.Default.OnAutoImportAddToLibrary)
-            {
-                creature = AddCreatureToCollection(true, goToLibraryTab: Properties.Settings.Default.AutoImportGotoLibraryAfterSuccess);
-                SetMessageLabelText($"Successful {(alreadyExists ? "updated" : "added")} {creature.name} ({species.name}) of the exported file\r\n" + filePath, MessageBoxIcon.Information, filePath);
-                addedToLibrary = true;
-            }
-
-            bool topLevels = false;
-            bool newTopLevels = false;
-
-            // give feedback in overlay
-            string infoText;
-            Color textColor;
-            const int colorSaturation = 200;
-            if (uniqueExtraction)
-            {
-                var sb = new StringBuilder();
-                sb.AppendLine($"{species.name} \"{creatureInfoInputExtractor.CreatureName}\" {(alreadyExists ? "updated in " : "added to")} the library.");
-                if (addedToLibrary && copyNameToClipboard)
-                    sb.AppendLine("Name copied to clipboard.");
-
-                for (int s = 0; s < Stats.StatsCount; s++)
-                {
-                    int statIndex = Stats.DisplayOrder[s];
-                    if (!species.UsesStat(statIndex)) continue;
-
-                    sb.Append($"{Utils.StatName(statIndex, true, species.statNames)}: {_statIOs[statIndex].LevelWild} ({_statIOs[statIndex].BreedingValue})");
-                    if (_statIOs[statIndex].TopLevel.HasFlag(LevelStatus.NewTopLevel))
-                    {
-                        sb.Append($" {Loc.S("newTopLevel")}");
-                        newTopLevels = true;
-                    }
-                    else if (_statIOs[statIndex].TopLevel.HasFlag(LevelStatus.TopLevel))
-                    {
-                        sb.Append($" {Loc.S("topLevel")}");
-                        topLevels = true;
-                    }
-                    sb.AppendLine();
-                }
-
-                infoText = sb.ToString();
-                textColor = Color.FromArgb(colorSaturation, 255, colorSaturation);
-            }
-            else
-            {
-                infoText = $"Creature \"{creatureInfoInputExtractor.CreatureName}\" couldn't be extracted uniquely, manual level selection is necessary.";
-                textColor = Color.FromArgb(255, colorSaturation, colorSaturation);
-            }
-
-            if (_overlay != null)
-            {
-                _overlay.SetInfoText(infoText, textColor);
-                if (Properties.Settings.Default.DisplayInheritanceInOverlay && creature != null)
-                    _overlay.SetInheritanceCreatures(creature, creature.Mother, creature.Father);
-            }
+            
+            OverlayFeedbackForImport(creature, uniqueExtraction, alreadyExists, addedToLibrary, copiedNameToClipboard, out bool hasTopLevels, out bool hasNewTopLevels);
 
             if (addedToLibrary)
             {
@@ -301,7 +282,7 @@ namespace ARKBreedingStats
                         _librarySelectionInfoClickPath = newFilePath;
                 }
             }
-            else if (!uniqueExtraction && copyNameToClipboard)
+            else if (!uniqueExtraction && copiedNameToClipboard)
             {
                 // extraction failed, user might expect the name of the new creature in the clipboard
                 Clipboard.SetText("Automatic extraction was not possible");
@@ -313,9 +294,9 @@ namespace ARKBreedingStats
                 {
                     if (alreadyExists)
                         SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Indifferent);
-                    if (newTopLevels)
+                    if (hasNewTopLevels)
                         SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Great);
-                    else if (topLevels)
+                    else if (hasTopLevels)
                         SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Good);
                     else
                         SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Success);
@@ -330,6 +311,59 @@ namespace ARKBreedingStats
             {
                 TopMost = true;
                 TopMost = false;
+            }
+        }
+
+        /// <summary>
+        /// Give feedback in overlay for imported creature.
+        /// </summary>
+        private void OverlayFeedbackForImport(Creature creature, bool uniqueExtraction, bool alreadyExists, bool addedToLibrary, bool copiedNameToClipboard, out bool topLevels, out bool newTopLevels)
+        {
+            topLevels = false;
+            newTopLevels = false;
+            string infoText;
+            Color textColor;
+            const int colorSaturation = 200;
+            if (uniqueExtraction)
+            {
+                var sb = new StringBuilder();
+                sb.AppendLine($"{creature.Species.name} \"{creature.name}\" {(alreadyExists ? "updated in " : "added to")} the library.");
+                if (addedToLibrary && copiedNameToClipboard)
+                    sb.AppendLine("Name copied to clipboard.");
+
+                for (int s = 0; s < Stats.StatsCount; s++)
+                {
+                    int statIndex = Stats.DisplayOrder[s];
+                    if (!creature.Species.UsesStat(statIndex)) continue;
+
+                    sb.Append($"{Utils.StatName(statIndex, true, creature.Species.statNames)}: {creature.levelsWild[statIndex]} ({creature.valuesBreeding[statIndex]})");
+                    if (_statIOs[statIndex].TopLevel.HasFlag(LevelStatus.NewTopLevel))
+                    {
+                        sb.Append($" {Loc.S("newTopLevel")}");
+                        newTopLevels = true;
+                    }
+                    else if (creature.topBreedingStats[statIndex])
+                    {
+                        sb.Append($" {Loc.S("topLevel")}");
+                        topLevels = true;
+                    }
+                    sb.AppendLine();
+                }
+
+                infoText = sb.ToString();
+                textColor = Color.FromArgb(colorSaturation, 255, colorSaturation);
+            }
+            else
+            {
+                infoText = $"Creature \"{creature.name}\" couldn't be extracted uniquely, manual level selection is necessary.";
+                textColor = Color.FromArgb(255, colorSaturation, colorSaturation);
+            }
+
+            if (_overlay != null)
+            {
+                _overlay.SetInfoText(infoText, textColor);
+                if (Properties.Settings.Default.DisplayInheritanceInOverlay)
+                    _overlay.SetInheritanceCreatures(creature, creature.Mother, creature.Father);
             }
         }
 

@@ -460,7 +460,7 @@ namespace ARKBreedingStats.settings
 
             // Torpidity is handled differently by the game, IwM has no effect. Set IwM to 1.
             // See https://github.com/cadon/ARKStatsExtractor/issues/942 for more infos about this.
-            _cc.serverMultipliers.statMultipliers[Stats.Torpidity][3] = 1;
+            _cc.serverMultipliers.statMultipliers[Stats.Torpidity][Stats.IndexLevelWild] = 1;
 
             _cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
             _cc.AtlasSettings = CbAtlasSettings.Checked;

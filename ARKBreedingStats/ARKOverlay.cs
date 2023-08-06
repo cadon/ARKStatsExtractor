@@ -173,7 +173,6 @@ namespace ARKBreedingStats
         /// <summary>
         /// Used to display longer texts at the top right, e.g. taming-info.
         /// </summary>
-        /// <param name="infoText"></param>
         internal void SetInfoText(string infoText, Color textColor)
         {
             labelInfo.ForeColor = textColor;

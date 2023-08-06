@@ -3294,7 +3294,7 @@ namespace ARKBreedingStats
                     _exportedCreatureList.LoadFiles(files);
                     break;
                 case ".sav":
-                    ImportExportGunFiles(files);
+                    ImportExportGunFiles(files, out _, out _);
                     break;
                 case ".asb":
                 case ".xml":

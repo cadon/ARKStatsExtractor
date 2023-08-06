@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.values;
 using Newtonsoft.Json;
@@ -15,77 +14,41 @@ namespace ARKBreedingStats.importExportGun
         /// <summary>
         /// Import file created with the export gun (mod).
         /// </summary>
-        public static Creature ImportCreature(string filePath, string serverUuid, out string error)
+        public static Creature ImportCreature(string filePath, out string resultText, out string serverUuid)
         {
-            error = null;
+            resultText = null;
+            serverUuid = null;
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
                 return null;
 
             try
             {
-                using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                var jsonText = ReadExportFile.ReadFile(filePath, "DinoExportGunSave_C", out resultText);
+                if (jsonText == null)
                 {
-                    using (BinaryReader br = new BinaryReader(fs))
-                    {
-                        br.ReadBytes(4);
-                        if (Encoding.UTF8.GetString(br.ReadBytes(19))
-                            != "DinoExportGunSave_C")
-                            return null;
-
-                        if (!SearchBytes(br, Encoding.ASCII.GetBytes("StrProperty")))
-                            return null;
-
-                        br.ReadBytes(9); // skipping to json string length
-                        var jsonLength = br.ReadInt32();
-                        if (jsonLength <= 0) return null;
-                        var jsonText = Encoding.UTF8.GetString(br.ReadBytes(jsonLength));
-                        return ConvertExportGunToCreature(JsonConvert.DeserializeObject<ExportGunFile>(jsonText), serverUuid, out error);
-                    }
+                    resultText = $"Error when importing file {filePath}: {resultText}";
+                    return null;
                 }
+
+                var exportedCreature = JsonConvert.DeserializeObject<ExportGunCreatureFile>(jsonText);
+                if (exportedCreature == null) return null;
+
+                serverUuid = exportedCreature.ServerUUID;
+
+                return ConvertExportGunToCreature(exportedCreature, out resultText);
             }
             catch (Exception ex)
             {
-                error = $"Error when importing file {filePath}: {ex.Message}";
+                resultText = $"Error when importing file {filePath}: {ex.Message}";
             }
 
             return null;
         }
 
-        /// <summary>
-        /// Looks for a specific byte pattern sequence, the stream position is set after that pattern.
-        /// </summary>
-        /// <param name="br"></param>
-        /// <param name="bytesToFind"></param>
-        /// <returns>True if pattern found.</returns>
-        private static bool SearchBytes(BinaryReader br, byte[] bytesToFind)
-        {
-            if (bytesToFind == null || bytesToFind.Length == 0) return false;
-            var pi = 0; // index of pattern currently comparing, indices before already found
-            var l = br.BaseStream.Length;
-            while (br.BaseStream.Position < l)
-            {
-                if (br.ReadByte() == bytesToFind[pi])
-                {
-                    pi++;
-                    if (pi == bytesToFind.Length)
-                        return true;
-                    continue;
-                }
-
-                pi = 0;
-            }
-            return false;
-        }
-
-        private static Creature ConvertExportGunToCreature(ExportGunFile ec, string serverUuid, out string error)
+        private static Creature ConvertExportGunToCreature(ExportGunCreatureFile ec, out string error)
         {
             error = null;
             if (ec == null) return null;
-
-            if (serverUuid != ec.ServerUUID)
-            {
-                error = "Server UUID doesn't match, the stat values might differ. It's recommend to export the server multipliers.";
-            }
 
             var species = Values.V.SpeciesByBlueprint(ec.BlueprintPath, true);
             if (species == null)
@@ -106,14 +69,23 @@ namespace ARKBreedingStats.importExportGun
 
             var arkId = Utils.ConvertArkIdsToLongArkId(ec.DinoID1, ec.DinoID2);
 
+            var isWild = string.IsNullOrEmpty(ec.DinoName)
+                         && string.IsNullOrEmpty(ec.TribeName)
+                         && string.IsNullOrEmpty(ec.TamerString)
+                         && string.IsNullOrEmpty(ec.OwningPlayerName)
+                         && string.IsNullOrEmpty(ec.ImprinterName)
+                         && ec.OwningPlayerID == 0
+                         ;
+
             var c = new Creature(species, ec.DinoName, !string.IsNullOrEmpty(ec.OwningPlayerName) ? ec.OwningPlayerName : !string.IsNullOrEmpty(ec.ImprinterName) ? ec.ImprinterName : ec.TamerString,
                 ec.TribeName, species.noGender ? Sex.Unknown : ec.IsFemale ? Sex.Female : Sex.Male, wildLevels, domLevels,
-                ec.TameEffectiveness, !string.IsNullOrEmpty(ec.ImprinterName), ec.DinoImprintingQuality,
+                isWild ? -3 : ec.TameEffectiveness, !string.IsNullOrEmpty(ec.ImprinterName), ec.DinoImprintingQuality,
                 CreatureCollection.CurrentCreatureCollection?.wildLevelStep)
             {
                 ArkId = arkId,
                 guid = Utils.ConvertArkIdToGuid(arkId),
                 ArkIdImported = true,
+                ArkIdInGame = Utils.ConvertImportedArkIdToIngameVisualization(arkId),
                 colors = ec.ColorSetIndices,
                 Maturation = ec.BabyAge,
                 mutationsMaternal = ec.RandomMutationsFemale,
@@ -129,17 +101,92 @@ namespace ARKBreedingStats.importExportGun
                 c.flags |= CreatureFlags.Neutered;
             if (ec.Ancestry != null)
             {
-                if (ec.Ancestry.femaleDinoId1 != 0 || ec.Ancestry.femaleDinoId2 != 0)
+                if (ec.Ancestry.FemaleDinoId1 != 0 || ec.Ancestry.FemaleDinoId2 != 0)
                     c.motherGuid =
-                        Utils.ConvertArkIdToGuid(Utils.ConvertArkIdsToLongArkId(ec.Ancestry.femaleDinoId1,
-                            ec.Ancestry.femaleDinoId2));
-                if (ec.Ancestry.maleDinoId1 != 0 || ec.Ancestry.maleDinoId2 != 0)
+                        Utils.ConvertArkIdToGuid(Utils.ConvertArkIdsToLongArkId(ec.Ancestry.FemaleDinoId1,
+                            ec.Ancestry.FemaleDinoId2));
+                if (ec.Ancestry.MaleDinoId1 != 0 || ec.Ancestry.MaleDinoId2 != 0)
                     c.fatherGuid =
-                        Utils.ConvertArkIdToGuid(Utils.ConvertArkIdsToLongArkId(ec.Ancestry.maleDinoId1,
-                            ec.Ancestry.maleDinoId2));
+                        Utils.ConvertArkIdToGuid(Utils.ConvertArkIdsToLongArkId(ec.Ancestry.MaleDinoId1,
+                            ec.Ancestry.MaleDinoId2));
             }
 
             return c;
+        }
+
+        /// <summary>
+        /// Import server multipliers file from the export gun mod.
+        /// </summary>
+        public static bool ImportServerMultipliers(CreatureCollection cc, string filePath, string newServerUuid, out string resultText)
+        {
+            var exportedServerMultipliers = ReadServerMultipliers(filePath, out resultText);
+            if (exportedServerMultipliers == null) return false;
+            return SetServerMultipliers(cc, exportedServerMultipliers, newServerUuid);
+        }
+
+        internal static ExportGunServerFile ReadServerMultipliers(string filePath, out string resultText)
+        {
+            resultText = null;
+            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
+                return null;
+
+            try
+            {
+                var jsonText = ReadExportFile.ReadFile(filePath, "DinoExportGunServerSave_C", out resultText);
+                if (jsonText == null)
+                {
+                    resultText = $"Error when importing file {filePath}: {resultText}";
+                    return null;
+                }
+
+                var exportedServerMultipliers = JsonConvert.DeserializeObject<ExportGunServerFile>(jsonText);
+                if (exportedServerMultipliers == null)
+                {
+                    resultText = $"Unknown error when importing file {filePath}";
+                    return null;
+                }
+
+                resultText = $"Server multipliers imported from {filePath}";
+                return exportedServerMultipliers;
+            }
+            catch (Exception ex)
+            {
+                resultText = $"Error when importing file {filePath}: {ex.Message}";
+            }
+
+            return null;
+        }
+
+        internal static bool SetServerMultipliers(CreatureCollection cc, ExportGunServerFile esm, string newServerUuid)
+        {
+            if (cc == null) return false;
+
+            for (int s = 0; s < Stats.StatsCount; s++)
+            {
+                cc.serverMultipliers.statMultipliers[s][Stats.IndexTamingAdd] = esm.TameAdd[s];
+                cc.serverMultipliers.statMultipliers[s][Stats.IndexTamingMult] = esm.TameAff[s];
+                cc.serverMultipliers.statMultipliers[s][Stats.IndexLevelWild] = esm.WildLevel[s];
+                cc.serverMultipliers.statMultipliers[s][Stats.IndexLevelDom] = esm.TameLevel[s];
+            }
+            cc.maxWildLevel = esm.MaxWildLevel;
+            cc.maxServerLevel = esm.DestroyTamesOverLevelClamp;
+            cc.serverMultipliers.TamingSpeedMultiplier = esm.TamingSpeedMultiplier;
+            cc.serverMultipliers.DinoCharacterFoodDrainMultiplier = esm.DinoCharacterFoodDrainMultiplier;
+            cc.serverMultipliers.MatingSpeedMultiplier = esm.MatingSpeedMultiplier;
+            cc.serverMultipliers.MatingIntervalMultiplier = esm.MatingIntervalMultiplier;
+            cc.serverMultipliers.EggHatchSpeedMultiplier = esm.EggHatchSpeedMultiplier;
+            cc.serverMultipliers.BabyMatureSpeedMultiplier = esm.BabyMatureSpeedMultiplier;
+            cc.serverMultipliers.BabyCuddleIntervalMultiplier = esm.BabyCuddleIntervalMultiplier;
+            cc.serverMultipliers.BabyImprintAmountMultiplier = esm.BabyImprintAmountMultiplier;
+            cc.serverMultipliers.BabyImprintingStatScaleMultiplier = esm.BabyImprintingStatScaleMultiplier;
+            cc.serverMultipliers.BabyFoodConsumptionSpeedMultiplier = esm.BabyFoodConsumptionSpeedMultiplier;
+            cc.serverMultipliers.TamedDinoCharacterFoodDrainMultiplier = esm.TamedDinoCharacterFoodDrainMultiplier;
+            cc.serverMultipliers.AllowFlyerSpeedLeveling = esm.AllowFlyerSpeedLeveling;
+            cc.singlePlayerSettings = esm.UseSingleplayerSettings;
+
+            cc.ServerUUID = newServerUuid;
+
+            return true;
         }
     }
 }

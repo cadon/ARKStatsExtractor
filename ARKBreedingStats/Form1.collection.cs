@@ -770,34 +770,76 @@ namespace ARKBreedingStats
                 LoadCollectionFile(mi.Text);
         }
 
-        private void ImportExportGunFiles(string[] filePaths)
+        /// <summary>
+        /// Imports creature from file created by the export gun mod.
+        /// Returns true if the last imported creature already exists in the library.
+        /// </summary>
+        private bool ImportExportGunFiles(string[] filePaths, out bool creatureAdded, out Creature lastAddedCreature)
         {
+            creatureAdded = false;
             var newCreatures = new List<Creature>();
 
             var importedCounter = 0;
             var importFailedCounter = 0;
             string lastError = null;
+            string lastCreatureFilePath = null;
+            string serverUuid = null;
+            bool? multipliersImportSuccessful = null;
+            string serverImportResult = null;
+            bool creatureAlreadyExists = false;
 
             foreach (var filePath in filePaths)
             {
-                var c = ImportExportGun.ImportCreature(filePath, null, out lastError);
+                var c = ImportExportGun.ImportCreature(filePath, out lastError, out serverUuid);
                 if (c != null)
                 {
                     newCreatures.Add(c);
                     importedCounter++;
+                    lastCreatureFilePath = filePath;
                 }
                 else if (lastError != null)
                 {
+                    // file could be a server multiplier file, try to read it that way
+                    var esm = ImportExportGun.ReadServerMultipliers(filePath, out var serverImportResultTemp);
+                    if (esm != null)
+                    {
+                        multipliersImportSuccessful = ImportExportGun.SetServerMultipliers(_creatureCollection, esm, Path.GetFileNameWithoutExtension(filePath));
+                        serverImportResult = serverImportResultTemp;
+                        continue;
+                    }
+
                     importFailedCounter++;
                     MessageBoxes.ShowMessageBox(lastError);
                 }
             }
 
+            if (!string.IsNullOrEmpty(serverUuid) && _creatureCollection.ServerUUID != serverUuid)
+            {
+                // current server multipliers might be outdated, import them again
+                var serverMultiplierFilePath = Path.Combine(Path.GetDirectoryName(lastCreatureFilePath), "Servers", serverUuid + ".sav");
+                multipliersImportSuccessful = ImportExportGun.ImportServerMultipliers(_creatureCollection, serverMultiplierFilePath, serverUuid, out serverImportResult);
+            }
+
+            lastAddedCreature = newCreatures.LastOrDefault();
+            if (lastAddedCreature != null)
+            {
+                creatureAlreadyExists = IsCreatureAlreadyInLibrary(lastAddedCreature.guid, lastAddedCreature.ArkId, out _);
+                creatureAdded = true;
+            }
+
             _creatureCollection.MergeCreatureList(newCreatures, true);
             UpdateCreatureParentLinkingSort();
 
-            SetMessageLabelText($"Imported {importedCounter} creatures successfully.{(importFailedCounter > 0 ? $"Failed to import {importFailedCounter} files. Last error:{Environment.NewLine}{lastError}" : string.Empty)}",
-                importedCounter > 0 && importFailedCounter == 0 ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+            var resultText = (importedCounter > 0 || importFailedCounter > 0
+                                 ? $"Imported {importedCounter} creatures successfully.{(importFailedCounter > 0 ? $"Failed to import {importFailedCounter} files. Last error:{Environment.NewLine}{lastError}" : $"{Environment.NewLine}Last file: {lastCreatureFilePath}")}"
+                                 : string.Empty)
+                             + (string.IsNullOrEmpty(serverImportResult)
+                                 ? string.Empty
+                                 : (importedCounter > 0 || importFailedCounter > 0 ? Environment.NewLine : string.Empty)
+                                  + serverImportResult);
+
+            SetMessageLabelText(resultText, importFailedCounter > 0 || multipliersImportSuccessful == false ? MessageBoxIcon.Error : MessageBoxIcon.Information);
+            return creatureAlreadyExists;
         }
 
         /// <summary>

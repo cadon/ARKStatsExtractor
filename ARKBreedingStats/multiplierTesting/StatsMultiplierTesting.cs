@@ -6,6 +6,7 @@ using ARKBreedingStats.values;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.multiplierTesting
@@ -455,7 +456,7 @@ namespace ARKBreedingStats.multiplierTesting
                         if (spM.statMultipliers[s] == null)
                             _statControls[s].SetSinglePlayerSettings();
                         else
-                            _statControls[s].SetSinglePlayerSettings(spM.statMultipliers[s][3], spM.statMultipliers[s][2], spM.statMultipliers[s][0], spM.statMultipliers[s][1]);
+                            _statControls[s].SetSinglePlayerSettings(spM.statMultipliers[s][Stats.IndexLevelWild], spM.statMultipliers[s][Stats.IndexLevelDom], spM.statMultipliers[s][Stats.IndexTamingAdd], spM.statMultipliers[s][Stats.IndexTamingMult]);
                     }
                     return;
                 }
