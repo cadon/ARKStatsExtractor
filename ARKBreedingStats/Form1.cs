@@ -1342,18 +1342,7 @@ namespace ARKBreedingStats
             }
             // a TextBox needs \r\n for a new line, only \n will not result in a line break.
             TbMessageLabel.Text = text;
-            _librarySelectionInfoClickPath = path;
-
-            if (string.IsNullOrEmpty(path))
-            {
-                TbMessageLabel.Cursor = null;
-                _tt.SetToolTip(TbMessageLabel, null);
-            }
-            else
-            {
-                TbMessageLabel.Cursor = Cursors.Hand;
-                _tt.SetToolTip(TbMessageLabel, Loc.S("ClickDisplayFile"));
-            }
+            SetMessageLabelLink(path);
 
             switch (icon)
             {
@@ -1369,6 +1358,25 @@ namespace ARKBreedingStats
                 default:
                     TbMessageLabel.BackColor = SystemColors.Control;
                     break;
+            }
+        }
+
+        /// <summary>
+        /// If valid path to file or folder, the user can click on the message to display the path in the explorer
+        /// </summary>
+        private void SetMessageLabelLink(string path = null)
+        {
+            _librarySelectionInfoClickPath = path;
+
+            if (string.IsNullOrEmpty(path))
+            {
+                TbMessageLabel.Cursor = null;
+                _tt.SetToolTip(TbMessageLabel, null);
+            }
+            else
+            {
+                TbMessageLabel.Cursor = Cursors.Hand;
+                _tt.SetToolTip(TbMessageLabel, Loc.S("ClickDisplayFile"));
             }
         }
 

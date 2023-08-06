@@ -232,7 +232,7 @@ namespace ARKBreedingStats
                     break;
                 default: return;
             }
-            
+
             OverlayFeedbackForImport(creature, uniqueExtraction, alreadyExists, addedToLibrary, copiedNameToClipboard, out bool hasTopLevels, out bool hasNewTopLevels);
 
             if (addedToLibrary)
@@ -279,7 +279,10 @@ namespace ARKBreedingStats
                     }
 
                     if (FileService.TryMoveFile(filePath, newFilePath))
+                    {
                         _librarySelectionInfoClickPath = newFilePath;
+                        SetMessageLabelLink(newFilePath);
+                    }
                 }
             }
             else if (!uniqueExtraction && copiedNameToClipboard)

@@ -838,7 +838,7 @@ namespace ARKBreedingStats
                                  : (importedCounter > 0 || importFailedCounter > 0 ? Environment.NewLine : string.Empty)
                                   + serverImportResult);
 
-            SetMessageLabelText(resultText, importFailedCounter > 0 || multipliersImportSuccessful == false ? MessageBoxIcon.Error : MessageBoxIcon.Information);
+            SetMessageLabelText(resultText, importFailedCounter > 0 || multipliersImportSuccessful == false ? MessageBoxIcon.Error : MessageBoxIcon.Information, lastCreatureFilePath);
             return creatureAlreadyExists;
         }
 
