@@ -161,26 +161,28 @@ namespace ARKBreedingStats.importExportGun
         {
             if (cc == null) return false;
 
+            const int roundToDigits = 6;
+
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                cc.serverMultipliers.statMultipliers[s][Stats.IndexTamingAdd] = esm.TameAdd[s];
-                cc.serverMultipliers.statMultipliers[s][Stats.IndexTamingMult] = esm.TameAff[s];
-                cc.serverMultipliers.statMultipliers[s][Stats.IndexLevelWild] = esm.WildLevel[s];
-                cc.serverMultipliers.statMultipliers[s][Stats.IndexLevelDom] = esm.TameLevel[s];
+                cc.serverMultipliers.statMultipliers[s][Stats.IndexTamingAdd] = Math.Round(esm.TameAdd[s], roundToDigits);
+                cc.serverMultipliers.statMultipliers[s][Stats.IndexTamingMult] = Math.Round(esm.TameAff[s], roundToDigits);
+                cc.serverMultipliers.statMultipliers[s][Stats.IndexLevelWild] = Math.Round(esm.WildLevel[s], roundToDigits);
+                cc.serverMultipliers.statMultipliers[s][Stats.IndexLevelDom] = Math.Round(esm.TameLevel[s], roundToDigits);
             }
             cc.maxWildLevel = esm.MaxWildLevel;
             cc.maxServerLevel = esm.DestroyTamesOverLevelClamp;
-            cc.serverMultipliers.TamingSpeedMultiplier = esm.TamingSpeedMultiplier;
-            cc.serverMultipliers.DinoCharacterFoodDrainMultiplier = esm.DinoCharacterFoodDrainMultiplier;
-            cc.serverMultipliers.MatingSpeedMultiplier = esm.MatingSpeedMultiplier;
-            cc.serverMultipliers.MatingIntervalMultiplier = esm.MatingIntervalMultiplier;
-            cc.serverMultipliers.EggHatchSpeedMultiplier = esm.EggHatchSpeedMultiplier;
-            cc.serverMultipliers.BabyMatureSpeedMultiplier = esm.BabyMatureSpeedMultiplier;
-            cc.serverMultipliers.BabyCuddleIntervalMultiplier = esm.BabyCuddleIntervalMultiplier;
-            cc.serverMultipliers.BabyImprintAmountMultiplier = esm.BabyImprintAmountMultiplier;
-            cc.serverMultipliers.BabyImprintingStatScaleMultiplier = esm.BabyImprintingStatScaleMultiplier;
-            cc.serverMultipliers.BabyFoodConsumptionSpeedMultiplier = esm.BabyFoodConsumptionSpeedMultiplier;
-            cc.serverMultipliers.TamedDinoCharacterFoodDrainMultiplier = esm.TamedDinoCharacterFoodDrainMultiplier;
+            cc.serverMultipliers.TamingSpeedMultiplier = Math.Round(esm.TamingSpeedMultiplier, roundToDigits);
+            cc.serverMultipliers.DinoCharacterFoodDrainMultiplier = Math.Round(esm.DinoCharacterFoodDrainMultiplier, roundToDigits);
+            cc.serverMultipliers.MatingSpeedMultiplier = Math.Round(esm.MatingSpeedMultiplier, roundToDigits);
+            cc.serverMultipliers.MatingIntervalMultiplier = Math.Round(esm.MatingIntervalMultiplier, roundToDigits);
+            cc.serverMultipliers.EggHatchSpeedMultiplier = Math.Round(esm.EggHatchSpeedMultiplier, roundToDigits);
+            cc.serverMultipliers.BabyMatureSpeedMultiplier = Math.Round(esm.BabyMatureSpeedMultiplier, roundToDigits);
+            cc.serverMultipliers.BabyCuddleIntervalMultiplier = Math.Round(esm.BabyCuddleIntervalMultiplier, roundToDigits);
+            cc.serverMultipliers.BabyImprintAmountMultiplier = Math.Round(esm.BabyImprintAmountMultiplier, roundToDigits);
+            cc.serverMultipliers.BabyImprintingStatScaleMultiplier = Math.Round(esm.BabyImprintingStatScaleMultiplier, roundToDigits);
+            cc.serverMultipliers.BabyFoodConsumptionSpeedMultiplier = Math.Round(esm.BabyFoodConsumptionSpeedMultiplier, roundToDigits);
+            cc.serverMultipliers.TamedDinoCharacterFoodDrainMultiplier = Math.Round(esm.TamedDinoCharacterFoodDrainMultiplier, roundToDigits);
             cc.serverMultipliers.AllowFlyerSpeedLeveling = esm.AllowFlyerSpeedLeveling;
             cc.singlePlayerSettings = esm.UseSingleplayerSettings;
 
