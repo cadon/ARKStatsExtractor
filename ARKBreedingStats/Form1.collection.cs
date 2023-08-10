@@ -671,6 +671,9 @@ namespace ARKBreedingStats
             SetMessageLabelText("A File with the current library and the values in the extractor has been created and copied to the clipboard. You can paste this file to a folder to add it to an issue report.", MessageBoxIcon.Information, tempZipFilePath);
         }
 
+        /// <summary>
+        /// Zipped library files are often error reports.
+        /// </summary>
         private bool OpenZippedLibrary(string filePath)
         {
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
