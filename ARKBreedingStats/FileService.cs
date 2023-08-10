@@ -158,7 +158,7 @@ namespace ARKBreedingStats
         /// <returns>True if the file is not existing after this method ends.</returns>
         public static bool TryDeleteFile(string filePath)
         {
-            if (!File.Exists(filePath)) return true;
+            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) return true;
             try
             {
                 File.Delete(filePath);

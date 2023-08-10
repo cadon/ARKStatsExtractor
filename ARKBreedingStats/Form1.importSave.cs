@@ -37,10 +37,10 @@ namespace ARKBreedingStats
             ToolStripStatusLabelImport.Text = $"{Loc.S("ImportingSavegame")} {atImportFileLocation.ConvenientName}";
             ToolStripStatusLabelImport.Visible = true;
 
+            string workingCopyFolderPath = Properties.Settings.Default.savegameExtractionPath;
+            string workingCopyFilePath = null;
             try
             {
-                string workingCopyFolderPath = Properties.Settings.Default.savegameExtractionPath;
-                string workingCopyFilePath;
 
                 // working dir not configured? use temp dir
                 // luser configured savegame folder as working dir? use temp dir instead
@@ -102,8 +102,6 @@ namespace ARKBreedingStats
                 await ImportSavegame.ImportCollectionFromSavegame(_creatureCollection, workingCopyFilePath,
                     atImportFileLocation.ServerName);
 
-                FileService.TryDeleteFile(workingCopyFilePath);
-
                 UpdateCreatureParentLinkingSort();
 
                 // if unknown mods are used in the savegame-file and the user wants to load the missing mod-files, do it
@@ -118,6 +116,7 @@ namespace ARKBreedingStats
             }
             finally
             {
+                FileService.TryDeleteFile(workingCopyFilePath);
                 TsbQuickSaveGameImport.Enabled = true;
                 TsbQuickSaveGameImport.BackColor = SystemColors.Control;
                 ToolStripStatusLabelImport.Visible = false;
