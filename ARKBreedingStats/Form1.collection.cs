@@ -786,14 +786,14 @@ namespace ARKBreedingStats
             var importFailedCounter = 0;
             string lastError = null;
             string lastCreatureFilePath = null;
-            string serverUuid = null;
+            string serverMultipliersHash = null;
             bool? multipliersImportSuccessful = null;
             string serverImportResult = null;
             bool creatureAlreadyExists = false;
 
             foreach (var filePath in filePaths)
             {
-                var c = ImportExportGun.ImportCreature(filePath, out lastError, out serverUuid);
+                var c = ImportExportGun.ImportCreature(filePath, out lastError, out serverMultipliersHash);
                 if (c != null)
                 {
                     newCreatures.Add(c);
@@ -816,11 +816,11 @@ namespace ARKBreedingStats
                 }
             }
 
-            if (!string.IsNullOrEmpty(serverUuid) && _creatureCollection.ServerUUID != serverUuid)
+            if (!string.IsNullOrEmpty(serverMultipliersHash) && _creatureCollection.ServerMultipliersHash != serverMultipliersHash)
             {
                 // current server multipliers might be outdated, import them again
-                var serverMultiplierFilePath = Path.Combine(Path.GetDirectoryName(lastCreatureFilePath), "Servers", serverUuid + ".sav");
-                multipliersImportSuccessful = ImportExportGun.ImportServerMultipliers(_creatureCollection, serverMultiplierFilePath, serverUuid, out serverImportResult);
+                var serverMultiplierFilePath = Path.Combine(Path.GetDirectoryName(lastCreatureFilePath), "Servers", serverMultipliersHash + ".sav");
+                multipliersImportSuccessful = ImportExportGun.ImportServerMultipliers(_creatureCollection, serverMultiplierFilePath, serverMultipliersHash, out serverImportResult);
             }
 
             lastAddedCreature = newCreatures.LastOrDefault();

@@ -78,10 +78,10 @@ namespace ARKBreedingStats.Library
 
         /// <summary>
         /// Used for the exportGun mod.
-        /// The UUID is used to determine if the creature file is from that server, assuming the stat multipliers match.
+        /// This hash is used to determine if an imported creature file is using the current server multipliers.
         /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string ServerUUID;
+        public string ServerMultipliersHash;
 
         /// <summary>
         /// Allow more than 100% imprinting, can happen with mods, e.g. S+ Nanny

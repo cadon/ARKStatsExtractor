@@ -31,9 +31,9 @@ namespace ARKBreedingStats.importExportGun
         public int RandomMutationsMale { get; set; }
         public int RandomMutationsFemale { get; set; }
         /// <summary>
-        /// UID to identify a server, used to make sure the stat multipliers are from this server.
+        /// Hash of the server multipliers, used to make sure the stat multipliers are from this server when importing via the export gun mod.
         /// </summary>
-        public string ServerUUID { get; set; }
+        public string ServerMultipliersHash { get; set; }
         public float TameEffectiveness { get; set; }
         public int BaseCharacterLevel { get; set; }
         public float DinoImprintingQuality { get; set; }

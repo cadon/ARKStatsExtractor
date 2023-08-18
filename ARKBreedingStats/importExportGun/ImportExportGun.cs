@@ -14,10 +14,10 @@ namespace ARKBreedingStats.importExportGun
         /// <summary>
         /// Import file created with the export gun (mod).
         /// </summary>
-        public static Creature ImportCreature(string filePath, out string resultText, out string serverUuid)
+        public static Creature ImportCreature(string filePath, out string resultText, out string serverMultipliersHash)
         {
             resultText = null;
-            serverUuid = null;
+            serverMultipliersHash = null;
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
                 return null;
 
@@ -33,7 +33,7 @@ namespace ARKBreedingStats.importExportGun
                 var exportedCreature = JsonConvert.DeserializeObject<ExportGunCreatureFile>(jsonText);
                 if (exportedCreature == null) return null;
 
-                serverUuid = exportedCreature.ServerUUID;
+                serverMultipliersHash = exportedCreature.ServerMultipliersHash;
 
                 return ConvertExportGunToCreature(exportedCreature, out resultText);
             }
@@ -117,11 +117,11 @@ namespace ARKBreedingStats.importExportGun
         /// <summary>
         /// Import server multipliers file from the export gun mod.
         /// </summary>
-        public static bool ImportServerMultipliers(CreatureCollection cc, string filePath, string newServerUuid, out string resultText)
+        public static bool ImportServerMultipliers(CreatureCollection cc, string filePath, string newServerMultipliersHash, out string resultText)
         {
             var exportedServerMultipliers = ReadServerMultipliers(filePath, out resultText);
             if (exportedServerMultipliers == null) return false;
-            return SetServerMultipliers(cc, exportedServerMultipliers, newServerUuid);
+            return SetServerMultipliers(cc, exportedServerMultipliers, newServerMultipliersHash);
         }
 
         internal static ExportGunServerFile ReadServerMultipliers(string filePath, out string resultText)
@@ -157,7 +157,7 @@ namespace ARKBreedingStats.importExportGun
             return null;
         }
 
-        internal static bool SetServerMultipliers(CreatureCollection cc, ExportGunServerFile esm, string newServerUuid)
+        internal static bool SetServerMultipliers(CreatureCollection cc, ExportGunServerFile esm, string newServerMultipliersHash)
         {
             if (cc == null) return false;
 
@@ -186,7 +186,7 @@ namespace ARKBreedingStats.importExportGun
             cc.serverMultipliers.AllowFlyerSpeedLeveling = esm.AllowFlyerSpeedLeveling;
             cc.singlePlayerSettings = esm.UseSingleplayerSettings;
 
-            cc.ServerUUID = newServerUuid;
+            cc.ServerMultipliersHash = newServerMultipliersHash;
 
             return true;
         }
