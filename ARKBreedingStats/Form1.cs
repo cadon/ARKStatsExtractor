@@ -20,7 +20,6 @@ using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.utils;
 using static ARKBreedingStats.settings.Settings;
 using Color = System.Drawing.Color;
-using System.Windows.Forms.DataVisualization.Charting;
 
 namespace ARKBreedingStats
 {
