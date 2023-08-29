@@ -1175,10 +1175,26 @@ namespace ARKBreedingStats
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (UnsavedChanges() && CustomMessageBox.Show(Loc.S("Collection changed discard and quit?"),
-                Loc.S("Discard changes?"), Loc.S("Discard changes and quit"), buttonCancel: Loc.S("Cancel quitting"),
-                icon: MessageBoxIcon.Warning) != DialogResult.Yes)
-                e.Cancel = true;
+            if (UnsavedChanges())
+            {
+                switch (CustomMessageBox.Show(Loc.S("Collection changed discard and quit?"),
+                Loc.S("Discard changes?"), buttonYes: Loc.S("Save and quit"), buttonNo: Loc.S("Discard changes and quit"), buttonCancel: Loc.S("Cancel quitting"),
+                icon: MessageBoxIcon.Warning))
+                {
+                    case DialogResult.Yes:
+                        SaveCollection();
+                        break;
+                    case DialogResult.No:
+                        break;
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        break;
+                    default:
+                        e.Cancel = true;
+                        break;
+                }
+            }
+
         }
 
         /// <summary>

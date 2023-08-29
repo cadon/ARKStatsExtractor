@@ -334,6 +334,7 @@ runDefaultExtractionAndImportFileToolStripMenuItem	Run default Extraction and im
 runDefaultExtractionToolStripMenuItem	Run default Extraction
 saveAsToolStripMenuItem	Save &as...
 saveToolStripMenuItem	&Save
+Save and quit	Save and quit
 SelectSpeciesBreedingPlanner	Select a species to see suggestions for the chosen breeding-mode
 Server	Server
 serverFilterFromLibrary  Server filter from library
