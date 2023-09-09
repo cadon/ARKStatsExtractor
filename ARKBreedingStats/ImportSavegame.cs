@@ -34,7 +34,7 @@ namespace ARKBreedingStats
             IEnumerable<GameObject> tamedCreatureObjects = gameObjectContainer
                     .Where(o => o.IsCreature()
                     && o.IsTamed()
-                    && (importUnclaimedBabies || (o.IsCryo && Properties.Settings.Default.SaveImportCryo) || !o.IsUnclaimedBaby())
+                    && (importUnclaimedBabies || (o.IsInCryo && Properties.Settings.Default.SaveImportCryo) || !o.IsUnclaimedBaby())
                     && !ignoreClasses.Contains(o.ClassString));
 
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.ImportTribeNameFilter))
@@ -79,17 +79,13 @@ namespace ARKBreedingStats
 
         private static (GameObjectContainer, float) ReadSavegameFile(string fileName)
         {
-            if (new FileInfo(fileName).Length > int.MaxValue)
-            {
-                throw new Exception("Input file is too large.");
-            }
-
             ArkSavegame arkSavegame = new ArkSavegame();
 
             bool PredicateCreatures(GameObject o) => !o.IsItem && (o.Parent != null || o.Components.Any());
-            bool PredicateCreaturesAndCryopods(GameObject o) => (!o.IsItem && (o.Parent != null || o.Components.Any())) || o.ClassString.Contains("Cryopod") || o.ClassString.Contains("SoulTrap_");
+            bool PredicateCreaturesAndCryopods(GameObject o) => (!o.IsItem && (o.Parent != null || o.Components.Any())) || o.ClassString.Contains("Cryopod") || o.ClassString.Contains("SoulTrap_") || o.ClassString.Contains("Vivarium_");
 
-            using (Stream stream = new MemoryStream(File.ReadAllBytes(fileName)))
+            var largeFile = new FileInfo(fileName).Length > int.MaxValue;
+            using (var stream = largeFile ? (Stream)new FileStream(fileName, FileMode.Open) : new MemoryStream(File.ReadAllBytes(fileName)))
             using (ArkArchive archive = new ArkArchive(stream))
             {
                 arkSavegame.ReadBinary(archive, ReadingOptions.Create()
@@ -249,7 +245,7 @@ namespace ARKBreedingStats
                 creature.Status = CreatureStatus.Dead; // dead is always dead
             }
 
-            if (creatureObject.IsCryo)
+            if (creatureObject.IsInCryo)
                 creature.Status = CreatureStatus.Cryopod;
 
             creature.RecalculateCreatureValues(levelStep);

@@ -41,7 +41,6 @@ namespace ARKBreedingStats
             string workingCopyFilePath = null;
             try
             {
-
                 // working dir not configured? use temp dir
                 // luser configured savegame folder as working dir? use temp dir instead
                 if (string.IsNullOrWhiteSpace(workingCopyFolderPath) ||
@@ -97,6 +96,12 @@ namespace ARKBreedingStats
                         MessageBoxes.ExceptionMessageBox(ex, $"Error while copying the save game file to the working directory\n{workingCopyFolderPath}\nIt's recommended to leave the setting for the working folder empty.");
                         return string.Empty;
                     }
+                }
+
+                if (new FileInfo(workingCopyFilePath).Length > int.MaxValue
+                    && MessageBox.Show("The file is very large (> 2 GB), importing can take some minutes. Continue?", "Importing large file", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                {
+                    return "Import aborted by user because of large file size";
                 }
 
                 await ImportSavegame.ImportCollectionFromSavegame(_creatureCollection, workingCopyFilePath,
