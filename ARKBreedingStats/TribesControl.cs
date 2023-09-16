@@ -79,23 +79,20 @@ namespace ARKBreedingStats
         {
             listViewPlayer.Items.Clear();
             Dictionary<string, Color> tribeRelColors = new Dictionary<string, Color>();
+
+            var tribeGroups = new Dictionary<string, ListViewGroup>();
+            var lviPlayers = new List<ListViewItem>();
+
             foreach (Player p in players)
             {
                 // check if group of tribe exists
-                ListViewGroup g = null;
-                foreach (ListViewGroup lvg in listViewPlayer.Groups)
-                {
-                    if (lvg.Header == p.Tribe)
-                    {
-                        g = lvg;
-                        break;
-                    }
-                }
-                if (g == null)
+                var tribeName = p.Tribe ?? string.Empty;
+                if (!tribeGroups.TryGetValue(tribeName, out var g))
                 {
                     g = new ListViewGroup(p.Tribe);
-                    listViewPlayer.Groups.Add(g);
+                    tribeGroups[tribeName] = g;
                 }
+
                 if (p.Tribe != null && !tribeRelColors.ContainsKey(p.Tribe))
                 {
                     Color c = Color.White;
@@ -127,8 +124,11 @@ namespace ARKBreedingStats
                 };
                 if (!string.IsNullOrEmpty(p.Tribe))
                     lvi.SubItems[3].BackColor = tribeRelColors[p.Tribe];
-                listViewPlayer.Items.Add(lvi);
+                lviPlayers.Add(lvi);
             }
+
+            listViewPlayer.Groups.AddRange(tribeGroups.Values.ToArray());
+            listViewPlayer.Items.AddRange(lviPlayers.ToArray());
         }
 
         /// <summary>
@@ -137,6 +137,7 @@ namespace ARKBreedingStats
         private void UpdateTribeList()
         {
             listViewTribes.Items.Clear();
+            var tribeList = new List<ListViewItem>();
             foreach (Tribe t in tribes)
             {
                 ListViewItem lvi = new ListViewItem(new[] { t.TribeName, t.TribeRelation.ToString() })
@@ -145,8 +146,9 @@ namespace ARKBreedingStats
                     Tag = t
                 };
                 lvi.SubItems[1].BackColor = RelationColor(t.TribeRelation);
-                listViewTribes.Items.Add(lvi);
+                tribeList.Add(lvi);
             }
+            listViewTribes.Items.AddRange(tribeList.ToArray());
             UpdateTribeSuggestions();
         }
 
@@ -270,6 +272,23 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
+        /// Add players if they aren't yet in the list.
+        /// </summary>
+        /// <param name="playerNames"></param>
+        public void AddPlayers(List<string> playerNames)
+        {
+            if (playerNames == null) return;
+
+            var existingPlayers = players.Select(p => p.PlayerName).ToHashSet();
+            var newPlayers = playerNames
+                .Where(newPlayer => !string.IsNullOrEmpty(newPlayer) && !existingPlayers.Contains(newPlayer))
+                .Select(p => new Player { PlayerName = p }).ToArray();
+            if (!newPlayers.Any()) return;
+            players.AddRange(newPlayers);
+            UpdatePlayerList();
+        }
+
+        /// <summary>
         /// Add tribe to tribe list.
         /// </summary>
         /// <param name="name"></param>
@@ -286,6 +305,23 @@ namespace ARKBreedingStats
             listViewTribes.Items[i].Focused = true;
             textBoxTribeName.SelectAll();
             textBoxTribeName.Focus();
+        }
+
+        /// <summary>
+        /// Add tribes if they aren't yet in the list.
+        /// </summary>
+        /// <param name="playerNames"></param>
+        public void AddTribes(List<string> tribeNames)
+        {
+            if (tribeNames == null) return;
+
+            var existingTribes = tribes.Select(t => t.TribeName).ToHashSet();
+            var newTribes = tribeNames
+                .Where(newTribe => !string.IsNullOrEmpty(newTribe) && !existingTribes.Contains(newTribe))
+                .Select(t => new Tribe { TribeName = t }).ToArray();
+            if (!newTribes.Any()) return;
+            tribes.AddRange(newTribes);
+            UpdateTribeList();
         }
 
         private void DeleteSelectedPlayer()

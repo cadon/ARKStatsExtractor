@@ -533,8 +533,6 @@ namespace ARKBreedingStats
         /// </summary>
         private bool UpdateParents(IEnumerable<Creature> creatures)
         {
-            List<Creature> placeholderAncestors = new List<Creature>();
-
             Dictionary<Guid, Creature> creatureGuids;
 
             bool duplicatesWereRemoved = false;
@@ -671,6 +669,8 @@ namespace ARKBreedingStats
                 duplicatesWereRemoved = true;
             }
 
+            var placeholderAncestors = new Dictionary<Guid, Creature>();
+
             foreach (Creature c in creatures)
             {
                 if (c.motherGuid == Guid.Empty && c.fatherGuid == Guid.Empty) continue;
@@ -689,7 +689,7 @@ namespace ARKBreedingStats
                 c.Father = father;
             }
 
-            _creatureCollection.creatures.AddRange(placeholderAncestors);
+            _creatureCollection.creatures.AddRange(placeholderAncestors.Values);
 
             return duplicatesWereRemoved;
         }
@@ -704,13 +704,12 @@ namespace ARKBreedingStats
         /// <param name="name">Name of the creature to create</param>
         /// <param name="sex">Sex of the creature to create</param>
         /// <returns></returns>
-        private Creature EnsurePlaceholderCreature(List<Creature> placeholders, Creature tmpl, Guid guid, string name, Sex sex)
+        private Creature EnsurePlaceholderCreature(Dictionary<Guid, Creature> placeholders, Creature tmpl, Guid guid, string name, Sex sex)
         {
             if (guid == Guid.Empty)
                 return null;
-            var existing = placeholders.FirstOrDefault(ph => ph.guid == guid);
-            if (existing != null)
-                return existing;
+            if (placeholders.TryGetValue(guid, out var existingCreature))
+                return existingCreature;
 
             if (string.IsNullOrEmpty(name))
                 name = (sex == Sex.Female ? "Mother" : "Father") + " of " + tmpl.name;
@@ -722,7 +721,7 @@ namespace ARKBreedingStats
                 flags = CreatureFlags.Placeholder
             };
 
-            placeholders.Add(creature);
+            placeholders.Add(creature.guid, creature);
 
             return creature;
         }

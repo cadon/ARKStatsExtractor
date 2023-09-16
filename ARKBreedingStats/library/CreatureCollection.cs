@@ -201,6 +201,8 @@ namespace ARKBreedingStats.Library
             Species onlyThisSpeciesAdded = null;
             bool onlyOneSpeciesAdded = true;
 
+            var guidDict = creatures.ToDictionary(c => c.guid);
+
             foreach (Creature creatureNew in creaturesToMerge)
             {
                 if (!addPreviouslyDeletedCreatures && DeletedCreatureGuids != null && DeletedCreatureGuids.Contains(creatureNew.guid)) continue;
@@ -213,8 +215,7 @@ namespace ARKBreedingStats.Library
                         onlyOneSpeciesAdded = false;
                 }
 
-                var creatureExisting = creatures.FirstOrDefault(c => c.guid == creatureNew.guid);
-                if (creatureExisting == null)
+                if (!guidDict.TryGetValue(creatureNew.guid, out var creatureExisting))
                 {
                     creatures.Add(creatureNew);
                     creaturesWereAddedOrUpdated = true;

@@ -1013,18 +1013,10 @@ namespace ARKBreedingStats
             serverList.Sort();
 
             // owners
-            foreach (var owner in ownerList)
-            {
-                if (!string.IsNullOrEmpty(owner) && !tribesControl1.PlayerExists(owner))
-                    tribesControl1.AddPlayer(owner);
-            }
+            tribesControl1.AddPlayers(ownerList);
 
             // tribes
-            foreach (var tribe in tribesList)
-            {
-                if (!string.IsNullOrEmpty(tribe) && !tribesControl1.TribeExists(tribe))
-                    tribesControl1.AddTribe(tribe);
-            }
+            tribesControl1.AddTribes(tribesList);
 
             ///// Apply autocomplete lists
             // owners
