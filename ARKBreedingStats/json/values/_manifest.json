@@ -6,7 +6,7 @@
 			"mod": { "id": "1083349027", "tag": "SpeedyFlyers", "title": "Najs Speedy Flyers" }
 		},
 		"1090809604-Pyria.json": {
-			"version": "358.9.1690844934",
+			"version": "358.11.1693620638",
 			"mod": { "id": "1090809604", "tag": "Pyria", "title": "Pyria: Mythos Evolved" }
 		},
 		"1092784125-Gryphons.json": {
@@ -72,7 +72,7 @@
 			"mod": { "id": "1356703358", "tag": "Primal_Fear_Noxious_Creatures", "title": "Primal Fear Noxious Creatures" }
 		},
 		"1373744537-AC2.json": {
-			"version": "358.9.1690576738",
+			"version": "358.11.1693637981",
 			"mod": { "id": "1373744537", "tag": "AC2", "title": "Additional Creatures 2: Wild Ark" }
 		},
 		"1379111008-RealismPlus.json": {
@@ -100,7 +100,7 @@
 			"mod": { "id": "1498206270", "tag": "SmallDragon", "title": "Small Dragons!" }
 		},
 		"1522327484-Additions_Pack.json": {
-			"version": "358.10.1690986980",
+			"version": "358.11.1692893636",
 			"mod": { "id": "1522327484", "tag": "Additions_Pack", "title": "ARK Additions!" }
 		},
 		"1523045986-Paranoia.json": {
@@ -133,7 +133,7 @@
 			"mod": { "id": "1633860796", "tag": "DE_Breedable_RockDrakes", "title": "Dark Edges Breedable Rock Drakes" }
 		},
 		"1652120435-AtlasPort.json": {
-			"version": "356.5.1672480004",
+			"version": "358.11.1693253248",
 			"mod": { "id": "1652120435", "tag": "AtlasPort", "title": "Shad's Atlas Imports" }
 		},
 		"1654255131-AtlasImports.json": {
@@ -243,7 +243,7 @@
 			"mod": { "id": "2000326197", "tag": "ExtraResources", "title": "Event Assets" }
 		},
 		"2003934830-Beasts.json": {
-			"version": "357.18.1684270950",
+			"version": "358.11.1692983778",
 			"mod": { "id": "2003934830", "tag": "Beasts", "title": "Prehistoric Beasts" }
 		},
 		"2019846325-ApexMod.json": {
@@ -271,7 +271,7 @@
 			"mod": { "id": "2135314513", "tag": "CI_Dinos", "title": "Crystal Isles Dino Addition" }
 		},
 		"2212177129-Hybridthing.json": {
-			"version": "358.9.1690578010",
+			"version": "358.11.1692981202",
 			"mod": { "id": "2212177129", "tag": "Hybridthing", "title": "Sid's Hybrids" }
 		},
 		"2247209652-MonstersandMore.json": {
@@ -303,7 +303,7 @@
 			"mod": { "id": "2683373846", "tag": "ZazaCollection_2", "title": "Zaza's Collection" }
 		},
 		"2804332920-PaleoARKlegends.json": {
-			"version": "358.8.1688737642",
+			"version": "358.11.1693676474",
 			"mod": { "id": "2804332920", "tag": "PaleoARKlegends", "title": "Paleo ARK: Legends Expansion!" }
 		},
 		"2869411055-SDinoVariants.json": {
@@ -311,7 +311,7 @@
 			"mod": { "id": "2869411055", "tag": "SDinoVariants", "title": "SDinoVariants" }
 		},
 		"710880648-DinoOverHaulMODX.json": {
-			"version": "358.9.1690322071",
+			"version": "358.11.1694019960",
 			"mod": { "id": "710880648", "tag": "DinoOverHaulMODX", "title": "DinoOverhaul X -- Hardcore PvE Experience" }
 		},
 		"729352919-IndomRex.json": {
@@ -323,7 +323,7 @@
 			"mod": { "id": "814833973", "tag": "Wyvern_Mating", "title": "Wyvern Mating" }
 		},
 		"839162288-Primal_Fear.json": {
-			"version": "357.12.1681258396",
+			"version": "358.11.1693416578",
 			"mod": { "id": "839162288", "tag": "Primal_Fear", "title": "Primal Fear" }
 		},
 		"883957187-WyvernWorld.json": {
@@ -331,7 +331,7 @@
 			"mod": { "id": "883957187", "tag": "WyvernWorld", "title": "Wyvern World" }
 		},
 		"893735676-AE.json": {
-			"version": "358.9.1690605508",
+			"version": "358.10.1691991018",
 			"mod": { "id": "893735676", "tag": "AE", "title": "Ark Eternal" }
 		},
 		"895711211-ClassicFlyers.json": {
