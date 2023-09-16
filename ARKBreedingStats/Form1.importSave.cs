@@ -37,11 +37,10 @@ namespace ARKBreedingStats
             ToolStripStatusLabelImport.Text = $"{Loc.S("ImportingSavegame")} {atImportFileLocation.ConvenientName}";
             ToolStripStatusLabelImport.Visible = true;
 
+            string workingCopyFolderPath = Properties.Settings.Default.savegameExtractionPath;
+            string workingCopyFilePath = null;
             try
             {
-                string workingCopyFolderPath = Properties.Settings.Default.savegameExtractionPath;
-                string workingCopyFilePath;
-
                 // working dir not configured? use temp dir
                 // luser configured savegame folder as working dir? use temp dir instead
                 if (string.IsNullOrWhiteSpace(workingCopyFolderPath) ||
@@ -99,31 +98,16 @@ namespace ARKBreedingStats
                     }
                 }
 
+                if (new FileInfo(workingCopyFilePath).Length > int.MaxValue
+                    && MessageBox.Show("The file is very large (> 2 GB), importing can take some minutes. Continue?", "Importing large file", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                {
+                    return "Import aborted by user because of large file size";
+                }
+
                 await ImportSavegame.ImportCollectionFromSavegame(_creatureCollection, workingCopyFilePath,
                     atImportFileLocation.ServerName);
 
-                FileService.TryDeleteFile(workingCopyFilePath);
-
-                UpdateParents(_creatureCollection.creatures);
-
-                foreach (var creature in _creatureCollection.creatures)
-                {
-                    creature.RecalculateAncestorGenerations();
-                }
-
-                UpdateIncubationParents(_creatureCollection);
-
-                // update UI
-                SetCollectionChanged(true);
-                UpdateCreatureListings();
-
-                if (_creatureCollection.creatures.Any())
-                    tabControlMain.SelectedTab = tabPageLibrary;
-
-                // reapply last sorting
-                SortLibrary();
-
-                UpdateTempCreatureDropDown();
+                UpdateCreatureParentLinkingSort();
 
                 // if unknown mods are used in the savegame-file and the user wants to load the missing mod-files, do it
                 if (_creatureCollection.ModValueReloadNeeded
@@ -137,6 +121,7 @@ namespace ARKBreedingStats
             }
             finally
             {
+                FileService.TryDeleteFile(workingCopyFilePath);
                 TsbQuickSaveGameImport.Enabled = true;
                 TsbQuickSaveGameImport.BackColor = SystemColors.Control;
                 ToolStripStatusLabelImport.Visible = false;

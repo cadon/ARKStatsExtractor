@@ -1322,4 +1322,7 @@ Es ist auch möglich Tiere mit einer Farbe in mehreren möglichen Regionen zu fi
   <data name="groupLibraryBySpecies" xml:space="preserve">
     <value>Bibliothek nach Spezies gruppieren</value>
   </data>
+  <data name="nameAlreadyExistsInLibrary" xml:space="preserve">
+    <value>Dieser Name existiert bereits in der Bibliothek</value>
+  </data>
 </root>

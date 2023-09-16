@@ -1334,4 +1334,7 @@ It's also possible to filter for creatures with a color in one of multiple possi
   <data name="groupLibraryBySpecies" xml:space="preserve">
     <value>Group library by species</value>
   </data>
+  <data name="nameAlreadyExistsInLibrary" xml:space="preserve">
+    <value>This name already exists in the library</value>
+  </data>
 </root>

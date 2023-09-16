@@ -545,23 +545,23 @@ namespace ARKBreedingStats.values
                             continue;
 
                         // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
-                        sp.stats[s].AddWhenTamed *= sp.stats[s].AddWhenTamed > 0 ? singlePlayerServerMultipliers.statMultipliers[s][0] : 1;
+                        sp.stats[s].AddWhenTamed *= sp.stats[s].AddWhenTamed > 0 ? singlePlayerServerMultipliers.statMultipliers[s][Stats.IndexTamingAdd] : 1;
                         // don't apply the multiplier if MultAffinity is negative (e.g. Aberration variants)
-                        sp.stats[s].MultAffinity *= sp.stats[s].MultAffinity > 0 ? singlePlayerServerMultipliers.statMultipliers[s][1] : 1;
-                        sp.stats[s].IncPerTamedLevel *= singlePlayerServerMultipliers.statMultipliers[s][2];
-                        sp.stats[s].IncPerWildLevel *= singlePlayerServerMultipliers.statMultipliers[s][3];
+                        sp.stats[s].MultAffinity *= sp.stats[s].MultAffinity > 0 ? singlePlayerServerMultipliers.statMultipliers[s][Stats.IndexTamingMult] : 1;
+                        sp.stats[s].IncPerTamedLevel *= singlePlayerServerMultipliers.statMultipliers[s][Stats.IndexLevelDom];
+                        sp.stats[s].IncPerWildLevel *= singlePlayerServerMultipliers.statMultipliers[s][Stats.IndexLevelWild];
 
                         // troodonism values
                         if (sp.altStats?[s] != null)
                         {
                             sp.altStats[s].AddWhenTamed *= sp.altStats[s].AddWhenTamed > 0
-                                ? singlePlayerServerMultipliers.statMultipliers[s][0]
+                                ? singlePlayerServerMultipliers.statMultipliers[s][Stats.IndexTamingAdd]
                                 : 1;
                             sp.altStats[s].MultAffinity *= sp.altStats[s].MultAffinity > 0
-                                ? singlePlayerServerMultipliers.statMultipliers[s][1]
+                                ? singlePlayerServerMultipliers.statMultipliers[s][Stats.IndexTamingMult]
                                 : 1;
-                            sp.altStats[s].IncPerTamedLevel *= singlePlayerServerMultipliers.statMultipliers[s][2];
-                            sp.altStats[s].IncPerWildLevel *= singlePlayerServerMultipliers.statMultipliers[s][3];
+                            sp.altStats[s].IncPerTamedLevel *= singlePlayerServerMultipliers.statMultipliers[s][Stats.IndexLevelDom];
+                            sp.altStats[s].IncPerWildLevel *= singlePlayerServerMultipliers.statMultipliers[s][Stats.IndexLevelWild];
                         }
 
                         double GetRawStatValue(int statIndex, int statValueTypeIndex, bool customOverride)
@@ -743,8 +743,6 @@ namespace ARKBreedingStats.values
         /// <summary>
         /// Returns the according species to the passed blueprintPath or null if unknown.
         /// </summary>
-        /// <param name="blueprintPath"></param>
-        /// <returns></returns>
         public Species SpeciesByBlueprint(string blueprintPath)
         {
             if (string.IsNullOrEmpty(blueprintPath)) return null;
@@ -753,6 +751,16 @@ namespace ARKBreedingStats.values
                 blueprintPath = realBlueprintPath;
             }
             return _blueprintToSpecies.TryGetValue(blueprintPath, out var s) ? s : null;
+        }
+
+        /// <summary>
+        /// Returns the according species to the passed blueprintPath or null if unknown. Removes trailing _C if there.
+        /// </summary>
+        public Species SpeciesByBlueprint(string blueprintPath, bool removeTrailingC)
+        {
+            if (removeTrailingC && blueprintPath?.EndsWith("_C") == true)
+                return SpeciesByBlueprint(blueprintPath.Substring(0, blueprintPath.Length - 2));
+            return SpeciesByBlueprint(blueprintPath);
         }
 
         /// <summary>

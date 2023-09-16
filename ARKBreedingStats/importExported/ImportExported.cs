@@ -101,10 +101,7 @@ namespace ARKBreedingStats.importExported
                         break;
                     case "DinoClass":
                         // despite the property is called DinoClass it contains the complete blueprint-path
-                        if (text.Length > 2 && text.Substring(text.Length - 2) == "_C")
-                            text = text.Substring(0, text.Length - 2); // the last two characters are "_C"
-
-                        cv.Species = Values.V.SpeciesByBlueprint(text);
+                        cv.Species = Values.V.SpeciesByBlueprint(text,true);
                         if (cv.Species == null)
                             cv.speciesBlueprint = text; // species is unknown, check the needed mods later
                         break;

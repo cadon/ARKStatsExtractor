@@ -106,6 +106,11 @@ namespace ARKBreedingStats
         public const int ColorRegionCount = 6;
 
         #endregion
+
+        /// <summary>
+        /// The name is trimmed to this length in game.
+        /// </summary>
+        public const int MaxCreatureNameLength = 24;
     }
 
     /// <summary>
@@ -130,6 +135,23 @@ namespace ARKBreedingStats
         public const int SpeedMultiplier = 9;
         public const int TemperatureFortitude = 10;
         public const int CraftingSpeedMultiplier = 11;
+
+        /// <summary>
+        /// Index of additive taming multiplier in stat multipliers.
+        /// </summary>
+        public const int IndexTamingAdd = 0;
+        /// <summary>
+        /// Index of multiplicative taming multiplier in stat multipliers.
+        /// </summary>
+        public const int IndexTamingMult = 1;
+        /// <summary>
+        /// Index of domesticated level multiplier in stat multipliers.
+        /// </summary>
+        public const int IndexLevelDom = 2;
+        /// <summary>
+        /// Index of wild level multiplier in stat multipliers.
+        /// </summary>
+        public const int IndexLevelWild = 3;
 
         /// <summary>
         /// Returns the stat-index for the given order index (like it is ordered in game).

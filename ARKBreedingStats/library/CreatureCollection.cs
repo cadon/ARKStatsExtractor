@@ -77,6 +77,13 @@ namespace ARKBreedingStats.Library
         public bool AtlasSettings;
 
         /// <summary>
+        /// Used for the exportGun mod.
+        /// This hash is used to determine if an imported creature file is using the current server multipliers.
+        /// </summary>
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string ServerMultipliersHash;
+
+        /// <summary>
         /// Allow more than 100% imprinting, can happen with mods, e.g. S+ Nanny
         /// </summary>
         [JsonProperty]
@@ -194,6 +201,8 @@ namespace ARKBreedingStats.Library
             Species onlyThisSpeciesAdded = null;
             bool onlyOneSpeciesAdded = true;
 
+            var guidDict = creatures.ToDictionary(c => c.guid);
+
             foreach (Creature creatureNew in creaturesToMerge)
             {
                 if (!addPreviouslyDeletedCreatures && DeletedCreatureGuids != null && DeletedCreatureGuids.Contains(creatureNew.guid)) continue;
@@ -206,8 +215,7 @@ namespace ARKBreedingStats.Library
                         onlyOneSpeciesAdded = false;
                 }
 
-                var creatureExisting = creatures.FirstOrDefault(c => c.guid == creatureNew.guid);
-                if (creatureExisting == null)
+                if (!guidDict.TryGetValue(creatureNew.guid, out var creatureExisting))
                 {
                     creatures.Add(creatureNew);
                     creaturesWereAddedOrUpdated = true;

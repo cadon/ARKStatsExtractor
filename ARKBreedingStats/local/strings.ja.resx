@@ -1303,4 +1303,7 @@ It's also possible to filter for creatures with a color in one of multiple possi
   <data name="groupLibraryBySpecies" xml:space="preserve">
     <value>種族でライブラリを切り分ける</value>
   </data>
+  <data name="nameAlreadyExistsInLibrary" xml:space="preserve">
+    <value>この名前はすでにライブラリに存在します</value>
+  </data>
 </root>

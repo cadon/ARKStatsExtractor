@@ -10,7 +10,7 @@ namespace ARKBreedingStats.values
     public class ServerMultipliers
     {
         /// <summary>
-        /// statMultipliers[statIndex][m], m: 0:tamingAdd, 1:tamingMult, 2:levelUpDom, 3:levelUpWild
+        /// statMultipliers[statIndex][m], m: 0: Stats.IndexTamingAdd, 1: Stats.IndexTamingMult, 2: Stats.IndexLevelDom, 3: Stats.IndexLevelWild
         /// </summary>
         [JsonProperty]
         public double[][] statMultipliers;

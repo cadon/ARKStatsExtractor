@@ -346,7 +346,6 @@ namespace ARKBreedingStats
             this.TsLbLabelSet = new System.Windows.Forms.ToolStripLabel();
             this.TsCbbLabelSets = new System.Windows.Forms.ToolStripComboBox();
             this.panelToolBar = new System.Windows.Forms.Panel();
-            this.TbMessageLabel = new System.Windows.Forms.TextBox();
             this.btImportLastExported = new System.Windows.Forms.Button();
             this.pbSpecies = new System.Windows.Forms.PictureBox();
             this.tbSpeciesGlobal = new ARKBreedingStats.uiControls.TextBoxSuggest();
@@ -354,6 +353,7 @@ namespace ARKBreedingStats
             this.cbToggleOverlay = new System.Windows.Forms.CheckBox();
             this.lbListening = new System.Windows.Forms.Label();
             this.lbSpecies = new System.Windows.Forms.Label();
+            this.TbMessageLabel = new System.Windows.Forms.TextBox();
             this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetLibraryColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
@@ -3397,19 +3397,6 @@ namespace ARKBreedingStats
             this.panelToolBar.Size = new System.Drawing.Size(1878, 54);
             this.panelToolBar.TabIndex = 2;
             // 
-            // TbMessageLabel
-            // 
-            this.TbMessageLabel.AcceptsReturn = true;
-            this.TbMessageLabel.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TbMessageLabel.Location = new System.Drawing.Point(470, 3);
-            this.TbMessageLabel.Multiline = true;
-            this.TbMessageLabel.Name = "TbMessageLabel";
-            this.TbMessageLabel.ReadOnly = true;
-            this.TbMessageLabel.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.TbMessageLabel.Size = new System.Drawing.Size(889, 48);
-            this.TbMessageLabel.TabIndex = 14;
-            this.TbMessageLabel.Click += new System.EventHandler(this.TbMessageLabel_Click);
-            // 
             // btImportLastExported
             // 
             this.btImportLastExported.Location = new System.Drawing.Point(379, 3);
@@ -3487,6 +3474,19 @@ namespace ARKBreedingStats
             this.lbSpecies.Size = new System.Drawing.Size(45, 13);
             this.lbSpecies.TabIndex = 0;
             this.lbSpecies.Text = "Species";
+            // 
+            // TbMessageLabel
+            // 
+            this.TbMessageLabel.AcceptsReturn = true;
+            this.TbMessageLabel.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TbMessageLabel.Location = new System.Drawing.Point(470, 3);
+            this.TbMessageLabel.Multiline = true;
+            this.TbMessageLabel.Name = "TbMessageLabel";
+            this.TbMessageLabel.ReadOnly = true;
+            this.TbMessageLabel.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.TbMessageLabel.Size = new System.Drawing.Size(889, 48);
+            this.TbMessageLabel.TabIndex = 14;
+            this.TbMessageLabel.Click += new System.EventHandler(this.TbMessageLabel_Click);
             // 
             // contextMenuStripLibraryHeader
             // 

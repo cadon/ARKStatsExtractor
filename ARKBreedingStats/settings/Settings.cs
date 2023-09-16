@@ -9,9 +9,11 @@ using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Threading;
+using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.library;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ARKBreedingStats.settings
 {
@@ -460,7 +462,7 @@ namespace ARKBreedingStats.settings
 
             // Torpidity is handled differently by the game, IwM has no effect. Set IwM to 1.
             // See https://github.com/cadon/ARKStatsExtractor/issues/942 for more infos about this.
-            _cc.serverMultipliers.statMultipliers[Stats.Torpidity][3] = 1;
+            _cc.serverMultipliers.statMultipliers[Stats.Torpidity][Stats.IndexLevelWild] = 1;
 
             _cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
             _cc.AtlasSettings = CbAtlasSettings.Checked;
@@ -705,7 +707,18 @@ namespace ARKBreedingStats.settings
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                foreach (string file in files) ExtractSettingsFromFile(file);
+                foreach (string filePath in files)
+                {
+                    switch (Path.GetExtension(filePath))
+                    {
+                        case ".sav":
+                            LoadServerMultipliersFromSavFile(filePath);
+                            break;
+                        default:
+                            ExtractSettingsFromFile(filePath);
+                            break;
+                    }
+                }
             }
             else if (e.Data.GetDataPresent(DataFormats.Text))
             {
@@ -761,14 +774,13 @@ namespace ARKBreedingStats.settings
             }
 
             // get stat-multipliers
-            // if an ini file is imported the server is most likely unofficial wit no level cap, if the server has a max level, it will be parsed.
+            // if an ini file is imported the server is most likely unofficial with no level cap, if the server has a max level, it will be parsed.
             nudMaxServerLevel.ValueSave = 0;
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 ParseAndSetStatMultiplier(0, @"PerLevelStatsMultiplier_DinoTamed_Add\[" + s + @"\] ?= ?(\d*\.?\d+)");
-                ParseAndSetStatMultiplier(1,
-                    @"PerLevelStatsMultiplier_DinoTamed_Affinity\[" + s + @"\] ?= ?(\d*\.?\d+)");
+                ParseAndSetStatMultiplier(1, @"PerLevelStatsMultiplier_DinoTamed_Affinity\[" + s + @"\] ?= ?(\d*\.?\d+)");
                 ParseAndSetStatMultiplier(2, @"PerLevelStatsMultiplier_DinoTamed\[" + s + @"\] ?= ?(\d*\.?\d+)");
                 ParseAndSetStatMultiplier(3, @"PerLevelStatsMultiplier_DinoWild\[" + s + @"\] ?= ?(\d*\.?\d+)");
 
@@ -778,9 +790,7 @@ namespace ARKBreedingStats.settings
                     if (m.Success && double.TryParse(m.Groups[1].Value,
                         System.Globalization.NumberStyles.AllowDecimalPoint, cultureForStrings, out d))
                     {
-                        var multipliers = _multSetter[s].Multipliers;
-                        multipliers[multiplierIndex] = d == 0 ? 1 : d;
-                        _multSetter[s].Multipliers = multipliers;
+                        _multSetter[s].SetMultiplier(multiplierIndex, d == 0 ? 1 : d);
                     }
                 }
             }
@@ -819,14 +829,12 @@ namespace ARKBreedingStats.settings
             ParseAndSetValue(nudEggHatchSpeedEvent, @"ASBEvent_EggHatchSpeedMultiplier ?= ?(\d*\.?\d+)");
             ParseAndSetValue(nudBabyMatureSpeedEvent, @"ASBEvent_BabyMatureSpeedMultiplier ?= ?(\d*\.?\d+)");
             ParseAndSetValue(nudBabyCuddleIntervalEvent, @"ASBEvent_BabyCuddleIntervalMultiplier ?= ?(\d*\.?\d+)");
-            ParseAndSetValue(nudBabyFoodConsumptionSpeedEvent,
-                @"ASBEvent_BabyFoodConsumptionSpeedMultiplier ?= ?(\d*\.?\d+)");
+            ParseAndSetValue(nudBabyFoodConsumptionSpeedEvent, @"ASBEvent_BabyFoodConsumptionSpeedMultiplier ?= ?(\d*\.?\d+)");
             // event multipliers taming
             ParseAndSetValue(nudTamingSpeedEvent, @"ASBEvent_TamingSpeedMultiplier ?= ?(\d*\.?\d+)");
-            ParseAndSetValue(nudDinoCharacterFoodDrainEvent,
-                @"ASBEvent_DinoCharacterFoodDrainMultiplier ?= ?(\d*\.?\d+)");
+            ParseAndSetValue(nudDinoCharacterFoodDrainEvent, @"ASBEvent_DinoCharacterFoodDrainMultiplier ?= ?(\d*\.?\d+)");
 
-            bool ParseAndSetValue(uiControls.Nud nud, string regexPattern)
+            bool ParseAndSetValue(Nud nud, string regexPattern)
             {
                 m = Regex.Match(text, regexPattern);
                 if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint,
@@ -881,6 +889,40 @@ namespace ARKBreedingStats.settings
 
                 nudMaxWildLevels.ValueSave = (int)(difficultyValue * 30);
             }
+        }
+
+        /// <summary>
+        /// Load server multipliers from a file created by the export gun mod.
+        /// </summary>
+        private void LoadServerMultipliersFromSavFile(string filePath)
+        {
+            var esm = ImportExportGun.ReadServerMultipliers(filePath, out _);
+            if (esm == null) return;
+
+            const int roundToDigits = 6;
+            for (int s = 0; s < Stats.StatsCount; s++)
+            {
+                _multSetter[s].SetMultiplier(0, Math.Round(esm.TameAdd[s], roundToDigits));
+                _multSetter[s].SetMultiplier(1, Math.Round(esm.TameAff[s], roundToDigits));
+                _multSetter[s].SetMultiplier(2, Math.Round(esm.TameLevel[s], roundToDigits));
+                _multSetter[s].SetMultiplier(3, Math.Round(esm.WildLevel[s], roundToDigits));
+            }
+
+            nudMaxWildLevels.ValueSave = esm.MaxWildLevel;
+            nudMaxServerLevel.ValueSave = esm.DestroyTamesOverLevelClamp;
+            nudTamingSpeed.ValueSaveDouble = Math.Round(esm.TamingSpeedMultiplier, roundToDigits);
+            nudDinoCharacterFoodDrain.ValueSaveDouble = Math.Round(esm.DinoCharacterFoodDrainMultiplier, roundToDigits);
+            nudMatingSpeed.ValueSaveDouble = Math.Round(esm.MatingSpeedMultiplier, roundToDigits);
+            nudMatingInterval.ValueSaveDouble = Math.Round(esm.MatingIntervalMultiplier, roundToDigits);
+            nudEggHatchSpeed.ValueSaveDouble = Math.Round(esm.EggHatchSpeedMultiplier, roundToDigits);
+            nudBabyMatureSpeed.ValueSaveDouble = Math.Round(esm.BabyMatureSpeedMultiplier, roundToDigits);
+            nudBabyCuddleInterval.ValueSaveDouble = Math.Round(esm.BabyCuddleIntervalMultiplier, roundToDigits);
+            nudBabyImprintAmount.ValueSaveDouble = Math.Round(esm.BabyImprintAmountMultiplier, roundToDigits);
+            nudBabyImprintingStatScale.ValueSaveDouble = Math.Round(esm.BabyImprintingStatScaleMultiplier, roundToDigits);
+            nudBabyFoodConsumptionSpeed.ValueSaveDouble = Math.Round(esm.BabyFoodConsumptionSpeedMultiplier, roundToDigits);
+            nudTamedDinoCharacterFoodDrain.ValueSaveDouble = Math.Round(esm.TamedDinoCharacterFoodDrainMultiplier, roundToDigits);
+            CbAllowFlyerSpeedLeveling.Checked = esm.AllowFlyerSpeedLeveling;
+            cbSingleplayerSettings.Checked = esm.UseSingleplayerSettings;
         }
 
         private void Settings_Disposed(object sender, EventArgs e)
@@ -1351,8 +1393,14 @@ namespace ARKBreedingStats.settings
             nudBabyImprintAmount.SetExtraHighlightNonDefault(highlight);
             nudBabyImprintingStatScale.SetExtraHighlightNonDefault(highlight);
             nudBabyFoodConsumptionSpeed.SetExtraHighlightNonDefault(highlight);
-            cbSingleplayerSettings.SetBackColorAndAccordingForeColor(highlight && cbSingleplayerSettings.Checked ? Color.FromArgb(190, 40, 20) : Color.Transparent);
-            CbAtlasSettings.SetBackColorAndAccordingForeColor(highlight && CbAtlasSettings.Checked ? Color.FromArgb(190, 40, 20) : Color.Transparent);
+            HighlightCheckbox(cbSingleplayerSettings);
+            HighlightCheckbox(CbAllowFlyerSpeedLeveling);
+            HighlightCheckbox(CbAtlasSettings);
+
+            void HighlightCheckbox(CheckBox cb, bool defaultUnchecked = true)
+            {
+                cb.SetBackColorAndAccordingForeColor(highlight && cb.Checked == defaultUnchecked ? Color.FromArgb(190, 40, 20) : Color.Transparent);
+            }
         }
 
         private void BExportSpreadsheetMoveUp_Click(object sender, EventArgs e)

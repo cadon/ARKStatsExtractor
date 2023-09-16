@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.mods;
@@ -1012,18 +1013,10 @@ namespace ARKBreedingStats
             serverList.Sort();
 
             // owners
-            foreach (var owner in ownerList)
-            {
-                if (!string.IsNullOrEmpty(owner) && !tribesControl1.PlayerExists(owner))
-                    tribesControl1.AddPlayer(owner);
-            }
+            tribesControl1.AddPlayers(ownerList);
 
             // tribes
-            foreach (var tribe in tribesList)
-            {
-                if (!string.IsNullOrEmpty(tribe) && !tribesControl1.TribeExists(tribe))
-                    tribesControl1.AddTribe(tribe);
-            }
+            tribesControl1.AddTribes(tribesList);
 
             ///// Apply autocomplete lists
             // owners
@@ -1174,10 +1167,26 @@ namespace ARKBreedingStats
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (UnsavedChanges() && CustomMessageBox.Show(Loc.S("Collection changed discard and quit?"),
-                Loc.S("Discard changes?"), Loc.S("Discard changes and quit"), buttonCancel: Loc.S("Cancel quitting"),
-                icon: MessageBoxIcon.Warning) != DialogResult.Yes)
-                e.Cancel = true;
+            if (UnsavedChanges())
+            {
+                switch (CustomMessageBox.Show(Loc.S("Collection changed discard and quit?"),
+                Loc.S("Discard changes?"), buttonYes: Loc.S("Save and quit"), buttonNo: Loc.S("Discard changes and quit"), buttonCancel: Loc.S("Cancel quitting"),
+                icon: MessageBoxIcon.Warning))
+                {
+                    case DialogResult.Yes:
+                        SaveCollection();
+                        break;
+                    case DialogResult.No:
+                        break;
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        break;
+                    default:
+                        e.Cancel = true;
+                        break;
+                }
+            }
+
         }
 
         /// <summary>
@@ -1342,18 +1351,7 @@ namespace ARKBreedingStats
             }
             // a TextBox needs \r\n for a new line, only \n will not result in a line break.
             TbMessageLabel.Text = text;
-            _librarySelectionInfoClickPath = path;
-
-            if (string.IsNullOrEmpty(path))
-            {
-                TbMessageLabel.Cursor = null;
-                _tt.SetToolTip(TbMessageLabel, null);
-            }
-            else
-            {
-                TbMessageLabel.Cursor = Cursors.Hand;
-                _tt.SetToolTip(TbMessageLabel, Loc.S("ClickDisplayFile"));
-            }
+            SetMessageLabelLink(path);
 
             switch (icon)
             {
@@ -1369,6 +1367,25 @@ namespace ARKBreedingStats
                 default:
                     TbMessageLabel.BackColor = SystemColors.Control;
                     break;
+            }
+        }
+
+        /// <summary>
+        /// If valid path to file or folder, the user can click on the message to display the path in the explorer
+        /// </summary>
+        private void SetMessageLabelLink(string path = null)
+        {
+            _librarySelectionInfoClickPath = path;
+
+            if (string.IsNullOrEmpty(path))
+            {
+                TbMessageLabel.Cursor = null;
+                _tt.SetToolTip(TbMessageLabel, null);
+            }
+            else
+            {
+                TbMessageLabel.Cursor = Cursors.Hand;
+                _tt.SetToolTip(TbMessageLabel, Loc.S("ClickDisplayFile"));
             }
         }
 
@@ -3269,49 +3286,117 @@ namespace ARKBreedingStats
         {
             if (!(e.Data.GetData(DataFormats.FileDrop) is string[] files && files.Any()))
                 return;
+            ProcessDroppedFiles(files);
+        }
 
+        private void ProcessDroppedFiles(string[] files)
+        {
             string filePath = files[0];
-            string ext = Path.GetExtension(filePath).ToLower();
+            // if first item is folder, only consider all files in first folder
             if (File.GetAttributes(filePath).HasFlag(FileAttributes.Directory))
             {
-                ShowExportedCreatureListControl();
-                _exportedCreatureList.LoadFilesInFolder(filePath);
-            }
-            else if (ext == ".ini")
-            {
-                if (files.Length == 1)
+                // if folder contains .sav files (mod dino export gun)
+                files = Directory.GetFiles(filePath);
+                if (!files.Any())
                 {
+                    MessageBoxes.ShowMessageBox("No files to import in first folder");
+                    return;
+                }
+                filePath = files[0];
+            }
+
+            switch (Path.GetExtension(filePath).ToLower())
+            {
+                case ".gz":
+                    OpenCompressedFile(filePath, true);
+                    return;
+                case ".ini" when files.Length == 1:
                     ExtractExportedFileInExtractor(filePath);
+                    break;
+                case ".ini":
+                    ShowExportedCreatureListControl();
+                    _exportedCreatureList.LoadFiles(files);
+                    break;
+                case ".sav":
+                    ImportExportGunFiles(files, out _, out _);
+                    break;
+                case ".asb":
+                case ".xml":
+                    {
+                        if (DiscardChangesAndLoadNewLibrary())
+                        {
+                            LoadCollectionFile(filePath);
+                        }
+
+                        break;
+                    }
+                case ".zip":
+                    {
+                        if (DiscardChangesAndLoadNewLibrary())
+                        {
+                            OpenZippedLibrary(filePath);
+                        }
+
+                        break;
+                    }
+                case ".ark":
+                    {
+                        if (MessageBox.Show(
+                                $"Import all of the creatures in the following ARK save file to the currently opened library?\n{filePath}",
+                                "Import savefile?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                            RunSavegameImport(new ATImportFileLocation(null, null, filePath));
+                        break;
+                    }
+                default:
+                    DoOcr(filePath);
+                    break;
+            }
+        }
+
+        private bool OpenCompressedFile(string filePath, bool usegzip)
+        {
+            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
+                return false;
+
+            try
+            {
+                // get temp folder for zipping
+                var tempFolder = FileService.GetTempDirectory();
+                if (usegzip)
+                {
+                    var fileName = Path.GetFileName(filePath);
+                    var extractedFilePath = Path.Combine(tempFolder, fileName.Substring(0, fileName.Length - Path.GetExtension(fileName).Length));
+
+                    using (FileStream compressedFileStream = File.Open(filePath, FileMode.Open))
+                    using (FileStream outputFileStream = File.Create(extractedFilePath))
+                    using (var decompressor = new GZipStream(compressedFileStream, CompressionMode.Decompress))
+                        decompressor.CopyTo(outputFileStream);
                 }
                 else
                 {
-                    ShowExportedCreatureListControl();
-                    _exportedCreatureList.LoadFiles(files);
+                    // unzip files
+                    ZipFile.ExtractToDirectory(filePath, tempFolder);
                 }
-            }
-            else if (ext == ".asb" || ext == ".xml")
-            {
-                if (DiscardChangesAndLoadNewLibrary())
+                var extractedFilePaths = Directory.GetFiles(tempFolder);
+                if (!extractedFilePaths.Any())
                 {
-                    LoadCollectionFile(filePath);
+                    MessageBoxes.ShowMessageBox("No files in archive found: " + filePath, "Error while loading compressed file");
+                    return false;
                 }
+                ProcessDroppedFiles(extractedFilePaths);
+
+                // delete temp extracted file
+                foreach (var f in extractedFilePaths)
+                    FileService.TryDeleteFile(f);
+                FileService.TryDeleteDirectory(tempFolder);
             }
-            else if (ext == ".zip")
+            catch (Exception ex)
             {
-                if (DiscardChangesAndLoadNewLibrary())
-                {
-                    OpenZippedLibrary(filePath);
-                }
+                MessageBoxes.ExceptionMessageBox(ex, "Error while loading compressed file " + filePath);
+                return false;
             }
-            else if (ext == ".ark")
-            {
-                if (MessageBox.Show(
-                    $"Import all of the creatures in the following ARK save file to the currently opened library?\n{filePath}",
-                    "Import savefile?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    RunSavegameImport(new ATImportFileLocation(null, null, filePath));
-            }
-            else
-                DoOcr(files[0]);
+
+            return true;
         }
 
         private void toolStripMenuItemCopyCreatureName_Click(object sender, EventArgs e)

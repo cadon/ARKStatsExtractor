@@ -11,6 +11,10 @@ namespace ARKBreedingStats.settings
 
         public string StatName { set => labelStatName.Text = value; }
 
+        /// <summary>
+        /// Stat multipliers. Setting a single value of the array won't do anything, use SetMultiplier() for that.
+        /// Indices: 0: TameAdd, 1: TameMult, 2: DomLevel, 3: WildLevel
+        /// </summary>
         public double[] Multipliers
         {
             get => new[] { (double)nudTameAdd.Value, (double)nudTameMult.Value, (double)nudDomLevel.Value, (double)nudWildLevel.Value };
@@ -34,7 +38,31 @@ namespace ARKBreedingStats.settings
         }
 
         /// <summary>
-        /// Set the values that are considered default and are a bit lowlighted.
+        /// Set value of a stat multiplier.
+        /// </summary>
+        /// <param name="index">0: TameAdd, 1: TameMult, 2: DomLevel, 3: WildLevel</param>
+        /// <param name="value"></param>
+        public void SetMultiplier(int index, double value)
+        {
+            switch (index)
+            {
+                case 0:
+                    nudTameAdd.ValueSaveDouble = value;
+                    return;
+                case 1:
+                    nudTameMult.ValueSaveDouble = value;
+                    return;
+                case 2:
+                    nudDomLevel.ValueSaveDouble = value;
+                    return;
+                case 3:
+                    nudWildLevel.ValueSaveDouble = value;
+                    return;
+            }
+        }
+
+        /// <summary>
+        /// Set the values that are considered default. These values are a bit lowlighted so non default values are spotted easier.
         /// </summary>
         public void SetNeutralValues(double[] nv)
         {

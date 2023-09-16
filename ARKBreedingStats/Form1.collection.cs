@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 
@@ -670,6 +671,9 @@ namespace ARKBreedingStats
             SetMessageLabelText("A File with the current library and the values in the extractor has been created and copied to the clipboard. You can paste this file to a folder to add it to an issue report.", MessageBoxIcon.Information, tempZipFilePath);
         }
 
+        /// <summary>
+        /// Zipped library files are often error reports.
+        /// </summary>
         private bool OpenZippedLibrary(string filePath)
         {
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
@@ -767,6 +771,105 @@ namespace ARKBreedingStats
                 && DiscardChangesAndLoadNewLibrary()
                 )
                 LoadCollectionFile(mi.Text);
+        }
+
+        /// <summary>
+        /// Imports creature from file created by the export gun mod.
+        /// Returns true if the last imported creature already exists in the library.
+        /// </summary>
+        private bool ImportExportGunFiles(string[] filePaths, out bool creatureAdded, out Creature lastAddedCreature)
+        {
+            creatureAdded = false;
+            var newCreatures = new List<Creature>();
+
+            var importedCounter = 0;
+            var importFailedCounter = 0;
+            string lastError = null;
+            string lastCreatureFilePath = null;
+            string serverMultipliersHash = null;
+            bool? multipliersImportSuccessful = null;
+            string serverImportResult = null;
+            bool creatureAlreadyExists = false;
+
+            foreach (var filePath in filePaths)
+            {
+                var c = ImportExportGun.ImportCreature(filePath, out lastError, out serverMultipliersHash);
+                if (c != null)
+                {
+                    newCreatures.Add(c);
+                    importedCounter++;
+                    lastCreatureFilePath = filePath;
+                }
+                else if (lastError != null)
+                {
+                    // file could be a server multiplier file, try to read it that way
+                    var esm = ImportExportGun.ReadServerMultipliers(filePath, out var serverImportResultTemp);
+                    if (esm != null)
+                    {
+                        multipliersImportSuccessful = ImportExportGun.SetServerMultipliers(_creatureCollection, esm, Path.GetFileNameWithoutExtension(filePath));
+                        serverImportResult = serverImportResultTemp;
+                        continue;
+                    }
+
+                    importFailedCounter++;
+                    MessageBoxes.ShowMessageBox(lastError);
+                }
+            }
+
+            if (!string.IsNullOrEmpty(serverMultipliersHash) && _creatureCollection.ServerMultipliersHash != serverMultipliersHash)
+            {
+                // current server multipliers might be outdated, import them again
+                var serverMultiplierFilePath = Path.Combine(Path.GetDirectoryName(lastCreatureFilePath), "Servers", serverMultipliersHash + ".sav");
+                multipliersImportSuccessful = ImportExportGun.ImportServerMultipliers(_creatureCollection, serverMultiplierFilePath, serverMultipliersHash, out serverImportResult);
+            }
+
+            lastAddedCreature = newCreatures.LastOrDefault();
+            if (lastAddedCreature != null)
+            {
+                creatureAlreadyExists = IsCreatureAlreadyInLibrary(lastAddedCreature.guid, lastAddedCreature.ArkId, out _);
+                creatureAdded = true;
+            }
+
+            _creatureCollection.MergeCreatureList(newCreatures, true);
+            UpdateCreatureParentLinkingSort();
+
+            var resultText = (importedCounter > 0 || importFailedCounter > 0
+                                 ? $"Imported {importedCounter} creatures successfully.{(importFailedCounter > 0 ? $"Failed to import {importFailedCounter} files. Last error:{Environment.NewLine}{lastError}" : $"{Environment.NewLine}Last file: {lastCreatureFilePath}")}"
+                                 : string.Empty)
+                             + (string.IsNullOrEmpty(serverImportResult)
+                                 ? string.Empty
+                                 : (importedCounter > 0 || importFailedCounter > 0 ? Environment.NewLine : string.Empty)
+                                  + serverImportResult);
+
+            SetMessageLabelText(resultText, importFailedCounter > 0 || multipliersImportSuccessful == false ? MessageBoxIcon.Error : MessageBoxIcon.Information, lastCreatureFilePath);
+            return creatureAlreadyExists;
+        }
+
+        /// <summary>
+        /// Call after creatures were added (imported) to the library. Updates parent linkings, creature lists, set collection as changed
+        /// </summary>
+        private void UpdateCreatureParentLinkingSort()
+        {
+            UpdateParents(_creatureCollection.creatures);
+
+            foreach (var creature in _creatureCollection.creatures)
+            {
+                creature.RecalculateAncestorGenerations();
+            }
+
+            UpdateIncubationParents(_creatureCollection);
+
+            // update UI
+            SetCollectionChanged(true);
+            UpdateCreatureListings();
+
+            if (_creatureCollection.creatures.Any())
+                tabControlMain.SelectedTab = tabPageLibrary;
+
+            // reapply last sorting
+            SortLibrary();
+
+            UpdateTempCreatureDropDown();
         }
     }
 }

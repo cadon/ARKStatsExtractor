@@ -1332,4 +1332,7 @@ Il est également possible de filtrer les créatures par couleur dans l'une des 
   <data name="groupLibraryBySpecies" xml:space="preserve">
     <value>Grouper la bibliothèque par espèces</value>
   </data>
+  <data name="nameAlreadyExistsInLibrary" xml:space="preserve">
+    <value>Ce nom existe déjà dans la bibliothèque</value>
+  </data>
 </root>

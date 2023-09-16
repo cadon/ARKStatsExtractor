@@ -1332,4 +1332,7 @@ It's also possible to filter for creatures with a color in one of multiple possi
   <data name="groupLibraryBySpecies" xml:space="preserve">
     <value>按物種分類</value>
   </data>
+  <data name="nameAlreadyExistsInLibrary" xml:space="preserve">
+    <value>該名稱已存在於庫中</value>
+  </data>
 </root>

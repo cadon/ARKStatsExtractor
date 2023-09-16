@@ -57,14 +57,14 @@ namespace ARKBreedingStats.uiControls
                     labelIcon.ForeColor = Color.DarkGreen;
                     labelIcon.Text = "✓";
                     if (labelText != null)
-                        labelText.Text = "Keep this creatures!";
+                        labelText.Text = "Keep this creature!";
                     break;
                 case LevelStatus.NewTopLevel:
                     labelIcon.BackColor = Color.LightYellow;
                     labelIcon.ForeColor = Color.Gold;
                     labelIcon.Text = "★";
                     if (labelText != null)
-                        labelText.Text = "Keep this creatures, it adds new traits to your library!";
+                        labelText.Text = "Keep this creature, it adds new traits to your library!";
                     break;
                 default:
                     labelIcon.BackColor = Color.LightGray;

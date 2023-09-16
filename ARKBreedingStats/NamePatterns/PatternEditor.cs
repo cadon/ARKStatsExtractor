@@ -419,9 +419,9 @@ namespace ARKBreedingStats.NamePatterns
                 { "spcsNm", "species name without vowels" },
                 { "firstWordOfOldest", "the first word of the name of the first added creature of the species" },
 
-                {"owner", "name of the owner of the creature" },
-                {"tribe", "name of the tribe the creature belongs to" },
-                {"server", "name of the server the creature is assigned to" },
+                { "owner", "name of the owner of the creature" },
+                { "tribe", "name of the tribe the creature belongs to" },
+                { "server", "name of the server the creature is assigned to" },
 
                 { "sex", "sex (\"Male\", \"Female\", \"Unknown\")" },
                 { "sex_short", "\"M\", \"F\", \"U\"" },
@@ -497,7 +497,10 @@ namespace ARKBreedingStats.NamePatterns
                 { "highest6s", "the name of the sixth highest stat-level of this creature (excluding torpidity)" },
             };
 
-        private static Dictionary<string, string> FunctionExplanations() => new Dictionary<string, string>()
+        // list of possible functions, expected format:
+        // key: name of function
+        // value: [syntax and explanation]\n[example]
+        private static Dictionary<string, string> FunctionExplanations() => new Dictionary<string, string>
         {
             {"if", "{{#if: string | if string is not empty | if string is empty }}, to check if a string is empty. E.g. you can check if a stat is a top stat of that species (i.e. highest in library).\n{{#if: {isTophp} | bestHP{hp} | notTopHP }}" },
             {"ifexpr", "{{#ifexpr: expression | true | false }}, to check if an expression with two operands and one operator is true or false. Possible operators are ==, !=, <, <=, <, >=.\n{{#ifexpr: {topPercent} > 80 | true | false }}" },
@@ -518,6 +521,7 @@ namespace ARKBreedingStats.NamePatterns
             {"color","{{#color: regionId | return color name | return value even for unused regions }}. Returns the colorId of the region. If the second parameter is not empty, the color name will be returned. Unused regions will only return a value if the third value is not empty.\n{{#color: 0 | true }}"},
             {"colorNew","{{#colorNew: regionId }}. Returns newInRegion if the region contains a color that is not yet available in that species. Returns newInSpecies if that color is not yet available in any region of that species.\n{{#colorNew: 0 }}"},
             {"indexof","{{#indexof: source string | string to find }}. Returns the index of the second parameter in the first parameter. If the string is not contained, an empty string will be returned.\n{{#indexof: hello | ll }}"},
+            {"md5", "{{#md5: string }}, returns the md5 hash of a given string\n{{#md5: {hp}{st}{we} }}"}
         };
 
         private void btnClear_Click(object sender, EventArgs e)

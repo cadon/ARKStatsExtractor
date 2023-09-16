@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
@@ -55,7 +57,8 @@ namespace ARKBreedingStats.NamePatterns
                 {"time", FunctionTime},
                 {"color", FunctionColor},
                 {"colornew", FunctionColorNew},
-                {"indexof", FunctionIndexOf}
+                {"indexof", FunctionIndexOf},
+                {"md5", FunctionMd5}
             };
 
         private static string FunctionIf(Match m, NamePatternParameters p)
@@ -131,7 +134,7 @@ namespace ARKBreedingStats.NamePatterns
         private static string FunctionLen(Match m, NamePatternParameters p)
         {
             // returns the length of the parameter
-            return m.Groups[2].Value.Length.ToString();
+            return UnEscapeSpecialCharacters(m.Groups[2].Value).Length.ToString();
         }
 
         private static string FunctionSubString(Match m, NamePatternParameters p)
@@ -250,7 +253,7 @@ namespace ARKBreedingStats.NamePatterns
             if (string.IsNullOrEmpty(m.Groups[2].Value)
                 || string.IsNullOrEmpty(m.Groups[3].Value))
                 return m.Groups[2].Value;
-            return m.Groups[2].Value.Replace(m.Groups[3].Value.Replace("&nbsp;", " "), m.Groups[4].Value.Replace("&nbsp;", " "));
+            return m.Groups[2].Value.Replace(UnEscapeSpecialCharacters(m.Groups[3].Value), UnEscapeSpecialCharacters(m.Groups[4].Value));
         }
 
         private static string FunctionRegExReplace(Match m, NamePatternParameters p)
@@ -270,7 +273,13 @@ namespace ARKBreedingStats.NamePatterns
         /// <summary>
         /// Functions cannot process the characters {|} directly, they have to be replaced to be used.
         /// </summary>
-        public static string UnEscapeSpecialCharacters(string text) => text?.Replace("&lcub;", "{").Replace("&vline;", "|").Replace("&rcub;", "}");
+        public static string UnEscapeSpecialCharacters(string text) => text?
+            .Replace("&lcub;", "{")
+            .Replace("&vline;", "|")
+            .Replace("&rcub;", "}")
+            .Replace("&nbsp;", " ") // for backwards compatibility
+            .Replace("&sp;", " ")
+        ;
 
         private static string FunctionCustomReplace(Match m, NamePatternParameters p)
         {
@@ -333,6 +342,27 @@ namespace ARKBreedingStats.NamePatterns
                 return string.Empty;
             int index = m.Groups[2].Value.IndexOf(m.Groups[3].Value);
             return index >= 0 ? index.ToString() : string.Empty;
+        }
+
+        private static MD5 _md5;
+
+        private static string FunctionMd5(Match m, NamePatternParameters p)
+        {
+            if (_md5 == null) _md5 = MD5.Create();
+
+            var inputBytes = Encoding.ASCII.GetBytes(UnEscapeSpecialCharacters(m.Groups[2].Value));
+            var hashBytes = _md5.ComputeHash(inputBytes);
+
+            var sb = new StringBuilder();
+            foreach (var b in hashBytes)
+                sb.Append(b.ToString("X2"));
+
+            return sb.ToString();
+        }
+
+        public static void Dispose()
+        {
+            _md5?.Dispose();
         }
     }
 
