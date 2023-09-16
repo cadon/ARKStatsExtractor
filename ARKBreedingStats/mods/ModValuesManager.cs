@@ -227,7 +227,11 @@ namespace ARKBreedingStats.mods
             lbAvailableModFiles.Items.Clear();
 
             lbAvailableModFiles.Items.AddRange(
-                _modInfos.Where(mi => !mi.CurrentlyInLibrary && (filter == null || mi.mod.title.IndexOf(filter, StringComparison.OrdinalIgnoreCase) != -1)
+                _modInfos.Where(mi => !mi.CurrentlyInLibrary
+                                      && (filter == null
+                                          || mi.mod.title.IndexOf(filter, StringComparison.OrdinalIgnoreCase) != -1
+                                          || mi.mod.tag.IndexOf(filter, StringComparison.OrdinalIgnoreCase) != -1
+                                          )
                 ).ToArray());
 
             lbAvailableModFiles.EndUpdate();
