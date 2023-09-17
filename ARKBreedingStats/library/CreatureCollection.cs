@@ -388,16 +388,17 @@ namespace ARKBreedingStats.Library
             return exists;
         }
 
-        public bool CreatureById(Guid guid, long arkId, Species species, out Creature foundCreature)
+        /// <summary>
+        /// Returns a creature based on the guid or ArkId.
+        /// </summary>
+        public bool CreatureById(Guid guid, long arkId, out Creature foundCreature)
         {
             foundCreature = null;
             if (guid == Guid.Empty && arkId == 0) return false;
 
-            var creaturesToCheck = creatures.Where(c => c.Species == species).ToArray();
-
             if (guid != Guid.Empty)
             {
-                foreach (var c in creaturesToCheck)
+                foreach (var c in creatures)
                 {
                     if (c.guid == guid)
                     {
@@ -409,7 +410,7 @@ namespace ARKBreedingStats.Library
 
             if (arkId != 0)
             {
-                foreach (var c in creaturesToCheck)
+                foreach (var c in creatures)
                 {
                     if (c.ArkIdImported && c.ArkId == arkId)
                     {

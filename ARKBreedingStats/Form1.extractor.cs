@@ -1058,7 +1058,9 @@ namespace ARKBreedingStats
             // at this point, if the creatureValues has parent-ArkIds, make sure these parent-creatures exist
             if (cv.Mother == null)
             {
-                if (_creatureCollection.CreatureById(cv.motherGuid, cv.motherArkId, cv.Species, out Creature mother))
+                // placeholder creatures might have an Ark id of 0, so use the generated guid to find them reliably
+                var useGuid = cv.motherGuid != Guid.Empty ? cv.motherGuid : Utils.ConvertArkIdToGuid(cv.motherArkId);
+                if (_creatureCollection.CreatureById(useGuid, cv.motherArkId, out Creature mother))
                 {
                     cv.Mother = mother;
                 }
@@ -1070,7 +1072,8 @@ namespace ARKBreedingStats
             }
             if (cv.Father == null)
             {
-                if (_creatureCollection.CreatureById(cv.fatherGuid, cv.fatherArkId, cv.Species, out Creature father))
+                var useGuid = cv.fatherGuid != Guid.Empty ? cv.fatherGuid : Utils.ConvertArkIdToGuid(cv.fatherArkId);
+                if (_creatureCollection.CreatureById(useGuid, cv.fatherArkId, out Creature father))
                 {
                     cv.Father = father;
                 }
