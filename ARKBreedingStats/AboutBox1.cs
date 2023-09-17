@@ -92,24 +92,26 @@ namespace ARKBreedingStats
 
         private string Contributors => @"Thanks for contributions, help and support to
 
-* NakramR (coding, OCR, library, overlay)
-* Flachdachs (savefile extractor, installer-version, style, fixes)
-* coldino (ARK-data, support)
-* VolatilesPulse (ARK-data, support)
-* qowyn (savefile extractor, ARK-data)
-* aaron-williamson (file-syncing for cloud-services)
-* DelilahEve (updater)
-* DodoCooker (fixes, performance)
-* Warstone (Kibble recipes)
-* tsebring (naming-generator, fixes)
-* maxime-paquatte (custom timer sounds)
-* hallipr (FTP savefile import)
-* EmkioA (Cryopod import, listView tweaks)
-* dunger (fixes)
-* Myrmecoleon (extra species images)
-* Lunat1q (improved OCR)
-* ThatGamerBlue (species dividers in virtual listview)
-* Jaymei (ATLAS species data)
+* NakramR: coding, library, OCR, overlay
+* Flachdachs: save file extractor, installer-version, style
+* coldino: ARK-data, support
+* VolatilesPulse: ARK-data, support
+* qowyn: original save file extractor, ARK-data
+* alex4401: save file extractor format updates
+* Miragedmuk: save file extractor format updates
+* aaron-williamson: file-syncing for cloud-services
+* DelilahEve: auto updater
+* DodoCooker: performance for large libraries
+* Warstone: Kibble recipes
+* tsebring: naming-generator
+* maxime-paquatte: custom timer sounds
+* hallipr: FTP save file import
+* EmkioA: Cryopod import, listView tweaks
+* dunger: fixes
+* Myrmecoleon: extra species color region images
+* Lunat1q: improved OCR
+* ThatGamerBlue: species dividers in virtual listView
+* Jaymei: ATLAS species data
 
 Translations:
 * French by Vykan and Yanuut
