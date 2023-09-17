@@ -988,29 +988,25 @@ namespace ARKBreedingStats
 
             //// clear lists
             // owner
-            var ownerList = new List<string>();
-            var tribesList = new List<string>();
-            var serverList = new List<string>();
+            var ownerList = new HashSet<string>();
+            var tribesList = new HashSet<string>();
+            var serverList = new HashSet<string>();
 
             //// check all creature for info
             var creaturesToCheck = _creatureCollection.creatures.Where(c => !c.flags.HasFlag(CreatureFlags.Placeholder))
                 .ToArray();
             foreach (Creature c in creaturesToCheck)
             {
-                AddIfNotContains(ownerList, c.owner);
-                AddIfNotContains(tribesList, c.tribe);
-                AddIfNotContains(serverList, c.server);
+                AddIfNotEmpty(ownerList, c.owner);
+                AddIfNotEmpty(tribesList, c.tribe);
+                AddIfNotEmpty(serverList, c.server);
 
-                void AddIfNotContains(List<string> list, string name)
+                void AddIfNotEmpty(HashSet<string> list, string name)
                 {
-                    if (!string.IsNullOrEmpty(name) && !list.Contains(name))
+                    if (!string.IsNullOrEmpty(name))
                         list.Add(name);
                 }
             }
-
-            ownerList.Sort();
-            tribesList.Sort();
-            serverList.Sort();
 
             // owners
             tribesControl1.AddPlayers(ownerList);

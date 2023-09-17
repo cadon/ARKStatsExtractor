@@ -275,16 +275,15 @@ namespace ARKBreedingStats
         /// Add players if they aren't yet in the list.
         /// </summary>
         /// <param name="playerNames"></param>
-        public void AddPlayers(List<string> playerNames)
+        public void AddPlayers(HashSet<string> playerNames)
         {
-            if (playerNames == null) return;
-
+            if (playerNames == null || !playerNames.Any()) return;
             var existingPlayers = players.Select(p => p.PlayerName).ToHashSet();
-            var newPlayers = playerNames
-                .Where(newPlayer => !string.IsNullOrEmpty(newPlayer) && !existingPlayers.Contains(newPlayer))
+            playerNames.ExceptWith(existingPlayers);
+            var newPlayersArray = playerNames.Where(newPlayer => !string.IsNullOrEmpty(newPlayer))
                 .Select(p => new Player { PlayerName = p }).ToArray();
-            if (!newPlayers.Any()) return;
-            players.AddRange(newPlayers);
+            if (!newPlayersArray.Any()) return;
+            players.AddRange(newPlayersArray);
             UpdatePlayerList();
         }
 
@@ -310,17 +309,16 @@ namespace ARKBreedingStats
         /// <summary>
         /// Add tribes if they aren't yet in the list.
         /// </summary>
-        /// <param name="playerNames"></param>
-        public void AddTribes(List<string> tribeNames)
+        /// <param name="tribeNames"></param>
+        public void AddTribes(HashSet<string> tribeNames)
         {
-            if (tribeNames == null) return;
-
+            if (tribeNames == null || !tribeNames.Any()) return;
             var existingTribes = tribes.Select(t => t.TribeName).ToHashSet();
-            var newTribes = tribeNames
-                .Where(newTribe => !string.IsNullOrEmpty(newTribe) && !existingTribes.Contains(newTribe))
+            tribeNames.ExceptWith(existingTribes);
+            var newTribesArray = tribeNames.Distinct().Where(newTribe => !string.IsNullOrEmpty(newTribe))
                 .Select(t => new Tribe { TribeName = t }).ToArray();
-            if (!newTribes.Any()) return;
-            tribes.AddRange(newTribes);
+            if (!newTribesArray.Any()) return;
+            tribes.AddRange(newTribesArray);
             UpdateTribeList();
         }
 
