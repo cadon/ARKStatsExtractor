@@ -1106,6 +1106,76 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
+        /// Creates a creature from the infos in inputs, extractor or tester.
+        /// </summary>
+        /// <param name="fromExtractor"></param>
+        /// <param name="species"></param>
+        /// <param name="levelStep"></param>
+        /// <param name="motherArkId">Use this Ark Id instead of the ones of the input if not 0</param>
+        /// <param name="fatherArkId">Use this Ark Id instead of the ones of the input if not 0</param>
+        /// <returns></returns>
+        private Creature GetCreatureFromInput(bool fromExtractor, Species species, int? levelStep, long motherArkId = 0, long fatherArkId = 0)
+        {
+            CreatureInfoInput input;
+            bool bred;
+            double te, imprinting;
+            if (fromExtractor)
+            {
+                input = creatureInfoInputExtractor;
+                bred = rbBredExtractor.Checked;
+                te = rbWildExtractor.Checked ? -3 : _extractor.UniqueTamingEffectiveness();
+                imprinting = _extractor.ImprintingBonus;
+            }
+            else
+            {
+                input = creatureInfoInputTester;
+                bred = rbBredTester.Checked;
+                te = TamingEffectivenessTester;
+                imprinting = (double)numericUpDownImprintingBonusTester.Value / 100;
+            }
+
+            Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex, GetCurrentWildLevels(fromExtractor), GetCurrentDomLevels(fromExtractor), te, bred, imprinting, levelStep: levelStep)
+            {
+                // set parents
+                Mother = input.Mother,
+                Father = input.Father,
+
+                // cooldown-, growing-time
+                cooldownUntil = input.CooldownUntil,
+                growingUntil = input.GrowingUntil,
+
+                flags = input.CreatureFlags,
+                note = input.CreatureNote,
+                server = input.CreatureServer,
+
+                domesticatedAt = input.DomesticatedAt.HasValue && input.DomesticatedAt.Value.Year > 2014 ? input.DomesticatedAt.Value : default(DateTime?),
+                addedToLibrary = DateTime.Now,
+                mutationsMaternal = input.MutationCounterMother,
+                mutationsPaternal = input.MutationCounterFather,
+                Status = input.CreatureStatus,
+                colors = input.RegionColors,
+                ColorIdsAlsoPossible = input.ColorIdsAlsoPossible,
+                guid = fromExtractor && input.CreatureGuid != Guid.Empty ? input.CreatureGuid : Guid.NewGuid(),
+                ArkId = input.ArkId
+            };
+
+            creature.ArkIdImported = Utils.IsArkIdImported(creature.ArkId, creature.guid);
+            creature.InitializeArkInGame();
+
+            // parent guids
+            if (motherArkId != 0)
+                creature.motherGuid = Utils.ConvertArkIdToGuid(motherArkId);
+            else if (input.MotherArkId != 0)
+                creature.motherGuid = Utils.ConvertArkIdToGuid(input.MotherArkId);
+            if (fatherArkId != 0)
+                creature.fatherGuid = Utils.ConvertArkIdToGuid(fatherArkId);
+            else if (input.FatherArkId != 0)
+                creature.fatherGuid = Utils.ConvertArkIdToGuid(input.FatherArkId);
+
+            return creature;
+        }
+
+        /// <summary>
         /// Gives feedback to the user if the current creature in the extractor is already in the library.
         /// This uses the ARK-ID and only works if exported creatures are imported
         /// </summary>

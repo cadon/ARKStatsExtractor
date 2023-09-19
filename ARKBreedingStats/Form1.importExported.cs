@@ -234,6 +234,14 @@ namespace ARKBreedingStats
                 default: return;
             }
 
+            if (creature == null)
+            {
+                // extraction did not work automatically, user input needed, create creature file for error message
+                var levelStep = _creatureCollection.getWildLevelStep();
+                var species = speciesSelector1.SelectedSpecies;
+                creature = GetCreatureFromInput(true, species, levelStep);
+            }
+
             OverlayFeedbackForImport(creature, uniqueExtraction, alreadyExists, addedToLibrary, copiedNameToClipboard, out bool hasTopLevels, out bool hasNewTopLevels);
 
             if (addedToLibrary)
