@@ -43,7 +43,7 @@
 			"mod": { "id": "1178308359", "tag": "ShadDragon", "title": "Shad's Tameable Bosses" }
 		},
 		"1188224480-OgAlphas.json": {
-			"version": "342.13.1623206057",
+			"version": "358.11.1623206057",
 			"mod": { "id": "1188224480", "tag": "OgAlphas", "title": "OgAlphas" }
 		},
 		"1206835819-AncientEarthModCollection.json": {
@@ -72,7 +72,7 @@
 			"mod": { "id": "1356703358", "tag": "Primal_Fear_Noxious_Creatures", "title": "Primal Fear Noxious Creatures" }
 		},
 		"1373744537-AC2.json": {
-			"version": "358.11.1693637981",
+			"version": "358.11.1695149665",
 			"mod": { "id": "1373744537", "tag": "AC2", "title": "Additional Creatures 2: Wild Ark" }
 		},
 		"1379111008-RealismPlus.json": {
@@ -82,6 +82,10 @@
 		"1405944717-Project_Evolution.json": {
 			"version": "358.10.1690909595",
 			"mod": { "id": "1405944717", "tag": "Project_Evolution", "title": "JP's Server Tweaks" }
+		},
+		"1416912482-BunExtras.json": {
+			"version": "358.11.1654224079",
+			"mod": { "id": "1416912482", "tag": "BunExtras", "title": "Bunn3h's Extras" }
 		},
 		"1420423699-ARKaeologyDinos.json": {
 			"version": "340.3.1529794293",
@@ -106,6 +110,10 @@
 		"1523045986-Paranoia.json": {
 			"version": "357.4.1679444826",
 			"mod": { "id": "1523045986", "tag": "Paranoia", "title": "Additional Creatures 2: Paranoia!" }
+		},
+		"1558114752-Radioactive.json": {
+			"version": "358.11.1616346857",
+			"mod": { "id": "1558114752", "tag": "Radioactive", "title": "Dino Hybrids & more!" }
 		},
 		"1565015734-BetterDinosTest.json": {
 			"version": "356.12.1659982227",
@@ -145,12 +153,16 @@
 			"mod": { "id": "1662691167", "tag": "Senior", "title": "Additional Creatures: Senior Class" }
 		},
 		"1675895024-NoUntameables.json": {
-			"version": "358.10.1691123197",
+			"version": "358.11.1695172002",
 			"mod": { "id": "1675895024", "tag": "NoUntameables", "title": "No Untameables" }
 		},
 		"1676159020-Aquaria.json": {
 			"version": "358.9.1690158145",
 			"mod": { "id": "1676159020", "tag": "Aquaria", "title": "Additional Creatures: Aquaria" }
+		},
+		"1679826889-Cavallus.json": {
+			"version": "358.11.1684656674",
+			"mod": { "id": "1679826889", "tag": "Cavallus", "title": "Caballus Custom Map - The Equestrian Land" }
 		},
 		"1681125667-Primal_Fear_EX.json": {
 			"version": "356.5.1561175829",
@@ -174,7 +186,7 @@
 			"mod": { "id": "1734595558", "tag": "Pyria2", "title": "Pyria: The Second Chapter" }
 		},
 		"1754846792-Zythara_Critters.json": {
-			"version": "358.8.1688851941",
+			"version": "358.17.1696180721",
 			"mod": { "id": "1754846792", "tag": "Zythara_Critters", "title": "Zythara Critters" }
 		},
 		"1768499278-BalancedJPE.json": {
@@ -190,7 +202,7 @@
 			"mod": { "id": "1783616332", "tag": "IceWyvernMating", "title": "Ice Wyvern Mating" }
 		},
 		"1785800853-Behavorial-Expansion.json": {
-			"version": "340.3.1590247291",
+			"version": "358.11.1590247291",
 			"mod": { "id": "1785800853", "tag": "Behavorial-Expansion", "title": "ArkTranscendence" }
 		},
 		"1787443195-ChasmAdditionalDinos.json": {
@@ -218,6 +230,10 @@
 			"version": "340.3.1567287477",
 			"mod": { "id": "1850732334", "tag": "ForestWyvern", "title": "Forest Wyvern Remastered" }
 		},
+		"1852495701-BetterGiggles.json": {
+			"version": "358.11.1628155435",
+			"mod": { "id": "1852495701", "tag": "BetterGiggles", "title": "Shad's Better Gigas" }
+		},
 		"1908568783-BarbaryLion.json": {
 			"version": "354.4.1669589908",
 			"mod": { "id": "1908568783", "tag": "BarbaryLion", "title": "AC: Bonus Content" }
@@ -229,6 +245,10 @@
 		"1934081600-SoloFarmAnky.json": {
 			"version": "340.3.1581239136",
 			"mod": { "id": "1934081600", "tag": "SoloFarmAnky", "title": "Solo Farm Mod" }
+		},
+		"1979037318-IceWyverns.json": {
+			"version": "358.11.1695151363",
+			"mod": { "id": "1979037318", "tag": "IceWyverns", "title": "Shads Critter Reworks" }
 		},
 		"1984129536-MTSMod.json": {
 			"version": "347.1.1657580546",
@@ -291,12 +311,24 @@
 			"mod": { "id": "2362246280", "tag": "GigaFullTame", "title": "Giga Full Tame" }
 		},
 		"2447186973-ArkOmega.json": {
-			"version": "358.8.1688621034",
+			"version": "358.11.1695446237",
 			"mod": { "id": "2447186973", "tag": "ArkOmega", "title": "Ark Omega" }
+		},
+		"2453342929-MoreDragonsMod.json": {
+			"version": "358.11.1691443191",
+			"mod": { "id": "2453342929", "tag": "MoreDragonsMod", "title": "More Dragons Evolved" }
+		},
+		"2472371628-MilicrocaWarriors_MOD.json": {
+			"version": "358.11.1653930637",
+			"mod": { "id": "2472371628", "tag": "MilicrocaWarriors_MOD", "title": "MilicrocaWarriors" }
 		},
 		"2493949846-Endemics.json": {
 			"version": "356.5.1675373446",
 			"mod": { "id": "2493949846", "tag": "Endemics", "title": "Additional Creatures: Endemics" }
+		},
+		"2621340621-BreedableGriffins.json": {
+			"version": "358.11.1660289939",
+			"mod": { "id": "2621340621", "tag": "BreedableGriffins", "title": "Breedable Griffins [Conversion]" }
 		},
 		"2683373846-ZazaCollection_2.json": {
 			"version": "356.5.1643227949",
@@ -310,9 +342,25 @@
 			"version": "358.9.1687204735",
 			"mod": { "id": "2869411055", "tag": "SDinoVariants", "title": "SDinoVariants" }
 		},
+		"2895059095-TaeniaStella.json": {
+			"version": "358.11.1691285412",
+			"mod": { "id": "2895059095", "tag": "TaeniaStella", "title": "TaeniaStella The RenewalAlpha" }
+		},
+		"2902657380-Dinohunterworld.json": {
+			"version": "358.11.1674629012",
+			"mod": { "id": "2902657380", "tag": "Dinohunterworld", "title": "Dino Hunter World" }
+		},
+		"2953890191-ExtraAberrantVariants.json": {
+			"version": "358.11.1693427566",
+			"mod": { "id": "2953890191", "tag": "ExtraAberrantVariants", "title": "Extra Aberrant Variants" }
+		},
+		"3035755339-PortsOfAtlas.json": {
+			"version": "358.11.1695724861",
+			"mod": { "id": "3035755339", "tag": "PortsOfAtlas", "title": "Atlas Imports - Parrot" }
+		},
 		"710880648-DinoOverHaulMODX.json": {
-			"version": "358.11.1694019960",
-			"mod": { "id": "710880648", "tag": "DinoOverHaulMODX", "title": "DinoOverhaul X -- Hardcore PvE Experience" }
+			"version": "358.11.1695938537",
+			"mod": { "id": "710880648", "tag": "DinoOverHaulMODX", "title": "DinoOverhaul X -- Hardcore PvE Experience - Est June 2015" }
 		},
 		"729352919-IndomRex.json": {
 			"version": "356.5.1488771984",
@@ -327,7 +375,7 @@
 			"mod": { "id": "839162288", "tag": "Primal_Fear", "title": "Primal Fear" }
 		},
 		"883957187-WyvernWorld.json": {
-			"version": "342.13.1638248815",
+			"version": "358.11.1638248815",
 			"mod": { "id": "883957187", "tag": "WyvernWorld", "title": "Wyvern World" }
 		},
 		"893735676-AE.json": {

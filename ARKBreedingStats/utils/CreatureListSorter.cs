@@ -139,7 +139,8 @@ namespace ARKBreedingStats.utils
             c => c.Species?.DescriptiveNameAndMod,
             c => c.Status,
             c => c.tribe,
-            c => c.Status
+            c => c.Status,
+            c => c.flags & CreatureFlags.MutagenApplied
         };
     }
 }

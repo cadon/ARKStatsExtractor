@@ -357,6 +357,7 @@ namespace ARKBreedingStats
             this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetLibraryColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
+            this.columnHeaderMutagen = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -2094,7 +2095,8 @@ namespace ARKBreedingStats
             this.columnHeaderSpecies,
             this.columnHeaderStatus,
             this.columnHeaderTribe,
-            this.columnHeaderStatusIcon});
+            this.columnHeaderStatusIcon,
+            this.columnHeaderMutagen});
             this.listViewLibrary.ContextMenuStrip = this.contextMenuStripLibrary;
             this.listViewLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewLibrary.FullRowSelect = true;
@@ -3512,6 +3514,11 @@ namespace ARKBreedingStats
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
+            // columnHeaderMutagen
+            // 
+            this.columnHeaderMutagen.Text = "Mutagen";
+            this.columnHeaderMutagen.Width = 30;
+            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -3943,5 +3950,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.Button BtCopyLibraryColorToClipboard;
         private System.Windows.Forms.CheckBox CbLibraryInfoUseFilter;
         private System.Windows.Forms.TextBox TbMessageLabel;
+        private System.Windows.Forms.ColumnHeader columnHeaderMutagen;
     }
 }

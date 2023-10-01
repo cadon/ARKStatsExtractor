@@ -3510,7 +3510,7 @@ namespace ARKBreedingStats
         private void toolStripMenuItemResetLibraryColumnWidths_Click(object sender, EventArgs e)
         {
             for (int ci = 0; ci < listViewLibrary.Columns.Count; ci++)
-                listViewLibrary.Columns[ci].Width = (ci > 11 && ci < 30) ? 30 : 60;
+                listViewLibrary.Columns[ci].Width = ((ci >= ColumnIndexFirstStat && ci < ColumnIndexPostColor) || ci == ColumnIndexMutagenApplied) ? 30 : 60;
         }
 
         private void copyInfographicToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
