@@ -938,6 +938,20 @@ namespace ARKBreedingStats
             }
         }
 
+        private const int ColumnIndexName = 0;
+        private const int ColumnIndexSex = 4;
+        private const int ColumnIndexAdded = 5;
+        private const int ColumnIndexTopness = 6;
+        private const int ColumnIndexTopStats = 7;
+        private const int ColumnIndexGeneration = 8;
+        private const int ColumnIndexWildLevel = 9;
+        private const int ColumnIndexMutations = 10;
+        private const int ColumnIndexCountdown = 11;
+        private const int ColumnIndexFirstStat = 12;
+        private const int ColumnIndexFirstColor = 24;
+        private const int ColumnIndexPostColor = 30;
+        private const int ColumnIndexMutagenApplied = 34;
+
         private ListViewItem CreateCreatureLvItem(Creature cr)
         {
             if (cr.flags.HasFlag(CreatureFlags.Divider))
@@ -973,7 +987,8 @@ namespace ARKBreedingStats
                         cr.Species.DescriptiveNameAndMod,
                         cr.Status.ToString(),
                         cr.tribe,
-                        Utils.StatusSymbol(cr.Status, string.Empty)
+                        Utils.StatusSymbol(cr.Status, string.Empty),
+                        (cr.flags & CreatureFlags.MutagenApplied) != 0 ? "M" : string.Empty
                     })
                     .ToArray();
 
@@ -982,58 +997,46 @@ namespace ARKBreedingStats
 
             // apply colors to the subItems
 
-            const int columnIndexName = 0;
-            const int columnIndexSex = 4;
-            const int columnIndexAdded = 5;
-            const int columnIndexTopness = 6;
-            const int columnIndexTopStats = 7;
-            const int columnIndexGeneration = 8;
-            const int columnIndexWildLevel = 9;
-            const int columnIndexMutations = 10;
-            const int columnIndexCountdown = 11;
-            const int columnIndexFirstStat = 12;
-            const int columnIndexFirstColor = 24;
-
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (cr.valuesDom[s] == 0)
                 {
                     // not used
-                    lvi.SubItems[columnIndexFirstStat + s].ForeColor = Color.White;
-                    lvi.SubItems[columnIndexFirstStat + s].BackColor = Color.White;
+                    lvi.SubItems[ColumnIndexFirstStat + s].ForeColor = Color.White;
+                    lvi.SubItems[ColumnIndexFirstStat + s].BackColor = Color.White;
                 }
                 else if (cr.levelsWild[s] < 0)
                 {
                     // unknown level 
-                    lvi.SubItems[columnIndexFirstStat + s].ForeColor = Color.WhiteSmoke;
-                    lvi.SubItems[columnIndexFirstStat + s].BackColor = Color.White;
+                    lvi.SubItems[ColumnIndexFirstStat + s].ForeColor = Color.WhiteSmoke;
+                    lvi.SubItems[ColumnIndexFirstStat + s].BackColor = Color.White;
                 }
                 else
-                    lvi.SubItems[columnIndexFirstStat + s].BackColor = Utils.GetColorFromPercent((int)(cr.levelsWild[s] * (s == Stats.Torpidity ? colorFactor / 7 : colorFactor)), // TODO set factor to number of other stats (flyers have 6, Gacha has 8?)
+                    lvi.SubItems[ColumnIndexFirstStat + s].BackColor = Utils.GetColorFromPercent((int)(cr.levelsWild[s] * (s == Stats.Torpidity ? colorFactor / 7 : colorFactor)), // TODO set factor to number of other stats (flyers have 6, Gacha has 8?)
                             _considerStatHighlight[s] ? cr.topBreedingStats[s] ? 0.2 : 0.7 : 0.93);
             }
-            lvi.SubItems[columnIndexSex].BackColor = cr.flags.HasFlag(CreatureFlags.Neutered) ? Color.FromArgb(220, 220, 220) :
+            lvi.SubItems[ColumnIndexSex].BackColor = cr.flags.HasFlag(CreatureFlags.Neutered) ? Color.FromArgb(220, 220, 220) :
                     cr.sex == Sex.Female ? Color.FromArgb(255, 230, 255) :
                     cr.sex == Sex.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window;
 
             switch (cr.Status)
             {
                 case CreatureStatus.Dead:
-                    lvi.SubItems[columnIndexName].ForeColor = SystemColors.GrayText;
+                    lvi.SubItems[ColumnIndexName].ForeColor = SystemColors.GrayText;
                     lvi.BackColor = Color.FromArgb(255, 250, 240);
                     break;
                 case CreatureStatus.Unavailable:
-                    lvi.SubItems[columnIndexName].ForeColor = SystemColors.GrayText;
+                    lvi.SubItems[ColumnIndexName].ForeColor = SystemColors.GrayText;
                     break;
                 case CreatureStatus.Obelisk:
-                    lvi.SubItems[columnIndexName].ForeColor = Color.DarkBlue;
+                    lvi.SubItems[ColumnIndexName].ForeColor = Color.DarkBlue;
                     break;
                 default:
                     {
                         if (_creatureCollection.maxServerLevel > 0
                             && cr.levelsWild[Stats.Torpidity] + 1 + _creatureCollection.maxDomLevel > _creatureCollection.maxServerLevel + (cr.Species.name.StartsWith("X-") || cr.Species.name.StartsWith("R-") ? 50 : 0))
                         {
-                            lvi.SubItems[columnIndexName].ForeColor = Color.OrangeRed; // this creature may pass the max server level and could be deleted by the game
+                            lvi.SubItems[ColumnIndexName].ForeColor = Color.OrangeRed; // this creature may pass the max server level and could be deleted by the game
                         }
                         break;
                     }
@@ -1051,45 +1054,45 @@ namespace ARKBreedingStats
                     else
                         lvi.BackColor = Color.LightGreen;
                 }
-                lvi.SubItems[columnIndexTopStats].BackColor = Utils.GetColorFromPercent(cr.topStatsCount * 8 + 44, 0.7);
+                lvi.SubItems[ColumnIndexTopStats].BackColor = Utils.GetColorFromPercent(cr.topStatsCount * 8 + 44, 0.7);
             }
             else
             {
-                lvi.SubItems[columnIndexTopStats].ForeColor = Color.LightGray;
+                lvi.SubItems[ColumnIndexTopStats].ForeColor = Color.LightGray;
             }
 
             // color for timestamp domesticated
             if (cr.domesticatedAt == null || cr.domesticatedAt.Value.Year < 2015)
             {
-                lvi.SubItems[columnIndexAdded].Text = "n/a";
-                lvi.SubItems[columnIndexAdded].ForeColor = Color.LightGray;
+                lvi.SubItems[ColumnIndexAdded].Text = "n/a";
+                lvi.SubItems[ColumnIndexAdded].ForeColor = Color.LightGray;
             }
 
             // color for topness
-            lvi.SubItems[columnIndexTopness].BackColor = Utils.GetColorFromPercent(cr.topness / 5 - 100, 0.8); // topness is in permille. gradient from 50-100
+            lvi.SubItems[ColumnIndexTopness].BackColor = Utils.GetColorFromPercent(cr.topness / 5 - 100, 0.8); // topness is in permille. gradient from 50-100
 
             // color for generation
             if (cr.generation == 0)
-                lvi.SubItems[columnIndexGeneration].ForeColor = Color.LightGray;
+                lvi.SubItems[ColumnIndexGeneration].ForeColor = Color.LightGray;
 
             // color of WildLevelColumn
             if (cr.levelFound == 0)
-                lvi.SubItems[columnIndexWildLevel].ForeColor = Color.LightGray;
+                lvi.SubItems[ColumnIndexWildLevel].ForeColor = Color.LightGray;
 
             // color for mutation
             if (cr.Mutations > 0)
             {
                 if (cr.Mutations < Ark.MutationPossibleWithLessThan)
-                    lvi.SubItems[columnIndexMutations].BackColor = Utils.MutationColor;
+                    lvi.SubItems[ColumnIndexMutations].BackColor = Utils.MutationColor;
                 else
-                    lvi.SubItems[columnIndexMutations].BackColor = Utils.MutationColorOverLimit;
+                    lvi.SubItems[ColumnIndexMutations].BackColor = Utils.MutationColorOverLimit;
             }
             else
-                lvi.SubItems[columnIndexMutations].ForeColor = Color.LightGray;
+                lvi.SubItems[ColumnIndexMutations].ForeColor = Color.LightGray;
 
             // color for cooldown
-            lvi.SubItems[columnIndexCountdown].ForeColor = cooldownForeColor;
-            lvi.SubItems[columnIndexCountdown].BackColor = cooldownBackColor;
+            lvi.SubItems[ColumnIndexCountdown].ForeColor = cooldownForeColor;
+            lvi.SubItems[ColumnIndexCountdown].BackColor = cooldownBackColor;
 
             if (Properties.Settings.Default.showColorsInLibrary)
             {
@@ -1098,12 +1101,12 @@ namespace ARKBreedingStats
                 {
                     if (cr.colors[cl] != 0)
                     {
-                        lvi.SubItems[columnIndexFirstColor + cl].BackColor = CreatureColors.CreatureColor(cr.colors[cl]);
-                        lvi.SubItems[columnIndexFirstColor + cl].ForeColor = Utils.ForeColor(lvi.SubItems[columnIndexFirstColor + cl].BackColor);
+                        lvi.SubItems[ColumnIndexFirstColor + cl].BackColor = CreatureColors.CreatureColor(cr.colors[cl]);
+                        lvi.SubItems[ColumnIndexFirstColor + cl].ForeColor = Utils.ForeColor(lvi.SubItems[ColumnIndexFirstColor + cl].BackColor);
                     }
                     else
                     {
-                        lvi.SubItems[columnIndexFirstColor + cl].ForeColor = cr.Species.EnabledColorRegions[cl] ? Color.LightGray : Color.White;
+                        lvi.SubItems[ColumnIndexFirstColor + cl].ForeColor = cr.Species.EnabledColorRegions[cl] ? Color.LightGray : Color.White;
                     }
                 }
             }
@@ -1308,7 +1311,7 @@ namespace ARKBreedingStats
                 }
 
                 for (int s = 0; s < Stats.StatsCount; s++)
-                    listViewLibrary.Columns[12 + s].Text = Utils.StatName(s, true, customStatNames);
+                    listViewLibrary.Columns[ColumnIndexFirstStat + s].Text = Utils.StatName(s, true, customStatNames);
 
                 _creaturesPreFiltered = ApplyLibraryFilterSettings(filteredList).ToArray();
             }
