@@ -3675,8 +3675,7 @@ namespace ARKBreedingStats
                 return;
             }
 
-
-            if (!e.Control) return;
+            if (!e.Control || e.Alt) return;
 
             int index;
 
