@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using ARKBreedingStats.species;
-
-namespace ARKBreedingStats
+﻿namespace ARKBreedingStats
 {
     /// <summary>
     /// Constants of the game Ark.
@@ -111,6 +108,18 @@ namespace ARKBreedingStats
         /// The name is trimmed to this length in game.
         /// </summary>
         public const int MaxCreatureNameLength = 24;
+
+        public enum Game
+        {
+            /// <summary>
+            /// ARK: Survival Evolved (2015)
+            /// </summary>
+            ASE,
+            /// <summary>
+            /// ARK: Survival Ascended (2023)
+            /// </summary>
+            ASA
+        }
     }
 
     /// <summary>
