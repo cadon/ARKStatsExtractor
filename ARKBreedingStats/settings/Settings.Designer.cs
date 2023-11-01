@@ -310,6 +310,7 @@
             this.label21 = new System.Windows.Forms.Label();
             this.nudOverlayInfoDuration = new ARKBreedingStats.uiControls.Nud();
             this.chkbSpeechRecognition = new System.Windows.Forms.CheckBox();
+            this.label66 = new System.Windows.Forms.Label();
             this.tabPageOCR = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label62 = new System.Windows.Forms.Label();
@@ -335,7 +336,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.label66 = new System.Windows.Forms.Label();
+            this.BtImportSettingsSelectFile = new System.Windows.Forms.Button();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -1597,7 +1598,7 @@
             // 
             // label15
             // 
-            this.label15.Location = new System.Drawing.Point(453, 555);
+            this.label15.Location = new System.Drawing.Point(451, 536);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(289, 77);
             this.label15.TabIndex = 9;
@@ -1778,6 +1779,7 @@
             // 
             this.tabPageMultipliers.AllowDrop = true;
             this.tabPageMultipliers.AutoScroll = true;
+            this.tabPageMultipliers.Controls.Add(this.BtImportSettingsSelectFile);
             this.tabPageMultipliers.Controls.Add(this.CbAtlasSettings);
             this.tabPageMultipliers.Controls.Add(this.BtSettingsToClipboard);
             this.tabPageMultipliers.Controls.Add(this.groupBox29);
@@ -1897,7 +1899,7 @@
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(417, 555);
+            this.label27.Location = new System.Drawing.Point(408, 536);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(37, 26);
             this.label27.TabIndex = 12;
@@ -3539,7 +3541,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3547,7 +3549,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3555,7 +3557,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3563,7 +3565,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -3944,6 +3946,16 @@
             this.chkbSpeechRecognition.Text = "Speech Recognition (displays taming info, e.g. say \"Rex level 30\")";
             this.chkbSpeechRecognition.UseVisualStyleBackColor = true;
             // 
+            // label66
+            // 
+            this.label66.AutoSize = true;
+            this.label66.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label66.Location = new System.Drawing.Point(6, 16);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(37, 26);
+            this.label66.TabIndex = 19;
+            this.label66.Text = "💡";
+            // 
             // tabPageOCR
             // 
             this.tabPageOCR.AutoScroll = true;
@@ -4261,15 +4273,15 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // label66
+            // BtImportSettingsSelectFile
             // 
-            this.label66.AutoSize = true;
-            this.label66.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label66.Location = new System.Drawing.Point(6, 16);
-            this.label66.Name = "label66";
-            this.label66.Size = new System.Drawing.Size(37, 26);
-            this.label66.TabIndex = 19;
-            this.label66.Text = "💡";
+            this.BtImportSettingsSelectFile.Location = new System.Drawing.Point(618, 599);
+            this.BtImportSettingsSelectFile.Name = "BtImportSettingsSelectFile";
+            this.BtImportSettingsSelectFile.Size = new System.Drawing.Size(114, 23);
+            this.BtImportSettingsSelectFile.TabIndex = 15;
+            this.BtImportSettingsSelectFile.Text = "Settings from file";
+            this.BtImportSettingsSelectFile.UseVisualStyleBackColor = true;
+            this.BtImportSettingsSelectFile.Click += new System.EventHandler(this.BtImportSettingsSelectFile_Click);
             // 
             // Settings
             // 
@@ -4740,5 +4752,6 @@
         private uiControls.Nud NudOverlayRelativeFontSize;
         private System.Windows.Forms.Label label65;
         private System.Windows.Forms.Label label66;
+        private System.Windows.Forms.Button BtImportSettingsSelectFile;
     }
 }

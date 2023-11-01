@@ -1593,5 +1593,20 @@ namespace ARKBreedingStats.settings
                 CbNaturalSortIgnoreSpaces.Checked = false;
             CbNaturalSortIgnoreSpaces.Enabled = isChecked;
         }
+
+        private void BtImportSettingsSelectFile_Click(object sender, EventArgs e)
+        {
+            // import settings from text file
+            using (var dlg = new OpenFileDialog
+            {
+                Filter = "ARK Multiplier File (*.ini)|*.ini",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                CheckFileExists = true
+            })
+            {
+                if (dlg.ShowDialog() != DialogResult.OK) return;
+                ExtractSettingsFromFile(dlg.FileName);
+            }
+        }
     }
 }
