@@ -234,6 +234,7 @@ namespace ARKBreedingStats
             this.columnHeaderStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTribe = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderStatusIcon = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderMutagen = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripLibrary = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.editAllSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -357,7 +358,6 @@ namespace ARKBreedingStats
             this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetLibraryColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
-            this.columnHeaderMutagen = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -634,6 +634,11 @@ namespace ARKBreedingStats
             this.NumericUpDownTestingTE.DecimalPlaces = 2;
             this.NumericUpDownTestingTE.ForeColor = System.Drawing.SystemColors.WindowText;
             this.NumericUpDownTestingTE.Location = new System.Drawing.Point(6, 19);
+            this.NumericUpDownTestingTE.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
             this.NumericUpDownTestingTE.Name = "NumericUpDownTestingTE";
             this.NumericUpDownTestingTE.NeutralNumber = new decimal(new int[] {
             0,
@@ -2326,6 +2331,11 @@ namespace ARKBreedingStats
             this.columnHeaderStatusIcon.Text = "Status";
             this.columnHeaderStatusIcon.Width = 35;
             // 
+            // columnHeaderMutagen
+            // 
+            this.columnHeaderMutagen.Text = "Mutagen";
+            this.columnHeaderMutagen.Width = 30;
+            // 
             // contextMenuStripLibrary
             // 
             this.contextMenuStripLibrary.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -3513,11 +3523,6 @@ namespace ARKBreedingStats
             this.speciesSelector1.Size = new System.Drawing.Size(1878, 775);
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
-            // 
-            // columnHeaderMutagen
-            // 
-            this.columnHeaderMutagen.Text = "Mutagen";
-            this.columnHeaderMutagen.Width = 30;
             // 
             // Form1
             // 

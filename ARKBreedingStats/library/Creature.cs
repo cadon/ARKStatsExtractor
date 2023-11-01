@@ -572,7 +572,7 @@ namespace ARKBreedingStats.Library
         /// <param name="postTameLevel"></param>
         /// <param name="tamingEffectiveness"></param>
         /// <returns></returns>
-        internal static int CalculatePreTameWildLevel(int postTameLevel, double tamingEffectiveness) => (int)Math.Ceiling(postTameLevel / (1 + tamingEffectiveness / 2));
+        internal static int CalculatePreTameWildLevel(int postTameLevel, double tamingEffectiveness) => (int)Math.Ceiling(Math.Round(postTameLevel / (1 + tamingEffectiveness / 2), 6));
     }
 
     public enum Sex

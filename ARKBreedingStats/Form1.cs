@@ -1628,13 +1628,6 @@ namespace ARKBreedingStats
             tabControlMain.SelectedTab = tabPageExtractor;
         }
 
-        private void NumericUpDownTestingTE_ValueChanged(object sender, EventArgs e)
-        {
-            UpdateAllTesterValues();
-            lbWildLevelTester.Text =
-                $"{Loc.S("preTameLevel")}: {Math.Ceiling(Math.Round((_testingIOs[Stats.Torpidity].LevelWild + 1) / (1 + NumericUpDownTestingTE.Value / 200), 6))}";
-        }
-
         private void numericUpDownImprintingBonusTester_ValueChanged(object sender, EventArgs e)
         {
             UpdateAllTesterValues();
@@ -2443,7 +2436,7 @@ namespace ARKBreedingStats
         private void toolStripButtonCopy2Tester_Click(object sender, EventArgs e)
         {
             double te = _extractor.UniqueTamingEffectiveness();
-            NumericUpDownTestingTE.ValueSave = (decimal)(te >= 0 ? te * 100 : 80);
+            TamingEffectivenessTester = te;
             numericUpDownImprintingBonusTester.Value = numericUpDownImprintingBonusExtractor.Value;
             if (rbBredExtractor.Checked)
                 rbBredTester.Checked = true;
@@ -2862,7 +2855,7 @@ namespace ARKBreedingStats
 
             SetCreatureValuesToInfoInput(cv, creatureInfoInputTester);
 
-            NumericUpDownTestingTE.ValueSave = (decimal)cv.tamingEffMin * 100;
+            TamingEffectivenessTester = cv.tamingEffMin;
 
             if (cv.isBred)
                 rbBredTester.Checked = true;
@@ -3170,7 +3163,7 @@ namespace ARKBreedingStats
                     bred = rbBredTester.Checked,
                     postTamed = rbTamedTester.Checked || rbBredTester.Checked
                 };
-                etc.tamingEff = etc.bred ? 1 : etc.postTamed ? (double)NumericUpDownTestingTE.Value / 100 : 0;
+                etc.tamingEff = etc.bred ? 1 : etc.postTamed ? TamingEffectivenessTester : -3;
                 etc.imprintingBonus = etc.bred ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0;
                 etc.levelsDom = GetCurrentDomLevels(false);
                 etc.levelsWild = GetCurrentWildLevels(false);
@@ -3209,7 +3202,7 @@ namespace ARKBreedingStats
                 wildLevels,
                 GetCurrentDomLevels(false),
                 (int)numericUpDownLevel.Value,
-                (double)NumericUpDownTestingTE.Value / 100,
+                TamingEffectivenessTester,
                 (double)(fromExtractor
                     ? numericUpDownImprintingBonusExtractor.Value
                     : numericUpDownImprintingBonusTester.Value) / 100,
