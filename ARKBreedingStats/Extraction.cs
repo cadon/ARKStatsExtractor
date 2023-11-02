@@ -270,7 +270,7 @@ namespace ARKBreedingStats
                     }
 
                     bool resultWasSortedOutBecauseOfImpossibleTe = false;
-                    for (int lw = minLW; lw < maxLW + 1; lw++)
+                    for (int lw = minLW; lw <= maxLW; lw++)
                     {
                         // imprinting bonus is applied to all stats except stamina (s==1) and oxygen (s==2) and speed (s==6)
                         MinMaxDouble valueWODomRange = new MinMaxDouble(statBaseValue * (1 + stats[s].IncPerWildLevel * lw) * statImprintingMultiplierRange.Min + (PostTamed ? stats[s].AddWhenTamed : 0),

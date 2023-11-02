@@ -177,12 +177,16 @@ namespace ARKBreedingStats
                         }
                     }
 
-                    if (_statIOs[s].LevelWild > 255)
-                        levelStatus |= LevelStatus.UltraMaxLevel;
-                    else if (_statIOs[s].LevelWild == 255)
-                        levelStatus |= LevelStatus.MaxLevel;
-                    else if (_statIOs[s].LevelWild == 254)
-                        levelStatus |= LevelStatus.MaxLevelForLevelUp;
+                    // ASA can have up to 511 levels because 255 mutation levels also contribute to the wild value. TODO separate to mutation levels
+                    if (_creatureCollection.Game != "ASA")
+                    {
+                        if (_statIOs[s].LevelWild > 255)
+                            levelStatus |= LevelStatus.UltraMaxLevel;
+                        else if (_statIOs[s].LevelWild == 255)
+                            levelStatus |= LevelStatus.MaxLevel;
+                        else if (_statIOs[s].LevelWild == 254)
+                            levelStatus |= LevelStatus.MaxLevelForLevelUp;
+                    }
 
                     if (levelStatus != LevelStatus.Neutral)
                         _statIOs[s].TopLevel = levelStatus;

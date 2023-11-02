@@ -230,13 +230,19 @@ namespace ARKBreedingStats.values
                     {
                         if (string.IsNullOrWhiteSpace(sp.blueprintPath)) continue;
 
-                        if (blueprintPathDuplicateChecking.TryGetValue(sp.blueprintPath, out var originalSpecies))
-                            _V.species.Remove(originalSpecies);
-                        blueprintPathDuplicateChecking[sp.blueprintPath] = sp;
-
-                        _V.species.Add(sp);
-                        sp.Mod = modValues.mod;
                         speciesAddedCount++;
+
+                        if (blueprintPathDuplicateChecking.TryGetValue(sp.blueprintPath, out var originalSpecies))
+                        {
+                            originalSpecies.LoadOverrides(sp);
+                            originalSpecies.Mod = modValues.mod;
+                        }
+                        else
+                        {
+                            blueprintPathDuplicateChecking[sp.blueprintPath] = sp;
+                            _V.species.Add(sp);
+                            sp.Mod = modValues.mod;
+                        }
                     }
                 }
 

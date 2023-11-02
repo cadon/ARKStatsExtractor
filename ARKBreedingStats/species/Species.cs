@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
-using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.mods;
 
 namespace ARKBreedingStats.species
@@ -123,7 +122,7 @@ namespace ARKBreedingStats.species
         /// creates properties that are not created during deserialization. They are set later with the raw-values with the multipliers applied.
         /// </summary>
         [OnDeserialized]
-        private void Initialize(StreamingContext context)
+        private void Initialize(StreamingContext _)
         {
             // TODO: Base species are maybe not used in game and may only lead to confusion (e.g. Giganotosaurus).
 
@@ -192,14 +191,14 @@ namespace ARKBreedingStats.species
             IsDomesticable = (taming != null && (taming.nonViolent || taming.violent))
                              || (breeding != null && (breeding.incubationTime > 0 || breeding.gestationTime > 0));
 
-            if (statImprintMult == null) statImprintMult = StatImprintMultDefaultAse;
+            if (statImprintMult == null) statImprintMult = StatImprintMultipliersDefaultAse;
         }
 
         /// <summary>
         /// Default values for the stat imprint multipliers in ASE
         /// </summary>
-        private static readonly double[] StatImprintMultDefaultAse = { 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 };
-        
+        private static readonly double[] StatImprintMultipliersDefaultAse = { 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 };
+
         /// <summary>
         /// Sets the name, descriptive name and variant info.
         /// </summary>
@@ -361,6 +360,28 @@ namespace ARKBreedingStats.species
             }
 
             return randomColors;
+        }
+
+        /// <summary>
+        /// Override provided properties of the species, e.g. from a mod values file. This is only done if the blueprint path is the same.
+        /// </summary>
+        public void LoadOverrides(Species overrides)
+        {
+            if (overrides.name != null) name = overrides.name;
+            if (overrides.variants != null) variants = overrides.variants;
+            if (overrides.fullStatsRaw != null) fullStatsRaw = overrides.fullStatsRaw;
+            if (overrides.altBaseStatsRaw != null) altBaseStatsRaw = overrides.altBaseStatsRaw;
+            if (overrides.displayedStats != 0) displayedStats = overrides.displayedStats;
+            if (overrides.TamedBaseHealthMultiplier != null) TamedBaseHealthMultiplier = overrides.TamedBaseHealthMultiplier;
+            if (overrides.statImprintMult != null) statImprintMult = overrides.statImprintMult;
+            if (overrides.colors != null) colors = overrides.colors;
+            if (overrides.taming != null) taming = overrides.taming;
+            if (overrides.breeding != null) breeding = overrides.breeding;
+            if (overrides.boneDamageAdjusters != null) boneDamageAdjusters = overrides.boneDamageAdjusters;
+            if (overrides.immobilizedBy != null) immobilizedBy = overrides.immobilizedBy;
+            if (overrides.statNames != null) statNames = overrides.statNames;
+            
+            Initialize(new StreamingContext());
         }
     }
 }
