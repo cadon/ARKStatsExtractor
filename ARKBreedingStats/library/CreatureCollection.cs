@@ -77,6 +77,12 @@ namespace ARKBreedingStats.Library
         public bool AtlasSettings;
 
         /// <summary>
+        /// Indicates the game the library is used for. Possible values are "ASE" (default) for ARK: Survival Evolved or "ASA" for ARK: Survival Ascended.
+        /// </summary>
+        [JsonProperty]
+        public string Game = "ASE";
+
+        /// <summary>
         /// Used for the exportGun mod.
         /// This hash is used to determine if an imported creature file is using the current server multipliers.
         /// </summary>

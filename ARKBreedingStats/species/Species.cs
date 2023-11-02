@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
+using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.mods;
 
 namespace ARKBreedingStats.species
@@ -191,9 +192,14 @@ namespace ARKBreedingStats.species
             IsDomesticable = (taming != null && (taming.nonViolent || taming.violent))
                              || (breeding != null && (breeding.incubationTime > 0 || breeding.gestationTime > 0));
 
-            if (statImprintMult == null) statImprintMult = new double[] { 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 }; // default values for the stat imprint multipliers
+            if (statImprintMult == null) statImprintMult = StatImprintMultDefaultAse;
         }
 
+        /// <summary>
+        /// Default values for the stat imprint multipliers in ASE
+        /// </summary>
+        private static readonly double[] StatImprintMultDefaultAse = { 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 };
+        
         /// <summary>
         /// Sets the name, descriptive name and variant info.
         /// </summary>

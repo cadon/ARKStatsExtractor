@@ -490,6 +490,7 @@ namespace ARKBreedingStats.values
 
             currentServerMultipliers.FixZeroValues();
             double[] defaultMultipliers = new double[] { 1, 1, 1, 1 }; // used if serverMultipliers don't specify non-default values
+            var useAsa = cc.Game == "ASA";
 
             foreach (Species sp in species)
             {
@@ -541,6 +542,8 @@ namespace ARKBreedingStats.values
                             sp.altStats[s].IncPerWildLevel = altFactor * sp.stats[s].IncPerWildLevel;
                         }
 
+                        // single player adjustments if set and available
+
                         if (singlePlayerServerMultipliers?.statMultipliers?[s] == null)
                             continue;
 
@@ -571,7 +574,19 @@ namespace ARKBreedingStats.values
                     }
 
                     // imprinting multiplier override
-                    sp.SetCustomImprintingMultipliers(customOverrideExists && cc.CustomSpeciesStats[sp.blueprintPath].Length > Stats.StatsCount ? cc.CustomSpeciesStats[sp.blueprintPath][Stats.StatsCount] : null);
+                    var imprintingMultiplierOverrides =
+                        customOverrideExists && cc.CustomSpeciesStats[sp.blueprintPath].Length > Stats.StatsCount
+                            ? cc.CustomSpeciesStats[sp.blueprintPath][Stats.StatsCount]
+                            : null;
+
+                    // adjustments for ASA (0 for speed)
+                    if (imprintingMultiplierOverrides == null && useAsa)
+                    {
+                        imprintingMultiplierOverrides = sp.StatImprintMultipliers.Select(d => (double?)d).ToArray();
+                        imprintingMultiplierOverrides[Stats.SpeedMultiplier] = 0;
+                    }
+
+                    sp.SetCustomImprintingMultipliers(imprintingMultiplierOverrides);
 
                     // ATLAS multipliers
 
