@@ -25,6 +25,8 @@ namespace ARKBreedingStats.Library
         public int[] levelsWild;
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int[] levelsDom;
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public int[] levelsMutated;
 
         /// <summary>
         /// The taming effectiveness (0: 0, 1: 100 %).
@@ -204,7 +206,8 @@ namespace ARKBreedingStats.Library
 
         public Creature() { }
 
-        public Creature(Species species, string name, string owner = null, string tribe = null, Sex sex = Sex.Unknown, int[] levelsWild = null, int[] levelsDom = null, double tamingEff = 0, bool isBred = false, double imprinting = 0, int? levelStep = null)
+        public Creature(Species species, string name, string owner = null, string tribe = null, Sex sex = Sex.Unknown,
+            int[] levelsWild = null, int[] levelsDom = null, int[] levelsMutated = null, double tamingEff = 0, bool isBred = false, double imprinting = 0, int? levelStep = null)
         {
             Species = species;
             this.name = name ?? string.Empty;
@@ -213,6 +216,7 @@ namespace ARKBreedingStats.Library
             this.sex = sex;
             this.levelsWild = levelsWild;
             this.levelsDom = levelsDom ?? new int[Stats.StatsCount];
+            this.levelsMutated = levelsMutated;
             this.isBred = isBred;
             if (isBred)
             {

@@ -10,7 +10,7 @@ namespace ARKBreedingStats.testCases
     public partial class TestCaseControl : UserControl
     {
         public delegate void CopyTestToExtractorEventHandler(string speciesBp, int level, double[] statValues, bool postTamed, bool bred, double imprintingBonus, bool gotoExtractor, TestCaseControl tcc);
-        public delegate void CopyTestToTesterEventHandler(string speciesBp, int[] wildLevels, int[] domLevels, bool postTamed, bool bred, double te, double imprintingBonus, bool gotoTester, TestCaseControl tcc);
+        public delegate void CopyTestToTesterEventHandler(string speciesBp, int[] wildLevels, int[] domLevels, int[] mutLevels, bool postTamed, bool bred, double te, double imprintingBonus, bool gotoTester, TestCaseControl tcc);
         public delegate void RemoveTestCaseEventHandler(TestCaseControl tcc);
         public event CopyTestToExtractorEventHandler CopyToExtractor;
         public event CopyTestToTesterEventHandler CopyToTester;
@@ -48,7 +48,7 @@ namespace ARKBreedingStats.testCases
 
         private void bt2Te_Click(object sender, EventArgs e)
         {
-            CopyToTester?.Invoke(TestCase.speciesBlueprintPath, TestCase.levelsWild, TestCase.levelsDom, TestCase.postTamed, TestCase.bred, TestCase.tamingEff, TestCase.imprintingBonus, true, this);
+            CopyToTester?.Invoke(TestCase.speciesBlueprintPath, TestCase.levelsWild, TestCase.levelsDom, TestCase.levelsMut, TestCase.postTamed, TestCase.bred, TestCase.tamingEff, TestCase.imprintingBonus, true, this);
         }
 
         private void btRunTest_Click(object sender, EventArgs e)

@@ -1712,7 +1712,7 @@ namespace ARKBreedingStats
                     var levelStep = _creatureCollection.getWildLevelStep();
                     Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner,
                         input.CreatureTribe, input.CreatureSex, GetCurrentWildLevels(fromExtractor),
-                        GetCurrentDomLevels(fromExtractor), te, bred, imprinting, levelStep)
+                        GetCurrentDomLevels(fromExtractor), GetCurrentMutLevels(fromExtractor), te, bred, imprinting, levelStep)
                     {
                         colors = input.RegionColors,
                         ArkId = input.ArkId
@@ -3043,7 +3043,7 @@ namespace ARKBreedingStats
             creatureInfoInputTester.SetNamePatternButtons(Properties.Settings.Default.NamingPatterns);
         }
 
-        private void ExtractionTestControl1_CopyToTester(string speciesBP, int[] wildLevels, int[] domLevels,
+        private void ExtractionTestControl1_CopyToTester(string speciesBP, int[] wildLevels, int[] domLevels, int[] mutLevels,
             bool postTamed, bool bred, double te, double imprintingBonus, bool gotoTester,
             testCases.TestCaseControl tcc)
         {
@@ -3053,7 +3053,7 @@ namespace ARKBreedingStats
             if (species != null)
             {
                 EditCreatureInTester(
-                    new Creature(species, null, null, null, Sex.Unknown, wildLevels, domLevels,
+                    new Creature(species, null, null, null, Sex.Unknown, wildLevels, domLevels, mutLevels,
                         te, bred, imprintingBonus), true);
                 if (gotoTester) tabControlMain.SelectedTab = tabPageStatTesting;
             }

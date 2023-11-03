@@ -59,6 +59,12 @@ namespace ARKBreedingStats.species
         public CreatureStat[] altStats;
 
         /// <summary>
+        /// Multipliers for each stat for the mutated levels. Introduced in ASA.
+        /// </summary>
+        [JsonProperty]
+        public float[] mutationMult;
+
+        /// <summary>
         /// Indicates if a stat is shown in game represented by bit-flags
         /// </summary>
         [JsonProperty]
@@ -192,12 +198,18 @@ namespace ARKBreedingStats.species
                              || (breeding != null && (breeding.incubationTime > 0 || breeding.gestationTime > 0));
 
             if (statImprintMult == null) statImprintMult = StatImprintMultipliersDefaultAse;
+            if (mutationMult == null) mutationMult = MutationMultipliersDefault;
         }
 
         /// <summary>
         /// Default values for the stat imprint multipliers in ASE
         /// </summary>
         private static readonly double[] StatImprintMultipliersDefaultAse = { 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 };
+
+        /// <summary>
+        /// Default values for the mutated levels multipliers.
+        /// </summary>
+        private static readonly float[] MutationMultipliersDefault = { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
 
         /// <summary>
         /// Sets the name, descriptive name and variant info.
@@ -374,13 +386,14 @@ namespace ARKBreedingStats.species
             if (overrides.displayedStats != 0) displayedStats = overrides.displayedStats;
             if (overrides.TamedBaseHealthMultiplier != null) TamedBaseHealthMultiplier = overrides.TamedBaseHealthMultiplier;
             if (overrides.statImprintMult != null) statImprintMult = overrides.statImprintMult;
+            if (overrides.mutationMult != null) mutationMult = overrides.mutationMult;
             if (overrides.colors != null) colors = overrides.colors;
             if (overrides.taming != null) taming = overrides.taming;
             if (overrides.breeding != null) breeding = overrides.breeding;
             if (overrides.boneDamageAdjusters != null) boneDamageAdjusters = overrides.boneDamageAdjusters;
             if (overrides.immobilizedBy != null) immobilizedBy = overrides.immobilizedBy;
             if (overrides.statNames != null) statNames = overrides.statNames;
-            
+
             Initialize(new StreamingContext());
         }
     }

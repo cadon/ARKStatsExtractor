@@ -155,6 +155,7 @@ namespace ARKBreedingStats
 
             int[] wildLevels = Enumerable.Repeat(-1, Stats.StatsCount).ToArray(); // -1 is unknown
             int[] tamedLevels = new int[Stats.StatsCount];
+            int[] mutatedLevels = new int[Stats.StatsCount];
 
             for (int i = 0; i < Stats.StatsCount; i++)
             {
@@ -165,6 +166,7 @@ namespace ARKBreedingStats
             for (int i = 0; i < Stats.StatsCount; i++)
             {
                 tamedLevels[i] = statusObject.GetPropertyValue<ArkByteValue>("NumberOfLevelUpPointsAppliedTamed", i)?.ByteValue ?? 0;
+                //mutatedLevels[i] = statusObject.GetPropertyValue<ArkByteValue>("NumberOfLevelUpPointsAppliedMutated", i)?.ByteValue ?? 0; // TODO
             }
 
             float ti = statusObject.GetPropertyValue<float>("TamedIneffectivenessModifier", defaultValue: float.NaN);
@@ -174,7 +176,7 @@ namespace ARKBreedingStats
             Creature creature = new Creature(species,
                     creatureObject.GetPropertyValue<string>("TamedName"), owner, creatureObject.GetPropertyValue<string>("TribeName"),
                     creatureObject.IsFemale() ? Sex.Female : Sex.Male,
-                    wildLevels, tamedLevels, te,
+                    wildLevels, tamedLevels, mutatedLevels, te,
                     !string.IsNullOrWhiteSpace(creatureObject.GetPropertyValue<string>("ImprinterName")),
                     statusObject.GetPropertyValue<float>("DinoImprintingQuality"),
                     levelStep

@@ -787,7 +787,7 @@ namespace ARKBreedingStats.BreedingPlanning
                 : string.Format(Loc.S(bestInSpecies ? "BestPossibleSpeciesLibrary" : "BestPossibleSpeciesLibraryFiltered"), _currentSpecies.name);
 
             Creature crB = new Creature(_currentSpecies, bestLevelsOfWhat,
-                null, null, 0, new int[Stats.StatsCount], null, 1, true, levelStep: levelStep);
+                null, null, 0, new int[Stats.StatsCount], null, null, 1, true, levelStep: levelStep);
             bool totalLevelUnknown = false;
             for (int s = 0; s < Stats.StatsCount; s++)
             {
