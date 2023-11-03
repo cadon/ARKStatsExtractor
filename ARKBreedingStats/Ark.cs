@@ -89,8 +89,7 @@
         #region Colors
 
         public const byte ColorFirstId = 1;
-        public const byte ColorMaxId = 200;
-        public const byte DyeFirstId = 201;
+        public const byte DyeFirstIdASE = 201;
         public const byte DyeMaxId = 255;
         /// <summary>
         /// When choosing a random color for a mutation, ARK can erroneously select an undefined color. Usually this is color id 227 (one too high to be defined).

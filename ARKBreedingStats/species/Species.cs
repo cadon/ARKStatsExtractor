@@ -76,6 +76,12 @@ namespace ARKBreedingStats.species
         private int usedStats;
 
         /// <summary>
+        /// Indicates if a stat won't get wild levels for spawned creatures represented by bit-flags
+        /// </summary>
+        [JsonProperty]
+        private int skipWildLevelStats;
+
+        /// <summary>
         /// Indicates if the species is affected by the setting AllowFlyerSpeedLeveling
         /// </summary>
         [JsonProperty] public bool isFlyer;
@@ -132,6 +138,8 @@ namespace ARKBreedingStats.species
         {
             // TODO: Base species are maybe not used in game and may only lead to confusion (e.g. Giganotosaurus).
 
+            if (string.IsNullOrEmpty(blueprintPath)) return; // blueprint path is needed for identification
+
             InitializeNames();
 
             stats = new CreatureStat[Stats.StatsCount];
@@ -139,30 +147,35 @@ namespace ARKBreedingStats.species
                 altStats = new CreatureStat[Stats.StatsCount];
 
             usedStats = 0;
-            double[][] completeRaws = new double[Stats.StatsCount][];
-            for (int s = 0; s < Stats.StatsCount; s++)
+            if (fullStatsRaw != null)
             {
-                stats[s] = new CreatureStat();
-                if (altBaseStatsRaw?.ContainsKey(s) ?? false)
-                    altStats[s] = new CreatureStat();
-
-                completeRaws[s] = new double[] { 0, 0, 0, 0, 0 };
-                if (fullStatsRaw.Length > s && fullStatsRaw[s] != null)
+                double[][] completeRaws = new double[Stats.StatsCount][];
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
-                    for (int i = 0; i < 5; i++)
+                    stats[s] = new CreatureStat();
+                    if (altBaseStatsRaw?.ContainsKey(s) ?? false)
+                        altStats[s] = new CreatureStat();
+
+                    completeRaws[s] = new double[] { 0, 0, 0, 0, 0 };
+                    if (fullStatsRaw.Length > s && fullStatsRaw[s] != null)
                     {
-                        if (fullStatsRaw[s].Length > i)
+                        for (int i = 0; i < 5; i++)
                         {
-                            completeRaws[s][i] = fullStatsRaw[s]?[i] ?? 0;
-                            if (i == 0 && fullStatsRaw[s][0] > 0)
+                            if (fullStatsRaw[s].Length > i)
                             {
-                                usedStats |= (1 << s);
+                                completeRaws[s][i] = fullStatsRaw[s]?[i] ?? 0;
+                                if (i == 0 && fullStatsRaw[s][0] > 0)
+                                {
+                                    usedStats |= (1 << s);
+                                }
                             }
                         }
                     }
                 }
+
+                fullStatsRaw = completeRaws;
             }
-            fullStatsRaw = completeRaws;
+
             if (TamedBaseHealthMultiplier == null)
                 TamedBaseHealthMultiplier = 1;
 
@@ -174,9 +187,6 @@ namespace ARKBreedingStats.species
                 colors.CopyTo(allColorRegions, 0);
                 colors = allColorRegions;
             }
-
-            if (string.IsNullOrEmpty(blueprintPath))
-                blueprintPath = string.Empty;
 
             if (boneDamageAdjusters != null && boneDamageAdjusters.Any())
             {
@@ -308,16 +318,17 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Returns if the species uses a stat, i.e. it has a base value > 0.
         /// </summary>
-        /// <param name="statIndex"></param>
-        /// <returns></returns>
         public bool UsesStat(int statIndex) => (usedStats & 1 << statIndex) != 0;
 
         /// <summary>
         /// Returns if the species displays a stat ingame in the inventory.
         /// </summary>
-        /// <param name="statIndex"></param>
-        /// <returns></returns>
         public bool DisplaysStat(int statIndex) => (displayedStats & 1 << statIndex) != 0;
+
+        /// <summary>
+        /// Returns if a spawned creature can have wild levels in a stat.
+        /// </summary>
+        public bool CanLevelupWild(int statIndex) => (skipWildLevelStats & 1 << statIndex) == 0;
 
         public override string ToString()
         {
@@ -384,6 +395,7 @@ namespace ARKBreedingStats.species
             if (overrides.fullStatsRaw != null) fullStatsRaw = overrides.fullStatsRaw;
             if (overrides.altBaseStatsRaw != null) altBaseStatsRaw = overrides.altBaseStatsRaw;
             if (overrides.displayedStats != 0) displayedStats = overrides.displayedStats;
+            if (overrides.skipWildLevelStats != 0) skipWildLevelStats = overrides.skipWildLevelStats;
             if (overrides.TamedBaseHealthMultiplier != null) TamedBaseHealthMultiplier = overrides.TamedBaseHealthMultiplier;
             if (overrides.statImprintMult != null) statImprintMult = overrides.statImprintMult;
             if (overrides.mutationMult != null) mutationMult = overrides.mutationMult;

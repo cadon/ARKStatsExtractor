@@ -249,7 +249,7 @@ namespace ARKBreedingStats.values
                 // mod colors (even if the mod doesn't add colors, the order of colors can change)
                 if (!modValues.mod.expansion)
                 {
-                    Colors.AddModArkColors(modValues.ArkColorsDyesParsed);
+                    Colors.AddModArkColors((modValues.ArkColorsDyesParsed, modValues.dyeStartIndex));
                     colorsAdded = true;
                 }
 
