@@ -94,6 +94,20 @@ namespace ARKBreedingStats
             }
         }
 
+        public int LevelMut
+        {
+            get => 0;
+            set { }
+            // TODO
+            //get => (short)numLvM.Value;
+            //set
+            //{
+            //    labelMutLevel.Text = value.ToString();
+            //    labelMutLevel.ForeColor = value == 0 ? Color.Gray : Color.Black;
+            //    numLvM.Value = value;
+            //}
+        }
+
         public double BreedingValue
         {
             get => _breedingValue;

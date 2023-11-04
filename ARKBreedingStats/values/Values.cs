@@ -230,20 +230,26 @@ namespace ARKBreedingStats.values
                     {
                         if (string.IsNullOrWhiteSpace(sp.blueprintPath)) continue;
 
-                        if (blueprintPathDuplicateChecking.TryGetValue(sp.blueprintPath, out var originalSpecies))
-                            _V.species.Remove(originalSpecies);
-                        blueprintPathDuplicateChecking[sp.blueprintPath] = sp;
-
-                        _V.species.Add(sp);
-                        sp.Mod = modValues.mod;
                         speciesAddedCount++;
+
+                        if (blueprintPathDuplicateChecking.TryGetValue(sp.blueprintPath, out var originalSpecies))
+                        {
+                            originalSpecies.LoadOverrides(sp);
+                            originalSpecies.Mod = modValues.mod;
+                        }
+                        else
+                        {
+                            blueprintPathDuplicateChecking[sp.blueprintPath] = sp;
+                            _V.species.Add(sp);
+                            sp.Mod = modValues.mod;
+                        }
                     }
                 }
 
                 // mod colors (even if the mod doesn't add colors, the order of colors can change)
                 if (!modValues.mod.expansion)
                 {
-                    Colors.AddModArkColors(modValues.ArkColorsDyesParsed);
+                    Colors.AddModArkColors((modValues.ArkColorsDyesParsed, modValues.dyeStartIndex));
                     colorsAdded = true;
                 }
 
@@ -490,6 +496,7 @@ namespace ARKBreedingStats.values
 
             currentServerMultipliers.FixZeroValues();
             double[] defaultMultipliers = new double[] { 1, 1, 1, 1 }; // used if serverMultipliers don't specify non-default values
+            var useAsa = cc.Game == Ark.Asa;
 
             foreach (Species sp in species)
             {
@@ -541,6 +548,8 @@ namespace ARKBreedingStats.values
                             sp.altStats[s].IncPerWildLevel = altFactor * sp.stats[s].IncPerWildLevel;
                         }
 
+                        // single player adjustments if set and available
+
                         if (singlePlayerServerMultipliers?.statMultipliers?[s] == null)
                             continue;
 
@@ -571,7 +580,19 @@ namespace ARKBreedingStats.values
                     }
 
                     // imprinting multiplier override
-                    sp.SetCustomImprintingMultipliers(customOverrideExists && cc.CustomSpeciesStats[sp.blueprintPath].Length > Stats.StatsCount ? cc.CustomSpeciesStats[sp.blueprintPath][Stats.StatsCount] : null);
+                    var imprintingMultiplierOverrides =
+                        customOverrideExists && cc.CustomSpeciesStats[sp.blueprintPath].Length > Stats.StatsCount
+                            ? cc.CustomSpeciesStats[sp.blueprintPath][Stats.StatsCount]
+                            : null;
+
+                    // adjustments for ASA (0 for speed)
+                    if (imprintingMultiplierOverrides == null && useAsa)
+                    {
+                        imprintingMultiplierOverrides = sp.StatImprintMultipliers.Select(d => (double?)d).ToArray();
+                        imprintingMultiplierOverrides[Stats.SpeedMultiplier] = 0;
+                    }
+
+                    sp.SetCustomImprintingMultipliers(imprintingMultiplierOverrides);
 
                     // ATLAS multipliers
 

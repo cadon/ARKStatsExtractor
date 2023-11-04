@@ -194,8 +194,6 @@ namespace ARKBreedingStats
         /// <summary>
         /// Returns the wild levels from the extractor or tester in an array.
         /// </summary>
-        /// <param name="fromExtractor"></param>
-        /// <returns></returns>
         private int[] GetCurrentWildLevels(bool fromExtractor = true)
         {
             int[] levelsWild = new int[Stats.StatsCount];
@@ -209,8 +207,6 @@ namespace ARKBreedingStats
         /// <summary>
         /// Returns the domesticated levels from the extractor or tester in an array.
         /// </summary>
-        /// <param name="fromExtractor"></param>
-        /// <returns></returns>
         private int[] GetCurrentDomLevels(bool fromExtractor = true)
         {
             int[] levelsDom = new int[Stats.StatsCount];
@@ -219,6 +215,19 @@ namespace ARKBreedingStats
                 levelsDom[s] = fromExtractor ? _statIOs[s].LevelDom : _testingIOs[s].LevelDom;
             }
             return levelsDom;
+        }
+
+        /// <summary>
+        /// Returns the mutated levels from the extractor or tester in an array.
+        /// </summary>
+        private int[] GetCurrentMutLevels(bool fromExtractor = true)
+        {
+            int[] levelsMut = new int[Stats.StatsCount];
+            for (int s = 0; s < Stats.StatsCount; s++)
+            {
+                levelsMut[s] = fromExtractor ? _statIOs[s].LevelMut : _testingIOs[s].LevelMut;
+            }
+            return levelsMut;
         }
 
         /// <summary>

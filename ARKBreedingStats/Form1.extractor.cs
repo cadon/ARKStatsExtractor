@@ -177,12 +177,16 @@ namespace ARKBreedingStats
                         }
                     }
 
-                    if (_statIOs[s].LevelWild > 255)
-                        levelStatus |= LevelStatus.UltraMaxLevel;
-                    else if (_statIOs[s].LevelWild == 255)
-                        levelStatus |= LevelStatus.MaxLevel;
-                    else if (_statIOs[s].LevelWild == 254)
-                        levelStatus |= LevelStatus.MaxLevelForLevelUp;
+                    // ASA can have up to 511 levels because 255 mutation levels also contribute to the wild value. TODO separate to mutation levels
+                    if (_creatureCollection.Game != Ark.Asa)
+                    {
+                        if (_statIOs[s].LevelWild > 255)
+                            levelStatus |= LevelStatus.UltraMaxLevel;
+                        else if (_statIOs[s].LevelWild == 255)
+                            levelStatus |= LevelStatus.MaxLevel;
+                        else if (_statIOs[s].LevelWild == 254)
+                            levelStatus |= LevelStatus.MaxLevelForLevelUp;
+                    }
 
                     if (levelStatus != LevelStatus.Neutral)
                         _statIOs[s].TopLevel = levelStatus;
@@ -1134,7 +1138,8 @@ namespace ARKBreedingStats
                 imprinting = (double)numericUpDownImprintingBonusTester.Value / 100;
             }
 
-            Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex, GetCurrentWildLevels(fromExtractor), GetCurrentDomLevels(fromExtractor), te, bred, imprinting, levelStep: levelStep)
+            Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex,
+                GetCurrentWildLevels(fromExtractor), GetCurrentDomLevels(fromExtractor), GetCurrentMutLevels(fromExtractor), te, bred, imprinting, levelStep: levelStep)
             {
                 // set parents
                 Mother = input.Mother,

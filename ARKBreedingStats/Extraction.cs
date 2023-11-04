@@ -123,6 +123,8 @@ namespace ARKBreedingStats
             if (imprintingBonusList == null)
                 imprintingBonusList = new List<MinMaxDouble> { new MinMaxDouble(0) };
 
+            double[] statImprintMultipliers = species.StatImprintMultipliers;
+
             for (int IBi = 0; IBi < imprintingBonusList.Count; IBi++)
             {
                 _imprintingBonusRange = imprintingBonusList[IBi];
@@ -133,7 +135,7 @@ namespace ARKBreedingStats
                 var imprintingMultiplierRanges = new MinMaxDouble[Stats.StatsCount];
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
-                    double statImprintingMultiplier = species.StatImprintMultipliers[s];
+                    double statImprintingMultiplier = statImprintMultipliers[s];
                     imprintingMultiplierRanges[s] = statImprintingMultiplier != 0
                         ? new MinMaxDouble(1 + _imprintingBonusRange.Min * imprintingBonusMultiplier * statImprintingMultiplier,
                                            1 + _imprintingBonusRange.Max * imprintingBonusMultiplier * statImprintingMultiplier)
@@ -237,7 +239,7 @@ namespace ARKBreedingStats
 
                     MinMaxDouble statImprintingMultiplierRange = new MinMaxDouble(1);
                     // only use imprintingMultiplier for stats that use them. Stamina and Oxygen don't use ist. Sometimes speed neither.
-                    if (bred && species.StatImprintMultipliers[s] != 0)
+                    if (bred && statImprintMultipliers[s] != 0)
                         statImprintingMultiplierRange = imprintingMultiplierRanges[s].Clone();
 
                     // if dom levels have no effect, just calculate the wild level
@@ -268,7 +270,7 @@ namespace ARKBreedingStats
                     }
 
                     bool resultWasSortedOutBecauseOfImpossibleTe = false;
-                    for (int lw = minLW; lw < maxLW + 1; lw++)
+                    for (int lw = minLW; lw <= maxLW; lw++)
                     {
                         // imprinting bonus is applied to all stats except stamina (s==1) and oxygen (s==2) and speed (s==6)
                         MinMaxDouble valueWODomRange = new MinMaxDouble(statBaseValue * (1 + stats[s].IncPerWildLevel * lw) * statImprintingMultiplierRange.Min + (PostTamed ? stats[s].AddWhenTamed : 0),

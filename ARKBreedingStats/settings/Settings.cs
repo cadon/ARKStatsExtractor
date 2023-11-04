@@ -13,7 +13,6 @@ using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.library;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ARKBreedingStats.settings
 {
@@ -209,6 +208,8 @@ namespace ARKBreedingStats.settings
             }
             cbSingleplayerSettings.Checked = cc.singlePlayerSettings;
             CbAtlasSettings.Checked = _cc.AtlasSettings;
+            if (_cc.Game == Ark.Asa) RbGameAsa.Checked = true;
+            else RbGameAse.Checked = true;
 
             nudMaxDomLevels.ValueSave = cc.maxDomLevel;
             numericUpDownMaxBreedingSug.ValueSave = cc.maxBreedingSuggestions;
@@ -466,6 +467,8 @@ namespace ARKBreedingStats.settings
 
             _cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
             _cc.AtlasSettings = CbAtlasSettings.Checked;
+            _cc.Game = RbGameAsa.Checked ? Ark.Asa : Ark.Ase;
+
             _cc.maxDomLevel = (int)nudMaxDomLevels.Value;
             _cc.maxWildLevel = (int)nudMaxWildLevels.Value;
             _cc.maxServerLevel = (int)nudMaxServerLevel.Value;
@@ -1592,6 +1595,21 @@ namespace ARKBreedingStats.settings
             if (!isChecked)
                 CbNaturalSortIgnoreSpaces.Checked = false;
             CbNaturalSortIgnoreSpaces.Enabled = isChecked;
+        }
+
+        private void BtImportSettingsSelectFile_Click(object sender, EventArgs e)
+        {
+            // import settings from text file
+            using (var dlg = new OpenFileDialog
+            {
+                Filter = "ARK Multiplier File (*.ini)|*.ini",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                CheckFileExists = true
+            })
+            {
+                if (dlg.ShowDialog() != DialogResult.OK) return;
+                ExtractSettingsFromFile(dlg.FileName);
+            }
         }
     }
 }

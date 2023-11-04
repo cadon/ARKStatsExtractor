@@ -59,6 +59,12 @@ namespace ARKBreedingStats.species
         public CreatureStat[] altStats;
 
         /// <summary>
+        /// Multipliers for each stat for the mutated levels. Introduced in ASA.
+        /// </summary>
+        [JsonProperty]
+        public float[] mutationMult;
+
+        /// <summary>
         /// Indicates if a stat is shown in game represented by bit-flags
         /// </summary>
         [JsonProperty]
@@ -68,6 +74,12 @@ namespace ARKBreedingStats.species
         /// Indicates if a species uses a stat represented by bit-flags
         /// </summary>
         private int usedStats;
+
+        /// <summary>
+        /// Indicates if a stat won't get wild levels for spawned creatures represented by bit-flags
+        /// </summary>
+        [JsonProperty]
+        private int skipWildLevelStats;
 
         /// <summary>
         /// Indicates if the species is affected by the setting AllowFlyerSpeedLeveling
@@ -122,9 +134,11 @@ namespace ARKBreedingStats.species
         /// creates properties that are not created during deserialization. They are set later with the raw-values with the multipliers applied.
         /// </summary>
         [OnDeserialized]
-        private void Initialize(StreamingContext context)
+        private void Initialize(StreamingContext _)
         {
             // TODO: Base species are maybe not used in game and may only lead to confusion (e.g. Giganotosaurus).
+
+            if (string.IsNullOrEmpty(blueprintPath)) return; // blueprint path is needed for identification
 
             InitializeNames();
 
@@ -132,16 +146,25 @@ namespace ARKBreedingStats.species
             if (altBaseStatsRaw != null)
                 altStats = new CreatureStat[Stats.StatsCount];
 
+            var fullStatsRawLength = fullStatsRaw?.Length ?? 0;
+
             usedStats = 0;
+
             double[][] completeRaws = new double[Stats.StatsCount][];
             for (int s = 0; s < Stats.StatsCount; s++)
             {
+                // so far it seems stats that are skipped in wild are not displayed either
+                var statBit = (1 << s);
+                if ((skipWildLevelStats & statBit) != 0)
+                    displayedStats &= ~statBit;
+
+
                 stats[s] = new CreatureStat();
                 if (altBaseStatsRaw?.ContainsKey(s) ?? false)
                     altStats[s] = new CreatureStat();
 
                 completeRaws[s] = new double[] { 0, 0, 0, 0, 0 };
-                if (fullStatsRaw.Length > s && fullStatsRaw[s] != null)
+                if (fullStatsRawLength > s && fullStatsRaw[s] != null)
                 {
                     for (int i = 0; i < 5; i++)
                     {
@@ -156,7 +179,10 @@ namespace ARKBreedingStats.species
                     }
                 }
             }
-            fullStatsRaw = completeRaws;
+
+            if (fullStatsRawLength != -0)
+                fullStatsRaw = completeRaws;
+
             if (TamedBaseHealthMultiplier == null)
                 TamedBaseHealthMultiplier = 1;
 
@@ -168,9 +194,6 @@ namespace ARKBreedingStats.species
                 colors.CopyTo(allColorRegions, 0);
                 colors = allColorRegions;
             }
-
-            if (string.IsNullOrEmpty(blueprintPath))
-                blueprintPath = string.Empty;
 
             if (boneDamageAdjusters != null && boneDamageAdjusters.Any())
             {
@@ -191,8 +214,19 @@ namespace ARKBreedingStats.species
             IsDomesticable = (taming != null && (taming.nonViolent || taming.violent))
                              || (breeding != null && (breeding.incubationTime > 0 || breeding.gestationTime > 0));
 
-            if (statImprintMult == null) statImprintMult = new double[] { 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 }; // default values for the stat imprint multipliers
+            if (statImprintMult == null) statImprintMult = StatImprintMultipliersDefaultAse;
+            if (mutationMult == null) mutationMult = MutationMultipliersDefault;
         }
+
+        /// <summary>
+        /// Default values for the stat imprint multipliers in ASE
+        /// </summary>
+        private static readonly double[] StatImprintMultipliersDefaultAse = { 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 };
+
+        /// <summary>
+        /// Default values for the mutated levels multipliers.
+        /// </summary>
+        private static readonly float[] MutationMultipliersDefault = { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
 
         /// <summary>
         /// Sets the name, descriptive name and variant info.
@@ -291,16 +325,17 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Returns if the species uses a stat, i.e. it has a base value > 0.
         /// </summary>
-        /// <param name="statIndex"></param>
-        /// <returns></returns>
-        public bool UsesStat(int statIndex) => (usedStats & 1 << statIndex) != 0;
+        public bool UsesStat(int statIndex) => (usedStats & (1 << statIndex)) != 0;
 
         /// <summary>
         /// Returns if the species displays a stat ingame in the inventory.
         /// </summary>
-        /// <param name="statIndex"></param>
-        /// <returns></returns>
-        public bool DisplaysStat(int statIndex) => (displayedStats & 1 << statIndex) != 0;
+        public bool DisplaysStat(int statIndex) => (displayedStats & (1 << statIndex)) != 0;
+
+        /// <summary>
+        /// Returns if a spawned creature can have wild levels in a stat.
+        /// </summary>
+        public bool CanLevelupWild(int statIndex) => (skipWildLevelStats & (1 << statIndex)) == 0;
 
         public override string ToString()
         {
@@ -355,6 +390,30 @@ namespace ARKBreedingStats.species
             }
 
             return randomColors;
+        }
+
+        /// <summary>
+        /// Override provided properties of the species, e.g. from a mod values file. This is only done if the blueprint path is the same.
+        /// </summary>
+        public void LoadOverrides(Species overrides)
+        {
+            if (overrides.name != null) name = overrides.name;
+            if (overrides.variants != null) variants = overrides.variants;
+            if (overrides.fullStatsRaw != null) fullStatsRaw = overrides.fullStatsRaw;
+            if (overrides.altBaseStatsRaw != null) altBaseStatsRaw = overrides.altBaseStatsRaw;
+            if (overrides.displayedStats != 0) displayedStats = overrides.displayedStats;
+            if (overrides.skipWildLevelStats != 0) skipWildLevelStats = overrides.skipWildLevelStats;
+            if (overrides.TamedBaseHealthMultiplier != null) TamedBaseHealthMultiplier = overrides.TamedBaseHealthMultiplier;
+            if (overrides.statImprintMult != null) statImprintMult = overrides.statImprintMult;
+            if (overrides.mutationMult != null) mutationMult = overrides.mutationMult;
+            if (overrides.colors != null) colors = overrides.colors;
+            if (overrides.taming != null) taming = overrides.taming;
+            if (overrides.breeding != null) breeding = overrides.breeding;
+            if (overrides.boneDamageAdjusters != null) boneDamageAdjusters = overrides.boneDamageAdjusters;
+            if (overrides.immobilizedBy != null) immobilizedBy = overrides.immobilizedBy;
+            if (overrides.statNames != null) statNames = overrides.statNames;
+
+            Initialize(new StreamingContext());
         }
     }
 }

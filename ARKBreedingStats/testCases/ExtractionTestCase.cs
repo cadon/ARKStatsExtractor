@@ -16,6 +16,7 @@ namespace ARKBreedingStats.testCases
         public double[] statValues;
         public int[] levelsWild;
         public int[] levelsDom;
+        public int[] levelsMut;
         public bool postTamed;
         public bool bred;
         public double tamingEff;

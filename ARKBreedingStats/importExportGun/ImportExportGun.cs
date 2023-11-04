@@ -59,11 +59,13 @@ namespace ARKBreedingStats.importExportGun
 
             var wildLevels = new int[Stats.StatsCount];
             var domLevels = new int[Stats.StatsCount];
+            var mutLevels = new int[Stats.StatsCount];
             var si = 0;
             foreach (var s in ec.Stats)
             {
                 wildLevels[si] = s.Wild;
                 domLevels[si] = s.Tamed;
+                mutLevels[si] = s.Mutated;
                 si++;
             }
 
@@ -78,7 +80,7 @@ namespace ARKBreedingStats.importExportGun
                          ;
 
             var c = new Creature(species, ec.DinoName, !string.IsNullOrEmpty(ec.OwningPlayerName) ? ec.OwningPlayerName : !string.IsNullOrEmpty(ec.ImprinterName) ? ec.ImprinterName : ec.TamerString,
-                ec.TribeName, species.noGender ? Sex.Unknown : ec.IsFemale ? Sex.Female : Sex.Male, wildLevels, domLevels,
+                ec.TribeName, species.noGender ? Sex.Unknown : ec.IsFemale ? Sex.Female : Sex.Male, wildLevels, domLevels, mutLevels,
                 isWild ? -3 : ec.TameEffectiveness, !string.IsNullOrEmpty(ec.ImprinterName), ec.DinoImprintingQuality,
                 CreatureCollection.CurrentCreatureCollection?.wildLevelStep)
             {

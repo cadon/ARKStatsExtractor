@@ -47,21 +47,28 @@ namespace ARKBreedingStats.utils
             }
 
             var configFilePath = Path.Combine(steamPath, "config", "config.vdf");
+            var libraryFoldersFilePath = Path.Combine(steamPath, "config", "libraryfolders.vdf");
             if (!File.Exists(configFilePath))
             {
                 error = $"Steam config file {configFilePath} not found.";
                 return false;
             }
 
-            if (!ReadSteamPlayerIdsAndArkInstallPaths(configFilePath,
+            if (!ReadSteamPlayerIdsAndArkInstallPaths(configFilePath, libraryFoldersFilePath,
                 out (string steamPlayerName, string steamPlayerId)[] steamNamesIds, out string[] arkInstallFolders,
                 out error)) return false;
 
-            var relativeArkPath = Path.Combine("steamapps", "common", "ARK");
-            var possibleArkPaths = new List<string> { Path.Combine(steamPath, relativeArkPath) };
-            possibleArkPaths.AddRange(arkInstallFolders.Select(f => Path.Combine(f, relativeArkPath)));
+            var relativeAsePath = Path.Combine("steamapps", "common", "ARK");
+            var relativeAsaPath = Path.Combine("steamapps", "common", "ARK Survival Ascended");
+            var possibleArkPaths = new List<(string Path, Ark.Game Game)>
+            {
+                (Path.Combine(steamPath, relativeAsePath), Ark.Game.ASE),
+                (Path.Combine(steamPath, relativeAsaPath), Ark.Game.ASA)
+            }; // use steam folder as default
+            possibleArkPaths.AddRange(arkInstallFolders.Select(f => (Path.Combine(f, relativeAsePath), Ase: Ark.Game.ASE)));
+            possibleArkPaths.AddRange(arkInstallFolders.Select(f => (Path.Combine(f, relativeAsaPath), Asa: Ark.Game.ASA)));
 
-            var existingArkPaths = possibleArkPaths.Where(Directory.Exists).ToArray();
+            var existingArkPaths = possibleArkPaths.Distinct().Where(p => Directory.Exists(p.Path)).ToArray();
 
             if (!existingArkPaths.Any())
             {
@@ -72,13 +79,20 @@ namespace ARKBreedingStats.utils
             var relativeExportFolder = RelativeExportFolder();
 
             // there can be multiple steam users, so list the possible export folder for each user
-            exportFolders = new (string, string)[existingArkPaths.Length * steamNamesIds.Length];
+            exportFolders = new (string, string)[existingArkPaths.Length * (steamNamesIds.Length + 1)];
             int i = 0;
             foreach (var arkPath in existingArkPaths)
             {
                 foreach (var steamNameId in steamNamesIds)
-                    exportFolders[i++] = (Path.Combine(arkPath, relativeExportFolder, steamNameId.steamPlayerId),
-                        steamNameId.steamPlayerName);
+                    exportFolders[i++] = (
+                        arkPath.Game == Ark.Game.ASE
+                        ? Path.Combine(arkPath.Path, relativeExportFolder, steamNameId.steamPlayerId)
+                        : Path.Combine(arkPath.Path, relativeExportFolder), // ASA doesn't use steam id as subfolder
+                        $"{steamNameId.steamPlayerName} ({arkPath.Game})"
+                        );
+                // for export gun mod
+                exportFolders[i++] = (Path.Combine(arkPath.Path, relativeExportFolder, "ASB"),
+                    $"ExportGun ({arkPath.Game})");
             }
 
             return true;
@@ -141,7 +155,7 @@ namespace ARKBreedingStats.utils
         /// <summary>
         /// Reads the steam config file (config.vdf) and returns a list of player ids and Ark install locations.
         /// </summary>
-        private static bool ReadSteamPlayerIdsAndArkInstallPaths(string steamConfigFilePath, out (string steamPlayerName, string steamPlayerId)[] steamPlayerIds,
+        private static bool ReadSteamPlayerIdsAndArkInstallPaths(string steamConfigFilePath, string steamLibraryFoldersFilePath, out (string steamPlayerName, string steamPlayerId)[] steamPlayerIds,
             out string[] arkInstallPaths, out string error)
         {
             steamPlayerIds = null;
@@ -174,11 +188,20 @@ namespace ARKBreedingStats.utils
 
             steamPlayerIds = (from Match mi in mm select (mi.Groups[1].Value, mi.Groups[2].Value)).ToArray();
 
-            // steam library locations
+            // steam library locations. TODO maybe not existing anymore and only in libraryfolders.vdf
             var libraryRegEx = new Regex(@"""BaseInstallFolder_\d+""\s*""([^""]+)""");
             mm = libraryRegEx.Matches(configFileContent);
             var removeEscapeBackslashes = new Regex(@"\\(.)");
             arkInstallPaths = (from Match mi in mm select removeEscapeBackslashes.Replace(mi.Groups[1].Value, "$1")).ToArray();
+
+            // using libraryfolders.vdf
+            if (!string.IsNullOrEmpty(steamLibraryFoldersFilePath) && File.Exists(steamLibraryFoldersFilePath))
+            {
+                var pathRegex = new Regex(@"""path""\s*""([^""]+)""");
+                mm = pathRegex.Matches(File.ReadAllText(steamLibraryFoldersFilePath));
+                if (mm.Count > 0)
+                    arkInstallPaths = arkInstallPaths.Concat(from Match mi in mm select removeEscapeBackslashes.Replace(mi.Groups[1].Value, "$1")).ToArray();
+            }
 
             bool anyPlayerIds = steamPlayerIds.Any();
             if (!anyPlayerIds)

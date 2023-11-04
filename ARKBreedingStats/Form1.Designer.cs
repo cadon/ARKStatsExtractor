@@ -176,6 +176,7 @@ namespace ARKBreedingStats
             this.lbTestingInfo = new System.Windows.Forms.Label();
             this.creatureInfoInputTester = new ARKBreedingStats.CreatureInfoInput();
             this.tabPageExtractor = new System.Windows.Forms.TabPage();
+            this.LbAsa = new System.Windows.Forms.Label();
             this.creatureAnalysis1 = new ARKBreedingStats.uiControls.CreatureAnalysis();
             this.LbBlueprintPath = new System.Windows.Forms.Label();
             this.BtCopyIssueDumpToClipboard = new System.Windows.Forms.Button();
@@ -234,6 +235,7 @@ namespace ARKBreedingStats
             this.columnHeaderStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTribe = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderStatusIcon = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderMutagen = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripLibrary = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.editAllSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -357,7 +359,6 @@ namespace ARKBreedingStats
             this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetLibraryColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
-            this.columnHeaderMutagen = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -634,6 +635,11 @@ namespace ARKBreedingStats
             this.NumericUpDownTestingTE.DecimalPlaces = 2;
             this.NumericUpDownTestingTE.ForeColor = System.Drawing.SystemColors.WindowText;
             this.NumericUpDownTestingTE.Location = new System.Drawing.Point(6, 19);
+            this.NumericUpDownTestingTE.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
             this.NumericUpDownTestingTE.Name = "NumericUpDownTestingTE";
             this.NumericUpDownTestingTE.NeutralNumber = new decimal(new int[] {
             0,
@@ -1751,6 +1757,7 @@ namespace ARKBreedingStats
             // tabPageExtractor
             // 
             this.tabPageExtractor.AutoScroll = true;
+            this.tabPageExtractor.Controls.Add(this.LbAsa);
             this.tabPageExtractor.Controls.Add(this.creatureAnalysis1);
             this.tabPageExtractor.Controls.Add(this.LbBlueprintPath);
             this.tabPageExtractor.Controls.Add(this.BtCopyIssueDumpToClipboard);
@@ -1779,6 +1786,17 @@ namespace ARKBreedingStats
             this.tabPageExtractor.TabIndex = 0;
             this.tabPageExtractor.Text = "Extractor";
             this.tabPageExtractor.UseVisualStyleBackColor = true;
+            // 
+            // LbAsa
+            // 
+            this.LbAsa.AutoSize = true;
+            this.LbAsa.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbAsa.ForeColor = System.Drawing.Color.DarkGray;
+            this.LbAsa.Location = new System.Drawing.Point(295, 66);
+            this.LbAsa.Name = "LbAsa";
+            this.LbAsa.Size = new System.Drawing.Size(20, 9);
+            this.LbAsa.TabIndex = 56;
+            this.LbAsa.Text = "ASA";
             // 
             // creatureAnalysis1
             // 
@@ -2325,6 +2343,11 @@ namespace ARKBreedingStats
             this.columnHeaderStatusIcon.DisplayIndex = 0;
             this.columnHeaderStatusIcon.Text = "Status";
             this.columnHeaderStatusIcon.Width = 35;
+            // 
+            // columnHeaderMutagen
+            // 
+            this.columnHeaderMutagen.Text = "Mutagen";
+            this.columnHeaderMutagen.Width = 30;
             // 
             // contextMenuStripLibrary
             // 
@@ -3514,11 +3537,6 @@ namespace ARKBreedingStats
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
-            // columnHeaderMutagen
-            // 
-            this.columnHeaderMutagen.Text = "Mutagen";
-            this.columnHeaderMutagen.Width = 30;
-            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -3951,5 +3969,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.CheckBox CbLibraryInfoUseFilter;
         private System.Windows.Forms.TextBox TbMessageLabel;
         private System.Windows.Forms.ColumnHeader columnHeaderMutagen;
+        private System.Windows.Forms.Label LbAsa;
     }
 }

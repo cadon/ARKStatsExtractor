@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using ARKBreedingStats.species;
-
-namespace ARKBreedingStats
+﻿namespace ARKBreedingStats
 {
     /// <summary>
     /// Constants of the game Ark.
@@ -92,8 +89,7 @@ namespace ARKBreedingStats
         #region Colors
 
         public const byte ColorFirstId = 1;
-        public const byte ColorMaxId = 200;
-        public const byte DyeFirstId = 201;
+        public const byte DyeFirstIdASE = 201;
         public const byte DyeMaxId = 255;
         /// <summary>
         /// When choosing a random color for a mutation, ARK can erroneously select an undefined color. Usually this is color id 227 (one too high to be defined).
@@ -111,6 +107,28 @@ namespace ARKBreedingStats
         /// The name is trimmed to this length in game.
         /// </summary>
         public const int MaxCreatureNameLength = 24;
+
+        public enum Game
+        {
+            /// <summary>
+            /// ARK: Survival Evolved (2015)
+            /// </summary>
+            ASE,
+            /// <summary>
+            /// ARK: Survival Ascended (2023)
+            /// </summary>
+            ASA
+        }
+
+        /// <summary>
+        /// Collection indicator for ARK: Survival Evolved.
+        /// </summary>
+        public const string Ase = "ASE";
+
+        /// <summary>
+        /// Collection indicator for ARK: Survival Ascended, also the mod tag id for the ASA values.
+        /// </summary>
+        public const string Asa = "ASA";
     }
 
     /// <summary>

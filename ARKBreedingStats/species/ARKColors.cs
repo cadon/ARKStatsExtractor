@@ -26,7 +26,7 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// If mods are loaded, each mod has its colors (or null if no color definitions are given) in the according order.
         /// </summary>
-        private List<List<ArkColor>> _modColors;
+        private List<(List<ArkColor> colors, int dyeStartIndex)> _modColors;
 
         public ArkColors(List<ArkColor> baseColorList)
         {
@@ -36,9 +36,9 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Adds Ark colors of a mod value file to the base values. Should be called even if the mod has no color definitions (ARK can then add missing colors that where left out before due to mod-overwriting).
         /// </summary>
-        internal void AddModArkColors(List<ArkColor> modColors)
+        internal void AddModArkColors((List<ArkColor> colors, int dyeStartIndex) modColors)
         {
-            if (_modColors == null) _modColors = new List<List<ArkColor>>();
+            if (_modColors == null) _modColors = new List<(List<ArkColor> colors, int dyeStartIndex)>();
             _modColors.Add(modColors);
         }
 
@@ -60,33 +60,42 @@ namespace ARKBreedingStats.species
             _colorsByName = new Dictionary<string, ArkColor>();
             _colorsById = new Dictionary<byte, ArkColor> { { 0, new ArkColor() } };
             var nextFreeColorId = Ark.ColorFirstId;
-            var nextFreeDyeId = Ark.DyeFirstId;
+            var nextFreeDyeId = Ark.DyeFirstIdASE;
+            var colorIdMax = Ark.DyeFirstIdASE - 1;
             var noMoreAvailableColorId = false;
             var noMoreAvailableDyeId = false;
+
+            var baseColorsAdded = false;
+            void AddBaseColors()
+            {
+                AddColorDefinitions(_baseColors);
+                baseColorsAdded = true;
+            }
 
             // no mods are loaded or first mod has no color overrides, use base colors first
             if (_modColors?.Any() != true)
             {
-                AddColorDefinitions(_baseColors);
+                AddBaseColors();
             }
             else
             {
                 // add mod color definitions, these are appended if the color name doesn't exist yet
-                var baseColorsAdded = false;
                 foreach (var modColors in _modColors)
                 {
-                    if (modColors == null)
+                    if (modColors.colors == null)
                     {
                         // if the mod has no color definitions, it uses the base color definitions; add them if not yet added
                         if (!baseColorsAdded)
-                        {
-                            AddColorDefinitions(_baseColors);
-                            baseColorsAdded = true;
-                        }
+                            AddBaseColors();
+
                         continue;
                     }
 
-                    AddColorDefinitions(modColors);
+                    // if the mod only overwrites colors, it needs the base colors loaded
+                    if (modColors.dyeStartIndex != 0 && !baseColorsAdded)
+                        AddBaseColors();
+
+                    AddColorDefinitions(modColors.colors, (byte)modColors.dyeStartIndex);
                 }
 
                 // dye colors are apparently added independently from the colors, even if base colors are not added. This might need more testing, so far no mods are found that add dye colors.
@@ -96,9 +105,17 @@ namespace ARKBreedingStats.species
                 }
             }
 
-            void AddColorDefinitions(IEnumerable<ArkColor> colorDefinitions)
+            // if dyeStartIndex != 0 the dye information from the mod colors overwrites the existing definitions from the index/id on
+            void AddColorDefinitions(IEnumerable<ArkColor> colorDefinitions, byte dyeStartIndex = 0)
             {
                 if (colorDefinitions == null) return;
+
+                if (dyeStartIndex != 0 && dyeStartIndex <= Ark.DyeMaxId)
+                {
+                    nextFreeDyeId = dyeStartIndex;
+                    noMoreAvailableDyeId = false;
+                }
+
                 foreach (var c in colorDefinitions)
                 {
                     var colorNameExists = _colorsByName.ContainsKey(c.Name);
@@ -118,13 +135,13 @@ namespace ARKBreedingStats.species
                         if (noMoreAvailableColorId) continue;
 
                         c.Id = nextFreeColorId;
-                        if (nextFreeColorId == Ark.ColorMaxId)
+                        if (nextFreeColorId == colorIdMax)
                             noMoreAvailableColorId = true;
                         else nextFreeColorId++;
                     }
                     if (!colorNameExists)
                         _colorsByName.Add(c.Name, c);
-                    _colorsById.Add(c.Id, c);
+                    _colorsById[c.Id] = c;
                 }
             }
 
@@ -251,7 +268,7 @@ namespace ARKBreedingStats.species
         {
             if (ColorsList?.Any() != true)
                 return new byte[Ark.ColorRegionCount];
-            
+
             if (rand == null)
                 rand = new Random();
 

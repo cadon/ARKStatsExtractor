@@ -37,7 +37,7 @@ namespace ARKBreedingStats
                 return;
 
             speciesSelector1.SetSpecies(c.Species);
-            NumericUpDownTestingTE.ValueSave = c.tamingEff >= 0 ? (decimal)c.tamingEff * 100 : 0;
+            TamingEffectivenessTester = c.tamingEff;
             numericUpDownImprintingBonusTester.ValueSave = (decimal)c.imprintingBonus * 100;
             if (c.isBred)
                 rbBredTester.Checked = true;
@@ -132,7 +132,9 @@ namespace ARKBreedingStats
             //statGraphs1.setGraph(sE, 0, testingIOs[0].LevelWild, testingIOs[0].LevelDom, !radioButtonTesterWild.Checked, (double)NumericUpDownTestingTE.Value / 100, (double)numericUpDownImprintingBonusTester.Value / 100);
 
             if (sIo.statIndex == Stats.Torpidity)
-                lbWildLevelTester.Text = "PreTame Level: " + Math.Ceiling(Math.Round((_testingIOs[Stats.Torpidity].LevelWild + 1) / (1 + NumericUpDownTestingTE.Value / 200), 6));
+            {
+                DisplayPreTamedLevelTester();
+            }
 
             var levelWarning = string.Empty;
             if (wildLevel255)
@@ -153,7 +155,7 @@ namespace ARKBreedingStats
             sIo.BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, sIo.statIndex, sIo.LevelWild, 0, true, 1, 0);
             sIo.Input = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, sIo.statIndex, sIo.LevelWild, sIo.LevelDom,
                     rbTamedTester.Checked || rbBredTester.Checked,
-                    rbBredTester.Checked ? 1 : (double)NumericUpDownTestingTE.Value / 100,
+                    rbBredTester.Checked ? 1 : Math.Max(0, TamingEffectivenessTester),
                     rbBredTester.Checked ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0);
         }
 
@@ -167,7 +169,7 @@ namespace ARKBreedingStats
             if (_creatureTesterEdit == null)
                 return;
             // check if wild levels are changed, if yes warn that the creature can become invalid
-            bool wildChanged = Math.Abs(_creatureTesterEdit.tamingEff - (double)NumericUpDownTestingTE.Value / 100) > .0005;
+            bool wildChanged = Math.Abs(_creatureTesterEdit.tamingEff - TamingEffectivenessTester) > .0005;
             if (!wildChanged)
             {
                 int[] wildLevels = GetCurrentWildLevels(false);
@@ -379,9 +381,30 @@ namespace ARKBreedingStats
             creature.ExportInfoGraphicToClipboard(CreatureCollection.CurrentCreatureCollection);
         }
 
+        private void NumericUpDownTestingTE_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateAllTesterValues();
+            DisplayPreTamedLevelTester();
+        }
+
+        private void DisplayPreTamedLevelTester()
+        {
+            if (TamingEffectivenessTester >= 0)
+                lbWildLevelTester.Text =
+                    $"{Loc.S("preTameLevel")}: {Creature.CalculatePreTameWildLevel(_testingIOs[Stats.Torpidity].LevelWild + 1, TamingEffectivenessTester)}";
+            else
+                lbWildLevelTester.Text =
+                    $"{Loc.S("preTameLevel")}: {Loc.S("unknown")}";
+        }
+
         /// <summary>
-        /// Returns the taming effectiveness for the creature in the Tester. -3 indicates a wild creature.
+        /// Taming effectiveness for the creature in the Tester (range 0-1).
+        /// -1 indicates unknown, -3 a wild creature.
         /// </summary>
-        private double TamingEffectivenessTester => rbWildTester.Checked ? -3 : (double)NumericUpDownTestingTE.Value / 100;
+        private double TamingEffectivenessTester
+        {
+            get => rbWildTester.Checked ? -3 : (double)NumericUpDownTestingTE.Value / 100;
+            set => NumericUpDownTestingTE.ValueSave = (decimal)(value >= 0 ? value * 100 : -1);
+        }
     }
 }

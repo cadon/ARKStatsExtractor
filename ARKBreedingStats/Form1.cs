@@ -462,7 +462,8 @@ namespace ARKBreedingStats
             var filterPresets = Properties.Settings.Default.LibraryFilterPresets;
             if (filterPresets != null)
                 ToolStripTextBoxLibraryFilter.AutoCompleteCustomSource.AddRange(filterPresets);
-
+            
+            UpdateAsaIndicator();
             UpdatePatternButtons();
 
             SetupAutoLoadFileWatcher();
@@ -1109,9 +1110,9 @@ namespace ARKBreedingStats
             (bool statValuesLoaded, bool kibbleValuesLoaded) success = (false, false);
             if (LoadStatValues(Values.V, forceReload))
             {
+                speciesSelector1.SetSpeciesLists(Values.V.species, Values.V.aliases);
                 if (applySettings)
                     ApplySettingsToValues();
-                speciesSelector1.SetSpeciesLists(Values.V.species, Values.V.aliases);
                 UpdateStatusBar();
                 success.statValuesLoaded = true;
             }
@@ -1628,13 +1629,6 @@ namespace ARKBreedingStats
             tabControlMain.SelectedTab = tabPageExtractor;
         }
 
-        private void NumericUpDownTestingTE_ValueChanged(object sender, EventArgs e)
-        {
-            UpdateAllTesterValues();
-            lbWildLevelTester.Text =
-                $"{Loc.S("preTameLevel")}: {Math.Ceiling(Math.Round((_testingIOs[Stats.Torpidity].LevelWild + 1) / (1 + NumericUpDownTestingTE.Value / 200), 6))}";
-        }
-
         private void numericUpDownImprintingBonusTester_ValueChanged(object sender, EventArgs e)
         {
             UpdateAllTesterValues();
@@ -1719,7 +1713,7 @@ namespace ARKBreedingStats
                     var levelStep = _creatureCollection.getWildLevelStep();
                     Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner,
                         input.CreatureTribe, input.CreatureSex, GetCurrentWildLevels(fromExtractor),
-                        GetCurrentDomLevels(fromExtractor), te, bred, imprinting, levelStep)
+                        GetCurrentDomLevels(fromExtractor), GetCurrentMutLevels(fromExtractor), te, bred, imprinting, levelStep)
                     {
                         colors = input.RegionColors,
                         ArkId = input.ArkId
@@ -1971,6 +1965,7 @@ namespace ARKBreedingStats
 
             bool libraryTopCreatureColorHighlight = Properties.Settings.Default.LibraryHighlightTopCreatures;
             bool considerWastedStatsForTopCreatures = Properties.Settings.Default.ConsiderWastedStatsForTopCreatures;
+            var gameSettingBefore = _creatureCollection.Game;
 
             using (Settings settingsForm = new Settings(_creatureCollection, page))
             {
@@ -1988,6 +1983,28 @@ namespace ARKBreedingStats
                     // update visible color region buttons
                     creatureInfoInputExtractor.RegionColors = creatureInfoInputExtractor.RegionColors;
                     creatureInfoInputTester.RegionColors = creatureInfoInputTester.RegionColors;
+                }
+            }
+
+            if (_creatureCollection.Game != gameSettingBefore)
+            {
+                // ASA setting changed
+                var asaCurrentlyLoaded = _creatureCollection.modIDs?.Contains(Ark.Asa) == true;
+
+                if ((_creatureCollection.Game == Ark.Asa) ^ asaCurrentlyLoaded)
+                {
+                    if (asaCurrentlyLoaded)
+                    {
+                        _creatureCollection.modIDs.Remove(Ark.Asa);
+                        _creatureCollection.ModList.RemoveAll(m => m.id == Ark.Asa);
+                    }
+                    else
+                    {
+                        if (_creatureCollection.modIDs == null) _creatureCollection.modIDs = new List<string>();
+                        _creatureCollection.modIDs.Insert(0, Ark.Asa);
+                    }
+                    _creatureCollection.modListHash = 0; // making sure the mod values are reevaluated
+                    ReloadModValuesOfCollectionIfNeeded(!asaCurrentlyLoaded, false, false);
                 }
             }
 
@@ -2443,7 +2460,7 @@ namespace ARKBreedingStats
         private void toolStripButtonCopy2Tester_Click(object sender, EventArgs e)
         {
             double te = _extractor.UniqueTamingEffectiveness();
-            NumericUpDownTestingTE.ValueSave = (decimal)(te >= 0 ? te * 100 : 80);
+            TamingEffectivenessTester = te;
             numericUpDownImprintingBonusTester.Value = numericUpDownImprintingBonusExtractor.Value;
             if (rbBredExtractor.Checked)
                 rbBredTester.Checked = true;
@@ -2687,6 +2704,7 @@ namespace ARKBreedingStats
             {
                 // nothing to do, and no error, the modHash seems to be wrong.
                 cc.UpdateModList();
+                UpdateAsaIndicator();
                 return true;
             }
 
@@ -2715,7 +2733,17 @@ namespace ARKBreedingStats
                     "Unknown mod IDs", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             bool result = LoadModValueFiles(filePaths, showResult, applySettings, out _);
+            UpdateAsaIndicator();
             return result;
+
+        }
+
+        /// <summary>
+        /// Displays a small indicator in the UI if the ASA values are loaded.
+        /// </summary>
+        private void UpdateAsaIndicator()
+        {
+            LbAsa.Visible = _creatureCollection.Game == Ark.Asa;
         }
 
         private void loadAdditionalValuesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2730,17 +2758,32 @@ namespace ARKBreedingStats
                 (Properties.Settings.Default.ModManagerWindowRect, _) = Utils.GetWindowRectangle(modValuesManager);
             }
 
+            // if Asa values are added or removed manually, adjust Asa setting
+            _creatureCollection.Game = _creatureCollection.modIDs?.Contains(Ark.Asa) == true ? Ark.Asa : null;
+            ReloadModValuesOfCollectionIfNeeded();
+        }
+
+        /// <summary>
+        /// Loads mod value files according to the ModList of the library.
+        /// </summary>
+        /// <param name="onlyAdd">If true the values are not reset to the default first.</param>
+        private void ReloadModValuesOfCollectionIfNeeded(bool onlyAdd = false, bool showResult = true, bool applySettings = true)
+        {
             // if the mods for the library changed,
             // first check if all mod value files are available and load missing files if possible,
             // then reload all values and mod values
             if (_creatureCollection.ModValueReloadNeeded)
             {
-                var modValuesNeedToBeLoaded = _creatureCollection.ModList?.Any() == true;
-                // first reset values to default
-                LoadStatAndKibbleValues(!modValuesNeedToBeLoaded);
+                var modValuesNeedToBeLoaded = _creatureCollection.modIDs?.Any() == true;
+                // first reset values to default if needed
+                if (!onlyAdd)
+                    LoadStatAndKibbleValues(!modValuesNeedToBeLoaded);
                 // then load mod values if any
                 if (modValuesNeedToBeLoaded)
-                    LoadModValuesOfCollection(_creatureCollection, true, true);
+                    LoadModValuesOfCollection(_creatureCollection, showResult, applySettings);
+                else
+                    UpdateAsaIndicator();
+
                 SetCollectionChanged(true);
             }
         }
@@ -2862,7 +2905,7 @@ namespace ARKBreedingStats
 
             SetCreatureValuesToInfoInput(cv, creatureInfoInputTester);
 
-            NumericUpDownTestingTE.ValueSave = (decimal)cv.tamingEffMin * 100;
+            TamingEffectivenessTester = cv.tamingEffMin;
 
             if (cv.isBred)
                 rbBredTester.Checked = true;
@@ -3050,7 +3093,7 @@ namespace ARKBreedingStats
             creatureInfoInputTester.SetNamePatternButtons(Properties.Settings.Default.NamingPatterns);
         }
 
-        private void ExtractionTestControl1_CopyToTester(string speciesBP, int[] wildLevels, int[] domLevels,
+        private void ExtractionTestControl1_CopyToTester(string speciesBP, int[] wildLevels, int[] domLevels, int[] mutLevels,
             bool postTamed, bool bred, double te, double imprintingBonus, bool gotoTester,
             testCases.TestCaseControl tcc)
         {
@@ -3060,7 +3103,7 @@ namespace ARKBreedingStats
             if (species != null)
             {
                 EditCreatureInTester(
-                    new Creature(species, null, null, null, Sex.Unknown, wildLevels, domLevels,
+                    new Creature(species, null, null, null, Sex.Unknown, wildLevels, domLevels, mutLevels,
                         te, bred, imprintingBonus), true);
                 if (gotoTester) tabControlMain.SelectedTab = tabPageStatTesting;
             }
@@ -3170,7 +3213,7 @@ namespace ARKBreedingStats
                     bred = rbBredTester.Checked,
                     postTamed = rbTamedTester.Checked || rbBredTester.Checked
                 };
-                etc.tamingEff = etc.bred ? 1 : etc.postTamed ? (double)NumericUpDownTestingTE.Value / 100 : 0;
+                etc.tamingEff = etc.bred ? 1 : etc.postTamed ? TamingEffectivenessTester : -3;
                 etc.imprintingBonus = etc.bred ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0;
                 etc.levelsDom = GetCurrentDomLevels(false);
                 etc.levelsWild = GetCurrentWildLevels(false);
@@ -3209,7 +3252,7 @@ namespace ARKBreedingStats
                 wildLevels,
                 GetCurrentDomLevels(false),
                 (int)numericUpDownLevel.Value,
-                (double)NumericUpDownTestingTE.Value / 100,
+                TamingEffectivenessTester,
                 (double)(fromExtractor
                     ? numericUpDownImprintingBonusExtractor.Value
                     : numericUpDownImprintingBonusTester.Value) / 100,
@@ -3675,8 +3718,7 @@ namespace ARKBreedingStats
                 return;
             }
 
-
-            if (!e.Control) return;
+            if (!e.Control || e.Alt) return;
 
             int index;
 

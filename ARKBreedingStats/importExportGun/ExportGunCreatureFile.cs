@@ -55,6 +55,7 @@ namespace ARKBreedingStats.importExportGun
     {
         public int Wild { get; set; }
         public int Tamed { get; set; }
+        public int Mutated { get; set; }
         public float Value { get; set; }
     }
 }

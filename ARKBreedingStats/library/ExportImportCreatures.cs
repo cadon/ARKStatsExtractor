@@ -283,7 +283,7 @@ namespace ARKBreedingStats.library
         {
             if (string.IsNullOrEmpty(creatureValues)) return null;
 
-            const string statRegex = @"(?: (\w+): [\d.]+(?: ?%)? \((\d+)(?:, (\d+))?\);)?";
+            const string statRegex = @"(?: (\w+): [\d.]+(?: ?%)? \((\d+)(?:, (\d+))?\);)?"; // TODO mutated levels
 
             Regex r = new Regex(
                 @"(.*?) \(([^,]+), Lvl \d+(?:, (?:wild|TE: ([\d.]+) ?%|Impr: ([\d.]+) ?%))?(?:, (Female|Male))?\):" + string.Concat(Enumerable.Repeat(statRegex, Stats.StatsCount)));
@@ -430,6 +430,7 @@ namespace ARKBreedingStats.library
                 {
                     levelsWild[si] = int.Parse(m.Groups[groupIndexOfFirstWildLevel + si].Value.Trim());
                     levelsDom[si] = int.Parse(m.Groups[groupIndexOfFirstWildLevel + Stats.StatsCount + si].Value.Trim());
+                    // TODO mutated levels
                 }
 
                 var colorIds = new byte[Ark.ColorRegionCount];
@@ -439,7 +440,7 @@ namespace ARKBreedingStats.library
                 }
 
                 var creature = new Creature(species, m.Groups[3].Value.Trim(), m.Groups[4].Value.Trim(), m.Groups[6].Value.Trim(), sex,
-                    levelsWild, levelsDom, te, isBred, imprintingBonus)
+                    levelsWild, levelsDom, null, te, isBred, imprintingBonus)
                 {
                     imprinterName = m.Groups[5].Value.Trim(),
                     server = m.Groups[7].Value.Trim(),
