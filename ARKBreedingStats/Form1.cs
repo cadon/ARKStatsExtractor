@@ -1109,9 +1109,9 @@ namespace ARKBreedingStats
             (bool statValuesLoaded, bool kibbleValuesLoaded) success = (false, false);
             if (LoadStatValues(Values.V, forceReload))
             {
+                speciesSelector1.SetSpeciesLists(Values.V.species, Values.V.aliases);
                 if (applySettings)
                     ApplySettingsToValues();
-                speciesSelector1.SetSpeciesLists(Values.V.species, Values.V.aliases);
                 UpdateStatusBar();
                 success.statValuesLoaded = true;
             }
@@ -1964,6 +1964,7 @@ namespace ARKBreedingStats
 
             bool libraryTopCreatureColorHighlight = Properties.Settings.Default.LibraryHighlightTopCreatures;
             bool considerWastedStatsForTopCreatures = Properties.Settings.Default.ConsiderWastedStatsForTopCreatures;
+            var gameSettingBefore = _creatureCollection.Game;
 
             using (Settings settingsForm = new Settings(_creatureCollection, page))
             {
@@ -1981,6 +1982,28 @@ namespace ARKBreedingStats
                     // update visible color region buttons
                     creatureInfoInputExtractor.RegionColors = creatureInfoInputExtractor.RegionColors;
                     creatureInfoInputTester.RegionColors = creatureInfoInputTester.RegionColors;
+                }
+            }
+
+            if (_creatureCollection.Game != gameSettingBefore)
+            {
+                // ASA setting changed
+                var asaCurrentlyLoaded = _creatureCollection.modIDs?.Contains(Ark.Asa) == true;
+
+                if ((_creatureCollection.Game == Ark.Asa) ^ asaCurrentlyLoaded)
+                {
+                    if (asaCurrentlyLoaded)
+                    {
+                        _creatureCollection.modIDs.Remove(Ark.Asa);
+                        _creatureCollection.ModList.RemoveAll(m => m.id == Ark.Asa);
+                    }
+                    else
+                    {
+                        if (_creatureCollection.modIDs == null) _creatureCollection.modIDs = new List<string>();
+                        _creatureCollection.modIDs.Insert(0, Ark.Asa);
+                    }
+                    _creatureCollection.modListHash = 0; // making sure the mod values are reevaluated
+                    ReloadModValuesOfCollectionIfNeeded(!asaCurrentlyLoaded, false, false);
                 }
             }
 
@@ -2680,6 +2703,7 @@ namespace ARKBreedingStats
             {
                 // nothing to do, and no error, the modHash seems to be wrong.
                 cc.UpdateModList();
+                UpdateAsaIndicator();
                 return true;
             }
 
@@ -2708,7 +2732,17 @@ namespace ARKBreedingStats
                     "Unknown mod IDs", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             bool result = LoadModValueFiles(filePaths, showResult, applySettings, out _);
+            UpdateAsaIndicator();
             return result;
+
+        }
+
+        /// <summary>
+        /// Displays a small indicator in the UI if the ASA values are loaded.
+        /// </summary>
+        private void UpdateAsaIndicator()
+        {
+            LbAsa.Visible = _creatureCollection.Game == Ark.Asa;
         }
 
         private void loadAdditionalValuesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2723,17 +2757,32 @@ namespace ARKBreedingStats
                 (Properties.Settings.Default.ModManagerWindowRect, _) = Utils.GetWindowRectangle(modValuesManager);
             }
 
+            // if Asa values are added or removed manually, adjust Asa setting
+            _creatureCollection.Game = _creatureCollection.modIDs?.Contains(Ark.Asa) == true ? Ark.Asa : null;
+            ReloadModValuesOfCollectionIfNeeded();
+        }
+
+        /// <summary>
+        /// Loads mod value files according to the ModList of the library.
+        /// </summary>
+        /// <param name="onlyAdd">If true the values are not reset to the default first.</param>
+        private void ReloadModValuesOfCollectionIfNeeded(bool onlyAdd = false, bool showResult = true, bool applySettings = true)
+        {
             // if the mods for the library changed,
             // first check if all mod value files are available and load missing files if possible,
             // then reload all values and mod values
             if (_creatureCollection.ModValueReloadNeeded)
             {
-                var modValuesNeedToBeLoaded = _creatureCollection.ModList?.Any() == true;
-                // first reset values to default
-                LoadStatAndKibbleValues(!modValuesNeedToBeLoaded);
+                var modValuesNeedToBeLoaded = _creatureCollection.modIDs?.Any() == true;
+                // first reset values to default if needed
+                if (!onlyAdd)
+                    LoadStatAndKibbleValues(!modValuesNeedToBeLoaded);
                 // then load mod values if any
                 if (modValuesNeedToBeLoaded)
-                    LoadModValuesOfCollection(_creatureCollection, true, true);
+                    LoadModValuesOfCollection(_creatureCollection, showResult, applySettings);
+                else
+                    UpdateAsaIndicator();
+
                 SetCollectionChanged(true);
             }
         }

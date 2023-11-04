@@ -496,7 +496,7 @@ namespace ARKBreedingStats.values
 
             currentServerMultipliers.FixZeroValues();
             double[] defaultMultipliers = new double[] { 1, 1, 1, 1 }; // used if serverMultipliers don't specify non-default values
-            var useAsa = cc.Game == "ASA";
+            var useAsa = cc.Game == Ark.Asa;
 
             foreach (Species sp in species)
             {

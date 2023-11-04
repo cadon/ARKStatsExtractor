@@ -176,6 +176,7 @@ namespace ARKBreedingStats
             this.lbTestingInfo = new System.Windows.Forms.Label();
             this.creatureInfoInputTester = new ARKBreedingStats.CreatureInfoInput();
             this.tabPageExtractor = new System.Windows.Forms.TabPage();
+            this.LbAsa = new System.Windows.Forms.Label();
             this.creatureAnalysis1 = new ARKBreedingStats.uiControls.CreatureAnalysis();
             this.LbBlueprintPath = new System.Windows.Forms.Label();
             this.BtCopyIssueDumpToClipboard = new System.Windows.Forms.Button();
@@ -1756,6 +1757,7 @@ namespace ARKBreedingStats
             // tabPageExtractor
             // 
             this.tabPageExtractor.AutoScroll = true;
+            this.tabPageExtractor.Controls.Add(this.LbAsa);
             this.tabPageExtractor.Controls.Add(this.creatureAnalysis1);
             this.tabPageExtractor.Controls.Add(this.LbBlueprintPath);
             this.tabPageExtractor.Controls.Add(this.BtCopyIssueDumpToClipboard);
@@ -1784,6 +1786,17 @@ namespace ARKBreedingStats
             this.tabPageExtractor.TabIndex = 0;
             this.tabPageExtractor.Text = "Extractor";
             this.tabPageExtractor.UseVisualStyleBackColor = true;
+            // 
+            // LbAsa
+            // 
+            this.LbAsa.AutoSize = true;
+            this.LbAsa.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbAsa.ForeColor = System.Drawing.Color.DarkGray;
+            this.LbAsa.Location = new System.Drawing.Point(295, 66);
+            this.LbAsa.Name = "LbAsa";
+            this.LbAsa.Size = new System.Drawing.Size(20, 9);
+            this.LbAsa.TabIndex = 56;
+            this.LbAsa.Text = "ASA";
             // 
             // creatureAnalysis1
             // 
@@ -3956,5 +3969,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.CheckBox CbLibraryInfoUseFilter;
         private System.Windows.Forms.TextBox TbMessageLabel;
         private System.Windows.Forms.ColumnHeader columnHeaderMutagen;
+        private System.Windows.Forms.Label LbAsa;
     }
 }

@@ -106,7 +106,6 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Hash-Code that represents the loaded mod-values and their order
         /// </summary>
-        [JsonProperty]
         public int modListHash;
 
         [JsonProperty]

@@ -146,35 +146,42 @@ namespace ARKBreedingStats.species
             if (altBaseStatsRaw != null)
                 altStats = new CreatureStat[Stats.StatsCount];
 
-            usedStats = 0;
-            if (fullStatsRaw != null)
-            {
-                double[][] completeRaws = new double[Stats.StatsCount][];
-                for (int s = 0; s < Stats.StatsCount; s++)
-                {
-                    stats[s] = new CreatureStat();
-                    if (altBaseStatsRaw?.ContainsKey(s) ?? false)
-                        altStats[s] = new CreatureStat();
+            var fullStatsRawLength = fullStatsRaw?.Length ?? 0;
 
-                    completeRaws[s] = new double[] { 0, 0, 0, 0, 0 };
-                    if (fullStatsRaw.Length > s && fullStatsRaw[s] != null)
+            usedStats = 0;
+
+            double[][] completeRaws = new double[Stats.StatsCount][];
+            for (int s = 0; s < Stats.StatsCount; s++)
+            {
+                // so far it seems stats that are skipped in wild are not displayed either
+                var statBit = (1 << s);
+                if ((skipWildLevelStats & statBit) != 0)
+                    displayedStats &= ~statBit;
+
+
+                stats[s] = new CreatureStat();
+                if (altBaseStatsRaw?.ContainsKey(s) ?? false)
+                    altStats[s] = new CreatureStat();
+
+                completeRaws[s] = new double[] { 0, 0, 0, 0, 0 };
+                if (fullStatsRawLength > s && fullStatsRaw[s] != null)
+                {
+                    for (int i = 0; i < 5; i++)
                     {
-                        for (int i = 0; i < 5; i++)
+                        if (fullStatsRaw[s].Length > i)
                         {
-                            if (fullStatsRaw[s].Length > i)
+                            completeRaws[s][i] = fullStatsRaw[s]?[i] ?? 0;
+                            if (i == 0 && fullStatsRaw[s][0] > 0)
                             {
-                                completeRaws[s][i] = fullStatsRaw[s]?[i] ?? 0;
-                                if (i == 0 && fullStatsRaw[s][0] > 0)
-                                {
-                                    usedStats |= (1 << s);
-                                }
+                                usedStats |= (1 << s);
                             }
                         }
                     }
                 }
-
-                fullStatsRaw = completeRaws;
             }
+
+            if (fullStatsRawLength != -0)
+                fullStatsRaw = completeRaws;
 
             if (TamedBaseHealthMultiplier == null)
                 TamedBaseHealthMultiplier = 1;
@@ -318,17 +325,17 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Returns if the species uses a stat, i.e. it has a base value > 0.
         /// </summary>
-        public bool UsesStat(int statIndex) => (usedStats & 1 << statIndex) != 0;
+        public bool UsesStat(int statIndex) => (usedStats & (1 << statIndex)) != 0;
 
         /// <summary>
         /// Returns if the species displays a stat ingame in the inventory.
         /// </summary>
-        public bool DisplaysStat(int statIndex) => (displayedStats & 1 << statIndex) != 0;
+        public bool DisplaysStat(int statIndex) => (displayedStats & (1 << statIndex)) != 0;
 
         /// <summary>
         /// Returns if a spawned creature can have wild levels in a stat.
         /// </summary>
-        public bool CanLevelupWild(int statIndex) => (skipWildLevelStats & 1 << statIndex) == 0;
+        public bool CanLevelupWild(int statIndex) => (skipWildLevelStats & (1 << statIndex)) == 0;
 
         public override string ToString()
         {

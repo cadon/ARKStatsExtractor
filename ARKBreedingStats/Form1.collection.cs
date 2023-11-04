@@ -558,6 +558,7 @@ namespace ARKBreedingStats
                 speciesSelector1.SetSpecies(_creatureCollection.creatures[0].Species);
 
             // set library species to what it was before loading
+            selectedLibrarySpecies = Values.V.SpeciesByBlueprint(selectedLibrarySpecies?.blueprintPath);
             if (selectedLibrarySpecies != null)
                 listBoxSpeciesLib.SelectedItem = selectedLibrarySpecies;
             else if (Properties.Settings.Default.LibrarySelectSelectedSpeciesOnLoad)

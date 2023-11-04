@@ -178,7 +178,7 @@ namespace ARKBreedingStats
                     }
 
                     // ASA can have up to 511 levels because 255 mutation levels also contribute to the wild value. TODO separate to mutation levels
-                    if (_creatureCollection.Game != "ASA")
+                    if (_creatureCollection.Game != Ark.Asa)
                     {
                         if (_statIOs[s].LevelWild > 255)
                             levelStatus |= LevelStatus.UltraMaxLevel;

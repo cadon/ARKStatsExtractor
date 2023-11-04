@@ -13,7 +13,6 @@ using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.library;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ARKBreedingStats.settings
 {
@@ -209,7 +208,7 @@ namespace ARKBreedingStats.settings
             }
             cbSingleplayerSettings.Checked = cc.singlePlayerSettings;
             CbAtlasSettings.Checked = _cc.AtlasSettings;
-            if (_cc.Game == "ASA") RbGameAsa.Checked = true;
+            if (_cc.Game == Ark.Asa) RbGameAsa.Checked = true;
             else RbGameAse.Checked = true;
 
             nudMaxDomLevels.ValueSave = cc.maxDomLevel;
@@ -468,7 +467,7 @@ namespace ARKBreedingStats.settings
 
             _cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
             _cc.AtlasSettings = CbAtlasSettings.Checked;
-            _cc.Game = RbGameAsa.Checked ? "ASA" : "ASE";
+            _cc.Game = RbGameAsa.Checked ? Ark.Asa : Ark.Ase;
 
             _cc.maxDomLevel = (int)nudMaxDomLevels.Value;
             _cc.maxWildLevel = (int)nudMaxWildLevels.Value;

@@ -119,6 +119,16 @@
             /// </summary>
             ASA
         }
+
+        /// <summary>
+        /// Collection indicator for ARK: Survival Evolved.
+        /// </summary>
+        public const string Ase = "ASE";
+
+        /// <summary>
+        /// Collection indicator for ARK: Survival Ascended, also the mod tag id for the ASA values.
+        /// </summary>
+        public const string Asa = "ASA";
     }
 
     /// <summary>

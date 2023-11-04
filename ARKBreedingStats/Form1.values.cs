@@ -36,9 +36,9 @@ namespace ARKBreedingStats
 
             if (modFilesLoaded)
             {
+                speciesSelector1.SetSpeciesLists(Values.V.species, Values.V.aliases);
                 if (applySettings)
                     ApplySettingsToValues();
-                speciesSelector1.SetSpeciesLists(Values.V.species, Values.V.aliases);
             }
             if (showResult && !string.IsNullOrEmpty(resultsMessage))
                 MessageBox.Show(resultsMessage, "Loading Mod Values", MessageBoxButtons.OK, MessageBoxIcon.Information);
