@@ -462,7 +462,8 @@ namespace ARKBreedingStats
             var filterPresets = Properties.Settings.Default.LibraryFilterPresets;
             if (filterPresets != null)
                 ToolStripTextBoxLibraryFilter.AutoCompleteCustomSource.AddRange(filterPresets);
-
+            
+            UpdateAsaIndicator();
             UpdatePatternButtons();
 
             SetupAutoLoadFileWatcher();

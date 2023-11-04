@@ -344,7 +344,7 @@ namespace ARKBreedingStats.multiplierTesting
 
         private void llStatCalculation_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            ArkWiki.OpenPage("Creature_Stats_Calculation");
+            ArkWiki.OpenPage("Creature_stats_calculation");
         }
 
         public CreatureCollection CreatureCollection
