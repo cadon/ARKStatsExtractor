@@ -15,6 +15,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Windows.Forms;
+using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.utils;
@@ -462,7 +463,7 @@ namespace ARKBreedingStats
             var filterPresets = Properties.Settings.Default.LibraryFilterPresets;
             if (filterPresets != null)
                 ToolStripTextBoxLibraryFilter.AutoCompleteCustomSource.AddRange(filterPresets);
-            
+
             UpdateAsaIndicator();
             UpdatePatternButtons();
 
@@ -2315,6 +2316,7 @@ namespace ARKBreedingStats
                 double baseValue;
                 double incWild;
                 double possibleLevel;
+                var tamedBaseHealthMultiplier = species.TamedBaseHealthMultiplier ?? 1;
                 for (int s = Stats.StatsCount - 1; s >= 0; s--)
                 {
                     baseValue = species.stats[s].BaseValue;
@@ -2322,7 +2324,7 @@ namespace ARKBreedingStats
                     if (incWild > 0)
                     {
                         //possibleLevel = ((statIOs[s].Input - species.stats[s].AddWhenTamed) - baseValue) / (baseValue * incWild); // this fails if creature is wild
-                        possibleLevel = (_statIOs[s].Input * (s == 0 && (species.TamedBaseHealthMultiplier ?? 1) < 1 ? 1 / species.TamedBaseHealthMultiplier.Value : 1) - baseValue) / (baseValue * incWild);
+                        possibleLevel = (_statIOs[s].Input * (s == Stats.Health && tamedBaseHealthMultiplier < 1 ? 1 / tamedBaseHealthMultiplier : 1) - baseValue) / (baseValue * incWild);
 
                         if (possibleLevel < 0)
                         {

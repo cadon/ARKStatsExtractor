@@ -182,10 +182,7 @@ namespace ARKBreedingStats.species
 
             if (fullStatsRawLength != -0)
                 fullStatsRaw = completeRaws;
-
-            if (TamedBaseHealthMultiplier == null)
-                TamedBaseHealthMultiplier = 1;
-
+            
             if (colors?.Length == 0)
                 colors = null;
             if (colors != null && colors.Length < Ark.ColorRegionCount)
