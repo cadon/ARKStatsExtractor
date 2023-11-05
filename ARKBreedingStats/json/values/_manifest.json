@@ -6,7 +6,7 @@
 			"mod": { "id": "1083349027", "tag": "SpeedyFlyers", "title": "Najs Speedy Flyers" }
 		},
 		"1090809604-Pyria.json": {
-			"version": "358.11.1693620638",
+			"version": "358.17.1697371762",
 			"mod": { "id": "1090809604", "tag": "Pyria", "title": "Pyria: Mythos Evolved" }
 		},
 		"1092784125-Gryphons.json": {
@@ -72,7 +72,7 @@
 			"mod": { "id": "1356703358", "tag": "Primal_Fear_Noxious_Creatures", "title": "Primal Fear Noxious Creatures" }
 		},
 		"1373744537-AC2.json": {
-			"version": "358.11.1695149665",
+			"version": "358.17.1696878102",
 			"mod": { "id": "1373744537", "tag": "AC2", "title": "Additional Creatures 2: Wild Ark" }
 		},
 		"1379111008-RealismPlus.json": {
@@ -108,7 +108,7 @@
 			"mod": { "id": "1522327484", "tag": "Additions_Pack", "title": "ARK Additions!" }
 		},
 		"1523045986-Paranoia.json": {
-			"version": "357.4.1679444826",
+			"version": "358.17.1698793027",
 			"mod": { "id": "1523045986", "tag": "Paranoia", "title": "Additional Creatures 2: Paranoia!" }
 		},
 		"1558114752-Radioactive.json": {
@@ -116,7 +116,7 @@
 			"mod": { "id": "1558114752", "tag": "Radioactive", "title": "Dino Hybrids & more!" }
 		},
 		"1565015734-BetterDinosTest.json": {
-			"version": "356.12.1659982227",
+			"version": "358.17.1698789125",
 			"mod": { "id": "1565015734", "tag": "BetterDinosTest", "title": "Better Dinos" }
 		},
 		"1576299694-ElementalDinos.json": {
@@ -153,7 +153,7 @@
 			"mod": { "id": "1662691167", "tag": "Senior", "title": "Additional Creatures: Senior Class" }
 		},
 		"1675895024-NoUntameables.json": {
-			"version": "358.11.1695172002",
+			"version": "358.17.1697910148",
 			"mod": { "id": "1675895024", "tag": "NoUntameables", "title": "No Untameables" }
 		},
 		"1676159020-Aquaria.json": {
@@ -247,7 +247,7 @@
 			"mod": { "id": "1934081600", "tag": "SoloFarmAnky", "title": "Solo Farm Mod" }
 		},
 		"1979037318-IceWyverns.json": {
-			"version": "358.11.1695151363",
+			"version": "358.17.1696373342",
 			"mod": { "id": "1979037318", "tag": "IceWyverns", "title": "Shads Critter Reworks" }
 		},
 		"1984129536-MTSMod.json": {
@@ -311,7 +311,7 @@
 			"mod": { "id": "2362246280", "tag": "GigaFullTame", "title": "Giga Full Tame" }
 		},
 		"2447186973-ArkOmega.json": {
-			"version": "358.11.1695446237",
+			"version": "358.17.1697907008",
 			"mod": { "id": "2447186973", "tag": "ArkOmega", "title": "Ark Omega" }
 		},
 		"2453342929-MoreDragonsMod.json": {
@@ -351,7 +351,7 @@
 			"mod": { "id": "2902657380", "tag": "Dinohunterworld", "title": "Dino Hunter World" }
 		},
 		"2953890191-ExtraAberrantVariants.json": {
-			"version": "358.11.1693427566",
+			"version": "358.17.1696339026",
 			"mod": { "id": "2953890191", "tag": "ExtraAberrantVariants", "title": "Extra Aberrant Variants" }
 		},
 		"3035755339-PortsOfAtlas.json": {
@@ -379,7 +379,7 @@
 			"mod": { "id": "883957187", "tag": "WyvernWorld", "title": "Wyvern World" }
 		},
 		"893735676-AE.json": {
-			"version": "358.10.1691991018",
+			"version": "358.17.1696662074",
 			"mod": { "id": "893735676", "tag": "AE", "title": "Ark Eternal" }
 		},
 		"895711211-ClassicFlyers.json": {
@@ -397,6 +397,11 @@
 		"919470289-SSFlyer.json": {
 			"version": "340.3.1532328552",
 			"mod": { "id": "919470289", "tag": "SSFlyer", "title": "SSFlyer" }
+		},
+		"ASA-values.json": {
+			"version": "25.53.449745",
+			"format": "1.15-asa",
+			"mod": { "id": "ASA", "tag": "", "title": "Ark: Survival Ascended" }
 		},
 		"CrystalIsles-CrystalIsles.json": {
 			"version": "345.39.8870324.1",

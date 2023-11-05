@@ -191,7 +191,8 @@ namespace ARKBreedingStats
 
                     MinMaxDouble inputValue = new MinMaxDouble(statIOs[s].Input - toleranceForThisStat, statIOs[s].Input + toleranceForThisStat);
                     double statBaseValue = stats[s].BaseValue;
-                    if (PostTamed && s == Stats.Health) statBaseValue *= (double)species.TamedBaseHealthMultiplier;// + 0.00000000001; // todo double-precision handling
+                    if (PostTamed && s == Stats.Health && species.TamedBaseHealthMultiplier != null)
+                        statBaseValue *= species.TamedBaseHealthMultiplier.Value;// + 0.00000000001; // todo double-precision handling
 
                     bool withTEff = (PostTamed && stats[s].MultAffinity > 0);
                     if (withTEff) { StatsWithTE.Add(s); }

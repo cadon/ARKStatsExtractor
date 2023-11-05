@@ -309,9 +309,9 @@ namespace ARKBreedingStats.multiplierTesting
         /// <summary>
         /// Taming Bonus Health Multiplier
         /// </summary>
-        public float? TBHM
+        public float TBHM
         {
-            set => nudTBHM.Value = value != null ? (decimal)value : 1;
+            set => nudTBHM.Value = (decimal)value;
         }
 
         /// <summary>

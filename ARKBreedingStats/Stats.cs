@@ -31,8 +31,8 @@ namespace ARKBreedingStats
                     && species.StatImprintMultipliers[stat] != 0
                     )
                     imprintingM = 1 + species.StatImprintMultipliers[stat] * imprintingBonus * Values.V.currentServerMultipliers.BabyImprintingStatScaleMultiplier;
-                if (stat == 0)
-                    tamedBaseHP = (float)species.TamedBaseHealthMultiplier;
+                if (stat == Stats.Health)
+                    tamedBaseHP = species.TamedBaseHealthMultiplier ?? 1;
             }
             //double result = Math.Round((species.stats[stat].BaseValue * tamedBaseHP * (1 + species.stats[stat].IncPerWildLevel * levelWild) * imprintingM + add) * domMult, Utils.precision(stat), MidpointRounding.AwayFromZero);
             // double is too precise and results in wrong values due to rounding. float results in better values, probably ARK uses float as well.

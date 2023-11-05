@@ -250,7 +250,7 @@ namespace ARKBreedingStats.multiplierTesting
                 _statControls[s].Visible = species.UsesStat(s);
                 _statControls[s].StatName = $"[{s}]{Utils.StatName(s, true, species.statNames)}";
             }
-            _statControls[Stats.Health].TBHM = _selectedSpecies.TamedBaseHealthMultiplier;
+            _statControls[Stats.Health].TBHM = _selectedSpecies.TamedBaseHealthMultiplier ?? 1;
         }
 
         private void btUpdateSpecies_Click(object sender, EventArgs e)
