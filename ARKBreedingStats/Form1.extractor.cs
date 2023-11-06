@@ -289,7 +289,7 @@ namespace ARKBreedingStats
             numericUpDownImprintingBonusExtractor.ValueSave = (decimal)_extractor.ImprintingBonus * 100;
             numericUpDownImprintingBonusExtractor_ValueChanged(null, null);
 
-            var possibleExtractionIssues = IssueNotes.Issue.None;
+            var possibleExtractionIssues = IssueNotes.Issue.CreatureLevel;
             if (cbExactlyImprinting.Checked)
                 possibleExtractionIssues |= IssueNotes.Issue.ImprintingLocked;
 
