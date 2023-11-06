@@ -31,8 +31,9 @@ namespace ARKBreedingStats
             if (!resetCollection
                 && UnsavedChanges()
                 && CustomMessageBox.Show(Loc.S("Collection changed discard and new?"),
-                    Loc.S("Discard changes?"), Loc.S("Discard changes and new"), buttonCancel: Loc.S("Cancel"), icon: MessageBoxIcon.Warning) != DialogResult.Yes
-            )
+                    Loc.S("Discard changes?"), Loc.S("Discard changes and new"), buttonCancel: Loc.S("Cancel"),
+                    icon: MessageBoxIcon.Warning) != DialogResult.Yes
+               )
             {
                 return;
             }
@@ -43,20 +44,32 @@ namespace ARKBreedingStats
                 var (statValuesLoaded, _) = LoadStatAndKibbleValues(applySettings: false);
                 if (!statValuesLoaded)
                 {
-                    MessageBoxes.ShowMessageBox("Couldn't load stat values. Please redownload the application.", $"{Loc.S("error")} while loading the stat-values");
+                    MessageBoxes.ShowMessageBox("Couldn't load stat values. Please redownload the application.",
+                        $"{Loc.S("error")} while loading the stat-values");
                 }
             }
 
-            if (_creatureCollection.serverMultipliers == null)
-                _creatureCollection.serverMultipliers = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official);
             // use previously used multipliers again in the new file
-            ServerMultipliers oldMultipliers = _creatureCollection.serverMultipliers;
+            var oldMultipliers = _creatureCollection.serverMultipliers
+                                 ?? Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official);
+            var asaMode = _creatureCollection.Game == Ark.Asa;
 
             _creatureCollection = new CreatureCollection
             {
                 serverMultipliers = oldMultipliers,
                 ModList = new List<Mod>()
             };
+
+            if (asaMode)
+            {
+                if (_creatureCollection.modIDs == null) _creatureCollection.modIDs = new List<string>();
+                _creatureCollection.modIDs.Insert(0, Ark.Asa);
+                _creatureCollection.Game = Ark.Asa;
+
+                _creatureCollection.modListHash = 0; // making sure the mod values are reevaluated
+                ReloadModValuesOfCollectionIfNeeded(true, false, false);
+            }
+
             pedigree1.Clear();
             breedingPlan1.Clear();
             creatureInfoInputExtractor.Clear(true);
