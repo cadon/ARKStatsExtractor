@@ -241,7 +241,7 @@ namespace ARKBreedingStats.species
             }
 
             DescriptiveName = name + (string.IsNullOrEmpty(variantInfoForName) ? string.Empty : " (" + variantInfoForName + ")");
-            string modSuffix = string.IsNullOrEmpty(_mod?.title) ? string.Empty : _mod.title;
+            string modSuffix = _mod?.shortTitle ?? _mod?.title;
             DescriptiveNameAndMod = DescriptiveName + (string.IsNullOrEmpty(modSuffix) ? string.Empty : " (" + modSuffix + ")");
             SortName = DescriptiveNameAndMod;
         }

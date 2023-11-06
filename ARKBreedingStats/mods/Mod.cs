@@ -27,6 +27,12 @@ namespace ARKBreedingStats.mods
         public string title;
 
         /// <summary>
+        /// Commonly used short name to describe the mod, is preferred over title for species suffix if available.
+        /// </summary>
+        [JsonProperty]
+        public string shortTitle;
+
+        /// <summary>
         /// Game expansions are usually maps. The species of these expansion are usually included in the vanilla game and thus these files are loaded automatically by this application.
         /// These mod files are not listed explicitly in the mod list of a collection, they're expected to be loaded always.
         /// Also these mods usually cannot contain mod colors and must be ignored in the color stacking of possible other mods.
