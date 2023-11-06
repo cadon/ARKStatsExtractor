@@ -496,7 +496,6 @@ namespace ARKBreedingStats.values
 
             currentServerMultipliers.FixZeroValues();
             double[] defaultMultipliers = new double[] { 1, 1, 1, 1 }; // used if serverMultipliers don't specify non-default values
-            var useAsa = cc.Game == Ark.Asa;
 
             foreach (Species sp in species)
             {
@@ -584,13 +583,6 @@ namespace ARKBreedingStats.values
                         customOverrideExists && cc.CustomSpeciesStats[sp.blueprintPath].Length > Stats.StatsCount
                             ? cc.CustomSpeciesStats[sp.blueprintPath][Stats.StatsCount]
                             : null;
-
-                    // adjustments for ASA (0 for speed)
-                    if (imprintingMultiplierOverrides == null && useAsa)
-                    {
-                        imprintingMultiplierOverrides = sp.StatImprintMultipliers.Select(d => (double?)d).ToArray();
-                        imprintingMultiplierOverrides[Stats.SpeedMultiplier] = 0;
-                    }
 
                     sp.SetCustomImprintingMultipliers(imprintingMultiplierOverrides);
 

@@ -149,6 +149,8 @@ namespace ARKBreedingStats.species
             var fullStatsRawLength = fullStatsRaw?.Length ?? 0;
 
             usedStats = 0;
+            if (statImprintMult == null) statImprintMult = StatImprintMultipliersDefaultAse;
+            if (mutationMult == null) mutationMult = MutationMultipliersDefault;
 
             double[][] completeRaws = new double[Stats.StatsCount][];
             for (int s = 0; s < Stats.StatsCount; s++)
@@ -156,8 +158,12 @@ namespace ARKBreedingStats.species
                 // so far it seems stats that are skipped in wild are not displayed either
                 var statBit = (1 << s);
                 if ((skipWildLevelStats & statBit) != 0)
+                {
                     displayedStats &= ~statBit;
 
+                    // if skipWildLevelStat flag is set, stat is not affected by imprinting (introduced in ASA)
+                    statImprintMult[s] = 0;
+                }
 
                 stats[s] = new CreatureStat();
                 if (altBaseStatsRaw?.ContainsKey(s) ?? false)
@@ -182,7 +188,7 @@ namespace ARKBreedingStats.species
 
             if (fullStatsRawLength != -0)
                 fullStatsRaw = completeRaws;
-            
+
             if (colors?.Length == 0)
                 colors = null;
             if (colors != null && colors.Length < Ark.ColorRegionCount)
@@ -210,9 +216,6 @@ namespace ARKBreedingStats.species
 
             IsDomesticable = (taming != null && (taming.nonViolent || taming.violent))
                              || (breeding != null && (breeding.incubationTime > 0 || breeding.gestationTime > 0));
-
-            if (statImprintMult == null) statImprintMult = StatImprintMultipliersDefaultAse;
-            if (mutationMult == null) mutationMult = MutationMultipliersDefault;
         }
 
         /// <summary>
@@ -332,7 +335,7 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Returns if a spawned creature can have wild levels in a stat.
         /// </summary>
-        public bool CanLevelupWild(int statIndex) => (skipWildLevelStats & (1 << statIndex)) == 0;
+        public bool CanLevelUpWild(int statIndex) => (skipWildLevelStats & (1 << statIndex)) == 0;
 
         public override string ToString()
         {
