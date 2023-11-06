@@ -1990,23 +1990,8 @@ namespace ARKBreedingStats
             if (_creatureCollection.Game != gameSettingBefore)
             {
                 // ASA setting changed
-                var asaCurrentlyLoaded = _creatureCollection.modIDs?.Contains(Ark.Asa) == true;
-
-                if ((_creatureCollection.Game == Ark.Asa) ^ asaCurrentlyLoaded)
-                {
-                    if (asaCurrentlyLoaded)
-                    {
-                        _creatureCollection.modIDs.Remove(Ark.Asa);
-                        _creatureCollection.ModList.RemoveAll(m => m.id == Ark.Asa);
-                    }
-                    else
-                    {
-                        if (_creatureCollection.modIDs == null) _creatureCollection.modIDs = new List<string>();
-                        _creatureCollection.modIDs.Insert(0, Ark.Asa);
-                    }
-                    _creatureCollection.modListHash = 0; // making sure the mod values are reevaluated
-                    ReloadModValuesOfCollectionIfNeeded(!asaCurrentlyLoaded, false, false);
-                }
+                var loadAsa = gameSettingBefore != Ark.Asa;
+                ReloadModValuesOfCollectionIfNeeded(loadAsa, false, false);
             }
 
             ApplySettingsToValues();

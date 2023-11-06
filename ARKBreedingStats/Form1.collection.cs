@@ -62,11 +62,7 @@ namespace ARKBreedingStats
 
             if (asaMode)
             {
-                if (_creatureCollection.modIDs == null) _creatureCollection.modIDs = new List<string>();
-                _creatureCollection.modIDs.Insert(0, Ark.Asa);
                 _creatureCollection.Game = Ark.Asa;
-
-                _creatureCollection.modListHash = 0; // making sure the mod values are reevaluated
                 ReloadModValuesOfCollectionIfNeeded(true, false, false);
             }
 
