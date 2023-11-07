@@ -6,7 +6,6 @@ using ARKBreedingStats.values;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.multiplierTesting
@@ -21,6 +20,7 @@ namespace ARKBreedingStats.multiplierTesting
         private Nud _fineAdjustmentsNud;
         private MinMaxDouble _fineAdjustmentRange;
         private double _fineAdjustmentFactor;
+        private ToolTip _tt = new ToolTip();
 
         public StatsMultiplierTesting()
         {
@@ -52,6 +52,7 @@ namespace ARKBreedingStats.multiplierTesting
             _fineAdjustmentRange = new MinMaxDouble(0);
             rbTamed.Checked = true;
             gbFineAdjustment.Hide();
+            SetToolTips();
         }
 
         internal void SetGameDefaultMultiplier()
@@ -525,6 +526,23 @@ namespace ARKBreedingStats.multiplierTesting
         private void btUseMultipliersFromSettings_Click(object sender, EventArgs e)
         {
             SetStatMultipliersFromCC();
+        }
+
+        private void SetToolTips()
+        {
+            _tt.SetToolTip(LbBaseValue, "Base value | Max status value");
+            _tt.SetToolTip(LbLw, "Wild levels | Points applied wild");
+            _tt.SetToolTip(LbIw, "Increase per wild level | Amount max gained per level up value wild");
+            _tt.SetToolTip(LbIwM, "Increase per wild level global multiplier | per level stats multiplier dino wild");
+            _tt.SetToolTip(LbTBHM, "Tamed base health multiplier");
+            _tt.SetToolTip(LbTa, "Additive taming bonus | Taming max stat additions");
+            _tt.SetToolTip(LbTaM, "Additive taming bonus global multiplier | per level stats multiplier dino tamed add");
+            _tt.SetToolTip(LbTm, "Multiplicative taming bonus | Taming max stat multiplier");
+            _tt.SetToolTip(LbTmM, "Multiplicative taming bonus global multiplier | per level stats multiplier dino tamed affinity");
+            _tt.SetToolTip(LbLd, "Domesticate levels | Points applied tamed");
+            _tt.SetToolTip(LbId, "Increase per domesticate level | Amount max gained per level up value tamed");
+            _tt.SetToolTip(LbIdM, "Increase per domestic level global multiplier | per level stats multiplier dino tamed");
+            _tt.SetToolTip(LbFinalValue, "Final stat value displayed in the game");
         }
     }
 }
