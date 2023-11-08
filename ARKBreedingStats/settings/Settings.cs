@@ -942,7 +942,9 @@ namespace ARKBreedingStats.settings
             nudEggHatchSpeedEvent.ValueSave = nudEggHatchSpeed.Value;
             nudBabyMatureSpeedEvent.ValueSave = nudBabyMatureSpeed.Value;
             nudBabyCuddleIntervalEvent.ValueSave = nudBabyCuddleInterval.Value;
+            nudBabyImprintAmountEvent.ValueSave = nudBabyImprintAmount.Value;
             nudBabyFoodConsumptionSpeedEvent.ValueSave = nudBabyFoodConsumptionSpeed.Value;
+            nudTamedDinoCharacterFoodDrainEvent.ValueSave = nudTamedDinoCharacterFoodDrain.Value;
         }
 
         private void btAddExportFolder_Click(object sender, EventArgs e)
