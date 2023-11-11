@@ -336,8 +336,9 @@ namespace ARKBreedingStats
             var r = new Random();
             for (int si = 0; si < Stats.StatsCount; si++)
             {
-                if (species.UsesStat(si))
+                if (species.UsesStat(si) && species.CanLevelUpWildOrHaveMutations(si))
                     _testingIOs[si].LevelWild = r.Next(maxLevel);
+                else _testingIOs[si].LevelWild = 0;
             }
         }
 

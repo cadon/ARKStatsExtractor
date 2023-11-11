@@ -40,10 +40,12 @@ namespace ARKBreedingStats.values
         [JsonProperty]
         public double BabyImprintAmountMultiplier { get; set; }
         [JsonProperty]
+        public bool AllowSpeedLeveling { get; set; }
+        [JsonProperty]
         public bool AllowFlyerSpeedLeveling { get; set; }
 
         [OnDeserializing]
-        internal void SetDefaultValues(StreamingContext context)
+        internal void SetDefaultValues(StreamingContext _)
         {
             TamingSpeedMultiplier = 1;
             DinoCharacterFoodDrainMultiplier = 1;
@@ -59,11 +61,10 @@ namespace ARKBreedingStats.values
         }
 
         /// <summary>
-        /// fix any null values
+        /// Fix any null values
         /// </summary>
-        /// <param name="context"></param>
         [OnDeserialized]
-        private void DefineNullValues(StreamingContext context)
+        private void DefineNullValues(StreamingContext _)
         {
             if (statMultipliers == null) return;
             int l = statMultipliers.Length;

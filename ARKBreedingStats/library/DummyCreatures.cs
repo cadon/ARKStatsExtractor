@@ -9,7 +9,7 @@ using ARKBreedingStats.values;
 namespace ARKBreedingStats.library
 {
     /// <summary>
-    /// Creates dummy creatures to populate a library.
+    /// Creates dummy creatures and simulates breeding to populate a library.
     /// </summary>
     public static class DummyCreatures
     {
@@ -230,7 +230,7 @@ namespace ARKBreedingStats.library
                     var statIndicesForPossibleMutation = mutationPossible ? new List<int>(Stats.StatsCount) : null;
                     for (int si = 0; si < Stats.StatsCount; si++)
                     {
-                        if (!species.UsesStat(si) || si == Stats.Torpidity) continue;
+                        if (!species.UsesStat(si) || !species.CanLevelUpWildOrHaveMutations(si) || si == Stats.Torpidity) continue;
 
                         var level = rand.NextDouble() < probabilityHigherStat
                             ? Math.Max(mother.levelsWild[si], father.levelsWild[si])

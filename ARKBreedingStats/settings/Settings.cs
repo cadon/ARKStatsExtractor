@@ -216,6 +216,7 @@ namespace ARKBreedingStats.settings
             nudMaxWildLevels.ValueSave = cc.maxWildLevel;
             nudMaxServerLevel.ValueSave = cc.maxServerLevel > 0 ? cc.maxServerLevel : 0;
             nudMaxGraphLevel.ValueSave = cc.maxChartLevel;
+            CbAllowSpeedLeveling.Checked = cc.serverMultipliers?.AllowSpeedLeveling ?? false;
             CbAllowFlyerSpeedLeveling.Checked = cc.serverMultipliers?.AllowFlyerSpeedLeveling ?? false;
             #region Non-event multiplier
             var multipliers = cc.serverMultipliers;
@@ -473,6 +474,7 @@ namespace ARKBreedingStats.settings
             _cc.maxWildLevel = (int)nudMaxWildLevels.Value;
             _cc.maxServerLevel = (int)nudMaxServerLevel.Value;
             _cc.maxChartLevel = (int)nudMaxGraphLevel.Value;
+            _cc.serverMultipliers.AllowSpeedLeveling = CbAllowSpeedLeveling.Checked;
             _cc.serverMultipliers.AllowFlyerSpeedLeveling = CbAllowFlyerSpeedLeveling.Checked;
             _cc.maxBreedingSuggestions = (int)numericUpDownMaxBreedingSug.Value;
             Properties.Settings.Default.IgnoreSexInBreedingPlan = cbIgnoreSexInBreedingPlan.Checked;
@@ -825,6 +827,7 @@ namespace ARKBreedingStats.settings
             if (ParseAndSetValue(nudWildLevelStep, @"ASBExtractorWildLevelSteps ?= ?(\d+)"))
                 cbConsiderWildLevelSteps.Checked = nudWildLevelStep.Value != 1;
             ParseAndSetCheckbox(cbAllowMoreThanHundredImprinting, @"ASBAllowHyperImprinting ?= ?(true|false)");
+            ParseAndSetCheckbox(CbAllowSpeedLeveling, @"ASBAllowSpeedLeveling ?= ?(true|false)");
             ParseAndSetCheckbox(CbAllowFlyerSpeedLeveling, @"ASBAllowFlyerSpeedLeveling ?= ?(true|false)");
 
             // event multipliers breeding
@@ -924,6 +927,7 @@ namespace ARKBreedingStats.settings
             nudBabyImprintingStatScale.ValueSaveDouble = Math.Round(esm.BabyImprintingStatScaleMultiplier, roundToDigits);
             nudBabyFoodConsumptionSpeed.ValueSaveDouble = Math.Round(esm.BabyFoodConsumptionSpeedMultiplier, roundToDigits);
             nudTamedDinoCharacterFoodDrain.ValueSaveDouble = Math.Round(esm.TamedDinoCharacterFoodDrainMultiplier, roundToDigits);
+            CbAllowSpeedLeveling.Checked = esm.AllowSpeedLeveling;
             CbAllowFlyerSpeedLeveling.Checked = esm.AllowFlyerSpeedLeveling;
             cbSingleplayerSettings.Checked = esm.UseSingleplayerSettings;
         }
@@ -1199,6 +1203,7 @@ namespace ARKBreedingStats.settings
             // extractor
             sb.AppendLine($"ASBExtractorWildLevelSteps = {(cbConsiderWildLevelSteps.Checked ? nudWildLevelStep.Value.ToString(cultureForStrings) : "1")}");
             sb.AppendLine($"ASBAllowHyperImprinting = {(cbAllowMoreThanHundredImprinting.Checked ? "true" : "false")}");
+            sb.AppendLine($"ASBAllowSpeedLeveling = {(CbAllowSpeedLeveling.Checked ? "true" : "false")}");
             sb.AppendLine($"ASBAllowFlyerSpeedLeveling = {(CbAllowFlyerSpeedLeveling.Checked ? "true" : "false")}");
 
             // event multipliers
@@ -1399,6 +1404,7 @@ namespace ARKBreedingStats.settings
             nudBabyImprintingStatScale.SetExtraHighlightNonDefault(highlight);
             nudBabyFoodConsumptionSpeed.SetExtraHighlightNonDefault(highlight);
             HighlightCheckbox(cbSingleplayerSettings);
+            HighlightCheckbox(CbAllowSpeedLeveling);
             HighlightCheckbox(CbAllowFlyerSpeedLeveling);
             HighlightCheckbox(CbAtlasSettings);
 
@@ -1612,6 +1618,12 @@ namespace ARKBreedingStats.settings
                 if (dlg.ShowDialog() != DialogResult.OK) return;
                 ExtractSettingsFromFile(dlg.FileName);
             }
+        }
+
+        private void CbAllowFlyerSpeedLeveling_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CbAllowFlyerSpeedLeveling.Checked)
+                CbAllowSpeedLeveling.Checked = true;
         }
     }
 }

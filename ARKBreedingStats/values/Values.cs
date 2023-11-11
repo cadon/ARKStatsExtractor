@@ -597,6 +597,8 @@ namespace ARKBreedingStats.values
                     }
                 }
 
+                sp.ApplyCanLevelOptions(cc.serverMultipliers.AllowSpeedLeveling, cc.serverMultipliers.AllowFlyerSpeedLeveling);
+
                 // breeding multiplier
                 if (sp.breeding == null)
                     continue;
