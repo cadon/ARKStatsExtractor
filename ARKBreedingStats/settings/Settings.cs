@@ -37,7 +37,9 @@ namespace ARKBreedingStats.settings
             DialogResult = DialogResult.Ignore;
         }
 
-        private const string DefaultOcrProcessName = "ShooterGame";
+        private const string DefaultOcrProcessNameAse = "ShooterGame";
+        private const string DefaultOcrProcessNameAsa = "ArkAscended";
+
         /// <summary>
         /// Creates the list of currently running processes for an easy selection for the process the OCR uses to capture.
         /// </summary>
@@ -1236,9 +1238,14 @@ namespace ARKBreedingStats.settings
             pCustomOverlayLocation.Enabled = cbCustomOverlayLocation.Checked;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void BtGameNameAse_Click(object sender, EventArgs e)
         {
-            tbOCRCaptureApp.Text = DefaultOcrProcessName;
+            tbOCRCaptureApp.Text = DefaultOcrProcessNameAse;
+        }
+
+        private void BtGameNameAsa_Click(object sender, EventArgs e)
+        {
+            tbOCRCaptureApp.Text = DefaultOcrProcessNameAsa;
         }
 
         private void Localization()
