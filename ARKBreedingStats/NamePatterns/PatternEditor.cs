@@ -483,6 +483,7 @@ namespace ARKBreedingStats.NamePatterns
                 { "sn", "number of creatures of the current species with the same sex in the library + 1" },
                 { "arkid", "the Ark-Id (as entered or seen in-game)"},
                 { "alreadyExists", "returns 1 if the creature is already in the library, can be used with {{#if: }}"},
+                { "isFlyer", "returns 1 if the creature's species is a flyer"},
                 { "highest1l", "the highest stat-level of this creature (excluding torpidity)" },
                 { "highest2l", "the second highest stat-level of this creature (excluding torpidity)" },
                 { "highest3l", "the third highest stat-level of this creature (excluding torpidity)" },

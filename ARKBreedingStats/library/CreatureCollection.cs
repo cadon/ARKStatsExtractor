@@ -79,8 +79,8 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Indicates the game the library is used for. Possible values are "ASE" (default) for ARK: Survival Evolved or "ASA" for ARK: Survival Ascended.
         /// </summary>
-        [JsonProperty]
-        public string Game = "ASE";
+        [JsonProperty("Game")]
+        private string _game = "ASE";
 
         /// <summary>
         /// Used for the exportGun mod.
@@ -583,6 +583,33 @@ namespace ARKBreedingStats.Library
             /// The color does not exist on any region on any creature of that species.
             /// </summary>
             ColorIsNew
+        }
+
+        public string Game
+        {
+            get => _game;
+            set
+            {
+                _game = value;
+                switch (value)
+                {
+                    case Ark.Asa:
+                        if (modIDs == null) modIDs = new List<string>();
+                        if (!modIDs.Contains(Ark.Asa))
+                        {
+                            modIDs.Insert(0, Ark.Asa);
+                            modListHash = 0; // making sure the mod values are reloaded when checked
+                        }
+                        break;
+                    default:
+                        // non ASA
+                        if (modIDs == null) return;
+                        ModList.RemoveAll(m => m.id == Ark.Asa);
+                        if (modIDs.Remove(Ark.Asa))
+                            modListHash = 0;
+                        break;
+                }
+            }
         }
     }
 }

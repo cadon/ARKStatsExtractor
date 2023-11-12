@@ -37,7 +37,7 @@ namespace ARKBreedingStats.settings
                 {
                     dlg.InitialDirectory = Path.GetDirectoryName(textBox_FileLocation.Text);
                 }
-                else if (ExportFolderLocation.GetListOfExportFolders(out var folders, out _))
+                else if (ArkInstallationPath.GetListOfExportFolders(out var folders, out _))
                 {
                     foreach (var f in folders)
                     {

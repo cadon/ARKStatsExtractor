@@ -289,7 +289,7 @@ namespace ARKBreedingStats
             numericUpDownImprintingBonusExtractor.ValueSave = (decimal)_extractor.ImprintingBonus * 100;
             numericUpDownImprintingBonusExtractor_ValueChanged(null, null);
 
-            var possibleExtractionIssues = IssueNotes.Issue.None;
+            var possibleExtractionIssues = IssueNotes.Issue.CreatureLevel;
             if (cbExactlyImprinting.Checked)
                 possibleExtractionIssues |= IssueNotes.Issue.ImprintingLocked;
 
@@ -443,7 +443,7 @@ namespace ARKBreedingStats
                 labelTE.BackColor = Color.Transparent;
             }
 
-            SetWildSpeedLevelAccordingToOthers();
+            SetWildUnknownLevelsAccordingToOthers();
 
             lbSumDomSB.Text = _extractor.LevelDomSum.ToString();
             ShowSumOfChosenLevels();
@@ -749,49 +749,53 @@ namespace ARKBreedingStats
             if (validateCombination)
             {
                 SetUniqueTE();
-                SetWildSpeedLevelAccordingToOthers();
+                SetWildUnknownLevelsAccordingToOthers();
                 ShowSumOfChosenLevels();
             }
         }
 
         /// <summary>
-        /// The wild speed level is calculated indirectly by using all unused stat-levels.
+        /// Some wild stat levels have no effect on the stat value, often that's speed or sometimes oxygen.
+        /// The wild levels of these ineffective stats can be calculated indirectly if there is only one of them.
         /// </summary>
-        private void SetWildSpeedLevelAccordingToOthers()
+        private void SetWildUnknownLevelsAccordingToOthers()
         {
-            // wild speed level is wildTotalLevels - determinedWildLevels. sometimes the oxygenlevel cannot be determined as well
-            bool unique = true;
+            // wild speed level is wildTotalLevels - determinedWildLevels. sometimes the oxygen level cannot be determined as well
+            var unknownLevelIndices = new List<int>();
             int notDeterminedLevels = _statIOs[Stats.Torpidity].LevelWild;
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (s == Stats.SpeedMultiplier || s == Stats.Torpidity)
+                if (s == Stats.Torpidity || !speciesSelector1.SelectedSpecies.UsesStat(s))
+                {
                     continue;
-                if (_statIOs[s].LevelWild >= 0)
-                {
-                    notDeterminedLevels -= _statIOs[s].LevelWild;
                 }
-                else
+
+                if (_statIOs[s].LevelWild < 0)
                 {
-                    unique = false;
-                    break;
+                    unknownLevelIndices.Add(s);
+                    continue;
                 }
+                notDeterminedLevels -= _statIOs[s].LevelWild;
             }
-            if (unique)
+
+            switch (unknownLevelIndices.Count)
             {
-                // if all other stats are unique, set speedlevel
-                _statIOs[Stats.SpeedMultiplier].LevelWild = Math.Max(0, notDeterminedLevels);
-                _statIOs[Stats.SpeedMultiplier].BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, Stats.SpeedMultiplier, _statIOs[Stats.SpeedMultiplier].LevelWild, 0, true, 1, 0);
-            }
-            else
-            {
-                // if not all other levels are unique, set speed and not known levels to unknown
-                for (int s = 0; s < Stats.StatsCount; s++)
-                {
-                    if (s == Stats.SpeedMultiplier || !_activeStats[s])
+                case 0:
+                    // no unknown levels, nothing to do
+                    return;
+                case 1:
+                    // if all other stats are unique, set level
+                    var statIndex = unknownLevelIndices[0];
+                    _statIOs[statIndex].LevelWild = Math.Max(0, notDeterminedLevels);
+                    _statIOs[statIndex].BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, statIndex, _statIOs[statIndex].LevelWild, 0, true, 1, 0);
+                    return;
+                default:
+                    // if not all other levels are unique, set the indifferent stats to unknown
+                    foreach (var s in unknownLevelIndices)
                     {
                         _statIOs[s].LevelWild = -1;
                     }
-                }
+                    return;
             }
         }
 

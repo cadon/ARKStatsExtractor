@@ -297,6 +297,7 @@ namespace ARKBreedingStats.NamePatterns
             }
 
             // replace tokens in user configured pattern string
+            // keys have to be all lower case
             var dict = new Dictionary<string, string>
             {
                 { "species", creature.Species.name },
@@ -334,7 +335,8 @@ namespace ARKBreedingStats.NamePatterns
                 { "sn", speciesSexCount.ToString()},
                 { "dom", dom},
                 { "arkid", arkid },
-                { "alreadyexists", speciesCreatures.Contains(creature) ? "1" : string.Empty }
+                { "alreadyexists", speciesCreatures.Contains(creature) ? "1" : string.Empty },
+                { "isflyer", creature.Species.isFlyer ? "1" : string.Empty }
             };
 
             // stat index and according level

@@ -15,5 +15,10 @@ namespace ARKBreedingStats.utils
         /// Opens the page in the repository wiki with the default browser.
         /// </summary>
         internal static void OpenWikiPage(string pageName) => Process.Start(WikiPageLink(pageName));
+
+        /// <summary>
+        /// Invite link for the ARK Smart Breeding discord link.
+        /// </summary>
+        internal const string DiscordServerInviteLink = "https://discord.gg/qCYYbQK";
     }
 }

@@ -75,6 +75,8 @@ namespace ARKBreedingStats.miscClasses
         {
             return range1.Overlaps(range2);
         }
+
+        public override string ToString() => $"{Min}, {Mean}, {Max}";
     }
 
     public struct MinMaxInt
@@ -100,5 +102,7 @@ namespace ARKBreedingStats.miscClasses
         {
             return Max >= value && Min <= value;
         }
+
+        public override string ToString() => $"{Min}, {Max}";
     }
 }

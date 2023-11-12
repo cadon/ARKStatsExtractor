@@ -37,7 +37,9 @@ namespace ARKBreedingStats.settings
             DialogResult = DialogResult.Ignore;
         }
 
-        private const string DefaultOcrProcessName = "ShooterGame";
+        private const string DefaultOcrProcessNameAse = "ShooterGame";
+        private const string DefaultOcrProcessNameAsa = "ArkAscended";
+
         /// <summary>
         /// Creates the list of currently running processes for an easy selection for the process the OCR uses to capture.
         /// </summary>
@@ -216,6 +218,7 @@ namespace ARKBreedingStats.settings
             nudMaxWildLevels.ValueSave = cc.maxWildLevel;
             nudMaxServerLevel.ValueSave = cc.maxServerLevel > 0 ? cc.maxServerLevel : 0;
             nudMaxGraphLevel.ValueSave = cc.maxChartLevel;
+            CbAllowSpeedLeveling.Checked = cc.serverMultipliers?.AllowSpeedLeveling ?? false;
             CbAllowFlyerSpeedLeveling.Checked = cc.serverMultipliers?.AllowFlyerSpeedLeveling ?? false;
             #region Non-event multiplier
             var multipliers = cc.serverMultipliers;
@@ -473,6 +476,7 @@ namespace ARKBreedingStats.settings
             _cc.maxWildLevel = (int)nudMaxWildLevels.Value;
             _cc.maxServerLevel = (int)nudMaxServerLevel.Value;
             _cc.maxChartLevel = (int)nudMaxGraphLevel.Value;
+            _cc.serverMultipliers.AllowSpeedLeveling = CbAllowSpeedLeveling.Checked;
             _cc.serverMultipliers.AllowFlyerSpeedLeveling = CbAllowFlyerSpeedLeveling.Checked;
             _cc.maxBreedingSuggestions = (int)numericUpDownMaxBreedingSug.Value;
             Properties.Settings.Default.IgnoreSexInBreedingPlan = cbIgnoreSexInBreedingPlan.Checked;
@@ -710,6 +714,7 @@ namespace ARKBreedingStats.settings
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                bool doMergeSettings = false; // only ask for the first dropped file if settings should be reset, for the later ones always do merge
                 foreach (string filePath in files)
                 {
                     switch (Path.GetExtension(filePath))
@@ -718,9 +723,11 @@ namespace ARKBreedingStats.settings
                             LoadServerMultipliersFromSavFile(filePath);
                             break;
                         default:
-                            ExtractSettingsFromFile(filePath);
+                            ExtractSettingsFromFile(filePath, doMergeSettings);
                             break;
                     }
+
+                    doMergeSettings = true;
                 }
             }
             else if (e.Data.GetDataPresent(DataFormats.Text))
@@ -729,15 +736,20 @@ namespace ARKBreedingStats.settings
             }
         }
 
-        private void ExtractSettingsFromFile(string file)
+        private void ExtractSettingsFromFile(string file, bool doMergeSettings = false)
         {
             if (!File.Exists(file))
                 return;
 
-            ExtractSettingsFromText(File.ReadAllText(file));
+            ExtractSettingsFromText(File.ReadAllText(file), doMergeSettings);
         }
 
-        private void ExtractSettingsFromText(string text)
+        /// <summary>
+        /// Parse the text and set the recognized settings accordingly.
+        /// </summary>
+        /// <param name="text">Text containing the settings</param>
+        /// <param name="doMergeSettings">If true the user is not asked if the settings should be reset before applying the settings.</param>
+        private void ExtractSettingsFromText(string text, bool doMergeSettings = false)
         {
             if (string.IsNullOrWhiteSpace(text)) return;
 
@@ -750,9 +762,10 @@ namespace ARKBreedingStats.settings
 
             // reset values to the default
 
-            if (text.Contains("ASBMaxGraphLevels"))
+            if (text.Contains("ASBMaxGraphLevels") || doMergeSettings)
             {
                 // the file is exported by this application and contains all needed values
+                // or it's not the first file of an import (i.e. user was already asked if to reset or merge)
             }
             else
             {
@@ -825,6 +838,7 @@ namespace ARKBreedingStats.settings
             if (ParseAndSetValue(nudWildLevelStep, @"ASBExtractorWildLevelSteps ?= ?(\d+)"))
                 cbConsiderWildLevelSteps.Checked = nudWildLevelStep.Value != 1;
             ParseAndSetCheckbox(cbAllowMoreThanHundredImprinting, @"ASBAllowHyperImprinting ?= ?(true|false)");
+            ParseAndSetCheckbox(CbAllowSpeedLeveling, @"ASBAllowSpeedLeveling ?= ?(true|false)");
             ParseAndSetCheckbox(CbAllowFlyerSpeedLeveling, @"ASBAllowFlyerSpeedLeveling ?= ?(true|false)");
 
             // event multipliers breeding
@@ -924,6 +938,7 @@ namespace ARKBreedingStats.settings
             nudBabyImprintingStatScale.ValueSaveDouble = Math.Round(esm.BabyImprintingStatScaleMultiplier, roundToDigits);
             nudBabyFoodConsumptionSpeed.ValueSaveDouble = Math.Round(esm.BabyFoodConsumptionSpeedMultiplier, roundToDigits);
             nudTamedDinoCharacterFoodDrain.ValueSaveDouble = Math.Round(esm.TamedDinoCharacterFoodDrainMultiplier, roundToDigits);
+            CbAllowSpeedLeveling.Checked = esm.AllowSpeedLeveling;
             CbAllowFlyerSpeedLeveling.Checked = esm.AllowFlyerSpeedLeveling;
             cbSingleplayerSettings.Checked = esm.UseSingleplayerSettings;
         }
@@ -942,7 +957,9 @@ namespace ARKBreedingStats.settings
             nudEggHatchSpeedEvent.ValueSave = nudEggHatchSpeed.Value;
             nudBabyMatureSpeedEvent.ValueSave = nudBabyMatureSpeed.Value;
             nudBabyCuddleIntervalEvent.ValueSave = nudBabyCuddleInterval.Value;
+            nudBabyImprintAmountEvent.ValueSave = nudBabyImprintAmount.Value;
             nudBabyFoodConsumptionSpeedEvent.ValueSave = nudBabyFoodConsumptionSpeed.Value;
+            nudTamedDinoCharacterFoodDrainEvent.ValueSave = nudTamedDinoCharacterFoodDrain.Value;
         }
 
         private void btAddExportFolder_Click(object sender, EventArgs e)
@@ -1197,6 +1214,7 @@ namespace ARKBreedingStats.settings
             // extractor
             sb.AppendLine($"ASBExtractorWildLevelSteps = {(cbConsiderWildLevelSteps.Checked ? nudWildLevelStep.Value.ToString(cultureForStrings) : "1")}");
             sb.AppendLine($"ASBAllowHyperImprinting = {(cbAllowMoreThanHundredImprinting.Checked ? "true" : "false")}");
+            sb.AppendLine($"ASBAllowSpeedLeveling = {(CbAllowSpeedLeveling.Checked ? "true" : "false")}");
             sb.AppendLine($"ASBAllowFlyerSpeedLeveling = {(CbAllowFlyerSpeedLeveling.Checked ? "true" : "false")}");
 
             // event multipliers
@@ -1229,9 +1247,14 @@ namespace ARKBreedingStats.settings
             pCustomOverlayLocation.Enabled = cbCustomOverlayLocation.Checked;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void BtGameNameAse_Click(object sender, EventArgs e)
         {
-            tbOCRCaptureApp.Text = DefaultOcrProcessName;
+            tbOCRCaptureApp.Text = DefaultOcrProcessNameAse;
+        }
+
+        private void BtGameNameAsa_Click(object sender, EventArgs e)
+        {
+            tbOCRCaptureApp.Text = DefaultOcrProcessNameAsa;
         }
 
         private void Localization()
@@ -1319,7 +1342,7 @@ namespace ARKBreedingStats.settings
 
         private void BtGetExportFolderAutomatically_Click(object sender, EventArgs e)
         {
-            if (ExportFolderLocation.GetListOfExportFolders(out (string path, string steamPlayerName)[] arkExportFolders, out string error))
+            if (ArkInstallationPath.GetListOfExportFolders(out (string path, string steamPlayerName)[] arkExportFolders, out string error))
             {
                 var anyFolderExists = false;
                 // only add folders if they exist and are not yet in the list
@@ -1340,7 +1363,7 @@ namespace ARKBreedingStats.settings
                 if (!exportFolderLocations.Any()) return;
 
                 // order the entries so that the folder with the newest file is the default
-                var orderedList = ExportFolderLocation.OrderByNewestFileInFolders(exportFolderLocations.Select(l => (l.FolderPath, l)));
+                var orderedList = ArkInstallationPath.OrderByNewestFileInFolders(exportFolderLocations.Select(l => (l.FolderPath, l)));
 
                 aTExportFolderLocationsBindingSource.Clear();
 
@@ -1397,6 +1420,7 @@ namespace ARKBreedingStats.settings
             nudBabyImprintingStatScale.SetExtraHighlightNonDefault(highlight);
             nudBabyFoodConsumptionSpeed.SetExtraHighlightNonDefault(highlight);
             HighlightCheckbox(cbSingleplayerSettings);
+            HighlightCheckbox(CbAllowSpeedLeveling);
             HighlightCheckbox(CbAllowFlyerSpeedLeveling);
             HighlightCheckbox(CbAtlasSettings);
 
@@ -1610,6 +1634,38 @@ namespace ARKBreedingStats.settings
                 if (dlg.ShowDialog() != DialogResult.OK) return;
                 ExtractSettingsFromFile(dlg.FileName);
             }
+        }
+
+        private void CbAllowFlyerSpeedLeveling_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CbAllowFlyerSpeedLeveling.Checked)
+                CbAllowSpeedLeveling.Checked = true;
+        }
+
+        private void BtAutoImportLocalSettings_Click(object sender, EventArgs e)
+        {
+            // detect the game.ini and gameUserSettings.ini in the local installation and ask which to import
+
+            if (!ArkInstallationPath.GetLocalArkConfigPaths(out (string, Ark.Game)[] localConfigPaths, out var error))
+            {
+                MessageBoxes.ShowMessageBox(
+                    "The local Ark installation config files couldn't be found, currently auto import is only supported for the Steam edition.\nYou can try to import the files by manually drag&drop them onto the settings window\n\n"
+                    + error, "Config auto import error");
+                return;
+            }
+
+            localConfigPaths = localConfigPaths.OrderBy(c => c.Item2 == Ark.Game.ASE).ToArray(); // display ASA first
+
+            // ask which configs to import
+            var importIndex = Utils.ShowListInput(localConfigPaths.Select(c => $"{c.Item2}: {c.Item1.Replace("\\", "\\ ")}").ToArray(), // adding zero width spaces to allow word wrapping
+                "Select one of the configs to import.", "Auto import configs", 40);
+            if (importIndex == -1) return;
+
+            ExtractSettingsFromFile(Path.Combine(localConfigPaths[importIndex].Item1, "game.ini"), true);
+            ExtractSettingsFromFile(Path.Combine(localConfigPaths[importIndex].Item1, "gameUserSettings.ini"), true);
+
+            if (localConfigPaths[importIndex].Item2 == Ark.Game.ASA) RbGameAsa.Checked = true;
+            else RbGameAse.Checked = true;
         }
     }
 }

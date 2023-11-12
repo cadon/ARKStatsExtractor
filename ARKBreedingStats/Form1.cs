@@ -445,10 +445,10 @@ namespace ARKBreedingStats
             // if no export folder is set, try to detect it
             if ((Properties.Settings.Default.ExportCreatureFolders == null
                  || Properties.Settings.Default.ExportCreatureFolders.Length == 0)
-                && ExportFolderLocation.GetListOfExportFolders(
+                && ArkInstallationPath.GetListOfExportFolders(
                     out (string path, string steamPlayerName)[] arkInstallFolders, out _))
             {
-                var orderedList = ExportFolderLocation.OrderByNewestFileInFolders(arkInstallFolders.Select(l => (l.path, l)));
+                var orderedList = ArkInstallationPath.OrderByNewestFileInFolders(arkInstallFolders.Select(l => (l.path, l)));
 
                 Properties.Settings.Default.ExportCreatureFolders = orderedList
                     .Select(f => $"{f.steamPlayerName}||{f.path}").ToArray();
@@ -1990,23 +1990,8 @@ namespace ARKBreedingStats
             if (_creatureCollection.Game != gameSettingBefore)
             {
                 // ASA setting changed
-                var asaCurrentlyLoaded = _creatureCollection.modIDs?.Contains(Ark.Asa) == true;
-
-                if ((_creatureCollection.Game == Ark.Asa) ^ asaCurrentlyLoaded)
-                {
-                    if (asaCurrentlyLoaded)
-                    {
-                        _creatureCollection.modIDs.Remove(Ark.Asa);
-                        _creatureCollection.ModList.RemoveAll(m => m.id == Ark.Asa);
-                    }
-                    else
-                    {
-                        if (_creatureCollection.modIDs == null) _creatureCollection.modIDs = new List<string>();
-                        _creatureCollection.modIDs.Insert(0, Ark.Asa);
-                    }
-                    _creatureCollection.modListHash = 0; // making sure the mod values are reevaluated
-                    ReloadModValuesOfCollectionIfNeeded(!asaCurrentlyLoaded, false, false);
-                }
+                var loadAsa = gameSettingBefore != Ark.Asa;
+                ReloadModValuesOfCollectionIfNeeded(loadAsa, false, false);
             }
 
             ApplySettingsToValues();
@@ -3821,6 +3806,11 @@ namespace ARKBreedingStats
         private void CbLibraryInfoUseFilter_CheckedChanged(object sender, EventArgs e)
         {
             LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, CbLibraryInfoUseFilter.Checked ? (IList<Creature>)ApplyLibraryFilterSettings(_creatureCollection.creatures).ToArray() : _creatureCollection.creatures, CbLibraryInfoUseFilter.Checked, tlpLibraryInfo);
+        }
+
+        private void discordServerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(RepositoryInfo.DiscordServerInviteLink);
         }
     }
 }

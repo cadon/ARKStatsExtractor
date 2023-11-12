@@ -515,6 +515,65 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
+        /// Displays a control with options, where the user can select one of them or cancel.
+        /// The index of the selection is returned or -1 when cancelled.
+        /// </summary>
+        public static int ShowListInput(IList<string> optionTexts, string headerText = null, string windowTitle = null, int buttonHeight = 21)
+        {
+            const int width = 350;
+            const int margin = 15;
+            var result = -1;
+            Form inputForm = new Form
+            {
+                Width = width,
+                FormBorderStyle = FormBorderStyle.SizableToolWindow,
+                Text = windowTitle,
+                StartPosition = FormStartPosition.CenterParent,
+                ShowInTaskbar = false,
+                AutoScroll = true
+            };
+            var y = 10;
+            if (!string.IsNullOrEmpty(headerText))
+            {
+                Label textLabel = new Label { Left = margin, Top = y, Text = headerText, AutoSize = true };
+                inputForm.Controls.Add(textLabel);
+                y += 30;
+            }
+
+            var tt = new ToolTip();
+
+            var i = 0;
+            foreach (var option in optionTexts)
+            {
+                var optionButton = new Button { Text = option, Left = margin, Width = width - 3 * margin, Top = y, DialogResult = DialogResult.OK, Tag = i++ };
+                if (buttonHeight > 0) optionButton.Height = buttonHeight;
+                y += buttonHeight + 12;
+                optionButton.Click += (sender, e) =>
+                {
+                    result = (int)((Button)sender).Tag;
+                    inputForm.Close();
+                };
+                inputForm.Controls.Add(optionButton);
+                tt.SetToolTip(optionButton, option);
+            }
+
+            const int cancelButtonWidth = 80;
+            Button buttonCancel = new Button { Text = Loc.S("Cancel"), Left = width - cancelButtonWidth - 2 * margin, Width = cancelButtonWidth, Top = y, DialogResult = DialogResult.Cancel };
+            buttonCancel.Click += (sender, e) => { inputForm.Close(); };
+            inputForm.Controls.Add(buttonCancel);
+            y += 30;
+            inputForm.CancelButton = buttonCancel;
+
+            inputForm.Height = Math.Min(y + 50, 800);
+
+            var dialogResult = inputForm.ShowDialog();
+            tt.RemoveAll();
+            tt.Dispose();
+
+            return dialogResult != DialogResult.OK ? -1 : result;
+        }
+
+        /// <summary>
         /// This function may only be used if the ArkId is unique (when importing files that have ArkId1 and ArkId2)
         /// </summary>
         /// <param name="arkId">ArkId built from ArkId1 and ArkId2, user input from the ingame-representation is not allowed</param>

@@ -142,9 +142,6 @@ You can also select the text of the settings and drag&amp;&amp;drop the selectio
   <metadata name="dgvFileLocation_Delete.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="aTImportFileLocationBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <data name="label24.Text" xml:space="preserve">
     <value>The creature data can be directly imported from the save-game, if you have access to that. This is also possible via an ftp-adress. 
 If you set the according files below, you can start the process automatically from the file-menu.</value>
@@ -170,9 +167,6 @@ If you set the according files below, you can start the process automatically fr
   <metadata name="dgvExportMakeDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="aTExportFolderLocationsBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>262, 17</value>
-  </metadata>
   <data name="label25.Text" xml:space="preserve">
     <value>In ARK you can export a creature (hold use while looking at a creature, then choose "Options" - "Export" from the wheel).
 Note: Parents and the mutations count are only exported and imported if you have opened the ancestor tab of the creature before the export!
@@ -189,5 +183,14 @@ The window-mode "Fullscreen-Windowed" should be set ingame.</value>
   </data>
   <metadata name="colorDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>526, 17</value>
+  </metadata>
+  <metadata name="aTImportFileLocationBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="aTExportFolderLocationsBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>262, 17</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>56</value>
   </metadata>
 </root>

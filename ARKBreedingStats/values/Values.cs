@@ -496,7 +496,6 @@ namespace ARKBreedingStats.values
 
             currentServerMultipliers.FixZeroValues();
             double[] defaultMultipliers = new double[] { 1, 1, 1, 1 }; // used if serverMultipliers don't specify non-default values
-            var useAsa = cc.Game == Ark.Asa;
 
             foreach (Species sp in species)
             {
@@ -585,13 +584,6 @@ namespace ARKBreedingStats.values
                             ? cc.CustomSpeciesStats[sp.blueprintPath][Stats.StatsCount]
                             : null;
 
-                    // adjustments for ASA (0 for speed)
-                    if (imprintingMultiplierOverrides == null && useAsa)
-                    {
-                        imprintingMultiplierOverrides = sp.StatImprintMultipliers.Select(d => (double?)d).ToArray();
-                        imprintingMultiplierOverrides[Stats.SpeedMultiplier] = 0;
-                    }
-
                     sp.SetCustomImprintingMultipliers(imprintingMultiplierOverrides);
 
                     // ATLAS multipliers
@@ -604,6 +596,8 @@ namespace ARKBreedingStats.values
                         sp.stats[Stats.MeleeDamageMultiplier].IncPerTamedLevel *= 1.5;
                     }
                 }
+
+                sp.ApplyCanLevelOptions(cc.serverMultipliers.AllowSpeedLeveling, cc.serverMultipliers.AllowFlyerSpeedLeveling);
 
                 // breeding multiplier
                 if (sp.breeding == null)

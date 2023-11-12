@@ -15,12 +15,7 @@
 		},
 		"111111111-PrimitivePlus.json": {
 			"version": "345.39.8870324",
-			"mod": {
-				"id": "111111111",
-				"tag": "PrimitivePlus",
-				"title": "PrimitivePlus",
-				"official": true
-			}
+			"mod": { "id": "111111111", "tag": "PrimitivePlus", "title": "PrimitivePlus", "official": true }
 		},
 		"1125442531-Gaia.json": {
 			"version": "356.5.1630493486",
@@ -263,7 +258,7 @@
 			"mod": { "id": "2000326197", "tag": "ExtraResources", "title": "Event Assets" }
 		},
 		"2003934830-Beasts.json": {
-			"version": "358.11.1692983778",
+			"version": "358.17.1699137788",
 			"mod": { "id": "2003934830", "tag": "Beasts", "title": "Prehistoric Beasts" }
 		},
 		"2019846325-ApexMod.json": {
@@ -401,17 +396,11 @@
 		"ASA-values.json": {
 			"version": "25.53.449745",
 			"format": "1.15-asa",
-			"mod": { "id": "ASA", "tag": "", "title": "Ark: Survival Ascended" }
+			"mod": { "id": "ASA", "tag": "", "title": "Ark: Survival Ascended", "shortTitle": "ASA", "official": true }
 		},
 		"CrystalIsles-CrystalIsles.json": {
 			"version": "345.39.8870324.1",
-			"mod": {
-				"id": "CrystalIsles",
-				"tag": "CrystalIsles",
-				"title": "CrystalIsles",
-				"official": true,
-				"expansion": true
-			}
+			"mod": { "id": "CrystalIsles", "tag": "CrystalIsles", "title": "CrystalIsles", "official": true, "expansion": true }
 		},
 		"values.json": {
 			"version": "358.6.11410860"

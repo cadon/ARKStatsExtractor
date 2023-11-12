@@ -26,6 +26,7 @@ namespace ARKBreedingStats.importExportGun
         public double BabyImprintingStatScaleMultiplier { get; set; }
         public double BabyFoodConsumptionSpeedMultiplier { get; set; }
         public double TamedDinoCharacterFoodDrainMultiplier { get; set; }
+        public bool AllowSpeedLeveling { get; set; }
         public bool AllowFlyerSpeedLeveling { get; set; }
         public bool UseSingleplayerSettings { get; set; }
     }

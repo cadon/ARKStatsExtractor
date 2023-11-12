@@ -1,7 +1,6 @@
 ﻿using ARKBreedingStats.Library;
 using ARKBreedingStats.miscClasses;
 using ARKBreedingStats.species;
-using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -198,26 +197,33 @@ namespace ARKBreedingStats
                     if (withTEff) { StatsWithTE.Add(s); }
 
                     int minLW = 0;
-                    int maxLW;
-                    if (stats[s].IncPerWildLevel > 0)
+                    int maxLW = 0;
+                    if (species.CanLevelUpWildOrHaveMutations(s))
                     {
-                        double multAffinityFactor = stats[s].MultAffinity;
-                        if (PostTamed)
+                        if (stats[s].IncPerWildLevel > 0)
                         {
-                            // the multiplicative bonus is only multiplied with the TE if it is positive (i.e. negative boni won't get less bad if the TE is low)
-                            if (multAffinityFactor > 0)
-                                multAffinityFactor *= lowerTEBound;
-                            multAffinityFactor += 1;
+                            double multAffinityFactor = stats[s].MultAffinity;
+                            if (PostTamed)
+                            {
+                                // the multiplicative bonus is only multiplied with the TE if it is positive (i.e. negative boni won't get less bad if the TE is low)
+                                if (multAffinityFactor > 0)
+                                    multAffinityFactor *= lowerTEBound;
+                                multAffinityFactor += 1;
+                            }
+                            else
+                                multAffinityFactor = 1;
+
+                            maxLW = (int)Math.Round(
+                                ((inputValue.Max / multAffinityFactor - (PostTamed ? stats[s].AddWhenTamed : 0)) /
+                                    statBaseValue - 1) / stats[s].IncPerWildLevel); // floor is too unprecise
                         }
                         else
-                            multAffinityFactor = 1;
-                        maxLW = (int)Math.Round(((inputValue.Max / multAffinityFactor - (PostTamed ? stats[s].AddWhenTamed : 0)) / statBaseValue - 1) / stats[s].IncPerWildLevel); // floor is too unprecise
+                        {
+                            minLW = -1;
+                            maxLW = -1;
+                        }
                     }
-                    else
-                    {
-                        minLW = -1;
-                        maxLW = -1;
-                    }
+
                     if (maxLW > LevelWildSum) { maxLW = LevelWildSum; }
 
                     double maxLD = 0;
