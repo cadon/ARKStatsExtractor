@@ -636,7 +636,7 @@
     <Compile Include="utils\ColorModeColors.cs" />
     <Compile Include="utils\Convert32.cs" />
     <Compile Include="utils\Debouncer.cs" />
-    <Compile Include="utils\ExportFolderLocation.cs" />
+    <Compile Include="utils\ArkInstallationPath.cs" />
     <Compile Include="utils\ExtensionMethods.cs" />
     <Compile Include="utils\CreatureListSorter.cs" />
     <Compile Include="utils\MessageBoxes.cs" />

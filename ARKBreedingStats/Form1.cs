@@ -445,10 +445,10 @@ namespace ARKBreedingStats
             // if no export folder is set, try to detect it
             if ((Properties.Settings.Default.ExportCreatureFolders == null
                  || Properties.Settings.Default.ExportCreatureFolders.Length == 0)
-                && ExportFolderLocation.GetListOfExportFolders(
+                && ArkInstallationPath.GetListOfExportFolders(
                     out (string path, string steamPlayerName)[] arkInstallFolders, out _))
             {
-                var orderedList = ExportFolderLocation.OrderByNewestFileInFolders(arkInstallFolders.Select(l => (l.path, l)));
+                var orderedList = ArkInstallationPath.OrderByNewestFileInFolders(arkInstallFolders.Select(l => (l.path, l)));
 
                 Properties.Settings.Default.ExportCreatureFolders = orderedList
                     .Select(f => $"{f.steamPlayerName}||{f.path}").ToArray();

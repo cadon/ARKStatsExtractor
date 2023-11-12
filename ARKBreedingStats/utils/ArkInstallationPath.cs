@@ -10,9 +10,9 @@ using Newtonsoft.Json.Linq;
 namespace ARKBreedingStats.utils
 {
     /// <summary>
-    /// Used to find the folder of exported creature files.
+    /// Methods related to paths of an Ark installation.
     /// </summary>
-    internal static class ExportFolderLocation
+    internal static class ArkInstallationPath
     {
         /// <summary>
         /// Extracts possible creature export directories of a Steam or Epic installation of ARK.
@@ -40,43 +40,10 @@ namespace ARKBreedingStats.utils
         {
             exportFolders = null;
 
-            if (!GetSteamInstallationPath(out var steamPath))
-            {
-                error = "Steam installation couldn't be found, is it installed?";
+            if (!GetSteamLibraryArkInstallationFolders(out var existingArkPaths, out var steamNamesIds, out error))
                 return false;
-            }
 
-            var configFilePath = Path.Combine(steamPath, "config", "config.vdf");
-            var libraryFoldersFilePath = Path.Combine(steamPath, "config", "libraryfolders.vdf");
-            if (!File.Exists(configFilePath))
-            {
-                error = $"Steam config file {configFilePath} not found.";
-                return false;
-            }
-
-            if (!ReadSteamPlayerIdsAndArkInstallPaths(configFilePath, libraryFoldersFilePath,
-                out (string steamPlayerName, string steamPlayerId)[] steamNamesIds, out string[] arkInstallFolders,
-                out error)) return false;
-
-            var relativeAsePath = Path.Combine("steamapps", "common", "ARK");
-            var relativeAsaPath = Path.Combine("steamapps", "common", "ARK Survival Ascended");
-            var possibleArkPaths = new List<(string Path, Ark.Game Game)>
-            {
-                (Path.Combine(steamPath, relativeAsePath), Ark.Game.ASE),
-                (Path.Combine(steamPath, relativeAsaPath), Ark.Game.ASA)
-            }; // use steam folder as default
-            possibleArkPaths.AddRange(arkInstallFolders.Select(f => (Path.Combine(f, relativeAsePath), Ase: Ark.Game.ASE)));
-            possibleArkPaths.AddRange(arkInstallFolders.Select(f => (Path.Combine(f, relativeAsaPath), Asa: Ark.Game.ASA)));
-
-            var existingArkPaths = possibleArkPaths.Distinct().Where(p => Directory.Exists(p.Path)).ToArray();
-
-            if (!existingArkPaths.Any())
-            {
-                error = "No installation folders with ARK found.";
-                return false;
-            }
-
-            var relativeExportFolder = RelativeExportFolder();
+            var relativeExportFolder = RelativeExportPath();
 
             // there can be multiple steam users, so list the possible export folder for each user
             exportFolders = new (string, string)[existingArkPaths.Length * (steamNamesIds.Length + 1)];
@@ -93,6 +60,53 @@ namespace ARKBreedingStats.utils
                 // for export gun mod
                 exportFolders[i++] = (Path.Combine(arkPath.Path, relativeExportFolder, "ASB"),
                     $"ExportGun ({arkPath.Game})");
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Returns a list of possible Ark installation folders
+        /// </summary>
+        /// <returns></returns>
+        public static bool GetSteamLibraryArkInstallationFolders(out (string Path, Ark.Game Game)[] existingArkPaths, out (string steamPlayerName, string steamPlayerId)[] steamNamesIds, out string error)
+        {
+            existingArkPaths = null;
+            steamNamesIds = null;
+            if (!GetSteamInstallationPath(out var steamPath))
+            {
+                error = "Steam installation couldn't be found, is it installed?";
+                return false;
+            }
+
+            var configFilePath = Path.Combine(steamPath, "config", "config.vdf");
+            var libraryFoldersFilePath = Path.Combine(steamPath, "config", "libraryfolders.vdf");
+            if (!File.Exists(configFilePath))
+            {
+                error = $"Steam config file {configFilePath} not found.";
+                return false;
+            }
+
+            if (!ReadSteamPlayerIdsAndArkInstallPaths(configFilePath, libraryFoldersFilePath,
+                    out steamNamesIds, out string[] arkInstallFolders,
+                    out error)) return false;
+
+            var relativeAsePath = Path.Combine("steamapps", "common", "ARK");
+            var relativeAsaPath = Path.Combine("steamapps", "common", "ARK Survival Ascended");
+            var possibleArkPaths = new List<(string Path, Ark.Game Game)>
+            {
+                (Path.Combine(steamPath, relativeAsePath), Ark.Game.ASE),
+                (Path.Combine(steamPath, relativeAsaPath), Ark.Game.ASA)
+            }; // use steam folder as default
+            possibleArkPaths.AddRange(arkInstallFolders.Select(f => (Path.Combine(f, relativeAsePath), Ase: Ark.Game.ASE)));
+            possibleArkPaths.AddRange(arkInstallFolders.Select(f => (Path.Combine(f, relativeAsaPath), Asa: Ark.Game.ASA)));
+
+            existingArkPaths = possibleArkPaths.Distinct().Where(p => Directory.Exists(p.Path)).ToArray();
+
+            if (!existingArkPaths.Any())
+            {
+                error = "No installation folders with ARK found.";
+                return false;
             }
 
             return true;
@@ -128,13 +142,15 @@ namespace ARKBreedingStats.utils
 
             exportFolders = new[]
             {
-                (Path.Combine(existingArkPaths[0], RelativeExportFolder(), playerId), string.Empty)
+                (Path.Combine(existingArkPaths[0], RelativeExportPath(), playerId), string.Empty)
             };
 
             return true;
         }
 
-        private static string RelativeExportFolder() => Path.Combine("ShooterGame", "Saved", "DinoExports");
+        private static string RelativeExportPath() => Path.Combine("ShooterGame", "Saved", "DinoExports");
+        public static string RelativeLocalConfigPathAse() => Path.Combine("ShooterGame", "Saved", "Config", "WindowsNoEditor");
+        public static string RelativeLocalConfigPathAsa() => Path.Combine("ShooterGame", "Saved", "Config", "Windows");
 
         private static bool GetSteamInstallationPath(out string steamPath)
         {
@@ -271,6 +287,34 @@ namespace ARKBreedingStats.utils
                 if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath)) return new DateTime();
                 return new DirectoryInfo(folderPath).GetFiles("*.ini").Select(fi => fi.LastWriteTime).DefaultIfEmpty(new DateTime()).Max();
             }
+        }
+
+        /// <summary>
+        /// Returns the path to the local config folder, where the files game.ini and gameUserSettings.ini are stored.
+        /// </summary>
+        public static bool GetLocalArkConfigPaths(out (string, Ark.Game)[] localConfigPaths, out string error)
+        {
+            localConfigPaths = null;
+
+            if (!GetSteamLibraryArkInstallationFolders(out var existingArkPaths, out _, out error))
+                return false;
+
+            var relativeLocalConfigPathAse = RelativeLocalConfigPathAse();
+            var relativeLocalConfigPathAsa = RelativeLocalConfigPathAsa();
+
+            localConfigPaths = new (string, Ark.Game)[existingArkPaths.Length];
+            int i = 0;
+            foreach (var arkPath in existingArkPaths)
+            {
+                localConfigPaths[i++] = (
+                        arkPath.Game == Ark.Game.ASE
+                            ? Path.Combine(arkPath.Path, relativeLocalConfigPathAse)
+                            : Path.Combine(arkPath.Path, relativeLocalConfigPathAsa),
+                        arkPath.Game
+                    );
+            }
+
+            return true;
         }
     }
 }

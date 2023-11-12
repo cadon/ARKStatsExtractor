@@ -135,6 +135,7 @@ namespace ARKBreedingStats
             this.helpAboutSpeciesSortingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
+            this.discordServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.onlinehelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BreedingPlanHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.extractionIssuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -359,7 +360,6 @@ namespace ARKBreedingStats
             this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetLibraryColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
-            this.discordServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -1321,6 +1321,13 @@ namespace ARKBreedingStats
             // 
             this.toolStripSeparator11.Name = "toolStripSeparator11";
             this.toolStripSeparator11.Size = new System.Drawing.Size(186, 6);
+            // 
+            // discordServerToolStripMenuItem
+            // 
+            this.discordServerToolStripMenuItem.Name = "discordServerToolStripMenuItem";
+            this.discordServerToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.discordServerToolStripMenuItem.Text = "Go to Discord server…";
+            this.discordServerToolStripMenuItem.Click += new System.EventHandler(this.discordServerToolStripMenuItem_Click);
             // 
             // onlinehelpToolStripMenuItem
             // 
@@ -3538,13 +3545,6 @@ namespace ARKBreedingStats
             this.speciesSelector1.Size = new System.Drawing.Size(1878, 775);
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
-            // 
-            // discordServerToolStripMenuItem
-            // 
-            this.discordServerToolStripMenuItem.Name = "discordServerToolStripMenuItem";
-            this.discordServerToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.discordServerToolStripMenuItem.Text = "Go to Discord server…";
-            this.discordServerToolStripMenuItem.Click += new System.EventHandler(this.discordServerToolStripMenuItem_Click);
             // 
             // Form1
             // 
