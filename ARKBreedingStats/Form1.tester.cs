@@ -332,13 +332,12 @@ namespace ARKBreedingStats
             var species = speciesSelector1.SelectedSpecies;
             if (species == null) return;
 
-            var maxLevel = CreatureCollection.CurrentCreatureCollection?.maxChartLevel ?? 50;
-            var r = new Random();
+            var difficulty = (CreatureCollection.CurrentCreatureCollection?.maxWildLevel ?? 150) / 30;
+            var creature = DummyCreatures.CreateCreature(species, difficulty, false);
+
             for (int si = 0; si < Stats.StatsCount; si++)
             {
-                if (species.UsesStat(si) && species.CanLevelUpWildOrHaveMutations(si))
-                    _testingIOs[si].LevelWild = r.Next(maxLevel);
-                else _testingIOs[si].LevelWild = 0;
+                _testingIOs[si].LevelWild = creature.levelsWild[si];
             }
         }
 

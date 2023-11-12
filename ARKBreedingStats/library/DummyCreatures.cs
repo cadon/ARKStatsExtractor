@@ -5,6 +5,7 @@ using ARKBreedingStats.BreedingPlanning;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace ARKBreedingStats.library
 {
@@ -48,9 +49,6 @@ namespace ARKBreedingStats.library
                 SetServer = setServer
             };
 
-            if (_levelInverseCumulativeFunction == null)
-                InitializeLevelFunction();
-
             var creatures = new List<Creature>(count);
 
             var rand = new Random();
@@ -85,7 +83,6 @@ namespace ARKBreedingStats.library
             if (maxWildLevel < 1)
                 maxWildLevel = CreatureCollection.CurrentCreatureCollection?.maxWildLevel ?? 150;
             var difficulty = maxWildLevel / 30d;
-            var levelStep = (int)difficulty;
 
             var nameCounter = new Dictionary<string, int>();
 
@@ -94,56 +91,7 @@ namespace ARKBreedingStats.library
                 if (randomSpecies)
                     species = speciesSelection[rand.Next(speciesCount)];
 
-                // rather "tame" higher creatures
-                var creatureLevel = (rand.Next(5) == 0 ? rand.Next(21) + 1 : 21 + rand.Next(10)) * difficulty;
-                var tamingEffectiveness = 0.5 + rand.NextDouble() / 2; // assume at least 50 % te
-                creatureLevel *= 1 + 0.5 * tamingEffectiveness;
-
-                var levelFactor = creatureLevel / _totalLevels;
-                var levelsWild = new int[Stats.StatsCount];
-                var levelsDom = new int[Stats.StatsCount];
-                var torpidityLevel = 0;
-                for (int si = 0; si < Stats.StatsCount; si++)
-                {
-                    if (!species.UsesStat(si) || si == Stats.Torpidity) continue;
-                    var level = (int)(levelFactor * GetBinomialLevel(rand));
-                    torpidityLevel += level;
-                    levelsWild[si] = level;
-                }
-                levelsWild[Stats.Torpidity] = torpidityLevel;
-
-                var sex = species.noGender ? Sex.Unknown : rand.Next(2) == 0 ? Sex.Female : Sex.Male;
-                var names = sex == Sex.Female ? _namesFemale : _namesMale;
-                var name = names[rand.Next(names.Length)];
-                if (nameCounter.TryGetValue(name, out var nameCount))
-                {
-                    nameCounter[name]++;
-                    name += $" {nameCount + 1}";
-                }
-                else
-                {
-                    nameCounter.Add(name, 1);
-                }
-
-                var creature = new Creature(species, name, sex: sex, levelsWild: levelsWild,
-                    levelsDom: levelsDom, tamingEff: tamingEffectiveness)
-                {
-                    guid = Guid.NewGuid()
-                };
-                creature.RecalculateCreatureValues(levelStep);
-
-                creature.colors = species.RandomSpeciesColors(rand);
-
-                if (setOwner)
-                    creature.owner = $"Player {rand.Next(5) + 1}";
-                if (setTribe)
-                    creature.tribe = $"Tribe {rand.Next(5) + 1}";
-                if (setServer)
-                    creature.server = $"Server {rand.Next(5) + 1}";
-
-                creature.InitializeFlags();
-
-                creatures.Add(creature);
+                creatures.Add(CreateCreature(species, difficulty, true, rand, setOwner, setTribe, setServer, nameCounter));
             }
 
             if (breedGenerations > 0)
@@ -162,6 +110,76 @@ namespace ARKBreedingStats.library
             }
 
             return creatures;
+        }
+
+        /// <summary>
+        /// Creates a creature for testing.
+        /// </summary>
+        public static Creature CreateCreature(Species species, double difficulty, bool doTame = true, Random rand = null, bool setOwner = true, bool setTribe = true, bool setServer = true, Dictionary<string, int> nameCounter = null)
+        {
+            if (rand == null) rand = new Random();
+
+            // rather "tame" higher creatures. Base levels are 1-30, scaled by difficulty
+            var creatureLevel = (rand.Next(5) == 0 ? rand.Next(21) + 1 : 21 + rand.Next(10)) * difficulty;
+            var tamingEffectiveness = -3d; // indicating wild
+            if (doTame)
+            {
+                tamingEffectiveness = 0.5 + rand.NextDouble() / 2; // assume at least 50 % te
+                creatureLevel *= 1 + 0.5 * tamingEffectiveness;
+            }
+
+            var levelFactor = creatureLevel / _totalLevels;
+            var levelsWild = new int[Stats.StatsCount];
+            //var levelsMut = new int[Stats.StatsCount];
+            var levelsDom = new int[Stats.StatsCount];
+            var torpidityLevel = 0;
+            for (int si = 0; si < Stats.StatsCount; si++)
+            {
+                if (!species.UsesStat(si) || !species.CanLevelUpWildOrHaveMutations(si) || si == Stats.Torpidity) continue;
+                var level = (int)(levelFactor * GetBinomialLevel(rand));
+                torpidityLevel += level;
+                levelsWild[si] = level;
+            }
+            levelsWild[Stats.Torpidity] = torpidityLevel;
+
+            var sex = species.noGender ? Sex.Unknown : rand.Next(2) == 0 ? Sex.Female : Sex.Male;
+            string name = null;
+            if (doTame)
+            {
+                var names = sex == Sex.Female ? _namesFemale : _namesMale;
+                name = names[rand.Next(names.Length)];
+                if (nameCounter != null)
+                {
+                    if (nameCounter.TryGetValue(name, out var nameCount))
+                    {
+                        nameCounter[name]++;
+                        name += $" {nameCount + 1}";
+                    }
+                    else
+                    {
+                        nameCounter.Add(name, 1);
+                    }
+                }
+            }
+
+            var creature = new Creature(species, name, sex: sex, levelsWild: levelsWild,
+                levelsDom: levelsDom, tamingEff: tamingEffectiveness)
+            {
+                guid = Guid.NewGuid()
+            };
+            creature.RecalculateCreatureValues((int)difficulty);
+
+            creature.colors = species.RandomSpeciesColors(rand);
+            if (setOwner)
+                creature.owner = $"Player {rand.Next(5) + 1}";
+            if (setTribe)
+                creature.tribe = $"Tribe {rand.Next(5) + 1}";
+            if (setServer)
+                creature.server = $"Server {rand.Next(5) + 1}";
+
+            creature.InitializeFlags();
+
+            return creature;
         }
 
         /// <summary>
@@ -342,6 +360,8 @@ namespace ARKBreedingStats.library
         /// </summary>
         private static int GetBinomialLevel(Random rand)
         {
+            if (_levelInverseCumulativeFunction == null)
+                InitializeLevelFunction();
             return _levelInverseCumulativeFunction[rand.Next(MaxSteps)];
         }
 
