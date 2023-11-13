@@ -223,6 +223,7 @@ namespace ARKBreedingStats.multiplierTesting
 
             cbSingleplayerSettings.Checked = _cc.singlePlayerSettings;
             CbAtlas.Checked = _cc.AtlasSettings;
+            CbAllowSpeedLeveling.Checked = _cc.serverMultipliers.AllowSpeedLeveling;
             CbAllowFlyerSpeedLeveling.Checked = _cc.serverMultipliers.AllowFlyerSpeedLeveling;
 
             btUseMultipliersFromSettings.Visible = false;
@@ -246,7 +247,7 @@ namespace ARKBreedingStats.multiplierTesting
             {
                 _statControls[s].SetStatValues(_selectedSpecies.fullStatsRaw[s], customStatsAvailable ? customStatOverrides?[s] : null,
                     _selectedSpecies.altBaseStatsRaw != null && _selectedSpecies.altBaseStatsRaw.TryGetValue(s, out var altV) ? altV / _selectedSpecies.fullStatsRaw[s][0] : 1,
-                    !CbAllowFlyerSpeedLeveling.Checked && species.isFlyer && s == Stats.SpeedMultiplier);
+                    s == Stats.SpeedMultiplier && !(CbAllowSpeedLeveling.Checked && (CbAllowFlyerSpeedLeveling.Checked || !species.isFlyer)));
                 _statControls[s].StatImprintingBonusMultiplier = customStatsAvailable ? customStatOverrides?[Stats.StatsCount]?[s] ?? statImprintMultipliers[s] : statImprintMultipliers[s];
                 _statControls[s].Visible = species.UsesStat(s);
                 _statControls[s].StatName = $"[{s}]{Utils.StatName(s, true, species.statNames)}";
@@ -326,6 +327,7 @@ namespace ARKBreedingStats.multiplierTesting
                 showWarning = _cc.serverMultipliers.BabyImprintingStatScaleMultiplier != (double)nudIBM.Value
                                 || _cc.singlePlayerSettings != cbSingleplayerSettings.Checked
                                 || _cc.AtlasSettings != CbAtlas.Checked
+                                || _cc.serverMultipliers.AllowSpeedLeveling != CbAllowSpeedLeveling.Checked
                                 || _cc.serverMultipliers.AllowFlyerSpeedLeveling != CbAllowFlyerSpeedLeveling.Checked;
                 if (!showWarning)
                 {
@@ -426,6 +428,7 @@ namespace ARKBreedingStats.multiplierTesting
             _cc.serverMultipliers.BabyImprintingStatScaleMultiplier = (double)nudIBM.Value;
             _cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
             _cc.AtlasSettings = CbAtlas.Checked;
+            _cc.serverMultipliers.AllowSpeedLeveling = CbAllowSpeedLeveling.Checked;
             _cc.serverMultipliers.AllowFlyerSpeedLeveling = CbAllowFlyerSpeedLeveling.Checked;
             OnApplyMultipliers?.Invoke();
             btUseMultipliersFromSettings.Visible = false;
@@ -477,20 +480,28 @@ namespace ARKBreedingStats.multiplierTesting
             _statControls[Stats.MeleeDamageMultiplier].AtlasIdMultiplier = useAtlas ? 1.5 : 1;
         }
 
+        private void CbAllowSpeedLeveling_CheckedChanged(object sender, EventArgs e)
+        {
+            SetAllowSpeedLeveling(CbAllowSpeedLeveling.Checked, CbAllowFlyerSpeedLeveling.Checked);
+        }
+
         private void CbAllowFlyerSpeedLeveling_CheckedChanged(object sender, EventArgs e)
         {
-            // non flyers are not affected
-            if (!(_selectedSpecies?.isFlyer ?? false)) return;
+            SetAllowSpeedLeveling(CbAllowSpeedLeveling.Checked, CbAllowFlyerSpeedLeveling.Checked);
+        }
 
-            int speedIndex = Stats.SpeedMultiplier;
+        private void SetAllowSpeedLeveling(bool allowSpeedLeveling, bool allowFlyerSpeedleveling)
+        {
+            if (_selectedSpecies == null) return;
+            var speedLevelingAllowed = allowSpeedLeveling && (allowFlyerSpeedleveling || !_selectedSpecies.isFlyer);
 
             double?[][] customStatOverrides = null;
             bool customStatsAvailable =
                 _cc?.CustomSpeciesStats?.TryGetValue(_selectedSpecies.blueprintPath, out customStatOverrides) ?? false;
 
-            _statControls[speedIndex].SetStatValues(_selectedSpecies.fullStatsRaw[speedIndex], customStatsAvailable ? customStatOverrides?[speedIndex] : null,
-                    _selectedSpecies.altBaseStatsRaw != null && _selectedSpecies.altBaseStatsRaw.TryGetValue(speedIndex, out var altV) ? altV / _selectedSpecies.fullStatsRaw[speedIndex][0] : 1,
-                    !CbAllowFlyerSpeedLeveling.Checked);
+            _statControls[Stats.SpeedMultiplier].SetStatValues(_selectedSpecies.fullStatsRaw[Stats.SpeedMultiplier], customStatsAvailable ? customStatOverrides?[Stats.SpeedMultiplier] : null,
+                    _selectedSpecies.altBaseStatsRaw != null && _selectedSpecies.altBaseStatsRaw.TryGetValue(Stats.SpeedMultiplier, out var altV) ? altV / _selectedSpecies.fullStatsRaw[Stats.SpeedMultiplier][0] : 1,
+                    !speedLevelingAllowed);
         }
 
         private void allWildLvlToToolStripMenuItem_Click(object sender, EventArgs e)
