@@ -2230,5 +2230,17 @@ namespace ARKBreedingStats.Properties {
                 this["DisplayLibraryCreatureIndex"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AskSaveSettingsOnClose {
+            get {
+                return ((bool)(this["AskSaveSettingsOnClose"]));
+            }
+            set {
+                this["AskSaveSettingsOnClose"] = value;
+            }
+        }
     }
 }

@@ -176,6 +176,7 @@
             this.CbbLanguage2 = new System.Windows.Forms.ComboBox();
             this.CbbLanguage = new System.Windows.Forms.ComboBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.CbDisplayLibraryCreatureIndex = new System.Windows.Forms.CheckBox();
             this.CbNaturalSortIgnoreSpaces = new System.Windows.Forms.CheckBox();
             this.CbNaturalSorting = new System.Windows.Forms.CheckBox();
             this.CbConsiderWastedStatsForTopCreatures = new System.Windows.Forms.CheckBox();
@@ -343,7 +344,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.CbDisplayLibraryCreatureIndex = new System.Windows.Forms.CheckBox();
+            this.CbAskSaveSettingsOnClose = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -1809,7 +1810,7 @@
             this.tabPageMultipliers.Location = new System.Drawing.Point(4, 22);
             this.tabPageMultipliers.Name = "tabPageMultipliers";
             this.tabPageMultipliers.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMultipliers.Size = new System.Drawing.Size(750, 699);
+            this.tabPageMultipliers.Size = new System.Drawing.Size(750, 722);
             this.tabPageMultipliers.TabIndex = 1;
             this.tabPageMultipliers.Text = "Multipliers";
             this.tabPageMultipliers.UseVisualStyleBackColor = true;
@@ -2073,6 +2074,7 @@
             // tabPageGeneral
             // 
             this.tabPageGeneral.AutoScroll = true;
+            this.tabPageGeneral.Controls.Add(this.CbAskSaveSettingsOnClose);
             this.tabPageGeneral.Controls.Add(this.groupBox31);
             this.tabPageGeneral.Controls.Add(this.groupBox30);
             this.tabPageGeneral.Controls.Add(this.GbImgCacheLocalAppData);
@@ -2433,6 +2435,16 @@
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Library";
             // 
+            // CbDisplayLibraryCreatureIndex
+            // 
+            this.CbDisplayLibraryCreatureIndex.AutoSize = true;
+            this.CbDisplayLibraryCreatureIndex.Location = new System.Drawing.Point(6, 180);
+            this.CbDisplayLibraryCreatureIndex.Name = "CbDisplayLibraryCreatureIndex";
+            this.CbDisplayLibraryCreatureIndex.Size = new System.Drawing.Size(150, 17);
+            this.CbDisplayLibraryCreatureIndex.TabIndex = 8;
+            this.CbDisplayLibraryCreatureIndex.Text = "Display index before name";
+            this.CbDisplayLibraryCreatureIndex.UseVisualStyleBackColor = true;
+            // 
             // CbNaturalSortIgnoreSpaces
             // 
             this.CbNaturalSortIgnoreSpaces.AutoSize = true;
@@ -2524,7 +2536,7 @@
             this.tabPageInfoGraphic.Controls.Add(this.label50);
             this.tabPageInfoGraphic.Location = new System.Drawing.Point(4, 22);
             this.tabPageInfoGraphic.Name = "tabPageInfoGraphic";
-            this.tabPageInfoGraphic.Size = new System.Drawing.Size(750, 699);
+            this.tabPageInfoGraphic.Size = new System.Drawing.Size(750, 722);
             this.tabPageInfoGraphic.TabIndex = 7;
             this.tabPageInfoGraphic.Text = "Info Graphic";
             this.tabPageInfoGraphic.UseVisualStyleBackColor = true;
@@ -2782,7 +2794,7 @@
             this.tabPageImportSavegame.Location = new System.Drawing.Point(4, 22);
             this.tabPageImportSavegame.Name = "tabPageImportSavegame";
             this.tabPageImportSavegame.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageImportSavegame.Size = new System.Drawing.Size(750, 699);
+            this.tabPageImportSavegame.Size = new System.Drawing.Size(750, 722);
             this.tabPageImportSavegame.TabIndex = 2;
             this.tabPageImportSavegame.Text = "Import Savegame";
             this.tabPageImportSavegame.UseVisualStyleBackColor = true;
@@ -3024,7 +3036,7 @@
             this.tabPageImportExported.Location = new System.Drawing.Point(4, 22);
             this.tabPageImportExported.Name = "tabPageImportExported";
             this.tabPageImportExported.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageImportExported.Size = new System.Drawing.Size(750, 699);
+            this.tabPageImportExported.Size = new System.Drawing.Size(750, 722);
             this.tabPageImportExported.TabIndex = 3;
             this.tabPageImportExported.Text = "Import Exported";
             this.tabPageImportExported.UseVisualStyleBackColor = true;
@@ -3533,7 +3545,7 @@
             this.tabPageTimers.Location = new System.Drawing.Point(4, 22);
             this.tabPageTimers.Name = "tabPageTimers";
             this.tabPageTimers.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTimers.Size = new System.Drawing.Size(750, 699);
+            this.tabPageTimers.Size = new System.Drawing.Size(750, 722);
             this.tabPageTimers.TabIndex = 6;
             this.tabPageTimers.Text = "Timers";
             this.tabPageTimers.UseVisualStyleBackColor = true;
@@ -3617,7 +3629,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3625,7 +3637,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3633,7 +3645,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3641,7 +3653,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -3659,7 +3671,7 @@
             this.tabPageOverlay.Location = new System.Drawing.Point(4, 22);
             this.tabPageOverlay.Name = "tabPageOverlay";
             this.tabPageOverlay.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOverlay.Size = new System.Drawing.Size(750, 699);
+            this.tabPageOverlay.Size = new System.Drawing.Size(750, 722);
             this.tabPageOverlay.TabIndex = 5;
             this.tabPageOverlay.Text = "Overlay";
             this.tabPageOverlay.UseVisualStyleBackColor = true;
@@ -4039,7 +4051,7 @@
             this.tabPageOCR.Location = new System.Drawing.Point(4, 22);
             this.tabPageOCR.Name = "tabPageOCR";
             this.tabPageOCR.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOCR.Size = new System.Drawing.Size(750, 699);
+            this.tabPageOCR.Size = new System.Drawing.Size(750, 722);
             this.tabPageOCR.TabIndex = 4;
             this.tabPageOCR.Text = "OCR";
             this.tabPageOCR.UseVisualStyleBackColor = true;
@@ -4360,15 +4372,15 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // CbDisplayLibraryCreatureIndex
+            // CbAskSaveSettingsOnClose
             // 
-            this.CbDisplayLibraryCreatureIndex.AutoSize = true;
-            this.CbDisplayLibraryCreatureIndex.Location = new System.Drawing.Point(6, 180);
-            this.CbDisplayLibraryCreatureIndex.Name = "CbDisplayLibraryCreatureIndex";
-            this.CbDisplayLibraryCreatureIndex.Size = new System.Drawing.Size(150, 17);
-            this.CbDisplayLibraryCreatureIndex.TabIndex = 8;
-            this.CbDisplayLibraryCreatureIndex.Text = "Display index before name";
-            this.CbDisplayLibraryCreatureIndex.UseVisualStyleBackColor = true;
+            this.CbAskSaveSettingsOnClose.AutoSize = true;
+            this.CbAskSaveSettingsOnClose.Location = new System.Drawing.Point(329, 699);
+            this.CbAskSaveSettingsOnClose.Name = "CbAskSaveSettingsOnClose";
+            this.CbAskSaveSettingsOnClose.Size = new System.Drawing.Size(309, 17);
+            this.CbAskSaveSettingsOnClose.TabIndex = 15;
+            this.CbAskSaveSettingsOnClose.Text = "Ask to save settings if this window is closed via the X button";
+            this.CbAskSaveSettingsOnClose.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -4446,6 +4458,7 @@
             this.groupBox11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).EndInit();
             this.tabPageGeneral.ResumeLayout(false);
+            this.tabPageGeneral.PerformLayout();
             this.groupBox31.ResumeLayout(false);
             this.groupBox31.PerformLayout();
             this.groupBox30.ResumeLayout(false);
@@ -4849,5 +4862,6 @@
         private System.Windows.Forms.Button BtGameNameAsa;
         private System.Windows.Forms.Button BtAutoImportLocalSettings;
         private System.Windows.Forms.CheckBox CbDisplayLibraryCreatureIndex;
+        private System.Windows.Forms.CheckBox CbAskSaveSettingsOnClose;
     }
 }

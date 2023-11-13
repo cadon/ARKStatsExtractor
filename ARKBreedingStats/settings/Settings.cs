@@ -429,6 +429,8 @@ namespace ARKBreedingStats.settings
 
             cbAdminConsoleCommandWithCheat.Checked = Properties.Settings.Default.AdminConsoleCommandWithCheat;
 
+            CbAskSaveSettingsOnClose.Checked = Properties.Settings.Default.AskSaveSettingsOnClose;
+
             string langKey = _languages.FirstOrDefault(x => x.Value == Properties.Settings.Default.language).Key ?? string.Empty;
             int langI = CbbLanguage.Items.IndexOf(langKey);
             CbbLanguage.SelectedIndex = langI == -1 ? 0 : langI;
@@ -659,6 +661,8 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.prettifyCollectionJson = cbPrettifyJSON.Checked;
 
             Properties.Settings.Default.AdminConsoleCommandWithCheat = cbAdminConsoleCommandWithCheat.Checked;
+
+            Properties.Settings.Default.AskSaveSettingsOnClose = CbAskSaveSettingsOnClose.Checked;
 
             string oldLanguageSetting = Properties.Settings.Default.language;
             Properties.Settings.Default.language = _languages.TryGetValue(CbbLanguage.SelectedItem.ToString(), out var languageId) ? languageId : string.Empty;
@@ -1119,7 +1123,8 @@ namespace ARKBreedingStats.settings
         {
             if (e.CloseReason == CloseReason.UserClosing
                 && ActiveControl != buttonOK
-                && ActiveControl != buttonCancel)
+                && ActiveControl != buttonCancel
+                && Properties.Settings.Default.AskSaveSettingsOnClose)
             {
                 switch (MessageBox.Show("Save settings?", "Save settings?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning))
                 {
