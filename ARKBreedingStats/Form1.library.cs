@@ -805,11 +805,18 @@ namespace ARKBreedingStats
             {
                 e.DrawDefault = false;
                 var rect = e.Bounds;
+                var count = 0;
+                var speciesCreatureCount = creature.Species.blueprintPath != null &&
+                    _creatureCollection.GetCreatureCountBySpecies()
+                        .TryGetValue(creature.Species.blueprintPath, out count)
+                        ? count
+                        : 0;
+                var displayedText = creature.Species.DescriptiveNameAndMod + " (" + count + ")";
                 float middle = (rect.Top + rect.Bottom) / 2f;
                 e.Graphics.FillRectangle(Brushes.Blue, rect.Left, middle, rect.Width - 3, 1);
-                SizeF strSize = e.Graphics.MeasureString(creature.Species.DescriptiveNameAndMod, e.Item.Font);
+                SizeF strSize = e.Graphics.MeasureString(displayedText, e.Item.Font);
                 e.Graphics.FillRectangle(new SolidBrush(e.Item.BackColor), rect.Left, rect.Top, strSize.Width + 15, rect.Height);
-                e.Graphics.DrawString(creature.Species.DescriptiveNameAndMod, e.Item.Font, Brushes.Black, rect.Left + 10, rect.Top + ((rect.Height - strSize.Height) / 2f));
+                e.Graphics.DrawString(displayedText, e.Item.Font, Brushes.Black, rect.Left + 10, rect.Top + ((rect.Height - strSize.Height) / 2f));
             }
         }
 

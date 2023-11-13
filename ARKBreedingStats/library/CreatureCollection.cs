@@ -147,6 +147,8 @@ namespace ARKBreedingStats.Library
         [JsonProperty]
         public Dictionary<string, double?[][]> CustomSpeciesStats;
 
+        public Dictionary<string, int> _creatureCountBySpecies;
+
         /// <summary>
         /// Calculates a hashcode for a list of mods and their order. Can be used to check for changes.
         /// </summary>
@@ -344,7 +346,10 @@ namespace ARKBreedingStats.Library
             }
 
             if (creaturesWereAddedOrUpdated)
+            {
                 ResetExistingColors(onlyOneSpeciesAdded ? onlyThisSpeciesAdded : null);
+                _creatureCountBySpecies = null;
+            }
 
             return creaturesWereAddedOrUpdated;
         }
@@ -355,13 +360,13 @@ namespace ARKBreedingStats.Library
         /// <param name="c"></param>
         internal void DeleteCreature(Creature c)
         {
-            if (creatures.Remove(c))
-            {
-                if (DeletedCreatureGuids == null)
-                    DeletedCreatureGuids = new List<Guid>();
-                DeletedCreatureGuids.Add(c.guid);
-                ResetExistingColors(c.Species);
-            }
+            if (!creatures.Remove(c)) return;
+
+            if (DeletedCreatureGuids == null)
+                DeletedCreatureGuids = new List<Guid>();
+            DeletedCreatureGuids.Add(c.guid);
+            ResetExistingColors(c.Species);
+            _creatureCountBySpecies = null;
         }
 
         public int? getWildLevelStep()
@@ -610,6 +615,17 @@ namespace ARKBreedingStats.Library
                         break;
                 }
             }
+        }
+
+        public Dictionary<string, int> GetCreatureCountBySpecies(bool recalculate = false)
+        {
+            if (_creatureCountBySpecies == null || recalculate)
+            {
+                _creatureCountBySpecies = creatures.Where(c => !c.flags.HasFlag(CreatureFlags.Placeholder)).GroupBy(c => c.speciesBlueprint)
+                    .ToDictionary(g => g.Key, g => g.Count());
+            }
+
+            return _creatureCountBySpecies;
         }
     }
 }
