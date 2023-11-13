@@ -293,6 +293,10 @@
 			"version": "356.5.1654594229",
 			"mod": { "id": "2247209652", "tag": "MonstersandMore", "title": "Monsters and More" }
 		},
+		"2269289965-RRMod_StarPegasus.json": {
+			"version": "358.17.1650033587",
+			"mod": { "id": "2269289965", "tag": "RRMod_StarPegasus", "title": "RR-StarPegasus" }
+		},
 		"2337840412-RRMod_StarFarmAnimals.json": {
 			"version": "356.5.1650033456",
 			"mod": { "id": "2337840412", "tag": "RRMod_StarFarmAnimals", "title": "RRMod StarFarmAnimals" }
@@ -394,7 +398,7 @@
 			"mod": { "id": "919470289", "tag": "SSFlyer", "title": "SSFlyer" }
 		},
 		"ASA-values.json": {
-			"version": "25.53.449745",
+			"version": "25.53.449746",
 			"format": "1.15-asa",
 			"mod": { "id": "ASA", "tag": "", "title": "Ark: Survival Ascended", "shortTitle": "ASA", "official": true }
 		},
