@@ -1967,6 +1967,7 @@ namespace ARKBreedingStats
             bool libraryTopCreatureColorHighlight = Properties.Settings.Default.LibraryHighlightTopCreatures;
             bool considerWastedStatsForTopCreatures = Properties.Settings.Default.ConsiderWastedStatsForTopCreatures;
             var gameSettingBefore = _creatureCollection.Game;
+            var displayLibraryCreatureIndexBefore = Properties.Settings.Default.DisplayLibraryCreatureIndex;
 
             using (Settings settingsForm = new Settings(_creatureCollection, page))
             {
@@ -2021,6 +2022,9 @@ namespace ARKBreedingStats
                 FilterLibRecalculate();
 
             SetOverlayLocation();
+
+            if (displayLibraryCreatureIndexBefore != Properties.Settings.Default.DisplayLibraryCreatureIndex)
+                FilterLib();
 
             SetCollectionChanged(true);
         }
