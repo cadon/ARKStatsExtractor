@@ -496,6 +496,8 @@ namespace ARKBreedingStats.values
 
             currentServerMultipliers.FixZeroValues();
             double[] defaultMultipliers = new double[] { 1, 1, 1, 1 }; // used if serverMultipliers don't specify non-default values
+            var allowSpeedLeveling = cc.serverMultipliers.AllowSpeedLeveling || cc.Game != Ark.Asa;
+            var allowFlyerSpeedLeveling = cc.serverMultipliers.AllowFlyerSpeedLeveling;
 
             foreach (Species sp in species)
             {
@@ -597,7 +599,7 @@ namespace ARKBreedingStats.values
                     }
                 }
 
-                sp.ApplyCanLevelOptions(cc.serverMultipliers.AllowSpeedLeveling, cc.serverMultipliers.AllowFlyerSpeedLeveling);
+                sp.ApplyCanLevelOptions(allowSpeedLeveling, allowFlyerSpeedLeveling);
 
                 // breeding multiplier
                 if (sp.breeding == null)

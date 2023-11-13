@@ -144,6 +144,7 @@
             this.buttonEventToDefault = new System.Windows.Forms.Button();
             this.labelEvent = new System.Windows.Forms.Label();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
+            this.CbAskSaveSettingsOnClose = new System.Windows.Forms.CheckBox();
             this.groupBox31 = new System.Windows.Forms.GroupBox();
             this.CbColorIdOnColorRegionButton = new System.Windows.Forms.CheckBox();
             this.CbAlwaysShowAllColorRegions = new System.Windows.Forms.CheckBox();
@@ -344,7 +345,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.CbAskSaveSettingsOnClose = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -1906,9 +1906,9 @@
             this.CbAllowSpeedLeveling.AutoSize = true;
             this.CbAllowSpeedLeveling.Location = new System.Drawing.Point(6, 19);
             this.CbAllowSpeedLeveling.Name = "CbAllowSpeedLeveling";
-            this.CbAllowSpeedLeveling.Size = new System.Drawing.Size(122, 17);
+            this.CbAllowSpeedLeveling.Size = new System.Drawing.Size(174, 17);
             this.CbAllowSpeedLeveling.TabIndex = 1;
-            this.CbAllowSpeedLeveling.Text = "Allow speed leveling";
+            this.CbAllowSpeedLeveling.Text = "Allow speed leveling (only ASA)";
             this.CbAllowSpeedLeveling.UseVisualStyleBackColor = true;
             // 
             // CbAllowFlyerSpeedLeveling
@@ -2095,6 +2095,16 @@
             this.tabPageGeneral.TabIndex = 0;
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
+            // 
+            // CbAskSaveSettingsOnClose
+            // 
+            this.CbAskSaveSettingsOnClose.AutoSize = true;
+            this.CbAskSaveSettingsOnClose.Location = new System.Drawing.Point(329, 699);
+            this.CbAskSaveSettingsOnClose.Name = "CbAskSaveSettingsOnClose";
+            this.CbAskSaveSettingsOnClose.Size = new System.Drawing.Size(309, 17);
+            this.CbAskSaveSettingsOnClose.TabIndex = 15;
+            this.CbAskSaveSettingsOnClose.Text = "Ask to save settings if this window is closed via the X button";
+            this.CbAskSaveSettingsOnClose.UseVisualStyleBackColor = true;
             // 
             // groupBox31
             // 
@@ -3629,7 +3639,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3637,7 +3647,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3645,7 +3655,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3653,7 +3663,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -4371,16 +4381,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
-            // 
-            // CbAskSaveSettingsOnClose
-            // 
-            this.CbAskSaveSettingsOnClose.AutoSize = true;
-            this.CbAskSaveSettingsOnClose.Location = new System.Drawing.Point(329, 699);
-            this.CbAskSaveSettingsOnClose.Name = "CbAskSaveSettingsOnClose";
-            this.CbAskSaveSettingsOnClose.Size = new System.Drawing.Size(309, 17);
-            this.CbAskSaveSettingsOnClose.TabIndex = 15;
-            this.CbAskSaveSettingsOnClose.Text = "Ask to save settings if this window is closed via the X button";
-            this.CbAskSaveSettingsOnClose.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
