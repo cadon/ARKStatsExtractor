@@ -1967,6 +1967,7 @@ namespace ARKBreedingStats
             bool libraryTopCreatureColorHighlight = Properties.Settings.Default.LibraryHighlightTopCreatures;
             bool considerWastedStatsForTopCreatures = Properties.Settings.Default.ConsiderWastedStatsForTopCreatures;
             var gameSettingBefore = _creatureCollection.Game;
+            var displayLibraryCreatureIndexBefore = Properties.Settings.Default.DisplayLibraryCreatureIndex;
 
             using (Settings settingsForm = new Settings(_creatureCollection, page))
             {
@@ -2021,6 +2022,9 @@ namespace ARKBreedingStats
                 FilterLibRecalculate();
 
             SetOverlayLocation();
+
+            if (displayLibraryCreatureIndexBefore != Properties.Settings.Default.DisplayLibraryCreatureIndex)
+                FilterLib();
 
             SetCollectionChanged(true);
         }
@@ -2397,6 +2401,7 @@ namespace ARKBreedingStats
                 };
                 _overlay.InitLabelPositions();
                 _overlay.CreatureTimers = _creatureCollection.creatures.Where(c => c.ShowInOverlay).ToList();
+                _overlay.timers = _creatureCollection.timerListEntries.Where(t => t.showInOverlay).OrderBy(t => t.time).ToArray();
             }
 
             if (enableOverlay && !SetOverlayLocation()) return;

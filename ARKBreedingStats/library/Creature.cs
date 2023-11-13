@@ -204,6 +204,11 @@ namespace ARKBreedingStats.Library
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public List<string> tags = new List<string>();
 
+        /// <summary>
+        /// Used to display the creature's position in a list.
+        /// </summary>
+        public int ListIndex;
+
         public Creature() { }
 
         public Creature(Species species, string name, string owner = null, string tribe = null, Sex sex = Sex.Unknown,

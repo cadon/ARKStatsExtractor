@@ -91,6 +91,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.setAllWildLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CbAllowSpeedLeveling = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -165,12 +166,13 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.CbAllowSpeedLeveling);
             this.groupBox5.Controls.Add(this.CbAtlas);
             this.groupBox5.Controls.Add(this.CbAllowFlyerSpeedLeveling);
             this.groupBox5.Controls.Add(this.cbSingleplayerSettings);
             this.groupBox5.Location = new System.Drawing.Point(305, 3);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(200, 71);
+            this.groupBox5.Size = new System.Drawing.Size(262, 71);
             this.groupBox5.TabIndex = 10;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Settings";
@@ -189,11 +191,11 @@
             // CbAllowFlyerSpeedLeveling
             // 
             this.CbAllowFlyerSpeedLeveling.AutoSize = true;
-            this.CbAllowFlyerSpeedLeveling.Location = new System.Drawing.Point(6, 42);
+            this.CbAllowFlyerSpeedLeveling.Location = new System.Drawing.Point(134, 42);
             this.CbAllowFlyerSpeedLeveling.Name = "CbAllowFlyerSpeedLeveling";
-            this.CbAllowFlyerSpeedLeveling.Size = new System.Drawing.Size(144, 17);
+            this.CbAllowFlyerSpeedLeveling.Size = new System.Drawing.Size(119, 17);
             this.CbAllowFlyerSpeedLeveling.TabIndex = 1;
-            this.CbAllowFlyerSpeedLeveling.Text = "AllowFlyerSpeedLeveling";
+            this.CbAllowFlyerSpeedLeveling.Text = "FlyerSpeedLeveling";
             this.CbAllowFlyerSpeedLeveling.UseVisualStyleBackColor = true;
             this.CbAllowFlyerSpeedLeveling.CheckedChanged += new System.EventHandler(this.CbAllowFlyerSpeedLeveling_CheckedChanged);
             // 
@@ -211,7 +213,7 @@
             // btUseMultipliersFromSettings
             // 
             this.btUseMultipliersFromSettings.BackColor = System.Drawing.Color.LightSalmon;
-            this.btUseMultipliersFromSettings.Location = new System.Drawing.Point(511, 3);
+            this.btUseMultipliersFromSettings.Location = new System.Drawing.Point(573, 3);
             this.btUseMultipliersFromSettings.Name = "btUseMultipliersFromSettings";
             this.btUseMultipliersFromSettings.Size = new System.Drawing.Size(256, 44);
             this.btUseMultipliersFromSettings.TabIndex = 12;
@@ -224,7 +226,7 @@
             // 
             this.llStatCalculation.AutoSize = true;
             this.flowLayoutPanel1.SetFlowBreak(this.llStatCalculation, true);
-            this.llStatCalculation.Location = new System.Drawing.Point(773, 16);
+            this.llStatCalculation.Location = new System.Drawing.Point(835, 16);
             this.llStatCalculation.Margin = new System.Windows.Forms.Padding(3, 16, 3, 0);
             this.llStatCalculation.Name = "llStatCalculation";
             this.llStatCalculation.Size = new System.Drawing.Size(160, 13);
@@ -784,6 +786,17 @@
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Text = "Set all Dom levels to the closest value";
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Click += new System.EventHandler(this.setAllDomLevelsToTheClosestValueToolStripMenuItem_Click);
             // 
+            // CbAllowSpeedLeveling
+            // 
+            this.CbAllowSpeedLeveling.AutoSize = true;
+            this.CbAllowSpeedLeveling.Location = new System.Drawing.Point(6, 42);
+            this.CbAllowSpeedLeveling.Name = "CbAllowSpeedLeveling";
+            this.CbAllowSpeedLeveling.Size = new System.Drawing.Size(122, 17);
+            this.CbAllowSpeedLeveling.TabIndex = 3;
+            this.CbAllowSpeedLeveling.Text = "AllowSpeedLeveling";
+            this.CbAllowSpeedLeveling.UseVisualStyleBackColor = true;
+            this.CbAllowSpeedLeveling.CheckedChanged += new System.EventHandler(this.CbAllowSpeedLeveling_CheckedChanged);
+            // 
             // StatsMultiplierTesting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -885,5 +898,6 @@
         private System.Windows.Forms.CheckBox CbAllowFlyerSpeedLeveling;
         private System.Windows.Forms.Label LbCalculatedWildLevel;
         private System.Windows.Forms.CheckBox CbAtlas;
+        private System.Windows.Forms.CheckBox CbAllowSpeedLeveling;
     }
 }

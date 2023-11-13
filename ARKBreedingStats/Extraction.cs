@@ -549,25 +549,23 @@ namespace ARKBreedingStats
 
         public void RemoveImpossibleTEsAccordingToMaxWildLevel(int maxWildLevel)
         {
-            if (!_bred
-                && maxWildLevel > 0
-                && LevelWildSum + 1 > maxWildLevel)
-            {
-                double minTECheck = 2d * (LevelWildSum + 1 - maxWildLevel) / maxWildLevel;
+            if (_bred
+                || maxWildLevel <= 0
+                || LevelWildSum + 1 <= maxWildLevel) return;
 
-                // if min TE is equal or greater than 1, that indicates it can't possibly be anything but bred, and there cannot be any results that should be sorted out
-                if (minTECheck < 1)
+            var minTeCheck = 2d * (LevelWildSum + 1 - maxWildLevel) / maxWildLevel;
+
+            // if min TE is equal or greater than 1, that indicates it can't possibly be anything but bred, and there cannot be any results that should be sorted out
+            if (!(minTeCheck < 1)) return;
+
+            for (int s = 0; s < Stats.StatsCount; s++)
+            {
+                if (Results[s].Count == 0 || Results[s][0].TE.Max < 0)
+                    continue;
+                for (int r = 0; r < Results[s].Count; r++)
                 {
-                    for (int s = 0; s < Stats.StatsCount; s++)
-                    {
-                        if (Results[s].Count == 0 || Results[s][0].TE.Max < 0)
-                            continue;
-                        for (int r = 0; r < Results[s].Count; r++)
-                        {
-                            if (Results[s][r].TE.Max < minTECheck)
-                                Results[s].RemoveAt(r--);
-                        }
-                    }
+                    if (Results[s][r].TE.Max < minTeCheck)
+                        Results[s].RemoveAt(r--);
                 }
             }
         }

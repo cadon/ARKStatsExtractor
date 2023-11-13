@@ -2218,5 +2218,29 @@ namespace ARKBreedingStats.Properties {
                 this["OverlayRelativeFontSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisplayLibraryCreatureIndex {
+            get {
+                return ((bool)(this["DisplayLibraryCreatureIndex"]));
+            }
+            set {
+                this["DisplayLibraryCreatureIndex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AskSaveSettingsOnClose {
+            get {
+                return ((bool)(this["AskSaveSettingsOnClose"]));
+            }
+            set {
+                this["AskSaveSettingsOnClose"] = value;
+            }
+        }
     }
 }

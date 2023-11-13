@@ -703,8 +703,8 @@ namespace ARKBreedingStats
         private void ShowCreaturesInListView(IEnumerable<Creature> creatures)
         {
             listViewLibrary.BeginUpdate();
-            IEnumerable<Creature> sorted = _creatureListSorter.DoSort(creatures, orderBySpecies: Properties.Settings.Default.LibraryGroupBySpecies ? _speciesInLibraryOrdered : null);
-            _creaturesDisplayed = Properties.Settings.Default.LibraryGroupBySpecies ? InsertDividers(sorted) : sorted.ToArray();
+            var sorted = _creatureListSorter.DoSort(creatures, orderBySpecies: Properties.Settings.Default.LibraryGroupBySpecies ? _speciesInLibraryOrdered : null);
+            _creaturesDisplayed = Properties.Settings.Default.LibraryGroupBySpecies ? InsertDividers(sorted) : sorted;
             listViewLibrary.VirtualListSize = _creaturesDisplayed.Length;
             _libraryListViewItemCache = null;
             listViewLibrary.EndUpdate();
@@ -723,16 +723,15 @@ namespace ARKBreedingStats
             }
         }
 
-        private Creature[] InsertDividers(IEnumerable<Creature> creatures)
+        private Creature[] InsertDividers(IList<Creature> creatures)
         {
-            var enumerable = creatures.ToList();
-            if (!enumerable.Any())
+            if (!creatures.Any())
             {
                 return Array.Empty<Creature>();
             }
             List<Creature> result = new List<Creature>();
             Species lastSpecies = null;
-            foreach (Creature c in enumerable)
+            foreach (Creature c in creatures)
             {
                 if (lastSpecies == null || c.Species != lastSpecies)
                 {
@@ -765,7 +764,7 @@ namespace ARKBreedingStats
             else if (_creaturesDisplayed?.Length > e.ItemIndex)
             {
                 // create item not available in the cache
-                e.Item = CreateCreatureLvItem(_creaturesDisplayed[e.ItemIndex]);
+                e.Item = CreateCreatureLvItem(_creaturesDisplayed[e.ItemIndex], Properties.Settings.Default.DisplayLibraryCreatureIndex);
             }
         }
 
@@ -785,10 +784,11 @@ namespace ARKBreedingStats
             var length = indexEnd - indexStart + 1;
             _libraryListViewItemCache = new ListViewItem[length];
 
+            var displayIndex = Properties.Settings.Default.DisplayLibraryCreatureIndex;
             //Fill the cache with the appropriate ListViewItems.
             for (int i = 0; i < length; i++)
             {
-                _libraryListViewItemCache[i] = CreateCreatureLvItem(_creaturesDisplayed[i + _libraryItemCacheFirstIndex]);
+                _libraryListViewItemCache[i] = CreateCreatureLvItem(_creaturesDisplayed[i + _libraryItemCacheFirstIndex], displayIndex);
             }
         }
 
@@ -805,11 +805,16 @@ namespace ARKBreedingStats
             {
                 e.DrawDefault = false;
                 var rect = e.Bounds;
+                var count = 0;
+                if (creature.Species.blueprintPath != null)
+                    _creatureCollection.GetCreatureCountBySpecies()
+                        .TryGetValue(creature.Species.blueprintPath, out count);
+                var displayedText = creature.Species.DescriptiveNameAndMod + " (" + count + ")";
                 float middle = (rect.Top + rect.Bottom) / 2f;
                 e.Graphics.FillRectangle(Brushes.Blue, rect.Left, middle, rect.Width - 3, 1);
-                SizeF strSize = e.Graphics.MeasureString(creature.Species.DescriptiveNameAndMod, e.Item.Font);
+                SizeF strSize = e.Graphics.MeasureString(displayedText, e.Item.Font);
                 e.Graphics.FillRectangle(new SolidBrush(e.Item.BackColor), rect.Left, rect.Top, strSize.Width + 15, rect.Height);
-                e.Graphics.DrawString(creature.Species.DescriptiveNameAndMod, e.Item.Font, Brushes.Black, rect.Left + 10, rect.Top + ((rect.Height - strSize.Height) / 2f));
+                e.Graphics.DrawString(displayedText, e.Item.Font, Brushes.Black, rect.Left + 10, rect.Top + ((rect.Height - strSize.Height) / 2f));
             }
         }
 
@@ -943,7 +948,7 @@ namespace ARKBreedingStats
             var cacheIndex = index - _libraryItemCacheFirstIndex;
             if (cacheIndex >= 0 && cacheIndex < _libraryListViewItemCache.Length)
             {
-                _libraryListViewItemCache[cacheIndex] = CreateCreatureLvItem(creature);
+                _libraryListViewItemCache[cacheIndex] = CreateCreatureLvItem(creature, Properties.Settings.Default.DisplayLibraryCreatureIndex);
             }
         }
 
@@ -961,7 +966,7 @@ namespace ARKBreedingStats
         private const int ColumnIndexPostColor = 30;
         private const int ColumnIndexMutagenApplied = 34;
 
-        private ListViewItem CreateCreatureLvItem(Creature cr)
+        private ListViewItem CreateCreatureLvItem(Creature cr, bool displayIndex = false)
         {
             if (cr.flags.HasFlag(CreatureFlags.Divider))
             {
@@ -974,6 +979,7 @@ namespace ARKBreedingStats
             double colorFactor = 100d / _creatureCollection.maxChartLevel;
 
             string[] subItems = new[] {
+                        (displayIndex ? cr.ListIndex + " - " : string.Empty) +
                         cr.name,
                         cr.owner,
                         cr.note,
@@ -1209,8 +1215,8 @@ namespace ARKBreedingStats
             foreach (int i in listViewLibrary.SelectedIndices)
                 selectedCreatures.Add(_creaturesDisplayed[i]);
 
-            IEnumerable<Creature> sorted = _creatureListSorter.DoSort(_creaturesDisplayed.Where(c => !c.flags.HasFlag(CreatureFlags.Divider)), columnIndex, Properties.Settings.Default.LibraryGroupBySpecies ? _speciesInLibraryOrdered : null);
-            _creaturesDisplayed = Properties.Settings.Default.LibraryGroupBySpecies ? InsertDividers(sorted) : sorted.ToArray();
+            var sorted = _creatureListSorter.DoSort(_creaturesDisplayed.Where(c => !c.flags.HasFlag(CreatureFlags.Divider)), columnIndex, Properties.Settings.Default.LibraryGroupBySpecies ? _speciesInLibraryOrdered : null);
+            _creaturesDisplayed = Properties.Settings.Default.LibraryGroupBySpecies ? InsertDividers(sorted) : sorted;
             _libraryListViewItemCache = null;
             listViewLibrary.EndUpdate();
             SelectCreaturesInLibrary(selectedCreatures);
@@ -1636,11 +1642,11 @@ namespace ARKBreedingStats
             }
         }
 
-        private Debouncer filterLibraryDebouncer = new Debouncer();
+        private readonly Debouncer _filterLibraryDebouncer = new Debouncer();
 
         private void ToolStripTextBoxLibraryFilter_TextChanged(object sender, EventArgs e)
         {
-            filterLibraryDebouncer.Debounce(ToolStripTextBoxLibraryFilter.Text == string.Empty ? 0 : 500, FilterLib, Dispatcher.CurrentDispatcher, false);
+            _filterLibraryDebouncer.Debounce(ToolStripTextBoxLibraryFilter.Text == string.Empty ? 0 : 500, FilterLib, Dispatcher.CurrentDispatcher, false);
         }
 
         private void ToolStripButtonLibraryFilterClear_Click(object sender, EventArgs e)
