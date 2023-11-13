@@ -2401,6 +2401,7 @@ namespace ARKBreedingStats
                 };
                 _overlay.InitLabelPositions();
                 _overlay.CreatureTimers = _creatureCollection.creatures.Where(c => c.ShowInOverlay).ToList();
+                _overlay.timers = _creatureCollection.timerListEntries.Where(t => t.showInOverlay).OrderBy(t => t.time).ToArray();
             }
 
             if (enableOverlay && !SetOverlayLocation()) return;
