@@ -8,6 +8,7 @@ namespace ARKBreedingStats.importExportGun
     [JsonObject]
     internal class ExportGunServerFile
     {
+        public int Version { get; set; }
         public double[] WildLevel { get; set; }
         public double[] TameLevel { get; set; }
         public double[] TameAdd { get; set; }
@@ -29,5 +30,9 @@ namespace ARKBreedingStats.importExportGun
         public bool AllowSpeedLeveling { get; set; }
         public bool AllowFlyerSpeedLeveling { get; set; }
         public bool UseSingleplayerSettings { get; set; }
+        /// <summary>
+        /// ASE or ASA
+        /// </summary>
+        public string Game { get; set; }
     }
 }

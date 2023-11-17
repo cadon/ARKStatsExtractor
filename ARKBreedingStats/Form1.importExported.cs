@@ -70,62 +70,78 @@ namespace ARKBreedingStats
         /// </summary>
         private void ImportLastExportedCreature()
         {
-            if (Utils.GetFirstImportExportFolder(out string folder))
+            if (!Utils.GetFirstImportExportFolder(out string folder))
             {
-                var files = Directory.GetFiles(folder);
-                if (files.Length == 0)
+                if (MessageBox.Show("There is no folder set where the exported creatures are located, or the set folder does not exist. Set this folder in the settings. " +
+                                    "Usually the folder path ends with\n" + @"…\ARK\ShooterGame\Saved\DinoExports\<ID>" + "\n\nOpen the settings-page?",
+                        $"No default export-folder set - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
-                    // some users forget to select the id folder where the export files are located. Check if that's the case
-                    FileInfo lastExportFile = null;
-                    if (Path.GetFileName(folder) == "DinoExports")
-                    {
-                        // check subfolders for export files
-                        var subFolders = Directory.GetDirectories(folder);
-                        foreach (var sf in subFolders)
-                        {
-                            var d = new DirectoryInfo(sf);
-                            var fs = d.GetFiles("*.ini");
-                            if (!fs.Any()) continue;
-                            var expFile = fs.OrderByDescending(f => f.LastWriteTime).First();
-                            if (lastExportFile == null || expFile.LastWriteTime > lastExportFile.LastWriteTime)
-                                lastExportFile = expFile;
-                        }
-                    }
-
-                    if (lastExportFile == null)
-                    {
-                        MessageBoxes.ShowMessageBox(
-                            $"No exported creature-file found in the set folder\n{folder}\nYou have to export a creature first ingame.\n\n" +
-                            "You may also want to check the set folder in the settings. Usually the folder path ends with\n" +
-                            @"…\ARK\ShooterGame\Saved\DinoExports\<ID>",
-                            $"No files found");
-                        return;
-                    }
-
-                    if (MessageBox.Show(
-                            $"No exported creature-file found in the set folder\n{folder}\n\nThere seems to be an export file in a subfolder, do you want to use this folder instead?\n{lastExportFile.DirectoryName}",
-                            $"Use subfolder with export file? - {Utils.ApplicationNameVersion}",
-                            MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                    {
-                        var exportFolders = Properties.Settings.Default.ExportCreatureFolders;
-                        var firstExportFolder = ATImportExportedFolderLocation.CreateFromString(exportFolders[0]);
-                        firstExportFolder.FolderPath = lastExportFile.DirectoryName;
-                        exportFolders[0] = firstExportFolder.ToString();
-
-                        ExtractExportedFileInExtractor(lastExportFile.FullName);
-                    }
-                    return;
+                    OpenSettingsDialog(Settings.SettingsTabPages.ExportedImport);
                 }
-
-                ExtractExportedFileInExtractor(files.OrderByDescending(File.GetLastWriteTime).First());
                 return;
             }
 
-            if (MessageBox.Show("There is no folder set where the exported creatures are located, or the set folder does not exist. Set this folder in the settings. " +
-                                "Usually the folder path ends with\n" + @"…\ARK\ShooterGame\Saved\DinoExports\<ID>" + "\n\nOpen the settings-page?",
-                                $"No default export-folder set - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+            var files = Directory.GetFiles(folder);
+            if (files.Length == 0)
             {
-                OpenSettingsDialog(Settings.SettingsTabPages.ExportedImport);
+                // some users forget to select the id folder where the export files are located. Check if that's the case
+                FileInfo lastExportFile = null;
+                if (Path.GetFileName(folder) == "DinoExports")
+                {
+                    // check subfolders for export files
+                    var subFolders = Directory.GetDirectories(folder);
+                    foreach (var sf in subFolders)
+                    {
+                        var d = new DirectoryInfo(sf);
+                        var fs = d.GetFiles("*.ini");
+                        if (!fs.Any()) continue;
+                        var expFile = fs.OrderByDescending(f => f.LastWriteTime).First();
+                        if (lastExportFile == null || expFile.LastWriteTime > lastExportFile.LastWriteTime)
+                            lastExportFile = expFile;
+                    }
+                }
+
+                if (lastExportFile == null)
+                {
+                    MessageBoxes.ShowMessageBox(
+                        $"No exported creature-file found in the set folder\n{folder}\nYou have to export a creature first ingame.\n\n" +
+                        "You may also want to check the set folder in the settings. Usually the folder path ends with\n" +
+                        @"…\ARK\ShooterGame\Saved\DinoExports\<ID>",
+                        $"No files found");
+                    return;
+                }
+
+                if (MessageBox.Show(
+                        $"No exported creature-file found in the set folder\n{folder}\n\nThere seems to be an export file in a subfolder, do you want to use this folder instead?\n{lastExportFile.DirectoryName}",
+                        $"Use subfolder with export file? - {Utils.ApplicationNameVersion}",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                {
+                    var exportFolders = Properties.Settings.Default.ExportCreatureFolders;
+                    var firstExportFolder = ATImportExportedFolderLocation.CreateFromString(exportFolders[0]);
+                    firstExportFolder.FolderPath = lastExportFile.DirectoryName;
+                    exportFolders[0] = firstExportFolder.ToString();
+
+                    ExtractExportedFileInExtractor(lastExportFile.FullName);
+                }
+                return;
+            }
+
+            var newestExportFile = files.OrderByDescending(File.GetLastWriteTime).First();
+
+            switch (Path.GetExtension(newestExportFile))
+            {
+                case ".ini":
+                    // ini files need to be processed by the extractor
+                    ExtractExportedFileInExtractor(newestExportFile);
+                    return;
+                case ".sav":
+                case ".json":
+                    // export gun mod creature exports can be just added
+                    var creature = ImportExportedAddIfPossible(newestExportFile);
+                    // display imported creature in the extractor to allow adjustments
+                    _ignoreNextMessageLabel = true;
+                    EditCreatureInTester(creature);
+                    return;
             }
         }
 
@@ -165,10 +181,9 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Import exported file. Used by a fileWatcher.
+        /// Import exported file. Used by a fileWatcher. Returns creature if added successfully.
         /// </summary>
-        /// <param name="filePath"></param>
-        private void ImportExportedAddIfPossible(string filePath)
+        private Creature ImportExportedAddIfPossible(string filePath)
         {
             bool alreadyExists;
             bool addedToLibrary = false;
@@ -181,7 +196,7 @@ namespace ARKBreedingStats
             {
                 case ".ini":
                     var loadResult = ExtractExportedFileInExtractor(filePath);
-                    if (loadResult == null) return;
+                    if (loadResult == null) return null;
                     alreadyExists = loadResult.Value;
 
                     uniqueExtraction = _extractor.UniqueResults
@@ -201,11 +216,11 @@ namespace ARKBreedingStats
                                                                 || Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
                                                                 || (!alreadyExists && Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures)
                                                             );
-
                     break;
                 case ".sav":
+                case ".json":
                     alreadyExists = ImportExportGunFiles(new[] { filePath }, out addedToLibrary, out creature);
-                    if (!addedToLibrary || creature == null) return;
+                    if (!addedToLibrary || creature == null) return null;
                     uniqueExtraction = true;
 
                     if (Properties.Settings.Default.applyNamePatternOnAutoImportAlways
@@ -231,7 +246,7 @@ namespace ARKBreedingStats
                     }
 
                     break;
-                default: return;
+                default: return null;
             }
 
             if (creature == null)
@@ -262,7 +277,7 @@ namespace ARKBreedingStats
                         && !FileService.TryCreateDirectory(newPath, out string errorMessage))
                     {
                         MessageBoxes.ShowMessageBox($"Subfolder\n{newPath}\ncould not be created.\n{errorMessage}");
-                        return;
+                        return null;
                     }
 
                     string namePattern = Properties.Settings.Default.AutoImportedExportFileRenamePattern;
@@ -325,6 +340,8 @@ namespace ARKBreedingStats
                 TopMost = true;
                 TopMost = false;
             }
+
+            return addedToLibrary ? creature : null;
         }
 
         /// <summary>

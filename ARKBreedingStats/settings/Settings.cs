@@ -726,6 +726,7 @@ namespace ARKBreedingStats.settings
                     switch (Path.GetExtension(filePath))
                     {
                         case ".sav":
+                        case ".json":
                             LoadServerMultipliersFromSavFile(filePath);
                             break;
                         default:
