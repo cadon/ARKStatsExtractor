@@ -50,9 +50,17 @@ namespace ARKBreedingStats
             }
 
             // use previously used multipliers again in the new file
-            var oldMultipliers = _creatureCollection.serverMultipliers
-                                 ?? Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official);
+            var oldMultipliers = _creatureCollection.serverMultipliers;
             var asaMode = _creatureCollection.Game == Ark.Asa;
+
+            if (!Properties.Settings.Default.KeepMultipliersForNewLibrary)
+            {
+                oldMultipliers = null;
+                asaMode = true; // default to ASA
+            }
+
+            if (oldMultipliers == null)
+                oldMultipliers = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official);
 
             _creatureCollection = new CreatureCollection
             {

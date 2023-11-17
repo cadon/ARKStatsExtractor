@@ -267,6 +267,8 @@ namespace ARKBreedingStats.settings
             CbbAppDefaultFontName.Text = Properties.Settings.Default.DefaultFontName;
             nudDefaultFontSize.Value = (decimal)Properties.Settings.Default.DefaultFontSize;
 
+            CbKeepMultipliersForNewLibrary.Checked = Properties.Settings.Default.KeepMultipliersForNewLibrary;
+
             GbImgCacheLocalAppData.Visible = !Updater.Updater.IsProgramInstalled; // setting is only relevant for portable app
             CbImgCacheUseLocalAppData.Checked = Properties.Settings.Default.ImgCacheUseLocalAppData || Updater.Updater.IsProgramInstalled;
 
@@ -483,6 +485,8 @@ namespace ARKBreedingStats.settings
             _cc.serverMultipliers.AllowFlyerSpeedLeveling = CbAllowFlyerSpeedLeveling.Checked;
             _cc.maxBreedingSuggestions = (int)numericUpDownMaxBreedingSug.Value;
             Properties.Settings.Default.IgnoreSexInBreedingPlan = cbIgnoreSexInBreedingPlan.Checked;
+
+            Properties.Settings.Default.KeepMultipliersForNewLibrary = CbKeepMultipliersForNewLibrary.Checked;
 
             #region non-event-multiplier
             _cc.serverMultipliers.TamingSpeedMultiplier = (double)nudTamingSpeed.Value;
