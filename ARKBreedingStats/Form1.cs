@@ -1871,7 +1871,7 @@ namespace ARKBreedingStats
                 if (s.HasFlag(CreatureStatus.Dead) ^ deadStatusWasSet)
                 {
                     LibraryInfo.ClearInfo();
-                    _creatureCollection.ResetExistingColors(speciesIfOnlyOne);
+                    _creatureCollection.ResetExistingColors(speciesIfOnlyOne?.blueprintPath);
                 }
                 FilterLibRecalculate();
                 UpdateStatusBar();

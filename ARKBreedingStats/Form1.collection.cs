@@ -522,7 +522,7 @@ namespace ARKBreedingStats
 
             if (keepCurrentCreatures)
             {
-                creatureWasAdded = previouslyLoadedCreatureCollection.MergeCreatureList(_creatureCollection.creatures);
+                creatureWasAdded = previouslyLoadedCreatureCollection.MergeCreatureList(_creatureCollection.creatures, removeCreatures: _creatureCollection.DeletedCreatureGuids);
                 _creatureCollection = previouslyLoadedCreatureCollection;
             }
             else
