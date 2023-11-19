@@ -139,11 +139,11 @@ namespace ARKBreedingStats
                 }
                 else if (_creature.isDomesticated)
                 {
-                    SetParentLabel(LbMotherAndWildInfo, "found wild " + _creature.levelFound + (_creature.tamingEff >= 0 ? ", tamed with TE: " + (_creature.tamingEff * 100).ToString("N1") + "%" : ", TE unknown."));
+                    SetParentLabel(LbMotherAndWildInfo, "was level " + _creature.levelFound + " when wild" + (_creature.tamingEff >= 0 ? ", tamed with TE: " + (_creature.tamingEff * 100).ToString("N1") + "%" : ", TE unknown."));
                 }
                 else
                 {
-                    SetParentLabel(LbMotherAndWildInfo, "found wild " + _creature.levelFound);
+                    SetParentLabel(LbMotherAndWildInfo, "is wild level " + _creature.levelFound);
                 }
                 statsDisplay1.SetCreatureValues(_creature);
                 labelNotes.Text = _creature.note;

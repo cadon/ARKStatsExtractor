@@ -23,8 +23,18 @@ namespace ARKBreedingStats.importExportGun
 
             try
             {
-                var jsonText = ReadExportFile.ReadFile(filePath, "DinoExportGunSave_C", out resultText);
-                if (jsonText == null)
+                string jsonText = null;
+                switch (Path.GetExtension(filePath))
+                {
+                    case ".sav":
+                        jsonText = ReadExportFile.ReadFile(filePath, "DinoExportGunSave_C", out resultText);
+                        break;
+                    case ".json":
+                        jsonText = File.ReadAllText(filePath);
+                        break;
+                }
+
+                if (string.IsNullOrEmpty(jsonText))
                 {
                     resultText = $"Error when importing file {filePath}: {resultText}";
                     return null;
@@ -134,7 +144,19 @@ namespace ARKBreedingStats.importExportGun
 
             try
             {
-                var jsonText = ReadExportFile.ReadFile(filePath, "DinoExportGunServerSave_C", out resultText);
+                string jsonText = null;
+                string game = null;
+                switch (Path.GetExtension(filePath))
+                {
+                    case ".sav":
+                        jsonText = ReadExportFile.ReadFile(filePath, "DinoExportGunServerSave_C", out resultText);
+                        game = "ASE";
+                        break;
+                    case ".json":
+                        jsonText = File.ReadAllText(filePath);
+                        game = "ASA";
+                        break;
+                }
                 if (jsonText == null)
                 {
                     resultText = $"Error when importing file {filePath}: {resultText}";
@@ -142,12 +164,13 @@ namespace ARKBreedingStats.importExportGun
                 }
 
                 var exportedServerMultipliers = JsonConvert.DeserializeObject<ExportGunServerFile>(jsonText);
-                if (exportedServerMultipliers == null)
+                if (exportedServerMultipliers?.WildLevel == null)
                 {
                     resultText = $"Unknown error when importing file {filePath}";
                     return null;
                 }
 
+                exportedServerMultipliers.Game = game;
                 resultText = $"Server multipliers imported from {filePath}";
                 return exportedServerMultipliers;
             }
@@ -176,6 +199,7 @@ namespace ARKBreedingStats.importExportGun
             cc.maxServerLevel = esm.DestroyTamesOverLevelClamp;
             cc.serverMultipliers.TamingSpeedMultiplier = Math.Round(esm.TamingSpeedMultiplier, roundToDigits);
             cc.serverMultipliers.DinoCharacterFoodDrainMultiplier = Math.Round(esm.DinoCharacterFoodDrainMultiplier, roundToDigits);
+            cc.serverMultipliers.WildDinoTorporDrainMultiplier = Math.Round(esm.WildDinoTorporDrainMultiplier, roundToDigits);
             cc.serverMultipliers.MatingSpeedMultiplier = Math.Round(esm.MatingSpeedMultiplier, roundToDigits);
             cc.serverMultipliers.MatingIntervalMultiplier = Math.Round(esm.MatingIntervalMultiplier, roundToDigits);
             cc.serverMultipliers.EggHatchSpeedMultiplier = Math.Round(esm.EggHatchSpeedMultiplier, roundToDigits);
@@ -185,8 +209,10 @@ namespace ARKBreedingStats.importExportGun
             cc.serverMultipliers.BabyImprintingStatScaleMultiplier = Math.Round(esm.BabyImprintingStatScaleMultiplier, roundToDigits);
             cc.serverMultipliers.BabyFoodConsumptionSpeedMultiplier = Math.Round(esm.BabyFoodConsumptionSpeedMultiplier, roundToDigits);
             cc.serverMultipliers.TamedDinoCharacterFoodDrainMultiplier = Math.Round(esm.TamedDinoCharacterFoodDrainMultiplier, roundToDigits);
+            cc.serverMultipliers.AllowSpeedLeveling = esm.AllowSpeedLeveling;
             cc.serverMultipliers.AllowFlyerSpeedLeveling = esm.AllowFlyerSpeedLeveling;
             cc.singlePlayerSettings = esm.UseSingleplayerSettings;
+            cc.Game = esm.Game;
 
             cc.ServerMultipliersHash = newServerMultipliersHash;
 

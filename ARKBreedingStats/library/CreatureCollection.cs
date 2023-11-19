@@ -147,7 +147,7 @@ namespace ARKBreedingStats.Library
         [JsonProperty]
         public Dictionary<string, double?[][]> CustomSpeciesStats;
 
-        public Dictionary<string, int> _creatureCountBySpecies;
+        private Dictionary<string, int> _creatureCountBySpecies;
 
         /// <summary>
         /// Calculates a hashcode for a list of mods and their order. Can be used to check for changes.
@@ -202,13 +202,18 @@ namespace ARKBreedingStats.Library
         /// <param name="creaturesToMerge">List of creatures to add</param>
         /// <param name="addPreviouslyDeletedCreatures">If true creatures will be added even if they were just deleted.</param>
         /// <returns>True if creatures were added or updated</returns>
-        public bool MergeCreatureList(IEnumerable<Creature> creaturesToMerge, bool addPreviouslyDeletedCreatures = false)
+        public bool MergeCreatureList(IEnumerable<Creature> creaturesToMerge, bool addPreviouslyDeletedCreatures = false, List<Guid> removeCreatures = null)
         {
             bool creaturesWereAddedOrUpdated = false;
-            Species onlyThisSpeciesAdded = null;
+            string onlyThisSpeciesBlueprintAdded = null;
             bool onlyOneSpeciesAdded = true;
 
             var guidDict = creatures.ToDictionary(c => c.guid);
+
+            if (removeCreatures != null)
+            {
+                creaturesWereAddedOrUpdated = creatures.RemoveAll(c => removeCreatures.Contains(c.guid)) > 0;
+            }
 
             foreach (Creature creatureNew in creaturesToMerge)
             {
@@ -216,9 +221,9 @@ namespace ARKBreedingStats.Library
 
                 if (onlyOneSpeciesAdded)
                 {
-                    if (onlyThisSpeciesAdded == null || onlyThisSpeciesAdded == creatureNew.Species)
-                        onlyThisSpeciesAdded = creatureNew.Species;
-                    else
+                    if (onlyThisSpeciesBlueprintAdded == null)
+                        onlyThisSpeciesBlueprintAdded = creatureNew.speciesBlueprint;
+                    else if (onlyThisSpeciesBlueprintAdded != creatureNew.speciesBlueprint)
                         onlyOneSpeciesAdded = false;
                 }
 
@@ -347,7 +352,7 @@ namespace ARKBreedingStats.Library
 
             if (creaturesWereAddedOrUpdated)
             {
-                ResetExistingColors(onlyOneSpeciesAdded ? onlyThisSpeciesAdded : null);
+                ResetExistingColors(onlyOneSpeciesAdded ? onlyThisSpeciesBlueprintAdded : null);
                 _creatureCountBySpecies = null;
             }
 
@@ -357,7 +362,6 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Removes creature from library and adds its guid to the deleted creatures.
         /// </summary>
-        /// <param name="c"></param>
         internal void DeleteCreature(Creature c)
         {
             if (!creatures.Remove(c)) return;
@@ -365,7 +369,7 @@ namespace ARKBreedingStats.Library
             if (DeletedCreatureGuids == null)
                 DeletedCreatureGuids = new List<Guid>();
             DeletedCreatureGuids.Add(c.guid);
-            ResetExistingColors(c.Species);
+            ResetExistingColors(c.Species.blueprintPath);
             _creatureCountBySpecies = null;
         }
 
@@ -478,14 +482,14 @@ namespace ARKBreedingStats.Library
 
         /// <summary>
         /// Reset the lists of available color ids. Call this method after a creature was added or removed from the collection.
+        /// <param name="speciesBlueprintPath">If null, the color info of all species is cleared, else only the matching one.</param>
         /// </summary>
-        /// <param name="species"></param>
-        internal void ResetExistingColors(Species species = null)
+        internal void ResetExistingColors(string speciesBlueprintPath = null)
         {
-            if (species == null)
+            if (speciesBlueprintPath == null)
                 _existingColors.Clear();
-            else if (!string.IsNullOrEmpty(species.blueprintPath))
-                _existingColors.Remove(species.blueprintPath);
+            else if (!string.IsNullOrEmpty(speciesBlueprintPath))
+                _existingColors.Remove(speciesBlueprintPath);
         }
 
         /// <summary>

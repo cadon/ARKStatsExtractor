@@ -18,8 +18,7 @@ namespace ARKBreedingStats
         public event TimerControl.CreateTimerEventHandler CreateTimer;
         private DateTime _wakeUpTime;
         private DateTime _starvingTime;
-        private double _tamingSpeedMultiplier = 1;
-        private double _tamingFoodRateMultiplier = 1;
+        private ServerMultipliers _serverMultipliers =new ServerMultipliers();
         private string _koNumbers;
         private string _boneDamageAdjustersImmobilization;
         public string quickTamingInfos;
@@ -120,7 +119,7 @@ namespace ARKBreedingStats
                 }
             }
 
-            _foodDepletion = td.foodConsumptionBase * td.foodConsumptionMult * _tamingFoodRateMultiplier;
+            _foodDepletion = td.foodConsumptionBase * td.foodConsumptionMult * _serverMultipliers.DinoCharacterFoodDrainMultiplier;
 
             SetTamingFoodControls(species);
 
@@ -191,7 +190,7 @@ namespace ARKBreedingStats
             }
 
             if (i > 0)
-                _foodControls[0].amount = Taming.FoodAmountNeeded(species, (int)nudLevel.Value, _tamingSpeedMultiplier, _foodControls[0].FoodName, td.nonViolent, CbSanguineElixir.Checked);
+                _foodControls[0].amount = Taming.FoodAmountNeeded(species, (int)nudLevel.Value, _serverMultipliers.TamingSpeedMultiplier, _foodControls[0].FoodName, td.nonViolent, CbSanguineElixir.Checked);
         }
 
         /// <summary>
@@ -274,10 +273,10 @@ namespace ARKBreedingStats
 
                     usedFood.Add(tfc.FoodName);
                     foodAmount.Add(tfc.amount);
-                    tfc.maxFood = Taming.FoodAmountNeeded(_selectedSpecies, level, _tamingSpeedMultiplier, tfc.FoodName, _selectedSpecies.taming.nonViolent, CbSanguineElixir.Checked);
-                    tfc.tamingDuration = Taming.TamingDuration(_selectedSpecies, tfc.maxFood, tfc.FoodName, _tamingFoodRateMultiplier, _selectedSpecies.taming.nonViolent);
+                    tfc.maxFood = Taming.FoodAmountNeeded(_selectedSpecies, level, _serverMultipliers.TamingSpeedMultiplier, tfc.FoodName, _selectedSpecies.taming.nonViolent, CbSanguineElixir.Checked);
+                    tfc.tamingDuration = Taming.TamingDuration(_selectedSpecies, tfc.maxFood, tfc.FoodName, _serverMultipliers.DinoCharacterFoodDrainMultiplier, _selectedSpecies.taming.nonViolent);
                 }
-                Taming.TamingTimes(_selectedSpecies, level, _tamingSpeedMultiplier, _tamingFoodRateMultiplier, usedFood, foodAmount,
+                Taming.TamingTimes(_selectedSpecies, level, _serverMultipliers, usedFood, foodAmount,
                     out foodAmountUsed, out duration, out narcoBerries, out ascerbicMushrooms, out narcotics, out bioToxines, out te, out _neededHunger, out bonusLevel, out enoughFood, CbSanguineElixir.Checked);
 
                 for (int f = 0; f < foodAmountUsed.Count; f++)
@@ -319,13 +318,13 @@ namespace ARKBreedingStats
             //// quickTame infos
             if (foodAmountUsed.Any())
             {
-                quickTamingInfos = Taming.QuickInfoOneFood(_selectedSpecies, level, _tamingSpeedMultiplier, _tamingFoodRateMultiplier, _foodControls[0].FoodName, _foodControls[0].maxFood, _foodControls[0].foodNameDisplay);
+                quickTamingInfos = Taming.QuickInfoOneFood(_selectedSpecies, level, _serverMultipliers, _foodControls[0].FoodName, _foodControls[0].maxFood, _foodControls[0].foodNameDisplay);
                 // show raw meat or mejoberries as alternative (often used)
                 for (int i = 1; i < usedFood.Count; i++)
                 {
                     if (usedFood[i] == "Raw Meat" || usedFood[i] == "Mejoberry")
                     {
-                        quickTamingInfos += "\n\n" + Taming.QuickInfoOneFood(_selectedSpecies, level, _tamingSpeedMultiplier, _tamingFoodRateMultiplier, _foodControls[i].FoodName, _foodControls[i].maxFood, _foodControls[i].foodNameDisplay);
+                        quickTamingInfos += "\n\n" + Taming.QuickInfoOneFood(_selectedSpecies, level, _serverMultipliers, _foodControls[i].FoodName, _foodControls[i].maxFood, _foodControls[i].foodNameDisplay);
                         break;
                     }
                 }
@@ -390,7 +389,7 @@ namespace ARKBreedingStats
 
         private void numericUpDownCurrentTorpor_ValueChanged(object sender, EventArgs e)
         {
-            var duration = new TimeSpan(0, 0, Taming.SecondsUntilWakingUp(_selectedSpecies, (int)nudLevel.Value, (double)numericUpDownCurrentTorpor.Value));
+            var duration = new TimeSpan(0, 0, Taming.SecondsUntilWakingUp(_selectedSpecies, _serverMultipliers, (int)nudLevel.Value, (double)numericUpDownCurrentTorpor.Value));
             lbTimeUntilWakingUp.Text = string.Format(Loc.S("lbTimeUntilWakingUp"), Utils.Duration(duration));
             if (duration.TotalSeconds < 30) lbTimeUntilWakingUp.ForeColor = Color.DarkRed;
             else if (duration.TotalSeconds < 120) lbTimeUntilWakingUp.ForeColor = Color.DarkGoldenrod;
@@ -417,7 +416,7 @@ namespace ARKBreedingStats
         {
             if (boneDamageAdjuster == 0)
                 boneDamageAdjuster = _currentBoneDamageAdjuster;
-            lbKOInfo.Text = Taming.KnockoutInfo(_selectedSpecies, (int)nudLevel.Value,
+            lbKOInfo.Text = Taming.KnockoutInfo(_selectedSpecies, _serverMultipliers, (int)nudLevel.Value,
                     chkbDmLongneck.Checked ? (double)nudWDmLongneck.Value / 100 : 0,
                     chkbDmCrossbow.Checked ? (double)nudWDmCrossbow.Value / 100 : 0,
                     chkbDmBow.Checked ? (double)nudWDmBow.Value / 100 : 0,
@@ -483,10 +482,9 @@ namespace ARKBreedingStats
                 CreateTimer(Loc.S("timerStarvingOf") + " " + _selectedSpecies.name, _starvingTime, null, TimerControl.TimerGroups.Starving.ToString());
         }
 
-        public void SetTamingMultipliers(double tamingSpeedMultiplier, double tamingFoodRateMultiplier)
+        public void SetServerMultipliers(ServerMultipliers serverMultipliers)
         {
-            _tamingSpeedMultiplier = tamingSpeedMultiplier;
-            _tamingFoodRateMultiplier = tamingFoodRateMultiplier;
+            _serverMultipliers = serverMultipliers;
             UpdateTamingData();
         }
 

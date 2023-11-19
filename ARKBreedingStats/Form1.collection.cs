@@ -50,9 +50,17 @@ namespace ARKBreedingStats
             }
 
             // use previously used multipliers again in the new file
-            var oldMultipliers = _creatureCollection.serverMultipliers
-                                 ?? Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official);
+            var oldMultipliers = _creatureCollection.serverMultipliers;
             var asaMode = _creatureCollection.Game == Ark.Asa;
+
+            if (!Properties.Settings.Default.KeepMultipliersForNewLibrary)
+            {
+                oldMultipliers = null;
+                asaMode = true; // default to ASA
+            }
+
+            if (oldMultipliers == null)
+                oldMultipliers = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official);
 
             _creatureCollection = new CreatureCollection
             {
@@ -514,7 +522,7 @@ namespace ARKBreedingStats
 
             if (keepCurrentCreatures)
             {
-                creatureWasAdded = previouslyLoadedCreatureCollection.MergeCreatureList(_creatureCollection.creatures);
+                creatureWasAdded = previouslyLoadedCreatureCollection.MergeCreatureList(_creatureCollection.creatures, removeCreatures: _creatureCollection.DeletedCreatureGuids);
                 _creatureCollection = previouslyLoadedCreatureCollection;
             }
             else
@@ -800,6 +808,7 @@ namespace ARKBreedingStats
             bool? multipliersImportSuccessful = null;
             string serverImportResult = null;
             bool creatureAlreadyExists = false;
+            var gameSettingBefore = _creatureCollection.Game;
 
             foreach (var filePath in filePaths)
             {
@@ -826,11 +835,27 @@ namespace ARKBreedingStats
                 }
             }
 
-            if (!string.IsNullOrEmpty(serverMultipliersHash) && _creatureCollection.ServerMultipliersHash != serverMultipliersHash)
+            if (lastCreatureFilePath != null && !string.IsNullOrEmpty(serverMultipliersHash) && _creatureCollection.ServerMultipliersHash != serverMultipliersHash)
             {
                 // current server multipliers might be outdated, import them again
-                var serverMultiplierFilePath = Path.Combine(Path.GetDirectoryName(lastCreatureFilePath), "Servers", serverMultipliersHash + ".sav");
+                // for ASE the export gun create a .sav file containing a json, for ASA directly a .json file
+                var serverMultiplierFilePath = Path.Combine(Path.GetDirectoryName(lastCreatureFilePath), "Servers", serverMultipliersHash + ".json");
+                if (!File.Exists(serverMultiplierFilePath))
+                    serverMultiplierFilePath = Path.Combine(Path.GetDirectoryName(lastCreatureFilePath), "Servers", serverMultipliersHash + ".sav");
+
                 multipliersImportSuccessful = ImportExportGun.ImportServerMultipliers(_creatureCollection, serverMultiplierFilePath, serverMultipliersHash, out serverImportResult);
+            }
+
+            if (multipliersImportSuccessful == true)
+            {
+                if (_creatureCollection.Game != gameSettingBefore)
+                {
+                    // ASA setting changed
+                    var loadAsa = gameSettingBefore != Ark.Asa;
+                    ReloadModValuesOfCollectionIfNeeded(loadAsa, false, false);
+                }
+
+                ApplySettingsToValues();
             }
 
             lastAddedCreature = newCreatures.LastOrDefault();

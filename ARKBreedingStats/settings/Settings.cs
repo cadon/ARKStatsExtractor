@@ -99,6 +99,7 @@ namespace ARKBreedingStats.settings
             }
             nudTamingSpeed.NeutralNumber = 1;
             nudDinoCharacterFoodDrain.NeutralNumber = 1;
+            NudWildDinoTorporDrainMultiplier.NeutralNumber = 1;
             nudTamedDinoCharacterFoodDrain.NeutralNumber = 1;
             nudMatingInterval.NeutralNumber = 1;
             nudMatingSpeed.NeutralNumber = 1;
@@ -225,7 +226,6 @@ namespace ARKBreedingStats.settings
             if (multipliers == null)
             {
                 multipliers = new ServerMultipliers();
-                multipliers.SetDefaultValues(new StreamingContext());
             }
             nudMatingSpeed.ValueSave = (decimal)multipliers.MatingSpeedMultiplier;
             nudMatingInterval.ValueSave = (decimal)multipliers.MatingIntervalMultiplier;
@@ -236,6 +236,7 @@ namespace ARKBreedingStats.settings
             nudBabyImprintAmount.ValueSave = (decimal)multipliers.BabyImprintAmountMultiplier;
             nudTamingSpeed.ValueSave = (decimal)multipliers.TamingSpeedMultiplier;
             nudDinoCharacterFoodDrain.ValueSave = (decimal)multipliers.DinoCharacterFoodDrainMultiplier;
+            NudWildDinoTorporDrainMultiplier.ValueSave = (decimal)multipliers.WildDinoTorporDrainMultiplier;
             nudTamedDinoCharacterFoodDrain.ValueSave = (decimal)multipliers.TamedDinoCharacterFoodDrainMultiplier;
             nudBabyFoodConsumptionSpeed.ValueSave = (decimal)multipliers.BabyFoodConsumptionSpeedMultiplier;
             #endregion
@@ -266,6 +267,8 @@ namespace ARKBreedingStats.settings
             checkBoxDisplayHiddenStats.Checked = Properties.Settings.Default.DisplayHiddenStats;
             CbbAppDefaultFontName.Text = Properties.Settings.Default.DefaultFontName;
             nudDefaultFontSize.Value = (decimal)Properties.Settings.Default.DefaultFontSize;
+
+            CbKeepMultipliersForNewLibrary.Checked = Properties.Settings.Default.KeepMultipliersForNewLibrary;
 
             GbImgCacheLocalAppData.Visible = !Updater.Updater.IsProgramInstalled; // setting is only relevant for portable app
             CbImgCacheUseLocalAppData.Checked = Properties.Settings.Default.ImgCacheUseLocalAppData || Updater.Updater.IsProgramInstalled;
@@ -484,9 +487,12 @@ namespace ARKBreedingStats.settings
             _cc.maxBreedingSuggestions = (int)numericUpDownMaxBreedingSug.Value;
             Properties.Settings.Default.IgnoreSexInBreedingPlan = cbIgnoreSexInBreedingPlan.Checked;
 
+            Properties.Settings.Default.KeepMultipliersForNewLibrary = CbKeepMultipliersForNewLibrary.Checked;
+
             #region non-event-multiplier
             _cc.serverMultipliers.TamingSpeedMultiplier = (double)nudTamingSpeed.Value;
             _cc.serverMultipliers.DinoCharacterFoodDrainMultiplier = (double)nudDinoCharacterFoodDrain.Value;
+            _cc.serverMultipliers.WildDinoTorporDrainMultiplier = (double)NudWildDinoTorporDrainMultiplier.Value;
             _cc.serverMultipliers.TamedDinoCharacterFoodDrainMultiplier = (double)nudTamedDinoCharacterFoodDrain.Value;
             _cc.serverMultipliers.MatingSpeedMultiplier = (double)nudMatingSpeed.Value;
             _cc.serverMultipliers.MatingIntervalMultiplier = (double)nudMatingInterval.Value;
@@ -726,6 +732,7 @@ namespace ARKBreedingStats.settings
                     switch (Path.GetExtension(filePath))
                     {
                         case ".sav":
+                        case ".json":
                             LoadServerMultipliersFromSavFile(filePath);
                             break;
                         default:
@@ -834,6 +841,8 @@ namespace ARKBreedingStats.settings
             // GameUserSettings.ini
             ParseAndSetValue(nudTamingSpeed, @"TamingSpeedMultiplier ?= ?(\d*\.?\d+)");
             ParseAndSetValue(nudDinoCharacterFoodDrain, @"DinoCharacterFoodDrainMultiplier ?= ?(\d*\.?\d+)");
+            // Game.ini
+            ParseAndSetValue(NudWildDinoTorporDrainMultiplier, @"WildDinoTorporDrainMultiplier ?= ?(\d*\.?\d+)");
 
             //// the settings below don't appear in ARK server config files directly or not at all and are used only in ASB
             // max levels
@@ -935,6 +944,7 @@ namespace ARKBreedingStats.settings
             nudMaxServerLevel.ValueSave = esm.DestroyTamesOverLevelClamp;
             nudTamingSpeed.ValueSaveDouble = Math.Round(esm.TamingSpeedMultiplier, roundToDigits);
             nudDinoCharacterFoodDrain.ValueSaveDouble = Math.Round(esm.DinoCharacterFoodDrainMultiplier, roundToDigits);
+            NudWildDinoTorporDrainMultiplier.ValueSaveDouble = Math.Round(esm.WildDinoTorporDrainMultiplier, roundToDigits);
             nudMatingSpeed.ValueSaveDouble = Math.Round(esm.MatingSpeedMultiplier, roundToDigits);
             nudMatingInterval.ValueSaveDouble = Math.Round(esm.MatingIntervalMultiplier, roundToDigits);
             nudEggHatchSpeed.ValueSaveDouble = Math.Round(esm.EggHatchSpeedMultiplier, roundToDigits);
@@ -1095,6 +1105,7 @@ namespace ARKBreedingStats.settings
             {
                 nudTamingSpeed.ValueSave = (decimal)sm.TamingSpeedMultiplier;
                 nudDinoCharacterFoodDrain.ValueSave = (decimal)sm.DinoCharacterFoodDrainMultiplier;
+                NudWildDinoTorporDrainMultiplier.ValueSave = (decimal)sm.WildDinoTorporDrainMultiplier;
                 nudTamedDinoCharacterFoodDrain.ValueSave = (decimal)sm.TamedDinoCharacterFoodDrainMultiplier;
                 nudEggHatchSpeed.ValueSave = (decimal)sm.EggHatchSpeedMultiplier;
                 nudBabyMatureSpeed.ValueSave = (decimal)sm.BabyMatureSpeedMultiplier;
@@ -1211,6 +1222,7 @@ namespace ARKBreedingStats.settings
             // taming multipliers
             sb.AppendLine($"TamingSpeedMultiplier = {nudTamingSpeed.Value.ToString(cultureForStrings)}");
             sb.AppendLine($"DinoCharacterFoodDrainMultiplier = {nudDinoCharacterFoodDrain.Value.ToString(cultureForStrings)}");
+            sb.AppendLine($"WildDinoTorporDrainMultiplier = {NudWildDinoTorporDrainMultiplier.Value.ToString(cultureForStrings)}");
 
             //// the settings below are not settings that appear in ARK server config files and are used only in ASB
             // max levels
@@ -1418,6 +1430,7 @@ namespace ARKBreedingStats.settings
                 _multSetter[s].SetHighlighted(highlight);
             nudTamingSpeed.SetExtraHighlightNonDefault(highlight);
             nudDinoCharacterFoodDrain.SetExtraHighlightNonDefault(highlight);
+            NudWildDinoTorporDrainMultiplier.SetExtraHighlightNonDefault(highlight);
             nudMatingSpeed.SetExtraHighlightNonDefault(highlight);
             nudMatingInterval.SetExtraHighlightNonDefault(highlight);
             nudEggHatchSpeed.SetExtraHighlightNonDefault(highlight);

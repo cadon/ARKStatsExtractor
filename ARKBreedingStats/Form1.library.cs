@@ -58,7 +58,7 @@ namespace ARKBreedingStats
                 && _creatureCollection.DeletedCreatureGuids.Contains(creature.guid))
                 _creatureCollection.DeletedCreatureGuids.RemoveAll(guid => guid == creature.guid);
 
-            _creatureCollection.MergeCreatureList(new List<Creature> { creature });
+            _creatureCollection.MergeCreatureList(new[] { creature });
 
             // set status of exportedCreatureControl if available
             _exportedCreatureControl?.setStatus(importExported.ExportedCreatureControl.ImportStatus.JustImported, DateTime.Now);

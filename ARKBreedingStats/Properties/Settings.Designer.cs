@@ -2242,5 +2242,17 @@ namespace ARKBreedingStats.Properties {
                 this["AskSaveSettingsOnClose"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool KeepMultipliersForNewLibrary {
+            get {
+                return ((bool)(this["KeepMultipliersForNewLibrary"]));
+            }
+            set {
+                this["KeepMultipliersForNewLibrary"] = value;
+            }
+        }
     }
 }
