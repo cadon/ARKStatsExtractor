@@ -1,0 +1,1686 @@
+{
+	"version": "25.53.449746",
+	"format": "1.15-asa",
+	"mod": {
+		"id": "ASA",
+		"tag": "",
+		"title": "Ark: Survival Ascended",
+		"shortTitle": "ASA",
+		"official": true
+	},
+	"species": [
+		{
+			"blueprintPath": "/Game/Aberration/Dinos/Basilisk/Basilisk_Character_BP.Basilisk_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Aberration/Dinos/Basilisk/Ghost_Basilisk_Character_BP.Ghost_Basilisk_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Aberration/Dinos/CaveWolf/CaveWolf_Character_BP.CaveWolf_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Aberration/Dinos/Crab/Crab_Character_BP.Crab_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Aberration/Dinos/Lamprey/Lamprey_Character.Lamprey_Character",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/Aberration/Dinos/LanternBird/LanternBird_Character_BP.LanternBird_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Aberration/Dinos/LanternGoat/LanternGoat_Character_BP.LanternGoat_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Aberration/Dinos/LanternLizard/LanternLizard_Character_BP.LanternLizard_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Aberration/Dinos/LanternPug/Ghost_LanternPug_Character_BP.Ghost_LanternPug_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Aberration/Dinos/LanternPug/LanternPug_Character_BP.LanternPug_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Aberration/Dinos/MoleRat/MoleRat_Character_BP.MoleRat_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Ghost_Xenomorph_Character_BP_Male_Surface.Ghost_Xenomorph_Character_BP_Male_Surface",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Xenomorph_Character_BP_Female.Xenomorph_Character_BP_Female",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Xenomorph_Character_BP_Male_Lunar.Xenomorph_Character_BP_Male_Lunar",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Xenomorph_Character_BP_Male_Minion.Xenomorph_Character_BP_Male_Minion",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Xenomorph_Character_BP_Male_Surface.Xenomorph_Character_BP_Male_Surface",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Xenomorph_Character_BP_Male_Tamed.Xenomorph_Character_BP_Male_Tamed",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Aberration/Dinos/Pteroteuthis/Pteroteuthis_Char_BP.Pteroteuthis_Char_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Aberration/Dinos/RockDrake/RockDrake_Character_BP.RockDrake_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Extinction/Dinos/DesertKaiju/DesertKaiju_Character_BP.DesertKaiju_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Extinction/Dinos/DesertKaiju/DesertKaiju_FirstFlockChar_BP.DesertKaiju_FirstFlockChar_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Extinction/Dinos/Enforcer/Enforcer_Character_BP.Enforcer_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Extinction/Dinos/ForestKaiju/ForestKaiju_Character_BP.ForestKaiju_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Extinction/Dinos/ForestKaiju/Minion/Wyvern_Character_BP_Fire_Minion.Wyvern_Character_BP_Fire_Minion",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Extinction/Dinos/Gacha/Gacha_Character_BP.Gacha_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Extinction/Dinos/Gacha/Gacha_Claus_Character_BP.Gacha_Claus_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Extinction/Dinos/GasBag/GasBags_Character_BP.GasBags_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Extinction/Dinos/IceJumper/IceJumper_Character_BP.IceJumper_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Extinction/Dinos/IceKaiju/IceKaiju_Character_BP.IceKaiju_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Extinction/Dinos/Mek/MegaMek_Character_BP.MegaMek_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Extinction/Dinos/Mek/Mek_Character_BP.Mek_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Extinction/Dinos/Owl/Ghost_Owl_Character_BP.Ghost_Owl_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Extinction/Dinos/Owl/Owl_Character_BP.Owl_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Extinction/Dinos/Scout/Scout_Character_BP.Scout_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Extinction/Dinos/Spindles/Spindles_Character_BP.Spindles_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Fjordur/Dinos/Andrewsarchus/Andrewsarchus_Character_BP.Andrewsarchus_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Fjordur/Dinos/Desmodus/Desmodus_Character_BP.Desmodus_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/BogPara/Bog_Para_Character_BP.Bog_Para_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/BogParaceratherium/Bog_Paracer_Character_BP.Bog_Paracer_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Bog_Raptor/Bog_Raptor_Character_BP.Bog_Raptor_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Bog_Spino/Bog_Spino_Character_BP.Bog_Spino_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Lunar_Salmon/Lunar_Salmon_Character_BP.Lunar_Salmon_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Ocean_Basilosaurus/Ocean_Basilosaurus_Character_BP.Ocean_Basilosaurus_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Ocean_Dolphin/Ocean_Dolphin_Character_BP.Ocean_Dolphin_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Ocean_Dunkleosteus/Ocean_Dunkle_Character_BP.Ocean_Dunkle_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Ocean_Megalodon/Ocean_Megalodon_Character_BP.Ocean_Megalodon_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Ocean_Mosasaurus/Ocean_Mosa_Character_BP.Ocean_Mosa_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Snow_Argentavis/Snow_Argent_Character_BP.Snow_Argent_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Snow_Otter/Snow_Otter_Character_BP.Snow_Otter_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Snow_Saber/Snow_Saber_Character_BP.Snow_Saber_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Snow_WoollyRhino/Snow_Rhino_Character_BP.Snow_Rhino_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Snow_Yutyrannus/Snow_Yutyrannus_Character_BP.Snow_Yutyrannus_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VRDaeodon_Character_BP.VRDaeodon_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VREndDrone_Character_BP.VREndDrone_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VRGigant_Character_BP.VRGigant_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VRRaptor_Character_BP.VRRaptor_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VRRex_Character_BP.VRRex_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VRTrike_Character_BP.VRTrike_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VRXenomorph_Character_BP_Male_Minion.VRXenomorph_Character_BP_Male_Minion",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VRYutyrannus_Character_BP.VRYutyrannus_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/BogSpider/BogSpider_Character_BP.BogSpider_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/Bots/Bot_Character_BP.Bot_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/Bots/Bot_WithBow_BP.Bot_WithBow_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/Bots/Bot_WithSpear_BP.Bot_WithSpear_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/Bots/Bot_WithTekGrenades_BP.Bot_WithTekGrenades_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/Bots/Bot_WithTekRifle_BP.Bot_WithTekRifle_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/Cherufe/Cherufe_Character_BP.Cherufe_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/GiantTurtle/GiantTurtle_Character_BP.GiantTurtle_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/Shapeshifter/Shapeshifter_Large/Shapeshifter_Large_Character_BP.Shapeshifter_Large_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/Shapeshifter/Shapeshifter_Small/Shapeshifter_Small_Character_BP.Shapeshifter_Small_Character_BP",
+			"fullStatsRaw": [
+				[ 55, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 30, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 55, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.01, 0.5, 0 ],
+				null,
+				null
+			],
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/SpaceWhale/SpaceWhale_Character_BP.SpaceWhale_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/Swarms/InsectSwarmChar_BP.InsectSwarmChar_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/Swarms/MicrobeSwarmChar_BP.MicrobeSwarmChar_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/VRMainBoss/VRMainBoss_Character_Easy.VRMainBoss_Character_Easy",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/VRMainBoss/VRMainBoss_Character_Hard.VRMainBoss_Character_Hard",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis/Dinos/VRMainBoss/VRMainBoss_Character_Medium.VRMainBoss_Character_Medium",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Allo_Character_BP_Rockwell.Allo_Character_BP_Rockwell",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Carno_Character_BP_Rockwell.Carno_Character_BP_Rockwell",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Daeodon_Character_BP_Eden.Daeodon_Character_BP_Eden",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Dilo_Character_BP_Rockwell.Dilo_Character_BP_Rockwell",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Direbear_Character_BP_Rockwell.Direbear_Character_BP_Rockwell",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Direwolf_Character_BP_Eden.Direwolf_Character_BP_Eden",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Equus_Character_BP_Eden.Equus_Character_BP_Eden",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/GasBags_Character_BP_Eden.GasBags_Character_BP_Eden",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Gigant_Character_BP_Rockwell.Gigant_Character_BP_Rockwell",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Megatherium_Character_BP_Eden.Megatherium_Character_BP_Eden",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Owl_Character_BP_Eden.Owl_Character_BP_Eden",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Para_Character_BP_Eden.Para_Character_BP_Eden",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Procoptodon_Character_BP_Eden.Procoptodon_Character_BP_Eden",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Quetz_Character_BP_Rockwell.Quetz_Character_BP_Rockwell",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Sauropod_Character_BP_Rockwell.Sauropod_Character_BP_Rockwell",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Spindles_Character_BP_Rockwell.Spindles_Character_BP_Rockwell",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Thylacoleo_Character_BP_Eden.Thylacoleo_Character_BP_Eden",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Turtle_Character_BP_Rockwell.Turtle_Character_BP_Rockwell",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Xenomorph_Character_BP_Female_Gen2.Xenomorph_Character_BP_Female_Gen2",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Xenomorph_Character_BP_Male_Gen2.Xenomorph_Character_BP_Male_Gen2",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Xenomorph_Character_BP_Male_Tamed_Gen2.Xenomorph_Character_BP_Male_Tamed_Gen2",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/BrainSlug/BrainSlug_Character_BP.BrainSlug_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/LionfishLion/LionfishLion_Character_BP.LionfishLion_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/LionfishLion/LionfishLion_Character_BP_Female.LionfishLion_Character_BP_Female",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/MilkGlider/MilkGlider_Character_BP.MilkGlider_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/SpaceDolphin/SpaceDolphin_Character_BP.SpaceDolphin_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Allo_Character_BP_Rockwell_Summoned.Allo_Character_BP_Rockwell_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Argent_Character_BP_Summoned.Argent_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Arthro_Character_BP_Aberrant_Summoned.Arthro_Character_BP_Aberrant_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Baryonyx_Character_BP_Summoned.Baryonyx_Character_BP_Summoned",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Basilisk_Character_BP_Summoned.Basilisk_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Bat_Character_BP_Summoned.Bat_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/BoaFrill_Character_BP_Summoned.BoaFrill_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/BogSpider_Character_BP_Summoned.BogSpider_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Carno_Character_BP_Rockwell_Summoned.Carno_Character_BP_Rockwell_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/CaveWolf_Character_BP_Summoned.CaveWolf_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Cherufe_Character_BP_Summoned.Cherufe_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Crab_Character_BP_Summoned.Crab_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Daeodon_Character_BP_Eden_Summoned.Daeodon_Character_BP_Eden_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Dilo_Character_BP_Rockwell_Summoned.Dilo_Character_BP_Rockwell_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Direbear_Character_BP_Summoned.Direbear_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Direwolf_Character_BP_Eden_Summoned.Direwolf_Character_BP_Eden_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/IceJumper_Character_BP_Summoned.IceJumper_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Kaprosuchus_Character_BP_Summoned.Kaprosuchus_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/LionfishLion_Character_BP_Summoned.LionfishLion_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Mantis_Character_BP_Summoned.Mantis_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Megatherium_Character_BP_Eden_Summoned.Megatherium_Character_BP_Eden_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Microraptor_Character_BP_Summoned.Microraptor_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Owl_Character_BP_Eden_Summoned.Owl_Character_BP_Eden_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Paracer_Character_BP_Summoned.Paracer_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Ptero_Character_BP_Summoned.Ptero_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Purlovia_Character_BP_Summoned.Purlovia_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Quetz_Character_BP_Rockwell_Summoned.Quetz_Character_BP_Rockwell_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Rex_Character_BP_Summoned.Rex_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/RockDrake_Character_BP_Summoned.RockDrake_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/RockGolem_Character_BP_Summoned.RockGolem_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Saber_Character_BP_Summoned.Saber_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Sarco_Character_BP_Summoned.Sarco_Character_BP_Summoned",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Sauropod_Character_BP_Rockwell_Summoned.Sauropod_Character_BP_Rockwell_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Shapeshifter_Large_Character_BP_Summoned.Shapeshifter_Large_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/SpiderS_Character_BP_Summoned.SpiderS_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Spindles_Character_BP_Rockwell_Summoned.Spindles_Character_BP_Rockwell_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/SpineyLizard_Character_BP_Summoned.SpineyLizard_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Spino_Character_BP_Summoned.Spino_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Stego_Character_BP_Summoned.Stego_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/TerrorBird_Character_BP_Summoned.TerrorBird_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Therizino_Character_BP_Summoned.Therizino_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Thylacoleo_Character_BP_Eden_Summoned.Thylacoleo_Character_BP_Eden_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Trike_Character_BP_Summoned.Trike_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Xenomorph_Character_BP_Male_Gen2_Summoned.Xenomorph_Character_BP_Male_Gen2_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Yutyrannus_Character_BP_Summoned.Yutyrannus_Character_BP_Summoned",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/Summoner_Character_BP.Summoner_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/TekStrider/TekStrider_Character_BP.TekStrider_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Dinos/TekWyvern/TekWyvern_Character_BP.TekWyvern_Character_BP",
+			"fullStatsRaw": [
+				[ 1575, 0.15, 0.162, -960, 0 ],
+				[ 415, 0.05, 0.05, 0, 0 ],
+				[ 725, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1800, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 400, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, -0.25, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/LostIsland/Dinos/Amargasaurus/Amargasaurus_Character_BP.Amargasaurus_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/LostIsland/Dinos/Dinopithecus/Dinopithecus_Character_BP.Dinopithecus_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/LostIsland/Dinos/Sinomacrops/Sinomacrops_Character_BP.Sinomacrops_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Achatina/Achatina_Character_BP.Achatina_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Achatina/Achatina_Character_BP_Aberrant.Achatina_Character_BP_Aberrant",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Allosaurus/Allo_Character_BP.Allo_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Ammonite/Ammonite_Character.Ammonite_Character",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Anglerfish/Angler_Character_BP.Angler_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Anglerfish/Angler_Character_BP_Aberrant.Angler_Character_BP_Aberrant",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Ankylo/Ankylo_Character_BP.Ankylo_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Ankylo/Ankylo_Character_BP_Aberrant.Ankylo_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Ant/Ant_Character_BP.Ant_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Ant/FlyingAnt_Character_BP.FlyingAnt_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Archaeopteryx/Archa_Character_BP.Archa_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Argentavis/Argent_Character_BP.Argent_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Arthropluera/Arthro_Character_BP.Arthro_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Arthropluera/Arthro_Character_BP_Aberrant.Arthro_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Baryonyx/Baryonyx_Character_BP.Baryonyx_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Baryonyx/Baryonyx_Character_BP_Aberrant.Baryonyx_Character_BP_Aberrant",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Basilosaurus/Basilosaurus_Character_BP.Basilosaurus_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Bat/Bat_Character_BP.Bat_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Beaver/Beaver_Character_BP.Beaver_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Bee/Bee_Character_BP.Bee_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Bee/Bee_Queen_Character_BP.Bee_Queen_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Bigfoot/Bigfoot_Character_BP.Bigfoot_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Bigfoot/Bigfoot_Character_BP_Aberrant.Bigfoot_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Bigfoot/Bigfoot_Character_BP_Aggressive.Bigfoot_Character_BP_Aggressive",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Bigfoot/Bigfoot_Character_BP_Aggressive_Hard.Bigfoot_Character_BP_Aggressive_Hard",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Bigfoot/Bigfoot_Character_BP_Aggressive_Med.Bigfoot_Character_BP_Aggressive_Med",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Bigfoot/Yeti_Character_BP.Yeti_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/BoaFrill/BoaFrill_Character_BP.BoaFrill_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/BoaFrill/BoaFrill_Character_BP_Aberrant.BoaFrill_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Carcharodontosaurus/Carcha_Character_BP.Carcha_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Carno/Bone_MegaCarno_Character_BP.Bone_MegaCarno_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Carno/Carno_Character_BP.Carno_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Carno/Carno_Character_BP_Aberrant.Carno_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Carno/MegaCarno_Character_BP.MegaCarno_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Chalicotherium/Chalico_Character_BP.Chalico_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Cnidaria/Cnidaria_Character_BP.Cnidaria_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Cnidaria/Cnidaria_Character_BP_Aberrant.Cnidaria_Character_BP_Aberrant",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP.Coel_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP_Aberrant.Coel_Character_BP_Aberrant",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP_Ocean.Coel_Character_BP_Ocean",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP_VDay.Coel_Character_BP_VDay",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP_VDay_Aberrant.Coel_Character_BP_VDay_Aberrant",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP_VDay_Ocean.Coel_Character_BP_VDay_Ocean",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Compy/Compy_Character_BP.Compy_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/CrystalWyvern/CrystalWyvern_Character_BP_Blood.CrystalWyvern_Character_BP_Blood",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/CrystalWyvern/CrystalWyvern_Character_BP_Ember.CrystalWyvern_Character_BP_Ember",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/CrystalWyvern/CrystalWyvern_Character_BP_WS.CrystalWyvern_Character_BP_WS",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Daeodon/Daeodon_Character_BP.Daeodon_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Dilo/Dilo_Character_BP.Dilo_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimetrodon/Dimetro_Character_BP.Dimetro_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimetrodon/Dimetro_Character_BP_Aberrant.Dimetro_Character_BP_Aberrant",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP.Dimorph_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP_Aberrant.Dimorph_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP_Aggressive_DragonBoss.Dimorph_Character_BP_Aggressive_DragonBoss",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP_Aggressive_DragonBoss_Hard.Dimorph_Character_BP_Aggressive_DragonBoss_Hard",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP_Aggressive_DragonBoss_Med.Dimorph_Character_BP_Aggressive_DragonBoss_Med",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Diplocaulus/Diplocaulus_Character_BP.Diplocaulus_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Diplocaulus/Diplocaulus_Character_BP_Aberrant.Diplocaulus_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Diplodocus/Diplodocus_Character_BP.Diplodocus_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Diplodocus/Diplodocus_Character_BP_Aberrant.Diplodocus_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Direbear/Direbear_Character_BP.Direbear_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Direbear/Direbear_Character_BP_Aberrant.Direbear_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Direbear/Direbear_Character_Polar.Direbear_Character_Polar",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Direwolf/Direwolf_Character_BP.Direwolf_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Direwolf/Ghost_Direwolf_Character_BP.Ghost_Direwolf_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Dodo/Dodo_Character_BP.Dodo_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Dodo/Dodo_Character_BP_Aberrant.Dodo_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Dodo/Dodo_Character_BP_Bunny.Dodo_Character_BP_Bunny",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Dodo/Turkey_Character_BP.Turkey_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Doedicurus/Doed_Character_BP.Doed_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Doedicurus/Doed_Character_BP_Aberrant.Doed_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Dolphin/Dolphin_Character_BP.Dolphin_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Dragon/Dragon_Character_BP_Boss_Easy.Dragon_Character_BP_Boss_Easy",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Dragon/Dragon_Character_BP_Boss_Hard.Dragon_Character_BP_Boss_Hard",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Dragon/Dragon_Character_BP_Boss_Medium.Dragon_Character_BP_Boss_Medium",
+			"fullStatsRaw": [
+				[ 864000, 0.2, 0.2, 0.3, 0 ],
+				[ 10000, 0.1, 0.1, 0, 0 ],
+				[ 350, 0.06, 0, 0.5, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0 ],
+				[ 2600, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0.02, 0.02, 0, 0 ],
+				[ 1, 0.05, 0.04, 0.3, 0.3 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Dragonfly/Dragonfly_Character_BP.Dragonfly_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Dragonfly/Dragonfly_Character_BP_Aberrant.Dragonfly_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/DungBeetle/DungBeetle_Character_BP.DungBeetle_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/DungBeetle/DungBeetle_Character_BP_Aberrant.DungBeetle_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Dunkleosteus/Dunkle_Character_BP.Dunkle_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Eel/Eel_Character_BP.Eel_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Eel/Eel_Character_BP_Aberrant.Eel_Character_BP_Aberrant",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Equus/Equus_Character_BP.Equus_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Equus/Equus_Character_BP_Aberrant.Equus_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Equus/Equus_Character_BP_Unicorn.Equus_Character_BP_Unicorn",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Eurypterid/Euryp_Character.Euryp_Character",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Gallimimus/Galli_Character_BP.Galli_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Giganotosaurus/BionicGigant_Character_BP.BionicGigant_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Giganotosaurus/Bone_Gigant_Character_BP.Bone_Gigant_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Giganotosaurus/Gigant_Character_BP.Gigant_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Giganotosaurus/Gigant_Character_BP_TekCave.Gigant_Character_BP_TekCave",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Gorilla/Gorilla_Character_BP_Easy.Gorilla_Character_BP_Easy",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Gorilla/Gorilla_Character_BP_Hard.Gorilla_Character_BP_Hard",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Gorilla/Gorilla_Character_BP_Medium.Gorilla_Character_BP_Medium",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Griffin/Griffin_Character_BP.Griffin_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Hesperornis/Hesperornis_Character_BP.Hesperornis_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Hyaenodon/Hyaenodon_Character_BP.Hyaenodon_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Ichthyornis/Ichthyornis_Character_BP.Ichthyornis_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Iguanodon/Iguanodon_Character_BP.Iguanodon_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Iguanodon/Iguanodon_Character_BP_Aberrant.Iguanodon_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Kairuku/Kairuku_Character_BP.Kairuku_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Kaprosuchus/Kaprosuchus_Character_BP.Kaprosuchus_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Kentrosaurus/Kentro_Character_BP.Kentro_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Leech/Leech_Character.Leech_Character",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Leech/Leech_Character_Diseased.Leech_Character_Diseased",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Leedsichthys/Alpha_Leedsichthys_Character_BP.Alpha_Leedsichthys_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Leedsichthys/Leedsichthys_Character_BP.Leedsichthys_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Liopleurodon/Liopleurodon_Character_BP.Liopleurodon_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Lystrosaurus/Lystro_Character_BP.Lystro_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Lystrosaurus/Lystro_Character_BP_Aberrant.Lystro_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Mammoth/Mammoth_Character_BP.Mammoth_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Manta/Manta_Character_BP.Manta_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Manta/Manta_Character_BP_Aberrant.Manta_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Megalania/Megalania_Character_BP.Megalania_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Megalania/Megalania_Character_BP_Aberrant.Megalania_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Megalodon/MEgaMegalodon_Character_BP.MegaMegalodon_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Megalodon/Megalodon_Character_BP.Megalodon_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Megalosaurus/Megalosaurus_Character_BP.Megalosaurus_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Megalosaurus/Megalosaurus_Character_BP_Aberrant.Megalosaurus_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Megalosaurus/Megalosaurus_Character_BP_TekCave.Megalosaurus_Character_BP_TekCave",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Megatherium/Megatherium_Character_BP.Megatherium_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Microraptor/Microraptor_Character_BP.Microraptor_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Monkey/Monkey_Character_BP.Monkey_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Monkey/Monkey_Character_BP_Aggressive.Monkey_Character_BP_Aggressive",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Monkey/Monkey_Character_BP_Aggressive_Hard.Monkey_Character_BP_Aggressive_Hard",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Monkey/Monkey_Character_BP_Aggressive_Med.Monkey_Character_BP_Aggressive_Med",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Mosasaurus/Mosa_Character_BP.Mosa_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Mosasaurus/Mosa_Character_BP_Cave.Mosa_Character_BP_Cave",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Mosasaurus/Mosa_Character_BP_Mega.Mosa_Character_BP_Mega",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Mosasaurus/Mosa_Character_BP_Mega_Cave.Mosa_Character_BP_Mega_Cave",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Moschops/Moschops_Character_BP.Moschops_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Moschops/Moschops_Character_BP_Aberrant.Moschops_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Otter/Otter_Character_BP.Otter_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Otter/Otter_Character_BP_Aberrant.Otter_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Oviraptor/BunnyOviraptor_Character_BP.BunnyOviraptor_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Oviraptor/Oviraptor_Character_BP.Oviraptor_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Pachy/Pachy_Character_BP.Pachy_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Pachyrhinosaurus/Pachyrhino_Character_BP.Pachyrhino_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Para/BionicPara_Character_BP.BionicPara_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Para/Para_Character_BP.Para_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Para/Para_Character_BP_Aberrant.Para_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Paraceratherium/Paracer_Character_BP.Paracer_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Paraceratherium/Paracer_Character_BP_Aberrant.Paracer_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Pegomastax/Pegomastax_Character_BP.Pegomastax_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Pelagornis/Pela_Character_BP.Pela_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Phiomia/Phiomia_Character_BP.Phiomia_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Piranha/Piranha_Character_BP.Piranha_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Piranha/Piranha_Character_BP_Aberrant.Piranha_Character_BP_Aberrant",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Piranha/Piranha_Character_BP_BreakNet.Piranha_Character_BP_BreakNet",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Plesiosaur/Plesiosaur_Character_BP.Plesiosaur_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Procoptodon/Procoptodon_Character_BP.Procoptodon_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Ptero/Ptero_Character_BP.Ptero_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Ptero/Ptero_Minion_Character_BP.Ptero_Minion_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Ptero/Ptero_Minion_Character_Hard.Ptero_Minion_Character_Hard",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Ptero/Ptero_Minion_Character_Med.Ptero_Minion_Character_Med",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Purlovia/Purlovia_Character_BP.Purlovia_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Purlovia/Purlovia_Character_BP_Aberrant.Purlovia_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Purlovia/Purlovia_Character_BP_Polar.Purlovia_Character_BP_Polar",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Quetzalcoatlus/Bone_Quetz_Character_BP.Bone_Quetz_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Quetzalcoatlus/Quetz_Character_BP.Quetz_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Raptor/Bone_MegaRaptor_Character_BP.Bone_MegaRaptor_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Raptor/MegaRaptor_Character_BP.MegaRaptor_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Raptor/Raptor_Character_BP.Raptor_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Raptor/Raptor_Character_BP_Aberrant.Raptor_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Raptor/Uberraptor/Deinonychus_Character_BP.Deinonychus_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Rex/Bone_MegaRex_Character_BP.Bone_MegaRex_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Rex/Ghost_Rex_Character_BP.Ghost_Rex_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Rex/MegaRex_Character_BP.MegaRex_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Rex/Rex_Character_BP.Rex_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Rhyniognatha/Rhynio_Character_BP.Rhynio_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Saber/Saber_Character_BP.Saber_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Salmon/Salmon_Character_Aberrant.Salmon_Character_Aberrant",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Salmon/Salmon_Character_BP.Salmon_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Salmon/Salmon_Character_Rare_BP.Salmon_Character_Rare_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Sarco/Sarco_Character_BP.Sarco_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Sarco/Sarco_Character_BP_Aberrant.Sarco_Character_BP_Aberrant",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Sauropod/Bone_Sauropod_Character_BP.Bone_Sauropod_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Sauropod/Sauropod_Character_BP.Sauropod_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Scorpion/Scorpion_Character_BP.Scorpion_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Scorpion/Scorpion_Character_BP_Aberrant.Scorpion_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Sheep/Sheep_Character_BP.Sheep_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Sheep/Sheep_Character_BP_Aberrant.Sheep_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Large/SpiderL_Character_BP_Easy.SpiderL_Character_BP_Easy",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Large/SpiderL_Character_BP_Hard.SpiderL_Character_BP_Hard",
+			"fullStatsRaw": [
+				[ 972000, 0.25, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100000, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.075, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.151, 0 ],
+				null,
+				null
+			],
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Large/SpiderL_Character_BP_Medium.SpiderL_Character_BP_Medium",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Small/SpiderS_Character_BP.SpiderS_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Small/SpiderS_Character_BP_Aberrant.SpiderS_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Small/SpiderS_Character_BP_Aggressive.SpiderS_Character_BP_Aggressive",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Small/SpiderS_Character_BP_Aggressive_Hard.SpiderS_Character_BP_Aggressive_Hard",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Small/SpiderS_Character_BP_Aggressive_Med.SpiderS_Character_BP_Aggressive_Med",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Spino/Spino_Character_BP.Spino_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Spino/Spino_Character_BP_Aberrant.Spino_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Stag/Stag_Character_BP.Stag_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Stego/Bone_Stego_Character_BP.Bone_Stego_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Stego/Stego_Character_BP.Stego_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Stego/Stego_Character_BP_Aberrant.Stego_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Tapejara/Tapejara_Character_BP.Tapejara_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/TerrorBird/TerrorBird_Character_BP.TerrorBird_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Therizinosaurus/Therizino_Character_BP.Therizino_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Thylacoleo/Thylacoleo_Character_BP.Thylacoleo_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Titanosaur/Titanosaur_Character_BP.Titanosaur_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Toad/Toad_Character_BP.Toad_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Toad/Toad_Character_BP_Aberrant.Toad_Character_BP_Aberrant",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Trike/BionicTrike_Character_BP.BionicTrike_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Trike/Bone_Trike_Character_BP.Bone_Trike_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Trike/Trike_Character_BP.Trike_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Trike/Trike_Character_BP_Aberrant.Trike_Character_BP_Aberrant",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Trilobite/Trilobite_Character.Trilobite_Character",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Trilobite/Trilobite_Character_Aberrant.Trilobite_Character_Aberrant",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Troodon/Troodon_Character_BP.Troodon_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Tropeognathus/Tropeognathus_Character_BP.Tropeognathus_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Turtle/Turtle_Character_BP.Turtle_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Turtle/Turtle_Character_BP_Aberrant.Turtle_Character_BP_Aberrant",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Tusoteuthis/Mega_Tusoteuthis_Character_BP.Mega_Tusoteuthis_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Tusoteuthis/Tusoteuthis_Character_BP.Tusoteuthis_Character_BP",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Tusoteuthis/Tusoteuthis_Character_BP_Caves.Tusoteuthis_Character_BP_Caves",
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/WoollyRhino/Rhino_Character_BP.Rhino_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Yutyrannus/Yutyrannus_Character_BP.Yutyrannus_Character_BP",
+			"skipWildLevelStats": 512
+		}
+	],
+	"dyeStartIndex": 128,
+	"dyeDefinitions": [
+		[ "Burn Coloring", [ 0.033105, 0.0, 0.0, 1.0 ] ],
+		[ "Scab Coloring", [ 0.132868, 0.0, 0.0, 1.0 ] ],
+		[ "Gore Coloring", [ 0.450786, 0.0, 0.0, 1.0 ] ],
+		[ "Red Coloring", [ 1.0, 0.0, 0.0, 1.0 ] ],
+		[ "Tulip Coloring", [ 1.0, 0.171441, 0.171441, 1.0 ] ],
+		[ "Salmon Coloring", [ 1.0, 0.520996, 0.520996, 1.0 ] ],
+		[ "Incense Coloring", [ 0.693872, 0.266356, 0.266356, 1.0 ] ],
+		[ "Edocha Coloring", [ 0.381326, 0.0865, 0.0865, 1.0 ] ],
+		[ "Bronze Coloring", [ 0.033105, 0.009721, 0.0, 1.0 ] ],
+		[ "Terracotta Coloring", [ 0.132868, 0.033105, 0.0, 1.0 ] ],
+		[ "Windsor Coloring", [ 0.450786, 0.099899, 0.0, 1.0 ] ],
+		[ "Orange Coloring", [ 1.0, 0.212231, 0.0, 1.0 ] ],
+		[ "Cantaloupe Coloring", [ 1.0, 0.48515, 0.171441, 1.0 ] ],
+		[ "Peach Coloring", [ 1.0, 0.737911, 0.520996, 1.0 ] ],
+		[ "Latte Coloring", [ 0.693872, 0.450786, 0.266356, 1.0 ] ],
+		[ "Dirt Coloring", [ 0.381326, 0.201556, 0.0865, 1.0 ] ],
+		[ "Drab Coloring", [ 0.033105, 0.033105, 0.0, 1.0 ] ],
+		[ "Olive Coloring", [ 0.132868, 0.132868, 0.0, 1.0 ] ],
+		[ "Citron Coloring", [ 0.445201, 0.450786, 0.0, 1.0 ] ],
+		[ "Yellow Coloring", [ 1.0, 1.0, 0.0, 1.0 ] ],
+		[ "Canary Coloring", [ 1.0, 1.0, 0.171441, 1.0 ] ],
+		[ "Buttermilk Coloring", [ 1.0, 1.0, 0.520996, 1.0 ] ],
+		[ "Khaki Coloring", [ 0.693872, 0.693872, 0.266356, 1.0 ] ],
+		[ "Mold Coloring", [ 0.381326, 0.381326, 0.0865, 1.0 ] ],
+		[ "Swamp Coloring", [ 0.009721, 0.033105, 0.0, 1.0 ] ],
+		[ "Avocado Coloring", [ 0.033105, 0.132868, 0.0, 1.0 ] ],
+		[ "Orc Coloring", [ 0.099899, 0.450786, 0.0, 1.0 ] ],
+		[ "Chartreuse Coloring", [ 0.215861, 1.0, 0.0, 1.0 ] ],
+		[ "Menthol Coloring", [ 0.48515, 1.0, 0.171441, 1.0 ] ],
+		[ "Nyanza Coloring", [ 0.737911, 1.0, 0.520996, 1.0 ] ],
+		[ "Putrescence Coloring", [ 0.450786, 0.693872, 0.266356, 1.0 ] ],
+		[ "Filth Coloring", [ 0.201556, 0.381326, 0.0865, 1.0 ] ],
+		[ "Nori Coloring", [ 0.0, 0.033105, 0.0, 1.0 ] ],
+		[ "Hunter Coloring", [ 0.0, 0.132868, 0.0, 1.0 ] ],
+		[ "Emerald Coloring", [ 0.0, 0.450786, 0.0, 1.0 ] ],
+		[ "Green Coloring", [ 0.0, 1.0, 0.0, 1.0 ] ],
+		[ "Mint Coloring", [ 0.171441, 1.0, 0.171441, 1.0 ] ],
+		[ "Pistachio Coloring", [ 0.520996, 1.0, 0.520996, 1.0 ] ],
+		[ "Celadon Coloring", [ 0.266356, 0.693872, 0.266356, 1.0 ] ],
+		[ "Chateau Coloring", [ 0.0865, 0.381326, 0.0865, 1.0 ] ],
+		[ "Jungle Coloring", [ 0.0, 0.033105, 0.01033, 1.0 ] ],
+		[ "Forest Coloring", [ 0.0, 0.132868, 0.033105, 1.0 ] ],
+		[ "Lagoon Coloring", [ 0.0, 0.450786, 0.099899, 1.0 ] ],
+		[ "Spring Coloring", [ 0.0, 1.0, 0.215861, 1.0 ] ],
+		[ "Aquamarine Coloring", [ 0.171441, 1.0, 0.48515, 1.0 ] ],
+		[ "Seafoam Coloring", [ 0.520996, 1.0, 0.737911, 1.0 ] ],
+		[ "Turquoise Coloring", [ 0.266356, 0.693872, 0.450786, 1.0 ] ],
+		[ "Shamrock Coloring", [ 0.0865, 0.381326, 0.201556, 1.0 ] ],
+		[ "Mariana Coloring", [ 0.0, 0.033105, 0.033105, 1.0 ] ],
+		[ "Skobeloff Coloring", [ 0.0, 0.132868, 0.132868, 1.0 ] ],
+		[ "Teal Coloring", [ 0.0, 0.450786, 0.450786, 1.0 ] ],
+		[ "Cyan Coloring", [ 0.0, 1.0, 1.0, 1.0 ] ],
+		[ "Electricity Coloring", [ 0.171441, 1.0, 1.0, 1.0 ] ],
+		[ "Celeste Coloring", [ 0.520996, 1.0, 1.0, 1.0 ] ],
+		[ "Crystal Coloring", [ 0.266356, 0.693872, 0.693872, 1.0 ] ],
+		[ "Ocean Coloring", [ 0.0865, 0.381326, 0.381326, 1.0 ] ],
+		[ "Cetecean Coloring", [ 0.0, 0.01033, 0.033105, 1.0 ] ],
+		[ "Prussian Coloring", [ 0.0, 0.033105, 0.132868, 1.0 ] ],
+		[ "Sapphire Coloring", [ 0.0, 0.099899, 0.450786, 1.0 ] ],
+		[ "Azure Coloring", [ 0.0, 0.212231, 1.0, 1.0 ] ],
+		[ "Babyblue Coloring", [ 0.171441, 0.48515, 1.0, 1.0 ] ],
+		[ "Cornflower Coloring", [ 0.520996, 0.737911, 1.0, 1.0 ] ],
+		[ "Overcast Coloring", [ 0.262251, 0.445201, 0.693872, 1.0 ] ],
+		[ "Moonstone Coloring", [ 0.0865, 0.201556, 0.381326, 1.0 ] ],
+		[ "Midnight Coloring", [ 0.0, 0.0, 0.033105, 1.0 ] ],
+		[ "Navy Coloring", [ 0.0, 0.0, 0.132868, 1.0 ] ],
+		[ "Cobalt Coloring", [ 0.0, 0.0, 0.450786, 1.0 ] ],
+		[ "Blue Coloring", [ 0.0, 0.0, 1.0, 1.0 ] ],
+		[ "Denim Coloring", [ 0.171441, 0.171441, 1.0, 1.0 ] ],
+		[ "Ice Coloring", [ 0.520996, 0.520996, 1.0, 1.0 ] ],
+		[ "Frost Coloring", [ 0.262251, 0.262251, 0.693872, 1.0 ] ],
+		[ "Deepfreeze Coloring", [ 0.0865, 0.0865, 0.381326, 1.0 ] ],
+		[ "Twilight Coloring", [ 0.009721, 0.0, 0.033105, 1.0 ] ],
+		[ "Eminence Coloring", [ 0.033105, 0.0, 0.132868, 1.0 ] ],
+		[ "Indigo Coloring", [ 0.099899, 0.0, 0.450786, 1.0 ] ],
+		[ "Violet Coloring", [ 0.215861, 0.0, 1.0, 1.0 ] ],
+		[ "Lilac Coloring", [ 0.48515, 0.171441, 1.0, 1.0 ] ],
+		[ "Lavender Coloring", [ 0.737911, 0.520996, 1.0, 1.0 ] ],
+		[ "Mauve Coloring", [ 0.450786, 0.266356, 0.693872, 1.0 ] ],
+		[ "Royalty Coloring", [ 0.201556, 0.0865, 0.381326, 1.0 ] ],
+		[ "Eggplant Coloring", [ 0.033105, 0.0, 0.033105, 1.0 ] ],
+		[ "Plum Coloring", [ 0.132868, 0.0, 0.132868, 1.0 ] ],
+		[ "Purple Coloring", [ 0.445201, 0.0, 0.450786, 1.0 ] ],
+		[ "Magenta Coloring", [ 1.0, 0.0, 1.0, 1.0 ] ],
+		[ "Pink Coloring", [ 1.0, 0.171441, 1.0, 1.0 ] ],
+		[ "Cottoncandy Coloring", [ 1.0, 0.520996, 1.0, 1.0 ] ],
+		[ "Orchid Coloring", [ 0.693872, 0.266356, 0.693872, 1.0 ] ],
+		[ "Bruise Coloring", [ 0.381326, 0.0865, 0.381326, 1.0 ] ],
+		[ "Raisin Coloring", [ 0.033105, 0.0, 0.009721, 1.0 ] ],
+		[ "Tyrian Coloring", [ 0.132868, 0.0, 0.033105, 1.0 ] ],
+		[ "Lust Coloring", [ 0.450786, 0.0, 0.099899, 1.0 ] ],
+		[ "Fuschia Coloring", [ 1.0, 0.0, 0.212231, 1.0 ] ],
+		[ "Flamingo Coloring", [ 1.0, 0.171441, 0.48515, 1.0 ] ],
+		[ "Valentine Coloring", [ 1.0, 0.520996, 0.737911, 1.0 ] ],
+		[ "Kobi Coloring", [ 0.693872, 0.266356, 0.450786, 1.0 ] ],
+		[ "Rouge Coloring", [ 0.381326, 0.0865, 0.201556, 1.0 ] ],
+		[ "Black Coloring", [ 0.01, 0.01, 0.01, 1.0 ] ],
+		[ "Shadow Coloring", [ 0.033105, 0.033105, 0.033105, 1.0 ] ],
+		[ "Charcoal Coloring", [ 0.074214, 0.074214, 0.074214, 1.0 ] ],
+		[ "Gunmetal Coloring", [ 0.132868, 0.132868, 0.132868, 1.0 ] ],
+		[ "Slate Coloring", [ 0.215861, 0.215861, 0.215861, 1.0 ] ],
+		[ "Steel Coloring", [ 0.318547, 0.318547, 0.318547, 1.0 ] ],
+		[ "Grey Coloring", [ 0.450786, 0.450786, 0.450786, 1.0 ] ],
+		[ "Silver Coloring", [ 0.603828, 0.603828, 0.603828, 1.0 ] ],
+		[ "Wisp Coloring", [ 0.791298, 0.791298, 0.791298, 1.0 ] ],
+		[ "White Coloring", [ 1.0, 1.0, 1.0, 1.0 ] ],
+		[ "Mud Coloring", [ 0.05098, 0.035294, 0.015686, 1.0 ] ],
+		[ "Bark Coloring", [ 0.099899, 0.06301, 0.017642, 1.0 ] ],
+		[ "Brown Coloring", [ 0.215861, 0.127438, 0.026241, 1.0 ] ],
+		[ "Leather Coloring", [ 0.318547, 0.223228, 0.046665, 1.0 ] ],
+		[ "Camel Coloring", [ 0.450786, 0.332452, 0.099899, 1.0 ] ],
+		[ "Tan Coloring", [ 0.603828, 0.445201, 0.132868, 1.0 ] ],
+		[ "Sand Coloring", [ 0.791298, 0.584079, 0.171441, 1.0 ] ],
+		[ "Parchment Coloring", [ 1.0, 0.863157, 0.520996, 1.0 ] ],
+		[ "Cream Coloring", [ 0.913099, 0.913099, 0.715694, 1.0 ] ],
+		[ "Brick Coloring", [ 0.318547, 0.056128, 0.019382, 1.0 ] ],
+		[ "Tangerine Coloring", [ 1.0, 0.371238, 0.017642, 1.0 ] ],
+		[ "Gold Coloring", [ 1.0, 0.527115, 0.0, 1.0 ] ],
+		[ "Mustard Coloring", [ 0.871367, 0.871367, 0.031896, 1.0 ] ],
+		[
+			"Craggy-Dew Coloring",
+			[ 0.450786, 0.814847, 0.006049, 1.0 ]
+		],
+		[ "Grass Coloring", [ 0.015996, 0.171441, 0.029557, 1.0 ] ],
+		[ "Stream Coloring", [ 0.023153, 0.564712, 0.467784, 1.0 ] ],
+		[ "Marine Coloring", [ 0.0, 0.165132, 0.250158, 1.0 ] ],
+		[ "Haze Coloring", [ 0.0865, 0.097587, 0.168269, 1.0 ] ],
+		[ "Dusk Coloring", [ 0.274677, 0.076185, 0.376262, 1.0 ] ],
+		[ "Thistle Coloring", [ 0.791298, 0.545725, 0.723055, 1.0 ] ],
+		[ "Bubblegum Coloring", [ 1.0, 0.520996, 0.623961, 1.0 ] ]
+	]
+}
