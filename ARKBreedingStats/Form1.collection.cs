@@ -877,6 +877,16 @@ namespace ARKBreedingStats
                                   + serverImportResult);
 
             SetMessageLabelText(resultText, importFailedCounter > 0 || multipliersImportSuccessful == false ? MessageBoxIcon.Error : MessageBoxIcon.Information, lastCreatureFilePath);
+
+            if (lastAddedCreature != null)
+            {
+                tabControlMain.SelectedTab = tabPageLibrary;
+                if (listBoxSpeciesLib.SelectedItem != null &&
+                    listBoxSpeciesLib.SelectedItem != lastAddedCreature.Species)
+                    listBoxSpeciesLib.SelectedItem = lastAddedCreature.Species;
+                SelectCreatureInLibrary(lastAddedCreature);
+            }
+
             return creatureAlreadyExists;
         }
 
