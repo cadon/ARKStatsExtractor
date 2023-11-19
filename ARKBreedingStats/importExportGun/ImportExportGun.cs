@@ -199,6 +199,7 @@ namespace ARKBreedingStats.importExportGun
             cc.maxServerLevel = esm.DestroyTamesOverLevelClamp;
             cc.serverMultipliers.TamingSpeedMultiplier = Math.Round(esm.TamingSpeedMultiplier, roundToDigits);
             cc.serverMultipliers.DinoCharacterFoodDrainMultiplier = Math.Round(esm.DinoCharacterFoodDrainMultiplier, roundToDigits);
+            cc.serverMultipliers.WildDinoTorporDrainMultiplier = Math.Round(esm.WildDinoTorporDrainMultiplier, roundToDigits);
             cc.serverMultipliers.MatingSpeedMultiplier = Math.Round(esm.MatingSpeedMultiplier, roundToDigits);
             cc.serverMultipliers.MatingIntervalMultiplier = Math.Round(esm.MatingIntervalMultiplier, roundToDigits);
             cc.serverMultipliers.EggHatchSpeedMultiplier = Math.Round(esm.EggHatchSpeedMultiplier, roundToDigits);

@@ -16,49 +16,35 @@ namespace ARKBreedingStats.values
         public double[][] statMultipliers;
 
         [JsonProperty]
-        public double TamingSpeedMultiplier { get; set; }
+        public double TamingSpeedMultiplier { get; set; } = 1;
         [JsonProperty]
-        public double DinoCharacterFoodDrainMultiplier { get; set; }
+        public double WildDinoTorporDrainMultiplier { get; set; } = 1;
         [JsonProperty]
-        public double TamedDinoCharacterFoodDrainMultiplier { get; set; }
+        public double DinoCharacterFoodDrainMultiplier { get; set; } = 1;
+        [JsonProperty]
+        public double TamedDinoCharacterFoodDrainMultiplier { get; set; } = 1;
 
         [JsonProperty]
-        public double MatingSpeedMultiplier { get; set; }
+        public double MatingSpeedMultiplier { get; set; } = 1;
         [JsonProperty]
-        public double MatingIntervalMultiplier { get; set; }
+        public double MatingIntervalMultiplier { get; set; } = 1;
         [JsonProperty]
-        public double EggHatchSpeedMultiplier { get; set; }
+        public double EggHatchSpeedMultiplier { get; set; } = 1;
 
         [JsonProperty]
-        public double BabyMatureSpeedMultiplier { get; set; }
+        public double BabyMatureSpeedMultiplier { get; set; } = 1;
         [JsonProperty]
-        public double BabyFoodConsumptionSpeedMultiplier { get; set; }
+        public double BabyFoodConsumptionSpeedMultiplier { get; set; } = 1;
         [JsonProperty]
-        public double BabyCuddleIntervalMultiplier { get; set; }
+        public double BabyCuddleIntervalMultiplier { get; set; } = 1;
         [JsonProperty]
-        public double BabyImprintingStatScaleMultiplier { get; set; }
+        public double BabyImprintingStatScaleMultiplier { get; set; } = 1;
         [JsonProperty]
-        public double BabyImprintAmountMultiplier { get; set; }
+        public double BabyImprintAmountMultiplier { get; set; } = 1;
         [JsonProperty]
         public bool AllowSpeedLeveling { get; set; }
         [JsonProperty]
         public bool AllowFlyerSpeedLeveling { get; set; }
-
-        [OnDeserializing]
-        internal void SetDefaultValues(StreamingContext _)
-        {
-            TamingSpeedMultiplier = 1;
-            DinoCharacterFoodDrainMultiplier = 1;
-            TamedDinoCharacterFoodDrainMultiplier = 1;
-            MatingIntervalMultiplier = 1;
-            EggHatchSpeedMultiplier = 1;
-            MatingSpeedMultiplier = 1;
-            BabyMatureSpeedMultiplier = 1;
-            BabyFoodConsumptionSpeedMultiplier = 1;
-            BabyCuddleIntervalMultiplier = 1;
-            BabyImprintingStatScaleMultiplier = 1;
-            BabyImprintAmountMultiplier = 1;
-        }
 
         /// <summary>
         /// Fix any null values
@@ -84,6 +70,7 @@ namespace ARKBreedingStats.values
             var sm = new ServerMultipliers
             {
                 TamingSpeedMultiplier = TamingSpeedMultiplier,
+                WildDinoTorporDrainMultiplier = WildDinoTorporDrainMultiplier,
                 DinoCharacterFoodDrainMultiplier = DinoCharacterFoodDrainMultiplier,
                 TamedDinoCharacterFoodDrainMultiplier = TamedDinoCharacterFoodDrainMultiplier,
                 MatingIntervalMultiplier = MatingIntervalMultiplier,
@@ -118,6 +105,7 @@ namespace ARKBreedingStats.values
         public void FixZeroValues()
         {
             if (TamingSpeedMultiplier == 0) TamingSpeedMultiplier = 1;
+            if (WildDinoTorporDrainMultiplier == 0) WildDinoTorporDrainMultiplier = 1;
             if (MatingIntervalMultiplier == 0) MatingIntervalMultiplier = 1;
             if (EggHatchSpeedMultiplier == 0) EggHatchSpeedMultiplier = 1;
             if (MatingSpeedMultiplier == 0) MatingSpeedMultiplier = 1;

@@ -737,8 +737,7 @@ namespace ARKBreedingStats
         {
             // apply multipliers
             Values.V.ApplyMultipliers(_creatureCollection, cbEventMultipliers.Checked);
-            tamingControl1.SetTamingMultipliers(Values.V.currentServerMultipliers.TamingSpeedMultiplier,
-                Values.V.currentServerMultipliers.DinoCharacterFoodDrainMultiplier);
+            tamingControl1.SetServerMultipliers(Values.V.currentServerMultipliers);
 
             ColorModeColors.SetColors((ColorModeColors.AsbColorMode)Properties.Settings.Default.ColorMode);
             RecalculateAllCreaturesValues();
@@ -2581,8 +2580,7 @@ namespace ARKBreedingStats
                     Values.V.currentServerMultipliers.TamingSpeedMultiplier, foodName,
                     speciesSelector1.SelectedSpecies.taming.nonViolent);
                 Taming.TamingTimes(speciesSelector1.SelectedSpecies, levelWild,
-                    Values.V.currentServerMultipliers.TamingSpeedMultiplier,
-                    Values.V.currentServerMultipliers.DinoCharacterFoodDrainMultiplier, foodName, foodNeeded, out _,
+                    Values.V.currentServerMultipliers, foodName, foodNeeded, out _,
                     out TimeSpan duration, out int narcoBerries, out int ascerbicMushrooms, out int narcotics,
                     out int bioToxines, out double te, out _, out int bonusLevel, out _);
                 extraText += $"\nTaming takes {(int)duration.TotalHours}:{duration:mm':'ss} with {foodNeeded} × {foodName}"
@@ -2852,8 +2850,7 @@ namespace ARKBreedingStats
         {
             Values.V.ApplyMultipliers(_creatureCollection, cbEventMultipliers.Checked, false);
 
-            tamingControl1.SetTamingMultipliers(Values.V.currentServerMultipliers.TamingSpeedMultiplier,
-                Values.V.currentServerMultipliers.DinoCharacterFoodDrainMultiplier);
+            tamingControl1.SetServerMultipliers(Values.V.currentServerMultipliers);
             breedingPlan1.UpdateBreedingData();
             raisingControl1.UpdateRaisingData();
         }

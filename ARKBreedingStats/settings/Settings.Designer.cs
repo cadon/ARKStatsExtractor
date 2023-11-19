@@ -120,6 +120,7 @@
             this.checkBoxDisplayHiddenStats = new System.Windows.Forms.CheckBox();
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabPageMultipliers = new System.Windows.Forms.TabPage();
+            this.CbKeepMultipliersForNewLibrary = new System.Windows.Forms.CheckBox();
             this.BtAutoImportLocalSettings = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.RbGameAsa = new System.Windows.Forms.RadioButton();
@@ -345,7 +346,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.CbKeepMultipliersForNewLibrary = new System.Windows.Forms.CheckBox();
+            this.label67 = new System.Windows.Forms.Label();
+            this.NudWildDinoTorporDrainMultiplier = new ARKBreedingStats.uiControls.Nud();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -453,6 +455,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NudWildDinoTorporDrainMultiplier)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -623,7 +626,7 @@
             this.groupBox2.Controls.Add(this.nudBabyImprintingStatScale);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.nudEggHatchSpeed);
-            this.groupBox2.Location = new System.Drawing.Point(394, 241);
+            this.groupBox2.Location = new System.Drawing.Point(394, 263);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(346, 255);
             this.groupBox2.TabIndex = 7;
@@ -1479,15 +1482,17 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.label67);
+            this.groupBox5.Controls.Add(this.NudWildDinoTorporDrainMultiplier);
             this.groupBox5.Controls.Add(this.nudDinoCharacterFoodDrainEvent);
             this.groupBox5.Controls.Add(this.nudTamingSpeedEvent);
             this.groupBox5.Controls.Add(this.label7);
             this.groupBox5.Controls.Add(this.label14);
             this.groupBox5.Controls.Add(this.nudDinoCharacterFoodDrain);
             this.groupBox5.Controls.Add(this.nudTamingSpeed);
-            this.groupBox5.Location = new System.Drawing.Point(394, 163);
+            this.groupBox5.Location = new System.Drawing.Point(394, 158);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(345, 72);
+            this.groupBox5.Size = new System.Drawing.Size(345, 99);
             this.groupBox5.TabIndex = 6;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Taming-Multiplier";
@@ -1608,7 +1613,7 @@
             // 
             // label15
             // 
-            this.label15.Location = new System.Drawing.Point(451, 532);
+            this.label15.Location = new System.Drawing.Point(451, 554);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(289, 77);
             this.label15.TabIndex = 9;
@@ -1819,10 +1824,20 @@
             this.tabPageMultipliers.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragDrop);
             this.tabPageMultipliers.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragEnter);
             // 
+            // CbKeepMultipliersForNewLibrary
+            // 
+            this.CbKeepMultipliersForNewLibrary.AutoSize = true;
+            this.CbKeepMultipliersForNewLibrary.Location = new System.Drawing.Point(6, 699);
+            this.CbKeepMultipliersForNewLibrary.Name = "CbKeepMultipliersForNewLibrary";
+            this.CbKeepMultipliersForNewLibrary.Size = new System.Drawing.Size(231, 17);
+            this.CbKeepMultipliersForNewLibrary.TabIndex = 18;
+            this.CbKeepMultipliersForNewLibrary.Text = "Keep multipliers when creating a new library";
+            this.CbKeepMultipliersForNewLibrary.UseVisualStyleBackColor = true;
+            // 
             // BtAutoImportLocalSettings
             // 
             this.BtAutoImportLocalSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.BtAutoImportLocalSettings.Location = new System.Drawing.Point(407, 599);
+            this.BtAutoImportLocalSettings.Location = new System.Drawing.Point(407, 621);
             this.BtAutoImportLocalSettings.Name = "BtAutoImportLocalSettings";
             this.BtAutoImportLocalSettings.Size = new System.Drawing.Size(152, 23);
             this.BtAutoImportLocalSettings.TabIndex = 17;
@@ -1864,7 +1879,7 @@
             // 
             // BtImportSettingsSelectFile
             // 
-            this.BtImportSettingsSelectFile.Location = new System.Drawing.Point(565, 599);
+            this.BtImportSettingsSelectFile.Location = new System.Drawing.Point(565, 621);
             this.BtImportSettingsSelectFile.Name = "BtImportSettingsSelectFile";
             this.BtImportSettingsSelectFile.Size = new System.Drawing.Size(167, 23);
             this.BtImportSettingsSelectFile.TabIndex = 15;
@@ -1884,7 +1899,7 @@
             // 
             // BtSettingsToClipboard
             // 
-            this.BtSettingsToClipboard.Location = new System.Drawing.Point(600, 670);
+            this.BtSettingsToClipboard.Location = new System.Drawing.Point(600, 692);
             this.BtSettingsToClipboard.Name = "BtSettingsToClipboard";
             this.BtSettingsToClipboard.Size = new System.Drawing.Size(142, 23);
             this.BtSettingsToClipboard.TabIndex = 13;
@@ -1926,7 +1941,7 @@
             // 
             // label34
             // 
-            this.label34.Location = new System.Drawing.Point(404, 633);
+            this.label34.Location = new System.Drawing.Point(404, 655);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(338, 34);
             this.label34.TabIndex = 10;
@@ -1935,7 +1950,7 @@
             // 
             // btExportMultipliers
             // 
-            this.btExportMultipliers.Location = new System.Drawing.Point(407, 670);
+            this.btExportMultipliers.Location = new System.Drawing.Point(407, 692);
             this.btExportMultipliers.Name = "btExportMultipliers";
             this.btExportMultipliers.Size = new System.Drawing.Size(187, 23);
             this.btExportMultipliers.TabIndex = 11;
@@ -1977,7 +1992,7 @@
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(408, 533);
+            this.label27.Location = new System.Drawing.Point(408, 555);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(37, 26);
             this.label27.TabIndex = 12;
@@ -2056,7 +2071,7 @@
             // 
             // buttonEventToDefault
             // 
-            this.buttonEventToDefault.Location = new System.Drawing.Point(604, 502);
+            this.buttonEventToDefault.Location = new System.Drawing.Point(604, 524);
             this.buttonEventToDefault.Name = "buttonEventToDefault";
             this.buttonEventToDefault.Size = new System.Drawing.Size(136, 23);
             this.buttonEventToDefault.TabIndex = 8;
@@ -2067,7 +2082,7 @@
             // labelEvent
             // 
             this.labelEvent.AutoSize = true;
-            this.labelEvent.Location = new System.Drawing.Point(654, 147);
+            this.labelEvent.Location = new System.Drawing.Point(654, 142);
             this.labelEvent.Name = "labelEvent";
             this.labelEvent.Size = new System.Drawing.Size(78, 13);
             this.labelEvent.TabIndex = 9;
@@ -3641,7 +3656,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3649,7 +3664,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3657,7 +3672,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3665,7 +3680,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -4384,15 +4399,38 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // CbKeepMultipliersForNewLibrary
+            // label67
             // 
-            this.CbKeepMultipliersForNewLibrary.AutoSize = true;
-            this.CbKeepMultipliersForNewLibrary.Location = new System.Drawing.Point(6, 699);
-            this.CbKeepMultipliersForNewLibrary.Name = "CbKeepMultipliersForNewLibrary";
-            this.CbKeepMultipliersForNewLibrary.Size = new System.Drawing.Size(231, 17);
-            this.CbKeepMultipliersForNewLibrary.TabIndex = 18;
-            this.CbKeepMultipliersForNewLibrary.Text = "Keep multipliers when creating a new library";
-            this.CbKeepMultipliersForNewLibrary.UseVisualStyleBackColor = true;
+            this.label67.AutoSize = true;
+            this.label67.Location = new System.Drawing.Point(10, 73);
+            this.label67.Name = "label67";
+            this.label67.Size = new System.Drawing.Size(147, 13);
+            this.label67.TabIndex = 5;
+            this.label67.Text = "WildDinoTorporDrainMultiplier";
+            // 
+            // NudWildDinoTorporDrainMultiplier
+            // 
+            this.NudWildDinoTorporDrainMultiplier.DecimalPlaces = 6;
+            this.NudWildDinoTorporDrainMultiplier.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.NudWildDinoTorporDrainMultiplier.Location = new System.Drawing.Point(183, 71);
+            this.NudWildDinoTorporDrainMultiplier.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.NudWildDinoTorporDrainMultiplier.Name = "NudWildDinoTorporDrainMultiplier";
+            this.NudWildDinoTorporDrainMultiplier.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.NudWildDinoTorporDrainMultiplier.Size = new System.Drawing.Size(72, 20);
+            this.NudWildDinoTorporDrainMultiplier.TabIndex = 4;
+            this.NudWildDinoTorporDrainMultiplier.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // Settings
             // 
@@ -4554,6 +4592,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.NudWildDinoTorporDrainMultiplier)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -4876,5 +4915,7 @@
         private System.Windows.Forms.CheckBox CbDisplayLibraryCreatureIndex;
         private System.Windows.Forms.CheckBox CbAskSaveSettingsOnClose;
         private System.Windows.Forms.CheckBox CbKeepMultipliersForNewLibrary;
+        private System.Windows.Forms.Label label67;
+        private uiControls.Nud NudWildDinoTorporDrainMultiplier;
     }
 }

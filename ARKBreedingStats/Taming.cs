@@ -15,7 +15,7 @@ namespace ARKBreedingStats
         /// </summary>
         private const int HardCodedTamingMultiplier = 4;
 
-        public static void TamingTimes(Species species, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier,
+        public static void TamingTimes(Species species, int level, ServerMultipliers serverMultipliers,
                 List<string> usedFood, List<int> foodAmount, out List<int> foodAmountUsed, out TimeSpan duration,
                 out int neededNarcoberries, out int neededAscerbicMushrooms, out int neededNarcotics, out int neededBioToxins, out double te, out double hunger, out int bonusLevel, out bool enoughFood, bool useSanguineElixir = false)
         {
@@ -49,7 +49,7 @@ namespace ARKBreedingStats
                     //total torpor for level
                     totalTorpor = species.stats[Stats.Torpidity].BaseValue * (1 + species.stats[Stats.Torpidity].IncPerWildLevel * (level - 1));
                     // torpor depletion per second for level
-                    torporDepletionPerSecond = TorporDepletionPS(species.taming.torporDepletionPS0, level);
+                    torporDepletionPerSecond = TorporDepletionPerSecond(species.taming.torporDepletionPS0, level, serverMultipliers.WildDinoTorporDrainMultiplier);
                 }
 
                 double foodByAffinity = 0; // needed for the effectiveness calculation
@@ -73,7 +73,7 @@ namespace ARKBreedingStats
                         foodValue = foodValue * species.taming.wakeFoodDeplMult;
                     }
 
-                    foodAffinity *= tamingSpeedMultiplier * HardCodedTamingMultiplier;
+                    foodAffinity *= serverMultipliers.TamingSpeedMultiplier * HardCodedTamingMultiplier;
 
                     if (foodAffinity > 0 && foodValue > 0)
                     {
@@ -91,7 +91,7 @@ namespace ARKBreedingStats
                         if (species.name == "Mantis")
                             seconds = foodPiecesNeeded * 180;
                         else
-                            seconds = (int)Math.Ceiling(foodPiecesNeeded * foodValue / (species.taming.foodConsumptionBase * species.taming.foodConsumptionMult * tamingFoodRateMultiplier));
+                            seconds = (int)Math.Ceiling(foodPiecesNeeded * foodValue / (species.taming.foodConsumptionBase * species.taming.foodConsumptionMult * serverMultipliers.DinoCharacterFoodDrainMultiplier));
                         affinityNeeded -= foodPiecesNeeded * foodAffinity;
 
                         // new approach with 1/(1 + IM*IA*N/AO + ID*D) from https://forums.unrealengine.com/development-discussion/modding/ark-survival-evolved/56959-tutorial-dinosaur-taming-parameters?85457-Tutorial-Dinosaur-Taming-Parameters=
@@ -144,12 +144,12 @@ namespace ARKBreedingStats
         /// <summary>
         /// Use this function if only one kind of food is fed
         /// </summary>
-        public static void TamingTimes(Species species, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier,
+        public static void TamingTimes(Species species, int level, ServerMultipliers serverMultipliers,
                 string usedFood, int foodAmount,
                 out List<int> foodAmountUsed, out TimeSpan duration, out int neededNarcoberries, out int neededAscerbicMushrooms, out int neededNarcotics,
                 out int neededBioToxins, out double te, out double hunger, out int bonusLevel, out bool enoughFood, bool useSanguineElixir = false)
         {
-            TamingTimes(species, level, tamingSpeedMultiplier, tamingFoodRateMultiplier,
+            TamingTimes(species, level, serverMultipliers,
                     new List<string> { usedFood }, new List<int> { foodAmount },
                     out foodAmountUsed, out duration, out neededNarcoberries, out neededAscerbicMushrooms, out neededNarcotics, out neededBioToxins,
                     out te, out hunger, out bonusLevel, out enoughFood, useSanguineElixir);
@@ -182,19 +182,19 @@ namespace ARKBreedingStats
             return 0;
         }
 
-        public static int SecondsUntilWakingUp(Species species, int level, double currentTorpor)
+        public static int SecondsUntilWakingUp(Species species, ServerMultipliers serverMultipliers, int level, double currentTorpor)
         {
             int seconds = 0;
             if (species != null && species.taming.torporDepletionPS0 > 0)
             {
                 // torpor depletion per second for level
                 // here the linear approach of 0.01819 * baseTorporDepletion / level is used. Data shows, it's actual an exponential increase
-                seconds = (int)Math.Floor(currentTorpor / TorporDepletionPS(species.taming.torporDepletionPS0, level));
+                seconds = (int)Math.Floor(currentTorpor / TorporDepletionPerSecond(species.taming.torporDepletionPS0, level, serverMultipliers.WildDinoTorporDrainMultiplier));
             }
             return seconds;
         }
 
-        private static double TorporDepletionPS(double torporDepletionPS0, int level)
+        private static double TorporDepletionPerSecond(double torporDepletionPS0, int level, double wildDinoTorporDrainMultiplier)
         {
             // torpor depletion per second for level
 
@@ -203,7 +203,7 @@ namespace ARKBreedingStats
 
             // using a more precise approach with an exponential increase, based on http://ark.crumplecorn.com/taming/controller.js?d=20160821
             if (torporDepletionPS0 > 0)
-                return torporDepletionPS0 + Math.Pow(level - 1, 0.800403041) / (22.39671632 / torporDepletionPS0);
+                return (torporDepletionPS0 + Math.Pow(level - 1, 0.800403041) / (22.39671632 / torporDepletionPS0)) * wildDinoTorporDrainMultiplier;
             return 0;
         }
 
@@ -230,7 +230,7 @@ namespace ARKBreedingStats
             return new TimeSpan(0, 0, seconds);
         }
 
-        public static string KnockoutInfo(Species species, int level, double longneck, double crossbow, double bow, double slingshot,
+        public static string KnockoutInfo(Species species, ServerMultipliers serverMultipliers, int level, double longneck, double crossbow, double bow, double slingshot,
                 double club, double prod, double harpoon, double boneDamageAdjuster, out bool knockoutNeeded, out string koNumbers)
         {
             koNumbers = string.Empty;
@@ -240,7 +240,7 @@ namespace ARKBreedingStats
                 //total torpor for level
                 double totalTorpor = species.stats[Stats.Torpidity].BaseValue * (1 + species.stats[Stats.Torpidity].IncPerWildLevel * (level - 1));
                 // torpor depletion per second for level
-                double torporDeplPS = TorporDepletionPS(species.taming.torporDepletionPS0, level);
+                double torporDeplPS = TorporDepletionPerSecond(species.taming.torporDepletionPS0, level, serverMultipliers.WildDinoTorporDrainMultiplier);
 
                 knockoutNeeded = species.taming.violent;
                 string warning = string.Empty;
@@ -280,10 +280,10 @@ namespace ARKBreedingStats
             return string.Empty;
         }
 
-        public static string QuickInfoOneFood(Species species, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier,
+        public static string QuickInfoOneFood(Species species, int level, ServerMultipliers serverMultipliers,
                 string foodName, int foodAmount, string foodDisplayName)
         {
-            TamingTimes(species, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodName, foodAmount,
+            TamingTimes(species, level, serverMultipliers, foodName, foodAmount,
                     out List<int> foodAmountUsed, out TimeSpan duration, out _, out _, out int narcotics, out _, out double te,
                     out double hunger, out int bonusLevel, out _);
             return $"{string.Format(Loc.S("WithXFoodTamingTakesTime"), foodAmountUsed[0], foodDisplayName, Utils.DurationUntil(duration))}\n" +
@@ -304,7 +304,7 @@ namespace ARKBreedingStats
                     boneDamageAdjusters = species.boneDamageAdjusters;
                     foreach (KeyValuePair<string, double> bd in boneDamageAdjusters)
                     {
-                        text += (text.Length > 0 ? "\n" : string.Empty) + bd.Key + ": × " + bd.Value.ToString();
+                        text += (text.Length > 0 ? "\n" : string.Empty) + bd.Key + ": × " + bd.Value;
                     }
                 }
                 if (species.immobilizedBy != null && species.immobilizedBy.Any())
