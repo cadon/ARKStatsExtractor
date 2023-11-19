@@ -245,6 +245,8 @@ namespace ARKBreedingStats
                         }
                     }
 
+                    SelectCreatureInLibrary(creature);
+
                     break;
                 default: return null;
             }
