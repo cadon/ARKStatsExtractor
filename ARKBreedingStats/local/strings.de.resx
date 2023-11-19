@@ -1325,4 +1325,7 @@ Es ist auch möglich Tiere mit einer Farbe in mehreren möglichen Regionen zu fi
   <data name="nameAlreadyExistsInLibrary" xml:space="preserve">
     <value>Dieser Name existiert bereits in der Bibliothek</value>
   </data>
+  <data name="timerStarvingOf" xml:space="preserve">
+    <value>Verhungern von</value>
+  </data>
 </root>
