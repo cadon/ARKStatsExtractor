@@ -530,7 +530,7 @@ namespace ARKBreedingStats
             this.importingFromSavegameEmptyToolStripMenuItem});
             this.importingFromSavegameToolStripMenuItem.Name = "importingFromSavegameToolStripMenuItem";
             this.importingFromSavegameToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
-            this.importingFromSavegameToolStripMenuItem.Text = "Importing from savegame";
+            this.importingFromSavegameToolStripMenuItem.Text = "Importing from savegame (only ASE)";
             // 
             // importingFromSavegameEmptyToolStripMenuItem
             // 

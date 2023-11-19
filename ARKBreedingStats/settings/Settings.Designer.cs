@@ -98,6 +98,8 @@
             this.label12 = new System.Windows.Forms.Label();
             this.numericUpDownMaxBreedingSug = new ARKBreedingStats.uiControls.Nud();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label67 = new System.Windows.Forms.Label();
+            this.NudWildDinoTorporDrainMultiplier = new ARKBreedingStats.uiControls.Nud();
             this.nudDinoCharacterFoodDrainEvent = new ARKBreedingStats.uiControls.Nud();
             this.nudTamingSpeedEvent = new ARKBreedingStats.uiControls.Nud();
             this.label7 = new System.Windows.Forms.Label();
@@ -346,8 +348,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.label67 = new System.Windows.Forms.Label();
-            this.NudWildDinoTorporDrainMultiplier = new ARKBreedingStats.uiControls.Nud();
+            this.label68 = new System.Windows.Forms.Label();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -380,6 +381,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudChartLevelEvenMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxBreedingSug)).BeginInit();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NudWildDinoTorporDrainMultiplier)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDinoCharacterFoodDrainEvent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamingSpeedEvent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDinoCharacterFoodDrain)).BeginInit();
@@ -455,7 +457,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NudWildDinoTorporDrainMultiplier)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -1496,6 +1497,39 @@
             this.groupBox5.TabIndex = 6;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Taming-Multiplier";
+            // 
+            // label67
+            // 
+            this.label67.AutoSize = true;
+            this.label67.Location = new System.Drawing.Point(10, 73);
+            this.label67.Name = "label67";
+            this.label67.Size = new System.Drawing.Size(147, 13);
+            this.label67.TabIndex = 5;
+            this.label67.Text = "WildDinoTorporDrainMultiplier";
+            // 
+            // NudWildDinoTorporDrainMultiplier
+            // 
+            this.NudWildDinoTorporDrainMultiplier.DecimalPlaces = 6;
+            this.NudWildDinoTorporDrainMultiplier.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.NudWildDinoTorporDrainMultiplier.Location = new System.Drawing.Point(183, 71);
+            this.NudWildDinoTorporDrainMultiplier.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.NudWildDinoTorporDrainMultiplier.Name = "NudWildDinoTorporDrainMultiplier";
+            this.NudWildDinoTorporDrainMultiplier.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.NudWildDinoTorporDrainMultiplier.Size = new System.Drawing.Size(72, 20);
+            this.NudWildDinoTorporDrainMultiplier.TabIndex = 4;
+            this.NudWildDinoTorporDrainMultiplier.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // nudDinoCharacterFoodDrainEvent
             // 
@@ -2828,6 +2862,7 @@
             // 
             // groupBox12
             // 
+            this.groupBox12.Controls.Add(this.label68);
             this.groupBox12.Controls.Add(this.CbImportUnclaimedBabies);
             this.groupBox12.Controls.Add(this.cbSaveImportCryo);
             this.groupBox12.Controls.Add(this.cbIgnoreUnknownBPOnSaveImport);
@@ -2847,7 +2882,7 @@
             // CbImportUnclaimedBabies
             // 
             this.CbImportUnclaimedBabies.AutoSize = true;
-            this.CbImportUnclaimedBabies.Location = new System.Drawing.Point(9, 160);
+            this.CbImportUnclaimedBabies.Location = new System.Drawing.Point(9, 176);
             this.CbImportUnclaimedBabies.Name = "CbImportUnclaimedBabies";
             this.CbImportUnclaimedBabies.Size = new System.Drawing.Size(140, 17);
             this.CbImportUnclaimedBabies.TabIndex = 8;
@@ -2857,7 +2892,7 @@
             // cbSaveImportCryo
             // 
             this.cbSaveImportCryo.AutoSize = true;
-            this.cbSaveImportCryo.Location = new System.Drawing.Point(9, 137);
+            this.cbSaveImportCryo.Location = new System.Drawing.Point(9, 153);
             this.cbSaveImportCryo.Name = "cbSaveImportCryo";
             this.cbSaveImportCryo.Size = new System.Drawing.Size(216, 17);
             this.cbSaveImportCryo.TabIndex = 3;
@@ -2867,7 +2902,7 @@
             // cbIgnoreUnknownBPOnSaveImport
             // 
             this.cbIgnoreUnknownBPOnSaveImport.AutoSize = true;
-            this.cbIgnoreUnknownBPOnSaveImport.Location = new System.Drawing.Point(9, 114);
+            this.cbIgnoreUnknownBPOnSaveImport.Location = new System.Drawing.Point(9, 130);
             this.cbIgnoreUnknownBPOnSaveImport.Name = "cbIgnoreUnknownBPOnSaveImport";
             this.cbIgnoreUnknownBPOnSaveImport.Size = new System.Drawing.Size(334, 17);
             this.cbIgnoreUnknownBPOnSaveImport.TabIndex = 2;
@@ -2876,7 +2911,7 @@
             // 
             // textBoxImportTribeNameFilter
             // 
-            this.textBoxImportTribeNameFilter.Location = new System.Drawing.Point(3, 199);
+            this.textBoxImportTribeNameFilter.Location = new System.Drawing.Point(3, 215);
             this.textBoxImportTribeNameFilter.Name = "textBoxImportTribeNameFilter";
             this.textBoxImportTribeNameFilter.Size = new System.Drawing.Size(730, 20);
             this.textBoxImportTribeNameFilter.TabIndex = 5;
@@ -2884,7 +2919,7 @@
             // label_Filter
             // 
             this.label_Filter.AutoSize = true;
-            this.label_Filter.Location = new System.Drawing.Point(3, 183);
+            this.label_Filter.Location = new System.Drawing.Point(3, 199);
             this.label_Filter.Name = "label_Filter";
             this.label_Filter.Size = new System.Drawing.Size(487, 13);
             this.label_Filter.TabIndex = 4;
@@ -2893,7 +2928,7 @@
             // 
             // cbImportUpdateCreatureStatus
             // 
-            this.cbImportUpdateCreatureStatus.Location = new System.Drawing.Point(9, 71);
+            this.cbImportUpdateCreatureStatus.Location = new System.Drawing.Point(9, 87);
             this.cbImportUpdateCreatureStatus.Name = "cbImportUpdateCreatureStatus";
             this.cbImportUpdateCreatureStatus.Size = new System.Drawing.Size(727, 37);
             this.cbImportUpdateCreatureStatus.TabIndex = 1;
@@ -2907,7 +2942,7 @@
             this.groupBox15.Controls.Add(this.dataGridView_FileLocations);
             this.groupBox15.Controls.Add(this.btAddSavegameFileLocation);
             this.groupBox15.Controls.Add(this.labelSavegameFileLocationHint);
-            this.groupBox15.Location = new System.Drawing.Point(6, 278);
+            this.groupBox15.Location = new System.Drawing.Point(6, 302);
             this.groupBox15.Name = "groupBox15";
             this.groupBox15.Size = new System.Drawing.Size(730, 386);
             this.groupBox15.TabIndex = 7;
@@ -3024,7 +3059,7 @@
             // groupBox14
             // 
             this.groupBox14.Controls.Add(this.fileSelectorExtractedSaveFolder);
-            this.groupBox14.Location = new System.Drawing.Point(6, 225);
+            this.groupBox14.Location = new System.Drawing.Point(6, 249);
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.Size = new System.Drawing.Size(730, 47);
             this.groupBox14.TabIndex = 6;
@@ -3043,9 +3078,9 @@
             // 
             // label24
             // 
-            this.label24.Location = new System.Drawing.Point(6, 16);
+            this.label24.Location = new System.Drawing.Point(6, 52);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(730, 40);
+            this.label24.Size = new System.Drawing.Size(730, 38);
             this.label24.TabIndex = 0;
             this.label24.Text = resources.GetString("label24.Text");
             // 
@@ -3656,7 +3691,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3664,7 +3699,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3672,7 +3707,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3680,7 +3715,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -4399,38 +4434,15 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // label67
+            // label68
             // 
-            this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(10, 73);
-            this.label67.Name = "label67";
-            this.label67.Size = new System.Drawing.Size(147, 13);
-            this.label67.TabIndex = 5;
-            this.label67.Text = "WildDinoTorporDrainMultiplier";
-            // 
-            // NudWildDinoTorporDrainMultiplier
-            // 
-            this.NudWildDinoTorporDrainMultiplier.DecimalPlaces = 6;
-            this.NudWildDinoTorporDrainMultiplier.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.NudWildDinoTorporDrainMultiplier.Location = new System.Drawing.Point(183, 71);
-            this.NudWildDinoTorporDrainMultiplier.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.NudWildDinoTorporDrainMultiplier.Name = "NudWildDinoTorporDrainMultiplier";
-            this.NudWildDinoTorporDrainMultiplier.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.NudWildDinoTorporDrainMultiplier.Size = new System.Drawing.Size(72, 20);
-            this.NudWildDinoTorporDrainMultiplier.TabIndex = 4;
-            this.NudWildDinoTorporDrainMultiplier.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.label68.AutoSize = true;
+            this.label68.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label68.Location = new System.Drawing.Point(6, 16);
+            this.label68.Name = "label68";
+            this.label68.Size = new System.Drawing.Size(506, 20);
+            this.label68.TabIndex = 1;
+            this.label68.Text = "Only ARK: Survival Evolved is support, no support for ASA yet.";
             // 
             // Settings
             // 
@@ -4485,6 +4497,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxBreedingSug)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NudWildDinoTorporDrainMultiplier)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDinoCharacterFoodDrainEvent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamingSpeedEvent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDinoCharacterFoodDrain)).EndInit();
@@ -4592,7 +4605,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).EndInit();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.NudWildDinoTorporDrainMultiplier)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -4917,5 +4929,6 @@
         private System.Windows.Forms.CheckBox CbKeepMultipliersForNewLibrary;
         private System.Windows.Forms.Label label67;
         private uiControls.Nud NudWildDinoTorporDrainMultiplier;
+        private System.Windows.Forms.Label label68;
     }
 }
