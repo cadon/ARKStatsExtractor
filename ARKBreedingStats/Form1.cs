@@ -3226,11 +3226,17 @@ namespace ARKBreedingStats
 
         private void copyToMultiplierTesterToolStripButton_Click(object sender, EventArgs e)
         {
+            bool fromExtractor = tabControlMain.SelectedTab == tabPageExtractor;
+            var tamed = fromExtractor ? rbTamedExtractor.Checked : rbTamedTester.Checked;
+            var bred = fromExtractor ? rbBredExtractor.Checked : rbBredTester.Checked;
+
             double[] statValues = new double[Stats.StatsCount];
             for (int s = 0; s < Stats.StatsCount; s++)
-                statValues[s] = _statIOs[s].Input;
-
-            bool fromExtractor = tabControlMain.SelectedTab == tabPageExtractor;
+            {
+                statValues[s] = _statIOs[s].IsActive
+                    ? _statIOs[s].Input
+                    : StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, s, 0, 0, tamed || bred);
+            }
 
             var wildLevels = GetCurrentWildLevels(false);
             // the torpor level of the tester is only the sum of the recognized stats. Use the level of the extractor, if that value was recognized.
@@ -3245,8 +3251,8 @@ namespace ARKBreedingStats
                 (double)(fromExtractor
                     ? numericUpDownImprintingBonusExtractor.Value
                     : numericUpDownImprintingBonusTester.Value) / 100,
-                fromExtractor ? rbTamedExtractor.Checked : rbTamedTester.Checked,
-                fromExtractor ? rbBredExtractor.Checked : rbBredTester.Checked,
+                tamed,
+                bred,
                 speciesSelector1.SelectedSpecies);
             tabControlMain.SelectedTab = tabPageMultiplierTesting;
         }

@@ -9,7 +9,7 @@ namespace ARKBreedingStats
     {
         //private const double ROUND_UP_DELTA = 0.0001; // remove for now. Rounding issues should be handled during extraction with value-ranges.
 
-        public static double CalculateValue(Species species, int stat, int levelWild, int levelDom, bool dom, double tamingEff, double imprintingBonus, bool roundToIngamePrecision = true)
+        public static double CalculateValue(Species species, int stat, int levelWild, int levelDom, bool dom, double tamingEff = 0, double imprintingBonus = 0, bool roundToIngamePrecision = true)
         {
             if (species == null)
                 return 0;
