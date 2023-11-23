@@ -253,6 +253,7 @@ namespace ARKBreedingStats
                 Height = value ? 50 : 16;
                 Enabled = value;
             }
+            get => Enabled;
         }
 
         public void Clear()

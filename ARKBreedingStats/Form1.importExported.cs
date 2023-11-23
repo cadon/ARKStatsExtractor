@@ -244,9 +244,6 @@ namespace ARKBreedingStats
                             copiedNameToClipboard = true;
                         }
                     }
-
-                    SelectCreatureInLibrary(creature);
-
                     break;
                 default: return null;
             }

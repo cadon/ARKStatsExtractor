@@ -9,7 +9,7 @@ namespace ARKBreedingStats
     {
         //private const double ROUND_UP_DELTA = 0.0001; // remove for now. Rounding issues should be handled during extraction with value-ranges.
 
-        public static double CalculateValue(Species species, int stat, int levelWild, int levelDom, bool dom, double tamingEff, double imprintingBonus, bool roundToIngamePrecision = true)
+        public static double CalculateValue(Species species, int stat, int levelWild, int levelDom, bool dom, double tamingEff = 0, double imprintingBonus = 0, bool roundToIngamePrecision = true)
         {
             if (species == null)
                 return 0;
@@ -71,8 +71,8 @@ namespace ARKBreedingStats
             // always consider at least an error of. When using only the float-precision often the stat-calculations increase the resulting error to be much larger.
             const float minValueError = 0.001f;
 
-            // the error can increase due to the stat-calculation. Assume a factor of 10 for now, values lower than 6 were too low.
-            const float calculationErrorFactor = 11;
+            // the error can increase due to the stat-calculation. Assume a factor of 10 for now, values lower than 6 were too low. ASA needs it set to at least 18, using 20 for now.
+            const float calculationErrorFactor = 20;
 
             return highPrecisionInput || displayedStatValue * (displayedDecimals == 3 ? 100 : 1) > 1e6
                     ? Math.Max(minValueError, ((float)displayedStatValue).FloatPrecision() * calculationErrorFactor)

@@ -29,11 +29,12 @@ namespace ARKBreedingStats
             UpdateProperties();
         }
 
+        /// <summary>
+        /// Update the FileSystemWatcher properties
+        /// </summary>
         public void ChangeFile(string newFileName)
         {
             _currentFile = newFileName;
-
-            // Update the FileSystemWatcher properties
             UpdateProperties();
         }
 
