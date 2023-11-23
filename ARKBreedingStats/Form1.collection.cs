@@ -67,11 +67,13 @@ namespace ARKBreedingStats
                 serverMultipliers = oldMultipliers,
                 ModList = new List<Mod>()
             };
+            _currentFileName = null;
+            _fileSync?.ChangeFile(_currentFileName);
 
             if (asaMode)
             {
                 _creatureCollection.Game = Ark.Asa;
-                ReloadModValuesOfCollectionIfNeeded(true, false, false);
+                ReloadModValuesOfCollectionIfNeeded(true, false, false, false);
             }
 
             pedigree1.Clear();
@@ -84,8 +86,6 @@ namespace ARKBreedingStats
             UpdateCreatureListings();
             creatureBoxListView.Clear();
             Properties.Settings.Default.LastSaveFile = null;
-            _currentFileName = null;
-            _fileSync?.ChangeFile(_currentFileName);
             SetCollectionChanged(false);
         }
 

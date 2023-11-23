@@ -1991,7 +1991,7 @@ namespace ARKBreedingStats
             {
                 // ASA setting changed
                 var loadAsa = gameSettingBefore != Ark.Asa;
-                ReloadModValuesOfCollectionIfNeeded(loadAsa, false, false);
+                ReloadModValuesOfCollectionIfNeeded(loadAsa, false, false, false);
             }
 
             ApplySettingsToValues();
@@ -2757,7 +2757,7 @@ namespace ARKBreedingStats
         /// Loads mod value files according to the ModList of the library.
         /// </summary>
         /// <param name="onlyAdd">If true the values are not reset to the default first.</param>
-        private void ReloadModValuesOfCollectionIfNeeded(bool onlyAdd = false, bool showResult = true, bool applySettings = true)
+        private void ReloadModValuesOfCollectionIfNeeded(bool onlyAdd = false, bool showResult = true, bool applySettings = true, bool setCollectionChanged = true)
         {
             // if the mods for the library changed,
             // first check if all mod value files are available and load missing files if possible,
@@ -2774,7 +2774,8 @@ namespace ARKBreedingStats
                 else
                     UpdateAsaIndicator();
 
-                SetCollectionChanged(true);
+                if (setCollectionChanged)
+                    SetCollectionChanged(true);
             }
         }
 
