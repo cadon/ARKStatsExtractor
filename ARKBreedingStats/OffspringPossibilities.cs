@@ -1,5 +1,4 @@
 ﻿using ARKBreedingStats.species;
-using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -92,6 +91,12 @@ namespace ARKBreedingStats
 
         private void DrawBars(Dictionary<int, double> levelProbabilities, double maxProbability)
         {
+            if (maxProbability == 0)
+            {
+                Clear();
+                return;
+            }
+
             SuspendLayout();
             Clear(false);
 
