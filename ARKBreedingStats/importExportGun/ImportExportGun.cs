@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.values;
 using Newtonsoft.Json;
@@ -21,35 +22,47 @@ namespace ARKBreedingStats.importExportGun
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
                 return null;
 
-            try
-            {
-                string jsonText = null;
-                switch (Path.GetExtension(filePath))
-                {
-                    case ".sav":
-                        jsonText = ReadExportFile.ReadFile(filePath, "DinoExportGunSave_C", out resultText);
-                        break;
-                    case ".json":
-                        jsonText = File.ReadAllText(filePath);
-                        break;
-                }
+            const int tryLoadCount = 3;
+            const int waitAfterFailedLoadMs = 200;
 
-                if (string.IsNullOrEmpty(jsonText))
+            for (int tryIndex = 0; tryIndex < tryLoadCount; tryIndex++)
+            {
+                try
                 {
-                    resultText = $"Error when importing file {filePath}: {resultText}";
+                    string jsonText = null;
+                    switch (Path.GetExtension(filePath))
+                    {
+                        case ".sav":
+                            jsonText = ReadExportFile.ReadFile(filePath, "DinoExportGunSave_C", out resultText);
+                            break;
+                        case ".json":
+                            jsonText = File.ReadAllText(filePath);
+                            break;
+                    }
+
+                    if (string.IsNullOrEmpty(jsonText))
+                    {
+                        resultText = $"Error when importing file {filePath}: {resultText}";
+                        return null;
+                    }
+
+                    var exportedCreature = JsonConvert.DeserializeObject<ExportGunCreatureFile>(jsonText);
+                    if (exportedCreature == null) return null;
+
+                    serverMultipliersHash = exportedCreature.ServerMultipliersHash;
+
+                    return ConvertExportGunToCreature(exportedCreature, out resultText);
+                }
+                catch (IOException) when (tryIndex < tryLoadCount - 1)
+                {
+                    // file is probably still being written. Try up to 3 times again after some time.
+                    Thread.Sleep(waitAfterFailedLoadMs * (1 << tryIndex));
+                }
+                catch (Exception ex)
+                {
+                    resultText = $"Error when importing file {filePath}: {ex.Message}";
                     return null;
                 }
-
-                var exportedCreature = JsonConvert.DeserializeObject<ExportGunCreatureFile>(jsonText);
-                if (exportedCreature == null) return null;
-
-                serverMultipliersHash = exportedCreature.ServerMultipliersHash;
-
-                return ConvertExportGunToCreature(exportedCreature, out resultText);
-            }
-            catch (Exception ex)
-            {
-                resultText = $"Error when importing file {filePath}: {ex.Message}";
             }
 
             return null;
@@ -142,41 +155,54 @@ namespace ARKBreedingStats.importExportGun
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
                 return null;
 
-            try
+            const int tryLoadCount = 3;
+            const int waitAfterFailedLoadMs = 200;
+
+            for (int tryIndex = 0; tryIndex < tryLoadCount; tryIndex++)
             {
-                string jsonText = null;
-                string game = null;
-                switch (Path.GetExtension(filePath))
+                try
                 {
-                    case ".sav":
-                        jsonText = ReadExportFile.ReadFile(filePath, "DinoExportGunServerSave_C", out resultText);
-                        game = "ASE";
-                        break;
-                    case ".json":
-                        jsonText = File.ReadAllText(filePath);
-                        game = "ASA";
-                        break;
+                    string jsonText = null;
+                    string game = null;
+                    switch (Path.GetExtension(filePath))
+                    {
+                        case ".sav":
+                            jsonText = ReadExportFile.ReadFile(filePath, "DinoExportGunServerSave_C", out resultText);
+                            game = "ASE";
+                            break;
+                        case ".json":
+                            jsonText = File.ReadAllText(filePath);
+                            game = "ASA";
+                            break;
+                    }
+
+                    if (jsonText == null)
+                    {
+                        resultText = $"Error when importing file {filePath}: {resultText}";
+                        return null;
+                    }
+
+                    var exportedServerMultipliers = JsonConvert.DeserializeObject<ExportGunServerFile>(jsonText);
+                    if (exportedServerMultipliers?.WildLevel == null)
+                    {
+                        resultText = $"Unknown error when importing file {filePath}";
+                        return null;
+                    }
+
+                    exportedServerMultipliers.Game = game;
+                    resultText = $"Server multipliers imported from {filePath}";
+                    return exportedServerMultipliers;
                 }
-                if (jsonText == null)
+                catch (IOException) when (tryIndex < tryLoadCount - 1)
                 {
-                    resultText = $"Error when importing file {filePath}: {resultText}";
+                    // file is probably still being written. Try up to 3 times again after some time.
+                    Thread.Sleep(waitAfterFailedLoadMs * (1 << tryIndex));
+                }
+                catch (Exception ex)
+                {
+                    resultText = $"Error when importing file {filePath}: {ex.Message}";
                     return null;
                 }
-
-                var exportedServerMultipliers = JsonConvert.DeserializeObject<ExportGunServerFile>(jsonText);
-                if (exportedServerMultipliers?.WildLevel == null)
-                {
-                    resultText = $"Unknown error when importing file {filePath}";
-                    return null;
-                }
-
-                exportedServerMultipliers.Game = game;
-                resultText = $"Server multipliers imported from {filePath}";
-                return exportedServerMultipliers;
-            }
-            catch (Exception ex)
-            {
-                resultText = $"Error when importing file {filePath}: {ex.Message}";
             }
 
             return null;
