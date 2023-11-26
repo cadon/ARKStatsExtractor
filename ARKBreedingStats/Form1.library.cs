@@ -1338,7 +1338,10 @@ namespace ARKBreedingStats
                 }
 
                 for (int s = 0; s < Stats.StatsCount; s++)
+                {
                     listViewLibrary.Columns[ColumnIndexFirstStat + s].Text = Utils.StatName(s, true, customStatNames);
+                    listViewLibrary.Columns[ColumnIndexFirstStat + Stats.StatsCount + s].Text = Utils.StatName(s, true, customStatNames) + "M";
+                }
 
                 _creaturesPreFiltered = ApplyLibraryFilterSettings(filteredList).ToArray();
             }
@@ -2045,5 +2048,74 @@ namespace ARKBreedingStats
 
             MessageBoxes.ShowMessageBox(result, "Creatures imported from tsv file", MessageBoxIcon.Information);
         }
+
+        #region library list view columns
+
+        private void resetColumnOrderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listViewLibrary.BeginUpdate();
+            var colIndices = new[] { 1, 2, 4, 5, 6, 36, 31, 32, 33, 34, 35, 37, 7, 9, 29, 11, 13, 15, 17, 19, 21, 23, 25, 27, 8, 10, 30, 12, 14, 28, 18, 20, 22, 24, 26, 16, 40, 41, 42, 43, 44, 45, 46, 38, 3, 0, 39 };
+
+            // indices have to be set increasingly, or they will "push" other values up
+            var colIndicesOrdered = colIndices.Select((i, c) => (columnIndex: c, displayIndex: i))
+                .OrderBy(c => c.displayIndex).ToArray();
+            for (int c = 0; c < colIndicesOrdered.Length && c < listViewLibrary.Columns.Count; c++)
+                listViewLibrary.Columns[colIndicesOrdered[c].columnIndex].DisplayIndex = colIndicesOrdered[c].displayIndex;
+
+            listViewLibrary.EndUpdate();
+        }
+
+        private void toolStripMenuItemResetLibraryColumnWidths_Click(object sender, EventArgs e)
+        {
+            ResetColumnWidthListViewLibrary(false);
+        }
+
+        private void resetColumnWidthNoMutationLevelColumnsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ResetColumnWidthListViewLibrary(true);
+        }
+
+        private void restoreMutationLevelsASAToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LibraryColumnsMutationsWidth(false);
+        }
+
+        private void collapseMutationsLevelsASEToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LibraryColumnsMutationsWidth(true);
+        }
+
+        private void ResetColumnWidthListViewLibrary(bool mutationColumnWidthsZero)
+        {
+            listViewLibrary.BeginUpdate();
+            var statWidths = Stats.UsuallyVisibleStats.Select(w => w ? 30 : 0).ToArray();
+            for (int ci = 0; ci < listViewLibrary.Columns.Count; ci++)
+                listViewLibrary.Columns[ci].Width = ci == ColumnIndexMutagenApplied ? 30
+                    : ci < ColumnIndexFirstStat || ci >= ColumnIndexPostColor ? 60
+                    : ci >= ColumnIndexFirstStat + Stats.StatsCount + Stats.StatsCount ? 30 // color
+                    : ci < ColumnIndexFirstStat + Stats.StatsCount ? statWidths[ci - ColumnIndexFirstStat] // wild levels
+                    : (int)(statWidths[ci - ColumnIndexFirstStat - Stats.StatsCount] * 1.24); // mutated needs space for one more letter
+
+            if (mutationColumnWidthsZero)
+                LibraryColumnsMutationsWidth(true);
+
+            listViewLibrary.EndUpdate();
+        }
+
+        /// <summary>
+        /// Set width of mutation level columns to zero or restore.
+        /// </summary>
+        private void LibraryColumnsMutationsWidth(bool collapse)
+        {
+            listViewLibrary.BeginUpdate();
+            var statWidths = Stats.UsuallyVisibleStats.Select(w => !collapse && w ? 38 : 0).ToArray();
+            for (int c = 0; c < Stats.StatsCount; c++)
+            {
+                listViewLibrary.Columns[c + ColumnIndexFirstStat + Stats.StatsCount].Width = statWidths[c];
+            }
+            listViewLibrary.EndUpdate();
+        }
+
+        #endregion
     }
 }

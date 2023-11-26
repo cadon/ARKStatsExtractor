@@ -371,9 +371,12 @@ namespace ARKBreedingStats
             this.TbMessageLabel = new System.Windows.Forms.TextBox();
             this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetLibraryColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetColumnOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
-            this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator27 = new System.Windows.Forms.ToolStripSeparator();
+            this.collapseMutationsLevelsASEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.restoreMutationLevelsASAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -3637,21 +3640,31 @@ namespace ARKBreedingStats
             this.contextMenuStripLibraryHeader.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemResetLibraryColumnWidths,
             this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem,
+            this.restoreMutationLevelsASAToolStripMenuItem,
+            this.collapseMutationsLevelsASEToolStripMenuItem,
+            this.toolStripSeparator27,
             this.resetColumnOrderToolStripMenuItem});
             this.contextMenuStripLibraryHeader.Name = "contextMenuStrip1";
-            this.contextMenuStripLibraryHeader.Size = new System.Drawing.Size(325, 92);
+            this.contextMenuStripLibraryHeader.Size = new System.Drawing.Size(333, 142);
             // 
             // toolStripMenuItemResetLibraryColumnWidths
             // 
             this.toolStripMenuItemResetLibraryColumnWidths.Name = "toolStripMenuItemResetLibraryColumnWidths";
-            this.toolStripMenuItemResetLibraryColumnWidths.Size = new System.Drawing.Size(324, 22);
-            this.toolStripMenuItemResetLibraryColumnWidths.Text = "Reset column width";
+            this.toolStripMenuItemResetLibraryColumnWidths.Size = new System.Drawing.Size(332, 22);
+            this.toolStripMenuItemResetLibraryColumnWidths.Text = "Reset all column widths";
             this.toolStripMenuItemResetLibraryColumnWidths.Click += new System.EventHandler(this.toolStripMenuItemResetLibraryColumnWidths_Click);
+            // 
+            // resetColumnWidthNoMutationLevelColumnsToolStripMenuItem
+            // 
+            this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem.Name = "resetColumnWidthNoMutationLevelColumnsToolStripMenuItem";
+            this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem.Size = new System.Drawing.Size(332, 22);
+            this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem.Text = "Reset all column widths, collapse mutation levels";
+            this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem.Click += new System.EventHandler(this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem_Click);
             // 
             // resetColumnOrderToolStripMenuItem
             // 
             this.resetColumnOrderToolStripMenuItem.Name = "resetColumnOrderToolStripMenuItem";
-            this.resetColumnOrderToolStripMenuItem.Size = new System.Drawing.Size(324, 22);
+            this.resetColumnOrderToolStripMenuItem.Size = new System.Drawing.Size(332, 22);
             this.resetColumnOrderToolStripMenuItem.Text = "Reset column order";
             this.resetColumnOrderToolStripMenuItem.Click += new System.EventHandler(this.resetColumnOrderToolStripMenuItem_Click);
             // 
@@ -3665,12 +3678,24 @@ namespace ARKBreedingStats
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
-            // resetColumnWidthNoMutationLevelColumnsToolStripMenuItem
+            // toolStripSeparator27
             // 
-            this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem.Name = "resetColumnWidthNoMutationLevelColumnsToolStripMenuItem";
-            this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem.Size = new System.Drawing.Size(324, 22);
-            this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem.Text = "Reset column width no mutation level columns";
-            this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem.Click += new System.EventHandler(this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem_Click);
+            this.toolStripSeparator27.Name = "toolStripSeparator27";
+            this.toolStripSeparator27.Size = new System.Drawing.Size(329, 6);
+            // 
+            // collapseMutationsLevelsASEToolStripMenuItem
+            // 
+            this.collapseMutationsLevelsASEToolStripMenuItem.Name = "collapseMutationsLevelsASEToolStripMenuItem";
+            this.collapseMutationsLevelsASEToolStripMenuItem.Size = new System.Drawing.Size(332, 22);
+            this.collapseMutationsLevelsASEToolStripMenuItem.Text = "Collapse mutations levels (ASE)";
+            this.collapseMutationsLevelsASEToolStripMenuItem.Click += new System.EventHandler(this.collapseMutationsLevelsASEToolStripMenuItem_Click);
+            // 
+            // restoreMutationLevelsASAToolStripMenuItem
+            // 
+            this.restoreMutationLevelsASAToolStripMenuItem.Name = "restoreMutationLevelsASAToolStripMenuItem";
+            this.restoreMutationLevelsASAToolStripMenuItem.Size = new System.Drawing.Size(332, 22);
+            this.restoreMutationLevelsASAToolStripMenuItem.Text = "Restore mutation levels (ASA)";
+            this.restoreMutationLevelsASAToolStripMenuItem.Click += new System.EventHandler(this.restoreMutationLevelsASAToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -4120,5 +4145,8 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ColumnHeader columnHeaderCrM;
         private System.Windows.Forms.ToolStripMenuItem resetColumnOrderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resetColumnWidthNoMutationLevelColumnsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem restoreMutationLevelsASAToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem collapseMutationsLevelsASEToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator27;
     }
 }
