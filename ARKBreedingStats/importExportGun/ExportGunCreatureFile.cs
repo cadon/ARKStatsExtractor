@@ -9,6 +9,7 @@ namespace ARKBreedingStats.importExportGun
     [JsonObject]
     internal class ExportGunCreatureFile
     {
+        public int Version { get; set; }
         public string DinoName { get; set; }
         public string SpeciesName { get; set; }
         public string TribeName { get; set; }
