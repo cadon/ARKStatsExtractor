@@ -220,12 +220,24 @@ namespace ARKBreedingStats
             this.columnHeaderOx = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderFo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderWa = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderTemp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderTm = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderWe = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderDm = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderSp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderFr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderCr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderHPM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderStM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderToM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderOxM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderFoM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderWaM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderTmM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderWeM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderDmM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderSpM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderFrM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderCrM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderColor0 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderColor1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderColor2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -359,7 +371,9 @@ namespace ARKBreedingStats
             this.TbMessageLabel = new System.Windows.Forms.TextBox();
             this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetLibraryColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetColumnOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
+            this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -2107,12 +2121,24 @@ namespace ARKBreedingStats
             this.columnHeaderOx,
             this.columnHeaderFo,
             this.columnHeaderWa,
-            this.columnHeaderTemp,
+            this.columnHeaderTm,
             this.columnHeaderWe,
             this.columnHeaderDm,
             this.columnHeaderSp,
             this.columnHeaderFr,
             this.columnHeaderCr,
+            this.columnHeaderHPM,
+            this.columnHeaderStM,
+            this.columnHeaderToM,
+            this.columnHeaderOxM,
+            this.columnHeaderFoM,
+            this.columnHeaderWaM,
+            this.columnHeaderTmM,
+            this.columnHeaderWeM,
+            this.columnHeaderDmM,
+            this.columnHeaderSpM,
+            this.columnHeaderFrM,
+            this.columnHeaderCrM,
             this.columnHeaderColor0,
             this.columnHeaderColor1,
             this.columnHeaderColor2,
@@ -2171,45 +2197,45 @@ namespace ARKBreedingStats
             // 
             // columnHeaderDomesticated
             // 
-            this.columnHeaderDomesticated.DisplayIndex = 23;
+            this.columnHeaderDomesticated.DisplayIndex = 36;
             this.columnHeaderDomesticated.Text = "Domesticated";
             // 
             // columnHeaderTopness
             // 
-            this.columnHeaderTopness.DisplayIndex = 19;
+            this.columnHeaderTopness.DisplayIndex = 30;
             this.columnHeaderTopness.Text = "Tp%";
             this.columnHeaderTopness.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderTopness.Width = 33;
             // 
             // columnHeaderTopStatsNr
             // 
-            this.columnHeaderTopStatsNr.DisplayIndex = 18;
+            this.columnHeaderTopStatsNr.DisplayIndex = 31;
             this.columnHeaderTopStatsNr.Text = "Top";
             this.columnHeaderTopStatsNr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderTopStatsNr.Width = 31;
             // 
             // columnHeaderGen
             // 
-            this.columnHeaderGen.DisplayIndex = 20;
+            this.columnHeaderGen.DisplayIndex = 32;
             this.columnHeaderGen.Text = "Gen";
             this.columnHeaderGen.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeaderGen.Width = 34;
             // 
             // columnHeaderFound
             // 
-            this.columnHeaderFound.DisplayIndex = 21;
+            this.columnHeaderFound.DisplayIndex = 33;
             this.columnHeaderFound.Text = "LW";
             this.columnHeaderFound.Width = 30;
             // 
             // columnHeaderMutations
             // 
-            this.columnHeaderMutations.DisplayIndex = 22;
+            this.columnHeaderMutations.DisplayIndex = 34;
             this.columnHeaderMutations.Text = "Mu";
             this.columnHeaderMutations.Width = 30;
             // 
             // columnHeaderCooldown
             // 
-            this.columnHeaderCooldown.DisplayIndex = 24;
+            this.columnHeaderCooldown.DisplayIndex = 37;
             this.columnHeaderCooldown.Text = "Cooldown/Growing";
             // 
             // columnHeaderHP
@@ -2221,140 +2247,224 @@ namespace ARKBreedingStats
             // 
             // columnHeaderSt
             // 
-            this.columnHeaderSt.DisplayIndex = 7;
+            this.columnHeaderSt.DisplayIndex = 8;
             this.columnHeaderSt.Text = "St";
             this.columnHeaderSt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderSt.Width = 30;
             // 
             // columnHeaderTo
             // 
-            this.columnHeaderTo.DisplayIndex = 17;
+            this.columnHeaderTo.DisplayIndex = 28;
             this.columnHeaderTo.Text = "To";
             this.columnHeaderTo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderTo.Width = 30;
             // 
             // columnHeaderOx
             // 
-            this.columnHeaderOx.DisplayIndex = 8;
+            this.columnHeaderOx.DisplayIndex = 10;
             this.columnHeaderOx.Text = "Ox";
             this.columnHeaderOx.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderOx.Width = 30;
             // 
             // columnHeaderFo
             // 
-            this.columnHeaderFo.DisplayIndex = 9;
+            this.columnHeaderFo.DisplayIndex = 12;
             this.columnHeaderFo.Text = "Fo";
             this.columnHeaderFo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderFo.Width = 30;
             // 
             // columnHeaderWa
             // 
-            this.columnHeaderWa.DisplayIndex = 10;
+            this.columnHeaderWa.DisplayIndex = 14;
             this.columnHeaderWa.Text = "Wa";
             this.columnHeaderWa.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderWa.Width = 30;
             // 
-            // columnHeaderTemp
+            // columnHeaderTm
             // 
-            this.columnHeaderTemp.DisplayIndex = 11;
-            this.columnHeaderTemp.Text = "Te";
-            this.columnHeaderTemp.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeaderTemp.Width = 30;
+            this.columnHeaderTm.DisplayIndex = 16;
+            this.columnHeaderTm.Text = "Te";
+            this.columnHeaderTm.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderTm.Width = 30;
             // 
             // columnHeaderWe
             // 
-            this.columnHeaderWe.DisplayIndex = 12;
+            this.columnHeaderWe.DisplayIndex = 18;
             this.columnHeaderWe.Text = "We";
             this.columnHeaderWe.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderWe.Width = 30;
             // 
             // columnHeaderDm
             // 
-            this.columnHeaderDm.DisplayIndex = 13;
             this.columnHeaderDm.Text = "Dm";
             this.columnHeaderDm.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderDm.Width = 30;
             // 
             // columnHeaderSp
             // 
-            this.columnHeaderSp.DisplayIndex = 14;
+            this.columnHeaderSp.DisplayIndex = 22;
             this.columnHeaderSp.Text = "Sp";
             this.columnHeaderSp.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderSp.Width = 30;
             // 
             // columnHeaderFr
             // 
-            this.columnHeaderFr.DisplayIndex = 15;
+            this.columnHeaderFr.DisplayIndex = 24;
             this.columnHeaderFr.Text = "Fr";
             this.columnHeaderFr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderFr.Width = 30;
             // 
             // columnHeaderCr
             // 
-            this.columnHeaderCr.DisplayIndex = 16;
+            this.columnHeaderCr.DisplayIndex = 26;
             this.columnHeaderCr.Text = "Cr";
             this.columnHeaderCr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderCr.Width = 30;
             // 
+            // columnHeaderHPM
+            // 
+            this.columnHeaderHPM.DisplayIndex = 7;
+            this.columnHeaderHPM.Text = "HPM";
+            this.columnHeaderHPM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderHPM.Width = 35;
+            // 
+            // columnHeaderStM
+            // 
+            this.columnHeaderStM.DisplayIndex = 9;
+            this.columnHeaderStM.Text = "StM";
+            this.columnHeaderStM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderStM.Width = 35;
+            // 
+            // columnHeaderToM
+            // 
+            this.columnHeaderToM.DisplayIndex = 29;
+            this.columnHeaderToM.Text = "ToM";
+            this.columnHeaderToM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderToM.Width = 35;
+            // 
+            // columnHeaderOxM
+            // 
+            this.columnHeaderOxM.DisplayIndex = 11;
+            this.columnHeaderOxM.Text = "OxM";
+            this.columnHeaderOxM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderOxM.Width = 35;
+            // 
+            // columnHeaderFoM
+            // 
+            this.columnHeaderFoM.DisplayIndex = 13;
+            this.columnHeaderFoM.Text = "FoM";
+            this.columnHeaderFoM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderFoM.Width = 35;
+            // 
+            // columnHeaderWaM
+            // 
+            this.columnHeaderWaM.DisplayIndex = 15;
+            this.columnHeaderWaM.Text = "WaM";
+            this.columnHeaderWaM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderWaM.Width = 0;
+            // 
+            // columnHeaderTmM
+            // 
+            this.columnHeaderTmM.DisplayIndex = 17;
+            this.columnHeaderTmM.Text = "TeM";
+            this.columnHeaderTmM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderTmM.Width = 0;
+            // 
+            // columnHeaderWeM
+            // 
+            this.columnHeaderWeM.DisplayIndex = 19;
+            this.columnHeaderWeM.Text = "WeM";
+            this.columnHeaderWeM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderWeM.Width = 35;
+            // 
+            // columnHeaderDmM
+            // 
+            this.columnHeaderDmM.DisplayIndex = 21;
+            this.columnHeaderDmM.Text = "DmM";
+            this.columnHeaderDmM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderDmM.Width = 35;
+            // 
+            // columnHeaderSpM
+            // 
+            this.columnHeaderSpM.DisplayIndex = 23;
+            this.columnHeaderSpM.Text = "SpM";
+            this.columnHeaderSpM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderSpM.Width = 35;
+            // 
+            // columnHeaderFrM
+            // 
+            this.columnHeaderFrM.DisplayIndex = 25;
+            this.columnHeaderFrM.Text = "FrM";
+            this.columnHeaderFrM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderFrM.Width = 0;
+            // 
+            // columnHeaderCrM
+            // 
+            this.columnHeaderCrM.DisplayIndex = 27;
+            this.columnHeaderCrM.Text = "CrM";
+            this.columnHeaderCrM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderCrM.Width = 0;
+            // 
             // columnHeaderColor0
             // 
-            this.columnHeaderColor0.DisplayIndex = 25;
+            this.columnHeaderColor0.DisplayIndex = 38;
             this.columnHeaderColor0.Text = "C0";
             this.columnHeaderColor0.Width = 25;
             // 
             // columnHeaderColor1
             // 
-            this.columnHeaderColor1.DisplayIndex = 26;
+            this.columnHeaderColor1.DisplayIndex = 39;
             this.columnHeaderColor1.Text = "C1";
             this.columnHeaderColor1.Width = 25;
             // 
             // columnHeaderColor2
             // 
-            this.columnHeaderColor2.DisplayIndex = 27;
+            this.columnHeaderColor2.DisplayIndex = 40;
             this.columnHeaderColor2.Text = "C2";
             this.columnHeaderColor2.Width = 25;
             // 
             // columnHeaderColor3
             // 
-            this.columnHeaderColor3.DisplayIndex = 28;
+            this.columnHeaderColor3.DisplayIndex = 41;
             this.columnHeaderColor3.Text = "C3";
             this.columnHeaderColor3.Width = 25;
             // 
             // columnHeaderColor4
             // 
-            this.columnHeaderColor4.DisplayIndex = 29;
+            this.columnHeaderColor4.DisplayIndex = 42;
             this.columnHeaderColor4.Text = "C4";
             this.columnHeaderColor4.Width = 25;
             // 
             // columnHeaderColor5
             // 
-            this.columnHeaderColor5.DisplayIndex = 30;
+            this.columnHeaderColor5.DisplayIndex = 43;
             this.columnHeaderColor5.Text = "C5";
             this.columnHeaderColor5.Width = 25;
             // 
             // columnHeaderSpecies
             // 
-            this.columnHeaderSpecies.DisplayIndex = 31;
+            this.columnHeaderSpecies.DisplayIndex = 44;
             this.columnHeaderSpecies.Text = "Species";
             // 
             // columnHeaderStatus
             // 
-            this.columnHeaderStatus.DisplayIndex = 32;
+            this.columnHeaderStatus.DisplayIndex = 0;
             this.columnHeaderStatus.Text = "Status";
             // 
             // columnHeaderTribe
             // 
-            this.columnHeaderTribe.DisplayIndex = 33;
+            this.columnHeaderTribe.DisplayIndex = 45;
             this.columnHeaderTribe.Text = "Tribe";
             // 
             // columnHeaderStatusIcon
             // 
-            this.columnHeaderStatusIcon.DisplayIndex = 0;
+            this.columnHeaderStatusIcon.DisplayIndex = 46;
             this.columnHeaderStatusIcon.Text = "Status";
             this.columnHeaderStatusIcon.Width = 35;
             // 
             // columnHeaderMutagen
             // 
+            this.columnHeaderMutagen.DisplayIndex = 35;
             this.columnHeaderMutagen.Text = "Mutagen";
             this.columnHeaderMutagen.Width = 30;
             // 
@@ -3525,16 +3635,25 @@ namespace ARKBreedingStats
             // contextMenuStripLibraryHeader
             // 
             this.contextMenuStripLibraryHeader.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemResetLibraryColumnWidths});
+            this.toolStripMenuItemResetLibraryColumnWidths,
+            this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem,
+            this.resetColumnOrderToolStripMenuItem});
             this.contextMenuStripLibraryHeader.Name = "contextMenuStrip1";
-            this.contextMenuStripLibraryHeader.Size = new System.Drawing.Size(180, 26);
+            this.contextMenuStripLibraryHeader.Size = new System.Drawing.Size(325, 92);
             // 
             // toolStripMenuItemResetLibraryColumnWidths
             // 
             this.toolStripMenuItemResetLibraryColumnWidths.Name = "toolStripMenuItemResetLibraryColumnWidths";
-            this.toolStripMenuItemResetLibraryColumnWidths.Size = new System.Drawing.Size(179, 22);
+            this.toolStripMenuItemResetLibraryColumnWidths.Size = new System.Drawing.Size(324, 22);
             this.toolStripMenuItemResetLibraryColumnWidths.Text = "Reset column width";
             this.toolStripMenuItemResetLibraryColumnWidths.Click += new System.EventHandler(this.toolStripMenuItemResetLibraryColumnWidths_Click);
+            // 
+            // resetColumnOrderToolStripMenuItem
+            // 
+            this.resetColumnOrderToolStripMenuItem.Name = "resetColumnOrderToolStripMenuItem";
+            this.resetColumnOrderToolStripMenuItem.Size = new System.Drawing.Size(324, 22);
+            this.resetColumnOrderToolStripMenuItem.Text = "Reset column order";
+            this.resetColumnOrderToolStripMenuItem.Click += new System.EventHandler(this.resetColumnOrderToolStripMenuItem_Click);
             // 
             // speciesSelector1
             // 
@@ -3545,6 +3664,13 @@ namespace ARKBreedingStats
             this.speciesSelector1.Size = new System.Drawing.Size(1878, 775);
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
+            // 
+            // resetColumnWidthNoMutationLevelColumnsToolStripMenuItem
+            // 
+            this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem.Name = "resetColumnWidthNoMutationLevelColumnsToolStripMenuItem";
+            this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem.Size = new System.Drawing.Size(324, 22);
+            this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem.Text = "Reset column width no mutation level columns";
+            this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem.Click += new System.EventHandler(this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -3705,7 +3831,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ColumnHeader columnHeaderFo;
         private System.Windows.Forms.ColumnHeader columnHeaderWa;
         private System.Windows.Forms.ColumnHeader columnHeaderWe;
-        private System.Windows.Forms.ColumnHeader columnHeaderTemp;
+        private System.Windows.Forms.ColumnHeader columnHeaderTm;
         private System.Windows.Forms.ColumnHeader columnHeaderDm;
         private System.Windows.Forms.ColumnHeader columnHeaderSp;
         private System.Windows.Forms.ColumnHeader columnHeaderFr;
@@ -3980,5 +4106,19 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ColumnHeader columnHeaderMutagen;
         private System.Windows.Forms.Label LbAsa;
         private System.Windows.Forms.ToolStripMenuItem discordServerToolStripMenuItem;
+        private System.Windows.Forms.ColumnHeader columnHeaderHPM;
+        private System.Windows.Forms.ColumnHeader columnHeaderStM;
+        private System.Windows.Forms.ColumnHeader columnHeaderToM;
+        private System.Windows.Forms.ColumnHeader columnHeaderOxM;
+        private System.Windows.Forms.ColumnHeader columnHeaderFoM;
+        private System.Windows.Forms.ColumnHeader columnHeaderWaM;
+        private System.Windows.Forms.ColumnHeader columnHeaderTmM;
+        private System.Windows.Forms.ColumnHeader columnHeaderWeM;
+        private System.Windows.Forms.ColumnHeader columnHeaderDmM;
+        private System.Windows.Forms.ColumnHeader columnHeaderSpM;
+        private System.Windows.Forms.ColumnHeader columnHeaderFrM;
+        private System.Windows.Forms.ColumnHeader columnHeaderCrM;
+        private System.Windows.Forms.ToolStripMenuItem resetColumnOrderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem resetColumnWidthNoMutationLevelColumnsToolStripMenuItem;
     }
 }

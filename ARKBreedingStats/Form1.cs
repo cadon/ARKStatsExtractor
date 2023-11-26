@@ -15,7 +15,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Windows.Forms;
-using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.utils;
@@ -257,7 +256,14 @@ namespace ARKBreedingStats
             LoadListViewSettings(pedigree1.ListViewCreatures, "PedigreeListViewColumnWidths");
 
             // Load column-widths, display-indices and sort-order  of the listViewLibrary
-            LoadListViewSettings(listViewLibrary, "columnWidths", "libraryColumnDisplayIndices");
+            // new columns were added, reset widths and order, old settings don't match the new indices
+            if ((Properties.Settings.Default.columnWidths?.Length ?? 0) < 40)
+            {
+                resetColumnOrderToolStripMenuItem_Click(null, null);
+                toolStripMenuItemResetLibraryColumnWidths_Click(null, null);
+            }
+            else
+                LoadListViewSettings(listViewLibrary, "columnWidths", "libraryColumnDisplayIndices");
             _creatureListSorter.SortColumnIndex = Properties.Settings.Default.listViewSortCol;
             _creatureListSorter.Order = Properties.Settings.Default.listViewSortAsc
                 ? SortOrder.Ascending
@@ -3547,10 +3553,43 @@ namespace ARKBreedingStats
             else if (pe != null) pe.SetCustomReplacings(_customReplacingNamingPattern);
         }
 
+        private void resetColumnOrderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listViewLibrary.BeginUpdate();
+            var colIndices = new[] { 1, 2, 4, 5, 6, 36, 31, 32, 33, 34, 35, 37, 7, 9, 29, 11, 13, 15, 17, 19, 21, 23, 25, 27, 8, 10, 30, 12, 14, 28, 18, 20, 22, 24, 26, 16, 40, 41, 42, 43, 44, 45, 46, 38, 3, 0, 39 };
+
+            // indices have to be set increasingly, or they will "push" other values up
+            var colIndicesOrdered = colIndices.Select((i, c) => (columnIndex: c, displayIndex: i))
+                .OrderBy(c => c.displayIndex).ToArray();
+            for (int c = 0; c < colIndicesOrdered.Length && c < listViewLibrary.Columns.Count; c++)
+                listViewLibrary.Columns[colIndicesOrdered[c].columnIndex].DisplayIndex = colIndicesOrdered[c].displayIndex;
+
+            listViewLibrary.EndUpdate();
+        }
+
         private void toolStripMenuItemResetLibraryColumnWidths_Click(object sender, EventArgs e)
         {
+            ResetColumnWidthListViewLibrary(false);
+        }
+
+        private void resetColumnWidthNoMutationLevelColumnsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ResetColumnWidthListViewLibrary(true);
+        }
+
+        private void ResetColumnWidthListViewLibrary(bool mutationColumnWidthsZero)
+        {
+            var mutationColumnWidthFactor = mutationColumnWidthsZero ? 0 : 1.24;
+            listViewLibrary.BeginUpdate();
+            var statWidths = new[] { 30, 30, 30, 30, 30, 0, 0, 30, 30, 30, 0, 0 };
             for (int ci = 0; ci < listViewLibrary.Columns.Count; ci++)
-                listViewLibrary.Columns[ci].Width = ((ci >= ColumnIndexFirstStat && ci < ColumnIndexPostColor) || ci == ColumnIndexMutagenApplied) ? 30 : 60;
+                listViewLibrary.Columns[ci].Width = ci == ColumnIndexMutagenApplied ? 30
+                    : ci < ColumnIndexFirstStat || ci >= ColumnIndexPostColor ? 60
+                    : ci >= ColumnIndexFirstStat + Stats.StatsCount + Stats.StatsCount ? 30 // color
+                    : ci < ColumnIndexFirstStat + Stats.StatsCount ? statWidths[ci - ColumnIndexFirstStat] // wild levels
+                    : (int)(statWidths[ci - ColumnIndexFirstStat - Stats.StatsCount] * mutationColumnWidthFactor); // mutated needs space for one more letter
+
+            listViewLibrary.EndUpdate();
         }
 
         private void copyInfographicToClipboardToolStripMenuItem_Click(object sender, EventArgs e)

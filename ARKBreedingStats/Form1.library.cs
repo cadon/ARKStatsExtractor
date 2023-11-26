@@ -962,9 +962,9 @@ namespace ARKBreedingStats
         private const int ColumnIndexMutations = 10;
         private const int ColumnIndexCountdown = 11;
         private const int ColumnIndexFirstStat = 12;
-        private const int ColumnIndexFirstColor = 24;
-        private const int ColumnIndexPostColor = 30;
-        private const int ColumnIndexMutagenApplied = 34;
+        private const int ColumnIndexFirstColor = 36;
+        private const int ColumnIndexPostColor = 42;
+        private const int ColumnIndexMutagenApplied = 46;
 
         private ListViewItem CreateCreatureLvItem(Creature cr, bool displayIndex = false)
         {
@@ -993,7 +993,8 @@ namespace ARKBreedingStats
                         cr.Mutations.ToString(),
                         DisplayedCreatureCountdown(cr, out var cooldownForeColor, out var cooldownBackColor)
                     }
-                    .Concat(cr.levelsWild.Select(x => x.ToString()))
+                    .Concat(cr.levelsWild.Select(l => l.ToString()))
+                    .Concat((cr.levelsMutated ?? new int[Stats.StatsCount]).Select(l => l.ToString()))
                     .Concat(Properties.Settings.Default.showColorsInLibrary
                         ? cr.colors.Select(cl => cl.ToString())
                         : new string[Ark.ColorRegionCount]
@@ -1028,6 +1029,17 @@ namespace ARKBreedingStats
                 }
                 else
                     lvi.SubItems[ColumnIndexFirstStat + s].BackColor = Utils.GetColorFromPercent((int)(cr.levelsWild[s] * (s == Stats.Torpidity ? colorFactor / 7 : colorFactor)), // TODO set factor to number of other stats (flyers have 6, Gacha has 8?)
+                            _considerStatHighlight[s] ? cr.topBreedingStats[s] ? 0.2 : 0.7 : 0.93);
+
+                // mutated levels
+                if (cr.levelsMutated == null || cr.valuesDom[s] == 0)
+                {
+                    // not used
+                    lvi.SubItems[ColumnIndexFirstStat + Stats.StatsCount + s].ForeColor = Color.White;
+                    lvi.SubItems[ColumnIndexFirstStat + Stats.StatsCount + s].BackColor = Color.White;
+                }
+                else
+                    lvi.SubItems[ColumnIndexFirstStat + Stats.StatsCount + s].BackColor = Utils.GetColorFromPercent((int)(cr.levelsMutated[s] * (s == Stats.Torpidity ? colorFactor / 7 : colorFactor)),
                             _considerStatHighlight[s] ? cr.topBreedingStats[s] ? 0.2 : 0.7 : 0.93);
             }
             lvi.SubItems[ColumnIndexSex].BackColor = cr.flags.HasFlag(CreatureFlags.Neutered) ? Color.FromArgb(220, 220, 220) :
