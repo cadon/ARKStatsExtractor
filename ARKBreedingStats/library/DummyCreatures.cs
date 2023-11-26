@@ -115,7 +115,7 @@ namespace ARKBreedingStats.library
         /// <summary>
         /// Creates a creature for testing.
         /// </summary>
-        public static Creature CreateCreature(Species species, double difficulty, bool doTame = true, Random rand = null, bool setOwner = true, bool setTribe = true, bool setServer = true, Dictionary<string, int> nameCounter = null)
+        public static Creature CreateCreature(Species species, double difficulty = 5, bool doTame = true, Random rand = null, bool setOwner = true, bool setTribe = true, bool setServer = true, Dictionary<string, int> nameCounter = null)
         {
             if (rand == null) rand = new Random();
 
@@ -165,7 +165,8 @@ namespace ARKBreedingStats.library
             var creature = new Creature(species, name, sex: sex, levelsWild: levelsWild,
                 levelsDom: levelsDom, tamingEff: tamingEffectiveness)
             {
-                guid = Guid.NewGuid()
+                guid = Guid.NewGuid(),
+                ArkId = Utils.ConvertArkIdsToLongArkId(rand.Next(), rand.Next())
             };
             creature.RecalculateCreatureValues((int)difficulty);
 

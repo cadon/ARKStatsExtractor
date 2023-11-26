@@ -14,6 +14,7 @@ using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.NamePatterns;
@@ -2818,7 +2819,7 @@ namespace ARKBreedingStats
                                                     + ")"
                                                   : string.Empty)
                                               + ". v" + Application.ProductVersion
-                                              //+ "-BETA" // TODO BETA indicator
+                                              + "-BETA" // TODO BETA indicator
                                               + " / values: " + Values.V.Version +
                                               (loadedMods?.Any() == true
                                                   ? ", additional values from " + _creatureCollection.ModList.Count +
@@ -3826,5 +3827,45 @@ namespace ARKBreedingStats
         {
             Process.Start(RepositoryInfo.DiscordServerInviteLink);
         }
+
+        #region Server
+
+        private void listenToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            if (listenToolStripMenuItem.Checked)
+                AsbServerStartListening(false);
+            else AsbServer.Connection.StopListening();
+        }
+
+        private void listenWithNewTokenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AsbServerStartListening(true);
+        }
+
+        private void AsbServerStartListening(bool newToken = false)
+        {
+            AsbServer.Connection.StopListening();
+            var progressDataSent = new Progress<(string jsonText, string serverHash, string message)>(AsbServerDataSent);
+            if (newToken || string.IsNullOrEmpty(Properties.Settings.Default.ExportServerToken))
+                Properties.Settings.Default.ExportServerToken = AsbServer.Connection.CreateNewToken();
+            Task.Factory.StartNew(() => AsbServer.Connection.StartListeningAsync(progressDataSent, Properties.Settings.Default.ExportServerToken));
+            MessageServerListening(Properties.Settings.Default.ExportServerToken);
+        }
+
+        private void MessageServerListening(string token)
+        {
+            SetMessageLabelText($"Now listening to the export server using the token\r\n{token}\r\n(also copied to clipboard)", MessageBoxIcon.Information);
+            if (!string.IsNullOrEmpty(token))
+                Clipboard.SetText(token);
+        }
+
+        private void sendExampleCreatureToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // debug function, sends a test creature to the server
+            AsbServer.Connection.SendCreatureData(DummyCreatures.CreateCreature(speciesSelector1.SelectedSpecies), Properties.Settings.Default.ExportServerToken);
+        }
+
+        #endregion
+
     }
 }

@@ -916,5 +916,46 @@ namespace ARKBreedingStats
 
             UpdateTempCreatureDropDown();
         }
+
+        /// <summary>
+        /// Imports a creature when listening to a server.
+        /// </summary>
+        private void AsbServerDataSent((string jsonData, string serverHash, string message) data)
+        {
+            if (!string.IsNullOrEmpty(data.message))
+            {
+                SetMessageLabelText(data.message, MessageBoxIcon.Error);
+                return;
+            }
+
+            string resultText;
+            if (string.IsNullOrEmpty(data.serverHash))
+            {
+                // import creature
+                var creature = ImportExportGun.ImportCreatureFromJson(data.jsonData, null, out resultText, out _);
+                if (creature == null)
+                {
+                    SetMessageLabelText(resultText, MessageBoxIcon.Error);
+                    return;
+                }
+
+                _creatureCollection.MergeCreatureList(new[] { creature }, true);
+                UpdateCreatureParentLinkingSort();
+
+                SetMessageLabelText(resultText, MessageBoxIcon.Information);
+
+                tabControlMain.SelectedTab = tabPageLibrary;
+                if (listBoxSpeciesLib.SelectedItem != null &&
+                    listBoxSpeciesLib.SelectedItem != creature.Species)
+                    listBoxSpeciesLib.SelectedItem = creature.Species;
+                _ignoreNextMessageLabel = true;
+                SelectCreatureInLibrary(creature);
+                return;
+            }
+
+            // import server settings
+            var success = ImportExportGun.ImportServerMultipliersFromJson(_creatureCollection, data.jsonData, data.serverHash, out resultText);
+            SetMessageLabelText(resultText, success ? MessageBoxIcon.Information : MessageBoxIcon.Error, resultText);
+        }
     }
 }
