@@ -2054,7 +2054,7 @@ namespace ARKBreedingStats
         private void resetColumnOrderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             listViewLibrary.BeginUpdate();
-            var colIndices = new[] { 1, 2, 4, 5, 6, 36, 31, 32, 33, 34, 35, 37, 7, 9, 29, 11, 13, 15, 17, 19, 21, 23, 25, 27, 8, 10, 30, 12, 14, 28, 18, 20, 22, 24, 26, 16, 40, 41, 42, 43, 44, 45, 46, 38, 3, 0, 39 };
+            var colIndices = new[] { 1, 2, 4, 5, 6, 36, 31, 32, 33, 34, 35, 37, 7, 9, 29, 11, 13, 15, 17, 19, 21, 23, 25, 27, 8, 10, 30, 12, 14, 16, 18, 20, 22, 24, 26, 28, 40, 41, 42, 43, 44, 45, 46, 38, 3, 0, 39 };
 
             // indices have to be set increasingly, or they will "push" other values up
             var colIndicesOrdered = colIndices.Select((i, c) => (columnIndex: c, displayIndex: i))
