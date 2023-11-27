@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.Library;
 
@@ -17,7 +16,7 @@ namespace ARKBreedingStats.AsbServer
     {
         private const string ApiUri = "https://export.arkbreeder.com/api/v1/";
 
-        private static CancellationTokenSource _cancellationTokenSource;
+        private static SimpleCancellationToken _lastCancellationToken;
 
         public static async void StartListeningAsync(IProgress<(string jsonText, string serverHash, string message)> progressDataSent, string token = null)
         {
@@ -25,8 +24,8 @@ namespace ARKBreedingStats.AsbServer
 
             // stop previous listening if any
             StopListening();
-            _cancellationTokenSource = new CancellationTokenSource();
-            var cancellationToken = _cancellationTokenSource.Token;
+            var cancellationToken = new SimpleCancellationToken();
+            _lastCancellationToken = cancellationToken;
 
             try
             {
@@ -102,12 +101,11 @@ namespace ARKBreedingStats.AsbServer
 
         public static void StopListening()
         {
-            if (_cancellationTokenSource == null)
+            if (_lastCancellationToken == null)
                 return; // nothing to stop
 
-            _cancellationTokenSource.Cancel();
-            _cancellationTokenSource.Dispose();
-            _cancellationTokenSource = null;
+            _lastCancellationToken.Cancel();
+            _lastCancellationToken = null;
         }
 
         /// <summary>
@@ -154,6 +152,15 @@ namespace ARKBreedingStats.AsbServer
             }
 
             return new string(token);
+        }
+
+        /// <summary>
+        /// Simple replacement of CancellationTokenSource to avoid unnecessary complexities with disposal of CTS when the token is still in use.
+        /// </summary>
+        private class SimpleCancellationToken
+        {
+            public bool IsCancellationRequested;
+            public void Cancel() => IsCancellationRequested = true;
         }
     }
 }
