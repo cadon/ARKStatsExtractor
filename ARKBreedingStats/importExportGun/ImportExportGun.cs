@@ -284,7 +284,8 @@ namespace ARKBreedingStats.importExportGun
                 return null;
             }
 
-            exportedServerMultipliers.Game = game;
+            if (string.IsNullOrEmpty(exportedServerMultipliers.Game))
+                exportedServerMultipliers.Game = game;
             resultText = $"Server multipliers imported from {filePath}";
             return exportedServerMultipliers;
         }
