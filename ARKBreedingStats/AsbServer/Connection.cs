@@ -17,35 +17,34 @@ namespace ARKBreedingStats.AsbServer
     {
         private const string ApiUri = "https://export.arkbreeder.com/api/v1/";
 
-        /// <summary>
-        /// Currently used token for the server connection.
-        /// </summary>
-        private static string _token;
-
-        private static bool _stopListening;
+        private static CancellationTokenSource _cancellationTokenSource;
 
         public static async void StartListeningAsync(IProgress<(string jsonText, string serverHash, string message)> progressDataSent, string token = null)
         {
             if (string.IsNullOrEmpty(token)) return;
-            _token = token;
 
-            _stopListening = false;
+            // stop previous listening if any
+            StopListening();
+            _cancellationTokenSource = new CancellationTokenSource();
+            var cancellationToken = _cancellationTokenSource.Token;
 
             try
             {
                 using (var client = new HttpClient())
-                using (var stream = await client.GetStreamAsync(ApiUri + "listen/" + _token))
+                using (var stream = await client.GetStreamAsync(ApiUri + "listen/" + token))
                 using (var reader = new StreamReader(stream))
                 {
 #if DEBUG
-                    Console.WriteLine($"Now listening using token: {_token}");
+                    Console.WriteLine($"Now listening using token: {token}");
 #endif
-                    while (!_stopListening)
+                    while (!cancellationToken.IsCancellationRequested)
                     {
                         var received = await reader.ReadLineAsync();
-                        if (_stopListening) break;
+                        if (string.IsNullOrEmpty(received))
+                            continue; // end of event
+
 #if DEBUG
-                        Console.WriteLine(received);
+                        Console.WriteLine($"{received} (token: {token})");
 #endif
                         switch (received)
                         {
@@ -56,22 +55,22 @@ namespace ARKBreedingStats.AsbServer
                                 continue;
                                 break;
                             case "event: replaced":
-                                _stopListening = true;
-                                progressDataSent.Report((null, null, "Connection used by a different user"));
+                                progressDataSent.Report((null, null, "ASB Server listening stopped. Connection used by a different user"));
                                 return;
                             case "event: closing":
-                                _stopListening = true;
-                                progressDataSent.Report((null, null, "Connection closed by the server"));
+                                progressDataSent.Report((null, null, "ASB Server listening stopped. Connection closed by the server"));
                                 return;
                         }
 
                         if (received != "event: export" && !received.StartsWith("event: server"))
                         {
-                            Console.WriteLine("unknown server event: {received}");
+                            Console.WriteLine($"unknown server event: {received}");
                             continue;
                         }
 
                         received += "\n" + await reader.ReadLineAsync();
+                        if (cancellationToken.IsCancellationRequested)
+                            break;
                         var m = _eventRegex.Match(received);
                         if (m.Success)
                         {
@@ -86,22 +85,29 @@ namespace ARKBreedingStats.AsbServer
                             }
                         }
                     }
-#if DEBUG
-                    Console.WriteLine($"Stopped listening using token: {_token}");
-#endif
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // handle
+#if DEBUG
+                Console.WriteLine($"ASB Server listening exception:\n{ex.Message}\n\nStack trace:\n{ex.StackTrace}");
+#endif
             }
+#if DEBUG
+            Console.WriteLine($"ASB Server listening stopped using token: {token}");
+#endif
         }
 
         private static Regex _eventRegex = new Regex(@"^event: (welcome|ping|replaced|export|server|closing)(?: (\-?\d+))?(?:\ndata:\s(.+))?$");
 
         public static void StopListening()
         {
-            _stopListening = true;
+            if (_cancellationTokenSource == null)
+                return; // nothing to stop
+
+            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource.Dispose();
+            _cancellationTokenSource = null;
         }
 
         /// <summary>
@@ -110,16 +116,15 @@ namespace ARKBreedingStats.AsbServer
         public static async void SendCreatureData(Creature creature, string token)
         {
             if (creature == null || string.IsNullOrEmpty(token)) return;
-            _token = token;
 
             using (var client = new HttpClient())
             {
                 var contentString = Newtonsoft.Json.JsonConvert.SerializeObject(ImportExportGun.ConvertCreatureToExportGunFile(creature, out _));
-                var msg = new HttpRequestMessage(HttpMethod.Put, ApiUri + "export/" + _token);
+                var msg = new HttpRequestMessage(HttpMethod.Put, ApiUri + "export/" + token);
                 msg.Content = new StringContent(contentString, Encoding.UTF8, "application/json");
                 msg.Content.Headers.Add("Content-Length", contentString.Length.ToString());
                 var response = await client.SendAsync(msg);
-                Console.WriteLine($"Sent creature data of {creature} using token: {_token}\nContent:\n{contentString}");
+                Console.WriteLine($"Sent creature data of {creature} using token: {token}\nContent:\n{contentString}");
                 Console.WriteLine(msg.ToString());
                 Console.WriteLine($"Response: Status: {(int)response.StatusCode}, ReasonPhrase: {response.ReasonPhrase}");
             }
