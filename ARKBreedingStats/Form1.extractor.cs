@@ -867,9 +867,10 @@ namespace ARKBreedingStats
         /// Returns true if the creature already exists in the library.
         /// Returns null if file couldn't be loaded.
         /// </summary>
-        private bool? ExtractExportedFileInExtractor(string exportFilePath)
+        private bool? ExtractExportedFileInExtractor(string exportFilePath, out bool nameCopiedToClipboard)
         {
             CreatureValues cv = null;
+            nameCopiedToClipboard = false;
 
             // if the file is blocked, try it again
             const int waitingTimeBase = 200;
@@ -917,7 +918,7 @@ namespace ARKBreedingStats
                     && LoadModValuesOfCollection(_creatureCollection, true, true)
                     && oldModHash != _creatureCollection.modListHash)
                 {
-                    return ExtractExportedFileInExtractor(exportFilePath);
+                    return ExtractExportedFileInExtractor(exportFilePath, out nameCopiedToClipboard);
                 }
 
                 return false;
@@ -926,7 +927,7 @@ namespace ARKBreedingStats
             tabControlMain.SelectedTab = tabPageExtractor;
 
             bool creatureAlreadyExists = ExtractValuesInExtractor(cv, exportFilePath, true);
-            GenerateCreatureNameAndCopyNameToClipboardIfSet(creatureAlreadyExists);
+            nameCopiedToClipboard= GenerateCreatureNameAndCopyNameToClipboardIfSet(creatureAlreadyExists);
 
             return creatureAlreadyExists;
         }
@@ -935,7 +936,7 @@ namespace ARKBreedingStats
         /// Copies the creature name to the clipboard if the conditions according to the user settings are fulfilled.
         /// </summary>
         /// <param name="creatureAlreadyExists"></param>
-        private void GenerateCreatureNameAndCopyNameToClipboardIfSet(bool creatureAlreadyExists)
+        private bool GenerateCreatureNameAndCopyNameToClipboardIfSet(bool creatureAlreadyExists)
         {
             if (Properties.Settings.Default.applyNamePatternOnAutoImportAlways
                 || (Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
@@ -945,13 +946,10 @@ namespace ARKBreedingStats
             )
             {
                 CreatureInfoInput_CreatureDataRequested(creatureInfoInputExtractor, false, false, false, 0);
-                if (Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied)
-                {
-                    Clipboard.SetText(string.IsNullOrEmpty(creatureInfoInputExtractor.CreatureName)
-                        ? "<no name>"
-                        : creatureInfoInputExtractor.CreatureName);
-                }
+                return CopyCreatureNameToClipboardOnImportIfSetting(creatureInfoInputExtractor.CreatureName);
             }
+
+            return false;
         }
 
         /// <summary>
@@ -973,7 +971,6 @@ namespace ARKBreedingStats
             if (!string.IsNullOrEmpty(_exportedCreatureList?.ownerSuffix))
                 creatureInfoInputExtractor.CreatureOwner += _exportedCreatureList.ownerSuffix;
         }
-
 
         /// <summary>
         /// Sets the values of a creature to the extractor and extracts its levels.

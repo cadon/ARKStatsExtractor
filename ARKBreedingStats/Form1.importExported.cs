@@ -121,7 +121,7 @@ namespace ARKBreedingStats
                     firstExportFolder.FolderPath = lastExportFile.DirectoryName;
                     exportFolders[0] = firstExportFolder.ToString();
 
-                    ExtractExportedFileInExtractor(lastExportFile.FullName);
+                    ExtractExportedFileInExtractor(lastExportFile.FullName, out _);
                 }
                 return;
             }
@@ -132,7 +132,7 @@ namespace ARKBreedingStats
             {
                 case ".ini":
                     // ini files need to be processed by the extractor
-                    ExtractExportedFileInExtractor(newestExportFile);
+                    ExtractExportedFileInExtractor(newestExportFile, out _);
                     return;
                 case ".sav":
                 case ".json":
@@ -195,7 +195,7 @@ namespace ARKBreedingStats
             switch (Path.GetExtension(filePath))
             {
                 case ".ini":
-                    var loadResult = ExtractExportedFileInExtractor(filePath);
+                    var loadResult = ExtractExportedFileInExtractor(filePath, out copiedNameToClipboard);
                     if (loadResult == null) return null;
                     alreadyExists = loadResult.Value;
 
@@ -210,40 +210,13 @@ namespace ARKBreedingStats
                         SetMessageLabelText($"Successful {(alreadyExists ? "updated" : "added")} {creature.name} ({species.name}) of the exported file\r\n" + filePath, MessageBoxIcon.Information, filePath);
                         addedToLibrary = true;
                     }
-
-                    copiedNameToClipboard = Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied
-                                                            && (Properties.Settings.Default.applyNamePatternOnAutoImportAlways
-                                                                || Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
-                                                                || (!alreadyExists && Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures)
-                                                            );
                     break;
                 case ".sav":
                 case ".json":
-                    alreadyExists = ImportExportGunFiles(new[] { filePath }, out addedToLibrary, out creature);
+                    var alreadyExistingCreature = ImportExportGunFiles(new[] { filePath }, out addedToLibrary, out creature, out copiedNameToClipboard);
+                    alreadyExists = alreadyExistingCreature != null;
                     if (!addedToLibrary || creature == null) return null;
                     uniqueExtraction = true;
-
-                    if (Properties.Settings.Default.applyNamePatternOnAutoImportAlways
-                        || (Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
-                            && string.IsNullOrEmpty(creature.name))
-                        || (!alreadyExists
-                            && Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures)
-                       )
-                    {
-                        creaturesOfSpecies = _creatureCollection.creatures.Where(c => c.Species == creature.Species).ToArray();
-                        creature.name = NamePattern.GenerateCreatureName(creature, creaturesOfSpecies,
-                            _topLevels.TryGetValue(creature.Species, out var topLevels) ? topLevels : null,
-                            _lowestLevels.TryGetValue(creature.Species, out var lowestLevels) ? lowestLevels : null,
-                            _customReplacingNamingPattern, false, 0);
-
-                        if (Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied)
-                        {
-                            Clipboard.SetText(string.IsNullOrEmpty(creature.name)
-                                ? "<no name>"
-                                : creature.name);
-                            copiedNameToClipboard = true;
-                        }
-                    }
                     break;
                 default: return null;
             }
@@ -341,6 +314,59 @@ namespace ARKBreedingStats
             }
 
             return addedToLibrary ? creature : null;
+        }
+
+        /// <summary>
+        /// Sets the name of an imported creature and copies it to the clipboard depending on the user settings.
+        /// </summary>
+        /// <returns>True if name was copied to clipboard</returns>
+        private bool SetNameOfImportedCreature(Creature creature, Creature[] creaturesOfSpeciesIn, out Creature[] creaturesOfSpecies, Creature alreadyExistingCreature)
+        {
+            creaturesOfSpecies = creaturesOfSpeciesIn;
+            if (ApplyNamingPattern(creature, alreadyExistingCreature))
+            {
+                // don't overwrite existing ASB creature name with empty ingame name
+                if (!string.IsNullOrEmpty(alreadyExistingCreature?.name) && string.IsNullOrEmpty(creature.name))
+                {
+                    creature.name = alreadyExistingCreature.name;
+                }
+                else
+                {
+                    if (creaturesOfSpecies == null)
+                        creaturesOfSpecies = _creatureCollection.creatures.Where(c => c.Species == creature.Species)
+                            .ToArray();
+                    creature.name = NamePattern.GenerateCreatureName(creature, creaturesOfSpecies,
+                        _topLevels.TryGetValue(creature.Species, out var topLevels) ? topLevels : null,
+                        _lowestLevels.TryGetValue(creature.Species, out var lowestLevels) ? lowestLevels : null,
+                        _customReplacingNamingPattern, false, 0);
+                }
+
+                return CopyCreatureNameToClipboardOnImportIfSetting(creature.name);
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Returns true if the naming pattern should be applied according to the settings.
+        /// </summary>
+        private bool ApplyNamingPattern(Creature creature, Creature alreadyExistingCreature) =>
+            Properties.Settings.Default.applyNamePatternOnAutoImportAlways
+            || (Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
+                && string.IsNullOrEmpty(creature.name))
+            || (alreadyExistingCreature == null
+                && Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures);
+
+        /// <summary>
+        /// Copies name to clipboard if the according setting is enabled. Returns true if copied.
+        /// </summary>
+        private bool CopyCreatureNameToClipboardOnImportIfSetting(string creatureName)
+        {
+            if (!Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied) return false;
+            Clipboard.SetText(string.IsNullOrEmpty(creatureName)
+                ? "<no name>"
+                : creatureName);
+            return true;
         }
 
         /// <summary>

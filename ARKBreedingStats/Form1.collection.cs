@@ -793,11 +793,12 @@ namespace ARKBreedingStats
 
         /// <summary>
         /// Imports creature from file created by the export gun mod.
-        /// Returns true if the last imported creature already exists in the library.
+        /// Returns already existing Creature or null if it's a new creature.
         /// </summary>
-        private bool ImportExportGunFiles(string[] filePaths, out bool creatureAdded, out Creature lastAddedCreature)
+        private Creature ImportExportGunFiles(string[] filePaths, out bool creatureAdded, out Creature lastAddedCreature, out bool copiedNameToClipboard)
         {
             creatureAdded = false;
+            copiedNameToClipboard = false;
             var newCreatures = new List<Creature>();
 
             var importedCounter = 0;
@@ -807,8 +808,10 @@ namespace ARKBreedingStats
             string serverMultipliersHash = null;
             bool? multipliersImportSuccessful = null;
             string serverImportResult = null;
-            bool creatureAlreadyExists = false;
+            Creature alreadyExistingCreature = null;
             var gameSettingBefore = _creatureCollection.Game;
+            Species lastSpecies = null;
+            Creature[] creaturesOfSpecies = null;
 
             foreach (var filePath in filePaths)
             {
@@ -818,6 +821,10 @@ namespace ARKBreedingStats
                     newCreatures.Add(c);
                     importedCounter++;
                     lastCreatureFilePath = filePath;
+
+                    IsCreatureAlreadyInLibrary(c.guid, c.ArkId, out alreadyExistingCreature);
+                    copiedNameToClipboard = SetNameOfImportedCreature(c, lastSpecies == c.Species ? creaturesOfSpecies : null, out creaturesOfSpecies, alreadyExistingCreature);
+                    lastSpecies = c.Species;
                 }
                 else if (lastError != null)
                 {
@@ -861,7 +868,6 @@ namespace ARKBreedingStats
             lastAddedCreature = newCreatures.LastOrDefault();
             if (lastAddedCreature != null)
             {
-                creatureAlreadyExists = IsCreatureAlreadyInLibrary(lastAddedCreature.guid, lastAddedCreature.ArkId, out _);
                 creatureAdded = true;
             }
 
@@ -887,7 +893,7 @@ namespace ARKBreedingStats
                 SelectCreatureInLibrary(lastAddedCreature);
             }
 
-            return creatureAlreadyExists;
+            return alreadyExistingCreature;
         }
 
         /// <summary>

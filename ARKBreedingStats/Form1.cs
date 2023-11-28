@@ -3357,7 +3357,7 @@ namespace ARKBreedingStats
                     OpenCompressedFile(filePath, true);
                     return;
                 case ".ini" when files.Length == 1:
-                    ExtractExportedFileInExtractor(filePath);
+                    ExtractExportedFileInExtractor(filePath, out _);
                     break;
                 case ".ini":
                     ShowExportedCreatureListControl();
@@ -3365,7 +3365,7 @@ namespace ARKBreedingStats
                     break;
                 case ".sav":
                 case ".json":
-                    ImportExportGunFiles(files, out _, out _);
+                    ImportExportGunFiles(files, out _, out _, out _);
                     break;
                 case ".asb":
                 case ".xml":
