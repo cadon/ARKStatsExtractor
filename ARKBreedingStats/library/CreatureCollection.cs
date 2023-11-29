@@ -317,6 +317,14 @@ namespace ARKBreedingStats.Library
                         creaturesWereAddedOrUpdated = true;
                     }
 
+                    if ((creatureExisting.levelsMutated == null && creatureNew.levelsMutated != null)
+                        || (creatureExisting.levelsMutated != null && creatureNew.levelsMutated != null && !creatureExisting.levelsMutated.SequenceEqual(creatureNew.levelsMutated)))
+                    {
+                        creatureExisting.levelsMutated = creatureNew.levelsMutated;
+                        recalculate = true;
+                        creaturesWereAddedOrUpdated = true;
+                    }
+
                     if (!creatureExisting.levelsDom.SequenceEqual(creatureNew.levelsDom))
                     {
                         creatureExisting.levelsDom = creatureNew.levelsDom;
