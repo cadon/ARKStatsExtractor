@@ -41,6 +41,10 @@ namespace ARKBreedingStats.values
         public double BabyImprintingStatScaleMultiplier { get; set; } = 1;
         [JsonProperty]
         public double BabyImprintAmountMultiplier { get; set; } = 1;
+
+        /// <summary>
+        /// Setting introduced in ASA, for ASE it's always true.
+        /// </summary>
         [JsonProperty]
         public bool AllowSpeedLeveling { get; set; }
         [JsonProperty]

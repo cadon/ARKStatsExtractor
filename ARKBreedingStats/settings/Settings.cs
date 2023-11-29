@@ -482,7 +482,7 @@ namespace ARKBreedingStats.settings
             _cc.maxWildLevel = (int)nudMaxWildLevels.Value;
             _cc.maxServerLevel = (int)nudMaxServerLevel.Value;
             _cc.maxChartLevel = (int)nudMaxGraphLevel.Value;
-            _cc.serverMultipliers.AllowSpeedLeveling = CbAllowSpeedLeveling.Checked;
+            _cc.serverMultipliers.AllowSpeedLeveling = CbAllowSpeedLeveling.Checked || RbGameAse.Checked;
             _cc.serverMultipliers.AllowFlyerSpeedLeveling = CbAllowFlyerSpeedLeveling.Checked;
             _cc.maxBreedingSuggestions = (int)numericUpDownMaxBreedingSug.Value;
             Properties.Settings.Default.IgnoreSexInBreedingPlan = cbIgnoreSexInBreedingPlan.Checked;
