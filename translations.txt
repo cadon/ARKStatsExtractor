@@ -268,6 +268,7 @@ Mutations	Mutations
 Mutations_Abb	Mu
 na  n/a
 Name	Name
+nameAlreadyExistsInLibrary	This name already exists in the library
 Narcotics	Narcotics
 naYet	n/a yet
 Neck	Neck
@@ -370,6 +371,7 @@ Temperature_Abb Te
 Time	Time
 TimeBetweenMating	Time between mating
 timerFeedAll	Feed all for
+timerStarvingOf	Starving of
 timerWakeupOf	Wakeup of
 TimeUntilFeedingAllFood	Time until you can feed all needed food in one go
 timeUntilStarving	Time until starving:
