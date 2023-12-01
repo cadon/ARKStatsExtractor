@@ -367,6 +367,9 @@ namespace ARKBreedingStats.NamePatterns
                 // highest stats and according levels
                 dict.Add("highest" + (s + 1) + "l", usedStatsCount > s ? levelOrder[s].Item2.ToString() : string.Empty);
                 dict.Add("highest" + (s + 1) + "s", usedStatsCount > s ? Utils.StatName(levelOrder[s].Item1, true, creature.Species.statNames) : string.Empty);
+
+                // mutated levels
+                dict.Add(StatAbbreviationFromIndex[s] + "_m", (creature.levelsMutated?[s] ?? 0).ToString());
             }
 
             return dict;

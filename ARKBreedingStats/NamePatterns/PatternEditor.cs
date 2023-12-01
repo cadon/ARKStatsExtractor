@@ -501,6 +501,19 @@ namespace ARKBreedingStats.NamePatterns
                 { "highest4s", "the name of the fourth highest stat-level of this creature (excluding torpidity)" },
                 { "highest5s", "the name of the fifth highest stat-level of this creature (excluding torpidity)" },
                 { "highest6s", "the name of the sixth highest stat-level of this creature (excluding torpidity)" },
+
+                { "hp_m", "Mutated levels of " + Utils.StatName(Stats.Health, customStatNames:customStatNames) },
+                { "st_m", "Mutated levels of " + Utils.StatName(Stats.Stamina, customStatNames:customStatNames) },
+                { "to_m", "Mutated levels of " + Utils.StatName(Stats.Torpidity, customStatNames:customStatNames) },
+                { "ox_m", "Mutated levels of " + Utils.StatName(Stats.Oxygen, customStatNames:customStatNames) },
+                { "fo_m", "Mutated levels of " + Utils.StatName(Stats.Food, customStatNames:customStatNames) },
+                { "wa_m", "Mutated levels of " + Utils.StatName(Stats.Water, customStatNames:customStatNames) },
+                { "te_m", "Mutated levels of " + Utils.StatName(Stats.Temperature, customStatNames:customStatNames) },
+                { "we_m", "Mutated levels of " + Utils.StatName(Stats.Weight, customStatNames:customStatNames) },
+                { "dm_m", "Mutated levels of " + Utils.StatName(Stats.MeleeDamageMultiplier, customStatNames:customStatNames) },
+                { "sp_m", "Mutated levels of " + Utils.StatName(Stats.SpeedMultiplier, customStatNames:customStatNames) },
+                { "fr_m", "Mutated levels of " + Utils.StatName(Stats.TemperatureFortitude, customStatNames:customStatNames) },
+                { "cr_m", "Mutated levels of " + Utils.StatName(Stats.CraftingSpeedMultiplier, customStatNames:customStatNames) }
             };
 
         // list of possible functions, expected format:
