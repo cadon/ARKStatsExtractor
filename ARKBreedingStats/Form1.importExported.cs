@@ -121,7 +121,7 @@ namespace ARKBreedingStats
                     firstExportFolder.FolderPath = lastExportFile.DirectoryName;
                     exportFolders[0] = firstExportFolder.ToString();
 
-                    ExtractExportedFileInExtractor(lastExportFile.FullName, out _);
+                    ExtractExportedFileInExtractor(lastExportFile.FullName, out _, out _);
                 }
                 return;
             }
@@ -132,7 +132,7 @@ namespace ARKBreedingStats
             {
                 case ".ini":
                     // ini files need to be processed by the extractor
-                    ExtractExportedFileInExtractor(newestExportFile, out _);
+                    ExtractExportedFileInExtractor(newestExportFile, out _, out _);
                     return;
                 case ".sav":
                 case ".json":
@@ -189,13 +189,14 @@ namespace ARKBreedingStats
             bool addedToLibrary = false;
             bool uniqueExtraction = false;
             Creature creature = null;
+            Creature alreadyExistingCreature = null;
             bool copiedNameToClipboard = false;
             Creature[] creaturesOfSpecies = null;
 
             switch (Path.GetExtension(filePath))
             {
                 case ".ini":
-                    var loadResult = ExtractExportedFileInExtractor(filePath, out copiedNameToClipboard);
+                    var loadResult = ExtractExportedFileInExtractor(filePath, out copiedNameToClipboard, out alreadyExistingCreature);
                     if (loadResult == null) return null;
                     alreadyExists = loadResult.Value;
 
@@ -213,7 +214,7 @@ namespace ARKBreedingStats
                     break;
                 case ".sav":
                 case ".json":
-                    var alreadyExistingCreature = ImportExportGunFiles(new[] { filePath }, out addedToLibrary, out creature, out copiedNameToClipboard);
+                    alreadyExistingCreature = ImportExportGunFiles(new[] { filePath }, out addedToLibrary, out creature, out copiedNameToClipboard);
                     alreadyExists = alreadyExistingCreature != null;
                     if (!addedToLibrary || creature == null) return null;
                     uniqueExtraction = true;
@@ -255,7 +256,7 @@ namespace ARKBreedingStats
                     string namePattern = Properties.Settings.Default.AutoImportedExportFileRenamePattern;
 
                     string newFileName = Properties.Settings.Default.AutoImportedExportFileRename && !string.IsNullOrWhiteSpace(namePattern)
-                        ? NamePattern.GenerateCreatureName(creature,
+                        ? NamePattern.GenerateCreatureName(creature, alreadyExistingCreature,
                             creaturesOfSpecies ?? _creatureCollection.creatures.Where(c => c.Species == creature.Species).ToArray(),
                             null, null,
                             _customReplacingNamingPattern, false, -1, false, namePattern)
@@ -335,10 +336,12 @@ namespace ARKBreedingStats
                     if (creaturesOfSpecies == null)
                         creaturesOfSpecies = _creatureCollection.creatures.Where(c => c.Species == creature.Species)
                             .ToArray();
-                    creature.name = NamePattern.GenerateCreatureName(creature, creaturesOfSpecies,
+                    creature.name = NamePattern.GenerateCreatureName(creature, alreadyExistingCreature, creaturesOfSpecies,
                         _topLevels.TryGetValue(creature.Species, out var topLevels) ? topLevels : null,
                         _lowestLevels.TryGetValue(creature.Species, out var lowestLevels) ? lowestLevels : null,
                         _customReplacingNamingPattern, false, 0);
+                    if (alreadyExistingCreature != null)
+                        alreadyExistingCreature.name = creature.name; // if alreadyExistingCreature was already updated and creature is not used anymore make sure name is not lost
                 }
 
                 return CopyCreatureNameToClipboardOnImportIfSetting(creature.name);

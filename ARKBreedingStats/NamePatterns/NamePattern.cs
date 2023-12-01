@@ -19,7 +19,8 @@ namespace ARKBreedingStats.NamePatterns
         /// <summary>
         /// Generate a creature name with the naming pattern.
         /// </summary>
-        public static string GenerateCreatureName(Creature creature, Creature[] sameSpecies, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings,
+        /// <param name="alreadyExistingCreature">If the creature already exists in the library, null if the creature is new.</param>
+        public static string GenerateCreatureName(Creature creature, Creature alreadyExistingCreature, Creature[] sameSpecies, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings,
             bool showDuplicateNameWarning, int namingPatternIndex, bool showTooLongWarning = true, string pattern = null, bool displayError = true, Dictionary<string, string> tokenDictionary = null,
             CreatureCollection.ColorExisting[] colorsExisting = null)
         {
@@ -63,7 +64,7 @@ namespace ARKBreedingStats.NamePatterns
             }
 
             if (tokenDictionary == null)
-                tokenDictionary = CreateTokenDictionary(creature, sameSpecies, speciesTopLevels, speciesLowestLevels);
+                tokenDictionary = CreateTokenDictionary(creature, alreadyExistingCreature, sameSpecies, speciesTopLevels, speciesLowestLevels);
             // first resolve keys, then functions
             string name = ResolveFunctions(
                 ResolveKeysToValues(tokenDictionary, pattern.Replace("\r", string.Empty).Replace("\n", string.Empty)),
@@ -190,14 +191,13 @@ namespace ARKBreedingStats.NamePatterns
         /// This method creates the token dictionary for the dynamic creature name generation.
         /// </summary>
         /// <param name="creature">Creature with the data</param>
+        /// <param name="alreadyExistingCreature">If the creature is already existing in the library, i.e. if the name is created for a creature that is updated</param>
         /// <param name="speciesCreatures">A list of all currently stored creatures of the species</param>
         /// <param name="speciesTopLevels">top levels of that species</param>
         /// <param name="speciesLowestLevels">lowest levels of that species</param>
         /// <returns>A dictionary containing all tokens and their replacements</returns>
-        public static Dictionary<string, string> CreateTokenDictionary(Creature creature, Creature[] speciesCreatures, int[] speciesTopLevels, int[] speciesLowestLevels)
+        public static Dictionary<string, string> CreateTokenDictionary(Creature creature, Creature alreadyExistingCreature, Creature[] speciesCreatures, int[] speciesTopLevels, int[] speciesLowestLevels)
         {
-            var creatureInLibrary = creature.guid != Guid.Empty ? speciesCreatures.FirstOrDefault(c => c.guid == creature.guid) : null;
-
             string dom = creature.isBred ? "B" : "T";
 
             double imp = creature.imprintingBonus * 100;
@@ -247,7 +247,7 @@ namespace ARKBreedingStats.NamePatterns
 
                 if (creature.guid != Guid.Empty)
                 {
-                    oldName = creatureInLibrary?.name ?? creature.name;
+                    oldName = (alreadyExistingCreature != null ? alreadyExistingCreature.name : creature.name) ?? string.Empty;
                 }
                 else if (creature.ArkId != 0)
                 {
@@ -263,7 +263,7 @@ namespace ARKBreedingStats.NamePatterns
                 spcsNm = spcsNm.Remove(spcsNm.LastIndexOfAny(vowels), 1); // remove last vowel (not the first letter)
 
             // for counting, add 1 if the creature is not yet in the library
-            var addOne = creatureInLibrary == null ? 1 : 0;
+            var addOne = alreadyExistingCreature == null ? 1 : 0;
             int speciesCount = (speciesCreatures?.Length ?? 0) + addOne;
             // the index of the creature in its generation, ordered by addedToLibrary
             int nrInGeneration = (speciesCreatures?.Count(c => c.guid != creature.guid && c.addedToLibrary != null && c.generation == generation && (creature.addedToLibrary == null || c.addedToLibrary < creature.addedToLibrary)) ?? 0) + addOne;

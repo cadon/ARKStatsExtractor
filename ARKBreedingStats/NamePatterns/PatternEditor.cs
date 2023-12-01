@@ -17,6 +17,7 @@ namespace ARKBreedingStats.NamePatterns
     {
         private readonly Creature _creature;
         private readonly Creature[] _creaturesOfSameSpecies;
+        private readonly Creature _alreadyExistingCreature;
         private readonly int[] _speciesTopLevels;
         private readonly int[] _speciesLowestLevels;
         private readonly CreatureCollection.ColorExisting[] _colorExistings;
@@ -57,9 +58,10 @@ namespace ARKBreedingStats.NamePatterns
             CbPatternNameToClipboardAfterManualApplication.Checked = Properties.Settings.Default.PatternNameToClipboardAfterManualApplication;
             txtboxPattern.SelectionStart = txtboxPattern.Text.Length;
 
-            Text = $"Naming Pattern Editor: pattern {(namingPatternIndex + 1)}";
+            Text = $"Naming Pattern Editor: pattern {namingPatternIndex + 1}";
 
-            _tokenDictionary = NamePatterns.NamePattern.CreateTokenDictionary(creature, _creaturesOfSameSpecies, _speciesTopLevels, _speciesLowestLevels);
+            _alreadyExistingCreature = _creaturesOfSameSpecies?.FirstOrDefault(c => c.guid == creature.guid);
+            _tokenDictionary = NamePatterns.NamePattern.CreateTokenDictionary(creature, _alreadyExistingCreature, _creaturesOfSameSpecies, _speciesTopLevels, _speciesLowestLevels);
             _keyDebouncer = new Debouncer();
             _functionDebouncer = new Debouncer();
 
@@ -549,7 +551,7 @@ namespace ARKBreedingStats.NamePatterns
 
         private void DisplayPreview()
         {
-            cbPreview.Text = NamePatterns.NamePattern.GenerateCreatureName(_creature, _creaturesOfSameSpecies, _speciesTopLevels, _speciesLowestLevels, _customReplacings,
+            cbPreview.Text = NamePatterns.NamePattern.GenerateCreatureName(_creature, _alreadyExistingCreature, _creaturesOfSameSpecies, _speciesTopLevels, _speciesLowestLevels, _customReplacings,
                 false, -1, false, txtboxPattern.Text, false, _tokenDictionary, _colorExistings);
         }
 

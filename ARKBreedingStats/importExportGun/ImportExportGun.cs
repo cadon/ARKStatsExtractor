@@ -125,7 +125,8 @@ namespace ARKBreedingStats.importExportGun
                 colors = ec.ColorIds,
                 Maturation = ec.BabyAge,
                 mutationsMaternal = ec.RandomMutationsFemale,
-                mutationsPaternal = ec.RandomMutationsMale
+                mutationsPaternal = ec.RandomMutationsMale,
+                generation = -1 // indication that it has to be recalculated
             };
 
             c.RecalculateCreatureValues(CreatureCollection.CurrentCreatureCollection?.wildLevelStep);

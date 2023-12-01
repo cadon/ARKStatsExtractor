@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Text;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.Library;
@@ -24,7 +23,7 @@ namespace ARKBreedingStats
         /// Check for existing color id of the given region is requested. if the region is -1, all regions are requested.
         /// </summary>
         public event Action<CreatureInfoInput> ColorsChanged;
-        public delegate void RequestCreatureDataEventHandler(CreatureInfoInput sender, bool openPatternEditor, bool updateInheritance, bool showDuplicateNameWarning, int namingPatternIndex);
+        public delegate void RequestCreatureDataEventHandler(CreatureInfoInput sender, bool openPatternEditor, bool updateInheritance, bool showDuplicateNameWarning, int namingPatternIndex, Creature alreadyExistingCreature);
         public event RequestCreatureDataEventHandler CreatureDataRequested;
         private Sex _sex;
         private CreatureFlags _creatureFlags;
@@ -43,9 +42,9 @@ namespace ARKBreedingStats
         private bool _tribeLock, _ownerLock;
         public long MotherArkId, FatherArkId; // is only used when importing creatures with set parents. these ids are set externally after the creature data is set in the info input
         /// <summary>
-        /// True if creature is new, false if creature already exists
+        /// Creature if it's already existing in the library.
         /// </summary>
-        private bool _isNewCreature;
+        private Creature _alreadyExistingCreature;
 
         private readonly Debouncer _parentsChangedDebouncer = new Debouncer();
         private readonly Debouncer _nameChangedDebouncer = new Debouncer();
@@ -93,7 +92,7 @@ namespace ARKBreedingStats
                 {
                     if (_selectedSpecies != null)
                     {
-                        CreatureDataRequested?.Invoke(this, false, false, true, localIndex);
+                        CreatureDataRequested?.Invoke(this, false, false, true, localIndex, _alreadyExistingCreature);
                     }
                 };
                 // open naming pattern editor
@@ -101,7 +100,7 @@ namespace ARKBreedingStats
                 {
                     if (e.Button == MouseButtons.Right)
                     {
-                        CreatureDataRequested?.Invoke(this, true, false, false, localIndex);
+                        CreatureDataRequested?.Invoke(this, true, false, false, localIndex, _alreadyExistingCreature);
                     }
                 };
             }
@@ -559,7 +558,7 @@ namespace ARKBreedingStats
         }
 
         private void ParentsChanged()
-            => CreatureDataRequested?.Invoke(this, false, true, false, 0);
+            => CreatureDataRequested?.Invoke(this, false, true, false, 0, _alreadyExistingCreature);
 
         /// <summary>
         /// It's assumed that if a parent has a higher mutation-count than the current set one, the set one is not valid and will be updated.
@@ -581,16 +580,16 @@ namespace ARKBreedingStats
 
         private void btNamingPatternEditor_Click(object sender, EventArgs e)
         {
-            CreatureDataRequested?.Invoke(this, true, false, false, 0);
+            CreatureDataRequested?.Invoke(this, true, false, false, 0, _alreadyExistingCreature);
         }
 
         /// <summary>
         /// Generates a creature name with a given pattern
         /// </summary>
-        public void GenerateCreatureName(Creature creature, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, int namingPatternIndex)
+        public void GenerateCreatureName(Creature creature, Creature alreadyExistingCreature, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, int namingPatternIndex)
         {
             SetCreatureData(creature);
-            CreatureName = NamePattern.GenerateCreatureName(creature, _sameSpecies, speciesTopLevels, speciesLowestLevels, customReplacings, showDuplicateNameWarning, namingPatternIndex, false, colorsExisting: ColorAlreadyExistingInformation);
+            CreatureName = NamePattern.GenerateCreatureName(creature, alreadyExistingCreature, _sameSpecies, speciesTopLevels, speciesLowestLevels, customReplacings, showDuplicateNameWarning, namingPatternIndex, false, colorsExisting: ColorAlreadyExistingInformation);
             if (CreatureName.Length > Ark.MaxCreatureNameLength)
                 SetMessageLabelText?.Invoke($"The generated name is longer than {Ark.MaxCreatureNameLength} characters, the name will look like this in game:\r\n" + CreatureName.Substring(0, Ark.MaxCreatureNameLength), MessageBoxIcon.Error);
         }
@@ -697,15 +696,15 @@ namespace ARKBreedingStats
         /// <summary>
         /// If set to true, it's assumed the creature is already existing.
         /// </summary>
-        public bool UpdateExistingCreature
+        public Creature AlreadyExistingCreature
         {
             set
             {
-                btAdd2Library.Text = value ?
+                btAdd2Library.Text = value != null ?
                                      Loc.S("btUpdateLibraryCreature") :
                                      Loc.S("btAdd2Library");
 
-                _isNewCreature = !value;
+                _alreadyExistingCreature = value;
                 SetAdd2LibColor(btAdd2Library.Enabled);
             }
         }
@@ -719,7 +718,7 @@ namespace ARKBreedingStats
         {
             btAdd2Library.BackColor = !buttonEnabled
                 ? SystemColors.Control
-                : _isNewCreature ? Color.LightGreen
+                : _alreadyExistingCreature != null ? Color.LightGreen
                 : Color.LightSkyBlue;
         }
 

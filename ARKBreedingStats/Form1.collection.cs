@@ -810,8 +810,6 @@ namespace ARKBreedingStats
             string serverImportResult = null;
             Creature alreadyExistingCreature = null;
             var gameSettingBefore = _creatureCollection.Game;
-            Species lastSpecies = null;
-            Creature[] creaturesOfSpecies = null;
 
             foreach (var filePath in filePaths)
             {
@@ -821,10 +819,6 @@ namespace ARKBreedingStats
                     newCreatures.Add(c);
                     importedCounter++;
                     lastCreatureFilePath = filePath;
-
-                    IsCreatureAlreadyInLibrary(c.guid, c.ArkId, out alreadyExistingCreature);
-                    copiedNameToClipboard = SetNameOfImportedCreature(c, lastSpecies == c.Species ? creaturesOfSpecies : null, out creaturesOfSpecies, alreadyExistingCreature);
-                    lastSpecies = c.Species;
                 }
                 else if (lastError != null)
                 {
@@ -871,8 +865,25 @@ namespace ARKBreedingStats
                 creatureAdded = true;
             }
 
+            // select creature objects that will be in the library (i.e. new creature, or existing creature), and the old name
+            var persistentCreaturesAndOldName = newCreatures.Select(c => (creature:
+                IsCreatureAlreadyInLibrary(c.guid, c.ArkId, out alreadyExistingCreature)
+                    ? alreadyExistingCreature
+                    : c, oldName: alreadyExistingCreature?.name)).ToArray();
+
             _creatureCollection.MergeCreatureList(newCreatures, true);
-            UpdateCreatureParentLinkingSort();
+            UpdateCreatureParentLinkingSort(false);
+
+            // apply naming pattern if needed. This can only be done after parent linking to get correct name pattern values related to parents
+            Species lastSpecies = null;
+            Creature[] creaturesOfSpecies = null;
+            foreach (var c in persistentCreaturesAndOldName)
+            {
+                copiedNameToClipboard = SetNameOfImportedCreature(c.creature, lastSpecies == c.creature.Species ? creaturesOfSpecies : null, out creaturesOfSpecies, new Creature(c.creature.Species, c.oldName));
+                lastSpecies = c.creature.Species;
+            }
+
+            UpdateListsAfterCreaturesAdded();
 
             var resultText = (importedCounter > 0 || importFailedCounter > 0
                                  ? $"Imported {importedCounter} creatures successfully.{(importFailedCounter > 0 ? $"Failed to import {importFailedCounter} files. Last error:{Environment.NewLine}{lastError}" : $"{Environment.NewLine}Last file: {lastCreatureFilePath}")}"
@@ -899,7 +910,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// Call after creatures were added (imported) to the library. Updates parent linkings, creature lists, set collection as changed
         /// </summary>
-        private void UpdateCreatureParentLinkingSort()
+        private void UpdateCreatureParentLinkingSort(bool updateLists = true)
         {
             UpdateParents(_creatureCollection.creatures);
 
@@ -910,6 +921,13 @@ namespace ARKBreedingStats
 
             UpdateIncubationParents(_creatureCollection);
 
+            if (updateLists)
+                UpdateListsAfterCreaturesAdded();
+        }
+
+
+        private void UpdateListsAfterCreaturesAdded()
+        {
             // update UI
             SetCollectionChanged(true);
             UpdateCreatureListings();

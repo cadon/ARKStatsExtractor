@@ -2886,7 +2886,7 @@ namespace ARKBreedingStats
                 toolStripCBTempCreatures.SelectedIndex < _creatureCollection.creaturesValues.Count)
             {
                 ExtractValuesInExtractor(_creatureCollection.creaturesValues[toolStripCBTempCreatures.SelectedIndex],
-                    null, false, false);
+                    null, false, false, out _);
                 toolStripButtonDeleteTempCreature.Visible = true;
             }
             else
@@ -3014,7 +3014,7 @@ namespace ARKBreedingStats
         /// Collects the data needed for the name pattern editor.
         /// </summary>
         private void CreatureInfoInput_CreatureDataRequested(CreatureInfoInput input, bool openPatternEditor,
-            bool updateInheritance, bool showDuplicateNameWarning, int namingPatternIndex)
+            bool updateInheritance, bool showDuplicateNameWarning, int namingPatternIndex, Creature alreadyExistingCreature)
         {
             var cr = CreateCreatureFromExtractorOrTester(input);
 
@@ -3040,7 +3040,7 @@ namespace ARKBreedingStats
                     colorAlreadyExistingInformation = _creatureCollection.ColorAlreadyAvailable(cr.Species, input.RegionColors, out _);
                 input.ColorAlreadyExistingInformation = colorAlreadyExistingInformation;
 
-                input.GenerateCreatureName(cr, _topLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
+                input.GenerateCreatureName(cr, alreadyExistingCreature, _topLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
                     _lowestLevels.TryGetValue(cr.Species, out var ll) ? ll : null,
                     _customReplacingNamingPattern, showDuplicateNameWarning, namingPatternIndex);
                 if (Properties.Settings.Default.PatternNameToClipboardAfterManualApplication)
@@ -3357,7 +3357,7 @@ namespace ARKBreedingStats
                     OpenCompressedFile(filePath, true);
                     return;
                 case ".ini" when files.Length == 1:
-                    ExtractExportedFileInExtractor(filePath, out _);
+                    ExtractExportedFileInExtractor(filePath, out _, out _);
                     break;
                 case ".ini":
                     ShowExportedCreatureListControl();
@@ -3489,7 +3489,7 @@ namespace ARKBreedingStats
                     sameSpecies = _creatureCollection.creatures.Where(c => c.Species == cr.Species).ToArray();
 
                 // set new name
-                cr.name = NamePattern.GenerateCreatureName(cr, sameSpecies,
+                cr.name = NamePattern.GenerateCreatureName(cr, cr, sameSpecies,
                     _topLevels.ContainsKey(cr.Species) ? _topLevels[cr.Species] : null,
                     _lowestLevels.ContainsKey(cr.Species) ? _lowestLevels[cr.Species] : null,
                     _customReplacingNamingPattern, false, 0);
