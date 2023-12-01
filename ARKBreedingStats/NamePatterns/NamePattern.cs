@@ -22,7 +22,7 @@ namespace ARKBreedingStats.NamePatterns
         /// <param name="alreadyExistingCreature">If the creature already exists in the library, null if the creature is new.</param>
         public static string GenerateCreatureName(Creature creature, Creature alreadyExistingCreature, Creature[] sameSpecies, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings,
             bool showDuplicateNameWarning, int namingPatternIndex, bool showTooLongWarning = true, string pattern = null, bool displayError = true, Dictionary<string, string> tokenDictionary = null,
-            CreatureCollection.ColorExisting[] colorsExisting = null)
+            CreatureCollection.ColorExisting[] colorsExisting = null, int libraryCreatureCount = 0)
         {
             if (pattern == null)
             {
@@ -64,7 +64,7 @@ namespace ARKBreedingStats.NamePatterns
             }
 
             if (tokenDictionary == null)
-                tokenDictionary = CreateTokenDictionary(creature, alreadyExistingCreature, sameSpecies, speciesTopLevels, speciesLowestLevels);
+                tokenDictionary = CreateTokenDictionary(creature, alreadyExistingCreature, sameSpecies, speciesTopLevels, speciesLowestLevels, libraryCreatureCount);
             // first resolve keys, then functions
             string name = ResolveFunctions(
                 ResolveKeysToValues(tokenDictionary, pattern.Replace("\r", string.Empty).Replace("\n", string.Empty)),
@@ -196,7 +196,7 @@ namespace ARKBreedingStats.NamePatterns
         /// <param name="speciesTopLevels">top levels of that species</param>
         /// <param name="speciesLowestLevels">lowest levels of that species</param>
         /// <returns>A dictionary containing all tokens and their replacements</returns>
-        public static Dictionary<string, string> CreateTokenDictionary(Creature creature, Creature alreadyExistingCreature, Creature[] speciesCreatures, int[] speciesTopLevels, int[] speciesLowestLevels)
+        public static Dictionary<string, string> CreateTokenDictionary(Creature creature, Creature alreadyExistingCreature, Creature[] speciesCreatures, int[] speciesTopLevels, int[] speciesLowestLevels, int libraryCreatureCount)
         {
             string dom = creature.isBred ? "B" : "T";
 
@@ -265,6 +265,7 @@ namespace ARKBreedingStats.NamePatterns
             // for counting, add 1 if the creature is not yet in the library
             var addOne = alreadyExistingCreature == null ? 1 : 0;
             int speciesCount = (speciesCreatures?.Length ?? 0) + addOne;
+            if (addOne == 1) libraryCreatureCount++;
             // the index of the creature in its generation, ordered by addedToLibrary
             int nrInGeneration = (speciesCreatures?.Count(c => c.guid != creature.guid && c.addedToLibrary != null && c.generation == generation && (creature.addedToLibrary == null || c.addedToLibrary < creature.addedToLibrary)) ?? 0) + addOne;
             int nrInGenerationAndSameSex = (speciesCreatures?.Count(c => c.guid != creature.guid && c.sex == creature.sex && c.addedToLibrary != null && c.generation == generation && (creature.addedToLibrary == null || c.addedToLibrary < creature.addedToLibrary)) ?? 0) + addOne;
@@ -331,6 +332,7 @@ namespace ARKBreedingStats.NamePatterns
                 { "nr_in_gen", nrInGeneration.ToString()},
                 { "nr_in_gen_sex", nrInGenerationAndSameSex.ToString()},
                 { "rnd", randStr },
+                { "ln", libraryCreatureCount.ToString()},
                 { "tn", speciesCount.ToString()},
                 { "sn", speciesSexCount.ToString()},
                 { "dom", dom},

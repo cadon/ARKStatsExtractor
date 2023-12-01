@@ -259,7 +259,7 @@ namespace ARKBreedingStats
                         ? NamePattern.GenerateCreatureName(creature, alreadyExistingCreature,
                             creaturesOfSpecies ?? _creatureCollection.creatures.Where(c => c.Species == creature.Species).ToArray(),
                             null, null,
-                            _customReplacingNamingPattern, false, -1, false, namePattern)
+                            _customReplacingNamingPattern, false, -1, false, namePattern, libraryCreatureCount: _creatureCollection.GetTotalCreatureCount())
                         : Path.GetFileName(filePath);
 
                     // remove invalid characters
@@ -321,7 +321,7 @@ namespace ARKBreedingStats
         /// Sets the name of an imported creature and copies it to the clipboard depending on the user settings.
         /// </summary>
         /// <returns>True if name was copied to clipboard</returns>
-        private bool SetNameOfImportedCreature(Creature creature, Creature[] creaturesOfSpeciesIn, out Creature[] creaturesOfSpecies, Creature alreadyExistingCreature)
+        private bool SetNameOfImportedCreature(Creature creature, Creature[] creaturesOfSpeciesIn, out Creature[] creaturesOfSpecies, Creature alreadyExistingCreature, int totalCreatureCount)
         {
             creaturesOfSpecies = creaturesOfSpeciesIn;
             if (ApplyNamingPattern(creature, alreadyExistingCreature))
@@ -339,7 +339,7 @@ namespace ARKBreedingStats
                     creature.name = NamePattern.GenerateCreatureName(creature, alreadyExistingCreature, creaturesOfSpecies,
                         _topLevels.TryGetValue(creature.Species, out var topLevels) ? topLevels : null,
                         _lowestLevels.TryGetValue(creature.Species, out var lowestLevels) ? lowestLevels : null,
-                        _customReplacingNamingPattern, false, 0);
+                        _customReplacingNamingPattern, false, 0, libraryCreatureCount: totalCreatureCount);
                     if (alreadyExistingCreature != null)
                         alreadyExistingCreature.name = creature.name; // if alreadyExistingCreature was already updated and creature is not used anymore make sure name is not lost
                 }

@@ -35,6 +35,7 @@ namespace ARKBreedingStats
         private readonly ToolTip _tt;
         private bool _updateMaturation;
         private Creature[] _sameSpecies;
+        public int LibraryCreatureCount;
         public List<string> NamesOfAllCreatures;
         private string[] _ownersTribes;
         private byte[] _regionColorIDs;
@@ -589,7 +590,8 @@ namespace ARKBreedingStats
         public void GenerateCreatureName(Creature creature, Creature alreadyExistingCreature, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, int namingPatternIndex)
         {
             SetCreatureData(creature);
-            CreatureName = NamePattern.GenerateCreatureName(creature, alreadyExistingCreature, _sameSpecies, speciesTopLevels, speciesLowestLevels, customReplacings, showDuplicateNameWarning, namingPatternIndex, false, colorsExisting: ColorAlreadyExistingInformation);
+            CreatureName = NamePattern.GenerateCreatureName(creature, alreadyExistingCreature, _sameSpecies, speciesTopLevels, speciesLowestLevels, customReplacings,
+                showDuplicateNameWarning, namingPatternIndex, false, colorsExisting: ColorAlreadyExistingInformation, libraryCreatureCount: LibraryCreatureCount);
             if (CreatureName.Length > Ark.MaxCreatureNameLength)
                 SetMessageLabelText?.Invoke($"The generated name is longer than {Ark.MaxCreatureNameLength} characters, the name will look like this in game:\r\n" + CreatureName.Substring(0, Ark.MaxCreatureNameLength), MessageBoxIcon.Error);
         }
@@ -598,7 +600,7 @@ namespace ARKBreedingStats
         {
             if (!parentListValid)
                 ParentListRequested?.Invoke(this);
-            using (var pe = new PatternEditor(creature, _sameSpecies, speciesTopLevels, speciesLowestLevels, ColorAlreadyExistingInformation, customReplacings, namingPatternIndex, reloadCallback))
+            using (var pe = new PatternEditor(creature, _sameSpecies, speciesTopLevels, speciesLowestLevels, ColorAlreadyExistingInformation, customReplacings, namingPatternIndex, reloadCallback, LibraryCreatureCount))
             {
                 if (pe.ShowDialog() == DialogResult.OK)
                 {

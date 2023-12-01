@@ -1166,6 +1166,7 @@ namespace ARKBreedingStats
                 .Where(c => c.Species == speciesSelector1.SelectedSpecies).ToArray();
             input.parentListValid = true;
             input.NamesOfAllCreatures = _creatureCollection.creatures.Select(c => c.name).ToList();
+            input.LibraryCreatureCount = _creatureCollection.creatures.Count;
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3480,6 +3481,7 @@ namespace ARKBreedingStats
 
             var creaturesToUpdate = new List<Creature>();
             Creature[] sameSpecies = null;
+            var libraryCreatureCount = _creatureCollection.GetTotalCreatureCount();
 
             foreach (int i in listViewLibrary.SelectedIndices)
             {
@@ -3492,7 +3494,7 @@ namespace ARKBreedingStats
                 cr.name = NamePattern.GenerateCreatureName(cr, cr, sameSpecies,
                     _topLevels.ContainsKey(cr.Species) ? _topLevels[cr.Species] : null,
                     _lowestLevels.ContainsKey(cr.Species) ? _lowestLevels[cr.Species] : null,
-                    _customReplacingNamingPattern, false, 0);
+                    _customReplacingNamingPattern, false, 0, libraryCreatureCount: libraryCreatureCount);
 
                 creaturesToUpdate.Add(cr);
             }

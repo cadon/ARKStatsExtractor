@@ -148,6 +148,7 @@ namespace ARKBreedingStats.Library
         public Dictionary<string, double?[][]> CustomSpeciesStats;
 
         private Dictionary<string, int> _creatureCountBySpecies;
+        private int _totalCreatureCount;
 
         /// <summary>
         /// Calculates a hashcode for a list of mods and their order. Can be used to check for changes.
@@ -362,6 +363,7 @@ namespace ARKBreedingStats.Library
             {
                 ResetExistingColors(onlyOneSpeciesAdded ? onlyThisSpeciesBlueprintAdded : null);
                 _creatureCountBySpecies = null;
+                _totalCreatureCount = -1;
             }
 
             return creaturesWereAddedOrUpdated;
@@ -379,6 +381,7 @@ namespace ARKBreedingStats.Library
             DeletedCreatureGuids.Add(c.guid);
             ResetExistingColors(c.Species.blueprintPath);
             _creatureCountBySpecies = null;
+            _totalCreatureCount = -1;
         }
 
         public int? getWildLevelStep()
@@ -638,6 +641,17 @@ namespace ARKBreedingStats.Library
             }
 
             return _creatureCountBySpecies;
+        }
+
+        /// <summary>
+        /// Returns total creature count. Ignoring placeholders.
+        /// </summary>
+        /// <returns></returns>
+        public int GetTotalCreatureCount()
+        {
+            if (_totalCreatureCount == -1)
+                _totalCreatureCount = creatures.Count(c => !c.flags.HasFlag(CreatureFlags.Placeholder));
+            return _totalCreatureCount;
         }
     }
 }

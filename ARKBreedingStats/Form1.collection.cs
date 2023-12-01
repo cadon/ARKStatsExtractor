@@ -865,6 +865,7 @@ namespace ARKBreedingStats
                 creatureAdded = true;
             }
 
+            var totalCreatureCount = _creatureCollection.GetTotalCreatureCount();
             // select creature objects that will be in the library (i.e. new creature, or existing creature), and the old name
             var persistentCreaturesAndOldName = newCreatures.Select(c => (creature:
                 IsCreatureAlreadyInLibrary(c.guid, c.ArkId, out alreadyExistingCreature)
@@ -879,8 +880,9 @@ namespace ARKBreedingStats
             Creature[] creaturesOfSpecies = null;
             foreach (var c in persistentCreaturesAndOldName)
             {
-                copiedNameToClipboard = SetNameOfImportedCreature(c.creature, lastSpecies == c.creature.Species ? creaturesOfSpecies : null, out creaturesOfSpecies, new Creature(c.creature.Species, c.oldName));
+                copiedNameToClipboard = SetNameOfImportedCreature(c.creature, lastSpecies == c.creature.Species ? creaturesOfSpecies : null, out creaturesOfSpecies, new Creature(c.creature.Species, c.oldName), totalCreatureCount);
                 lastSpecies = c.creature.Species;
+                if (c.oldName == null) totalCreatureCount++; // if creature was added, increase total count for name pattern
             }
 
             UpdateListsAfterCreaturesAdded();
