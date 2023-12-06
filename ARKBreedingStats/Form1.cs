@@ -54,7 +54,7 @@ namespace ARKBreedingStats
                 bool triggeredByFileWatcher = false);
 
         public delegate void SetMessageLabelTextEventHandler(string text = null,
-            MessageBoxIcon icon = MessageBoxIcon.None, string actionInfo = null);
+            MessageBoxIcon icon = MessageBoxIcon.None, string path = null, string clipboardContent = null);
 
         private bool _updateTorporInTester;
         private bool _filterListAllowed;
@@ -1350,8 +1350,9 @@ namespace ARKBreedingStats
         /// <param name="text">Text to display</param>
         /// <param name="icon">Back color of the message</param>
         /// <param name="path">If valid path to file or folder, the user can click on the message to display the path in the explorer</param>
+        /// <param name="clipboardText">If not null, user can copy this text to the clipboard by clicking on the label</param>
         private void SetMessageLabelText(string text = null, MessageBoxIcon icon = MessageBoxIcon.None,
-            string path = null)
+            string path = null, string clipboardText = null)
         {
             if (_ignoreNextMessageLabel)
             {
@@ -1360,7 +1361,7 @@ namespace ARKBreedingStats
             }
             // a TextBox needs \r\n for a new line, only \n will not result in a line break.
             TbMessageLabel.Text = text;
-            SetMessageLabelLink(path);
+            SetMessageLabelLink(path, clipboardText);
 
             switch (icon)
             {
@@ -1382,11 +1383,13 @@ namespace ARKBreedingStats
         /// <summary>
         /// If valid path to file or folder, the user can click on the message to display the path in the explorer
         /// </summary>
-        private void SetMessageLabelLink(string path = null)
+        private void SetMessageLabelLink(string path = null, string clipboardText = null)
         {
-            _librarySelectionInfoClickPath = path;
+            _messageLabelPath = path;
+            _messageLabelClipboardContent = clipboardText;
 
-            if (string.IsNullOrEmpty(path))
+            if (string.IsNullOrEmpty(path)
+                && string.IsNullOrEmpty(clipboardText))
             {
                 TbMessageLabel.Cursor = null;
                 _tt.SetToolTip(TbMessageLabel, null);
@@ -1394,14 +1397,22 @@ namespace ARKBreedingStats
             else
             {
                 TbMessageLabel.Cursor = Cursors.Hand;
-                _tt.SetToolTip(TbMessageLabel, Loc.S("ClickDisplayFile"));
+                _tt.SetToolTip(TbMessageLabel,
+                    (string.IsNullOrEmpty(path) ? string.Empty : Loc.S("ClickDisplayFile"))
+                    + (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(clipboardText) ? Environment.NewLine : string.Empty)
+                    + (string.IsNullOrEmpty(clipboardText) ? string.Empty : Loc.S("ClickCopyToClipboard")));
             }
         }
 
         /// <summary>
         /// Contains the path to open if the library selection info label is clicked, used to open the path in the explorer.
         /// </summary>
-        private string _librarySelectionInfoClickPath;
+        private string _messageLabelPath;
+
+        /// <summary>
+        /// Contains the content to copy to the clipboard if the message label is clicked.
+        /// </summary>
+        private string _messageLabelClipboardContent;
 
         /// <summary>
         /// If true, the next message is ignored to preserve the previous one. This is used to avoid that the library selection info overwrites the results of the save game import.
@@ -1410,7 +1421,9 @@ namespace ARKBreedingStats
 
         private void TbMessageLabel_Click(object sender, EventArgs e)
         {
-            OpenFolderInExplorer(_librarySelectionInfoClickPath);
+            if (!string.IsNullOrEmpty(_messageLabelClipboardContent))
+                Clipboard.SetText(_messageLabelClipboardContent);
+            OpenFolderInExplorer(_messageLabelPath);
         }
 
         private void listBoxSpeciesLib_SelectedIndexChanged(object sender, EventArgs e)
@@ -3856,7 +3869,7 @@ namespace ARKBreedingStats
 
         private void MessageServerListening(string token)
         {
-            SetMessageLabelText($"Now listening to the export server using the token\r\n{token}\r\n(also copied to clipboard)", MessageBoxIcon.Information);
+            SetMessageLabelText($"Now listening to the export server using the token (also copied to clipboard){Environment.NewLine}{token}", MessageBoxIcon.Information, clipboardText: token);
             if (!string.IsNullOrEmpty(token))
                 Clipboard.SetText(token);
         }

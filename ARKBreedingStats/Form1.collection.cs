@@ -968,6 +968,9 @@ namespace ARKBreedingStats
                 _creatureCollection.MergeCreatureList(new[] { creature }, true);
                 UpdateCreatureParentLinkingSort();
 
+                if (resultText == null)
+                    resultText = $"Received creature from server: {creature}";
+
                 SetMessageLabelText(resultText, MessageBoxIcon.Information);
 
                 tabControlMain.SelectedTab = tabPageLibrary;

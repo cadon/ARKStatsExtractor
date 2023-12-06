@@ -1037,7 +1037,7 @@ namespace ARKBreedingStats
             UpdateParentListInput(creatureInfoInputExtractor); // this function is only used for single-creature extractions, e.g. LastExport
             creatureInfoInputExtractor.AlreadyExistingCreature = alreadyExistingCreature;
             if (!string.IsNullOrEmpty(filePath))
-                SetMessageLabelText(Loc.S("creatureOfFile") + "\r\n" + filePath, path: filePath);
+                SetMessageLabelText(Loc.S("creatureOfFile") + Environment.NewLine + filePath, path: filePath);
             return creatureExists;
         }
 
