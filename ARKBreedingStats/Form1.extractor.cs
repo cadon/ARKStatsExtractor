@@ -476,6 +476,7 @@ namespace ARKBreedingStats
                 {
                     int lvlWild = (int)Math.Round((_statIOs[s].Input - speciesSelector1.SelectedSpecies.stats[s].BaseValue) / (speciesSelector1.SelectedSpecies.stats[s].BaseValue * speciesSelector1.SelectedSpecies.stats[s].IncPerWildLevel));
                     _statIOs[s].LevelWild = lvlWild < 0 ? 0 : lvlWild;
+                    _statIOs[s].LevelMut = 0;
                     _statIOs[s].LevelDom = 0;
                 }
                 SetQuickTamingInfo(_statIOs[Stats.Torpidity].LevelWild + 1);
@@ -745,7 +746,7 @@ namespace ARKBreedingStats
         {
             _statIOs[s].LevelWild = _extractor.Results[s][i].levelWild;
             _statIOs[s].LevelDom = _extractor.Results[s][i].levelDom;
-            _statIOs[s].BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, s, _extractor.Results[s][i].levelWild, 0, true, 1, 0);
+            _statIOs[s].BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, s, _extractor.Results[s][i].levelWild, 0, 0, true, 1, 0);
             _extractor.ChosenResults[s] = i;
             if (validateCombination)
             {
@@ -788,7 +789,7 @@ namespace ARKBreedingStats
                     // if all other stats are unique, set level
                     var statIndex = unknownLevelIndices[0];
                     _statIOs[statIndex].LevelWild = Math.Max(0, notDeterminedLevels);
-                    _statIOs[statIndex].BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, statIndex, _statIOs[statIndex].LevelWild, 0, true, 1, 0);
+                    _statIOs[statIndex].BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, statIndex, _statIOs[statIndex].LevelWild, 0, 0, true, 1, 0);
                     return;
                 default:
                     // if not all other levels are unique, set the indifferent stats to unknown

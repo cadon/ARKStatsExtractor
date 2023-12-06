@@ -106,8 +106,9 @@ namespace ARKBreedingStats
         /// Draws a chart with the given levels.
         /// </summary>
         /// <param name="levels">If null, the previous values are redrawn.</param>
-        public void SetLevels(int[] levels = null)
+        public void SetLevels(int[] levels = null, int[] levelMutations = null)
         {
+            // todo add mutation levels to chart
             if ((levels != null && levels.Length <= 6) || _maxR <= 5) return;
 
             Bitmap bmp = new Bitmap(Width, Height);

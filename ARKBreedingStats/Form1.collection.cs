@@ -903,6 +903,7 @@ namespace ARKBreedingStats
                 if (listBoxSpeciesLib.SelectedItem != null &&
                     listBoxSpeciesLib.SelectedItem != lastAddedCreature.Species)
                     listBoxSpeciesLib.SelectedItem = lastAddedCreature.Species;
+                _ignoreNextMessageLabel = true; // keep import message
                 SelectCreatureInLibrary(lastAddedCreature);
             }
 

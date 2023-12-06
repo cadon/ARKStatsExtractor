@@ -41,7 +41,7 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
-        public void SetLevels(int[] levelsWild, bool forceUpdate)
+        public void SetLevels(int[] levelsWild, int[] levelsMutations, bool forceUpdate)
         {
             SuspendLayout();
             for (int s = 0; s < Stats.StatsCount; s++)
@@ -49,7 +49,7 @@ namespace ARKBreedingStats.uiControls
                 if (forceUpdate || _oldLevels[s] != levelsWild[s])
                 {
                     _oldLevels[s] = levelsWild[s];
-                    _stats[s].SetLevel(_selectedSpecies, levelsWild[s]);
+                    _stats[s].SetLevel(_selectedSpecies, levelsWild[s], levelsMutations[s]);
                 }
             }
             ResumeLayout();

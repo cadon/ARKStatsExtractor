@@ -321,7 +321,7 @@ namespace ARKBreedingStats
                 species.taming != null &&
                 species.taming.nonViolent)
             {
-                s = (int)(0.1 * StatValueCalculation.CalculateValue(species, Stats.Food, (int)Math.Ceiling(level / 7d), 0, false, 0, 0) / foodDepletion);
+                s = (int)(0.1 * StatValueCalculation.CalculateValue(species, Stats.Food, (int)Math.Ceiling(level / 7d), 0, 0, false, 0, 0) / foodDepletion);
             }
             return s;
         }

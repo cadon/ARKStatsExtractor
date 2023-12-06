@@ -58,6 +58,7 @@ namespace ARKBreedingStats
                 if (s == Stats.Torpidity)
                     continue;
                 _testingIOs[s].LevelWild = c.levelsWild[s];
+                _testingIOs[s].LevelMut = c.levelsMutated?[s] ?? 0;
                 _testingIOs[s].LevelDom = c.levelsDom[s];
             }
             tabControlMain.SelectedTab = tabPageStatTesting;
@@ -100,7 +101,8 @@ namespace ARKBreedingStats
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     if (s != Stats.Torpidity)
-                        torporLvl += _testingIOs[s].LevelWild > 0 ? _testingIOs[s].LevelWild : 0;
+                        torporLvl += (_testingIOs[s].LevelWild > 0 ? _testingIOs[s].LevelWild : 0)
+                            + _testingIOs[s].LevelMut;
                 }
                 _testingIOs[Stats.Torpidity].LevelWild = torporLvl + _hiddenLevelsCreatureTester;
             }
@@ -125,10 +127,11 @@ namespace ARKBreedingStats
             creatureInfoInputTester.parentListValid = false;
 
             int[] levelsWild = _testingIOs.Select(s => s.LevelWild).ToArray();
+            int[] levelsMutations = _testingIOs.Select(s => s.LevelWild + s.LevelMut).ToArray();
             if (!_testingIOs[2].Enabled)
                 levelsWild[2] = 0;
-            radarChart1.SetLevels(levelsWild);
-            statPotentials1.SetLevels(levelsWild, false);
+            radarChart1.SetLevels(levelsWild, levelsMutations);
+            statPotentials1.SetLevels(levelsWild, levelsMutations, false);
             //statGraphs1.setGraph(sE, 0, testingIOs[0].LevelWild, testingIOs[0].LevelDom, !radioButtonTesterWild.Checked, (double)NumericUpDownTestingTE.Value / 100, (double)numericUpDownImprintingBonusTester.Value / 100);
 
             if (sIo.statIndex == Stats.Torpidity)
@@ -152,8 +155,8 @@ namespace ARKBreedingStats
 
         private void TestingStatIOsRecalculateValue(StatIO sIo)
         {
-            sIo.BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, sIo.statIndex, sIo.LevelWild, 0, true, 1, 0);
-            sIo.Input = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, sIo.statIndex, sIo.LevelWild, sIo.LevelDom,
+            sIo.BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, sIo.statIndex, sIo.LevelWild, sIo.LevelMut, 0, true, 1, 0);
+            sIo.Input = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, sIo.statIndex, sIo.LevelWild, sIo.LevelMut, sIo.LevelDom,
                     rbTamedTester.Checked || rbBredTester.Checked,
                     rbBredTester.Checked ? 1 : Math.Max(0, TamingEffectivenessTester),
                     rbBredTester.Checked ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0);
@@ -303,7 +306,7 @@ namespace ARKBreedingStats
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 _statIOs[s].Input = onlyWild
-                    ? StatValueCalculation.CalculateValue(species, s, c.levelsWild[s], 0, true, c.tamingEff,
+                    ? StatValueCalculation.CalculateValue(species, s, c.levelsWild[s], c.levelsMutated[s], 0, true, c.tamingEff,
                         c.imprintingBonus)
                     : c.valuesDom[s];
                 if (c.levelsDom[s] > 0) _statIOs[s].DomLevelLockedZero = false;
