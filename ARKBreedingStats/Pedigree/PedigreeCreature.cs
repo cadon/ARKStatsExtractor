@@ -235,7 +235,10 @@ namespace ARKBreedingStats.Pedigree
                         _labels[s].ForeColor = Parent?.ForeColor ?? Color.Black; // needed so text is not transparent on overlay
                         _ttMonospaced.SetToolTip(_labels[s], Utils.StatName(si, false, _creature.Species?.statNames) + ": "
                             + $"{_creature.valuesBreeding[si] * (Utils.Precision(si) == 3 ? 100 : 1),7:#,0.0}"
-                            + (Utils.Precision(si) == 3 ? "%" : string.Empty));
+                            + (Utils.Precision(si) == 3 ? "%" : string.Empty)
+                            + (_creature.levelsMutated == null ? string.Empty
+                                : Environment.NewLine + Loc.S("Mutations") + ": " + _creature.levelsMutated[s]
+                                ));
                     }
                     // fonts are strange, and this seems to work. The assigned font-object is probably only used to read out the properties and then not used anymore.
                     using (var font = new Font("Microsoft Sans Serif", 8.25F, (_creature.topBreedingStats?[si]).GetValueOrDefault() ? FontStyle.Bold : FontStyle.Regular, GraphicsUnit.Point, 0))
