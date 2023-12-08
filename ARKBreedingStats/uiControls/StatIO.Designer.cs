@@ -55,10 +55,10 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.panelBarMutLevels);
             this.groupBox1.Controls.Add(this.panelBarDomLevels);
-            this.groupBox1.Controls.Add(this.panelFinalValue);
+            this.groupBox1.Controls.Add(this.panelBarMutLevels);
             this.groupBox1.Controls.Add(this.panelBarWildLevels);
+            this.groupBox1.Controls.Add(this.panelFinalValue);
             this.groupBox1.Controls.Add(this.inputPanel);
             this.groupBox1.Controls.Add(this.labelBValue);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -144,7 +144,7 @@
             // 
             this.panelBarWildLevels.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.panelBarWildLevels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelBarWildLevels.Location = new System.Drawing.Point(6, 37);
+            this.panelBarWildLevels.Location = new System.Drawing.Point(6, 38);
             this.panelBarWildLevels.Name = "panelBarWildLevels";
             this.panelBarWildLevels.Size = new System.Drawing.Size(2, 6);
             this.panelBarWildLevels.TabIndex = 4;
