@@ -50,7 +50,7 @@ namespace ARKBreedingStats
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (s != Stats.Torpidity && c.levelsWild[s] > 0)
-                    _hiddenLevelsCreatureTester -= c.levelsWild[s];
+                    _hiddenLevelsCreatureTester -= c.levelsWild[s] + (c.levelsMutated?[s] ?? 0);
             }
 
             for (int s = 0; s < Stats.StatsCount; s++)
@@ -172,21 +172,23 @@ namespace ARKBreedingStats
             if (_creatureTesterEdit == null)
                 return;
             // check if wild levels are changed, if yes warn that the creature can become invalid
+            // TODO adjust check if mutated levels have a different multiplier than wild levels
             bool wildChanged = Math.Abs(_creatureTesterEdit.tamingEff - TamingEffectivenessTester) > .0005;
             if (!wildChanged)
             {
-                int[] wildLevels = GetCurrentWildLevels(false);
+                var wildLevels = GetCurrentWildLevels(false);
+                var mutatedLevels = GetCurrentMutLevels(false);
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
-                    if (wildLevels[s] != _creatureTesterEdit.levelsWild[s])
+                    if (wildLevels[s] + mutatedLevels[s] != _creatureTesterEdit.levelsWild[s] + (_creatureTesterEdit.levelsMutated?[s] ?? 0))
                     {
                         wildChanged = true;
                         break;
                     }
                 }
             }
-            if (wildChanged && MessageBox.Show("The wild levels or the taming-effectiveness were changed. Save values anyway?\n" +
-                    "Only save if the wild levels or taming-effectiveness were extracted wrongly!\nIf you are not sure, don't save. " +
+            if (wildChanged && MessageBox.Show("The wild or mutated levels or the taming-effectiveness were changed. Save values anyway?\n" +
+                    "Only save if the wild or mutated levels or the taming-effectiveness were extracted wrongly!\nIf you are not sure, don't save. " +
                     "The breeding-values could become invalid.",
                     "Wild levels have been changed",
                     MessageBoxButtons.OKCancel,
@@ -204,6 +206,7 @@ namespace ARKBreedingStats
                     || _creatureTesterEdit.mutationsPaternal != creatureInfoInputTester.MutationCounterFather;
             bool parentsChanged = _creatureTesterEdit.Mother != creatureInfoInputTester.Mother || _creatureTesterEdit.Father != creatureInfoInputTester.Father;
             _creatureTesterEdit.levelsWild = GetCurrentWildLevels(false);
+            _creatureTesterEdit.levelsMutated = GetCurrentMutLevels(false);
             _creatureTesterEdit.levelsDom = GetCurrentDomLevels(false);
             _creatureTesterEdit.tamingEff = TamingEffectivenessTester;
             _creatureTesterEdit.isBred = rbBredTester.Checked;
@@ -408,6 +411,12 @@ namespace ARKBreedingStats
         {
             get => rbWildTester.Checked ? -3 : (double)NumericUpDownTestingTE.Value / 100;
             set => NumericUpDownTestingTE.ValueSave = (decimal)(value >= 0 ? value * 100 : -1);
+        }
+        private void CbLinkWildMutatedLevelsTester_CheckedChanged(object sender, EventArgs e)
+        {
+            var linkWildMutated = CbLinkWildMutatedLevelsTester.Checked;
+            for (int s = 0; s < Stats.StatsCount; s++)
+                _testingIOs[s].LinkWildMutated = linkWildMutated;
         }
     }
 }

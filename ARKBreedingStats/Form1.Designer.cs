@@ -157,6 +157,7 @@ namespace ARKBreedingStats
             this.rbWildExtractor = new System.Windows.Forms.RadioButton();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageStatTesting = new System.Windows.Forms.TabPage();
+            this.CbLinkWildMutatedLevelsTester = new System.Windows.Forms.CheckBox();
             this.pictureBoxColorRegionsTester = new System.Windows.Forms.PictureBox();
             this.statPotentials1 = new ARKBreedingStats.uiControls.StatPotentials();
             this.gbStatChart = new System.Windows.Forms.GroupBox();
@@ -1545,6 +1546,7 @@ namespace ARKBreedingStats
             // tabPageStatTesting
             // 
             this.tabPageStatTesting.AutoScroll = true;
+            this.tabPageStatTesting.Controls.Add(this.CbLinkWildMutatedLevelsTester);
             this.tabPageStatTesting.Controls.Add(this.pictureBoxColorRegionsTester);
             this.tabPageStatTesting.Controls.Add(this.statPotentials1);
             this.tabPageStatTesting.Controls.Add(this.gbStatChart);
@@ -1560,6 +1562,17 @@ namespace ARKBreedingStats
             this.tabPageStatTesting.TabIndex = 1;
             this.tabPageStatTesting.Text = "Stat Testing";
             this.tabPageStatTesting.UseVisualStyleBackColor = true;
+            // 
+            // CbLinkWildMutatedLevelsTester
+            // 
+            this.CbLinkWildMutatedLevelsTester.AutoSize = true;
+            this.CbLinkWildMutatedLevelsTester.Location = new System.Drawing.Point(259, 10);
+            this.CbLinkWildMutatedLevelsTester.Name = "CbLinkWildMutatedLevelsTester";
+            this.CbLinkWildMutatedLevelsTester.Size = new System.Drawing.Size(108, 17);
+            this.CbLinkWildMutatedLevelsTester.TabIndex = 14;
+            this.CbLinkWildMutatedLevelsTester.Text = "Link wild-mutated";
+            this.CbLinkWildMutatedLevelsTester.UseVisualStyleBackColor = true;
+            this.CbLinkWildMutatedLevelsTester.CheckedChanged += new System.EventHandler(this.CbLinkWildMutatedLevelsTester_CheckedChanged);
             // 
             // pictureBoxColorRegionsTester
             // 
@@ -1867,7 +1880,7 @@ namespace ARKBreedingStats
             this.LbAsa.AutoSize = true;
             this.LbAsa.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbAsa.ForeColor = System.Drawing.Color.DarkGray;
-            this.LbAsa.Location = new System.Drawing.Point(295, 66);
+            this.LbAsa.Location = new System.Drawing.Point(346, 66);
             this.LbAsa.Name = "LbAsa";
             this.LbAsa.Size = new System.Drawing.Size(20, 9);
             this.LbAsa.TabIndex = 56;
@@ -1879,7 +1892,7 @@ namespace ARKBreedingStats
             this.LbBlueprintPath.ForeColor = System.Drawing.Color.DarkGray;
             this.LbBlueprintPath.Location = new System.Drawing.Point(8, 34);
             this.LbBlueprintPath.Name = "LbBlueprintPath";
-            this.LbBlueprintPath.Size = new System.Drawing.Size(307, 41);
+            this.LbBlueprintPath.Size = new System.Drawing.Size(338, 41);
             this.LbBlueprintPath.TabIndex = 54;
             this.LbBlueprintPath.Text = "/Game/​PrimalEarth/​Dinos/​Direwolf/ ​Direwolf_Character_BP.Direwolf_Character_BP" +
     "";
@@ -2893,7 +2906,7 @@ namespace ARKBreedingStats
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(181, 293);
+            this.tabPage3.Size = new System.Drawing.Size(181, 328);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Stats";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -2912,7 +2925,7 @@ namespace ARKBreedingStats
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(175, 287);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(175, 322);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // checkedListBoxConsiderStatTop
@@ -2922,13 +2935,13 @@ namespace ARKBreedingStats
             this.checkedListBoxConsiderStatTop.FormattingEnabled = true;
             this.checkedListBoxConsiderStatTop.Location = new System.Drawing.Point(3, 35);
             this.checkedListBoxConsiderStatTop.Name = "checkedListBoxConsiderStatTop";
-            this.checkedListBoxConsiderStatTop.Size = new System.Drawing.Size(169, 220);
+            this.checkedListBoxConsiderStatTop.Size = new System.Drawing.Size(169, 255);
             this.checkedListBoxConsiderStatTop.TabIndex = 3;
             // 
             // buttonRecalculateTops
             // 
             this.buttonRecalculateTops.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonRecalculateTops.Location = new System.Drawing.Point(3, 261);
+            this.buttonRecalculateTops.Location = new System.Drawing.Point(3, 296);
             this.buttonRecalculateTops.Name = "buttonRecalculateTops";
             this.buttonRecalculateTops.Size = new System.Drawing.Size(169, 23);
             this.buttonRecalculateTops.TabIndex = 2;
@@ -2951,7 +2964,7 @@ namespace ARKBreedingStats
             this.tabPageLibRadarChart.Location = new System.Drawing.Point(4, 22);
             this.tabPageLibRadarChart.Name = "tabPageLibRadarChart";
             this.tabPageLibRadarChart.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLibRadarChart.Size = new System.Drawing.Size(181, 293);
+            this.tabPageLibRadarChart.Size = new System.Drawing.Size(181, 328);
             this.tabPageLibRadarChart.TabIndex = 4;
             this.tabPageLibRadarChart.Text = "Chart";
             this.tabPageLibRadarChart.UseVisualStyleBackColor = true;
@@ -3803,6 +3816,7 @@ namespace ARKBreedingStats
             this.panelWildTamedBred.PerformLayout();
             this.tabControlMain.ResumeLayout(false);
             this.tabPageStatTesting.ResumeLayout(false);
+            this.tabPageStatTesting.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxColorRegionsTester)).EndInit();
             this.gbStatChart.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radarChart1)).EndInit();
@@ -4214,5 +4228,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem listenWithNewTokenToolStripMenuItem;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox CbLinkWildMutatedLevelsTester;
     }
 }
