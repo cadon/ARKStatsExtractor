@@ -937,7 +937,7 @@
     <value>77, 20</value>
   </data>
   <data name="nudTotalFood.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;nudTotalFood.Name" xml:space="preserve">
     <value>nudTotalFood</value>
@@ -964,7 +964,7 @@
     <value>58, 13</value>
   </data>
   <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>0</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
     <value>Total Food</value>
@@ -988,7 +988,7 @@
     <value>77, 20</value>
   </data>
   <data name="nudCurrentFood.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;nudCurrentFood.Name" xml:space="preserve">
     <value>nudCurrentFood</value>
@@ -1012,7 +1012,7 @@
     <value>157, 23</value>
   </data>
   <data name="btnAddStarvingTimer.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="btnAddStarvingTimer.Text" xml:space="preserve">
     <value>add Starving-Timer</value>
@@ -1042,7 +1042,7 @@
     <value>68, 13</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>2</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
     <value>Current Food</value>
@@ -1069,7 +1069,7 @@
     <value>207, 68</value>
   </data>
   <data name="lbTimeUntilStarving.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="lbTimeUntilStarving.Text" xml:space="preserve">
     <value>Time until starving:</value>

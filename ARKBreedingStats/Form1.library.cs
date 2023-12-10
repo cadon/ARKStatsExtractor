@@ -919,7 +919,7 @@ namespace ARKBreedingStats
                 }
             }
 
-            _reactOnCreatureSelectionChange = true; // make sure it reacts again even if the previously creature is not visible anymore
+            _reactOnCreatureSelectionChange = true; // make sure it reacts again even if the previous creature is not visible anymore
         }
 
         /// <summary>

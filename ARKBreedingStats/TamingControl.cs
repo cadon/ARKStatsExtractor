@@ -13,12 +13,13 @@ namespace ARKBreedingStats
     public partial class TamingControl : UserControl
     {
         private readonly List<TamingFoodControl> _foodControls = new List<TamingFoodControl>();
+        private readonly List<TamingFoodControl> _foodControlsVisible = new List<TamingFoodControl>();
         private bool _updateCalculation;
         private Species _selectedSpecies;
         public event TimerControl.CreateTimerEventHandler CreateTimer;
         private DateTime _wakeUpTime;
         private DateTime _starvingTime;
-        private ServerMultipliers _serverMultipliers =new ServerMultipliers();
+        private ServerMultipliers _serverMultipliers = new ServerMultipliers();
         private string _koNumbers;
         private string _boneDamageAdjustersImmobilization;
         public string quickTamingInfos;
@@ -74,7 +75,39 @@ namespace ARKBreedingStats
             linkLabelWikiPage.Tag = speciesName;
             _tt.SetToolTip(linkLabelWikiPage, ArkWiki.WikiUrl(speciesName));
 
-            // bone damage adjusters
+            UpdateBoneDamageControls();
+
+            TamingData td = species.taming;
+            _kibbleRecipe = string.Empty;
+
+            // list all recipes of kibbles that give a reasonable affinity (assuming that is larger or equal than 100)
+            foreach (var k in Kibbles.K.kibble)
+            {
+                var kibbleName = $"{k.Key} Kibble";
+                var kibbleFood = Values.V.GetTamingFood(species, kibbleName);
+
+                if (kibbleFood != null
+                    && kibbleFood.affinity >= 100)
+                {
+                    _kibbleRecipe += $"\n\n{k.Key} Kibble:{k.Value.RecipeAsText()}";
+                }
+            }
+
+            _foodDepletion = td.foodConsumptionBase * td.foodConsumptionMult * _serverMultipliers.DinoCharacterFoodDrainMultiplier;
+            UpdateFirstFeedingWaiting();
+            EstimateFoodValue();
+
+            SetTamingFoodControls(species, true, false);
+
+            if (Properties.Settings.Default.TamingFoodOrderByTime)
+                SetOrderOfTamingFood(true, true);
+
+            ResumeLayout();
+            this.ResumeDrawing();
+        }
+
+        private void UpdateBoneDamageControls()
+        {
             _boneDamageAdjustersImmobilization = Taming.BoneDamageAdjustersImmobilization(_selectedSpecies,
                 out Dictionary<string, double> boneDamageAdjusters);
 
@@ -100,46 +133,27 @@ namespace ARKBreedingStats
             for (int j = ib + 1; j < _rbBoneDamageAdjusters.Count; j++)
                 _rbBoneDamageAdjusters[j].Visible = false;
             _rbBoneDamageAdjusters[0].Checked = true;
-            // bone damage adjusters adjusted
-
-            _updateCalculation = false;
-            TamingData td = species.taming;
-            _kibbleRecipe = string.Empty;
-
-            // list all recipes of kibbles that give a reasonable affinity (assuming that is larger or equal than 100)
-            foreach (var k in Kibbles.K.kibble)
-            {
-                var kibbleName = $"{k.Key} Kibble";
-                var kibbleFood = Values.V.GetTamingFood(species, kibbleName);
-
-                if (kibbleFood != null
-                    && kibbleFood.affinity >= 100)
-                {
-                    _kibbleRecipe += $"\n\n{k.Key} Kibble:{k.Value.RecipeAsText()}";
-                }
-            }
-
-            _foodDepletion = td.foodConsumptionBase * td.foodConsumptionMult * _serverMultipliers.DinoCharacterFoodDrainMultiplier;
-
-            SetTamingFoodControls(species);
-
-            _updateCalculation = true;
-            UpdateFirstFeedingWaiting();
-            UpdateTamingData();
-            if (Properties.Settings.Default.TamingFoodOrderByTime)
-                SetOrderOfTamingFood(true, true);
-
-            ResumeLayout();
-            this.ResumeDrawing();
         }
 
         /// <summary>
         /// Sets the taming food controls.
         /// </summary>
-        private void SetTamingFoodControls(Species species)
+        private void SetTamingFoodControls(Species species, bool resetFoodToBest, bool suspendLayout)
         {
+            if (suspendLayout)
+            {
+                this.SuspendDrawing();
+                SuspendLayout();
+            }
+
+            var setFoodAmount = resetFoodToBest
+                ? null
+                : _foodControlsVisible.Where(fc => fc.Amount > 0 && !string.IsNullOrEmpty(fc.FoodName)).ToDictionary(fc => fc.FoodName, fc => fc.Amount);
             var td = species.taming;
             int i = 0;
+            var firstVisibleFoodIndex = -1;
+            _foodControlsVisible.Clear();
+            _updateCalculation = false;
             if (td.eats != null)
             {
                 var length = td.eats.Length;
@@ -155,6 +169,7 @@ namespace ARKBreedingStats
                         {
                             tf = _foodControls[i];
                             tf.FoodName = f;
+                            tf.Amount = 0;
                             tf.Hide();
                         }
                         continue;
@@ -176,21 +191,53 @@ namespace ARKBreedingStats
                         tf.Show();
                     }
 
+                    _foodControlsVisible.Add(tf);
+                    tf.Amount = 0;
+                    if (firstVisibleFoodIndex == -1)
+                        firstVisibleFoodIndex = i;
+
                     // special cases where a creature eats multiple food items of one kind at once
                     var food = Values.V.GetTamingFood(species, f);
                     if (food != null && food.quantity > 1)
-                        tf.foodNameDisplay = food.quantity + "× " + tf.foodNameDisplay;
+                        tf.FoodNameDisplay = food.quantity + "× " + tf.FoodNameDisplay;
                 }
             }
 
             for (int fci = _foodControls.Count - 1; fci >= i; fci--)
             {
                 _foodControls[fci].FoodName = null;
+                _foodControls[fci].Amount = 0;
                 _foodControls[fci].Hide();
             }
 
-            if (i > 0)
-                _foodControls[0].amount = Taming.FoodAmountNeeded(species, (int)nudLevel.Value, _serverMultipliers.TamingSpeedMultiplier, _foodControls[0].FoodName, td.nonViolent, CbSanguineElixir.Checked);
+            if (resetFoodToBest)
+            {
+                if (firstVisibleFoodIndex >= 0)
+                    _foodControls[firstVisibleFoodIndex].Amount = Taming.FoodAmountNeeded(species, (int)nudLevel.Value, _serverMultipliers.TamingSpeedMultiplier, _foodControls[0].FoodName, td.nonViolent, CbSanguineElixir.Checked);
+            }
+            else
+            {
+                foreach (var food in setFoodAmount)
+                {
+                    foreach (var fc in _foodControlsVisible)
+                    {
+                        if (fc.FoodName == food.Key)
+                        {
+                            fc.Amount = food.Value;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (suspendLayout)
+            {
+                ResumeLayout();
+                this.ResumeDrawing();
+            }
+            _updateCalculation = true;
+
+            UpdateTamingData();
         }
 
         /// <summary>
@@ -203,8 +250,8 @@ namespace ARKBreedingStats
 
             Properties.Settings.Default.TamingFoodOrderByTime = orderByTamingTime;
 
-            var order = _foodControls.Where(c => c.FoodName != null)
-                .Select(c => (c, orderByTamingTime ? c.TamingSeconds : c.maxFood)).OrderBy(ct => ct.Item2).ToArray();
+            var order = _foodControlsVisible.Where(c => c.FoodName != null)
+                .Select(c => (c, orderByTamingTime ? c.TamingSeconds : c.MaxFood)).OrderBy(ct => ct.Item2).ToArray();
 
             this.SuspendDrawing();
             for (int i = 0; i < order.Length; i++)
@@ -230,9 +277,19 @@ namespace ARKBreedingStats
                 () =>
                 {
                     UpdateFirstFeedingWaiting();
+                    EstimateFoodValue();
                     UpdateTamingData();
                 },
                 Dispatcher.CurrentDispatcher);
+        }
+
+        /// <summary>
+        /// Approximating the food level on species or level change.
+        /// </summary>
+        private void EstimateFoodValue()
+        {
+            nudTotalFood.Value = (decimal)(_selectedSpecies.stats[Stats.Food].BaseValue * (1 + _selectedSpecies.stats[Stats.Food].IncPerWildLevel * ((int)nudLevel.Value / 7))); // approximating the food level
+            nudCurrentFood.Value = nudTotalFood.Value;
         }
 
         private void UpdateTamingData()
@@ -264,24 +321,28 @@ namespace ARKBreedingStats
 
             if (tameable && _selectedSpecies.taming.eats != null)
             {
-                int foodCounter = _selectedSpecies.taming.eats.Length;
-                foreach (TamingFoodControl tfc in _foodControls)
+                foreach (TamingFoodControl tfc in _foodControlsVisible)
                 {
-                    if (foodCounter == 0)
-                        break;
-                    foodCounter--;
+                    if (tfc.Amount > 0)
+                    {
+                        usedFood.Add(tfc.FoodName);
+                        foodAmount.Add(tfc.Amount);
+                    }
 
-                    usedFood.Add(tfc.FoodName);
-                    foodAmount.Add(tfc.amount);
-                    tfc.maxFood = Taming.FoodAmountNeeded(_selectedSpecies, level, _serverMultipliers.TamingSpeedMultiplier, tfc.FoodName, _selectedSpecies.taming.nonViolent, CbSanguineElixir.Checked);
-                    tfc.tamingDuration = Taming.TamingDuration(_selectedSpecies, tfc.maxFood, tfc.FoodName, _serverMultipliers.DinoCharacterFoodDrainMultiplier, _selectedSpecies.taming.nonViolent);
+                    tfc.MaxFood = Taming.FoodAmountNeeded(_selectedSpecies, level, _serverMultipliers.TamingSpeedMultiplier, tfc.FoodName, _selectedSpecies.taming.nonViolent, CbSanguineElixir.Checked);
+                    tfc.TamingDuration = Taming.TamingDuration(_selectedSpecies, tfc.MaxFood, tfc.FoodName, _serverMultipliers.DinoCharacterFoodDrainMultiplier, _selectedSpecies.taming.nonViolent);
                 }
                 Taming.TamingTimes(_selectedSpecies, level, _serverMultipliers, usedFood, foodAmount,
                     out foodAmountUsed, out duration, out narcoBerries, out ascerbicMushrooms, out narcotics, out bioToxines, out te, out _neededHunger, out bonusLevel, out enoughFood, CbSanguineElixir.Checked);
 
-                for (int f = 0; f < foodAmountUsed.Count; f++)
+                foreach (var fc in _foodControlsVisible)
                 {
-                    _foodControls[f].foodUsed = foodAmountUsed[f];
+                    var indexOfFoodUsed = usedFood.IndexOf(fc.FoodName);
+                    if (indexOfFoodUsed != -1)
+                    {
+                        fc.FoodUsed = foodAmount[indexOfFoodUsed];
+                    }
+                    else { fc.FoodUsed = 0; }
                 }
             }
 
@@ -311,20 +372,18 @@ namespace ARKBreedingStats
 
             numericUpDownCurrentTorpor.ValueSave = (decimal)(_selectedSpecies.stats[Stats.Torpidity].BaseValue * (1 + _selectedSpecies.stats[Stats.Torpidity].IncPerWildLevel * (level - 1)));
 
-            nudTotalFood.Value = (decimal)(_selectedSpecies.stats[Stats.Food].BaseValue * (1 + _selectedSpecies.stats[Stats.Food].IncPerWildLevel * (level / 7))); // approximating the food level
-            nudCurrentFood.Value = nudTotalFood.Value;
             UpdateTimeToFeedAll(enoughFood);
 
             //// quickTame infos
             if (foodAmountUsed.Any())
             {
-                quickTamingInfos = Taming.QuickInfoOneFood(_selectedSpecies, level, _serverMultipliers, _foodControls[0].FoodName, _foodControls[0].maxFood, _foodControls[0].foodNameDisplay);
+                quickTamingInfos = Taming.QuickInfoOneFood(_selectedSpecies, level, _serverMultipliers, _foodControlsVisible[0].FoodName, _foodControlsVisible[0].MaxFood, _foodControlsVisible[0].FoodNameDisplay);
                 // show raw meat or mejoberries as alternative (often used)
                 for (int i = 1; i < usedFood.Count; i++)
                 {
                     if (usedFood[i] == "Raw Meat" || usedFood[i] == "Mejoberry")
                     {
-                        quickTamingInfos += "\n\n" + Taming.QuickInfoOneFood(_selectedSpecies, level, _serverMultipliers, _foodControls[i].FoodName, _foodControls[i].maxFood, _foodControls[i].foodNameDisplay);
+                        quickTamingInfos += "\n\n" + Taming.QuickInfoOneFood(_selectedSpecies, level, _serverMultipliers, _foodControlsVisible[i].FoodName, _foodControlsVisible[i].MaxFood, _foodControlsVisible[i].FoodNameDisplay);
                         break;
                     }
                 }
@@ -344,7 +403,7 @@ namespace ARKBreedingStats
             double hunger = (double)(nudTotalFood.Value - nudCurrentFood.Value);
             if (hunger < 0) hunger = 0;
             if (hunger > _neededHunger) hunger = _neededHunger;
-            var durationStarving = new TimeSpan(0, 0, (int)((_neededHunger - hunger) / _foodDepletion));
+            var durationStarving = TimeSpan.FromSeconds((_neededHunger - hunger) / _foodDepletion);
             lbTimeUntilStarving.Text = (enoughFood ? $"{Loc.S("TimeUntilFeedingAllFood")}: {Utils.Duration(durationStarving)}" : string.Empty);
             if ((double)nudTotalFood.Value < _neededHunger)
             {
@@ -379,9 +438,9 @@ namespace ARKBreedingStats
                 return;
             }
             _updateCalculation = false;
-            foreach (TamingFoodControl tfc in _foodControls)
+            foreach (TamingFoodControl tfc in _foodControlsVisible)
             {
-                tfc.amount = tfc.FoodName == food ? tfc.maxFood : 0;
+                tfc.Amount = tfc.FoodName == food ? tfc.MaxFood : 0;
             }
             _updateCalculation = true;
             UpdateTamingData();
@@ -520,12 +579,12 @@ namespace ARKBreedingStats
 
         private void checkBoxAugmented_CheckedChanged(object sender, EventArgs e)
         {
-            SetSpecies(_selectedSpecies, true);
+            SetTamingFoodControls(_selectedSpecies, false, true);
         }
 
         private void CbSanguineElixir_CheckedChanged(object sender, EventArgs e)
         {
-            SetSpecies(_selectedSpecies, true);
+            SetTamingFoodControls(_selectedSpecies, false, true);
         }
 
         public void SetLocalizations()

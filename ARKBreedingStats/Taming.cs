@@ -70,7 +70,7 @@ namespace ARKBreedingStats
                     {
                         // consider wake taming multiplicators (non - violent taming)
                         foodAffinity *= species.taming.wakeAffinityMult;
-                        foodValue = foodValue * species.taming.wakeFoodDeplMult;
+                        foodValue *= species.taming.wakeFoodDeplMult;
                     }
 
                     foodAffinity *= serverMultipliers.TamingSpeedMultiplier * HardCodedTamingMultiplier;

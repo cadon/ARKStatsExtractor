@@ -33,7 +33,7 @@ namespace ARKBreedingStats
             set
             {
                 _foodName = value;
-                foodNameDisplay = _foodName;
+                FoodNameDisplay = _foodName;
 
                 // display specific colors of kibbles
                 switch (_foodName)
@@ -49,22 +49,22 @@ namespace ARKBreedingStats
             }
         }
 
-        public int amount
+        /// <summary>
+        /// Food amount currently set.
+        /// </summary>
+        public int Amount
         {
             get => (int)numericUpDown1.Value;
-            set
-            {
-                if (value >= 0) numericUpDown1.Value = value;
-            }
+            set => numericUpDown1.Value = Math.Max(0, value);
         }
 
-        public string foodNameDisplay
+        public string FoodNameDisplay
         {
             get => groupBox1.Text;
             set => groupBox1.Text = value;
         }
 
-        public int maxFood
+        public int MaxFood
         {
             get => maxFoodAmount;
             set
@@ -74,7 +74,7 @@ namespace ARKBreedingStats
             }
         }
 
-        public TimeSpan tamingDuration
+        public TimeSpan TamingDuration
         {
             set
             {
@@ -90,7 +90,10 @@ namespace ARKBreedingStats
             valueChanged?.Invoke();
         }
 
-        public int foodUsed
+        /// <summary>
+        /// Amount of food used during taming.
+        /// </summary>
+        public int FoodUsed
         {
             set => labelFoodUsed.Text = value.ToString();
         }
