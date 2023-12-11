@@ -29,25 +29,25 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.panelBarMutLevels = new System.Windows.Forms.Panel();
             this.panelBarDomLevels = new System.Windows.Forms.Panel();
+            this.panelBarMutLevels = new System.Windows.Forms.Panel();
+            this.panelBarWildLevels = new System.Windows.Forms.Panel();
             this.panelFinalValue = new System.Windows.Forms.Panel();
             this.labelMutatedLevel = new System.Windows.Forms.Label();
             this.checkBoxFixDomZero = new System.Windows.Forms.CheckBox();
             this.labelDomLevel = new System.Windows.Forms.Label();
             this.labelWildLevel = new System.Windows.Forms.Label();
-            this.panelBarWildLevels = new System.Windows.Forms.Panel();
-            this.inputPanel = new System.Windows.Forms.Panel();
-            this.labelFinalValue = new System.Windows.Forms.Label();
-            this.labelBValue = new System.Windows.Forms.Label();
             this.numericUpDownInput = new ARKBreedingStats.uiControls.Nud();
+            this.inputPanel = new System.Windows.Forms.Panel();
             this.nudLvM = new ARKBreedingStats.uiControls.Nud();
+            this.labelFinalValue = new System.Windows.Forms.Label();
             this.numLvD = new ARKBreedingStats.uiControls.Nud();
             this.numLvW = new ARKBreedingStats.uiControls.Nud();
+            this.labelBValue = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panelFinalValue.SuspendLayout();
-            this.inputPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInput)).BeginInit();
+            this.inputPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudLvM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLvD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLvW)).BeginInit();
@@ -68,6 +68,15 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
+            // panelBarDomLevels
+            // 
+            this.panelBarDomLevels.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.panelBarDomLevels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelBarDomLevels.Location = new System.Drawing.Point(6, 44);
+            this.panelBarDomLevels.Name = "panelBarDomLevels";
+            this.panelBarDomLevels.Size = new System.Drawing.Size(2, 3);
+            this.panelBarDomLevels.TabIndex = 5;
+            // 
             // panelBarMutLevels
             // 
             this.panelBarMutLevels.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
@@ -77,14 +86,15 @@
             this.panelBarMutLevels.Size = new System.Drawing.Size(2, 4);
             this.panelBarMutLevels.TabIndex = 6;
             // 
-            // panelBarDomLevels
+            // panelBarWildLevels
             // 
-            this.panelBarDomLevels.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.panelBarDomLevels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelBarDomLevels.Location = new System.Drawing.Point(6, 44);
-            this.panelBarDomLevels.Name = "panelBarDomLevels";
-            this.panelBarDomLevels.Size = new System.Drawing.Size(2, 3);
-            this.panelBarDomLevels.TabIndex = 5;
+            this.panelBarWildLevels.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.panelBarWildLevels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelBarWildLevels.Location = new System.Drawing.Point(6, 38);
+            this.panelBarWildLevels.Name = "panelBarWildLevels";
+            this.panelBarWildLevels.Size = new System.Drawing.Size(2, 6);
+            this.panelBarWildLevels.TabIndex = 4;
+            this.panelBarWildLevels.Click += new System.EventHandler(this.panelBar_Click);
             // 
             // panelFinalValue
             // 
@@ -140,46 +150,6 @@
             this.labelWildLevel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.labelWildLevel.Click += new System.EventHandler(this.labelWildLevel_Click);
             // 
-            // panelBarWildLevels
-            // 
-            this.panelBarWildLevels.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.panelBarWildLevels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelBarWildLevels.Location = new System.Drawing.Point(6, 38);
-            this.panelBarWildLevels.Name = "panelBarWildLevels";
-            this.panelBarWildLevels.Size = new System.Drawing.Size(2, 6);
-            this.panelBarWildLevels.TabIndex = 4;
-            this.panelBarWildLevels.Click += new System.EventHandler(this.panelBar_Click);
-            // 
-            // inputPanel
-            // 
-            this.inputPanel.Controls.Add(this.nudLvM);
-            this.inputPanel.Controls.Add(this.labelFinalValue);
-            this.inputPanel.Controls.Add(this.numLvD);
-            this.inputPanel.Controls.Add(this.numLvW);
-            this.inputPanel.Location = new System.Drawing.Point(6, 14);
-            this.inputPanel.Name = "inputPanel";
-            this.inputPanel.Size = new System.Drawing.Size(269, 25);
-            this.inputPanel.TabIndex = 8;
-            // 
-            // labelFinalValue
-            // 
-            this.labelFinalValue.Location = new System.Drawing.Point(171, 5);
-            this.labelFinalValue.Name = "labelFinalValue";
-            this.labelFinalValue.Size = new System.Drawing.Size(70, 13);
-            this.labelFinalValue.TabIndex = 10;
-            this.labelFinalValue.Text = "0";
-            this.labelFinalValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // labelBValue
-            // 
-            this.labelBValue.Location = new System.Drawing.Point(272, 19);
-            this.labelBValue.Name = "labelBValue";
-            this.labelBValue.Size = new System.Drawing.Size(70, 13);
-            this.labelBValue.TabIndex = 3;
-            this.labelBValue.Text = "BreedVal";
-            this.labelBValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.labelBValue.Click += new System.EventHandler(this.labelBValue_Click);
-            // 
             // numericUpDownInput
             // 
             this.numericUpDownInput.DecimalPlaces = 1;
@@ -206,6 +176,17 @@
             this.numericUpDownInput.ValueChanged += new System.EventHandler(this.numericUpDownInput_ValueChanged);
             this.numericUpDownInput.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
+            // inputPanel
+            // 
+            this.inputPanel.Controls.Add(this.nudLvM);
+            this.inputPanel.Controls.Add(this.labelFinalValue);
+            this.inputPanel.Controls.Add(this.numLvD);
+            this.inputPanel.Controls.Add(this.numLvW);
+            this.inputPanel.Location = new System.Drawing.Point(6, 14);
+            this.inputPanel.Name = "inputPanel";
+            this.inputPanel.Size = new System.Drawing.Size(269, 25);
+            this.inputPanel.TabIndex = 8;
+            // 
             // nudLvM
             // 
             this.nudLvM.ForeColor = System.Drawing.SystemColors.GrayText;
@@ -222,9 +203,18 @@
             0,
             0});
             this.nudLvM.Size = new System.Drawing.Size(46, 20);
-            this.nudLvM.TabIndex = 11;
+            this.nudLvM.TabIndex = 1;
             this.nudLvM.ValueChanged += new System.EventHandler(this.nudLvM_ValueChanged);
             this.nudLvM.Enter += new System.EventHandler(this.numericUpDown_Enter);
+            // 
+            // labelFinalValue
+            // 
+            this.labelFinalValue.Location = new System.Drawing.Point(171, 5);
+            this.labelFinalValue.Name = "labelFinalValue";
+            this.labelFinalValue.Size = new System.Drawing.Size(70, 13);
+            this.labelFinalValue.TabIndex = 10;
+            this.labelFinalValue.Text = "0";
+            this.labelFinalValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // numLvD
             // 
@@ -242,7 +232,7 @@
             0,
             0});
             this.numLvD.Size = new System.Drawing.Size(46, 20);
-            this.numLvD.TabIndex = 7;
+            this.numLvD.TabIndex = 2;
             this.numLvD.ValueChanged += new System.EventHandler(this.numLvD_ValueChanged);
             this.numLvD.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
@@ -267,9 +257,19 @@
             0,
             0});
             this.numLvW.Size = new System.Drawing.Size(46, 20);
-            this.numLvW.TabIndex = 6;
+            this.numLvW.TabIndex = 0;
             this.numLvW.ValueChanged += new System.EventHandler(this.numLvW_ValueChanged);
             this.numLvW.Enter += new System.EventHandler(this.numericUpDown_Enter);
+            // 
+            // labelBValue
+            // 
+            this.labelBValue.Location = new System.Drawing.Point(272, 19);
+            this.labelBValue.Name = "labelBValue";
+            this.labelBValue.Size = new System.Drawing.Size(70, 13);
+            this.labelBValue.TabIndex = 3;
+            this.labelBValue.Text = "BreedVal";
+            this.labelBValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.labelBValue.Click += new System.EventHandler(this.labelBValue_Click);
             // 
             // StatIO
             // 
@@ -281,8 +281,8 @@
             this.Size = new System.Drawing.Size(347, 50);
             this.groupBox1.ResumeLayout(false);
             this.panelFinalValue.ResumeLayout(false);
-            this.inputPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInput)).EndInit();
+            this.inputPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudLvM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLvD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLvW)).EndInit();
