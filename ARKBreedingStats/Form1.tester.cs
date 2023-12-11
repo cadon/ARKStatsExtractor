@@ -127,9 +127,9 @@ namespace ARKBreedingStats
             creatureInfoInputTester.parentListValid = false;
 
             int[] levelsWild = _testingIOs.Select(s => s.LevelWild).ToArray();
-            int[] levelsMutations = _testingIOs.Select(s => s.LevelWild + s.LevelMut).ToArray();
-            if (!_testingIOs[2].Enabled)
-                levelsWild[2] = 0;
+            int[] levelsMutations = _testingIOs.Select(s => s.LevelMut).ToArray();
+            if (!_testingIOs[Stats.Torpidity].Enabled)
+                levelsWild[Stats.Torpidity] = 0;
             radarChart1.SetLevels(levelsWild, levelsMutations);
             statPotentials1.SetLevels(levelsWild, levelsMutations, false);
             //statGraphs1.setGraph(sE, 0, testingIOs[0].LevelWild, testingIOs[0].LevelDom, !radioButtonTesterWild.Checked, (double)NumericUpDownTestingTE.Value / 100, (double)numericUpDownImprintingBonusTester.Value / 100);

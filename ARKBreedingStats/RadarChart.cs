@@ -1,28 +1,49 @@
-﻿using ARKBreedingStats.species;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using ARKBreedingStats.species;
+using Color = System.Drawing.Color;
+using Pen = System.Drawing.Pen;
 
 namespace ARKBreedingStats
 {
     internal class RadarChart : PictureBox
     {
-        private int _maxLevel; // outer border of graph
-        private List<Point> _maxPs, _ps; // coords of outer points
+        /// <summary>
+        /// outer border of graph
+        /// </summary>
+        private int _maxLevel;
+        /// <summary>
+        /// Coords of outer points
+        /// </summary>
+        private readonly List<Point> _maxPs = new List<Point>();
+        /// <summary>
+        /// Coords of wild levels
+        /// </summary>
+        private readonly List<Point> _ps = new List<Point>();
+        /// <summary>
+        /// Coords of mutated levels
+        /// </summary>
+        private readonly List<Point> _psm = new List<Point>();
         private int _maxR, _xm, _ym; // max-radius, centerX, centerY
-        private readonly int[] _oldLevels;
-        private PathGradientBrush _grBrushBg, _grBrushFg;
+        private readonly int[] _currentWildLevels = new int[Stats.StatsCount];
+        private readonly int[] _currentMutatedLevels = new int[Stats.StatsCount];
+        /// <summary>
+        /// Displayed stats as bit flag
+        /// </summary>
+        private int _displayedStats;
+
+        private readonly List<int> _displayedStatIndices = new List<int>();
+        private double _anglePerStat;
+        private PathGradientBrush _grBrushBg, _grBrushFg, _grBrushMutations;
         private int _step;
-        private const int DisplayedStats = 7;
-        private const double AnglePerStat = Math.PI * 2 / DisplayedStats;
         private const double AngleOffset = Math.PI / 2;
 
         public RadarChart()
         {
             SizeMode = PictureBoxSizeMode.Zoom;
-            _oldLevels = new int[DisplayedStats];
             Disposed += RadarChart_Disposed;
 
             InitializeVariables(50);
@@ -34,82 +55,141 @@ namespace ARKBreedingStats
             _grBrushFg.Dispose();
         }
 
+        private bool SetSize()
+        {
+            var maxRadius = Math.Min(Width, Height) / 2;
+            if (_maxR == maxRadius)
+                return false; // already set
+
+            _maxR = maxRadius;
+            _xm = _maxR + 1;
+            _ym = _maxR + 1;
+            _maxR -= 15;
+
+            InitializePoints();
+
+            // color gradients
+            _grBrushBg?.Dispose();
+            _grBrushFg?.Dispose();
+            _grBrushMutations?.Dispose();
+
+            float[] relativePositions = { 0, 0.45f, 1 };
+            GraphicsPath path = new GraphicsPath();
+            path.AddEllipse(_xm - _maxR, _ym - _maxR, 2 * _maxR + 1, 2 * _maxR + 1);
+            _grBrushBg = new PathGradientBrush(path)
+            {
+                InterpolationColors = new ColorBlend
+                {
+                    Colors = new[] {
+                        Color.FromArgb(0, 90, 0),
+                        Color.FromArgb(90, 90, 0),
+                        Color.FromArgb(90, 0, 0)
+                    },
+                    Positions = relativePositions
+                }
+            };
+            _grBrushFg = new PathGradientBrush(path)
+            {
+                InterpolationColors = new ColorBlend
+                {
+                    Colors = new[] {
+                        Color.FromArgb(0, 180, 0),
+                        Color.FromArgb(180, 180, 0),
+                        Color.FromArgb(180, 0, 0)
+                    },
+                    Positions = relativePositions
+                }
+            };
+            _grBrushMutations = new PathGradientBrush(path)
+            {
+                InterpolationColors = new ColorBlend
+                {
+                    Colors = new[] {
+                        Color.FromArgb(0, 180, 180),
+                        Color.FromArgb(90, 90, 180),
+                        Color.FromArgb(180, 0, 180)
+                    },
+                    Positions = relativePositions
+                }
+            };
+            return true;
+        }
+
+        private bool SetMaxLevel(int maxLevel)
+        {
+            if (_maxLevel == maxLevel)
+                return false;
+
+            _maxLevel = maxLevel;
+
+            _step = (int)Math.Round(_maxLevel / 25d);
+            if (_step < 1) _step = 1;
+            _step *= 5;
+
+            return true;
+        }
+
         /// <summary>
         /// Initialize with a new max chart level.
         /// </summary>
         /// <param name="maxLevel"></param>
         public void InitializeVariables(int maxLevel)
         {
-            _maxLevel = maxLevel;
-            _maxR = Math.Min(Width, Height) / 2;
-            _xm = _maxR + 1;
-            _ym = _maxR + 1;
-            _maxR -= 15;
+            if (SetSize() | SetMaxLevel(maxLevel))
+                SetLevels(); // update graph
+        }
 
-            _step = (int)Math.Round(maxLevel / 25d);
-            if (_step < 1) _step = 1;
-            _step *= 5;
-
-            _maxPs = new List<Point>();
-            _ps = new List<Point>();
-            int r = 0;
-            for (int s = 0; s < DisplayedStats; s++)
+        private void InitializeStats(int displayedStats)
+        {
+            if (displayedStats == _displayedStats) return;
+            _displayedStats = displayedStats;
+            _displayedStatIndices.Clear();
+            for (int s = 0; s < Stats.StatsCount; s++)
             {
-                double angle = AnglePerStat * s - AngleOffset;
-                _ps.Add(new Point(_xm + (int)(r * Math.Cos(angle)), _ym + (int)(r * Math.Sin(angle))));
-
-                _maxPs.Add(new Point(_xm + (int)(_maxR * Math.Cos(angle)), _ym + (int)(_maxR * Math.Sin(angle))));
+                _currentMutatedLevels[s] = 0;
+                _currentWildLevels[s] = 0;
+                if (s == Stats.Torpidity || (_displayedStats & (1 << s)) == 0) continue;
+                _displayedStatIndices.Add(s);
             }
 
-            // color gradient
-            GraphicsPath path = new GraphicsPath();
-            path.AddEllipse(_xm - _maxR, _ym - _maxR, 2 * _maxR + 1, 2 * _maxR + 1);
-            _grBrushBg?.Dispose();
-            _grBrushFg?.Dispose();
-            _grBrushBg = new PathGradientBrush(path);
-            _grBrushFg = new PathGradientBrush(path);
+            _anglePerStat = Math.PI * 2 / _displayedStatIndices.Count;
 
-            Color[] colorsBg =
+            InitializePoints();
+        }
+
+        /// <summary>
+        /// Resets points, call after size or stat count was changed.
+        /// </summary>
+        private void InitializePoints()
+        {
+            _maxPs.Clear();
+            _ps.Clear();
+            _psm.Clear();
+            for (var s = 0; s < _displayedStatIndices.Count; s++)
             {
-                    Color.FromArgb(0, 90, 0),
-                    Color.FromArgb(90, 90, 0),
-                    Color.FromArgb(90, 0, 0)
-            };
+                _ps.Add(new Point(_xm, _ym));
+                _psm.Add(new Point(_xm, _ym));
+                double angle = _anglePerStat * s - AngleOffset;
+                _maxPs.Add(Coords(_maxR, angle));
+            }
+        }
 
-            Color[] colorsFg =
-            {
-                    Color.FromArgb(0, 180, 0),
-                    Color.FromArgb(180, 180, 0),
-                    Color.FromArgb(180, 0, 0)
-            };
-
-            float[] relativePositions = { 0, 0.45f, 1 };
-
-            ColorBlend colorBlendBg = new ColorBlend
-            {
-                Colors = colorsBg,
-                Positions = relativePositions
-            };
-            _grBrushBg.InterpolationColors = colorBlendBg;
-
-            ColorBlend colorBlendFg = new ColorBlend
-            {
-                Colors = colorsFg,
-                Positions = relativePositions
-            };
-            _grBrushFg.InterpolationColors = colorBlendFg;
-
-            SetLevels();
+        private Point Coords(int radius, double angle)
+        {
+            if (radius < 0) radius = 0;
+            if (radius > _maxR) radius = _maxR;
+            return new Point(_xm + (int)(radius * Math.Cos(angle)), _ym + (int)(radius * Math.Sin(angle)));
         }
 
         /// <summary>
         /// Draws a chart with the given levels.
         /// </summary>
-        /// <param name="levels">If null, the previous values are redrawn.</param>
-        public void SetLevels(int[] levels = null, int[] levelMutations = null)
+        /// <param name="levelsWild">If null, the previous values are redrawn.</param>
+        public void SetLevels(int[] levelsWild = null, int[] levelMutations = null, Species species = null)
         {
-            // todo add mutation levels to chart
-            if ((levels != null && levels.Length <= 6) || _maxR <= 5) return;
+            InitializeStats(species?.DisplayedStats ?? _displayedStats);
+
+            if (_maxR <= 5 || _ps.Count == 0) return; // image too small
 
             Bitmap bmp = new Bitmap(Width, Height);
             using (Graphics g = Graphics.FromImage(bmp))
@@ -118,32 +198,41 @@ namespace ARKBreedingStats
             {
                 g.SmoothingMode = SmoothingMode.AntiAlias;
 
-                // the indices of the displayed stats
-                var levelIndices = new[]
+                if (levelsWild != null || levelMutations != null)
                 {
-                    (int) Stats.Health, (int) Stats.Stamina, (int) Stats.Oxygen, (int) Stats.Food,
-                    (int) Stats.Weight, (int) Stats.MeleeDamageMultiplier, (int) Stats.SpeedMultiplier
-                };
-
-                for (int s = 0; s < levelIndices.Length; s++)
-                {
-                    if (levels == null || levels[levelIndices[s]] != _oldLevels[s])
+                    var displayedStatIndex = 0;
+                    foreach (var s in _displayedStatIndices)
                     {
-                        if (levels != null)
-                            _oldLevels[s] = levels[levelIndices[s]];
-                        int r = _oldLevels[s] * _maxR / _maxLevel;
-                        if (r < 0) r = 0;
-                        if (r > _maxR) r = _maxR;
-                        double angle = AnglePerStat * s - AngleOffset;
-                        _ps[s] = new Point(_xm + (int)(r * Math.Cos(angle)), _ym + (int)(r * Math.Sin(angle)));
+                        double angle = _anglePerStat * displayedStatIndex - AngleOffset;
+                        var wildLevelChanged = levelsWild != null && levelsWild[s] != _currentWildLevels[s];
+                        var mutatedLevelChanged = levelMutations != null && levelMutations[s] != _currentMutatedLevels[s];
+
+
+                        if (wildLevelChanged || mutatedLevelChanged)
+                        {
+                            if (wildLevelChanged)
+                            {
+                                _currentWildLevels[s] = levelsWild[s];
+                                _ps[displayedStatIndex] = Coords(_currentWildLevels[s] * _maxR / _maxLevel, angle);
+                            }
+
+                            if (mutatedLevelChanged)
+                                _currentMutatedLevels[s] = levelMutations[s];
+                            _psm[displayedStatIndex] = Coords((_currentWildLevels[s] + _currentMutatedLevels[s]) * _maxR / _maxLevel, angle);
+                        }
+
+                        displayedStatIndex++;
                     }
                 }
 
                 g.FillEllipse(_grBrushBg, _xm - _maxR, _ym - _maxR, 2 * _maxR + 1, 2 * _maxR + 1);
 
+                g.FillPolygon(_grBrushMutations, _psm.ToArray());
+                g.DrawPolygon(penLine, _psm.ToArray());
                 g.FillPolygon(_grBrushFg, _ps.ToArray());
                 g.DrawPolygon(penLine, _ps.ToArray());
 
+                // grid circles
                 double stepFactor = (double)_step / _maxLevel;
                 for (int r = 0; r < 5; r++)
                 {
@@ -152,24 +241,41 @@ namespace ARKBreedingStats
                             (int)(_xm - _maxR * r * stepFactor), (int)(_ym - _maxR * r * stepFactor),
                             (int)(2 * _maxR * r * stepFactor + 1), (int)(2 * _maxR * r * stepFactor + 1));
                 }
-
+                // outline
                 using (var pen = new Pen(Utils.GetColorFromPercent(100, -0.4)))
                     g.DrawEllipse(pen, _xm - _maxR, _ym - _maxR, 2 * _maxR + 1, 2 * _maxR + 1);
 
+                // stat lines and bullet points
                 using (var pen = new Pen(Color.Gray))
-                    for (int s = 0; s < levelIndices.Length; s++)
+                    for (var sdi = 0; sdi < _displayedStatIndices.Count; sdi++)
                     {
-                        pen.Width = 1;
-                        pen.Color = Color.Gray;
-                        g.DrawLine(pen, _xm, _ym, _maxPs[s].X, _maxPs[s].Y);
-                        Color cl = Utils.GetColorFromPercent(100 * _oldLevels[s] / _maxLevel);
-                        pen.Color = cl;
-                        pen.Width = 3;
-                        g.DrawLine(pen, _xm, _ym, _ps[s].X, _ps[s].Y);
-                        Brush b = new SolidBrush(cl);
-                        g.FillEllipse(b, _ps[s].X - 4, _ps[s].Y - 4, 8, 8);
-                        g.DrawEllipse(penLine, _ps[s].X - 4, _ps[s].Y - 4, 8, 8);
-                        b.Dispose();
+                        var s = _displayedStatIndices[sdi];
+                        DrawRadialGridLine(_maxPs[sdi]);
+                        DrawLineAndBullet(_currentWildLevels[s] + _currentMutatedLevels[s], _psm[sdi]);
+                        DrawLineAndBullet(_currentWildLevels[s], _ps[sdi]);
+
+                        void DrawRadialGridLine(Point maxCoords)
+                        {
+                            pen.Width = 1;
+                            pen.Color = Color.Gray;
+                            g.DrawLine(pen, _xm, _ym, maxCoords.X, maxCoords.Y);
+                        }
+
+                        void DrawLineAndBullet(int level, Point coords)
+                        {
+                            Color cl = Utils.GetColorFromPercent(100 * level / _maxLevel);
+                            pen.Color = cl;
+                            pen.Width = 3;
+                            g.DrawLine(pen, _xm, _ym, coords.X, coords.Y);
+                            const int bulletRadius = 4;
+                            using (var b = new SolidBrush(cl))
+                            {
+                                g.FillEllipse(b, coords.X - bulletRadius, coords.Y - bulletRadius, 2 * bulletRadius,
+                                    2 * bulletRadius);
+                            }
+                            g.DrawEllipse(penLine, coords.X - bulletRadius, coords.Y - bulletRadius, 2 * bulletRadius,
+                                2 * bulletRadius);
+                        }
                     }
 
                 using (var brush = new SolidBrush(Color.FromArgb(190, 255, 255, 255)))
@@ -188,10 +294,11 @@ namespace ARKBreedingStats
 
                 using (var brushBlack = new SolidBrush(Color.Black))
                 {
-                    for (int s = 0; s < levelIndices.Length; s++)
+                    for (var sdi = 0; sdi < _displayedStatIndices.Count; sdi++)
                     {
-                        double angle = AnglePerStat * s - AngleOffset;
-                        g.DrawString(Utils.StatName(levelIndices[s], true), font,
+                        var s = _displayedStatIndices[sdi];
+                        double angle = _anglePerStat * sdi - AngleOffset;
+                        g.DrawString(Utils.StatName(s, true), font,
                             brushBlack, _xm - 9 + (int)((_maxR + 10) * Math.Cos(angle)),
                             _ym - 5 + (int)((_maxR + 10) * Math.Sin(angle)));
                     }

@@ -1268,7 +1268,7 @@ namespace ARKBreedingStats
                 Creature c = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]];
                 creatureBoxListView.SetCreature(c);
                 if (tabControlLibFilter.SelectedTab == tabPageLibRadarChart)
-                    radarChartLibrary.SetLevels(c.levelsWild);
+                    radarChartLibrary.SetLevels(c.levelsWild, c.levelsMutated, c.Species);
                 pedigree1.PedigreeNeedsUpdate = true;
             }
 

@@ -7,7 +7,8 @@ namespace ARKBreedingStats.uiControls
     {
         private readonly StatPotential[] _stats;
         private Species _selectedSpecies;
-        private readonly int[] _oldLevels;
+        private readonly int[] _currentLevelsWild = new int[Stats.StatsCount];
+        private readonly int[] _currentLevelsMutations = new int[Stats.StatsCount];
 
         public StatPotentials()
         {
@@ -25,7 +26,6 @@ namespace ARKBreedingStats.uiControls
                 flpStats.Controls.Add(_stats[si]);
                 flpStats.SetFlowBreak(_stats[si], true);
             }
-            _oldLevels = new int[Stats.StatsCount];
         }
 
         public Species Species
@@ -46,9 +46,10 @@ namespace ARKBreedingStats.uiControls
             SuspendLayout();
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (forceUpdate || _oldLevels[s] != levelsWild[s])
+                if (forceUpdate || _currentLevelsWild[s] != levelsWild[s] || _currentLevelsMutations[s] != levelsMutations[s])
                 {
-                    _oldLevels[s] = levelsWild[s];
+                    _currentLevelsWild[s] = levelsWild[s];
+                    _currentLevelsMutations[s] = levelsMutations[s];
                     _stats[s].SetLevel(_selectedSpecies, levelsWild[s], levelsMutations[s]);
                 }
             }

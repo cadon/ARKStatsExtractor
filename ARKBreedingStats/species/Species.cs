@@ -67,8 +67,8 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Indicates if a stat is shown in game represented by bit-flags
         /// </summary>
-        [JsonProperty]
-        private int displayedStats;
+        [JsonProperty("displayedStats")]
+        public int DisplayedStats { private set; get; }
         public const int displayedStatsDefault = 927;
         /// <summary>
         /// Indicates if a species uses a stat represented by bit-flags
@@ -333,14 +333,14 @@ namespace ARKBreedingStats.species
             bool speedStatCanBeLeveled = canLevelSpeedStat && (canFlyerLevelSpeedStat || !isFlyer);
             if (speedStatCanBeLeveled)
             {
-                displayedStats |= statBit;
+                DisplayedStats |= statBit;
                 StatImprintMultipliers[Stats.SpeedMultiplier] =
                     (statImprintMultOverride ?? statImprintMult ?? StatImprintMultipliersDefaultAse)[Stats.SpeedMultiplier];
                 _skipWildLevelStatsWithServerSettings &= ~statBit;
             }
             else
             {
-                displayedStats &= ~statBit;
+                DisplayedStats &= ~statBit;
                 StatImprintMultipliers[Stats.SpeedMultiplier] = 0;
                 _skipWildLevelStatsWithServerSettings |= statBit;
             }
@@ -354,7 +354,7 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Returns if the species displays a stat ingame in the inventory.
         /// </summary>
-        public bool DisplaysStat(int statIndex) => (displayedStats & (1 << statIndex)) != 0;
+        public bool DisplaysStat(int statIndex) => (DisplayedStats & (1 << statIndex)) != 0;
 
         /// <summary>
         /// Returns if a spawned creature can have wild or mutated levels in a stat.
@@ -425,7 +425,7 @@ namespace ARKBreedingStats.species
             if (overrides.variants != null) variants = overrides.variants;
             if (overrides.fullStatsRaw != null) fullStatsRaw = overrides.fullStatsRaw;
             if (overrides.altBaseStatsRaw != null) altBaseStatsRaw = overrides.altBaseStatsRaw;
-            if (overrides.displayedStats != 0) displayedStats = overrides.displayedStats;
+            if (overrides.DisplayedStats != 0) DisplayedStats = overrides.DisplayedStats;
             if (overrides.skipWildLevelStats != 0) skipWildLevelStats = overrides.skipWildLevelStats;
             if (overrides.TamedBaseHealthMultiplier != null) TamedBaseHealthMultiplier = overrides.TamedBaseHealthMultiplier;
             if (overrides.statImprintMult != null) statImprintMult = overrides.statImprintMult;

@@ -380,9 +380,6 @@ namespace ARKBreedingStats
 
 
             //// initialize controls
-            radarChart1.InitializeVariables(_creatureCollection.maxChartLevel);
-            radarChartExtractor.InitializeVariables(_creatureCollection.maxChartLevel);
-            radarChartLibrary.InitializeVariables(_creatureCollection.maxChartLevel);
             extractionTestControl1.CopyToExtractor += ExtractionTestControl1_CopyToExtractor;
             extractionTestControl1.CopyToTester += ExtractionTestControl1_CopyToTester;
 
@@ -644,6 +641,7 @@ namespace ARKBreedingStats
 
             creatureInfoInputExtractor.SelectedSpecies = species;
             creatureInfoInputTester.SelectedSpecies = species;
+            radarChart1.SetLevels(species: species);
             var statNames = species.statNames;
 
             for (int s = 0; s < Stats.StatsCount; s++)
