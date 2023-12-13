@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Threading;
@@ -99,6 +98,7 @@ namespace ARKBreedingStats.settings
             }
             nudTamingSpeed.NeutralNumber = 1;
             nudDinoCharacterFoodDrain.NeutralNumber = 1;
+            NudWildDinoCharacterFoodDrainMultiplier.NeutralNumber = 1;
             NudWildDinoTorporDrainMultiplier.NeutralNumber = 1;
             nudTamedDinoCharacterFoodDrain.NeutralNumber = 1;
             nudMatingInterval.NeutralNumber = 1;
@@ -236,6 +236,7 @@ namespace ARKBreedingStats.settings
             nudBabyImprintAmount.ValueSave = (decimal)multipliers.BabyImprintAmountMultiplier;
             nudTamingSpeed.ValueSave = (decimal)multipliers.TamingSpeedMultiplier;
             nudDinoCharacterFoodDrain.ValueSave = (decimal)multipliers.DinoCharacterFoodDrainMultiplier;
+            NudWildDinoCharacterFoodDrainMultiplier.ValueSave = (decimal)multipliers.WildDinoCharacterFoodDrainMultiplier;
             NudWildDinoTorporDrainMultiplier.ValueSave = (decimal)multipliers.WildDinoTorporDrainMultiplier;
             nudTamedDinoCharacterFoodDrain.ValueSave = (decimal)multipliers.TamedDinoCharacterFoodDrainMultiplier;
             nudBabyFoodConsumptionSpeed.ValueSave = (decimal)multipliers.BabyFoodConsumptionSpeedMultiplier;
@@ -492,6 +493,7 @@ namespace ARKBreedingStats.settings
             #region non-event-multiplier
             _cc.serverMultipliers.TamingSpeedMultiplier = (double)nudTamingSpeed.Value;
             _cc.serverMultipliers.DinoCharacterFoodDrainMultiplier = (double)nudDinoCharacterFoodDrain.Value;
+            _cc.serverMultipliers.WildDinoCharacterFoodDrainMultiplier = (double)NudWildDinoCharacterFoodDrainMultiplier.Value;
             _cc.serverMultipliers.WildDinoTorporDrainMultiplier = (double)NudWildDinoTorporDrainMultiplier.Value;
             _cc.serverMultipliers.TamedDinoCharacterFoodDrainMultiplier = (double)nudTamedDinoCharacterFoodDrain.Value;
             _cc.serverMultipliers.MatingSpeedMultiplier = (double)nudMatingSpeed.Value;
@@ -841,6 +843,7 @@ namespace ARKBreedingStats.settings
             // GameUserSettings.ini
             ParseAndSetValue(nudTamingSpeed, @"TamingSpeedMultiplier ?= ?(\d*\.?\d+)");
             ParseAndSetValue(nudDinoCharacterFoodDrain, @"DinoCharacterFoodDrainMultiplier ?= ?(\d*\.?\d+)");
+            ParseAndSetValue(NudWildDinoCharacterFoodDrainMultiplier, @"WildDinoCharacterFoodDrainMultiplier ?= ?(\d*\.?\d+)");
             // Game.ini
             ParseAndSetValue(NudWildDinoTorporDrainMultiplier, @"WildDinoTorporDrainMultiplier ?= ?(\d*\.?\d+)");
 
@@ -944,6 +947,7 @@ namespace ARKBreedingStats.settings
             nudMaxServerLevel.ValueSave = esm.DestroyTamesOverLevelClamp;
             nudTamingSpeed.ValueSaveDouble = Math.Round(esm.TamingSpeedMultiplier, roundToDigits);
             nudDinoCharacterFoodDrain.ValueSaveDouble = Math.Round(esm.DinoCharacterFoodDrainMultiplier, roundToDigits);
+            NudWildDinoCharacterFoodDrainMultiplier.ValueSaveDouble = Math.Round(esm.WildDinoCharacterFoodDrainMultiplier, roundToDigits);
             NudWildDinoTorporDrainMultiplier.ValueSaveDouble = Math.Round(esm.WildDinoTorporDrainMultiplier, roundToDigits);
             nudMatingSpeed.ValueSaveDouble = Math.Round(esm.MatingSpeedMultiplier, roundToDigits);
             nudMatingInterval.ValueSaveDouble = Math.Round(esm.MatingIntervalMultiplier, roundToDigits);
@@ -1105,6 +1109,7 @@ namespace ARKBreedingStats.settings
             {
                 nudTamingSpeed.ValueSave = (decimal)sm.TamingSpeedMultiplier;
                 nudDinoCharacterFoodDrain.ValueSave = (decimal)sm.DinoCharacterFoodDrainMultiplier;
+                NudWildDinoCharacterFoodDrainMultiplier.ValueSave = (decimal)sm.WildDinoCharacterFoodDrainMultiplier;
                 NudWildDinoTorporDrainMultiplier.ValueSave = (decimal)sm.WildDinoTorporDrainMultiplier;
                 nudTamedDinoCharacterFoodDrain.ValueSave = (decimal)sm.TamedDinoCharacterFoodDrainMultiplier;
                 nudEggHatchSpeed.ValueSave = (decimal)sm.EggHatchSpeedMultiplier;
@@ -1222,6 +1227,7 @@ namespace ARKBreedingStats.settings
             // taming multipliers
             sb.AppendLine($"TamingSpeedMultiplier = {nudTamingSpeed.Value.ToString(cultureForStrings)}");
             sb.AppendLine($"DinoCharacterFoodDrainMultiplier = {nudDinoCharacterFoodDrain.Value.ToString(cultureForStrings)}");
+            sb.AppendLine($"WildDinoCharacterFoodDrainMultiplier = {NudWildDinoCharacterFoodDrainMultiplier.Value.ToString(cultureForStrings)}");
             sb.AppendLine($"WildDinoTorporDrainMultiplier = {NudWildDinoTorporDrainMultiplier.Value.ToString(cultureForStrings)}");
 
             //// the settings below are not settings that appear in ARK server config files and are used only in ASB

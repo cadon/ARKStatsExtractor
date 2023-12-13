@@ -91,7 +91,8 @@ namespace ARKBreedingStats
                         if (species.name == "Mantis")
                             seconds = foodPiecesNeeded * 180;
                         else
-                            seconds = (int)Math.Ceiling(foodPiecesNeeded * foodValue / (species.taming.foodConsumptionBase * species.taming.foodConsumptionMult * serverMultipliers.DinoCharacterFoodDrainMultiplier));
+                            seconds = (int)Math.Ceiling(foodPiecesNeeded * foodValue / (species.taming.foodConsumptionBase * species.taming.foodConsumptionMult
+                                * serverMultipliers.DinoCharacterFoodDrainMultiplier * serverMultipliers.WildDinoCharacterFoodDrainMultiplier));
                         affinityNeeded -= foodPiecesNeeded * foodAffinity;
 
                         // new approach with 1/(1 + IM*IA*N/AO + ID*D) from https://forums.unrealengine.com/development-discussion/modding/ark-survival-evolved/56959-tutorial-dinosaur-taming-parameters?85457-Tutorial-Dinosaur-Taming-Parameters=

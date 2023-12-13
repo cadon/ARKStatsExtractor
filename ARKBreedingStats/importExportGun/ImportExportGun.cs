@@ -308,6 +308,8 @@ namespace ARKBreedingStats.importExportGun
             cc.maxServerLevel = esm.DestroyTamesOverLevelClamp;
             cc.serverMultipliers.TamingSpeedMultiplier = Math.Round(esm.TamingSpeedMultiplier, roundToDigits);
             cc.serverMultipliers.DinoCharacterFoodDrainMultiplier = Math.Round(esm.DinoCharacterFoodDrainMultiplier, roundToDigits);
+            cc.serverMultipliers.WildDinoCharacterFoodDrainMultiplier = Math.Round(esm.WildDinoCharacterFoodDrainMultiplier, roundToDigits);
+            cc.serverMultipliers.TamedDinoCharacterFoodDrainMultiplier = Math.Round(esm.TamedDinoCharacterFoodDrainMultiplier, roundToDigits);
             cc.serverMultipliers.WildDinoTorporDrainMultiplier = Math.Round(esm.WildDinoTorporDrainMultiplier, roundToDigits);
             cc.serverMultipliers.MatingSpeedMultiplier = Math.Round(esm.MatingSpeedMultiplier, roundToDigits);
             cc.serverMultipliers.MatingIntervalMultiplier = Math.Round(esm.MatingIntervalMultiplier, roundToDigits);
@@ -317,7 +319,6 @@ namespace ARKBreedingStats.importExportGun
             cc.serverMultipliers.BabyImprintAmountMultiplier = Math.Round(esm.BabyImprintAmountMultiplier, roundToDigits);
             cc.serverMultipliers.BabyImprintingStatScaleMultiplier = Math.Round(esm.BabyImprintingStatScaleMultiplier, roundToDigits);
             cc.serverMultipliers.BabyFoodConsumptionSpeedMultiplier = Math.Round(esm.BabyFoodConsumptionSpeedMultiplier, roundToDigits);
-            cc.serverMultipliers.TamedDinoCharacterFoodDrainMultiplier = Math.Round(esm.TamedDinoCharacterFoodDrainMultiplier, roundToDigits);
             cc.serverMultipliers.AllowSpeedLeveling = esm.AllowSpeedLeveling;
             cc.serverMultipliers.AllowFlyerSpeedLeveling = esm.AllowFlyerSpeedLeveling;
             cc.singlePlayerSettings = esm.UseSingleplayerSettings;

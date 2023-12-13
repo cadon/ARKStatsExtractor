@@ -93,7 +93,7 @@ namespace ARKBreedingStats
                 }
             }
 
-            _foodDepletion = td.foodConsumptionBase * td.foodConsumptionMult * _serverMultipliers.DinoCharacterFoodDrainMultiplier;
+            _foodDepletion = td.foodConsumptionBase * td.foodConsumptionMult * _serverMultipliers.DinoCharacterFoodDrainMultiplier * _serverMultipliers.WildDinoCharacterFoodDrainMultiplier;
             UpdateFirstFeedingWaiting();
             EstimateFoodValue();
 
@@ -330,7 +330,8 @@ namespace ARKBreedingStats
                     }
 
                     tfc.MaxFood = Taming.FoodAmountNeeded(_selectedSpecies, level, _serverMultipliers.TamingSpeedMultiplier, tfc.FoodName, _selectedSpecies.taming.nonViolent, CbSanguineElixir.Checked);
-                    tfc.TamingDuration = Taming.TamingDuration(_selectedSpecies, tfc.MaxFood, tfc.FoodName, _serverMultipliers.DinoCharacterFoodDrainMultiplier, _selectedSpecies.taming.nonViolent);
+                    tfc.TamingDuration = Taming.TamingDuration(_selectedSpecies, tfc.MaxFood, tfc.FoodName,
+                        _serverMultipliers.DinoCharacterFoodDrainMultiplier * _serverMultipliers.WildDinoCharacterFoodDrainMultiplier, _selectedSpecies.taming.nonViolent);
                 }
                 Taming.TamingTimes(_selectedSpecies, level, _serverMultipliers, usedFood, foodAmount,
                     out foodAmountUsed, out duration, out narcoBerries, out ascerbicMushrooms, out narcotics, out bioToxines, out te, out _neededHunger, out bonusLevel, out enoughFood, CbSanguineElixir.Checked);
