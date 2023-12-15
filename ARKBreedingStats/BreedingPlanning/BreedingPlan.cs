@@ -934,7 +934,7 @@ namespace ARKBreedingStats.BreedingPlanning
 
         public int MaxWildLevels
         {
-            set => offspringPossibilities1.maxWildLevel = value;
+            set => offspringPossibilities1.maxWildLevel = value <= 0 ? 150 : value;
         }
 
         public void SetSpecies(Species species)
