@@ -18,17 +18,17 @@ namespace ARKBreedingStats.uiControls
             ChartAreas[0].AxisX.Minimum = 0;
         }
 
-        public void setGraph(Species species, int statIndex, int wildLevels, int domLevels, bool tamed, double TE, double imprinting)
+        public void SetGraph(Species species, int statIndex, int wildLevels, int mutatedLevel, int domLevels, bool tamed, double TE, double imprinting)
         {
             if (species != null && statIndex >= 0 && statIndex < 12)
             {
                 CreatureStat stat = species.stats[statIndex];
                 serie.Points.Clear();
                 serie.Points.AddXY("Base", stat.BaseValue);
-                serie.Points.AddXY("Wild", StatValueCalculation.CalculateValue(species, statIndex, wildLevels, 0, false, 0, 0));
-                serie.Points.AddXY("Tamed", StatValueCalculation.CalculateValue(species, statIndex, wildLevels, 0, true, TE, 0));
-                serie.Points.AddXY("Dom", StatValueCalculation.CalculateValue(species, statIndex, wildLevels, domLevels, true, TE, 0));
-                serie.Points.AddXY("Impr", StatValueCalculation.CalculateValue(species, statIndex, wildLevels, domLevels, true, TE, imprinting));
+                serie.Points.AddXY("Wild", StatValueCalculation.CalculateValue(species, statIndex, wildLevels, mutatedLevel, 0, false, 0, 0));
+                serie.Points.AddXY("Tamed", StatValueCalculation.CalculateValue(species, statIndex, wildLevels, mutatedLevel, 0, true, TE, 0));
+                serie.Points.AddXY("Dom", StatValueCalculation.CalculateValue(species, statIndex, wildLevels, mutatedLevel, domLevels, true, TE, 0));
+                serie.Points.AddXY("Impr", StatValueCalculation.CalculateValue(species, statIndex, wildLevels, mutatedLevel, domLevels, true, TE, imprinting));
             }
         }
     }

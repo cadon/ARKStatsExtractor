@@ -1340,4 +1340,7 @@ It's also possible to filter for creatures with a color in one of multiple possi
   <data name="timerStarvingOf" xml:space="preserve">
     <value>Starving of</value>
   </data>
+  <data name="ClickCopyToClipboard" xml:space="preserve">
+    <value>Click to copy to clipboard</value>
+  </data>
 </root>

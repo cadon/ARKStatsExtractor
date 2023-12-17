@@ -793,11 +793,12 @@ namespace ARKBreedingStats
 
         /// <summary>
         /// Imports creature from file created by the export gun mod.
-        /// Returns true if the last imported creature already exists in the library.
+        /// Returns already existing Creature or null if it's a new creature.
         /// </summary>
-        private bool ImportExportGunFiles(string[] filePaths, out bool creatureAdded, out Creature lastAddedCreature)
+        private Creature ImportExportGunFiles(string[] filePaths, out bool creatureAdded, out Creature lastAddedCreature, out bool copiedNameToClipboard)
         {
             creatureAdded = false;
+            copiedNameToClipboard = false;
             var newCreatures = new List<Creature>();
 
             var importedCounter = 0;
@@ -807,7 +808,7 @@ namespace ARKBreedingStats
             string serverMultipliersHash = null;
             bool? multipliersImportSuccessful = null;
             string serverImportResult = null;
-            bool creatureAlreadyExists = false;
+            Creature alreadyExistingCreature = null;
             var gameSettingBefore = _creatureCollection.Game;
 
             foreach (var filePath in filePaths)
@@ -861,12 +862,30 @@ namespace ARKBreedingStats
             lastAddedCreature = newCreatures.LastOrDefault();
             if (lastAddedCreature != null)
             {
-                creatureAlreadyExists = IsCreatureAlreadyInLibrary(lastAddedCreature.guid, lastAddedCreature.ArkId, out _);
                 creatureAdded = true;
             }
 
+            var totalCreatureCount = _creatureCollection.GetTotalCreatureCount();
+            // select creature objects that will be in the library (i.e. new creature, or existing creature), and the old name
+            var persistentCreaturesAndOldName = newCreatures.Select(c => (creature:
+                IsCreatureAlreadyInLibrary(c.guid, c.ArkId, out alreadyExistingCreature)
+                    ? alreadyExistingCreature
+                    : c, oldName: alreadyExistingCreature?.name)).ToArray();
+
             _creatureCollection.MergeCreatureList(newCreatures, true);
-            UpdateCreatureParentLinkingSort();
+            UpdateCreatureParentLinkingSort(false);
+
+            // apply naming pattern if needed. This can only be done after parent linking to get correct name pattern values related to parents
+            Species lastSpecies = null;
+            Creature[] creaturesOfSpecies = null;
+            foreach (var c in persistentCreaturesAndOldName)
+            {
+                copiedNameToClipboard = SetNameOfImportedCreature(c.creature, lastSpecies == c.creature.Species ? creaturesOfSpecies : null, out creaturesOfSpecies, new Creature(c.creature.Species, c.oldName), totalCreatureCount);
+                lastSpecies = c.creature.Species;
+                if (c.oldName == null) totalCreatureCount++; // if creature was added, increase total count for name pattern
+            }
+
+            UpdateListsAfterCreaturesAdded();
 
             var resultText = (importedCounter > 0 || importFailedCounter > 0
                                  ? $"Imported {importedCounter} creatures successfully.{(importFailedCounter > 0 ? $"Failed to import {importFailedCounter} files. Last error:{Environment.NewLine}{lastError}" : $"{Environment.NewLine}Last file: {lastCreatureFilePath}")}"
@@ -884,16 +903,17 @@ namespace ARKBreedingStats
                 if (listBoxSpeciesLib.SelectedItem != null &&
                     listBoxSpeciesLib.SelectedItem != lastAddedCreature.Species)
                     listBoxSpeciesLib.SelectedItem = lastAddedCreature.Species;
+                _ignoreNextMessageLabel = true; // keep import message
                 SelectCreatureInLibrary(lastAddedCreature);
             }
 
-            return creatureAlreadyExists;
+            return alreadyExistingCreature;
         }
 
         /// <summary>
         /// Call after creatures were added (imported) to the library. Updates parent linkings, creature lists, set collection as changed
         /// </summary>
-        private void UpdateCreatureParentLinkingSort()
+        private void UpdateCreatureParentLinkingSort(bool updateLists = true)
         {
             UpdateParents(_creatureCollection.creatures);
 
@@ -904,6 +924,13 @@ namespace ARKBreedingStats
 
             UpdateIncubationParents(_creatureCollection);
 
+            if (updateLists)
+                UpdateListsAfterCreaturesAdded();
+        }
+
+
+        private void UpdateListsAfterCreaturesAdded()
+        {
             // update UI
             SetCollectionChanged(true);
             UpdateCreatureListings();
@@ -915,6 +942,53 @@ namespace ARKBreedingStats
             SortLibrary();
 
             UpdateTempCreatureDropDown();
+        }
+
+        /// <summary>
+        /// Imports a creature when listening to a server.
+        /// </summary>
+        private void AsbServerDataSent((string jsonData, string serverHash, string errorMessage) data)
+        {
+            if (!string.IsNullOrEmpty(data.errorMessage))
+            {
+                SetMessageLabelText(data.errorMessage, MessageBoxIcon.Error);
+                // don't remove the error message with the stop listening message
+                _ignoreNextMessageLabel = true;
+                listenToolStripMenuItem.Checked = false;
+                return;
+            }
+
+            string resultText;
+            if (string.IsNullOrEmpty(data.serverHash))
+            {
+                // import creature
+                var creature = ImportExportGun.ImportCreatureFromJson(data.jsonData, null, out resultText, out _);
+                if (creature == null)
+                {
+                    SetMessageLabelText(resultText, MessageBoxIcon.Error);
+                    return;
+                }
+
+                _creatureCollection.MergeCreatureList(new[] { creature }, true);
+                UpdateCreatureParentLinkingSort();
+
+                if (resultText == null)
+                    resultText = $"Received creature from server: {creature}";
+
+                SetMessageLabelText(resultText, MessageBoxIcon.Information);
+
+                tabControlMain.SelectedTab = tabPageLibrary;
+                if (listBoxSpeciesLib.SelectedItem != null &&
+                    listBoxSpeciesLib.SelectedItem != creature.Species)
+                    listBoxSpeciesLib.SelectedItem = creature.Species;
+                _ignoreNextMessageLabel = true;
+                SelectCreatureInLibrary(creature);
+                return;
+            }
+
+            // import server settings
+            var success = ImportExportGun.ImportServerMultipliersFromJson(_creatureCollection, data.jsonData, data.serverHash, out resultText);
+            SetMessageLabelText(resultText, success ? MessageBoxIcon.Information : MessageBoxIcon.Error, resultText);
         }
     }
 }

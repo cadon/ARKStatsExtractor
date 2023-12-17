@@ -54,7 +54,7 @@ namespace ARKBreedingStats.library
             if (maxGraphLevel < 1) maxGraphLevel = 50;
 
             int height = infoGraphicHeight < 1 ? 180 : infoGraphicHeight; // 180
-            int width = height * 11 / 6; // 330
+            int width = height * 12 / 6; // 330
             if (displayExtraRegionNames)
                 width += height / 2;
 
@@ -127,10 +127,11 @@ namespace ARKBreedingStats.library
                 double meanLetterWidth = fontSize * 7d / 10;
                 int xStatName = (int)meanLetterWidth;
                 // x position of level number. torpor is the largest level number.
-                int xRightLevelValue = (int)(xStatName + ((displayWithDomLevels ? 6 : 5) + creature.levelsWild[2].ToString().Length) * meanLetterWidth);
-                int xRightLevelDomValue = xRightLevelValue;
+                int xRightLevelValue = (int)(xStatName + ((displayWithDomLevels ? 6 : 5) + creature.levelsWild[Stats.Torpidity].ToString().Length) * meanLetterWidth);
+                int xRightLevelMutValue = xRightLevelValue + (creature.levelsMutated == null ? 0 : (int)((creature.levelsMutated.Max().ToString().Length + 3) * meanLetterWidth));
+                int xRightLevelDomValue = xRightLevelMutValue;
                 if (displayWithDomLevels)
-                    xRightLevelDomValue += (int)((creature.levelsDom.Max().ToString().Length) * meanLetterWidth);
+                    xRightLevelDomValue += (int)(creature.levelsDom.Max().ToString().Length * meanLetterWidth);
                 int xRightBrValue = (int)(xRightLevelDomValue + (2 + MaxCharLength(creature.valuesBreeding)) * meanLetterWidth);
                 int maxBoxLength = xRightBrValue - xStatName;
                 int statBoxHeight = Math.Max(2, height / 90);
@@ -169,8 +170,11 @@ namespace ARKBreedingStats.library
                     g.DrawString($"{Utils.StatName(statIndex, true, creature.Species.statNames, secondaryCulture)}",
                         font, fontBrush, xStatName, y);
                     // stat level number
-                    g.DrawString($"{(creature.levelsWild[statIndex] < 0 ? "?" : creature.levelsWild[statIndex].ToString())}{(displayWithDomLevels ? " +" : null)}",
+                    g.DrawString($"{(creature.levelsWild[statIndex] < 0 ? "?" : creature.levelsWild[statIndex].ToString())}{(creature.levelsMutated != null ? " |" : displayWithDomLevels ? " +" : null)}",
                         font, fontBrush, xRightLevelValue, y, stringFormatRight);
+                    if (creature.levelsMutated != null)
+                        g.DrawString($"{(creature.levelsMutated[statIndex] < 0 ? string.Empty : creature.levelsMutated[statIndex].ToString())}{(displayWithDomLevels ? " +" : null)}",
+                            font, fontBrush, xRightLevelMutValue, y, stringFormatRight);
                     // dom level number
                     if (displayWithDomLevels)
                         g.DrawString($"{creature.levelsDom[statIndex]}",

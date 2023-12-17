@@ -188,5 +188,23 @@
             CraftingSpeedMultiplier,
             Torpidity
         };
+
+        /// <summary>
+        /// Returns the stat indices for the stats usually displayed for species (e.g. no crafting speed Gacha) in game.
+        /// </summary>
+        public static readonly bool[] UsuallyVisibleStats = {
+            true, //Health,
+            true, //Stamina,
+            true, //Torpidity,
+            true, //Oxygen,
+            true, //Food,
+            false, //Water,
+            false, //Temperature,
+            true, //Weight,
+            true, //MeleeDamageMultiplier,
+            true, //SpeedMultiplier,
+            false, //TemperatureFortitude,
+            false, //CraftingSpeedMultiplier
+        };
     }
 }

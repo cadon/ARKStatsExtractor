@@ -9,7 +9,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.ocr;
 
@@ -114,7 +113,7 @@ namespace ARKBreedingStats
             bool allValid = valid && inbound && torporLevelValid && _extractor.ValidResults;
             if (allValid)
             {
-                radarChartExtractor.SetLevels(_statIOs.Select(s => s.LevelWild).ToArray());
+                radarChartExtractor.SetLevels(_statIOs.Select(s => s.LevelWild).ToArray(), _statIOs.Select(s => s.LevelMut).ToArray(), speciesSelector1.SelectedSpecies);
                 cbExactlyImprinting.BackColor = Color.Transparent;
                 var species = speciesSelector1.SelectedSpecies;
                 var checkTopLevels = _topLevels.TryGetValue(species, out int[] topSpeciesLevels);
@@ -211,7 +210,7 @@ namespace ARKBreedingStats
             groupBoxRadarChartExtractor.Visible = allValid;
             creatureAnalysis1.Visible = allValid;
             // update inheritance info
-            CreatureInfoInput_CreatureDataRequested(creatureInfoInputExtractor, false, true, false, 0);
+            CreatureInfoInput_CreatureDataRequested(creatureInfoInputExtractor, false, true, false, 0, null);
         }
 
         /// <summary>
@@ -257,7 +256,7 @@ namespace ARKBreedingStats
                 creatureInfoInputExtractor.SetArkId(0, false);
             }
 
-            creatureInfoInputExtractor.UpdateExistingCreature = false;
+            creatureInfoInputExtractor.AlreadyExistingCreature = null;
         }
 
         private void buttonExtract_Click(object sender, EventArgs e)
@@ -476,6 +475,7 @@ namespace ARKBreedingStats
                 {
                     int lvlWild = (int)Math.Round((_statIOs[s].Input - speciesSelector1.SelectedSpecies.stats[s].BaseValue) / (speciesSelector1.SelectedSpecies.stats[s].BaseValue * speciesSelector1.SelectedSpecies.stats[s].IncPerWildLevel));
                     _statIOs[s].LevelWild = lvlWild < 0 ? 0 : lvlWild;
+                    _statIOs[s].LevelMut = 0;
                     _statIOs[s].LevelDom = 0;
                 }
                 SetQuickTamingInfo(_statIOs[Stats.Torpidity].LevelWild + 1);
@@ -745,7 +745,7 @@ namespace ARKBreedingStats
         {
             _statIOs[s].LevelWild = _extractor.Results[s][i].levelWild;
             _statIOs[s].LevelDom = _extractor.Results[s][i].levelDom;
-            _statIOs[s].BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, s, _extractor.Results[s][i].levelWild, 0, true, 1, 0);
+            _statIOs[s].BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, s, _extractor.Results[s][i].levelWild, 0, 0, true, 1, 0);
             _extractor.ChosenResults[s] = i;
             if (validateCombination)
             {
@@ -788,7 +788,7 @@ namespace ARKBreedingStats
                     // if all other stats are unique, set level
                     var statIndex = unknownLevelIndices[0];
                     _statIOs[statIndex].LevelWild = Math.Max(0, notDeterminedLevels);
-                    _statIOs[statIndex].BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, statIndex, _statIOs[statIndex].LevelWild, 0, true, 1, 0);
+                    _statIOs[statIndex].BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, statIndex, _statIOs[statIndex].LevelWild, 0, 0, true, 1, 0);
                     return;
                 default:
                     // if not all other levels are unique, set the indifferent stats to unknown
@@ -867,9 +867,11 @@ namespace ARKBreedingStats
         /// Returns true if the creature already exists in the library.
         /// Returns null if file couldn't be loaded.
         /// </summary>
-        private bool? ExtractExportedFileInExtractor(string exportFilePath)
+        private bool? ExtractExportedFileInExtractor(string exportFilePath, out bool nameCopiedToClipboard, out Creature alreadyExistingCreature)
         {
             CreatureValues cv = null;
+            nameCopiedToClipboard = false;
+            alreadyExistingCreature = null;
 
             // if the file is blocked, try it again
             const int waitingTimeBase = 200;
@@ -917,7 +919,7 @@ namespace ARKBreedingStats
                     && LoadModValuesOfCollection(_creatureCollection, true, true)
                     && oldModHash != _creatureCollection.modListHash)
                 {
-                    return ExtractExportedFileInExtractor(exportFilePath);
+                    return ExtractExportedFileInExtractor(exportFilePath, out nameCopiedToClipboard, out alreadyExistingCreature);
                 }
 
                 return false;
@@ -925,8 +927,8 @@ namespace ARKBreedingStats
 
             tabControlMain.SelectedTab = tabPageExtractor;
 
-            bool creatureAlreadyExists = ExtractValuesInExtractor(cv, exportFilePath, true);
-            GenerateCreatureNameAndCopyNameToClipboardIfSet(creatureAlreadyExists);
+            bool creatureAlreadyExists = ExtractValuesInExtractor(cv, exportFilePath, true, true, out alreadyExistingCreature);
+            nameCopiedToClipboard = GenerateCreatureNameAndCopyNameToClipboardIfSet(alreadyExistingCreature);
 
             return creatureAlreadyExists;
         }
@@ -934,24 +936,20 @@ namespace ARKBreedingStats
         /// <summary>
         /// Copies the creature name to the clipboard if the conditions according to the user settings are fulfilled.
         /// </summary>
-        /// <param name="creatureAlreadyExists"></param>
-        private void GenerateCreatureNameAndCopyNameToClipboardIfSet(bool creatureAlreadyExists)
+        private bool GenerateCreatureNameAndCopyNameToClipboardIfSet(Creature alreadyExistingCreature)
         {
             if (Properties.Settings.Default.applyNamePatternOnAutoImportAlways
                 || (Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
                     && string.IsNullOrEmpty(creatureInfoInputExtractor.CreatureName))
-                || (!creatureAlreadyExists
+                || (alreadyExistingCreature == null
                     && Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures)
             )
             {
-                CreatureInfoInput_CreatureDataRequested(creatureInfoInputExtractor, false, false, false, 0);
-                if (Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied)
-                {
-                    Clipboard.SetText(string.IsNullOrEmpty(creatureInfoInputExtractor.CreatureName)
-                        ? "<no name>"
-                        : creatureInfoInputExtractor.CreatureName);
-                }
+                CreatureInfoInput_CreatureDataRequested(creatureInfoInputExtractor, false, false, false, 0, alreadyExistingCreature);
+                return CopyCreatureNameToClipboardOnImportIfSetting(creatureInfoInputExtractor.CreatureName);
             }
+
+            return false;
         }
 
         /// <summary>
@@ -964,8 +962,8 @@ namespace ARKBreedingStats
             if (ecc == null)
                 return;
 
-            bool creatureAlreadyExists = ExtractValuesInExtractor(ecc.creatureValues, ecc.exportedFile, false);
-            GenerateCreatureNameAndCopyNameToClipboardIfSet(creatureAlreadyExists);
+            ExtractValuesInExtractor(ecc.creatureValues, ecc.exportedFile, false, true, out var alreadyExistingCreature);
+            GenerateCreatureNameAndCopyNameToClipboardIfSet(alreadyExistingCreature);
 
             // gets deleted in extractLevels()
             _exportedCreatureControl = ecc;
@@ -973,7 +971,6 @@ namespace ARKBreedingStats
             if (!string.IsNullOrEmpty(_exportedCreatureList?.ownerSuffix))
                 creatureInfoInputExtractor.CreatureOwner += _exportedCreatureList.ownerSuffix;
         }
-
 
         /// <summary>
         /// Sets the values of a creature to the extractor and extracts its levels.
@@ -984,9 +981,9 @@ namespace ARKBreedingStats
         /// <param name="autoExtraction"></param>
         /// <param name="highPrecisionValues">If values from an export file with increased precision are given, extraction can be improved by using that.</param>
         /// <returns></returns>
-        private bool ExtractValuesInExtractor(CreatureValues cv, string filePath, bool autoExtraction, bool highPrecisionValues = true)
+        private bool ExtractValuesInExtractor(CreatureValues cv, string filePath, bool autoExtraction, bool highPrecisionValues, out Creature alreadyExistingCreature)
         {
-            bool creatureExists = IsCreatureAlreadyInLibrary(cv.guid, cv.ARKID, out Creature existingCreature);
+            bool creatureExists = IsCreatureAlreadyInLibrary(cv.guid, cv.ARKID, out alreadyExistingCreature);
 
             if (creatureExists)
             {
@@ -994,9 +991,9 @@ namespace ARKBreedingStats
                 //if (string.IsNullOrEmpty(cv.server) && !string.IsNullOrEmpty(existingCreature.server))
                 //    cv.server = existingCreature.server;
 
-                SetExistingValueIfNewValueIsEmpty(ref cv.server, ref existingCreature.server);
-                SetExistingValueIfNewValueIsEmpty(ref cv.tribe, ref existingCreature.tribe);
-                SetExistingValueIfNewValueIsEmpty(ref cv.note, ref existingCreature.note);
+                SetExistingValueIfNewValueIsEmpty(ref cv.server, ref alreadyExistingCreature.server);
+                SetExistingValueIfNewValueIsEmpty(ref cv.tribe, ref alreadyExistingCreature.tribe);
+                SetExistingValueIfNewValueIsEmpty(ref cv.note, ref alreadyExistingCreature.note);
 
                 void SetExistingValueIfNewValueIsEmpty(ref string newValue, ref string oldValue)
                 {
@@ -1006,26 +1003,26 @@ namespace ARKBreedingStats
 
                 // ARK doesn't export parent and mutation info always
                 // if export file doesn't contain parent info, use the existing ones
-                if (cv.Mother == null && cv.motherArkId == 0 && existingCreature.Mother != null)
-                    cv.Mother = existingCreature.Mother;
-                if (cv.Father == null && cv.fatherArkId == 0 && existingCreature.Father != null)
-                    cv.Father = existingCreature.Father;
+                if (cv.Mother == null && cv.motherArkId == 0 && alreadyExistingCreature.Mother != null)
+                    cv.Mother = alreadyExistingCreature.Mother;
+                if (cv.Father == null && cv.fatherArkId == 0 && alreadyExistingCreature.Father != null)
+                    cv.Father = alreadyExistingCreature.Father;
 
                 // if export file doesn't contain mutation info and existing creature does, use that
-                if (cv.mutationCounterMother == 0 && existingCreature.mutationsMaternal != 0)
-                    cv.mutationCounterMother = existingCreature.mutationsMaternal;
-                if (cv.mutationCounterFather == 0 && existingCreature.mutationsPaternal != 0)
-                    cv.mutationCounterFather = existingCreature.mutationsPaternal;
+                if (cv.mutationCounterMother == 0 && alreadyExistingCreature.mutationsMaternal != 0)
+                    cv.mutationCounterMother = alreadyExistingCreature.mutationsMaternal;
+                if (cv.mutationCounterFather == 0 && alreadyExistingCreature.mutationsPaternal != 0)
+                    cv.mutationCounterFather = alreadyExistingCreature.mutationsPaternal;
 
                 // if existing creature has no altColorIds, don't add them again
-                if (existingCreature.ColorIdsAlsoPossible == null)
+                if (alreadyExistingCreature.ColorIdsAlsoPossible == null)
                     cv.ColorIdsAlsoPossible = null;
                 else if (cv.ColorIdsAlsoPossible != null)
                 {
-                    var l = Math.Min(cv.ColorIdsAlsoPossible.Length, existingCreature.ColorIdsAlsoPossible.Length);
+                    var l = Math.Min(cv.ColorIdsAlsoPossible.Length, alreadyExistingCreature.ColorIdsAlsoPossible.Length);
                     for (int i = 0; i < l; i++)
                     {
-                        cv.ColorIdsAlsoPossible[i] = existingCreature.ColorIdsAlsoPossible[i];
+                        cv.ColorIdsAlsoPossible[i] = alreadyExistingCreature.ColorIdsAlsoPossible[i];
                     }
                 }
             }
@@ -1035,12 +1032,12 @@ namespace ARKBreedingStats
             // exported stat-files have values for all stats, so activate all stats the species uses
             SetStatsActiveAccordingToUsage(cv.Species);
 
-            ExtractLevels(autoExtraction, highPrecisionValues, existingCreature: existingCreature, possiblyMutagenApplied: cv.flags.HasFlag(CreatureFlags.MutagenApplied));
+            ExtractLevels(autoExtraction, highPrecisionValues, existingCreature: alreadyExistingCreature, possiblyMutagenApplied: cv.flags.HasFlag(CreatureFlags.MutagenApplied));
             SetCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
             UpdateParentListInput(creatureInfoInputExtractor); // this function is only used for single-creature extractions, e.g. LastExport
-            creatureInfoInputExtractor.UpdateExistingCreature = creatureExists;
+            creatureInfoInputExtractor.AlreadyExistingCreature = alreadyExistingCreature;
             if (!string.IsNullOrEmpty(filePath))
-                SetMessageLabelText(Loc.S("creatureOfFile") + "\r\n" + filePath, path: filePath);
+                SetMessageLabelText(Loc.S("creatureOfFile") + Environment.NewLine + filePath, path: filePath);
             return creatureExists;
         }
 
@@ -1240,6 +1237,11 @@ namespace ARKBreedingStats
             if (speciesSelector1.SelectedSpecies?.blueprintPath is string bp
                 && !string.IsNullOrEmpty(bp))
                 Clipboard.SetText(bp);
+        }
+
+        private void ExtractorStatLevelChanged(StatIO _)
+        {
+            radarChartExtractor.SetLevels(_statIOs.Select(s => s.LevelWild).ToArray(), _statIOs.Select(s => s.LevelMut).ToArray(), speciesSelector1.SelectedSpecies);
         }
 
         #region OCR label sets

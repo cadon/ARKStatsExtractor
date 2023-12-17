@@ -830,8 +830,8 @@ namespace ARKBreedingStats.BreedingPlanning
             }
 
             int? levelStep = CreatureCollection.getWildLevelStep();
-            Creature crB = new Creature(_currentSpecies, string.Empty, levelsWild: new int[Stats.StatsCount], isBred: true, levelStep: levelStep);
-            Creature crW = new Creature(_currentSpecies, string.Empty, levelsWild: new int[Stats.StatsCount], isBred: true, levelStep: levelStep);
+            Creature crB = new Creature(_currentSpecies, string.Empty, levelsWild: new int[Stats.StatsCount], levelsMutated: new int[Stats.StatsCount], isBred: true, levelStep: levelStep);
+            Creature crW = new Creature(_currentSpecies, string.Empty, levelsWild: new int[Stats.StatsCount], levelsMutated: new int[Stats.StatsCount], isBred: true, levelStep: levelStep);
             Creature mother = _breedingPairs[comboIndex].Mother;
             Creature father = _breedingPairs[comboIndex].Father;
             crB.Mother = mother;
@@ -845,10 +845,12 @@ namespace ARKBreedingStats.BreedingPlanning
             {
                 if (s == Stats.Torpidity) continue;
                 crB.levelsWild[s] = _statWeights[s] < 0 ? Math.Min(mother.levelsWild[s], father.levelsWild[s]) : BreedingScore.GetHigherBestLevel(mother.levelsWild[s], father.levelsWild[s], _statOddEvens[s]);
-                crB.valuesBreeding[s] = StatValueCalculation.CalculateValue(_currentSpecies, s, crB.levelsWild[s], 0, true, 1, 0);
+                crB.levelsMutated[s] = (crB.levelsWild[s] == mother.levelsWild[s] ? mother : father).levelsMutated?[s] ?? 0;
+                crB.valuesBreeding[s] = StatValueCalculation.CalculateValue(_currentSpecies, s, crB.levelsWild[s], crB.levelsMutated[s], 0, true, 1, 0);
                 crB.topBreedingStats[s] = (_currentSpecies.stats[s].IncPerTamedLevel != 0 && crB.levelsWild[s] == _bestLevels[s]);
                 crW.levelsWild[s] = _statWeights[s] < 0 ? Math.Max(mother.levelsWild[s], father.levelsWild[s]) : Math.Min(mother.levelsWild[s], father.levelsWild[s]);
-                crW.valuesBreeding[s] = StatValueCalculation.CalculateValue(_currentSpecies, s, crW.levelsWild[s], 0, true, 1, 0);
+                crB.levelsMutated[s] = (crW.levelsWild[s] == mother.levelsWild[s] ? mother : father).levelsMutated?[s] ?? 0;
+                crW.valuesBreeding[s] = StatValueCalculation.CalculateValue(_currentSpecies, s, crW.levelsWild[s], crW.levelsMutated[s], 0, true, 1, 0);
                 crW.topBreedingStats[s] = (_currentSpecies.stats[s].IncPerTamedLevel != 0 && crW.levelsWild[s] == _bestLevels[s]);
                 if (crB.levelsWild[s] == -1 || crW.levelsWild[s] == -1)
                     totalLevelUnknown = true;
@@ -932,7 +934,7 @@ namespace ARKBreedingStats.BreedingPlanning
 
         public int MaxWildLevels
         {
-            set => offspringPossibilities1.maxWildLevel = value;
+            set => offspringPossibilities1.maxWildLevel = value <= 0 ? 150 : value;
         }
 
         public void SetSpecies(Species species)

@@ -70,7 +70,7 @@ namespace ARKBreedingStats
                     {
                         // consider wake taming multiplicators (non - violent taming)
                         foodAffinity *= species.taming.wakeAffinityMult;
-                        foodValue = foodValue * species.taming.wakeFoodDeplMult;
+                        foodValue *= species.taming.wakeFoodDeplMult;
                     }
 
                     foodAffinity *= serverMultipliers.TamingSpeedMultiplier * HardCodedTamingMultiplier;
@@ -91,7 +91,8 @@ namespace ARKBreedingStats
                         if (species.name == "Mantis")
                             seconds = foodPiecesNeeded * 180;
                         else
-                            seconds = (int)Math.Ceiling(foodPiecesNeeded * foodValue / (species.taming.foodConsumptionBase * species.taming.foodConsumptionMult * serverMultipliers.DinoCharacterFoodDrainMultiplier));
+                            seconds = (int)Math.Ceiling(foodPiecesNeeded * foodValue / (species.taming.foodConsumptionBase * species.taming.foodConsumptionMult
+                                * serverMultipliers.DinoCharacterFoodDrainMultiplier * serverMultipliers.WildDinoCharacterFoodDrainMultiplier));
                         affinityNeeded -= foodPiecesNeeded * foodAffinity;
 
                         // new approach with 1/(1 + IM*IA*N/AO + ID*D) from https://forums.unrealengine.com/development-discussion/modding/ark-survival-evolved/56959-tutorial-dinosaur-taming-parameters?85457-Tutorial-Dinosaur-Taming-Parameters=
@@ -321,7 +322,7 @@ namespace ARKBreedingStats
                 species.taming != null &&
                 species.taming.nonViolent)
             {
-                s = (int)(0.1 * StatValueCalculation.CalculateValue(species, Stats.Food, (int)Math.Ceiling(level / 7d), 0, false, 0, 0) / foodDepletion);
+                s = (int)(0.1 * StatValueCalculation.CalculateValue(species, Stats.Food, (int)Math.Ceiling(level / 7d), 0, 0, false, 0, 0) / foodDepletion);
             }
             return s;
         }

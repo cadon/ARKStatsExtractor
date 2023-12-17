@@ -445,8 +445,8 @@ namespace ARKBreedingStats.Library
             InitializeArrays();
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                valuesBreeding[s] = StatValueCalculation.CalculateValue(Species, s, levelsWild[s], 0, true, 1, 0);
-                valuesDom[s] = StatValueCalculation.CalculateValue(Species, s, levelsWild[s], levelsDom[s], true, tamingEff, imprintingBonus);
+                valuesBreeding[s] = StatValueCalculation.CalculateValue(Species, s, levelsWild[s], levelsMutated?[s] ?? 0, 0, true, 1, 0);
+                valuesDom[s] = StatValueCalculation.CalculateValue(Species, s, levelsWild[s], levelsMutated?[s] ?? 0, levelsDom[s], true, tamingEff, imprintingBonus);
             }
         }
 

@@ -23,6 +23,8 @@ namespace ARKBreedingStats.values
         public double DinoCharacterFoodDrainMultiplier { get; set; } = 1;
         [JsonProperty]
         public double TamedDinoCharacterFoodDrainMultiplier { get; set; } = 1;
+        [JsonProperty]
+        public double WildDinoCharacterFoodDrainMultiplier { get; set; } = 1;
 
         [JsonProperty]
         public double MatingSpeedMultiplier { get; set; } = 1;
@@ -41,6 +43,10 @@ namespace ARKBreedingStats.values
         public double BabyImprintingStatScaleMultiplier { get; set; } = 1;
         [JsonProperty]
         public double BabyImprintAmountMultiplier { get; set; } = 1;
+
+        /// <summary>
+        /// Setting introduced in ASA, for ASE it's always true.
+        /// </summary>
         [JsonProperty]
         public bool AllowSpeedLeveling { get; set; }
         [JsonProperty]
@@ -72,6 +78,7 @@ namespace ARKBreedingStats.values
                 TamingSpeedMultiplier = TamingSpeedMultiplier,
                 WildDinoTorporDrainMultiplier = WildDinoTorporDrainMultiplier,
                 DinoCharacterFoodDrainMultiplier = DinoCharacterFoodDrainMultiplier,
+                WildDinoCharacterFoodDrainMultiplier = WildDinoCharacterFoodDrainMultiplier,
                 TamedDinoCharacterFoodDrainMultiplier = TamedDinoCharacterFoodDrainMultiplier,
                 MatingIntervalMultiplier = MatingIntervalMultiplier,
                 EggHatchSpeedMultiplier = EggHatchSpeedMultiplier,

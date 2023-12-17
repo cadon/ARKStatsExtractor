@@ -213,6 +213,7 @@
             this.label50 = new System.Windows.Forms.Label();
             this.tabPageImportSavegame = new System.Windows.Forms.TabPage();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.label68 = new System.Windows.Forms.Label();
             this.CbImportUnclaimedBabies = new System.Windows.Forms.CheckBox();
             this.cbSaveImportCryo = new System.Windows.Forms.CheckBox();
             this.cbIgnoreUnknownBPOnSaveImport = new System.Windows.Forms.CheckBox();
@@ -348,7 +349,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.label68 = new System.Windows.Forms.Label();
+            this.label69 = new System.Windows.Forms.Label();
+            this.NudWildDinoCharacterFoodDrainMultiplier = new ARKBreedingStats.uiControls.Nud();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -457,6 +459,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NudWildDinoCharacterFoodDrainMultiplier)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -627,9 +630,9 @@
             this.groupBox2.Controls.Add(this.nudBabyImprintingStatScale);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.nudEggHatchSpeed);
-            this.groupBox2.Location = new System.Drawing.Point(394, 263);
+            this.groupBox2.Location = new System.Drawing.Point(394, 290);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(346, 255);
+            this.groupBox2.Size = new System.Drawing.Size(345, 255);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Breeding-Multiplier";
@@ -1483,6 +1486,8 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.NudWildDinoCharacterFoodDrainMultiplier);
+            this.groupBox5.Controls.Add(this.label69);
             this.groupBox5.Controls.Add(this.label67);
             this.groupBox5.Controls.Add(this.NudWildDinoTorporDrainMultiplier);
             this.groupBox5.Controls.Add(this.nudDinoCharacterFoodDrainEvent);
@@ -1493,7 +1498,7 @@
             this.groupBox5.Controls.Add(this.nudTamingSpeed);
             this.groupBox5.Location = new System.Drawing.Point(394, 158);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(345, 99);
+            this.groupBox5.Size = new System.Drawing.Size(345, 126);
             this.groupBox5.TabIndex = 6;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Taming-Multiplier";
@@ -1501,7 +1506,7 @@
             // label67
             // 
             this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(10, 73);
+            this.label67.Location = new System.Drawing.Point(10, 99);
             this.label67.Name = "label67";
             this.label67.Size = new System.Drawing.Size(147, 13);
             this.label67.TabIndex = 5;
@@ -1511,7 +1516,7 @@
             // 
             this.NudWildDinoTorporDrainMultiplier.DecimalPlaces = 6;
             this.NudWildDinoTorporDrainMultiplier.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.NudWildDinoTorporDrainMultiplier.Location = new System.Drawing.Point(183, 71);
+            this.NudWildDinoTorporDrainMultiplier.Location = new System.Drawing.Point(183, 97);
             this.NudWildDinoTorporDrainMultiplier.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -1524,7 +1529,7 @@
             0,
             0});
             this.NudWildDinoTorporDrainMultiplier.Size = new System.Drawing.Size(72, 20);
-            this.NudWildDinoTorporDrainMultiplier.TabIndex = 4;
+            this.NudWildDinoTorporDrainMultiplier.TabIndex = 5;
             this.NudWildDinoTorporDrainMultiplier.Value = new decimal(new int[] {
             1,
             0,
@@ -1572,7 +1577,7 @@
             0,
             0});
             this.nudTamingSpeedEvent.Size = new System.Drawing.Size(72, 20);
-            this.nudTamingSpeedEvent.TabIndex = 2;
+            this.nudTamingSpeedEvent.TabIndex = 1;
             this.nudTamingSpeedEvent.Value = new decimal(new int[] {
             1,
             0,
@@ -1614,7 +1619,7 @@
             0,
             0});
             this.nudDinoCharacterFoodDrain.Size = new System.Drawing.Size(72, 20);
-            this.nudDinoCharacterFoodDrain.TabIndex = 1;
+            this.nudDinoCharacterFoodDrain.TabIndex = 2;
             this.nudDinoCharacterFoodDrain.Value = new decimal(new int[] {
             1,
             0,
@@ -1647,7 +1652,7 @@
             // 
             // label15
             // 
-            this.label15.Location = new System.Drawing.Point(451, 554);
+            this.label15.Location = new System.Drawing.Point(451, 575);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(289, 77);
             this.label15.TabIndex = 9;
@@ -1821,7 +1826,7 @@
             this.tabControlSettings.Location = new System.Drawing.Point(0, 0);
             this.tabControlSettings.Name = "tabControlSettings";
             this.tabControlSettings.SelectedIndex = 0;
-            this.tabControlSettings.Size = new System.Drawing.Size(758, 748);
+            this.tabControlSettings.Size = new System.Drawing.Size(758, 770);
             this.tabControlSettings.TabIndex = 11;
             // 
             // tabPageMultipliers
@@ -1851,7 +1856,7 @@
             this.tabPageMultipliers.Location = new System.Drawing.Point(4, 22);
             this.tabPageMultipliers.Name = "tabPageMultipliers";
             this.tabPageMultipliers.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMultipliers.Size = new System.Drawing.Size(750, 722);
+            this.tabPageMultipliers.Size = new System.Drawing.Size(750, 744);
             this.tabPageMultipliers.TabIndex = 1;
             this.tabPageMultipliers.Text = "Multipliers";
             this.tabPageMultipliers.UseVisualStyleBackColor = true;
@@ -1871,7 +1876,7 @@
             // BtAutoImportLocalSettings
             // 
             this.BtAutoImportLocalSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.BtAutoImportLocalSettings.Location = new System.Drawing.Point(407, 621);
+            this.BtAutoImportLocalSettings.Location = new System.Drawing.Point(407, 642);
             this.BtAutoImportLocalSettings.Name = "BtAutoImportLocalSettings";
             this.BtAutoImportLocalSettings.Size = new System.Drawing.Size(152, 23);
             this.BtAutoImportLocalSettings.TabIndex = 17;
@@ -1913,7 +1918,7 @@
             // 
             // BtImportSettingsSelectFile
             // 
-            this.BtImportSettingsSelectFile.Location = new System.Drawing.Point(565, 621);
+            this.BtImportSettingsSelectFile.Location = new System.Drawing.Point(565, 642);
             this.BtImportSettingsSelectFile.Name = "BtImportSettingsSelectFile";
             this.BtImportSettingsSelectFile.Size = new System.Drawing.Size(167, 23);
             this.BtImportSettingsSelectFile.TabIndex = 15;
@@ -1933,7 +1938,7 @@
             // 
             // BtSettingsToClipboard
             // 
-            this.BtSettingsToClipboard.Location = new System.Drawing.Point(600, 692);
+            this.BtSettingsToClipboard.Location = new System.Drawing.Point(600, 713);
             this.BtSettingsToClipboard.Name = "BtSettingsToClipboard";
             this.BtSettingsToClipboard.Size = new System.Drawing.Size(142, 23);
             this.BtSettingsToClipboard.TabIndex = 13;
@@ -1975,7 +1980,7 @@
             // 
             // label34
             // 
-            this.label34.Location = new System.Drawing.Point(404, 655);
+            this.label34.Location = new System.Drawing.Point(404, 676);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(338, 34);
             this.label34.TabIndex = 10;
@@ -1984,7 +1989,7 @@
             // 
             // btExportMultipliers
             // 
-            this.btExportMultipliers.Location = new System.Drawing.Point(407, 692);
+            this.btExportMultipliers.Location = new System.Drawing.Point(407, 713);
             this.btExportMultipliers.Name = "btExportMultipliers";
             this.btExportMultipliers.Size = new System.Drawing.Size(187, 23);
             this.btExportMultipliers.TabIndex = 11;
@@ -2026,7 +2031,7 @@
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(408, 555);
+            this.label27.Location = new System.Drawing.Point(408, 576);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(37, 26);
             this.label27.TabIndex = 12;
@@ -2105,7 +2110,7 @@
             // 
             // buttonEventToDefault
             // 
-            this.buttonEventToDefault.Location = new System.Drawing.Point(604, 524);
+            this.buttonEventToDefault.Location = new System.Drawing.Point(604, 547);
             this.buttonEventToDefault.Name = "buttonEventToDefault";
             this.buttonEventToDefault.Size = new System.Drawing.Size(136, 23);
             this.buttonEventToDefault.TabIndex = 8;
@@ -2878,6 +2883,16 @@
             this.groupBox12.TabIndex = 0;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Import Data from Save-File";
+            // 
+            // label68
+            // 
+            this.label68.AutoSize = true;
+            this.label68.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label68.Location = new System.Drawing.Point(6, 16);
+            this.label68.Name = "label68";
+            this.label68.Size = new System.Drawing.Size(506, 20);
+            this.label68.TabIndex = 1;
+            this.label68.Text = "Only ARK: Survival Evolved is support, no support for ASA yet.";
             // 
             // CbImportUnclaimedBabies
             // 
@@ -3691,7 +3706,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3699,7 +3714,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3707,7 +3722,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3715,7 +3730,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -4429,20 +4444,43 @@
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOK);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 748);
+            this.panel1.Location = new System.Drawing.Point(0, 770);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // label68
+            // label69
             // 
-            this.label68.AutoSize = true;
-            this.label68.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label68.Location = new System.Drawing.Point(6, 16);
-            this.label68.Name = "label68";
-            this.label68.Size = new System.Drawing.Size(506, 20);
-            this.label68.TabIndex = 1;
-            this.label68.Text = "Only ARK: Survival Evolved is support, no support for ASA yet.";
+            this.label69.AutoSize = true;
+            this.label69.Location = new System.Drawing.Point(10, 73);
+            this.label69.Name = "label69";
+            this.label69.Size = new System.Drawing.Size(186, 13);
+            this.label69.TabIndex = 7;
+            this.label69.Text = "WildDinoCharacterFoodDrainMultiplier";
+            // 
+            // NudWildDinoCharacterFoodDrainMultiplier
+            // 
+            this.NudWildDinoCharacterFoodDrainMultiplier.DecimalPlaces = 6;
+            this.NudWildDinoCharacterFoodDrainMultiplier.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.NudWildDinoCharacterFoodDrainMultiplier.Location = new System.Drawing.Point(183, 71);
+            this.NudWildDinoCharacterFoodDrainMultiplier.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.NudWildDinoCharacterFoodDrainMultiplier.Name = "NudWildDinoCharacterFoodDrainMultiplier";
+            this.NudWildDinoCharacterFoodDrainMultiplier.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.NudWildDinoCharacterFoodDrainMultiplier.Size = new System.Drawing.Size(72, 20);
+            this.NudWildDinoCharacterFoodDrainMultiplier.TabIndex = 4;
+            this.NudWildDinoCharacterFoodDrainMultiplier.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // Settings
             // 
@@ -4451,7 +4489,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(758, 778);
+            this.ClientSize = new System.Drawing.Size(758, 800);
             this.Controls.Add(this.tabControlSettings);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
@@ -4605,6 +4643,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.NudWildDinoCharacterFoodDrainMultiplier)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -4930,5 +4969,7 @@
         private System.Windows.Forms.Label label67;
         private uiControls.Nud NudWildDinoTorporDrainMultiplier;
         private System.Windows.Forms.Label label68;
+        private uiControls.Nud NudWildDinoCharacterFoodDrainMultiplier;
+        private System.Windows.Forms.Label label69;
     }
 }

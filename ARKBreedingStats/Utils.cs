@@ -585,6 +585,14 @@ namespace ARKBreedingStats
             return new Guid(bytes);
         }
 
+        /// <summary>
+        /// This function may only be used if the Guid is created by an imported Ark id (i.e. two int32)
+        /// </summary>
+        public static long ConvertCreatureGuidToArkId(Guid guid)
+        {
+            return BitConverter.ToInt64(guid.ToByteArray(), 0);
+        }
+
         public static bool IsArkIdImported(long arkId, Guid guid)
         {
             return arkId != 0
@@ -602,6 +610,11 @@ namespace ARKBreedingStats
         /// Converts the two 32 bit Ark id parts into one 64 bit Ark id.
         /// </summary>
         public static long ConvertArkIdsToLongArkId(int id1, int id2) => ((long)id1 << 32) | (id2 & 0xFFFFFFFFL);
+
+        /// <summary>
+        /// Converts int64 Ark id to two int32 ids, like used in the game.
+        /// </summary>
+        public static (int, int) ConvertArkId64ToArkIds32(long id) => ((int)(id >> 32), (int)id);
 
         /// <summary>
         /// returns a shortened string with an ellipsis in the middle. One third of the beginning is shown and two thirds of then end

@@ -205,19 +205,6 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Returns the domesticated levels from the extractor or tester in an array.
-        /// </summary>
-        private int[] GetCurrentDomLevels(bool fromExtractor = true)
-        {
-            int[] levelsDom = new int[Stats.StatsCount];
-            for (int s = 0; s < Stats.StatsCount; s++)
-            {
-                levelsDom[s] = fromExtractor ? _statIOs[s].LevelDom : _testingIOs[s].LevelDom;
-            }
-            return levelsDom;
-        }
-
-        /// <summary>
         /// Returns the mutated levels from the extractor or tester in an array.
         /// </summary>
         private int[] GetCurrentMutLevels(bool fromExtractor = true)
@@ -228,6 +215,19 @@ namespace ARKBreedingStats
                 levelsMut[s] = fromExtractor ? _statIOs[s].LevelMut : _testingIOs[s].LevelMut;
             }
             return levelsMut;
+        }
+
+        /// <summary>
+        /// Returns the domesticated levels from the extractor or tester in an array.
+        /// </summary>
+        private int[] GetCurrentDomLevels(bool fromExtractor = true)
+        {
+            int[] levelsDom = new int[Stats.StatsCount];
+            for (int s = 0; s < Stats.StatsCount; s++)
+            {
+                levelsDom[s] = fromExtractor ? _statIOs[s].LevelDom : _testingIOs[s].LevelDom;
+            }
+            return levelsDom;
         }
 
         /// <summary>
@@ -919,7 +919,7 @@ namespace ARKBreedingStats
                 }
             }
 
-            _reactOnCreatureSelectionChange = true; // make sure it reacts again even if the previously creature is not visible anymore
+            _reactOnCreatureSelectionChange = true; // make sure it reacts again even if the previous creature is not visible anymore
         }
 
         /// <summary>
@@ -962,9 +962,9 @@ namespace ARKBreedingStats
         private const int ColumnIndexMutations = 10;
         private const int ColumnIndexCountdown = 11;
         private const int ColumnIndexFirstStat = 12;
-        private const int ColumnIndexFirstColor = 24;
-        private const int ColumnIndexPostColor = 30;
-        private const int ColumnIndexMutagenApplied = 34;
+        private const int ColumnIndexFirstColor = 36;
+        private const int ColumnIndexPostColor = 42;
+        private const int ColumnIndexMutagenApplied = 46;
 
         private ListViewItem CreateCreatureLvItem(Creature cr, bool displayIndex = false)
         {
@@ -993,7 +993,8 @@ namespace ARKBreedingStats
                         cr.Mutations.ToString(),
                         DisplayedCreatureCountdown(cr, out var cooldownForeColor, out var cooldownBackColor)
                     }
-                    .Concat(cr.levelsWild.Select(x => x.ToString()))
+                    .Concat(cr.levelsWild.Select(l => l.ToString()))
+                    .Concat((cr.levelsMutated ?? new int[Stats.StatsCount]).Select(l => l.ToString()))
                     .Concat(Properties.Settings.Default.showColorsInLibrary
                         ? cr.colors.Select(cl => cl.ToString())
                         : new string[Ark.ColorRegionCount]
@@ -1028,6 +1029,17 @@ namespace ARKBreedingStats
                 }
                 else
                     lvi.SubItems[ColumnIndexFirstStat + s].BackColor = Utils.GetColorFromPercent((int)(cr.levelsWild[s] * (s == Stats.Torpidity ? colorFactor / 7 : colorFactor)), // TODO set factor to number of other stats (flyers have 6, Gacha has 8?)
+                            _considerStatHighlight[s] ? cr.topBreedingStats[s] ? 0.2 : 0.7 : 0.93);
+
+                // mutated levels
+                if (cr.levelsMutated == null || cr.valuesDom[s] == 0)
+                {
+                    // not used
+                    lvi.SubItems[ColumnIndexFirstStat + Stats.StatsCount + s].ForeColor = Color.White;
+                    lvi.SubItems[ColumnIndexFirstStat + Stats.StatsCount + s].BackColor = Color.White;
+                }
+                else
+                    lvi.SubItems[ColumnIndexFirstStat + Stats.StatsCount + s].BackColor = Utils.GetColorFromPercent((int)(cr.levelsMutated[s] * (s == Stats.Torpidity ? colorFactor / 7 : colorFactor)),
                             _considerStatHighlight[s] ? cr.topBreedingStats[s] ? 0.2 : 0.7 : 0.93);
             }
             lvi.SubItems[ColumnIndexSex].BackColor = cr.flags.HasFlag(CreatureFlags.Neutered) ? Color.FromArgb(220, 220, 220) :
@@ -1256,7 +1268,7 @@ namespace ARKBreedingStats
                 Creature c = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]];
                 creatureBoxListView.SetCreature(c);
                 if (tabControlLibFilter.SelectedTab == tabPageLibRadarChart)
-                    radarChartLibrary.SetLevels(c.levelsWild);
+                    radarChartLibrary.SetLevels(c.levelsWild, c.levelsMutated, c.Species);
                 pedigree1.PedigreeNeedsUpdate = true;
             }
 
@@ -1326,7 +1338,10 @@ namespace ARKBreedingStats
                 }
 
                 for (int s = 0; s < Stats.StatsCount; s++)
+                {
                     listViewLibrary.Columns[ColumnIndexFirstStat + s].Text = Utils.StatName(s, true, customStatNames);
+                    listViewLibrary.Columns[ColumnIndexFirstStat + Stats.StatsCount + s].Text = Utils.StatName(s, true, customStatNames) + "M";
+                }
 
                 _creaturesPreFiltered = ApplyLibraryFilterSettings(filteredList).ToArray();
             }
@@ -2033,5 +2048,74 @@ namespace ARKBreedingStats
 
             MessageBoxes.ShowMessageBox(result, "Creatures imported from tsv file", MessageBoxIcon.Information);
         }
+
+        #region library list view columns
+
+        private void resetColumnOrderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listViewLibrary.BeginUpdate();
+            var colIndices = new[] { 1, 2, 4, 5, 6, 36, 31, 32, 33, 34, 35, 37, 7, 9, 29, 11, 13, 15, 17, 19, 21, 23, 25, 27, 8, 10, 30, 12, 14, 16, 18, 20, 22, 24, 26, 28, 40, 41, 42, 43, 44, 45, 46, 38, 3, 0, 39 };
+
+            // indices have to be set increasingly, or they will "push" other values up
+            var colIndicesOrdered = colIndices.Select((i, c) => (columnIndex: c, displayIndex: i))
+                .OrderBy(c => c.displayIndex).ToArray();
+            for (int c = 0; c < colIndicesOrdered.Length && c < listViewLibrary.Columns.Count; c++)
+                listViewLibrary.Columns[colIndicesOrdered[c].columnIndex].DisplayIndex = colIndicesOrdered[c].displayIndex;
+
+            listViewLibrary.EndUpdate();
+        }
+
+        private void toolStripMenuItemResetLibraryColumnWidths_Click(object sender, EventArgs e)
+        {
+            ResetColumnWidthListViewLibrary(false);
+        }
+
+        private void resetColumnWidthNoMutationLevelColumnsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ResetColumnWidthListViewLibrary(true);
+        }
+
+        private void restoreMutationLevelsASAToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LibraryColumnsMutationsWidth(false);
+        }
+
+        private void collapseMutationsLevelsASEToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LibraryColumnsMutationsWidth(true);
+        }
+
+        private void ResetColumnWidthListViewLibrary(bool mutationColumnWidthsZero)
+        {
+            listViewLibrary.BeginUpdate();
+            var statWidths = Stats.UsuallyVisibleStats.Select(w => w ? 30 : 0).ToArray();
+            for (int ci = 0; ci < listViewLibrary.Columns.Count; ci++)
+                listViewLibrary.Columns[ci].Width = ci == ColumnIndexMutagenApplied ? 30
+                    : ci < ColumnIndexFirstStat || ci >= ColumnIndexPostColor ? 60
+                    : ci >= ColumnIndexFirstStat + Stats.StatsCount + Stats.StatsCount ? 30 // color
+                    : ci < ColumnIndexFirstStat + Stats.StatsCount ? statWidths[ci - ColumnIndexFirstStat] // wild levels
+                    : (int)(statWidths[ci - ColumnIndexFirstStat - Stats.StatsCount] * 1.24); // mutated needs space for one more letter
+
+            if (mutationColumnWidthsZero)
+                LibraryColumnsMutationsWidth(true);
+
+            listViewLibrary.EndUpdate();
+        }
+
+        /// <summary>
+        /// Set width of mutation level columns to zero or restore.
+        /// </summary>
+        private void LibraryColumnsMutationsWidth(bool collapse)
+        {
+            listViewLibrary.BeginUpdate();
+            var statWidths = Stats.UsuallyVisibleStats.Select(w => !collapse && w ? 38 : 0).ToArray();
+            for (int c = 0; c < Stats.StatsCount; c++)
+            {
+                listViewLibrary.Columns[c + ColumnIndexFirstStat + Stats.StatsCount].Width = statWidths[c];
+            }
+            listViewLibrary.EndUpdate();
+        }
+
+        #endregion
     }
 }

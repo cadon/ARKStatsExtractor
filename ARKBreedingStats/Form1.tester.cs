@@ -50,7 +50,7 @@ namespace ARKBreedingStats
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (s != Stats.Torpidity && c.levelsWild[s] > 0)
-                    _hiddenLevelsCreatureTester -= c.levelsWild[s];
+                    _hiddenLevelsCreatureTester -= c.levelsWild[s] + (c.levelsMutated?[s] ?? 0);
             }
 
             for (int s = 0; s < Stats.StatsCount; s++)
@@ -58,6 +58,7 @@ namespace ARKBreedingStats
                 if (s == Stats.Torpidity)
                     continue;
                 _testingIOs[s].LevelWild = c.levelsWild[s];
+                _testingIOs[s].LevelMut = c.levelsMutated?[s] ?? 0;
                 _testingIOs[s].LevelDom = c.levelsDom[s];
             }
             tabControlMain.SelectedTab = tabPageStatTesting;
@@ -100,7 +101,8 @@ namespace ARKBreedingStats
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     if (s != Stats.Torpidity)
-                        torporLvl += _testingIOs[s].LevelWild > 0 ? _testingIOs[s].LevelWild : 0;
+                        torporLvl += (_testingIOs[s].LevelWild > 0 ? _testingIOs[s].LevelWild : 0)
+                            + _testingIOs[s].LevelMut;
                 }
                 _testingIOs[Stats.Torpidity].LevelWild = torporLvl + _hiddenLevelsCreatureTester;
             }
@@ -125,10 +127,11 @@ namespace ARKBreedingStats
             creatureInfoInputTester.parentListValid = false;
 
             int[] levelsWild = _testingIOs.Select(s => s.LevelWild).ToArray();
-            if (!_testingIOs[2].Enabled)
-                levelsWild[2] = 0;
-            radarChart1.SetLevels(levelsWild);
-            statPotentials1.SetLevels(levelsWild, false);
+            int[] levelsMutations = _testingIOs.Select(s => s.LevelMut).ToArray();
+            if (!_testingIOs[Stats.Torpidity].Enabled)
+                levelsWild[Stats.Torpidity] = 0;
+            radarChart1.SetLevels(levelsWild, levelsMutations);
+            statPotentials1.SetLevels(levelsWild, levelsMutations, false);
             //statGraphs1.setGraph(sE, 0, testingIOs[0].LevelWild, testingIOs[0].LevelDom, !radioButtonTesterWild.Checked, (double)NumericUpDownTestingTE.Value / 100, (double)numericUpDownImprintingBonusTester.Value / 100);
 
             if (sIo.statIndex == Stats.Torpidity)
@@ -152,8 +155,8 @@ namespace ARKBreedingStats
 
         private void TestingStatIOsRecalculateValue(StatIO sIo)
         {
-            sIo.BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, sIo.statIndex, sIo.LevelWild, 0, true, 1, 0);
-            sIo.Input = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, sIo.statIndex, sIo.LevelWild, sIo.LevelDom,
+            sIo.BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, sIo.statIndex, sIo.LevelWild, sIo.LevelMut, 0, true, 1, 0);
+            sIo.Input = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, sIo.statIndex, sIo.LevelWild, sIo.LevelMut, sIo.LevelDom,
                     rbTamedTester.Checked || rbBredTester.Checked,
                     rbBredTester.Checked ? 1 : Math.Max(0, TamingEffectivenessTester),
                     rbBredTester.Checked ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0);
@@ -169,21 +172,23 @@ namespace ARKBreedingStats
             if (_creatureTesterEdit == null)
                 return;
             // check if wild levels are changed, if yes warn that the creature can become invalid
+            // TODO adjust check if mutated levels have a different multiplier than wild levels
             bool wildChanged = Math.Abs(_creatureTesterEdit.tamingEff - TamingEffectivenessTester) > .0005;
             if (!wildChanged)
             {
-                int[] wildLevels = GetCurrentWildLevels(false);
+                var wildLevels = GetCurrentWildLevels(false);
+                var mutatedLevels = GetCurrentMutLevels(false);
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
-                    if (wildLevels[s] != _creatureTesterEdit.levelsWild[s])
+                    if (wildLevels[s] + mutatedLevels[s] != _creatureTesterEdit.levelsWild[s] + (_creatureTesterEdit.levelsMutated?[s] ?? 0))
                     {
                         wildChanged = true;
                         break;
                     }
                 }
             }
-            if (wildChanged && MessageBox.Show("The wild levels or the taming-effectiveness were changed. Save values anyway?\n" +
-                    "Only save if the wild levels or taming-effectiveness were extracted wrongly!\nIf you are not sure, don't save. " +
+            if (wildChanged && MessageBox.Show("The wild or mutated levels or the taming-effectiveness were changed. Save values anyway?\n" +
+                    "Only save if the wild or mutated levels or the taming-effectiveness were extracted wrongly!\nIf you are not sure, don't save. " +
                     "The breeding-values could become invalid.",
                     "Wild levels have been changed",
                     MessageBoxButtons.OKCancel,
@@ -201,6 +206,7 @@ namespace ARKBreedingStats
                     || _creatureTesterEdit.mutationsPaternal != creatureInfoInputTester.MutationCounterFather;
             bool parentsChanged = _creatureTesterEdit.Mother != creatureInfoInputTester.Mother || _creatureTesterEdit.Father != creatureInfoInputTester.Father;
             _creatureTesterEdit.levelsWild = GetCurrentWildLevels(false);
+            _creatureTesterEdit.levelsMutated = GetCurrentMutLevels(false);
             _creatureTesterEdit.levelsDom = GetCurrentDomLevels(false);
             _creatureTesterEdit.tamingEff = TamingEffectivenessTester;
             _creatureTesterEdit.isBred = rbBredTester.Checked;
@@ -303,7 +309,7 @@ namespace ARKBreedingStats
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 _statIOs[s].Input = onlyWild
-                    ? StatValueCalculation.CalculateValue(species, s, c.levelsWild[s], 0, true, c.tamingEff,
+                    ? StatValueCalculation.CalculateValue(species, s, c.levelsWild[s], c.levelsMutated[s], 0, true, c.tamingEff,
                         c.imprintingBonus)
                     : c.valuesDom[s];
                 if (c.levelsDom[s] > 0) _statIOs[s].DomLevelLockedZero = false;
@@ -405,6 +411,12 @@ namespace ARKBreedingStats
         {
             get => rbWildTester.Checked ? -3 : (double)NumericUpDownTestingTE.Value / 100;
             set => NumericUpDownTestingTE.ValueSave = (decimal)(value >= 0 ? value * 100 : -1);
+        }
+        private void CbLinkWildMutatedLevelsTester_CheckedChanged(object sender, EventArgs e)
+        {
+            var linkWildMutated = CbLinkWildMutatedLevelsTester.Checked;
+            for (int s = 0; s < Stats.StatsCount; s++)
+                _testingIOs[s].LinkWildMutated = linkWildMutated;
         }
     }
 }

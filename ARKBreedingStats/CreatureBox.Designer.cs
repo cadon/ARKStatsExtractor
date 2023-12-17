@@ -52,12 +52,12 @@ namespace ARKBreedingStats
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.statsDisplay1 = new ARKBreedingStats.uiControls.StatsDisplay();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.labelSpecies = new System.Windows.Forms.Label();
             this.LbFather = new System.Windows.Forms.Label();
             this.LbMotherAndWildInfo = new System.Windows.Forms.Label();
             this.labelNotes = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.regionColorChooser1 = new ARKBreedingStats.uiControls.RegionColorChooser();
-            this.labelSpecies = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panelParents.SuspendLayout();
@@ -285,7 +285,7 @@ namespace ARKBreedingStats
             this.statsDisplay1.Location = new System.Drawing.Point(0, 0);
             this.statsDisplay1.Margin = new System.Windows.Forms.Padding(0);
             this.statsDisplay1.Name = "statsDisplay1";
-            this.statsDisplay1.Size = new System.Drawing.Size(189, 203);
+            this.statsDisplay1.Size = new System.Drawing.Size(189, 196);
             this.statsDisplay1.TabIndex = 28;
             // 
             // panel2
@@ -298,11 +298,19 @@ namespace ARKBreedingStats
             this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Controls.Add(this.regionColorChooser1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 203);
+            this.panel2.Location = new System.Drawing.Point(0, 196);
             this.panel2.Margin = new System.Windows.Forms.Padding(0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(189, 187);
+            this.panel2.Size = new System.Drawing.Size(189, 191);
             this.panel2.TabIndex = 29;
+            // 
+            // labelSpecies
+            // 
+            this.labelSpecies.AutoSize = true;
+            this.labelSpecies.Location = new System.Drawing.Point(3, 174);
+            this.labelSpecies.Name = "labelSpecies";
+            this.labelSpecies.Size = new System.Drawing.Size(0, 13);
+            this.labelSpecies.TabIndex = 26;
             // 
             // LbFather
             // 
@@ -315,10 +323,9 @@ namespace ARKBreedingStats
             // 
             // LbMotherAndWildInfo
             // 
-            this.LbMotherAndWildInfo.AutoSize = true;
             this.LbMotherAndWildInfo.Location = new System.Drawing.Point(0, 0);
             this.LbMotherAndWildInfo.Name = "LbMotherAndWildInfo";
-            this.LbMotherAndWildInfo.Size = new System.Drawing.Size(0, 13);
+            this.LbMotherAndWildInfo.Size = new System.Drawing.Size(183, 35);
             this.LbMotherAndWildInfo.TabIndex = 17;
             this.LbMotherAndWildInfo.Click += new System.EventHandler(this.LbMotherClick);
             // 
@@ -355,14 +362,6 @@ namespace ARKBreedingStats
             this.regionColorChooser1.Size = new System.Drawing.Size(58, 88);
             this.regionColorChooser1.TabIndex = 27;
             this.regionColorChooser1.VerboseButtonTexts = false;
-            // 
-            // labelSpecies
-            // 
-            this.labelSpecies.AutoSize = true;
-            this.labelSpecies.Location = new System.Drawing.Point(3, 174);
-            this.labelSpecies.Name = "labelSpecies";
-            this.labelSpecies.Size = new System.Drawing.Size(0, 13);
-            this.labelSpecies.TabIndex = 26;
             // 
             // CreatureBox
             // 

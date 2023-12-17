@@ -17,8 +17,10 @@ namespace ARKBreedingStats.NamePatterns
     {
         private readonly Creature _creature;
         private readonly Creature[] _creaturesOfSameSpecies;
+        private readonly Creature _alreadyExistingCreature;
         private readonly int[] _speciesTopLevels;
         private readonly int[] _speciesLowestLevels;
+        private readonly int _libraryCreatureCount;
         private readonly CreatureCollection.ColorExisting[] _colorExistings;
         private Dictionary<string, string> _customReplacings;
         private readonly Dictionary<string, string> _tokenDictionary;
@@ -38,7 +40,7 @@ namespace ARKBreedingStats.NamePatterns
             InitializeComponent();
         }
 
-        public PatternEditor(Creature creature, Creature[] creaturesOfSameSpecies, int[] speciesTopLevels, int[] speciesLowestLevels, CreatureCollection.ColorExisting[] colorExistings, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback) : this()
+        public PatternEditor(Creature creature, Creature[] creaturesOfSameSpecies, int[] speciesTopLevels, int[] speciesLowestLevels, CreatureCollection.ColorExisting[] colorExistings, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback, int libraryCreatureCount) : this()
         {
             Utils.SetWindowRectangle(this, Settings.Default.PatternEditorFormRectangle);
             if (Settings.Default.PatternEditorSplitterDistance > 0)
@@ -53,13 +55,15 @@ namespace ARKBreedingStats.NamePatterns
             _colorExistings = colorExistings;
             _customReplacings = customReplacings;
             _reloadCallback = reloadCallback;
+            _libraryCreatureCount = libraryCreatureCount;
             txtboxPattern.Text = Properties.Settings.Default.NamingPatterns?[namingPatternIndex] ?? string.Empty;
             CbPatternNameToClipboardAfterManualApplication.Checked = Properties.Settings.Default.PatternNameToClipboardAfterManualApplication;
             txtboxPattern.SelectionStart = txtboxPattern.Text.Length;
 
-            Text = $"Naming Pattern Editor: pattern {(namingPatternIndex + 1)}";
+            Text = $"Naming Pattern Editor: pattern {namingPatternIndex + 1}";
 
-            _tokenDictionary = NamePatterns.NamePattern.CreateTokenDictionary(creature, _creaturesOfSameSpecies, _speciesTopLevels, _speciesLowestLevels);
+            _alreadyExistingCreature = _creaturesOfSameSpecies?.FirstOrDefault(c => c.guid == creature.guid);
+            _tokenDictionary = NamePatterns.NamePattern.CreateTokenDictionary(creature, _alreadyExistingCreature, _creaturesOfSameSpecies, _speciesTopLevels, _speciesLowestLevels, _libraryCreatureCount);
             _keyDebouncer = new Debouncer();
             _functionDebouncer = new Debouncer();
 
@@ -479,6 +483,7 @@ namespace ARKBreedingStats.NamePatterns
                 { "nr_in_gen", "The number of the creature in its generation, ordered by added to the library" },
                 { "nr_in_gen_sex", "The number of the creature in its generation with the same sex, ordered by added to the library" },
                 { "rnd", "6-digit random number in the range 0 – 999999" },
+                { "ln", "number of creatures in the library + 1" },
                 { "tn", "number of creatures of the current species in the library + 1" },
                 { "sn", "number of creatures of the current species with the same sex in the library + 1" },
                 { "arkid", "the Ark-Id (as entered or seen in-game)"},
@@ -496,6 +501,19 @@ namespace ARKBreedingStats.NamePatterns
                 { "highest4s", "the name of the fourth highest stat-level of this creature (excluding torpidity)" },
                 { "highest5s", "the name of the fifth highest stat-level of this creature (excluding torpidity)" },
                 { "highest6s", "the name of the sixth highest stat-level of this creature (excluding torpidity)" },
+
+                { "hp_m", "Mutated levels of " + Utils.StatName(Stats.Health, customStatNames:customStatNames) },
+                { "st_m", "Mutated levels of " + Utils.StatName(Stats.Stamina, customStatNames:customStatNames) },
+                { "to_m", "Mutated levels of " + Utils.StatName(Stats.Torpidity, customStatNames:customStatNames) },
+                { "ox_m", "Mutated levels of " + Utils.StatName(Stats.Oxygen, customStatNames:customStatNames) },
+                { "fo_m", "Mutated levels of " + Utils.StatName(Stats.Food, customStatNames:customStatNames) },
+                { "wa_m", "Mutated levels of " + Utils.StatName(Stats.Water, customStatNames:customStatNames) },
+                { "te_m", "Mutated levels of " + Utils.StatName(Stats.Temperature, customStatNames:customStatNames) },
+                { "we_m", "Mutated levels of " + Utils.StatName(Stats.Weight, customStatNames:customStatNames) },
+                { "dm_m", "Mutated levels of " + Utils.StatName(Stats.MeleeDamageMultiplier, customStatNames:customStatNames) },
+                { "sp_m", "Mutated levels of " + Utils.StatName(Stats.SpeedMultiplier, customStatNames:customStatNames) },
+                { "fr_m", "Mutated levels of " + Utils.StatName(Stats.TemperatureFortitude, customStatNames:customStatNames) },
+                { "cr_m", "Mutated levels of " + Utils.StatName(Stats.CraftingSpeedMultiplier, customStatNames:customStatNames) }
             };
 
         // list of possible functions, expected format:
@@ -549,8 +567,8 @@ namespace ARKBreedingStats.NamePatterns
 
         private void DisplayPreview()
         {
-            cbPreview.Text = NamePatterns.NamePattern.GenerateCreatureName(_creature, _creaturesOfSameSpecies, _speciesTopLevels, _speciesLowestLevels, _customReplacings,
-                false, -1, false, txtboxPattern.Text, false, _tokenDictionary, _colorExistings);
+            cbPreview.Text = NamePatterns.NamePattern.GenerateCreatureName(_creature, _alreadyExistingCreature, _creaturesOfSameSpecies, _speciesTopLevels, _speciesLowestLevels, _customReplacings,
+                false, -1, false, txtboxPattern.Text, false, _tokenDictionary, _colorExistings, _libraryCreatureCount);
         }
 
         private void TbFilterKeys_TextChanged(object sender, EventArgs e)

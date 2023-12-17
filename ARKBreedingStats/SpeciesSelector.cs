@@ -82,7 +82,7 @@ namespace ARKBreedingStats
 
             // autocomplete for species-input
             var al = new AutoCompleteStringCollection();
-            al.AddRange(_entryList.Select(e => e.SearchName).ToArray());
+            al.AddRange(_entryList.Select(e => e.DisplayName).ToArray());
             _textBox.AutoCompleteCustomSource = al;
 
             VariantSelector.SetVariants(species);
@@ -105,7 +105,7 @@ namespace ARKBreedingStats
                 entryList.Add(new SpeciesListEntry
                 {
                     DisplayName = s.name,
-                    SearchName = s.name,
+                    SearchName = (s.name + " " + s.blueprintPath).ToLowerInvariant(),
                     ModName = s.Mod?.title ?? string.Empty,
                     Species = s
                 });
@@ -118,7 +118,7 @@ namespace ARKBreedingStats
                     entryList.Add(new SpeciesListEntry
                     {
                         DisplayName = a.Key + " (→" + aliasSpecies.name + ")",
-                        SearchName = a.Key,
+                        SearchName = a.Key.ToLowerInvariant(),
                         Species = aliasSpecies,
                         ModName = aliasSpecies.Mod?.title ?? string.Empty,
                     });
@@ -265,12 +265,13 @@ namespace ARKBreedingStats
             lvSpeciesList.BeginUpdate();
             lvSpeciesList.Items.Clear();
             var newItems = new List<ListViewItem>();
+            part = part?.ToLowerInvariant();
             bool inputIsEmpty = string.IsNullOrWhiteSpace(part);
             foreach (var s in _entryList)
             {
                 if ((Properties.Settings.Default.DisplayNonDomesticableSpecies || s.Species.IsDomesticable)
                     && (inputIsEmpty
-                       || s.SearchName.ToLower().Contains(part.ToLower())
+                       || s.SearchName.Contains(part)
                        )
                     && (noVariantFiltering
                         || (string.IsNullOrEmpty(s.Species.VariantInfo) ? !VariantSelector.DisabledVariants.Contains(string.Empty)
@@ -445,6 +446,9 @@ namespace ARKBreedingStats
 
     class SpeciesListEntry
     {
+        /// <summary>
+        /// Used for search filter, expected lower case.
+        /// </summary>
         internal string SearchName;
         internal string DisplayName;
         internal string ModName;

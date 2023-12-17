@@ -1,12 +1,11 @@
 {
-	"version": "25.53.449746",
+	"version": "32.11.468629",
 	"format": "1.15-asa",
 	"mod": {
 		"id": "ASA",
 		"tag": "",
 		"title": "Ark: Survival Ascended",
-		"shortTitle": "ASA",
-		"official": true
+		"shortTitle": "ASA"
 	},
 	"species": [
 		{
@@ -1341,7 +1340,21 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Rhyniognatha/Rhynio_Character_BP.Rhynio_Character_BP",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"fullStatsRaw": [
+				[ 900, 0.17, 0.1755, 0.5, 0 ],
+				[ 350, 0.05, 0.06, 0, 0 ],
+				[ 800, 0.06, 0, 0.5, 0 ],
+				[ 800, 0.1, 0.1, 0, 0 ],
+				[ 1600, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 1100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Saber/Saber_Character_BP.Saber_Character_BP",

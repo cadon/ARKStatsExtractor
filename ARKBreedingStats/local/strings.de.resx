@@ -1328,4 +1328,7 @@ Es ist auch möglich Tiere mit einer Farbe in mehreren möglichen Regionen zu fi
   <data name="timerStarvingOf" xml:space="preserve">
     <value>Verhungern von</value>
   </data>
+  <data name="ClickCopyToClipboard" xml:space="preserve">
+    <value>Klicken um in die Zwischenablage zu kopieren</value>
+  </data>
 </root>

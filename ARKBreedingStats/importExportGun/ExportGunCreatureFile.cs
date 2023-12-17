@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace ARKBreedingStats.importExportGun
@@ -9,6 +10,7 @@ namespace ARKBreedingStats.importExportGun
     [JsonObject]
     internal class ExportGunCreatureFile
     {
+        public int Version { get; set; } = 1;
         public string DinoName { get; set; }
         public string SpeciesName { get; set; }
         public string TribeName { get; set; }
@@ -16,12 +18,25 @@ namespace ARKBreedingStats.importExportGun
         public string OwningPlayerName { get; set; }
         public string ImprinterName { get; set; }
         public int OwningPlayerID { get; set; }
-        public int DinoID1 { get; set; }
-        public int DinoID2 { get; set; }
+        public string DinoID1 { get; set; }
+        public string DinoID2 { get; set; }
+        [JsonIgnore]
+        public int DinoId1Int { get => int.TryParse(DinoID1, out var id) ? id : 0; set => DinoID1 = value.ToString(); }
+        [JsonIgnore]
+        public int DinoId2Int { get => int.TryParse(DinoID2, out var id) ? id : 0; set => DinoID2 = value.ToString(); }
         public Ancestry Ancestry { get; set; }
         public string BlueprintPath { get; set; }
         public Stat[] Stats { get; set; }
-        public byte[] ColorSetIndices { get; set; }
+
+        [JsonIgnore]
+        public byte[] ColorIds;
+        [JsonProperty]
+        private int[] ColorSetIndices
+        {
+            set => ColorIds = value?.Select(i => (byte)i).ToArray();
+            get => ColorIds?.Select(i => (int)i).ToArray();
+        }
+
         public Dictionary<byte, float[]> ColorSetValues { get; set; }
         public bool IsFemale { get; set; }
         public float NextAllowedMatingTimeDuration { get; set; }
@@ -43,11 +58,19 @@ namespace ARKBreedingStats.importExportGun
     internal class Ancestry
     {
         public string MaleName { get; set; }
-        public int MaleDinoId1 { get; set; }
-        public int MaleDinoId2 { get; set; }
+        public string MaleDinoId1 { get; set; }
+        public string MaleDinoId2 { get; set; }
         public string FemaleName { get; set; }
-        public int FemaleDinoId1 { get; set; }
-        public int FemaleDinoId2 { get; set; }
+        public string FemaleDinoId1 { get; set; }
+        public string FemaleDinoId2 { get; set; }
+        [JsonIgnore]
+        public int MaleDinoId1Int { get => int.TryParse(MaleDinoId1, out var id) ? id : 0; set => MaleDinoId1 = value.ToString(); }
+        [JsonIgnore]
+        public int MaleDinoId2Int { get => int.TryParse(MaleDinoId2, out var id) ? id : 0; set => MaleDinoId2 = value.ToString(); }
+        [JsonIgnore]
+        public int FemaleDinoId1Int { get => int.TryParse(FemaleDinoId1, out var id) ? id : 0; set => FemaleDinoId1 = value.ToString(); }
+        [JsonIgnore]
+        public int FemaleDinoId2Int { get => int.TryParse(FemaleDinoId2, out var id) ? id : 0; set => FemaleDinoId2 = value.ToString(); }
     }
 
     [JsonObject]

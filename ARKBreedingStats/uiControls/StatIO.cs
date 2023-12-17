@@ -20,6 +20,9 @@ namespace ARKBreedingStats
         private bool _domZeroFixed;
         private readonly ToolTip _tt;
         public int barMaxLevel = 45;
+        private const int MaxBarLength = 335;
+        private bool _linkWildMutated;
+        private int _wildMutatedSum;
 
         public StatIO()
         {
@@ -49,7 +52,7 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    value = value * (percent ? 100 : 1);
+                    if (percent) value *= 100;
                     numericUpDownInput.ValueSave = (decimal)value;
                     labelFinalValue.Text = value.ToString("N1");
                 }
@@ -72,14 +75,32 @@ namespace ARKBreedingStats
             {
                 int v = value;
                 if (v < 0)
+                {
                     numLvW.Value = -1; // value can be unknown if multiple stats are not shown (e.g. wild speed and oxygen)
+                    _wildMutatedSum = -1;
+                }
                 else
                 {
                     if (v > numLvW.Maximum)
                         v = (int)numLvW.Maximum;
+                    _wildMutatedSum = (int)(v + nudLvM.Value);
                     numLvW.Value = v;
                 }
                 labelWildLevel.Text = (value < 0 ? "?" : v.ToString());
+            }
+        }
+
+        public int LevelMut
+        {
+            get => (short)nudLvM.Value;
+            set
+            {
+                labelMutatedLevel.Text = value.ToString();
+                if (numLvW.Value < 0)
+                    _wildMutatedSum = -1;
+                else
+                    _wildMutatedSum = (int)(numLvW.Value + value);
+                nudLvM.Value = value;
             }
         }
 
@@ -89,23 +110,8 @@ namespace ARKBreedingStats
             set
             {
                 labelDomLevel.Text = value.ToString();
-                labelDomLevel.ForeColor = value == 0 ? Color.Gray : Color.Black;
                 numLvD.Value = value;
             }
-        }
-
-        public int LevelMut
-        {
-            get => 0;
-            set { }
-            // TODO
-            //get => (short)numLvM.Value;
-            //set
-            //{
-            //    labelMutLevel.Text = value.ToString();
-            //    labelMutLevel.ForeColor = value == 0 ? Color.Gray : Color.Black;
-            //    numLvM.Value = value;
-            //}
         }
 
         public double BreedingValue
@@ -262,8 +268,9 @@ namespace ARKBreedingStats
             TopLevel = LevelStatus.Neutral;
             numLvW.Value = 0;
             numLvD.Value = 0;
-            labelDomLevel.Text = "0";
             labelWildLevel.Text = "0";
+            labelMutatedLevel.Text = "0";
+            labelDomLevel.Text = "0";
             labelFinalValue.Text = "0";
             labelBValue.Text = string.Empty;
         }
@@ -280,9 +287,38 @@ namespace ARKBreedingStats
             {
                 lengthPercentage = 0;
             }
-            panelBarWildLevels.Width = lengthPercentage * 283 / 100;
+            panelBarWildLevels.Width = lengthPercentage * MaxBarLength / 100;
             panelBarWildLevels.BackColor = Utils.GetColorFromPercent(lengthPercentage);
             _tt.SetToolTip(panelBarWildLevels, Utils.LevelPercentile((int)numLvW.Value));
+
+            if (_linkWildMutated && _wildMutatedSum != -1)
+            {
+                nudLvM.ValueSave = Math.Max(0, _wildMutatedSum - numLvW.Value);
+            }
+
+            if (_inputType != StatIOInputType.FinalValueInputType)
+                LevelChangedDebouncer();
+        }
+
+        private void nudLvM_ValueChanged(object sender, EventArgs e)
+        {
+            int lengthPercentage = 100 * (int)nudLvM.Value / barMaxLevel; // in percentage of the max bar width
+
+            if (lengthPercentage > 100)
+            {
+                lengthPercentage = 100;
+            }
+            if (lengthPercentage < 0)
+            {
+                lengthPercentage = 0;
+            }
+            panelBarMutLevels.Width = lengthPercentage * MaxBarLength / 100;
+            panelBarMutLevels.BackColor = Utils.GetColorFromPercent(lengthPercentage);
+
+            if (_linkWildMutated && _wildMutatedSum != -1)
+            {
+                numLvW.ValueSave = Math.Max(0, _wildMutatedSum - nudLvM.Value);
+            }
 
             if (_inputType != StatIOInputType.FinalValueInputType)
                 LevelChangedDebouncer();
@@ -300,7 +336,7 @@ namespace ARKBreedingStats
             {
                 lengthPercentage = 0;
             }
-            panelBarDomLevels.Width = lengthPercentage * 283 / 100;
+            panelBarDomLevels.Width = lengthPercentage * MaxBarLength / 100;
             panelBarDomLevels.BackColor = Utils.GetColorFromPercent(lengthPercentage);
 
             if (_inputType != StatIOInputType.FinalValueInputType)
@@ -316,8 +352,10 @@ namespace ARKBreedingStats
         private void numericUpDownInput_ValueChanged(object sender, EventArgs e)
         {
             if (InputType == StatIOInputType.FinalValueInputType)
-                InputValueChanged?.Invoke(this);
+                _levelChangedDebouncer.Debounce(200, FireStatValueChanged, Dispatcher.CurrentDispatcher);
         }
+
+        private void FireStatValueChanged() => InputValueChanged?.Invoke(this);
 
         private void numericUpDown_Enter(object sender, EventArgs e)
         {
@@ -338,6 +376,25 @@ namespace ARKBreedingStats
         private void labelWildLevel_Click(object sender, EventArgs e)
         {
             OnClick(e);
+
+            if (LevelMut > 1)
+            {
+                LevelWild += 2;
+                LevelMut -= 2;
+                LevelChangedDebouncer();
+            }
+        }
+
+        private void labelMutatedLevel_Click(object sender, EventArgs e)
+        {
+            OnClick(e);
+
+            if (LevelWild > 1)
+            {
+                LevelWild -= 2;
+                LevelMut += 2;
+                LevelChangedDebouncer();
+            }
         }
 
         private void labelDomLevel_Click(object sender, EventArgs e)
@@ -365,6 +422,18 @@ namespace ARKBreedingStats
         {
             get => _domZeroFixed;
             set => checkBoxFixDomZero.Checked = value;
+        }
+
+        /// <summary>
+        /// If true, the control tries to keep the sum of the wild and mutated levels equal.
+        /// </summary>
+        public bool LinkWildMutated
+        {
+            set
+            {
+                _linkWildMutated = value;
+                _wildMutatedSum = (int)(numLvW.Value + nudLvM.Value);
+            }
         }
     }
 

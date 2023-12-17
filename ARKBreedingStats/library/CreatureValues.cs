@@ -39,6 +39,8 @@ namespace ARKBreedingStats.Library
         [JsonProperty]
         public int[] levelsWild = new int[Stats.StatsCount];
         [JsonProperty]
+        public int[] levelsMut = new int[Stats.StatsCount];
+        [JsonProperty]
         public int[] levelsDom = new int[Stats.StatsCount];
         [JsonProperty]
         public int level;

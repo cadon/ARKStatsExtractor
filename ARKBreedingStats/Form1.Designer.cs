@@ -144,6 +144,10 @@ namespace ARKBreedingStats
             this.devToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addRandomCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDefinitionsToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.serverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listenWithNewTokenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sendExampleCreatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelSums = new System.Windows.Forms.Panel();
             this.lbShouldBe = new System.Windows.Forms.Label();
             this.lbSumDomSB = new System.Windows.Forms.Label();
@@ -153,6 +157,7 @@ namespace ARKBreedingStats
             this.rbWildExtractor = new System.Windows.Forms.RadioButton();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageStatTesting = new System.Windows.Forms.TabPage();
+            this.CbLinkWildMutatedLevelsTester = new System.Windows.Forms.CheckBox();
             this.pictureBoxColorRegionsTester = new System.Windows.Forms.PictureBox();
             this.statPotentials1 = new ARKBreedingStats.uiControls.StatPotentials();
             this.gbStatChart = new System.Windows.Forms.GroupBox();
@@ -164,6 +169,7 @@ namespace ARKBreedingStats
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanelStatIOsTester = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
             this.lbCurrentValue = new System.Windows.Forms.Label();
             this.panelStatTesterFootnote = new System.Windows.Forms.Panel();
             this.LbWarningLevel255 = new System.Windows.Forms.Label();
@@ -178,7 +184,6 @@ namespace ARKBreedingStats
             this.creatureInfoInputTester = new ARKBreedingStats.CreatureInfoInput();
             this.tabPageExtractor = new System.Windows.Forms.TabPage();
             this.LbAsa = new System.Windows.Forms.Label();
-            this.creatureAnalysis1 = new ARKBreedingStats.uiControls.CreatureAnalysis();
             this.LbBlueprintPath = new System.Windows.Forms.Label();
             this.BtCopyIssueDumpToClipboard = new System.Windows.Forms.Button();
             this.llOnlineHelpExtractionIssues = new System.Windows.Forms.LinkLabel();
@@ -192,10 +197,12 @@ namespace ARKBreedingStats
             this.gbStatsExtractor = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanelStatIOsExtractor = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
             this.lbCurrentStatEx = new System.Windows.Forms.Label();
             this.btExtractLevels = new System.Windows.Forms.Button();
             this.cbQuickWildCheck = new System.Windows.Forms.CheckBox();
             this.labelErrorHelp = new System.Windows.Forms.Label();
+            this.creatureAnalysis1 = new ARKBreedingStats.uiControls.CreatureAnalysis();
             this.parentInheritanceExtractor = new ARKBreedingStats.uiControls.ParentInheritance();
             this.numericUpDownLevel = new ARKBreedingStats.uiControls.Nud();
             this.creatureInfoInputExtractor = new ARKBreedingStats.CreatureInfoInput();
@@ -220,12 +227,24 @@ namespace ARKBreedingStats
             this.columnHeaderOx = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderFo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderWa = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderTemp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderTm = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderWe = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderDm = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderSp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderFr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderCr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderHPM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderStM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderToM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderOxM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderFoM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderWaM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderTmM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderWeM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderDmM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderSpM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderFrM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderCrM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderColor0 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderColor1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderColor2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -359,6 +378,11 @@ namespace ARKBreedingStats
             this.TbMessageLabel = new System.Windows.Forms.TextBox();
             this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetLibraryColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.restoreMutationLevelsASAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.collapseMutationsLevelsASEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator27 = new System.Windows.Forms.ToolStripSeparator();
+            this.resetColumnOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
@@ -583,7 +607,7 @@ namespace ARKBreedingStats
             this.groupBox1.Controls.Add(this.numericUpDownImprintingBonusTester);
             this.groupBox1.Controls.Add(this.NumericUpDownTestingTE);
             this.groupBox1.Controls.Add(this.labelTesterTE);
-            this.groupBox1.Location = new System.Drawing.Point(321, 6);
+            this.groupBox1.Location = new System.Drawing.Point(373, 6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(229, 72);
             this.groupBox1.TabIndex = 2;
@@ -668,7 +692,7 @@ namespace ARKBreedingStats
             // groupBoxPossibilities
             // 
             this.groupBoxPossibilities.Controls.Add(this.listViewPossibilities);
-            this.groupBoxPossibilities.Location = new System.Drawing.Point(590, 43);
+            this.groupBoxPossibilities.Location = new System.Drawing.Point(642, 43);
             this.groupBoxPossibilities.Name = "groupBoxPossibilities";
             this.groupBoxPossibilities.Size = new System.Drawing.Size(189, 295);
             this.groupBoxPossibilities.TabIndex = 11;
@@ -720,7 +744,7 @@ namespace ARKBreedingStats
             // 
             this.groupBoxDetailsExtractor.Controls.Add(this.panelExtrImpr);
             this.groupBoxDetailsExtractor.Controls.Add(this.panelExtrTE);
-            this.groupBoxDetailsExtractor.Location = new System.Drawing.Point(321, 6);
+            this.groupBoxDetailsExtractor.Location = new System.Drawing.Point(373, 6);
             this.groupBoxDetailsExtractor.Name = "groupBoxDetailsExtractor";
             this.groupBoxDetailsExtractor.Size = new System.Drawing.Size(229, 75);
             this.groupBoxDetailsExtractor.TabIndex = 4;
@@ -886,7 +910,7 @@ namespace ARKBreedingStats
             // lbBreedingValueTester
             // 
             this.lbBreedingValueTester.AutoSize = true;
-            this.lbBreedingValueTester.Location = new System.Drawing.Point(218, 0);
+            this.lbBreedingValueTester.Location = new System.Drawing.Point(270, 0);
             this.lbBreedingValueTester.Name = "lbBreedingValueTester";
             this.lbBreedingValueTester.Size = new System.Drawing.Size(79, 13);
             this.lbBreedingValueTester.TabIndex = 33;
@@ -895,7 +919,7 @@ namespace ARKBreedingStats
             // lbTesterWildLevel
             // 
             this.lbTesterWildLevel.AutoSize = true;
-            this.lbTesterWildLevel.Location = new System.Drawing.Point(18, 0);
+            this.lbTesterWildLevel.Location = new System.Drawing.Point(8, 0);
             this.lbTesterWildLevel.Name = "lbTesterWildLevel";
             this.lbTesterWildLevel.Size = new System.Drawing.Size(45, 13);
             this.lbTesterWildLevel.TabIndex = 31;
@@ -904,7 +928,7 @@ namespace ARKBreedingStats
             // lbTesterDomLevel
             // 
             this.lbTesterDomLevel.AutoSize = true;
-            this.lbTesterDomLevel.Location = new System.Drawing.Point(73, 0);
+            this.lbTesterDomLevel.Location = new System.Drawing.Point(112, 0);
             this.lbTesterDomLevel.Name = "lbTesterDomLevel";
             this.lbTesterDomLevel.Size = new System.Drawing.Size(46, 13);
             this.lbTesterDomLevel.TabIndex = 32;
@@ -912,7 +936,7 @@ namespace ARKBreedingStats
             // 
             // lbInfoYellowStats
             // 
-            this.lbInfoYellowStats.Location = new System.Drawing.Point(590, 341);
+            this.lbInfoYellowStats.Location = new System.Drawing.Point(642, 341);
             this.lbInfoYellowStats.Name = "lbInfoYellowStats";
             this.lbInfoYellowStats.Size = new System.Drawing.Size(255, 126);
             this.lbInfoYellowStats.TabIndex = 15;
@@ -929,7 +953,7 @@ namespace ARKBreedingStats
             // labelHBV
             // 
             this.labelHBV.AutoSize = true;
-            this.labelHBV.Location = new System.Drawing.Point(218, 0);
+            this.labelHBV.Location = new System.Drawing.Point(270, 0);
             this.labelHBV.Name = "labelHBV";
             this.labelHBV.Size = new System.Drawing.Size(79, 13);
             this.labelHBV.TabIndex = 27;
@@ -938,7 +962,7 @@ namespace ARKBreedingStats
             // lbExtractorDomLevel
             // 
             this.lbExtractorDomLevel.AutoSize = true;
-            this.lbExtractorDomLevel.Location = new System.Drawing.Point(172, 0);
+            this.lbExtractorDomLevel.Location = new System.Drawing.Point(224, 0);
             this.lbExtractorDomLevel.Name = "lbExtractorDomLevel";
             this.lbExtractorDomLevel.Size = new System.Drawing.Size(46, 13);
             this.lbExtractorDomLevel.TabIndex = 26;
@@ -965,7 +989,7 @@ namespace ARKBreedingStats
             // lbSumDom
             // 
             this.lbSumDom.AutoSize = true;
-            this.lbSumDom.Location = new System.Drawing.Point(189, 2);
+            this.lbSumDom.Location = new System.Drawing.Point(241, 2);
             this.lbSumDom.Name = "lbSumDom";
             this.lbSumDom.Size = new System.Drawing.Size(25, 13);
             this.lbSumDom.TabIndex = 31;
@@ -990,7 +1014,8 @@ namespace ARKBreedingStats
             this.libraryFilterToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.helpToolStripMenuItem,
-            this.devToolStripMenuItem});
+            this.devToolStripMenuItem,
+            this.serverToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1878, 24);
@@ -1385,6 +1410,38 @@ namespace ARKBreedingStats
             this.colorDefinitionsToClipboardToolStripMenuItem.Text = "Color definitions to clipboard";
             this.colorDefinitionsToClipboardToolStripMenuItem.Click += new System.EventHandler(this.colorDefinitionsToClipboardToolStripMenuItem_Click);
             // 
+            // serverToolStripMenuItem
+            // 
+            this.serverToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.listenToolStripMenuItem,
+            this.listenWithNewTokenToolStripMenuItem,
+            this.sendExampleCreatureToolStripMenuItem});
+            this.serverToolStripMenuItem.Name = "serverToolStripMenuItem";
+            this.serverToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.serverToolStripMenuItem.Text = "Server";
+            // 
+            // listenToolStripMenuItem
+            // 
+            this.listenToolStripMenuItem.CheckOnClick = true;
+            this.listenToolStripMenuItem.Name = "listenToolStripMenuItem";
+            this.listenToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.listenToolStripMenuItem.Text = "Listen";
+            this.listenToolStripMenuItem.CheckedChanged += new System.EventHandler(this.listenToolStripMenuItem_CheckedChanged);
+            // 
+            // listenWithNewTokenToolStripMenuItem
+            // 
+            this.listenWithNewTokenToolStripMenuItem.Name = "listenWithNewTokenToolStripMenuItem";
+            this.listenWithNewTokenToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.listenWithNewTokenToolStripMenuItem.Text = "Listen with new token";
+            this.listenWithNewTokenToolStripMenuItem.Click += new System.EventHandler(this.listenWithNewTokenToolStripMenuItem_Click);
+            // 
+            // sendExampleCreatureToolStripMenuItem
+            // 
+            this.sendExampleCreatureToolStripMenuItem.Name = "sendExampleCreatureToolStripMenuItem";
+            this.sendExampleCreatureToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.sendExampleCreatureToolStripMenuItem.Text = "Send example creature";
+            this.sendExampleCreatureToolStripMenuItem.Click += new System.EventHandler(this.sendExampleCreatureToolStripMenuItem_Click);
+            // 
             // panelSums
             // 
             this.panelSums.Controls.Add(this.lbShouldBe);
@@ -1394,7 +1451,7 @@ namespace ARKBreedingStats
             this.panelSums.Controls.Add(this.lbSumDom);
             this.panelSums.Location = new System.Drawing.Point(3, 26);
             this.panelSums.Name = "panelSums";
-            this.panelSums.Size = new System.Drawing.Size(295, 32);
+            this.panelSums.Size = new System.Drawing.Size(344, 32);
             this.panelSums.TabIndex = 8;
             // 
             // lbShouldBe
@@ -1409,7 +1466,7 @@ namespace ARKBreedingStats
             // lbSumDomSB
             // 
             this.lbSumDomSB.AutoSize = true;
-            this.lbSumDomSB.Location = new System.Drawing.Point(189, 15);
+            this.lbSumDomSB.Location = new System.Drawing.Point(241, 15);
             this.lbSumDomSB.Name = "lbSumDomSB";
             this.lbSumDomSB.Size = new System.Drawing.Size(25, 13);
             this.lbSumDomSB.TabIndex = 51;
@@ -1482,13 +1539,14 @@ namespace ARKBreedingStats
             this.tabControlMain.Location = new System.Drawing.Point(0, 103);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 1;
-            this.tabControlMain.Size = new System.Drawing.Size(1878, 775);
+            this.tabControlMain.Size = new System.Drawing.Size(1878, 810);
             this.tabControlMain.TabIndex = 3;
             this.tabControlMain.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPageStatTesting
             // 
             this.tabPageStatTesting.AutoScroll = true;
+            this.tabPageStatTesting.Controls.Add(this.CbLinkWildMutatedLevelsTester);
             this.tabPageStatTesting.Controls.Add(this.pictureBoxColorRegionsTester);
             this.tabPageStatTesting.Controls.Add(this.statPotentials1);
             this.tabPageStatTesting.Controls.Add(this.gbStatChart);
@@ -1500,14 +1558,25 @@ namespace ARKBreedingStats
             this.tabPageStatTesting.Location = new System.Drawing.Point(4, 22);
             this.tabPageStatTesting.Name = "tabPageStatTesting";
             this.tabPageStatTesting.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageStatTesting.Size = new System.Drawing.Size(1870, 749);
+            this.tabPageStatTesting.Size = new System.Drawing.Size(1870, 784);
             this.tabPageStatTesting.TabIndex = 1;
             this.tabPageStatTesting.Text = "Stat Testing";
             this.tabPageStatTesting.UseVisualStyleBackColor = true;
             // 
+            // CbLinkWildMutatedLevelsTester
+            // 
+            this.CbLinkWildMutatedLevelsTester.AutoSize = true;
+            this.CbLinkWildMutatedLevelsTester.Location = new System.Drawing.Point(259, 10);
+            this.CbLinkWildMutatedLevelsTester.Name = "CbLinkWildMutatedLevelsTester";
+            this.CbLinkWildMutatedLevelsTester.Size = new System.Drawing.Size(108, 17);
+            this.CbLinkWildMutatedLevelsTester.TabIndex = 14;
+            this.CbLinkWildMutatedLevelsTester.Text = "Link wild-mutated";
+            this.CbLinkWildMutatedLevelsTester.UseVisualStyleBackColor = true;
+            this.CbLinkWildMutatedLevelsTester.CheckedChanged += new System.EventHandler(this.CbLinkWildMutatedLevelsTester_CheckedChanged);
+            // 
             // pictureBoxColorRegionsTester
             // 
-            this.pictureBoxColorRegionsTester.Location = new System.Drawing.Point(589, 489);
+            this.pictureBoxColorRegionsTester.Location = new System.Drawing.Point(641, 489);
             this.pictureBoxColorRegionsTester.Name = "pictureBoxColorRegionsTester";
             this.pictureBoxColorRegionsTester.Size = new System.Drawing.Size(256, 256);
             this.pictureBoxColorRegionsTester.TabIndex = 13;
@@ -1516,7 +1585,7 @@ namespace ARKBreedingStats
             // 
             // statPotentials1
             // 
-            this.statPotentials1.Location = new System.Drawing.Point(808, 9);
+            this.statPotentials1.Location = new System.Drawing.Point(860, 9);
             this.statPotentials1.Name = "statPotentials1";
             this.statPotentials1.Size = new System.Drawing.Size(293, 433);
             this.statPotentials1.TabIndex = 12;
@@ -1524,7 +1593,7 @@ namespace ARKBreedingStats
             // gbStatChart
             // 
             this.gbStatChart.Controls.Add(this.radarChart1);
-            this.gbStatChart.Location = new System.Drawing.Point(589, 9);
+            this.gbStatChart.Location = new System.Drawing.Point(641, 9);
             this.gbStatChart.Name = "gbStatChart";
             this.gbStatChart.Size = new System.Drawing.Size(213, 228);
             this.gbStatChart.TabIndex = 11;
@@ -1591,7 +1660,7 @@ namespace ARKBreedingStats
             this.groupBox2.Controls.Add(this.flowLayoutPanelStatIOsTester);
             this.groupBox2.Location = new System.Drawing.Point(8, 37);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(307, 639);
+            this.groupBox2.Size = new System.Drawing.Size(359, 639);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Stats";
@@ -1605,12 +1674,13 @@ namespace ARKBreedingStats
             this.flowLayoutPanelStatIOsTester.Location = new System.Drawing.Point(6, 19);
             this.flowLayoutPanelStatIOsTester.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanelStatIOsTester.Name = "flowLayoutPanelStatIOsTester";
-            this.flowLayoutPanelStatIOsTester.Size = new System.Drawing.Size(301, 617);
+            this.flowLayoutPanelStatIOsTester.Size = new System.Drawing.Size(353, 617);
             this.flowLayoutPanelStatIOsTester.TabIndex = 53;
             this.flowLayoutPanelStatIOsTester.WrapContents = false;
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.lbTesterWildLevel);
             this.panel2.Controls.Add(this.lbTesterDomLevel);
             this.panel2.Controls.Add(this.lbBreedingValueTester);
@@ -1618,13 +1688,22 @@ namespace ARKBreedingStats
             this.panel2.Location = new System.Drawing.Point(0, 3);
             this.panel2.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(300, 17);
+            this.panel2.Size = new System.Drawing.Size(350, 17);
             this.panel2.TabIndex = 54;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(60, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(53, 13);
+            this.label4.TabIndex = 37;
+            this.label4.Text = "Mutations";
             // 
             // lbCurrentValue
             // 
             this.lbCurrentValue.AutoSize = true;
-            this.lbCurrentValue.Location = new System.Drawing.Point(126, 0);
+            this.lbCurrentValue.Location = new System.Drawing.Point(178, 0);
             this.lbCurrentValue.Name = "lbCurrentValue";
             this.lbCurrentValue.Size = new System.Drawing.Size(71, 13);
             this.lbCurrentValue.TabIndex = 36;
@@ -1639,7 +1718,7 @@ namespace ARKBreedingStats
             this.panelStatTesterFootnote.Controls.Add(this.lbNotYetTamed);
             this.panelStatTesterFootnote.Location = new System.Drawing.Point(3, 26);
             this.panelStatTesterFootnote.Name = "panelStatTesterFootnote";
-            this.panelStatTesterFootnote.Size = new System.Drawing.Size(295, 128);
+            this.panelStatTesterFootnote.Size = new System.Drawing.Size(344, 128);
             this.panelStatTesterFootnote.TabIndex = 54;
             // 
             // LbWarningLevel255
@@ -1649,7 +1728,7 @@ namespace ARKBreedingStats
             this.LbWarningLevel255.Location = new System.Drawing.Point(8, 52);
             this.LbWarningLevel255.Name = "LbWarningLevel255";
             this.LbWarningLevel255.Padding = new System.Windows.Forms.Padding(3);
-            this.LbWarningLevel255.Size = new System.Drawing.Size(283, 70);
+            this.LbWarningLevel255.Size = new System.Drawing.Size(333, 70);
             this.LbWarningLevel255.TabIndex = 50;
             // 
             // lbWildLevelTester
@@ -1693,7 +1772,7 @@ namespace ARKBreedingStats
             this.gpPreviewEdit.Controls.Add(this.lbCurrentCreature);
             this.gpPreviewEdit.Controls.Add(this.labelCurrentTesterCreature);
             this.gpPreviewEdit.Controls.Add(this.lbTestingInfo);
-            this.gpPreviewEdit.Location = new System.Drawing.Point(321, 84);
+            this.gpPreviewEdit.Location = new System.Drawing.Point(373, 84);
             this.gpPreviewEdit.Name = "gpPreviewEdit";
             this.gpPreviewEdit.Size = new System.Drawing.Size(229, 91);
             this.gpPreviewEdit.TabIndex = 3;
@@ -1742,7 +1821,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputTester.DomesticatedAt = new System.DateTime(2014, 12, 31, 0, 0, 0, 0);
             this.creatureInfoInputTester.Father = null;
             this.creatureInfoInputTester.GrowingUntil = null;
-            this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
+            this.creatureInfoInputTester.Location = new System.Drawing.Point(373, 184);
             this.creatureInfoInputTester.LockServer = false;
             this.creatureInfoInputTester.Mother = null;
             this.creatureInfoInputTester.MutationCounterFather = 0;
@@ -1767,7 +1846,6 @@ namespace ARKBreedingStats
             // 
             this.tabPageExtractor.AutoScroll = true;
             this.tabPageExtractor.Controls.Add(this.LbAsa);
-            this.tabPageExtractor.Controls.Add(this.creatureAnalysis1);
             this.tabPageExtractor.Controls.Add(this.LbBlueprintPath);
             this.tabPageExtractor.Controls.Add(this.BtCopyIssueDumpToClipboard);
             this.tabPageExtractor.Controls.Add(this.llOnlineHelpExtractionIssues);
@@ -1785,13 +1863,14 @@ namespace ARKBreedingStats
             this.tabPageExtractor.Controls.Add(this.groupBoxPossibilities);
             this.tabPageExtractor.Controls.Add(this.lbLevel);
             this.tabPageExtractor.Controls.Add(this.labelErrorHelp);
+            this.tabPageExtractor.Controls.Add(this.creatureAnalysis1);
             this.tabPageExtractor.Controls.Add(this.parentInheritanceExtractor);
             this.tabPageExtractor.Controls.Add(this.numericUpDownLevel);
             this.tabPageExtractor.Controls.Add(this.creatureInfoInputExtractor);
             this.tabPageExtractor.Location = new System.Drawing.Point(4, 22);
             this.tabPageExtractor.Name = "tabPageExtractor";
             this.tabPageExtractor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageExtractor.Size = new System.Drawing.Size(1870, 749);
+            this.tabPageExtractor.Size = new System.Drawing.Size(1870, 784);
             this.tabPageExtractor.TabIndex = 0;
             this.tabPageExtractor.Text = "Extractor";
             this.tabPageExtractor.UseVisualStyleBackColor = true;
@@ -1801,18 +1880,11 @@ namespace ARKBreedingStats
             this.LbAsa.AutoSize = true;
             this.LbAsa.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbAsa.ForeColor = System.Drawing.Color.DarkGray;
-            this.LbAsa.Location = new System.Drawing.Point(295, 66);
+            this.LbAsa.Location = new System.Drawing.Point(346, 66);
             this.LbAsa.Name = "LbAsa";
             this.LbAsa.Size = new System.Drawing.Size(20, 9);
             this.LbAsa.TabIndex = 56;
             this.LbAsa.Text = "ASA";
-            // 
-            // creatureAnalysis1
-            // 
-            this.creatureAnalysis1.Location = new System.Drawing.Point(851, 265);
-            this.creatureAnalysis1.Name = "creatureAnalysis1";
-            this.creatureAnalysis1.Size = new System.Drawing.Size(346, 199);
-            this.creatureAnalysis1.TabIndex = 55;
             // 
             // LbBlueprintPath
             // 
@@ -1820,7 +1892,7 @@ namespace ARKBreedingStats
             this.LbBlueprintPath.ForeColor = System.Drawing.Color.DarkGray;
             this.LbBlueprintPath.Location = new System.Drawing.Point(8, 34);
             this.LbBlueprintPath.Name = "LbBlueprintPath";
-            this.LbBlueprintPath.Size = new System.Drawing.Size(307, 41);
+            this.LbBlueprintPath.Size = new System.Drawing.Size(338, 41);
             this.LbBlueprintPath.TabIndex = 54;
             this.LbBlueprintPath.Text = "/Game/​PrimalEarth/​Dinos/​Direwolf/ ​Direwolf_Character_BP.Direwolf_Character_BP" +
     "";
@@ -1828,7 +1900,7 @@ namespace ARKBreedingStats
             // 
             // BtCopyIssueDumpToClipboard
             // 
-            this.BtCopyIssueDumpToClipboard.Location = new System.Drawing.Point(590, 703);
+            this.BtCopyIssueDumpToClipboard.Location = new System.Drawing.Point(642, 703);
             this.BtCopyIssueDumpToClipboard.Name = "BtCopyIssueDumpToClipboard";
             this.BtCopyIssueDumpToClipboard.Size = new System.Drawing.Size(345, 23);
             this.BtCopyIssueDumpToClipboard.TabIndex = 53;
@@ -1839,7 +1911,7 @@ namespace ARKBreedingStats
             // llOnlineHelpExtractionIssues
             // 
             this.llOnlineHelpExtractionIssues.AutoSize = true;
-            this.llOnlineHelpExtractionIssues.Location = new System.Drawing.Point(593, 599);
+            this.llOnlineHelpExtractionIssues.Location = new System.Drawing.Point(645, 599);
             this.llOnlineHelpExtractionIssues.Name = "llOnlineHelpExtractionIssues";
             this.llOnlineHelpExtractionIssues.Size = new System.Drawing.Size(141, 13);
             this.llOnlineHelpExtractionIssues.TabIndex = 50;
@@ -1849,7 +1921,7 @@ namespace ARKBreedingStats
             // 
             // PbCreatureColorsExtractor
             // 
-            this.PbCreatureColorsExtractor.Location = new System.Drawing.Point(589, 489);
+            this.PbCreatureColorsExtractor.Location = new System.Drawing.Point(641, 489);
             this.PbCreatureColorsExtractor.Name = "PbCreatureColorsExtractor";
             this.PbCreatureColorsExtractor.Size = new System.Drawing.Size(256, 256);
             this.PbCreatureColorsExtractor.TabIndex = 51;
@@ -1859,7 +1931,7 @@ namespace ARKBreedingStats
             // groupBoxRadarChartExtractor
             // 
             this.groupBoxRadarChartExtractor.Controls.Add(this.radarChartExtractor);
-            this.groupBoxRadarChartExtractor.Location = new System.Drawing.Point(785, 6);
+            this.groupBoxRadarChartExtractor.Location = new System.Drawing.Point(837, 6);
             this.groupBoxRadarChartExtractor.Name = "groupBoxRadarChartExtractor";
             this.groupBoxRadarChartExtractor.Size = new System.Drawing.Size(150, 163);
             this.groupBoxRadarChartExtractor.TabIndex = 11;
@@ -1882,7 +1954,7 @@ namespace ARKBreedingStats
             this.lbImprintingFailInfo.BackColor = System.Drawing.Color.MistyRose;
             this.lbImprintingFailInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lbImprintingFailInfo.ForeColor = System.Drawing.Color.Maroon;
-            this.lbImprintingFailInfo.Location = new System.Drawing.Point(589, 612);
+            this.lbImprintingFailInfo.Location = new System.Drawing.Point(641, 612);
             this.lbImprintingFailInfo.Name = "lbImprintingFailInfo";
             this.lbImprintingFailInfo.Size = new System.Drawing.Size(443, 88);
             this.lbImprintingFailInfo.TabIndex = 49;
@@ -1894,7 +1966,7 @@ namespace ARKBreedingStats
             // groupBoxTamingInfo
             // 
             this.groupBoxTamingInfo.Controls.Add(this.labelTamingInfo);
-            this.groupBoxTamingInfo.Location = new System.Drawing.Point(590, 60);
+            this.groupBoxTamingInfo.Location = new System.Drawing.Point(642, 60);
             this.groupBoxTamingInfo.Name = "groupBoxTamingInfo";
             this.groupBoxTamingInfo.Size = new System.Drawing.Size(174, 423);
             this.groupBoxTamingInfo.TabIndex = 48;
@@ -1911,7 +1983,7 @@ namespace ARKBreedingStats
             // 
             // button2TamingCalc
             // 
-            this.button2TamingCalc.Location = new System.Drawing.Point(590, 32);
+            this.button2TamingCalc.Location = new System.Drawing.Point(642, 32);
             this.button2TamingCalc.Name = "button2TamingCalc";
             this.button2TamingCalc.Size = new System.Drawing.Size(177, 23);
             this.button2TamingCalc.TabIndex = 9;
@@ -1925,7 +1997,7 @@ namespace ARKBreedingStats
             this.gbStatsExtractor.Controls.Add(this.flowLayoutPanelStatIOsExtractor);
             this.gbStatsExtractor.Location = new System.Drawing.Point(8, 76);
             this.gbStatsExtractor.Name = "gbStatsExtractor";
-            this.gbStatsExtractor.Size = new System.Drawing.Size(307, 639);
+            this.gbStatsExtractor.Size = new System.Drawing.Size(359, 639);
             this.gbStatsExtractor.TabIndex = 3;
             this.gbStatsExtractor.TabStop = false;
             this.gbStatsExtractor.Text = "Stats";
@@ -1940,20 +2012,30 @@ namespace ARKBreedingStats
             this.flowLayoutPanelStatIOsExtractor.Location = new System.Drawing.Point(6, 19);
             this.flowLayoutPanelStatIOsExtractor.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanelStatIOsExtractor.Name = "flowLayoutPanelStatIOsExtractor";
-            this.flowLayoutPanelStatIOsExtractor.Size = new System.Drawing.Size(301, 617);
+            this.flowLayoutPanelStatIOsExtractor.Size = new System.Drawing.Size(353, 617);
             this.flowLayoutPanelStatIOsExtractor.TabIndex = 52;
             this.flowLayoutPanelStatIOsExtractor.WrapContents = false;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.lbCurrentStatEx);
             this.panel1.Controls.Add(this.lbExtractorWildLevel);
             this.panel1.Controls.Add(this.labelHBV);
             this.panel1.Controls.Add(this.lbExtractorDomLevel);
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(295, 17);
+            this.panel1.Size = new System.Drawing.Size(344, 17);
             this.panel1.TabIndex = 53;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(174, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(53, 13);
+            this.label5.TabIndex = 51;
+            this.label5.Text = "Mutations";
             // 
             // lbCurrentStatEx
             // 
@@ -1966,7 +2048,7 @@ namespace ARKBreedingStats
             // 
             // btExtractLevels
             // 
-            this.btExtractLevels.Location = new System.Drawing.Point(321, 110);
+            this.btExtractLevels.Location = new System.Drawing.Point(373, 110);
             this.btExtractLevels.Name = "btExtractLevels";
             this.btExtractLevels.Size = new System.Drawing.Size(229, 68);
             this.btExtractLevels.TabIndex = 6;
@@ -1977,7 +2059,7 @@ namespace ARKBreedingStats
             // cbQuickWildCheck
             // 
             this.cbQuickWildCheck.AutoSize = true;
-            this.cbQuickWildCheck.Location = new System.Drawing.Point(556, 8);
+            this.cbQuickWildCheck.Location = new System.Drawing.Point(608, 8);
             this.cbQuickWildCheck.Name = "cbQuickWildCheck";
             this.cbQuickWildCheck.Size = new System.Drawing.Size(155, 17);
             this.cbQuickWildCheck.TabIndex = 8;
@@ -1987,15 +2069,22 @@ namespace ARKBreedingStats
             // 
             // labelErrorHelp
             // 
-            this.labelErrorHelp.Location = new System.Drawing.Point(590, 43);
+            this.labelErrorHelp.Location = new System.Drawing.Point(642, 43);
             this.labelErrorHelp.Name = "labelErrorHelp";
             this.labelErrorHelp.Size = new System.Drawing.Size(239, 569);
             this.labelErrorHelp.TabIndex = 40;
             this.labelErrorHelp.Text = resources.GetString("labelErrorHelp.Text");
             // 
+            // creatureAnalysis1
+            // 
+            this.creatureAnalysis1.Location = new System.Drawing.Point(903, 265);
+            this.creatureAnalysis1.Name = "creatureAnalysis1";
+            this.creatureAnalysis1.Size = new System.Drawing.Size(346, 199);
+            this.creatureAnalysis1.TabIndex = 55;
+            // 
             // parentInheritanceExtractor
             // 
-            this.parentInheritanceExtractor.Location = new System.Drawing.Point(851, 470);
+            this.parentInheritanceExtractor.Location = new System.Drawing.Point(903, 470);
             this.parentInheritanceExtractor.Name = "parentInheritanceExtractor";
             this.parentInheritanceExtractor.Size = new System.Drawing.Size(337, 182);
             this.parentInheritanceExtractor.TabIndex = 52;
@@ -2039,7 +2128,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputExtractor.DomesticatedAt = new System.DateTime(2014, 12, 31, 0, 0, 0, 0);
             this.creatureInfoInputExtractor.Father = null;
             this.creatureInfoInputExtractor.GrowingUntil = null;
-            this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
+            this.creatureInfoInputExtractor.Location = new System.Drawing.Point(373, 184);
             this.creatureInfoInputExtractor.LockServer = false;
             this.creatureInfoInputExtractor.Mother = null;
             this.creatureInfoInputExtractor.MutationCounterFather = 0;
@@ -2065,7 +2154,7 @@ namespace ARKBreedingStats
             this.tabPageLibrary.Location = new System.Drawing.Point(4, 22);
             this.tabPageLibrary.Name = "tabPageLibrary";
             this.tabPageLibrary.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLibrary.Size = new System.Drawing.Size(1870, 749);
+            this.tabPageLibrary.Size = new System.Drawing.Size(1870, 784);
             this.tabPageLibrary.TabIndex = 2;
             this.tabPageLibrary.Text = "Library";
             this.tabPageLibrary.UseVisualStyleBackColor = true;
@@ -2082,7 +2171,7 @@ namespace ARKBreedingStats
             this.tableLayoutPanelLibrary.Name = "tableLayoutPanelLibrary";
             this.tableLayoutPanelLibrary.RowCount = 1;
             this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelLibrary.Size = new System.Drawing.Size(1864, 743);
+            this.tableLayoutPanelLibrary.Size = new System.Drawing.Size(1864, 778);
             this.tableLayoutPanelLibrary.TabIndex = 4;
             // 
             // listViewLibrary
@@ -2107,12 +2196,24 @@ namespace ARKBreedingStats
             this.columnHeaderOx,
             this.columnHeaderFo,
             this.columnHeaderWa,
-            this.columnHeaderTemp,
+            this.columnHeaderTm,
             this.columnHeaderWe,
             this.columnHeaderDm,
             this.columnHeaderSp,
             this.columnHeaderFr,
             this.columnHeaderCr,
+            this.columnHeaderHPM,
+            this.columnHeaderStM,
+            this.columnHeaderToM,
+            this.columnHeaderOxM,
+            this.columnHeaderFoM,
+            this.columnHeaderWaM,
+            this.columnHeaderTmM,
+            this.columnHeaderWeM,
+            this.columnHeaderDmM,
+            this.columnHeaderSpM,
+            this.columnHeaderFrM,
+            this.columnHeaderCrM,
             this.columnHeaderColor0,
             this.columnHeaderColor1,
             this.columnHeaderColor2,
@@ -2131,7 +2232,7 @@ namespace ARKBreedingStats
             this.listViewLibrary.Location = new System.Drawing.Point(204, 3);
             this.listViewLibrary.Name = "listViewLibrary";
             this.listViewLibrary.ShowItemToolTips = true;
-            this.listViewLibrary.Size = new System.Drawing.Size(1657, 737);
+            this.listViewLibrary.Size = new System.Drawing.Size(1657, 772);
             this.listViewLibrary.TabIndex = 2;
             this.listViewLibrary.UseCompatibleStateImageBehavior = false;
             this.listViewLibrary.View = System.Windows.Forms.View.Details;
@@ -2171,45 +2272,45 @@ namespace ARKBreedingStats
             // 
             // columnHeaderDomesticated
             // 
-            this.columnHeaderDomesticated.DisplayIndex = 23;
+            this.columnHeaderDomesticated.DisplayIndex = 36;
             this.columnHeaderDomesticated.Text = "Domesticated";
             // 
             // columnHeaderTopness
             // 
-            this.columnHeaderTopness.DisplayIndex = 19;
+            this.columnHeaderTopness.DisplayIndex = 30;
             this.columnHeaderTopness.Text = "Tp%";
             this.columnHeaderTopness.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderTopness.Width = 33;
             // 
             // columnHeaderTopStatsNr
             // 
-            this.columnHeaderTopStatsNr.DisplayIndex = 18;
+            this.columnHeaderTopStatsNr.DisplayIndex = 31;
             this.columnHeaderTopStatsNr.Text = "Top";
             this.columnHeaderTopStatsNr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderTopStatsNr.Width = 31;
             // 
             // columnHeaderGen
             // 
-            this.columnHeaderGen.DisplayIndex = 20;
+            this.columnHeaderGen.DisplayIndex = 32;
             this.columnHeaderGen.Text = "Gen";
             this.columnHeaderGen.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeaderGen.Width = 34;
             // 
             // columnHeaderFound
             // 
-            this.columnHeaderFound.DisplayIndex = 21;
+            this.columnHeaderFound.DisplayIndex = 33;
             this.columnHeaderFound.Text = "LW";
             this.columnHeaderFound.Width = 30;
             // 
             // columnHeaderMutations
             // 
-            this.columnHeaderMutations.DisplayIndex = 22;
+            this.columnHeaderMutations.DisplayIndex = 34;
             this.columnHeaderMutations.Text = "Mu";
             this.columnHeaderMutations.Width = 30;
             // 
             // columnHeaderCooldown
             // 
-            this.columnHeaderCooldown.DisplayIndex = 24;
+            this.columnHeaderCooldown.DisplayIndex = 37;
             this.columnHeaderCooldown.Text = "Cooldown/Growing";
             // 
             // columnHeaderHP
@@ -2221,140 +2322,224 @@ namespace ARKBreedingStats
             // 
             // columnHeaderSt
             // 
-            this.columnHeaderSt.DisplayIndex = 7;
+            this.columnHeaderSt.DisplayIndex = 8;
             this.columnHeaderSt.Text = "St";
             this.columnHeaderSt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderSt.Width = 30;
             // 
             // columnHeaderTo
             // 
-            this.columnHeaderTo.DisplayIndex = 17;
+            this.columnHeaderTo.DisplayIndex = 28;
             this.columnHeaderTo.Text = "To";
             this.columnHeaderTo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderTo.Width = 30;
             // 
             // columnHeaderOx
             // 
-            this.columnHeaderOx.DisplayIndex = 8;
+            this.columnHeaderOx.DisplayIndex = 10;
             this.columnHeaderOx.Text = "Ox";
             this.columnHeaderOx.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderOx.Width = 30;
             // 
             // columnHeaderFo
             // 
-            this.columnHeaderFo.DisplayIndex = 9;
+            this.columnHeaderFo.DisplayIndex = 12;
             this.columnHeaderFo.Text = "Fo";
             this.columnHeaderFo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderFo.Width = 30;
             // 
             // columnHeaderWa
             // 
-            this.columnHeaderWa.DisplayIndex = 10;
+            this.columnHeaderWa.DisplayIndex = 14;
             this.columnHeaderWa.Text = "Wa";
             this.columnHeaderWa.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderWa.Width = 30;
             // 
-            // columnHeaderTemp
+            // columnHeaderTm
             // 
-            this.columnHeaderTemp.DisplayIndex = 11;
-            this.columnHeaderTemp.Text = "Te";
-            this.columnHeaderTemp.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeaderTemp.Width = 30;
+            this.columnHeaderTm.DisplayIndex = 16;
+            this.columnHeaderTm.Text = "Te";
+            this.columnHeaderTm.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderTm.Width = 30;
             // 
             // columnHeaderWe
             // 
-            this.columnHeaderWe.DisplayIndex = 12;
+            this.columnHeaderWe.DisplayIndex = 18;
             this.columnHeaderWe.Text = "We";
             this.columnHeaderWe.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderWe.Width = 30;
             // 
             // columnHeaderDm
             // 
-            this.columnHeaderDm.DisplayIndex = 13;
             this.columnHeaderDm.Text = "Dm";
             this.columnHeaderDm.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderDm.Width = 30;
             // 
             // columnHeaderSp
             // 
-            this.columnHeaderSp.DisplayIndex = 14;
+            this.columnHeaderSp.DisplayIndex = 22;
             this.columnHeaderSp.Text = "Sp";
             this.columnHeaderSp.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderSp.Width = 30;
             // 
             // columnHeaderFr
             // 
-            this.columnHeaderFr.DisplayIndex = 15;
+            this.columnHeaderFr.DisplayIndex = 24;
             this.columnHeaderFr.Text = "Fr";
             this.columnHeaderFr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderFr.Width = 30;
             // 
             // columnHeaderCr
             // 
-            this.columnHeaderCr.DisplayIndex = 16;
+            this.columnHeaderCr.DisplayIndex = 26;
             this.columnHeaderCr.Text = "Cr";
             this.columnHeaderCr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderCr.Width = 30;
             // 
+            // columnHeaderHPM
+            // 
+            this.columnHeaderHPM.DisplayIndex = 7;
+            this.columnHeaderHPM.Text = "HPM";
+            this.columnHeaderHPM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderHPM.Width = 35;
+            // 
+            // columnHeaderStM
+            // 
+            this.columnHeaderStM.DisplayIndex = 9;
+            this.columnHeaderStM.Text = "StM";
+            this.columnHeaderStM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderStM.Width = 35;
+            // 
+            // columnHeaderToM
+            // 
+            this.columnHeaderToM.DisplayIndex = 29;
+            this.columnHeaderToM.Text = "ToM";
+            this.columnHeaderToM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderToM.Width = 35;
+            // 
+            // columnHeaderOxM
+            // 
+            this.columnHeaderOxM.DisplayIndex = 11;
+            this.columnHeaderOxM.Text = "OxM";
+            this.columnHeaderOxM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderOxM.Width = 35;
+            // 
+            // columnHeaderFoM
+            // 
+            this.columnHeaderFoM.DisplayIndex = 13;
+            this.columnHeaderFoM.Text = "FoM";
+            this.columnHeaderFoM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderFoM.Width = 35;
+            // 
+            // columnHeaderWaM
+            // 
+            this.columnHeaderWaM.DisplayIndex = 15;
+            this.columnHeaderWaM.Text = "WaM";
+            this.columnHeaderWaM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderWaM.Width = 0;
+            // 
+            // columnHeaderTmM
+            // 
+            this.columnHeaderTmM.DisplayIndex = 17;
+            this.columnHeaderTmM.Text = "TeM";
+            this.columnHeaderTmM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderTmM.Width = 0;
+            // 
+            // columnHeaderWeM
+            // 
+            this.columnHeaderWeM.DisplayIndex = 19;
+            this.columnHeaderWeM.Text = "WeM";
+            this.columnHeaderWeM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderWeM.Width = 35;
+            // 
+            // columnHeaderDmM
+            // 
+            this.columnHeaderDmM.DisplayIndex = 21;
+            this.columnHeaderDmM.Text = "DmM";
+            this.columnHeaderDmM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderDmM.Width = 35;
+            // 
+            // columnHeaderSpM
+            // 
+            this.columnHeaderSpM.DisplayIndex = 23;
+            this.columnHeaderSpM.Text = "SpM";
+            this.columnHeaderSpM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderSpM.Width = 35;
+            // 
+            // columnHeaderFrM
+            // 
+            this.columnHeaderFrM.DisplayIndex = 25;
+            this.columnHeaderFrM.Text = "FrM";
+            this.columnHeaderFrM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderFrM.Width = 0;
+            // 
+            // columnHeaderCrM
+            // 
+            this.columnHeaderCrM.DisplayIndex = 27;
+            this.columnHeaderCrM.Text = "CrM";
+            this.columnHeaderCrM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderCrM.Width = 0;
+            // 
             // columnHeaderColor0
             // 
-            this.columnHeaderColor0.DisplayIndex = 25;
+            this.columnHeaderColor0.DisplayIndex = 38;
             this.columnHeaderColor0.Text = "C0";
             this.columnHeaderColor0.Width = 25;
             // 
             // columnHeaderColor1
             // 
-            this.columnHeaderColor1.DisplayIndex = 26;
+            this.columnHeaderColor1.DisplayIndex = 39;
             this.columnHeaderColor1.Text = "C1";
             this.columnHeaderColor1.Width = 25;
             // 
             // columnHeaderColor2
             // 
-            this.columnHeaderColor2.DisplayIndex = 27;
+            this.columnHeaderColor2.DisplayIndex = 40;
             this.columnHeaderColor2.Text = "C2";
             this.columnHeaderColor2.Width = 25;
             // 
             // columnHeaderColor3
             // 
-            this.columnHeaderColor3.DisplayIndex = 28;
+            this.columnHeaderColor3.DisplayIndex = 41;
             this.columnHeaderColor3.Text = "C3";
             this.columnHeaderColor3.Width = 25;
             // 
             // columnHeaderColor4
             // 
-            this.columnHeaderColor4.DisplayIndex = 29;
+            this.columnHeaderColor4.DisplayIndex = 42;
             this.columnHeaderColor4.Text = "C4";
             this.columnHeaderColor4.Width = 25;
             // 
             // columnHeaderColor5
             // 
-            this.columnHeaderColor5.DisplayIndex = 30;
+            this.columnHeaderColor5.DisplayIndex = 43;
             this.columnHeaderColor5.Text = "C5";
             this.columnHeaderColor5.Width = 25;
             // 
             // columnHeaderSpecies
             // 
-            this.columnHeaderSpecies.DisplayIndex = 31;
+            this.columnHeaderSpecies.DisplayIndex = 44;
             this.columnHeaderSpecies.Text = "Species";
             // 
             // columnHeaderStatus
             // 
-            this.columnHeaderStatus.DisplayIndex = 32;
+            this.columnHeaderStatus.DisplayIndex = 0;
             this.columnHeaderStatus.Text = "Status";
             // 
             // columnHeaderTribe
             // 
-            this.columnHeaderTribe.DisplayIndex = 33;
+            this.columnHeaderTribe.DisplayIndex = 45;
             this.columnHeaderTribe.Text = "Tribe";
             // 
             // columnHeaderStatusIcon
             // 
-            this.columnHeaderStatusIcon.DisplayIndex = 0;
+            this.columnHeaderStatusIcon.DisplayIndex = 46;
             this.columnHeaderStatusIcon.Text = "Status";
             this.columnHeaderStatusIcon.Width = 35;
             // 
             // columnHeaderMutagen
             // 
+            this.columnHeaderMutagen.DisplayIndex = 35;
             this.columnHeaderMutagen.Text = "Mutagen";
             this.columnHeaderMutagen.Width = 30;
             // 
@@ -2678,7 +2863,7 @@ namespace ARKBreedingStats
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(195, 737);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(195, 772);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
             // tabControlLibFilter
@@ -2690,7 +2875,7 @@ namespace ARKBreedingStats
             this.tabControlLibFilter.Location = new System.Drawing.Point(3, 415);
             this.tabControlLibFilter.Name = "tabControlLibFilter";
             this.tabControlLibFilter.SelectedIndex = 0;
-            this.tabControlLibFilter.Size = new System.Drawing.Size(189, 319);
+            this.tabControlLibFilter.Size = new System.Drawing.Size(189, 354);
             this.tabControlLibFilter.TabIndex = 5;
             // 
             // tabPage1
@@ -2699,7 +2884,7 @@ namespace ARKBreedingStats
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(181, 293);
+            this.tabPage1.Size = new System.Drawing.Size(181, 328);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Species";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -2710,7 +2895,7 @@ namespace ARKBreedingStats
             this.listBoxSpeciesLib.FormattingEnabled = true;
             this.listBoxSpeciesLib.Location = new System.Drawing.Point(3, 3);
             this.listBoxSpeciesLib.Name = "listBoxSpeciesLib";
-            this.listBoxSpeciesLib.Size = new System.Drawing.Size(175, 287);
+            this.listBoxSpeciesLib.Size = new System.Drawing.Size(175, 322);
             this.listBoxSpeciesLib.TabIndex = 0;
             this.listBoxSpeciesLib.Click += new System.EventHandler(this.listBoxSpeciesLib_Click);
             this.listBoxSpeciesLib.SelectedIndexChanged += new System.EventHandler(this.listBoxSpeciesLib_SelectedIndexChanged);
@@ -2721,7 +2906,7 @@ namespace ARKBreedingStats
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(181, 293);
+            this.tabPage3.Size = new System.Drawing.Size(181, 328);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Stats";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -2740,7 +2925,7 @@ namespace ARKBreedingStats
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(175, 287);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(175, 322);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // checkedListBoxConsiderStatTop
@@ -2750,13 +2935,13 @@ namespace ARKBreedingStats
             this.checkedListBoxConsiderStatTop.FormattingEnabled = true;
             this.checkedListBoxConsiderStatTop.Location = new System.Drawing.Point(3, 35);
             this.checkedListBoxConsiderStatTop.Name = "checkedListBoxConsiderStatTop";
-            this.checkedListBoxConsiderStatTop.Size = new System.Drawing.Size(169, 220);
+            this.checkedListBoxConsiderStatTop.Size = new System.Drawing.Size(169, 255);
             this.checkedListBoxConsiderStatTop.TabIndex = 3;
             // 
             // buttonRecalculateTops
             // 
             this.buttonRecalculateTops.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonRecalculateTops.Location = new System.Drawing.Point(3, 261);
+            this.buttonRecalculateTops.Location = new System.Drawing.Point(3, 296);
             this.buttonRecalculateTops.Name = "buttonRecalculateTops";
             this.buttonRecalculateTops.Size = new System.Drawing.Size(169, 23);
             this.buttonRecalculateTops.TabIndex = 2;
@@ -2779,7 +2964,7 @@ namespace ARKBreedingStats
             this.tabPageLibRadarChart.Location = new System.Drawing.Point(4, 22);
             this.tabPageLibRadarChart.Name = "tabPageLibRadarChart";
             this.tabPageLibRadarChart.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLibRadarChart.Size = new System.Drawing.Size(181, 293);
+            this.tabPageLibRadarChart.Size = new System.Drawing.Size(181, 328);
             this.tabPageLibRadarChart.TabIndex = 4;
             this.tabPageLibRadarChart.Text = "Chart";
             this.tabPageLibRadarChart.UseVisualStyleBackColor = true;
@@ -2811,7 +2996,7 @@ namespace ARKBreedingStats
             this.tabPageLibraryInfo.Location = new System.Drawing.Point(4, 22);
             this.tabPageLibraryInfo.Name = "tabPageLibraryInfo";
             this.tabPageLibraryInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLibraryInfo.Size = new System.Drawing.Size(1870, 749);
+            this.tabPageLibraryInfo.Size = new System.Drawing.Size(1870, 784);
             this.tabPageLibraryInfo.TabIndex = 14;
             this.tabPageLibraryInfo.Text = "Library Info";
             this.tabPageLibraryInfo.UseVisualStyleBackColor = true;
@@ -2829,7 +3014,7 @@ namespace ARKBreedingStats
             this.tlpLibraryInfo.Name = "tlpLibraryInfo";
             this.tlpLibraryInfo.RowCount = 1;
             this.tlpLibraryInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpLibraryInfo.Size = new System.Drawing.Size(1864, 743);
+            this.tlpLibraryInfo.Size = new System.Drawing.Size(1864, 778);
             this.tlpLibraryInfo.TabIndex = 0;
             // 
             // CbLibraryInfoUseFilter
@@ -2859,7 +3044,7 @@ namespace ARKBreedingStats
             this.tabPagePedigree.Location = new System.Drawing.Point(4, 22);
             this.tabPagePedigree.Name = "tabPagePedigree";
             this.tabPagePedigree.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePedigree.Size = new System.Drawing.Size(1870, 749);
+            this.tabPagePedigree.Size = new System.Drawing.Size(1870, 784);
             this.tabPagePedigree.TabIndex = 3;
             this.tabPagePedigree.Text = "Pedigree";
             this.tabPagePedigree.UseVisualStyleBackColor = true;
@@ -2871,7 +3056,7 @@ namespace ARKBreedingStats
             this.pedigree1.LeftColumnWidth = 203;
             this.pedigree1.Location = new System.Drawing.Point(3, 3);
             this.pedigree1.Name = "pedigree1";
-            this.pedigree1.Size = new System.Drawing.Size(1864, 743);
+            this.pedigree1.Size = new System.Drawing.Size(1864, 778);
             this.pedigree1.TabIndex = 0;
             // 
             // tabPageTaming
@@ -2880,7 +3065,7 @@ namespace ARKBreedingStats
             this.tabPageTaming.Location = new System.Drawing.Point(4, 22);
             this.tabPageTaming.Name = "tabPageTaming";
             this.tabPageTaming.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTaming.Size = new System.Drawing.Size(1870, 749);
+            this.tabPageTaming.Size = new System.Drawing.Size(1870, 784);
             this.tabPageTaming.TabIndex = 8;
             this.tabPageTaming.Text = "Taming";
             this.tabPageTaming.UseVisualStyleBackColor = true;
@@ -2891,7 +3076,7 @@ namespace ARKBreedingStats
             this.tamingControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tamingControl1.Location = new System.Drawing.Point(3, 3);
             this.tamingControl1.Name = "tamingControl1";
-            this.tamingControl1.Size = new System.Drawing.Size(1864, 743);
+            this.tamingControl1.Size = new System.Drawing.Size(1864, 778);
             this.tamingControl1.TabIndex = 0;
             this.tamingControl1.WeaponDamages = new double[] {
         100D,
@@ -2909,7 +3094,7 @@ namespace ARKBreedingStats
             this.tabPageBreedingPlan.Location = new System.Drawing.Point(4, 22);
             this.tabPageBreedingPlan.Name = "tabPageBreedingPlan";
             this.tabPageBreedingPlan.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBreedingPlan.Size = new System.Drawing.Size(1870, 749);
+            this.tabPageBreedingPlan.Size = new System.Drawing.Size(1870, 784);
             this.tabPageBreedingPlan.TabIndex = 4;
             this.tabPageBreedingPlan.Text = "Breeding Plan";
             this.tabPageBreedingPlan.UseVisualStyleBackColor = true;
@@ -2922,7 +3107,7 @@ namespace ARKBreedingStats
             this.breedingPlan1.Location = new System.Drawing.Point(3, 3);
             this.breedingPlan1.MutationLimit = 0;
             this.breedingPlan1.Name = "breedingPlan1";
-            this.breedingPlan1.Size = new System.Drawing.Size(1864, 743);
+            this.breedingPlan1.Size = new System.Drawing.Size(1864, 778);
             this.breedingPlan1.TabIndex = 0;
             // 
             // tabPageHatching
@@ -2931,7 +3116,7 @@ namespace ARKBreedingStats
             this.tabPageHatching.Location = new System.Drawing.Point(4, 22);
             this.tabPageHatching.Name = "tabPageHatching";
             this.tabPageHatching.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageHatching.Size = new System.Drawing.Size(1870, 749);
+            this.tabPageHatching.Size = new System.Drawing.Size(1870, 784);
             this.tabPageHatching.TabIndex = 13;
             this.tabPageHatching.Text = "Hatching";
             this.tabPageHatching.UseVisualStyleBackColor = true;
@@ -2941,7 +3126,7 @@ namespace ARKBreedingStats
             this.hatching1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.hatching1.Location = new System.Drawing.Point(3, 3);
             this.hatching1.Name = "hatching1";
-            this.hatching1.Size = new System.Drawing.Size(1864, 743);
+            this.hatching1.Size = new System.Drawing.Size(1864, 778);
             this.hatching1.TabIndex = 0;
             // 
             // tabPageRaising
@@ -2950,7 +3135,7 @@ namespace ARKBreedingStats
             this.tabPageRaising.Location = new System.Drawing.Point(4, 22);
             this.tabPageRaising.Name = "tabPageRaising";
             this.tabPageRaising.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageRaising.Size = new System.Drawing.Size(1870, 749);
+            this.tabPageRaising.Size = new System.Drawing.Size(1870, 784);
             this.tabPageRaising.TabIndex = 9;
             this.tabPageRaising.Text = "Raising";
             this.tabPageRaising.UseVisualStyleBackColor = true;
@@ -2961,7 +3146,7 @@ namespace ARKBreedingStats
             this.raisingControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.raisingControl1.Location = new System.Drawing.Point(3, 3);
             this.raisingControl1.Name = "raisingControl1";
-            this.raisingControl1.Size = new System.Drawing.Size(1864, 743);
+            this.raisingControl1.Size = new System.Drawing.Size(1864, 778);
             this.raisingControl1.TabIndex = 0;
             // 
             // tabPageTimer
@@ -2970,7 +3155,7 @@ namespace ARKBreedingStats
             this.tabPageTimer.Location = new System.Drawing.Point(4, 22);
             this.tabPageTimer.Name = "tabPageTimer";
             this.tabPageTimer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTimer.Size = new System.Drawing.Size(1870, 749);
+            this.tabPageTimer.Size = new System.Drawing.Size(1870, 784);
             this.tabPageTimer.TabIndex = 6;
             this.tabPageTimer.Text = "Timer";
             this.tabPageTimer.UseVisualStyleBackColor = true;
@@ -2980,7 +3165,7 @@ namespace ARKBreedingStats
             this.timerList1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.timerList1.Location = new System.Drawing.Point(3, 3);
             this.timerList1.Name = "timerList1";
-            this.timerList1.Size = new System.Drawing.Size(1864, 743);
+            this.timerList1.Size = new System.Drawing.Size(1864, 778);
             this.timerList1.TabIndex = 0;
             this.timerList1.TimerAlertsCSV = "";
             // 
@@ -2990,7 +3175,7 @@ namespace ARKBreedingStats
             this.tabPagePlayerTribes.Location = new System.Drawing.Point(4, 22);
             this.tabPagePlayerTribes.Name = "tabPagePlayerTribes";
             this.tabPagePlayerTribes.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePlayerTribes.Size = new System.Drawing.Size(1870, 749);
+            this.tabPagePlayerTribes.Size = new System.Drawing.Size(1870, 784);
             this.tabPagePlayerTribes.TabIndex = 7;
             this.tabPagePlayerTribes.Text = "Player";
             this.tabPagePlayerTribes.UseVisualStyleBackColor = true;
@@ -3000,7 +3185,7 @@ namespace ARKBreedingStats
             this.tribesControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tribesControl1.Location = new System.Drawing.Point(3, 3);
             this.tribesControl1.Name = "tribesControl1";
-            this.tribesControl1.Size = new System.Drawing.Size(1864, 743);
+            this.tribesControl1.Size = new System.Drawing.Size(1864, 778);
             this.tribesControl1.TabIndex = 0;
             // 
             // tabPageNotes
@@ -3009,7 +3194,7 @@ namespace ARKBreedingStats
             this.tabPageNotes.Location = new System.Drawing.Point(4, 22);
             this.tabPageNotes.Name = "tabPageNotes";
             this.tabPageNotes.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageNotes.Size = new System.Drawing.Size(1870, 749);
+            this.tabPageNotes.Size = new System.Drawing.Size(1870, 784);
             this.tabPageNotes.TabIndex = 10;
             this.tabPageNotes.Text = "Notes";
             this.tabPageNotes.UseVisualStyleBackColor = true;
@@ -3019,7 +3204,7 @@ namespace ARKBreedingStats
             this.notesControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.notesControl1.Location = new System.Drawing.Point(3, 3);
             this.notesControl1.Name = "notesControl1";
-            this.notesControl1.Size = new System.Drawing.Size(1864, 743);
+            this.notesControl1.Size = new System.Drawing.Size(1864, 778);
             this.notesControl1.TabIndex = 0;
             // 
             // TabPageOCR
@@ -3028,7 +3213,7 @@ namespace ARKBreedingStats
             this.TabPageOCR.Location = new System.Drawing.Point(4, 22);
             this.TabPageOCR.Name = "TabPageOCR";
             this.TabPageOCR.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPageOCR.Size = new System.Drawing.Size(1870, 749);
+            this.TabPageOCR.Size = new System.Drawing.Size(1870, 784);
             this.TabPageOCR.TabIndex = 5;
             this.TabPageOCR.Text = "Experimental OCR";
             this.TabPageOCR.UseVisualStyleBackColor = true;
@@ -3038,7 +3223,7 @@ namespace ARKBreedingStats
             this.ocrControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ocrControl1.Location = new System.Drawing.Point(3, 3);
             this.ocrControl1.Name = "ocrControl1";
-            this.ocrControl1.Size = new System.Drawing.Size(1864, 743);
+            this.ocrControl1.Size = new System.Drawing.Size(1864, 778);
             this.ocrControl1.TabIndex = 2;
             // 
             // tabPageExtractionTests
@@ -3047,7 +3232,7 @@ namespace ARKBreedingStats
             this.tabPageExtractionTests.Location = new System.Drawing.Point(4, 22);
             this.tabPageExtractionTests.Name = "tabPageExtractionTests";
             this.tabPageExtractionTests.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageExtractionTests.Size = new System.Drawing.Size(1870, 749);
+            this.tabPageExtractionTests.Size = new System.Drawing.Size(1870, 784);
             this.tabPageExtractionTests.TabIndex = 11;
             this.tabPageExtractionTests.Text = "Extraction Tests";
             this.tabPageExtractionTests.UseVisualStyleBackColor = true;
@@ -3057,7 +3242,7 @@ namespace ARKBreedingStats
             this.extractionTestControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.extractionTestControl1.Location = new System.Drawing.Point(3, 3);
             this.extractionTestControl1.Name = "extractionTestControl1";
-            this.extractionTestControl1.Size = new System.Drawing.Size(1864, 743);
+            this.extractionTestControl1.Size = new System.Drawing.Size(1864, 778);
             this.extractionTestControl1.TabIndex = 0;
             // 
             // tabPageMultiplierTesting
@@ -3066,7 +3251,7 @@ namespace ARKBreedingStats
             this.tabPageMultiplierTesting.Location = new System.Drawing.Point(4, 22);
             this.tabPageMultiplierTesting.Name = "tabPageMultiplierTesting";
             this.tabPageMultiplierTesting.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMultiplierTesting.Size = new System.Drawing.Size(1870, 749);
+            this.tabPageMultiplierTesting.Size = new System.Drawing.Size(1870, 784);
             this.tabPageMultiplierTesting.TabIndex = 12;
             this.tabPageMultiplierTesting.Text = "Multiplier Testing";
             this.tabPageMultiplierTesting.UseVisualStyleBackColor = true;
@@ -3076,7 +3261,7 @@ namespace ARKBreedingStats
             this.statsMultiplierTesting1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.statsMultiplierTesting1.Location = new System.Drawing.Point(3, 3);
             this.statsMultiplierTesting1.Name = "statsMultiplierTesting1";
-            this.statsMultiplierTesting1.Size = new System.Drawing.Size(1864, 743);
+            this.statsMultiplierTesting1.Size = new System.Drawing.Size(1864, 778);
             this.statsMultiplierTesting1.TabIndex = 0;
             // 
             // btReadValuesFromArk
@@ -3106,7 +3291,7 @@ namespace ARKBreedingStats
             this.toolStripProgressBar1,
             this.toolStripStatusLabel,
             this.ToolStripStatusLabelImport});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 878);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 913);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1878, 22);
             this.statusStrip1.TabIndex = 44;
@@ -3513,6 +3698,7 @@ namespace ARKBreedingStats
             // 
             this.TbMessageLabel.AcceptsReturn = true;
             this.TbMessageLabel.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TbMessageLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TbMessageLabel.Location = new System.Drawing.Point(470, 3);
             this.TbMessageLabel.Multiline = true;
             this.TbMessageLabel.Name = "TbMessageLabel";
@@ -3525,16 +3711,54 @@ namespace ARKBreedingStats
             // contextMenuStripLibraryHeader
             // 
             this.contextMenuStripLibraryHeader.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemResetLibraryColumnWidths});
+            this.toolStripMenuItemResetLibraryColumnWidths,
+            this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem,
+            this.restoreMutationLevelsASAToolStripMenuItem,
+            this.collapseMutationsLevelsASEToolStripMenuItem,
+            this.toolStripSeparator27,
+            this.resetColumnOrderToolStripMenuItem});
             this.contextMenuStripLibraryHeader.Name = "contextMenuStrip1";
-            this.contextMenuStripLibraryHeader.Size = new System.Drawing.Size(180, 26);
+            this.contextMenuStripLibraryHeader.Size = new System.Drawing.Size(333, 120);
             // 
             // toolStripMenuItemResetLibraryColumnWidths
             // 
             this.toolStripMenuItemResetLibraryColumnWidths.Name = "toolStripMenuItemResetLibraryColumnWidths";
-            this.toolStripMenuItemResetLibraryColumnWidths.Size = new System.Drawing.Size(179, 22);
-            this.toolStripMenuItemResetLibraryColumnWidths.Text = "Reset column width";
+            this.toolStripMenuItemResetLibraryColumnWidths.Size = new System.Drawing.Size(332, 22);
+            this.toolStripMenuItemResetLibraryColumnWidths.Text = "Reset all column widths";
             this.toolStripMenuItemResetLibraryColumnWidths.Click += new System.EventHandler(this.toolStripMenuItemResetLibraryColumnWidths_Click);
+            // 
+            // resetColumnWidthNoMutationLevelColumnsToolStripMenuItem
+            // 
+            this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem.Name = "resetColumnWidthNoMutationLevelColumnsToolStripMenuItem";
+            this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem.Size = new System.Drawing.Size(332, 22);
+            this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem.Text = "Reset all column widths, collapse mutation levels";
+            this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem.Click += new System.EventHandler(this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem_Click);
+            // 
+            // restoreMutationLevelsASAToolStripMenuItem
+            // 
+            this.restoreMutationLevelsASAToolStripMenuItem.Name = "restoreMutationLevelsASAToolStripMenuItem";
+            this.restoreMutationLevelsASAToolStripMenuItem.Size = new System.Drawing.Size(332, 22);
+            this.restoreMutationLevelsASAToolStripMenuItem.Text = "Restore mutation levels (ASA)";
+            this.restoreMutationLevelsASAToolStripMenuItem.Click += new System.EventHandler(this.restoreMutationLevelsASAToolStripMenuItem_Click);
+            // 
+            // collapseMutationsLevelsASEToolStripMenuItem
+            // 
+            this.collapseMutationsLevelsASEToolStripMenuItem.Name = "collapseMutationsLevelsASEToolStripMenuItem";
+            this.collapseMutationsLevelsASEToolStripMenuItem.Size = new System.Drawing.Size(332, 22);
+            this.collapseMutationsLevelsASEToolStripMenuItem.Text = "Collapse mutations levels (ASE)";
+            this.collapseMutationsLevelsASEToolStripMenuItem.Click += new System.EventHandler(this.collapseMutationsLevelsASEToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator27
+            // 
+            this.toolStripSeparator27.Name = "toolStripSeparator27";
+            this.toolStripSeparator27.Size = new System.Drawing.Size(329, 6);
+            // 
+            // resetColumnOrderToolStripMenuItem
+            // 
+            this.resetColumnOrderToolStripMenuItem.Name = "resetColumnOrderToolStripMenuItem";
+            this.resetColumnOrderToolStripMenuItem.Size = new System.Drawing.Size(332, 22);
+            this.resetColumnOrderToolStripMenuItem.Text = "Reset column order";
+            this.resetColumnOrderToolStripMenuItem.Click += new System.EventHandler(this.resetColumnOrderToolStripMenuItem_Click);
             // 
             // speciesSelector1
             // 
@@ -3542,7 +3766,7 @@ namespace ARKBreedingStats
             this.speciesSelector1.LastSpecies = new string[0];
             this.speciesSelector1.Location = new System.Drawing.Point(0, 103);
             this.speciesSelector1.Name = "speciesSelector1";
-            this.speciesSelector1.Size = new System.Drawing.Size(1878, 775);
+            this.speciesSelector1.Size = new System.Drawing.Size(1878, 810);
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
@@ -3552,7 +3776,7 @@ namespace ARKBreedingStats
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1878, 900);
+            this.ClientSize = new System.Drawing.Size(1878, 935);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.speciesSelector1);
             this.Controls.Add(this.panelToolBar);
@@ -3592,6 +3816,7 @@ namespace ARKBreedingStats
             this.panelWildTamedBred.PerformLayout();
             this.tabControlMain.ResumeLayout(false);
             this.tabPageStatTesting.ResumeLayout(false);
+            this.tabPageStatTesting.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxColorRegionsTester)).EndInit();
             this.gbStatChart.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radarChart1)).EndInit();
@@ -3705,7 +3930,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ColumnHeader columnHeaderFo;
         private System.Windows.Forms.ColumnHeader columnHeaderWa;
         private System.Windows.Forms.ColumnHeader columnHeaderWe;
-        private System.Windows.Forms.ColumnHeader columnHeaderTemp;
+        private System.Windows.Forms.ColumnHeader columnHeaderTm;
         private System.Windows.Forms.ColumnHeader columnHeaderDm;
         private System.Windows.Forms.ColumnHeader columnHeaderSp;
         private System.Windows.Forms.ColumnHeader columnHeaderFr;
@@ -3980,5 +4205,29 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ColumnHeader columnHeaderMutagen;
         private System.Windows.Forms.Label LbAsa;
         private System.Windows.Forms.ToolStripMenuItem discordServerToolStripMenuItem;
+        private System.Windows.Forms.ColumnHeader columnHeaderHPM;
+        private System.Windows.Forms.ColumnHeader columnHeaderStM;
+        private System.Windows.Forms.ColumnHeader columnHeaderToM;
+        private System.Windows.Forms.ColumnHeader columnHeaderOxM;
+        private System.Windows.Forms.ColumnHeader columnHeaderFoM;
+        private System.Windows.Forms.ColumnHeader columnHeaderWaM;
+        private System.Windows.Forms.ColumnHeader columnHeaderTmM;
+        private System.Windows.Forms.ColumnHeader columnHeaderWeM;
+        private System.Windows.Forms.ColumnHeader columnHeaderDmM;
+        private System.Windows.Forms.ColumnHeader columnHeaderSpM;
+        private System.Windows.Forms.ColumnHeader columnHeaderFrM;
+        private System.Windows.Forms.ColumnHeader columnHeaderCrM;
+        private System.Windows.Forms.ToolStripMenuItem resetColumnOrderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem resetColumnWidthNoMutationLevelColumnsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem restoreMutationLevelsASAToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem collapseMutationsLevelsASEToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator27;
+        private System.Windows.Forms.ToolStripMenuItem serverToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem listenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sendExampleCreatureToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem listenWithNewTokenToolStripMenuItem;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox CbLinkWildMutatedLevelsTester;
     }
 }

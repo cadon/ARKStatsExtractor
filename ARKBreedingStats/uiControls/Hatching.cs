@@ -41,14 +41,14 @@ namespace ARKBreedingStats.uiControls
                 if (!species.UsesStat(si)) continue;
 
                 var precision = Utils.Precision(si);
-                var statValue = StatValueCalculation.CalculateValue(species, si, highLevels[si], 0, true, 1, 0);
+                var statValue = StatValueCalculation.CalculateValue(species, si, highLevels[si], 0, 0, true, 1, 0);
                 var statRepresentation = precision == 3 ? $"{statValue * 100:0.0} %" : $"{statValue:0.0}    ";
 
                 sbNames += $"{Utils.StatName(si, customStatNames: species.statNames)}\n";
                 sbValues += statRepresentation + "\n";
                 sbLevels += highLevels[si] + "\n";
 
-                statValue = StatValueCalculation.CalculateValue(species, si, lowLevels[si], 0, true, 1, 0);
+                statValue = StatValueCalculation.CalculateValue(species, si, lowLevels[si], 0, 0, true, 1, 0);
                 statRepresentation = precision == 3 ? $"{statValue * 100:0.0} %" : $"{statValue:0.0}    ";
 
                 sbLowestValues += statRepresentation + "\n";

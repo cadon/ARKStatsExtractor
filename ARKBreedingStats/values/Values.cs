@@ -534,6 +534,7 @@ namespace ARKBreedingStats.values
                         }
 
                         sp.stats[s].IncPerWildLevel = GetRawStatValue(s, 1, customOverrideForThisStatExists) * statMultipliers[3];
+                        sp.stats[s].IncPerMutatedLevel = sp.stats[s].IncPerWildLevel; // todo consider adjustments if they're implemented
 
                         // set troodonism values
                         if (sp.altStats?[s] != null && sp.stats[s].BaseValue != 0)
