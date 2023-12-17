@@ -947,11 +947,14 @@ namespace ARKBreedingStats
         /// <summary>
         /// Imports a creature when listening to a server.
         /// </summary>
-        private void AsbServerDataSent((string jsonData, string serverHash, string message) data)
+        private void AsbServerDataSent((string jsonData, string serverHash, string errorMessage) data)
         {
-            if (!string.IsNullOrEmpty(data.message))
+            if (!string.IsNullOrEmpty(data.errorMessage))
             {
-                SetMessageLabelText(data.message, MessageBoxIcon.Error);
+                SetMessageLabelText(data.errorMessage, MessageBoxIcon.Error);
+                // don't remove the error message with the stop listening message
+                _ignoreNextMessageLabel = true;
+                listenToolStripMenuItem.Checked = false;
                 return;
             }
 
