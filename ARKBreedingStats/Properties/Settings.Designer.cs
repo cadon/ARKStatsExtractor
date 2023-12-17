@@ -2266,5 +2266,17 @@ namespace ARKBreedingStats.Properties {
                 this["ExportServerToken"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool LibraryShowMutationLevelColumns {
+            get {
+                return ((bool)(this["LibraryShowMutationLevelColumns"]));
+            }
+            set {
+                this["LibraryShowMutationLevelColumns"] = value;
+            }
+        }
     }
 }

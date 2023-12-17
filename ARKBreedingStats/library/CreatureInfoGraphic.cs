@@ -126,16 +126,20 @@ namespace ARKBreedingStats.library
                 // levels
                 double meanLetterWidth = fontSize * 7d / 10;
                 int xStatName = (int)meanLetterWidth;
+                var displayMutatedLevels = creature.levelsMutated != null;
                 // x position of level number. torpor is the largest level number.
                 int xRightLevelValue = (int)(xStatName + ((displayWithDomLevels ? 6 : 5) + creature.levelsWild[Stats.Torpidity].ToString().Length) * meanLetterWidth);
-                int xRightLevelMutValue = xRightLevelValue + (creature.levelsMutated == null ? 0 : (int)((creature.levelsMutated.Max().ToString().Length + 3) * meanLetterWidth));
+                int xRightLevelMutValue = xRightLevelValue + (!displayMutatedLevels ? 0 : (int)((creature.levelsMutated.Max().ToString().Length + 3) * meanLetterWidth));
                 int xRightLevelDomValue = xRightLevelMutValue;
                 if (displayWithDomLevels)
                     xRightLevelDomValue += (int)(creature.levelsDom.Max().ToString().Length * meanLetterWidth);
                 int xRightBrValue = (int)(xRightLevelDomValue + (2 + MaxCharLength(creature.valuesBreeding)) * meanLetterWidth);
                 int maxBoxLength = xRightBrValue - xStatName;
                 int statBoxHeight = Math.Max(2, height / 90);
-                g.DrawString(Loc.S("Levels", secondaryCulture: secondaryCulture), font, fontBrush, xRightLevelDomValue, currentYPosition, stringFormatRight);
+                g.DrawString(Loc.S("W", secondaryCulture: secondaryCulture), font, fontBrush, xRightLevelValue - (int)(displayWithDomLevels ? 2 * meanLetterWidth : 0), currentYPosition, stringFormatRight);
+                if (displayMutatedLevels)
+                    g.DrawString(Loc.S("M", secondaryCulture: secondaryCulture), font, fontBrush, xRightLevelMutValue - (int)(2 * meanLetterWidth), currentYPosition, stringFormatRight);
+                g.DrawString(Loc.S("D", secondaryCulture: secondaryCulture), font, fontBrush, xRightLevelDomValue, currentYPosition, stringFormatRight);
                 if (displayStatValues)
                     g.DrawString(Loc.S("Values", secondaryCulture: secondaryCulture), font, fontBrush, xRightBrValue, currentYPosition, stringFormatRight);
                 int statDisplayIndex = 0;
@@ -170,10 +174,10 @@ namespace ARKBreedingStats.library
                     g.DrawString($"{Utils.StatName(statIndex, true, creature.Species.statNames, secondaryCulture)}",
                         font, fontBrush, xStatName, y);
                     // stat level number
-                    g.DrawString($"{(creature.levelsWild[statIndex] < 0 ? "?" : creature.levelsWild[statIndex].ToString())}{(creature.levelsMutated != null ? " |" : displayWithDomLevels ? " +" : null)}",
+                    g.DrawString($"{(creature.levelsWild[statIndex] < 0 ? "?" : creature.levelsWild[statIndex].ToString())}{(creature.levelsMutated != null ? " |" : displayWithDomLevels ? " |" : null)}",
                         font, fontBrush, xRightLevelValue, y, stringFormatRight);
                     if (creature.levelsMutated != null)
-                        g.DrawString($"{(creature.levelsMutated[statIndex] < 0 ? string.Empty : creature.levelsMutated[statIndex].ToString())}{(displayWithDomLevels ? " +" : null)}",
+                        g.DrawString($"{(creature.levelsMutated[statIndex] < 0 ? string.Empty : creature.levelsMutated[statIndex].ToString())}{(displayWithDomLevels ? " |" : null)}",
                             font, fontBrush, xRightLevelMutValue, y, stringFormatRight);
                     // dom level number
                     if (displayWithDomLevels)
