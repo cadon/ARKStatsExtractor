@@ -267,6 +267,7 @@ namespace ARKBreedingStats
             Status = StatIOStatus.Neutral;
             TopLevel = LevelStatus.Neutral;
             numLvW.Value = 0;
+            nudLvM.Value = 0;
             numLvD.Value = 0;
             labelWildLevel.Text = "0";
             labelMutatedLevel.Text = "0";

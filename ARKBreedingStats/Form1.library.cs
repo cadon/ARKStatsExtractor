@@ -2129,6 +2129,8 @@ namespace ARKBreedingStats
         {
             listViewLibrary.BeginUpdate();
             var widths = Properties.Settings.Default.columnWidths;
+            if (widths.Length < ColumnIndexFirstStat + 2 * Stats.StatsCount) return;
+
             if (show)
             {
                 for (int ci = ColumnIndexFirstStat + Stats.StatsCount; ci < ColumnIndexFirstStat + 2 * Stats.StatsCount; ci++)
