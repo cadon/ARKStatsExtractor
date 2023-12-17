@@ -214,6 +214,7 @@ namespace ARKBreedingStats
 
                 statIoTesting.LevelChanged += TestingStatIoValueUpdate;
                 statIo.InputValueChanged += StatIOQuickWildLevelCheck;
+                statIo.LevelChanged += ExtractorStatLevelChanged;
                 statIo.Click += StatIO_Click;
                 _considerStatHighlight[s] = (Properties.Settings.Default.consideredStats & (1 << s)) != 0;
 

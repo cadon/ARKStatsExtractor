@@ -1239,6 +1239,11 @@ namespace ARKBreedingStats
                 Clipboard.SetText(bp);
         }
 
+        private void ExtractorStatLevelChanged(StatIO _)
+        {
+            radarChartExtractor.SetLevels(_statIOs.Select(s => s.LevelWild).ToArray(), _statIOs.Select(s => s.LevelMut).ToArray(), speciesSelector1.SelectedSpecies);
+        }
+
         #region OCR label sets
 
         private void InitializeOcrLabelSets()

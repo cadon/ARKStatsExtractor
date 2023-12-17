@@ -117,6 +117,7 @@
             this.labelMutatedLevel.TabIndex = 13;
             this.labelMutatedLevel.Text = "0";
             this.labelMutatedLevel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.labelMutatedLevel.Click += new System.EventHandler(this.labelMutatedLevel_Click);
             // 
             // checkBoxFixDomZero
             // 
