@@ -3856,20 +3856,22 @@ namespace ARKBreedingStats
         private void listenToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
         {
             if (listenToolStripMenuItem.Checked)
-                AsbServerStartListening(false);
+                AsbServerStartListening();
             else AsbServerStopListening();
         }
 
         private void listenWithNewTokenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AsbServerStartListening(true);
+            listenToolStripMenuItem.Checked = false;
+            Properties.Settings.Default.ExportServerToken = null;
+            listenToolStripMenuItem.Checked = true;
         }
 
-        private void AsbServerStartListening(bool newToken = false)
+        private void AsbServerStartListening()
         {
             AsbServer.Connection.StopListening();
             var progressDataSent = new Progress<(string jsonText, string serverHash, string message)>(AsbServerDataSent);
-            if (newToken || string.IsNullOrEmpty(Properties.Settings.Default.ExportServerToken))
+            if (string.IsNullOrEmpty(Properties.Settings.Default.ExportServerToken))
                 Properties.Settings.Default.ExportServerToken = AsbServer.Connection.CreateNewToken();
             Task.Factory.StartNew(() => AsbServer.Connection.StartListeningAsync(progressDataSent, Properties.Settings.Default.ExportServerToken));
             MessageServerListening(Properties.Settings.Default.ExportServerToken);

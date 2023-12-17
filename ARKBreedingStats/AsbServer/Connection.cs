@@ -40,7 +40,7 @@ namespace ARKBreedingStats.AsbServer
                     {
                         var received = await reader.ReadLineAsync();
                         if (string.IsNullOrEmpty(received))
-                            continue; // end of event
+                            continue; // empty line marks end of event
 
 #if DEBUG
                         Console.WriteLine($"{received} (token: {token})");
@@ -49,15 +49,16 @@ namespace ARKBreedingStats.AsbServer
                         {
                             case "event: welcome":
                                 continue;
-                                break;
                             case "event: ping":
                                 continue;
-                                break;
                             case "event: replaced":
-                                progressDataSent.Report((null, null, "ASB Server listening stopped. Connection used by a different user"));
+                                if (!cancellationToken.IsCancellationRequested)
+                                    progressDataSent.Report((null, null, "ASB Server listening stopped. Connection used by a different user"));
                                 return;
                             case "event: closing":
-                                progressDataSent.Report((null, null, "ASB Server listening stopped. Connection closed by the server"));
+                                // only report closing if the user hasn't done this already
+                                if (!cancellationToken.IsCancellationRequested)
+                                    progressDataSent.Report((null, null, "ASB Server listening stopped. Connection closed by the server"));
                                 return;
                         }
 
