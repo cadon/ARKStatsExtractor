@@ -1,5 +1,4 @@
 ﻿using ARKBreedingStats.Library;
-using ARKBreedingStats.species;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -18,7 +17,7 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="percent">percent that determines the shade between red and green (0 to 100)</param>
         /// <param name="light">double from -1 to 1. Values greater zero make the color brighter, lower than zero make the color darker.</param>
-        /// <param name="blue">true if color should fade from violett to green</param>
+        /// <param name="blue">true if color should fade from violet to green</param>
         /// <returns>the calculated color.</returns>
         public static Color GetColorFromPercent(int percent, double light = 0, bool blue = false)
         {
