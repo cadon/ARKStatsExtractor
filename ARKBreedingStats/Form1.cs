@@ -3780,7 +3780,7 @@ namespace ARKBreedingStats
                 _creatureCollection.MergeCreatureList(DummyCreatures.CreateCreatures(s.CreatureCount,
                    selectedSpecies, s.SpeciesCount,
                     s.Generations, s.PairsPerGeneration, _creatureCollection.Game == Ark.Asa, s.ProbabilityHigherStat, s.RandomMutationChance, s.MaxWildLevel,
-                   s.SetOwner, s.SetTribe, s.SetServer));
+                   s.SetOwner, s.SetTribe, s.SetServer, true));
             }
 
             _filterListAllowed = false;

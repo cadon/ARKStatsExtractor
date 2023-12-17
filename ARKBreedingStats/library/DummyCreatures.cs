@@ -30,24 +30,25 @@ namespace ARKBreedingStats.library
         /// <returns></returns>
         public static List<Creature> CreateCreatures(int count, Species species = null, int numberSpecies = 1,
             int breedGenerations = 0, int usePairsPerGeneration = 2, bool useMutatedLevels = true, double probabilityHigherStat = 0.55, double randomMutationChance = 0.025, int maxWildLevel = 150,
-            bool setOwner = true, bool setTribe = true, bool setServer = true)
+            bool setOwner = true, bool setTribe = true, bool setServer = true, bool saveSettings = false)
         {
             if (count < 1) return null;
 
-            LastSettings = new DummyCreatureCreationSettings
-            {
-                CreatureCount = count,
-                OnlySelectedSpecies = species != null,
-                SpeciesCount = numberSpecies,
-                Generations = breedGenerations,
-                PairsPerGeneration = usePairsPerGeneration,
-                ProbabilityHigherStat = probabilityHigherStat,
-                RandomMutationChance = randomMutationChance,
-                MaxWildLevel = maxWildLevel,
-                SetOwner = setOwner,
-                SetTribe = setTribe,
-                SetServer = setServer
-            };
+            if (saveSettings)
+                LastSettings = new DummyCreatureCreationSettings
+                {
+                    CreatureCount = count,
+                    OnlySelectedSpecies = species != null,
+                    SpeciesCount = numberSpecies,
+                    Generations = breedGenerations,
+                    PairsPerGeneration = usePairsPerGeneration,
+                    ProbabilityHigherStat = probabilityHigherStat,
+                    RandomMutationChance = randomMutationChance,
+                    MaxWildLevel = maxWildLevel,
+                    SetOwner = setOwner,
+                    SetTribe = setTribe,
+                    SetServer = setServer
+                };
 
             var creatures = new List<Creature>(count);
 
