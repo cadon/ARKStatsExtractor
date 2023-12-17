@@ -21,7 +21,6 @@ using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.utils;
 using static ARKBreedingStats.settings.Settings;
 using Color = System.Drawing.Color;
-using Newtonsoft.Json.Linq;
 
 namespace ARKBreedingStats
 {
@@ -270,6 +269,12 @@ namespace ARKBreedingStats
             }
             else
                 LoadListViewSettings(listViewLibrary, nameof(Properties.Settings.Default.columnWidths), nameof(Properties.Settings.Default.libraryColumnDisplayIndices));
+
+            if (Properties.Settings.Default.LibraryShowMutationLevelColumns)
+                toolStripMenuItemMutationColumns.Checked = true;
+            else
+                ShowLibraryMutationLevels(false);
+
             _creatureListSorter.SortColumnIndex = Properties.Settings.Default.listViewSortCol;
             _creatureListSorter.Order = Properties.Settings.Default.listViewSortAsc
                 ? SortOrder.Ascending
@@ -1238,7 +1243,7 @@ namespace ARKBreedingStats
             if (lv == null) return;
 
             // load column-widths
-            if (Properties.Settings.Default[widthName] is int[] cw)
+            if (!string.IsNullOrEmpty(widthName) && Properties.Settings.Default[widthName] is int[] cw)
             {
                 for (int c = 0; c < cw.Length && c < lv.Columns.Count; c++)
                     lv.Columns[c].Width = cw[c];
@@ -1283,6 +1288,7 @@ namespace ARKBreedingStats
             SaveListViewSettings(tribesControl1.ListViewPlayers, "PlayerListColumnWidths", "PlayerListColumnDisplayIndices", "PlayerListSortColumn", "PlayerListSortAsc");
 
             // Save column-widths, display-indices and sort-order of the listViewLibrary
+            ShowLibraryMutationLevels(true); // restore collapsed column widths before saving
             SaveListViewSettings(listViewLibrary, "columnWidths", "libraryColumnDisplayIndices");
             Properties.Settings.Default.listViewSortCol = _creatureListSorter.SortColumnIndex;
             Properties.Settings.Default.listViewSortAsc = _creatureListSorter.Order == SortOrder.Ascending;

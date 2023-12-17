@@ -2115,6 +2115,36 @@ namespace ARKBreedingStats
             listViewLibrary.EndUpdate();
         }
 
+        private void toolStripMenuItemMutationColumns_CheckedChanged(object sender, EventArgs e)
+        {
+            var showMutationColumns = toolStripMenuItemMutationColumns.Checked;
+            Properties.Settings.Default.LibraryShowMutationLevelColumns = showMutationColumns;
+            ShowLibraryMutationLevels(showMutationColumns);
+        }
+
+        /// <summary>
+        /// Set width of library mutation level columns to 0 or restore.
+        /// </summary>
+        private void ShowLibraryMutationLevels(bool show)
+        {
+            listViewLibrary.BeginUpdate();
+            var widths = Properties.Settings.Default.columnWidths;
+            if (show)
+            {
+                for (int ci = ColumnIndexFirstStat + Stats.StatsCount; ci < ColumnIndexFirstStat + 2 * Stats.StatsCount; ci++)
+                    listViewLibrary.Columns[ci].Width = widths[ci];
+            }
+            else
+            {
+                for (int ci = ColumnIndexFirstStat + Stats.StatsCount; ci < ColumnIndexFirstStat + 2 * Stats.StatsCount; ci++)
+                {
+                    widths[ci] = listViewLibrary.Columns[ci].Width;
+                    listViewLibrary.Columns[ci].Width = 0;
+                }
+            }
+            listViewLibrary.EndUpdate();
+        }
+
         #endregion
     }
 }
