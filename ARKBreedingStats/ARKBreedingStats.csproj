@@ -655,6 +655,9 @@
     <None Include="json\equalColorIds.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="json\values\ASA-values.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\success.wav" />
     <None Include="Resources\topstat.wav" />
     <None Include="Resources\failure.wav" />
