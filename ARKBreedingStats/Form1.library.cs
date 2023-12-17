@@ -2127,10 +2127,10 @@ namespace ARKBreedingStats
         /// </summary>
         private void ShowLibraryMutationLevels(bool show)
         {
-            listViewLibrary.BeginUpdate();
             var widths = Properties.Settings.Default.columnWidths;
-            if (widths.Length < ColumnIndexFirstStat + 2 * Stats.StatsCount) return;
-
+            if (widths == null || widths.Length < ColumnIndexFirstStat + 2 * Stats.StatsCount) return;
+            
+            listViewLibrary.BeginUpdate();
             if (show)
             {
                 for (int ci = ColumnIndexFirstStat + Stats.StatsCount; ci < ColumnIndexFirstStat + 2 * Stats.StatsCount; ci++)
