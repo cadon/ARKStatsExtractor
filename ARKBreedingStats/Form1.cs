@@ -21,6 +21,7 @@ using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.utils;
 using static ARKBreedingStats.settings.Settings;
 using Color = System.Drawing.Color;
+using Newtonsoft.Json.Linq;
 
 namespace ARKBreedingStats
 {
@@ -390,6 +391,7 @@ namespace ARKBreedingStats
                 tabControlMain.TabPages.Remove(tabPageExtractionTests);
                 tabControlMain.TabPages.Remove(tabPageMultiplierTesting);
                 devToolStripMenuItem.Visible = false;
+                sendExampleCreatureToolStripMenuItem.Visible = false;
             }
             else
             {
@@ -2033,6 +2035,7 @@ namespace ARKBreedingStats
             if (Properties.Settings.Default.DevTools)
                 statsMultiplierTesting1.CheckIfMultipliersAreEqualToSettings();
             devToolStripMenuItem.Visible = Properties.Settings.Default.DevTools;
+            sendExampleCreatureToolStripMenuItem.Visible = Properties.Settings.Default.DevTools;
 
             bool recalculateTopStats = considerWastedStatsForTopCreatures != Properties.Settings.Default.ConsiderWastedStatsForTopCreatures;
             if (recalculateTopStats)
@@ -3854,7 +3857,7 @@ namespace ARKBreedingStats
         {
             if (listenToolStripMenuItem.Checked)
                 AsbServerStartListening(false);
-            else AsbServer.Connection.StopListening();
+            else AsbServerStopListening();
         }
 
         private void listenWithNewTokenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3870,6 +3873,12 @@ namespace ARKBreedingStats
                 Properties.Settings.Default.ExportServerToken = AsbServer.Connection.CreateNewToken();
             Task.Factory.StartNew(() => AsbServer.Connection.StartListeningAsync(progressDataSent, Properties.Settings.Default.ExportServerToken));
             MessageServerListening(Properties.Settings.Default.ExportServerToken);
+        }
+
+        private void AsbServerStopListening()
+        {
+            AsbServer.Connection.StopListening();
+            SetMessageLabelText($"ASB Server listening stopped using token: {Properties.Settings.Default.ExportServerToken}", MessageBoxIcon.Error);
         }
 
         private void MessageServerListening(string token)
