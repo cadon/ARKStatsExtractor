@@ -30,7 +30,7 @@
 			"mod": { "id": "1139775728", "tag": "Confuciusornis", "title": "Confuciusornis" }
 		},
 		"1169020368-Trex.json": {
-			"version": "358.17.1700597183",
+			"version": "358.17.1701004683",
 			"mod": { "id": "1169020368", "tag": "Trex", "title": "Ark Creature Rebalance (AG Reborn)" }
 		},
 		"1178308359-ShadDragon.json": {
@@ -310,11 +310,11 @@
 			"mod": { "id": "2362246280", "tag": "GigaFullTame", "title": "Giga Full Tame" }
 		},
 		"2447186973-ArkOmega.json": {
-			"version": "358.17.1697907008",
+			"version": "358.17.1701673974",
 			"mod": { "id": "2447186973", "tag": "ArkOmega", "title": "Ark Omega" }
 		},
 		"2453342929-MoreDragonsMod.json": {
-			"version": "358.11.1691443191",
+			"version": "358.17.1701039233",
 			"mod": { "id": "2453342929", "tag": "MoreDragonsMod", "title": "More Dragons Evolved" }
 		},
 		"2472371628-MilicrocaWarriors_MOD.json": {
@@ -378,7 +378,7 @@
 			"mod": { "id": "883957187", "tag": "WyvernWorld", "title": "Wyvern World" }
 		},
 		"893735676-AE.json": {
-			"version": "358.17.1696662074",
+			"version": "358.17.1701815786",
 			"mod": { "id": "893735676", "tag": "AE", "title": "Ark Eternal" }
 		},
 		"895711211-ClassicFlyers.json": {
@@ -398,9 +398,9 @@
 			"mod": { "id": "919470289", "tag": "SSFlyer", "title": "SSFlyer" }
 		},
 		"ASA-values.json": {
-			"version": "25.53.449746",
+			"version": "32.11.468629",
 			"format": "1.15-asa",
-			"mod": { "id": "ASA", "tag": "", "title": "Ark: Survival Ascended", "shortTitle": "ASA", "official": true }
+			"mod": { "id": "ASA", "tag": "", "title": "Ark: Survival Ascended", "shortTitle": "ASA" }
 		},
 		"CrystalIsles-CrystalIsles.json": {
 			"version": "345.39.8870324.1",

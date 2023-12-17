@@ -2838,7 +2838,7 @@ namespace ARKBreedingStats
                                                     + ")"
                                                   : string.Empty)
                                               + ". v" + Application.ProductVersion
-                                              + "-BETA" // TODO BETA indicator
+                                              //+ "-BETA" // TODO BETA indicator
                                               + " / values: " + Values.V.Version +
                                               (loadedMods?.Any() == true
                                                   ? ", additional values from " + _creatureCollection.ModList.Count +
