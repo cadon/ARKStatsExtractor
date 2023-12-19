@@ -139,7 +139,8 @@ namespace ARKBreedingStats.library
                 g.DrawString(Loc.S("W", secondaryCulture: secondaryCulture), font, fontBrush, xRightLevelValue - (int)(displayWithDomLevels ? 2 * meanLetterWidth : 0), currentYPosition, stringFormatRight);
                 if (displayMutatedLevels)
                     g.DrawString(Loc.S("M", secondaryCulture: secondaryCulture), font, fontBrush, xRightLevelMutValue - (int)(2 * meanLetterWidth), currentYPosition, stringFormatRight);
-                g.DrawString(Loc.S("D", secondaryCulture: secondaryCulture), font, fontBrush, xRightLevelDomValue, currentYPosition, stringFormatRight);
+                if (displayWithDomLevels)
+                    g.DrawString(Loc.S("D", secondaryCulture: secondaryCulture), font, fontBrush, xRightLevelDomValue, currentYPosition, stringFormatRight);
                 if (displayStatValues)
                     g.DrawString(Loc.S("Values", secondaryCulture: secondaryCulture), font, fontBrush, xRightBrValue, currentYPosition, stringFormatRight);
                 int statDisplayIndex = 0;
