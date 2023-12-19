@@ -322,6 +322,7 @@ namespace ARKBreedingStats.NamePatterns
 
                 { "toppercent" , (creature.topness / 10f).ToString() },
                 { "baselvl" , creature.LevelHatched.ToString() },
+                { "levelpretamed" , creature.levelFound.ToString() },
                 { "effimp" , effImp },
                 { "muta", creature.Mutations.ToString()},
                 { "mutam", creature.mutationsMaternal.ToString()},

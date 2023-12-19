@@ -328,7 +328,7 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// The total level without domesticate levels, i.e. the torpidity level + 1.
         /// </summary>
-        public int LevelHatched => (levelsWild?[Stats.Torpidity] ?? 0) + 1;
+        public int LevelHatched => (levelsWild?[Stats.Torpidity] ?? 0) + 1 - (flags.HasFlag(CreatureFlags.MutagenApplied) ? isBred ? Ark.MutagenLevelUpsBred : Ark.MutagenLevelUpsNonBred : 0);
 
         /// <summary>
         /// The total current level inclusive domesticate levels.
