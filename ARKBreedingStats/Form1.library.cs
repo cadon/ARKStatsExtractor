@@ -12,6 +12,7 @@ using ARKBreedingStats.utils;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.library;
 using ARKBreedingStats.settings;
 
@@ -2093,7 +2094,14 @@ namespace ARKBreedingStats
                     : ci < ColumnIndexFirstStat || ci >= ColumnIndexPostColor ? 60
                     : ci >= ColumnIndexFirstStat + Stats.StatsCount + Stats.StatsCount ? 30 // color
                     : ci < ColumnIndexFirstStat + Stats.StatsCount ? statWidths[ci - ColumnIndexFirstStat] // wild levels
+                    : ci - ColumnIndexFirstStat - Stats.StatsCount == Stats.Torpidity ? 0 // no mutations for torpidity
                     : (int)(statWidths[ci - ColumnIndexFirstStat - Stats.StatsCount] * 1.24); // mutated needs space for one more letter
+
+            // save in settings so it can be used when toggle the mutation columns, which use the settings
+            var widths = new int[listViewLibrary.Columns.Count];
+            for (int c = 0; c < widths.Length; c++)
+                widths[c] = listViewLibrary.Columns[c].Width;
+            Properties.Settings.Default.columnWidths = widths;
 
             if (mutationColumnWidthsZero)
                 LibraryColumnsMutationsWidth(true);
@@ -2107,7 +2115,7 @@ namespace ARKBreedingStats
         private void LibraryColumnsMutationsWidth(bool collapse)
         {
             listViewLibrary.BeginUpdate();
-            var statWidths = Stats.UsuallyVisibleStats.Select(w => !collapse && w ? 38 : 0).ToArray();
+            var statWidths = Stats.UsuallyVisibleStats.Select((v, i) => !collapse && v && i != Stats.Torpidity ? 37 : 0).ToArray();
             for (int c = 0; c < Stats.StatsCount; c++)
             {
                 listViewLibrary.Columns[c + ColumnIndexFirstStat + Stats.StatsCount].Width = statWidths[c];
@@ -2129,7 +2137,7 @@ namespace ARKBreedingStats
         {
             var widths = Properties.Settings.Default.columnWidths;
             if (widths == null || widths.Length < ColumnIndexFirstStat + 2 * Stats.StatsCount) return;
-            
+
             listViewLibrary.BeginUpdate();
             if (show)
             {
