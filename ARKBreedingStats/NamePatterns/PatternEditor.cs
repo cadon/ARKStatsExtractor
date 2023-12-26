@@ -527,6 +527,7 @@ namespace ARKBreedingStats.NamePatterns
             {"expr", "{{#expr: expression }}, simple calculation with two operands and one operator. Possible operators are +, -, *, /.\n{{#expr: {hp} * 2 }}" },
             {"len", "{{#len: string }}, returns the length of the passed string.\n{{#len: {isTophp}{isTopdm}{isTopwe} }}" },
             {"substring","{{#substring: text | start | length }}. Length can be omitted. If start is negative it takes the characters from the end. If length is negative it takes the characters until that position from the end\n{{#substring: {species} | 0 | 4 }}"},
+            {"rand","{{#rand: min | max  (exclusive) }} or {{#rand: max (exclusive) }}\n{{#rand: 100 }}"},
             {"replace","{{#replace: text | find | replaceBy }}\n{{#replace: {species} | Aberrant | Ab }}"},
             {"regexreplace","{{#regexreplace: text | pattern | replaceBy }}\nUse &&lcub; instead {, &&vline; instead | and &&rcub; instead of }.\n{{#regexreplace: hp-st-we- | \\-$ | }}"},
             {"customreplace","{{#customreplace: text }}. Replaces the text with a value saved in the file customReplacings.json.\nIf a second parameter is given, that is returned if the key is not available.\n{{#customreplace: {species} }}"},

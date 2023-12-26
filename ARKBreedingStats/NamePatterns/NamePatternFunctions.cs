@@ -51,6 +51,7 @@ namespace ARKBreedingStats.NamePatterns
                 {"float_div", FunctionFloatDiv},
                 {"div", FunctionDiv},
                 {"casing", FunctionCasing},
+                {"rand", FunctionRand },
                 {"replace", FunctionReplace},
                 {"regexreplace", FunctionRegExReplace},
                 {"customreplace", FunctionCustomReplace},
@@ -245,6 +246,20 @@ namespace ARKBreedingStats.NamePatterns
                 case "t": return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(m.Groups[2].Value);
             }
             return ParametersInvalid($"casing expects 'U', 'L' or 'T', given is '{m.Groups[3].Value}'", m.Groups[0].Value, p.DisplayError);
+        }
+
+        private static string FunctionRand(Match m, NamePatternParameters p)
+        {
+            // parameter: 1: to (if one parameter), from (if two parameters), 2: to
+            // to is exclusive
+            int.TryParse(m.Groups[2].Value, out var from);
+            if (!int.TryParse(m.Groups[3].Value, out var to))
+            {
+                to = from;
+                from = 0;
+            }
+            if (from < 0 || from >= to) return string.Empty;
+            return NamePattern.Random.Next(from, to).ToString();
         }
 
         private static string FunctionReplace(Match m, NamePatternParameters p)
