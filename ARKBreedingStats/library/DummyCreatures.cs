@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ARKBreedingStats.BreedingPlanning;
 using ARKBreedingStats.Library;
+using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 
@@ -14,6 +15,9 @@ namespace ARKBreedingStats.library
     public static class DummyCreatures
     {
         public static DummyCreatureCreationSettings LastSettings;
+
+        private static string[] _namesFemale;
+        private static string[] _namesMale;
 
         /// <summary>
         /// Creates a list of random creatures.
@@ -147,18 +151,29 @@ namespace ARKBreedingStats.library
             string name = null;
             if (doTame)
             {
+                if (_namesFemale == null)
+                    _namesFemale = NameList.GetNameList("F");
+                if (_namesMale == null)
+                    _namesMale = NameList.GetNameList("M");
                 var names = sex == Sex.Female ? _namesFemale : _namesMale;
-                name = names[rand.Next(names.Length)];
-                if (nameCounter != null)
+                if (names == null)
                 {
-                    if (nameCounter.TryGetValue(name, out var nameCount))
+                    name = "?";
+                }
+                else
+                {
+                    name = names[rand.Next(names.Length)];
+                    if (nameCounter != null)
                     {
-                        nameCounter[name]++;
-                        name += $" {nameCount + 1}";
-                    }
-                    else
-                    {
-                        nameCounter.Add(name, 1);
+                        if (nameCounter.TryGetValue(name, out var nameCount))
+                        {
+                            nameCounter[name]++;
+                            name += $" {nameCount + 1}";
+                        }
+                        else
+                        {
+                            nameCounter.Add(name, 1);
+                        }
                     }
                 }
             }
@@ -376,9 +391,6 @@ namespace ARKBreedingStats.library
             return newCreatures;
 
         }
-
-        private static readonly string[] _namesFemale = { "Aurora", "Bess", "Bones", "Breeze", "Casey", "Casia", "Catlin", "Chromy", "Chuckles", "Cosmo", "Cupcake", "Danele", "Daphne", "Durva", "Electra", "Ellie", "Elora", "Flare", "Ginger", "Hope", "Indigo", "Jackie", "Layka", "Myst", "Nectar", "Oracle", "Pandora", "Peachy", "Peanuts", "Princess", "Raye", "Sabre", "Shellbie", "Shine", "Tia", "Vanity", "Wilde", "Zara" };
-        private static readonly string[] _namesMale = { "Austin", "Bran", "Cosmo", "Dearborn", "Eclipse", "Fuzz", "Gazoo", "Hercules", "Indy", "Jiggles", "Lightning", "Marble", "Noah", "Pepper", "Rancher", "Sparkler", "Tweeter", "Whiskers", "Zion" };
 
         #region Binomial distributed levels
 

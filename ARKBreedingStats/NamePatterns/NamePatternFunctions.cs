@@ -59,7 +59,8 @@ namespace ARKBreedingStats.NamePatterns
                 {"color", FunctionColor},
                 {"colornew", FunctionColorNew},
                 {"indexof", FunctionIndexOf},
-                {"md5", FunctionMd5}
+                {"md5", FunctionMd5},
+                {"listname", FunctionListName }
             };
 
         private static string FunctionIf(Match m, NamePatternParameters p)
@@ -373,6 +374,14 @@ namespace ARKBreedingStats.NamePatterns
                 sb.Append(b.ToString("X2"));
 
             return sb.ToString();
+        }
+
+        private static string FunctionListName(Match m, NamePatternParameters p)
+        {
+            // parameter: 1: name index, 2: list suffix
+            if (!int.TryParse(m.Groups[2].Value, out var nameIndex)) return string.Empty;
+
+            return NameList.GetName(nameIndex, m.Groups[3].Value);
         }
 
         public static void Dispose()
