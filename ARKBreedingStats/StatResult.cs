@@ -15,5 +15,7 @@ namespace ARKBreedingStats
             this.levelDom = levelDom;
             this.TE = TE ?? new MinMaxDouble(-1);
         }
+
+        public override string ToString() => $"w: {levelWild}, d: {levelDom}, TE: {TE.Mean:.000}";
     }
 }
