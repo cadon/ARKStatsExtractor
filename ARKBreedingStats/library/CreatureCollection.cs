@@ -80,7 +80,7 @@ namespace ARKBreedingStats.Library
         /// Indicates the game the library is used for. Possible values are "ASE" (default) for ARK: Survival Evolved or "ASA" for ARK: Survival Ascended.
         /// </summary>
         [JsonProperty("Game")]
-        private string _game = "ASE";
+        private string _game = Ark.Ase;
 
         /// <summary>
         /// Used for the exportGun mod.
