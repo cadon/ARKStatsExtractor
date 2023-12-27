@@ -328,8 +328,9 @@ namespace ARKBreedingStats
             }
 
             // get mean-level (most probable for the wild levels)
-            // TODO handle species without wild levels in speed better (some flyers)
-            double meanWildLevel = Math.Round((double)_extractor.LevelWildSum / 7, 1);
+            var statsWithLevels = Enumerable.Range(0, Stats.StatsCount).Aggregate(0,
+                (c, s) => c += s != Stats.Torpidity && speciesSelector1.SelectedSpecies.CanLevelUpWildOrHaveMutations(s) ? 1 : 0);
+            double meanWildLevel = Math.Round((double)_extractor.LevelWildSum / statsWithLevels, 1);
             bool nonUniqueStats = false;
 
             for (int s = 0; s < Stats.StatsCount; s++)
