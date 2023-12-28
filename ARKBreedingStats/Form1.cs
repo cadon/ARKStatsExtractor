@@ -2089,7 +2089,7 @@ namespace ARKBreedingStats
                 if (_fileWatcherExports == null)
                 {
                     _fileWatcherExports =
-                           new FileWatcherExports(exportFolderDefault, ImportExportedAddIfPossible_WatcherThread);
+                           new FileWatcherExports(exportFolderDefault, ImportExportedFileChanged, this);
                 }
                 else
                 {
