@@ -273,7 +273,7 @@ namespace ARKBreedingStats
             if (Properties.Settings.Default.LibraryShowMutationLevelColumns)
                 toolStripMenuItemMutationColumns.Checked = true;
             else
-                ShowLibraryMutationLevels(false);
+                ToggleLibraryMutationLevelColumns(false);
 
             _creatureListSorter.SortColumnIndex = Properties.Settings.Default.listViewSortCol;
             _creatureListSorter.Order = Properties.Settings.Default.listViewSortAsc
@@ -1282,14 +1282,17 @@ namespace ARKBreedingStats
             }
 
             // Save column-widths, display-indices and sort-order of the TimerControlListView
-            SaveListViewSettings(timerList1.ListViewTimers, "TCLVColumnWidths", "TCLVColumnDisplayIndices", "TCLVSortCol", "TCLVSortAsc");
-            SaveListViewSettings(pedigree1.ListViewCreatures, "PedigreeListViewColumnWidths");
+            SaveListViewSettings(timerList1.ListViewTimers, nameof(Properties.Settings.TCLVColumnWidths),
+                nameof(Properties.Settings.TCLVColumnDisplayIndices), nameof(Properties.Settings.TCLVSortCol), nameof(Properties.Settings.TCLVSortAsc));
+            SaveListViewSettings(pedigree1.ListViewCreatures, nameof(Properties.Settings.PedigreeListViewColumnWidths));
             Properties.Settings.Default.PedigreeWidthLeftColum = pedigree1.LeftColumnWidth;
-            SaveListViewSettings(tribesControl1.ListViewPlayers, "PlayerListColumnWidths", "PlayerListColumnDisplayIndices", "PlayerListSortColumn", "PlayerListSortAsc");
+            SaveListViewSettings(tribesControl1.ListViewPlayers, nameof(Properties.Settings.PlayerListColumnWidths),
+                nameof(Properties.Settings.PlayerListColumnDisplayIndices), nameof(Properties.Settings.PlayerListSortColumn), nameof(Properties.Settings.PlayerListSortAsc));
 
             // Save column-widths, display-indices and sort-order of the listViewLibrary
-            ShowLibraryMutationLevels(true); // restore collapsed column widths before saving
-            SaveListViewSettings(listViewLibrary, "columnWidths", "libraryColumnDisplayIndices");
+            if (!Properties.Settings.Default.LibraryShowMutationLevelColumns)
+                ToggleLibraryMutationLevelColumns(true); // restore collapsed column widths before saving
+            SaveListViewSettings(listViewLibrary, nameof(Properties.Settings.columnWidths), nameof(Properties.Settings.libraryColumnDisplayIndices));
             Properties.Settings.Default.listViewSortCol = _creatureListSorter.SortColumnIndex;
             Properties.Settings.Default.listViewSortAsc = _creatureListSorter.Order == SortOrder.Ascending;
 

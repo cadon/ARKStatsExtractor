@@ -2077,12 +2077,12 @@ namespace ARKBreedingStats
 
         private void restoreMutationLevelsASAToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LibraryColumnsMutationsWidth(false);
+            ToggleLibraryMutationLevelColumns(true, true);
         }
 
         private void collapseMutationsLevelsASEToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LibraryColumnsMutationsWidth(true);
+            ToggleLibraryMutationLevelColumns(false);
         }
 
         private void ResetColumnWidthListViewLibrary(bool mutationColumnWidthsZero)
@@ -2104,22 +2104,8 @@ namespace ARKBreedingStats
             Properties.Settings.Default.columnWidths = widths;
 
             if (mutationColumnWidthsZero)
-                LibraryColumnsMutationsWidth(true);
+                ToggleLibraryMutationLevelColumns(false);
 
-            listViewLibrary.EndUpdate();
-        }
-
-        /// <summary>
-        /// Set width of mutation level columns to zero or restore.
-        /// </summary>
-        private void LibraryColumnsMutationsWidth(bool collapse)
-        {
-            listViewLibrary.BeginUpdate();
-            var statWidths = Stats.UsuallyVisibleStats.Select((v, i) => !collapse && v && i != Stats.Torpidity ? 37 : 0).ToArray();
-            for (int c = 0; c < Stats.StatsCount; c++)
-            {
-                listViewLibrary.Columns[c + ColumnIndexFirstStat + Stats.StatsCount].Width = statWidths[c];
-            }
             listViewLibrary.EndUpdate();
         }
 
@@ -2127,20 +2113,30 @@ namespace ARKBreedingStats
         {
             var showMutationColumns = toolStripMenuItemMutationColumns.Checked;
             Properties.Settings.Default.LibraryShowMutationLevelColumns = showMutationColumns;
-            ShowLibraryMutationLevels(showMutationColumns);
+            ToggleLibraryMutationLevelColumns(showMutationColumns);
         }
 
         /// <summary>
         /// Set width of library mutation level columns to 0 or restore.
         /// </summary>
-        private void ShowLibraryMutationLevels(bool show)
+        private void ToggleLibraryMutationLevelColumns(bool show, bool resetWidth = false)
         {
             var widths = Properties.Settings.Default.columnWidths;
-            if (widths == null || widths.Length < ColumnIndexFirstStat + 2 * Stats.StatsCount) return;
+            if (widths == null || widths.Length < ColumnIndexFirstStat + 2 * Stats.StatsCount)
+            {
+                SaveListViewSettings(listViewLibrary, nameof(Properties.Settings.columnWidths), nameof(Properties.Settings.libraryColumnDisplayIndices));
+                widths = Properties.Settings.Default.columnWidths;
+            }
 
             listViewLibrary.BeginUpdate();
             if (show)
             {
+                if (resetWidth)
+                {
+                    var mutationStatWidths = Stats.UsuallyVisibleStats.Select((v, i) => v && i != Stats.Torpidity ? 37 : 0).ToArray();
+                    mutationStatWidths.CopyTo(widths, ColumnIndexFirstStat + Stats.StatsCount);
+                }
+
                 for (int ci = ColumnIndexFirstStat + Stats.StatsCount; ci < ColumnIndexFirstStat + 2 * Stats.StatsCount; ci++)
                     listViewLibrary.Columns[ci].Width = widths[ci];
             }
