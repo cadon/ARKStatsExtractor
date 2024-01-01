@@ -7,6 +7,8 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.importExportGun;
@@ -25,6 +27,7 @@ namespace ARKBreedingStats.settings
         public SettingsTabPages LastTabPageIndex;
         public bool LanguageChanged;
         public bool ColorRegionDisplayChanged;
+        private CancellationTokenSource _cancellationTokenSource;
 
         public Settings(CreatureCollection cc, SettingsTabPages page)
         {
@@ -1706,27 +1709,71 @@ namespace ARKBreedingStats.settings
                 return;
             }
 
+            if (_cancellationTokenSource != null)
+            {
+                _cancellationTokenSource.Cancel();
+                return;
+            }
+
             try
             {
-                using (var hc = new HttpClient())
+                var httpClient = FileService.GetHttpClient;
+                _cancellationTokenSource = new CancellationTokenSource();
+                BtRemoteServerSettingsUri.Text = "Cancel loading";
+                string settingsText = null;
+                using (var result = await httpClient.GetAsync(uri, _cancellationTokenSource.Token))
                 {
-                    var settings = await hc.GetStringAsync(uri);
-                    if (string.IsNullOrEmpty(settings))
+                    if (!result.IsSuccessStatusCode)
                     {
-                        MessageBoxes.ShowMessageBox($"The specified source{Environment.NewLine}{uri}{Environment.NewLine}contains not text, nothing was imported.");
+                        MessageBoxes.ShowMessageBox(
+                            $"Error when trying to load settings from{Environment.NewLine}{uri}{Environment.NewLine}StatusCode {(int)result.StatusCode}: {result.ReasonPhrase}");
                         return;
                     }
 
-                    if (MessageBox.Show($"Apply the settings of the downloaded file?{Environment.NewLine}{uri}", "Use downloaded settings?",
-                            MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-                    {
-                        ExtractSettingsFromText(settings, true);
-                    }
+                    settingsText = await result.Content.ReadAsStringAsync();
                 }
+
+                if (string.IsNullOrEmpty(settingsText))
+                {
+                    MessageBoxes.ShowMessageBox(
+                        $"The specified source{Environment.NewLine}{uri}{Environment.NewLine}contains not text, nothing was imported.");
+                    return;
+                }
+
+                if (MessageBox.Show($"Apply the settings of the downloaded file?{Environment.NewLine}{uri}",
+                        "Use downloaded settings?",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    ExtractSettingsFromText(settingsText, true);
+                }
+
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBoxes.ShowMessageBox(
+                    $"The given url{Environment.NewLine}{uri}{Environment.NewLine}is not valid.{Environment.NewLine}{ex.Message}",
+                    "Invalid url");
+            }
+            catch (TaskCanceledException ex)
+            {
+                if (_cancellationTokenSource?.IsCancellationRequested == true)
+                {
+                    // request canceled by user
+                    return;
+                }
+                MessageBoxes.ShowMessageBox(
+                    $"The given url{Environment.NewLine}{uri}{Environment.NewLine}didn't respond fast enough (timeout), maybe the url is incorrect.{Environment.NewLine}{ex.Message}",
+                    "Timeout when loading server settings");
             }
             catch (Exception ex)
             {
                 MessageBoxes.ExceptionMessageBox(ex, "Server settings file couldn't be loaded.");
+            }
+            finally
+            {
+                _cancellationTokenSource?.Dispose();
+                _cancellationTokenSource = null;
+                BtRemoteServerSettingsUri.Text = "Load remote settings";
             }
         }
     }
