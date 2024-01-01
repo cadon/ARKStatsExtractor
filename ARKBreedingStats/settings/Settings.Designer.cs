@@ -98,6 +98,8 @@
             this.label12 = new System.Windows.Forms.Label();
             this.numericUpDownMaxBreedingSug = new ARKBreedingStats.uiControls.Nud();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.NudWildDinoCharacterFoodDrainMultiplier = new ARKBreedingStats.uiControls.Nud();
+            this.label69 = new System.Windows.Forms.Label();
             this.label67 = new System.Windows.Forms.Label();
             this.NudWildDinoTorporDrainMultiplier = new ARKBreedingStats.uiControls.Nud();
             this.nudDinoCharacterFoodDrainEvent = new ARKBreedingStats.uiControls.Nud();
@@ -349,8 +351,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.label69 = new System.Windows.Forms.Label();
-            this.NudWildDinoCharacterFoodDrainMultiplier = new ARKBreedingStats.uiControls.Nud();
+            this.BtRemoteServerSettingsUri = new System.Windows.Forms.Button();
+            this.TbRemoteServerSettingsUri = new System.Windows.Forms.TextBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -383,6 +385,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudChartLevelEvenMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxBreedingSug)).BeginInit();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NudWildDinoCharacterFoodDrainMultiplier)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudWildDinoTorporDrainMultiplier)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDinoCharacterFoodDrainEvent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamingSpeedEvent)).BeginInit();
@@ -459,7 +462,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NudWildDinoCharacterFoodDrainMultiplier)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -1503,6 +1505,39 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Taming-Multiplier";
             // 
+            // NudWildDinoCharacterFoodDrainMultiplier
+            // 
+            this.NudWildDinoCharacterFoodDrainMultiplier.DecimalPlaces = 6;
+            this.NudWildDinoCharacterFoodDrainMultiplier.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.NudWildDinoCharacterFoodDrainMultiplier.Location = new System.Drawing.Point(183, 71);
+            this.NudWildDinoCharacterFoodDrainMultiplier.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.NudWildDinoCharacterFoodDrainMultiplier.Name = "NudWildDinoCharacterFoodDrainMultiplier";
+            this.NudWildDinoCharacterFoodDrainMultiplier.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.NudWildDinoCharacterFoodDrainMultiplier.Size = new System.Drawing.Size(72, 20);
+            this.NudWildDinoCharacterFoodDrainMultiplier.TabIndex = 4;
+            this.NudWildDinoCharacterFoodDrainMultiplier.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label69
+            // 
+            this.label69.AutoSize = true;
+            this.label69.Location = new System.Drawing.Point(10, 73);
+            this.label69.Name = "label69";
+            this.label69.Size = new System.Drawing.Size(186, 13);
+            this.label69.TabIndex = 7;
+            this.label69.Text = "WildDinoCharacterFoodDrainMultiplier";
+            // 
             // label67
             // 
             this.label67.AutoSize = true;
@@ -1652,7 +1687,7 @@
             // 
             // label15
             // 
-            this.label15.Location = new System.Drawing.Point(451, 575);
+            this.label15.Location = new System.Drawing.Point(450, 548);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(289, 77);
             this.label15.TabIndex = 9;
@@ -1833,15 +1868,17 @@
             // 
             this.tabPageMultipliers.AllowDrop = true;
             this.tabPageMultipliers.AutoScroll = true;
+            this.tabPageMultipliers.Controls.Add(this.TbRemoteServerSettingsUri);
+            this.tabPageMultipliers.Controls.Add(this.BtSettingsToClipboard);
+            this.tabPageMultipliers.Controls.Add(this.btExportMultipliers);
+            this.tabPageMultipliers.Controls.Add(this.BtRemoteServerSettingsUri);
             this.tabPageMultipliers.Controls.Add(this.CbKeepMultipliersForNewLibrary);
             this.tabPageMultipliers.Controls.Add(this.BtAutoImportLocalSettings);
             this.tabPageMultipliers.Controls.Add(this.panel3);
             this.tabPageMultipliers.Controls.Add(this.BtImportSettingsSelectFile);
             this.tabPageMultipliers.Controls.Add(this.CbAtlasSettings);
-            this.tabPageMultipliers.Controls.Add(this.BtSettingsToClipboard);
             this.tabPageMultipliers.Controls.Add(this.groupBox29);
             this.tabPageMultipliers.Controls.Add(this.label34);
-            this.tabPageMultipliers.Controls.Add(this.btExportMultipliers);
             this.tabPageMultipliers.Controls.Add(this.groupBox18);
             this.tabPageMultipliers.Controls.Add(this.label27);
             this.tabPageMultipliers.Controls.Add(this.cbSingleplayerSettings);
@@ -1876,7 +1913,7 @@
             // BtAutoImportLocalSettings
             // 
             this.BtAutoImportLocalSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.BtAutoImportLocalSettings.Location = new System.Drawing.Point(407, 642);
+            this.BtAutoImportLocalSettings.Location = new System.Drawing.Point(407, 628);
             this.BtAutoImportLocalSettings.Name = "BtAutoImportLocalSettings";
             this.BtAutoImportLocalSettings.Size = new System.Drawing.Size(152, 23);
             this.BtAutoImportLocalSettings.TabIndex = 17;
@@ -1918,7 +1955,7 @@
             // 
             // BtImportSettingsSelectFile
             // 
-            this.BtImportSettingsSelectFile.Location = new System.Drawing.Point(565, 642);
+            this.BtImportSettingsSelectFile.Location = new System.Drawing.Point(565, 628);
             this.BtImportSettingsSelectFile.Name = "BtImportSettingsSelectFile";
             this.BtImportSettingsSelectFile.Size = new System.Drawing.Size(167, 23);
             this.BtImportSettingsSelectFile.TabIndex = 15;
@@ -1980,7 +2017,7 @@
             // 
             // label34
             // 
-            this.label34.Location = new System.Drawing.Point(404, 676);
+            this.label34.Location = new System.Drawing.Point(404, 682);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(338, 34);
             this.label34.TabIndex = 10;
@@ -2031,7 +2068,7 @@
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(408, 576);
+            this.label27.Location = new System.Drawing.Point(407, 562);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(37, 26);
             this.label27.TabIndex = 12;
@@ -2110,7 +2147,7 @@
             // 
             // buttonEventToDefault
             // 
-            this.buttonEventToDefault.Location = new System.Drawing.Point(604, 547);
+            this.buttonEventToDefault.Location = new System.Drawing.Point(512, 137);
             this.buttonEventToDefault.Name = "buttonEventToDefault";
             this.buttonEventToDefault.Size = new System.Drawing.Size(136, 23);
             this.buttonEventToDefault.TabIndex = 8;
@@ -2147,7 +2184,7 @@
             this.tabPageGeneral.Location = new System.Drawing.Point(4, 22);
             this.tabPageGeneral.Name = "tabPageGeneral";
             this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGeneral.Size = new System.Drawing.Size(750, 722);
+            this.tabPageGeneral.Size = new System.Drawing.Size(750, 744);
             this.tabPageGeneral.TabIndex = 0;
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
@@ -2602,7 +2639,7 @@
             this.tabPageInfoGraphic.Controls.Add(this.label50);
             this.tabPageInfoGraphic.Location = new System.Drawing.Point(4, 22);
             this.tabPageInfoGraphic.Name = "tabPageInfoGraphic";
-            this.tabPageInfoGraphic.Size = new System.Drawing.Size(750, 722);
+            this.tabPageInfoGraphic.Size = new System.Drawing.Size(750, 744);
             this.tabPageInfoGraphic.TabIndex = 7;
             this.tabPageInfoGraphic.Text = "Info Graphic";
             this.tabPageInfoGraphic.UseVisualStyleBackColor = true;
@@ -2860,7 +2897,7 @@
             this.tabPageImportSavegame.Location = new System.Drawing.Point(4, 22);
             this.tabPageImportSavegame.Name = "tabPageImportSavegame";
             this.tabPageImportSavegame.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageImportSavegame.Size = new System.Drawing.Size(750, 722);
+            this.tabPageImportSavegame.Size = new System.Drawing.Size(750, 744);
             this.tabPageImportSavegame.TabIndex = 2;
             this.tabPageImportSavegame.Text = "Import Savegame";
             this.tabPageImportSavegame.UseVisualStyleBackColor = true;
@@ -3113,7 +3150,7 @@
             this.tabPageImportExported.Location = new System.Drawing.Point(4, 22);
             this.tabPageImportExported.Name = "tabPageImportExported";
             this.tabPageImportExported.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageImportExported.Size = new System.Drawing.Size(750, 722);
+            this.tabPageImportExported.Size = new System.Drawing.Size(750, 744);
             this.tabPageImportExported.TabIndex = 3;
             this.tabPageImportExported.Text = "Import Exported";
             this.tabPageImportExported.UseVisualStyleBackColor = true;
@@ -3622,7 +3659,7 @@
             this.tabPageTimers.Location = new System.Drawing.Point(4, 22);
             this.tabPageTimers.Name = "tabPageTimers";
             this.tabPageTimers.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTimers.Size = new System.Drawing.Size(750, 722);
+            this.tabPageTimers.Size = new System.Drawing.Size(750, 744);
             this.tabPageTimers.TabIndex = 6;
             this.tabPageTimers.Text = "Timers";
             this.tabPageTimers.UseVisualStyleBackColor = true;
@@ -3706,7 +3743,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3714,7 +3751,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3722,7 +3759,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3730,7 +3767,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -3748,7 +3785,7 @@
             this.tabPageOverlay.Location = new System.Drawing.Point(4, 22);
             this.tabPageOverlay.Name = "tabPageOverlay";
             this.tabPageOverlay.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOverlay.Size = new System.Drawing.Size(750, 722);
+            this.tabPageOverlay.Size = new System.Drawing.Size(750, 744);
             this.tabPageOverlay.TabIndex = 5;
             this.tabPageOverlay.Text = "Overlay";
             this.tabPageOverlay.UseVisualStyleBackColor = true;
@@ -4128,7 +4165,7 @@
             this.tabPageOCR.Location = new System.Drawing.Point(4, 22);
             this.tabPageOCR.Name = "tabPageOCR";
             this.tabPageOCR.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOCR.Size = new System.Drawing.Size(750, 722);
+            this.tabPageOCR.Size = new System.Drawing.Size(750, 744);
             this.tabPageOCR.TabIndex = 4;
             this.tabPageOCR.Text = "OCR";
             this.tabPageOCR.UseVisualStyleBackColor = true;
@@ -4449,38 +4486,22 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // label69
+            // BtRemoteServerSettingsUri
             // 
-            this.label69.AutoSize = true;
-            this.label69.Location = new System.Drawing.Point(10, 73);
-            this.label69.Name = "label69";
-            this.label69.Size = new System.Drawing.Size(186, 13);
-            this.label69.TabIndex = 7;
-            this.label69.Text = "WildDinoCharacterFoodDrainMultiplier";
+            this.BtRemoteServerSettingsUri.Location = new System.Drawing.Point(565, 657);
+            this.BtRemoteServerSettingsUri.Name = "BtRemoteServerSettingsUri";
+            this.BtRemoteServerSettingsUri.Size = new System.Drawing.Size(167, 23);
+            this.BtRemoteServerSettingsUri.TabIndex = 19;
+            this.BtRemoteServerSettingsUri.Text = "Import remote settings";
+            this.BtRemoteServerSettingsUri.UseVisualStyleBackColor = true;
+            this.BtRemoteServerSettingsUri.Click += new System.EventHandler(this.BtRemoteServerSettingsUri_Click);
             // 
-            // NudWildDinoCharacterFoodDrainMultiplier
+            // TbRemoteServerSettingsUri
             // 
-            this.NudWildDinoCharacterFoodDrainMultiplier.DecimalPlaces = 6;
-            this.NudWildDinoCharacterFoodDrainMultiplier.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.NudWildDinoCharacterFoodDrainMultiplier.Location = new System.Drawing.Point(183, 71);
-            this.NudWildDinoCharacterFoodDrainMultiplier.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.NudWildDinoCharacterFoodDrainMultiplier.Name = "NudWildDinoCharacterFoodDrainMultiplier";
-            this.NudWildDinoCharacterFoodDrainMultiplier.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.NudWildDinoCharacterFoodDrainMultiplier.Size = new System.Drawing.Size(72, 20);
-            this.NudWildDinoCharacterFoodDrainMultiplier.TabIndex = 4;
-            this.NudWildDinoCharacterFoodDrainMultiplier.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.TbRemoteServerSettingsUri.Location = new System.Drawing.Point(407, 659);
+            this.TbRemoteServerSettingsUri.Name = "TbRemoteServerSettingsUri";
+            this.TbRemoteServerSettingsUri.Size = new System.Drawing.Size(152, 20);
+            this.TbRemoteServerSettingsUri.TabIndex = 20;
             // 
             // Settings
             // 
@@ -4535,6 +4556,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxBreedingSug)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NudWildDinoCharacterFoodDrainMultiplier)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudWildDinoTorporDrainMultiplier)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDinoCharacterFoodDrainEvent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamingSpeedEvent)).EndInit();
@@ -4643,7 +4665,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).EndInit();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.NudWildDinoCharacterFoodDrainMultiplier)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -4971,5 +4992,7 @@
         private System.Windows.Forms.Label label68;
         private uiControls.Nud NudWildDinoCharacterFoodDrainMultiplier;
         private System.Windows.Forms.Label label69;
+        private System.Windows.Forms.Button BtRemoteServerSettingsUri;
+        private System.Windows.Forms.TextBox TbRemoteServerSettingsUri;
     }
 }

@@ -151,6 +151,12 @@ namespace ARKBreedingStats.Library
         private int _totalCreatureCount;
 
         /// <summary>
+        /// ServerMultipliers uri on the server to pull the settings.
+        /// </summary>
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string ServerSettingsUriSource;
+
+        /// <summary>
         /// Calculates a hashcode for a list of mods and their order. Can be used to check for changes.
         /// </summary>
         public static int CalculateModListHash(IEnumerable<Mod> modList)

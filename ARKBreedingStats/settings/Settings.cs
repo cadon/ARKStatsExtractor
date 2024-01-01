@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Threading;
@@ -254,6 +255,7 @@ namespace ARKBreedingStats.settings
             nudBabyFoodConsumptionSpeedEvent.ValueSave = (decimal)multipliers.BabyFoodConsumptionSpeedMultiplier;
             #endregion
 
+            TbRemoteServerSettingsUri.Text = cc.ServerSettingsUriSource;
             checkBoxAutoSave.Checked = Properties.Settings.Default.autosave;
             chkCollectionSync.Checked = Properties.Settings.Default.syncCollection;
             NudWaitBeforeAutoLoad.ValueSave = Properties.Settings.Default.WaitBeforeAutoLoadMs;
@@ -520,6 +522,7 @@ namespace ARKBreedingStats.settings
             _cc.serverMultipliersEvents.BabyFoodConsumptionSpeedMultiplier = (double)nudBabyFoodConsumptionSpeedEvent.Value;
             #endregion
 
+            _cc.ServerSettingsUriSource = string.IsNullOrEmpty(TbRemoteServerSettingsUri.Text) ? null : TbRemoteServerSettingsUri.Text;
             Properties.Settings.Default.autosave = checkBoxAutoSave.Checked;
             Properties.Settings.Default.syncCollection = chkCollectionSync.Checked;
             Properties.Settings.Default.WaitBeforeAutoLoadMs = (int)NudWaitBeforeAutoLoad.Value;
@@ -1692,6 +1695,39 @@ namespace ARKBreedingStats.settings
 
             if (localConfigPaths[importIndex].Item2 == Ark.Game.ASA) RbGameAsa.Checked = true;
             else RbGameAse.Checked = true;
+        }
+
+        private async void BtRemoteServerSettingsUri_Click(object sender, EventArgs e)
+        {
+            var uri = TbRemoteServerSettingsUri.Text;
+            if (string.IsNullOrEmpty(uri))
+            {
+                MessageBoxes.ShowMessageBox("No url for a server settings file given. Enter the url to the text box near the button you just clicked.");
+                return;
+            }
+
+            try
+            {
+                using (var hc = new HttpClient())
+                {
+                    var settings = await hc.GetStringAsync(uri);
+                    if (string.IsNullOrEmpty(settings))
+                    {
+                        MessageBoxes.ShowMessageBox($"The specified source{Environment.NewLine}{uri}{Environment.NewLine}contains not text, nothing was imported.");
+                        return;
+                    }
+
+                    if (MessageBox.Show($"Apply the settings of the downloaded file?{Environment.NewLine}{uri}", "Use downloaded settings?",
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                    {
+                        ExtractSettingsFromText(settings, true);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBoxes.ExceptionMessageBox(ex, "Server settings file couldn't be loaded.");
+            }
         }
     }
 }
