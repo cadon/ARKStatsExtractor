@@ -37,7 +37,7 @@ namespace ARKBreedingStats.AsbServer
 
             try
             {
-                using (var client = new HttpClient())
+                var client = FileService.GetHttpClient;
                 using (var response = await client.GetAsync(requestUri, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (!response.IsSuccessStatusCode)
@@ -186,16 +186,17 @@ namespace ARKBreedingStats.AsbServer
         {
             if (creature == null || string.IsNullOrEmpty(token)) return;
 
-            using (var client = new HttpClient())
+            var client = FileService.GetHttpClient;
+
+            var contentString = Newtonsoft.Json.JsonConvert.SerializeObject(ImportExportGun.ConvertCreatureToExportGunFile(creature, out _));
+            var msg = new HttpRequestMessage(HttpMethod.Put, ApiUri + "export/" + token);
+            msg.Content = new StringContent(contentString, Encoding.UTF8, "application/json");
+            msg.Content.Headers.Add("Content-Length", contentString.Length.ToString());
+            using (var response = await client.SendAsync(msg))
             {
-                var contentString = Newtonsoft.Json.JsonConvert.SerializeObject(ImportExportGun.ConvertCreatureToExportGunFile(creature, out _));
-                var msg = new HttpRequestMessage(HttpMethod.Put, ApiUri + "export/" + token);
-                msg.Content = new StringContent(contentString, Encoding.UTF8, "application/json");
-                msg.Content.Headers.Add("Content-Length", contentString.Length.ToString());
-                var response = await client.SendAsync(msg);
                 Console.WriteLine($"Sent creature data of {creature} using token: {token}\nContent:\n{contentString}");
                 Console.WriteLine(msg.ToString());
-                Console.WriteLine($"Response: Status: {(int)response.StatusCode}, ReasonPhrase: {response.ReasonPhrase}");
+                Console.WriteLine($"Response: StatusCode {(int)response.StatusCode}, ReasonPhrase: {response.ReasonPhrase}");
             }
         }
 

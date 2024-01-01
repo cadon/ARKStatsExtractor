@@ -16,6 +16,8 @@ namespace ARKBreedingStats.NamePatterns
         /// </summary>
         private const string PipeEscapeSequence = @"\pipe";
 
+        public static Random Random = new Random();
+
         /// <summary>
         /// Generate a creature name with the naming pattern.
         /// </summary>
@@ -203,9 +205,6 @@ namespace ARKBreedingStats.NamePatterns
             double imp = creature.imprintingBonus * 100;
             double eff = creature.tamingEff * 100;
 
-            Random rand = new Random(DateTime.Now.Millisecond);
-            string randStr = rand.Next(0, 999999).ToString("000000");
-
             string effImp = "Z";
             string prefix = string.Empty;
             if (creature.isBred)
@@ -332,7 +331,7 @@ namespace ARKBreedingStats.NamePatterns
                 { "genn", (speciesCreatures?.Count(c=>c.generation==generation) ?? 0 + 1).ToString()},
                 { "nr_in_gen", nrInGeneration.ToString()},
                 { "nr_in_gen_sex", nrInGenerationAndSameSex.ToString()},
-                { "rnd", randStr },
+                { "rnd", Random.Next(0, 999999).ToString("000000")},
                 { "ln", libraryCreatureCount.ToString()},
                 { "tn", speciesCount.ToString()},
                 { "sn", speciesSexCount.ToString()},

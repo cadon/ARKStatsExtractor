@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Windows.Forms;
 
 namespace ARKBreedingStats.importExported
 {
@@ -8,13 +9,14 @@ namespace ARKBreedingStats.importExported
         private readonly FileSystemWatcher _fileWatcherExport;
         private readonly Action<string, FileWatcherExports> _callbackNewFile;
 
-        public FileWatcherExports(string folderToWatch, Action<string, FileWatcherExports> callbackNewFile)
+        public FileWatcherExports(string folderToWatch, Action<string, FileWatcherExports> callbackNewFile, Control synchronizingObject)
         {
             _callbackNewFile = callbackNewFile;
 
             _fileWatcherExport = new FileSystemWatcher
             {
-                NotifyFilter = NotifyFilters.LastWrite
+                NotifyFilter = NotifyFilters.LastWrite,
+                SynchronizingObject = synchronizingObject
             };
             _fileWatcherExport.Created += OnChanged;
             _fileWatcherExport.Changed += OnChanged;

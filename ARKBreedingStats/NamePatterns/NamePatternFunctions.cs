@@ -51,6 +51,7 @@ namespace ARKBreedingStats.NamePatterns
                 {"float_div", FunctionFloatDiv},
                 {"div", FunctionDiv},
                 {"casing", FunctionCasing},
+                {"rand", FunctionRand },
                 {"replace", FunctionReplace},
                 {"regexreplace", FunctionRegExReplace},
                 {"customreplace", FunctionCustomReplace},
@@ -58,7 +59,8 @@ namespace ARKBreedingStats.NamePatterns
                 {"color", FunctionColor},
                 {"colornew", FunctionColorNew},
                 {"indexof", FunctionIndexOf},
-                {"md5", FunctionMd5}
+                {"md5", FunctionMd5},
+                {"listname", FunctionListName }
             };
 
         private static string FunctionIf(Match m, NamePatternParameters p)
@@ -247,6 +249,20 @@ namespace ARKBreedingStats.NamePatterns
             return ParametersInvalid($"casing expects 'U', 'L' or 'T', given is '{m.Groups[3].Value}'", m.Groups[0].Value, p.DisplayError);
         }
 
+        private static string FunctionRand(Match m, NamePatternParameters p)
+        {
+            // parameter: 1: to (if one parameter), from (if two parameters), 2: to
+            // to is exclusive
+            int.TryParse(m.Groups[2].Value, out var from);
+            if (!int.TryParse(m.Groups[3].Value, out var to))
+            {
+                to = from;
+                from = 0;
+            }
+            if (from < 0 || from >= to) return string.Empty;
+            return NamePattern.Random.Next(from, to).ToString();
+        }
+
         private static string FunctionReplace(Match m, NamePatternParameters p)
         {
             // parameter: 1: replace, 2: text, 3: find, 4: replace
@@ -358,6 +374,14 @@ namespace ARKBreedingStats.NamePatterns
                 sb.Append(b.ToString("X2"));
 
             return sb.ToString();
+        }
+
+        private static string FunctionListName(Match m, NamePatternParameters p)
+        {
+            // parameter: 1: name index, 2: list suffix
+            if (!int.TryParse(m.Groups[2].Value, out var nameIndex)) return string.Empty;
+
+            return NameList.GetName(nameIndex, m.Groups[3].Value);
         }
 
         public static void Dispose()

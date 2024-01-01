@@ -166,16 +166,18 @@ namespace ARKBreedingStats
             }
         }
 
-        private void ImportExportedAddIfPossible_WatcherThread(string filePath, importExported.FileWatcherExports fwe)
+        /// <summary>
+        /// The fileWatcher detected a new or changed file in the watched folder.
+        /// </summary>
+        private void ImportExportedFileChanged(string filePath, importExported.FileWatcherExports fwe)
         {
             fwe.Watching = false;
-            // wait a moment until the file is readable. why is this necessary? blocked by fileWatcher?
+            // wait a moment until the file is fully written
             System.Threading.Thread.Sleep(200);
 
-            // moving to the archived folder can trigger another fileWatcherEvent, first check if the file is still there
+            // moving a file to the archived folder can trigger another fileWatcherEvent, first check if the file is still there
             if (File.Exists(filePath))
-                // fileWatcher is on another thread, invoke ui-thread to work with ui
-                Invoke(new Action(delegate { ImportExportedAddIfPossible(filePath); }));
+                ImportExportedAddIfPossible(filePath);
 
             fwe.Watching = true;
         }

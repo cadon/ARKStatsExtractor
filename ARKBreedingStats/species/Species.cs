@@ -161,6 +161,7 @@ namespace ARKBreedingStats.species
 
             var fullStatsRawLength = fullStatsRaw?.Length ?? 0;
 
+            _skipWildLevelStatsWithServerSettings = skipWildLevelStats;
             usedStats = 0;
 
             StatImprintMultipliers = statImprintMult ?? StatImprintMultipliersDefaultAse.ToArray();
@@ -173,6 +174,7 @@ namespace ARKBreedingStats.species
                 if (altBaseStatsRaw?.ContainsKey(s) ?? false)
                     altStats[s] = new CreatureStat();
 
+                var usesStat = false;
                 completeRaws[s] = new double[] { 0, 0, 0, 0, 0 };
                 if (fullStatsRawLength > s && fullStatsRaw[s] != null)
                 {
@@ -183,11 +185,16 @@ namespace ARKBreedingStats.species
                             completeRaws[s][i] = fullStatsRaw[s]?[i] ?? 0;
                             if (i == 0 && fullStatsRaw[s][0] > 0)
                             {
-                                usedStats |= (1 << s);
+                                usesStat = true;
                             }
                         }
                     }
                 }
+                var statBit = (1 << s);
+                if (usesStat)
+                    usedStats |= statBit;
+                else
+                    _skipWildLevelStatsWithServerSettings |= statBit;
             }
 
             if (fullStatsRawLength != -0)
@@ -217,8 +224,6 @@ namespace ARKBreedingStats.species
                 }
                 boneDamageAdjusters = boneDamageAdjustersCleanedUp;
             }
-
-            _skipWildLevelStatsWithServerSettings = skipWildLevelStats;
 
             IsDomesticable = (taming != null && (taming.nonViolent || taming.violent))
                              || (breeding != null && (breeding.incubationTime > 0 || breeding.gestationTime > 0));

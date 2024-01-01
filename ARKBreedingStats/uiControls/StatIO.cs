@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Windows.Input;
 using System.Windows.Threading;
 using ARKBreedingStats.utils;
+using Cursors = System.Windows.Forms.Cursors;
 
 namespace ARKBreedingStats
 {
@@ -378,24 +380,29 @@ namespace ARKBreedingStats
         {
             OnClick(e);
 
-            if (LevelMut > 1)
-            {
-                LevelWild += 2;
-                LevelMut -= 2;
-                LevelChangedDebouncer();
-            }
+            var levelDelta = LevelDeltaMutationShift(LevelMut);
+            if (levelDelta <= 0) return;
+            LevelWild += levelDelta;
+            LevelMut -= levelDelta;
+            LevelChangedDebouncer();
         }
 
         private void labelMutatedLevel_Click(object sender, EventArgs e)
         {
             OnClick(e);
 
-            if (LevelWild > 1)
-            {
-                LevelWild -= 2;
-                LevelMut += 2;
-                LevelChangedDebouncer();
-            }
+            var levelDelta = LevelDeltaMutationShift(LevelWild);
+            if (levelDelta <= 0) return;
+            LevelWild -= levelDelta;
+            LevelMut += levelDelta;
+            LevelChangedDebouncer();
+        }
+
+        private int LevelDeltaMutationShift(int remainingLevel)
+        {
+            var levelDelta = Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Shift) ? 10 : 2;
+            if (remainingLevel < levelDelta) levelDelta = (remainingLevel / 2) * 2;
+            return levelDelta;
         }
 
         private void labelDomLevel_Click(object sender, EventArgs e)

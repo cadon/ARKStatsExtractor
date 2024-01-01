@@ -99,6 +99,7 @@
     <Compile Include="library\CreatureSpawnCommand.cs" />
     <Compile Include="library\DummyCreatures.cs" />
     <Compile Include="multiplierTesting\CalculateMultipliers.cs" />
+    <Compile Include="NamePatterns\NameList.cs" />
     <Compile Include="NamePatterns\NamePatternEntry.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -666,6 +667,15 @@
     <None Include="json\variantsDefaultUnselected.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="json\creatureNamesF.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="json\creatureNamesM.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="json\creatureNamesU.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="_manifest.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>_manifest.json</LastGenOutput>

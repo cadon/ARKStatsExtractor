@@ -80,7 +80,7 @@ namespace ARKBreedingStats.Library
         /// Indicates the game the library is used for. Possible values are "ASE" (default) for ARK: Survival Evolved or "ASA" for ARK: Survival Ascended.
         /// </summary>
         [JsonProperty("Game")]
-        private string _game = "ASE";
+        private string _game = Ark.Ase;
 
         /// <summary>
         /// Used for the exportGun mod.
@@ -149,6 +149,12 @@ namespace ARKBreedingStats.Library
 
         private Dictionary<string, int> _creatureCountBySpecies;
         private int _totalCreatureCount;
+
+        /// <summary>
+        /// ServerMultipliers uri on the server to pull the settings.
+        /// </summary>
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string ServerSettingsUriSource;
 
         /// <summary>
         /// Calculates a hashcode for a list of mods and their order. Can be used to check for changes.

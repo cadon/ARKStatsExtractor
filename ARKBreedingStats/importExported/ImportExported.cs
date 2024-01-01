@@ -101,7 +101,7 @@ namespace ARKBreedingStats.importExported
                         break;
                     case "DinoClass":
                         // despite the property is called DinoClass it contains the complete blueprint-path
-                        cv.Species = Values.V.SpeciesByBlueprint(text,true);
+                        cv.Species = Values.V.SpeciesByBlueprint(text, true);
                         if (cv.Species == null)
                             cv.speciesBlueprint = text; // species is unknown, check the needed mods later
                         break;
@@ -144,7 +144,10 @@ namespace ARKBreedingStats.importExported
                         break;
                     case "BabyAge":
                         if (cv.Species?.breeding != null)
+                        {
                             cv.growingUntil = DateTime.Now.AddSeconds((int)(cv.Species.breeding.maturationTimeAdjusted * (1 - value)));
+                            if (value < 1) cv.isBred = true;
+                        }
                         break;
                     case "CharacterLevel":
                         cv.level = (int)value;

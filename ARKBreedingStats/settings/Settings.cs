@@ -5,7 +5,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.importExportGun;
@@ -24,6 +27,7 @@ namespace ARKBreedingStats.settings
         public SettingsTabPages LastTabPageIndex;
         public bool LanguageChanged;
         public bool ColorRegionDisplayChanged;
+        private CancellationTokenSource _cancellationTokenSource;
 
         public Settings(CreatureCollection cc, SettingsTabPages page)
         {
@@ -254,6 +258,7 @@ namespace ARKBreedingStats.settings
             nudBabyFoodConsumptionSpeedEvent.ValueSave = (decimal)multipliers.BabyFoodConsumptionSpeedMultiplier;
             #endregion
 
+            TbRemoteServerSettingsUri.Text = cc.ServerSettingsUriSource;
             checkBoxAutoSave.Checked = Properties.Settings.Default.autosave;
             chkCollectionSync.Checked = Properties.Settings.Default.syncCollection;
             NudWaitBeforeAutoLoad.ValueSave = Properties.Settings.Default.WaitBeforeAutoLoadMs;
@@ -520,6 +525,7 @@ namespace ARKBreedingStats.settings
             _cc.serverMultipliersEvents.BabyFoodConsumptionSpeedMultiplier = (double)nudBabyFoodConsumptionSpeedEvent.Value;
             #endregion
 
+            _cc.ServerSettingsUriSource = string.IsNullOrEmpty(TbRemoteServerSettingsUri.Text) ? null : TbRemoteServerSettingsUri.Text;
             Properties.Settings.Default.autosave = checkBoxAutoSave.Checked;
             Properties.Settings.Default.syncCollection = chkCollectionSync.Checked;
             Properties.Settings.Default.WaitBeforeAutoLoadMs = (int)NudWaitBeforeAutoLoad.Value;
@@ -1692,6 +1698,83 @@ namespace ARKBreedingStats.settings
 
             if (localConfigPaths[importIndex].Item2 == Ark.Game.ASA) RbGameAsa.Checked = true;
             else RbGameAse.Checked = true;
+        }
+
+        private async void BtRemoteServerSettingsUri_Click(object sender, EventArgs e)
+        {
+            var uri = TbRemoteServerSettingsUri.Text;
+            if (string.IsNullOrEmpty(uri))
+            {
+                MessageBoxes.ShowMessageBox("No url for a server settings file given. Enter the url to the text box near the button you just clicked.");
+                return;
+            }
+
+            if (_cancellationTokenSource != null)
+            {
+                _cancellationTokenSource.Cancel();
+                return;
+            }
+
+            try
+            {
+                var httpClient = FileService.GetHttpClient;
+                _cancellationTokenSource = new CancellationTokenSource();
+                BtRemoteServerSettingsUri.Text = "Cancel loading";
+                string settingsText = null;
+                using (var result = await httpClient.GetAsync(uri, _cancellationTokenSource.Token))
+                {
+                    if (!result.IsSuccessStatusCode)
+                    {
+                        MessageBoxes.ShowMessageBox(
+                            $"Error when trying to load settings from{Environment.NewLine}{uri}{Environment.NewLine}StatusCode {(int)result.StatusCode}: {result.ReasonPhrase}");
+                        return;
+                    }
+
+                    settingsText = await result.Content.ReadAsStringAsync();
+                }
+
+                if (string.IsNullOrEmpty(settingsText))
+                {
+                    MessageBoxes.ShowMessageBox(
+                        $"The specified source{Environment.NewLine}{uri}{Environment.NewLine}contains not text, nothing was imported.");
+                    return;
+                }
+
+                if (MessageBox.Show($"Apply the settings of the downloaded file?{Environment.NewLine}{uri}",
+                        "Use downloaded settings?",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    ExtractSettingsFromText(settingsText, true);
+                }
+
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBoxes.ShowMessageBox(
+                    $"The given url{Environment.NewLine}{uri}{Environment.NewLine}is not valid.{Environment.NewLine}{ex.Message}",
+                    "Invalid url");
+            }
+            catch (TaskCanceledException ex)
+            {
+                if (_cancellationTokenSource?.IsCancellationRequested == true)
+                {
+                    // request canceled by user
+                    return;
+                }
+                MessageBoxes.ShowMessageBox(
+                    $"The given url{Environment.NewLine}{uri}{Environment.NewLine}didn't respond fast enough (timeout), maybe the url is incorrect.{Environment.NewLine}{ex.Message}",
+                    "Timeout when loading server settings");
+            }
+            catch (Exception ex)
+            {
+                MessageBoxes.ExceptionMessageBox(ex, "Server settings file couldn't be loaded.");
+            }
+            finally
+            {
+                _cancellationTokenSource?.Dispose();
+                _cancellationTokenSource = null;
+                BtRemoteServerSettingsUri.Text = "Load remote settings";
+            }
         }
     }
 }
