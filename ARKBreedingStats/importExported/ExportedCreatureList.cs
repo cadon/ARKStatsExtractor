@@ -269,9 +269,10 @@ namespace ARKBreedingStats.importExported
             UpdateVisualData?.Invoke(false);
             foreach (var ecc in _eccs)
             {
-                if (ecc.Visible
-                    && (!onlyUnimported || ecc.Status == ExportedCreatureControl.ImportStatus.NotImported))
-                    ecc.extractAndAddToLibrary(false);
+                if (!ecc.Visible
+                    || (onlyUnimported && ecc.Status != ExportedCreatureControl.ImportStatus.NotImported && ecc.Status != ExportedCreatureControl.ImportStatus.NeedsLevelChoosing))
+                    continue;
+                ecc.extractAndAddToLibrary(false);
             }
             UpdateStatusBarLabelAndControls();
             UpdateVisualData?.Invoke(true);
