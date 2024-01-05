@@ -401,6 +401,12 @@ namespace ARKBreedingStats
         /// </summary>
         private void UpdateTimeToFeedAll(bool enoughFood = true)
         {
+            if (_foodDepletion == 0)
+            {
+                lbTimeUntilStarving.Text = string.Empty;
+                return;
+            }
+
             double hunger = (double)(nudTotalFood.Value - nudCurrentFood.Value);
             if (hunger < 0) hunger = 0;
             if (hunger > _neededHunger) hunger = _neededHunger;
