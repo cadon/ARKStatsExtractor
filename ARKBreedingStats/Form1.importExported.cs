@@ -297,7 +297,7 @@ namespace ARKBreedingStats
                 {
                     if (alreadyExists)
                         SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Indifferent);
-                    if (hasNewTopLevels)
+                    else if (hasNewTopLevels)
                         SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Great);
                     else if (hasTopLevels)
                         SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Good);
