@@ -164,7 +164,10 @@ namespace ARKBreedingStats.species
             _skipWildLevelStatsWithServerSettings = skipWildLevelStats;
             usedStats = 0;
 
-            StatImprintMultipliers = statImprintMult ?? StatImprintMultipliersDefaultAse.ToArray();
+            if (statImprintMult == null)
+                statImprintMult = StatImprintMultipliersDefaultAse;
+
+            StatImprintMultipliers = statImprintMult.ToArray();
             if (mutationMult == null) mutationMult = MutationMultipliersDefault;
 
             double[][] completeRaws = new double[Stats.StatsCount][];
@@ -325,7 +328,7 @@ namespace ARKBreedingStats.species
             }
             if (isEqual) statImprintMultOverride = null;
             else statImprintMultOverride = overrideValues;
-            StatImprintMultipliers = statImprintMultOverride ?? statImprintMult;
+            StatImprintMultipliers = statImprintMultOverride ?? statImprintMult.ToArray();
         }
 
         /// <summary>
@@ -340,7 +343,7 @@ namespace ARKBreedingStats.species
             {
                 DisplayedStats |= statBit;
                 StatImprintMultipliers[Stats.SpeedMultiplier] =
-                    (statImprintMultOverride ?? statImprintMult ?? StatImprintMultipliersDefaultAse)[Stats.SpeedMultiplier];
+                    (statImprintMultOverride ?? statImprintMult)[Stats.SpeedMultiplier];
                 _skipWildLevelStatsWithServerSettings &= ~statBit;
             }
             else
@@ -433,7 +436,7 @@ namespace ARKBreedingStats.species
             if (overrides.DisplayedStats != 0) DisplayedStats = overrides.DisplayedStats;
             if (overrides.skipWildLevelStats != 0) skipWildLevelStats = overrides.skipWildLevelStats;
             if (overrides.TamedBaseHealthMultiplier != null) TamedBaseHealthMultiplier = overrides.TamedBaseHealthMultiplier;
-            if (overrides.statImprintMult != null) statImprintMult = overrides.statImprintMult;
+            if (overrides.statImprintMult != null) statImprintMult = overrides.statImprintMult.ToArray();
             if (overrides.mutationMult != null) mutationMult = overrides.mutationMult;
             if (overrides.colors != null) colors = overrides.colors;
             if (overrides.taming != null) taming = overrides.taming;
