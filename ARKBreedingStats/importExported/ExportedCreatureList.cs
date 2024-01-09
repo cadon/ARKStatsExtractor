@@ -269,9 +269,10 @@ namespace ARKBreedingStats.importExported
             UpdateVisualData?.Invoke(false);
             foreach (var ecc in _eccs)
             {
-                if (ecc.Visible
-                    && (!onlyUnimported || ecc.Status == ExportedCreatureControl.ImportStatus.NotImported))
-                    ecc.extractAndAddToLibrary(false);
+                if (!ecc.Visible
+                    || (onlyUnimported && ecc.Status != ExportedCreatureControl.ImportStatus.NotImported && ecc.Status != ExportedCreatureControl.ImportStatus.NeedsLevelChoosing))
+                    continue;
+                ecc.extractAndAddToLibrary(false);
             }
             UpdateStatusBarLabelAndControls();
             UpdateVisualData?.Invoke(true);
@@ -296,22 +297,46 @@ namespace ARKBreedingStats.importExported
                     return;
                 }
 
+                bool overwriteAllFiles = false;
                 int movedFilesCount = 0;
                 foreach (var ecc in _eccs)
                 {
-                    if (ecc.Status == ExportedCreatureControl.ImportStatus.JustImported || ecc.Status == ExportedCreatureControl.ImportStatus.OldImported)
+                    if (ecc.Status != ExportedCreatureControl.ImportStatus.JustImported &&
+                        ecc.Status != ExportedCreatureControl.ImportStatus.OldImported) continue;
+
+                    var destFilePath = Path.Combine(importedPath, Path.GetFileName(ecc.exportedFile));
+                    var destFileExists = File.Exists(destFilePath);
+                    if (!overwriteAllFiles && destFileExists)
                     {
-                        try
+                        var doBreak = false;
+                        switch (MessageBox.Show($"The file{Environment.NewLine}{destFilePath}{Environment.NewLine}already exists. Overwrite?", "Overwrite file?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning))
                         {
-                            File.Move(ecc.exportedFile, Path.Combine(importedPath, Path.GetFileName(ecc.exportedFile)));
-                            movedFilesCount++;
-                            ecc.Dispose();
+                            case DialogResult.Cancel:
+                                doBreak = true;
+                                break;
+                            case DialogResult.No:
+                                continue;
+                            case DialogResult.Yes:
+                                overwriteAllFiles = MessageBox.Show(
+                                        $"Overwrite all already existing export files in the folder{Environment.NewLine}{importedPath}?",
+                                        "Overwrite all files?", MessageBoxButtons.YesNo, MessageBoxIcon.Information) ==
+                                    DialogResult.Yes;
+                                break;
                         }
-                        catch (Exception ex)
-                        {
-                            MessageBoxes.ExceptionMessageBox(ex, $"The file\n{ecc.exportedFile}\ncould not be moved. The following files will not be moved either.", "Error moving file");
-                            break;
-                        }
+                        if (doBreak) break;
+                    }
+
+                    try
+                    {
+                        if (destFileExists) File.Delete(destFilePath);
+                        File.Move(ecc.exportedFile, destFilePath);
+                        movedFilesCount++;
+                        ecc.Dispose();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBoxes.ExceptionMessageBox(ex, $"The file\n{ecc.exportedFile}\ncould not be moved. The following files will not be moved either.", "Error moving file");
+                        break;
                     }
                 }
 

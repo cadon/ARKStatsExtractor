@@ -3517,7 +3517,7 @@ namespace ARKBreedingStats
             {
                 var cr = _creaturesDisplayed[i];
 
-                if (sameSpecies == null || sameSpecies[0].Species != cr.Species)
+                if (sameSpecies?.FirstOrDefault()?.Species != cr.Species)
                     sameSpecies = _creatureCollection.creatures.Where(c => c.Species == cr.Species).ToArray();
 
                 // set new name

@@ -843,8 +843,8 @@ namespace ARKBreedingStats
                 var serverMultiplierFilePath = Path.Combine(Path.GetDirectoryName(lastCreatureFilePath), "Servers", serverMultipliersHash + ".json");
                 if (!File.Exists(serverMultiplierFilePath))
                     serverMultiplierFilePath = Path.Combine(Path.GetDirectoryName(lastCreatureFilePath), "Servers", serverMultipliersHash + ".sav");
-
-                multipliersImportSuccessful = ImportExportGun.ImportServerMultipliers(_creatureCollection, serverMultiplierFilePath, serverMultipliersHash, out serverImportResult);
+                if (File.Exists(serverMultiplierFilePath))
+                    multipliersImportSuccessful = ImportExportGun.ImportServerMultipliers(_creatureCollection, serverMultiplierFilePath, serverMultipliersHash, out serverImportResult);
             }
 
             if (multipliersImportSuccessful == true)
