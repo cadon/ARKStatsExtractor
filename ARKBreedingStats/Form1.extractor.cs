@@ -414,7 +414,7 @@ namespace ARKBreedingStats
             int domLevelsChosenSum = 0;
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (s != Stats.Torpidity)
+                if (s != Stats.Torpidity && _extractor.Results[s].Any())
                     domLevelsChosenSum += _extractor.Results[s][_extractor.ChosenResults[s]].levelDom;
             }
             if (domLevelsChosenSum != _extractor.LevelDomSum)
