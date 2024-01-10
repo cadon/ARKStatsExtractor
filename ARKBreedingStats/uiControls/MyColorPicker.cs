@@ -29,10 +29,7 @@ namespace ARKBreedingStats.uiControls
             BtNoColor.Text = Loc.S("noColor");
             LbAlternativeColor.Text = Loc.S("LbAlternativeColor");
             _tt.SetToolTip(BtNoColor, "0: no color");
-
-            BtUndefinedColor.Tag = Ark.UndefinedColorId; // one possible id of undefined color, currently used by Ark
-            _tt.SetToolTip(BtUndefinedColor, $"{Ark.UndefinedColorId}: undefined color");
-
+            SetUndefinedColorId();
             buttonCancel.Text = Loc.S("Cancel");
 
             Disposed += MyColorPicker_Disposed;
@@ -48,6 +45,12 @@ namespace ARKBreedingStats.uiControls
             _tt.Dispose();
         }
 
+        public void SetUndefinedColorId()
+        {
+            BtUndefinedColor.Tag = Ark.UndefinedColorId; // one possible id of undefined color, currently used by Ark
+            _tt.SetToolTip(BtUndefinedColor, $"{Ark.UndefinedColorId}: undefined color");
+        }
+
         /// <summary>
         /// Clears color buttons. Call if color definitions changed, e.g. when a mod with colors is loaded or unloaded.
         /// </summary>
@@ -60,6 +63,7 @@ namespace ARKBreedingStats.uiControls
                 c.Dispose();
             }
             flowLayoutPanel1.Controls.Clear();
+            SetUndefinedColorId();
         }
 
         public void PickColor(byte selectedColorId, string headerText, List<ArkColor> naturalColors = null, byte selectedColorIdAlternative = 0)
