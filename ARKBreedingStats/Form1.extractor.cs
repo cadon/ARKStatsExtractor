@@ -762,17 +762,18 @@ namespace ARKBreedingStats
         /// </summary>
         private void SetWildUnknownLevelsAccordingToOthers()
         {
+            var species = speciesSelector1.SelectedSpecies;
             // wild speed level is wildTotalLevels - determinedWildLevels. sometimes the oxygen level cannot be determined as well
             var unknownLevelIndices = new List<int>();
             int notDeterminedLevels = _statIOs[Stats.Torpidity].LevelWild;
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (s == Stats.Torpidity || !speciesSelector1.SelectedSpecies.UsesStat(s))
+                if (s == Stats.Torpidity || !species.UsesStat(s))
                 {
                     continue;
                 }
 
-                if (_statIOs[s].LevelWild < 0)
+                if (_statIOs[s].LevelWild < 0 || species.stats[s].IncPerWildLevel == 0)
                 {
                     unknownLevelIndices.Add(s);
                     continue;
