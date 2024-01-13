@@ -21,6 +21,7 @@ using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.utils;
 using static ARKBreedingStats.settings.Settings;
 using Color = System.Drawing.Color;
+using ARKBreedingStats.AsbServer;
 
 namespace ARKBreedingStats
 {
@@ -3878,25 +3879,16 @@ namespace ARKBreedingStats
 
         private void AsbServerStartListening()
         {
-            AsbServer.Connection.StopListening();
-            var progressDataSent = new Progress<(string jsonText, string serverHash, string message)>(AsbServerDataSent);
+            var progressReporter = new Progress<ProgressReportAsbServer>(AsbServerDataSent);
             if (string.IsNullOrEmpty(Properties.Settings.Default.ExportServerToken))
                 Properties.Settings.Default.ExportServerToken = AsbServer.Connection.CreateNewToken();
-            Task.Factory.StartNew(() => AsbServer.Connection.StartListeningAsync(progressDataSent, Properties.Settings.Default.ExportServerToken));
-            MessageServerListening(Properties.Settings.Default.ExportServerToken);
+            Task.Factory.StartNew(() => AsbServer.Connection.StartListeningAsync(progressReporter, Properties.Settings.Default.ExportServerToken));
         }
 
         private void AsbServerStopListening()
         {
             AsbServer.Connection.StopListening();
             SetMessageLabelText($"ASB Server listening stopped using token: {Properties.Settings.Default.ExportServerToken}", MessageBoxIcon.Error);
-        }
-
-        private void MessageServerListening(string token)
-        {
-            SetMessageLabelText($"Now listening to the export server using the token (also copied to clipboard){Environment.NewLine}{token}", MessageBoxIcon.Information, clipboardText: token);
-            if (!string.IsNullOrEmpty(token))
-                Clipboard.SetText(token);
         }
 
         private void sendExampleCreatureToolStripMenuItem_Click(object sender, EventArgs e)
