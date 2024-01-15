@@ -18,7 +18,7 @@ namespace ARKBreedingStats.AsbServer
     /// </summary>
     internal static class Connection
     {
-        private const string ApiUri = "http://localhost:5173/api/v1/"; //"https://export.arkbreeder.com/api/v1/";
+        private const string ApiUri = "https://export.arkbreeder.com/api/v1/";
 
         private static CancellationTokenSource _lastCancellationTokenSource;
 
