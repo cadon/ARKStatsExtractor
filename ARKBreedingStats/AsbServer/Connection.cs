@@ -18,9 +18,9 @@ namespace ARKBreedingStats.AsbServer
     /// </summary>
     internal static class Connection
     {
-        private const string ApiUri = "https://export.arkbreeder.com/api/v1/";
+        private const string ApiUri = "http://localhost:5173/api/v1/"; //"https://export.arkbreeder.com/api/v1/";
 
-        private static SimpleCancellationToken _lastCancellationToken;
+        private static CancellationTokenSource _lastCancellationTokenSource;
 
         public static async void StartListeningAsync(
             IProgress<ProgressReportAsbServer> progressDataSent, string token = null)
@@ -29,88 +29,101 @@ namespace ARKBreedingStats.AsbServer
 
             // stop previous listening if any
             StopListening();
-            var cancellationToken = new SimpleCancellationToken();
-            _lastCancellationToken = cancellationToken;
 
-            var reconnectTries = 0;
-
-            while (!cancellationToken.IsCancellationRequested)
+            using (var cancellationTokenSource = new CancellationTokenSource())
             {
-                var requestUri = ApiUri + "listen/" + token; // "https://httpstat.us/429";
+                _lastCancellationTokenSource = cancellationTokenSource;
 
-                try
+                var reconnectTries = 0;
+
+                while (!cancellationTokenSource.Token.IsCancellationRequested)
                 {
-                    var client = FileService.GetHttpClient;
-                    using (var response = await client.GetAsync(requestUri, HttpCompletionOption.ResponseHeadersRead))
+                    var requestUri = ApiUri + "listen/" + token; // "https://httpstat.us/429";
+
+                    try
                     {
-                        if (!response.IsSuccessStatusCode)
+                        var client = FileService.GetHttpClient;
+                        using (var response = await client.GetAsync(requestUri, HttpCompletionOption.ResponseHeadersRead))
                         {
-                            var statusCode = (int)response.StatusCode;
-                            string serverMessage = await response.Content.ReadAsStringAsync();
-
-                            try
+                            if (!response.IsSuccessStatusCode)
                             {
-                                serverMessage = JObject.Parse(serverMessage).SelectToken("error.message").ToString();
+                                var statusCode = (int)response.StatusCode;
+                                string serverMessage = await response.Content.ReadAsStringAsync();
+
+                                try
+                                {
+                                    serverMessage = JObject.Parse(serverMessage).SelectToken("error.message").ToString();
+                                }
+                                catch
+                                {
+                                    // server message in unknown format, use raw content string
+                                }
+
+                                serverMessage = Environment.NewLine + serverMessage;
+
+                                switch (statusCode)
+                                {
+                                    case 400: // Bad Request
+                                        WriteErrorMessage($"Something went wrong with the server connection.{serverMessage}",
+                                            response);
+                                        return;
+                                    case 429: // Too Many Requests
+                                        WriteErrorMessage(
+                                            $"The server is currently at the rate limit and cannot process the request. Try again later.{serverMessage}",
+                                            response);
+                                        return;
+                                    case 507: // Insufficient Storage
+                                        WriteErrorMessage($"Too many connections to the server. Try again later.{serverMessage}",
+                                            response);
+                                        return;
+                                    default:
+                                        var errorMessage = statusCode >= 500
+                                            ? "Something went wrong with the server or its proxy." + Environment.NewLine
+                                            : null;
+                                        WriteErrorMessage($"{errorMessage}{serverMessage}", response);
+                                        return;
+                                }
                             }
-                            catch
+
+                            reconnectTries = 0;
+
+                            using (var stream = await response.Content.ReadAsStreamAsync())
+                            using (var reader = new StreamReader(stream))
                             {
-                                // server message in unknown format, use raw content string
+                                var report = await ReadServerSentEvents(reader, progressDataSent, token, cancellationTokenSource.Token);
+                                if (report != null)
+                                {
+                                    progressDataSent.Report(report);
+                                    if (report.StopListening)
+                                    {
+                                        StopListening();
+                                    }
+                                }
                             }
-
-                            serverMessage = Environment.NewLine + serverMessage;
-
-                            switch (statusCode)
-                            {
-                                case 400: // Bad Request
-                                    WriteErrorMessage($"Something went wrong with the server connection.{serverMessage}",
-                                        response);
-                                    return;
-                                case 429: // Too Many Requests
-                                    WriteErrorMessage(
-                                        $"The server is currently at the rate limit and cannot process the request. Try again later.{serverMessage}",
-                                        response);
-                                    return;
-                                case 507: // Insufficient Storage
-                                    WriteErrorMessage($"Too many connections to the server. Try again later.{serverMessage}",
-                                        response);
-                                    return;
-                                default:
-                                    var errorMessage = statusCode >= 500
-                                        ? "Something went wrong with the server or its proxy." + Environment.NewLine
-                                        : null;
-                                    WriteErrorMessage($"{errorMessage}{serverMessage}", response);
-                                    return;
-                            }
-                        }
-
-                        reconnectTries = 0;
-
-                        using (var stream = await response.Content.ReadAsStreamAsync())
-                        using (var reader = new StreamReader(stream))
-                        {
-                            await ReadServerSentEvents(reader, progressDataSent, token, cancellationToken);
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    var tryToReconnect = reconnectTries++ < 3;
-                    WriteErrorMessage(
-                        $"ASB Server listening {ex.GetType()}: {ex.Message}{Environment.NewLine}{(tryToReconnect ? "Trying to reconnect" + Environment.NewLine : string.Empty)}Stack trace: {ex.StackTrace}",
-                        stopListening: !tryToReconnect);
+                    catch (Exception ex)
+                    {
+                        var tryToReconnect = reconnectTries++ < 3;
+                        WriteErrorMessage(
+                            $"ASB Server listening {ex.GetType()}: {ex.Message}{Environment.NewLine}{(tryToReconnect ? "Trying to reconnect" + Environment.NewLine : string.Empty)}Stack trace: {ex.StackTrace}",
+                            stopListening: !tryToReconnect);
 
-                    if (!tryToReconnect)
-                        break;
-                    // try to reconnect after some time
-                    Thread.Sleep(1000);
-                }
-                finally
-                {
+                        if (!tryToReconnect)
+                            break;
+                        // try to reconnect after some time
+                        Thread.Sleep(10_000);
+                    }
+                    finally
+                    {
 #if DEBUG
-                    Console.WriteLine($"ASB Server listening stopped using token: {token}");
+                        Console.WriteLine($"ASB Server listening stopped using token: {token}");
 #endif
+                    }
                 }
             }
+
+            _lastCancellationTokenSource = null;
 
             return;
 
@@ -130,7 +143,7 @@ namespace ARKBreedingStats.AsbServer
 
         private static Regex _eventRegex = new Regex(@"^event: (welcome|ping|replaced|export|server|closing)(?: (\-?\d+))?(?:\ndata:\s(.+))?$");
 
-        private static async Task ReadServerSentEvents(StreamReader reader, IProgress<ProgressReportAsbServer> progressDataSent, string token, SimpleCancellationToken cancellationToken)
+        private static async Task<ProgressReportAsbServer> ReadServerSentEvents(StreamReader reader, IProgress<ProgressReportAsbServer> progressDataSent, string token, CancellationToken cancellationToken)
         {
 #if DEBUG
             Console.WriteLine($"Now listening using token: {token}");
@@ -153,16 +166,19 @@ namespace ARKBreedingStats.AsbServer
                     case "event: ping":
                         continue;
                     case "event: replaced":
-                        if (!cancellationToken.IsCancellationRequested)
-                            progressDataSent.Report(new ProgressReportAsbServer
-                            { Message = "ASB Server listening stopped. Connection used by a different user", StopListening = true, IsError = true });
-                        return;
+                        if (cancellationToken.IsCancellationRequested) return null;
+
+                        return new ProgressReportAsbServer
+                        {
+                            Message = "ASB Server listening stopped. Connection used by a different user",
+                            StopListening = true,
+                            IsError = true
+                        };
                     case "event: closing":
                         // only report closing if the user hasn't done this already
-                        if (!cancellationToken.IsCancellationRequested)
-                            progressDataSent.Report(new ProgressReportAsbServer
-                            { Message = "ASB Server listening stopped. Connection closed by the server", StopListening = true, IsError = true });
-                        return;
+                        if (cancellationToken.IsCancellationRequested) return null;
+                        return new ProgressReportAsbServer
+                        { Message = "ASB Server listening stopped. Connection closed by the server, trying to reconnect", StopListening = false, IsError = true };
                 }
 
                 if (received != "event: export" && !received.StartsWith("event: server"))
@@ -181,7 +197,6 @@ namespace ARKBreedingStats.AsbServer
                     {
                         case "export":
                             progressDataSent.Report(new ProgressReportAsbServer { JsonText = m.Groups[3].Value });
-                            throw new IOException("test");
                             break;
                         case "server":
                             progressDataSent.Report(new ProgressReportAsbServer { JsonText = m.Groups[3].Value, ServerHash = m.Groups[2].Value });
@@ -189,15 +204,17 @@ namespace ARKBreedingStats.AsbServer
                     }
                 }
             }
+
+            return null;
         }
 
         public static void StopListening()
         {
-            if (_lastCancellationToken == null)
+            if (_lastCancellationTokenSource == null)
                 return; // nothing to stop
 
-            _lastCancellationToken.Cancel();
-            _lastCancellationToken = null;
+            _lastCancellationTokenSource.Cancel();
+            _lastCancellationTokenSource = null;
         }
 
         /// <summary>

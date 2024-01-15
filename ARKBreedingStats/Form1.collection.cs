@@ -958,7 +958,7 @@ namespace ARKBreedingStats
                 if (!string.IsNullOrEmpty(data.ClipboardText))
                     Clipboard.SetText(data.ClipboardText);
 
-                if (data.StopListening && !listenToolStripMenuItem.Checked)
+                if (data.StopListening)
                 {
                     // don't remove the error message with the stop listening message
                     _ignoreNextMessageLabel = true;

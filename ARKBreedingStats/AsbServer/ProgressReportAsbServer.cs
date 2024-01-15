@@ -3,7 +3,7 @@
     /// <summary>
     /// Info of progress reports while listening to an AsbServer.
     /// </summary>
-    internal struct ProgressReportAsbServer
+    internal class ProgressReportAsbServer
     {
         public string JsonText;
         public string ServerHash;
