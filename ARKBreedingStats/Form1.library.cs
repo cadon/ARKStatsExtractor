@@ -757,7 +757,8 @@ namespace ARKBreedingStats
         private void ListViewLibrary_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
             // check to see if the requested item is currently in the cache
-            if (_libraryListViewItemCache != null && e.ItemIndex >= _libraryItemCacheFirstIndex && e.ItemIndex < _libraryItemCacheFirstIndex + _libraryListViewItemCache.Length)
+            if (_libraryListViewItemCache != null && e.ItemIndex >= _libraryItemCacheFirstIndex &&
+                e.ItemIndex < _libraryItemCacheFirstIndex + _libraryListViewItemCache.Length)
             {
                 // get the ListViewItem from the cache instead of making a new one.
                 e.Item = _libraryListViewItemCache[e.ItemIndex - _libraryItemCacheFirstIndex];
@@ -765,7 +766,14 @@ namespace ARKBreedingStats
             else if (_creaturesDisplayed?.Length > e.ItemIndex)
             {
                 // create item not available in the cache
-                e.Item = CreateCreatureLvItem(_creaturesDisplayed[e.ItemIndex], Properties.Settings.Default.DisplayLibraryCreatureIndex);
+                e.Item = CreateCreatureLvItem(_creaturesDisplayed[e.ItemIndex],
+                    Properties.Settings.Default.DisplayLibraryCreatureIndex);
+            }
+            else
+            {
+                throw new Exception($"ListViewItem could not be retrieved. ItemIndex: {e.ItemIndex}."
+                                    + $"_creaturesDisplayedLength: {_creaturesDisplayed?.Length}."
+                                    + $"_libraryListViewItemCacheLength: {_libraryListViewItemCache?.Length}");
             }
         }
 
