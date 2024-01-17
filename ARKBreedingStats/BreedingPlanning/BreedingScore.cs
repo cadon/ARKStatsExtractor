@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using ARKBreedingStats.Library;
-using ARKBreedingStats.Properties;
 using ARKBreedingStats.species;
 
 namespace ARKBreedingStats.BreedingPlanning
@@ -86,8 +85,8 @@ namespace ARKBreedingStats.BreedingPlanning
                     {
                         if (s == Stats.Torpidity || !species.UsesStat(s)) continue;
                         bestPossLevels[s] = 0;
-                        int higherLevel = Math.Max(female.levelsWild[s] + (female.levelsMutated?[s] ?? 0), male.levelsWild[s] + (male.levelsMutated?[s] ?? 0));
-                        int lowerLevel = Math.Min(female.levelsWild[s] + (female.levelsMutated?[s] ?? 0), male.levelsWild[s] + (male.levelsMutated?[s] ?? 0));
+                        int higherLevel = Math.Max(female.levelsWild[s], male.levelsWild[s]);
+                        int lowerLevel = Math.Min(female.levelsWild[s], male.levelsWild[s]);
                         if (higherLevel < 0) higherLevel = 0;
                         if (lowerLevel < 0) lowerLevel = 0;
                         maxPossibleOffspringLevel += higherLevel;
