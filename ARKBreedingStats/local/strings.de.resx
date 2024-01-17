@@ -1331,4 +1331,10 @@ Es ist auch möglich Tiere mit einer Farbe in mehreren möglichen Regionen zu fi
   <data name="ClickCopyToClipboard" xml:space="preserve">
     <value>Klicken um in die Zwischenablage zu kopieren</value>
   </data>
+  <data name="BtBeepUpdated" xml:space="preserve">
+    <value>Aktualisiert</value>
+  </data>
+  <data name="BtBeepUpdatedTT" xml:space="preserve">
+    <value>Dieser Ton wird abgespielt, wenn eine Kreatur aktualisiert wird, d.h. erneut importiert wird</value>
+  </data>
 </root>

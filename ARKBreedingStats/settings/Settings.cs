@@ -1303,6 +1303,7 @@ namespace ARKBreedingStats.settings
             Loc.ControlText(BtBeepSuccess, _tt);
             Loc.ControlText(BtBeepTop, _tt);
             Loc.ControlText(BtBeepNewTop, _tt);
+            Loc.ControlText(BtBeepUpdated, _tt);
             Loc.ControlText(BtGetExportFolderAutomatically);
         }
 
@@ -1340,6 +1341,11 @@ namespace ARKBreedingStats.settings
         private void BtBeepNewTop_Click(object sender, EventArgs e)
         {
             SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Great);
+        }
+
+        private void BtBeepUpdated_Click(object sender, EventArgs e)
+        {
+            SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Updated);
         }
 
         private void BtImportArchiveFolder_Click(object sender, EventArgs e)

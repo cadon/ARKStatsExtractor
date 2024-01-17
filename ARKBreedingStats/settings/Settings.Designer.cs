@@ -353,6 +353,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.BtBeepUpdated = new System.Windows.Forms.Button();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -3351,6 +3352,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.BtBeepUpdated);
             this.panel2.Controls.Add(this.BtBeepNewTop);
             this.panel2.Controls.Add(this.BtBeepTop);
             this.panel2.Controls.Add(this.BtBeepSuccess);
@@ -3358,12 +3360,12 @@
             this.panel2.Controls.Add(this.BtBeepFailure);
             this.panel2.Location = new System.Drawing.Point(285, 11);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(121, 131);
+            this.panel2.Size = new System.Drawing.Size(121, 148);
             this.panel2.TabIndex = 7;
             // 
             // BtBeepNewTop
             // 
-            this.BtBeepNewTop.Location = new System.Drawing.Point(3, 105);
+            this.BtBeepNewTop.Location = new System.Drawing.Point(3, 96);
             this.BtBeepNewTop.Name = "BtBeepNewTop";
             this.BtBeepNewTop.Size = new System.Drawing.Size(115, 23);
             this.BtBeepNewTop.TabIndex = 4;
@@ -3373,7 +3375,7 @@
             // 
             // BtBeepTop
             // 
-            this.BtBeepTop.Location = new System.Drawing.Point(3, 76);
+            this.BtBeepTop.Location = new System.Drawing.Point(3, 70);
             this.BtBeepTop.Name = "BtBeepTop";
             this.BtBeepTop.Size = new System.Drawing.Size(115, 23);
             this.BtBeepTop.TabIndex = 3;
@@ -3383,7 +3385,7 @@
             // 
             // BtBeepSuccess
             // 
-            this.BtBeepSuccess.Location = new System.Drawing.Point(3, 47);
+            this.BtBeepSuccess.Location = new System.Drawing.Point(3, 44);
             this.BtBeepSuccess.Name = "BtBeepSuccess";
             this.BtBeepSuccess.Size = new System.Drawing.Size(115, 23);
             this.BtBeepSuccess.TabIndex = 2;
@@ -3761,7 +3763,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3769,7 +3771,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3777,7 +3779,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3785,7 +3787,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -4504,6 +4506,16 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
+            // BtBeepUpdated
+            // 
+            this.BtBeepUpdated.Location = new System.Drawing.Point(3, 122);
+            this.BtBeepUpdated.Name = "BtBeepUpdated";
+            this.BtBeepUpdated.Size = new System.Drawing.Size(115, 23);
+            this.BtBeepUpdated.TabIndex = 5;
+            this.BtBeepUpdated.Text = "updated";
+            this.BtBeepUpdated.UseVisualStyleBackColor = true;
+            this.BtBeepUpdated.Click += new System.EventHandler(this.BtBeepUpdated_Click);
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -4995,5 +5007,6 @@
         private System.Windows.Forms.Label label69;
         private System.Windows.Forms.Button BtRemoteServerSettingsUri;
         private System.Windows.Forms.TextBox TbRemoteServerSettingsUri;
+        private System.Windows.Forms.Button BtBeepUpdated;
     }
 }

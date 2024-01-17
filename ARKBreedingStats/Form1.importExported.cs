@@ -296,7 +296,7 @@ namespace ARKBreedingStats
                 if (uniqueExtraction)
                 {
                     if (alreadyExists)
-                        SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Indifferent);
+                        SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Updated);
                     else if (hasNewTopLevels)
                         SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Great);
                     else if (hasTopLevels)
