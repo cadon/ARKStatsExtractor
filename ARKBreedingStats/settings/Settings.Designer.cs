@@ -124,6 +124,10 @@
             this.checkBoxDisplayHiddenStats = new System.Windows.Forms.CheckBox();
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabPageMultipliers = new System.Windows.Forms.TabPage();
+            this.TbRemoteServerSettingsUri = new System.Windows.Forms.TextBox();
+            this.BtSettingsToClipboard = new System.Windows.Forms.Button();
+            this.btExportMultipliers = new System.Windows.Forms.Button();
+            this.BtRemoteServerSettingsUri = new System.Windows.Forms.Button();
             this.CbKeepMultipliersForNewLibrary = new System.Windows.Forms.CheckBox();
             this.BtAutoImportLocalSettings = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -131,12 +135,10 @@
             this.RbGameAse = new System.Windows.Forms.RadioButton();
             this.BtImportSettingsSelectFile = new System.Windows.Forms.Button();
             this.CbAtlasSettings = new System.Windows.Forms.CheckBox();
-            this.BtSettingsToClipboard = new System.Windows.Forms.Button();
             this.groupBox29 = new System.Windows.Forms.GroupBox();
             this.CbAllowSpeedLeveling = new System.Windows.Forms.CheckBox();
             this.CbAllowFlyerSpeedLeveling = new System.Windows.Forms.CheckBox();
             this.label34 = new System.Windows.Forms.Label();
-            this.btExportMultipliers = new System.Windows.Forms.Button();
             this.groupBox18 = new System.Windows.Forms.GroupBox();
             this.btApplyPreset = new System.Windows.Forms.Button();
             this.cbbStatMultiplierPresets = new System.Windows.Forms.ComboBox();
@@ -351,8 +353,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.BtRemoteServerSettingsUri = new System.Windows.Forms.Button();
-            this.TbRemoteServerSettingsUri = new System.Windows.Forms.TextBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -1900,6 +1900,43 @@
             this.tabPageMultipliers.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragDrop);
             this.tabPageMultipliers.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragEnter);
             // 
+            // TbRemoteServerSettingsUri
+            // 
+            this.TbRemoteServerSettingsUri.Location = new System.Drawing.Point(407, 659);
+            this.TbRemoteServerSettingsUri.Name = "TbRemoteServerSettingsUri";
+            this.TbRemoteServerSettingsUri.Size = new System.Drawing.Size(152, 20);
+            this.TbRemoteServerSettingsUri.TabIndex = 20;
+            // 
+            // BtSettingsToClipboard
+            // 
+            this.BtSettingsToClipboard.Location = new System.Drawing.Point(600, 713);
+            this.BtSettingsToClipboard.Name = "BtSettingsToClipboard";
+            this.BtSettingsToClipboard.Size = new System.Drawing.Size(142, 23);
+            this.BtSettingsToClipboard.TabIndex = 13;
+            this.BtSettingsToClipboard.Text = "Copy settings to clipboard";
+            this.BtSettingsToClipboard.UseVisualStyleBackColor = true;
+            this.BtSettingsToClipboard.Click += new System.EventHandler(this.BtSettingsToClipboard_Click);
+            // 
+            // btExportMultipliers
+            // 
+            this.btExportMultipliers.Location = new System.Drawing.Point(407, 713);
+            this.btExportMultipliers.Name = "btExportMultipliers";
+            this.btExportMultipliers.Size = new System.Drawing.Size(187, 23);
+            this.btExportMultipliers.TabIndex = 11;
+            this.btExportMultipliers.Text = "Export multiplier settings to file…";
+            this.btExportMultipliers.UseVisualStyleBackColor = true;
+            this.btExportMultipliers.Click += new System.EventHandler(this.btExportMultipliers_Click);
+            // 
+            // BtRemoteServerSettingsUri
+            // 
+            this.BtRemoteServerSettingsUri.Location = new System.Drawing.Point(565, 657);
+            this.BtRemoteServerSettingsUri.Name = "BtRemoteServerSettingsUri";
+            this.BtRemoteServerSettingsUri.Size = new System.Drawing.Size(167, 23);
+            this.BtRemoteServerSettingsUri.TabIndex = 19;
+            this.BtRemoteServerSettingsUri.Text = "Import remote settings";
+            this.BtRemoteServerSettingsUri.UseVisualStyleBackColor = true;
+            this.BtRemoteServerSettingsUri.Click += new System.EventHandler(this.BtRemoteServerSettingsUri_Click);
+            // 
             // CbKeepMultipliersForNewLibrary
             // 
             this.CbKeepMultipliersForNewLibrary.AutoSize = true;
@@ -1940,6 +1977,7 @@
             this.RbGameAsa.TabStop = true;
             this.RbGameAsa.Text = "ASA";
             this.RbGameAsa.UseVisualStyleBackColor = true;
+            this.RbGameAsa.CheckedChanged += new System.EventHandler(this.RbGameAsa_CheckedChanged);
             // 
             // RbGameAse
             // 
@@ -1972,16 +2010,6 @@
             this.CbAtlasSettings.TabIndex = 14;
             this.CbAtlasSettings.Text = "ATLAS settings";
             this.CbAtlasSettings.UseVisualStyleBackColor = true;
-            // 
-            // BtSettingsToClipboard
-            // 
-            this.BtSettingsToClipboard.Location = new System.Drawing.Point(600, 713);
-            this.BtSettingsToClipboard.Name = "BtSettingsToClipboard";
-            this.BtSettingsToClipboard.Size = new System.Drawing.Size(142, 23);
-            this.BtSettingsToClipboard.TabIndex = 13;
-            this.BtSettingsToClipboard.Text = "Copy settings to clipboard";
-            this.BtSettingsToClipboard.UseVisualStyleBackColor = true;
-            this.BtSettingsToClipboard.Click += new System.EventHandler(this.BtSettingsToClipboard_Click);
             // 
             // groupBox29
             // 
@@ -2023,16 +2051,6 @@
             this.label34.TabIndex = 10;
             this.label34.Text = "You can export the settings on this page to a file or the clipboard to share it w" +
     "ith tribe members or for bug reports.";
-            // 
-            // btExportMultipliers
-            // 
-            this.btExportMultipliers.Location = new System.Drawing.Point(407, 713);
-            this.btExportMultipliers.Name = "btExportMultipliers";
-            this.btExportMultipliers.Size = new System.Drawing.Size(187, 23);
-            this.btExportMultipliers.TabIndex = 11;
-            this.btExportMultipliers.Text = "Export multiplier settings to file…";
-            this.btExportMultipliers.UseVisualStyleBackColor = true;
-            this.btExportMultipliers.Click += new System.EventHandler(this.btExportMultipliers_Click);
             // 
             // groupBox18
             // 
@@ -3743,7 +3761,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3751,7 +3769,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3759,7 +3777,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3767,7 +3785,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -4485,23 +4503,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
-            // 
-            // BtRemoteServerSettingsUri
-            // 
-            this.BtRemoteServerSettingsUri.Location = new System.Drawing.Point(565, 657);
-            this.BtRemoteServerSettingsUri.Name = "BtRemoteServerSettingsUri";
-            this.BtRemoteServerSettingsUri.Size = new System.Drawing.Size(167, 23);
-            this.BtRemoteServerSettingsUri.TabIndex = 19;
-            this.BtRemoteServerSettingsUri.Text = "Import remote settings";
-            this.BtRemoteServerSettingsUri.UseVisualStyleBackColor = true;
-            this.BtRemoteServerSettingsUri.Click += new System.EventHandler(this.BtRemoteServerSettingsUri_Click);
-            // 
-            // TbRemoteServerSettingsUri
-            // 
-            this.TbRemoteServerSettingsUri.Location = new System.Drawing.Point(407, 659);
-            this.TbRemoteServerSettingsUri.Name = "TbRemoteServerSettingsUri";
-            this.TbRemoteServerSettingsUri.Size = new System.Drawing.Size(152, 20);
-            this.TbRemoteServerSettingsUri.TabIndex = 20;
             // 
             // Settings
             // 

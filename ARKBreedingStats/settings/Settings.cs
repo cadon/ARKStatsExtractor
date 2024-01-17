@@ -215,8 +215,15 @@ namespace ARKBreedingStats.settings
             }
             cbSingleplayerSettings.Checked = cc.singlePlayerSettings;
             CbAtlasSettings.Checked = _cc.AtlasSettings;
-            if (_cc.Game == Ark.Asa) RbGameAsa.Checked = true;
-            else RbGameAse.Checked = true;
+            if (_cc.Game == Ark.Asa)
+            {
+                RbGameAsa.Checked = true;
+            }
+            else
+            {
+                RbGameAse.Checked = true;
+                CbAllowSpeedLeveling.Visible = false;
+            }
 
             nudMaxDomLevels.ValueSave = cc.maxDomLevel;
             numericUpDownMaxBreedingSug.ValueSave = cc.maxBreedingSuggestions;
@@ -1775,6 +1782,14 @@ namespace ARKBreedingStats.settings
                 _cancellationTokenSource = null;
                 BtRemoteServerSettingsUri.Text = "Load remote settings";
             }
+        }
+
+        private void RbGameAsa_CheckedChanged(object sender, EventArgs e)
+        {
+            var isAsa = RbGameAsa.Checked;
+            CbAllowSpeedLeveling.Visible = isAsa;
+            if (!isAsa)
+                CbAllowSpeedLeveling.Checked = true;
         }
     }
 }
