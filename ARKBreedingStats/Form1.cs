@@ -1351,6 +1351,7 @@ namespace ARKBreedingStats
             // remove old cache-files
             CreatureColored.CleanupCache();
 
+            AsbServerStopListening(false);
             _tt?.Dispose();
             _timerGlobal?.Dispose();
         }
@@ -3887,10 +3888,11 @@ namespace ARKBreedingStats
             Task.Factory.StartNew(() => AsbServer.Connection.StartListeningAsync(progressReporter, Properties.Settings.Default.ExportServerToken));
         }
 
-        private void AsbServerStopListening()
+        private void AsbServerStopListening(bool displayMessage = true)
         {
             AsbServer.Connection.StopListening();
-            SetMessageLabelText($"ASB Server listening stopped using token: {Connection.TokenStringForDisplay(Properties.Settings.Default.ExportServerToken)}", MessageBoxIcon.Error);
+            if (displayMessage)
+                SetMessageLabelText($"ASB Server listening stopped using token: {Connection.TokenStringForDisplay(Properties.Settings.Default.ExportServerToken)}", MessageBoxIcon.Error);
         }
 
         private void sendExampleCreatureToolStripMenuItem_Click(object sender, EventArgs e)
