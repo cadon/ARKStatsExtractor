@@ -256,6 +256,7 @@
             this.CbExportFileRenameAfterImport = new System.Windows.Forms.CheckBox();
             this.BtImportArchiveFolder = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.BtBeepUpdated = new System.Windows.Forms.Button();
             this.BtBeepNewTop = new System.Windows.Forms.Button();
             this.BtBeepTop = new System.Windows.Forms.Button();
             this.BtBeepSuccess = new System.Windows.Forms.Button();
@@ -353,7 +354,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.BtBeepUpdated = new System.Windows.Forms.Button();
+            this.CbStreamerMode = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -2211,7 +2212,7 @@
             // CbAskSaveSettingsOnClose
             // 
             this.CbAskSaveSettingsOnClose.AutoSize = true;
-            this.CbAskSaveSettingsOnClose.Location = new System.Drawing.Point(329, 699);
+            this.CbAskSaveSettingsOnClose.Location = new System.Drawing.Point(435, 721);
             this.CbAskSaveSettingsOnClose.Name = "CbAskSaveSettingsOnClose";
             this.CbAskSaveSettingsOnClose.Size = new System.Drawing.Size(309, 17);
             this.CbAskSaveSettingsOnClose.TabIndex = 15;
@@ -2223,7 +2224,7 @@
             this.groupBox31.Controls.Add(this.CbColorIdOnColorRegionButton);
             this.groupBox31.Controls.Add(this.CbAlwaysShowAllColorRegions);
             this.groupBox31.Controls.Add(this.CbHideInvisibleColorRegions);
-            this.groupBox31.Location = new System.Drawing.Point(329, 283);
+            this.groupBox31.Location = new System.Drawing.Point(329, 319);
             this.groupBox31.Name = "groupBox31";
             this.groupBox31.Size = new System.Drawing.Size(413, 66);
             this.groupBox31.TabIndex = 14;
@@ -2266,9 +2267,9 @@
             this.groupBox30.Controls.Add(this.BExportSpreadsheetMoveDown);
             this.groupBox30.Controls.Add(this.BExportSpreadsheetMoveUp);
             this.groupBox30.Controls.Add(this.ClbExportSpreadsheetFields);
-            this.groupBox30.Location = new System.Drawing.Point(329, 355);
+            this.groupBox30.Location = new System.Drawing.Point(329, 391);
             this.groupBox30.Name = "groupBox30";
-            this.groupBox30.Size = new System.Drawing.Size(413, 281);
+            this.groupBox30.Size = new System.Drawing.Size(413, 268);
             this.groupBox30.TabIndex = 13;
             this.groupBox30.TabStop = false;
             this.groupBox30.Text = "Info to export for spreadsheet";
@@ -2307,9 +2308,9 @@
             // ClbExportSpreadsheetFields
             // 
             this.ClbExportSpreadsheetFields.FormattingEnabled = true;
-            this.ClbExportSpreadsheetFields.Location = new System.Drawing.Point(36, 41);
+            this.ClbExportSpreadsheetFields.Location = new System.Drawing.Point(36, 42);
             this.ClbExportSpreadsheetFields.Name = "ClbExportSpreadsheetFields";
-            this.ClbExportSpreadsheetFields.Size = new System.Drawing.Size(371, 229);
+            this.ClbExportSpreadsheetFields.Size = new System.Drawing.Size(371, 214);
             this.ClbExportSpreadsheetFields.TabIndex = 12;
             // 
             // GbImgCacheLocalAppData
@@ -2334,18 +2335,18 @@
             // 
             // groupBox16
             // 
+            this.groupBox16.Controls.Add(this.CbStreamerMode);
             this.groupBox16.Controls.Add(this.cbDevTools);
             this.groupBox16.Location = new System.Drawing.Point(329, 234);
             this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(413, 43);
+            this.groupBox16.Size = new System.Drawing.Size(413, 79);
             this.groupBox16.TabIndex = 10;
             this.groupBox16.TabStop = false;
-            this.groupBox16.Text = "Dev-Tools";
+            this.groupBox16.Text = "Application";
             // 
             // cbDevTools
             // 
-            this.cbDevTools.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cbDevTools.Location = new System.Drawing.Point(3, 16);
+            this.cbDevTools.Location = new System.Drawing.Point(6, 44);
             this.cbDevTools.Name = "cbDevTools";
             this.cbDevTools.Size = new System.Drawing.Size(407, 24);
             this.cbDevTools.TabIndex = 0;
@@ -2505,7 +2506,7 @@
             this.groupBox17.Controls.Add(this.LbLanguage2);
             this.groupBox17.Controls.Add(this.CbbLanguage2);
             this.groupBox17.Controls.Add(this.CbbLanguage);
-            this.groupBox17.Location = new System.Drawing.Point(329, 642);
+            this.groupBox17.Location = new System.Drawing.Point(329, 665);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(413, 51);
             this.groupBox17.TabIndex = 5;
@@ -3363,6 +3364,16 @@
             this.panel2.Size = new System.Drawing.Size(121, 148);
             this.panel2.TabIndex = 7;
             // 
+            // BtBeepUpdated
+            // 
+            this.BtBeepUpdated.Location = new System.Drawing.Point(3, 122);
+            this.BtBeepUpdated.Name = "BtBeepUpdated";
+            this.BtBeepUpdated.Size = new System.Drawing.Size(115, 23);
+            this.BtBeepUpdated.TabIndex = 5;
+            this.BtBeepUpdated.Text = "updated";
+            this.BtBeepUpdated.UseVisualStyleBackColor = true;
+            this.BtBeepUpdated.Click += new System.EventHandler(this.BtBeepUpdated_Click);
+            // 
             // BtBeepNewTop
             // 
             this.BtBeepNewTop.Location = new System.Drawing.Point(3, 96);
@@ -3763,7 +3774,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3771,7 +3782,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3779,7 +3790,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3787,7 +3798,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -4506,15 +4517,14 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // BtBeepUpdated
+            // CbStreamerMode
             // 
-            this.BtBeepUpdated.Location = new System.Drawing.Point(3, 122);
-            this.BtBeepUpdated.Name = "BtBeepUpdated";
-            this.BtBeepUpdated.Size = new System.Drawing.Size(115, 23);
-            this.BtBeepUpdated.TabIndex = 5;
-            this.BtBeepUpdated.Text = "updated";
-            this.BtBeepUpdated.UseVisualStyleBackColor = true;
-            this.BtBeepUpdated.Click += new System.EventHandler(this.BtBeepUpdated_Click);
+            this.CbStreamerMode.Location = new System.Drawing.Point(6, 19);
+            this.CbStreamerMode.Name = "CbStreamerMode";
+            this.CbStreamerMode.Size = new System.Drawing.Size(407, 24);
+            this.CbStreamerMode.TabIndex = 1;
+            this.CbStreamerMode.Text = "Streamer mode (hide confidential info, e.g. ASB server tag)";
+            this.CbStreamerMode.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -5008,5 +5018,6 @@
         private System.Windows.Forms.Button BtRemoteServerSettingsUri;
         private System.Windows.Forms.TextBox TbRemoteServerSettingsUri;
         private System.Windows.Forms.Button BtBeepUpdated;
+        private System.Windows.Forms.CheckBox CbStreamerMode;
     }
 }

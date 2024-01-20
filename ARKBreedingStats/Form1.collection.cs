@@ -953,7 +953,15 @@ namespace ARKBreedingStats
         {
             if (!string.IsNullOrEmpty(data.Message))
             {
-                SetMessageLabelText(data.Message, data.IsError ? MessageBoxIcon.Error : MessageBoxIcon.Information, clipboardText: data.ClipboardText);
+                var displayPopup = false;
+                var message = data.Message;
+                if (!string.IsNullOrEmpty(data.ServerToken))
+                {
+                    message += Environment.NewLine + Connection.TokenStringForDisplay(data.ServerToken);
+                    displayPopup = !Properties.Settings.Default.StreamerMode;
+                }
+
+                SetMessageLabelText(message, data.IsError ? MessageBoxIcon.Error : MessageBoxIcon.Information, clipboardText: data.ClipboardText, displayPopup: displayPopup);
 
                 if (!string.IsNullOrEmpty(data.ClipboardText))
                     Clipboard.SetText(data.ClipboardText);

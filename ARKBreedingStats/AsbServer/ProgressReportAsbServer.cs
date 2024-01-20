@@ -8,6 +8,7 @@
         public string JsonText;
         public string ServerHash;
         public string Message;
+        public string ServerToken;
         public bool IsError;
         public bool StopListening;
         public string ClipboardText;

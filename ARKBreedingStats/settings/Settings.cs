@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -439,6 +438,7 @@ namespace ARKBreedingStats.settings
 
             NudSpeciesSelectorCountLastUsed.ValueSave = Properties.Settings.Default.SpeciesSelectorCountLastSpecies;
 
+            CbStreamerMode.Checked = Properties.Settings.Default.StreamerMode;
             cbDevTools.Checked = Properties.Settings.Default.DevTools;
 
             cbPrettifyJSON.Checked = Properties.Settings.Default.prettifyCollectionJson;
@@ -677,6 +677,7 @@ namespace ARKBreedingStats.settings
 
             Properties.Settings.Default.SpeciesSelectorCountLastSpecies = (int)NudSpeciesSelectorCountLastUsed.Value;
 
+            Properties.Settings.Default.StreamerMode = CbStreamerMode.Checked;
             Properties.Settings.Default.DevTools = cbDevTools.Checked;
 
             Properties.Settings.Default.prettifyCollectionJson = cbPrettifyJSON.Checked;

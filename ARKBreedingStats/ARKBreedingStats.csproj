@@ -131,6 +131,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="uiControls\LibraryInfo.cs" />
+    <Compile Include="uiControls\PopupMessage.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="uiControls\StatSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>

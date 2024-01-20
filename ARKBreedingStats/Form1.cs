@@ -54,8 +54,8 @@ namespace ARKBreedingStats
                 Species species = null, // if null is passed for species, breeding-related controls are not updated
                 bool triggeredByFileWatcher = false);
 
-        public delegate void SetMessageLabelTextEventHandler(string text = null,
-            MessageBoxIcon icon = MessageBoxIcon.None, string path = null, string clipboardContent = null);
+        public delegate void SetMessageLabelTextEventHandler(string text = null, MessageBoxIcon icon = MessageBoxIcon.None,
+            string path = null, string clipboardContent = null, bool displayPopup = false);
 
         private bool _updateTorporInTester;
         private bool _filterListAllowed;
@@ -1363,7 +1363,7 @@ namespace ARKBreedingStats
         /// <param name="path">If valid path to file or folder, the user can click on the message to display the path in the explorer</param>
         /// <param name="clipboardText">If not null, user can copy this text to the clipboard by clicking on the label</param>
         private void SetMessageLabelText(string text = null, MessageBoxIcon icon = MessageBoxIcon.None,
-            string path = null, string clipboardText = null)
+            string path = null, string clipboardText = null, bool displayPopup = false)
         {
             if (_ignoreNextMessageLabel)
             {
@@ -1389,6 +1389,8 @@ namespace ARKBreedingStats
                     TbMessageLabel.BackColor = SystemColors.Control;
                     break;
             }
+            if (displayPopup && !string.IsNullOrEmpty(text))
+                PopupMessage.Show(this, text, 20);
         }
 
         /// <summary>
@@ -3888,7 +3890,7 @@ namespace ARKBreedingStats
         private void AsbServerStopListening()
         {
             AsbServer.Connection.StopListening();
-            SetMessageLabelText($"ASB Server listening stopped using token: {Properties.Settings.Default.ExportServerToken}", MessageBoxIcon.Error);
+            SetMessageLabelText($"ASB Server listening stopped using token: {Connection.TokenStringForDisplay(Properties.Settings.Default.ExportServerToken)}", MessageBoxIcon.Error);
         }
 
         private void sendExampleCreatureToolStripMenuItem_Click(object sender, EventArgs e)

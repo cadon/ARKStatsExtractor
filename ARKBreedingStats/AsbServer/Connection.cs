@@ -6,7 +6,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.Library;
 using Newtonsoft.Json.Linq;
@@ -148,7 +147,12 @@ namespace ARKBreedingStats.AsbServer
 #if DEBUG
             Console.WriteLine($"Now listening using token: {token}");
 #endif
-            progressDataSent.Report(new ProgressReportAsbServer { Message = $"Now listening to the export server using the token (also copied to clipboard){Environment.NewLine}{token}", ClipboardText = token });
+            progressDataSent.Report(new ProgressReportAsbServer
+            {
+                Message = "Now listening to the export server using the token (also copied to clipboard)",
+                ServerToken = token,
+                ClipboardText = token
+            });
 
             while (!cancellationToken.IsCancellationRequested)
             {
@@ -208,6 +212,9 @@ namespace ARKBreedingStats.AsbServer
             return null;
         }
 
+        /// <summary>
+        /// Stops the currently running listener. Returns false if no listener was running.
+        /// </summary>
         public static void StopListening()
         {
             if (_lastCancellationTokenSource == null)
@@ -265,12 +272,8 @@ namespace ARKBreedingStats.AsbServer
         }
 
         /// <summary>
-        /// Simple replacement of CancellationTokenSource to avoid unnecessary complexities with disposal of CTS when the token is still in use.
+        /// Returns the passed token string, or wildcards if the streamer mode is enabled.
         /// </summary>
-        private class SimpleCancellationToken
-        {
-            public bool IsCancellationRequested;
-            public void Cancel() => IsCancellationRequested = true;
-        }
+        public static string TokenStringForDisplay(string token) => Properties.Settings.Default.StreamerMode ? "****" : token;
     }
 }
