@@ -14,7 +14,8 @@ namespace ARKBreedingStats.uiControls
             Height = 400;
             FormBorderStyle = FormBorderStyle.None;
             ShowInTaskbar = false;
-            BackColor = Color.Black;
+            BackColor = Color.LightGray;
+            Padding = new Padding(2);
             StartPosition = FormStartPosition.CenterParent;
 
             var lClose = new Label
@@ -30,8 +31,8 @@ namespace ARKBreedingStats.uiControls
             _label = new Label
             {
                 Dock = DockStyle.Fill,
-                Margin = new Padding(2),
                 ForeColor = Color.Gainsboro,
+                BackColor = Color.Black,
                 TextAlign = ContentAlignment.MiddleCenter
             };
             Controls.Add(_label);
