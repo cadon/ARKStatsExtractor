@@ -3101,8 +3101,9 @@ namespace ARKBreedingStats
                 cr.imprintingBonus = _extractor.ImprintingBonus;
                 cr.tamingEff = _extractor.UniqueTamingEffectiveness();
                 cr.isBred = rbBredExtractor.Checked;
-                cr.topBreedingStats = _statIOs.Select(s =>
-                    s.TopLevel.HasFlag(LevelStatus.TopLevel) || s.TopLevel.HasFlag(LevelStatus.NewTopLevel)).ToArray();
+                for (int s = 0; s < Stats.StatsCount; s++)
+                    cr.SetTopStat(s, _statIOs[s].TopLevel.HasFlag(LevelStatus.TopLevel) || _statIOs[s].TopLevel.HasFlag(LevelStatus.NewTopLevel));
+
             }
             else
             {

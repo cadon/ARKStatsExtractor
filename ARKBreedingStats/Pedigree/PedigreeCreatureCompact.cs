@@ -162,7 +162,7 @@ namespace ARKBreedingStats.uiControls
                         var pieRadius = (int)(radiusInnerCircle + (centerCoord - radiusInnerCircle - borderWidth) * statSize);
                         var leftTop = centerCoord - pieRadius;
                         var angle = AngleOffset + anglePerStat * i++;
-                        brush.Color = Utils.GetColorFromPercent((int)(100 * statSize), creature.topBreedingStats[si] ? 0 : 0.7);
+                        brush.Color = Utils.GetColorFromPercent((int)(100 * statSize), creature.IsTopStat(si) ? 0 : 0.7);
                         g.FillPie(brush, leftTop, leftTop, 2 * pieRadius, 2 * pieRadius, angle, anglePerStat);
 
                         pen.Width = highlightStatIndex == si ? 2 : 1;

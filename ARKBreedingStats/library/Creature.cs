@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Text;
 using System.Linq;
 using System.Runtime.Serialization;
 
@@ -42,11 +43,35 @@ namespace ARKBreedingStats.Library
 
         public double[] valuesBreeding;
         public double[] valuesDom;
+
         /// <summary>
-        /// Indices of stats that are top for that species in the creatureCollection
+        /// Set a stat index to a top stat or not for that species in the creatureCollection.
         /// </summary>
-        public bool[] topBreedingStats;
+        public void SetTopStat(int statIndex, bool isTopStat) =>
+            _topBreedingStatIndices = (isTopStat ? _topBreedingStatIndices | (1 << statIndex) : _topBreedingStatIndices & ~(1 << statIndex));
+
+        /// <summary>
+        /// Returns if a stat index is a top stat for that species in the creatureCollection.
+        /// </summary>
+        public bool IsTopStat(int statIndex) => (_topBreedingStatIndices & (1 << statIndex)) != 0;
+
+        public void ResetTopStats() => _topBreedingStatIndices = 0;
+        private int _topBreedingStatIndices; // bit flags if a stat index is a top stat
         public short topStatsCount;
+
+        /// <summary>
+        /// Set a stat index to a top mutation stat or not for that species in the creatureCollection.
+        /// </summary>
+        public void SetTopMutationStat(int statIndex, bool isTopMutationStat) =>
+            _topMutationStatIndices = (isTopMutationStat ? _topMutationStatIndices | (1 << statIndex) : _topMutationStatIndices & ~(1 << statIndex));
+
+        /// <summary>
+        /// Returns if a stat index is a top mutation stat for that species in the creatureCollection.
+        /// </summary>
+        public bool IsTopMutationStat(int statIndex) => (_topMutationStatIndices & (1 << statIndex)) != 0;
+        public void ResetTopMutationStats() => _topMutationStatIndices = 0;
+        private int _topMutationStatIndices; // bit flags if a stat index is a top mutation stat
+
         /// <summary>
         /// topStatCount with all stats (regardless of considerStatHighlight[]) and without torpor (for breedingPlanner)
         /// </summary>
@@ -412,13 +437,11 @@ namespace ARKBreedingStats.Library
                 || flags.HasFlag(CreatureFlags.Placeholder))
                 return;
 
-            if (topBreedingStats == null) topBreedingStats = new bool[Stats.StatsCount];
-
             short c = 0, cBP = 0;
             onlyTopConsideredStats = true;
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (topBreedingStats[s])
+                if (IsTopStat(s))
                 {
                     if (s != Stats.Torpidity)
                         cBP++;
@@ -558,7 +581,6 @@ namespace ARKBreedingStats.Library
             if (levelsDom == null) levelsDom = new int[Stats.StatsCount];
             if (valuesBreeding == null) valuesBreeding = new double[Stats.StatsCount];
             if (valuesDom == null) valuesDom = new double[Stats.StatsCount];
-            if (topBreedingStats == null) topBreedingStats = new bool[Stats.StatsCount];
         }
 
         /// <summary>

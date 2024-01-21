@@ -215,7 +215,7 @@ namespace ARKBreedingStats.Pedigree
                     {
                         _labels[s].Text = _creature.levelsWild[si].ToString();
                         if (Properties.Settings.Default.Highlight255Level && _creature.levelsWild[si] > 253) // 255 is max, 254 is the highest that allows dom leveling
-                            _labels[s].BackColor = Utils.AdjustColorLight(_creature.levelsWild[si] == 254 ? Utils.Level254 : Utils.Level255, _creature.topBreedingStats[si] ? 0.2 : 0.7);
+                            _labels[s].BackColor = Utils.AdjustColorLight(_creature.levelsWild[si] == 254 ? Utils.Level254 : Utils.Level255, _creature.IsTopStat(si) ? 0.2 : 0.7);
                         else if (Properties.Settings.Default.HighlightEvenOdd)
                         {
                             var levelForColor = Math.Min(maxChartLevel, Math.Max(minChartLevel, _creature.levelsWild[si]));
@@ -228,10 +228,10 @@ namespace ARKBreedingStats.Pedigree
                             {
                                 hue = Properties.Settings.Default.ChartHueOddMin + levelForColor * hueRangeOdd / chartLevelRange;
                             }
-                            _labels[s].BackColor = Utils.ColorFromHue(hue, _creature.topBreedingStats[si] ? 0.4 : 0.7);
+                            _labels[s].BackColor = Utils.ColorFromHue(hue, _creature.IsTopStat(si) ? 0.4 : 0.7);
                         }
                         else
-                            _labels[s].BackColor = Utils.GetColorFromPercent((int)(_creature.levelsWild[si] * 2.5), _creature.topBreedingStats[si] ? 0.2 : 0.7);
+                            _labels[s].BackColor = Utils.GetColorFromPercent((int)(_creature.levelsWild[si] * 2.5), _creature.IsTopStat(si) ? 0.2 : 0.7);
                         _labels[s].ForeColor = Parent?.ForeColor ?? Color.Black; // needed so text is not transparent on overlay
                         _ttMonospaced.SetToolTip(_labels[s], Utils.StatName(si, false, _creature.Species?.statNames) + ": "
                             + $"{_creature.valuesBreeding[si] * (Utils.Precision(si) == 3 ? 100 : 1),7:#,0.0}"
@@ -241,7 +241,7 @@ namespace ARKBreedingStats.Pedigree
                                 ));
                     }
                     // fonts are strange, and this seems to work. The assigned font-object is probably only used to read out the properties and then not used anymore.
-                    using (var font = new Font("Microsoft Sans Serif", 8.25F, (_creature.topBreedingStats?[si]).GetValueOrDefault() ? FontStyle.Bold : FontStyle.Regular, GraphicsUnit.Point, 0))
+                    using (var font = new Font("Microsoft Sans Serif", 8.25F, _creature.IsTopStat(si) ? FontStyle.Bold : FontStyle.Regular, GraphicsUnit.Point, 0))
                         _labels[s].Font = font;
                 }
                 if (OnlyLevels)

@@ -332,7 +332,7 @@ namespace ARKBreedingStats
                         continue;
 
                     // reset topBreeding stats for this creature
-                    c.topBreedingStats = new bool[Stats.StatsCount];
+                    c.ResetTopStats();
                     c.topBreedingCreature = false;
 
                     if (
@@ -469,7 +469,7 @@ namespace ARKBreedingStats
                         for (int c = 0; c < bestCreatures[s].Count; c++)
                         {
                             // flag topStats in creatures
-                            bestCreatures[s][c].topBreedingStats[s] = true;
+                            bestCreatures[s][c].SetTopStat(s, true);
                         }
                     }
                 }
@@ -1038,7 +1038,7 @@ namespace ARKBreedingStats
                 }
                 else
                     lvi.SubItems[ColumnIndexFirstStat + s].BackColor = Utils.GetColorFromPercent((int)(cr.levelsWild[s] * (s == Stats.Torpidity ? colorFactor / 7 : colorFactor)), // TODO set factor to number of other stats (flyers have 6, Gacha has 8?)
-                            _considerStatHighlight[s] ? cr.topBreedingStats[s] ? 0.2 : 0.7 : 0.93);
+                            _considerStatHighlight[s] ? cr.IsTopStat(s) ? 0.2 : 0.7 : 0.93);
 
                 // mutated levels
                 if (cr.levelsMutated == null || cr.levelsMutated[s] == 0)

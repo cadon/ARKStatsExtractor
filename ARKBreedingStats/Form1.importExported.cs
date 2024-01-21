@@ -402,7 +402,7 @@ namespace ARKBreedingStats
                         sb.Append($" {Loc.S("newTopLevel")}");
                         newTopLevels = true;
                     }
-                    else if (creature.topBreedingStats[statIndex])
+                    else if (creature.IsTopStat(statIndex))
                     {
                         sb.Append($" {Loc.S("topLevel")}");
                         topLevels = true;
