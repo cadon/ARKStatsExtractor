@@ -339,8 +339,8 @@ namespace ARKBreedingStats
                         creaturesOfSpecies = _creatureCollection.creatures.Where(c => c.Species == creature.Species)
                             .ToArray();
                     creature.name = NamePattern.GenerateCreatureName(creature, alreadyExistingCreature, creaturesOfSpecies,
-                        _topLevels.TryGetValue(creature.Species, out var topLevels) ? topLevels : null,
-                        _lowestLevels.TryGetValue(creature.Species, out var lowestLevels) ? lowestLevels : null,
+                        _highestSpeciesLevels.TryGetValue(creature.Species, out var topLevels) ? topLevels : null,
+                        _lowestSpeciesLevels.TryGetValue(creature.Species, out var lowestLevels) ? lowestLevels : null,
                         _customReplacingNamingPattern, false, 0, libraryCreatureCount: totalCreatureCount);
                     if (alreadyExistingCreature != null)
                         alreadyExistingCreature.name = creature.name; // if alreadyExistingCreature was already updated and creature is not used anymore make sure name is not lost

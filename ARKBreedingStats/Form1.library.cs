@@ -295,6 +295,11 @@ namespace ARKBreedingStats
         /// <param name="creatures">creatures to consider</param>
         private void CalculateTopStats(List<Creature> creatures)
         {
+            _highestSpeciesLevels.Clear();
+            _lowestSpeciesLevels.Clear();
+            _highestSpeciesMutationLevels.Clear();
+            _lowestSpeciesMutationLevels.Clear();
+
             var filteredCreaturesHash = Properties.Settings.Default.useFiltersInTopStatCalculation ? new HashSet<Creature>(ApplyLibraryFilterSettings(creatures)) : null;
 
             var speciesCreaturesGroups = creatures.GroupBy(c => c.Species);
@@ -308,13 +313,17 @@ namespace ARKBreedingStats
 
                 List<int> usedStatIndices = new List<int>(Stats.StatsCount);
                 List<int> usedAndConsideredStatIndices = new List<int>(Stats.StatsCount);
-                int[] bestStat = new int[Stats.StatsCount];
-                int[] lowestStat = new int[Stats.StatsCount];
+                var highestLevels = new int[Stats.StatsCount];
+                var lowestLevels = new int[Stats.StatsCount];
+                var highestMutationLevels = new int[Stats.StatsCount];
+                var lowestMutationLevels = new int[Stats.StatsCount];
                 var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
-                    bestStat[s] = -1;
-                    lowestStat[s] = -1;
+                    highestLevels[s] = -1;
+                    lowestLevels[s] = -1;
+                    highestMutationLevels[s] = -1;
+                    lowestMutationLevels[s] = -1;
                     if (species.UsesStat(s))
                     {
                         usedStatIndices.Add(s);
@@ -322,7 +331,8 @@ namespace ARKBreedingStats
                             usedAndConsideredStatIndices.Add(s);
                     }
                 }
-                List<Creature>[] bestCreatures = new List<Creature>[Stats.StatsCount];
+                List<Creature>[] bestCreaturesWildLevels = new List<Creature>[Stats.StatsCount];
+                List<Creature>[] bestCreaturesMutatedLevels = new List<Creature>[Stats.StatsCount];
                 int usedStatsCount = usedStatIndices.Count;
                 int usedAndConsideredStatsCount = usedAndConsideredStatIndices.Count;
 
@@ -331,8 +341,8 @@ namespace ARKBreedingStats
                     if (c.flags.HasFlag(CreatureFlags.Placeholder))
                         continue;
 
-                    // reset topBreeding stats for this creature
                     c.ResetTopStats();
+                    c.ResetTopMutationStats();
                     c.topBreedingCreature = false;
 
                     if (
@@ -351,34 +361,81 @@ namespace ARKBreedingStats
                     for (int s = 0; s < usedStatsCount; s++)
                     {
                         int si = usedStatIndices[s];
-                        if (c.levelsWild[si] != -1 && (lowestStat[si] == -1 || c.levelsWild[si] < lowestStat[si]))
-                        {
-                            lowestStat[si] = c.levelsWild[si];
-                        }
+                        var statWeight = statWeights.Item1[s];
+                        var statPreference = statWeight > 0 ? StatWeighting.StatValuePreference.High :
+                            statWeight < 0 ? StatWeighting.StatValuePreference.Low :
+                            StatWeighting.StatValuePreference.Indifferent;
 
-                        if (c.levelsWild[si] <= 0) continue;
-
-                        if (c.levelsWild[si] == bestStat[si])
+                        if (c.levelsWild[si] >= 0)
                         {
-                            bestCreatures[si].Add(c);
-                        }
-                        else if (c.levelsWild[si] > bestStat[si])
-                        {
-                            // check if highest stats are only counted if odd or even
-                            if ((statWeights.Item2?[s] ?? 0) == 0 // even/odd doesn't matter
-                                || (statWeights.Item2[s] == 1 && c.levelsWild[si] % 2 == 1)
-                                || (statWeights.Item2[s] == 2 && c.levelsWild[si] % 2 == 0)
-                               )
+                            if (statPreference == StatWeighting.StatValuePreference.Low)
                             {
-                                bestCreatures[si] = new List<Creature> { c };
-                                bestStat[si] = c.levelsWild[si];
+                                if (lowestLevels[si] == -1 || c.levelsWild[si] < lowestLevels[si])
+                                {
+                                    bestCreaturesWildLevels[si] = new List<Creature> { c };
+                                    lowestLevels[si] = c.levelsWild[si];
+                                }
+                                else if (c.levelsWild[si] == lowestLevels[si])
+                                {
+                                    bestCreaturesWildLevels[si].Add(c);
+                                }
+                            }
+                            else if (statPreference == StatWeighting.StatValuePreference.High)
+                            {
+                                if (c.levelsWild[si] > highestLevels[si])
+                                {
+                                    // creature has a higher level than the current highest level
+                                    // check if highest stats are only counted if odd or even
+                                    if ((statWeights.Item2?[s] ?? 0) == 0 // even/odd doesn't matter
+                                        || (statWeights.Item2[s] == 1 && c.levelsWild[si] % 2 == 1)
+                                        || (statWeights.Item2[s] == 2 && c.levelsWild[si] % 2 == 0)
+                                       )
+                                    {
+                                        bestCreaturesWildLevels[si] = new List<Creature> { c };
+                                        highestLevels[si] = c.levelsWild[si];
+                                    }
+                                }
+                                else if (c.levelsWild[si] == highestLevels[si])
+                                {
+                                    bestCreaturesWildLevels[si].Add(c);
+                                }
+                            }
+                        }
+
+                        if (c.levelsMutated != null && c.levelsMutated[si] >= 0)
+                        {
+                            if (statPreference == StatWeighting.StatValuePreference.Low)
+                            {
+                                if (lowestMutationLevels[si] == -1 || c.levelsMutated[si] < lowestMutationLevels[si])
+                                {
+                                    bestCreaturesMutatedLevels[si] = new List<Creature> { c };
+                                    lowestMutationLevels[si] = c.levelsMutated[si];
+                                }
+                                else if (c.levelsMutated[si] == lowestMutationLevels[si])
+                                {
+                                    bestCreaturesMutatedLevels[si].Add(c);
+                                }
+                            }
+                            else if (statPreference == StatWeighting.StatValuePreference.High)
+                            {
+                                if (c.levelsMutated[si] > 0 && c.levelsMutated[si] > highestMutationLevels[si])
+                                {
+                                    bestCreaturesMutatedLevels[si] = new List<Creature> { c };
+                                    highestMutationLevels[si] = c.levelsMutated[si];
+                                }
+                                else if (c.levelsMutated[si] == highestMutationLevels[si])
+                                {
+                                    bestCreaturesMutatedLevels[si].Add(c);
+                                }
                             }
                         }
                     }
                 }
 
-                _topLevels[species] = bestStat;
-                _lowestLevels[species] = lowestStat;
+                _highestSpeciesLevels[species] = highestLevels;
+                _lowestSpeciesLevels[species] = lowestLevels;
+                _highestSpeciesMutationLevels[species] = highestMutationLevels;
+                _lowestSpeciesMutationLevels[species] = lowestMutationLevels;
 
                 // bestStat and bestCreatures now contain the best stats and creatures for each stat.
 
@@ -387,8 +444,8 @@ namespace ARKBreedingStats
                 for (int s = 0; s < usedAndConsideredStatsCount; s++)
                 {
                     int si = usedAndConsideredStatIndices[s];
-                    if (bestStat[si] > 0)
-                        sumTopLevels += bestStat[si];
+                    if (highestLevels[si] > 0)
+                        sumTopLevels += highestLevels[si];
                 }
                 if (sumTopLevels > 0)
                 {
@@ -408,54 +465,53 @@ namespace ARKBreedingStats
                 // if any male is in more than 1 category, remove any male from the topBreedingCreatures that is not top in at least 2 categories himself
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
-                    if (bestCreatures[s] == null || bestCreatures[s].Count == 0)
+                    if (bestCreaturesMutatedLevels[s] != null)
                     {
-                        continue; // no creature has levelups in this stat or the stat is not used for this species
+                        foreach (var c in bestCreaturesMutatedLevels[s])
+                            c.topBreedingCreature = true;
                     }
 
-                    var crCount = bestCreatures[s].Count;
+                    if (bestCreaturesWildLevels[s] == null || bestCreaturesWildLevels[s].Count == 0)
+                        continue; // no creature has levelups in this stat or the stat is not used for this species
+
+                    var crCount = bestCreaturesWildLevels[s].Count;
                     if (crCount == 1)
                     {
-                        bestCreatures[s][0].topBreedingCreature = true;
+                        bestCreaturesWildLevels[s][0].topBreedingCreature = true;
                         continue;
                     }
 
-                    for (int c = 0; c < crCount; c++)
+                    foreach (var currentCreature in bestCreaturesWildLevels[s])
                     {
-                        bestCreatures[s][c].topBreedingCreature = true;
-                        if (bestCreatures[s][c].sex != Sex.Male)
+                        currentCreature.topBreedingCreature = true;
+                        if (currentCreature.sex != Sex.Male)
                             continue;
 
-                        Creature currentCreature = bestCreatures[s][c];
                         // check how many best stat the male has
                         int maxval = 0;
                         for (int cs = 0; cs < Stats.StatsCount; cs++)
                         {
-                            if (currentCreature.levelsWild[cs] == bestStat[cs])
+                            if (currentCreature.levelsWild[cs] == highestLevels[cs])
                                 maxval++;
                         }
 
                         if (maxval > 1)
                         {
                             // check now if the other males have only 1.
-                            for (int oc = 0; oc < crCount; oc++)
+                            foreach (var otherMale in bestCreaturesWildLevels[s])
                             {
-                                if (bestCreatures[s][oc].sex != Sex.Male)
+                                if (otherMale.sex != Sex.Male
+                                    || currentCreature.Equals(otherMale))
                                     continue;
-
-                                if (oc == c)
-                                    continue;
-
-                                Creature otherMale = bestCreatures[s][oc];
 
                                 int othermaxval = 0;
                                 for (int ocs = 0; ocs < Stats.StatsCount; ocs++)
                                 {
-                                    if (otherMale.levelsWild[ocs] == bestStat[ocs])
+                                    if (otherMale.levelsWild[ocs] == highestLevels[ocs])
                                         othermaxval++;
                                 }
                                 if (othermaxval == 1)
-                                    bestCreatures[s][oc].topBreedingCreature = false;
+                                    otherMale.topBreedingCreature = false;
                             }
                         }
                     }
@@ -464,13 +520,16 @@ namespace ARKBreedingStats
                 // now we have a list of all candidates for breeding. Iterate on stats.
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
-                    if (bestCreatures[s] != null)
+                    if (bestCreaturesWildLevels[s] != null)
                     {
-                        for (int c = 0; c < bestCreatures[s].Count; c++)
-                        {
-                            // flag topStats in creatures
-                            bestCreatures[s][c].SetTopStat(s, true);
-                        }
+                        foreach (var c in bestCreaturesWildLevels[s])
+                            c.SetTopStat(s, true);
+                    }
+
+                    if (bestCreaturesMutatedLevels[s] != null)
+                    {
+                        foreach (var c in bestCreaturesMutatedLevels[s])
+                            c.SetTopMutationStat(s, true);
                     }
                 }
             }
@@ -481,7 +540,7 @@ namespace ARKBreedingStats
 
             var selectedSpecies = speciesSelector1.SelectedSpecies;
             if (selectedSpecies != null)
-                hatching1.SetSpecies(selectedSpecies, _topLevels.TryGetValue(selectedSpecies, out var tl) ? tl : null, _lowestLevels.TryGetValue(selectedSpecies, out var ll) ? ll : null);
+                hatching1.SetSpecies(selectedSpecies, _highestSpeciesLevels.TryGetValue(selectedSpecies, out var tl) ? tl : null, _lowestSpeciesLevels.TryGetValue(selectedSpecies, out var ll) ? ll : null);
         }
 
         /// <summary>
@@ -1038,7 +1097,7 @@ namespace ARKBreedingStats
                 }
                 else
                     lvi.SubItems[ColumnIndexFirstStat + s].BackColor = Utils.GetColorFromPercent((int)(cr.levelsWild[s] * (s == Stats.Torpidity ? colorFactor / 7 : colorFactor)), // TODO set factor to number of other stats (flyers have 6, Gacha has 8?)
-                            _considerStatHighlight[s] ? cr.IsTopStat(s) ? 0.2 : 0.7 : 0.93);
+                            _considerStatHighlight[s] ? cr.IsTopStat(s) ? 0.2 : 0.75 : 0.93);
 
                 // mutated levels
                 if (cr.levelsMutated == null || cr.levelsMutated[s] == 0)
@@ -1047,8 +1106,8 @@ namespace ARKBreedingStats
                     lvi.SubItems[ColumnIndexFirstStat + Stats.StatsCount + s].BackColor = Color.White;
                 }
                 else
-                    lvi.SubItems[ColumnIndexFirstStat + Stats.StatsCount + s].BackColor = Utils.GetColorFromPercent((int)(cr.levelsMutated[s] * (s == Stats.Torpidity ? colorFactor / 7 : colorFactor)),
-                            _considerStatHighlight[s] ? 0.7 : 0.93, true);
+                    lvi.SubItems[ColumnIndexFirstStat + Stats.StatsCount + s].BackColor = Utils.GetColorFromPercent((int)(cr.levelsMutated[s] * colorFactor),
+                            _considerStatHighlight[s] ? cr.IsTopMutationStat(s) ? 0.4 : 0.8 : 0.93, true);
             }
             lvi.SubItems[ColumnIndexSex].BackColor = cr.flags.HasFlag(CreatureFlags.Neutered) ? Color.FromArgb(220, 220, 220) :
                     cr.sex == Sex.Female ? Color.FromArgb(255, 230, 255) :

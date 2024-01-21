@@ -116,8 +116,8 @@ namespace ARKBreedingStats
                 radarChartExtractor.SetLevels(_statIOs.Select(s => s.LevelWild).ToArray(), _statIOs.Select(s => s.LevelMut).ToArray(), speciesSelector1.SelectedSpecies);
                 cbExactlyImprinting.BackColor = Color.Transparent;
                 var species = speciesSelector1.SelectedSpecies;
-                var checkTopLevels = _topLevels.TryGetValue(species, out int[] topSpeciesLevels);
-                var checkLowLevels = _lowestLevels.TryGetValue(species, out int[] lowSpeciesLevels);
+                var checkTopLevels = _highestSpeciesLevels.TryGetValue(species, out int[] topSpeciesLevels);
+                var checkLowLevels = _lowestSpeciesLevels.TryGetValue(species, out int[] lowSpeciesLevels);
 
                 var customStatNames = species.statNames;
                 var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
