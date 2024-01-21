@@ -509,6 +509,12 @@ namespace ARKBreedingStats
                                 {
                                     if (otherMale.levelsWild[ocs] == highestLevels[ocs])
                                         othermaxval++;
+                                    if (otherMale.IsTopMutationStat(ocs))
+                                    {
+                                        // if this creature has top mutation levels, don't remove it from breeding pool
+                                        othermaxval = 99;
+                                        break;
+                                    }
                                 }
                                 if (othermaxval == 1)
                                     otherMale.topBreedingCreature = false;
