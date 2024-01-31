@@ -354,6 +354,7 @@ namespace ARKBreedingStats
             {
                 Species = speciesSelector1.SelectedSpecies,
                 levelsWild = GetCurrentWildLevels(false),
+                levelsMutated = CreatureCollection.CurrentCreatureCollection.Game == Ark.Asa ? GetCurrentMutLevels(false) : null,
                 levelsDom = GetCurrentDomLevels(false),
                 tamingEff = TamingEffectivenessTester,
                 isBred = rbBredTester.Checked,
@@ -374,6 +375,7 @@ namespace ARKBreedingStats
             {
                 Species = speciesSelector1.SelectedSpecies,
                 levelsWild = GetCurrentWildLevels(true),
+                levelsMutated = CreatureCollection.CurrentCreatureCollection.Game == Ark.Asa ? GetCurrentMutLevels(true) : null,
                 levelsDom = GetCurrentDomLevels(true),
                 tamingEff = _extractor.UniqueTamingEffectiveness(),
                 isBred = rbBredExtractor.Checked,

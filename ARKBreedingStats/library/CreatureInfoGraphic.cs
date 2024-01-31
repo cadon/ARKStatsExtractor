@@ -126,7 +126,7 @@ namespace ARKBreedingStats.library
                 // levels
                 double meanLetterWidth = fontSize * 7d / 10;
                 int xStatName = (int)meanLetterWidth;
-                var displayMutatedLevels = creature.levelsMutated != null;
+                var displayMutatedLevels = creature.levelsMutated != null && cc?.Game == Ark.Asa;
                 // x position of level number. torpor is the largest level number.
                 int xRightLevelValue = (int)(xStatName + ((displayWithDomLevels ? 6 : 5) + creature.levelsWild[Stats.Torpidity].ToString().Length) * meanLetterWidth);
                 int xRightLevelMutValue = xRightLevelValue + (!displayMutatedLevels ? 0 : (int)((creature.levelsMutated.Max().ToString().Length + 3) * meanLetterWidth));
@@ -342,7 +342,7 @@ namespace ARKBreedingStats.library
         /// </summary>
         /// <param name="creature"></param>
         /// <param name="cc">CreatureCollection for server settings.</param>
-        public static void ExportInfoGraphicToClipboard(this Creature creature, CreatureCollection cc = null)
+        public static void ExportInfoGraphicToClipboard(this Creature creature, CreatureCollection cc)
         {
             if (creature == null) return;
 
