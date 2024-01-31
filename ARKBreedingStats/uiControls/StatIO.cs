@@ -282,18 +282,7 @@ namespace ARKBreedingStats.uiControls
 
         private void numLvW_ValueChanged(object sender, EventArgs e)
         {
-            int lengthPercentage = 100 * (int)numLvW.Value / barMaxLevel; // in percentage of the max bar width
-
-            if (lengthPercentage > 100)
-            {
-                lengthPercentage = 100;
-            }
-            if (lengthPercentage < 0)
-            {
-                lengthPercentage = 0;
-            }
-            panelBarWildLevels.Width = lengthPercentage * MaxBarLength / 100;
-            panelBarWildLevels.BackColor = Utils.GetColorFromPercent(lengthPercentage);
+            SetLevelBar(panelBarWildLevels, numLvW.Value);
             _tt.SetToolTip(panelBarWildLevels, Utils.LevelPercentile((int)numLvW.Value));
 
             if (_linkWildMutated && _wildMutatedSum != -1)
@@ -307,18 +296,7 @@ namespace ARKBreedingStats.uiControls
 
         private void nudLvM_ValueChanged(object sender, EventArgs e)
         {
-            int lengthPercentage = 100 * (int)nudLvM.Value / barMaxLevel; // in percentage of the max bar width
-
-            if (lengthPercentage > 100)
-            {
-                lengthPercentage = 100;
-            }
-            if (lengthPercentage < 0)
-            {
-                lengthPercentage = 0;
-            }
-            panelBarMutLevels.Width = lengthPercentage * MaxBarLength / 100;
-            panelBarMutLevels.BackColor = Utils.GetColorFromPercent(lengthPercentage);
+            SetLevelBar(panelBarMutLevels, nudLvM.Value);
 
             if (_linkWildMutated && _wildMutatedSum != -1)
             {
@@ -331,21 +309,21 @@ namespace ARKBreedingStats.uiControls
 
         private void numLvD_ValueChanged(object sender, EventArgs e)
         {
-            int lengthPercentage = 100 * (int)numLvD.Value / barMaxLevel; // in percentage of the max bar width
-
-            if (lengthPercentage > 100)
-            {
-                lengthPercentage = 100;
-            }
-            if (lengthPercentage < 0)
-            {
-                lengthPercentage = 0;
-            }
-            panelBarDomLevels.Width = lengthPercentage * MaxBarLength / 100;
-            panelBarDomLevels.BackColor = Utils.GetColorFromPercent(lengthPercentage);
+            SetLevelBar(panelBarDomLevels, numLvD.Value);
 
             if (_inputType != StatIOInputType.FinalValueInputType)
                 LevelChangedDebouncer();
+        }
+
+        private void SetLevelBar(Panel panel, decimal level)
+        {
+            var lengthPercentage = 100 * (int)level / barMaxLevel; // in percentage of the max bar width
+
+            if (lengthPercentage > 100) lengthPercentage = 100;
+            else if (lengthPercentage < 0) lengthPercentage = 0;
+
+            panel.Width = lengthPercentage * MaxBarLength / 100;
+            panel.BackColor = Utils.GetColorFromPercent(lengthPercentage);
         }
 
         private readonly Debouncer _levelChangedDebouncer = new Debouncer();
