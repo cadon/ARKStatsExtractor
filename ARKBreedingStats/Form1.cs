@@ -633,7 +633,7 @@ namespace ARKBreedingStats
         private void TbSpeciesGlobal_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Enter && e.KeyCode != Keys.Tab) return;
-            if (speciesSelector1.SetSpeciesByName(tbSpeciesGlobal.Text))
+            if (speciesSelector1.SetSpeciesByEntryName(tbSpeciesGlobal.Text))
                 ToggleViewSpeciesSelector(false);
         }
 

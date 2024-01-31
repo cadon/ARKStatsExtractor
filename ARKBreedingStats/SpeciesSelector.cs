@@ -314,13 +314,25 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
+        /// Return species by entry string.
+        /// </summary>
+        public bool SetSpeciesByEntryName(string entryString)
+        {
+            if (_entryList == null || string.IsNullOrEmpty(entryString)) return false;
+            var species = _entryList.FirstOrDefault(e => e.DisplayName.Equals(entryString, StringComparison.OrdinalIgnoreCase))?.Species;
+            if (species == null) return false;
+            SetSpeciesByName(null, species);
+            return true;
+        }
+
+        /// <summary>
         /// Sets the species with the speciesName. This may not be unique.
         /// </summary>
-        /// <param name="speciesName"></param>
         /// <returns>True if the species was recognized and was already or is set.</returns>
-        public bool SetSpeciesByName(string speciesName)
+        public bool SetSpeciesByName(string speciesName, Species species = null)
         {
-            if (Values.V.TryGetSpeciesByName(speciesName, out Species species))
+            if (species != null
+                || (!string.IsNullOrEmpty(speciesName) && Values.V.TryGetSpeciesByName(speciesName, out species)))
             {
                 var speciesWasSet = SetSpecies(species);
                 if (speciesWasSet)
