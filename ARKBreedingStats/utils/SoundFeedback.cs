@@ -14,7 +14,8 @@ namespace ARKBreedingStats.utils
             Good,
             Great,
             Indifferent,
-            Updated
+            Updated,
+            NewMutation
         }
 
         private static readonly SoundPlayer Sp = new SoundPlayer();
@@ -48,6 +49,10 @@ namespace ARKBreedingStats.utils
                     return;
                 case FeedbackSounds.Great:
                     Sp.Stream = Properties.Resources.newtopstat;
+                    Sp.Play();
+                    return;
+                case FeedbackSounds.NewMutation:
+                    Sp.Stream = Properties.Resources.newMutation;
                     Sp.Play();
                     return;
             }

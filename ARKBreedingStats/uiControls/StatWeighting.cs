@@ -405,5 +405,5 @@ namespace ARKBreedingStats.uiControls
             Even,
             Odd
         }
-        }
+    }
 }

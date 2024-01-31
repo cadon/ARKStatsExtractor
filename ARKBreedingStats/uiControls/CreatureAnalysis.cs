@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
+using ARKBreedingStats.library;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -10,10 +11,10 @@ namespace ARKBreedingStats.uiControls
             InitializeComponent();
         }
 
-        private LevelStatus _statsStatus;
-        private LevelStatus _colorStatus;
+        private LevelStatusFlags.LevelStatus _statsStatus;
+        private LevelStatusFlags.LevelStatus _colorStatus;
 
-        public void SetStatsAnalysis(LevelStatus statsStatus, string statsAnalysis)
+        public void SetStatsAnalysis(LevelStatusFlags.LevelStatus statsStatus, string statsAnalysis)
         {
             _statsStatus = statsStatus;
             SetStatus(LbStatsStatus, statsStatus);
@@ -21,7 +22,7 @@ namespace ARKBreedingStats.uiControls
             LbStatAnalysis.Text = statsAnalysis;
 
             var generalStatus = statsStatus;
-            if (generalStatus != LevelStatus.NewTopLevel && _colorStatus != LevelStatus.Neutral)
+            if (!generalStatus.HasFlag(LevelStatusFlags.LevelStatus.NewTopLevel) && _colorStatus != LevelStatusFlags.LevelStatus.Neutral)
             {
                 generalStatus = _colorStatus;
             }
@@ -32,7 +33,7 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// Set the color status and uses the earlier set statsStatus.
         /// </summary>
-        public void SetColorAnalysis(LevelStatus colorStatus, string colorAnalysis)
+        public void SetColorAnalysis(LevelStatusFlags.LevelStatus colorStatus, string colorAnalysis)
         {
             _colorStatus = colorStatus;
             SetStatus(LbColorStatus, colorStatus);
@@ -40,7 +41,7 @@ namespace ARKBreedingStats.uiControls
             LbColorAnalysis.Text = colorAnalysis;
 
             var generalStatus = _statsStatus;
-            if (generalStatus != LevelStatus.NewTopLevel && colorStatus != LevelStatus.Neutral)
+            if (generalStatus != LevelStatusFlags.LevelStatus.NewTopLevel && colorStatus != LevelStatusFlags.LevelStatus.Neutral)
             {
                 generalStatus = colorStatus;
             }
@@ -48,36 +49,36 @@ namespace ARKBreedingStats.uiControls
             SetStatus(LbIcon, generalStatus, LbConclusion);
         }
 
-        private void SetStatus(Label labelIcon, LevelStatus status, Label labelText = null)
+        private void SetStatus(Label labelIcon, LevelStatusFlags.LevelStatus status, Label labelText = null)
         {
-            switch (status)
+            if (status.HasFlag(LevelStatusFlags.LevelStatus.NewTopLevel))
             {
-                case LevelStatus.TopLevel:
-                    labelIcon.BackColor = Color.LightGreen;
-                    labelIcon.ForeColor = Color.DarkGreen;
-                    labelIcon.Text = "✓";
-                    if (labelText != null)
-                        labelText.Text = "Keep this creature!";
-                    break;
-                case LevelStatus.NewTopLevel:
-                    labelIcon.BackColor = Color.LightYellow;
-                    labelIcon.ForeColor = Color.Gold;
-                    labelIcon.Text = "★";
-                    if (labelText != null)
-                        labelText.Text = "Keep this creature, it adds new traits to your library!";
-                    break;
-                default:
-                    labelIcon.BackColor = Color.LightGray;
-                    labelIcon.ForeColor = Color.Gray;
-                    labelIcon.Text = "-";
-                    if (labelText != null)
-                        labelText.Text = "This creature adds nothing new to your library.";
-                    break;
+                labelIcon.BackColor = Color.LightYellow;
+                labelIcon.ForeColor = Color.Gold;
+                labelIcon.Text = "★";
+                if (labelText != null)
+                    labelText.Text = "Keep this creature, it adds new traits to your library!";
+            }
+            else if (status.HasFlag(LevelStatusFlags.LevelStatus.TopLevel))
+            {
+                labelIcon.BackColor = Color.LightGreen;
+                labelIcon.ForeColor = Color.DarkGreen;
+                labelIcon.Text = "✓";
+                if (labelText != null)
+                    labelText.Text = "Keep this creature!";
+            }
+            else
+            {
+                labelIcon.BackColor = Color.LightGray;
+                labelIcon.ForeColor = Color.Gray;
+                labelIcon.Text = "-";
+                if (labelText != null)
+                    labelText.Text = "This creature adds nothing new to your library.";
             }
         }
 
         /// <summary>
-        /// Colors are not cleared, they are set independently from the stats if the colors are changed.
+        /// Colors are not cleared, they are set independent of the stats if the colors are changed.
         /// </summary>
         public void Clear()
         {

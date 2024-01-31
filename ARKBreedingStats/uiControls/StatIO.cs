@@ -3,10 +3,11 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Threading;
+using ARKBreedingStats.library;
 using ARKBreedingStats.utils;
 using Cursors = System.Windows.Forms.Cursors;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.uiControls
 {
     public partial class StatIO : UserControl
     {
@@ -188,43 +189,44 @@ namespace ARKBreedingStats
             }
         }
 
-        private LevelStatus _topLevel;
-        public LevelStatus TopLevel
+        private LevelStatusFlags.LevelStatus _topLevel;
+        public LevelStatusFlags.LevelStatus TopLevel
         {
             get => _topLevel;
             set
             {
+                if (_topLevel == value) return;
                 _topLevel = value;
 
-                if (_topLevel == LevelStatus.Neutral)
+                if (_topLevel == LevelStatusFlags.LevelStatus.Neutral)
                 {
                     labelWildLevel.BackColor = Color.Transparent;
                     _tt.SetToolTip(labelWildLevel, null);
                     return;
                 }
 
-                if (_topLevel.HasFlag(LevelStatus.TopLevel))
+                if (_topLevel.HasFlag(LevelStatusFlags.LevelStatus.TopLevel))
                 {
                     labelWildLevel.BackColor = Color.LightGreen;
                     _tt.SetToolTip(labelWildLevel, Loc.S("topLevel"));
                 }
-                else if (_topLevel.HasFlag(LevelStatus.NewTopLevel))
+                else if (_topLevel.HasFlag(LevelStatusFlags.LevelStatus.NewTopLevel))
                 {
                     labelWildLevel.BackColor = Color.Gold;
                     _tt.SetToolTip(labelWildLevel, Loc.S("newTopLevel"));
                 }
 
-                if (_topLevel.HasFlag(LevelStatus.MaxLevelForLevelUp))
+                if (_topLevel.HasFlag(LevelStatusFlags.LevelStatus.MaxLevelForLevelUp))
                 {
                     labelWildLevel.BackColor = Color.DeepSkyBlue;
                     _tt.SetToolTip(labelWildLevel, Loc.S("maxLevelForLevelUp"));
                 }
-                else if (_topLevel.HasFlag(LevelStatus.MaxLevel))
+                else if (_topLevel.HasFlag(LevelStatusFlags.LevelStatus.MaxLevel))
                 {
                     labelWildLevel.BackColor = Color.Orange;
                     _tt.SetToolTip(labelWildLevel, Loc.S("maxLevelSaved"));
                 }
-                else if (_topLevel.HasFlag(LevelStatus.UltraMaxLevel))
+                else if (_topLevel.HasFlag(LevelStatusFlags.LevelStatus.UltraMaxLevel))
                 {
                     labelWildLevel.BackColor = Color.LightCoral;
                     _tt.SetToolTip(labelWildLevel, Loc.S("ultraMaxLevel"));
@@ -267,7 +269,7 @@ namespace ARKBreedingStats
         public void Clear()
         {
             Status = StatIOStatus.Neutral;
-            TopLevel = LevelStatus.Neutral;
+            TopLevel = LevelStatusFlags.LevelStatus.Neutral;
             numLvW.Value = 0;
             nudLvM.Value = 0;
             numLvD.Value = 0;
@@ -451,35 +453,6 @@ namespace ARKBreedingStats
         Unique,
         NonUnique,
         Error
-    }
-
-    /// <summary>
-    /// Status of wild levels, e.g. top level, max level.
-    /// </summary>
-    [Flags]
-    public enum LevelStatus
-    {
-        Neutral = 0,
-        /// <summary>
-        /// wild level is equal to the current top-level
-        /// </summary>
-        TopLevel = 1,
-        /// <summary>
-        /// wild level is higher than the current top-level
-        /// </summary>
-        NewTopLevel = 2,
-        /// <summary>
-        /// Max level to apply domesticated levels.
-        /// </summary>
-        MaxLevelForLevelUp = 4,
-        /// <summary>
-        /// Max level that can be saved.
-        /// </summary>
-        MaxLevel = 8,
-        /// <summary>
-        /// Level too high to be saved, rollover will happen.
-        /// </summary>
-        UltraMaxLevel = 16
     }
 
     public enum StatIOInputType

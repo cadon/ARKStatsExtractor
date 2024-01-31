@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using ARKBreedingStats.library;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
@@ -232,7 +233,8 @@ namespace ARKBreedingStats
                 creature = GetCreatureFromInput(true, species, levelStep);
             }
 
-            OverlayFeedbackForImport(creature, uniqueExtraction, alreadyExists, addedToLibrary, copiedNameToClipboard, out bool hasTopLevels, out bool hasNewTopLevels);
+            OverlayFeedbackForImport(creature, uniqueExtraction, alreadyExists, addedToLibrary, copiedNameToClipboard,
+                out bool hasTopLevels, out bool hasNewTopLevels, out var newMutationStatFlags);
 
             if (addedToLibrary)
             {
@@ -297,6 +299,8 @@ namespace ARKBreedingStats
                 {
                     if (alreadyExists)
                         SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Updated);
+                    else if (newMutationStatFlags != 0)
+                        SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.NewMutation);
                     else if (hasNewTopLevels)
                         SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Great);
                     else if (hasTopLevels)
@@ -377,10 +381,12 @@ namespace ARKBreedingStats
         /// <summary>
         /// Give feedback in overlay for imported creature.
         /// </summary>
-        private void OverlayFeedbackForImport(Creature creature, bool uniqueExtraction, bool alreadyExists, bool addedToLibrary, bool copiedNameToClipboard, out bool topLevels, out bool newTopLevels)
+        private void OverlayFeedbackForImport(Creature creature, bool uniqueExtraction, bool alreadyExists, bool addedToLibrary,
+            bool copiedNameToClipboard, out bool topLevels, out bool newTopLevels, out int newMutationStatFlags)
         {
             topLevels = false;
             newTopLevels = false;
+            newMutationStatFlags = 0;
             string infoText;
             Color textColor;
             const int colorSaturation = 200;
@@ -391,24 +397,27 @@ namespace ARKBreedingStats
                 if (addedToLibrary && copiedNameToClipboard)
                     sb.AppendLine("Name copied to clipboard.");
 
-                for (int s = 0; s < Stats.StatsCount; s++)
-                {
-                    int statIndex = Stats.DisplayOrder[s];
-                    if (!creature.Species.UsesStat(statIndex)) continue;
+                var checkMutations = _highestSpeciesMutationLevels.TryGetValue(creature.Species, out var highestMutations) && creature.levelsMutated != null;
+                var species = speciesSelector1.SelectedSpecies;
+                _highestSpeciesLevels.TryGetValue(species, out int[] highSpeciesLevels);
+                _lowestSpeciesLevels.TryGetValue(species, out int[] lowSpeciesLevels);
+                _highestSpeciesMutationLevels.TryGetValue(species, out int[] highSpeciesMutationLevels);
 
-                    sb.Append($"{Utils.StatName(statIndex, true, creature.Species.statNames)}: {creature.levelsWild[statIndex]} ({creature.valuesBreeding[statIndex]})");
-                    if (_statIOs[statIndex].TopLevel.HasFlag(LevelStatus.NewTopLevel))
-                    {
-                        sb.Append($" {Loc.S("newTopLevel")}");
-                        newTopLevels = true;
-                    }
-                    else if (creature.IsTopStat(statIndex))
-                    {
-                        sb.Append($" {Loc.S("topLevel")}");
-                        topLevels = true;
-                    }
-                    sb.AppendLine();
-                }
+                var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
+
+                LevelStatusFlags.DetermineLevelStatus(species, highSpeciesLevels, lowSpeciesLevels, highSpeciesMutationLevels,
+                    statWeights, creature.levelsWild, creature.levelsMutated, creature.valuesBreeding,
+                    out _, out _, sb);
+
+                topLevels = LevelStatusFlags.CombinedLevelStatusFlags.HasFlag(LevelStatusFlags.LevelStatus.TopLevel);
+                newTopLevels = LevelStatusFlags.CombinedLevelStatusFlags.HasFlag(LevelStatusFlags.LevelStatus.NewTopLevel);
+                newMutationStatFlags = Enumerable.Range(0, Stats.StatsCount)
+                    .Aggregate(0,
+                        (flags, statIndex) =>
+                            flags | (LevelStatusFlags.LevelStatusFlagsCurrentNewCreature[statIndex]
+                                .HasFlag(LevelStatusFlags.LevelStatus.NewMutation)
+                                ? (1 << statIndex)
+                                : 0));
 
                 infoText = sb.ToString();
                 textColor = Color.FromArgb(colorSaturation, 255, colorSaturation);
@@ -417,6 +426,7 @@ namespace ARKBreedingStats
             {
                 infoText = $"Creature \"{creature.name}\" couldn't be extracted uniquely, manual level selection is necessary.";
                 textColor = Color.FromArgb(255, colorSaturation, colorSaturation);
+                LevelStatusFlags.Clear();
             }
 
             if (_overlay != null)

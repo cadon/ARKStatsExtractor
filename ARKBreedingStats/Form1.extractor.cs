@@ -9,8 +9,10 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using ARKBreedingStats.library;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.ocr;
+using ARKBreedingStats.uiControls;
 
 namespace ARKBreedingStats
 {
@@ -65,7 +67,7 @@ namespace ARKBreedingStats
                     valid = false;
                     break;
                 }
-                _statIOs[s].TopLevel = LevelStatus.Neutral;
+                _statIOs[s].TopLevel = LevelStatusFlags.LevelStatus.Neutral;
             }
             if (valid)
             {
@@ -116,80 +118,33 @@ namespace ARKBreedingStats
                 radarChartExtractor.SetLevels(_statIOs.Select(s => s.LevelWild).ToArray(), _statIOs.Select(s => s.LevelMut).ToArray(), speciesSelector1.SelectedSpecies);
                 cbExactlyImprinting.BackColor = Color.Transparent;
                 var species = speciesSelector1.SelectedSpecies;
-                var checkTopLevels = _highestSpeciesLevels.TryGetValue(species, out int[] topSpeciesLevels);
-                var checkLowLevels = _lowestSpeciesLevels.TryGetValue(species, out int[] lowSpeciesLevels);
+                _highestSpeciesLevels.TryGetValue(species, out int[] highSpeciesLevels);
+                _lowestSpeciesLevels.TryGetValue(species, out int[] lowSpeciesLevels);
+                _highestSpeciesMutationLevels.TryGetValue(species, out int[] highSpeciesMutationLevels);
+                //_lowestSpeciesMutationLevels.TryGetValue(species, out int[] lowSpeciesMutationLevels);
 
-                var customStatNames = species.statNames;
                 var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
-                if (statWeights.Item1 == null) checkLowLevels = false;
-                var analysisState = LevelStatus.Neutral;
-                var newTopStatsText = new List<string>();
-                var topStatsText = new List<string>();
 
-                for (int s = 0; s < Stats.StatsCount; s++)
+                LevelStatusFlags.DetermineLevelStatus(species, highSpeciesLevels, lowSpeciesLevels, highSpeciesMutationLevels,
+                    statWeights, GetCurrentWildLevels(), GetCurrentMutLevels(),GetCurrentBreedingValues(),
+                    out var topStatsText, out var newTopStatsText);
+
+                for (var s = 0; s < Stats.StatsCount; s++)
                 {
-                    if (s == Stats.Torpidity
-                        || _statIOs[s].LevelWild <= 0)
-                        continue;
-
-                    var levelStatus = LevelStatus.Neutral;
-
-                    if (checkTopLevels && (statWeights.Item1?[s] ?? 0) >= 0)
-                    {
-                        // higher stats are considered to be good. If no custom weightings are available, consider higher levels to be better.
-
-                        // check if higher level is only considered if even or odd
-                        if ((statWeights.Item2?[s] ?? 0) == 0 // even/odd doesn't matter
-                            || (statWeights.Item2[s] == 1 && _statIOs[s].LevelWild % 2 == 1)
-                            || (statWeights.Item2[s] == 2 && _statIOs[s].LevelWild % 2 == 0)
-                            )
-                        {
-                            if (_statIOs[s].LevelWild == topSpeciesLevels[s])
-                            {
-                                levelStatus = LevelStatus.TopLevel;
-                                topStatsText.Add(Utils.StatName(s, false, customStatNames));
-                                if (analysisState != LevelStatus.NewTopLevel)
-                                    analysisState = LevelStatus.TopLevel;
-                            }
-                            else if (topSpeciesLevels[s] != -1 && _statIOs[s].LevelWild > topSpeciesLevels[s])
-                            {
-                                levelStatus = LevelStatus.NewTopLevel;
-                                newTopStatsText.Add(Utils.StatName(s, false, customStatNames));
-                                analysisState = LevelStatus.NewTopLevel;
-                            }
-                        }
-                    }
-                    else if (checkLowLevels && statWeights.Item1[s] < 0)
-                    {
-                        // lower stats are considered to be good
-                        if (_statIOs[s].LevelWild == lowSpeciesLevels[s])
-                        {
-                            levelStatus = LevelStatus.TopLevel;
-                            topStatsText.Add(Utils.StatName(s, false, customStatNames));
-                            if (analysisState != LevelStatus.NewTopLevel)
-                                analysisState = LevelStatus.TopLevel;
-                        }
-                        else if (_statIOs[s].LevelWild < lowSpeciesLevels[s])
-                        {
-                            levelStatus = LevelStatus.NewTopLevel;
-                            newTopStatsText.Add(Utils.StatName(s, false, customStatNames));
-                            analysisState = LevelStatus.NewTopLevel;
-                        }
-                    }
+                    var levelStatusForStatIo = LevelStatusFlags.LevelStatusFlagsCurrentNewCreature[s];
 
                     // ASA can have up to 511 levels because 255 mutation levels also contribute to the wild value. TODO separate to mutation levels
-                    if (_creatureCollection.Game != Ark.Asa)
+                    if (_creatureCollection.Game != Ark.Asa && s != Stats.Torpidity)
                     {
                         if (_statIOs[s].LevelWild > 255)
-                            levelStatus |= LevelStatus.UltraMaxLevel;
+                            levelStatusForStatIo |= LevelStatusFlags.LevelStatus.UltraMaxLevel;
                         else if (_statIOs[s].LevelWild == 255)
-                            levelStatus |= LevelStatus.MaxLevel;
+                            levelStatusForStatIo |= LevelStatusFlags.LevelStatus.MaxLevel;
                         else if (_statIOs[s].LevelWild == 254)
-                            levelStatus |= LevelStatus.MaxLevelForLevelUp;
+                            levelStatusForStatIo |= LevelStatusFlags.LevelStatus.MaxLevelForLevelUp;
                     }
 
-                    if (levelStatus != LevelStatus.Neutral)
-                        _statIOs[s].TopLevel = levelStatus;
+                    _statIOs[s].TopLevel = levelStatusForStatIo;
                 }
 
                 string infoText = null;
@@ -204,7 +159,7 @@ namespace ARKBreedingStats
 
                 if (infoText == null) infoText = "No top stats";
 
-                creatureAnalysis1.SetStatsAnalysis(analysisState, infoText);
+                creatureAnalysis1.SetStatsAnalysis(LevelStatusFlags.CombinedLevelStatusFlags, infoText);
             }
             creatureInfoInputExtractor.ButtonEnabled = allValid;
             groupBoxRadarChartExtractor.Visible = allValid;
@@ -1220,7 +1175,7 @@ namespace ARKBreedingStats
             input.ColorAlreadyExistingInformation = colorAlreadyExisting;
 
             if (input == creatureInfoInputExtractor)
-                creatureAnalysis1.SetColorAnalysis(newColorStatus.newInSpecies ? LevelStatus.NewTopLevel : newColorStatus.newInRegion ? LevelStatus.TopLevel : LevelStatus.Neutral, infoText);
+                creatureAnalysis1.SetColorAnalysis(newColorStatus.newInSpecies ? LevelStatusFlags.LevelStatus.NewTopLevel : newColorStatus.newInRegion ? LevelStatusFlags.LevelStatus.TopLevel : LevelStatusFlags.LevelStatus.Neutral, infoText);
         }
 
         private void copyLibrarydumpToClipboardToolStripMenuItem_Click(object sender, EventArgs e)

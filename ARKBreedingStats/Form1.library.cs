@@ -196,40 +196,25 @@ namespace ARKBreedingStats
         /// Returns the wild levels from the extractor or tester in an array.
         /// </summary>
         private int[] GetCurrentWildLevels(bool fromExtractor = true)
-        {
-            int[] levelsWild = new int[Stats.StatsCount];
-            for (int s = 0; s < Stats.StatsCount; s++)
-            {
-                levelsWild[s] = fromExtractor ? _statIOs[s].LevelWild : _testingIOs[s].LevelWild;
-            }
-            return levelsWild;
-        }
+            => (fromExtractor ? _statIOs : _testingIOs).Select(i => i.LevelWild).ToArray();
 
         /// <summary>
         /// Returns the mutated levels from the extractor or tester in an array.
         /// </summary>
         private int[] GetCurrentMutLevels(bool fromExtractor = true)
-        {
-            int[] levelsMut = new int[Stats.StatsCount];
-            for (int s = 0; s < Stats.StatsCount; s++)
-            {
-                levelsMut[s] = fromExtractor ? _statIOs[s].LevelMut : _testingIOs[s].LevelMut;
-            }
-            return levelsMut;
-        }
+            => (fromExtractor ? _statIOs : _testingIOs).Select(i => i.LevelMut).ToArray();
 
         /// <summary>
         /// Returns the domesticated levels from the extractor or tester in an array.
         /// </summary>
         private int[] GetCurrentDomLevels(bool fromExtractor = true)
-        {
-            int[] levelsDom = new int[Stats.StatsCount];
-            for (int s = 0; s < Stats.StatsCount; s++)
-            {
-                levelsDom[s] = fromExtractor ? _statIOs[s].LevelDom : _testingIOs[s].LevelDom;
-            }
-            return levelsDom;
-        }
+            => (fromExtractor ? _statIOs : _testingIOs).Select(i => i.LevelDom).ToArray();
+
+        /// <summary>
+        /// Returns the breeding values from the extractor or tester in an array.
+        /// </summary>
+        private double[] GetCurrentBreedingValues(bool fromExtractor = true)
+            => (fromExtractor ? _statIOs : _testingIOs).Select(i => i.BreedingValue).ToArray();
 
         /// <summary>
         /// Call after the creatureCollection-object was created anew (e.g. after loading a file)
@@ -322,8 +307,6 @@ namespace ARKBreedingStats
                 {
                     highestLevels[s] = -1;
                     lowestLevels[s] = -1;
-                    highestMutationLevels[s] = -1;
-                    lowestMutationLevels[s] = -1;
                     if (species.UsesStat(s))
                     {
                         usedStatIndices.Add(s);
@@ -406,17 +389,20 @@ namespace ARKBreedingStats
                         {
                             if (statPreference == StatWeighting.StatValuePreference.Low)
                             {
-                                if (lowestMutationLevels[si] == -1 || c.levelsMutated[si] < lowestMutationLevels[si])
+                                if (c.levelsMutated[si] < lowestMutationLevels[si])
                                 {
                                     bestCreaturesMutatedLevels[si] = new List<Creature> { c };
                                     lowestMutationLevels[si] = c.levelsMutated[si];
                                 }
                                 else if (c.levelsMutated[si] == lowestMutationLevels[si])
                                 {
-                                    bestCreaturesMutatedLevels[si].Add(c);
+                                    if (bestCreaturesMutatedLevels[si] == null)
+                                        bestCreaturesMutatedLevels[si] = new List<Creature> { c };
+                                    else bestCreaturesMutatedLevels[si].Add(c);
                                 }
                             }
-                            else if (statPreference == StatWeighting.StatValuePreference.High)
+                            else if (statPreference == StatWeighting.StatValuePreference.High
+                                     && c.levelsMutated[si] > 0)
                             {
                                 if (c.levelsMutated[si] > 0 && c.levelsMutated[si] > highestMutationLevels[si])
                                 {

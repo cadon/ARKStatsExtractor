@@ -99,6 +99,7 @@
     </Compile>
     <Compile Include="library\CreatureSpawnCommand.cs" />
     <Compile Include="library\DummyCreatures.cs" />
+    <Compile Include="library\LevelStatusFlags.cs" />
     <Compile Include="multiplierTesting\CalculateMultipliers.cs" />
     <Compile Include="NamePatterns\NameList.cs" />
     <Compile Include="NamePatterns\NamePatternEntry.cs">
@@ -681,6 +682,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\updated.wav" />
+    <None Include="Resources\newMutation.wav" />
     <Content Include="_manifest.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>_manifest.json</LastGenOutput>

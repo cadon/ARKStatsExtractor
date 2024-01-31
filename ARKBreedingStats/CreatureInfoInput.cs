@@ -720,7 +720,7 @@ namespace ARKBreedingStats
         {
             btAdd2Library.BackColor = !buttonEnabled
                 ? SystemColors.Control
-                : _alreadyExistingCreature != null ? Color.LightGreen
+                : _alreadyExistingCreature == null ? Color.LightGreen
                 : Color.LightSkyBlue;
         }
 
