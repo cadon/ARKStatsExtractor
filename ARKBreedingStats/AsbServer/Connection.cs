@@ -275,5 +275,7 @@ namespace ARKBreedingStats.AsbServer
         /// Returns the passed token string, or wildcards if the streamer mode is enabled.
         /// </summary>
         public static string TokenStringForDisplay(string token) => Properties.Settings.Default.StreamerMode ? "****" : token;
+
+        public static bool IsCurrentlyListening => _lastCancellationTokenSource != null;
     }
 }

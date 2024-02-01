@@ -3898,6 +3898,30 @@ namespace ARKBreedingStats
                 SetMessageLabelText($"ASB Server listening stopped using token: {Connection.TokenStringForDisplay(Properties.Settings.Default.ExportServerToken)}", MessageBoxIcon.Error);
         }
 
+        private void currentTokenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var tokenIsSet = !string.IsNullOrEmpty(Properties.Settings.Default.ExportServerToken);
+            string message;
+            bool isError;
+            if (tokenIsSet)
+            {
+                message = $"Currently {(Connection.IsCurrentlyListening ? string.Empty : "not ")}listening to the server."
+                          + " The current token is " + Environment.NewLine + Connection.TokenStringForDisplay(Properties.Settings.Default.ExportServerToken)
+                          + Environment.NewLine + "(token copied to clipboard)";
+
+                Clipboard.SetText(Properties.Settings.Default.ExportServerToken);
+                isError = false;
+            }
+            else
+            {
+                message = "Currently no token set. A token is created once you start listening to the server.";
+                isError = true;
+            }
+
+            SetMessageLabelText(message, isError ? MessageBoxIcon.Error : MessageBoxIcon.Information,
+                clipboardText: Properties.Settings.Default.ExportServerToken, displayPopup: !Properties.Settings.Default.StreamerMode);
+        }
+
         private void sendExampleCreatureToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // debug function, sends a test creature to the server
@@ -3905,6 +3929,5 @@ namespace ARKBreedingStats
         }
 
         #endregion
-
     }
 }
