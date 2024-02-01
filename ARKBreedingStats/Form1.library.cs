@@ -1072,6 +1072,7 @@ namespace ARKBreedingStats
             ListViewItem lvi = new ListViewItem(subItems) { Tag = cr };
 
             // apply colors to the subItems
+            var displayZeroMutationLevels = Properties.Settings.Default.LibraryDisplayZeroMutationLevels;
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
@@ -1092,14 +1093,14 @@ namespace ARKBreedingStats
                             _considerStatHighlight[s] ? cr.IsTopStat(s) ? 0.2 : 0.75 : 0.93);
 
                 // mutated levels
-                if (cr.levelsMutated == null || cr.levelsMutated[s] == 0)
+                if (cr.levelsMutated == null || (!displayZeroMutationLevels && cr.levelsMutated[s] == 0))
                 {
                     lvi.SubItems[ColumnIndexFirstStat + Stats.StatsCount + s].ForeColor = Color.White;
                     lvi.SubItems[ColumnIndexFirstStat + Stats.StatsCount + s].BackColor = Color.White;
                 }
                 else
                     lvi.SubItems[ColumnIndexFirstStat + Stats.StatsCount + s].BackColor = Utils.GetColorFromPercent((int)(cr.levelsMutated[s] * colorFactor),
-                            _considerStatHighlight[s] ? cr.IsTopMutationStat(s) ? 0.4 : 0.8 : 0.93, true);
+                            _considerStatHighlight[s] ? cr.IsTopMutationStat(s) ? 0.5 : 0.8 : 0.93, true);
             }
             lvi.SubItems[ColumnIndexSex].BackColor = cr.flags.HasFlag(CreatureFlags.Neutered) ? Color.FromArgb(220, 220, 220) :
                     cr.sex == Sex.Female ? Color.FromArgb(255, 230, 255) :
@@ -1165,7 +1166,7 @@ namespace ARKBreedingStats
             if (cr.levelFound == 0)
                 lvi.SubItems[ColumnIndexWildLevel].ForeColor = Color.LightGray;
 
-            // color for mutation
+            // color for mutations counter
             if (cr.Mutations > 0)
             {
                 if (cr.Mutations < Ark.MutationPossibleWithLessThan)

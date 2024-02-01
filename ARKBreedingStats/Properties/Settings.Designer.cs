@@ -2290,5 +2290,17 @@ namespace ARKBreedingStats.Properties {
                 this["StreamerMode"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LibraryDisplayZeroMutationLevels {
+            get {
+                return ((bool)(this["LibraryDisplayZeroMutationLevels"]));
+            }
+            set {
+                this["LibraryDisplayZeroMutationLevels"] = value;
+            }
+        }
     }
 }

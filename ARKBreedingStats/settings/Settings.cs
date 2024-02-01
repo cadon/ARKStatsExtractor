@@ -366,6 +366,7 @@ namespace ARKBreedingStats.settings
             CbNaturalSortIgnoreSpaces.Enabled = Properties.Settings.Default.UseNaturalSort;
             CbNaturalSortIgnoreSpaces.Checked = Properties.Settings.Default.NaturalSortIgnoreSpaces;
             CbDisplayLibraryCreatureIndex.Checked = Properties.Settings.Default.DisplayLibraryCreatureIndex;
+            CbLibraryDisplayZeroMutationLevels.Checked = Properties.Settings.Default.LibraryDisplayZeroMutationLevels;
 
             #endregion
 
@@ -621,6 +622,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.UseNaturalSort = CbNaturalSorting.Checked;
             Properties.Settings.Default.NaturalSortIgnoreSpaces = CbNaturalSortIgnoreSpaces.Checked;
             Properties.Settings.Default.DisplayLibraryCreatureIndex = CbDisplayLibraryCreatureIndex.Checked;
+            Properties.Settings.Default.LibraryDisplayZeroMutationLevels = CbLibraryDisplayZeroMutationLevels.Checked;
 
             #endregion
 
