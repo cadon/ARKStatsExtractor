@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Drawing.Text;
 using System.Linq;
 using System.Runtime.Serialization;
 
@@ -57,7 +56,11 @@ namespace ARKBreedingStats.Library
 
         public void ResetTopStats() => _topBreedingStatIndices = 0;
         private int _topBreedingStatIndices; // bit flags if a stat index is a top stat
-        public short topStatsCount;
+
+        /// <summary>
+        /// Number of top stats that are considered in the library.
+        /// </summary>
+        public byte topStatsConsideredCount;
 
         /// <summary>
         /// Set a stat index to a top mutation stat or not for that species in the creatureCollection.
@@ -73,9 +76,9 @@ namespace ARKBreedingStats.Library
         private int _topMutationStatIndices; // bit flags if a stat index is a top mutation stat
 
         /// <summary>
-        /// topStatCount with all stats (regardless of considerStatHighlight[]) and without torpor (for breedingPlanner)
+        /// topStatCount with all stats (regardless of considerStatHighlight[]) and without torpor (for breeding planner)
         /// </summary>
-        public short topStatsCountBP;
+        public byte topStatsCountBP;
         /// <summary>
         /// True if it has some topBreedingStats and if it's male, no other male has more topBreedingStats.
         /// </summary>
@@ -437,7 +440,7 @@ namespace ARKBreedingStats.Library
                 || flags.HasFlag(CreatureFlags.Placeholder))
                 return;
 
-            short c = 0, cBP = 0;
+            byte c = 0, cBP = 0;
             onlyTopConsideredStats = true;
             for (int s = 0; s < Stats.StatsCount; s++)
             {
@@ -453,7 +456,7 @@ namespace ARKBreedingStats.Library
                     onlyTopConsideredStats = false;
                 }
             }
-            topStatsCount = c;
+            topStatsConsideredCount = c;
             topStatsCountBP = cBP;
         }
 

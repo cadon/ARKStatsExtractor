@@ -286,9 +286,23 @@ namespace ARKBreedingStats.BreedingPlanning
             bool considerMutationLimit = nudBPMutationLimit.Value >= 0;
 
             bool creaturesMutationsFilteredOut = false;
+
+            // only consider creatures with top stats if breeding for that
+            Creature[] females, males;
+            if (_breedingMode == BreedingMode.BestNextGen)
+            {
+                females = _females;
+                males = _males;
+            }
+            else
+            {
+                females = _females.Where(c => c.topStatsCountBP > 0).ToArray();
+                males = _males?.Where(c => c.topStatsCountBP > 0).ToArray();
+            }
+
             // filter by tags
-            int crCountF = _females.Length;
-            int crCountM = _males?.Length ?? 0;
+            int crCountF = females.Length;
+            int crCountM = males?.Length ?? 0;
             IEnumerable<Creature> selectFemales;
             IEnumerable<Creature> selectMales = null;
             if (considerChosenCreature && (_chosenCreature.sex == Sex.Female || _currentSpecies.noGender))
@@ -297,10 +311,10 @@ namespace ARKBreedingStats.BreedingPlanning
             }
             else if (!cbBPMutationLimitOnlyOnePartner.Checked && considerMutationLimit)
             {
-                selectFemales = FilterByTags(_females.Where(c => c.Mutations <= nudBPMutationLimit.Value));
-                creaturesMutationsFilteredOut = _females.Any(c => c.Mutations > nudBPMutationLimit.Value);
+                selectFemales = FilterByTags(females.Where(c => c.Mutations <= nudBPMutationLimit.Value));
+                creaturesMutationsFilteredOut = females.Any(c => c.Mutations > nudBPMutationLimit.Value);
             }
-            else selectFemales = FilterByTags(_females);
+            else selectFemales = FilterByTags(females);
 
             if (considerChosenCreature && !_currentSpecies.noGender && _chosenCreature.sex == Sex.Male)
             {
@@ -308,14 +322,14 @@ namespace ARKBreedingStats.BreedingPlanning
             }
             else if (!cbBPMutationLimitOnlyOnePartner.Checked && considerMutationLimit)
             {
-                if (_males != null)
+                if (males != null)
                 {
-                    selectMales = FilterByTags(_males.Where(c => c.Mutations <= nudBPMutationLimit.Value));
+                    selectMales = FilterByTags(males.Where(c => c.Mutations <= nudBPMutationLimit.Value));
                     creaturesMutationsFilteredOut = creaturesMutationsFilteredOut ||
-                                                    _males.Any(c => c.Mutations > nudBPMutationLimit.Value);
+                                                    males.Any(c => c.Mutations > nudBPMutationLimit.Value);
                 }
             }
-            else selectMales = FilterByTags(_males);
+            else selectMales = FilterByTags(males);
 
             // filter by servers
             if (cbServerFilterLibrary.Checked && (Settings.Default.FilterHideServers?.Any() ?? false))
@@ -401,18 +415,16 @@ namespace ARKBreedingStats.BreedingPlanning
                     ref creaturesMutationsFilteredOut, levelLimitWithOutDomLevels, CbDontSuggestOverLimitOffspring.Checked,
                     cbBPOnlyOneSuggestionForFemales.Checked, _statOddEvens);
 
-                //double minScore = _breedingPairs.LastOrDefault()?.BreedingScore ?? 0;
-                //if (minScore < 0)
-                //{
-                //    foreach (BreedingPair bp in _breedingPairs)
-                //        bp.BreedingScore -= minScore;
-                //}
+                double minScore = _breedingPairs.LastOrDefault()?.BreedingScore.OneNumber ?? 0;
+                var displayScoreOffset = (minScore < 0 ? -minScore : 0) + .5; // don't display negative scores, could be confusing
+
+                _breedingPairs = _breedingPairs.Take(CreatureCollection.maxBreedingSuggestions).ToList();
 
                 var sb = new StringBuilder();
                 // draw best parents
                 using (var brush = new SolidBrush(Color.Black))
                 {
-                    for (int i = 0; i < _breedingPairs.Count && i < CreatureCollection.maxBreedingSuggestions; i++)
+                    for (int i = 0; i < _breedingPairs.Count; i++)
                     {
                         PedigreeCreature pc;
                         if (2 * i < _pcs.Count)
@@ -486,7 +498,7 @@ namespace ARKBreedingStats.BreedingPlanning
                                 sb.AppendLine(_breedingPairs[i].Father + " can produce a mutation.");
                             }
 
-                            var colorPercent = (int)(_breedingPairs[i].BreedingScore.OneNumber * 12.5);
+                            var colorPercent = (int)((_breedingPairs[i].BreedingScore.OneNumber + displayScoreOffset) * 12.5);
                             // outline
                             brush.Color = Utils.GetColorFromPercent(colorPercent, -.2);
                             g.FillRectangle(brush, 0, 15, 87, 5);
@@ -504,7 +516,7 @@ namespace ARKBreedingStats.BreedingPlanning
                             }
                             // breeding score text
                             brush.Color = Color.Black;
-                            g.DrawString(_breedingPairs[i].BreedingScore.ToString("N4"),
+                            g.DrawString((_breedingPairs[i].BreedingScore.Primary + displayScoreOffset).ToString("N4"),
                                 new Font("Microsoft Sans Serif", 8.25f), brush, 24, 12);
                             pb.Image = bm;
                         }
