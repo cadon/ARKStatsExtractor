@@ -316,8 +316,14 @@ namespace ARKBreedingStats
                 }
                 List<Creature>[] bestCreaturesWildLevels = new List<Creature>[Stats.StatsCount];
                 List<Creature>[] bestCreaturesMutatedLevels = new List<Creature>[Stats.StatsCount];
-                int usedStatsCount = usedStatIndices.Count;
-                int usedAndConsideredStatsCount = usedAndConsideredStatIndices.Count;
+                var statPreferences = new StatWeighting.StatValuePreference[Stats.StatsCount];
+                for (int s = 0; s < Stats.StatsCount; s++)
+                {
+                    var statWeight = statWeights.Item1[s];
+                    statPreferences[s] = statWeight > 0 ? StatWeighting.StatValuePreference.High :
+                        statWeight < 0 ? StatWeighting.StatValuePreference.Low :
+                        StatWeighting.StatValuePreference.Indifferent;
+                }
 
                 foreach (var c in speciesCreatures)
                 {
@@ -341,77 +347,80 @@ namespace ARKBreedingStats
                         continue;
                     }
 
-                    for (int s = 0; s < usedStatsCount; s++)
+                    foreach (var s in usedStatIndices)
                     {
-                        int si = usedStatIndices[s];
-                        var statWeight = statWeights.Item1[s];
-                        var statPreference = statWeight > 0 ? StatWeighting.StatValuePreference.High :
-                            statWeight < 0 ? StatWeighting.StatValuePreference.Low :
-                            StatWeighting.StatValuePreference.Indifferent;
-
-                        if (c.levelsWild[si] >= 0)
+                        if (c.levelsWild[s] >= 0)
                         {
-                            if (statPreference == StatWeighting.StatValuePreference.Low)
+                            if (statPreferences[s] == StatWeighting.StatValuePreference.Low)
                             {
-                                if (lowestLevels[si] == -1 || c.levelsWild[si] < lowestLevels[si])
+                                if (lowestLevels[s] == -1 || c.levelsWild[s] < lowestLevels[s])
                                 {
-                                    bestCreaturesWildLevels[si] = new List<Creature> { c };
-                                    lowestLevels[si] = c.levelsWild[si];
+                                    bestCreaturesWildLevels[s] = new List<Creature> { c };
+                                    lowestLevels[s] = c.levelsWild[s];
                                 }
-                                else if (c.levelsWild[si] == lowestLevels[si])
+                                else if (c.levelsWild[s] == lowestLevels[s])
                                 {
-                                    bestCreaturesWildLevels[si].Add(c);
+                                    bestCreaturesWildLevels[s].Add(c);
+                                }
+
+                                if (c.levelsWild[s] > highestLevels[s])
+                                {
+                                    highestLevels[s] = c.levelsWild[s];
                                 }
                             }
-                            else if (statPreference == StatWeighting.StatValuePreference.High)
+                            else if (statPreferences[s] == StatWeighting.StatValuePreference.High)
                             {
-                                if (c.levelsWild[si] > highestLevels[si])
+                                if (c.levelsWild[s] > highestLevels[s])
                                 {
                                     // creature has a higher level than the current highest level
                                     // check if highest stats are only counted if odd or even
                                     if ((statWeights.Item2?[s] ?? 0) == 0 // even/odd doesn't matter
-                                        || (statWeights.Item2[s] == 1 && c.levelsWild[si] % 2 == 1)
-                                        || (statWeights.Item2[s] == 2 && c.levelsWild[si] % 2 == 0)
+                                        || (statWeights.Item2[s] == 1 && c.levelsWild[s] % 2 == 1)
+                                        || (statWeights.Item2[s] == 2 && c.levelsWild[s] % 2 == 0)
                                        )
                                     {
-                                        bestCreaturesWildLevels[si] = new List<Creature> { c };
-                                        highestLevels[si] = c.levelsWild[si];
+                                        bestCreaturesWildLevels[s] = new List<Creature> { c };
+                                        highestLevels[s] = c.levelsWild[s];
                                     }
                                 }
-                                else if (c.levelsWild[si] == highestLevels[si])
+                                else if (c.levelsWild[s] == highestLevels[s])
                                 {
-                                    bestCreaturesWildLevels[si].Add(c);
+                                    bestCreaturesWildLevels[s].Add(c);
+                                }
+                                if (lowestLevels[s] == -1 || c.levelsWild[s] < lowestLevels[s])
+                                {
+                                    lowestLevels[s] = c.levelsWild[s];
                                 }
                             }
                         }
 
-                        if (c.levelsMutated != null && c.levelsMutated[si] >= 0)
+                        if (c.levelsMutated != null && c.levelsMutated[s] >= 0)
                         {
-                            if (statPreference == StatWeighting.StatValuePreference.Low)
+                            if (statPreferences[s] == StatWeighting.StatValuePreference.Low)
                             {
-                                if (c.levelsMutated[si] < lowestMutationLevels[si])
+                                if (c.levelsMutated[s] < lowestMutationLevels[s])
                                 {
-                                    bestCreaturesMutatedLevels[si] = new List<Creature> { c };
-                                    lowestMutationLevels[si] = c.levelsMutated[si];
+                                    bestCreaturesMutatedLevels[s] = new List<Creature> { c };
+                                    lowestMutationLevels[s] = c.levelsMutated[s];
                                 }
-                                else if (c.levelsMutated[si] == lowestMutationLevels[si])
+                                else if (c.levelsMutated[s] == lowestMutationLevels[s])
                                 {
-                                    if (bestCreaturesMutatedLevels[si] == null)
-                                        bestCreaturesMutatedLevels[si] = new List<Creature> { c };
-                                    else bestCreaturesMutatedLevels[si].Add(c);
+                                    if (bestCreaturesMutatedLevels[s] == null)
+                                        bestCreaturesMutatedLevels[s] = new List<Creature> { c };
+                                    else bestCreaturesMutatedLevels[s].Add(c);
                                 }
                             }
-                            else if (statPreference == StatWeighting.StatValuePreference.High
-                                     && c.levelsMutated[si] > 0)
+                            else if (statPreferences[s] == StatWeighting.StatValuePreference.High
+                                     && c.levelsMutated[s] > 0)
                             {
-                                if (c.levelsMutated[si] > 0 && c.levelsMutated[si] > highestMutationLevels[si])
+                                if (c.levelsMutated[s] > 0 && c.levelsMutated[s] > highestMutationLevels[s])
                                 {
-                                    bestCreaturesMutatedLevels[si] = new List<Creature> { c };
-                                    highestMutationLevels[si] = c.levelsMutated[si];
+                                    bestCreaturesMutatedLevels[s] = new List<Creature> { c };
+                                    highestMutationLevels[s] = c.levelsMutated[s];
                                 }
-                                else if (c.levelsMutated[si] == highestMutationLevels[si])
+                                else if (c.levelsMutated[s] == highestMutationLevels[s])
                                 {
-                                    bestCreaturesMutatedLevels[si].Add(c);
+                                    bestCreaturesMutatedLevels[s].Add(c);
                                 }
                             }
                         }
@@ -427,11 +436,21 @@ namespace ARKBreedingStats
 
                 // set topness of each creature (== mean wildLevels/mean top wildLevels in permille)
                 int sumTopLevels = 0;
-                for (int s = 0; s < usedAndConsideredStatsCount; s++)
+                foreach (var s in usedAndConsideredStatIndices)
                 {
-                    int si = usedAndConsideredStatIndices[s];
-                    if (highestLevels[si] > 0)
-                        sumTopLevels += highestLevels[si];
+                    switch (statPreferences[s])
+                    {
+                        case StatWeighting.StatValuePreference.Indifferent:
+                            continue;
+                        case StatWeighting.StatValuePreference.Low:
+                            if (highestLevels[s] > 0 && lowestLevels[s] != 0)
+                                sumTopLevels += highestLevels[s] - lowestLevels[s];
+                            break;
+                        case StatWeighting.StatValuePreference.High:
+                            if (highestLevels[s] > 0)
+                                sumTopLevels += highestLevels[s];
+                            break;
+                    }
                 }
                 if (sumTopLevels > 0)
                 {
@@ -439,10 +458,18 @@ namespace ARKBreedingStats
                     {
                         if (c.levelsWild == null || c.flags.HasFlag(CreatureFlags.Placeholder)) continue;
                         int sumCreatureLevels = 0;
-                        for (int s = 0; s < usedAndConsideredStatsCount; s++)
+                        foreach (var s in usedAndConsideredStatIndices)
                         {
-                            int si = usedAndConsideredStatIndices[s];
-                            sumCreatureLevels += c.levelsWild[si] > 0 ? c.levelsWild[si] : 0;
+                            switch (statPreferences[s])
+                            {
+                                case StatWeighting.StatValuePreference.Low:
+                                    if (c.levelsWild[s] >= 0)
+                                        sumCreatureLevels += highestLevels[s] - c.levelsWild[s];
+                                    break;
+                                case StatWeighting.StatValuePreference.High:
+                                    sumCreatureLevels += c.levelsWild[s] > 0 ? c.levelsWild[s] : 0;
+                                    break;
+                            }
                         }
                         c.topness = (short)(1000 * sumCreatureLevels / sumTopLevels);
                     }

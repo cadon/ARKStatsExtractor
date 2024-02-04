@@ -52,7 +52,7 @@ namespace ARKBreedingStats.BreedingPlanning
         private bool[] _enabledColorRegions;
         private TimeSpan _incubationTime;
         private Creature _chosenCreature;
-        private BreedingMode _breedingMode;
+        private BreedingScore.BreedingMode _breedingMode;
         public readonly StatWeighting StatWeighting;
         public bool BreedingPlanNeedsUpdate;
         private bool _speciesInfoNeedsUpdate;
@@ -76,7 +76,7 @@ namespace ARKBreedingStats.BreedingPlanning
             for (int i = 0; i < Stats.StatsCount; i++)
                 _statWeights[i] = 1;
 
-            _breedingMode = BreedingMode.TopStatsConservative;
+            _breedingMode = BreedingScore.BreedingMode.TopStatsConservative;
 
             _breedingPairs = new List<BreedingPair>();
             pedigreeCreatureBest.SetIsVirtual(true);
@@ -289,7 +289,7 @@ namespace ARKBreedingStats.BreedingPlanning
 
             // only consider creatures with top stats if breeding for that
             Creature[] females, males;
-            if (_breedingMode == BreedingMode.BestNextGen)
+            if (_breedingMode == BreedingScore.BreedingMode.BestNextGen)
             {
                 females = _females;
                 males = _males;
@@ -538,7 +538,7 @@ namespace ARKBreedingStats.BreedingPlanning
                     SetParents(0);
 
                     // if breeding mode is conservative and a creature with top-stats already exists, the scoring might seem off
-                    if (_breedingMode == BreedingMode.TopStatsConservative)
+                    if (_breedingMode == BreedingScore.BreedingMode.TopStatsConservative)
                     {
                         bool bestCreatureAlreadyAvailable = true;
                         Creature bestCreature = null;
@@ -852,7 +852,7 @@ namespace ARKBreedingStats.BreedingPlanning
             crW.Father = father;
             double probabilityBest = 1;
             bool totalLevelUnknown = false; // if stats are unknown, total level is as well (==> oxygen, speed)
-            bool topStatBreedingMode = _breedingMode == BreedingMode.TopStatsConservative || _breedingMode == BreedingMode.TopStatsLucky;
+            bool topStatBreedingMode = _breedingMode == BreedingScore.BreedingMode.TopStatsConservative || _breedingMode == BreedingScore.BreedingMode.TopStatsLucky;
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (s == Stats.Torpidity) continue;
@@ -996,7 +996,7 @@ namespace ARKBreedingStats.BreedingPlanning
         {
             if (rbBPTopStatsCn.Checked)
             {
-                _breedingMode = BreedingMode.TopStatsConservative;
+                _breedingMode = BreedingScore.BreedingMode.TopStatsConservative;
                 CalculateBreedingScoresAndDisplayPairs();
             }
         }
@@ -1005,7 +1005,7 @@ namespace ARKBreedingStats.BreedingPlanning
         {
             if (rbBPTopStats.Checked)
             {
-                _breedingMode = BreedingMode.TopStatsLucky;
+                _breedingMode = BreedingScore.BreedingMode.TopStatsLucky;
                 CalculateBreedingScoresAndDisplayPairs();
             }
         }
@@ -1014,7 +1014,7 @@ namespace ARKBreedingStats.BreedingPlanning
         {
             if (rbBPHighStats.Checked)
             {
-                _breedingMode = BreedingMode.BestNextGen;
+                _breedingMode = BreedingScore.BreedingMode.BestNextGen;
                 CalculateBreedingScoresAndDisplayPairs();
             }
         }
@@ -1106,13 +1106,6 @@ namespace ARKBreedingStats.BreedingPlanning
         public bool IgnoreSexInBreedingPlan
         {
             set => CbIgnoreSexInPlanning.Checked = value;
-        }
-
-        public enum BreedingMode
-        {
-            BestNextGen,
-            TopStatsLucky,
-            TopStatsConservative
         }
 
         private void cbTagExcludeDefault_CheckedChanged(object sender, EventArgs e)

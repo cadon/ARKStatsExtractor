@@ -419,6 +419,7 @@ namespace ARKBreedingStats.Library
                 motherGuid = mother?.guid ?? Guid.Empty;
             }
         }
+
         public Creature Father
         {
             get => father;

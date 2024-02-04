@@ -392,8 +392,8 @@ namespace ARKBreedingStats.uiControls
         public enum StatValuePreference
         {
             Indifferent,
-            High,
-            Low
+            Low,
+            High
         }
 
         /// <summary>
@@ -402,8 +402,8 @@ namespace ARKBreedingStats.uiControls
         public enum StatValueEvenOdd
         {
             Indifferent,
-            Even,
-            Odd
+            Odd,
+            Even
         }
     }
 }
