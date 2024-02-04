@@ -319,7 +319,7 @@ namespace ARKBreedingStats
                 var statPreferences = new StatWeighting.StatValuePreference[Stats.StatsCount];
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
-                    var statWeight = statWeights.Item1[s];
+                    var statWeight = statWeights.Item1?[s] ?? 1;
                     statPreferences[s] = statWeight > 0 ? StatWeighting.StatValuePreference.High :
                         statWeight < 0 ? StatWeighting.StatValuePreference.Low :
                         StatWeighting.StatValuePreference.Indifferent;
