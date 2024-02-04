@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
+using static ARKBreedingStats.uiControls.StatWeighting;
 
 namespace ARKBreedingStats.library
 {
@@ -33,7 +34,7 @@ namespace ARKBreedingStats.library
         /// <param name="newTopStatsText"></param>
         /// <param name="sbStatInfoText">Adds text for each stat</param>
         public static void DetermineLevelStatus(Species species, int[] highSpeciesLevels, int[] lowSpeciesLevels, int[] highSpeciesMutationLevels,
-            (double[], byte[]) statWeights, int[] levelsWild, int[] levelsMutated, double[] valuesBreeding,
+            (double[], StatValueEvenOdd[]) statWeights, int[] levelsWild, int[] levelsMutated, double[] valuesBreeding,
             out List<string> topStatsText, out List<string> newTopStatsText, StringBuilder sbStatInfoText = null)
         {
             // if there are no creatures of the species yet, assume 0 levels to be the current best and worst
@@ -67,9 +68,9 @@ namespace ARKBreedingStats.library
                     // higher stats are considered to be good. If no custom weightings are available, consider higher levels to be better.
 
                     // check if higher level is only considered if even or odd
-                    if ((statWeights.Item2?[s] ?? 0) == 0 // even/odd doesn't matter
-                        || (statWeights.Item2[s] == 1 && levelsWild[s] % 2 == 1)
-                        || (statWeights.Item2[s] == 2 && levelsWild[s] % 2 == 0)
+                    if ((statWeights.Item2?[s] ?? StatValueEvenOdd.Indifferent) == StatValueEvenOdd.Indifferent // even/odd doesn't matter
+                        || (statWeights.Item2[s] == StatValueEvenOdd.Odd && levelsWild[s] % 2 == 1)
+                        || (statWeights.Item2[s] == StatValueEvenOdd.Even && levelsWild[s] % 2 == 0)
                         )
                     {
                         if (levelsWild[s] == highSpeciesLevels[s])

@@ -22,6 +22,7 @@ using ARKBreedingStats.utils;
 using static ARKBreedingStats.settings.Settings;
 using Color = System.Drawing.Color;
 using ARKBreedingStats.AsbServer;
+using static ARKBreedingStats.uiControls.StatWeighting;
 
 namespace ARKBreedingStats
 {
@@ -292,14 +293,31 @@ namespace ARKBreedingStats
 
             // load stat weights
             double[][] custWd = Properties.Settings.Default.customStatWeights;
+            var customStatWeightsOddEven = Properties.Settings.Default.CustomStatWeightsOddEven;
+
+            // backwards compatibility
             var customStatWeightOddEven = Properties.Settings.Default.CustomStatWeightOddEven;
+            if (customStatWeightOddEven != null)
+            {
+                customStatWeightsOddEven = new StatValueEvenOdd[customStatWeightOddEven.Length][];
+                for (var i = 0; i < customStatWeightOddEven.Length; i++)
+                {
+                    customStatWeightsOddEven[i] = customStatWeightOddEven[i].Select(w =>
+                            w == 1 ? StatValueEvenOdd.Odd :
+                            w == 2 ? StatValueEvenOdd.Even : StatValueEvenOdd.Indifferent)
+                        .ToArray();
+                }
+                customStatWeightOddEven = null;
+                Properties.Settings.Default.CustomStatWeightOddEven = null;
+            }
+
             string[] custWs = Properties.Settings.Default.customStatWeightNames;
-            var custW = new Dictionary<string, (double[], byte[])>();
+            var custW = new Dictionary<string, (double[], StatValueEvenOdd[])>();
             if (custWs != null && custWd != null)
             {
-                for (int i = 0; i < custWs.Length && i < custWd.Length && i < customStatWeightOddEven.Length; i++)
+                for (int i = 0; i < custWs.Length && i < custWd.Length && i < customStatWeightsOddEven.Length; i++)
                 {
-                    custW.Add(custWs[i], (custWd[i], customStatWeightOddEven[i]));
+                    custW.Add(custWs[i], (custWd[i], customStatWeightsOddEven[i]));
                 }
             }
 
@@ -308,7 +326,7 @@ namespace ARKBreedingStats
             if (custWs != null && custWd != null && custWd.Length > custWs.Length)
                 breedingPlan1.StatWeighting.WeightValues = custWd[custWs.Length];
             if (custWs != null && customStatWeightOddEven != null && customStatWeightOddEven.Length > custWs.Length)
-                breedingPlan1.StatWeighting.AnyOddEven = customStatWeightOddEven[custWs.Length];
+                breedingPlan1.StatWeighting.AnyOddEven = customStatWeightsOddEven[custWs.Length];
 
             // load weapon damages
             tamingControl1.WeaponDamages = Properties.Settings.Default.weaponDamages;
@@ -1308,8 +1326,8 @@ namespace ARKBreedingStats
             // save custom statWeights
             var custWs = new List<string>();
             var custWd = new List<double[]>();
-            var custOddEven = new List<byte[]>();
-            foreach (KeyValuePair<string, (double[], byte[])> w in breedingPlan1.StatWeighting.CustomWeightings)
+            var custOddEven = new List<StatValueEvenOdd[]>();
+            foreach (KeyValuePair<string, (double[], StatValueEvenOdd[])> w in breedingPlan1.StatWeighting.CustomWeightings)
             {
                 custWs.Add(w.Key);
                 custWd.Add(w.Value.Item1);
@@ -1322,7 +1340,7 @@ namespace ARKBreedingStats
 
             Properties.Settings.Default.customStatWeightNames = custWs.ToArray();
             Properties.Settings.Default.customStatWeights = custWd.ToArray();
-            Properties.Settings.Default.CustomStatWeightOddEven = custOddEven.ToArray();
+            Properties.Settings.Default.CustomStatWeightsOddEven = custOddEven.ToArray();
 
             // save weaponDamages for KO calculation
             Properties.Settings.Default.weaponDamages = tamingControl1.WeaponDamages;
