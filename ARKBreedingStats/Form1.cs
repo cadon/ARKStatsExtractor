@@ -121,6 +121,10 @@ namespace ARKBreedingStats
                 Properties.Settings.Default.Save();
             }
 
+            // #if DEBUG
+            // Properties.Settings.Default.Reset();
+            // #endif
+
             // the eol is changed during the loading of the settings, the \r is removed. re-add it.
             var namingPatterns = Properties.Settings.Default.NamingPatterns;
             if (namingPatterns != null)
