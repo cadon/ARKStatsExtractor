@@ -1,5 +1,6 @@
 ﻿using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.uiControls;
+using static ARKBreedingStats.uiControls.StatWeighting;
 
 namespace ARKBreedingStats.BreedingPlanning
 {
@@ -439,20 +440,19 @@ namespace ARKBreedingStats.BreedingPlanning
             // 
             // statWeighting1
             // 
-            this.statWeighting1.AnyOddEven = new byte[] {
-        ((byte)(0)),
-        ((byte)(0)),
-        ((byte)(0)),
-        ((byte)(0)),
-        ((byte)(0)),
-        ((byte)(0)),
-        ((byte)(0)),
-        ((byte)(0)),
-        ((byte)(0)),
-        ((byte)(0)),
-        ((byte)(0)),
-        ((byte)(0))};
-            this.statWeighting1.CustomWeightings = ((System.Collections.Generic.Dictionary<string, System.ValueTuple<double[], byte[]>>)(resources.GetObject("statWeighting1.CustomWeightings")));
+            this.statWeighting1.AnyOddEven = new StatValueEvenOdd[] {
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0};
             this.statWeighting1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.statWeighting1.Location = new System.Drawing.Point(3, 761);
             this.statWeighting1.Name = "statWeighting1";

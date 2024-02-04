@@ -374,9 +374,9 @@ namespace ARKBreedingStats
                                 {
                                     // creature has a higher level than the current highest level
                                     // check if highest stats are only counted if odd or even
-                                    if ((statWeights.Item2?[s] ?? 0) == 0 // even/odd doesn't matter
-                                        || (statWeights.Item2[s] == 1 && c.levelsWild[s] % 2 == 1)
-                                        || (statWeights.Item2[s] == 2 && c.levelsWild[s] % 2 == 0)
+                                    if ((statWeights.Item2?[s] ?? StatWeighting.StatValueEvenOdd.Indifferent) == StatWeighting.StatValueEvenOdd.Indifferent // even/odd doesn't matter
+                                        || (statWeights.Item2[s] == StatWeighting.StatValueEvenOdd.Odd && c.levelsWild[s] % 2 == 1)
+                                        || (statWeights.Item2[s] == StatWeighting.StatValueEvenOdd.Even && c.levelsWild[s] % 2 == 0)
                                        )
                                     {
                                         bestCreaturesWildLevels[s] = new List<Creature> { c };

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
+using static ARKBreedingStats.uiControls.StatWeighting;
 
 namespace ARKBreedingStats.BreedingPlanning
 {
@@ -34,7 +35,7 @@ namespace ARKBreedingStats.BreedingPlanning
             short[] bestPossLevels, double[] statWeights, int[] bestLevelsOfSpecies, BreedingMode breedingMode,
             bool considerChosenCreature, bool considerMutationLimit, int mutationLimit,
             ref bool creaturesMutationsFilteredOut, int offspringLevelLimit = 0, bool downGradeOffspringWithLevelHigherThanLimit = false,
-            bool onlyBestSuggestionForFemale = false, byte[] anyOddEven = null)
+            bool onlyBestSuggestionForFemale = false, StatValueEvenOdd[] anyOddEven = null)
         {
             var breedingPairs = new List<BreedingPair>();
             var ignoreSex = Properties.Settings.Default.IgnoreSexInBreedingPlan || species.noGender;
@@ -99,10 +100,10 @@ namespace ARKBreedingStats.BreedingPlanning
                             // 0: consider all levels, 1: consider only odd levels, 2: consider only even levels
                             switch (anyOddEven[s])
                             {
-                                case 1:
+                                case StatValueEvenOdd.Odd:
                                     ignoreTopStats = higherLevel % 2 == 0;
                                     break;
-                                case 2:
+                                case StatValueEvenOdd.Even:
                                     ignoreTopStats = higherLevel % 2 != 0;
                                     break;
                             }
@@ -230,7 +231,7 @@ namespace ARKBreedingStats.BreedingPlanning
         /// <summary>
         /// Sets the best levels in the passed bestLevels array, depending on the statWeights and onlyHighEvenLevels.
         /// </summary>
-        public static void SetBestLevels(IEnumerable<Creature> creatures, int[] bestLevels, double[] statWeights, byte[] anyOddEven = null)
+        public static void SetBestLevels(IEnumerable<Creature> creatures, int[] bestLevels, double[] statWeights, StatValueEvenOdd[] anyOddEven = null)
         {
             for (int s = 0; s < Stats.StatsCount; s++)
                 bestLevels[s] = -1;
@@ -241,9 +242,9 @@ namespace ARKBreedingStats.BreedingPlanning
                 {
                     if ((s == Stats.Torpidity || statWeights[s] >= 0) && c.levelsWild[s] > bestLevels[s])
                     {
-                        if ((anyOddEven?[s] ?? 0) == 0
-                            || (anyOddEven[s] == 1 && c.levelsWild[s] % 2 == 1)
-                            || (anyOddEven[s] == 2 && c.levelsWild[s] % 2 == 0)
+                        if ((anyOddEven?[s] ?? StatValueEvenOdd.Indifferent) == StatValueEvenOdd.Indifferent
+                            || (anyOddEven[s] == StatValueEvenOdd.Odd && c.levelsWild[s] % 2 == 1)
+                            || (anyOddEven[s] == StatValueEvenOdd.Even && c.levelsWild[s] % 2 == 0)
                             )
                             bestLevels[s] = c.levelsWild[s];
                     }
@@ -257,16 +258,16 @@ namespace ARKBreedingStats.BreedingPlanning
         /// Returns better of two given levels. If anyOddEven == 0: higher of both, if == 1: higher of odd levels, if == 2: higher of even levels.
         /// If both levels don't match odd/even, -1 is returned.
         /// </summary>
-        public static int GetHigherBestLevel(int level1, int level2, byte anyOddEven)
+        public static int GetHigherBestLevel(int level1, int level2, StatValueEvenOdd anyOddEven)
         {
             switch (anyOddEven)
             {
-                case 1:
+                case StatValueEvenOdd.Odd:
                     if (level1 % 2 == 1 && level2 % 2 == 1) return Math.Max(level1, level2);
                     if (level1 % 2 == 1) return level1;
                     if (level2 % 2 == 1) return level2;
                     return -1;
-                case 2:
+                case StatValueEvenOdd.Even:
                     if (level1 % 2 == 0 && level2 % 2 == 0) return Math.Max(level1, level2);
                     if (level1 % 2 == 0) return level1;
                     if (level2 % 2 == 0) return level2;

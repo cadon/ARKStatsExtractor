@@ -14,6 +14,7 @@ using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
+using static ARKBreedingStats.uiControls.StatWeighting;
 
 namespace ARKBreedingStats.BreedingPlanning
 {
@@ -36,7 +37,7 @@ namespace ARKBreedingStats.BreedingPlanning
         /// <summary>
         /// Indicates if high stats are only considered if any, odd or even.
         /// </summary>
-        private byte[] _statOddEvens = new byte[Stats.StatsCount];
+        private StatValueEvenOdd[] _statOddEvens = new StatValueEvenOdd[Stats.StatsCount];
         /// <summary>
         /// The best possible levels of the selected species for each stat.
         /// If the weighting is negative, a low level is considered better.

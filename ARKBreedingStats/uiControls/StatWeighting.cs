@@ -10,7 +10,7 @@ namespace ARKBreedingStats.uiControls
 {
     public partial class StatWeighting : UserControl
     {
-        private Dictionary<string, (double[], byte[])> _customWeightings = new Dictionary<string, (double[], byte[])>();
+        private Dictionary<string, (double[], StatValueEvenOdd[])> _customWeightings = new Dictionary<string, (double[], StatValueEvenOdd[])>();
         private Species _currentSpecies;
         private readonly Label[] _statLabels = new Label[Stats.StatsCount];
         private readonly Nud[] _weightNuds = new Nud[Stats.StatsCount];
@@ -140,7 +140,7 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// Array that for each stat indicates if the level, if high, should be only considered if odd (1), even (2), or always (0).
         /// </summary>
-        public byte[] AnyOddEven
+        public StatValueEvenOdd[] AnyOddEven
         {
             set
             {
@@ -218,13 +218,13 @@ namespace ARKBreedingStats.uiControls
         private void ResetValues()
         {
             WeightValues = Enumerable.Repeat(1d, Stats.StatsCount).ToArray();
-            AnyOddEven = Enumerable.Repeat((byte)0, Stats.StatsCount).ToArray();
+            AnyOddEven = Enumerable.Repeat(StatValueEvenOdd.Indifferent, Stats.StatsCount).ToArray();
         }
 
         /// <summary>
         /// Returns weightings for species. First the blueprint path is checked, then the full species name inclusive mod and variant, then only the base name.
         /// </summary>
-        public (double[], byte[]) GetWeightingForSpecies(Species species, bool useDefaultBackupIfAvailable = true)
+        public (double[], StatValueEvenOdd[]) GetWeightingForSpecies(Species species, bool useDefaultBackupIfAvailable = true)
         {
             if (_customWeightings.TryGetValue(species.blueprintPath, out var weightings)) return weightings;
             if (_customWeightings.TryGetValue(species.DescriptiveNameAndMod, out weightings)) return weightings;
@@ -234,7 +234,7 @@ namespace ARKBreedingStats.uiControls
                    && _customWeightings.TryGetValue(DefaultPreset, out weightings) ? weightings : (null, null);
         }
 
-        public (double[], byte[]) GetWeightingByPresetName(string presetName, bool useDefaultBackupIfAvailable = true)
+        public (double[], StatValueEvenOdd[]) GetWeightingByPresetName(string presetName, bool useDefaultBackupIfAvailable = true)
         {
             if (_customWeightings.TryGetValue(presetName, out var weightings)) return weightings;
             return useDefaultBackupIfAvailable
@@ -312,7 +312,7 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
-        public Dictionary<string, (double[], byte[])> CustomWeightings
+        public Dictionary<string, (double[], StatValueEvenOdd[])> CustomWeightings
         {
             get => _customWeightings;
             set
@@ -343,10 +343,10 @@ namespace ARKBreedingStats.uiControls
         private class TriButton : Button
         {
             private readonly ToolTip _tt;
-            private byte _buttonState;
+            private StatValueEvenOdd _buttonState;
             public event Action StateChanged;
 
-            public byte ButtonState
+            public StatValueEvenOdd ButtonState
             {
                 get => _buttonState;
                 set => SetState(value);
@@ -364,16 +364,16 @@ namespace ARKBreedingStats.uiControls
                 StateChanged?.Invoke();
             }
 
-            private void SetState(byte state)
+            private void SetState(StatValueEvenOdd state)
             {
                 _buttonState = state;
                 switch (state)
                 {
-                    case 1:
+                    case StatValueEvenOdd.Odd:
                         Text = "1";
                         _tt.SetToolTip(this, "high level has to be odd to be a top stat");
                         break;
-                    case 2:
+                    case StatValueEvenOdd.Even:
                         Text = "2";
                         _tt.SetToolTip(this, "high level has to be even to be a top stat");
                         break;
