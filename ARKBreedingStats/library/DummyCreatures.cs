@@ -244,7 +244,7 @@ namespace ARKBreedingStats.library
                 var allCreaturesArray = noGender ? allCreatures.ToArray() : null;
                 var pairs = BreedingScore.CalculateBreedingScores(noGender ? allCreaturesArray : femalesMales[Sex.Female].ToArray(),
                     noGender ? allCreaturesArray : femalesMales[Sex.Male].ToArray(), species, bestPossibleLevels, statWeights, bestLevels,
-                    BreedingPlan.BreedingMode.TopStatsConservative, false, false, 0, ref filteredOutByMutationLimit);
+                    BreedingScore.BreedingMode.TopStatsConservative, false, false, 0, ref filteredOutByMutationLimit);
 
                 var pairsCount = Math.Min(usePairsPerGeneration, pairs.Count);
                 for (int i = 0; i < pairsCount; i++)

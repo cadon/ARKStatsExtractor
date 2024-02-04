@@ -1343,4 +1343,10 @@ It's also possible to filter for creatures with a color in one of multiple possi
   <data name="ClickCopyToClipboard" xml:space="preserve">
     <value>Click to copy to clipboard</value>
   </data>
+  <data name="BtBeepUpdated" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="BtBeepUpdatedTT" xml:space="preserve">
+    <value>This sound is played if a creature is updated, i.e. imported again</value>
+  </data>
 </root>

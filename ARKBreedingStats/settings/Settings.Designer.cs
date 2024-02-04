@@ -124,6 +124,10 @@
             this.checkBoxDisplayHiddenStats = new System.Windows.Forms.CheckBox();
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabPageMultipliers = new System.Windows.Forms.TabPage();
+            this.TbRemoteServerSettingsUri = new System.Windows.Forms.TextBox();
+            this.BtSettingsToClipboard = new System.Windows.Forms.Button();
+            this.btExportMultipliers = new System.Windows.Forms.Button();
+            this.BtRemoteServerSettingsUri = new System.Windows.Forms.Button();
             this.CbKeepMultipliersForNewLibrary = new System.Windows.Forms.CheckBox();
             this.BtAutoImportLocalSettings = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -131,12 +135,10 @@
             this.RbGameAse = new System.Windows.Forms.RadioButton();
             this.BtImportSettingsSelectFile = new System.Windows.Forms.Button();
             this.CbAtlasSettings = new System.Windows.Forms.CheckBox();
-            this.BtSettingsToClipboard = new System.Windows.Forms.Button();
             this.groupBox29 = new System.Windows.Forms.GroupBox();
             this.CbAllowSpeedLeveling = new System.Windows.Forms.CheckBox();
             this.CbAllowFlyerSpeedLeveling = new System.Windows.Forms.CheckBox();
             this.label34 = new System.Windows.Forms.Label();
-            this.btExportMultipliers = new System.Windows.Forms.Button();
             this.groupBox18 = new System.Windows.Forms.GroupBox();
             this.btApplyPreset = new System.Windows.Forms.Button();
             this.cbbStatMultiplierPresets = new System.Windows.Forms.ComboBox();
@@ -162,6 +164,7 @@
             this.GbImgCacheLocalAppData = new System.Windows.Forms.GroupBox();
             this.CbImgCacheUseLocalAppData = new System.Windows.Forms.CheckBox();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.CbStreamerMode = new System.Windows.Forms.CheckBox();
             this.cbDevTools = new System.Windows.Forms.CheckBox();
             this.GbSpecies = new System.Windows.Forms.GroupBox();
             this.LbSpeciesSelectorCountLastUsed = new System.Windows.Forms.Label();
@@ -214,14 +217,14 @@
             this.CbInfoGraphicDisplayMaxWildLevel = new System.Windows.Forms.CheckBox();
             this.label50 = new System.Windows.Forms.Label();
             this.tabPageImportSavegame = new System.Windows.Forms.TabPage();
-            this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.label68 = new System.Windows.Forms.Label();
             this.CbImportUnclaimedBabies = new System.Windows.Forms.CheckBox();
             this.cbSaveImportCryo = new System.Windows.Forms.CheckBox();
+            this.label24 = new System.Windows.Forms.Label();
             this.cbIgnoreUnknownBPOnSaveImport = new System.Windows.Forms.CheckBox();
+            this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.fileSelectorExtractedSaveFolder = new ARKBreedingStats.uiControls.FileSelector();
             this.textBoxImportTribeNameFilter = new System.Windows.Forms.TextBox();
-            this.label_Filter = new System.Windows.Forms.Label();
-            this.cbImportUpdateCreatureStatus = new System.Windows.Forms.CheckBox();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.dataGridView_FileLocations = new System.Windows.Forms.DataGridView();
             this.convenientNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -233,9 +236,8 @@
             this.aTImportFileLocationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btAddSavegameFileLocation = new System.Windows.Forms.Button();
             this.labelSavegameFileLocationHint = new System.Windows.Forms.Label();
-            this.groupBox14 = new System.Windows.Forms.GroupBox();
-            this.fileSelectorExtractedSaveFolder = new ARKBreedingStats.uiControls.FileSelector();
-            this.label24 = new System.Windows.Forms.Label();
+            this.label_Filter = new System.Windows.Forms.Label();
+            this.cbImportUpdateCreatureStatus = new System.Windows.Forms.CheckBox();
             this.tabPageImportExported = new System.Windows.Forms.TabPage();
             this.BtGetExportFolderAutomatically = new System.Windows.Forms.Button();
             this.groupBox27 = new System.Windows.Forms.GroupBox();
@@ -254,6 +256,7 @@
             this.CbExportFileRenameAfterImport = new System.Windows.Forms.CheckBox();
             this.BtImportArchiveFolder = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.BtBeepUpdated = new System.Windows.Forms.Button();
             this.BtBeepNewTop = new System.Windows.Forms.Button();
             this.BtBeepTop = new System.Windows.Forms.Button();
             this.BtBeepSuccess = new System.Windows.Forms.Button();
@@ -351,8 +354,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.BtRemoteServerSettingsUri = new System.Windows.Forms.Button();
-            this.TbRemoteServerSettingsUri = new System.Windows.Forms.TextBox();
+            this.CbLibraryDisplayZeroMutationLevels = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -422,11 +424,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudInfoGraphicHeight)).BeginInit();
             this.groupBox28.SuspendLayout();
             this.tabPageImportSavegame.SuspendLayout();
-            this.groupBox12.SuspendLayout();
+            this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_FileLocations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.aTImportFileLocationBindingSource)).BeginInit();
-            this.groupBox14.SuspendLayout();
             this.tabPageImportExported.SuspendLayout();
             this.groupBox27.SuspendLayout();
             this.groupBox23.SuspendLayout();
@@ -1900,6 +1901,43 @@
             this.tabPageMultipliers.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragDrop);
             this.tabPageMultipliers.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragEnter);
             // 
+            // TbRemoteServerSettingsUri
+            // 
+            this.TbRemoteServerSettingsUri.Location = new System.Drawing.Point(407, 659);
+            this.TbRemoteServerSettingsUri.Name = "TbRemoteServerSettingsUri";
+            this.TbRemoteServerSettingsUri.Size = new System.Drawing.Size(152, 20);
+            this.TbRemoteServerSettingsUri.TabIndex = 20;
+            // 
+            // BtSettingsToClipboard
+            // 
+            this.BtSettingsToClipboard.Location = new System.Drawing.Point(600, 713);
+            this.BtSettingsToClipboard.Name = "BtSettingsToClipboard";
+            this.BtSettingsToClipboard.Size = new System.Drawing.Size(142, 23);
+            this.BtSettingsToClipboard.TabIndex = 13;
+            this.BtSettingsToClipboard.Text = "Copy settings to clipboard";
+            this.BtSettingsToClipboard.UseVisualStyleBackColor = true;
+            this.BtSettingsToClipboard.Click += new System.EventHandler(this.BtSettingsToClipboard_Click);
+            // 
+            // btExportMultipliers
+            // 
+            this.btExportMultipliers.Location = new System.Drawing.Point(407, 713);
+            this.btExportMultipliers.Name = "btExportMultipliers";
+            this.btExportMultipliers.Size = new System.Drawing.Size(187, 23);
+            this.btExportMultipliers.TabIndex = 11;
+            this.btExportMultipliers.Text = "Export multiplier settings to file…";
+            this.btExportMultipliers.UseVisualStyleBackColor = true;
+            this.btExportMultipliers.Click += new System.EventHandler(this.btExportMultipliers_Click);
+            // 
+            // BtRemoteServerSettingsUri
+            // 
+            this.BtRemoteServerSettingsUri.Location = new System.Drawing.Point(565, 657);
+            this.BtRemoteServerSettingsUri.Name = "BtRemoteServerSettingsUri";
+            this.BtRemoteServerSettingsUri.Size = new System.Drawing.Size(167, 23);
+            this.BtRemoteServerSettingsUri.TabIndex = 19;
+            this.BtRemoteServerSettingsUri.Text = "Import remote settings";
+            this.BtRemoteServerSettingsUri.UseVisualStyleBackColor = true;
+            this.BtRemoteServerSettingsUri.Click += new System.EventHandler(this.BtRemoteServerSettingsUri_Click);
+            // 
             // CbKeepMultipliersForNewLibrary
             // 
             this.CbKeepMultipliersForNewLibrary.AutoSize = true;
@@ -1940,6 +1978,7 @@
             this.RbGameAsa.TabStop = true;
             this.RbGameAsa.Text = "ASA";
             this.RbGameAsa.UseVisualStyleBackColor = true;
+            this.RbGameAsa.CheckedChanged += new System.EventHandler(this.RbGameAsa_CheckedChanged);
             // 
             // RbGameAse
             // 
@@ -1972,16 +2011,6 @@
             this.CbAtlasSettings.TabIndex = 14;
             this.CbAtlasSettings.Text = "ATLAS settings";
             this.CbAtlasSettings.UseVisualStyleBackColor = true;
-            // 
-            // BtSettingsToClipboard
-            // 
-            this.BtSettingsToClipboard.Location = new System.Drawing.Point(600, 713);
-            this.BtSettingsToClipboard.Name = "BtSettingsToClipboard";
-            this.BtSettingsToClipboard.Size = new System.Drawing.Size(142, 23);
-            this.BtSettingsToClipboard.TabIndex = 13;
-            this.BtSettingsToClipboard.Text = "Copy settings to clipboard";
-            this.BtSettingsToClipboard.UseVisualStyleBackColor = true;
-            this.BtSettingsToClipboard.Click += new System.EventHandler(this.BtSettingsToClipboard_Click);
             // 
             // groupBox29
             // 
@@ -2023,16 +2052,6 @@
             this.label34.TabIndex = 10;
             this.label34.Text = "You can export the settings on this page to a file or the clipboard to share it w" +
     "ith tribe members or for bug reports.";
-            // 
-            // btExportMultipliers
-            // 
-            this.btExportMultipliers.Location = new System.Drawing.Point(407, 713);
-            this.btExportMultipliers.Name = "btExportMultipliers";
-            this.btExportMultipliers.Size = new System.Drawing.Size(187, 23);
-            this.btExportMultipliers.TabIndex = 11;
-            this.btExportMultipliers.Text = "Export multiplier settings to file…";
-            this.btExportMultipliers.UseVisualStyleBackColor = true;
-            this.btExportMultipliers.Click += new System.EventHandler(this.btExportMultipliers_Click);
             // 
             // groupBox18
             // 
@@ -2192,7 +2211,7 @@
             // CbAskSaveSettingsOnClose
             // 
             this.CbAskSaveSettingsOnClose.AutoSize = true;
-            this.CbAskSaveSettingsOnClose.Location = new System.Drawing.Point(329, 699);
+            this.CbAskSaveSettingsOnClose.Location = new System.Drawing.Point(435, 721);
             this.CbAskSaveSettingsOnClose.Name = "CbAskSaveSettingsOnClose";
             this.CbAskSaveSettingsOnClose.Size = new System.Drawing.Size(309, 17);
             this.CbAskSaveSettingsOnClose.TabIndex = 15;
@@ -2204,7 +2223,7 @@
             this.groupBox31.Controls.Add(this.CbColorIdOnColorRegionButton);
             this.groupBox31.Controls.Add(this.CbAlwaysShowAllColorRegions);
             this.groupBox31.Controls.Add(this.CbHideInvisibleColorRegions);
-            this.groupBox31.Location = new System.Drawing.Point(329, 283);
+            this.groupBox31.Location = new System.Drawing.Point(329, 319);
             this.groupBox31.Name = "groupBox31";
             this.groupBox31.Size = new System.Drawing.Size(413, 66);
             this.groupBox31.TabIndex = 14;
@@ -2247,9 +2266,9 @@
             this.groupBox30.Controls.Add(this.BExportSpreadsheetMoveDown);
             this.groupBox30.Controls.Add(this.BExportSpreadsheetMoveUp);
             this.groupBox30.Controls.Add(this.ClbExportSpreadsheetFields);
-            this.groupBox30.Location = new System.Drawing.Point(329, 355);
+            this.groupBox30.Location = new System.Drawing.Point(329, 391);
             this.groupBox30.Name = "groupBox30";
-            this.groupBox30.Size = new System.Drawing.Size(413, 281);
+            this.groupBox30.Size = new System.Drawing.Size(413, 268);
             this.groupBox30.TabIndex = 13;
             this.groupBox30.TabStop = false;
             this.groupBox30.Text = "Info to export for spreadsheet";
@@ -2288,9 +2307,9 @@
             // ClbExportSpreadsheetFields
             // 
             this.ClbExportSpreadsheetFields.FormattingEnabled = true;
-            this.ClbExportSpreadsheetFields.Location = new System.Drawing.Point(36, 41);
+            this.ClbExportSpreadsheetFields.Location = new System.Drawing.Point(36, 42);
             this.ClbExportSpreadsheetFields.Name = "ClbExportSpreadsheetFields";
-            this.ClbExportSpreadsheetFields.Size = new System.Drawing.Size(371, 229);
+            this.ClbExportSpreadsheetFields.Size = new System.Drawing.Size(371, 214);
             this.ClbExportSpreadsheetFields.TabIndex = 12;
             // 
             // GbImgCacheLocalAppData
@@ -2315,18 +2334,27 @@
             // 
             // groupBox16
             // 
+            this.groupBox16.Controls.Add(this.CbStreamerMode);
             this.groupBox16.Controls.Add(this.cbDevTools);
             this.groupBox16.Location = new System.Drawing.Point(329, 234);
             this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(413, 43);
+            this.groupBox16.Size = new System.Drawing.Size(413, 79);
             this.groupBox16.TabIndex = 10;
             this.groupBox16.TabStop = false;
-            this.groupBox16.Text = "Dev-Tools";
+            this.groupBox16.Text = "Application";
+            // 
+            // CbStreamerMode
+            // 
+            this.CbStreamerMode.Location = new System.Drawing.Point(6, 19);
+            this.CbStreamerMode.Name = "CbStreamerMode";
+            this.CbStreamerMode.Size = new System.Drawing.Size(407, 24);
+            this.CbStreamerMode.TabIndex = 1;
+            this.CbStreamerMode.Text = "Streamer mode (hide confidential info, e.g. ASB server tag)";
+            this.CbStreamerMode.UseVisualStyleBackColor = true;
             // 
             // cbDevTools
             // 
-            this.cbDevTools.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cbDevTools.Location = new System.Drawing.Point(3, 16);
+            this.cbDevTools.Location = new System.Drawing.Point(6, 44);
             this.cbDevTools.Name = "cbDevTools";
             this.cbDevTools.Size = new System.Drawing.Size(407, 24);
             this.cbDevTools.TabIndex = 0;
@@ -2486,7 +2514,7 @@
             this.groupBox17.Controls.Add(this.LbLanguage2);
             this.groupBox17.Controls.Add(this.CbbLanguage2);
             this.groupBox17.Controls.Add(this.CbbLanguage);
-            this.groupBox17.Location = new System.Drawing.Point(329, 642);
+            this.groupBox17.Location = new System.Drawing.Point(329, 665);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(413, 51);
             this.groupBox17.TabIndex = 5;
@@ -2522,6 +2550,7 @@
             // 
             // groupBox9
             // 
+            this.groupBox9.Controls.Add(this.CbLibraryDisplayZeroMutationLevels);
             this.groupBox9.Controls.Add(this.CbDisplayLibraryCreatureIndex);
             this.groupBox9.Controls.Add(this.CbNaturalSortIgnoreSpaces);
             this.groupBox9.Controls.Add(this.CbNaturalSorting);
@@ -2533,7 +2562,7 @@
             this.groupBox9.Controls.Add(this.cbCreatureColorsLibrary);
             this.groupBox9.Location = new System.Drawing.Point(6, 509);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(317, 207);
+            this.groupBox9.Size = new System.Drawing.Size(317, 229);
             this.groupBox9.TabIndex = 4;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Library";
@@ -2893,7 +2922,16 @@
             // tabPageImportSavegame
             // 
             this.tabPageImportSavegame.AutoScroll = true;
-            this.tabPageImportSavegame.Controls.Add(this.groupBox12);
+            this.tabPageImportSavegame.Controls.Add(this.label68);
+            this.tabPageImportSavegame.Controls.Add(this.CbImportUnclaimedBabies);
+            this.tabPageImportSavegame.Controls.Add(this.cbSaveImportCryo);
+            this.tabPageImportSavegame.Controls.Add(this.label24);
+            this.tabPageImportSavegame.Controls.Add(this.cbIgnoreUnknownBPOnSaveImport);
+            this.tabPageImportSavegame.Controls.Add(this.groupBox14);
+            this.tabPageImportSavegame.Controls.Add(this.textBoxImportTribeNameFilter);
+            this.tabPageImportSavegame.Controls.Add(this.groupBox15);
+            this.tabPageImportSavegame.Controls.Add(this.label_Filter);
+            this.tabPageImportSavegame.Controls.Add(this.cbImportUpdateCreatureStatus);
             this.tabPageImportSavegame.Location = new System.Drawing.Point(4, 22);
             this.tabPageImportSavegame.Name = "tabPageImportSavegame";
             this.tabPageImportSavegame.Padding = new System.Windows.Forms.Padding(3);
@@ -2902,30 +2940,11 @@
             this.tabPageImportSavegame.Text = "Import Savegame";
             this.tabPageImportSavegame.UseVisualStyleBackColor = true;
             // 
-            // groupBox12
-            // 
-            this.groupBox12.Controls.Add(this.label68);
-            this.groupBox12.Controls.Add(this.CbImportUnclaimedBabies);
-            this.groupBox12.Controls.Add(this.cbSaveImportCryo);
-            this.groupBox12.Controls.Add(this.cbIgnoreUnknownBPOnSaveImport);
-            this.groupBox12.Controls.Add(this.textBoxImportTribeNameFilter);
-            this.groupBox12.Controls.Add(this.label_Filter);
-            this.groupBox12.Controls.Add(this.cbImportUpdateCreatureStatus);
-            this.groupBox12.Controls.Add(this.groupBox15);
-            this.groupBox12.Controls.Add(this.groupBox14);
-            this.groupBox12.Controls.Add(this.label24);
-            this.groupBox12.Location = new System.Drawing.Point(3, 3);
-            this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(739, 667);
-            this.groupBox12.TabIndex = 0;
-            this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "Import Data from Save-File";
-            // 
             // label68
             // 
             this.label68.AutoSize = true;
             this.label68.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label68.Location = new System.Drawing.Point(6, 16);
+            this.label68.Location = new System.Drawing.Point(8, 3);
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(506, 20);
             this.label68.TabIndex = 1;
@@ -2934,7 +2953,7 @@
             // CbImportUnclaimedBabies
             // 
             this.CbImportUnclaimedBabies.AutoSize = true;
-            this.CbImportUnclaimedBabies.Location = new System.Drawing.Point(9, 176);
+            this.CbImportUnclaimedBabies.Location = new System.Drawing.Point(11, 163);
             this.CbImportUnclaimedBabies.Name = "CbImportUnclaimedBabies";
             this.CbImportUnclaimedBabies.Size = new System.Drawing.Size(140, 17);
             this.CbImportUnclaimedBabies.TabIndex = 8;
@@ -2944,57 +2963,66 @@
             // cbSaveImportCryo
             // 
             this.cbSaveImportCryo.AutoSize = true;
-            this.cbSaveImportCryo.Location = new System.Drawing.Point(9, 153);
+            this.cbSaveImportCryo.Location = new System.Drawing.Point(11, 140);
             this.cbSaveImportCryo.Name = "cbSaveImportCryo";
             this.cbSaveImportCryo.Size = new System.Drawing.Size(216, 17);
             this.cbSaveImportCryo.TabIndex = 3;
             this.cbSaveImportCryo.Text = "Import creatures in cryopods or soultraps";
             this.cbSaveImportCryo.UseVisualStyleBackColor = true;
             // 
+            // label24
+            // 
+            this.label24.Location = new System.Drawing.Point(8, 39);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(730, 38);
+            this.label24.TabIndex = 0;
+            this.label24.Text = resources.GetString("label24.Text");
+            // 
             // cbIgnoreUnknownBPOnSaveImport
             // 
             this.cbIgnoreUnknownBPOnSaveImport.AutoSize = true;
-            this.cbIgnoreUnknownBPOnSaveImport.Location = new System.Drawing.Point(9, 130);
+            this.cbIgnoreUnknownBPOnSaveImport.Location = new System.Drawing.Point(11, 117);
             this.cbIgnoreUnknownBPOnSaveImport.Name = "cbIgnoreUnknownBPOnSaveImport";
             this.cbIgnoreUnknownBPOnSaveImport.Size = new System.Drawing.Size(334, 17);
             this.cbIgnoreUnknownBPOnSaveImport.TabIndex = 2;
             this.cbIgnoreUnknownBPOnSaveImport.Text = "Ignore unknown species on import and don\'t show a messagebox";
             this.cbIgnoreUnknownBPOnSaveImport.UseVisualStyleBackColor = true;
             // 
+            // groupBox14
+            // 
+            this.groupBox14.Controls.Add(this.fileSelectorExtractedSaveFolder);
+            this.groupBox14.Location = new System.Drawing.Point(8, 236);
+            this.groupBox14.Name = "groupBox14";
+            this.groupBox14.Size = new System.Drawing.Size(730, 47);
+            this.groupBox14.TabIndex = 6;
+            this.groupBox14.TabStop = false;
+            this.groupBox14.Text = "Target folder for save-game working copy (user\'s temp dir if empty). It\'s recomme" +
+    "nded to leave this setting empty.";
+            // 
+            // fileSelectorExtractedSaveFolder
+            // 
+            this.fileSelectorExtractedSaveFolder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fileSelectorExtractedSaveFolder.Link = "filename";
+            this.fileSelectorExtractedSaveFolder.Location = new System.Drawing.Point(3, 16);
+            this.fileSelectorExtractedSaveFolder.Name = "fileSelectorExtractedSaveFolder";
+            this.fileSelectorExtractedSaveFolder.Size = new System.Drawing.Size(724, 28);
+            this.fileSelectorExtractedSaveFolder.TabIndex = 0;
+            // 
             // textBoxImportTribeNameFilter
             // 
-            this.textBoxImportTribeNameFilter.Location = new System.Drawing.Point(3, 215);
+            this.textBoxImportTribeNameFilter.Location = new System.Drawing.Point(5, 202);
             this.textBoxImportTribeNameFilter.Name = "textBoxImportTribeNameFilter";
             this.textBoxImportTribeNameFilter.Size = new System.Drawing.Size(730, 20);
             this.textBoxImportTribeNameFilter.TabIndex = 5;
             // 
-            // label_Filter
-            // 
-            this.label_Filter.AutoSize = true;
-            this.label_Filter.Location = new System.Drawing.Point(3, 199);
-            this.label_Filter.Name = "label_Filter";
-            this.label_Filter.Size = new System.Drawing.Size(487, 13);
-            this.label_Filter.TabIndex = 4;
-            this.label_Filter.Text = "Import only tribes with names containing at least one of these comma separated va" +
-    "lues, case sensitive";
-            // 
-            // cbImportUpdateCreatureStatus
-            // 
-            this.cbImportUpdateCreatureStatus.Location = new System.Drawing.Point(9, 87);
-            this.cbImportUpdateCreatureStatus.Name = "cbImportUpdateCreatureStatus";
-            this.cbImportUpdateCreatureStatus.Size = new System.Drawing.Size(727, 37);
-            this.cbImportUpdateCreatureStatus.TabIndex = 1;
-            this.cbImportUpdateCreatureStatus.Text = "Update Available/Unavailable Status on Import for disappeared or reappeared creat" +
-    "ures (disable this if you will import savegames from multiple servers). This set" +
-    "ting is saved per library.";
-            this.cbImportUpdateCreatureStatus.UseVisualStyleBackColor = true;
-            // 
             // groupBox15
             // 
+            this.groupBox15.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox15.Controls.Add(this.dataGridView_FileLocations);
             this.groupBox15.Controls.Add(this.btAddSavegameFileLocation);
             this.groupBox15.Controls.Add(this.labelSavegameFileLocationHint);
-            this.groupBox15.Location = new System.Drawing.Point(6, 302);
+            this.groupBox15.Location = new System.Drawing.Point(8, 289);
             this.groupBox15.Name = "groupBox15";
             this.groupBox15.Size = new System.Drawing.Size(730, 386);
             this.groupBox15.TabIndex = 7;
@@ -3108,33 +3136,26 @@
             this.labelSavegameFileLocationHint.Text = "Location example for The Island: ...\\Steam\\steamapps\\common\\ARK\\ShooterGame\\Saved" +
     "\\SavedArksLocal\\TheIsland.ark";
             // 
-            // groupBox14
+            // label_Filter
             // 
-            this.groupBox14.Controls.Add(this.fileSelectorExtractedSaveFolder);
-            this.groupBox14.Location = new System.Drawing.Point(6, 249);
-            this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(730, 47);
-            this.groupBox14.TabIndex = 6;
-            this.groupBox14.TabStop = false;
-            this.groupBox14.Text = "Target folder for save-game working copy (user\'s temp dir if empty). It\'s recomme" +
-    "nded to leave this setting empty.";
+            this.label_Filter.AutoSize = true;
+            this.label_Filter.Location = new System.Drawing.Point(5, 186);
+            this.label_Filter.Name = "label_Filter";
+            this.label_Filter.Size = new System.Drawing.Size(487, 13);
+            this.label_Filter.TabIndex = 4;
+            this.label_Filter.Text = "Import only tribes with names containing at least one of these comma separated va" +
+    "lues, case sensitive";
             // 
-            // fileSelectorExtractedSaveFolder
+            // cbImportUpdateCreatureStatus
             // 
-            this.fileSelectorExtractedSaveFolder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fileSelectorExtractedSaveFolder.Link = "filename";
-            this.fileSelectorExtractedSaveFolder.Location = new System.Drawing.Point(3, 16);
-            this.fileSelectorExtractedSaveFolder.Name = "fileSelectorExtractedSaveFolder";
-            this.fileSelectorExtractedSaveFolder.Size = new System.Drawing.Size(724, 28);
-            this.fileSelectorExtractedSaveFolder.TabIndex = 0;
-            // 
-            // label24
-            // 
-            this.label24.Location = new System.Drawing.Point(6, 52);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(730, 38);
-            this.label24.TabIndex = 0;
-            this.label24.Text = resources.GetString("label24.Text");
+            this.cbImportUpdateCreatureStatus.Location = new System.Drawing.Point(11, 74);
+            this.cbImportUpdateCreatureStatus.Name = "cbImportUpdateCreatureStatus";
+            this.cbImportUpdateCreatureStatus.Size = new System.Drawing.Size(727, 37);
+            this.cbImportUpdateCreatureStatus.TabIndex = 1;
+            this.cbImportUpdateCreatureStatus.Text = "Update Available/Unavailable Status on Import for disappeared or reappeared creat" +
+    "ures (disable this if you will import savegames from multiple servers). This set" +
+    "ting is saved per library.";
+            this.cbImportUpdateCreatureStatus.UseVisualStyleBackColor = true;
             // 
             // tabPageImportExported
             // 
@@ -3333,6 +3354,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.BtBeepUpdated);
             this.panel2.Controls.Add(this.BtBeepNewTop);
             this.panel2.Controls.Add(this.BtBeepTop);
             this.panel2.Controls.Add(this.BtBeepSuccess);
@@ -3340,12 +3362,22 @@
             this.panel2.Controls.Add(this.BtBeepFailure);
             this.panel2.Location = new System.Drawing.Point(285, 11);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(121, 131);
+            this.panel2.Size = new System.Drawing.Size(121, 148);
             this.panel2.TabIndex = 7;
+            // 
+            // BtBeepUpdated
+            // 
+            this.BtBeepUpdated.Location = new System.Drawing.Point(3, 122);
+            this.BtBeepUpdated.Name = "BtBeepUpdated";
+            this.BtBeepUpdated.Size = new System.Drawing.Size(115, 23);
+            this.BtBeepUpdated.TabIndex = 5;
+            this.BtBeepUpdated.Text = "updated";
+            this.BtBeepUpdated.UseVisualStyleBackColor = true;
+            this.BtBeepUpdated.Click += new System.EventHandler(this.BtBeepUpdated_Click);
             // 
             // BtBeepNewTop
             // 
-            this.BtBeepNewTop.Location = new System.Drawing.Point(3, 105);
+            this.BtBeepNewTop.Location = new System.Drawing.Point(3, 96);
             this.BtBeepNewTop.Name = "BtBeepNewTop";
             this.BtBeepNewTop.Size = new System.Drawing.Size(115, 23);
             this.BtBeepNewTop.TabIndex = 4;
@@ -3355,7 +3387,7 @@
             // 
             // BtBeepTop
             // 
-            this.BtBeepTop.Location = new System.Drawing.Point(3, 76);
+            this.BtBeepTop.Location = new System.Drawing.Point(3, 70);
             this.BtBeepTop.Name = "BtBeepTop";
             this.BtBeepTop.Size = new System.Drawing.Size(115, 23);
             this.BtBeepTop.TabIndex = 3;
@@ -3365,7 +3397,7 @@
             // 
             // BtBeepSuccess
             // 
-            this.BtBeepSuccess.Location = new System.Drawing.Point(3, 47);
+            this.BtBeepSuccess.Location = new System.Drawing.Point(3, 44);
             this.BtBeepSuccess.Name = "BtBeepSuccess";
             this.BtBeepSuccess.Size = new System.Drawing.Size(115, 23);
             this.BtBeepSuccess.TabIndex = 2;
@@ -3549,6 +3581,8 @@
             // 
             // groupBox13
             // 
+            this.groupBox13.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox13.Controls.Add(this.dataGridViewExportFolders);
             this.groupBox13.Controls.Add(this.btAddExportFolder);
             this.groupBox13.Location = new System.Drawing.Point(6, 112);
@@ -4486,22 +4520,15 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // BtRemoteServerSettingsUri
+            // CbLibraryDisplayZeroMutationLevels
             // 
-            this.BtRemoteServerSettingsUri.Location = new System.Drawing.Point(565, 657);
-            this.BtRemoteServerSettingsUri.Name = "BtRemoteServerSettingsUri";
-            this.BtRemoteServerSettingsUri.Size = new System.Drawing.Size(167, 23);
-            this.BtRemoteServerSettingsUri.TabIndex = 19;
-            this.BtRemoteServerSettingsUri.Text = "Import remote settings";
-            this.BtRemoteServerSettingsUri.UseVisualStyleBackColor = true;
-            this.BtRemoteServerSettingsUri.Click += new System.EventHandler(this.BtRemoteServerSettingsUri_Click);
-            // 
-            // TbRemoteServerSettingsUri
-            // 
-            this.TbRemoteServerSettingsUri.Location = new System.Drawing.Point(407, 659);
-            this.TbRemoteServerSettingsUri.Name = "TbRemoteServerSettingsUri";
-            this.TbRemoteServerSettingsUri.Size = new System.Drawing.Size(152, 20);
-            this.TbRemoteServerSettingsUri.TabIndex = 20;
+            this.CbLibraryDisplayZeroMutationLevels.AutoSize = true;
+            this.CbLibraryDisplayZeroMutationLevels.Location = new System.Drawing.Point(6, 203);
+            this.CbLibraryDisplayZeroMutationLevels.Name = "CbLibraryDisplayZeroMutationLevels";
+            this.CbLibraryDisplayZeroMutationLevels.Size = new System.Drawing.Size(156, 17);
+            this.CbLibraryDisplayZeroMutationLevels.TabIndex = 9;
+            this.CbLibraryDisplayZeroMutationLevels.Text = "Display zero mutation levels";
+            this.CbLibraryDisplayZeroMutationLevels.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -4611,13 +4638,12 @@
             this.groupBox28.ResumeLayout(false);
             this.groupBox28.PerformLayout();
             this.tabPageImportSavegame.ResumeLayout(false);
-            this.groupBox12.ResumeLayout(false);
-            this.groupBox12.PerformLayout();
+            this.tabPageImportSavegame.PerformLayout();
+            this.groupBox14.ResumeLayout(false);
             this.groupBox15.ResumeLayout(false);
             this.groupBox15.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_FileLocations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.aTImportFileLocationBindingSource)).EndInit();
-            this.groupBox14.ResumeLayout(false);
             this.tabPageImportExported.ResumeLayout(false);
             this.tabPageImportExported.PerformLayout();
             this.groupBox27.ResumeLayout(false);
@@ -4745,7 +4771,6 @@
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.CheckBox cbCreatureColorsLibrary;
         private System.Windows.Forms.TabPage tabPageImportSavegame;
-        private System.Windows.Forms.GroupBox groupBox12;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.GroupBox groupBox15;
         private System.Windows.Forms.GroupBox groupBox14;
@@ -4994,5 +5019,8 @@
         private System.Windows.Forms.Label label69;
         private System.Windows.Forms.Button BtRemoteServerSettingsUri;
         private System.Windows.Forms.TextBox TbRemoteServerSettingsUri;
+        private System.Windows.Forms.Button BtBeepUpdated;
+        private System.Windows.Forms.CheckBox CbStreamerMode;
+        private System.Windows.Forms.CheckBox CbLibraryDisplayZeroMutationLevels;
     }
 }

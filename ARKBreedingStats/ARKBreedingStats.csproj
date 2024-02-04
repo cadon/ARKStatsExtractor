@@ -84,6 +84,7 @@
     </Compile>
     <Compile Include="Ark.cs" />
     <Compile Include="AsbServer\Connection.cs" />
+    <Compile Include="AsbServer\ProgressReportAsbServer.cs" />
     <Compile Include="BreedingPlanning\Score.cs" />
     <Compile Include="BreedingPlanning\BreedingScore.cs" />
     <Compile Include="importExportGun\ExportGunCreatureFile.cs" />
@@ -98,6 +99,7 @@
     </Compile>
     <Compile Include="library\CreatureSpawnCommand.cs" />
     <Compile Include="library\DummyCreatures.cs" />
+    <Compile Include="library\LevelStatusFlags.cs" />
     <Compile Include="multiplierTesting\CalculateMultipliers.cs" />
     <Compile Include="NamePatterns\NameList.cs" />
     <Compile Include="NamePatterns\NamePatternEntry.cs">
@@ -130,6 +132,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="uiControls\LibraryInfo.cs" />
+    <Compile Include="uiControls\PopupMessage.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="uiControls\StatSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -676,6 +681,8 @@
     <Content Include="json\creatureNamesU.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\updated.wav" />
+    <None Include="Resources\newMutation.wav" />
     <Content Include="_manifest.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>_manifest.json</LastGenOutput>

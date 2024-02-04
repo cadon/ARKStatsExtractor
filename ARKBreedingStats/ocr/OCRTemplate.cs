@@ -40,7 +40,7 @@ namespace ARKBreedingStats.ocr
         /// <summary>
         /// Coordinates of the rectangles to read. Kept for backwards compatibility, now uses LabelRectangles.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Rectangle[] labelRectangles;
 
         /// <summary>
@@ -61,10 +61,11 @@ namespace ARKBreedingStats.ocr
 
         public List<List<int>> reducedIndices = new List<List<int>>(); // indices of letters for reduced set (only [0-9\.,/%:])
 
-        public OcrTemplate()
+        public OcrTemplate(bool initialize)
         {
             Version = new Version(CurrentVersion);
-            InitializeOcrTemplate();
+            if (initialize)
+                InitializeOcrTemplate();
         }
 
         public void InitializeOcrTemplate()

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -215,8 +214,15 @@ namespace ARKBreedingStats.settings
             }
             cbSingleplayerSettings.Checked = cc.singlePlayerSettings;
             CbAtlasSettings.Checked = _cc.AtlasSettings;
-            if (_cc.Game == Ark.Asa) RbGameAsa.Checked = true;
-            else RbGameAse.Checked = true;
+            if (_cc.Game == Ark.Asa)
+            {
+                RbGameAsa.Checked = true;
+            }
+            else
+            {
+                RbGameAse.Checked = true;
+                CbAllowSpeedLeveling.Visible = false;
+            }
 
             nudMaxDomLevels.ValueSave = cc.maxDomLevel;
             numericUpDownMaxBreedingSug.ValueSave = cc.maxBreedingSuggestions;
@@ -360,6 +366,7 @@ namespace ARKBreedingStats.settings
             CbNaturalSortIgnoreSpaces.Enabled = Properties.Settings.Default.UseNaturalSort;
             CbNaturalSortIgnoreSpaces.Checked = Properties.Settings.Default.NaturalSortIgnoreSpaces;
             CbDisplayLibraryCreatureIndex.Checked = Properties.Settings.Default.DisplayLibraryCreatureIndex;
+            CbLibraryDisplayZeroMutationLevels.Checked = Properties.Settings.Default.LibraryDisplayZeroMutationLevels;
 
             #endregion
 
@@ -432,6 +439,7 @@ namespace ARKBreedingStats.settings
 
             NudSpeciesSelectorCountLastUsed.ValueSave = Properties.Settings.Default.SpeciesSelectorCountLastSpecies;
 
+            CbStreamerMode.Checked = Properties.Settings.Default.StreamerMode;
             cbDevTools.Checked = Properties.Settings.Default.DevTools;
 
             cbPrettifyJSON.Checked = Properties.Settings.Default.prettifyCollectionJson;
@@ -614,6 +622,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.UseNaturalSort = CbNaturalSorting.Checked;
             Properties.Settings.Default.NaturalSortIgnoreSpaces = CbNaturalSortIgnoreSpaces.Checked;
             Properties.Settings.Default.DisplayLibraryCreatureIndex = CbDisplayLibraryCreatureIndex.Checked;
+            Properties.Settings.Default.LibraryDisplayZeroMutationLevels = CbLibraryDisplayZeroMutationLevels.Checked;
 
             #endregion
 
@@ -670,6 +679,7 @@ namespace ARKBreedingStats.settings
 
             Properties.Settings.Default.SpeciesSelectorCountLastSpecies = (int)NudSpeciesSelectorCountLastUsed.Value;
 
+            Properties.Settings.Default.StreamerMode = CbStreamerMode.Checked;
             Properties.Settings.Default.DevTools = cbDevTools.Checked;
 
             Properties.Settings.Default.prettifyCollectionJson = cbPrettifyJSON.Checked;
@@ -1296,6 +1306,7 @@ namespace ARKBreedingStats.settings
             Loc.ControlText(BtBeepSuccess, _tt);
             Loc.ControlText(BtBeepTop, _tt);
             Loc.ControlText(BtBeepNewTop, _tt);
+            Loc.ControlText(BtBeepUpdated, _tt);
             Loc.ControlText(BtGetExportFolderAutomatically);
         }
 
@@ -1333,6 +1344,11 @@ namespace ARKBreedingStats.settings
         private void BtBeepNewTop_Click(object sender, EventArgs e)
         {
             SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Great);
+        }
+
+        private void BtBeepUpdated_Click(object sender, EventArgs e)
+        {
+            SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Updated);
         }
 
         private void BtImportArchiveFolder_Click(object sender, EventArgs e)
@@ -1775,6 +1791,14 @@ namespace ARKBreedingStats.settings
                 _cancellationTokenSource = null;
                 BtRemoteServerSettingsUri.Text = "Load remote settings";
             }
+        }
+
+        private void RbGameAsa_CheckedChanged(object sender, EventArgs e)
+        {
+            var isAsa = RbGameAsa.Checked;
+            CbAllowSpeedLeveling.Visible = isAsa;
+            if (!isAsa)
+                CbAllowSpeedLeveling.Checked = true;
         }
     }
 }

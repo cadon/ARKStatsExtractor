@@ -285,7 +285,7 @@ namespace ARKBreedingStats
         private static HttpClient _httpClient;
 
         /// <summary>
-        /// Returns a static HttpClient. It's apparently better to reuse on object per app only.
+        /// Returns a static HttpClient. It's apparently better to reuse one object per app only.
         /// </summary>
         public static HttpClient GetHttpClient
         {

@@ -385,5 +385,25 @@ namespace ARKBreedingStats.uiControls
                 }
             }
         }
+
+        /// <summary>
+        /// Describes if a stat level is desired to be high or low or if it doesn't matter.
+        /// </summary>
+        public enum StatValuePreference
+        {
+            Indifferent,
+            Low,
+            High
+        }
+
+        /// <summary>
+        /// Describes if a stat level should be even or odd or if it doesn't matter.
+        /// </summary>
+        public enum StatValueEvenOdd
+        {
+            Indifferent,
+            Odd,
+            Even
+        }
     }
 }

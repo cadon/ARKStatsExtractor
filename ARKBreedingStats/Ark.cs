@@ -91,10 +91,26 @@
         public const byte ColorFirstId = 1;
         public const byte DyeFirstIdASE = 201;
         public const byte DyeMaxId = 255;
+
+        /// <summary>
+        /// When choosing a random color for a mutation, ARK can erroneously select an undefined color. For ASE that's the color id 227 (one too high to be defined).
+        /// </summary>
+        public const byte UndefinedColorIdAse = 227;
+
+        /// <summary>
+        /// When choosing a random color for a mutation, ARK can erroneously select an undefined color. For ASA that's the color id 255 (one too high to be defined).
+        /// </summary>
+        public const byte UndefinedColorIdAsa = 255;
+
         /// <summary>
         /// When choosing a random color for a mutation, ARK can erroneously select an undefined color. Usually this is color id 227 (one too high to be defined).
         /// </summary>
-        public const byte UndefinedColorId = 227;
+        public static byte UndefinedColorId = UndefinedColorIdAse;
+
+        /// <summary>
+        /// Sets the undefined color id to the one of ASE or ASA.
+        /// </summary>
+        public static void SetUndefinedColorId(bool asa) => UndefinedColorId = asa ? UndefinedColorIdAsa : UndefinedColorIdAse;
 
         /// <summary>
         /// Number of possible color regions for all species.

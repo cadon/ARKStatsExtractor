@@ -136,7 +136,7 @@ namespace ARKBreedingStats.utils
             c => c.sex,
             c => c.domesticatedAt,
             c => c.topness,
-            c => c.topStatsCount,
+            c => c.topStatsConsideredCount,
             c => c.generation,
             c => c.levelFound,
             c => c.Mutations,

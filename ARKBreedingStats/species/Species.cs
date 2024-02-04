@@ -107,7 +107,7 @@ namespace ARKBreedingStats.species
 
         /// <summary>
         /// The used multipliers for each stat applied to the imprinting-bonus, affected by custom overrides and global leveling settings.
-        ///  </summary>
+        /// </summary>
         public double[] StatImprintMultipliers;
 
         [JsonProperty]
@@ -436,7 +436,7 @@ namespace ARKBreedingStats.species
             if (overrides.DisplayedStats != 0) DisplayedStats = overrides.DisplayedStats;
             if (overrides.skipWildLevelStats != 0) skipWildLevelStats = overrides.skipWildLevelStats;
             if (overrides.TamedBaseHealthMultiplier != null) TamedBaseHealthMultiplier = overrides.TamedBaseHealthMultiplier;
-            if (overrides.statImprintMult != null) statImprintMult = overrides.statImprintMult.ToArray();
+            if (overrides.statImprintMult != null && overrides.statImprintMult != StatImprintMultipliersDefaultAse) statImprintMult = overrides.statImprintMult.ToArray();
             if (overrides.mutationMult != null) mutationMult = overrides.mutationMult;
             if (overrides.colors != null) colors = overrides.colors;
             if (overrides.taming != null) taming = overrides.taming;

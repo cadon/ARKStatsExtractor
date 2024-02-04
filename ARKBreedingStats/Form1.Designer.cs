@@ -385,6 +385,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator27 = new System.Windows.Forms.ToolStripSeparator();
             this.resetColumnOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
+            this.currentTokenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -1342,6 +1343,7 @@ namespace ARKBreedingStats
             // 
             this.serverToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.listenToolStripMenuItem,
+            this.currentTokenToolStripMenuItem,
             this.listenWithNewTokenToolStripMenuItem,
             this.sendExampleCreatureToolStripMenuItem});
             this.serverToolStripMenuItem.Name = "serverToolStripMenuItem";
@@ -3781,6 +3783,13 @@ namespace ARKBreedingStats
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
+            // currentTokenToolStripMenuItem
+            // 
+            this.currentTokenToolStripMenuItem.Name = "currentTokenToolStripMenuItem";
+            this.currentTokenToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.currentTokenToolStripMenuItem.Text = "Current token";
+            this.currentTokenToolStripMenuItem.Click += new System.EventHandler(this.currentTokenToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -4241,5 +4250,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox CbLinkWildMutatedLevelsTester;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemMutationColumns;
+        private System.Windows.Forms.ToolStripMenuItem currentTokenToolStripMenuItem;
     }
 }

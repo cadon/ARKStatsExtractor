@@ -2278,5 +2278,29 @@ namespace ARKBreedingStats.Properties {
                 this["LibraryShowMutationLevelColumns"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool StreamerMode {
+            get {
+                return ((bool)(this["StreamerMode"]));
+            }
+            set {
+                this["StreamerMode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LibraryDisplayZeroMutationLevels {
+            get {
+                return ((bool)(this["LibraryDisplayZeroMutationLevels"]));
+            }
+            set {
+                this["LibraryDisplayZeroMutationLevels"] = value;
+            }
+        }
     }
 }

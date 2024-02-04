@@ -620,6 +620,7 @@ namespace ARKBreedingStats.Library
                 switch (value)
                 {
                     case Ark.Asa:
+                        Ark.SetUndefinedColorId(true);
                         if (modIDs == null) modIDs = new List<string>();
                         if (!modIDs.Contains(Ark.Asa))
                         {
@@ -629,6 +630,7 @@ namespace ARKBreedingStats.Library
                         break;
                     default:
                         // non ASA
+                        Ark.SetUndefinedColorId(false);
                         if (modIDs == null) return;
                         ModList.RemoveAll(m => m.id == Ark.Asa);
                         if (modIDs.Remove(Ark.Asa))

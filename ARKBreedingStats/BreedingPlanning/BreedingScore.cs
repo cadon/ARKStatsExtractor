@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using ARKBreedingStats.Library;
-using ARKBreedingStats.Properties;
 using ARKBreedingStats.species;
 
 namespace ARKBreedingStats.BreedingPlanning
@@ -32,7 +31,7 @@ namespace ARKBreedingStats.BreedingPlanning
         /// <param name="anyOddEven">Array for each stat if the higher level should be considered for score: 0: consider any level, 1: consider only if odd, 2: consider only if even.</param>
         /// <returns></returns>
         public static List<BreedingPair> CalculateBreedingScores(Creature[] females, Creature[] males, Species species,
-            short[] bestPossLevels, double[] statWeights, int[] bestLevelsOfSpecies, BreedingPlan.BreedingMode breedingMode,
+            short[] bestPossLevels, double[] statWeights, int[] bestLevelsOfSpecies, BreedingMode breedingMode,
             bool considerChosenCreature, bool considerMutationLimit, int mutationLimit,
             ref bool creaturesMutationsFilteredOut, int offspringLevelLimit = 0, bool downGradeOffspringWithLevelHigherThanLimit = false,
             bool onlyBestSuggestionForFemale = false, byte[] anyOddEven = null)
@@ -86,8 +85,8 @@ namespace ARKBreedingStats.BreedingPlanning
                     {
                         if (s == Stats.Torpidity || !species.UsesStat(s)) continue;
                         bestPossLevels[s] = 0;
-                        int higherLevel = Math.Max(female.levelsWild[s] + (female.levelsMutated?[s] ?? 0), male.levelsWild[s] + (male.levelsMutated?[s] ?? 0));
-                        int lowerLevel = Math.Min(female.levelsWild[s] + (female.levelsMutated?[s] ?? 0), male.levelsWild[s] + (male.levelsMutated?[s] ?? 0));
+                        int higherLevel = Math.Max(female.levelsWild[s], male.levelsWild[s]);
+                        int lowerLevel = Math.Min(female.levelsWild[s], male.levelsWild[s]);
                         if (higherLevel < 0) higherLevel = 0;
                         if (lowerLevel < 0) lowerLevel = 0;
                         maxPossibleOffspringLevel += higherLevel;
@@ -112,7 +111,7 @@ namespace ARKBreedingStats.BreedingPlanning
                         double weightedExpectedStatLevel = statWeights[s] * (Ark.ProbabilityInheritHigherLevel * higherLevel + Ark.ProbabilityInheritLowerLevel * lowerLevel) / 40;
                         if (weightedExpectedStatLevel != 0)
                         {
-                            if (breedingMode == BreedingPlan.BreedingMode.TopStatsLucky)
+                            if (breedingMode == BreedingMode.TopStatsLucky)
                             {
                                 if (!ignoreTopStats && (female.levelsWild[s] == bestLevelsOfSpecies[s] || male.levelsWild[s] == bestLevelsOfSpecies[s]))
                                 {
@@ -122,7 +121,7 @@ namespace ARKBreedingStats.BreedingPlanning
                                 else if (bestLevelsOfSpecies[s] > 0)
                                     weightedExpectedStatLevel *= .01;
                             }
-                            else if (breedingMode == BreedingPlan.BreedingMode.TopStatsConservative && bestLevelsOfSpecies[s] > 0)
+                            else if (breedingMode == BreedingMode.TopStatsConservative && bestLevelsOfSpecies[s] > 0)
                             {
                                 bool higherIsBetter = statWeights[s] >= 0;
                                 bestPossLevels[s] = (short)(higherIsBetter ? Math.Max(female.levelsWild[s], male.levelsWild[s]) : Math.Min(female.levelsWild[s], male.levelsWild[s]));
@@ -141,7 +140,7 @@ namespace ARKBreedingStats.BreedingPlanning
                         }
                     }
 
-                    if (breedingMode == BreedingPlan.BreedingMode.TopStatsConservative)
+                    if (breedingMode == BreedingMode.TopStatsConservative)
                     {
                         if (topStatsMother < offspringPotentialTopStatCount && topStatsFather < offspringPotentialTopStatCount)
                             t += offspringExpectedTopStatCount;
@@ -274,6 +273,13 @@ namespace ARKBreedingStats.BreedingPlanning
                     return -1;
                 default: return Math.Max(level1, level2);
             }
+        }
+
+        public enum BreedingMode
+        {
+            BestNextGen,
+            TopStatsLucky,
+            TopStatsConservative
         }
     }
 }

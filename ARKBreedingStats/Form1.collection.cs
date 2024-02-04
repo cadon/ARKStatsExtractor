@@ -15,6 +15,8 @@ using System.Xml.Serialization;
 using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
+using ARKBreedingStats.AsbServer;
+using Newtonsoft.Json.Linq;
 
 namespace ARKBreedingStats
 {
@@ -945,24 +947,40 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Imports a creature when listening to a server.
+        /// Handle reports from the AsbServer listening, e.g. importing creatures or handle errors.
         /// </summary>
-        private void AsbServerDataSent((string jsonData, string serverHash, string errorMessage) data)
+        private void AsbServerDataSent(ProgressReportAsbServer data)
         {
-            if (!string.IsNullOrEmpty(data.errorMessage))
+            if (!string.IsNullOrEmpty(data.Message))
             {
-                SetMessageLabelText(data.errorMessage, MessageBoxIcon.Error);
-                // don't remove the error message with the stop listening message
-                _ignoreNextMessageLabel = true;
-                listenToolStripMenuItem.Checked = false;
+                var displayPopup = false;
+                var message = data.Message;
+                if (!string.IsNullOrEmpty(data.ServerToken))
+                {
+                    message += Environment.NewLine + Connection.TokenStringForDisplay(data.ServerToken);
+                    displayPopup = !Properties.Settings.Default.StreamerMode;
+                }
+
+                SetMessageLabelText(message, data.IsError ? MessageBoxIcon.Error : MessageBoxIcon.Information, clipboardText: data.ClipboardText, displayPopup: displayPopup);
+
+                if (!string.IsNullOrEmpty(data.ClipboardText))
+                    Clipboard.SetText(data.ClipboardText);
+
+                if (data.StopListening)
+                {
+                    // don't remove the error message with the stop listening message
+                    _ignoreNextMessageLabel = true;
+                    listenToolStripMenuItem.Checked = false;
+                }
+
                 return;
             }
 
             string resultText;
-            if (string.IsNullOrEmpty(data.serverHash))
+            if (string.IsNullOrEmpty(data.ServerHash))
             {
                 // import creature
-                var creature = ImportExportGun.ImportCreatureFromJson(data.jsonData, null, out resultText, out _);
+                var creature = ImportExportGun.ImportCreatureFromJson(data.JsonText, null, out resultText, out _);
                 if (creature == null)
                 {
                     SetMessageLabelText(resultText, MessageBoxIcon.Error);
@@ -987,7 +1005,7 @@ namespace ARKBreedingStats
             }
 
             // import server settings
-            var success = ImportExportGun.ImportServerMultipliersFromJson(_creatureCollection, data.jsonData, data.serverHash, out resultText);
+            var success = ImportExportGun.ImportServerMultipliersFromJson(_creatureCollection, data.JsonText, data.ServerHash, out resultText);
             SetMessageLabelText(resultText, success ? MessageBoxIcon.Information : MessageBoxIcon.Error, resultText);
         }
     }
