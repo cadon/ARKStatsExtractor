@@ -56,10 +56,11 @@ namespace ARKBreedingStats.library
 
                 var statName = Utils.StatName(s, false, species.statNames);
                 var statNameAbb = Utils.StatName(s, true, species.statNames);
-                var weighting = statWeights.Item1 == null || statWeights.Item1[s] == 0
+                var statWeight = statWeights.Item1?[s] ?? 1;
+                var weighting = statWeight == 0
                     ? StatWeighting.StatValuePreference.Indifferent
-                        : statWeights.Item1[s] > 0 ? StatWeighting.StatValuePreference.High
-                        : StatWeighting.StatValuePreference.Low;
+                    : statWeight > 0 ? StatWeighting.StatValuePreference.High
+                    : StatWeighting.StatValuePreference.Low;
 
                 sbStatInfoText?.Append($"{statNameAbb}: {levelsWild[s]} | {levelsMutated[s]} ({valuesBreeding[s]})");
 
