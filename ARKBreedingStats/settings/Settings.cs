@@ -342,7 +342,7 @@ namespace ARKBreedingStats.settings
             CbInfoGraphicDisplayMaxWildLevel.Checked = Properties.Settings.Default.InfoGraphicShowMaxWildLevel;
             CbInfoGraphicDomLevels.Checked = Properties.Settings.Default.InfoGraphicWithDomLevels;
             CbbInfoGraphicFontName.Text = Properties.Settings.Default.InfoGraphicFontName;
-            CbInfoGraphicMutations.Checked = Properties.Settings.Default.InfoGraphicDisplayMutations;
+            CbInfoGraphicMutationCounter.Checked = Properties.Settings.Default.InfoGraphicDisplayMutations;
             CbInfoGraphicGenerations.Checked = Properties.Settings.Default.InfoGraphicDisplayGeneration;
             CbInfoGraphicCreatureName.Checked = Properties.Settings.Default.InfoGraphicDisplayName;
             BtInfoGraphicBackColor.SetBackColorAndAccordingForeColor(Properties.Settings.Default.InfoGraphicBackColor);
@@ -599,7 +599,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.InfoGraphicShowMaxWildLevel = CbInfoGraphicDisplayMaxWildLevel.Checked;
             Properties.Settings.Default.InfoGraphicWithDomLevels = CbInfoGraphicDomLevels.Checked;
             Properties.Settings.Default.InfoGraphicFontName = CbbInfoGraphicFontName.Text;
-            Properties.Settings.Default.InfoGraphicDisplayMutations = CbInfoGraphicMutations.Checked;
+            Properties.Settings.Default.InfoGraphicDisplayMutations = CbInfoGraphicMutationCounter.Checked;
             Properties.Settings.Default.InfoGraphicDisplayGeneration = CbInfoGraphicGenerations.Checked;
             Properties.Settings.Default.InfoGraphicDisplayName = CbInfoGraphicCreatureName.Checked;
             Properties.Settings.Default.InfoGraphicBackColor = BtInfoGraphicBackColor.BackColor;
@@ -1617,7 +1617,7 @@ namespace ARKBreedingStats.settings
                 BtInfoGraphicBorderColor.BackColor,
                 CbInfoGraphicCreatureName.Checked,
                 CbInfoGraphicDomLevels.Checked,
-                CbInfoGraphicMutations.Checked,
+                CbInfoGraphicMutationCounter.Checked,
                 CbInfoGraphicGenerations.Checked,
                 CbInfoGraphicStatValues.Checked,
                 CbInfoGraphicDisplayMaxWildLevel.Checked,

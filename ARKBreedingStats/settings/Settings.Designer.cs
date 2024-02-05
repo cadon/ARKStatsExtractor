@@ -185,6 +185,7 @@
             this.CbbLanguage2 = new System.Windows.Forms.ComboBox();
             this.CbbLanguage = new System.Windows.Forms.ComboBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.CbLibraryDisplayZeroMutationLevels = new System.Windows.Forms.CheckBox();
             this.CbDisplayLibraryCreatureIndex = new System.Windows.Forms.CheckBox();
             this.CbNaturalSortIgnoreSpaces = new System.Windows.Forms.CheckBox();
             this.CbNaturalSorting = new System.Windows.Forms.CheckBox();
@@ -211,7 +212,7 @@
             this.CbInfoGraphicStatValues = new System.Windows.Forms.CheckBox();
             this.CbInfoGraphicAddRegionNames = new System.Windows.Forms.CheckBox();
             this.CbInfoGraphicCreatureName = new System.Windows.Forms.CheckBox();
-            this.CbInfoGraphicMutations = new System.Windows.Forms.CheckBox();
+            this.CbInfoGraphicMutationCounter = new System.Windows.Forms.CheckBox();
             this.CbInfoGraphicGenerations = new System.Windows.Forms.CheckBox();
             this.CbInfoGraphicDomLevels = new System.Windows.Forms.CheckBox();
             this.CbInfoGraphicDisplayMaxWildLevel = new System.Windows.Forms.CheckBox();
@@ -354,7 +355,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.CbLibraryDisplayZeroMutationLevels = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -2567,6 +2567,16 @@
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Library";
             // 
+            // CbLibraryDisplayZeroMutationLevels
+            // 
+            this.CbLibraryDisplayZeroMutationLevels.AutoSize = true;
+            this.CbLibraryDisplayZeroMutationLevels.Location = new System.Drawing.Point(6, 203);
+            this.CbLibraryDisplayZeroMutationLevels.Name = "CbLibraryDisplayZeroMutationLevels";
+            this.CbLibraryDisplayZeroMutationLevels.Size = new System.Drawing.Size(156, 17);
+            this.CbLibraryDisplayZeroMutationLevels.TabIndex = 9;
+            this.CbLibraryDisplayZeroMutationLevels.Text = "Display zero mutation levels";
+            this.CbLibraryDisplayZeroMutationLevels.UseVisualStyleBackColor = true;
+            // 
             // CbDisplayLibraryCreatureIndex
             // 
             this.CbDisplayLibraryCreatureIndex.AutoSize = true;
@@ -2810,7 +2820,7 @@
             this.groupBox28.Controls.Add(this.CbInfoGraphicStatValues);
             this.groupBox28.Controls.Add(this.CbInfoGraphicAddRegionNames);
             this.groupBox28.Controls.Add(this.CbInfoGraphicCreatureName);
-            this.groupBox28.Controls.Add(this.CbInfoGraphicMutations);
+            this.groupBox28.Controls.Add(this.CbInfoGraphicMutationCounter);
             this.groupBox28.Controls.Add(this.CbInfoGraphicGenerations);
             this.groupBox28.Controls.Add(this.CbInfoGraphicDomLevels);
             this.groupBox28.Controls.Add(this.CbInfoGraphicDisplayMaxWildLevel);
@@ -2865,16 +2875,16 @@
             this.CbInfoGraphicCreatureName.UseVisualStyleBackColor = true;
             this.CbInfoGraphicCreatureName.CheckedChanged += new System.EventHandler(this.CbInfoGraphicCheckBoxChanged);
             // 
-            // CbInfoGraphicMutations
+            // CbInfoGraphicMutationCounter
             // 
-            this.CbInfoGraphicMutations.AutoSize = true;
-            this.CbInfoGraphicMutations.Location = new System.Drawing.Point(6, 88);
-            this.CbInfoGraphicMutations.Name = "CbInfoGraphicMutations";
-            this.CbInfoGraphicMutations.Size = new System.Drawing.Size(71, 17);
-            this.CbInfoGraphicMutations.TabIndex = 5;
-            this.CbInfoGraphicMutations.Text = "mutations";
-            this.CbInfoGraphicMutations.UseVisualStyleBackColor = true;
-            this.CbInfoGraphicMutations.CheckedChanged += new System.EventHandler(this.CbInfoGraphicCheckBoxChanged);
+            this.CbInfoGraphicMutationCounter.AutoSize = true;
+            this.CbInfoGraphicMutationCounter.Location = new System.Drawing.Point(6, 88);
+            this.CbInfoGraphicMutationCounter.Name = "CbInfoGraphicMutationCounter";
+            this.CbInfoGraphicMutationCounter.Size = new System.Drawing.Size(105, 17);
+            this.CbInfoGraphicMutationCounter.TabIndex = 5;
+            this.CbInfoGraphicMutationCounter.Text = "mutation counter";
+            this.CbInfoGraphicMutationCounter.UseVisualStyleBackColor = true;
+            this.CbInfoGraphicMutationCounter.CheckedChanged += new System.EventHandler(this.CbInfoGraphicCheckBoxChanged);
             // 
             // CbInfoGraphicGenerations
             // 
@@ -3777,7 +3787,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3785,7 +3795,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3793,7 +3803,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3801,7 +3811,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -4520,16 +4530,6 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // CbLibraryDisplayZeroMutationLevels
-            // 
-            this.CbLibraryDisplayZeroMutationLevels.AutoSize = true;
-            this.CbLibraryDisplayZeroMutationLevels.Location = new System.Drawing.Point(6, 203);
-            this.CbLibraryDisplayZeroMutationLevels.Name = "CbLibraryDisplayZeroMutationLevels";
-            this.CbLibraryDisplayZeroMutationLevels.Size = new System.Drawing.Size(156, 17);
-            this.CbLibraryDisplayZeroMutationLevels.TabIndex = 9;
-            this.CbLibraryDisplayZeroMutationLevels.Text = "Display zero mutation levels";
-            this.CbLibraryDisplayZeroMutationLevels.UseVisualStyleBackColor = true;
-            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -4970,7 +4970,7 @@
         private System.Windows.Forms.CheckBox CbInfoGraphicStatValues;
         private System.Windows.Forms.CheckBox CbInfoGraphicAddRegionNames;
         private System.Windows.Forms.CheckBox CbInfoGraphicCreatureName;
-        private System.Windows.Forms.CheckBox CbInfoGraphicMutations;
+        private System.Windows.Forms.CheckBox CbInfoGraphicMutationCounter;
         private System.Windows.Forms.CheckBox CbInfoGraphicGenerations;
         private System.Windows.Forms.CheckBox CbInfoGraphicDomLevels;
         private System.Windows.Forms.Button BtInfoGraphicBorderColor;
