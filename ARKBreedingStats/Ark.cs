@@ -126,14 +126,19 @@
 
         public enum Game
         {
+            Unknown,
             /// <summary>
             /// ARK: Survival Evolved (2015)
             /// </summary>
-            ASE,
+            Ase,
             /// <summary>
             /// ARK: Survival Ascended (2023)
             /// </summary>
-            ASA
+            Asa,
+            /// <summary>
+            /// Use the same version that was already loaded
+            /// </summary>
+            SameAsBefore
         }
 
         /// <summary>

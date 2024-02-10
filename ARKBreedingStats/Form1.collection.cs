@@ -16,7 +16,6 @@ using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.AsbServer;
-using Newtonsoft.Json.Linq;
 
 namespace ARKBreedingStats
 {
@@ -57,8 +56,25 @@ namespace ARKBreedingStats
 
             if (!Properties.Settings.Default.KeepMultipliersForNewLibrary)
             {
-                oldMultipliers = null;
-                asaMode = true; // default to ASA
+                oldMultipliers = null; // use default
+            }
+
+            // ask which game version if no default is set
+            switch (Properties.Settings.Default.NewLibraryGame)
+            {
+                case Ark.Game.Unknown:
+                    var gameVersionDialog = new ArkVersionDialog(this);
+                    gameVersionDialog.ShowDialog();
+                    if (gameVersionDialog.UseSelectionAsDefault)
+                        Properties.Settings.Default.NewLibraryGame = gameVersionDialog.GameVersion;
+                    asaMode = gameVersionDialog.GameVersion == Ark.Game.Asa;
+                    break;
+                case Ark.Game.Ase:
+                    asaMode = false;
+                    break;
+                case Ark.Game.Asa:
+                    asaMode = true;
+                    break;
             }
 
             if (oldMultipliers == null)
@@ -76,6 +92,10 @@ namespace ARKBreedingStats
             {
                 _creatureCollection.Game = Ark.Asa;
                 ReloadModValuesOfCollectionIfNeeded(true, false, false, false);
+            }
+            else
+            {
+                UpdateAsaIndicator();
             }
 
             pedigree1.Clear();

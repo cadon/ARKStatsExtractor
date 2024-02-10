@@ -124,6 +124,10 @@
             this.checkBoxDisplayHiddenStats = new System.Windows.Forms.CheckBox();
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabPageMultipliers = new System.Windows.Forms.TabPage();
+            this.GbNewLibraryGame = new System.Windows.Forms.GroupBox();
+            this.RbNewLibraryGameKeep = new System.Windows.Forms.RadioButton();
+            this.RbNewLibraryGameAsa = new System.Windows.Forms.RadioButton();
+            this.RbNewLibraryGameAse = new System.Windows.Forms.RadioButton();
             this.TbRemoteServerSettingsUri = new System.Windows.Forms.TextBox();
             this.BtSettingsToClipboard = new System.Windows.Forms.Button();
             this.btExportMultipliers = new System.Windows.Forms.Button();
@@ -355,6 +359,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.RbNewLibraryGameAskEachTime = new System.Windows.Forms.RadioButton();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -400,6 +405,7 @@
             this.groupBox7.SuspendLayout();
             this.tabControlSettings.SuspendLayout();
             this.tabPageMultipliers.SuspendLayout();
+            this.GbNewLibraryGame.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBox29.SuspendLayout();
             this.groupBox18.SuspendLayout();
@@ -1869,6 +1875,7 @@
             // 
             this.tabPageMultipliers.AllowDrop = true;
             this.tabPageMultipliers.AutoScroll = true;
+            this.tabPageMultipliers.Controls.Add(this.GbNewLibraryGame);
             this.tabPageMultipliers.Controls.Add(this.TbRemoteServerSettingsUri);
             this.tabPageMultipliers.Controls.Add(this.BtSettingsToClipboard);
             this.tabPageMultipliers.Controls.Add(this.btExportMultipliers);
@@ -1900,6 +1907,52 @@
             this.tabPageMultipliers.UseVisualStyleBackColor = true;
             this.tabPageMultipliers.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragDrop);
             this.tabPageMultipliers.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragEnter);
+            // 
+            // GbNewLibraryGame
+            // 
+            this.GbNewLibraryGame.Controls.Add(this.RbNewLibraryGameAskEachTime);
+            this.GbNewLibraryGame.Controls.Add(this.RbNewLibraryGameKeep);
+            this.GbNewLibraryGame.Controls.Add(this.RbNewLibraryGameAsa);
+            this.GbNewLibraryGame.Controls.Add(this.RbNewLibraryGameAse);
+            this.GbNewLibraryGame.Location = new System.Drawing.Point(6, 699);
+            this.GbNewLibraryGame.Name = "GbNewLibraryGame";
+            this.GbNewLibraryGame.Size = new System.Drawing.Size(382, 42);
+            this.GbNewLibraryGame.TabIndex = 21;
+            this.GbNewLibraryGame.TabStop = false;
+            this.GbNewLibraryGame.Text = "Default new library game version";
+            // 
+            // RbNewLibraryGameKeep
+            // 
+            this.RbNewLibraryGameKeep.AutoSize = true;
+            this.RbNewLibraryGameKeep.Location = new System.Drawing.Point(123, 19);
+            this.RbNewLibraryGameKeep.Name = "RbNewLibraryGameKeep";
+            this.RbNewLibraryGameKeep.Size = new System.Drawing.Size(87, 17);
+            this.RbNewLibraryGameKeep.TabIndex = 2;
+            this.RbNewLibraryGameKeep.TabStop = true;
+            this.RbNewLibraryGameKeep.Text = "Keep version";
+            this.RbNewLibraryGameKeep.UseVisualStyleBackColor = true;
+            // 
+            // RbNewLibraryGameAsa
+            // 
+            this.RbNewLibraryGameAsa.AutoSize = true;
+            this.RbNewLibraryGameAsa.Location = new System.Drawing.Point(66, 19);
+            this.RbNewLibraryGameAsa.Name = "RbNewLibraryGameAsa";
+            this.RbNewLibraryGameAsa.Size = new System.Drawing.Size(46, 17);
+            this.RbNewLibraryGameAsa.TabIndex = 1;
+            this.RbNewLibraryGameAsa.TabStop = true;
+            this.RbNewLibraryGameAsa.Text = "ASA";
+            this.RbNewLibraryGameAsa.UseVisualStyleBackColor = true;
+            // 
+            // RbNewLibraryGameAse
+            // 
+            this.RbNewLibraryGameAse.AutoSize = true;
+            this.RbNewLibraryGameAse.Location = new System.Drawing.Point(9, 19);
+            this.RbNewLibraryGameAse.Name = "RbNewLibraryGameAse";
+            this.RbNewLibraryGameAse.Size = new System.Drawing.Size(46, 17);
+            this.RbNewLibraryGameAse.TabIndex = 0;
+            this.RbNewLibraryGameAse.TabStop = true;
+            this.RbNewLibraryGameAse.Text = "ASE";
+            this.RbNewLibraryGameAse.UseVisualStyleBackColor = true;
             // 
             // TbRemoteServerSettingsUri
             // 
@@ -1941,7 +1994,7 @@
             // CbKeepMultipliersForNewLibrary
             // 
             this.CbKeepMultipliersForNewLibrary.AutoSize = true;
-            this.CbKeepMultipliersForNewLibrary.Location = new System.Drawing.Point(6, 699);
+            this.CbKeepMultipliersForNewLibrary.Location = new System.Drawing.Point(6, 676);
             this.CbKeepMultipliersForNewLibrary.Name = "CbKeepMultipliersForNewLibrary";
             this.CbKeepMultipliersForNewLibrary.Size = new System.Drawing.Size(231, 17);
             this.CbKeepMultipliersForNewLibrary.TabIndex = 18;
@@ -4530,6 +4583,17 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
+            // RbNewLibraryGameAskEachTime
+            // 
+            this.RbNewLibraryGameAskEachTime.AutoSize = true;
+            this.RbNewLibraryGameAskEachTime.Location = new System.Drawing.Point(221, 19);
+            this.RbNewLibraryGameAskEachTime.Name = "RbNewLibraryGameAskEachTime";
+            this.RbNewLibraryGameAskEachTime.Size = new System.Drawing.Size(92, 17);
+            this.RbNewLibraryGameAskEachTime.TabIndex = 3;
+            this.RbNewLibraryGameAskEachTime.TabStop = true;
+            this.RbNewLibraryGameAskEachTime.Text = "Ask each time";
+            this.RbNewLibraryGameAskEachTime.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -4599,6 +4663,8 @@
             this.tabControlSettings.ResumeLayout(false);
             this.tabPageMultipliers.ResumeLayout(false);
             this.tabPageMultipliers.PerformLayout();
+            this.GbNewLibraryGame.ResumeLayout(false);
+            this.GbNewLibraryGame.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.groupBox29.ResumeLayout(false);
@@ -5022,5 +5088,10 @@
         private System.Windows.Forms.Button BtBeepUpdated;
         private System.Windows.Forms.CheckBox CbStreamerMode;
         private System.Windows.Forms.CheckBox CbLibraryDisplayZeroMutationLevels;
+        private System.Windows.Forms.GroupBox GbNewLibraryGame;
+        private System.Windows.Forms.RadioButton RbNewLibraryGameKeep;
+        private System.Windows.Forms.RadioButton RbNewLibraryGameAsa;
+        private System.Windows.Forms.RadioButton RbNewLibraryGameAse;
+        private System.Windows.Forms.RadioButton RbNewLibraryGameAskEachTime;
     }
 }

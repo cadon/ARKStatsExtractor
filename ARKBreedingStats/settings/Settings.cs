@@ -224,6 +224,14 @@ namespace ARKBreedingStats.settings
                 CbAllowSpeedLeveling.Visible = false;
             }
 
+            switch (Properties.Settings.Default.NewLibraryGame)
+            {
+                case Ark.Game.Ase: RbNewLibraryGameAse.Checked = true; break;
+                case Ark.Game.Asa: RbNewLibraryGameAsa.Checked = true; break;
+                case Ark.Game.SameAsBefore: RbNewLibraryGameKeep.Checked = true; break;
+                default: RbNewLibraryGameAskEachTime.Checked = true; break;
+            }
+
             nudMaxDomLevels.ValueSave = cc.maxDomLevel;
             numericUpDownMaxBreedingSug.ValueSave = cc.maxBreedingSuggestions;
             nudMaxWildLevels.ValueSave = cc.maxWildLevel;
@@ -491,6 +499,10 @@ namespace ARKBreedingStats.settings
             _cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
             _cc.AtlasSettings = CbAtlasSettings.Checked;
             _cc.Game = RbGameAsa.Checked ? Ark.Asa : Ark.Ase;
+            Properties.Settings.Default.NewLibraryGame = RbNewLibraryGameAse.Checked ? Ark.Game.Ase
+                : RbNewLibraryGameAsa.Checked ? Ark.Game.Asa
+                : RbNewLibraryGameKeep.Checked ? Ark.Game.SameAsBefore
+                : Ark.Game.Unknown;
 
             _cc.maxDomLevel = (int)nudMaxDomLevels.Value;
             _cc.maxWildLevel = (int)nudMaxWildLevels.Value;
@@ -1702,7 +1714,7 @@ namespace ARKBreedingStats.settings
                 return;
             }
 
-            localConfigPaths = localConfigPaths.OrderBy(c => c.Item2 == Ark.Game.ASE).ToArray(); // display ASA first
+            localConfigPaths = localConfigPaths.OrderBy(c => c.Item2 == Ark.Game.Ase).ToArray(); // display ASA first
 
             // ask which configs to import
             var importIndex = Utils.ShowListInput(localConfigPaths.Select(c => $"{c.Item2}: {c.Item1.Replace("\\", "\\ ")}").ToArray(), // adding zero width spaces to allow word wrapping
@@ -1712,7 +1724,7 @@ namespace ARKBreedingStats.settings
             ExtractSettingsFromFile(Path.Combine(localConfigPaths[importIndex].Item1, "game.ini"), true);
             ExtractSettingsFromFile(Path.Combine(localConfigPaths[importIndex].Item1, "gameUserSettings.ini"), true);
 
-            if (localConfigPaths[importIndex].Item2 == Ark.Game.ASA) RbGameAsa.Checked = true;
+            if (localConfigPaths[importIndex].Item2 == Ark.Game.Asa) RbGameAsa.Checked = true;
             else RbGameAse.Checked = true;
         }
 

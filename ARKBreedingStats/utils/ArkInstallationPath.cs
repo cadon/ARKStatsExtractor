@@ -52,7 +52,7 @@ namespace ARKBreedingStats.utils
             {
                 foreach (var steamNameId in steamNamesIds)
                     exportFolders[i++] = (
-                        arkPath.Game == Ark.Game.ASE
+                        arkPath.Game == Ark.Game.Ase
                         ? Path.Combine(arkPath.Path, relativeExportFolder, steamNameId.steamPlayerId)
                         : Path.Combine(arkPath.Path, relativeExportFolder), // ASA doesn't use steam id as subfolder
                         $"{steamNameId.steamPlayerName} ({arkPath.Game})"
@@ -95,11 +95,11 @@ namespace ARKBreedingStats.utils
             var relativeAsaPath = Path.Combine("steamapps", "common", "ARK Survival Ascended");
             var possibleArkPaths = new List<(string Path, Ark.Game Game)>
             {
-                (Path.Combine(steamPath, relativeAsePath), Ark.Game.ASE),
-                (Path.Combine(steamPath, relativeAsaPath), Ark.Game.ASA)
+                (Path.Combine(steamPath, relativeAsePath), Ark.Game.Ase),
+                (Path.Combine(steamPath, relativeAsaPath), Ark.Game.Asa)
             }; // use steam folder as default
-            possibleArkPaths.AddRange(arkInstallFolders.Select(f => (Path.Combine(f, relativeAsePath), Ase: Ark.Game.ASE)));
-            possibleArkPaths.AddRange(arkInstallFolders.Select(f => (Path.Combine(f, relativeAsaPath), Asa: Ark.Game.ASA)));
+            possibleArkPaths.AddRange(arkInstallFolders.Select(f => (Path.Combine(f, relativeAsePath), Ase: Ark.Game.Ase)));
+            possibleArkPaths.AddRange(arkInstallFolders.Select(f => (Path.Combine(f, relativeAsaPath), Asa: Ark.Game.Asa)));
 
             existingArkPaths = possibleArkPaths.Distinct().Where(p => Directory.Exists(p.Path)).ToArray();
 
@@ -307,7 +307,7 @@ namespace ARKBreedingStats.utils
             foreach (var arkPath in existingArkPaths)
             {
                 localConfigPaths[i++] = (
-                        arkPath.Game == Ark.Game.ASE
+                        arkPath.Game == Ark.Game.Ase
                             ? Path.Combine(arkPath.Path, relativeLocalConfigPathAse)
                             : Path.Combine(arkPath.Path, relativeLocalConfigPathAsa),
                         arkPath.Game

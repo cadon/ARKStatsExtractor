@@ -563,9 +563,6 @@
     <Setting Name="AskSaveSettingsOnClose" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="KeepMultipliersForNewLibrary" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="ExportServerToken" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
@@ -578,8 +575,14 @@
     <Setting Name="LibraryDisplayZeroMutationLevels" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="CustomStatWeightsOddEven" Type="System.String" Scope="User">
+    <Setting Name="CustomStatWeightsOddEven" Type="ARKBreedingStats.uiControls.StatWeighting.StatValueEvenOdd[][]" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="NewLibraryGame" Type="ARKBreedingStats.Ark.Game" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="KeepMultipliersForNewLibrary" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>
