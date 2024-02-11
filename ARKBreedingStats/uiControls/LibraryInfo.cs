@@ -15,6 +15,7 @@ namespace ARKBreedingStats.uiControls
         private static Species _infoForSpecies;
         private static bool _libraryFilterConsidered;
         private static string _speciesInfo;
+        public static readonly HashSet<byte>[] ColorsExistPerRegion = new HashSet<byte>[Ark.ColorRegionCount];
 
         /// <summary>
         /// Clear the cached information.
@@ -45,12 +46,11 @@ namespace ARKBreedingStats.uiControls
                 tlp.Controls.Clear();
             }
 
-            var colorsExistPerRegion = new HashSet<byte>[Ark.ColorRegionCount];
             var colorsDontExistPerRegion = new HashSet<byte>[Ark.ColorRegionCount];
             var allAvailableColorIds = Values.V.Colors.ColorsList.Select(c => c.Id).ToArray();
             for (int i = 0; i < Ark.ColorRegionCount; i++)
             {
-                colorsExistPerRegion[i] = new HashSet<byte>();
+                ColorsExistPerRegion[i] = new HashSet<byte>();
                 colorsDontExistPerRegion[i] = new HashSet<byte>(allAvailableColorIds);
             }
 
@@ -72,8 +72,8 @@ namespace ARKBreedingStats.uiControls
                 for (var ci = 0; ci < Ark.ColorRegionCount; ci++)
                 {
                     var co = cr.colors[ci];
-                    if (colorsExistPerRegion[ci].Contains(co)) continue;
-                    colorsExistPerRegion[ci].Add(co);
+                    if (ColorsExistPerRegion[ci].Contains(co)) continue;
+                    ColorsExistPerRegion[ci].Add(co);
                     colorsDontExistPerRegion[ci].Remove(co);
                 }
 
@@ -120,9 +120,9 @@ namespace ARKBreedingStats.uiControls
             {
                 if (!species.EnabledColorRegions[i]) continue;
                 AddParagraph($"Color region {i}: {species.colors[i]?.name}", bold: true, relativeFontSize: 1.1f);
-                var colorsExist = colorsExistPerRegion[i].Count;
+                var colorsExist = ColorsExistPerRegion[i].Count;
                 AddParagraph($"{colorsExist} color id{(colorsExist != 1 ? "s" : string.Empty)} available in your library:");
-                AddParagraph(CreateNumberRanges(colorsExistPerRegion[i]));
+                AddParagraph(CreateNumberRanges(ColorsExistPerRegion[i]));
                 var colorsDontExist = colorsDontExistPerRegion[i].Count;
                 AddParagraph($"{colorsDontExist} color id{(colorsDontExist != 1 ? "s" : string.Empty)} missing in your library:");
                 AddParagraph(CreateNumberRanges(colorsDontExistPerRegion[i]), "\n");

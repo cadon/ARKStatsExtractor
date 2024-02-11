@@ -143,7 +143,10 @@ namespace ARKBreedingStats.uiControls
         private void ButtonRegionClick(object sender, EventArgs e)
         {
             _selectedColorRegion = (int)((Button)sender).Tag;
-            _colorPicker.PickColor(_selectedColors[_selectedColorRegion], $"[{_selectedColorRegion}] {_species.colors?[_selectedColorRegion]?.name}", _species.colors?[_selectedColorRegion]?.naturalColors);
+            _colorPicker.PickColor(_selectedColors[_selectedColorRegion],
+                $"[{_selectedColorRegion}] {_species.colors?[_selectedColorRegion]?.name}",
+                _species.colors?[_selectedColorRegion]?.naturalColors,
+               existingColors: LibraryInfo.ColorsExistPerRegion?[_selectedColorRegion]);
         }
 
         public void SetSpecies(Species species)

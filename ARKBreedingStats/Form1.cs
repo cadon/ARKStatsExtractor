@@ -731,8 +731,8 @@ namespace ARKBreedingStats
             }
             else if (tabControlMain.SelectedTab == tabPageLibraryInfo)
             {
-                libraryInfoControl1.SetSpecies(speciesSelector1.SelectedSpecies);
                 LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, CbLibraryInfoUseFilter.Checked ? (IList<Creature>)ApplyLibraryFilterSettings(_creatureCollection.creatures).ToArray() : _creatureCollection.creatures, CbLibraryInfoUseFilter.Checked, libraryInfoControl1.TlpColorInfoText);
+                libraryInfoControl1.SetSpecies(speciesSelector1.SelectedSpecies);
             }
             else if (tabControlMain.SelectedTab == tabPagePedigree)
             {
@@ -1632,8 +1632,8 @@ namespace ARKBreedingStats
             }
             else if (tabControlMain.SelectedTab == tabPageLibraryInfo)
             {
-                libraryInfoControl1.SetSpecies(speciesSelector1.SelectedSpecies);
                 LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, CbLibraryInfoUseFilter.Checked ? (IList<Creature>)ApplyLibraryFilterSettings(_creatureCollection.creatures).ToArray() : _creatureCollection.creatures, CbLibraryInfoUseFilter.Checked, libraryInfoControl1.TlpColorInfoText);
+                libraryInfoControl1.SetSpecies(speciesSelector1.SelectedSpecies);
             }
             else if (tabControlMain.SelectedTab == tabPagePedigree)
             {
@@ -3875,8 +3875,8 @@ namespace ARKBreedingStats
 
         private void BtCopyLibraryColorToClipboard_Click(object sender, EventArgs e)
         {
-            libraryInfoControl1.SetSpecies(speciesSelector1.SelectedSpecies);
             LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, CbLibraryInfoUseFilter.Checked ? (IList<Creature>)ApplyLibraryFilterSettings(_creatureCollection.creatures).ToArray() : _creatureCollection.creatures, CbLibraryInfoUseFilter.Checked);
+            libraryInfoControl1.SetSpecies(speciesSelector1.SelectedSpecies);
             var colorInfo = LibraryInfo.GetSpeciesInfo();
             Clipboard.SetText(string.IsNullOrEmpty(colorInfo) ? $"no color info available for species {speciesSelector1.SelectedSpecies}" : colorInfo);
             SetMessageLabelText($"Color information about {speciesSelector1.SelectedSpecies} has been copied to the clipboard, you can paste it in a text editor to view it.", MessageBoxIcon.Information);

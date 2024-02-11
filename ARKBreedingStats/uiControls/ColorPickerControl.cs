@@ -87,7 +87,8 @@ namespace ARKBreedingStats.uiControls
             SetUndefinedColorId();
         }
 
-        public void PickColor(byte selectedColorId, string headerText, List<ArkColor> naturalColors = null, byte selectedColorIdAlternative = 0)
+        public void PickColor(byte selectedColorId, string headerText, List<ArkColor> naturalColors = null,
+            byte selectedColorIdAlternative = 0, HashSet<byte> existingColors = null)
         {
             flowLayoutPanel1.SuspendDrawing();
             flowLayoutPanel1.SuspendLayout();
@@ -100,9 +101,9 @@ namespace ARKBreedingStats.uiControls
 
             var colors = values.Values.V.Colors.ColorsList;
 
-            if (_buttonSelectedColor?.Selected == true)
+            if (_buttonSelectedColor != null && _buttonSelectedColor.Status != NoPaddingButton.ColorStatus.None)
             {
-                _buttonSelectedColor.Selected = false;
+                _buttonSelectedColor.Status = NoPaddingButton.ColorStatus.None;
                 _buttonSelectedColor.Invalidate();
             }
             SelectedColorId = selectedColorId;
@@ -129,15 +130,32 @@ namespace ARKBreedingStats.uiControls
 
                 if (flowLayoutPanel1.Controls[controlIndex] is NoPaddingButton bt)
                 {
-                    bt.Visible = ColorVisible(colors[colorIndex].Id);
-                    var selected = SelectedColorId == colors[colorIndex].Id;
-                    bt.Selected = selected;
-                    if (selected) _buttonSelectedColor = bt;
-                    bt.SelectedAlternative = SelectedColorIdAlternative == colors[colorIndex].Id;
-                    bt.SetBackColorAndAccordingForeColor(colors[colorIndex].Color);
-                    bt.Tag = colors[colorIndex].Id;
-                    bt.Text = colors[colorIndex].Id.ToString();
-                    _tt.SetToolTip(bt, colors[colorIndex].Id + ": " + colors[colorIndex].Name);
+                    var color = colors[colorIndex];
+                    var colorId = color.Id;
+                    bt.Visible = ColorVisible(colorId);
+                    var selected = SelectedColorId == colorId;
+                    bt.Status = NoPaddingButton.ColorStatus.None;
+                    if (selected)
+                    {
+                        _buttonSelectedColor = bt;
+                        bt.Status = NoPaddingButton.ColorStatus.SelectedColor;
+                    }
+                    if (SelectedColorIdAlternative == colorId)
+                    {
+                        bt.Status |= NoPaddingButton.ColorStatus.SelectedAlternative;
+                    }
+                    if (existingColors != null)
+                    {
+                        if (existingColors.Contains(colorId))
+                            bt.Status |= NoPaddingButton.ColorStatus.ExistingColor;
+                        else
+                            bt.Status |= NoPaddingButton.ColorStatus.NonExistingColor;
+                    }
+
+                    bt.SetBackColorAndAccordingForeColor(color.Color);
+                    bt.Tag = colorId;
+                    bt.Text = colorId.ToString();
+                    _tt.SetToolTip(bt, colorId + ": " + color.Name);
                 }
             }
 
@@ -166,28 +184,31 @@ namespace ARKBreedingStats.uiControls
                 {
                     if (ct is NoPaddingButton bt)
                     {
-                        var selectedColorIdAlternative = SelectedColorIdAlternative == (byte)bt.Tag;
-                        if (bt.SelectedAlternative != selectedColorIdAlternative)
+                        var buttonIsColorAlternative = SelectedColorIdAlternative == (byte)bt.Tag;
+                        if (bt.Status.HasFlag(NoPaddingButton.ColorStatus.SelectedAlternative) != buttonIsColorAlternative)
                         {
-                            bt.SelectedAlternative = selectedColorIdAlternative;
+                            if (buttonIsColorAlternative)
+                                bt.Status |= NoPaddingButton.ColorStatus.SelectedAlternative;
+                            else
+                                bt.Status &= ~NoPaddingButton.ColorStatus.SelectedAlternative;
                             bt.Invalidate();
                         }
                     }
                 }
-                
+
                 UserMadeSelection?.Invoke(true);
                 return;
             }
             // remove selection around current button
             if (_buttonSelectedColor != null)
             {
-                _buttonSelectedColor.Selected = false;
+                _buttonSelectedColor.Status &= ~NoPaddingButton.ColorStatus.SelectedColor;
                 _buttonSelectedColor.Invalidate();
             }
 
             _buttonSelectedColor = (NoPaddingButton)sender;
             SelectedColorId = (byte)_buttonSelectedColor.Tag;
-            _buttonSelectedColor.Selected = true;
+            _buttonSelectedColor.Status |= NoPaddingButton.ColorStatus.SelectedColor;
             _buttonSelectedColor.Invalidate();
 
             UserMadeSelection?.Invoke(true);
@@ -207,38 +228,42 @@ namespace ARKBreedingStats.uiControls
 
         private class NoPaddingButton : Button
         {
-            public bool Selected { get; set; }
-            public bool SelectedAlternative { get; set; }
+            public ColorStatus Status;
 
             protected override void OnPaint(PaintEventArgs pe)
             {
                 pe.Graphics.Clear(SystemColors.Control);
 
                 var defaultVisibleRectangle = ClientRectangle;
-                defaultVisibleRectangle.Inflate(-3, -3);
+                if (Status.HasFlag(ColorStatus.NonExistingColor))
+                    defaultVisibleRectangle.Inflate(-6, -6);
+                else
+                    defaultVisibleRectangle.Inflate(-3, -3);
                 using (var b = new SolidBrush(BackColor))
                     pe.Graphics.FillRectangle(b, defaultVisibleRectangle);
 
-                if (Selected)
+                if (Status.HasFlag(ColorStatus.SelectedColor))
                 {
-                    using (var p = new Pen(Color.Black, 2))
-                    {
-                        defaultVisibleRectangle.Inflate(2, 2);
-                        pe.Graphics.DrawRectangle(p, defaultVisibleRectangle);
-                        p.Color = Color.White;
-                        defaultVisibleRectangle.Inflate(-2, -2);
-                        pe.Graphics.DrawRectangle(p, defaultVisibleRectangle);
-                    }
+                    DrawRectangleAroundButton(Color.Black, ClientRectangle);
                 }
-                else if (SelectedAlternative)
+                else if (Status.HasFlag(ColorStatus.SelectedAlternative))
                 {
-                    using (var p = new Pen(Color.Red, 2))
+                    DrawRectangleAroundButton(Color.Red, ClientRectangle);
+                }
+                else if (Status.HasFlag(ColorStatus.ExistingColor))
+                {
+                    DrawRectangleAroundButton(Color.Green, ClientRectangle);
+                }
+
+                void DrawRectangleAroundButton(Color color, Rectangle rect)
+                {
+                    using (var p = new Pen(color, 2))
                     {
-                        defaultVisibleRectangle.Inflate(2, 2);
-                        pe.Graphics.DrawRectangle(p, defaultVisibleRectangle);
+                        rect.Inflate(-1, -1);
+                        pe.Graphics.DrawRectangle(p, rect);
                         p.Color = Color.White;
-                        defaultVisibleRectangle.Inflate(-2, -2);
-                        pe.Graphics.DrawRectangle(p, defaultVisibleRectangle);
+                        rect.Inflate(-2, -2);
+                        pe.Graphics.DrawRectangle(p, rect);
                     }
                 }
 
@@ -248,6 +273,16 @@ namespace ARKBreedingStats.uiControls
                 stringFormat.LineAlignment = StringAlignment.Center;
                 using (var b = new SolidBrush(ForeColor))
                     pe.Graphics.DrawString(Text, Font, b, ClientRectangle, stringFormat);
+            }
+
+            [Flags]
+            public enum ColorStatus
+            {
+                None = 0,
+                SelectedColor = 1 << 0,
+                SelectedAlternative = 1 << 1,
+                ExistingColor = 1 << 2,
+                NonExistingColor = 1 << 3
             }
         }
     }
