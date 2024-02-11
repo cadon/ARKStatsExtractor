@@ -126,7 +126,7 @@ namespace ARKBreedingStats
                 var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
 
                 LevelStatusFlags.DetermineLevelStatus(species, highSpeciesLevels, lowSpeciesLevels, highSpeciesMutationLevels,
-                    statWeights, GetCurrentWildLevels(), GetCurrentMutLevels(),GetCurrentBreedingValues(),
+                    statWeights, GetCurrentWildLevels(), GetCurrentMutLevels(), GetCurrentBreedingValues(),
                     out var topStatsText, out var newTopStatsText);
 
                 for (var s = 0; s < Stats.StatsCount; s++)
@@ -990,6 +990,21 @@ namespace ARKBreedingStats
             SetStatsActiveAccordingToUsage(cv.Species);
 
             ExtractLevels(autoExtraction, highPrecisionValues, existingCreature: alreadyExistingCreature, possiblyMutagenApplied: cv.flags.HasFlag(CreatureFlags.MutagenApplied));
+
+            if (alreadyExistingCreature?.levelsMutated != null)
+            {
+                // use already set mutation levels
+                for (int s = 0; s < Stats.StatsCount; s++)
+                {
+                    var mutationLevels = alreadyExistingCreature.levelsMutated[s];
+                    if (mutationLevels > 0 && _statIOs[s].LevelWild > mutationLevels)
+                    {
+                        _statIOs[s].LevelMut = mutationLevels;
+                        _statIOs[s].LevelWild -= mutationLevels;
+                    }
+                }
+            }
+
             SetCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
             UpdateParentListInput(creatureInfoInputExtractor); // this function is only used for single-creature extractions, e.g. LastExport
             creatureInfoInputExtractor.AlreadyExistingCreature = alreadyExistingCreature;
