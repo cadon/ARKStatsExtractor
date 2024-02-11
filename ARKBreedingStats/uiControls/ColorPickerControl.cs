@@ -174,7 +174,8 @@ namespace ARKBreedingStats.uiControls
                         }
                     }
                 }
-
+                
+                UserMadeSelection?.Invoke(true);
                 return;
             }
             // remove selection around current button
