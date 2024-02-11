@@ -8,19 +8,26 @@ using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.uiControls
 {
-    public partial class MyColorPicker : Form
+    public partial class ColorPickerControl : UserControl
     {
         public byte SelectedColorId;
         public byte SelectedColorIdAlternative;
         private byte[] _naturalColorIDs;
-        public bool isShown;
+        private NoPaddingButton _buttonSelectedColor;
+        /// <summary>
+        /// Window if the control is shown in a separate window.
+        /// </summary>
+        public ColorPickerWindow Window;
         private readonly ToolTip _tt;
         /// <summary>
         /// Used to determine if new mods were loaded that could contain new color definitions.
         /// </summary>
         private int modListHash;
 
-        public MyColorPicker()
+        public event Action<bool> UserMadeSelection;
+        public event Action<int> HeightChanged;
+
+        public ColorPickerControl()
         {
             InitializeComponent();
             _tt = new ToolTip { AutomaticDelay = 200 };
@@ -30,19 +37,33 @@ namespace ARKBreedingStats.uiControls
             LbAlternativeColor.Text = Loc.S("LbAlternativeColor");
             _tt.SetToolTip(BtNoColor, "0: no color");
             SetUndefinedColorId();
+            buttonCancel.Visible = false;
             buttonCancel.Text = Loc.S("Cancel");
 
             Disposed += MyColorPicker_Disposed;
 
             checkBoxOnlyNatural.Text = Loc.S("showOnlyNaturalOccurring");
-
-            TopMost = true;
         }
 
         private void MyColorPicker_Disposed(object sender, EventArgs e)
         {
             _tt.RemoveAll();
             _tt.Dispose();
+        }
+
+        public void CancelButtonVisible(bool visible)
+        {
+            buttonCancel.Visible = visible;
+        }
+
+        public CheckBox CbOnlyNatural => checkBoxOnlyNatural;
+
+        /// <summary>
+        /// Disables handling of alternative colors.
+        /// </summary>
+        public void DisableAlternativeColor()
+        {
+            LbAlternativeColor.Visible = false;
         }
 
         public void SetUndefinedColorId()
@@ -68,6 +89,9 @@ namespace ARKBreedingStats.uiControls
 
         public void PickColor(byte selectedColorId, string headerText, List<ArkColor> naturalColors = null, byte selectedColorIdAlternative = 0)
         {
+            flowLayoutPanel1.SuspendDrawing();
+            flowLayoutPanel1.SuspendLayout();
+
             label1.Text = headerText;
 
             if (modListHash != values.Values.V.loadedModsHash)
@@ -76,14 +100,17 @@ namespace ARKBreedingStats.uiControls
 
             var colors = values.Values.V.Colors.ColorsList;
 
+            if (_buttonSelectedColor?.Selected == true)
+            {
+                _buttonSelectedColor.Selected = false;
+                _buttonSelectedColor.Invalidate();
+            }
             SelectedColorId = selectedColorId;
             SelectedColorIdAlternative = selectedColorIdAlternative;
             _naturalColorIDs = naturalColors?.Select(ac => ac.Id).ToArray();
             checkBoxOnlyNatural.Visible = _naturalColorIDs != null;
-            if (_naturalColorIDs == null)
-                checkBoxOnlyNatural.Checked = true;
 
-            flowLayoutPanel1.SuspendLayout();
+            const int colorButtonHeight = 24;
 
             for (int colorIndex = 1; colorIndex < colors.Length; colorIndex++)
             {
@@ -93,7 +120,7 @@ namespace ARKBreedingStats.uiControls
                     var np = new NoPaddingButton
                     {
                         Width = 44,
-                        Height = 24,
+                        Height = colorButtonHeight,
                         Margin = new Padding(0)
                     };
                     np.Click += ColorChosen;
@@ -103,7 +130,9 @@ namespace ARKBreedingStats.uiControls
                 if (flowLayoutPanel1.Controls[controlIndex] is NoPaddingButton bt)
                 {
                     bt.Visible = ColorVisible(colors[colorIndex].Id);
-                    bt.Selected = SelectedColorId == colors[colorIndex].Id;
+                    var selected = SelectedColorId == colors[colorIndex].Id;
+                    bt.Selected = selected;
+                    if (selected) _buttonSelectedColor = bt;
                     bt.SelectedAlternative = SelectedColorIdAlternative == colors[colorIndex].Id;
                     bt.SetBackColorAndAccordingForeColor(colors[colorIndex].Color);
                     bt.Tag = colors[colorIndex].Id;
@@ -112,9 +141,13 @@ namespace ARKBreedingStats.uiControls
                 }
             }
 
-            Height = (int)Math.Ceiling(colors.Length / 10d) * 24 + 99;
+            var controlHeight = (int)Math.Ceiling(colors.Length / 10d) * colorButtonHeight + 99;
+            Height = controlHeight;
+            HeightChanged?.Invoke(controlHeight);
             flowLayoutPanel1.ResumeLayout();
-            isShown = true;
+            flowLayoutPanel1.ResumeDrawing();
+            if (Window != null)
+                Window.isShown = true;
         }
 
         private bool ColorVisible(byte id) => !checkBoxOnlyNatural.Checked || (_naturalColorIDs?.Contains(id) ?? true);
@@ -124,7 +157,7 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         private void ColorChosen(object sender, EventArgs e)
         {
-            if ((ModifierKeys & Keys.Control) != 0)
+            if ((ModifierKeys & Keys.Control) != 0 && LbAlternativeColor.Visible)
             {
                 // only set alternative color
                 SelectedColorIdAlternative = (byte)((Control)sender).Tag;
@@ -144,49 +177,31 @@ namespace ARKBreedingStats.uiControls
 
                 return;
             }
-
-            SelectedColorId = (byte)((Control)sender).Tag;
-            HideWindow(true);
-        }
-
-        private void MyColorPicker_Load(object sender, EventArgs e)
-        {
-            int y = Cursor.Position.Y - Height;
-            if (y < 20) y = 20;
-            SetDesktopLocation(Cursor.Position.X - 20, y);
-        }
-
-        private void MyColorPicker_MouseLeave(object sender, EventArgs e)
-        {
-            // mouse left, close
-            if (!ClientRectangle.Contains(PointToClient(MousePosition)) || PointToClient(MousePosition).X == 0 || PointToClient(MousePosition).Y == 0)
+            // remove selection around current button
+            if (_buttonSelectedColor != null)
             {
-                HideWindow(false);
+                _buttonSelectedColor.Selected = false;
+                _buttonSelectedColor.Invalidate();
             }
+
+            _buttonSelectedColor = (NoPaddingButton)sender;
+            SelectedColorId = (byte)_buttonSelectedColor.Tag;
+            _buttonSelectedColor.Selected = true;
+            _buttonSelectedColor.Invalidate();
+
+            UserMadeSelection?.Invoke(true);
         }
 
-        private void MyColorPicker_Leave(object sender, EventArgs e)
-        {
-            HideWindow(false);
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            HideWindow(false);
-        }
-
-        private void HideWindow(bool ok)
-        {
-            isShown = false;
-            DialogResult = ok ? DialogResult.OK : DialogResult.Cancel;
-        }
+        private void ButtonCancelClick(object sender, EventArgs e) => UserMadeSelection?.Invoke(false);
 
         private void checkBoxOnlyNatural_CheckedChanged(object sender, EventArgs e)
         {
+            flowLayoutPanel1.SuspendDrawing();
             flowLayoutPanel1.SuspendLayout();
             for (int c = 0; c < flowLayoutPanel1.Controls.Count; c++)
                 flowLayoutPanel1.Controls[c].Visible = ColorVisible((byte)flowLayoutPanel1.Controls[c].Tag);
             flowLayoutPanel1.ResumeLayout();
+            flowLayoutPanel1.ResumeDrawing();
         }
 
         private class NoPaddingButton : Button

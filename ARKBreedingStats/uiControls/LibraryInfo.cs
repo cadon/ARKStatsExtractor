@@ -42,9 +42,7 @@ namespace ARKBreedingStats.uiControls
             if (tlp != null)
             {
                 tlp.SuspendLayout();
-                // remove all controls except copy to clipboard button and filter checkbox
-                for (int i = tlp.Controls.Count - 1; i > 1; i--)
-                    tlp.Controls.RemoveAt(i);
+                tlp.Controls.Clear();
             }
 
             var colorsExistPerRegion = new HashSet<byte>[Ark.ColorRegionCount];
@@ -106,7 +104,6 @@ namespace ARKBreedingStats.uiControls
                         AutoSize = true
                     };
                     tlp.Controls.Add(l, 0, tableRow++);
-                    tlp.SetColumnSpan(l, 2);
                 }
 
                 sb.AppendLine(text + suffixForPlainText);
@@ -179,6 +176,5 @@ namespace ARKBreedingStats.uiControls
             tlp?.ResumeLayout();
             return true;
         }
-
     }
 }

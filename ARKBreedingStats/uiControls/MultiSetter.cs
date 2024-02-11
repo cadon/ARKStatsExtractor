@@ -12,7 +12,7 @@ namespace ARKBreedingStats.uiControls
     {
 
         private readonly List<Creature> _creatureList;
-        private readonly MyColorPicker _cp = new MyColorPicker();
+        private readonly ColorPickerWindow _cp = new ColorPickerWindow();
         private readonly bool _uniqueSpecies;
         private readonly ToolTip _tt = new ToolTip();
         public bool ParentsChanged, TagsChanged, SpeciesChanged;
@@ -278,11 +278,11 @@ namespace ARKBreedingStats.uiControls
         {
             if (_creatureList[0] != null && !_cp.isShown)
             {
-                _cp.PickColor(_colors[region], "Region " + region);
+                _cp.Cp.PickColor(_colors[region], "Region " + region);
                 if (_cp.ShowDialog() == DialogResult.OK)
                 {
                     // color was chosen
-                    _colors[region] = _cp.SelectedColorId;
+                    _colors[region] = _cp.Cp.SelectedColorId;
                     sender.SetBackColorAndAccordingForeColor(CreatureColors.CreatureColor(_colors[region]));
                     pictureBox1.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(_colors, _uniqueSpecies ? _creatureList[0].Species : null,
                             new[] { true, true, true, true, true, true }));
