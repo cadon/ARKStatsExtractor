@@ -33,9 +33,9 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.BtNoColor = new System.Windows.Forms.Button();
+            this.BtNoColor = new NoPaddingButton();
             this.LbAlternativeColor = new System.Windows.Forms.Label();
-            this.BtUndefinedColor = new System.Windows.Forms.Button();
+            this.BtUndefinedColor = new NoPaddingButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -167,8 +167,8 @@
         private System.Windows.Forms.CheckBox checkBoxOnlyNatural;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Button BtNoColor;
+        private NoPaddingButton BtNoColor;
         private System.Windows.Forms.Label LbAlternativeColor;
-        private System.Windows.Forms.Button BtUndefinedColor;
+        private NoPaddingButton BtUndefinedColor;
     }
 }

@@ -78,7 +78,6 @@ namespace ARKBreedingStats.uiControls
         private void ResetColors()
         {
             SetUndefinedColorId();
-            if (flowLayoutPanel1.Controls.Count == 0) return;
             foreach (Control c in flowLayoutPanel1.Controls)
             {
                 _tt.SetToolTip(c, null);
@@ -133,29 +132,37 @@ namespace ARKBreedingStats.uiControls
                     var color = colors[colorIndex];
                     var colorId = color.Id;
                     bt.Visible = ColorVisible(colorId);
-                    var selected = SelectedColorId == colorId;
-                    bt.Status = NoPaddingButton.ColorStatus.None;
-                    if (selected)
-                    {
-                        _buttonSelectedColor = bt;
-                        bt.Status = NoPaddingButton.ColorStatus.SelectedColor;
-                    }
-                    if (SelectedColorIdAlternative == colorId)
-                    {
-                        bt.Status |= NoPaddingButton.ColorStatus.SelectedAlternative;
-                    }
-                    if (existingColors != null)
-                    {
-                        if (existingColors.Contains(colorId))
-                            bt.Status |= NoPaddingButton.ColorStatus.ExistingColor;
-                        else
-                            bt.Status |= NoPaddingButton.ColorStatus.NonExistingColor;
-                    }
-
+                    SetButtonStatus(bt, colorId);
                     bt.SetBackColorAndAccordingForeColor(color.Color);
                     bt.Tag = colorId;
                     bt.Text = colorId.ToString();
                     _tt.SetToolTip(bt, colorId + ": " + color.Name);
+                }
+            }
+
+            SetButtonStatus(BtNoColor, 0);
+            BtNoColor.Invalidate();
+            SetButtonStatus(BtUndefinedColor, (byte)BtUndefinedColor.Tag);
+            BtUndefinedColor.Invalidate();
+
+            void SetButtonStatus(NoPaddingButton bt, byte colorId)
+            {
+                bt.Status = NoPaddingButton.ColorStatus.None;
+                if (SelectedColorId == colorId)
+                {
+                    _buttonSelectedColor = bt;
+                    bt.Status = NoPaddingButton.ColorStatus.SelectedColor;
+                }
+                if (SelectedColorIdAlternative == colorId && colorId != 0)
+                {
+                    bt.Status |= NoPaddingButton.ColorStatus.SelectedAlternative;
+                }
+                if (existingColors != null)
+                {
+                    if (existingColors.Contains(colorId))
+                        bt.Status |= NoPaddingButton.ColorStatus.ExistingColor;
+                    else
+                        bt.Status |= NoPaddingButton.ColorStatus.NonExistingColor;
                 }
             }
 
