@@ -206,10 +206,17 @@ namespace ARKBreedingStats.uiControls
                 _buttonSelectedColor.Invalidate();
             }
 
-            _buttonSelectedColor = (NoPaddingButton)sender;
-            SelectedColorId = (byte)_buttonSelectedColor.Tag;
-            _buttonSelectedColor.Status |= NoPaddingButton.ColorStatus.SelectedColor;
-            _buttonSelectedColor.Invalidate();
+            SelectedColorId = (byte)((Button)sender).Tag;
+            if (sender is NoPaddingButton bts)
+            {
+                _buttonSelectedColor = bts;
+                _buttonSelectedColor.Status |= NoPaddingButton.ColorStatus.SelectedColor;
+                _buttonSelectedColor.Invalidate();
+            }
+            else
+            {
+                _buttonSelectedColor = null;
+            }
 
             UserMadeSelection?.Invoke(true);
         }

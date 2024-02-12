@@ -103,7 +103,7 @@
         public const byte UndefinedColorIdAsa = 255;
 
         /// <summary>
-        /// When choosing a random color for a mutation, ARK can erroneously select an undefined color. Usually this is color id 227 (one too high to be defined).
+        /// When choosing a random color for a mutation, ARK can erroneously select an undefined color. 227 for ASE, 255 for ASA.
         /// </summary>
         public static byte UndefinedColorId = UndefinedColorIdAse;
 
