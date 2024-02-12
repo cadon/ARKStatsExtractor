@@ -77,6 +77,7 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         private void ResetColors()
         {
+            SetUndefinedColorId();
             if (flowLayoutPanel1.Controls.Count == 0) return;
             foreach (Control c in flowLayoutPanel1.Controls)
             {
@@ -84,7 +85,6 @@ namespace ARKBreedingStats.uiControls
                 c.Dispose();
             }
             flowLayoutPanel1.Controls.Clear();
-            SetUndefinedColorId();
         }
 
         public void PickColor(byte selectedColorId, string headerText, List<ArkColor> naturalColors = null,
