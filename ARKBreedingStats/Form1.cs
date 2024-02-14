@@ -3954,5 +3954,10 @@ namespace ARKBreedingStats
         }
 
         #endregion
+
+        private void openModPageInBrowserToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(RepositoryInfo.ExportGunModPage);
+        }
     }
 }

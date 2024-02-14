@@ -388,6 +388,8 @@ namespace ARKBreedingStats
             this.toolStripSeparator27 = new System.Windows.Forms.ToolStripSeparator();
             this.resetColumnOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
+            this.openModPageInBrowserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator28 = new System.Windows.Forms.ToolStripSeparator();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -1348,37 +1350,39 @@ namespace ARKBreedingStats
             this.listenToolStripMenuItem,
             this.currentTokenToolStripMenuItem,
             this.listenWithNewTokenToolStripMenuItem,
-            this.sendExampleCreatureToolStripMenuItem});
+            this.sendExampleCreatureToolStripMenuItem,
+            this.toolStripSeparator28,
+            this.openModPageInBrowserToolStripMenuItem});
             this.serverToolStripMenuItem.Name = "serverToolStripMenuItem";
-            this.serverToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
-            this.serverToolStripMenuItem.Text = "Server";
+            this.serverToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
+            this.serverToolStripMenuItem.Text = "Export gun";
             // 
             // listenToolStripMenuItem
             // 
             this.listenToolStripMenuItem.CheckOnClick = true;
             this.listenToolStripMenuItem.Name = "listenToolStripMenuItem";
-            this.listenToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.listenToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.listenToolStripMenuItem.Text = "Listen";
             this.listenToolStripMenuItem.CheckedChanged += new System.EventHandler(this.listenToolStripMenuItem_CheckedChanged);
             // 
             // currentTokenToolStripMenuItem
             // 
             this.currentTokenToolStripMenuItem.Name = "currentTokenToolStripMenuItem";
-            this.currentTokenToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.currentTokenToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.currentTokenToolStripMenuItem.Text = "Current token";
             this.currentTokenToolStripMenuItem.Click += new System.EventHandler(this.currentTokenToolStripMenuItem_Click);
             // 
             // listenWithNewTokenToolStripMenuItem
             // 
             this.listenWithNewTokenToolStripMenuItem.Name = "listenWithNewTokenToolStripMenuItem";
-            this.listenWithNewTokenToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.listenWithNewTokenToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.listenWithNewTokenToolStripMenuItem.Text = "Listen with new token";
             this.listenWithNewTokenToolStripMenuItem.Click += new System.EventHandler(this.listenWithNewTokenToolStripMenuItem_Click);
             // 
             // sendExampleCreatureToolStripMenuItem
             // 
             this.sendExampleCreatureToolStripMenuItem.Name = "sendExampleCreatureToolStripMenuItem";
-            this.sendExampleCreatureToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.sendExampleCreatureToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.sendExampleCreatureToolStripMenuItem.Text = "Send example creature";
             this.sendExampleCreatureToolStripMenuItem.Click += new System.EventHandler(this.sendExampleCreatureToolStripMenuItem_Click);
             // 
@@ -3816,6 +3820,18 @@ namespace ARKBreedingStats
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
+            // openModPageInBrowserToolStripMenuItem
+            // 
+            this.openModPageInBrowserToolStripMenuItem.Name = "openModPageInBrowserToolStripMenuItem";
+            this.openModPageInBrowserToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.openModPageInBrowserToolStripMenuItem.Text = "Open mod page in browser";
+            this.openModPageInBrowserToolStripMenuItem.Click += new System.EventHandler(this.openModPageInBrowserToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator28
+            // 
+            this.toolStripSeparator28.Name = "toolStripSeparator28";
+            this.toolStripSeparator28.Size = new System.Drawing.Size(215, 6);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -4280,5 +4296,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem currentTokenToolStripMenuItem;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private uiControls.LibraryInfoControl libraryInfoControl1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator28;
+        private System.Windows.Forms.ToolStripMenuItem openModPageInBrowserToolStripMenuItem;
     }
 }
