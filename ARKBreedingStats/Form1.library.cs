@@ -295,8 +295,8 @@ namespace ARKBreedingStats
                     continue;
                 var speciesCreatures = g.ToArray();
 
-                List<int> usedStatIndices = new List<int>(Stats.StatsCount);
-                List<int> usedAndConsideredStatIndices = new List<int>(Stats.StatsCount);
+                List<int> usedStatIndices = new List<int>(8);
+                List<int> usedAndConsideredStatIndices = new List<int>();
                 var highestLevels = new int[Stats.StatsCount];
                 var lowestLevels = new int[Stats.StatsCount];
                 var highestMutationLevels = new int[Stats.StatsCount];

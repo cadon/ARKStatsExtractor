@@ -53,7 +53,8 @@ namespace ARKBreedingStats.library
 
                 if (s == Stats.Torpidity
                     || levelsWild[s] < 0
-                    || !species.UsesStat(s))
+                    || !species.UsesStat(s)
+                    || !species.CanLevelUpWildOrHaveMutations(s))
                     continue;
 
                 var statName = Utils.StatName(s, false, species.statNames);
