@@ -492,9 +492,14 @@ namespace ARKBreedingStats.settings
                 }
             }
 
-            // Torpidity is handled differently by the game, IwM has no effect. Set IwM to 1.
-            // See https://github.com/cadon/ARKStatsExtractor/issues/942 for more infos about this.
-            _cc.serverMultipliers.statMultipliers[Stats.Torpidity][Stats.IndexLevelWild] = 1;
+            if (_cc.serverMultipliers.statMultipliers[Stats.Torpidity][Stats.IndexLevelWild] != 1)
+            {
+                // Torpidity is handled differently by the game, IwM has no effect. Set IwM to 1.
+                // See https://github.com/cadon/ARKStatsExtractor/issues/942 for more infos about this.
+                MessageBoxes.ShowMessageBox("The increase per wild level of torpidity setting (PerLevelStatsMultiplier_DinoWild[2]) is ignored by ARK, only the value 1 is used for that setting.\nA different value was entered for that setting.\nSmart Breeding will reset this value to 1, since the game also uses that value, regardless what is entered in the server settings. This is done to prevent extraction issues.",
+                    "Torpidity multiplier reset");
+                _cc.serverMultipliers.statMultipliers[Stats.Torpidity][Stats.IndexLevelWild] = 1;
+            }
 
             _cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
             _cc.AtlasSettings = CbAtlasSettings.Checked;
