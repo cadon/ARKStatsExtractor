@@ -118,6 +118,7 @@ namespace ARKBreedingStats
             this.pasteCreatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.libraryFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemMutationColumns = new System.Windows.Forms.ToolStripMenuItem();
+            this.nameGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
@@ -139,6 +140,8 @@ namespace ARKBreedingStats
             this.currentTokenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listenWithNewTokenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendExampleCreatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator28 = new System.Windows.Forms.ToolStripSeparator();
+            this.openModPageInBrowserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.discordServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -388,8 +391,6 @@ namespace ARKBreedingStats
             this.toolStripSeparator27 = new System.Windows.Forms.ToolStripSeparator();
             this.resetColumnOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
-            this.openModPageInBrowserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator28 = new System.Windows.Forms.ToolStripSeparator();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -1020,6 +1021,7 @@ namespace ARKBreedingStats
             this.editToolStripMenuItem,
             this.libraryFilterToolStripMenuItem,
             this.toolStripMenuItemMutationColumns,
+            this.nameGeneratorToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.serverToolStripMenuItem,
             this.helpToolStripMenuItem,
@@ -1224,6 +1226,12 @@ namespace ARKBreedingStats
             this.toolStripMenuItemMutationColumns.Text = "Mutation Columns";
             this.toolStripMenuItemMutationColumns.CheckedChanged += new System.EventHandler(this.toolStripMenuItemMutationColumns_CheckedChanged);
             // 
+            // nameGeneratorToolStripMenuItem
+            // 
+            this.nameGeneratorToolStripMenuItem.Name = "nameGeneratorToolStripMenuItem";
+            this.nameGeneratorToolStripMenuItem.Size = new System.Drawing.Size(105, 20);
+            this.nameGeneratorToolStripMenuItem.Text = "Name generator";
+            // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1385,6 +1393,18 @@ namespace ARKBreedingStats
             this.sendExampleCreatureToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.sendExampleCreatureToolStripMenuItem.Text = "Send example creature";
             this.sendExampleCreatureToolStripMenuItem.Click += new System.EventHandler(this.sendExampleCreatureToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator28
+            // 
+            this.toolStripSeparator28.Name = "toolStripSeparator28";
+            this.toolStripSeparator28.Size = new System.Drawing.Size(215, 6);
+            // 
+            // openModPageInBrowserToolStripMenuItem
+            // 
+            this.openModPageInBrowserToolStripMenuItem.Name = "openModPageInBrowserToolStripMenuItem";
+            this.openModPageInBrowserToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.openModPageInBrowserToolStripMenuItem.Text = "Open mod page in browser";
+            this.openModPageInBrowserToolStripMenuItem.Click += new System.EventHandler(this.openModPageInBrowserToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -3820,18 +3840,6 @@ namespace ARKBreedingStats
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
-            // openModPageInBrowserToolStripMenuItem
-            // 
-            this.openModPageInBrowserToolStripMenuItem.Name = "openModPageInBrowserToolStripMenuItem";
-            this.openModPageInBrowserToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
-            this.openModPageInBrowserToolStripMenuItem.Text = "Open mod page in browser";
-            this.openModPageInBrowserToolStripMenuItem.Click += new System.EventHandler(this.openModPageInBrowserToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator28
-            // 
-            this.toolStripSeparator28.Name = "toolStripSeparator28";
-            this.toolStripSeparator28.Size = new System.Drawing.Size(215, 6);
-            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -4298,5 +4306,6 @@ namespace ARKBreedingStats
         private uiControls.LibraryInfoControl libraryInfoControl1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator28;
         private System.Windows.Forms.ToolStripMenuItem openModPageInBrowserToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nameGeneratorToolStripMenuItem;
     }
 }

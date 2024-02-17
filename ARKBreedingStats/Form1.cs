@@ -246,6 +246,17 @@ namespace ARKBreedingStats
 
             lbTesterWildLevel.ContextMenu = new ContextMenu(new[] { new MenuItem("Set random wild levels", SetRandomWildLevels) });
 
+            // name patterns menu entries
+            const int namePatternCount = 6;
+            var namePatternMenuItems = new ToolStripItem[namePatternCount];
+            for (int i = 0; i < namePatternCount; i++)
+            {
+                var mi = new ToolStripMenuItem { Text = $"Pattern {i + 1}{(i == 0 ? " (used for auto import)" : string.Empty)}", Tag = i };
+                mi.Click += MenuOpenNamePattern;
+                namePatternMenuItems[i] = mi;
+            }
+            nameGeneratorToolStripMenuItem.DropDownItems.AddRange(namePatternMenuItems);
+
             _reactOnCreatureSelectionChange = true;
         }
 
@@ -3959,6 +3970,13 @@ namespace ARKBreedingStats
         private void openModPageInBrowserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(RepositoryInfo.ExportGunModPage);
+        }
+
+        private void MenuOpenNamePattern(object sender, EventArgs e)
+        {
+            var namePatternIndex = (int)((ToolStripMenuItem)sender).Tag;
+            var infoInput = tabControlMain.SelectedTab != tabPageStatTesting ? creatureInfoInputExtractor : creatureInfoInputTester;
+            CreatureInfoInput_CreatureDataRequested(infoInput, true, false, false, namePatternIndex, infoInput.AlreadyExistingCreature);
         }
     }
 }
