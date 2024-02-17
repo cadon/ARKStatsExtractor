@@ -118,7 +118,7 @@ namespace ARKBreedingStats
                     if (data != null)
                         return true;
 
-                    errorMessage = $"File\n{Path.GetFullPath(filePath)}\n contains no readable data.";
+                    errorMessage = $"File\n{Path.GetFullPath(filePath)}\ncontains no readable data.";
                     return false;
                 }
             }
