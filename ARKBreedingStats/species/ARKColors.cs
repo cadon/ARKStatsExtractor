@@ -16,7 +16,7 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Color used if there's no definition for it.
         /// </summary>
-        private static ArkColor _undefinedColor = new ArkColor("undefined", new double[] { 1, 1, 1, 0 }, false);
+        private static readonly ArkColor UndefinedColor = new ArkColor("undefined", new double[] { 1, 1, 1, 0 }, false) { Id = Ark.UndefinedColorId };
 
         /// <summary>
         /// Color definitions of the base game.
@@ -148,9 +148,9 @@ namespace ARKBreedingStats.species
             ColorsList = _colorsById.Values.OrderBy(c => c.Id).ToArray();
         }
 
-        public ArkColor ById(byte id) => _colorsById.TryGetValue(id, out var color) ? color : _undefinedColor;
+        public ArkColor ById(byte id) => _colorsById.TryGetValue(id, out var color) ? color : UndefinedColor;
 
-        public ArkColor ByName(string name) => _colorsByName.TryGetValue(name, out var color) ? color : _undefinedColor;
+        public ArkColor ByName(string name) => _colorsByName.TryGetValue(name, out var color) ? color : UndefinedColor;
 
         /// <summary>
         /// Returns the ARK-id of the color that is closest to the sRGB values.
@@ -260,6 +260,8 @@ namespace ARKBreedingStats.species
 
             return parsedColors.Any() ? parsedColors : null;
         }
+
+        public void SetUndefinedColorId(byte id) => UndefinedColor.Id = id;
 
         /// <summary>
         /// Returns an array with random color ids.

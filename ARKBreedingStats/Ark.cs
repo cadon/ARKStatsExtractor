@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats
+﻿using ARKBreedingStats.values;
+
+namespace ARKBreedingStats
 {
     /// <summary>
     /// Constants of the game Ark.
@@ -110,7 +112,11 @@
         /// <summary>
         /// Sets the undefined color id to the one of ASE or ASA.
         /// </summary>
-        public static void SetUndefinedColorId(bool asa) => UndefinedColorId = asa ? UndefinedColorIdAsa : UndefinedColorIdAse;
+        public static void SetUndefinedColorId(bool asa)
+        {
+            UndefinedColorId = asa ? UndefinedColorIdAsa : UndefinedColorIdAse;
+            Values.V.Colors.SetUndefinedColorId(UndefinedColorId);
+        }
 
         /// <summary>
         /// Number of possible color regions for all species.
