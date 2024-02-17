@@ -448,6 +448,7 @@ namespace ARKBreedingStats.settings
             NudSpeciesSelectorCountLastUsed.ValueSave = Properties.Settings.Default.SpeciesSelectorCountLastSpecies;
 
             CbStreamerMode.Checked = Properties.Settings.Default.StreamerMode;
+            CbDisplayServerTokenPopup.Checked = Properties.Settings.Default.DisplayPopupForServerToken;
             cbDevTools.Checked = Properties.Settings.Default.DevTools;
 
             cbPrettifyJSON.Checked = Properties.Settings.Default.prettifyCollectionJson;
@@ -697,6 +698,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.SpeciesSelectorCountLastSpecies = (int)NudSpeciesSelectorCountLastUsed.Value;
 
             Properties.Settings.Default.StreamerMode = CbStreamerMode.Checked;
+            Properties.Settings.Default.DisplayPopupForServerToken = CbDisplayServerTokenPopup.Checked;
             Properties.Settings.Default.DevTools = cbDevTools.Checked;
 
             Properties.Settings.Default.prettifyCollectionJson = cbPrettifyJSON.Checked;

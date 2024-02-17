@@ -1000,7 +1000,7 @@ namespace ARKBreedingStats
                 if (!string.IsNullOrEmpty(data.ServerToken))
                 {
                     message += Environment.NewLine + Connection.TokenStringForDisplay(data.ServerToken);
-                    displayPopup = !Properties.Settings.Default.StreamerMode;
+                    displayPopup = !Properties.Settings.Default.StreamerMode && Properties.Settings.Default.DisplayPopupForServerToken;
                 }
 
                 SetMessageLabelText(message, data.IsError ? MessageBoxIcon.Error : MessageBoxIcon.Information, clipboardText: data.ClipboardText, displayPopup: displayPopup);

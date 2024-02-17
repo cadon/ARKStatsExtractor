@@ -125,6 +125,7 @@
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabPageMultipliers = new System.Windows.Forms.TabPage();
             this.GbNewLibraryGame = new System.Windows.Forms.GroupBox();
+            this.RbNewLibraryGameAskEachTime = new System.Windows.Forms.RadioButton();
             this.RbNewLibraryGameKeep = new System.Windows.Forms.RadioButton();
             this.RbNewLibraryGameAsa = new System.Windows.Forms.RadioButton();
             this.RbNewLibraryGameAse = new System.Windows.Forms.RadioButton();
@@ -359,7 +360,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.RbNewLibraryGameAskEachTime = new System.Windows.Forms.RadioButton();
+            this.CbDisplayServerTokenPopup = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -1921,6 +1922,17 @@
             this.GbNewLibraryGame.TabStop = false;
             this.GbNewLibraryGame.Text = "Default new library game version";
             // 
+            // RbNewLibraryGameAskEachTime
+            // 
+            this.RbNewLibraryGameAskEachTime.AutoSize = true;
+            this.RbNewLibraryGameAskEachTime.Location = new System.Drawing.Point(221, 19);
+            this.RbNewLibraryGameAskEachTime.Name = "RbNewLibraryGameAskEachTime";
+            this.RbNewLibraryGameAskEachTime.Size = new System.Drawing.Size(92, 17);
+            this.RbNewLibraryGameAskEachTime.TabIndex = 3;
+            this.RbNewLibraryGameAskEachTime.TabStop = true;
+            this.RbNewLibraryGameAskEachTime.Text = "Ask each time";
+            this.RbNewLibraryGameAskEachTime.UseVisualStyleBackColor = true;
+            // 
             // RbNewLibraryGameKeep
             // 
             this.RbNewLibraryGameKeep.AutoSize = true;
@@ -2276,7 +2288,7 @@
             this.groupBox31.Controls.Add(this.CbColorIdOnColorRegionButton);
             this.groupBox31.Controls.Add(this.CbAlwaysShowAllColorRegions);
             this.groupBox31.Controls.Add(this.CbHideInvisibleColorRegions);
-            this.groupBox31.Location = new System.Drawing.Point(329, 319);
+            this.groupBox31.Location = new System.Drawing.Point(329, 341);
             this.groupBox31.Name = "groupBox31";
             this.groupBox31.Size = new System.Drawing.Size(413, 66);
             this.groupBox31.TabIndex = 14;
@@ -2319,9 +2331,9 @@
             this.groupBox30.Controls.Add(this.BExportSpreadsheetMoveDown);
             this.groupBox30.Controls.Add(this.BExportSpreadsheetMoveUp);
             this.groupBox30.Controls.Add(this.ClbExportSpreadsheetFields);
-            this.groupBox30.Location = new System.Drawing.Point(329, 391);
+            this.groupBox30.Location = new System.Drawing.Point(329, 413);
             this.groupBox30.Name = "groupBox30";
-            this.groupBox30.Size = new System.Drawing.Size(413, 268);
+            this.groupBox30.Size = new System.Drawing.Size(413, 246);
             this.groupBox30.TabIndex = 13;
             this.groupBox30.TabStop = false;
             this.groupBox30.Text = "Info to export for spreadsheet";
@@ -2362,7 +2374,7 @@
             this.ClbExportSpreadsheetFields.FormattingEnabled = true;
             this.ClbExportSpreadsheetFields.Location = new System.Drawing.Point(36, 42);
             this.ClbExportSpreadsheetFields.Name = "ClbExportSpreadsheetFields";
-            this.ClbExportSpreadsheetFields.Size = new System.Drawing.Size(371, 214);
+            this.ClbExportSpreadsheetFields.Size = new System.Drawing.Size(371, 199);
             this.ClbExportSpreadsheetFields.TabIndex = 12;
             // 
             // GbImgCacheLocalAppData
@@ -2387,11 +2399,12 @@
             // 
             // groupBox16
             // 
+            this.groupBox16.Controls.Add(this.CbDisplayServerTokenPopup);
             this.groupBox16.Controls.Add(this.CbStreamerMode);
             this.groupBox16.Controls.Add(this.cbDevTools);
             this.groupBox16.Location = new System.Drawing.Point(329, 234);
             this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(413, 79);
+            this.groupBox16.Size = new System.Drawing.Size(413, 101);
             this.groupBox16.TabIndex = 10;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Application";
@@ -2407,7 +2420,7 @@
             // 
             // cbDevTools
             // 
-            this.cbDevTools.Location = new System.Drawing.Point(6, 44);
+            this.cbDevTools.Location = new System.Drawing.Point(6, 71);
             this.cbDevTools.Name = "cbDevTools";
             this.cbDevTools.Size = new System.Drawing.Size(407, 24);
             this.cbDevTools.TabIndex = 0;
@@ -3840,7 +3853,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3848,7 +3861,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3856,7 +3869,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3864,7 +3877,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -4583,16 +4596,14 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // RbNewLibraryGameAskEachTime
+            // CbDisplayServerTokenPopup
             // 
-            this.RbNewLibraryGameAskEachTime.AutoSize = true;
-            this.RbNewLibraryGameAskEachTime.Location = new System.Drawing.Point(221, 19);
-            this.RbNewLibraryGameAskEachTime.Name = "RbNewLibraryGameAskEachTime";
-            this.RbNewLibraryGameAskEachTime.Size = new System.Drawing.Size(92, 17);
-            this.RbNewLibraryGameAskEachTime.TabIndex = 3;
-            this.RbNewLibraryGameAskEachTime.TabStop = true;
-            this.RbNewLibraryGameAskEachTime.Text = "Ask each time";
-            this.RbNewLibraryGameAskEachTime.UseVisualStyleBackColor = true;
+            this.CbDisplayServerTokenPopup.Location = new System.Drawing.Point(6, 46);
+            this.CbDisplayServerTokenPopup.Name = "CbDisplayServerTokenPopup";
+            this.CbDisplayServerTokenPopup.Size = new System.Drawing.Size(407, 24);
+            this.CbDisplayServerTokenPopup.TabIndex = 2;
+            this.CbDisplayServerTokenPopup.Text = "Display server token popup (disabled in Streamer mode)";
+            this.CbDisplayServerTokenPopup.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -5093,5 +5104,6 @@
         private System.Windows.Forms.RadioButton RbNewLibraryGameAsa;
         private System.Windows.Forms.RadioButton RbNewLibraryGameAse;
         private System.Windows.Forms.RadioButton RbNewLibraryGameAskEachTime;
+        private System.Windows.Forms.CheckBox CbDisplayServerTokenPopup;
     }
 }

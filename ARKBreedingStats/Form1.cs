@@ -3945,7 +3945,7 @@ namespace ARKBreedingStats
             }
 
             SetMessageLabelText(message, isError ? MessageBoxIcon.Error : MessageBoxIcon.Information,
-                clipboardText: Properties.Settings.Default.ExportServerToken, displayPopup: !Properties.Settings.Default.StreamerMode);
+                clipboardText: Properties.Settings.Default.ExportServerToken, displayPopup: !Properties.Settings.Default.StreamerMode && Properties.Settings.Default.DisplayPopupForServerToken);
         }
 
         private void sendExampleCreatureToolStripMenuItem_Click(object sender, EventArgs e)
