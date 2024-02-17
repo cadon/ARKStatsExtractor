@@ -196,16 +196,17 @@ namespace ARKBreedingStats.BreedingPlanning
                 }
                 else
                 {
+                    var includeWithCooldown = cbBPIncludeCooldowneds.Checked;
+                    var ignoreBreedingCooldown = _currentSpecies?.noGender == true; // for hermaphrodites only one partner needs to be not on cooldown
                     Creatures = CreatureCollection.creatures
                         .Where(c => c.speciesBlueprint == _currentSpecies.blueprintPath
                                     && !c.flags.HasFlag(CreatureFlags.Neutered)
                                     && !c.flags.HasFlag(CreatureFlags.Placeholder)
                                     && (c.Status == CreatureStatus.Available
                                         || (c.Status == CreatureStatus.Cryopod && cbBPIncludeCryoCreatures.Checked))
-                                    && (cbBPIncludeCooldowneds.Checked
-                                        || !(c.cooldownUntil > DateTime.Now
-                                             || c.growingUntil > DateTime.Now
-                                            )
+                                    && (includeWithCooldown
+                                        || !(c.growingUntil > DateTime.Now
+                                             || (!ignoreBreedingCooldown && c.cooldownUntil > DateTime.Now))
                                     )
                         )
                         .ToList();
@@ -414,7 +415,7 @@ namespace ARKBreedingStats.BreedingPlanning
                     bestPossLevels, _statWeights, _bestLevels, _breedingMode,
                     considerChosenCreature, considerMutationLimit, (int)nudBPMutationLimit.Value,
                     ref creaturesMutationsFilteredOut, levelLimitWithOutDomLevels, CbDontSuggestOverLimitOffspring.Checked,
-                    cbBPOnlyOneSuggestionForFemales.Checked, _statOddEvens);
+                    cbBPOnlyOneSuggestionForFemales.Checked, _statOddEvens, !cbBPIncludeCooldowneds.Checked && _currentSpecies.noGender);
 
                 double minScore = _breedingPairs.LastOrDefault()?.BreedingScore.OneNumber ?? 0;
                 var displayScoreOffset = (minScore < 0 ? -minScore : 0) + .5; // don't display negative scores, could be confusing
