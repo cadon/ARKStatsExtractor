@@ -40,7 +40,7 @@ namespace ARKBreedingStats.importExportGun
                             break;
                     }
 
-                    return ImportCreatureFromJson(jsonText, resultText, out resultText, out serverMultipliersHash);
+                    return LoadCreatureFromJson(jsonText, resultText, out resultText, out serverMultipliersHash);
 
                 }
                 catch (IOException) when (tryIndex < tryLoadCount - 1)
@@ -58,7 +58,7 @@ namespace ARKBreedingStats.importExportGun
             return null;
         }
 
-        public static Creature ImportCreatureFromJson(string jsonText, string resultSoFar, out string resultText, out string serverMultipliersHash, string filePath = null)
+        public static Creature LoadCreatureFromJson(string jsonText, string resultSoFar, out string resultText, out string serverMultipliersHash, string filePath = null)
         {
             resultText = resultSoFar;
             serverMultipliersHash = null;

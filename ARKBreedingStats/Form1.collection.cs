@@ -893,23 +893,8 @@ namespace ARKBreedingStats
             if (lastAddedCreature != null)
             {
                 creatureAdded = true;
-
                 // calculate level status of last added creature
-                var species = lastAddedCreature.Species;
-                _highestSpeciesLevels.TryGetValue(species, out int[] highSpeciesLevels);
-                _lowestSpeciesLevels.TryGetValue(species, out int[] lowSpeciesLevels);
-                _highestSpeciesMutationLevels.TryGetValue(species, out int[] highSpeciesMutationLevels);
-                var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
-                LevelStatusFlags.DetermineLevelStatus(species, highSpeciesLevels, lowSpeciesLevels, highSpeciesMutationLevels,
-                    statWeights, lastAddedCreature.levelsWild, lastAddedCreature.levelsMutated, lastAddedCreature.valuesBreeding,
-                    out _, out _);
-
-                if (playImportSound)
-                {
-                    var creature = lastAddedCreature;
-                    var alreadyExists = persistentCreaturesAndOldName.FirstOrDefault(c => c.creature.Equals(creature)).oldName != null;
-                    SoundFeedback.BeepSignalCurrentLevelFlags(alreadyExists);
-                }
+                DetermineLevelStatusAndSoundFeedback(lastAddedCreature, playImportSound);
             }
 
             _creatureCollection.MergeCreatureList(newCreatures, true);
@@ -986,6 +971,23 @@ namespace ARKBreedingStats
             UpdateTempCreatureDropDown();
         }
 
+        private void DetermineLevelStatusAndSoundFeedback(Creature c, bool playImportSound)
+        {
+            var species = c.Species;
+            _highestSpeciesLevels.TryGetValue(species, out int[] highSpeciesLevels);
+            _lowestSpeciesLevels.TryGetValue(species, out int[] lowSpeciesLevels);
+            _highestSpeciesMutationLevels.TryGetValue(species, out int[] highSpeciesMutationLevels);
+            var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
+            LevelStatusFlags.DetermineLevelStatus(species, highSpeciesLevels, lowSpeciesLevels, highSpeciesMutationLevels,
+                statWeights, c.levelsWild, c.levelsMutated, c.valuesBreeding,
+                out _, out _);
+
+            if (playImportSound)
+            {
+                SoundFeedback.BeepSignalCurrentLevelFlags(IsCreatureAlreadyInLibrary(c.guid, c.ArkId, out _));
+            }
+        }
+
         /// <summary>
         /// Handle reports from the AsbServer listening, e.g. importing creatures or handle errors.
         /// </summary>
@@ -1020,12 +1022,14 @@ namespace ARKBreedingStats
             if (string.IsNullOrEmpty(data.ServerHash))
             {
                 // import creature
-                var creature = ImportExportGun.ImportCreatureFromJson(data.JsonText, null, out resultText, out _);
+                var creature = ImportExportGun.LoadCreatureFromJson(data.JsonText, null, out resultText, out _);
                 if (creature == null)
                 {
                     SetMessageLabelText(resultText, MessageBoxIcon.Error);
                     return;
                 }
+
+                DetermineLevelStatusAndSoundFeedback(creature, Properties.Settings.Default.PlaySoundOnAutoImport);
 
                 _creatureCollection.MergeCreatureList(new[] { creature }, true);
                 UpdateCreatureParentLinkingSort();
