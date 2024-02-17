@@ -16,6 +16,7 @@ using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.AsbServer;
+using ARKBreedingStats.library;
 
 namespace ARKBreedingStats
 {
@@ -817,7 +818,7 @@ namespace ARKBreedingStats
         /// Imports creature from file created by the export gun mod.
         /// Returns already existing Creature or null if it's a new creature.
         /// </summary>
-        private Creature ImportExportGunFiles(string[] filePaths, out bool creatureAdded, out Creature lastAddedCreature, out bool copiedNameToClipboard)
+        private Creature ImportExportGunFiles(string[] filePaths, out bool creatureAdded, out Creature lastAddedCreature, out bool copiedNameToClipboard, bool playImportSound = false)
         {
             creatureAdded = false;
             copiedNameToClipboard = false;
@@ -835,7 +836,7 @@ namespace ARKBreedingStats
 
             foreach (var filePath in filePaths)
             {
-                var c = ImportExportGun.ImportCreature(filePath, out lastError, out serverMultipliersHash);
+                var c = ImportExportGun.LoadCreature(filePath, out lastError, out serverMultipliersHash);
                 if (c != null)
                 {
                     newCreatures.Add(c);
@@ -881,18 +882,35 @@ namespace ARKBreedingStats
                 ApplySettingsToValues();
             }
 
-            lastAddedCreature = newCreatures.LastOrDefault();
-            if (lastAddedCreature != null)
-            {
-                creatureAdded = true;
-            }
-
             var totalCreatureCount = _creatureCollection.GetTotalCreatureCount();
             // select creature objects that will be in the library (i.e. new creature, or existing creature), and the old name
             var persistentCreaturesAndOldName = newCreatures.Select(c => (creature:
                 IsCreatureAlreadyInLibrary(c.guid, c.ArkId, out alreadyExistingCreature)
                     ? alreadyExistingCreature
                     : c, oldName: alreadyExistingCreature?.name)).ToArray();
+
+            lastAddedCreature = newCreatures.LastOrDefault();
+            if (lastAddedCreature != null)
+            {
+                creatureAdded = true;
+
+                // calculate level status of last added creature
+                var species = lastAddedCreature.Species;
+                _highestSpeciesLevels.TryGetValue(species, out int[] highSpeciesLevels);
+                _lowestSpeciesLevels.TryGetValue(species, out int[] lowSpeciesLevels);
+                _highestSpeciesMutationLevels.TryGetValue(species, out int[] highSpeciesMutationLevels);
+                var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
+                LevelStatusFlags.DetermineLevelStatus(species, highSpeciesLevels, lowSpeciesLevels, highSpeciesMutationLevels,
+                    statWeights, lastAddedCreature.levelsWild, lastAddedCreature.levelsMutated, lastAddedCreature.valuesBreeding,
+                    out _, out _);
+
+                if (playImportSound)
+                {
+                    var creature = lastAddedCreature;
+                    var alreadyExists = persistentCreaturesAndOldName.FirstOrDefault(c => c.creature.Equals(creature)).oldName != null;
+                    SoundFeedback.BeepSignalCurrentLevelFlags(alreadyExists);
+                }
+            }
 
             _creatureCollection.MergeCreatureList(newCreatures, true);
             UpdateCreatureParentLinkingSort(false);
@@ -950,7 +968,9 @@ namespace ARKBreedingStats
                 UpdateListsAfterCreaturesAdded();
         }
 
-
+        /// <summary>
+        /// Updates lists after creatures were added, recalculates library info, e.g. top stats.
+        /// </summary>
         private void UpdateListsAfterCreaturesAdded()
         {
             // update UI

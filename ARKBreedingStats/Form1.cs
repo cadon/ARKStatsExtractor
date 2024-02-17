@@ -958,7 +958,8 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// This function should be called if the creatureCollection was changed, i.e. after loading a file or adding/removing a creature
+        /// This function should be called if the creatureCollection was changed, i.e. after loading a file or adding/removing a creature.
+        /// It updates library info, e.g. the top stats.
         /// </summary>
         /// <param name="species">If not null, only the creatures of the species are updated</param>
         /// <param name="keepCurrentlySelectedSpecies"></param>
@@ -3426,7 +3427,7 @@ namespace ARKBreedingStats
                     break;
                 case ".sav":
                 case ".json":
-                    ImportExportGunFiles(files, out _, out _, out _);
+                    ImportExportGunFiles(files, out _, out _, out _, Properties.Settings.Default.PlaySoundOnAutoImport);
                     break;
                 case ".asb":
                 case ".xml":

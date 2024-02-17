@@ -13,9 +13,9 @@ namespace ARKBreedingStats.importExportGun
     internal static class ImportExportGun
     {
         /// <summary>
-        /// Import file created with the export gun (mod).
+        /// Load creature from file created with the export gun (mod).
         /// </summary>
-        public static Creature ImportCreature(string filePath, out string resultText, out string serverMultipliersHash)
+        public static Creature LoadCreature(string filePath, out string resultText, out string serverMultipliersHash)
         {
             resultText = null;
             serverMultipliersHash = null;
