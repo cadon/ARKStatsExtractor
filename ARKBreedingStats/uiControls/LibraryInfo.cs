@@ -101,7 +101,8 @@ namespace ARKBreedingStats.uiControls
                                 bold ? FontStyle.Bold : FontStyle.Regular)
                             : Control.DefaultFont,
                         Margin = new Padding(3, bold ? 8 : 3, 3, 3),
-                        AutoSize = true
+                        AutoSize = true,
+                        MaximumSize = new Size(440, 0)
                     };
                     tlp.Controls.Add(l, 0, tableRow++);
                 }
