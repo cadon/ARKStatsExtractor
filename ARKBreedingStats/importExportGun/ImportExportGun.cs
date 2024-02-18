@@ -13,9 +13,9 @@ namespace ARKBreedingStats.importExportGun
     internal static class ImportExportGun
     {
         /// <summary>
-        /// Import file created with the export gun (mod).
+        /// Load creature from file created with the export gun (mod).
         /// </summary>
-        public static Creature ImportCreature(string filePath, out string resultText, out string serverMultipliersHash)
+        public static Creature LoadCreature(string filePath, out string resultText, out string serverMultipliersHash)
         {
             resultText = null;
             serverMultipliersHash = null;
@@ -40,7 +40,7 @@ namespace ARKBreedingStats.importExportGun
                             break;
                     }
 
-                    return ImportCreatureFromJson(jsonText, resultText, out resultText, out serverMultipliersHash);
+                    return LoadCreatureFromJson(jsonText, resultText, out resultText, out serverMultipliersHash);
 
                 }
                 catch (IOException) when (tryIndex < tryLoadCount - 1)
@@ -58,7 +58,7 @@ namespace ARKBreedingStats.importExportGun
             return null;
         }
 
-        public static Creature ImportCreatureFromJson(string jsonText, string resultSoFar, out string resultText, out string serverMultipliersHash, string filePath = null)
+        public static Creature LoadCreatureFromJson(string jsonText, string resultSoFar, out string resultText, out string serverMultipliersHash, string filePath = null)
         {
             resultText = resultSoFar;
             serverMultipliersHash = null;
@@ -278,10 +278,21 @@ namespace ARKBreedingStats.importExportGun
         public static ExportGunServerFile ReadServerMultipliersFromJson(string jsonText, string resultSoFar, out string resultText, string game = null, string filePath = null)
         {
             resultText = resultSoFar;
-            var exportedServerMultipliers = JsonConvert.DeserializeObject<ExportGunServerFile>(jsonText);
             if (string.IsNullOrEmpty(jsonText))
             {
-                resultText = $"Error when importing file {filePath}: {resultText}";
+                resultText = $"The file is empty and cannot be imported: {filePath}{Environment.NewLine}{resultText}";
+                return null;
+            }
+            var exportedServerMultipliers = JsonConvert.DeserializeObject<ExportGunServerFile>(jsonText);
+
+            // check if the file is a valid server settings file
+            if (exportedServerMultipliers?.WildLevel == null
+                || exportedServerMultipliers.TameLevel == null
+                || exportedServerMultipliers.TameAdd == null
+                || exportedServerMultipliers.TameAff == null
+               )
+            {
+                resultText = $"The file is not a valid server multipliers file and cannot be imported: {filePath}{Environment.NewLine}{resultText}";
                 return null;
             }
 

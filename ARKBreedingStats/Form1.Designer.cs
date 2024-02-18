@@ -118,6 +118,7 @@ namespace ARKBreedingStats
             this.pasteCreatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.libraryFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemMutationColumns = new System.Windows.Forms.ToolStripMenuItem();
+            this.nameGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
@@ -136,8 +137,11 @@ namespace ARKBreedingStats
             this.helpAboutSpeciesSortingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.currentTokenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listenWithNewTokenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendExampleCreatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator28 = new System.Windows.Forms.ToolStripSeparator();
+            this.openModPageInBrowserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.discordServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -310,8 +314,10 @@ namespace ARKBreedingStats
             this.creatureBoxListView = new ARKBreedingStats.CreatureBox();
             this.tabPageLibraryInfo = new System.Windows.Forms.TabPage();
             this.tlpLibraryInfo = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.CbLibraryInfoUseFilter = new System.Windows.Forms.CheckBox();
             this.BtCopyLibraryColorToClipboard = new System.Windows.Forms.Button();
+            this.libraryInfoControl1 = new ARKBreedingStats.uiControls.LibraryInfoControl();
             this.tabPagePedigree = new System.Windows.Forms.TabPage();
             this.pedigree1 = new ARKBreedingStats.Pedigree.PedigreeControl();
             this.tabPageTaming = new System.Windows.Forms.TabPage();
@@ -385,7 +391,6 @@ namespace ARKBreedingStats
             this.toolStripSeparator27 = new System.Windows.Forms.ToolStripSeparator();
             this.resetColumnOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
-            this.currentTokenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -431,6 +436,7 @@ namespace ARKBreedingStats
             ((System.ComponentModel.ISupportInitialize)(this.radarChartLibrary)).BeginInit();
             this.tabPageLibraryInfo.SuspendLayout();
             this.tlpLibraryInfo.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.tabPagePedigree.SuspendLayout();
             this.tabPageTaming.SuspendLayout();
             this.tabPageBreedingPlan.SuspendLayout();
@@ -1015,6 +1021,7 @@ namespace ARKBreedingStats
             this.editToolStripMenuItem,
             this.libraryFilterToolStripMenuItem,
             this.toolStripMenuItemMutationColumns,
+            this.nameGeneratorToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.serverToolStripMenuItem,
             this.helpToolStripMenuItem,
@@ -1219,6 +1226,12 @@ namespace ARKBreedingStats
             this.toolStripMenuItemMutationColumns.Text = "Mutation Columns";
             this.toolStripMenuItemMutationColumns.CheckedChanged += new System.EventHandler(this.toolStripMenuItemMutationColumns_CheckedChanged);
             // 
+            // nameGeneratorToolStripMenuItem
+            // 
+            this.nameGeneratorToolStripMenuItem.Name = "nameGeneratorToolStripMenuItem";
+            this.nameGeneratorToolStripMenuItem.Size = new System.Drawing.Size(105, 20);
+            this.nameGeneratorToolStripMenuItem.Text = "Name generator";
+            // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1345,32 +1358,53 @@ namespace ARKBreedingStats
             this.listenToolStripMenuItem,
             this.currentTokenToolStripMenuItem,
             this.listenWithNewTokenToolStripMenuItem,
-            this.sendExampleCreatureToolStripMenuItem});
+            this.sendExampleCreatureToolStripMenuItem,
+            this.toolStripSeparator28,
+            this.openModPageInBrowserToolStripMenuItem});
             this.serverToolStripMenuItem.Name = "serverToolStripMenuItem";
-            this.serverToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
-            this.serverToolStripMenuItem.Text = "Server";
+            this.serverToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
+            this.serverToolStripMenuItem.Text = "Export gun";
             // 
             // listenToolStripMenuItem
             // 
             this.listenToolStripMenuItem.CheckOnClick = true;
             this.listenToolStripMenuItem.Name = "listenToolStripMenuItem";
-            this.listenToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.listenToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.listenToolStripMenuItem.Text = "Listen";
             this.listenToolStripMenuItem.CheckedChanged += new System.EventHandler(this.listenToolStripMenuItem_CheckedChanged);
+            // 
+            // currentTokenToolStripMenuItem
+            // 
+            this.currentTokenToolStripMenuItem.Name = "currentTokenToolStripMenuItem";
+            this.currentTokenToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.currentTokenToolStripMenuItem.Text = "Current token";
+            this.currentTokenToolStripMenuItem.Click += new System.EventHandler(this.currentTokenToolStripMenuItem_Click);
             // 
             // listenWithNewTokenToolStripMenuItem
             // 
             this.listenWithNewTokenToolStripMenuItem.Name = "listenWithNewTokenToolStripMenuItem";
-            this.listenWithNewTokenToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.listenWithNewTokenToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.listenWithNewTokenToolStripMenuItem.Text = "Listen with new token";
             this.listenWithNewTokenToolStripMenuItem.Click += new System.EventHandler(this.listenWithNewTokenToolStripMenuItem_Click);
             // 
             // sendExampleCreatureToolStripMenuItem
             // 
             this.sendExampleCreatureToolStripMenuItem.Name = "sendExampleCreatureToolStripMenuItem";
-            this.sendExampleCreatureToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.sendExampleCreatureToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.sendExampleCreatureToolStripMenuItem.Text = "Send example creature";
             this.sendExampleCreatureToolStripMenuItem.Click += new System.EventHandler(this.sendExampleCreatureToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator28
+            // 
+            this.toolStripSeparator28.Name = "toolStripSeparator28";
+            this.toolStripSeparator28.Size = new System.Drawing.Size(215, 6);
+            // 
+            // openModPageInBrowserToolStripMenuItem
+            // 
+            this.openModPageInBrowserToolStripMenuItem.Name = "openModPageInBrowserToolStripMenuItem";
+            this.openModPageInBrowserToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.openModPageInBrowserToolStripMenuItem.Text = "Open mod page in browser";
+            this.openModPageInBrowserToolStripMenuItem.Click += new System.EventHandler(this.openModPageInBrowserToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -3017,18 +3051,33 @@ namespace ARKBreedingStats
             // tlpLibraryInfo
             // 
             this.tlpLibraryInfo.AutoScroll = true;
-            this.tlpLibraryInfo.ColumnCount = 2;
-            this.tlpLibraryInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tlpLibraryInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tlpLibraryInfo.Controls.Add(this.CbLibraryInfoUseFilter, 1, 0);
-            this.tlpLibraryInfo.Controls.Add(this.BtCopyLibraryColorToClipboard, 0, 0);
+            this.tlpLibraryInfo.ColumnCount = 1;
+            this.tlpLibraryInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpLibraryInfo.Controls.Add(this.tableLayoutPanel3, 0, 0);
+            this.tlpLibraryInfo.Controls.Add(this.libraryInfoControl1, 0, 1);
             this.tlpLibraryInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpLibraryInfo.Location = new System.Drawing.Point(3, 3);
             this.tlpLibraryInfo.Name = "tlpLibraryInfo";
-            this.tlpLibraryInfo.RowCount = 1;
+            this.tlpLibraryInfo.RowCount = 2;
             this.tlpLibraryInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlpLibraryInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpLibraryInfo.Size = new System.Drawing.Size(1864, 778);
             this.tlpLibraryInfo.TabIndex = 0;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel3.Controls.Add(this.CbLibraryInfoUseFilter, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.BtCopyLibraryColorToClipboard, 0, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(1858, 30);
+            this.tableLayoutPanel3.TabIndex = 2;
             // 
             // CbLibraryInfoUseFilter
             // 
@@ -3050,6 +3099,14 @@ namespace ARKBreedingStats
             this.BtCopyLibraryColorToClipboard.Text = "Copy this text to the clipboard";
             this.BtCopyLibraryColorToClipboard.UseVisualStyleBackColor = true;
             this.BtCopyLibraryColorToClipboard.Click += new System.EventHandler(this.BtCopyLibraryColorToClipboard_Click);
+            // 
+            // libraryInfoControl1
+            // 
+            this.libraryInfoControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.libraryInfoControl1.Location = new System.Drawing.Point(3, 39);
+            this.libraryInfoControl1.Name = "libraryInfoControl1";
+            this.libraryInfoControl1.Size = new System.Drawing.Size(1858, 736);
+            this.libraryInfoControl1.TabIndex = 3;
             // 
             // tabPagePedigree
             // 
@@ -3783,13 +3840,6 @@ namespace ARKBreedingStats
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
-            // currentTokenToolStripMenuItem
-            // 
-            this.currentTokenToolStripMenuItem.Name = "currentTokenToolStripMenuItem";
-            this.currentTokenToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
-            this.currentTokenToolStripMenuItem.Text = "Current token";
-            this.currentTokenToolStripMenuItem.Click += new System.EventHandler(this.currentTokenToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -3874,7 +3924,8 @@ namespace ARKBreedingStats
             ((System.ComponentModel.ISupportInitialize)(this.radarChartLibrary)).EndInit();
             this.tabPageLibraryInfo.ResumeLayout(false);
             this.tlpLibraryInfo.ResumeLayout(false);
-            this.tlpLibraryInfo.PerformLayout();
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel3.PerformLayout();
             this.tabPagePedigree.ResumeLayout(false);
             this.tabPageTaming.ResumeLayout(false);
             this.tabPageBreedingPlan.ResumeLayout(false);
@@ -4251,5 +4302,10 @@ namespace ARKBreedingStats
         private System.Windows.Forms.CheckBox CbLinkWildMutatedLevelsTester;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemMutationColumns;
         private System.Windows.Forms.ToolStripMenuItem currentTokenToolStripMenuItem;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private uiControls.LibraryInfoControl libraryInfoControl1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator28;
+        private System.Windows.Forms.ToolStripMenuItem openModPageInBrowserToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nameGeneratorToolStripMenuItem;
     }
 }

@@ -136,6 +136,12 @@ namespace ARKBreedingStats.values
                 if (throwExceptionOnFail)
                     throw new FormatException(errorMessage);
             }
+            catch (FileLoadException ex)
+            {
+                errorMessage = ex.Message;
+                if (throwExceptionOnFail)
+                    throw;
+            }
             return false;
         }
     }

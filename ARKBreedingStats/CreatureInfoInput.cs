@@ -696,7 +696,7 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// If set to true, it's assumed the creature is already existing.
+        /// If not null it's assumed the creature is already existing in the library.
         /// </summary>
         public Creature AlreadyExistingCreature
         {
@@ -709,6 +709,7 @@ namespace ARKBreedingStats
                 _alreadyExistingCreature = value;
                 SetAdd2LibColor(btAdd2Library.Enabled);
             }
+            get => _alreadyExistingCreature;
         }
 
         /// <summary>

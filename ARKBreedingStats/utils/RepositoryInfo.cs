@@ -20,5 +20,10 @@ namespace ARKBreedingStats.utils
         /// Invite link for the ARK Smart Breeding discord link.
         /// </summary>
         internal const string DiscordServerInviteLink = "https://discord.gg/qCYYbQK";
+
+        /// <summary>
+        /// Link of the export gun mod.
+        /// </summary>
+        internal const string ExportGunModPage = "https://www.curseforge.com/ark-survival-ascended/mods/ark-smart-breeding-export-gun";
     }
 }

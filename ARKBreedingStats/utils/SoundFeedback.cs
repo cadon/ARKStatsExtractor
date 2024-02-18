@@ -1,4 +1,5 @@
 ﻿using System.Media;
+using ARKBreedingStats.library;
 
 namespace ARKBreedingStats.utils
 {
@@ -55,6 +56,30 @@ namespace ARKBreedingStats.utils
                     Sp.Stream = Properties.Resources.newMutation;
                     Sp.Play();
                     return;
+            }
+        }
+
+        /// <summary>
+        /// Sound feedback according to current LevelStatusFlags.
+        /// </summary>
+        public static void BeepSignalCurrentLevelFlags(bool creatureAlreadyExists = false, bool extractionSuccessful = true)
+        {
+            if (extractionSuccessful)
+            {
+                if (creatureAlreadyExists)
+                    BeepSignal(FeedbackSounds.Updated);
+                else if (LevelStatusFlags.CombinedLevelStatusFlags.HasFlag(LevelStatusFlags.LevelStatus.NewMutation))
+                    BeepSignal(FeedbackSounds.NewMutation);
+                else if (LevelStatusFlags.CombinedLevelStatusFlags.HasFlag(LevelStatusFlags.LevelStatus.NewTopLevel))
+                    BeepSignal(FeedbackSounds.Great);
+                else if (LevelStatusFlags.CombinedLevelStatusFlags.HasFlag(LevelStatusFlags.LevelStatus.TopLevel))
+                    BeepSignal(FeedbackSounds.Good);
+                else
+                    BeepSignal(FeedbackSounds.Success);
+            }
+            else
+            {
+                BeepSignal(FeedbackSounds.Failure);
             }
         }
     }

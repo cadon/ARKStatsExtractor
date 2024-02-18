@@ -30,12 +30,13 @@ namespace ARKBreedingStats.BreedingPlanning
         /// <param name="downGradeOffspringWithLevelHigherThanLimit">Downgrade score if level is higher than limit.</param>
         /// <param name="onlyBestSuggestionForFemale">Only the pairing with the highest score is kept for each female. Is not used if species has no sex or sex is ignored in breeding planner.</param>
         /// <param name="anyOddEven">Array for each stat if the higher level should be considered for score: 0: consider any level, 1: consider only if odd, 2: consider only if even.</param>
+        /// <param name="checkIfAtLeastOnePartnerIsNotOnCooldown">For hermaphrodites only one partner needs to be not on cooldown. If creatures of a hermaphrodite species are passed and at least one needs to be not on cooldown, set this to true.</param>
         /// <returns></returns>
         public static List<BreedingPair> CalculateBreedingScores(Creature[] females, Creature[] males, Species species,
             short[] bestPossLevels, double[] statWeights, int[] bestLevelsOfSpecies, BreedingMode breedingMode,
             bool considerChosenCreature, bool considerMutationLimit, int mutationLimit,
             ref bool creaturesMutationsFilteredOut, int offspringLevelLimit = 0, bool downGradeOffspringWithLevelHigherThanLimit = false,
-            bool onlyBestSuggestionForFemale = false, StatValueEvenOdd[] anyOddEven = null)
+            bool onlyBestSuggestionForFemale = false, StatValueEvenOdd[] anyOddEven = null, bool checkIfAtLeastOnePartnerIsNotOnCooldown = false)
         {
             var breedingPairs = new List<BreedingPair>();
             var ignoreSex = Properties.Settings.Default.IgnoreSexInBreedingPlan || species.noGender;
@@ -47,6 +48,8 @@ namespace ARKBreedingStats.BreedingPlanning
             {
                 customIgnoreTopStatsEvenOdd[s] = anyOddEven != null && statWeights[s] > 0;
             }
+
+            var now = DateTime.Now;
 
             for (int fi = 0; fi < females.Length; fi++)
             {
@@ -70,6 +73,15 @@ namespace ARKBreedingStats.BreedingPlanning
                     if (considerMutationLimit && female.Mutations > mutationLimit && male.Mutations > mutationLimit)
                     {
                         creaturesMutationsFilteredOut = true;
+                        continue;
+                    }
+
+                    // if species is hermaphrodite, only one partner needs to be not on cooldown
+                    if (checkIfAtLeastOnePartnerIsNotOnCooldown
+                        && female.cooldownUntil > now
+                        && male.cooldownUntil > now
+                        )
+                    {
                         continue;
                     }
 

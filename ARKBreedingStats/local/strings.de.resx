@@ -1337,4 +1337,7 @@ Es ist auch möglich Tiere mit einer Farbe in mehreren möglichen Regionen zu fi
   <data name="BtBeepUpdatedTT" xml:space="preserve">
     <value>Dieser Ton wird abgespielt, wenn eine Kreatur aktualisiert wird, d.h. erneut importiert wird</value>
   </data>
+  <data name="issueCauseSpeedLevelingSetting" xml:space="preserve">
+    <value>Die Einstellung zum Leveln von Bewegungsgeschwindigkeit (AllowSpeedLeveling) oder die Spielversion (ASE oder ASA) ist wahrscheinlich nicht richtig gesetzt.</value>
+  </data>
 </root>

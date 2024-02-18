@@ -42,13 +42,17 @@ namespace ARKBreedingStats
         /// <summary>
         /// This displays the sum of the chosen levels. This is the last step before a creature-extraction is considered as valid or not valid.
         /// </summary>
-        private void ShowSumOfChosenLevels()
+        private void ShowSumOfChosenLevels(bool allUnknownLevelsDistributed)
         {
-            // The speedLevel is not chosen, but calculated from the other chosen levels, and must not be included in the sum, except all the other levels are determined uniquely!
+            // The wild levels of stats that don't change the stat value (e.g. speed) are not chosen, but calculated from the other chosen levels,
+            // and must not be included in the sum, except if it's only one of these stats and all the other levels are determined uniquely!
 
             // this method will show only the offset of the value, it's less confusing to the user and gives all the infos needed
-            int sumW = 0, sumD = 0;
-            bool valid = true, inbound = true, allUnique = true;
+            var sumW = 0;
+            var sumD = 0;
+            var valid = true;
+            var inbound = true;
+            var allUnique = true;
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (s == Stats.Torpidity)
@@ -72,7 +76,7 @@ namespace ARKBreedingStats
             if (valid)
             {
                 sumW -= allUnique || _statIOs[Stats.SpeedMultiplier].LevelWild < 0 ? 0 : _statIOs[Stats.SpeedMultiplier].LevelWild;
-                string offSetWild = "✓";
+                string offSetWild = allUnknownLevelsDistributed ? "✓" : "✕";
                 lbSumDom.Text = sumD.ToString();
                 if (sumW <= _extractor.LevelWildSum)
                 {
@@ -105,11 +109,16 @@ namespace ARKBreedingStats
             }
             panelSums.BackColor = inbound ? SystemColors.Control : Color.FromArgb(255, 200, 200);
 
-            bool torporLevelValid = numericUpDownLevel.Value > _statIOs[Stats.Torpidity].LevelWild;
+            bool torporLevelValid = allUnknownLevelsDistributed && numericUpDownLevel.Value > _statIOs[Stats.Torpidity].LevelWild;
             if (!torporLevelValid)
             {
                 numericUpDownLevel.BackColor = Color.LightSalmon;
                 _statIOs[Stats.Torpidity].Status = StatIOStatus.Error;
+            }
+
+            if (!allUnknownLevelsDistributed)
+            {
+                ExtractionFailed(IssueNotes.Issue.SpeedLevelingSetting);
             }
 
             bool allValid = valid && inbound && torporLevelValid && _extractor.ValidResults;
@@ -126,7 +135,7 @@ namespace ARKBreedingStats
                 var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
 
                 LevelStatusFlags.DetermineLevelStatus(species, highSpeciesLevels, lowSpeciesLevels, highSpeciesMutationLevels,
-                    statWeights, GetCurrentWildLevels(), GetCurrentMutLevels(),GetCurrentBreedingValues(),
+                    statWeights, GetCurrentWildLevels(), GetCurrentMutLevels(), GetCurrentBreedingValues(),
                     out var topStatsText, out var newTopStatsText);
 
                 for (var s = 0; s < Stats.StatsCount; s++)
@@ -347,14 +356,14 @@ namespace ARKBreedingStats
                     if (s == Stats.Health
                         || s == Stats.MeleeDamageMultiplier)
                     {
-                        possibleExtractionIssues |= IssueNotes.Issue.Singleplayer;
+                        possibleExtractionIssues |= IssueNotes.Issue.SinglePlayer;
                     }
                 }
             }
             if (!_extractor.ValidResults)
             {
                 ExtractionFailed(possibleExtractionIssues | IssueNotes.Issue.Typo | IssueNotes.Issue.WildTamedBred | IssueNotes.Issue.LockedDom |
-                                 IssueNotes.Issue.OutdatedIngameValues | IssueNotes.Issue.ImprintingNotUpdated |
+                                 IssueNotes.Issue.OutdatedInGameValues | IssueNotes.Issue.ImprintingNotUpdated |
                                  (_statIOs[Stats.Torpidity].LevelWild >= (int)numericUpDownLevel.Value ? IssueNotes.Issue.CreatureLevel : IssueNotes.Issue.None));
                 return false;
             }
@@ -399,10 +408,10 @@ namespace ARKBreedingStats
                 labelTE.BackColor = Color.Transparent;
             }
 
-            SetWildUnknownLevelsAccordingToOthers();
+            var allUnknownLevelsDistributed = SetWildUnknownLevelsAccordingToOthers();
 
             lbSumDomSB.Text = _extractor.LevelDomSum.ToString();
-            ShowSumOfChosenLevels();
+            ShowSumOfChosenLevels(allUnknownLevelsDistributed);
             if (showLevelsInOverlay)
                 ShowLevelsInOverlay();
 
@@ -473,9 +482,9 @@ namespace ARKBreedingStats
                 lbImprintingFailInfo.Visible = false; // TODO move imprinting-fail to upper note-info
                 BtCopyIssueDumpToClipboard.Visible = false;
                 PbCreatureColorsExtractor.Visible = true;
+                return;
             }
-            else
-            {
+
                 // highlight controls which most likely need to be checked to solve the issue
                 if (issues.HasFlag(IssueNotes.Issue.WildTamedBred))
                     panelWildTamedBred.BackColor = Color.LightSalmon;
@@ -513,8 +522,8 @@ namespace ARKBreedingStats
                     }
                     if (!oneStatIsDomLocked)
                     {
-                        // no stat is domLocked, remove this note (which is ensured to be there)
-                        issues -= IssueNotes.Issue.LockedDom;
+                        // no stat is domLocked, remove this note
+                        issues &= ~IssueNotes.Issue.LockedDom;
                     }
                 }
 
@@ -577,7 +586,6 @@ namespace ARKBreedingStats
                 if (DateTime.Now.AddHours(-5) > Properties.Settings.Default.lastUpdateCheck)
                     CheckForUpdates(true);
             }
-        }
 
         /// <summary>
         /// If a stat has multiple possibilities for its level distribution, the taming effectiveness may be affected by that.
@@ -706,24 +714,26 @@ namespace ARKBreedingStats
             if (validateCombination)
             {
                 SetUniqueTE();
-                SetWildUnknownLevelsAccordingToOthers();
-                ShowSumOfChosenLevels();
+                var allUnknownLevelsDistributed = SetWildUnknownLevelsAccordingToOthers();
+                ShowSumOfChosenLevels(allUnknownLevelsDistributed);
             }
         }
 
         /// <summary>
         /// Some wild stat levels have no effect on the stat value, often that's speed or sometimes oxygen.
         /// The wild levels of these ineffective stats can be calculated indirectly if there is only one of them.
+        /// Returns false if not all invalid levels could be distributed in stats.
         /// </summary>
-        private void SetWildUnknownLevelsAccordingToOthers()
+        private bool SetWildUnknownLevelsAccordingToOthers()
         {
             var species = speciesSelector1.SelectedSpecies;
+            var allUnknownLevelsAreDistributed = true;
             // wild speed level is wildTotalLevels - determinedWildLevels. sometimes the oxygen level cannot be determined as well
             var unknownLevelIndices = new List<int>();
             int notDeterminedLevels = _statIOs[Stats.Torpidity].LevelWild;
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (s == Stats.Torpidity || !species.UsesStat(s))
+                if (s == Stats.Torpidity || !species.CanLevelUpWildOrHaveMutations(s))
                 {
                     continue;
                 }
@@ -739,21 +749,25 @@ namespace ARKBreedingStats
             switch (unknownLevelIndices.Count)
             {
                 case 0:
-                    // no unknown levels, nothing to do
-                    return;
+                    // no unknown levels
+                    if (notDeterminedLevels != 0)
+                    {
+                        allUnknownLevelsAreDistributed = false;
+                    }
+                    return allUnknownLevelsAreDistributed;
                 case 1:
                     // if all other stats are unique, set level
                     var statIndex = unknownLevelIndices[0];
                     _statIOs[statIndex].LevelWild = Math.Max(0, notDeterminedLevels);
                     _statIOs[statIndex].BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, statIndex, _statIOs[statIndex].LevelWild, 0, 0, true, 1, 0);
-                    return;
+                    return true;
                 default:
                     // if not all other levels are unique, set the indifferent stats to unknown
                     foreach (var s in unknownLevelIndices)
                     {
                         _statIOs[s].LevelWild = -1;
                     }
-                    return;
+                    return true;
             }
         }
 
@@ -990,6 +1004,21 @@ namespace ARKBreedingStats
             SetStatsActiveAccordingToUsage(cv.Species);
 
             ExtractLevels(autoExtraction, highPrecisionValues, existingCreature: alreadyExistingCreature, possiblyMutagenApplied: cv.flags.HasFlag(CreatureFlags.MutagenApplied));
+
+            if (alreadyExistingCreature?.levelsMutated != null)
+            {
+                // use already set mutation levels
+                for (int s = 0; s < Stats.StatsCount; s++)
+                {
+                    var mutationLevels = alreadyExistingCreature.levelsMutated[s];
+                    if (mutationLevels > 0 && _statIOs[s].LevelWild > mutationLevels)
+                    {
+                        _statIOs[s].LevelMut = mutationLevels;
+                        _statIOs[s].LevelWild -= mutationLevels;
+                    }
+                }
+            }
+
             SetCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
             UpdateParentListInput(creatureInfoInputExtractor); // this function is only used for single-creature extractions, e.g. LastExport
             creatureInfoInputExtractor.AlreadyExistingCreature = alreadyExistingCreature;

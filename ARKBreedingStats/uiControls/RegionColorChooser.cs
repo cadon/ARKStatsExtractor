@@ -15,7 +15,7 @@ namespace ARKBreedingStats.uiControls
         private byte[] _selectedRegionColorIds;
         private byte[] _selectedColorIdsAlternative;
         public bool[] ColorRegionsUseds;
-        private readonly MyColorPicker _colorPicker;
+        private readonly ColorPickerWindow _colorPicker;
         private ColorRegion[] _colorRegions;
         private readonly ToolTip _tt = new ToolTip();
         /// <summary>
@@ -40,7 +40,7 @@ namespace ARKBreedingStats.uiControls
             _selectedRegionColorIds = new byte[Ark.ColorRegionCount];
             _selectedColorIdsAlternative = new byte[Ark.ColorRegionCount];
 
-            _colorPicker = new MyColorPicker();
+            _colorPicker = new ColorPickerWindow();
             _tt.AutoPopDelay = 7000;
             Disposed += RegionColorChooser_Disposed;
         }
@@ -149,16 +149,16 @@ namespace ARKBreedingStats.uiControls
         {
             if (!_colorPicker.isShown && _colorRegions != null && region < Ark.ColorRegionCount)
             {
-                _colorPicker.PickColor(_selectedRegionColorIds[region], _colorRegions[region]?.name + " (region " + region + ")", _colorRegions[region]?.naturalColors, _selectedColorIdsAlternative?[region] ?? 0);
+                _colorPicker.Cp.PickColor(_selectedRegionColorIds[region], _colorRegions[region]?.name + " (region " + region + ")", _colorRegions[region]?.naturalColors, _selectedColorIdsAlternative?[region] ?? 0);
                 if (_colorPicker.ShowDialog() == DialogResult.OK)
                 {
                     // color was chosen
-                    _selectedRegionColorIds[region] = _colorPicker.SelectedColorId;
-                    if (_colorPicker.SelectedColorIdAlternative != 0)
+                    _selectedRegionColorIds[region] = _colorPicker.Cp.SelectedColorId;
+                    if (_colorPicker.Cp.SelectedColorIdAlternative != 0)
                     {
                         if (_selectedColorIdsAlternative == null)
                             _selectedColorIdsAlternative = new byte[Ark.ColorRegionCount];
-                        _selectedColorIdsAlternative[region] = _colorPicker.SelectedColorIdAlternative;
+                        _selectedColorIdsAlternative[region] = _colorPicker.Cp.SelectedColorIdAlternative;
                         _buttonColors[region].AlternativeColorPossible = true;
                     }
                     else

@@ -217,7 +217,8 @@ namespace ARKBreedingStats
                     break;
                 case ".sav":
                 case ".json":
-                    alreadyExistingCreature = ImportExportGunFiles(new[] { filePath }, out addedToLibrary, out creature, out copiedNameToClipboard);
+                    alreadyExistingCreature = ImportExportGunFiles(new[] { filePath }, out addedToLibrary,
+                        out creature, out copiedNameToClipboard);
                     alreadyExists = alreadyExistingCreature != null;
                     if (!addedToLibrary || creature == null) return null;
                     uniqueExtraction = true;
@@ -233,8 +234,7 @@ namespace ARKBreedingStats
                 creature = GetCreatureFromInput(true, species, levelStep);
             }
 
-            OverlayFeedbackForImport(creature, uniqueExtraction, alreadyExists, addedToLibrary, copiedNameToClipboard,
-                out bool hasTopLevels, out bool hasNewTopLevels, out var newMutationStatFlags);
+            OverlayFeedbackForImport(creature, uniqueExtraction, alreadyExists, addedToLibrary, copiedNameToClipboard);
 
             if (addedToLibrary)
             {
@@ -295,23 +295,7 @@ namespace ARKBreedingStats
 
             if (Properties.Settings.Default.PlaySoundOnAutoImport)
             {
-                if (uniqueExtraction)
-                {
-                    if (alreadyExists)
-                        SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Updated);
-                    else if (newMutationStatFlags != 0)
-                        SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.NewMutation);
-                    else if (hasNewTopLevels)
-                        SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Great);
-                    else if (hasTopLevels)
-                        SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Good);
-                    else
-                        SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Success);
-                }
-                else
-                {
-                    SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Failure);
-                }
+                SoundFeedback.BeepSignalCurrentLevelFlags(alreadyExists, uniqueExtraction);
             }
 
             if (!uniqueExtraction && Properties.Settings.Default.ImportExportedBringToFrontOnIssue)
@@ -382,11 +366,8 @@ namespace ARKBreedingStats
         /// Give feedback in overlay for imported creature.
         /// </summary>
         private void OverlayFeedbackForImport(Creature creature, bool uniqueExtraction, bool alreadyExists, bool addedToLibrary,
-            bool copiedNameToClipboard, out bool topLevels, out bool newTopLevels, out int newMutationStatFlags)
+            bool copiedNameToClipboard)
         {
-            topLevels = false;
-            newTopLevels = false;
-            newMutationStatFlags = 0;
             string infoText;
             Color textColor;
             const int colorSaturation = 200;
@@ -397,27 +378,7 @@ namespace ARKBreedingStats
                 if (addedToLibrary && copiedNameToClipboard)
                     sb.AppendLine("Name copied to clipboard.");
 
-                var checkMutations = _highestSpeciesMutationLevels.TryGetValue(creature.Species, out var highestMutations) && creature.levelsMutated != null;
-                var species = speciesSelector1.SelectedSpecies;
-                _highestSpeciesLevels.TryGetValue(species, out int[] highSpeciesLevels);
-                _lowestSpeciesLevels.TryGetValue(species, out int[] lowSpeciesLevels);
-                _highestSpeciesMutationLevels.TryGetValue(species, out int[] highSpeciesMutationLevels);
-
-                var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
-
-                LevelStatusFlags.DetermineLevelStatus(species, highSpeciesLevels, lowSpeciesLevels, highSpeciesMutationLevels,
-                    statWeights, creature.levelsWild, creature.levelsMutated, creature.valuesBreeding,
-                    out _, out _, sb);
-
-                topLevels = LevelStatusFlags.CombinedLevelStatusFlags.HasFlag(LevelStatusFlags.LevelStatus.TopLevel);
-                newTopLevels = LevelStatusFlags.CombinedLevelStatusFlags.HasFlag(LevelStatusFlags.LevelStatus.NewTopLevel);
-                newMutationStatFlags = Enumerable.Range(0, Stats.StatsCount)
-                    .Aggregate(0,
-                        (flags, statIndex) =>
-                            flags | (LevelStatusFlags.LevelStatusFlagsCurrentNewCreature[statIndex]
-                                .HasFlag(LevelStatusFlags.LevelStatus.NewMutation)
-                                ? (1 << statIndex)
-                                : 0));
+                sb.Append(LevelStatusFlags.LevelInfoText);
 
                 infoText = sb.ToString();
                 textColor = Color.FromArgb(colorSaturation, 255, colorSaturation);

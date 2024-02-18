@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats
+﻿using ARKBreedingStats.values;
+
+namespace ARKBreedingStats
 {
     /// <summary>
     /// Constants of the game Ark.
@@ -103,14 +105,18 @@
         public const byte UndefinedColorIdAsa = 255;
 
         /// <summary>
-        /// When choosing a random color for a mutation, ARK can erroneously select an undefined color. Usually this is color id 227 (one too high to be defined).
+        /// When choosing a random color for a mutation, ARK can erroneously select an undefined color. 227 for ASE, 255 for ASA.
         /// </summary>
         public static byte UndefinedColorId = UndefinedColorIdAse;
 
         /// <summary>
         /// Sets the undefined color id to the one of ASE or ASA.
         /// </summary>
-        public static void SetUndefinedColorId(bool asa) => UndefinedColorId = asa ? UndefinedColorIdAsa : UndefinedColorIdAse;
+        public static void SetUndefinedColorId(bool asa)
+        {
+            UndefinedColorId = asa ? UndefinedColorIdAsa : UndefinedColorIdAse;
+            Values.V.Colors.SetUndefinedColorId(UndefinedColorId);
+        }
 
         /// <summary>
         /// Number of possible color regions for all species.
@@ -126,14 +132,19 @@
 
         public enum Game
         {
+            Unknown,
             /// <summary>
             /// ARK: Survival Evolved (2015)
             /// </summary>
-            ASE,
+            Ase,
             /// <summary>
             /// ARK: Survival Ascended (2023)
             /// </summary>
-            ASA
+            Asa,
+            /// <summary>
+            /// Use the same version that was already loaded
+            /// </summary>
+            SameAsBefore
         }
 
         /// <summary>

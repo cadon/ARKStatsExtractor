@@ -152,7 +152,7 @@ namespace ARKBreedingStats
                 _displayedStatIndices.Add(s);
             }
 
-            _anglePerStat = Math.PI * 2 / _displayedStatIndices.Count;
+            _anglePerStat = Math.PI * 2 / (_displayedStatIndices.Count > 0 ? _displayedStatIndices.Count : 1);
 
             InitializePoints();
         }
@@ -187,7 +187,8 @@ namespace ARKBreedingStats
         /// <param name="levelsWild">If null, the previous values are redrawn.</param>
         public void SetLevels(int[] levelsWild = null, int[] levelMutations = null, Species species = null)
         {
-            InitializeStats(species?.DisplayedStats ?? _displayedStats);
+            if (species != null)
+                InitializeStats(species.DisplayedStats);
 
             if (_maxR <= 5 || _ps.Count == 0) return; // image too small
 

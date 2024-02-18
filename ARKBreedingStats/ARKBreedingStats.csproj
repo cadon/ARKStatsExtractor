@@ -110,6 +110,15 @@
     <Compile Include="Pedigree\PedigreeCreation.cs" />
     <Compile Include="Pedigree\IPedigreeCreature.cs" />
     <Compile Include="species\ArkColors.cs" />
+    <Compile Include="uiControls\ArkVersionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="uiControls\ColorPickerWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="uiControls\ColorPickerWindow.Designer.cs">
+      <DependentUpon>ColorPickerWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="uiControls\CreatureAnalysis.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -132,6 +141,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="uiControls\LibraryInfo.cs" />
+    <Compile Include="uiControls\LibraryInfoControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="uiControls\PopupMessage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -518,11 +530,11 @@
     <Compile Include="uiControls\MultiSetter.Designer.cs">
       <DependentUpon>MultiSetter.cs</DependentUpon>
     </Compile>
-    <Compile Include="uiControls\MyColorPicker.cs">
-      <SubType>Form</SubType>
+    <Compile Include="uiControls\ColorPickerControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="uiControls\MyColorPicker.Designer.cs">
-      <DependentUpon>MyColorPicker.cs</DependentUpon>
+    <Compile Include="uiControls\ColorPickerControl.Designer.cs">
+      <DependentUpon>ColorPickerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="uiControls\ParentComboBox.cs">
       <SubType>Component</SubType>
@@ -701,6 +713,9 @@
     <EmbeddedResource Include="local\strings.zh-tw.resx" />
     <EmbeddedResource Include="ocr\PatternMatching\RecognitionTrainingForm.resx">
       <DependentUpon>RecognitionTrainingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\ColorPickerWindow.resx">
+      <DependentUpon>ColorPickerWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\CreatureAnalysis.resx">
       <DependentUpon>CreatureAnalysis.cs</DependentUpon>
@@ -928,8 +943,8 @@
     <EmbeddedResource Include="uiControls\MultiSetter.resx">
       <DependentUpon>MultiSetter.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="uiControls\MyColorPicker.resx">
-      <DependentUpon>MyColorPicker.cs</DependentUpon>
+    <EmbeddedResource Include="uiControls\ColorPickerControl.resx">
+      <DependentUpon>ColorPickerControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pedigree\PedigreeControl.resx">
       <DependentUpon>PedigreeControl.cs</DependentUpon>

@@ -15,7 +15,7 @@ namespace ARKBreedingStats.uiControls
         private readonly CreatureCollection _cc;
         private List<Button> _statusButtons;
         private byte _selectedColorFilter;
-        private readonly MyColorPicker _colorPicker;
+        private readonly ColorPickerWindow _colorPicker;
         private readonly (string, string)[] _maturationFilter = new (string, string)[]
         {
             ("FilterHideAdults", Loc.S("mature")),
@@ -33,7 +33,7 @@ namespace ARKBreedingStats.uiControls
         {
             _cc = cc;
 
-            _colorPicker = new MyColorPicker();
+            _colorPicker = new ColorPickerWindow();
 
             SetColorFilter(Properties.Settings.Default.FilterOnlyIfColorId);
             CbUseFilterInTopStatCalculation.Checked = Properties.Settings.Default.useFiltersInTopStatCalculation;
@@ -302,10 +302,10 @@ namespace ARKBreedingStats.uiControls
 
         private void BtColorFilter_Click(object sender, EventArgs e)
         {
-            _colorPicker.PickColor(_selectedColorFilter, Loc.S("onlyCreaturesWithThisColor"));
+            _colorPicker.Cp.PickColor(_selectedColorFilter, Loc.S("onlyCreaturesWithThisColor"));
             if (_colorPicker.ShowDialog() == DialogResult.OK)
             {
-                SetColorFilter(_colorPicker.SelectedColorId);
+                SetColorFilter(_colorPicker.Cp.SelectedColorId);
             }
         }
 

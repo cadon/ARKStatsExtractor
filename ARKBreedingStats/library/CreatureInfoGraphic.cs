@@ -128,17 +128,15 @@ namespace ARKBreedingStats.library
                 int xStatName = (int)meanLetterWidth;
                 var displayMutatedLevels = creature.levelsMutated != null && cc?.Game == Ark.Asa;
                 // x position of level number. torpor is the largest level number.
-                int xRightLevelValue = (int)(xStatName + ((displayWithDomLevels ? 6 : 5) + creature.levelsWild[Stats.Torpidity].ToString().Length) * meanLetterWidth);
-                int xRightLevelMutValue = xRightLevelValue + (!displayMutatedLevels ? 0 : (int)((creature.levelsMutated.Max().ToString().Length + 3) * meanLetterWidth));
-                int xRightLevelDomValue = xRightLevelMutValue;
-                if (displayWithDomLevels)
-                    xRightLevelDomValue += (int)(creature.levelsDom.Max().ToString().Length * meanLetterWidth);
+                int xRightLevelValue = (int)(xStatName + (6 + creature.levelsWild[Stats.Torpidity].ToString().Length) * meanLetterWidth);
+                int xRightLevelMutValue = xRightLevelValue + (!displayMutatedLevels ? 0 : (int)((creature.levelsMutated.Max().ToString().Length + 2) * meanLetterWidth));
+                int xRightLevelDomValue = xRightLevelMutValue + (!displayWithDomLevels ? 0 : (int)((creature.levelsDom.Max().ToString().Length + 1) * meanLetterWidth));
                 int xRightBrValue = (int)(xRightLevelDomValue + (2 + MaxCharLength(creature.valuesBreeding)) * meanLetterWidth);
                 int maxBoxLength = xRightBrValue - xStatName;
                 int statBoxHeight = Math.Max(2, height / 90);
-                g.DrawString(Loc.S("W", secondaryCulture: secondaryCulture), font, fontBrush, xRightLevelValue - (int)(displayWithDomLevels ? 2 * meanLetterWidth : 0), currentYPosition, stringFormatRight);
+                g.DrawString(Loc.S("W", secondaryCulture: secondaryCulture), font, fontBrush, xRightLevelValue - (displayMutatedLevels || displayWithDomLevels ? (int)meanLetterWidth : 0), currentYPosition, stringFormatRight);
                 if (displayMutatedLevels)
-                    g.DrawString(Loc.S("M", secondaryCulture: secondaryCulture), font, fontBrush, xRightLevelMutValue - (int)(2 * meanLetterWidth), currentYPosition, stringFormatRight);
+                    g.DrawString(Loc.S("M", secondaryCulture: secondaryCulture), font, fontBrush, xRightLevelMutValue - (displayWithDomLevels ? (int)meanLetterWidth : 0), currentYPosition, stringFormatRight);
                 if (displayWithDomLevels)
                     g.DrawString(Loc.S("D", secondaryCulture: secondaryCulture), font, fontBrush, xRightLevelDomValue, currentYPosition, stringFormatRight);
                 if (displayStatValues)
@@ -175,10 +173,10 @@ namespace ARKBreedingStats.library
                     g.DrawString($"{Utils.StatName(statIndex, true, creature.Species.statNames, secondaryCulture)}",
                         font, fontBrush, xStatName, y);
                     // stat level number
-                    g.DrawString($"{(creature.levelsWild[statIndex] < 0 ? "?" : creature.levelsWild[statIndex].ToString())}{(creature.levelsMutated != null ? " |" : displayWithDomLevels ? " |" : null)}",
+                    g.DrawString($"{(creature.levelsWild[statIndex] < 0 ? "?" : creature.levelsWild[statIndex].ToString())}{(displayMutatedLevels || displayWithDomLevels ? " |" : string.Empty)}",
                         font, fontBrush, xRightLevelValue, y, stringFormatRight);
-                    if (creature.levelsMutated != null)
-                        g.DrawString($"{(creature.levelsMutated[statIndex] < 0 ? string.Empty : creature.levelsMutated[statIndex].ToString())}{(displayWithDomLevels ? " |" : null)}",
+                    if (displayMutatedLevels)
+                        g.DrawString($"{(creature.levelsMutated[statIndex] < 0 ? string.Empty : creature.levelsMutated[statIndex].ToString())}{(displayWithDomLevels ? " |" : string.Empty)}",
                             font, fontBrush, xRightLevelMutValue, y, stringFormatRight);
                     // dom level number
                     if (displayWithDomLevels)

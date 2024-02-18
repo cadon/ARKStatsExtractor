@@ -674,7 +674,7 @@ namespace ARKBreedingStats.values
             {
                 if (!string.IsNullOrEmpty(s.blueprintPath))
                 {
-                    _blueprintToSpecies[s.blueprintPath] = s;
+                    _blueprintToSpecies[s.blueprintPath.ToLowerInvariant()] = s;
 
                     string speciesName = s.name;
                     if (_nameToSpecies.TryGetValue(speciesName, out var existingSpecies))
@@ -693,10 +693,7 @@ namespace ARKBreedingStats.values
                     if (classNameMatch.Success)
                     {
                         string className = classNameMatch.Value + "_C";
-                        if (_classNameToSpecies.ContainsKey(className))
-                            _classNameToSpecies[className] = s;
-                        else
-                            _classNameToSpecies.Add(className, s);
+                        _classNameToSpecies[className] = s;
                     }
                 }
             }
@@ -768,7 +765,7 @@ namespace ARKBreedingStats.values
             {
                 blueprintPath = realBlueprintPath;
             }
-            return _blueprintToSpecies.TryGetValue(blueprintPath, out var s) ? s : null;
+            return _blueprintToSpecies.TryGetValue(blueprintPath.ToLowerInvariant(), out var s) ? s : null;
         }
 
         /// <summary>

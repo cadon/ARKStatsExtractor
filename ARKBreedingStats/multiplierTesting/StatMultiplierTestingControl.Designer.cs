@@ -447,7 +447,7 @@
             131072});
             this.nudIdM.Location = new System.Drawing.Point(813, 3);
             this.nudIdM.Maximum = new decimal(new int[] {
-            1000000,
+            2000000000,
             0,
             0,
             0});
@@ -471,6 +471,11 @@
             0,
             131072});
             this.nudId.Location = new System.Drawing.Point(749, 3);
+            this.nudId.Maximum = new decimal(new int[] {
+            2000000000,
+            0,
+            0,
+            0});
             this.nudId.Name = "nudId";
             this.nudId.NeutralNumber = new decimal(new int[] {
             0,
@@ -492,7 +497,7 @@
             131072});
             this.nudTmM.Location = new System.Drawing.Point(627, 3);
             this.nudTmM.Maximum = new decimal(new int[] {
-            1000000,
+            2000000000,
             0,
             0,
             0});
@@ -521,8 +526,13 @@
             0,
             131072});
             this.nudTm.Location = new System.Drawing.Point(563, 3);
+            this.nudTm.Maximum = new decimal(new int[] {
+            2000000000,
+            0,
+            0,
+            0});
             this.nudTm.Minimum = new decimal(new int[] {
-            100,
+            2000000000,
             0,
             0,
             -2147483648});
@@ -547,7 +557,7 @@
             131072});
             this.nudIwM.Location = new System.Drawing.Point(307, 3);
             this.nudIwM.Maximum = new decimal(new int[] {
-            1000000,
+            2000000000,
             0,
             0,
             0});
@@ -577,7 +587,7 @@
             131072});
             this.nudTaM.Location = new System.Drawing.Point(499, 3);
             this.nudTaM.Maximum = new decimal(new int[] {
-            1000000,
+            2000000000,
             0,
             0,
             0});
@@ -607,12 +617,12 @@
             65536});
             this.nudTa.Location = new System.Drawing.Point(435, 3);
             this.nudTa.Maximum = new decimal(new int[] {
-            1000000,
+            2000000000,
             0,
             0,
             0});
             this.nudTa.Minimum = new decimal(new int[] {
-            1000000,
+            2000000000,
             0,
             0,
             -2147483648});
@@ -636,6 +646,11 @@
             0,
             131072});
             this.nudTBHM.Location = new System.Drawing.Point(371, 3);
+            this.nudTBHM.Maximum = new decimal(new int[] {
+            2000000000,
+            0,
+            0,
+            0});
             this.nudTBHM.Name = "nudTBHM";
             this.nudTBHM.NeutralNumber = new decimal(new int[] {
             0,
@@ -662,7 +677,7 @@
             131072});
             this.nudIw.Location = new System.Drawing.Point(243, 3);
             this.nudIw.Maximum = new decimal(new int[] {
-            1000000,
+            2000000000,
             0,
             0,
             0});
@@ -682,7 +697,7 @@
             this.nudB.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudB.Location = new System.Drawing.Point(80, 3);
             this.nudB.Maximum = new decimal(new int[] {
-            1000000,
+            2000000000,
             0,
             0,
             0});
@@ -723,7 +738,7 @@
             this.nudLd.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudLd.Location = new System.Drawing.Point(691, 3);
             this.nudLd.Maximum = new decimal(new int[] {
-            10000,
+            2000000000,
             0,
             0,
             0});
@@ -742,7 +757,7 @@
             this.nudLw.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudLw.Location = new System.Drawing.Point(185, 3);
             this.nudLw.Maximum = new decimal(new int[] {
-            10000,
+            2000000000,
             0,
             0,
             0});

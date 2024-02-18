@@ -50,7 +50,7 @@
             65536});
             this.nudWildLevel.Location = new System.Drawing.Point(133, 3);
             this.nudWildLevel.Maximum = new decimal(new int[] {
-            1000000,
+            2000000000,
             0,
             0,
             0});
@@ -79,7 +79,7 @@
             65536});
             this.nudTameMult.Location = new System.Drawing.Point(313, 3);
             this.nudTameMult.Maximum = new decimal(new int[] {
-            1000000,
+            2000000000,
             0,
             0,
             0});
@@ -108,7 +108,7 @@
             65536});
             this.nudTameAdd.Location = new System.Drawing.Point(253, 3);
             this.nudTameAdd.Maximum = new decimal(new int[] {
-            1000000,
+            2000000000,
             0,
             0,
             0});
@@ -137,7 +137,7 @@
             65536});
             this.nudDomLevel.Location = new System.Drawing.Point(193, 3);
             this.nudDomLevel.Maximum = new decimal(new int[] {
-            1000000,
+            2000000000,
             0,
             0,
             0});

@@ -38,14 +38,15 @@ namespace ARKBreedingStats.miscClasses
                 case Issue.ImprintingLocked: return Loc.S("issueCauseImprintingLocked");
                 case Issue.ImprintingNotUpdated: return Loc.S("issueCauseImprintingNotUpdated");
                 case Issue.ImprintingNotPossible: return Loc.S("issueCauseImprintingNotPossible");
-                case Issue.Singleplayer: return Loc.S("issueCauseSingleplayer");
+                case Issue.SinglePlayer: return Loc.S("issueCauseSingleplayer");
                 case Issue.WildLevelSteps: return Loc.S("issueCauseWildLevelSteps");
                 case Issue.MaxWildLevel: return Loc.S("issueCauseMaxWildLevel");
+                case Issue.SpeedLevelingSetting: return Loc.S("issueCauseSpeedLevelingSetting");
                 case Issue.StatMultipliers: return Loc.S("issueCauseStatMultipliers");
                 case Issue.ModValues: return Loc.S("issueCauseModValues");
                 case Issue.ArkStatIssue: return Loc.S("issueCauseArkStatIssue");
                 case Issue.CreatureLevel: return Loc.S("issueCauseCreatureLevel");
-                case Issue.OutdatedIngameValues: return Loc.S("issueCauseOutdatedIngameValues");
+                case Issue.OutdatedInGameValues: return Loc.S("issueCauseOutdatedIngameValues");
                 case Issue.ImpossibleTe: return Loc.S("issueCauseImpossibleTe");
             }
             return string.Empty;
@@ -56,22 +57,23 @@ namespace ARKBreedingStats.miscClasses
         public enum Issue
         {
             None = 0,
-            ImprintingNotPossible = 1,
-            Typo = 2,
-            CreatureLevel = 4,
-            WildTamedBred = 8,
-            LockedDom = 16,
-            Singleplayer = 32,
-            MaxWildLevel = 64,
-            StatMultipliers = 128,
-            ImprintingNotUpdated = 256,
-            TamingEffectivenessRange = 512,
-            ImprintingLocked = 1024,
-            ModValues = 2048,
-            WildLevelSteps = 4096,
-            ArkStatIssue = 8192,
-            OutdatedIngameValues = 16384,
-            ImpossibleTe = 32768
+            ImprintingNotPossible = 1 << 0,
+            Typo = 1 << 1,
+            CreatureLevel = 1 << 2,
+            WildTamedBred = 1 << 3,
+            LockedDom = 1 << 4,
+            SinglePlayer = 1 << 5,
+            MaxWildLevel = 1 << 6,
+            SpeedLevelingSetting = 1 << 7,
+            StatMultipliers = 1 << 8,
+            ImprintingNotUpdated = 1 << 9,
+            TamingEffectivenessRange = 1 << 10,
+            ImprintingLocked = 1 << 11,
+            ModValues = 1 << 12,
+            WildLevelSteps = 1 << 13,
+            ArkStatIssue = 1 << 14,
+            OutdatedInGameValues = 1 << 15,
+            ImpossibleTe = 1 << 16
         }
     }
 }

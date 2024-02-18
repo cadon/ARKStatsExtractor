@@ -220,8 +220,15 @@ namespace ARKBreedingStats.settings
             }
             else
             {
-                RbGameAse.Checked = true;
                 CbAllowSpeedLeveling.Visible = false;
+            }
+
+            switch (Properties.Settings.Default.NewLibraryGame)
+            {
+                case Ark.Game.Ase: RbNewLibraryGameAse.Checked = true; break;
+                case Ark.Game.Asa: RbNewLibraryGameAsa.Checked = true; break;
+                case Ark.Game.SameAsBefore: RbNewLibraryGameKeep.Checked = true; break;
+                default: RbNewLibraryGameAskEachTime.Checked = true; break;
             }
 
             nudMaxDomLevels.ValueSave = cc.maxDomLevel;
@@ -342,7 +349,7 @@ namespace ARKBreedingStats.settings
             CbInfoGraphicDisplayMaxWildLevel.Checked = Properties.Settings.Default.InfoGraphicShowMaxWildLevel;
             CbInfoGraphicDomLevels.Checked = Properties.Settings.Default.InfoGraphicWithDomLevels;
             CbbInfoGraphicFontName.Text = Properties.Settings.Default.InfoGraphicFontName;
-            CbInfoGraphicMutations.Checked = Properties.Settings.Default.InfoGraphicDisplayMutations;
+            CbInfoGraphicMutationCounter.Checked = Properties.Settings.Default.InfoGraphicDisplayMutations;
             CbInfoGraphicGenerations.Checked = Properties.Settings.Default.InfoGraphicDisplayGeneration;
             CbInfoGraphicCreatureName.Checked = Properties.Settings.Default.InfoGraphicDisplayName;
             BtInfoGraphicBackColor.SetBackColorAndAccordingForeColor(Properties.Settings.Default.InfoGraphicBackColor);
@@ -440,6 +447,7 @@ namespace ARKBreedingStats.settings
             NudSpeciesSelectorCountLastUsed.ValueSave = Properties.Settings.Default.SpeciesSelectorCountLastSpecies;
 
             CbStreamerMode.Checked = Properties.Settings.Default.StreamerMode;
+            CbDisplayServerTokenPopup.Checked = Properties.Settings.Default.DisplayPopupForServerToken;
             cbDevTools.Checked = Properties.Settings.Default.DevTools;
 
             cbPrettifyJSON.Checked = Properties.Settings.Default.prettifyCollectionJson;
@@ -484,13 +492,22 @@ namespace ARKBreedingStats.settings
                 }
             }
 
-            // Torpidity is handled differently by the game, IwM has no effect. Set IwM to 1.
-            // See https://github.com/cadon/ARKStatsExtractor/issues/942 for more infos about this.
-            _cc.serverMultipliers.statMultipliers[Stats.Torpidity][Stats.IndexLevelWild] = 1;
+            if (_cc.serverMultipliers.statMultipliers[Stats.Torpidity][Stats.IndexLevelWild] != 1)
+            {
+                // Torpidity is handled differently by the game, IwM has no effect. Set IwM to 1.
+                // See https://github.com/cadon/ARKStatsExtractor/issues/942 for more infos about this.
+                MessageBoxes.ShowMessageBox("The increase per wild level of torpidity setting (PerLevelStatsMultiplier_DinoWild[2]) is ignored by ARK, only the value 1 is used for that setting.\nA different value was entered for that setting.\nSmart Breeding will reset this value to 1, since the game also uses that value, regardless what is entered in the server settings. This is done to prevent extraction issues.",
+                    "Torpidity multiplier reset");
+                _cc.serverMultipliers.statMultipliers[Stats.Torpidity][Stats.IndexLevelWild] = 1;
+            }
 
             _cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
             _cc.AtlasSettings = CbAtlasSettings.Checked;
             _cc.Game = RbGameAsa.Checked ? Ark.Asa : Ark.Ase;
+            Properties.Settings.Default.NewLibraryGame = RbNewLibraryGameAse.Checked ? Ark.Game.Ase
+                : RbNewLibraryGameAsa.Checked ? Ark.Game.Asa
+                : RbNewLibraryGameKeep.Checked ? Ark.Game.SameAsBefore
+                : Ark.Game.Unknown;
 
             _cc.maxDomLevel = (int)nudMaxDomLevels.Value;
             _cc.maxWildLevel = (int)nudMaxWildLevels.Value;
@@ -599,7 +616,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.InfoGraphicShowMaxWildLevel = CbInfoGraphicDisplayMaxWildLevel.Checked;
             Properties.Settings.Default.InfoGraphicWithDomLevels = CbInfoGraphicDomLevels.Checked;
             Properties.Settings.Default.InfoGraphicFontName = CbbInfoGraphicFontName.Text;
-            Properties.Settings.Default.InfoGraphicDisplayMutations = CbInfoGraphicMutations.Checked;
+            Properties.Settings.Default.InfoGraphicDisplayMutations = CbInfoGraphicMutationCounter.Checked;
             Properties.Settings.Default.InfoGraphicDisplayGeneration = CbInfoGraphicGenerations.Checked;
             Properties.Settings.Default.InfoGraphicDisplayName = CbInfoGraphicCreatureName.Checked;
             Properties.Settings.Default.InfoGraphicBackColor = BtInfoGraphicBackColor.BackColor;
@@ -680,6 +697,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.SpeciesSelectorCountLastSpecies = (int)NudSpeciesSelectorCountLastUsed.Value;
 
             Properties.Settings.Default.StreamerMode = CbStreamerMode.Checked;
+            Properties.Settings.Default.DisplayPopupForServerToken = CbDisplayServerTokenPopup.Checked;
             Properties.Settings.Default.DevTools = cbDevTools.Checked;
 
             Properties.Settings.Default.prettifyCollectionJson = cbPrettifyJSON.Checked;
@@ -1617,7 +1635,7 @@ namespace ARKBreedingStats.settings
                 BtInfoGraphicBorderColor.BackColor,
                 CbInfoGraphicCreatureName.Checked,
                 CbInfoGraphicDomLevels.Checked,
-                CbInfoGraphicMutations.Checked,
+                CbInfoGraphicMutationCounter.Checked,
                 CbInfoGraphicGenerations.Checked,
                 CbInfoGraphicStatValues.Checked,
                 CbInfoGraphicDisplayMaxWildLevel.Checked,
@@ -1684,9 +1702,15 @@ namespace ARKBreedingStats.settings
             }
         }
 
+        private void CbAllowSpeedLeveling_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!CbAllowSpeedLeveling.Checked)
+                CbAllowFlyerSpeedLeveling.Checked = false;
+        }
+
         private void CbAllowFlyerSpeedLeveling_CheckedChanged(object sender, EventArgs e)
         {
-            if (CbAllowFlyerSpeedLeveling.Checked)
+            if (CbAllowFlyerSpeedLeveling.Checked && RbGameAsa.Checked)
                 CbAllowSpeedLeveling.Checked = true;
         }
 
@@ -1702,7 +1726,7 @@ namespace ARKBreedingStats.settings
                 return;
             }
 
-            localConfigPaths = localConfigPaths.OrderBy(c => c.Item2 == Ark.Game.ASE).ToArray(); // display ASA first
+            localConfigPaths = localConfigPaths.OrderBy(c => c.Item2 == Ark.Game.Ase).ToArray(); // display ASA first
 
             // ask which configs to import
             var importIndex = Utils.ShowListInput(localConfigPaths.Select(c => $"{c.Item2}: {c.Item1.Replace("\\", "\\ ")}").ToArray(), // adding zero width spaces to allow word wrapping
@@ -1712,7 +1736,7 @@ namespace ARKBreedingStats.settings
             ExtractSettingsFromFile(Path.Combine(localConfigPaths[importIndex].Item1, "game.ini"), true);
             ExtractSettingsFromFile(Path.Combine(localConfigPaths[importIndex].Item1, "gameUserSettings.ini"), true);
 
-            if (localConfigPaths[importIndex].Item2 == Ark.Game.ASA) RbGameAsa.Checked = true;
+            if (localConfigPaths[importIndex].Item2 == Ark.Game.Asa) RbGameAsa.Checked = true;
             else RbGameAse.Checked = true;
         }
 
@@ -1797,7 +1821,7 @@ namespace ARKBreedingStats.settings
         {
             var isAsa = RbGameAsa.Checked;
             CbAllowSpeedLeveling.Visible = isAsa;
-            if (!isAsa)
+            if (isAsa && CbAllowFlyerSpeedLeveling.Checked)
                 CbAllowSpeedLeveling.Checked = true;
         }
     }

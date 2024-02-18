@@ -1349,4 +1349,7 @@ It's also possible to filter for creatures with a color in one of multiple possi
   <data name="BtBeepUpdatedTT" xml:space="preserve">
     <value>This sound is played if a creature is updated, i.e. imported again</value>
   </data>
+  <data name="issueCauseSpeedLevelingSetting" xml:space="preserve">
+    <value>The Allow speed leveling setting or the game (ASE or ASA) is probably not set correctly.</value>
+  </data>
 </root>

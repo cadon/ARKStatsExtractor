@@ -18,6 +18,7 @@ namespace ARKBreedingStats.library
         /// </summary>
         public static readonly LevelStatus[] LevelStatusFlagsCurrentNewCreature = new LevelStatus[Stats.StatsCount];
         public static LevelStatus CombinedLevelStatusFlags;
+        public static string LevelInfoText;
 
         /// <summary>
         /// Determines if the wild and mutated levels of a creature are equal or higher than the current top levels of that species.
@@ -32,10 +33,9 @@ namespace ARKBreedingStats.library
         /// <param name="valuesBreeding"></param>
         /// <param name="topStatsText"></param>
         /// <param name="newTopStatsText"></param>
-        /// <param name="sbStatInfoText">Adds text for each stat</param>
         public static void DetermineLevelStatus(Species species, int[] highSpeciesLevels, int[] lowSpeciesLevels, int[] highSpeciesMutationLevels,
             (double[], StatValueEvenOdd[]) statWeights, int[] levelsWild, int[] levelsMutated, double[] valuesBreeding,
-            out List<string> topStatsText, out List<string> newTopStatsText, StringBuilder sbStatInfoText = null)
+            out List<string> topStatsText, out List<string> newTopStatsText)
         {
             // if there are no creatures of the species yet, assume 0 levels to be the current best and worst
             if (highSpeciesLevels == null) highSpeciesLevels = new int[Stats.StatsCount];
@@ -44,6 +44,8 @@ namespace ARKBreedingStats.library
 
             newTopStatsText = new List<string>();
             topStatsText = new List<string>();
+            var sbStatInfoText = new StringBuilder();
+            CombinedLevelStatusFlags = LevelStatus.Neutral;
 
             foreach (var s in Stats.DisplayOrder)
             {
@@ -51,17 +53,21 @@ namespace ARKBreedingStats.library
 
                 if (s == Stats.Torpidity
                     || levelsWild[s] < 0
-                    || !species.UsesStat(s))
+                    || !species.UsesStat(s)
+                    || !species.CanLevelUpWildOrHaveMutations(s))
                     continue;
 
                 var statName = Utils.StatName(s, false, species.statNames);
                 var statNameAbb = Utils.StatName(s, true, species.statNames);
-                var weighting = statWeights.Item1 == null || statWeights.Item1[s] == 0
+                var statWeight = statWeights.Item1?[s] ?? 1;
+                var weighting = statWeight == 0
                     ? StatWeighting.StatValuePreference.Indifferent
-                        : statWeights.Item1[s] > 0 ? StatWeighting.StatValuePreference.High
-                        : StatWeighting.StatValuePreference.Low;
+                    : statWeight > 0 ? StatWeighting.StatValuePreference.High
+                    : StatWeighting.StatValuePreference.Low;
 
-                sbStatInfoText?.Append($"{statNameAbb}: {levelsWild[s]} | {levelsMutated[s]} ({valuesBreeding[s]})");
+                sbStatInfoText?.Append(levelsMutated != null
+                    ? $"{statNameAbb}: {levelsWild[s]} | {levelsMutated[s]} ({valuesBreeding[s]})"
+                    : $"{statNameAbb}: {levelsWild[s]} ({valuesBreeding[s]})");
 
                 if (weighting == StatWeighting.StatValuePreference.High)
                 {
@@ -117,6 +123,8 @@ namespace ARKBreedingStats.library
                 }
                 sbStatInfoText?.AppendLine();
             }
+
+            LevelInfoText = sbStatInfoText.ToString();
         }
 
         public static void Clear()
@@ -124,6 +132,7 @@ namespace ARKBreedingStats.library
             for (var s = 0; s < Stats.StatsCount; s++)
                 LevelStatusFlagsCurrentNewCreature[s] = LevelStatus.Neutral;
             CombinedLevelStatusFlags = LevelStatus.Neutral;
+            LevelInfoText = null;
         }
 
         /// <summary>
