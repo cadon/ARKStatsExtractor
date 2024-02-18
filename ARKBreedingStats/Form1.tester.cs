@@ -131,7 +131,7 @@ namespace ARKBreedingStats
             int[] levelsMutations = _testingIOs.Select(s => s.LevelMut).ToArray();
             if (!_testingIOs[Stats.Torpidity].Enabled)
                 levelsWild[Stats.Torpidity] = 0;
-            radarChart1.SetLevels(levelsWild, levelsMutations);
+            radarChart1.SetLevels(levelsWild, levelsMutations, speciesSelector1.SelectedSpecies);
             statPotentials1.SetLevels(levelsWild, levelsMutations, false);
             //statGraphs1.setGraph(sE, 0, testingIOs[0].LevelWild, testingIOs[0].LevelDom, !radioButtonTesterWild.Checked, (double)NumericUpDownTestingTE.Value / 100, (double)numericUpDownImprintingBonusTester.Value / 100);
 
