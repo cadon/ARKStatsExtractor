@@ -169,6 +169,7 @@
             this.GbImgCacheLocalAppData = new System.Windows.Forms.GroupBox();
             this.CbImgCacheUseLocalAppData = new System.Windows.Forms.CheckBox();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.CbDisplayServerTokenPopup = new System.Windows.Forms.CheckBox();
             this.CbStreamerMode = new System.Windows.Forms.CheckBox();
             this.cbDevTools = new System.Windows.Forms.CheckBox();
             this.GbSpecies = new System.Windows.Forms.GroupBox();
@@ -360,7 +361,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.CbDisplayServerTokenPopup = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -2097,6 +2097,7 @@
             this.CbAllowSpeedLeveling.TabIndex = 1;
             this.CbAllowSpeedLeveling.Text = "Allow speed leveling (only ASA)";
             this.CbAllowSpeedLeveling.UseVisualStyleBackColor = true;
+            this.CbAllowSpeedLeveling.CheckedChanged += new System.EventHandler(this.CbAllowSpeedLeveling_CheckedChanged);
             // 
             // CbAllowFlyerSpeedLeveling
             // 
@@ -2408,6 +2409,15 @@
             this.groupBox16.TabIndex = 10;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Application";
+            // 
+            // CbDisplayServerTokenPopup
+            // 
+            this.CbDisplayServerTokenPopup.Location = new System.Drawing.Point(6, 46);
+            this.CbDisplayServerTokenPopup.Name = "CbDisplayServerTokenPopup";
+            this.CbDisplayServerTokenPopup.Size = new System.Drawing.Size(407, 24);
+            this.CbDisplayServerTokenPopup.TabIndex = 2;
+            this.CbDisplayServerTokenPopup.Text = "Display server token popup (disabled in Streamer mode)";
+            this.CbDisplayServerTokenPopup.UseVisualStyleBackColor = true;
             // 
             // CbStreamerMode
             // 
@@ -3853,7 +3863,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3861,7 +3871,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3869,7 +3879,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3877,7 +3887,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -4595,15 +4605,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
-            // 
-            // CbDisplayServerTokenPopup
-            // 
-            this.CbDisplayServerTokenPopup.Location = new System.Drawing.Point(6, 46);
-            this.CbDisplayServerTokenPopup.Name = "CbDisplayServerTokenPopup";
-            this.CbDisplayServerTokenPopup.Size = new System.Drawing.Size(407, 24);
-            this.CbDisplayServerTokenPopup.TabIndex = 2;
-            this.CbDisplayServerTokenPopup.Text = "Display server token popup (disabled in Streamer mode)";
-            this.CbDisplayServerTokenPopup.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 

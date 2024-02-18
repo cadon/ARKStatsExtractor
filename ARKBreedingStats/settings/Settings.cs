@@ -220,7 +220,6 @@ namespace ARKBreedingStats.settings
             }
             else
             {
-                RbGameAse.Checked = true;
                 CbAllowSpeedLeveling.Visible = false;
             }
 
@@ -1703,9 +1702,15 @@ namespace ARKBreedingStats.settings
             }
         }
 
+        private void CbAllowSpeedLeveling_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!CbAllowSpeedLeveling.Checked)
+                CbAllowFlyerSpeedLeveling.Checked = false;
+        }
+
         private void CbAllowFlyerSpeedLeveling_CheckedChanged(object sender, EventArgs e)
         {
-            if (CbAllowFlyerSpeedLeveling.Checked)
+            if (CbAllowFlyerSpeedLeveling.Checked && RbGameAsa.Checked)
                 CbAllowSpeedLeveling.Checked = true;
         }
 
@@ -1816,7 +1821,7 @@ namespace ARKBreedingStats.settings
         {
             var isAsa = RbGameAsa.Checked;
             CbAllowSpeedLeveling.Visible = isAsa;
-            if (!isAsa)
+            if (isAsa && CbAllowFlyerSpeedLeveling.Checked)
                 CbAllowSpeedLeveling.Checked = true;
         }
     }
