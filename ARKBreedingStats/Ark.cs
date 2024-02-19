@@ -115,7 +115,6 @@ namespace ARKBreedingStats
         public static void SetUndefinedColorId(bool asa)
         {
             UndefinedColorId = asa ? UndefinedColorIdAsa : UndefinedColorIdAse;
-            Values.V.Colors.SetUndefinedColorId(UndefinedColorId);
         }
 
         /// <summary>

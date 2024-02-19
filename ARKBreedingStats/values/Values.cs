@@ -151,7 +151,7 @@ namespace ARKBreedingStats.values
         /// <summary>
         /// Sets food for species, orders species, orders and initializes colors. Call after all values and mod values are loaded.
         /// </summary>
-        private void InitializeSpeciesAndColors()
+        private void InitializeSpeciesAndColors(bool undefinedColorAsa = false)
         {
             //var speciesWoFoodData = new List<string>(); // to determine which species has no food data yet
             if (specialFoodData != null)
@@ -173,7 +173,7 @@ namespace ARKBreedingStats.values
             LoadAndInitializeAliases();
             UpdateSpeciesBlueprintDictionaries();
 
-            InitializeArkColors();
+            InitializeArkColors(undefinedColorAsa);
             _speciesAndColorsInitialized = true;
         }
 
@@ -269,14 +269,16 @@ namespace ARKBreedingStats.values
                 return false;
             }
 
-            InitializeSpeciesAndColors();
+            var asaLoaded = loadedMods.Any(m => m.id == Ark.Asa); // ASA values used
+            InitializeSpeciesAndColors(asaLoaded);
 
             return true;
         }
 
-        private void InitializeArkColors()
+        private void InitializeArkColors(bool undefinedColorAsa)
         {
-            _V.Colors.InitializeArkColors();
+            Ark.SetUndefinedColorId(undefinedColorAsa);
+            _V.Colors.InitializeArkColors(Ark.UndefinedColorId);
             foreach (var s in _V.species)
                 s.InitializeColors(_V.Colors);
             _V.InvisibleColorRegionsExist = _V.species.Any(s => s.colors?.Any(r => r?.invisible == true) == true);
