@@ -1011,7 +1011,7 @@ namespace ARKBreedingStats
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     var mutationLevels = alreadyExistingCreature.levelsMutated[s];
-                    if (mutationLevels > 0 && _statIOs[s].LevelWild > mutationLevels)
+                    if (mutationLevels > 0 && _statIOs[s].LevelWild >= mutationLevels)
                     {
                         _statIOs[s].LevelMut = mutationLevels;
                         _statIOs[s].LevelWild -= mutationLevels;
