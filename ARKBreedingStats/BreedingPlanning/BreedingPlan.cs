@@ -616,7 +616,14 @@ namespace ARKBreedingStats.BreedingPlanning
             }
             lbBreedingPlanInfo.Text = string.Format(Loc.S("NoPossiblePairingForSpeciesFound"), _currentSpecies);
             lbBreedingPlanInfo.Visible = true;
-            if (!cbBPIncludeCryoCreatures.Checked)
+            if (!cbBPIncludeCryoCreatures.Checked
+                && CreatureCollection.creatures.Any(c
+                    => c.Species == _currentSpecies
+                       && !c.flags.HasFlag(CreatureFlags.Neutered)
+                       && !c.flags.HasFlag(CreatureFlags.Placeholder)
+                       && c.Status == CreatureStatus.Cryopod
+                       )
+                )
                 cbBPIncludeCryoCreatures.BackColor = Color.LightSalmon;
             if (creaturesMutationsFilteredOut)
                 nudBPMutationLimit.BackColor = Color.LightSalmon;
