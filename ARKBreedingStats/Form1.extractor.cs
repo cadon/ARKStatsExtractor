@@ -115,8 +115,14 @@ namespace ARKBreedingStats
                 numericUpDownLevel.BackColor = Color.LightSalmon;
                 _statIOs[Stats.Torpidity].Status = StatIOStatus.Error;
             }
+            else
+            {
+                numericUpDownLevel.BackColor = SystemColors.Window;
+                _statIOs[Stats.Torpidity].Status = StatIOStatus.Unique;
+            }
 
-            if (!allUnknownLevelsDistributed)
+            if (!allUnknownLevelsDistributed
+                && _statIOs.All(s => s.Status != StatIOStatus.NonUnique))
             {
                 ExtractionFailed(IssueNotes.Issue.SpeedLevelingSetting);
             }
@@ -485,72 +491,72 @@ namespace ARKBreedingStats
                 return;
             }
 
-                // highlight controls which most likely need to be checked to solve the issue
-                if (issues.HasFlag(IssueNotes.Issue.WildTamedBred))
-                    panelWildTamedBred.BackColor = Color.LightSalmon;
-                if (issues.HasFlag(IssueNotes.Issue.TamingEffectivenessRange))
-                {
-                    if (numericUpDownLowerTEffBound.Value > 0)
-                        numericUpDownLowerTEffBound.BackColor = Color.LightSalmon;
-                    if (numericUpDownUpperTEffBound.Value < 100)
-                        numericUpDownUpperTEffBound.BackColor = Color.LightSalmon;
-                    if (numericUpDownLowerTEffBound.Value == 0 && numericUpDownUpperTEffBound.Value == 100)
-                        issues -= IssueNotes.Issue.TamingEffectivenessRange;
-                }
-                if (issues.HasFlag(IssueNotes.Issue.CreatureLevel))
-                {
-                    numericUpDownLevel.BackColor = Color.LightSalmon;
-                    numericUpDownImprintingBonusExtractor.BackColor = Color.LightSalmon;
-                    _statIOs[Stats.Torpidity].Status = StatIOStatus.Error;
-                }
-                if (issues.HasFlag(IssueNotes.Issue.ImprintingLocked))
-                    cbExactlyImprinting.BackColor = Color.LightSalmon;
-                if (issues.HasFlag(IssueNotes.Issue.ImprintingNotPossible))
-                    numericUpDownImprintingBonusExtractor.BackColor = Color.LightSalmon;
+            // highlight controls which most likely need to be checked to solve the issue
+            if (issues.HasFlag(IssueNotes.Issue.WildTamedBred))
+                panelWildTamedBred.BackColor = Color.LightSalmon;
+            if (issues.HasFlag(IssueNotes.Issue.TamingEffectivenessRange))
+            {
+                if (numericUpDownLowerTEffBound.Value > 0)
+                    numericUpDownLowerTEffBound.BackColor = Color.LightSalmon;
+                if (numericUpDownUpperTEffBound.Value < 100)
+                    numericUpDownUpperTEffBound.BackColor = Color.LightSalmon;
+                if (numericUpDownLowerTEffBound.Value == 0 && numericUpDownUpperTEffBound.Value == 100)
+                    issues -= IssueNotes.Issue.TamingEffectivenessRange;
+            }
+            if (issues.HasFlag(IssueNotes.Issue.CreatureLevel))
+            {
+                numericUpDownLevel.BackColor = Color.LightSalmon;
+                numericUpDownImprintingBonusExtractor.BackColor = Color.LightSalmon;
+                _statIOs[Stats.Torpidity].Status = StatIOStatus.Error;
+            }
+            if (issues.HasFlag(IssueNotes.Issue.ImprintingLocked))
+                cbExactlyImprinting.BackColor = Color.LightSalmon;
+            if (issues.HasFlag(IssueNotes.Issue.ImprintingNotPossible))
+                numericUpDownImprintingBonusExtractor.BackColor = Color.LightSalmon;
 
-                // don't show some issue notes if the input is not wrong
-                if (issues.HasFlag(IssueNotes.Issue.LockedDom))
+            // don't show some issue notes if the input is not wrong
+            if (issues.HasFlag(IssueNotes.Issue.LockedDom))
+            {
+                bool oneStatIsDomLocked = false;
+                for (int s = 0; s < Stats.StatsCount; s++)
                 {
-                    bool oneStatIsDomLocked = false;
-                    for (int s = 0; s < Stats.StatsCount; s++)
+                    if (_statIOs[s].DomLevelLockedZero)
                     {
-                        if (_statIOs[s].DomLevelLockedZero)
-                        {
-                            oneStatIsDomLocked = true;
-                            break;
-                        }
-                    }
-                    if (!oneStatIsDomLocked)
-                    {
-                        // no stat is domLocked, remove this note
-                        issues &= ~IssueNotes.Issue.LockedDom;
+                        oneStatIsDomLocked = true;
+                        break;
                     }
                 }
-
-                if (!issues.HasFlag(IssueNotes.Issue.StatMultipliers))
-                    issues |= IssueNotes.Issue.StatMultipliers; // add this always?
-
-                if (rbTamedExtractor.Checked && _creatureCollection.considerWildLevelSteps)
-                    issues |= IssueNotes.Issue.WildLevelSteps;
-
-                if (_extractor.ResultWasSortedOutBecauseOfImpossibleTe)
-                    issues |= IssueNotes.Issue.ImpossibleTe;
-
-                labelErrorHelp.Text = $"{Loc.S("extractionFailedHeader")}:\n\n{IssueNotes.getHelpTexts(issues)}";
-                labelErrorHelp.Visible = true;
-                llOnlineHelpExtractionIssues.Visible = true;
-                groupBoxPossibilities.Visible = false;
-                groupBoxRadarChartExtractor.Visible = false;
-                creatureAnalysis1.Visible = false;
-                lbInfoYellowStats.Visible = false;
-                BtCopyIssueDumpToClipboard.Visible = true;
-                string redInfoText = null;
-                if (rbBredExtractor.Checked && numericUpDownImprintingBonusExtractor.Value > 0)
+                if (!oneStatIsDomLocked)
                 {
-                    redInfoText = Loc.S("lbImprintingFailInfo");
+                    // no stat is domLocked, remove this note
+                    issues &= ~IssueNotes.Issue.LockedDom;
                 }
-                if (!rbWildExtractor.Checked
-                    && new[]{
+            }
+
+            if (!issues.HasFlag(IssueNotes.Issue.StatMultipliers))
+                issues |= IssueNotes.Issue.StatMultipliers; // add this always?
+
+            if (rbTamedExtractor.Checked && _creatureCollection.considerWildLevelSteps)
+                issues |= IssueNotes.Issue.WildLevelSteps;
+
+            if (_extractor.ResultWasSortedOutBecauseOfImpossibleTe)
+                issues |= IssueNotes.Issue.ImpossibleTe;
+
+            labelErrorHelp.Text = $"{Loc.S("extractionFailedHeader")}:\n\n{IssueNotes.getHelpTexts(issues)}";
+            labelErrorHelp.Visible = true;
+            llOnlineHelpExtractionIssues.Visible = true;
+            groupBoxPossibilities.Visible = false;
+            groupBoxRadarChartExtractor.Visible = false;
+            creatureAnalysis1.Visible = false;
+            lbInfoYellowStats.Visible = false;
+            BtCopyIssueDumpToClipboard.Visible = true;
+            string redInfoText = null;
+            if (rbBredExtractor.Checked && numericUpDownImprintingBonusExtractor.Value > 0)
+            {
+                redInfoText = Loc.S("lbImprintingFailInfo");
+            }
+            if (!rbWildExtractor.Checked
+                && new[]{
                             "Desert Titan",
                             "Desert Titan Flock",
                             "Ice Titan",
@@ -564,28 +570,28 @@ namespace ARKBreedingStats
                             "Pegomastax",
                             "Procoptodon",
                             "Troodon"
-                            }.Contains(speciesSelector1.SelectedSpecies.name))
-                {
-                    // creatures that display wrong stat-values after taming
-                    redInfoText = (string.IsNullOrEmpty(redInfoText) ? string.Empty : redInfoText + "\n")
-                            + $"The {speciesSelector1.SelectedSpecies.name} is known for displaying wrong stat-values after taming. " +
-                            "This can prevent a successful extraction. Currently there's no known fix for that issue.";
-                }
-
-                if (!string.IsNullOrEmpty(redInfoText))
-                {
-                    lbImprintingFailInfo.Text = redInfoText;
-                    lbImprintingFailInfo.Visible = true;
-                }
-
-                toolStripButtonSaveCreatureValuesTemp.Visible = true;
-                PbCreatureColorsExtractor.Visible = false;
-                parentInheritanceExtractor.Visible = false;
-
-                // check for updates
-                if (DateTime.Now.AddHours(-5) > Properties.Settings.Default.lastUpdateCheck)
-                    CheckForUpdates(true);
+                        }.Contains(speciesSelector1.SelectedSpecies.name))
+            {
+                // creatures that display wrong stat-values after taming
+                redInfoText = (string.IsNullOrEmpty(redInfoText) ? string.Empty : redInfoText + "\n")
+                        + $"The {speciesSelector1.SelectedSpecies.name} is known for displaying wrong stat-values after taming. " +
+                        "This can prevent a successful extraction. Currently there's no known fix for that issue.";
             }
+
+            if (!string.IsNullOrEmpty(redInfoText))
+            {
+                lbImprintingFailInfo.Text = redInfoText;
+                lbImprintingFailInfo.Visible = true;
+            }
+
+            toolStripButtonSaveCreatureValuesTemp.Visible = true;
+            PbCreatureColorsExtractor.Visible = false;
+            parentInheritanceExtractor.Visible = false;
+
+            // check for updates
+            if (DateTime.Now.AddHours(-5) > Properties.Settings.Default.lastUpdateCheck)
+                CheckForUpdates(true);
+        }
 
         /// <summary>
         /// If a stat has multiple possibilities for its level distribution, the taming effectiveness may be affected by that.
