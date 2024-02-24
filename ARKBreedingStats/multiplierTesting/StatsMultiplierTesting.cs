@@ -554,6 +554,7 @@ namespace ARKBreedingStats.multiplierTesting
             _tt.SetToolTip(LbId, "Increase per domesticate level | Amount max gained per level up value tamed");
             _tt.SetToolTip(LbIdM, "Increase per domestic level global multiplier | per level stats multiplier dino tamed");
             _tt.SetToolTip(LbFinalValue, "Final stat value displayed in the game");
+            _tt.SetToolTip(LbCalculatedWildLevel, "Calculated pre tame level, dependent on the taming effectiveness and the post tame level");
         }
     }
 }
