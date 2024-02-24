@@ -424,7 +424,7 @@ namespace ARKBreedingStats.multiplierTesting
         private void CalculateTE()
         {
             // set TE to the value that solves the equation, assuming all other values are correct
-            if (nudTm.Value > 0 && (_tamed || _bred))
+            if (nudTm.Value > 0 && nudTmM.Value > 0 && (_tamed || _bred))
             {
                 MinMaxDouble statValue = new MinMaxDouble((double)nudStatValue.Value - 0.05, (double)nudStatValue.Value + 0.05);
                 statValue.Min *= _percent ? 0.01 : 1;
@@ -434,7 +434,7 @@ namespace ARKBreedingStats.multiplierTesting
                         (statValue.Max * Vd / (V * ((double)nudB.Value * AtlasBaseMultiplier * (1 + (double)nudLw.Value * (double)nudIw.Value * _spIw * (double)nudIwM.Value) * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * _sIBM : 1) + (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * _spTa : 1))) - 1) / ((double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * _spTm : 1))
                 ));
             }
-            else MessageBox.Show("Divide by Zero-error, e.g. Tm needs to be > 0, the stat has to be affected by TE and the creature has to be tamed or bred.");
+            else MessageBox.Show("Divide by Zero-error, e.g. Tm and TmM both needs to be > 0, the stat has to be affected by TE and the creature has to be tamed or bred.");
         }
 
         private void CalculateIB()
