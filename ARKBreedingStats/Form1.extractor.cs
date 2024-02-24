@@ -42,7 +42,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// This displays the sum of the chosen levels. This is the last step before a creature-extraction is considered as valid or not valid.
         /// </summary>
-        private void ShowSumOfChosenLevels(bool allUnknownLevelsDistributed)
+        private void ShowSumOfChosenLevels(int levelsImpossibleToDistribute)
         {
             // The wild levels of stats that don't change the stat value (e.g. speed) are not chosen, but calculated from the other chosen levels,
             // and must not be included in the sum, except if it's only one of these stats and all the other levels are determined uniquely!
@@ -76,18 +76,27 @@ namespace ARKBreedingStats
             if (valid)
             {
                 sumW -= allUnique || _statIOs[Stats.SpeedMultiplier].LevelWild < 0 ? 0 : _statIOs[Stats.SpeedMultiplier].LevelWild;
-                string offSetWild = allUnknownLevelsDistributed ? "✓" : "✕";
                 lbSumDom.Text = sumD.ToString();
-                if (sumW <= _extractor.LevelWildSum)
+                var levelsWildTooMany = sumW - _extractor.LevelWildSum;
+                if (levelsWildTooMany > 0)
                 {
-                    lbSumWild.ForeColor = SystemColors.ControlText;
+                    lbSumWild.ForeColor = Color.Red;
+                    lbSumWild.Text = "+" + levelsWildTooMany;
+                    inbound = false;
+                }
+                else if (levelsImpossibleToDistribute > 0)
+                {
+                    lbSumWild.ForeColor = Color.Red;
+                    lbSumWild.Text = "-" + levelsImpossibleToDistribute;
+                    inbound = false;
                 }
                 else
                 {
-                    lbSumWild.ForeColor = Color.Red;
-                    offSetWild = "+" + (sumW - _extractor.LevelWildSum);
-                    inbound = false;
+                    // too few levels are ok, they could be in wasted stats where the value is not changed and thus are unknown
+                    lbSumWild.ForeColor = SystemColors.ControlText;
+                    lbSumWild.Text = "✓";
                 }
+
                 if (sumD == _extractor.LevelDomSum)
                 {
                     lbSumDom.ForeColor = SystemColors.ControlText;
@@ -100,7 +109,6 @@ namespace ARKBreedingStats
                     if (_extractor.UniqueResults)
                         numericUpDownLevel.BackColor = Color.LightSalmon;
                 }
-                lbSumWild.Text = offSetWild;
             }
             else
             {
@@ -109,7 +117,7 @@ namespace ARKBreedingStats
             }
             panelSums.BackColor = inbound ? SystemColors.Control : Color.FromArgb(255, 200, 200);
 
-            bool torporLevelValid = allUnknownLevelsDistributed && numericUpDownLevel.Value > _statIOs[Stats.Torpidity].LevelWild;
+            bool torporLevelValid = levelsImpossibleToDistribute == 0 && numericUpDownLevel.Value > _statIOs[Stats.Torpidity].LevelWild;
             if (!torporLevelValid)
             {
                 numericUpDownLevel.BackColor = Color.LightSalmon;
@@ -121,7 +129,7 @@ namespace ARKBreedingStats
                 _statIOs[Stats.Torpidity].Status = StatIOStatus.Unique;
             }
 
-            if (!allUnknownLevelsDistributed
+            if (levelsImpossibleToDistribute != 0
                 && _statIOs.All(s => s.Status != StatIOStatus.NonUnique))
             {
                 ExtractionFailed(IssueNotes.Issue.SpeedLevelingSetting);
@@ -414,10 +422,10 @@ namespace ARKBreedingStats
                 labelTE.BackColor = Color.Transparent;
             }
 
-            var allUnknownLevelsDistributed = SetWildUnknownLevelsAccordingToOthers();
+            var levelsImpossibleToDistribute = SetWildUnknownLevelsAccordingToOthers();
 
             lbSumDomSB.Text = _extractor.LevelDomSum.ToString();
-            ShowSumOfChosenLevels(allUnknownLevelsDistributed);
+            ShowSumOfChosenLevels(levelsImpossibleToDistribute);
             if (showLevelsInOverlay)
                 ShowLevelsInOverlay();
 
@@ -720,20 +728,19 @@ namespace ARKBreedingStats
             if (validateCombination)
             {
                 SetUniqueTE();
-                var allUnknownLevelsDistributed = SetWildUnknownLevelsAccordingToOthers();
-                ShowSumOfChosenLevels(allUnknownLevelsDistributed);
+                var levelsImpossibleToDistribute = SetWildUnknownLevelsAccordingToOthers();
+                ShowSumOfChosenLevels(levelsImpossibleToDistribute);
             }
         }
 
         /// <summary>
         /// Some wild stat levels have no effect on the stat value, often that's speed or sometimes oxygen.
         /// The wild levels of these ineffective stats can be calculated indirectly if there is only one of them.
-        /// Returns false if not all invalid levels could be distributed in stats.
+        /// If return value is > 0, that many levels are impossible to distribute among the possible stats. Success is a return of 0.
         /// </summary>
-        private bool SetWildUnknownLevelsAccordingToOthers()
+        private int SetWildUnknownLevelsAccordingToOthers()
         {
             var species = speciesSelector1.SelectedSpecies;
-            var allUnknownLevelsAreDistributed = true;
             // wild speed level is wildTotalLevels - determinedWildLevels. sometimes the oxygen level cannot be determined as well
             var unknownLevelIndices = new List<int>();
             int notDeterminedLevels = _statIOs[Stats.Torpidity].LevelWild;
@@ -755,25 +762,22 @@ namespace ARKBreedingStats
             switch (unknownLevelIndices.Count)
             {
                 case 0:
-                    // no unknown levels
-                    if (notDeterminedLevels != 0)
-                    {
-                        allUnknownLevelsAreDistributed = false;
-                    }
-                    return allUnknownLevelsAreDistributed;
+                    // no unknown levels, notDeterminedLevels should be 0, else the extraction is impossible
+                    return notDeterminedLevels;
                 case 1:
                     // if all other stats are unique, set level
                     var statIndex = unknownLevelIndices[0];
                     _statIOs[statIndex].LevelWild = Math.Max(0, notDeterminedLevels);
                     _statIOs[statIndex].BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, statIndex, _statIOs[statIndex].LevelWild, 0, 0, true, 1, 0);
-                    return true;
+                    return 0;
                 default:
                     // if not all other levels are unique, set the indifferent stats to unknown
                     foreach (var s in unknownLevelIndices)
                     {
                         _statIOs[s].LevelWild = -1;
                     }
-                    return true;
+                    // not all levels are uniquely distributed, but still possible
+                    return 0;
             }
         }
 
