@@ -3831,8 +3831,9 @@ namespace ARKBreedingStats
                 var s = addRandomCreatureDialog.Settings;
                 selectedSpecies = s.OnlySelectedSpecies ? speciesSelector1.SelectedSpecies : null;
                 _creatureCollection.MergeCreatureList(DummyCreatures.CreateCreatures(s.CreatureCount,
-                   selectedSpecies, s.SpeciesCount,
-                    s.Generations, s.PairsPerGeneration, _creatureCollection.Game == Ark.Asa, s.ProbabilityHigherStat, s.RandomMutationChance, s.MaxWildLevel,
+                   selectedSpecies, s.SpeciesCount, s.Tamed,
+                   s.Generations, s.PairsPerGeneration, _creatureCollection.Game == Ark.Asa, s.ProbabilityHigherStat, s.RandomMutationChance,
+                   s.MaxWildLevel, s.MaxStatLevel,
                    s.SetOwner, s.SetTribe, s.SetServer, true));
             }
 
