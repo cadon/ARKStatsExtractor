@@ -216,7 +216,7 @@ namespace ARKBreedingStats
             creatureInfoInputTester.SetCreatureData(_creatureTesterEdit);
 
             if (wildChanged)
-                CalculateTopStats(_creatureCollection.creatures.Where(c => c.Species == _creatureTesterEdit.Species).ToList());
+                CalculateTopStats(_creatureCollection.creatures.Where(c => c.Species == _creatureTesterEdit.Species).ToList(), _creatureTesterEdit.Species);
             UpdateDisplayedCreatureValues(_creatureTesterEdit, statusChanged, true);
 
             if (parentsChanged)
