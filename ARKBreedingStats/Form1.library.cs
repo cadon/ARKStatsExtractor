@@ -277,12 +277,24 @@ namespace ARKBreedingStats
         /// Calculates the top-stats in each species, sets the top-stat-flags in the creatures
         /// </summary>
         /// <param name="creatures">creatures to consider</param>
-        private void CalculateTopStats(List<Creature> creatures)
+        /// <param name="onlySpecies">If not null, it's assumed only creatures of this species are recalculated</param>
+        private void CalculateTopStats(List<Creature> creatures, Species onlySpecies = null)
         {
-            _highestSpeciesLevels.Clear();
-            _lowestSpeciesLevels.Clear();
-            _highestSpeciesMutationLevels.Clear();
-            _lowestSpeciesMutationLevels.Clear();
+            if (onlySpecies == null)
+            {
+                // if all creatures are recalculated, clear all
+                _highestSpeciesLevels.Clear();
+                _lowestSpeciesLevels.Clear();
+                _highestSpeciesMutationLevels.Clear();
+                _lowestSpeciesMutationLevels.Clear();
+            }
+            else
+            {
+                _highestSpeciesLevels.Remove(onlySpecies);
+                _lowestSpeciesLevels.Remove(onlySpecies);
+                _highestSpeciesMutationLevels.Remove(onlySpecies);
+                _lowestSpeciesMutationLevels.Remove(onlySpecies);
+            }
 
             var filteredCreaturesHash = Properties.Settings.Default.useFiltersInTopStatCalculation ? new HashSet<Creature>(ApplyLibraryFilterSettings(creatures)) : null;
 
@@ -929,7 +941,7 @@ namespace ARKBreedingStats
             // if creatureStatus (available/dead) changed, recalculate topStats (dead creatures are not considered there)
             if (creatureStatusChanged)
             {
-                CalculateTopStats(_creatureCollection.creatures.Where(c => c.Species == cr.Species).ToList());
+                CalculateTopStats(_creatureCollection.creatures.Where(c => c.Species == cr.Species).ToList(), cr.Species);
                 FilterLibRecalculate();
                 UpdateStatusBar();
             }

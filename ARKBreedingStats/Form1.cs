@@ -984,7 +984,7 @@ namespace ARKBreedingStats
             }
 
             UpdateOwnerServerTagLists();
-            CalculateTopStats(creatures);
+            CalculateTopStats(creatures, species);
             UpdateSpeciesLists(_creatureCollection.creatures, keepCurrentlySelectedSpecies);
             FilterLibRecalculate();
             UpdateStatusBar();
