@@ -1411,25 +1411,34 @@ namespace ARKBreedingStats
 
             if (_creaturesPreFiltered == null)
             {
-                filteredList = from creature in _creatureCollection.creatures
-                               where creature.Species != null && !creature.flags.HasFlag(CreatureFlags.Placeholder)
-                               select creature;
-
-                // if only one species should be shown adjust headers if the selected species has custom statNames
-                Dictionary<string, string> customStatNames = null;
-                if (listBoxSpeciesLib.SelectedItem is Species selectedSpecies)
+                if (!_creatureCollection.creatures.Any())
                 {
-                    filteredList = filteredList.Where(c => c.Species == selectedSpecies);
-                    customStatNames = selectedSpecies.statNames;
+                    _creaturesPreFiltered = Array.Empty<Creature>();
                 }
-
-                for (int s = 0; s < Stats.StatsCount; s++)
+                else
                 {
-                    listViewLibrary.Columns[ColumnIndexFirstStat + s].Text = Utils.StatName(s, true, customStatNames);
-                    listViewLibrary.Columns[ColumnIndexFirstStat + Stats.StatsCount + s].Text = Utils.StatName(s, true, customStatNames) + "M";
-                }
+                    filteredList = from creature in _creatureCollection.creatures
+                                   where creature.Species != null && !creature.flags.HasFlag(CreatureFlags.Placeholder)
+                                   select creature;
 
-                _creaturesPreFiltered = ApplyLibraryFilterSettings(filteredList).ToArray();
+                    // if only one species should be shown adjust headers if the selected species has custom statNames
+                    Dictionary<string, string> customStatNames = null;
+                    if (listBoxSpeciesLib.SelectedItem is Species selectedSpecies)
+                    {
+                        filteredList = filteredList.Where(c => c.Species == selectedSpecies);
+                        customStatNames = selectedSpecies.statNames;
+                    }
+
+                    for (int s = 0; s < Stats.StatsCount; s++)
+                    {
+                        listViewLibrary.Columns[ColumnIndexFirstStat + s].Text =
+                            Utils.StatName(s, true, customStatNames);
+                        listViewLibrary.Columns[ColumnIndexFirstStat + Stats.StatsCount + s].Text =
+                            Utils.StatName(s, true, customStatNames) + "M";
+                    }
+
+                    _creaturesPreFiltered = ApplyLibraryFilterSettings(filteredList).ToArray();
+                }
             }
 
             filteredList = _creaturesPreFiltered;

@@ -1165,6 +1165,8 @@ namespace ARKBreedingStats
             creature.ArkIdImported = Utils.IsArkIdImported(creature.ArkId, creature.guid);
             creature.InitializeArkInGame();
 
+            creature.InitializeFlags();
+
             // parent guids
             if (motherArkId != 0)
                 creature.motherGuid = Utils.ConvertArkIdToGuid(motherArkId);
