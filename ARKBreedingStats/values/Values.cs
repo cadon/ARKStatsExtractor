@@ -468,8 +468,8 @@ namespace ARKBreedingStats.values
         /// </summary>
         public void ApplyMultipliers(CreatureCollection cc, bool eventMultipliers = false, bool applyStatMultipliers = true)
         {
-            currentServerMultipliers = (eventMultipliers ? cc.serverMultipliersEvents : cc.serverMultipliers)?.Copy(false);
-            if (currentServerMultipliers == null) currentServerMultipliers = V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official);
+            currentServerMultipliers = (eventMultipliers ? cc.serverMultipliersEvents : cc.serverMultipliers)?.Copy(false)
+                                       ?? V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official);
             if (currentServerMultipliers == null)
             {
                 throw new FileNotFoundException("No default server multiplier values found.\nIt's recommend to redownload ARK Smart Breeding.");

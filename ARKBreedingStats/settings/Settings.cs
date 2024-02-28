@@ -1157,6 +1157,8 @@ namespace ARKBreedingStats.settings
 
                 CbAllowSpeedLeveling.Checked = sm.AllowSpeedLeveling;
                 CbAllowFlyerSpeedLeveling.Checked = sm.AllowFlyerSpeedLeveling;
+                cbSingleplayerSettings.Checked = sm.SinglePlayerSettings;
+                CbAtlasSettings.Checked = sm.AtlasSettings;
             }
 
             if (sm.statMultipliers == null) return;
@@ -1731,6 +1733,7 @@ namespace ARKBreedingStats.settings
                 "Select one of the configs to import.", "Auto import configs", 40);
             if (importIndex == -1) return;
 
+            CbAtlasSettings.Checked = false;
             ExtractSettingsFromFile(Path.Combine(localConfigPaths[importIndex].Item1, "game.ini"), true);
             ExtractSettingsFromFile(Path.Combine(localConfigPaths[importIndex].Item1, "gameUserSettings.ini"), true);
 

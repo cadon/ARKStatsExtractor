@@ -14,11 +14,6 @@ namespace ARKBreedingStats.Library
     {
         public const string CurrentLibraryFormatVersion = "1.13";
 
-        public CreatureCollection()
-        {
-            FormatVersion = CurrentLibraryFormatVersion;
-        }
-
         public const int MaxDomLevelDefault = 88;
         public const int MaxDomLevelSinglePlayerDefault = 88;
 
@@ -28,7 +23,7 @@ namespace ARKBreedingStats.Library
         [JsonIgnore]
         public static CreatureCollection CurrentCreatureCollection;
         [JsonProperty]
-        public string FormatVersion;
+        public string FormatVersion = CurrentLibraryFormatVersion;
         [JsonProperty]
         public List<Creature> creatures = new List<Creature>();
         [JsonProperty]
@@ -65,12 +60,12 @@ namespace ARKBreedingStats.Library
         [JsonProperty]
         public ServerMultipliers serverMultipliers;
         [JsonProperty]
-        public ServerMultipliers serverMultipliersEvents; // this object's statMultipliers are not used
+        public ServerMultipliers serverMultipliersEvents; // only the taming and breeding multipliers of this are used
 
         /// <summary>
         /// Deprecated setting, remove on 2025-01-01
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool singlePlayerSettings;
 
         /// <summary>
