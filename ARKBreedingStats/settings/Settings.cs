@@ -880,6 +880,8 @@ namespace ARKBreedingStats.settings
             ParseAndSetValue(NudWildDinoCharacterFoodDrainMultiplier, @"WildDinoCharacterFoodDrainMultiplier ?= ?(\d*\.?\d+)");
             // Game.ini
             ParseAndSetValue(NudWildDinoTorporDrainMultiplier, @"WildDinoTorporDrainMultiplier ?= ?(\d*\.?\d+)");
+            ParseAndSetCheckbox(CbAllowSpeedLeveling, @"bAllowSpeedLeveling ?= ?(true|false)");
+            ParseAndSetCheckbox(CbAllowFlyerSpeedLeveling, @"bAllowFlyerSpeedLeveling ?= ?(true|false)");
 
             //// the settings below don't appear in ARK server config files directly or not at all and are used only in ASB
             // max levels
@@ -890,8 +892,6 @@ namespace ARKBreedingStats.settings
             if (ParseAndSetValue(nudWildLevelStep, @"ASBExtractorWildLevelSteps ?= ?(\d+)"))
                 cbConsiderWildLevelSteps.Checked = nudWildLevelStep.Value != 1;
             ParseAndSetCheckbox(cbAllowMoreThanHundredImprinting, @"ASBAllowHyperImprinting ?= ?(true|false)");
-            ParseAndSetCheckbox(CbAllowSpeedLeveling, @"ASBAllowSpeedLeveling ?= ?(true|false)");
-            ParseAndSetCheckbox(CbAllowFlyerSpeedLeveling, @"ASBAllowFlyerSpeedLeveling ?= ?(true|false)");
 
             // event multipliers breeding
             ParseAndSetValue(nudMatingIntervalEvent, @"ASBEvent_MatingIntervalMultiplier ?= ?(\d*\.?\d+)");
@@ -1155,10 +1155,8 @@ namespace ARKBreedingStats.settings
                 nudMatingSpeed.ValueSave = (decimal)sm.MatingSpeedMultiplier;
                 nudBabyFoodConsumptionSpeed.ValueSave = (decimal)sm.BabyFoodConsumptionSpeedMultiplier;
 
-                ////numericUpDownDomLevelNr.ValueSave = ;
-                //numericUpDownMaxBreedingSug.ValueSave = cc.maxBreedingSuggestions;
-                //numericUpDownMaxWildLevel.ValueSave = cc.maxWildLevel;
-                //nudMaxServerLevel.ValueSave = cc.maxServerLevel > 0 ? cc.maxServerLevel : 0;
+                CbAllowSpeedLeveling.Checked = sm.AllowSpeedLeveling;
+                CbAllowFlyerSpeedLeveling.Checked = sm.AllowFlyerSpeedLeveling;
             }
 
             if (sm.statMultipliers == null) return;
@@ -1273,8 +1271,8 @@ namespace ARKBreedingStats.settings
             // extractor
             sb.AppendLine($"ASBExtractorWildLevelSteps = {(cbConsiderWildLevelSteps.Checked ? nudWildLevelStep.Value.ToString(cultureForStrings) : "1")}");
             sb.AppendLine($"ASBAllowHyperImprinting = {(cbAllowMoreThanHundredImprinting.Checked ? "true" : "false")}");
-            sb.AppendLine($"ASBAllowSpeedLeveling = {(CbAllowSpeedLeveling.Checked ? "true" : "false")}");
-            sb.AppendLine($"ASBAllowFlyerSpeedLeveling = {(CbAllowFlyerSpeedLeveling.Checked ? "true" : "false")}");
+            sb.AppendLine($"bAllowSpeedLeveling = {(CbAllowSpeedLeveling.Checked ? "true" : "false")}");
+            sb.AppendLine($"bAllowFlyerSpeedLeveling = {(CbAllowFlyerSpeedLeveling.Checked ? "true" : "false")}");
 
             // event multipliers
             sb.AppendLine($"ASBEvent_MatingIntervalMultiplier = {nudMatingIntervalEvent.Value.ToString(cultureForStrings)}");
