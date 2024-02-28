@@ -117,7 +117,7 @@ namespace ARKBreedingStats
             }
             panelSums.BackColor = inbound ? SystemColors.Control : Color.FromArgb(255, 200, 200);
 
-            bool torporLevelValid = levelsImpossibleToDistribute == 0 && numericUpDownLevel.Value > _statIOs[Stats.Torpidity].LevelWild;
+            bool torporLevelValid = numericUpDownLevel.Value > _statIOs[Stats.Torpidity].LevelWild;
             if (!torporLevelValid)
             {
                 numericUpDownLevel.BackColor = Color.LightSalmon;
