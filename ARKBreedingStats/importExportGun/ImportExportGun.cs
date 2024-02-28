@@ -332,7 +332,7 @@ namespace ARKBreedingStats.importExportGun
             cc.serverMultipliers.BabyFoodConsumptionSpeedMultiplier = Math.Round(esm.BabyFoodConsumptionSpeedMultiplier, roundToDigits);
             cc.serverMultipliers.AllowSpeedLeveling = esm.AllowSpeedLeveling;
             cc.serverMultipliers.AllowFlyerSpeedLeveling = esm.AllowFlyerSpeedLeveling;
-            cc.singlePlayerSettings = esm.UseSingleplayerSettings;
+            cc.serverMultipliers.SinglePlayerSettings = esm.UseSingleplayerSettings;
             cc.Game = esm.Game;
 
             cc.ServerMultipliersHash = newServerMultipliersHash;

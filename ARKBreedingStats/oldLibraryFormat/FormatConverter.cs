@@ -243,7 +243,6 @@ namespace ARKBreedingStats.oldLibraryFormat
             ccNew.ownerList = ccOld.ownerList;
             ccNew.players = ccOld.players;
             ccNew.serverList = ccOld.serverList;
-            ccNew.singlePlayerSettings = ccOld.singlePlayerSettings;
             ccNew.tags = ccOld.tags;
             ccNew.tagsExclude = ccOld.tagsExclude;
             ccNew.tagsInclude = ccOld.tagsInclude;
@@ -271,7 +270,8 @@ namespace ARKBreedingStats.oldLibraryFormat
                 EggHatchSpeedMultiplier = ccOld.EggHatchSpeedMultiplier,
                 BabyMatureSpeedMultiplier = ccOld.BabyMatureSpeedMultiplier,
                 BabyFoodConsumptionSpeedMultiplier = ccOld.BabyFoodConsumptionSpeedMultiplier,
-                statMultipliers = ccOld.multipliers // was converted to 12-stats before
+                statMultipliers = ccOld.multipliers, // was converted to 12-stats before
+                SinglePlayerSettings = ccOld.singlePlayerSettings
             };
 
             ccNew.serverMultipliersEvents = new ServerMultipliers

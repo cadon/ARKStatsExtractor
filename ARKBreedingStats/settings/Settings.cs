@@ -212,8 +212,8 @@ namespace ARKBreedingStats.settings
                     else _multSetter[s].Multipliers = null;
                 }
             }
-            cbSingleplayerSettings.Checked = cc.singlePlayerSettings;
-            CbAtlasSettings.Checked = _cc.AtlasSettings;
+            cbSingleplayerSettings.Checked = cc.serverMultipliers?.SinglePlayerSettings == true;
+            CbAtlasSettings.Checked = _cc.serverMultipliers?.AtlasSettings == true;
             if (_cc.Game == Ark.Asa)
             {
                 RbGameAsa.Checked = true;
@@ -501,8 +501,8 @@ namespace ARKBreedingStats.settings
                 _cc.serverMultipliers.statMultipliers[Stats.Torpidity][Stats.IndexLevelWild] = 1;
             }
 
-            _cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
-            _cc.AtlasSettings = CbAtlasSettings.Checked;
+            _cc.serverMultipliers.SinglePlayerSettings = cbSingleplayerSettings.Checked;
+            _cc.serverMultipliers.AtlasSettings = CbAtlasSettings.Checked;
             _cc.Game = RbGameAsa.Checked ? Ark.Asa : Ark.Ase;
             Properties.Settings.Default.NewLibraryGame = RbNewLibraryGameAse.Checked ? Ark.Game.Ase
                 : RbNewLibraryGameAsa.Checked ? Ark.Game.Asa

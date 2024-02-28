@@ -67,11 +67,14 @@ namespace ARKBreedingStats.Library
         [JsonProperty]
         public ServerMultipliers serverMultipliersEvents; // this object's statMultipliers are not used
 
+        /// <summary>
+        /// Deprecated setting, remove on 2025-01-01
+        /// </summary>
         [JsonProperty]
         public bool singlePlayerSettings;
 
         /// <summary>
-        /// If true, apply extra multipliers for the game ATLAS.
+        /// Deprecated setting, remove on 2025-01-01
         /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool AtlasSettings;
@@ -480,6 +483,18 @@ namespace ARKBreedingStats.Library
         private void InitializeProperties(StreamingContext ct)
         {
             if (tags == null) tags = new List<string>();
+
+            // backwards compatibility, remove 10 lines below in 2025-01-01
+            if (singlePlayerSettings && serverMultipliers != null)
+            {
+                serverMultipliers.SinglePlayerSettings = singlePlayerSettings;
+                singlePlayerSettings = false;
+            }
+            if (AtlasSettings && serverMultipliers != null)
+            {
+                serverMultipliers.AtlasSettings = AtlasSettings;
+                AtlasSettings = false;
+            }
 
             // convert DateTimes to local times
             foreach (var tle in timerListEntries)

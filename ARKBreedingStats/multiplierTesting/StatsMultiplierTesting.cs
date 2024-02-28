@@ -221,8 +221,8 @@ namespace ARKBreedingStats.multiplierTesting
             }
             SetIBM(_cc.serverMultipliers.BabyImprintingStatScaleMultiplier);
 
-            cbSingleplayerSettings.Checked = _cc.singlePlayerSettings;
-            CbAtlas.Checked = _cc.AtlasSettings;
+            cbSingleplayerSettings.Checked = _cc.serverMultipliers.SinglePlayerSettings;
+            CbAtlas.Checked = _cc.serverMultipliers.AtlasSettings;
             CbAllowSpeedLeveling.Checked = _cc.serverMultipliers.AllowSpeedLeveling;
             CbAllowFlyerSpeedLeveling.Checked = _cc.serverMultipliers.AllowFlyerSpeedLeveling;
 
@@ -325,8 +325,8 @@ namespace ARKBreedingStats.multiplierTesting
             if (_cc?.serverMultipliers?.statMultipliers != null)
             {
                 showWarning = _cc.serverMultipliers.BabyImprintingStatScaleMultiplier != (double)nudIBM.Value
-                                || _cc.singlePlayerSettings != cbSingleplayerSettings.Checked
-                                || _cc.AtlasSettings != CbAtlas.Checked
+                                || _cc.serverMultipliers.SinglePlayerSettings != cbSingleplayerSettings.Checked
+                                || _cc.serverMultipliers.AtlasSettings != CbAtlas.Checked
                                 || _cc.serverMultipliers.AllowSpeedLeveling != CbAllowSpeedLeveling.Checked
                                 || _cc.serverMultipliers.AllowFlyerSpeedLeveling != CbAllowFlyerSpeedLeveling.Checked;
                 if (!showWarning)
@@ -426,8 +426,8 @@ namespace ARKBreedingStats.multiplierTesting
                 _statControls[s].SetStatMultiplierWithoutChangingInputs(_statControls[s].StatMultipliers);
             }
             _cc.serverMultipliers.BabyImprintingStatScaleMultiplier = (double)nudIBM.Value;
-            _cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
-            _cc.AtlasSettings = CbAtlas.Checked;
+            _cc.serverMultipliers.SinglePlayerSettings = cbSingleplayerSettings.Checked;
+            _cc.serverMultipliers.AtlasSettings = CbAtlas.Checked;
             _cc.serverMultipliers.AllowSpeedLeveling = CbAllowSpeedLeveling.Checked;
             _cc.serverMultipliers.AllowFlyerSpeedLeveling = CbAllowFlyerSpeedLeveling.Checked;
             OnApplyMultipliers?.Invoke();

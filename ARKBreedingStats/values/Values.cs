@@ -477,9 +477,9 @@ namespace ARKBreedingStats.values
 
             ServerMultipliers singlePlayerServerMultipliers = null;
 
-            if (cc.singlePlayerSettings)
+            if (currentServerMultipliers.SinglePlayerSettings)
             {
-                // The singleplayer multipliers are saved as a regular multiplierpreset, but they work differently
+                // The singleplayer multipliers are saved as a regular multiplier preset, but they work differently
                 // in the way they are multiplied on existing multipliers and won't work on their own.
                 // The preset name "singleplayer" should only be used for this purpose.
                 singlePlayerServerMultipliers = serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Singleplayer);
@@ -592,8 +592,7 @@ namespace ARKBreedingStats.values
                     sp.SetCustomImprintingMultipliers(imprintingMultiplierOverrides);
 
                     // ATLAS multipliers
-
-                    if (cc.AtlasSettings)
+                    if (cc.serverMultipliers.AtlasSettings)
                     {
                         sp.stats[Stats.Health].BaseValue *= 1.25;
                         sp.stats[Stats.Health].IncPerTamedLevel *= 1.5;
