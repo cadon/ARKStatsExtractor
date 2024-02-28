@@ -151,7 +151,7 @@ namespace ARKBreedingStats.values
         /// <summary>
         /// Sets food for species, orders species, orders and initializes colors. Call after all values and mod values are loaded.
         /// </summary>
-        private void InitializeSpeciesAndColors()
+        private void InitializeSpeciesAndColors(bool undefinedColorAsa = false)
         {
             //var speciesWoFoodData = new List<string>(); // to determine which species has no food data yet
             if (specialFoodData != null)
@@ -173,7 +173,7 @@ namespace ARKBreedingStats.values
             LoadAndInitializeAliases();
             UpdateSpeciesBlueprintDictionaries();
 
-            InitializeArkColors();
+            InitializeArkColors(undefinedColorAsa);
             _speciesAndColorsInitialized = true;
         }
 
@@ -269,14 +269,16 @@ namespace ARKBreedingStats.values
                 return false;
             }
 
-            InitializeSpeciesAndColors();
+            var asaLoaded = loadedMods.Any(m => m.id == Ark.Asa); // ASA values used
+            InitializeSpeciesAndColors(asaLoaded);
 
             return true;
         }
 
-        private void InitializeArkColors()
+        private void InitializeArkColors(bool undefinedColorAsa)
         {
-            _V.Colors.InitializeArkColors();
+            Ark.SetUndefinedColorId(undefinedColorAsa);
+            _V.Colors.InitializeArkColors(Ark.UndefinedColorId);
             foreach (var s in _V.species)
                 s.InitializeColors(_V.Colors);
             _V.InvisibleColorRegionsExist = _V.species.Any(s => s.colors?.Any(r => r?.invisible == true) == true);
@@ -466,8 +468,8 @@ namespace ARKBreedingStats.values
         /// </summary>
         public void ApplyMultipliers(CreatureCollection cc, bool eventMultipliers = false, bool applyStatMultipliers = true)
         {
-            currentServerMultipliers = (eventMultipliers ? cc.serverMultipliersEvents : cc.serverMultipliers)?.Copy(false);
-            if (currentServerMultipliers == null) currentServerMultipliers = V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official);
+            currentServerMultipliers = (eventMultipliers ? cc.serverMultipliersEvents : cc.serverMultipliers)?.Copy(false)
+                                       ?? V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official);
             if (currentServerMultipliers == null)
             {
                 throw new FileNotFoundException("No default server multiplier values found.\nIt's recommend to redownload ARK Smart Breeding.");
@@ -475,9 +477,9 @@ namespace ARKBreedingStats.values
 
             ServerMultipliers singlePlayerServerMultipliers = null;
 
-            if (cc.singlePlayerSettings)
+            if (currentServerMultipliers.SinglePlayerSettings)
             {
-                // The singleplayer multipliers are saved as a regular multiplierpreset, but they work differently
+                // The singleplayer multipliers are saved as a regular multiplier preset, but they work differently
                 // in the way they are multiplied on existing multipliers and won't work on their own.
                 // The preset name "singleplayer" should only be used for this purpose.
                 singlePlayerServerMultipliers = serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Singleplayer);
@@ -590,8 +592,7 @@ namespace ARKBreedingStats.values
                     sp.SetCustomImprintingMultipliers(imprintingMultiplierOverrides);
 
                     // ATLAS multipliers
-
-                    if (cc.AtlasSettings)
+                    if (cc.serverMultipliers.AtlasSettings)
                     {
                         sp.stats[Stats.Health].BaseValue *= 1.25;
                         sp.stats[Stats.Health].IncPerTamedLevel *= 1.5;

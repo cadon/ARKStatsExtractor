@@ -3261,8 +3261,6 @@ namespace ARKBreedingStats
         {
             // set all stat-multipliers from testCase
             _creatureCollection.serverMultipliers = etc.serverMultipliers.Copy(true);
-            _creatureCollection.singlePlayerSettings = etc.singleplayerSettings;
-            _creatureCollection.AtlasSettings = etc.AtlasSettings;
             _creatureCollection.allowMoreThanHundredImprinting = etc.allowMoreThanHundredPercentImprinting;
             _creatureCollection.maxWildLevel = etc.maxWildLevel;
 
@@ -3293,10 +3291,8 @@ namespace ARKBreedingStats
                 etc.levelsDom = GetCurrentDomLevels(false);
                 etc.levelsWild = GetCurrentWildLevels(false);
                 etc.ModIDs = _creatureCollection.modIDs?.ToList();
-                etc.serverMultipliers = _creatureCollection.serverMultipliers;
+                etc.serverMultipliers = _creatureCollection.serverMultipliers.Copy(true);
                 etc.Species = speciesSelector1.SelectedSpecies;
-                etc.singleplayerSettings = _creatureCollection.singlePlayerSettings;
-                etc.AtlasSettings = _creatureCollection.AtlasSettings;
                 etc.allowMoreThanHundredPercentImprinting = _creatureCollection.allowMoreThanHundredImprinting;
                 etc.maxWildLevel = _creatureCollection.maxWildLevel;
 
@@ -3831,8 +3827,9 @@ namespace ARKBreedingStats
                 var s = addRandomCreatureDialog.Settings;
                 selectedSpecies = s.OnlySelectedSpecies ? speciesSelector1.SelectedSpecies : null;
                 _creatureCollection.MergeCreatureList(DummyCreatures.CreateCreatures(s.CreatureCount,
-                   selectedSpecies, s.SpeciesCount,
-                    s.Generations, s.PairsPerGeneration, _creatureCollection.Game == Ark.Asa, s.ProbabilityHigherStat, s.RandomMutationChance, s.MaxWildLevel,
+                   selectedSpecies, s.SpeciesCount, s.Tamed,
+                   s.Generations, s.PairsPerGeneration, _creatureCollection.Game == Ark.Asa, s.ProbabilityHigherStat, s.RandomMutationChance,
+                   s.MaxWildLevel, s.MaxStatLevel,
                    s.SetOwner, s.SetTribe, s.SetServer, true));
             }
 

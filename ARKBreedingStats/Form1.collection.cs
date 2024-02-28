@@ -51,30 +51,35 @@ namespace ARKBreedingStats
                 }
             }
 
-            // use previously used multipliers again in the new file
-            var oldMultipliers = _creatureCollection.serverMultipliers;
-            var asaMode = _creatureCollection.Game == Ark.Asa;
+            ServerMultipliers oldMultipliers = null;
+            ServerMultipliers oldEventMultipliers = null;
+            bool asaMode;
 
-            if (!Properties.Settings.Default.KeepMultipliersForNewLibrary)
+            if (Properties.Settings.Default.KeepMultipliersForNewLibrary)
             {
-                oldMultipliers = null; // use default
+                // use previously used multipliers again in the new file
+                oldMultipliers = _creatureCollection.serverMultipliers;
+                oldEventMultipliers = _creatureCollection.serverMultipliersEvents;
             }
 
             // ask which game version if no default is set
             switch (Properties.Settings.Default.NewLibraryGame)
             {
-                case Ark.Game.Unknown:
-                    var gameVersionDialog = new ArkVersionDialog(this);
-                    gameVersionDialog.ShowDialog();
-                    if (gameVersionDialog.UseSelectionAsDefault)
-                        Properties.Settings.Default.NewLibraryGame = gameVersionDialog.GameVersion;
-                    asaMode = gameVersionDialog.GameVersion == Ark.Game.Asa;
-                    break;
                 case Ark.Game.Ase:
                     asaMode = false;
                     break;
                 case Ark.Game.Asa:
                     asaMode = true;
+                    break;
+                case Ark.Game.SameAsBefore:
+                    asaMode = _creatureCollection.Game == Ark.Asa;
+                    break;
+                default:
+                    var gameVersionDialog = new ArkVersionDialog(this);
+                    gameVersionDialog.ShowDialog();
+                    if (gameVersionDialog.UseSelectionAsDefault)
+                        Properties.Settings.Default.NewLibraryGame = gameVersionDialog.GameVersion;
+                    asaMode = gameVersionDialog.GameVersion == Ark.Game.Asa;
                     break;
             }
 
@@ -84,6 +89,7 @@ namespace ARKBreedingStats
             _creatureCollection = new CreatureCollection
             {
                 serverMultipliers = oldMultipliers,
+                serverMultipliersEvents = oldEventMultipliers,
                 ModList = new List<Mod>()
             };
             _currentFileName = null;

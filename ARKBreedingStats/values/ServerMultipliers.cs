@@ -52,6 +52,15 @@ namespace ARKBreedingStats.values
         [JsonProperty]
         public bool AllowFlyerSpeedLeveling { get; set; }
 
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool SinglePlayerSettings { get; set; }
+
+        /// <summary>
+        /// If true, apply extra multipliers for the game ATLAS.
+        /// </summary>
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool AtlasSettings { get; set; }
+
         /// <summary>
         /// Fix any null values
         /// </summary>
@@ -88,7 +97,9 @@ namespace ARKBreedingStats.values
                 BabyCuddleIntervalMultiplier = BabyCuddleIntervalMultiplier,
                 BabyImprintingStatScaleMultiplier = BabyImprintingStatScaleMultiplier,
                 BabyImprintAmountMultiplier = BabyImprintAmountMultiplier,
-                AllowFlyerSpeedLeveling = AllowFlyerSpeedLeveling
+                AllowFlyerSpeedLeveling = AllowFlyerSpeedLeveling,
+                SinglePlayerSettings = SinglePlayerSettings,
+                AtlasSettings = AtlasSettings
             };
 
             if (withStatMultipliers && statMultipliers != null)

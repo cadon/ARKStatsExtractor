@@ -95,8 +95,10 @@ namespace ARKBreedingStats.uiControls
             label1.Text = headerText;
 
             if (modListHash != values.Values.V.loadedModsHash)
+            {
                 ResetColors();
-            modListHash = values.Values.V.loadedModsHash;
+                modListHash = values.Values.V.loadedModsHash;
+            }
 
             var colors = values.Values.V.Colors.ColorsList;
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using SavegameToolkit.Types;
 
 namespace ARKBreedingStats.species
 {
@@ -41,7 +40,7 @@ namespace ARKBreedingStats.species
                                        LinearColorComponentToColorComponentClamped(linearColorValues[1]),
                                        LinearColorComponentToColorComponentClamped(linearColorValues[2]));
 
-                LinearRgba = new double[] {
+                LinearRgba = new[] {
                     linearColorValues[0],
                     linearColorValues[1],
                     linearColorValues[2],

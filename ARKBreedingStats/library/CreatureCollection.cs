@@ -14,11 +14,6 @@ namespace ARKBreedingStats.Library
     {
         public const string CurrentLibraryFormatVersion = "1.13";
 
-        public CreatureCollection()
-        {
-            FormatVersion = CurrentLibraryFormatVersion;
-        }
-
         public const int MaxDomLevelDefault = 88;
         public const int MaxDomLevelSinglePlayerDefault = 88;
 
@@ -28,7 +23,7 @@ namespace ARKBreedingStats.Library
         [JsonIgnore]
         public static CreatureCollection CurrentCreatureCollection;
         [JsonProperty]
-        public string FormatVersion;
+        public string FormatVersion = CurrentLibraryFormatVersion;
         [JsonProperty]
         public List<Creature> creatures = new List<Creature>();
         [JsonProperty]
@@ -65,13 +60,16 @@ namespace ARKBreedingStats.Library
         [JsonProperty]
         public ServerMultipliers serverMultipliers;
         [JsonProperty]
-        public ServerMultipliers serverMultipliersEvents; // this object's statMultipliers are not used
+        public ServerMultipliers serverMultipliersEvents; // only the taming and breeding multipliers of this are used
 
-        [JsonProperty]
+        /// <summary>
+        /// Deprecated setting, remove on 2025-01-01
+        /// </summary>
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool singlePlayerSettings;
 
         /// <summary>
-        /// If true, apply extra multipliers for the game ATLAS.
+        /// Deprecated setting, remove on 2025-01-01
         /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool AtlasSettings;
@@ -481,6 +479,18 @@ namespace ARKBreedingStats.Library
         {
             if (tags == null) tags = new List<string>();
 
+            // backwards compatibility, remove 10 lines below in 2025-01-01
+            if (singlePlayerSettings && serverMultipliers != null)
+            {
+                serverMultipliers.SinglePlayerSettings = singlePlayerSettings;
+                singlePlayerSettings = false;
+            }
+            if (AtlasSettings && serverMultipliers != null)
+            {
+                serverMultipliers.AtlasSettings = AtlasSettings;
+                AtlasSettings = false;
+            }
+
             // convert DateTimes to local times
             foreach (var tle in timerListEntries)
                 tle.time = tle.time.ToLocalTime();
@@ -620,7 +630,6 @@ namespace ARKBreedingStats.Library
                 switch (value)
                 {
                     case Ark.Asa:
-                        Ark.SetUndefinedColorId(true);
                         if (modIDs == null) modIDs = new List<string>();
                         if (!modIDs.Contains(Ark.Asa))
                         {
@@ -630,7 +639,6 @@ namespace ARKBreedingStats.Library
                         break;
                     default:
                         // non ASA
-                        Ark.SetUndefinedColorId(false);
                         if (modIDs == null) return;
                         ModList.RemoveAll(m => m.id == Ark.Asa);
                         if (modIDs.Remove(Ark.Asa))

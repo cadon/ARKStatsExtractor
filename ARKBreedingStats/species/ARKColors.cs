@@ -16,7 +16,7 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Color used if there's no definition for it.
         /// </summary>
-        private static readonly ArkColor UndefinedColor = new ArkColor("undefined", new double[] { 1, 1, 1, 0 }, false) { Id = Ark.UndefinedColorId };
+        private static readonly ArkColor UndefinedColor = new ArkColor("undefined", new double[] { 1, 1, 1, 1 }, false) { Id = Ark.UndefinedColorId };
 
         /// <summary>
         /// Color definitions of the base game.
@@ -46,7 +46,7 @@ namespace ARKBreedingStats.species
         /// Creates the color id table according to the mod order and the lookup tables to find colors by their name or id.
         /// Call this function after the values file is loaded and after mod values are loaded that contain colors.
         /// </summary>
-        public void InitializeArkColors()
+        public void InitializeArkColors(byte undefinedColorId)
         {
             if (_baseColors == null) return;
 
@@ -146,6 +146,8 @@ namespace ARKBreedingStats.species
             }
 
             ColorsList = _colorsById.Values.OrderBy(c => c.Id).ToArray();
+            UndefinedColor.Id = undefinedColorId;
+            _equalColorIds = CalculateEqualColorIds(ColorsList);
         }
 
         public ArkColor ById(byte id) => _colorsById.TryGetValue(id, out var color) ? color : UndefinedColor;
@@ -193,34 +195,27 @@ namespace ARKBreedingStats.species
         /// </summary>
         public static byte[] GetAlternativeColorIds(byte[] colorIds)
         {
-            if (colorIds == null) return null;
-
-            if (_equalColorIds == null)
-            {
-                var filePath = FileService.GetJsonPath(FileService.EqualColorIdsFile);
-                if (!File.Exists(filePath)) return null;
-                if (!FileService.LoadJsonFile(filePath, out _equalColorIds, out _))
-                    return null;
-            }
-
-            var altColorIds = new byte[colorIds.Length];
-
-            var altColorIdExists = false;
+            if (colorIds == null
+                || _equalColorIds == null)
+                return null;
 
             byte GetAlternativeId(byte id)
             {
-                for (int j = 0; j < _equalColorIds.Length; j++)
+                foreach (var equalColors in _equalColorIds)
                 {
-                    for (int k = 0; k < _equalColorIds[j].Length; k++)
+                    for (var i = 0; i < equalColors.Length; i++)
                     {
-                        if (_equalColorIds[j][k] == id)
-                            return k == 0 ? _equalColorIds[j][1] : _equalColorIds[j][0];
+                        if (equalColors[i] == id)
+                            // assuming there are at least 2 same colors. Return the other color id
+                            return i == 0 ? equalColors[1] : equalColors[0];
                     }
                 }
 
                 return 0;
             }
 
+            var altColorIds = new byte[colorIds.Length];
+            var altColorIdExists = false;
             for (int i = 0; i < colorIds.Length; i++)
             {
                 var altId = GetAlternativeId(colorIds[i]);
@@ -261,8 +256,6 @@ namespace ARKBreedingStats.species
             return parsedColors.Any() ? parsedColors : null;
         }
 
-        public void SetUndefinedColorId(byte id) => UndefinedColor.Id = id;
-
         /// <summary>
         /// Returns an array with random color ids.
         /// </summary>
@@ -279,6 +272,41 @@ namespace ARKBreedingStats.species
             for (int i = 0; i < Ark.ColorRegionCount; i++)
                 colors[i] = ColorsList[rand.Next(colorCount)].Id;
             return colors;
+        }
+
+        /// <summary>
+        /// Determines the ids of equal colors which are indistinguishable by their linear color values.
+        /// </summary>
+        private byte[][] CalculateEqualColorIds(ArkColor[] colors)
+        {
+            var allColors = colors.Append(UndefinedColor).ToArray();
+            var equalColorsList = new List<byte[]>();
+            var alreadySavedAsAlternativeColors = new HashSet<byte>();
+
+            var equalColors = new List<byte>();
+            for (var i = 0; i < allColors.Length; i++)
+            {
+                var color = allColors[i];
+                if (color.LinearRgba == null || alreadySavedAsAlternativeColors.Contains(color.Id)) continue;
+                equalColors.Clear();
+                equalColors.Add(color.Id);
+                for (var j = i + 1; j < allColors.Length; j++)
+                {
+                    var color2 = allColors[j];
+                    if (color2.LinearRgba == null || alreadySavedAsAlternativeColors.Contains(color2.Id)) continue;
+
+                    if (!color.LinearRgba.SequenceEqual(color2.LinearRgba)
+                       || equalColors.Contains(color2.Id))
+                        continue;
+
+                    equalColors.Add(color2.Id);
+                    alreadySavedAsAlternativeColors.Add(color2.Id);
+                }
+                if (equalColors.Count > 1)
+                    equalColorsList.Add(equalColors.ToArray());
+            }
+
+            return equalColorsList.ToArray();
         }
     }
 }
