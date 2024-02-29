@@ -119,9 +119,15 @@ namespace ARKBreedingStats.importExportGun
                          && ec.OwningPlayerID == 0
                          ;
 
-            var c = new Creature(species, ec.DinoName, !string.IsNullOrEmpty(ec.OwningPlayerName) ? ec.OwningPlayerName : !string.IsNullOrEmpty(ec.ImprinterName) ? ec.ImprinterName : ec.TamerString,
-                ec.TribeName, species.noGender ? Sex.Unknown : ec.IsFemale ? Sex.Female : Sex.Male, wildLevels, domLevels, mutLevels,
-                isWild ? -3 : ec.TameEffectiveness, !string.IsNullOrEmpty(ec.ImprinterName), ec.DinoImprintingQuality,
+            var isBred = !string.IsNullOrEmpty(ec.ImprinterName)
+                         || (ec.DinoImprintingQuality > 0 && ec.TameEffectiveness > 0.9999);
+
+            var owner = !string.IsNullOrEmpty(ec.OwningPlayerName) ? ec.OwningPlayerName
+                : !string.IsNullOrEmpty(ec.ImprinterName) ? ec.ImprinterName
+                : ec.TamerString;
+
+            var c = new Creature(species, ec.DinoName, owner, ec.TribeName, species.noGender ? Sex.Unknown : ec.IsFemale ? Sex.Female : Sex.Male,
+                wildLevels, domLevels, mutLevels, isWild ? -3 : ec.TameEffectiveness, isBred, ec.DinoImprintingQuality,
                 CreatureCollection.CurrentCreatureCollection?.wildLevelStep)
             {
                 ArkId = arkId,
