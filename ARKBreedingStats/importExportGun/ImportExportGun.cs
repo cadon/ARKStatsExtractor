@@ -74,6 +74,12 @@ namespace ARKBreedingStats.importExportGun
                 return null;
             }
 
+            if (string.IsNullOrEmpty(exportedCreature.BlueprintPath))
+            {
+                resultText = "file contains no blueprint path, it's probably not a creature file"; // could be a server multipliers file
+                return null;
+            }
+
             serverMultipliersHash = exportedCreature.ServerMultipliersHash;
 
             return ConvertExportGunToCreature(exportedCreature, out resultText);
@@ -304,7 +310,13 @@ namespace ARKBreedingStats.importExportGun
 
         internal static bool SetServerMultipliers(CreatureCollection cc, ExportGunServerFile esm, string newServerMultipliersHash)
         {
-            if (cc == null) return false;
+            if (cc == null
+                || esm?.TameAdd == null
+                || esm.TameAff == null
+                || esm.WildLevel == null
+                || esm.TameLevel == null
+                )
+                return false; // invalid server multipliers
 
             const int roundToDigits = 6;
 

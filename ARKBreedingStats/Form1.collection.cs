@@ -857,7 +857,8 @@ namespace ARKBreedingStats
                     {
                         multipliersImportSuccessful = ImportExportGun.SetServerMultipliers(_creatureCollection, esm, Path.GetFileNameWithoutExtension(filePath));
                         serverImportResult = serverImportResultTemp;
-                        continue;
+                        if (multipliersImportSuccessful == true)
+                            continue;
                     }
 
                     importFailedCounter++;
@@ -896,27 +897,38 @@ namespace ARKBreedingStats
                     : c, oldName: alreadyExistingCreature?.name)).ToArray();
 
             lastAddedCreature = newCreatures.LastOrDefault();
-            if (lastAddedCreature != null)
+            var creatureWasAdded = lastAddedCreature != null;
+            if (creatureWasAdded)
             {
                 creatureAdded = true;
                 // calculate level status of last added creature
                 DetermineLevelStatusAndSoundFeedback(lastAddedCreature, playImportSound);
+
+                _creatureCollection.MergeCreatureList(newCreatures, true);
+                UpdateCreatureParentLinkingSort(false);
+
+                // apply naming pattern if needed. This can only be done after parent linking to get correct name pattern values related to parents
+                Species lastSpecies = null;
+                Creature[] creaturesOfSpecies = null;
+                foreach (var c in persistentCreaturesAndOldName)
+                {
+                    copiedNameToClipboard = SetNameOfImportedCreature(c.creature, lastSpecies == c.creature.Species ? creaturesOfSpecies : null, out creaturesOfSpecies, new Creature(c.creature.Species, c.oldName), totalCreatureCount);
+                    lastSpecies = c.creature.Species;
+                    if (c.oldName == null) totalCreatureCount++; // if creature was added, increase total count for name pattern
+                }
+
+                UpdateListsAfterCreaturesAdded();
+
+                tabControlMain.SelectedTab = tabPageLibrary;
+                if (listBoxSpeciesLib.SelectedItem != null &&
+                    listBoxSpeciesLib.SelectedItem != lastAddedCreature.Species)
+                    listBoxSpeciesLib.SelectedItem = lastAddedCreature.Species;
+                SelectCreatureInLibrary(lastAddedCreature);
             }
-
-            _creatureCollection.MergeCreatureList(newCreatures, true);
-            UpdateCreatureParentLinkingSort(false);
-
-            // apply naming pattern if needed. This can only be done after parent linking to get correct name pattern values related to parents
-            Species lastSpecies = null;
-            Creature[] creaturesOfSpecies = null;
-            foreach (var c in persistentCreaturesAndOldName)
+            else if (multipliersImportSuccessful == true)
             {
-                copiedNameToClipboard = SetNameOfImportedCreature(c.creature, lastSpecies == c.creature.Species ? creaturesOfSpecies : null, out creaturesOfSpecies, new Creature(c.creature.Species, c.oldName), totalCreatureCount);
-                lastSpecies = c.creature.Species;
-                if (c.oldName == null) totalCreatureCount++; // if creature was added, increase total count for name pattern
+                SetCollectionChanged(true);
             }
-
-            UpdateListsAfterCreaturesAdded();
 
             var resultText = (importedCounter > 0 || importFailedCounter > 0
                                  ? $"Imported {importedCounter} creatures successfully.{(importFailedCounter > 0 ? $"Failed to import {importFailedCounter} files. Last error:{Environment.NewLine}{lastError}" : $"{Environment.NewLine}Last file: {lastCreatureFilePath}")}"
@@ -927,16 +939,8 @@ namespace ARKBreedingStats
                                   + serverImportResult);
 
             SetMessageLabelText(resultText, importFailedCounter > 0 || multipliersImportSuccessful == false ? MessageBoxIcon.Error : MessageBoxIcon.Information, lastCreatureFilePath);
-
-            if (lastAddedCreature != null)
-            {
-                tabControlMain.SelectedTab = tabPageLibrary;
-                if (listBoxSpeciesLib.SelectedItem != null &&
-                    listBoxSpeciesLib.SelectedItem != lastAddedCreature.Species)
-                    listBoxSpeciesLib.SelectedItem = lastAddedCreature.Species;
-                _ignoreNextMessageLabel = true; // keep import message
-                SelectCreatureInLibrary(lastAddedCreature);
-            }
+            if (creatureWasAdded)
+                _ignoreNextMessageLabel = true; // ignore message of selected creature (is shown after some delay / debouncing)
 
             return alreadyExistingCreature;
         }
