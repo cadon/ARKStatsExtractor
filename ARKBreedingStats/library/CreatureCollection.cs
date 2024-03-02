@@ -213,12 +213,12 @@ namespace ARKBreedingStats.Library
             string onlyThisSpeciesBlueprintAdded = null;
             bool onlyOneSpeciesAdded = true;
 
-            var guidDict = creatures.ToDictionary(c => c.guid);
-
             if (removeCreatures != null)
             {
                 creaturesWereAddedOrUpdated = creatures.RemoveAll(c => removeCreatures.Contains(c.guid)) > 0;
             }
+
+            var guidDict = creatures.ToDictionary(c => c.guid);
 
             foreach (Creature creatureNew in creaturesToMerge)
             {

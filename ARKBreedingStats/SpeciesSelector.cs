@@ -149,7 +149,7 @@ namespace ARKBreedingStats
                         s.name.Contains("Polar") ? creatureColorsPolar : creatureColors
                         //colors
                         );
-                    //if (!imgExists && !speciesWOImage.Contains(s.name)) speciesWOImage.Add(s.name);
+                    //if (!imgExists && s.IsDomesticable && !speciesWOImage.Contains(s.name)) speciesWOImage.Add(s.name);
                     if (!imgExists || _iconIndices.Contains(speciesListName)) continue;
 
                     try

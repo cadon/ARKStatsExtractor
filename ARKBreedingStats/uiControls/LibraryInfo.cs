@@ -120,7 +120,7 @@ namespace ARKBreedingStats.uiControls
             for (int i = 0; i < Ark.ColorRegionCount; i++)
             {
                 if (!species.EnabledColorRegions[i]) continue;
-                AddParagraph($"Color region {i}: {species.colors[i]?.name}", bold: true, relativeFontSize: 1.1f);
+                AddParagraph($"Color region {i}: {species.colors?[i]?.name}", bold: true, relativeFontSize: 1.1f);
                 var colorsExist = ColorsExistPerRegion[i].Count;
                 AddParagraph($"{colorsExist} color id{(colorsExist != 1 ? "s" : string.Empty)} available in your library:");
                 AddParagraph(CreateNumberRanges(ColorsExistPerRegion[i]));

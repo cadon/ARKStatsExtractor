@@ -107,7 +107,7 @@ namespace ARKBreedingStats
                 await ImportSavegame.ImportCollectionFromSavegame(_creatureCollection, workingCopyFilePath,
                     atImportFileLocation.ServerName);
 
-                UpdateCreatureParentLinkingSort();
+                UpdateCreatureParentLinkingSort(goToLibraryTab: true);
 
                 // if unknown mods are used in the savegame-file and the user wants to load the missing mod-files, do it
                 if (_creatureCollection.ModValueReloadNeeded
