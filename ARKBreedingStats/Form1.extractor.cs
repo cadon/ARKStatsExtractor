@@ -256,13 +256,51 @@ namespace ARKBreedingStats
             ClearAll(_clearExtractionCreatureData);
             var mutagenApplied = possiblyMutagenApplied || creatureInfoInputExtractor.CreatureFlags.HasFlag(CreatureFlags.MutagenApplied);
             var bred = rbBredExtractor.Checked;
+            bool imprintingBonusChanged = false;
 
-            _extractor.ExtractLevels(speciesSelector1.SelectedSpecies, (int)numericUpDownLevel.Value, _statIOs,
+            for (int i = 0; i < 2; i++)
+            {
+                _extractor.ExtractLevels(speciesSelector1.SelectedSpecies, (int)numericUpDownLevel.Value, _statIOs,
                     (double)numericUpDownLowerTEffBound.Value / 100, (double)numericUpDownUpperTEffBound.Value / 100,
                     rbTamedExtractor.Checked, bred,
                     (double)numericUpDownImprintingBonusExtractor.Value / 100, !cbExactlyImprinting.Checked,
-                    _creatureCollection.allowMoreThanHundredImprinting, _creatureCollection.serverMultipliers.BabyImprintingStatScaleMultiplier,
-                    _creatureCollection.considerWildLevelSteps, _creatureCollection.wildLevelStep, statInputsHighPrecision, mutagenApplied, out bool imprintingBonusChanged);
+                    _creatureCollection.allowMoreThanHundredImprinting,
+                    _creatureCollection.serverMultipliers.BabyImprintingStatScaleMultiplier,
+                    _creatureCollection.considerWildLevelSteps, _creatureCollection.wildLevelStep,
+                    statInputsHighPrecision, mutagenApplied, out imprintingBonusChanged);
+
+                // wild claimed babies look like bred creatures in the export files, but have to be considered tamed when imported
+                // if the extraction of an exported creature doesn't work, try with tamed settings
+                if (bred && numericUpDownImprintingBonusExtractor.Value == 0 && statInputsHighPrecision)
+                {
+                    var someStatsHaveNoResults = false;
+                    var onlyStatsWithTEHaveNoResults = true;
+                    // check if only stats affected by TE have no result
+                    for (int s = 0; s < Stats.StatsCount; s++)
+                    {
+                        if (_extractor.Results[s].Count == 0)
+                        {
+                            someStatsHaveNoResults = true;
+                            if (!_extractor.StatsWithTE.Contains(s))
+                            {
+                                // the issue is not related to TE, so it's a different issue
+                                onlyStatsWithTEHaveNoResults = false;
+                            }
+                        }
+                    }
+
+                    if (!someStatsHaveNoResults || !onlyStatsWithTEHaveNoResults) break;
+
+                    // issue could be a wild claimed baby that should be considered tamed
+                    _extractor.Clear();
+                    rbTamedExtractor.Checked = true;
+                    bred = false;
+
+                    continue;
+                }
+
+                break;
+            }
 
             numericUpDownImprintingBonusExtractor.ValueSave = (decimal)_extractor.ImprintingBonus * 100;
             numericUpDownImprintingBonusExtractor_ValueChanged(null, null);
