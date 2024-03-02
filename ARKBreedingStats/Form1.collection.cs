@@ -917,13 +917,20 @@ namespace ARKBreedingStats
                     if (c.oldName == null) totalCreatureCount++; // if creature was added, increase total count for name pattern
                 }
 
-                UpdateListsAfterCreaturesAdded();
+                UpdateListsAfterCreaturesAdded(Properties.Settings.Default.AutoImportGotoLibraryAfterSuccess);
 
-                tabControlMain.SelectedTab = tabPageLibrary;
-                if (listBoxSpeciesLib.SelectedItem != null &&
-                    listBoxSpeciesLib.SelectedItem != lastAddedCreature.Species)
-                    listBoxSpeciesLib.SelectedItem = lastAddedCreature.Species;
-                SelectCreatureInLibrary(lastAddedCreature);
+                if (Properties.Settings.Default.AutoImportGotoLibraryAfterSuccess)
+                {
+                    tabControlMain.SelectedTab = tabPageLibrary;
+                    if (listBoxSpeciesLib.SelectedItem != null &&
+                        listBoxSpeciesLib.SelectedItem != lastAddedCreature.Species)
+                        listBoxSpeciesLib.SelectedItem = lastAddedCreature.Species;
+                    SelectCreatureInLibrary(lastAddedCreature);
+                }
+                else
+                {
+                    EditCreatureInTester(lastAddedCreature);
+                }
             }
             else if (multipliersImportSuccessful == true)
             {
@@ -948,7 +955,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// Call after creatures were added (imported) to the library. Updates parent linkings, creature lists, set collection as changed
         /// </summary>
-        private void UpdateCreatureParentLinkingSort(bool updateLists = true)
+        private void UpdateCreatureParentLinkingSort(bool updateLists = true, bool goToLibraryTab = false)
         {
             UpdateParents(_creatureCollection.creatures);
 
@@ -960,19 +967,19 @@ namespace ARKBreedingStats
             UpdateIncubationParents(_creatureCollection);
 
             if (updateLists)
-                UpdateListsAfterCreaturesAdded();
+                UpdateListsAfterCreaturesAdded(goToLibraryTab);
         }
 
         /// <summary>
         /// Updates lists after creatures were added, recalculates library info, e.g. top stats.
         /// </summary>
-        private void UpdateListsAfterCreaturesAdded()
+        private void UpdateListsAfterCreaturesAdded(bool goToLibraryTab)
         {
             // update UI
             SetCollectionChanged(true);
             UpdateCreatureListings();
 
-            if (_creatureCollection.creatures.Any())
+            if (goToLibraryTab && _creatureCollection.creatures.Any())
                 tabControlMain.SelectedTab = tabPageLibrary;
 
             // reapply last sorting
@@ -1042,19 +1049,24 @@ namespace ARKBreedingStats
                 DetermineLevelStatusAndSoundFeedback(creature, Properties.Settings.Default.PlaySoundOnAutoImport);
 
                 _creatureCollection.MergeCreatureList(new[] { creature }, true);
-                UpdateCreatureParentLinkingSort();
+                var gotoLibraryTab = Properties.Settings.Default.AutoImportGotoLibraryAfterSuccess;
+                UpdateCreatureParentLinkingSort(goToLibraryTab: gotoLibraryTab);
 
                 if (resultText == null)
                     resultText = $"Received creature from server: {creature}";
 
                 SetMessageLabelText(resultText, MessageBoxIcon.Information);
 
-                tabControlMain.SelectedTab = tabPageLibrary;
-                if (listBoxSpeciesLib.SelectedItem != null &&
-                    listBoxSpeciesLib.SelectedItem != creature.Species)
-                    listBoxSpeciesLib.SelectedItem = creature.Species;
-                _ignoreNextMessageLabel = true;
-                SelectCreatureInLibrary(creature);
+                if (gotoLibraryTab)
+                {
+                    tabControlMain.SelectedTab = tabPageLibrary;
+                    if (listBoxSpeciesLib.SelectedItem != null &&
+                        listBoxSpeciesLib.SelectedItem != creature.Species)
+                        listBoxSpeciesLib.SelectedItem = creature.Species;
+
+                    _ignoreNextMessageLabel = true;
+                    SelectCreatureInLibrary(creature);
+                }
                 return;
             }
 
