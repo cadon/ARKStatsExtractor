@@ -14,7 +14,7 @@ namespace ARKBreedingStats.importExportGun
         public double[] TameAdd { get; set; }
         public double[] TameAff { get; set; }
         public double WildLevelStepSize { get; set; }
-        public int MaxWildLevel { get; set; }
+        public double MaxWildLevel { get; set; }
         public int DestroyTamesOverLevelClamp { get; set; }
         public double TamingSpeedMultiplier { get; set; } = 1;
         public double WildDinoTorporDrainMultiplier { get; set; } = 1;

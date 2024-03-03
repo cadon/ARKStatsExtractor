@@ -977,7 +977,8 @@ namespace ARKBreedingStats.settings
                 _multSetter[s].SetMultiplier(3, Math.Round(esm.WildLevel[s], roundToDigits));
             }
 
-            nudMaxWildLevels.ValueSave = esm.MaxWildLevel;
+            nudMaxWildLevels.ValueSaveDouble = Math.Ceiling(esm.MaxWildLevel);
+            nudWildLevelStep.ValueSaveDouble = Math.Round(esm.WildLevelStepSize, roundToDigits);
             nudMaxServerLevel.ValueSave = esm.DestroyTamesOverLevelClamp;
             nudTamingSpeed.ValueSaveDouble = Math.Round(esm.TamingSpeedMultiplier, roundToDigits);
             nudDinoCharacterFoodDrain.ValueSaveDouble = Math.Round(esm.DinoCharacterFoodDrainMultiplier, roundToDigits);
