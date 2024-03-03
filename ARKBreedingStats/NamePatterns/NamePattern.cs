@@ -338,7 +338,8 @@ namespace ARKBreedingStats.NamePatterns
                 { "dom", dom},
                 { "arkid", arkid },
                 { "alreadyexists", speciesCreatures.Contains(creature) ? "1" : string.Empty },
-                { "isflyer", creature.Species.isFlyer ? "1" : string.Empty }
+                { "isflyer", creature.Species.isFlyer ? "1" : string.Empty },
+                { "status", creature.Status.ToString() }
             };
 
             // stat index and according level
