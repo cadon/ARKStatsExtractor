@@ -1855,6 +1855,7 @@ namespace ARKBreedingStats
             // 
             // creatureInfoInputTester
             // 
+            this.creatureInfoInputTester.AlreadyExistingCreature = null;
             this.creatureInfoInputTester.ColorIdsAlsoPossible = null;
             this.creatureInfoInputTester.CooldownUntil = null;
             this.creatureInfoInputTester.CreatureFlags = ARKBreedingStats.Library.CreatureFlags.None;
@@ -2116,6 +2117,7 @@ namespace ARKBreedingStats
             // 
             // labelErrorHelp
             // 
+            this.labelErrorHelp.AutoEllipsis = true;
             this.labelErrorHelp.Location = new System.Drawing.Point(642, 43);
             this.labelErrorHelp.Name = "labelErrorHelp";
             this.labelErrorHelp.Size = new System.Drawing.Size(239, 569);
@@ -2162,6 +2164,7 @@ namespace ARKBreedingStats
             // 
             // creatureInfoInputExtractor
             // 
+            this.creatureInfoInputExtractor.AlreadyExistingCreature = null;
             this.creatureInfoInputExtractor.ColorIdsAlsoPossible = null;
             this.creatureInfoInputExtractor.CooldownUntil = null;
             this.creatureInfoInputExtractor.CreatureFlags = ARKBreedingStats.Library.CreatureFlags.None;

@@ -340,12 +340,15 @@ namespace ARKBreedingStats
             if (species == null) return;
 
             var difficulty = (CreatureCollection.CurrentCreatureCollection?.maxWildLevel ?? 150) / 30;
-            var creature = DummyCreatures.CreateCreature(species, difficulty, false);
+            var creature = DummyCreatures.CreateCreature(species, difficulty, !rbWildTester.Checked);
 
             for (int si = 0; si < Stats.StatsCount; si++)
             {
                 _testingIOs[si].LevelWild = creature.levelsWild[si];
             }
+
+            if (rbTamedTester.Checked)
+                NumericUpDownTestingTE.ValueSaveDouble = creature.tamingEff * 100;
         }
 
         private void pictureBoxColorRegionsTester_Click(object sender, EventArgs e)

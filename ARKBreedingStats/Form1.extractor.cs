@@ -132,7 +132,9 @@ namespace ARKBreedingStats
             if (levelsImpossibleToDistribute != 0
                 && _statIOs.All(s => s.Status != StatIOStatus.NonUnique))
             {
-                ExtractionFailed(IssueNotes.Issue.SpeedLevelingSetting);
+                ExtractionFailed(IssueNotes.Issue.SpeedLevelingSetting
+                                 | IssueNotes.Issue.TamingEffectivenessRange
+                                 | IssueNotes.Issue.ImpossibleTe);
             }
 
             bool allValid = valid && inbound && torporLevelValid && _extractor.ValidResults;
