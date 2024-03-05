@@ -788,6 +788,9 @@ namespace ARKBreedingStats
         /// </summary>
         private void ApplySettingsToValues()
         {
+            if (_creatureCollection.serverMultipliers == null)
+                return; // nothing to apply from, settings are loaded soon, then applied
+
             // apply multipliers
             Values.V.ApplyMultipliers(_creatureCollection, cbEventMultipliers.Checked);
             tamingControl1.SetServerMultipliers(Values.V.currentServerMultipliers);
@@ -1131,9 +1134,13 @@ namespace ARKBreedingStats
 
             if (valuesUpdated)
             {
-                var statsLoaded = LoadStatAndKibbleValues(forceReload: true);
+                var statsLoaded = LoadStatAndKibbleValues(false, true);
                 if (statsLoaded.statValuesLoaded)
                 {
+                    _creatureCollection.modListHash = 0;
+                    ReloadModValuesOfCollectionIfNeeded(true, false, false, false);
+                    ApplySettingsToValues();
+
                     MessageBox.Show(Loc.S("downloadingValuesSuccess"),
                         Loc.S("updateSuccessTitle"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ApplySpeciesObjectsToCollection(_creatureCollection);

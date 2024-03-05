@@ -59,8 +59,12 @@ namespace ARKBreedingStats.Library
 
         [JsonProperty]
         public ServerMultipliers serverMultipliers;
+
+        /// <summary>
+        /// Only the taming and breeding multipliers of this are used.
+        /// </summary>
         [JsonProperty]
-        public ServerMultipliers serverMultipliersEvents; // only the taming and breeding multipliers of this are used
+        public ServerMultipliers serverMultipliersEvents;
 
         /// <summary>
         /// Deprecated setting, remove on 2025-01-01

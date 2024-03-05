@@ -498,8 +498,10 @@ namespace ARKBreedingStats.values
 
             currentServerMultipliers.FixZeroValues();
             double[] defaultMultipliers = new double[] { 1, 1, 1, 1 }; // used if serverMultipliers don't specify non-default values
-            var allowSpeedLeveling = cc.serverMultipliers.AllowSpeedLeveling || cc.Game != Ark.Asa;
-            var allowFlyerSpeedLeveling = cc.serverMultipliers.AllowFlyerSpeedLeveling;
+            // server multipliers for all multipliers except taming and breeding
+            var serverMultipliersNonBreedingTaming = cc.serverMultipliers ?? V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official);
+            var allowSpeedLeveling = serverMultipliersNonBreedingTaming.AllowSpeedLeveling || cc.Game != Ark.Asa;
+            var allowFlyerSpeedLeveling = serverMultipliersNonBreedingTaming.AllowFlyerSpeedLeveling;
 
             foreach (Species sp in species)
             {
