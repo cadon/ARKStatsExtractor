@@ -15,6 +15,9 @@ namespace ARKBreedingStats.uiControls
         private static Species _infoForSpecies;
         private static bool _libraryFilterConsidered;
         private static string _speciesInfo;
+        /// <summary>
+        /// All color ids existing for this species per region.
+        /// </summary>
         public static readonly HashSet<byte>[] ColorsExistPerRegion = new HashSet<byte>[Ark.ColorRegionCount];
 
         /// <summary>
@@ -69,12 +72,12 @@ namespace ARKBreedingStats.uiControls
                     continue;
 
                 creatureCount++;
-                for (var ci = 0; ci < Ark.ColorRegionCount; ci++)
+                for (var ri = 0; ri < Ark.ColorRegionCount; ri++)
                 {
-                    var co = cr.colors[ci];
-                    if (ColorsExistPerRegion[ci].Contains(co)) continue;
-                    ColorsExistPerRegion[ci].Add(co);
-                    colorsDontExistPerRegion[ci].Remove(co);
+                    var co = cr.colors[ri];
+                    if (ColorsExistPerRegion[ri].Contains(co)) continue;
+                    ColorsExistPerRegion[ri].Add(co);
+                    colorsDontExistPerRegion[ri].Remove(co);
                 }
 
                 foreach (var flag in flags)
