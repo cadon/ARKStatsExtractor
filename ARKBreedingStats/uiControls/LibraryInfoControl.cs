@@ -117,6 +117,9 @@ namespace ARKBreedingStats.uiControls
 
             _tlbMain.Controls.Add(_speciesPictureBox, 2, 0);
             _tlbMain.SetRowSpan(_speciesPictureBox, 2);
+
+            _speciesPictureBox.Click += _speciesPictureBoxClick;
+            _tt.SetToolTip(_speciesPictureBox, "Click to copy image to the clipboard");
         }
 
         private void ButtonClearColorsClick(object sender, EventArgs e)
@@ -205,6 +208,12 @@ namespace ARKBreedingStats.uiControls
         {
             // todo button for gender
             _speciesPictureBox.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(_selectedColors, _species, _species.EnabledColorRegions, ColoredCreatureSize, onlyImage: true, creatureSex: Sex.Male));
+        }
+
+        private void _speciesPictureBoxClick(object sender, EventArgs e)
+        {
+            if (_speciesPictureBox.Image == null) return;
+            Clipboard.SetImage(_speciesPictureBox.Image);
         }
     }
 }
