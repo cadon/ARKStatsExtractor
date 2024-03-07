@@ -19,6 +19,8 @@ namespace ARKBreedingStats.uiControls
         /// All color ids existing for this species per region.
         /// </summary>
         public static readonly HashSet<byte>[] ColorsExistPerRegion = new HashSet<byte>[Ark.ColorRegionCount];
+        public static readonly HashSet<byte> ColorsExistInAllRegions = new HashSet<byte>();
+        public static readonly HashSet<byte> ColorsExistInAllUsedRegions = new HashSet<byte>();
 
         /// <summary>
         /// Clear the cached information.
@@ -86,6 +88,9 @@ namespace ARKBreedingStats.uiControls
                         properties[flag]++;
                 }
             }
+            var regionsUsed = _infoForSpecies.colors?.Select(r => !string.IsNullOrEmpty(r?.name)).ToArray()
+                ?? Enumerable.Repeat(true, Ark.ColorRegionCount).ToArray();
+            SetColorsAvailableInAllRegions(allAvailableColorIds, regionsUsed);
 
             var sb = new StringBuilder();
             var tableRow = 1;
@@ -117,7 +122,7 @@ namespace ARKBreedingStats.uiControls
             AddParagraph(
                 $"{creatureCount} creatures. {string.Join(", ", properties.Where(p => p.Value > 0).Select(p => $"{Loc.S(p.Key.ToString())}: {p.Value}"))}",
                 "\n");
-            AddParagraph($"Color information", null, true, 1.3f);
+            AddParagraph("Color information", null, true, 1.3f);
 
             var rangeSb = new StringBuilder();
             for (int i = 0; i < Ark.ColorRegionCount; i++)
@@ -130,6 +135,23 @@ namespace ARKBreedingStats.uiControls
                 var colorsDontExist = colorsDontExistPerRegion[i].Count;
                 AddParagraph($"{colorsDontExist} color id{(colorsDontExist != 1 ? "s" : string.Empty)} missing in your library:");
                 AddParagraph(CreateNumberRanges(colorsDontExistPerRegion[i]), "\n");
+            }
+
+            if (ColorsExistInAllUsedRegions.Any())
+            {
+                var regionsUsedList = string.Join(", ", regionsUsed.Select((used, ri) => (used, ri)).Where(r => r.used)
+                        .Select(r => r.ri));
+                if (string.IsNullOrEmpty(regionsUsedList))
+                    regionsUsedList = "species uses no region";
+
+                AddParagraph($"These colors exist in all regions the {_infoForSpecies.name} uses ({regionsUsedList})", bold: true, relativeFontSize: 1.1f);
+                AddParagraph(CreateNumberRanges(ColorsExistInAllUsedRegions));
+            }
+
+            if (ColorsExistInAllRegions.Any())
+            {
+                AddParagraph("These colors exist in all regions", bold: true, relativeFontSize: 1.1f);
+                AddParagraph(CreateNumberRanges(ColorsExistInAllRegions));
             }
 
             string CreateNumberRanges(HashSet<byte> numbers)
@@ -179,6 +201,43 @@ namespace ARKBreedingStats.uiControls
             _speciesInfo = sb.ToString();
             tlp?.ResumeLayout();
             return true;
+        }
+
+        /// <summary>
+        /// Stores color ids that are available in all (used) regions in creatures of the species.
+        /// </summary>
+        /// <param name="allAvailableColorIds"></param>
+        /// <param name="regionsUsed"></param>
+        private static void SetColorsAvailableInAllRegions(byte[] allAvailableColorIds, bool[] regionsUsed)
+        {
+            ColorsExistInAllRegions.Clear();
+            ColorsExistInAllUsedRegions.Clear();
+
+            if (!ColorsExistPerRegion.Any(r => r.Any())) return;
+
+            foreach (var colorId in allAvailableColorIds)
+            {
+                var inAllRegions = true;
+                var inAllUsedRegions = true;
+                var speciesUsesAnyRegion = false;
+                for (int r = 0; r < Ark.ColorRegionCount; r++)
+                {
+                    var inThisRegion = ColorsExistPerRegion[r].Contains(colorId);
+                    inAllRegions = inAllRegions && inThisRegion;
+                    if (regionsUsed[r])
+                    {
+                        speciesUsesAnyRegion = true;
+                        if (inThisRegion) continue;
+                        inAllUsedRegions = false;
+                        break;
+                    }
+                }
+
+                if (inAllRegions)
+                    ColorsExistInAllRegions.Add(colorId);
+                if (inAllUsedRegions && speciesUsesAnyRegion)
+                    ColorsExistInAllUsedRegions.Add(colorId);
+            }
         }
     }
 }
