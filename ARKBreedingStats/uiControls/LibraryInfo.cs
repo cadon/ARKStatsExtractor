@@ -65,6 +65,13 @@ namespace ARKBreedingStats.uiControls
                 properties[flag] = 0;
             var creatureCount = 0;
 
+            var regionsUsed = _infoForSpecies.colors?.Select(r => !string.IsNullOrEmpty(r?.name)).ToArray()
+                              ?? Enumerable.Repeat(true, Ark.ColorRegionCount).ToArray();
+            var speciesUsesAllRegions = regionsUsed.All(u => u);
+
+            var creaturesEqualColors = new List<(Creature, byte)>();
+            var creaturesUsedEqualColors = new List<(Creature, byte)>();
+
             foreach (var cr in creatures)
             {
                 if (cr.speciesBlueprint != species.blueprintPath
@@ -73,14 +80,36 @@ namespace ARKBreedingStats.uiControls
                     || cr.colors == null)
                     continue;
 
+                var allColorsEqual = -1;
+                var allUsedRegionColorsEqual = -1;
+
                 creatureCount++;
                 for (var ri = 0; ri < Ark.ColorRegionCount; ri++)
                 {
                     var co = cr.colors[ri];
+
+                    if (allColorsEqual == -1)
+                        allColorsEqual = co;
+                    else if (allColorsEqual != co)
+                        allColorsEqual = -2;
+
+                    if (!speciesUsesAllRegions && regionsUsed[ri])
+                    {
+                        if (allUsedRegionColorsEqual == -1)
+                            allUsedRegionColorsEqual = co;
+                        else if (allUsedRegionColorsEqual != co)
+                            allUsedRegionColorsEqual = -2;
+                    }
+
                     if (ColorsExistPerRegion[ri].Contains(co)) continue;
                     ColorsExistPerRegion[ri].Add(co);
                     colorsDontExistPerRegion[ri].Remove(co);
                 }
+
+                if (allColorsEqual >= 0)
+                    creaturesEqualColors.Add((cr, (byte)allColorsEqual));
+                if (allUsedRegionColorsEqual >= 0)
+                    creaturesUsedEqualColors.Add((cr, (byte)allUsedRegionColorsEqual));
 
                 foreach (var flag in flags)
                 {
@@ -88,8 +117,6 @@ namespace ARKBreedingStats.uiControls
                         properties[flag]++;
                 }
             }
-            var regionsUsed = _infoForSpecies.colors?.Select(r => !string.IsNullOrEmpty(r?.name)).ToArray()
-                ?? Enumerable.Repeat(true, Ark.ColorRegionCount).ToArray();
             SetColorsAvailableInAllRegions(allAvailableColorIds, regionsUsed);
 
             var sb = new StringBuilder();
@@ -137,21 +164,42 @@ namespace ARKBreedingStats.uiControls
                 AddParagraph(CreateNumberRanges(colorsDontExistPerRegion[i]), "\n");
             }
 
-            if (ColorsExistInAllUsedRegions.Any())
+            var regionsUsedList = string.Join(", ", regionsUsed.Select((used, ri) => (used, ri)).Where(r => r.used)
+                .Select(r => r.ri));
+            if (string.IsNullOrEmpty(regionsUsedList))
+                regionsUsedList = "species uses no region";
+            if (!speciesUsesAllRegions && ColorsExistInAllUsedRegions.Any())
             {
-                var regionsUsedList = string.Join(", ", regionsUsed.Select((used, ri) => (used, ri)).Where(r => r.used)
-                        .Select(r => r.ri));
-                if (string.IsNullOrEmpty(regionsUsedList))
-                    regionsUsedList = "species uses no region";
-
                 AddParagraph($"These colors exist in all regions the {_infoForSpecies.name} uses ({regionsUsedList})", bold: true, relativeFontSize: 1.1f);
+                AddParagraph("(not necessarily in one creature combined)");
                 AddParagraph(CreateNumberRanges(ColorsExistInAllUsedRegions));
             }
 
             if (ColorsExistInAllRegions.Any())
             {
                 AddParagraph("These colors exist in all regions", bold: true, relativeFontSize: 1.1f);
+                AddParagraph("(not necessarily in one creature combined)");
                 AddParagraph(CreateNumberRanges(ColorsExistInAllRegions));
+            }
+
+            if (!speciesUsesAllRegions && creaturesUsedEqualColors.Any())
+            {
+                AddParagraph($"These creatures have the same color in all regions the {_infoForSpecies.name} uses ({regionsUsedList})", bold: true, relativeFontSize: 1.1f);
+                AddParagraph("For each of these colors there's a creature that only has that color in the used regions: "
+                             + CreateNumberRanges(creaturesUsedEqualColors.Select(cc => cc.Item2).ToHashSet()));
+                AddParagraph(string.Join(Environment.NewLine,
+                    creaturesUsedEqualColors.GroupBy(cc => cc.Item2).OrderBy(g => g.Key)
+                        .Select(g => $"{g.Key}: {string.Join(", ", g.Select(c => c.Item1.name))}")));
+            }
+
+            if (creaturesEqualColors.Any())
+            {
+                AddParagraph("These creatures have the same color in all regions", bold: true, relativeFontSize: 1.1f);
+                AddParagraph("For each of these colors there's a creature that only has that color in all regions: "
+                             + CreateNumberRanges(creaturesEqualColors.Select(cc => cc.Item2).ToHashSet()));
+                AddParagraph(string.Join(Environment.NewLine,
+                    creaturesEqualColors.GroupBy(cc => cc.Item2).OrderBy(g => g.Key)
+                        .Select(g => $"{g.Key}: {string.Join(", ", g.Select(c => c.Item1.name))}")));
             }
 
             string CreateNumberRanges(HashSet<byte> numbers)
