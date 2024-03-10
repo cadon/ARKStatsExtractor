@@ -263,6 +263,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.AddedToLibraryAt = c.addedToLibrary;
                 creatureInfoInputTester.CreatureFlags = c.flags;
                 creatureInfoInputTester.RegionColors = c.colors;
+                creatureInfoInputTester.ColorIdsAlsoPossible = c.ColorIdsAlsoPossible;
                 creatureInfoInputTester.CreatureGuid = c.guid;
                 creatureInfoInputTester.SetArkId(c.ArkId, c.ArkIdImported);
                 UpdateParentListInput(creatureInfoInputTester);
@@ -286,6 +287,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.AddedToLibraryAt = null;
                 creatureInfoInputTester.CreatureFlags = CreatureFlags.None;
                 creatureInfoInputTester.RegionColors = new byte[Ark.ColorRegionCount];
+                creatureInfoInputTester.ColorIdsAlsoPossible = null;
                 creatureInfoInputTester.CreatureGuid = Guid.Empty;
                 creatureInfoInputTester.SetArkId(0, false);
                 creatureInfoInputTester.MutationCounterMother = 0;
