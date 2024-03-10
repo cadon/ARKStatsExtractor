@@ -184,7 +184,7 @@ namespace ARKBreedingStats.uiControls
 
             if (!speciesUsesAllRegions && creaturesUsedEqualColors.Any())
             {
-                AddParagraph($"These creatures have the same color in all regions the {_infoForSpecies.name} uses ({regionsUsedList})", bold: true, relativeFontSize: 1.1f);
+                AddParagraph($"These colors exist in all regions the {_infoForSpecies.name} uses ({regionsUsedList}) in a single creature", bold: true, relativeFontSize: 1.1f);
                 AddParagraph("For each of these colors there's a creature that only has that color in the used regions: "
                              + CreateNumberRanges(creaturesUsedEqualColors.Select(cc => cc.Item2).ToHashSet()));
                 AddParagraph(string.Join(Environment.NewLine,
@@ -194,7 +194,7 @@ namespace ARKBreedingStats.uiControls
 
             if (creaturesEqualColors.Any())
             {
-                AddParagraph("These creatures have the same color in all regions", bold: true, relativeFontSize: 1.1f);
+                AddParagraph("These colors exist in all regions in a single creature", bold: true, relativeFontSize: 1.1f);
                 AddParagraph("For each of these colors there's a creature that only has that color in all regions: "
                              + CreateNumberRanges(creaturesEqualColors.Select(cc => cc.Item2).ToHashSet()));
                 AddParagraph(string.Join(Environment.NewLine,

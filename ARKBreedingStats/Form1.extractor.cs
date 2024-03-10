@@ -1203,7 +1203,7 @@ namespace ARKBreedingStats
             };
 
             creature.ArkIdImported = Utils.IsArkIdImported(creature.ArkId, creature.guid);
-            creature.InitializeArkInGame();
+            creature.InitializeArkIdInGame();
 
             creature.InitializeFlags();
 

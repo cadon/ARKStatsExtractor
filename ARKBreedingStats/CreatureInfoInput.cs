@@ -639,7 +639,7 @@ namespace ARKBreedingStats
                 cr.growingUntil = GrowingUntil;
             cr.domesticatedAt = DomesticatedAt;
             cr.ArkId = ArkId;
-            cr.InitializeArkInGame();
+            cr.InitializeArkIdInGame();
         }
 
         private void textBoxOwner_Leave(object sender, EventArgs e)
