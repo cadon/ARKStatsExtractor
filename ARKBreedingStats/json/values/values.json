@@ -1,5 +1,5 @@
 {
-	"version": "358.6.11410860",
+	"version": "358.17.12291776",
 	"format": "1.14-flyerspeed",
 	"species": [
 		{
@@ -105510,11 +105510,13 @@
 				}
 			],
 			"taming": {
-				"nonViolent": false,
+				"nonViolent": true,
 				"violent": false,
 				"tamingIneffectiveness": 0.9375,
 				"affinityNeeded0": 6850,
 				"affinityIncreasePL": 300,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
 				"foodConsumptionBase": 0.001543,
 				"foodConsumptionMult": 216.0294,
 				"babyFoodConsumptionMult": 510

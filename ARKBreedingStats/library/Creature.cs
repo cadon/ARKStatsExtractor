@@ -570,7 +570,7 @@ namespace ARKBreedingStats.Library
         [OnDeserialized]
         private void Initialize(StreamingContext ct)
         {
-            InitializeArkInGame();
+            InitializeArkIdInGame();
             if (flags.HasFlag(CreatureFlags.Placeholder)) return;
             InitializeArrays();
         }
@@ -578,7 +578,7 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Set the string of ArkIdInGame depending on the real ArkId or the user input number.
         /// </summary>
-        internal void InitializeArkInGame() => ArkIdInGame = ArkIdImported ? Utils.ConvertImportedArkIdToIngameVisualization(ArkId) : ArkId.ToString();
+        internal void InitializeArkIdInGame() => ArkIdInGame = ArkIdImported ? Utils.ConvertImportedArkIdToIngameVisualization(ArkId) : ArkId.ToString();
 
         private void InitializeArrays()
         {

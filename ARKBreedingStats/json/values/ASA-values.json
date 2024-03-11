@@ -1,5 +1,5 @@
 {
-	"version": "32.11.468631",
+	"version": "32.11.468632",
 	"format": "1.15-asa",
 	"mod": {
 		"id": "ASA",
@@ -1594,13 +1594,13 @@
 				"incubationTime": 5999.52004,
 				"eggTempMin": 26,
 				"eggTempMax": 32,
-				"maturationTime": 416666.667,
+				"maturationTime": 166666.667,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
 			"taming": {
-				"nonViolent": false,
-				"violent": true,
+				"nonViolent": true,
+				"violent": false,
 				"tamingIneffectiveness": 0.06,
 				"affinityNeeded0": 6800,
 				"affinityIncreasePL": 160,

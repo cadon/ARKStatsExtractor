@@ -333,7 +333,7 @@ namespace ARKBreedingStats.importExportGun
                 cc.serverMultipliers.statMultipliers[s][Stats.IndexLevelWild] = Math.Round(esm.WildLevel[s], roundToDigits);
                 cc.serverMultipliers.statMultipliers[s][Stats.IndexLevelDom] = Math.Round(esm.TameLevel[s], roundToDigits);
             }
-            cc.maxWildLevel = esm.MaxWildLevel;
+            cc.maxWildLevel = (int)Math.Ceiling(esm.MaxWildLevel);
             cc.maxServerLevel = esm.DestroyTamesOverLevelClamp;
             cc.serverMultipliers.TamingSpeedMultiplier = Math.Round(esm.TamingSpeedMultiplier, roundToDigits);
             cc.serverMultipliers.DinoCharacterFoodDrainMultiplier = Math.Round(esm.DinoCharacterFoodDrainMultiplier, roundToDigits);

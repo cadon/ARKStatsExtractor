@@ -216,6 +216,10 @@ namespace ARKBreedingStats.uiControls
             }
 
             SelectedColorId = (byte)((Button)sender).Tag;
+            // if selected color was alternative selected color, remove alternative color
+            if (SelectedColorId == SelectedColorIdAlternative)
+                SelectedColorIdAlternative = 0;
+
             if (sender is NoPaddingButton bts)
             {
                 _buttonSelectedColor = bts;

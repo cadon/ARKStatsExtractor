@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
@@ -46,6 +47,8 @@ namespace ARKBreedingStats.uiControls
             _tlbMain.Controls.Add(TlpColorInfoText, 0, 0);
             _tlbMain.SetRowSpan(TlpColorInfoText, 2);
 
+            const int buttonsTotalWidth = 444;
+            const int buttonMargins = 6;
             // color region buttons
             var flpButtons = new FlowLayoutPanel { Dock = DockStyle.Fill, Height = 180 };
             _colorRegionButtons = new Button[Ark.ColorRegionCount];
@@ -56,7 +59,7 @@ namespace ARKBreedingStats.uiControls
                     Text = i.ToString(),
                     TextAlign = ContentAlignment.MiddleCenter,
                     Tag = i,
-                    Width = 142,
+                    Width = buttonsTotalWidth / 3 - buttonMargins,
                     Height = 70
                 };
                 _colorRegionButtons[i] = bt;
@@ -68,7 +71,7 @@ namespace ARKBreedingStats.uiControls
             {
                 Text = Loc.S("Clear"),
                 TextAlign = ContentAlignment.MiddleCenter,
-                Width = 142,
+                Width = buttonsTotalWidth / 4 - buttonMargins,
                 Height = 25
             };
             colorsButton.Click += ButtonClearColorsClick;
@@ -78,7 +81,7 @@ namespace ARKBreedingStats.uiControls
             {
                 Text = Loc.S("Random natural"),
                 TextAlign = ContentAlignment.MiddleCenter,
-                Width = 142,
+                Width = buttonsTotalWidth / 4 - buttonMargins,
                 Height = 25
             };
             colorsButton.Click += ButtonRandomNaturalColorsClick;
@@ -86,9 +89,20 @@ namespace ARKBreedingStats.uiControls
 
             colorsButton = new Button
             {
+                Text = Loc.S("Random library"),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Width = buttonsTotalWidth / 4 - buttonMargins,
+                Height = 25
+            };
+            _tt.SetToolTip(colorsButton, "Random colors available in the library");
+            colorsButton.Click += ButtonRandomLibraryColorsClick;
+            flpButtons.Controls.Add(colorsButton);
+
+            colorsButton = new Button
+            {
                 Text = Loc.S("Random"),
                 TextAlign = ContentAlignment.MiddleCenter,
-                Width = 142,
+                Width = buttonsTotalWidth / 4 - buttonMargins,
                 Height = 25
             };
             colorsButton.Click += ButtonRandomColorsClick;
@@ -103,6 +117,9 @@ namespace ARKBreedingStats.uiControls
 
             _tlbMain.Controls.Add(_speciesPictureBox, 2, 0);
             _tlbMain.SetRowSpan(_speciesPictureBox, 2);
+
+            _speciesPictureBox.Click += _speciesPictureBoxClick;
+            _tt.SetToolTip(_speciesPictureBox, "Click to copy image to the clipboard");
         }
 
         private void ButtonClearColorsClick(object sender, EventArgs e)
@@ -113,6 +130,23 @@ namespace ARKBreedingStats.uiControls
         private void ButtonRandomNaturalColorsClick(object sender, EventArgs e)
         {
             SetColors(_species?.RandomSpeciesColors());
+        }
+
+        /// <summary>
+        /// Set to random colors available in the library
+        /// </summary>
+        private void ButtonRandomLibraryColorsClick(object sender, EventArgs e)
+        {
+            var colorIds = new byte[Ark.ColorRegionCount];
+            var rand = new Random();
+            for (int ri = 0; ri < Ark.ColorRegionCount; ri++)
+            {
+                var colorsInRegion = LibraryInfo.ColorsExistPerRegion?[ri]?.ToArray();
+                var colorsCountInRegion = colorsInRegion?.Length ?? 0;
+                if (colorsCountInRegion == 0) continue;
+                colorIds[ri] = colorsInRegion[rand.Next(colorsCountInRegion)];
+            }
+            SetColors(colorIds);
         }
 
         private void ButtonRandomColorsClick(object sender, EventArgs e)
@@ -174,6 +208,12 @@ namespace ARKBreedingStats.uiControls
         {
             // todo button for gender
             _speciesPictureBox.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(_selectedColors, _species, _species.EnabledColorRegions, ColoredCreatureSize, onlyImage: true, creatureSex: Sex.Male));
+        }
+
+        private void _speciesPictureBoxClick(object sender, EventArgs e)
+        {
+            if (_speciesPictureBox.Image == null) return;
+            Clipboard.SetImage(_speciesPictureBox.Image);
         }
     }
 }

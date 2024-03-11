@@ -38,6 +38,13 @@ namespace ARKBreedingStats.library
         {
             if (NudAmount.Value > 0)
             {
+                if (NudAmount.Value > 1000
+                    && NudBreedForGenerations.Value > 0
+                    && MessageBox.Show("Adding many creatures and simulate breeding may take a long time. Continue?",
+                        "Continue possible lengthy action?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+                    != DialogResult.Yes)
+                    return;
+
                 DialogResult = DialogResult.OK;
                 Settings = new DummyCreatureCreationSettings
                 {
