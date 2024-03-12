@@ -3077,13 +3077,13 @@
             // groupBox14
             // 
             this.groupBox14.Controls.Add(this.fileSelectorExtractedSaveFolder);
-            this.groupBox14.Location = new System.Drawing.Point(8, 236);
+            this.groupBox14.Location = new System.Drawing.Point(8, 691);
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.Size = new System.Drawing.Size(730, 47);
             this.groupBox14.TabIndex = 6;
             this.groupBox14.TabStop = false;
-            this.groupBox14.Text = "Target folder for save-game working copy (user\'s temp dir if empty). It\'s recomme" +
-    "nded to leave this setting empty.";
+            this.groupBox14.Text = "Advanced settings - Target folder for save-game working copy (user\'s temp dir if " +
+    "empty). It\'s recommended to leave this setting empty.";
             // 
             // fileSelectorExtractedSaveFolder
             // 
@@ -3108,7 +3108,7 @@
             this.groupBox15.Controls.Add(this.dataGridView_FileLocations);
             this.groupBox15.Controls.Add(this.btAddSavegameFileLocation);
             this.groupBox15.Controls.Add(this.labelSavegameFileLocationHint);
-            this.groupBox15.Location = new System.Drawing.Point(8, 289);
+            this.groupBox15.Location = new System.Drawing.Point(8, 228);
             this.groupBox15.Name = "groupBox15";
             this.groupBox15.Size = new System.Drawing.Size(730, 386);
             this.groupBox15.TabIndex = 7;
@@ -3863,7 +3863,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3871,7 +3871,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3879,7 +3879,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3887,7 +3887,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
