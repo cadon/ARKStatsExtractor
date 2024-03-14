@@ -1094,21 +1094,21 @@ namespace ARKBreedingStats
                 //   |   14 |         4 |             1 |
                 //   |   12 |         6 |             2 |
                 //
-                var newMutationsMaternal = Math.Max(cv.mutationCounterMother - cv.Mother.Mutations, 0);
-                var newMutationsPaternal = Math.Max(cv.mutationCounterFather - cv.Father.Mutations, 0);
-                var totalNewMutations = newMutationsMaternal + newMutationsPaternal;
+                //var newMutationsMaternal = Math.Max(cv.mutationCounterMother - cv.Mother.Mutations, 0);
+                //var newMutationsPaternal = Math.Max(cv.mutationCounterFather - cv.Father.Mutations, 0);
+                //var totalNewMutations = newMutationsMaternal + newMutationsPaternal;
 
-                var possibileLevelsByStat = new List<(int wild, int mutated, int newMutations)>[Stats.StatsCount];
+                var possibileLevelsByStat = new List<(int wild, int mutated)>[Stats.StatsCount];
 
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
-                    var possibleLevels = new List<(int, int, int)>();
+                    var possibleLevels = new List<(int, int)>();
                     var extractedWild = _statIOs[s].LevelWild;
 
                     if (s == Stats.Torpidity)
                     {
                         // Torpidity is not mutated
-                        possibleLevels.Add((extractedWild, 0, 0));
+                        possibleLevels.Add((extractedWild, 0));
                     }
                     else
                     {
@@ -1128,17 +1128,17 @@ namespace ARKBreedingStats
                         // The number of levels that would have been gained from mutation if the parents' low stats were used
                         var highChange = extractedWild - highWild - highMutated;
 
-                        var newLowStats = (wild: lowWild, mutated: lowMutated + lowChange, newMutations: lowChange / 2);
-                        var newHighStats = (wild: highWild, mutated: highMutated + highChange, newMutations: highChange / 2);
+                        var newLowStats = (wild: lowWild, mutated: lowMutated + lowChange);
+                        var newHighStats = (wild: highWild, mutated: highMutated + highChange);
 
                         // only add low value variation it adds an even number of level and adds less than or equal to the new mutations
-                        if (lowChange >= 0 && lowChange % 2 == 0 && newLowStats.newMutations <= totalNewMutations)
+                        if (lowChange >= 0 && lowChange <= 6 && lowChange % 2 == 0)
                         {
                             possibleLevels.Add(newLowStats);
                         }
 
                         // only add a high pair variation if it's not the same as the low
-                        if (newLowStats != newHighStats && highChange >= 0 && highChange % 2 == 0 && newHighStats.newMutations <= totalNewMutations)
+                        if (newLowStats != newHighStats && highChange >= 0 && highChange <= 6 && highChange % 2 == 0)
                         {
                             possibleLevels.Add(newHighStats);
                         }
@@ -1147,22 +1147,19 @@ namespace ARKBreedingStats
                     possibileLevelsByStat[s] = possibleLevels;
                 }
 
-                // pick the sets of stats that coorectly add up to the total number of new mutations
-                var validVariations = possibileLevelsByStat
-                    .CartesianProduct()
-                    .Where(v => v.Sum(p => p.newMutations) == totalNewMutations)
-                    .ToArray();
-
-                // It's possible that more than one combination of mutations matches the stat points and new mutation count
+                // It's possible that more than one combination of parent levels and new mutations that accounts for the child's levels
                 // If there is more than one set, don't assign mutation points
                 // If there is only 1 set, use that
-                if(validVariations.Length == 1)
+                if(possibileLevelsByStat.All(x => x.Count == 1))
                 {
-                    var statLevels = validVariations[0].ToArray();
                     for (int s = 0; s < Stats.StatsCount; s++)
                     {
-                        _statIOs[s].LevelWild = statLevels[s].wild;
-                        _statIOs[s].LevelMut = statLevels[s].mutated;
+                        var statIo = _statIOs[s];
+                        var levels = possibileLevelsByStat[s][0];
+
+                        statIo.LevelWild = levels.wild;
+                        statIo.LevelMut = levels.mutated;
+                        statIo.Status = StatIOStatus.Neutral;
                     }
                 }
             }   
