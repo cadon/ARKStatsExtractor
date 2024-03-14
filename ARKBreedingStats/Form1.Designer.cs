@@ -1377,7 +1377,7 @@ namespace ARKBreedingStats
             // 
             this.currentTokenToolStripMenuItem.Name = "currentTokenToolStripMenuItem";
             this.currentTokenToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
-            this.currentTokenToolStripMenuItem.Text = "Current token";
+            this.currentTokenToolStripMenuItem.Text = "View current token";
             this.currentTokenToolStripMenuItem.Click += new System.EventHandler(this.currentTokenToolStripMenuItem_Click);
             // 
             // listenWithNewTokenToolStripMenuItem
