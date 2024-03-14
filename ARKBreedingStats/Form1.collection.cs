@@ -1048,6 +1048,10 @@ namespace ARKBreedingStats
 
                 DetermineLevelStatusAndSoundFeedback(creature, Properties.Settings.Default.PlaySoundOnAutoImport);
 
+                SetNameOfImportedCreature(creature, null, out _,
+                    _creatureCollection.creatures.FirstOrDefault(c => c.guid == creature.guid),
+                    _creatureCollection.GetTotalCreatureCount());
+
                 _creatureCollection.MergeCreatureList(new[] { creature }, true);
                 var gotoLibraryTab = Properties.Settings.Default.AutoImportGotoLibraryAfterSuccess;
                 UpdateCreatureParentLinkingSort(goToLibraryTab: gotoLibraryTab);
