@@ -13,6 +13,7 @@ using ARKBreedingStats.library;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.ocr;
 using ARKBreedingStats.uiControls;
+using System.Reflection;
 
 namespace ARKBreedingStats
 {
@@ -1068,6 +1069,70 @@ namespace ARKBreedingStats
                     }
                 }
             }
+            else if (cv.Mother?.levelsWild != null && cv.Father.levelsWild != null)
+            {
+                // Derive mutation levels from parents
+                var newMutationsMaternal = Math.Max(cv.mutationCounterMother - cv.Mother.Mutations, 0);
+                var newMutationsPaternal = Math.Max(cv.mutationCounterFather - cv.Father.Mutations, 0);
+                var newMutations = newMutationsMaternal + newMutationsPaternal;
+
+                var possibileLevelsByStat = new List<(int parentWildPoints, int parentMutationPoints, int newMutationCount)>[Stats.StatsCount];
+
+                for (int s = 0; s < Stats.StatsCount; s++)
+                {
+                    var possibleLevels = new List<(int, int, int)>();
+
+                    var extractedWild = _statIOs[s].LevelWild;
+                        
+                    var motherWild = cv.Mother.levelsWild[s];
+                    var motherMutated = cv.Mother.levelsMutated?[s] ?? 0;
+                    var motherLevels = motherWild + motherMutated;
+                    var maternalChange = extractedWild - motherLevels;
+
+                    var fatherWild = cv.Father.levelsWild[s];
+                    var fatherMutated = cv.Father.levelsMutated?[s] ?? 0;
+                    var fatherLevels = fatherWild + fatherMutated;
+                    var paternalChange = extractedWild - fatherLevels;
+
+                    if (s == Stats.Torpidity)
+                    {
+                        possibleLevels.Add((extractedWild, 0, 0));
+                    }
+                    else
+                    {
+                        if (maternalChange >= 0 && maternalChange % 2 == 0 && maternalChange <= newMutationsMaternal * 2)
+                        {
+                            possibleLevels.Add((motherWild, motherMutated, maternalChange / 2));
+                        }
+
+                        // only add variations from the father if it's not the same as the mother
+                        if (motherWild != fatherWild || motherMutated != fatherMutated)
+                        {
+                            if (paternalChange >= 0 && paternalChange % 2 == 0 && paternalChange <= newMutationsPaternal * 2)
+                            {
+                                possibleLevels.Add((fatherWild, fatherMutated, paternalChange / 2));
+                            }
+                        }
+                    }
+
+                    possibileLevelsByStat[s] = possibleLevels;
+                }
+
+                var validVariations = possibileLevelsByStat
+                    .CartesianProduct()
+                    .Where(v => v.Sum(p => p.newMutationCount) == newMutations)
+                    .ToArray();
+
+                if(validVariations.Length == 1)
+                {
+                    var statLevels = validVariations[0].ToArray();
+                    for (int s = 0; s < Stats.StatsCount; s++)
+                    {
+                        _statIOs[s].LevelWild = statLevels[s].parentWildPoints;
+                        _statIOs[s].LevelMut = statLevels[s].parentMutationPoints + statLevels[s].newMutationCount * 2;
+                    }
+                }
+            }   
 
             SetCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
             UpdateParentListInput(creatureInfoInputExtractor); // this function is only used for single-creature extractions, e.g. LastExport
@@ -1075,6 +1140,12 @@ namespace ARKBreedingStats
             if (!string.IsNullOrEmpty(filePath))
                 SetMessageLabelText(Loc.S("creatureOfFile") + Environment.NewLine + filePath, path: filePath);
             return creatureExists;
+        }
+
+        private bool CanBeMutation(int levelWild, int newMutations, int parentWild, int parentMutated)
+        {
+            var levelDifference = levelWild - parentWild - parentMutated;
+            return levelDifference > 0 && levelDifference % 2 == 0 && levelDifference <= newMutations * 2;
         }
 
         /// <summary>
