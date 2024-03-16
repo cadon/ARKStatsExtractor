@@ -1052,6 +1052,8 @@ namespace ARKBreedingStats
                     _creatureCollection.creatures.FirstOrDefault(c => c.guid == creature.guid),
                     _creatureCollection.GetTotalCreatureCount());
 
+                data.TaskNameGenerated?.SetResult(creature.name);
+
                 _creatureCollection.MergeCreatureList(new[] { creature }, true);
                 var gotoLibraryTab = Properties.Settings.Default.AutoImportGotoLibraryAfterSuccess;
                 UpdateCreatureParentLinkingSort(goToLibraryTab: gotoLibraryTab);

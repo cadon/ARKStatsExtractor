@@ -22,9 +22,9 @@ namespace ARKBreedingStats.AsbServer
         private static CancellationTokenSource _lastCancellationTokenSource;
 
         public static async void StartListeningAsync(
-            IProgress<ProgressReportAsbServer> progressDataSent, string token = null)
+            IProgress<ProgressReportAsbServer> progressDataSent, string serverToken = null)
         {
-            if (string.IsNullOrEmpty(token)) return;
+            if (string.IsNullOrEmpty(serverToken)) return;
 
             // stop previous listening if any
             StopListening();
@@ -37,7 +37,7 @@ namespace ARKBreedingStats.AsbServer
 
                 while (!cancellationTokenSource.Token.IsCancellationRequested)
                 {
-                    var requestUri = ApiUri + "listen/" + token; // "https://httpstat.us/429";
+                    var requestUri = ApiUri + "listen/" + serverToken; // "https://httpstat.us/429";
 
                     try
                     {
@@ -56,6 +56,7 @@ namespace ARKBreedingStats.AsbServer
                                 catch
                                 {
                                     // server message in unknown format, use raw content string
+                                    serverMessage = "unknown response content format, expected json token \"error.message\" not found in content: " + serverMessage;
                                 }
 
                                 serverMessage = Environment.NewLine + serverMessage;
@@ -89,7 +90,7 @@ namespace ARKBreedingStats.AsbServer
                             using (var stream = await response.Content.ReadAsStreamAsync())
                             using (var reader = new StreamReader(stream))
                             {
-                                var report = await ReadServerSentEvents(reader, progressDataSent, token, cancellationTokenSource.Token);
+                                var report = await ReadServerSentEvents(reader, progressDataSent, serverToken, cancellationTokenSource.Token);
                                 if (report != null)
                                 {
                                     progressDataSent.Report(report);
@@ -116,7 +117,7 @@ namespace ARKBreedingStats.AsbServer
                     finally
                     {
 #if DEBUG
-                        Console.WriteLine($"ASB Server listening stopped using token: {token}");
+                        Console.WriteLine($"ASB Server listening stopped using token: {serverToken}");
 #endif
                     }
                 }
@@ -142,16 +143,16 @@ namespace ARKBreedingStats.AsbServer
 
         private static Regex _eventRegex = new Regex(@"^event: (welcome|ping|replaced|export|server|closing)(?: (\-?\d+))?(?:\ndata:\s(.+))?$");
 
-        private static async Task<ProgressReportAsbServer> ReadServerSentEvents(StreamReader reader, IProgress<ProgressReportAsbServer> progressDataSent, string token, CancellationToken cancellationToken)
+        private static async Task<ProgressReportAsbServer> ReadServerSentEvents(StreamReader reader, IProgress<ProgressReportAsbServer> progressDataSent, string serverToken, CancellationToken cancellationToken)
         {
 #if DEBUG
-            Console.WriteLine($"Now listening using token: {token}");
+            Console.WriteLine($"Now listening using token: {serverToken}");
 #endif
             progressDataSent.Report(new ProgressReportAsbServer
             {
                 Message = "Now listening to the export server using the token (also copied to clipboard)",
-                ServerToken = token,
-                ClipboardText = token
+                ServerToken = serverToken,
+                ClipboardText = serverToken
             });
 
             while (!cancellationToken.IsCancellationRequested)
@@ -161,7 +162,7 @@ namespace ARKBreedingStats.AsbServer
                     continue; // empty line marks end of event
 
 #if DEBUG
-                Console.WriteLine($"{received} (token: {token})");
+                Console.WriteLine($"{received} (token: {serverToken})");
 #endif
                 switch (received)
                 {
@@ -200,7 +201,20 @@ namespace ARKBreedingStats.AsbServer
                     switch (m.Groups[1].Value)
                     {
                         case "export":
-                            progressDataSent.Report(new ProgressReportAsbServer { JsonText = m.Groups[3].Value });
+                            var report = new ProgressReportAsbServer
+                            {
+                                JsonText = m.Groups[3].Value,
+                                TaskNameGenerated = new TaskCompletionSource<string>()
+                            };
+                            progressDataSent.Report(report);
+                            var nameGeneratedTask = report.TaskNameGenerated.Task;
+                            string creatureName = null;
+                            if (nameGeneratedTask.Wait(TimeSpan.FromSeconds(5))
+                                && nameGeneratedTask.Status == TaskStatus.RanToCompletion)
+                            {
+                                creatureName = nameGeneratedTask.Result;
+                                // TODO send creatureName as response
+                            }
                             break;
                         case "server":
                             progressDataSent.Report(new ProgressReportAsbServer { JsonText = m.Groups[3].Value, ServerHash = m.Groups[2].Value });

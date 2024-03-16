@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats.AsbServer
+﻿using System.Threading.Tasks;
+
+namespace ARKBreedingStats.AsbServer
 {
     /// <summary>
     /// Info of progress reports while listening to an AsbServer.
@@ -12,5 +14,6 @@
         public bool IsError;
         public bool StopListening;
         public string ClipboardText;
+        public TaskCompletionSource<string> TaskNameGenerated;
     }
 }
