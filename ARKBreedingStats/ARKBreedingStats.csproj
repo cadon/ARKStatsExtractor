@@ -87,6 +87,10 @@
     <Compile Include="AsbServer\ProgressReportAsbServer.cs" />
     <Compile Include="BreedingPlanning\Score.cs" />
     <Compile Include="BreedingPlanning\BreedingScore.cs" />
+    <Compile Include="Form1.exportGun.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="importExportGun\ExportGunCreatureFile.cs" />
     <Compile Include="importExportGun\ExportGunServerFile.cs" />
     <Compile Include="importExportGun\ImportExportGun.cs" />

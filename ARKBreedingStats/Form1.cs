@@ -3914,69 +3914,6 @@ namespace ARKBreedingStats
             Process.Start(RepositoryInfo.DiscordServerInviteLink);
         }
 
-        #region Server
-
-        private void listenToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
-        {
-            if (listenToolStripMenuItem.Checked)
-                AsbServerStartListening();
-            else AsbServerStopListening();
-        }
-
-        private void listenWithNewTokenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            listenToolStripMenuItem.Checked = false;
-            Properties.Settings.Default.ExportServerToken = null;
-            listenToolStripMenuItem.Checked = true;
-        }
-
-        private void AsbServerStartListening()
-        {
-            var progressReporter = new Progress<ProgressReportAsbServer>(AsbServerDataSent);
-            if (string.IsNullOrEmpty(Properties.Settings.Default.ExportServerToken))
-                Properties.Settings.Default.ExportServerToken = AsbServer.Connection.CreateNewToken();
-            Task.Factory.StartNew(() => AsbServer.Connection.StartListeningAsync(progressReporter, Properties.Settings.Default.ExportServerToken));
-        }
-
-        private void AsbServerStopListening(bool displayMessage = true)
-        {
-            AsbServer.Connection.StopListening();
-            if (displayMessage)
-                SetMessageLabelText($"ASB Server listening stopped using token: {Connection.TokenStringForDisplay(Properties.Settings.Default.ExportServerToken)}", MessageBoxIcon.Error);
-        }
-
-        private void currentTokenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var tokenIsSet = !string.IsNullOrEmpty(Properties.Settings.Default.ExportServerToken);
-            string message;
-            bool isError;
-            if (tokenIsSet)
-            {
-                message = $"Currently {(Connection.IsCurrentlyListening ? string.Empty : "not ")}listening to the server."
-                          + " The current token is " + Environment.NewLine + Connection.TokenStringForDisplay(Properties.Settings.Default.ExportServerToken)
-                          + Environment.NewLine + "(token copied to clipboard)";
-
-                Clipboard.SetText(Properties.Settings.Default.ExportServerToken);
-                isError = false;
-            }
-            else
-            {
-                message = "Currently no token set. A token is created once you start listening to the server.";
-                isError = true;
-            }
-
-            SetMessageLabelText(message, isError ? MessageBoxIcon.Error : MessageBoxIcon.Information,
-                clipboardText: Properties.Settings.Default.ExportServerToken, displayPopup: !Properties.Settings.Default.StreamerMode && Properties.Settings.Default.DisplayPopupForServerToken);
-        }
-
-        private void sendExampleCreatureToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // debug function, sends a test creature to the server
-            AsbServer.Connection.SendCreatureData(DummyCreatures.CreateCreature(speciesSelector1.SelectedSpecies), Properties.Settings.Default.ExportServerToken);
-        }
-
-        #endregion
-
         private void openModPageInBrowserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(RepositoryInfo.ExportGunModPage);
