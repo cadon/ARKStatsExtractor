@@ -30,7 +30,7 @@ namespace ARKBreedingStats
             if (modFilesToLoad == null) throw new ArgumentNullException();
 
             // first ensure that all mod-files are available
-            CheckAvailabilityAndUpdateModFiles(modFilesToLoad, Values.V);
+            CheckAvailabilityAndUpdateModFiles(modFilesToLoad, Values.V, out _);
 
             bool modFilesLoaded = Values.V.LoadModValues(modFilesToLoad, true, out mods, out string resultsMessage);
 
@@ -101,10 +101,11 @@ namespace ARKBreedingStats
         /// <summary>
         /// Returns true if files were downloaded.
         /// </summary>
-        private static bool CheckAvailabilityAndUpdateModFiles(List<string> modFilesToCheck, Values values)
+        private static bool CheckAvailabilityAndUpdateModFiles(List<string> modFilesToCheck, Values values, out bool updatesAreAvailable)
         {
             var (missingModValueFilesOnlineAvailable, missingModValueFilesOnlineNotAvailable, modValueFilesWithAvailableUpdate) = values.CheckAvailabilityAndUpdateModFiles(modFilesToCheck);
 
+            updatesAreAvailable = modValueFilesWithAvailableUpdate.Any() || missingModValueFilesOnlineAvailable.Any();
             bool filesDownloaded = false;
 
             if (modValueFilesWithAvailableUpdate.Any()

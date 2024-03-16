@@ -1124,10 +1124,11 @@ namespace ARKBreedingStats
 
             // check if values-files can be updated
             var downloadedModFiles = Values.V.modsManifest.modsByFiles.Select(mikv => mikv.Value)
-                .Where(mi => mi.LocallyAvailable).Select(mi => mi.mod.FileName).ToList();
-            downloadedModFiles.Add(FileService.ValuesJson); // check also base values file
+                .Where(mi => mi.LocallyAvailable).Select(mi => mi.mod.FileName)
+                .Append(FileService.ValuesJson) // check also base values file
+                .ToList();
 
-            bool valuesUpdated = CheckAvailabilityAndUpdateModFiles(downloadedModFiles, Values.V);
+            bool valuesUpdated = CheckAvailabilityAndUpdateModFiles(downloadedModFiles, Values.V, out var updatesAvailable);
 
             // update last successful update check
             Properties.Settings.Default.lastUpdateCheck = DateTime.Now;
@@ -1151,7 +1152,7 @@ namespace ARKBreedingStats
                         "Download of new stat successful, but files couldn't be loaded.\nTry again later, or redownload the tool.");
                 }
             }
-            else if (!silentCheck)
+            else if (!silentCheck && !updatesAvailable)
             {
                 MessageBox.Show(
                     $"You already have the newest version of both the program ({Application.ProductVersion}) and values file ({Values.V.Version}).\n\n" +

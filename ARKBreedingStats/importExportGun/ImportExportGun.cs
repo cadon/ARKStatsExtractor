@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading;
+using System.Windows.Forms.VisualStyles;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.values;
 using Newtonsoft.Json;
@@ -64,7 +65,7 @@ namespace ARKBreedingStats.importExportGun
             serverMultipliersHash = null;
             if (string.IsNullOrEmpty(jsonText))
             {
-                resultText = $"Error when importing file {filePath}: {resultText}";
+                resultText = $"Error when importing file {filePath}: file is empty. {resultText}";
                 return null;
             }
             var exportedCreature = JsonConvert.DeserializeObject<ExportGunCreatureFile>(jsonText);
