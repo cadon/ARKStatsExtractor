@@ -432,6 +432,7 @@ namespace ARKBreedingStats
                 tabControlMain.TabPages.Remove(tabPageMultiplierTesting);
                 devToolStripMenuItem.Visible = false;
                 sendExampleCreatureToolStripMenuItem.Visible = false;
+                cbExactlyImprinting.Visible = false;
             }
             else
             {
@@ -2093,6 +2094,9 @@ namespace ARKBreedingStats
             _overlay?.SetInfoPositionsAndFontSize();
             if (Properties.Settings.Default.DevTools)
                 statsMultiplierTesting1.CheckIfMultipliersAreEqualToSettings();
+            else
+                cbExactlyImprinting.Checked = false;
+            cbExactlyImprinting.Visible = Properties.Settings.Default.DevTools;
             devToolStripMenuItem.Visible = Properties.Settings.Default.DevTools;
             sendExampleCreatureToolStripMenuItem.Visible = Properties.Settings.Default.DevTools;
 
