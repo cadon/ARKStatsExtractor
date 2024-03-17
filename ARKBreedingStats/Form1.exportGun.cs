@@ -10,7 +10,7 @@ namespace ARKBreedingStats
 {
     public partial class Form1
     {
-        private void listenToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        private void listenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (listenToolStripMenuItem.Checked)
                 AsbServerStartListening();
@@ -19,22 +19,21 @@ namespace ARKBreedingStats
 
         private void listenWithNewTokenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            listenToolStripMenuItem.Checked = false;
-            Properties.Settings.Default.ExportServerToken = null;
+            AsbServerStartListening(true);
             listenToolStripMenuItem.Checked = true;
         }
 
-        private void AsbServerStartListening()
+        private void AsbServerStartListening(bool useNewToken = false)
         {
             var progressReporter = new Progress<ProgressReportAsbServer>(AsbServerDataSent);
-            if (string.IsNullOrEmpty(Properties.Settings.Default.ExportServerToken))
+            if (useNewToken || string.IsNullOrEmpty(Properties.Settings.Default.ExportServerToken))
                 Properties.Settings.Default.ExportServerToken = AsbServer.Connection.CreateNewToken();
             Task.Factory.StartNew(() => AsbServer.Connection.StartListeningAsync(progressReporter, Properties.Settings.Default.ExportServerToken));
         }
 
         private void AsbServerStopListening(bool displayMessage = true)
         {
-            AsbServer.Connection.StopListening();
+            if (!AsbServer.Connection.StopListening()) return;
             if (displayMessage)
                 SetMessageLabelText($"ASB Server listening stopped using token: {Connection.TokenStringForDisplay(Properties.Settings.Default.ExportServerToken)}", MessageBoxIcon.Error);
         }
@@ -87,14 +86,10 @@ namespace ARKBreedingStats
                 if (!string.IsNullOrEmpty(data.ClipboardText))
                     Clipboard.SetText(data.ClipboardText);
 
-                SetMessageLabelText(message, data.IsError ? MessageBoxIcon.Error : MessageBoxIcon.Information, clipboardText: data.ClipboardText, displayPopup: displayPopup);
+                if (listenToolStripMenuItem.Checked == data.StoppedListening)
+                    listenToolStripMenuItem.Checked = !data.StoppedListening;
 
-                if (data.StopListening)
-                {
-                    // don't remove the error message with the stop listening message
-                    _ignoreNextMessageLabel = true;
-                    listenToolStripMenuItem.Checked = false;
-                }
+                SetMessageLabelText(message, data.IsError ? MessageBoxIcon.Error : MessageBoxIcon.Information, clipboardText: data.ClipboardText, displayPopup: displayPopup);
 
                 return;
             }

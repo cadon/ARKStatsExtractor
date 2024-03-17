@@ -1371,7 +1371,7 @@ namespace ARKBreedingStats
             this.listenToolStripMenuItem.Name = "listenToolStripMenuItem";
             this.listenToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.listenToolStripMenuItem.Text = "Listen";
-            this.listenToolStripMenuItem.CheckedChanged += new System.EventHandler(this.listenToolStripMenuItem_CheckedChanged);
+            this.listenToolStripMenuItem.Click += new System.EventHandler(this.listenToolStripMenuItem_Click);
             // 
             // currentTokenToolStripMenuItem
             // 

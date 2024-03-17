@@ -12,7 +12,7 @@ namespace ARKBreedingStats.AsbServer
         public string Message;
         public string ServerToken;
         public bool IsError;
-        public bool StopListening;
+        public bool StoppedListening;
         public string ClipboardText;
         public TaskCompletionSource<string> TaskNameGenerated;
     }
