@@ -57,7 +57,7 @@ namespace ARKBreedingStats
                 bool triggeredByFileWatcher = false);
 
         public delegate void SetMessageLabelTextEventHandler(string text = null, MessageBoxIcon icon = MessageBoxIcon.None,
-            string path = null, string clipboardContent = null, bool displayPopup = false);
+            string path = null, string clipboardContent = null, bool displayPopup = false, string customPopupMessage = null);
 
         private bool _updateTorporInTester;
         private bool _filterListAllowed;
@@ -1409,7 +1409,7 @@ namespace ARKBreedingStats
         /// <param name="path">If valid path to file or folder, the user can click on the message to display the path in the explorer</param>
         /// <param name="clipboardText">If not null, user can copy this text to the clipboard by clicking on the label</param>
         private void SetMessageLabelText(string text = null, MessageBoxIcon icon = MessageBoxIcon.None,
-            string path = null, string clipboardText = null, bool displayPopup = false)
+            string path = null, string clipboardText = null, bool displayPopup = false, string customPopupText = null)
         {
             if (_ignoreNextMessageLabel)
             {
@@ -1435,6 +1435,8 @@ namespace ARKBreedingStats
                     TbMessageLabel.BackColor = SystemColors.Control;
                     break;
             }
+
+            text = customPopupText ?? text;
             if (displayPopup && !string.IsNullOrEmpty(text))
                 PopupMessage.Show(this, text, 20);
         }

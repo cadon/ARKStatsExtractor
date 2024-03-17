@@ -149,7 +149,7 @@ namespace ARKBreedingStats.AsbServer
 #endif
             progressDataSent.Report(new ProgressReportAsbServer
             {
-                Message = "Now listening to the export server using the token (also copied to clipboard)",
+                Message = $"Now listening for remote exports.{Environment.NewLine}Enter the following token into the ASB export gun mod:",
                 ServerToken = serverToken,
                 ClipboardText = serverToken
             });

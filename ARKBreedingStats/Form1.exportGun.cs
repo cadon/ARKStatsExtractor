@@ -77,19 +77,31 @@ namespace ARKBreedingStats
             {
                 var displayPopup = false;
                 var message = data.Message;
+                string popupMessage = null;
+                var copyToClipboard = !string.IsNullOrEmpty(data.ClipboardText);
                 if (!string.IsNullOrEmpty(data.ServerToken))
                 {
-                    message += Environment.NewLine + Connection.TokenStringForDisplay(data.ServerToken);
                     displayPopup = !Properties.Settings.Default.StreamerMode && Properties.Settings.Default.DisplayPopupForServerToken;
+                    var tokenInfo = Environment.NewLine
+                                    + Connection.TokenStringForDisplay(data.ServerToken)
+                                    + (copyToClipboard
+                                        ? Environment.NewLine + "(this has been copied to the clipboard)"
+                                        : string.Empty);
+
+                    if (displayPopup)
+                        popupMessage = message + Environment.NewLine + tokenInfo
+                            + Environment.NewLine + Environment.NewLine + "Enable Streamer mode in Settings -> General to hide this token in future";
+                    message += tokenInfo;
                 }
 
-                if (!string.IsNullOrEmpty(data.ClipboardText))
+                if (copyToClipboard)
                     Clipboard.SetText(data.ClipboardText);
 
                 if (listenToolStripMenuItem.Checked == data.StoppedListening)
                     listenToolStripMenuItem.Checked = !data.StoppedListening;
 
-                SetMessageLabelText(message, data.IsError ? MessageBoxIcon.Error : MessageBoxIcon.Information, clipboardText: data.ClipboardText, displayPopup: displayPopup);
+                SetMessageLabelText(message, data.IsError ? MessageBoxIcon.Error : MessageBoxIcon.Information, clipboardText: data.ClipboardText,
+                    displayPopup: displayPopup, customPopupText: popupMessage);
 
                 return;
             }

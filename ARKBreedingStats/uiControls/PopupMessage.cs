@@ -10,7 +10,7 @@ namespace ARKBreedingStats.uiControls
 
         public PopupMessage()
         {
-            Width = 500;
+            Width = 600;
             Height = 400;
             FormBorderStyle = FormBorderStyle.None;
             ShowInTaskbar = false;
