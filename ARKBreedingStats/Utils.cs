@@ -755,14 +755,18 @@ namespace ARKBreedingStats
             }
         }
 
-        public static IEnumerable<IEnumerable<T>> CartesianProduct<T>(this IEnumerable<IEnumerable<T>> sequences)
+        public static IList<IList<T>> CartesianProduct<T>(this IEnumerable<IEnumerable<T>> sequences)
         {
             IEnumerable<IEnumerable<T>> emptyProduct = new[] { Enumerable.Empty<T>() };
 
-            return sequences.Aggregate(emptyProduct, (accumulator, sequence) => accumulator
+            var combinations = sequences.Aggregate(emptyProduct, (accumulator, sequence) => accumulator
                 .SelectMany(accseq => sequence
                     .Select(item => accseq.Concat(new[] { item })))
             );
+
+            return combinations
+                .Select(x => x.ToArray())
+                .ToArray();
         }
     }
 }

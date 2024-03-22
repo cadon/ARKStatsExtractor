@@ -1055,6 +1055,36 @@ namespace ARKBreedingStats
             SetStatsActiveAccordingToUsage(cv.Species);
 
             ExtractLevels(autoExtraction, highPrecisionValues, existingCreature: alreadyExistingCreature, possiblyMutagenApplied: cv.flags.HasFlag(CreatureFlags.MutagenApplied));
+            
+            UpdateMutationLevels(cv, alreadyExistingCreature);
+
+            SetCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
+            UpdateParentListInput(creatureInfoInputExtractor); // this function is only used for single-creature extractions, e.g. LastExport
+            creatureInfoInputExtractor.AlreadyExistingCreature = alreadyExistingCreature;
+            if (!string.IsNullOrEmpty(filePath))
+                SetMessageLabelText(Loc.S("creatureOfFile") + Environment.NewLine + filePath, path: filePath);
+            return creatureExists;
+        }
+
+        private void UpdateMutationLevels(CreatureValues cv, Creature alreadyExistingCreature)
+        {
+            // Do we have enough information to assume the mutation counts are accurate
+            bool AreMutationCountsAccurate(Creature creature)
+            {
+                // assume non-zero mutation counts are accurate
+                return creature.Mutations > 0
+                    // assume creatures with parents have accurate mutation counts
+                    || creature.motherGuid != Guid.Empty || creature.fatherGuid != Guid.Empty
+                    // trust a zero mutation count if the creature is tamed (TamerString, but no ImprinterName or Ancestry)
+                    || (!string.IsNullOrEmpty(creature.tribe) && string.IsNullOrEmpty(creature.imprinterName));
+            }
+
+            // Do we have enough information to assume the mutation levels are accurate
+            bool AreMutationLevelsAccurate(Creature creature)
+            {
+                // trust non-zero mutation levels or zeros if the mutation count is accurate
+                return creature.levelsMutated?.Sum() > 0 || AreMutationCountsAccurate(creature);
+            }
 
             if (alreadyExistingCreature?.levelsMutated != null)
             {
@@ -1069,8 +1099,13 @@ namespace ARKBreedingStats
                     }
                 }
             }
-            else if (cv.Mother?.levelsWild != null && cv.Father.levelsWild != null)
+            else if (cv.Mother?.levelsWild != null && cv.Father.levelsWild != null
+                && AreMutationLevelsAccurate(cv.Mother) && AreMutationCountsAccurate(cv.Mother)
+                && AreMutationLevelsAccurate(cv.Father) && AreMutationCountsAccurate(cv.Father))
             {
+                // This doesn't handle the case where a wild baby with mutations and their single parent is extracted
+                // In that case, the baby will have a single parent, but we can trust that they only have 1 parent to mutate from
+
                 // Derive mutation levels from parents
 
                 // Given child with 16 points and 3 new mutations in a given stat
@@ -1094,21 +1129,18 @@ namespace ARKBreedingStats
                 //   |   14 |         4 |             1 |
                 //   |   12 |         6 |             2 |
                 //
-                //var newMutationsMaternal = Math.Max(cv.mutationCounterMother - cv.Mother.Mutations, 0);
-                //var newMutationsPaternal = Math.Max(cv.mutationCounterFather - cv.Father.Mutations, 0);
-                //var totalNewMutations = newMutationsMaternal + newMutationsPaternal;
 
-                var possibileLevelsByStat = new List<(int wild, int mutated)>[Stats.StatsCount];
+                var possibileLevelsByStat = new List<(int wild, int mutated, int change)>[Stats.StatsCount];
 
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
-                    var possibleLevels = new List<(int, int)>();
+                    var possibleLevels = new List<(int, int, int)>();
                     var extractedWild = _statIOs[s].LevelWild;
 
                     if (s == Stats.Torpidity)
                     {
-                        // Torpidity is not mutated
-                        possibleLevels.Add((extractedWild, 0));
+                        // Torpidity is not mutated`
+                        possibleLevels.Add((extractedWild, 0, 0));
                     }
                     else
                     {
@@ -1124,12 +1156,12 @@ namespace ARKBreedingStats
 
                         // The number of levels that would have been gained from mutation if the parents' low stats were used
                         var lowChange = extractedWild - lowWild - lowMutated;
-                        
+
                         // The number of levels that would have been gained from mutation if the parents' low stats were used
                         var highChange = extractedWild - highWild - highMutated;
 
-                        var newLowStats = (wild: lowWild, mutated: lowMutated + lowChange);
-                        var newHighStats = (wild: highWild, mutated: highMutated + highChange);
+                        var newLowStats = (wild: lowWild, mutated: lowMutated + lowChange, change: lowChange);
+                        var newHighStats = (wild: highWild, mutated: highMutated + highChange, change: highChange);
 
                         // only add low value variation it adds an even number of level and adds less than or equal to the new mutations
                         if (lowChange >= 0 && lowChange <= 6 && lowChange % 2 == 0)
@@ -1147,10 +1179,9 @@ namespace ARKBreedingStats
                     possibileLevelsByStat[s] = possibleLevels;
                 }
 
-                // It's possible that more than one combination of parent levels and new mutations that accounts for the child's levels
-                // If there is more than one set, don't assign mutation points
-                // If there is only 1 set, use that
-                if(possibileLevelsByStat.All(x => x.Count == 1))
+                // It's possible for more than one combination of parent levels and new mutations to account for the
+                // child's levels. If there is only 1 set, use that
+                if (possibileLevelsByStat.All(x => x.Count == 1))
                 {
                     for (int s = 0; s < Stats.StatsCount; s++)
                     {
@@ -1162,20 +1193,35 @@ namespace ARKBreedingStats
                         statIo.Status = StatIOStatus.Neutral;
                     }
                 }
-            }   
+                else
+                {
+                    // When it's ambiguous which parent's stats + new mutations went into the child's stats, we try to
+                    // reduce the set of possible new mutation combinations to only those that match the mutation count
+                    // difference between the child and the parents
+                    var newMutationsMaternal = Math.Max(cv.mutationCounterMother - cv.Mother.Mutations, 0);
+                    var newMutationsPaternal = Math.Max(cv.mutationCounterFather - cv.Father.Mutations, 0);
+                    var totalNewMutations = newMutationsMaternal + newMutationsPaternal;
 
-            SetCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
-            UpdateParentListInput(creatureInfoInputExtractor); // this function is only used for single-creature extractions, e.g. LastExport
-            creatureInfoInputExtractor.AlreadyExistingCreature = alreadyExistingCreature;
-            if (!string.IsNullOrEmpty(filePath))
-                SetMessageLabelText(Loc.S("creatureOfFile") + Environment.NewLine + filePath, path: filePath);
-            return creatureExists;
-        }
+                    var validLevelCombinations = possibileLevelsByStat
+                        .CartesianProduct()
+                        .Where(x => x.Sum(y => y.change) == totalNewMutations * 2)
+                        .ToArray();
 
-        private bool CanBeMutation(int levelWild, int newMutations, int parentWild, int parentMutated)
-        {
-            var levelDifference = levelWild - parentWild - parentMutated;
-            return levelDifference > 0 && levelDifference % 2 == 0 && levelDifference <= newMutations * 2;
+                    if (validLevelCombinations.Length == 1)
+                    {
+                        var validCombination = validLevelCombinations[0];
+                        for (int s = 0; s < Stats.StatsCount; s++)
+                        {
+                            var statIo = _statIOs[s];
+                            var levels = validCombination[s];
+
+                            statIo.LevelWild = levels.wild;
+                            statIo.LevelMut = levels.mutated;
+                            statIo.Status = StatIOStatus.Neutral;
+                        }
+                    }
+                }
+            }
         }
 
         /// <summary>
