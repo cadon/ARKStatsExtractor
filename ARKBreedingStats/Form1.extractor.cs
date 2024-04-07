@@ -1055,7 +1055,7 @@ namespace ARKBreedingStats
             SetStatsActiveAccordingToUsage(cv.Species);
 
             ExtractLevels(autoExtraction, highPrecisionValues, existingCreature: alreadyExistingCreature, possiblyMutagenApplied: cv.flags.HasFlag(CreatureFlags.MutagenApplied));
-            
+
             UpdateMutationLevels(cv, alreadyExistingCreature);
 
             SetCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
@@ -1083,7 +1083,7 @@ namespace ARKBreedingStats
             bool AreMutationLevelsAccurate(Creature creature)
             {
                 // trust non-zero mutation levels or zeros if the mutation count is accurate
-                return creature.levelsMutated?.Sum() > 0 || AreMutationCountsAccurate(creature);
+                return creature.levelsMutated?.Any(m => m != 0) == true || AreMutationCountsAccurate(creature);
             }
 
             if (alreadyExistingCreature?.levelsMutated != null)
@@ -1099,7 +1099,7 @@ namespace ARKBreedingStats
                     }
                 }
             }
-            else if (cv.Mother?.levelsWild != null && cv.Father.levelsWild != null
+            else if (cv.Mother?.levelsWild != null && cv.Father?.levelsWild != null
                 && AreMutationLevelsAccurate(cv.Mother) && AreMutationCountsAccurate(cv.Mother)
                 && AreMutationLevelsAccurate(cv.Father) && AreMutationCountsAccurate(cv.Father))
             {
@@ -1139,7 +1139,7 @@ namespace ARKBreedingStats
 
                     if (s == Stats.Torpidity)
                     {
-                        // Torpidity is not mutated`
+                        // Torpidity is not mutated
                         possibleLevels.Add((extractedWild, 0, 0));
                     }
                     else
@@ -1164,13 +1164,13 @@ namespace ARKBreedingStats
                         var newHighStats = (wild: highWild, mutated: highMutated + highChange, change: highChange);
 
                         // only add low value variation it adds an even number of level and adds less than or equal to the new mutations
-                        if (lowChange >= 0 && lowChange <= 6 && lowChange % 2 == 0)
+                        if (lowChange >= 0 && lowChange <= Ark.MutationRolls * Ark.LevelsAddedPerMutation && lowChange % Ark.LevelsAddedPerMutation == 0)
                         {
                             possibleLevels.Add(newLowStats);
                         }
 
                         // only add a high pair variation if it's not the same as the low
-                        if (newLowStats != newHighStats && highChange >= 0 && highChange <= 6 && highChange % 2 == 0)
+                        if (newLowStats != newHighStats && highChange >= 0 && highChange <= Ark.MutationRolls * Ark.LevelsAddedPerMutation && highChange % Ark.LevelsAddedPerMutation == 0)
                         {
                             possibleLevels.Add(newHighStats);
                         }
@@ -1204,7 +1204,7 @@ namespace ARKBreedingStats
 
                     var validLevelCombinations = possibileLevelsByStat
                         .CartesianProduct()
-                        .Where(x => x.Sum(y => y.change) == totalNewMutations * 2)
+                        .Where(x => x.Sum(y => y.change) == totalNewMutations * Ark.LevelsAddedPerMutation)
                         .ToArray();
 
                     if (validLevelCombinations.Length == 1)

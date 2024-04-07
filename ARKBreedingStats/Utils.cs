@@ -761,7 +761,7 @@ namespace ARKBreedingStats
 
             var combinations = sequences.Aggregate(emptyProduct, (accumulator, sequence) => accumulator
                 .SelectMany(accseq => sequence
-                    .Select(item => accseq.Concat(new[] { item })))
+                    .Select(item => accseq.Append(item)))
             );
 
             return combinations
