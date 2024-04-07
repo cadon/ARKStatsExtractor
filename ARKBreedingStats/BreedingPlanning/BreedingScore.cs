@@ -31,12 +31,14 @@ namespace ARKBreedingStats.BreedingPlanning
         /// <param name="onlyBestSuggestionForFemale">Only the pairing with the highest score is kept for each female. Is not used if species has no sex or sex is ignored in breeding planner.</param>
         /// <param name="anyOddEven">Array for each stat if the higher level should be considered for score: 0: consider any level, 1: consider only if odd, 2: consider only if even.</param>
         /// <param name="checkIfAtLeastOnePartnerIsNotOnCooldown">For hermaphrodites only one partner needs to be not on cooldown. If creatures of a hermaphrodite species are passed and at least one needs to be not on cooldown, set this to true.</param>
+        /// <param name="considerMutationLevels">If true the breeding score considers both wild and mutation levels.</param>
         /// <returns></returns>
         public static List<BreedingPair> CalculateBreedingScores(Creature[] females, Creature[] males, Species species,
             short[] bestPossLevels, double[] statWeights, int[] bestLevelsOfSpecies, BreedingMode breedingMode,
             bool considerChosenCreature, bool considerMutationLimit, int mutationLimit,
             ref bool creaturesMutationsFilteredOut, int offspringLevelLimit = 0, bool downGradeOffspringWithLevelHigherThanLimit = false,
-            bool onlyBestSuggestionForFemale = false, StatValueEvenOdd[] anyOddEven = null, bool checkIfAtLeastOnePartnerIsNotOnCooldown = false)
+            bool onlyBestSuggestionForFemale = false, StatValueEvenOdd[] anyOddEven = null, bool checkIfAtLeastOnePartnerIsNotOnCooldown = false,
+            bool considerMutationLevels = false)
         {
             var breedingPairs = new List<BreedingPair>();
             var ignoreSex = Properties.Settings.Default.IgnoreSexInBreedingPlan || species.noGender;
@@ -50,6 +52,21 @@ namespace ARKBreedingStats.BreedingPlanning
             }
 
             var now = DateTime.Now;
+
+            (int higherLevel, int lowerLevel) GetHigherLowerLevel(Creature parent1, Creature parent2, int statIndex)
+            {
+                int levelParent1 = parent1.levelsWild[statIndex];
+                int levelParent2 = parent2.levelsWild[statIndex];
+                return (Math.Max(levelParent1, levelParent2), Math.Min(levelParent1, levelParent2));
+            }
+            (int higherLevel, int lowerLevel) GetHigherLowerLevelWithMutationLevels(Creature parent1, Creature parent2, int statIndex)
+            {
+                int levelParent1 = parent1.levelsWild[statIndex] + (parent1.levelsMutated?[statIndex] ?? 0);
+                int levelParent2 = parent2.levelsWild[statIndex] + (parent2.levelsMutated?[statIndex] ?? 0);
+                return (Math.Max(levelParent1, levelParent2), Math.Min(levelParent1, levelParent2));
+            }
+
+            var getHigherLowerLevels = considerMutationLevels ? (Func<Creature, Creature, int, (int, int)>)GetHigherLowerLevelWithMutationLevels : GetHigherLowerLevel;
 
             for (int fi = 0; fi < females.Length; fi++)
             {
@@ -98,8 +115,7 @@ namespace ARKBreedingStats.BreedingPlanning
                     {
                         if (s == Stats.Torpidity || !species.UsesStat(s)) continue;
                         bestPossLevels[s] = 0;
-                        int higherLevel = Math.Max(female.levelsWild[s], male.levelsWild[s]);
-                        int lowerLevel = Math.Min(female.levelsWild[s], male.levelsWild[s]);
+                        var (higherLevel, lowerLevel) = getHigherLowerLevels(female, male, s);
                         if (higherLevel < 0) higherLevel = 0;
                         if (lowerLevel < 0) lowerLevel = 0;
                         maxPossibleOffspringLevel += higherLevel;

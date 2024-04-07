@@ -109,6 +109,7 @@ namespace ARKBreedingStats.BreedingPlanning
             cbBPMutationLimitOnlyOnePartner.Checked = Settings.Default.BreedingPlanOnePartnerMoreMutationsThanLimit;
             CbIgnoreSexInPlanning.Checked = Settings.Default.IgnoreSexInBreedingPlan;
             CbDontSuggestOverLimitOffspring.Checked = Settings.Default.BreedingPlanDontSuggestOverLimitOffspring;
+            CbConsiderMutationLevels.Checked = Settings.Default.BreedingPlanConsiderMutatedLevels;
 
             tagSelectorList1.OnTagChanged += TagSelectorList1_OnTagChanged;
 
@@ -415,7 +416,7 @@ namespace ARKBreedingStats.BreedingPlanning
                     bestPossLevels, _statWeights, _bestLevels, _breedingMode,
                     considerChosenCreature, considerMutationLimit, (int)nudBPMutationLimit.Value,
                     ref creaturesMutationsFilteredOut, levelLimitWithOutDomLevels, CbDontSuggestOverLimitOffspring.Checked,
-                    cbBPOnlyOneSuggestionForFemales.Checked, _statOddEvens, !cbBPIncludeCooldowneds.Checked && _currentSpecies.noGender);
+                    cbBPOnlyOneSuggestionForFemales.Checked, _statOddEvens, !cbBPIncludeCooldowneds.Checked && _currentSpecies.noGender, CbConsiderMutationLevels.Checked);
 
                 double minScore = _breedingPairs.LastOrDefault()?.BreedingScore.OneNumber ?? 0;
                 var displayScoreOffset = (minScore < 0 ? -minScore : 0) + .5; // don't display negative scores, could be confusing
@@ -1202,6 +1203,12 @@ namespace ARKBreedingStats.BreedingPlanning
         private void CbDontSuggestOverLimitOffspring_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.BreedingPlanDontSuggestOverLimitOffspring = CbDontSuggestOverLimitOffspring.Checked;
+            CalculateBreedingScoresAndDisplayPairs();
+        }
+
+        private void CbConsiderMutationLevels_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.BreedingPlanConsiderMutatedLevels = CbConsiderMutationLevels.Checked;
             CalculateBreedingScoresAndDisplayPairs();
         }
     }

@@ -2337,5 +2337,17 @@ namespace ARKBreedingStats.Properties {
                 this["DisplayPopupForServerToken"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BreedingPlanConsiderMutatedLevels {
+            get {
+                return ((bool)(this["BreedingPlanConsiderMutatedLevels"]));
+            }
+            set {
+                this["BreedingPlanConsiderMutatedLevels"] = value;
+            }
+        }
     }
 }
