@@ -117,6 +117,8 @@ namespace ARKBreedingStats
                     return;
                 }
 
+                creature.domesticatedAt = DateTime.Now;
+
                 DetermineLevelStatusAndSoundFeedback(creature, Properties.Settings.Default.PlaySoundOnAutoImport);
 
                 SetNameOfImportedCreature(creature, null, out _,

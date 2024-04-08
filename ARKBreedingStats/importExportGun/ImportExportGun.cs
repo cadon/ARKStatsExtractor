@@ -41,8 +41,9 @@ namespace ARKBreedingStats.importExportGun
                             break;
                     }
 
-                    return LoadCreatureFromJson(jsonText, resultText, out resultText, out serverMultipliersHash);
-
+                    var creature = LoadCreatureFromJson(jsonText, resultText, out resultText, out serverMultipliersHash);
+                    creature.domesticatedAt = File.GetLastWriteTime(filePath);
+                    return creature;
                 }
                 catch (IOException) when (tryIndex < tryLoadCount - 1)
                 {

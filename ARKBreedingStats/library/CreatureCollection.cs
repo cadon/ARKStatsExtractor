@@ -238,6 +238,8 @@ namespace ARKBreedingStats.Library
 
                 if (!guidDict.TryGetValue(creatureNew.guid, out var creatureExisting))
                 {
+                    if (creatureNew.addedToLibrary == null)
+                        creatureNew.addedToLibrary = DateTime.Now;
                     creatures.Add(creatureNew);
                     creaturesWereAddedOrUpdated = true;
                     continue;
