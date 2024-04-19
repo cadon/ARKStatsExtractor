@@ -1492,6 +1492,7 @@ namespace ARKBreedingStats.settings
             nudBabyImprintAmount.SetExtraHighlightNonDefault(highlight);
             nudBabyImprintingStatScale.SetExtraHighlightNonDefault(highlight);
             nudBabyFoodConsumptionSpeed.SetExtraHighlightNonDefault(highlight);
+            nudTamedDinoCharacterFoodDrain.SetExtraHighlightNonDefault(highlight);
             HighlightCheckbox(cbSingleplayerSettings);
             HighlightCheckbox(CbAllowSpeedLeveling);
             HighlightCheckbox(CbAllowFlyerSpeedLeveling);
