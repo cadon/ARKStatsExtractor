@@ -80,6 +80,7 @@
             this.nudMaxWildLevels = new ARKBreedingStats.uiControls.Nud();
             this.label10 = new System.Windows.Forms.Label();
             this.nudMaxDomLevels = new ARKBreedingStats.uiControls.Nud();
+            this.label27 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label57 = new System.Windows.Forms.Label();
             this.label56 = new System.Windows.Forms.Label();
@@ -108,7 +109,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.nudDinoCharacterFoodDrain = new ARKBreedingStats.uiControls.Nud();
             this.nudTamingSpeed = new ARKBreedingStats.uiControls.Nud();
-            this.label15 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label55 = new System.Windows.Forms.Label();
             this.NudWaitBeforeAutoLoad = new ARKBreedingStats.uiControls.Nud();
@@ -124,6 +124,10 @@
             this.checkBoxDisplayHiddenStats = new System.Windows.Forms.CheckBox();
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabPageMultipliers = new System.Windows.Forms.TabPage();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.BtnUpdateOfficialEventValues = new System.Windows.Forms.Button();
+            this.CbAutoOfficialMultipliers = new System.Windows.Forms.CheckBox();
+            this.CbbOfficialMultipliers = new System.Windows.Forms.ComboBox();
             this.GbNewLibraryGame = new System.Windows.Forms.GroupBox();
             this.RbNewLibraryGameAskEachTime = new System.Windows.Forms.RadioButton();
             this.RbNewLibraryGameKeep = new System.Windows.Forms.RadioButton();
@@ -147,7 +151,6 @@
             this.groupBox18 = new System.Windows.Forms.GroupBox();
             this.btApplyPreset = new System.Windows.Forms.Button();
             this.cbbStatMultiplierPresets = new System.Windows.Forms.ComboBox();
-            this.label27 = new System.Windows.Forms.Label();
             this.cbSingleplayerSettings = new System.Windows.Forms.CheckBox();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.cbAllowMoreThanHundredImprinting = new System.Windows.Forms.CheckBox();
@@ -361,6 +364,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -406,6 +410,7 @@
             this.groupBox7.SuspendLayout();
             this.tabControlSettings.SuspendLayout();
             this.tabPageMultipliers.SuspendLayout();
+            this.groupBox12.SuspendLayout();
             this.GbNewLibraryGame.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBox29.SuspendLayout();
@@ -1246,6 +1251,18 @@
             this.nudMaxDomLevels.Size = new System.Drawing.Size(57, 20);
             this.nudMaxDomLevels.TabIndex = 1;
             // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(288, 21);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(46, 31);
+            this.label27.TabIndex = 12;
+            this.label27.Text = "💡";
+            this.toolTip1.SetToolTip(this.label27, "If you have the files Game.ini or GameUserSettings.ini from your server, you can " +
+        "drag&&drop them on this window to insert their values.");
+            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.label57);
@@ -1693,14 +1710,6 @@
             0,
             0});
             // 
-            // label15
-            // 
-            this.label15.Location = new System.Drawing.Point(450, 548);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(289, 77);
-            this.label15.TabIndex = 9;
-            this.label15.Text = resources.GetString("label15.Text");
-            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.label55);
@@ -1876,6 +1885,7 @@
             // 
             this.tabPageMultipliers.AllowDrop = true;
             this.tabPageMultipliers.AutoScroll = true;
+            this.tabPageMultipliers.Controls.Add(this.groupBox12);
             this.tabPageMultipliers.Controls.Add(this.GbNewLibraryGame);
             this.tabPageMultipliers.Controls.Add(this.TbRemoteServerSettingsUri);
             this.tabPageMultipliers.Controls.Add(this.BtSettingsToClipboard);
@@ -1889,7 +1899,6 @@
             this.tabPageMultipliers.Controls.Add(this.groupBox29);
             this.tabPageMultipliers.Controls.Add(this.label34);
             this.tabPageMultipliers.Controls.Add(this.groupBox18);
-            this.tabPageMultipliers.Controls.Add(this.label27);
             this.tabPageMultipliers.Controls.Add(this.cbSingleplayerSettings);
             this.tabPageMultipliers.Controls.Add(this.groupBox11);
             this.tabPageMultipliers.Controls.Add(this.buttonEventToDefault);
@@ -1897,7 +1906,6 @@
             this.tabPageMultipliers.Controls.Add(this.groupBoxMultiplier);
             this.tabPageMultipliers.Controls.Add(this.groupBox2);
             this.tabPageMultipliers.Controls.Add(this.groupBox3);
-            this.tabPageMultipliers.Controls.Add(this.label15);
             this.tabPageMultipliers.Controls.Add(this.groupBox5);
             this.tabPageMultipliers.Location = new System.Drawing.Point(4, 22);
             this.tabPageMultipliers.Name = "tabPageMultipliers";
@@ -1908,6 +1916,54 @@
             this.tabPageMultipliers.UseVisualStyleBackColor = true;
             this.tabPageMultipliers.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragDrop);
             this.tabPageMultipliers.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragEnter);
+            // 
+            // groupBox12
+            // 
+            this.groupBox12.Controls.Add(this.BtnUpdateOfficialEventValues);
+            this.groupBox12.Controls.Add(this.CbAutoOfficialMultipliers);
+            this.groupBox12.Controls.Add(this.CbbOfficialMultipliers);
+            this.groupBox12.Controls.Add(this.label27);
+            this.groupBox12.Location = new System.Drawing.Point(395, 551);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(344, 71);
+            this.groupBox12.TabIndex = 22;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "Official server multipliers";
+            // 
+            // BtnUpdateOfficialEventValues
+            // 
+            this.BtnUpdateOfficialEventValues.Location = new System.Drawing.Point(12, 42);
+            this.BtnUpdateOfficialEventValues.Name = "BtnUpdateOfficialEventValues";
+            this.BtnUpdateOfficialEventValues.Size = new System.Drawing.Size(140, 23);
+            this.BtnUpdateOfficialEventValues.TabIndex = 2;
+            this.BtnUpdateOfficialEventValues.Text = "Update Event-values";
+            this.BtnUpdateOfficialEventValues.UseVisualStyleBackColor = true;
+            this.BtnUpdateOfficialEventValues.Click += new System.EventHandler(this.BtnUpdateOfficialEventValues_Click);
+            // 
+            // CbAutoOfficialMultipliers
+            // 
+            this.CbAutoOfficialMultipliers.AutoSize = true;
+            this.CbAutoOfficialMultipliers.Location = new System.Drawing.Point(176, 46);
+            this.CbAutoOfficialMultipliers.Name = "CbAutoOfficialMultipliers";
+            this.CbAutoOfficialMultipliers.Size = new System.Drawing.Size(84, 17);
+            this.CbAutoOfficialMultipliers.TabIndex = 24;
+            this.CbAutoOfficialMultipliers.Text = "Auto update";
+            this.toolTip1.SetToolTip(this.CbAutoOfficialMultipliers, "Update event multipliers to match official servers every 30 seconds.");
+            this.CbAutoOfficialMultipliers.UseVisualStyleBackColor = true;
+            this.CbAutoOfficialMultipliers.Visible = false;
+            // 
+            // CbbOfficialMultipliers
+            // 
+            this.CbbOfficialMultipliers.FormattingEnabled = true;
+            this.CbbOfficialMultipliers.Items.AddRange(new object[] {
+            "ASA Official",
+            "ASA Smalltribes",
+            "ASA Arkpocalypse"});
+            this.CbbOfficialMultipliers.Location = new System.Drawing.Point(12, 19);
+            this.CbbOfficialMultipliers.Name = "CbbOfficialMultipliers";
+            this.CbbOfficialMultipliers.Size = new System.Drawing.Size(248, 21);
+            this.CbbOfficialMultipliers.TabIndex = 23;
+            this.CbbOfficialMultipliers.Text = "ASA Official";
             // 
             // GbNewLibraryGame
             // 
@@ -2148,16 +2204,6 @@
             this.cbbStatMultiplierPresets.Name = "cbbStatMultiplierPresets";
             this.cbbStatMultiplierPresets.Size = new System.Drawing.Size(217, 21);
             this.cbbStatMultiplierPresets.TabIndex = 0;
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(407, 562);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(37, 26);
-            this.label27.TabIndex = 12;
-            this.label27.Text = "💡";
             // 
             // cbSingleplayerSettings
             // 
@@ -4675,6 +4721,8 @@
             this.tabControlSettings.ResumeLayout(false);
             this.tabPageMultipliers.ResumeLayout(false);
             this.tabPageMultipliers.PerformLayout();
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox12.PerformLayout();
             this.GbNewLibraryGame.ResumeLayout(false);
             this.GbNewLibraryGame.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -4808,7 +4856,6 @@
         private ARKBreedingStats.uiControls.Nud nudDinoCharacterFoodDrain;
         private ARKBreedingStats.uiControls.Nud nudTamingSpeed;
         private System.Windows.Forms.CheckBox chkCollectionSync;
-        private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.RadioButton radioButtonFahrenheit;
         private System.Windows.Forms.RadioButton radioButtonCelsius;
@@ -5106,5 +5153,10 @@
         private System.Windows.Forms.RadioButton RbNewLibraryGameAse;
         private System.Windows.Forms.RadioButton RbNewLibraryGameAskEachTime;
         private System.Windows.Forms.CheckBox CbDisplayServerTokenPopup;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ComboBox CbbOfficialMultipliers;
+        private System.Windows.Forms.CheckBox CbAutoOfficialMultipliers;
+        private System.Windows.Forms.GroupBox groupBox12;
+        private System.Windows.Forms.Button BtnUpdateOfficialEventValues;
     }
 }

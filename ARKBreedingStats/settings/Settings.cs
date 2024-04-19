@@ -964,6 +964,44 @@ namespace ARKBreedingStats.settings
         }
 
         /// <summary>
+        /// Parse the text and set the recognized event settings accordingly.
+        /// </summary>
+        /// <param name="text">Text containing the settings</param>
+        private void ExtractEventSettingsFromText(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text)) return;
+
+            // ignore lines that start with a semicolon (comments)
+            text = Regex.Replace(text, @"(?:\A|[\r\n]+);[^\r\n]*", string.Empty);
+
+            double d;
+            Match m;
+            var cultureForStrings = System.Globalization.CultureInfo.GetCultureInfo("en-US");
+
+            ParseAndSetValue(nudMatingIntervalEvent, @"MatingIntervalMultiplier ?= ?(\d*\.?\d+)");
+            ParseAndSetValue(nudEggHatchSpeedEvent, @"EggHatchSpeedMultiplier ?= ?(\d*\.?\d+)");
+            ParseAndSetValue(nudBabyMatureSpeedEvent, @"BabyMatureSpeedMultiplier ?= ?(\d*\.?\d+)");
+            ParseAndSetValue(nudBabyImprintAmountEvent, @"BabyImprintAmountMultiplier ?= ?(\d*\.?\d+)");
+            ParseAndSetValue(nudBabyCuddleIntervalEvent, @"BabyCuddleIntervalMultiplier ?= ?(\d*\.?\d+)");
+            ParseAndSetValue(nudBabyFoodConsumptionSpeedEvent, @"BabyFoodConsumptionSpeedMultiplier ?= ?(\d*\.?\d+)");
+            ParseAndSetValue(nudTamedDinoCharacterFoodDrainEvent, @"TamedDinoCharacterFoodDrainMultiplier ?= ?(\d*\.?\d+)");
+
+            bool ParseAndSetValue(Nud nud, string regexPattern)
+            {
+                m = Regex.Match(text, regexPattern);
+                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint,
+                    cultureForStrings, out d))
+                {
+                    nud.ValueSave = (decimal)d;
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+
+        /// <summary>
         /// Load server multipliers from a file created by the export gun mod.
         /// </summary>
         private void LoadServerMultipliersFromSavFile(string filePath)
@@ -1831,6 +1869,28 @@ namespace ARKBreedingStats.settings
             CbAllowSpeedLeveling.Visible = isAsa;
             if (isAsa && CbAllowFlyerSpeedLeveling.Checked)
                 CbAllowSpeedLeveling.Checked = true;
+        }
+
+        private void BtnUpdateOfficialEventValues_Click(object sender, EventArgs e)
+        {
+            var gameType = CbbOfficialMultipliers.Text;
+
+            try
+            {
+                var url = gameType == "ASA Arkpocalypse" ? "https://cdn2.arkdedicated.com/asa/arkpocalypse_dynamicconfig.ini"
+                  : gameType == "ASA Smalltribes" ? "https://cdn2.arkdedicated.com/asa/smalltribes_dynamicconfig.ini"
+                  : gameType == "ASA Official" ? "https://cdn2.arkdedicated.com/asa/dynamicconfig.ini"
+                  : throw new Exception($"Unexpected official multipliers option {gameType}");
+                
+                var httpClient = FileService.GetHttpClient;
+
+                var settingsText = httpClient.GetStringAsync(url).Result;
+                ExtractEventSettingsFromText(settingsText);
+            }
+            catch (Exception ex)
+            {
+                MessageBoxes.ExceptionMessageBox(ex, "Server settings file couldn't be loaded.");
+            }
         }
     }
 }
