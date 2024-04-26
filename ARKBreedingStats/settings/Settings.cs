@@ -978,6 +978,7 @@ namespace ARKBreedingStats.settings
             Match m;
             var cultureForStrings = System.Globalization.CultureInfo.GetCultureInfo("en-US");
 
+            ParseAndSetValue(nudTamingSpeedEvent, @"TamingSpeedMultiplier ?= ?(\d*\.?\d+)");
             ParseAndSetValue(nudMatingIntervalEvent, @"MatingIntervalMultiplier ?= ?(\d*\.?\d+)");
             ParseAndSetValue(nudEggHatchSpeedEvent, @"EggHatchSpeedMultiplier ?= ?(\d*\.?\d+)");
             ParseAndSetValue(nudBabyMatureSpeedEvent, @"BabyMatureSpeedMultiplier ?= ?(\d*\.?\d+)");
