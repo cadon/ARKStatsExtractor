@@ -98,8 +98,9 @@ namespace ARKBreedingStats
                     }
                 }
 
-                if (new FileInfo(workingCopyFilePath).Length > int.MaxValue
-                    && MessageBox.Show("The file is very large (> 2 GB), importing can take some minutes. Continue?", "Importing large file", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                var fileSize = new FileInfo(workingCopyFilePath).Length;
+                if (fileSize > int.MaxValue
+                     && MessageBox.Show($"The file is very large (~{Math.Round(fileSize / 1e9, 1)} GB), importing can take some minutes. Continue?", "Importing large file", MessageBoxButtons.YesNo) != DialogResult.Yes)
                 {
                     return "Import aborted by user because of large file size";
                 }
