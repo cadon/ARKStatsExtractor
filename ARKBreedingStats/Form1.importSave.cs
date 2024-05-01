@@ -116,7 +116,8 @@ namespace ARKBreedingStats
             }
             catch (Exception ex)
             {
-                MessageBoxes.ExceptionMessageBox(ex, $"An error occurred while importing the file {atImportFileLocation.FileLocation}.", "Save file import error");
+                var noAsaSupportInfo = ex.Message.StartsWith("Found unknown Version 20819") ? "Importing save games from ARK: Survival Ascended (ASA) is not yet supported, currently only ARK: Survival Evolved (ASE) is supported for save file import.\n\n" : null;
+                MessageBoxes.ExceptionMessageBox(ex, $"{noAsaSupportInfo}An error occurred while importing the file {atImportFileLocation.FileLocation}.", "Save file import error");
                 return string.Empty;
             }
             finally
