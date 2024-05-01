@@ -48,7 +48,7 @@ namespace ARKBreedingStats
             this.openFolderOfCurrentFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.importingFromSavegameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importingFromSavegameEmptyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configureSavegameImportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importExportedCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importFromTabSeparatedFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator19 = new System.Windows.Forms.ToolStripSeparator();
@@ -391,6 +391,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator27 = new System.Windows.Forms.ToolStripSeparator();
             this.resetColumnOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
+            this.selectSavegameFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -559,17 +560,18 @@ namespace ARKBreedingStats
             // importingFromSavegameToolStripMenuItem
             // 
             this.importingFromSavegameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.importingFromSavegameEmptyToolStripMenuItem});
+            this.selectSavegameFileToolStripMenuItem,
+            this.configureSavegameImportToolStripMenuItem});
             this.importingFromSavegameToolStripMenuItem.Name = "importingFromSavegameToolStripMenuItem";
             this.importingFromSavegameToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
             this.importingFromSavegameToolStripMenuItem.Text = "Importing from savegame (only ASE)";
             // 
             // importingFromSavegameEmptyToolStripMenuItem
             // 
-            this.importingFromSavegameEmptyToolStripMenuItem.Name = "importingFromSavegameEmptyToolStripMenuItem";
-            this.importingFromSavegameEmptyToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
-            this.importingFromSavegameEmptyToolStripMenuItem.Text = "At first configure \"Import Savegame\"";
-            this.importingFromSavegameEmptyToolStripMenuItem.Click += new System.EventHandler(this.importingFromSavegameEmptyToolStripMenuItem_Click);
+            this.configureSavegameImportToolStripMenuItem.Name = "configureSavegameImportToolStripMenuItem";
+            this.configureSavegameImportToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.configureSavegameImportToolStripMenuItem.Text = "Configure savegame imports…";
+            this.configureSavegameImportToolStripMenuItem.Click += new System.EventHandler(this.importingFromSavegameEmptyToolStripMenuItem_Click);
             // 
             // importExportedCreaturesToolStripMenuItem
             // 
@@ -3843,6 +3845,13 @@ namespace ARKBreedingStats
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
+            // selectSavegameFileToolStripMenuItem
+            // 
+            this.selectSavegameFileToolStripMenuItem.Name = "selectSavegameFileToolStripMenuItem";
+            this.selectSavegameFileToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.selectSavegameFileToolStripMenuItem.Text = "Select savegame file…";
+            this.selectSavegameFileToolStripMenuItem.Click += new System.EventHandler(this.SavegameImportClick);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -4187,7 +4196,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.Label lbWildLevelTester;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
         private System.Windows.Forms.ToolStripMenuItem importingFromSavegameToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem importingFromSavegameEmptyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem configureSavegameImportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cryopodToolStripMenuItem;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelStatIOsExtractor;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelStatIOsTester;
@@ -4310,5 +4319,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator28;
         private System.Windows.Forms.ToolStripMenuItem openModPageInBrowserToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nameGeneratorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem selectSavegameFileToolStripMenuItem;
     }
 }

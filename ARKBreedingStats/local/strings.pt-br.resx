@@ -586,8 +586,8 @@ Segure Ctrl + Shift para cores aleatórias </value>
   <data name="importingFromARKToolsToolStripMenuItem" xml:space="preserve">
     <value>Importando do ARK-Tools</value>
   </data>
-  <data name="importingFromSavegameEmptyToolStripMenuItem" xml:space="preserve">
-    <value>Primeiro configure "Import Savegame"</value>
+  <data name="configureSavegameImportToolStripMenuItem" xml:space="preserve">
+    <value>Configure "Import Savegame"</value>
   </data>
   <data name="importingFromSavegameToolStripMenuItem" xml:space="preserve">
     <value>Importando do savegame</value>

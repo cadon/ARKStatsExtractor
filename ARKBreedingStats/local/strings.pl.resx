@@ -605,7 +605,7 @@
   <data name="importingFromSavegameToolStripMenuItem" xml:space="preserve">
         <value>Zaimportuj z zapisu gry</value>
     </data>
-    <data name="importingFromSavegameEmptyToolStripMenuItem" xml:space="preserve">
+    <data name="configureSavegameImportToolStripMenuItem" xml:space="preserve">
         <value>Najpierw skonfiguruj "Import z zapisu gry"</value>
     </data>
     <data name="addedAt" xml:space="preserve">

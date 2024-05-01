@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using ARKBreedingStats.values;
 
 namespace ARKBreedingStats
@@ -616,17 +617,33 @@ namespace ARKBreedingStats
         public static (int, int) ConvertArkId64ToArkIds32(long id) => ((int)(id >> 32), (int)id);
 
         /// <summary>
-        /// returns a shortened string with an ellipsis in the middle. One third of the beginning is shown and two thirds of then end
+        /// Returns a shortened string with an ellipsis in the middle. One third of the beginning is shown and two thirds of then end.
         /// </summary>
         /// <param name="longPath">long string</param>
         /// <param name="maxLength">max length of the string</param>
-        /// <returns>string with ellipsis in the middle</returns>
+        /// <returns>String with ellipsis in the middle</returns>
         public static string ShortPath(string longPath, int maxLength = 50)
         {
+            if (string.IsNullOrEmpty(longPath)) return longPath;
             if (longPath.Length <= maxLength)
                 return longPath;
+            if (maxLength < 1) return string.Empty;
+            if (maxLength == 1) return longPath.Substring(0, 1);
             int begin = maxLength / 3;
             return longPath.Substring(0, begin) + "…" + longPath.Substring(longPath.Length - maxLength + begin + 1);
+        }
+
+        /// <summary>
+        /// If the passed string is longer than the stated length, it's shortened by removing a part in the middle.
+        /// Useful for file paths where the first and last part contain the more relevant info.
+        /// </summary>
+        public static string ShortenStringByTrimmingMiddle(string str, int maxLength = 30)
+        {
+            var l = str.Length;
+            if (maxLength < 1) return string.Empty;
+            if (l <= maxLength) return str;
+            var startEndLength = maxLength / 2;
+            return str.Substring(0, startEndLength) + "…" + str.Substring(l - startEndLength);
         }
 
         /// <summary>

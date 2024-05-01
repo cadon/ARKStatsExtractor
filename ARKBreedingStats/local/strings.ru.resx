@@ -826,7 +826,7 @@
   <data name="importingFromSavegameToolStripMenuItem" xml:space="preserve">
     <value>Импорт из сохраненной игры</value>
   </data>
-  <data name="importingFromSavegameEmptyToolStripMenuItem" xml:space="preserve">
+  <data name="configureSavegameImportToolStripMenuItem" xml:space="preserve">
     <value>Сначала настройте «Импортировать сохранение игры»</value>
   </data>
   <data name="until" xml:space="preserve">

@@ -929,8 +929,8 @@ Algunas crías pueden ser peores que en el modo de estadísticas altas, pero tam
   <data name="importingFromSavegameToolStripMenuItem" xml:space="preserve">
     <value>Importando desde archivo de guardado</value>
   </data>
-  <data name="importingFromSavegameEmptyToolStripMenuItem" xml:space="preserve">
-    <value>Al principio configurar "Importar Archivo de Guardado"</value>
+  <data name="configureSavegameImportToolStripMenuItem" xml:space="preserve">
+    <value>Configurar "Importar Archivo de Guardado"</value>
   </data>
   <data name="until" xml:space="preserve">
     <value>hasta</value>

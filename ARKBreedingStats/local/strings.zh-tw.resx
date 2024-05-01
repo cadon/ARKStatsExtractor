@@ -633,7 +633,7 @@
   <data name="importingFromARKToolsToolStripMenuItem" xml:space="preserve">
     <value>從 ARK 工具匯入生物</value>
   </data>
-  <data name="importingFromSavegameEmptyToolStripMenuItem" xml:space="preserve">
+  <data name="configureSavegameImportToolStripMenuItem" xml:space="preserve">
     <value>請先設定 "匯入保存遊戲"</value>
   </data>
   <data name="importingFromSavegameToolStripMenuItem" xml:space="preserve">

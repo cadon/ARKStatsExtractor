@@ -884,12 +884,14 @@ namespace ARKBreedingStats
             }
 
             CreateImportExportedMenu();
+            CreateSavegameImportMenu();
+        }
 
-            // save game importer menu
+        private void CreateSavegameImportMenu()
+        {
             importingFromSavegameToolStripMenuItem.DropDownItems.Clear();
             if (Properties.Settings.Default.arkSavegamePaths?.Any() != true)
             {
-                importingFromSavegameToolStripMenuItem.DropDownItems.Add(importingFromSavegameEmptyToolStripMenuItem);
                 TsbQuickSaveGameImport.ToolTipText = "No quick import save files configured,\nyou can do this in the settings.";
             }
             else
@@ -900,7 +902,7 @@ namespace ARKBreedingStats
                     ATImportFileLocation atImportFileLocation = ATImportFileLocation.CreateFromString(f);
 
                     string menuItemHeader = string.IsNullOrEmpty(atImportFileLocation.ConvenientName)
-                        ? "<unnamed>"
+                        ? Utils.ShortPath(atImportFileLocation.FileLocation)
                         : atImportFileLocation.ConvenientName;
                     ToolStripMenuItem tsmi = new ToolStripMenuItem(menuItemHeader)
                     {
@@ -916,7 +918,11 @@ namespace ARKBreedingStats
                 TsbQuickSaveGameImport.ToolTipText = quickImportInfo.Any()
                     ? "Quick save game import. The following save files will be imported:\n\n" + string.Join("\n", quickImportInfo)
                     : "No quick import save files configured,\nyou can do this in the settings.";
+
+                importingFromSavegameToolStripMenuItem.DropDownItems.Add(new ToolStripSeparator());
             }
+            importingFromSavegameToolStripMenuItem.DropDownItems.Add(selectSavegameFileToolStripMenuItem);
+            importingFromSavegameToolStripMenuItem.DropDownItems.Add(configureSavegameImportToolStripMenuItem);
         }
 
         private void importingFromSavegameEmptyToolStripMenuItem_Click(object sender, EventArgs e)

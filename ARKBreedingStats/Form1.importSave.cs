@@ -21,7 +21,36 @@ namespace ARKBreedingStats
     {
         private async void SavegameImportClick(object sender, EventArgs e)
         {
-            var error = await RunSavegameImport((ATImportFileLocation)((ToolStripMenuItem)sender).Tag);
+            string error = null;
+            if (sender is ToolStripMenuItem tsmi && tsmi.Tag is ATImportFileLocation atImportFileLocation)
+            {
+                error = await RunSavegameImport(atImportFileLocation);
+            }
+            else
+            {
+                var initialFolder = Properties.Settings.Default.ManualSaveGameImportFolder;
+                if (string.IsNullOrEmpty(initialFolder) || !Directory.Exists(initialFolder))
+                    initialFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                string saveFileLocation = null;
+                using (OpenFileDialog dlg = new OpenFileDialog
+                {
+                    Filter = "ARK save file (*.ark)|*.ark",
+                    InitialDirectory = initialFolder
+                })
+                {
+                    if (dlg.ShowDialog() == DialogResult.OK)
+                    {
+                        saveFileLocation = dlg.FileName;
+                        Properties.Settings.Default.ManualSaveGameImportFolder = Path.GetDirectoryName(dlg.FileName);
+                    }
+                }
+
+                if (string.IsNullOrEmpty(saveFileLocation)) return;
+
+                error = await RunSavegameImport(saveFileLocation);
+            }
+
             if (string.IsNullOrEmpty(error)) return;
             MessageBoxes.ShowMessageBox(error, "Savegame import error");
         }
@@ -32,9 +61,19 @@ namespace ARKBreedingStats
         /// <returns>null on success, else an error message to show, or an empty string if the error was already displayed.</returns>
         private async Task<string> RunSavegameImport(ATImportFileLocation atImportFileLocation)
         {
+            return await RunSavegameImport(atImportFileLocation.FileLocation, atImportFileLocation.ConvenientName,
+                 atImportFileLocation.ServerName);
+        }
+
+        /// <summary>
+        /// Imports the creatures from the given saveGame. ftp is possible.
+        /// </summary>
+        /// <returns>null on success, else an error message to show, or an empty string if the error was already displayed.</returns>
+        private async Task<string> RunSavegameImport(string fileLocation, string convenientName = null, string serverName = null)
+        {
             TsbQuickSaveGameImport.Enabled = false;
             TsbQuickSaveGameImport.BackColor = Color.Yellow;
-            ToolStripStatusLabelImport.Text = $"{Loc.S("ImportingSavegame")} {atImportFileLocation.ConvenientName}";
+            ToolStripStatusLabelImport.Text = $"{Loc.S("ImportingSavegame")} {convenientName ?? fileLocation}";
             ToolStripStatusLabelImport.Visible = true;
 
             string workingCopyFolderPath = Properties.Settings.Default.savegameExtractionPath;
@@ -44,12 +83,11 @@ namespace ARKBreedingStats
                 // working dir not configured? use temp dir
                 // luser configured savegame folder as working dir? use temp dir instead
                 if (string.IsNullOrWhiteSpace(workingCopyFolderPath) ||
-                    Path.GetDirectoryName(atImportFileLocation.FileLocation) == workingCopyFolderPath)
+                    Path.GetDirectoryName(fileLocation) == workingCopyFolderPath)
                 {
                     workingCopyFolderPath = Path.GetTempPath();
                 }
 
-                var fileLocation = atImportFileLocation.FileLocation;
                 string uriFileRegex = null;
 
                 var indexLastSlash = fileLocation.LastIndexOf('/');
@@ -70,7 +108,7 @@ namespace ARKBreedingStats
                     {
                         case "ftp":
                             string errorMessage;
-                            (workingCopyFilePath, errorMessage) = await CopyFtpFileAsync(uri, uriFileRegex, atImportFileLocation.ConvenientName,
+                            (workingCopyFilePath, errorMessage) = await CopyFtpFileAsync(uri, uriFileRegex, convenientName ?? serverName ?? fileLocation,
                                workingCopyFolderPath);
                             if (errorMessage != null)
                                 // the user didn't enter credentials
@@ -82,14 +120,14 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    if (!File.Exists(atImportFileLocation.FileLocation))
-                        return $"File not found: {atImportFileLocation.FileLocation}";
+                    if (!File.Exists(fileLocation))
+                        return $"File not found: {fileLocation}";
 
                     workingCopyFilePath = Path.Combine(workingCopyFolderPath,
-                         Path.GetFileName(atImportFileLocation.FileLocation));
+                         Path.GetFileName(fileLocation));
                     try
                     {
-                        File.Copy(atImportFileLocation.FileLocation, workingCopyFilePath, true);
+                        File.Copy(fileLocation, workingCopyFilePath, true);
                     }
                     catch (Exception ex)
                     {
@@ -105,8 +143,7 @@ namespace ARKBreedingStats
                     return "Import aborted by user because of large file size";
                 }
 
-                await ImportSavegame.ImportCollectionFromSavegame(_creatureCollection, workingCopyFilePath,
-                    atImportFileLocation.ServerName);
+                await ImportSavegame.ImportCollectionFromSavegame(_creatureCollection, workingCopyFilePath, serverName);
 
                 UpdateCreatureParentLinkingSort(goToLibraryTab: true);
 
@@ -118,7 +155,7 @@ namespace ARKBreedingStats
             catch (Exception ex)
             {
                 var noAsaSupportInfo = ex.Message.StartsWith("Found unknown Version 20819") ? "Importing save games from ARK: Survival Ascended (ASA) is not yet supported, currently only ARK: Survival Evolved (ASE) is supported for save file import.\n\n" : null;
-                MessageBoxes.ExceptionMessageBox(ex, $"{noAsaSupportInfo}An error occurred while importing the file {atImportFileLocation.FileLocation}.", "Save file import error");
+                MessageBoxes.ExceptionMessageBox(ex, $"{noAsaSupportInfo}An error occurred while importing the file {fileLocation}.", "Save file import error");
                 return string.Empty;
             }
             finally
