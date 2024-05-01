@@ -2349,5 +2349,17 @@ namespace ARKBreedingStats.Properties {
                 this["BreedingPlanConsiderMutatedLevels"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool InfoGraphicDisplaySumWildMut {
+            get {
+                return ((bool)(this["InfoGraphicDisplaySumWildMut"]));
+            }
+            set {
+                this["InfoGraphicDisplaySumWildMut"] = value;
+            }
+        }
     }
 }

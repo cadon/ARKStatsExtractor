@@ -347,7 +347,11 @@ namespace ARKBreedingStats.settings
 
             nudInfoGraphicHeight.ValueSave = Properties.Settings.Default.InfoGraphicHeight;
             CbInfoGraphicDisplayMaxWildLevel.Checked = Properties.Settings.Default.InfoGraphicShowMaxWildLevel;
-            CbInfoGraphicDomLevels.Checked = Properties.Settings.Default.InfoGraphicWithDomLevels;
+            if (Properties.Settings.Default.InfoGraphicWithDomLevels)
+                RbInfoGraphicDomValues.Checked = true;
+            else
+                RbInfoGraphicBreedingValues.Checked = true;
+            CbInfoGraphicSumWildMut.Checked = Properties.Settings.Default.InfoGraphicDisplaySumWildMut;
             CbbInfoGraphicFontName.Text = Properties.Settings.Default.InfoGraphicFontName;
             CbInfoGraphicMutationCounter.Checked = Properties.Settings.Default.InfoGraphicDisplayMutations;
             CbInfoGraphicGenerations.Checked = Properties.Settings.Default.InfoGraphicDisplayGeneration;
@@ -614,7 +618,8 @@ namespace ARKBreedingStats.settings
 
             Properties.Settings.Default.InfoGraphicHeight = (int)nudInfoGraphicHeight.Value;
             Properties.Settings.Default.InfoGraphicShowMaxWildLevel = CbInfoGraphicDisplayMaxWildLevel.Checked;
-            Properties.Settings.Default.InfoGraphicWithDomLevels = CbInfoGraphicDomLevels.Checked;
+            Properties.Settings.Default.InfoGraphicWithDomLevels = RbInfoGraphicDomValues.Checked;
+            Properties.Settings.Default.InfoGraphicDisplaySumWildMut = CbInfoGraphicSumWildMut.Checked;
             Properties.Settings.Default.InfoGraphicFontName = CbbInfoGraphicFontName.Text;
             Properties.Settings.Default.InfoGraphicDisplayMutations = CbInfoGraphicMutationCounter.Checked;
             Properties.Settings.Default.InfoGraphicDisplayGeneration = CbInfoGraphicGenerations.Checked;
@@ -1664,7 +1669,7 @@ namespace ARKBreedingStats.settings
         private Creature _infoGraphicPreviewCreature;
         private readonly Debouncer _infoGraphicPreviewDebouncer = new Debouncer();
 
-        private void CbInfoGraphicCheckBoxChanged(object sender, EventArgs e)
+        private void CbInfoGraphicCheckBoxRadioButtonChanged(object sender, EventArgs e)
         {
             _infoGraphicPreviewDebouncer.Debounce(300, ShowInfoGraphicPreview, Dispatcher.CurrentDispatcher);
         }
@@ -1681,7 +1686,8 @@ namespace ARKBreedingStats.settings
                 BtInfoGraphicBackColor.BackColor,
                 BtInfoGraphicBorderColor.BackColor,
                 CbInfoGraphicCreatureName.Checked,
-                CbInfoGraphicDomLevels.Checked,
+                RbInfoGraphicDomValues.Checked,
+                CbInfoGraphicSumWildMut.Checked,
                 CbInfoGraphicMutationCounter.Checked,
                 CbInfoGraphicGenerations.Checked,
                 CbInfoGraphicStatValues.Checked,
@@ -1711,6 +1717,15 @@ namespace ARKBreedingStats.settings
             _infoGraphicPreviewCreature.levelsDom[Stats.Stamina] = rand.Next(20);
             _infoGraphicPreviewCreature.levelsDom[Stats.Weight] = rand.Next(20);
             _infoGraphicPreviewCreature.levelsDom[Stats.MeleeDamageMultiplier] = rand.Next(20);
+            if (RbGameAsa.Checked)
+            {
+                _infoGraphicPreviewCreature.levelsMutated[Stats.Health] = rand.Next(5) * Ark.LevelsAddedPerMutation;
+                _infoGraphicPreviewCreature.levelsMutated[Stats.Stamina] = rand.Next(5) * Ark.LevelsAddedPerMutation;
+                _infoGraphicPreviewCreature.levelsMutated[Stats.Weight] = rand.Next(5) * Ark.LevelsAddedPerMutation;
+                _infoGraphicPreviewCreature.levelsMutated[Stats.MeleeDamageMultiplier] = rand.Next(5) * Ark.LevelsAddedPerMutation;
+            }
+            _infoGraphicPreviewCreature.mutationsMaternal = _infoGraphicPreviewCreature.levelsMutated.Sum() / Ark.LevelsAddedPerMutation + rand.Next(5);
+
             _infoGraphicPreviewCreature.RecalculateCreatureValues(_cc.wildLevelStep);
         }
 
@@ -1883,7 +1898,7 @@ namespace ARKBreedingStats.settings
                   : gameType == "ASA Smalltribes" ? "https://cdn2.arkdedicated.com/asa/smalltribes_dynamicconfig.ini"
                   : gameType == "ASA Official" ? "https://cdn2.arkdedicated.com/asa/dynamicconfig.ini"
                   : throw new Exception($"Unexpected official multipliers option {gameType}");
-                
+
                 var httpClient = FileService.GetHttpClient;
 
                 var settingsText = httpClient.GetStringAsync(url).Result;
