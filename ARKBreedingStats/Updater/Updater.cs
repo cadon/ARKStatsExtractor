@@ -66,8 +66,8 @@ namespace ARKBreedingStats.Updater
             }
 
             // if otherwise located in the programs folder use the installer otherwise the updater
-            return assemblyLocation.StartsWith(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)) ||
-                    assemblyLocation.StartsWith(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles));
+            return assemblyLocation.StartsWith(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\", StringComparison.InvariantCultureIgnoreCase) ||
+                    assemblyLocation.StartsWith(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\", StringComparison.InvariantCultureIgnoreCase);
         }
 
         public static async Task<bool?> CheckForPortableUpdate(bool silentCheck, bool collectionDirty)
