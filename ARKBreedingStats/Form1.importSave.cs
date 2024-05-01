@@ -202,6 +202,8 @@ namespace ARKBreedingStats
                         }
                     }
                     var client = new AsyncFtpClient(ftpUri.Host, credentials.Username, credentials.Password, ftpUri.Port);
+                    client.Config.EncryptionMode = FtpEncryptionMode.Auto;
+                    client.Config.ValidateAnyCertificate = true;
                     string ftpPath = null;
 
                     try
