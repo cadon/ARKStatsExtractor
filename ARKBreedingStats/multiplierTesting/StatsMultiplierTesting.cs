@@ -4,15 +4,20 @@ using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.values;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
+using System.Linq;
+using ARKBreedingStats.importExportGun;
 
 namespace ARKBreedingStats.multiplierTesting
 {
     public partial class StatsMultiplierTesting : UserControl
     {
         public event Action OnApplyMultipliers;
+        public event Form1.SetMessageLabelTextEventHandler SetMessageLabelText;
 
         private readonly StatMultiplierTestingControl[] _statControls;
         private CreatureCollection _cc;
@@ -235,6 +240,7 @@ namespace ARKBreedingStats.multiplierTesting
                 (!forceUpdate && (_selectedSpecies == species || !cbUpdateOnSpeciesChange.Checked))) return;
 
             _selectedSpecies = species;
+            BtResetSpeciesValues.Text = $"Reset species values - {_selectedSpecies.DescriptiveNameAndMod}";
             LbBlueprintPath.Text = $"BlueprintPath: {species.blueprintPath}";
 
             double?[][] customStatOverrides = null;
@@ -302,10 +308,10 @@ namespace ARKBreedingStats.multiplierTesting
             SetTE(TE);
             SetIB(IB);
 
-            if (tamed)
-                rbTamed.Checked = true;
-            else if (bred)
+            if (bred)
                 rbBred.Checked = true;
+            else if (tamed)
+                rbTamed.Checked = true;
             else rbWild.Checked = true;
 
             for (int s = 0; s < Stats.StatsCount; s++)
@@ -555,6 +561,121 @@ namespace ARKBreedingStats.multiplierTesting
             _tt.SetToolTip(LbIdM, "Increase per domestic level global multiplier | per level stats multiplier dino tamed");
             _tt.SetToolTip(LbFinalValue, "Final stat value displayed in the game");
             _tt.SetToolTip(LbCalculatedWildLevel, "Calculated pre tame level, dependent on the taming effectiveness and the post tame level");
+        }
+
+        private void StatsMultiplierTesting_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+        }
+
+        /// <summary>
+        /// Use stat values of file, and if it's an export gun files also the levels.
+        /// </summary>
+        private void StatsMultiplierTesting_DragDrop(object sender, DragEventArgs e)
+        {
+            if (!(e.Data.GetData(DataFormats.FileDrop) is string[] files && files.Any()))
+                return;
+            ProcessDroppedFiles(files);
+        }
+
+        private void ProcessDroppedFiles(string[] files)
+        {
+            var creatureImported = false; // only import one creature (second would only overwrite first)
+            var serverMultipliersImported = false;
+            var errorOccured = false;
+            var results = new List<string>();
+            string lastFilePath = null;
+            foreach (var filePath in files)
+            {
+                if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) continue;
+
+                var extension = Path.GetExtension(filePath);
+                lastFilePath = filePath;
+                switch (extension)
+                {
+                    case ".ini":
+                        // export file
+                        if (creatureImported) continue;
+                        var cv = importExported.ImportExported.ReadExportedCreature(filePath);
+                        SetCreatureValueValues(cv);
+                        results.Add($"imported creature values from {filePath}");
+                        continue;
+                    case ".sav":
+                    case ".json":
+                        // export gun file of ASE
+                        string lastError = null;
+                        string serverMultipliersHash = null;
+                        Creature creature = null;
+                        if (!creatureImported)
+                            creature = ImportExportGun.LoadCreature(filePath, out lastError, out serverMultipliersHash, true);
+                        if (creature != null)
+                        {
+                            creatureImported = true;
+                            SetCreatureValuesAndLevels(creature);
+                            results.Add($"imported creature values and levels from {filePath}{(string.IsNullOrEmpty(lastError) ? string.Empty : $". {lastError}")}");
+                        }
+                        else if (lastError != null)
+                        {
+                            if (!serverMultipliersImported)
+                            {
+                                // file could be a server multiplier file, try to read it that way
+                                var esm = ImportExportGun.ReadServerMultipliers(filePath, out var serverImportResult);
+                                if (esm != null)
+                                {
+                                    SetServerMultipliers(esm);
+                                    results.Add($"imported server multipliers from {filePath}");
+                                    serverMultipliersImported = true;
+                                    continue;
+                                }
+                                if (string.IsNullOrEmpty(serverImportResult))
+                                    results.Add(serverImportResult);
+                                continue;
+                            }
+
+                            results.Add($"error when importing file {filePath}: {lastError}");
+                            errorOccured = true;
+                        }
+
+                        break;
+                }
+            }
+            SetMessageLabelText?.Invoke(string.Join(Environment.NewLine, results),
+                errorOccured ? MessageBoxIcon.Error : MessageBoxIcon.Information, lastFilePath);
+        }
+
+        private void SetCreatureValueValues(CreatureValues cv)
+        {
+            SetCreatureValues(cv.statValues, null, null, cv.level, (cv.tamingEffMax - cv.tamingEffMin) / 2, cv.imprintingBonus, cv.isTamed, cv.isBred, cv.Species);
+        }
+
+        private void SetCreatureValuesAndLevels(Creature cr)
+        {
+            var levelsWildAndMutated = cr.levelsWild;
+            if (cr.levelsMutated != null)
+            {
+                for (int si = 0; si < Stats.StatsCount; si++)
+                    levelsWildAndMutated[si] = cr.levelsWild[si] + cr.levelsMutated[si];
+            }
+            SetCreatureValues(cr.valuesDom, levelsWildAndMutated, cr.levelsDom, cr.Level, cr.tamingEff, cr.imprintingBonus, cr.isDomesticated, cr.isBred, cr.Species);
+        }
+
+        private void SetServerMultipliers(ExportGunServerFile esm)
+        {
+            if (esm?.WildLevel == null) return;
+
+            for (int si = 0; si < Stats.StatsCount; si++)
+            {
+                _statControls[si].StatMultipliers = new[]
+                    { esm.TameAdd[si], esm.TameAff[si], esm.TameLevel[si], esm.WildLevel[si] };
+            }
+            SetIBM(esm.BabyImprintingStatScaleMultiplier);
+
+            cbSingleplayerSettings.Checked = esm.UseSingleplayerSettings;
+            CbAtlas.Checked = false; // atlas has no export gun mod
+            CbAllowSpeedLeveling.Checked = esm.AllowSpeedLeveling;
+            CbAllowFlyerSpeedLeveling.Checked = esm.AllowFlyerSpeedLeveling;
+
+            CheckIfMultipliersAreEqualToSettings();
         }
     }
 }

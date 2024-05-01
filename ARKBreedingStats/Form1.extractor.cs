@@ -902,7 +902,7 @@ namespace ARKBreedingStats
             {
                 try
                 {
-                    cv = importExported.ImportExported.ImportExportedCreature(exportFilePath);
+                    cv = importExported.ImportExported.ReadExportedCreature(exportFilePath);
                     break;
                 }
                 catch (IOException ex)

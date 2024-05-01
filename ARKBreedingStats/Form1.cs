@@ -160,6 +160,7 @@ namespace ARKBreedingStats
             breedingPlan1.SetMessageLabelText += SetMessageLabelText;
             creatureInfoInputExtractor.SetMessageLabelText += SetMessageLabelText;
             creatureInfoInputTester.SetMessageLabelText += SetMessageLabelText;
+            statsMultiplierTesting1.SetMessageLabelText += SetMessageLabelText;
             timerList1.OnTimerChange += SetCollectionChanged;
             timerList1.TimerAddedRemoved += EnableGlobalTimerIfNeeded;
             breedingPlan1.BindChildrenControlEvents();

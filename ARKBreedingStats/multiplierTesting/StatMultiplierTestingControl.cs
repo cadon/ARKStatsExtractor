@@ -148,6 +148,9 @@ namespace ARKBreedingStats.multiplierTesting
             set => lStatName.Text = value;
         }
 
+        /// <summary>
+        /// [tamingAdd, tamingMult, levelupDom, levelupWild]
+        /// </summary>
         public double[] StatMultipliers
         {
             get => new[] { (double)nudTaM.Value, (double)nudTmM.Value, (double)nudIdM.Value, (double)nudIwM.Value };
@@ -158,10 +161,10 @@ namespace ARKBreedingStats.multiplierTesting
                 var updateValuesKeeper = updateValues;
                 updateValues = false;
                 // 0:tamingAdd, 1:tamingMult, 2:levelupDom, 3:levelupWild
-                nudTaM.Value = (decimal)value[0];
-                nudTmM.Value = (decimal)value[1];
-                nudIdM.Value = (decimal)value[2];
-                nudIwM.Value = (decimal)value[3];
+                nudTaM.ValueSaveDouble = value[0];
+                nudTmM.ValueSaveDouble = value[1];
+                nudIdM.ValueSaveDouble = value[2];
+                nudIwM.ValueSaveDouble = value[3];
                 UpdateCalculations(updateValuesKeeper);
             }
         }
