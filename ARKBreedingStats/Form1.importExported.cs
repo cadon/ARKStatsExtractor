@@ -492,7 +492,7 @@ namespace ARKBreedingStats
                     ATImportExportedFolderLocation aTImportExportedFolderLocation =
                         ATImportExportedFolderLocation.CreateFromString(f);
                     string menuItemHeader = string.IsNullOrEmpty(aTImportExportedFolderLocation.ConvenientName)
-                        ? "<unnamed>"
+                        ? Utils.ShortPath(aTImportExportedFolderLocation.FolderPath)
                         : aTImportExportedFolderLocation.ConvenientName;
                     ToolStripMenuItem tsmi = new ToolStripMenuItem(menuItemHeader
                                                                    + (string.IsNullOrEmpty(
@@ -500,7 +500,8 @@ namespace ARKBreedingStats
                                                                        ? string.Empty
                                                                        : " - " + aTImportExportedFolderLocation.OwnerSuffix))
                     {
-                        Tag = aTImportExportedFolderLocation
+                        Tag = aTImportExportedFolderLocation,
+                        ToolTipText = aTImportExportedFolderLocation.FolderPath
                     };
                     tsmi.Click += OpenImportExportForm;
                     importExportedCreaturesToolStripMenuItem.DropDownItems.Add(tsmi);
