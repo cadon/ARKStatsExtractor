@@ -283,16 +283,24 @@ namespace ARKBreedingStats.AsbServer
             var guid = Guid.NewGuid().ToByteArray();
             const int tokenLength = 14; // from these each 5th character is a dash for readability
             var token = new char[tokenLength];
-            for (var i = 0; i < tokenLength; i++)
+            var checkSum = 0;
+            var tokenLengthWithoutCheckDigit = tokenLength - 1;
+            for (var i = 0; i < tokenLengthWithoutCheckDigit; i++)
             {
                 if ((i + 1) % 5 == 0)
                 {
                     token[i] = '-';
                     continue;
                 }
-                token[i] = allowedCharacters[guid[i] % l];
-            }
 
+                var character = allowedCharacters[guid[i] % l];
+                token[i] = character;
+                checkSum += character;
+            }
+            // use last character as check digit
+            // checkSum % 15, add 1 (to avoid ambiguous 0), display as hex digit (range [1-9a-f])
+            token[tokenLength - 1] = ((checkSum % 15) + 1).ToString("x")[0];
+            
             return new string(token);
         }
 
