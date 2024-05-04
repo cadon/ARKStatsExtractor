@@ -91,7 +91,7 @@ namespace ARKBreedingStats
 
                     if (displayPopup)
                         popupMessage = message + Environment.NewLine + tokenInfo
-                            + Environment.NewLine + Environment.NewLine + "Enable Streamer mode in Settings -> General to hide this token in future";
+                            + Environment.NewLine + Environment.NewLine + "Enable Streamer mode in Settings -> General to mask the token in future";
                     message += tokenInfo;
                 }
 

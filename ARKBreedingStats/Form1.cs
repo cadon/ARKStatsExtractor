@@ -306,6 +306,7 @@ namespace ARKBreedingStats
             _creatureListSorter.IgnoreSpacesBetweenWords = Properties.Settings.Default.NaturalSortIgnoreSpaces;
 
             CbLibraryInfoUseFilter.Checked = Properties.Settings.Default.LibraryColorInfoUseFilter;
+            showTokenPopupOnListeningToolStripMenuItem.Checked = Properties.Settings.Default.DisplayPopupForServerToken;
 
             // load stat weights
             double[][] custWd = Properties.Settings.Default.customStatWeights;
@@ -3933,6 +3934,11 @@ namespace ARKBreedingStats
             var namePatternIndex = (int)((ToolStripMenuItem)sender).Tag;
             var infoInput = tabControlMain.SelectedTab != tabPageStatTesting ? creatureInfoInputExtractor : creatureInfoInputTester;
             CreatureInfoInput_CreatureDataRequested(infoInput, true, false, false, namePatternIndex, infoInput.AlreadyExistingCreature);
+        }
+
+        private void showTokenPopupOnListeningToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.DisplayPopupForServerToken = showTokenPopupOnListeningToolStripMenuItem.Checked;
         }
     }
 }

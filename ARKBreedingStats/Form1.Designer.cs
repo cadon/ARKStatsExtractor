@@ -48,6 +48,7 @@ namespace ARKBreedingStats
             this.openFolderOfCurrentFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.importingFromSavegameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectSavegameFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configureSavegameImportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importExportedCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importFromTabSeparatedFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -142,6 +143,7 @@ namespace ARKBreedingStats
             this.sendExampleCreatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator28 = new System.Windows.Forms.ToolStripSeparator();
             this.openModPageInBrowserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showTokenPopupOnListeningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.discordServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -391,7 +393,6 @@ namespace ARKBreedingStats
             this.toolStripSeparator27 = new System.Windows.Forms.ToolStripSeparator();
             this.resetColumnOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
-            this.selectSavegameFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -566,7 +567,14 @@ namespace ARKBreedingStats
             this.importingFromSavegameToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
             this.importingFromSavegameToolStripMenuItem.Text = "Importing from savegame (only ASE)";
             // 
-            // importingFromSavegameEmptyToolStripMenuItem
+            // selectSavegameFileToolStripMenuItem
+            // 
+            this.selectSavegameFileToolStripMenuItem.Name = "selectSavegameFileToolStripMenuItem";
+            this.selectSavegameFileToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.selectSavegameFileToolStripMenuItem.Text = "Select savegame file…";
+            this.selectSavegameFileToolStripMenuItem.Click += new System.EventHandler(this.SavegameImportClick);
+            // 
+            // configureSavegameImportToolStripMenuItem
             // 
             this.configureSavegameImportToolStripMenuItem.Name = "configureSavegameImportToolStripMenuItem";
             this.configureSavegameImportToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
@@ -1361,6 +1369,7 @@ namespace ARKBreedingStats
             this.currentTokenToolStripMenuItem,
             this.listenWithNewTokenToolStripMenuItem,
             this.sendExampleCreatureToolStripMenuItem,
+            this.showTokenPopupOnListeningToolStripMenuItem,
             this.toolStripSeparator28,
             this.openModPageInBrowserToolStripMenuItem});
             this.serverToolStripMenuItem.Name = "serverToolStripMenuItem";
@@ -1371,42 +1380,50 @@ namespace ARKBreedingStats
             // 
             this.listenToolStripMenuItem.CheckOnClick = true;
             this.listenToolStripMenuItem.Name = "listenToolStripMenuItem";
-            this.listenToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.listenToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.listenToolStripMenuItem.Text = "Listen";
             this.listenToolStripMenuItem.Click += new System.EventHandler(this.listenToolStripMenuItem_Click);
             // 
             // currentTokenToolStripMenuItem
             // 
             this.currentTokenToolStripMenuItem.Name = "currentTokenToolStripMenuItem";
-            this.currentTokenToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.currentTokenToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.currentTokenToolStripMenuItem.Text = "View current token";
             this.currentTokenToolStripMenuItem.Click += new System.EventHandler(this.currentTokenToolStripMenuItem_Click);
             // 
             // listenWithNewTokenToolStripMenuItem
             // 
             this.listenWithNewTokenToolStripMenuItem.Name = "listenWithNewTokenToolStripMenuItem";
-            this.listenWithNewTokenToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.listenWithNewTokenToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.listenWithNewTokenToolStripMenuItem.Text = "Listen with new token";
             this.listenWithNewTokenToolStripMenuItem.Click += new System.EventHandler(this.listenWithNewTokenToolStripMenuItem_Click);
             // 
             // sendExampleCreatureToolStripMenuItem
             // 
             this.sendExampleCreatureToolStripMenuItem.Name = "sendExampleCreatureToolStripMenuItem";
-            this.sendExampleCreatureToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.sendExampleCreatureToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.sendExampleCreatureToolStripMenuItem.Text = "Send example creature";
             this.sendExampleCreatureToolStripMenuItem.Click += new System.EventHandler(this.sendExampleCreatureToolStripMenuItem_Click);
             // 
             // toolStripSeparator28
             // 
             this.toolStripSeparator28.Name = "toolStripSeparator28";
-            this.toolStripSeparator28.Size = new System.Drawing.Size(215, 6);
+            this.toolStripSeparator28.Size = new System.Drawing.Size(236, 6);
             // 
             // openModPageInBrowserToolStripMenuItem
             // 
             this.openModPageInBrowserToolStripMenuItem.Name = "openModPageInBrowserToolStripMenuItem";
-            this.openModPageInBrowserToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.openModPageInBrowserToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.openModPageInBrowserToolStripMenuItem.Text = "Open mod page in browser";
             this.openModPageInBrowserToolStripMenuItem.Click += new System.EventHandler(this.openModPageInBrowserToolStripMenuItem_Click);
+            // 
+            // showTokenPopupOnListeningToolStripMenuItem
+            // 
+            this.showTokenPopupOnListeningToolStripMenuItem.CheckOnClick = true;
+            this.showTokenPopupOnListeningToolStripMenuItem.Name = "showTokenPopupOnListeningToolStripMenuItem";
+            this.showTokenPopupOnListeningToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.showTokenPopupOnListeningToolStripMenuItem.Text = "Show token popup on listening";
+            this.showTokenPopupOnListeningToolStripMenuItem.Click += new System.EventHandler(this.showTokenPopupOnListeningToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -3333,6 +3350,7 @@ namespace ARKBreedingStats
             // 
             // statsMultiplierTesting1
             // 
+            this.statsMultiplierTesting1.AllowDrop = true;
             this.statsMultiplierTesting1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.statsMultiplierTesting1.Location = new System.Drawing.Point(3, 3);
             this.statsMultiplierTesting1.Name = "statsMultiplierTesting1";
@@ -3845,13 +3863,6 @@ namespace ARKBreedingStats
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
-            // selectSavegameFileToolStripMenuItem
-            // 
-            this.selectSavegameFileToolStripMenuItem.Name = "selectSavegameFileToolStripMenuItem";
-            this.selectSavegameFileToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
-            this.selectSavegameFileToolStripMenuItem.Text = "Select savegame file…";
-            this.selectSavegameFileToolStripMenuItem.Click += new System.EventHandler(this.SavegameImportClick);
-            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -4320,5 +4331,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem openModPageInBrowserToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nameGeneratorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectSavegameFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showTokenPopupOnListeningToolStripMenuItem;
     }
 }
