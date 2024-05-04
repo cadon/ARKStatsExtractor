@@ -16,6 +16,41 @@
       "Pattern": "{{#ifexpr: {n} > 1 | _{n} }}",
       "Title": "Unique identifier",
       "Description": "Adds a unique identifier only if the name is not unique without it."
+    },
+    {
+      "Pattern": "{{#listName: {{#rand: 100}} | {sex_short} }}",
+      "Title": "Random list name",
+      "Description": "Uses a random name from a predefined list."
+    },
+    {
+      "Pattern": "{species} [{{#ifexpr: {muta} > 0 | D | C }}] {sex_short}-{{#padleft: {n} | 3 | 0 }}",
+      "Title": "Species with mutation indicator",
+      "Description": "Species name followed by an indicator for [C]lean or [D]irty if there was a mutation. Creature's sex as well as an incremental counter.\nExample: Argentavis [D] M-001\nBy Mr. Plow"
+    },
+    {
+      "Pattern": "{{#substring: {{#color: 0 | true }} | 0 | 14 }} {hp}H {we}W {dm}D",
+      "Title": "Primary color and Hp, We and Dm levels",
+      "Description": "Show primary Color (region 0), then HP, Weight and Damage in Wild levels.\nExample: Dino Dark Purp 4H 4W 4D\nBy Keelow"
+    },
+    {
+      "Pattern": "{spcsNm}{baselvl}{sex_short} {highest1s}{highest1l}{{#ifexpr: {n} > 1 | -{n} }}",
+      "Title": "Species with top level stat",
+      "Description": "Generates a shortened species name, base level, sex, and the top wild stat and its level; adds a unique number if an animal with that name already exists.\nExample: Hyndn150M HP39\nBy Maira"
+    },
+    {
+      "Pattern": "{{#ifexpr: {species} == Dodo | {{#ifexpr: {sex_short} == M | Rooster | Hen }} | {species} }}",
+      "Title": "Custom species naming",
+      "Description": "Checks a species names and produces an equivalent sex-dependent name.\nExample: Hen\nBy Maira"
+    },
+    {
+      "Pattern": "{sex_short}{baselvl}-{n} | {{#list:\r\n{{#if: {isTophp} | HP{hp}/ | }}\r\n{{#if: {isTopst} | ST{st}/ | }}\r\n{{#if: {isTopox} | OX{ox}/ | }}\r\n{{#if: {isTopfo} | FO{fo}/ | }}\r\n{{#if: {isTopwe} | WE{we}/ | }}\r\n{{#if: {isTopdm} | DM{dm}/ | }}\r\n| / | / }}",
+      "Title": "Base level and top stats",
+      "Description": "Shows base level, gender & number (if multiple). Shows all top stats creature has.\nExample: M250-1 | HP43/OX39/FO39/\nBy Apollo"
+    },
+    {
+      "Pattern": "{sex_short}{n} {{#list:\r\n{{#ifexpr: {hp} > 35 | {{#if: {isTophp} | HP{hp}/ }} }}\r\n{{#ifexpr: {st} > 35 | {{#if: {isTopst} | ST{st}/ }} }}\r\n{{#ifexpr: {ox} > 35 | {{#if: {isTopox} | OX{ox}/ }} }}\r\n{{#ifexpr: {fo} > 35 | {{#if: {isTopfo} |  F{fo}/ }} }}\r\n{{#ifexpr: {we} > 35 | {{#if: {isTopwe} |  W{we}/ }} }}\r\n{{#ifexpr: {dm} > 35 | {{#if: {isTopdm} |  D{dm}/ }} }}\r\n{{#ifexpr: {sp} > 35 | {{#if: {isTopsp} | SP{sp}/ }} }}\r\n{{#ifexpr: {cr} > 35 | {{#if: {isTopcr} |  C{cr}/ }} }}\r\n| / | / }}",
+      "Title": "Gender and top stats (if they're > 35)",
+      "Description": "Shows gender & number (if multiple). Shows all top stats creature has upper 35 points.\nExample: F1 HP46/OX37/D42\nBy Xeikos"
     }
   ]
 }
