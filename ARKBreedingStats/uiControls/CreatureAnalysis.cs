@@ -13,6 +13,7 @@ namespace ARKBreedingStats.uiControls
 
         private LevelStatusFlags.LevelStatus _statsStatus;
         private LevelStatusFlags.LevelStatus _colorStatus;
+        public string ColorStatus;
 
         public void SetStatsAnalysis(LevelStatusFlags.LevelStatus statsStatus, string statsAnalysis)
         {
@@ -38,6 +39,7 @@ namespace ARKBreedingStats.uiControls
             _colorStatus = colorStatus;
             SetStatus(LbColorStatus, colorStatus);
 
+            ColorStatus = colorAnalysis;
             LbColorAnalysis.Text = colorAnalysis;
 
             var generalStatus = _statsStatus;
@@ -82,6 +84,7 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         public void Clear()
         {
+            ColorStatus = null;
             ClearLabel(LbIcon);
             ClearLabel(LbConclusion);
             ClearLabel(LbStatAnalysis);

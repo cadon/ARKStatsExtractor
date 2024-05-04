@@ -402,18 +402,18 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Checks if an existing creature has the given ARK-ID
         /// </summary>
-        /// <param name="arkID">ARK-ID to check</param>
+        /// <param name="arkId">ARK-ID to check</param>
         /// <param name="concerningCreature">the creature with that id (if already in the collection it will be ignored)</param>
         /// <param name="creatureWithSameId">null if the Ark-Id is not yet in the collection, else the creature with the same Ark-Id</param>
         /// <returns>True if there is a creature with the given Ark-Id</returns>
-        public bool ArkIdAlreadyExist(long arkID, Creature concerningCreature, out Creature creatureWithSameId)
+        public bool ArkIdAlreadyExist(long arkId, Creature concerningCreature, out Creature creatureWithSameId)
         {
             // ArkId is not always unique. ARK uses ArkId = id1.ToString() + id2.ToString(); internally. If id2 has less decimal digits than int.MaxValue, the ids will differ. TODO handle this correctly
             creatureWithSameId = null;
             bool exists = false;
             foreach (var c in creatures)
             {
-                if (c.ArkId == arkID && c != concerningCreature)
+                if (c.ArkId == arkId && c != concerningCreature)
                 {
                     creatureWithSameId = c;
                     exists = true;
@@ -605,7 +605,7 @@ namespace ARKBreedingStats.Library
                 infoText += $"{(infoText == null ? null : "\n")}These colors are new in their region: {string.Join(", ", newRegionColors)}.";
             }
 
-            infoText = infoText == null ? "No new colors" : infoText;
+            infoText = infoText ?? "No new colors";
 
             return results;
         }

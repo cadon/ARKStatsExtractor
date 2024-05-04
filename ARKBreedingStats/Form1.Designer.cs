@@ -141,9 +141,9 @@ namespace ARKBreedingStats
             this.currentTokenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listenWithNewTokenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendExampleCreatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showTokenPopupOnListeningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator28 = new System.Windows.Forms.ToolStripSeparator();
             this.openModPageInBrowserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showTokenPopupOnListeningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.discordServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1405,6 +1405,14 @@ namespace ARKBreedingStats
             this.sendExampleCreatureToolStripMenuItem.Text = "Send example creature";
             this.sendExampleCreatureToolStripMenuItem.Click += new System.EventHandler(this.sendExampleCreatureToolStripMenuItem_Click);
             // 
+            // showTokenPopupOnListeningToolStripMenuItem
+            // 
+            this.showTokenPopupOnListeningToolStripMenuItem.CheckOnClick = true;
+            this.showTokenPopupOnListeningToolStripMenuItem.Name = "showTokenPopupOnListeningToolStripMenuItem";
+            this.showTokenPopupOnListeningToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.showTokenPopupOnListeningToolStripMenuItem.Text = "Show token popup on listening";
+            this.showTokenPopupOnListeningToolStripMenuItem.Click += new System.EventHandler(this.showTokenPopupOnListeningToolStripMenuItem_Click);
+            // 
             // toolStripSeparator28
             // 
             this.toolStripSeparator28.Name = "toolStripSeparator28";
@@ -1416,14 +1424,6 @@ namespace ARKBreedingStats
             this.openModPageInBrowserToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.openModPageInBrowserToolStripMenuItem.Text = "Open mod page in browser";
             this.openModPageInBrowserToolStripMenuItem.Click += new System.EventHandler(this.openModPageInBrowserToolStripMenuItem_Click);
-            // 
-            // showTokenPopupOnListeningToolStripMenuItem
-            // 
-            this.showTokenPopupOnListeningToolStripMenuItem.CheckOnClick = true;
-            this.showTokenPopupOnListeningToolStripMenuItem.Name = "showTokenPopupOnListeningToolStripMenuItem";
-            this.showTokenPopupOnListeningToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
-            this.showTokenPopupOnListeningToolStripMenuItem.Text = "Show token popup on listening";
-            this.showTokenPopupOnListeningToolStripMenuItem.Click += new System.EventHandler(this.showTokenPopupOnListeningToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 

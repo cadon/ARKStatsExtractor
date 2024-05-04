@@ -1434,6 +1434,7 @@ namespace ARKBreedingStats
                 _statIOs[si].LevelWild = c.levelsWild[si];
                 _statIOs[si].LevelDom = c.levelsDom[si];
                 _statIOs[si].LevelMut = c.levelsMutated?[si] ?? 0;
+                _statIOs[si].BreedingValue = c.valuesBreeding[si];
             }
         }
 

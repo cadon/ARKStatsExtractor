@@ -12,6 +12,7 @@ using ARKBreedingStats.library;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
+using ARKBreedingStats.uiControls;
 
 namespace ARKBreedingStats
 {
@@ -382,6 +383,12 @@ namespace ARKBreedingStats
                     sb.AppendLine("Name copied to clipboard.");
 
                 sb.Append(LevelStatusFlags.LevelInfoText);
+
+                if (!string.IsNullOrEmpty(creatureAnalysis1.ColorStatus))
+                {
+                    sb.AppendLine();
+                    sb.AppendLine(creatureAnalysis1.ColorStatus.Replace(": ", ":" + Environment.NewLine).Replace(", ", Environment.NewLine));
+                }
 
                 infoText = sb.ToString();
                 textColor = Color.FromArgb(colorSaturation, 255, colorSaturation);
