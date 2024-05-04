@@ -1,6 +1,6 @@
 {
   "Format": "1.0",
-  "Version": "2021.5.11",
+  "Version": "2024.5.4",
   "Data": [
     {
       "Pattern": "{{#substring: {{#format_int: {{#substring: {arkid} | -9 }} | X9 }} | -4 }}",
