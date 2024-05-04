@@ -316,6 +316,10 @@
             this.label20 = new System.Windows.Forms.Label();
             this.tabPageOverlay = new System.Windows.Forms.TabPage();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.label70 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.nudOverlayInfoHeight = new ARKBreedingStats.uiControls.Nud();
+            this.nudOverlayInfoWidth = new ARKBreedingStats.uiControls.Nud();
             this.NudOverlayRelativeFontSize = new ARKBreedingStats.uiControls.Nud();
             this.label65 = new System.Windows.Forms.Label();
             this.CbOverlayDisplayInheritance = new System.Windows.Forms.CheckBox();
@@ -461,6 +465,8 @@
             this.groupBox8.SuspendLayout();
             this.tabPageOverlay.SuspendLayout();
             this.groupBox10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoHeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudOverlayRelativeFontSize)).BeginInit();
             this.pCustomOverlayLocation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCustomOverlayLocX)).BeginInit();
@@ -3946,7 +3952,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3954,7 +3960,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3962,7 +3968,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3970,7 +3976,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -3995,6 +4001,10 @@
             // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.label70);
+            this.groupBox10.Controls.Add(this.label15);
+            this.groupBox10.Controls.Add(this.nudOverlayInfoHeight);
+            this.groupBox10.Controls.Add(this.nudOverlayInfoWidth);
             this.groupBox10.Controls.Add(this.NudOverlayRelativeFontSize);
             this.groupBox10.Controls.Add(this.label65);
             this.groupBox10.Controls.Add(this.CbOverlayDisplayInheritance);
@@ -4022,6 +4032,70 @@
             this.groupBox10.TabIndex = 0;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Overlay";
+            // 
+            // label70
+            // 
+            this.label70.AutoSize = true;
+            this.label70.Location = new System.Drawing.Point(509, 187);
+            this.label70.Name = "label70";
+            this.label70.Size = new System.Drawing.Size(36, 13);
+            this.label70.TabIndex = 23;
+            this.label70.Text = "height";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(398, 187);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(32, 13);
+            this.label15.TabIndex = 22;
+            this.label15.Text = "width";
+            // 
+            // nudOverlayInfoHeight
+            // 
+            this.nudOverlayInfoHeight.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudOverlayInfoHeight.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nudOverlayInfoHeight.Location = new System.Drawing.Point(551, 185);
+            this.nudOverlayInfoHeight.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.nudOverlayInfoHeight.Name = "nudOverlayInfoHeight";
+            this.nudOverlayInfoHeight.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudOverlayInfoHeight.Size = new System.Drawing.Size(64, 20);
+            this.nudOverlayInfoHeight.TabIndex = 21;
+            // 
+            // nudOverlayInfoWidth
+            // 
+            this.nudOverlayInfoWidth.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudOverlayInfoWidth.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nudOverlayInfoWidth.Location = new System.Drawing.Point(436, 185);
+            this.nudOverlayInfoWidth.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.nudOverlayInfoWidth.Name = "nudOverlayInfoWidth";
+            this.nudOverlayInfoWidth.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudOverlayInfoWidth.Size = new System.Drawing.Size(64, 20);
+            this.nudOverlayInfoWidth.TabIndex = 20;
             // 
             // NudOverlayRelativeFontSize
             // 
@@ -4101,6 +4175,11 @@
             // nudCustomOverlayLocX
             // 
             this.nudCustomOverlayLocX.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudCustomOverlayLocX.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.nudCustomOverlayLocX.Location = new System.Drawing.Point(24, 3);
             this.nudCustomOverlayLocX.Maximum = new decimal(new int[] {
             100000,
@@ -4142,6 +4221,11 @@
             // nudCustomOverlayLocY
             // 
             this.nudCustomOverlayLocY.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudCustomOverlayLocY.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.nudCustomOverlayLocY.Location = new System.Drawing.Point(125, 3);
             this.nudCustomOverlayLocY.Maximum = new decimal(new int[] {
             100000,
@@ -4186,6 +4270,11 @@
             // nudOverlayInfoPosY
             // 
             this.nudOverlayInfoPosY.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudOverlayInfoPosY.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.nudOverlayInfoPosY.Location = new System.Drawing.Point(320, 185);
             this.nudOverlayInfoPosY.Maximum = new decimal(new int[] {
             10000,
@@ -4213,6 +4302,11 @@
             // nudOverlayInfoPosDFR
             // 
             this.nudOverlayInfoPosDFR.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudOverlayInfoPosDFR.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.nudOverlayInfoPosDFR.Location = new System.Drawing.Point(219, 185);
             this.nudOverlayInfoPosDFR.Maximum = new decimal(new int[] {
             10000,
@@ -4249,9 +4343,14 @@
             // nudOverlayTimerPosY
             // 
             this.nudOverlayTimerPosY.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudOverlayTimerPosY.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.nudOverlayTimerPosY.Location = new System.Drawing.Point(320, 159);
             this.nudOverlayTimerPosY.Maximum = new decimal(new int[] {
-            10000,
+            100000,
             0,
             0,
             0});
@@ -4276,9 +4375,14 @@
             // nudOverlayTimerPosX
             // 
             this.nudOverlayTimerPosX.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudOverlayTimerPosX.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.nudOverlayTimerPosX.Location = new System.Drawing.Point(219, 159);
             this.nudOverlayTimerPosX.Maximum = new decimal(new int[] {
-            10000,
+            100000,
             0,
             0,
             0});
@@ -4836,6 +4940,8 @@
             this.tabPageOverlay.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoHeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudOverlayRelativeFontSize)).EndInit();
             this.pCustomOverlayLocation.ResumeLayout(false);
             this.pCustomOverlayLocation.PerformLayout();
@@ -5200,5 +5306,9 @@
         private System.Windows.Forms.RadioButton RbInfoGraphicDomValues;
         private System.Windows.Forms.RadioButton RbInfoGraphicBreedingValues;
         private System.Windows.Forms.CheckBox CbInfoGraphicSumWildMut;
+        private System.Windows.Forms.Label label70;
+        private System.Windows.Forms.Label label15;
+        private uiControls.Nud nudOverlayInfoHeight;
+        private uiControls.Nud nudOverlayInfoWidth;
     }
 }

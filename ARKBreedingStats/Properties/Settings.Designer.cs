@@ -2373,5 +2373,17 @@ namespace ARKBreedingStats.Properties {
                 this["ManualSaveGameImportFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("400, 800")]
+        public global::System.Drawing.Size OverlayInfoSize {
+            get {
+                return ((global::System.Drawing.Size)(this["OverlayInfoSize"]));
+            }
+            set {
+                this["OverlayInfoSize"] = value;
+            }
+        }
     }
 }

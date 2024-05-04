@@ -596,5 +596,8 @@
     <Setting Name="ManualSaveGameImportFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="OverlayInfoSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">400, 800</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -80,6 +80,7 @@ namespace ARKBreedingStats
         public void SetInfoPositionsAndFontSize()
         {
             labelTimer.Location = Properties.Settings.Default.OverlayTimerPosition;
+            labelInfo.Size = Properties.Settings.Default.OverlayInfoSize;
             labelInfo.Location = new Point(Size.Width - labelInfo.Width - Properties.Settings.Default.OverlayInfoPosition.X, Properties.Settings.Default.OverlayInfoPosition.Y);
             SetLabelFontSize(Properties.Settings.Default.OverlayRelativeFontSize);
         }

@@ -298,6 +298,8 @@ namespace ARKBreedingStats.settings
             nudOverlayTimerPosY.ValueSave = Properties.Settings.Default.OverlayTimerPosition.Y;
             nudOverlayInfoPosDFR.ValueSave = Properties.Settings.Default.OverlayInfoPosition.X;
             nudOverlayInfoPosY.ValueSave = Properties.Settings.Default.OverlayInfoPosition.Y;
+            nudOverlayInfoWidth.ValueSave = Properties.Settings.Default.OverlayInfoSize.Width;
+            nudOverlayInfoHeight.ValueSave = Properties.Settings.Default.OverlayInfoSize.Height;
             cbCustomOverlayLocation.Checked = Properties.Settings.Default.UseCustomOverlayLocation;
             nudCustomOverlayLocX.ValueSave = Properties.Settings.Default.CustomOverlayLocation.X;
             nudCustomOverlayLocY.ValueSave = Properties.Settings.Default.CustomOverlayLocation.Y;
@@ -574,6 +576,8 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.OverlayInfoDuration = (int)nudOverlayInfoDuration.Value;
             Properties.Settings.Default.OverlayTimerPosition = new Point((int)nudOverlayTimerPosX.Value, (int)nudOverlayTimerPosY.Value);
             Properties.Settings.Default.OverlayInfoPosition = new Point((int)nudOverlayInfoPosDFR.Value, (int)nudOverlayInfoPosY.Value);
+            Properties.Settings.Default.OverlayInfoSize = new Size((int)nudOverlayInfoWidth.Value, (int)nudOverlayInfoHeight.Value);
+
             Properties.Settings.Default.UseCustomOverlayLocation = cbCustomOverlayLocation.Checked;
             Properties.Settings.Default.CustomOverlayLocation = new Point((int)nudCustomOverlayLocX.Value, (int)nudCustomOverlayLocY.Value);
             Properties.Settings.Default.DisplayInheritanceInOverlay = CbOverlayDisplayInheritance.Checked;
