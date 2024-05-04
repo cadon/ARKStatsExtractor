@@ -735,7 +735,7 @@ namespace ARKBreedingStats
                 UpdateAllTesterValues();
                 statPotentials1.Species = species;
                 statPotentials1.SetLevels(_testingIOs.Select(s => s.LevelWild).ToArray(), _testingIOs.Select(s => s.LevelMut).ToArray(), true);
-                SetTesterInfoInputCreature();
+                SetInfoInputCreature();
             }
             else if (tabControlMain.SelectedTab == tabPageLibrary)
             {
@@ -2568,7 +2568,7 @@ namespace ARKBreedingStats
             }
 
             // set the data in the creatureInfoInput
-            SetTesterInfoInputCreature(); // clear data
+            SetInfoInputCreature(); // clear data
             creatureInfoInputTester.CreatureName = creatureInfoInputExtractor.CreatureName;
             creatureInfoInputTester.CreatureOwner = creatureInfoInputExtractor.CreatureOwner;
             creatureInfoInputTester.CreatureTribe = creatureInfoInputExtractor.CreatureTribe;
@@ -2608,7 +2608,7 @@ namespace ARKBreedingStats
                 }
 
                 creatureInfoInputTester.Clear();
-                SetTesterInfoInputCreature();
+                SetInfoInputCreature();
             }
         }
 
@@ -3456,7 +3456,7 @@ namespace ARKBreedingStats
                     break;
                 case ".sav":
                 case ".json":
-                    ImportExportGunFiles(files, out _, out _, out _, Properties.Settings.Default.PlaySoundOnAutoImport);
+                    ImportExportGunFiles(files, true, out _, out _, out _, Properties.Settings.Default.PlaySoundOnAutoImport);
                     break;
                 case ".asb":
                 case ".xml":

@@ -839,20 +839,27 @@ namespace ARKBreedingStats
             FatherArkId = 0;
             parentComboBoxMother.Clear();
             parentComboBoxFather.Clear();
+            ParentInheritance?.SetCreatures();
+            parentListValid = false;
             textBoxNote.Clear();
             CooldownUntil = DateTime.Now;
             GrowingUntil = DateTime.Now;
+            DomesticatedAt = null;
+            AddedToLibraryAt = null;
             MutationCounterMother = 0;
             MutationCounterFather = 0;
             CreatureSex = Sex.Unknown;
             CreatureFlags = CreatureFlags.None;
-            ClearColors();
             CreatureStatus = CreatureStatus.Available;
-            ParentInheritance?.SetCreatures();
+            ClearColors();
             SetRegionColorsExisting();
+            CreatureGuid = Guid.Empty;
+            SetArkId(0,false);
             if (!keepGeneralInfo)
             {
                 textBoxOwner.Clear();
+                textBoxTribe.Clear();
+                cbServer.Text = string.Empty;
             }
         }
 

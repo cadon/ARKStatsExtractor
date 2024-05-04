@@ -141,57 +141,77 @@ namespace ARKBreedingStats
             bool allValid = valid && inbound && torporLevelValid && _extractor.ValidResults;
             if (allValid)
             {
-                radarChartExtractor.SetLevels(_statIOs.Select(s => s.LevelWild).ToArray(), _statIOs.Select(s => s.LevelMut).ToArray(), speciesSelector1.SelectedSpecies);
-                cbExactlyImprinting.BackColor = Color.Transparent;
-                var species = speciesSelector1.SelectedSpecies;
-                _highestSpeciesLevels.TryGetValue(species, out int[] highSpeciesLevels);
-                _lowestSpeciesLevels.TryGetValue(species, out int[] lowSpeciesLevels);
-                _highestSpeciesMutationLevels.TryGetValue(species, out int[] highSpeciesMutationLevels);
-                //_lowestSpeciesMutationLevels.TryGetValue(species, out int[] lowSpeciesMutationLevels);
-
-                var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
-
-                LevelStatusFlags.DetermineLevelStatus(species, highSpeciesLevels, lowSpeciesLevels, highSpeciesMutationLevels,
-                    statWeights, GetCurrentWildLevels(), GetCurrentMutLevels(), GetCurrentBreedingValues(),
-                    out var topStatsText, out var newTopStatsText);
-
-                for (var s = 0; s < Stats.StatsCount; s++)
-                {
-                    var levelStatusForStatIo = LevelStatusFlags.LevelStatusFlagsCurrentNewCreature[s];
-
-                    // ASA can have up to 511 levels because 255 mutation levels also contribute to the wild value. TODO separate to mutation levels
-                    if (_creatureCollection.Game != Ark.Asa && s != Stats.Torpidity)
-                    {
-                        if (_statIOs[s].LevelWild > 255)
-                            levelStatusForStatIo |= LevelStatusFlags.LevelStatus.UltraMaxLevel;
-                        else if (_statIOs[s].LevelWild == 255)
-                            levelStatusForStatIo |= LevelStatusFlags.LevelStatus.MaxLevel;
-                        else if (_statIOs[s].LevelWild == 254)
-                            levelStatusForStatIo |= LevelStatusFlags.LevelStatus.MaxLevelForLevelUp;
-                    }
-
-                    _statIOs[s].TopLevel = levelStatusForStatIo;
-                }
-
-                string infoText = null;
-                if (newTopStatsText.Any())
-                {
-                    infoText = $"New top stats: {string.Join(", ", newTopStatsText)}";
-                }
-                if (topStatsText.Any())
-                {
-                    infoText += $"{(infoText == null ? null : "\n")}Existing top stats: {string.Join(", ", topStatsText)}";
-                }
-
-                if (infoText == null) infoText = "No top stats";
-
-                creatureAnalysis1.SetStatsAnalysis(LevelStatusFlags.CombinedLevelStatusFlags, infoText);
+                UpdateStatusInfoOfExtractorCreature();
             }
-            creatureInfoInputExtractor.ButtonEnabled = allValid;
-            groupBoxRadarChartExtractor.Visible = allValid;
-            creatureAnalysis1.Visible = allValid;
+
+            UpdateAddToLibraryButtonAccordingToExtractorValidity(allValid);
+        }
+
+        /// <summary>
+        /// Updates level analysis of creature levels in extractor.
+        /// </summary>
+        private void UpdateStatusInfoOfExtractorCreature()
+        {
+            radarChartExtractor.SetLevels(_statIOs.Select(s => s.LevelWild).ToArray(), _statIOs.Select(s => s.LevelMut).ToArray(), speciesSelector1.SelectedSpecies);
+            cbExactlyImprinting.BackColor = Color.Transparent;
+            var species = speciesSelector1.SelectedSpecies;
+            _highestSpeciesLevels.TryGetValue(species, out int[] highSpeciesLevels);
+            _lowestSpeciesLevels.TryGetValue(species, out int[] lowSpeciesLevels);
+            _highestSpeciesMutationLevels.TryGetValue(species, out int[] highSpeciesMutationLevels);
+            //_lowestSpeciesMutationLevels.TryGetValue(species, out int[] lowSpeciesMutationLevels);
+
+            var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
+
+            LevelStatusFlags.DetermineLevelStatus(species, highSpeciesLevels, lowSpeciesLevels, highSpeciesMutationLevels,
+                statWeights, GetCurrentWildLevels(), GetCurrentMutLevels(), GetCurrentBreedingValues(),
+                out var topStatsText, out var newTopStatsText);
+
+            for (var s = 0; s < Stats.StatsCount; s++)
+            {
+                var levelStatusForStatIo = LevelStatusFlags.LevelStatusFlagsCurrentNewCreature[s];
+
+                // ASA can have up to 511 levels because 255 mutation levels also contribute to the wild value. TODO separate to mutation levels
+                if (_creatureCollection.Game != Ark.Asa && s != Stats.Torpidity)
+                {
+                    if (_statIOs[s].LevelWild > 255)
+                        levelStatusForStatIo |= LevelStatusFlags.LevelStatus.UltraMaxLevel;
+                    else if (_statIOs[s].LevelWild == 255)
+                        levelStatusForStatIo |= LevelStatusFlags.LevelStatus.MaxLevel;
+                    else if (_statIOs[s].LevelWild == 254)
+                        levelStatusForStatIo |= LevelStatusFlags.LevelStatus.MaxLevelForLevelUp;
+                }
+
+                _statIOs[s].TopLevel = levelStatusForStatIo;
+            }
+
+            string infoText = null;
+            if (newTopStatsText.Any())
+            {
+                infoText = $"New top stats: {string.Join(", ", newTopStatsText)}";
+            }
+            if (topStatsText.Any())
+            {
+                infoText += $"{(infoText == null ? null : "\n")}Existing top stats: {string.Join(", ", topStatsText)}";
+            }
+
+            if (infoText == null) infoText = "No top stats";
+
+            creatureAnalysis1.SetStatsAnalysis(LevelStatusFlags.CombinedLevelStatusFlags, infoText);
+        }
+
+        private void UpdateAddToLibraryButtonAccordingToExtractorValidity(bool valid)
+        {
+            creatureInfoInputExtractor.ButtonEnabled = valid;
+            groupBoxRadarChartExtractor.Visible = valid;
+            creatureAnalysis1.Visible = valid;
             // update inheritance info
             CreatureInfoInput_CreatureDataRequested(creatureInfoInputExtractor, false, true, false, 0, null);
+        }
+
+        private void SetAllExtractorLevelsToStatus(StatIOStatus status)
+        {
+            foreach (var sio in _statIOs)
+                sio.Status = status;
         }
 
         /// <summary>
@@ -1365,6 +1385,56 @@ namespace ARKBreedingStats
                 creature.fatherGuid = Utils.ConvertArkIdToGuid(input.FatherArkId);
 
             return creature;
+        }
+
+        private void SetCreatureValuesToExtractor(Creature c, bool onlyWild = false)
+        {
+            if (c == null) return;
+            Species species = c.Species;
+            if (species == null)
+            {
+                MessageBoxes.ShowMessageBox($"Unknown species\n{c.speciesBlueprint}\nTry to update the species-stats, or redownload the tool.");
+                return;
+            }
+
+            ClearAll();
+            speciesSelector1.SetSpecies(species);
+            // copy values over to extractor
+            for (int s = 0; s < Stats.StatsCount; s++)
+            {
+                _statIOs[s].Input = onlyWild
+                    ? StatValueCalculation.CalculateValue(species, s, c.levelsWild[s], c.levelsMutated[s], 0, true, c.tamingEff,
+                        c.imprintingBonus)
+                    : c.valuesDom[s];
+                if (c.levelsDom[s] > 0) _statIOs[s].DomLevelLockedZero = false;
+            }
+
+            if (c.isBred)
+                rbBredExtractor.Checked = true;
+            else if (c.isDomesticated)
+                rbTamedExtractor.Checked = true;
+            else
+                rbWildExtractor.Checked = true;
+
+            numericUpDownImprintingBonusExtractor.ValueSave = (decimal)c.imprintingBonus * 100;
+            // set total level
+            int level = onlyWild ? c.levelsWild[Stats.Torpidity] : c.Level;
+            numericUpDownLevel.ValueSave = level;
+
+            // set colors
+            creatureInfoInputExtractor.RegionColors = c.colors;
+
+            tabControlMain.SelectedTab = tabPageExtractor;
+        }
+
+        private void SetCreatureLevelsToExtractor(Creature c)
+        {
+            for (var si = 0; si < Stats.StatsCount; si++)
+            {
+                _statIOs[si].LevelWild = c.levelsWild[si];
+                _statIOs[si].LevelDom = c.levelsDom[si];
+                _statIOs[si].LevelMut = c.levelsMutated?[si] ?? 0;
+            }
         }
 
         /// <summary>
