@@ -82,7 +82,7 @@
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Location = new System.Drawing.Point(3, 46);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(696, 32);
+            this.label2.Size = new System.Drawing.Size(696, 40);
             this.label2.TabIndex = 3;
             this.label2.Text = resources.GetString("label2.Text");
             // 
@@ -135,7 +135,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -179,7 +179,7 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(3, 106);
+            this.linkLabel1.Location = new System.Drawing.Point(3, 114);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(185, 13);
             this.linkLabel1.TabIndex = 10;
@@ -192,10 +192,10 @@
             this.tabControl1.Controls.Add(this.TabPageKeysFunctions);
             this.tabControl1.Controls.Add(this.TabPagePatternTemplates);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(3, 129);
+            this.tabControl1.Location = new System.Drawing.Point(3, 137);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(696, 498);
+            this.tabControl1.Size = new System.Drawing.Size(696, 490);
             this.tabControl1.TabIndex = 16;
             // 
             // TabPageKeysFunctions
@@ -204,7 +204,7 @@
             this.TabPageKeysFunctions.Location = new System.Drawing.Point(4, 22);
             this.TabPageKeysFunctions.Name = "TabPageKeysFunctions";
             this.TabPageKeysFunctions.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPageKeysFunctions.Size = new System.Drawing.Size(688, 472);
+            this.TabPageKeysFunctions.Size = new System.Drawing.Size(688, 464);
             this.TabPageKeysFunctions.TabIndex = 0;
             this.TabPageKeysFunctions.Text = "Keys and Functions";
             this.TabPageKeysFunctions.UseVisualStyleBackColor = true;
@@ -222,7 +222,7 @@
             this.TlpKeysFunctions.RowCount = 2;
             this.TlpKeysFunctions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.TlpKeysFunctions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TlpKeysFunctions.Size = new System.Drawing.Size(682, 466);
+            this.TlpKeysFunctions.Size = new System.Drawing.Size(682, 458);
             this.TlpKeysFunctions.TabIndex = 15;
             // 
             // panel3
@@ -298,7 +298,7 @@
             // CbPatternNameToClipboardAfterManualApplication
             // 
             this.CbPatternNameToClipboardAfterManualApplication.AutoSize = true;
-            this.CbPatternNameToClipboardAfterManualApplication.Location = new System.Drawing.Point(3, 81);
+            this.CbPatternNameToClipboardAfterManualApplication.Location = new System.Drawing.Point(3, 89);
             this.CbPatternNameToClipboardAfterManualApplication.Name = "CbPatternNameToClipboardAfterManualApplication";
             this.CbPatternNameToClipboardAfterManualApplication.Size = new System.Drawing.Size(339, 17);
             this.CbPatternNameToClipboardAfterManualApplication.TabIndex = 17;
