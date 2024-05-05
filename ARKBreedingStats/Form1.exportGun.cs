@@ -122,13 +122,13 @@ namespace ARKBreedingStats
 
                 var addCreature = Properties.Settings.Default.OnAutoImportAddToLibrary;
                 var gotoLibraryTab = addCreature && Properties.Settings.Default.AutoImportGotoLibraryAfterSuccess;
-                if (addCreature)
-                {
-                    DetermineLevelStatusAndSoundFeedback(creature, Properties.Settings.Default.PlaySoundOnAutoImport);
 
-                    SetNameOfImportedCreature(creature, null, out _,
+                DetermineLevelStatusAndSoundFeedback(creature, Properties.Settings.Default.PlaySoundOnAutoImport);
+                SetNameOfImportedCreature(creature, null, out _,
                         _creatureCollection.creatures.FirstOrDefault(c => c.guid == creature.guid));
 
+                if (addCreature)
+                {
                     data.TaskNameGenerated?.SetResult(creature.name);
 
                     _creatureCollection.MergeCreatureList(new[] { creature }, true);
@@ -137,11 +137,6 @@ namespace ARKBreedingStats
                 else
                 {
                     SetCreatureValuesLevelsAndInfoToExtractor(creature);
-
-                    if (Properties.Settings.Default.PlaySoundOnAutoImport)
-                    {
-                        SoundFeedback.BeepSignalCurrentLevelFlags(IsCreatureAlreadyInLibrary(creature.guid, creature.ArkId, out _));
-                    }
                 }
 
                 if (resultText == null)

@@ -338,10 +338,8 @@ namespace ARKBreedingStats
                         alreadyExistingCreature.name = creature.name; // if alreadyExistingCreature was already updated and creature is not used anymore make sure name is not lost
                 }
 
-                return CopyCreatureNameToClipboardOnImportIfSetting(creature.name);
             }
-
-            return false;
+            return CopyCreatureNameToClipboardOnImportIfSetting(creature.name);
         }
 
         /// <summary>
@@ -359,7 +357,11 @@ namespace ARKBreedingStats
         /// </summary>
         private bool CopyCreatureNameToClipboardOnImportIfSetting(string creatureName)
         {
-            if (!Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied) return false;
+            if (!Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied)
+            {
+                AsbServer.Connection.ClearTokenFromClipboard();
+                return false;
+            }
             Clipboard.SetText(string.IsNullOrEmpty(creatureName)
                 ? "<no name>"
                 : creatureName);
