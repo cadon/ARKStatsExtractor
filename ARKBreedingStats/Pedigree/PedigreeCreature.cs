@@ -237,7 +237,7 @@ namespace ARKBreedingStats.Pedigree
                             + $"{_creature.valuesBreeding[si] * (Utils.Precision(si) == 3 ? 100 : 1),7:#,0.0}"
                             + (Utils.Precision(si) == 3 ? "%" : string.Empty)
                             + (_creature.levelsMutated == null ? string.Empty
-                                : Environment.NewLine + Loc.S("Mutations") + ": " + _creature.levelsMutated[s]
+                                : Environment.NewLine + Loc.S("Mutations") + ": " + _creature.levelsMutated[si]
                                 ));
                     }
                     // fonts are strange, and this seems to work. The assigned font-object is probably only used to read out the properties and then not used anymore.
