@@ -2385,5 +2385,17 @@ namespace ARKBreedingStats.Properties {
                 this["OverlayInfoSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool CopyNameToClipboardOnImport {
+            get {
+                return ((bool)(this["CopyNameToClipboardOnImport"]));
+            }
+            set {
+                this["CopyNameToClipboardOnImport"] = value;
+            }
+        }
     }
 }

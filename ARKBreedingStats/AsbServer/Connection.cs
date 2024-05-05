@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms.VisualStyles;
 using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.Library;
@@ -300,7 +301,7 @@ namespace ARKBreedingStats.AsbServer
             // use last character as check digit
             // checkSum % 15, add 1 (to avoid ambiguous 0), display as hex digit (range [1-9a-f])
             token[tokenLength - 1] = ((checkSum % 15) + 1).ToString("x")[0];
-            
+
             return new string(token);
         }
 
@@ -310,5 +311,17 @@ namespace ARKBreedingStats.AsbServer
         public static string TokenStringForDisplay(string token) => Properties.Settings.Default.StreamerMode ? "****" : token;
 
         public static bool IsCurrentlyListening => _lastCancellationTokenSource?.IsCancellationRequested == false;
+
+        /// <summary>
+        /// If the token is in the clipboard, remove it from there, when the user is not expecting it to be there.
+        /// </summary>
+        public static void ClearTokenFromClipboard()
+        {
+            var clipboardText = Clipboard.GetText();
+            if (!string.IsNullOrEmpty(clipboardText) && clipboardText == Properties.Settings.Default.ExportServerToken)
+            {
+                Clipboard.SetText(string.Empty);
+            }
+        }
     }
 }
