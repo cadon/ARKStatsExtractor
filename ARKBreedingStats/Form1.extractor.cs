@@ -980,6 +980,7 @@ namespace ARKBreedingStats
         /// </summary>
         private bool GenerateCreatureNameAndCopyNameToClipboardIfSet(Creature alreadyExistingCreature)
         {
+            var nameWasApplied = false;
             if (Properties.Settings.Default.applyNamePatternOnAutoImportAlways
                 || (Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
                     && string.IsNullOrEmpty(creatureInfoInputExtractor.CreatureName))
@@ -988,10 +989,9 @@ namespace ARKBreedingStats
             )
             {
                 CreatureInfoInput_CreatureDataRequested(creatureInfoInputExtractor, false, false, false, 0, alreadyExistingCreature);
-                return CopyCreatureNameToClipboardOnImportIfSetting(creatureInfoInputExtractor.CreatureName, true);
+                nameWasApplied = true;
             }
-
-            return false;
+            return CopyCreatureNameToClipboardOnImportIfSetting(creatureInfoInputExtractor.CreatureName, nameWasApplied);
         }
 
         /// <summary>
