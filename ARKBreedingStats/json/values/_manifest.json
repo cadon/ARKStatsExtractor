@@ -67,7 +67,7 @@
 			"mod": { "id": "1356703358", "tag": "Primal_Fear_Noxious_Creatures", "title": "Primal Fear Noxious Creatures" }
 		},
 		"1373744537-AC2.json": {
-			"version": "358.17.1705110964",
+			"version": "358.24.1713491648",
 			"mod": { "id": "1373744537", "tag": "AC2", "title": "Additional Creatures 2: Wild Ark" }
 		},
 		"1379111008-RealismPlus.json": {
@@ -314,7 +314,7 @@
 			"mod": { "id": "2447186973", "tag": "ArkOmega", "title": "Ark Omega" }
 		},
 		"2453342929-MoreDragonsMod.json": {
-			"version": "358.17.1701039233",
+			"version": "358.24.1714424674",
 			"mod": { "id": "2453342929", "tag": "MoreDragonsMod", "title": "More Dragons Evolved" }
 		},
 		"2472371628-MilicrocaWarriors_MOD.json": {
@@ -398,9 +398,9 @@
 			"mod": { "id": "919470289", "tag": "SSFlyer", "title": "SSFlyer" }
 		},
 		"ASA-values.json": {
-			"version": "32.11.468632",
+			"version": "38.690.452717",
 			"format": "1.15-asa",
-			"mod": { "id": "ASA", "tag": "", "title": "Ark: Survival Ascended", "shortTitle": "ASA" }
+			"mod": { "id": "ASA", "tag": "", "title": "Ark: Survival Ascended", "shortTitle": "ASA", "official": true }
 		},
 		"CrystalIsles-CrystalIsles.json": {
 			"version": "345.39.8870324.1",
