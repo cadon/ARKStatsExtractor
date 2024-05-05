@@ -25,7 +25,7 @@
             Loc.ControlText(saveToolStripMenuItem);
             Loc.ControlText(saveAsToolStripMenuItem);
             Loc.ControlText(importingFromSavegameToolStripMenuItem);
-            Loc.ControlText(importingFromSavegameEmptyToolStripMenuItem);
+            Loc.ControlText(configureSavegameImportToolStripMenuItem);
             //Loc.ControlText(runDefaultExtractionAndImportFileToolStripMenuItem);
             //Loc.ControlText(runDefaultExtractionToolStripMenuItem);
             //Loc.ControlText(importCreatedJsonfileToolStripMenuItem);

@@ -2337,5 +2337,53 @@ namespace ARKBreedingStats.Properties {
                 this["DisplayPopupForServerToken"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BreedingPlanConsiderMutatedLevels {
+            get {
+                return ((bool)(this["BreedingPlanConsiderMutatedLevels"]));
+            }
+            set {
+                this["BreedingPlanConsiderMutatedLevels"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool InfoGraphicDisplaySumWildMut {
+            get {
+                return ((bool)(this["InfoGraphicDisplaySumWildMut"]));
+            }
+            set {
+                this["InfoGraphicDisplaySumWildMut"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ManualSaveGameImportFolder {
+            get {
+                return ((string)(this["ManualSaveGameImportFolder"]));
+            }
+            set {
+                this["ManualSaveGameImportFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("400, 800")]
+        public global::System.Drawing.Size OverlayInfoSize {
+            get {
+                return ((global::System.Drawing.Size)(this["OverlayInfoSize"]));
+            }
+            set {
+                this["OverlayInfoSize"] = value;
+            }
+        }
     }
 }

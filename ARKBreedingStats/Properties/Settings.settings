@@ -587,5 +587,17 @@
     <Setting Name="DisplayPopupForServerToken" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="BreedingPlanConsiderMutatedLevels" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="InfoGraphicDisplaySumWildMut" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ManualSaveGameImportFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="OverlayInfoSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">400, 800</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -954,7 +954,7 @@
   <data name="CurrentCreature" xml:space="preserve">
     <value>当前生物</value>
   </data>
-  <data name="importingFromSavegameEmptyToolStripMenuItem" xml:space="preserve">
+  <data name="configureSavegameImportToolStripMenuItem" xml:space="preserve">
     <value>首先请配置 "导入保存游戏"</value>
   </data>
   <data name="importingFromSavegameToolStripMenuItem" xml:space="preserve">

@@ -80,6 +80,7 @@
             this.nudMaxWildLevels = new ARKBreedingStats.uiControls.Nud();
             this.label10 = new System.Windows.Forms.Label();
             this.nudMaxDomLevels = new ARKBreedingStats.uiControls.Nud();
+            this.label27 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label57 = new System.Windows.Forms.Label();
             this.label56 = new System.Windows.Forms.Label();
@@ -108,7 +109,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.nudDinoCharacterFoodDrain = new ARKBreedingStats.uiControls.Nud();
             this.nudTamingSpeed = new ARKBreedingStats.uiControls.Nud();
-            this.label15 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label55 = new System.Windows.Forms.Label();
             this.NudWaitBeforeAutoLoad = new ARKBreedingStats.uiControls.Nud();
@@ -124,6 +124,10 @@
             this.checkBoxDisplayHiddenStats = new System.Windows.Forms.CheckBox();
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabPageMultipliers = new System.Windows.Forms.TabPage();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.BtnUpdateOfficialEventValues = new System.Windows.Forms.Button();
+            this.CbAutoOfficialMultipliers = new System.Windows.Forms.CheckBox();
+            this.CbbOfficialMultipliers = new System.Windows.Forms.ComboBox();
             this.GbNewLibraryGame = new System.Windows.Forms.GroupBox();
             this.RbNewLibraryGameAskEachTime = new System.Windows.Forms.RadioButton();
             this.RbNewLibraryGameKeep = new System.Windows.Forms.RadioButton();
@@ -147,7 +151,6 @@
             this.groupBox18 = new System.Windows.Forms.GroupBox();
             this.btApplyPreset = new System.Windows.Forms.Button();
             this.cbbStatMultiplierPresets = new System.Windows.Forms.ComboBox();
-            this.label27 = new System.Windows.Forms.Label();
             this.cbSingleplayerSettings = new System.Windows.Forms.CheckBox();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.cbAllowMoreThanHundredImprinting = new System.Windows.Forms.CheckBox();
@@ -214,13 +217,16 @@
             this.BtInfoGraphicBorderColor = new System.Windows.Forms.Button();
             this.label51 = new System.Windows.Forms.Label();
             this.groupBox28 = new System.Windows.Forms.GroupBox();
+            this.CbInfoGraphicSumWildMut = new System.Windows.Forms.CheckBox();
+            this.PanelDomLevels = new System.Windows.Forms.Panel();
+            this.RbInfoGraphicDomValues = new System.Windows.Forms.RadioButton();
+            this.RbInfoGraphicBreedingValues = new System.Windows.Forms.RadioButton();
             this.CbInfoGraphicColorRegionNamesIfNoImage = new System.Windows.Forms.CheckBox();
             this.CbInfoGraphicStatValues = new System.Windows.Forms.CheckBox();
             this.CbInfoGraphicAddRegionNames = new System.Windows.Forms.CheckBox();
             this.CbInfoGraphicCreatureName = new System.Windows.Forms.CheckBox();
             this.CbInfoGraphicMutationCounter = new System.Windows.Forms.CheckBox();
             this.CbInfoGraphicGenerations = new System.Windows.Forms.CheckBox();
-            this.CbInfoGraphicDomLevels = new System.Windows.Forms.CheckBox();
             this.CbInfoGraphicDisplayMaxWildLevel = new System.Windows.Forms.CheckBox();
             this.label50 = new System.Windows.Forms.Label();
             this.tabPageImportSavegame = new System.Windows.Forms.TabPage();
@@ -310,6 +316,10 @@
             this.label20 = new System.Windows.Forms.Label();
             this.tabPageOverlay = new System.Windows.Forms.TabPage();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.label70 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.nudOverlayInfoHeight = new ARKBreedingStats.uiControls.Nud();
+            this.nudOverlayInfoWidth = new ARKBreedingStats.uiControls.Nud();
             this.NudOverlayRelativeFontSize = new ARKBreedingStats.uiControls.Nud();
             this.label65 = new System.Windows.Forms.Label();
             this.CbOverlayDisplayInheritance = new System.Windows.Forms.CheckBox();
@@ -361,6 +371,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -406,6 +417,7 @@
             this.groupBox7.SuspendLayout();
             this.tabControlSettings.SuspendLayout();
             this.tabPageMultipliers.SuspendLayout();
+            this.groupBox12.SuspendLayout();
             this.GbNewLibraryGame.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBox29.SuspendLayout();
@@ -430,6 +442,7 @@
             this.groupBox32.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudInfoGraphicHeight)).BeginInit();
             this.groupBox28.SuspendLayout();
+            this.PanelDomLevels.SuspendLayout();
             this.tabPageImportSavegame.SuspendLayout();
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
@@ -452,6 +465,8 @@
             this.groupBox8.SuspendLayout();
             this.tabPageOverlay.SuspendLayout();
             this.groupBox10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoHeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudOverlayRelativeFontSize)).BeginInit();
             this.pCustomOverlayLocation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCustomOverlayLocX)).BeginInit();
@@ -1246,6 +1261,18 @@
             this.nudMaxDomLevels.Size = new System.Drawing.Size(57, 20);
             this.nudMaxDomLevels.TabIndex = 1;
             // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(288, 21);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(46, 31);
+            this.label27.TabIndex = 12;
+            this.label27.Text = "💡";
+            this.toolTip1.SetToolTip(this.label27, "If you have the files Game.ini or GameUserSettings.ini from your server, you can " +
+        "drag&&drop them on this window to insert their values.");
+            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.label57);
@@ -1693,14 +1720,6 @@
             0,
             0});
             // 
-            // label15
-            // 
-            this.label15.Location = new System.Drawing.Point(450, 548);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(289, 77);
-            this.label15.TabIndex = 9;
-            this.label15.Text = resources.GetString("label15.Text");
-            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.label55);
@@ -1876,6 +1895,7 @@
             // 
             this.tabPageMultipliers.AllowDrop = true;
             this.tabPageMultipliers.AutoScroll = true;
+            this.tabPageMultipliers.Controls.Add(this.groupBox12);
             this.tabPageMultipliers.Controls.Add(this.GbNewLibraryGame);
             this.tabPageMultipliers.Controls.Add(this.TbRemoteServerSettingsUri);
             this.tabPageMultipliers.Controls.Add(this.BtSettingsToClipboard);
@@ -1889,7 +1909,6 @@
             this.tabPageMultipliers.Controls.Add(this.groupBox29);
             this.tabPageMultipliers.Controls.Add(this.label34);
             this.tabPageMultipliers.Controls.Add(this.groupBox18);
-            this.tabPageMultipliers.Controls.Add(this.label27);
             this.tabPageMultipliers.Controls.Add(this.cbSingleplayerSettings);
             this.tabPageMultipliers.Controls.Add(this.groupBox11);
             this.tabPageMultipliers.Controls.Add(this.buttonEventToDefault);
@@ -1897,7 +1916,6 @@
             this.tabPageMultipliers.Controls.Add(this.groupBoxMultiplier);
             this.tabPageMultipliers.Controls.Add(this.groupBox2);
             this.tabPageMultipliers.Controls.Add(this.groupBox3);
-            this.tabPageMultipliers.Controls.Add(this.label15);
             this.tabPageMultipliers.Controls.Add(this.groupBox5);
             this.tabPageMultipliers.Location = new System.Drawing.Point(4, 22);
             this.tabPageMultipliers.Name = "tabPageMultipliers";
@@ -1908,6 +1926,54 @@
             this.tabPageMultipliers.UseVisualStyleBackColor = true;
             this.tabPageMultipliers.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragDrop);
             this.tabPageMultipliers.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragEnter);
+            // 
+            // groupBox12
+            // 
+            this.groupBox12.Controls.Add(this.BtnUpdateOfficialEventValues);
+            this.groupBox12.Controls.Add(this.CbAutoOfficialMultipliers);
+            this.groupBox12.Controls.Add(this.CbbOfficialMultipliers);
+            this.groupBox12.Controls.Add(this.label27);
+            this.groupBox12.Location = new System.Drawing.Point(395, 551);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(344, 71);
+            this.groupBox12.TabIndex = 22;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "Official server multipliers";
+            // 
+            // BtnUpdateOfficialEventValues
+            // 
+            this.BtnUpdateOfficialEventValues.Location = new System.Drawing.Point(12, 42);
+            this.BtnUpdateOfficialEventValues.Name = "BtnUpdateOfficialEventValues";
+            this.BtnUpdateOfficialEventValues.Size = new System.Drawing.Size(140, 23);
+            this.BtnUpdateOfficialEventValues.TabIndex = 2;
+            this.BtnUpdateOfficialEventValues.Text = "Update Event-values";
+            this.BtnUpdateOfficialEventValues.UseVisualStyleBackColor = true;
+            this.BtnUpdateOfficialEventValues.Click += new System.EventHandler(this.BtnUpdateOfficialEventValues_Click);
+            // 
+            // CbAutoOfficialMultipliers
+            // 
+            this.CbAutoOfficialMultipliers.AutoSize = true;
+            this.CbAutoOfficialMultipliers.Location = new System.Drawing.Point(176, 46);
+            this.CbAutoOfficialMultipliers.Name = "CbAutoOfficialMultipliers";
+            this.CbAutoOfficialMultipliers.Size = new System.Drawing.Size(84, 17);
+            this.CbAutoOfficialMultipliers.TabIndex = 24;
+            this.CbAutoOfficialMultipliers.Text = "Auto update";
+            this.toolTip1.SetToolTip(this.CbAutoOfficialMultipliers, "Update event multipliers to match official servers every 30 seconds.");
+            this.CbAutoOfficialMultipliers.UseVisualStyleBackColor = true;
+            this.CbAutoOfficialMultipliers.Visible = false;
+            // 
+            // CbbOfficialMultipliers
+            // 
+            this.CbbOfficialMultipliers.FormattingEnabled = true;
+            this.CbbOfficialMultipliers.Items.AddRange(new object[] {
+            "ASA Official",
+            "ASA Smalltribes",
+            "ASA Arkpocalypse"});
+            this.CbbOfficialMultipliers.Location = new System.Drawing.Point(12, 19);
+            this.CbbOfficialMultipliers.Name = "CbbOfficialMultipliers";
+            this.CbbOfficialMultipliers.Size = new System.Drawing.Size(248, 21);
+            this.CbbOfficialMultipliers.TabIndex = 23;
+            this.CbbOfficialMultipliers.Text = "ASA Official";
             // 
             // GbNewLibraryGame
             // 
@@ -2148,16 +2214,6 @@
             this.cbbStatMultiplierPresets.Name = "cbbStatMultiplierPresets";
             this.cbbStatMultiplierPresets.Size = new System.Drawing.Size(217, 21);
             this.cbbStatMultiplierPresets.TabIndex = 0;
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(407, 562);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(37, 26);
-            this.label27.TabIndex = 12;
-            this.label27.Text = "💡";
             // 
             // cbSingleplayerSettings
             // 
@@ -2761,7 +2817,7 @@
             // 
             // BtNewRandomInfoGraphicCreature
             // 
-            this.BtNewRandomInfoGraphicCreature.Location = new System.Drawing.Point(62, 293);
+            this.BtNewRandomInfoGraphicCreature.Location = new System.Drawing.Point(62, 315);
             this.BtNewRandomInfoGraphicCreature.Name = "BtNewRandomInfoGraphicCreature";
             this.BtNewRandomInfoGraphicCreature.Size = new System.Drawing.Size(200, 20);
             this.BtNewRandomInfoGraphicCreature.TabIndex = 19;
@@ -2772,7 +2828,7 @@
             // label63
             // 
             this.label63.AutoSize = true;
-            this.label63.Location = new System.Drawing.Point(11, 300);
+            this.label63.Location = new System.Drawing.Point(11, 322);
             this.label63.Name = "label63";
             this.label63.Size = new System.Drawing.Size(45, 13);
             this.label63.TabIndex = 18;
@@ -2780,7 +2836,7 @@
             // 
             // PbInfoGraphicPreview
             // 
-            this.PbInfoGraphicPreview.Location = new System.Drawing.Point(8, 325);
+            this.PbInfoGraphicPreview.Location = new System.Drawing.Point(8, 347);
             this.PbInfoGraphicPreview.Name = "PbInfoGraphicPreview";
             this.PbInfoGraphicPreview.Size = new System.Drawing.Size(333, 143);
             this.PbInfoGraphicPreview.TabIndex = 9;
@@ -2892,53 +2948,98 @@
             // 
             // groupBox28
             // 
+            this.groupBox28.Controls.Add(this.CbInfoGraphicSumWildMut);
+            this.groupBox28.Controls.Add(this.PanelDomLevels);
             this.groupBox28.Controls.Add(this.CbInfoGraphicColorRegionNamesIfNoImage);
             this.groupBox28.Controls.Add(this.CbInfoGraphicStatValues);
             this.groupBox28.Controls.Add(this.CbInfoGraphicAddRegionNames);
             this.groupBox28.Controls.Add(this.CbInfoGraphicCreatureName);
             this.groupBox28.Controls.Add(this.CbInfoGraphicMutationCounter);
             this.groupBox28.Controls.Add(this.CbInfoGraphicGenerations);
-            this.groupBox28.Controls.Add(this.CbInfoGraphicDomLevels);
             this.groupBox28.Controls.Add(this.CbInfoGraphicDisplayMaxWildLevel);
             this.groupBox28.Location = new System.Drawing.Point(8, 47);
             this.groupBox28.Name = "groupBox28";
-            this.groupBox28.Size = new System.Drawing.Size(474, 224);
+            this.groupBox28.Size = new System.Drawing.Size(474, 262);
             this.groupBox28.TabIndex = 8;
             this.groupBox28.TabStop = false;
             this.groupBox28.Text = "Include Info";
             // 
+            // CbInfoGraphicSumWildMut
+            // 
+            this.CbInfoGraphicSumWildMut.AutoSize = true;
+            this.CbInfoGraphicSumWildMut.Location = new System.Drawing.Point(6, 88);
+            this.CbInfoGraphicSumWildMut.Name = "CbInfoGraphicSumWildMut";
+            this.CbInfoGraphicSumWildMut.Size = new System.Drawing.Size(355, 17);
+            this.CbInfoGraphicSumWildMut.TabIndex = 21;
+            this.CbInfoGraphicSumWildMut.Text = "Display sum of wild and mutated levels instead each in its own column";
+            this.CbInfoGraphicSumWildMut.UseVisualStyleBackColor = true;
+            this.CbInfoGraphicSumWildMut.CheckedChanged += new System.EventHandler(this.CbInfoGraphicCheckBoxRadioButtonChanged);
+            // 
+            // PanelDomLevels
+            // 
+            this.PanelDomLevels.Controls.Add(this.RbInfoGraphicDomValues);
+            this.PanelDomLevels.Controls.Add(this.RbInfoGraphicBreedingValues);
+            this.PanelDomLevels.Location = new System.Drawing.Point(3, 61);
+            this.PanelDomLevels.Name = "PanelDomLevels";
+            this.PanelDomLevels.Size = new System.Drawing.Size(281, 24);
+            this.PanelDomLevels.TabIndex = 20;
+            // 
+            // RbInfoGraphicDomValues
+            // 
+            this.RbInfoGraphicDomValues.AutoSize = true;
+            this.RbInfoGraphicDomValues.Location = new System.Drawing.Point(110, 3);
+            this.RbInfoGraphicDomValues.Name = "RbInfoGraphicDomValues";
+            this.RbInfoGraphicDomValues.Size = new System.Drawing.Size(167, 17);
+            this.RbInfoGraphicDomValues.TabIndex = 1;
+            this.RbInfoGraphicDomValues.TabStop = true;
+            this.RbInfoGraphicDomValues.Text = "Current values and dom levels";
+            this.RbInfoGraphicDomValues.UseVisualStyleBackColor = true;
+            this.RbInfoGraphicDomValues.CheckedChanged += new System.EventHandler(this.CbInfoGraphicCheckBoxRadioButtonChanged);
+            // 
+            // RbInfoGraphicBreedingValues
+            // 
+            this.RbInfoGraphicBreedingValues.AutoSize = true;
+            this.RbInfoGraphicBreedingValues.Location = new System.Drawing.Point(3, 3);
+            this.RbInfoGraphicBreedingValues.Name = "RbInfoGraphicBreedingValues";
+            this.RbInfoGraphicBreedingValues.Size = new System.Drawing.Size(101, 17);
+            this.RbInfoGraphicBreedingValues.TabIndex = 0;
+            this.RbInfoGraphicBreedingValues.TabStop = true;
+            this.RbInfoGraphicBreedingValues.Text = "Breeding values";
+            this.RbInfoGraphicBreedingValues.UseVisualStyleBackColor = true;
+            this.RbInfoGraphicBreedingValues.CheckedChanged += new System.EventHandler(this.CbInfoGraphicCheckBoxRadioButtonChanged);
+            // 
             // CbInfoGraphicColorRegionNamesIfNoImage
             // 
             this.CbInfoGraphicColorRegionNamesIfNoImage.AutoSize = true;
-            this.CbInfoGraphicColorRegionNamesIfNoImage.Location = new System.Drawing.Point(6, 157);
+            this.CbInfoGraphicColorRegionNamesIfNoImage.Location = new System.Drawing.Point(6, 180);
             this.CbInfoGraphicColorRegionNamesIfNoImage.Name = "CbInfoGraphicColorRegionNamesIfNoImage";
             this.CbInfoGraphicColorRegionNamesIfNoImage.Size = new System.Drawing.Size(224, 17);
             this.CbInfoGraphicColorRegionNamesIfNoImage.TabIndex = 15;
             this.CbInfoGraphicColorRegionNamesIfNoImage.Text = "color region names if no image is available";
             this.CbInfoGraphicColorRegionNamesIfNoImage.UseVisualStyleBackColor = true;
-            this.CbInfoGraphicColorRegionNamesIfNoImage.CheckedChanged += new System.EventHandler(this.CbInfoGraphicCheckBoxChanged);
+            this.CbInfoGraphicColorRegionNamesIfNoImage.CheckedChanged += new System.EventHandler(this.CbInfoGraphicCheckBoxRadioButtonChanged);
             // 
             // CbInfoGraphicStatValues
             // 
             this.CbInfoGraphicStatValues.AutoSize = true;
-            this.CbInfoGraphicStatValues.Location = new System.Drawing.Point(6, 65);
+            this.CbInfoGraphicStatValues.Location = new System.Drawing.Point(6, 42);
             this.CbInfoGraphicStatValues.Name = "CbInfoGraphicStatValues";
             this.CbInfoGraphicStatValues.Size = new System.Drawing.Size(192, 17);
             this.CbInfoGraphicStatValues.TabIndex = 14;
             this.CbInfoGraphicStatValues.Text = "stat values additionally to the levels";
             this.CbInfoGraphicStatValues.UseVisualStyleBackColor = true;
-            this.CbInfoGraphicStatValues.CheckedChanged += new System.EventHandler(this.CbInfoGraphicCheckBoxChanged);
+            this.CbInfoGraphicStatValues.CheckedChanged += new System.EventHandler(this.CbInfoGraphicCheckBoxRadioButtonChanged);
             // 
             // CbInfoGraphicAddRegionNames
             // 
             this.CbInfoGraphicAddRegionNames.AutoSize = true;
-            this.CbInfoGraphicAddRegionNames.Location = new System.Drawing.Point(6, 134);
+            this.CbInfoGraphicAddRegionNames.Location = new System.Drawing.Point(6, 157);
             this.CbInfoGraphicAddRegionNames.Name = "CbInfoGraphicAddRegionNames";
             this.CbInfoGraphicAddRegionNames.Size = new System.Drawing.Size(115, 17);
             this.CbInfoGraphicAddRegionNames.TabIndex = 13;
             this.CbInfoGraphicAddRegionNames.Text = "color region names";
             this.CbInfoGraphicAddRegionNames.UseVisualStyleBackColor = true;
-            this.CbInfoGraphicAddRegionNames.CheckedChanged += new System.EventHandler(this.CbInfoGraphicCheckBoxChanged);
+            this.CbInfoGraphicAddRegionNames.CheckedChanged += new System.EventHandler(this.CbInfoGraphicCheckBoxRadioButtonChanged);
             // 
             // CbInfoGraphicCreatureName
             // 
@@ -2949,52 +3050,40 @@
             this.CbInfoGraphicCreatureName.TabIndex = 12;
             this.CbInfoGraphicCreatureName.Text = "creature name";
             this.CbInfoGraphicCreatureName.UseVisualStyleBackColor = true;
-            this.CbInfoGraphicCreatureName.CheckedChanged += new System.EventHandler(this.CbInfoGraphicCheckBoxChanged);
+            this.CbInfoGraphicCreatureName.CheckedChanged += new System.EventHandler(this.CbInfoGraphicCheckBoxRadioButtonChanged);
             // 
             // CbInfoGraphicMutationCounter
             // 
             this.CbInfoGraphicMutationCounter.AutoSize = true;
-            this.CbInfoGraphicMutationCounter.Location = new System.Drawing.Point(6, 88);
+            this.CbInfoGraphicMutationCounter.Location = new System.Drawing.Point(6, 111);
             this.CbInfoGraphicMutationCounter.Name = "CbInfoGraphicMutationCounter";
             this.CbInfoGraphicMutationCounter.Size = new System.Drawing.Size(105, 17);
             this.CbInfoGraphicMutationCounter.TabIndex = 5;
             this.CbInfoGraphicMutationCounter.Text = "mutation counter";
             this.CbInfoGraphicMutationCounter.UseVisualStyleBackColor = true;
-            this.CbInfoGraphicMutationCounter.CheckedChanged += new System.EventHandler(this.CbInfoGraphicCheckBoxChanged);
+            this.CbInfoGraphicMutationCounter.CheckedChanged += new System.EventHandler(this.CbInfoGraphicCheckBoxRadioButtonChanged);
             // 
             // CbInfoGraphicGenerations
             // 
             this.CbInfoGraphicGenerations.AutoSize = true;
-            this.CbInfoGraphicGenerations.Location = new System.Drawing.Point(6, 111);
+            this.CbInfoGraphicGenerations.Location = new System.Drawing.Point(6, 134);
             this.CbInfoGraphicGenerations.Name = "CbInfoGraphicGenerations";
             this.CbInfoGraphicGenerations.Size = new System.Drawing.Size(148, 17);
             this.CbInfoGraphicGenerations.TabIndex = 6;
             this.CbInfoGraphicGenerations.Text = "generation of the creature";
             this.CbInfoGraphicGenerations.UseVisualStyleBackColor = true;
-            this.CbInfoGraphicGenerations.CheckedChanged += new System.EventHandler(this.CbInfoGraphicCheckBoxChanged);
-            // 
-            // CbInfoGraphicDomLevels
-            // 
-            this.CbInfoGraphicDomLevels.AutoSize = true;
-            this.CbInfoGraphicDomLevels.Location = new System.Drawing.Point(6, 42);
-            this.CbInfoGraphicDomLevels.Name = "CbInfoGraphicDomLevels";
-            this.CbInfoGraphicDomLevels.Size = new System.Drawing.Size(460, 17);
-            this.CbInfoGraphicDomLevels.TabIndex = 4;
-            this.CbInfoGraphicDomLevels.Text = "levels and values of the current state (if disabled the values relevant for breed" +
-    "ing are shown)";
-            this.CbInfoGraphicDomLevels.UseVisualStyleBackColor = true;
-            this.CbInfoGraphicDomLevels.CheckedChanged += new System.EventHandler(this.CbInfoGraphicCheckBoxChanged);
+            this.CbInfoGraphicGenerations.CheckedChanged += new System.EventHandler(this.CbInfoGraphicCheckBoxRadioButtonChanged);
             // 
             // CbInfoGraphicDisplayMaxWildLevel
             // 
             this.CbInfoGraphicDisplayMaxWildLevel.AutoSize = true;
-            this.CbInfoGraphicDisplayMaxWildLevel.Location = new System.Drawing.Point(6, 180);
+            this.CbInfoGraphicDisplayMaxWildLevel.Location = new System.Drawing.Point(6, 203);
             this.CbInfoGraphicDisplayMaxWildLevel.Name = "CbInfoGraphicDisplayMaxWildLevel";
             this.CbInfoGraphicDisplayMaxWildLevel.Size = new System.Drawing.Size(123, 17);
             this.CbInfoGraphicDisplayMaxWildLevel.TabIndex = 3;
             this.CbInfoGraphicDisplayMaxWildLevel.Text = "max wild server level";
             this.CbInfoGraphicDisplayMaxWildLevel.UseVisualStyleBackColor = true;
-            this.CbInfoGraphicDisplayMaxWildLevel.CheckedChanged += new System.EventHandler(this.CbInfoGraphicCheckBoxChanged);
+            this.CbInfoGraphicDisplayMaxWildLevel.CheckedChanged += new System.EventHandler(this.CbInfoGraphicCheckBoxRadioButtonChanged);
             // 
             // label50
             // 
@@ -3077,13 +3166,13 @@
             // groupBox14
             // 
             this.groupBox14.Controls.Add(this.fileSelectorExtractedSaveFolder);
-            this.groupBox14.Location = new System.Drawing.Point(8, 236);
+            this.groupBox14.Location = new System.Drawing.Point(8, 691);
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.Size = new System.Drawing.Size(730, 47);
             this.groupBox14.TabIndex = 6;
             this.groupBox14.TabStop = false;
-            this.groupBox14.Text = "Target folder for save-game working copy (user\'s temp dir if empty). It\'s recomme" +
-    "nded to leave this setting empty.";
+            this.groupBox14.Text = "Advanced settings - Target folder for save-game working copy (user\'s temp dir if " +
+    "empty). It\'s recommended to leave this setting empty.";
             // 
             // fileSelectorExtractedSaveFolder
             // 
@@ -3108,7 +3197,7 @@
             this.groupBox15.Controls.Add(this.dataGridView_FileLocations);
             this.groupBox15.Controls.Add(this.btAddSavegameFileLocation);
             this.groupBox15.Controls.Add(this.labelSavegameFileLocationHint);
-            this.groupBox15.Location = new System.Drawing.Point(8, 289);
+            this.groupBox15.Location = new System.Drawing.Point(8, 228);
             this.groupBox15.Name = "groupBox15";
             this.groupBox15.Size = new System.Drawing.Size(730, 386);
             this.groupBox15.TabIndex = 7;
@@ -3863,7 +3952,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3871,7 +3960,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3879,7 +3968,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3887,7 +3976,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -3912,6 +4001,10 @@
             // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.label70);
+            this.groupBox10.Controls.Add(this.label15);
+            this.groupBox10.Controls.Add(this.nudOverlayInfoHeight);
+            this.groupBox10.Controls.Add(this.nudOverlayInfoWidth);
             this.groupBox10.Controls.Add(this.NudOverlayRelativeFontSize);
             this.groupBox10.Controls.Add(this.label65);
             this.groupBox10.Controls.Add(this.CbOverlayDisplayInheritance);
@@ -3939,6 +4032,70 @@
             this.groupBox10.TabIndex = 0;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Overlay";
+            // 
+            // label70
+            // 
+            this.label70.AutoSize = true;
+            this.label70.Location = new System.Drawing.Point(509, 187);
+            this.label70.Name = "label70";
+            this.label70.Size = new System.Drawing.Size(36, 13);
+            this.label70.TabIndex = 23;
+            this.label70.Text = "height";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(398, 187);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(32, 13);
+            this.label15.TabIndex = 22;
+            this.label15.Text = "width";
+            // 
+            // nudOverlayInfoHeight
+            // 
+            this.nudOverlayInfoHeight.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudOverlayInfoHeight.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nudOverlayInfoHeight.Location = new System.Drawing.Point(551, 185);
+            this.nudOverlayInfoHeight.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.nudOverlayInfoHeight.Name = "nudOverlayInfoHeight";
+            this.nudOverlayInfoHeight.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudOverlayInfoHeight.Size = new System.Drawing.Size(64, 20);
+            this.nudOverlayInfoHeight.TabIndex = 21;
+            // 
+            // nudOverlayInfoWidth
+            // 
+            this.nudOverlayInfoWidth.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudOverlayInfoWidth.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nudOverlayInfoWidth.Location = new System.Drawing.Point(436, 185);
+            this.nudOverlayInfoWidth.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.nudOverlayInfoWidth.Name = "nudOverlayInfoWidth";
+            this.nudOverlayInfoWidth.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudOverlayInfoWidth.Size = new System.Drawing.Size(64, 20);
+            this.nudOverlayInfoWidth.TabIndex = 20;
             // 
             // NudOverlayRelativeFontSize
             // 
@@ -4018,6 +4175,11 @@
             // nudCustomOverlayLocX
             // 
             this.nudCustomOverlayLocX.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudCustomOverlayLocX.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.nudCustomOverlayLocX.Location = new System.Drawing.Point(24, 3);
             this.nudCustomOverlayLocX.Maximum = new decimal(new int[] {
             100000,
@@ -4059,6 +4221,11 @@
             // nudCustomOverlayLocY
             // 
             this.nudCustomOverlayLocY.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudCustomOverlayLocY.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.nudCustomOverlayLocY.Location = new System.Drawing.Point(125, 3);
             this.nudCustomOverlayLocY.Maximum = new decimal(new int[] {
             100000,
@@ -4103,6 +4270,11 @@
             // nudOverlayInfoPosY
             // 
             this.nudOverlayInfoPosY.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudOverlayInfoPosY.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.nudOverlayInfoPosY.Location = new System.Drawing.Point(320, 185);
             this.nudOverlayInfoPosY.Maximum = new decimal(new int[] {
             10000,
@@ -4130,6 +4302,11 @@
             // nudOverlayInfoPosDFR
             // 
             this.nudOverlayInfoPosDFR.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudOverlayInfoPosDFR.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.nudOverlayInfoPosDFR.Location = new System.Drawing.Point(219, 185);
             this.nudOverlayInfoPosDFR.Maximum = new decimal(new int[] {
             10000,
@@ -4166,9 +4343,14 @@
             // nudOverlayTimerPosY
             // 
             this.nudOverlayTimerPosY.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudOverlayTimerPosY.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.nudOverlayTimerPosY.Location = new System.Drawing.Point(320, 159);
             this.nudOverlayTimerPosY.Maximum = new decimal(new int[] {
-            10000,
+            100000,
             0,
             0,
             0});
@@ -4193,9 +4375,14 @@
             // nudOverlayTimerPosX
             // 
             this.nudOverlayTimerPosX.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudOverlayTimerPosX.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.nudOverlayTimerPosX.Location = new System.Drawing.Point(219, 159);
             this.nudOverlayTimerPosX.Maximum = new decimal(new int[] {
-            10000,
+            100000,
             0,
             0,
             0});
@@ -4675,6 +4862,8 @@
             this.tabControlSettings.ResumeLayout(false);
             this.tabPageMultipliers.ResumeLayout(false);
             this.tabPageMultipliers.PerformLayout();
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox12.PerformLayout();
             this.GbNewLibraryGame.ResumeLayout(false);
             this.GbNewLibraryGame.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -4715,6 +4904,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudInfoGraphicHeight)).EndInit();
             this.groupBox28.ResumeLayout(false);
             this.groupBox28.PerformLayout();
+            this.PanelDomLevels.ResumeLayout(false);
+            this.PanelDomLevels.PerformLayout();
             this.tabPageImportSavegame.ResumeLayout(false);
             this.tabPageImportSavegame.PerformLayout();
             this.groupBox14.ResumeLayout(false);
@@ -4749,6 +4940,8 @@
             this.tabPageOverlay.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoHeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudOverlayRelativeFontSize)).EndInit();
             this.pCustomOverlayLocation.ResumeLayout(false);
             this.pCustomOverlayLocation.PerformLayout();
@@ -4808,7 +5001,6 @@
         private ARKBreedingStats.uiControls.Nud nudDinoCharacterFoodDrain;
         private ARKBreedingStats.uiControls.Nud nudTamingSpeed;
         private System.Windows.Forms.CheckBox chkCollectionSync;
-        private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.RadioButton radioButtonFahrenheit;
         private System.Windows.Forms.RadioButton radioButtonCelsius;
@@ -5050,7 +5242,6 @@
         private System.Windows.Forms.CheckBox CbInfoGraphicCreatureName;
         private System.Windows.Forms.CheckBox CbInfoGraphicMutationCounter;
         private System.Windows.Forms.CheckBox CbInfoGraphicGenerations;
-        private System.Windows.Forms.CheckBox CbInfoGraphicDomLevels;
         private System.Windows.Forms.Button BtInfoGraphicBorderColor;
         private System.Windows.Forms.Button BtInfoGraphicBackColor;
         private System.Windows.Forms.Button BtInfoGraphicForeColor;
@@ -5106,5 +5297,18 @@
         private System.Windows.Forms.RadioButton RbNewLibraryGameAse;
         private System.Windows.Forms.RadioButton RbNewLibraryGameAskEachTime;
         private System.Windows.Forms.CheckBox CbDisplayServerTokenPopup;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ComboBox CbbOfficialMultipliers;
+        private System.Windows.Forms.CheckBox CbAutoOfficialMultipliers;
+        private System.Windows.Forms.GroupBox groupBox12;
+        private System.Windows.Forms.Button BtnUpdateOfficialEventValues;
+        private System.Windows.Forms.Panel PanelDomLevels;
+        private System.Windows.Forms.RadioButton RbInfoGraphicDomValues;
+        private System.Windows.Forms.RadioButton RbInfoGraphicBreedingValues;
+        private System.Windows.Forms.CheckBox CbInfoGraphicSumWildMut;
+        private System.Windows.Forms.Label label70;
+        private System.Windows.Forms.Label label15;
+        private uiControls.Nud nudOverlayInfoHeight;
+        private uiControls.Nud nudOverlayInfoWidth;
     }
 }

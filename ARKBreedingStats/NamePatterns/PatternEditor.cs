@@ -544,7 +544,8 @@ namespace ARKBreedingStats.NamePatterns
             {"color","{{#color: regionId | return color name | return value even for unused regions }}. Returns the colorId of the region. If the second parameter is not empty, the color name will be returned. Unused regions will only return a value if the third value is not empty.\n{{#color: 0 | true }}"},
             {"colorNew","{{#colorNew: regionId }}. Returns newInRegion if the region contains a color that is not yet available in that species. Returns newInSpecies if that color is not yet available in any region of that species.\n{{#colorNew: 0 }}"},
             {"indexOf","{{#indexof: source string | string to find }}. Returns the index of the second parameter in the first parameter. If the string is not contained, an empty string will be returned.\n{{#indexof: hello | ll }}"},
-            {"md5", "{{#md5: string }}, returns the md5 hash of a given string\n{{#md5: {hp}{st}{we} }}"}
+            {"md5", "{{#md5: string }}, returns the md5 hash of a given string\n{{#md5: {hp}{st}{we} }}"},
+            {"list", "{{#list: list string | initial separator | final separator }}, removes empty entries, especially the last separator is removed.\n{{#list: 10,,48,24, | , | , }}"}
         };
 
         private void btnClear_Click(object sender, EventArgs e)

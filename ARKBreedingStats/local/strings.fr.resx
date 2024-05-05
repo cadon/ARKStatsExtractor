@@ -927,8 +927,8 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
   <data name="importingFromSavegameToolStripMenuItem" xml:space="preserve">
     <value>Importer d'une sauvegarde</value>
   </data>
-  <data name="importingFromSavegameEmptyToolStripMenuItem" xml:space="preserve">
-    <value>Configurez d'abord "Import Savegame"</value>
+  <data name="configureSavegameImportToolStripMenuItem" xml:space="preserve">
+    <value>Configurez "Import Savegame"</value>
   </data>
   <data name="until" xml:space="preserve">
     <value>jusqu'à</value>

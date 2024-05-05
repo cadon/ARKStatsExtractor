@@ -10,7 +10,10 @@ namespace ARKBreedingStats.importExported
 {
     static class ImportExported
     {
-        public static CreatureValues ImportExportedCreature(string filePath)
+        /// <summary>
+        /// Reads export file created by the game.
+        /// </summary>
+        public static CreatureValues ReadExportedCreature(string filePath)
         {
             CreatureValues cv = new CreatureValues
             {

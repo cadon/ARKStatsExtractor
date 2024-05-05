@@ -932,7 +932,7 @@ OCRで種族の推測が頻繁に間違える場合は、この設定を無効�
   <data name="importingFromSavegameToolStripMenuItem" xml:space="preserve">
     <value>savegameからインポート中</value>
   </data>
-  <data name="importingFromSavegameEmptyToolStripMenuItem" xml:space="preserve">
+  <data name="configureSavegameImportToolStripMenuItem" xml:space="preserve">
     <value>先に「Import Savegame」を設定してください</value>
   </data>
   <data name="until" xml:space="preserve">

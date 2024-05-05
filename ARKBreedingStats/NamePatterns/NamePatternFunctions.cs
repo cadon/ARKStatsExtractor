@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -14,6 +15,9 @@ namespace ARKBreedingStats.NamePatterns
     /// </summary>
     internal static class NamePatternFunctions
     {
+        /// <summary>
+        /// Match is expected to have 4 groups, first the function name, then three optional parameters.
+        /// </summary>
         internal static string ResolveFunction(Match match, NamePatternParameters parameters)
         {
             var functionName = match.Groups[1].Value.ToLower();
@@ -60,7 +64,8 @@ namespace ARKBreedingStats.NamePatterns
                 {"colornew", FunctionColorNew},
                 {"indexof", FunctionIndexOf},
                 {"md5", FunctionMd5},
-                {"listname", FunctionListName }
+                {"listname", FunctionListName },
+                {"list", FunctionList }
             };
 
         private static string FunctionIf(Match m, NamePatternParameters p)
@@ -382,6 +387,22 @@ namespace ARKBreedingStats.NamePatterns
             if (!int.TryParse(m.Groups[2].Value, out var nameIndex)) return string.Empty;
 
             return NameList.GetName(nameIndex, m.Groups[3].Value);
+        }
+
+        private static string FunctionList(Match m, NamePatternParameters p)
+        {
+            // splits string at separator, trims, removes empty entries, joins with separator
+            // parameter: 1: list string, 2: initial separator, 3: final separator
+
+            var listString = m.Groups[2].Value;
+            var initialSeparator = m.Groups[3].Value;
+            var finalSeparator = m.Groups[4].Value;
+            if (string.IsNullOrWhiteSpace(listString)) return string.Empty;
+            if (string.IsNullOrEmpty(initialSeparator)) return listString;
+
+            return string.Join(finalSeparator,
+                listString.Split(new[] { initialSeparator }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(e => e.Trim()).Where(e => !string.IsNullOrEmpty(e)));
         }
 
         public static void Dispose()

@@ -921,8 +921,8 @@ Wählen, um die Top stats in einer Kreature zu vereinen. Dieser Modus geht ein R
   <data name="importingFromSavegameToolStripMenuItem" xml:space="preserve">
     <value>Von Spielstand-Datei importieren</value>
   </data>
-  <data name="importingFromSavegameEmptyToolStripMenuItem" xml:space="preserve">
-    <value>Zuerst "Import Savegame" konfigurieren</value>
+  <data name="configureSavegameImportToolStripMenuItem" xml:space="preserve">
+    <value>"Import Savegame" konfigurieren</value>
   </data>
   <data name="until" xml:space="preserve">
     <value>bis</value>

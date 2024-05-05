@@ -57,7 +57,7 @@ namespace ARKBreedingStats
                 bool triggeredByFileWatcher = false);
 
         public delegate void SetMessageLabelTextEventHandler(string text = null, MessageBoxIcon icon = MessageBoxIcon.None,
-            string path = null, string clipboardContent = null, bool displayPopup = false);
+            string path = null, string clipboardContent = null, bool displayPopup = false, string customPopupMessage = null);
 
         private bool _updateTorporInTester;
         private bool _filterListAllowed;
@@ -160,6 +160,7 @@ namespace ARKBreedingStats
             breedingPlan1.SetMessageLabelText += SetMessageLabelText;
             creatureInfoInputExtractor.SetMessageLabelText += SetMessageLabelText;
             creatureInfoInputTester.SetMessageLabelText += SetMessageLabelText;
+            statsMultiplierTesting1.SetMessageLabelText += SetMessageLabelText;
             timerList1.OnTimerChange += SetCollectionChanged;
             timerList1.TimerAddedRemoved += EnableGlobalTimerIfNeeded;
             breedingPlan1.BindChildrenControlEvents();
@@ -305,6 +306,7 @@ namespace ARKBreedingStats
             _creatureListSorter.IgnoreSpacesBetweenWords = Properties.Settings.Default.NaturalSortIgnoreSpaces;
 
             CbLibraryInfoUseFilter.Checked = Properties.Settings.Default.LibraryColorInfoUseFilter;
+            showTokenPopupOnListeningToolStripMenuItem.Checked = Properties.Settings.Default.DisplayPopupForServerToken;
 
             // load stat weights
             double[][] custWd = Properties.Settings.Default.customStatWeights;
@@ -432,6 +434,7 @@ namespace ARKBreedingStats
                 tabControlMain.TabPages.Remove(tabPageMultiplierTesting);
                 devToolStripMenuItem.Visible = false;
                 sendExampleCreatureToolStripMenuItem.Visible = false;
+                cbExactlyImprinting.Visible = false;
             }
             else
             {
@@ -733,7 +736,7 @@ namespace ARKBreedingStats
                 UpdateAllTesterValues();
                 statPotentials1.Species = species;
                 statPotentials1.SetLevels(_testingIOs.Select(s => s.LevelWild).ToArray(), _testingIOs.Select(s => s.LevelMut).ToArray(), true);
-                SetTesterInfoInputCreature();
+                SetInfoInputCreature();
             }
             else if (tabControlMain.SelectedTab == tabPageLibrary)
             {
@@ -883,12 +886,14 @@ namespace ARKBreedingStats
             }
 
             CreateImportExportedMenu();
+            CreateSavegameImportMenu();
+        }
 
-            // save game importer menu
+        private void CreateSavegameImportMenu()
+        {
             importingFromSavegameToolStripMenuItem.DropDownItems.Clear();
             if (Properties.Settings.Default.arkSavegamePaths?.Any() != true)
             {
-                importingFromSavegameToolStripMenuItem.DropDownItems.Add(importingFromSavegameEmptyToolStripMenuItem);
                 TsbQuickSaveGameImport.ToolTipText = "No quick import save files configured,\nyou can do this in the settings.";
             }
             else
@@ -899,7 +904,7 @@ namespace ARKBreedingStats
                     ATImportFileLocation atImportFileLocation = ATImportFileLocation.CreateFromString(f);
 
                     string menuItemHeader = string.IsNullOrEmpty(atImportFileLocation.ConvenientName)
-                        ? "<unnamed>"
+                        ? Utils.ShortPath(atImportFileLocation.FileLocation)
                         : atImportFileLocation.ConvenientName;
                     ToolStripMenuItem tsmi = new ToolStripMenuItem(menuItemHeader)
                     {
@@ -915,7 +920,11 @@ namespace ARKBreedingStats
                 TsbQuickSaveGameImport.ToolTipText = quickImportInfo.Any()
                     ? "Quick save game import. The following save files will be imported:\n\n" + string.Join("\n", quickImportInfo)
                     : "No quick import save files configured,\nyou can do this in the settings.";
+
+                importingFromSavegameToolStripMenuItem.DropDownItems.Add(new ToolStripSeparator());
             }
+            importingFromSavegameToolStripMenuItem.DropDownItems.Add(selectSavegameFileToolStripMenuItem);
+            importingFromSavegameToolStripMenuItem.DropDownItems.Add(configureSavegameImportToolStripMenuItem);
         }
 
         private void importingFromSavegameEmptyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1124,10 +1133,11 @@ namespace ARKBreedingStats
 
             // check if values-files can be updated
             var downloadedModFiles = Values.V.modsManifest.modsByFiles.Select(mikv => mikv.Value)
-                .Where(mi => mi.LocallyAvailable).Select(mi => mi.mod.FileName).ToList();
-            downloadedModFiles.Add(FileService.ValuesJson); // check also base values file
+                .Where(mi => mi.LocallyAvailable).Select(mi => mi.mod.FileName)
+                .Append(FileService.ValuesJson) // check also base values file
+                .ToList();
 
-            bool valuesUpdated = CheckAvailabilityAndUpdateModFiles(downloadedModFiles, Values.V);
+            bool valuesUpdated = CheckAvailabilityAndUpdateModFiles(downloadedModFiles, Values.V, out var updatesAvailable);
 
             // update last successful update check
             Properties.Settings.Default.lastUpdateCheck = DateTime.Now;
@@ -1151,7 +1161,7 @@ namespace ARKBreedingStats
                         "Download of new stat successful, but files couldn't be loaded.\nTry again later, or redownload the tool.");
                 }
             }
-            else if (!silentCheck)
+            else if (!silentCheck && !updatesAvailable)
             {
                 MessageBox.Show(
                     $"You already have the newest version of both the program ({Application.ProductVersion}) and values file ({Values.V.Version}).\n\n" +
@@ -1407,7 +1417,7 @@ namespace ARKBreedingStats
         /// <param name="path">If valid path to file or folder, the user can click on the message to display the path in the explorer</param>
         /// <param name="clipboardText">If not null, user can copy this text to the clipboard by clicking on the label</param>
         private void SetMessageLabelText(string text = null, MessageBoxIcon icon = MessageBoxIcon.None,
-            string path = null, string clipboardText = null, bool displayPopup = false)
+            string path = null, string clipboardText = null, bool displayPopup = false, string customPopupText = null)
         {
             if (_ignoreNextMessageLabel)
             {
@@ -1433,6 +1443,8 @@ namespace ARKBreedingStats
                     TbMessageLabel.BackColor = SystemColors.Control;
                     break;
             }
+
+            text = customPopupText ?? text;
             if (displayPopup && !string.IsNullOrEmpty(text))
                 PopupMessage.Show(this, text, 20);
         }
@@ -2092,6 +2104,9 @@ namespace ARKBreedingStats
             _overlay?.SetInfoPositionsAndFontSize();
             if (Properties.Settings.Default.DevTools)
                 statsMultiplierTesting1.CheckIfMultipliersAreEqualToSettings();
+            else
+                cbExactlyImprinting.Checked = false;
+            cbExactlyImprinting.Visible = Properties.Settings.Default.DevTools;
             devToolStripMenuItem.Visible = Properties.Settings.Default.DevTools;
             sendExampleCreatureToolStripMenuItem.Visible = Properties.Settings.Default.DevTools;
 
@@ -2554,7 +2569,7 @@ namespace ARKBreedingStats
             }
 
             // set the data in the creatureInfoInput
-            SetTesterInfoInputCreature(); // clear data
+            SetInfoInputCreature(); // clear data
             creatureInfoInputTester.CreatureName = creatureInfoInputExtractor.CreatureName;
             creatureInfoInputTester.CreatureOwner = creatureInfoInputExtractor.CreatureOwner;
             creatureInfoInputTester.CreatureTribe = creatureInfoInputExtractor.CreatureTribe;
@@ -2594,7 +2609,7 @@ namespace ARKBreedingStats
                 }
 
                 creatureInfoInputTester.Clear();
-                SetTesterInfoInputCreature();
+                SetInfoInputCreature();
             }
         }
 
@@ -3442,7 +3457,7 @@ namespace ARKBreedingStats
                     break;
                 case ".sav":
                 case ".json":
-                    ImportExportGunFiles(files, out _, out _, out _, Properties.Settings.Default.PlaySoundOnAutoImport);
+                    ImportExportGunFiles(files, true, out _, out _, out _, Properties.Settings.Default.PlaySoundOnAutoImport);
                     break;
                 case ".asb":
                 case ".xml":
@@ -3909,69 +3924,6 @@ namespace ARKBreedingStats
             Process.Start(RepositoryInfo.DiscordServerInviteLink);
         }
 
-        #region Server
-
-        private void listenToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
-        {
-            if (listenToolStripMenuItem.Checked)
-                AsbServerStartListening();
-            else AsbServerStopListening();
-        }
-
-        private void listenWithNewTokenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            listenToolStripMenuItem.Checked = false;
-            Properties.Settings.Default.ExportServerToken = null;
-            listenToolStripMenuItem.Checked = true;
-        }
-
-        private void AsbServerStartListening()
-        {
-            var progressReporter = new Progress<ProgressReportAsbServer>(AsbServerDataSent);
-            if (string.IsNullOrEmpty(Properties.Settings.Default.ExportServerToken))
-                Properties.Settings.Default.ExportServerToken = AsbServer.Connection.CreateNewToken();
-            Task.Factory.StartNew(() => AsbServer.Connection.StartListeningAsync(progressReporter, Properties.Settings.Default.ExportServerToken));
-        }
-
-        private void AsbServerStopListening(bool displayMessage = true)
-        {
-            AsbServer.Connection.StopListening();
-            if (displayMessage)
-                SetMessageLabelText($"ASB Server listening stopped using token: {Connection.TokenStringForDisplay(Properties.Settings.Default.ExportServerToken)}", MessageBoxIcon.Error);
-        }
-
-        private void currentTokenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var tokenIsSet = !string.IsNullOrEmpty(Properties.Settings.Default.ExportServerToken);
-            string message;
-            bool isError;
-            if (tokenIsSet)
-            {
-                message = $"Currently {(Connection.IsCurrentlyListening ? string.Empty : "not ")}listening to the server."
-                          + " The current token is " + Environment.NewLine + Connection.TokenStringForDisplay(Properties.Settings.Default.ExportServerToken)
-                          + Environment.NewLine + "(token copied to clipboard)";
-
-                Clipboard.SetText(Properties.Settings.Default.ExportServerToken);
-                isError = false;
-            }
-            else
-            {
-                message = "Currently no token set. A token is created once you start listening to the server.";
-                isError = true;
-            }
-
-            SetMessageLabelText(message, isError ? MessageBoxIcon.Error : MessageBoxIcon.Information,
-                clipboardText: Properties.Settings.Default.ExportServerToken, displayPopup: !Properties.Settings.Default.StreamerMode && Properties.Settings.Default.DisplayPopupForServerToken);
-        }
-
-        private void sendExampleCreatureToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // debug function, sends a test creature to the server
-            AsbServer.Connection.SendCreatureData(DummyCreatures.CreateCreature(speciesSelector1.SelectedSpecies), Properties.Settings.Default.ExportServerToken);
-        }
-
-        #endregion
-
         private void openModPageInBrowserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(RepositoryInfo.ExportGunModPage);
@@ -3982,6 +3934,11 @@ namespace ARKBreedingStats
             var namePatternIndex = (int)((ToolStripMenuItem)sender).Tag;
             var infoInput = tabControlMain.SelectedTab != tabPageStatTesting ? creatureInfoInputExtractor : creatureInfoInputTester;
             CreatureInfoInput_CreatureDataRequested(infoInput, true, false, false, namePatternIndex, infoInput.AlreadyExistingCreature);
+        }
+
+        private void showTokenPopupOnListeningToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.DisplayPopupForServerToken = showTokenPopupOnListeningToolStripMenuItem.Checked;
         }
     }
 }

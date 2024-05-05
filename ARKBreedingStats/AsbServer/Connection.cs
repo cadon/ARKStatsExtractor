@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.Library;
 using Newtonsoft.Json.Linq;
@@ -22,9 +23,9 @@ namespace ARKBreedingStats.AsbServer
         private static CancellationTokenSource _lastCancellationTokenSource;
 
         public static async void StartListeningAsync(
-            IProgress<ProgressReportAsbServer> progressDataSent, string token = null)
+            IProgress<ProgressReportAsbServer> progressDataSent, string serverToken = null)
         {
-            if (string.IsNullOrEmpty(token)) return;
+            if (string.IsNullOrEmpty(serverToken)) return;
 
             // stop previous listening if any
             StopListening();
@@ -37,7 +38,8 @@ namespace ARKBreedingStats.AsbServer
 
                 while (!cancellationTokenSource.Token.IsCancellationRequested)
                 {
-                    var requestUri = ApiUri + "listen/" + token; // "https://httpstat.us/429";
+                    //var requestUri = "https://httpstat.us/429"; // for debugging
+                    var requestUri = ApiUri + "listen/" + serverToken;
 
                     try
                     {
@@ -56,6 +58,7 @@ namespace ARKBreedingStats.AsbServer
                                 catch
                                 {
                                     // server message in unknown format, use raw content string
+                                    serverMessage = "unknown response content format, expected json token \"error.message\" not found in content: " + serverMessage;
                                 }
 
                                 serverMessage = Environment.NewLine + serverMessage;
@@ -89,14 +92,13 @@ namespace ARKBreedingStats.AsbServer
                             using (var stream = await response.Content.ReadAsStreamAsync())
                             using (var reader = new StreamReader(stream))
                             {
-                                var report = await ReadServerSentEvents(reader, progressDataSent, token, cancellationTokenSource.Token);
+                                var report = await ReadServerSentEvents(reader, progressDataSent, serverToken, cancellationTokenSource.Token);
                                 if (report != null)
                                 {
+                                    if (report.StoppedListening
+                                       && cancellationTokenSource == _lastCancellationTokenSource)
+                                        _lastCancellationTokenSource = null;
                                     progressDataSent.Report(report);
-                                    if (report.StopListening)
-                                    {
-                                        StopListening();
-                                    }
                                 }
                             }
                         }
@@ -116,42 +118,40 @@ namespace ARKBreedingStats.AsbServer
                     finally
                     {
 #if DEBUG
-                        Console.WriteLine($"ASB Server listening stopped using token: {token}");
+                        Console.WriteLine($"{DateTime.Now}: ASB Server listening stopped using token: {serverToken}");
 #endif
                     }
                 }
-            }
 
-            _lastCancellationTokenSource = null;
-
-            return;
-
-            // Displays an error message in the UI, also logs on the console if in debug mode
-            void WriteErrorMessage(string message, HttpResponseMessage response = null, bool stopListening = true)
-            {
-                if (response != null)
+                // Displays an error message in the UI, also logs on the console if in debug mode
+                void WriteErrorMessage(string message, HttpResponseMessage response = null, bool stopListening = true)
                 {
-                    message = $"{(int)response.StatusCode}: {response.ReasonPhrase}{Environment.NewLine}{message}";
-                }
+                    if (response != null)
+                    {
+                        message = $"{(int)response.StatusCode}: {response.ReasonPhrase}{Environment.NewLine}{message}";
+                    }
 #if DEBUG
-                Console.WriteLine(message);
+                    Console.WriteLine(message);
 #endif
-                progressDataSent.Report(new ProgressReportAsbServer { Message = message, StopListening = stopListening, IsError = true });
+                    if (stopListening)
+                        cancellationTokenSource.Cancel();
+                    progressDataSent.Report(new ProgressReportAsbServer { Message = message, StoppedListening = stopListening, IsError = true });
+                }
             }
         }
 
-        private static Regex _eventRegex = new Regex(@"^event: (welcome|ping|replaced|export|server|closing)(?: (\-?\d+))?(?:\ndata:\s(.+))?$");
+        private static readonly Regex ServerEventRegex = new Regex(@"^event: (welcome|ping|replaced|export|server|closing)(?: (\-?\d+))?(?:\ndata:\s(.+))?$");
 
-        private static async Task<ProgressReportAsbServer> ReadServerSentEvents(StreamReader reader, IProgress<ProgressReportAsbServer> progressDataSent, string token, CancellationToken cancellationToken)
+        private static async Task<ProgressReportAsbServer> ReadServerSentEvents(StreamReader reader, IProgress<ProgressReportAsbServer> progressDataSent, string serverToken, CancellationToken cancellationToken)
         {
 #if DEBUG
-            Console.WriteLine($"Now listening using token: {token}");
+            Console.WriteLine($"{DateTime.Now}: Now listening using token: {serverToken}");
 #endif
             progressDataSent.Report(new ProgressReportAsbServer
             {
-                Message = "Now listening to the export server using the token (also copied to clipboard)",
-                ServerToken = token,
-                ClipboardText = token
+                Message = $"Now listening for remote exports.{Environment.NewLine}Enter the following token into the ASB export gun mod:",
+                ServerToken = serverToken,
+                ClipboardText = serverToken
             });
 
             while (!cancellationToken.IsCancellationRequested)
@@ -161,7 +161,7 @@ namespace ARKBreedingStats.AsbServer
                     continue; // empty line marks end of event
 
 #if DEBUG
-                Console.WriteLine($"{received} (token: {token})");
+                Console.WriteLine($"{DateTime.Now}: {received} (token: {serverToken})");
 #endif
                 switch (received)
                 {
@@ -171,36 +171,51 @@ namespace ARKBreedingStats.AsbServer
                         continue;
                     case "event: replaced":
                         if (cancellationToken.IsCancellationRequested) return null;
-
                         return new ProgressReportAsbServer
                         {
                             Message = "ASB Server listening stopped. Connection used by a different user",
-                            StopListening = true,
+                            StoppedListening = true,
                             IsError = true
                         };
                     case "event: closing":
                         // only report closing if the user hasn't done this already
                         if (cancellationToken.IsCancellationRequested) return null;
                         return new ProgressReportAsbServer
-                        { Message = "ASB Server listening stopped. Connection closed by the server, trying to reconnect", StopListening = false, IsError = true };
+                        {
+                            Message = "ASB Server listening stopped. Connection closed by the server, trying to reconnect",
+                            IsError = true
+                        };
                 }
 
                 if (received != "event: export" && !received.StartsWith("event: server"))
                 {
-                    Console.WriteLine($"unknown server event: {received}");
+                    Console.WriteLine($"{DateTime.Now}: unknown server event: {received}");
                     continue;
                 }
 
                 received += "\n" + await reader.ReadLineAsync();
                 if (cancellationToken.IsCancellationRequested)
                     break;
-                var m = _eventRegex.Match(received);
+                var m = ServerEventRegex.Match(received);
                 if (m.Success)
                 {
                     switch (m.Groups[1].Value)
                     {
                         case "export":
-                            progressDataSent.Report(new ProgressReportAsbServer { JsonText = m.Groups[3].Value });
+                            var report = new ProgressReportAsbServer
+                            {
+                                JsonText = m.Groups[3].Value,
+                                TaskNameGenerated = new TaskCompletionSource<string>()
+                            };
+                            progressDataSent.Report(report);
+                            var nameGeneratedTask = report.TaskNameGenerated.Task;
+                            string creatureName = null;
+                            if (nameGeneratedTask.Wait(TimeSpan.FromSeconds(5))
+                                && nameGeneratedTask.Status == TaskStatus.RanToCompletion)
+                            {
+                                creatureName = nameGeneratedTask.Result;
+                                // TODO send creatureName as response
+                            }
                             break;
                         case "server":
                             progressDataSent.Report(new ProgressReportAsbServer { JsonText = m.Groups[3].Value, ServerHash = m.Groups[2].Value });
@@ -215,13 +230,19 @@ namespace ARKBreedingStats.AsbServer
         /// <summary>
         /// Stops the currently running listener. Returns false if no listener was running.
         /// </summary>
-        public static void StopListening()
+        public static bool StopListening()
         {
             if (_lastCancellationTokenSource == null)
-                return; // nothing to stop
+                return false; // nothing to stop
+            if (_lastCancellationTokenSource.IsCancellationRequested)
+            {
+                _lastCancellationTokenSource = null;
+                return false; // already stopped
+            }
 
             _lastCancellationTokenSource.Cancel();
             _lastCancellationTokenSource = null;
+            return true;
         }
 
         /// <summary>
@@ -237,16 +258,20 @@ namespace ARKBreedingStats.AsbServer
             var msg = new HttpRequestMessage(HttpMethod.Put, ApiUri + "export/" + token);
             msg.Content = new StringContent(contentString, Encoding.UTF8, "application/json");
             msg.Content.Headers.Add("Content-Length", contentString.Length.ToString());
+            Console.WriteLine($"{DateTime.Now}: Sending creature data of {creature} using token: {token}"); //\nContent:\n{contentString}");
             using (var response = await client.SendAsync(msg))
             {
-                Console.WriteLine($"Sent creature data of {creature} using token: {token}\nContent:\n{contentString}");
-                Console.WriteLine(msg.ToString());
-                Console.WriteLine($"Response: StatusCode {(int)response.StatusCode}, ReasonPhrase: {response.ReasonPhrase}");
+                //Console.WriteLine(msg.ToString());
+                Console.WriteLine($"{DateTime.Now}: Response: StatusCode {(int)response.StatusCode}, ReasonPhrase: {response.ReasonPhrase}");
             }
         }
 
+        /// <summary>
+        /// Returns a new string token that can be used as identifier in combination with the export gun mod.
+        /// </summary>
         public static string CreateNewToken()
         {
+            // only use characters that are easily distinguishable
             var allowedCharacters = Enumerable.Range(0x31, 9) // 1-9
                 .Concat(Enumerable.Range(0x61, 8)) // a-h
                 .Concat(new[] { 0x6b, 0x6d, 0x6e }) // k, m, n
@@ -258,16 +283,24 @@ namespace ARKBreedingStats.AsbServer
             var guid = Guid.NewGuid().ToByteArray();
             const int tokenLength = 14; // from these each 5th character is a dash for readability
             var token = new char[tokenLength];
-            for (var i = 0; i < tokenLength; i++)
+            var checkSum = 0;
+            var tokenLengthWithoutCheckDigit = tokenLength - 1;
+            for (var i = 0; i < tokenLengthWithoutCheckDigit; i++)
             {
                 if ((i + 1) % 5 == 0)
                 {
                     token[i] = '-';
                     continue;
                 }
-                token[i] = allowedCharacters[guid[i] % l];
-            }
 
+                var character = allowedCharacters[guid[i] % l];
+                token[i] = character;
+                checkSum += character;
+            }
+            // use last character as check digit
+            // checkSum % 15, add 1 (to avoid ambiguous 0), display as hex digit (range [1-9a-f])
+            token[tokenLength - 1] = ((checkSum % 15) + 1).ToString("x")[0];
+            
             return new string(token);
         }
 
@@ -276,6 +309,6 @@ namespace ARKBreedingStats.AsbServer
         /// </summary>
         public static string TokenStringForDisplay(string token) => Properties.Settings.Default.StreamerMode ? "****" : token;
 
-        public static bool IsCurrentlyListening => _lastCancellationTokenSource != null;
+        public static bool IsCurrentlyListening => _lastCancellationTokenSource?.IsCancellationRequested == false;
     }
 }

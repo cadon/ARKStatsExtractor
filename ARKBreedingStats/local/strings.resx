@@ -929,8 +929,8 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   <data name="importingFromSavegameToolStripMenuItem" xml:space="preserve">
     <value>Importing from savegame</value>
   </data>
-  <data name="importingFromSavegameEmptyToolStripMenuItem" xml:space="preserve">
-    <value>At first configure "Import Savegame"</value>
+  <data name="configureSavegameImportToolStripMenuItem" xml:space="preserve">
+    <value>Configure Import Savegame</value>
   </data>
   <data name="until" xml:space="preserve">
     <value>until</value>

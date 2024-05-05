@@ -87,6 +87,10 @@
     <Compile Include="AsbServer\ProgressReportAsbServer.cs" />
     <Compile Include="BreedingPlanning\Score.cs" />
     <Compile Include="BreedingPlanning\BreedingScore.cs" />
+    <Compile Include="Form1.exportGun.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="importExportGun\ExportGunCreatureFile.cs" />
     <Compile Include="importExportGun\ExportGunServerFile.cs" />
     <Compile Include="importExportGun\ImportExportGun.cs" />
@@ -997,7 +1001,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentFTP">
-      <Version>48.0.3</Version>
+      <Version>49.0.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers">
       <Version>3.3.4</Version>

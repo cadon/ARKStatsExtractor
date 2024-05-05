@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading;
+using System.Windows.Forms.VisualStyles;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.values;
 using Newtonsoft.Json;
@@ -14,8 +15,9 @@ namespace ARKBreedingStats.importExportGun
     {
         /// <summary>
         /// Load creature from file created with the export gun (mod).
+        /// Supports .sav files (ASE) and .json files (ASA).
         /// </summary>
-        public static Creature LoadCreature(string filePath, out string resultText, out string serverMultipliersHash)
+        public static Creature LoadCreature(string filePath, out string resultText, out string serverMultipliersHash, bool allowUnknownSpecies = false)
         {
             resultText = null;
             serverMultipliersHash = null;
@@ -40,8 +42,10 @@ namespace ARKBreedingStats.importExportGun
                             break;
                     }
 
-                    return LoadCreatureFromJson(jsonText, resultText, out resultText, out serverMultipliersHash);
-
+                    var creature = LoadCreatureFromJson(jsonText, resultText, out resultText, out serverMultipliersHash, filePath, allowUnknownSpecies);
+                    if (creature == null) return null;
+                    creature.domesticatedAt = File.GetLastWriteTime(filePath);
+                    return creature;
                 }
                 catch (IOException) when (tryIndex < tryLoadCount - 1)
                 {
@@ -58,13 +62,13 @@ namespace ARKBreedingStats.importExportGun
             return null;
         }
 
-        public static Creature LoadCreatureFromJson(string jsonText, string resultSoFar, out string resultText, out string serverMultipliersHash, string filePath = null)
+        public static Creature LoadCreatureFromJson(string jsonText, string resultSoFar, out string resultText, out string serverMultipliersHash, string filePath = null, bool allowUnknownSpecies = false)
         {
             resultText = resultSoFar;
             serverMultipliersHash = null;
             if (string.IsNullOrEmpty(jsonText))
             {
-                resultText = $"Error when importing file {filePath}: {resultText}";
+                resultText = $"Error when importing file {filePath}: file is empty. {resultText}";
                 return null;
             }
             var exportedCreature = JsonConvert.DeserializeObject<ExportGunCreatureFile>(jsonText);
@@ -76,16 +80,16 @@ namespace ARKBreedingStats.importExportGun
 
             if (string.IsNullOrEmpty(exportedCreature.BlueprintPath))
             {
-                resultText = "file contains no blueprint path, it's probably not a creature file"; // could be a server multipliers file
+                resultText = $"file {filePath} contains no blueprint path, it's probably not a creature file (could be a server multipliers file).";
                 return null;
             }
 
             serverMultipliersHash = exportedCreature.ServerMultipliersHash;
 
-            return ConvertExportGunToCreature(exportedCreature, out resultText);
+            return ConvertExportGunToCreature(exportedCreature, out resultText, allowUnknownSpecies);
         }
 
-        private static Creature ConvertExportGunToCreature(ExportGunCreatureFile ec, out string error)
+        private static Creature ConvertExportGunToCreature(ExportGunCreatureFile ec, out string error, bool allowUnknownSpecies = false)
         {
             error = null;
             if (ec == null) return null;
@@ -94,7 +98,8 @@ namespace ARKBreedingStats.importExportGun
             if (species == null)
             {
                 error = $"blueprintpath {ec.BlueprintPath} couldn't be found, maybe you need to load a mod values file.";
-                return null;
+                if (!allowUnknownSpecies)
+                    return null;
             }
 
             var wildLevels = new int[Stats.StatsCount];
@@ -126,7 +131,7 @@ namespace ARKBreedingStats.importExportGun
                 : !string.IsNullOrEmpty(ec.ImprinterName) ? ec.ImprinterName
                 : ec.TamerString;
 
-            var c = new Creature(species, ec.DinoName, owner, ec.TribeName, species.noGender ? Sex.Unknown : ec.IsFemale ? Sex.Female : Sex.Male,
+            var c = new Creature(species, ec.DinoName, owner, ec.TribeName, species?.noGender != false ? Sex.Unknown : ec.IsFemale ? Sex.Female : Sex.Male,
                 wildLevels, domLevels, mutLevels, isWild ? -3 : ec.TameEffectiveness, isBred, ec.DinoImprintingQuality,
                 CreatureCollection.CurrentCreatureCollection?.wildLevelStep)
             {

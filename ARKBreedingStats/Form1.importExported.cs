@@ -12,6 +12,7 @@ using ARKBreedingStats.library;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
+using ARKBreedingStats.uiControls;
 
 namespace ARKBreedingStats
 {
@@ -217,10 +218,10 @@ namespace ARKBreedingStats
                     break;
                 case ".sav":
                 case ".json":
-                    alreadyExistingCreature = ImportExportGunFiles(new[] { filePath }, out addedToLibrary,
+                    alreadyExistingCreature = ImportExportGunFiles(new[] { filePath }, Properties.Settings.Default.OnAutoImportAddToLibrary, out addedToLibrary,
                         out creature, out copiedNameToClipboard);
                     alreadyExists = alreadyExistingCreature != null;
-                    if (!addedToLibrary || creature == null) return null;
+                    if (creature == null) return null;
                     uniqueExtraction = true;
                     break;
                 default: return null;
@@ -311,10 +312,10 @@ namespace ARKBreedingStats
         /// Sets the name of an imported creature and copies it to the clipboard depending on the user settings.
         /// </summary>
         /// <returns>True if name was copied to clipboard</returns>
-        private bool SetNameOfImportedCreature(Creature creature, Creature[] creaturesOfSpeciesIn, out Creature[] creaturesOfSpecies, Creature alreadyExistingCreature, int totalCreatureCount)
+        private bool SetNameOfImportedCreature(Creature creature, Creature[] creaturesOfSpeciesIn, out Creature[] creaturesOfSpecies, Creature alreadyExistingCreature, int totalCreatureCount = -1)
         {
             creaturesOfSpecies = creaturesOfSpeciesIn;
-            if (ApplyNamingPattern(creature, alreadyExistingCreature))
+            if (ShouldNamingPatternBeApplied(creature, alreadyExistingCreature))
             {
                 // don't overwrite existing ASB creature name with empty ingame name
                 if (!string.IsNullOrEmpty(alreadyExistingCreature?.name) && string.IsNullOrEmpty(creature.name))
@@ -326,6 +327,9 @@ namespace ARKBreedingStats
                     if (creaturesOfSpecies == null)
                         creaturesOfSpecies = _creatureCollection.creatures.Where(c => c.Species == creature.Species)
                             .ToArray();
+                    if (totalCreatureCount < 0)
+                        totalCreatureCount = _creatureCollection.GetTotalCreatureCount();
+
                     creature.name = NamePattern.GenerateCreatureName(creature, alreadyExistingCreature, creaturesOfSpecies,
                         _highestSpeciesLevels.TryGetValue(creature.Species, out var topLevels) ? topLevels : null,
                         _lowestSpeciesLevels.TryGetValue(creature.Species, out var lowestLevels) ? lowestLevels : null,
@@ -343,7 +347,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// Returns true if the naming pattern should be applied according to the settings.
         /// </summary>
-        private bool ApplyNamingPattern(Creature creature, Creature alreadyExistingCreature) =>
+        private bool ShouldNamingPatternBeApplied(Creature creature, Creature alreadyExistingCreature) =>
             Properties.Settings.Default.applyNamePatternOnAutoImportAlways
             || (Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
                 && string.IsNullOrEmpty(creature.name))
@@ -379,6 +383,12 @@ namespace ARKBreedingStats
                     sb.AppendLine("Name copied to clipboard.");
 
                 sb.Append(LevelStatusFlags.LevelInfoText);
+
+                if (!string.IsNullOrEmpty(creatureAnalysis1.ColorStatus))
+                {
+                    sb.AppendLine();
+                    sb.AppendLine(creatureAnalysis1.ColorStatus.Replace(": ", ":" + Environment.NewLine).Replace(", ", Environment.NewLine));
+                }
 
                 infoText = sb.ToString();
                 textColor = Color.FromArgb(colorSaturation, 255, colorSaturation);
@@ -492,7 +502,7 @@ namespace ARKBreedingStats
                     ATImportExportedFolderLocation aTImportExportedFolderLocation =
                         ATImportExportedFolderLocation.CreateFromString(f);
                     string menuItemHeader = string.IsNullOrEmpty(aTImportExportedFolderLocation.ConvenientName)
-                        ? "<unnamed>"
+                        ? Utils.ShortPath(aTImportExportedFolderLocation.FolderPath)
                         : aTImportExportedFolderLocation.ConvenientName;
                     ToolStripMenuItem tsmi = new ToolStripMenuItem(menuItemHeader
                                                                    + (string.IsNullOrEmpty(
@@ -500,7 +510,8 @@ namespace ARKBreedingStats
                                                                        ? string.Empty
                                                                        : " - " + aTImportExportedFolderLocation.OwnerSuffix))
                     {
-                        Tag = aTImportExportedFolderLocation
+                        Tag = aTImportExportedFolderLocation,
+                        ToolTipText = aTImportExportedFolderLocation.FolderPath
                     };
                     tsmi.Click += OpenImportExportForm;
                     importExportedCreaturesToolStripMenuItem.DropDownItems.Add(tsmi);

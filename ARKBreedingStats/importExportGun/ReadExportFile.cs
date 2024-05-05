@@ -4,7 +4,7 @@ using System.Text;
 namespace ARKBreedingStats.importExportGun
 {
     /// <summary>
-    /// Reads the content of an export files created by the export gun mod.
+    /// Reads the content of an export file encapsulating a json string, created by the export gun mod (ASE).
     /// </summary>
     internal static class ReadExportFile
     {

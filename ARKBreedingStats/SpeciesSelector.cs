@@ -125,7 +125,11 @@ namespace ARKBreedingStats
                 }
             }
 
-            entryList = entryList.OrderBy(s => s.DisplayName).ToList();
+            entryList = entryList.OrderBy(s => s.DisplayName)
+                .ThenBy(s => !s.Species.IsDomesticable) // prefer domesticable species variants
+                .ThenBy(s => s.Species.Mod == null) // prefer loaded mod species
+                .ThenBy(s => s.Species.variants?.Length ?? 0) // prefer species that are not variants
+                .ToList();
             return entryList;
         }
 
