@@ -988,7 +988,7 @@ namespace ARKBreedingStats
             )
             {
                 CreatureInfoInput_CreatureDataRequested(creatureInfoInputExtractor, false, false, false, 0, alreadyExistingCreature);
-                return CopyCreatureNameToClipboardOnImportIfSetting(creatureInfoInputExtractor.CreatureName);
+                return CopyCreatureNameToClipboardOnImportIfSetting(creatureInfoInputExtractor.CreatureName, true);
             }
 
             return false;

@@ -315,6 +315,7 @@ namespace ARKBreedingStats
         private bool SetNameOfImportedCreature(Creature creature, Creature[] creaturesOfSpeciesIn, out Creature[] creaturesOfSpecies, Creature alreadyExistingCreature, int totalCreatureCount = -1)
         {
             creaturesOfSpecies = creaturesOfSpeciesIn;
+            var nameWasApplied = false;
             if (ShouldNamingPatternBeApplied(creature, alreadyExistingCreature))
             {
                 // don't overwrite existing ASB creature name with empty ingame name
@@ -338,8 +339,10 @@ namespace ARKBreedingStats
                         alreadyExistingCreature.name = creature.name; // if alreadyExistingCreature was already updated and creature is not used anymore make sure name is not lost
                 }
 
+                nameWasApplied = true;
             }
-            return CopyCreatureNameToClipboardOnImportIfSetting(creature.name);
+
+            return CopyCreatureNameToClipboardOnImportIfSetting(creature.name, nameWasApplied);
         }
 
         /// <summary>
@@ -355,17 +358,19 @@ namespace ARKBreedingStats
         /// <summary>
         /// Copies name to clipboard if the according setting is enabled. Returns true if copied.
         /// </summary>
-        private bool CopyCreatureNameToClipboardOnImportIfSetting(string creatureName)
+        private bool CopyCreatureNameToClipboardOnImportIfSetting(string creatureName, bool nameWasJustApplied)
         {
-            if (!Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied)
+            if (Properties.Settings.Default.CopyNameToClipboardOnImport
+                || (nameWasJustApplied && Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied))
             {
-                AsbServer.Connection.ClearTokenFromClipboard();
-                return false;
+                Clipboard.SetText(string.IsNullOrEmpty(creatureName)
+                    ? "<no name>"
+                    : creatureName);
+                return true;
             }
-            Clipboard.SetText(string.IsNullOrEmpty(creatureName)
-                ? "<no name>"
-                : creatureName);
-            return true;
+
+            AsbServer.Connection.ClearTokenFromClipboard();
+            return false;
         }
 
         /// <summary>

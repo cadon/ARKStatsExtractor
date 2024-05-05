@@ -372,6 +372,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.CbCopyNameToClipboardOnImport = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -3661,6 +3662,7 @@
             // 
             // groupBox21
             // 
+            this.groupBox21.Controls.Add(this.CbCopyNameToClipboardOnImport);
             this.groupBox21.Controls.Add(this.CbApplyNamingPatternOnImportAlways);
             this.groupBox21.Controls.Add(this.cbApplyNamePatternOnImportOnNewCreatures);
             this.groupBox21.Controls.Add(this.label41);
@@ -3668,7 +3670,7 @@
             this.groupBox21.Controls.Add(this.cbApplyNamePatternOnImportOnEmptyNames);
             this.groupBox21.Location = new System.Drawing.Point(6, 508);
             this.groupBox21.Name = "groupBox21";
-            this.groupBox21.Size = new System.Drawing.Size(318, 162);
+            this.groupBox21.Size = new System.Drawing.Size(318, 178);
             this.groupBox21.TabIndex = 5;
             this.groupBox21.TabStop = false;
             this.groupBox21.Text = "Auto naming on import";
@@ -3952,7 +3954,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3960,7 +3962,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3968,7 +3970,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3976,7 +3978,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -4793,6 +4795,16 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
+            // CbCopyNameToClipboardOnImport
+            // 
+            this.CbCopyNameToClipboardOnImport.AutoSize = true;
+            this.CbCopyNameToClipboardOnImport.Location = new System.Drawing.Point(6, 147);
+            this.CbCopyNameToClipboardOnImport.Name = "CbCopyNameToClipboardOnImport";
+            this.CbCopyNameToClipboardOnImport.Size = new System.Drawing.Size(218, 17);
+            this.CbCopyNameToClipboardOnImport.TabIndex = 5;
+            this.CbCopyNameToClipboardOnImport.Text = "Always copy name to clipboard on import";
+            this.CbCopyNameToClipboardOnImport.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -5310,5 +5322,6 @@
         private System.Windows.Forms.Label label15;
         private uiControls.Nud nudOverlayInfoHeight;
         private uiControls.Nud nudOverlayInfoWidth;
+        private System.Windows.Forms.CheckBox CbCopyNameToClipboardOnImport;
     }
 }
