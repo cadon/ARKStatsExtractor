@@ -1091,6 +1091,7 @@ namespace ARKBreedingStats
         /// <returns>True if mutation levels where adjusted, false if no levels were moved.</returns>
         private bool UpdateMutationLevels(CreatureValues cv, Creature alreadyExistingCreature)
         {
+            if (!Properties.Settings.Default.MoveMutationLevelsOnExtractionIfUnique) return false;
             bool mutationLevelsAdjusted = false;
             // Do we have enough information to assume the mutation counts are accurate
             bool AreMutationCountsAccurate(Creature creature)

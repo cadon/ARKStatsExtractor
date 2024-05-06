@@ -282,6 +282,7 @@
             this.label28 = new System.Windows.Forms.Label();
             this.cbAutoImportExported = new System.Windows.Forms.CheckBox();
             this.groupBox21 = new System.Windows.Forms.GroupBox();
+            this.CbCopyNameToClipboardOnImport = new System.Windows.Forms.CheckBox();
             this.CbApplyNamingPatternOnImportAlways = new System.Windows.Forms.CheckBox();
             this.cbApplyNamePatternOnImportOnNewCreatures = new System.Windows.Forms.CheckBox();
             this.label41 = new System.Windows.Forms.Label();
@@ -372,7 +373,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.CbCopyNameToClipboardOnImport = new System.Windows.Forms.CheckBox();
+            this.CbSetMutationLevelsExtractor = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -1857,10 +1858,11 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.CbSetMutationLevelsExtractor);
             this.groupBox7.Controls.Add(this.checkBoxDisplayHiddenStats);
             this.groupBox7.Location = new System.Drawing.Point(6, 411);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(317, 43);
+            this.groupBox7.Size = new System.Drawing.Size(317, 73);
             this.groupBox7.TabIndex = 2;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Extractor";
@@ -2313,8 +2315,8 @@
             this.tabPageGeneral.Controls.Add(this.groupBox31);
             this.tabPageGeneral.Controls.Add(this.groupBox30);
             this.tabPageGeneral.Controls.Add(this.GbImgCacheLocalAppData);
-            this.tabPageGeneral.Controls.Add(this.groupBox16);
             this.tabPageGeneral.Controls.Add(this.GbSpecies);
+            this.tabPageGeneral.Controls.Add(this.groupBox16);
             this.tabPageGeneral.Controls.Add(this.groupBox26);
             this.tabPageGeneral.Controls.Add(this.groupBox25);
             this.tabPageGeneral.Controls.Add(this.groupBox20);
@@ -2391,7 +2393,7 @@
             this.groupBox30.Controls.Add(this.ClbExportSpreadsheetFields);
             this.groupBox30.Location = new System.Drawing.Point(329, 413);
             this.groupBox30.Name = "groupBox30";
-            this.groupBox30.Size = new System.Drawing.Size(413, 246);
+            this.groupBox30.Size = new System.Drawing.Size(413, 197);
             this.groupBox30.TabIndex = 13;
             this.groupBox30.TabStop = false;
             this.groupBox30.Text = "Info to export for spreadsheet";
@@ -2432,7 +2434,7 @@
             this.ClbExportSpreadsheetFields.FormattingEnabled = true;
             this.ClbExportSpreadsheetFields.Location = new System.Drawing.Point(36, 42);
             this.ClbExportSpreadsheetFields.Name = "ClbExportSpreadsheetFields";
-            this.ClbExportSpreadsheetFields.Size = new System.Drawing.Size(371, 199);
+            this.ClbExportSpreadsheetFields.Size = new System.Drawing.Size(371, 139);
             this.ClbExportSpreadsheetFields.TabIndex = 12;
             // 
             // GbImgCacheLocalAppData
@@ -2498,9 +2500,9 @@
             // 
             this.GbSpecies.Controls.Add(this.LbSpeciesSelectorCountLastUsed);
             this.GbSpecies.Controls.Add(this.NudSpeciesSelectorCountLastUsed);
-            this.GbSpecies.Location = new System.Drawing.Point(6, 460);
+            this.GbSpecies.Location = new System.Drawing.Point(329, 616);
             this.GbSpecies.Name = "GbSpecies";
-            this.GbSpecies.Size = new System.Drawing.Size(317, 43);
+            this.GbSpecies.Size = new System.Drawing.Size(413, 43);
             this.GbSpecies.TabIndex = 3;
             this.GbSpecies.TabStop = false;
             this.GbSpecies.Text = "Species Selection";
@@ -2517,7 +2519,7 @@
             // NudSpeciesSelectorCountLastUsed
             // 
             this.NudSpeciesSelectorCountLastUsed.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.NudSpeciesSelectorCountLastUsed.Location = new System.Drawing.Point(252, 19);
+            this.NudSpeciesSelectorCountLastUsed.Location = new System.Drawing.Point(350, 19);
             this.NudSpeciesSelectorCountLastUsed.Name = "NudSpeciesSelectorCountLastUsed";
             this.NudSpeciesSelectorCountLastUsed.NeutralNumber = new decimal(new int[] {
             0,
@@ -2693,7 +2695,7 @@
             this.groupBox9.Controls.Add(this.cbLibraryHighlightTopCreatures);
             this.groupBox9.Controls.Add(this.cbApplyGlobalSpeciesToLibrary);
             this.groupBox9.Controls.Add(this.cbCreatureColorsLibrary);
-            this.groupBox9.Location = new System.Drawing.Point(6, 509);
+            this.groupBox9.Location = new System.Drawing.Point(6, 490);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(317, 229);
             this.groupBox9.TabIndex = 4;
@@ -3675,6 +3677,16 @@
             this.groupBox21.TabStop = false;
             this.groupBox21.Text = "Auto naming on import";
             // 
+            // CbCopyNameToClipboardOnImport
+            // 
+            this.CbCopyNameToClipboardOnImport.AutoSize = true;
+            this.CbCopyNameToClipboardOnImport.Location = new System.Drawing.Point(6, 147);
+            this.CbCopyNameToClipboardOnImport.Name = "CbCopyNameToClipboardOnImport";
+            this.CbCopyNameToClipboardOnImport.Size = new System.Drawing.Size(218, 17);
+            this.CbCopyNameToClipboardOnImport.TabIndex = 5;
+            this.CbCopyNameToClipboardOnImport.Text = "Always copy name to clipboard on import";
+            this.CbCopyNameToClipboardOnImport.UseVisualStyleBackColor = true;
+            // 
             // CbApplyNamingPatternOnImportAlways
             // 
             this.CbApplyNamingPatternOnImportAlways.AutoSize = true;
@@ -3954,7 +3966,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3962,7 +3974,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3970,7 +3982,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3978,7 +3990,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -4795,15 +4807,15 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // CbCopyNameToClipboardOnImport
+            // CbSetMutationLevelsExtractor
             // 
-            this.CbCopyNameToClipboardOnImport.AutoSize = true;
-            this.CbCopyNameToClipboardOnImport.Location = new System.Drawing.Point(6, 147);
-            this.CbCopyNameToClipboardOnImport.Name = "CbCopyNameToClipboardOnImport";
-            this.CbCopyNameToClipboardOnImport.Size = new System.Drawing.Size(218, 17);
-            this.CbCopyNameToClipboardOnImport.TabIndex = 5;
-            this.CbCopyNameToClipboardOnImport.Text = "Always copy name to clipboard on import";
-            this.CbCopyNameToClipboardOnImport.UseVisualStyleBackColor = true;
+            this.CbSetMutationLevelsExtractor.AutoSize = true;
+            this.CbSetMutationLevelsExtractor.Location = new System.Drawing.Point(13, 42);
+            this.CbSetMutationLevelsExtractor.Name = "CbSetMutationLevelsExtractor";
+            this.CbSetMutationLevelsExtractor.Size = new System.Drawing.Size(309, 17);
+            this.CbSetMutationLevelsExtractor.TabIndex = 1;
+            this.CbSetMutationLevelsExtractor.Text = "Set mutation levels if they can be determined uniquely (ASA)";
+            this.CbSetMutationLevelsExtractor.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -5323,5 +5335,6 @@
         private uiControls.Nud nudOverlayInfoHeight;
         private uiControls.Nud nudOverlayInfoWidth;
         private System.Windows.Forms.CheckBox CbCopyNameToClipboardOnImport;
+        private System.Windows.Forms.CheckBox CbSetMutationLevelsExtractor;
     }
 }
