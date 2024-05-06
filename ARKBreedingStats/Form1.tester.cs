@@ -298,7 +298,6 @@ namespace ARKBreedingStats
             creatureInfoInputExtractor.SetArkId(c.ArkId, c.ArkIdImported);
             SetCreatureLevelsToExtractor(c);
             SetAllExtractorLevelsToStatus(StatIOStatus.Unique);
-            UpdateParentListInput(creatureInfoInputExtractor);
             creatureInfoInputExtractor.AlreadyExistingCreature = alreadyExistingCreature;
             UpdateStatusInfoOfExtractorCreature();
             UpdateAddToLibraryButtonAccordingToExtractorValidity(true);

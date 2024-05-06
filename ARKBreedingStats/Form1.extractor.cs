@@ -1077,7 +1077,6 @@ namespace ARKBreedingStats
             ExtractLevels(autoExtraction, highPrecisionValues, existingCreature: alreadyExistingCreature, possiblyMutagenApplied: cv.flags.HasFlag(CreatureFlags.MutagenApplied));
 
             UpdateMutationLevels(cv, alreadyExistingCreature);
-
             SetCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
             UpdateParentListInput(creatureInfoInputExtractor); // this function is only used for single-creature extractions, e.g. LastExport
             creatureInfoInputExtractor.AlreadyExistingCreature = alreadyExistingCreature;
@@ -1086,8 +1085,13 @@ namespace ARKBreedingStats
             return creatureExists;
         }
 
-        private void UpdateMutationLevels(CreatureValues cv, Creature alreadyExistingCreature)
+        /// <summary>
+        /// Tries to determine mutation levels, i.e. separate wild and mutation levels, depending on the ancestry information.
+        /// </summary>
+        /// <returns>True if mutation levels where adjusted, false if no levels were moved.</returns>
+        private bool UpdateMutationLevels(CreatureValues cv, Creature alreadyExistingCreature)
         {
+            bool mutationLevelsAdjusted = false;
             // Do we have enough information to assume the mutation counts are accurate
             bool AreMutationCountsAccurate(Creature creature)
             {
@@ -1116,6 +1120,7 @@ namespace ARKBreedingStats
                     {
                         _statIOs[s].LevelMut = mutationLevels;
                         _statIOs[s].LevelWild -= mutationLevels;
+                        mutationLevelsAdjusted = true;
                     }
                 }
             }
@@ -1212,6 +1217,7 @@ namespace ARKBreedingStats
                         statIo.LevelMut = levels.mutated;
                         statIo.Status = StatIOStatus.Neutral;
                     }
+                    mutationLevelsAdjusted = true;
                 }
                 else
                 {
@@ -1239,9 +1245,12 @@ namespace ARKBreedingStats
                             statIo.LevelMut = levels.mutated;
                             statIo.Status = StatIOStatus.Neutral;
                         }
+                        mutationLevelsAdjusted = true;
                     }
                 }
             }
+
+            return mutationLevelsAdjusted;
         }
 
         /// <summary>
@@ -1497,7 +1506,9 @@ namespace ARKBreedingStats
 
         private void ExtractorStatLevelChanged(StatIO _)
         {
-            radarChartExtractor.SetLevels(_statIOs.Select(s => s.LevelWild).ToArray(), _statIOs.Select(s => s.LevelMut).ToArray(), speciesSelector1.SelectedSpecies);
+            var cr = CreateCreatureFromExtractorOrTester(creatureInfoInputExtractor);
+            radarChartExtractor.SetLevels(cr.levelsWild, cr.levelsMutated, cr.Species);
+            creatureInfoInputExtractor.UpdateParentInheritances(cr);
         }
 
         #region OCR label sets
