@@ -124,6 +124,10 @@ namespace ARKBreedingStats
             PbColorRegion?.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(RegionColors, _selectedSpecies, regionColorChooser1.ColorRegionsUseds, 256, onlyImage: true, creatureSex: CreatureSex));
         }
 
+        /// <summary>
+        /// Update the creatures displayed on the inheritance control with possible stat inheritances and mutations.
+        /// </summary>
+        /// <param name="creature"></param>
         internal void UpdateParentInheritances(Creature creature)
         {
             if (ParentInheritance == null) return;
@@ -854,7 +858,7 @@ namespace ARKBreedingStats
             ClearColors();
             SetRegionColorsExisting();
             CreatureGuid = Guid.Empty;
-            SetArkId(0,false);
+            SetArkId(0, false);
             if (!keepGeneralInfo)
             {
                 textBoxOwner.Clear();

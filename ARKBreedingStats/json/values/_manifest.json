@@ -398,8 +398,8 @@
 			"mod": { "id": "919470289", "tag": "SSFlyer", "title": "SSFlyer" }
 		},
 		"ASA-values.json": {
-			"version": "38.690.452717",
-			"format": "1.15-asa",
+			"version": "38.690.452718",
+			"format": "1.16-mod-remap",
 			"mod": { "id": "ASA", "tag": "", "title": "Ark: Survival Ascended", "shortTitle": "ASA", "official": true }
 		},
 		"CrystalIsles-CrystalIsles.json": {

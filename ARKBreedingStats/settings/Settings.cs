@@ -284,6 +284,7 @@ namespace ARKBreedingStats.settings
             else radioButtonFahrenheit.Checked = true;
             cbIgnoreSexInBreedingPlan.Checked = Properties.Settings.Default.IgnoreSexInBreedingPlan;
             checkBoxDisplayHiddenStats.Checked = Properties.Settings.Default.DisplayHiddenStats;
+            CbSetMutationLevelsExtractor.Checked = Properties.Settings.Default.MoveMutationLevelsOnExtractionIfUnique;
             CbbAppDefaultFontName.Text = Properties.Settings.Default.DefaultFontName;
             nudDefaultFontSize.Value = (decimal)Properties.Settings.Default.DefaultFontSize;
 
@@ -568,6 +569,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.SpeechRecognition = chkbSpeechRecognition.Checked;
             Properties.Settings.Default.celsius = radioButtonCelsius.Checked;
             Properties.Settings.Default.DisplayHiddenStats = checkBoxDisplayHiddenStats.Checked;
+            Properties.Settings.Default.MoveMutationLevelsOnExtractionIfUnique = CbSetMutationLevelsExtractor.Checked;
             Properties.Settings.Default.DefaultFontName = CbbAppDefaultFontName.Text;
             Properties.Settings.Default.DefaultFontSize = (float)nudDefaultFontSize.Value;
 

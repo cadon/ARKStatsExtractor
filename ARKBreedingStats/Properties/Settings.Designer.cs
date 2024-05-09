@@ -2397,5 +2397,17 @@ namespace ARKBreedingStats.Properties {
                 this["CopyNameToClipboardOnImport"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool MoveMutationLevelsOnExtractionIfUnique {
+            get {
+                return ((bool)(this["MoveMutationLevelsOnExtractionIfUnique"]));
+            }
+            set {
+                this["MoveMutationLevelsOnExtractionIfUnique"] = value;
+            }
+        }
     }
 }

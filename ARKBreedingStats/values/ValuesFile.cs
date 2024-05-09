@@ -20,6 +20,7 @@ namespace ARKBreedingStats.values
                 || version == "1.13" // introduced remaps for blueprintPaths
                 || version == "1.14-flyerspeed" // introduced isFlyer property for AllowFlyerSpeedLeveling
                 || version == "1.15-asa" // for new properties in ARK: Survival Ascended
+                || version == "1.16-mod-remap" // support for blueprint remap for mod files
             );
 
         [JsonProperty]
@@ -52,7 +53,7 @@ namespace ARKBreedingStats.values
         /// This is needed if species are remapped ingame, e.g. if a variant is removed.
         /// </summary>
         [JsonProperty("remaps")]
-        protected Dictionary<string, string> _blueprintRemapping;
+        public Dictionary<string, string> BlueprintRemapping;
 
         /// <summary>
         /// If this represents values for a mod, the mod-infos are found here.

@@ -307,40 +307,166 @@ namespace ARKBreedingStats.Pedigree
             {
                 int si = PedigreeCreature.DisplayedStats[s];
                 if (offspring.valuesDom[si] <= 0) continue; // don't display arrows for non used stats
+
+                var levelMother = mother?.levelsWild[si] ?? -1;
+                var levelFather = father?.levelsWild[si] ?? -1;
+                var levelMotherMutated = mother?.levelsMutated?[si] ?? -1;
+                var levelFatherMutated = father?.levelsMutated?[si] ?? -1;
+                var levelOffspring = offspring.levelsWild[si];
+                var levelOffspringMutated = offspring.levelsMutated?[si] ?? -1;
+
                 int better = 0; // if father < mother: 1, if mother < father: -1
-                if (mother?.levelsWild != null && father?.levelsWild != null)
+                if (levelMother != -1 && levelFather != -1)
                 {
-                    if (mother.levelsWild[si] < father.levelsWild[si])
+                    if (levelMother < levelFather)
                         better = -1;
-                    else if (mother.levelsWild[si] > father.levelsWild[si])
+                    else if (levelMother > levelFather)
                         better = 1;
                 }
 
-                // offspring can have stats that are up to 2 levels higher due to mutations. currently there are no decreasing levels due to mutations
-                if (mother?.levelsWild != null && offspring.levelsWild[si] >= 0 &&
-                    (offspring.levelsWild[si] == mother.levelsWild[si] ||
-                     offspring.levelsWild[si] == mother.levelsWild[si] + 2))
+                // offspring can have stats that are 2, 4 or 6 levels higher due to mutations. currently there are no decreasing levels due to mutations
+                bool motherInheritancePossible = false;
+                bool fatherInheritancePossible = false;
+                bool motherInheritanceWithMutationPossible = false;
+                bool fatherInheritanceWithMutationPossible = false;
+
+                if (levelOffspringMutated == -1 || levelMotherMutated == -1 || levelFatherMutated == -1)
                 {
-                    lines[0].Add(new[]
+                    // ASE mutation mechanic, i.e. offspring has 0, 2, 4 or 6 levels more than one parent
+                    for (int m = 0; m <= Ark.MutationRolls; m++)
                     {
-                           PedigreeCreature.XOffsetFirstStat + x + PedigreeCreature.HorizontalStatDistance * s, y + 33,
-                           PedigreeCreature.XOffsetFirstStat + x + PedigreeCreature.HorizontalStatDistance * s, y + 42, (better == -1 ? 1 : 2),
-                            (offspring.levelsWild[si] > mother.levelsWild[si] ? 1 : 0)
-                        });
+                        if (levelOffspring == levelMother + Ark.LevelsAddedPerMutation * m)
+                        {
+                            motherInheritancePossible = true;
+                            if (m > 0)
+                                motherInheritanceWithMutationPossible = true;
+                        }
+                        if (levelOffspring == levelFather + Ark.LevelsAddedPerMutation * m)
+                        {
+                            fatherInheritancePossible = true;
+                            if (m > 0)
+                                fatherInheritanceWithMutationPossible = true;
+                        }
+                    }
+                }
+                else
+                {
+                    // ASA mutation mechanic, i.e. mutations are saved separately and inheritance combines higher wild and higher mutation level
+                    int higherWildLevel, lowerWildLevel, higherMutLevel, lowerMutLevel;
+                    LevelInheritedFrom higherWildLevelFrom = LevelInheritedFrom.None;
+                    LevelInheritedFrom higherMutationLevelFrom = LevelInheritedFrom.None;
+                    if (levelMother > levelFather)
+                    {
+                        higherWildLevel = levelMother;
+                        lowerWildLevel = levelFather;
+                        higherWildLevelFrom = LevelInheritedFrom.Mother;
+                    }
+                    else
+                    {
+                        higherWildLevel = levelFather;
+                        lowerWildLevel = levelMother;
+                        if (levelMother < levelFather)
+                            higherWildLevelFrom = LevelInheritedFrom.Father;
+                    }
+
+                    if (levelMotherMutated > levelFatherMutated)
+                    {
+                        higherMutLevel = levelMotherMutated;
+                        lowerMutLevel = levelFatherMutated;
+                        higherMutationLevelFrom = LevelInheritedFrom.Mother;
+                    }
+                    else
+                    {
+                        higherMutLevel = levelFatherMutated;
+                        lowerMutLevel = levelMotherMutated;
+                        if (levelMotherMutated < levelFatherMutated)
+                            higherMutationLevelFrom = LevelInheritedFrom.Father;
+                    }
+
+                    var higherInheritancePossible = false;
+                    var lowerInheritancePossible = false;
+                    var higherMutationInheritancePossible = false;
+                    var lowerMutationInheritancePossible = false;
+
+                    for (int m = 0; m <= Ark.MutationRolls; m++)
+                    {
+                        if (levelOffspring == higherWildLevel
+                            && levelOffspringMutated == higherMutLevel + Ark.LevelsAddedPerMutation * m)
+                        {
+                            higherInheritancePossible = true;
+                            if (m > 0)
+                                higherMutationInheritancePossible = true;
+                        }
+                        else if (levelOffspring == lowerWildLevel
+                                 && levelOffspringMutated == lowerMutLevel + Ark.LevelsAddedPerMutation * m)
+                        {
+                            lowerInheritancePossible = true;
+                            if (m > 0)
+                                lowerMutationInheritancePossible = true;
+                        }
+                    }
+
+                    if (higherInheritancePossible)
+                    {
+                        if (higherWildLevelFrom != LevelInheritedFrom.Father)
+                            motherInheritancePossible = true;
+                        if (higherWildLevelFrom != LevelInheritedFrom.Mother)
+                            fatherInheritancePossible = true;
+                        if (higherMutationInheritancePossible)
+                        {
+                            if (higherMutationLevelFrom != LevelInheritedFrom.Father)
+                                motherInheritanceWithMutationPossible = true;
+                            if (higherMutationLevelFrom != LevelInheritedFrom.Mother)
+                                fatherInheritanceWithMutationPossible = true;
+                        }
+                    }
+
+                    if (lowerInheritancePossible)
+                    {
+                        if (higherWildLevelFrom == LevelInheritedFrom.Father)
+                            motherInheritancePossible = true;
+                        if (higherWildLevelFrom == LevelInheritedFrom.Mother)
+                            fatherInheritancePossible = true;
+                        if (lowerMutationInheritancePossible)
+                        {
+                            if (higherMutationLevelFrom == LevelInheritedFrom.Father)
+                                motherInheritanceWithMutationPossible = true;
+                            if (higherMutationLevelFrom == LevelInheritedFrom.Mother)
+                                fatherInheritanceWithMutationPossible = true;
+                        }
+                    }
                 }
 
-                if (father?.levelsWild != null && offspring.levelsWild[si] >= 0 &&
-                    (offspring.levelsWild[si] == father.levelsWild[si] ||
-                     offspring.levelsWild[si] == father.levelsWild[si] + 2))
+                if (motherInheritancePossible)
                 {
                     lines[0].Add(new[]
                     {
-                           PedigreeCreature.XOffsetFirstStat + x +PedigreeCreature.HorizontalStatDistance * s, y + 83,
-                           PedigreeCreature.XOffsetFirstStat + x +PedigreeCreature.HorizontalStatDistance * s, y + 74, (better == 1 ? 1 : 2),
-                            (offspring.levelsWild[si] > father.levelsWild[si] ? 1 : 0)
-                        });
+                        PedigreeCreature.XOffsetFirstStat + x + PedigreeCreature.HorizontalStatDistance * s, y + 33,
+                        PedigreeCreature.XOffsetFirstStat + x + PedigreeCreature.HorizontalStatDistance * s, y + 42, better == -1 ? 1 : 2,
+                        motherInheritanceWithMutationPossible ? 1 : 0
+                    });
+                }
+
+                if (fatherInheritancePossible)
+                {
+                    lines[0].Add(new[]
+                    {
+                        PedigreeCreature.XOffsetFirstStat + x +PedigreeCreature.HorizontalStatDistance * s, y + 83,
+                        PedigreeCreature.XOffsetFirstStat + x +PedigreeCreature.HorizontalStatDistance * s, y + 74, better == 1 ? 1 : 2,
+                        fatherInheritanceWithMutationPossible ? 1 : 0
+                    });
                 }
             }
+        }
+
+        /// <summary>
+        /// Indicates from which parent the level was inherited.
+        /// </summary>
+        private enum LevelInheritedFrom
+        {
+            None,
+            Mother,
+            Father
         }
 
         #endregion

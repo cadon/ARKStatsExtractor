@@ -602,5 +602,8 @@
     <Setting Name="CopyNameToClipboardOnImport" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="MoveMutationLevelsOnExtractionIfUnique" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
