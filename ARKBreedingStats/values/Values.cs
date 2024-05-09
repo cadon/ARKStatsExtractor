@@ -254,6 +254,14 @@ namespace ARKBreedingStats.values
                 }
 
                 // mod food data TODO
+
+                // add blueprint remaps of mod file
+                if (modValues.BlueprintRemapping != null && modValues.BlueprintRemapping.Count > 0)
+                {
+                    if (BlueprintRemapping == null) BlueprintRemapping = new Dictionary<string, string>();
+                    foreach (var kv in modValues.BlueprintRemapping)
+                        BlueprintRemapping[kv.Key] = kv.Value;
+                }
             }
 
             loadedModsHash = CreatureCollection.CalculateModListHash(loadedMods.Where(m => !m.expansion));
@@ -764,7 +772,7 @@ namespace ARKBreedingStats.values
         public Species SpeciesByBlueprint(string blueprintPath)
         {
             if (string.IsNullOrEmpty(blueprintPath)) return null;
-            if (_blueprintRemapping != null && _blueprintRemapping.TryGetValue(blueprintPath, out var realBlueprintPath))
+            if (BlueprintRemapping != null && BlueprintRemapping.TryGetValue(blueprintPath, out var realBlueprintPath))
             {
                 blueprintPath = realBlueprintPath;
             }
