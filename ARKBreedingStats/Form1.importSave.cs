@@ -107,6 +107,7 @@ namespace ARKBreedingStats
                     switch (uri.Scheme)
                     {
                         case "ftp":
+                        case "ftps":
                             string errorMessage;
                             (workingCopyFilePath, errorMessage) = await CopyFtpFileAsync(uri, uriFileRegex, convenientName ?? serverName ?? fileLocation,
                                workingCopyFolderPath);
@@ -202,8 +203,12 @@ namespace ARKBreedingStats
                         }
                     }
                     var client = new AsyncFtpClient(ftpUri.Host, credentials.Username, credentials.Password, ftpUri.Port);
-                    client.Config.EncryptionMode = FtpEncryptionMode.Auto;
-                    client.Config.ValidateAnyCertificate = true;
+                    if (ftpUri.Scheme == "ftps")
+                    {
+                        client.Config.EncryptionMode = FtpEncryptionMode.Auto;
+                        client.Config.ValidateAnyCertificate = true;
+                    }
+
                     string ftpPath = null;
 
                     try
