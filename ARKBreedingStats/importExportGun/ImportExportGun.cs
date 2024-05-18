@@ -122,13 +122,13 @@ namespace ARKBreedingStats.importExportGun
 
             var arkId = Utils.ConvertArkIdsToLongArkId(ec.DinoId1Int, ec.DinoId2Int);
 
+            // wild creatures have a TE of 100 %, so don't use that here
             var isWild = string.IsNullOrEmpty(ec.DinoName)
                          && string.IsNullOrEmpty(ec.TribeName)
                          && string.IsNullOrEmpty(ec.TamerString)
                          && string.IsNullOrEmpty(ec.OwningPlayerName)
                          && string.IsNullOrEmpty(ec.ImprinterName)
                          && ec.OwningPlayerID == 0
-                         && ec.TameEffectiveness == 0
                          ;
 
             var isBred = !string.IsNullOrEmpty(ec.ImprinterName)
