@@ -606,13 +606,14 @@ namespace ARKBreedingStats.multiplierTesting
                         string lastError = null;
                         string serverMultipliersHash = null;
                         Creature creature = null;
+                        double[] statValues = null;
                         if (!creatureImported)
-                            creature = ImportExportGun.LoadCreature(filePath, out lastError, out serverMultipliersHash, true);
+                            creature = ImportExportGun.LoadCreature(filePath, out lastError, out serverMultipliersHash, out statValues, true);
                         if (creature != null)
                         {
-                            creatureImported = true;
-                            SetCreatureValuesAndLevels(creature);
+                            SetCreatureValuesAndLevels(creature, statValues);
                             results.Add($"imported creature values and levels from {filePath}{(string.IsNullOrEmpty(lastError) ? string.Empty : $". {lastError}")}");
+                            creatureImported = true;
                         }
                         else if (lastError != null)
                         {
@@ -648,15 +649,15 @@ namespace ARKBreedingStats.multiplierTesting
             SetCreatureValues(cv.statValues, null, null, cv.level, (cv.tamingEffMax - cv.tamingEffMin) / 2, cv.imprintingBonus, cv.isTamed, cv.isBred, cv.Species);
         }
 
-        private void SetCreatureValuesAndLevels(Creature cr)
+        private void SetCreatureValuesAndLevels(Creature cr, double[] statValues = null)
         {
-            var levelsWildAndMutated = cr.levelsWild;
+            var levelsWildAndMutated = cr.levelsWild.ToArray();
             if (cr.levelsMutated != null)
             {
                 for (int si = 0; si < Stats.StatsCount; si++)
                     levelsWildAndMutated[si] = cr.levelsWild[si] + cr.levelsMutated[si];
             }
-            SetCreatureValues(cr.valuesDom, levelsWildAndMutated, cr.levelsDom, cr.Level, cr.tamingEff, cr.imprintingBonus, cr.isDomesticated, cr.isBred, cr.Species);
+            SetCreatureValues(statValues ?? cr.valuesDom, levelsWildAndMutated, cr.levelsDom, cr.Level, cr.tamingEff, cr.imprintingBonus, cr.isDomesticated, cr.isBred, cr.Species);
         }
 
         private void SetServerMultipliers(ExportGunServerFile esm)

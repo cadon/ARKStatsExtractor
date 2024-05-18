@@ -158,11 +158,11 @@ namespace ARKBreedingStats.values
             {
                 foreach (Species sp in _V.species)
                 {
-                    if (specialFoodData.ContainsKey(sp.name))
+                    if (sp.taming != null && specialFoodData.TryGetValue(sp.name, out var customFoodData))
                     {
-                        sp.taming.eats = specialFoodData[sp.name].eats;
-                        sp.taming.eatsAlsoPostTame = specialFoodData[sp.name].eatsAlsoPostTame;
-                        sp.taming.specialFoodValues = specialFoodData[sp.name].specialFoodValues;
+                        sp.taming.eats = customFoodData.eats;
+                        sp.taming.eatsAlsoPostTame = customFoodData.eatsAlsoPostTame;
+                        sp.taming.specialFoodValues = customFoodData.specialFoodValues;
                     }
                     //if (sp.IsDomesticable && !specialFoodData.ContainsKey(sp.name)) speciesWoFoodData.Add(sp.name);
                 }

@@ -111,7 +111,7 @@ namespace ARKBreedingStats
             if (string.IsNullOrEmpty(data.ServerHash))
             {
                 // import creature
-                var creature = ImportExportGun.LoadCreatureFromJson(data.JsonText, null, out resultText, out _);
+                var creature = ImportExportGun.LoadCreatureFromJson(data.JsonText, null, out resultText, out _, out _);
                 if (creature == null)
                 {
                     SetMessageLabelText(resultText, MessageBoxIcon.Error);
