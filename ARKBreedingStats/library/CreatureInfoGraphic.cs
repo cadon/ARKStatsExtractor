@@ -197,7 +197,7 @@ namespace ARKBreedingStats.library
                         }
                         else
                         {
-                            if (Utils.Precision(statIndex) == 3)
+                            if (Stats.IsPercentage(statIndex))
                             {
                                 statValueRepresentation = (100 * displayedValue).ToString("0.0");
                                 g.DrawString("%", font, fontBrush, xRightBrValue, y);
@@ -332,7 +332,7 @@ namespace ARKBreedingStats.library
             int max = 0;
             for (int si = 0; si < Stats.StatsCount; si++)
             {
-                int l = values[si].ToString("0").Length + Utils.Precision(si);
+                int l = values[si].ToString("0").Length + Stats.Precision(si);
                 if (l > max) max = l;
             }
             return max;

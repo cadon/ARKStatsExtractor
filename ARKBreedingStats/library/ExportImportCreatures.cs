@@ -240,8 +240,8 @@ namespace ARKBreedingStats.library
                 if (c.levelsWild[si] >= 0 &&
                     c.valuesBreeding[si] > 0) // ignore unknown levels (e.g. oxygen, speed for some species)
                     output.Append(Utils.StatName(si, true, secondaryLanguage: secondaryLanguage) + ": " +
-                                  (breeding ? c.valuesBreeding[si] : c.valuesDom[si]) * (Utils.Precision(si) == 3 ? 100 : 1) +
-                                  (Utils.Precision(si) == 3 ? " %" : string.Empty) +
+                                  (breeding ? c.valuesBreeding[si] : c.valuesDom[si]) * (Stats.IsPercentage(si) ? 100 : 1) +
+                                  (Stats.IsPercentage(si) ? " %" : string.Empty) +
                                   " (" + (ARKml
                                       ? Utils.GetARKmlFromPercent(c.levelsWild[si].ToString(),
                                           (int)(c.levelsWild[si] *

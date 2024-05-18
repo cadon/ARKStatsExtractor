@@ -30,7 +30,7 @@ namespace ARKBreedingStats.uiControls
             for (int s = 0; s < displayedStatsCount; s++)
             {
                 int si = displayedStats[s];
-                StatDisplay sd = new StatDisplay(si, Utils.Precision(si) == 3);
+                StatDisplay sd = new StatDisplay(si, Stats.IsPercentage(si));
                 stats[s] = sd;
 
                 sd.Location = new System.Drawing.Point(3, 19 + s * 22);

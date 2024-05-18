@@ -232,5 +232,25 @@ namespace ARKBreedingStats
             false, //TemperatureFortitude,
             false, //CraftingSpeedMultiplier
         };
+
+        /// <summary>
+        /// Returns if the stat is a percentage value.
+        /// </summary>
+        public static bool IsPercentage(int statIndex)
+        {
+            return statIndex == MeleeDamageMultiplier
+                   || statIndex == SpeedMultiplier
+                   || statIndex == TemperatureFortitude
+                   || statIndex == CraftingSpeedMultiplier;
+        }
+
+        /// <summary>
+        /// Returns the displayed decimal values of the stat with the given index
+        /// </summary>
+        public static int Precision(int statIndex)
+        {
+            // damage and speed are percentage values and thus the displayed values have a higher precision
+            return IsPercentage(statIndex) ? 3 : 1;
+        }
     }
 }

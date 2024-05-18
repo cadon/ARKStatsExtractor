@@ -35,7 +35,7 @@ namespace ARKBreedingStats.multiplierTesting
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 var sc = new StatMultiplierTestingControl();
-                if (Utils.Precision(s) == 3)
+                if (Stats.IsPercentage(s))
                     sc.Percent = true;
                 sc.OnLevelChanged += Sc_OnLevelChanged;
                 sc.OnTECalculated += SetTE;

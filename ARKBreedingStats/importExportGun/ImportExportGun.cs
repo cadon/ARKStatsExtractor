@@ -116,7 +116,7 @@ namespace ARKBreedingStats.importExportGun
                 wildLevels[si] = s.Wild;
                 domLevels[si] = s.Tamed;
                 mutLevels[si] = s.Mutated;
-                statValues[si] = s.Value;
+                statValues[si] = s.Value + (Stats.IsPercentage(si) ? 1 : 0);
                 si++;
             }
 

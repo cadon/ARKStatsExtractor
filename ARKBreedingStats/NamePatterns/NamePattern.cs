@@ -355,7 +355,7 @@ namespace ARKBreedingStats.NamePatterns
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 dict.Add(StatAbbreviationFromIndex[s], creature.levelsWild[s].ToString());
-                dict.Add($"{StatAbbreviationFromIndex[s]}_vb", (creature.valuesBreeding[s] * (Utils.Precision(s) == 3 ? 100 : 1)).ToString());
+                dict.Add($"{StatAbbreviationFromIndex[s]}_vb", (creature.valuesBreeding[s] * (Stats.IsPercentage(s) ? 100 : 1)).ToString());
                 dict.Add($"istop{StatAbbreviationFromIndex[s]}", speciesTopLevels == null ? (creature.levelsWild[s] > 0 ? "1" : string.Empty) :
                     creature.levelsWild[s] >= speciesTopLevels[s] ? "1" : string.Empty);
                 dict.Add($"isnewtop{StatAbbreviationFromIndex[s]}", speciesTopLevels == null ? (creature.levelsWild[s] > 0 ? "1" : string.Empty) :

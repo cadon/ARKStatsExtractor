@@ -214,7 +214,7 @@ namespace ARKBreedingStats
                     statIndex = s
                 };
 
-                if (Utils.Precision(s) == 3)
+                if (Stats.IsPercentage(s))
                 {
                     statIo.Percent = true;
                     statIoTesting.Percent = true;

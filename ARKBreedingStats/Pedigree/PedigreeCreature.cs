@@ -208,8 +208,8 @@ namespace ARKBreedingStats.Pedigree
                         _labels[s].BackColor = Color.WhiteSmoke;
                         _labels[s].ForeColor = Color.LightGray;
                         _ttMonospaced.SetToolTip(_labels[s], Utils.StatName(si, false, _creature.Species?.statNames) + ": "
-                            + $"{_creature.valuesBreeding[si] * (Utils.Precision(si) == 3 ? 100 : 1),7:#,0.0}"
-                            + (Utils.Precision(si) == 3 ? "%" : string.Empty));
+                            + $"{_creature.valuesBreeding[si] * (Stats.IsPercentage(si) ? 100 : 1),7:#,0.0}"
+                            + (Stats.IsPercentage(si) ? "%" : string.Empty));
                     }
                     else
                     {
@@ -234,8 +234,8 @@ namespace ARKBreedingStats.Pedigree
                             _labels[s].BackColor = Utils.GetColorFromPercent((int)(_creature.levelsWild[si] * 2.5), _creature.IsTopStat(si) ? 0.2 : 0.7);
                         _labels[s].ForeColor = Parent?.ForeColor ?? Color.Black; // needed so text is not transparent on overlay
                         _ttMonospaced.SetToolTip(_labels[s], Utils.StatName(si, false, _creature.Species?.statNames) + ": "
-                            + $"{_creature.valuesBreeding[si] * (Utils.Precision(si) == 3 ? 100 : 1),7:#,0.0}"
-                            + (Utils.Precision(si) == 3 ? "%" : string.Empty)
+                            + $"{_creature.valuesBreeding[si] * (Stats.IsPercentage(si) ? 100 : 1),7:#,0.0}"
+                            + (Stats.IsPercentage(si) ? "%" : string.Empty)
                             + (_creature.levelsMutated == null ? string.Empty
                                 : Environment.NewLine + Loc.S("Mutations") + ": " + _creature.levelsMutated[si]
                                 ));
