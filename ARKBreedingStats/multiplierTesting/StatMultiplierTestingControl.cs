@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Input;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.multiplierTesting
 {
@@ -857,6 +858,65 @@ namespace ARKBreedingStats.multiplierTesting
             updateValues = true;
             if (doUpdate)
                 UpdateCalculations(true);
+        }
+
+        #region Ta-Tm-solver
+        private TaTmSolver _taTmSolver = null;
+
+        private void BtStoreTaTm_Click(object sender, EventArgs e)
+        {
+            if (_taTmSolver == null) _taTmSolver = new TaTmSolver();
+            _taTmSolver.SetFirstEquation(nudStatValue.ValueDouble * (_percent ? 0.01 : 1), nudB.ValueDouble, nudLw.ValueDouble, nudIw.ValueDouble,
+                nudIwM.ValueDouble, nudTBHM.ValueDouble, _IB, _sIBM, _IBM, _TE, nudLd.ValueDouble, nudId.ValueDouble, nudIdM.ValueDouble);
+        }
+
+        #endregion
+
+        private void BtSolveTaMTmM_Click(object sender, EventArgs e)
+        {
+            SolveTaMTmM(true);
+        }
+
+        private void BtSolveTaTm_Click(object sender, EventArgs e)
+        {
+            SolveTaMTmM(false);
+        }
+
+        /// <summary>
+        /// Solve a = Ta * TaM and b = Tm * TmM with two equations.
+        /// </summary>
+        /// <param name="serverValues">If true it solves for TaM and TmM, if false it solves for Ta and Tm</param>
+        private void SolveTaMTmM(bool serverValues)
+        {
+            if (_taTmSolver == null)
+            {
+                MessageBoxes.ShowMessageBox("Set first equation first");
+                return;
+            }
+
+            var errorText = _taTmSolver.CalculateTaTm(nudStatValue.ValueDouble * (_percent ? 0.01 : 1), nudB.ValueDouble, nudLw.ValueDouble, nudIw.ValueDouble,
+                nudIwM.ValueDouble, nudTBHM.ValueDouble, _IB, _sIBM, _IBM, _TE, nudLd.ValueDouble, nudId.ValueDouble,
+                nudIdM.ValueDouble, out var taTaM, out var tmTmM);
+            if (!string.IsNullOrEmpty(errorText))
+            {
+                MessageBoxes.ShowMessageBox(errorText);
+                return;
+            }
+
+            if (serverValues)
+            {
+                if (nudTa.ValueDouble != 0)
+                    nudTaM.ValueSaveDouble = Math.Round(taTaM / nudTa.ValueDouble, 6);
+                if (nudTm.ValueDouble != 0)
+                    nudTmM.ValueSaveDouble = Math.Round(tmTmM / nudTm.ValueDouble, 6);
+            }
+            else
+            {
+                if (nudTaM.ValueDouble != 0)
+                    nudTa.ValueSaveDouble = Math.Round(taTaM / nudTaM.ValueDouble, 6);
+                if (nudTmM.ValueDouble != 0)
+                    nudTm.ValueSaveDouble = Math.Round(tmTmM / nudTmM.ValueDouble, 6);
+            }
         }
     }
 }

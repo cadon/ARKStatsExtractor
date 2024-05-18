@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StatsMultiplierTesting));
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.BtResetSpeciesValues = new System.Windows.Forms.Button();
@@ -47,8 +48,11 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.LbCalculatedWildLevel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.nudTE = new ARKBreedingStats.uiControls.Nud();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.nudIBM = new ARKBreedingStats.uiControls.Nud();
+            this.nudIB = new ARKBreedingStats.uiControls.Nud();
             this.gbFineAdjustment = new System.Windows.Forms.GroupBox();
             this.tbFineAdjustments = new System.Windows.Forms.TrackBar();
             this.lBDummyEmptyFlowBreak = new System.Windows.Forms.Label();
@@ -70,6 +74,7 @@
             this.lbLevelSumDom = new System.Windows.Forms.Label();
             this.lbLevelSumWild = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
+            this.nudCreatureLevel = new ARKBreedingStats.uiControls.Nud();
             this.LbAbbreviations = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.statMultipliersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,25 +93,21 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.setAllWildLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.nudTE = new ARKBreedingStats.uiControls.Nud();
-            this.nudIBM = new ARKBreedingStats.uiControls.Nud();
-            this.nudIB = new ARKBreedingStats.uiControls.Nud();
-            this.nudCreatureLevel = new ARKBreedingStats.uiControls.Nud();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTE)).BeginInit();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudIBM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudIB)).BeginInit();
             this.gbFineAdjustment.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbFineAdjustments)).BeginInit();
             this.panel1.SuspendLayout();
             this.gbLevel.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTE)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudIBM)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudIB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCreatureLevel)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -331,6 +332,21 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "%";
             // 
+            // nudTE
+            // 
+            this.nudTE.DecimalPlaces = 3;
+            this.nudTE.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudTE.Location = new System.Drawing.Point(6, 19);
+            this.nudTE.Name = "nudTE";
+            this.nudTE.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudTE.Size = new System.Drawing.Size(71, 20);
+            this.nudTE.TabIndex = 1;
+            this.nudTE.ValueChanged += new System.EventHandler(this.nudTE_ValueChanged);
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.label2);
@@ -351,6 +367,51 @@
             this.label2.Size = new System.Drawing.Size(37, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "% IBM";
+            // 
+            // nudIBM
+            // 
+            this.nudIBM.DecimalPlaces = 4;
+            this.nudIBM.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.nudIBM.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.nudIBM.Location = new System.Drawing.Point(135, 19);
+            this.nudIBM.Name = "nudIBM";
+            this.nudIBM.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudIBM.Size = new System.Drawing.Size(71, 20);
+            this.nudIBM.TabIndex = 2;
+            this.nudIBM.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudIBM.ValueChanged += new System.EventHandler(this.nudIBM_ValueChanged);
+            // 
+            // nudIB
+            // 
+            this.nudIB.DecimalPlaces = 6;
+            this.nudIB.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudIB.Location = new System.Drawing.Point(6, 19);
+            this.nudIB.Maximum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            this.nudIB.Name = "nudIB";
+            this.nudIB.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudIB.Size = new System.Drawing.Size(80, 20);
+            this.nudIB.TabIndex = 1;
+            this.nudIB.ValueChanged += new System.EventHandler(this.nudIB_ValueChanged);
             // 
             // gbFineAdjustment
             // 
@@ -574,16 +635,33 @@
             this.label16.TabIndex = 14;
             this.label16.Text = "Creature-Level";
             // 
+            // nudCreatureLevel
+            // 
+            this.nudCreatureLevel.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudCreatureLevel.Location = new System.Drawing.Point(87, 19);
+            this.nudCreatureLevel.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.nudCreatureLevel.Name = "nudCreatureLevel";
+            this.nudCreatureLevel.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudCreatureLevel.Size = new System.Drawing.Size(107, 20);
+            this.nudCreatureLevel.TabIndex = 13;
+            this.nudCreatureLevel.ValueChanged += new System.EventHandler(this.nudCreatureLevel_ValueChanged);
+            // 
             // LbAbbreviations
             // 
             this.LbAbbreviations.AutoSize = true;
             this.LbAbbreviations.Location = new System.Drawing.Point(209, 188);
             this.LbAbbreviations.Name = "LbAbbreviations";
-            this.LbAbbreviations.Size = new System.Drawing.Size(780, 13);
+            this.LbAbbreviations.Size = new System.Drawing.Size(780, 39);
             this.LbAbbreviations.TabIndex = 13;
-            this.LbAbbreviations.Text = "C: Calculate best value; R: Reset value (hold Ctrl to reset to game default); TE:" +
-    " Taming Effectivenes; IB: Imprinting Bonus; IBM: ~Multiplier; Trod: Troodonism-v" +
-    "ariant";
+            this.LbAbbreviations.Text = resources.GetString("LbAbbreviations.Text");
             // 
             // menuStrip1
             // 
@@ -718,85 +796,6 @@
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Text = "Set all Dom levels to the closest value";
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Click += new System.EventHandler(this.setAllDomLevelsToTheClosestValueToolStripMenuItem_Click);
             // 
-            // nudTE
-            // 
-            this.nudTE.DecimalPlaces = 3;
-            this.nudTE.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudTE.Location = new System.Drawing.Point(6, 19);
-            this.nudTE.Name = "nudTE";
-            this.nudTE.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudTE.Size = new System.Drawing.Size(71, 20);
-            this.nudTE.TabIndex = 1;
-            this.nudTE.ValueChanged += new System.EventHandler(this.nudTE_ValueChanged);
-            // 
-            // nudIBM
-            // 
-            this.nudIBM.DecimalPlaces = 4;
-            this.nudIBM.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.nudIBM.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.nudIBM.Location = new System.Drawing.Point(135, 19);
-            this.nudIBM.Name = "nudIBM";
-            this.nudIBM.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudIBM.Size = new System.Drawing.Size(71, 20);
-            this.nudIBM.TabIndex = 2;
-            this.nudIBM.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudIBM.ValueChanged += new System.EventHandler(this.nudIBM_ValueChanged);
-            // 
-            // nudIB
-            // 
-            this.nudIB.DecimalPlaces = 6;
-            this.nudIB.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudIB.Location = new System.Drawing.Point(6, 19);
-            this.nudIB.Maximum = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
-            this.nudIB.Name = "nudIB";
-            this.nudIB.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudIB.Size = new System.Drawing.Size(80, 20);
-            this.nudIB.TabIndex = 1;
-            this.nudIB.ValueChanged += new System.EventHandler(this.nudIB_ValueChanged);
-            // 
-            // nudCreatureLevel
-            // 
-            this.nudCreatureLevel.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudCreatureLevel.Location = new System.Drawing.Point(87, 19);
-            this.nudCreatureLevel.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.nudCreatureLevel.Name = "nudCreatureLevel";
-            this.nudCreatureLevel.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudCreatureLevel.Size = new System.Drawing.Size(107, 20);
-            this.nudCreatureLevel.TabIndex = 13;
-            this.nudCreatureLevel.ValueChanged += new System.EventHandler(this.nudCreatureLevel_ValueChanged);
-            // 
             // StatsMultiplierTesting
             // 
             this.AllowDrop = true;
@@ -818,19 +817,19 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTE)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudIBM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudIB)).EndInit();
             this.gbFineAdjustment.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tbFineAdjustments)).EndInit();
             this.panel1.ResumeLayout(false);
             this.gbLevel.ResumeLayout(false);
             this.gbLevel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCreatureLevel)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTE)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudIBM)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudIB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCreatureLevel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

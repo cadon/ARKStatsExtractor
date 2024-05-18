@@ -153,10 +153,11 @@ namespace ARKBreedingStats.multiplierTesting
 
         private void nudTE_ValueChanged(object sender, EventArgs e)
         {
+            var te = (double)nudTE.Value / 100;
             for (int s = 0; s < Stats.StatsCount; s++)
-                _statControls[s].TE = (double)nudTE.Value / 100;
+                _statControls[s].TE = te;
             if (rbTamed.Checked)
-                LbCalculatedWildLevel.Text = $"LW: {Creature.CalculatePreTameWildLevel(_statControls[Stats.Torpidity].LevelWild + 1, (double)nudTE.Value / 100)}";
+                LbCalculatedWildLevel.Text = $"LW: {Creature.CalculatePreTameWildLevel(_statControls[Stats.Torpidity].LevelWild + 1, te)}";
         }
 
         private void nudIB_ValueChanged(object sender, EventArgs e)
