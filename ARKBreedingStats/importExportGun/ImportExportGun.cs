@@ -128,6 +128,7 @@ namespace ARKBreedingStats.importExportGun
                          && string.IsNullOrEmpty(ec.OwningPlayerName)
                          && string.IsNullOrEmpty(ec.ImprinterName)
                          && ec.OwningPlayerID == 0
+                         && ec.TameEffectiveness == 0
                          ;
 
             var isBred = !string.IsNullOrEmpty(ec.ImprinterName)
