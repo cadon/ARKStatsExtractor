@@ -16,10 +16,12 @@ namespace ARKBreedingStats.importExportGun
         /// <summary>
         /// Load creature from file created with the export gun (mod).
         /// Supports .sav files (ASE) and .json files (ASA).
+        /// The out parameter statValues contains the stat values of the export file.
         /// </summary>
-        public static Creature LoadCreature(string filePath, out string resultText, out string serverMultipliersHash, bool allowUnknownSpecies = false)
+        public static Creature LoadCreature(string filePath, out string resultText, out string serverMultipliersHash, out double[] statValues, bool allowUnknownSpecies = false)
         {
             resultText = null;
+            statValues = null;
             serverMultipliersHash = null;
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
                 return null;
@@ -42,7 +44,7 @@ namespace ARKBreedingStats.importExportGun
                             break;
                     }
 
-                    var creature = LoadCreatureFromJson(jsonText, resultText, out resultText, out serverMultipliersHash, filePath, allowUnknownSpecies);
+                    var creature = LoadCreatureFromJson(jsonText, resultText, out resultText, out serverMultipliersHash, out statValues, filePath, allowUnknownSpecies);
                     if (creature == null) return null;
                     creature.domesticatedAt = File.GetLastWriteTime(filePath);
                     return creature;
@@ -62,9 +64,10 @@ namespace ARKBreedingStats.importExportGun
             return null;
         }
 
-        public static Creature LoadCreatureFromJson(string jsonText, string resultSoFar, out string resultText, out string serverMultipliersHash, string filePath = null, bool allowUnknownSpecies = false)
+        public static Creature LoadCreatureFromJson(string jsonText, string resultSoFar, out string resultText, out string serverMultipliersHash, out double[] statValues, string filePath = null, bool allowUnknownSpecies = false)
         {
             resultText = resultSoFar;
+            statValues = null;
             serverMultipliersHash = null;
             if (string.IsNullOrEmpty(jsonText))
             {
@@ -86,18 +89,19 @@ namespace ARKBreedingStats.importExportGun
 
             serverMultipliersHash = exportedCreature.ServerMultipliersHash;
 
-            return ConvertExportGunToCreature(exportedCreature, out resultText, allowUnknownSpecies);
+            return ConvertExportGunToCreature(exportedCreature, out resultText, out statValues, allowUnknownSpecies);
         }
 
-        private static Creature ConvertExportGunToCreature(ExportGunCreatureFile ec, out string error, bool allowUnknownSpecies = false)
+        private static Creature ConvertExportGunToCreature(ExportGunCreatureFile ec, out string error, out double[] statValues, bool allowUnknownSpecies = false)
         {
             error = null;
+            statValues = null;
             if (ec == null) return null;
 
             var species = Values.V.SpeciesByBlueprint(ec.BlueprintPath, true);
             if (species == null)
             {
-                error = $"blueprintpath {ec.BlueprintPath} couldn't be found, maybe you need to load a mod values file.";
+                error = $"Unknown species. The blueprintpath {ec.BlueprintPath} couldn't be found, maybe you need to load a mod values file.";
                 if (!allowUnknownSpecies)
                     return null;
             }
@@ -105,12 +109,14 @@ namespace ARKBreedingStats.importExportGun
             var wildLevels = new int[Stats.StatsCount];
             var domLevels = new int[Stats.StatsCount];
             var mutLevels = new int[Stats.StatsCount];
+            statValues = new double[Stats.StatsCount];
             var si = 0;
             foreach (var s in ec.Stats)
             {
                 wildLevels[si] = s.Wild;
                 domLevels[si] = s.Tamed;
                 mutLevels[si] = s.Mutated;
+                statValues[si] = s.Value;
                 si++;
             }
 

@@ -842,7 +842,7 @@ namespace ARKBreedingStats
 
             foreach (var filePath in filePaths)
             {
-                var c = ImportExportGun.LoadCreature(filePath, out lastError, out serverMultipliersHash);
+                var c = ImportExportGun.LoadCreature(filePath, out lastError, out serverMultipliersHash, out _);
                 if (c != null)
                 {
                     newCreatures.Add(c);
