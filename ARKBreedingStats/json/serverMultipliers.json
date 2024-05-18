@@ -82,6 +82,22 @@
       "MatingIntervalMultiplier": 0.5,
       "EggHatchSpeedMultiplier": 2,
       "BabyMatureSpeedMultiplier": 2
+    },
+	"all 1": {
+      "statMultipliers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
     }
   }
 }
