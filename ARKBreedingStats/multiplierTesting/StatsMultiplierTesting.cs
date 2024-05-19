@@ -10,6 +10,7 @@ using System.IO;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
 using System.Linq;
+using System.Text;
 using ARKBreedingStats.importExportGun;
 
 namespace ARKBreedingStats.multiplierTesting
@@ -374,7 +375,7 @@ namespace ARKBreedingStats.multiplierTesting
                 if (s != Stats.Torpidity)
                     error = !_statControls[s].CalculateIwM() || error;
             }
-            if (error) MessageBox.Show("For some stats the IwM couldn't be calculated, because of a Divide by Zero-error, e.g. Lw and Iw needs to be >0.");
+            if (error) SetMessageLabelText?.Invoke("For some stats the IwM couldn't be calculated, because of a Divide by Zero-error, e.g. Lw and Iw needs to be >0.", MessageBoxIcon.Error);
         }
 
         private void idMToolStripMenuItem_Click(object sender, EventArgs e)
@@ -385,7 +386,7 @@ namespace ARKBreedingStats.multiplierTesting
                 if (s != Stats.Torpidity)
                     error = !_statControls[s].CalculateIdM() || error;
             }
-            if (error) MessageBox.Show("For some stats the IdM couldn't be calculated, because of a Divide by Zero-error, e.g. Ld needs to be at least 1.");
+            if (error) SetMessageLabelText?.Invoke("For some stats the IdM couldn't be calculated, because of a Divide by Zero-error, e.g. Ld needs to be at least 1.", MessageBoxIcon.Error);
         }
 
         private void taMToolStripMenuItem_Click(object sender, EventArgs e)
@@ -396,7 +397,7 @@ namespace ARKBreedingStats.multiplierTesting
                 if (s != Stats.Torpidity)
                     error = !_statControls[s].CalculateTaM() || error;
             }
-            if (error) MessageBox.Show("For some stats the TaM couldn't be calculated, because of a Divide by Zero-error, e.g. Ta needs to be at least 1.");
+            if (error) SetMessageLabelText?.Invoke("For some stats the TaM couldn't be calculated, because of a Divide by Zero-error, e.g. Ta needs to be at least 1.", MessageBoxIcon.Error);
         }
 
         private void tmMToolStripMenuItem_Click(object sender, EventArgs e)
@@ -407,7 +408,29 @@ namespace ARKBreedingStats.multiplierTesting
                 if (s != Stats.Torpidity)
                     error = !_statControls[s].CalculateTmM() || error;
             }
-            if (error) MessageBox.Show("For some stats the TmM couldn't be calculated, because of a Divide by Zero-error, e.g. Tm needs to be at least 1.");
+            if (error) SetMessageLabelText?.Invoke("For some stats the TmM couldn't be calculated, because of a Divide by Zero-error, e.g. Tm needs to be at least 1.", MessageBoxIcon.Error);
+        }
+
+        private void allIwToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bool error = false;
+            for (int s = 0; s < Stats.StatsCount; s++)
+            {
+                error = !_statControls[s].CalculateIw() || error;
+            }
+            if (error) SetMessageLabelText?.Invoke("Divide by Zero-error, e.g. Lw or IwM needs to be greater than 0.", MessageBoxIcon.Error);
+        }
+
+        private void allIdToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bool error = false;
+            for (int s = 0; s < Stats.StatsCount; s++)
+            {
+                if (s != Stats.Torpidity)
+                    error = !_statControls[s].CalculateId() || error;
+            }
+            if (error) SetMessageLabelText?.Invoke("Divide by Zero-error, e.g. Ld needs to be at least 1.", MessageBoxIcon.Error);
+
         }
 
         private void useStatMultipliersOfSettingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -678,6 +701,29 @@ namespace ARKBreedingStats.multiplierTesting
             CbAllowFlyerSpeedLeveling.Checked = esm.AllowFlyerSpeedLeveling;
 
             CheckIfMultipliersAreEqualToSettings();
+        }
+
+        private void copyStatValuesToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // copy stat values in the format of the values.json to clipboard
+            var sb = new StringBuilder();
+            sb.AppendLine("\"fullStatsRaw\": [");
+            for (var s = 0; s < Stats.StatsCount; s++)
+            {
+                var sv = _statControls[s].StatValues;
+                if (sv == null || sv.All(v => v == 0))
+                {
+                    sb.AppendLine("    null,");
+                }
+                else
+                {
+                    sb.AppendLine($"    [ {sv[0]}, {sv[1]}, {sv[2]}, {sv[3]}, {sv[4]} ],");
+                }
+            }
+
+            sb.Append("]");
+            Clipboard.SetText(sb.ToString());
+            SetMessageLabelText?.Invoke("Raw stat values copied to clipboard.", MessageBoxIcon.Information);
         }
     }
 }

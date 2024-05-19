@@ -210,6 +210,8 @@ namespace ARKBreedingStats.multiplierTesting
             }
         }
 
+        public double[] StatValues => new[] { nudB.ValueDouble, nudIw.ValueDouble, nudId.ValueDouble, nudTa.ValueDouble, nudTm.ValueDouble };
+
         public double StatValue
         {
             set => nudStatValue.ValueSave = (decimal)value * (_percent ? 100 : 1);
@@ -369,8 +371,8 @@ namespace ARKBreedingStats.multiplierTesting
         {
             if (nudLw.Value != 0 && nudIw.Value != 0)
             {
-                var iwM = CalculateMultipliers.IwM((double)nudStatValue.Value * (_percent ? 0.01 : 1), (double)nudB.Value * AtlasBaseMultiplier, (int)nudLw.Value, (double)nudIw.Value,
-                    (double)nudIwM.Value, _spIw, (double)nudTBHM.Value, (double)nudTa.Value, (double)nudTaM.Value, _spTa,
+                var iwM = CalculateMultipliers.IwM((double)nudStatValue.Value * (_percent ? 0.01 : 1), (double)nudB.Value * AtlasBaseMultiplier, (int)nudLw.Value,
+                    (double)nudIw.Value, _spIw, (double)nudTBHM.Value, (double)nudTa.Value, (double)nudTaM.Value, _spTa,
                     (double)nudTm.Value, (double)nudTmM.Value, _spTm, _tamed, _bred, _NoIB, _TE, (int)nudLd.Value, (double)nudId.Value, (double)nudIdM.Value * AtlasIdMultiplier,
                     _spId, _IB, _IBM, _sIBM) ?? 0;
                 nudIwM.ValueSaveDouble = Math.Round(iwM, 5);
@@ -422,6 +424,35 @@ namespace ARKBreedingStats.multiplierTesting
                 return true;
             }
             if (!silent) MessageBox.Show("Divide by Zero-error, e.g. Tm and TE needs to be > 0.");
+            return false;
+        }
+
+        public bool CalculateIw(bool silent = true)
+        {
+            if (nudB.ValueDouble == 0) return true; // silently ignore this apparently unused stat
+            if (nudLw.Value != 0 && nudIwM.Value != 0)
+            {
+                var iw = CalculateMultipliers.Iw((double)nudStatValue.Value * (_percent ? 0.01 : 1), (double)nudB.Value * AtlasBaseMultiplier, (int)nudLw.Value,
+                    (double)nudIwM.Value, _spIw, (double)nudTBHM.Value, (double)nudTa.Value, (double)nudTaM.Value, _spTa,
+                    (double)nudTm.Value, (double)nudTmM.Value, _spTm, _tamed, _bred, _NoIB, _TE, (int)nudLd.Value, (double)nudId.Value, (double)nudIdM.Value * AtlasIdMultiplier,
+                    _spId, _IB, _IBM, _sIBM) ?? 0;
+                nudIw.ValueSaveDouble = Math.Round(iw, 5);
+                return true;
+            }
+            if (!silent) MessageBox.Show("Divide by Zero-error, e.g. Lw or IwM needs to be greater than 0.");
+            return false;
+        }
+
+        public bool CalculateId(bool silent = true)
+        {
+            var id = CalculateMultipliers.Id((double)nudStatValue.Value * (_percent ? 0.01 : 1), Vd, (int)nudLd.Value, (double)nudIdM.Value * AtlasIdMultiplier, _spId);
+            if (id != null)
+            {
+                nudId.ValueSaveDouble = Math.Round(id.Value, 5);
+                return true;
+            }
+
+            if (!silent) MessageBox.Show("Divide by Zero-error, e.g. Ld needs to be at least 1.");
             return false;
         }
 
@@ -779,6 +810,16 @@ namespace ARKBreedingStats.multiplierTesting
         private void btResetTmM_Click(object sender, EventArgs e)
         {
             ResetMultiplier(1, Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control));
+        }
+
+        private void calculateIwToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CalculateIw(false);
+        }
+
+        private void calculateIdToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CalculateId(false);
         }
 
         private void btCalculateDomLevel_Click(object sender, EventArgs e)

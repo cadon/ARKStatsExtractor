@@ -88,9 +88,12 @@
             this.CbTrodTm = new System.Windows.Forms.CheckBox();
             this.CbTrodId = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.BtStoreTaTm = new System.Windows.Forms.Button();
-            this.BtSolveTaMTmM = new System.Windows.Forms.Button();
             this.BtSolveTaTm = new System.Windows.Forms.Button();
+            this.BtSolveTaMTmM = new System.Windows.Forms.Button();
+            this.BtStoreTaTm = new System.Windows.Forms.Button();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.calculateIwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.calculateIdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudIdM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudId)).BeginInit();
@@ -196,6 +199,9 @@
             this.calculateTEToolStripMenuItem,
             this.calculateIBToolStripMenuItem,
             this.calculateIBMToolStripMenuItem,
+            this.toolStripSeparator4,
+            this.calculateIwToolStripMenuItem,
+            this.calculateIdToolStripMenuItem,
             this.toolStripSeparator2,
             this.setWildLevelToClosestValueToolStripMenuItem,
             this.setDomLevelToClosestValueToolStripMenuItem,
@@ -206,7 +212,7 @@
             this.resetIdMToolStripMenuItem,
             this.resetAllMultiplierOfThisStatToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(231, 330);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(231, 402);
             // 
             // calculateIwMToolStripMenuItem
             // 
@@ -892,15 +898,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ta-Tm-Solver";
             // 
-            // BtStoreTaTm
+            // BtSolveTaTm
             // 
-            this.BtStoreTaTm.Location = new System.Drawing.Point(6, 19);
-            this.BtStoreTaTm.Name = "BtStoreTaTm";
-            this.BtStoreTaTm.Size = new System.Drawing.Size(114, 23);
-            this.BtStoreTaTm.TabIndex = 0;
-            this.BtStoreTaTm.Text = "Store 1st";
-            this.BtStoreTaTm.UseVisualStyleBackColor = true;
-            this.BtStoreTaTm.Click += new System.EventHandler(this.BtStoreTaTm_Click);
+            this.BtSolveTaTm.Location = new System.Drawing.Point(62, 43);
+            this.BtSolveTaTm.Name = "BtSolveTaTm";
+            this.BtSolveTaTm.Size = new System.Drawing.Size(58, 23);
+            this.BtSolveTaTm.TabIndex = 2;
+            this.BtSolveTaTm.Text = "Species";
+            this.BtSolveTaTm.UseVisualStyleBackColor = true;
+            this.BtSolveTaTm.Click += new System.EventHandler(this.BtSolveTaTm_Click);
             // 
             // BtSolveTaMTmM
             // 
@@ -912,15 +918,34 @@
             this.BtSolveTaMTmM.UseVisualStyleBackColor = true;
             this.BtSolveTaMTmM.Click += new System.EventHandler(this.BtSolveTaMTmM_Click);
             // 
-            // BtSolveTaTm
+            // BtStoreTaTm
             // 
-            this.BtSolveTaTm.Location = new System.Drawing.Point(62, 43);
-            this.BtSolveTaTm.Name = "BtSolveTaTm";
-            this.BtSolveTaTm.Size = new System.Drawing.Size(58, 23);
-            this.BtSolveTaTm.TabIndex = 2;
-            this.BtSolveTaTm.Text = "Species";
-            this.BtSolveTaTm.UseVisualStyleBackColor = true;
-            this.BtSolveTaTm.Click += new System.EventHandler(this.BtSolveTaTm_Click);
+            this.BtStoreTaTm.Location = new System.Drawing.Point(6, 19);
+            this.BtStoreTaTm.Name = "BtStoreTaTm";
+            this.BtStoreTaTm.Size = new System.Drawing.Size(114, 23);
+            this.BtStoreTaTm.TabIndex = 0;
+            this.BtStoreTaTm.Text = "Store 1st";
+            this.BtStoreTaTm.UseVisualStyleBackColor = true;
+            this.BtStoreTaTm.Click += new System.EventHandler(this.BtStoreTaTm_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(227, 6);
+            // 
+            // calculateIwToolStripMenuItem
+            // 
+            this.calculateIwToolStripMenuItem.Name = "calculateIwToolStripMenuItem";
+            this.calculateIwToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.calculateIwToolStripMenuItem.Text = "Calculate Iw";
+            this.calculateIwToolStripMenuItem.Click += new System.EventHandler(this.calculateIwToolStripMenuItem_Click);
+            // 
+            // calculateIdToolStripMenuItem
+            // 
+            this.calculateIdToolStripMenuItem.Name = "calculateIdToolStripMenuItem";
+            this.calculateIdToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.calculateIdToolStripMenuItem.Text = "Calculate Id";
+            this.calculateIdToolStripMenuItem.Click += new System.EventHandler(this.calculateIdToolStripMenuItem_Click);
             // 
             // StatMultiplierTestingControl
             // 
@@ -1054,5 +1079,8 @@
         private System.Windows.Forms.Button BtStoreTaTm;
         private System.Windows.Forms.Button BtSolveTaTm;
         private System.Windows.Forms.Button BtSolveTaMTmM;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem calculateIwToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem calculateIdToolStripMenuItem;
     }
 }

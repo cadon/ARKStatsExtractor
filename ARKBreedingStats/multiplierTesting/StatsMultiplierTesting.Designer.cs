@@ -48,11 +48,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.LbCalculatedWildLevel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.nudTE = new ARKBreedingStats.uiControls.Nud();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.nudIBM = new ARKBreedingStats.uiControls.Nud();
-            this.nudIB = new ARKBreedingStats.uiControls.Nud();
             this.gbFineAdjustment = new System.Windows.Forms.GroupBox();
             this.tbFineAdjustments = new System.Windows.Forms.TrackBar();
             this.lBDummyEmptyFlowBreak = new System.Windows.Forms.Label();
@@ -74,7 +71,6 @@
             this.lbLevelSumDom = new System.Windows.Forms.Label();
             this.lbLevelSumWild = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.nudCreatureLevel = new ARKBreedingStats.uiControls.Nud();
             this.LbAbbreviations = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.statMultipliersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,21 +89,29 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.setAllWildLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.allIwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allIdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyStatValuesToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nudTE = new ARKBreedingStats.uiControls.Nud();
+            this.nudIBM = new ARKBreedingStats.uiControls.Nud();
+            this.nudIB = new ARKBreedingStats.uiControls.Nud();
+            this.nudCreatureLevel = new ARKBreedingStats.uiControls.Nud();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTE)).BeginInit();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudIBM)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudIB)).BeginInit();
             this.gbFineAdjustment.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbFineAdjustments)).BeginInit();
             this.panel1.SuspendLayout();
             this.gbLevel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCreatureLevel)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTE)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudIBM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudIB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCreatureLevel)).BeginInit();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -332,21 +336,6 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "%";
             // 
-            // nudTE
-            // 
-            this.nudTE.DecimalPlaces = 3;
-            this.nudTE.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudTE.Location = new System.Drawing.Point(6, 19);
-            this.nudTE.Name = "nudTE";
-            this.nudTE.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudTE.Size = new System.Drawing.Size(71, 20);
-            this.nudTE.TabIndex = 1;
-            this.nudTE.ValueChanged += new System.EventHandler(this.nudTE_ValueChanged);
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.label2);
@@ -367,51 +356,6 @@
             this.label2.Size = new System.Drawing.Size(37, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "% IBM";
-            // 
-            // nudIBM
-            // 
-            this.nudIBM.DecimalPlaces = 4;
-            this.nudIBM.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.nudIBM.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.nudIBM.Location = new System.Drawing.Point(135, 19);
-            this.nudIBM.Name = "nudIBM";
-            this.nudIBM.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudIBM.Size = new System.Drawing.Size(71, 20);
-            this.nudIBM.TabIndex = 2;
-            this.nudIBM.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudIBM.ValueChanged += new System.EventHandler(this.nudIBM_ValueChanged);
-            // 
-            // nudIB
-            // 
-            this.nudIB.DecimalPlaces = 6;
-            this.nudIB.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudIB.Location = new System.Drawing.Point(6, 19);
-            this.nudIB.Maximum = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
-            this.nudIB.Name = "nudIB";
-            this.nudIB.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudIB.Size = new System.Drawing.Size(80, 20);
-            this.nudIB.TabIndex = 1;
-            this.nudIB.ValueChanged += new System.EventHandler(this.nudIB_ValueChanged);
             // 
             // gbFineAdjustment
             // 
@@ -635,25 +579,6 @@
             this.label16.TabIndex = 14;
             this.label16.Text = "Creature-Level";
             // 
-            // nudCreatureLevel
-            // 
-            this.nudCreatureLevel.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudCreatureLevel.Location = new System.Drawing.Point(87, 19);
-            this.nudCreatureLevel.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.nudCreatureLevel.Name = "nudCreatureLevel";
-            this.nudCreatureLevel.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudCreatureLevel.Size = new System.Drawing.Size(107, 20);
-            this.nudCreatureLevel.TabIndex = 13;
-            this.nudCreatureLevel.ValueChanged += new System.EventHandler(this.nudCreatureLevel_ValueChanged);
-            // 
             // LbAbbreviations
             // 
             this.LbAbbreviations.AutoSize = true;
@@ -668,7 +593,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statMultipliersToolStripMenuItem,
             this.calculateToolStripMenuItem,
-            this.setAllLvlToToolStripMenuItem});
+            this.setAllLvlToToolStripMenuItem,
+            this.copyStatValuesToClipboardToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1011, 24);
@@ -718,10 +644,13 @@
             this.idMToolStripMenuItem1,
             this.idMToolStripMenuItem,
             this.taMToolStripMenuItem,
-            this.tmMToolStripMenuItem});
+            this.tmMToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.allIwToolStripMenuItem,
+            this.allIdToolStripMenuItem});
             this.calculateToolStripMenuItem.Name = "calculateToolStripMenuItem";
-            this.calculateToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
-            this.calculateToolStripMenuItem.Text = "Calculate";
+            this.calculateToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
+            this.calculateToolStripMenuItem.Text = "Calculate all";
             // 
             // idMToolStripMenuItem1
             // 
@@ -796,6 +725,111 @@
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Text = "Set all Dom levels to the closest value";
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Click += new System.EventHandler(this.setAllDomLevelsToTheClosestValueToolStripMenuItem_Click);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(113, 6);
+            // 
+            // allIwToolStripMenuItem
+            // 
+            this.allIwToolStripMenuItem.Name = "allIwToolStripMenuItem";
+            this.allIwToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.allIwToolStripMenuItem.Text = "all Iw";
+            this.allIwToolStripMenuItem.Click += new System.EventHandler(this.allIwToolStripMenuItem_Click);
+            // 
+            // allIdToolStripMenuItem
+            // 
+            this.allIdToolStripMenuItem.Name = "allIdToolStripMenuItem";
+            this.allIdToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.allIdToolStripMenuItem.Text = "all Id";
+            this.allIdToolStripMenuItem.Click += new System.EventHandler(this.allIdToolStripMenuItem_Click);
+            // 
+            // copyStatValuesToClipboardToolStripMenuItem
+            // 
+            this.copyStatValuesToClipboardToolStripMenuItem.Name = "copyStatValuesToClipboardToolStripMenuItem";
+            this.copyStatValuesToClipboardToolStripMenuItem.Size = new System.Drawing.Size(194, 20);
+            this.copyStatValuesToClipboardToolStripMenuItem.Text = "Copy raw stat values to clipboard";
+            this.copyStatValuesToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyStatValuesToClipboardToolStripMenuItem_Click);
+            // 
+            // nudTE
+            // 
+            this.nudTE.DecimalPlaces = 3;
+            this.nudTE.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudTE.Location = new System.Drawing.Point(6, 19);
+            this.nudTE.Name = "nudTE";
+            this.nudTE.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudTE.Size = new System.Drawing.Size(71, 20);
+            this.nudTE.TabIndex = 1;
+            this.nudTE.ValueChanged += new System.EventHandler(this.nudTE_ValueChanged);
+            // 
+            // nudIBM
+            // 
+            this.nudIBM.DecimalPlaces = 4;
+            this.nudIBM.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.nudIBM.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.nudIBM.Location = new System.Drawing.Point(135, 19);
+            this.nudIBM.Name = "nudIBM";
+            this.nudIBM.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudIBM.Size = new System.Drawing.Size(71, 20);
+            this.nudIBM.TabIndex = 2;
+            this.nudIBM.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudIBM.ValueChanged += new System.EventHandler(this.nudIBM_ValueChanged);
+            // 
+            // nudIB
+            // 
+            this.nudIB.DecimalPlaces = 6;
+            this.nudIB.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudIB.Location = new System.Drawing.Point(6, 19);
+            this.nudIB.Maximum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            this.nudIB.Name = "nudIB";
+            this.nudIB.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudIB.Size = new System.Drawing.Size(80, 20);
+            this.nudIB.TabIndex = 1;
+            this.nudIB.ValueChanged += new System.EventHandler(this.nudIB_ValueChanged);
+            // 
+            // nudCreatureLevel
+            // 
+            this.nudCreatureLevel.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudCreatureLevel.Location = new System.Drawing.Point(87, 19);
+            this.nudCreatureLevel.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.nudCreatureLevel.Name = "nudCreatureLevel";
+            this.nudCreatureLevel.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudCreatureLevel.Size = new System.Drawing.Size(107, 20);
+            this.nudCreatureLevel.TabIndex = 13;
+            this.nudCreatureLevel.ValueChanged += new System.EventHandler(this.nudCreatureLevel_ValueChanged);
+            // 
             // StatsMultiplierTesting
             // 
             this.AllowDrop = true;
@@ -817,19 +851,19 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTE)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudIBM)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudIB)).EndInit();
             this.gbFineAdjustment.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tbFineAdjustments)).EndInit();
             this.panel1.ResumeLayout(false);
             this.gbLevel.ResumeLayout(false);
             this.gbLevel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCreatureLevel)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTE)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudIBM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudIB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCreatureLevel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -901,5 +935,9 @@
         private System.Windows.Forms.Label LbCalculatedWildLevel;
         private System.Windows.Forms.CheckBox CbAtlas;
         private System.Windows.Forms.CheckBox CbAllowSpeedLeveling;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem allIwToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem allIdToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyStatValuesToClipboardToolStripMenuItem;
     }
 }
