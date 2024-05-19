@@ -8,11 +8,21 @@
         /// <summary>
         /// Calculates the Increase per wild level multiplier (IwM) to the value that solves the equation, assuming all other values are correct.
         /// </summary>
-        public static double? IwM(double statValue, double baseValue, int wildLevel, double iw, double iwM, double iwSingleplayer, double tbhm, double ta, double taM, double taSingleplayer, double tm, double tmM, double tmSingleplayer, bool tamed, bool bred, bool noIb, double te, int domLevel, double id, double idM, double idSingleplayer, double ib, double ibm, double sIBM)
+        public static double? IwM(double statValue, double baseValue, int wildLevel, double iw, double iwSingleplayer, double tbhm, double ta, double taM, double taSingleplayer, double tm, double tmM, double tmSingleplayer, bool tamed, bool bred, bool noIb, double te, int domLevel, double id, double idM, double idSingleplayer, double ib, double ibm, double sIBM)
         {
             if (wildLevel == 0 || iw == 0) return null;
 
             return ((statValue / (tamed || bred ? (1 + (bred ? 1 : te) * tm * (tm > 0 ? tmM * tmSingleplayer : 1)) * (1 + domLevel * id * idSingleplayer * idM) : 1) - (tamed || bred ? ta * (ta > 0 ? taM * taSingleplayer : 1) : 0)) / (baseValue * (tamed || bred ? tbhm : 1) * (!noIb && bred ? 1 + ib * ibm * sIBM : 1)) - 1) / (wildLevel * iw * iwSingleplayer);
+        }
+
+        /// <summary>
+        /// Calculates the Increase per wild level (Iw) to the value that solves the equation, assuming all other values are correct.
+        /// </summary>
+        public static double? Iw(double statValue, double baseValue, int wildLevel, double iwM, double iwSingleplayer, double tbhm, double ta, double taM, double taSingleplayer, double tm, double tmM, double tmSingleplayer, bool tamed, bool bred, bool noIb, double te, int domLevel, double id, double idM, double idSingleplayer, double ib, double ibm, double sIBM)
+        {
+            if (wildLevel == 0 || iwM == 0) return null;
+
+            return ((statValue / (tamed || bred ? (1 + (bred ? 1 : te) * tm * (tm > 0 ? tmM * tmSingleplayer : 1)) * (1 + domLevel * id * idSingleplayer * idM) : 1) - (tamed || bred ? ta * (ta > 0 ? taM * taSingleplayer : 1) : 0)) / (baseValue * (tamed || bred ? tbhm : 1) * (!noIb && bred ? 1 + ib * ibm * sIBM : 1)) - 1) / (wildLevel * iwM * iwSingleplayer);
         }
 
         /// <summary>
@@ -63,6 +73,16 @@
             if (valueDom == 0 || domLevel == 0 || id == 0) return null;
 
             return (statValue / valueDom - 1) / (domLevel * id * idSingleplayer);
+        }
+
+        /// <summary>
+        /// Calculates the Increase per domesticated level (Id) to the value that solves the equation, assuming all other values are correct.
+        /// </summary>
+        public static double? Id(double statValue, double valueDom, int domLevel, double idM, double idSingleplayer)
+        {
+            if (valueDom == 0 || domLevel == 0 || idM == 0) return null;
+
+            return (statValue / valueDom - 1) / (domLevel * idM * idSingleplayer);
         }
 
         /// <summary>

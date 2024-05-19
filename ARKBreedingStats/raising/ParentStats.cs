@@ -21,7 +21,7 @@ namespace ARKBreedingStats.raising
             {
                 var psv = new ParentStatValues
                 {
-                    StatName = Utils.StatName(s, true) + (Utils.Precision(s) == 1 ? string.Empty : " %")
+                    StatName = Utils.StatName(s, true) + (Stats.IsPercentage(s) ? " %" : string.Empty)
                 };
                 _parentStatValues[s] = psv;
                 flowLayoutPanel1.SetFlowBreak(psv, true);
@@ -80,8 +80,8 @@ namespace ARKBreedingStats.raising
                         bestLevelPercent = (100 * bestLevel) / MaxChartLevel;
                 }
                 _parentStatValues[s].SetValues(
-                    mother?.valuesBreeding == null ? -1 : (mother.valuesBreeding[s] * (Utils.Precision(s) == 1 ? 1 : 100)),
-                    father?.valuesBreeding == null ? -1 : (father.valuesBreeding[s] * (Utils.Precision(s) == 1 ? 1 : 100)),
+                    mother?.valuesBreeding == null ? -1 : (mother.valuesBreeding[s] * (Stats.IsPercentage(s) ? 100 : 1)),
+                    father?.valuesBreeding == null ? -1 : (father.valuesBreeding[s] * (Stats.IsPercentage(s) ? 100 : 1)),
                     mother?.valuesBreeding != null && father?.valuesBreeding != null ? (mother.valuesBreeding[s] > father.valuesBreeding[s] ? 1 : 2) : 0,
                     bestLevel,
                     bestLevelPercent
@@ -119,7 +119,7 @@ namespace ARKBreedingStats.raising
 
             for (int s = Math.Min(_parentStatValues.Length, Stats.StatsCount) - 1; s >= 0; s--)
                 _parentStatValues[s].StatName =
-                        Utils.StatName(s, true) + (Utils.Precision(s) == 1 ? string.Empty : " %");
+                        Utils.StatName(s, true) + (Stats.IsPercentage(s) ? " %" : string.Empty);
         }
     }
 }

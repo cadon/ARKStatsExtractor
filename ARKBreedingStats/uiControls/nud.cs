@@ -36,6 +36,8 @@ namespace ARKBreedingStats.uiControls
             set => ValueSave = (decimal)value;
         }
 
+        public double ValueDouble => (double)Value;
+
         protected override void OnValueChanged(EventArgs e)
         {
             base.OnValueChanged(e);

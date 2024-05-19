@@ -105,6 +105,7 @@
     <Compile Include="library\DummyCreatures.cs" />
     <Compile Include="library\LevelStatusFlags.cs" />
     <Compile Include="multiplierTesting\CalculateMultipliers.cs" />
+    <Compile Include="multiplierTesting\TaTmSolver.cs" />
     <Compile Include="NamePatterns\NameList.cs" />
     <Compile Include="NamePatterns\NamePatternEntry.cs">
       <SubType>Component</SubType>

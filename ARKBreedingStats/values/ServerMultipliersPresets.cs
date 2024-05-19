@@ -66,8 +66,8 @@ namespace ARKBreedingStats.values
         public ServerMultipliers GetPreset(string presetName)
         {
             if (!string.IsNullOrEmpty(presetName)
-                && serverMultiplierDictionary.ContainsKey(presetName))
-                return serverMultiplierDictionary[presetName].Copy(true);
+                && serverMultiplierDictionary.TryGetValue(presetName, out var serverPreset))
+                return serverPreset.Copy(true);
             return null;
         }
 

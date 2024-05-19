@@ -21,17 +21,17 @@ namespace ARKBreedingStats.utils
 
             while (true)
             {
-                // Handle when we hit the end of either string
-                if (aI >= aLen && bI >= bLen) return 0;
-                if (aI >= aLen) return -1; // The shorter string sorts first
-                if (bI >= bLen) return 1;
-
                 // Skip spaces on both sides, if requested
                 if (SkipSpaces)
                 {
                     aI += SkipWhiteSpace(aStr, aI);
                     bI += SkipWhiteSpace(bStr, bI);
                 }
+
+                // Handle when we hit the end of either string
+                if (aI >= aLen && bI >= bLen) return 0;
+                if (aI >= aLen) return -1; // The shorter string sorts first
+                if (bI >= bLen) return 1;
 
                 // Pick up the next character from each string
                 char a = aStr[aI];

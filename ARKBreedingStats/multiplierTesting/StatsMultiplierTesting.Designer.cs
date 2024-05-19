@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StatsMultiplierTesting));
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.BtResetSpeciesValues = new System.Windows.Forms.Button();
@@ -88,6 +89,10 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.setAllWildLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.allIwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allIdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyStatValuesToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nudTE = new ARKBreedingStats.uiControls.Nud();
             this.nudIBM = new ARKBreedingStats.uiControls.Nud();
             this.nudIB = new ARKBreedingStats.uiControls.Nud();
@@ -579,18 +584,17 @@
             this.LbAbbreviations.AutoSize = true;
             this.LbAbbreviations.Location = new System.Drawing.Point(209, 188);
             this.LbAbbreviations.Name = "LbAbbreviations";
-            this.LbAbbreviations.Size = new System.Drawing.Size(780, 13);
+            this.LbAbbreviations.Size = new System.Drawing.Size(780, 39);
             this.LbAbbreviations.TabIndex = 13;
-            this.LbAbbreviations.Text = "C: Calculate best value; R: Reset value (hold Ctrl to reset to game default); TE:" +
-    " Taming Effectivenes; IB: Imprinting Bonus; IBM: ~Multiplier; Trod: Troodonism-v" +
-    "ariant";
+            this.LbAbbreviations.Text = resources.GetString("LbAbbreviations.Text");
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statMultipliersToolStripMenuItem,
             this.calculateToolStripMenuItem,
-            this.setAllLvlToToolStripMenuItem});
+            this.setAllLvlToToolStripMenuItem,
+            this.copyStatValuesToClipboardToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1011, 24);
@@ -640,10 +644,13 @@
             this.idMToolStripMenuItem1,
             this.idMToolStripMenuItem,
             this.taMToolStripMenuItem,
-            this.tmMToolStripMenuItem});
+            this.tmMToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.allIwToolStripMenuItem,
+            this.allIdToolStripMenuItem});
             this.calculateToolStripMenuItem.Name = "calculateToolStripMenuItem";
-            this.calculateToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
-            this.calculateToolStripMenuItem.Text = "Calculate";
+            this.calculateToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
+            this.calculateToolStripMenuItem.Text = "Calculate all";
             // 
             // idMToolStripMenuItem1
             // 
@@ -717,6 +724,32 @@
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Text = "Set all Dom levels to the closest value";
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Click += new System.EventHandler(this.setAllDomLevelsToTheClosestValueToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(113, 6);
+            // 
+            // allIwToolStripMenuItem
+            // 
+            this.allIwToolStripMenuItem.Name = "allIwToolStripMenuItem";
+            this.allIwToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.allIwToolStripMenuItem.Text = "all Iw";
+            this.allIwToolStripMenuItem.Click += new System.EventHandler(this.allIwToolStripMenuItem_Click);
+            // 
+            // allIdToolStripMenuItem
+            // 
+            this.allIdToolStripMenuItem.Name = "allIdToolStripMenuItem";
+            this.allIdToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.allIdToolStripMenuItem.Text = "all Id";
+            this.allIdToolStripMenuItem.Click += new System.EventHandler(this.allIdToolStripMenuItem_Click);
+            // 
+            // copyStatValuesToClipboardToolStripMenuItem
+            // 
+            this.copyStatValuesToClipboardToolStripMenuItem.Name = "copyStatValuesToClipboardToolStripMenuItem";
+            this.copyStatValuesToClipboardToolStripMenuItem.Size = new System.Drawing.Size(194, 20);
+            this.copyStatValuesToClipboardToolStripMenuItem.Text = "Copy raw stat values to clipboard";
+            this.copyStatValuesToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyStatValuesToClipboardToolStripMenuItem_Click);
             // 
             // nudTE
             // 
@@ -902,5 +935,9 @@
         private System.Windows.Forms.Label LbCalculatedWildLevel;
         private System.Windows.Forms.CheckBox CbAtlas;
         private System.Windows.Forms.CheckBox CbAllowSpeedLeveling;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem allIwToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem allIdToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyStatValuesToClipboardToolStripMenuItem;
     }
 }

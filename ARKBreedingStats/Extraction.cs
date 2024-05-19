@@ -186,7 +186,7 @@ namespace ARKBreedingStats
                     statIOs[s].postTame = PostTamed;
 
                     // determine the precision of the input value
-                    float toleranceForThisStat = StatValueCalculation.DisplayedAberration(statIOs[s].Input, Utils.Precision(s), highPrecisionInputs);
+                    float toleranceForThisStat = StatValueCalculation.DisplayedAberration(statIOs[s].Input, Stats.Precision(s), highPrecisionInputs);
                     //Console.WriteLine($"Precision stat {s}: {toleranceForThisStat}");
 
                     MinMaxDouble inputValue = new MinMaxDouble(statIOs[s].Input - toleranceForThisStat, statIOs[s].Input + toleranceForThisStat);

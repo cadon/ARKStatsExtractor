@@ -391,15 +391,6 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Returns the displayed decimal values of the stat with the given index
-        /// </summary>
-        public static int Precision(int statIndex)
-        {
-            // damage and speed are percentage values, need more precision
-            return (statIndex == Stats.SpeedMultiplier || statIndex == Stats.MeleeDamageMultiplier || statIndex == Stats.CraftingSpeedMultiplier) ? 3 : 1;
-        }
-
-        /// <summary>
         /// String that represents a duration.
         /// </summary>
         public static string Duration(TimeSpan ts)
