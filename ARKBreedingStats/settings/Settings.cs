@@ -500,13 +500,13 @@ namespace ARKBreedingStats.settings
                 }
             }
 
-            if (_cc.serverMultipliers.statMultipliers[Stats.Torpidity][Stats.IndexLevelWild] != 1)
+            if (_cc.serverMultipliers.statMultipliers[Stats.Torpidity][ServerMultipliers.IndexLevelWild] != 1)
             {
                 // Torpidity is handled differently by the game, IwM has no effect. Set IwM to 1.
                 // See https://github.com/cadon/ARKStatsExtractor/issues/942 for more infos about this.
                 MessageBoxes.ShowMessageBox("The increase per wild level of torpidity setting (PerLevelStatsMultiplier_DinoWild[2]) is ignored by ARK, only the value 1 is used for that setting.\nA different value was entered for that setting.\nSmart Breeding will reset this value to 1, since the game also uses that value, regardless what is entered in the server settings. This is done to prevent extraction issues.",
                     "Torpidity multiplier reset");
-                _cc.serverMultipliers.statMultipliers[Stats.Torpidity][Stats.IndexLevelWild] = 1;
+                _cc.serverMultipliers.statMultipliers[Stats.Torpidity][ServerMultipliers.IndexLevelWild] = 1;
             }
 
             _cc.serverMultipliers.SinglePlayerSettings = cbSingleplayerSettings.Checked;
@@ -857,10 +857,10 @@ namespace ARKBreedingStats.settings
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                ParseAndSetStatMultiplier(Stats.IndexTamingAdd, @"PerLevelStatsMultiplier_DinoTamed_Add\[" + s + @"\] ?= ?(\d*\.?\d+)");
-                ParseAndSetStatMultiplier(Stats.IndexTamingMult, @"PerLevelStatsMultiplier_DinoTamed_Affinity\[" + s + @"\] ?= ?(\d*\.?\d+)");
-                ParseAndSetStatMultiplier(Stats.IndexLevelDom, @"PerLevelStatsMultiplier_DinoTamed\[" + s + @"\] ?= ?(\d*\.?\d+)");
-                ParseAndSetStatMultiplier(Stats.IndexLevelWild, @"PerLevelStatsMultiplier_DinoWild\[" + s + @"\] ?= ?(\d*\.?\d+)");
+                ParseAndSetStatMultiplier(ServerMultipliers.IndexTamingAdd, @"PerLevelStatsMultiplier_DinoTamed_Add\[" + s + @"\] ?= ?(\d*\.?\d+)");
+                ParseAndSetStatMultiplier(ServerMultipliers.IndexTamingMult, @"PerLevelStatsMultiplier_DinoTamed_Affinity\[" + s + @"\] ?= ?(\d*\.?\d+)");
+                ParseAndSetStatMultiplier(ServerMultipliers.IndexLevelDom, @"PerLevelStatsMultiplier_DinoTamed\[" + s + @"\] ?= ?(\d*\.?\d+)");
+                ParseAndSetStatMultiplier(ServerMultipliers.IndexLevelWild, @"PerLevelStatsMultiplier_DinoWild\[" + s + @"\] ?= ?(\d*\.?\d+)");
 
                 void ParseAndSetStatMultiplier(int multiplierIndex, string regexPattern)
                 {
@@ -874,7 +874,7 @@ namespace ARKBreedingStats.settings
             }
             // some server files have a different value for wild level torpor increase, but ARK ignores that value.
             // reset that value, so no error message pops up, so user is not confused. Error message only on manual input
-            _multSetter[Stats.Torpidity].SetMultiplier(Stats.IndexLevelWild, 1);
+            _multSetter[Stats.Torpidity].SetMultiplier(ServerMultipliers.IndexLevelWild, 1);
 
             // breeding
             ParseAndSetValue(nudMatingInterval, @"MatingIntervalMultiplier ?= ?(\d*\.?\d+)");
@@ -1026,14 +1026,14 @@ namespace ARKBreedingStats.settings
             const int roundToDigits = 6;
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                _multSetter[s].SetMultiplier(Stats.IndexTamingAdd, Math.Round(esm.TameAdd[s], roundToDigits));
-                _multSetter[s].SetMultiplier(Stats.IndexTamingMult, Math.Round(esm.TameAff[s], roundToDigits));
-                _multSetter[s].SetMultiplier(Stats.IndexLevelDom, Math.Round(esm.TameLevel[s], roundToDigits));
-                _multSetter[s].SetMultiplier(Stats.IndexLevelWild, Math.Round(esm.WildLevel[s], roundToDigits));
+                _multSetter[s].SetMultiplier(ServerMultipliers.IndexTamingAdd, Math.Round(esm.TameAdd[s], roundToDigits));
+                _multSetter[s].SetMultiplier(ServerMultipliers.IndexTamingMult, Math.Round(esm.TameAff[s], roundToDigits));
+                _multSetter[s].SetMultiplier(ServerMultipliers.IndexLevelDom, Math.Round(esm.TameLevel[s], roundToDigits));
+                _multSetter[s].SetMultiplier(ServerMultipliers.IndexLevelWild, Math.Round(esm.WildLevel[s], roundToDigits));
             }
             // some server files have a different value for wild level torpor increase, but ARK ignores that value.
             // reset that value, so no error message pops up, so user is not confused. Error message only on manual input
-            _multSetter[Stats.Torpidity].SetMultiplier(Stats.IndexLevelWild, 1);
+            _multSetter[Stats.Torpidity].SetMultiplier(ServerMultipliers.IndexLevelWild, 1);
 
             nudMaxWildLevels.ValueSaveDouble = Math.Ceiling(esm.MaxWildLevel);
             nudWildLevelStep.ValueSaveDouble = Math.Round(esm.WildLevelStepSize, roundToDigits);

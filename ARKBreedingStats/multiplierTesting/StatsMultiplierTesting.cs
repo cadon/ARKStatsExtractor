@@ -254,7 +254,7 @@ namespace ARKBreedingStats.multiplierTesting
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 _statControls[s].SetStatValues(_selectedSpecies.fullStatsRaw[s], customStatsAvailable ? customStatOverrides?[s] : null,
-                    _selectedSpecies.altBaseStatsRaw != null && _selectedSpecies.altBaseStatsRaw.TryGetValue(s, out var altV) ? altV / _selectedSpecies.fullStatsRaw[s][0] : 1,
+                    _selectedSpecies.altBaseStatsRaw != null && _selectedSpecies.altBaseStatsRaw.TryGetValue(s, out var altV) ? altV / _selectedSpecies.fullStatsRaw[s][Species.StatsRawIndexBase] : 1,
                     s == Stats.SpeedMultiplier && !(CbAllowSpeedLeveling.Checked && (CbAllowFlyerSpeedLeveling.Checked || !species.isFlyer)));
                 _statControls[s].StatImprintingBonusMultiplier = customStatsAvailable ? customStatOverrides?[Stats.StatsCount]?[s] ?? statImprintMultipliers[s] : statImprintMultipliers[s];
                 _statControls[s].Visible = species.UsesStat(s);
@@ -492,7 +492,10 @@ namespace ARKBreedingStats.multiplierTesting
                         if (spM.statMultipliers[s] == null)
                             _statControls[s].SetSinglePlayerSettings();
                         else
-                            _statControls[s].SetSinglePlayerSettings(spM.statMultipliers[s][Stats.IndexLevelWild], spM.statMultipliers[s][Stats.IndexLevelDom], spM.statMultipliers[s][Stats.IndexTamingAdd], spM.statMultipliers[s][Stats.IndexTamingMult]);
+                            _statControls[s].SetSinglePlayerSettings(spM.statMultipliers[s][ServerMultipliers.IndexLevelWild],
+                                spM.statMultipliers[s][ServerMultipliers.IndexLevelDom],
+                                spM.statMultipliers[s][ServerMultipliers.IndexTamingAdd],
+                                spM.statMultipliers[s][ServerMultipliers.IndexTamingMult]);
                     }
                     return;
                 }
@@ -530,7 +533,9 @@ namespace ARKBreedingStats.multiplierTesting
                 _cc?.CustomSpeciesStats?.TryGetValue(_selectedSpecies.blueprintPath, out customStatOverrides) ?? false;
 
             _statControls[Stats.SpeedMultiplier].SetStatValues(_selectedSpecies.fullStatsRaw[Stats.SpeedMultiplier], customStatsAvailable ? customStatOverrides?[Stats.SpeedMultiplier] : null,
-                    _selectedSpecies.altBaseStatsRaw != null && _selectedSpecies.altBaseStatsRaw.TryGetValue(Stats.SpeedMultiplier, out var altV) ? altV / _selectedSpecies.fullStatsRaw[Stats.SpeedMultiplier][0] : 1,
+                    _selectedSpecies.altBaseStatsRaw != null
+                    && _selectedSpecies.altBaseStatsRaw.TryGetValue(Stats.SpeedMultiplier, out var altV)
+                        ? altV / _selectedSpecies.fullStatsRaw[Stats.SpeedMultiplier][Species.StatsRawIndexBase] : 1,
                     !speedLevelingAllowed);
         }
 
@@ -703,10 +708,46 @@ namespace ARKBreedingStats.multiplierTesting
             CheckIfMultipliersAreEqualToSettings();
         }
 
+        /// <summary>
+        /// Returns the currently set server multipliers in an exportGunServerFile.
+        /// </summary>
+        private ExportGunServerFile GetServerMultipliers()
+        {
+            var esm = new ExportGunServerFile
+            {
+                BabyImprintingStatScaleMultiplier = nudIBM.ValueDouble,
+                UseSingleplayerSettings = cbSingleplayerSettings.Checked,
+                AllowSpeedLeveling = CbAllowSpeedLeveling.Checked,
+                AllowFlyerSpeedLeveling = CbAllowFlyerSpeedLeveling.Checked,
+                WildLevel = new double[Stats.StatsCount],
+                TameLevel = new double[Stats.StatsCount],
+                TameAdd = new double[Stats.StatsCount],
+                TameAff = new double[Stats.StatsCount]
+            };
+
+            for (int si = 0; si < Stats.StatsCount; si++)
+            {
+                var mults = _statControls[si].StatMultipliers;
+                esm.WildLevel[si] = mults[3];
+                esm.TameLevel[si] = mults[2];
+                esm.TameAdd[si] = mults[0];
+                esm.TameAff[si] = mults[1];
+            }
+
+            return esm;
+        }
+
         private void copyStatValuesToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CopySpeciesStatsToClipboard();
+        }
+
+        private void CopySpeciesStatsToClipboard(string speciesBlueprintPath = null)
         {
             // copy stat values in the format of the values.json to clipboard
             var sb = new StringBuilder();
+            if (!string.IsNullOrEmpty(speciesBlueprintPath))
+                sb.AppendLine($"\"blueprintPath\": \"{speciesBlueprintPath}\",");
             sb.AppendLine("\"fullStatsRaw\": [");
             for (var s = 0; s < Stats.StatsCount; s++)
             {
@@ -724,6 +765,75 @@ namespace ARKBreedingStats.multiplierTesting
             sb.Append("]");
             Clipboard.SetText(sb.ToString());
             SetMessageLabelText?.Invoke("Raw stat values copied to clipboard.", MessageBoxIcon.Information);
+        }
+
+        private void LbSpeciesValuesExtractor_DragEnter(object sender, DragEventArgs e)
+        {
+            if (!e.Data.GetDataPresent(DataFormats.FileDrop)) return;
+            e.Effect = DragDropEffects.Copy;
+            LbSpeciesValuesExtractor.BackColor = Color.LightGreen;
+        }
+
+        private void LbSpeciesValuesExtractor_DragLeave(object sender, EventArgs e)
+        {
+            LbSpeciesValuesExtractor.BackColor = Color.White;
+        }
+
+        private void LbSpeciesValuesExtractor_DragDrop(object sender, DragEventArgs e)
+        {
+            LbSpeciesValuesExtractor.BackColor = Color.White;
+            if (!(e.Data.GetData(DataFormats.FileDrop) is string[] files && files.Any()))
+                return;
+            ExtractSpeciesValuesFromExportFiles(files);
+        }
+
+        private void ExtractSpeciesValuesFromExportFiles(string[] files)
+        {
+            // only export gun files are supported
+            var creatureFiles = new List<ExportGunCreatureFile>();
+            ExportGunServerFile serverMultipliersFile = null;
+            string lastError = null;
+
+            foreach (var filePath in files)
+            {
+                var creature = ImportExportGun.LoadCreatureFile(filePath, out lastError, out _);
+                if (creature != null)
+                {
+                    creatureFiles.Add(creature);
+                    continue;
+                }
+
+                var svMults = ImportExportGun.ReadServerMultipliers(filePath, out _);
+                if (svMults != null)
+                    serverMultipliersFile = svMults;
+            }
+
+            if (!creatureFiles.Any())
+            {
+                MessageBoxes.ShowMessageBox("No creature files could be read");
+                return;
+            }
+
+            if (serverMultipliersFile != null)
+                SetServerMultipliers(serverMultipliersFile);
+
+            var sm = new ServerMultipliers(true);
+            ImportExportGun.SetServerMultipliers(sm, serverMultipliersFile ?? GetServerMultipliers());
+
+            SpeciesStatsExtractor.ExtractStatValues(creatureFiles, sm, out var species, out var errorText);
+            SetSpecies(species);
+
+            var extractionSuccessful = string.IsNullOrEmpty(errorText);
+            if (!extractionSuccessful)
+            {
+                SetMessageLabelText?.Invoke("Error while trying to determine the species stats." + Environment.NewLine + errorText, MessageBoxIcon.Error);
+                return;
+            }
+
+            CopySpeciesStatsToClipboard(species.blueprintPath);
+            SetMessageLabelText?.Invoke(
+                "Extracted the species values and copied them to the clipboard. Note the TBHM and singleplayer is not supported and may lead to wrong values.",
+                MessageBoxIcon.Information);
         }
     }
 }

@@ -855,7 +855,7 @@ namespace ARKBreedingStats
                     var esm = ImportExportGun.ReadServerMultipliers(filePath, out var serverImportResultTemp);
                     if (esm != null)
                     {
-                        multipliersImportSuccessful = ImportExportGun.SetServerMultipliers(_creatureCollection, esm, Path.GetFileNameWithoutExtension(filePath));
+                        multipliersImportSuccessful = ImportExportGun.SetCollectionMultipliers(_creatureCollection, esm, Path.GetFileNameWithoutExtension(filePath));
                         serverImportResult = serverImportResultTemp;
                         if (multipliersImportSuccessful == true)
                             continue;

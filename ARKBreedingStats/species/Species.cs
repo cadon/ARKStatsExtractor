@@ -38,6 +38,7 @@ namespace ARKBreedingStats.species
         public string blueprintPath;
         /// <summary>
         /// The raw stat values without multipliers.
+        /// For each stat there is 0: baseValue, 1: incPerWildLevel, 2: incPerDomLevel, 3: addBonus, 4: multBonus.
         /// </summary>
         [JsonProperty]
         public double[][] fullStatsRaw;
@@ -147,7 +148,9 @@ namespace ARKBreedingStats.species
         /// creates properties that are not created during deserialization. They are set later with the raw-values with the multipliers applied.
         /// </summary>
         [OnDeserialized]
-        private void Initialize(StreamingContext _)
+        private void Initialize(StreamingContext _) => Initialize();
+
+        public void Initialize()
         {
             // TODO: Base species are maybe not used in game and may only lead to confusion (e.g. Giganotosaurus).
 
@@ -186,7 +189,7 @@ namespace ARKBreedingStats.species
                         if (fullStatsRaw[s].Length > i)
                         {
                             completeRaws[s][i] = fullStatsRaw[s]?[i] ?? 0;
-                            if (i == 0 && fullStatsRaw[s][0] > 0)
+                            if (i == 0 && fullStatsRaw[s][StatsRawIndexBase] > 0)
                             {
                                 usesStat = true;
                             }
@@ -200,7 +203,7 @@ namespace ARKBreedingStats.species
                     _skipWildLevelStatsWithServerSettings |= statBit;
             }
 
-            if (fullStatsRawLength != -0)
+            if (fullStatsRawLength != 0)
                 fullStatsRaw = completeRaws;
 
             if (colors?.Length == 0)
@@ -447,5 +450,30 @@ namespace ARKBreedingStats.species
 
             Initialize(new StreamingContext());
         }
+
+        /// <summary>
+        /// Index of the base value in fullStatsRaw.
+        /// </summary>
+        public const int StatsRawIndexBase = 0;
+
+        /// <summary>
+        /// Index of the increase per wild level value in fullStatsRaw.
+        /// </summary>
+        public const int StatsRawIndexIncPerWildLevel = 1;
+
+        /// <summary>
+        /// Index of the increase per dom level value in fullStatsRaw.
+        /// </summary>
+        public const int StatsRawIndexIncPerDomLevel = 2;
+
+        /// <summary>
+        /// Index of the additive bonus value in fullStatsRaw.
+        /// </summary>
+        public const int StatsRawIndexAdditiveBonus = 3;
+
+        /// <summary>
+        /// Index of the multiplicative bonus value in fullStatsRaw.
+        /// </summary>
+        public const int StatsRawIndexMultiplicativeBonus = 4;
     }
 }

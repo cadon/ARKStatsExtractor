@@ -92,6 +92,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="importExportGun\ExportGunCreatureFile.cs" />
+    <Compile Include="importExportGun\ExportGunFileExtensions.cs" />
     <Compile Include="importExportGun\ExportGunServerFile.cs" />
     <Compile Include="importExportGun\ImportExportGun.cs" />
     <Compile Include="importExportGun\ReadExportFile.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="library\DummyCreatures.cs" />
     <Compile Include="library\LevelStatusFlags.cs" />
     <Compile Include="multiplierTesting\CalculateMultipliers.cs" />
+    <Compile Include="multiplierTesting\SpeciesStatsExtractor.cs" />
     <Compile Include="multiplierTesting\TaTmSolver.cs" />
     <Compile Include="NamePatterns\NameList.cs" />
     <Compile Include="NamePatterns\NamePatternEntry.cs">
