@@ -909,6 +909,8 @@ namespace ARKBreedingStats.multiplierTesting
             if (_taTmSolver == null) _taTmSolver = new TaTmSolver();
             _taTmSolver.SetFirstEquation(nudStatValue.ValueDouble * (_percent ? 0.01 : 1), nudB.ValueDouble, nudLw.ValueDouble, nudIw.ValueDouble,
                 nudIwM.ValueDouble, nudTBHM.ValueDouble, _IB, _sIBM, _IBM, _TE, nudLd.ValueDouble, nudId.ValueDouble, nudIdM.ValueDouble);
+            LbTaTmTeStored.Text = $"TE: {_TE:p0}";
+            LbTaTmTeStored.BackColor = Color.LightGreen;
         }
 
         #endregion
