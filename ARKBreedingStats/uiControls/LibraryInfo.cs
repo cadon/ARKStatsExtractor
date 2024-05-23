@@ -171,14 +171,14 @@ namespace ARKBreedingStats.uiControls
             if (!speciesUsesAllRegions && ColorsExistInAllUsedRegions.Any())
             {
                 AddParagraph($"These colors exist in all regions the {_infoForSpecies.name} uses ({regionsUsedList})", bold: true, relativeFontSize: 1.1f);
-                AddParagraph("(not necessarily in one creature combined)");
+                AddParagraph($"{ColorsExistInAllUsedRegions.Count} colors (each color not necessarily in one creature combined)");
                 AddParagraph(CreateNumberRanges(ColorsExistInAllUsedRegions));
             }
 
             if (ColorsExistInAllRegions.Any())
             {
                 AddParagraph("These colors exist in all regions", bold: true, relativeFontSize: 1.1f);
-                AddParagraph("(not necessarily in one creature combined)");
+                AddParagraph($"{ColorsExistInAllRegions.Count} colors (each color not necessarily in one creature combined)");
                 AddParagraph(CreateNumberRanges(ColorsExistInAllRegions));
             }
 
