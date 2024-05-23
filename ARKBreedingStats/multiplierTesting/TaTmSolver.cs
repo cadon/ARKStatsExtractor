@@ -80,7 +80,7 @@ namespace ARKBreedingStats.multiplierTesting
         public string CalculateTaTm(double statValue, double baseValue, double lw, double iw, double iwm, double tbhm,
             double ib, double ibs, double ibm, double te, double ld, double id, double idm, out double taTaM, out double tmTmM)
         {
-            // TODO use three equations to also determine TBHM
+            // TODO use three equations to also determine TBHM. This is very complex, formula not yet determined
             SetValues(statValue, baseValue, lw, iw, iwm, tbhm, ib, ibs, ibm, te, ld, id, idm, out var sW, out var sX, out var sTe);
 
             taTaM = 0;
@@ -88,7 +88,7 @@ namespace ARKBreedingStats.multiplierTesting
 
             if (Math.Abs(_fTe - sTe) < 0.005)
             {
-                return $"The taming effectiveness (TE) values need to be more different (given values are {_fTe:p} and {sTe:p})";
+                return $"The taming effectiveness (TE) values need to be more different (given values are {_fTe:p1} and {sTe:p1})";
             }
 
             var squareRootPart = Math.Sqrt(

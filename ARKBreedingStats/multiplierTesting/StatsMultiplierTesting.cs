@@ -810,7 +810,9 @@ namespace ARKBreedingStats.multiplierTesting
 
             if (!creatureFiles.Any())
             {
-                MessageBoxes.ShowMessageBox("No creature files could be read");
+                if (!string.IsNullOrEmpty(lastError))
+                    lastError = Environment.NewLine + lastError;
+                MessageBoxes.ShowMessageBox("No creature files could be read" + lastError);
                 return;
             }
 
