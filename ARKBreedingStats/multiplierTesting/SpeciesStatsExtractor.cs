@@ -13,15 +13,15 @@ namespace ARKBreedingStats.multiplierTesting
     /// </summary>
     internal static class SpeciesStatsExtractor
     {
-        public static bool ExtractStatValues(IList<ExportGunCreatureFile> creatureFiles, ServerMultipliers serverMultipliers, out Species species, out string errorText)
+        public static bool ExtractStatValues(IList<ExportGunCreatureFile> creatureFiles, ServerMultipliers serverMultipliers, out Species species, out string resultText, out bool isError)
         {
-            if (!CheckInput(creatureFiles, out creatureFiles, serverMultipliers, out species, out errorText))
+            if (!CheckInput(creatureFiles, out creatureFiles, serverMultipliers, out species, out resultText))
+            {
+                isError = true;
                 return false;
+            }
 
-            if (!ExtractValues(creatureFiles, serverMultipliers, species, out errorText))
-                return false;
-
-            return true;
+            return ExtractValues(creatureFiles, serverMultipliers, species, out resultText, out isError);
         }
 
         private static bool CheckInput(IList<ExportGunCreatureFile> creatureFiles, out IList<ExportGunCreatureFile> cleanedCreatureFiles, ServerMultipliers serverMultipliers,
@@ -53,22 +53,37 @@ namespace ARKBreedingStats.multiplierTesting
             return true;
         }
 
-        private static bool ExtractValues(IList<ExportGunCreatureFile> creatureFiles, ServerMultipliers serverMultipliers, Species species, out string errorText)
+        private static bool ExtractValues(IList<ExportGunCreatureFile> creatureFiles, ServerMultipliers serverMultipliers, Species species, out string resultText, out bool isError)
         {
             const int roundToDigits = 3;
+
+            resultText = null;
+            isError = false;
+            var errorSb = new StringBuilder();
+            var taTmSolver = new TaTmSolver();
+
             var wildCreatures = creatureFiles.Where(c => c.IsWild()).ToArray();
             var domCreatures = creatureFiles.Where(c => !c.IsWild()).ToArray();
 
             // for the determination of Ta and Tm two creatures with different TE are needed
             var creaturesOrderedByTeWithoutDomLevels = domCreatures
-                .Where(ec => ec.Stats.All(s => s.Tamed == 0 && s.Mutated == 0))
+                .Where(ec => ec.DinoImprintingQuality == 0 && ec.Stats.All(s => s.Tamed == 0 && s.Mutated == 0))
                 .OrderBy(ec => ec.TameEffectiveness).ToArray();
             var crHighTe = creaturesOrderedByTeWithoutDomLevels.Last();
             var crLowTe = creaturesOrderedByTeWithoutDomLevels.First();
 
-            errorText = null;
-            var errorSb = new StringBuilder();
-            var taTmSolver = new TaTmSolver();
+            var creaturesWithImprinting = domCreatures
+                .Where(c => c.DinoImprintingQuality > 0.01)
+                    .OrderByDescending(c => c.DinoImprintingQuality).ToArray();
+
+            if (!creaturesWithImprinting.Any())
+            {
+                errorSb.AppendLine("No creature with imprinting given. Species specific stat imprinting multipliers cannot be determined and default values are assumed.");
+            }
+            else if (creaturesWithImprinting.First().DinoImprintingQuality < 0.1)
+            {
+                errorSb.AppendLine($"Creatures with imprinting have low imprinting of {creaturesWithImprinting.First().DinoImprintingQuality:p1}. Stat imprinting multipliers may be unprecise.");
+            }
 
             ServerMultipliers singlePlayerMultipliers = null;
             if (serverMultipliers.SinglePlayerSettings)
@@ -77,10 +92,13 @@ namespace ARKBreedingStats.multiplierTesting
                    Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Singleplayer);
                 if (singlePlayerMultipliers == null)
                 {
-                    errorText = "Singleplayer server multiplier preset not available.";
+                    resultText = "Singleplayer server multiplier preset not available.";
+                    isError = true;
                     return false;
                 }
             }
+
+            var speciesStatImprintingMultipliers = Species.StatImprintMultipliersDefaultAse.ToArray();
 
             for (var s = 0; s < Stats.StatsCount; s++)
             {
@@ -101,6 +119,7 @@ namespace ARKBreedingStats.multiplierTesting
                 {
                     errorSb.AppendLine(
                         $"no wild creature with 0 levels in stat [{s}] ({Utils.StatName(s)}) provided. This stat cannot be calculated further");
+                    isError = true;
                     continue;
                 }
 
@@ -118,6 +137,7 @@ namespace ARKBreedingStats.multiplierTesting
                 {
                     errorSb.AppendLine(
                         $"no wild creature with >0 levels in stat [{s}] ({Utils.StatName(s)}), iw cannot be determined and other values of this stat will be skipped.");
+                    isError = true;
                     continue;
                 }
 
@@ -129,11 +149,11 @@ namespace ARKBreedingStats.multiplierTesting
 
                 // TBHM
                 var tbhm = 1;
-                if (s == Stats.Health)
-                {
-                    species.TamedBaseHealthMultiplier = 1;
-                    // todo
-                }
+                // todo
+                //if (s == Stats.Health)
+                //{
+                //    species.TamedBaseHealthMultiplier = 1;
+                //}
 
                 // ta, tm
                 taTmSolver.SetFirstEquation(crHighTe.GetStatValue(s), baseValue,
@@ -142,15 +162,16 @@ namespace ARKBreedingStats.multiplierTesting
                     serverMultipliers.BabyImprintingStatScaleMultiplier,
                     crHighTe.TameEffectiveness, crHighTe.Stats[s].Tamed, 0, 0);
 
-                errorText = taTmSolver.CalculateTaTm(crLowTe.GetStatValue(s), baseValue,
+                resultText = taTmSolver.CalculateTaTm(crLowTe.GetStatValue(s), baseValue,
                     crLowTe.Stats[s].Wild, incPerWild,
                     svStats[ServerMultipliers.IndexLevelWild],
                     tbhm, crLowTe.DinoImprintingQuality, species.StatImprintMultipliers[s],
                     serverMultipliers.BabyImprintingStatScaleMultiplier,
                     crLowTe.TameEffectiveness, crLowTe.Stats[s].Tamed, 0, 0, out var taTaM, out var tmTmM);
-                if (!string.IsNullOrEmpty(errorText))
+                if (!string.IsNullOrEmpty(resultText))
                 {
-                    errorSb.AppendLine($"Error when calculating ta tm for stat {s}: " + errorText);
+                    errorSb.AppendLine($"Error when calculating ta tm for stat {s}: " + resultText);
+                    isError = true;
                 }
 
                 if (taTaM != 0 && svStats[ServerMultipliers.IndexTamingAdd] != 0)
@@ -162,9 +183,10 @@ namespace ARKBreedingStats.multiplierTesting
 
                 // dom level
                 var creatureWithNonZeroDomLevels =
-                    domCreatures.FirstOrDefault(ec => ec.Stats[s].Tamed > 0 && ec.Stats[s].Mutated == 0);
+                    domCreatures.FirstOrDefault(ec => ec.Stats[s].Tamed > 0 && ec.Stats[s].Mutated == 0 && ec.DinoImprintingQuality == 0);
                 if (creatureWithNonZeroDomLevels == null)
                 {
+                    // some levels cannot be levelled, so it's not necessarily an error
                     errorSb.AppendLine(
                         $"no creature with >0 domestic levels in stat [{s}] ({Utils.StatName(s)}), id cannot be calculated.");
                 }
@@ -185,11 +207,48 @@ namespace ARKBreedingStats.multiplierTesting
                         / (crStats.Tamed * svStats[ServerMultipliers.IndexLevelDom])
                         , roundToDigits);
                 }
+
+                // imprinting multiplier
+                if (creaturesWithImprinting.Any())
+                {
+                    // if dom levels are not known, only use creature with no dom levels
+                    var creatureWithImprinting = creaturesWithImprinting
+                        .FirstOrDefault(c => creatureWithNonZeroDomLevels != null || c.Stats[s].Tamed == 0);
+                    if (creatureWithImprinting != null)
+                    {
+                        var crStats = creatureWithImprinting.Stats[s];
+                        speciesStatImprintingMultipliers[s] = Math.Round(
+                            ((creatureWithNonZeroDomLevels.GetStatValue(s) /
+                              ((1 + creatureWithImprinting.TameEffectiveness *
+                                  spStats[Species.StatsRawIndexMultiplicativeBonus] *
+                                  svStats[ServerMultipliers.IndexTamingMult]) * (1 + crStats.Tamed * spStats[Species.StatsRawIndexIncPerDomLevel] * svStats[ServerMultipliers.IndexLevelDom]))
+                              - spStats[Species.StatsRawIndexAdditiveBonus] * svStats[ServerMultipliers.IndexTamingAdd]) / (spStats[Species.StatsRawIndexBase] * (1 + (crStats.Wild + crStats.Mutated) * incPerWild *
+                                svStats[ServerMultipliers.IndexLevelWild]) * tbhm) - 1) / (creatureWithImprinting.DinoImprintingQuality *
+                                serverMultipliers.BabyImprintingStatScaleMultiplier)
+                            , roundToDigits);
+                    }
+                    else
+                    {
+                        errorSb.AppendLine(
+                            $"For stat [{s}] ({Utils.StatName(s)}) species stat imprinting could not be determined (incPerDomLevel could be determined before).");
+                    }
+                }
+            }
+
+            // if statImprinting is default, no need to save it
+            var defaultStatImprintingMultipliers = Species.StatImprintMultipliersDefaultAse;
+            for (var si = 0; si < Stats.StatsCount; si++)
+            {
+                if (speciesStatImprintingMultipliers[si] != defaultStatImprintingMultipliers[si])
+                {
+                    species.StatImprintMultipliersRaw = speciesStatImprintingMultipliers;
+                    break;
+                }
             }
 
             species.Initialize(); // initialize second time to set used stats
 
-            errorText = errorSb.ToString();
+            resultText = errorSb.ToString();
             return true;
         }
     }

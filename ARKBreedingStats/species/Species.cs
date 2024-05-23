@@ -111,6 +111,15 @@ namespace ARKBreedingStats.species
         /// </summary>
         public double[] StatImprintMultipliers;
 
+        /// <summary>
+        /// The raw species imprinting stat multipliers. This property should only be used for custom species.
+        /// </summary>
+        public double[] StatImprintMultipliersRaw
+        {
+            get => statImprintMult;
+            set => statImprintMult = value;
+        }
+
         [JsonProperty]
         public ColorRegion[] colors;
         [JsonProperty]
@@ -238,7 +247,7 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Default values for the stat imprint multipliers in ASE
         /// </summary>
-        private static readonly double[] StatImprintMultipliersDefaultAse = { 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 };
+        internal static readonly double[] StatImprintMultipliersDefaultAse = { 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 };
 
         /// <summary>
         /// Default values for the mutated levels multipliers.

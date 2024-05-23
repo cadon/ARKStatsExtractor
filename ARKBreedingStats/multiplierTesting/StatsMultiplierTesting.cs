@@ -6,11 +6,13 @@ using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using ARKBreedingStats.importExportGun;
 
 namespace ARKBreedingStats.multiplierTesting
@@ -742,13 +744,16 @@ namespace ARKBreedingStats.multiplierTesting
             CopySpeciesStatsToClipboard();
         }
 
-        private void CopySpeciesStatsToClipboard(string speciesBlueprintPath = null)
+        private void CopySpeciesStatsToClipboard(string speciesBlueprintPath = null, double[] speciesImprintingMultipliers = null)
         {
             // copy stat values in the format of the values.json to clipboard
             var sb = new StringBuilder();
             if (!string.IsNullOrEmpty(speciesBlueprintPath))
                 sb.AppendLine($"\"blueprintPath\": \"{speciesBlueprintPath}\",");
             sb.AppendLine("\"fullStatsRaw\": [");
+            var currentCulture = CultureInfo.CurrentCulture;
+            CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+
             for (var s = 0; s < Stats.StatsCount; s++)
             {
                 var sv = _statControls[s].StatValues;
@@ -758,11 +763,17 @@ namespace ARKBreedingStats.multiplierTesting
                 }
                 else
                 {
-                    sb.AppendLine($"    [ {sv[0]}, {sv[1]}, {sv[2]}, {sv[3]}, {sv[4]} ],");
+                    sb.AppendLine($"    [ {string.Join(", ", sv)} ],");
                 }
             }
+            sb.AppendLine("]");
 
-            sb.Append("]");
+            if (speciesImprintingMultipliers != null)
+            {
+                sb.AppendLine($"\"statImprintMult\": [ {string.Join(", ", speciesBlueprintPath)} ]");
+            }
+
+            CultureInfo.CurrentCulture = currentCulture;
             Clipboard.SetText(sb.ToString());
             SetMessageLabelText?.Invoke("Raw stat values copied to clipboard.", MessageBoxIcon.Information);
         }
@@ -822,18 +833,19 @@ namespace ARKBreedingStats.multiplierTesting
             var sm = new ServerMultipliers(true);
             ImportExportGun.SetServerMultipliers(sm, serverMultipliersFile ?? GetServerMultipliers());
 
-            SpeciesStatsExtractor.ExtractStatValues(creatureFiles, sm, out var species, out var errorText);
+            SpeciesStatsExtractor.ExtractStatValues(creatureFiles, sm, out var species, out var resultText, out var isError);
             SetSpecies(species);
 
-            var extractionSuccessful = string.IsNullOrEmpty(errorText);
-            if (!extractionSuccessful)
+            if (isError)
             {
-                SetMessageLabelText?.Invoke("Error while trying to determine the species stats." + Environment.NewLine + errorText, MessageBoxIcon.Error);
+                SetMessageLabelText?.Invoke("Error while trying to determine the species stats." + Environment.NewLine + resultText, MessageBoxIcon.Error);
                 return;
             }
 
-            CopySpeciesStatsToClipboard(species.blueprintPath);
-            SetMessageLabelText?.Invoke(
+            CopySpeciesStatsToClipboard(species.blueprintPath, species.StatImprintMultipliersRaw);
+            if (!string.IsNullOrEmpty(resultText))
+                resultText += Environment.NewLine;
+            SetMessageLabelText?.Invoke(resultText +
                 "Extracted the species values and copied them to the clipboard. Note the TBHM and singleplayer is not supported and may lead to wrong values.",
                 MessageBoxIcon.Information);
         }
