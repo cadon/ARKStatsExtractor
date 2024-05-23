@@ -625,26 +625,14 @@ namespace ARKBreedingStats
                 redInfoText = Loc.S("lbImprintingFailInfo");
             }
             if (!rbWildExtractor.Checked
-                && new[]{
-                            "Desert Titan",
-                            "Desert Titan Flock",
-                            "Ice Titan",
-                            "Gacha",
-                            "Aberrant Electrophorus",
-                            "Electrophorus",
-                            "Aberrant Pulmonoscorpius",
-                            "Pulmonoscorpius",
-                            "Aberrant Titanoboa",
-                            "Titanoboa",
-                            "Pegomastax",
-                            "Procoptodon",
-                            "Troodon"
-                        }.Contains(speciesSelector1.SelectedSpecies.name))
+                && speciesSelector1.SelectedSpecies.altBaseStatsRaw?
+                    .Any(kv => _statIOs[kv.Key].Status == StatIOStatus.Error) == true
+                )
             {
-                // creatures that display wrong stat-values after taming
+                // creatures that display wrong stat-values after taming (Troodonism bug)
                 redInfoText = (string.IsNullOrEmpty(redInfoText) ? string.Empty : redInfoText + "\n")
-                        + $"The {speciesSelector1.SelectedSpecies.name} is known for displaying wrong stat-values after taming. " +
-                        "This can prevent a successful extraction. Currently there's no known fix for that issue.";
+                        + $"The {speciesSelector1.SelectedSpecies.name} is known for displaying wrong stat-values after taming (Troodonism bug). " +
+                        "This can prevent a successful extraction. The correct stat value should be displayed directly after a server restart and is unreliable else.";
             }
 
             if (!string.IsNullOrEmpty(redInfoText))
