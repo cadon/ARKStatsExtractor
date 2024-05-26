@@ -117,6 +117,7 @@
     <Compile Include="Pedigree\PedigreeCreation.cs" />
     <Compile Include="Pedigree\IPedigreeCreature.cs" />
     <Compile Include="species\ArkColors.cs" />
+    <Compile Include="species\Troodonism.cs" />
     <Compile Include="uiControls\ArkVersionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -371,7 +372,7 @@
     <Compile Include="CreatureInfoInput.Designer.cs">
       <DependentUpon>CreatureInfoInput.cs</DependentUpon>
     </Compile>
-    <Compile Include="species\CreatureStat.cs" />
+    <Compile Include="species\SpeciesStat.cs" />
     <Compile Include="species\Kibble.cs" />
     <Compile Include="Kibbles.cs" />
     <Compile Include="library\CreatureValues.cs" />

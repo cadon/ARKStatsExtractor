@@ -280,8 +280,9 @@ namespace ARKBreedingStats
             var mutagenApplied = possiblyMutagenApplied || creatureInfoInputExtractor.CreatureFlags.HasFlag(CreatureFlags.MutagenApplied);
             var bred = rbBredExtractor.Checked;
             bool imprintingBonusChanged = false;
+            var useTroodonism = Troodonism.AffectedStats.None;
 
-            for (int i = 0; i < 2; i++)
+            while (true)
             {
                 _extractor.ExtractLevels(speciesSelector1.SelectedSpecies, (int)numericUpDownLevel.Value, _statIOs,
                     (double)numericUpDownLowerTEffBound.Value / 100, (double)numericUpDownUpperTEffBound.Value / 100,
@@ -290,14 +291,14 @@ namespace ARKBreedingStats
                     _creatureCollection.allowMoreThanHundredImprinting,
                     _creatureCollection.serverMultipliers.BabyImprintingStatScaleMultiplier,
                     _creatureCollection.considerWildLevelSteps, _creatureCollection.wildLevelStep,
-                    statInputsHighPrecision, mutagenApplied, out imprintingBonusChanged);
+                    statInputsHighPrecision, mutagenApplied, out imprintingBonusChanged, useTroodonism);
 
                 // wild claimed babies look like bred creatures in the export files, but have to be considered tamed when imported
                 // if the extraction of an exported creature doesn't work, try with tamed settings
                 if (bred && numericUpDownImprintingBonusExtractor.Value == 0 && statInputsHighPrecision)
                 {
                     var someStatsHaveNoResults = false;
-                    var onlyStatsWithTEHaveNoResults = true;
+                    var onlyStatsWithTeHaveNoResults = true;
                     // check if only stats affected by TE have no result
                     for (int s = 0; s < Stats.StatsCount; s++)
                     {
@@ -307,18 +308,31 @@ namespace ARKBreedingStats
                             if (!_extractor.StatsWithTE.Contains(s))
                             {
                                 // the issue is not related to TE, so it's a different issue
-                                onlyStatsWithTEHaveNoResults = false;
+                                onlyStatsWithTeHaveNoResults = false;
                             }
                         }
                     }
 
-                    if (!someStatsHaveNoResults || !onlyStatsWithTEHaveNoResults) break;
+                    if (!someStatsHaveNoResults || !onlyStatsWithTeHaveNoResults) break;
 
                     // issue could be a wild claimed baby that should be considered tamed
                     _extractor.Clear();
                     rbTamedExtractor.Checked = true;
                     bred = false;
 
+                    continue;
+                }
+
+                // if extraction failed, it could be due to the troodonism bug. If the creature has alt stats and for one of these stats there is no result, try these
+                if (useTroodonism == Troodonism.AffectedStats.None
+                    && speciesSelector1.SelectedSpecies.altBaseStatsRaw?
+                        .Any(kv => !_extractor.Results[kv.Key].Any()) == true)
+                {
+                    if (rbWildExtractor.Checked)
+                        useTroodonism = Troodonism.AffectedStats.WildCombination;
+                    else
+                        useTroodonism = Troodonism.AffectedStats.UncryoCombination;
+                    _extractor.Clear();
                     continue;
                 }
 
@@ -458,7 +472,7 @@ namespace ARKBreedingStats
             }
             if (domLevelsChosenSum != _extractor.LevelDomSum)
             {
-                // sum of domlevels is not correct. Try to find another combination
+                // sum of dom levels is not correct. Try to find another combination
                 domLevelsChosenSum -= _extractor.Results[Stats.MeleeDamageMultiplier][_extractor.ChosenResults[Stats.MeleeDamageMultiplier]].levelDom;
                 bool changeChosenResult = false;
                 int cR = 0;

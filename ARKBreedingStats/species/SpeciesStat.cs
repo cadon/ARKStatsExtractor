@@ -3,7 +3,7 @@
 namespace ARKBreedingStats.species
 {
     [JsonObject]
-    public class CreatureStat
+    public class SpeciesStat
     {
         public double BaseValue;
         public double IncPerWildLevel;

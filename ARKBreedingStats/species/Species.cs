@@ -52,12 +52,12 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// The stat values with all multipliers applied and ready to use.
         /// </summary>
-        public CreatureStat[] stats;
+        public SpeciesStat[] stats;
         /// <summary>
         /// The alternative / Troodonism base stat values with all multipliers applied and ready to use.
         /// Values depending on the base value, e.g. incPerWild or incPerDom etc. can use either the correct or alternative base value.
         /// </summary>
-        public CreatureStat[] altStats;
+        public SpeciesStat[] altStats;
 
         /// <summary>
         /// Multipliers for each stat for the mutated levels. Introduced in ASA.
@@ -167,9 +167,10 @@ namespace ARKBreedingStats.species
 
             InitializeNames();
 
-            stats = new CreatureStat[Stats.StatsCount];
-            if (altBaseStatsRaw != null)
-                altStats = new CreatureStat[Stats.StatsCount];
+            stats = new SpeciesStat[Stats.StatsCount];
+            var altStatsExist = altBaseStatsRaw?.Any() == true;
+            if (altStatsExist)
+                altStats = new SpeciesStat[Stats.StatsCount];
 
             var fullStatsRawLength = fullStatsRaw?.Length ?? 0;
 
@@ -185,9 +186,13 @@ namespace ARKBreedingStats.species
             double[][] completeRaws = new double[Stats.StatsCount][];
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                stats[s] = new CreatureStat();
-                if (altBaseStatsRaw?.ContainsKey(s) ?? false)
-                    altStats[s] = new CreatureStat();
+                stats[s] = new SpeciesStat();
+                if (altStatsExist)
+                {
+                    if (altBaseStatsRaw.ContainsKey(s))
+                        altStats[s] = new SpeciesStat();
+                    else altStats[s] = stats[s];
+                }
 
                 var usesStat = false;
                 completeRaws[s] = new double[] { 0, 0, 0, 0, 0 };
@@ -415,6 +420,11 @@ namespace ARKBreedingStats.species
             }
             get => _mod;
         }
+
+        /// <summary>
+        /// True if the species has any alternative stats (due to the troodonism bug).
+        /// </summary>
+        public bool HasAltStats => altBaseStatsRaw?.Any() == true;
 
         /// <summary>
         /// Returns an array of colors for a creature of this species with the naturally occurring colors.

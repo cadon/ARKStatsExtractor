@@ -9,46 +9,55 @@ namespace ARKBreedingStats
     {
         //private const double ROUND_UP_DELTA = 0.0001; // remove for now. Rounding issues should be handled during extraction with value-ranges.
 
-        public static double CalculateValue(Species species, int stat, int levelWild, int levelMut, int levelDom, bool dom, double tamingEff = 0, double imprintingBonus = 0, bool roundToIngamePrecision = true)
+        /// <summary>
+        /// Calculate the stat value.
+        /// </summary>
+        public static double CalculateValue(Species species, int statIndex, int levelWild, int levelMut, int levelDom,
+            bool dom, double tamingEff = 0, double imprintingBonus = 0, bool roundToIngamePrecision = true,
+            Troodonism.AffectedStats useTroodonismStats = Troodonism.AffectedStats.None)
         {
             if (species == null)
                 return 0;
 
+            var speciesStat = useTroodonismStats == Troodonism.AffectedStats.None
+                ? species.stats[statIndex]
+                : Troodonism.SelectStats(species.stats[statIndex], species.altStats[statIndex], useTroodonismStats);
+
             // if stat is generally available but level is set to -1 (== unknown), return -1 (== unknown)
-            if (levelWild < 0 && species.stats[stat].IncPerWildLevel != 0)
+            if (levelWild < 0 && speciesStat.IncPerWildLevel != 0)
                 return -1;
 
             double add = 0, domMult = 1, imprintingM = 1, tamedBaseHP = 1;
             if (dom)
             {
-                add = species.stats[stat].AddWhenTamed;
-                double domMultAffinity = species.stats[stat].MultAffinity;
+                add = speciesStat.AddWhenTamed;
+                double domMultAffinity = speciesStat.MultAffinity;
                 // the multiplicative bonus is only multiplied with the TE if it is positive (i.e. negative boni won't get less bad if the TE is low)
                 if (domMultAffinity >= 0)
                     domMultAffinity *= tamingEff;
-                domMult = (tamingEff >= 0 ? (1 + domMultAffinity) : 1) * (1 + levelDom * species.stats[stat].IncPerTamedLevel);
+                domMult = (tamingEff >= 0 ? (1 + domMultAffinity) : 1) * (1 + levelDom * speciesStat.IncPerTamedLevel);
                 if (imprintingBonus > 0
-                    && species.StatImprintMultipliers[stat] != 0
+                    && species.StatImprintMultipliers[statIndex] != 0
                     )
-                    imprintingM = 1 + species.StatImprintMultipliers[stat] * imprintingBonus * Values.V.currentServerMultipliers.BabyImprintingStatScaleMultiplier;
-                if (stat == Stats.Health)
+                    imprintingM = 1 + species.StatImprintMultipliers[statIndex] * imprintingBonus * Values.V.currentServerMultipliers.BabyImprintingStatScaleMultiplier;
+                if (statIndex == Stats.Health)
                     tamedBaseHP = species.TamedBaseHealthMultiplier ?? 1;
             }
-            //double result = Math.Round((species.stats[stat].BaseValue * tamedBaseHP * (1 + species.stats[stat].IncPerWildLevel * levelWild) * imprintingM + add) * domMult, Utils.precision(stat), MidpointRounding.AwayFromZero);
+            //double result = Math.Round((stats.BaseValue * tamedBaseHP * (1 + stats.IncPerWildLevel * levelWild) * imprintingM + add) * domMult, Utils.precision(stat), MidpointRounding.AwayFromZero);
             // double is too precise and results in wrong values due to rounding. float results in better values, probably ARK uses float as well.
             // or rounding first to a precision of 7, then use the rounding of the precision
-            //double resultt = Math.Round((species.stats[stat].BaseValue * tamedBaseHP * (1 + species.stats[stat].IncPerWildLevel * levelWild) * imprintingM + add) * domMult, 7);
+            //double resultt = Math.Round((stats.BaseValue * tamedBaseHP * (1 + stats.IncPerWildLevel * levelWild) * imprintingM + add) * domMult, 7);
             //resultt = Math.Round(resultt, Utils.precision(stat), MidpointRounding.AwayFromZero);
 
             // adding an epsilon to handle rounding-errors
-            double result = (species.stats[stat].BaseValue * tamedBaseHP *
-                    (1 + species.stats[stat].IncPerWildLevel * levelWild + species.stats[stat].IncPerMutatedLevel * levelMut) * imprintingM + add) *
+            double result = (speciesStat.BaseValue * tamedBaseHP *
+                    (1 + speciesStat.IncPerWildLevel * levelWild + speciesStat.IncPerMutatedLevel * levelMut) * imprintingM + add) *
                     domMult;// + (Utils.precision(stat) == 3 ? ROUND_UP_DELTA * 0.01 : ROUND_UP_DELTA);
 
             if (result <= 0) return 0;
 
             if (roundToIngamePrecision)
-                return Math.Round(result, Stats.Precision(stat), MidpointRounding.AwayFromZero);
+                return Math.Round(result, Stats.Precision(statIndex), MidpointRounding.AwayFromZero);
 
             return result;
         }

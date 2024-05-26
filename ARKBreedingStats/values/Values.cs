@@ -548,21 +548,27 @@ namespace ARKBreedingStats.values
                         sp.stats[s].IncPerWildLevel = GetRawStatValue(s, Species.StatsRawIndexIncPerWildLevel, customOverrideForThisStatExists) * statMultipliers[3];
                         sp.stats[s].IncPerMutatedLevel = sp.stats[s].IncPerWildLevel; // todo consider adjustments if they're implemented
 
+                        var altBaseValue = 0d;
+                        var thisStatHasAltValues = sp.altBaseStatsRaw?.TryGetValue(s, out altBaseValue) == true;
                         // set troodonism values
-                        if (sp.altStats?[s] != null && sp.stats[s].BaseValue != 0)
+                        if (thisStatHasAltValues
+                            && sp.stats[s].BaseValue != 0
+                            && sp.altStats != null)
                         {
-                            sp.altStats[s].BaseValue = sp.altBaseStatsRaw[s];
+                            sp.altStats[s].BaseValue = altBaseValue;
 
                             // alt / troodonism values depend on the base value
-                            var altFactor = sp.altStats[s].BaseValue / sp.stats[s].BaseValue;
+                            var altFactor = altBaseValue / sp.stats[s].BaseValue;
 
-                            sp.altStats[s].AddWhenTamed = altFactor * sp.stats[s].AddWhenTamed;
-                            sp.altStats[s].MultAffinity = altFactor * sp.stats[s].MultAffinity;
-                            sp.altStats[s].IncPerTamedLevel = altFactor * sp.stats[s].IncPerTamedLevel;
                             sp.altStats[s].IncPerWildLevel = altFactor * sp.stats[s].IncPerWildLevel;
+                            // maybe not affected, maybe depends on postTame stat value (and then maybe on different troodonism variants)
+                            sp.altStats[s].IncPerTamedLevel = sp.stats[s].IncPerTamedLevel;
+                            // taming bonus probably not affected by troodonism
+                            sp.altStats[s].AddWhenTamed = sp.stats[s].AddWhenTamed;
+                            sp.altStats[s].MultAffinity = sp.stats[s].MultAffinity;
                         }
 
-                        // single player adjustments if set and available
+                        ///// single player adjustments if set and available
 
                         if (singlePlayerServerMultipliers?.statMultipliers?[s] == null)
                             continue;
@@ -574,8 +580,9 @@ namespace ARKBreedingStats.values
                         sp.stats[s].IncPerTamedLevel *= singlePlayerServerMultipliers.statMultipliers[s][ServerMultipliers.IndexLevelDom];
                         sp.stats[s].IncPerWildLevel *= singlePlayerServerMultipliers.statMultipliers[s][ServerMultipliers.IndexLevelWild];
 
-                        // troodonism values
-                        if (sp.altStats?[s] != null)
+                        // troodonism values singleplayer adjustment
+                        if (thisStatHasAltValues
+                            && sp.altStats?[s] != null)
                         {
                             sp.altStats[s].AddWhenTamed *= sp.altStats[s].AddWhenTamed > 0
                                 ? singlePlayerServerMultipliers.statMultipliers[s][ServerMultipliers.IndexTamingAdd]

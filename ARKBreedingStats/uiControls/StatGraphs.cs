@@ -22,7 +22,7 @@ namespace ARKBreedingStats.uiControls
         {
             if (species != null && statIndex >= 0 && statIndex < 12)
             {
-                CreatureStat stat = species.stats[statIndex];
+                SpeciesStat stat = species.stats[statIndex];
                 serie.Points.Clear();
                 serie.Points.AddXY("Base", stat.BaseValue);
                 serie.Points.AddXY("Wild", StatValueCalculation.CalculateValue(species, statIndex, wildLevels, mutatedLevel, 0, false, 0, 0));
