@@ -2409,5 +2409,17 @@ namespace ARKBreedingStats.Properties {
                 this["MoveMutationLevelsOnExtractionIfUnique"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool TesterLinkWildMutatedLevels {
+            get {
+                return ((bool)(this["TesterLinkWildMutatedLevels"]));
+            }
+            set {
+                this["TesterLinkWildMutatedLevels"] = value;
+            }
+        }
     }
 }

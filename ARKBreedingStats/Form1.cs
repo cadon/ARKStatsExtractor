@@ -14,14 +14,12 @@ using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.utils;
 using static ARKBreedingStats.settings.Settings;
 using Color = System.Drawing.Color;
-using ARKBreedingStats.AsbServer;
 using static ARKBreedingStats.uiControls.StatWeighting;
 
 namespace ARKBreedingStats
@@ -415,6 +413,8 @@ namespace ARKBreedingStats
             creatureInfoInputExtractor.OwnerLock = Properties.Settings.Default.OwnerNameLocked;
             creatureInfoInputExtractor.TribeLock = Properties.Settings.Default.TribeNameLocked;
             creatureInfoInputExtractor.LockServer = Properties.Settings.Default.ServerNameLocked;
+
+            CbLinkWildMutatedLevelsTester.Checked = Properties.Settings.Default.TesterLinkWildMutatedLevels;
 
             // UI loaded
 

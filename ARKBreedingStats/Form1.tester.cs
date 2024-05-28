@@ -1,12 +1,10 @@
 ﻿using ARKBreedingStats.Library;
-using ARKBreedingStats.species;
 using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.library;
 using ARKBreedingStats.uiControls;
-using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
 {
@@ -392,6 +390,7 @@ namespace ARKBreedingStats
             var linkWildMutated = CbLinkWildMutatedLevelsTester.Checked;
             for (int s = 0; s < Stats.StatsCount; s++)
                 _testingIOs[s].LinkWildMutated = linkWildMutated;
+            Properties.Settings.Default.TesterLinkWildMutatedLevels = linkWildMutated;
         }
     }
 }
