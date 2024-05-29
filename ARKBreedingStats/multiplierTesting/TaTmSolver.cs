@@ -3,7 +3,7 @@
 namespace ARKBreedingStats.multiplierTesting
 {
     /// <summary>
-    /// Solves Ta*TaM and Tm*TmM with two given equations.
+    /// Solves Ta*TaM and Tm*TmM or Ta*TaM and TBHM with two given equations.
     /// </summary>
     internal class TaTmSolver
     {
@@ -20,11 +20,13 @@ namespace ARKBreedingStats.multiplierTesting
         // W = V/y
         // the formula is
         // W = (x * h + a) * (1 + TE * m)
-        // for solver W = (x * h + a) * (1 + t * m), U = (x_2 * h + a) * (1 + t_2 * m), V = (x_3 * h + a) * (1 + t_3 * m) for a, m, h
+        // for solver W = (x * h + a) * (1 + t * m), U = (x_2 * h + a) * (1 + t_2 * m) for a, m
+        // for solver W = x * h + a, U = x_2 * h + a for h, a
 
         // f like first equation, s like second equation
         private double _fW;
         private double _fX;
+        private double _fXWithoutTbhm;
         private double _fTe;
 
         /// <summary>
@@ -46,15 +48,16 @@ namespace ARKBreedingStats.multiplierTesting
         public void SetFirstEquation(double statValue, double baseValue, double lw, double iw, double iwm, double tbhm,
             double ib, double ibs, double ibm, double te, double ld, double id, double idm)
         {
-            SetValues(statValue, baseValue, lw, iw, iwm, tbhm, ib, ibs, ibm, te, ld, id, idm, out _fW, out _fX, out _fTe);
+            SetValues(statValue, baseValue, lw, iw, iwm, tbhm, ib, ibs, ibm, te, ld, id, idm, out _fW, out _fX, out _fXWithoutTbhm, out _fTe);
         }
 
         private void SetValues(double statValue, double baseValue, double lw, double iw, double iwm, double tbhm,
-            double ib, double ibs, double ibm, double te, double ld, double id, double idm, out double w, out double x,
-            out double teOut)
+            double ib, double ibs, double ibm, double te, double ld, double id, double idm, out double w,
+            out double x, out double xWithoutTbhm, out double teOut)
         {
             w = statValue / (1 + ld * id * idm);
-            x = baseValue * (1 + lw * iw * iwm) * tbhm * (1 + ib * ibs * ibm);
+            xWithoutTbhm = baseValue * (1 + lw * iw * iwm) * (1 + ib * ibs * ibm);
+            x = xWithoutTbhm * tbhm;
             teOut = te;
         }
 
@@ -80,8 +83,7 @@ namespace ARKBreedingStats.multiplierTesting
         public string CalculateTaTm(double statValue, double baseValue, double lw, double iw, double iwm, double tbhm,
             double ib, double ibs, double ibm, double te, double ld, double id, double idm, out double taTaM, out double tmTmM)
         {
-            // TODO use three equations to also determine TBHM. This is very complex, formula not yet determined
-            SetValues(statValue, baseValue, lw, iw, iwm, tbhm, ib, ibs, ibm, te, ld, id, idm, out var sW, out var sX, out var sTe);
+            SetValues(statValue, baseValue, lw, iw, iwm, tbhm, ib, ibs, ibm, te, ld, id, idm, out var sW, out var sX, out _, out var sTe);
 
             taTaM = 0;
             tmTmM = 0;
@@ -121,6 +123,43 @@ namespace ARKBreedingStats.multiplierTesting
             taTaM = (-squareRootPart + secondPart + thirdPart + _fTe * sW - sTe * _fW) / (2 * (_fTe - sTe));
             tmTmM = (squareRootPart + secondPart - thirdPart + 2 * _fTe * _fW - _fTe * sW - sTe * _fW) / dividend;
 
+            return null; // no error
+        }
+
+        /// <summary>
+        /// Calculate the products of Ta * TaM and TBHM with a second equation, assuming Tm == 0.
+        /// Returns error text or null on success.
+        /// </summary>
+        /// <param name="statValue"></param>
+        /// <param name="baseValue"></param>
+        /// <param name="lw">wild levels</param>
+        /// <param name="iw">increase per wild level of this species</param>
+        /// <param name="iwm">increase per wild level server multiplier</param>
+        /// <param name="ib">imprinting bonus of creature</param>
+        /// <param name="ibs">imprinting bonus species stat multiplier</param>
+        /// <param name="ibm">imprinting bonus multiplier of server</param>
+        /// <param name="te">taming effectiveness</param>
+        /// <param name="ld">domestic levels</param>
+        /// <param name="id">increase per domestic level of species</param>
+        /// <param name="idm">increase per domestic level server multiplier</param>
+        /// <param name="taTaM">product of taming additive bonus of species and server multiplier</param>
+        /// <param name="tbhm">tamed bonus health multiplier of species</param>
+        public string CalculateTaTbhm(double statValue, double baseValue, double lw, double iw, double iwm,
+            double ib, double ibs, double ibm, double te, double ld, double id, double idm, out double taTaM,
+            out double tbhm)
+        {
+            SetValues(statValue, baseValue, lw, iw, iwm, 1, ib, ibs, ibm, te, ld, id, idm, out var sW, out _, out var sXWithoutTbhm, out var sTe);
+            
+            taTaM = 0;
+            tbhm = 0;
+
+            if (Math.Abs(_fXWithoutTbhm - sXWithoutTbhm) < 0.005)
+            {
+                return "The wild levels need to be more different to calculate TBHM";
+            }
+
+            taTaM = (_fW * sXWithoutTbhm - sW * _fXWithoutTbhm) / (sXWithoutTbhm - _fXWithoutTbhm);
+            tbhm = (sW - _fW) / (sXWithoutTbhm - _fXWithoutTbhm);
             return null; // no error
         }
     }

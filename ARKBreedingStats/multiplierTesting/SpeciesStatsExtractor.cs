@@ -147,39 +147,75 @@ namespace ARKBreedingStats.multiplierTesting
                     , roundToDigits);
                 spStats[Species.StatsRawIndexIncPerWildLevel] = incPerWild;
 
-                // TBHM
-                var tbhm = 1;
-                // todo
-                //if (s == Stats.Health)
-                //{
-                //    species.TamedBaseHealthMultiplier = 1;
-                //}
-
-                // ta, tm
-                taTmSolver.SetFirstEquation(crHighTe.GetStatValue(s), baseValue,
-                    crHighTe.Stats[s].Wild, incPerWild, svStats[ServerMultipliers.IndexLevelWild],
-                    tbhm, crHighTe.DinoImprintingQuality, species.StatImprintMultipliers[s],
-                    serverMultipliers.BabyImprintingStatScaleMultiplier,
-                    crHighTe.TameEffectiveness, crHighTe.Stats[s].Tamed, 0, 0);
-
-                resultText = taTmSolver.CalculateTaTm(crLowTe.GetStatValue(s), baseValue,
-                    crLowTe.Stats[s].Wild, incPerWild,
-                    svStats[ServerMultipliers.IndexLevelWild],
-                    tbhm, crLowTe.DinoImprintingQuality, species.StatImprintMultipliers[s],
-                    serverMultipliers.BabyImprintingStatScaleMultiplier,
-                    crLowTe.TameEffectiveness, crLowTe.Stats[s].Tamed, 0, 0, out var taTaM, out var tmTmM);
-                if (!string.IsNullOrEmpty(resultText))
+                var tbhm = 1d;
+                if (s == Stats.Health)
                 {
-                    errorSb.AppendLine($"Error when calculating ta tm for stat {s}: " + resultText);
-                    isError = true;
-                }
+                    // assuming TBHM is only for HP and Tm == 0 for HP
+                    // to determine TBHM two creatures with a difference between
+                    // baseValue * (1 + lw * iw * iwm) * (1 + ib * ibs * ibm)
+                    // and without dom levels is needed. Take the creatures with the min and max.
+                    var creaturesOrderedByWildHpLevelsWithoutDomLevels = creaturesOrderedByTeWithoutDomLevels
+                        .OrderBy(c =>
+                                baseValue * (1 + c.Stats[Stats.Health].Wild * incPerWild * svStats[ServerMultipliers.IndexLevelWild])
+                                * (1 + c.DinoImprintingQuality * species.StatImprintMultipliers[s] * serverMultipliers.BabyImprintingStatScaleMultiplier)
+                            ).ToArray();
+                    var lowLevelHpCreature = creaturesOrderedByWildHpLevelsWithoutDomLevels.First();
+                    var highLevelHpCreature = creaturesOrderedByWildHpLevelsWithoutDomLevels.Last();
 
-                if (taTaM != 0 && svStats[ServerMultipliers.IndexTamingAdd] != 0)
-                    spStats[Species.StatsRawIndexAdditiveBonus] =
-                        Math.Round(taTaM / svStats[ServerMultipliers.IndexTamingAdd], roundToDigits);
-                if (tmTmM != 0 && svStats[ServerMultipliers.IndexTamingMult] != 0)
-                    spStats[Species.StatsRawIndexMultiplicativeBonus] =
-                        Math.Round(tmTmM / svStats[ServerMultipliers.IndexTamingMult], roundToDigits);
+                    taTmSolver.SetFirstEquation(lowLevelHpCreature.GetStatValue(s), baseValue,
+                        lowLevelHpCreature.Stats[s].Wild, incPerWild, svStats[ServerMultipliers.IndexLevelWild],
+                        1, lowLevelHpCreature.DinoImprintingQuality, species.StatImprintMultipliers[s],
+                        serverMultipliers.BabyImprintingStatScaleMultiplier,
+                        lowLevelHpCreature.TameEffectiveness, lowLevelHpCreature.Stats[s].Tamed, 0, 0);
+
+                    resultText = taTmSolver.CalculateTaTbhm(highLevelHpCreature.GetStatValue(s), baseValue,
+                        highLevelHpCreature.Stats[s].Wild, incPerWild,
+                        svStats[ServerMultipliers.IndexLevelWild],
+                         highLevelHpCreature.DinoImprintingQuality, species.StatImprintMultipliers[s],
+                        serverMultipliers.BabyImprintingStatScaleMultiplier,
+                        highLevelHpCreature.TameEffectiveness, highLevelHpCreature.Stats[s].Tamed, 0, 0, out var taTaM, out tbhm);
+
+                    if (!string.IsNullOrEmpty(resultText))
+                    {
+                        errorSb.AppendLine($"Error when calculating ta and tbhm for stat {s}: " + resultText);
+                        isError = true;
+                    }
+
+                    if (taTaM != 0 && svStats[ServerMultipliers.IndexTamingAdd] != 0)
+                        spStats[Species.StatsRawIndexAdditiveBonus] =
+                            Math.Round(taTaM / svStats[ServerMultipliers.IndexTamingAdd], roundToDigits);
+                    if (tbhm != 0)
+                        species.TamedBaseHealthMultiplier = (float)tbhm;
+                }
+                else
+                {
+                    // ta, tm
+                    taTmSolver.SetFirstEquation(crHighTe.GetStatValue(s), baseValue,
+                        crHighTe.Stats[s].Wild, incPerWild, svStats[ServerMultipliers.IndexLevelWild],
+                        1, crHighTe.DinoImprintingQuality, species.StatImprintMultipliers[s],
+                        serverMultipliers.BabyImprintingStatScaleMultiplier,
+                        crHighTe.TameEffectiveness, crHighTe.Stats[s].Tamed, 0, 0);
+
+                    resultText = taTmSolver.CalculateTaTm(crLowTe.GetStatValue(s), baseValue,
+                        crLowTe.Stats[s].Wild, incPerWild,
+                        svStats[ServerMultipliers.IndexLevelWild],
+                        1, crLowTe.DinoImprintingQuality, species.StatImprintMultipliers[s],
+                        serverMultipliers.BabyImprintingStatScaleMultiplier,
+                        crLowTe.TameEffectiveness, crLowTe.Stats[s].Tamed, 0, 0, out var taTaM, out var tmTmM);
+
+                    if (!string.IsNullOrEmpty(resultText))
+                    {
+                        errorSb.AppendLine($"Error when calculating ta tm for stat {s}: " + resultText);
+                        isError = true;
+                    }
+
+                    if (taTaM != 0 && svStats[ServerMultipliers.IndexTamingAdd] != 0)
+                        spStats[Species.StatsRawIndexAdditiveBonus] =
+                            Math.Round(taTaM / svStats[ServerMultipliers.IndexTamingAdd], roundToDigits);
+                    if (tmTmM != 0 && svStats[ServerMultipliers.IndexTamingMult] != 0)
+                        spStats[Species.StatsRawIndexMultiplicativeBonus] =
+                            Math.Round(tmTmM / svStats[ServerMultipliers.IndexTamingMult], roundToDigits);
+                }
 
                 // dom level
                 var creatureWithNonZeroDomLevels =
