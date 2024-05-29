@@ -27,6 +27,6 @@
         /// ASB expects the absolute value.
         /// </summary>
         public static float GetStatValue(this ExportGunCreatureFile ec, int statIndex)
-            => ec.Stats[statIndex].Value + (Stats.IsPercentage(statIndex) ? 1 : 0);
+            => ec == null ? 0 : ec.Stats[statIndex].Value + (Stats.IsPercentage(statIndex) ? 1 : 0);
     }
 }

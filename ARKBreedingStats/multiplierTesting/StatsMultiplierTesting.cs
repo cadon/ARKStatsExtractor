@@ -805,7 +805,16 @@ namespace ARKBreedingStats.multiplierTesting
             ExportGunServerFile serverMultipliersFile = null;
             string lastError = null;
 
+            var filePaths = new List<string>();
             foreach (var filePath in files)
+            {
+                if (File.Exists(filePath))
+                    filePaths.Add(filePath);
+                else if (Directory.Exists(filePath))
+                    filePaths.AddRange(Directory.GetFiles(filePath, "*", SearchOption.AllDirectories));
+            }
+
+            foreach (var filePath in filePaths)
             {
                 var creature = ImportExportGun.LoadCreatureFile(filePath, out lastError, out _);
                 if (creature != null)
