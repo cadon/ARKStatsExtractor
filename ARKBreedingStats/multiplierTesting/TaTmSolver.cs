@@ -148,7 +148,7 @@ namespace ARKBreedingStats.multiplierTesting
             double ib, double ibs, double ibm, double te, double ld, double id, double idm, out double taTaM,
             out double tbhm)
         {
-            SetValues(statValue, baseValue, lw, iw, iwm, 1, ib, ibs, ibm, te, ld, id, idm, out var sW, out _, out var sXWithoutTbhm, out var sTe);
+            SetValues(statValue, baseValue, lw, iw, iwm, 1, ib, ibs, ibm, te, ld, id, idm, out var sW, out _, out var sXWithoutTbhm, out _);
 
             taTaM = 0;
             tbhm = 0;
