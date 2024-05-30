@@ -78,10 +78,10 @@
             this.CbTrodTm = new System.Windows.Forms.CheckBox();
             this.CbTrodId = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.LbTaTmTeStored = new System.Windows.Forms.Label();
             this.BtSolveTaTm = new System.Windows.Forms.Button();
             this.BtSolveTaMTmM = new System.Windows.Forms.Button();
             this.BtStoreTaTm = new System.Windows.Forms.Button();
-            this.LbTaTmTeStored = new System.Windows.Forms.Label();
             this.nudIdM = new ARKBreedingStats.uiControls.Nud();
             this.nudId = new ARKBreedingStats.uiControls.Nud();
             this.nudTmM = new ARKBreedingStats.uiControls.Nud();
@@ -95,6 +95,7 @@
             this.nudStatValue = new ARKBreedingStats.uiControls.Nud();
             this.nudLd = new ARKBreedingStats.uiControls.Nud();
             this.nudLw = new ARKBreedingStats.uiControls.Nud();
+            this.BtSolveTaTbhm = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudIdM)).BeginInit();
@@ -573,6 +574,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.BtSolveTaTbhm);
             this.groupBox1.Controls.Add(this.LbTaTmTeStored);
             this.groupBox1.Controls.Add(this.BtSolveTaTm);
             this.groupBox1.Controls.Add(this.BtSolveTaMTmM);
@@ -582,37 +584,7 @@
             this.groupBox1.Size = new System.Drawing.Size(126, 69);
             this.groupBox1.TabIndex = 41;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Ta-Tm-Solver";
-            // 
-            // BtSolveTaTm
-            // 
-            this.BtSolveTaTm.Location = new System.Drawing.Point(62, 43);
-            this.BtSolveTaTm.Name = "BtSolveTaTm";
-            this.BtSolveTaTm.Size = new System.Drawing.Size(58, 23);
-            this.BtSolveTaTm.TabIndex = 2;
-            this.BtSolveTaTm.Text = "Species";
-            this.BtSolveTaTm.UseVisualStyleBackColor = true;
-            this.BtSolveTaTm.Click += new System.EventHandler(this.BtSolveTaTm_Click);
-            // 
-            // BtSolveTaMTmM
-            // 
-            this.BtSolveTaMTmM.Location = new System.Drawing.Point(6, 43);
-            this.BtSolveTaMTmM.Name = "BtSolveTaMTmM";
-            this.BtSolveTaMTmM.Size = new System.Drawing.Size(50, 23);
-            this.BtSolveTaMTmM.TabIndex = 1;
-            this.BtSolveTaMTmM.Text = "Server";
-            this.BtSolveTaMTmM.UseVisualStyleBackColor = true;
-            this.BtSolveTaMTmM.Click += new System.EventHandler(this.BtSolveTaMTmM_Click);
-            // 
-            // BtStoreTaTm
-            // 
-            this.BtStoreTaTm.Location = new System.Drawing.Point(6, 19);
-            this.BtStoreTaTm.Name = "BtStoreTaTm";
-            this.BtStoreTaTm.Size = new System.Drawing.Size(60, 23);
-            this.BtStoreTaTm.TabIndex = 0;
-            this.BtStoreTaTm.Text = "Store 1st";
-            this.BtStoreTaTm.UseVisualStyleBackColor = true;
-            this.BtStoreTaTm.Click += new System.EventHandler(this.BtStoreTaTm_Click);
+            this.groupBox1.Text = "Ta-Tm-TBHM-Solver";
             // 
             // LbTaTmTeStored
             // 
@@ -621,6 +593,36 @@
             this.LbTaTmTeStored.Name = "LbTaTmTeStored";
             this.LbTaTmTeStored.Size = new System.Drawing.Size(0, 13);
             this.LbTaTmTeStored.TabIndex = 3;
+            // 
+            // BtSolveTaTm
+            // 
+            this.BtSolveTaTm.Location = new System.Drawing.Point(39, 43);
+            this.BtSolveTaTm.Name = "BtSolveTaTm";
+            this.BtSolveTaTm.Size = new System.Drawing.Size(36, 23);
+            this.BtSolveTaTm.TabIndex = 2;
+            this.BtSolveTaTm.Text = "Spc";
+            this.BtSolveTaTm.UseVisualStyleBackColor = true;
+            this.BtSolveTaTm.Click += new System.EventHandler(this.BtSolveTaTm_Click);
+            // 
+            // BtSolveTaMTmM
+            // 
+            this.BtSolveTaMTmM.Location = new System.Drawing.Point(4, 43);
+            this.BtSolveTaMTmM.Name = "BtSolveTaMTmM";
+            this.BtSolveTaMTmM.Size = new System.Drawing.Size(33, 23);
+            this.BtSolveTaMTmM.TabIndex = 1;
+            this.BtSolveTaMTmM.Text = "Srv";
+            this.BtSolveTaMTmM.UseVisualStyleBackColor = true;
+            this.BtSolveTaMTmM.Click += new System.EventHandler(this.BtSolveTaMTmM_Click);
+            // 
+            // BtStoreTaTm
+            // 
+            this.BtStoreTaTm.Location = new System.Drawing.Point(4, 19);
+            this.BtStoreTaTm.Name = "BtStoreTaTm";
+            this.BtStoreTaTm.Size = new System.Drawing.Size(60, 23);
+            this.BtStoreTaTm.TabIndex = 0;
+            this.BtStoreTaTm.Text = "Store 1st";
+            this.BtStoreTaTm.UseVisualStyleBackColor = true;
+            this.BtStoreTaTm.Click += new System.EventHandler(this.BtStoreTaTm_Click);
             // 
             // nudIdM
             // 
@@ -957,6 +959,16 @@
             this.nudLw.TabIndex = 1;
             this.nudLw.ValueChanged += new System.EventHandler(this.nudLw_ValueChanged);
             // 
+            // BtSolveTaTbhm
+            // 
+            this.BtSolveTaTbhm.Location = new System.Drawing.Point(77, 43);
+            this.BtSolveTaTbhm.Name = "BtSolveTaTbhm";
+            this.BtSolveTaTbhm.Size = new System.Drawing.Size(47, 23);
+            this.BtSolveTaTbhm.TabIndex = 4;
+            this.BtSolveTaTbhm.Text = "TBHM";
+            this.BtSolveTaTbhm.UseVisualStyleBackColor = true;
+            this.BtSolveTaTbhm.Click += new System.EventHandler(this.BtSolveTaTbhm_Click);
+            // 
             // StatMultiplierTestingControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1094,5 +1106,6 @@
         private System.Windows.Forms.ToolStripMenuItem calculateIwToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem calculateIdToolStripMenuItem;
         private System.Windows.Forms.Label LbTaTmTeStored;
+        private System.Windows.Forms.Button BtSolveTaTbhm;
     }
 }

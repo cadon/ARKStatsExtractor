@@ -158,7 +158,7 @@ namespace ARKBreedingStats
             sIo.Input = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, sIo.statIndex, sIo.LevelWild, sIo.LevelMut, sIo.LevelDom,
                     rbTamedTester.Checked || rbBredTester.Checked,
                     rbBredTester.Checked ? 1 : Math.Max(0, TamingEffectivenessTester),
-                    rbBredTester.Checked ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0);
+                    rbBredTester.Checked ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0, roundToIngamePrecision: false);
         }
 
         private void creatureInfoInputTester_Add2Library_Clicked(CreatureInfoInput sender)
@@ -385,6 +385,7 @@ namespace ARKBreedingStats
             get => rbWildTester.Checked ? -3 : (double)NumericUpDownTestingTE.Value / 100;
             set => NumericUpDownTestingTE.ValueSave = (decimal)(value >= 0 ? value * 100 : -1);
         }
+
         private void CbLinkWildMutatedLevelsTester_CheckedChanged(object sender, EventArgs e)
         {
             var linkWildMutated = CbLinkWildMutatedLevelsTester.Checked;

@@ -2626,7 +2626,11 @@ namespace ARKBreedingStats
             if (rbBredTester.Checked)
                 rbBredExtractor.Checked = true;
             else if (rbTamedTester.Checked)
+            {
                 rbTamedExtractor.Checked = true;
+                if (numericUpDownLowerTEffBound.Value > NumericUpDownTestingTE.Value)
+                    numericUpDownLowerTEffBound.Value = Math.Floor(NumericUpDownTestingTE.Value);
+            }
             else
                 rbWildExtractor.Checked = true;
             numericUpDownImprintingBonusExtractor.Value = numericUpDownImprintingBonusTester.Value;
@@ -3338,7 +3342,7 @@ namespace ARKBreedingStats
             {
                 statValues[s] = _statIOs[s].IsActive
                     ? _statIOs[s].Input
-                    : StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, s, 0, 0, 0, tamed || bred);
+                    : StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, s, 0, 0, 0, tamed || bred, roundToIngamePrecision: false);
             }
 
             var wildLevels = GetCurrentWildLevels(false);

@@ -149,17 +149,19 @@ namespace ARKBreedingStats.multiplierTesting
             out double tbhm)
         {
             SetValues(statValue, baseValue, lw, iw, iwm, 1, ib, ibs, ibm, te, ld, id, idm, out var sW, out _, out var sXWithoutTbhm, out var sTe);
-            
+
             taTaM = 0;
             tbhm = 0;
 
-            if (Math.Abs(_fXWithoutTbhm - sXWithoutTbhm) < 0.005)
+            var dividend = sXWithoutTbhm - _fXWithoutTbhm;
+
+            if (Math.Abs(dividend) < 0.005)
             {
                 return "The wild levels need to be more different to calculate TBHM";
             }
 
-            taTaM = (_fW * sXWithoutTbhm - sW * _fXWithoutTbhm) / (sXWithoutTbhm - _fXWithoutTbhm);
-            tbhm = (sW - _fW) / (sXWithoutTbhm - _fXWithoutTbhm);
+            taTaM = (_fW * sXWithoutTbhm - sW * _fXWithoutTbhm) / dividend;
+            tbhm = (sW - _fW) / dividend;
             return null; // no error
         }
     }

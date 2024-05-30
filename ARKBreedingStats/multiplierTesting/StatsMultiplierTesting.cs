@@ -37,7 +37,7 @@ namespace ARKBreedingStats.multiplierTesting
             _statControls = new StatMultiplierTestingControl[Stats.StatsCount];
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                var sc = new StatMultiplierTestingControl();
+                var sc = new StatMultiplierTestingControl(_tt);
                 if (Stats.IsPercentage(s))
                     sc.Percent = true;
                 sc.OnLevelChanged += Sc_OnLevelChanged;
@@ -47,10 +47,10 @@ namespace ARKBreedingStats.multiplierTesting
                 _statControls[s] = sc;
             }
             // add controls in order like in-game
-            for (int s = 0; s < Stats.StatsCount; s++)
+            foreach (var s in Stats.DisplayOrder)
             {
-                flowLayoutPanel1.Controls.Add(_statControls[Stats.DisplayOrder[s]]);
-                flowLayoutPanel1.SetFlowBreak(_statControls[Stats.DisplayOrder[s]], true);
+                flowLayoutPanel1.Controls.Add(_statControls[s]);
+                flowLayoutPanel1.SetFlowBreak(_statControls[s], true);
             }
 
             // set bottom controls to bottom
@@ -355,11 +355,6 @@ namespace ARKBreedingStats.multiplierTesting
             btUseMultipliersFromSettings.Visible = showWarning;
         }
 
-        private void llStatCalculation_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            ArkWiki.OpenPage("Creature_stats_calculation");
-        }
-
         public CreatureCollection CreatureCollection
         {
             set
@@ -592,6 +587,15 @@ namespace ARKBreedingStats.multiplierTesting
             _tt.SetToolTip(LbIdM, "Increase per domestic level global multiplier | per level stats multiplier dino tamed");
             _tt.SetToolTip(LbFinalValue, "Final stat value displayed in the game");
             _tt.SetToolTip(LbCalculatedWildLevel, "Calculated pre tame level, dependent on the taming effectiveness and the post tame level");
+            _tt.SetToolTip(LbSpeciesValuesExtractor, @"Drop export gun files or folders with export gun files on this label to extract the species stat values.
+If one of the files is an export gun server multiplier file, its values are used.
+To determine all species values, the files with the following creature combinations are needed
+* wild level 1 creature for base values
+* wild creature with at least one level in all possible stats
+* two tamed creature with no applied levels and different TE (TE difference should be large to avoid rounding errors, at least 10 %points difference should be good) and different wild levels in HP (for TBHM)
+* a tamed creature with at least one level in all possible stats
+* a creature with imprinting (probably an imprinting value of at least 10 % should result in good results) to determine which stats are effected by imprinting in what extend
+");
         }
 
         private void StatsMultiplierTesting_DragEnter(object sender, DragEventArgs e)
@@ -857,6 +861,11 @@ namespace ARKBreedingStats.multiplierTesting
             SetMessageLabelText?.Invoke(resultText +
                 "Extracted the species values and copied them to the clipboard. Note the TBHM and singleplayer is not supported and may lead to wrong values.",
                 MessageBoxIcon.Information);
+        }
+
+        private void openWikiPageOnStatCalculationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ArkWiki.OpenPage("Creature stats calculation");
         }
     }
 }
