@@ -69,7 +69,7 @@ namespace ARKBreedingStats.species
         /// Indicates if a stat is shown in game represented by bit-flags
         /// </summary>
         [JsonProperty("displayedStats")]
-        public int DisplayedStats { private set; get; }
+        public int DisplayedStats { private set; get; } = -1;
         public const int displayedStatsDefault = 927;
         /// <summary>
         /// Indicates if a species uses a stat represented by bit-flags
@@ -216,6 +216,9 @@ namespace ARKBreedingStats.species
                 else
                     _skipWildLevelStatsWithServerSettings |= statBit;
             }
+
+            if (DisplayedStats == -1)
+                DisplayedStats = usedStats;
 
             if (fullStatsRawLength != 0)
                 fullStatsRaw = completeRaws;
@@ -455,7 +458,7 @@ namespace ARKBreedingStats.species
             if (overrides.variants != null) variants = overrides.variants;
             if (overrides.fullStatsRaw != null) fullStatsRaw = overrides.fullStatsRaw;
             if (overrides.altBaseStatsRaw != null) altBaseStatsRaw = overrides.altBaseStatsRaw;
-            if (overrides.DisplayedStats != 0) DisplayedStats = overrides.DisplayedStats;
+            if (overrides.DisplayedStats != -1) DisplayedStats = overrides.DisplayedStats;
             if (overrides.skipWildLevelStats != 0) skipWildLevelStats = overrides.skipWildLevelStats;
             if (overrides.TamedBaseHealthMultiplier != null) TamedBaseHealthMultiplier = overrides.TamedBaseHealthMultiplier;
             if (overrides.statImprintMult != null && overrides.statImprintMult != StatImprintMultipliersDefaultAse) statImprintMult = overrides.statImprintMult.ToArray();
