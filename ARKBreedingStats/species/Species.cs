@@ -217,7 +217,7 @@ namespace ARKBreedingStats.species
                     _skipWildLevelStatsWithServerSettings |= statBit;
             }
 
-            if (DisplayedStats == -1)
+            if (DisplayedStats == -1 && usedStats != 0)
                 DisplayedStats = usedStats;
 
             if (fullStatsRawLength != 0)
