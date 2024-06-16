@@ -26,12 +26,14 @@ namespace ARKBreedingStats.uiControls
         private const int MaxBarLength = 335;
         private bool _linkWildMutated;
         private int _wildMutatedSum;
+        private readonly Debouncer _levelChangedDebouncer = new Debouncer();
+        private StatOptions _statOptions;
 
         public StatIO()
         {
             InitializeComponent();
-            numLvW.Value = 0;
-            numLvD.Value = 0;
+            nudLvW.Value = 0;
+            nudLvD.Value = 0;
             labelBValue.Text = string.Empty;
             postTame = true;
             percent = false;
@@ -73,21 +75,21 @@ namespace ARKBreedingStats.uiControls
 
         public int LevelWild
         {
-            get => (short)numLvW.Value;
+            get => (short)nudLvW.Value;
             set
             {
                 int v = value;
                 if (v < 0)
                 {
-                    numLvW.Value = -1; // value can be unknown if multiple stats are not shown (e.g. wild speed and oxygen)
+                    nudLvW.Value = -1; // value can be unknown if multiple stats are not shown (e.g. wild speed and oxygen)
                     _wildMutatedSum = -1;
                 }
                 else
                 {
-                    if (v > numLvW.Maximum)
-                        v = (int)numLvW.Maximum;
+                    if (v > nudLvW.Maximum)
+                        v = (int)nudLvW.Maximum;
                     _wildMutatedSum = (int)(v + nudLvM.Value);
-                    numLvW.Value = v;
+                    nudLvW.Value = v;
                 }
                 labelWildLevel.Text = (value < 0 ? "?" : v.ToString());
             }
@@ -99,21 +101,21 @@ namespace ARKBreedingStats.uiControls
             set
             {
                 labelMutatedLevel.Text = value.ToString();
-                if (numLvW.Value < 0)
+                if (nudLvW.Value < 0)
                     _wildMutatedSum = -1;
                 else
-                    _wildMutatedSum = (int)(numLvW.Value + value);
+                    _wildMutatedSum = (int)(nudLvW.Value + value);
                 nudLvM.Value = value;
             }
         }
 
         public int LevelDom
         {
-            get => (short)numLvD.Value;
+            get => (short)nudLvD.Value;
             set
             {
                 labelDomLevel.Text = value.ToString();
-                numLvD.Value = value;
+                nudLvD.Value = value;
             }
         }
 
@@ -270,9 +272,9 @@ namespace ARKBreedingStats.uiControls
         {
             Status = StatIOStatus.Neutral;
             TopLevel = LevelStatusFlags.LevelStatus.Neutral;
-            numLvW.Value = 0;
+            nudLvW.Value = 0;
             nudLvM.Value = 0;
-            numLvD.Value = 0;
+            nudLvD.Value = 0;
             labelWildLevel.Text = "0";
             labelMutatedLevel.Text = "0";
             labelDomLevel.Text = "0";
@@ -282,12 +284,12 @@ namespace ARKBreedingStats.uiControls
 
         private void numLvW_ValueChanged(object sender, EventArgs e)
         {
-            SetLevelBar(panelBarWildLevels, numLvW.Value);
-            _tt.SetToolTip(panelBarWildLevels, Utils.LevelPercentile((int)numLvW.Value));
+            SetLevelBar(panelBarWildLevels, (int)nudLvW.Value);
+            _tt.SetToolTip(panelBarWildLevels, Utils.LevelPercentile((int)nudLvW.Value));
 
             if (_linkWildMutated && _wildMutatedSum != -1)
             {
-                nudLvM.ValueSave = Math.Max(0, _wildMutatedSum - numLvW.Value);
+                nudLvM.ValueSave = Math.Max(0, _wildMutatedSum - nudLvW.Value);
             }
 
             if (_inputType != StatIOInputType.FinalValueInputType)
@@ -296,11 +298,11 @@ namespace ARKBreedingStats.uiControls
 
         private void nudLvM_ValueChanged(object sender, EventArgs e)
         {
-            SetLevelBar(panelBarMutLevels, nudLvM.Value);
+            SetLevelBar(panelBarMutLevels, (int)nudLvM.Value);
 
             if (_linkWildMutated && _wildMutatedSum != -1)
             {
-                numLvW.ValueSave = Math.Max(0, _wildMutatedSum - nudLvM.Value);
+                nudLvW.ValueSave = Math.Max(0, _wildMutatedSum - nudLvM.Value);
             }
 
             if (_inputType != StatIOInputType.FinalValueInputType)
@@ -309,24 +311,24 @@ namespace ARKBreedingStats.uiControls
 
         private void numLvD_ValueChanged(object sender, EventArgs e)
         {
-            SetLevelBar(panelBarDomLevels, numLvD.Value);
+            SetLevelBar(panelBarDomLevels, (int)nudLvD.Value);
 
             if (_inputType != StatIOInputType.FinalValueInputType)
                 LevelChangedDebouncer();
         }
 
-        private void SetLevelBar(Panel panel, decimal level)
+        private void SetLevelBar(Panel panel, int level)
         {
-            var lengthPercentage = 100 * (int)level / barMaxLevel; // in percentage of the max bar width
+            var range = _statOptions.GetLevelRange(level, out var lowerBound);
+            if (range < 1) range = 1;
+            var lengthPercentage = 100 * (level - lowerBound) / range; // in percentage of the max bar width
 
             if (lengthPercentage > 100) lengthPercentage = 100;
             else if (lengthPercentage < 0) lengthPercentage = 0;
 
             panel.Width = lengthPercentage * MaxBarLength / 100;
-            panel.BackColor = Utils.GetColorFromPercent(lengthPercentage);
+            panel.BackColor = _statOptions.GetLevelColor(level);
         }
-
-        private readonly Debouncer _levelChangedDebouncer = new Debouncer();
 
         private void LevelChangedDebouncer() => _levelChangedDebouncer.Debounce(200, FireLevelChanged, Dispatcher.CurrentDispatcher);
 
@@ -346,15 +348,15 @@ namespace ARKBreedingStats.uiControls
             n?.Select(0, n.Text.Length);
         }
 
-        private void groupBox1_Click(object sender, EventArgs e)
-        {
-            OnClick(e);
-        }
+        private void groupBox1_Click(object sender, EventArgs e) => OnClick(e);
 
-        private void labelBValue_Click(object sender, EventArgs e)
-        {
-            OnClick(e);
-        }
+        private void labelBValue_Click(object sender, EventArgs e) => OnClick(e);
+
+        private void labelDomLevel_Click(object sender, EventArgs e) => OnClick(e);
+
+        private void panelFinalValue_Click(object sender, EventArgs e) => OnClick(e);
+
+        private void panelBar_Click(object sender, EventArgs e) => OnClick(e);
 
         private void labelWildLevel_Click(object sender, EventArgs e)
         {
@@ -385,25 +387,10 @@ namespace ARKBreedingStats.uiControls
             return levelDelta;
         }
 
-        private void labelDomLevel_Click(object sender, EventArgs e)
-        {
-            OnClick(e);
-        }
-
         private void checkBoxFixDomZero_CheckedChanged(object sender, EventArgs e)
         {
             _domZeroFixed = checkBoxFixDomZero.Checked;
             checkBoxFixDomZero.Image = (_domZeroFixed ? Properties.Resources.locked : Properties.Resources.unlocked);
-        }
-
-        private void panelFinalValue_Click(object sender, EventArgs e)
-        {
-            OnClick(e);
-        }
-
-        private void panelBar_Click(object sender, EventArgs e)
-        {
-            OnClick(e);
         }
 
         public bool DomLevelLockedZero
@@ -420,8 +407,19 @@ namespace ARKBreedingStats.uiControls
             set
             {
                 _linkWildMutated = value;
-                _wildMutatedSum = (int)(numLvW.Value + nudLvM.Value);
+                _wildMutatedSum = (int)(nudLvW.Value + nudLvM.Value);
             }
+        }
+
+        public void SetStatOptions(StatOptions so)
+        {
+            _statOptions = so;
+            if (nudLvW.Value > 0)
+                SetLevelBar(panelBarWildLevels, (int)nudLvW.Value);
+            if (nudLvD.Value > 0)
+                SetLevelBar(panelBarDomLevels, (int)nudLvD.Value);
+            if (nudLvM.Value > 0)
+                SetLevelBar(panelBarMutLevels, (int)nudLvM.Value);
         }
     }
 

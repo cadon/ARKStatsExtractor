@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
+using ARKBreedingStats.mods;
 using ARKBreedingStats.values;
 
 namespace ARKBreedingStats
@@ -38,19 +38,13 @@ namespace ARKBreedingStats
         /// <summary>
         /// Returns a string with ARKml tags. Currently that doesn't seem to be supported anymore by the ARK chat.
         /// </summary>
-        public static string GetARKml(string text, int r, int g, int b)
-        {
-            return
-                $"<RichColor Color=\"{Math.Round(r / 255d, 2)},{Math.Round(g / 255d, 2)},{Math.Round(b / 255d, 2)},1\">{text}</>";
-        }
+        public static string GetARKml(string text, int r, int g, int b) => $"<RichColor Color=\"{Math.Round(r / 255d, 2)},{Math.Round(g / 255d, 2)},{Math.Round(b / 255d, 2)},1\">{text}</>";
 
         /// <summary>
         /// RGB values for a given percentage (0-100). 0 is red, 100 is green. Light can be adjusted (1 bright, 0 default, -1 dark).
         /// </summary>
         private static void GetRgbFromPercent(out int r, out int g, out int b, int percent, double light = 0)
         {
-            if (light > 1) { light = 1; }
-            if (light < -1) { light = -1; }
             g = (int)(percent * 5.1); // g = percent * 255 / 50 = percent * 5.1
             r = 511 - g;
             b = 0;
@@ -58,6 +52,10 @@ namespace ARKBreedingStats
             if (g < 0) { g = 0; }
             if (r > 255) { r = 255; }
             if (g > 255) { g = 255; }
+
+            if (light == 0) return;
+            if (light > 1) { light = 1; }
+            if (light < -1) { light = -1; }
             if (light > 0)
             {
                 r = (int)((255 - r) * light + r);
@@ -76,28 +74,30 @@ namespace ARKBreedingStats
         /// <summary>
         /// Adjusts the lightness of a color.
         /// </summary>
-        public static Color AdjustColorLight(Color color, double light = 0)
+        /// <param name="color">Color to adjust</param>
+        /// <param name="lightDelta">-1 very dark, 0 no change, 1 very bright</param>
+        public static Color AdjustColorLight(Color color, double lightDelta = 0)
         {
-            if (light == 0) return color;
+            if (lightDelta == 0) return color;
 
-            if (light > 1) { light = 1; }
-            if (light < -1) { light = -1; }
+            if (lightDelta > 1) { lightDelta = 1; }
+            if (lightDelta < -1) { lightDelta = -1; }
             byte r = color.R;
             byte g = color.G;
             byte b = color.B;
 
-            if (light > 0)
+            if (lightDelta > 0)
             {
-                r = (byte)((255 - r) * light + r);
-                g = (byte)((255 - g) * light + g);
-                b = (byte)((255 - b) * light + b);
+                r = (byte)((255 - r) * lightDelta + r);
+                g = (byte)((255 - g) * lightDelta + g);
+                b = (byte)((255 - b) * lightDelta + b);
             }
             else
             {
-                light += 1;
-                r = (byte)(r * light);
-                g = (byte)(g * light);
-                b = (byte)(b * light);
+                lightDelta += 1;
+                r = (byte)(r * lightDelta);
+                g = (byte)(g * lightDelta);
+                b = (byte)(b * lightDelta);
             }
             return Color.FromArgb(r, g, b);
         }
@@ -106,78 +106,77 @@ namespace ARKBreedingStats
         /// Returns a color from a hue value.
         /// </summary>
         /// <param name="hue">red: 0, green: 120, blue: 240</param>
-        /// <param name="light">-1 very dark, 0 default, 1 very bright</param>
-        public static Color ColorFromHue(int hue, double light = 0)
+        /// <param name="lightDelta">-1 very dark, 0 default, 1 very bright</param>
+        public static Color ColorFromHue(int hue, double lightDelta = 0)
+        {
+            return AdjustColorLight(ColorFromHsv(hue), lightDelta);
+        }
+
+        /// <summary>
+        /// Returns a color from hsl values.
+        /// </summary>
+        /// <param name="hue">red: 0, green: 120, blue: 240</param>
+        /// <param name="saturation">0…1 gray to colorful</param>
+        /// <param name="value">0…1 black to full intensity / white</param>
+        public static Color ColorFromHsv(double hue, double saturation = 1, double value = 1, double alpha = 1)
         {
             hue %= 360;
             if (hue < 0) hue += 360;
-            // there are six sections, 0-120, 120-240, 240-360
-            // in each section one channel is either ascending, descending, max or 0
-            byte sectionPos = (byte)(hue % 60);
-            byte asc = (byte)(sectionPos * 4.25); // == sectionPos * 255 / 60;
-            byte desc = (byte)(255 - asc);
-            const byte zero = 0;
-            const byte max = 255;
+            saturation = Math.Max(Math.Min(saturation, 1), 0);
+            value = Math.Max(Math.Min(value, 1), 0);
+
+            var v = (byte)(value * 255);
+            if (saturation < double.Epsilon)
+            {
+                return Color.FromArgb(v, v, v);
+            }
+
+            // there are six hue sections from 0 to 360 with each having 60 degrees
+            // in each section one channel is either ascending, descending, max or min
+            var sectionPos = hue / 60;
+            var section = (int)sectionPos;
+            var sectorFraction = sectionPos - section;
+
+            var p = (byte)(255 * value * (1 - saturation));
+            var q = (byte)(255 * value * (1 - saturation * sectorFraction));
+            var t = (byte)(255 * value * (1 - saturation * (1 - sectorFraction)));
 
             byte r, g, b;
-
-            if (hue < 60)
+            // go to correct hue section
+            switch (section)
             {
-                r = max;
-                g = asc;
-                b = zero;
+                case 0:
+                    r = v;
+                    g = t;
+                    b = p;
+                    break;
+                case 1:
+                    r = q;
+                    g = v;
+                    b = p;
+                    break;
+                case 2:
+                    r = p;
+                    g = v;
+                    b = t;
+                    break;
+                case 3:
+                    r = p;
+                    g = q;
+                    b = v;
+                    break;
+                case 4:
+                    r = t;
+                    g = p;
+                    b = v;
+                    break;
+                default:
+                    r = v;
+                    g = p;
+                    b = q;
+                    break;
             }
-            else if (hue < 120)
-            {
-                r = desc;
-                g = max;
-                b = zero;
-            }
-            else if (hue < 180)
-            {
-                r = zero;
-                g = max;
-                b = asc;
-            }
-            else if (hue < 240)
-            {
-                r = zero;
-                g = desc;
-                b = max;
-            }
-            else if (hue < 300)
-            {
-                r = asc;
-                g = zero;
-                b = max;
-            }
-            else
-            {
-                r = max;
-                g = zero;
-                b = desc;
-            }
-
-            if (light != 0)
-            {
-                if (light > 1) { light = 1; }
-                if (light < -1) { light = -1; }
-
-                if (light > 0)
-                {
-                    r = (byte)((255 - r) * light + r);
-                    g = (byte)((255 - g) * light + g);
-                    b = (byte)((255 - b) * light + b);
-                }
-                else
-                {
-                    light += 1;
-                    r = (byte)(r * light);
-                    g = (byte)(g * light);
-                    b = (byte)(b * light);
-                }
-            }
-            return Color.FromArgb(r, g, b);
+            return Color.FromArgb((int)(255 * alpha), r, g, b);
         }
 
         /// <summary>

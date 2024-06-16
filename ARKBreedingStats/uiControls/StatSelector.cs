@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using ARKBreedingStats.species;
-using ARKBreedingStats.values;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -30,14 +29,13 @@ namespace ARKBreedingStats.uiControls
             r.CheckedChanged += RadioButtonCheckedChanged;
             flowLayoutPanel1.Controls.Add(r);
 
-            for (int si = 0; si < Stats.StatsCount; si++)
+            foreach (var si in Stats.DisplayOrder)
             {
-                var statIndex = Stats.DisplayOrder[si];
-                if (statIndex == Stats.Torpidity) continue;
+                if (si == Stats.Torpidity) continue;
                 r = new RadioButton
                 {
-                    Tag = statIndex,
-                    Text = Utils.StatName(statIndex, true),
+                    Tag = si,
+                    Text = Utils.StatName(si, true),
                     Appearance = Appearance.Button,
                     AutoSize = true,
                     Visible = false

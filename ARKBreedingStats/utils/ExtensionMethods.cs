@@ -41,5 +41,15 @@ namespace ARKBreedingStats.utils
             pb.Image = bmp;
             oldBmp?.Dispose();
         }
+
+        /// <summary>
+        /// Returns the value part of this color (HSV model).
+        /// </summary>
+        public static float GetValue(this Color c) => (float)Math.Max(c.R, Math.Max(c.G, c.B)) / byte.MaxValue;
+
+        /// <summary>
+        /// Returns the hsv values of this color.
+        /// </summary>
+        public static (float h, float s, float v) GetHsv(this Color c) => (c.GetHue(), c.GetSaturation(), c.GetValue());
     }
 }

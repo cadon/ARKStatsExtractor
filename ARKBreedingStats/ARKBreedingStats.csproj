@@ -104,7 +104,11 @@
     </Compile>
     <Compile Include="library\CreatureSpawnCommand.cs" />
     <Compile Include="library\DummyCreatures.cs" />
+    <Compile Include="library\LevelGraphRepresentation.cs" />
     <Compile Include="library\LevelStatusFlags.cs" />
+    <Compile Include="library\StatOptions.cs" />
+    <Compile Include="library\StatsOptions.cs" />
+    <Compile Include="library\StatWeight.cs" />
     <Compile Include="multiplierTesting\CalculateMultipliers.cs" />
     <Compile Include="multiplierTesting\SpeciesStatsExtractor.cs" />
     <Compile Include="multiplierTesting\TaTmSolver.cs" />
@@ -139,6 +143,12 @@
     <Compile Include="uiControls\Hatching.Designer.cs">
       <DependentUpon>Hatching.cs</DependentUpon>
     </Compile>
+    <Compile Include="uiControls\HueControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uiControls\HueControl.Designer.cs">
+      <DependentUpon>HueControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="uiControls\LibraryFilterTemplates.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -154,6 +164,24 @@
     </Compile>
     <Compile Include="uiControls\PopupMessage.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="uiControls\ScrollForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="uiControls\ScrollForm.Designer.cs">
+      <DependentUpon>ScrollForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="uiControls\StatOptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uiControls\StatOptionsControl.Designer.cs">
+      <DependentUpon>StatOptionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="uiControls\StatsOptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uiControls\StatsOptionsControl.Designer.cs">
+      <DependentUpon>StatsOptionsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="uiControls\StatSelector.cs">
       <SubType>UserControl</SubType>
@@ -731,11 +759,23 @@
     <EmbeddedResource Include="uiControls\Hatching.resx">
       <DependentUpon>Hatching.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\HueControl.resx">
+      <DependentUpon>HueControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="uiControls\LibraryFilterTemplates.resx">
       <DependentUpon>LibraryFilterTemplates.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\ParentInheritance.resx">
       <DependentUpon>ParentInheritance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\ScrollForm.resx">
+      <DependentUpon>ScrollForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\StatOptionsControl.resx">
+      <DependentUpon>StatOptionsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\StatsOptionsControl.resx">
+      <DependentUpon>StatsOptionsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\StatSelector.resx">
       <DependentUpon>StatSelector.cs</DependentUpon>
@@ -1005,7 +1045,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentFTP">
-      <Version>49.0.2</Version>
+      <Version>50.0.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers">
       <Version>3.3.4</Version>

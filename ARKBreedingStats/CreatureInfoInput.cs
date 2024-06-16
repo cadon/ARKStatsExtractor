@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Threading;
+using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.Properties;

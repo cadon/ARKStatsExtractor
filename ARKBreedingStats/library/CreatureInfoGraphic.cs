@@ -144,10 +144,9 @@ namespace ARKBreedingStats.library
                 if (displayStatValues)
                     g.DrawString(Loc.S("Values", secondaryCulture: secondaryCulture), font, fontBrush, xRightBrValue, currentYPosition, stringFormatRight);
                 int statDisplayIndex = 0;
-                for (int si = 0; si < Stats.StatsCount; si++)
+                foreach (var si in Stats.DisplayOrder)
                 {
-                    int statIndex = Stats.DisplayOrder[si];
-                    if (statIndex == Stats.Torpidity || !creature.Species.UsesStat(statIndex))
+                    if (si == Stats.Torpidity || !creature.Species.UsesStat(si))
                         continue;
 
                     int y = currentYPosition + (height / 9) + (statDisplayIndex++) * statLineHeight;
@@ -156,7 +155,7 @@ namespace ARKBreedingStats.library
                     // empty box to show the max possible length
                     using (var b = new SolidBrush(Color.DarkGray))
                         g.FillRectangle(b, xStatName, y + statLineHeight - 1, maxBoxLength, statBoxHeight);
-                    double levelFractionOfMax = Math.Min(1, (double)creature.levelsWild[statIndex] / maxGraphLevel);
+                    double levelFractionOfMax = Math.Min(1, (double)creature.levelsWild[si] / maxGraphLevel);
                     if (levelFractionOfMax < 0) levelFractionOfMax = 0;
                     int levelPercentageOfMax = (int)(100 * levelFractionOfMax);
                     int statBoxLength = Math.Max((int)(maxBoxLength * levelFractionOfMax), 1);
@@ -172,24 +171,24 @@ namespace ARKBreedingStats.library
                         g.DrawRectangle(p, xStatName, y + statLineHeight - 1, statBoxLength, statBoxHeight);
 
                     // stat name
-                    g.DrawString($"{Utils.StatName(statIndex, true, creature.Species.statNames, secondaryCulture)}",
+                    g.DrawString($"{Utils.StatName(si, true, creature.Species.statNames, secondaryCulture)}",
                         font, fontBrush, xStatName, y);
                     // stat level number
-                    var displayedLevel = creature.levelsWild[statIndex] + (displaySumWildMutLevels && creature.levelsMutated != null && creature.levelsMutated[statIndex] > 0 ? creature.levelsMutated[statIndex] : 0);
-                    g.DrawString($"{(creature.levelsWild[statIndex] < 0 ? "?" : displayedLevel.ToString())}{(displayMutatedLevels || displayWithDomLevels ? " |" : string.Empty)}",
+                    var displayedLevel = creature.levelsWild[si] + (displaySumWildMutLevels && creature.levelsMutated != null && creature.levelsMutated[si] > 0 ? creature.levelsMutated[si] : 0);
+                    g.DrawString($"{(creature.levelsWild[si] < 0 ? "?" : displayedLevel.ToString())}{(displayMutatedLevels || displayWithDomLevels ? " |" : string.Empty)}",
                         font, fontBrush, xRightLevelValue, y, stringFormatRight);
                     if (displayMutatedLevels)
-                        g.DrawString($"{(creature.levelsMutated[statIndex] < 0 ? string.Empty : creature.levelsMutated[statIndex].ToString())}{(displayWithDomLevels ? " |" : string.Empty)}",
+                        g.DrawString($"{(creature.levelsMutated[si] < 0 ? string.Empty : creature.levelsMutated[si].ToString())}{(displayWithDomLevels ? " |" : string.Empty)}",
                             font, fontBrush, xRightLevelMutValue, y, stringFormatRight);
                     // dom level number
                     if (displayWithDomLevels)
-                        g.DrawString($"{creature.levelsDom[statIndex]}",
+                        g.DrawString($"{creature.levelsDom[si]}",
                             font, fontBrush, xRightLevelDomValue, y, stringFormatRight);
                     // stat breeding value
                     if (displayStatValues && creature.valuesBreeding != null)
                     {
                         double displayedValue =
-                            displayWithDomLevels ? creature.valuesDom[statIndex] : creature.valuesBreeding[statIndex];
+                            displayWithDomLevels ? creature.valuesDom[si] : creature.valuesBreeding[si];
                         string statValueRepresentation;
                         if (displayedValue < 0)
                         {
@@ -197,7 +196,7 @@ namespace ARKBreedingStats.library
                         }
                         else
                         {
-                            if (Stats.IsPercentage(statIndex))
+                            if (Stats.IsPercentage(si))
                             {
                                 statValueRepresentation = (100 * displayedValue).ToString("0.0");
                                 g.DrawString("%", font, fontBrush, xRightBrValue, y);

@@ -26,8 +26,8 @@ namespace ARKBreedingStats.raising
                 _parentStatValues[s] = psv;
                 flowLayoutPanel1.SetFlowBreak(psv, true);
             }
-            for (int s = 0; s < Stats.StatsCount; s++)
-                flowLayoutPanel1.Controls.Add(_parentStatValues[Stats.DisplayOrder[s]]);
+            foreach (var si in Stats.DisplayOrder)
+                flowLayoutPanel1.Controls.Add(_parentStatValues[si]);
 
             _lbLevel = new Label
             {

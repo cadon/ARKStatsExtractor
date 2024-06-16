@@ -229,13 +229,12 @@ namespace ARKBreedingStats
             }
 
             // add controls in the order they are shown in-game
-            for (int s = 0; s < Stats.StatsCount; s++)
+            foreach (var si in Stats.DisplayOrder)
             {
-                var displayIndex = Stats.DisplayOrder[s];
-                flowLayoutPanelStatIOsExtractor.Controls.Add(_statIOs[displayIndex]);
-                flowLayoutPanelStatIOsTester.Controls.Add(_testingIOs[displayIndex]);
-                checkedListBoxConsiderStatTop.Items.Add(Utils.StatName(displayIndex),
-                    _considerStatHighlight[displayIndex]);
+                flowLayoutPanelStatIOsExtractor.Controls.Add(_statIOs[si]);
+                flowLayoutPanelStatIOsTester.Controls.Add(_testingIOs[si]);
+                checkedListBoxConsiderStatTop.Items.Add(Utils.StatName(si),
+                    _considerStatHighlight[si]);
             }
 
             _timerGlobal.Interval = 1000;
@@ -362,6 +361,9 @@ namespace ARKBreedingStats
             _statIOs[Stats.Food].DomLevelLockedZero = true;
 
             LbWarningLevel255.Visible = false;
+
+            StatsOptions.LoadSettings();
+            statsOptionsControl1.InitializeOptions();
 
             InitializeCollection();
 
@@ -681,14 +683,16 @@ namespace ARKBreedingStats
             tbSpeciesGlobal.Text = species.name;
             LbBlueprintPath.Text = species.blueprintPath;
             if (!speciesChanged) return;
-            _clearExtractionCreatureData =
-                true; // as soon as the user changes the species, it's assumed it's not an exported creature anymore
+            // as soon as the user changes the species, it's assumed it's not an exported creature anymore
+            _clearExtractionCreatureData = true;
             pbSpecies.Image = speciesSelector1.SpeciesImage();
 
             creatureInfoInputExtractor.SelectedSpecies = species;
             creatureInfoInputTester.SelectedSpecies = species;
+            statsOptionsControl1.SetSpecies(species);
             radarChart1.SetLevels(species: species);
             var statNames = species.statNames;
+            var levelGraphRepresentations = StatsOptions.GetStatsOptions(species);
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
@@ -702,6 +706,9 @@ namespace ARKBreedingStats
                 if (!_activeStats[s]) _statIOs[s].Input = 0;
                 _statIOs[s].Title = Utils.StatName(s, false, statNames);
                 _testingIOs[s].Title = Utils.StatName(s, false, statNames);
+                _statIOs[s].SetStatOptions(levelGraphRepresentations.StatOptions[s]);
+                _testingIOs[s].SetStatOptions(levelGraphRepresentations.StatOptions[s]);
+
                 // don't lock special stats of glow species
                 if ((statNames != null &&
                      (s == Stats.Stamina
@@ -1401,6 +1408,8 @@ namespace ARKBreedingStats
             /////// save settings for next session
             Properties.Settings.Default.Save();
 
+            StatsOptions.SaveSettings();
+
             // remove old cache-files
             CreatureColored.CleanupCache();
 
@@ -1897,11 +1906,13 @@ namespace ARKBreedingStats
             int consideredStats = 0;
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                _considerStatHighlight[Stats.DisplayOrder[s]] = checkedListBoxConsiderStatTop.GetItemChecked(s);
+                var si = Stats.DisplayOrder[s];
+                var statIndexUsed = checkedListBoxConsiderStatTop.GetItemChecked(s);
+                _considerStatHighlight[si] = statIndexUsed;
 
                 // save consideredStats
-                if (_considerStatHighlight[s])
-                    consideredStats += 1 << s;
+                if (_considerStatHighlight[si])
+                    consideredStats += 1 << si;
             }
 
             Properties.Settings.Default.consideredStats = consideredStats;

@@ -234,9 +234,9 @@ namespace ARKBreedingStats.library
                                            (ARKml ? Utils.GetARKml(c.Species.name, 50, 172, 255) : c.Species.name)
                                            + ", Lvl " + (breeding ? c.LevelHatched : c.Level) + modifierText +
                                            (c.sex != Sex.Unknown ? ", " + Loc.S(c.sex.ToString(), secondaryCulture: secondaryLanguage) : string.Empty) + "): ");
-            for (int s = 0; s < Stats.StatsCount; s++)
+
+            foreach (var si in Stats.DisplayOrder)
             {
-                int si = Stats.DisplayOrder[s];
                 if (c.levelsWild[si] >= 0 &&
                     c.valuesBreeding[si] > 0) // ignore unknown levels (e.g. oxygen, speed for some species)
                     output.Append(Utils.StatName(si, true, secondaryLanguage: secondaryLanguage) + ": " +
