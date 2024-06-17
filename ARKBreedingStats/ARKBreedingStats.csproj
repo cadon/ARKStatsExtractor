@@ -109,6 +109,7 @@
     <Compile Include="library\StatOptions.cs" />
     <Compile Include="library\StatsOptions.cs" />
     <Compile Include="library\StatWeight.cs" />
+    <Compile Include="library\TopLevels.cs" />
     <Compile Include="multiplierTesting\CalculateMultipliers.cs" />
     <Compile Include="multiplierTesting\SpeciesStatsExtractor.cs" />
     <Compile Include="multiplierTesting\TaTmSolver.cs" />

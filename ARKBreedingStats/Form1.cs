@@ -31,12 +31,9 @@ namespace ARKBreedingStats
         private bool _collectionDirty;
 
         /// <summary>
-        /// List of all highest stats per species
+        /// List of all top stats per species
         /// </summary>
-        private readonly Dictionary<Species, int[]> _highestSpeciesLevels = new Dictionary<Species, int[]>();
-        private readonly Dictionary<Species, int[]> _lowestSpeciesLevels = new Dictionary<Species, int[]>();
-        private readonly Dictionary<Species, int[]> _highestSpeciesMutationLevels = new Dictionary<Species, int[]>();
-        private readonly Dictionary<Species, int[]> _lowestSpeciesMutationLevels = new Dictionary<Species, int[]>();
+        private readonly Dictionary<Species, TopLevels> _topLevels = new Dictionary<Species, TopLevels>();
         private readonly StatIO[] _statIOs = new StatIO[Stats.StatsCount];
         private readonly StatIO[] _testingIOs = new StatIO[Stats.StatsCount];
         private int _activeStatIndex = -1;
@@ -780,7 +777,8 @@ namespace ARKBreedingStats
                     breedingPlan1.SetSpecies(species);
                 }
             }
-            hatching1.SetSpecies(species, _highestSpeciesLevels.TryGetValue(species, out var bl) ? bl : null, _lowestSpeciesLevels.TryGetValue(species, out var ll) ? ll : null);
+
+            hatching1.SetSpecies(species, _topLevels.TryGetValue(species, out var tl) ? tl : null);
 
             _hiddenLevelsCreatureTester = 0;
 
@@ -3128,8 +3126,7 @@ namespace ARKBreedingStats
 
             if (openPatternEditor)
             {
-                input.OpenNamePatternEditor(cr, _highestSpeciesLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
-                    _lowestSpeciesLevels.TryGetValue(cr.Species, out var ll) ? ll : null,
+                input.OpenNamePatternEditor(cr, _topLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
                     _customReplacingNamingPattern, namingPatternIndex, ReloadNamePatternCustomReplacings);
 
                 UpdatePatternButtons();
@@ -3148,8 +3145,7 @@ namespace ARKBreedingStats
                     colorAlreadyExistingInformation = _creatureCollection.ColorAlreadyAvailable(cr.Species, input.RegionColors, out _);
                 input.ColorAlreadyExistingInformation = colorAlreadyExistingInformation;
 
-                input.GenerateCreatureName(cr, alreadyExistingCreature, _highestSpeciesLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
-                    _lowestSpeciesLevels.TryGetValue(cr.Species, out var ll) ? ll : null,
+                input.GenerateCreatureName(cr, alreadyExistingCreature, _topLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
                     _customReplacingNamingPattern, showDuplicateNameWarning, namingPatternIndex);
                 if (Properties.Settings.Default.PatternNameToClipboardAfterManualApplication)
                 {
@@ -3597,9 +3593,7 @@ namespace ARKBreedingStats
                     sameSpecies = _creatureCollection.creatures.Where(c => c.Species == cr.Species).ToArray();
 
                 // set new name
-                cr.name = NamePattern.GenerateCreatureName(cr, cr, sameSpecies,
-                    _highestSpeciesLevels.TryGetValue(cr.Species, out var highestSpeciesLevels) ? highestSpeciesLevels : null,
-                    _lowestSpeciesLevels.TryGetValue(cr.Species, out var lowestSpeciesLevels) ? lowestSpeciesLevels : null,
+                cr.name = NamePattern.GenerateCreatureName(cr, cr, sameSpecies, _topLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
                     _customReplacingNamingPattern, false, 0, libraryCreatureCount: libraryCreatureCount);
 
                 creaturesToUpdate.Add(cr);

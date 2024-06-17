@@ -283,17 +283,11 @@ namespace ARKBreedingStats
             if (onlySpecies == null)
             {
                 // if all creatures are recalculated, clear all
-                _highestSpeciesLevels.Clear();
-                _lowestSpeciesLevels.Clear();
-                _highestSpeciesMutationLevels.Clear();
-                _lowestSpeciesMutationLevels.Clear();
+                _topLevels.Clear();
             }
             else
             {
-                _highestSpeciesLevels.Remove(onlySpecies);
-                _lowestSpeciesLevels.Remove(onlySpecies);
-                _highestSpeciesMutationLevels.Remove(onlySpecies);
-                _lowestSpeciesMutationLevels.Remove(onlySpecies);
+                _topLevels.Remove(onlySpecies);
             }
 
             var filteredCreaturesHash = Properties.Settings.Default.useFiltersInTopStatCalculation ? new HashSet<Creature>(ApplyLibraryFilterSettings(creatures)) : null;
@@ -438,10 +432,13 @@ namespace ARKBreedingStats
                     }
                 }
 
-                _highestSpeciesLevels[species] = highestLevels;
-                _lowestSpeciesLevels[species] = lowestLevels;
-                _highestSpeciesMutationLevels[species] = highestMutationLevels;
-                _lowestSpeciesMutationLevels[species] = lowestMutationLevels;
+                var topLevels = new TopLevels();
+                _topLevels[species] = topLevels;
+
+                topLevels.WildLevelsHighest = highestLevels;
+                topLevels.WildLevelsLowest = lowestLevels;
+                topLevels.MutationLevelsHighest = highestMutationLevels;
+                topLevels.MutationLevelsLowest = lowestMutationLevels;
 
                 // bestStat and bestCreatures now contain the best stats and creatures for each stat.
 
@@ -570,7 +567,7 @@ namespace ARKBreedingStats
 
             var selectedSpecies = speciesSelector1.SelectedSpecies;
             if (selectedSpecies != null)
-                hatching1.SetSpecies(selectedSpecies, _highestSpeciesLevels.TryGetValue(selectedSpecies, out var tl) ? tl : null, _lowestSpeciesLevels.TryGetValue(selectedSpecies, out var ll) ? ll : null);
+                hatching1.SetSpecies(selectedSpecies, _topLevels.TryGetValue(selectedSpecies, out var tl) ? tl : null);
         }
 
         /// <summary>

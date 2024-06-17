@@ -592,20 +592,20 @@ namespace ARKBreedingStats
         /// <summary>
         /// Generates a creature name with a given pattern
         /// </summary>
-        public void GenerateCreatureName(Creature creature, Creature alreadyExistingCreature, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, int namingPatternIndex)
+        public void GenerateCreatureName(Creature creature, Creature alreadyExistingCreature, TopLevels topLevels, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, int namingPatternIndex)
         {
             SetCreatureData(creature);
-            CreatureName = NamePattern.GenerateCreatureName(creature, alreadyExistingCreature, _sameSpecies, speciesTopLevels, speciesLowestLevels, customReplacings,
+            CreatureName = NamePattern.GenerateCreatureName(creature, alreadyExistingCreature, _sameSpecies, topLevels, customReplacings,
                 showDuplicateNameWarning, namingPatternIndex, false, colorsExisting: ColorAlreadyExistingInformation, libraryCreatureCount: LibraryCreatureCount);
             if (CreatureName.Length > Ark.MaxCreatureNameLength)
                 SetMessageLabelText?.Invoke($"The generated name is longer than {Ark.MaxCreatureNameLength} characters, the name will look like this in game:\r\n" + CreatureName.Substring(0, Ark.MaxCreatureNameLength), MessageBoxIcon.Error);
         }
 
-        public void OpenNamePatternEditor(Creature creature, int[] speciesTopLevels, int[] speciesLowestLevels, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback)
+        public void OpenNamePatternEditor(Creature creature, TopLevels topLevels, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback)
         {
             if (!parentListValid)
                 ParentListRequested?.Invoke(this);
-            using (var pe = new PatternEditor(creature, _sameSpecies, speciesTopLevels, speciesLowestLevels, ColorAlreadyExistingInformation, customReplacings, namingPatternIndex, reloadCallback, LibraryCreatureCount))
+            using (var pe = new PatternEditor(creature, _sameSpecies, topLevels, ColorAlreadyExistingInformation, customReplacings, namingPatternIndex, reloadCallback, LibraryCreatureCount))
             {
                 if (pe.ShowDialog() == DialogResult.OK)
                 {

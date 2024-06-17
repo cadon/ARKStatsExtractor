@@ -1001,13 +1001,10 @@ namespace ARKBreedingStats
         private void DetermineLevelStatusAndSoundFeedback(Creature c, bool playImportSound)
         {
             var species = c.Species;
-            _highestSpeciesLevels.TryGetValue(species, out int[] highSpeciesLevels);
-            _lowestSpeciesLevels.TryGetValue(species, out int[] lowSpeciesLevels);
-            _highestSpeciesMutationLevels.TryGetValue(species, out int[] highSpeciesMutationLevels);
+            _topLevels.TryGetValue(species, out var topLevels);
             var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
-            LevelStatusFlags.DetermineLevelStatus(species, highSpeciesLevels, lowSpeciesLevels, highSpeciesMutationLevels,
-                statWeights, c.levelsWild, c.levelsMutated, c.valuesBreeding,
-                out _, out _);
+            LevelStatusFlags.DetermineLevelStatus(species, topLevels, statWeights,
+                c.levelsWild, c.levelsMutated, c.valuesBreeding, out _, out _);
 
             if (playImportSound)
             {

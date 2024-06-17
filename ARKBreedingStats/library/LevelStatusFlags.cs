@@ -23,24 +23,15 @@ namespace ARKBreedingStats.library
         /// <summary>
         /// Determines if the wild and mutated levels of a creature are equal or higher than the current top levels of that species.
         /// </summary>
-        /// <param name="species"></param>
-        /// <param name="highSpeciesLevels"></param>
-        /// <param name="lowSpeciesLevels"></param>
-        /// <param name="highSpeciesMutationLevels"></param>
-        /// <param name="statWeights"></param>
-        /// <param name="levelsWild"></param>
-        /// <param name="levelsMutated"></param>
-        /// <param name="valuesBreeding"></param>
-        /// <param name="topStatsText"></param>
-        /// <param name="newTopStatsText"></param>
-        public static void DetermineLevelStatus(Species species, int[] highSpeciesLevels, int[] lowSpeciesLevels, int[] highSpeciesMutationLevels,
+        public static void DetermineLevelStatus(Species species, TopLevels topLevels,
             (double[], StatValueEvenOdd[]) statWeights, int[] levelsWild, int[] levelsMutated, double[] valuesBreeding,
             out List<string> topStatsText, out List<string> newTopStatsText)
         {
             // if there are no creatures of the species yet, assume 0 levels to be the current best and worst
-            if (highSpeciesLevels == null) highSpeciesLevels = new int[Stats.StatsCount];
-            if (lowSpeciesLevels == null) lowSpeciesLevels = new int[Stats.StatsCount];
-            if (highSpeciesMutationLevels == null) highSpeciesMutationLevels = new int[Stats.StatsCount];
+            if (topLevels == null) topLevels = new TopLevels();
+            var highSpeciesLevels = topLevels.WildLevelsHighest ?? new int[Stats.StatsCount];
+            var lowSpeciesLevels = topLevels.WildLevelsLowest ?? new int[Stats.StatsCount];
+            var highSpeciesMutationLevels = topLevels.MutationLevelsHighest ?? new int[Stats.StatsCount];
 
             newTopStatsText = new List<string>();
             topStatsText = new List<string>();

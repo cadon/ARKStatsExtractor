@@ -155,16 +155,12 @@ namespace ARKBreedingStats
             radarChartExtractor.SetLevels(_statIOs.Select(s => s.LevelWild).ToArray(), _statIOs.Select(s => s.LevelMut).ToArray(), speciesSelector1.SelectedSpecies);
             cbExactlyImprinting.BackColor = Color.Transparent;
             var species = speciesSelector1.SelectedSpecies;
-            _highestSpeciesLevels.TryGetValue(species, out int[] highSpeciesLevels);
-            _lowestSpeciesLevels.TryGetValue(species, out int[] lowSpeciesLevels);
-            _highestSpeciesMutationLevels.TryGetValue(species, out int[] highSpeciesMutationLevels);
-            //_lowestSpeciesMutationLevels.TryGetValue(species, out int[] lowSpeciesMutationLevels);
+            _topLevels.TryGetValue(species, out var topLevels);
 
             var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
 
-            LevelStatusFlags.DetermineLevelStatus(species, highSpeciesLevels, lowSpeciesLevels, highSpeciesMutationLevels,
-                statWeights, GetCurrentWildLevels(), GetCurrentMutLevels(), GetCurrentBreedingValues(),
-                out var topStatsText, out var newTopStatsText);
+            LevelStatusFlags.DetermineLevelStatus(species, topLevels, statWeights, GetCurrentWildLevels(), GetCurrentMutLevels(),
+                GetCurrentBreedingValues(), out var topStatsText, out var newTopStatsText);
 
             for (var s = 0; s < Stats.StatsCount; s++)
             {
