@@ -438,22 +438,6 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// By default the cuddle interval is 8 hours.
-        /// </summary>
-        private const int DefaultCuddleIntervalInSeconds = 8 * 60 * 60;
-
-        /// <summary>
-        /// Returns the imprinting gain per cuddle, dependent on the maturation time and the cuddle interval multiplier.
-        /// </summary>
-        /// <param name="maturationTime">Maturation time in seconds</param>
-        /// <returns></returns>
-        public static double ImprintingGainPerCuddle(double maturationTime)
-        {
-            var multipliers = Values.V.currentServerMultipliers;
-            return Math.Min(1, DefaultCuddleIntervalInSeconds * multipliers.BabyCuddleIntervalMultiplier * multipliers.BabyImprintAmountMultiplier / maturationTime);
-        }
-
-        /// <summary>
         /// Returns either black or white, depending on the backColor, so text can be read well.
         /// </summary>
         /// <param name="backColor"></param>

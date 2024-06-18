@@ -467,7 +467,7 @@ namespace ARKBreedingStats
             double imprintingBonusFromGainPerCuddle = 0;
             if (species.breeding != null)
             {
-                double imprintingGainPerCuddle = Utils.ImprintingGainPerCuddle(species.breeding.maturationTimeAdjusted);
+                double imprintingGainPerCuddle = Ark.ImprintingGainPerCuddle(species.breeding.maturationTimeAdjusted);
                 if (imprintingGainPerCuddle > 0)
                     imprintingBonusFromGainPerCuddle = Math.Round(imprintingBonusRounded / imprintingGainPerCuddle) * imprintingGainPerCuddle;
             }

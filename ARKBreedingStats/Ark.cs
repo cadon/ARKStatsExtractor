@@ -1,4 +1,5 @@
 ﻿using ARKBreedingStats.values;
+using System;
 
 namespace ARKBreedingStats
 {
@@ -155,6 +156,26 @@ namespace ARKBreedingStats
         /// Collection indicator for ARK: Survival Ascended, also the mod tag id for the ASA values.
         /// </summary>
         public const string Asa = "ASA";
+
+        /// <summary>
+        /// The default cuddle interval is 8 hours.
+        /// </summary>
+        private const int DefaultCuddleIntervalInSeconds = 8 * 60 * 60;
+
+        /// <summary>
+        /// Returns the imprinting gain per cuddle, dependent on the maturation time and the cuddle interval multiplier.
+        /// </summary>
+        /// <param name="maturationTime">Maturation time in seconds</param>
+        public static double ImprintingGainPerCuddle(double maturationTime)
+        {
+            var multipliers = Values.V.currentServerMultipliers;
+            // this is assumed to be the used formula
+            var maxPossibleCuddles = maturationTime / (DefaultCuddleIntervalInSeconds * multipliers.BabyImprintAmountMultiplier);
+            var denominator = maxPossibleCuddles - 0.25;
+            if (denominator < 0) return 0;
+            if (denominator < multipliers.BabyCuddleIntervalMultiplier) return 1;
+            return Math.Min(1, multipliers.BabyCuddleIntervalMultiplier / denominator);
+        }
     }
 
     /// <summary>

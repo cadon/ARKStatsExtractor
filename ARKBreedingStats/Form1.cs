@@ -1741,7 +1741,7 @@ namespace ARKBreedingStats
                 lbImprintedCount.Text =
                     "(" + Math.Round(
                         (double)numericUpDownImprintingBonusTester.Value / (100 *
-                                                                             Utils.ImprintingGainPerCuddle(
+                                                                             Ark.ImprintingGainPerCuddle(
                                                                                  speciesSelector1.SelectedSpecies
                                                                                      .breeding.maturationTimeAdjusted)),
                         2) + "×)";
@@ -1756,7 +1756,7 @@ namespace ARKBreedingStats
                 lbImprintingCuddleCountExtractor.Text = "(" +
                                                         Math.Round(
                                                             (double)numericUpDownImprintingBonusExtractor.Value /
-                                                            (100 * Utils.ImprintingGainPerCuddle(speciesSelector1
+                                                            (100 * Ark.ImprintingGainPerCuddle(speciesSelector1
                                                                 .SelectedSpecies.breeding.maturationTimeAdjusted))) +
                                                         "×)";
             else lbImprintingCuddleCountExtractor.Text = string.Empty;
@@ -2762,7 +2762,7 @@ namespace ARKBreedingStats
                     speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted > 0)
                 {
                     double imprintingGainPerCuddle =
-                        Utils.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted);
+                        Ark.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted);
                     int cuddleCount = (int)Math.Round((double)numericUpDownImprintingBonusTester.Value /
                                                        (100 * imprintingGainPerCuddle));
                     double imprintingBonus;
