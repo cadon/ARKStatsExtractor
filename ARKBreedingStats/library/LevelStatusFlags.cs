@@ -29,9 +29,9 @@ namespace ARKBreedingStats.library
         {
             // if there are no creatures of the species yet, assume 0 levels to be the current best and worst
             if (topLevels == null) topLevels = new TopLevels();
-            var highSpeciesLevels = topLevels.WildLevelsHighest ?? new int[Stats.StatsCount];
-            var lowSpeciesLevels = topLevels.WildLevelsLowest ?? new int[Stats.StatsCount];
-            var highSpeciesMutationLevels = topLevels.MutationLevelsHighest ?? new int[Stats.StatsCount];
+            var highSpeciesLevels = topLevels.WildLevelsHighest;
+            var lowSpeciesLevels = topLevels.WildLevelsLowest;
+            var highSpeciesMutationLevels = topLevels.MutationLevelsHighest;
 
             newTopStatsText = new List<string>();
             topStatsText = new List<string>();
@@ -77,7 +77,7 @@ namespace ARKBreedingStats.library
                             topStatsText.Add(statName);
                             sbStatInfoText?.Append($" {Loc.S("topLevel")}");
                         }
-                        else if (highSpeciesLevels[s] != -1 && levelsWild[s] > highSpeciesLevels[s])
+                        else if (levelsWild[s] > highSpeciesLevels[s])
                         {
                             LevelStatusFlagsCurrentNewCreature[s] = LevelStatus.NewTopLevel;
                             CombinedLevelStatusFlags |= LevelStatus.NewTopLevel;
@@ -106,7 +106,7 @@ namespace ARKBreedingStats.library
                 }
 
                 if (weighting == StatWeighting.StatValuePreference.High
-                                              && levelsMutated[s] > highSpeciesMutationLevels[s])
+                    && levelsMutated[s] > highSpeciesMutationLevels[s])
                 {
                     LevelStatusFlagsCurrentNewCreature[s] |= LevelStatus.NewMutation;
                     CombinedLevelStatusFlags |= LevelStatus.NewMutation;

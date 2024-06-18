@@ -357,23 +357,24 @@ namespace ARKBreedingStats.NamePatterns
             levelOrderMutated = levelOrderMutated.OrderByDescending(l => l.Item2).ToList();
             var usedStatsCount = levelOrderWild.Count;
 
-            var wildLevelsHighest = topLevels.WildLevelsHighest ?? new int[Stats.StatsCount];
-            var wildLevelsLowest = topLevels.WildLevelsLowest ?? new int[Stats.StatsCount];
-            var mutationLevelsHighest = topLevels.MutationLevelsHighest ?? new int[Stats.StatsCount];
-            var mutationLevelsLowest = topLevels.MutationLevelsLowest ?? new int[Stats.StatsCount];
+            if (topLevels == null) topLevels = new TopLevels();
+            var wildLevelsHighest = topLevels.WildLevelsHighest;
+            var wildLevelsLowest = topLevels.WildLevelsLowest;
+            var mutationLevelsHighest = topLevels.MutationLevelsHighest;
+            var mutationLevelsLowest = topLevels.MutationLevelsLowest;
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 dict.Add(StatAbbreviationFromIndex[s], creature.levelsWild[s].ToString());
                 dict.Add($"{StatAbbreviationFromIndex[s]}_vb", (creature.valuesBreeding[s] * (Stats.IsPercentage(s) ? 100 : 1)).ToString());
-                dict.Add($"istop{StatAbbreviationFromIndex[s]}", creature.levelsWild[s] >= wildLevelsHighest[s] ? "1" : string.Empty);
-                dict.Add($"isnewtop{StatAbbreviationFromIndex[s]}", creature.levelsWild[s] > wildLevelsHighest[s] ? "1" : string.Empty);
-                dict.Add($"islowest{StatAbbreviationFromIndex[s]}", wildLevelsLowest[s] != -1 && creature.levelsWild[s] != -1 && creature.levelsWild[s] <= wildLevelsLowest[s] ? "1" : string.Empty);
-                dict.Add($"isnewlowest{StatAbbreviationFromIndex[s]}", wildLevelsLowest[s] != -1 && creature.levelsWild[s] != -1 && creature.levelsWild[s] < wildLevelsLowest[s] ? "1" : string.Empty);
-                dict.Add($"istop{StatAbbreviationFromIndex[s]}_m", creature.levelsWild[s] >= mutationLevelsHighest[s] ? "1" : string.Empty);
-                dict.Add($"isnewtop{StatAbbreviationFromIndex[s]}_m", creature.levelsWild[s] > mutationLevelsHighest[s] ? "1" : string.Empty);
-                dict.Add($"islowest{StatAbbreviationFromIndex[s]}_m", mutationLevelsLowest[s] != -1 && creature.levelsWild[s] != -1 && creature.levelsWild[s] <= mutationLevelsLowest[s] ? "1" : string.Empty);
-                dict.Add($"isnewlowest{StatAbbreviationFromIndex[s]}_m", mutationLevelsLowest[s] != -1 && creature.levelsWild[s] != -1 && creature.levelsWild[s] < mutationLevelsLowest[s] ? "1" : string.Empty);
+                dict.Add($"istop{StatAbbreviationFromIndex[s]}", creature.levelsWild[s] != -1 && creature.levelsWild[s] >= wildLevelsHighest[s] ? "1" : string.Empty);
+                dict.Add($"isnewtop{StatAbbreviationFromIndex[s]}", creature.levelsWild[s] != -1 && creature.levelsWild[s] > wildLevelsHighest[s] ? "1" : string.Empty);
+                dict.Add($"islowest{StatAbbreviationFromIndex[s]}", creature.levelsWild[s] != -1 && creature.levelsWild[s] <= wildLevelsLowest[s] ? "1" : string.Empty);
+                dict.Add($"isnewlowest{StatAbbreviationFromIndex[s]}", creature.levelsWild[s] != -1 && creature.levelsWild[s] < wildLevelsLowest[s] ? "1" : string.Empty);
+                dict.Add($"istop{StatAbbreviationFromIndex[s]}_m", creature.levelsMutated[s] >= mutationLevelsHighest[s] ? "1" : string.Empty);
+                dict.Add($"isnewtop{StatAbbreviationFromIndex[s]}_m", creature.levelsMutated[s] > mutationLevelsHighest[s] ? "1" : string.Empty);
+                dict.Add($"islowest{StatAbbreviationFromIndex[s]}_m", creature.levelsMutated[s] <= mutationLevelsLowest[s] ? "1" : string.Empty);
+                dict.Add($"isnewlowest{StatAbbreviationFromIndex[s]}_m", creature.levelsMutated[s] < mutationLevelsLowest[s] ? "1" : string.Empty);
 
                 // highest stats and according levels
                 dict.Add("highest" + (s + 1) + "l", s < usedStatsCount ? levelOrderWild[s].Item2.ToString() : string.Empty);
