@@ -2023,6 +2023,18 @@ namespace ARKBreedingStats
                 CreateExactSpawnDS2Command(_creaturesDisplayed[listViewLibrary.SelectedIndices[0]]);
         }
 
+        private void adminCommandSetMutationLevelsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listViewLibrary.SelectedIndices.Count > 0)
+                CreateExactMutationLevelCommand(_creaturesDisplayed[listViewLibrary.SelectedIndices[0]]);
+        }
+
+        private void commandMutationLevelsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listViewLibrary.SelectedIndices.Count > 0)
+                CreateExactMutationLevelCommand(_creaturesDisplayed[listViewLibrary.SelectedIndices[0]]);
+        }
+
         private void exactSpawnCommandToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Creature cr = null;
@@ -2057,6 +2069,12 @@ namespace ARKBreedingStats
             CreatureSpawnCommand.DinoStorageV2CommandToClipboard(cr);
             SetMessageLabelText($"The SpawnExactDino admin console command for the creature {cr.name} ({cr.Species?.name}) was copied to the clipboard. The command needs the mod DinoStorage V2 installed on the server to work."
                                 , MessageBoxIcon.Warning);
+        }
+
+        private void CreateExactMutationLevelCommand(Creature cr)
+        {
+            CreatureSpawnCommand.MutationLevelCommandToClipboard(cr);
+            SetMessageLabelText($"The admin console command for adding the mutation levels to the creature {cr.name} ({cr.Species?.name}) was copied to the clipboard.");
         }
 
         #endregion
