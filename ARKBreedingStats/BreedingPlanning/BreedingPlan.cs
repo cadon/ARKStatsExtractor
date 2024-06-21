@@ -617,13 +617,18 @@ namespace ARKBreedingStats.BreedingPlanning
                 _pcs[2 * i + 1].Hide();
                 _pbs[i].Hide();
             }
-            lbBreedingPlanInfo.Text = (noCreaturesWithTopStatsInBothSexes
-                                       ? "The breeding mode is set to combine top stats, but currently there are no pair where top stats can be combined."
-                                         + Environment.NewLine + $"You can change the breeding mode to {Loc.S("rbBPHighStats")}"
-                                         + Environment.NewLine + Environment.NewLine
-                                       : string.Empty)
-                                      + string.Format(Loc.S("NoPossiblePairingForSpeciesFound"), _currentSpecies)
-                                      ;
+
+            if (noCreaturesWithTopStatsInBothSexes)
+            {
+                lbBreedingPlanInfo.Text = $"The breeding mode is set to {Loc.S("rbBPTopStatsCn")}, but currently there is no pair where top stats can be combined."
+                                          + Environment.NewLine + $"You can change the breeding mode to {Loc.S("rbBPHighStats")} to get the best recommendations in this situation."
+                                          + Environment.NewLine + Environment.NewLine
+                                          + string.Format(Loc.S("NoPossiblePairingForSpeciesFound"), _currentSpecies);
+            }
+            else
+            {
+                lbBreedingPlanInfo.Text = string.Format(Loc.S("NoPossiblePairingForSpeciesFound"), _currentSpecies);
+            }
             lbBreedingPlanInfo.Visible = true;
             if (!cbBPIncludeCryoCreatures.Checked
                 && CreatureCollection.creatures.Any(c
