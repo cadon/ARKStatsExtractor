@@ -238,7 +238,7 @@ namespace ARKBreedingStats
                                 await GetLastModifiedFileAsync(client, ftpUri, fileRegex, cancellationTokenSource.Token);
                             if (mostRecentlyModifiedMatch == null)
                             {
-                                throw new Exception($"No file found matching pattern '{fileRegex}'");
+                                throw new FileNotFoundException($"'{fileRegex}'");
                             }
 
                             ftpPath = mostRecentlyModifiedMatch.FullName;
@@ -266,22 +266,27 @@ namespace ARKBreedingStats
                     }
                     catch (FtpAuthenticationException ex)
                     {
-                        // if auth fails, clear credentials, alert the user and loop until the either auth succeeds or the user cancels
+                        // if auth fails, clear credentials, alert the user and loop until either auth succeeds or the user cancels
                         progressDialog.StatusText = $"Authentication failed: {ex.Message}";
                         credentials = null;
                         await Task.Delay(1000);
                     }
                     catch (OperationCanceledException)
                     {
-                        client.Dispose();
+                        await client.DisposeAsync();
                         return (null, "aborted by user");
+                    }
+                    catch (FileNotFoundException ex)
+                    {
+                        await client.DisposeAsync();
+                        return (null, $"File not found using regex pattern {ex.Message}");
                     }
                     catch (Exception ex)
                     {
-                        var errorMessage = $"Unexpected error while downloading file\n{ftpPath}:\n{ex.Message}{(string.IsNullOrEmpty(ex.InnerException?.Message) ? null : "\n\nInner Exception:\n" + ex.InnerException?.Message)}";
+                        var errorMessage = $"Unexpected error while determining and downloading file\n{ftpPath}\n{ExceptionMessages.WithInner(ex)}";
                         if (progressDialog.IsDisposed)
                         {
-                            client.Dispose();
+                            await client.DisposeAsync();
                             return (null, errorMessage);
                         }
                         progressDialog.StatusText = errorMessage + "\n\nTrying again in some seconds.";
@@ -289,14 +294,14 @@ namespace ARKBreedingStats
                     }
                     finally
                     {
-                        client.Dispose();
+                        await client.DisposeAsync();
                     }
                 }
             }
         }
 
         /// <summary>
-        /// Loads the encrypted ftp crednetials from settings, decrypts them, then returns them as a hostname to credentials dictionary
+        /// Loads the encrypted ftp credentials from settings, decrypts them, then returns them as a hostname to credentials dictionary
         /// </summary>
         private static Dictionary<string, FtpCredentials> LoadSavedCredentials()
         {

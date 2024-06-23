@@ -693,6 +693,7 @@
     <Compile Include="utils\Convert32.cs" />
     <Compile Include="utils\Debouncer.cs" />
     <Compile Include="utils\ArkInstallationPath.cs" />
+    <Compile Include="utils\ExceptionMessages.cs" />
     <Compile Include="utils\ExtensionMethods.cs" />
     <Compile Include="utils\CreatureListSorter.cs" />
     <Compile Include="utils\MessageBoxes.cs" />
