@@ -5,7 +5,6 @@ using System.Globalization;
 using System.Linq;
 using System.Speech.Recognition;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
 
@@ -13,16 +12,11 @@ namespace ARKBreedingStats
 {
     public class SpeechRecognition
     {
-        public delegate void SpeechRecognizedEventHandler(string species, int level);
-
-        public SpeechRecognizedEventHandler speechRecognized;
-
-        public delegate void SpeechCommandRecognizedEventHandler(Commands command);
-
-        public SpeechCommandRecognizedEventHandler speechCommandRecognized;
-        private readonly SpeechRecognitionEngine recognizer;
+        public Action<string, int> SpeechCreatureRecognized;
+        public Action<Commands> SpeechCommandRecognized;
+        private readonly SpeechRecognitionEngine _recognizer;
         public readonly Label indicator;
-        private bool listening;
+        private bool _listening;
         private int _maxLevel;
         private int _levelStep;
         private int _aliasesCount;
@@ -31,24 +25,22 @@ namespace ARKBreedingStats
         public SpeechRecognition(int maxLevel, int levelStep, List<string> aliases, Label indicator)
         {
             Initialized = false;
-            if (aliases.Any())
+            if (!aliases.Any()) return;
+            this.indicator = indicator;
+            _recognizer = new SpeechRecognitionEngine();
+            SetMaxLevelAndSpecies(maxLevel, levelStep, aliases);
+            _recognizer.SpeechRecognized += Sre_SpeechRecognized;
+            try
             {
-                this.indicator = indicator;
-                recognizer = new SpeechRecognitionEngine();
-                SetMaxLevelAndSpecies(maxLevel, levelStep, aliases);
-                recognizer.SpeechRecognized += Sre_SpeechRecognized;
-                try
-                {
-                    recognizer.SetInputToDefaultAudioDevice();
-                    Initialized = true;
-                }
-                catch
-                {
-                    MessageBoxes.ShowMessageBox("Couldn't set Audio-Input to default-audio device. The speech recognition will not work until a restart.\nTry to change the default-audio-input (e.g. plug-in a microphone).",
-                        $"Microphone Error");
-                }
-                recognizer.SpeechRecognitionRejected += Recognizer_SpeechRecognitionRejected;
+                _recognizer.SetInputToDefaultAudioDevice();
+                Initialized = true;
             }
+            catch
+            {
+                MessageBoxes.ShowMessageBox("Couldn't set Audio-Input to default-audio device. The speech recognition will not work until a restart.\nTry to change the default-audio-input (e.g. plug-in a microphone).",
+                    $"Microphone Error");
+            }
+            _recognizer.SpeechRecognitionRejected += Recognizer_SpeechRecognitionRejected;
         }
 
         private void Recognizer_SpeechRecognitionRejected(object sender, SpeechRecognitionRejectedEventArgs e)
@@ -68,7 +60,7 @@ namespace ARKBreedingStats
             {
                 string species = m.Groups[1].Value;
                 if (int.TryParse(m.Groups[2].Value, out int level))
-                    speechRecognized?.Invoke(species, level);
+                    SpeechCreatureRecognized?.Invoke(species, level);
             }
             /*}
             else
@@ -111,25 +103,25 @@ namespace ARKBreedingStats
         {
             set
             {
-                listening = value;
-                if (listening)
+                _listening = value;
+                if (_listening)
                 {
                     try
                     {
-                        recognizer.RecognizeAsync(RecognizeMode.Multiple);
+                        _recognizer.RecognizeAsync(RecognizeMode.Multiple);
                         indicator.ForeColor = Color.Red;
                     }
                     catch
                     {
                         MessageBoxes.ShowMessageBox("Couldn't set Audio-Input to default-audio device. The speech recognition will not work until a restart.\nTry to change the default-audio-input (e.g. plug-in a microphone).",
                             $"Microphone Error");
-                        listening = false;
+                        _listening = false;
                         indicator.ForeColor = SystemColors.GrayText;
                     }
                 }
                 else
                 {
-                    recognizer.RecognizeAsyncStop();
+                    _recognizer.RecognizeAsyncStop();
                     indicator.ForeColor = SystemColors.GrayText;
                 }
             }
@@ -143,15 +135,13 @@ namespace ARKBreedingStats
         /// <param name="aliases"></param>
         public void SetMaxLevelAndSpecies(int maxLevel, int levelStep, List<string> aliases)
         {
-            if (maxLevel != _maxLevel || levelStep != _levelStep || _aliasesCount != aliases.Count)
-            {
-                _maxLevel = maxLevel;
-                _levelStep = levelStep;
-                _aliasesCount = aliases.Count;
-                recognizer.UnloadAllGrammars();
-                recognizer.LoadGrammar(CreateTamingGrammar(maxLevel, levelStep, aliases, recognizer.RecognizerInfo.Culture));
-                //recognizer.LoadGrammar(CreateCommandsGrammar()); // remove for now, it's too easy to say something that is recognized as "extract" and disturbes the play-flow
-            }
+            if (maxLevel == _maxLevel && levelStep == _levelStep && _aliasesCount == aliases.Count) return;
+            _maxLevel = maxLevel;
+            _levelStep = levelStep;
+            _aliasesCount = aliases.Count;
+            _recognizer.UnloadAllGrammars();
+            _recognizer.LoadGrammar(CreateTamingGrammar(maxLevel, levelStep, aliases, _recognizer.RecognizerInfo.Culture));
+            //recognizer.LoadGrammar(CreateCommandsGrammar()); // remove for now, it's too easy to say something that is recognized as "extract" and disturbes the play-flow
         }
 
         private Grammar CreateCommandsGrammar()
@@ -166,7 +156,7 @@ namespace ARKBreedingStats
 
         public void ToggleListening()
         {
-            Listen = !listening;
+            Listen = !_listening;
         }
 
         public enum Commands
@@ -185,7 +175,7 @@ namespace ARKBreedingStats
         {
             if (disposing)
             {
-                recognizer.Dispose();
+                _recognizer.Dispose();
             }
         }
     }

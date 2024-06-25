@@ -542,8 +542,8 @@ namespace ARKBreedingStats
                     if (_speechRecognition.Initialized)
                     {
                         speechRecognitionInitialized = true;
-                        _speechRecognition.speechRecognized += TellTamingData;
-                        _speechRecognition.speechCommandRecognized += SpeechCommand;
+                        _speechRecognition.SpeechCreatureRecognized += TellTamingData;
+                        _speechRecognition.SpeechCommandRecognized += SpeechCommand;
                         lbListening.Visible = true;
                     }
                     else
@@ -824,9 +824,18 @@ namespace ARKBreedingStats
             statPotentials1.LevelDomMax = _creatureCollection.maxDomLevel;
             statPotentials1.LevelGraphMax = _creatureCollection.maxChartLevel;
 
-            _speechRecognition?.SetMaxLevelAndSpecies(_creatureCollection.maxWildLevel,
-                _creatureCollection.considerWildLevelSteps ? _creatureCollection.wildLevelStep : 1,
-                Values.V.speciesWithAliasesList);
+            try
+            {
+                _speechRecognition?.SetMaxLevelAndSpecies(_creatureCollection.maxWildLevel,
+                    _creatureCollection.considerWildLevelSteps ? _creatureCollection.wildLevelStep : 1,
+                    Values.V.speciesWithAliasesList);
+            }
+            catch (Exception ex)
+            {
+                // rarely GrammarBuilder System.Speech.Internal.SrgsParser.XmlParser raised System.FormatException: 'one-of' must contain at least one 'item' element occured
+                MessageBoxes.ExceptionMessageBox(ex);
+            }
+
             if (_overlay != null)
             {
                 _overlay.InfoDuration = Properties.Settings.Default.OverlayInfoDuration;
