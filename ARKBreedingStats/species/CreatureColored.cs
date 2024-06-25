@@ -5,8 +5,13 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Media;
+using System.Windows.Media.Effects;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.utils;
+using Color = System.Drawing.Color;
+using Pen = System.Drawing.Pen;
+using PixelFormat = System.Drawing.Imaging.PixelFormat;
 
 namespace ARKBreedingStats.species
 {
@@ -42,7 +47,7 @@ namespace ARKBreedingStats.species
             => Path.Combine(_imgCacheFolderPath, speciesName.Substring(0, Math.Min(speciesName.Length, 5)) + "_" + Convert32.ToBase32String(colorIds.Select(ci => ci).Concat(Encoding.UTF8.GetBytes(speciesName)).ToArray()).Replace('/', '-') + (listView ? "_lv" : string.Empty) + Extension);
 
         /// <summary>
-        /// Checks if an according species image exists in the cache folder, if not it tries to creates one. Returns false if there's no image.
+        /// Checks if an according species image exists in the cache folder, if not it tries to create one. Returns false if there's no image.
         /// </summary>
         internal static (bool imageExists, string imagePath, string speciesListName) SpeciesImageExists(Species species, byte[] colorIds)
         {
@@ -252,31 +257,12 @@ namespace ARKBreedingStats.species
 
             using (Bitmap bmpBaseImage = new Bitmap(speciesBaseImageFilePath))
             using (Bitmap bmpColoredCreature = new Bitmap(bmpBaseImage.Width, bmpBaseImage.Height, PixelFormat.Format32bppArgb))
+            using (Bitmap bmpShadow = new Bitmap(bmpBaseImage.Width, bmpBaseImage.Height, PixelFormat.Format32bppArgb))
             using (Graphics graph = Graphics.FromImage(bmpColoredCreature))
             {
                 bool imageFine = true;
                 graph.SmoothingMode = SmoothingMode.AntiAlias;
-
-                //// ellipse background shadow
-                int scx = bmpBaseImage.Width / 2;
-                int scy = (int)(scx * 1.6);
-                const double perspectiveFactor = 0.3;
-                int yStart = scy - (int)(perspectiveFactor * .7 * scx);
-                int yEnd = (int)(2 * perspectiveFactor * scx);
-                GraphicsPath pathShadow = new GraphicsPath();
-                pathShadow.AddEllipse(0, yStart, bmpBaseImage.Width, yEnd);
-                var colorBlend = new ColorBlend
-                {
-                    Colors = new[] { Color.FromArgb(0), Color.FromArgb(40, 0, 0, 0), Color.FromArgb(80, 0, 0, 0) },
-                    Positions = new[] { 0, 0.6f, 1 }
-                };
-
-                using (var pthGrBrush = new PathGradientBrush(pathShadow)
-                {
-                    InterpolationColors = colorBlend
-                })
-                    graph.FillEllipse(pthGrBrush, 0, yStart, bmpBaseImage.Width, yEnd);
-                // background shadow done
+                var rectangleShadow = Rectangle.Empty;
 
                 // if species has color regions, apply colors
                 if (File.Exists(speciesColorMaskFilePath))
@@ -292,11 +278,13 @@ namespace ARKBreedingStats.species
                             rgb[c] = new[] { cl.R, cl.G, cl.B };
                         }
                     }
-                    imageFine = ApplyColorsUnsafe(rgb, useColorRegions, speciesColorMaskFilePath, bmpBaseImage);
+                    imageFine = ApplyColorsUnsafe(rgb, useColorRegions, speciesColorMaskFilePath, bmpBaseImage, bmpShadow, out rectangleShadow);
                 }
 
                 if (imageFine)
                 {
+                    DrawShadowSimpleEllipse(graph, bmpShadow);
+                    //DrawShadow(graph, bmpShadow, rectangleShadow);
                     // draw species image on background
                     graph.DrawImage(bmpBaseImage, 0, 0, bmpColoredCreature.Width, bmpColoredCreature.Height);
 
@@ -324,6 +312,51 @@ namespace ARKBreedingStats.species
             return false;
         }
 
+        private static void DrawShadow(Graphics graph, Bitmap bmpShadow, Rectangle rectangleShadow)
+        {
+            graph.CompositingQuality = CompositingQuality.HighQuality;
+            graph.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            graph.SmoothingMode = SmoothingMode.HighQuality;
+            graph.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+            // destination points of: upper left, upper right, lower left
+            var upperLeft = new PointF(rectangleShadow.X + rectangleShadow.Width / 3f, rectangleShadow.Y + rectangleShadow.Height / 2f);
+            var desPoints = new[]
+            {
+                upperLeft,
+                new PointF(upperLeft.X+rectangleShadow.Width, upperLeft.Y),
+                new PointF(rectangleShadow.Left,rectangleShadow.Bottom)
+            };
+
+            // set opacity
+            var att = new ImageAttributes();
+            att.SetColorMatrix(new ColorMatrix { Matrix33 = 0.2f });
+
+            graph.DrawImage(bmpShadow, desPoints, rectangleShadow, GraphicsUnit.Pixel, att);
+        }
+
+        private static void DrawShadowSimpleEllipse(Graphics graph, Bitmap bmpBaseImage)
+        {
+            int scx = bmpBaseImage.Width / 2;
+            int scy = (int)(scx * 1.6);
+            const double perspectiveFactor = 0.3;
+            int yStart = scy - (int)(perspectiveFactor * .7 * scx);
+            int yEnd = (int)(2 * perspectiveFactor * scx);
+            GraphicsPath pathShadow = new GraphicsPath();
+            pathShadow.AddEllipse(0, yStart, bmpBaseImage.Width, yEnd);
+            var colorBlend = new ColorBlend
+            {
+                Colors = new[] { Color.FromArgb(0), Color.FromArgb(40, 0, 0, 0), Color.FromArgb(80, 0, 0, 0) },
+                Positions = new[] { 0, 0.6f, 1 }
+            };
+
+            using (var pthGrBrush = new PathGradientBrush(pathShadow)
+            {
+                InterpolationColors = colorBlend
+            })
+                graph.FillEllipse(pthGrBrush, 0, yStart, bmpBaseImage.Width, yEnd);
+        }
+
         private static bool SaveBitmapToFile(Bitmap bmp, string filePath)
         {
             try
@@ -342,9 +375,13 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Applies the colors to the base image.
         /// </summary>
-        private static bool ApplyColorsUnsafe(byte[][] rgb, bool[] enabledColorRegions, string speciesColorMaskFilePath, Bitmap bmpBaseImage)
+        private static bool ApplyColorsUnsafe(byte[][] rgb, bool[] enabledColorRegions, string speciesColorMaskFilePath, Bitmap bmpBaseImage, Bitmap bmpShadow, out Rectangle shadowRect)
         {
             var imageFine = false;
+            var shadowLeft = int.MaxValue;
+            var shadowRight = -1;
+            var shadowTop = int.MaxValue;
+            var shadowBottom = -1;
             using (Bitmap bmpMask = new Bitmap(bmpBaseImage.Width, bmpBaseImage.Height))
             {
                 // get mask in correct size
@@ -362,22 +399,27 @@ namespace ARKBreedingStats.species
                 BitmapData bmpDataMask = bmpMask.LockBits(
                     new Rectangle(0, 0, bmpMask.Width, bmpMask.Height), ImageLockMode.ReadOnly,
                     bmpMask.PixelFormat);
+                BitmapData bmpDataShadow = bmpShadow.LockBits(
+                    new Rectangle(0, 0, bmpShadow.Width, bmpShadow.Height), ImageLockMode.ReadOnly,
+                    bmpShadow.PixelFormat);
 
                 int bgBytes = bmpBaseImage.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
                 int msBytes = bmpDataMask.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
+                int shdBytes = bmpShadow.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
 
-                float o = 0;
                 try
                 {
                     unsafe
                     {
                         byte* scan0Bg = (byte*)bmpDataBaseImage.Scan0.ToPointer();
                         byte* scan0Ms = (byte*)bmpDataMask.Scan0.ToPointer();
+                        byte* scan0Sh = (byte*)bmpDataShadow.Scan0.ToPointer();
 
                         var width = bmpDataBaseImage.Width;
                         var height = bmpDataBaseImage.Height;
                         var strideBaseImage = bmpDataBaseImage.Stride;
                         var strideMask = bmpDataMask.Stride;
+                        var strideShadow = bmpDataShadow.Stride;
 
                         for (int i = 0; i < width; i++)
                         {
@@ -387,6 +429,14 @@ namespace ARKBreedingStats.species
                                 // continue if the pixel is transparent
                                 if (dBg[3] == 0)
                                     continue;
+
+                                // set shadow alpha
+                                var shadowPixelPt = scan0Sh + j * strideShadow + i * shdBytes;
+                                shadowPixelPt[3] = dBg[3];
+                                if (i < shadowLeft) shadowLeft = i;
+                                if (i > shadowRight) shadowRight = i;
+                                if (j < shadowTop) shadowTop = j;
+                                if (j > shadowBottom) shadowBottom = j;
 
                                 byte* dMs = scan0Ms + j * strideMask + i * msBytes;
 
@@ -401,6 +451,8 @@ namespace ARKBreedingStats.species
                                 {
                                     if (!enabledColorRegions[m])
                                         continue;
+
+                                    float o;
                                     switch (m)
                                     {
                                         case 0:
@@ -421,10 +473,11 @@ namespace ARKBreedingStats.species
                                         case 5:
                                             o = Math.Min(r, b) / 255f;
                                             break;
+                                        default: continue;
                                     }
 
-                                    if (o == 0)
-                                        continue;
+                                    if (o == 0) continue;
+
                                     // using "grain merge", e.g. see https://docs.gimp.org/en/gimp-concepts-layer-modes.html
                                     int rMix = finalR + rgb[m][0] - 128;
                                     if (rMix < 0) rMix = 0;
@@ -457,7 +510,9 @@ namespace ARKBreedingStats.species
 
                 bmpBaseImage.UnlockBits(bmpDataBaseImage);
                 bmpMask.UnlockBits(bmpDataMask);
+                bmpShadow.UnlockBits(bmpDataShadow);
             }
+            shadowRect = shadowLeft != -1 ? new Rectangle(shadowLeft, shadowTop, shadowRight - shadowLeft, shadowBottom - shadowTop) : Rectangle.Empty;
 
             return imageFine;
         }
