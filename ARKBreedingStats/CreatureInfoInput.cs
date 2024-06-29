@@ -306,7 +306,7 @@ namespace ARKBreedingStats
         private void SetMaturationAccordingToGrownUpIn()
         {
             double maturation = 1;
-            if (_selectedSpecies.breeding != null && _selectedSpecies.breeding.maturationTimeAdjusted > 0)
+            if (_selectedSpecies?.breeding != null && _selectedSpecies.breeding.maturationTimeAdjusted > 0)
             {
                 maturation = 1 - dhmsInputGrown.Timespan.TotalSeconds / _selectedSpecies.breeding.maturationTimeAdjusted;
                 if (maturation < 0) maturation = 0;
@@ -354,8 +354,11 @@ namespace ARKBreedingStats
             get => dhmsInputGrown.changed ? DateTime.Now.Add(dhmsInputGrown.Timespan) : default(DateTime?);
             set
             {
-                if (!value.HasValue) return;
-                dhmsInputGrown.Timespan = value.Value - DateTime.Now;
+                if (value.HasValue)
+                    dhmsInputGrown.Timespan = value.Value - DateTime.Now;
+                else
+                    dhmsInputGrown.Timespan = TimeSpan.Zero;
+
                 SetMaturationAccordingToGrownUpIn();
             }
         }
