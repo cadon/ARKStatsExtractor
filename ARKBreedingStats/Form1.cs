@@ -1831,7 +1831,7 @@ namespace ARKBreedingStats
                         ArkId = input.ArkId
                     };
                     creature.RecalculateCreatureValues(levelStep);
-                    ExportImportCreatures.ExportToClipboard(creature, breeding, ARKml);
+                    ExportImportCreatures.ExportToClipboard(breeding, ARKml, creature);
                 }
                 else
                     MessageBox.Show(Loc.S("noValidExtractedCreatureToExport"), Loc.S("NoValidData"),
@@ -1874,14 +1874,21 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Copies the values of the first selected creature in the library to the clipboard.
+        /// Copies the values of the selected creature in the library to the clipboard.
         /// </summary>
         private void CopySelectedCreatureFromLibraryToClipboard(bool breedingValues = true, bool ARKml = false)
         {
-            if (listViewLibrary.SelectedIndices.Count > 0)
-                ExportImportCreatures.ExportToClipboard(_creaturesDisplayed[listViewLibrary.SelectedIndices[0]], breedingValues, ARKml);
-            else
+            var selectedIndices = new List<int>();
+            foreach (int i in listViewLibrary.SelectedIndices)
+                selectedIndices.Add(i);
+            if (!selectedIndices.Any())
+            {
                 MessageBoxes.ShowMessageBox(Loc.S("noCreatureSelectedInLibrary"));
+                return;
+            }
+
+            var creatures = selectedIndices.Select(i => _creaturesDisplayed[i]).ToArray();
+            ExportImportCreatures.ExportToClipboard(breedingValues, ARKml, creatures);
         }
 
         private void pasteCreatureToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1894,18 +1901,31 @@ namespace ARKBreedingStats
         /// </summary>
         private void PasteCreatureFromClipboard()
         {
-            var importedCreature = ExportImportCreatures.ImportFromClipboard();
-            if (importedCreature == null) return;
+            var importedCreatures = ExportImportCreatures.ImportFromClipboard();
+            if (importedCreatures?.Any() != true) return;
 
-            importedCreature.Species = Values.V.SpeciesByBlueprint(importedCreature.speciesBlueprint);
-            importedCreature.RecalculateCreatureValues(_creatureCollection?.getWildLevelStep());
-            importedCreature.RecalculateNewMutations();
-            UpdateParents(new List<Creature> { importedCreature });
+            foreach (var c in importedCreatures)
+            {
+                c.Species = Values.V.SpeciesByBlueprint(c.speciesBlueprint);
+                c.RecalculateCreatureValues(_creatureCollection?.getWildLevelStep());
+                c.RecalculateNewMutations();
+            }
+            UpdateParents(importedCreatures);
 
-            if (tabControlMain.SelectedTab == tabPageExtractor)
-                SetCreatureValuesToExtractor(importedCreature);
+            if (tabControlMain.SelectedTab == tabPageLibrary)
+            {
+                if (MessageBox.Show(String.Format(Loc.S("pasteCreaturesToLibrary?"), importedCreatures.Length), Loc.S("paste"),
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes
+                    || _creatureCollection == null)
+                    return;
+                _creatureCollection.MergeCreatureList(importedCreatures);
+                UpdateCreatureParentLinkingSort();
+                SelectCreatureInLibrary(importedCreatures[0]);
+            }
+            else if (tabControlMain.SelectedTab == tabPageExtractor)
+                SetCreatureValuesLevelsAndInfoToExtractor(importedCreatures[0]);
             else
-                EditCreatureInTester(importedCreature, true);
+                EditCreatureInTester(importedCreatures[0], true);
         }
 
         private void buttonRecalculateTops_Click(object sender, EventArgs e)

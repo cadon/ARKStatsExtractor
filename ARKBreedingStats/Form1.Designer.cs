@@ -114,6 +114,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.exactSpawnCommandToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exactSpawnCommandDS2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.commandMutationLevelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator25 = new System.Windows.Forms.ToolStripSeparator();
             this.copyCreatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteCreatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -396,7 +397,6 @@ namespace ARKBreedingStats
             this.toolStripSeparator27 = new System.Windows.Forms.ToolStripSeparator();
             this.resetColumnOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
-            this.commandMutationLevelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -1206,6 +1206,13 @@ namespace ARKBreedingStats
             this.exactSpawnCommandDS2ToolStripMenuItem.ToolTipText = "Creates a spawn command to spawn this creature in game, used with the mod DinoSto" +
     "rageV2. This command is stable.";
             this.exactSpawnCommandDS2ToolStripMenuItem.Click += new System.EventHandler(this.exactSpawnCommandDS2ToolStripMenuItem_Click);
+            // 
+            // commandMutationLevelsToolStripMenuItem
+            // 
+            this.commandMutationLevelsToolStripMenuItem.Name = "commandMutationLevelsToolStripMenuItem";
+            this.commandMutationLevelsToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.commandMutationLevelsToolStripMenuItem.Text = "Command mutation levels";
+            this.commandMutationLevelsToolStripMenuItem.Click += new System.EventHandler(this.commandMutationLevelsToolStripMenuItem_Click);
             // 
             // toolStripSeparator25
             // 
@@ -3896,13 +3903,6 @@ namespace ARKBreedingStats
             this.speciesSelector1.Size = new System.Drawing.Size(1878, 810);
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
-            // 
-            // commandMutationLevelsToolStripMenuItem
-            // 
-            this.commandMutationLevelsToolStripMenuItem.Name = "commandMutationLevelsToolStripMenuItem";
-            this.commandMutationLevelsToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.commandMutationLevelsToolStripMenuItem.Text = "Command mutation levels";
-            this.commandMutationLevelsToolStripMenuItem.Click += new System.EventHandler(this.commandMutationLevelsToolStripMenuItem_Click);
             // 
             // Form1
             // 

@@ -1340,4 +1340,10 @@ Es ist auch möglich Tiere mit einer Farbe in mehreren möglichen Regionen zu fi
   <data name="issueCauseSpeedLevelingSetting" xml:space="preserve">
     <value>Die Einstellung zum Leveln von Bewegungsgeschwindigkeit (AllowSpeedLeveling) oder die Spielversion (ASE oder ASA) ist wahrscheinlich nicht richtig gesetzt.</value>
   </data>
+  <data name="pasteCreaturesToLibrary?" xml:space="preserve">
+    <value>{0} Kreaturen direkt in die Bibliothek einfügen?</value>
+  </data>
+  <data name="paste" xml:space="preserve">
+    <value>Einfügen</value>
+  </data>
 </root>

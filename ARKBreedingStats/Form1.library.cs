@@ -1665,6 +1665,12 @@ namespace ARKBreedingStats
                 case Keys.B when e.Control:
                     CopySelectedCreatureName();
                     break;
+                case Keys.C when e.Control:
+                    CopySelectedCreatureFromLibraryToClipboard(false);
+                    break;
+                case Keys.V when e.Control:
+                    PasteCreatureFromClipboard();
+                    break;
                 default: return;
             }
 

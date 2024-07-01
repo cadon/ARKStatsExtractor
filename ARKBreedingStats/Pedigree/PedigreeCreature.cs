@@ -385,15 +385,9 @@ namespace ARKBreedingStats.Pedigree
             }
         }
 
-        private void plainTextbreedingValuesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ExportImportCreatures.ExportToClipboard(_creature, true, false);
-        }
+        private void plainTextbreedingValuesToolStripMenuItem_Click(object sender, EventArgs e) => ExportImportCreatures.ExportToClipboard(true, false, _creature);
 
-        private void plainTextcurrentValuesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ExportImportCreatures.ExportToClipboard(_creature, false, false);
-        }
+        private void plainTextcurrentValuesToolStripMenuItem_Click(object sender, EventArgs e) => ExportImportCreatures.ExportToClipboard(false, false, _creature);
 
         private void OpenWikipageInBrowserToolStripMenuItem_Click(object sender, EventArgs e)
         {
