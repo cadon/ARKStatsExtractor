@@ -360,7 +360,6 @@ namespace ARKBreedingStats
             LbWarningLevel255.Visible = false;
 
             StatsOptions.LoadSettings();
-            statsOptionsControl1.InitializeOptions();
 
             InitializeCollection();
 
@@ -686,7 +685,6 @@ namespace ARKBreedingStats
 
             creatureInfoInputExtractor.SelectedSpecies = species;
             creatureInfoInputTester.SelectedSpecies = species;
-            statsOptionsControl1.SetSpecies(species);
             radarChart1.SetLevels(species: species);
             var statNames = species.statNames;
             var levelGraphRepresentations = StatsOptions.GetStatsOptions(species);
@@ -3976,6 +3974,20 @@ namespace ARKBreedingStats
         private void showTokenPopupOnListeningToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.DisplayPopupForServerToken = showTokenPopupOnListeningToolStripMenuItem.Checked;
+        }
+
+        private void statsOptionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var so = new StatsOptionsControl<StatsOptions>();
+            var f = new Form
+            {
+                FormBorderStyle = FormBorderStyle.SizableToolWindow,
+                Width = 1000,
+                Height = 1000
+            };
+            f.Controls.Add(so);
+            so.Dock = DockStyle.Fill;
+            f.Show(this);
         }
     }
 }

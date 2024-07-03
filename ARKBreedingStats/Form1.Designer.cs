@@ -344,8 +344,6 @@ namespace ARKBreedingStats
             this.extractionTestControl1 = new ARKBreedingStats.testCases.ExtractionTestControl();
             this.tabPageMultiplierTesting = new System.Windows.Forms.TabPage();
             this.statsMultiplierTesting1 = new ARKBreedingStats.multiplierTesting.StatsMultiplierTesting();
-            this.TabPageStatOptions = new System.Windows.Forms.TabPage();
-            this.statsOptionsControl1 = new ARKBreedingStats.uiControls.StatsOptionsControl();
             this.btReadValuesFromArk = new System.Windows.Forms.Button();
             this.cbEventMultipliers = new System.Windows.Forms.CheckBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -397,6 +395,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator27 = new System.Windows.Forms.ToolStripSeparator();
             this.resetColumnOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
+            this.statsOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -454,7 +453,6 @@ namespace ARKBreedingStats
             this.TabPageOCR.SuspendLayout();
             this.tabPageExtractionTests.SuspendLayout();
             this.tabPageMultiplierTesting.SuspendLayout();
-            this.TabPageStatOptions.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.panelToolBar.SuspendLayout();
@@ -1259,6 +1257,7 @@ namespace ARKBreedingStats
             // 
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openSettingsToolStripMenuItem,
+            this.statsOptionsToolStripMenuItem,
             this.toolStripSeparator18,
             this.modValueManagerToolStripMenuItem,
             this.customStatOverridesToolStripMenuItem,
@@ -1614,7 +1613,6 @@ namespace ARKBreedingStats
             this.tabControlMain.Controls.Add(this.TabPageOCR);
             this.tabControlMain.Controls.Add(this.tabPageExtractionTests);
             this.tabControlMain.Controls.Add(this.tabPageMultiplierTesting);
-            this.tabControlMain.Controls.Add(this.TabPageStatOptions);
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMain.Location = new System.Drawing.Point(0, 103);
             this.tabControlMain.Name = "tabControlMain";
@@ -3379,25 +3377,6 @@ namespace ARKBreedingStats
             this.statsMultiplierTesting1.Size = new System.Drawing.Size(1864, 778);
             this.statsMultiplierTesting1.TabIndex = 0;
             // 
-            // TabPageStatOptions
-            // 
-            this.TabPageStatOptions.Controls.Add(this.statsOptionsControl1);
-            this.TabPageStatOptions.Location = new System.Drawing.Point(4, 22);
-            this.TabPageStatOptions.Name = "TabPageStatOptions";
-            this.TabPageStatOptions.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPageStatOptions.Size = new System.Drawing.Size(1870, 784);
-            this.TabPageStatOptions.TabIndex = 15;
-            this.TabPageStatOptions.Text = "Stat Options";
-            this.TabPageStatOptions.UseVisualStyleBackColor = true;
-            // 
-            // statsOptionsControl1
-            // 
-            this.statsOptionsControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.statsOptionsControl1.Location = new System.Drawing.Point(3, 3);
-            this.statsOptionsControl1.Name = "statsOptionsControl1";
-            this.statsOptionsControl1.Size = new System.Drawing.Size(1864, 778);
-            this.statsOptionsControl1.TabIndex = 0;
-            // 
             // btReadValuesFromArk
             // 
             this.btReadValuesFromArk.Location = new System.Drawing.Point(262, 3);
@@ -3904,6 +3883,13 @@ namespace ARKBreedingStats
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
+            // statsOptionsToolStripMenuItem
+            // 
+            this.statsOptionsToolStripMenuItem.Name = "statsOptionsToolStripMenuItem";
+            this.statsOptionsToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.statsOptionsToolStripMenuItem.Text = "StatsOptions";
+            this.statsOptionsToolStripMenuItem.Click += new System.EventHandler(this.statsOptionsToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -4001,7 +3987,6 @@ namespace ARKBreedingStats
             this.TabPageOCR.ResumeLayout(false);
             this.tabPageExtractionTests.ResumeLayout(false);
             this.tabPageMultiplierTesting.ResumeLayout(false);
-            this.TabPageStatOptions.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.toolStrip2.ResumeLayout(false);
@@ -4374,9 +4359,8 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem nameGeneratorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectSavegameFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showTokenPopupOnListeningToolStripMenuItem;
-        private System.Windows.Forms.TabPage TabPageStatOptions;
-        private uiControls.StatsOptionsControl statsOptionsControl1;
         private System.Windows.Forms.ToolStripMenuItem adminCommandSetMutationLevelsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem commandMutationLevelsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem statsOptionsToolStripMenuItem;
     }
 }

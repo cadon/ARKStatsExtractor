@@ -179,16 +179,19 @@
       <DependentUpon>StatOptionsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="uiControls\StatsOptionsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="uiControls\StatsOptionsControl.Designer.cs">
-      <DependentUpon>StatsOptionsControl.cs</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="uiControls\StatSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="uiControls\StatSelector.Designer.cs">
       <DependentUpon>StatSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="uiControls\StatsOptionsWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="uiControls\StatsOptionsWindow.Designer.cs">
+      <DependentUpon>StatsOptionsWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Updater\AsbManifest.cs" />
     <Compile Include="Updater\AsbModule.cs" />
@@ -776,11 +779,11 @@
     <EmbeddedResource Include="uiControls\StatOptionsControl.resx">
       <DependentUpon>StatOptionsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="uiControls\StatsOptionsControl.resx">
-      <DependentUpon>StatsOptionsControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="uiControls\StatSelector.resx">
       <DependentUpon>StatSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\StatsOptionsWindow.resx">
+      <DependentUpon>StatsOptionsWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\VariantSelector.resx">
       <DependentUpon>VariantSelector.cs</DependentUpon>

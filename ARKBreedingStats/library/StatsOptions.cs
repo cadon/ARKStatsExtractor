@@ -143,7 +143,7 @@ namespace ARKBreedingStats.library
         private static StatsOptions GenerateStatsOptions(StatsOptions so)
         {
             var finalStatsOptions = new StatsOptions { StatOptions = new StatOptions[Stats.StatsCount] };
-            var parentLine = new HashSet<StatsOptions>(); // to track parent loops
+            var parentLine = new HashSet<StatsOptions>(); // to track possible parent loops (i.e. check if setting depends on itself)
             StatsOptions defaultOptions = null;
             for (var si = 0; si < Stats.StatsCount; si++)
             {

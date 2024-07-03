@@ -84,7 +84,7 @@ namespace ARKBreedingStats.library
                 _upperColorH = _upperColor.GetHue();
                 _upperColorS = _upperColor.GetSaturation();
                 _upperColorV = _upperColor.GetValue();
-                if (_upperColorS < float.Epsilon)
+                if (_upperColorS == 0)
                     _upperColorH = _lowerColorH;
 
                 _colorCache?.Clear();
@@ -145,9 +145,8 @@ namespace ARKBreedingStats.library
             UpperColor = Color.FromArgb(0, 255, 0)
         };
 
-        public LevelGraphRepresentation Copy()
-        {
-            return new LevelGraphRepresentation
+        public LevelGraphRepresentation Copy() =>
+            new LevelGraphRepresentation
             {
                 LowerBound = LowerBound,
                 UpperBound = UpperBound,
@@ -155,6 +154,5 @@ namespace ARKBreedingStats.library
                 UpperColor = UpperColor,
                 ColorGradientReversed = ColorGradientReversed
             };
-        }
     }
 }
