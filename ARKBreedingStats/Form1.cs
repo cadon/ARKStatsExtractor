@@ -232,14 +232,24 @@ namespace ARKBreedingStats
 
             // name patterns menu entries
             const int namePatternCount = 6;
-            var namePatternMenuItems = new ToolStripItem[namePatternCount];
+            var namePatternMenuItems = new ToolStripMenuItem[namePatternCount];
+            var libraryContextMenuItems = new ToolStripMenuItem[namePatternCount];
             for (int i = 0; i < namePatternCount; i++)
             {
                 var mi = new ToolStripMenuItem { Text = $"Pattern {i + 1}{(i == 0 ? " (used for auto import)" : string.Empty)}", Tag = i };
                 mi.Click += MenuOpenNamePattern;
                 namePatternMenuItems[i] = mi;
+
+                // library context menu
+                mi = new ToolStripMenuItem { Text = $"Pattern {i + 1}", Tag = i };
+                mi.Click += GenerateCreatureNames;
+                libraryContextMenuItems[i] = mi;
             }
+
+            libraryContextMenuItems[0].ShortcutKeys = Keys.Control | Keys.G;
+
             nameGeneratorToolStripMenuItem.DropDownItems.AddRange(namePatternMenuItems);
+            toolStripMenuItemGenerateCreatureName.DropDownItems.AddRange(libraryContextMenuItems);
 
             _reactOnCreatureSelectionChange = true;
         }
@@ -3581,17 +3591,14 @@ namespace ARKBreedingStats
             }
         }
 
-        private void toolStripMenuItem5_Click(object sender, EventArgs e)
-        {
-            GenerateCreatureNames();
-        }
-
         /// <summary>
         /// Replaces the names of the selected creatures with a pattern generated name.
         /// </summary>
-        private void GenerateCreatureNames()
+        private void GenerateCreatureNames(object sender, EventArgs e)
         {
             if (listViewLibrary.SelectedIndices.Count == 0) return;
+
+            var namePatternIndex = (int)((ToolStripMenuItem)sender).Tag;
 
             var creaturesToUpdate = new List<Creature>();
             Creature[] sameSpecies = null;
@@ -3607,7 +3614,7 @@ namespace ARKBreedingStats
 
                 // set new name
                 cr.name = NamePattern.GenerateCreatureName(cr, cr, sameSpecies, _topLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
-                    _customReplacingNamingPattern, false, 0, libraryCreatureCount: libraryCreatureCount);
+                    _customReplacingNamingPattern, false, namePatternIndex, libraryCreatureCount: libraryCreatureCount);
 
                 creaturesToUpdate.Add(cr);
             }
