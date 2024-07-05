@@ -393,5 +393,12 @@ namespace ARKBreedingStats
                 _testingIOs[s].LinkWildMutated = linkWildMutated;
             Properties.Settings.Default.TesterLinkWildMutatedLevels = linkWildMutated;
         }
+
+        private void BtSetImprinting100Tester_Click(object sender, EventArgs e)
+        {
+            // set imprinting to 100 %, or if already at 100 % to 0
+            numericUpDownImprintingBonusTester.ValueSaveDouble =
+                numericUpDownImprintingBonusTester.Value == 100 ? 0 : 100;
+        }
     }
 }

@@ -1734,12 +1734,11 @@ namespace ARKBreedingStats
                 speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted > 0)
                 lbImprintedCount.Text =
                     "(" + Math.Round(
-                        (double)numericUpDownImprintingBonusTester.Value / (100 *
-                                                                             Ark.ImprintingGainPerCuddle(
-                                                                                 speciesSelector1.SelectedSpecies
-                                                                                     .breeding.maturationTimeAdjusted)),
+                        (double)numericUpDownImprintingBonusTester.Value /
+                        (100 * Ark.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted)),
                         2) + "×)";
             else lbImprintedCount.Text = string.Empty;
+            BtSetImprinting100Tester.Text = numericUpDownImprintingBonusTester.Value == 100 ? "0" : "100";
         }
 
         private void numericUpDownImprintingBonusExtractor_ValueChanged(object sender, EventArgs e)

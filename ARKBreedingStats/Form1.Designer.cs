@@ -58,6 +58,7 @@ namespace ARKBreedingStats
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lbImprintedCount = new System.Windows.Forms.Label();
+            this.BtSetImprinting100Tester = new System.Windows.Forms.Button();
             this.labelImprintingTester = new System.Windows.Forms.Label();
             this.numericUpDownImprintingBonusTester = new ARKBreedingStats.uiControls.Nud();
             this.NumericUpDownTestingTE = new ARKBreedingStats.uiControls.Nud();
@@ -70,6 +71,8 @@ namespace ARKBreedingStats
             this.columnHeaderLW = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBoxDetailsExtractor = new System.Windows.Forms.GroupBox();
             this.panelExtrImpr = new System.Windows.Forms.Panel();
+            this.BtSetImprinting0Extractor = new System.Windows.Forms.Button();
+            this.BtSetImprinting100Extractor = new System.Windows.Forms.Button();
             this.cbExactlyImprinting = new System.Windows.Forms.CheckBox();
             this.labelImprintingBonus = new System.Windows.Forms.Label();
             this.lbImprintingCuddleCountExtractor = new System.Windows.Forms.Label();
@@ -123,6 +126,7 @@ namespace ARKBreedingStats
             this.nameGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statsOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
             this.modValueManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customStatOverridesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -395,7 +399,6 @@ namespace ARKBreedingStats
             this.toolStripSeparator27 = new System.Windows.Forms.ToolStripSeparator();
             this.resetColumnOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
-            this.statsOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -624,13 +627,14 @@ namespace ARKBreedingStats
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.lbImprintedCount);
+            this.groupBox1.Controls.Add(this.BtSetImprinting100Tester);
             this.groupBox1.Controls.Add(this.labelImprintingTester);
             this.groupBox1.Controls.Add(this.numericUpDownImprintingBonusTester);
             this.groupBox1.Controls.Add(this.NumericUpDownTestingTE);
             this.groupBox1.Controls.Add(this.labelTesterTE);
             this.groupBox1.Location = new System.Drawing.Point(373, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(229, 72);
+            this.groupBox1.Size = new System.Drawing.Size(262, 72);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Details";
@@ -638,18 +642,28 @@ namespace ARKBreedingStats
             // lbImprintedCount
             // 
             this.lbImprintedCount.AutoSize = true;
-            this.lbImprintedCount.Location = new System.Drawing.Point(181, 47);
+            this.lbImprintedCount.Location = new System.Drawing.Point(183, 47);
             this.lbImprintedCount.Name = "lbImprintedCount";
             this.lbImprintedCount.Size = new System.Drawing.Size(25, 13);
             this.lbImprintedCount.TabIndex = 5;
             this.lbImprintedCount.Text = "(0×)";
             this.lbImprintedCount.MouseClick += new System.Windows.Forms.MouseEventHandler(this.labelImprintedCount_MouseClick);
             // 
+            // BtSetImprinting100Tester
+            // 
+            this.BtSetImprinting100Tester.Location = new System.Drawing.Point(222, 43);
+            this.BtSetImprinting100Tester.Name = "BtSetImprinting100Tester";
+            this.BtSetImprinting100Tester.Size = new System.Drawing.Size(34, 20);
+            this.BtSetImprinting100Tester.TabIndex = 15;
+            this.BtSetImprinting100Tester.Text = "100";
+            this.BtSetImprinting100Tester.UseVisualStyleBackColor = true;
+            this.BtSetImprinting100Tester.Click += new System.EventHandler(this.BtSetImprinting100Tester_Click);
+            // 
             // labelImprintingTester
             // 
             this.labelImprintingTester.AutoSize = true;
             this.labelImprintingTester.Enabled = false;
-            this.labelImprintingTester.Location = new System.Drawing.Point(87, 47);
+            this.labelImprintingTester.Location = new System.Drawing.Point(81, 47);
             this.labelImprintingTester.Name = "labelImprintingTester";
             this.labelImprintingTester.Size = new System.Drawing.Size(96, 13);
             this.labelImprintingTester.TabIndex = 5;
@@ -672,7 +686,7 @@ namespace ARKBreedingStats
             0,
             0,
             0});
-            this.numericUpDownImprintingBonusTester.Size = new System.Drawing.Size(75, 20);
+            this.numericUpDownImprintingBonusTester.Size = new System.Drawing.Size(69, 20);
             this.numericUpDownImprintingBonusTester.TabIndex = 4;
             this.numericUpDownImprintingBonusTester.ValueChanged += new System.EventHandler(this.numericUpDownImprintingBonusTester_ValueChanged);
             // 
@@ -774,6 +788,8 @@ namespace ARKBreedingStats
             // 
             // panelExtrImpr
             // 
+            this.panelExtrImpr.Controls.Add(this.BtSetImprinting0Extractor);
+            this.panelExtrImpr.Controls.Add(this.BtSetImprinting100Extractor);
             this.panelExtrImpr.Controls.Add(this.cbExactlyImprinting);
             this.panelExtrImpr.Controls.Add(this.labelImprintingBonus);
             this.panelExtrImpr.Controls.Add(this.lbImprintingCuddleCountExtractor);
@@ -784,13 +800,33 @@ namespace ARKBreedingStats
             this.panelExtrImpr.TabIndex = 52;
             this.panelExtrImpr.Visible = false;
             // 
+            // BtSetImprinting0Extractor
+            // 
+            this.BtSetImprinting0Extractor.Location = new System.Drawing.Point(3, 26);
+            this.BtSetImprinting0Extractor.Name = "BtSetImprinting0Extractor";
+            this.BtSetImprinting0Extractor.Size = new System.Drawing.Size(35, 23);
+            this.BtSetImprinting0Extractor.TabIndex = 1;
+            this.BtSetImprinting0Extractor.Text = "0 %";
+            this.BtSetImprinting0Extractor.UseVisualStyleBackColor = true;
+            this.BtSetImprinting0Extractor.Click += new System.EventHandler(this.BtSetImprinting0_Click);
+            // 
+            // BtSetImprinting100Extractor
+            // 
+            this.BtSetImprinting100Extractor.Location = new System.Drawing.Point(40, 26);
+            this.BtSetImprinting100Extractor.Name = "BtSetImprinting100Extractor";
+            this.BtSetImprinting100Extractor.Size = new System.Drawing.Size(47, 23);
+            this.BtSetImprinting100Extractor.TabIndex = 2;
+            this.BtSetImprinting100Extractor.Text = "100 %";
+            this.BtSetImprinting100Extractor.UseVisualStyleBackColor = true;
+            this.BtSetImprinting100Extractor.Click += new System.EventHandler(this.BtSetImprinting100_Click);
+            // 
             // cbExactlyImprinting
             // 
             this.cbExactlyImprinting.AutoSize = true;
-            this.cbExactlyImprinting.Location = new System.Drawing.Point(3, 29);
+            this.cbExactlyImprinting.Location = new System.Drawing.Point(93, 29);
             this.cbExactlyImprinting.Name = "cbExactlyImprinting";
             this.cbExactlyImprinting.Size = new System.Drawing.Size(120, 17);
-            this.cbExactlyImprinting.TabIndex = 51;
+            this.cbExactlyImprinting.TabIndex = 3;
             this.cbExactlyImprinting.Text = "Exactly, don\'t adjust";
             this.cbExactlyImprinting.UseVisualStyleBackColor = true;
             // 
@@ -829,7 +865,7 @@ namespace ARKBreedingStats
             0,
             0});
             this.numericUpDownImprintingBonusExtractor.Size = new System.Drawing.Size(77, 20);
-            this.numericUpDownImprintingBonusExtractor.TabIndex = 6;
+            this.numericUpDownImprintingBonusExtractor.TabIndex = 0;
             this.numericUpDownImprintingBonusExtractor.ValueChanged += new System.EventHandler(this.numericUpDownImprintingBonusExtractor_ValueChanged);
             this.numericUpDownImprintingBonusExtractor.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
@@ -1277,6 +1313,13 @@ namespace ARKBreedingStats
             this.openSettingsToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.openSettingsToolStripMenuItem.Text = "Settings…";
             this.openSettingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            // 
+            // statsOptionsToolStripMenuItem
+            // 
+            this.statsOptionsToolStripMenuItem.Name = "statsOptionsToolStripMenuItem";
+            this.statsOptionsToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.statsOptionsToolStripMenuItem.Text = "StatsOptions";
+            this.statsOptionsToolStripMenuItem.Click += new System.EventHandler(this.statsOptionsToolStripMenuItem_Click);
             // 
             // toolStripSeparator18
             // 
@@ -1852,7 +1895,7 @@ namespace ARKBreedingStats
             this.gpPreviewEdit.Controls.Add(this.lbTestingInfo);
             this.gpPreviewEdit.Location = new System.Drawing.Point(373, 84);
             this.gpPreviewEdit.Name = "gpPreviewEdit";
-            this.gpPreviewEdit.Size = new System.Drawing.Size(229, 91);
+            this.gpPreviewEdit.Size = new System.Drawing.Size(262, 91);
             this.gpPreviewEdit.TabIndex = 3;
             this.gpPreviewEdit.TabStop = false;
             this.gpPreviewEdit.Text = "Preview / Edit";
@@ -1880,7 +1923,7 @@ namespace ARKBreedingStats
             // 
             this.lbTestingInfo.Location = new System.Drawing.Point(6, 16);
             this.lbTestingInfo.Name = "lbTestingInfo";
-            this.lbTestingInfo.Size = new System.Drawing.Size(217, 25);
+            this.lbTestingInfo.Size = new System.Drawing.Size(250, 25);
             this.lbTestingInfo.TabIndex = 37;
             this.lbTestingInfo.Text = "Preview or edit levels of a creature.";
             // 
@@ -2995,7 +3038,7 @@ namespace ARKBreedingStats
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(181, 176);
+            this.tabPage3.Size = new System.Drawing.Size(181, 328);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Stats";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -3014,7 +3057,7 @@ namespace ARKBreedingStats
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(175, 170);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(175, 322);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // checkedListBoxConsiderStatTop
@@ -3024,13 +3067,13 @@ namespace ARKBreedingStats
             this.checkedListBoxConsiderStatTop.FormattingEnabled = true;
             this.checkedListBoxConsiderStatTop.Location = new System.Drawing.Point(3, 35);
             this.checkedListBoxConsiderStatTop.Name = "checkedListBoxConsiderStatTop";
-            this.checkedListBoxConsiderStatTop.Size = new System.Drawing.Size(169, 103);
+            this.checkedListBoxConsiderStatTop.Size = new System.Drawing.Size(169, 255);
             this.checkedListBoxConsiderStatTop.TabIndex = 3;
             // 
             // buttonRecalculateTops
             // 
             this.buttonRecalculateTops.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonRecalculateTops.Location = new System.Drawing.Point(3, 144);
+            this.buttonRecalculateTops.Location = new System.Drawing.Point(3, 296);
             this.buttonRecalculateTops.Name = "buttonRecalculateTops";
             this.buttonRecalculateTops.Size = new System.Drawing.Size(169, 23);
             this.buttonRecalculateTops.TabIndex = 2;
@@ -3053,7 +3096,7 @@ namespace ARKBreedingStats
             this.tabPageLibRadarChart.Location = new System.Drawing.Point(4, 22);
             this.tabPageLibRadarChart.Name = "tabPageLibRadarChart";
             this.tabPageLibRadarChart.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLibRadarChart.Size = new System.Drawing.Size(181, 176);
+            this.tabPageLibRadarChart.Size = new System.Drawing.Size(181, 328);
             this.tabPageLibRadarChart.TabIndex = 4;
             this.tabPageLibRadarChart.Text = "Chart";
             this.tabPageLibRadarChart.UseVisualStyleBackColor = true;
@@ -3883,13 +3926,6 @@ namespace ARKBreedingStats
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
-            // statsOptionsToolStripMenuItem
-            // 
-            this.statsOptionsToolStripMenuItem.Name = "statsOptionsToolStripMenuItem";
-            this.statsOptionsToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
-            this.statsOptionsToolStripMenuItem.Text = "StatsOptions";
-            this.statsOptionsToolStripMenuItem.Click += new System.EventHandler(this.statsOptionsToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -4362,5 +4398,8 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem adminCommandSetMutationLevelsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem commandMutationLevelsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem statsOptionsToolStripMenuItem;
+        private System.Windows.Forms.Button BtSetImprinting100Extractor;
+        private System.Windows.Forms.Button BtSetImprinting0Extractor;
+        private System.Windows.Forms.Button BtSetImprinting100Tester;
     }
 }

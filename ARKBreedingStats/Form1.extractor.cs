@@ -1542,5 +1542,11 @@ namespace ARKBreedingStats
         }
 
         #endregion
+
+        private void BtSetImprinting0_Click(object sender, EventArgs e)
+            => numericUpDownImprintingBonusExtractor.ValueSave = 0;
+
+        private void BtSetImprinting100_Click(object sender, EventArgs e)
+            => numericUpDownImprintingBonusExtractor.ValueSave = 100;
     }
 }
