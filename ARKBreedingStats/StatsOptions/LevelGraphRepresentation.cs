@@ -3,7 +3,7 @@ using System.Drawing;
 using ARKBreedingStats.utils;
 using Newtonsoft.Json;
 
-namespace ARKBreedingStats.library
+namespace ARKBreedingStats.StatsOptions
 {
     /// <summary>
     /// Representation of a level regarding chart scaling and colour.

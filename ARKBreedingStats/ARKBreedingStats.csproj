@@ -104,11 +104,12 @@
     </Compile>
     <Compile Include="library\CreatureSpawnCommand.cs" />
     <Compile Include="library\DummyCreatures.cs" />
-    <Compile Include="library\LevelGraphRepresentation.cs" />
+    <Compile Include="StatsOptions\StatOptionsBase.cs" />
+    <Compile Include="StatsOptions\LevelGraphRepresentation.cs" />
     <Compile Include="library\LevelStatusFlags.cs" />
-    <Compile Include="library\StatOptions.cs" />
-    <Compile Include="library\StatsOptions.cs" />
-    <Compile Include="library\StatWeight.cs" />
+    <Compile Include="StatsOptions\StatLevelColors.cs" />
+    <Compile Include="StatsOptions\StatsOptions.cs" />
+    <Compile Include="StatsOptions\StatsOptionsSettings.cs" />
     <Compile Include="library\TopLevels.cs" />
     <Compile Include="multiplierTesting\CalculateMultipliers.cs" />
     <Compile Include="multiplierTesting\SpeciesStatsExtractor.cs" />
@@ -178,7 +179,7 @@
     <Compile Include="uiControls\StatOptionsControl.Designer.cs">
       <DependentUpon>StatOptionsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="uiControls\StatsOptionsControl.cs">
+    <Compile Include="uiControls\LevelGraphOptionsControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="uiControls\StatSelector.cs">

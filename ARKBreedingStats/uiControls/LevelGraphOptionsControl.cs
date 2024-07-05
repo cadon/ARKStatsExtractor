@@ -5,14 +5,17 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
+using ARKBreedingStats.StatsOptions;
 
 namespace ARKBreedingStats.uiControls
 {
-    internal class StatsOptionsControl<T> : TableLayoutPanel where T : new()
+    internal class LevelGraphOptionsControl : TableLayoutPanel
     {
         private StatOptionsControl[] _statOptionsControls;
         private readonly ToolTip _tt = new ToolTip();
-        private StatsOptions _selectedStatsOptions;
+        private StatsOptions<StatLevelColors> _selectedStatsOptions;
+        private StatsOptionsSettings<StatLevelColors> _statsOptionsSettings;
         private Species _species;
         private ComboBox _cbbOptions;
         private ComboBox _cbbParent;
@@ -20,8 +23,23 @@ namespace ARKBreedingStats.uiControls
         private TextBox _tbOptionsName;
         private Label _lbParent;
 
-        public StatsOptionsControl()
+        public static void ShowWindow(Form parent, StatsOptionsSettings<StatLevelColors> settings)
         {
+            var so = new LevelGraphOptionsControl(settings);
+            var f = new Form
+            {
+                FormBorderStyle = FormBorderStyle.SizableToolWindow,
+                Width = 1000,
+                Height = 1000
+            };
+            f.Controls.Add(so);
+            so.Dock = DockStyle.Fill;
+            f.Show(parent);
+        }
+
+        public LevelGraphOptionsControl(StatsOptionsSettings<StatLevelColors> settings)
+        {
+            _statsOptionsSettings = settings;
             InitializeControls();
             InitializeOptions();
         }
@@ -91,7 +109,7 @@ Ctrl + left click to reset colors.",
             _cbbOptions.Items.Clear();
             _cbbParent.Items.Clear();
 
-            var statsOptions = StatsOptions.StatsOptionsDict.Values.OrderBy(n => n.Name).ToArray();
+            var statsOptions = _statsOptionsSettings.StatsOptionsDict.Values.OrderBy(n => n.Name).ToArray();
             _cbbOptions.Items.AddRange(statsOptions);
             _cbbParent.Items.AddRange(statsOptions);
             if (_cbbOptions.Items.Count > 0)
@@ -100,7 +118,7 @@ Ctrl + left click to reset colors.",
 
         private void CbbOptions_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _selectedStatsOptions = _cbbOptions.SelectedItem as StatsOptions;
+            _selectedStatsOptions = _cbbOptions.SelectedItem as StatsOptions<StatLevelColors>;
             if (_selectedStatsOptions == null) return;
 
             this.SuspendDrawing();
@@ -119,9 +137,9 @@ Ctrl + left click to reset colors.",
 
         private void CbbParent_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _selectedStatsOptions = _cbbOptions.SelectedItem as StatsOptions;
+            _selectedStatsOptions = _cbbOptions.SelectedItem as StatsOptions<StatLevelColors>;
             if (_selectedStatsOptions == null) return;
-            _selectedStatsOptions.ParentOptions = _cbbParent.SelectedItem as StatsOptions;
+            _selectedStatsOptions.ParentOptions = _cbbParent.SelectedItem as StatsOptions<StatLevelColors>;
         }
 
         private void TbOptionsName_Leave(object sender, EventArgs e)
@@ -130,13 +148,13 @@ Ctrl + left click to reset colors.",
             if (_selectedStatsOptions.Name == newNameBase) return; // nothing to change
             var newName = newNameBase;
             var suffix = 1;
-            while (StatsOptions.StatsOptionsDict.ContainsKey(newName))
+            while (_statsOptionsSettings.StatsOptionsDict.ContainsKey(newName))
                 newName = newNameBase + "_" + ++suffix;
 
             _tbOptionsName.Text = newName;
-            StatsOptions.StatsOptionsDict.Remove(_selectedStatsOptions.Name);
+            _statsOptionsSettings.StatsOptionsDict.Remove(_selectedStatsOptions.Name);
             _selectedStatsOptions.Name = newName;
-            StatsOptions.StatsOptionsDict.Add(newName, _selectedStatsOptions);
+            _statsOptionsSettings.StatsOptionsDict.Add(newName, _selectedStatsOptions);
             // update text in combobox
             _cbbOptions.Items[_cbbOptions.SelectedIndex] = _selectedStatsOptions;
         }
@@ -146,10 +164,10 @@ Ctrl + left click to reset colors.",
             var newNameBase = _species?.name ?? "new entry";
             var newName = newNameBase;
             var suffix = 1;
-            while (StatsOptions.StatsOptionsDict.ContainsKey(newName))
+            while (_statsOptionsSettings.StatsOptionsDict.ContainsKey(newName))
                 newName = newNameBase + "_" + ++suffix;
-            var newSettings = StatsOptions.GetDefaultStatOptions(newName);
-            StatsOptions.StatsOptionsDict.Add(newName, newSettings);
+            var newSettings = _statsOptionsSettings.GetDefaultStatOptions(newName);
+            _statsOptionsSettings.StatsOptionsDict.Add(newName, newSettings);
             InitializeOptions();
             _cbbOptions.SelectedItem = newSettings;
         }
@@ -162,13 +180,13 @@ Ctrl + left click to reset colors.",
 
             var index = _cbbOptions.SelectedIndex;
             // set parent of dependant options to parent of this setting
-            foreach (var so in StatsOptions.StatsOptionsDict.Values)
+            foreach (var so in _statsOptionsSettings.StatsOptionsDict.Values)
             {
                 if (so.ParentOptions == _selectedStatsOptions)
                     so.ParentOptions = _selectedStatsOptions.ParentOptions;
             }
 
-            StatsOptions.StatsOptionsDict.Remove(_selectedStatsOptions.Name);
+            _statsOptionsSettings.StatsOptionsDict.Remove(_selectedStatsOptions.Name);
 
             InitializeOptions();
             if (_cbbOptions.Items.Count > 0)

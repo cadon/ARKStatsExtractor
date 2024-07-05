@@ -3,6 +3,7 @@ using ARKBreedingStats.utils;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ARKBreedingStats.StatsOptions;
 using Newtonsoft.Json;
 
 namespace ARKBreedingStats.uiControls

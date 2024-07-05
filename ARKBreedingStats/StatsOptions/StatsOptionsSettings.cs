@@ -1,46 +1,38 @@
 ﻿using System;
-using ARKBreedingStats.utils;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ARKBreedingStats.species;
-using Newtonsoft.Json;
+using ARKBreedingStats.utils;
 
-namespace ARKBreedingStats.library
+namespace ARKBreedingStats.StatsOptions
 {
     /// <summary>
-    /// Options for stats of species, e.g. breeding stat weights and graph representation.
+    /// Base access to stats options.
     /// </summary>
-    [JsonObject(MemberSerialization.OptIn)]
-    public class StatsOptions
+    /// <typeparam name="T"></typeparam>
+    public class StatsOptionsSettings<T> where T : StatOptionsBase
     {
-        public static Dictionary<string, StatsOptions> StatsOptionsDict;
+        public Dictionary<string, StatsOptions<T>> StatsOptionsDict;
 
         /// <summary>
-        /// Name of the stats options, usually a species name.
+        /// Name of the settings file.
         /// </summary>
-        [JsonProperty]
-        public string Name;
+        private readonly string _settingsFileName;
 
-        public override string ToString() => string.IsNullOrEmpty(Name) ? $"<{Loc.S("default")}>" : Name;
-
-        /// <summary>
-        /// Name of the parent setting
-        /// </summary>
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string ParentName;
-
-        public StatsOptions ParentOptions;
-
-        [JsonProperty]
-        public StatOptions[] StatOptions;
+        public StatsOptionsSettings(string settingsFileName)
+        {
+            _settingsFileName = settingsFileName;
+            LoadSettings(settingsFileName);
+        }
 
         /// <summary>
         /// Load stats options from the settings file.
         /// </summary>
-        public static void LoadSettings()
+        public void LoadSettings(string settingsFileName)
         {
-            var filePath = FileService.GetJsonPath("statOptions.json");
+            if (string.IsNullOrEmpty(settingsFileName)) return;
+            var filePath = FileService.GetJsonPath(_settingsFileName);
 
             string errorMessage = null;
             if (!File.Exists(filePath)
@@ -48,7 +40,7 @@ namespace ARKBreedingStats.library
             {
                 if (!string.IsNullOrEmpty(errorMessage))
                     MessageBoxes.ShowMessageBox(errorMessage);
-                StatsOptionsDict = new Dictionary<string, StatsOptions>();
+                StatsOptionsDict = new Dictionary<string, StatsOptions<T>>();
             }
 
             // default value
@@ -69,10 +61,7 @@ namespace ARKBreedingStats.library
 
                 foreach (var so in o.StatOptions)
                 {
-                    if (so.LevelGraphRepresentation != null || so.LevelGraphRepresentationOdd != null)
-                        so.OverrideParent = true;
-                    if (so.LevelGraphRepresentationOdd != null)
-                        so.UseDifferentColorsForOddLevels = true;
+                    so.Initialize();
                 }
             }
         }
@@ -80,22 +69,36 @@ namespace ARKBreedingStats.library
         /// <summary>
         /// Returns the default stat options.
         /// </summary>
-        public static StatsOptions GetDefaultStatOptions(string name) => new StatsOptions
+        public StatsOptions<T> GetDefaultStatOptions(string name)
         {
-            Name = name,
-            StatOptions = Enumerable.Range(0, Stats.StatsCount).Select(si => new StatOptions
+            T[] statOptions;
+
+            if (typeof(T) == typeof(StatLevelColors))
             {
-                LevelGraphRepresentation = LevelGraphRepresentation.GetDefaultValue
-            }).ToArray(),
-            ParentOptions = StatsOptionsDict.TryGetValue(string.Empty, out var p) ? p : null
-        };
+                statOptions = Enumerable.Range(0, Stats.StatsCount)
+                    .Select(si => StatLevelColors.GetDefault() as T).ToArray();
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException($"Unknown type {typeof(T)}, no default value defined");
+            }
+
+            return new StatsOptions<T>
+            {
+                Name = name,
+                StatOptions = statOptions,
+                ParentOptions = StatsOptionsDict.TryGetValue(string.Empty, out var p) ? p : null
+            };
+        }
 
         /// <summary>
         /// Save stats options to the settings file.
         /// </summary>
-        public static void SaveSettings()
+        public void SaveSettings()
         {
-            var filePath = FileService.GetJsonPath("statOptions.json");
+            if (string.IsNullOrEmpty(_settingsFileName)) return;
+
+            var filePath = FileService.GetJsonPath(_settingsFileName);
 
             // set parent names and clear settings not used
             foreach (var o in StatsOptionsDict.Values)
@@ -106,13 +109,7 @@ namespace ARKBreedingStats.library
                     o.ParentName = null; // don't save direct loop
                 foreach (var so in o.StatOptions)
                 {
-                    if (!so.OverrideParent)
-                    {
-                        so.LevelGraphRepresentation = null;
-                        so.LevelGraphRepresentationOdd = null;
-                    }
-                    else if (!so.UseDifferentColorsForOddLevels)
-                        so.LevelGraphRepresentationOdd = null;
+                    so.PrepareForSaving();
                 }
             }
 
@@ -124,7 +121,7 @@ namespace ARKBreedingStats.library
         /// <summary>
         /// Returns the stats options for a species.
         /// </summary>
-        public static StatsOptions GetStatsOptions(Species species)
+        public StatsOptions<T> GetStatsOptions(Species species)
         {
             if (species == null || StatsOptionsDict == null) return null;
 
@@ -140,11 +137,11 @@ namespace ARKBreedingStats.library
         /// <summary>
         /// Generates StatsOptions, using the parent's options if not specified explicitly.
         /// </summary>
-        private static StatsOptions GenerateStatsOptions(StatsOptions so)
+        private StatsOptions<T> GenerateStatsOptions(StatsOptions<T> so)
         {
-            var finalStatsOptions = new StatsOptions { StatOptions = new StatOptions[Stats.StatsCount] };
-            var parentLine = new HashSet<StatsOptions>(); // to track possible parent loops (i.e. check if setting depends on itself)
-            StatsOptions defaultOptions = null;
+            var finalStatsOptions = new StatsOptions<T> { StatOptions = new T[Stats.StatsCount] };
+            var parentLine = new HashSet<StatsOptions<T>>(); // to track possible parent loops (i.e. check if setting depends on itself)
+            StatsOptions<T> defaultOptions = null;
             for (var si = 0; si < Stats.StatsCount; si++)
             {
                 var useStatsOptions = so;
@@ -158,7 +155,7 @@ namespace ARKBreedingStats.library
                 }
 
                 var statOptions = useStatsOptions.StatOptions?[si];
-                if (statOptions?.LevelGraphRepresentation == null)
+                if (statOptions?.DefinesData() != true)
                 {
                     if (defaultOptions == null && !StatsOptionsDict.TryGetValue(string.Empty, out defaultOptions))
                         throw new Exception("no default stats options found");

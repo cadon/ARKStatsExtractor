@@ -189,13 +189,22 @@ namespace ARKBreedingStats
         public const int StatsCount = 12;
 
         public const int Health = 0;
+        /// <summary>
+        /// Stamina, or Charge Capacity for glow species
+        /// </summary>
         public const int Stamina = 1;
         public const int Torpidity = 2;
+        /// <summary>
+        /// Oxygen, or Charge Regeneration for glow species
+        /// </summary>
         public const int Oxygen = 3;
         public const int Food = 4;
         public const int Water = 5;
         public const int Temperature = 6;
         public const int Weight = 7;
+        /// <summary>
+        /// MeleeDamageMultiplier, or Charge Emission Range for glow species
+        /// </summary>
         public const int MeleeDamageMultiplier = 8;
         public const int SpeedMultiplier = 9;
         public const int TemperatureFortitude = 10;

@@ -17,6 +17,7 @@ using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.NamePatterns;
+using ARKBreedingStats.StatsOptions;
 using ARKBreedingStats.utils;
 using static ARKBreedingStats.settings.Settings;
 using Color = System.Drawing.Color;
@@ -38,11 +39,10 @@ namespace ARKBreedingStats
         private readonly StatIO[] _testingIOs = new StatIO[Stats.StatsCount];
         private int _activeStatIndex = -1;
 
-        private readonly bool[]
-            _activeStats =
-            {
-                true, true, true, true, true, true, true, true, true, true, true, true
-            }; // stats used by the creature (some don't use oxygen)
+        /// <summary>
+        /// stats used by the creature (some don't use oxygen)
+        /// </summary>
+        private readonly bool[] _activeStats = Enumerable.Repeat(true, Stats.StatsCount).ToArray();
 
         private bool _libraryNeedsUpdate;
 
@@ -86,23 +86,12 @@ namespace ARKBreedingStats
         /// </summary>
         private Dictionary<string, string> _customReplacingNamingPattern;
 
-        // 0: Health
-        // 1: Stamina / Charge Capacity
-        // 2: Torpidity
-        // 3: Oxygen / Charge Regeneration
-        // 4: Food
-        // 5: Water
-        // 6: Temperature
-        // 7: Weight
-        // 8: MeleeDamageMultiplier / Charge Emission Range
-        // 9: SpeedMultiplier
-        // 10: TemperatureFortitude
-        // 11: CraftingSpeedMultiplier
-
         // OCR stuff
         private ARKOverlay _overlay;
         private static double[] _lastOcrValues;
         private Species _lastOcrSpecies;
+
+        private readonly StatsOptionsSettings<StatLevelColors> _statsLevelColors = new StatsOptionsSettings<StatLevelColors>("statsLevelColors.json");
 
         public Form1()
         {
@@ -358,8 +347,6 @@ namespace ARKBreedingStats
             _statIOs[Stats.Food].DomLevelLockedZero = true;
 
             LbWarningLevel255.Visible = false;
-
-            StatsOptions.LoadSettings();
 
             InitializeCollection();
 
@@ -687,7 +674,7 @@ namespace ARKBreedingStats
             creatureInfoInputTester.SelectedSpecies = species;
             radarChart1.SetLevels(species: species);
             var statNames = species.statNames;
-            var levelGraphRepresentations = StatsOptions.GetStatsOptions(species);
+            var levelGraphRepresentations = _statsLevelColors.GetStatsOptions(species);
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
@@ -1413,7 +1400,7 @@ namespace ARKBreedingStats
             /////// save settings for next session
             Properties.Settings.Default.Save();
 
-            StatsOptions.SaveSettings();
+            _statsLevelColors.SaveSettings();
 
             // remove old cache-files
             CreatureColored.CleanupCache();
@@ -3978,16 +3965,7 @@ namespace ARKBreedingStats
 
         private void statsOptionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var so = new StatsOptionsControl<StatsOptions>();
-            var f = new Form
-            {
-                FormBorderStyle = FormBorderStyle.SizableToolWindow,
-                Width = 1000,
-                Height = 1000
-            };
-            f.Controls.Add(so);
-            so.Dock = DockStyle.Fill;
-            f.Show(this);
+            LevelGraphOptionsControl.ShowWindow(this, _statsLevelColors);
         }
     }
 }

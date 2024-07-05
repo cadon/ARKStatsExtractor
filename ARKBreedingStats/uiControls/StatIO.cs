@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Threading;
 using ARKBreedingStats.library;
+using ARKBreedingStats.StatsOptions;
 using ARKBreedingStats.utils;
 using Cursors = System.Windows.Forms.Cursors;
 
@@ -27,7 +28,7 @@ namespace ARKBreedingStats.uiControls
         private bool _linkWildMutated;
         private int _wildMutatedSum;
         private readonly Debouncer _levelChangedDebouncer = new Debouncer();
-        private StatOptions _statOptions;
+        private StatLevelColors _statLevelColors;
 
         public StatIO()
         {
@@ -319,7 +320,7 @@ namespace ARKBreedingStats.uiControls
 
         private void SetLevelBar(Panel panel, int level)
         {
-            var range = _statOptions.GetLevelRange(level, out var lowerBound);
+            var range = _statLevelColors.GetLevelRange(level, out var lowerBound);
             if (range < 1) range = 1;
             var lengthPercentage = 100 * (level - lowerBound) / range; // in percentage of the max bar width
 
@@ -327,7 +328,7 @@ namespace ARKBreedingStats.uiControls
             else if (lengthPercentage < 0) lengthPercentage = 0;
 
             panel.Width = lengthPercentage * MaxBarLength / 100;
-            panel.BackColor = _statOptions.GetLevelColor(level);
+            panel.BackColor = _statLevelColors.GetLevelColor(level);
         }
 
         private void LevelChangedDebouncer() => _levelChangedDebouncer.Debounce(200, FireLevelChanged, Dispatcher.CurrentDispatcher);
@@ -411,9 +412,9 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
-        public void SetStatOptions(StatOptions so)
+        public void SetStatOptions(StatLevelColors so)
         {
-            _statOptions = so;
+            _statLevelColors = so;
             if (nudLvW.Value > 0)
                 SetLevelBar(panelBarWildLevels, (int)nudLvW.Value);
             if (nudLvD.Value > 0)

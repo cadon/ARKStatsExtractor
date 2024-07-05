@@ -1,13 +1,13 @@
 ﻿using System.Drawing;
 using Newtonsoft.Json;
 
-namespace ARKBreedingStats.library
+namespace ARKBreedingStats.StatsOptions
 {
     /// <summary>
     /// Options for a stat regarding breeding weights, top stat calculation and graph representation.
     /// </summary>
     [JsonObject(MemberSerialization.OptIn)]
-    public class StatOptions
+    public class StatLevelColors : StatOptionsBase
     {
         /// <summary>
         /// Use for all levels, or only for even levels if LevelGraphRepresentationOdd is not null.
@@ -21,15 +21,11 @@ namespace ARKBreedingStats.library
         [JsonProperty("lvlOdd", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public LevelGraphRepresentation LevelGraphRepresentationOdd;
 
-        /// <summary>
-        /// If true don't use values of parent but overrides of this object.
-        /// </summary>
-        public bool OverrideParent;
         public bool UseDifferentColorsForOddLevels;
 
-        public StatOptions Copy()
+        public StatLevelColors Copy()
         {
-            var c = new StatOptions
+            var c = new StatLevelColors
             {
                 LevelGraphRepresentation = LevelGraphRepresentation.Copy(),
                 LevelGraphRepresentationOdd = LevelGraphRepresentationOdd.Copy(),
@@ -61,6 +57,36 @@ namespace ARKBreedingStats.library
             return levelRepresentations.UpperBound - lowerBound;
         }
 
-        // TODO stat weights
+        /// <summary>
+        /// Call after loading.
+        /// </summary>
+        public override void Initialize()
+        {
+            if (LevelGraphRepresentation != null || LevelGraphRepresentationOdd != null)
+                OverrideParent = true;
+            if (LevelGraphRepresentationOdd != null)
+                UseDifferentColorsForOddLevels = true;
+        }
+
+        /// <summary>
+        /// Call before saving.
+        /// </summary>
+        public override void PrepareForSaving()
+        {
+            if (!OverrideParent)
+            {
+                LevelGraphRepresentation = null;
+                LevelGraphRepresentationOdd = null;
+            }
+            else if (!UseDifferentColorsForOddLevels)
+                LevelGraphRepresentationOdd = null;
+        }
+
+        public override bool DefinesData() => LevelGraphRepresentation != null;
+
+        public static StatLevelColors GetDefault() => new StatLevelColors
+        {
+            LevelGraphRepresentation = LevelGraphRepresentation.GetDefaultValue
+        };
     }
 }
