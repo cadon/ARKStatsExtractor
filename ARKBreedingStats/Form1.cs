@@ -3614,7 +3614,8 @@ namespace ARKBreedingStats
 
                 // set new name
                 cr.name = NamePattern.GenerateCreatureName(cr, cr, sameSpecies, _topLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
-                    _customReplacingNamingPattern, false, namePatternIndex, libraryCreatureCount: libraryCreatureCount);
+                    _customReplacingNamingPattern, false, namePatternIndex,
+                    Properties.Settings.Default.DisplayWarningAboutTooLongNameGenerated, libraryCreatureCount: libraryCreatureCount);
 
                 creaturesToUpdate.Add(cr);
             }

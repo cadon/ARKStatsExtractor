@@ -121,6 +121,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.NudBackupEveryMinutes = new ARKBreedingStats.uiControls.Nud();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.CbSetMutationLevelsExtractor = new System.Windows.Forms.CheckBox();
             this.checkBoxDisplayHiddenStats = new System.Windows.Forms.CheckBox();
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabPageMultipliers = new System.Windows.Forms.TabPage();
@@ -171,13 +172,13 @@
             this.ClbExportSpreadsheetFields = new System.Windows.Forms.CheckedListBox();
             this.GbImgCacheLocalAppData = new System.Windows.Forms.GroupBox();
             this.CbImgCacheUseLocalAppData = new System.Windows.Forms.CheckBox();
+            this.GbSpecies = new System.Windows.Forms.GroupBox();
+            this.LbSpeciesSelectorCountLastUsed = new System.Windows.Forms.Label();
+            this.NudSpeciesSelectorCountLastUsed = new ARKBreedingStats.uiControls.Nud();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
             this.CbDisplayServerTokenPopup = new System.Windows.Forms.CheckBox();
             this.CbStreamerMode = new System.Windows.Forms.CheckBox();
             this.cbDevTools = new System.Windows.Forms.CheckBox();
-            this.GbSpecies = new System.Windows.Forms.GroupBox();
-            this.LbSpeciesSelectorCountLastUsed = new System.Windows.Forms.Label();
-            this.NudSpeciesSelectorCountLastUsed = new ARKBreedingStats.uiControls.Nud();
             this.groupBox26 = new System.Windows.Forms.GroupBox();
             this.cbAdminConsoleCommandWithCheat = new System.Windows.Forms.CheckBox();
             this.groupBox25 = new System.Windows.Forms.GroupBox();
@@ -373,7 +374,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.CbSetMutationLevelsExtractor = new System.Windows.Forms.CheckBox();
+            this.CbLibraryGenerateNameWarnTooLongName = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTamedDinoCharacterFoodDrain)).BeginInit();
@@ -430,9 +431,9 @@
             this.groupBox31.SuspendLayout();
             this.groupBox30.SuspendLayout();
             this.GbImgCacheLocalAppData.SuspendLayout();
-            this.groupBox16.SuspendLayout();
             this.GbSpecies.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NudSpeciesSelectorCountLastUsed)).BeginInit();
+            this.groupBox16.SuspendLayout();
             this.groupBox26.SuspendLayout();
             this.groupBox25.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudDefaultFontSize)).BeginInit();
@@ -1867,6 +1868,16 @@
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Extractor";
             // 
+            // CbSetMutationLevelsExtractor
+            // 
+            this.CbSetMutationLevelsExtractor.AutoSize = true;
+            this.CbSetMutationLevelsExtractor.Location = new System.Drawing.Point(13, 42);
+            this.CbSetMutationLevelsExtractor.Name = "CbSetMutationLevelsExtractor";
+            this.CbSetMutationLevelsExtractor.Size = new System.Drawing.Size(309, 17);
+            this.CbSetMutationLevelsExtractor.TabIndex = 1;
+            this.CbSetMutationLevelsExtractor.Text = "Set mutation levels if they can be determined uniquely (ASA)";
+            this.CbSetMutationLevelsExtractor.UseVisualStyleBackColor = true;
+            // 
             // checkBoxDisplayHiddenStats
             // 
             this.checkBoxDisplayHiddenStats.AutoSize = true;
@@ -2457,6 +2468,39 @@
             this.CbImgCacheUseLocalAppData.Text = "Use LocalAppData for Image cache";
             this.CbImgCacheUseLocalAppData.UseVisualStyleBackColor = true;
             // 
+            // GbSpecies
+            // 
+            this.GbSpecies.Controls.Add(this.LbSpeciesSelectorCountLastUsed);
+            this.GbSpecies.Controls.Add(this.NudSpeciesSelectorCountLastUsed);
+            this.GbSpecies.Location = new System.Drawing.Point(329, 616);
+            this.GbSpecies.Name = "GbSpecies";
+            this.GbSpecies.Size = new System.Drawing.Size(413, 43);
+            this.GbSpecies.TabIndex = 3;
+            this.GbSpecies.TabStop = false;
+            this.GbSpecies.Text = "Species Selection";
+            // 
+            // LbSpeciesSelectorCountLastUsed
+            // 
+            this.LbSpeciesSelectorCountLastUsed.AutoSize = true;
+            this.LbSpeciesSelectorCountLastUsed.Location = new System.Drawing.Point(6, 21);
+            this.LbSpeciesSelectorCountLastUsed.Name = "LbSpeciesSelectorCountLastUsed";
+            this.LbSpeciesSelectorCountLastUsed.Size = new System.Drawing.Size(187, 13);
+            this.LbSpeciesSelectorCountLastUsed.TabIndex = 0;
+            this.LbSpeciesSelectorCountLastUsed.Text = "Number of displayed last used species";
+            // 
+            // NudSpeciesSelectorCountLastUsed
+            // 
+            this.NudSpeciesSelectorCountLastUsed.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.NudSpeciesSelectorCountLastUsed.Location = new System.Drawing.Point(350, 19);
+            this.NudSpeciesSelectorCountLastUsed.Name = "NudSpeciesSelectorCountLastUsed";
+            this.NudSpeciesSelectorCountLastUsed.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.NudSpeciesSelectorCountLastUsed.Size = new System.Drawing.Size(57, 20);
+            this.NudSpeciesSelectorCountLastUsed.TabIndex = 1;
+            // 
             // groupBox16
             // 
             this.groupBox16.Controls.Add(this.CbDisplayServerTokenPopup);
@@ -2495,39 +2539,6 @@
             this.cbDevTools.TabIndex = 0;
             this.cbDevTools.Text = "Show Dev Tools (needs restart). Adds a statmultiplier-tester and extractor tests";
             this.cbDevTools.UseVisualStyleBackColor = true;
-            // 
-            // GbSpecies
-            // 
-            this.GbSpecies.Controls.Add(this.LbSpeciesSelectorCountLastUsed);
-            this.GbSpecies.Controls.Add(this.NudSpeciesSelectorCountLastUsed);
-            this.GbSpecies.Location = new System.Drawing.Point(329, 616);
-            this.GbSpecies.Name = "GbSpecies";
-            this.GbSpecies.Size = new System.Drawing.Size(413, 43);
-            this.GbSpecies.TabIndex = 3;
-            this.GbSpecies.TabStop = false;
-            this.GbSpecies.Text = "Species Selection";
-            // 
-            // LbSpeciesSelectorCountLastUsed
-            // 
-            this.LbSpeciesSelectorCountLastUsed.AutoSize = true;
-            this.LbSpeciesSelectorCountLastUsed.Location = new System.Drawing.Point(6, 21);
-            this.LbSpeciesSelectorCountLastUsed.Name = "LbSpeciesSelectorCountLastUsed";
-            this.LbSpeciesSelectorCountLastUsed.Size = new System.Drawing.Size(187, 13);
-            this.LbSpeciesSelectorCountLastUsed.TabIndex = 0;
-            this.LbSpeciesSelectorCountLastUsed.Text = "Number of displayed last used species";
-            // 
-            // NudSpeciesSelectorCountLastUsed
-            // 
-            this.NudSpeciesSelectorCountLastUsed.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.NudSpeciesSelectorCountLastUsed.Location = new System.Drawing.Point(350, 19);
-            this.NudSpeciesSelectorCountLastUsed.Name = "NudSpeciesSelectorCountLastUsed";
-            this.NudSpeciesSelectorCountLastUsed.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.NudSpeciesSelectorCountLastUsed.Size = new System.Drawing.Size(57, 20);
-            this.NudSpeciesSelectorCountLastUsed.TabIndex = 1;
             // 
             // groupBox26
             // 
@@ -2685,6 +2696,7 @@
             // 
             // groupBox9
             // 
+            this.groupBox9.Controls.Add(this.CbLibraryGenerateNameWarnTooLongName);
             this.groupBox9.Controls.Add(this.CbLibraryDisplayZeroMutationLevels);
             this.groupBox9.Controls.Add(this.CbDisplayLibraryCreatureIndex);
             this.groupBox9.Controls.Add(this.CbNaturalSortIgnoreSpaces);
@@ -2697,7 +2709,7 @@
             this.groupBox9.Controls.Add(this.cbCreatureColorsLibrary);
             this.groupBox9.Location = new System.Drawing.Point(6, 490);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(317, 229);
+            this.groupBox9.Size = new System.Drawing.Size(317, 248);
             this.groupBox9.TabIndex = 4;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Library";
@@ -3966,7 +3978,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 4;
             // 
             // customSCWakeup
@@ -3974,7 +3986,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 2;
             // 
             // customSCBirth
@@ -3982,7 +3994,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 3;
             // 
             // customSCStarving
@@ -3990,7 +4002,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 1;
             // 
             // label20
@@ -4807,15 +4819,15 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // CbSetMutationLevelsExtractor
+            // CbLibraryGenerateNameWarnTooLongName
             // 
-            this.CbSetMutationLevelsExtractor.AutoSize = true;
-            this.CbSetMutationLevelsExtractor.Location = new System.Drawing.Point(13, 42);
-            this.CbSetMutationLevelsExtractor.Name = "CbSetMutationLevelsExtractor";
-            this.CbSetMutationLevelsExtractor.Size = new System.Drawing.Size(309, 17);
-            this.CbSetMutationLevelsExtractor.TabIndex = 1;
-            this.CbSetMutationLevelsExtractor.Text = "Set mutation levels if they can be determined uniquely (ASA)";
-            this.CbSetMutationLevelsExtractor.UseVisualStyleBackColor = true;
+            this.CbLibraryGenerateNameWarnTooLongName.AutoSize = true;
+            this.CbLibraryGenerateNameWarnTooLongName.Location = new System.Drawing.Point(6, 225);
+            this.CbLibraryGenerateNameWarnTooLongName.Name = "CbLibraryGenerateNameWarnTooLongName";
+            this.CbLibraryGenerateNameWarnTooLongName.Size = new System.Drawing.Size(309, 17);
+            this.CbLibraryGenerateNameWarnTooLongName.TabIndex = 10;
+            this.CbLibraryGenerateNameWarnTooLongName.Text = "When generating names in library warn about too long name";
+            this.CbLibraryGenerateNameWarnTooLongName.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -4905,10 +4917,10 @@
             this.groupBox30.ResumeLayout(false);
             this.groupBox30.PerformLayout();
             this.GbImgCacheLocalAppData.ResumeLayout(false);
-            this.groupBox16.ResumeLayout(false);
             this.GbSpecies.ResumeLayout(false);
             this.GbSpecies.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NudSpeciesSelectorCountLastUsed)).EndInit();
+            this.groupBox16.ResumeLayout(false);
             this.groupBox26.ResumeLayout(false);
             this.groupBox26.PerformLayout();
             this.groupBox25.ResumeLayout(false);
@@ -5336,5 +5348,6 @@
         private uiControls.Nud nudOverlayInfoWidth;
         private System.Windows.Forms.CheckBox CbCopyNameToClipboardOnImport;
         private System.Windows.Forms.CheckBox CbSetMutationLevelsExtractor;
+        private System.Windows.Forms.CheckBox CbLibraryGenerateNameWarnTooLongName;
     }
 }

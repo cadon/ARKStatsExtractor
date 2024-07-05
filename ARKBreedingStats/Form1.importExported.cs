@@ -332,7 +332,7 @@ namespace ARKBreedingStats
 
                     creature.name = NamePattern.GenerateCreatureName(creature, alreadyExistingCreature, creaturesOfSpecies,
                         _topLevels.TryGetValue(creature.Species, out var topLevels) ? topLevels : null,
-                        _customReplacingNamingPattern, false, 0, libraryCreatureCount: totalCreatureCount);
+                        _customReplacingNamingPattern, false, 0, Properties.Settings.Default.DisplayWarningAboutTooLongNameGenerated, libraryCreatureCount: totalCreatureCount);
                     if (alreadyExistingCreature != null)
                         alreadyExistingCreature.name = creature.name; // if alreadyExistingCreature was already updated and creature is not used anymore make sure name is not lost
                 }
