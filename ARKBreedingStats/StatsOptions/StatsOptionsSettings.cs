@@ -67,7 +67,7 @@ namespace ARKBreedingStats.StatsOptions
         }
 
         /// <summary>
-        /// Returns the default stat options.
+        /// Returns the default stat options and set the name according the parameter.
         /// </summary>
         public StatsOptions<T> GetDefaultStatOptions(string name)
         {

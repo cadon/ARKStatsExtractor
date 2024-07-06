@@ -41,7 +41,7 @@ namespace ARKBreedingStats.StatsOptions
             }
         }
 
-        private int _upperBound;
+        private int _upperBound = 50;
 
         private Color _lowerColor;
         private float _lowerColorH;

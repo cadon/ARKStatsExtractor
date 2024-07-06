@@ -461,12 +461,6 @@
     <Setting Name="InfoGraphicShowRegionNamesIfNoImage" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="ChartHueMin" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="ChartHueMax" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">120</Value>
-    </Setting>
     <Setting Name="ChartHueEvenMin" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">120</Value>
     </Setting>
@@ -610,6 +604,9 @@
     </Setting>
     <Setting Name="DisplayWarningAboutTooLongNameGenerated" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="LevelColorWindowRectangle" Type="System.Drawing.Rectangle" Scope="User">
+      <Value Profile="(Default)">200, 200, 1000, 650</Value>
     </Setting>
   </Settings>
 </SettingsFile>

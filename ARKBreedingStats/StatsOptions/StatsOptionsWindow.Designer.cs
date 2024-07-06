@@ -1,4 +1,4 @@
-﻿namespace ARKBreedingStats.uiControls
+﻿namespace ARKBreedingStats.StatsOptions
 {
     partial class StatsOptionsWindow
     {

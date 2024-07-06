@@ -173,13 +173,13 @@
     <Compile Include="uiControls\ScrollForm.Designer.cs">
       <DependentUpon>ScrollForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="uiControls\StatOptionsControl.cs">
+    <Compile Include="StatsOptions\StatOptionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="uiControls\StatOptionsControl.Designer.cs">
+    <Compile Include="StatsOptions\StatOptionsControl.Designer.cs">
       <DependentUpon>StatOptionsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="uiControls\LevelGraphOptionsControl.cs">
+    <Compile Include="StatsOptions\LevelGraphOptionsControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="uiControls\StatSelector.cs">
@@ -188,10 +188,10 @@
     <Compile Include="uiControls\StatSelector.Designer.cs">
       <DependentUpon>StatSelector.cs</DependentUpon>
     </Compile>
-    <Compile Include="uiControls\StatsOptionsWindow.cs">
+    <Compile Include="StatsOptions\StatsOptionsWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="uiControls\StatsOptionsWindow.Designer.cs">
+    <Compile Include="StatsOptions\StatsOptionsWindow.Designer.cs">
       <DependentUpon>StatsOptionsWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Updater\AsbManifest.cs" />
@@ -777,13 +777,13 @@
     <EmbeddedResource Include="uiControls\ScrollForm.resx">
       <DependentUpon>ScrollForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="uiControls\StatOptionsControl.resx">
+    <EmbeddedResource Include="StatsOptions\StatOptionsControl.resx">
       <DependentUpon>StatOptionsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\StatSelector.resx">
       <DependentUpon>StatSelector.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="uiControls\StatsOptionsWindow.resx">
+    <EmbeddedResource Include="StatsOptions\StatsOptionsWindow.resx">
       <DependentUpon>StatsOptionsWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\VariantSelector.resx">

@@ -1,11 +1,10 @@
-﻿using ARKBreedingStats.library;
-using ARKBreedingStats.species;
+﻿using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 using System;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 using ARKBreedingStats.StatsOptions;
 
 namespace ARKBreedingStats.uiControls
@@ -15,26 +14,44 @@ namespace ARKBreedingStats.uiControls
         private StatOptionsControl[] _statOptionsControls;
         private readonly ToolTip _tt = new ToolTip();
         private StatsOptions<StatLevelColors> _selectedStatsOptions;
-        private StatsOptionsSettings<StatLevelColors> _statsOptionsSettings;
+        private readonly StatsOptionsSettings<StatLevelColors> _statsOptionsSettings;
         private Species _species;
         private ComboBox _cbbOptions;
         private ComboBox _cbbParent;
         private Button _btRemove;
         private TextBox _tbOptionsName;
         private Label _lbParent;
+        public static Form DisplayedForm;
 
         public static void ShowWindow(Form parent, StatsOptionsSettings<StatLevelColors> settings)
         {
+            if (DisplayedForm != null)
+            {
+                DisplayedForm.BringToFront();
+                return;
+            }
+
             var so = new LevelGraphOptionsControl(settings);
             var f = new Form
             {
                 FormBorderStyle = FormBorderStyle.SizableToolWindow,
-                Width = 1000,
-                Height = 1000
+                Width = Properties.Settings.Default.LevelColorWindowRectangle.Width,
+                Height = Properties.Settings.Default.LevelColorWindowRectangle.Height,
+                StartPosition = FormStartPosition.Manual,
+                Location = new Point(Properties.Settings.Default.LevelColorWindowRectangle.X, Properties.Settings.Default.LevelColorWindowRectangle.Y)
             };
             f.Controls.Add(so);
             so.Dock = DockStyle.Fill;
+            DisplayedForm = f;
+            f.Closed += F_Closed;
             f.Show(parent);
+        }
+
+        private static void F_Closed(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.LevelColorWindowRectangle =
+                new Rectangle(DisplayedForm.Left, DisplayedForm.Top, DisplayedForm.Width, DisplayedForm.Height);
+            DisplayedForm = null;
         }
 
         public LevelGraphOptionsControl(StatsOptionsSettings<StatLevelColors> settings)
@@ -74,7 +91,7 @@ namespace ARKBreedingStats.uiControls
             flpHeaderControls.Controls.Add(_tbOptionsName);
             _tbOptionsName.Leave += TbOptionsName_Leave;
 
-            _lbParent = new Label();
+            _lbParent = new Label { Text = "depends on", Margin = new Padding(5, 7, 5, 0), AutoSize = true };
             flpHeaderControls.Controls.Add(_lbParent);
 
             _cbbParent = new ComboBox { DropDownStyle = ComboBoxStyle.DropDownList };

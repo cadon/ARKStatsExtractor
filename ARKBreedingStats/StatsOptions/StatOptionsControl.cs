@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
-using ARKBreedingStats.StatsOptions;
 
-namespace ARKBreedingStats.uiControls
+namespace ARKBreedingStats.StatsOptions
 {
     public partial class StatOptionsControl : UserControl
     {
-        private readonly ToolTip _tt;
         private StatLevelColors _statLevelColors;
         private readonly int _statIndex;
         private StatsOptions<StatLevelColors> _parent;
@@ -20,10 +18,9 @@ namespace ARKBreedingStats.uiControls
         {
             LbStatName.Text = name;
             _statIndex = statIndex;
-            _tt = tt;
-            hueControl.UpdateTooltips(_tt);
-            hueControlOdd.UpdateTooltips(_tt);
-            _tt.SetToolTip(CbUseDifferentColorsForOddLevels, "Use different colors for odd levels");
+            hueControl.UpdateTooltips(tt);
+            hueControlOdd.UpdateTooltips(tt);
+            tt.SetToolTip(CbUseDifferentColorsForOddLevels, "Use different colors for odd levels");
         }
 
         public void SetStatOptions(StatLevelColors so, bool isNotRoot, StatsOptions<StatLevelColors> parent)

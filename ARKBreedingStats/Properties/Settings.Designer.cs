@@ -1840,30 +1840,6 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int ChartHueMin {
-            get {
-                return ((int)(this["ChartHueMin"]));
-            }
-            set {
-                this["ChartHueMin"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("120")]
-        public int ChartHueMax {
-            get {
-                return ((int)(this["ChartHueMax"]));
-            }
-            set {
-                this["ChartHueMax"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("120")]
         public int ChartHueEvenMin {
             get {
@@ -2431,6 +2407,18 @@ namespace ARKBreedingStats.Properties {
             }
             set {
                 this["DisplayWarningAboutTooLongNameGenerated"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("200, 200, 1000, 650")]
+        public global::System.Drawing.Rectangle LevelColorWindowRectangle {
+            get {
+                return ((global::System.Drawing.Rectangle)(this["LevelColorWindowRectangle"]));
+            }
+            set {
+                this["LevelColorWindowRectangle"] = value;
             }
         }
     }

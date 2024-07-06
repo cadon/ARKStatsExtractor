@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats.uiControls
+﻿using ARKBreedingStats.uiControls;
+
+namespace ARKBreedingStats.StatsOptions
 {
     partial class StatOptionsControl
     {
@@ -52,14 +54,14 @@
             this.panel1.BackColor = System.Drawing.Color.Gray;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(950, 1);
+            this.panel1.Size = new System.Drawing.Size(936, 1);
             this.panel1.TabIndex = 7;
             // 
             // CbUseDifferentColorsForOddLevels
             // 
             this.CbUseDifferentColorsForOddLevels.AutoSize = true;
             this.CbUseDifferentColorsForOddLevels.Enabled = false;
-            this.CbUseDifferentColorsForOddLevels.Location = new System.Drawing.Point(508, 37);
+            this.CbUseDifferentColorsForOddLevels.Location = new System.Drawing.Point(531, 8);
             this.CbUseDifferentColorsForOddLevels.Name = "CbUseDifferentColorsForOddLevels";
             this.CbUseDifferentColorsForOddLevels.Size = new System.Drawing.Size(44, 17);
             this.CbUseDifferentColorsForOddLevels.TabIndex = 8;
@@ -69,14 +71,14 @@
             // 
             // hueControlOdd
             // 
-            this.hueControlOdd.Location = new System.Drawing.Point(558, 31);
+            this.hueControlOdd.Location = new System.Drawing.Point(581, 3);
             this.hueControlOdd.Name = "hueControlOdd";
             this.hueControlOdd.Size = new System.Drawing.Size(347, 24);
             this.hueControlOdd.TabIndex = 10;
             // 
             // hueControl
             // 
-            this.hueControl.Location = new System.Drawing.Point(152, 32);
+            this.hueControl.Location = new System.Drawing.Point(175, 3);
             this.hueControl.Name = "hueControl";
             this.hueControl.Size = new System.Drawing.Size(350, 24);
             this.hueControl.TabIndex = 9;
@@ -84,11 +86,11 @@
             // CbOverrideGraphSettings
             // 
             this.CbOverrideGraphSettings.AutoSize = true;
-            this.CbOverrideGraphSettings.Location = new System.Drawing.Point(15, 38);
+            this.CbOverrideGraphSettings.Location = new System.Drawing.Point(70, 10);
             this.CbOverrideGraphSettings.Name = "CbOverrideGraphSettings";
-            this.CbOverrideGraphSettings.Size = new System.Drawing.Size(135, 17);
+            this.CbOverrideGraphSettings.Size = new System.Drawing.Size(99, 17);
             this.CbOverrideGraphSettings.TabIndex = 11;
-            this.CbOverrideGraphSettings.Text = "Override graph settings";
+            this.CbOverrideGraphSettings.Text = "Override parent";
             this.CbOverrideGraphSettings.UseVisualStyleBackColor = true;
             this.CbOverrideGraphSettings.CheckedChanged += new System.EventHandler(this.CbOverrideGraphSettings_CheckedChanged);
             // 
@@ -103,7 +105,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.LbStatName);
             this.Name = "StatOptionsControl";
-            this.Size = new System.Drawing.Size(987, 60);
+            this.Size = new System.Drawing.Size(936, 29);
             this.ResumeLayout(false);
             this.PerformLayout();
 

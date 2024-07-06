@@ -15,6 +15,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Windows.Forms;
+using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.StatsOptions;
@@ -250,6 +251,32 @@ namespace ARKBreedingStats
 
             nameGeneratorToolStripMenuItem.DropDownItems.AddRange(namePatternMenuItems);
             toolStripMenuItemGenerateCreatureName.DropDownItems.AddRange(libraryContextMenuItems);
+
+            // conversion of global color level settings to specific options. Remove around 2024-09
+            if (Properties.Settings.Default.ChartHueEvenMax != int.MaxValue)
+            {
+                var defaultSettings = _statsLevelColors.StatsOptionsDict[string.Empty].StatOptions;
+                for (var s = 0; s < Stats.StatsCount; s++)
+                {
+                    defaultSettings[s].LevelGraphRepresentation.LowerColor = Utils.ColorFromHue(Properties.Settings.Default.ChartHueEvenMin);
+                    defaultSettings[s].LevelGraphRepresentation.UpperColor = Utils.ColorFromHue(Properties.Settings.Default.ChartHueEvenMax);
+                    defaultSettings[s].LevelGraphRepresentation.ColorGradientReversed = Properties.Settings.Default.ChartHueEvenMax < Properties.Settings.Default.ChartHueEvenMin;
+
+                    if (Properties.Settings.Default.HighlightEvenOdd)
+                    {
+                        defaultSettings[s].LevelGraphRepresentationOdd = new LevelGraphRepresentation
+                        {
+                            LowerColor = Utils.ColorFromHue(Properties.Settings.Default.ChartHueOddMin),
+                            UpperColor = Utils.ColorFromHue(Properties.Settings.Default.ChartHueOddMax),
+                            ColorGradientReversed = Properties.Settings.Default.ChartHueOddMax < Properties.Settings.Default.ChartHueOddMin,
+                        };
+                        defaultSettings[s].UseDifferentColorsForOddLevels = true;
+                    }
+                }
+
+                Properties.Settings.Default.ChartHueEvenMax = int.MaxValue;
+            }
+            // end of level color settings conversion
 
             _reactOnCreatureSelectionChange = true;
         }
@@ -2096,7 +2123,7 @@ namespace ARKBreedingStats
             var gameSettingBefore = _creatureCollection.Game;
             var displayLibraryCreatureIndexBefore = Properties.Settings.Default.DisplayLibraryCreatureIndex;
 
-            using (Settings settingsForm = new Settings(_creatureCollection, page))
+            using (Settings settingsForm = new Settings(_creatureCollection, page, _statsLevelColors))
             {
                 var settingsSaved = settingsForm.ShowDialog() == DialogResult.OK;
                 _settingsLastTabPage = settingsForm.LastTabPageIndex;
