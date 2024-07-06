@@ -67,7 +67,7 @@
 			"mod": { "id": "1356703358", "tag": "Primal_Fear_Noxious_Creatures", "title": "Primal Fear Noxious Creatures" }
 		},
 		"1373744537-AC2.json": {
-			"version": "358.24.1713491648",
+			"version": "358.24.1719328347",
 			"mod": { "id": "1373744537", "tag": "AC2", "title": "Additional Creatures 2: Wild Ark" }
 		},
 		"1379111008-RealismPlus.json": {
@@ -314,7 +314,7 @@
 			"mod": { "id": "2447186973", "tag": "ArkOmega", "title": "Ark Omega" }
 		},
 		"2453342929-MoreDragonsMod.json": {
-			"version": "358.24.1714424674",
+			"version": "358.24.1718837193",
 			"mod": { "id": "2453342929", "tag": "MoreDragonsMod", "title": "More Dragons Evolved" }
 		},
 		"2472371628-MilicrocaWarriors_MOD.json": {
@@ -378,7 +378,7 @@
 			"mod": { "id": "883957187", "tag": "WyvernWorld", "title": "Wyvern World" }
 		},
 		"893735676-AE.json": {
-			"version": "358.17.1701815786",
+			"version": "358.24.1701815786",
 			"mod": { "id": "893735676", "tag": "AE", "title": "Ark Eternal" }
 		},
 		"895711211-ClassicFlyers.json": {
@@ -386,7 +386,7 @@
 			"mod": { "id": "895711211", "tag": "ClassicFlyers", "title": "Classic Flyers" }
 		},
 		"899987403-Primal_Fear_Bosses.json": {
-			"version": "344.8.1648844784",
+			"version": "358.24.1718932606",
 			"mod": { "id": "899987403", "tag": "Primal_Fear_Bosses", "title": "Primal Fear Bosses" }
 		},
 		"909297874-NorwegianVikings.json": {
@@ -398,7 +398,7 @@
 			"mod": { "id": "919470289", "tag": "SSFlyer", "title": "SSFlyer" }
 		},
 		"ASA-values.json": {
-			"version": "41.18.99",
+			"version": "43.4.104",
 			"format": "1.16-mod-remap",
 			"mod": { "id": "ASA", "tag": "", "title": "Ark: Survival Ascended", "shortTitle": "ASA", "official": true }
 		},
