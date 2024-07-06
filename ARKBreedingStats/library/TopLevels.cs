@@ -7,12 +7,17 @@ namespace ARKBreedingStats.library
     /// </summary>
     public class TopLevels
     {
-        private readonly int[][] _levels = {
-            Enumerable.Repeat(-1,Stats.StatsCount).ToArray(),
-            Enumerable.Repeat(int.MaxValue,Stats.StatsCount).ToArray(),
-            Enumerable.Repeat(-1,Stats.StatsCount).ToArray(),
-            Enumerable.Repeat(int.MaxValue,Stats.StatsCount).ToArray()
-        };
+        private readonly int[][] _levels;
+
+        public TopLevels()
+        {
+            _levels = GetUninitialized();
+        }
+
+        public TopLevels(bool allZeros)
+        {
+            _levels = allZeros ? GetZeros() : GetUninitialized();
+        }
 
         public int[] WildLevelsHighest
         {
@@ -34,5 +39,21 @@ namespace ARKBreedingStats.library
             get => _levels[3];
             set => _levels[3] = value;
         }
+
+        private int[][] GetZeros() => new[]
+        {
+            Enumerable.Repeat(0,Stats.StatsCount).ToArray(),
+            Enumerable.Repeat(0,Stats.StatsCount).ToArray(),
+            Enumerable.Repeat(0,Stats.StatsCount).ToArray(),
+            Enumerable.Repeat(0,Stats.StatsCount).ToArray()
+        };
+
+        private int[][] GetUninitialized() => new[]
+        {
+            Enumerable.Repeat(-1,Stats.StatsCount).ToArray(),
+            Enumerable.Repeat(int.MaxValue,Stats.StatsCount).ToArray(),
+            Enumerable.Repeat(-1,Stats.StatsCount).ToArray(),
+            Enumerable.Repeat(int.MaxValue,Stats.StatsCount).ToArray()
+        };
     }
 }

@@ -28,7 +28,7 @@ namespace ARKBreedingStats.library
             out List<string> topStatsText, out List<string> newTopStatsText)
         {
             // if there are no creatures of the species yet, assume 0 levels to be the current best and worst
-            if (topLevels == null) topLevels = new TopLevels();
+            if (topLevels == null) topLevels = new TopLevels(true);
             var highSpeciesLevels = topLevels.WildLevelsHighest;
             var lowSpeciesLevels = topLevels.WildLevelsLowest;
             var highSpeciesMutationLevels = topLevels.MutationLevelsHighest;

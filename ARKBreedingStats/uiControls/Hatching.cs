@@ -27,7 +27,7 @@ namespace ARKBreedingStats.uiControls
                 return;
             }
 
-            if (topLevels == null) topLevels = new TopLevels();
+            if (topLevels == null) topLevels = new TopLevels(true);
             var highLevels = topLevels.WildLevelsHighest;
             var lowLevels = topLevels.WildLevelsLowest;
 
