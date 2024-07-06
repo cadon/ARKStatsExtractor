@@ -2,7 +2,7 @@
 
 namespace ARKBreedingStats.StatsOptions
 {
-    partial class StatOptionsControl
+    partial class StatLevelGraphOptionsControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -34,8 +34,8 @@ namespace ARKBreedingStats.StatsOptions
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.panel1 = new System.Windows.Forms.Panel();
             this.CbUseDifferentColorsForOddLevels = new System.Windows.Forms.CheckBox();
-            this.hueControlOdd = new ARKBreedingStats.uiControls.HueControl();
-            this.hueControl = new ARKBreedingStats.uiControls.HueControl();
+            this.hueControlOdd = new HueControl();
+            this.hueControl = new HueControl();
             this.CbOverrideGraphSettings = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
@@ -104,7 +104,7 @@ namespace ARKBreedingStats.StatsOptions
             this.Controls.Add(this.CbUseDifferentColorsForOddLevels);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.LbStatName);
-            this.Name = "StatOptionsControl";
+            this.Name = "StatLevelGraphOptionsControl";
             this.Size = new System.Drawing.Size(936, 29);
             this.ResumeLayout(false);
             this.PerformLayout();

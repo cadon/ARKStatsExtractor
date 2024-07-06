@@ -3,18 +3,18 @@ using System.Windows.Forms;
 
 namespace ARKBreedingStats.StatsOptions
 {
-    public partial class StatOptionsControl : UserControl
+    public partial class StatLevelGraphOptionsControl : UserControl
     {
         private StatLevelColors _statLevelColors;
         private readonly int _statIndex;
         private StatsOptions<StatLevelColors> _parent;
 
-        public StatOptionsControl()
+        public StatLevelGraphOptionsControl()
         {
             InitializeComponent();
         }
 
-        public StatOptionsControl(string name, int statIndex, ToolTip tt) : this()
+        public StatLevelGraphOptionsControl(string name, int statIndex, ToolTip tt) : this()
         {
             LbStatName.Text = name;
             _statIndex = statIndex;

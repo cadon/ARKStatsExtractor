@@ -462,10 +462,10 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="ChartHueEvenMin" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">120</Value>
+      <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="ChartHueEvenMax" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">200</Value>
+      <Value Profile="(Default)">120</Value>
     </Setting>
     <Setting Name="ChartHueOddMin" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">240</Value>

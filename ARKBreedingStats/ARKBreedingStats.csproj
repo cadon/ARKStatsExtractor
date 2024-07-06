@@ -145,10 +145,10 @@
     <Compile Include="uiControls\Hatching.Designer.cs">
       <DependentUpon>Hatching.cs</DependentUpon>
     </Compile>
-    <Compile Include="uiControls\HueControl.cs">
+    <Compile Include="StatsOptions\HueControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="uiControls\HueControl.Designer.cs">
+    <Compile Include="StatsOptions\HueControl.Designer.cs">
       <DependentUpon>HueControl.cs</DependentUpon>
     </Compile>
     <Compile Include="uiControls\LibraryFilterTemplates.cs">
@@ -173,11 +173,11 @@
     <Compile Include="uiControls\ScrollForm.Designer.cs">
       <DependentUpon>ScrollForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="StatsOptions\StatOptionsControl.cs">
+    <Compile Include="StatsOptions\StatLevelGraphOptionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="StatsOptions\StatOptionsControl.Designer.cs">
-      <DependentUpon>StatOptionsControl.cs</DependentUpon>
+    <Compile Include="StatsOptions\StatLevelGraphOptionsControl.Designer.cs">
+      <DependentUpon>StatLevelGraphOptionsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="StatsOptions\LevelGraphOptionsControl.cs">
       <SubType>Component</SubType>
@@ -765,7 +765,7 @@
     <EmbeddedResource Include="uiControls\Hatching.resx">
       <DependentUpon>Hatching.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="uiControls\HueControl.resx">
+    <EmbeddedResource Include="StatsOptions\HueControl.resx">
       <DependentUpon>HueControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\LibraryFilterTemplates.resx">
@@ -777,8 +777,8 @@
     <EmbeddedResource Include="uiControls\ScrollForm.resx">
       <DependentUpon>ScrollForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StatsOptions\StatOptionsControl.resx">
-      <DependentUpon>StatOptionsControl.cs</DependentUpon>
+    <EmbeddedResource Include="StatsOptions\StatLevelGraphOptionsControl.resx">
+      <DependentUpon>StatLevelGraphOptionsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\StatSelector.resx">
       <DependentUpon>StatSelector.cs</DependentUpon>

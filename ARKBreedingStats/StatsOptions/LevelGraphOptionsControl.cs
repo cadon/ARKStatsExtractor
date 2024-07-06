@@ -11,7 +11,7 @@ namespace ARKBreedingStats.uiControls
 {
     internal class LevelGraphOptionsControl : TableLayoutPanel
     {
-        private StatOptionsControl[] _statOptionsControls;
+        private StatLevelGraphOptionsControl[] _statOptionsControls;
         private readonly ToolTip _tt = new ToolTip();
         private StatsOptions<StatLevelColors> _selectedStatsOptions;
         private readonly StatsOptionsSettings<StatLevelColors> _statsOptionsSettings;
@@ -103,10 +103,10 @@ namespace ARKBreedingStats.uiControls
 
         private void InitializeStatControls(FlowLayoutPanel flpStatControls)
         {
-            _statOptionsControls = new StatOptionsControl[Stats.StatsCount];
+            _statOptionsControls = new StatLevelGraphOptionsControl[Stats.StatsCount];
             foreach (var si in Stats.DisplayOrder)
             {
-                var c = new StatOptionsControl($"[{si}] {Utils.StatName(si, true)}", si, _tt);
+                var c = new StatLevelGraphOptionsControl($"[{si}] {Utils.StatName(si, true)}", si, _tt);
                 _statOptionsControls[si] = c;
                 flpStatControls.Controls.Add(c);
                 flpStatControls.SetFlowBreak(c, true);

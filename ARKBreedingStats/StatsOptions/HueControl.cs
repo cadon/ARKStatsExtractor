@@ -1,12 +1,11 @@
-﻿using ARKBreedingStats.library;
-using ARKBreedingStats.utils;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using ARKBreedingStats.StatsOptions;
+using ARKBreedingStats.uiControls;
+using ARKBreedingStats.utils;
 using Newtonsoft.Json;
 
-namespace ARKBreedingStats.uiControls
+namespace ARKBreedingStats.StatsOptions
 {
     public partial class HueControl : UserControl
     {

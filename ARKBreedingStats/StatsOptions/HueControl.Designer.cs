@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats.uiControls
+﻿using ARKBreedingStats.uiControls;
+
+namespace ARKBreedingStats.StatsOptions
 {
     partial class HueControl
     {
@@ -53,6 +55,7 @@
             // 
             // PbColorGradient
             // 
+            this.PbColorGradient.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PbColorGradient.Location = new System.Drawing.Point(92, 0);
             this.PbColorGradient.Margin = new System.Windows.Forms.Padding(0);
             this.PbColorGradient.Name = "PbColorGradient";
